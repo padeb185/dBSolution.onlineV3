@@ -17,7 +17,9 @@ urlpatterns = [
 
 # URLs traduisibles
 urlpatterns += i18n_patterns(
+
     path("", views.home, name="home"),
+
     path("dashboard/", views.dashboard, name="dashboard"),
 
     path("admin/", admin.site.urls),
