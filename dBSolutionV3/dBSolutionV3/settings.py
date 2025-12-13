@@ -189,3 +189,15 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 TAILWIND_APP_NAME = 'theme'
+
+
+import logging
+
+
+logging.getLogger('django.server').addFilter(
+    lambda record: 'Broken pipe' not in record.getMessage()
+)
+
+
+
+LANGUAGE_COOKIE_NAME = "django_language"

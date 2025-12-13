@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load i18n %}
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
@@ -10,7 +10,7 @@
   <!-- Carte Utilisateurs -->
   <div class="bg-white shadow rounded-lg p-6">
     <h2 class="text-lg font-semibold mb-2">{% trans "Utilisateurs" %}</h2>
-    <p class="text-gray-600">{% trans Nombre total :  " %}<span class="font-bold">128</span></p>
+    <p class="text-gray-600">{% trans "Nombre total :  " %}<span class="font-bold">128</span></p>
   </div>
 
   <!-- Carte Projets -->

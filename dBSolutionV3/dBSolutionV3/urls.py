@@ -1,32 +1,25 @@
-"""
-URL configuration for dBSolutionV3 project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/6.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
+from django.conf.urls.i18n import i18n_patterns
 from django.urls import path, include
 from dBSolutionV3 import views
 from rest_framework.authtoken import views as drf_views
-
+from django.shortcuts import redirect
 
 urlpatterns = [
-    path('', views.home, name='root'),        # 👈 page d’accueil
-    path('home/', views.home, name='home'),   # optionnel
-    path('dashboard/', views.dashboard, name='dashboard'),
+    # Endpoint obligatoire pour changer de langue
+    path("i18n/", include("django.conf.urls.i18n")),
 
-    path('admin/', admin.site.urls),
-    path('api-token-auth/', drf_views.obtain_auth_token, name='api-token-auth'),
+    path("", lambda request: redirect("/fr/")),
 
+    # Reload Django Browser Reload
     path("__reload__/", include("django_browser_reload.urls")),
 ]
+
+# URLs traduisibles
+urlpatterns += i18n_patterns(
+    path("", views.home, name="home"),
+    path("dashboard/", views.dashboard, name="dashboard"),
+
+    path("admin/", admin.site.urls),
+    path("api-token-auth/", drf_views.obtain_auth_token, name="api-token-auth"),
+)

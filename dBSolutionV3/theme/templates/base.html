@@ -1,31 +1,60 @@
 {% load static %}
 {% load django_browser_reload %}
 {% django_browser_reload_script %}
-
 {% load i18n %}
-<!DOCTYPE html>
-<html lang="{% get_current_language %}">
 
+{% get_current_language as LANGUAGE_CODE %}
+
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
 
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}{% trans "dBSolution" %} {% endblock %}</title>
+    <title>{% block title %}{% trans "dBSolution" %}{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'theme/css/dist/styles.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'images/favicon.ico' %}">
 </head>
+
 <body class="bg-pastelblue">
 
-    <header class="bg-white shadow p-4">
-        <nav class="container mx-auto flex justify-between items-center">
-            <div class="flex gap-4">
-                <a href="{% url 'home' %}" class="text-gray-600 hover:text-black font-semibold">Home</a>
-                <a href="{% url 'dashboard' %}" class="text-gray-600 hover:text-black font-semibold">Dashboard</a>
-            </div>
-        </nav>
-    </header>
+<header class="bg-white shadow p-4">
+    <nav class="container mx-auto flex justify-between items-center">
 
-    <main class="container mx-auto mt-8 p-6">
-        {% block content %}{% endblock %}
-    </main>
+        <!-- Liens -->
+        <div class="flex gap-4">
+            <a href="{% url 'home' %}" class="text-gray-600 hover:text-black font-semibold">
+                {% trans "Home" %}
+            </a>
+            <a href="{% url 'dashboard' %}" class="text-gray-600 hover:text-black font-semibold">
+                {% trans "Tableau de Bord" %}
+            </a>
+        </div>
+
+        <!-- Sélecteur de langue -->
+        <form action="{% url 'set_language' %}" method="post" class="flex items-center gap-2">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.path }}">
+
+            {% get_available_languages as LANGUAGES %}
+            <select name="language"
+                    onchange="this.form.submit()"
+                    class="border rounded px-2 py-1 text-sm bg-white">
+
+                {% for lang_code, lang_name in LANGUAGES %}
+                    <option value="{{ lang_code }}"
+                        {% if lang_code == LANGUAGE_CODE %}selected{% endif %}>
+                        {{ lang_name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </form>
+
+    </nav>
+</header>
+
+<main class="container mx-auto mt-8 p-6">
+    {% block content %}{% endblock %}
+</main>
 
 </body>
 </html>
