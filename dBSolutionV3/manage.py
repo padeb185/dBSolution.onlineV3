@@ -10,7 +10,7 @@ os.environ["PATH"] += r";C:\Program Files\gettext-iconv\bin"
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'dBSolutionV2.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'dBSolutionV3.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

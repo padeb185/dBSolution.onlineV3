@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-13 08:07+0100\n"
+"POT-Creation-Date: 2025-12-13 11:32+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,15 +17,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-#: .\dBSolutionV2\views.py:5
+
+#: .\dBSolutionV3\views.py:5
 msgid "Welcome to the platform"
 msgstr ""
 
-#: .\dBSolutionV2\views.py:10
+#: .\dBSolutionV3\views.py:10
 msgid "Welcome to the dashboard"
 msgstr ""
 
-#: .\theme\templates\base.html:9
+#: .\theme\templates\base.html:12
 msgid "dBSolution"
 msgstr ""
 
@@ -42,7 +43,7 @@ msgid "Projets"
 msgstr ""
 
 #: .\theme\templates\dashboard.html:19
-msgid "Projets actifs : <span class="
+msgid "Projets actifs :  "
 msgstr ""
 
 #: .\theme\templates\dashboard.html:24
@@ -50,7 +51,7 @@ msgid "Notifications"
 msgstr ""
 
 #: .\theme\templates\dashboard.html:25
-msgid "Messages non lus : <span class="
+msgid "Messages non lus : "
 msgstr ""
 
 #: .\theme\templates\dashboard.html:32
@@ -93,11 +94,10 @@ msgstr ""
 msgid "Modification de projet"
 msgstr ""
 
-#: .\theme\templates\home.html:4
-msgid ""
-"\n"
-"    <h1 class=\"text-4xl font-bold text-red-500\">Bienvenue</h1>\n"
-"    <p class=\"text-blue-700 mt-4\">Ceci est un paragraphe stylé avec "
-"Tailwind.</p>\n"
-"    "
+#: .\theme\templates\home.html:5
+msgid "Bienvenue"
+msgstr ""
+
+#: .\theme\templates\home.html:6
+msgid "Ceci est un paragraphe stylé avec Tailwind."
 msgstr ""

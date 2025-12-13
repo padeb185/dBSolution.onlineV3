@@ -1,5 +1,5 @@
 """
-URL configuration for dBSolutionV2 project.
+URL configuration for dBSolutionV3 project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/6.0/topics/http/urls/
@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from dBSolutionV2 import views
+from dBSolutionV3 import views
 from rest_framework.authtoken import views as drf_views
 
 

@@ -4,11 +4,11 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
-msgid "Welcome"
-msgstr "Bienvenue"
+msgid ""
+msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-13 08:07+0100\n"
+"POT-Creation-Date: 2025-12-13 11:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,15 +17,16 @@ msgstr "Bienvenue"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-#: .\dBSolutionV2\views.py:5
+
+#: .\dBSolutionV3\views.py:5
 msgid "Welcome to the platform"
 msgstr "Bienvenue sur la plateforme"
 
-#: .\dBSolutionV2\views.py:10
+#: .\dBSolutionV3\views.py:10
 msgid "Welcome to the dashboard"
 msgstr "Bienvenue sur le tableau de bord"
 
-#: .\theme\templates\base.html:9
+#: .\theme\templates\base.html:12
 msgid "dBSolution"
 msgstr "dBSolution"
 
@@ -42,7 +43,7 @@ msgid "Projets"
 msgstr "Projects"
 
 #: .\theme\templates\dashboard.html:19
-msgid "Projets actifs : "
+msgid "Projets actifs :  "
 msgstr ""
 
 #: .\theme\templates\dashboard.html:24
@@ -93,11 +94,10 @@ msgstr ""
 msgid "Modification de projet"
 msgstr ""
 
-#: .\theme\templates\home.html:4
+#: .\theme\templates\home.html:5
 msgid "Bienvenue"
-
 msgstr ""
 
+#: .\theme\templates\home.html:6
 msgid "Ceci est un paragraphe stylé avec Tailwind."
-
 msgstr ""
