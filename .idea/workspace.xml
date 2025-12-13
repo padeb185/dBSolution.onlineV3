@@ -5,7 +5,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="language">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/address/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/adresse/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/address/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/address/apps.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/address/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/societe/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/address/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/address/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/address/views.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_brand/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_brand/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_brand/apps.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_brand/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/exemplaire/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_brand/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_brand/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_brand/views.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_model/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/marque/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_model/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_model/apps.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_model/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/modele/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_model/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_model/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_model/views.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_specimen/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_specimen/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_specimen/apps.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_specimen/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_specimen/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_specimen/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_specimen/views.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,6 +105,7 @@
       <updated>1765619690153</updated>
       <workItem from="1765619691203" duration="7573000" />
       <workItem from="1765644092341" duration="583000" />
+      <workItem from="1765644697513" duration="299000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <option name="closed" value="true" />
@@ -143,7 +171,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765632684753</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="language">
+      <option name="closed" value="true" />
+      <created>1765644751844</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1765644751844</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
