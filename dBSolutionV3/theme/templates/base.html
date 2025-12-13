@@ -1,0 +1,28 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="{% get_current_language %}">
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% trans "dBSolution" %} {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'theme/css/dist/styles.css' %}">
+</head>
+<body class="bg-pastelblue">
+
+    <header class="bg-white shadow p-4">
+        <nav class="container mx-auto flex justify-between items-center">
+            <div class="flex gap-4">
+                <a href="{% url 'home' %}" class="text-gray-600 hover:text-black font-semibold">Home</a>
+                <a href="{% url 'dashboard' %}" class="text-gray-600 hover:text-black font-semibold">Dashboard</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto mt-8 p-6">
+        {% block content %}{% endblock %}
+    </main>
+
+</body>
+</html>

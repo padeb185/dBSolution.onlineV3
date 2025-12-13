@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<h1 class="text-2xl font-bold mb-6">{% trans "Bienvenue sur ton tableau de bord" %}</h1>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+  <!-- Carte Utilisateurs -->
+  <div class="bg-white shadow rounded-lg p-6">
+    <h2 class="text-lg font-semibold mb-2">{% trans "Utilisateurs" %}</h2>
+    <p class="text-gray-600">{% trans Nombre total :  " %}<span class="font-bold">128</span></p>
+  </div>
+
+  <!-- Carte Projets -->
+  <div class="bg-white shadow rounded-lg p-6">
+    <h2 class="text-lg font-semibold mb-2">{% trans "Projets" %}</h2>
+    <p class="text-gray-600">{% trans "Projets actifs :  " %}<span class="font-bold">24</span></p>
+  </div>
+
+  <!-- Carte Notifications -->
+  <div class="bg-white shadow rounded-lg p-6">
+    <h2 class="text-lg font-semibold mb-2">{% trans "Notifications" %}</h2>
+    <p class="text-gray-600">{% trans "Messages non lus : " %}<span class="font-bold">5</span></p>
+  </div>
+
+</div>
+
+<!-- Exemple de tableau -->
+<div class="mt-8 bg-white shadow rounded-lg p-6">
+  <h2 class="text-lg font-semibold mb-4">{% trans "Dernières activités" %}</h2>
+  <table class="min-w-full table-auto border-collapse border border-gray-200">
+    <thead>
+      <tr class="bg-gray-100">
+        <th class="border border-gray-200 px-4 py-2 text-left">{% trans "Date" %}</th>
+        <th class="border border-gray-200 px-4 py-2 text-left">{% trans "Utilisateur" %}</th>
+        <th class="border border-gray-200 px-4 py-2 text-left">{% trans "Action" %}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="border border-gray-200 px-4 py-2">{% trans "11/12/2025" %}</td>
+        <td class="border border-gray-200 px-4 py-2">{% trans "Pierre" %}</td>
+        <td class="border border-gray-200 px-4 py-2">{% trans "Connexion" %}</td>
+      </tr>
+      <tr>
+        <td class="border border-gray-200 px-4 py-2">{% trans "10/12/2025" %}</td>
+        <td class="border border-gray-200 px-4 py-2">{% trans "Alice" %}</td>
+        <td class="border border-gray-200 px-4 py-2">{% trans "Modification de projet" %}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+{% endblock %}
