@@ -1,38 +1,42 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# English translations
+
+# Copyright (C) 2025
+
+# Distributed under the same license as the package.
+
+# Pierre de Bournonville [EMAIL@ADDRESS](mailto:EMAIL@ADDRESS), 2025.
+
 #
-#, fuzzy
+
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-13 11:35+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2025-12-13 11:34+0100\n"
+"PO-Revision-Date: 2025-12-13 12:10+0100\n"
+"Last-Translator: Pierre de Bournonville [EMAIL@ADDRESS](mailto:EMAIL@ADDRESS)\n"
+"Language-Team: English [en@li.org](mailto:en@li.org)\n"
+"Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: .\dBSolutionV3\views.py:5
-msgid "Welcome to the platform"
-msgstr ""
+msgid "Bienvenue sur la plateforme"
+msgstr "Welcome to the platform"
 
 #: .\dBSolutionV3\views.py:10
-msgid "Welcome to the dashboard"
-msgstr ""
+msgid "Bienvenue sur ton tableau de bord"
+msgstr "Welcome to your dashboard"
 
 #: .\theme\templates\base.html:12
 msgid "dBSolution"
-msgstr ""
+msgstr "dBSolution"
 
 #: .\theme\templates\dashboard.html:6
 msgid "Bienvenue sur ton tableau de bord"
-msgstr ""
+msgstr "Welcome to your dashboard"
 
 #: .\theme\templates\dashboard.html:12
 msgid "Utilisateurs"
@@ -43,24 +47,24 @@ msgid "Projets"
 msgstr "Projects"
 
 #: .\theme\templates\dashboard.html:19
-msgid "Projets actifs :  "
-msgstr "Projects enables : "
+msgid "Projets actifs :"
+msgstr "Active projects:"
 
 #: .\theme\templates\dashboard.html:24
 msgid "Notifications"
-msgstr ""
+msgstr "Notifications"
 
 #: .\theme\templates\dashboard.html:25
-msgid "Messages non lus : "
-msgstr ""
+msgid "Messages non lus :"
+msgstr "Unread messages:"
 
 #: .\theme\templates\dashboard.html:32
 msgid "Dernières activités"
-msgstr ""
+msgstr "Latest activity"
 
 #: .\theme\templates\dashboard.html:36
 msgid "Date"
-msgstr ""
+msgstr "Date"
 
 #: .\theme\templates\dashboard.html:37
 msgid "Utilisateur"
@@ -68,31 +72,31 @@ msgstr "User"
 
 #: .\theme\templates\dashboard.html:38
 msgid "Action"
-msgstr ""
+msgstr "Action"
 
 #: .\theme\templates\dashboard.html:43
 msgid "11/12/2025"
-msgstr ""
+msgstr "12/11/2025"
 
 #: .\theme\templates\dashboard.html:44
 msgid "Pierre"
-msgstr "Peter"
+msgstr "Pierre"
 
 #: .\theme\templates\dashboard.html:45
 msgid "Connexion"
-msgstr ""
+msgstr "Login"
 
 #: .\theme\templates\dashboard.html:48
 msgid "10/12/2025"
-msgstr ""
+msgstr "12/10/2025"
 
 #: .\theme\templates\dashboard.html:49
 msgid "Alice"
-msgstr ""
+msgstr "Alice"
 
 #: .\theme\templates\dashboard.html:50
 msgid "Modification de projet"
-msgstr ""
+msgstr "Project update"
 
 #: .\theme\templates\home.html:5
 msgid "Bienvenue"
@@ -100,4 +104,4 @@ msgstr "Welcome"
 
 #: .\theme\templates\home.html:6
 msgid "Ceci est un paragraphe stylé avec Tailwind."
-msgstr ""
+msgstr "This is a styled paragraph using Tailwind."

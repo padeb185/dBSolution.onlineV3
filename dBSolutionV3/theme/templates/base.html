@@ -31,23 +31,18 @@
         </div>
 
         <!-- Sélecteur de langue -->
-        <form action="{% url 'set_language' %}" method="post" class="flex items-center gap-2">
-            {% csrf_token %}
-            <input type="hidden" name="next" value="{{ request.path }}">
-
+        <form action="{% url 'set_language' %}" method="post">
+          {% csrf_token %}
+          <select name="language">
+            {% get_current_language as LANGUAGE_CODE %}
             {% get_available_languages as LANGUAGES %}
-            <select name="language"
-                    onchange="this.form.submit()"
-                    class="border rounded px-2 py-1 text-sm bg-white">
-
-                {% for lang_code, lang_name in LANGUAGES %}
-                    <option value="{{ lang_code }}"
-                        {% if lang_code == LANGUAGE_CODE %}selected{% endif %}>
-                        {{ lang_name }}
-                    </option>
-                {% endfor %}
-            </select>
+            {% for code, name in LANGUAGES %}
+              <option value="{{ code }}" {% if code == LANGUAGE_CODE %}selected{% endif %}>{{ name }}</option>
+            {% endfor %}
+          </select>
+          <button type="submit">{% trans "Changer de langue" %}</button>
         </form>
+
 
     </nav>
 </header>
