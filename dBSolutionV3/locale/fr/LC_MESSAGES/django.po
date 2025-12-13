@@ -23,8 +23,8 @@ msgid "Welcome to the platform"
 msgstr "Bienvenue sur la plateforme"
 
 #: .\dBSolutionV3\views.py:10
-msgid "Welcome to the dashboard"
-msgstr "Bienvenue sur le tableau de bord"
+msgid "Bienvenue sur ton tableau de bord"
+msgstr
 
 #: .\theme\templates\base.html:12
 msgid "dBSolution"
@@ -32,7 +32,7 @@ msgstr "dBSolution"
 
 #: .\theme\templates\dashboard.html:6
 msgid "Bienvenue sur ton tableau de bord"
-msgstr "Welcome to the dashboard"
+msgstr ""
 
 #: .\theme\templates\dashboard.html:12
 msgid "Users"
