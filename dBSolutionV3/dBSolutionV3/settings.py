@@ -43,6 +43,10 @@ INSTALLED_APPS = [
     'api',
     'societe',
     'societe_cliente',
+    'fournisseur',
+
+    "voiture_pneus.apps.VoiturePneusConfig",
+    "voiture_pneus_historique.apps.VoiturePneusHistoriqueConfig",
     'voiture_client',
     'voiture_exemplaire',
     'voiture_location',
@@ -51,9 +55,12 @@ INSTALLED_APPS = [
     'voiture_vente',
     'voiture_moteur',
     'voiture_prive',
-    'voiture_pneus',
     'voiture_boite',
     'voiture_embrayage',
+
+
+
+
     'piece',
     'piece_ligne_achat',
     'piece_ligne_inventaire',

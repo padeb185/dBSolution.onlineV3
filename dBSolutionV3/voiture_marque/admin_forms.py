@@ -21,7 +21,7 @@ class VoitureMarqueAdmin(admin.ModelAdmin):
     list_display = ('nom_marque',)
     search_fields = ('nom_marque',)
     ordering = ('nom_marque',)
-    readonly_fields = ('id_marque',)  # On ne doit jamais éditer l'UUID
+    readonly_fields = ('id_marque',)
 
 # Enregistrement de l'admin
 admin.site.register(VoitureMarque, VoitureMarqueAdmin)
