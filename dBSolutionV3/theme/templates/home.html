@@ -1,8 +1,28 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n static %}
+
 {% block content %}
 
-    <h1 class="text-4xl font-bold text-red-500">{% trans "Bienvenue" %}</h1>
-    <p class="text-blue-700 mt-4">{% trans "Ceci est un paragraphe stylé avec Tailwind." %}</p>
+<div class="flex items-start justify-between gap-6 mt-6">
+
+    <!-- Texte -->
+    <div>
+        <h1 class="text-4xl font-bold text-red-500">
+            {% trans "Bienvenue" %}
+        </h1>
+        <p class="text-blue-700 mt-4">
+            {% trans "Ceci est un paragraphe stylé avec Tailwind." %}
+        </p>
+    </div>
+
+    <!-- Image -->
+    <img
+        src="{% static 'images/blason.png' %}"
+        style="width:250px;height:250px;"
+    />
+
+
+
+</div>
 
 {% endblock %}
