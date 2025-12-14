@@ -1,8 +1,11 @@
 import uuid
 from django.db import models
+from societe.models import Societe
+
 
 class Fournisseur(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id_societe = models.ForeignKey(Societe, on_delete=models.PROTECT)
     nom = models.CharField(max_length=200, unique=True, verbose_name="Nom du fournisseur")
     adresse = models.ForeignKey(
         'adresse.Adresse',
@@ -44,6 +47,7 @@ class Facture(models.Model):
         on_delete=models.CASCADE,
         related_name='factures'
     )
+    id_societe = models.ForeignKey(Societe, on_delete=models.PROTECT)
     reference = models.CharField(max_length=100, verbose_name="Référence facture")
     montant_htva = models.DecimalField(max_digits=12, decimal_places=2, verbose_name="Montant HTVA")
     date_facture = models.DateField(auto_now_add=True)
