@@ -4,16 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment=" création classes métiers fr">
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/societe_cliente/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/societe_cliente/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/societe_cliente/admin_fomrs.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/societe_cliente/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/societe_cliente/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/societe_cliente/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/societe_cliente/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/societe_cliente/views.py" afterDir="false" />
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment=" création classes métiers société_cliente">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/societe/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/societe/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/societe_cliente/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/societe_cliente/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +89,7 @@
       <workItem from="1765619691203" duration="7573000" />
       <workItem from="1765644092341" duration="583000" />
       <workItem from="1765644697513" duration="350000" />
-      <workItem from="1765696187989" duration="8555000" />
+      <workItem from="1765696187989" duration="9148000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <option name="closed" value="true" />
@@ -208,7 +203,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765704692776</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary=" création classes métiers société_cliente">
+      <option name="closed" value="true" />
+      <created>1765705787433</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1765705787433</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -223,6 +226,7 @@
     <MESSAGE value="déclaration classes métiers 14-12" />
     <MESSAGE value="blason home.html" />
     <MESSAGE value=" création classes métiers fr" />
-    <option name="LAST_COMMIT_MESSAGE" value=" création classes métiers fr" />
+    <MESSAGE value=" création classes métiers société_cliente" />
+    <option name="LAST_COMMIT_MESSAGE" value=" création classes métiers société_cliente" />
   </component>
 </project>

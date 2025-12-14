@@ -1,5 +1,7 @@
 from django.db import models
 import uuid
+from adresse.models import Adresse
+
 
 class Societe(models.Model):
     id_societe = models.UUIDField(
@@ -13,7 +15,7 @@ class Societe(models.Model):
         verbose_name="Nom de la société"
     )
     adresse = models.ForeignKey(
-        'adresse.Adresse',
+        Adresse,
         on_delete=models.PROTECT,
         related_name='societes'
     )

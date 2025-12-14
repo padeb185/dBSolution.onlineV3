@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'app',
     'api',
     'societe',
+    'societe_cliente',
     'voiture_client',
     'voiture_exemplaire',
     'voiture_location',
