@@ -4,40 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="language">
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/address/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/adresse/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/address/admin.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/address/apps.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/address/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/societe/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/address/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/address/tests.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/address/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_brand/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_brand/admin.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_brand/apps.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_brand/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/exemplaire/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_brand/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_brand/tests.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_brand/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_model/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/marque/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_model/admin.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_model/apps.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_model/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/modele/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_model/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_model/tests.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_model/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_specimen/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_specimen/admin.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_specimen/apps.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_specimen/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_specimen/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_specimen/tests.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/car_specimen/views.py" beforeDir="false" />
-    </list>
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="déclaration classes métiers" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -105,7 +83,7 @@
       <updated>1765619690153</updated>
       <workItem from="1765619691203" duration="7573000" />
       <workItem from="1765644092341" duration="583000" />
-      <workItem from="1765644697513" duration="299000" />
+      <workItem from="1765644697513" duration="350000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <option name="closed" value="true" />
@@ -179,7 +157,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765644751844</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="déclaration classes métiers">
+      <option name="closed" value="true" />
+      <created>1765645025007</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1765645025007</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -190,6 +176,7 @@
     <MESSAGE value="instalation avec base plus tailwind et langues" />
     <MESSAGE value="base opérationnelle" />
     <MESSAGE value="language" />
-    <option name="LAST_COMMIT_MESSAGE" value="language" />
+    <MESSAGE value="déclaration classes métiers" />
+    <option name="LAST_COMMIT_MESSAGE" value="déclaration classes métiers" />
   </component>
 </project>
