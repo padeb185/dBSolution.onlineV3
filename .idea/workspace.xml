@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment=" création classes métiers société_cliente">
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="startapp">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" afterDir="false" />
     </list>
@@ -87,7 +87,7 @@
       <workItem from="1765619691203" duration="7573000" />
       <workItem from="1765644092341" duration="583000" />
       <workItem from="1765644697513" duration="350000" />
-      <workItem from="1765696187989" duration="10324000" />
+      <workItem from="1765696187989" duration="10490000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <option name="closed" value="true" />
@@ -217,7 +217,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765706359947</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="startapp">
+      <option name="closed" value="true" />
+      <created>1765708779231</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1765708779231</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -233,6 +241,18 @@
     <MESSAGE value="blason home.html" />
     <MESSAGE value=" création classes métiers fr" />
     <MESSAGE value=" création classes métiers société_cliente" />
-    <option name="LAST_COMMIT_MESSAGE" value=" création classes métiers société_cliente" />
+    <MESSAGE value="startapp" />
+    <option name="LAST_COMMIT_MESSAGE" value="startapp" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py</url>
+          <line>196</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
