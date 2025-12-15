@@ -43,8 +43,6 @@ msgstr "Panel de control"
 msgid "Changer de langue"
 msgstr "Cambiar idioma"
 
-
-
 #: .\theme\templates\dashboard.html:13
 msgid "Utilisateurs"
 msgstr "Usuarios"
@@ -58,8 +56,6 @@ msgid "Projets"
 msgstr "Proyectos"
 
 #: .\theme\templates\dashboard.html:20
-#, fuzzy
-#| msgid "Projets actifs :  "
 msgid "Projets actifs :"
 msgstr "Proyectos activos :"
 
@@ -68,8 +64,6 @@ msgid "Notifications"
 msgstr "Notificaciones"
 
 #: .\theme\templates\dashboard.html:26
-#, fuzzy
-#| msgid "Messages non lus : "
 msgid "Messages non lus :"
 msgstr "Mensajes no leídos:"
 

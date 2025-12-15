@@ -37,8 +37,6 @@ msgid "Accueil"
 msgstr "Accueil"
 
 #: .\theme\templates\base.html:28 .\theme\templates\dashboard.html:4
-#, fuzzy
-#| msgid "Tableau de bord"
 msgid "Tableau de Bord"
 msgstr "Tableau de Bord"
 
@@ -113,3 +111,5 @@ msgstr "Ceci est un paragraphe stylé avec Tailwind."
 
 #~ msgid "Alice"
 #~ msgstr "Alice"
+
+#python manage.py compilemessages -l fr

@@ -56,8 +56,6 @@ msgid "Projets"
 msgstr "Έργα"
 
 #: .\theme\templates\dashboard.html:20
-#, fuzzy
-#| msgid "Projets actifs :  "
 msgid "Projets actifs :"
 msgstr "Ενεργά έργα: "
 
@@ -66,8 +64,6 @@ msgid "Notifications"
 msgstr "Ειδοποιήσεις"
 
 #: .\theme\templates\dashboard.html:26
-#, fuzzy
-#| msgid "Messages non lus : "
 msgid "Messages non lus :"
 msgstr "Αδιάβαστα μηνύματα: "
 

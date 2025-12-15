@@ -58,8 +58,6 @@ msgid "Projets"
 msgstr "Projekte"
 
 #: .\theme\templates\dashboard.html:20
-#, fuzzy
-#| msgid "Projets actifs :  "
 msgid "Projets actifs :"
 msgstr "Aktive Projekte: "
 
@@ -68,8 +66,6 @@ msgid "Notifications"
 msgstr "Benachrichtigungen"
 
 #: .\theme\templates\dashboard.html:26
-#, fuzzy
-#| msgid "Messages non lus : "
 msgid "Messages non lus :"
 msgstr "Ungelesene Nachrichten: "
 

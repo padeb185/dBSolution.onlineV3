@@ -34,7 +34,7 @@ msgstr "dBSolution"
 
 #: .\theme\templates\base.html:25
 msgid "Accueil"
-msgstr ""
+msgstr "Home"
 
 #: .\theme\templates\base.html:28 #: .\theme\templates\dashboard.html:4
 msgid "Tableau de Bord"
@@ -43,8 +43,6 @@ msgstr "Dashboard"
 #: .\theme\templates\base.html:42
 msgid "Changer de langue"
 msgstr "Change language"
-
-
 
 #: .\theme\templates\dashboard.html:13
 msgid "Utilisateurs"
