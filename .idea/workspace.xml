@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="ajout voiture pneus admin et admin forms">
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/voiture_exemplaire/admin_forms.py" afterDir="false" />
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="voitureexemplaire societe nullable">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture_exemplaire/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture_exemplaire/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,7 +95,8 @@
       <workItem from="1765696187989" duration="10490000" />
       <workItem from="1765709985153" duration="596000" />
       <workItem from="1765719442216" duration="3617000" />
-      <workItem from="1765776431883" duration="1688000" />
+      <workItem from="1765776431883" duration="2334000" />
+      <workItem from="1765778864695" duration="143000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <option name="closed" value="true" />
@@ -265,7 +266,23 @@
       <option name="project" value="LOCAL" />
       <updated>1765777060926</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="voitureexemplaire">
+      <option name="closed" value="true" />
+      <created>1765778174225</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1765778174225</updated>
+    </task>
+    <task id="LOCAL-00023" summary="voitureexemplaire societe nullable">
+      <option name="closed" value="true" />
+      <created>1765778415712</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1765778415712</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -284,7 +301,9 @@
     <MESSAGE value="startapp" />
     <MESSAGE value="startapp fournisseurs" />
     <MESSAGE value="ajout voiture pneus admin et admin forms" />
-    <option name="LAST_COMMIT_MESSAGE" value="ajout voiture pneus admin et admin forms" />
+    <MESSAGE value="voitureexemplaire" />
+    <MESSAGE value="voitureexemplaire societe nullable" />
+    <option name="LAST_COMMIT_MESSAGE" value="voitureexemplaire societe nullable" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

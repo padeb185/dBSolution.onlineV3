@@ -97,6 +97,9 @@ class VoitureExemplaire(models.Model):
         validators=[MinValueValidator(1), MaxValueValidator(15)]
     )
 
+    couleur = models.CharField(max_length=50, blank=True, null=True)
+    code_couleur = models.CharField(max_length=50, blank=True, null=True)
+
     # 💰 Données financières
     prix_achat = models.DecimalField(
         max_digits=10,
