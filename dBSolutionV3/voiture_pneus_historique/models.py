@@ -4,7 +4,11 @@ import uuid
 
 class VoiturePneusHistorique(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-
+    societe = models.ForeignKey(
+        "societe.Societe",
+        on_delete=models.PROTECT,
+        related_name="pneus_historique"
+    )
     voiture_pneus = models.ForeignKey(
         "voiture_pneus.VoiturePneus",  # 👈 STRING !
         on_delete=models.CASCADE,

@@ -5,11 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="startapp fournisseurs">
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/remplacement_pneus.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/voiture_pneus/admin_forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/voiture_modele/admin_forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/voiture_pneus_historique/admin_forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture_marque/admin_forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture_marque/admin_forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture_modele/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture_modele/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture_pneus/admin_forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture_pneus/admin_forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture_pneus_historique/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture_pneus_historique/admin.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,8 +20,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -47,23 +48,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/pierr/PycharmProjects/dBSolution.onlineV3/dBSolutionV3/theme/static/images",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/pierr/PycharmProjects/dBSolution.onlineV3/dBSolutionV3/theme/static/images&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3\dBSolutionV3\theme\static\images" />
@@ -98,6 +99,7 @@
       <workItem from="1765696187989" duration="10490000" />
       <workItem from="1765709985153" duration="596000" />
       <workItem from="1765719442216" duration="3617000" />
+      <workItem from="1765776431883" duration="438000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <option name="closed" value="true" />
