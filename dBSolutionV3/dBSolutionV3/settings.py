@@ -187,7 +187,7 @@ LANGUAGE_CODE = 'fr'
 
 LANGUAGES = [
     ('fr', 'Français'),
-    ('en-us', 'English'),
+    ('en', 'English'),
     ('nl', 'Nederlands'),
     ('de', 'Deutsch'),  # 🇩🇪 Allemand
     ('it', 'Italiano'),  # 🇮🇹 Italien

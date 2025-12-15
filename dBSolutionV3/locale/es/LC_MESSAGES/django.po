@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-13 11:32+0100\n"
+"POT-Creation-Date: 2025-12-15 11:12+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,85 +20,99 @@ msgstr ""
 "1 : 2;\n"
 
 #: .\dBSolutionV3\views.py:5
-msgid "Welcome to the platform"
-msgstr ""
+msgid "Bienvenue sur notre site"
+msgstr "Bienvenido a nuestro sitio"
 
-#: .\dBSolutionV3\views.py:10
-msgid "Welcome to the dashboard"
-msgstr ""
-
-#: .\theme\templates\base.html:12
-msgid "dBSolution"
-msgstr ""
-
-#: .\theme\templates\dashboard.html:6
+#: .\dBSolutionV3\views.py:10 .\theme\templates\dashboard.html:7
 msgid "Bienvenue sur ton tableau de bord"
-msgstr ""
+msgstr "Bienvenido a tu panel de control"
 
-#: .\theme\templates\dashboard.html:12
+#: .\theme\templates\base.html:13
+msgid "dBSolution"
+msgstr "dBSolution"
+
+#: .\theme\templates\base.html:25
+msgid "Accueil"
+msgstr "Inicio"
+
+#: .\theme\templates\base.html:28 .\theme\templates\dashboard.html:4
+msgid "Tableau de Bord"
+msgstr "Panel de control"
+
+#: .\theme\templates\base.html:42
+msgid "Changer de langue"
+msgstr "Cambiar idioma"
+
+
+
+#: .\theme\templates\dashboard.html:13
 msgid "Utilisateurs"
-msgstr ""
+msgstr "Usuarios"
 
-#: .\theme\templates\dashboard.html:18
-msgid "Projets"
-msgstr ""
+#: .\theme\templates\dashboard.html:14
+msgid "Nombre total :"
+msgstr "Número total:"
 
 #: .\theme\templates\dashboard.html:19
-msgid "Projets actifs :  "
-msgstr ""
+msgid "Projets"
+msgstr "Proyectos"
 
-#: .\theme\templates\dashboard.html:24
-msgid "Notifications"
-msgstr ""
+#: .\theme\templates\dashboard.html:20
+#, fuzzy
+#| msgid "Projets actifs :  "
+msgid "Projets actifs :"
+msgstr "Proyectos activos :"
 
 #: .\theme\templates\dashboard.html:25
-msgid "Messages non lus : "
-msgstr ""
+msgid "Notifications"
+msgstr "Notificaciones"
 
-#: .\theme\templates\dashboard.html:32
+#: .\theme\templates\dashboard.html:26
+#, fuzzy
+#| msgid "Messages non lus : "
+msgid "Messages non lus :"
+msgstr "Mensajes no leídos:"
+
+#: .\theme\templates\dashboard.html:33
 msgid "Dernières activités"
-msgstr ""
-
-#: .\theme\templates\dashboard.html:36
-msgid "Date"
-msgstr ""
+msgstr "Últimas actividades"
 
 #: .\theme\templates\dashboard.html:37
-msgid "Utilisateur"
-msgstr ""
+msgid "Date"
+msgstr "Fecha"
 
 #: .\theme\templates\dashboard.html:38
+msgid "Utilisateur"
+msgstr "Usuario"
+
+#: .\theme\templates\dashboard.html:39
 msgid "Action"
-msgstr ""
+msgstr "Acción"
 
-#: .\theme\templates\dashboard.html:43
-msgid "11/12/2025"
-msgstr ""
-
-#: .\theme\templates\dashboard.html:44
-msgid "Pierre"
-msgstr ""
-
-#: .\theme\templates\dashboard.html:45
+#: .\theme\templates\dashboard.html:46
 msgid "Connexion"
-msgstr ""
+msgstr "Conexión"
 
-#: .\theme\templates\dashboard.html:48
-msgid "10/12/2025"
-msgstr ""
-
-#: .\theme\templates\dashboard.html:49
-msgid "Alice"
-msgstr ""
-
-#: .\theme\templates\dashboard.html:50
+#: .\theme\templates\dashboard.html:51
 msgid "Modification de projet"
-msgstr ""
+msgstr "Modificación de proyecto"
 
-#: .\theme\templates\home.html:5
+#: .\theme\templates\home.html:11
 msgid "Bienvenue"
-msgstr ""
+msgstr "Bienvenido"
 
-#: .\theme\templates\home.html:6
+#: .\theme\templates\home.html:14
 msgid "Ceci est un paragraphe stylé avec Tailwind."
-msgstr ""
+msgstr "Este es un párrafo estilizado con Tailwind."
+
+#~ msgid "11/12/2025"
+#~ msgstr "11/12/2025"
+
+#~ msgid "Pierre"
+#~ msgstr "Pierre"
+
+#~ msgid "10/12/2025"
+#~ msgstr "10/12/2025"
+
+#~ msgid "Alice"
+#~ msgstr "Alice"
