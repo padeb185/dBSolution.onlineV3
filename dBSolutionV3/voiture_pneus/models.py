@@ -24,7 +24,9 @@ class VoiturePneus(models.Model):
     societe = models.ForeignKey(
         "societe.Societe",
         on_delete=models.PROTECT,
-        related_name="pneus"
+        related_name="pneus",
+        null=True,  # 👈 temporaire
+        blank=True
     )
     """
     voiture_exemplaire = models.ForeignKey(

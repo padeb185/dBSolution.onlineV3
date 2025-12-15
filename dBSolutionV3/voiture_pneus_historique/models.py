@@ -7,7 +7,9 @@ class VoiturePneusHistorique(models.Model):
     societe = models.ForeignKey(
         "societe.Societe",
         on_delete=models.PROTECT,
-        related_name="pneus_historique"
+        related_name="pneus_historique",
+        null=True,  # 👈 temporaire
+        blank=True
     )
     voiture_pneus = models.ForeignKey(
         "voiture_pneus.VoiturePneus",  # 👈 STRING !
