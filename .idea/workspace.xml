@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="startapp fournisseurs">
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/voiture_modele/admin_forms.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/voiture_pneus_historique/admin_forms.py" afterDir="false" />
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="ajout voiture pneus admin et admin forms">
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/voiture_exemplaire/admin_forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture_modele/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture_modele/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture_pneus/admin_forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture_pneus/admin_forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture_pneus_historique/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture_pneus_historique/admin.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,7 +95,7 @@
       <workItem from="1765696187989" duration="10490000" />
       <workItem from="1765709985153" duration="596000" />
       <workItem from="1765719442216" duration="3617000" />
-      <workItem from="1765776431883" duration="438000" />
+      <workItem from="1765776431883" duration="1688000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <option name="closed" value="true" />
@@ -261,7 +257,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765710425391</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="ajout voiture pneus admin et admin forms">
+      <option name="closed" value="true" />
+      <created>1765777060926</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1765777060926</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -279,7 +283,8 @@
     <MESSAGE value=" création classes métiers société_cliente" />
     <MESSAGE value="startapp" />
     <MESSAGE value="startapp fournisseurs" />
-    <option name="LAST_COMMIT_MESSAGE" value="startapp fournisseurs" />
+    <MESSAGE value="ajout voiture pneus admin et admin forms" />
+    <option name="LAST_COMMIT_MESSAGE" value="ajout voiture pneus admin et admin forms" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
