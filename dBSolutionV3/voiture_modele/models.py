@@ -25,7 +25,7 @@ class VoitureModele(models.Model):
     nom_modele = models.CharField(max_length=25)
     nom_variante = models.CharField(max_length=25, blank=True, null=True)
     nombre_portes = models.IntegerField(choices=NombrePortes.choices)
-    couleur = models.CharField(max_length=50, blank=True, null=True)
+
     nbre_places = models.PositiveSmallIntegerField()
     taille_reservoir = models.DecimalField(max_digits=5, decimal_places=2, help_text="En litres")
 
