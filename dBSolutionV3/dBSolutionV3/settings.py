@@ -235,3 +235,17 @@ logging.getLogger('django.server').addFilter(
 
 
 LANGUAGE_COOKIE_NAME = "django_language"
+
+
+
+PEPPOL_ENV = "TEST"  # ou "PROD"
+
+PEPPOL_ACCESS_POINT_URL = {
+    "TEST": "https://sandbox.ap.example/v1/invoices",
+    "PROD": "https://api.ap.example/v1/invoices"
+}[PEPPOL_ENV]
+
+PEPPOL_API_KEY = {
+    "TEST": "test_xxxxx",
+    "PROD": "prod_xxxxx"
+}[PEPPOL_ENV]

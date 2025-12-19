@@ -8,6 +8,7 @@ class Client(models.Model):
         on_delete=models.PROTECT,
         related_name='client'
     )
+    numero_entreprise = models.CharField(max_length=255, blank=True,null=True)
     numero_tva = models.CharField(
         max_length=20,
         help_text="Numéro TVA du client, ex: BE0987654321"
@@ -22,6 +23,8 @@ class Client(models.Model):
         max_length=2,
         default="BE"
     )
+    numero_telephone = models.CharField(max_length=20, null=True, blank=True)
+    email = models.EmailField(max_length=100, null=True, blank=True)
 
     # --- Métadonnées ---
     is_active = models.BooleanField(default=True)
