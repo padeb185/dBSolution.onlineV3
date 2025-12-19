@@ -72,6 +72,7 @@ INSTALLED_APPS = [
     'piece_facture_sortie',
     'adresse',
     'facture',
+    'client',
 
 
 

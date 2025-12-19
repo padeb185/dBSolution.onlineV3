@@ -46,8 +46,8 @@ class Company(models.Model):
 
 
 
-class Invoice(models.Model):
-    id_invoice = models.UUIDField(
+class Facture(models.Model):
+    id_facture = models.UUIDField(
         primary_key=True,
         default=uuid.uuid4,
         editable=False
@@ -78,6 +78,7 @@ class Invoice(models.Model):
 
     issue_date = models.DateField()
     currency = models.CharField(max_length=3, default="EUR")
+    total = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):
         return self.numero
@@ -87,9 +88,9 @@ class Invoice(models.Model):
 
 
 
-class InvoiceLine(models.Model):
-    invoice = models.ForeignKey(
-        Invoice,
+class FactureLine(models.Model):
+    facture = models.ForeignKey(
+        Facture,
         related_name="lines",
         on_delete=models.CASCADE
     )
@@ -105,7 +106,7 @@ class InvoiceLine(models.Model):
     )
 
     def __str__(self):
-        return f"{self.description} ({self.invoice.numero})"
+        return f"{self.description} ({self.facture.numero})"
 
 
 
