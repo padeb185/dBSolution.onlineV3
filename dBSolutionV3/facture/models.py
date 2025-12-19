@@ -4,8 +4,7 @@ from societe_cliente.models import SocieteCliente
 from adresse.models import Adresse
 from fournisseur.models import Fournisseur
 from client.models import Client
-
-
+from societe.models import Societe
 
 
 class Company(models.Model):
@@ -14,7 +13,11 @@ class Company(models.Model):
         default=uuid.uuid4,
         editable=False
     )
-
+    societe_emetrice = models.ForeignKey(
+        Societe,
+        on_delete=models.PROTECT,  # comportement à la suppression
+        related_name='societe_emetrice'  # pour accéder aux sociétés clientes depuis la société
+    )
     societe = models.ForeignKey(
         SocieteCliente,
         on_delete=models.PROTECT,
