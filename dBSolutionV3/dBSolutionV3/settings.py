@@ -71,6 +71,11 @@ INSTALLED_APPS = [
     'piece_facture_entree',
     'piece_facture_sortie',
     'adresse',
+    'facture',
+
+
+
+
     'rest_framework',
     'rest_framework.authtoken',
 

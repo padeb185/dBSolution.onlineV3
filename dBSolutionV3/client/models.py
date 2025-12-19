@@ -1,32 +1,27 @@
-import uuid
 from django.db import models
-from societe.models import Societe
-
-class Fournisseur(models.Model):
-
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    id_societe = models.ForeignKey(Societe, on_delete=models.PROTECT)
 
 
-    nom = models.CharField(max_length=200, unique=True, verbose_name="Nom du fournisseur")
+class Client(models.Model):
+    nom = models.CharField(max_length=255)
     adresse = models.ForeignKey(
         'adresse.Adresse',
         on_delete=models.PROTECT,
-        related_name='fournisseurs'
+        related_name='client'
     )
 
-    numero_tva = models.CharField(max_length=20, unique=True, verbose_name="Numéro de TVA")
+    numero_tva = models.CharField(
+        max_length=20,
+        help_text="Numéro TVA du client, ex: BE0987654321"
+    )
     taux_tva = models.DecimalField(max_digits=5, decimal_places=2, default=21.00, verbose_name="Taux de TVA (%)")
-
 
     peppol_id = models.CharField(
         max_length=50,
-        help_text="Identifiant Peppol, ex: 0208:BE0123456789"
+        help_text="Identifiant Peppol du client, ex: 0208:BE0987654321"
     )
-    country_code = models.CharField(
+    code_pays = models.CharField(
         max_length=2,
-        default="BE",
-        help_text="ISO 3166-1 alpha-2"
+        default="BE"
     )
 
     # --- Métadonnées ---
@@ -34,15 +29,15 @@ class Fournisseur(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        verbose_name = "Fournisseur"
-        verbose_name_plural = "Fournisseurs"
+        verbose_name = "Client"
+        verbose_name_plural = "Clients"
         indexes = [
             models.Index(fields=["numero_tva"]),
             models.Index(fields=["peppol_id"]),
         ]
 
     def __str__(self):
-        return f"{self.nom} (Fournisseur)"
+        return f"{self.nom} (Client)"
 
     # --- Helpers Peppol ---
     @property
@@ -52,5 +47,3 @@ class Fournisseur(models.Model):
     @property
     def peppol_value(self):
         return self.peppol_id.split(":")[1]
-
-

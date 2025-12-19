@@ -24,7 +24,7 @@ class SocieteCliente(models.Model):
     adresse = models.ForeignKey(
         Adresse,
         on_delete=models.PROTECT,
-        related_name='societes_clientes'
+        related_name='sociétés_clientes'
     )
 
     directeur = models.CharField(
