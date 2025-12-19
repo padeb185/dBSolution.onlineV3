@@ -1,13 +1,11 @@
 from django.db import models
+from adresse.models import Adresse
+
 
 
 class Client(models.Model):
     nom = models.CharField(max_length=255)
-    adresse = models.ForeignKey(
-        'adresse.Adresse',
-        on_delete=models.PROTECT,
-        related_name='client'
-    )
+    adresse = models.OneToOneField(Adresse, on_delete=models.CASCADE)
     numero_entreprise = models.CharField(max_length=255, blank=True,null=True)
     numero_tva = models.CharField(
         max_length=20,

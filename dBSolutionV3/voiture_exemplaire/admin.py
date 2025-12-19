@@ -11,7 +11,6 @@ class VoitureExemplaireAdmin(admin.ModelAdmin):
         "immatriculation",
         "voiture_marque",
         "voiture_modele",
-        "societe",
         "type_utilisation",
         "kilometres_total",
         "variation_kilometres",
@@ -19,7 +18,6 @@ class VoitureExemplaireAdmin(admin.ModelAdmin):
     )
 
     list_filter = (
-        "societe",
         "voiture_marque",
         "type_utilisation",
         "annee_production",
@@ -42,7 +40,6 @@ class VoitureExemplaireAdmin(admin.ModelAdmin):
     )
 
     autocomplete_fields = (
-        "societe",
         "voiture_marque",
         "voiture_modele",
     )

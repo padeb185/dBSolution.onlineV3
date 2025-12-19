@@ -11,7 +11,6 @@ class VoitureModeleAdmin(admin.ModelAdmin):
         "nom_modele",
         "nom_variante",
         "voiture_marque",
-        "societe",
         "nombre_portes",
         "nbre_places",
         "taille_reservoir",
@@ -20,7 +19,6 @@ class VoitureModeleAdmin(admin.ModelAdmin):
 
     list_filter = (
         "voiture_marque",
-        "societe",
         "nombre_portes",
         "nbre_places",
     )
@@ -45,7 +43,6 @@ class VoitureModeleAdmin(admin.ModelAdmin):
         ("Relations", {
             "fields": (
                 "voiture_marque",
-                "societe",
             )
         }),
         ("Informations du modèle", {

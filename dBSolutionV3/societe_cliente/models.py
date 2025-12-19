@@ -1,6 +1,6 @@
 from django.db import models
 import uuid
-
+from adresse.models import Adresse
 
 
 class SocieteCliente(models.Model):
@@ -9,22 +9,13 @@ class SocieteCliente(models.Model):
         default=uuid.uuid4,
         editable=False
     )
-    societe = models.ForeignKey(
-        "societe.Societe",
-        on_delete=models.PROTECT,  # comportement à la suppression
-        related_name='societe_cliente'  #  pour accéder aux sociétés clientes depuis la société
-    )
 
     nom = models.CharField(
         max_length=100,
         unique=True,
         verbose_name="Nom de la société"
     )
-    adresse = models.ForeignKey(
-        "adresse.Adresse",
-        on_delete=models.PROTECT,
-        related_name='sociétés_clientes'
-    )
+    adresse = models.OneToOneField(Adresse, on_delete=models.CASCADE)
 
     directeur = models.CharField(
         max_length=100,

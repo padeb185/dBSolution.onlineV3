@@ -1,19 +1,14 @@
 import uuid
 from django.db import models
-from societe.models import Societe
+from adresse.models import Adresse
+
 
 class Fournisseur(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    id_societe = models.ForeignKey(Societe, on_delete=models.PROTECT)
-
 
     nom = models.CharField(max_length=200, unique=True, verbose_name="Nom du fournisseur")
-    adresse = models.ForeignKey(
-        'adresse.Adresse',
-        on_delete=models.PROTECT,
-        related_name='fournisseurs'
-    )
+    adresse = models.OneToOneField(Adresse, on_delete=models.CASCADE)
 
     numero_tva = models.CharField(max_length=20, unique=True, verbose_name="Numéro de TVA")
     taux_tva = models.DecimalField(max_digits=5, decimal_places=2, default=21.00, verbose_name="Taux de TVA (%)")

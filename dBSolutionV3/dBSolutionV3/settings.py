@@ -25,12 +25,18 @@ SECRET_KEY = 'django-insecure-=zdo*1q=lgk$r*fgyntvok1v7*n8t_h@zaxm6v#50i%114wyc9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
 
 
 # Application definition
 
-INSTALLED_APPS = [
+# django-tenants (OBLIGATOIRE)
+TENANT_MODEL = "societe.Societe"
+TENANT_DOMAIN_MODEL = "societe.Domain"
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SHARED_APPS = (
+    'django_tenants',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,45 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'dBSolutionV3',
-    'app',
-    'api',
+
     'societe',
-    'societe_cliente',
-    'fournisseur',
-
-    "voiture_pneus.apps.VoiturePneusConfig",
-    "voiture_pneus_historique.apps.VoiturePneusHistoriqueConfig",
-    'voiture_client',
-    'voiture_exemplaire',
-    'voiture_location',
-    'voiture_marque',
-    'voiture_modele',
-    'voiture_vente',
-    'voiture_moteur',
-    'voiture_prive',
-    'voiture_boite',
-    'voiture_embrayage',
-
-
-
-
-    'piece',
-    'piece_ligne_achat',
-    'piece_ligne_inventaire',
-    'piece_ligne_vente',
-    'piece_mouvement_stock',
-    'piece_stock',
-    'piece_fournisseur',
-    'piece_facture_entree',
-    'piece_facture_sortie',
     'adresse',
-    'facture',
-    'client',
-
-
-
-
-
 
     'rest_framework',
     'rest_framework.authtoken',
@@ -90,14 +60,50 @@ INSTALLED_APPS = [
     'tailwind',
     'theme',
     "django_browser_reload",
+)
 
 
+TENANT_APPS = (
+    'facture',
+
+    'client',
+    'societe_cliente',
+    'fournisseur',
 
 
+    'piece',
+    'piece_ligne_achat',
+    'piece_ligne_inventaire',
+    'piece_ligne_vente',
+    'piece_mouvement_stock',
+    'piece_stock',
+    'piece_fournisseur',
+    'piece_facture_entree',
+    'piece_facture_sortie',
 
-]
+    'voiture_marque',
+    'voiture_modele',
+    'voiture_moteur',
+    'voiture_boite',
+    'voiture_embrayage',
+    'voiture_client',
+    'voiture_exemplaire',
+    'voiture_location',
+    'voiture_vente',
+    'voiture_prive',
+    "voiture_pneus.apps.VoiturePneusConfig",
+    "voiture_pneus_historique.apps.VoiturePneusHistoriqueConfig",
+
+    'app',
+    'api',
+
+)
+
+INSTALLED_APPS = list(SHARED_APPS) + list(TENANT_APPS)
 
 MIDDLEWARE = [
+    'django_tenants.middleware.main.TenantMainMiddleware',
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',  # pour les langues
@@ -113,7 +119,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     'django_browser_reload.middleware.BrowserReloadMiddleware',  # rechargement des pages
-
 
 
 
@@ -143,9 +148,18 @@ WSGI_APPLICATION = 'dBSolutionV3.wsgi.application'
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 import os
 
+
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '.localhost',  # sous-domaines
+]
+#ALLOWED_HOSTS = ['.mondomaine.be']
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django_tenants.postgresql_backend',
         'NAME': os.environ.get('DB_NAME'),       # nom de la base
         'USER': os.environ.get('DB_USER'),         # utilisateur DB
         'PASSWORD': os.environ.get('DB_PASSWORD'),      # mot de passe
@@ -153,6 +167,9 @@ DATABASES = {
         'PORT': os.environ.get('DB_PORT'),                # port DB
     }
 }
+DATABASE_ROUTERS = (
+    'django_tenants.routers.TenantSyncRouter',
+)
 
 
 REST_FRAMEWORK = {

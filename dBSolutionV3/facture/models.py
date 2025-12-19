@@ -5,17 +5,37 @@ from client.models import Client
 from societe.models import Societe
 from societe_cliente.models import SocieteCliente
 
+from django.db import models
+import uuid
 
 class Company(models.Model):
-    """Émettrice de la facture"""
-    id_company = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    societe = models.ForeignKey(Societe, on_delete=models.PROTECT, related_name="companies", blank=True, null=True)
-    adresse = models.ForeignKey(Adresse, on_delete=models.PROTECT, related_name="companies")
-    peppol_id = models.CharField(max_length=50, help_text="Ex: 0208:BE0123456789")
+    """
+    Société émettrice de la facture (par tenant)
+    """
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
+    adresse = models.ForeignKey(
+        'adresse.Adresse',
+        on_delete=models.PROTECT,
+        related_name="companies"
+    )
+
+    peppol_id = models.CharField(
+        max_length=50,
+        help_text="Ex: 0208:BE0123456789"
+    )
+
     code_pays = models.CharField(max_length=2, default="BE")
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Société émettrice"
+        verbose_name_plural = "Sociétés émettrices"
+
     def __str__(self):
-        return f"{self.societe} ({self.peppol_id})"
+        return f"{self.peppol_id}"
 
 
 class Facture(models.Model):

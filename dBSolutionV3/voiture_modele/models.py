@@ -15,12 +15,6 @@ class VoitureModele(models.Model):
         related_name="modeles"
     )
 
-    societe = models.ForeignKey(
-        "societe.Societe",
-        on_delete=models.PROTECT,
-        related_name="modeles"
-    )
-
     # Informations du modèle
     nom_modele = models.CharField(max_length=25)
     nom_variante = models.CharField(max_length=25, blank=True, null=True)

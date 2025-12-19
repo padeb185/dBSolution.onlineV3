@@ -13,7 +13,6 @@ class SocieteClienteForm(forms.ModelForm):
     class Meta:
         model = SocieteCliente
         fields = [
-            "societe",
             "nom",
             "adresse",
             "directeur",

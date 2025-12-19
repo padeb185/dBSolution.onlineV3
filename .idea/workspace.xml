@@ -4,13 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="societecliente admin">
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/facture/test/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/facture/test/test_generate_send.py" afterDir="false" />
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="facturation générationXML">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/adresse/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/adresse/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/client/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/client/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/facture/peppol/generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/facture/peppol/generator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/facture/peppol/mapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/facture/peppol/mapper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/facture/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/facture/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/fournisseur/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/fournisseur/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/societe/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/societe/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/societe_cliente/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/societe_cliente/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/societe_cliente/admin_forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/societe_cliente/admin_forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/societe_cliente/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/societe_cliente/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture_exemplaire/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture_exemplaire/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture_exemplaire/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture_exemplaire/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture_modele/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture_modele/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture_modele/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture_modele/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture_modele/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture_pneus/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture_pneus_historique/migrations/0001_initial.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +122,7 @@
       <workItem from="1765897651856" duration="2000" />
       <workItem from="1765968150354" duration="4000" />
       <workItem from="1766125510352" duration="3599000" />
-      <workItem from="1766130679220" duration="9213000" />
+      <workItem from="1766130679220" duration="17206000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <option name="closed" value="true" />
@@ -385,7 +396,15 @@
       <option name="project" value="LOCAL" />
       <updated>1766138801741</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="facturation générationXML">
+      <option name="closed" value="true" />
+      <created>1766144582946</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1766144582946</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -410,14 +429,15 @@
     <MESSAGE value="langue traductions" />
     <MESSAGE value="Facturation Peppol" />
     <MESSAGE value="societecliente admin" />
-    <option name="LAST_COMMIT_MESSAGE" value="societecliente admin" />
+    <MESSAGE value="facturation générationXML" />
+    <option name="LAST_COMMIT_MESSAGE" value="facturation générationXML" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py</url>
-          <line>211</line>
+          <line>228</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

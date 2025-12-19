@@ -14,14 +14,6 @@ class VoitureExemplaire(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
-    # 🔗 Relations
-    societe = models.ForeignKey(
-        "societe.Societe",
-        on_delete=models.PROTECT,
-        related_name="voitures",
-        null=True,  # 👈 temporaire
-        blank=True
-    )
 
     voiture_marque = models.ForeignKey(
         "voiture_marque.VoitureMarque",
