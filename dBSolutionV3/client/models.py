@@ -8,7 +8,6 @@ class Client(models.Model):
         on_delete=models.PROTECT,
         related_name='client'
     )
-
     numero_tva = models.CharField(
         max_length=20,
         help_text="Numéro TVA du client, ex: BE0987654321"
