@@ -77,6 +77,8 @@ INSTALLED_APPS = [
 
 
 
+
+
     'rest_framework',
     'rest_framework.authtoken',
 
@@ -241,11 +243,14 @@ LANGUAGE_COOKIE_NAME = "django_language"
 PEPPOL_ENV = "TEST"  # ou "PROD"
 
 PEPPOL_ACCESS_POINT_URL = {
-    "TEST": "https://sandbox.ap.example/v1/invoices",
+    "TEST": "https://sandbox.accesspoint.peppol.eu/v1/invoices",
     "PROD": "https://api.ap.example/v1/invoices"
 }[PEPPOL_ENV]
 
+PEPPOL_API_KEY = "YOUR_TEST_API_KEY"
+""""
 PEPPOL_API_KEY = {
     "TEST": "test_xxxxx",
     "PROD": "prod_xxxxx"
 }[PEPPOL_ENV]
+"""

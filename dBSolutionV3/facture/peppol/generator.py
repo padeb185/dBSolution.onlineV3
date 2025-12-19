@@ -26,33 +26,29 @@ def generate_peppol_invoice(invoice):
     etree.SubElement(root, "{cbc}ProfileID").text = (
         "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0"
     )
-
-    etree.SubElement(root, "{cbc}ID").text = invoice.number
+    etree.SubElement(root, "{cbc}ID").text = invoice.numero
     etree.SubElement(root, "{cbc}IssueDate").text = str(invoice.issue_date)
     etree.SubElement(root, "{cbc}InvoiceTypeCode").text = "380"
     etree.SubElement(root, "{cbc}DocumentCurrencyCode").text = invoice.currency
 
     # === Supplier ===
-    supplier = invoice.supplier
+    supplier = invoice.company
     supplier_party = etree.SubElement(root, "{cac}AccountingSupplierParty")
     party = etree.SubElement(supplier_party, "{cac}Party")
 
-    # EndpointID
     scheme, value = supplier.peppol_id.split(":")
     etree.SubElement(party, "{cbc}EndpointID", schemeID=scheme).text = value
 
-    # Party Name
     party_name = etree.SubElement(party, "{cac}PartyName")
-    etree.SubElement(party_name, "{cbc}Name").text = supplier.name
+    etree.SubElement(party_name, "{cbc}Name").text = supplier.societe.nom
 
-    # Party Tax Scheme
     tax_scheme = etree.SubElement(party, "{cac}PartyTaxScheme")
-    etree.SubElement(tax_scheme, "{cbc}CompanyID").text = supplier.vat_number
+    etree.SubElement(tax_scheme, "{cbc}CompanyID").text = supplier.societe.numero_tva
     tscheme = etree.SubElement(tax_scheme, "{cac}TaxScheme")
     etree.SubElement(tscheme, "{cbc}ID").text = "VAT"
 
     # === Customer ===
-    customer = invoice.customer
+    customer = invoice.societe_cliente
     customer_party = etree.SubElement(root, "{cac}AccountingCustomerParty")
     party = etree.SubElement(customer_party, "{cac}Party")
 
@@ -60,10 +56,10 @@ def generate_peppol_invoice(invoice):
     etree.SubElement(party, "{cbc}EndpointID", schemeID=scheme).text = value
 
     party_name = etree.SubElement(party, "{cac}PartyName")
-    etree.SubElement(party_name, "{cbc}Name").text = customer.name
+    etree.SubElement(party_name, "{cbc}Name").text = customer.nom
 
     tax_scheme = etree.SubElement(party, "{cac}PartyTaxScheme")
-    etree.SubElement(tax_scheme, "{cbc}CompanyID").text = customer.vat_number
+    etree.SubElement(tax_scheme, "{cbc}CompanyID").text = customer.numero_tva
     tscheme = etree.SubElement(tax_scheme, "{cac}TaxScheme")
     etree.SubElement(tscheme, "{cbc}ID").text = "VAT"
 
