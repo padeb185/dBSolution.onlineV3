@@ -9,7 +9,9 @@ NSMAP = {
     "cac": "urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2",
 }
 
+
 def money(value):
+    """Formate les montants à 2 décimales"""
     return f"{value:.2f}"
 
 
@@ -35,26 +37,35 @@ def generate_peppol_invoice(invoice):
     supplier_party = etree.SubElement(root, "{cac}AccountingSupplierParty")
     party = etree.SubElement(supplier_party, "{cac}Party")
 
-    etree.SubElement(party, "{cbc}EndpointID", schemeID="0208").text = supplier.peppol_id.split(":")[1]
+    # EndpointID
+    scheme, value = supplier.peppol_id.split(":")
+    etree.SubElement(party, "{cbc}EndpointID", schemeID=scheme).text = value
 
+    # Party Name
     party_name = etree.SubElement(party, "{cac}PartyName")
     etree.SubElement(party_name, "{cbc}Name").text = supplier.name
 
+    # Party Tax Scheme
     tax_scheme = etree.SubElement(party, "{cac}PartyTaxScheme")
     etree.SubElement(tax_scheme, "{cbc}CompanyID").text = supplier.vat_number
+    tscheme = etree.SubElement(tax_scheme, "{cac}TaxScheme")
+    etree.SubElement(tscheme, "{cbc}ID").text = "VAT"
 
     # === Customer ===
     customer = invoice.customer
     customer_party = etree.SubElement(root, "{cac}AccountingCustomerParty")
     party = etree.SubElement(customer_party, "{cac}Party")
 
-    etree.SubElement(party, "{cbc}EndpointID", schemeID="0208").text = customer.peppol_id.split(":")[1]
+    scheme, value = customer.peppol_id.split(":")
+    etree.SubElement(party, "{cbc}EndpointID", schemeID=scheme).text = value
 
     party_name = etree.SubElement(party, "{cac}PartyName")
     etree.SubElement(party_name, "{cbc}Name").text = customer.name
 
     tax_scheme = etree.SubElement(party, "{cac}PartyTaxScheme")
     etree.SubElement(tax_scheme, "{cbc}CompanyID").text = customer.vat_number
+    tscheme = etree.SubElement(tax_scheme, "{cac}TaxScheme")
+    etree.SubElement(tscheme, "{cbc}ID").text = "VAT"
 
     # === Lines & VAT calculation ===
     vat_totals = {}
@@ -88,6 +99,8 @@ def generate_peppol_invoice(invoice):
         tax = etree.SubElement(item, "{cac}ClassifiedTaxCategory")
         etree.SubElement(tax, "{cbc}ID").text = "S"
         etree.SubElement(tax, "{cbc}Percent").text = str(line.vat_rate)
+        tscheme = etree.SubElement(tax, "{cac}TaxScheme")
+        etree.SubElement(tscheme, "{cbc}ID").text = "VAT"
 
         price = etree.SubElement(invoice_line, "{cac}Price")
         etree.SubElement(
@@ -99,7 +112,6 @@ def generate_peppol_invoice(invoice):
     # === VAT totals ===
     tax_total = etree.SubElement(root, "{cac}TaxTotal")
     total_vat = sum(vat_totals.values())
-
     etree.SubElement(
         tax_total,
         "{cbc}TaxAmount",
@@ -117,6 +129,8 @@ def generate_peppol_invoice(invoice):
         category = etree.SubElement(subtotal, "{cac}TaxCategory")
         etree.SubElement(category, "{cbc}ID").text = "S"
         etree.SubElement(category, "{cbc}Percent").text = str(rate)
+        tscheme = etree.SubElement(category, "{cac}TaxScheme")
+        etree.SubElement(tscheme, "{cbc}ID").text = "VAT"
 
     # === Monetary totals ===
     total = etree.SubElement(root, "{cac}LegalMonetaryTotal")

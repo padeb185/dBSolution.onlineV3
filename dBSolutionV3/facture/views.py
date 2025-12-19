@@ -10,7 +10,7 @@ def invoice_xml_view(request, invoice_id):
     xml_data = generate_invoice_xml(
         invoice_number=facture.numero,
         seller="Ma Société SRL",
-        buyer=facture.client.nom,
+        buyer=facture.societe_cliente.nom,
         lines=[
             {"description": "Prestation informatique", "price": facture.total}
         ],

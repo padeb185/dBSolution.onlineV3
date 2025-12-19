@@ -1,7 +1,6 @@
 from django.db import models
 import uuid
-from societe.models import Societe
-from adresse.models import Adresse
+
 
 
 class SocieteCliente(models.Model):
@@ -11,7 +10,7 @@ class SocieteCliente(models.Model):
         editable=False
     )
     societe = models.ForeignKey(
-        Societe,
+        "societe.Societe",
         on_delete=models.PROTECT,  # comportement à la suppression
         related_name='societe_cliente'  #  pour accéder aux sociétés clientes depuis la société
     )
@@ -22,7 +21,7 @@ class SocieteCliente(models.Model):
         verbose_name="Nom de la société"
     )
     adresse = models.ForeignKey(
-        Adresse,
+        "adresse.Adresse",
         on_delete=models.PROTECT,
         related_name='sociétés_clientes'
     )
@@ -42,6 +41,23 @@ class SocieteCliente(models.Model):
         null=True,
         verbose_name="Site web"
     )
+
+    peppol_id = models.CharField(
+        max_length=50,
+        help_text="Identifiant Peppol du client, ex: 0208:BE0987654321"
+    )
+    code_pays = models.CharField(
+        max_length=2,
+        default="BE"
+    )
+    numero_telephone = models.CharField(max_length=20, null=True, blank=True)
+    email = models.EmailField(max_length=100, null=True, blank=True)
+
+    # --- Métadonnées ---
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
 
     class Meta:
         verbose_name = "Société"
