@@ -9,12 +9,34 @@ EU_VAT_PREFIXES = [
 
 
 class SocieteClienteForm(forms.ModelForm):
+
     class Meta:
         model = SocieteCliente
-        fields = '__all__'  # ou liste des champs spécifiques
+        fields = [
+            "societe",
+            "nom",
+            "adresse",
+            "directeur",
+            "numero_tva",
+            "site",
+            "peppol_id",
+            "code_pays",
+            "numero_telephone",
+            "email",
+            "is_active",
+        ]
         widgets = {
-            'numero_tva': forms.TextInput(attrs={'placeholder': 'BE0123456789'}),
-            'site': forms.URLInput(attrs={'placeholder': 'https://www.example.com'}),
+            "societe": forms.Select(attrs={"class": "form-select"}),
+            "nom": forms.TextInput(attrs={"class": "form-control"}),
+            "adresse": forms.Select(attrs={"class": "form-select"}),
+            "directeur": forms.TextInput(attrs={"class": "form-control"}),
+            "numero_tva": forms.TextInput(attrs={"class": "form-control"}),
+            "site": forms.URLInput(attrs={"class": "form-control"}),
+            "peppol_id": forms.TextInput(attrs={"class": "form-control"}),
+            "code_pays": forms.TextInput(attrs={"class": "form-control"}),
+            "numero_telephone": forms.TextInput(attrs={"class": "form-control"}),
+            "email": forms.EmailInput(attrs={"class": "form-control"}),
+            "is_active": forms.CheckboxInput(),
         }
 
     def clean_numero_tva(self):
