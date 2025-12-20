@@ -33,7 +33,6 @@ societe, _ = Societe.objects.get_or_create(
 # --- Créer ou récupérer le Company émetteur ---
 company, _ = Company.objects.get_or_create(
     societe=societe,
-    adresse=adresse,
     defaults={
         "peppol_id": "0208:BE0123456789",
         "code_pays": "BE"
