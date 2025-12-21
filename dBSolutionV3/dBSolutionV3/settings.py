@@ -104,7 +104,7 @@ TENANT_APPS = (
     'authentification',
     'utilisateurs',
 
-    "django_browser_reload",
+
 
 
 )
