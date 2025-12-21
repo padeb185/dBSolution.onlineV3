@@ -101,6 +101,9 @@ TENANT_APPS = (
 
     'app',
     'api',
+    'authentification',
+    'utilisateurs',
+
     "django_browser_reload",
 
 
@@ -285,26 +288,11 @@ PEPPOL_API_KEY = {
 }[PEPPOL_ENV]
 """
 
-from django.urls import reverse_lazy
-
-LOGIN_URL = reverse_lazy("admin:index")
-
-#LOGIN_REDIRECT_URL = reverse_lazy('admin:index')
-#LOGOUT_REDIRECT_URL = reverse_lazy('admin:login')
 
 
 
 
-# settings.py
-BROWSER_RELOAD_IGNORE_URLS = [
-    r'^admin/',
-]
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/login/'
 
-
-# ============================
-# Django Admin customization
-# ============================
-
-ADMIN_SITE_HEADER = "Administration dBSolution"
-ADMIN_SITE_TITLE = "Admin dBSolution"
-ADMIN_INDEX_TITLE = "Panneau d’administration"
