@@ -27,6 +27,8 @@ DEBUG = True
 
 PUBLIC_SCHEMA_NAME = 'public'
 
+# dans settings.py
+TENANT_PUBLIC_SCHEMA_NAME = 'public'
 
 # Application definition
 
@@ -60,7 +62,7 @@ SHARED_APPS = (
 
     'tailwind',
     'theme',
-    "django_browser_reload",
+
     'widget_tweaks',
 
 )
@@ -99,6 +101,7 @@ TENANT_APPS = (
 
     'app',
     'api',
+    "django_browser_reload",
 
 
 )
@@ -106,26 +109,21 @@ TENANT_APPS = (
 INSTALLED_APPS = list(SHARED_APPS) + list(TENANT_APPS)
 
 MIDDLEWARE = [
-    'django_tenants.middleware.main.TenantMainMiddleware',
-
     'django.middleware.security.SecurityMiddleware',
+
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.locale.LocaleMiddleware',  # pour les langues
+    'django.middleware.locale.LocaleMiddleware',
+
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-
-    # middleware OTP
-    'django_otp.middleware.OTPMiddleware',# 2 facteurs
-
-
     'django.contrib.messages.middleware.MessageMiddleware',
+
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    'django_browser_reload.middleware.BrowserReloadMiddleware',  # rechargement des pages
-
-
-
+    'django_tenants.middleware.main.TenantMainMiddleware',
+    'django_browser_reload.middleware.BrowserReloadMiddleware',
 ]
 
 ROOT_URLCONF = 'dBSolutionV3.urls'
@@ -286,3 +284,27 @@ PEPPOL_API_KEY = {
     "PROD": "prod_xxxxx"
 }[PEPPOL_ENV]
 """
+
+from django.urls import reverse_lazy
+
+LOGIN_URL = reverse_lazy("admin:index")
+
+#LOGIN_REDIRECT_URL = reverse_lazy('admin:index')
+#LOGOUT_REDIRECT_URL = reverse_lazy('admin:login')
+
+
+
+
+# settings.py
+BROWSER_RELOAD_IGNORE_URLS = [
+    r'^admin/',
+]
+
+
+# ============================
+# Django Admin customization
+# ============================
+
+ADMIN_SITE_HEADER = "Administration dBSolution"
+ADMIN_SITE_TITLE = "Admin dBSolution"
+ADMIN_INDEX_TITLE = "Panneau d’administration"
