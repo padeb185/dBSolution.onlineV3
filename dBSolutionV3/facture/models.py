@@ -1,12 +1,10 @@
-import uuid
-from django.db import models
 from adresse.models import Adresse
 from client.models import Client
 from societe.models import Societe
 from societe_cliente.models import SocieteCliente
-
 from django.db import models
 import uuid
+
 
 class Company(models.Model):
     """

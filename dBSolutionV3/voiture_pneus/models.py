@@ -28,13 +28,14 @@ class VoiturePneus(models.Model):
         null=True,  # 👈 temporaire
         blank=True
     )
-    """
+
     voiture_exemplaire = models.ForeignKey(
-        VoitureExemplaire,
+        "voiture_exemplaire.VoitureExemplaire",
         on_delete=models.PROTECT,
-        related_name="pneus"
+        related_name="pneus",
+        null=True, blank=True
     )
-    """
+
     fournisseur = models.ForeignKey(
         "fournisseur.Fournisseur",
         on_delete=models.PROTECT,

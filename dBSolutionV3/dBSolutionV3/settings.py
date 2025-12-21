@@ -60,6 +60,8 @@ SHARED_APPS = (
     'tailwind',
     'theme',
     "django_browser_reload",
+    'widget_tweaks',
+
 )
 
 
@@ -97,6 +99,7 @@ TENANT_APPS = (
     'app',
     'api',
 
+
 )
 
 INSTALLED_APPS = list(SHARED_APPS) + list(TENANT_APPS)
@@ -129,17 +132,25 @@ ROOT_URLCONF = 'dBSolutionV3.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "templates"],
+        'DIRS': [
+            BASE_DIR / "theme/templates",  # <-- ajoute ton dossier ici
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
             ],
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'dBSolutionV3.wsgi.application'
 
