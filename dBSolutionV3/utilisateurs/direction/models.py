@@ -34,4 +34,4 @@ class Direction(Utilisateur):
         return check_password(raw_password, self.password)
 
     def __str__(self):
-        return f"{self.user.prenom} {self.user.nom} - {self.role_direction}"
+        return f"{self.prenom} {self.nom} - {self.get_role_direction_display()}"

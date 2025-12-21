@@ -7,7 +7,7 @@ from django.db import models
 class Magasinier(Utilisateur):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     role = models.CharField(max_length=50, default='Magasinier')
-    password = models.CharField(max_length=128)
+    password = models.CharField(max_length=256)
 
     def save(self, *args, **kwargs):
         # Empêche le double hachage
@@ -17,3 +17,7 @@ class Magasinier(Utilisateur):
 
     def check_password(self, raw_password):
         return check_password(raw_password, self.password)
+
+
+    def __str__(self):
+        return f"{self.prenom} {self.nom} - {self.get_role_display()}"

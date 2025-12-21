@@ -19,3 +19,6 @@ class Apprenti(Utilisateur):
     def check_password(self, raw_password):
         return check_password(raw_password, self.password)
 
+
+    def __str__(self):
+        return f"{self.prenom} {self.nom} - {self.get_role_display()}"
