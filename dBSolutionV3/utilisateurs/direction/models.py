@@ -1,15 +1,12 @@
-from django.db import models
-
-# Create your models here.
 import uuid
 from django.db import models
 from django.contrib.auth.hashers import make_password, check_password
-from utilisateurs.models import Utilisateur  # ton modèle utilisateur personnalisé
+from utilisateurs.models import Utilisateur
 
 
-class Direction(models.Model):
+class Direction(Utilisateur):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.ForeignKey(Utilisateur, on_delete=models.CASCADE, related_name="directions")
+
 
     ROLE_CHOICES = [
         ('admin', 'Administrateur'),
@@ -19,7 +16,7 @@ class Direction(models.Model):
     ]
     role_direction = models.CharField(max_length=50, choices=ROLE_CHOICES)
 
-    password = models.CharField(max_length=128)
+    password = models.CharField(max_length=256)
 
     # Champ non stocké en base, juste pour validation du formulaire
     password_confirm = None
@@ -27,12 +24,13 @@ class Direction(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    def set_password(self, raw_password):
-        """Chiffre le mot de passe avant de le sauvegarder"""
-        self.password = make_password(raw_password)
+    def save(self, *args, **kwargs):
+        # Empêche le double hachage
+        if not self.password.startswith('pbkdf2_'):
+            self.password = make_password(self.password)
+        super().save(*args, **kwargs)
 
     def check_password(self, raw_password):
-        """Vérifie le mot de passe"""
         return check_password(raw_password, self.password)
 
     def __str__(self):
