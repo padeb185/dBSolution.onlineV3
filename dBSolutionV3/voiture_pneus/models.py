@@ -1,6 +1,8 @@
 import uuid
 from datetime import timezone
 from django.db import models
+from voiture_pneus_historique.models import VoiturePneusHistorique
+
 
 
 

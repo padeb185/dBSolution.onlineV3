@@ -16,4 +16,4 @@ class AdresseAdmin(admin.ModelAdmin):
     list_filter = ('ville', 'pays')  # Permet de filtrer par ville ou pays
 
 
-admin.site.register(Adresse, AdresseAdmin)
+

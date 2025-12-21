@@ -11,4 +11,4 @@ class SocieteAdmin(admin.ModelAdmin):
     list_filter = ('adresse__ville',)
 
 # Enregistrement de l'admin
-admin.site.register(Societe, SocieteAdmin)
+
