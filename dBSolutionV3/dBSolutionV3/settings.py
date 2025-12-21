@@ -25,6 +25,7 @@ SECRET_KEY = 'django-insecure-=zdo*1q=lgk$r*fgyntvok1v7*n8t_h@zaxm6v#50i%114wyc9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+PUBLIC_SCHEMA_NAME = 'public'
 
 
 # Application definition
@@ -160,11 +161,8 @@ WSGI_APPLICATION = 'dBSolutionV3.wsgi.application'
 import os
 
 
-ALLOWED_HOSTS = [
-    'localhost',
-    '127.0.0.1',
-    '.localhost',  # sous-domaines
-]
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'dbsolution.localhost']
+
 #ALLOWED_HOSTS = ['.mondomaine.be']
 
 
@@ -250,7 +248,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "theme", "static"),  # tes fichiers statiques Tailwind
+]
+
+# Où Django copiera tous les fichiers statiques lors de collectstatic
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 TAILWIND_APP_NAME = 'theme'
 

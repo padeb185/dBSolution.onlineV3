@@ -1,68 +1,43 @@
 {% extends "base.html" %}
-
 {% load i18n static widget_tweaks %}
-
-
 {% get_current_language as LANGUAGE_CODE %}
+
+
 
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
 <head>
-    <meta charset="UTF-8">
-    <title>{% trans "Connexion" %}</title>
-    <link href="{% static 'css/output.css' %}" rel="stylesheet"> <!-- ton fichier Tailwind build -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% trans "Connexion" %}</title>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+  <div class="w-full max-w-md bg-white rounded shadow-md p-6">
+    <h2 class="text-2xl font-bold mb-6 text-center">{% trans "Connexion à l'admin" %}</h2>
 
-<div class="w-full max-w-md">
-    <div class="bg-white shadow-md rounded-lg p-8">
-        <h2 class="text-2xl font-semibold text-center mb-6">{% trans "Connexion" %}</h2>
+    <form method="post" class="space-y-4">
+      {% csrf_token %}
 
-        {% if form.errors %}
-            <div class="bg-red-100 text-red-700 p-3 rounded mb-4">
-                {% for field in form %}
-                    {% for error in field.errors %}
-                        <p>{{ error|escape }}</p>
-                    {% endfor %}
-                {% endfor %}
-                {% for error in form.non_field_errors %}
-                    <p>{{ error|escape }}</p>
-                {% endfor %}
-            </div>
-        {% endif %}
+      <div>
+        <label for="id_username" class="block text-gray-700">{% trans "Nom d’utilisateur" %}</label>
+        {{ form.username|add_class:"mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" }}
+      </div>
 
-        <form method="post" class="space-y-4">
-            {% csrf_token %}
+      <div>
+        <label for="id_password" class="block text-gray-700">{% trans "Mot de passe" %}</label>
+        {{ form.password|add_class:"mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" }}
+      </div>
 
-            <div>
-                <label for="{{ form.username.id_for_label }}" class="block text-sm font-medium text-gray-700">
-                    {% trans "Nom d'utilisateur" %}
-                </label>
-                {{ form.username|add_class:"mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" }}
-            </div>
-
-            <div>
-                <label for="{{ form.password.id_for_label }}" class="block text-sm font-medium text-gray-700">
-                    {% trans "Mot de passe" %}
-                </label>
-                {{ form.password|add_class:"mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" }}
-            </div>
-
-            <button type="submit"
-                    class="w-full py-2 px-4 bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700 transition-colors">
-                {% trans "Se connecter" %}
-            </button>
-        </form>
-
-        <div class="mt-4 text-center">
-            <a href="{% url 'password_reset' %}" class="text-sm text-indigo-600 hover:underline">
-                {% trans "Mot de passe oublié ?" %}
-            </a>
+      <div class="flex items-center justify-between">
+        <div>
+          <input type="checkbox" name="remember" id="remember" class="mr-1">
+          <label for="remember" class="text-sm text-gray-600">{% trans "Se souvenir de moi" %}</label>
         </div>
-    </div>
+        <a href="{% url 'password_reset' %}" class="text-sm text-indigo-600 hover:underline">{% trans "Mot de passe oublié ?" %}</a>
+      </div>
 
-    <p class="text-center text-gray-500 mt-4 text-sm">&copy; {{ now|date:"Y" }} dBsolution.online</p>
-</div>
-
+      <button type="submit" class="w-full bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700 transition">{% trans "Se connecter" %}</button>
+    </form>
+  </div>
 </body>
 </html>
