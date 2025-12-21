@@ -1,10 +1,14 @@
 {% extends "base.html" %}
 {% load i18n static widget_tweaks %}
 {% get_current_language as LANGUAGE_CODE %}
+
+
+
+
 {% block title %}{% trans "Connexion" %}{% endblock %}
 {% block bodyId %}{% trans "Page de Connexion" %}{% endblock %}
 
-{% block title %}
+{% block content %}
 <form action="login" method="post" class="space-y-4">
     {% csrf_token %}
     {% if error %}

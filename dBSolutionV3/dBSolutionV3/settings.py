@@ -126,7 +126,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     'django_tenants.middleware.main.TenantMainMiddleware',
-    'django_browser_reload.middleware.BrowserReloadMiddleware',
+
 ]
 
 ROOT_URLCONF = 'dBSolutionV3.urls'

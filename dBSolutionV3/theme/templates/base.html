@@ -1,8 +1,5 @@
-{% load static %}
-{% load i18n static widget_tweaks %}
+{% load static i18n widget_tweaks %}
 {% get_current_language as LANGUAGE_CODE %}
-
-
 
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
@@ -18,30 +15,22 @@
 
 <header class="bg-white shadow p-4">
     <nav class="container mx-auto flex justify-between items-center">
-
-        <!-- Liens -->
         <div class="flex gap-4">
-            <a href="{% url 'home' %}" class="text-gray-600 hover:text-black font-semibold">
-                {% trans "Accueil" %}
-            </a>
-            <a href="{% url 'dashboard' %}" class="text-gray-600 hover:text-black font-semibold">
-                {% trans "Tableau de Bord" %}
-            </a>
+            <a href="{% url 'home' %}" class="text-gray-600 hover:text-black font-semibold">{% trans "Accueil" %}</a>
+            <a href="{% url 'dashboard' %}" class="text-gray-600 hover:text-black font-semibold">{% trans "Tableau de Bord" %}</a>
         </div>
 
-        <!-- Sélecteur de langue -->
         <form action="{% url 'set_language' %}" method="post">
-          {% csrf_token %}
-          <input type="hidden" name="next" value="{{ request.path }}">
-          <select name="language">
-            {% get_available_languages as LANGUAGES %}
-            {% for code, name in LANGUAGES %}
-              <option value="{{ code }}" {% if code == LANGUAGE_CODE %}selected{% endif %}>{{ name }}</option>
-            {% endfor %}
-          </select>
-          <button type="submit">{% trans "Changer de langue" %}</button>
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.path }}">
+            <select name="language">
+                {% get_available_languages as LANGUAGES %}
+                {% for code, name in LANGUAGES %}
+                    <option value="{{ code }}" {% if code == LANGUAGE_CODE %}selected{% endif %}>{{ name }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">{% trans "Changer de langue" %}</button>
         </form>
-
     </nav>
 </header>
 
