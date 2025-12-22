@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="filtres">
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="pieces et fluides">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_fluides/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_fluides/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_filtres/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_filtres/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,15 +122,7 @@
       <workItem from="1766344336752" duration="2212000" />
       <workItem from="1766377359510" duration="6972000" />
       <workItem from="1766387894704" duration="3641000" />
-      <workItem from="1766392619895" duration="5376000" />
-    </task>
-    <task id="LOCAL-00014" summary=" création classes métiers fr">
-      <option name="closed" value="true" />
-      <created>1765704692776</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1765704692776</updated>
+      <workItem from="1766392619895" duration="6939000" />
     </task>
     <task id="LOCAL-00015" summary=" création classes métiers société_cliente">
       <option name="closed" value="true" />
@@ -516,14 +508,21 @@
       <option name="project" value="LOCAL" />
       <updated>1766410554631</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="pieces et fluides">
+      <option name="closed" value="true" />
+      <created>1766410711622</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1766410711622</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="ajout voiture pneus admin et admin forms" />
     <MESSAGE value="voitureexemplaire" />
     <MESSAGE value="voitureexemplaire societe nullable" />
     <MESSAGE value="voitureexemplaire couleur" />
@@ -548,7 +547,8 @@
     <MESSAGE value="boite et moteur" />
     <MESSAGE value="fluides" />
     <MESSAGE value="filtres" />
-    <option name="LAST_COMMIT_MESSAGE" value="filtres" />
+    <MESSAGE value="pieces et fluides" />
+    <option name="LAST_COMMIT_MESSAGE" value="pieces et fluides" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
