@@ -1,12 +1,11 @@
 import uuid
-
 import pyotp
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 from adresse.models import Adresse
 from django_otp.oath import totp
-from django_otp.util import random_hex
 from societe.models import Societe
 
 
@@ -104,8 +103,6 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
             name=self.email,
             issuer_name="dBSolution"
         )
-
-
 
     def __str__(self):
         return f"{self.prenom} {self.nom}"
