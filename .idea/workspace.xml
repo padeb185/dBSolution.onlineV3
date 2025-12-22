@@ -4,21 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="modele utilisateurs">
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="modele utilisateurs corrections">
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/authentification/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/authentification/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/apprentis/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/apprentis/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/carrossier/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/carrossier/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/chef_mecanicien/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/chef_mecanicien/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/comptabilité/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/comptabilité/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/direction/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/direction/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/instructeur/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/instructeur/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/magasinier/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/magasinier/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/mecanicien/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/mecanicien/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/vendeur/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/vendeur/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,15 +120,8 @@
       <workItem from="1766331333182" duration="4933000" />
       <workItem from="1766344336752" duration="2212000" />
       <workItem from="1766377359510" duration="6972000" />
-      <workItem from="1766387894704" duration="3184000" />
-    </task>
-    <task id="LOCAL-00007" summary="language">
-      <option name="closed" value="true" />
-      <created>1765630277041</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1765630277041</updated>
+      <workItem from="1766387894704" duration="3641000" />
+      <workItem from="1766392619895" duration="546000" />
     </task>
     <task id="LOCAL-00008" summary="language">
       <option name="closed" value="true" />
@@ -526,14 +507,21 @@
       <option name="project" value="LOCAL" />
       <updated>1766391112186</updated>
     </task>
-    <option name="localTasksCounter" value="56" />
+    <task id="LOCAL-00056" summary="modele utilisateurs corrections">
+      <option name="closed" value="true" />
+      <created>1766392282663</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1766392282663</updated>
+    </task>
+    <option name="localTasksCounter" value="57" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="déclaration classes métiers 14-12" />
     <MESSAGE value="blason home.html" />
     <MESSAGE value=" création classes métiers fr" />
     <MESSAGE value=" création classes métiers société_cliente" />
@@ -558,7 +546,8 @@
     <MESSAGE value="voiture et utilisateurs corrections" />
     <MESSAGE value="login totp" />
     <MESSAGE value="modele utilisateurs" />
-    <option name="LAST_COMMIT_MESSAGE" value="modele utilisateurs" />
+    <MESSAGE value="modele utilisateurs corrections" />
+    <option name="LAST_COMMIT_MESSAGE" value="modele utilisateurs corrections" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
