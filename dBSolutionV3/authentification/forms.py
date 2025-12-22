@@ -12,36 +12,39 @@ from utilisateurs.mecanicien.models import Mecanicien
 from utilisateurs.vendeur.models import Vendeur
 
 
+
+
 class LoginForm(forms.Form):
     email_google = forms.EmailField(label="Email")
     password = forms.CharField(label="Mot de passe", widget=forms.PasswordInput)
 
     def clean(self):
-        cleaned_data = super(LoginForm, self).clean()
-        email_google = cleaned_data.get('email')
+        cleaned_data = super().clean()
+        email_google = cleaned_data.get('email_google')
         password = cleaned_data.get('password')
 
         if email_google and password:
-            result = None
+            user_found = None
 
-            for model in [Apprenti,Mecanicien, Magasinier, ChefMecanicien, Carrossier,
-                          Vendeur, Instructeur, Comptable, Direction  ]:
+            for model in [
+                Apprenti, Mecanicien, Magasinier, ChefMecanicien, Carrossier,
+                Vendeur, Instructeur, Comptable, Direction
+            ]:
                 try:
                     u = model.objects.get(email_google=email_google)
                     if check_password(password, u.password):
-                        user = u
+                        user_found = u
                         break
                 except model.DoesNotExist:
                     continue
 
-            if len(result) != 1 :
-                raise forms.ValidationError("Adresse email ou mot de passe erroné")
+            if not user_found:
+                raise forms.ValidationError(_("Adresse email ou mot de passe incorrect"))
 
-            return cleaned_data
+            # Ajouter l'utilisateur trouvé dans cleaned_data pour usage dans la vue
+            cleaned_data['user'] = user_found
 
-
-
-
+        return cleaned_data
 
 
 class TOTPLoginForm(forms.Form):

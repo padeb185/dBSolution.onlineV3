@@ -1,11 +1,9 @@
-import uuid
-from django.contrib.auth.hashers import make_password, check_password
-from utilisateurs.models import Utilisateur  # ton
+from utilisateurs.models import Utilisateur
 from django.db import models
 
-# Create your models here.
+
 class Comptable(Utilisateur):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
     role = models.CharField(max_length=50, default='Comptable')
 
 

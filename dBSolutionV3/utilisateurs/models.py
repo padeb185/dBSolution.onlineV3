@@ -1,7 +1,6 @@
 import uuid
 import pyotp
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
-from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 from adresse.models import Adresse

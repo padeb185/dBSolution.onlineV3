@@ -1,9 +1,9 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.i18n import i18n_patterns
-from dBSolutionV3 import views
 from django.contrib.auth import views as auth_views
 from authentification.views import login_totp, totp_setup
+from dBSolutionV3.views import dashboard, home
 
 urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
@@ -19,8 +19,8 @@ urlpatterns += i18n_patterns(
     path('login/totp/setup/', totp_setup, name='totp_setup'),
 
     # Dashboard / home
-    path('', views.home, name='home'),
-    path('dashboard/', views.dashboard, name='dashboard'),
+    path('', home, name='home'),
+    path('dashboard/', dashboard, name='dashboard'),
 
     # Inclure toutes les autres URLs de l’app authentification
     path('', include('authentification.urls')),
