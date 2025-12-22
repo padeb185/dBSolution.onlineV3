@@ -2,7 +2,7 @@ from django.urls import path, include
 from django.conf.urls.i18n import i18n_patterns
 from dBSolutionV3 import views
 from django.contrib.auth import views as auth_views
-from utilisateurs.views import login_totp_view
+from authentification.views import login_totp
 
 urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
@@ -13,7 +13,7 @@ urlpatterns = [
 
 urlpatterns += i18n_patterns(
     path('', views.home, name='home'),
-    path('login/', login_totp_view, name='login_totp'),# /fr/
+    path("login/totp/", login_totp, name="login_totp"),
     path('dashboard/', views.dashboard, name='dashboard'),  # /fr/dashboard/
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),  # /fr/login/
 )

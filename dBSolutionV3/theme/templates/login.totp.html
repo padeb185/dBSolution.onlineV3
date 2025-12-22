@@ -1,20 +1,54 @@
 {% extends 'base.html' %}
+{% load i18n static widget_tweaks %}
+{% get_current_language as LANGUAGE_CODE %}
 
+{% block title %}{% trans "Connexion sécurisée" %}{% endblock %}
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Connexion TOTP</title>
-</head>
-<body>
-    <h2>Connexion Google Authenticator</h2>
+{% block content %}
+<div class="min-h-[70vh] flex items-center justify-center">
+
+  <div class="w-full max-w-md bg-white shadow rounded-lg p-6">
+
+    <h1 class="text-2xl font-bold text-center mb-2">
+      {% trans "Connexion sécurisée" %}
+    </h1>
+
+    <p class="text-center text-gray-600 mb-6">
+      {% trans "Veuillez entrer le code généré par Google Authenticator" %}
+    </p>
+
     {% if message %}
-        <p style="color:red">{{ message }}</p>
+      <div class="mb-4 rounded-md bg-red-50 border border-red-200 text-red-700 px-4 py-3">
+        {{ message }}
+      </div>
     {% endif %}
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Se connecter</button>
+
+    <form method="post" class="space-y-4">
+      {% csrf_token %}
+
+      {% for field in form %}
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">
+            {{ field.label }}
+          </label>
+          {{ field|add_class:"w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" }}
+          {% if field.errors %}
+            <p class="mt-1 text-sm text-red-600">
+              {{ field.errors|striptags }}
+            </p>
+          {% endif %}
+        </div>
+      {% endfor %}
+
+      <button
+        type="submit"
+        class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-md transition"
+      >
+        {% trans "Se connecter" %}
+      </button>
     </form>
-</body>
-</html>
+
+  </div>
+
+</div>
+{% endblock %}

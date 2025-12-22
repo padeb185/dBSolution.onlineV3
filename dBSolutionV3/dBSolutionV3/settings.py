@@ -123,6 +123,7 @@ MIDDLEWARE = [
 
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'authentification.middleware.TOTPRequiredMiddleware',
 
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
