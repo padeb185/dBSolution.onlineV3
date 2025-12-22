@@ -4,191 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="admin global admin local">
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_ampoules/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_ampoules/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_ampoules/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_ampoules/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_ampoules/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_ampoules/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_ampoules/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_batterie/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_batterie/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_batterie/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_batterie/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_batterie/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_batterie/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_batterie/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_boite/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_boite/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_boite/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_boite/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_boite/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_boite/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_boite/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_carrosserie/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_carrosserie/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_carrosserie/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_carrosserie/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_carrosserie/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_carrosserie/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_carrosserie/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_climatisation/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_climatisation/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_climatisation/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_climatisation/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_climatisation/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_climatisation/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_climatisation/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_différentiel/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_différentiel/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_différentiel/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_différentiel/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_différentiel/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_différentiel/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_différentiel/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_direction/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_direction/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_direction/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_direction/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_direction/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_direction/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_direction/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_echappement/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_echappement/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_echappement/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_echappement/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_echappement/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_echappement/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_echappement/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_electricite/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_electricite/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_electricite/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_electricite/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_electricite/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_electricite/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_electricite/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_electronique/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_electronique/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_electronique/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_electronique/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_electronique/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_electronique/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_electronique/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_embrayage/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_embrayage/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_embrayage/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_embrayage/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_embrayage/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_embrayage/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_embrayage/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_essuyage/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_essuyage/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_essuyage/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_essuyage/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_essuyage/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_essuyage/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_essuyage/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_feux/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_feux/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_feux/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_feux/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_feux/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_feux/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_feux/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_filtres/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_filtres/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_filtres/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_filtres/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_filtres/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_filtres/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_filtres/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_fluides/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_fluides/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_fluides/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_fluides/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_fluides/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_fluides/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_fluides/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_freins/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_freins/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_freins/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_freins/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_freins/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_freins/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_freins/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_habitacle/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_habitacle/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_habitacle/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_habitacle/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_habitacle/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_habitacle/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_habitacle/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_jantes/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_jantes/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_jantes/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_jantes/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_jantes/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_jantes/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_jantes/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_moteur/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_moteur/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_moteur/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_moteur/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_moteur/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_moteur/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_moteur/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_pneus/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_pneus/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_pneus/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_pneus/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_pneus/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_pneus/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_pneus/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_pont/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_pont/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_pont/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_pont/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_pont/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_pont/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_pont/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_silent_bloc/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_silent_bloc/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_silent_bloc/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_silent_bloc/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_silent_bloc/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_silent_bloc/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_silent_bloc/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_suspension/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_suspension/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_suspension/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_suspension/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_suspension/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_suspension/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_suspension/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_tain_AR/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_tain_AR/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_tain_AR/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_tain_AR/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_tain_AR/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_tain_AR/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_tain_AR/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_tain_AV/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_tain_AV/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_tain_AV/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_tain_AV/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_tain_AV/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_tain_AV/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_tain_AV/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_transmission/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_transmission/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_transmission/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_transmission/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_transmission/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_transmission/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_transmission/views.py" afterDir="false" />
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="pieces">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_moteur/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_moteur/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -303,15 +123,7 @@
       <workItem from="1766344336752" duration="2212000" />
       <workItem from="1766377359510" duration="6972000" />
       <workItem from="1766387894704" duration="3641000" />
-      <workItem from="1766392619895" duration="2427000" />
-    </task>
-    <task id="LOCAL-00009" summary="language">
-      <option name="closed" value="true" />
-      <created>1765644751844</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1765644751844</updated>
+      <workItem from="1766392619895" duration="2816000" />
     </task>
     <task id="LOCAL-00010" summary="déclaration classes métiers">
       <option name="closed" value="true" />
@@ -697,14 +509,21 @@
       <option name="project" value="LOCAL" />
       <updated>1766393196005</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="pieces">
+      <option name="closed" value="true" />
+      <created>1766405814528</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1766405814528</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value=" création classes métiers fr" />
     <MESSAGE value=" création classes métiers société_cliente" />
     <MESSAGE value="startapp" />
     <MESSAGE value="startapp fournisseurs" />
@@ -729,14 +548,15 @@
     <MESSAGE value="modele utilisateurs" />
     <MESSAGE value="modele utilisateurs corrections" />
     <MESSAGE value="admin global admin local" />
-    <option name="LAST_COMMIT_MESSAGE" value="admin global admin local" />
+    <MESSAGE value="pieces" />
+    <option name="LAST_COMMIT_MESSAGE" value="pieces" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py</url>
-          <line>269</line>
+          <line>268</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

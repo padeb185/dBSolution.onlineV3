@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class PieceTainArConfig(AppConfig):
+class PieceTainAvConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'piece.piece_tain_AR'
+    name = 'piece.piece_train_AV'
