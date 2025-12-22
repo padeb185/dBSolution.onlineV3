@@ -1,4 +1,8 @@
 from django.shortcuts import redirect
+from django.conf import settings
+from django.apps import apps
+
+
 
 class TOTPRequiredMiddleware:
     """
@@ -6,7 +10,6 @@ class TOTPRequiredMiddleware:
     Protège toutes les vues sauf login, login_totp, totp_setup, logout, admin, static, media.
     """
 
-    # Exclusions
     EXCLUDED_PATHS = (
         "/login/",
         "/logout/",
@@ -31,11 +34,13 @@ class TOTPRequiredMiddleware:
         if request.session.get("totp_verified", False):
             return self.get_response(request)
 
-        # Skip si l'URL commence par un des chemins exclus
-        # On gère i18n en vérifiant si path contient /fr/ devant
+        # Skip si l'URL commence par un des chemins exclus (gère i18n)
         for p in self.EXCLUDED_PATHS:
-            if path.startswith(p) or path.startswith("/fr" + p):
+            if path.startswith(p) or path.startswith(f"/fr{p}"):
                 return self.get_response(request)
 
-        # Sinon, redirige vers TOTP
-        return redirect("login_totp")
+        # Redirige vers la page de TOTP seulement si l'utilisateur a TOTP activé
+        if getattr(request.user, "totp_enabled", False):
+            return redirect("login_totp")
+
+        return self.get_response(request)

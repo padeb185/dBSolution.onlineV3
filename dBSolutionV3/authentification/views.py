@@ -64,16 +64,26 @@ def login_totp(request):
 
 
 
+
+
+
 @login_required
 def totp_setup(request):
-    user = request.user
+    user = request.user  # c'est un Utilisateur avec email_google
 
     if not user.totp_secret:
-        user.generate_totp_secret()  # Méthode du modèle
+        user.generate_totp_secret()
+        user.totp_enabled = True
+        user.save(update_fields=['totp_secret', 'totp_enabled'])
 
-    uri = user.get_totp_uri()       # Méthode du modèle pour provisioning URI
+    # Génération de l'URI TOTP
+    totp_uri = pyotp.totp.TOTP(user.totp_secret).provisioning_uri(
+        name=user.email_google,
+        issuer_name="dBSolution"
+    )
 
-    qr = qrcode.make(uri)
+    # Création du QR code
+    qr = qrcode.make(totp_uri)
     buffer = BytesIO()
     qr.save(buffer, format="PNG")
     qr_base64 = base64.b64encode(buffer.getvalue()).decode()
@@ -81,5 +91,5 @@ def totp_setup(request):
     return render(
         request,
         "totp/setup.html",
-        {"qr_code": qr_base64},
+        {"qr_code": qr_base64}
     )
