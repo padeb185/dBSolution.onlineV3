@@ -6,9 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="pieces">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_moteur/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_moteur/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_boite/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_boite/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_moteur/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_moteur/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,15 +122,7 @@
       <workItem from="1766344336752" duration="2212000" />
       <workItem from="1766377359510" duration="6972000" />
       <workItem from="1766387894704" duration="3641000" />
-      <workItem from="1766392619895" duration="2816000" />
-    </task>
-    <task id="LOCAL-00010" summary="déclaration classes métiers">
-      <option name="closed" value="true" />
-      <created>1765645025007</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1765645025007</updated>
+      <workItem from="1766392619895" duration="4379000" />
     </task>
     <task id="LOCAL-00011" summary="déclaration classes métiers">
       <option name="closed" value="true" />
@@ -517,7 +508,15 @@
       <option name="project" value="LOCAL" />
       <updated>1766405814528</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="pieces">
+      <option name="closed" value="true" />
+      <created>1766406457778</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1766406457778</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
