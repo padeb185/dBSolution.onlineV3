@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="boite et moteur">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_fluides/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_fluides/models.py" afterDir="false" />
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="fluides">
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_filtres/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_filtres/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,15 +120,7 @@
       <workItem from="1766344336752" duration="2212000" />
       <workItem from="1766377359510" duration="6972000" />
       <workItem from="1766387894704" duration="3641000" />
-      <workItem from="1766392619895" duration="4968000" />
-    </task>
-    <task id="LOCAL-00012" summary="déclaration classes métiers 14-12">
-      <option name="closed" value="true" />
-      <created>1765699358361</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1765699358361</updated>
+      <workItem from="1766392619895" duration="5201000" />
     </task>
     <task id="LOCAL-00013" summary="blason home.html">
       <option name="closed" value="true" />
@@ -515,14 +506,21 @@
       <option name="project" value="LOCAL" />
       <updated>1766409732934</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="fluides">
+      <option name="closed" value="true" />
+      <created>1766410336065</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1766410336065</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="startapp" />
     <MESSAGE value="startapp fournisseurs" />
     <MESSAGE value="ajout voiture pneus admin et admin forms" />
     <MESSAGE value="voitureexemplaire" />
@@ -547,7 +545,8 @@
     <MESSAGE value="admin global admin local" />
     <MESSAGE value="pieces" />
     <MESSAGE value="boite et moteur" />
-    <option name="LAST_COMMIT_MESSAGE" value="boite et moteur" />
+    <MESSAGE value="fluides" />
+    <option name="LAST_COMMIT_MESSAGE" value="fluides" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
