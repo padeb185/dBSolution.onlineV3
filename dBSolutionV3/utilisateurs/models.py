@@ -1,4 +1,6 @@
 import uuid
+
+import pyotp
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
@@ -56,7 +58,14 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
 
     # TOTP
-    totp_secret = models.CharField(max_length=16, default=random_hex(10))
+    totp_secret = models.CharField(
+        max_length=50,
+        blank=True,
+        null=True,
+        editable=False,
+    )
+    totp_enabled = models.BooleanField(default=False)
+
 
     objects = UtilisateurManager()
 
@@ -85,6 +94,18 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
     def verify_totp(self, token):
         """Vérifie un token fourni par l'utilisateur"""
         return str(self.get_totp_token()) == str(token)
+
+    def generate_totp_secret(self):
+        self.totp_secret = pyotp.random_base32()
+        self.save(update_fields=["totp_secret"])
+
+    def get_totp_uri(self):
+        return pyotp.totp.TOTP(self.totp_secret).provisioning_uri(
+            name=self.email,
+            issuer_name="dBSolution"
+        )
+
+
 
     def __str__(self):
         return f"{self.prenom} {self.nom}"

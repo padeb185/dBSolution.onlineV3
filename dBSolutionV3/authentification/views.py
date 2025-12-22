@@ -4,6 +4,11 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import gettext as _
 from .forms import TOTPLoginForm
+import qrcode
+import base64
+from io import BytesIO
+
+
 
 
 
@@ -55,4 +60,26 @@ def login_totp(request):
             "form": form,
             "message": message,
         },
+    )
+
+
+
+@login_required
+def totp_setup(request):
+    user = request.user
+
+    if not user.totp_secret:
+        user.generate_totp_secret()  # Méthode du modèle
+
+    uri = user.get_totp_uri()       # Méthode du modèle pour provisioning URI
+
+    qr = qrcode.make(uri)
+    buffer = BytesIO()
+    qr.save(buffer, format="PNG")
+    qr_base64 = base64.b64encode(buffer.getvalue()).decode()
+
+    return render(
+        request,
+        "totp/setup.html",
+        {"qr_code": qr_base64},
     )
