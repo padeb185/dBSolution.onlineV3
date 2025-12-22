@@ -91,6 +91,9 @@ class Piece(models.Model):
     organe = models.CharField(max_length=100, blank=True)
     marque = models.CharField(max_length=100, blank=True)
 
+    class Meta:
+        abstract = False
+
     def __str__(self):
         return f"{self.organe or 'Pièce'} - {self.marque or 'Marque'}"
 
@@ -101,7 +104,7 @@ class Piece(models.Model):
 
 class Inventaire(models.Model):
     piece = models.ForeignKey(
-        Piece,
+        "piece.Piece",
         on_delete=models.CASCADE,
         related_name="inventaires"
     )

@@ -7,7 +7,8 @@
     <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="pieces et fluides">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_filtres/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_filtres/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_fluides/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_fluides/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_moteur/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_moteur/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,15 +123,8 @@
       <workItem from="1766344336752" duration="2212000" />
       <workItem from="1766377359510" duration="6972000" />
       <workItem from="1766387894704" duration="3641000" />
-      <workItem from="1766392619895" duration="6939000" />
-    </task>
-    <task id="LOCAL-00015" summary=" création classes métiers société_cliente">
-      <option name="closed" value="true" />
-      <created>1765705787433</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1765705787433</updated>
+      <workItem from="1766392619895" duration="7109000" />
+      <workItem from="1766416943144" duration="2836000" />
     </task>
     <task id="LOCAL-00016" summary=" création classes métiers société_cliente">
       <option name="closed" value="true" />
@@ -516,7 +510,15 @@
       <option name="project" value="LOCAL" />
       <updated>1766410711622</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="pieces et fluides">
+      <option name="closed" value="true" />
+      <created>1766412426183</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1766412426183</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
