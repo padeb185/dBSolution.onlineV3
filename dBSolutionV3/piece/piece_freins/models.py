@@ -31,6 +31,7 @@ class PieceFreins(Piece):
         ("flexibles", "Flexibles"),
         ("tuyau", "Tuyau"),
         ("nippe", "Nippe"),
+        ("master_vac", "Master vac"),
     )
 
     type_piece_frein = models.CharField(
