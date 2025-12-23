@@ -1,21 +1,15 @@
 from django.db import models
 import uuid
-from adresse.models import Adresse
+from client.models import Client
 
 
-class SocieteCliente(models.Model):
+class SocieteCliente(Client):
     id_societe_cliente = models.UUIDField(
         primary_key=True,
         default=uuid.uuid4,
         editable=False
     )
 
-    nom = models.CharField(
-        max_length=100,
-        unique=True,
-        verbose_name="Nom de la société"
-    )
-    adresse = models.OneToOneField(Adresse, on_delete=models.CASCADE)
 
     directeur = models.CharField(
         max_length=100,
@@ -43,12 +37,7 @@ class SocieteCliente(models.Model):
     )
     numero_entreprise = models.CharField(max_length=255, blank=True, null=True)
     taux_tva = models.DecimalField(max_digits=5, decimal_places=2, default=21.00, verbose_name="Taux de TVA (%)")
-    numero_telephone = models.CharField(max_length=20, null=True, blank=True)
-    email = models.EmailField(max_length=100, null=True, blank=True)
 
-    # --- Métadonnées ---
-    is_active = models.BooleanField(default=True)
-    created_at = models.DateTimeField(auto_now_add=True)
 
 
 
@@ -57,5 +46,4 @@ class SocieteCliente(models.Model):
         verbose_name_plural = "Sociétés"
         ordering = ['nom']
 
-    def __str__(self):
-        return self.nom
+
