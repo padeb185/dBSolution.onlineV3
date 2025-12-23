@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="pieces suite 6">
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="ajout shared app">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,23 +128,7 @@
       <workItem from="1766473515843" duration="6175000" />
       <workItem from="1766484063540" duration="4112000" />
       <workItem from="1766488244979" duration="1331000" />
-      <workItem from="1766492690037" duration="1050000" />
-    </task>
-    <task id="LOCAL-00025" summary="voitureexemplaire couleur">
-      <option name="closed" value="true" />
-      <created>1765779229712</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1765779229712</updated>
-    </task>
-    <task id="LOCAL-00026" summary="langue traductions">
-      <option name="closed" value="true" />
-      <created>1765795990931</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1765795990931</updated>
+      <workItem from="1766492690037" duration="2600000" />
     </task>
     <task id="LOCAL-00027" summary="langue traductions">
       <option name="closed" value="true" />
@@ -521,14 +506,29 @@
       <option name="project" value="LOCAL" />
       <updated>1766488275760</updated>
     </task>
-    <option name="localTasksCounter" value="74" />
+    <task id="LOCAL-00074" summary="pieces suite 6">
+      <option name="closed" value="true" />
+      <created>1766493758788</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1766493758788</updated>
+    </task>
+    <task id="LOCAL-00075" summary="ajout shared app">
+      <option name="closed" value="true" />
+      <created>1766494024459</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1766494024459</updated>
+    </task>
+    <option name="localTasksCounter" value="76" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="admin login widget tweaks" />
     <MESSAGE value="admin login test" />
     <MESSAGE value="login" />
     <MESSAGE value="login prmier jet" />
@@ -553,14 +553,15 @@
     <MESSAGE value="pieces suite 4" />
     <MESSAGE value="pieces suite 5" />
     <MESSAGE value="pieces suite 6" />
-    <option name="LAST_COMMIT_MESSAGE" value="pieces suite 6" />
+    <MESSAGE value="ajout shared app" />
+    <option name="LAST_COMMIT_MESSAGE" value="ajout shared app" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py</url>
-          <line>269</line>
+          <line>279</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

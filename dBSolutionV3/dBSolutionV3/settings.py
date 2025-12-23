@@ -73,15 +73,15 @@ SHARED_APPS = (
     'django_celery_beat',
     'djmoney',
     'channels',
-    'mptt',
+
     'polymorphic',
-    'roles',
-    'fsm',
-    'river',
+
     'chartjs',
     'anymail',
-    'notifications',
+
     'django_pandas',
+
+
 
 )
 
@@ -93,7 +93,6 @@ TENANT_APPS = (
     'societe_cliente',
     'fournisseur',
     'carrossier',
-
 
     'piece',
     'piece.piece_ligne_achat',
@@ -131,8 +130,6 @@ TENANT_APPS = (
     'piece.piece_train_AR',
     'piece.piece_transmission',
 
-
-
     'voiture',
     'voiture.voiture_marque',
     'voiture.voiture_modele',
@@ -161,19 +158,14 @@ INSTALLED_APPS = list(SHARED_APPS) + list(TENANT_APPS)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
-
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'authentification.middleware.TOTPRequiredMiddleware',
-
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
     'django_tenants.middleware.main.TenantMainMiddleware',
 
 ]
