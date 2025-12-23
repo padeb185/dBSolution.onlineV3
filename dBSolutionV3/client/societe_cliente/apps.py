@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class SocieteClienteConfig(AppConfig):
-    name = 'societe_cliente'
+    name = 'client.societe_cliente'

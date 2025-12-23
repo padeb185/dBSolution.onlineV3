@@ -4,9 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="jantes piece">
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="roue rechange piece">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/client/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/client/societe_cliente/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/client/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/client/apps.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/client/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/client/societe_cliente/migrations/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/client/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/client/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/client/societe_cliente/tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/client/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/client/societe_cliente/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/facture/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/facture/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/societe_cliente/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/societe_cliente/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/client/societe_cliente/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/societe_cliente/admin_forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/client/societe_cliente/admin_forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/societe_cliente/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/client/societe_cliente/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/societe_cliente/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/societe_cliente/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/client/societe_cliente/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/societe_cliente/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/societe_cliente/views.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,11 +84,11 @@
       <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3\dBSolutionV3\client" />
       <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3\dBSolutionV3\piece" />
       <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3\dBSolutionV3\voiture" />
       <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3\dBSolutionV3\utilisateurs" />
       <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3\dBSolutionV3\theme\templates" />
-      <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3\dBSolutionV3" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -128,15 +145,7 @@
       <workItem from="1766473515843" duration="6175000" />
       <workItem from="1766484063540" duration="4112000" />
       <workItem from="1766488244979" duration="1331000" />
-      <workItem from="1766492690037" duration="5076000" />
-    </task>
-    <task id="LOCAL-00031" summary="Facturation Peppol">
-      <option name="closed" value="true" />
-      <created>1766131707755</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1766131707755</updated>
+      <workItem from="1766492690037" duration="6310000" />
     </task>
     <task id="LOCAL-00032" summary="Facturation Peppol">
       <option name="closed" value="true" />
@@ -522,14 +531,21 @@
       <option name="project" value="LOCAL" />
       <updated>1766496727544</updated>
     </task>
-    <option name="localTasksCounter" value="80" />
+    <task id="LOCAL-00080" summary="roue rechange piece">
+      <option name="closed" value="true" />
+      <created>1766497957669</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1766497957669</updated>
+    </task>
+    <option name="localTasksCounter" value="81" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="login prmier jet" />
     <MESSAGE value="login tailwind" />
     <MESSAGE value="voiture et utilisateurs" />
     <MESSAGE value="voiture et utilisateurs corrections" />
@@ -554,7 +570,8 @@
     <MESSAGE value="ajout shared app" />
     <MESSAGE value="migrate apps et piece hydraulique" />
     <MESSAGE value="jantes piece" />
-    <option name="LAST_COMMIT_MESSAGE" value="jantes piece" />
+    <MESSAGE value="roue rechange piece" />
+    <option name="LAST_COMMIT_MESSAGE" value="roue rechange piece" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

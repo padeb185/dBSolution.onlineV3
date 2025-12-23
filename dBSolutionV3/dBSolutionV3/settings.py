@@ -90,7 +90,7 @@ TENANT_APPS = (
     'facture',
 
     'client',
-    'societe_cliente',
+    'client.societe_cliente',
     'fournisseur',
     'carrossier',
 
