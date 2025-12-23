@@ -39,8 +39,6 @@ class SocieteCliente(Client):
     taux_tva = models.DecimalField(max_digits=5, decimal_places=2, default=21.00, verbose_name="Taux de TVA (%)")
 
 
-
-
     class Meta:
         verbose_name = "Société"
         verbose_name_plural = "Sociétés"

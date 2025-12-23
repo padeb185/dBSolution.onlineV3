@@ -4,10 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="client societe cliente">
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="client societe cliente 2">
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/client/societe_cliente/migrations/0003_remove_societecliente_adresse_and_more.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/outillage/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/outillage/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/outillage/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/outillage/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/outillage/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/outillage/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/outillage/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/client/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/client/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/client/societe_cliente/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/client/societe_cliente/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_boite/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_boite/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -129,15 +138,8 @@
       <workItem from="1766473515843" duration="6175000" />
       <workItem from="1766484063540" duration="4112000" />
       <workItem from="1766488244979" duration="1331000" />
-      <workItem from="1766492690037" duration="6760000" />
-    </task>
-    <task id="LOCAL-00033" summary="Facturation Peppol">
-      <option name="closed" value="true" />
-      <created>1766138320746</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1766138320746</updated>
+      <workItem from="1766492690037" duration="7054000" />
+      <workItem from="1766501290993" duration="311000" />
     </task>
     <task id="LOCAL-00034" summary="societecliente admin">
       <option name="closed" value="true" />
@@ -523,14 +525,21 @@
       <option name="project" value="LOCAL" />
       <updated>1766499124734</updated>
     </task>
-    <option name="localTasksCounter" value="82" />
+    <task id="LOCAL-00082" summary="client societe cliente 2">
+      <option name="closed" value="true" />
+      <created>1766499624246</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1766499624246</updated>
+    </task>
+    <option name="localTasksCounter" value="83" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="voiture et utilisateurs" />
     <MESSAGE value="voiture et utilisateurs corrections" />
     <MESSAGE value="login totp" />
     <MESSAGE value="modele utilisateurs" />
@@ -555,14 +564,15 @@
     <MESSAGE value="jantes piece" />
     <MESSAGE value="roue rechange piece" />
     <MESSAGE value="client societe cliente" />
-    <option name="LAST_COMMIT_MESSAGE" value="client societe cliente" />
+    <MESSAGE value="client societe cliente 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="client societe cliente 2" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py</url>
-          <line>286</line>
+          <line>288</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
