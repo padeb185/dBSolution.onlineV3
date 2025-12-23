@@ -129,6 +129,7 @@ TENANT_APPS = (
     'piece.piece_train_AV',
     'piece.piece_train_AR',
     'piece.piece_transmission',
+    'piece.piece_hydraulique',
 
     'voiture',
     'voiture.voiture_marque',
@@ -176,7 +177,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            BASE_DIR / "theme/templates",  # <-- ajoute ton dossier ici
+            BASE_DIR / "theme/templates",
         ],
         'APP_DIRS': True,
         'OPTIONS': {

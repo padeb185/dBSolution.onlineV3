@@ -1,5 +1,5 @@
 from django.db import models
-from .piece import Piece  # ou depuis le module où se trouve Piece
+from piece.models import Piece
 
 class PieceHydraulique(Piece):
     FRONT_LIFT = "FRONT_LIFT"
