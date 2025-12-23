@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="pieces et fluides  suppression">
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="pieces moteur">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_moteur/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_moteur/models.py" afterDir="false" />
     </list>
@@ -124,15 +124,8 @@
       <workItem from="1766392619895" duration="7109000" />
       <workItem from="1766416943144" duration="2884000" />
       <workItem from="1766424974338" duration="1076000" />
-      <workItem from="1766467163850" duration="3252000" />
-    </task>
-    <task id="LOCAL-00017" summary="startapp">
-      <option name="closed" value="true" />
-      <created>1765708779231</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1765708779231</updated>
+      <workItem from="1766467163850" duration="3440000" />
+      <workItem from="1766473515843" duration="703000" />
     </task>
     <task id="LOCAL-00018" summary="startapp">
       <option name="closed" value="true" />
@@ -518,14 +511,21 @@
       <option name="project" value="LOCAL" />
       <updated>1766419846434</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary="pieces moteur">
+      <option name="closed" value="true" />
+      <created>1766471642089</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1766471642089</updated>
+    </task>
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="voitureexemplaire societe nullable" />
     <MESSAGE value="voitureexemplaire couleur" />
     <MESSAGE value="langue traductions" />
     <MESSAGE value="Facturation Peppol" />
@@ -550,7 +550,8 @@
     <MESSAGE value="filtres" />
     <MESSAGE value="pieces et fluides" />
     <MESSAGE value="pieces et fluides  suppression" />
-    <option name="LAST_COMMIT_MESSAGE" value="pieces et fluides  suppression" />
+    <MESSAGE value="pieces moteur" />
+    <option name="LAST_COMMIT_MESSAGE" value="pieces moteur" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

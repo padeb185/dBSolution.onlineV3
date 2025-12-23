@@ -16,7 +16,6 @@ class PieceMoteur(Piece):
         ("culasse", "Culasse"),
         ("carter_huile", "Carter Huile"),
         ("pompe_huile", "Pompe Huile"),
-        ("pompe_eau", "Pompe Eau"),
         ("échangeur", "Échangeur"),
         ("pressoirs_hydraulique", "Pressoirs Hydraulique"),
         ("joint_culasse", "Joint de Culasse"),
