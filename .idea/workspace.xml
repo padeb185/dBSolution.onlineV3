@@ -4,18 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="outillage investissements">
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="utilisateur et maintenance">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/carrossier/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/carrosserie/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/carrossier/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/carrosserie/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/carrossier/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/carrosserie/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/carrossier/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/carrosserie/migrations/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/carrossier/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/carrosserie/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/carrossier/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/carrosserie/tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/carrossier/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/carrosserie/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/apprentis/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/apprentis/apps.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/carrossier/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/carrossier/apps.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/chef_mecanicien/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/chef_mecanicien/apps.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/comptabilité/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/comptabilité/apps.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/direction/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/direction/apps.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/instructeur/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/instructeur/apps.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/magasinier/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/magasinier/apps.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/mecanicien/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/mecanicien/apps.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/vendeur/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/vendeur/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/maintenance/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/maintenance/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/migrations/0001_initial.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,15 +139,8 @@
       <workItem from="1766484063540" duration="4112000" />
       <workItem from="1766488244979" duration="1331000" />
       <workItem from="1766492690037" duration="7054000" />
-      <workItem from="1766501290993" duration="2518000" />
-    </task>
-    <task id="LOCAL-00035" summary="facturation générationXML">
-      <option name="closed" value="true" />
-      <created>1766144582946</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1766144582946</updated>
+      <workItem from="1766501290993" duration="5356000" />
+      <workItem from="1766508168768" duration="979000" />
     </task>
     <task id="LOCAL-00036" summary="séparation des sociétés">
       <option name="closed" value="true" />
@@ -532,14 +526,21 @@
       <option name="project" value="LOCAL" />
       <updated>1766501868527</updated>
     </task>
-    <option name="localTasksCounter" value="84" />
+    <task id="LOCAL-00084" summary="utilisateur et maintenance">
+      <option name="closed" value="true" />
+      <created>1766505337957</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1766505337957</updated>
+    </task>
+    <option name="localTasksCounter" value="85" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="login totp" />
     <MESSAGE value="modele utilisateurs" />
     <MESSAGE value="modele utilisateurs corrections" />
     <MESSAGE value="admin global admin local" />
@@ -564,7 +565,8 @@
     <MESSAGE value="client societe cliente" />
     <MESSAGE value="client societe cliente 2" />
     <MESSAGE value="outillage investissements" />
-    <option name="LAST_COMMIT_MESSAGE" value="outillage investissements" />
+    <MESSAGE value="utilisateur et maintenance" />
+    <option name="LAST_COMMIT_MESSAGE" value="utilisateur et maintenance" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

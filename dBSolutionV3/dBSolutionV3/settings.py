@@ -92,7 +92,7 @@ TENANT_APPS = (
     'client',
     'client.societe_cliente',
     'fournisseur',
-    'carrossier',
+    'carrosserie',
 
     'outillage',
     'investissements',
@@ -165,7 +165,7 @@ TENANT_APPS = (
     'utilisateurs.comptabilité',
     'utilisateurs.direction',
     'utilisateurs.instructeur',
-    'utilisateurs.maganisier',
+    'utilisateurs.magasinier',
     'utilisateurs.vendeur',
 
 

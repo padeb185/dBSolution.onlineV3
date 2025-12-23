@@ -1,6 +1,6 @@
 from django.db import models
 
-class Carrossier(models.Model):
+class Carrosserie(models.Model):
     id = models.AutoField(primary_key=True)
     nom_societe = models.CharField(max_length=100)
     adresse = models.CharField(max_length=255, blank=True, null=True)
@@ -10,8 +10,8 @@ class Carrossier(models.Model):
     numero_tva = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
-        verbose_name = "Carrossier"
-        verbose_name_plural = "Carrossiers"
+        verbose_name = "Carrosserie"
+        verbose_name_plural = "Carrosseries"
 
     def __str__(self):
         return self.nom_societe
@@ -19,10 +19,12 @@ class Carrossier(models.Model):
 
 class Intervention(models.Model):
     id = models.AutoField(primary_key=True)
-    carrossier = models.ForeignKey(
-        Carrossier,
+    carrosserie = models.ForeignKey(
+        "carrosserie.Carrosserie",
         on_delete=models.CASCADE,
-        related_name="interventions"
+        related_name="interventions",
+        null = True,
+        blank = True
     )
     pare_chocs = models.BooleanField(default=False)
     bouclier = models.BooleanField(default=False)
@@ -54,4 +56,4 @@ class Intervention(models.Model):
         verbose_name_plural = "Interventions"
 
     def __str__(self):
-        return f"Intervention {self.id} – {self.carrossier.nom_societe}"
+        return f"Intervention {self.id} – {self.carrosserie.nom_societe}"
