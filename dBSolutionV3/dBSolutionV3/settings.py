@@ -74,6 +74,7 @@ TENANT_APPS = (
     'client',
     'societe_cliente',
     'fournisseur',
+    'carrossier',
 
 
     'piece',

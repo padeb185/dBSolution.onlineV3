@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="pieces suite 4">
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="pieces suite 5">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_essuyage/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_essuyage/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_fluides/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_fluides/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/carrossier/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/carrossier/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,15 +127,7 @@
       <workItem from="1766424974338" duration="1076000" />
       <workItem from="1766467163850" duration="3440000" />
       <workItem from="1766473515843" duration="6175000" />
-      <workItem from="1766484063540" duration="3331000" />
-    </task>
-    <task id="LOCAL-00023" summary="voitureexemplaire societe nullable">
-      <option name="closed" value="true" />
-      <created>1765778415712</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1765778415712</updated>
+      <workItem from="1766484063540" duration="4112000" />
     </task>
     <task id="LOCAL-00024" summary="voitureexemplaire couleur">
       <option name="closed" value="true" />
@@ -521,14 +513,21 @@
       <option name="project" value="LOCAL" />
       <updated>1766486598388</updated>
     </task>
-    <option name="localTasksCounter" value="72" />
+    <task id="LOCAL-00072" summary="pieces suite 5">
+      <option name="closed" value="true" />
+      <created>1766487702786</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1766487702786</updated>
+    </task>
+    <option name="localTasksCounter" value="73" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="séparation des sociétés" />
     <MESSAGE value="correction client societe_cliente" />
     <MESSAGE value="admin login widget tweaks" />
     <MESSAGE value="admin login test" />
@@ -553,14 +552,15 @@
     <MESSAGE value="pieces suite 2" />
     <MESSAGE value="pieces suite 3" />
     <MESSAGE value="pieces suite 4" />
-    <option name="LAST_COMMIT_MESSAGE" value="pieces suite 4" />
+    <MESSAGE value="pieces suite 5" />
+    <option name="LAST_COMMIT_MESSAGE" value="pieces suite 5" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py</url>
-          <line>268</line>
+          <line>269</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
