@@ -97,6 +97,11 @@ TENANT_APPS = (
     'outillage',
     'investissements',
 
+    'maintenance',
+    'maintenance.kilometres',
+    'maintenance.check_up',
+    'maintenance.entretien',
+
     'piece',
     'piece.piece_ligne_achat',
     'piece.piece_ligne_inventaire',
@@ -153,6 +158,15 @@ TENANT_APPS = (
     'api',
     'authentification',
     'utilisateurs',
+    'utilisateurs.mecanicien',
+    'utilisateurs.apprentis',
+    'utilisateurs.chef_mecanicien',
+    'utilisateurs.carrossier',
+    'utilisateurs.comptabilité',
+    'utilisateurs.direction',
+    'utilisateurs.instructeur',
+    'utilisateurs.maganisier',
+    'utilisateurs.vendeur',
 
 
 

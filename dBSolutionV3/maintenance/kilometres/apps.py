@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class CarrossierConfig(AppConfig):
+class KilometresConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'utilisateurs.carrossier'
+    name = 'maintenance.kilometres'
