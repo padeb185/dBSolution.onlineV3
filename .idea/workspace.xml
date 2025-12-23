@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="pieces et fluides">
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="pieces et fluides  suppression">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_fluides/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_fluides/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_moteur/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_moteur/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -124,15 +122,9 @@
       <workItem from="1766377359510" duration="6972000" />
       <workItem from="1766387894704" duration="3641000" />
       <workItem from="1766392619895" duration="7109000" />
-      <workItem from="1766416943144" duration="2836000" />
-    </task>
-    <task id="LOCAL-00016" summary=" création classes métiers société_cliente">
-      <option name="closed" value="true" />
-      <created>1765706359947</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1765706359947</updated>
+      <workItem from="1766416943144" duration="2884000" />
+      <workItem from="1766424974338" duration="1076000" />
+      <workItem from="1766467163850" duration="3252000" />
     </task>
     <task id="LOCAL-00017" summary="startapp">
       <option name="closed" value="true" />
@@ -518,14 +510,21 @@
       <option name="project" value="LOCAL" />
       <updated>1766412426183</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="pieces et fluides  suppression">
+      <option name="closed" value="true" />
+      <created>1766419846433</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1766419846434</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="voitureexemplaire" />
     <MESSAGE value="voitureexemplaire societe nullable" />
     <MESSAGE value="voitureexemplaire couleur" />
     <MESSAGE value="langue traductions" />
@@ -550,7 +549,8 @@
     <MESSAGE value="fluides" />
     <MESSAGE value="filtres" />
     <MESSAGE value="pieces et fluides" />
-    <option name="LAST_COMMIT_MESSAGE" value="pieces et fluides" />
+    <MESSAGE value="pieces et fluides  suppression" />
+    <option name="LAST_COMMIT_MESSAGE" value="pieces et fluides  suppression" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
