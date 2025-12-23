@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="pieces suite 5">
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="pieces suite 6">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/carrossier/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/carrossier/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,14 +126,8 @@
       <workItem from="1766467163850" duration="3440000" />
       <workItem from="1766473515843" duration="6175000" />
       <workItem from="1766484063540" duration="4112000" />
-    </task>
-    <task id="LOCAL-00024" summary="voitureexemplaire couleur">
-      <option name="closed" value="true" />
-      <created>1765779154505</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1765779154505</updated>
+      <workItem from="1766488244979" duration="1331000" />
+      <workItem from="1766492690037" duration="1050000" />
     </task>
     <task id="LOCAL-00025" summary="voitureexemplaire couleur">
       <option name="closed" value="true" />
@@ -521,14 +513,21 @@
       <option name="project" value="LOCAL" />
       <updated>1766487702786</updated>
     </task>
-    <option name="localTasksCounter" value="73" />
+    <task id="LOCAL-00073" summary="pieces suite 6">
+      <option name="closed" value="true" />
+      <created>1766488275760</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1766488275760</updated>
+    </task>
+    <option name="localTasksCounter" value="74" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="correction client societe_cliente" />
     <MESSAGE value="admin login widget tweaks" />
     <MESSAGE value="admin login test" />
     <MESSAGE value="login" />
@@ -553,7 +552,8 @@
     <MESSAGE value="pieces suite 3" />
     <MESSAGE value="pieces suite 4" />
     <MESSAGE value="pieces suite 5" />
-    <option name="LAST_COMMIT_MESSAGE" value="pieces suite 5" />
+    <MESSAGE value="pieces suite 6" />
+    <option name="LAST_COMMIT_MESSAGE" value="pieces suite 6" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
