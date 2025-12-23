@@ -64,6 +64,24 @@ SHARED_APPS = (
     'theme',
 
     'widget_tweaks',
+    'django_filters',
+    'crispy_forms',
+    'django_extensions',
+    'import_export',
+    'allauth',
+    'guardian',
+    'django_celery_beat',
+    'djmoney',
+    'channels',
+    'mptt',
+    'polymorphic',
+    'roles',
+    'fsm',
+    'river',
+    'chartjs',
+    'anymail',
+    'notifications',
+    'django_pandas',
 
 )
 
