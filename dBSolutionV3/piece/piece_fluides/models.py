@@ -49,29 +49,3 @@ class InventaireFluide(models.Model):
     def __str__(self):
         return f"{self.fluide} : {self.variation} L"
 
-
-
-
-class InventaireFluide(models.Model):
-    fluide = models.ForeignKey(
-        Fluide,
-        on_delete=models.CASCADE,
-        related_name="inventaires_fluides"
-    )
-
-    variation = models.FloatField(
-        help_text="+ entrée / - sortie (litres)"
-    )
-
-    stock_apres = models.FloatField(default=0.0)
-    commentaire = models.TextField(blank=True)
-    date = models.DateTimeField(default=timezone.now)
-
-    def save(self, *args, **kwargs):
-        self.fluide.quantite_stock += self.variation
-        if self.variation < 0:
-            self.fluide.quantite_utilisee += abs(self.variation)
-
-        self.stock_apres = self.fluide.quantite_stock
-        self.fluide.save()
-        super().save(*args, **kwargs)

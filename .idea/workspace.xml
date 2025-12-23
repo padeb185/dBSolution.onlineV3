@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="pieces suite 3">
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="pieces suite 4">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_electricite/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_electricite/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_electronique/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_electronique/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_freins/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_freins/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_moteur/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_moteur/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_essuyage/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_essuyage/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_fluides/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_fluides/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -129,15 +127,7 @@
       <workItem from="1766424974338" duration="1076000" />
       <workItem from="1766467163850" duration="3440000" />
       <workItem from="1766473515843" duration="6175000" />
-      <workItem from="1766484063540" duration="2484000" />
-    </task>
-    <task id="LOCAL-00022" summary="voitureexemplaire">
-      <option name="closed" value="true" />
-      <created>1765778174225</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1765778174225</updated>
+      <workItem from="1766484063540" duration="3331000" />
     </task>
     <task id="LOCAL-00023" summary="voitureexemplaire societe nullable">
       <option name="closed" value="true" />
@@ -523,14 +513,21 @@
       <option name="project" value="LOCAL" />
       <updated>1766485494466</updated>
     </task>
-    <option name="localTasksCounter" value="71" />
+    <task id="LOCAL-00071" summary="pieces suite 4">
+      <option name="closed" value="true" />
+      <created>1766486598387</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1766486598388</updated>
+    </task>
+    <option name="localTasksCounter" value="72" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="facturation générationXML" />
     <MESSAGE value="séparation des sociétés" />
     <MESSAGE value="correction client societe_cliente" />
     <MESSAGE value="admin login widget tweaks" />
@@ -555,7 +552,8 @@
     <MESSAGE value="pieces suite 1" />
     <MESSAGE value="pieces suite 2" />
     <MESSAGE value="pieces suite 3" />
-    <option name="LAST_COMMIT_MESSAGE" value="pieces suite 3" />
+    <MESSAGE value="pieces suite 4" />
+    <option name="LAST_COMMIT_MESSAGE" value="pieces suite 4" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

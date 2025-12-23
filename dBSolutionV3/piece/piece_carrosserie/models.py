@@ -29,6 +29,7 @@ class LibelleCarrosserie(models.TextChoices):
     COQUILLE_AILE = "COQUILLE", "Coquille d’aile"
     CLIPS = "CLIPS", "Clips"
     VISSERIE = "VISSERIE", "Visserie"
+    CAPOT = "CAPOT", "Capot"
 
 
 class Carrosserie(Piece):
