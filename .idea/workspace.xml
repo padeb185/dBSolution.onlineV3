@@ -4,8 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="pieces moteur">
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="panier">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_ampoules/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_ampoules/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_carrosserie/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_carrosserie/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_feux/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_feux/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_filtres/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_filtres/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_fluides/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_fluides/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_moteur/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_moteur/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -125,15 +131,7 @@
       <workItem from="1766416943144" duration="2884000" />
       <workItem from="1766424974338" duration="1076000" />
       <workItem from="1766467163850" duration="3440000" />
-      <workItem from="1766473515843" duration="703000" />
-    </task>
-    <task id="LOCAL-00018" summary="startapp">
-      <option name="closed" value="true" />
-      <created>1765710004986</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1765710004986</updated>
+      <workItem from="1766473515843" duration="5972000" />
     </task>
     <task id="LOCAL-00019" summary="startapp fournisseurs">
       <option name="closed" value="true" />
@@ -519,14 +517,21 @@
       <option name="project" value="LOCAL" />
       <updated>1766471642089</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="panier">
+      <option name="closed" value="true" />
+      <created>1766474322496</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1766474322497</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="voitureexemplaire couleur" />
     <MESSAGE value="langue traductions" />
     <MESSAGE value="Facturation Peppol" />
     <MESSAGE value="societecliente admin" />
@@ -551,7 +556,8 @@
     <MESSAGE value="pieces et fluides" />
     <MESSAGE value="pieces et fluides  suppression" />
     <MESSAGE value="pieces moteur" />
-    <option name="LAST_COMMIT_MESSAGE" value="pieces moteur" />
+    <MESSAGE value="panier" />
+    <option name="LAST_COMMIT_MESSAGE" value="panier" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

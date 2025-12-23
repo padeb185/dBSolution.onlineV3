@@ -3,6 +3,7 @@ import uuid
 from django.utils import timezone
 
 
+
 class Fabricant(models.Model):
     nom = models.CharField(max_length=100)
     pays = models.CharField(max_length=100, blank=True)
@@ -20,6 +21,7 @@ class CodeBarre(models.Model):
 
 class Piece(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
 
     # Relations véhicule
     modele = models.ForeignKey(
@@ -102,6 +104,8 @@ class Piece(models.Model):
         return float(self.prix_achat) * (1 + float(self.majoration_pourcent) / 100)
 
 
+
+
 class Inventaire(models.Model):
     piece = models.ForeignKey(
         "piece.Piece",
@@ -132,3 +136,8 @@ class Inventaire(models.Model):
             stock_apres=self.piece.quantite_stock,
             date=timezone.now()
         )
+
+
+
+
+

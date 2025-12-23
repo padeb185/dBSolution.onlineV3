@@ -8,6 +8,10 @@ class PieceMoteur(Piece):
         ("arbre_came_ad", "Arbre à cames admission"),
         ("arbre_came_ec", "Arbre à cames échappement"),
         ("vilebrequin", "Vilebrequin"),
+        ("bielle", "Bielle"),
+        ("durite_eau", "Durite Eau"),
+        ("durite_huile","Durite Huile"),
+        ("durite_carburant", "Durite Carburant"),
         ("piston", "Piston"),
         ("soupape", "Soupape"),
         ("bloc", "Bloc moteur"),
@@ -38,7 +42,9 @@ class PieceMoteur(Piece):
         ("rampe_injection", "Rampe Injection"),
         ("turbo", "Turbo"),
         ("joint", "Joint moteur"),
+        ("kit_joints", "Kit de joints"),
         ("poussoirs", "Poussoirs"),
+        ("pompe_eau", "Pompe à Eau"),
 
     )
 
