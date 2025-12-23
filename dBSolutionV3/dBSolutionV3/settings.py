@@ -196,6 +196,11 @@ TEMPLATES = [
 ]
 
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'guardian.backends.ObjectPermissionBackend'
+)
+
 WSGI_APPLICATION = 'dBSolutionV3.wsgi.application'
 
 
