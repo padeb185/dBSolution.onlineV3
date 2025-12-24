@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-24 08:25+0100\n"
+"POT-Creation-Date: 2025-12-24 11:26+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -284,10 +284,13 @@ msgstr "Clienti"
 msgid "%(nom)s %(prenom)s (Client)"
 msgstr "%(nom)s %(prenom)s (Cliente)"
 
-
 #: .\dBSolutionV3\views.py:35
 msgid "Nom d'utilisateur ou mot de passe incorrect"
 msgstr "Nome utente o password errata"
+
+#: .\dBSolutionV3\views.py:82 .\theme\templates\dashboard.html:10
+msgid "Bienvenue sur ton tableau de bord"
+msgstr ""
 
 #: .\facture\models.py:23 .\fournisseur\models.py:37
 msgid "Identifiant Peppol"
@@ -444,7 +447,6 @@ msgstr "Arredi"
 msgid "Ordinateur"
 msgstr "Computer"
 
-
 #: .\investissements\models.py:29
 msgid "Appareil de diagnostic"
 msgstr "Apparecchio di diagnostica"
@@ -529,6 +531,10 @@ msgstr "Data ultimo intervento"
 #: .\maintenance\models.py:41
 msgid "Étiquette"
 msgstr "Etichetta"
+
+#: .\maintenance\models.py:48
+msgid "Kilométrage total"
+msgstr "Chilometraggio totale"
 
 #: .\maintenance\models.py:50
 msgid "Kilométrage à la dernière intervention"
@@ -723,7 +729,6 @@ msgstr "Sensore pressione aspirazione"
 msgid "Régulateur pression carburant"
 msgstr "Regolatore pressione carburante"
 
-
 #: .\piece\piece_electronique\models.py:33
 msgid "Capteur niveau huile"
 msgstr "Sensore livello olio"
@@ -756,6 +761,86 @@ msgstr "Sensore temperatura aspirazione"
 msgid "Capteur d’embrayage"
 msgstr "Sensore frizione"
 
+#: .\theme\templates\base.html:9
+msgid "dBSolution"
+msgstr "dBSolution"
+
+#: .\theme\templates\base.html:19
+msgid "Accueil"
+msgstr "Home"
+
+#: .\theme\templates\base.html:20
+msgid "Tableau de Bord"
+msgstr "Cruscotto"
+
+#: .\theme\templates\base.html:32
+msgid "Changer de langue"
+msgstr "Cambia lingua"
+
+#: .\theme\templates\dashboard.html:7
+msgid "Tableau de bord"
+msgstr "Cruscotto"
+
+#: .\theme\templates\dashboard.html:16
+msgid "Utilisateurs"
+msgstr "Utenti"
+
+
+#: .\theme\templates\dashboard.html:17
+#, fuzzy
+#| msgid "Kilométrage total"
+msgid "Nombre total :"
+msgstr "Chilometraggio totale"
+
+#: .\theme\templates\dashboard.html:22
+msgid "Projets"
+msgstr "Progetti"
+
+#: .\theme\templates\dashboard.html:23
+msgid "Projets actifs :"
+msgstr "Progetti attivi:"
+
+#: .\theme\templates\dashboard.html:28
+msgid "Notifications"
+msgstr "Notifiche"
+
+#: .\theme\templates\dashboard.html:29
+msgid "Messages non lus :"
+msgstr "Messaggi non letti:"
+
+#: .\theme\templates\dashboard.html:36
+msgid "Dernières activités"
+msgstr "Ultime attività"
+
+#: .\theme\templates\dashboard.html:40
+msgid "Date"
+msgstr "Data"
+
+#: .\theme\templates\dashboard.html:41
+msgid "Utilisateur"
+msgstr "Utente"
+
+#: .\theme\templates\dashboard.html:42
+msgid "Action"
+msgstr "Azione"
+
+#: .\theme\templates\dashboard.html:49 .\theme\templates\login.html:5
+#: .\theme\templates\login.html:9
+msgid "Connexion"
+msgstr "Accesso"
+
+#: .\theme\templates\dashboard.html:54
+msgid "Modification de projet"
+msgstr "Modifica progetto"
+
+#: .\theme\templates\home.html:13
+msgid "Bienvenue"
+msgstr "Benvenuto"
+
+#: .\theme\templates\home.html:16
+msgid "Ceci est un paragraphe stylé avec Tailwind."
+msgstr "Questo è un paragrafo stilizzato con Tailwind."
+
 #: .\theme\templates\login.html:18
 msgid "Accès à votre compte"
 msgstr "Accesso al tuo account"
@@ -780,7 +865,13 @@ msgstr "Sicurezza"
 msgid ""
 "L’accès est protégé. Une vérification supplémentaire peut être requise selon "
 "votre configuration de sécurité."
-msgstr "L’accesso è protetto. Potrebbe essere richiesta una verifica aggiuntiva in base alla tua configurazione di sicurezza."
+msgstr ""
+"L’accesso è protetto. Potrebbe essere richiesta una verifica aggiuntiva in "
+"base alla tua configurazione di sicurezza."
+
+#: .\theme\templates\login.totp.html:5 .\theme\templates\login.totp.html:13
+msgid "Connexion sécurisée"
+msgstr "Accesso sicuro"
 
 #: .\theme\templates\login.totp.html:17
 msgid "Veuillez entrer le code généré par Google Authenticator"
@@ -813,8 +904,3 @@ msgstr "Se non puoi scansionare il codice QR, usa questo codice segreto:"
 #: .\theme\templates\totp\setup.html:28
 msgid "J’ai configuré Google Authenticator"
 msgstr "Ho configurato Google Authenticator"
-
-
-#: .\maintenance\models.py:48
-msgid "Kilométrage total"
-msgstr "Chilometraggio totale"

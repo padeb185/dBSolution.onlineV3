@@ -20,752 +20,749 @@ msgstr ""
 
 #: .\adresse\models.py:9
 msgid "Rue"
-msgstr ""
+msgstr "Οδός"
 
 #: .\adresse\models.py:10
 msgid "Numéro"
-msgstr ""
+msgstr "Αριθμός"
 
 #: .\adresse\models.py:11
 msgid "Code postal"
-msgstr ""
+msgstr "Τ.Κ."
 
 #: .\adresse\models.py:12
 msgid "Ville"
-msgstr ""
+msgstr "Πόλη"
 
 #: .\adresse\models.py:14 .\carrosserie\models.py:12
 msgid "Pays"
-msgstr ""
+msgstr "Χώρα"
 
 #: .\adresse\models.py:15 .\facture\models.py:29 .\fournisseur\models.py:43
 msgid "Code pays"
-msgstr ""
+msgstr "Κωδικός χώρας"
 
 #: .\adresse\models.py:17 .\client\models.py:57 .\facture\models.py:34
 #: .\fournisseur\models.py:51
 msgid "Créé le"
-msgstr ""
+msgstr "Δημιουργήθηκε στις"
 
 #: .\adresse\models.py:18 .\facture\models.py:35
 msgid "Mis à jour le"
-msgstr ""
+msgstr "Ενημερώθηκε στις"
 
 #: .\adresse\models.py:21 .\carrosserie\models.py:11 .\client\models.py:12
 #: .\facture\models.py:17 .\fournisseur\models.py:19
 msgid "Adresse"
-msgstr ""
+msgstr "Διεύθυνση"
 
 #: .\adresse\models.py:22
 msgid "Adresses"
-msgstr ""
+msgstr "Διευθύνσεις"
 
 #: .\authentification\forms.py:42
 msgid "Adresse email ou mot de passe incorrect"
-msgstr ""
+msgstr "Λανθασμένο email ή κωδικός πρόσβασης"
 
 #: .\authentification\forms.py:52
 msgid "Code de vérification"
-msgstr ""
+msgstr "Κωδικός επιβεβαίωσης"
 
 #: .\authentification\views.py:27 .\dBSolutionV3\views.py:50
 #: .\theme\templates\totp\setup.html:31
 msgid "Aucun secret TOTP configuré pour ce compte."
-msgstr ""
+msgstr "Δεν έχει ρυθμιστεί μυστικό TOTP για αυτόν τον λογαριασμό."
 
 #: .\authentification\views.py:51 .\dBSolutionV3\views.py:68
 msgid "Code de vérification invalide."
-msgstr ""
+msgstr "Μη έγκυρος κωδικός επιβεβαίωσης."
 
 #: .\carrosserie\models.py:10
 msgid "Nom de la société"
-msgstr ""
+msgstr "Όνομα εταιρείας"
 
 #: .\carrosserie\models.py:13
 msgid "Téléphone"
-msgstr ""
+msgstr "Τηλέφωνο"
 
 #: .\carrosserie\models.py:14 .\client\models.py:22
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: .\carrosserie\models.py:15 .\fournisseur\models.py:24
 msgid "Numéro de TVA"
-msgstr ""
+msgstr "ΑΦΜ"
 
 #: .\carrosserie\models.py:18 .\carrosserie\models.py:29
 msgid "Carrosserie"
-msgstr ""
+msgstr "Σασί"
 
 #: .\carrosserie\models.py:19
 msgid "Carrosseries"
-msgstr ""
+msgstr "Σασί"
 
 #: .\carrosserie\models.py:36 .\piece\piece_carrosserie\models.py:17
 msgid "Pare-chocs"
-msgstr ""
+msgstr "Προφυλακτήρας"
 
 #: .\carrosserie\models.py:37 .\piece\piece_carrosserie\models.py:18
 msgid "Bouclier"
-msgstr ""
+msgstr "Ασπίδα"
 
 #: .\carrosserie\models.py:38 .\piece\piece_carrosserie\models.py:19
 msgid "Pare-brise"
-msgstr ""
+msgstr "Παρμπρίζ"
 
 #: .\carrosserie\models.py:39
 msgid "Vitre de porte"
-msgstr ""
+msgstr "Παράθυρο πόρτας"
 
 #: .\carrosserie\models.py:40 .\piece\piece_carrosserie\models.py:21
 msgid "Lunette"
-msgstr ""
+msgstr "Πίσω παράθυρο"
 
 #: .\carrosserie\models.py:41 .\piece\piece_carrosserie\models.py:22
 msgid "Rétroviseur"
-msgstr ""
+msgstr "Καθρέπτης"
 
 #: .\carrosserie\models.py:42 .\piece\piece_carrosserie\models.py:23
 msgid "Aile"
-msgstr ""
+msgstr "Φτερό"
 
 #: .\carrosserie\models.py:43 .\piece\piece_carrosserie\models.py:24
 msgid "Élargisseur d’aile"
-msgstr ""
+msgstr "Επέκταση φτερού"
 
 #: .\carrosserie\models.py:44 .\piece\piece_carrosserie\models.py:25
 msgid "Bas de caisse"
-msgstr ""
+msgstr "Πλαϊνή ποδιά"
 
 #: .\carrosserie\models.py:45 .\piece\piece_carrosserie\models.py:26
 msgid "Support de radiateur"
-msgstr ""
+msgstr "Στήριγμα ψυγείου"
 
 #: .\carrosserie\models.py:46 .\piece\piece_carrosserie\models.py:27
 msgid "Support de pare-chocs"
-msgstr ""
+msgstr "Στήριγμα προφυλακτήρα"
 
 #: .\carrosserie\models.py:47 .\piece\piece_carrosserie\models.py:28
 msgid "Porte"
-msgstr ""
+msgstr "Πόρτα"
 
 #: .\carrosserie\models.py:48 .\piece\piece_carrosserie\models.py:29
 msgid "Poignée de porte"
-msgstr ""
+msgstr "Χερούλι πόρτας"
 
 #: .\carrosserie\models.py:49 .\piece\piece_carrosserie\models.py:30
 msgid "Coffre / hayon"
-msgstr ""
+msgstr "Πορτ-μπαγκάζ / πίσω πόρτα"
 
 #: .\carrosserie\models.py:50 .\piece\piece_carrosserie\models.py:31
 msgid "Joint de coffre"
-msgstr ""
+msgstr "Λάστιχο πορτ-μπαγκάζ"
 
 #: .\carrosserie\models.py:51 .\piece\piece_carrosserie\models.py:32
 msgid "Joint de porte"
-msgstr ""
+msgstr "Λάστιχο πόρτας"
 
 #: .\carrosserie\models.py:52 .\piece\piece_carrosserie\models.py:33
 msgid "Coquille d’aile"
-msgstr ""
+msgstr "Φολίδα φτερού"
 
 #: .\carrosserie\models.py:53 .\piece\piece_carrosserie\models.py:34
 msgid "Clips"
-msgstr ""
+msgstr "Κλιπ"
 
 #: .\carrosserie\models.py:54 .\piece\piece_carrosserie\models.py:35
 msgid "Visserie"
-msgstr ""
+msgstr "Βίδες"
 
 #: .\carrosserie\models.py:55 .\piece\piece_carrosserie\models.py:36
 msgid "Capot"
-msgstr ""
+msgstr "Καπό"
 
 #: .\carrosserie\models.py:58
 msgid "Montant du devis"
-msgstr ""
+msgstr "Ποσό προσφοράς"
 
 #: .\carrosserie\models.py:64
 msgid "Montant de la facture"
-msgstr ""
+msgstr "Ποσό τιμολογίου"
 
 #: .\carrosserie\models.py:70
 msgid "Montant total"
-msgstr ""
+msgstr "Συνολικό ποσό"
 
 #: .\carrosserie\models.py:77
 msgid "Intervention"
-msgstr ""
+msgstr "Επέμβαση"
 
 #: .\carrosserie\models.py:78
 msgid "Interventions"
-msgstr ""
+msgstr "Επεμβάσεις"
 
 #: .\carrosserie\models.py:82
 #, python-format
 msgid "Intervention %(id)s – %(carrosserie)s"
-msgstr ""
+msgstr "Επέμβαση %(id)s – %(carrosserie)s"
 
 #: .\carrosserie\models.py:86
 #, python-format
 msgid "Intervention %(id)s"
-msgstr ""
+msgstr "Επέμβαση %(id)s"
 
 #: .\client\models.py:8
 msgid "Nom"
-msgstr ""
+msgstr "Επώνυμο"
 
 #: .\client\models.py:9
 msgid "Prénom"
-msgstr ""
+msgstr "Όνομα"
 
 #: .\client\models.py:16
 msgid "Numéro de téléphone"
-msgstr ""
+msgstr "Τηλέφωνο"
 
 #: .\client\models.py:29
 msgid "Âge"
-msgstr ""
+msgstr "Ηλικία"
 
 #: .\client\models.py:31
 msgid "Numéro de permis"
-msgstr ""
+msgstr "Αριθμός αδείας"
 
 #: .\client\models.py:38
 msgid "Débutant"
-msgstr ""
+msgstr "Αρχάριος"
 
 #: .\client\models.py:39
 msgid "Intermédiaire"
-msgstr ""
+msgstr "Μεσαίο επίπεδο"
 
 #: .\client\models.py:40
 msgid "Expert"
-msgstr ""
+msgstr "Ειδικός"
 
 #: .\client\models.py:41
 msgid "Bronze"
-msgstr ""
+msgstr "Χάλκινο"
 
 #: .\client\models.py:42
 msgid "Silver"
-msgstr ""
+msgstr "Ασημένιο"
 
 #: .\client\models.py:43
 msgid "Gold"
-msgstr ""
+msgstr "Χρυσό"
 
 #: .\client\models.py:46
 msgid "Niveau"
-msgstr ""
+msgstr "Επίπεδο"
+
 
 #: .\client\models.py:52
 msgid "Historique"
-msgstr ""
+msgstr "Ιστορικό"
 
 #: .\client\models.py:53
-#, fuzzy
-#| msgid "Action"
 msgid "Location"
-msgstr "Ενέργεια"
+msgstr "Ενοικίαση"
 
 #: .\client\models.py:56 .\fournisseur\models.py:50
-#, fuzzy
-#| msgid "Action"
 msgid "Actif"
-msgstr "Ενέργεια"
+msgstr "Ενεργός"
 
 #: .\client\models.py:60 .\facture\models.py:69
 msgid "Client"
-msgstr ""
+msgstr "Πελάτης"
 
 #: .\client\models.py:61
 msgid "Clients"
-msgstr ""
+msgstr "Πελάτες"
 
 #: .\client\models.py:64
 #, python-format
 msgid "%(nom)s %(prenom)s (Client)"
-msgstr ""
+msgstr "%(nom)s %(prenom)s (Πελάτης)"
 
 #: .\dBSolutionV3\views.py:35
 msgid "Nom d'utilisateur ou mot de passe incorrect"
-msgstr ""
+msgstr "Λανθασμένο όνομα χρήστη ή κωδικός πρόσβασης"
+
 
 #: .\dBSolutionV3\views.py:82 .\theme\templates\dashboard.html:10
 msgid "Bienvenue sur ton tableau de bord"
 msgstr "Καλώς ήρθατε στον πίνακα ελέγχου σας"
-
 #: .\facture\models.py:23 .\fournisseur\models.py:37
 msgid "Identifiant Peppol"
-msgstr ""
+msgstr "Αναγνωριστικό Peppol"
 
 #: .\facture\models.py:25
 msgid "Ex : 0208:BE0123456789"
-msgstr ""
+msgstr "Π.χ.: 0208:BE0123456789"
 
 #: .\facture\models.py:38 .\facture\models.py:62
 msgid "Société émettrice"
-msgstr ""
+msgstr "Εκδίδουσα εταιρεία"
 
 #: .\facture\models.py:39
 msgid "Sociétés émettrices"
-msgstr ""
+msgstr "Εκδίδουσες εταιρείες"
 
 #: .\facture\models.py:48
 msgid "Identifiant facture"
-msgstr ""
+msgstr "Αναγνωριστικό τιμολογίου"
 
 #: .\facture\models.py:55
 msgid "Numéro de facture"
-msgstr ""
+msgstr "Αριθμός τιμολογίου"
 
 #: .\facture\models.py:74
 msgid "Date d’émission"
-msgstr ""
+msgstr "Ημερομηνία έκδοσης"
 
 #: .\facture\models.py:75
 msgid "Devise"
-msgstr ""
+msgstr "Νόμισμα"
 
 #: .\facture\models.py:77
 msgid "Total"
-msgstr ""
+msgstr "Σύνολο"
 
 #: .\facture\models.py:83 .\facture\models.py:93
 msgid "Facture"
-msgstr ""
+msgstr "Τιμολόγιο"
 
 #: .\facture\models.py:84
 msgid "Factures"
-msgstr ""
+msgstr "Τιμολόγια"
 
 #: .\facture\models.py:87
 #, python-format
 msgid "Facture %(numero)s"
-msgstr ""
+msgstr "Τιμολόγιο %(numero)s"
 
 #: .\facture\models.py:98
 msgid "Description"
-msgstr ""
+msgstr "Περιγραφή"
 
 #: .\facture\models.py:101
 msgid "Quantité"
-msgstr ""
+msgstr "Ποσότητα"
 
 #: .\facture\models.py:107
 msgid "Prix unitaire"
-msgstr ""
+msgstr "Τιμή ανά μονάδα"
 
 #: .\facture\models.py:113
 msgid "Taux de TVA"
-msgstr ""
+msgstr "Ποσοστό ΦΠΑ"
 
 #: .\facture\models.py:116
 msgid "Taux de TVA : 6, 12, 21"
-msgstr ""
+msgstr "Ποσοστό ΦΠΑ: 6, 12, 21"
 
 #: .\facture\models.py:120
 msgid "Ligne de facture"
-msgstr ""
+msgstr "Γραμμή τιμολογίου"
 
 #: .\facture\models.py:121
 msgid "Lignes de facture"
-msgstr ""
+msgstr "Γραμμές τιμολογίου"
 
 #: .\facture\models.py:124
 #, python-format
 msgid "%(desc)s (%(facture)s)"
-msgstr ""
+msgstr "%(desc)s (%(facture)s)"
 
 #: .\fournisseur\models.py:12
 msgid "Nom du fournisseur"
-msgstr ""
+msgstr "Όνομα προμηθευτή"
 
 #: .\fournisseur\models.py:30
 msgid "Taux de TVA (%)"
-msgstr ""
+msgstr "Ποσοστό ΦΠΑ (%)"
 
 #: .\fournisseur\models.py:39
 msgid "Identifiant Peppol, ex : 0208:BE0123456789"
-msgstr ""
+msgstr "Αναγνωριστικό Peppol, π.χ.: 0208:BE0123456789"
 
 #: .\fournisseur\models.py:46
 msgid "ISO 3166-1 alpha-2"
-msgstr ""
+msgstr "ISO 3166-1 alpha-2"
 
 #: .\fournisseur\models.py:54 .\investissements\models.py:11
 msgid "Fournisseur"
-msgstr ""
+msgstr "Προμηθευτής"
 
 #: .\fournisseur\models.py:55
 msgid "Fournisseurs"
-msgstr ""
+msgstr "Προμηθευτές"
 
 #: .\fournisseur\models.py:62
 #, python-format
 msgid "%(nom)s (Fournisseur)"
-msgstr ""
+msgstr "%(nom)s (Προμηθευτής)"
 
 #: .\investissements\models.py:18
 msgid "Pont"
-msgstr ""
+msgstr "Γερανογέφυρα"
 
 #: .\investissements\models.py:19
 msgid "Machine de géométrie"
-msgstr ""
+msgstr "Μηχανή γεωμετρίας"
 
 #: .\investissements\models.py:20
 msgid "Machine à pneus"
-msgstr ""
+msgstr "Μηχανή ελαστικών"
 
 #: .\investissements\models.py:21
 msgid "Équilibreuse"
-msgstr ""
+msgstr "Ζυγοστάθμιση"
 
 #: .\investissements\models.py:22
 msgid "Compresseur"
-msgstr ""
+msgstr "Συμπιεστής"
 
 #: .\investissements\models.py:23
 msgid "Booster batterie"
-msgstr ""
+msgstr "Ενισχυτής μπαταρίας"
 
 #: .\investissements\models.py:24
 msgid "Booster pneus"
-msgstr ""
+msgstr "Ενισχυτής ελαστικών"
 
 #: .\investissements\models.py:25
 msgid "Tuyaux pression d’air"
-msgstr ""
+msgstr "Σωλήνες αέρα υπό πίεση"
 
 #: .\investissements\models.py:26
 msgid "Connecteurs"
-msgstr ""
+msgstr "Συνδέσεις"
 
 #: .\investissements\models.py:27
 msgid "Mobilier"
-msgstr ""
+msgstr "Επίπλωση"
 
 #: .\investissements\models.py:28
 msgid "Ordinateur"
-msgstr ""
+msgstr "Υπολογιστής"
 
 #: .\investissements\models.py:29
 msgid "Appareil de diagnostic"
-msgstr ""
+msgstr "Διαγνωστική συσκευή"
 
 #: .\investissements\models.py:32
 msgid "Libellé"
-msgstr ""
+msgstr "Ετικέτα"
 
 #: .\investissements\models.py:38
 msgid "Détails"
-msgstr ""
+msgstr "Λεπτομέρειες"
 
 #: .\investissements\models.py:41
 msgid "Durée d'amortissement"
-msgstr ""
+msgstr "Διάρκεια απόσβεσης"
 
 #: .\investissements\models.py:42
 msgid "Durée d'amortissement en mois ou années"
-msgstr ""
+msgstr "Διάρκεια απόσβεσης σε μήνες ή χρόνια"
 
 #: .\investissements\models.py:47
 msgid "Linéaire"
-msgstr ""
+msgstr "Γραμμική"
 
 #: .\investissements\models.py:48
 msgid "Dégressif"
-msgstr ""
+msgstr "Φθίνουσα"
+
 
 #: .\investissements\models.py:49
 msgid "Autre"
-msgstr ""
+msgstr "Άλλο"
 
 #: .\investissements\models.py:52
 msgid "Type d'amortissement"
-msgstr ""
+msgstr "Τύπος απόσβεσης"
 
 #: .\investissements\models.py:59
 msgid "Investissement"
-msgstr ""
+msgstr "Επένδυση"
 
 #: .\investissements\models.py:60
 msgid "Investissements"
-msgstr ""
+msgstr "Επενδύσεις"
 
 #: .\investissements\models.py:63
 #, python-format
 msgid "%(libelle)s - Fournisseur: %(fournisseur)s"
-msgstr ""
+msgstr "%(libelle)s - Προμηθευτής: %(fournisseur)s"
 
 #: .\maintenance\models.py:10
 msgid "Vert"
-msgstr ""
+msgstr "Πράσινο"
 
 #: .\maintenance\models.py:11
 msgid "Jaune"
-msgstr ""
+msgstr "Κίτρινο"
 
 #: .\maintenance\models.py:12
 msgid "Rouge"
-msgstr ""
+msgstr "Κόκκινο"
 
 #: .\maintenance\models.py:18
 msgid "Voiture exemplaire"
-msgstr ""
+msgstr "Δείγμα αυτοκινήτου"
 
 #: .\maintenance\models.py:27
 msgid "Mécanicien"
-msgstr ""
+msgstr "Μηχανικός"
 
 #: .\maintenance\models.py:33
 msgid "Immatriculation"
-msgstr ""
+msgstr "Άδεια κυκλοφορίας"
 
 #: .\maintenance\models.py:34
 msgid "Date d'intervention"
-msgstr ""
+msgstr "Ημερομηνία επέμβασης"
 
 #: .\maintenance\models.py:36
 msgid "Date de la dernière intervention"
-msgstr ""
+msgstr "Ημερομηνία τελευταίας επέμβασης"
 
 #: .\maintenance\models.py:41
 msgid "Étiquette"
-msgstr ""
+msgstr "Ετικέτα"
 
 #: .\maintenance\models.py:48
-#, fuzzy
-#| msgid "Nombre total :"
 msgid "Kilométrage total"
-msgstr "Συνολικός αριθμός:"
+msgstr "Συνολικός χιλιομετρητής"
 
 #: .\maintenance\models.py:50
 msgid "Kilométrage à la dernière intervention"
-msgstr ""
+msgstr "Χιλιομετρητής κατά την τελευταία επέμβαση"
 
 #: .\maintenance\models.py:54
 msgid "Kilométrage châssis"
-msgstr ""
+msgstr "Χιλιομετρητής πλαισίου"
 
 #: .\maintenance\models.py:57
 msgid "Kilométrage moteur"
-msgstr ""
+msgstr "Χιλιομετρητής κινητήρα"
 
 #: .\maintenance\models.py:58
 msgid "Kilométrage boîte"
-msgstr ""
+msgstr "Χιλιομετρητής κιβωτίου"
 
 #: .\maintenance\models.py:61
 msgid "Remplacement moteur"
-msgstr ""
+msgstr "Αντικατάσταση κινητήρα"
 
 #: .\maintenance\models.py:62
 msgid "Remplacement boîte"
-msgstr ""
+msgstr "Αντικατάσταση κιβωτίου"
 
 #: .\maintenance\models.py:65
 msgid "Maintenance"
-msgstr ""
+msgstr "Συντήρηση"
 
 #: .\maintenance\models.py:66
 msgid "Maintenances"
-msgstr ""
+msgstr "Συντηρήσεις"
 
 #: .\maintenance\models.py:84
 #, python-format
 msgid "Maintenance %(voiture)s (%(date)s)"
-msgstr ""
+msgstr "Συντήρηση %(voiture)s (%(date)s)"
 
 #: .\piece\piece_carrosserie\models.py:7
 msgid "Gauche"
-msgstr ""
+msgstr "Αριστερά"
 
 #: .\piece\piece_carrosserie\models.py:8
 msgid "Droit"
-msgstr ""
+msgstr "Δεξιά"
 
 #: .\piece\piece_carrosserie\models.py:12
 msgid "Avant"
-msgstr ""
+msgstr "Μπροστά"
 
 #: .\piece\piece_carrosserie\models.py:13
 msgid "Arrière"
-msgstr ""
+msgstr "Πίσω"
 
 #: .\piece\piece_carrosserie\models.py:20
 msgid "Vitres de porte"
-msgstr ""
+msgstr "Παράθυρα πόρτας"
 
 #: .\piece\piece_electricite\models.py:8
 msgid "Alternateur"
-msgstr ""
+msgstr "Δυναμό"
 
 #: .\piece\piece_electricite\models.py:9
 msgid "Batterie"
-msgstr ""
+msgstr "Μπαταρία"
 
 #: .\piece\piece_electricite\models.py:10
 msgid "Démarreur"
-msgstr ""
+msgstr "Μίζα"
 
 #: .\piece\piece_electricite\models.py:11
 msgid "Lève-vitre avant gauche"
-msgstr ""
+msgstr "Ηλεκτρικό παράθυρο εμπρός αριστερά"
 
 #: .\piece\piece_electricite\models.py:12
 msgid "Lève-vitre avant droit"
-msgstr ""
+msgstr "Ηλεκτρικό παράθυρο εμπρός δεξιά"
 
 #: .\piece\piece_electricite\models.py:13
 msgid "Lève-vitre arrière gauche"
-msgstr ""
+msgstr "Ηλεκτρικό παράθυρο πίσω αριστερά"
 
 #: .\piece\piece_electricite\models.py:14
 msgid "Lève-vitre arrière droit"
-msgstr ""
+msgstr "Ηλεκτρικό παράθυρο πίσω δεξιά"
 
 #: .\piece\piece_electricite\models.py:15
 msgid "Pompe lave-glace avant"
-msgstr ""
+msgstr "Αντλία υαλοκαθαριστήρα εμπρός"
+
 
 #: .\piece\piece_electricite\models.py:16
 msgid "Pompe lave-glace arrière"
-msgstr ""
+msgstr "Αντλία υαλοκαθαριστήρα πίσω"
 
 #: .\piece\piece_electricite\models.py:17
 msgid "Klaxon"
-msgstr ""
+msgstr "Κορνάρισμα"
 
 #: .\piece\piece_electronique\models.py:9
 msgid "Débitmètre"
-msgstr ""
+msgstr "Μετρητής ροής"
 
 #: .\piece\piece_electronique\models.py:10
 msgid "Sonde de température eau"
-msgstr ""
+msgstr "Αισθητήρας θερμοκρασίας νερού"
 
 #: .\piece\piece_electronique\models.py:11
 msgid "Sonde de température d’huile"
-msgstr ""
+msgstr "Αισθητήρας θερμοκρασίας λαδιού"
 
 #: .\piece\piece_electronique\models.py:12
 msgid "Capteur de cliquetis"
-msgstr ""
+msgstr "Αισθητήρας κροταλίσματος"
 
 #: .\piece\piece_electronique\models.py:13
 msgid "Sonde lambda"
-msgstr ""
+msgstr "Αισθητήρας λ"
 
 #: .\piece\piece_electronique\models.py:14
 msgid "Capteur d'arbre à came"
-msgstr ""
+msgstr "Αισθητήρας εκκεντροφόρου"
 
 #: .\piece\piece_electronique\models.py:15
 msgid "Capteur vilebrequin"
-msgstr ""
+msgstr "Αισθητήρας στροφαλοφόρου"
 
 #: .\piece\piece_electronique\models.py:16
 msgid "Sonde de pression filtre à particules"
-msgstr ""
+msgstr "Αισθητήρας πίεσης φίλτρου σωματιδίων"
 
 #: .\piece\piece_electronique\models.py:17
 msgid "Vanne EGR"
-msgstr ""
+msgstr "Βαλβίδα EGR"
 
 #: .\piece\piece_electronique\models.py:18
 msgid "Boîtier papillon"
-msgstr ""
+msgstr "Πεταλούδα γκαζιού"
 
 #: .\piece\piece_electronique\models.py:19
 msgid "Électrovanne de turbo"
-msgstr ""
+msgstr "Ηλεκτροβαλβίδα τούρμπο"
 
 #: .\piece\piece_electronique\models.py:20
 msgid "Sonde pression turbo"
-msgstr ""
+msgstr "Αισθητήρας πίεσης τούρμπο"
 
 #: .\piece\piece_electronique\models.py:21
 msgid "Capteur ABS"
-msgstr ""
+msgstr "Αισθητήρας ABS"
 
 #: .\piece\piece_electronique\models.py:22
 msgid "Accélérateur"
-msgstr ""
+msgstr "Πεντάλ γκαζιού"
 
 #: .\piece\piece_electronique\models.py:23
 msgid "Contacteur feux stop"
-msgstr ""
+msgstr "Διακόπτης φρένων"
 
 #: .\piece\piece_electronique\models.py:24
 msgid "Calculateur ABS"
-msgstr ""
+msgstr "Εγκέφαλος ABS"
 
 #: .\piece\piece_electronique\models.py:25
 msgid "Calculateur moteur"
-msgstr ""
+msgstr "Εγκέφαλος κινητήρα"
 
 #: .\piece\piece_electronique\models.py:26
 msgid "Boîtier servitude intérieur"
-msgstr ""
+msgstr "Εσωτερικό κουτί υπηρεσιών"
 
 #: .\piece\piece_electronique\models.py:27
 msgid "Fusibles"
-msgstr ""
+msgstr "Ασφάλειες"
 
 #: .\piece\piece_electronique\models.py:28
 msgid "Boîtier additionnel"
-msgstr ""
+msgstr "Επιπλέον κουτί"
 
 #: .\piece\piece_electronique\models.py:29
 msgid "Radar de recul"
-msgstr ""
+msgstr "Ραντάρ οπισθοπορείας"
 
 #: .\piece\piece_electronique\models.py:30
 msgid "Capteur pression pneus"
-msgstr ""
+msgstr "Αισθητήρας πίεσης ελαστικών"
 
 #: .\piece\piece_electronique\models.py:31
 msgid "Capteur pression admission"
-msgstr ""
+msgstr "Αισθητήρας πίεσης εισαγωγής"
 
 #: .\piece\piece_electronique\models.py:32
 msgid "Régulateur pression carburant"
-msgstr ""
+msgstr "Ρυθμιστής πίεσης καυσίμου"
 
 #: .\piece\piece_electronique\models.py:33
 msgid "Capteur niveau huile"
-msgstr ""
+msgstr "Αισθητήρας στάθμης λαδιού"
 
 #: .\piece\piece_electronique\models.py:34
 msgid "Capteur niveau liquide freins"
-msgstr ""
+msgstr "Αισθητήρας στάθμης υγρού φρένων"
 
 #: .\piece\piece_electronique\models.py:35
 msgid "Calculateur boîte de vitesses"
-msgstr ""
+msgstr "Εγκέφαλος κιβωτίου ταχυτήτων"
 
 #: .\piece\piece_electronique\models.py:36
 msgid "Relais de préchauffage"
-msgstr ""
+msgstr "Ρελέ προθέρμανσης"
 
 #: .\piece\piece_electronique\models.py:37
 msgid "Relais"
-msgstr ""
+msgstr "Ρελέ"
 
 #: .\piece\piece_electronique\models.py:38
 msgid "Résistance de chauffage"
-msgstr ""
+msgstr "Αντίσταση θέρμανσης"
 
 #: .\piece\piece_electronique\models.py:39
 msgid "Capteur de température d’admission"
-msgstr ""
+msgstr "Αισθητήρας θερμοκρασίας εισαγωγής"
 
 #: .\piece\piece_electronique\models.py:40
 msgid "Capteur d’embrayage"
-msgstr ""
+msgstr "Αισθητήρας συμπλέκτη"
 
 #: .\theme\templates\base.html:9
 msgid "dBSolution"
@@ -845,82 +842,64 @@ msgstr "Καλώς ήρθατε"
 #: .\theme\templates\home.html:16
 msgid "Ceci est un paragraphe stylé avec Tailwind."
 msgstr "Αυτή είναι μια παράγραφος διαμορφωμένη με Tailwind."
-
 #: .\theme\templates\login.html:18
 msgid "Accès à votre compte"
-msgstr ""
+msgstr "Πρόσβαση στον λογαριασμό σας"
 
 #: .\theme\templates\login.html:50
 msgid "Se souvenir de moi"
-msgstr ""
+msgstr "Να με θυμάσαι"
 
 #: .\theme\templates\login.html:54
 msgid "Mot de passe oublié ?"
-msgstr ""
+msgstr "Ξεχάσατε τον κωδικό;"
 
 #: .\theme\templates\login.html:63 .\theme\templates\login.totp.html:47
 msgid "Se connecter"
-msgstr ""
+msgstr "Σύνδεση"
 
 #: .\theme\templates\login.html:71
 msgid "Sécurité"
-msgstr ""
+msgstr "Ασφάλεια"
 
 #: .\theme\templates\login.html:74
 msgid ""
 "L’accès est protégé. Une vérification supplémentaire peut être requise selon "
 "votre configuration de sécurité."
-msgstr ""
+msgstr "Η πρόσβαση είναι προστατευμένη. Ενδέχεται να απαιτηθεί επιπλέον έλεγχος σύμφωνα με τις ρυθμίσεις ασφάλειάς σας."
 
 #: .\theme\templates\login.totp.html:5 .\theme\templates\login.totp.html:13
-#, fuzzy
-#| msgid "Connexion"
 msgid "Connexion sécurisée"
-msgstr "Σύνδεση"
+msgstr "Ασφαλής σύνδεση"
 
 #: .\theme\templates\login.totp.html:17
 msgid "Veuillez entrer le code généré par Google Authenticator"
-msgstr ""
+msgstr "Παρακαλώ εισάγετε τον κωδικό που δημιουργήθηκε από το Google Authenticator"
 
 #: .\theme\templates\totp\setup.html:5
 msgid "Configurer TOTP"
-msgstr ""
+msgstr "Ρύθμιση TOTP"
 
 #: .\theme\templates\totp\setup.html:11
 msgid "Configurer la vérification TOTP"
-msgstr ""
+msgstr "Ρύθμιση επαλήθευσης TOTP"
 
 #: .\theme\templates\totp\setup.html:13
 msgid "Scanner le QR code"
-msgstr ""
+msgstr "Σάρωση QR κώδικα"
 
 #: .\theme\templates\totp\setup.html:14
 msgid "Ouvre Google Authenticator et scanne le code ci-dessous."
-msgstr ""
+msgstr "Ανοίξτε το Google Authenticator και σαρώστε τον παρακάτω κωδικό."
 
 #: .\theme\templates\totp\setup.html:19
 msgid "QR Code TOTP"
-msgstr ""
+msgstr "QR Κώδικας TOTP"
 
 #: .\theme\templates\totp\setup.html:23
 msgid "Si tu ne peux pas scanner le QR code, utilise ce code secret :"
-msgstr ""
+msgstr "Αν δεν μπορείτε να σαρώσετε τον QR κώδικα, χρησιμοποιήστε αυτόν τον μυστικό κωδικό:"
 
 #: .\theme\templates\totp\setup.html:28
 msgid "J’ai configuré Google Authenticator"
-msgstr ""
-
-#~ msgid "Bienvenue sur notre site"
-#~ msgstr "Καλώς ήρθατε στην ιστοσελίδα μας"
-
-#~ msgid "11/12/2025"
-#~ msgstr "11/12/2025"
-
-#~ msgid "Pierre"
-#~ msgstr "Pierre"
-
-#~ msgid "10/12/2025"
-#~ msgstr "10/12/2025"
-
-#~ msgid "Alice"
-#~ msgstr "Alice"
+msgstr "Έχω ρυθμίσει το Google Authenticator"
