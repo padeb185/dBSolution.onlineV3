@@ -265,14 +265,10 @@ msgid "Historique"
 msgstr "Geschiedenis"
 
 #: .\client\models.py:53
-#, fuzzy
-#| msgid "Action"
 msgid "Location"
 msgstr "Verhuur"
 
 #: .\client\models.py:56 .\fournisseur\models.py:50
-#, fuzzy
-#| msgid "Action"
 msgid "Actif"
 msgstr "Actief"
 
@@ -863,8 +859,6 @@ msgid ""
 msgstr "De toegang is beveiligd. Extra verificatie kan vereist zijn afhankelijk van uw beveiligingsinstellingen."
 
 #: .\theme\templates\login.totp.html:5 .\theme\templates\login.totp.html:13
-#, fuzzy
-#| msgid "Connexion"
 msgid "Connexion sécurisée"
 msgstr "Veilige login"
 
