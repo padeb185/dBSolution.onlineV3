@@ -2,8 +2,6 @@ from django.db import models
 import uuid
 from django_tenants.models import TenantMixin, DomainMixin
 
-from adresse.models import Adresse
-
 
 class Societe(TenantMixin):
     # Champs obligatoires pour django-tenants
