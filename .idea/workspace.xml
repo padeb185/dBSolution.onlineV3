@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="RAZ BDD">
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="création et migration tenant">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/societe/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/societe/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/nl/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/nl/LC_MESSAGES/django.po" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,23 +135,8 @@
       <workItem from="1766590302763" duration="289000" />
       <workItem from="1766590903812" duration="1028000" />
       <workItem from="1766591963502" duration="71000" />
-      <workItem from="1766592494791" duration="600000" />
-    </task>
-    <task id="LOCAL-00056" summary="modele utilisateurs corrections">
-      <option name="closed" value="true" />
-      <created>1766392282663</created>
-      <option name="number" value="00056" />
-      <option name="presentableId" value="LOCAL-00056" />
-      <option name="project" value="LOCAL" />
-      <updated>1766392282663</updated>
-    </task>
-    <task id="LOCAL-00057" summary="admin global admin local">
-      <option name="closed" value="true" />
-      <created>1766393196004</created>
-      <option name="number" value="00057" />
-      <option name="presentableId" value="LOCAL-00057" />
-      <option name="project" value="LOCAL" />
-      <updated>1766393196005</updated>
+      <workItem from="1766592494791" duration="894000" />
+      <workItem from="1766594168550" duration="1149000" />
     </task>
     <task id="LOCAL-00058" summary="pieces">
       <option name="closed" value="true" />
@@ -530,7 +514,23 @@
       <option name="project" value="LOCAL" />
       <updated>1766592020195</updated>
     </task>
-    <option name="localTasksCounter" value="105" />
+    <task id="LOCAL-00105" summary="création et migration tenant">
+      <option name="closed" value="true" />
+      <created>1766593331449</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
+      <option name="project" value="LOCAL" />
+      <updated>1766593331450</updated>
+    </task>
+    <task id="LOCAL-00106" summary="création et migration tenant">
+      <option name="closed" value="true" />
+      <created>1766593372847</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
+      <option name="project" value="LOCAL" />
+      <updated>1766593372847</updated>
+    </task>
+    <option name="localTasksCounter" value="107" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -548,7 +548,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="pieces suite 4" />
     <MESSAGE value="pieces suite 5" />
     <MESSAGE value="pieces suite 6" />
     <MESSAGE value="ajout shared app" />
@@ -573,7 +572,8 @@
     <MESSAGE value="traductions suite" />
     <MESSAGE value="accueil" />
     <MESSAGE value="RAZ BDD" />
-    <option name="LAST_COMMIT_MESSAGE" value="RAZ BDD" />
+    <MESSAGE value="création et migration tenant" />
+    <option name="LAST_COMMIT_MESSAGE" value="création et migration tenant" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

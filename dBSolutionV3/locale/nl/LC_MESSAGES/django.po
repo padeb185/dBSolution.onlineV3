@@ -292,7 +292,7 @@ msgstr "Gebruikersnaam of wachtwoord onjuist"
 
 #: .\dBSolutionV3\views.py:82 .\theme\templates\dashboard.html:10
 msgid "Bienvenue sur ton tableau de bord"
-msgstr ""
+msgstr "Welkom op je dashboard"
 
 #: .\facture\models.py:23 .\fournisseur\models.py:37
 msgid "Identifiant Peppol"
@@ -585,511 +585,450 @@ msgstr "Onderhoud %(voiture)s (%(date)s)"
 #| msgid "Identifiant Peppol"
 msgid "Identifiant"
 msgstr "Peppol-ID"
-
 #: .\outillage\models.py:28
 msgid "Référence"
-msgstr ""
+msgstr "Referentie"
 
 #: .\outillage\models.py:39
 msgid "Prix HTVA"
-msgstr ""
+msgstr "Prijs excl. btw"
 
 #: .\outillage\models.py:53
-#, fuzzy
-#| msgid "Montant total"
 msgid "Montant calculé"
-msgstr "Totaalbedrag"
+msgstr "Berekend bedrag"
 
 #: .\outillage\models.py:60
 msgid "TVA à récupérer"
-msgstr ""
+msgstr "Terug te vorderen btw"
 
 #: .\outillage\models.py:64
 msgid "Outillage"
-msgstr ""
+msgstr "Gereedschap"
 
 #: .\outillage\models.py:65
 msgid "Outillages"
-msgstr ""
+msgstr "Gereedschappen"
 
 #: .\outillage\models.py:74
 msgid "Sans référence"
-msgstr ""
+msgstr "Zonder referentie"
 
 #: .\outillage\models.py:75
 #, python-format
 msgid "%(libelle)s (%(reference)s) – %(quantite)s pcs"
-msgstr ""
+msgstr "%(libelle)s (%(reference)s) – %(quantite)s stuks"
 
 #: .\panier\models.py:35
-#, fuzzy
-#| msgid "Société émettrice"
 msgid "Société cliente"
-msgstr "Uitgevende onderneming"
+msgstr "Klantbedrijf"
 
 #: .\panier\models.py:40 .\piece\models.py:95
-#, fuzzy
-#| msgid "Date d'intervention"
 msgid "Date de création"
-msgstr "Datum interventie"
+msgstr "Aanmaakdatum"
 
 #: .\panier\models.py:45
-#, fuzzy
-#| msgid "Code de vérification"
 msgid "Date de modification"
-msgstr "Verificatiecode"
+msgstr "Wijzigingsdatum"
 
 #: .\panier\models.py:50
 msgid "Validé"
-msgstr ""
+msgstr "Goedgekeurd"
 
 #: .\panier\models.py:57
-#, fuzzy, python-format
-#| msgid "Intervention %(id)s"
 msgid "Panier %(id)s"
-msgstr "Interventie %(id)s"
+msgstr "Winkelmand %(id)s"
 
 #: .\panier\models.py:60 .\panier\models.py:69
 msgid "Panier"
-msgstr ""
+msgstr "Winkelmand"
 
 #: .\panier\models.py:61
 msgid "Paniers"
-msgstr ""
+msgstr "Winkelmanden"
 
 #: .\panier\models.py:75 .\piece\models.py:102 .\piece\models.py:107
 #: .\piece\models.py:121
 msgid "Pièce"
-msgstr ""
+msgstr "Onderdeel"
 
 #: .\panier\models.py:86
 msgid "Prix d'achat HT"
-msgstr ""
+msgstr "Aankoopprijs excl. btw"
 
 #: .\panier\models.py:92
-#, fuzzy
-#| msgid "Fournisseur"
 msgid "TVA fournisseur (%)"
-msgstr "Leverancier"
+msgstr "Leveranciers-btw (%)"
 
 #: .\panier\models.py:99
 msgid "Marge (%)"
-msgstr ""
+msgstr "Marge (%)"
 
 #: .\panier\models.py:106
-#, fuzzy
-#| msgid "Prix unitaire"
 msgid "Prix unitaire HT (vente)"
 msgstr "Prijs per eenheid"
-
 #: .\panier\models.py:112
 msgid "TVA client (%)"
-msgstr ""
+msgstr "Klant-btw (%)"
 
 #: .\panier\models.py:131
 #, python-format
 msgid "%(piece)s × %(quantite)s"
-msgstr ""
+msgstr "%(piece)s × %(quantite)s"
 
 #: .\panier\models.py:137
-#, fuzzy
-#| msgid "Ligne de facture"
 msgid "Ligne de panier"
-msgstr "Factuurlijn"
+msgstr "Winkelmandregel"
 
 #: .\panier\models.py:138
-#, fuzzy
-#| msgid "Lignes de facture"
 msgid "Lignes de panier"
-msgstr "Factuurlijnen"
+msgstr "Winkelmandregels"
 
 #: .\piece\models.py:16
-#, fuzzy
-#| msgid "Code pays"
 msgid "Code-barre"
-msgstr "Landcode"
+msgstr "Streepjescode"
 
 #: .\piece\models.py:32
 msgid "Modèle"
-msgstr ""
+msgstr "Model"
 
 #: .\piece\models.py:41 .\piece\models.py:99 .\piece\models.py:108
 msgid "Marque"
-msgstr ""
+msgstr "Merk"
 
 #: .\piece\models.py:50
 msgid "Véhicule"
-msgstr ""
+msgstr "Voertuig"
 
 #: .\piece\models.py:57
 msgid "Fabricants"
-msgstr ""
+msgstr "Fabrikanten"
 
 #: .\piece\models.py:64
-#, fuzzy
-#| msgid "Code pays"
 msgid "Codes-barres"
-msgstr "Landcode"
+msgstr "Streepjescodes"
 
 #: .\piece\models.py:69
 msgid "Année"
-msgstr ""
+msgstr "Jaar"
 
 #: .\piece\models.py:70 .\piece\piece_roue_rechange\models.py:23
 msgid "Site"
-msgstr ""
+msgstr "Locatie"
 
 #: .\piece\models.py:75
 msgid "A-Z / 1-50"
-msgstr ""
+msgstr "A-Z / 1-50"
 
 #: .\piece\models.py:76
-#, fuzzy
-#| msgid "Remplacement boîte"
 msgid "Emplacement étagère"
-msgstr "Versnellingsbak vervangen"
+msgstr "Schaplocatie"
 
 #: .\piece\models.py:78
 msgid "Qualité"
-msgstr ""
+msgstr "Kwaliteit"
 
 #: .\piece\models.py:81
-#, fuzzy
-#| msgid "QR Code TOTP"
 msgid "Code OEM"
-msgstr "TOTP QR-code"
+msgstr "OEM-code"
 
 #: .\piece\models.py:84
 msgid "Prix d'achat"
-msgstr ""
+msgstr "Aankoopprijs"
 
 #: .\piece\models.py:85
-#, fuzzy
-#| msgid "Immatriculation"
 msgid "Majoration (%)"
-msgstr "Kenteken"
+msgstr "Opslag (%)"
 
 #: .\piece\models.py:86
-#, fuzzy
-#| msgid "Taux de TVA (%)"
 msgid "TVA (%)"
 msgstr "BTW-tarief (%)"
 
 #: .\piece\models.py:87
-#, fuzzy
-#| msgid "Prix unitaire"
 msgid "Prix de vente"
-msgstr "Prijs per eenheid"
+msgstr "Verkoopprijs"
 
 #: .\piece\models.py:90
-#, fuzzy
-#| msgid "Quantité"
 msgid "Quantité en stock"
-msgstr "Aantal"
+msgstr "Voorraadhoeveelheid"
 
 #: .\piece\models.py:91
-#, fuzzy
-#| msgid "Quantité"
 msgid "Quantité utilisée"
-msgstr "Aantal"
+msgstr "Gebruikte hoeveelheid"
 
 #: .\piece\models.py:92
-#, fuzzy
-#| msgid "Quantité"
 msgid "Quantité minimale"
-msgstr "Aantal"
+msgstr "Minimale hoeveelheid"
 
 #: .\piece\models.py:98
 msgid "Organe"
-msgstr ""
+msgstr "Onderdeelgroep"
 
 #: .\piece\models.py:103
-#, fuzzy
-#| msgid "Calculateur moteur"
 msgid "Pièces"
-msgstr "Motor ECU"
+msgstr "Onderdelen"
 
 #: .\piece\models.py:106
 #, python-format
 msgid "%(organe)s - %(marque)s"
-msgstr ""
+msgstr "%(organe)s - %(marque)s"
 
 #: .\piece\models.py:124
 msgid "+ entrée / - sortie"
-msgstr ""
+msgstr "+ in / - uit"
 
 #: .\piece\models.py:124 .\piece\piece_fluides\models.py:54
-#, fuzzy
-#| msgid "Immatriculation"
 msgid "Variation"
-msgstr "Kenteken"
+msgstr "Variatie"
 
 #: .\piece\models.py:125 .\piece\piece_fluides\models.py:58
 msgid "Stock après"
-msgstr ""
+msgstr "Voorraad na"
 
 #: .\piece\models.py:126 .\piece\piece_fluides\models.py:62
 msgid "Commentaire"
-msgstr ""
+msgstr "Opmerking"
 
 #: .\piece\models.py:127 .\piece\piece_fluides\models.py:66
 #: .\theme\templates\dashboard.html:40
 msgid "Date"
 msgstr "Datum"
-
 #: .\piece\models.py:130
-#, fuzzy
-#| msgid "Intervention"
 msgid "Inventaire"
-msgstr "Interventie"
+msgstr "Inventaris"
 
 #: .\piece\models.py:131
-#, fuzzy
-#| msgid "Interventions"
 msgid "Inventaires"
-msgstr "Interventies"
+msgstr "Inventarissen"
 
 #: .\piece\models.py:134
 #, python-format
 msgid "%(piece)s : %(variation)d"
-msgstr ""
+msgstr "%(piece)s : %(variation)d"
 
 #: .\piece\piece_ampoules\models.py:13 .\piece\piece_feux\models.py:32
 #: .\piece\piece_feux\models.py:37
 msgid "Feu"
-msgstr ""
+msgstr "Licht"
 
 #: .\piece\piece_ampoules\models.py:18
 msgid "H1"
-msgstr ""
+msgstr "H1"
 
 #: .\piece\piece_ampoules\models.py:19
 msgid "H3"
-msgstr ""
+msgstr "H3"
 
 #: .\piece\piece_ampoules\models.py:20
 msgid "H4"
-msgstr ""
+msgstr "H4"
 
 #: .\piece\piece_ampoules\models.py:21
 msgid "H7"
-msgstr ""
+msgstr "H7"
 
 #: .\piece\piece_ampoules\models.py:22
 msgid "H11"
-msgstr ""
+msgstr "H11"
 
 #: .\piece\piece_ampoules\models.py:23
 msgid "HB3"
-msgstr ""
+msgstr "HB3"
 
 #: .\piece\piece_ampoules\models.py:24
 msgid "HB4"
-msgstr ""
+msgstr "HB4"
 
 #: .\piece\piece_ampoules\models.py:25
 msgid "LED"
-msgstr ""
+msgstr "LED"
 
 #: .\piece\piece_ampoules\models.py:26
 msgid "Xénon"
-msgstr ""
+msgstr "Xenon"
 
 #: .\piece\piece_ampoules\models.py:27
 msgid "C5W"
-msgstr ""
+msgstr "C5W"
 
 #: .\piece\piece_ampoules\models.py:28
 msgid "W5W"
-msgstr ""
+msgstr "W5W"
 
 #: .\piece\piece_ampoules\models.py:29
 msgid "T10"
-msgstr ""
+msgstr "T10"
 
 #: .\piece\piece_ampoules\models.py:30
 msgid "T4W"
-msgstr ""
+msgstr "T4W"
 
 #: .\piece\piece_ampoules\models.py:36
 msgid "Type d’ampoule"
-msgstr ""
+msgstr "Type lamp"
 
 #: .\piece\piece_ampoules\models.py:46
-#, fuzzy
-#| msgid "Code pays"
 msgid "Code-barres"
-msgstr "Landcode"
+msgstr "Streepjescode"
 
 #: .\piece\piece_ampoules\models.py:53 .\piece\piece_feux\models.py:28
 msgid "Puissance"
-msgstr ""
+msgstr "Vermogen"
 
 #: .\piece\piece_ampoules\models.py:54
 msgid "Puissance en watts"
-msgstr ""
+msgstr "Vermogen in watt"
 
 #: .\piece\piece_ampoules\models.py:60 .\piece\piece_feux\models.py:29
 msgid "Couleur"
-msgstr ""
+msgstr "Kleur"
 
 #: .\piece\piece_ampoules\models.py:61
 msgid "Couleur de la lumière"
-msgstr ""
+msgstr "Lichtkleur"
 
 #: .\piece\piece_ampoules\models.py:67
 msgid "Tension"
-msgstr ""
+msgstr "Spanning"
 
 #: .\piece\piece_ampoules\models.py:68
 msgid "Tension en volts"
-msgstr ""
+msgstr "Spanning in volt"
 
 #: .\piece\piece_ampoules\models.py:72
 msgid "Ampoule"
-msgstr ""
+msgstr "Lamp"
 
 #: .\piece\piece_ampoules\models.py:73
 msgid "Ampoules"
-msgstr ""
+msgstr "Lampen"
 
 #: .\piece\piece_boite\models.py:10 .\piece\piece_boite\models.py:112
 msgid "5 vitesses"
-msgstr ""
+msgstr "5 versnellingen"
 
 #: .\piece\piece_boite\models.py:11 .\piece\piece_boite\models.py:113
 msgid "6 vitesses"
-msgstr ""
+msgstr "6 versnellingen"
 
 #: .\piece\piece_boite\models.py:12
 msgid "7 vitesses"
-msgstr ""
+msgstr "7 versnellingen"
 
 #: .\piece\piece_boite\models.py:17 .\piece\piece_boite\models.py:119
 msgid "Nombre de vitesses"
-msgstr ""
+msgstr "Aantal versnellingen"
 
 #: .\piece\piece_boite\models.py:24
 msgid "Embrayage"
-msgstr ""
+msgstr "Koppeling"
+
 
 #: .\piece\piece_boite\models.py:31
-#, fuzzy
-#| msgid "Capteur d’embrayage"
 msgid "Disque d’embrayage"
-msgstr "Koppelsensor"
+msgstr "Koppelingsschijf"
 
 #: .\piece\piece_boite\models.py:38
-#, fuzzy
-#| msgid "Capteur d’embrayage"
 msgid "Plateau d’embrayage"
-msgstr "Koppelsensor"
+msgstr "Koppelingsplaat"
 
 #: .\piece\piece_boite\models.py:45
-#, fuzzy
-#| msgid "Capteur d’embrayage"
 msgid "Butée d’embrayage"
-msgstr "Koppelsensor"
+msgstr "Koppelingsdruklager"
 
 #: .\piece\piece_boite\models.py:52
 msgid "Pignon"
-msgstr ""
+msgstr "Tandwiel"
 
 #: .\piece\piece_boite\models.py:59 .\piece\piece_differentiel\models.py:18
 msgid "Synchroniseur"
-msgstr ""
+msgstr "Synchronisator"
 
 #: .\piece\piece_boite\models.py:66
 msgid "Arbre principal"
-msgstr ""
+msgstr "Hoofdas"
 
 #: .\piece\piece_boite\models.py:73
 msgid "Arbre secondaire"
-msgstr ""
+msgstr "Tussenas"
 
 #: .\piece\piece_boite\models.py:80
 msgid "Fourchette de vitesse"
-msgstr ""
+msgstr "Versnellingsvork"
 
 #: .\piece\piece_boite\models.py:87
 msgid "Tringlerie"
-msgstr ""
+msgstr "Stuurmechanisme"
 
 #: .\piece\piece_boite\models.py:94 .\piece\piece_fluides\models.py:9
-#, fuzzy
-#| msgid "Vitre de porte"
 msgid "Huile de boîte"
-msgstr "Deurruit"
+msgstr "Versnellingsbakolie"
 
 #: .\piece\piece_boite\models.py:98
 msgid "Boîte mécanique"
-msgstr ""
+msgstr "Handgeschakelde versnellingsbak"
 
 #: .\piece\piece_boite\models.py:99
 msgid "Boîtes mécaniques"
-msgstr ""
+msgstr "Handgeschakelde versnellingsbakken"
 
 #: .\piece\piece_boite\models.py:102
 #, python-format
 msgid "Boîte mécanique %(vitesses)s vitesses"
-msgstr ""
+msgstr "Handgeschakelde versnellingsbak %(vitesses)s versnellingen"
 
 #: .\piece\piece_boite\models.py:111
 msgid "4 vitesses"
-msgstr ""
+msgstr "4 versnellingen"
 
 #: .\piece\piece_boite\models.py:114
 msgid "8 vitesses"
-msgstr ""
+msgstr "8 versnellingen"
 
 #: .\piece\piece_boite\models.py:126
 msgid "Convertisseur de couple"
-msgstr ""
+msgstr "Koppelomvormer"
 
 #: .\piece\piece_boite\models.py:133
 msgid "Embrayage hydraulique"
-msgstr ""
+msgstr "Hydraulische koppeling"
 
 #: .\piece\piece_boite\models.py:140
-#, fuzzy
-#| msgid "Linéaire"
 msgid "Train planétaire"
-msgstr "Lineair"
+msgstr "Planeetwielset"
 
 #: .\piece\piece_boite\models.py:147
-#, fuzzy
-#| msgid "Linéaire"
 msgid "Frein planétaire"
-msgstr "Lineair"
+msgstr "Planeetwielrem"
 
 #: .\piece\piece_boite\models.py:154 .\piece\piece_moteur\models.py:15
 msgid "Piston"
-msgstr ""
+msgstr "Zuiger"
 
 #: .\piece\piece_boite\models.py:161
 msgid "Bloc hydraulique"
-msgstr ""
+msgstr "Hydraulische blok"
 
 #: .\piece\piece_boite\models.py:168
 msgid "Solénoïdes"
-msgstr ""
+msgstr "Solenoïden"
 
 #: .\piece\piece_boite\models.py:175
 msgid "Huile de transmission"
-msgstr ""
+msgstr "Transmissieolie"
 
 #: .\piece\piece_boite\models.py:179
 msgid "Boîte automatique"
-msgstr ""
+msgstr "Automatische versnellingsbak"
 
 #: .\piece\piece_boite\models.py:180
 msgid "Boîtes automatiques"
-msgstr ""
+msgstr "Automatische versnellingsbakken"
 
 #: .\piece\piece_boite\models.py:183
 #, python-format
 msgid "Boîte automatique %(vitesses)s vitesses"
-msgstr ""
+msgstr "Automatische versnellingsbak %(vitesses)s versnellingen"
+
 
 #: .\piece\piece_carrosserie\models.py:7
 msgid "Gauche"
@@ -1115,63 +1054,58 @@ msgstr "Deurruiten"
 
 #: .\piece\piece_climatisation\models.py:9
 msgid "Qualité de gaz"
-msgstr ""
+msgstr "Gaskwaliteit"
 
 #: .\piece\piece_climatisation\models.py:10
-#, fuzzy
-#| msgid "Quantité"
 msgid "Quantité de gaz"
-msgstr "Aantal"
+msgstr "Gashoeveelheid"
 
 #: .\piece\piece_climatisation\models.py:12
 msgid "Évaporateur"
-msgstr ""
+msgstr "Verdamper"
 
 #: .\piece\piece_climatisation\models.py:13
-#, fuzzy
-#| msgid "Compresseur"
 msgid "Condenseur"
 msgstr "Compressor"
-
 #: .\piece\piece_climatisation\models.py:14 .\piece\piece_filtres\models.py:26
 #: .\piece\piece_filtres\models.py:31
 msgid "Filtre"
-msgstr ""
+msgstr "Filter"
 
 #: .\piece\piece_climatisation\models.py:15
 msgid "Déshydrateur"
-msgstr ""
+msgstr "Droger"
 
 #: .\piece\piece_climatisation\models.py:16
 msgid "Valves"
-msgstr ""
+msgstr "Kleppen"
 
 #: .\piece\piece_climatisation\models.py:17
 msgid "Durites"
-msgstr ""
+msgstr "Slangen"
 
 #: .\piece\piece_climatisation\models.py:18
 msgid "Huile de climatisation"
-msgstr ""
+msgstr "Airco-olie"
 
 #: .\piece\piece_climatisation\models.py:24
 msgid "Type de pièce de climatisation"
-msgstr ""
+msgstr "Type aircopart"
 
 #: .\piece\piece_climatisation\models.py:32
 #: .\piece\piece_differentiel\models.py:34 .\piece\piece_direction\models.py:33
 #: .\piece\piece_echappement\models.py:34 .\piece\piece_essuyage\models.py:26
 #: .\piece\piece_freins\models.py:57
 msgid "Moteurs compatibles"
-msgstr ""
+msgstr "Compatibele motoren"
 
 #: .\piece\piece_climatisation\models.py:36
 msgid "Pièce de climatisation"
-msgstr ""
+msgstr "Aircopart"
 
 #: .\piece\piece_climatisation\models.py:37
 msgid "Pièces de climatisation"
-msgstr ""
+msgstr "Aircoparts"
 
 #: .\piece\piece_climatisation\models.py:40
 #: .\piece\piece_differentiel\models.py:42 .\piece\piece_direction\models.py:41
@@ -1179,151 +1113,143 @@ msgstr ""
 #: .\piece\piece_freins\models.py:65
 #, python-format
 msgid "%(type)s – %(piece)s"
-msgstr ""
+msgstr "%(type)s – %(piece)s"
 
 #: .\piece\piece_differentiel\models.py:9
 msgid "Huile de différentiel"
-msgstr ""
+msgstr "Differentiëelolie"
 
 #: .\piece\piece_differentiel\models.py:10 .\piece\piece_train_AR\models.py:28
 msgid "Arbre de transmission"
-msgstr ""
+msgstr "Aandrijfas"
 
 #: .\piece\piece_differentiel\models.py:11
 msgid "Joint"
-msgstr ""
+msgstr "Pakking"
 
 #: .\piece\piece_differentiel\models.py:12
 msgid "Vidange"
-msgstr ""
+msgstr "Olie verversen"
 
 #: .\piece\piece_differentiel\models.py:13
 msgid "Couronne et pignon"
-msgstr ""
+msgstr "Tandwielset"
 
 #: .\piece\piece_differentiel\models.py:14
 msgid "Roulements de différentiel"
-msgstr ""
+msgstr "Differentiëellagers"
 
 #: .\piece\piece_differentiel\models.py:15
-#, fuzzy
-#| msgid "Capteur de cliquetis"
 msgid "Carter de différentiel"
-msgstr "Pingelsensor"
+msgstr "Differentieelkast"
+
 
 #: .\piece\piece_differentiel\models.py:17 .\piece\piece_freins\models.py:32
 msgid "Soufflet"
-msgstr ""
+msgstr "Manchet"
 
 #: .\piece\piece_differentiel\models.py:19
 msgid "Axe satellite"
-msgstr ""
+msgstr "Satellietas"
 
 #: .\piece\piece_differentiel\models.py:20
 msgid "Satellites planétaires"
-msgstr ""
+msgstr "Planeetsatellieten"
 
 #: .\piece\piece_differentiel\models.py:26
 msgid "Type de pièce de différentiel"
-msgstr ""
+msgstr "Type differentieelonderdeel"
 
 #: .\piece\piece_differentiel\models.py:38
 msgid "Pièce de différentiel"
-msgstr ""
+msgstr "Differentieelonderdeel"
 
 #: .\piece\piece_differentiel\models.py:39
 msgid "Pièces de différentiel"
-msgstr ""
+msgstr "Differentieelonderdelen"
 
 #: .\piece\piece_direction\models.py:9
 msgid "Crémaillère de direction"
-msgstr ""
+msgstr "Stuurhuis"
 
 #: .\piece\piece_direction\models.py:10
-#, fuzzy
-#| msgid "Code de vérification"
 msgid "Pompe de direction"
-msgstr "Verificatiecode"
+msgstr "Stuurbekrachtigingspomp"
 
 #: .\piece\piece_direction\models.py:11
 msgid "Biellette de direction gauche"
-msgstr ""
+msgstr "Linkse stuurstang"
 
 #: .\piece\piece_direction\models.py:12
 msgid "Biellette de direction droite"
-msgstr ""
+msgstr "Rechtse stuurstang"
 
 #: .\piece\piece_direction\models.py:13
 msgid "Rotule de direction gauche"
-msgstr ""
+msgstr "Linkse kogelgewricht"
 
 #: .\piece\piece_direction\models.py:14
 msgid "Rotule de direction droite"
-msgstr ""
+msgstr "Rechtse kogelgewricht"
 
 #: .\piece\piece_direction\models.py:15
 msgid "Soufflets"
-msgstr ""
+msgstr "Manchetten"
 
 #: .\piece\piece_direction\models.py:16
-#, fuzzy
-#| msgid "Date d'intervention"
 msgid "Durite de direction"
-msgstr "Datum interventie"
+msgstr "Stuurbekrachtigingsslang"
 
 #: .\piece\piece_direction\models.py:17
 msgid "Huile de direction (quantité)"
-msgstr ""
+msgstr "Stuurbekrachtigingsolie (hoeveelheid)"
 
 #: .\piece\piece_direction\models.py:18
 msgid "Huile de direction (qualité)"
-msgstr ""
+msgstr "Stuurbekrachtigingsolie (kwaliteit)"
 
 #: .\piece\piece_direction\models.py:19
 msgid "Réservoir"
-msgstr ""
+msgstr "Reservoir"
 
 #: .\piece\piece_direction\models.py:25
 msgid "Type de pièce de direction"
-msgstr ""
+msgstr "Type stuuronderdeel"
 
 #: .\piece\piece_direction\models.py:37
 msgid "Pièce de direction"
-msgstr ""
+msgstr "Stuuronderdeel"
 
 #: .\piece\piece_direction\models.py:38
 msgid "Pièces de direction"
-msgstr ""
+msgstr "Stuuronderdelen"
 
 #: .\piece\piece_echappement\models.py:9
 msgid "Collecteur d’échappement"
-msgstr ""
+msgstr "Uitlaatkrans"
 
 #: .\piece\piece_echappement\models.py:10
-#, fuzzy
-#| msgid "Sonde de pression filtre à particules"
 msgid "Filtre à particules"
-msgstr "Druksensor roetfilter"
+msgstr "Deeltjesfilter"
 
 #: .\piece\piece_echappement\models.py:11
 msgid "Pot de déNOx"
-msgstr ""
+msgstr "NOx-katalysator"
 
 #: .\piece\piece_echappement\models.py:12
 msgid "Pot catalytique"
-msgstr ""
+msgstr "Katalysator"
 
 #: .\piece\piece_echappement\models.py:13
 msgid "Ligne d’échappement"
-msgstr ""
+msgstr "Uitlaatsysteem"
 
 #: .\piece\piece_echappement\models.py:14
 msgid "Silencieux"
-msgstr ""
+msgstr "Demper"
+
 
 #: .\piece\piece_echappement\models.py:15
-#, fuzzy
-#| msgid "Bouclier"
 msgid "Colliers"
 msgstr "Scherm"
 
