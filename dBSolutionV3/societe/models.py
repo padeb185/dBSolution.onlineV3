@@ -8,10 +8,11 @@ from adresse.models import Adresse
 class Societe(TenantMixin):
     # Champs obligatoires pour django-tenants
     slug = models.SlugField(unique=True)
-    paid_until = models.DateField()
+    paid_until = models.DateField(null=True, blank=True)
     on_trial = models.BooleanField(default=True)
     created_on = models.DateField(auto_now_add=True)
-    auto_create_schema = True  # crée automatiquement le schéma
+
+    auto_create_schema = True  # ⚠️ indispensable
 
     # Champs spécifiques à ta société
     id_societe = models.UUIDField(
@@ -24,7 +25,12 @@ class Societe(TenantMixin):
         unique=True,
         verbose_name="Nom de la société"
     )
-    adresse = models.OneToOneField(Adresse, on_delete=models.CASCADE)
+    adresse = models.ForeignKey(
+        "adresse.Adresse",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
+    )
     directeur = models.CharField(
         max_length=100,
         verbose_name="Directeur"

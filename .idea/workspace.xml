@@ -4,37 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="accueil">
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="RAZ BDD">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/adresse/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/api/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/api/admin.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/api/apps.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/api/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/api/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/api/tests.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/api/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/app/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/app/admin.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/app/apps.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/app/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/app/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/app/tests.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/app/urls.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/app/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/client/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/client/societe_cliente/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/client/societe_cliente/migrations/0002_societecliente_numero_entreprise_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/client/societe_cliente/migrations/0003_remove_societecliente_adresse_and_more.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/investissements/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_exemplaire/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_exemplaire/migrations/0002_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_modele/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_pneus/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_pneus/migrations/0002_voiturepneus_voiture_exemplaire.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_pneus_historique/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/societe/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/societe/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -162,14 +135,8 @@
       <workItem from="1766554563944" duration="29088000" />
       <workItem from="1766590302763" duration="289000" />
       <workItem from="1766590903812" duration="1028000" />
-    </task>
-    <task id="LOCAL-00055" summary="modele utilisateurs">
-      <option name="closed" value="true" />
-      <created>1766391112186</created>
-      <option name="number" value="00055" />
-      <option name="presentableId" value="LOCAL-00055" />
-      <option name="project" value="LOCAL" />
-      <updated>1766391112186</updated>
+      <workItem from="1766591963502" duration="71000" />
+      <workItem from="1766592494791" duration="600000" />
     </task>
     <task id="LOCAL-00056" summary="modele utilisateurs corrections">
       <option name="closed" value="true" />
@@ -555,7 +522,15 @@
       <option name="project" value="LOCAL" />
       <updated>1766588466705</updated>
     </task>
-    <option name="localTasksCounter" value="104" />
+    <task id="LOCAL-00104" summary="RAZ BDD">
+      <option name="closed" value="true" />
+      <created>1766592020194</created>
+      <option name="number" value="00104" />
+      <option name="presentableId" value="LOCAL-00104" />
+      <option name="project" value="LOCAL" />
+      <updated>1766592020195</updated>
+    </task>
+    <option name="localTasksCounter" value="105" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -573,7 +548,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="pieces suite 3" />
     <MESSAGE value="pieces suite 4" />
     <MESSAGE value="pieces suite 5" />
     <MESSAGE value="pieces suite 6" />
@@ -598,14 +572,15 @@
     <MESSAGE value="i18N 2" />
     <MESSAGE value="traductions suite" />
     <MESSAGE value="accueil" />
-    <option name="LAST_COMMIT_MESSAGE" value="accueil" />
+    <MESSAGE value="RAZ BDD" />
+    <option name="LAST_COMMIT_MESSAGE" value="RAZ BDD" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py</url>
-          <line>310</line>
+          <line>311</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">

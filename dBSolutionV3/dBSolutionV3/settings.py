@@ -249,6 +249,7 @@ DATABASES = {
         'PORT': os.environ.get('DB_PORT'),                # port DB
     }
 }
+
 DATABASE_ROUTERS = (
     'django_tenants.routers.TenantSyncRouter',
 )
