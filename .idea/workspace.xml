@@ -4,20 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="utilisateur et maintenance">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/carrossier/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/carrosserie/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/carrossier/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/carrosserie/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/carrossier/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/carrosserie/apps.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/carrossier/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/carrosserie/migrations/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/carrossier/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/carrosserie/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/carrossier/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/carrosserie/tests.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/carrossier/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/carrosserie/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/maintenance/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/maintenance/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/migrations/0001_initial.py" beforeDir="false" />
-    </list>
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="utilisateur et maintenance" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -140,23 +127,7 @@
       <workItem from="1766488244979" duration="1331000" />
       <workItem from="1766492690037" duration="7054000" />
       <workItem from="1766501290993" duration="5356000" />
-      <workItem from="1766508168768" duration="979000" />
-    </task>
-    <task id="LOCAL-00036" summary="séparation des sociétés">
-      <option name="closed" value="true" />
-      <created>1766160161447</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1766160161447</updated>
-    </task>
-    <task id="LOCAL-00037" summary="correction client societe_cliente">
-      <option name="closed" value="true" />
-      <created>1766226908837</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1766226908837</updated>
+      <workItem from="1766508168768" duration="1352000" />
     </task>
     <task id="LOCAL-00038" summary="correction client societe_cliente">
       <option name="closed" value="true" />
@@ -534,7 +505,23 @@
       <option name="project" value="LOCAL" />
       <updated>1766505337957</updated>
     </task>
-    <option name="localTasksCounter" value="85" />
+    <task id="LOCAL-00085" summary="utilisateur et maintenance">
+      <option name="closed" value="true" />
+      <created>1766509388863</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1766509388863</updated>
+    </task>
+    <task id="LOCAL-00086" summary="utilisateur et maintenance">
+      <option name="closed" value="true" />
+      <created>1766509500302</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1766509500302</updated>
+    </task>
+    <option name="localTasksCounter" value="87" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
