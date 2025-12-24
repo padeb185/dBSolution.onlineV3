@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="git js theme">
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="freins pièces">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_electricite/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_electricite/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_freins/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_freins/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_electronique/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_electronique/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,15 +132,7 @@
       <workItem from="1766492690037" duration="7054000" />
       <workItem from="1766501290993" duration="5356000" />
       <workItem from="1766508168768" duration="1352000" />
-      <workItem from="1766554563944" duration="1413000" />
-    </task>
-    <task id="LOCAL-00039" summary="admin login widget tweaks">
-      <option name="closed" value="true" />
-      <created>1766306088209</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1766306088209</updated>
+      <workItem from="1766554563944" duration="3371000" />
     </task>
     <task id="LOCAL-00040" summary="admin login test">
       <option name="closed" value="true" />
@@ -526,7 +518,15 @@
       <option name="project" value="LOCAL" />
       <updated>1766554665097</updated>
     </task>
-    <option name="localTasksCounter" value="88" />
+    <task id="LOCAL-00088" summary="freins pièces">
+      <option name="closed" value="true" />
+      <created>1766556011353</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1766556011353</updated>
+    </task>
+    <option name="localTasksCounter" value="89" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -544,7 +544,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="modele utilisateurs corrections" />
     <MESSAGE value="admin global admin local" />
     <MESSAGE value="pieces" />
     <MESSAGE value="boite et moteur" />
@@ -569,7 +568,8 @@
     <MESSAGE value="outillage investissements" />
     <MESSAGE value="utilisateur et maintenance" />
     <MESSAGE value="git js theme" />
-    <option name="LAST_COMMIT_MESSAGE" value="git js theme" />
+    <MESSAGE value="freins pièces" />
+    <option name="LAST_COMMIT_MESSAGE" value="freins pièces" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
