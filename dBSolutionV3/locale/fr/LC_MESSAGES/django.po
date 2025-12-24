@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-15 11:12+0100\n"
+"POT-Creation-Date: 2025-12-24 10:17+0100\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -17,88 +17,902 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+#: .\adresse\models.py:9
+msgid "Rue"
+msgstr ""
 
-#: .\dBSolutionV3\views.py:5
+#: .\adresse\models.py:10
+msgid "Numéro"
+msgstr ""
+
+#: .\adresse\models.py:11
+msgid "Code postal"
+msgstr ""
+
+#: .\adresse\models.py:12
+msgid "Ville"
+msgstr ""
+
+#: .\adresse\models.py:14 .\carrosserie\models.py:12
+msgid "Pays"
+msgstr ""
+
+#: .\adresse\models.py:15 .\facture\models.py:29 .\fournisseur\models.py:43
+msgid "Code pays"
+msgstr ""
+
+#: .\adresse\models.py:17 .\client\models.py:57 .\facture\models.py:34
+#: .\fournisseur\models.py:51
+msgid "Créé le"
+msgstr ""
+
+#: .\adresse\models.py:18 .\facture\models.py:35
+msgid "Mis à jour le"
+msgstr ""
+
+#: .\adresse\models.py:21 .\carrosserie\models.py:11 .\client\models.py:12
+#: .\facture\models.py:17 .\fournisseur\models.py:19
+msgid "Adresse"
+msgstr ""
+
+#: .\adresse\models.py:22
+msgid "Adresses"
+msgstr ""
+
+#: .\authentification\forms.py:42
+msgid "Adresse email ou mot de passe incorrect"
+msgstr ""
+
+#: .\authentification\forms.py:52
+msgid "Code de vérification"
+msgstr ""
+
+#: .\authentification\views.py:27 .\dBSolutionV3\views.py:50
+#: .\theme\templates\totp\setup.html:31
+msgid "Aucun secret TOTP configuré pour ce compte."
+msgstr ""
+
+#: .\authentification\views.py:51 .\dBSolutionV3\views.py:68
+msgid "Code de vérification invalide."
+msgstr ""
+
+#: .\carrosserie\models.py:10
+msgid "Nom de la société"
+msgstr ""
+
+#: .\carrosserie\models.py:13
+msgid "Téléphone"
+msgstr ""
+
+#: .\carrosserie\models.py:14 .\client\models.py:22
+msgid "Email"
+msgstr ""
+
+#: .\carrosserie\models.py:15 .\fournisseur\models.py:24
+msgid "Numéro de TVA"
+msgstr ""
+
+#: .\carrosserie\models.py:18 .\carrosserie\models.py:29
+msgid "Carrosserie"
+msgstr ""
+
+#: .\carrosserie\models.py:19
+msgid "Carrosseries"
+msgstr ""
+
+#: .\carrosserie\models.py:36 .\piece\piece_carrosserie\models.py:17
+msgid "Pare-chocs"
+msgstr ""
+
+#: .\carrosserie\models.py:37 .\piece\piece_carrosserie\models.py:18
+msgid "Bouclier"
+msgstr ""
+
+#: .\carrosserie\models.py:38 .\piece\piece_carrosserie\models.py:19
+msgid "Pare-brise"
+msgstr ""
+
+#: .\carrosserie\models.py:39
+msgid "Vitre de porte"
+msgstr ""
+
+#: .\carrosserie\models.py:40 .\piece\piece_carrosserie\models.py:21
+msgid "Lunette"
+msgstr ""
+
+#: .\carrosserie\models.py:41 .\piece\piece_carrosserie\models.py:22
+msgid "Rétroviseur"
+msgstr ""
+
+#: .\carrosserie\models.py:42 .\piece\piece_carrosserie\models.py:23
+msgid "Aile"
+msgstr ""
+
+#: .\carrosserie\models.py:43 .\piece\piece_carrosserie\models.py:24
+msgid "Élargisseur d’aile"
+msgstr ""
+
+#: .\carrosserie\models.py:44 .\piece\piece_carrosserie\models.py:25
+msgid "Bas de caisse"
+msgstr ""
+
+#: .\carrosserie\models.py:45 .\piece\piece_carrosserie\models.py:26
+msgid "Support de radiateur"
+msgstr ""
+
+#: .\carrosserie\models.py:46 .\piece\piece_carrosserie\models.py:27
+msgid "Support de pare-chocs"
+msgstr ""
+
+#: .\carrosserie\models.py:47 .\piece\piece_carrosserie\models.py:28
+msgid "Porte"
+msgstr ""
+
+#: .\carrosserie\models.py:48 .\piece\piece_carrosserie\models.py:29
+msgid "Poignée de porte"
+msgstr ""
+
+#: .\carrosserie\models.py:49 .\piece\piece_carrosserie\models.py:30
+msgid "Coffre / hayon"
+msgstr ""
+
+#: .\carrosserie\models.py:50 .\piece\piece_carrosserie\models.py:31
+msgid "Joint de coffre"
+msgstr ""
+
+#: .\carrosserie\models.py:51 .\piece\piece_carrosserie\models.py:32
+msgid "Joint de porte"
+msgstr ""
+
+#: .\carrosserie\models.py:52 .\piece\piece_carrosserie\models.py:33
+msgid "Coquille d’aile"
+msgstr ""
+
+#: .\carrosserie\models.py:53 .\piece\piece_carrosserie\models.py:34
+msgid "Clips"
+msgstr ""
+
+#: .\carrosserie\models.py:54 .\piece\piece_carrosserie\models.py:35
+msgid "Visserie"
+msgstr ""
+
+#: .\carrosserie\models.py:55 .\piece\piece_carrosserie\models.py:36
+msgid "Capot"
+msgstr ""
+
+#: .\carrosserie\models.py:58
+msgid "Montant du devis"
+msgstr ""
+
+#: .\carrosserie\models.py:64
+msgid "Montant de la facture"
+msgstr ""
+
+#: .\carrosserie\models.py:70
+msgid "Montant total"
+msgstr ""
+
+#: .\carrosserie\models.py:77
+msgid "Intervention"
+msgstr ""
+
+#: .\carrosserie\models.py:78
+msgid "Interventions"
+msgstr ""
+
+#: .\carrosserie\models.py:82
+#, python-format
+msgid "Intervention %(id)s – %(carrosserie)s"
+msgstr ""
+
+#: .\carrosserie\models.py:86
+#, python-format
+msgid "Intervention %(id)s"
+msgstr ""
+
+#: .\client\models.py:8
+msgid "Nom"
+msgstr ""
+
+#: .\client\models.py:9
+msgid "Prénom"
+msgstr ""
+
+#: .\client\models.py:16
+msgid "Numéro de téléphone"
+msgstr ""
+
+#: .\client\models.py:29
+msgid "Âge"
+msgstr ""
+
+#: .\client\models.py:31
+msgid "Numéro de permis"
+msgstr ""
+
+#: .\client\models.py:38
+msgid "Débutant"
+msgstr ""
+
+#: .\client\models.py:39
+msgid "Intermédiaire"
+msgstr ""
+
+#: .\client\models.py:40
+msgid "Expert"
+msgstr ""
+
+#: .\client\models.py:41
+msgid "Bronze"
+msgstr ""
+
+#: .\client\models.py:42
+msgid "Silver"
+msgstr ""
+
+#: .\client\models.py:43
+msgid "Gold"
+msgstr ""
+
+#: .\client\models.py:46
+msgid "Niveau"
+msgstr ""
+
+#: .\client\models.py:52
+msgid "Historique"
+msgstr ""
+
+#: .\client\models.py:53
 #, fuzzy
-#| msgid "Bienvenue sur la plateforme"
-msgid "Bienvenue sur notre site"
-msgstr "Bienvenue sur la plateforme"
+#| msgid "Action"
+msgid "Location"
+msgstr "Action"
 
-#: .\dBSolutionV3\views.py:10 .\theme\templates\dashboard.html:7
+#: .\client\models.py:56 .\fournisseur\models.py:50
+#, fuzzy
+#| msgid "Action"
+msgid "Actif"
+msgstr "Action"
+
+#: .\client\models.py:60 .\facture\models.py:69
+msgid "Client"
+msgstr ""
+
+#: .\client\models.py:61
+msgid "Clients"
+msgstr ""
+
+#: .\client\models.py:64
+#, python-format
+msgid "%(nom)s %(prenom)s (Client)"
+msgstr ""
+
+#: .\dBSolutionV3\views.py:35
+msgid "Nom d'utilisateur ou mot de passe incorrect"
+msgstr ""
+
+#: .\dBSolutionV3\views.py:82 .\theme\templates\dashboard.html:10
 msgid "Bienvenue sur ton tableau de bord"
 msgstr "Bienvenue sur ton tableau de bord"
 
-#: .\theme\templates\base.html:13
+#: .\facture\models.py:23 .\fournisseur\models.py:37
+msgid "Identifiant Peppol"
+msgstr ""
+
+#: .\facture\models.py:25
+msgid "Ex : 0208:BE0123456789"
+msgstr ""
+
+#: .\facture\models.py:38 .\facture\models.py:62
+msgid "Société émettrice"
+msgstr ""
+
+#: .\facture\models.py:39
+msgid "Sociétés émettrices"
+msgstr ""
+
+#: .\facture\models.py:48
+msgid "Identifiant facture"
+msgstr ""
+
+#: .\facture\models.py:55
+msgid "Numéro de facture"
+msgstr ""
+
+#: .\facture\models.py:74
+msgid "Date d’émission"
+msgstr ""
+
+#: .\facture\models.py:75
+msgid "Devise"
+msgstr ""
+
+#: .\facture\models.py:77
+msgid "Total"
+msgstr ""
+
+#: .\facture\models.py:83 .\facture\models.py:93
+msgid "Facture"
+msgstr ""
+
+#: .\facture\models.py:84
+msgid "Factures"
+msgstr ""
+
+#: .\facture\models.py:87
+#, python-format
+msgid "Facture %(numero)s"
+msgstr ""
+
+#: .\facture\models.py:98
+msgid "Description"
+msgstr ""
+
+#: .\facture\models.py:101
+msgid "Quantité"
+msgstr ""
+
+#: .\facture\models.py:107
+msgid "Prix unitaire"
+msgstr ""
+
+#: .\facture\models.py:113
+msgid "Taux de TVA"
+msgstr ""
+
+#: .\facture\models.py:116
+msgid "Taux de TVA : 6, 12, 21"
+msgstr ""
+
+#: .\facture\models.py:120
+msgid "Ligne de facture"
+msgstr ""
+
+#: .\facture\models.py:121
+msgid "Lignes de facture"
+msgstr ""
+
+#: .\facture\models.py:124
+#, python-format
+msgid "%(desc)s (%(facture)s)"
+msgstr ""
+
+#: .\fournisseur\models.py:12
+msgid "Nom du fournisseur"
+msgstr ""
+
+#: .\fournisseur\models.py:30
+msgid "Taux de TVA (%)"
+msgstr ""
+
+#: .\fournisseur\models.py:39
+msgid "Identifiant Peppol, ex : 0208:BE0123456789"
+msgstr ""
+
+#: .\fournisseur\models.py:46
+msgid "ISO 3166-1 alpha-2"
+msgstr ""
+
+#: .\fournisseur\models.py:54 .\investissements\models.py:11
+msgid "Fournisseur"
+msgstr ""
+
+#: .\fournisseur\models.py:55
+msgid "Fournisseurs"
+msgstr ""
+
+#: .\fournisseur\models.py:62
+#, python-format
+msgid "%(nom)s (Fournisseur)"
+msgstr ""
+
+#: .\investissements\models.py:18
+msgid "Pont"
+msgstr ""
+
+#: .\investissements\models.py:19
+msgid "Machine de géométrie"
+msgstr ""
+
+#: .\investissements\models.py:20
+msgid "Machine à pneus"
+msgstr ""
+
+#: .\investissements\models.py:21
+msgid "Équilibreuse"
+msgstr ""
+
+#: .\investissements\models.py:22
+msgid "Compresseur"
+msgstr ""
+
+#: .\investissements\models.py:23
+msgid "Booster batterie"
+msgstr ""
+
+#: .\investissements\models.py:24
+msgid "Booster pneus"
+msgstr ""
+
+#: .\investissements\models.py:25
+msgid "Tuyaux pression d’air"
+msgstr ""
+
+#: .\investissements\models.py:26
+msgid "Connecteurs"
+msgstr ""
+
+#: .\investissements\models.py:27
+msgid "Mobilier"
+msgstr ""
+
+#: .\investissements\models.py:28
+msgid "Ordinateur"
+msgstr ""
+
+#: .\investissements\models.py:29
+msgid "Appareil de diagnostic"
+msgstr ""
+
+#: .\investissements\models.py:32
+msgid "Libellé"
+msgstr ""
+
+#: .\investissements\models.py:38
+msgid "Détails"
+msgstr ""
+
+#: .\investissements\models.py:41
+msgid "Durée d'amortissement"
+msgstr ""
+
+#: .\investissements\models.py:42
+msgid "Durée d'amortissement en mois ou années"
+msgstr ""
+
+#: .\investissements\models.py:47
+msgid "Linéaire"
+msgstr ""
+
+#: .\investissements\models.py:48
+msgid "Dégressif"
+msgstr ""
+
+#: .\investissements\models.py:49
+msgid "Autre"
+msgstr ""
+
+#: .\investissements\models.py:52
+msgid "Type d'amortissement"
+msgstr ""
+
+#: .\investissements\models.py:59
+msgid "Investissement"
+msgstr ""
+
+#: .\investissements\models.py:60
+msgid "Investissements"
+msgstr ""
+
+#: .\investissements\models.py:63
+#, python-format
+msgid "%(libelle)s - Fournisseur: %(fournisseur)s"
+msgstr ""
+
+#: .\maintenance\models.py:10
+msgid "Vert"
+msgstr ""
+
+#: .\maintenance\models.py:11
+msgid "Jaune"
+msgstr ""
+
+#: .\maintenance\models.py:12
+msgid "Rouge"
+msgstr ""
+
+#: .\maintenance\models.py:18
+msgid "Voiture exemplaire"
+msgstr ""
+
+#: .\maintenance\models.py:27
+msgid "Mécanicien"
+msgstr ""
+
+#: .\maintenance\models.py:33
+msgid "Immatriculation"
+msgstr ""
+
+#: .\maintenance\models.py:34
+msgid "Date d'intervention"
+msgstr ""
+
+#: .\maintenance\models.py:36
+msgid "Date de la dernière intervention"
+msgstr ""
+
+#: .\maintenance\models.py:41
+msgid "Étiquette"
+msgstr ""
+
+#: .\maintenance\models.py:48
+#, fuzzy
+#| msgid "Nombre total :"
+msgid "Kilométrage total"
+msgstr "Nombre total :"
+
+#: .\maintenance\models.py:50
+msgid "Kilométrage à la dernière intervention"
+msgstr ""
+
+#: .\maintenance\models.py:54
+msgid "Kilométrage châssis"
+msgstr ""
+
+#: .\maintenance\models.py:57
+msgid "Kilométrage moteur"
+msgstr ""
+
+#: .\maintenance\models.py:58
+msgid "Kilométrage boîte"
+msgstr ""
+
+#: .\maintenance\models.py:61
+msgid "Remplacement moteur"
+msgstr ""
+
+#: .\maintenance\models.py:62
+msgid "Remplacement boîte"
+msgstr ""
+
+#: .\maintenance\models.py:65
+msgid "Maintenance"
+msgstr ""
+
+#: .\maintenance\models.py:66
+msgid "Maintenances"
+msgstr ""
+
+#: .\maintenance\models.py:84
+#, python-format
+msgid "Maintenance %(voiture)s (%(date)s)"
+msgstr ""
+
+#: .\piece\piece_carrosserie\models.py:7
+msgid "Gauche"
+msgstr ""
+
+#: .\piece\piece_carrosserie\models.py:8
+msgid "Droit"
+msgstr ""
+
+#: .\piece\piece_carrosserie\models.py:12
+msgid "Avant"
+msgstr ""
+
+#: .\piece\piece_carrosserie\models.py:13
+msgid "Arrière"
+msgstr ""
+
+#: .\piece\piece_carrosserie\models.py:20
+msgid "Vitres de porte"
+msgstr ""
+
+#: .\piece\piece_electricite\models.py:8
+msgid "Alternateur"
+msgstr ""
+
+#: .\piece\piece_electricite\models.py:9
+msgid "Batterie"
+msgstr ""
+
+#: .\piece\piece_electricite\models.py:10
+msgid "Démarreur"
+msgstr ""
+
+#: .\piece\piece_electricite\models.py:11
+msgid "Lève-vitre avant gauche"
+msgstr ""
+
+#: .\piece\piece_electricite\models.py:12
+msgid "Lève-vitre avant droit"
+msgstr ""
+
+#: .\piece\piece_electricite\models.py:13
+msgid "Lève-vitre arrière gauche"
+msgstr ""
+
+#: .\piece\piece_electricite\models.py:14
+msgid "Lève-vitre arrière droit"
+msgstr ""
+
+#: .\piece\piece_electricite\models.py:15
+msgid "Pompe lave-glace avant"
+msgstr ""
+
+#: .\piece\piece_electricite\models.py:16
+msgid "Pompe lave-glace arrière"
+msgstr ""
+
+#: .\piece\piece_electricite\models.py:17
+msgid "Klaxon"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:9
+msgid "Débitmètre"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:10
+msgid "Sonde de température eau"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:11
+msgid "Sonde de température d’huile"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:12
+msgid "Capteur de cliquetis"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:13
+msgid "Sonde lambda"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:14
+msgid "Capteur d'arbre à came"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:15
+msgid "Capteur vilebrequin"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:16
+msgid "Sonde de pression filtre à particules"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:17
+msgid "Vanne EGR"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:18
+msgid "Boîtier papillon"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:19
+msgid "Électrovanne de turbo"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:20
+msgid "Sonde pression turbo"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:21
+msgid "Capteur ABS"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:22
+msgid "Accélérateur"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:23
+msgid "Contacteur feux stop"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:24
+msgid "Calculateur ABS"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:25
+msgid "Calculateur moteur"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:26
+msgid "Boîtier servitude intérieur"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:27
+msgid "Fusibles"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:28
+msgid "Boîtier additionnel"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:29
+msgid "Radar de recul"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:30
+msgid "Capteur pression pneus"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:31
+msgid "Capteur pression admission"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:32
+msgid "Régulateur pression carburant"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:33
+msgid "Capteur niveau huile"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:34
+msgid "Capteur niveau liquide freins"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:35
+msgid "Calculateur boîte de vitesses"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:36
+msgid "Relais de préchauffage"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:37
+msgid "Relais"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:38
+msgid "Résistance de chauffage"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:39
+msgid "Capteur de température d’admission"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:40
+msgid "Capteur d’embrayage"
+msgstr ""
+
+#: .\theme\templates\base.html:9
 msgid "dBSolution"
 msgstr "dBSolution"
 
-#: .\theme\templates\base.html:25
+#: .\theme\templates\base.html:19
 msgid "Accueil"
 msgstr "Accueil"
 
-#: .\theme\templates\base.html:28 .\theme\templates\dashboard.html:4
+#: .\theme\templates\base.html:20
 msgid "Tableau de Bord"
 msgstr "Tableau de Bord"
 
-#: .\theme\templates\base.html:42
+#: .\theme\templates\base.html:32
 msgid "Changer de langue"
 msgstr "Changer de langue"
 
-#: .\theme\templates\dashboard.html:13
+#: .\theme\templates\dashboard.html:7
+#, fuzzy
+#| msgid "Tableau de Bord"
+msgid "Tableau de bord"
+msgstr "Tableau de Bord"
+
+#: .\theme\templates\dashboard.html:16
 msgid "Utilisateurs"
 msgstr "Utilisateurs"
 
-#: .\theme\templates\dashboard.html:14
+#: .\theme\templates\dashboard.html:17
 msgid "Nombre total :"
 msgstr "Nombre total :"
 
-#: .\theme\templates\dashboard.html:19
+#: .\theme\templates\dashboard.html:22
 msgid "Projets"
 msgstr "Projets"
 
-#: .\theme\templates\dashboard.html:20
+#: .\theme\templates\dashboard.html:23
 msgid "Projets actifs :"
 msgstr "Projets actifs :"
 
-#: .\theme\templates\dashboard.html:25
+#: .\theme\templates\dashboard.html:28
 msgid "Notifications"
 msgstr "Notifications"
 
-#: .\theme\templates\dashboard.html:26
+#: .\theme\templates\dashboard.html:29
 msgid "Messages non lus :"
 msgstr "Messages non lus :"
 
-#: .\theme\templates\dashboard.html:33
+#: .\theme\templates\dashboard.html:36
 msgid "Dernières activités"
 msgstr "Dernières activités"
 
-#: .\theme\templates\dashboard.html:37
+#: .\theme\templates\dashboard.html:40
 msgid "Date"
 msgstr "Date"
 
-#: .\theme\templates\dashboard.html:38
+#: .\theme\templates\dashboard.html:41
 msgid "Utilisateur"
 msgstr "Utilisateur"
 
-#: .\theme\templates\dashboard.html:39
+#: .\theme\templates\dashboard.html:42
 msgid "Action"
 msgstr "Action"
 
-#: .\theme\templates\dashboard.html:46
+#: .\theme\templates\dashboard.html:49 .\theme\templates\login.html:5
+#: .\theme\templates\login.html:9
 msgid "Connexion"
 msgstr "Connexion"
 
-#: .\theme\templates\dashboard.html:51
+#: .\theme\templates\dashboard.html:54
 msgid "Modification de projet"
 msgstr "Modification de projet"
 
-#: .\theme\templates\home.html:11
+#: .\theme\templates\home.html:13
 msgid "Bienvenue"
 msgstr "Bienvenue"
 
-#: .\theme\templates\home.html:14
+#: .\theme\templates\home.html:16
 msgid "Ceci est un paragraphe stylé avec Tailwind."
 msgstr "Ceci est un paragraphe stylé avec Tailwind."
+
+#: .\theme\templates\login.html:18
+msgid "Accès à votre compte"
+msgstr ""
+
+#: .\theme\templates\login.html:50
+msgid "Se souvenir de moi"
+msgstr ""
+
+#: .\theme\templates\login.html:54
+msgid "Mot de passe oublié ?"
+msgstr ""
+
+#: .\theme\templates\login.html:63 .\theme\templates\login.totp.html:47
+msgid "Se connecter"
+msgstr ""
+
+#: .\theme\templates\login.html:71
+msgid "Sécurité"
+msgstr ""
+
+#: .\theme\templates\login.html:74
+msgid ""
+"L’accès est protégé. Une vérification supplémentaire peut être requise selon "
+"votre configuration de sécurité."
+msgstr ""
+
+#: .\theme\templates\login.totp.html:5 .\theme\templates\login.totp.html:13
+#, fuzzy
+#| msgid "Connexion"
+msgid "Connexion sécurisée"
+msgstr "Connexion"
+
+#: .\theme\templates\login.totp.html:17
+msgid "Veuillez entrer le code généré par Google Authenticator"
+msgstr ""
+
+#: .\theme\templates\totp\setup.html:5
+msgid "Configurer TOTP"
+msgstr ""
+
+#: .\theme\templates\totp\setup.html:11
+msgid "Configurer la vérification TOTP"
+msgstr ""
+
+#: .\theme\templates\totp\setup.html:13
+msgid "Scanner le QR code"
+msgstr ""
+
+#: .\theme\templates\totp\setup.html:14
+msgid "Ouvre Google Authenticator et scanne le code ci-dessous."
+msgstr ""
+
+#: .\theme\templates\totp\setup.html:19
+msgid "QR Code TOTP"
+msgstr ""
+
+#: .\theme\templates\totp\setup.html:23
+msgid "Si tu ne peux pas scanner le QR code, utilise ce code secret :"
+msgstr ""
+
+#: .\theme\templates\totp\setup.html:28
+msgid "J’ai configuré Google Authenticator"
+msgstr ""
+
+#, fuzzy
+#~| msgid "Bienvenue sur la plateforme"
+#~ msgid "Bienvenue sur notre site"
+#~ msgstr "Bienvenue sur la plateforme"
 
 #~ msgid "11/12/2025"
 #~ msgstr "11/12/2025"
@@ -111,5 +925,3 @@ msgstr "Ceci est un paragraphe stylé avec Tailwind."
 
 #~ msgid "Alice"
 #~ msgstr "Alice"
-
-#python manage.py compilemessages -l fr
