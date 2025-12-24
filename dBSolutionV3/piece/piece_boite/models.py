@@ -7,9 +7,9 @@ class BoiteMecanique(Piece):
 
     nb_vitesses = models.IntegerField(choices=NB_VITESSES_CHOICES)
     embrayage = models.CharField(max_length=255, blank=True, null=True)
-    disque_embreyage = models.CharField(max_length=255, blank=True, null=True)
-    plateau_embreyage = models.CharField(max_length=255, blank=True, null=True)
-    butee_embreyage = models.CharField(max_length=255, blank=True, null=True)
+    disque_embrayage = models.CharField(max_length=255, blank=True, null=True)
+    plateau_embrayage = models.CharField(max_length=255, blank=True, null=True)
+    butee_embrayage = models.CharField(max_length=255, blank=True, null=True)
     pignon = models.CharField(max_length=255, blank=True, null=True)
     synchro = models.CharField(max_length=255, blank=True, null=True)
     arbre_principal = models.CharField(max_length=255, blank=True, null=True)

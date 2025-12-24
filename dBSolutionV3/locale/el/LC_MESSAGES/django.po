@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-15 11:13+0100\n"
+"POT-Creation-Date: 2025-12-24 07:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,86 +18,440 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\dBSolutionV3\views.py:5
-msgid "Bienvenue sur notre site"
-msgstr "Καλώς ήρθατε στην ιστοσελίδα μας"
+#: .\authentification\forms.py:42
+msgid "Adresse email ou mot de passe incorrect"
+msgstr ""
 
-#: .\dBSolutionV3\views.py:10 .\theme\templates\dashboard.html:7
+#: .\authentification\forms.py:52
+msgid "Code de vérification"
+msgstr ""
+
+#: .\authentification\views.py:27 .\dBSolutionV3\views.py:50
+#: .\theme\templates\totp\setup.html:31
+msgid "Aucun secret TOTP configuré pour ce compte."
+msgstr ""
+
+#: .\authentification\views.py:51 .\dBSolutionV3\views.py:68
+msgid "Code de vérification invalide."
+msgstr ""
+
+#: .\dBSolutionV3\views.py:35
+msgid "Nom d'utilisateur ou mot de passe incorrect"
+msgstr ""
+
+#: .\dBSolutionV3\views.py:82 .\theme\templates\dashboard.html:10
 msgid "Bienvenue sur ton tableau de bord"
 msgstr "Καλώς ήρθατε στον πίνακα ελέγχου σας"
 
-#: .\theme\templates\base.html:13
+#: .\piece\piece_carrosserie\models.py:7
+msgid "Gauche"
+msgstr ""
+
+#: .\piece\piece_carrosserie\models.py:8
+msgid "Droit"
+msgstr ""
+
+#: .\piece\piece_carrosserie\models.py:12
+msgid "Avant"
+msgstr ""
+
+#: .\piece\piece_carrosserie\models.py:13
+msgid "Arrière"
+msgstr ""
+
+#: .\piece\piece_carrosserie\models.py:17
+msgid "Pare-chocs"
+msgstr ""
+
+#: .\piece\piece_carrosserie\models.py:18
+msgid "Bouclier"
+msgstr ""
+
+#: .\piece\piece_carrosserie\models.py:19
+msgid "Pare-brise"
+msgstr ""
+
+#: .\piece\piece_carrosserie\models.py:20
+msgid "Vitres de porte"
+msgstr ""
+
+#: .\piece\piece_carrosserie\models.py:21
+msgid "Lunette"
+msgstr ""
+
+#: .\piece\piece_carrosserie\models.py:22
+msgid "Rétroviseur"
+msgstr ""
+
+#: .\piece\piece_carrosserie\models.py:23
+msgid "Aile"
+msgstr ""
+
+#: .\piece\piece_carrosserie\models.py:24
+msgid "Élargisseur d’aile"
+msgstr ""
+
+#: .\piece\piece_carrosserie\models.py:25
+msgid "Bas de caisse"
+msgstr ""
+
+#: .\piece\piece_carrosserie\models.py:26
+msgid "Support de radiateur"
+msgstr ""
+
+#: .\piece\piece_carrosserie\models.py:27
+msgid "Support de pare-chocs"
+msgstr ""
+
+#: .\piece\piece_carrosserie\models.py:28
+msgid "Porte"
+msgstr ""
+
+#: .\piece\piece_carrosserie\models.py:29
+msgid "Poignée de porte"
+msgstr ""
+
+#: .\piece\piece_carrosserie\models.py:30
+msgid "Coffre / hayon"
+msgstr ""
+
+#: .\piece\piece_carrosserie\models.py:31
+msgid "Joint de coffre"
+msgstr ""
+
+#: .\piece\piece_carrosserie\models.py:32
+msgid "Joint de porte"
+msgstr ""
+
+#: .\piece\piece_carrosserie\models.py:33
+msgid "Coquille d’aile"
+msgstr ""
+
+#: .\piece\piece_carrosserie\models.py:34
+msgid "Clips"
+msgstr ""
+
+#: .\piece\piece_carrosserie\models.py:35
+msgid "Visserie"
+msgstr ""
+
+#: .\piece\piece_carrosserie\models.py:36
+msgid "Capot"
+msgstr ""
+
+#: .\piece\piece_electricite\models.py:8
+msgid "Alternateur"
+msgstr ""
+
+#: .\piece\piece_electricite\models.py:9
+msgid "Batterie"
+msgstr ""
+
+#: .\piece\piece_electricite\models.py:10
+msgid "Démarreur"
+msgstr ""
+
+#: .\piece\piece_electricite\models.py:11
+msgid "Lève-vitre avant gauche"
+msgstr ""
+
+#: .\piece\piece_electricite\models.py:12
+msgid "Lève-vitre avant droit"
+msgstr ""
+
+#: .\piece\piece_electricite\models.py:13
+msgid "Lève-vitre arrière gauche"
+msgstr ""
+
+#: .\piece\piece_electricite\models.py:14
+msgid "Lève-vitre arrière droit"
+msgstr ""
+
+#: .\piece\piece_electricite\models.py:15
+msgid "Pompe lave-glace avant"
+msgstr ""
+
+#: .\piece\piece_electricite\models.py:16
+msgid "Pompe lave-glace arrière"
+msgstr ""
+
+#: .\piece\piece_electricite\models.py:17
+msgid "Klaxon"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:9
+msgid "Débitmètre"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:10
+msgid "Sonde de température eau"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:11
+msgid "Sonde de température d’huile"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:12
+msgid "Capteur de cliquetis"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:13
+msgid "Sonde lambda"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:14
+msgid "Capteur d'arbre à came"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:15
+msgid "Capteur vilebrequin"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:16
+msgid "Sonde de pression filtre à particules"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:17
+msgid "Vanne EGR"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:18
+msgid "Boîtier papillon"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:19
+msgid "Électrovanne de turbo"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:20
+msgid "Sonde pression turbo"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:21
+msgid "Capteur ABS"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:22
+msgid "Accélérateur"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:23
+msgid "Contacteur feux stop"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:24
+msgid "Calculateur ABS"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:25
+msgid "Calculateur moteur"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:26
+msgid "Boîtier servitude intérieur"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:27
+msgid "Fusibles"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:28
+msgid "Boîtier additionnel"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:29
+msgid "Radar de recul"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:30
+msgid "Capteur pression pneus"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:31
+msgid "Capteur pression admission"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:32
+msgid "Régulateur pression carburant"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:33
+msgid "Capteur niveau huile"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:34
+msgid "Capteur niveau liquide freins"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:35
+msgid "Calculateur boîte de vitesses"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:36
+msgid "Relais de préchauffage"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:37
+msgid "Relais"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:38
+msgid "Résistance de chauffage"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:39
+msgid "Capteur de température d’admission"
+msgstr ""
+
+#: .\piece\piece_electronique\models.py:40
+msgid "Capteur d’embrayage"
+msgstr ""
+
+#: .\theme\templates\base.html:9
 msgid "dBSolution"
 msgstr "dBSolution"
 
-#: .\theme\templates\base.html:25
+#: .\theme\templates\base.html:19
 msgid "Accueil"
 msgstr "Αρχική"
 
+#: .\theme\templates\base.html:20
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Tableau de Bord"
+msgstr "Πίνακας ελέγχου"
 
-#: .\theme\templates\base.html:42
+#: .\theme\templates\base.html:32
 msgid "Changer de langue"
 msgstr "Αλλαγή γλώσσας"
 
-#: .\theme\templates\dashboard.html:4 #: .\theme\templates\base.html:28
+#: .\theme\templates\dashboard.html:7
 msgid "Tableau de bord"
 msgstr "Πίνακας ελέγχου"
 
-#: .\theme\templates\dashboard.html:13
+#: .\theme\templates\dashboard.html:16
 msgid "Utilisateurs"
 msgstr "Χρήστες"
 
-#: .\theme\templates\dashboard.html:14
+#: .\theme\templates\dashboard.html:17
 msgid "Nombre total :"
 msgstr "Συνολικός αριθμός:"
 
-#: .\theme\templates\dashboard.html:19
+#: .\theme\templates\dashboard.html:22
 msgid "Projets"
 msgstr "Έργα"
 
-#: .\theme\templates\dashboard.html:20
+#: .\theme\templates\dashboard.html:23
 msgid "Projets actifs :"
 msgstr "Ενεργά έργα: "
 
-#: .\theme\templates\dashboard.html:25
+#: .\theme\templates\dashboard.html:28
 msgid "Notifications"
 msgstr "Ειδοποιήσεις"
 
-#: .\theme\templates\dashboard.html:26
+#: .\theme\templates\dashboard.html:29
 msgid "Messages non lus :"
 msgstr "Αδιάβαστα μηνύματα: "
 
-#: .\theme\templates\dashboard.html:33
+#: .\theme\templates\dashboard.html:36
 msgid "Dernières activités"
 msgstr "Τελευταίες δραστηριότητες"
 
-#: .\theme\templates\dashboard.html:37
+#: .\theme\templates\dashboard.html:40
 msgid "Date"
 msgstr "Ημερομηνία"
 
-#: .\theme\templates\dashboard.html:38
+#: .\theme\templates\dashboard.html:41
 msgid "Utilisateur"
 msgstr "Χρήστης"
 
-#: .\theme\templates\dashboard.html:39
+#: .\theme\templates\dashboard.html:42
 msgid "Action"
 msgstr "Ενέργεια"
 
-#: .\theme\templates\dashboard.html:46
+#: .\theme\templates\dashboard.html:49 .\theme\templates\login.html:5
+#: .\theme\templates\login.html:9
 msgid "Connexion"
 msgstr "Σύνδεση"
 
-#: .\theme\templates\dashboard.html:51
+#: .\theme\templates\dashboard.html:54
 msgid "Modification de projet"
 msgstr "Τροποποίηση έργου"
 
-#: .\theme\templates\home.html:11
+#: .\theme\templates\home.html:13
 msgid "Bienvenue"
 msgstr "Καλώς ήρθατε"
 
-#: .\theme\templates\home.html:14
+#: .\theme\templates\home.html:16
 msgid "Ceci est un paragraphe stylé avec Tailwind."
 msgstr "Αυτή είναι μια παράγραφος διαμορφωμένη με Tailwind."
+
+#: .\theme\templates\login.html:18
+msgid "Accès à votre compte"
+msgstr ""
+
+#: .\theme\templates\login.html:50
+msgid "Se souvenir de moi"
+msgstr ""
+
+#: .\theme\templates\login.html:54
+msgid "Mot de passe oublié ?"
+msgstr ""
+
+#: .\theme\templates\login.html:63 .\theme\templates\login.totp.html:47
+msgid "Se connecter"
+msgstr ""
+
+#: .\theme\templates\login.html:71
+msgid "Sécurité"
+msgstr ""
+
+#: .\theme\templates\login.html:74
+msgid ""
+"L’accès est protégé. Une vérification supplémentaire peut être requise selon "
+"votre configuration de sécurité."
+msgstr ""
+
+#: .\theme\templates\login.totp.html:5 .\theme\templates\login.totp.html:13
+#, fuzzy
+#| msgid "Connexion"
+msgid "Connexion sécurisée"
+msgstr "Σύνδεση"
+
+#: .\theme\templates\login.totp.html:17
+msgid "Veuillez entrer le code généré par Google Authenticator"
+msgstr ""
+
+#: .\theme\templates\totp\setup.html:5
+msgid "Configurer TOTP"
+msgstr ""
+
+#: .\theme\templates\totp\setup.html:11
+msgid "Configurer la vérification TOTP"
+msgstr ""
+
+#: .\theme\templates\totp\setup.html:13
+msgid "Scanner le QR code"
+msgstr ""
+
+#: .\theme\templates\totp\setup.html:14
+msgid "Ouvre Google Authenticator et scanne le code ci-dessous."
+msgstr ""
+
+#: .\theme\templates\totp\setup.html:19
+msgid "QR Code TOTP"
+msgstr ""
+
+#: .\theme\templates\totp\setup.html:23
+msgid "Si tu ne peux pas scanner le QR code, utilise ce code secret :"
+msgstr ""
+
+#: .\theme\templates\totp\setup.html:28
+msgid "J’ai configuré Google Authenticator"
+msgstr ""
+
+#~ msgid "Bienvenue sur notre site"
+#~ msgstr "Καλώς ήρθατε στην ιστοσελίδα μας"
 
 #~ msgid "11/12/2025"
 #~ msgstr "11/12/2025"

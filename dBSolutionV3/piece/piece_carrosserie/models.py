@@ -1,35 +1,39 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 from piece.models import Piece
 
+
 class Cote(models.TextChoices):
-    GAUCHE = "GA", "Gauche"
-    DROIT = "DR", "Droit"
+    GAUCHE = "GA", _("Gauche")
+    DROIT = "DR", _("Droit")
+
 
 class Emplacement(models.TextChoices):
-    AVANT = "AV", "Avant"
-    ARRIERE = "AR", "Arrière"
+    AVANT = "AV", _("Avant")
+    ARRIERE = "AR", _("Arrière")
+
 
 class LibelleCarrosserie(models.TextChoices):
-    PARE_CHOCS = "PARE_CHOCS", "Pare-chocs"
-    BOUCLIER = "BOUCLIER", "Bouclier"
-    PARE_BRIS = "PARE_BRIS", "Pare-brise"
-    VITRE_PORTE = "VITRE_PORTE", "Vitres Porte"
-    LUNETTE = "LUNETTE", "Lunette"
-    RETROVISEUR = "RETROVISEUR", "Rétroviseur"
-    AILE = "AILE", "Aile"
-    ELARGISSEUR_AILE = "ELARG_AILE", "Élargisseur d’aile"
-    BAS_DE_CAISSE = "BAS_CAISSE", "Bas de caisse"
-    SUPPORT_RADIATEUR = "SUPP_RAD", "Support de radiateurs"
-    SUPPORT_PARE_CHOC = "SUPP_PC", "Support pare choc"
-    PORTE = "PORTE", "Porte"
-    POIGNEE_PORTE = "POIGNEE", "Poignée de porte"
-    COFFRE_HAILLON = "COFFRE", "Coffre haillon"
-    JOINT_COFFRE = "JOINT_COFFRE", "Joint de coffre"
-    JOINT_PORTE = "JOINT_PORTE", "Joint porte"
-    COQUILLE_AILE = "COQUILLE", "Coquille d’aile"
-    CLIPS = "CLIPS", "Clips"
-    VISSERIE = "VISSERIE", "Visserie"
-    CAPOT = "CAPOT", "Capot"
+    PARE_CHOCS = "PARE_CHOCS", _("Pare-chocs")
+    BOUCLIER = "BOUCLIER", _("Bouclier")
+    PARE_BRIS = "PARE_BRIS", _("Pare-brise")
+    VITRE_PORTE = "VITRE_PORTE", _("Vitres de porte")
+    LUNETTE = "LUNETTE", _("Lunette")
+    RETROVISEUR = "RETROVISEUR", _("Rétroviseur")
+    AILE = "AILE", _("Aile")
+    ELARGISSEUR_AILE = "ELARG_AILE", _("Élargisseur d’aile")
+    BAS_DE_CAISSE = "BAS_CAISSE", _("Bas de caisse")
+    SUPPORT_RADIATEUR = "SUPP_RAD", _("Support de radiateur")
+    SUPPORT_PARE_CHOC = "SUPP_PC", _("Support de pare-chocs")
+    PORTE = "PORTE", _("Porte")
+    POIGNEE_PORTE = "POIGNEE", _("Poignée de porte")
+    COFFRE_HAILLON = "COFFRE", _("Coffre / hayon")
+    JOINT_COFFRE = "JOINT_COFFRE", _("Joint de coffre")
+    JOINT_PORTE = "JOINT_PORTE", _("Joint de porte")
+    COQUILLE_AILE = "COQUILLE", _("Coquille d’aile")
+    CLIPS = "CLIPS", _("Clips")
+    VISSERIE = "VISSERIE", _("Visserie")
+    CAPOT = "CAPOT", _("Capot")
 
 
 class Carrosserie(Piece):

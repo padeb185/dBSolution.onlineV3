@@ -2,19 +2,21 @@ from django.db import models
 from piece.models import Piece
 
 class Electricite(Piece):
+    from django.utils.translation import gettext_lazy as _
 
     TYPE_PIECE_ELECTRICITE = (
-        ("alternateur", "Alternateur"),
-        ("batterie", "Batterie"),
-        ("démarreur", "Démarreur"),
-        ("leve_vitre_avg", "Lève-vitre AVG"),
-        ("leve_vitre_avd", "Lève-vitre AVD"),
-        ("leve_vitre_arg", "Lève-vitre ARG"),
-        ("leve_vitre_ard", "Lève-vitre ARD"),
-        ("pompe_lave_glace_Av", "Pompe Lave Glace Avant"),
-        ("pompe_lave_glace_Ar", "Pompe Lave Glace Arrière"),
-        ("klaxon", "Klaxon"),
+        ("alternateur", _("Alternateur")),
+        ("batterie", _("Batterie")),
+        ("demarreur", _("Démarreur")),
+        ("leve_vitre_avg", _("Lève-vitre avant gauche")),
+        ("leve_vitre_avd", _("Lève-vitre avant droit")),
+        ("leve_vitre_arg", _("Lève-vitre arrière gauche")),
+        ("leve_vitre_ard", _("Lève-vitre arrière droit")),
+        ("pompe_lave_glace_av", _("Pompe lave-glace avant")),
+        ("pompe_lave_glace_ar", _("Pompe lave-glace arrière")),
+        ("klaxon", _("Klaxon")),
     )
+
 
     type_piece_electricite = models.CharField(
         max_length=50,
