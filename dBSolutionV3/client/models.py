@@ -50,7 +50,7 @@ class Client(models.Model):
     )
 
     historique = models.TextField(_("Historique"), null=True, blank=True)
-    location = models.CharField(_("Localisation"), max_length=255, null=True, blank=True)
+    location = models.CharField(_("Location"), max_length=255, null=True, blank=True)
 
     # Métadonnées
     is_active = models.BooleanField(_("Actif"), default=True)
