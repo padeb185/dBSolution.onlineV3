@@ -4,11 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="traduction de">
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="traduction tout">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/el/LC_MESSAGES/django.mo" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/el/LC_MESSAGES/django.mo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/el/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/el/LC_MESSAGES/django.po" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/it/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/it/LC_MESSAGES/django.po" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/nl/LC_MESSAGES/django.mo" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/nl/LC_MESSAGES/django.mo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/outillage/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/outillage/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/panier/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/panier/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_ampoules/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_ampoules/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_boite/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_boite/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_climatisation/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_climatisation/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_differentiel/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_differentiel/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_direction/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_direction/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_echappement/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_echappement/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_essuyage/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_essuyage/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_feux/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_feux/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_filtres/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_filtres/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_fluides/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_fluides/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,23 +143,7 @@
       <workItem from="1766492690037" duration="7054000" />
       <workItem from="1766501290993" duration="5356000" />
       <workItem from="1766508168768" duration="1352000" />
-      <workItem from="1766554563944" duration="11491000" />
-    </task>
-    <task id="LOCAL-00049" summary="voiture et utilisateurs corrections">
-      <option name="closed" value="true" />
-      <created>1766346513930</created>
-      <option name="number" value="00049" />
-      <option name="presentableId" value="LOCAL-00049" />
-      <option name="project" value="LOCAL" />
-      <updated>1766346513930</updated>
-    </task>
-    <task id="LOCAL-00050" summary="login totp">
-      <option name="closed" value="true" />
-      <created>1766379618099</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
-      <option name="project" value="LOCAL" />
-      <updated>1766379618099</updated>
+      <workItem from="1766554563944" duration="12973000" />
     </task>
     <task id="LOCAL-00051" summary="login totp">
       <option name="closed" value="true" />
@@ -527,7 +521,23 @@
       <option name="project" value="LOCAL" />
       <updated>1766571362080</updated>
     </task>
-    <option name="localTasksCounter" value="98" />
+    <task id="LOCAL-00098" summary="traduction tout">
+      <option name="closed" value="true" />
+      <created>1766572165386</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1766572165386</updated>
+    </task>
+    <task id="LOCAL-00099" summary="traduction tout">
+      <option name="closed" value="true" />
+      <created>1766572278668</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1766572278668</updated>
+    </task>
+    <option name="localTasksCounter" value="100" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -545,7 +555,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="pieces moteur" />
     <MESSAGE value="panier" />
     <MESSAGE value="pieces suite 1" />
     <MESSAGE value="pieces suite 2" />
@@ -570,7 +579,8 @@
     <MESSAGE value="traduction it es" />
     <MESSAGE value="traduction en" />
     <MESSAGE value="traduction de" />
-    <option name="LAST_COMMIT_MESSAGE" value="traduction de" />
+    <MESSAGE value="traduction tout" />
+    <option name="LAST_COMMIT_MESSAGE" value="traduction tout" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
