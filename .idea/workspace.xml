@@ -5,13 +5,40 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="traduction">
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/client/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/client/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/authentification/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/authentification/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/facture/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/facture/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/fournisseur/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/fournisseur/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/investissements/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/investissements/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/de/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/de/LC_MESSAGES/django.po" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/el/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/el/LC_MESSAGES/django.po" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/en/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/en/LC_MESSAGES/django.po" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/es/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/es/LC_MESSAGES/django.po" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/it/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/it/LC_MESSAGES/django.po" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/nl/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/nl/LC_MESSAGES/django.po" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/maintenance/kilometres/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_differentiel/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/maintenance/kilometres/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_differentiel/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/maintenance/kilometres/apps.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/maintenance/kilometres/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_differentiel/migrations/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/maintenance/kilometres/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/maintenance/kilometres/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_differentiel/tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/maintenance/kilometres/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_differentiel/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/maintenance/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_différentiel/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/comptabilite/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_différentiel/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/comptabilite/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_différentiel/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_differentiel/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_différentiel/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/comptabilite/migrations/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_différentiel/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_differentiel/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_différentiel/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/comptabilite/tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_différentiel/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/comptabilite/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/comptabilité/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/comptabilité/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/comptabilité/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/comptabilite/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/comptabilité/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/comptabilité/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/comptabilite/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/comptabilité/tests.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/comptabilité/views.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,15 +163,7 @@
       <workItem from="1766492690037" duration="7054000" />
       <workItem from="1766501290993" duration="5356000" />
       <workItem from="1766508168768" duration="1352000" />
-      <workItem from="1766554563944" duration="5203000" />
-    </task>
-    <task id="LOCAL-00043" summary="login">
-      <option name="closed" value="true" />
-      <created>1766325987537</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
-      <option name="project" value="LOCAL" />
-      <updated>1766325987537</updated>
+      <workItem from="1766554563944" duration="6251000" />
     </task>
     <task id="LOCAL-00044" summary="login">
       <option name="closed" value="true" />
@@ -530,7 +549,15 @@
       <option name="project" value="LOCAL" />
       <updated>1766560071830</updated>
     </task>
-    <option name="localTasksCounter" value="92" />
+    <task id="LOCAL-00092" summary="traduction">
+      <option name="closed" value="true" />
+      <created>1766560158191</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1766560158191</updated>
+    </task>
+    <option name="localTasksCounter" value="93" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -580,8 +607,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py</url>
-          <line>303</line>
+          <line>302</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/dBSolutionV3/facture/models.py</url>
+          <line>44</line>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from utilisateurs.apprentis.models import Apprenti
 from utilisateurs.carrossier.models import Carrossier
 from utilisateurs.chef_mecanicien.models import ChefMecanicien
-from utilisateurs.comptabilité.models import Comptable
+from utilisateurs.comptabilite.models import Comptable
 from utilisateurs.direction.models import Direction
 from utilisateurs.instructeur.models import Instructeur
 from utilisateurs.magasinier.models import Magasinier

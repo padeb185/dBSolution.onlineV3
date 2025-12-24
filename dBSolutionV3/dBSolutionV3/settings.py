@@ -98,7 +98,6 @@ TENANT_APPS = (
     'investissements',
 
     'maintenance',
-    'maintenance.kilometres',
     'maintenance.check_up',
     'maintenance.entretien',
 
@@ -116,7 +115,7 @@ TENANT_APPS = (
     'piece.piece_boite',
     'piece.piece_carrosserie',
     'piece.piece_climatisation',
-    'piece.piece_différentiel',
+    'piece.piece_differentiel',
     'piece.piece_direction',
     'piece.piece_echappement',
     'piece.piece_electricite',
@@ -162,7 +161,7 @@ TENANT_APPS = (
     'utilisateurs.apprentis',
     'utilisateurs.chef_mecanicien',
     'utilisateurs.carrossier',
-    'utilisateurs.comptabilité',
+    'utilisateurs.comptabilite',
     'utilisateurs.direction',
     'utilisateurs.instructeur',
     'utilisateurs.magasinier',

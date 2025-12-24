@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-24 08:09+0100\n"
+"POT-Creation-Date: 2025-12-24 08:25+0100\n"
 "PO-Revision-Date: 2025-12-13 12:10+0100\n"
 "Last-Translator: Pierre de Bournonville [EMAIL@ADDRESS]"
 "(mailto:EMAIL@ADDRESS)\n"
@@ -38,19 +38,21 @@ msgstr ""
 msgid "Pays"
 msgstr ""
 
-#: .\adresse\models.py:15
+#: .\adresse\models.py:15 .\facture\models.py:29 .\fournisseur\models.py:43
 msgid "Code pays"
 msgstr ""
 
-#: .\adresse\models.py:17 .\client\models.py:57
+#: .\adresse\models.py:17 .\client\models.py:57 .\facture\models.py:34
+#: .\fournisseur\models.py:51
 msgid "Créé le"
 msgstr ""
 
-#: .\adresse\models.py:18
+#: .\adresse\models.py:18 .\facture\models.py:35
 msgid "Mis à jour le"
 msgstr ""
 
 #: .\adresse\models.py:21 .\carrosserie\models.py:11 .\client\models.py:12
+#: .\facture\models.py:17 .\fournisseur\models.py:19
 msgid "Adresse"
 msgstr ""
 
@@ -87,7 +89,7 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
-#: .\carrosserie\models.py:15
+#: .\carrosserie\models.py:15 .\fournisseur\models.py:24
 msgid "Numéro de TVA"
 msgstr ""
 
@@ -267,13 +269,13 @@ msgstr ""
 msgid "Location"
 msgstr "Action"
 
-#: .\client\models.py:56
+#: .\client\models.py:56 .\fournisseur\models.py:50
 #, fuzzy
 #| msgid "Action"
 msgid "Actif"
 msgstr "Action"
 
-#: .\client\models.py:60
+#: .\client\models.py:60 .\facture\models.py:69
 msgid "Client"
 msgstr ""
 
@@ -293,6 +295,289 @@ msgstr ""
 #: .\dBSolutionV3\views.py:82 .\theme\templates\dashboard.html:10
 msgid "Bienvenue sur ton tableau de bord"
 msgstr "Welcome to your dashboard"
+
+#: .\facture\models.py:23 .\fournisseur\models.py:37
+msgid "Identifiant Peppol"
+msgstr ""
+
+#: .\facture\models.py:25
+msgid "Ex : 0208:BE0123456789"
+msgstr ""
+
+#: .\facture\models.py:38 .\facture\models.py:62
+msgid "Société émettrice"
+msgstr ""
+
+#: .\facture\models.py:39
+msgid "Sociétés émettrices"
+msgstr ""
+
+#: .\facture\models.py:48
+msgid "Identifiant facture"
+msgstr ""
+
+#: .\facture\models.py:55
+msgid "Numéro de facture"
+msgstr ""
+
+#: .\facture\models.py:74
+msgid "Date d’émission"
+msgstr ""
+
+#: .\facture\models.py:75
+msgid "Devise"
+msgstr ""
+
+#: .\facture\models.py:77
+msgid "Total"
+msgstr ""
+
+#: .\facture\models.py:83 .\facture\models.py:93
+msgid "Facture"
+msgstr ""
+
+#: .\facture\models.py:84
+msgid "Factures"
+msgstr ""
+
+#: .\facture\models.py:87
+#, python-format
+msgid "Facture %(numero)s"
+msgstr ""
+
+#: .\facture\models.py:98
+msgid "Description"
+msgstr ""
+
+#: .\facture\models.py:101
+msgid "Quantité"
+msgstr ""
+
+#: .\facture\models.py:107
+msgid "Prix unitaire"
+msgstr ""
+
+#: .\facture\models.py:113
+msgid "Taux de TVA"
+msgstr ""
+
+#: .\facture\models.py:116
+msgid "Taux de TVA : 6, 12, 21"
+msgstr ""
+
+#: .\facture\models.py:120
+msgid "Ligne de facture"
+msgstr ""
+
+#: .\facture\models.py:121
+msgid "Lignes de facture"
+msgstr ""
+
+#: .\facture\models.py:124
+#, python-format
+msgid "%(desc)s (%(facture)s)"
+msgstr ""
+
+#: .\fournisseur\models.py:12
+msgid "Nom du fournisseur"
+msgstr ""
+
+#: .\fournisseur\models.py:30
+msgid "Taux de TVA (%)"
+msgstr ""
+
+#: .\fournisseur\models.py:39
+msgid "Identifiant Peppol, ex : 0208:BE0123456789"
+msgstr ""
+
+#: .\fournisseur\models.py:46
+msgid "ISO 3166-1 alpha-2"
+msgstr ""
+
+#: .\fournisseur\models.py:54 .\investissements\models.py:11
+msgid "Fournisseur"
+msgstr ""
+
+#: .\fournisseur\models.py:55
+msgid "Fournisseurs"
+msgstr ""
+
+#: .\fournisseur\models.py:62
+#, python-format
+msgid "%(nom)s (Fournisseur)"
+msgstr ""
+
+#: .\investissements\models.py:18
+msgid "Pont"
+msgstr ""
+
+#: .\investissements\models.py:19
+msgid "Machine de géométrie"
+msgstr ""
+
+#: .\investissements\models.py:20
+msgid "Machine à pneus"
+msgstr ""
+
+#: .\investissements\models.py:21
+msgid "Équilibreuse"
+msgstr ""
+
+#: .\investissements\models.py:22
+msgid "Compresseur"
+msgstr ""
+
+#: .\investissements\models.py:23
+msgid "Booster batterie"
+msgstr ""
+
+#: .\investissements\models.py:24
+msgid "Booster pneus"
+msgstr ""
+
+#: .\investissements\models.py:25
+msgid "Tuyaux pression d’air"
+msgstr ""
+
+#: .\investissements\models.py:26
+msgid "Connecteurs"
+msgstr ""
+
+#: .\investissements\models.py:27
+msgid "Mobilier"
+msgstr ""
+
+#: .\investissements\models.py:28
+msgid "Ordinateur"
+msgstr ""
+
+#: .\investissements\models.py:29
+msgid "Appareil de diagnostic"
+msgstr ""
+
+#: .\investissements\models.py:32
+msgid "Libellé"
+msgstr ""
+
+#: .\investissements\models.py:38
+msgid "Détails"
+msgstr ""
+
+#: .\investissements\models.py:41
+msgid "Durée d'amortissement"
+msgstr ""
+
+#: .\investissements\models.py:42
+msgid "Durée d'amortissement en mois ou années"
+msgstr ""
+
+#: .\investissements\models.py:47
+msgid "Linéaire"
+msgstr ""
+
+#: .\investissements\models.py:48
+msgid "Dégressif"
+msgstr ""
+
+#: .\investissements\models.py:49
+msgid "Autre"
+msgstr ""
+
+#: .\investissements\models.py:52
+msgid "Type d'amortissement"
+msgstr ""
+
+#: .\investissements\models.py:59
+msgid "Investissement"
+msgstr ""
+
+#: .\investissements\models.py:60
+msgid "Investissements"
+msgstr ""
+
+#: .\investissements\models.py:63
+#, python-format
+msgid "%(libelle)s - Fournisseur: %(fournisseur)s"
+msgstr ""
+
+#: .\maintenance\models.py:10
+msgid "Vert"
+msgstr ""
+
+#: .\maintenance\models.py:11
+msgid "Jaune"
+msgstr ""
+
+#: .\maintenance\models.py:12
+msgid "Rouge"
+msgstr ""
+
+#: .\maintenance\models.py:18
+msgid "Voiture exemplaire"
+msgstr ""
+
+#: .\maintenance\models.py:27
+msgid "Mécanicien"
+msgstr ""
+
+#: .\maintenance\models.py:33
+msgid "Immatriculation"
+msgstr ""
+
+#: .\maintenance\models.py:34
+msgid "Date d'intervention"
+msgstr ""
+
+#: .\maintenance\models.py:36
+msgid "Date de la dernière intervention"
+msgstr ""
+
+#: .\maintenance\models.py:41
+msgid "Étiquette"
+msgstr ""
+
+#: .\maintenance\models.py:48
+#, fuzzy
+#| msgid "Nombre total :"
+msgid "Kilométrage total"
+msgstr "Total number :"
+
+#: .\maintenance\models.py:50
+msgid "Kilométrage à la dernière intervention"
+msgstr ""
+
+#: .\maintenance\models.py:54
+msgid "Kilométrage châssis"
+msgstr ""
+
+#: .\maintenance\models.py:57
+msgid "Kilométrage moteur"
+msgstr ""
+
+#: .\maintenance\models.py:58
+msgid "Kilométrage boîte"
+msgstr ""
+
+#: .\maintenance\models.py:61
+msgid "Remplacement moteur"
+msgstr ""
+
+#: .\maintenance\models.py:62
+msgid "Remplacement boîte"
+msgstr ""
+
+#: .\maintenance\models.py:65
+msgid "Maintenance"
+msgstr ""
+
+#: .\maintenance\models.py:66
+msgid "Maintenances"
+msgstr ""
+
+#: .\maintenance\models.py:84
+#, python-format
+msgid "Maintenance %(voiture)s (%(date)s)"
+msgstr ""
 
 #: .\piece\piece_carrosserie\models.py:7
 msgid "Gauche"
