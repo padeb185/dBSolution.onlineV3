@@ -1,38 +1,67 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 from adresse.models import Adresse
+
 
 class Client(models.Model):
     # Informations personnelles
-    nom = models.CharField(max_length=255)
-    prenom = models.CharField(max_length=255)
-    adresse = models.OneToOneField(Adresse, on_delete=models.CASCADE)
-    numero_telephone = models.CharField(max_length=20, null=True, blank=True)
-    email = models.EmailField(max_length=100, null=True, blank=True)
+    nom = models.CharField(_("Nom"), max_length=255)
+    prenom = models.CharField(_("Prénom"), max_length=255)
+    adresse = models.OneToOneField(
+        Adresse,
+        verbose_name=_("Adresse"),
+        on_delete=models.CASCADE
+    )
+    numero_telephone = models.CharField(
+        _("Numéro de téléphone"),
+        max_length=20,
+        null=True,
+        blank=True
+    )
+    email = models.EmailField(
+        _("Email"),
+        max_length=100,
+        null=True,
+        blank=True
+    )
 
-    # Nouveaux champs correctement définis
-    age = models.PositiveIntegerField(null=True, blank=True)
-    numero_permis = models.CharField(max_length=50, null=True, blank=True)
+    # Informations complémentaires
+    age = models.PositiveIntegerField(_("Âge"), null=True, blank=True)
+    numero_permis = models.CharField(
+        _("Numéro de permis"),
+        max_length=50,
+        null=True,
+        blank=True
+    )
 
-    NIVEAU_CHOICES = [
-        ('DEBUTANT', 'Débutant'),
-        ('INTERMEDIAIRE', 'Intermédiaire'),
-        ('EXPERT', 'Expert'),
-        ('BRONZE', 'Bronze'),
-        ('SILVER', 'Silver'),
-        ('GOLD', 'Gold'),
-    ]
-    niveau = models.CharField(max_length=20, choices=NIVEAU_CHOICES, default='DEBUTANT')
+    class Niveau(models.TextChoices):
+        DEBUTANT = "DEBUTANT", _("Débutant")
+        INTERMEDIAIRE = "INTERMEDIAIRE", _("Intermédiaire")
+        EXPERT = "EXPERT", _("Expert")
+        BRONZE = "BRONZE", _("Bronze")
+        SILVER = "SILVER", _("Silver")
+        GOLD = "GOLD", _("Gold")
 
-    historique = models.TextField(null=True, blank=True)
-    location = models.CharField(max_length=255, null=True, blank=True)
+    niveau = models.CharField(
+        _("Niveau"),
+        max_length=20,
+        choices=Niveau.choices,
+        default=Niveau.DEBUTANT
+    )
+
+    historique = models.TextField(_("Historique"), null=True, blank=True)
+    location = models.CharField(_("Localisation"), max_length=255, null=True, blank=True)
 
     # Métadonnées
-    is_active = models.BooleanField(default=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(_("Actif"), default=True)
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True)
 
     class Meta:
-        verbose_name = "Client"
-        verbose_name_plural = "Clients"
+        verbose_name = _("Client")
+        verbose_name_plural = _("Clients")
 
     def __str__(self):
-        return f"{self.nom} {self.prenom} (Client)"
+        return _("%(nom)s %(prenom)s (Client)") % {
+            "nom": self.nom,
+            "prenom": self.prenom,
+        }

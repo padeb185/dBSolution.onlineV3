@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-24 07:58+0100\n"
+"POT-Creation-Date: 2025-12-24 08:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,46 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\adresse\models.py:9
+msgid "Rue"
+msgstr ""
+
+#: .\adresse\models.py:10
+msgid "Numéro"
+msgstr ""
+
+#: .\adresse\models.py:11
+msgid "Code postal"
+msgstr ""
+
+#: .\adresse\models.py:12
+msgid "Ville"
+msgstr ""
+
+#: .\adresse\models.py:14 .\carrosserie\models.py:12
+msgid "Pays"
+msgstr ""
+
+#: .\adresse\models.py:15
+msgid "Code pays"
+msgstr ""
+
+#: .\adresse\models.py:17 .\client\models.py:57
+msgid "Créé le"
+msgstr ""
+
+#: .\adresse\models.py:18
+msgid "Mis à jour le"
+msgstr ""
+
+#: .\adresse\models.py:21 .\carrosserie\models.py:11 .\client\models.py:12
+msgid "Adresse"
+msgstr ""
+
+#: .\adresse\models.py:22
+msgid "Adresses"
+msgstr ""
 
 #: .\authentification\forms.py:42
 msgid "Adresse email ou mot de passe incorrect"
@@ -33,6 +73,215 @@ msgstr ""
 
 #: .\authentification\views.py:51 .\dBSolutionV3\views.py:68
 msgid "Code de vérification invalide."
+msgstr ""
+
+#: .\carrosserie\models.py:10
+msgid "Nom de la société"
+msgstr ""
+
+#: .\carrosserie\models.py:13
+msgid "Téléphone"
+msgstr ""
+
+#: .\carrosserie\models.py:14 .\client\models.py:22
+msgid "Email"
+msgstr ""
+
+#: .\carrosserie\models.py:15
+msgid "Numéro de TVA"
+msgstr ""
+
+#: .\carrosserie\models.py:18 .\carrosserie\models.py:29
+msgid "Carrosserie"
+msgstr ""
+
+#: .\carrosserie\models.py:19
+msgid "Carrosseries"
+msgstr ""
+
+#: .\carrosserie\models.py:36 .\piece\piece_carrosserie\models.py:17
+msgid "Pare-chocs"
+msgstr ""
+
+#: .\carrosserie\models.py:37 .\piece\piece_carrosserie\models.py:18
+msgid "Bouclier"
+msgstr ""
+
+#: .\carrosserie\models.py:38 .\piece\piece_carrosserie\models.py:19
+msgid "Pare-brise"
+msgstr ""
+
+#: .\carrosserie\models.py:39
+msgid "Vitre de porte"
+msgstr ""
+
+#: .\carrosserie\models.py:40 .\piece\piece_carrosserie\models.py:21
+msgid "Lunette"
+msgstr ""
+
+#: .\carrosserie\models.py:41 .\piece\piece_carrosserie\models.py:22
+msgid "Rétroviseur"
+msgstr ""
+
+#: .\carrosserie\models.py:42 .\piece\piece_carrosserie\models.py:23
+msgid "Aile"
+msgstr ""
+
+#: .\carrosserie\models.py:43 .\piece\piece_carrosserie\models.py:24
+msgid "Élargisseur d’aile"
+msgstr ""
+
+#: .\carrosserie\models.py:44 .\piece\piece_carrosserie\models.py:25
+msgid "Bas de caisse"
+msgstr ""
+
+#: .\carrosserie\models.py:45 .\piece\piece_carrosserie\models.py:26
+msgid "Support de radiateur"
+msgstr ""
+
+#: .\carrosserie\models.py:46 .\piece\piece_carrosserie\models.py:27
+msgid "Support de pare-chocs"
+msgstr ""
+
+#: .\carrosserie\models.py:47 .\piece\piece_carrosserie\models.py:28
+msgid "Porte"
+msgstr ""
+
+#: .\carrosserie\models.py:48 .\piece\piece_carrosserie\models.py:29
+msgid "Poignée de porte"
+msgstr ""
+
+#: .\carrosserie\models.py:49 .\piece\piece_carrosserie\models.py:30
+msgid "Coffre / hayon"
+msgstr ""
+
+#: .\carrosserie\models.py:50 .\piece\piece_carrosserie\models.py:31
+msgid "Joint de coffre"
+msgstr ""
+
+#: .\carrosserie\models.py:51 .\piece\piece_carrosserie\models.py:32
+msgid "Joint de porte"
+msgstr ""
+
+#: .\carrosserie\models.py:52 .\piece\piece_carrosserie\models.py:33
+msgid "Coquille d’aile"
+msgstr ""
+
+#: .\carrosserie\models.py:53 .\piece\piece_carrosserie\models.py:34
+msgid "Clips"
+msgstr ""
+
+#: .\carrosserie\models.py:54 .\piece\piece_carrosserie\models.py:35
+msgid "Visserie"
+msgstr ""
+
+#: .\carrosserie\models.py:55 .\piece\piece_carrosserie\models.py:36
+msgid "Capot"
+msgstr ""
+
+#: .\carrosserie\models.py:58
+msgid "Montant du devis"
+msgstr ""
+
+#: .\carrosserie\models.py:64
+msgid "Montant de la facture"
+msgstr ""
+
+#: .\carrosserie\models.py:70
+msgid "Montant total"
+msgstr ""
+
+#: .\carrosserie\models.py:77
+msgid "Intervention"
+msgstr ""
+
+#: .\carrosserie\models.py:78
+msgid "Interventions"
+msgstr ""
+
+#: .\carrosserie\models.py:82
+#, python-format
+msgid "Intervention %(id)s – %(carrosserie)s"
+msgstr ""
+
+#: .\carrosserie\models.py:86
+#, python-format
+msgid "Intervention %(id)s"
+msgstr ""
+
+#: .\client\models.py:8
+msgid "Nom"
+msgstr ""
+
+#: .\client\models.py:9
+msgid "Prénom"
+msgstr ""
+
+#: .\client\models.py:16
+msgid "Numéro de téléphone"
+msgstr ""
+
+#: .\client\models.py:29
+msgid "Âge"
+msgstr ""
+
+#: .\client\models.py:31
+msgid "Numéro de permis"
+msgstr ""
+
+#: .\client\models.py:38
+msgid "Débutant"
+msgstr ""
+
+#: .\client\models.py:39
+msgid "Intermédiaire"
+msgstr ""
+
+#: .\client\models.py:40
+msgid "Expert"
+msgstr ""
+
+#: .\client\models.py:41
+msgid "Bronze"
+msgstr ""
+
+#: .\client\models.py:42
+msgid "Silver"
+msgstr ""
+
+#: .\client\models.py:43
+msgid "Gold"
+msgstr ""
+
+#: .\client\models.py:46
+msgid "Niveau"
+msgstr ""
+
+#: .\client\models.py:52
+msgid "Historique"
+msgstr ""
+
+#: .\client\models.py:53
+msgid "Localisation"
+msgstr ""
+
+#: .\client\models.py:56
+#, fuzzy
+#| msgid "Action"
+msgid "Actif"
+msgstr "Actie"
+
+#: .\client\models.py:60
+msgid "Client"
+msgstr ""
+
+#: .\client\models.py:61
+msgid "Clients"
+msgstr ""
+
+#: .\client\models.py:64
+#, python-format
+msgid "%(nom)s %(prenom)s (Client)"
 msgstr ""
 
 #: .\dBSolutionV3\views.py:35
@@ -59,84 +308,8 @@ msgstr ""
 msgid "Arrière"
 msgstr ""
 
-#: .\piece\piece_carrosserie\models.py:17
-msgid "Pare-chocs"
-msgstr ""
-
-#: .\piece\piece_carrosserie\models.py:18
-msgid "Bouclier"
-msgstr ""
-
-#: .\piece\piece_carrosserie\models.py:19
-msgid "Pare-brise"
-msgstr ""
-
 #: .\piece\piece_carrosserie\models.py:20
 msgid "Vitres de porte"
-msgstr ""
-
-#: .\piece\piece_carrosserie\models.py:21
-msgid "Lunette"
-msgstr ""
-
-#: .\piece\piece_carrosserie\models.py:22
-msgid "Rétroviseur"
-msgstr ""
-
-#: .\piece\piece_carrosserie\models.py:23
-msgid "Aile"
-msgstr ""
-
-#: .\piece\piece_carrosserie\models.py:24
-msgid "Élargisseur d’aile"
-msgstr ""
-
-#: .\piece\piece_carrosserie\models.py:25
-msgid "Bas de caisse"
-msgstr ""
-
-#: .\piece\piece_carrosserie\models.py:26
-msgid "Support de radiateur"
-msgstr ""
-
-#: .\piece\piece_carrosserie\models.py:27
-msgid "Support de pare-chocs"
-msgstr ""
-
-#: .\piece\piece_carrosserie\models.py:28
-msgid "Porte"
-msgstr ""
-
-#: .\piece\piece_carrosserie\models.py:29
-msgid "Poignée de porte"
-msgstr ""
-
-#: .\piece\piece_carrosserie\models.py:30
-msgid "Coffre / hayon"
-msgstr ""
-
-#: .\piece\piece_carrosserie\models.py:31
-msgid "Joint de coffre"
-msgstr ""
-
-#: .\piece\piece_carrosserie\models.py:32
-msgid "Joint de porte"
-msgstr ""
-
-#: .\piece\piece_carrosserie\models.py:33
-msgid "Coquille d’aile"
-msgstr ""
-
-#: .\piece\piece_carrosserie\models.py:34
-msgid "Clips"
-msgstr ""
-
-#: .\piece\piece_carrosserie\models.py:35
-msgid "Visserie"
-msgstr ""
-
-#: .\piece\piece_carrosserie\models.py:36
-msgid "Capot"
 msgstr ""
 
 #: .\piece\piece_electricite\models.py:8
