@@ -1,41 +1,36 @@
-
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 from piece.models import Piece
-
 
 class PiecePneus(Piece):
     TRAIN_CHOICES = [
-        ("av", "Train AV"),
-        ("ar", "Train AR"),
+        ("av", _("Train AV")),
+        ("ar", _("Train AR")),
     ]
 
     TYPE_CHOICES = [
-        ("slick", "Slick"),
-        ("semi_slick", "Semi-slick"),
-        ("pluie", "Pluie"),
-        ("neige", "Neige"),
+        ("slick", _("Slick")),
+        ("semi_slick", _("Semi-slick")),
+        ("pluie", _("Pluie")),
+        ("neige", _("Neige")),
     ]
 
     MANUFACTURIER_CHOICES = [
-        ("michelin", "Michelin"),
-        ("pirelli", "Pirelli"),
+        ("michelin", _("Michelin")),
+        ("pirelli", _("Pirelli")),
     ]
 
-    train = models.CharField(max_length=2, choices=TRAIN_CHOICES)
-    valve = models.BooleanField(default=True)
-    savon = models.BooleanField(default=True)
-    manufacturier = models.CharField(max_length=50, choices=MANUFACTURIER_CHOICES)
-    largeur = models.PositiveIntegerField()
-    hauteur = models.PositiveIntegerField()
-    jante = models.PositiveIntegerField(help_text="Diamètre en pouces")
-    type_pneu = models.CharField(max_length=20, choices=TYPE_CHOICES)
-    indice_charge = models.CharField(max_length=10)
-    indice_vitesse = models.CharField(max_length=10)
-    quantite_montee = models.PositiveIntegerField(default=0)
-
-
-    def total_pneus(self):
-        return self.quantite_montee + self.quantite_stock
+    train = models.CharField(max_length=2, choices=TRAIN_CHOICES, verbose_name=_("Train"))
+    valve = models.BooleanField(default=True, verbose_name=_("Valve"))
+    savon = models.BooleanField(default=True, verbose_name=_("Savon"))
+    manufacturier = models.CharField(max_length=50, choices=MANUFACTURIER_CHOICES, verbose_name=_("Manufacturier"))
+    largeur = models.PositiveIntegerField(verbose_name=_("Largeur"))
+    hauteur = models.PositiveIntegerField(verbose_name=_("Hauteur"))
+    jante = models.PositiveIntegerField(help_text=_("Diamètre en pouces"), verbose_name=_("Jante"))
+    type_pneu = models.CharField(max_length=20, choices=TYPE_CHOICES, verbose_name=_("Type de pneu"))
+    indice_charge = models.CharField(max_length=10, verbose_name=_("Indice de charge"))
+    indice_vitesse = models.CharField(max_length=10, verbose_name=_("Indice de vitesse"))
+    quantite_montee = models.PositiveIntegerField(default=0, verbose_name=_("Quantité montée"))
 
     def total_pneus(self):
         """Total montés + stock"""
@@ -54,3 +49,15 @@ class PiecePneus(Piece):
     def alerte_stock(self, seuil=5):
         """Retourne True si stock trop bas"""
         return self.quantite_stock <= seuil
+
+    class Meta:
+        verbose_name = _("Pneu")
+        verbose_name_plural = _("Pneus")
+
+    def __str__(self):
+        return _("%(type)s – %(largeur)s/%(hauteur)s R%(jante)s") % {
+            "type": self.get_type_pneu_display(),
+            "largeur": self.largeur,
+            "hauteur": self.hauteur,
+            "jante": self.jante
+        }

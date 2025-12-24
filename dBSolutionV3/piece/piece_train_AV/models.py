@@ -1,35 +1,37 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 from piece.models import Piece
 
 class TrainAvant(Piece):
 
     TYPE_PIECE_TRAIN = (
-        ("berceau", "Berceau"),
-        ("cardan_g", "Cardan G"),
-        ("cardan_d", "Cardan D"),
-        ("triangle_sup_g", "Triangle Supérieur gauche"),
-        ("triangle_sup_d", "Triangle Supérieur droit"),
-        ("triangle_inf_g", "Triangle inférieur gauche"),
-        ("triangle_inf_d", "Triangle inférieur droit"),
-        ("multi_bras_g", "Multi-bras G"),
-        ("multi_bras_d", "Multi-bras D"),
-        ("barres_torsion", "Barres de torsion"),
-        ("silent_bloc", "Silent bloc"),
-        ("kit_silent_bloc", "Kit silent bloc"),
-        ("roulement_roue", "Roulement de roue"),
-        ("moyeu", "Moyeu"),
-        ("porte_fusee", "Porte fusée"),
-        ("fusee", "Fusée"),
-        ("amortisseur_gd", "Amortisseur G/D"),
-        ("ressort", "Ressort"),
-        ("roulement_suspension", "Roulement de suspension"),
-        ("barre_stabilisatrice", "Barre stabilisatrice"),
-        ("biellette_barre_stab", "Biellette de barre stabilisatrice"),
+        ("berceau", _("Berceau")),
+        ("cardan_g", _("Cardan G")),
+        ("cardan_d", _("Cardan D")),
+        ("triangle_sup_g", _("Triangle supérieur gauche")),
+        ("triangle_sup_d", _("Triangle supérieur droit")),
+        ("triangle_inf_g", _("Triangle inférieur gauche")),
+        ("triangle_inf_d", _("Triangle inférieur droit")),
+        ("multi_bras_g", _("Multi-bras G")),
+        ("multi_bras_d", _("Multi-bras D")),
+        ("barres_torsion", _("Barres de torsion")),
+        ("silent_bloc", _("Silent bloc")),
+        ("kit_silent_bloc", _("Kit silent bloc")),
+        ("roulement_roue", _("Roulement de roue")),
+        ("moyeu", _("Moyeu")),
+        ("porte_fusee", _("Porte fusée")),
+        ("fusee", _("Fusée")),
+        ("amortisseur_gd", _("Amortisseur G/D")),
+        ("ressort", _("Ressort")),
+        ("roulement_suspension", _("Roulement de suspension")),
+        ("barre_stabilisatrice", _("Barre stabilisatrice")),
+        ("biellette_barre_stab", _("Biellette de barre stabilisatrice")),
     )
 
     type_piece_train = models.CharField(
         max_length=50,
-        choices=TYPE_PIECE_TRAIN
+        choices=TYPE_PIECE_TRAIN,
+        verbose_name=_("Type de pièce train avant")
     )
 
     # 🔗 compatibilité moteur (optionnel)
@@ -40,8 +42,11 @@ class TrainAvant(Piece):
     )
 
     class Meta:
-        verbose_name = "Pièce train avant"
-        verbose_name_plural = "Pièces train avant"
+        verbose_name = _("Pièce train avant")
+        verbose_name_plural = _("Pièces train avant")
 
     def __str__(self):
-        return f"{self.get_type_piece_train_display()} – {super().__str__()}"
+        return _("%(type)s – %(nom)s") % {
+            "type": self.get_type_piece_train_display(),
+            "nom": super().__str__()
+        }
