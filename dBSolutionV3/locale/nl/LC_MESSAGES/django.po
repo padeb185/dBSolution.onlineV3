@@ -1255,39 +1255,35 @@ msgstr "Scherm"
 
 #: .\piece\piece_echappement\models.py:16
 msgid "Silent blocs"
-msgstr ""
+msgstr "Silentblocs"
 
 #: .\piece\piece_echappement\models.py:17
-#, fuzzy
-#| msgid "Joint de porte"
 msgid "Joint de collecteur"
-msgstr "Deurafdichting"
+msgstr "Pakking van krans"
 
 #: .\piece\piece_echappement\models.py:18
-#, fuzzy
-#| msgid "Joint de porte"
 msgid "Joint de ligne"
-msgstr "Deurafdichting"
+msgstr "Leidingpakking"
 
 #: .\piece\piece_echappement\models.py:19
 msgid "Matériau"
-msgstr ""
+msgstr "Materiaal"
 
 #: .\piece\piece_echappement\models.py:20
 msgid "Soudure"
-msgstr ""
+msgstr "Lassen"
 
 #: .\piece\piece_echappement\models.py:26
 msgid "Type de pièce d’échappement"
-msgstr ""
+msgstr "Type uitlaatonderdeel"
 
 #: .\piece\piece_echappement\models.py:38
 msgid "Pièce d’échappement"
-msgstr ""
+msgstr "Uitlaatonderdeel"
 
 #: .\piece\piece_echappement\models.py:39
 msgid "Pièces d’échappement"
-msgstr ""
+msgstr "Uitlaatonderdelen"
 
 #: .\piece\piece_electricite\models.py:8
 msgid "Alternateur"
@@ -1603,251 +1599,224 @@ msgstr "%(nom)s %(prenom)s (Klant)"
 #| msgid "Calculateur moteur"
 msgid "Huile moteur"
 msgstr "Motor ECU"
-
 #: .\piece\piece_fluides\models.py:10
-#, fuzzy
-#| msgid "Vitre de porte"
 msgid "Huile de pont"
-msgstr "Deurruit"
+msgstr "Differentieelolie"
 
 #: .\piece\piece_fluides\models.py:11
 msgid "Liquide de refroidissement"
-msgstr ""
+msgstr "Koelvloeistof"
 
 #: .\piece\piece_fluides\models.py:12
 msgid "Lave-glace"
-msgstr ""
+msgstr "Ruitensproeiervloeistof"
 
 #: .\piece\piece_fluides\models.py:13
-#, fuzzy
-#| msgid "Ligne de facture"
 msgid "Liquide de frein"
-msgstr "Factuurlijn"
+msgstr "Remvloeistof"
 
 #: .\piece\piece_fluides\models.py:14
 msgid "Huile de direction"
-msgstr ""
+msgstr "Stuurbekrachtigingsolie"
 
 #: .\piece\piece_fluides\models.py:21
 msgid "Type de fluide"
-msgstr ""
+msgstr "Type vloeistof"
 
 #: .\piece\piece_fluides\models.py:25
-#, fuzzy
-#| msgid "Nom du fournisseur"
 msgid "Nom du fluide"
-msgstr "Naam leverancier"
+msgstr "Naam van de vloeistof"
 
 #: .\piece\piece_fluides\models.py:31
 msgid "Qualité du fluide"
-msgstr ""
+msgstr "Kwaliteit van de vloeistof"
 
 #: .\piece\piece_fluides\models.py:35 .\piece\piece_fluides\models.py:50
 msgid "Fluide"
-msgstr ""
+msgstr "Vloeistof"
 
 #: .\piece\piece_fluides\models.py:36
 msgid "Fluides"
-msgstr ""
+msgstr "Vloeistoffen"
 
 #: .\piece\piece_fluides\models.py:53
 msgid "+ entrée / - sortie (litres)"
-msgstr ""
+msgstr "+ in / - uit (liter)"
 
 #: .\piece\piece_fluides\models.py:79
 #, python-format
 msgid "%(fluide)s : %(variation)s L"
-msgstr ""
+msgstr "%(fluide)s : %(variation)s L"
 
 #: .\piece\piece_freins\models.py:9
-#, fuzzy
-#| msgid "Ligne de facture"
 msgid "Étrier de frein AVG"
-msgstr "Factuurlijn"
+msgstr "Remklauw LVV"
 
 #: .\piece\piece_freins\models.py:10
-#, fuzzy
-#| msgid "Ligne de facture"
 msgid "Étrier de frein AVD"
-msgstr "Factuurlijn"
+msgstr "Remklauw RVV"
 
 #: .\piece\piece_freins\models.py:11
-#, fuzzy
-#| msgid "Ligne de facture"
 msgid "Étrier de frein ARG"
-msgstr "Factuurlijn"
+msgstr "Remklauw LVA"
 
 #: .\piece\piece_freins\models.py:12
-#, fuzzy
-#| msgid "Ligne de facture"
 msgid "Étrier de frein ARD"
-msgstr "Factuurlijn"
+msgstr "Remklauw RVA"
 
 #: .\piece\piece_freins\models.py:13
-#, fuzzy
-#| msgid "Support de radiateur"
 msgid "Support étrier avant"
-msgstr "Radiatorsteun"
+msgstr "Remklauwhouder vooraan"
 
 #: .\piece\piece_freins\models.py:14
 msgid "Support étrier arrière"
-msgstr ""
+msgstr "Remklauwhouder achteraan"
 
 #: .\piece\piece_freins\models.py:15
 msgid "Kit réparation étrier"
-msgstr ""
+msgstr "Reparatieset remklauw"
 
 #: .\piece\piece_freins\models.py:16
 msgid "Plaquettes AV"
-msgstr ""
+msgstr "Remblokken vooraan"
 
 #: .\piece\piece_freins\models.py:17
 msgid "Plaquettes AR"
-msgstr ""
+msgstr "Remblokken achteraan"
 
 #: .\piece\piece_freins\models.py:18
 msgid "Disques AV"
-msgstr ""
+msgstr "Remschijven vooraan"
 
 #: .\piece\piece_freins\models.py:19
 msgid "Disques AR"
-msgstr ""
+msgstr "Remschijven achteraan"
 
 #: .\piece\piece_freins\models.py:20
 msgid "Épaisseur AV"
-msgstr ""
+msgstr "Dikte vooraan"
 
 #: .\piece\piece_freins\models.py:21
 msgid "Épaisseur AR"
-msgstr ""
+msgstr "Dikte achteraan"
 
 #: .\piece\piece_freins\models.py:22
 msgid "Épaisseur min AV"
-msgstr ""
+msgstr "Min. dikte vooraan"
 
 #: .\piece\piece_freins\models.py:23
 msgid "Épaisseur min AR"
-msgstr ""
+msgstr "Min. dikte achteraan"
 
 #: .\piece\piece_freins\models.py:24
 msgid "Porte étrier"
-msgstr ""
+msgstr "Remklauwbeugel"
 
 #: .\piece\piece_freins\models.py:25
-#, fuzzy
-#| msgid "Capteur ABS"
 msgid "Pompe ABS"
-msgstr "ABS-sensor"
+msgstr "ABS-pomp"
 
 #: .\piece\piece_freins\models.py:26
 msgid "Liquide qualité"
-msgstr ""
+msgstr "Vloeistofkwaliteit"
 
 #: .\piece\piece_freins\models.py:27
 msgid "Servo-frein"
-msgstr ""
+msgstr "Rembekrachtiger"
 
 #: .\piece\piece_freins\models.py:28
 msgid "Maître-cylindre"
-msgstr ""
+msgstr "Hoofdremcilinder"
 
 #: .\piece\piece_freins\models.py:29
 msgid "Cylindre récepteur AV/AR G/D"
-msgstr ""
+msgstr "Ontvangercilinder V/A L/R"
 
 #: .\piece\piece_freins\models.py:30
 msgid "Petites fournitures freins"
-msgstr ""
+msgstr "Kleine remonderdelen"
 
 #: .\piece\piece_freins\models.py:31
 msgid "Graisse"
-msgstr ""
+msgstr "Vet"
 
 #: .\piece\piece_freins\models.py:33
-#, fuzzy
-#| msgid "Fournisseur"
 msgid "Coulisseaux"
-msgstr "Leverancier"
+msgstr "Zijgeleiders"
 
 #: .\piece\piece_freins\models.py:35
-#, fuzzy
-#| msgid "Fusibles"
 msgid "Flexibles"
-msgstr "Zekeringen"
+msgstr "Remslangen"
 
 #: .\piece\piece_freins\models.py:36
 msgid "Tuyau"
-msgstr ""
+msgstr "Leiding"
 
 #: .\piece\piece_freins\models.py:37
 msgid "Nippe"
-msgstr ""
+msgstr "Ontluchtingsnippel"
 
 #: .\piece\piece_freins\models.py:38
 msgid "Master vac"
-msgstr ""
+msgstr "Master vac"
 
 #: .\piece\piece_freins\models.py:39
 msgid "Ressort avant"
-msgstr ""
+msgstr "Veer vooraan"
 
 #: .\piece\piece_freins\models.py:40
-#, fuzzy
-#| msgid "Arrière"
 msgid "Ressort arrière"
-msgstr "Achter"
+msgstr "Veer achteraan"
 
 #: .\piece\piece_freins\models.py:41
 msgid "Témoin usure avant"
-msgstr ""
+msgstr "Slijtindicator vooraan"
 
 #: .\piece\piece_freins\models.py:42
 msgid "Témoin usure arrière"
-msgstr ""
+msgstr "Slijtindicator achteraan"
 
 #: .\piece\piece_freins\models.py:43
 msgid "Cable frein à main"
-msgstr ""
+msgstr "Handremkabel"
 
 #: .\piece\piece_freins\models.py:49
 msgid "Type de pièce de freinage"
-msgstr ""
+msgstr "Type remonderdeel"
 
 #: .\piece\piece_freins\models.py:61
-#, fuzzy
-#| msgid "Ligne de facture"
 msgid "Pièce de freinage"
-msgstr "Factuurlijn"
+msgstr "Remonderdeel"
 
 #: .\piece\piece_freins\models.py:62
-#, fuzzy
-#| msgid "Ligne de facture"
 msgid "Pièces de freinage"
-msgstr "Factuurlijn"
+msgstr "Remonderdelen"
 
 #: .\piece\piece_habitacle\models.py:10
 msgid "Pièce habitacle"
-msgstr ""
+msgstr "Interieuronderdeel"
 
 #: .\piece\piece_habitacle\models.py:11
 msgid "Pièces habitacle"
-msgstr ""
+msgstr "Interieuronderdelen"
 
 #: .\piece\piece_habitacle\models.py:17 .\piece\piece_habitacle\models.py:84
-#, fuzzy
-#| msgid "Se connecter"
 msgid "Siège conducteur"
-msgstr "Inloggen"
+msgstr "Bestuurdersstoel"
 
 #: .\piece\piece_habitacle\models.py:18 .\piece\piece_habitacle\models.py:85
 msgid "Siège passager"
-msgstr ""
+msgstr "Passagiersstoel"
 
 #: .\piece\piece_habitacle\models.py:19
-#, fuzzy
-#| msgid "Lève-vitre arrière droit"
 msgid "Siège arrière droit"
-msgstr "Achterste rechter raambediening"
+msgstr "Achterstoel rechts"
+
+
+
+
+
+
 
 #: .\piece\piece_habitacle\models.py:20
 #, fuzzy

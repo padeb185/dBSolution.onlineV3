@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="création et migration tenant">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="traduction nl">
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/nl/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/nl/LC_MESSAGES/django.po" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -136,15 +135,7 @@
       <workItem from="1766590903812" duration="1028000" />
       <workItem from="1766591963502" duration="71000" />
       <workItem from="1766592494791" duration="894000" />
-      <workItem from="1766594168550" duration="1149000" />
-    </task>
-    <task id="LOCAL-00058" summary="pieces">
-      <option name="closed" value="true" />
-      <created>1766405814528</created>
-      <option name="number" value="00058" />
-      <option name="presentableId" value="LOCAL-00058" />
-      <option name="project" value="LOCAL" />
-      <updated>1766405814528</updated>
+      <workItem from="1766594168550" duration="1566000" />
     </task>
     <task id="LOCAL-00059" summary="pieces">
       <option name="closed" value="true" />
@@ -530,7 +521,15 @@
       <option name="project" value="LOCAL" />
       <updated>1766593372847</updated>
     </task>
-    <option name="localTasksCounter" value="107" />
+    <task id="LOCAL-00107" summary="traduction nl">
+      <option name="closed" value="true" />
+      <created>1766595357236</created>
+      <option name="number" value="00107" />
+      <option name="presentableId" value="LOCAL-00107" />
+      <option name="project" value="LOCAL" />
+      <updated>1766595357236</updated>
+    </task>
+    <option name="localTasksCounter" value="108" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -548,7 +547,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="pieces suite 5" />
     <MESSAGE value="pieces suite 6" />
     <MESSAGE value="ajout shared app" />
     <MESSAGE value="migrate apps et piece hydraulique" />
@@ -573,7 +571,8 @@
     <MESSAGE value="accueil" />
     <MESSAGE value="RAZ BDD" />
     <MESSAGE value="création et migration tenant" />
-    <option name="LAST_COMMIT_MESSAGE" value="création et migration tenant" />
+    <MESSAGE value="traduction nl" />
+    <option name="LAST_COMMIT_MESSAGE" value="traduction nl" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
