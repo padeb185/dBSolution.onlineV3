@@ -157,8 +157,9 @@ TENANT_APPS = (
     "voiture.voiture_pneus.apps.VoiturePneusConfig",
     "voiture.voiture_pneus_historique.apps.VoiturePneusHistoriqueConfig",
 
-    'app',
-    'api',
+
+
+
     'authentification',
     'utilisateurs',
     'utilisateurs.mecanicien',
