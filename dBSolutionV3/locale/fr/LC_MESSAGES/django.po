@@ -263,16 +263,14 @@ msgid "Historique"
 msgstr ""
 
 #: .\client\models.py:53
-#, fuzzy
-#| msgid "Action"
+
 msgid "Location"
-msgstr "Action"
+msgstr ""
 
 #: .\client\models.py:56 .\fournisseur\models.py:50
-#, fuzzy
-#| msgid "Action"
+
 msgid "Actif"
-msgstr "Action"
+msgstr ""
 
 #: .\client\models.py:60 .\facture\models.py:69
 msgid "Client"
@@ -536,10 +534,8 @@ msgid "Étiquette"
 msgstr ""
 
 #: .\maintenance\models.py:48
-#, fuzzy
-#| msgid "Nombre total :"
 msgid "Kilométrage total"
-msgstr "Nombre total :"
+msgstr ""
 
 #: .\maintenance\models.py:50
 msgid "Kilométrage à la dernière intervention"
@@ -548,6 +544,7 @@ msgstr ""
 #: .\maintenance\models.py:54
 msgid "Kilométrage châssis"
 msgstr ""
+
 
 #: .\maintenance\models.py:57
 msgid "Kilométrage moteur"
@@ -872,8 +869,6 @@ msgid ""
 msgstr ""
 
 #: .\theme\templates\login.totp.html:5 .\theme\templates\login.totp.html:13
-#, fuzzy
-#| msgid "Connexion"
 msgid "Connexion sécurisée"
 msgstr "Connexion"
 
