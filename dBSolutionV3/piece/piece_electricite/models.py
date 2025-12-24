@@ -6,6 +6,7 @@ class Electricite(Piece):
     TYPE_PIECE_ELECTRICITE = (
         ("alternateur", "Alternateur"),
         ("batterie", "Batterie"),
+        ("demarreur", "Démarreur"),
         ("leve_vitre_avg", "Lève-vitre AVG"),
         ("leve_vitre_avd", "Lève-vitre AVD"),
         ("leve_vitre_arg", "Lève-vitre ARG"),

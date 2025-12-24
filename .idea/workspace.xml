@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="utilisateur et maintenance" />
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="git js theme">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_electricite/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_electricite/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_freins/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_freins/models.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -128,14 +132,7 @@
       <workItem from="1766492690037" duration="7054000" />
       <workItem from="1766501290993" duration="5356000" />
       <workItem from="1766508168768" duration="1352000" />
-    </task>
-    <task id="LOCAL-00038" summary="correction client societe_cliente">
-      <option name="closed" value="true" />
-      <created>1766227025017</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1766227025017</updated>
+      <workItem from="1766554563944" duration="1413000" />
     </task>
     <task id="LOCAL-00039" summary="admin login widget tweaks">
       <option name="closed" value="true" />
@@ -521,14 +518,32 @@
       <option name="project" value="LOCAL" />
       <updated>1766509500302</updated>
     </task>
-    <option name="localTasksCounter" value="87" />
+    <task id="LOCAL-00087" summary="git js theme">
+      <option name="closed" value="true" />
+      <created>1766554665097</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1766554665097</updated>
+    </task>
+    <option name="localTasksCounter" value="88" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="modele utilisateurs" />
     <MESSAGE value="modele utilisateurs corrections" />
     <MESSAGE value="admin global admin local" />
     <MESSAGE value="pieces" />
@@ -553,7 +568,8 @@
     <MESSAGE value="client societe cliente 2" />
     <MESSAGE value="outillage investissements" />
     <MESSAGE value="utilisateur et maintenance" />
-    <option name="LAST_COMMIT_MESSAGE" value="utilisateur et maintenance" />
+    <MESSAGE value="git js theme" />
+    <option name="LAST_COMMIT_MESSAGE" value="git js theme" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

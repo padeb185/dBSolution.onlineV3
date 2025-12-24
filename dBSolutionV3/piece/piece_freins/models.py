@@ -4,10 +4,13 @@ from piece.models import Piece
 class PieceFreins(Piece):
 
     TYPE_PIECE_FREINAGE = (
-        ("machoire_frein_avg", "Mâchoire de frein AVG"),
-        ("machoire_frein_avd", "Mâchoire de frein AVD"),
-        ("machoire_frein_arg", "Mâchoire de frein ARG"),
-        ("machoire_frein_ard", "Mâchoire de frein ARD"),
+        ("machoire_frein_avg", "Etrier de frein AVG"),
+        ("machoire_frein_avd", "Etrier de frein AVD"),
+        ("machoire_frein_arg", "Etrier de frein ARG"),
+        ("machoire_frein_ard", "Etrier de frein ARD"),
+        ("support_machoire_av", "Support étier avant"),
+        ("support_machoire_ar", "Support étier arrière"),
+        ("kit_reparation_machoire", "kit réparation étier"),
         ("plaquettes_av", "Plaquettes AV"),
         ("plaquettes_ar", "Plaquettes AR"),
         ("disques_av", "Disques AV"),
@@ -32,6 +35,15 @@ class PieceFreins(Piece):
         ("tuyau", "Tuyau"),
         ("nippe", "Nippe"),
         ("master_vac", "Master vac"),
+        ("ressort_av", "Ressort avant"),
+        ("ressort_AR", "Ressort arrière"),
+        ("temoin_usure_av", "Témoin usure avant"),
+        ("temoin_usure_ar", "Témoin usure arrière"),
+        ("disques_av", "disques avant"),
+        ("disques_ar", "Disques arrière"),
+        ("cable frein", "Cable frein à main"),
+        ("Flexibles", "Flexibles"),
+
     )
 
     type_piece_frein = models.CharField(
