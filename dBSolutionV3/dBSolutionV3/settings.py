@@ -83,10 +83,14 @@ SHARED_APPS = (
 
 
 
+
 )
 
 
 TENANT_APPS = (
+
+    'piece',
+    'panier',
     'facture',
 
     'client',
@@ -101,17 +105,17 @@ TENANT_APPS = (
     'maintenance.check_up',
     'maintenance.entretien',
 
-    'piece',
-    'piece.piece_ligne_achat',
-    'piece.piece_ligne_inventaire',
-    'piece.piece_ligne_vente',
-    'piece.piece_mouvement_stock',
-    'piece.piece_stock',
-    'piece.piece_fournisseur',
-    'piece.piece_facture_entree',
-    'piece.piece_facture_sortie',
+
+    #'piece.piece_ligne_achat',
+    #'piece.piece_ligne_inventaire',
+    #'piece.piece_ligne_vente',
+    #'piece.piece_mouvement_stock',
+    #'piece.piece_stock',
+    #'piece.piece_fournisseur',
+    #'piece.piece_facture_entree',
+    #'piece.piece_facture_sortie',
     'piece.piece_ampoules',
-    'piece.piece_batterie',
+    #'piece.piece_batterie',
     'piece.piece_boite',
     'piece.piece_carrosserie',
     'piece.piece_climatisation',
@@ -120,7 +124,7 @@ TENANT_APPS = (
     'piece.piece_echappement',
     'piece.piece_electricite',
     'piece.piece_electronique',
-    'piece.piece_embrayage',
+    #'piece.piece_embrayage',
     'piece.piece_essuyage',
     'piece.piece_feux',
     'piece.piece_filtres',
@@ -130,12 +134,12 @@ TENANT_APPS = (
     'piece.piece_jantes',
     'piece.piece_moteur',
     'piece.piece_pneus',
-    'piece.piece_pont',
-    'piece.piece_silent_bloc',
-    'piece.piece_suspension',
+    #'piece.piece_pont',
+    #'piece.piece_silent_bloc',
+    #'piece.piece_suspension',
     'piece.piece_train_AV',
     'piece.piece_train_AR',
-    'piece.piece_transmission',
+    #'piece.piece_transmission',
     'piece.piece_hydraulique',
     'piece.piece_roue_rechange',
 
@@ -166,6 +170,9 @@ TENANT_APPS = (
     'utilisateurs.instructeur',
     'utilisateurs.magasinier',
     'utilisateurs.vendeur',
+
+
+
 
 
 

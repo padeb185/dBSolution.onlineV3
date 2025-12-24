@@ -4,17 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="traductions suite">
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/Tenant/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/Tenant/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/Tenant/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/Tenant/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/Tenant/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/Tenant/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/Tenant/views.py" afterDir="false" />
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="accueil">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/panier/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/panier/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_roue_rechange/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/login.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,15 +135,7 @@
       <workItem from="1766492690037" duration="7054000" />
       <workItem from="1766501290993" duration="5356000" />
       <workItem from="1766508168768" duration="1352000" />
-      <workItem from="1766554563944" duration="21633000" />
-    </task>
-    <task id="LOCAL-00053" summary="login totp">
-      <option name="closed" value="true" />
-      <created>1766384387072</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
-      <option name="project" value="LOCAL" />
-      <updated>1766384387072</updated>
+      <workItem from="1766554563944" duration="27125000" />
     </task>
     <task id="LOCAL-00054" summary="login totp">
       <option name="closed" value="true" />
@@ -533,7 +521,15 @@
       <option name="project" value="LOCAL" />
       <updated>1766580744730</updated>
     </task>
-    <option name="localTasksCounter" value="102" />
+    <task id="LOCAL-00102" summary="accueil">
+      <option name="closed" value="true" />
+      <created>1766582843870</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1766582843870</updated>
+    </task>
+    <option name="localTasksCounter" value="103" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -551,7 +547,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="pieces suite 2" />
     <MESSAGE value="pieces suite 3" />
     <MESSAGE value="pieces suite 4" />
     <MESSAGE value="pieces suite 5" />
@@ -576,20 +571,26 @@
     <MESSAGE value="traduction tout" />
     <MESSAGE value="i18N 2" />
     <MESSAGE value="traductions suite" />
-    <option name="LAST_COMMIT_MESSAGE" value="traductions suite" />
+    <MESSAGE value="accueil" />
+    <option name="LAST_COMMIT_MESSAGE" value="accueil" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py</url>
-          <line>302</line>
+          <line>309</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/dBSolutionV3/facture/models.py</url>
           <line>44</line>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/dBSolutionV3/panier/models.py</url>
+          <line>5</line>
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

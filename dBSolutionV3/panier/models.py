@@ -3,9 +3,8 @@ from decimal import Decimal
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-
 from client.models import Client
-from societe_cliente.models import SocieteCliente
+from client.societe_cliente.models import SocieteCliente
 from piece.models import Piece
 
 
@@ -22,7 +21,7 @@ class Panier(models.Model):
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name="paniers",
+        related_name="paniers_client",
         verbose_name=_("Client")
     )
 
@@ -31,7 +30,7 @@ class Panier(models.Model):
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name="paniers",
+        related_name="paniers_societe",
         verbose_name=_("Société cliente")
     )
 
@@ -61,7 +60,17 @@ class Panier(models.Model):
         verbose_name_plural = _("Paniers")
 
 
+
+
+
 class PanierItem(models.Model):
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False,
+        verbose_name=_("Identifiant")
+    )
+
     panier = models.ForeignKey(
         Panier,
         on_delete=models.CASCADE,
@@ -72,6 +81,7 @@ class PanierItem(models.Model):
     piece = models.ForeignKey(
         Piece,
         on_delete=models.PROTECT,
+        related_name="panier_items",
         verbose_name=_("Pièce")
     )
 
@@ -92,14 +102,12 @@ class PanierItem(models.Model):
         verbose_name=_("TVA fournisseur (%)")
     )
 
-    # 📈 MARGE
     marge = models.DecimalField(
         max_digits=5,
         decimal_places=2,
         verbose_name=_("Marge (%)")
     )
 
-    # 💵 VENTE
     prix_unitaire_ht = models.DecimalField(
         max_digits=10,
         decimal_places=2,
@@ -112,10 +120,18 @@ class PanierItem(models.Model):
         verbose_name=_("TVA client (%)")
     )
 
+    class Meta:
+        verbose_name = _("Ligne de panier")
+        verbose_name_plural = _("Lignes de panier")
+        unique_together = ("panier", "piece")
+
+    def __str__(self):
+        return _("%(piece)s × %(quantite)s") % {
+            "piece": self.piece,
+            "quantite": self.quantite,
+        }
+
     def prix_vente_ht_calcule(self):
-        """
-        Prix de vente HT basé sur prix achat + marge
-        """
         return self.prix_achat_ht * (Decimal("1.0") + self.marge / Decimal("100"))
 
     def total_ht(self):
@@ -126,14 +142,3 @@ class PanierItem(models.Model):
 
     def total_ttc(self):
         return self.total_ht() + self.total_tva()
-
-    def __str__(self):
-        return _("%(piece)s × %(quantite)s") % {
-            "piece": self.piece,
-            "quantite": self.quantite,
-        }
-
-    class Meta:
-        verbose_name = _("Ligne de panier")
-        verbose_name_plural = _("Lignes de panier")
-        unique_together = ("panier", "piece")
