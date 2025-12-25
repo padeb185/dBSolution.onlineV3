@@ -2321,9 +2321,6 @@ msgstr "Naaf"
 msgid "Porte fusée"
 msgstr "Fusee"
 
-
-
-
 #: .\piece\piece_train_AR\models.py:20
 #: .\piece\piece_train_AV\models.py:23
 msgid "Fusée"
@@ -2539,7 +2536,5 @@ msgid "Si tu ne peux pas scanner le QR code, utilise ce code secret :"
 msgstr "Als u de QR-code niet kunt scannen, gebruik dan deze geheime code:"
 
 #: .\theme\templates\totp\setup.html:28
-#, fuzzy
-#| msgid "Veuillez entrer le code généré par Google Authenticator"
 msgid "J’ai configuré Google Authenticator"
-msgstr "Voer de door Google Authenticator gegenereerde code in"
+msgstr "Ik heb Google Authenticator ingesteld"
