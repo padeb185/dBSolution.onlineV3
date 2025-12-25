@@ -291,7 +291,7 @@ msgstr ""
 
 #: .\dBSolutionV3\views.py:82 .\theme\templates\dashboard.html:10
 msgid "Bienvenue sur ton tableau de bord"
-msgstr "Bienvenue sur ton tableau de bord"
+msgstr ""
 
 #: .\facture\models.py:23 .\fournisseur\models.py:37
 msgid "Identifiant Peppol"
@@ -623,10 +623,9 @@ msgid "Date de création"
 msgstr ""
 
 #: .\panier\models.py:45
-#, fuzzy
-#| msgid "Notifications"
+
 msgid "Date de modification"
-msgstr "Notifications"
+msgstr ""
 
 #: .\panier\models.py:50
 msgid "Validé"
@@ -1827,16 +1826,12 @@ msgid "Tapis"
 msgstr ""
 
 #: .\piece\piece_habitacle\models.py:62
-#, fuzzy
-#| msgid "Connexion sécurisée"
 msgid "Ceinture de sécurité"
-msgstr "Connexion"
+msgstr ""
 
 #: .\piece\piece_habitacle\models.py:63
-#, fuzzy
-#| msgid "Connexion sécurisée"
 msgid "Ceintures de sécurité"
-msgstr "Connexion"
+msgstr ""
 
 #: .\piece\piece_habitacle\models.py:68 .\piece\piece_habitacle\models.py:69
 msgid "Harnais"
@@ -2360,8 +2355,6 @@ msgid "Changer de langue"
 msgstr "Changer de langue"
 
 #: .\theme\templates\dashboard.html:7
-#, fuzzy
-#| msgid "Tableau de Bord"
 msgid "Tableau de bord"
 msgstr "Tableau de Bord"
 

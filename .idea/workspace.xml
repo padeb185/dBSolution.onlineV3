@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="traduction nl">
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="traduction nl fin">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/nl/LC_MESSAGES/django.mo" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/nl/LC_MESSAGES/django.mo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/nl/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/nl/LC_MESSAGES/django.po" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/el/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/el/LC_MESSAGES/django.po" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/en/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/en/LC_MESSAGES/django.po" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/es/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/es/LC_MESSAGES/django.po" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/fr/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/fr/LC_MESSAGES/django.po" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,23 +140,7 @@
       <workItem from="1766591963502" duration="71000" />
       <workItem from="1766592494791" duration="894000" />
       <workItem from="1766594168550" duration="1642000" />
-      <workItem from="1766651473872" duration="1031000" />
-    </task>
-    <task id="LOCAL-00060" summary="boite et moteur">
-      <option name="closed" value="true" />
-      <created>1766409732934</created>
-      <option name="number" value="00060" />
-      <option name="presentableId" value="LOCAL-00060" />
-      <option name="project" value="LOCAL" />
-      <updated>1766409732934</updated>
-    </task>
-    <task id="LOCAL-00061" summary="fluides">
-      <option name="closed" value="true" />
-      <created>1766410336065</created>
-      <option name="number" value="00061" />
-      <option name="presentableId" value="LOCAL-00061" />
-      <option name="project" value="LOCAL" />
-      <updated>1766410336065</updated>
+      <workItem from="1766651473872" duration="2492000" />
     </task>
     <task id="LOCAL-00062" summary="filtres">
       <option name="closed" value="true" />
@@ -532,7 +518,23 @@
       <option name="project" value="LOCAL" />
       <updated>1766595822757</updated>
     </task>
-    <option name="localTasksCounter" value="109" />
+    <task id="LOCAL-00109" summary="traduction nl fin">
+      <option name="closed" value="true" />
+      <created>1766652535889</created>
+      <option name="number" value="00109" />
+      <option name="presentableId" value="LOCAL-00109" />
+      <option name="project" value="LOCAL" />
+      <updated>1766652535890</updated>
+    </task>
+    <task id="LOCAL-00110" summary="traduction nl fin">
+      <option name="closed" value="true" />
+      <created>1766652712590</created>
+      <option name="number" value="00110" />
+      <option name="presentableId" value="LOCAL-00110" />
+      <option name="project" value="LOCAL" />
+      <updated>1766652712590</updated>
+    </task>
+    <option name="localTasksCounter" value="111" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -550,7 +552,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="pieces suite 6" />
     <MESSAGE value="ajout shared app" />
     <MESSAGE value="migrate apps et piece hydraulique" />
     <MESSAGE value="jantes piece" />
@@ -575,7 +576,8 @@
     <MESSAGE value="RAZ BDD" />
     <MESSAGE value="création et migration tenant" />
     <MESSAGE value="traduction nl" />
-    <option name="LAST_COMMIT_MESSAGE" value="traduction nl" />
+    <MESSAGE value="traduction nl fin" />
+    <option name="LAST_COMMIT_MESSAGE" value="traduction nl fin" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
