@@ -1812,654 +1812,598 @@ msgstr "Passagiersstoel"
 msgid "Siège arrière droit"
 msgstr "Achterstoel rechts"
 
-
-
-
-
-
-
 #: .\piece\piece_habitacle\models.py:20
-#, fuzzy
-#| msgid "Lève-vitre arrière gauche"
 msgid "Siège arrière gauche"
-msgstr "Achterste linker raambediening"
+msgstr "Linker achterzetel"
 
 #: .\piece\piece_habitacle\models.py:25
-#, fuzzy
-#| msgid "Ligne de facture"
 msgid "Type de siège"
-msgstr "Factuurlijn"
+msgstr "Type zetel"
 
 #: .\piece\piece_habitacle\models.py:29
 msgid "Siège"
-msgstr ""
+msgstr "Zetel"
 
 #: .\piece\piece_habitacle\models.py:30
 msgid "Sièges"
-msgstr ""
+msgstr "Zetels"
 
 #: .\piece\piece_habitacle\models.py:38
 msgid "Volant"
-msgstr ""
+msgstr "Stuur"
 
 #: .\piece\piece_habitacle\models.py:39
 msgid "Volants"
-msgstr ""
+msgstr "Sturen"
 
-#: .\piece\piece_habitacle\models.py:44 .\piece\piece_habitacle\models.py:45
+#: .\piece\piece_habitacle\models.py:44
+#: .\piece\piece_habitacle\models.py:45
 msgid "GPS"
-msgstr ""
+msgstr "GPS"
 
 #: .\piece\piece_habitacle\models.py:50
 msgid "Radio"
-msgstr ""
+msgstr "Radio"
 
 #: .\piece\piece_habitacle\models.py:51
 msgid "Radios"
-msgstr ""
+msgstr "Radio’s"
 
-#: .\piece\piece_habitacle\models.py:56 .\piece\piece_habitacle\models.py:57
+#: .\piece\piece_habitacle\models.py:56
+#: .\piece\piece_habitacle\models.py:57
 msgid "Tapis"
-msgstr ""
+msgstr "Mat"
 
 #: .\piece\piece_habitacle\models.py:62
-#, fuzzy
-#| msgid "Connexion sécurisée"
 msgid "Ceinture de sécurité"
-msgstr "Veilige login"
+msgstr "Veiligheidsgordel"
 
 #: .\piece\piece_habitacle\models.py:63
-#, fuzzy
-#| msgid "Connexion sécurisée"
 msgid "Ceintures de sécurité"
-msgstr "Veilige login"
+msgstr "Veiligheidsgordels"
 
-#: .\piece\piece_habitacle\models.py:68 .\piece\piece_habitacle\models.py:69
+#: .\piece\piece_habitacle\models.py:68
+#: .\piece\piece_habitacle\models.py:69
 msgid "Harnais"
-msgstr ""
+msgstr "Harnas"
 
-#: .\piece\piece_habitacle\models.py:74 .\piece\piece_habitacle\models.py:75
+#: .\piece\piece_habitacle\models.py:74
+#: .\piece\piece_habitacle\models.py:75
 msgid "Compteurs / Commodo"
-msgstr ""
+msgstr "Meters / Bediening"
 
 #: .\piece\piece_habitacle\models.py:80
-#, fuzzy
-#| msgid "Connecteurs"
 msgid "Conducteur"
-msgstr "Connectors"
+msgstr "Bestuurder"
 
 #: .\piece\piece_habitacle\models.py:81
 msgid "Passager"
-msgstr ""
+msgstr "Passagier"
 
 #: .\piece\piece_habitacle\models.py:82
 msgid "Latéral gauche"
-msgstr ""
+msgstr "Linkerzijde"
 
 #: .\piece\piece_habitacle\models.py:83
 msgid "Latéral droit"
-msgstr ""
+msgstr "Rechterzijde"
 
 #: .\piece\piece_habitacle\models.py:86
-#, fuzzy
-#| msgid "Lève-vitre arrière droit"
 msgid "Sièges arrière droit"
-msgstr "Achterste rechter raambediening"
+msgstr "Rechter achterzetel"
 
 #: .\piece\piece_habitacle\models.py:87
-#, fuzzy
-#| msgid "Lève-vitre arrière gauche"
 msgid "Sièges arrière gauche"
-msgstr "Achterste linker raambediening"
+msgstr "Linker achterzetel"
 
 #: .\piece\piece_habitacle\models.py:92
 msgid "Position de l'airbag"
-msgstr ""
+msgstr "Airbagpositie"
 
 #: .\piece\piece_habitacle\models.py:96
 msgid "Airbag"
-msgstr ""
+msgstr "Airbag"
 
 #: .\piece\piece_habitacle\models.py:97
 msgid "Airbags"
-msgstr ""
+msgstr "Airbags"
+
 
 #: .\piece\piece_hydraulique\models.py:12
 msgid "Front lift"
-msgstr ""
+msgstr "Voorlift"
 
 #: .\piece\piece_hydraulique\models.py:13
 msgid "Rear lift"
-msgstr ""
+msgstr "Achterlift"
 
 #: .\piece\piece_hydraulique\models.py:15
-#, fuzzy
-#| msgid "Compresseur"
 msgid "Huile compresseur"
-msgstr "Compressor"
+msgstr "Compressorolie"
 
 #: .\piece\piece_hydraulique\models.py:21
 msgid "Type de pièce hydraulique"
-msgstr ""
+msgstr "Type hydraulisch onderdeel"
 
 #: .\piece\piece_hydraulique\models.py:25
 msgid "Pièce hydraulique"
-msgstr ""
+msgstr "Hydraulisch onderdeel"
 
 #: .\piece\piece_hydraulique\models.py:26
 msgid "Pièces hydrauliques"
-msgstr ""
+msgstr "Hydraulische onderdelen"
+
 
 #: .\piece\piece_jantes\models.py:10
 msgid "Largeur en pouces, ex: 7, 7.5, 8"
-msgstr ""
+msgstr "Breedte in inches, bv: 7, 7.5, 8"
 
-#: .\piece\piece_jantes\models.py:13 .\piece\piece_pneus\models.py:29
-#, fuzzy
-#| msgid "Vitre de porte"
+#: .\piece\piece_jantes\models.py:13
+#: .\piece\piece_pneus\models.py:29
 msgid "Diamètre en pouces"
-msgstr "Deurruit"
+msgstr "Diameter in inches"
 
 #: .\piece\piece_jantes\models.py:17
 msgid "Ex: 5x100"
-msgstr ""
+msgstr "Bv: 5x100"
 
 #: .\piece\piece_jantes\models.py:20
 msgid "Diamètre central en mm"
-msgstr ""
+msgstr "Centrale boring in mm"
 
 #: .\piece\piece_jantes\models.py:23
 msgid "Déport ET en mm"
-msgstr ""
+msgstr "ET-offset in mm"
 
-#: .\piece\piece_jantes\models.py:27 .\piece\piece_pneus\models.py:29
+#: .\piece\piece_jantes\models.py:27
+#: .\piece\piece_pneus\models.py:29
 msgid "Jante"
-msgstr ""
+msgstr "Velg"
 
 #: .\piece\piece_jantes\models.py:28
 msgid "Jantes"
-msgstr ""
+msgstr "Velgen"
 
 #: .\piece\piece_jantes\models.py:31
 #, python-format
 msgid "Jante %(largeur)sx%(taille)s ET%(et)s - %(entraxe)s"
-msgstr ""
+msgstr "Velg %(largeur)sx%(taille)s ET%(et)s - %(entraxe)s"
+
 
 #: .\piece\piece_moteur\models.py:8
 msgid "Arbre à cames admission"
-msgstr ""
+msgstr "Nokkenas inlaat"
 
 #: .\piece\piece_moteur\models.py:9
 msgid "Arbre à cames échappement"
-msgstr ""
+msgstr "Nokkenas uitlaat"
 
 #: .\piece\piece_moteur\models.py:10
-#, fuzzy
-#| msgid "Capteur vilebrequin"
 msgid "Vilebrequin"
-msgstr "Krukas sensor"
+msgstr "Krukas"
 
 #: .\piece\piece_moteur\models.py:11
 msgid "Bielle"
-msgstr ""
+msgstr "Drijfstang"
 
 #: .\piece\piece_moteur\models.py:12
 msgid "Durite Eau"
-msgstr ""
+msgstr "Waterleiding"
 
 #: .\piece\piece_moteur\models.py:13
 msgid "Durite Huile"
-msgstr ""
+msgstr "Olieslang"
 
 #: .\piece\piece_moteur\models.py:14
 msgid "Durite Carburant"
-msgstr ""
+msgstr "Brandstofslang"
 
 #: .\piece\piece_moteur\models.py:16
 msgid "Soupape"
-msgstr ""
+msgstr "Klep"
 
 #: .\piece\piece_moteur\models.py:17
-#, fuzzy
-#| msgid "Calculateur moteur"
 msgid "Bloc moteur"
-msgstr "Motor ECU"
+msgstr "Motorblok"
 
 #: .\piece\piece_moteur\models.py:18
 msgid "Ressorts de Soupapes"
-msgstr ""
+msgstr "Klepveren"
 
 #: .\piece\piece_moteur\models.py:19
 msgid "Culbuteurs"
-msgstr ""
+msgstr "Tuimelaars"
 
 #: .\piece\piece_moteur\models.py:20
 msgid "Culasse"
-msgstr ""
+msgstr "Cilinderkop"
 
 #: .\piece\piece_moteur\models.py:21
-#, fuzzy
-#| msgid "Capteur niveau huile"
 msgid "Carter Huile"
-msgstr "Oliestandsensor"
+msgstr "Oliecarter"
 
 #: .\piece\piece_moteur\models.py:22
 msgid "Pompe Huile"
-msgstr ""
+msgstr "Oliepomp"
 
 #: .\piece\piece_moteur\models.py:23
 msgid "Échangeur"
-msgstr ""
+msgstr "Warmtewisselaar"
 
 #: .\piece\piece_moteur\models.py:24
 msgid "Pressoirs Hydraulique"
-msgstr ""
+msgstr "Hydraulische stoters"
 
 #: .\piece\piece_moteur\models.py:25
-#, fuzzy
-#| msgid "Joint de porte"
 msgid "Joint de Culasse"
-msgstr "Deurafdichting"
+msgstr "Koppakking"
 
 #: .\piece\piece_moteur\models.py:26
 msgid "Poulie Arbre A Came Admission"
-msgstr ""
+msgstr "Inlaatnokkenaspoelie"
 
 #: .\piece\piece_moteur\models.py:27
 msgid "Poulie Arbre A Came Échappement"
-msgstr ""
+msgstr "Uitlaatnokkenaspoelie"
 
 #: .\piece\piece_moteur\models.py:28
-#, fuzzy
-#| msgid "Code de vérification"
 msgid "Poulie de Vilebrequin"
-msgstr "Verificatiecode"
+msgstr "Krukaspoelie"
 
 #: .\piece\piece_moteur\models.py:29
-#, fuzzy
-#| msgid "Description"
 msgid "Distribution"
-msgstr "Beschrijving"
+msgstr "Distributie"
 
 #: .\piece\piece_moteur\models.py:30
 msgid "Chaine de Distribution"
-msgstr ""
+msgstr "Distributieketting"
 
 #: .\piece\piece_moteur\models.py:31
-#, fuzzy
-#| msgid "Date d'intervention"
 msgid "Courroie de Distribution"
-msgstr "Datum interventie"
+msgstr "Distributieriem"
 
 #: .\piece\piece_moteur\models.py:32
 msgid "Galets"
-msgstr ""
+msgstr "Looprollen"
 
 #: .\piece\piece_moteur\models.py:33
 msgid "Galet Tendeur"
-msgstr ""
+msgstr "Spanrol"
 
 #: .\piece\piece_moteur\models.py:34
 msgid "Cache Soupapes"
-msgstr ""
+msgstr "Kleppendeksel"
 
 #: .\piece\piece_moteur\models.py:35
 msgid "Bougies Allumage"
-msgstr ""
+msgstr "Bougies"
+
 
 #: .\piece\piece_moteur\models.py:36
-#, fuzzy
-#| msgid "Relais de préchauffage"
 msgid "Bougies Préchauffage"
-msgstr "Gloeikaart relais"
+msgstr "Gloeibougies"
 
 #: .\piece\piece_moteur\models.py:38
-#, fuzzy
-#| msgid "Capteur pression admission"
 msgid "Collecteur d'admission"
-msgstr "Inlaatsensors"
+msgstr "Inlaatspruitstuk"
 
 #: .\piece\piece_moteur\models.py:39
 msgid "Collecteur d'échappement"
-msgstr ""
+msgstr "Uitlaatspruitstuk"
 
 #: .\piece\piece_moteur\models.py:40
-#, fuzzy
-#| msgid "Connecteurs"
 msgid "Injecteurs"
-msgstr "Connectors"
+msgstr "Injectoren"
 
 #: .\piece\piece_moteur\models.py:41
 msgid "Pompe à Carburant"
-msgstr ""
+msgstr "Brandstofpomp"
 
 #: .\piece\piece_moteur\models.py:42
-#, fuzzy
-#| msgid "Code de vérification"
 msgid "Rampe d'injection"
-msgstr "Verificatiecode"
+msgstr "Brandstofrail"
 
 #: .\piece\piece_moteur\models.py:43
 msgid "Turbo"
-msgstr ""
+msgstr "Turbo"
 
 #: .\piece\piece_moteur\models.py:44
-#, fuzzy
-#| msgid "Joint de porte"
 msgid "Joint moteur"
-msgstr "Deurafdichting"
+msgstr "Motorpakking"
 
 #: .\piece\piece_moteur\models.py:45
-#, fuzzy
-#| msgid "Vitre de porte"
 msgid "Kit de joints"
-msgstr "Deurruit"
+msgstr "Pakkingset"
 
 #: .\piece\piece_moteur\models.py:46
 msgid "Poussoirs"
-msgstr ""
+msgstr "Klepstoters"
 
 #: .\piece\piece_moteur\models.py:47
 msgid "Pompe à Eau"
-msgstr ""
+msgstr "Waterpomp"
 
 #: .\piece\piece_moteur\models.py:48
 msgid "Pompe à vide"
-msgstr ""
+msgstr "Vacuümpomp"
 
 #: .\piece\piece_moteur\models.py:54
-#, fuzzy
-#| msgid "Ligne de facture"
 msgid "Type de pièce moteur"
-msgstr "Factuurlijn"
+msgstr "Type motoronderdeel"
 
 #: .\piece\piece_moteur\models.py:65
-#, fuzzy
-#| msgid "Calculateur moteur"
 msgid "Pièce moteur"
-msgstr "Motor ECU"
+msgstr "Motoronderdeel"
 
 #: .\piece\piece_moteur\models.py:66
-#, fuzzy
-#| msgid "Calculateur moteur"
 msgid "Pièces moteur"
-msgstr "Motor ECU"
+msgstr "Motoronderdelen"
 
-#: .\piece\piece_moteur\models.py:69 .\piece\piece_train_AR\models.py:49
+#: .\piece\piece_moteur\models.py:69
+#: .\piece\piece_train_AR\models.py:49
 #: .\piece\piece_train_AV\models.py:49
 #, python-format
 msgid "%(type)s – %(nom)s"
-msgstr ""
+msgstr "%(type)s – %(nom)s"
+
 
 #: .\piece\piece_pneus\models.py:7
 msgid "Train AV"
-msgstr ""
+msgstr "Vooras"
 
 #: .\piece\piece_pneus\models.py:8
 msgid "Train AR"
-msgstr ""
+msgstr "Achteras"
 
-#: .\piece\piece_pneus\models.py:12 .\piece\piece_roue_rechange\models.py:17
+#: .\piece\piece_pneus\models.py:12
+#: .\piece\piece_roue_rechange\models.py:17
 msgid "Slick"
-msgstr ""
+msgstr "Slick"
 
-#: .\piece\piece_pneus\models.py:13 .\piece\piece_roue_rechange\models.py:18
+#: .\piece\piece_pneus\models.py:13
+#: .\piece\piece_roue_rechange\models.py:18
 msgid "Semi-slick"
-msgstr ""
+msgstr "Semi-slick"
 
-#: .\piece\piece_pneus\models.py:14 .\piece\piece_roue_rechange\models.py:19
+#: .\piece\piece_pneus\models.py:14
+#: .\piece\piece_roue_rechange\models.py:19
 msgid "Pluie"
-msgstr ""
+msgstr "Regen"
 
-#: .\piece\piece_pneus\models.py:15 .\piece\piece_roue_rechange\models.py:20
+#: .\piece\piece_pneus\models.py:15
+#: .\piece\piece_roue_rechange\models.py:20
 msgid "Neige"
-msgstr ""
+msgstr "Sneeuw"
 
 #: .\piece\piece_pneus\models.py:19
 msgid "Michelin"
-msgstr ""
+msgstr "Michelin"
 
 #: .\piece\piece_pneus\models.py:20
 msgid "Pirelli"
-msgstr ""
+msgstr "Pirelli"
 
 #: .\piece\piece_pneus\models.py:23
 msgid "Train"
-msgstr ""
+msgstr "As"
 
 #: .\piece\piece_pneus\models.py:24
 msgid "Valve"
-msgstr ""
+msgstr "Ventiel"
 
 #: .\piece\piece_pneus\models.py:25
 msgid "Savon"
-msgstr ""
+msgstr "Montagezeep"
 
 #: .\piece\piece_pneus\models.py:26
-#, fuzzy
-#| msgid "Facture"
 msgid "Manufacturier"
-msgstr "Factuur"
+msgstr "Fabrikant"
 
 #: .\piece\piece_pneus\models.py:27
 msgid "Largeur"
-msgstr ""
+msgstr "Breedte"
 
 #: .\piece\piece_pneus\models.py:28
-#, fuzzy
-#| msgid "Calculateur moteur"
 msgid "Hauteur"
-msgstr "Motor ECU"
+msgstr "Hoogte"
 
 #: .\piece\piece_pneus\models.py:30
-#, fuzzy
-#| msgid "Ligne de facture"
 msgid "Type de pneu"
-msgstr "Factuurlijn"
+msgstr "Type band"
 
 #: .\piece\piece_pneus\models.py:31
-#, fuzzy
-#| msgid "Résistance de chauffage"
 msgid "Indice de charge"
-msgstr "Verwarmingsweerstand"
+msgstr "Draagvermogenindex"
 
 #: .\piece\piece_pneus\models.py:32
 msgid "Indice de vitesse"
-msgstr ""
+msgstr "Snelheidsindex"
 
 #: .\piece\piece_pneus\models.py:33
-#, fuzzy
-#| msgid "Quantité"
 msgid "Quantité montée"
-msgstr "Aantal"
+msgstr "Gemonteerde hoeveelheid"
 
 #: .\piece\piece_pneus\models.py:54
 msgid "Pneu"
-msgstr ""
+msgstr "Band"
 
 #: .\piece\piece_pneus\models.py:55
 msgid "Pneus"
-msgstr ""
+msgstr "Banden"
 
 #: .\piece\piece_pneus\models.py:58
 #, python-format
 msgid "%(type)s – %(largeur)s/%(hauteur)s R%(jante)s"
-msgstr ""
+msgstr "%(type)s – %(largeur)s/%(hauteur)s R%(jante)s"
+
 
 #: .\piece\piece_roue_rechange\models.py:8
 msgid "Belgique"
-msgstr ""
+msgstr "België"
 
 #: .\piece\piece_roue_rechange\models.py:9
 msgid "Allemagne"
-msgstr ""
+msgstr "Duitsland"
 
 #: .\piece\piece_roue_rechange\models.py:24
 msgid "Côté"
-msgstr ""
+msgstr "Zijde"
 
 #: .\piece\piece_roue_rechange\models.py:25
-#, fuzzy
-#| msgid "Ligne de facture"
 msgid "Type de roue"
-msgstr "Factuurlijn"
+msgstr "Type wiel"
 
 #: .\piece\piece_roue_rechange\models.py:29
-#, fuzzy
-#| msgid "Relais de préchauffage"
 msgid "Roue de rechange"
-msgstr "Gloeikaart relais"
+msgstr "Reservewiel"
 
 #: .\piece\piece_roue_rechange\models.py:30
-#, fuzzy
-#| msgid "Relais de préchauffage"
 msgid "Roues de rechange"
-msgstr "Gloeikaart relais"
+msgstr "Reservewielen"
 
 #: .\piece\piece_roue_rechange\models.py:33
 #, python-format
 msgid "%(quantite)s roue(s) %(type)s sur %(site)s"
-msgstr ""
+msgstr "%(quantite)s wiel(en) %(type)s in %(site)s"
 
-#: .\piece\piece_train_AR\models.py:9 .\piece\piece_train_AV\models.py:8
+
+#: .\piece\piece_train_AR\models.py:9
+#: .\piece\piece_train_AV\models.py:8
 msgid "Berceau"
-msgstr ""
+msgstr "Subframe"
 
 #: .\piece\piece_train_AR\models.py:10
-#, fuzzy
-#| msgid "Date d'intervention"
 msgid "Barre de torsion"
-msgstr "Datum interventie"
+msgstr "Torsiestang"
 
-#: .\piece\piece_train_AR\models.py:11 .\piece\piece_train_AV\models.py:11
+#: .\piece\piece_train_AR\models.py:11
+#: .\piece\piece_train_AV\models.py:11
 msgid "Triangle supérieur gauche"
-msgstr ""
+msgstr "Linker bovenste draagarm"
 
-#: .\piece\piece_train_AR\models.py:12 .\piece\piece_train_AV\models.py:12
+#: .\piece\piece_train_AR\models.py:12
+#: .\piece\piece_train_AV\models.py:12
 msgid "Triangle supérieur droit"
-msgstr ""
+msgstr "Rechter bovenste draagarm"
 
-#: .\piece\piece_train_AR\models.py:13 .\piece\piece_train_AV\models.py:13
-#, fuzzy
-#| msgid "Lève-vitre arrière gauche"
+#: .\piece\piece_train_AR\models.py:13
+#: .\piece\piece_train_AV\models.py:13
 msgid "Triangle inférieur gauche"
-msgstr "Achterste linker raambediening"
+msgstr "Linker onderste draagarm"
 
-#: .\piece\piece_train_AR\models.py:14 .\piece\piece_train_AV\models.py:14
-#, fuzzy
-#| msgid "Lève-vitre arrière droit"
+#: .\piece\piece_train_AR\models.py:14
+#: .\piece\piece_train_AV\models.py:14
 msgid "Triangle inférieur droit"
-msgstr "Achterste rechter raambediening"
+msgstr "Rechter onderste draagarm"
 
-#: .\piece\piece_train_AR\models.py:15 .\piece\piece_train_AV\models.py:18
+#: .\piece\piece_train_AR\models.py:15
+#: .\piece\piece_train_AV\models.py:18
 msgid "Silent bloc"
-msgstr ""
+msgstr "Silentblok"
 
-#: .\piece\piece_train_AR\models.py:16 .\piece\piece_train_AV\models.py:19
+#: .\piece\piece_train_AR\models.py:16
+#: .\piece\piece_train_AV\models.py:19
 msgid "Kit silent bloc"
-msgstr ""
+msgstr "Silentblokset"
 
-#: .\piece\piece_train_AR\models.py:17 .\piece\piece_train_AV\models.py:20
-#, fuzzy
-#| msgid "Ligne de facture"
+#: .\piece\piece_train_AR\models.py:17
+#: .\piece\piece_train_AV\models.py:20
 msgid "Roulement de roue"
-msgstr "Factuurlijn"
+msgstr "Wiellager"
 
-#: .\piece\piece_train_AR\models.py:18 .\piece\piece_train_AV\models.py:21
+#: .\piece\piece_train_AR\models.py:18
+#: .\piece\piece_train_AV\models.py:21
 msgid "Moyeu"
-msgstr ""
+msgstr "Naaf"
 
-#: .\piece\piece_train_AR\models.py:19 .\piece\piece_train_AV\models.py:22
+#: .\piece\piece_train_AR\models.py:19
+#: .\piece\piece_train_AV\models.py:22
 msgid "Porte fusée"
-msgstr ""
+msgstr "Fusee"
 
-#: .\piece\piece_train_AR\models.py:20 .\piece\piece_train_AV\models.py:23
+
+
+
+#: .\piece\piece_train_AR\models.py:20
+#: .\piece\piece_train_AV\models.py:23
 msgid "Fusée"
-msgstr ""
+msgstr "Fusee"
 
-#: .\piece\piece_train_AR\models.py:21 .\piece\piece_train_AV\models.py:24
-#, fuzzy
-#| msgid "Fournisseur"
+#: .\piece\piece_train_AR\models.py:21
+#: .\piece\piece_train_AV\models.py:24
 msgid "Amortisseur G/D"
-msgstr "Leverancier"
+msgstr "Schokdemper L/R"
 
-#: .\piece\piece_train_AR\models.py:22 .\piece\piece_train_AV\models.py:25
-#, fuzzy
-#| msgid "Arrière"
+#: .\piece\piece_train_AR\models.py:22
+#: .\piece\piece_train_AV\models.py:25
 msgid "Ressort"
-msgstr "Achter"
+msgstr "Veer"
 
-#: .\piece\piece_train_AR\models.py:23 .\piece\piece_train_AV\models.py:27
+#: .\piece\piece_train_AR\models.py:23
+#: .\piece\piece_train_AV\models.py:27
 msgid "Barre stabilisatrice"
-msgstr ""
+msgstr "Stabilisatorstang"
 
-#: .\piece\piece_train_AR\models.py:24 .\piece\piece_train_AV\models.py:28
+#: .\piece\piece_train_AR\models.py:24
+#: .\piece\piece_train_AV\models.py:28
 msgid "Biellette de barre stabilisatrice"
-msgstr ""
+msgstr "Stabilisatorstangverbinding"
 
 #: .\piece\piece_train_AR\models.py:25
 msgid "Train AR directeur G/D"
-msgstr ""
+msgstr "Achteras besturend L/R"
 
-#: .\piece\piece_train_AR\models.py:26 .\piece\piece_train_AV\models.py:9
+#: .\piece\piece_train_AR\models.py:26
+#: .\piece\piece_train_AV\models.py:9
 msgid "Cardan G"
-msgstr ""
+msgstr "Aandrijfas L"
 
-#: .\piece\piece_train_AR\models.py:27 .\piece\piece_train_AV\models.py:10
+#: .\piece\piece_train_AR\models.py:27
+#: .\piece\piece_train_AV\models.py:10
 msgid "Cardan D"
-msgstr ""
+msgstr "Aandrijfas R"
 
 #: .\piece\piece_train_AR\models.py:34
-#, fuzzy
-#| msgid "Ligne de facture"
 msgid "Type de pièce train arrière"
-msgstr "Factuurlijn"
+msgstr "Type achterasonderdeel"
 
 #: .\piece\piece_train_AR\models.py:45
-#, fuzzy
-#| msgid "Arrière"
 msgid "Pièce train arrière"
-msgstr "Achter"
+msgstr "Achterasonderdeel"
 
 #: .\piece\piece_train_AR\models.py:46
-#, fuzzy
-#| msgid "Lève-vitre arrière droit"
 msgid "Pièces train arrière"
-msgstr "Achterste rechter raambediening"
+msgstr "Achterasonderdelen"
+
 
 #: .\piece\piece_train_AV\models.py:15
 msgid "Multi-bras G"
-msgstr ""
+msgstr "Multilink L"
 
 #: .\piece\piece_train_AV\models.py:16
 msgid "Multi-bras D"
-msgstr ""
+msgstr "Multilink R"
 
 #: .\piece\piece_train_AV\models.py:17
 msgid "Barres de torsion"
-msgstr ""
+msgstr "Torsiestangen"
 
 #: .\piece\piece_train_AV\models.py:26
 msgid "Roulement de suspension"
-msgstr ""
+msgstr "Ophanglager"
 
 #: .\piece\piece_train_AV\models.py:34
-#, fuzzy
-#| msgid "Ligne de facture"
 msgid "Type de pièce train avant"
-msgstr "Factuurlijn"
+msgstr "Type voorasonderdeel"
 
 #: .\piece\piece_train_AV\models.py:45
-#, fuzzy
-#| msgid "Ligne de facture"
 msgid "Pièce train avant"
-msgstr "Factuurlijn"
+msgstr "Voorasonderdeel"
 
 #: .\piece\piece_train_AV\models.py:46
-#, fuzzy
-#| msgid "Ligne de facture"
 msgid "Pièces train avant"
-msgstr "Factuurlijn"
+msgstr "Voorasonderdelen"
+
 
 #: .\theme\templates\base.html:9
 msgid "dBSolution"
