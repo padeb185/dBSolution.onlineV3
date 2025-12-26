@@ -982,13 +982,12 @@ msgstr "Manutenzione %(voiture)s (%(date)s)"
 #: .\maintenance\nettoyage_exterieur\models.py:11
 #: .\maintenance\nettoyage_interieur\models.py:12
 msgid "Check up"
-msgstr ""
+msgstr "Controllo"
 
 #: .\maintenance\nettoyage_exterieur\models.py:28
-#, fuzzy
-#| msgid "Vitres de porte"
 msgid "Traces de gomme"
-msgstr "Vetri porta"
+msgstr "Tracce di gomma"
+
 
 #: .\maintenance\nettoyage_exterieur\models.py:30
 #: .\piece\piece_jantes\models.py:28
@@ -1002,51 +1001,43 @@ msgstr "Cerchi"
 msgid "Validation finale"
 msgstr "Variazione"
 
-#: .\maintenance\nettoyage_exterieur\models.py:34
-#: .\maintenance\nettoyage_interieur\models.py:38 .\piece\models.py:127
-#: .\piece\piece_fluides\models.py:66 .\theme\templates\dashboard.html:40
-msgid "Date"
-msgstr "Data"
-
-#: .\maintenance\nettoyage_exterieur\models.py:37
+#:#: .\maintenance\nettoyage_exterieur\models.py:37
 msgid "Nettoyage extérieur"
-msgstr ""
+msgstr "Pulizia esterna"
 
 #: .\maintenance\nettoyage_exterieur\models.py:38
 msgid "Nettoyages extérieurs"
-msgstr ""
+msgstr "Pulizie esterne"
 
 #: .\maintenance\nettoyage_interieur\models.py:29
 msgid "Vitres"
-msgstr ""
+msgstr "Vetri"
 
 #: .\maintenance\nettoyage_interieur\models.py:31
 msgid "Aspirateur"
-msgstr ""
+msgstr "Aspirapolvere"
 
 #: .\maintenance\nettoyage_interieur\models.py:32
 msgid "Intérieurs de porte"
 msgstr "Vetri porta"
 
 #: .\maintenance\nettoyage_interieur\models.py:33
-#: .\theme\templates\dashboard.html:7
 msgid "Tableau de bord"
 msgstr "Cruscotto"
 
 #: .\maintenance\nettoyage_interieur\models.py:34
 msgid "Plastiques"
-msgstr "Storico"
+msgstr "Plastica"
 
 #: .\maintenance\nettoyage_interieur\models.py:41
 msgid "Nettoyage intérieur"
-msgstr ""
+msgstr "Pulizia interna"
 
 #: .\maintenance\nettoyage_interieur\models.py:42
 msgid "Nettoyages intérieurs"
-msgstr ""
+msgstr "Pulizie interne"
 
-#: .\maintenance\niveaux\models.py:18 .\piece\piece_fluides\models.py:35
-#: .\piece\piece_fluides\models.py:50
+#: .\maintenance\niveaux\models.py:18
 msgid "Fluide"
 msgstr "Fluido"
 
@@ -1056,25 +1047,23 @@ msgstr "Quantità utilizzata L"
 
 #: .\maintenance\niveaux\models.py:23
 msgid "Quantité ajoutée ou retirée"
-msgstr ""
+msgstr "Quantità aggiunta o rimossa"
 
-#: .\maintenance\niveaux\models.py:28 .\piece\models.py:126
-#: .\piece\piece_fluides\models.py:62
+#: .\maintenance\niveaux\models.py:28
 msgid "Commentaire"
 msgstr "Commento"
 
 #: .\maintenance\niveaux\models.py:35
 msgid "La quantité ne peut pas être nulle."
-msgstr ""
+msgstr "La quantità non può essere nulla."
 
 #: .\maintenance\niveaux\models.py:49
-
 msgid "Maintenance %(id)s"
 msgstr "Manutenzioni %(id)s"
 
 #: .\maintenance\niveaux\models.py:55
 msgid "%(maintenance)s – %(fluide)s (%(qte)s L)"
-msgstr ""
+msgstr "%(maintenance)s – %(fluido)s (%(qte)s L)"
 
 #: .\maintenance\silent_blocs\models.py:14
 msgid "Triangle supérieur"
@@ -1082,36 +1071,31 @@ msgstr "Triangolo superiore"
 
 #: .\maintenance\silent_blocs\models.py:15
 msgid "Suspension multi bras"
-msgstr ""
+msgstr "Sospensione multi braccio"
 
 #: .\maintenance\silent_blocs\models.py:16
-
 msgid "Barre stabilisatrice AV"
 msgstr "Barra stabilizzatrice AV"
 
 #: .\maintenance\silent_blocs\models.py:17
-#, fuzzy
-#| msgid "Barre stabilisatrice"
 msgid "Barre stabilisatrice AR"
 msgstr "Barra stabilizzatrice AR"
 
 #: .\maintenance\silent_blocs\models.py:19
-
 msgid "Boite vitesse"
-msgstr ""
+msgstr "Cambio"
 
 #: .\maintenance\silent_blocs\models.py:20
 msgid "Pendulaire"
-msgstr ""
+msgstr "Pendolare"
 
 #: .\maintenance\silent_blocs\models.py:39
-
 msgid "Type de silentbloc"
-msgstr ""
+msgstr "Tipo di silentbloc"
 
 #: .\maintenance\silent_blocs\models.py:77
 msgid "%(type)s - %(empl)s (%(etat)s)"
-msgstr ""
+msgstr "%(type)s - %(empl)s (%(etat)s)"
 
 #: .\outillage\models.py:9 .\panier\models.py:16 .\panier\models.py:71
 msgid "Identifiant"
@@ -2822,7 +2806,8 @@ msgstr "Fusello"
 
 #: .\piece\piece_train_AR\models.py:21 .\piece\piece_train_AV\models.py:24
 msgid "Amortisseur G/D"
-msgstr ""
+msgstr "Ammortizzatore S/D"
+
 
 #: .\piece\piece_train_AR\models.py:25
 msgid "Train AR directeur G/D"
