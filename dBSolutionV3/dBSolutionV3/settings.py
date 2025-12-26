@@ -109,6 +109,7 @@ TENANT_APPS = (
     'maintenance.freins',
     'maintenance.silent_blocs',
     'maintenance.bruits',
+    'maintenance.controle_check_up',
 
 
     #'piece.piece_ligne_achat',
@@ -129,7 +130,7 @@ TENANT_APPS = (
     'piece.piece_echappement',
     'piece.piece_electricite',
     'piece.piece_electronique',
-    #'piece.piece_embrayage',
+    'piece.piece_embrayage',
     'piece.piece_essuyage',
     'piece.piece_feux',
     'piece.piece_filtres',
@@ -155,6 +156,8 @@ TENANT_APPS = (
     'voiture.voiture_boite',
     'voiture.voiture_embrayage',
     'voiture.voiture_exemplaire',
+    'voiture.voiture_freins',
+    'voiture.voiture_jantes',
     'voiture.voiture_vente',
     "voiture.voiture_pneus.apps.VoiturePneusConfig",
     "voiture.voiture_pneus_historique.apps.VoiturePneusHistoriqueConfig",

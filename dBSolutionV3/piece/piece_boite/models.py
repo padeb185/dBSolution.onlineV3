@@ -17,34 +17,6 @@ class BoiteMecanique(Piece):
         verbose_name=_("Nombre de vitesses")
     )
 
-    embrayage = models.CharField(
-        max_length=255,
-        blank=True,
-        null=True,
-        verbose_name=_("Embrayage")
-    )
-
-    disque_embrayage = models.CharField(
-        max_length=255,
-        blank=True,
-        null=True,
-        verbose_name=_("Disque d’embrayage")
-    )
-
-    plateau_embrayage = models.CharField(
-        max_length=255,
-        blank=True,
-        null=True,
-        verbose_name=_("Plateau d’embrayage")
-    )
-
-    butee_embrayage = models.CharField(
-        max_length=255,
-        blank=True,
-        null=True,
-        verbose_name=_("Butée d’embrayage")
-    )
-
     pignon = models.CharField(
         max_length=255,
         blank=True,
