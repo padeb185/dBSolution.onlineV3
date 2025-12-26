@@ -4,18 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="checkup nettoyage">
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/fuel/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/fuel/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/fuel/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/fuel/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/fuel/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/fuel/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/fuel/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/rapport_maintenance.html" afterDir="false" />
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="fuel">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/maintenance/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/fr/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/fr/LC_MESSAGES/django.po" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/it/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/it/LC_MESSAGES/django.po" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,15 +144,7 @@
       <workItem from="1766729195317" duration="6100000" />
       <workItem from="1766735400660" duration="73000" />
       <workItem from="1766736066412" duration="14242000" />
-      <workItem from="1766758168982" duration="4699000" />
-    </task>
-    <task id="LOCAL-00076" summary="ajout shared app">
-      <option name="closed" value="true" />
-      <created>1766495352820</created>
-      <option name="number" value="00076" />
-      <option name="presentableId" value="LOCAL-00076" />
-      <option name="project" value="LOCAL" />
-      <updated>1766495352820</updated>
+      <workItem from="1766758168982" duration="6438000" />
     </task>
     <task id="LOCAL-00077" summary="migrate apps et piece hydraulique">
       <option name="closed" value="true" />
@@ -546,7 +530,15 @@
       <option name="project" value="LOCAL" />
       <updated>1766761852782</updated>
     </task>
-    <option name="localTasksCounter" value="125" />
+    <task id="LOCAL-00125" summary="fuel">
+      <option name="closed" value="true" />
+      <created>1766763000176</created>
+      <option name="number" value="00125" />
+      <option name="presentableId" value="LOCAL-00125" />
+      <option name="project" value="LOCAL" />
+      <updated>1766763000176</updated>
+    </task>
+    <option name="localTasksCounter" value="126" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -564,7 +556,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="traduction" />
     <MESSAGE value="traduction fr" />
     <MESSAGE value="traduction it es" />
     <MESSAGE value="traduction en" />
@@ -589,7 +580,8 @@
     <MESSAGE value="traductions" />
     <MESSAGE value="checkup" />
     <MESSAGE value="checkup nettoyage" />
-    <option name="LAST_COMMIT_MESSAGE" value="checkup nettoyage" />
+    <MESSAGE value="fuel" />
+    <option name="LAST_COMMIT_MESSAGE" value="fuel" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

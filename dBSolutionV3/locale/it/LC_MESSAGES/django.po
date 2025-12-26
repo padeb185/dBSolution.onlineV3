@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-26 13:44+0100\n"
+"POT-Creation-Date: 2025-12-26 16:38+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -95,6 +95,7 @@ msgid "Numéro de TVA"
 msgstr "Partita IVA"
 
 #: .\carrosserie\models.py:18 .\carrosserie\models.py:29
+#: .\maintenance\nettoyage_exterieur\models.py:29
 msgid "Carrosserie"
 msgstr "Carrozzeria"
 
@@ -110,7 +111,8 @@ msgstr "Paraurti"
 msgid "Bouclier"
 msgstr "Parafango anteriore"
 
-#: .\carrosserie\models.py:38 .\piece\piece_carrosserie\models.py:19
+#: .\carrosserie\models.py:38 .\maintenance\nettoyage_interieur\models.py:30
+#: .\piece\piece_carrosserie\models.py:19
 msgid "Pare-brise"
 msgstr "Parabrezza"
 
@@ -407,6 +409,70 @@ msgstr "Fornitori"
 msgid "%(nom)s (Fournisseur)"
 msgstr "%(nom)s (Fornitore)"
 
+#: .\fuel\models.py:9
+msgid "Essence"
+msgstr "Benzina"
+
+#: .\fuel\models.py:10
+msgid "Diesel"
+msgstr "Diesel"
+
+#: .\fuel\models.py:20 .\piece\models.py:41 .\piece\models.py:99
+#: .\piece\models.py:108
+msgid "Marque"
+msgstr "Marca"
+
+#: .\fuel\models.py:26 .\piece\models.py:32
+msgid "Modèle"
+msgstr "Modello"
+
+#: .\fuel\models.py:32 .\maintenance\jeux_pieces\models.py:46
+#: .\maintenance\nettoyage_exterieur\models.py:18
+#: .\maintenance\nettoyage_interieur\models.py:19 .\piece\models.py:50
+msgid "Véhicule"
+msgstr "Veicolo"
+
+#: .\fuel\models.py:35 .\maintenance\models.py:50 .\piece\models.py:68
+msgid "Immatriculation"
+msgstr "Targa"
+
+#: .\fuel\models.py:39
+#, fuzzy
+#| msgid "Type de pneu"
+msgid "Type de carburant"
+msgstr "Tipo di pneumatico"
+#: .\fuel\models.py:42
+msgid "Volume max (L)"
+msgstr "Volume max (L)"
+
+#: .\fuel\models.py:43
+msgid "Date du plein"
+msgstr "Data rifornimento"
+
+#: .\fuel\models.py:44
+msgid "Litres"
+msgstr "Litri"
+
+#: .\fuel\models.py:45
+msgid "Prix du plein (€)"
+msgstr "Prezzo rifornimento (€)"
+
+#: .\fuel\models.py:46
+msgid "Prix au litre (€)"
+msgstr "Prezzo al litro (€)"
+
+#: .\fuel\models.py:48
+msgid "Validation"
+msgstr "Conferma"
+
+#: .\fuel\models.py:51
+msgid "Carburant"
+msgstr "Carburante"
+
+#: .\fuel\models.py:52
+msgid "Carburants"
+msgstr "Carburanti"
+
 #: .\investissements\models.py:18 .\maintenance\bruits\models.py:17
 #: .\piece\piece_train_AR\models.py:8
 msgid "Pont"
@@ -502,44 +568,51 @@ msgstr "Investimenti"
 msgid "%(libelle)s - Fournisseur: %(fournisseur)s"
 msgstr "%(libelle)s - Fornitore: %(fournisseur)s"
 
-#: .\maintenance\bruits\models.py:5 .\maintenance\freins\models.py:7
-#: .\maintenance\jeux_pieces\models.py:21
+#: .\maintenance\bruits\models.py:5 .\maintenance\controle_check_up\models.py:7
+#: .\maintenance\freins\models.py:7 .\maintenance\jeux_pieces\models.py:21
 #: .\maintenance\silent_blocs\models.py:5
 #: .\piece\piece_carrosserie\models.py:12
 #: .\piece\piece_roue_rechange\models.py:13
 msgid "Avant"
 msgstr "Anteriore"
 
-#: .\maintenance\bruits\models.py:6 .\maintenance\freins\models.py:8
-#: .\maintenance\jeux_pieces\models.py:22
+#: .\maintenance\bruits\models.py:6 .\maintenance\controle_check_up\models.py:8
+#: .\maintenance\freins\models.py:8 .\maintenance\jeux_pieces\models.py:22
 #: .\maintenance\silent_blocs\models.py:6
 #: .\piece\piece_carrosserie\models.py:13
 #: .\piece\piece_roue_rechange\models.py:14
 msgid "Arrière"
 msgstr "Posteriore"
 
-#: .\maintenance\bruits\models.py:7 .\maintenance\jeux_pieces\models.py:17
+#: .\maintenance\bruits\models.py:7 .\maintenance\controle_check_up\models.py:9
+#: .\maintenance\jeux_pieces\models.py:17
 #: .\maintenance\silent_blocs\models.py:7
 #, fuzzy
 #| msgid "Avant Gauche"
 msgid "Avant gauche"
 msgstr "Anteriore Sinistro"
 
-#: .\maintenance\bruits\models.py:8 .\maintenance\jeux_pieces\models.py:18
+#: .\maintenance\bruits\models.py:8
+#: .\maintenance\controle_check_up\models.py:10
+#: .\maintenance\jeux_pieces\models.py:18
 #: .\maintenance\silent_blocs\models.py:8
 #, fuzzy
 #| msgid "Avant Droit"
 msgid "Avant droit"
 msgstr "Anteriore Destro"
 
-#: .\maintenance\bruits\models.py:9 .\maintenance\jeux_pieces\models.py:19
+#: .\maintenance\bruits\models.py:9
+#: .\maintenance\controle_check_up\models.py:11
+#: .\maintenance\jeux_pieces\models.py:19
 #: .\maintenance\silent_blocs\models.py:9
 #, fuzzy
 #| msgid "Arrière Gauche"
 msgid "Arrière gauche"
 msgstr "Posteriore Sinistro"
 
-#: .\maintenance\bruits\models.py:10 .\maintenance\jeux_pieces\models.py:20
+#: .\maintenance\bruits\models.py:10
+#: .\maintenance\controle_check_up\models.py:12
+#: .\maintenance\jeux_pieces\models.py:20
 #: .\maintenance\silent_blocs\models.py:10
 #, fuzzy
 #| msgid "Arrière Droit"
@@ -554,126 +627,229 @@ msgstr "Cuscinetto ruota"
 #: .\maintenance\bruits\models.py:14 .\piece\piece_train_AV\models.py:26
 msgid "Roulement de suspension"
 msgstr "Cuscinetto sospensione"
-
 #: .\maintenance\bruits\models.py:15 .\maintenance\silent_blocs\models.py:18
-#, fuzzy
-#| msgid "Conducteur"
 msgid "Moteur"
-msgstr "Conducente"
+msgstr "Motore"
 
 #: .\maintenance\bruits\models.py:16
-#, fuzzy
-#| msgid "Nombre de vitesses"
 msgid "Boîte de vitesse"
-msgstr "Numero di marce"
+msgstr "Cambio"
 
-#: .\maintenance\bruits\models.py:24 .\maintenance\freins\models.py:17
-#: .\maintenance\jeux_pieces\models.py:38 .\maintenance\models.py:82
-#: .\maintenance\niveaux\models.py:12 .\maintenance\silent_blocs\models.py:27
+
+#: .\maintenance\bruits\models.py:24
+#: .\maintenance\controle_check_up\models.py:32
+#: .\maintenance\freins\models.py:17 .\maintenance\jeux_pieces\models.py:38
+#: .\maintenance\models.py:82 .\maintenance\niveaux\models.py:12
+#: .\maintenance\silent_blocs\models.py:27
 msgid "Maintenance"
 msgstr "Manutenzione"
 
-#: .\maintenance\bruits\models.py:30 .\maintenance\jeux_pieces\models.py:58
+#: .\maintenance\bruits\models.py:30
+#: .\maintenance\controle_check_up\models.py:115
+#: .\maintenance\controle_check_up\models.py:137
+#: .\maintenance\jeux_pieces\models.py:58
 #: .\maintenance\silent_blocs\models.py:33
-#, fuzzy
-#| msgid "Emplacement étagère"
 msgid "Emplacement"
-msgstr "Posizione scaffale"
-
+msgstr "Posizione"
 #: .\maintenance\bruits\models.py:36
-#, fuzzy
-#| msgid "Type de pneu"
 msgid "Type de composant"
-msgstr "Tipo di pneumatico"
+msgstr "Tipo di componente"
 
 #: .\maintenance\bruits\models.py:41
 msgid "Normal"
-msgstr ""
+msgstr "Normale"
 
 #: .\maintenance\bruits\models.py:41
 msgid "Anormal"
-msgstr ""
+msgstr "Anormale"
 
 #: .\maintenance\bruits\models.py:43
-#, fuzzy
-#| msgid "Tableau de bord"
 msgid "Niveau de bruit"
-msgstr "Cruscotto"
+msgstr "Livello di rumore"
 
 #: .\maintenance\bruits\models.py:48 .\maintenance\jeux_pieces\models.py:84
 #: .\maintenance\silent_blocs\models.py:50
-#, fuzzy
-#| msgid "Intervention"
 msgid "Observation"
-msgstr "Intervento"
+msgstr "Osservazione"
 
 #: .\maintenance\bruits\models.py:60 .\maintenance\jeux_pieces\models.py:79
 #: .\maintenance\silent_blocs\models.py:63
 msgid "État visuel / Tag"
-msgstr ""
+msgstr "Stato visivo / Tag"
 
 #: .\maintenance\bruits\models.py:74
-#, fuzzy, python-format
-#| msgid "%(type)s – %(piece)s"
 msgid "%(type)s - %(empl)s (%(niveau)s)"
-msgstr "%(tipo)s – %(pezzo)s"
+msgstr "%(type)s - %(empl)s (%(niveau)s)"
+
+#: .\maintenance\controle_check_up\models.py:13
+#: .\maintenance\jeux_pieces\models.py:23
+msgid "Supérieur"
+msgstr "Superiore"
+
+#: .\maintenance\controle_check_up\models.py:14
+#: .\maintenance\jeux_pieces\models.py:24
+msgid "Inférieur"
+msgstr "Inferiore"
+
+#: .\maintenance\controle_check_up\models.py:18
+#: .\maintenance\controle_check_up\models.py:23
+#: .\maintenance\controle_check_up\models.py:141
+msgid "OK"
+msgstr "OK"
+
+#: .\maintenance\controle_check_up\models.py:19
+#: .\maintenance\controle_check_up\models.py:24
+msgid "À remplacer"
+msgstr "Da sostituire"
+
+#: .\maintenance\controle_check_up\models.py:38
+msgid "Emplacement / partie du véhicule"
+msgstr "Posizione / parte del veicolo"
+
+#: .\maintenance\controle_check_up\models.py:44
+msgid "Essuie-glace AV fonctionnel"
+msgstr "Tergicristallo anteriore funzionante"
+#: .\maintenance\controle_check_up\models.py:45
+msgid "Essuie-glace AR fonctionnel"
+msgstr "Tergicristallo posteriore funzionante"
+
+#: .\maintenance\controle_check_up\models.py:46
+msgid "Pare_Brise sans coups"
+msgstr "Parabrezza senza scheggiature"
+
+#: .\maintenance\controle_check_up\models.py:53
+msgid "Fuite moteur"
+msgstr "Perdita motore"
+
+#: .\maintenance\controle_check_up\models.py:61
+msgid "Fuite boîte de vitesse"
+msgstr "Perdita cambio"
+
+#: .\maintenance\controle_check_up\models.py:69
+msgid "État liquide de frein"
+msgstr "Stato liquido freni"
+
+#: .\maintenance\controle_check_up\models.py:71
+msgid "Remplacement liquide de frein"
+msgstr "Sostituzione liquido freni"
+
+#: .\maintenance\controle_check_up\models.py:72
+msgid "Spécification liquide de frein"
+msgstr "Specifiche liquido freni"
+
+#: .\maintenance\controle_check_up\models.py:73
+msgid "Quantité liquide de frein (L)"
+msgstr "Quantità liquido freni (L)"
+
+#: .\maintenance\controle_check_up\models.py:80
+msgid "Fuite direction assistée / crémaillère"
+msgstr "Perdita servosterzo / cremagliera"
+
+#: .\maintenance\controle_check_up\models.py:82
+msgid "Niveau liquide direction"
+msgstr "Livello liquido sterzo"
+
+#: .\maintenance\controle_check_up\models.py:89
+msgid "État batterie"
+msgstr "Stato batteria"
+
+#: .\maintenance\controle_check_up\models.py:93
+msgid "Phares réglés correctement"
+msgstr "Fari regolati correttamente"
+
+#: .\maintenance\controle_check_up\models.py:98
+#: .\maintenance\controle_check_up\models.py:110
+#: .\maintenance\controle_check_up\models.py:132
+msgid "Contrôle général"
+msgstr "Controllo generale"
+
+#: .\maintenance\controle_check_up\models.py:99
+msgid "Contrôles généraux"
+msgstr "Controlli generali"
+
+
+#: .\maintenance\controle_check_up\models.py:102
+msgid "Contrôle général – Maintenance %(id)s"
+msgstr "Controllo generale – Manutenzione %(id)s"
+
+#: .\maintenance\controle_check_up\models.py:117
+msgid "Fuite"
+msgstr "Perdita"
+
+#: .\maintenance\controle_check_up\models.py:120
+#: .\maintenance\jeux_pieces\models.py:10
+msgid "Amortisseur"
+msgstr "Ammortizzatore"
+
+#: .\maintenance\controle_check_up\models.py:121
+msgid "Amortisseurs"
+msgstr "Ammortizzatori"
+
+#: .\maintenance\controle_check_up\models.py:141
+msgid "Cassé"
+msgstr "Rotto"
+
+#: .\maintenance\controle_check_up\models.py:143
+#: .\maintenance\jeux_pieces\models.py:66
+#: .\maintenance\silent_blocs\models.py:45
+msgid "État"
+msgstr "Stato"
+
+#: .\maintenance\controle_check_up\models.py:147
+#: .\piece\piece_embrayage\models.py:19 .\piece\piece_train_AR\models.py:22
+#: .\piece\piece_train_AV\models.py:25
+msgid "Ressort"
+msgstr "Molla"
+
+#: .\maintenance\controle_check_up\models.py:148
+msgid "Ressorts"
+msgstr "Molle"
 
 #: .\maintenance\freins\models.py:9
-#, fuzzy
-#| msgid "Ressort arrière"
 msgid "Avant et arrière"
-msgstr "Molla posteriore"
+msgstr "Anteriore e posteriore"
 
 #: .\maintenance\freins\models.py:23
 msgid "Partie contrôlée"
-msgstr ""
+msgstr "Parte controllata"
 
 #: .\maintenance\freins\models.py:28
 msgid "Usure des plaquettes (%)"
-msgstr ""
+msgstr "Usura pastiglie (%)"
 
 #: .\maintenance\freins\models.py:33
 msgid "Épaisseur des disques (mm)"
-msgstr ""
+msgstr "Spessore dischi (mm)"
 
 #: .\maintenance\freins\models.py:37
 msgid "Présence de fentes sur les disques"
-msgstr ""
+msgstr "Presenza di fenditure sui dischi"
 
 #: .\maintenance\freins\models.py:43
-#, fuzzy
-#| msgid "Pièce de freinage"
 msgid "Présence de fuite"
-msgstr "Pezzo frenante"
+msgstr "Presenza di perdite"
 
 #: .\maintenance\freins\models.py:49
-#, fuzzy
-#| msgid "Pompe lave-glace avant"
 msgid "À remplacer avant"
-msgstr "Pompa lavavetri anteriore"
+msgstr "Da sostituire anteriore"
 
 #: .\maintenance\freins\models.py:53
-#, fuzzy
-#| msgid "Pompe lave-glace arrière"
 msgid "À remplacer arrière"
-msgstr "Pompa lavavetri posteriore"
+msgstr "Da sostituire posteriore"
 
 #: .\maintenance\freins\models.py:60
 #, python-format
 msgid "Contrôle freins – %(partie)s (%(date)s)"
-msgstr ""
+msgstr "Controllo freni – %(partie)s (%(date)s)"
 
 #: .\maintenance\jeux_pieces\models.py:6
-#, fuzzy
-#| msgid "Huile de direction"
 msgid "Rotule de direction"
-msgstr "Olio servosterzo"
+msgstr "Testina sterzo"
 
 #: .\maintenance\jeux_pieces\models.py:7
-#, fuzzy
-#| msgid "Roulement de suspension"
 msgid "Rotule de suspension"
-msgstr "Cuscinetto sospensione"
+msgstr "Testina sospensione"
+
 
 #: .\maintenance\jeux_pieces\models.py:8 .\piece\piece_train_AR\models.py:24
 #: .\piece\piece_train_AV\models.py:28
@@ -685,87 +861,54 @@ msgstr "Braccio barra stabilizzatrice"
 msgid "Barre stabilisatrice"
 msgstr "Barra stabilizzatrice"
 
-#: .\maintenance\jeux_pieces\models.py:10
-#, fuzzy
-#| msgid "Fournisseur"
-msgid "Amortisseur"
-msgstr "Fornitore"
-
 #: .\maintenance\jeux_pieces\models.py:12
 #: .\maintenance\silent_blocs\models.py:13
-#, fuzzy
-#| msgid "Tringlerie"
 msgid "Triangle"
-msgstr "Cavi e leve"
+msgstr "Triangolo"
 
 #: .\maintenance\jeux_pieces\models.py:13
-#, fuzzy
-#| msgid "Multi-bras G"
 msgid "Multi-bras"
-msgstr "Multi-braccio SX"
-
-#: .\maintenance\jeux_pieces\models.py:23
-msgid "Supérieur"
-msgstr ""
-
-#: .\maintenance\jeux_pieces\models.py:24
-msgid "Inférieur"
-msgstr ""
+msgstr "Multi-braccio"
 
 #: .\maintenance\jeux_pieces\models.py:28
-#, fuzzy
-#| msgid "Bronze"
 msgid "Bon"
-msgstr "Bronzo"
+msgstr "Buono"
 
 #: .\maintenance\jeux_pieces\models.py:29
-#, fuzzy
-#| msgid "Fusée"
 msgid "Usé"
-msgstr "Fusello"
+msgstr "Usato"
 
 #: .\maintenance\jeux_pieces\models.py:30
 msgid "Hors service"
-msgstr ""
-
-#: .\maintenance\jeux_pieces\models.py:46 .\piece\models.py:50
-msgid "Véhicule"
-msgstr "Veicolo"
+msgstr "Fuori servizio"
 
 #: .\maintenance\jeux_pieces\models.py:52
-#, fuzzy
-#| msgid "Pièce moteur"
 msgid "Pièce contrôlée"
-msgstr "Pezzo motore"
-
-#: .\maintenance\jeux_pieces\models.py:66
-#: .\maintenance\silent_blocs\models.py:45
-msgid "État"
-msgstr ""
+msgstr "Parte controllata"
 
 #: .\maintenance\jeux_pieces\models.py:95
-#, fuzzy, python-format
-#| msgid "%(type)s – %(largeur)s/%(hauteur)s R%(jante)s"
 msgid "%(piece)s – %(empl)s (%(etat)s / %(tag)s)"
-msgstr "%(type)s – %(largezza)s/%(altezza)s R%(jante)s"
+msgstr "%(piece)s – %(empl)s (%(etat)s / %(tag)s)"
 
 #: .\maintenance\jeux_pieces\models.py:99
 msgid "Non précisé"
-msgstr ""
+msgstr "Non specificato"
 
 #: .\maintenance\jeux_pieces\models.py:106 .\maintenance\models.py:34
 msgid "Apprenti"
-msgstr ""
+msgstr "Apprendista"
+
 
 #: .\maintenance\jeux_pieces\models.py:107 .\maintenance\models.py:26
+#: .\maintenance\nettoyage_exterieur\models.py:25
+#: .\maintenance\nettoyage_interieur\models.py:26
 msgid "Mécanicien"
 msgstr "Meccanico"
 
 #: .\maintenance\jeux_pieces\models.py:108
-#, fuzzy
-#| msgid "Mécanicien"
 msgid "Chef mécanicien"
-msgstr "Meccanico"
+msgstr "Capo meccanico"
+
 
 #: .\maintenance\models.py:9
 msgid "Vert"
@@ -785,11 +928,7 @@ msgstr "Esemplare auto"
 
 #: .\maintenance\models.py:42
 msgid "Apprentis"
-msgstr ""
-
-#: .\maintenance\models.py:50 .\piece\models.py:68
-msgid "Immatriculation"
-msgstr "Targa"
+msgstr "Apprendisti"
 
 #: .\maintenance\models.py:51
 msgid "Date d'intervention"
@@ -840,22 +979,84 @@ msgstr "Manutenzioni"
 msgid "Maintenance %(voiture)s (%(date)s)"
 msgstr "Manutenzione %(voiture)s (%(date)s)"
 
+#: .\maintenance\nettoyage_exterieur\models.py:11
+#: .\maintenance\nettoyage_interieur\models.py:12
+msgid "Check up"
+msgstr ""
+
+#: .\maintenance\nettoyage_exterieur\models.py:28
+#, fuzzy
+#| msgid "Vitres de porte"
+msgid "Traces de gomme"
+msgstr "Vetri porta"
+
+#: .\maintenance\nettoyage_exterieur\models.py:30
+#: .\piece\piece_jantes\models.py:28
+msgid "Jantes"
+msgstr "Cerchi"
+
+#: .\maintenance\nettoyage_exterieur\models.py:32
+#: .\maintenance\nettoyage_interieur\models.py:36
+#, fuzzy
+#| msgid "Variation"
+msgid "Validation finale"
+msgstr "Variazione"
+
+#: .\maintenance\nettoyage_exterieur\models.py:34
+#: .\maintenance\nettoyage_interieur\models.py:38 .\piece\models.py:127
+#: .\piece\piece_fluides\models.py:66 .\theme\templates\dashboard.html:40
+msgid "Date"
+msgstr "Data"
+
+#: .\maintenance\nettoyage_exterieur\models.py:37
+msgid "Nettoyage extérieur"
+msgstr ""
+
+#: .\maintenance\nettoyage_exterieur\models.py:38
+msgid "Nettoyages extérieurs"
+msgstr ""
+
+#: .\maintenance\nettoyage_interieur\models.py:29
+msgid "Vitres"
+msgstr ""
+
+#: .\maintenance\nettoyage_interieur\models.py:31
+msgid "Aspirateur"
+msgstr ""
+
+#: .\maintenance\nettoyage_interieur\models.py:32
+msgid "Intérieurs de porte"
+msgstr "Vetri porta"
+
+#: .\maintenance\nettoyage_interieur\models.py:33
+#: .\theme\templates\dashboard.html:7
+msgid "Tableau de bord"
+msgstr "Cruscotto"
+
+#: .\maintenance\nettoyage_interieur\models.py:34
+msgid "Plastiques"
+msgstr "Storico"
+
+#: .\maintenance\nettoyage_interieur\models.py:41
+msgid "Nettoyage intérieur"
+msgstr ""
+
+#: .\maintenance\nettoyage_interieur\models.py:42
+msgid "Nettoyages intérieurs"
+msgstr ""
+
 #: .\maintenance\niveaux\models.py:18 .\piece\piece_fluides\models.py:35
 #: .\piece\piece_fluides\models.py:50
 msgid "Fluide"
 msgstr "Fluido"
 
 #: .\maintenance\niveaux\models.py:22
-#, fuzzy
-#| msgid "Quantité utilisée"
 msgid "Quantité utilisée (L)"
-msgstr "Quantità utilizzata"
+msgstr "Quantità utilizzata L"
 
 #: .\maintenance\niveaux\models.py:23
-#, fuzzy
-#| msgid "Quantité utilisée"
 msgid "Quantité ajoutée ou retirée"
-msgstr "Quantità utilizzata"
+msgstr ""
 
 #: .\maintenance\niveaux\models.py:28 .\piece\models.py:126
 #: .\piece\piece_fluides\models.py:62
@@ -867,62 +1068,50 @@ msgid "La quantité ne peut pas être nulle."
 msgstr ""
 
 #: .\maintenance\niveaux\models.py:49
-#, fuzzy, python-format
-#| msgid "Maintenances"
+
 msgid "Maintenance %(id)s"
-msgstr "Manutenzioni"
+msgstr "Manutenzioni %(id)s"
 
 #: .\maintenance\niveaux\models.py:55
-#, fuzzy, python-format
-#| msgid "Maintenance %(voiture)s (%(date)s)"
 msgid "%(maintenance)s – %(fluide)s (%(qte)s L)"
-msgstr "Manutenzione %(voiture)s (%(date)s)"
+msgstr ""
 
 #: .\maintenance\silent_blocs\models.py:14
-#, fuzzy
-#| msgid "Triangle supérieur droit"
 msgid "Triangle supérieur"
-msgstr "Triangolo superiore destro"
+msgstr "Triangolo superiore"
 
 #: .\maintenance\silent_blocs\models.py:15
 msgid "Suspension multi bras"
 msgstr ""
 
 #: .\maintenance\silent_blocs\models.py:16
-#, fuzzy
-#| msgid "Barre stabilisatrice"
+
 msgid "Barre stabilisatrice AV"
-msgstr "Barra stabilizzatrice"
+msgstr "Barra stabilizzatrice AV"
 
 #: .\maintenance\silent_blocs\models.py:17
 #, fuzzy
 #| msgid "Barre stabilisatrice"
 msgid "Barre stabilisatrice AR"
-msgstr "Barra stabilizzatrice"
+msgstr "Barra stabilizzatrice AR"
 
 #: .\maintenance\silent_blocs\models.py:19
-#, fuzzy
-#| msgid "5 vitesses"
+
 msgid "Boite vitesse"
-msgstr "5 marce"
+msgstr ""
 
 #: .\maintenance\silent_blocs\models.py:20
-#, fuzzy
-#| msgid "Inventaire"
 msgid "Pendulaire"
-msgstr "Inventario"
+msgstr ""
 
 #: .\maintenance\silent_blocs\models.py:39
-#, fuzzy
-#| msgid "Type de siège"
+
 msgid "Type de silentbloc"
-msgstr "Tipo di sedile"
+msgstr ""
 
 #: .\maintenance\silent_blocs\models.py:77
-#, fuzzy, python-format
-#| msgid "%(type)s – %(piece)s"
 msgid "%(type)s - %(empl)s (%(etat)s)"
-msgstr "%(tipo)s – %(pezzo)s"
+msgstr ""
 
 #: .\outillage\models.py:9 .\panier\models.py:16 .\panier\models.py:71
 msgid "Identifiant"
@@ -1032,14 +1221,6 @@ msgstr "%(pezzo)s × %(quantita)s"
 msgid "Code-barre"
 msgstr "Codice a barre"
 
-#: .\piece\models.py:32
-msgid "Modèle"
-msgstr "Modello"
-
-#: .\piece\models.py:41 .\piece\models.py:99 .\piece\models.py:108
-msgid "Marque"
-msgstr "Marca"
-
 #: .\piece\models.py:57
 msgid "Fabricants"
 msgstr "Produttori"
@@ -1124,11 +1305,6 @@ msgstr "Variazione"
 #: .\piece\models.py:125 .\piece\piece_fluides\models.py:58
 msgid "Stock après"
 msgstr "Stock dopo"
-
-#: .\piece\models.py:127 .\piece\piece_fluides\models.py:66
-#: .\theme\templates\dashboard.html:40
-msgid "Date"
-msgstr "Data"
 
 #: .\piece\models.py:130
 msgid "Inventaire"
@@ -1240,11 +1416,11 @@ msgstr "Lampadina"
 msgid "Ampoules"
 msgstr "Lampadine"
 
-#: .\piece\piece_boite\models.py:10 .\piece\piece_boite\models.py:112
+#: .\piece\piece_boite\models.py:10 .\piece\piece_boite\models.py:84
 msgid "5 vitesses"
 msgstr "5 marce"
 
-#: .\piece\piece_boite\models.py:11 .\piece\piece_boite\models.py:113
+#: .\piece\piece_boite\models.py:11 .\piece\piece_boite\models.py:85
 msgid "6 vitesses"
 msgstr "6 marce"
 
@@ -1252,116 +1428,100 @@ msgstr "6 marce"
 msgid "7 vitesses"
 msgstr "7 marce"
 
-#: .\piece\piece_boite\models.py:17 .\piece\piece_boite\models.py:119
+#: .\piece\piece_boite\models.py:17 .\piece\piece_boite\models.py:91
 msgid "Nombre de vitesses"
 msgstr "Numero di marce"
 
 #: .\piece\piece_boite\models.py:24
-msgid "Embrayage"
-msgstr "Frizione"
-
-#: .\piece\piece_boite\models.py:31
-msgid "Disque d’embrayage"
-msgstr "Disco frizione"
-
-#: .\piece\piece_boite\models.py:38
-msgid "Plateau d’embrayage"
-msgstr "Piatto frizione"
-
-#: .\piece\piece_boite\models.py:45
-msgid "Butée d’embrayage"
-msgstr "Cuscinetto reggispinta"
-
-#: .\piece\piece_boite\models.py:52
 msgid "Pignon"
 msgstr "Ingranaggio"
 
-#: .\piece\piece_boite\models.py:59 .\piece\piece_differentiel\models.py:18
+#: .\piece\piece_boite\models.py:31 .\piece\piece_differentiel\models.py:18
 msgid "Synchroniseur"
 msgstr "Sincronizzatore"
 
-#: .\piece\piece_boite\models.py:66
+#: .\piece\piece_boite\models.py:38
 msgid "Arbre principal"
 msgstr "Albero principale"
 
-#: .\piece\piece_boite\models.py:73
+#: .\piece\piece_boite\models.py:45
 msgid "Arbre secondaire"
 msgstr "Albero secondario"
 
-#: .\piece\piece_boite\models.py:80
+#: .\piece\piece_boite\models.py:52
 msgid "Fourchette de vitesse"
 msgstr "Forchetta del cambio"
 
-#: .\piece\piece_boite\models.py:87
+#: .\piece\piece_boite\models.py:59
 msgid "Tringlerie"
 msgstr "Cavi e leve"
 
-#: .\piece\piece_boite\models.py:94 .\piece\piece_fluides\models.py:9
+#: .\piece\piece_boite\models.py:66 .\piece\piece_fluides\models.py:9
 msgid "Huile de boîte"
 msgstr "Olio cambio"
 
-#: .\piece\piece_boite\models.py:98
+#: .\piece\piece_boite\models.py:70
 msgid "Boîte mécanique"
 msgstr "Cambio manuale"
 
-#: .\piece\piece_boite\models.py:99
+#: .\piece\piece_boite\models.py:71
 msgid "Boîtes mécaniques"
 msgstr "Cambiali manuali"
 
-#: .\piece\piece_boite\models.py:102
+#: .\piece\piece_boite\models.py:74
 #, python-format
 msgid "Boîte mécanique %(vitesses)s vitesses"
 msgstr "Cambio manuale %(marce)s marce"
 
-#: .\piece\piece_boite\models.py:111
+#: .\piece\piece_boite\models.py:83
 msgid "4 vitesses"
 msgstr "4 marce"
 
-#: .\piece\piece_boite\models.py:114
+#: .\piece\piece_boite\models.py:86
 msgid "8 vitesses"
 msgstr "8 marce"
 
-#: .\piece\piece_boite\models.py:126
+#: .\piece\piece_boite\models.py:98
 msgid "Convertisseur de couple"
 msgstr "Convertitore di coppia"
 
-#: .\piece\piece_boite\models.py:133
+#: .\piece\piece_boite\models.py:105 .\piece\piece_embrayage\models.py:9
 msgid "Embrayage hydraulique"
 msgstr "Frizione idraulica"
 
-#: .\piece\piece_boite\models.py:140
+#: .\piece\piece_boite\models.py:112
 msgid "Train planétaire"
 msgstr "Ingranaggio planetario"
 
-#: .\piece\piece_boite\models.py:147
+#: .\piece\piece_boite\models.py:119
 msgid "Frein planétaire"
 msgstr "Freno planetario"
 
-#: .\piece\piece_boite\models.py:154 .\piece\piece_moteur\models.py:15
+#: .\piece\piece_boite\models.py:126 .\piece\piece_moteur\models.py:15
 msgid "Piston"
 msgstr "Pistone"
 
-#: .\piece\piece_boite\models.py:161
+#: .\piece\piece_boite\models.py:133
 msgid "Bloc hydraulique"
 msgstr "Blocco idraulico"
 
-#: .\piece\piece_boite\models.py:168
+#: .\piece\piece_boite\models.py:140
 msgid "Solénoïdes"
 msgstr "Solenoidi"
 
-#: .\piece\piece_boite\models.py:175
+#: .\piece\piece_boite\models.py:147
 msgid "Huile de transmission"
 msgstr "Olio trasmissione"
 
-#: .\piece\piece_boite\models.py:179
+#: .\piece\piece_boite\models.py:151
 msgid "Boîte automatique"
 msgstr "Cambio automatico"
 
-#: .\piece\piece_boite\models.py:180
+#: .\piece\piece_boite\models.py:152
 msgid "Boîtes automatiques"
 msgstr "Cambi automatici"
 
-#: .\piece\piece_boite\models.py:183
+#: .\piece\piece_boite\models.py:155
 #, python-format
 msgid "Boîte automatique %(vitesses)s vitesses"
 msgstr "Cambio automatico %(marce)s marce"
@@ -1778,6 +1938,84 @@ msgstr "Sensore temperatura aspirazione"
 msgid "Capteur d’embrayage"
 msgstr "Sensore frizione"
 
+#: .\piece\piece_embrayage\models.py:7
+#, fuzzy
+#| msgid "Embrayage hydraulique"
+msgid "Embrayage simple disque"
+msgstr "Frizione idraulica"
+
+#: .\piece\piece_embrayage\models.py:8
+#, fuzzy
+#| msgid "Embrayage hydraulique"
+msgid "Embrayage double disque"
+msgstr "Frizione idraulica"
+
+#: .\piece\piece_embrayage\models.py:13 .\piece\piece_embrayage\models.py:42
+#, fuzzy
+#| msgid "Disque d’embrayage"
+msgid "Disque d'embrayage"
+msgstr "Disco frizione"
+
+#: .\piece\piece_embrayage\models.py:14
+#, fuzzy
+#| msgid "Capteur pression pneus"
+msgid "Plateau de pression"
+msgstr "Sensore pressione pneumatici"
+
+#: .\piece\piece_embrayage\models.py:15 .\piece\piece_embrayage\models.py:56
+#, fuzzy
+#| msgid "Butée d’embrayage"
+msgid "Butée d'embrayage"
+msgstr "Cuscinetto reggispinta"
+
+#: .\piece\piece_embrayage\models.py:16 .\piece\piece_freins\models.py:28
+msgid "Maître-cylindre"
+msgstr "Pompa principale"
+
+#: .\piece\piece_embrayage\models.py:17
+msgid "Cylindre esclave"
+msgstr ""
+
+#: .\piece\piece_embrayage\models.py:18
+msgid "Levier / fourchette"
+msgstr ""
+
+#: .\piece\piece_embrayage\models.py:26
+#, fuzzy
+#| msgid "Capteur d’embrayage"
+msgid "Type d'embrayage"
+msgstr "Sensore frizione"
+
+#: .\piece\piece_embrayage\models.py:34
+#, fuzzy
+#| msgid "Boîtes mécaniques"
+msgid "Boîtes mécaniques compatibles"
+msgstr "Cambiali manuali"
+
+#: .\piece\piece_embrayage\models.py:49
+#, fuzzy
+#| msgid "Plateau d’embrayage"
+msgid "Plateau d'embrayage"
+msgstr "Piatto frizione"
+
+#: .\piece\piece_embrayage\models.py:61
+msgid "Liste des composants présents dans cet embrayage"
+msgstr ""
+
+#: .\piece\piece_embrayage\models.py:62
+msgid "Composants"
+msgstr ""
+
+#: .\piece\piece_embrayage\models.py:72
+msgid "Embrayage"
+msgstr "Frizione"
+
+#: .\piece\piece_embrayage\models.py:73
+#, fuzzy
+#| msgid "Embrayage"
+msgid "Embrayages"
+msgstr "Frizione"
+
 #: .\piece\piece_essuyage\models.py:9
 msgid "Balai avant"
 msgstr "Spazzola anteriore"
@@ -2021,10 +2259,6 @@ msgstr "Qualità liquido"
 msgid "Servo-frein"
 msgstr "Servofreno"
 
-#: .\piece\piece_freins\models.py:28
-msgid "Maître-cylindre"
-msgstr "Pompa principale"
-
 #: .\piece\piece_freins\models.py:29
 msgid "Cylindre récepteur AV/AR G/D"
 msgstr "Cilindro ricevitore A/P S/D"
@@ -2248,10 +2482,6 @@ msgstr "Offset ET in mm"
 #: .\piece\piece_jantes\models.py:27 .\piece\piece_pneus\models.py:29
 msgid "Jante"
 msgstr "Cerchio"
-
-#: .\piece\piece_jantes\models.py:28
-msgid "Jantes"
-msgstr "Cerchi"
 
 #: .\piece\piece_jantes\models.py:31
 #, python-format
@@ -2594,10 +2824,6 @@ msgstr "Fusello"
 msgid "Amortisseur G/D"
 msgstr ""
 
-#: .\piece\piece_train_AR\models.py:22 .\piece\piece_train_AV\models.py:25
-msgid "Ressort"
-msgstr "Molla"
-
 #: .\piece\piece_train_AR\models.py:25
 msgid "Train AR directeur G/D"
 msgstr "Assale posteriore sterzante S/D"
@@ -2661,10 +2887,6 @@ msgstr "Cruscotto"
 #: .\theme\templates\base.html:32
 msgid "Changer de langue"
 msgstr "Cambia lingua"
-
-#: .\theme\templates\dashboard.html:7
-msgid "Tableau de bord"
-msgstr "Cruscotto"
 
 #: .\theme\templates\dashboard.html:16
 msgid "Utilisateurs"
