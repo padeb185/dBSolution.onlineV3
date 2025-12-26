@@ -113,6 +113,8 @@ TENANT_APPS = (
     'maintenance.nettoyage_interieur',
     'maintenance.nettoyage_exterieur',
 
+    'fuel',
+
 
     #'piece.piece_ligne_achat',
     #'piece.piece_ligne_inventaire',

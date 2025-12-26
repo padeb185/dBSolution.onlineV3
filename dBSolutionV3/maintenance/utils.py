@@ -1,33 +1,70 @@
 from django.template.loader import render_to_string
 from weasyprint import HTML
 
+from django.template.loader import render_to_string
+from weasyprint import HTML
+from maintenance.models import (
+    Maintenance,
+    ControleGeneral,
+    NettoyageInterieur,
+    NettoyageExterieur
+)
 
+def generate_maintenance_report(maintenance: Maintenance):
+    """
+    Génère un rapport PDF complet pour une maintenance donnée.
+    Inclut :
+    - Jeux de pièces
+    - Niveaux de fluides
+    - Contrôle freins
+    - Silentblocs et bruits
+    - Contrôle général
+    - Nettoyage intérieur / extérieur
+    """
 
-def generate_maintenance_report(maintenance):
+    # Jeux de pièces
     jeux = maintenance.jeux_pieces.all()
-    niveaux = maintenance.niveaux.all()  # lien avec les fluides
-    freins = maintenance.controles_freins.all()
+
+    # Notes et rapport
     notes = maintenance.notes.all()
 
-    # Détecte les éléments critiques pour mettre le tag rouge
-    for jeu in jeux:
-        jeu.tag = "ROUGE" if jeu.etat == "HS" else jeu.tag
+    # Niveaux de fluides
+    niveaux = maintenance.niveaux.all() if hasattr(maintenance, "niveaux") else []
 
-    for niveau in niveaux:
-        niveau.tag = "ROUGE" if niveau.is_critique() else niveau.tag
+    # Contrôle freins
+    controle_freins = getattr(maintenance, "controle_freins", None)
 
-    for frein in freins:
-        frein.tag = "ROUGE" if frein.is_critique() else "VERT"
+    # Silentblocs
+    silentblocs = getattr(maintenance, "silent_blocs", None)
 
+    # Bruits
+    bruits = getattr(maintenance, "bruits", None)
+
+    # Contrôle général
+    controle_general = getattr(maintenance, "controle_general", None)
+
+    # Nettoyage
+    nettoyage_int = getattr(maintenance, "nettoyageinterieur_set", None)
+    nettoyage_ext = getattr(maintenance, "nettoyageexterieur_set", None)
+
+    # Préparer le rendu HTML
     html = render_to_string(
         "maintenance/rapport_pdf.html",
         {
             "maintenance": maintenance,
             "jeux": jeux,
-            "niveaux": niveaux,
-            "freins": freins,
             "notes": notes,
+            "niveaux": niveaux,
+            "controle_freins": controle_freins,
+            "silentblocs": silentblocs,
+            "bruits": bruits,
+            "controle_general": controle_general,
+            "nettoyage_int": nettoyage_int,
+            "nettoyage_ext": nettoyage_ext,
+            "critique": maintenance.has_critical_issue() if hasattr(maintenance, "has_critical_issue") else False,
         }
     )
 
-    return HTML(string=html).write_pdf()
+    # Générer PDF
+    pdf_file = HTML(string=html).write_pdf()
+    return pdf_file

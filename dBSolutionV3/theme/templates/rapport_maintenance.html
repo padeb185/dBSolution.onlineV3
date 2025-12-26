@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Rapport de Maintenance</title>
+    <style>
+        body { font-family: Arial, sans-serif; font-size: 12px; margin: 20px; line-height: 1.4; }
+        h1, h2 { color: #333; border-bottom: 2px solid #666; padding-bottom: 5px; }
+        h3 { color: #555; margin-bottom: 5px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
+        th, td { border: 1px solid #999; padding: 5px; text-align: left; }
+        th { background-color: #eee; }
+        .ok { color: green; font-weight: bold; }
+        .warning { color: orange; font-weight: bold; }
+        .critique { color: red; font-weight: bold; }
+        hr { border: 0; border-top: 1px solid #ccc; margin: 20px 0; }
+        .icon { font-weight: bold; margin-right: 3px; }
+    </style>
+</head>
+<body>
+
+<h1>Rapport de Maintenance – ID {{ maintenance.id }}</h1>
+<p>Date : {{ maintenance.date|date:"d/m/Y H:i" }}</p>
+
+<hr>
+
+<h2>1. Jeux de pièces</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Pièce</th>
+            <th>Emplacement</th>
+            <th>État</th>
+            <th>Tag</th>
+            <th>Observation</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for jeu in jeux %}
+        <tr>
+            <td>{{ jeu.get_type_piece_display }}</td>
+            <td>{{ jeu.get_emplacement_display }}</td>
+            <td>{{ jeu.get_etat_display }}</td>
+            <td class="{% if jeu.tag == 'ROUGE' %}critique{% elif jeu.tag == 'JAUNE' %}warning{% else %}ok{% endif %}">
+                {% if jeu.tag == 'ROUGE' %}<span class="icon">❌</span>{% elif jeu.tag == 'JAUNE' %}<span class="icon">⚠️</span>{% else %}<span class="icon">✔️</span>{% endif %}
+                {{ jeu.tag }}
+            </td>
+            <td>{{ jeu.commentaire }}</td>
+        </tr>
+    {% empty %}
+        <tr><td colspan="5">Aucun contrôle effectué.</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<hr>
+
+<h2>2. Niveaux de fluides</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Fluide</th>
+            <th>Quantité utilisée (L)</th>
+            <th>Variation (L)</th>
+            <th>Stock après</th>
+            <th>Commentaire</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for niveau in niveaux %}
+        <tr>
+            <td>{{ niveau.fluide.nom_fluide }}</td>
+            <td>{{ niveau.fluide.quantite_utilisee }}</td>
+            <td>{{ niveau.variation }}</td>
+            <td>{{ niveau.stock_apres }}</td>
+            <td>{{ niveau.commentaire }}</td>
+        </tr>
+    {% empty %}
+        <tr><td colspan="5">Aucun fluide contrôlé.</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<hr>
+
+<h2>3. Contrôle Freins</h2>
+{% if controle_freins %}
+<table>
+    <thead>
+        <tr>
+            <th>Partie</th>
+            <th>Usure plaquettes (%)</th>
+            <th>Épaisseur disques (mm)</th>
+            <th>Fentes</th>
+            <th>Fuites</th>
+            <th>À remplacer AV</th>
+            <th>À remplacer AR</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ controle_freins.part_location }}</td>
+            <td>{{ controle_freins.usure_plaquettes }}</td>
+            <td>{{ controle_freins.epaisseur_disque }}</td>
+            <td>{{ controle_freins.fentes }}</td>
+            <td>{{ controle_freins.fuites }}</td>
+            <td>{{ controle_freins.remplacer_av }}</td>
+            <td>{{ controle_freins.remplacer_ar }}</td>
+        </tr>
+    </tbody>
+</table>
+{% else %}
+<p>Aucun contrôle de freins effectué.</p>
+{% endif %}
+
+<hr>
+
+<h2>4. Silentblocs et bruits</h2>
+{% if silentblocs %}
+<table>
+    <thead>
+        <tr>
+            <th>Type</th>
+            <th>Emplacement</th>
+            <th>État / Tag</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for sb in silentblocs.all %}
+        <tr>
+            <td>{{ sb.get_type_silentbloc_display }}</td>
+            <td>{{ sb.get_location_display }}</td>
+            <td class="{% if sb.tag == 'ROUGE' %}critique{% elif sb.tag == 'JAUNE' %}warning{% else %}ok{% endif %}">
+                {% if sb.tag == 'ROUGE' %}<span class="icon">❌</span>{% elif sb.tag == 'JAUNE' %}<span class="icon">⚠️</span>{% else %}<span class="icon">✔️</span>{% endif %}
+                {{ sb.tag }}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>Aucun contrôle de silentblocs/bruits effectué.</p>
+{% endif %}
+
+<hr>
+
+<h2>5. Contrôle général</h2>
+{% if controle_general %}
+<table>
+    <thead>
+        <tr>
+            <th>Emplacement</th>
+            <th>Essuie-glace AV</th>
+            <th>Essuie-glace AR</th>
+            <th>Amortisseurs fuite</th>
+            <th>Ressorts</th>
+            <th>Moteur fuite</th>
+            <th>Boîte fuite</th>
+            <th>Liquide de frein</th>
+            <th>Direction fuite</th>
+            <th>Batterie</th>
+            <th>Phares</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for cg in controle_general.all %}
+        <tr>
+            <td>{{ cg.get_location_display }}</td>
+            <td>{{ cg.essuie_glace_av|yesno:"✔️,❌" }}</td>
+            <td>{{ cg.essuie_glace_ar|yesno:"✔️,❌" }}</td>
+            <td>{{ cg.amortisseur_fuite|yesno:"❌,✔️" }}</td>
+            <td>{{ cg.ressorts_etat }}</td>
+            <td>{{ cg.moteur_fuite }}</td>
+            <td>{{ cg.boite_fuite }}</td>
+            <td>{{ cg.liquide_frein_etat }}</td>
+            <td>{{ cg.direction_fuite }}</td>
+            <td>{{ cg.batterie_etat }}</td>
+            <td>{{ cg.reglage_phares|yesno:"✔️,❌" }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>Aucun contrôle général effectué.</p>
+{% endif %}
+
+<hr>
+
+<h2>6. Nettoyage intérieur</h2>
+{% if nettoyage_int %}
+<table>
+    <thead>
+        <tr>
+            <th>Vitres / Pare-brise</th>
+            <th>Aspirateur</th>
+            <th>Portes</th>
+            <th>Tableau de bord</th>
+            <th>Plastiques</th>
+            <th>Validation</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for ni in nettoyage_int.all %}
+        <tr>
+            <td>{{ ni.vitres }}</td>
+            <td>{{ ni.aspirateur }}</td>
+            <td>{{ ni.portes }}</td>
+            <td>{{ ni.tableau_bord }}</td>
+            <td>{{ ni.plastiques }}</td>
+            <td>{{ ni.validation|yesno:"✔️,❌" }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>Aucun nettoyage intérieur effectué.</p>
+{% endif %}
+
+<hr>
+
+<h2>7. Nettoyage extérieur</h2>
+{% if nettoyage_ext %}
+<table>
+    <thead>
+        <tr>
+            <th>Traces de gomme</th>
+            <th>Carrosserie</th>
+            <th>Jantes</th>
+            <th>Validation</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for ne in nettoyage_ext.all %}
+        <tr>
+            <td>{{ ne.traces_gomme }}</td>
+            <td>{{ ne.carrosserie }}</td>
+            <td>{{ ne.jantes }}</td>
+            <td>{{ ne.validation|yesno:"✔️,❌" }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>Aucun nettoyage extérieur effectué.</p>
+{% endif %}
+
+<hr>
+
+<h2>8. Notes et observations</h2>
+{% for note in notes %}
+<p><strong>{{ note.get_role_display }} ({{ note.auteur }}):</strong> {{ note.note }}</p>
+{% empty %}
+<p>Aucune note.</p>
+{% endfor %}
+
+</body>
+</html>
