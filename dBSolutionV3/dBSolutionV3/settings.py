@@ -149,11 +149,8 @@ TENANT_APPS = (
     'voiture.voiture_moteur',
     'voiture.voiture_boite',
     'voiture.voiture_embrayage',
-    'voiture.voiture_client',
     'voiture.voiture_exemplaire',
-    'voiture.voiture_location',
     'voiture.voiture_vente',
-    'voiture.voiture_prive',
     "voiture.voiture_pneus.apps.VoiturePneusConfig",
     "voiture.voiture_pneus_historique.apps.VoiturePneusHistoriqueConfig",
 

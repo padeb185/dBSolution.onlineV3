@@ -1,8 +1,7 @@
 import uuid
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from voiture.voiture_exemplaire.models import VoitureExemplaire
-from utilisateurs.mecanicien.models import Mecanicien
+
 
 
 class Maintenance(models.Model):
@@ -14,7 +13,7 @@ class Maintenance(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
     voiture_exemplaire = models.ForeignKey(
-        VoitureExemplaire,
+        "voiture_exemplaire.VoitureExemplaire",
         verbose_name=_("Voiture exemplaire"),
         on_delete=models.CASCADE,
         null=True,
@@ -23,12 +22,30 @@ class Maintenance(models.Model):
     )
 
     mecanicien = models.ForeignKey(
-        Mecanicien,
+        "mecanicien.Mecanicien",
         verbose_name=_("Mécanicien"),
         on_delete=models.SET_NULL,
         null=True,
         blank=True
     )
+
+    apprentis = models.ForeignKey(
+        "apprentis.Apprenti",
+        verbose_name=_("Apprenti"),
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
+    )
+
+    chef_mecanicien = models.ForeignKey(
+        "chef_mecanicien.ChefMecanicien",
+        verbose_name=_("Apprentis"),
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
+    )
+
+
 
     immatriculation = models.CharField(_("Immatriculation"), max_length=20)
     date_intervention = models.DateField(_("Date d'intervention"))

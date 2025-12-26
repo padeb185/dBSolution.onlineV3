@@ -1,13 +1,13 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from fournisseur.models import Fournisseur
+
 
 
 class Investissement(models.Model):
     id_investissement = models.AutoField(primary_key=True)
 
     fournisseur = models.ForeignKey(
-        Fournisseur,
+        "fournisseur.Fournisseur",
         verbose_name=_("Fournisseur"),
         on_delete=models.CASCADE,
         related_name="investissements"

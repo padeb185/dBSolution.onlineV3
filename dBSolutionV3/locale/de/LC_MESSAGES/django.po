@@ -44,7 +44,7 @@ msgstr "Ländercode"
 
 #: .\adresse\models.py:17 .\client\models.py:57 .\facture\models.py:34
 #: .\fournisseur\models.py:51
-msgid "Cr le"
+msgid "Créé le"
 msgstr "Erstellt am"
 
 #: .\adresse\models.py:18 .\facture\models.py:35
@@ -422,10 +422,6 @@ msgstr "Reifenmaschine"
 msgid "equilibreuse"
 msgstr "Auswuchtmaschine"
 
-
-
-
-
 #: .\investissements\models.py:22 .\piece\piece_climatisation\models.py:11
 #: .\piece\piece_hydraulique\models.py:14
 msgid "Compresseur"
@@ -548,11 +544,6 @@ msgstr "Gesamt-Kilometerstand"
 msgid "Kilométrage  la dernière intervention"
 msgstr "Kilometerstand beim letzten Eingriff"
 
-
-
-
-
-
 #: .\maintenance\models.py:54
 msgid "Kilométrage châssis"
 msgstr "Fahrgestell-Kilometerstand"
@@ -622,10 +613,6 @@ msgstr "Ohne Referenz"
 #, python-format
 msgid "%(libelle)s (%(reference)s)  %(quantité)s pcs"
 msgstr "%(libelle)s (%(reference)s)  %(quantité)s Stk."
-
-
-
-
 
 #: .\panier\models.py:35
 msgid "Société cliente"
@@ -778,8 +765,6 @@ msgstr "Bauteil"
 msgid "Pièces"
 msgstr "Teile"
 
-
-
 #: .\piece\models.py:106
 #, python-format
 msgid "%(organe)s - %(marque)s"
@@ -823,9 +808,6 @@ msgstr "%(teil)s : %(änderung)d"
 #: .\piece\piece_feux\models.py:37
 msgid "Feu"
 msgstr "Licht"
-
-
-
 
 #: .\piece\piece_ampoules\models.py:18
 msgid "H1"
@@ -1150,9 +1132,6 @@ msgstr "Ölwechsel"
 #: .\piece\piece_differentiel\models.py:13
 msgid "Couronne et pignon"
 msgstr "Kronen- und Tellerrad"
-
-
-
 
 #: .\piece\piece_differentiel\models.py:14
 msgid "Roulements de différentiel"

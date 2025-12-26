@@ -67,7 +67,7 @@ class VoitureExemplaire(models.Model):
     )
 
     # ⚙️ Moteur / transmission
-    numero_moteur = models.CharField(max_length=50)
+    numero_moteur = models.CharField(max_length=50, null=True, blank=True)
 
     date_mise_en_circulation = models.DateField()
 
