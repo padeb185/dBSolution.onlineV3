@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="admin ajouts">
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/Scripts/script_tenant.py" afterDir="false" />
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="Niveaux">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/maintenance/niveaux/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/niveaux/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,15 +140,7 @@
       <workItem from="1766651473872" duration="2780000" />
       <workItem from="1766729195317" duration="6100000" />
       <workItem from="1766735400660" duration="73000" />
-      <workItem from="1766736066412" duration="7405000" />
-    </task>
-    <task id="LOCAL-00068" summary="pieces suite 1">
-      <option name="closed" value="true" />
-      <created>1766480555490</created>
-      <option name="number" value="00068" />
-      <option name="presentableId" value="LOCAL-00068" />
-      <option name="project" value="LOCAL" />
-      <updated>1766480555490</updated>
+      <workItem from="1766736066412" duration="7832000" />
     </task>
     <task id="LOCAL-00069" summary="pieces suite 2">
       <option name="closed" value="true" />
@@ -534,7 +526,15 @@
       <option name="project" value="LOCAL" />
       <updated>1766739768876</updated>
     </task>
-    <option name="localTasksCounter" value="117" />
+    <task id="LOCAL-00117" summary="Niveaux">
+      <option name="closed" value="true" />
+      <created>1766747841209</created>
+      <option name="number" value="00117" />
+      <option name="presentableId" value="LOCAL-00117" />
+      <option name="project" value="LOCAL" />
+      <updated>1766747841209</updated>
+    </task>
+    <option name="localTasksCounter" value="118" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -552,7 +552,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="outillage investissements" />
     <MESSAGE value="utilisateur et maintenance" />
     <MESSAGE value="git js theme" />
     <MESSAGE value="freins pièces" />
@@ -577,7 +576,8 @@
     <MESSAGE value="traduction correction" />
     <MESSAGE value="traduction correction fin" />
     <MESSAGE value="admin ajouts" />
-    <option name="LAST_COMMIT_MESSAGE" value="admin ajouts" />
+    <MESSAGE value="Niveaux" />
+    <option name="LAST_COMMIT_MESSAGE" value="Niveaux" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -1,12 +1,10 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-import uuid
-from piece_fluides.models import Fluide, InventaireFluide, TypeFluide
+from django.core.exceptions import ValidationError
+from piece.piece_fluides.models import InventaireFluide
 
 
 class Niveau(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-
     maintenance = models.ForeignKey(
         "maintenance.Maintenance",
         on_delete=models.CASCADE,
@@ -16,13 +14,13 @@ class Niveau(models.Model):
 
     piece_fluides = models.ForeignKey(
         "piece_fluides.Fluide",
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
         verbose_name=_("Fluide")
     )
 
     quantite_utilisee = models.FloatField(
         verbose_name=_("Quantité utilisée (L)"),
-        help_text=_("Quantité prélevée sur le stock"),
+        help_text=_("Quantité ajoutée ou retirée")
     )
 
     commentaire = models.TextField(
@@ -32,35 +30,31 @@ class Niveau(models.Model):
 
     date = models.DateTimeField(auto_now_add=True)
 
-    class Meta:
-        verbose_name = _("Niveau de fluide")
-        verbose_name_plural = _("Niveaux de fluide")
+    def clean(self):
+        if self.quantite_utilisee == 0:
+            raise ValidationError(_("La quantité ne peut pas être nulle."))
 
     def save(self, *args, **kwargs):
-        is_creation = self._state.adding
 
-        if is_creation:
-            # 🔒 Sécurité : stock suffisant
-            if self.fluide.quantite_stock < self.quantite_utilisee:
-                raise ValueError(
-                    _("Stock insuffisant pour %(fluide)s") % {"fluide": self.fluide}
-                )
 
-            # 🔁 Création du mouvement d’inventaire
+        is_new = self.pk is None
+
+        super().save(*args, **kwargs)
+
+        if is_new:
             InventaireFluide.objects.create(
                 fluide=self.fluide,
                 variation=-self.quantite_utilisee,
                 commentaire=_(
-                    "Utilisation lors de la maintenance %(maintenance)s"
-                ) % {"maintenance": self.maintenance},
+                    "Maintenance %(id)s"
+                ) % {"id": self.maintenance.id}
             )
-
-        super().save(*args, **kwargs)
 
     def __str__(self):
         return _(
-            "%(fluide)s - %(quantite)s L"
+            "%(maintenance)s – %(fluide)s (%(qte)s L)"
         ) % {
+            "maintenance": self.maintenance,
             "fluide": self.fluide,
-            "quantite": self.quantite_utilisee,
+            "qte": self.quantite_utilisee
         }
