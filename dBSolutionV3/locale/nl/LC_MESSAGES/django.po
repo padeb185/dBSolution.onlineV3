@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-24 12:10+0100\n"
+"POT-Creation-Date: 2025-12-26 08:10+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -273,7 +273,7 @@ msgstr "Verhuur"
 msgid "Actif"
 msgstr "Actief"
 
-#: .\client\models.py:60 .\facture\models.py:69 .\panier\models.py:26
+#: .\client\models.py:60 .\facture\models.py:69 .\panier\models.py:25
 msgid "Client"
 msgstr "Klant"
 
@@ -347,7 +347,7 @@ msgstr "Factuur %(numero)s"
 msgid "Description"
 msgstr "Beschrijving"
 
-#: .\facture\models.py:101 .\outillage\models.py:33 .\panier\models.py:80
+#: .\facture\models.py:101 .\outillage\models.py:33 .\panier\models.py:90
 #: .\piece\piece_roue_rechange\models.py:26
 msgid "Quantité"
 msgstr "Aantal"
@@ -580,11 +580,12 @@ msgstr "Onderhoudsbeurten"
 msgid "Maintenance %(voiture)s (%(date)s)"
 msgstr "Onderhoud %(voiture)s (%(date)s)"
 
-#: .\outillage\models.py:9 .\panier\models.py:17
+#: .\outillage\models.py:9 .\panier\models.py:16 .\panier\models.py:71
 #, fuzzy
 #| msgid "Identifiant Peppol"
 msgid "Identifiant"
 msgstr "Peppol-ID"
+
 #: .\outillage\models.py:28
 msgid "Référence"
 msgstr "Referentie"
@@ -618,70 +619,72 @@ msgstr "Zonder referentie"
 msgid "%(libelle)s (%(reference)s) – %(quantite)s pcs"
 msgstr "%(libelle)s (%(reference)s) – %(quantite)s stuks"
 
-#: .\panier\models.py:35
+#: .\panier\models.py:34
 msgid "Société cliente"
 msgstr "Klantbedrijf"
 
-#: .\panier\models.py:40 .\piece\models.py:95
+#: .\panier\models.py:39 .\piece\models.py:95
 msgid "Date de création"
 msgstr "Aanmaakdatum"
 
-#: .\panier\models.py:45
+#: .\panier\models.py:44
 msgid "Date de modification"
 msgstr "Wijzigingsdatum"
 
-#: .\panier\models.py:50
+#: .\panier\models.py:49
 msgid "Validé"
 msgstr "Goedgekeurd"
 
-#: .\panier\models.py:57
+#: .\panier\models.py:56
+#, python-format
 msgid "Panier %(id)s"
 msgstr "Winkelmand %(id)s"
 
-#: .\panier\models.py:60 .\panier\models.py:69
+#: .\panier\models.py:59 .\panier\models.py:78
 msgid "Panier"
 msgstr "Winkelmand"
 
-#: .\panier\models.py:61
+#: .\panier\models.py:60
 msgid "Paniers"
 msgstr "Winkelmanden"
 
-#: .\panier\models.py:75 .\piece\models.py:102 .\piece\models.py:107
+#: .\panier\models.py:85 .\piece\models.py:102 .\piece\models.py:107
 #: .\piece\models.py:121
 msgid "Pièce"
 msgstr "Onderdeel"
 
-#: .\panier\models.py:86
+#: .\panier\models.py:96
 msgid "Prix d'achat HT"
 msgstr "Aankoopprijs excl. btw"
 
-#: .\panier\models.py:92
+#: .\panier\models.py:102
 msgid "TVA fournisseur (%)"
 msgstr "Leveranciers-btw (%)"
 
-#: .\panier\models.py:99
+#: .\panier\models.py:108
 msgid "Marge (%)"
 msgstr "Marge (%)"
 
-#: .\panier\models.py:106
+#: .\panier\models.py:114
 msgid "Prix unitaire HT (vente)"
 msgstr "Prijs per eenheid"
-#: .\panier\models.py:112
+
+#: .\panier\models.py:120
 msgid "TVA client (%)"
 msgstr "Klant-btw (%)"
 
-#: .\panier\models.py:131
-#, python-format
-msgid "%(piece)s × %(quantite)s"
-msgstr "%(piece)s × %(quantite)s"
-
-#: .\panier\models.py:137
+#: .\panier\models.py:124
 msgid "Ligne de panier"
 msgstr "Winkelmandregel"
 
-#: .\panier\models.py:138
+#: .\panier\models.py:125
 msgid "Lignes de panier"
 msgstr "Winkelmandregels"
+
+#: .\panier\models.py:129
+#, python-format
+msgid "%(piece)s × %(quantite)s"
+msgstr "%(piece)s × %(quantite)s"
 
 #: .\piece\models.py:16
 msgid "Code-barre"
@@ -792,6 +795,7 @@ msgstr "Opmerking"
 #: .\theme\templates\dashboard.html:40
 msgid "Date"
 msgstr "Datum"
+
 #: .\piece\models.py:130
 msgid "Inventaire"
 msgstr "Inventaris"
@@ -922,7 +926,6 @@ msgstr "Aantal versnellingen"
 msgid "Embrayage"
 msgstr "Koppeling"
 
-
 #: .\piece\piece_boite\models.py:31
 msgid "Disque d’embrayage"
 msgstr "Koppelingsschijf"
@@ -1029,7 +1032,6 @@ msgstr "Automatische versnellingsbakken"
 msgid "Boîte automatique %(vitesses)s vitesses"
 msgstr "Automatische versnellingsbak %(vitesses)s versnellingen"
 
-
 #: .\piece\piece_carrosserie\models.py:7
 msgid "Gauche"
 msgstr "Links"
@@ -1067,6 +1069,7 @@ msgstr "Verdamper"
 #: .\piece\piece_climatisation\models.py:13
 msgid "Condenseur"
 msgstr "Compressor"
+
 #: .\piece\piece_climatisation\models.py:14 .\piece\piece_filtres\models.py:26
 #: .\piece\piece_filtres\models.py:31
 msgid "Filtre"
@@ -1142,7 +1145,6 @@ msgstr "Differentiëellagers"
 #: .\piece\piece_differentiel\models.py:15
 msgid "Carter de différentiel"
 msgstr "Differentieelkast"
-
 
 #: .\piece\piece_differentiel\models.py:17 .\piece\piece_freins\models.py:32
 msgid "Soufflet"
@@ -1247,7 +1249,6 @@ msgstr "Uitlaatsysteem"
 #: .\piece\piece_echappement\models.py:14
 msgid "Silencieux"
 msgstr "Demper"
-
 
 #: .\piece\piece_echappement\models.py:15
 msgid "Colliers"
@@ -1599,6 +1600,7 @@ msgstr "%(nom)s %(prenom)s (Klant)"
 #| msgid "Calculateur moteur"
 msgid "Huile moteur"
 msgstr "Motor ECU"
+
 #: .\piece\piece_fluides\models.py:10
 msgid "Huile de pont"
 msgstr "Differentieelolie"
@@ -1836,8 +1838,7 @@ msgstr "Stuur"
 msgid "Volants"
 msgstr "Sturen"
 
-#: .\piece\piece_habitacle\models.py:44
-#: .\piece\piece_habitacle\models.py:45
+#: .\piece\piece_habitacle\models.py:44 .\piece\piece_habitacle\models.py:45
 msgid "GPS"
 msgstr "GPS"
 
@@ -1849,8 +1850,7 @@ msgstr "Radio"
 msgid "Radios"
 msgstr "Radio’s"
 
-#: .\piece\piece_habitacle\models.py:56
-#: .\piece\piece_habitacle\models.py:57
+#: .\piece\piece_habitacle\models.py:56 .\piece\piece_habitacle\models.py:57
 msgid "Tapis"
 msgstr "Mat"
 
@@ -1862,13 +1862,11 @@ msgstr "Veiligheidsgordel"
 msgid "Ceintures de sécurité"
 msgstr "Veiligheidsgordels"
 
-#: .\piece\piece_habitacle\models.py:68
-#: .\piece\piece_habitacle\models.py:69
+#: .\piece\piece_habitacle\models.py:68 .\piece\piece_habitacle\models.py:69
 msgid "Harnais"
 msgstr "Harnas"
 
-#: .\piece\piece_habitacle\models.py:74
-#: .\piece\piece_habitacle\models.py:75
+#: .\piece\piece_habitacle\models.py:74 .\piece\piece_habitacle\models.py:75
 msgid "Compteurs / Commodo"
 msgstr "Meters / Bediening"
 
@@ -1908,7 +1906,6 @@ msgstr "Airbag"
 msgid "Airbags"
 msgstr "Airbags"
 
-
 #: .\piece\piece_hydraulique\models.py:12
 msgid "Front lift"
 msgstr "Voorlift"
@@ -1933,13 +1930,11 @@ msgstr "Hydraulisch onderdeel"
 msgid "Pièces hydrauliques"
 msgstr "Hydraulische onderdelen"
 
-
 #: .\piece\piece_jantes\models.py:10
 msgid "Largeur en pouces, ex: 7, 7.5, 8"
 msgstr "Breedte in inches, bv: 7, 7.5, 8"
 
-#: .\piece\piece_jantes\models.py:13
-#: .\piece\piece_pneus\models.py:29
+#: .\piece\piece_jantes\models.py:13 .\piece\piece_pneus\models.py:29
 msgid "Diamètre en pouces"
 msgstr "Diameter in inches"
 
@@ -1955,8 +1950,7 @@ msgstr "Centrale boring in mm"
 msgid "Déport ET en mm"
 msgstr "ET-offset in mm"
 
-#: .\piece\piece_jantes\models.py:27
-#: .\piece\piece_pneus\models.py:29
+#: .\piece\piece_jantes\models.py:27 .\piece\piece_pneus\models.py:29
 msgid "Jante"
 msgstr "Velg"
 
@@ -1968,7 +1962,6 @@ msgstr "Velgen"
 #, python-format
 msgid "Jante %(largeur)sx%(taille)s ET%(et)s - %(entraxe)s"
 msgstr "Velg %(largeur)sx%(taille)s ET%(et)s - %(entraxe)s"
-
 
 #: .\piece\piece_moteur\models.py:8
 msgid "Arbre à cames admission"
@@ -2078,7 +2071,6 @@ msgstr "Kleppendeksel"
 msgid "Bougies Allumage"
 msgstr "Bougies"
 
-
 #: .\piece\piece_moteur\models.py:36
 msgid "Bougies Préchauffage"
 msgstr "Gloeibougies"
@@ -2139,13 +2131,11 @@ msgstr "Motoronderdeel"
 msgid "Pièces moteur"
 msgstr "Motoronderdelen"
 
-#: .\piece\piece_moteur\models.py:69
-#: .\piece\piece_train_AR\models.py:49
+#: .\piece\piece_moteur\models.py:69 .\piece\piece_train_AR\models.py:49
 #: .\piece\piece_train_AV\models.py:49
 #, python-format
 msgid "%(type)s – %(nom)s"
 msgstr "%(type)s – %(nom)s"
-
 
 #: .\piece\piece_pneus\models.py:7
 msgid "Train AV"
@@ -2155,23 +2145,19 @@ msgstr "Vooras"
 msgid "Train AR"
 msgstr "Achteras"
 
-#: .\piece\piece_pneus\models.py:12
-#: .\piece\piece_roue_rechange\models.py:17
+#: .\piece\piece_pneus\models.py:12 .\piece\piece_roue_rechange\models.py:17
 msgid "Slick"
 msgstr "Slick"
 
-#: .\piece\piece_pneus\models.py:13
-#: .\piece\piece_roue_rechange\models.py:18
+#: .\piece\piece_pneus\models.py:13 .\piece\piece_roue_rechange\models.py:18
 msgid "Semi-slick"
 msgstr "Semi-slick"
 
-#: .\piece\piece_pneus\models.py:14
-#: .\piece\piece_roue_rechange\models.py:19
+#: .\piece\piece_pneus\models.py:14 .\piece\piece_roue_rechange\models.py:19
 msgid "Pluie"
 msgstr "Regen"
 
-#: .\piece\piece_pneus\models.py:15
-#: .\piece\piece_roue_rechange\models.py:20
+#: .\piece\piece_pneus\models.py:15 .\piece\piece_roue_rechange\models.py:20
 msgid "Neige"
 msgstr "Sneeuw"
 
@@ -2236,7 +2222,6 @@ msgstr "Banden"
 msgid "%(type)s – %(largeur)s/%(hauteur)s R%(jante)s"
 msgstr "%(type)s – %(largeur)s/%(hauteur)s R%(jante)s"
 
-
 #: .\piece\piece_roue_rechange\models.py:8
 msgid "Belgique"
 msgstr "België"
@@ -2266,9 +2251,7 @@ msgstr "Reservewielen"
 msgid "%(quantite)s roue(s) %(type)s sur %(site)s"
 msgstr "%(quantite)s wiel(en) %(type)s in %(site)s"
 
-
-#: .\piece\piece_train_AR\models.py:9
-#: .\piece\piece_train_AV\models.py:8
+#: .\piece\piece_train_AR\models.py:9 .\piece\piece_train_AV\models.py:8
 msgid "Berceau"
 msgstr "Subframe"
 
@@ -2276,73 +2259,59 @@ msgstr "Subframe"
 msgid "Barre de torsion"
 msgstr "Torsiestang"
 
-#: .\piece\piece_train_AR\models.py:11
-#: .\piece\piece_train_AV\models.py:11
+#: .\piece\piece_train_AR\models.py:11 .\piece\piece_train_AV\models.py:11
 msgid "Triangle supérieur gauche"
 msgstr "Linker bovenste draagarm"
 
-#: .\piece\piece_train_AR\models.py:12
-#: .\piece\piece_train_AV\models.py:12
+#: .\piece\piece_train_AR\models.py:12 .\piece\piece_train_AV\models.py:12
 msgid "Triangle supérieur droit"
 msgstr "Rechter bovenste draagarm"
 
-#: .\piece\piece_train_AR\models.py:13
-#: .\piece\piece_train_AV\models.py:13
+#: .\piece\piece_train_AR\models.py:13 .\piece\piece_train_AV\models.py:13
 msgid "Triangle inférieur gauche"
 msgstr "Linker onderste draagarm"
 
-#: .\piece\piece_train_AR\models.py:14
-#: .\piece\piece_train_AV\models.py:14
+#: .\piece\piece_train_AR\models.py:14 .\piece\piece_train_AV\models.py:14
 msgid "Triangle inférieur droit"
 msgstr "Rechter onderste draagarm"
 
-#: .\piece\piece_train_AR\models.py:15
-#: .\piece\piece_train_AV\models.py:18
+#: .\piece\piece_train_AR\models.py:15 .\piece\piece_train_AV\models.py:18
 msgid "Silent bloc"
 msgstr "Silentblok"
 
-#: .\piece\piece_train_AR\models.py:16
-#: .\piece\piece_train_AV\models.py:19
+#: .\piece\piece_train_AR\models.py:16 .\piece\piece_train_AV\models.py:19
 msgid "Kit silent bloc"
 msgstr "Silentblokset"
 
-#: .\piece\piece_train_AR\models.py:17
-#: .\piece\piece_train_AV\models.py:20
+#: .\piece\piece_train_AR\models.py:17 .\piece\piece_train_AV\models.py:20
 msgid "Roulement de roue"
 msgstr "Wiellager"
 
-#: .\piece\piece_train_AR\models.py:18
-#: .\piece\piece_train_AV\models.py:21
+#: .\piece\piece_train_AR\models.py:18 .\piece\piece_train_AV\models.py:21
 msgid "Moyeu"
 msgstr "Naaf"
 
-#: .\piece\piece_train_AR\models.py:19
-#: .\piece\piece_train_AV\models.py:22
+#: .\piece\piece_train_AR\models.py:19 .\piece\piece_train_AV\models.py:22
 msgid "Porte fusée"
 msgstr "Fusee"
 
-#: .\piece\piece_train_AR\models.py:20
-#: .\piece\piece_train_AV\models.py:23
+#: .\piece\piece_train_AR\models.py:20 .\piece\piece_train_AV\models.py:23
 msgid "Fusée"
 msgstr "Fusee"
 
-#: .\piece\piece_train_AR\models.py:21
-#: .\piece\piece_train_AV\models.py:24
+#: .\piece\piece_train_AR\models.py:21 .\piece\piece_train_AV\models.py:24
 msgid "Amortisseur G/D"
 msgstr "Schokdemper L/R"
 
-#: .\piece\piece_train_AR\models.py:22
-#: .\piece\piece_train_AV\models.py:25
+#: .\piece\piece_train_AR\models.py:22 .\piece\piece_train_AV\models.py:25
 msgid "Ressort"
 msgstr "Veer"
 
-#: .\piece\piece_train_AR\models.py:23
-#: .\piece\piece_train_AV\models.py:27
+#: .\piece\piece_train_AR\models.py:23 .\piece\piece_train_AV\models.py:27
 msgid "Barre stabilisatrice"
 msgstr "Stabilisatorstang"
 
-#: .\piece\piece_train_AR\models.py:24
-#: .\piece\piece_train_AV\models.py:28
+#: .\piece\piece_train_AR\models.py:24 .\piece\piece_train_AV\models.py:28
 msgid "Biellette de barre stabilisatrice"
 msgstr "Stabilisatorstangverbinding"
 
@@ -2350,13 +2319,11 @@ msgstr "Stabilisatorstangverbinding"
 msgid "Train AR directeur G/D"
 msgstr "Achteras besturend L/R"
 
-#: .\piece\piece_train_AR\models.py:26
-#: .\piece\piece_train_AV\models.py:9
+#: .\piece\piece_train_AR\models.py:26 .\piece\piece_train_AV\models.py:9
 msgid "Cardan G"
 msgstr "Aandrijfas L"
 
-#: .\piece\piece_train_AR\models.py:27
-#: .\piece\piece_train_AV\models.py:10
+#: .\piece\piece_train_AR\models.py:27 .\piece\piece_train_AV\models.py:10
 msgid "Cardan D"
 msgstr "Aandrijfas R"
 
@@ -2371,7 +2338,6 @@ msgstr "Achterasonderdeel"
 #: .\piece\piece_train_AR\models.py:46
 msgid "Pièces train arrière"
 msgstr "Achterasonderdelen"
-
 
 #: .\piece\piece_train_AV\models.py:15
 msgid "Multi-bras G"
@@ -2400,7 +2366,6 @@ msgstr "Voorasonderdeel"
 #: .\piece\piece_train_AV\models.py:46
 msgid "Pièces train avant"
 msgstr "Voorasonderdelen"
-
 
 #: .\theme\templates\base.html:9
 msgid "dBSolution"
@@ -2475,6 +2440,11 @@ msgstr "Welkom"
 msgid "Ceci est un paragraphe stylé avec Tailwind."
 msgstr "Dit is een paragraaf gestileerd met Tailwind."
 
+#: .\theme\templates\home.html:22 .\theme\templates\login.html:63
+#: .\theme\templates\login.totp.html:47
+msgid "Se connecter"
+msgstr "Inloggen"
+
 #: .\theme\templates\login.html:18
 msgid "Accès à votre compte"
 msgstr "Toegang tot uw account"
@@ -2487,15 +2457,11 @@ msgstr "Onthoud mij"
 msgid "Mot de passe oublié ?"
 msgstr "Wachtwoord vergeten?"
 
-#: .\theme\templates\login.html:63 .\theme\templates\login.totp.html:47
-msgid "Se connecter"
-msgstr "Inloggen"
-
-#: .\theme\templates\login.html:71
+#: .\theme\templates\login.html:72
 msgid "Sécurité"
 msgstr "Beveiliging"
 
-#: .\theme\templates\login.html:74
+#: .\theme\templates\login.html:75
 msgid ""
 "L’accès est protégé. Une vérification supplémentaire peut être requise selon "
 "votre configuration de sécurité."

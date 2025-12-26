@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-24 12:10+0100\n"
+"POT-Creation-Date: 2025-12-26 08:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -273,7 +273,7 @@ msgstr "Noleggio"
 msgid "Actif"
 msgstr "Attivo"
 
-#: .\client\models.py:60 .\facture\models.py:69 .\panier\models.py:26
+#: .\client\models.py:60 .\facture\models.py:69 .\panier\models.py:25
 msgid "Client"
 msgstr "Cliente"
 
@@ -347,7 +347,7 @@ msgstr "Fattura %(numero)s"
 msgid "Description"
 msgstr "Descrizione"
 
-#: .\facture\models.py:101 .\outillage\models.py:33 .\panier\models.py:80
+#: .\facture\models.py:101 .\outillage\models.py:33 .\panier\models.py:90
 #: .\piece\piece_roue_rechange\models.py:26
 msgid "Quantité"
 msgstr "Quantità"
@@ -578,14 +578,7 @@ msgstr "Manutenzioni"
 msgid "Maintenance %(voiture)s (%(date)s)"
 msgstr "Manutenzione %(voiture)s (%(date)s)"
 
-#: .\outillage\models.py:9 .\panier\models.py:17
-#, fuzzy
-#| msgid "Identifiant Peppol"
-msgid "Identifiant"
-msgstr "Identificativo Peppol"
-
-
-#: .\outillage\models.py:9 .\panier\models.py:17
+#: .\outillage\models.py:9 .\panier\models.py:16 .\panier\models.py:71
 msgid "Identifiant"
 msgstr "Identificativo"
 
@@ -622,72 +615,72 @@ msgstr "Senza riferimento"
 msgid "%(libelle)s (%(reference)s) – %(quantite)s pcs"
 msgstr "%(libelle)s (%(reference)s) – %(quantita)s pz"
 
-#: .\panier\models.py:35
+#: .\panier\models.py:34
 msgid "Société cliente"
 msgstr "Società cliente"
 
-#: .\panier\models.py:40 .\piece\models.py:95
+#: .\panier\models.py:39 .\piece\models.py:95
 msgid "Date de création"
 msgstr "Data di creazione"
 
-#: .\panier\models.py:45
+#: .\panier\models.py:44
 msgid "Date de modification"
 msgstr "Data di modifica"
 
-#: .\panier\models.py:50
+#: .\panier\models.py:49
 msgid "Validé"
 msgstr "Convalidato"
 
-#: .\panier\models.py:57
+#: .\panier\models.py:56
 #, python-format
 msgid "Panier %(id)s"
 msgstr "Carrello %(id)s"
 
-#: .\panier\models.py:60 .\panier\models.py:69
+#: .\panier\models.py:59 .\panier\models.py:78
 msgid "Panier"
 msgstr "Carrello"
 
-#: .\panier\models.py:61
+#: .\panier\models.py:60
 msgid "Paniers"
 msgstr "Carrelli"
 
-#: .\panier\models.py:75 .\piece\models.py:102 .\piece\models.py:107
+#: .\panier\models.py:85 .\piece\models.py:102 .\piece\models.py:107
 #: .\piece\models.py:121
 msgid "Pièce"
 msgstr "Pezzo"
 
-#: .\panier\models.py:86
+#: .\panier\models.py:96
 msgid "Prix d'achat HT"
 msgstr "Prezzo di acquisto escl. IVA"
 
-#: .\panier\models.py:92
+#: .\panier\models.py:102
 msgid "TVA fournisseur (%)"
 msgstr "IVA fornitore (%)"
 
-#: .\panier\models.py:99
+#: .\panier\models.py:108
 msgid "Marge (%)"
 msgstr "Margine (%)"
 
-#: .\panier\models.py:106
+#: .\panier\models.py:114
 msgid "Prix unitaire HT (vente)"
 msgstr "Prezzo unitario escl. IVA (vendita)"
 
-#: .\panier\models.py:112
+#: .\panier\models.py:120
 msgid "TVA client (%)"
 msgstr "IVA cliente (%)"
 
-#: .\panier\models.py:131
-#, python-format
-msgid "%(piece)s × %(quantite)s"
-msgstr "%(pezzo)s × %(quantita)s"
-
-#: .\panier\models.py:137
+#: .\panier\models.py:124
 msgid "Ligne de panier"
 msgstr "Riga del carrello"
 
-#: .\panier\models.py:138
+#: .\panier\models.py:125
 msgid "Lignes de panier"
 msgstr "Righe del carrello"
+
+#: .\panier\models.py:129
+#, python-format
+msgid "%(piece)s × %(quantite)s"
+msgstr "%(pezzo)s × %(quantita)s"
 
 #: .\piece\models.py:16
 msgid "Code-barre"
@@ -836,7 +829,6 @@ msgstr "H7"
 #: .\piece\piece_ampoules\models.py:22
 msgid "H11"
 msgstr "H11"
-
 
 #: .\piece\piece_ampoules\models.py:23
 msgid "HB3"
@@ -1198,9 +1190,6 @@ msgstr "Testa sterzo sinistra"
 msgid "Rotule de direction droite"
 msgstr "Testa sterzo destra"
 
-
-
-
 #: .\piece\piece_direction\models.py:15
 msgid "Soufflets"
 msgstr "Soffietti"
@@ -1320,6 +1309,7 @@ msgstr "Alzacristallo posteriore sinistro"
 #: .\piece\piece_electricite\models.py:14
 msgid "Lève-vitre arrière droit"
 msgstr "Alzacristallo posteriore destro"
+
 #: .\piece\piece_electricite\models.py:15
 msgid "Pompe lave-glace avant"
 msgstr "Pompa lavavetri anteriore"
@@ -1539,6 +1529,7 @@ msgstr "Tipo / Posizione della luce"
 #: .\piece\piece_feux\models.py:33
 msgid "Feux"
 msgstr "Luci"
+
 #: .\piece\piece_feux\models.py:36
 #, python-format
 msgid "%(organe)s - %(type)s"
@@ -1994,6 +1985,7 @@ msgstr "Testata"
 #: .\piece\piece_moteur\models.py:21
 msgid "Carter Huile"
 msgstr "Coppa dell’olio"
+
 #: .\piece\piece_moteur\models.py:22
 msgid "Pompe Huile"
 msgstr "Pompa olio"
@@ -2281,6 +2273,7 @@ msgstr "Fusello"
 #: .\piece\piece_train_AR\models.py:21 .\piece\piece_train_AV\models.py:24
 msgid "Amortisseur G/D"
 msgstr ""
+
 #: .\piece\piece_train_AR\models.py:22 .\piece\piece_train_AV\models.py:25
 msgid "Ressort"
 msgstr "Molla"
@@ -2345,6 +2338,89 @@ msgstr "Pezzo assale anteriore"
 msgid "Pièces train avant"
 msgstr "Pezzi assale anteriore"
 
+#: .\theme\templates\base.html:9
+msgid "dBSolution"
+msgstr "dBSolution"
+
+#: .\theme\templates\base.html:19
+msgid "Accueil"
+msgstr "Home"
+
+#: .\theme\templates\base.html:20
+msgid "Tableau de Bord"
+msgstr "Cruscotto"
+
+#: .\theme\templates\base.html:32
+msgid "Changer de langue"
+msgstr "Cambia lingua"
+
+#: .\theme\templates\dashboard.html:7
+msgid "Tableau de bord"
+msgstr "Cruscotto"
+
+#: .\theme\templates\dashboard.html:16
+msgid "Utilisateurs"
+msgstr "Utenti"
+
+#: .\theme\templates\dashboard.html:17
+msgid "Nombre total :"
+msgstr "Numero totale:"
+
+#: .\theme\templates\dashboard.html:22
+msgid "Projets"
+msgstr "Progetti"
+
+#: .\theme\templates\dashboard.html:23
+msgid "Projets actifs :"
+msgstr "Progetti attivi:"
+
+#: .\theme\templates\dashboard.html:28
+msgid "Notifications"
+msgstr "Notifiche"
+
+#: .\theme\templates\dashboard.html:29
+msgid "Messages non lus :"
+msgstr "Messaggi non letti:"
+
+#: .\theme\templates\dashboard.html:36
+msgid "Dernières activités"
+msgstr "Ultime attività"
+
+#: .\theme\templates\dashboard.html:41
+msgid "Utilisateur"
+msgstr "Utente"
+
+#: .\theme\templates\dashboard.html:42
+msgid "Action"
+msgstr "Azione"
+
+#: .\theme\templates\dashboard.html:49 .\theme\templates\login.html:5
+#: .\theme\templates\login.html:9
+msgid "Connexion"
+msgstr "Accesso"
+
+#: .\theme\templates\dashboard.html:54
+msgid "Modification de projet"
+msgstr "Modifica progetto"
+
+#: .\theme\templates\home.html:13
+msgid "Bienvenue"
+msgstr "Benvenuto"
+
+#: .\theme\templates\home.html:16
+msgid "Ceci est un paragraphe stylé avec Tailwind."
+msgstr "Questo è un paragrafo stilizzato con Tailwind."
+
+
+
+
+
+
+#: .\theme\templates\home.html:22 .\theme\templates\login.html:63
+#: .\theme\templates\login.totp.html:47
+msgid "Se connecter"
+msgstr "Accedi"
+
 #: .\theme\templates\login.html:18
 msgid "Accès à votre compte"
 msgstr "Accesso al tuo account"
@@ -2357,19 +2433,20 @@ msgstr "Ricordami"
 msgid "Mot de passe oublié ?"
 msgstr "Password dimenticata?"
 
-#: .\theme\templates\login.html:63 .\theme\templates\login.totp.html:47
-msgid "Se connecter"
-msgstr "Accedi"
-
-#: .\theme\templates\login.html:71
+#: .\theme\templates\login.html:72
 msgid "Sécurité"
 msgstr "Sicurezza"
 
-#: .\theme\templates\login.html:74
-msgid ""
-"L’accès est protégé. Une vérification supplémentaire peut être requise selon "
-"votre configuration de sécurité."
-msgstr "L'accesso è protetto. Potrebbe essere richiesta una verifica aggiuntiva in base alla configurazione di sicurezza."
+#: .\theme\templates\login.html:75
+msgid
+"L’accès est protégé. Une vérification supplémentaire peut être requise selon votre configuration de sécurité."
+msgstr
+"L'accesso è protetto. Potrebbe essere richiesta una verifica aggiuntiva in base alla configurazione di sicurezza."
+
+#: .\theme\templates\login.totp.html:5 .\theme\templates\login.totp.html:13
+msgid "Connexion sécurisée"
+msgstr "Accesso sicuro"
+
 
 #: .\theme\templates\login.totp.html:17
 msgid "Veuillez entrer le code généré par Google Authenticator"

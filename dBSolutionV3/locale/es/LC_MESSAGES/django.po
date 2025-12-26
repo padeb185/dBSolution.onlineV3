@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-24 12:10+0100\n"
+"POT-Creation-Date: 2025-12-26 08:10+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,6 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
 "1 : 2;\n"
+
 #: .\adresse\models.py:9
 msgid "Rue"
 msgstr "Calle"
@@ -61,7 +62,6 @@ msgstr "Dirección"
 msgid "Adresses"
 msgstr "Direcciones"
 
-
 #: .\authentification\forms.py:42
 msgid "Adresse email ou mot de passe incorrect"
 msgstr "Correo electrónico o contraseña incorrectos"
@@ -78,7 +78,6 @@ msgstr "No hay ningún secreto TOTP configurado para esta cuenta."
 #: .\authentification\views.py:51 .\dBSolutionV3\views.py:68
 msgid "Code de vérification invalide."
 msgstr "Código de verificación no válido."
-
 
 #: .\carrosserie\models.py:10
 msgid "Nom de la société"
@@ -103,7 +102,6 @@ msgstr "Carrocería"
 #: .\carrosserie\models.py:19
 msgid "Carrosseries"
 msgstr "Carrocerías"
-
 
 #: .\carrosserie\models.py:36 .\piece\piece_carrosserie\models.py:17
 msgid "Pare-chocs"
@@ -186,7 +184,6 @@ msgstr "Tornillería"
 msgid "Capot"
 msgstr "Capó"
 
-
 #: .\carrosserie\models.py:58
 msgid "Montant du devis"
 msgstr "Importe del presupuesto"
@@ -216,7 +213,6 @@ msgstr "Intervención %(id)s – %(carrosserie)s"
 #, python-format
 msgid "Intervention %(id)s"
 msgstr "Intervención %(id)s"
-
 
 #: .\client\models.py:8 .\piece\models.py:8
 msgid "Nom"
@@ -278,7 +274,7 @@ msgstr "Alquiler"
 msgid "Actif"
 msgstr "Activo"
 
-#: .\client\models.py:60 .\facture\models.py:69 .\panier\models.py:26
+#: .\client\models.py:60 .\facture\models.py:69 .\panier\models.py:25
 msgid "Client"
 msgstr "Cliente"
 
@@ -291,7 +287,6 @@ msgstr "Clientes"
 msgid "%(nom)s %(prenom)s (Client)"
 msgstr "%(nom)s %(prenom)s (Cliente)"
 
-
 #: .\dBSolutionV3\views.py:35
 msgid "Nom d'utilisateur ou mot de passe incorrect"
 msgstr "Nombre de usuario o contraseña incorrectos"
@@ -299,7 +294,6 @@ msgstr "Nombre de usuario o contraseña incorrectos"
 #: .\dBSolutionV3\views.py:82 .\theme\templates\dashboard.html:10
 msgid "Bienvenue sur ton tableau de bord"
 msgstr "Bienvenido a tu panel de control"
-
 
 #: .\facture\models.py:23 .\fournisseur\models.py:37
 msgid "Identifiant Peppol"
@@ -354,7 +348,7 @@ msgstr "Factura %(numero)s"
 msgid "Description"
 msgstr "Descripción"
 
-#: .\facture\models.py:101 .\outillage\models.py:33 .\panier\models.py:80
+#: .\facture\models.py:101 .\outillage\models.py:33 .\panier\models.py:90
 #: .\piece\piece_roue_rechange\models.py:26
 msgid "Quantité"
 msgstr "Cantidad"
@@ -384,7 +378,6 @@ msgstr "Líneas de factura"
 msgid "%(desc)s (%(facture)s)"
 msgstr "%(desc)s (%(facture)s)"
 
-
 #: .\fournisseur\models.py:12
 msgid "Nom du fournisseur"
 msgstr "Nombre del proveedor"
@@ -400,6 +393,7 @@ msgstr "Identificador Peppol, ej.: 0208:BE0123456789"
 #: .\fournisseur\models.py:46
 msgid "ISO 3166-1 alpha-2"
 msgstr "ISO 3166-1 alfa-2"
+
 #: .\fournisseur\models.py:54 .\investissements\models.py:11
 #: .\outillage\models.py:16
 msgid "Fournisseur"
@@ -585,7 +579,7 @@ msgstr "Mantenimientos"
 msgid "Maintenance %(voiture)s (%(date)s)"
 msgstr "Mantenimiento %(voiture)s (%(date)s)"
 
-#: .\outillage\models.py:9 .\panier\models.py:17
+#: .\outillage\models.py:9 .\panier\models.py:16 .\panier\models.py:71
 msgid "Identifiant"
 msgstr "Identificador"
 
@@ -622,72 +616,72 @@ msgstr "Sin referencia"
 msgid "%(libelle)s (%(reference)s) – %(quantite)s pcs"
 msgstr "%(libelle)s (%(reference)s) – %(quantite)s uds"
 
-#: .\panier\models.py:35
+#: .\panier\models.py:34
 msgid "Société cliente"
 msgstr "Empresa cliente"
 
-#: .\panier\models.py:40 .\piece\models.py:95
+#: .\panier\models.py:39 .\piece\models.py:95
 msgid "Date de création"
 msgstr "Fecha de creación"
 
-#: .\panier\models.py:45
+#: .\panier\models.py:44
 msgid "Date de modification"
 msgstr "Fecha de modificación"
 
-#: .\panier\models.py:50
+#: .\panier\models.py:49
 msgid "Validé"
 msgstr "Validado"
 
-#: .\panier\models.py:57
+#: .\panier\models.py:56
 #, python-format
 msgid "Panier %(id)s"
 msgstr "Carrito %(id)s"
 
-#: .\panier\models.py:60 .\panier\models.py:69
+#: .\panier\models.py:59 .\panier\models.py:78
 msgid "Panier"
 msgstr "Carrito"
 
-#: .\panier\models.py:61
+#: .\panier\models.py:60
 msgid "Paniers"
 msgstr "Carritos"
 
-#: .\panier\models.py:75 .\piece\models.py:102 .\piece\models.py:107
+#: .\panier\models.py:85 .\piece\models.py:102 .\piece\models.py:107
 #: .\piece\models.py:121
 msgid "Pièce"
 msgstr "Pieza"
 
-#: .\panier\models.py:86
+#: .\panier\models.py:96
 msgid "Prix d'achat HT"
 msgstr "Precio de compra sin IVA"
 
-#: .\panier\models.py:92
+#: .\panier\models.py:102
 msgid "TVA fournisseur (%)"
 msgstr "IVA proveedor (%)"
 
-#: .\panier\models.py:99
+#: .\panier\models.py:108
 msgid "Marge (%)"
 msgstr "Margen (%)"
 
-#: .\panier\models.py:106
+#: .\panier\models.py:114
 msgid "Prix unitaire HT (vente)"
 msgstr "Precio unitario sin IVA (venta)"
 
-#: .\panier\models.py:112
+#: .\panier\models.py:120
 msgid "TVA client (%)"
 msgstr "IVA cliente (%)"
 
-#: .\panier\models.py:131
-#, python-format
-msgid "%(piece)s × %(quantite)s"
-msgstr "%(piece)s × %(quantite)s"
-
-#: .\panier\models.py:137
+#: .\panier\models.py:124
 msgid "Ligne de panier"
 msgstr "Línea de carrito"
 
-#: .\panier\models.py:138
+#: .\panier\models.py:125
 msgid "Lignes de panier"
 msgstr "Líneas de carrito"
+
+#: .\panier\models.py:129
+#, python-format
+msgid "%(piece)s × %(quantite)s"
+msgstr "%(piece)s × %(quantite)s"
 
 #: .\piece\models.py:16
 msgid "Code-barre"
@@ -817,6 +811,58 @@ msgstr "%(piece)s : %(variation)d"
 msgid "Feu"
 msgstr "Luz"
 
+#: .\piece\piece_ampoules\models.py:18
+msgid "H1"
+msgstr ""
+
+#: .\piece\piece_ampoules\models.py:19
+msgid "H3"
+msgstr ""
+
+#: .\piece\piece_ampoules\models.py:20
+msgid "H4"
+msgstr ""
+
+#: .\piece\piece_ampoules\models.py:21
+msgid "H7"
+msgstr ""
+
+#: .\piece\piece_ampoules\models.py:22
+msgid "H11"
+msgstr ""
+
+#: .\piece\piece_ampoules\models.py:23
+msgid "HB3"
+msgstr ""
+
+#: .\piece\piece_ampoules\models.py:24
+msgid "HB4"
+msgstr ""
+
+#: .\piece\piece_ampoules\models.py:25
+msgid "LED"
+msgstr ""
+
+#: .\piece\piece_ampoules\models.py:26
+msgid "Xénon"
+msgstr ""
+
+#: .\piece\piece_ampoules\models.py:27
+msgid "C5W"
+msgstr ""
+
+#: .\piece\piece_ampoules\models.py:28
+msgid "W5W"
+msgstr ""
+
+#: .\piece\piece_ampoules\models.py:29
+msgid "T10"
+msgstr ""
+
+#: .\piece\piece_ampoules\models.py:30
+msgid "T4W"
+msgstr ""
+
 #: .\piece\piece_ampoules\models.py:36
 msgid "Type d’ampoule"
 msgstr "Tipo de bombilla"
@@ -857,6 +903,24 @@ msgstr "Bombilla"
 msgid "Ampoules"
 msgstr "Bombillas"
 
+#: .\piece\piece_boite\models.py:10 .\piece\piece_boite\models.py:112
+#, fuzzy
+#| msgid "Nombre de vitesses"
+msgid "5 vitesses"
+msgstr "Número de marchas"
+
+#: .\piece\piece_boite\models.py:11 .\piece\piece_boite\models.py:113
+#, fuzzy
+#| msgid "Nombre de vitesses"
+msgid "6 vitesses"
+msgstr "Número de marchas"
+
+#: .\piece\piece_boite\models.py:12
+#, fuzzy
+#| msgid "Nombre de vitesses"
+msgid "7 vitesses"
+msgstr "Número de marchas"
+
 #: .\piece\piece_boite\models.py:17 .\piece\piece_boite\models.py:119
 msgid "Nombre de vitesses"
 msgstr "Número de marchas"
@@ -881,6 +945,10 @@ msgstr "Collarín de embrague"
 msgid "Pignon"
 msgstr "Piñón"
 
+#: .\piece\piece_boite\models.py:59 .\piece\piece_differentiel\models.py:18
+msgid "Synchroniseur"
+msgstr ""
+
 #: .\piece\piece_boite\models.py:66
 msgid "Arbre principal"
 msgstr "Eje principal"
@@ -889,9 +957,21 @@ msgstr "Eje principal"
 msgid "Arbre secondaire"
 msgstr "Eje secundario"
 
+#: .\piece\piece_boite\models.py:80
+#, fuzzy
+#| msgid "Nombre de vitesses"
+msgid "Fourchette de vitesse"
+msgstr "Número de marchas"
+
 #: .\piece\piece_boite\models.py:87
 msgid "Tringlerie"
 msgstr "Varillaje"
+
+#: .\piece\piece_boite\models.py:94 .\piece\piece_fluides\models.py:9
+#, fuzzy
+#| msgid "Huile de pont"
+msgid "Huile de boîte"
+msgstr "Aceite de diferencial"
 
 #: .\piece\piece_boite\models.py:98
 msgid "Boîte mécanique"
@@ -901,9 +981,65 @@ msgstr "Caja de cambios manual"
 msgid "Boîtes mécaniques"
 msgstr "Cajas de cambios manuales"
 
+#: .\piece\piece_boite\models.py:102
+#, fuzzy, python-format
+#| msgid "Boîtes mécaniques"
+msgid "Boîte mécanique %(vitesses)s vitesses"
+msgstr "Cajas de cambios manuales"
+
+#: .\piece\piece_boite\models.py:111
+#, fuzzy
+#| msgid "Nombre de vitesses"
+msgid "4 vitesses"
+msgstr "Número de marchas"
+
+#: .\piece\piece_boite\models.py:114
+#, fuzzy
+#| msgid "Nombre de vitesses"
+msgid "8 vitesses"
+msgstr "Número de marchas"
+
 #: .\piece\piece_boite\models.py:126
 msgid "Convertisseur de couple"
 msgstr "Convertidor de par"
+
+#: .\piece\piece_boite\models.py:133
+#, fuzzy
+#| msgid "Pièce hydraulique"
+msgid "Embrayage hydraulique"
+msgstr "Pieza hidráulica"
+
+#: .\piece\piece_boite\models.py:140
+#, fuzzy
+#| msgid "Satellites planétaires"
+msgid "Train planétaire"
+msgstr "Satélites planetarios"
+
+#: .\piece\piece_boite\models.py:147
+#, fuzzy
+#| msgid "Satellites planétaires"
+msgid "Frein planétaire"
+msgstr "Satélites planetarios"
+
+#: .\piece\piece_boite\models.py:154 .\piece\piece_moteur\models.py:15
+msgid "Piston"
+msgstr ""
+
+#: .\piece\piece_boite\models.py:161
+#, fuzzy
+#| msgid "Pièce hydraulique"
+msgid "Bloc hydraulique"
+msgstr "Pieza hidráulica"
+
+#: .\piece\piece_boite\models.py:168
+msgid "Solénoïdes"
+msgstr ""
+
+#: .\piece\piece_boite\models.py:175
+#, fuzzy
+#| msgid "Arbre de transmission"
+msgid "Huile de transmission"
+msgstr "Árbol de transmisión"
 
 #: .\piece\piece_boite\models.py:179
 msgid "Boîte automatique"
@@ -911,6 +1047,12 @@ msgstr "Caja de cambios automática"
 
 #: .\piece\piece_boite\models.py:180
 msgid "Boîtes automatiques"
+msgstr "Cajas de cambios automáticas"
+
+#: .\piece\piece_boite\models.py:183
+#, fuzzy, python-format
+#| msgid "Boîtes automatiques"
+msgid "Boîte automatique %(vitesses)s vitesses"
 msgstr "Cajas de cambios automáticas"
 
 #: .\piece\piece_carrosserie\models.py:7
@@ -931,6 +1073,12 @@ msgstr "Delantero"
 msgid "Arrière"
 msgstr "Trasero"
 
+#: .\piece\piece_carrosserie\models.py:20
+#, fuzzy
+#| msgid "Vitre de porte"
+msgid "Vitres de porte"
+msgstr "Cristal de puerta"
+
 #: .\piece\piece_climatisation\models.py:9
 msgid "Qualité de gaz"
 msgstr "Calidad del gas"
@@ -946,6 +1094,13 @@ msgstr "Evaporador"
 #: .\piece\piece_climatisation\models.py:13
 msgid "Condenseur"
 msgstr "Condensador"
+
+#: .\piece\piece_climatisation\models.py:14 .\piece\piece_filtres\models.py:26
+#: .\piece\piece_filtres\models.py:31
+#, fuzzy
+#| msgid "Filtres"
+msgid "Filtre"
+msgstr "Filtros"
 
 #: .\piece\piece_climatisation\models.py:15
 msgid "Déshydrateur"
@@ -963,6 +1118,19 @@ msgstr "Manguitos"
 msgid "Huile de climatisation"
 msgstr "Aceite de aire acondicionado"
 
+#: .\piece\piece_climatisation\models.py:24
+#, fuzzy
+#| msgid "Pièce de climatisation"
+msgid "Type de pièce de climatisation"
+msgstr "Pieza de climatización"
+
+#: .\piece\piece_climatisation\models.py:32
+#: .\piece\piece_differentiel\models.py:34 .\piece\piece_direction\models.py:33
+#: .\piece\piece_echappement\models.py:34 .\piece\piece_essuyage\models.py:26
+#: .\piece\piece_freins\models.py:57
+msgid "Moteurs compatibles"
+msgstr ""
+
 #: .\piece\piece_climatisation\models.py:36
 msgid "Pièce de climatisation"
 msgstr "Pieza de climatización"
@@ -970,6 +1138,15 @@ msgstr "Pieza de climatización"
 #: .\piece\piece_climatisation\models.py:37
 msgid "Pièces de climatisation"
 msgstr "Piezas de climatización"
+
+#: .\piece\piece_climatisation\models.py:40
+#: .\piece\piece_differentiel\models.py:42 .\piece\piece_direction\models.py:41
+#: .\piece\piece_echappement\models.py:42 .\piece\piece_essuyage\models.py:34
+#: .\piece\piece_freins\models.py:65
+#, fuzzy, python-format
+#| msgid "%(type)s – %(nom)s"
+msgid "%(type)s – %(piece)s"
+msgstr "%(type)s – %(nom)s"
 
 #: .\piece\piece_differentiel\models.py:9
 msgid "Huile de différentiel"
@@ -1118,6 +1295,7 @@ msgstr "Junta del colector"
 #: .\piece\piece_echappement\models.py:18
 msgid "Joint de ligne"
 msgstr "Junta de la línea de escape"
+
 #: .\piece\piece_echappement\models.py:19
 msgid "Matériau"
 msgstr "Material"
@@ -1137,7 +1315,6 @@ msgstr "Pieza de escape"
 #: .\piece\piece_echappement\models.py:39
 msgid "Pièces d’échappement"
 msgstr "Piezas de escape"
-
 
 #: .\piece\piece_electricite\models.py:8
 msgid "Alternateur"
@@ -1178,7 +1355,6 @@ msgstr "Bomba lavaparabrisas trasera"
 #: .\piece\piece_electricite\models.py:17
 msgid "Klaxon"
 msgstr "Claxon"
-
 
 #: .\piece\piece_electronique\models.py:9
 msgid "Débitmètre"
@@ -1308,7 +1484,6 @@ msgstr "Sensor de temperatura de admisión"
 msgid "Capteur d’embrayage"
 msgstr "Sensor de embrague"
 
-
 #: .\piece\piece_essuyage\models.py:9
 msgid "Balai avant"
 msgstr "Escobilla delantera"
@@ -1324,6 +1499,7 @@ msgstr "Motor del limpiaparabrisas delantero"
 #: .\piece\piece_essuyage\models.py:12
 msgid "Moteur essuie-glace arrière"
 msgstr "Motor del limpiaparabrisas trasero"
+
 #: .\piece\piece_essuyage\models.py:18
 msgid "Type de pièce d'essuyage"
 msgstr "Tipo de pieza de limpieza"
@@ -1335,7 +1511,6 @@ msgstr "Pieza de limpieza"
 #: .\piece\piece_essuyage\models.py:31
 msgid "Pièces d'essuyage"
 msgstr "Piezas de limpieza"
-
 
 #: .\piece\piece_feux\models.py:9
 msgid "Avant Gauche"
@@ -1394,7 +1569,6 @@ msgstr "Luces"
 msgid "%(organe)s - %(type)s"
 msgstr "%(organe)s - %(type)s"
 
-
 #: .\piece\piece_filtres\models.py:7
 msgid "Filtre à air"
 msgstr "Filtro de aire"
@@ -1427,7 +1601,6 @@ msgstr "Filtros"
 #, python-format
 msgid "%(nom)s (%(type)s)"
 msgstr "%(nom)s (%(type)s)"
-
 
 #: .\piece\piece_fluides\models.py:8
 msgid "Huile moteur"
@@ -1481,7 +1654,6 @@ msgstr "+ entrada / - salida (litros)"
 #, python-format
 msgid "%(fluide)s : %(variation)s L"
 msgstr "%(fluide)s : %(variation)s L"
-
 
 #: .\piece\piece_freins\models.py:9
 msgid "Étrier de frein AVG"
@@ -1622,10 +1794,10 @@ msgstr "Tipo de pieza de frenado"
 #: .\piece\piece_freins\models.py:61
 msgid "Pièce de freinage"
 msgstr "Pieza de frenado"
+
 #: .\piece\piece_freins\models.py:62
 msgid "Pièces de freinage"
 msgstr "Piezas de frenado"
-
 
 #: .\piece\piece_habitacle\models.py:10
 msgid "Pièce habitacle"
@@ -1739,7 +1911,6 @@ msgstr "Airbag"
 msgid "Airbags"
 msgstr "Airbags"
 
-
 #: .\piece\piece_hydraulique\models.py:12
 msgid "Front lift"
 msgstr "Elevación delantera"
@@ -1763,7 +1934,6 @@ msgstr "Pieza hidráulica"
 #: .\piece\piece_hydraulique\models.py:26
 msgid "Pièces hydrauliques"
 msgstr "Piezas hidráulicas"
-
 
 #: .\piece\piece_jantes\models.py:10
 msgid "Largeur en pouces, ex: 7, 7.5, 8"
@@ -1797,7 +1967,6 @@ msgstr "Llantas"
 #, python-format
 msgid "Jante %(largeur)sx%(taille)s ET%(et)s - %(entraxe)s"
 msgstr "Llanta %(largeur)sx%(taille)s ET%(et)s - %(entraxe)s"
-
 
 #: .\piece\piece_moteur\models.py:8
 msgid "Arbre à cames admission"
@@ -1914,6 +2083,7 @@ msgstr "Bujías de precalentamiento"
 #: .\piece\piece_moteur\models.py:38
 msgid "Collecteur d'admission"
 msgstr "Colector de admisión"
+
 #: .\piece\piece_moteur\models.py:39
 msgid "Collecteur d'échappement"
 msgstr "Colector de escape"
@@ -2275,6 +2445,11 @@ msgstr "Bienvenido"
 msgid "Ceci est un paragraphe stylé avec Tailwind."
 msgstr "Este es un párrafo estilizado con Tailwind."
 
+#: .\theme\templates\home.html:22 .\theme\templates\login.html:63
+#: .\theme\templates\login.totp.html:47
+msgid "Se connecter"
+msgstr "Iniciar sesión"
+
 #: .\theme\templates\login.html:18
 msgid "Accès à votre compte"
 msgstr "Acceso a tu cuenta"
@@ -2287,15 +2462,11 @@ msgstr "Recordarme"
 msgid "Mot de passe oublié ?"
 msgstr "¿Olvidaste tu contraseña?"
 
-#: .\theme\templates\login.html:63 .\theme\templates\login.totp.html:47
-msgid "Se connecter"
-msgstr "Iniciar sesión"
-
-#: .\theme\templates\login.html:71
+#: .\theme\templates\login.html:72
 msgid "Sécurité"
 msgstr "Seguridad"
 
-#: .\theme\templates\login.html:74
+#: .\theme\templates\login.html:75
 msgid ""
 "L’accès est protégé. Une vérification supplémentaire peut être requise selon "
 "votre configuration de sécurité."
