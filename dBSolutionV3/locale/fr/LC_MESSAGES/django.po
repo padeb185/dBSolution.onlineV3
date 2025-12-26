@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-26 08:10+0100\n"
+"POT-Creation-Date: 2025-12-26 13:44+0100\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -406,7 +406,8 @@ msgstr ""
 msgid "%(nom)s (Fournisseur)"
 msgstr ""
 
-#: .\investissements\models.py:18 .\piece\piece_train_AR\models.py:8
+#: .\investissements\models.py:18 .\maintenance\bruits\models.py:17
+#: .\piece\piece_train_AR\models.py:8
 msgid "Pont"
 msgstr ""
 
@@ -500,81 +501,361 @@ msgstr ""
 msgid "%(libelle)s - Fournisseur: %(fournisseur)s"
 msgstr ""
 
-#: .\maintenance\models.py:10
-msgid "Vert"
+#: .\maintenance\bruits\models.py:5 .\maintenance\freins\models.py:7
+#: .\maintenance\jeux_pieces\models.py:21
+#: .\maintenance\silent_blocs\models.py:5
+#: .\piece\piece_carrosserie\models.py:12
+#: .\piece\piece_roue_rechange\models.py:13
+msgid "Avant"
 msgstr ""
 
-#: .\maintenance\models.py:11
-msgid "Jaune"
+#: .\maintenance\bruits\models.py:6 .\maintenance\freins\models.py:8
+#: .\maintenance\jeux_pieces\models.py:22
+#: .\maintenance\silent_blocs\models.py:6
+#: .\piece\piece_carrosserie\models.py:13
+#: .\piece\piece_roue_rechange\models.py:14
+msgid "Arrière"
 msgstr ""
 
-#: .\maintenance\models.py:12
-msgid "Rouge"
+#: .\maintenance\bruits\models.py:7 .\maintenance\jeux_pieces\models.py:17
+#: .\maintenance\silent_blocs\models.py:7
+msgid "Avant gauche"
 msgstr ""
 
-#: .\maintenance\models.py:18
-msgid "Voiture exemplaire"
+#: .\maintenance\bruits\models.py:8 .\maintenance\jeux_pieces\models.py:18
+#: .\maintenance\silent_blocs\models.py:8
+msgid "Avant droit"
 msgstr ""
 
-#: .\maintenance\models.py:27
-msgid "Mécanicien"
+#: .\maintenance\bruits\models.py:9 .\maintenance\jeux_pieces\models.py:19
+#: .\maintenance\silent_blocs\models.py:9
+msgid "Arrière gauche"
 msgstr ""
 
-#: .\maintenance\models.py:33 .\piece\models.py:68
-msgid "Immatriculation"
+#: .\maintenance\bruits\models.py:10 .\maintenance\jeux_pieces\models.py:20
+#: .\maintenance\silent_blocs\models.py:10
+msgid "Arrière droit"
 msgstr ""
 
-#: .\maintenance\models.py:34
-msgid "Date d'intervention"
+#: .\maintenance\bruits\models.py:13 .\maintenance\jeux_pieces\models.py:11
+#: .\piece\piece_train_AR\models.py:17 .\piece\piece_train_AV\models.py:20
+msgid "Roulement de roue"
 msgstr ""
 
-#: .\maintenance\models.py:36
-msgid "Date de la dernière intervention"
+#: .\maintenance\bruits\models.py:14 .\piece\piece_train_AV\models.py:26
+msgid "Roulement de suspension"
 msgstr ""
 
-#: .\maintenance\models.py:41
-msgid "Étiquette"
+#: .\maintenance\bruits\models.py:15 .\maintenance\silent_blocs\models.py:18
+msgid "Moteur"
 msgstr ""
 
-#: .\maintenance\models.py:48
-msgid "Kilométrage total"
+#: .\maintenance\bruits\models.py:16
+msgid "Boîte de vitesse"
 msgstr ""
 
-#: .\maintenance\models.py:50
-msgid "Kilométrage à la dernière intervention"
-msgstr ""
-
-#: .\maintenance\models.py:54
-msgid "Kilométrage châssis"
-msgstr ""
-
-#: .\maintenance\models.py:57
-msgid "Kilométrage moteur"
-msgstr ""
-
-#: .\maintenance\models.py:58
-msgid "Kilométrage boîte"
-msgstr ""
-
-#: .\maintenance\models.py:61
-msgid "Remplacement moteur"
-msgstr ""
-
-#: .\maintenance\models.py:62
-msgid "Remplacement boîte"
-msgstr ""
-
-#: .\maintenance\models.py:65
+#: .\maintenance\bruits\models.py:24 .\maintenance\freins\models.py:17
+#: .\maintenance\jeux_pieces\models.py:38 .\maintenance\models.py:82
+#: .\maintenance\niveaux\models.py:12 .\maintenance\silent_blocs\models.py:27
 msgid "Maintenance"
 msgstr ""
 
-#: .\maintenance\models.py:66
+#: .\maintenance\bruits\models.py:30 .\maintenance\jeux_pieces\models.py:58
+#: .\maintenance\silent_blocs\models.py:33
+msgid "Emplacement"
+msgstr ""
+
+#: .\maintenance\bruits\models.py:36
+msgid "Type de composant"
+msgstr ""
+
+#: .\maintenance\bruits\models.py:41
+msgid "Normal"
+msgstr ""
+
+#: .\maintenance\bruits\models.py:41
+msgid "Anormal"
+msgstr ""
+
+#: .\maintenance\bruits\models.py:43
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Niveau de bruit"
+msgstr "Tableau de Bord"
+
+#: .\maintenance\bruits\models.py:48 .\maintenance\jeux_pieces\models.py:84
+#: .\maintenance\silent_blocs\models.py:50
+msgid "Observation"
+msgstr ""
+
+#: .\maintenance\bruits\models.py:60 .\maintenance\jeux_pieces\models.py:79
+#: .\maintenance\silent_blocs\models.py:63
+msgid "État visuel / Tag"
+msgstr ""
+
+#: .\maintenance\bruits\models.py:74
+#, python-format
+msgid "%(type)s - %(empl)s (%(niveau)s)"
+msgstr ""
+
+#: .\maintenance\freins\models.py:9
+msgid "Avant et arrière"
+msgstr ""
+
+#: .\maintenance\freins\models.py:23
+msgid "Partie contrôlée"
+msgstr ""
+
+#: .\maintenance\freins\models.py:28
+msgid "Usure des plaquettes (%)"
+msgstr ""
+
+#: .\maintenance\freins\models.py:33
+msgid "Épaisseur des disques (mm)"
+msgstr ""
+
+#: .\maintenance\freins\models.py:37
+msgid "Présence de fentes sur les disques"
+msgstr ""
+
+#: .\maintenance\freins\models.py:43
+msgid "Présence de fuite"
+msgstr ""
+
+#: .\maintenance\freins\models.py:49
+msgid "À remplacer avant"
+msgstr ""
+
+#: .\maintenance\freins\models.py:53
+msgid "À remplacer arrière"
+msgstr ""
+
+#: .\maintenance\freins\models.py:60
+#, python-format
+msgid "Contrôle freins – %(partie)s (%(date)s)"
+msgstr ""
+
+#: .\maintenance\jeux_pieces\models.py:6
+msgid "Rotule de direction"
+msgstr ""
+
+#: .\maintenance\jeux_pieces\models.py:7
+msgid "Rotule de suspension"
+msgstr ""
+
+#: .\maintenance\jeux_pieces\models.py:8 .\piece\piece_train_AR\models.py:24
+#: .\piece\piece_train_AV\models.py:28
+msgid "Biellette de barre stabilisatrice"
+msgstr ""
+
+#: .\maintenance\jeux_pieces\models.py:9 .\piece\piece_train_AR\models.py:23
+#: .\piece\piece_train_AV\models.py:27
+msgid "Barre stabilisatrice"
+msgstr ""
+
+#: .\maintenance\jeux_pieces\models.py:10
+msgid "Amortisseur"
+msgstr ""
+
+#: .\maintenance\jeux_pieces\models.py:12
+#: .\maintenance\silent_blocs\models.py:13
+msgid "Triangle"
+msgstr ""
+
+#: .\maintenance\jeux_pieces\models.py:13
+msgid "Multi-bras"
+msgstr ""
+
+#: .\maintenance\jeux_pieces\models.py:23
+msgid "Supérieur"
+msgstr ""
+
+#: .\maintenance\jeux_pieces\models.py:24
+msgid "Inférieur"
+msgstr ""
+
+#: .\maintenance\jeux_pieces\models.py:28
+msgid "Bon"
+msgstr ""
+
+#: .\maintenance\jeux_pieces\models.py:29
+msgid "Usé"
+msgstr ""
+
+#: .\maintenance\jeux_pieces\models.py:30
+msgid "Hors service"
+msgstr ""
+
+#: .\maintenance\jeux_pieces\models.py:46 .\piece\models.py:50
+msgid "Véhicule"
+msgstr ""
+
+#: .\maintenance\jeux_pieces\models.py:52
+msgid "Pièce contrôlée"
+msgstr ""
+
+#: .\maintenance\jeux_pieces\models.py:66
+#: .\maintenance\silent_blocs\models.py:45
+msgid "État"
+msgstr ""
+
+#: .\maintenance\jeux_pieces\models.py:95
+#, python-format
+msgid "%(piece)s – %(empl)s (%(etat)s / %(tag)s)"
+msgstr ""
+
+#: .\maintenance\jeux_pieces\models.py:99
+msgid "Non précisé"
+msgstr ""
+
+#: .\maintenance\jeux_pieces\models.py:106 .\maintenance\models.py:34
+msgid "Apprenti"
+msgstr ""
+
+#: .\maintenance\jeux_pieces\models.py:107 .\maintenance\models.py:26
+msgid "Mécanicien"
+msgstr ""
+
+#: .\maintenance\jeux_pieces\models.py:108
+msgid "Chef mécanicien"
+msgstr ""
+
+#: .\maintenance\models.py:9
+msgid "Vert"
+msgstr ""
+
+#: .\maintenance\models.py:10
+msgid "Jaune"
+msgstr ""
+
+#: .\maintenance\models.py:11
+msgid "Rouge"
+msgstr ""
+
+#: .\maintenance\models.py:17
+msgid "Voiture exemplaire"
+msgstr ""
+
+#: .\maintenance\models.py:42
+msgid "Apprentis"
+msgstr ""
+
+#: .\maintenance\models.py:50 .\piece\models.py:68
+msgid "Immatriculation"
+msgstr ""
+
+#: .\maintenance\models.py:51
+msgid "Date d'intervention"
+msgstr ""
+
+#: .\maintenance\models.py:53
+msgid "Date de la dernière intervention"
+msgstr ""
+
+#: .\maintenance\models.py:58
+msgid "Étiquette"
+msgstr ""
+
+#: .\maintenance\models.py:65
+msgid "Kilométrage total"
+msgstr ""
+
+#: .\maintenance\models.py:67
+msgid "Kilométrage à la dernière intervention"
+msgstr ""
+
+#: .\maintenance\models.py:71
+msgid "Kilométrage châssis"
+msgstr ""
+
+#: .\maintenance\models.py:74
+msgid "Kilométrage moteur"
+msgstr ""
+
+#: .\maintenance\models.py:75
+msgid "Kilométrage boîte"
+msgstr ""
+
+#: .\maintenance\models.py:78
+msgid "Remplacement moteur"
+msgstr ""
+
+#: .\maintenance\models.py:79
+msgid "Remplacement boîte"
+msgstr ""
+
+#: .\maintenance\models.py:83
 msgid "Maintenances"
 msgstr ""
 
-#: .\maintenance\models.py:84
+#: .\maintenance\models.py:101
 #, python-format
 msgid "Maintenance %(voiture)s (%(date)s)"
+msgstr ""
+
+#: .\maintenance\niveaux\models.py:18 .\piece\piece_fluides\models.py:35
+#: .\piece\piece_fluides\models.py:50
+msgid "Fluide"
+msgstr ""
+
+#: .\maintenance\niveaux\models.py:22
+msgid "Quantité utilisée (L)"
+msgstr ""
+
+#: .\maintenance\niveaux\models.py:23
+msgid "Quantité ajoutée ou retirée"
+msgstr ""
+
+#: .\maintenance\niveaux\models.py:28 .\piece\models.py:126
+#: .\piece\piece_fluides\models.py:62
+msgid "Commentaire"
+msgstr ""
+
+#: .\maintenance\niveaux\models.py:35
+msgid "La quantité ne peut pas être nulle."
+msgstr ""
+
+#: .\maintenance\niveaux\models.py:49
+#, python-format
+msgid "Maintenance %(id)s"
+msgstr ""
+
+#: .\maintenance\niveaux\models.py:55
+#, python-format
+msgid "%(maintenance)s – %(fluide)s (%(qte)s L)"
+msgstr ""
+
+#: .\maintenance\silent_blocs\models.py:14
+msgid "Triangle supérieur"
+msgstr ""
+
+#: .\maintenance\silent_blocs\models.py:15
+msgid "Suspension multi bras"
+msgstr ""
+
+#: .\maintenance\silent_blocs\models.py:16
+msgid "Barre stabilisatrice AV"
+msgstr ""
+
+#: .\maintenance\silent_blocs\models.py:17
+msgid "Barre stabilisatrice AR"
+msgstr ""
+
+#: .\maintenance\silent_blocs\models.py:19
+msgid "Boite vitesse"
+msgstr ""
+
+#: .\maintenance\silent_blocs\models.py:20
+msgid "Pendulaire"
+msgstr ""
+
+#: .\maintenance\silent_blocs\models.py:39
+msgid "Type de silentbloc"
+msgstr ""
+
+#: .\maintenance\silent_blocs\models.py:77
+#, python-format
+msgid "%(type)s - %(empl)s (%(etat)s)"
 msgstr ""
 
 #: .\outillage\models.py:9 .\panier\models.py:16 .\panier\models.py:71
@@ -693,10 +974,6 @@ msgstr ""
 msgid "Marque"
 msgstr ""
 
-#: .\piece\models.py:50
-msgid "Véhicule"
-msgstr ""
-
 #: .\piece\models.py:57
 msgid "Fabricants"
 msgstr ""
@@ -780,10 +1057,6 @@ msgstr ""
 
 #: .\piece\models.py:125 .\piece\piece_fluides\models.py:58
 msgid "Stock après"
-msgstr ""
-
-#: .\piece\models.py:126 .\piece\piece_fluides\models.py:62
-msgid "Commentaire"
 msgstr ""
 
 #: .\piece\models.py:127 .\piece\piece_fluides\models.py:66
@@ -1033,16 +1306,6 @@ msgstr ""
 
 #: .\piece\piece_carrosserie\models.py:8
 msgid "Droit"
-msgstr ""
-
-#: .\piece\piece_carrosserie\models.py:12
-#: .\piece\piece_roue_rechange\models.py:13
-msgid "Avant"
-msgstr ""
-
-#: .\piece\piece_carrosserie\models.py:13
-#: .\piece\piece_roue_rechange\models.py:14
-msgid "Arrière"
 msgstr ""
 
 #: .\piece\piece_carrosserie\models.py:20
@@ -1601,10 +1864,6 @@ msgstr ""
 
 #: .\piece\piece_fluides\models.py:31
 msgid "Qualité du fluide"
-msgstr ""
-
-#: .\piece\piece_fluides\models.py:35 .\piece\piece_fluides\models.py:50
-msgid "Fluide"
 msgstr ""
 
 #: .\piece\piece_fluides\models.py:36
@@ -2253,10 +2512,6 @@ msgstr ""
 msgid "Kit silent bloc"
 msgstr ""
 
-#: .\piece\piece_train_AR\models.py:17 .\piece\piece_train_AV\models.py:20
-msgid "Roulement de roue"
-msgstr ""
-
 #: .\piece\piece_train_AR\models.py:18 .\piece\piece_train_AV\models.py:21
 msgid "Moyeu"
 msgstr ""
@@ -2275,14 +2530,6 @@ msgstr ""
 
 #: .\piece\piece_train_AR\models.py:22 .\piece\piece_train_AV\models.py:25
 msgid "Ressort"
-msgstr ""
-
-#: .\piece\piece_train_AR\models.py:23 .\piece\piece_train_AV\models.py:27
-msgid "Barre stabilisatrice"
-msgstr ""
-
-#: .\piece\piece_train_AR\models.py:24 .\piece\piece_train_AV\models.py:28
-msgid "Biellette de barre stabilisatrice"
 msgstr ""
 
 #: .\piece\piece_train_AR\models.py:25
@@ -2319,10 +2566,6 @@ msgstr ""
 
 #: .\piece\piece_train_AV\models.py:17
 msgid "Barres de torsion"
-msgstr ""
-
-#: .\piece\piece_train_AV\models.py:26
-msgid "Roulement de suspension"
 msgstr ""
 
 #: .\piece\piece_train_AV\models.py:34
@@ -2432,7 +2675,9 @@ msgid "Sécurité"
 msgstr ""
 
 #: .\theme\templates\login.html:75
-msgid "L’accès est protégé. Une vérification supplémentaire peut être requise selon votre configuration de sécurité."
+msgid ""
+"L’accès est protégé. Une vérification supplémentaire peut être requise selon "
+"votre configuration de sécurité."
 msgstr ""
 
 #: .\theme\templates\login.totp.html:5 .\theme\templates\login.totp.html:13

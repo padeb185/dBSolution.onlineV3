@@ -4,41 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="Jeux Pièces">
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/bruits/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/bruits/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/bruits/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/bruits/migrations/0001_initial.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/bruits/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/bruits/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/bruits/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/bruits/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/freins/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/freins/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/freins/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/freins/migrations/0001_initial.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/freins/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/freins/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/freins/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/freins/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/jeux_pieces/migrations/0002_jeupiece_tag_notemaintenance_and_more.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/migrations/0001_initial.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/migrations/0002_initial.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/migrations/0003_maintenance_apprentis_maintenance_chef_mecanicien.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/niveaux/migrations/0001_initial.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/silent_blocs/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/silent_blocs/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/silent_blocs/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/silent_blocs/migrations/0001_initial.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/silent_blocs/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/silent_blocs/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/silent_blocs/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/silent_blocs/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/utils.py" afterDir="false" />
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="maintenances ++++">
       <change beforePath="$PROJECT_DIR$/.idea/dBSolution.onlineV3.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dBSolution.onlineV3.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/maintenance/jeux_pieces/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/jeux_pieces/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/de/LC_MESSAGES/django.mo" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/de/LC_MESSAGES/django.mo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/de/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/de/LC_MESSAGES/django.po" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/el/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/el/LC_MESSAGES/django.po" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/en/LC_MESSAGES/django.mo" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/en/LC_MESSAGES/django.mo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/en/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/en/LC_MESSAGES/django.po" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/es/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/es/LC_MESSAGES/django.po" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/fr/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/fr/LC_MESSAGES/django.po" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/it/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/it/LC_MESSAGES/django.po" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/nl/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/nl/LC_MESSAGES/django.po" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +67,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.fileTypes",
+    "settings.editor.selected.configurable": "settings.sync",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -173,15 +150,7 @@
       <workItem from="1766651473872" duration="2780000" />
       <workItem from="1766729195317" duration="6100000" />
       <workItem from="1766735400660" duration="73000" />
-      <workItem from="1766736066412" duration="11776000" />
-    </task>
-    <task id="LOCAL-00071" summary="pieces suite 4">
-      <option name="closed" value="true" />
-      <created>1766486598387</created>
-      <option name="number" value="00071" />
-      <option name="presentableId" value="LOCAL-00071" />
-      <option name="project" value="LOCAL" />
-      <updated>1766486598388</updated>
+      <workItem from="1766736066412" duration="14049000" />
     </task>
     <task id="LOCAL-00072" summary="pieces suite 5">
       <option name="closed" value="true" />
@@ -567,7 +536,15 @@
       <option name="project" value="LOCAL" />
       <updated>1766749117702</updated>
     </task>
-    <option name="localTasksCounter" value="120" />
+    <task id="LOCAL-00120" summary="maintenances ++++">
+      <option name="closed" value="true" />
+      <created>1766752212581</created>
+      <option name="number" value="00120" />
+      <option name="presentableId" value="LOCAL-00120" />
+      <option name="project" value="LOCAL" />
+      <updated>1766752212581</updated>
+    </task>
+    <option name="localTasksCounter" value="121" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -585,7 +562,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="git js theme" />
     <MESSAGE value="freins pièces" />
     <MESSAGE value="electricité electronique" />
     <MESSAGE value="electricité electronique traduction" />
@@ -610,7 +586,8 @@
     <MESSAGE value="admin ajouts" />
     <MESSAGE value="Niveaux" />
     <MESSAGE value="Jeux Pièces" />
-    <option name="LAST_COMMIT_MESSAGE" value="Jeux Pièces" />
+    <MESSAGE value="maintenances ++++" />
+    <option name="LAST_COMMIT_MESSAGE" value="maintenances ++++" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
