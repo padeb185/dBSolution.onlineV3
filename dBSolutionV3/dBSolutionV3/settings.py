@@ -110,6 +110,8 @@ TENANT_APPS = (
     'maintenance.silent_blocs',
     'maintenance.bruits',
     'maintenance.controle_check_up',
+    'maintenance.nettoyage_interieur',
+    'maintenance.nettoyage_exterieur',
 
 
     #'piece.piece_ligne_achat',
