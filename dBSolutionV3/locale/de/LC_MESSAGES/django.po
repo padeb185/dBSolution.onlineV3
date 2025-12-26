@@ -1243,6 +1243,7 @@ msgid "Pièces de direction"
 msgstr "Lenkungsteile"
 
 #: .\piece\piece_echappement\models.py:9
+#: .\piece\piece_moteur\models.py:39
 msgid "Collecteur d'échappement"
 msgstr "Abgaskrümmer"
 
@@ -2051,9 +2052,6 @@ msgstr "Glühkerzen"
 msgid "Collecteur d'admission"
 msgstr "Ansaugkrümmer"
 
-#: .\piece\piece_moteur\models.py:39
-msgid "Collecteur d'échappement"
-msgstr "Abgaskrümmer"
 
 #: .\piece\piece_moteur\models.py:40
 msgid "Injecteurs"

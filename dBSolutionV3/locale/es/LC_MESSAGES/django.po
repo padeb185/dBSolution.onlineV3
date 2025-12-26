@@ -2467,12 +2467,8 @@ msgid "Sécurité"
 msgstr "Seguridad"
 
 #: .\theme\templates\login.html:75
-msgid ""
-"L’accès est protégé. Une vérification supplémentaire peut être requise selon "
-"votre configuration de sécurité."
-msgstr ""
-"El acceso está protegido. Puede requerirse una verificación adicional según "
-"tu configuración de seguridad."
+msgid "L’accès est protégé. Une vérification supplémentaire peut être requise selon votre configuration de sécurité."
+msgstr "El acceso está protegido. Puede requerirse una verificación adicional según tu configuración de seguridad."
 
 #: .\theme\templates\login.totp.html:5 .\theme\templates\login.totp.html:13
 msgid "Connexion sécurisée"

@@ -4,15 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="traduction en fin attention à corriger">
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="traduction correction">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/el/LC_MESSAGES/django.mo" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/el/LC_MESSAGES/django.mo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/el/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/el/LC_MESSAGES/django.po" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/de/LC_MESSAGES/django.mo" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/de/LC_MESSAGES/django.mo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/de/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/de/LC_MESSAGES/django.po" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/en/LC_MESSAGES/django.mo" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/en/LC_MESSAGES/django.mo" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/en/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/en/LC_MESSAGES/django.po" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/es/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/es/LC_MESSAGES/django.po" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/fr/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/fr/LC_MESSAGES/django.po" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/it/LC_MESSAGES/django.mo" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/it/LC_MESSAGES/django.mo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/it/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/it/LC_MESSAGES/django.po" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/nl/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/nl/LC_MESSAGES/django.po" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -145,15 +144,7 @@
       <workItem from="1766592494791" duration="894000" />
       <workItem from="1766594168550" duration="1642000" />
       <workItem from="1766651473872" duration="2780000" />
-      <workItem from="1766729195317" duration="4486000" />
-    </task>
-    <task id="LOCAL-00065" summary="pieces et fluides  suppression">
-      <option name="closed" value="true" />
-      <created>1766419846433</created>
-      <option name="number" value="00065" />
-      <option name="presentableId" value="LOCAL-00065" />
-      <option name="project" value="LOCAL" />
-      <updated>1766419846434</updated>
+      <workItem from="1766729195317" duration="5900000" />
     </task>
     <task id="LOCAL-00066" summary="pieces moteur">
       <option name="closed" value="true" />
@@ -539,7 +530,15 @@
       <option name="project" value="LOCAL" />
       <updated>1766730769422</updated>
     </task>
-    <option name="localTasksCounter" value="114" />
+    <task id="LOCAL-00114" summary="traduction correction">
+      <option name="closed" value="true" />
+      <created>1766733749313</created>
+      <option name="number" value="00114" />
+      <option name="presentableId" value="LOCAL-00114" />
+      <option name="project" value="LOCAL" />
+      <updated>1766733749313</updated>
+    </task>
+    <option name="localTasksCounter" value="115" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -557,7 +556,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="roue rechange piece" />
     <MESSAGE value="client societe cliente" />
     <MESSAGE value="client societe cliente 2" />
     <MESSAGE value="outillage investissements" />
@@ -582,7 +580,8 @@
     <MESSAGE value="traduction es début" />
     <MESSAGE value="traduction es fin" />
     <MESSAGE value="traduction en fin attention à corriger" />
-    <option name="LAST_COMMIT_MESSAGE" value="traduction en fin attention à corriger" />
+    <MESSAGE value="traduction correction" />
+    <option name="LAST_COMMIT_MESSAGE" value="traduction correction" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

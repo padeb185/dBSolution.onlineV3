@@ -867,8 +867,6 @@ msgid "Type d’ampoule"
 msgstr "Bulb type"
 
 #: .\piece\piece_ampoules\models.py:46
-#, fuzzy
-#| msgid "Codes-barres"
 msgid "Code-barres"
 msgstr "Barcodes"
 
@@ -2352,65 +2350,61 @@ msgstr "Front axle parts"
 
 #: .\theme\templates\base.html:9
 msgid "dBSolution"
-msgstr ""
+msgstr "dBSolution"
 
 #: .\theme\templates\base.html:19
 msgid "Accueil"
-msgstr ""
+msgstr "Home"
 
 #: .\theme\templates\base.html:20
 msgid "Tableau de Bord"
-msgstr ""
+msgstr "Dashboard"
 
 #: .\theme\templates\base.html:32
 msgid "Changer de langue"
-msgstr ""
+msgstr "Change language"
 
 #: .\theme\templates\dashboard.html:7
 msgid "Tableau de bord"
-msgstr ""
+msgstr "Dashboard"
 
 #: .\theme\templates\dashboard.html:16
 msgid "Utilisateurs"
-msgstr ""
+msgstr "Users"
 
 #: .\theme\templates\dashboard.html:17
-#, fuzzy
-#| msgid "Kilométrage total"
 msgid "Nombre total :"
-msgstr "Total mileage"
+msgstr "Total:"
 
 #: .\theme\templates\dashboard.html:22
 msgid "Projets"
-msgstr ""
+msgstr "Projects"
 
 #: .\theme\templates\dashboard.html:23
 msgid "Projets actifs :"
-msgstr ""
+msgstr "Active projects:"
 
 #: .\theme\templates\dashboard.html:28
-#, fuzzy
-#| msgid "Location"
 msgid "Notifications"
-msgstr "Rental"
+msgstr "Notifications"
 
 #: .\theme\templates\dashboard.html:29
 msgid "Messages non lus :"
-msgstr ""
+msgstr "Unread messages:"
 
 #: .\theme\templates\dashboard.html:36
 msgid "Dernières activités"
-msgstr ""
+msgstr "Recent activities"
+
+
 
 #: .\theme\templates\dashboard.html:41
 msgid "Utilisateur"
-msgstr ""
+msgstr "User"
 
 #: .\theme\templates\dashboard.html:42
-#, fuzzy
-#| msgid "Actif"
 msgid "Action"
-msgstr "Active"
+msgstr "Action"
 
 #: .\theme\templates\dashboard.html:49 .\theme\templates\login.html:5
 #: .\theme\templates\login.html:9
@@ -2451,18 +2445,13 @@ msgid "Sécurité"
 msgstr "Security"
 
 #: .\theme\templates\login.html:75
-msgid ""
-"L’accès est protégé. Une vérification supplémentaire peut être requise selon "
-"votre configuration de sécurité."
-msgstr ""
-"Access is protected. Additional verification may be required depending on "
-"your security settings."
+msgid "L’accès est protégé. Une vérification supplémentaire peut être requise selon votre configuration de sécurité."
+msgstr "Access is protected. Additional verification may be required depending on your security settings."
 
 #: .\theme\templates\login.totp.html:5 .\theme\templates\login.totp.html:13
-#, fuzzy
-#| msgid "Ceinture de sécurité"
 msgid "Connexion sécurisée"
-msgstr "Seat belt"
+msgstr "Secure login"
+
 
 #: .\theme\templates\login.totp.html:17
 msgid "Veuillez entrer le code généré par Google Authenticator"
