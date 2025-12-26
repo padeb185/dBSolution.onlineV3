@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+
 class TypePieceControle(models.TextChoices):
     ROTULE_DIRECTION = "ROTULE_DIRECTION", _("Rotule de direction")
     ROTULE_SUSPENSION = "ROTULE_SUSPENSION", _("Rotule de suspension")
@@ -10,7 +11,6 @@ class TypePieceControle(models.TextChoices):
     ROULEMENT_ROUE = "ROULEMENT_ROUE", _("Roulement de roue")
     TRIANGLE = "TRIANGLE", _("Triangle")
     MULTI_BRAS = "MULTI_BRAS", _("Multi-bras")
-
 
 
 class Emplacement(models.TextChoices):
@@ -24,12 +24,10 @@ class Emplacement(models.TextChoices):
     INF = "INF", _("Inférieur")
 
 
-
 class EtatPiece(models.TextChoices):
     BON = "BON", _("Bon")
     USE = "USE", _("Usé")
     HS = "HS", _("Hors service")
-
 
 
 class JeuPiece(models.Model):
@@ -68,6 +66,19 @@ class JeuPiece(models.Model):
         verbose_name=_("État")
     )
 
+    TAG_CHOICES = [
+        ("VERT", "Vert"),
+        ("JAUNE", "Jaune"),
+        ("ROUGE", "Rouge"),  # critique
+    ]
+
+    tag = models.CharField(
+        max_length=10,
+        choices=TAG_CHOICES,
+        default="VERT",
+        verbose_name=_("État visuel / Tag")
+    )
+
     commentaire = models.TextField(
         blank=True,
         verbose_name=_("Observation")
@@ -75,35 +86,47 @@ class JeuPiece(models.Model):
 
     date = models.DateTimeField(auto_now_add=True)
 
+    def is_critique(self):
+        """Renvoie True si la pièce est critique (tag rouge)."""
+        return self.tag == "ROUGE"
+
     def __str__(self):
         return _(
-            "%(piece)s – %(empl)s (%(etat)s)"
+            "%(piece)s – %(empl)s (%(etat)s / %(tag)s)"
         ) % {
             "piece": self.get_type_piece_display(),
             "empl": self.get_emplacement_display(),
-            "etat": self.get_etat_display() if self.etat else _("Non précisé")
+            "etat": self.get_etat_display() if self.etat else _("Non précisé"),
+            "tag": self.tag
         }
 
 
+class NoteMaintenance(models.Model):
+    ROLE_CHOICES = [
+        ("APPRENTI", _("Apprenti")),
+        ("MECANICIEN", _("Mécanicien")),
+        ("CHEF", _("Chef mécanicien")),
+    ]
 
-class RapportMaintenance(models.Model):
-    maintenance = models.OneToOneField(
+    maintenance = models.ForeignKey(
         "maintenance.Maintenance",
         on_delete=models.CASCADE,
-        related_name="rapport"
+        related_name="notes"
     )
 
     auteur = models.ForeignKey(
         "utilisateurs.Utilisateur",
-        on_delete=models.PROTECT,
-        verbose_name=_("Rédigé par")
+        on_delete=models.PROTECT
     )
 
-    note_generale = models.TextField(
-        verbose_name=_("Note générale / rapport")
+    role = models.CharField(
+        max_length=20,
+        choices=ROLE_CHOICES
     )
+
+    note = models.TextField()
 
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return _("Rapport maintenance %(id)s") % {"id": self.maintenance.id}
+        return f"Note de {self.role} – {self.date.strftime('%Y-%m-%d %H:%M')}"

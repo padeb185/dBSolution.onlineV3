@@ -4,10 +4,41 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="Niveaux">
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="Jeux Pièces">
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/bruits/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/bruits/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/bruits/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/bruits/migrations/0001_initial.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/bruits/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/bruits/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/bruits/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/bruits/views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/freins/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/freins/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/freins/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/freins/migrations/0001_initial.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/freins/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/freins/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/freins/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/freins/views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/jeux_pieces/migrations/0002_jeupiece_tag_notemaintenance_and_more.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/migrations/0001_initial.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/migrations/0002_initial.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/migrations/0003_maintenance_apprentis_maintenance_chef_mecanicien.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/niveaux/migrations/0001_initial.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/silent_blocs/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/silent_blocs/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/silent_blocs/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/silent_blocs/migrations/0001_initial.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/silent_blocs/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/silent_blocs/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/silent_blocs/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/silent_blocs/views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dBSolution.onlineV3.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dBSolution.onlineV3.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/maintenance/niveaux/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/niveaux/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/maintenance/jeux_pieces/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/jeux_pieces/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,23 +76,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/pierr/PycharmProjects/dBSolution.onlineV3&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/pierr/PycharmProjects/dBSolution.onlineV3",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.fileTypes",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3\dBSolutionV3\theme\static\images" />
@@ -69,10 +101,10 @@
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3\dBSolutionV3\maintenance" />
+      <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3\dBSolutionV3\maintenance\niveaux" />
       <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3\dBSolutionV3\client" />
       <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3\dBSolutionV3\piece" />
       <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3\dBSolutionV3\voiture" />
-      <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3\dBSolutionV3\utilisateurs" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -141,15 +173,7 @@
       <workItem from="1766651473872" duration="2780000" />
       <workItem from="1766729195317" duration="6100000" />
       <workItem from="1766735400660" duration="73000" />
-      <workItem from="1766736066412" duration="8607000" />
-    </task>
-    <task id="LOCAL-00070" summary="pieces suite 3">
-      <option name="closed" value="true" />
-      <created>1766485494466</created>
-      <option name="number" value="00070" />
-      <option name="presentableId" value="LOCAL-00070" />
-      <option name="project" value="LOCAL" />
-      <updated>1766485494466</updated>
+      <workItem from="1766736066412" duration="11776000" />
     </task>
     <task id="LOCAL-00071" summary="pieces suite 4">
       <option name="closed" value="true" />
@@ -535,7 +559,15 @@
       <option name="project" value="LOCAL" />
       <updated>1766748186710</updated>
     </task>
-    <option name="localTasksCounter" value="119" />
+    <task id="LOCAL-00119" summary="Jeux Pièces">
+      <option name="closed" value="true" />
+      <created>1766749117702</created>
+      <option name="number" value="00119" />
+      <option name="presentableId" value="LOCAL-00119" />
+      <option name="project" value="LOCAL" />
+      <updated>1766749117702</updated>
+    </task>
+    <option name="localTasksCounter" value="120" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -553,7 +585,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="utilisateur et maintenance" />
     <MESSAGE value="git js theme" />
     <MESSAGE value="freins pièces" />
     <MESSAGE value="electricité electronique" />
@@ -578,14 +609,15 @@
     <MESSAGE value="traduction correction fin" />
     <MESSAGE value="admin ajouts" />
     <MESSAGE value="Niveaux" />
-    <option name="LAST_COMMIT_MESSAGE" value="Niveaux" />
+    <MESSAGE value="Jeux Pièces" />
+    <option name="LAST_COMMIT_MESSAGE" value="Jeux Pièces" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py</url>
-          <line>310</line>
+          <line>313</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
