@@ -104,6 +104,8 @@ TENANT_APPS = (
     'maintenance',
     'maintenance.check_up',
     'maintenance.entretien',
+    'maintenance.niveaux',
+    'maintenance.jeux_pieces',
 
 
     #'piece.piece_ligne_achat',

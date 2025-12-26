@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="Niveaux">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/maintenance/niveaux/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/niveaux/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/maintenance/niveaux/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/niveaux/apps.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,15 +141,7 @@
       <workItem from="1766651473872" duration="2780000" />
       <workItem from="1766729195317" duration="6100000" />
       <workItem from="1766735400660" duration="73000" />
-      <workItem from="1766736066412" duration="7832000" />
-    </task>
-    <task id="LOCAL-00069" summary="pieces suite 2">
-      <option name="closed" value="true" />
-      <created>1766484750356</created>
-      <option name="number" value="00069" />
-      <option name="presentableId" value="LOCAL-00069" />
-      <option name="project" value="LOCAL" />
-      <updated>1766484750356</updated>
+      <workItem from="1766736066412" duration="8607000" />
     </task>
     <task id="LOCAL-00070" summary="pieces suite 3">
       <option name="closed" value="true" />
@@ -534,7 +527,15 @@
       <option name="project" value="LOCAL" />
       <updated>1766747841209</updated>
     </task>
-    <option name="localTasksCounter" value="118" />
+    <task id="LOCAL-00118" summary="Niveaux">
+      <option name="closed" value="true" />
+      <created>1766748186710</created>
+      <option name="number" value="00118" />
+      <option name="presentableId" value="LOCAL-00118" />
+      <option name="project" value="LOCAL" />
+      <updated>1766748186710</updated>
+    </task>
+    <option name="localTasksCounter" value="119" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -584,7 +585,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py</url>
-          <line>308</line>
+          <line>310</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">

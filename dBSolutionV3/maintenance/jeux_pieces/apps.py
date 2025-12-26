@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class NiveauxConfig(AppConfig):
+class JeuxPiecesConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'maintenance.niveaux'
+    name = 'maintenance.jeux_pieces'
