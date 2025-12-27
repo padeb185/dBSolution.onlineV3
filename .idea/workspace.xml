@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="traduction allemand">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="traduction grec">
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/el/LC_MESSAGES/django.mo" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/el/LC_MESSAGES/django.mo" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/el/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/el/LC_MESSAGES/django.po" afterDir="false" />
     </list>
@@ -145,15 +144,7 @@
       <workItem from="1766735400660" duration="73000" />
       <workItem from="1766736066412" duration="14242000" />
       <workItem from="1766758168982" duration="12241000" />
-      <workItem from="1766819518826" duration="9357000" />
-    </task>
-    <task id="LOCAL-00082" summary="client societe cliente 2">
-      <option name="closed" value="true" />
-      <created>1766499624246</created>
-      <option name="number" value="00082" />
-      <option name="presentableId" value="LOCAL-00082" />
-      <option name="project" value="LOCAL" />
-      <updated>1766499624246</updated>
+      <workItem from="1766819518826" duration="9721000" />
     </task>
     <task id="LOCAL-00083" summary="outillage investissements">
       <option name="closed" value="true" />
@@ -539,7 +530,15 @@
       <option name="project" value="LOCAL" />
       <updated>1766825209731</updated>
     </task>
-    <option name="localTasksCounter" value="131" />
+    <task id="LOCAL-00131" summary="traduction grec">
+      <option name="closed" value="true" />
+      <created>1766836325081</created>
+      <option name="number" value="00131" />
+      <option name="presentableId" value="LOCAL-00131" />
+      <option name="project" value="LOCAL" />
+      <updated>1766836325081</updated>
+    </task>
+    <option name="localTasksCounter" value="132" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -557,7 +556,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="traduction tout" />
     <MESSAGE value="i18N 2" />
     <MESSAGE value="traductions suite" />
     <MESSAGE value="accueil" />
@@ -582,7 +580,8 @@
     <MESSAGE value="traduction nl" />
     <MESSAGE value="traduction espagnol" />
     <MESSAGE value="traduction allemand" />
-    <option name="LAST_COMMIT_MESSAGE" value="traduction allemand" />
+    <MESSAGE value="traduction grec" />
+    <option name="LAST_COMMIT_MESSAGE" value="traduction grec" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

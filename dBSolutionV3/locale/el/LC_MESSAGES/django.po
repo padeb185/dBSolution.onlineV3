@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-27 08:56+0100\n"
+"POT-Creation-Date: 2025-12-27 12:55+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -407,7 +407,7 @@ msgstr "Προμηθευτές"
 #: .\fournisseur\models.py:62
 #, python-format
 msgid "%(nom)s (Fournisseur)"
-msgstr "%(nom)s (Προμηθευτής)"
+msgstr "%(nom)s (Fournisseur)"
 
 #: .\fuel\models.py:9
 msgid "Essence"
@@ -629,11 +629,6 @@ msgstr "Κινητήρας"
 msgid "Boîte de vitesse"
 msgstr "Σασμάν / Κιβώτιο ταχυτήτων"
 
-
-
-
-
-
 #: .\maintenance\bruits\models.py:24
 #: .\maintenance\controle_check_up\models.py:32
 #: .\maintenance\freins\models.py:17 .\maintenance\jeux_pieces\models.py:38
@@ -734,7 +729,6 @@ msgstr "Κατάσταση υγρού φρένων"
 msgid "Remplacement liquide de frein"
 msgstr "Αντικατάσταση υγρού φρένων"
 
-
 #: .\maintenance\controle_check_up\models.py:72
 msgid "Spécification liquide de frein"
 msgstr "Προδιαγραφή υγρού φρένων"
@@ -777,7 +771,6 @@ msgstr "Γενικός έλεγχος – Συντήρηση %(id)s"
 #: .\maintenance\controle_check_up\models.py:117
 msgid "Fuite"
 msgstr "Διαρροή"
-
 
 #: .\maintenance\controle_check_up\models.py:120
 #: .\maintenance\jeux_pieces\models.py:10
@@ -853,7 +846,6 @@ msgstr "Σφαιρικός σύνδεσμος διεύθυνσης"
 msgid "Rotule de suspension"
 msgstr "Σφαιρικός σύνδεσμος ανάρτησης"
 
-
 #: .\maintenance\jeux_pieces\models.py:8 .\piece\piece_train_AR\models.py:24
 #: .\piece\piece_train_AV\models.py:28
 msgid "Biellette de barre stabilisatrice"
@@ -889,7 +881,6 @@ msgstr "Εκτός λειτουργίας"
 msgid "Pièce contrôlée"
 msgstr "Ελεγχόμενο εξάρτημα"
 
-
 #: .\maintenance\jeux_pieces\models.py:95
 #, python-format
 msgid "%(piece)s – %(empl)s (%(etat)s / %(tag)s)"
@@ -902,7 +893,6 @@ msgstr "Μη καθορισμένο"
 #: .\maintenance\jeux_pieces\models.py:106 .\maintenance\models.py:34
 msgid "Apprenti"
 msgstr "Μαθητευόμενος"
-
 
 #: .\maintenance\jeux_pieces\models.py:107 .\maintenance\models.py:26
 #: .\maintenance\nettoyage_exterieur\models.py:25
@@ -1067,14 +1057,13 @@ msgstr "Σχόλιο"
 msgid "La quantité ne peut pas être nulle."
 msgstr "Η ποσότητα δεν μπορεί να είναι μηδενική."
 
-
 #: .\maintenance\niveaux\models.py:49
 #, python-format
 msgid "Maintenance %(id)s"
 msgstr "Συντήρηση %(id)s"
 
-
 #: .\maintenance\niveaux\models.py:55
+#, python-format
 msgid "%(maintenance)s – %(fluide)s (%(qte)s L)"
 msgstr "%(maintenance)s – %(fluide)s (%(qte)s L)"
 
@@ -1093,6 +1082,7 @@ msgstr "Σταθεροποιητική ράβδος"
 #: .\maintenance\silent_blocs\models.py:17
 msgid "Barre stabilisatrice AR"
 msgstr "Σταθεροποιητική ράβδος"
+
 #: .\maintenance\silent_blocs\models.py:19
 msgid "Boite vitesse"
 msgstr "Κιβώτιο ταχυτήτων"
@@ -1473,6 +1463,7 @@ msgstr "Μηχανικό κιβώτιο %(vitesses)s ταχυτήτων"
 #: .\piece\piece_boite\models.py:83
 msgid "4 vitesses"
 msgstr "4 ταχυτήτων"
+
 #: .\piece\piece_boite\models.py:86
 msgid "8 vitesses"
 msgstr "8 ταχυτήτων"
@@ -1805,6 +1796,7 @@ msgstr "Αντλία πλύσης πίσω"
 #: .\piece\piece_electricite\models.py:17
 msgid "Klaxon"
 msgstr "Κορνάρισμα"
+
 #: .\piece\piece_electronique\models.py:9
 msgid "Débitmètre"
 msgstr "Μετρητής ροής"
@@ -1816,7 +1808,6 @@ msgstr "Αισθητήρας θερμοκρασίας νερού"
 #: .\piece\piece_electronique\models.py:11
 msgid "Sonde de température d’huile"
 msgstr "Αισθητήρας θερμοκρασίας λαδιού"
-
 
 #: .\piece\piece_electronique\models.py:12
 msgid "Capteur de cliquetis"
@@ -2070,12 +2061,12 @@ msgstr "Φλας Πίσω Δεξιά"
 msgid "Type / Position du feu"
 msgstr "Τύπος / Θέση φαναριού"
 
-
 #: .\piece\piece_feux\models.py:33
 msgid "Feux"
 msgstr "Φανάρια"
 
 #: .\piece\piece_feux\models.py:36
+#, python-format
 msgid "%(organe)s - %(type)s"
 msgstr "%(organe)s - %(type)s"
 
@@ -2108,6 +2099,7 @@ msgid "Filtres"
 msgstr "Φίλτρα"
 
 #: .\piece\piece_filtres\models.py:30 .\piece\piece_fluides\models.py:39
+#, python-format
 msgid "%(nom)s (%(type)s)"
 msgstr "%(nom)s %(type)s)"
 
@@ -2857,7 +2849,6 @@ msgstr "dBSolution"
 msgid "Accueil"
 msgstr "Αρχική"
 
-
 #: .\theme\templates\base.html:20
 msgid "Tableau de Bord"
 msgstr "Πίνακας ελέγχου"
@@ -2941,8 +2932,12 @@ msgid "Sécurité"
 msgstr "Ασφάλεια"
 
 #: .\theme\templates\login.html:75
-msgid "L’accès est protégé. Une vérification supplémentaire peut être requise selon votre configuration de sécurité."
-msgstr "Η πρόσβαση είναι προστατευμένη. Ενδέχεται να απαιτηθεί επιπλέον έλεγχος σύμφωνα με τις ρυθμίσεις ασφάλειάς σας."
+msgid ""
+"L’accès est protégé. Une vérification supplémentaire peut être requise selon "
+"votre configuration de sécurité."
+msgstr ""
+"Η πρόσβαση είναι προστατευμένη. Ενδέχεται να απαιτηθεί επιπλέον έλεγχος "
+"σύμφωνα με τις ρυθμίσεις ασφάλειάς σας."
 
 #: .\theme\templates\login.totp.html:5 .\theme\templates\login.totp.html:13
 msgid "Connexion sécurisée"
@@ -2950,7 +2945,8 @@ msgstr "Ασφαλής σύνδεση"
 
 #: .\theme\templates\login.totp.html:17
 msgid "Veuillez entrer le code généré par Google Authenticator"
-msgstr "Παρακαλώ εισάγετε τον κωδικό που δημιουργήθηκε από το Google Authenticator"
+msgstr ""
+"Παρακαλώ εισάγετε τον κωδικό που δημιουργήθηκε από το Google Authenticator"
 
 #: .\theme\templates\totp\setup.html:5
 msgid "Configurer TOTP"
@@ -2974,7 +2970,9 @@ msgstr "QR Κώδικας TOTP"
 
 #: .\theme\templates\totp\setup.html:23
 msgid "Si tu ne peux pas scanner le QR code, utilise ce code secret :"
-msgstr "Αν δεν μπορείτε να σαρώσετε τον QR κώδικα, χρησιμοποιήστε αυτόν τον μυστικό κωδικό:"
+msgstr ""
+"Αν δεν μπορείτε να σαρώσετε τον QR κώδικα, χρησιμοποιήστε αυτόν τον μυστικό "
+"κωδικό:"
 
 #: .\theme\templates\totp\setup.html:28
 msgid "J’ai configuré Google Authenticator"
