@@ -411,11 +411,11 @@ msgstr "%(nom)s (Προμηθευτής)"
 
 #: .\fuel\models.py:9
 msgid "Essence"
-msgstr ""
+msgstr "Βενζίνη"
 
 #: .\fuel\models.py:10
 msgid "Diesel"
-msgstr ""
+msgstr "Ντίζελ"
 
 #: .\fuel\models.py:20 .\piece\models.py:41 .\piece\models.py:99
 #: .\piece\models.py:108
@@ -437,52 +437,40 @@ msgid "Immatriculation"
 msgstr "Άδεια κυκλοφορίας"
 
 #: .\fuel\models.py:39
-#, fuzzy
-#| msgid "Type de pneu"
 msgid "Type de carburant"
-msgstr "Τύπος ελαστικού"
+msgstr "Τύπος καυσίμου"
 
 #: .\fuel\models.py:42
 msgid "Volume max (L)"
-msgstr ""
+msgstr "Μέγιστος όγκος (L)"
 
 #: .\fuel\models.py:43
-#, fuzzy
-#| msgid "Date de création"
 msgid "Date du plein"
-msgstr "Ημερομηνία δημιουργίας"
+msgstr "Ημερομηνία γέμισματος"
 
 #: .\fuel\models.py:44
 msgid "Litres"
-msgstr ""
+msgstr "Λίτρα"
 
 #: .\fuel\models.py:45
 msgid "Prix du plein (€)"
-msgstr ""
+msgstr "Τιμή πλήρωσης (€)"
 
 #: .\fuel\models.py:46
-#, fuzzy
-#| msgid "Prix unitaire"
 msgid "Prix au litre (€)"
-msgstr "Τιμή ανά μονάδα"
+msgstr "Τιμή ανά λίτρο (€)"
 
 #: .\fuel\models.py:48
-#, fuzzy
-#| msgid "Variation"
 msgid "Validation"
-msgstr "Μεταβολή"
+msgstr "Επιβεβαίωση"
 
 #: .\fuel\models.py:51
-#, fuzzy
-#| msgid "Durite Carburant"
 msgid "Carburant"
-msgstr "Σωλήνας καυσίμου"
+msgstr "Καύσιμο"
 
 #: .\fuel\models.py:52
-#, fuzzy
-#| msgid "Fabricants"
 msgid "Carburants"
-msgstr "Κατασκευαστές"
+msgstr "Καύσιμα"
 
 #: .\investissements\models.py:18 .\maintenance\bruits\models.py:17
 #: .\piece\piece_train_AR\models.py:8
@@ -585,7 +573,7 @@ msgstr "%(libelle)s - Προμηθευτής: %(fournisseur)s"
 #: .\piece\piece_carrosserie\models.py:12
 #: .\piece\piece_roue_rechange\models.py:13
 msgid "Avant"
-msgstr ""
+msgstr "Μπροστά"
 
 #: .\maintenance\bruits\models.py:6 .\maintenance\controle_check_up\models.py:8
 #: .\maintenance\freins\models.py:8 .\maintenance\jeux_pieces\models.py:22
@@ -593,7 +581,7 @@ msgstr ""
 #: .\piece\piece_carrosserie\models.py:13
 #: .\piece\piece_roue_rechange\models.py:14
 msgid "Arrière"
-msgstr ""
+msgstr "Πίσω"
 
 #: .\maintenance\bruits\models.py:7 .\maintenance\controle_check_up\models.py:9
 #: .\maintenance\jeux_pieces\models.py:17
@@ -607,28 +595,22 @@ msgstr "Πλευρά αριστερά"
 #: .\maintenance\controle_check_up\models.py:10
 #: .\maintenance\jeux_pieces\models.py:18
 #: .\maintenance\silent_blocs\models.py:8
-#, fuzzy
-#| msgid "Latéral droit"
 msgid "Avant droit"
-msgstr "Πλευρά δεξιά"
+msgstr "Μπροστά δεξιά"
 
 #: .\maintenance\bruits\models.py:9
 #: .\maintenance\controle_check_up\models.py:11
 #: .\maintenance\jeux_pieces\models.py:19
 #: .\maintenance\silent_blocs\models.py:9
-#, fuzzy
-#| msgid "Siège arrière gauche"
 msgid "Arrière gauche"
-msgstr "Κάθισμα πίσω αριστερά"
+msgstr "Πίσω αριστερά"
 
 #: .\maintenance\bruits\models.py:10
 #: .\maintenance\controle_check_up\models.py:12
 #: .\maintenance\jeux_pieces\models.py:20
 #: .\maintenance\silent_blocs\models.py:10
-#, fuzzy
-#| msgid "Siège arrière droit"
 msgid "Arrière droit"
-msgstr "Κάθισμα πίσω δεξιά"
+msgstr "Πίσω δεξιά"
 
 #: .\maintenance\bruits\models.py:13 .\maintenance\jeux_pieces\models.py:11
 #: .\piece\piece_train_AR\models.py:17 .\piece\piece_train_AV\models.py:20
@@ -640,16 +622,17 @@ msgid "Roulement de suspension"
 msgstr "Ρουλεμάν ανάρτησης"
 
 #: .\maintenance\bruits\models.py:15 .\maintenance\silent_blocs\models.py:18
-#, fuzzy
-#| msgid "Conducteur"
 msgid "Moteur"
-msgstr "Οδηγός"
+msgstr "Κινητήρας"
 
 #: .\maintenance\bruits\models.py:16
-#, fuzzy
-#| msgid "Indice de vitesse"
 msgid "Boîte de vitesse"
-msgstr "Δείκτης ταχύτητας"
+msgstr "Σασμάν / Κιβώτιο ταχυτήτων"
+
+
+
+
+
 
 #: .\maintenance\bruits\models.py:24
 #: .\maintenance\controle_check_up\models.py:32
@@ -664,186 +647,156 @@ msgstr "Συντήρηση"
 #: .\maintenance\controle_check_up\models.py:137
 #: .\maintenance\jeux_pieces\models.py:58
 #: .\maintenance\silent_blocs\models.py:33
-#, fuzzy
-#| msgid "Emplacement étagère"
 msgid "Emplacement"
-msgstr "Θέση ραφιού"
+msgstr "Θέση"
 
 #: .\maintenance\bruits\models.py:36
-#, fuzzy
-#| msgid "Type de pneu"
 msgid "Type de composant"
-msgstr "Τύπος ελαστικού"
+msgstr "Τύπος εξαρτήματος"
 
 #: .\maintenance\bruits\models.py:41
 msgid "Normal"
-msgstr ""
+msgstr "Κανονικό"
 
 #: .\maintenance\bruits\models.py:41
 msgid "Anormal"
-msgstr ""
+msgstr "Ανόμαλο"
 
 #: .\maintenance\bruits\models.py:43
-#, fuzzy
-#| msgid "Tableau de bord"
 msgid "Niveau de bruit"
-msgstr "Πίνακας ελέγχου"
+msgstr "Επίπεδο θορύβου"
 
 #: .\maintenance\bruits\models.py:48 .\maintenance\jeux_pieces\models.py:84
 #: .\maintenance\silent_blocs\models.py:50
-#, fuzzy
-#| msgid "Intervention"
 msgid "Observation"
-msgstr "Επέμβαση"
+msgstr "Παρατήρηση"
 
 #: .\maintenance\bruits\models.py:60 .\maintenance\jeux_pieces\models.py:79
 #: .\maintenance\silent_blocs\models.py:63
 msgid "État visuel / Tag"
-msgstr ""
+msgstr "Οπτική κατάσταση / Ετικέτα"
 
 #: .\maintenance\bruits\models.py:74
-#, fuzzy, python-format
-#| msgid "%(type)s – %(piece)s"
+#, python-format
 msgid "%(type)s - %(empl)s (%(niveau)s)"
-msgstr "%(type)s – %(piece)s"
+msgstr "%(type)s - %(empl)s (%(niveau)s)"
 
 #: .\maintenance\controle_check_up\models.py:13
 #: .\maintenance\jeux_pieces\models.py:23
 msgid "Supérieur"
-msgstr ""
+msgstr "Άνω"
 
 #: .\maintenance\controle_check_up\models.py:14
 #: .\maintenance\jeux_pieces\models.py:24
 msgid "Inférieur"
-msgstr ""
+msgstr "Κάτω"
 
 #: .\maintenance\controle_check_up\models.py:18
 #: .\maintenance\controle_check_up\models.py:23
 #: .\maintenance\controle_check_up\models.py:141
 msgid "OK"
-msgstr ""
+msgstr "Εντάξει"
 
 #: .\maintenance\controle_check_up\models.py:19
 #: .\maintenance\controle_check_up\models.py:24
-#, fuzzy
-#| msgid "Pompe lave-glace avant"
 msgid "À remplacer"
-msgstr "Αντλία πλύσης εμπρός"
+msgstr "Να αντικατασταθεί"
 
 #: .\maintenance\controle_check_up\models.py:38
 msgid "Emplacement / partie du véhicule"
-msgstr ""
+msgstr "Θέση / μέρος του οχήματος"
 
 #: .\maintenance\controle_check_up\models.py:44
 msgid "Essuie-glace AV fonctionnel"
-msgstr ""
+msgstr "Λειτουργικός εμπρόσθιος υαλοκαθαριστήρας"
 
 #: .\maintenance\controle_check_up\models.py:45
 msgid "Essuie-glace AR fonctionnel"
-msgstr ""
+msgstr "Λειτουργικός οπίσθιος υαλοκαθαριστήρας"
 
 #: .\maintenance\controle_check_up\models.py:46
 msgid "Pare_Brise sans coups"
-msgstr ""
+msgstr "Παρμπρίζ χωρίς χτυπήματα"
 
 #: .\maintenance\controle_check_up\models.py:53
-#, fuzzy
-#| msgid "Pièce moteur"
 msgid "Fuite moteur"
-msgstr "Εξάρτημα κινητήρα"
+msgstr "Διαρροή κινητήρα"
 
 #: .\maintenance\controle_check_up\models.py:61
-#, fuzzy
-#| msgid "Indice de vitesse"
 msgid "Fuite boîte de vitesse"
-msgstr "Δείκτης ταχύτητας"
+msgstr "Διαρροή κιβωτίου ταχυτήτων"
 
 #: .\maintenance\controle_check_up\models.py:69
-#, fuzzy
-#| msgid "Pièce de freinage"
 msgid "État liquide de frein"
-msgstr "Εξάρτημα φρένων"
+msgstr "Κατάσταση υγρού φρένων"
 
 #: .\maintenance\controle_check_up\models.py:71
-#, fuzzy
-#| msgid "Pièce de freinage"
 msgid "Remplacement liquide de frein"
-msgstr "Εξάρτημα φρένων"
+msgstr "Αντικατάσταση υγρού φρένων"
+
 
 #: .\maintenance\controle_check_up\models.py:72
-#, fuzzy
-#| msgid "Pièce de freinage"
 msgid "Spécification liquide de frein"
-msgstr "Εξάρτημα φρένων"
+msgstr "Προδιαγραφή υγρού φρένων"
 
 #: .\maintenance\controle_check_up\models.py:73
-#, fuzzy
-#| msgid "Pièce de freinage"
 msgid "Quantité liquide de frein (L)"
-msgstr "Εξάρτημα φρένων"
+msgstr "Ποσότητα υγρού φρένων (L)"
 
 #: .\maintenance\controle_check_up\models.py:80
 msgid "Fuite direction assistée / crémaillère"
-msgstr ""
+msgstr "Διαρροή υδραυλικού τιμονιού / κοχλία"
 
 #: .\maintenance\controle_check_up\models.py:82
-#, fuzzy
-#| msgid "Durite de direction"
 msgid "Niveau liquide direction"
-msgstr "Σωλήνας τιμονιού"
+msgstr "Επίπεδο υγρού τιμονιού"
 
 #: .\maintenance\controle_check_up\models.py:89
-#, fuzzy
-#| msgid "Booster batterie"
 msgid "État batterie"
-msgstr "Ενισχυτής μπαταρίας"
+msgstr "Κατάσταση μπαταρίας"
 
 #: .\maintenance\controle_check_up\models.py:93
 msgid "Phares réglés correctement"
-msgstr ""
+msgstr "Φώτα ρυθμισμένα σωστά"
 
 #: .\maintenance\controle_check_up\models.py:98
 #: .\maintenance\controle_check_up\models.py:110
 #: .\maintenance\controle_check_up\models.py:132
 msgid "Contrôle général"
-msgstr ""
+msgstr "Γενικός έλεγχος"
 
 #: .\maintenance\controle_check_up\models.py:99
 msgid "Contrôles généraux"
-msgstr ""
+msgstr "Γενικοί έλεγχοι"
 
 #: .\maintenance\controle_check_up\models.py:102
-#, fuzzy, python-format
-#| msgid "Maintenances"
+#, python-format
 msgid "Contrôle général – Maintenance %(id)s"
-msgstr "Συντηρήσεις"
+msgstr "Γενικός έλεγχος – Συντήρηση %(id)s"
 
 #: .\maintenance\controle_check_up\models.py:117
 msgid "Fuite"
-msgstr ""
+msgstr "Διαρροή"
+
 
 #: .\maintenance\controle_check_up\models.py:120
 #: .\maintenance\jeux_pieces\models.py:10
-#, fuzzy
-#| msgid "Amortisseur G/D"
 msgid "Amortisseur"
-msgstr "Αμορτισέρ Α/Δ"
+msgstr "Αμορτισέρ"
 
 #: .\maintenance\controle_check_up\models.py:121
-#, fuzzy
-#| msgid "Amortisseur G/D"
 msgid "Amortisseurs"
-msgstr "Αμορτισέρ Α/Δ"
+msgstr "Αμορτισέρ"
 
 #: .\maintenance\controle_check_up\models.py:141
 msgid "Cassé"
-msgstr ""
+msgstr "Σπασμένο"
 
 #: .\maintenance\controle_check_up\models.py:143
 #: .\maintenance\jeux_pieces\models.py:66
 #: .\maintenance\silent_blocs\models.py:45
 msgid "État"
-msgstr ""
+msgstr "Κατάσταση"
 
 #: .\maintenance\controle_check_up\models.py:147
 #: .\piece\piece_embrayage\models.py:19 .\piece\piece_train_AR\models.py:22
@@ -852,67 +805,54 @@ msgid "Ressort"
 msgstr "Ελατήριο"
 
 #: .\maintenance\controle_check_up\models.py:148
-#, fuzzy
-#| msgid "Ressort"
 msgid "Ressorts"
 msgstr "Ελατήριο"
 
 #: .\maintenance\freins\models.py:9
-#, fuzzy
-#| msgid "Ressort arrière"
 msgid "Avant et arrière"
-msgstr "Ελατήριο πίσω"
+msgstr "Μπροστά και πίσω"
 
 #: .\maintenance\freins\models.py:23
 msgid "Partie contrôlée"
-msgstr ""
+msgstr "Ελεγχόμενο μέρος"
 
 #: .\maintenance\freins\models.py:28
 msgid "Usure des plaquettes (%)"
-msgstr ""
+msgstr "Φθορά τακακιών (%)"
 
 #: .\maintenance\freins\models.py:33
 msgid "Épaisseur des disques (mm)"
-msgstr ""
+msgstr "Πάχος δίσκων (mm)"
 
 #: .\maintenance\freins\models.py:37
 msgid "Présence de fentes sur les disques"
-msgstr ""
+msgstr "Παρουσία ρωγμών στους δίσκους"
 
 #: .\maintenance\freins\models.py:43
-#, fuzzy
-#| msgid "Pièce de freinage"
 msgid "Présence de fuite"
-msgstr "Εξάρτημα φρένων"
+msgstr "Παρουσία διαρροής"
 
 #: .\maintenance\freins\models.py:49
-#, fuzzy
-#| msgid "Pompe lave-glace avant"
 msgid "À remplacer avant"
-msgstr "Αντλία πλύσης εμπρός"
+msgstr "Να αντικατασταθεί μπροστά"
 
 #: .\maintenance\freins\models.py:53
-#, fuzzy
-#| msgid "Pompe lave-glace arrière"
 msgid "À remplacer arrière"
-msgstr "Αντλία πλύσης πίσω"
+msgstr "Να αντικατασταθεί πίσω"
 
 #: .\maintenance\freins\models.py:60
 #, python-format
 msgid "Contrôle freins – %(partie)s (%(date)s)"
-msgstr ""
+msgstr "Έλεγχος φρένων – %(partie)s (%(date)s)"
 
 #: .\maintenance\jeux_pieces\models.py:6
-#, fuzzy
-#| msgid "Durite de direction"
 msgid "Rotule de direction"
-msgstr "Σωλήνας τιμονιού"
+msgstr "Σφαιρικός σύνδεσμος διεύθυνσης"
 
 #: .\maintenance\jeux_pieces\models.py:7
-#, fuzzy
-#| msgid "Roulement de suspension"
 msgid "Rotule de suspension"
-msgstr "Ρουλεμάν ανάρτησης"
+msgstr "Σφαιρικός σύνδεσμος ανάρτησης"
+
 
 #: .\maintenance\jeux_pieces\models.py:8 .\piece\piece_train_AR\models.py:24
 #: .\piece\piece_train_AV\models.py:28
@@ -927,49 +867,42 @@ msgstr "Σταθεροποιητική ράβδος"
 #: .\maintenance\jeux_pieces\models.py:12
 #: .\maintenance\silent_blocs\models.py:13
 msgid "Triangle"
-msgstr ""
+msgstr "Τρίγωνο"
 
 #: .\maintenance\jeux_pieces\models.py:13
-#, fuzzy
-#| msgid "Multi-bras G"
 msgid "Multi-bras"
-msgstr "Πολύμπρατσο αριστερά"
+msgstr "Πολύβραχιο"
 
 #: .\maintenance\jeux_pieces\models.py:28
-#, fuzzy
-#| msgid "Bronze"
 msgid "Bon"
-msgstr "Χάλκινο"
+msgstr "Καλό"
 
 #: .\maintenance\jeux_pieces\models.py:29
-#, fuzzy
-#| msgid "Fusée"
 msgid "Usé"
-msgstr "Ακρόμπαρο"
+msgstr "Φθαρμένο"
 
 #: .\maintenance\jeux_pieces\models.py:30
 msgid "Hors service"
-msgstr ""
+msgstr "Εκτός λειτουργίας"
 
 #: .\maintenance\jeux_pieces\models.py:52
-#, fuzzy
-#| msgid "Pièce moteur"
 msgid "Pièce contrôlée"
-msgstr "Εξάρτημα κινητήρα"
+msgstr "Ελεγχόμενο εξάρτημα"
+
 
 #: .\maintenance\jeux_pieces\models.py:95
-#, fuzzy, python-format
-#| msgid "%(type)s – %(largeur)s/%(hauteur)s R%(jante)s"
+#, python-format
 msgid "%(piece)s – %(empl)s (%(etat)s / %(tag)s)"
-msgstr "%(type)s – %(largeur)s/%(hauteur)s R%(jante)s"
+msgstr "%(piece)s – %(empl)s (%(etat)s / %(tag)s)"
 
 #: .\maintenance\jeux_pieces\models.py:99
 msgid "Non précisé"
-msgstr ""
+msgstr "Μη καθορισμένο"
 
 #: .\maintenance\jeux_pieces\models.py:106 .\maintenance\models.py:34
 msgid "Apprenti"
-msgstr ""
+msgstr "Μαθητευόμενος"
+
 
 #: .\maintenance\jeux_pieces\models.py:107 .\maintenance\models.py:26
 #: .\maintenance\nettoyage_exterieur\models.py:25
@@ -978,10 +911,8 @@ msgid "Mécanicien"
 msgstr "Μηχανικός"
 
 #: .\maintenance\jeux_pieces\models.py:108
-#, fuzzy
-#| msgid "Mécanicien"
 msgid "Chef mécanicien"
-msgstr "Μηχανικός"
+msgstr "Αρχιμηχανικός"
 
 #: .\maintenance\models.py:9
 msgid "Vert"
@@ -1001,7 +932,7 @@ msgstr "Δείγμα αυτοκινήτου"
 
 #: .\maintenance\models.py:42
 msgid "Apprentis"
-msgstr ""
+msgstr "Μαθητευόμενοι"
 
 #: .\maintenance\models.py:51
 msgid "Date d'intervention"
@@ -1055,13 +986,11 @@ msgstr "Συντήρηση %(voiture)s (%(date)s)"
 #: .\maintenance\nettoyage_exterieur\models.py:11
 #: .\maintenance\nettoyage_interieur\models.py:12
 msgid "Check up"
-msgstr ""
+msgstr "Έλεγχος"
 
 #: .\maintenance\nettoyage_exterieur\models.py:28
-#, fuzzy
-#| msgid "Vitre de porte"
 msgid "Traces de gomme"
-msgstr "Παράθυρο πόρτας"
+msgstr "Σημάδια ελαστικού"
 
 #: .\maintenance\nettoyage_exterieur\models.py:30
 #: .\piece\piece_jantes\models.py:28
@@ -1070,10 +999,8 @@ msgstr "Ζάντες"
 
 #: .\maintenance\nettoyage_exterieur\models.py:32
 #: .\maintenance\nettoyage_interieur\models.py:36
-#, fuzzy
-#| msgid "Variation"
 msgid "Validation finale"
-msgstr "Μεταβολή"
+msgstr "Τελική έγκριση"
 
 #: .\maintenance\nettoyage_exterieur\models.py:34
 #: .\maintenance\nettoyage_interieur\models.py:38 .\piece\models.py:127
@@ -1083,27 +1010,23 @@ msgstr "Ημερομηνία"
 
 #: .\maintenance\nettoyage_exterieur\models.py:37
 msgid "Nettoyage extérieur"
-msgstr ""
+msgstr "Καθαρισμός εξωτερικού"
 
 #: .\maintenance\nettoyage_exterieur\models.py:38
 msgid "Nettoyages extérieurs"
-msgstr ""
+msgstr "Καθαρισμοί εξωτερικού"
 
 #: .\maintenance\nettoyage_interieur\models.py:29
 msgid "Vitres"
-msgstr ""
+msgstr "Παράθυρα"
 
 #: .\maintenance\nettoyage_interieur\models.py:31
-#, fuzzy
-#| msgid "Alternateur"
 msgid "Aspirateur"
-msgstr "Δυναμό"
+msgstr "Σκούπα"
 
 #: .\maintenance\nettoyage_interieur\models.py:32
-#, fuzzy
-#| msgid "Vitre de porte"
 msgid "Intérieurs de porte"
-msgstr "Παράθυρο πόρτας"
+msgstr "Εσωτερικά πόρτας"
 
 #: .\maintenance\nettoyage_interieur\models.py:33
 #: .\theme\templates\dashboard.html:7
@@ -1111,35 +1034,29 @@ msgid "Tableau de bord"
 msgstr "Πίνακας ελέγχου"
 
 #: .\maintenance\nettoyage_interieur\models.py:34
-#, fuzzy
-#| msgid "Historique"
 msgid "Plastiques"
-msgstr "Ιστορικό"
+msgstr "Πλαστικά"
 
 #: .\maintenance\nettoyage_interieur\models.py:41
 msgid "Nettoyage intérieur"
-msgstr ""
+msgstr "Καθαρισμός εσωτερικού"
 
 #: .\maintenance\nettoyage_interieur\models.py:42
 msgid "Nettoyages intérieurs"
-msgstr ""
+msgstr "Καθαρισμοί εσωτερικού"
 
 #: .\maintenance\niveaux\models.py:18 .\piece\piece_fluides\models.py:35
 #: .\piece\piece_fluides\models.py:50
 msgid "Fluide"
-msgstr ""
+msgstr "Υγρό"
 
 #: .\maintenance\niveaux\models.py:22
-#, fuzzy
-#| msgid "Quantité utilisée"
 msgid "Quantité utilisée (L)"
-msgstr "Χρησιμοποιούμενη ποσότητα"
+msgstr "Χρησιμοποιημένη ποσότητα (L)"
 
 #: .\maintenance\niveaux\models.py:23
-#, fuzzy
-#| msgid "Quantité utilisée"
 msgid "Quantité ajoutée ou retirée"
-msgstr "Χρησιμοποιούμενη ποσότητα"
+msgstr "Ποσότητα που προστέθηκε ή αφαιρέθηκε"
 
 #: .\maintenance\niveaux\models.py:28 .\piece\models.py:126
 #: .\piece\piece_fluides\models.py:62
@@ -1148,65 +1065,50 @@ msgstr "Σχόλιο"
 
 #: .\maintenance\niveaux\models.py:35
 msgid "La quantité ne peut pas être nulle."
-msgstr ""
+msgstr "Η ποσότητα δεν μπορεί να είναι μηδενική."
+
 
 #: .\maintenance\niveaux\models.py:49
-#, fuzzy, python-format
-#| msgid "Maintenances"
+#, python-format
 msgid "Maintenance %(id)s"
-msgstr "Συντηρήσεις"
+msgstr "Συντήρηση %(id)s"
+
 
 #: .\maintenance\niveaux\models.py:55
-#, fuzzy, python-format
-#| msgid "Maintenance %(voiture)s (%(date)s)"
 msgid "%(maintenance)s – %(fluide)s (%(qte)s L)"
-msgstr "Συντήρηση %(voiture)s (%(date)s)"
+msgstr "%(maintenance)s – %(fluide)s (%(qte)s L)"
 
 #: .\maintenance\silent_blocs\models.py:14
-#, fuzzy
-#| msgid "Triangle supérieur droit"
 msgid "Triangle supérieur"
-msgstr "Άνω τριγωνικό δεξιά"
+msgstr "Άνω τρίγωνο"
 
 #: .\maintenance\silent_blocs\models.py:15
 msgid "Suspension multi bras"
-msgstr ""
+msgstr "Πολύβραχιο αναρτήσεων"
 
 #: .\maintenance\silent_blocs\models.py:16
-#, fuzzy
-#| msgid "Barre stabilisatrice"
 msgid "Barre stabilisatrice AV"
 msgstr "Σταθεροποιητική ράβδος"
 
 #: .\maintenance\silent_blocs\models.py:17
-#, fuzzy
-#| msgid "Barre stabilisatrice"
 msgid "Barre stabilisatrice AR"
 msgstr "Σταθεροποιητική ράβδος"
-
 #: .\maintenance\silent_blocs\models.py:19
-#, fuzzy
-#| msgid "Indice de vitesse"
 msgid "Boite vitesse"
-msgstr "Δείκτης ταχύτητας"
+msgstr "Κιβώτιο ταχυτήτων"
 
 #: .\maintenance\silent_blocs\models.py:20
-#, fuzzy
-#| msgid "Inventaire"
 msgid "Pendulaire"
-msgstr "Απογραφή"
+msgstr "Αναρτώμενο"
 
 #: .\maintenance\silent_blocs\models.py:39
-#, fuzzy
-#| msgid "Type de siège"
 msgid "Type de silentbloc"
-msgstr "Τύπος καθίσματος"
+msgstr "Τύπος silentbloc"
 
 #: .\maintenance\silent_blocs\models.py:77
-#, fuzzy, python-format
-#| msgid "%(type)s – %(piece)s"
+#, python-format
 msgid "%(type)s - %(empl)s (%(etat)s)"
-msgstr "%(type)s – %(piece)s"
+msgstr "%(type)s - %(empl)s (%(etat)s)"
 
 #: .\outillage\models.py:9 .\panier\models.py:16 .\panier\models.py:71
 msgid "Identifiant"
@@ -1513,221 +1415,180 @@ msgstr "Λάμπες"
 
 #: .\piece\piece_boite\models.py:10 .\piece\piece_boite\models.py:84
 msgid "5 vitesses"
-msgstr ""
+msgstr "5 ταχυτήτων"
 
 #: .\piece\piece_boite\models.py:11 .\piece\piece_boite\models.py:85
 msgid "6 vitesses"
-msgstr ""
+msgstr "6 ταχυτήτων"
 
 #: .\piece\piece_boite\models.py:12
 msgid "7 vitesses"
-msgstr ""
+msgstr "7 ταχυτήτων"
 
 #: .\piece\piece_boite\models.py:17 .\piece\piece_boite\models.py:91
-#, fuzzy
-#| msgid "Indice de vitesse"
 msgid "Nombre de vitesses"
-msgstr "Δείκτης ταχύτητας"
+msgstr "Αριθμός ταχυτήτων"
 
 #: .\piece\piece_boite\models.py:24
 msgid "Pignon"
-msgstr ""
+msgstr "Γρανάζι"
 
 #: .\piece\piece_boite\models.py:31 .\piece\piece_differentiel\models.py:18
 msgid "Synchroniseur"
-msgstr ""
+msgstr "Συγχρονιστής"
 
 #: .\piece\piece_boite\models.py:38
 msgid "Arbre principal"
-msgstr ""
+msgstr "Κύριος άξονας"
 
 #: .\piece\piece_boite\models.py:45
 msgid "Arbre secondaire"
-msgstr ""
+msgstr "Δευτερεύων άξονας"
 
 #: .\piece\piece_boite\models.py:52
-#, fuzzy
-#| msgid "Indice de vitesse"
 msgid "Fourchette de vitesse"
-msgstr "Δείκτης ταχύτητας"
+msgstr "Μοχλός ταχυτήτων"
 
 #: .\piece\piece_boite\models.py:59
 msgid "Tringlerie"
-msgstr ""
+msgstr "Σύστημα μοχλισμού"
 
 #: .\piece\piece_boite\models.py:66 .\piece\piece_fluides\models.py:9
-#, fuzzy
-#| msgid "Huile de différentiel"
 msgid "Huile de boîte"
-msgstr "Λάδι διαφορικού"
+msgstr "Λάδι κιβωτίου"
 
 #: .\piece\piece_boite\models.py:70
 msgid "Boîte mécanique"
-msgstr ""
+msgstr "Μηχανικό κιβώτιο"
 
 #: .\piece\piece_boite\models.py:71
 msgid "Boîtes mécaniques"
-msgstr ""
+msgstr "Μηχανικά κιβώτια"
 
 #: .\piece\piece_boite\models.py:74
 #, python-format
 msgid "Boîte mécanique %(vitesses)s vitesses"
-msgstr ""
+msgstr "Μηχανικό κιβώτιο %(vitesses)s ταχυτήτων"
 
 #: .\piece\piece_boite\models.py:83
 msgid "4 vitesses"
-msgstr ""
-
+msgstr "4 ταχυτήτων"
 #: .\piece\piece_boite\models.py:86
 msgid "8 vitesses"
-msgstr ""
+msgstr "8 ταχυτήτων"
 
 #: .\piece\piece_boite\models.py:98
 msgid "Convertisseur de couple"
-msgstr ""
+msgstr "Μετατροπέας ροπής"
 
 #: .\piece\piece_boite\models.py:105 .\piece\piece_embrayage\models.py:9
-#, fuzzy
-#| msgid "Pièce hydraulique"
 msgid "Embrayage hydraulique"
-msgstr "Υδραυλικό εξάρτημα"
+msgstr "Υδραυλικό συμπλέκτη"
 
 #: .\piece\piece_boite\models.py:112
-#, fuzzy
-#| msgid "Satellites planétaires"
 msgid "Train planétaire"
-msgstr "Πλανητικοί δορυφόροι"
+msgstr "Πλανητικό σύστημα"
 
 #: .\piece\piece_boite\models.py:119
-#, fuzzy
-#| msgid "Satellites planétaires"
 msgid "Frein planétaire"
-msgstr "Πλανητικοί δορυφόροι"
+msgstr "Πλανητικό φρένο"
 
 #: .\piece\piece_boite\models.py:126 .\piece\piece_moteur\models.py:15
 msgid "Piston"
-msgstr ""
+msgstr "Έμβολο"
 
 #: .\piece\piece_boite\models.py:133
-#, fuzzy
-#| msgid "Pièce hydraulique"
 msgid "Bloc hydraulique"
-msgstr "Υδραυλικό εξάρτημα"
+msgstr "Υδραυλικό μπλοκ"
 
 #: .\piece\piece_boite\models.py:140
 msgid "Solénoïdes"
-msgstr ""
+msgstr "Ηλεκτρομαγνήτες"
 
 #: .\piece\piece_boite\models.py:147
-#, fuzzy
-#| msgid "Arbre de transmission"
 msgid "Huile de transmission"
-msgstr "Άξονας μετάδοσης"
+msgstr "Λάδι μετάδοσης"
 
 #: .\piece\piece_boite\models.py:151
-#, fuzzy
-#| msgid "Pot catalytique"
 msgid "Boîte automatique"
-msgstr "Καταλυτικός μετατροπέας"
+msgstr "Αυτόματο κιβώτιο"
 
 #: .\piece\piece_boite\models.py:152
-#, fuzzy
-#| msgid "Pot catalytique"
 msgid "Boîtes automatiques"
-msgstr "Καταλυτικός μετατροπέας"
+msgstr "Αυτόματα κιβώτια"
 
 #: .\piece\piece_boite\models.py:155
 #, python-format
 msgid "Boîte automatique %(vitesses)s vitesses"
-msgstr ""
+msgstr "Αυτόματο κιβώτιο %(vitesses)s ταχυτήτων"
 
 #: .\piece\piece_carrosserie\models.py:7
 msgid "Gauche"
-msgstr ""
+msgstr "Αριστερά"
 
 #: .\piece\piece_carrosserie\models.py:8
 msgid "Droit"
-msgstr ""
+msgstr "Δεξιά"
 
 #: .\piece\piece_carrosserie\models.py:20
-#, fuzzy
-#| msgid "Vitre de porte"
 msgid "Vitres de porte"
 msgstr "Παράθυρο πόρτας"
 
 #: .\piece\piece_climatisation\models.py:9
-#, fuzzy
-#| msgid "Qualité"
 msgid "Qualité de gaz"
-msgstr "Ποιότητα"
+msgstr "Ποιότητα αερίου"
 
 #: .\piece\piece_climatisation\models.py:10
-#, fuzzy
-#| msgid "Quantité"
 msgid "Quantité de gaz"
-msgstr "Ποσότητα"
+msgstr "Ποσότητα αερίου"
 
 #: .\piece\piece_climatisation\models.py:12
 msgid "Évaporateur"
-msgstr ""
+msgstr "Εξατμιστής"
 
 #: .\piece\piece_climatisation\models.py:13
-#, fuzzy
-#| msgid "Conducteur"
 msgid "Condenseur"
-msgstr "Οδηγός"
+msgstr "Συμπυκνωτής"
 
 #: .\piece\piece_climatisation\models.py:14 .\piece\piece_filtres\models.py:26
 #: .\piece\piece_filtres\models.py:31
 msgid "Filtre"
-msgstr ""
+msgstr "Φίλτρο"
 
 #: .\piece\piece_climatisation\models.py:15
 msgid "Déshydrateur"
-msgstr ""
+msgstr "Αφυγραντήρας"
 
 #: .\piece\piece_climatisation\models.py:16
-#, fuzzy
-#| msgid "Valve"
 msgid "Valves"
 msgstr "Βαλβίδα"
 
 #: .\piece\piece_climatisation\models.py:17
-#, fuzzy
-#| msgid "Durite Eau"
 msgid "Durites"
-msgstr "Σωλήνας νερού"
+msgstr "Σωλήνες"
 
 #: .\piece\piece_climatisation\models.py:18
-#, fuzzy
-#| msgid "Courroie de Distribution"
 msgid "Huile de climatisation"
-msgstr "Ιμάντας χρονισμού"
+msgstr "Λάδι κλιματισμού"
 
 #: .\piece\piece_climatisation\models.py:24
-#, fuzzy
-#| msgid "Type de pièce de direction"
 msgid "Type de pièce de climatisation"
-msgstr "Τύπος εξαρτήματος τιμονιού"
+msgstr "Τύπος εξαρτήματος κλιματισμού"
 
 #: .\piece\piece_climatisation\models.py:32
 #: .\piece\piece_differentiel\models.py:34 .\piece\piece_direction\models.py:33
 #: .\piece\piece_echappement\models.py:34 .\piece\piece_essuyage\models.py:26
 #: .\piece\piece_freins\models.py:57
 msgid "Moteurs compatibles"
-msgstr ""
+msgstr "Συμβατοί κινητήρες"
 
 #: .\piece\piece_climatisation\models.py:36
-#, fuzzy
-#| msgid "Pièce de direction"
 msgid "Pièce de climatisation"
-msgstr "Εξάρτημα τιμονιού"
+msgstr "Εξάρτημα κλιματισμού"
 
 #: .\piece\piece_climatisation\models.py:37
-#, fuzzy
-#| msgid "Pièces de direction"
 msgid "Pièces de climatisation"
-msgstr "Εξαρτήματα τιμονιού"
+msgstr "Εξαρτήματα κλιματισμού"
 
 #: .\piece\piece_climatisation\models.py:40
 #: .\piece\piece_differentiel\models.py:42 .\piece\piece_direction\models.py:41
@@ -1944,544 +1805,452 @@ msgstr "Αντλία πλύσης πίσω"
 #: .\piece\piece_electricite\models.py:17
 msgid "Klaxon"
 msgstr "Κορνάρισμα"
-
 #: .\piece\piece_electronique\models.py:9
 msgid "Débitmètre"
-msgstr ""
+msgstr "Μετρητής ροής"
 
 #: .\piece\piece_electronique\models.py:10
 msgid "Sonde de température eau"
-msgstr ""
+msgstr "Αισθητήρας θερμοκρασίας νερού"
 
 #: .\piece\piece_electronique\models.py:11
 msgid "Sonde de température d’huile"
-msgstr ""
+msgstr "Αισθητήρας θερμοκρασίας λαδιού"
+
 
 #: .\piece\piece_electronique\models.py:12
-#, fuzzy
-#| msgid "Carter de différentiel"
 msgid "Capteur de cliquetis"
-msgstr "Κέλυφος διαφορικού"
+msgstr "Αισθητήρας κροταλίσματος"
 
 #: .\piece\piece_electronique\models.py:13
 msgid "Sonde lambda"
-msgstr ""
+msgstr "Αισθητήρας λάμδα"
 
 #: .\piece\piece_electronique\models.py:14
 msgid "Capteur d'arbre à came"
-msgstr ""
+msgstr "Αισθητήρας εκκεντροφόρου"
 
 #: .\piece\piece_electronique\models.py:15
-#, fuzzy
-#| msgid "Vilebrequin"
 msgid "Capteur vilebrequin"
-msgstr "Στρόφαλος"
+msgstr "Αισθητήρας στροφαλοφόρου"
 
 #: .\piece\piece_electronique\models.py:16
-#, fuzzy
-#| msgid "Filtre à particules"
 msgid "Sonde de pression filtre à particules"
-msgstr "Φίλτρο σωματιδίων"
+msgstr "Αισθητήρας πίεσης φίλτρου σωματιδίων"
 
 #: .\piece\piece_electronique\models.py:17 .\piece\piece_moteur\models.py:37
 msgid "Vanne EGR"
-msgstr ""
+msgstr "Βαλβίδα EGR"
 
 #: .\piece\piece_electronique\models.py:18
 msgid "Boîtier papillon"
-msgstr ""
+msgstr "Σώμα πεταλούδας"
 
 #: .\piece\piece_electronique\models.py:19
 msgid "Électrovanne de turbo"
-msgstr ""
+msgstr "Ηλεκτροβαλβίδα τουρμπίνας"
 
 #: .\piece\piece_electronique\models.py:20
 msgid "Sonde pression turbo"
-msgstr ""
+msgstr "Αισθητήρας πίεσης τουρμπίνας"
 
 #: .\piece\piece_electronique\models.py:21
 msgid "Capteur ABS"
-msgstr ""
+msgstr "Αισθητήρας ABS"
 
 #: .\piece\piece_electronique\models.py:22
-#, fuzzy
-#| msgid "Alternateur"
 msgid "Accélérateur"
-msgstr "Δυναμό"
+msgstr "Πεντάλ γκαζιού"
 
 #: .\piece\piece_electronique\models.py:23
 msgid "Contacteur feux stop"
-msgstr ""
+msgstr "Διακόπτης φρένων"
 
 #: .\piece\piece_electronique\models.py:24
 msgid "Calculateur ABS"
-msgstr ""
+msgstr "Μονάδα ABS"
 
 #: .\piece\piece_electronique\models.py:25
-#, fuzzy
-#| msgid "Bloc moteur"
 msgid "Calculateur moteur"
-msgstr "Μπλοκ κινητήρα"
+msgstr "Εγκέφαλος κινητήρα"
 
 #: .\piece\piece_electronique\models.py:26
 msgid "Boîtier servitude intérieur"
-msgstr ""
+msgstr "Εσωτερικό κουτί υπηρεσιών"
 
 #: .\piece\piece_electronique\models.py:27
-#, fuzzy
-#| msgid "Flexibles"
 msgid "Fusibles"
-msgstr "Ευλύγιστοι σωλήνες"
+msgstr "Ασφάλειες"
 
 #: .\piece\piece_electronique\models.py:28
 msgid "Boîtier additionnel"
-msgstr ""
+msgstr "Επιπλέον κουτί"
 
 #: .\piece\piece_electronique\models.py:29
 msgid "Radar de recul"
-msgstr ""
+msgstr "Ραντάρ όπισθεν"
 
 #: .\piece\piece_electronique\models.py:30
 msgid "Capteur pression pneus"
-msgstr ""
+msgstr "Αισθητήρας πίεσης ελαστικών"
 
 #: .\piece\piece_electronique\models.py:31
-#, fuzzy
-#| msgid "Collecteur d'admission"
 msgid "Capteur pression admission"
-msgstr "Σωλήνας εισαγωγής"
+msgstr "Αισθητήρας πίεσης εισαγωγής"
 
 #: .\piece\piece_electronique\models.py:32
 msgid "Régulateur pression carburant"
-msgstr ""
+msgstr "Ρυθμιστής πίεσης καυσίμου"
 
 #: .\piece\piece_electronique\models.py:33
-#, fuzzy
-#| msgid "Carter Huile"
 msgid "Capteur niveau huile"
-msgstr "Κάρτερ λαδιού"
+msgstr "Αισθητήρας στάθμης λαδιού"
 
 #: .\piece\piece_electronique\models.py:34
 msgid "Capteur niveau liquide freins"
-msgstr ""
+msgstr "Αισθητήρας στάθμης υγρού φρένων"
 
 #: .\piece\piece_electronique\models.py:35
 msgid "Calculateur boîte de vitesses"
-msgstr ""
+msgstr "Εγκέφαλος κιβωτίου ταχυτήτων"
 
 #: .\piece\piece_electronique\models.py:36
-#, fuzzy
-#| msgid "Bougies Préchauffage"
 msgid "Relais de préchauffage"
-msgstr "Μπουζί προθέρμανσης"
+msgstr "Ρελέ προθέρμανσης"
 
 #: .\piece\piece_electronique\models.py:37
 msgid "Relais"
-msgstr ""
+msgstr "Ρελέ"
 
 #: .\piece\piece_electronique\models.py:38
-#, fuzzy
-#| msgid "Indice de charge"
 msgid "Résistance de chauffage"
-msgstr "Δείκτης φορτίου"
+msgstr "Αντίσταση θέρμανσης"
 
 #: .\piece\piece_electronique\models.py:39
 msgid "Capteur de température d’admission"
-msgstr ""
+msgstr "Αισθητήρας θερμοκρασίας εισαγωγής"
 
 #: .\piece\piece_electronique\models.py:40
 msgid "Capteur d’embrayage"
-msgstr ""
+msgstr "Αισθητήρας συμπλέκτη"
 
 #: .\piece\piece_embrayage\models.py:7
-#, fuzzy
-#| msgid "Pièce hydraulique"
 msgid "Embrayage simple disque"
-msgstr "Υδραυλικό εξάρτημα"
+msgstr "Μονός δίσκος συμπλέκτη"
 
 #: .\piece\piece_embrayage\models.py:8
-#, fuzzy
-#| msgid "Pièce hydraulique"
 msgid "Embrayage double disque"
-msgstr "Υδραυλικό εξάρτημα"
+msgstr "Διπλός δίσκος συμπλέκτη"
 
 #: .\piece\piece_embrayage\models.py:13 .\piece\piece_embrayage\models.py:42
 msgid "Disque d'embrayage"
-msgstr ""
+msgstr "Δίσκος συμπλέκτη"
 
 #: .\piece\piece_embrayage\models.py:14
-#, fuzzy
-#| msgid "Barre de torsion"
 msgid "Plateau de pression"
-msgstr "Ράβδος στρέψης"
+msgstr "Πλάκα πίεσης"
 
 #: .\piece\piece_embrayage\models.py:15 .\piece\piece_embrayage\models.py:56
 msgid "Butée d'embrayage"
-msgstr ""
+msgstr "Ρουλεμάν συμπλέκτη"
 
 #: .\piece\piece_embrayage\models.py:16 .\piece\piece_freins\models.py:28
 msgid "Maître-cylindre"
-msgstr ""
+msgstr "Κύριος κύλινδρος"
 
 #: .\piece\piece_embrayage\models.py:17
 msgid "Cylindre esclave"
-msgstr ""
+msgstr "Υποκύλινδρος"
 
 #: .\piece\piece_embrayage\models.py:18
 msgid "Levier / fourchette"
-msgstr ""
+msgstr "Μοχλός / πιρούνι"
 
 #: .\piece\piece_embrayage\models.py:26
-#, fuzzy
-#| msgid "Type de roue"
 msgid "Type d'embrayage"
-msgstr "Τύπος τροχού"
+msgstr "Τύπος συμπλέκτη"
 
 #: .\piece\piece_embrayage\models.py:34
-#, fuzzy
-#| msgid "Pot catalytique"
 msgid "Boîtes mécaniques compatibles"
-msgstr "Καταλυτικός μετατροπέας"
+msgstr "Συμβατά μηχανικά κιβώτια"
 
 #: .\piece\piece_embrayage\models.py:49
 msgid "Plateau d'embrayage"
-msgstr ""
+msgstr "Πλάκα συμπλέκτη"
 
 #: .\piece\piece_embrayage\models.py:61
 msgid "Liste des composants présents dans cet embrayage"
-msgstr ""
+msgstr "Λίστα εξαρτημάτων στον συμπλέκτη"
 
 #: .\piece\piece_embrayage\models.py:62
 msgid "Composants"
-msgstr ""
+msgstr "Στοιχεία"
 
 #: .\piece\piece_embrayage\models.py:72
 msgid "Embrayage"
-msgstr ""
+msgstr "Συμπλέκτης"
 
 #: .\piece\piece_embrayage\models.py:73
 msgid "Embrayages"
-msgstr ""
+msgstr "Συμπλέκτες"
 
 #: .\piece\piece_essuyage\models.py:9
 msgid "Balai avant"
-msgstr ""
+msgstr "Μπροστινό σκουπάκι υαλοκαθαριστήρα"
 
 #: .\piece\piece_essuyage\models.py:10
-#, fuzzy
-#| msgid "Pièce train arrière"
 msgid "Balai arrière"
-msgstr "Εξάρτημα πίσω άξονα"
+msgstr "Πίσω σκουπάκι υαλοκαθαριστήρα"
 
 #: .\piece\piece_essuyage\models.py:11
-#, fuzzy
-#| msgid "Pompe lave-glace avant"
 msgid "Moteur essuie-glace avant"
-msgstr "Αντλία πλύσης εμπρός"
+msgstr "Μοτέρ μπροστινού υαλοκαθαριστήρα"
 
 #: .\piece\piece_essuyage\models.py:12
-#, fuzzy
-#| msgid "Pompe lave-glace arrière"
 msgid "Moteur essuie-glace arrière"
-msgstr "Αντλία πλύσης πίσω"
+msgstr "Μοτέρ πίσω υαλοκαθαριστήρα"
 
 #: .\piece\piece_essuyage\models.py:18
-#, fuzzy
-#| msgid "Type de pièce de freinage"
 msgid "Type de pièce d'essuyage"
-msgstr "Τύπος εξαρτήματος φρένων"
+msgstr "Τύπος εξαρτήματος υαλοκαθαριστήρα"
 
 #: .\piece\piece_essuyage\models.py:30
-#, fuzzy
-#| msgid "Pièce de freinage"
 msgid "Pièce d'essuyage"
-msgstr "Εξάρτημα φρένων"
+msgstr "Εξάρτημα υαλοκαθαριστήρα"
 
 #: .\piece\piece_essuyage\models.py:31
-#, fuzzy
-#| msgid "Pièces de freinage"
 msgid "Pièces d'essuyage"
-msgstr "Εξαρτήματα φρένων"
+msgstr "Εξαρτήματα υαλοκαθαριστήρων"
 
 #: .\piece\piece_feux\models.py:9
 msgid "Avant Gauche"
-msgstr ""
+msgstr "Εμπρός Αριστερά"
 
 #: .\piece\piece_feux\models.py:10
 msgid "Avant Droit"
-msgstr ""
+msgstr "Εμπρός Δεξιά"
 
 #: .\piece\piece_feux\models.py:11
-#, fuzzy
-#| msgid "Siège arrière gauche"
 msgid "Arrière Gauche"
-msgstr "Κάθισμα πίσω αριστερά"
+msgstr "Πίσω Αριστερά"
 
 #: .\piece\piece_feux\models.py:12
-#, fuzzy
-#| msgid "Siège arrière droit"
 msgid "Arrière Droit"
-msgstr "Κάθισμα πίσω δεξιά"
+msgstr "Πίσω Δεξιά"
 
 #: .\piece\piece_feux\models.py:13
 msgid "Troisième feu stop"
-msgstr ""
+msgstr "Τρίτο φανάρι φρένων"
 
 #: .\piece\piece_feux\models.py:14
 msgid "Antibrouillard AV"
-msgstr ""
+msgstr "Εμπρός προβολέας ομίχλης"
 
 #: .\piece\piece_feux\models.py:15
 msgid "Antibrouillard AR"
-msgstr ""
+msgstr "Πίσω προβολέας ομίχλης"
 
 #: .\piece\piece_feux\models.py:16
 msgid "Clignotant Avant Gauche"
-msgstr ""
+msgstr "Φλας Εμπρός Αριστερά"
 
 #: .\piece\piece_feux\models.py:17
 msgid "Clignotant Avant Droit"
-msgstr ""
+msgstr "Φλας Εμπρός Δεξιά"
 
 #: .\piece\piece_feux\models.py:18
-#, fuzzy
-#| msgid "Siège arrière gauche"
 msgid "Clignotant Arrière Gauche"
-msgstr "Κάθισμα πίσω αριστερά"
+msgstr "Φλας Πίσω Αριστερά"
 
 #: .\piece\piece_feux\models.py:19
-#, fuzzy
-#| msgid "Siège arrière droit"
 msgid "Clignotant Arrière Droit"
-msgstr "Κάθισμα πίσω δεξιά"
+msgstr "Φλας Πίσω Δεξιά"
 
 #: .\piece\piece_feux\models.py:25
 msgid "Type / Position du feu"
-msgstr ""
+msgstr "Τύπος / Θέση φαναριού"
+
 
 #: .\piece\piece_feux\models.py:33
 msgid "Feux"
-msgstr ""
+msgstr "Φανάρια"
 
 #: .\piece\piece_feux\models.py:36
-#, fuzzy, python-format
-#| msgid "%(organe)s - %(marque)s"
 msgid "%(organe)s - %(type)s"
-msgstr "%(organe)s - %(marque)s"
+msgstr "%(organe)s - %(type)s"
 
 #: .\piece\piece_filtres\models.py:7
-#, fuzzy
-#| msgid "Filtre à particules"
 msgid "Filtre à air"
-msgstr "Φίλτρο σωματιδίων"
+msgstr "Φίλτρο αέρα"
 
 #: .\piece\piece_filtres\models.py:8
-#, fuzzy
-#| msgid "Filtre à particules"
 msgid "Filtre à huile"
-msgstr "Φίλτρο σωματιδίων"
+msgstr "Φίλτρο λαδιού"
 
 #: .\piece\piece_filtres\models.py:9
-#, fuzzy
-#| msgid "Pompe à Carburant"
 msgid "Filtre à carburant"
-msgstr "Αντλία καυσίμου"
+msgstr "Φίλτρο καυσίμου"
 
 #: .\piece\piece_filtres\models.py:10
-#, fuzzy
-#| msgid "Filtre à particules"
 msgid "Filtre à pollen"
-msgstr "Φίλτρο σωματιδίων"
+msgstr "Φίλτρο γύρης"
 
 #: .\piece\piece_filtres\models.py:17
-#, fuzzy
-#| msgid "Type de roue"
 msgid "Type de filtre"
-msgstr "Τύπος τροχού"
+msgstr "Τύπος φίλτρου"
 
 #: .\piece\piece_filtres\models.py:22
-#, fuzzy
-#| msgid "Nom du fournisseur"
 msgid "Nom du filtre"
-msgstr "Όνομα προμηθευτή"
+msgstr "Όνομα φίλτρου"
 
 #: .\piece\piece_filtres\models.py:27
 msgid "Filtres"
-msgstr ""
+msgstr "Φίλτρα"
 
 #: .\piece\piece_filtres\models.py:30 .\piece\piece_fluides\models.py:39
-#, fuzzy, python-format
-#| msgid "%(nom)s %(prenom)s (Client)"
 msgid "%(nom)s (%(type)s)"
-msgstr "%(nom)s %(prenom)s (Πελάτης)"
+msgstr "%(nom)s %(type)s)"
 
 #: .\piece\piece_fluides\models.py:8
-#, fuzzy
-#| msgid "Pièce moteur"
 msgid "Huile moteur"
-msgstr "Εξάρτημα κινητήρα"
+msgstr "Λάδι κινητήρα"
 
 #: .\piece\piece_fluides\models.py:10
-#, fuzzy
-#| msgid "Vitre de porte"
 msgid "Huile de pont"
-msgstr "Παράθυρο πόρτας"
+msgstr "Λάδι διαφορικού"
 
 #: .\piece\piece_fluides\models.py:11
 msgid "Liquide de refroidissement"
-msgstr ""
+msgstr "Υγρό ψύξης"
 
 #: .\piece\piece_fluides\models.py:12
 msgid "Lave-glace"
-msgstr ""
+msgstr "Υγρό υαλοκαθαριστήρα"
 
 #: .\piece\piece_fluides\models.py:13
-#, fuzzy
-#| msgid "Pièce de freinage"
 msgid "Liquide de frein"
-msgstr "Εξάρτημα φρένων"
+msgstr "Υγρό φρένων"
 
 #: .\piece\piece_fluides\models.py:14
-#, fuzzy
-#| msgid "Durite de direction"
 msgid "Huile de direction"
-msgstr "Σωλήνας τιμονιού"
+msgstr "Λάδι υδραυλικής διεύθυνσης"
 
 #: .\piece\piece_fluides\models.py:21
-#, fuzzy
-#| msgid "Type de roue"
 msgid "Type de fluide"
-msgstr "Τύπος τροχού"
+msgstr "Τύπος υγρού"
 
 #: .\piece\piece_fluides\models.py:25
-#, fuzzy
-#| msgid "Nom du fournisseur"
 msgid "Nom du fluide"
-msgstr "Όνομα προμηθευτή"
+msgstr "Όνομα υγρού"
 
 #: .\piece\piece_fluides\models.py:31
-#, fuzzy
-#| msgid "Quantité utilisée"
 msgid "Qualité du fluide"
-msgstr "Χρησιμοποιούμενη ποσότητα"
+msgstr "Ποιότητα υγρού"
 
 #: .\piece\piece_fluides\models.py:36
 msgid "Fluides"
-msgstr ""
+msgstr "Υγρά"
 
 #: .\piece\piece_fluides\models.py:53
-#, fuzzy
-#| msgid "+ entrée / - sortie"
 msgid "+ entrée / - sortie (litres)"
-msgstr "+ εισαγωγή / - εξαγωγή"
+msgstr "+ εισροή / - εκροή (λίτρα)"
 
 #: .\piece\piece_fluides\models.py:79
-#, fuzzy, python-format
-#| msgid "%(piece)s : %(variation)d"
+#, python-format
 msgid "%(fluide)s : %(variation)s L"
-msgstr "%(piece)s : %(variation)d"
+msgstr "%(fluide)s : %(variation)d"
 
 #: .\piece\piece_freins\models.py:9
 msgid "Étrier de frein AVG"
-msgstr ""
+msgstr "Δαγκάνα φρένου Αριστερό Εμπρός"
 
 #: .\piece\piece_freins\models.py:10
 msgid "Étrier de frein AVD"
-msgstr ""
+msgstr "Δαγκάνα φρένου Δεξί Εμπρός"
 
 #: .\piece\piece_freins\models.py:11
 msgid "Étrier de frein ARG"
-msgstr ""
+msgstr "Δαγκάνα φρένου Αριστερό Πίσω"
 
 #: .\piece\piece_freins\models.py:12
 msgid "Étrier de frein ARD"
-msgstr ""
+msgstr "Δαγκάνα φρένου Δεξί Πίσω"
 
 #: .\piece\piece_freins\models.py:13
-#, fuzzy
-#| msgid "Support de radiateur"
 msgid "Support étrier avant"
-msgstr "Στήριγμα ψυγείου"
+msgstr "Στήριγμα δαγκάνας εμπρός"
 
 #: .\piece\piece_freins\models.py:14
-#, fuzzy
-#| msgid "Ressort arrière"
 msgid "Support étrier arrière"
-msgstr "Ελατήριο πίσω"
+msgstr "Στήριγμα δαγκάνας πίσω"
 
 #: .\piece\piece_freins\models.py:15
 msgid "Kit réparation étrier"
-msgstr ""
+msgstr "Σετ επισκευής δαγκάνας"
 
 #: .\piece\piece_freins\models.py:16
 msgid "Plaquettes AV"
-msgstr ""
+msgstr "Τακάκια εμπρός"
 
 #: .\piece\piece_freins\models.py:17
 msgid "Plaquettes AR"
-msgstr ""
+msgstr "Τακάκια πίσω"
 
 #: .\piece\piece_freins\models.py:18
 msgid "Disques AV"
-msgstr ""
+msgstr "Δίσκοι εμπρός"
 
 #: .\piece\piece_freins\models.py:19
 msgid "Disques AR"
-msgstr ""
+msgstr "Δίσκοι πίσω"
 
 #: .\piece\piece_freins\models.py:20
 msgid "Épaisseur AV"
-msgstr ""
+msgstr "Πάχος εμπρός"
 
 #: .\piece\piece_freins\models.py:21
 msgid "Épaisseur AR"
-msgstr ""
+msgstr "Πάχος πίσω"
 
 #: .\piece\piece_freins\models.py:22
 msgid "Épaisseur min AV"
-msgstr ""
+msgstr "Ελάχιστο πάχος εμπρός"
 
 #: .\piece\piece_freins\models.py:23
 msgid "Épaisseur min AR"
-msgstr ""
+msgstr "Ελάχιστο πάχος πίσω"
 
 #: .\piece\piece_freins\models.py:24
-#, fuzzy
-#| msgid "Porte fusée"
 msgid "Porte étrier"
-msgstr "Βάση άξονα"
+msgstr "Στήριγμα δαγκάνας"
 
 #: .\piece\piece_freins\models.py:25
-#, fuzzy
-#| msgid "Pompe Huile"
 msgid "Pompe ABS"
-msgstr "Αντλία λαδιού"
+msgstr "Αντλία ABS"
 
 #: .\piece\piece_freins\models.py:26
 msgid "Liquide qualité"
-msgstr ""
+msgstr "Ποιότητα υγρού"
 
 #: .\piece\piece_freins\models.py:27
 msgid "Servo-frein"
-msgstr ""
+msgstr "Ενισχυτής φρένου"
 
 #: .\piece\piece_freins\models.py:29
 msgid "Cylindre récepteur AV/AR G/D"
-msgstr ""
+msgstr "Κύλινδρος υποδοχής Εμπρός/Πίσω Αριστερά/Δεξιά"
 
 #: .\piece\piece_freins\models.py:30
 msgid "Petites fournitures freins"
-msgstr ""
+msgstr "Μικροϋλικά φρένων"
 
 #: .\piece\piece_freins\models.py:31
 msgid "Graisse"
-msgstr ""
+msgstr "Γράσο"
 
 #: .\piece\piece_freins\models.py:33
-#, fuzzy
-#| msgid "Couleur"
 msgid "Coulisseaux"
-msgstr "Χρώμα"
+msgstr "Οδηγοί δαγκάνας"
 
 #: .\piece\piece_freins\models.py:35
 msgid "Flexibles"
@@ -3086,11 +2855,10 @@ msgstr "dBSolution"
 
 #: .\theme\templates\base.html:19
 msgid "Accueil"
-msgstr ""
+msgstr "Αρχική"
+
 
 #: .\theme\templates\base.html:20
-#, fuzzy
-#| msgid "Tableau de bord"
 msgid "Tableau de Bord"
 msgstr "Πίνακας ελέγχου"
 
@@ -3173,12 +2941,8 @@ msgid "Sécurité"
 msgstr "Ασφάλεια"
 
 #: .\theme\templates\login.html:75
-msgid ""
-"L’accès est protégé. Une vérification supplémentaire peut être requise selon "
-"votre configuration de sécurité."
-msgstr ""
-"Η πρόσβαση είναι προστατευμένη. Ενδέχεται να απαιτηθεί επιπλέον έλεγχος "
-"σύμφωνα με τις ρυθμίσεις ασφάλειάς σας."
+msgid "L’accès est protégé. Une vérification supplémentaire peut être requise selon votre configuration de sécurité."
+msgstr "Η πρόσβαση είναι προστατευμένη. Ενδέχεται να απαιτηθεί επιπλέον έλεγχος σύμφωνα με τις ρυθμίσεις ασφάλειάς σας."
 
 #: .\theme\templates\login.totp.html:5 .\theme\templates\login.totp.html:13
 msgid "Connexion sécurisée"
@@ -3186,8 +2950,7 @@ msgstr "Ασφαλής σύνδεση"
 
 #: .\theme\templates\login.totp.html:17
 msgid "Veuillez entrer le code généré par Google Authenticator"
-msgstr ""
-"Παρακαλώ εισάγετε τον κωδικό που δημιουργήθηκε από το Google Authenticator"
+msgstr "Παρακαλώ εισάγετε τον κωδικό που δημιουργήθηκε από το Google Authenticator"
 
 #: .\theme\templates\totp\setup.html:5
 msgid "Configurer TOTP"
@@ -3211,9 +2974,7 @@ msgstr "QR Κώδικας TOTP"
 
 #: .\theme\templates\totp\setup.html:23
 msgid "Si tu ne peux pas scanner le QR code, utilise ce code secret :"
-msgstr ""
-"Αν δεν μπορείτε να σαρώσετε τον QR κώδικα, χρησιμοποιήστε αυτόν τον μυστικό "
-"κωδικό:"
+msgstr "Αν δεν μπορείτε να σαρώσετε τον QR κώδικα, χρησιμοποιήστε αυτόν τον μυστικό κωδικό:"
 
 #: .\theme\templates\totp\setup.html:28
 msgid "J’ai configuré Google Authenticator"
