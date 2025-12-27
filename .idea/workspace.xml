@@ -4,9 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="traduction grec">
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/el/LC_MESSAGES/django.mo" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/el/LC_MESSAGES/django.mo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/el/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/el/LC_MESSAGES/django.po" afterDir="false" />
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="traduction fin">
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/instructeur_externe/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/instructeur_externe/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/instructeur_externe/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/instructeur_externe/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/instructeur_externe/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/instructeur_externe/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/instructeur_externe/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/maintenance/entretien/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/entretien/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/maintenance/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,11 +79,11 @@
       <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3\dBSolutionV3\utilisateurs" />
       <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3\dBSolutionV3\maintenance" />
       <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3\dBSolutionV3\voiture" />
       <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3\dBSolutionV3\maintenance\niveaux" />
       <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3\dBSolutionV3\client" />
-      <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3\dBSolutionV3\piece" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -144,15 +154,7 @@
       <workItem from="1766735400660" duration="73000" />
       <workItem from="1766736066412" duration="14242000" />
       <workItem from="1766758168982" duration="12241000" />
-      <workItem from="1766819518826" duration="9721000" />
-    </task>
-    <task id="LOCAL-00083" summary="outillage investissements">
-      <option name="closed" value="true" />
-      <created>1766501868527</created>
-      <option name="number" value="00083" />
-      <option name="presentableId" value="LOCAL-00083" />
-      <option name="project" value="LOCAL" />
-      <updated>1766501868527</updated>
+      <workItem from="1766819518826" duration="13019000" />
     </task>
     <task id="LOCAL-00084" summary="utilisateur et maintenance">
       <option name="closed" value="true" />
@@ -538,7 +540,15 @@
       <option name="project" value="LOCAL" />
       <updated>1766836325081</updated>
     </task>
-    <option name="localTasksCounter" value="132" />
+    <task id="LOCAL-00132" summary="traduction fin">
+      <option name="closed" value="true" />
+      <created>1766836953207</created>
+      <option name="number" value="00132" />
+      <option name="presentableId" value="LOCAL-00132" />
+      <option name="project" value="LOCAL" />
+      <updated>1766836953207</updated>
+    </task>
+    <option name="localTasksCounter" value="133" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -556,7 +566,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="i18N 2" />
     <MESSAGE value="traductions suite" />
     <MESSAGE value="accueil" />
     <MESSAGE value="RAZ BDD" />
@@ -581,14 +590,15 @@
     <MESSAGE value="traduction espagnol" />
     <MESSAGE value="traduction allemand" />
     <MESSAGE value="traduction grec" />
-    <option name="LAST_COMMIT_MESSAGE" value="traduction grec" />
+    <MESSAGE value="traduction fin" />
+    <option name="LAST_COMMIT_MESSAGE" value="traduction fin" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py</url>
-          <line>320</line>
+          <line>321</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">

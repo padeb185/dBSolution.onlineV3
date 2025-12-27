@@ -1,7 +1,7 @@
 import uuid
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-
+from maintenance.entretien.models import Entretien
 
 
 class Maintenance(models.Model):
@@ -102,3 +102,11 @@ class Maintenance(models.Model):
             "voiture": self.voiture_exemplaire or self.immatriculation,
             "date": self.date_intervention
         }
+
+
+
+    def verifier_entretiens(km_actuel):
+        entretiens = Entretien.objects.filter(termine=False)
+        return [
+            e for e in entretiens if e.doit_alerter(km_actuel)
+        ]

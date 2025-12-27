@@ -178,6 +178,7 @@ TENANT_APPS = (
     'utilisateurs.comptabilite',
     'utilisateurs.direction',
     'utilisateurs.instructeur',
+    'utilisateurs.instructeur_externe',
     'utilisateurs.magasinier',
     'utilisateurs.vendeur',
 

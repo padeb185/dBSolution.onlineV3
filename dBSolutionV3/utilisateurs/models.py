@@ -40,6 +40,7 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
     telephone = models.CharField(max_length=20, blank=True, null=True)
 
     salaire_brut_heure = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    salaire_brut_employer = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     nombre_jours_preste = models.PositiveIntegerField(default=0, blank=True, null=True)
     nombre_heures_preste = models.PositiveIntegerField(default=0, blank=True, null=True)
     taux_charges_patronales = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)  # en %
