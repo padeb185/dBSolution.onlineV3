@@ -1,73 +1,72 @@
-import pyotp
-from django.shortcuts import render, redirect
-from django.contrib.auth import login
-from django.contrib.auth.decorators import login_required
-from django.utils.translation import gettext as _
-from .forms import TOTPLoginForm
-import qrcode
 import base64
 from io import BytesIO
+import pyotp
+import qrcode
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
+from .forms import LoginForm, TOTPLoginForm
+from .models import CustomUser
 
 
 
 
+def login_view(request):
+    """
+    Login principal : identifiant/mot de passe + TOTP si activé
+    """
+    if request.method == "POST":
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            user = authenticate(request, username=email, password=password)
+
+            if user:
+                if user.totp_enabled:
+                    # Stocker l'utilisateur dans la session temporaire
+                    request.session['pre_2fa_user_id'] = str(user.id)
+                    return redirect('login_totp')
+                else:
+                    login(request, user)
+                    return redirect('dashboard')
+            else:
+                messages.error(request, "Identifiant ou mot de passe incorrect.")
+    else:
+        form = LoginForm()
+
+    return render(request, "login.html", {"form": form})
 
 
-@login_required
+
 def login_totp(request):
-    """
-    Validation du code TOTP (Google Authenticator)
-    """
+    user_id = request.session.get('pre_2fa_user_id')
+    if not user_id:
+        return redirect('login')  # pas d'utilisateur en attente
 
-    user = request.user
+    user = CustomUser.objects.get(id=user_id)
     message = None
-
-    # Sécurité : vérifier que l'utilisateur a bien un secret TOTP
-    if not hasattr(user, "totp_secret") or not user.totp_secret:
-        message = _("Aucun secret TOTP configuré pour ce compte.")
-        return render(
-            request,
-            "login.totp.html",
-            {"form": None, "message": message},
-        )
 
     if request.method == "POST":
         form = TOTPLoginForm(request.POST)
-
         if form.is_valid():
-            token = form.cleaned_data["token"]
-
+            token = form.cleaned_data['token']
             totp = pyotp.TOTP(user.totp_secret)
-
             if totp.verify(token):
-                # Marquer la 2FA comme validée
-                request.session["totp_verified"] = True
-
-                # Reconnecter proprement l'utilisateur
-                login(request, user)
-
-                return redirect("dashboard")  # ou admin:index
+                login(request, user)  # connexion finale
+                request.session.pop('pre_2fa_user_id', None)
+                return redirect('dashboard')
             else:
-                message = _("Code de vérification invalide.")
-
+                message = "Code TOTP invalide."
     else:
         form = TOTPLoginForm()
 
-    return render(
-        request,
-        "login.totp.html",
-        {
-            "form": form,
-            "message": message,
-        },
-    )
+    return render(request, "login.totp.html", {"form": form, "message": message})
 
 
 
 
 
-
-@login_required
 def totp_setup(request):
     user = request.user  # c'est un Utilisateur avec email_google
 

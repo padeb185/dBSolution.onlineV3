@@ -4,7 +4,7 @@ from utilisateurs.models import Utilisateur
 from django.contrib import admin
 from carrosserie.models import Carrosserie
 from client.models import Client
-from authentification.models import User
+from authentification.models import CustomUser
 from fournisseur.models import Fournisseur
 from investissements.models import Investissement
 from maintenance.models import Maintenance
@@ -34,7 +34,7 @@ from voiture.voiture_pneus_historique.models import VoiturePneusHistorique
 admin.site.register(Utilisateur)
 admin.site.register(Adresse)
 admin.site.register(Facture)
-admin.site.register(User)
+admin.site.register(CustomUser)
 admin.site.register(Carrosserie)
 admin.site.register(Client)
 admin.site.register(Fournisseur)

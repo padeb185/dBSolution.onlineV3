@@ -1,3 +1,9 @@
 from django.shortcuts import render
+from .models import VoitureMarque
 
-# Create your views here.
+
+def marque_list(request):
+    marques = VoitureMarque.objects.all()
+    return render(request, "voiture_marque/marque_list.html", {
+        "marques": marques
+    })
