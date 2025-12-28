@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="RAZ CustomUser">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/Scripts/script_tenant.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/Scripts/script_tenant.py" afterDir="false" />
-    </list>
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="tenant" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -148,15 +145,7 @@
       <workItem from="1766907164660" duration="322000" />
       <workItem from="1766912270318" duration="5011000" />
       <workItem from="1766938634417" duration="169000" />
-      <workItem from="1766946837295" duration="488000" />
-    </task>
-    <task id="LOCAL-00087" summary="git js theme">
-      <option name="closed" value="true" />
-      <created>1766554665097</created>
-      <option name="number" value="00087" />
-      <option name="presentableId" value="LOCAL-00087" />
-      <option name="project" value="LOCAL" />
-      <updated>1766554665097</updated>
+      <workItem from="1766946837295" duration="1292000" />
     </task>
     <task id="LOCAL-00088" summary="freins pièces">
       <option name="closed" value="true" />
@@ -542,7 +531,15 @@
       <option name="project" value="LOCAL" />
       <updated>1766917416729</updated>
     </task>
-    <option name="localTasksCounter" value="136" />
+    <task id="LOCAL-00136" summary="tenant">
+      <option name="closed" value="true" />
+      <created>1766947349753</created>
+      <option name="number" value="00136" />
+      <option name="presentableId" value="LOCAL-00136" />
+      <option name="project" value="LOCAL" />
+      <updated>1766947349753</updated>
+    </task>
+    <option name="localTasksCounter" value="137" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -560,7 +557,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="création et migration tenant" />
     <MESSAGE value="traduction nl fin" />
     <MESSAGE value="traduction es début" />
     <MESSAGE value="traduction es fin" />
@@ -585,7 +581,8 @@
     <MESSAGE value="entretien" />
     <MESSAGE value="totp non résolu" />
     <MESSAGE value="RAZ CustomUser" />
-    <option name="LAST_COMMIT_MESSAGE" value="RAZ CustomUser" />
+    <MESSAGE value="tenant" />
+    <option name="LAST_COMMIT_MESSAGE" value="tenant" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
