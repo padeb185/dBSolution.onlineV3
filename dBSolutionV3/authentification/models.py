@@ -54,3 +54,11 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
             name=self.email,
             issuer_name="MaSuperApp"
         )
+
+
+from django.apps import AppConfig
+
+class AuthentificationConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'authentification'
+    label = 'authentification'

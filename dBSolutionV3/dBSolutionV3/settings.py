@@ -38,6 +38,7 @@ TENANT_DOMAIN_MODEL = "societe.Domain"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
 SHARED_APPS = (
     'django_tenants',
     'django.contrib.admin',
@@ -47,6 +48,9 @@ SHARED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'authentification.apps.AuthentificationConfig',
+
+
     'dBSolutionV3',
 
     'societe',
@@ -54,6 +58,7 @@ SHARED_APPS = (
 
     'rest_framework',
     'rest_framework.authtoken',
+
 
     # apps 2FA
     'django_otp',
@@ -167,9 +172,6 @@ TENANT_APPS = (
     "voiture.voiture_pneus_historique.apps.VoiturePneusHistoriqueConfig",
 
 
-
-
-    'authentification',
     'utilisateurs',
     'utilisateurs.mecanicien',
     'utilisateurs.apprentis',
@@ -191,6 +193,8 @@ TENANT_APPS = (
 )
 
 INSTALLED_APPS = list(SHARED_APPS) + list(TENANT_APPS)
+
+AUTH_USER_MODEL = "authentification.CustomUser"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -326,7 +330,7 @@ USE_TZ = True
 USE_I18N = True
 USE_L10N = True
 
-USE_TZ = True
+
 
 
 # Static files (CSS, JavaScript, Images)

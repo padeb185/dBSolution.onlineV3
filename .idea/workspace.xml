@@ -4,19 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="entretien">
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls_public.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls_tenant.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/urls.py" afterDir="false" />
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="totp non résolu">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/authentification/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/authentification/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/authentification/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/authentification/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/authentification/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/authentification/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls_public.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls_public.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls_tenant.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls_tenant.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/maintenance/bruits/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/maintenance/controle_check_up/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/maintenance/freins/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/maintenance/jeux_pieces/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/maintenance/jeux_pieces/migrations/0002_jeupiece_tag_notemaintenance_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/maintenance/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/maintenance/migrations/0002_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/maintenance/migrations/0003_maintenance_apprentis_maintenance_chef_mecanicien.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/maintenance/nettoyage_exterieur/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/maintenance/nettoyage_interieur/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/maintenance/niveaux/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/maintenance/silent_blocs/migrations/0001_initial.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -154,15 +160,9 @@
       <workItem from="1766735400660" duration="73000" />
       <workItem from="1766736066412" duration="14242000" />
       <workItem from="1766758168982" duration="12241000" />
-      <workItem from="1766819518826" duration="16930000" />
-    </task>
-    <task id="LOCAL-00085" summary="utilisateur et maintenance">
-      <option name="closed" value="true" />
-      <created>1766509388863</created>
-      <option name="number" value="00085" />
-      <option name="presentableId" value="LOCAL-00085" />
-      <option name="project" value="LOCAL" />
-      <updated>1766509388863</updated>
+      <workItem from="1766819518826" duration="17159000" />
+      <workItem from="1766907164660" duration="322000" />
+      <workItem from="1766912270318" duration="4880000" />
     </task>
     <task id="LOCAL-00086" summary="utilisateur et maintenance">
       <option name="closed" value="true" />
@@ -548,7 +548,15 @@
       <option name="project" value="LOCAL" />
       <updated>1766841036356</updated>
     </task>
-    <option name="localTasksCounter" value="134" />
+    <task id="LOCAL-00134" summary="totp non résolu">
+      <option name="closed" value="true" />
+      <created>1766844995600</created>
+      <option name="number" value="00134" />
+      <option name="presentableId" value="LOCAL-00134" />
+      <option name="project" value="LOCAL" />
+      <updated>1766844995600</updated>
+    </task>
+    <option name="localTasksCounter" value="135" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -566,7 +574,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="accueil" />
     <MESSAGE value="RAZ BDD" />
     <MESSAGE value="création et migration tenant" />
     <MESSAGE value="traduction nl fin" />
@@ -591,14 +598,15 @@
     <MESSAGE value="traduction grec" />
     <MESSAGE value="traduction fin" />
     <MESSAGE value="entretien" />
-    <option name="LAST_COMMIT_MESSAGE" value="entretien" />
+    <MESSAGE value="totp non résolu" />
+    <option name="LAST_COMMIT_MESSAGE" value="totp non résolu" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py</url>
-          <line>321</line>
+          <line>325</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">

@@ -1,10 +1,6 @@
-from django.urls import path, include
+from django.urls import path
 from theme.views import dashboard
 
-
 urlpatterns = [
-    path("dashboard/", dashboard, name="dashboard"),
-    path("auth/", include("authentification.urls")),
-
+    path("", dashboard, name="dashboard"),
 ]
-
