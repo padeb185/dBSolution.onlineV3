@@ -9,38 +9,42 @@ https://docs.djangoproject.com/en/6.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
-
 from pathlib import Path
+import os
+import logging
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# ------------------------------------------------------------------------------
+# SECURITY
+# ------------------------------------------------------------------------------
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-=zdo*1q=lgk$r*fgyntvok1v7*n8t_h@zaxm6v#50i%114wyc9'
-
-# SECURITY WARNING: don't run with debug turned on in production!
+SECRET_KEY = 'django-insecure-CHANGE-ME-IN-PROD'
 DEBUG = True
 
-PUBLIC_SCHEMA_NAME = 'public'
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'dbsolution.localhost']
 
-# dans settings.py
+# ------------------------------------------------------------------------------
+# DJANGO-TENANTS
+# ------------------------------------------------------------------------------
+
+PUBLIC_SCHEMA_NAME = 'public'
 TENANT_PUBLIC_SCHEMA_NAME = 'public'
 
-# Application definition
-
-# django-tenants (OBLIGATOIRE)
 TENANT_MODEL = "societe.Societe"
 TENANT_DOMAIN_MODEL = "societe.Domain"
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DATABASE_ROUTERS = (
+    'django_tenants.routers.TenantSyncRouter',
+)
 
+# ------------------------------------------------------------------------------
+# APPLICATIONS
+# ------------------------------------------------------------------------------
 
 SHARED_APPS = (
     'django_tenants',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -48,48 +52,43 @@ SHARED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # Auth custom
     'authentification.apps.AuthentificationConfig',
 
-
+    # Core
     'dBSolutionV3',
 
-    'societe',
-    'adresse',
-
+    # Libs
     'rest_framework',
     'rest_framework.authtoken',
+    'guardian',
 
-
-    # apps 2FA
+    # 2FA
     'django_otp',
-    'django_otp.plugins.otp_totp',   # pour Google Authenticator
+    'django_otp.plugins.otp_totp',
     'two_factor',
 
+    # Front
     'tailwind',
     'theme',
-
     'widget_tweaks',
+
+    # Utils
     'django_filters',
     'crispy_forms',
     'django_extensions',
     'import_export',
-    'allauth',
-    'guardian',
     'django_celery_beat',
     'djmoney',
     'channels',
-
     'polymorphic',
-
     'chartjs',
     'anymail',
-
     'django_pandas',
-
-
-
-
+    'adresse',
+    'societe',
 )
+
 
 
 TENANT_APPS = (
@@ -194,9 +193,32 @@ TENANT_APPS = (
 
 INSTALLED_APPS = list(SHARED_APPS) + list(TENANT_APPS)
 
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# ------------------------------------------------------------------------------
+# AUTHENTIFICATION
+# ------------------------------------------------------------------------------
+
 AUTH_USER_MODEL = "authentification.CustomUser"
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'guardian.backends.ObjectPermissionBackend',
+]
+
+LOGIN_URL = '/fr/login/'
+LOGIN_REDIRECT_URL = '/fr/'
+LOGOUT_REDIRECT_URL = '/fr/login/'
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# ------------------------------------------------------------------------------
+# MIDDLEWARE (ORDRE CRITIQUE)
+# ------------------------------------------------------------------------------
+
 MIDDLEWARE = [
+    'django_tenants.middleware.main.TenantMainMiddleware',
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -204,20 +226,22 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'authentification.middleware.TOTPRequiredMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django_tenants.middleware.main.TenantMainMiddleware',
 
+    'authentification.middleware.TOTPRequiredMiddleware',
+
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# ------------------------------------------------------------------------------
+# URLS / TEMPLATES
+# ------------------------------------------------------------------------------
 
 ROOT_URLCONF = 'dBSolutionV3.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            BASE_DIR / "theme/templates",
-        ],
+        'DIRS': [BASE_DIR / "theme/templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -234,76 +258,37 @@ TEMPLATES = [
     },
 ]
 
-
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-    'guardian.backends.ObjectPermissionBackend'
-)
-
 WSGI_APPLICATION = 'dBSolutionV3.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/6.0/ref/settings/#databases
-import os
-
-
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'dbsolution.localhost']
-
-#ALLOWED_HOSTS = ['.mondomaine.be']
-
+# ------------------------------------------------------------------------------
+# DATABASE
+# ------------------------------------------------------------------------------
 
 DATABASES = {
     'default': {
         'ENGINE': 'django_tenants.postgresql_backend',
-        'NAME': os.environ.get('DB_NAME'),       # nom de la base
-        'USER': os.environ.get('DB_USER'),         # utilisateur DB
-        'PASSWORD': os.environ.get('DB_PASSWORD'),      # mot de passe
-        'HOST': os.environ.get('DB_HOST'),           # hôte DB
-        'PORT': os.environ.get('DB_PORT'),                # port DB
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASSWORD'),
+        'HOST': os.environ.get('DB_HOST'),
+        'PORT': os.environ.get('DB_PORT'),
     }
 }
 
-DATABASE_ROUTERS = (
-    'django_tenants.routers.TenantSyncRouter',
-)
-
-
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-    ),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
-}
-
-
-
-# Password validation
-# https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
+# ------------------------------------------------------------------------------
+# PASSWORDS
+# ------------------------------------------------------------------------------
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/6.0/topics/i18n/
-
-
+# ------------------------------------------------------------------------------
+# I18N
+# ------------------------------------------------------------------------------
 
 LANGUAGE_CODE = 'fr'
 
@@ -311,77 +296,35 @@ LANGUAGES = [
     ('fr', 'Français'),
     ('en', 'English'),
     ('nl', 'Nederlands'),
-    ('de', 'Deutsch'),  # 🇩🇪 Allemand
-    ('it', 'Italiano'),  # 🇮🇹 Italien
-    ('el', 'Ελληνικά'),  # 🇬🇷 Grec
-    ('es', 'Español'),  # 🇪🇸 Espagnol
+    ('de', 'Deutsch'),
+    ('it', 'Italiano'),
+    ('el', 'Ελληνικά'),
+    ('es', 'Español'),
 ]
 
-LOCALE_PATHS = [
-    BASE_DIR / 'locale',
-]
-
-
+LOCALE_PATHS = [BASE_DIR / 'locale']
 
 TIME_ZONE = 'Europe/Brussels'
-USE_TZ = True
-
-
 USE_I18N = True
 USE_L10N = True
+USE_TZ = True
 
+LANGUAGE_COOKIE_NAME = "django_language"
 
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/6.0/howto/static-files/
+# ------------------------------------------------------------------------------
+# STATIC FILES
+# ------------------------------------------------------------------------------
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "theme", "static"),  # tes fichiers statiques Tailwind
-]
-
-# Où Django copiera tous les fichiers statiques lors de collectstatic
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATICFILES_DIRS = [BASE_DIR / "theme" / "static"]
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 TAILWIND_APP_NAME = 'theme'
 
-
-import logging
-
+# ------------------------------------------------------------------------------
+# LOGGING
+# ------------------------------------------------------------------------------
 
 logging.getLogger('django.server').addFilter(
     lambda record: 'Broken pipe' not in record.getMessage()
 )
-
-
-
-LANGUAGE_COOKIE_NAME = "django_language"
-
-
-
-PEPPOL_ENV = "TEST"  # ou "PROD"
-
-PEPPOL_ACCESS_POINT_URL = {
-    "TEST": "https://sandbox.accesspoint.peppol.eu/v1/invoices",
-    "PROD": "https://api.ap.example/v1/invoices"
-}[PEPPOL_ENV]
-
-PEPPOL_API_KEY = "YOUR_TEST_API_KEY"
-""""
-PEPPOL_API_KEY = {
-    "TEST": "test_xxxxx",
-    "PROD": "prod_xxxxx"
-}[PEPPOL_ENV]
-"""
-
-
-
-
-
-LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/login/'
-
-
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True

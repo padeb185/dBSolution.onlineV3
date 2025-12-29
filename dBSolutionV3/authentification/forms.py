@@ -11,12 +11,24 @@ from utilisateurs.magasinier.models import Magasinier
 from utilisateurs.mecanicien.models import Mecanicien
 from utilisateurs.vendeur.models import Vendeur
 
-
-
-
+# =======================
+# Formulaire login tous rôles
+# =======================
 class LoginForm(forms.Form):
-    email_google = forms.EmailField(label="Email")
-    password = forms.CharField(label="Mot de passe", widget=forms.PasswordInput)
+    email_google = forms.EmailField(
+        label=_("Email"),
+        widget=forms.EmailInput(attrs={
+            "autocomplete": "email",
+            "placeholder": _("Votre email")
+        })
+    )
+    password = forms.CharField(
+        label=_("Mot de passe"),
+        widget=forms.PasswordInput(attrs={
+            "autocomplete": "current-password",
+            "placeholder": _("Votre mot de passe")
+        })
+    )
 
     def clean(self):
         cleaned_data = super().clean()
@@ -46,24 +58,33 @@ class LoginForm(forms.Form):
 
         return cleaned_data
 
-
-
+# =======================
+# Formulaire login TOTP
+# =======================
 class LoginTOTPForm(forms.Form):
-    email_google = forms.EmailField(
-        label=_("Email Google"),
-        widget=forms.EmailInput(attrs={"autocomplete": "email"})
+    email = forms.EmailField(
+        label=_("Email"),
+        widget=forms.EmailInput(attrs={
+            "autocomplete": "email",
+            "placeholder": _("Votre email")
+        })
     )
     password = forms.CharField(
         label=_("Mot de passe"),
-        widget=forms.PasswordInput(attrs={"autocomplete": "current-password"})
+        widget=forms.PasswordInput(attrs={
+            "autocomplete": "current-password",
+            "placeholder": _("Votre mot de passe")
+        })
     )
     totp_token = forms.CharField(
         label=_("Code Google Authenticator"),
         max_length=6,
+        required=False,
         widget=forms.TextInput(attrs={
             "inputmode": "numeric",
             "pattern": "[0-9]{6}",
             "autocomplete": "one-time-code",
+            "placeholder": _("123456")
         })
     )
     remember_me = forms.BooleanField(
@@ -71,8 +92,8 @@ class LoginTOTPForm(forms.Form):
         label=_("Se souvenir de moi")
     )
 
-def clean_totp_token(self):
-    token = self.cleaned_data.get('totp_token')
-    if not token.isdigit() or len(token) != 6:
-        raise forms.ValidationError(_("Le code TOTP doit comporter 6 chiffres"))
-    return token
+    def clean_totp_token(self):
+        token = self.cleaned_data.get('totp_token')
+        if token and (not token.isdigit() or len(token) != 6):
+            raise forms.ValidationError(_("Le code TOTP doit comporter 6 chiffres"))
+        return token

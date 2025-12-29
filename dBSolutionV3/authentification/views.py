@@ -15,12 +15,13 @@ def login_view(request):
     message = None
 
     if request.method == "POST" and form.is_valid():
-        email = form.cleaned_data.get("email_google")
+        email = form.cleaned_data.get("email")
         password = form.cleaned_data.get("password")
         token = form.cleaned_data.get("totp_token")
         remember_me = form.cleaned_data.get("remember_me", False)
 
-        user = authenticate(request, email_google=email, password=password)
+        # 🔑 Authentification
+        user = authenticate(request, email=email, password=password)
         if user is None:
             message = _("Email ou mot de passe incorrect")
         else:
@@ -28,7 +29,7 @@ def login_view(request):
                 message = _("Utilisateur non configuré pour TOTP")
             else:
                 totp = pyotp.TOTP(user.totp_secret)
-                if not totp.verify(token):
+                if not token or not totp.verify(token):
                     message = _("Code TOTP invalide ou expiré")
                 else:
                     # Connexion réussie

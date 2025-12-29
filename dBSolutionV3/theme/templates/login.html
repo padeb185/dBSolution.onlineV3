@@ -1,95 +1,48 @@
 {% extends "base.html" %}
-{% load i18n static widget_tweaks %}
-{% get_current_language as LANGUAGE_CODE %}
+{% load i18n widget_tweaks %}
 
-{% block title %}{% trans "Connexion" %}{% endblock %}
+{% block title %}
+    {% trans "Connexion" %}
+{% endblock %}
 
 {% block content %}
-<h1 class="text-2xl font-bold mb-6">
-    {% trans "Connexion" %}
-</h1>
+<div class="flex justify-center items-center min-h-[60vh]">
+    <div class="w-full max-w-md bg-white p-6 rounded-lg shadow">
 
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-    <!-- Carte Connexion -->
-    <div class="md:col-span-2 bg-white shadow rounded-lg p-6">
-
-        <h2 class="text-lg font-semibold mb-4">
-            {% trans "Accès à votre compte" %}
-        </h2>
-
-        {% if form.non_field_errors %}
-            <div class="mb-4 rounded-md bg-red-50 border border-red-200 text-red-700 px-4 py-3">
-                {% for error in form.non_field_errors %}
-                    {{ error }}
-                {% endfor %}
-            </div>
+        <h1 class="text-2xl font-bold text-center mb-6">
+            {% trans "Connexion" %}
+        </h1>
+        {% if form.errors %}
+            <pre class="bg-red-100 text-red-800 p-4 mb-4">
+                {{ form.errors }}
+            </pre>
         {% endif %}
 
-        <form action="{% url 'login' %}" method="post" class="space-y-4">
+        <form method="post" class="space-y-4">
             {% csrf_token %}
 
-            <!-- Email -->
-            <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700 mb-1">
-                    {{ form.email_google.label }}
-                </label>
-                {{ form.email_google|add_class:"w-full rounded-md border-gray-300 shadow-sm px-3 py-2 focus:border-indigo-500 focus:ring-indigo-500" }}
-                {% if form.email_google.errors %}
-                    <p class="mt-1 text-sm text-red-600">{{ form.email_google.errors|striptags }}</p>
-                {% endif %}
-            </div>
+            {% for field in form %}
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">
+                        {{ field.label }}
+                    </label>
 
-            <!-- Mot de passe -->
-            <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700 mb-1">
-                    {{ form.password.label }}
-                </label>
-                {{ form.password|add_class:"w-full rounded-md border-gray-300 shadow-sm px-3 py-2 focus:border-indigo-500 focus:ring-indigo-500" }}
-                {% if form.password.errors %}
-                    <p class="mt-1 text-sm text-red-600">{{ form.password.errors|striptags }}</p>
-                {% endif %}
-            </div>
+                    {{ field|add_class:"mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" }}
 
-            <!-- TOTP -->
-            <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700 mb-1">
-                    {{ form.totp_token.label }}
-                </label>
-                {{ form.totp_token|add_class:"w-full rounded-md border-gray-300 shadow-sm px-3 py-2 focus:border-indigo-500 focus:ring-indigo-500" }}
-                {% if form.totp_token.errors %}
-                    <p class="mt-1 text-sm text-red-600">{{ form.totp_token.errors|striptags }}</p>
-                {% endif %}
-            </div>
+                    {% if field.errors %}
+                        <p class="text-sm text-red-600 mt-1">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                </div>
+            {% endfor %}
 
-            <!-- Se souvenir de moi -->
-            <div class="flex items-center mb-4">
-                <label class="flex items-center space-x-2 text-sm text-gray-600">
-                    {{ form.remember_me }}
-                    <span>{% trans "Se souvenir de moi" %}</span>
-                </label>
-            </div>
-
-            <!-- Bouton -->
-            <button
-                type="submit"
-                class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded-md transition w-full md:w-auto"
-            >
+            <button type="submit"
+                    class="w-full bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700 transition">
                 {% trans "Se connecter" %}
             </button>
-
         </form>
-    </div>
 
-    <!-- Carte Information -->
-    <div class="bg-white shadow rounded-lg p-6">
-        <h2 class="text-lg font-semibold mb-2">
-            {% trans "Sécurité" %}
-        </h2>
-        <p class="text-gray-600 text-sm">
-            {% trans "L’accès est protégé. Une vérification supplémentaire peut être requise selon votre configuration de sécurité." %}
-        </p>
     </div>
-
 </div>
 {% endblock %}
