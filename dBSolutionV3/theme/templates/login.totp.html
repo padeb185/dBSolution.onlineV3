@@ -17,9 +17,11 @@
       {% trans "Veuillez entrer le code généré par Google Authenticator" %}
     </p>
 
-    {% if message %}
+    {% if form.non_field_errors %}
       <div class="mb-4 rounded-md bg-red-50 border border-red-200 text-red-700 px-4 py-3">
-        {{ message }}
+        {% for error in form.non_field_errors %}
+          {{ error }}
+        {% endfor %}
       </div>
     {% endif %}
 
@@ -31,7 +33,7 @@
           <label class="block text-sm font-medium text-gray-700 mb-1">
             {{ field.label }}
           </label>
-          {{ field|add_class:"w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" }}
+          {{ field|add_class:"w-full rounded-md border-gray-300 shadow-sm px-3 py-2 focus:border-indigo-500 focus:ring-indigo-500" }}
           {% if field.errors %}
             <p class="mt-1 text-sm text-red-600">
               {{ field.errors|striptags }}
@@ -39,6 +41,16 @@
           {% endif %}
         </div>
       {% endfor %}
+
+      <!-- Se souvenir de moi (si présent dans le form) -->
+      {% if form.remember_me %}
+        <div class="flex items-center mb-4">
+          <label class="flex items-center space-x-2 text-sm text-gray-600">
+            {{ form.remember_me }}
+            <span>{% trans "Se souvenir de moi" %}</span>
+          </label>
+        </div>
+      {% endif %}
 
       <button
         type="submit"

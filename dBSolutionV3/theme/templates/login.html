@@ -18,21 +18,26 @@
             {% trans "Accès à votre compte" %}
         </h2>
 
-        {% if error %}
+        {% if form.non_field_errors %}
             <div class="mb-4 rounded-md bg-red-50 border border-red-200 text-red-700 px-4 py-3">
-                {{ error }}
+                {% for error in form.non_field_errors %}
+                    {{ error }}
+                {% endfor %}
             </div>
         {% endif %}
 
         <form action="{% url 'login' %}" method="post" class="space-y-4">
             {% csrf_token %}
 
-            <!-- Nom d'utilisateur -->
+            <!-- Email -->
             <div class="mb-4">
                 <label class="block text-sm font-medium text-gray-700 mb-1">
-                    {{ form.username.label }}
+                    {{ form.email_google.label }}
                 </label>
-                {{ form.username|add_class:"w-full rounded-md border-gray-300 shadow-sm px-3 py-2 focus:border-indigo-500 focus:ring-indigo-500" }}
+                {{ form.email_google|add_class:"w-full rounded-md border-gray-300 shadow-sm px-3 py-2 focus:border-indigo-500 focus:ring-indigo-500" }}
+                {% if form.email_google.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.email_google.errors|striptags }}</p>
+                {% endif %}
             </div>
 
             <!-- Mot de passe -->
@@ -41,18 +46,28 @@
                     {{ form.password.label }}
                 </label>
                 {{ form.password|add_class:"w-full rounded-md border-gray-300 shadow-sm px-3 py-2 focus:border-indigo-500 focus:ring-indigo-500" }}
+                {% if form.password.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.password.errors|striptags }}</p>
+                {% endif %}
             </div>
 
-            <!-- Se souvenir de moi et mot de passe oublié -->
-            <div class="flex items-center justify-between text-sm text-gray-600 mb-4">
-                <label class="flex items-center space-x-2">
-                    <input type="checkbox" name="remember" class="rounded border-gray-300 focus:ring-indigo-500">
+            <!-- TOTP -->
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-1">
+                    {{ form.totp_token.label }}
+                </label>
+                {{ form.totp_token|add_class:"w-full rounded-md border-gray-300 shadow-sm px-3 py-2 focus:border-indigo-500 focus:ring-indigo-500" }}
+                {% if form.totp_token.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.totp_token.errors|striptags }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Se souvenir de moi -->
+            <div class="flex items-center mb-4">
+                <label class="flex items-center space-x-2 text-sm text-gray-600">
+                    {{ form.remember_me }}
                     <span>{% trans "Se souvenir de moi" %}</span>
                 </label>
-
-                <a href="#" class="text-indigo-600 hover:underline">
-                    {% trans "Mot de passe oublié ?" %}
-                </a>
             </div>
 
             <!-- Bouton -->

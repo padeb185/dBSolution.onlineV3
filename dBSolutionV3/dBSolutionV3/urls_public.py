@@ -4,6 +4,7 @@ from django.contrib.auth import views as auth_views
 from theme.views import home
 from authentification.views import login_totp, totp_setup
 
+
 urlpatterns = [
     path("", home, name="home"),
 

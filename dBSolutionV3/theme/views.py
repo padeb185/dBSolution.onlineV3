@@ -3,20 +3,21 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.utils.translation import gettext as _
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
-from authentification.forms import LoginForm, TOTPLoginForm
+from authentification.forms import LoginForm, LoginTOTPForm
+
 
 def home(request):
     return render(request, 'home.html')
+
 
 def login_view(request):
     """Vue pour la connexion classique"""
     if request.method == "POST":
         form = LoginForm(request.POST)
         if form.is_valid():
-            email = form.cleaned_data['email']
+            email = form.cleaned_data['email_google']
             password = form.cleaned_data['password']
 
-            # USERNAME_FIELD = email_google
             user = authenticate(request, email_google=email, password=password)
 
             if user is not None:
@@ -30,7 +31,6 @@ def login_view(request):
                     return redirect("login_totp")
                 else:
                     return redirect("dashboard")
-
             else:
                 form.add_error(None, _("Nom d'utilisateur ou mot de passe incorrect"))
     else:
@@ -51,23 +51,19 @@ def login_totp(request):
         return render(request, "login.totp.html", {"form": None, "message": message})
 
     if request.method == "POST":
-        form = TOTPLoginForm(request.POST)
+        form = LoginTOTPForm(request.POST)
         if form.is_valid():
-            token = form.cleaned_data["token"]
+            token = form.cleaned_data["totp_token"]
             totp = pyotp.TOTP(user.totp_secret)
 
             if totp.verify(token):
                 # Marquer la 2FA comme validée
                 request.session["totp_verified"] = True
-
-                # Reconnecter proprement l'utilisateur
-                auth_login(request, user)
-
                 return redirect("dashboard")
             else:
                 message = _("Code de vérification invalide.")
     else:
-        form = TOTPLoginForm()
+        form = LoginTOTPForm(initial={"email_google": user.email_google})
 
     return render(request, "login.totp.html", {"form": form, "message": message})
 
@@ -75,7 +71,6 @@ def login_totp(request):
 @login_required
 def dashboard(request):
     """Tableau de bord utilisateur"""
-    # Vérifie si TOTP est activé et validé
     if getattr(request.user, "totp_enabled", False) and not request.session.get("totp_verified", False):
         return redirect("login_totp")
 

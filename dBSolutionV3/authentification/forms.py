@@ -47,17 +47,32 @@ class LoginForm(forms.Form):
         return cleaned_data
 
 
-class TOTPLoginForm(forms.Form):
-    token = forms.CharField(
-        label=_("Code de vérification"),
-        max_length=6,
-        min_length=6,
-        strip=True,
-        widget=forms.TextInput(
-            attrs={
-                "placeholder": "123456",
-                "inputmode": "numeric",
-                "autocomplete": "one-time-code",
-            }
-        ),
+
+class LoginTOTPForm(forms.Form):
+    email_google = forms.EmailField(
+        label=_("Email Google"),
+        widget=forms.EmailInput(attrs={"autocomplete": "email"})
     )
+    password = forms.CharField(
+        label=_("Mot de passe"),
+        widget=forms.PasswordInput(attrs={"autocomplete": "current-password"})
+    )
+    totp_token = forms.CharField(
+        label=_("Code Google Authenticator"),
+        max_length=6,
+        widget=forms.TextInput(attrs={
+            "inputmode": "numeric",
+            "pattern": "[0-9]{6}",
+            "autocomplete": "one-time-code",
+        })
+    )
+    remember_me = forms.BooleanField(
+        required=False,
+        label=_("Se souvenir de moi")
+    )
+
+def clean_totp_token(self):
+    token = self.cleaned_data.get('totp_token')
+    if not token.isdigit() or len(token) != 6:
+        raise forms.ValidationError(_("Le code TOTP doit comporter 6 chiffres"))
+    return token

@@ -5,9 +5,9 @@
 {% block title %}{% trans "Configurer TOTP" %}{% endblock %}
 
 {% block content %}
-<div class="grid place-items-center min-h-screen">
+<div class="flex items-center justify-center min-h-screen bg-gray-50">
 
-    <div class="bg-white shadow rounded-lg p-8 max-w-md w-full text-center">
+    <div class="bg-white shadow-lg rounded-lg p-8 max-w-md w-full text-center">
         <h1 class="text-2xl font-bold mb-6">{% trans "Configurer la vérification TOTP" %}</h1>
 
         <h2 class="text-xl font-semibold mb-4">{% trans "Scanner le QR code" %}</h2>
@@ -16,13 +16,13 @@
         {% if qr_code %}
             <!-- QR code -->
             <div class="mb-6">
-                <img src="data:image/png;base64,{{ qr_code }}" alt="{% trans 'QR Code TOTP' %}" class="mx-auto">
+                <img src="data:image/png;base64,{{ qr_code }}" alt="{% trans 'QR Code TOTP' %}" class="mx-auto border rounded-md shadow-sm">
             </div>
 
             <p class="text-sm text-gray-500 mb-2">
                 {% trans "Si tu ne peux pas scanner le QR code, utilise ce code secret :" %}
             </p>
-            <p class="font-mono text-lg mb-6">{{ request.user.totp_secret }}</p>
+            <p class="font-mono text-lg mb-6 select-all">{{ request.user.totp_secret }}</p>
 
             <a href="{% url 'dashboard' %}" class="inline-block bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 transition">
                 {% trans "J’ai configuré Google Authenticator" %}
