@@ -62,11 +62,11 @@ class LoginForm(forms.Form):
 # Formulaire login TOTP
 # =======================
 class LoginTOTPForm(forms.Form):
-    email = forms.EmailField(
-        label=_("Email"),
+    email_google = forms.EmailField(
+        label=_("Email Google"),
         widget=forms.EmailInput(attrs={
-            "autocomplete": "email",
-            "placeholder": _("Votre email")
+            "autocomplete": "email_google",
+            "placeholder": _("Votre email google")
         })
     )
     password = forms.CharField(
