@@ -1,10 +1,3 @@
-from django.shortcuts import render
-
-# Create your views here.
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
-from .forms import LoginTOTPForm
-from .models import Utilisateur
 import base64
 from io import BytesIO
 import qrcode
@@ -13,6 +6,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.utils.translation import gettext as _
 from .forms import LoginTOTPForm
+from .models import Utilisateur
 
 
 def login_view(request):
@@ -21,13 +15,13 @@ def login_view(request):
     message = None
 
     if request.method == "POST" and form.is_valid():
-        email_google = form.cleaned_data.get("email")
+        email = form.cleaned_data.get("email_google")
         password = form.cleaned_data.get("password")
         token = form.cleaned_data.get("totp_token")
         remember_me = form.cleaned_data.get("remember_me", False)
 
         # 🔑 Authentification
-        utilisateur = authenticate(request, email_google=email_google, password=password)
+        utilisateur = authenticate(request, email_google=email, password=password)
         if utilisateur is None:
             message = _("Email ou mot de passe incorrect")
         else:
@@ -49,35 +43,52 @@ def login_view(request):
     return render(request, "login.html", {"form": form, "message": message})
 
 
-def login_totp(request):
-    """Étape TOTP si login en 2 étapes"""
+
+def login_totp_view(request):
+    """
+    Vue pour la connexion TOTP (2FA) après que l'utilisateur ait passé l'étape email/mot de passe.
+    """
     utilisateur_id = request.session.get('pre_2fa_user_id')
     if not utilisateur_id:
+        # Pas d'utilisateur en session, retour à la page de login
         return redirect('login')
 
-    utilisateur = CustomUser.objects.get(id=utilisateur_id)
-    message = None
+    try:
+        utilisateur = Utilisateur.objects.get(id=utilisateur_id)
+    except Utilisateur.DoesNotExist:
+        return redirect('login')
 
-    if request.method == "POST":
-        form = (LoginTOTPForm(request.POST))
-        if form.is_valid():
-            token = form.cleaned_data['token']
+    message = None
+    form = LoginTOTPForm(request.POST or None)
+
+    if request.method == 'POST' and form.is_valid():
+        token = form.cleaned_data.get('totp_token')
+        if not token:
+            message = _("Veuillez entrer le code TOTP.")
+        else:
             totp = pyotp.TOTP(utilisateur.totp_secret)
             if totp.verify(token):
+                # Connexion réussie
                 login(request, utilisateur)
+                # Supprime la variable de session 2FA
                 request.session.pop('pre_2fa_user_id', None)
+                request.session['totp_verified'] = True
                 return redirect('dashboard')
             else:
-                message = _("Code TOTP invalide ou expiré")
-    else:
-        form = LoginTOTPForm()
+                message = _("Code TOTP invalide ou expiré.")
 
-    return render(request, "login.totp.html", {"form": form, "message": message})
+    return render(request, 'login_totp.html', {
+        'form': form,
+        'message': message
+    })
+
+
+
 
 
 def totp_setup(request):
     """Page de configuration TOTP avec QR code"""
-    utilisateur = request.utilisateur
+    utilisateur = request.user
     if not utilisateur.totp_secret:
         utilisateur.generate_totp_secret()
         utilisateur.totp_enabled = True
@@ -100,25 +111,3 @@ def totp_setup(request):
         "totp/setup.html",
         {"qr_code": qr_base64}
     )
-
-
-def login_totp_view(request):
-    form = LoginTOTPForm(request.POST or None)
-    message = ""
-
-    if request.method == "POST" and form.is_valid():
-        email = form.cleaned_data['email_google']
-        password = form.cleaned_data['password']
-        token = form.cleaned_data['totp_token']
-
-        user = authenticate(request, email_google=email, password=password)
-        if user is not None:
-            if user.verify_totp(token):
-                login(request, user)
-                return redirect('home')  # page d'accueil après connexion
-            else:
-                message = "Code TOTP incorrect"
-        else:
-            message = "Email ou mot de passe incorrect"
-
-    return render(request, 'login_totp.html', {'form': form, 'message': message})

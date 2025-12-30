@@ -28,15 +28,20 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'dbsolution.localhost']
 # DJANGO-TENANTS
 # ------------------------------------------------------------------------------
 
-PUBLIC_SCHEMA_NAME = 'public'
 TENANT_PUBLIC_SCHEMA_NAME = 'public'
 
-TENANT_MODEL = "societe.Societe"
-TENANT_DOMAIN_MODEL = "societe.Domain"
 
-DATABASE_ROUTERS = (
-    'django_tenants.routers.TenantSyncRouter',
-)
+
+TENANT_MODEL = "societe.Societe"
+TENANT_DOMAIN_MODEL = "societe.Domain"  # Peut rester vide si tu n'utilises pas de sous-domaines
+
+PUBLIC_SCHEMA_NAME = 'public'
+
+DATABASE_ROUTERS = ('django_tenants.routers.TenantSyncRouter',)
+
+# Important : désactiver le domaine pour path-based routing
+USE_TENANT_DOMAINS = False
+
 
 # ------------------------------------------------------------------------------
 # APPLICATIONS
@@ -224,7 +229,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
 
-    'authentification.middleware.TOTPRequiredMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'utilisateurs.middleware.TOTPRequiredMiddleware',
+
 
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]

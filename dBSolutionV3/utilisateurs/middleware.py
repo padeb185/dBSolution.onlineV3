@@ -1,7 +1,4 @@
 from django.shortcuts import redirect
-from django.conf import settings
-from django.apps import apps
-
 
 
 class TOTPRequiredMiddleware:
@@ -24,10 +21,12 @@ class TOTPRequiredMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        path = request.path
+        path = request.path_info  # path_info est plus sûr que path
+
+        user = getattr(request, "user", None)
 
         # Skip si utilisateur non connecté
-        if not request.utilisateur.is_authenticated:
+        if not user or not user.is_authenticated:
             return self.get_response(request)
 
         # Skip si TOTP déjà vérifié
@@ -40,7 +39,7 @@ class TOTPRequiredMiddleware:
                 return self.get_response(request)
 
         # Redirige vers la page de TOTP seulement si l'utilisateur a TOTP activé
-        if getattr(request.utilisateur, "totp_enabled", False):
+        if getattr(user, "totp_enabled", False):
             return redirect("login_totp")
 
         return self.get_response(request)

@@ -1,12 +1,15 @@
+import base64
 import uuid
+from io import BytesIO
+
 import pyotp
+import qrcode
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 from adresse.models import Adresse
-from django_otp.oath import totp
 from societe.models import Societe
-import time
+
 
 
 
@@ -87,13 +90,12 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
         # Important : cette table doit rester dans le schema public
         app_label = 'utilisateurs'
 
-    def get_totp_token(self):
-        """Retourne le token TOTP actuel (6 chiffres)"""
-        return totp(self.totp_secret, digits=6, step=30, t=int(time.time()))
-
     def verify_totp(self, token):
-        """Vérifie un token fourni par l'utilisateur"""
-        return str(self.get_totp_token()) == str(token)
+        if not self.totp_secret:
+            return False
+        totp = pyotp.TOTP(self.totp_secret)
+        return totp.verify(token)
+
 
     def generate_totp_secret(self):
         self.totp_secret = pyotp.random_base32()
@@ -111,11 +113,15 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
 
 
 
-import qrcode
 
-from urllib.parse import quote as urlquote
 
-def generate_qr_code(user):
-    uri = f'otpauth://totp/MyApp:{user.email_google}?secret={user.totp_secret}&issuer=MyApp'
-    img = qrcode.make(uri)
-    img.show()  # ou img.save('totp.png')
+    def generate_qr_code(user):
+        totp_uri = pyotp.TOTP(user.totp_secret).provisioning_uri(
+            name=user.email_google,
+            issuer_name="dBSolution"
+        )
+        qr = qrcode.make(totp_uri)
+        buffer = BytesIO()
+        qr.save(buffer, format="PNG")
+        qr_base64 = base64.b64encode(buffer.getvalue()).decode()
+        return qr_base64  # À utiliser dans un <img src="data:image/png;base64,...">

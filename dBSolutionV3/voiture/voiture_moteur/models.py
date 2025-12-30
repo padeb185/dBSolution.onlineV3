@@ -1,5 +1,7 @@
 from django.db import models
+from django.db.models import Q
 import uuid
+
 
 class TypeMoteur(models.TextChoices):
     TURBO = "TURBO", "Turbo"
@@ -22,9 +24,6 @@ class TypeCarburant(models.TextChoices):
 class TypeDistribution(models.TextChoices):
     CHAINE = "CHAINE", "Chaîne"
     COURROIE = "COURROIE", "Courroie"
-
-
-
 
 
 class MoteurVoiture(models.Model):
@@ -81,10 +80,7 @@ class MoteurVoiture(models.Model):
     )
 
     # Lubrification
-    qualite_huile = models.CharField(
-        max_length=50
-    )
-
+    qualite_huile = models.CharField(max_length=50)
     quantite_huile_l = models.FloatField(
         verbose_name="Quantité d’huile (L)"
     )
@@ -107,13 +103,13 @@ class MoteurVoiture(models.Model):
     class Meta:
         constraints = [
             models.CheckConstraint(
-                check=models.Q(numero_moteur__gte=1, numero_moteur__lte=10),
+                condition=Q(numero_moteur__gte=1) & Q(numero_moteur__lte=10),
                 name="numero_moteur_1_10"
             ),
             models.CheckConstraint(
-                check=(
-                    models.Q(voiture_modele__isnull=False) |
-                    models.Q(voiture_exemplaire__isnull=False)
+                condition=(
+                    Q(voiture_modele__isnull=False) |
+                    Q(voiture_exemplaire__isnull=False)
                 ),
                 name="moteur_lie_a_voiture"
             ),
@@ -121,7 +117,6 @@ class MoteurVoiture(models.Model):
 
     def __str__(self):
         return f"Moteur {self.cylindree_l}L - {self.type_moteur}"
-
 
     def prochain_entretien_km(self):
         return self.kilometrage_moteur + self.intervalle_km_entretien

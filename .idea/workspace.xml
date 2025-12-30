@@ -4,10 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="login utilisateur suite">
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="login utilisateur RAZ">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls_public.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls_public.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/middleware.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/middleware.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_boite/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_boite/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_moteur/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_moteur/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,15 +159,8 @@
       <workItem from="1766990467016" duration="5160000" />
       <workItem from="1767006933179" duration="3777000" />
       <workItem from="1767013263578" duration="126000" />
-      <workItem from="1767080542289" duration="5513000" />
-    </task>
-    <task id="LOCAL-00092" summary="traduction">
-      <option name="closed" value="true" />
-      <created>1766560158191</created>
-      <option name="number" value="00092" />
-      <option name="presentableId" value="LOCAL-00092" />
-      <option name="project" value="LOCAL" />
-      <updated>1766560158191</updated>
+      <workItem from="1767080542289" duration="5655000" />
+      <workItem from="1767092299597" duration="6656000" />
     </task>
     <task id="LOCAL-00093" summary="traduction">
       <option name="closed" value="true" />
@@ -547,7 +546,15 @@
       <option name="project" value="LOCAL" />
       <updated>1767083035867</updated>
     </task>
-    <option name="localTasksCounter" value="141" />
+    <task id="LOCAL-00141" summary="login utilisateur RAZ">
+      <option name="closed" value="true" />
+      <created>1767086209671</created>
+      <option name="number" value="00141" />
+      <option name="presentableId" value="LOCAL-00141" />
+      <option name="project" value="LOCAL" />
+      <updated>1767086209671</updated>
+    </task>
+    <option name="localTasksCounter" value="142" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -565,7 +572,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="traduction en fin attention à corriger" />
     <MESSAGE value="traduction correction" />
     <MESSAGE value="traduction correction fin" />
     <MESSAGE value="admin ajouts" />
@@ -590,7 +596,8 @@
     <MESSAGE value="login forms.py" />
     <MESSAGE value="login utilisateur" />
     <MESSAGE value="login utilisateur suite" />
-    <option name="LAST_COMMIT_MESSAGE" value="login utilisateur suite" />
+    <MESSAGE value="login utilisateur RAZ" />
+    <option name="LAST_COMMIT_MESSAGE" value="login utilisateur RAZ" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
