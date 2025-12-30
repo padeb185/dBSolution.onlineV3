@@ -44,7 +44,7 @@ DATABASE_ROUTERS = (
 
 SHARED_APPS = (
     'django_tenants',
-
+    'utilisateurs',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -169,7 +169,6 @@ TENANT_APPS = (
     "voiture.voiture_pneus_historique.apps.VoiturePneusHistoriqueConfig",
 
 
-    'utilisateurs',
     'utilisateurs.mecanicien',
     'utilisateurs.apprentis',
     'utilisateurs.chef_mecanicien',
@@ -197,7 +196,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # AUTHENTIFICATION
 # ------------------------------------------------------------------------------
 
-#AUTH_USER_MODEL = "utilisateur.CustomUser"
+AUTH_USER_MODEL = "utilisateurs.Utilisateur"
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',

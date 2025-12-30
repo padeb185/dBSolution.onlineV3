@@ -4,25 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="login utilisateur">
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="login utilisateur suite">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/authentification/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/authentification/admin.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/authentification/apps.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/authentification/forms.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/authentification/middleware.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/authentification/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/middleware.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/authentification/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/authentification/tests.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/authentification/urls.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/authentification/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls_public.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls_public.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -168,15 +153,7 @@
       <workItem from="1766990467016" duration="5160000" />
       <workItem from="1767006933179" duration="3777000" />
       <workItem from="1767013263578" duration="126000" />
-      <workItem from="1767080542289" duration="2290000" />
-    </task>
-    <task id="LOCAL-00091" summary="traduction">
-      <option name="closed" value="true" />
-      <created>1766560071830</created>
-      <option name="number" value="00091" />
-      <option name="presentableId" value="LOCAL-00091" />
-      <option name="project" value="LOCAL" />
-      <updated>1766560071830</updated>
+      <workItem from="1767080542289" duration="5513000" />
     </task>
     <task id="LOCAL-00092" summary="traduction">
       <option name="closed" value="true" />
@@ -562,7 +539,15 @@
       <option name="project" value="LOCAL" />
       <updated>1767081594069</updated>
     </task>
-    <option name="localTasksCounter" value="140" />
+    <task id="LOCAL-00140" summary="login utilisateur suite">
+      <option name="closed" value="true" />
+      <created>1767083035867</created>
+      <option name="number" value="00140" />
+      <option name="presentableId" value="LOCAL-00140" />
+      <option name="project" value="LOCAL" />
+      <updated>1767083035867</updated>
+    </task>
+    <option name="localTasksCounter" value="141" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -580,7 +565,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="traduction es fin" />
     <MESSAGE value="traduction en fin attention à corriger" />
     <MESSAGE value="traduction correction" />
     <MESSAGE value="traduction correction fin" />
@@ -605,7 +589,8 @@
     <MESSAGE value="tenant" />
     <MESSAGE value="login forms.py" />
     <MESSAGE value="login utilisateur" />
-    <option name="LAST_COMMIT_MESSAGE" value="login utilisateur" />
+    <MESSAGE value="login utilisateur suite" />
+    <option name="LAST_COMMIT_MESSAGE" value="login utilisateur suite" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

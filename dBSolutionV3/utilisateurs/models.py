@@ -6,15 +6,18 @@ from django.db import models
 from adresse.models import Adresse
 from django_otp.oath import totp
 from societe.models import Societe
+import time
+
 
 
 
 class UtilisateurManager(BaseUserManager):
-    def create_user(self, email_google, password=None, **extra_fields):
-        if not email_google:
-            raise ValueError("L'email Google doit être défini")
-        email_google = self.normalize_email(email_google)
-        user = self.model(email_google=email_google, **extra_fields)
+    def create_user(self, email_entreprise, password=None, **extra_fields):
+        if not email_entreprise:
+            raise ValueError("L'email entreprise est obligatoire")
+
+        email_entreprise = self.normalize_email(email_entreprise)
+        user = self.model(email_entreprise=email_entreprise, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -29,8 +32,8 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
     nom = models.CharField(max_length=100)
     prenom = models.CharField(max_length=100)
     date_naissance = models.DateField()
-    email_google = models.EmailField(unique=True)
-    email_entreprise = models.EmailField(unique=True)
+    email_google = models.EmailField(unique=True, blank=True, null=True)
+    email_entreprise = models.EmailField(unique=True, blank=True, null=True)
     telephone = models.CharField(max_length=20, blank=True, null=True)
 
     salaire_brut_heure = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
@@ -62,7 +65,7 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
 
     objects = UtilisateurManager()
 
-    USERNAME_FIELD = 'email_google'
+    USERNAME_FIELD = 'email_entreprise'
     REQUIRED_FIELDS = ['nom', 'prenom']
 
     groups = models.ManyToManyField(
@@ -80,6 +83,10 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
         verbose_name='user permissions'
     )
 
+    class Meta:
+        # Important : cette table doit rester dans le schema public
+        app_label = 'utilisateurs'
+
     def get_totp_token(self):
         """Retourne le token TOTP actuel (6 chiffres)"""
         return totp(self.totp_secret, digits=6, step=30, t=int(time.time()))
@@ -94,7 +101,7 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
 
     def get_totp_uri(self):
         return pyotp.totp.TOTP(self.totp_secret).provisioning_uri(
-            name=self.email,
+            name=self.email_entreprise,
             issuer_name="dBSolution"
         )
 
