@@ -19,12 +19,6 @@ class UtilisateurManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email_google, password=None, **extra_fields):
-        extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_superuser', True)
-        return self.create_user(email_google, password, **extra_fields)
-
-
 
 
 class Utilisateur(AbstractBaseUser, PermissionsMixin):

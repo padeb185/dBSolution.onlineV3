@@ -52,8 +52,6 @@ SHARED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # Auth custom
-    'authentification.apps.AuthentificationConfig',
 
     # Core
     'dBSolutionV3',
@@ -199,7 +197,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # AUTHENTIFICATION
 # ------------------------------------------------------------------------------
 
-AUTH_USER_MODEL = "authentification.CustomUser"
+#AUTH_USER_MODEL = "utilisateur.CustomUser"
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',

@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from theme.views import home
-from authentification.views import login_totp, totp_setup
+from utilisateurs.views import login_totp, totp_setup
 
 
 urlpatterns = [
@@ -12,7 +12,7 @@ urlpatterns = [
         template_name="login.html"
     ), name="login"),
 
-    path("auth/", include("authentification.urls", namespace="authentification")),
+    path("auth/", include("utilisateurs.urls", namespace="authentification")),
 
 
     path("voitures/marques/", include("voiture.voiture_marque.urls")),
