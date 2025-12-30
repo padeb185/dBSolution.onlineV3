@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="tenant">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="login forms.py">
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/authentification/middleware.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/authentification/middleware.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/authentification/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/authentification/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/authentification/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/authentification/tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/authentification/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/authentification/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,14 +154,7 @@
       <workItem from="1766990467016" duration="5160000" />
       <workItem from="1767006933179" duration="3777000" />
       <workItem from="1767013263578" duration="126000" />
-    </task>
-    <task id="LOCAL-00089" summary="electricité electronique">
-      <option name="closed" value="true" />
-      <created>1766558401742</created>
-      <option name="number" value="00089" />
-      <option name="presentableId" value="LOCAL-00089" />
-      <option name="project" value="LOCAL" />
-      <updated>1766558401742</updated>
+      <workItem from="1767080542289" duration="1023000" />
     </task>
     <task id="LOCAL-00090" summary="electricité electronique traduction">
       <option name="closed" value="true" />
@@ -544,7 +540,15 @@
       <option name="project" value="LOCAL" />
       <updated>1767010753471</updated>
     </task>
-    <option name="localTasksCounter" value="138" />
+    <task id="LOCAL-00138" summary="login forms.py">
+      <option name="closed" value="true" />
+      <created>1767080697318</created>
+      <option name="number" value="00138" />
+      <option name="presentableId" value="LOCAL-00138" />
+      <option name="project" value="LOCAL" />
+      <updated>1767080697318</updated>
+    </task>
+    <option name="localTasksCounter" value="139" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -562,7 +566,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="traduction nl fin" />
     <MESSAGE value="traduction es début" />
     <MESSAGE value="traduction es fin" />
     <MESSAGE value="traduction en fin attention à corriger" />
@@ -587,7 +590,8 @@
     <MESSAGE value="totp non résolu" />
     <MESSAGE value="RAZ CustomUser" />
     <MESSAGE value="tenant" />
-    <option name="LAST_COMMIT_MESSAGE" value="tenant" />
+    <MESSAGE value="login forms.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="login forms.py" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

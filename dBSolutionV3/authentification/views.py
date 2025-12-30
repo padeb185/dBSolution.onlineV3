@@ -5,7 +5,7 @@ import pyotp
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.utils.translation import gettext as _
-from .forms import LoginForm, LoginTOTPForm
+from .forms import LoginTOTPForm
 from .models import CustomUser
 
 
@@ -15,25 +15,25 @@ def login_view(request):
     message = None
 
     if request.method == "POST" and form.is_valid():
-        email = form.cleaned_data.get("email")
+        email_google = form.cleaned_data.get("email")
         password = form.cleaned_data.get("password")
         token = form.cleaned_data.get("totp_token")
         remember_me = form.cleaned_data.get("remember_me", False)
 
         # 🔑 Authentification
-        user = authenticate(request, email=email, password=password)
-        if user is None:
+        utilisateur = authenticate(request, email_google=email_google, password=password)
+        if utilisateur is None:
             message = _("Email ou mot de passe incorrect")
         else:
-            if not getattr(user, "totp_secret", None):
+            if not getattr(utilisateur, "totp_secret", None):
                 message = _("Utilisateur non configuré pour TOTP")
             else:
-                totp = pyotp.TOTP(user.totp_secret)
+                totp = pyotp.TOTP(utilisateur.totp_secret)
                 if not token or not totp.verify(token):
                     message = _("Code TOTP invalide ou expiré")
                 else:
                     # Connexion réussie
-                    login(request, user)
+                    login(request, utilisateur)
                     if remember_me:
                         request.session.set_expiry(1209600)  # 2 semaines
                     else:
@@ -45,20 +45,20 @@ def login_view(request):
 
 def login_totp(request):
     """Étape TOTP si login en 2 étapes"""
-    user_id = request.session.get('pre_2fa_user_id')
-    if not user_id:
+    utilisateur_id = request.session.get('pre_2fa_user_id')
+    if not utilisateur_id:
         return redirect('login')
 
-    user = CustomUser.objects.get(id=user_id)
+    utilisateur = CustomUser.objects.get(id=utilisateur_id)
     message = None
 
     if request.method == "POST":
         form = (LoginTOTPForm(request.POST))
         if form.is_valid():
             token = form.cleaned_data['token']
-            totp = pyotp.TOTP(user.totp_secret)
+            totp = pyotp.TOTP(utilisateur.totp_secret)
             if totp.verify(token):
-                login(request, user)
+                login(request, utilisateur)
                 request.session.pop('pre_2fa_user_id', None)
                 return redirect('dashboard')
             else:
@@ -71,15 +71,15 @@ def login_totp(request):
 
 def totp_setup(request):
     """Page de configuration TOTP avec QR code"""
-    user = request.user
-    if not user.totp_secret:
-        user.generate_totp_secret()
-        user.totp_enabled = True
-        user.save(update_fields=['totp_secret', 'totp_enabled'])
+    utilisateur = request.utilisateur
+    if not utilisateur.totp_secret:
+        utilisateur.generate_totp_secret()
+        utilisateur.totp_enabled = True
+        utilisateur.save(update_fields=['totp_secret', 'totp_enabled'])
 
     # URI TOTP pour Google Authenticator
-    totp_uri = pyotp.TOTP(user.totp_secret).provisioning_uri(
-        name=user.email_google,
+    totp_uri = pyotp.TOTP(utilisateur.totp_secret).provisioning_uri(
+        name=utilisateur.email_google,
         issuer_name="dBSolution"
     )
 

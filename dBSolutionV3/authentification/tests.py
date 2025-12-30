@@ -17,7 +17,7 @@ class TOTPTest(TestCase):
         utilisateur.totp_secret = pyotp.random_base32()
         utilisateur.save()
 
-        totp = pyotp.TOTP(user.totp_secret)
+        totp = pyotp.TOTP(utilisateur.totp_secret)
         code = totp.now()
 
         self.assertTrue(totp.verify(code))

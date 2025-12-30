@@ -27,7 +27,7 @@ class TOTPRequiredMiddleware:
         path = request.path
 
         # Skip si utilisateur non connecté
-        if not request.user.is_authenticated:
+        if not request.utilisateur.is_authenticated:
             return self.get_response(request)
 
         # Skip si TOTP déjà vérifié
@@ -40,7 +40,7 @@ class TOTPRequiredMiddleware:
                 return self.get_response(request)
 
         # Redirige vers la page de TOTP seulement si l'utilisateur a TOTP activé
-        if getattr(request.user, "totp_enabled", False):
+        if getattr(request.utilisateur, "totp_enabled", False):
             return redirect("login_totp")
 
         return self.get_response(request)
