@@ -10,75 +10,66 @@ from .forms import LoginTOTPForm
 
 
 
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .models import Utilisateur
+from .forms import LoginForm
+import pyotp
+
 def login_view(request):
-    """Login avec email + mot de passe + TOTP"""
-    form = LoginTOTPForm(request.POST or None)
-    message = None
-
-    if request.method == "POST" and form.is_valid():
-        email = form.cleaned_data.get("email_entreprise")
-        password = form.cleaned_data.get("password")
-        token = form.cleaned_data.get("totp_token")
-        remember_me = form.cleaned_data.get("remember_me", False)
-
-        # 🔑 Authentification
-        utilisateur = authenticate(request, email_entreprise=email, password=password)
-        if not utilisateur:
-            message = _("Email ou mot de passe incorrect")
-        else:
-            if utilisateur.totp_enabled:
-                # TOTP requis
-                if not token or not pyotp.TOTP(utilisateur.totp_secret).verify(token):
-                    message = _("Code TOTP invalide ou expiré")
+    if request.method == "POST":
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            try:
+                user = Utilisateur.objects.get(email_entreprise=email)
+                if user.check_password(password):
+                    # Stocke temporairement l'utilisateur pour l'étape TOTP
+                    request.session['pre_2fa_user_id'] = str(user.id)
+                    return redirect('totp_verify')
                 else:
-                    # Connexion réussie
-                    login(request, utilisateur)
-                    request.session.set_expiry(1209600 if remember_me else 0)
-                    return redirect("dashboard")
+                    messages.error(request, "Mot de passe incorrect")
+            except Utilisateur.DoesNotExist:
+                messages.error(request, "Utilisateur introuvable")
+    else:
+        form = LoginForm()
+    return render(request, "login.html", {"form": form})
+
+
+
+from .forms import TOTPForm
+
+def totp_verify_view(request):
+    user_id = request.session.get('pre_2fa_user_id')
+    if not user_id:
+        return redirect('login')
+
+    user = Utilisateur.objects.get(id=user_id)
+
+    if request.method == "POST":
+        form = TOTPForm(request.POST)
+        if form.is_valid():
+            code = form.cleaned_data['totp_code']
+            if user.verify_totp(code):
+                # Login réussi : stocke l'id en session
+                request.session['user_id'] = str(user.id)
+                del request.session['pre_2fa_user_id']
+                return redirect('dashboard')
             else:
-                # Aucun TOTP configuré → connexion directe
-                login(request, utilisateur)
-                request.session.set_expiry(1209600 if remember_me else 0)
-                return redirect("dashboard")
-
-    return render(request, "login_totp.html", {"form": form, "message": message})
+                messages.error(request, "Code Google Authenticator incorrect")
+    else:
+        form = TOTPForm()
+    return render(request, "totp_verify.html", {"form": form})
 
 
+def dashboard_view(request):
+    user_id = request.session.get('user_id')
+    if not user_id:
+        return redirect('login')
 
-
-def login_totp_view(request):
-    """Login sécurisé obligatoire avec email + mot de passe + TOTP"""
-    form = LoginTOTPForm(request.POST or None)
-    message = None
-
-    if request.method == "POST" and form.is_valid():
-        email = form.cleaned_data.get("email_google")
-        password = form.cleaned_data.get("password")
-        token = form.cleaned_data.get("totp_token")
-        remember_me = form.cleaned_data.get("remember_me", False)
-
-        utilisateur = authenticate(request, email_google=email, password=password)
-        if utilisateur is None:
-            message = _("Email ou mot de passe incorrect")
-        else:
-            if not utilisateur.totp_secret:
-                message = _("Utilisateur non configuré pour TOTP")
-            else:
-                import pyotp
-                totp = pyotp.TOTP(utilisateur.totp_secret)
-                if not token or not totp.verify(token):
-                    message = _("Code TOTP invalide ou expiré")
-                else:
-                    login(request, utilisateur)
-                    if remember_me:
-                        request.session.set_expiry(1209600)  # 2 semaines
-                    else:
-                        request.session.set_expiry(0)
-                    return redirect("dashboard")
-
-    return render(request, "login_totp.html", {"form": form, "message": message})
-
-
+    user = Utilisateur.objects.get(id=user_id)
+    return render(request, "dashboard.html", {"user": user})
 
 
 

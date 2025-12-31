@@ -1,7 +1,6 @@
 import base64
 import uuid
 from io import BytesIO
-
 import pyotp
 import qrcode
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
@@ -11,24 +10,19 @@ from adresse.models import Adresse
 from societe.models import Societe
 
 
-
-from django.contrib.auth.base_user import BaseUserManager
-
 class UtilisateurManager(BaseUserManager):
-    def create_user(self, email_entreprise, password=None, **extra_fields):
-        """
-        Crée et enregistre un utilisateur normal avec l'email entreprise et le mot de passe fourni.
-        """
-        if not email_entreprise:
+    def create_user(self, email_google, password=None, **extra_fields):
+
+        if not email_google:
             raise ValueError("L'email entreprise est obligatoire")
 
-        email_entreprise = self.normalize_email(email_entreprise)
-        user = self.model(email_entreprise=email_entreprise, **extra_fields)
+        email_google = self.normalize_email(email_google)
+        user = self.model(email_google=email_google, **extra_fields)
         user.set_password(password)  # mot de passe peut être None
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email_entreprise, password=None, **extra_fields):
+    def create_superuser(self, email_google, password=None, **extra_fields):
         """
         Crée et enregistre un superutilisateur avec email entreprise et mot de passe.
         """
@@ -41,7 +35,7 @@ class UtilisateurManager(BaseUserManager):
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Le superuser doit avoir is_superuser=True.')
 
-        return self.create_user(email_entreprise, password, **extra_fields)
+        return self.create_user(email_google, password, **extra_fields)
 
 
 
@@ -129,10 +123,6 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
         return f"{self.prenom} {self.nom}"
 
 
-
-
-
-
     def generate_qr_code(user):
         totp_uri = pyotp.TOTP(user.totp_secret).provisioning_uri(
             name=user.email_google,
@@ -143,3 +133,13 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
         qr.save(buffer, format="PNG")
         qr_base64 = base64.b64encode(buffer.getvalue()).decode()
         return qr_base64  # À utiliser dans un <img src="data:image/png;base64,...">
+
+
+from django import forms
+
+class LoginForm(forms.Form):
+    email = forms.EmailField(label="Email Google")
+    password = forms.CharField(widget=forms.PasswordInput, label="Mot de passe")
+
+class TOTPForm(forms.Form):
+    totp_code = forms.CharField(max_length=6, label="Code Google Authenticator")

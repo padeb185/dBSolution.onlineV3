@@ -4,16 +4,19 @@ from theme.views import home
 from utilisateurs import views
 from django.contrib.auth import views as auth_views
 
+
+
 urlpatterns = [
-    path("", home, name="home"),
+    # Page d'accueil / login
+    path('', views.login_view, name='login'),
 
-    # Login uniquement via TOTP
-    path('login/', views.login_totp_view, name='login'),
+    # Vérification TOTP
+    path('totp-verify/', views.totp_verify_view, name='totp_verify'),
 
-    # Configuration du TOTP pour les utilisateurs
-    path('totp/setup/', views.totp_setup, name='totp_setup'),
+    # Tableau de bord
+    path('dashboard/', views.dashboard_view, name='dashboard'),
 
-    # Password reset
+
     path(
         "password-reset/",
         auth_views.PasswordResetView.as_view(template_name="password_reset.html"),

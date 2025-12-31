@@ -88,6 +88,10 @@ SHARED_APPS = (
     'chartjs',
     'anymail',
     'django_pandas',
+
+
+
+
     'adresse',
     'societe',
 )
@@ -197,6 +201,7 @@ INSTALLED_APPS = list(SHARED_APPS) + list(TENANT_APPS)
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+CRISPY_TEMPLATE_PACK = 'tailwind'
 # ------------------------------------------------------------------------------
 # AUTHENTIFICATION
 # ------------------------------------------------------------------------------

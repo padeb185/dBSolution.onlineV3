@@ -16,6 +16,7 @@ from utilisateurs.vendeur.models import Vendeur
 # =======================
 # Formulaire login tous rôles
 # =======================
+
 class LoginForm(forms.Form):
     email_google = forms.EmailField(
         label=_("Email"),
@@ -127,3 +128,8 @@ class LoginTOTPForm(forms.Form):
 
         cleaned_data['user'] = user_found
         return cleaned_data
+
+
+
+class TOTPForm(forms.Form):
+    totp_code = forms.CharField(max_length=6, label="Code Google Authenticator")
