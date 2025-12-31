@@ -48,7 +48,7 @@ def login_totp(request):
     # Vérifie que l'utilisateur a un secret TOTP
     if not getattr(user, "totp_secret", None):
         message = _("Aucun secret TOTP configuré pour ce compte.")
-        return render(request, "login.totp.html", {"form": None, "message": message})
+        return render(request, "login_totp.html", {"form": None, "message": message})
 
     if request.method == "POST":
         form = LoginTOTPForm(request.POST)
@@ -65,7 +65,7 @@ def login_totp(request):
     else:
         form = LoginTOTPForm(initial={"email_google": user.email_google})
 
-    return render(request, "login.totp.html", {"form": form, "message": message})
+    return render(request, "login_totp.html", {"form": form, "message": message})
 
 
 @login_required

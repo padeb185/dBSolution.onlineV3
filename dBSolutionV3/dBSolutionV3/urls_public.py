@@ -1,16 +1,19 @@
 from django.contrib import admin
 from django.urls import path, include
-from django.contrib.auth import views as auth_views
 from theme.views import home
+from utilisateurs import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path("", home, name="home"),
 
-    # Login avec TOTP
-    path("login/", auth_views.LoginView.as_view(
-        template_name="login.totp.html"  # <-- utilisation du template TOTP
-    ), name="login"),
-    # reset password
+    # Login uniquement via TOTP
+    path('login/', views.login_totp_view, name='login'),
+
+    # Configuration du TOTP pour les utilisateurs
+    path('totp/setup/', views.totp_setup, name='totp_setup'),
+
+    # Password reset
     path(
         "password-reset/",
         auth_views.PasswordResetView.as_view(template_name="password_reset.html"),
@@ -31,6 +34,7 @@ urlpatterns = [
         auth_views.PasswordResetCompleteView.as_view(template_name="password_reset_complete.html"),
         name="password_reset_complete"
     ),
+
     # Namespace pour ton app utilisateurs
     path("auth/", include("utilisateurs.urls", namespace="authentification")),
 

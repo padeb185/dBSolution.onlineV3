@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.hashers import check_password
 from django.utils.translation import gettext_lazy as _
+import pyotp
 from utilisateurs.apprentis.models import Apprenti
 from utilisateurs.carrossier.models import Carrossier
 from utilisateurs.chef_mecanicien.models import ChefMecanicien
@@ -10,7 +11,6 @@ from utilisateurs.instructeur.models import Instructeur
 from utilisateurs.magasinier.models import Magasinier
 from utilisateurs.mecanicien.models import Mecanicien
 from utilisateurs.vendeur.models import Vendeur
-
 
 
 # =======================
@@ -55,10 +55,10 @@ class LoginForm(forms.Form):
             if not user_found:
                 raise forms.ValidationError(_("Adresse email ou mot de passe incorrect"))
 
-            # Ajouter l'utilisateur trouvé dans cleaned_data pour usage dans la vue
             cleaned_data['user'] = user_found
 
         return cleaned_data
+
 
 # =======================
 # Formulaire login TOTP
@@ -94,8 +94,36 @@ class LoginTOTPForm(forms.Form):
         label=_("Se souvenir de moi")
     )
 
-    def clean_totp_token(self):
-        token = self.cleaned_data.get('totp_token')
-        if token and (not token.isdigit() or len(token) != 6):
-            raise forms.ValidationError(_("Le code TOTP doit comporter 6 chiffres"))
-        return token
+    def clean(self):
+        cleaned_data = super().clean()
+        email_google = cleaned_data.get("email_google")
+        password = cleaned_data.get("password")
+        totp_token = cleaned_data.get("totp_token")
+
+        # Vérification des identifiants
+        user_found = None
+        for model in [
+            Apprenti, Mecanicien, Magasinier, ChefMecanicien, Carrossier,
+            Vendeur, Instructeur, Comptable, Direction
+        ]:
+            try:
+                u = model.objects.get(email_google=email_google)
+                if check_password(password, u.password):
+                    user_found = u
+                    break
+            except model.DoesNotExist:
+                continue
+
+        if not user_found:
+            raise forms.ValidationError(_("Adresse email ou mot de passe incorrect"))
+
+        # Vérification TOTP si activé
+        if getattr(user_found, "totp_enabled", False):
+            if not totp_token:
+                raise forms.ValidationError(_("Le code TOTP est obligatoire pour cet utilisateur"))
+            totp = pyotp.TOTP(user_found.totp_secret)
+            if not totp.verify(totp_token):
+                raise forms.ValidationError(_("Code TOTP invalide ou expiré"))
+
+        cleaned_data['user'] = user_found
+        return cleaned_data
