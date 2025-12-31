@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="3 tenants">
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="super user">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls_public.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls_public.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/login.totp.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/login.totp.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -154,15 +157,7 @@
       <workItem from="1767013263578" duration="126000" />
       <workItem from="1767080542289" duration="5655000" />
       <workItem from="1767092299597" duration="6920000" />
-      <workItem from="1767163956935" duration="3692000" />
-    </task>
-    <task id="LOCAL-00095" summary="traduction it es">
-      <option name="closed" value="true" />
-      <created>1766570008969</created>
-      <option name="number" value="00095" />
-      <option name="presentableId" value="LOCAL-00095" />
-      <option name="project" value="LOCAL" />
-      <updated>1766570008969</updated>
+      <workItem from="1767163956935" duration="4841000" />
     </task>
     <task id="LOCAL-00096" summary="traduction en">
       <option name="closed" value="true" />
@@ -548,7 +543,15 @@
       <option name="project" value="LOCAL" />
       <updated>1767166135208</updated>
     </task>
-    <option name="localTasksCounter" value="144" />
+    <task id="LOCAL-00144" summary="super user">
+      <option name="closed" value="true" />
+      <created>1767167703215</created>
+      <option name="number" value="00144" />
+      <option name="presentableId" value="LOCAL-00144" />
+      <option name="project" value="LOCAL" />
+      <updated>1767167703215</updated>
+    </task>
+    <option name="localTasksCounter" value="145" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -566,7 +569,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="admin ajouts" />
     <MESSAGE value="Niveaux" />
     <MESSAGE value="Jeux Pièces" />
     <MESSAGE value="maintenances ++++" />
@@ -591,7 +593,8 @@
     <MESSAGE value="login utilisateur RAZ" />
     <MESSAGE value="RAZ venv et BDD" />
     <MESSAGE value="3 tenants" />
-    <option name="LAST_COMMIT_MESSAGE" value="3 tenants" />
+    <MESSAGE value="super user" />
+    <option name="LAST_COMMIT_MESSAGE" value="super user" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

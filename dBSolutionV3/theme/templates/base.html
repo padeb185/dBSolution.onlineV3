@@ -6,37 +6,46 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% trans "dBSolution" %}{% endblock %}</title>
+
+    <!-- CSS principal compilé (Tailwind + custom) -->
     <link rel="stylesheet" href="{% static 'theme/css/dist/styles.css' %}">
+
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="{% static 'images/favicon.ico' %}">
 </head>
 
-<body class="bg-pastelblue">
+<body class="bg-pastelblue min-h-screen flex flex-col">
 
 <header class="bg-white shadow p-4">
-    <nav class="container mx-auto flex justify-between items-center">
+    <nav class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0">
         <div class="flex gap-4">
             <a href="{% url 'home' %}" class="text-gray-600 hover:text-black font-semibold">{% trans "Accueil" %}</a>
             <a href="{% url 'dashboard' %}" class="text-gray-600 hover:text-black font-semibold">{% trans "Tableau de Bord" %}</a>
         </div>
 
-        <form action="{% url 'set_language' %}" method="post">
+        <form action="{% url 'set_language' %}" method="post" class="flex items-center gap-2 mt-2 md:mt-0">
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ request.path }}">
-            <select name="language">
+            <select name="language" class="border rounded p-1">
                 {% get_available_languages as LANGUAGES %}
                 {% for code, name in LANGUAGES %}
                     <option value="{{ code }}" {% if code == LANGUAGE_CODE %}selected{% endif %}>{{ name }}</option>
                 {% endfor %}
             </select>
-            <button type="submit">{% trans "Changer de langue" %}</button>
+            <button type="submit" class="bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700">{% trans "Changer" %}</button>
         </form>
     </nav>
 </header>
 
-<main class="container mx-auto mt-8 p-6">
+<main class="container mx-auto mt-8 p-6 flex-1">
     {% block content %}{% endblock %}
 </main>
+
+<footer class="bg-white shadow p-4 mt-auto text-center text-gray-500">
+    &copy; {{ now|date:"Y" }} dBSolution. Tous droits réservés.
+</footer>
 
 </body>
 </html>

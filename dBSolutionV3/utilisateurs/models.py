@@ -8,8 +8,6 @@ from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 from adresse.models import Adresse
-from pkg_resources import require
-from setuptools import Require
 from societe.models import Societe
 
 

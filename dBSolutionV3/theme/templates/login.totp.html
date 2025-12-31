@@ -5,16 +5,16 @@
 {% block title %}{% trans "Connexion sécurisée" %}{% endblock %}
 
 {% block content %}
-<div class="min-h-[70vh] flex items-center justify-center">
+<div class="min-h-[70vh] flex items-center justify-center bg-pastelblue">
 
-  <div class="w-full max-w-md bg-white shadow rounded-lg p-6">
+  <div class="w-full max-w-md bg-white shadow-lg rounded-lg p-6">
 
     <h1 class="text-2xl font-bold text-center mb-2">
       {% trans "Connexion sécurisée" %}
     </h1>
 
     <p class="text-center text-gray-600 mb-6">
-      {% trans "Veuillez entrer le code généré par Google Authenticator" %}
+      {% trans "Veuillez entrer vos identifiants et le code généré par Google Authenticator" %}
     </p>
 
     {% if form.non_field_errors %}
@@ -42,8 +42,7 @@
         </div>
       {% endfor %}
 
-      <!-- Se souvenir de moi (si présent dans le form) -->
-      {% if form.remember_me %}
+      {% if form.fields.remember_me %}
         <div class="flex items-center mb-4">
           <label class="flex items-center space-x-2 text-sm text-gray-600">
             {{ form.remember_me }}
@@ -58,6 +57,13 @@
       >
         {% trans "Se connecter" %}
       </button>
+
+      <div class="text-center mt-4 text-sm">
+        <a href="{% url 'password_reset' %}" class="text-indigo-600 hover:text-indigo-800">
+          {% trans "Mot de passe oublié ?" %}
+        </a>
+      </div>
+
     </form>
 
   </div>
