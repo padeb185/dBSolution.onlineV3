@@ -136,11 +136,4 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
         qr_base64 = base64.b64encode(buffer.getvalue()).decode()
         return qr_base64
 
-from django import forms
 
-class LoginForm(forms.Form):
-    email = forms.EmailField(label="Email Google")
-    password = forms.CharField(widget=forms.PasswordInput, label="Mot de passe")
-
-class TOTPForm(forms.Form):
-    totp_code = forms.CharField(max_length=6, label="Code Google Authenticator")

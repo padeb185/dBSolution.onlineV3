@@ -1,7 +1,3 @@
-from django import forms
-from django.contrib.auth.hashers import check_password
-from django.utils.translation import gettext_lazy as _
-import pyotp
 from utilisateurs.apprentis.models import Apprenti
 from utilisateurs.carrossier.models import Carrossier
 from utilisateurs.chef_mecanicien.models import ChefMecanicien
@@ -13,123 +9,12 @@ from utilisateurs.mecanicien.models import Mecanicien
 from utilisateurs.vendeur.models import Vendeur
 
 
-# =======================
-# Formulaire login tous rôles
-# =======================
+
+from django import forms
 
 class LoginForm(forms.Form):
-    email_google = forms.EmailField(
-        label=_("Email"),
-        widget=forms.EmailInput(attrs={
-            "autocomplete": "email",
-            "placeholder": _("Votre email")
-        })
-    )
-    password = forms.CharField(
-        label=_("Mot de passe"),
-        widget=forms.PasswordInput(attrs={
-            "autocomplete": "current-password",
-            "placeholder": _("Votre mot de passe")
-        })
-    )
-
-    def clean(self):
-        cleaned_data = super().clean()
-        email_google = cleaned_data.get('email_google')
-        password = cleaned_data.get('password')
-
-        if email_google and password:
-            user_found = None
-
-            for model in [
-                Apprenti, Mecanicien, Magasinier, ChefMecanicien, Carrossier,
-                Vendeur, Instructeur, Comptable, Direction
-            ]:
-                try:
-                    u = model.objects.get(email_google=email_google)
-                    if check_password(password, u.password):
-                        user_found = u
-                        break
-                except model.DoesNotExist:
-                    continue
-
-            if not user_found:
-                raise forms.ValidationError(_("Adresse email ou mot de passe incorrect"))
-
-            cleaned_data['user'] = user_found
-
-        return cleaned_data
-
-
-# =======================
-# Formulaire login TOTP
-# =======================
-class LoginTOTPForm(forms.Form):
-    email_google = forms.EmailField(
-        label=_("Email Google"),
-        widget=forms.EmailInput(attrs={
-            "autocomplete": "email_google",
-            "placeholder": _("Votre email google")
-        })
-    )
-    password = forms.CharField(
-        label=_("Mot de passe"),
-        widget=forms.PasswordInput(attrs={
-            "autocomplete": "current-password",
-            "placeholder": _("Votre mot de passe")
-        })
-    )
-    totp_token = forms.CharField(
-        label=_("Code Google Authenticator"),
-        max_length=6,
-        required=False,
-        widget=forms.TextInput(attrs={
-            "inputmode": "numeric",
-            "pattern": "[0-9]{6}",
-            "autocomplete": "one-time-code",
-            "placeholder": _("123456")
-        })
-    )
-    remember_me = forms.BooleanField(
-        required=False,
-        label=_("Se souvenir de moi")
-    )
-
-    def clean(self):
-        cleaned_data = super().clean()
-        email_google = cleaned_data.get("email_google")
-        password = cleaned_data.get("password")
-        totp_token = cleaned_data.get("totp_token")
-
-        # Vérification des identifiants
-        user_found = None
-        for model in [
-            Apprenti, Mecanicien, Magasinier, ChefMecanicien, Carrossier,
-            Vendeur, Instructeur, Comptable, Direction
-        ]:
-            try:
-                u = model.objects.get(email_google=email_google)
-                if check_password(password, u.password):
-                    user_found = u
-                    break
-            except model.DoesNotExist:
-                continue
-
-        if not user_found:
-            raise forms.ValidationError(_("Adresse email ou mot de passe incorrect"))
-
-        # Vérification TOTP si activé
-        if getattr(user_found, "totp_enabled", False):
-            if not totp_token:
-                raise forms.ValidationError(_("Le code TOTP est obligatoire pour cet utilisateur"))
-            totp = pyotp.TOTP(user_found.totp_secret)
-            if not totp.verify(totp_token):
-                raise forms.ValidationError(_("Code TOTP invalide ou expiré"))
-
-        cleaned_data['user'] = user_found
-        return cleaned_data
-
-
+    email = forms.EmailField(label="Email Google")
+    password = forms.CharField(widget=forms.PasswordInput, label="Mot de passe")
 
 class TOTPForm(forms.Form):
     totp_code = forms.CharField(max_length=6, label="Code Google Authenticator")

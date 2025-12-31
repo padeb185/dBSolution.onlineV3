@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.utils.translation import gettext as _
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
-from utilisateurs.forms import LoginForm, LoginTOTPForm
+from utilisateurs.forms import LoginForm
 
 
 def home(request):
@@ -37,6 +37,10 @@ def login_view(request):
         form = LoginForm()
 
     return render(request, "login.html", {"form": form})
+
+
+class LoginTOTPForm:
+    pass
 
 
 @login_required
