@@ -35,7 +35,9 @@ class JeuPiece(models.Model):
         "maintenance.Maintenance",
         on_delete=models.CASCADE,
         related_name="jeux_pieces",
-        verbose_name=_("Maintenance")
+        verbose_name=_("Maintenance"),
+        default=1
+
     )
 
     vehicle = models.ForeignKey(
@@ -111,12 +113,15 @@ class NoteMaintenance(models.Model):
     maintenance = models.ForeignKey(
         "maintenance.Maintenance",
         on_delete=models.CASCADE,
-        related_name="notes"
+        related_name="notes",
+        null=True,
     )
 
     auteur = models.ForeignKey(
         "utilisateurs.Utilisateur",
-        on_delete=models.PROTECT
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
     )
 
     role = models.CharField(
