@@ -4,8 +4,6 @@ from theme.views import home
 from utilisateurs import views
 from django.contrib.auth import views as auth_views
 
-
-
 urlpatterns = [
     # Page d'accueil / login
     path('', views.login_view, name='login'),
@@ -13,10 +11,13 @@ urlpatterns = [
     # Vérification TOTP
     path('totp-verify/', views.totp_verify_view, name='totp_verify'),
 
+    # Setup TOTP (nouvelle route)
+    path('totp/setup/', views.totp_setup_view, name='totp_setup'),
+
     # Tableau de bord
     path('dashboard/', views.dashboard_view, name='dashboard'),
 
-
+    # Reset password
     path(
         "password-reset/",
         auth_views.PasswordResetView.as_view(template_name="password_reset.html"),

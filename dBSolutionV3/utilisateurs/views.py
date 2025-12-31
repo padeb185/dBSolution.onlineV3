@@ -75,22 +75,29 @@ def dashboard_view(request):
 
 
 
-def totp_setup(request):
-    utilisateur = request.user
-    if not utilisateur.totp_secret:
-        utilisateur.generate_totp_secret()
-        utilisateur.totp_enabled = True
-        utilisateur.save(update_fields=['totp_secret', 'totp_enabled'])
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from utilisateurs.models import Utilisateur
 
-    totp_uri = pyotp.TOTP(utilisateur.totp_secret).provisioning_uri(
-        name=utilisateur.email_entreprise,
-        issuer_name="dBSolution"
-    )
+@login_required
+def totp_setup_view(request):
+    user = request.user
 
-    qr = qrcode.make(totp_uri)
-    buffer = BytesIO()
-    qr.save(buffer, format="PNG")
-    qr_base64 = base64.b64encode(buffer.getvalue()).decode()
+    # Générer un secret si l'utilisateur n'en a pas encore
+    if not user.totp_secret:
+        user.generate_totp_secret()
 
-    return render(request, "totp/setup.html", {"qr_code": qr_base64})
+    # Générer le QR code
+    qr_code = user.generate_qr_code()
 
+    if request.method == "POST":
+        token = request.POST.get("token")
+        if user.verify_totp(token):
+            user.totp_enabled = True
+            user.save(update_fields=["totp_enabled"])
+            return redirect("dashboard")  # redirige vers ton tableau de bord
+        else:
+            context = {"qr_code": qr_code, "error": "Code invalide."}
+            return render(request, "totp/setup.html", context)
+
+    return render(request, "totp/setup.html", {"qr_code": qr_code})

@@ -122,18 +122,19 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return f"{self.prenom} {self.nom}"
 
-
-    def generate_qr_code(user):
-        totp_uri = pyotp.TOTP(user.totp_secret).provisioning_uri(
-            name=user.email_google,
+    def generate_qr_code(self):
+        """
+        Génère le QR code TOTP au format base64 pour Google Authenticator.
+        """
+        totp_uri = pyotp.TOTP(self.totp_secret).provisioning_uri(
+            name=self.email_google,
             issuer_name="dBSolution"
         )
         qr = qrcode.make(totp_uri)
         buffer = BytesIO()
         qr.save(buffer, format="PNG")
         qr_base64 = base64.b64encode(buffer.getvalue()).decode()
-        return qr_base64  # À utiliser dans un <img src="data:image/png;base64,...">
-
+        return qr_base64
 
 from django import forms
 
