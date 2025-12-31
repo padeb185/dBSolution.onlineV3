@@ -8,22 +8,42 @@ from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 from adresse.models import Adresse
+from pkg_resources import require
+from setuptools import Require
 from societe.models import Societe
 
 
 
-
+from django.contrib.auth.base_user import BaseUserManager
 
 class UtilisateurManager(BaseUserManager):
     def create_user(self, email_entreprise, password=None, **extra_fields):
+        """
+        Crée et enregistre un utilisateur normal avec l'email entreprise et le mot de passe fourni.
+        """
         if not email_entreprise:
             raise ValueError("L'email entreprise est obligatoire")
 
         email_entreprise = self.normalize_email(email_entreprise)
         user = self.model(email_entreprise=email_entreprise, **extra_fields)
-        user.set_password(password)
+        user.set_password(password)  # mot de passe peut être None
         user.save(using=self._db)
         return user
+
+    def create_superuser(self, email_entreprise, password=None, **extra_fields):
+        """
+        Crée et enregistre un superutilisateur avec email entreprise et mot de passe.
+        """
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+        extra_fields.setdefault('is_active', True)
+
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError('Le superuser doit avoir is_staff=True.')
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError('Le superuser doit avoir is_superuser=True.')
+
+        return self.create_user(email_entreprise, password, **extra_fields)
 
 
 
