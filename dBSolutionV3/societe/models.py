@@ -1,5 +1,6 @@
 from django.db import models
 import uuid
+from django.utils.text import slugify
 from django_tenants.models import TenantMixin, DomainMixin
 
 
@@ -49,6 +50,12 @@ class Societe(TenantMixin):
         verbose_name = "Société"
         verbose_name_plural = "Sociétés"
         ordering = ['nom']
+
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.nom)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.nom
