@@ -6,16 +6,13 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     # Page d'accueil / login
-    path('', views.login_view, name='login'),
-
-    # Vérification TOTP
-    path('totp-verify/', views.totp_verify_view, name='totp_verify'),
+    #path('', views.login_view, name='login'),
 
     # Setup TOTP (nouvelle route)
-    path('totp/setup/', views.totp_setup_view, name='totp_setup'),
+    #path('totp/setup/', views.totp_setup_view, name='totp_setup'),
 
     # Tableau de bord
-    path('dashboard/', views.dashboard_view, name='dashboard'),
+    #path('dashboard/', views.dashboard_view, name='dashboard'),
 
     # Reset password
     path(

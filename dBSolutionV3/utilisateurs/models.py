@@ -80,7 +80,7 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
 
     objects = UtilisateurManager()
 
-    USERNAME_FIELD = 'email_entreprise'
+    USERNAME_FIELD = 'email_google'
     REQUIRED_FIELDS = ['nom', 'prenom']
 
     groups = models.ManyToManyField(
@@ -102,22 +102,21 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
         # Important : cette table doit rester dans le schema public
         app_label = 'utilisateurs'
 
+    def generate_totp_secret(self):
+        self.totp_secret = pyotp.random_base32()
+        self.save()
+
+    def get_totp_uri(self):
+        return pyotp.totp.TOTP(self.totp_secret).provisioning_uri(
+            name=self.email_google,
+            issuer_name="dBSolution"
+        )
+
     def verify_totp(self, token):
         if not self.totp_secret:
             return False
         totp = pyotp.TOTP(self.totp_secret)
-        return totp.verify(token)
-
-
-    def generate_totp_secret(self):
-        self.totp_secret = pyotp.random_base32()
-        self.save(update_fields=["totp_secret"])
-
-    def get_totp_uri(self):
-        return pyotp.totp.TOTP(self.totp_secret).provisioning_uri(
-            name=self.email_entreprise,
-            issuer_name="dBSolution"
-        )
+        return totp.verify(token, valid_window=1)
 
     def __str__(self):
         return f"{self.prenom} {self.nom}"

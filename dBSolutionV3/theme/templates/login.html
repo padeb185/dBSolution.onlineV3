@@ -1,42 +1,37 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Connexion</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
-    <div class="bg-white shadow-md rounded-lg p-8 w-full max-w-md">
-        <h1 class="text-2xl font-bold mb-6 text-center">Connexion</h1>
-        {% if messages %}
-            <div class="mb-4">
-                {% for message in messages %}
-                    <p class="text-red-500">{{ message }}</p>
-                {% endfor %}
-            </div>
-        {% endif %}
-        <form method="post" class="space-y-4">
-            {% csrf_token %}
-            <div>
-                <label for="id_email" class="block text-gray-700">Email Google</label>
-                <input type="email" name="email" id="id_email" required
-                       class="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                {% if form.email.errors %}
-                    <p class="text-red-500 mt-1">{{ form.email.errors }}</p>
-                {% endif %}
-            </div>
-            <div>
-                <label for="id_password" class="block text-gray-700">Mot de passe</label>
-                <input type="password" name="password" id="id_password" required
-                       class="w-full border border-gray-300 rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                {% if form.password.errors %}
-                    <p class="text-red-500 mt-1">{{ form.password.errors }}</p>
-                {% endif %}
-            </div>
-            <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
-                Se connecter
-            </button>
-        </form>
-    </div>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Connexion</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="bg-gray-100 flex items-center justify-center min-h-screen">
+        <div class="bg-white shadow-md rounded-lg p-8 w-full max-w-md">
+            <h1 class="text-2xl font-bold mb-6 text-center">Connexion</h1>
+            {% if messages %}
+                <div class="mb-4">
+                    {% for message in messages %}
+                        <p class="text-red-500">{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <form method="post" class="space-y-4">
+                {% csrf_token %}
+
+                <input type="email" name="email" placeholder="Email"
+                       class="w-full border px-3 py-2 rounded">
+
+                <input type="password" name="password" placeholder="Mot de passe"
+                       class="w-full border px-3 py-2 rounded">
+
+                <input type="text" name="totp_code" placeholder="Code TOTP (si activé)"
+                       class="w-full border px-3 py-2 rounded">
+
+                <button class="w-full bg-blue-600 text-white py-2 rounded">
+                    Se connecter
+                </button>
+            </form>
+
+        </div>
+    </body>
 </html>

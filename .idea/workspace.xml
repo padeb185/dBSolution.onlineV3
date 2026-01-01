@@ -6,7 +6,18 @@
   <component name="ChangeListManager">
     <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="login totp">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/maintenance/jeux_pieces/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/maintenance/jeux_pieces/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls_public.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls_public.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/login_totp.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/totp/setup.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/totp/setup.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/totp_verify.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/middleware.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/middleware.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -156,15 +167,8 @@
       <workItem from="1767092299597" duration="6920000" />
       <workItem from="1767163956935" duration="12926000" />
       <workItem from="1767179444032" duration="1043000" />
-      <workItem from="1767191847436" duration="2258000" />
-    </task>
-    <task id="LOCAL-00101" summary="traductions suite">
-      <option name="closed" value="true" />
-      <created>1766580744730</created>
-      <option name="number" value="00101" />
-      <option name="presentableId" value="LOCAL-00101" />
-      <option name="project" value="LOCAL" />
-      <updated>1766580744730</updated>
+      <workItem from="1767191847436" duration="2443000" />
+      <workItem from="1767265380942" duration="2744000" />
     </task>
     <task id="LOCAL-00102" summary="accueil">
       <option name="closed" value="true" />
@@ -550,7 +554,15 @@
       <option name="project" value="LOCAL" />
       <updated>1767180475202</updated>
     </task>
-    <option name="localTasksCounter" value="150" />
+    <task id="LOCAL-00150" summary="login totp">
+      <option name="closed" value="true" />
+      <created>1767194302070</created>
+      <option name="number" value="00150" />
+      <option name="presentableId" value="LOCAL-00150" />
+      <option name="project" value="LOCAL" />
+      <updated>1767194302071</updated>
+    </task>
+    <option name="localTasksCounter" value="151" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

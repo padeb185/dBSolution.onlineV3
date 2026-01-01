@@ -1,10 +1,12 @@
-# utilisateurs/urls.py
 from django.urls import path
-from . import views
+from .views import login_view, dashboard_view, totp_setup_view
+from dBSolutionV3.views import home_view
 
-app_name = "authentification"
+app_name = "utilisateurs"
 
 urlpatterns = [
-    # exemples (même vides au début)
-    # path("login/", views.login_view, name="login"),
+    path("login/", login_view, name="login"),
+    path("home/" ,home_view, name="home"),
+    path("dashboard/", dashboard_view, name="dashboard"),
+    path("totp/setup/", totp_setup_view, name="totp_setup"),
 ]
