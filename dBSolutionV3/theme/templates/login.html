@@ -3,18 +3,23 @@
 {% block title %}Connexion{% endblock %}
 
 {% block body_class %}
-bg-gray-100 flex items-center justify-center min-h-screen
+bg-pastelblue flex items-center justify-center min-h-screen
 {% endblock %}
+
 
 {% block header %}{% endblock %}
 {% block footer %}{% endblock %}
 
-{% block main_class %}w-full{% endblock %}
+
+{% block main_class %}
+flex flex-col items-center justify-center w-full
+{% endblock %}
+
 
 {% block content %}
-<div class="bg-white shadow-md rounded-lg p-8 w-full max-w-md flex flex-col items-center justify-center">
+<div class="bg-white shadow-md rounded-lg p-8 w-full max-w-md flex flex-col items-stretch gap-4">
 
-    <h1 class="text-2xl font-bold mb-6 text-center">Connexion</h1>
+    <h1 class="text-2xl font-bold mb-4 text-center">Connexion</h1>
 
     {% if messages %}
         <div class="mb-4">
@@ -24,13 +29,7 @@ bg-gray-100 flex items-center justify-center min-h-screen
         </div>
     {% endif %}
 
-    <!-- TEST DE CSS -->
-    <div class="bg-red-500 text-white p-4">
-      CSS TEST
-    </div>
-
-    <!-- FORMULAIRE -->
-    <form method="post" class="space-y-4 w-full">
+    <form method="post" class="flex flex-col gap-4">
         {% csrf_token %}
 
         <input type="email" name="email" placeholder="Email"
@@ -42,10 +41,17 @@ bg-gray-100 flex items-center justify-center min-h-screen
         <input type="text" name="totp_code" placeholder="Code TOTP (si activé)"
                class="w-full border border-gray-300 px-3 py-2 rounded focus:ring-2 focus:ring-blue-500 focus:outline-none">
 
-        <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition duration-300">
+        <button type="submit"
+                class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition duration-300">
             Se connecter
         </button>
     </form>
+
+    <div class="text-center text-sm text-gray-500 mt-2">
+        <a href="{% url 'password_reset' %}" class="hover:underline hover:text-blue-700">
+            Mot de passe oublié ?
+        </a>
+    </div>
 
     <!-- DUMMY POUR SAFELIST DES CLASSES DYNAMIQUES -->
     <div class="hidden bg-blue-700 hover:bg-blue-700 text-gray-700 text-gray-500 border-gray-300 px-4 py-2 rounded shadow-md flex flex-col items-center justify-center"></div>

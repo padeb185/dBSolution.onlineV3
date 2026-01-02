@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="Tailwind 3">
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="styles.css">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/tailwind.config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/static/theme/css/dist/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/theme/css/dist/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/static/theme/css/src/input.css" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/theme/css/src/input.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/login.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -162,15 +165,7 @@
       <workItem from="1767265380942" duration="3084000" />
       <workItem from="1767333143999" duration="6936000" />
       <workItem from="1767340162507" duration="98000" />
-      <workItem from="1767344771062" duration="1580000" />
-    </task>
-    <task id="LOCAL-00104" summary="RAZ BDD">
-      <option name="closed" value="true" />
-      <created>1766592020194</created>
-      <option name="number" value="00104" />
-      <option name="presentableId" value="LOCAL-00104" />
-      <option name="project" value="LOCAL" />
-      <updated>1766592020195</updated>
+      <workItem from="1767344771062" duration="3102000" />
     </task>
     <task id="LOCAL-00105" summary="création et migration tenant">
       <option name="closed" value="true" />
@@ -556,7 +551,15 @@
       <option name="project" value="LOCAL" />
       <updated>1767340253494</updated>
     </task>
-    <option name="localTasksCounter" value="153" />
+    <task id="LOCAL-00153" summary="styles.css">
+      <option name="closed" value="true" />
+      <created>1767346489566</created>
+      <option name="number" value="00153" />
+      <option name="presentableId" value="LOCAL-00153" />
+      <option name="project" value="LOCAL" />
+      <updated>1767346489567</updated>
+    </task>
+    <option name="localTasksCounter" value="154" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -574,7 +577,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="traductions" />
     <MESSAGE value="checkup" />
     <MESSAGE value="checkup nettoyage" />
     <MESSAGE value="fuel" />
@@ -599,7 +601,8 @@
     <MESSAGE value="login totp" />
     <MESSAGE value="login OK" />
     <MESSAGE value="Tailwind 3" />
-    <option name="LAST_COMMIT_MESSAGE" value="Tailwind 3" />
+    <MESSAGE value="styles.css" />
+    <option name="LAST_COMMIT_MESSAGE" value="styles.css" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
