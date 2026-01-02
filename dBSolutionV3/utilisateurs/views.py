@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, logout
 from django.contrib import messages
 from .forms import LoginForm
 import qrcode
@@ -51,6 +51,9 @@ def login_view(request):
     return render(request, "login.html", {"form": form})
 
 
+def logout_view(request):
+    logout(request)
+    return redirect('utilisateurs:login')
 
 
 
