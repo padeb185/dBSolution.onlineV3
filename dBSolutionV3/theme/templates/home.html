@@ -1,15 +1,22 @@
 {% extends "base.html" %}
-{% load i18n static widget_tweaks %}
-{% get_current_language as LANGUAGE_CODE %}
+{% load static i18n widget_tweaks %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body_class %}bg-pastelblue min-h-screen flex flex-col{% endblock %}
+
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block main_class %}flex-1{% endblock %}
 
 {% block content %}
-
 <!-- Conteneur centré verticalement et horizontalement -->
 <div class="flex flex-col md:flex-row items-center justify-center min-h-[70vh] gap-6 p-6">
 
-    <!-- Texte -->
+    <!-- Texte avec bouton -->
     <div class="text-center md:text-left max-w-lg">
-        <h1 class="text-4xl font-bold text-red-500">
+        <h1 class="text-4xl font-bold text-blue-700">
             {% trans "Bienvenue" %}
         </h1>
         <p class="text-blue-700 mt-4 text-lg">
@@ -17,13 +24,13 @@
         </p>
 
         <!-- Bouton pour accéder au login -->
-        <a href="{% url 'login.totp' %}"
+        <a href="{% url 'utilisateurs:login' %}"
            class="inline-block mt-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 shadow-md">
             {% trans "Se connecter" %}
         </a>
     </div>
 
-    <!-- Image -->
+    <!-- Image à droite -->
     <img
         src="{% static 'images/blason.png' %}"
         class="w-[250px] h-[250px] object-contain"

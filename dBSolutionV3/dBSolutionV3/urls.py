@@ -8,9 +8,10 @@ urlpatterns = [
 ]
 
 urlpatterns += i18n_patterns(
-    path("", include("dBSolutionV3.urls_public")),   # domaine public
-    path("", include("dBSolutionV3.urls_tenant")),   # tenant (via middleware)
+    path("", home_view, name="home"),  # page d'accueil
     path("admin/", admin.site.urls),
-    path("", home_view, name="home"),
-    path("", include("utilisateurs.urls", namespace="utilisateurs")),
+    path("utilisateurs/", include("utilisateurs.urls", namespace="utilisateurs")),  # login, dashboard, logout
+    path("", include("dBSolutionV3.urls_public")),   # autres URLs publiques
+    path("", include("dBSolutionV3.urls_tenant")),   # tenant
 )
+

@@ -13,7 +13,7 @@ module.exports = {
     "bg-blue-500","hover:bg-blue-700","focus:ring-2","focus:ring-blue-500",
     "focus:outline-none","select-all","gap-2","gap-4","gap-6","container",
     "mx-auto","mt-auto","mt-8","min-h-screen","grid","grid-cols-1",
-    "md:grid-cols-2","lg:grid-cols-3","text-blue-700"
+    "md:grid-cols-2","lg:grid-cols-3","text-blue-700", "text-blue-600", "text-blue-700",
   ],
   theme: {
     extend: {

@@ -5,9 +5,9 @@ from dBSolutionV3.views import home_view
 app_name = "utilisateurs"
 
 urlpatterns = [
-    path("login/", login_view, name="login"),
-    path("home/" ,home_view, name="home"),
-    path("dashboard/", dashboard_view, name="dashboard"),
-    path('logout/', logout_view, name='logout'),
+
+    path("login/", login_view, name="login"),  # Login
+    path("dashboard/", dashboard_view, name="dashboard"),  # Dashboard
+    path("logout/", logout_view, name="logout"),  # Logout
     path("totp/setup/", totp_setup_view, name="totp_setup"),
 ]

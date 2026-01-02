@@ -4,11 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="styles.css">
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="Deconnexion">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/tailwind.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/static/images/blason.png" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/images/blason.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/static/theme/css/dist/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/theme/css/dist/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/home.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,15 +168,7 @@
       <workItem from="1767265380942" duration="3084000" />
       <workItem from="1767333143999" duration="6936000" />
       <workItem from="1767340162507" duration="98000" />
-      <workItem from="1767344771062" duration="4368000" />
-    </task>
-    <task id="LOCAL-00106" summary="création et migration tenant">
-      <option name="closed" value="true" />
-      <created>1766593372847</created>
-      <option name="number" value="00106" />
-      <option name="presentableId" value="LOCAL-00106" />
-      <option name="project" value="LOCAL" />
-      <updated>1766593372847</updated>
+      <workItem from="1767344771062" duration="6278000" />
     </task>
     <task id="LOCAL-00107" summary="traduction nl">
       <option name="closed" value="true" />
@@ -558,7 +554,15 @@
       <option name="project" value="LOCAL" />
       <updated>1767347942648</updated>
     </task>
-    <option name="localTasksCounter" value="155" />
+    <task id="LOCAL-00155" summary="Deconnexion">
+      <option name="closed" value="true" />
+      <created>1767349243488</created>
+      <option name="number" value="00155" />
+      <option name="presentableId" value="LOCAL-00155" />
+      <option name="project" value="LOCAL" />
+      <updated>1767349243488</updated>
+    </task>
+    <option name="localTasksCounter" value="156" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -576,7 +580,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="checkup" />
     <MESSAGE value="checkup nettoyage" />
     <MESSAGE value="fuel" />
     <MESSAGE value="traduction it" />
@@ -601,7 +604,8 @@
     <MESSAGE value="login OK" />
     <MESSAGE value="Tailwind 3" />
     <MESSAGE value="styles.css" />
-    <option name="LAST_COMMIT_MESSAGE" value="styles.css" />
+    <MESSAGE value="Deconnexion" />
+    <option name="LAST_COMMIT_MESSAGE" value="Deconnexion" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
