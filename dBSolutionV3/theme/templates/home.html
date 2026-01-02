@@ -5,20 +5,20 @@
 {% block content %}
 
 <!-- Conteneur centré verticalement et horizontalement -->
-<div class="flex flex-col md:flex-row items-center justify-center min-h-[70vh] gap-6">
+<div class="flex flex-col md:flex-row items-center justify-center min-h-[70vh] gap-6 p-6">
 
     <!-- Texte -->
-    <div class="text-center md:text-left">
+    <div class="text-center md:text-left max-w-lg">
         <h1 class="text-4xl font-bold text-red-500">
             {% trans "Bienvenue" %}
         </h1>
-        <p class="text-blue-700 mt-4">
+        <p class="text-blue-700 mt-4 text-lg">
             {% trans "Ceci est un paragraphe stylé avec Tailwind." %}
         </p>
 
         <!-- Bouton pour accéder au login -->
         <a href="{% url 'login.totp' %}"
-           class="inline-block mt-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300">
+           class="inline-block mt-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 shadow-md">
             {% trans "Se connecter" %}
         </a>
     </div>
@@ -26,9 +26,12 @@
     <!-- Image -->
     <img
         src="{% static 'images/blason.png' %}"
-        style="width:250px; height:250px;"
+        class="w-[250px] h-[250px] object-contain"
         alt="Blason"
     />
 </div>
+
+<!-- DUMMY POUR SAFELIST DES CLASSES DYNAMIQUES -->
+<div class="hidden flex flex-col items-center justify-center gap-4 text-red-500 text-blue-700 text-gray-700 text-gray-500 bg-blue-500 hover:bg-blue-700 bg-red-500 px-4 py-2 rounded shadow-md min-h-[70vh] w-full"></div>
 
 {% endblock %}

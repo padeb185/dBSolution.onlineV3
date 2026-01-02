@@ -2,8 +2,6 @@
 {% load i18n static widget_tweaks %}
 {% get_current_language as LANGUAGE_CODE %}
 
-
-
 {% block title %}{% trans "Tableau de bord" %}{% endblock %}
 
 {% block content %}
@@ -12,19 +10,19 @@
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
   <!-- Carte Utilisateurs -->
-  <div class="bg-white shadow rounded-lg p-6">
+  <div class="bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg">
     <h2 class="text-lg font-semibold mb-2">{% trans "Utilisateurs" %}</h2>
     <p class="text-gray-600">{% trans "Nombre total :" %} <span class="font-bold">128</span></p>
   </div>
 
   <!-- Carte Projets -->
-  <div class="bg-white shadow rounded-lg p-6">
+  <div class="bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg">
     <h2 class="text-lg font-semibold mb-2">{% trans "Projets" %}</h2>
     <p class="text-gray-600">{% trans "Projets actifs :" %} <span class="font-bold">24</span></p>
   </div>
 
   <!-- Carte Notifications -->
-  <div class="bg-white shadow rounded-lg p-6">
+  <div class="bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg">
     <h2 class="text-lg font-semibold mb-2">{% trans "Notifications" %}</h2>
     <p class="text-gray-600">{% trans "Messages non lus :" %} <span class="font-bold">5</span></p>
   </div>
@@ -32,7 +30,7 @@
 </div>
 
 <!-- Exemple de tableau -->
-<div class="mt-8 bg-white shadow rounded-lg p-6">
+<div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto">
   <h2 class="text-lg font-semibold mb-4">{% trans "Dernières activités" %}</h2>
   <table class="min-w-full table-auto border-collapse border border-gray-200">
     <thead>
@@ -56,4 +54,8 @@
     </tbody>
   </table>
 </div>
+
+<!-- DUMMY POUR SAFELIST DES CLASSES DYNAMIQUES -->
+<div class="hidden bg-white bg-gray-100 bg-gray-200 bg-red-500 bg-blue-500 hover:bg-blue-700 hover:shadow-lg shadow-md rounded-lg p-4 p-6 text-gray-600 text-gray-700 text-gray-500 font-bold font-semibold transition duration-300 min-h-[70vh] flex flex-col items-center justify-center w-full"></div>
+
 {% endblock %}

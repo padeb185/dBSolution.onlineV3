@@ -1,37 +1,53 @@
-<!DOCTYPE html>
-<html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <title>Connexion</title>
-        <script src="https://cdn.tailwindcss.com"></script>
-    </head>
-    <body class="bg-gray-100 flex items-center justify-center min-h-screen">
-        <div class="bg-white shadow-md rounded-lg p-8 w-full max-w-md">
-            <h1 class="text-2xl font-bold mb-6 text-center">Connexion</h1>
-            {% if messages %}
-                <div class="mb-4">
-                    {% for message in messages %}
-                        <p class="text-red-500">{{ message }}</p>
-                    {% endfor %}
-                </div>
-            {% endif %}
-            <form method="post" class="space-y-4">
-                {% csrf_token %}
+{% extends "base.html" %}
 
-                <input type="email" name="email" placeholder="Email"
-                       class="w-full border px-3 py-2 rounded">
+{% block title %}Connexion{% endblock %}
 
-                <input type="password" name="password" placeholder="Mot de passe"
-                       class="w-full border px-3 py-2 rounded">
+{% block body_class %}
+bg-gray-100 flex items-center justify-center min-h-screen
+{% endblock %}
 
-                <input type="text" name="totp_code" placeholder="Code TOTP (si activé)"
-                       class="w-full border px-3 py-2 rounded">
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
 
-                <button class="w-full bg-blue-600 text-white py-2 rounded">
-                    Se connecter
-                </button>
-            </form>
+{% block main_class %}w-full{% endblock %}
 
+{% block content %}
+<div class="bg-white shadow-md rounded-lg p-8 w-full max-w-md flex flex-col items-center justify-center">
+
+    <h1 class="text-2xl font-bold mb-6 text-center">Connexion</h1>
+
+    {% if messages %}
+        <div class="mb-4">
+            {% for message in messages %}
+                <p class="text-red-500">{{ message }}</p>
+            {% endfor %}
         </div>
-    </body>
-</html>
+    {% endif %}
+
+    <!-- TEST DE CSS -->
+    <div class="bg-red-500 text-white p-4">
+      CSS TEST
+    </div>
+
+    <!-- FORMULAIRE -->
+    <form method="post" class="space-y-4 w-full">
+        {% csrf_token %}
+
+        <input type="email" name="email" placeholder="Email"
+               class="w-full border border-gray-300 px-3 py-2 rounded focus:ring-2 focus:ring-blue-500 focus:outline-none">
+
+        <input type="password" name="password" placeholder="Mot de passe"
+               class="w-full border border-gray-300 px-3 py-2 rounded focus:ring-2 focus:ring-blue-500 focus:outline-none">
+
+        <input type="text" name="totp_code" placeholder="Code TOTP (si activé)"
+               class="w-full border border-gray-300 px-3 py-2 rounded focus:ring-2 focus:ring-blue-500 focus:outline-none">
+
+        <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition duration-300">
+            Se connecter
+        </button>
+    </form>
+
+    <!-- DUMMY POUR SAFELIST DES CLASSES DYNAMIQUES -->
+    <div class="hidden bg-blue-700 hover:bg-blue-700 text-gray-700 text-gray-500 border-gray-300 px-4 py-2 rounded shadow-md flex flex-col items-center justify-center"></div>
+</div>
+{% endblock %}
