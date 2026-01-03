@@ -34,9 +34,9 @@ class TrainAvant(Piece):
         verbose_name=_("Type de pièce train avant")
     )
 
-    # 🔗 compatibilité moteur (optionnel)
-    moteurs_compatibles = models.ManyToManyField(
-        "voiture_moteur.MoteurVoiture",
+    # 🔗 compatibilité modele
+    voiture_modele = models.ManyToManyField(
+        "voiture_modele.VoitureModele",
         related_name="train_avant",
         blank=True
     )
