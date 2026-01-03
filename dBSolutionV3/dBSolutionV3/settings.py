@@ -156,7 +156,7 @@ TENANT_APPS = (
     'piece.piece_moteur',
     'piece.piece_pneus',
     'piece.piece_pont',
-    #'piece.piece_silent_bloc',
+    'piece.piece_silent_bloc',
     'piece.piece_suspension',
     'piece.piece_train_AV',
     'piece.piece_train_AR',

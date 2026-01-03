@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="voitur_embrayage">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_suspension/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_suspension/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_train_AR/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_train_AR/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_train_AV/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_train_AV/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_transmission/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/piece/piece_transmission/models.py" afterDir="false" />
-    </list>
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="Pont" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -169,23 +162,7 @@
       <workItem from="1767344771062" duration="6278000" />
       <workItem from="1767357476653" duration="175000" />
       <workItem from="1767359782450" duration="124000" />
-      <workItem from="1767428752492" duration="2718000" />
-    </task>
-    <task id="LOCAL-00110" summary="traduction nl fin">
-      <option name="closed" value="true" />
-      <created>1766652712590</created>
-      <option name="number" value="00110" />
-      <option name="presentableId" value="LOCAL-00110" />
-      <option name="project" value="LOCAL" />
-      <updated>1766652712590</updated>
-    </task>
-    <task id="LOCAL-00111" summary="traduction es début">
-      <option name="closed" value="true" />
-      <created>1766654096123</created>
-      <option name="number" value="00111" />
-      <option name="presentableId" value="LOCAL-00111" />
-      <option name="project" value="LOCAL" />
-      <updated>1766654096123</updated>
+      <workItem from="1767428752492" duration="3045000" />
     </task>
     <task id="LOCAL-00112" summary="traduction es fin">
       <option name="closed" value="true" />
@@ -563,7 +540,23 @@
       <option name="project" value="LOCAL" />
       <updated>1767430426104</updated>
     </task>
-    <option name="localTasksCounter" value="159" />
+    <task id="LOCAL-00159" summary="transmission, suspension">
+      <option name="closed" value="true" />
+      <created>1767431532034</created>
+      <option name="number" value="00159" />
+      <option name="presentableId" value="LOCAL-00159" />
+      <option name="project" value="LOCAL" />
+      <updated>1767431532034</updated>
+    </task>
+    <task id="LOCAL-00160" summary="Pont">
+      <option name="closed" value="true" />
+      <created>1767431787389</created>
+      <option name="number" value="00160" />
+      <option name="presentableId" value="LOCAL-00160" />
+      <option name="project" value="LOCAL" />
+      <updated>1767431787389</updated>
+    </task>
+    <option name="localTasksCounter" value="161" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -581,8 +574,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="traduction it" />
-    <MESSAGE value="traduction en" />
     <MESSAGE value="traduction nl" />
     <MESSAGE value="traduction espagnol" />
     <MESSAGE value="traduction allemand" />
@@ -606,7 +597,9 @@
     <MESSAGE value="Deconnexion" />
     <MESSAGE value="password create user validate_password" />
     <MESSAGE value="voitur_embrayage" />
-    <option name="LAST_COMMIT_MESSAGE" value="voitur_embrayage" />
+    <MESSAGE value="transmission, suspension" />
+    <MESSAGE value="Pont" />
+    <option name="LAST_COMMIT_MESSAGE" value="Pont" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
