@@ -11,7 +11,7 @@ class Command(BaseCommand):
 
         # Récupère le tenant 'rsrspa'
         try:
-            tenant = Societe.objects.get(slug='rsr-nurburg')  # ou schema_name='rsrspa'
+            tenant = Societe.objects.get(slug='rsr-spa')  # ou schema_name='rsrspa'
         except Societe.DoesNotExist:
             self.stdout.write(self.style.ERROR("Tenant 'rsrspa' introuvable !"))
             return
@@ -40,7 +40,7 @@ class Command(BaseCommand):
             "Hyundai N", "Kia GT", "Genesis G70 Sport",
 
             # 🇺🇸 États-Unis
-            "Ford Mustang GT", "Chevrolet Corvette", "Dodge SRT", "Tesla Performance",
+            "Ford GT", "Chevrolet", "Dodge SRT", "Tesla Performance",
 
             # 🌍 Autres / électriques
             "Porsche", "Tesla", "Rimac", "Lotus"
