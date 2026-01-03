@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load i18n %}  {# ← indispensable pour trans #}
+
+{% block content %}
+<div class="mx-4 sm:mx-6 lg:mx-auto p-6 max-w-7xl">
+
+    <h1 class="text-2xl font-bold mb-6">{% trans "Marques de voiture" %}</h1>
+
+    <!-- Grille des marques : 1 sur mobile, 2 sur sm+, 2 sur md+ -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6">
+
+        {% for marque in marques %}
+        <!-- Carte Marque -->
+        <div
+            class="bg-white shadow-md rounded-lg p-6 w-full transition duration-300 hover:shadow-lg hover:bg-blue-50 cursor-pointer"
+            onclick="window.location.href='{% url 'voiture:liste_voitures_marque' marque.id_marque %}'"
+        >
+            <h2 class="text-lg font-semibold mb-2">{{ marque.nom_marque }}</h2>
+            <p class="text-gray-600">{% trans "Voir les détails de cette marque" %}</p>
+        </div>
+        {% empty %}
+        <p class="text-gray-500 col-span-full">{% trans "Aucune marque trouvée." %}</p>
+        {% endfor %}
+
+    </div>
+</div>
+{% endblock %}
