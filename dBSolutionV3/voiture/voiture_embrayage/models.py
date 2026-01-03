@@ -1,3 +1,51 @@
+import uuid
+from django.db.models import Q
 from django.db import models
 
 # Create your models here.
+class VoitureEmbrayage(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
+    # Relations (1 des 2 obligatoire)
+    voiture_modele = models.ForeignKey(
+        "voiture_modele.VoitureModele",
+        on_delete=models.CASCADE,
+        related_name="embrayages",
+        null=True,
+        blank=True
+    )
+
+    voiture_exemplaire = models.ForeignKey(
+        "voiture_exemplaire.VoitureExemplaire",
+        on_delete=models.CASCADE,
+        related_name="embrayages",
+        null=True,
+        blank=True
+    )
+
+    kilometrage_embrayage = models.PositiveIntegerField(default=0)
+
+    numero_embrayage = models.PositiveSmallIntegerField(default=1, help_text="1 à 10 (incrémenté à chaque remplacement)")
+
+    date_creation = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                condition=Q(numero_embrayage__gte=1) & Q(numero_embrayage__lte=10),
+                name="numero_embrayage_1_10"
+            ),
+            models.CheckConstraint(
+                condition=Q(voiture_modele__isnull=False) | Q(voiture_exemplaire__isnull=False),
+                name="embrayage_liée_a_voiture"
+            ),
+        ]
+
+    def __str__(self):
+        return f"Boîte #{self.numero_embrayage} - {self.kilometrage_embrayage} km"
+
+    def remplacer_embrayage(self):
+        if self.numero_embrayage < 10:
+            self.numero_embrayage += 1
+            self.kilometrage_boite = 0
+            self.save()

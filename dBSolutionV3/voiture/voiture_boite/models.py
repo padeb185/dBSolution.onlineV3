@@ -53,7 +53,7 @@ class VoitureBoite(models.Model):
             ),
             models.CheckConstraint(
                 condition=Q(voiture_modele__isnull=False) | Q(voiture_exemplaire__isnull=False),
-                name="boite_liee_a_voiture"
+                name="boite_liée_a_voiture"
             ),
         ]
 

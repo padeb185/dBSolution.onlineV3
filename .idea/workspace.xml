@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="Home">
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="password create user validate_password">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_boite/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_boite/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_embrayage/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_embrayage/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -165,23 +166,7 @@
       <workItem from="1767344771062" duration="6278000" />
       <workItem from="1767357476653" duration="175000" />
       <workItem from="1767359782450" duration="124000" />
-      <workItem from="1767428752492" duration="674000" />
-    </task>
-    <task id="LOCAL-00107" summary="traduction nl">
-      <option name="closed" value="true" />
-      <created>1766595357236</created>
-      <option name="number" value="00107" />
-      <option name="presentableId" value="LOCAL-00107" />
-      <option name="project" value="LOCAL" />
-      <updated>1766595357236</updated>
-    </task>
-    <task id="LOCAL-00108" summary="traduction nl">
-      <option name="closed" value="true" />
-      <created>1766595822757</created>
-      <option name="number" value="00108" />
-      <option name="presentableId" value="LOCAL-00108" />
-      <option name="project" value="LOCAL" />
-      <updated>1766595822757</updated>
+      <workItem from="1767428752492" duration="1593000" />
     </task>
     <task id="LOCAL-00109" summary="traduction nl fin">
       <option name="closed" value="true" />
@@ -559,7 +544,23 @@
       <option name="project" value="LOCAL" />
       <updated>1767349243488</updated>
     </task>
-    <option name="localTasksCounter" value="156" />
+    <task id="LOCAL-00156" summary="password create user validate_password">
+      <option name="closed" value="true" />
+      <created>1767429470782</created>
+      <option name="number" value="00156" />
+      <option name="presentableId" value="LOCAL-00156" />
+      <option name="project" value="LOCAL" />
+      <updated>1767429470782</updated>
+    </task>
+    <task id="LOCAL-00157" summary="password create user validate_password">
+      <option name="closed" value="true" />
+      <created>1767429706852</created>
+      <option name="number" value="00157" />
+      <option name="presentableId" value="LOCAL-00157" />
+      <option name="project" value="LOCAL" />
+      <updated>1767429706852</updated>
+    </task>
+    <option name="localTasksCounter" value="158" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -577,7 +578,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="checkup nettoyage" />
     <MESSAGE value="fuel" />
     <MESSAGE value="traduction it" />
     <MESSAGE value="traduction en" />
@@ -602,7 +602,8 @@
     <MESSAGE value="Tailwind 3" />
     <MESSAGE value="styles.css" />
     <MESSAGE value="Deconnexion" />
-    <option name="LAST_COMMIT_MESSAGE" value="Deconnexion" />
+    <MESSAGE value="password create user validate_password" />
+    <option name="LAST_COMMIT_MESSAGE" value="password create user validate_password" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
