@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="Pont" />
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="batterie">
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/management/commands/populate_marques.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/management/commands/populate_voitures_sport.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,8 +17,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -162,23 +166,10 @@
       <workItem from="1767344771062" duration="6278000" />
       <workItem from="1767357476653" duration="175000" />
       <workItem from="1767359782450" duration="124000" />
-      <workItem from="1767428752492" duration="3045000" />
-    </task>
-    <task id="LOCAL-00112" summary="traduction es fin">
-      <option name="closed" value="true" />
-      <created>1766729847682</created>
-      <option name="number" value="00112" />
-      <option name="presentableId" value="LOCAL-00112" />
-      <option name="project" value="LOCAL" />
-      <updated>1766729847682</updated>
-    </task>
-    <task id="LOCAL-00113" summary="traduction en fin attention à corriger">
-      <option name="closed" value="true" />
-      <created>1766730769422</created>
-      <option name="number" value="00113" />
-      <option name="presentableId" value="LOCAL-00113" />
-      <option name="project" value="LOCAL" />
-      <updated>1766730769422</updated>
+      <workItem from="1767428752492" duration="3406000" />
+      <workItem from="1767432537968" duration="124000" />
+      <workItem from="1767438847194" duration="75000" />
+      <workItem from="1767438968614" duration="2370000" />
     </task>
     <task id="LOCAL-00114" summary="traduction correction">
       <option name="closed" value="true" />
@@ -556,7 +547,23 @@
       <option name="project" value="LOCAL" />
       <updated>1767431787389</updated>
     </task>
-    <option name="localTasksCounter" value="161" />
+    <task id="LOCAL-00161" summary="silent blocs">
+      <option name="closed" value="true" />
+      <created>1767431940624</created>
+      <option name="number" value="00161" />
+      <option name="presentableId" value="LOCAL-00161" />
+      <option name="project" value="LOCAL" />
+      <updated>1767431940624</updated>
+    </task>
+    <task id="LOCAL-00162" summary="batterie">
+      <option name="closed" value="true" />
+      <created>1767432118889</created>
+      <option name="number" value="00162" />
+      <option name="presentableId" value="LOCAL-00162" />
+      <option name="project" value="LOCAL" />
+      <updated>1767432118889</updated>
+    </task>
+    <option name="localTasksCounter" value="163" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -574,8 +581,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="traduction nl" />
-    <MESSAGE value="traduction espagnol" />
     <MESSAGE value="traduction allemand" />
     <MESSAGE value="traduction grec" />
     <MESSAGE value="traduction fin" />
@@ -599,7 +604,9 @@
     <MESSAGE value="voitur_embrayage" />
     <MESSAGE value="transmission, suspension" />
     <MESSAGE value="Pont" />
-    <option name="LAST_COMMIT_MESSAGE" value="Pont" />
+    <MESSAGE value="silent blocs" />
+    <MESSAGE value="batterie" />
+    <option name="LAST_COMMIT_MESSAGE" value="batterie" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
