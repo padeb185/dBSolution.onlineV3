@@ -50,7 +50,7 @@ class UtilisateurManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email_google, password=None, **extra_fields):
+    def create_superuser(self, email_google, password, **extra_fields):
         """
         Crée et enregistre un superutilisateur avec email entreprise et mot de passe.
         """
