@@ -8,17 +8,45 @@ from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 from adresse.models import Adresse
 from societe.models import Societe
+import re
+from django.core.exceptions import ValidationError
 
 
 class UtilisateurManager(BaseUserManager):
-    def create_user(self, email_google, password=None, **extra_fields):
+    """def validate_password(self, password):
+        if not password:
+            raise ValidationError("Le mot de passe est obligatoire.")
+
+        if len(password) < 12:
+            raise ValidationError(
+                "Le mot de passe doit contenir au moins 12 caractères."
+            )
+
+        if not re.search(r"[A-Z]", password):
+            raise ValidationError(
+                "Le mot de passe doit contenir au moins une majuscule."
+            )
+
+        if not re.search(r"[a-z]", password):
+            raise ValidationError(
+                "Le mot de passe doit contenir au moins une minuscule."
+            )
+
+        if not re.search(r"\d", password):
+            raise ValidationError(
+                "Le mot de passe doit contenir au moins un chiffre."""
+
+    def create_user(self, email_google, password, **extra_fields):
 
         if not email_google:
-            raise ValueError("L'email entreprise est obligatoire")
+            raise ValueError("L'email est obligatoire")
+
+        # 🔐 validation mot de passe
+        """self.validate_password(password)"""
 
         email_google = self.normalize_email(email_google)
         user = self.model(email_google=email_google, **extra_fields)
-        user.set_password(password)  # mot de passe peut être None
+        user.set_password(password)
         user.save(using=self._db)
         return user
 
