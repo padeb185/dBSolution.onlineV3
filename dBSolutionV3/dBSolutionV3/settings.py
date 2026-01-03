@@ -136,7 +136,7 @@ TENANT_APPS = (
     #'piece.piece_facture_entree',
     #'piece.piece_facture_sortie',
     'piece.piece_ampoules',
-    #'piece.piece_batterie',
+    'piece.piece_batterie',
     'piece.piece_boite',
     'piece.piece_carrosserie',
     'piece.piece_climatisation',
