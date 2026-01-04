@@ -16,7 +16,7 @@
             onclick="window.location.href='{% url 'voiture:liste_voitures_marque' marque.id_marque %}'"
         >
             <h2 class="text-lg font-semibold mb-2">{{ marque.nom_marque }}</h2>
-            <p class="text-gray-600">{% trans "Voir les détails de cette marque" %}</p>
+            <p class="text-gray-600">{% trans "Voir les modèles de cette marque" %}</p>
         </div>
         {% empty %}
         <p class="text-gray-500 col-span-full">{% trans "Aucune marque trouvée." %}</p>
