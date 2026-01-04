@@ -1,50 +1,39 @@
-from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import render, get_object_or_404
 from .models import VoitureMarque, MarqueFavorite
-from django.db.models import Exists, OuterRef
 
-
-@login_required
 def marque_list(request):
     marques = VoitureMarque.objects.all()
-    return render(request, "voiture_marque/marque_list.html", {
-        "marques": marques
+    favoris = []  # liste vide pour l’instant ou récupère les favoris de l’utilisateur
+    for marque in marques:
+        marque.est_favori = marque.id_marque in [f.id_marque for f in favoris]
+    return render(request, "voiture_marque.html", {"marques": marques, "favoris": favoris})
+
+
+def liste_marques(request, id_marque):
+    marque = get_object_or_404(VoitureMarque, id_marque=id_marque)
+    voitures = VoitureMarque.objects.filter(marque=marque)
+    return render(request, "voiture_marque/liste_marques.html", {
+        "marque": marque,
+        "voitures": voitures
     })
 
 
 
 
-@login_required
 def toggle_favori_marque(request, marque_id):
-    marque = get_object_or_404(VoitureMarque, pk=marque_id)
+    if not request.user.is_authenticated:
+        return JsonResponse({"status": "error", "message": "Utilisateur non connecté"}, status=403)
 
+    marque = get_object_or_404(VoitureMarque, id_marque=marque_id)
     favori, created = MarqueFavorite.objects.get_or_create(
         utilisateur=request.user,
         marque=marque
     )
-
     if not created:
         favori.delete()
-        return JsonResponse({"status": "removed"})
+        status = "removed"
     else:
-        return JsonResponse({"status": "added"})
+        status = "added"
 
-
-
-
-
-def liste_marques(request):
-    favoris = MarqueFavorite.objects.filter(
-        utilisateur=request.user,
-        marque=OuterRef("pk")
-    )
-
-    marques = VoitureMarque.objects.annotate(
-        est_favori=Exists(favoris)
-    )
-
-    return render(request, "voiture/liste_marques.html", {
-        "marques": marques
-    })
+    return JsonResponse({"status": status})

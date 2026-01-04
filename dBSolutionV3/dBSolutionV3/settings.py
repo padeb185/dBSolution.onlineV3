@@ -268,6 +268,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'dBSolutionV3.wsgi.application'
+STATIC_VERSION = '1.0'
 
 # ------------------------------------------------------------------------------
 # DATABASE

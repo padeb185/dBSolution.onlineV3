@@ -1,145 +1,103 @@
 {% extends 'base.html' %}
 {% load i18n %}
+{% load static %}
 
 {% block content %}
 <div class="mx-4 sm:mx-6 lg:mx-auto p-6 max-w-7xl">
 
-    <h1 class="text-2xl font-bold mb-6">
-        {% trans "Marques de voiture" %}
-    </h1>
+    <h1 class="text-2xl font-bold mb-6">{% trans "Marques de voiture" %}</h1>
 
-    <!-- ⭐ Section Favoris -->
-    <div id="favoris-section"
-         class="sticky top-4 bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6 hidden">
-        <h2 class="font-semibold text-yellow-600 mb-2">
-            ⭐ {% trans "Mes marques favorites" %}
-        </h2>
-        <div id="favoris-list" class="flex flex-wrap gap-2"></div>
+    <!-- Section Mes favoris -->
+    <div id="favoris-section" class="mb-6 bg-yellow-50 border border-yellow-200 rounded-lg p-4 {% if not favoris %}hidden{% endif %}">
+        <h2 class="font-semibold text-yellow-600 mb-2">⭐ {% trans "Mes marques favorites" %}</h2>
+        <div id="favoris-list" class="flex flex-wrap gap-4">
+            {% for marque in favoris %}
+            <div class="flex items-center gap-2" data-marque-id="{{ marque.id_marque }}">
+                <span>{{ marque.nom_marque }}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24"
+                     fill="blue" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M11.48 3.5a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442a.562.562 0 01.32.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0l-4.725 2.885a.562.562 0 01-.84-.61l1.285-5.385a.563.563 0 00-.182-.557l-4.204-3.602a.562.562 0 01.32-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/>
+                </svg>
+            </div>
+            {% endfor %}
+        </div>
     </div>
 
-    <!-- Grille des marques -->
+    <!-- Liste complète des marques -->
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6">
-
         {% for marque in marques %}
-        <!-- Carte Marque -->
-        <div
-            class="relative bg-white shadow-md rounded-lg p-6 w-full transition duration-300 hover:shadow-lg hover:bg-blue-50 cursor-pointer marque-card"
-            data-marque-id="{{ marque.id_marque }}"
-            onclick="window.location.href='{% url 'marque:liste_voitures_marque' marque.id_marque %}'"
-        >
+        <div class="bg-white shadow-md rounded-lg p-6 marque-card relative cursor-pointer"
+             onclick="window.location.href='/voiture/marque/{{ marque.id_marque }}/modeles/'">
 
-            <!-- ⭐ Étoile Favori -->
-            <button
-                class="absolute top-3 right-3 z-10 star-btn text-yellow-400 transition"
-                onclick="toggleFavori(event, {{ marque.id_marque }})"
-                aria-label="{% trans 'Ajouter aux favoris' %}"
-            >
-                <svg xmlns="http://www.w3.org/2000/svg"
+            <!-- Texte -->
+            <div>
+                <h2 class="text-lg font-semibold">{{ marque.nom_marque }}</h2>
+                <p class="text-gray-600">{% trans "Voir les modèles de cette marque" %}</p>
+            </div>
+
+            <!-- Bouton étoile absolu -->
+            <button class="star-btn w-10 h-10 flex items-center justify-center rounded-full bg-white shadow hover:scale-105 transition-transform duration-200 z-20"
+                    onclick="event.stopPropagation(); toggleFavori(event, '{{ marque.id_marque }}')">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6"
                      viewBox="0 0 24 24"
-                     class="w-6 h-6 star-icon
-                     {% if marque.est_favori %}
-                         fill-yellow-400
-                     {% else %}
-                         fill-none stroke-yellow-400
-                     {% endif %}"
-                     stroke-width="1.5">
+                     fill="{% if marque.est_favori %}blue{% else %}yellow{% endif %}"
+                     stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round"
-                          d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442a.562.562 0 01.32.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0l-4.725 2.885a.562.562 0 01-.84-.61l1.285-5.385a.563.563 0 00-.182-.557l-4.204-3.602a.562.562 0 01.32-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/>
+                          d="M11.48 3.5a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442a.562.562 0 01.32.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0l-4.725 2.885a.562.562 0 01-.84-.61l1.285-5.385a.563.563 0 00-.182-.557l-4.204-3.602a.562.562 0 01.32-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/>
                 </svg>
             </button>
 
-            <!-- 📌 Badge Favori -->
-            <span class="favori-badge {% if not marque.est_favori %}hidden{% endif %}
-                  absolute top-3 left-3 bg-yellow-400 text-white text-xs px-2 py-1 rounded">
-                ⭐ Favori
-            </span>
 
-            <!-- Contenu -->
-            <h2 class="text-lg font-semibold mb-2">
-                {{ marque.nom_marque }}
-            </h2>
-            <p class="text-gray-600">
-                {% trans "Voir les modèles de cette marque" %}
-            </p>
         </div>
-        {% empty %}
-        <p class="text-gray-500 col-span-full">
-            {% trans "Aucune marque trouvée." %}
-        </p>
         {% endfor %}
-
     </div>
+
 </div>
 
-<!-- ⭐ Animation -->
-<style>
-@keyframes pop {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.4); }
-    100% { transform: scale(1); }
-}
-.star-pop {
-    animation: pop 0.3s ease-in-out;
-}
-</style>
+<!-- jQuery local -->
+<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
 
-<!-- 🔄 JS Favoris -->
 <script>
-function toggleFavori(event, marqueId) {
+function toggleFavori(event, id_marque) {
     event.stopPropagation();
-
-    const btn = event.currentTarget;
-    const icon = btn.querySelector(".star-icon");
+    const btn = $(event.currentTarget);
+    const icon = btn.find("svg");
     const card = btn.closest(".marque-card");
-    const badge = card.querySelector(".favori-badge");
+    const nomMarque = card.find("h2").text();
 
-    fetch(`/voiture/marque/${marqueId}/favori/`, {
-        method: "POST",
-        headers: {
-            "X-CSRFToken": "{{ csrf_token }}",
-        }
-    })
-    .then(res => res.json())
-    .then(data => {
-
-        icon.classList.add("star-pop");
-        setTimeout(() => icon.classList.remove("star-pop"), 300);
+    $.post("/voiture/marque/" + id_marque + "/favori/", {
+        csrfmiddlewaretoken: "{{ csrf_token }}"
+    }, function(data) {
+        const favorisSection = $("#favoris-section");
+        const favorisList = $("#favoris-list");
 
         if (data.status === "added") {
-            icon.classList.remove("fill-none", "stroke-yellow-400");
-            icon.classList.add("fill-yellow-400");
-            badge.classList.remove("hidden");
-        } else {
-            icon.classList.remove("fill-yellow-400");
-            icon.classList.add("fill-none", "stroke-yellow-400");
-            badge.classList.add("hidden");
-        }
+            icon.attr("fill", "blue").attr("stroke", "none");
 
-        updateFavorisSection(marqueId, data.status);
+            if (favorisList.find(`[data-marque-id='${id_marque}']`).length === 0) {
+                const favBadge = $(`
+                    <div class="flex items-center gap-2" data-marque-id="${id_marque}">
+                        <span>${nomMarque}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="blue" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                  d="M11.48 3.5a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442a.562.562 0 01.32.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0l-4.725 2.885a.562.562 0 01-.84-.61l1.285-5.385a.563.563 0 00-.182-.557l-4.204-3.602a.562.562 0 01.32-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/>
+                        </svg>
+                    </div>
+                `);
+                favorisList.append(favBadge);
+            }
+            favorisSection.show();
+        } else {
+            icon.attr("fill", "yellow").attr("stroke", "currentColor");
+            favorisList.find(`[data-marque-id='${id_marque}']`).remove();
+            if (favorisList.children().length === 0) favorisSection.hide();
+        }
     });
 }
 
-function updateFavorisSection(marqueId, status) {
-    const favorisSection = document.getElementById("favoris-section");
-    const favorisList = document.getElementById("favoris-list");
-    const card = document.querySelector(`[data-marque-id="${marqueId}"]`);
-    const nom = card.querySelector("h2").innerText;
-
-    if (status === "added") {
-        const item = document.createElement("span");
-        item.className = "bg-yellow-400 text-white text-xs px-3 py-1 rounded";
-        item.dataset.marqueId = marqueId;
-        item.innerText = nom;
-        favorisList.appendChild(item);
-        favorisSection.classList.remove("hidden");
-    } else {
-        const item = favorisList.querySelector(`[data-marque-id="${marqueId}"]`);
-        if (item) item.remove();
-        if (!favorisList.children.length) {
-            favorisSection.classList.add("hidden");
-        }
-    }
-}
+$(document).ready(function(){
+    console.log("jQuery fonctionne !");
+});
 </script>
-
 {% endblock %}
