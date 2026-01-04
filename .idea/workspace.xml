@@ -4,14 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="Voiture marque + scripts">
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/dbsolution/voiture_marque.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dBSolution.onlineV3.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dBSolution.onlineV3.iml" afterDir="false" />
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="voiture marque view et html et urls">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls_tenant.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls_tenant.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/dbsolution/voiture_marque.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/dbsolution/voiture_marque.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,27 +47,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
-    "javascript.nodejs.core.library.configured.version": "24.12.0",
-    "javascript.nodejs.core.library.typings.version": "24.10.4",
-    "last_opened_file_path": "C:/Users/pierr/PycharmProjects/dBSolution.onlineV3",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.intellij.python.templateLanguages.PyTemplateLanguageModulesConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;24.12.0&quot;,
+    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;24.10.4&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/pierr/PycharmProjects/dBSolution.onlineV3&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.intellij.python.templateLanguages.PyTemplateLanguageModulesConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3\dBSolutionV3\theme\static\images" />
@@ -173,23 +171,8 @@
       <workItem from="1767428752492" duration="3406000" />
       <workItem from="1767432537968" duration="124000" />
       <workItem from="1767438847194" duration="75000" />
-      <workItem from="1767438968614" duration="5221000" />
-    </task>
-    <task id="LOCAL-00116" summary="admin ajouts">
-      <option name="closed" value="true" />
-      <created>1766739768876</created>
-      <option name="number" value="00116" />
-      <option name="presentableId" value="LOCAL-00116" />
-      <option name="project" value="LOCAL" />
-      <updated>1766739768876</updated>
-    </task>
-    <task id="LOCAL-00117" summary="Niveaux">
-      <option name="closed" value="true" />
-      <created>1766747841209</created>
-      <option name="number" value="00117" />
-      <option name="presentableId" value="LOCAL-00117" />
-      <option name="project" value="LOCAL" />
-      <updated>1766747841209</updated>
+      <workItem from="1767438968614" duration="5572000" />
+      <workItem from="1767505028681" duration="1437000" />
     </task>
     <task id="LOCAL-00118" summary="Niveaux">
       <option name="closed" value="true" />
@@ -567,7 +550,23 @@
       <option name="project" value="LOCAL" />
       <updated>1767441744633</updated>
     </task>
-    <option name="localTasksCounter" value="165" />
+    <task id="LOCAL-00165" summary="voiture marque view et html et urls">
+      <option name="closed" value="true" />
+      <created>1767444330972</created>
+      <option name="number" value="00165" />
+      <option name="presentableId" value="LOCAL-00165" />
+      <option name="project" value="LOCAL" />
+      <updated>1767444330973</updated>
+    </task>
+    <task id="LOCAL-00166" summary="voiture marque view et html et urls">
+      <option name="closed" value="true" />
+      <created>1767505043292</created>
+      <option name="number" value="00166" />
+      <option name="presentableId" value="LOCAL-00166" />
+      <option name="project" value="LOCAL" />
+      <updated>1767505043292</updated>
+    </task>
+    <option name="localTasksCounter" value="167" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -585,7 +584,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="traduction grec" />
     <MESSAGE value="traduction fin" />
     <MESSAGE value="entretien" />
     <MESSAGE value="totp non résolu" />
@@ -610,7 +608,8 @@
     <MESSAGE value="silent blocs" />
     <MESSAGE value="batterie" />
     <MESSAGE value="Voiture marque + scripts" />
-    <option name="LAST_COMMIT_MESSAGE" value="Voiture marque + scripts" />
+    <MESSAGE value="voiture marque view et html et urls" />
+    <option name="LAST_COMMIT_MESSAGE" value="voiture marque view et html et urls" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

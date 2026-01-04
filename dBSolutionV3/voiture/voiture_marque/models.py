@@ -1,6 +1,9 @@
 from django.db import models
 from django.core.validators import MaxLengthValidator, MinLengthValidator
 import uuid
+from django.conf import settings
+
+
 
 
 
@@ -19,6 +22,7 @@ class VoitureMarque(models.Model):
         ]
     )
 
+
     class Meta:
         ordering = ['nom_marque']  # affichage trié par nom
         verbose_name = "Marque de voiture"
@@ -29,3 +33,23 @@ class VoitureMarque(models.Model):
 
 
 
+
+
+class MarqueFavorite(models.Model):
+    utilisateur = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="marques_favorites"
+    )
+    marque = models.ForeignKey(
+        "voiture_marque.VoitureMarque",
+        on_delete=models.CASCADE,
+        related_name="favoris"
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ("utilisateur", "marque")
+
+    def __str__(self):
+        return f"{self.utilisateur} ❤️ {self.marque}"
