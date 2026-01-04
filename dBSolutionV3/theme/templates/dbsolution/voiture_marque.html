@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block content %}
-<div class="mx-4 sm:mx-6 lg:mx-auto p-6 max-w-7xl">
+<div class="mx-4 sm:mx-6 lg:mx-8 p-6 w-full">
 
     <h1 class="text-2xl font-bold mb-6">{% trans "Marques de voiture" %}</h1>
 
@@ -25,20 +25,23 @@
     </div>
 
     <!-- Liste complète des marques -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6">
-        {% for marque in marques %}
-        <div class="bg-white shadow-md rounded-lg p-6 marque-card relative cursor-pointer"
-             onclick="window.location.href='/voiture/marque/{{ marque.id_marque }}/modeles/'">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-            <!-- Texte -->
+        {% for marque in marques %}
+       <div class="bg-white shadow-md hover:shadow-lg transition rounded-lg p-6 marque-card flex justify-between items-center cursor-pointer w-full"
+
+             onclick="window.location.href='/fr/voitures/marques/marque/{{ marque.id_marque }}/modeles/'"
+             data-marque-id="{{ marque.id_marque }}">
+
+            <!-- Texte à gauche -->
             <div>
                 <h2 class="text-lg font-semibold">{{ marque.nom_marque }}</h2>
                 <p class="text-gray-600">{% trans "Voir les modèles de cette marque" %}</p>
             </div>
 
-            <!-- Bouton étoile absolu -->
-            <button class="star-btn w-10 h-10 flex items-center justify-center rounded-full bg-white shadow hover:scale-105 transition-transform duration-200 z-20"
-                    onclick="event.stopPropagation(); toggleFavori(event, '{{ marque.id_marque }}')">
+            <!-- Bouton étoile à droite -->
+            <button class="star-btn w-10 h-10 flex items-center justify-center rounded-full bg-white shadow hover:scale-105 transition-transform duration-200"
+                    onclick="event.stopPropagation(); toggleFavori(event, '{{ marque.id_marque }}', '{{ marque.nom_marque }}')">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6"
                      viewBox="0 0 24 24"
                      fill="{% if marque.est_favori %}blue{% else %}yellow{% endif %}"
@@ -48,33 +51,26 @@
                 </svg>
             </button>
 
-
         </div>
         {% endfor %}
     </div>
 
 </div>
 
-<!-- jQuery local -->
 <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
-
 <script>
-function toggleFavori(event, id_marque) {
+function toggleFavori(event, id_marque, nomMarque) {
     event.stopPropagation();
     const btn = $(event.currentTarget);
     const icon = btn.find("svg");
-    const card = btn.closest(".marque-card");
-    const nomMarque = card.find("h2").text();
+    const favorisSection = $("#favoris-section");
+    const favorisList = $("#favoris-list");
 
-    $.post("/voiture/marque/" + id_marque + "/favori/", {
-        csrfmiddlewaretoken: "{{ csrf_token }}"
-    }, function(data) {
-        const favorisSection = $("#favoris-section");
-        const favorisList = $("#favoris-list");
+    const url = "/fr/voitures/marques/marque/" + id_marque + "/favori/";
 
+    $.post(url, {csrfmiddlewaretoken: "{{ csrf_token }}"}, function(data) {
         if (data.status === "added") {
             icon.attr("fill", "blue").attr("stroke", "none");
-
             if (favorisList.find(`[data-marque-id='${id_marque}']`).length === 0) {
                 const favBadge = $(`
                     <div class="flex items-center gap-2" data-marque-id="${id_marque}">
@@ -85,7 +81,7 @@ function toggleFavori(event, id_marque) {
                         </svg>
                     </div>
                 `);
-                favorisList.append(favBadge);
+                favorisList.prepend(favBadge);
             }
             favorisSection.show();
         } else {
@@ -97,7 +93,7 @@ function toggleFavori(event, id_marque) {
 }
 
 $(document).ready(function(){
-    console.log("jQuery fonctionne !");
+    console.log("Page marques chargée et jQuery fonctionne !");
 });
 </script>
 {% endblock %}

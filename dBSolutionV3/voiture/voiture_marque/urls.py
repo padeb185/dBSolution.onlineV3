@@ -18,6 +18,8 @@ urlpatterns = [
     path("marque/<uuid:marque_id>/favori/",
          toggle_favori_marque,
          name="toggle_favori_marque"),
+
+
 ]
 
 

@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from .models import VoitureMarque, MarqueFavorite
@@ -21,19 +22,20 @@ def liste_marques(request, id_marque):
 
 
 
+@login_required
 def toggle_favori_marque(request, marque_id):
-    if not request.user.is_authenticated:
-        return JsonResponse({"status": "error", "message": "Utilisateur non connecté"}, status=403)
+    if request.method == "POST":
+        user = request.user
+        try:
+            marque = VoitureMarque.objects.get(id_marque=marque_id)
+        except VoitureMarque.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'Marque non trouvée'}, status=404)
 
-    marque = get_object_or_404(VoitureMarque, id_marque=marque_id)
-    favori, created = MarqueFavorite.objects.get_or_create(
-        utilisateur=request.user,
-        marque=marque
-    )
-    if not created:
-        favori.delete()
-        status = "removed"
-    else:
-        status = "added"
+        if marque in user.favoris_marques.all():
+            user.favoris_marques.remove(marque)
+            return JsonResponse({'status': 'removed'})
+        else:
+            user.favoris_marques.add(marque)
+            return JsonResponse({'status': 'added'})
 
-    return JsonResponse({"status": status})
+    return JsonResponse({'status': 'error', 'message': 'Méthode non autorisée'}, status=400)
