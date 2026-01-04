@@ -8,8 +8,7 @@ from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 from adresse.models import Adresse
 from societe.models import Societe
-import re
-from django.core.exceptions import ValidationError
+from voiture.voiture_marque.models import VoitureMarque
 
 
 class UtilisateurManager(BaseUserManager):
@@ -89,6 +88,9 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
     taux_onss = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)  # en %
     salaire_net_mois = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     salaire_total = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
+
+    # Exemple dans ton modèle User ou Student
+    favoris_marques = models.ManyToManyField(VoitureMarque, blank=True, related_name="users_favoris")
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

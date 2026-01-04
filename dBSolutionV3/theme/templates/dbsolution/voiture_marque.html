@@ -8,18 +8,23 @@
     <h1 class="text-2xl font-bold mb-6">{% trans "Marques de voiture" %}</h1>
 
     <!-- Section Mes favoris -->
-    <div id="favoris-section" class="mb-6 bg-yellow-50 border border-yellow-200 rounded-lg p-4 {% if not favoris %}hidden{% endif %}">
-        <h2 class="font-semibold text-yellow-600 mb-2">⭐ {% trans "Mes marques favorites" %}</h2>
+    <div id="favoris-section"
+         class="mb-6 bg-yellow-50 border border-yellow-200 rounded-lg p-4 {% if not favoris %}hidden{% endif %}">
+        <h2 class="font-semibold text-yellow-600 mb-2">
+            ⭐ {% trans "Mes marques favorites" %}
+        </h2>
+
         <div id="favoris-list" class="flex flex-wrap gap-4">
             {% for marque in favoris %}
-            <div class="flex items-center gap-2" data-marque-id="{{ marque.id_marque }}">
-                <span>{{ marque.nom_marque }}</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24"
-                     fill="blue" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                          d="M11.48 3.5a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442a.562.562 0 01.32.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0l-4.725 2.885a.562.562 0 01-.84-.61l1.285-5.385a.563.563 0 00-.182-.557l-4.204-3.602a.562.562 0 01.32-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/>
-                </svg>
-            </div>
+                <div class="flex items-center gap-2" data-marque-id="{{ marque.id_marque }}">
+                    <span>{{ marque.nom_marque }}</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6"
+                         viewBox="0 0 24 24"
+                         fill="blue" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                              d="M11.48 3.5a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442a.562.562 0 01.32.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0l-4.725 2.885a.562.562 0 01-.84-.61l1.285-5.385a.563.563 0 00-.182-.557l-4.204-3.602a.562.562 0 01.32-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/>
+                    </svg>
+                </div>
             {% endfor %}
         </div>
     </div>
@@ -28,26 +33,40 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
         {% for marque in marques %}
-       <div class="bg-white shadow-md hover:shadow-lg transition rounded-lg p-6 marque-card flex justify-between items-center cursor-pointer w-full"
-
+        <div class="bg-white shadow-md hover:shadow-lg transition rounded-lg p-6 marque-card
+                    flex items-center gap-6 cursor-pointer w-full"
              onclick="window.location.href='/fr/voitures/marques/marque/{{ marque.id_marque }}/modeles/'"
              data-marque-id="{{ marque.id_marque }}">
 
-            <!-- Texte à gauche -->
-            <div>
+            <!-- Texte -->
+            <div class="flex-1">
                 <h2 class="text-lg font-semibold">{{ marque.nom_marque }}</h2>
-                <p class="text-gray-600">{% trans "Voir les modèles de cette marque" %}</p>
+                <p class="text-gray-600">
+                    {% trans "Voir les modèles de cette marque" %}
+                </p>
             </div>
 
-            <!-- Bouton étoile à droite -->
-            <button class="star-btn w-10 h-10 flex items-center justify-center rounded-full bg-white shadow hover:scale-105 transition-transform duration-200"
-                    onclick="event.stopPropagation(); toggleFavori(event, '{{ marque.id_marque }}', '{{ marque.nom_marque }}')">
+            <!-- Image uniquement pour Abarth -->
+            {% if marque.nom_marque|lower == "abarth" %}
+                <div class="flex-shrink-0">
+                    <img src="{% static 'images/marques/abarth.png' %}"
+                         alt="Abarth"
+                         class="w-[65px] h-[65px] object-contain">
+
+                </div>
+            {% endif %}
+
+            <!-- Bouton favori -->
+            <button class="star-btn w-10 h-10 flex items-center justify-center rounded-full
+                           bg-white shadow hover:scale-105 transition-transform duration-200"
+                    onclick="event.stopPropagation();
+                             toggleFavori(event, '{{ marque.id_marque }}', '{{ marque.nom_marque }}')">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6"
                      viewBox="0 0 24 24"
                      fill="{% if marque.est_favori %}blue{% else %}yellow{% endif %}"
                      stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round"
-                          d="M11.48 3.5a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442a.562.562 0 01.32.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0l-4.725 2.885a.562.562 0 01-.84-.61l1.285-5.385a.563.563 0 00-.182-.557l-4.204-3.602a.562.562 0 01.32-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/>
+                          d="M11.48 3.5a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442a.562.562 0 01.32.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0l-4.725 2.885a.563.562 0 01-.84-.61l1.285-5.385a.563.563 0 00-.182-.557l-4.204-3.602a.562.562 0 01.32-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/>
                 </svg>
             </button>
 
@@ -57,25 +76,32 @@
 
 </div>
 
+
 <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
 <script>
-function toggleFavori(event, id_marque, nomMarque) {
-    event.stopPropagation();
+function toggleFavori(event, id_marque, nom_marque) {
+    event.stopPropagation(); // Empêche le clic de remonter et de naviguer
     const btn = $(event.currentTarget);
     const icon = btn.find("svg");
     const favorisSection = $("#favoris-section");
     const favorisList = $("#favoris-list");
 
-    const url = "/fr/voitures/marques/marque/" + id_marque + "/favori/";
+    // URL correcte vers la vue toggle_favori_marque
+    const url = `/fr/voitures/marques/marque/${id_marque}/favori/`;
 
-    $.post(url, {csrfmiddlewaretoken: "{{ csrf_token }}"}, function(data) {
+    $.post(url, {csrfmiddlewaretoken: "{{ csrf_token }}"})
+    .done(function(data) {
         if (data.status === "added") {
+            // Mettre l'étoile en bleu
             icon.attr("fill", "blue").attr("stroke", "none");
+
+            // Ajouter dans la section Favoris si pas déjà présent
             if (favorisList.find(`[data-marque-id='${id_marque}']`).length === 0) {
                 const favBadge = $(`
                     <div class="flex items-center gap-2" data-marque-id="${id_marque}">
-                        <span>${nomMarque}</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="blue" stroke="currentColor" stroke-width="2">
+                        <span>${nom_marque}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6"
+                             viewBox="0 0 24 24" fill="blue" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                   d="M11.48 3.5a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442a.562.562 0 01.32.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0l-4.725 2.885a.562.562 0 01-.84-.61l1.285-5.385a.563.563 0 00-.182-.557l-4.204-3.602a.562.562 0 01.32-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/>
                         </svg>
@@ -83,11 +109,31 @@ function toggleFavori(event, id_marque, nomMarque) {
                 `);
                 favorisList.prepend(favBadge);
             }
+
+            // Afficher la section Favoris si cachée
             favorisSection.show();
-        } else {
+
+        } else if (data.status === "removed") {
+            // Mettre l'étoile en jaune
             icon.attr("fill", "yellow").attr("stroke", "currentColor");
+
+            // Retirer de la section Favoris
             favorisList.find(`[data-marque-id='${id_marque}']`).remove();
-            if (favorisList.children().length === 0) favorisSection.hide();
+
+            // Masquer la section si vide
+            if (favorisList.children().length === 0) {
+                favorisSection.hide();
+            }
+
+        } else {
+            alert("Erreur lors de la mise à jour des favoris.");
+        }
+    })
+    .fail(function(jqXHR) {
+        if (jqXHR.status === 401) {
+            alert("Vous devez être connecté pour ajouter un favori !");
+        } else {
+            alert("Erreur serveur : " + jqXHR.status);
         }
     });
 }
@@ -96,4 +142,5 @@ $(document).ready(function(){
     console.log("Page marques chargée et jQuery fonctionne !");
 });
 </script>
+
 {% endblock %}

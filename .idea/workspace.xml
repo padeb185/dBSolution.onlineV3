@@ -5,8 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="voiture marque Favoris">
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/migrations/0002_marquefavorite.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/migrations/0003_alter_marquefavorite_options.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/static/theme/css/dist/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/theme/css/dist/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/dbsolution/voiture_marque.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/dbsolution/voiture_marque.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/views.py" afterDir="false" />
     </list>
@@ -75,11 +79,11 @@
       <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3\dBSolutionV3\theme\static\images\marques" />
       <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3\dBSolutionV3" />
       <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3\dBSolutionV3\utilisateurs" />
       <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3\dBSolutionV3\maintenance" />
       <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3\dBSolutionV3\voiture" />
-      <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3\dBSolutionV3\maintenance\niveaux" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -174,15 +178,7 @@
       <workItem from="1767438847194" duration="75000" />
       <workItem from="1767438968614" duration="5572000" />
       <workItem from="1767505028681" duration="15256000" />
-      <workItem from="1767521211022" duration="2323000" />
-    </task>
-    <task id="LOCAL-00120" summary="maintenances ++++">
-      <option name="closed" value="true" />
-      <created>1766752212581</created>
-      <option name="number" value="00120" />
-      <option name="presentableId" value="LOCAL-00120" />
-      <option name="project" value="LOCAL" />
-      <updated>1766752212581</updated>
+      <workItem from="1767521211022" duration="6815000" />
     </task>
     <task id="LOCAL-00121" summary="maintenances ++++">
       <option name="closed" value="true" />
@@ -568,7 +564,15 @@
       <option name="project" value="LOCAL" />
       <updated>1767520239634</updated>
     </task>
-    <option name="localTasksCounter" value="169" />
+    <task id="LOCAL-00169" summary="voiture marque Favoris">
+      <option name="closed" value="true" />
+      <created>1767523678843</created>
+      <option name="number" value="00169" />
+      <option name="presentableId" value="LOCAL-00169" />
+      <option name="project" value="LOCAL" />
+      <updated>1767523678843</updated>
+    </task>
+    <option name="localTasksCounter" value="170" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
