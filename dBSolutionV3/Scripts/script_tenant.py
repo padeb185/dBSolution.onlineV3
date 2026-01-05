@@ -15,6 +15,8 @@ django.setup()
 from societe.models import Societe, Domain
 from adresse.models import Adresse  # si tu veux passer une adresse existante
 
+
+
 # 🔹 Fonction pour créer un tenant
 def create_tenant(schema_name, nom, domain_url, directeur, numero_tva, adresse_id=None):
     if Societe.objects.filter(schema_name=schema_name).exists():

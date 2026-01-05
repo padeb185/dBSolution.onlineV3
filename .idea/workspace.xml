@@ -4,11 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="voiture marque Favoris">
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="voiture marque BDD">
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/Scripts/create_dbsolution.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/Scripts/create_rsrnurburg.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/Scripts/create_rsrspa.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/adresse/management/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/adresse/management/commands/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/adresse/management/commands/script_adresses.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/piece/piece_fournisseur/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/migrations/0002_marquefavorite.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/migrations/0003_alter_marquefavorite_options.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/Scripts/script_tenant.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/Scripts/script_tenant.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,8 +23,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="Python Script" />
         <option value="JavaScript File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -75,11 +79,11 @@
       <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3\dBSolutionV3\adresse" />
+      <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3\dBSolutionV3\societe\management\commands" />
       <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3\dBSolutionV3\theme\static\images\marques" />
       <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3\dBSolutionV3" />
       <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3\dBSolutionV3\utilisateurs" />
-      <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3\dBSolutionV3\maintenance" />
-      <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3\dBSolutionV3\voiture" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -174,15 +178,8 @@
       <workItem from="1767438847194" duration="75000" />
       <workItem from="1767438968614" duration="5572000" />
       <workItem from="1767505028681" duration="15256000" />
-      <workItem from="1767521211022" duration="10015000" />
-    </task>
-    <task id="LOCAL-00122" summary="traductions">
-      <option name="closed" value="true" />
-      <created>1766754596166</created>
-      <option name="number" value="00122" />
-      <option name="presentableId" value="LOCAL-00122" />
-      <option name="project" value="LOCAL" />
-      <updated>1766754596167</updated>
+      <workItem from="1767521211022" duration="10388000" />
+      <workItem from="1767594811296" duration="2394000" />
     </task>
     <task id="LOCAL-00123" summary="checkup">
       <option name="closed" value="true" />
@@ -568,7 +565,15 @@
       <option name="project" value="LOCAL" />
       <updated>1767535873256</updated>
     </task>
-    <option name="localTasksCounter" value="171" />
+    <task id="LOCAL-00171" summary="voiture marque BDD">
+      <option name="closed" value="true" />
+      <created>1767539339002</created>
+      <option name="number" value="00171" />
+      <option name="presentableId" value="LOCAL-00171" />
+      <option name="project" value="LOCAL" />
+      <updated>1767539339002</updated>
+    </task>
+    <option name="localTasksCounter" value="172" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -586,7 +591,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="entretien" />
     <MESSAGE value="totp non résolu" />
     <MESSAGE value="RAZ CustomUser" />
     <MESSAGE value="tenant" />
@@ -611,7 +615,8 @@
     <MESSAGE value="Voiture marque + scripts" />
     <MESSAGE value="voiture marque view et html et urls" />
     <MESSAGE value="voiture marque Favoris" />
-    <option name="LAST_COMMIT_MESSAGE" value="voiture marque Favoris" />
+    <MESSAGE value="voiture marque BDD" />
+    <option name="LAST_COMMIT_MESSAGE" value="voiture marque BDD" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
