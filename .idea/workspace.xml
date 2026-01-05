@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="clean">
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="création tenants">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/Scripts/create_dbsolution.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/Scripts/create_dbsolution.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/Scripts/create_rsrnurburg.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/Scripts/create_rsrnurburg.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/Scripts/create_rsrspa.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/Scripts/create_rsrspa.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/adresse/management/commands/script_adresses.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/adresse/management/commands/script_adresses.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/management/commands/populate_voitures_sport.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/management/commands/populate_voitures_sport.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -182,14 +181,7 @@
       <workItem from="1767505028681" duration="15256000" />
       <workItem from="1767521211022" duration="10388000" />
       <workItem from="1767594811296" duration="2394000" />
-    </task>
-    <task id="LOCAL-00124" summary="checkup nettoyage">
-      <option name="closed" value="true" />
-      <created>1766761852782</created>
-      <option name="number" value="00124" />
-      <option name="presentableId" value="LOCAL-00124" />
-      <option name="project" value="LOCAL" />
-      <updated>1766761852782</updated>
+      <workItem from="1767614429930" duration="3084000" />
     </task>
     <task id="LOCAL-00125" summary="fuel">
       <option name="closed" value="true" />
@@ -575,7 +567,15 @@
       <option name="project" value="LOCAL" />
       <updated>1767605258756</updated>
     </task>
-    <option name="localTasksCounter" value="173" />
+    <task id="LOCAL-00173" summary="création tenants">
+      <option name="closed" value="true" />
+      <created>1767606359114</created>
+      <option name="number" value="00173" />
+      <option name="presentableId" value="LOCAL-00173" />
+      <option name="project" value="LOCAL" />
+      <updated>1767606359114</updated>
+    </task>
+    <option name="localTasksCounter" value="174" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -593,7 +593,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="RAZ CustomUser" />
     <MESSAGE value="tenant" />
     <MESSAGE value="login forms.py" />
     <MESSAGE value="login utilisateur" />
@@ -618,7 +617,8 @@
     <MESSAGE value="voiture marque Favoris" />
     <MESSAGE value="voiture marque BDD" />
     <MESSAGE value="clean" />
-    <option name="LAST_COMMIT_MESSAGE" value="clean" />
+    <MESSAGE value="création tenants" />
+    <option name="LAST_COMMIT_MESSAGE" value="création tenants" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

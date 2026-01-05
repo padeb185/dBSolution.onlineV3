@@ -5,15 +5,15 @@ from voiture.voiture_marque.models import VoitureMarque
 
 
 class Command(BaseCommand):
-    help = "Ajoute les marques et variantes sportives pour le tenant 'rsrspa'"
+    help = "Ajoute les marques et variantes sportives pour le tenant 'dbsolution'"
 
     def handle(self, *args, **options):
 
-        # Récupère le tenant 'rsrspa'
+        # Récupère le tenant 'dbsolution'
         try:
-            tenant = Societe.objects.get(slug='rsr-spa')  # ou schema_name='rsrspa'
+            tenant = Societe.objects.get(slug='db-solution')  # ou schema_name='dbsolutions'
         except Societe.DoesNotExist:
-            self.stdout.write(self.style.ERROR("Tenant 'rsrspa' introuvable !"))
+            self.stdout.write(self.style.ERROR("Tenant 'dbsolution' introuvable !"))
             return
 
         # Liste des marques/variantes sportives

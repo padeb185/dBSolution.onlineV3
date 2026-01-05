@@ -1,14 +1,13 @@
-from django.contrib.auth import authenticate, logout
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .forms import LoginForm
-import qrcode
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from io import BytesIO
 import base64
-from django.shortcuts import render, redirect
-from django.contrib.auth import login
-from .models import Utilisateur
-from django.contrib.auth.decorators import login_required
+import qrcode
 
+from .forms import LoginForm
+from .models import Utilisateur
 
 
 def login_view(request):
@@ -30,8 +29,8 @@ def login_view(request):
             if not user.totp_secret:
                 user.generate_totp_secret()
 
-            request.session["totp_setup_user"] = user.id
-            return redirect("totp_setup")
+            request.session["totp_setup_user"] = str(user.id)
+            return redirect("utilisateurs:totp_setup")
 
         # 🔐 TOTP activé → validation
         if user.totp_enabled:
@@ -45,17 +44,18 @@ def login_view(request):
 
         # ✅ Login final
         login(request, user)
-        request.session["totp_verified"] = True  # 🔑 TRÈS IMPORTANT
-        return redirect("dashboard")
+        request.session["totp_verified"] = True
+        return redirect("utilisateurs:dashboard")
 
     return render(request, "login.html", {"form": form})
 
 
+
+
+
 def logout_view(request):
     logout(request)
-    return redirect('utilisateurs:login')
-
-
+    return redirect("utilisateurs:login")
 
 
 @login_required
@@ -66,14 +66,17 @@ def dashboard_view(request):
 
 
 
-
 def totp_setup_view(request):
     user_id = request.session.get("totp_setup_user")
 
     if not user_id:
-        return redirect("login")
+        return redirect("utilisateurs:login")
 
     user = Utilisateur.objects.get(id=user_id)
+
+    # ❌ Si déjà activé → dehors
+    if user.totp_enabled:
+        return redirect("utilisateurs:dashboard")
 
     uri = user.get_totp_uri()
     qr = qrcode.make(uri)
@@ -89,10 +92,12 @@ def totp_setup_view(request):
             user.save()
 
             login(request, user)
-            request.session["totp_verified"] = True  # 🔑 AJOUT DEMANDÉ
-
+            request.session["totp_verified"] = True
             request.session.pop("totp_setup_user", None)
-            return redirect("dashboard")
+
+            return redirect("utilisateurs:dashboard")
+
+        messages.error(request, "Code invalide")
 
     return render(request, "totp/setup.html", {
         "qr_code": qr_base64
