@@ -46,15 +46,13 @@
                 </p>
             </div>
 
-            <!-- Image uniquement pour Abarth -->
-            {% if marque.nom_marque|lower == "abarth" %}
-                <div class="flex-shrink-0">
-                    <img src="{% static 'images/marques/abarth.png' %}"
-                         alt="Abarth"
-                         class="w-[65px] h-[65px] object-contain">
+           <div class="flex-shrink-0">
+                <img src="{% static 'images/marques/' %}{{ marque.nom_marque|lower }}.png"
+                     alt="{{ marque.nom_marque }}"
+                     class="w-[65px] h-[65px] object-contain"
+                     onerror="this.onerror=null;this.src='{% static 'images/marques/default.png' %}';">
 
-                </div>
-            {% endif %}
+           </div>
 
             <!-- Bouton favori -->
             <button class="star-btn w-10 h-10 flex items-center justify-center rounded-full

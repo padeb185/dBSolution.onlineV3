@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="création tenants">
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="clean + tenant + base de donnée et utilisateur">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/dbsolution/voiture_marque.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/dbsolution/voiture_marque.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/totp/setup.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/totp/setup.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/management/commands/populate_voitures_sport.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/management/commands/populate_voitures_sport.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -181,15 +181,8 @@
       <workItem from="1767505028681" duration="15256000" />
       <workItem from="1767521211022" duration="10388000" />
       <workItem from="1767594811296" duration="2394000" />
-      <workItem from="1767614429930" duration="3084000" />
-    </task>
-    <task id="LOCAL-00125" summary="fuel">
-      <option name="closed" value="true" />
-      <created>1766763000176</created>
-      <option name="number" value="00125" />
-      <option name="presentableId" value="LOCAL-00125" />
-      <option name="project" value="LOCAL" />
-      <updated>1766763000176</updated>
+      <workItem from="1767614429930" duration="3221000" />
+      <workItem from="1767628335143" duration="1779000" />
     </task>
     <task id="LOCAL-00126" summary="traduction it">
       <option name="closed" value="true" />
@@ -575,7 +568,15 @@
       <option name="project" value="LOCAL" />
       <updated>1767606359114</updated>
     </task>
-    <option name="localTasksCounter" value="174" />
+    <task id="LOCAL-00174" summary="clean + tenant + base de donnée et utilisateur">
+      <option name="closed" value="true" />
+      <created>1767619242039</created>
+      <option name="number" value="00174" />
+      <option name="presentableId" value="LOCAL-00174" />
+      <option name="project" value="LOCAL" />
+      <updated>1767619242040</updated>
+    </task>
+    <option name="localTasksCounter" value="175" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -593,7 +594,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="tenant" />
     <MESSAGE value="login forms.py" />
     <MESSAGE value="login utilisateur" />
     <MESSAGE value="login utilisateur suite" />
@@ -618,7 +618,8 @@
     <MESSAGE value="voiture marque BDD" />
     <MESSAGE value="clean" />
     <MESSAGE value="création tenants" />
-    <option name="LAST_COMMIT_MESSAGE" value="création tenants" />
+    <MESSAGE value="clean + tenant + base de donnée et utilisateur" />
+    <option name="LAST_COMMIT_MESSAGE" value="clean + tenant + base de donnée et utilisateur" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

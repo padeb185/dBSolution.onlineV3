@@ -74,9 +74,9 @@ def totp_setup_view(request):
 
     user = Utilisateur.objects.get(id=user_id)
 
-    # ❌ Si déjà activé → dehors
+    # ❌ Si déjà activé → retour login
     if user.totp_enabled:
-        return redirect("utilisateurs:dashboard")
+        return redirect("utilisateurs:login")
 
     uri = user.get_totp_uri()
     qr = qrcode.make(uri)
@@ -91,14 +91,20 @@ def totp_setup_view(request):
             user.totp_enabled = True
             user.save()
 
-            login(request, user)
-            request.session["totp_verified"] = True
+            # 🧹 Nettoyage de la session
             request.session.pop("totp_setup_user", None)
 
-            return redirect("utilisateurs:dashboard")
+            messages.success(
+                request,
+                "TOTP configuré avec succès. Vous pouvez maintenant vous connecter."
+            )
+
+            # 🔁 REDIRECTION VERS LOGIN
+            return redirect("utilisateurs:login")
 
         messages.error(request, "Code invalide")
 
     return render(request, "totp/setup.html", {
         "qr_code": qr_base64
     })
+
