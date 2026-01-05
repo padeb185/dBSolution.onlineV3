@@ -81,3 +81,8 @@ def create_societe_dbsolution():
 
 if __name__ == "__main__":
     create_societe_dbsolution()
+
+
+
+
+#python Scripts/create_rsrnurburg.py

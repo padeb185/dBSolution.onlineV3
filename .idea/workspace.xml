@@ -4,8 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="voiture marque BDD">
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="clean">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/Scripts/create_dbsolution.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/Scripts/create_dbsolution.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/Scripts/create_rsrnurburg.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/Scripts/create_rsrnurburg.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/Scripts/create_rsrspa.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/Scripts/create_rsrspa.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/adresse/management/commands/script_adresses.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/adresse/management/commands/script_adresses.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -178,14 +182,6 @@
       <workItem from="1767505028681" duration="15256000" />
       <workItem from="1767521211022" duration="10388000" />
       <workItem from="1767594811296" duration="2394000" />
-    </task>
-    <task id="LOCAL-00123" summary="checkup">
-      <option name="closed" value="true" />
-      <created>1766761218403</created>
-      <option name="number" value="00123" />
-      <option name="presentableId" value="LOCAL-00123" />
-      <option name="project" value="LOCAL" />
-      <updated>1766761218404</updated>
     </task>
     <task id="LOCAL-00124" summary="checkup nettoyage">
       <option name="closed" value="true" />
@@ -571,7 +567,15 @@
       <option name="project" value="LOCAL" />
       <updated>1767539339002</updated>
     </task>
-    <option name="localTasksCounter" value="172" />
+    <task id="LOCAL-00172" summary="clean">
+      <option name="closed" value="true" />
+      <created>1767605258756</created>
+      <option name="number" value="00172" />
+      <option name="presentableId" value="LOCAL-00172" />
+      <option name="project" value="LOCAL" />
+      <updated>1767605258756</updated>
+    </task>
+    <option name="localTasksCounter" value="173" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -589,7 +593,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="totp non résolu" />
     <MESSAGE value="RAZ CustomUser" />
     <MESSAGE value="tenant" />
     <MESSAGE value="login forms.py" />
@@ -614,7 +617,8 @@
     <MESSAGE value="voiture marque view et html et urls" />
     <MESSAGE value="voiture marque Favoris" />
     <MESSAGE value="voiture marque BDD" />
-    <option name="LAST_COMMIT_MESSAGE" value="voiture marque BDD" />
+    <MESSAGE value="clean" />
+    <option name="LAST_COMMIT_MESSAGE" value="clean" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

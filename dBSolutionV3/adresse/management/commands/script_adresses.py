@@ -1,18 +1,17 @@
 from django.core.management.base import BaseCommand
 from adresse.models import Adresse
 
-
 class Command(BaseCommand):
     help = "Ajoute des adresses de test"
 
     def handle(self, *args, **options):
-        adresse = [
+        adresses = [
             {
                 "rue": "Place de Cochem",
                 "numero": "3",
                 "code_postal": "4960",
                 "ville": "Malmedy",
-                "pays" : "Belgique",
+                "pays": "Belgique",
                 "code_pays": "BE"
             },
             {
@@ -28,14 +27,19 @@ class Command(BaseCommand):
                 "numero": "1",
                 "code_postal": "53520",
                 "ville": "Nürburg",
-                "pays": "Allemagne",
+                "pays": "Germany",
                 "code_pays": "DE"
             },
         ]
 
-        for data in adresse:
-            adresse, created = Adresse.objects.get_or_create(**data)
+        for data in adresses:
+            adresses, created = Adresse.objects.get_or_create(**data)
             if created:
-                self.stdout.write(self.style.SUCCESS(f"Créée : {adresse}"))
+                self.stdout.write(self.style.SUCCESS(f"Créée : {adresses}"))
             else:
-                self.stdout.write(self.style.WARNING(f"Existe déjà : {adresse}"))
+                self.stdout.write(self.style.WARNING(f"Existe déjà : {adresses}"))
+
+
+
+
+# python manage.py script_adresses
