@@ -5,14 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="voiture marque BDD">
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/Scripts/create_dbsolution.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/Scripts/create_rsrnurburg.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/Scripts/create_rsrspa.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/adresse/management/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/adresse/management/commands/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/adresse/management/commands/script_adresses.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/Scripts/script_tenant.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/Scripts/script_tenant.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +22,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="sans-bdd" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
