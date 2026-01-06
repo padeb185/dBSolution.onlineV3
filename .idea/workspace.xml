@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="première création modele">
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture/modeles_list.html" afterDir="false" />
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="première création modele suite 1">
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/management/commands/create_modele.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/tenant/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/tenant/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/management/commands/create_voitures_modeles.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/management/commands/create_voitures_modeles.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_modele/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_modele/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,8 +17,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -188,15 +184,7 @@
       <workItem from="1767630164495" duration="107000" />
       <workItem from="1767683506726" duration="11038000" />
       <workItem from="1767702391200" duration="1850000" />
-      <workItem from="1767708661168" duration="1991000" />
-    </task>
-    <task id="LOCAL-00132" summary="traduction fin">
-      <option name="closed" value="true" />
-      <created>1766836953207</created>
-      <option name="number" value="00132" />
-      <option name="presentableId" value="LOCAL-00132" />
-      <option name="project" value="LOCAL" />
-      <updated>1766836953207</updated>
+      <workItem from="1767708661168" duration="3033000" />
     </task>
     <task id="LOCAL-00133" summary="entretien">
       <option name="closed" value="true" />
@@ -582,7 +570,15 @@
       <option name="project" value="LOCAL" />
       <updated>1767709432448</updated>
     </task>
-    <option name="localTasksCounter" value="181" />
+    <task id="LOCAL-00181" summary="première création modele suite 1">
+      <option name="closed" value="true" />
+      <created>1767710807639</created>
+      <option name="number" value="00181" />
+      <option name="presentableId" value="LOCAL-00181" />
+      <option name="project" value="LOCAL" />
+      <updated>1767710807639</updated>
+    </task>
+    <option name="localTasksCounter" value="182" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -600,7 +596,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="login utilisateur RAZ" />
     <MESSAGE value="RAZ venv et BDD" />
     <MESSAGE value="3 tenants" />
     <MESSAGE value="super user" />
@@ -625,7 +620,8 @@
     <MESSAGE value="logo" />
     <MESSAGE value="ajustements tenant" />
     <MESSAGE value="première création modele" />
-    <option name="LAST_COMMIT_MESSAGE" value="première création modele" />
+    <MESSAGE value="première création modele suite 1" />
+    <option name="LAST_COMMIT_MESSAGE" value="première création modele suite 1" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
