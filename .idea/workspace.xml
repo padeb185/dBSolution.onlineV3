@@ -4,12 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="ajustements tenant">
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/management/commands/create_voitures_modeles.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/management/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/management/commands/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/management/commands/create_porsche_models.py" afterDir="false" />
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="première création modele">
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture/modeles_list.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/tenant/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/tenant/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/management/commands/create_voitures_modeles.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/management/commands/create_voitures_modeles.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_modele/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_modele/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,8 +21,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
-        <option value="HTML File" />
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -187,15 +188,7 @@
       <workItem from="1767630164495" duration="107000" />
       <workItem from="1767683506726" duration="11038000" />
       <workItem from="1767702391200" duration="1850000" />
-      <workItem from="1767708661168" duration="567000" />
-    </task>
-    <task id="LOCAL-00131" summary="traduction grec">
-      <option name="closed" value="true" />
-      <created>1766836325081</created>
-      <option name="number" value="00131" />
-      <option name="presentableId" value="LOCAL-00131" />
-      <option name="project" value="LOCAL" />
-      <updated>1766836325081</updated>
+      <workItem from="1767708661168" duration="1991000" />
     </task>
     <task id="LOCAL-00132" summary="traduction fin">
       <option name="closed" value="true" />
@@ -581,7 +574,15 @@
       <option name="project" value="LOCAL" />
       <updated>1767700634589</updated>
     </task>
-    <option name="localTasksCounter" value="180" />
+    <task id="LOCAL-00180" summary="première création modele">
+      <option name="closed" value="true" />
+      <created>1767709432448</created>
+      <option name="number" value="00180" />
+      <option name="presentableId" value="LOCAL-00180" />
+      <option name="project" value="LOCAL" />
+      <updated>1767709432448</updated>
+    </task>
+    <option name="localTasksCounter" value="181" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -599,7 +600,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="login utilisateur suite" />
     <MESSAGE value="login utilisateur RAZ" />
     <MESSAGE value="RAZ venv et BDD" />
     <MESSAGE value="3 tenants" />
@@ -624,7 +624,8 @@
     <MESSAGE value="clean + tenant + base de donnée et utilisateur" />
     <MESSAGE value="logo" />
     <MESSAGE value="ajustements tenant" />
-    <option name="LAST_COMMIT_MESSAGE" value="ajustements tenant" />
+    <MESSAGE value="première création modele" />
+    <option name="LAST_COMMIT_MESSAGE" value="première création modele" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

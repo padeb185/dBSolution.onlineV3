@@ -29,6 +29,12 @@ class Command(BaseCommand):
             "Nissan": ["Micra", "Juke", "Qashqai", "X-Trail", "Leaf"],
             "Honda": ["Civic", "Accord", "CR-V", "HR-V", "Jazz"],
             # tu peux ajouter les autres marques ici comme Hyundai, Kia, etc.
+            "Abarth": ["500", "124 Spider", "595", "695 Biposto"],
+            "Porsche": [
+                "356", "911", "912", "914", "924", "928", "944", "959", "968",
+                "Boxster", "Cayman", "Carrera GT", "Panamera", "Macan", "Cayenne", "Taycan"
+            ],
+
         }
 
         created_count = 0

@@ -1,9 +1,10 @@
 from django.urls import path
 from voiture.views import liste_marques, liste_voitures_modele
+from voiture.voiture_modele.views import modeles_par_marque
 
 app_name = "tenant"
 
 urlpatterns = [
     path("voitures/marques/", liste_marques, name="marques_list"),
-    path("voitures/marques/marque/<uuid:pk>/modeles/", liste_voitures_modele, name="modele_detail"),
+    path('marques/marque/<uuid:marque_id>/modeles/', modeles_par_marque, name='modeles_par_marque'),
 ]
