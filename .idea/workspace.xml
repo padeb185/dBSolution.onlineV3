@@ -6,9 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="clean + tenant + base de donnée et utilisateur">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/dbsolution/voiture_marque.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/dbsolution/voiture_marque.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/totp/setup.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/totp/setup.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -183,14 +180,8 @@
       <workItem from="1767594811296" duration="2394000" />
       <workItem from="1767614429930" duration="3221000" />
       <workItem from="1767628335143" duration="1779000" />
-    </task>
-    <task id="LOCAL-00126" summary="traduction it">
-      <option name="closed" value="true" />
-      <created>1766764757200</created>
-      <option name="number" value="00126" />
-      <option name="presentableId" value="LOCAL-00126" />
-      <option name="project" value="LOCAL" />
-      <updated>1766764757200</updated>
+      <workItem from="1767630164495" duration="107000" />
+      <workItem from="1767683506726" duration="4817000" />
     </task>
     <task id="LOCAL-00127" summary="traduction en">
       <option name="closed" value="true" />
@@ -576,7 +567,15 @@
       <option name="project" value="LOCAL" />
       <updated>1767619242040</updated>
     </task>
-    <option name="localTasksCounter" value="175" />
+    <task id="LOCAL-00175" summary="clean + tenant + base de donnée et utilisateur">
+      <option name="closed" value="true" />
+      <created>1767630194339</created>
+      <option name="number" value="00175" />
+      <option name="presentableId" value="LOCAL-00175" />
+      <option name="project" value="LOCAL" />
+      <updated>1767630194340</updated>
+    </task>
+    <option name="localTasksCounter" value="176" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
