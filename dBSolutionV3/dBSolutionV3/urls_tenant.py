@@ -3,6 +3,6 @@ from theme.views import dashboard
 
 urlpatterns = [
     path("", dashboard, name="dashboard"),
-    path('voiture/', include('voiture.urls', namespace='voiture')),
+    path('voiture/', include('tenant.urls', namespace='voiture')),
 
 ]

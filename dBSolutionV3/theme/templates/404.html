@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}
+404 – {% trans "Page introuvable" %}
+{% endblock %}
+
+{% block content %}
+<div class="flex flex-col items-center justify-center text-center gap-6 py-20">
+
+    <!-- Code erreur -->
+    <h1 class="text-6xl font-extrabold text-blue-600">
+        404
+    </h1>
+
+    <!-- Message principal -->
+    <h2 class="text-2xl font-bold text-gray-700">
+        {% trans "Page introuvable" %}
+    </h2>
+
+    <!-- Message construction -->
+    <p class="text-gray-500 max-w-xl">
+        {% trans "Le site est actuellement en construction ou la page demandée n'existe pas encore. Certaines fonctionnalités peuvent être temporairement indisponibles." %}
+    </p>
+
+    <!-- Boutons -->
+    <div class="flex flex-col sm:flex-row gap-4 mt-6">
+
+        <!-- Bouton retour -->
+        <button onclick="goBack()"
+                class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300">
+            ← {% trans "Retour à la page précédente" %}
+        </button>
+
+        <!-- Bouton accueil (fallback) -->
+        <a href="{% url 'home' %}"
+           class="bg-gray-200 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-300 transition duration-300">
+            {% trans "Retour à l'accueil" %}
+        </a>
+    </div>
+
+</div>
+
+<script>
+function goBack() {
+    if (document.referrer) {
+        window.history.back();
+    } else {
+        window.location.href = "{% url 'home' %}";
+    }
+}
+</script>
+{% endblock %}
