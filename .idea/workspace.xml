@@ -4,24 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="logo">
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/404.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture/marques.html" afterDir="false" />
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="ajustements tenant">
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/management/commands/create_voitures_modeles.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/management/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/management/commands/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/management/commands/create_porsche_models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/Tenant/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/tenant/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/Tenant/admin.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/Tenant/apps.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/Tenant/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/Tenant/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/Tenant/tests.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/Tenant/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls_tenant.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls_tenant.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/dbsolution/voiture_marque.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,8 +20,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -93,11 +81,11 @@
       <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3\dBSolutionV3" />
       <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3\dBSolutionV3\theme\static\images" />
       <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3\dBSolutionV3\favicon" />
       <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3\dBSolutionV3\adresse" />
       <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3\dBSolutionV3\societe\management\commands" />
-      <recent name="C:\Users\pierr\PycharmProjects\dBSolution.onlineV3\dBSolutionV3\theme\static\images\marques" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -197,15 +185,9 @@
       <workItem from="1767614429930" duration="3221000" />
       <workItem from="1767628335143" duration="1779000" />
       <workItem from="1767630164495" duration="107000" />
-      <workItem from="1767683506726" duration="9636000" />
-    </task>
-    <task id="LOCAL-00130" summary="traduction allemand">
-      <option name="closed" value="true" />
-      <created>1766825209731</created>
-      <option name="number" value="00130" />
-      <option name="presentableId" value="LOCAL-00130" />
-      <option name="project" value="LOCAL" />
-      <updated>1766825209731</updated>
+      <workItem from="1767683506726" duration="11038000" />
+      <workItem from="1767702391200" duration="1850000" />
+      <workItem from="1767708661168" duration="567000" />
     </task>
     <task id="LOCAL-00131" summary="traduction grec">
       <option name="closed" value="true" />
@@ -591,7 +573,15 @@
       <option name="project" value="LOCAL" />
       <updated>1767696346745</updated>
     </task>
-    <option name="localTasksCounter" value="179" />
+    <task id="LOCAL-00179" summary="ajustements tenant">
+      <option name="closed" value="true" />
+      <created>1767700634589</created>
+      <option name="number" value="00179" />
+      <option name="presentableId" value="LOCAL-00179" />
+      <option name="project" value="LOCAL" />
+      <updated>1767700634589</updated>
+    </task>
+    <option name="localTasksCounter" value="180" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -609,7 +599,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="login utilisateur" />
     <MESSAGE value="login utilisateur suite" />
     <MESSAGE value="login utilisateur RAZ" />
     <MESSAGE value="RAZ venv et BDD" />
@@ -634,7 +623,8 @@
     <MESSAGE value="création tenants" />
     <MESSAGE value="clean + tenant + base de donnée et utilisateur" />
     <MESSAGE value="logo" />
-    <option name="LAST_COMMIT_MESSAGE" value="logo" />
+    <MESSAGE value="ajustements tenant" />
+    <option name="LAST_COMMIT_MESSAGE" value="ajustements tenant" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
