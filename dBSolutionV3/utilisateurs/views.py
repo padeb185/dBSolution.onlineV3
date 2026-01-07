@@ -1,12 +1,15 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
 from io import BytesIO
 import base64
 import qrcode
 from .forms import LoginForm
 from .models import Utilisateur
+from django.shortcuts import render
+from django.utils.translation import gettext as _
+
 
 
 def login_view(request):
@@ -57,11 +60,69 @@ def logout_view(request):
     return redirect("utilisateurs:login")
 
 
+
+
+
+
+
 @login_required
 def dashboard_view(request):
-    return render(request, "dashboard.html", {
-        "user": request.user
-    })
+    user = request.user
+    context = {}
+
+    if user.role == 'apprenti':
+        context['agenda'] = []
+        context['taches'] = []
+    elif user.role == 'mecanicien':
+        # Les noms de tâches traduisibles
+        context['agenda'] = []
+        context['taches'] = [
+            _("Révision moteur"),
+            _("Changement filtre")
+        ]
+    elif user.role == 'carrossier':
+        context['agenda'] = []
+        context['taches'] = []
+    elif user.role == 'chef_mecanicien':
+        context['agenda'] = []
+        context['taches'] = []
+    elif user.role == 'magasinier':
+        context['agenda'] = []
+        context['taches'] = []
+    elif user.role == 'instructeur':
+        context['agenda'] = []
+        context['taches'] = []
+    elif user.role == 'instructeur_externe':
+        context['agenda'] = []
+        context['taches'] = []
+    elif user.role == 'vendeur':
+        context['agenda'] = []
+        context['taches'] = []
+    elif user.role == 'comptable':
+        context['factures'] = 12
+        context['depenses'] = 5
+    elif user.role == 'direction':
+        context['projets'] = 24
+        context['utilisateurs'] = 128
+    else:
+        context['message'] = _("Rôle inconnu")  # traduction
+
+    # Pour afficher le rôle de l'utilisateur en version traduite
+    ROLE_DISPLAY = {
+        'apprenti': _("Apprenti"),
+        'mecanicien': _("Mécanicien"),
+        'carrossier': _("Carrossier"),
+        'chef_mecanicien': _("Chef Mécanicien"),
+        'magasinier': _("Magasinier"),
+        'instructeur': _("Instructeur"),
+        'instructeur_externe': _("Instructeur Externe"),
+        'vendeur': _("Vendeur"),
+        'comptable': _("Comptable"),
+        'direction': _("Direction"),
+    }
+    context['role_display'] = ROLE_DISPLAY.get(user.role, _("Rôle inconnu"))
+
+    return render(request, 'dashboard.html', context)
 
 
 

@@ -6,7 +6,7 @@ from django.db import models
 
 class Mecanicien(Utilisateur):
 
-    role = models.CharField(max_length=50, default='Mecanicien')
+
 
 
 

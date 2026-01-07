@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-26 16:36+0100\n"
+"POT-Creation-Date: 2026-01-07 11:58+0100\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -58,23 +58,6 @@ msgstr ""
 
 #: .\adresse\models.py:22
 msgid "Adresses"
-msgstr ""
-
-#: .\authentification\forms.py:42
-msgid "Adresse email ou mot de passe incorrect"
-msgstr ""
-
-#: .\authentification\forms.py:52
-msgid "Code de vérification"
-msgstr ""
-
-#: .\authentification\views.py:27 .\dBSolutionV3\views.py:50
-#: .\theme\templates\totp\setup.html:31
-msgid "Aucun secret TOTP configuré pour ce compte."
-msgstr ""
-
-#: .\authentification\views.py:51 .\dBSolutionV3\views.py:68
-msgid "Code de vérification invalide."
 msgstr ""
 
 #: .\carrosserie\models.py:10
@@ -287,14 +270,6 @@ msgstr ""
 msgid "%(nom)s %(prenom)s (Client)"
 msgstr ""
 
-#: .\dBSolutionV3\views.py:35
-msgid "Nom d'utilisateur ou mot de passe incorrect"
-msgstr ""
-
-#: .\dBSolutionV3\views.py:82 .\theme\templates\dashboard.html:10
-msgid "Bienvenue sur ton tableau de bord"
-msgstr ""
-
 #: .\facture\models.py:23 .\fournisseur\models.py:37
 msgid "Identifiant Peppol"
 msgstr ""
@@ -425,7 +400,7 @@ msgstr ""
 msgid "Modèle"
 msgstr ""
 
-#: .\fuel\models.py:32 .\maintenance\jeux_pieces\models.py:46
+#: .\fuel\models.py:32 .\maintenance\jeux_pieces\models.py:48
 #: .\maintenance\nettoyage_exterieur\models.py:18
 #: .\maintenance\nettoyage_interieur\models.py:19 .\piece\models.py:50
 msgid "Véhicule"
@@ -637,7 +612,7 @@ msgstr ""
 #: .\maintenance\bruits\models.py:30
 #: .\maintenance\controle_check_up\models.py:115
 #: .\maintenance\controle_check_up\models.py:137
-#: .\maintenance\jeux_pieces\models.py:58
+#: .\maintenance\jeux_pieces\models.py:60
 #: .\maintenance\silent_blocs\models.py:33
 msgid "Emplacement"
 msgstr ""
@@ -658,12 +633,12 @@ msgstr ""
 msgid "Niveau de bruit"
 msgstr ""
 
-#: .\maintenance\bruits\models.py:48 .\maintenance\jeux_pieces\models.py:84
+#: .\maintenance\bruits\models.py:48 .\maintenance\jeux_pieces\models.py:86
 #: .\maintenance\silent_blocs\models.py:50
 msgid "Observation"
 msgstr ""
 
-#: .\maintenance\bruits\models.py:60 .\maintenance\jeux_pieces\models.py:79
+#: .\maintenance\bruits\models.py:60 .\maintenance\jeux_pieces\models.py:81
 #: .\maintenance\silent_blocs\models.py:63
 msgid "État visuel / Tag"
 msgstr ""
@@ -783,7 +758,7 @@ msgid "Cassé"
 msgstr ""
 
 #: .\maintenance\controle_check_up\models.py:143
-#: .\maintenance\jeux_pieces\models.py:66
+#: .\maintenance\jeux_pieces\models.py:68
 #: .\maintenance\silent_blocs\models.py:45
 msgid "État"
 msgstr ""
@@ -874,30 +849,32 @@ msgstr ""
 msgid "Hors service"
 msgstr ""
 
-#: .\maintenance\jeux_pieces\models.py:52
+#: .\maintenance\jeux_pieces\models.py:54
 msgid "Pièce contrôlée"
 msgstr ""
 
-#: .\maintenance\jeux_pieces\models.py:95
+#: .\maintenance\jeux_pieces\models.py:97
 #, python-format
 msgid "%(piece)s – %(empl)s (%(etat)s / %(tag)s)"
 msgstr ""
 
-#: .\maintenance\jeux_pieces\models.py:99
+#: .\maintenance\jeux_pieces\models.py:101
 msgid "Non précisé"
 msgstr ""
 
-#: .\maintenance\jeux_pieces\models.py:106 .\maintenance\models.py:34
+#: .\maintenance\jeux_pieces\models.py:108 .\maintenance\models.py:34
+#: .\utilisateurs\models.py:73 .\utilisateurs\views.py:112
 msgid "Apprenti"
 msgstr ""
 
-#: .\maintenance\jeux_pieces\models.py:107 .\maintenance\models.py:26
+#: .\maintenance\jeux_pieces\models.py:109 .\maintenance\models.py:26
 #: .\maintenance\nettoyage_exterieur\models.py:25
-#: .\maintenance\nettoyage_interieur\models.py:26
+#: .\maintenance\nettoyage_interieur\models.py:26 .\utilisateurs\models.py:74
+#: .\utilisateurs\views.py:113
 msgid "Mécanicien"
 msgstr ""
 
-#: .\maintenance\jeux_pieces\models.py:108
+#: .\maintenance\jeux_pieces\models.py:110
 msgid "Chef mécanicien"
 msgstr ""
 
@@ -991,7 +968,7 @@ msgstr ""
 
 #: .\maintenance\nettoyage_exterieur\models.py:34
 #: .\maintenance\nettoyage_interieur\models.py:38 .\piece\models.py:127
-#: .\piece\piece_fluides\models.py:66 .\theme\templates\dashboard.html:40
+#: .\piece\piece_fluides\models.py:66 .\theme\templates\dashboard.html:38
 msgid "Date"
 msgstr "Date"
 
@@ -1016,7 +993,7 @@ msgid "Intérieurs de porte"
 msgstr ""
 
 #: .\maintenance\nettoyage_interieur\models.py:33
-#: .\theme\templates\dashboard.html:7
+#: .\theme\templates\dashboard.html:5
 msgid "Tableau de bord"
 msgstr "Tableau de Bord"
 
@@ -1400,6 +1377,122 @@ msgstr ""
 msgid "Ampoules"
 msgstr ""
 
+#: .\piece\piece_batterie\models.py:11
+msgid "Batterie 12V"
+msgstr ""
+
+#: .\piece\piece_batterie\models.py:12
+msgid "Batterie AGM"
+msgstr ""
+
+#: .\piece\piece_batterie\models.py:13
+msgid "Batterie EFB"
+msgstr ""
+
+#: .\piece\piece_batterie\models.py:14
+msgid "Batterie lithium"
+msgstr ""
+
+#: .\piece\piece_batterie\models.py:15
+msgid "Batterie haute tension (hybride/électrique)"
+msgstr ""
+
+#: .\piece\piece_batterie\models.py:18
+msgid "Capteur de batterie (IBS)"
+msgstr ""
+
+#: .\piece\piece_batterie\models.py:19
+msgid "Boîtier de batterie"
+msgstr ""
+
+#: .\piece\piece_batterie\models.py:20
+msgid "Cache batterie"
+msgstr ""
+
+#: .\piece\piece_batterie\models.py:21
+msgid "Système de maintien batterie"
+msgstr ""
+
+#: .\piece\piece_batterie\models.py:24
+msgid "Cosse batterie positive"
+msgstr ""
+
+#: .\piece\piece_batterie\models.py:25
+msgid "Cosse batterie négative"
+msgstr ""
+
+#: .\piece\piece_batterie\models.py:26
+msgid "Câble de batterie"
+msgstr ""
+
+#: .\piece\piece_batterie\models.py:27
+msgid "Borne de batterie"
+msgstr ""
+
+#: .\piece\piece_batterie\models.py:28
+msgid "Fusible batterie"
+msgstr ""
+
+#: .\piece\piece_batterie\models.py:29
+msgid "Porte-fusible batterie"
+msgstr ""
+
+#: .\piece\piece_batterie\models.py:32
+msgid "Bride de batterie"
+msgstr ""
+
+#: .\piece\piece_batterie\models.py:33
+msgid "Support de batterie"
+msgstr ""
+
+#: .\piece\piece_batterie\models.py:34
+msgid "Vis de fixation batterie"
+msgstr ""
+
+#: .\piece\piece_batterie\models.py:37
+msgid "Gaine de protection"
+msgstr ""
+
+#: .\piece\piece_batterie\models.py:38
+msgid "Isolant de batterie"
+msgstr ""
+
+#: .\piece\piece_batterie\models.py:39
+msgid "Tapis de batterie"
+msgstr ""
+
+#: .\piece\piece_batterie\models.py:42
+msgid "Kit fixation batterie"
+msgstr ""
+
+#: .\piece\piece_batterie\models.py:43
+msgid "Kit cosses batterie"
+msgstr ""
+
+#: .\piece\piece_batterie\models.py:44
+msgid "Kit câbles batterie"
+msgstr ""
+
+#: .\piece\piece_batterie\models.py:50
+msgid "Type de pièce batterie"
+msgstr ""
+
+#: .\piece\piece_batterie\models.py:61
+msgid "Pièce de batterie"
+msgstr ""
+
+#: .\piece\piece_batterie\models.py:62
+msgid "Pièces de batterie"
+msgstr ""
+
+#: .\piece\piece_batterie\models.py:65 .\piece\piece_moteur\models.py:69
+#: .\piece\piece_pont\models.py:72 .\piece\piece_silent_bloc\models.py:60
+#: .\piece\piece_suspension\models.py:43 .\piece\piece_train_AR\models.py:49
+#: .\piece\piece_train_AV\models.py:49 .\piece\piece_transmission\models.py:70
+#, python-format
+msgid "%(type)s – %(nom)s"
+msgstr ""
+
 #: .\piece\piece_boite\models.py:10 .\piece\piece_boite\models.py:84
 msgid "5 vitesses"
 msgstr ""
@@ -1591,6 +1684,7 @@ msgid "Huile de différentiel"
 msgstr ""
 
 #: .\piece\piece_differentiel\models.py:10 .\piece\piece_train_AR\models.py:28
+#: .\piece\piece_transmission\models.py:37
 msgid "Arbre de transmission"
 msgstr ""
 
@@ -2257,11 +2351,11 @@ msgstr ""
 msgid "Master vac"
 msgstr ""
 
-#: .\piece\piece_freins\models.py:39
+#: .\piece\piece_freins\models.py:39 .\piece\piece_suspension\models.py:12
 msgid "Ressort avant"
 msgstr ""
 
-#: .\piece\piece_freins\models.py:40
+#: .\piece\piece_freins\models.py:40 .\piece\piece_suspension\models.py:13
 msgid "Ressort arrière"
 msgstr ""
 
@@ -2622,12 +2716,6 @@ msgstr ""
 msgid "Pièces moteur"
 msgstr ""
 
-#: .\piece\piece_moteur\models.py:69 .\piece\piece_train_AR\models.py:49
-#: .\piece\piece_train_AV\models.py:49
-#, python-format
-msgid "%(type)s – %(nom)s"
-msgstr ""
-
 #: .\piece\piece_pneus\models.py:7
 msgid "Train AV"
 msgstr ""
@@ -2713,6 +2801,134 @@ msgstr ""
 msgid "%(type)s – %(largeur)s/%(hauteur)s R%(jante)s"
 msgstr ""
 
+#: .\piece\piece_pont\models.py:11
+msgid "Pont avant"
+msgstr ""
+
+#: .\piece\piece_pont\models.py:12
+msgid "Pont arrière"
+msgstr ""
+
+#: .\piece\piece_pont\models.py:13
+msgid "Pont central"
+msgstr ""
+
+#: .\piece\piece_pont\models.py:14
+msgid "Différentiel complet"
+msgstr ""
+
+#: .\piece\piece_pont\models.py:17
+msgid "Couronne"
+msgstr ""
+
+#: .\piece\piece_pont\models.py:18
+msgid "Pignon d’attaque"
+msgstr ""
+
+#: .\piece\piece_pont\models.py:19
+msgid "Couple conique"
+msgstr ""
+
+#: .\piece\piece_pont\models.py:20
+msgid "Satellite"
+msgstr ""
+
+#: .\piece\piece_pont\models.py:21
+msgid "Planétaire"
+msgstr ""
+
+#: .\piece\piece_pont\models.py:22
+msgid "Axe de satellite"
+msgstr ""
+
+#: .\piece\piece_pont\models.py:25
+msgid "Carter de pont"
+msgstr ""
+
+#: .\piece\piece_pont\models.py:26
+msgid "Couvercle de pont"
+msgstr ""
+
+#: .\piece\piece_pont\models.py:27
+msgid "Bouchon de vidange"
+msgstr ""
+
+#: .\piece\piece_pont\models.py:28
+msgid "Bouchon de remplissage"
+msgstr ""
+
+#: .\piece\piece_pont\models.py:29
+msgid "Reniflard de pont"
+msgstr ""
+
+#: .\piece\piece_pont\models.py:32
+msgid "Roulement de pignon"
+msgstr ""
+
+#: .\piece\piece_pont\models.py:33
+msgid "Roulement de différentiel"
+msgstr ""
+
+#: .\piece\piece_pont\models.py:34
+msgid "Cage de roulement"
+msgstr ""
+
+#: .\piece\piece_pont\models.py:35
+msgid "Cale de réglage"
+msgstr ""
+
+#: .\piece\piece_pont\models.py:36
+msgid "Entretoise"
+msgstr ""
+
+#: .\piece\piece_pont\models.py:39
+msgid "Joint spi"
+msgstr ""
+
+#: .\piece\piece_pont\models.py:40
+msgid "Joint de carter"
+msgstr ""
+
+#: .\piece\piece_pont\models.py:41 .\piece\piece_transmission\models.py:32
+msgid "Joint d’étanchéité"
+msgstr ""
+
+#: .\piece\piece_pont\models.py:44
+msgid "Bride de pont"
+msgstr ""
+
+#: .\piece\piece_pont\models.py:45
+msgid "Vis de couronne"
+msgstr ""
+
+#: .\piece\piece_pont\models.py:46
+msgid "Boulonnerie de pont"
+msgstr ""
+
+#: .\piece\piece_pont\models.py:49
+msgid "Kit roulements de pont"
+msgstr ""
+
+#: .\piece\piece_pont\models.py:50
+msgid "Kit joints de pont"
+msgstr ""
+
+#: .\piece\piece_pont\models.py:51
+msgid "Kit révision de pont"
+msgstr ""
+
+#: .\piece\piece_pont\models.py:57
+msgid "Type de pièce de pont"
+msgstr ""
+
+#: .\piece\piece_pont\models.py:68
+msgid "Pièce de pont"
+msgstr ""
+
+#: .\piece\piece_pont\models.py:69
+msgid "Pièces de pont"
+msgstr ""
+
 #: .\piece\piece_roue_rechange\models.py:8
 msgid "Belgique"
 msgstr ""
@@ -2740,6 +2956,163 @@ msgstr ""
 #: .\piece\piece_roue_rechange\models.py:33
 #, python-format
 msgid "%(quantite)s roue(s) %(type)s sur %(site)s"
+msgstr ""
+
+#: .\piece\piece_silent_bloc\models.py:11
+msgid "Silent-bloc de triangle supérieur"
+msgstr ""
+
+#: .\piece\piece_silent_bloc\models.py:12
+msgid "Silent-bloc de triangle inférieur"
+msgstr ""
+
+#: .\piece\piece_silent_bloc\models.py:13
+msgid "Silent-bloc de bras de suspension"
+msgstr ""
+
+#: .\piece\piece_silent_bloc\models.py:14
+msgid "Silent-bloc de train avant"
+msgstr ""
+
+#: .\piece\piece_silent_bloc\models.py:15
+msgid "Silent-bloc de train arrière"
+msgstr ""
+
+#: .\piece\piece_silent_bloc\models.py:16
+msgid "Silent-bloc de barre stabilisatrice"
+msgstr ""
+
+#: .\piece\piece_silent_bloc\models.py:17
+msgid "Silent-bloc de berceau"
+msgstr ""
+
+#: .\piece\piece_silent_bloc\models.py:18
+msgid "Silent-bloc de pont"
+msgstr ""
+
+#: .\piece\piece_silent_bloc\models.py:21
+msgid "Silent-bloc de boîte de vitesses"
+msgstr ""
+
+#: .\piece\piece_silent_bloc\models.py:22
+msgid "Silent-bloc de transmission"
+msgstr ""
+
+#: .\piece\piece_silent_bloc\models.py:23
+msgid "Silent-bloc d’arbre de transmission"
+msgstr ""
+
+#: .\piece\piece_silent_bloc\models.py:26
+msgid "Silent-bloc moteur"
+msgstr ""
+
+#: .\piece\piece_silent_bloc\models.py:27
+msgid "Support moteur"
+msgstr ""
+
+#: .\piece\piece_silent_bloc\models.py:28
+msgid "Support de boîte"
+msgstr ""
+
+#: .\piece\piece_silent_bloc\models.py:31
+msgid "Silent-bloc de châssis"
+msgstr ""
+
+#: .\piece\piece_silent_bloc\models.py:32
+msgid "Silent-bloc de carrosserie"
+msgstr ""
+
+#: .\piece\piece_silent_bloc\models.py:33
+msgid "Silent-bloc d’échappement"
+msgstr ""
+
+#: .\piece\piece_silent_bloc\models.py:34
+msgid "Silent-bloc de direction"
+msgstr ""
+
+#: .\piece\piece_silent_bloc\models.py:37
+msgid "Kit de silent-blocs"
+msgstr ""
+
+#: .\piece\piece_silent_bloc\models.py:38
+msgid "Kit silent-blocs train avant"
+msgstr ""
+
+#: .\piece\piece_silent_bloc\models.py:39
+msgid "Kit silent-blocs train arrière"
+msgstr ""
+
+#: .\piece\piece_silent_bloc\models.py:45
+msgid "Type de silent-bloc"
+msgstr ""
+
+#: .\piece\piece_silent_bloc\models.py:56
+msgid "Silent-bloc"
+msgstr ""
+
+#: .\piece\piece_silent_bloc\models.py:57
+msgid "Silent-blocs"
+msgstr ""
+
+#: .\piece\piece_suspension\models.py:9
+msgid "Amortisseur avant"
+msgstr ""
+
+#: .\piece\piece_suspension\models.py:10
+msgid "Amortisseur arrière"
+msgstr ""
+
+#: .\piece\piece_suspension\models.py:11 .\piece\piece_train_AR\models.py:21
+#: .\piece\piece_train_AV\models.py:24
+msgid "Amortisseur G/D"
+msgstr ""
+
+#: .\piece\piece_suspension\models.py:14
+msgid "Coupelle d’amortisseur"
+msgstr ""
+
+#: .\piece\piece_suspension\models.py:15
+msgid "Butée de suspension"
+msgstr ""
+
+#: .\piece\piece_suspension\models.py:16
+msgid "Soufflet d’amortisseur"
+msgstr ""
+
+#: .\piece\piece_suspension\models.py:17
+msgid "Silent bloc de suspension"
+msgstr ""
+
+#: .\piece\piece_suspension\models.py:18
+msgid "Kit de suspension"
+msgstr ""
+
+#: .\piece\piece_suspension\models.py:19
+msgid "Cales de ressort"
+msgstr ""
+
+#: .\piece\piece_suspension\models.py:20
+msgid "Correcteur d’assiette"
+msgstr ""
+
+#: .\piece\piece_suspension\models.py:21
+msgid "Suspension hydraulique"
+msgstr ""
+
+#: .\piece\piece_suspension\models.py:22
+msgid "Suspension pneumatique"
+msgstr ""
+
+#: .\piece\piece_suspension\models.py:28
+msgid "Type de pièce suspension"
+msgstr ""
+
+#: .\piece\piece_suspension\models.py:39
+msgid "Pièce de suspension"
+msgstr ""
+
+#: .\piece\piece_suspension\models.py:40
+msgid "Pièces de suspension"
 msgstr ""
 
 #: .\piece\piece_train_AR\models.py:9 .\piece\piece_train_AV\models.py:8
@@ -2784,10 +3157,6 @@ msgstr ""
 
 #: .\piece\piece_train_AR\models.py:20 .\piece\piece_train_AV\models.py:23
 msgid "Fusée"
-msgstr ""
-
-#: .\piece\piece_train_AR\models.py:21 .\piece\piece_train_AV\models.py:24
-msgid "Amortisseur G/D"
 msgstr ""
 
 #: .\piece\piece_train_AR\models.py:25
@@ -2838,106 +3207,226 @@ msgstr ""
 msgid "Pièces train avant"
 msgstr ""
 
+#: .\piece\piece_transmission\models.py:11
+msgid "Cardan avant gauche"
+msgstr ""
+
+#: .\piece\piece_transmission\models.py:12
+msgid "Cardan avant droit"
+msgstr ""
+
+#: .\piece\piece_transmission\models.py:13
+msgid "Cardan arrière gauche"
+msgstr ""
+
+#: .\piece\piece_transmission\models.py:14
+msgid "Cardan arrière droit"
+msgstr ""
+
+#: .\piece\piece_transmission\models.py:17
+msgid "Noix de cardan"
+msgstr ""
+
+#: .\piece\piece_transmission\models.py:18
+msgid "Tulipe de cardan"
+msgstr ""
+
+#: .\piece\piece_transmission\models.py:19
+msgid "Joint homocinétique extérieur"
+msgstr ""
+
+#: .\piece\piece_transmission\models.py:20
+msgid "Joint homocinétique intérieur"
+msgstr ""
+
+#: .\piece\piece_transmission\models.py:21
+msgid "Tripode"
+msgstr ""
+
+#: .\piece\piece_transmission\models.py:22
+msgid "Galet de tripode"
+msgstr ""
+
+#: .\piece\piece_transmission\models.py:23
+msgid "Étoile de cardan"
+msgstr ""
+
+#: .\piece\piece_transmission\models.py:24
+msgid "Cage à billes"
+msgstr ""
+
+#: .\piece\piece_transmission\models.py:25
+msgid "Billes de cardan"
+msgstr ""
+
+#: .\piece\piece_transmission\models.py:26
+msgid "Axe de cardan"
+msgstr ""
+
+#: .\piece\piece_transmission\models.py:29
+msgid "Soufflet de cardan intérieur"
+msgstr ""
+
+#: .\piece\piece_transmission\models.py:30
+msgid "Soufflet de cardan extérieur"
+msgstr ""
+
+#: .\piece\piece_transmission\models.py:31
+msgid "Collier de serrage"
+msgstr ""
+
+#: .\piece\piece_transmission\models.py:33
+msgid "Circlip"
+msgstr ""
+
+#: .\piece\piece_transmission\models.py:34
+msgid "Graisse de cardan"
+msgstr ""
+
+#: .\piece\piece_transmission\models.py:38
+msgid "Palier d’arbre de transmission"
+msgstr ""
+
+#: .\piece\piece_transmission\models.py:39
+msgid "Support de palier"
+msgstr ""
+
+#: .\piece\piece_transmission\models.py:40
+msgid "Croisillon"
+msgstr ""
+
+#: .\piece\piece_transmission\models.py:41
+msgid "Flector"
+msgstr ""
+
+#: .\piece\piece_transmission\models.py:42
+msgid "Bride de transmission"
+msgstr ""
+
+#: .\piece\piece_transmission\models.py:46
+msgid "Kit soufflet de cardan"
+msgstr ""
+
+#: .\piece\piece_transmission\models.py:47
+msgid "Kit joint de cardan"
+msgstr ""
+
+#: .\piece\piece_transmission\models.py:48
+msgid "Kit cardan complet"
+msgstr ""
+
+#: .\piece\piece_transmission\models.py:49
+msgid "Kit arbre de transmission"
+msgstr ""
+
+#: .\piece\piece_transmission\models.py:55
+msgid "Type de pièce de transmission"
+msgstr ""
+
+#: .\piece\piece_transmission\models.py:66
+msgid "Pièce de transmission"
+msgstr ""
+
+#: .\piece\piece_transmission\models.py:67
+msgid "Pièces de transmission"
+msgstr ""
+
+#: .\theme\templates\404.html:5 .\theme\templates\404.html:18
+msgid "Page introuvable"
+msgstr ""
+
+#: .\theme\templates\404.html:23
+msgid ""
+"Le site est actuellement en construction ou la page demandée n'existe pas "
+"encore. Certaines fonctionnalités peuvent être temporairement indisponibles."
+msgstr ""
+
+#: .\theme\templates\404.html:32
+msgid "Retour à la page précédente"
+msgstr ""
+
+#: .\theme\templates\404.html:38
+msgid "Retour à l'accueil"
+msgstr ""
+
 #: .\theme\templates\base.html:9
 msgid "dBSolution"
 msgstr ""
 
-#: .\theme\templates\base.html:19
+#: .\theme\templates\base.html:24
 msgid "Accueil"
 msgstr ""
 
-#: .\theme\templates\base.html:20
+#: .\theme\templates\base.html:25
 msgid "Tableau de Bord"
 msgstr ""
 
-#: .\theme\templates\base.html:32
-msgid "Changer de langue"
+#: .\theme\templates\base.html:38
+msgid "Changer"
 msgstr ""
 
-#: .\theme\templates\dashboard.html:16
+#: .\theme\templates\dashboard.html:8 .\theme\views.py:81
+msgid "Bienvenue sur ton tableau de bord"
+msgstr ""
+
+#: .\theme\templates\dashboard.html:14
 msgid "Utilisateurs"
 msgstr ""
 
-#: .\theme\templates\dashboard.html:17
+#: .\theme\templates\dashboard.html:15 .\theme\templates\dashboard.html:63
 msgid "Nombre total :"
 msgstr ""
 
-#: .\theme\templates\dashboard.html:22
+#: .\theme\templates\dashboard.html:20
 msgid "Projets"
 msgstr ""
 
-#: .\theme\templates\dashboard.html:23
+#: .\theme\templates\dashboard.html:21
 msgid "Projets actifs :"
 msgstr ""
 
-#: .\theme\templates\dashboard.html:28
+#: .\theme\templates\dashboard.html:26
 msgid "Notifications"
 msgstr ""
 
-#: .\theme\templates\dashboard.html:29
+#: .\theme\templates\dashboard.html:27
 msgid "Messages non lus :"
 msgstr ""
 
-#: .\theme\templates\dashboard.html:36
+#: .\theme\templates\dashboard.html:34
 msgid "Dernières activités"
 msgstr ""
 
-#: .\theme\templates\dashboard.html:41
+#: .\theme\templates\dashboard.html:39
 msgid "Utilisateur"
 msgstr ""
 
-#: .\theme\templates\dashboard.html:42
+#: .\theme\templates\dashboard.html:40
 msgid "Action"
 msgstr ""
 
-#: .\theme\templates\dashboard.html:49 .\theme\templates\login.html:5
-#: .\theme\templates\login.html:9
+#: .\theme\templates\dashboard.html:47
 msgid "Connexion"
 msgstr ""
 
-#: .\theme\templates\dashboard.html:54
+#: .\theme\templates\dashboard.html:52
 msgid "Modification de projet"
 msgstr ""
 
-#: .\theme\templates\home.html:13
+#: .\theme\templates\dashboard.html:62 .\theme\templates\voiture\marques.html:8
+msgid "Marques de voiture"
+msgstr ""
+
+#: .\theme\templates\home.html:20
 msgid "Bienvenue"
 msgstr ""
 
-#: .\theme\templates\home.html:16
+#: .\theme\templates\home.html:23
 msgid "Ceci est un paragraphe stylé avec Tailwind."
 msgstr ""
 
-#: .\theme\templates\home.html:22 .\theme\templates\login.html:63
-#: .\theme\templates\login.totp.html:47
+#: .\theme\templates\home.html:29
 msgid "Se connecter"
-msgstr ""
-
-#: .\theme\templates\login.html:18
-msgid "Accès à votre compte"
-msgstr ""
-
-#: .\theme\templates\login.html:50
-msgid "Se souvenir de moi"
-msgstr ""
-
-#: .\theme\templates\login.html:54
-msgid "Mot de passe oublié ?"
-msgstr ""
-
-#: .\theme\templates\login.html:72
-msgid "Sécurité"
-msgstr ""
-
-#: .\theme\templates\login.html:75
-msgid "L’accès est protégé. Une vérification supplémentaire peut être requise selon votre configuration de sécurité."
-msgstr ""
-
-#: .\theme\templates\login.totp.html:5 .\theme\templates\login.totp.html:13
-msgid "Connexion sécurisée"
-msgstr "Connexion"
-
-#: .\theme\templates\login.totp.html:17
-msgid "Veuillez entrer le code généré par Google Authenticator"
 msgstr ""
 
 #: .\theme\templates\totp\setup.html:5
@@ -2948,11 +3437,11 @@ msgstr ""
 msgid "Configurer la vérification TOTP"
 msgstr ""
 
-#: .\theme\templates\totp\setup.html:13
+#: .\theme\templates\totp\setup.html:14
 msgid "Scanner le QR code"
 msgstr ""
 
-#: .\theme\templates\totp\setup.html:14
+#: .\theme\templates\totp\setup.html:15
 msgid "Ouvre Google Authenticator et scanne le code ci-dessous."
 msgstr ""
 
@@ -2964,6 +3453,108 @@ msgstr ""
 msgid "Si tu ne peux pas scanner le QR code, utilise ce code secret :"
 msgstr ""
 
-#: .\theme\templates\totp\setup.html:28
-msgid "J’ai configuré Google Authenticator"
+#: .\theme\templates\totp\setup.html:27 .\theme\views.py:54
+msgid "Aucun secret TOTP configuré pour ce compte."
 msgstr ""
+
+#: .\theme\templates\totp\setup.html:33
+msgid "Code généré par Google Authenticator"
+msgstr ""
+
+#: .\theme\templates\totp\setup.html:39
+msgid "Valider"
+msgstr ""
+
+#: .\theme\templates\voiture\marques.html:14
+msgid "Mes marques favorites"
+msgstr ""
+
+#: .\theme\templates\voiture\marques.html:45
+msgid "Voir les modèles de cette marque"
+msgstr ""
+
+#: .\theme\templates\voiture\modeles_list.html:7
+msgid "Modèles de"
+msgstr ""
+
+#: .\theme\templates\voiture\modeles_list.html:20
+msgid "portes"
+msgstr ""
+
+#: .\theme\templates\voiture\modeles_list.html:20
+msgid "places"
+msgstr ""
+
+#: .\theme\templates\voiture\modeles_list.html:27
+msgid "Aucun modèle enregistré pour cette marque."
+msgstr ""
+
+#: .\theme\views.py:35
+msgid "Nom d'utilisateur ou mot de passe incorrect"
+msgstr ""
+
+#: .\theme\views.py:68
+msgid "Code de vérification invalide."
+msgstr ""
+
+#: .\utilisateurs\direction\models.py:10
+msgid "Administrateur"
+msgstr ""
+
+#: .\utilisateurs\direction\models.py:11
+msgid "Finance"
+msgstr ""
+
+#: .\utilisateurs\direction\models.py:12
+msgid "Ressources Humaines"
+msgstr ""
+
+#: .\utilisateurs\direction\models.py:13
+msgid "Operations"
+msgstr ""
+
+#: .\utilisateurs\models.py:75 .\utilisateurs\views.py:116
+msgid "Magasinier"
+msgstr ""
+
+#: .\utilisateurs\models.py:76 .\utilisateurs\views.py:114
+msgid "Carrossier"
+msgstr ""
+
+#: .\utilisateurs\models.py:77 .\utilisateurs\views.py:115
+msgid "Chef Mécanicien"
+msgstr ""
+
+#: .\utilisateurs\models.py:78 .\utilisateurs\views.py:117
+msgid "Instructeur"
+msgstr ""
+
+#: .\utilisateurs\models.py:79 .\utilisateurs\views.py:118
+msgid "Instructeur Externe"
+msgstr ""
+
+#: .\utilisateurs\models.py:80 .\utilisateurs\views.py:119
+msgid "Vendeur"
+msgstr ""
+
+#: .\utilisateurs\models.py:81 .\utilisateurs\views.py:120
+msgid "Comptable"
+msgstr ""
+
+#: .\utilisateurs\models.py:82 .\utilisateurs\views.py:121
+msgid "Direction"
+msgstr ""
+
+#: .\utilisateurs\views.py:80
+msgid "Révision moteur"
+msgstr ""
+
+#: .\utilisateurs\views.py:81
+msgid "Changement filtre"
+msgstr ""
+
+#: .\utilisateurs\views.py:108 .\utilisateurs\views.py:123
+msgid "Rôle inconnu"
+msgstr ""
+
+
