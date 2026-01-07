@@ -14,8 +14,8 @@ class Direction(Utilisateur):
     ]
     role_direction = models.CharField(max_length=50, choices=ROLE_DIR_CHOICES)
 
-
+    pass
 
 
     def __str__(self):
-        return f"{self.prenom} {self.nom} - {self.get_role_direction_display()}"
+        return f"{self.prenom} {self.nom} - {self.get_role_display()}"

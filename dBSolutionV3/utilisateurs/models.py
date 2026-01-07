@@ -10,6 +10,7 @@ from django.db import models
 from rest_framework.exceptions import ValidationError
 from adresse.models import Adresse
 from societe.models import Societe
+from django.utils.translation import gettext_lazy as _
 
 
 class UtilisateurManager(BaseUserManager):
@@ -67,22 +68,26 @@ class UtilisateurManager(BaseUserManager):
 class Utilisateur(AbstractBaseUser, PermissionsMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
-    from django.utils.translation import gettext_lazy as _
 
     ROLE_CHOICES = [
         ('apprenti', _('Apprenti')),
-        ('mecanicien', _('Mécanicien')),
+        ('mécanicien', _('Mécanicien')),
         ('magasinier', _('Magasinier')),
         ('carrossier', _('Carrossier')),
-        ('chef_mecanicien', _('Chef Mécanicien')),
+        ('chef mécanicien', _('Chef Mécanicien')),
         ('instructeur', _('Instructeur')),
-        ('instructeur_externe', _('Instructeur Externe')),
+        ('instructeur externe', _('Instructeur Externe')),
         ('vendeur', _('Vendeur')),
         ('comptable', _('Comptable')),
         ('direction', _('Direction')),
     ]
 
-    role = models.CharField(max_length=20, choices=ROLE_CHOICES)
+    role = models.CharField(
+        max_length=30,
+        choices=ROLE_CHOICES,
+        default='apprenti',  # <-- valeur par défaut pour les lignes existantes
+        verbose_name=_("Rôle")
+    )
 
     adresse = models.ForeignKey(
         Adresse,

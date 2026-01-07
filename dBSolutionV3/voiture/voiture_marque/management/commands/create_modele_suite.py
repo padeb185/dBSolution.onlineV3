@@ -56,7 +56,162 @@ class Command(BaseCommand):
                 {"modele": "DB11", "variante": None, "portes": 2, "places": 4, "reservoir": 78},
             ],
             "Lotus": [
+                {"modele": "Elise", "variante": None, "portes": 2, "places": 2, "reservoir": 50},
+                # classique léger :contentReference[oaicite:1]{index=1}
+                {"modele": "Elise Sport", "variante": None, "portes": 2, "places": 2, "reservoir": 50},
+                # version sportive :contentReference[oaicite:2]{index=2}
+                {"modele": "Exige", "variante": None, "portes": 2, "places": 2, "reservoir": 55},
+                # dérivé de Elise, plus performance :contentReference[oaicite:3]{index=3}
                 {"modele": "Evora", "variante": None, "portes": 2, "places": 2, "reservoir": 70},
+                # sport GT plus spacieuse :contentReference[oaicite:4]{index=4}
+                {"modele": "Emira", "variante": None, "portes": 2, "places": 2, "reservoir": 65},
+                # nouvelle génération sport :contentReference[oaicite:5]{index=5}
+                {"modele": "Evija", "variante": None, "portes": 2, "places": 2, "reservoir": 0},
+                # hypercar électrique (pas de réservoir) :contentReference[oaicite:6]{index=6}
+                {"modele": "Eletre", "variante": None, "portes": 5, "places": 5, "reservoir": 0},
+                # SUV électrique :contentReference[oaicite:7]{index=7}
+                {"modele": "Emeya", "variante": None, "portes": 5, "places": 5, "reservoir": 0},
+                # berline électrique :contentReference[oaicite:8]{index=8}
+                {"modele": "Esprit", "variante": None, "portes": 2, "places": 2, "reservoir": 65},
+                # classique sport (historique) :contentReference[oaicite:9]{index=9}
+                {"modele": "Elite", "variante": None, "portes": 2, "places": 2, "reservoir": 50},
+                # modèle historique des années 1950‑60 :contentReference[oaicite:10]{index=10}
+                {"modele": "Elan", "variante": None, "portes": 2, "places": 2, "reservoir": 45},
+                # cabriolet historique :contentReference[oaicite:11]{index=11}
+                {"modele": "3‑Eleven", "variante": None, "portes": 0, "places": 2, "reservoir": 60},
+                # version piste/route limitée :contentReference[oaicite:12]{index=12}
+            ],
+            "Acura": [
+                # Modèles actuels
+                {"modele": "Integra", "variante": None, "portes": 5, "places": 5, "reservoir": 50},
+                # hatchback/liftback compacte :contentReference[oaicite:0]{index=0}
+                {"modele": "Integra Type S", "variante": None, "portes": 5, "places": 5, "reservoir": 50},
+                # version sportive :contentReference[oaicite:1]{index=1}
+
+                {"modele": "ADX", "variante": None, "portes": 5, "places": 5, "reservoir": 60},
+                # sous-compact SUV :contentReference[oaicite:2]{index=2}
+                {"modele": "RDX", "variante": None, "portes": 5, "places": 5, "reservoir": 65},
+                # SUV compact :contentReference[oaicite:3]{index=3}
+                {"modele": "MDX", "variante": None, "portes": 5, "places": 7, "reservoir": 75},
+                # SUV 3 rangées :contentReference[oaicite:4]{index=4}
+
+                # Modèles historiques ou discontinués
+                {"modele": "TLX", "variante": None, "portes": 4, "places": 5, "reservoir": 60},
+                # berline (discontinuée en 2025) :contentReference[oaicite:5]{index=5}
+                {"modele": "ILX", "variante": None, "portes": 4, "places": 5, "reservoir": 50},
+                # sous-compact sedan (terminée 2022) :contentReference[oaicite:6]{index=6}
+                {"modele": "RLX", "variante": None, "portes": 4, "places": 5, "reservoir": 65},
+                # grande berline de luxe (arrêtée 2020) :contentReference[oaicite:7]{index=7}
+                {"modele": "Legend", "variante": None, "portes": 4, "places": 5, "reservoir": 60},
+                # ancien modèle premium :contentReference[oaicite:8]{index=8}
+                {"modele": "CSX", "variante": None, "portes": 4, "places": 5, "reservoir": 45},
+                # sedan compact Canada uniquement :contentReference[oaicite:9]{index=9}
+                {"modele": "ZDX", "variante": None, "portes": 5, "places": 5, "reservoir": 0},
+                # SUV EV (production terminée fin 2025) :contentReference[oaicite:10]{index=10}
+                {"modele": "CDX", "variante": None, "portes": 5, "places": 5, "reservoir": 60},
+                # SUV China uniquement :contentReference[oaicite:11]{index=11}
+
+                # Modèles sportifs / spéciaux (historiques)
+                {"modele": "NSX", "variante": None, "portes": 2, "places": 2, "reservoir": 70},
+                # supercar sportive :contentReference[oaicite:12]{index=12}
+                {"modele": "TL", "variante": None, "portes": 4, "places": 5, "reservoir": 65},
+                # historique (avant TLX) :contentReference[oaicite:13]{index=13}
+                {"modele": "TSX", "variante": None, "portes": 4, "places": 5, "reservoir": 55},
+                # compacte sportive (2004‑2014) :contentReference[oaicite:14]{index=14}
+                {"modele": "RSX", "variante": None, "portes": 3, "places": 4, "reservoir": 50},
+                # coupé hatchback (2002‑2006) :contentReference[oaicite:15]{index=15}
+
+
+            ],
+
+            "Renault RS": [
+                # Modèles Renault Sport actuels et récents
+                {"modele": "Clio RS", "variante": None, "portes": 5, "places": 5, "reservoir": 50},  # compacte sportive
+                {"modele": "Megane RS", "variante": None, "portes": 5, "places": 5, "reservoir": 55},
+                # berline compacte sportive
+                {"modele": "Arkana RS", "variante": None, "portes": 5, "places": 5, "reservoir": 55},
+                # SUV coupé sportif
+                {"modele": "Captur RS Line", "variante": None, "portes": 5, "places": 5, "reservoir": 50},
+                # SUV compact, finition sportive
+
+                # Modèles historiques Renault Sport
+                {"modele": "Twingo RS", "variante": None, "portes": 3, "places": 4, "reservoir": 35},
+                # citadine sportive
+                {"modele": "Sport Spider", "variante": None, "portes": 2, "places": 2, "reservoir": 50},  # roadster
+                {"modele": "Clio RS ", "variante": None, "portes": 3, "places": 5, "reservoir": 50},
+                # toutes générations Clio RS
+                {"modele": "Megane RS ", "variante": None, "portes": 5, "places": 5,
+                 "reservoir": 55},  # toutes générations Megane RS
+                {"modele": "Megane RS Trophy", "variante": None, "portes": 5, "places": 5, "reservoir": 55},
+                # versions Trophy
+
+            ],
+
+            "Alpine": [
+                {"modele": "Alpine A110 RS", "variante": None, "portes": 2, "places": 2, "reservoir": 50},  # Alpine RS
+            ],
+
+            "Audi": [
+                {"modele": "A1", "variante": None, "portes": 5, "places": 5, "reservoir": 40},
+                {"modele": "A3", "variante": None, "portes": 5, "places": 5, "reservoir": 50},
+                {"modele": "A3 Sportback", "variante": None, "portes": 5, "places": 5, "reservoir": 50},
+                {"modele": "A4", "variante": None, "portes": 4, "places": 5, "reservoir": 54},
+                {"modele": "A4 Avant", "variante": None, "portes": 5, "places": 5, "reservoir": 54},
+                {"modele": "A5", "variante": None, "portes": 4, "places": 5, "reservoir": 60},
+                {"modele": "A5 Sportback", "variante": None, "portes": 5, "places": 5, "reservoir": 60},
+                {"modele": "A5 Coupé", "variante": None, "portes": 2, "places": 4, "reservoir": 60},
+                {"modele": "A6", "variante": None, "portes": 4, "places": 5, "reservoir": 70},
+                {"modele": "A6 Avant", "variante": None, "portes": 5, "places": 5, "reservoir": 70},
+                {"modele": "A7 Sportback", "variante": None, "portes": 5, "places": 5, "reservoir": 70},
+                {"modele": "A8", "variante": None, "portes": 4, "places": 5, "reservoir": 75},
+                {"modele": "Q2", "variante": None, "portes": 5, "places": 5, "reservoir": 50},
+                {"modele": "Q3", "variante": None, "portes": 5, "places": 5, "reservoir": 60},
+                {"modele": "Q5", "variante": None, "portes": 5, "places": 5, "reservoir": 70},
+                {"modele": "Q5 Sportback", "variante": None, "portes": 5, "places": 5, "reservoir": 70},
+                {"modele": "Q7", "variante": None, "portes": 5, "places": 7, "reservoir": 85},
+                {"modele": "Q8", "variante": None, "portes": 5, "places": 5, "reservoir": 85},
+                {"modele": "e-tron", "variante": None, "portes": 5, "places": 5, "reservoir": 0},  # électrique
+                {"modele": "e-tron GT", "variante": None, "portes": 4, "places": 5, "reservoir": 0},  # électrique
+                {"modele": "R8", "variante": None, "portes": 2, "places": 2, "reservoir": 82},  # sportive
+                {"modele": "TT", "variante": None, "portes": 2, "places": 2, "reservoir": 50},
+                {"modele": "TT Roadster", "variante": None, "portes": 2, "places": 2, "reservoir": 50},
+            ],
+            "Audi RS": [
+                {"modele": "RS3", "variante": None, "portes": 5, "places": 5, "reservoir": 50},  # version sportive A3
+                {"modele": "RS4 Avant", "variante": None, "portes": 5, "places": 5, "reservoir": 60},
+                {"modele": "RS5 Coupé", "variante": None, "portes": 2, "places": 4, "reservoir": 60},
+                {"modele": "RS6 Avant", "variante": None, "portes": 5, "places": 5, "reservoir": 75},
+                {"modele": "RS7 Sportback", "variante": None, "portes": 5, "places": 5, "reservoir": 75},
+                {"modele": "SQ5", "variante": None, "portes": 5, "places": 5, "reservoir": 70},
+                {"modele": "SQ7", "variante": None, "portes": 5, "places": 7, "reservoir": 85},
+
+            ],
+            "Porsche": [
+                {"modele": "550 Spyder", "nom_variante": None, "nombre_portes": 2, "nbre_places": 2,
+                 "taille_reservoir": 60},
+
+                # 911 classiques
+                {"modele": "911", "nom_variante": "Carrera S", "nombre_portes": 2, "nbre_places": 4,
+                 "taille_reservoir": 67},
+                {"modele": "911", "nom_variante": "Turbo", "nombre_portes": 2, "nbre_places": 4,
+                 "taille_reservoir": 67},
+
+                # 911 GT spéciaux
+                {"modele": "911", "nom_variante": "GT3", "nombre_portes": 2, "nbre_places": 2,
+                 "taille_reservoir": 64},
+                {"modele": "911", "nom_variante": "GT3 RS", "nombre_portes": 2, "nbre_places": 2,
+                 "taille_reservoir": 64},
+                {"modele": "911", "nom_variante": "GT2 RS", "nombre_portes": 2, "nbre_places": 2,
+                 "taille_reservoir": 64},
+
+                # SUV et berlines
+                {"modele": "Cayenne", "nom_variante": "S", "nombre_portes": 5, "nbre_places": 5,
+                 "taille_reservoir": 75},
+                {"modele": "Macan", "nom_variante": None, "nombre_portes": 5, "nbre_places": 5,
+                 "taille_reservoir": 60},
+                {"modele": "Panamera", "nom_variante": "4S", "nombre_portes": 5, "nbre_places": 5,
+                 "taille_reservoir": 75},
+
             ],
 
             # Espagne

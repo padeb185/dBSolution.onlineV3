@@ -3,6 +3,7 @@ from django.db import models
 
 class VoitureModele(models.Model):
     class NombrePortes(models.IntegerChoices):
+        DEUX = 2, "2 portes"
         TROIS = 3, "3 portes"
         CINQ = 5, "5 portes"
 
