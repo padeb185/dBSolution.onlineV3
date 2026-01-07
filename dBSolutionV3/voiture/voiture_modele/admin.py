@@ -51,7 +51,6 @@ class VoitureModeleAdmin(admin.ModelAdmin):
                 "nom_variante",
                 "nombre_portes",
                 "nbre_places",
-                "couleur",
                 "taille_reservoir",
             )
         }),

@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="première création modele suite 1">
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/management/commands/create_modele.py" afterDir="false" />
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="première création modele suite 2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_modele/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_modele/admin.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -184,15 +186,8 @@
       <workItem from="1767630164495" duration="107000" />
       <workItem from="1767683506726" duration="11038000" />
       <workItem from="1767702391200" duration="1850000" />
-      <workItem from="1767708661168" duration="3033000" />
-    </task>
-    <task id="LOCAL-00133" summary="entretien">
-      <option name="closed" value="true" />
-      <created>1766841036356</created>
-      <option name="number" value="00133" />
-      <option name="presentableId" value="LOCAL-00133" />
-      <option name="project" value="LOCAL" />
-      <updated>1766841036356</updated>
+      <workItem from="1767708661168" duration="3367000" />
+      <workItem from="1767775521523" duration="4341000" />
     </task>
     <task id="LOCAL-00134" summary="totp non résolu">
       <option name="closed" value="true" />
@@ -578,7 +573,15 @@
       <option name="project" value="LOCAL" />
       <updated>1767710807639</updated>
     </task>
-    <option name="localTasksCounter" value="182" />
+    <task id="LOCAL-00182" summary="première création modele suite 2">
+      <option name="closed" value="true" />
+      <created>1767711846027</created>
+      <option name="number" value="00182" />
+      <option name="presentableId" value="LOCAL-00182" />
+      <option name="project" value="LOCAL" />
+      <updated>1767711846027</updated>
+    </task>
+    <option name="localTasksCounter" value="183" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -596,7 +599,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="RAZ venv et BDD" />
     <MESSAGE value="3 tenants" />
     <MESSAGE value="super user" />
     <MESSAGE value="login totp" />
@@ -621,7 +623,8 @@
     <MESSAGE value="ajustements tenant" />
     <MESSAGE value="première création modele" />
     <MESSAGE value="première création modele suite 1" />
-    <option name="LAST_COMMIT_MESSAGE" value="première création modele suite 1" />
+    <MESSAGE value="première création modele suite 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="première création modele suite 2" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

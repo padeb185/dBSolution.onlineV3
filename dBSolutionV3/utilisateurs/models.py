@@ -1,4 +1,5 @@
 import base64
+import re
 import uuid
 from io import BytesIO
 import pyotp
@@ -6,73 +7,86 @@ import qrcode
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
+from rest_framework.exceptions import ValidationError
 from adresse.models import Adresse
 from societe.models import Societe
 
 
 class UtilisateurManager(BaseUserManager):
-    """def validate_password(self, password):
+    def validate_password(self, password):
         if not password:
             raise ValidationError("Le mot de passe est obligatoire.")
-
         if len(password) < 12:
-            raise ValidationError(
-                "Le mot de passe doit contenir au moins 12 caractères."
-            )
-
+            raise ValidationError("Le mot de passe doit contenir au moins 12 caractères.")
         if not re.search(r"[A-Z]", password):
-            raise ValidationError(
-                "Le mot de passe doit contenir au moins une majuscule."
-            )
-
+            raise ValidationError("Le mot de passe doit contenir au moins une majuscule.")
         if not re.search(r"[a-z]", password):
-            raise ValidationError(
-                "Le mot de passe doit contenir au moins une minuscule."
-            )
-
+            raise ValidationError("Le mot de passe doit contenir au moins une minuscule.")
         if not re.search(r"\d", password):
-            raise ValidationError(
-                "Le mot de passe doit contenir au moins un chiffre."""
+            raise ValidationError("Le mot de passe doit contenir au moins un chiffre.")
 
-    def create_user(self, email_google, password, **extra_fields):
-
+    def create_user(self, email_google, password=None, **extra_fields):
         if not email_google:
             raise ValueError("L'email est obligatoire")
 
-        # 🔐 validation mot de passe
-        """self.validate_password(password)"""
-
         email_google = self.normalize_email(email_google)
         user = self.model(email_google=email_google, **extra_fields)
-        user.set_password(password)
+        if password:
+            user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email_google, password, **extra_fields):
-        """
-        Crée et enregistre un superutilisateur avec email entreprise et mot de passe.
-        """
+    def create_superuser(self, email_google, password=None, **extra_fields):
+        # Récupère et supprime les FK pour éviter les erreurs d'initialisation
+        societe = extra_fields.pop('societe', None)
+        adresse = extra_fields.pop('adresse', None)
+
+        if not societe:
+            raise ValueError("La société est obligatoire pour un superutilisateur.")
+        if not adresse:
+            raise ValueError("L'adresse est obligatoire pour un superutilisateur.")
+        if not extra_fields.get('date_naissance'):
+            raise ValueError("La date de naissance est obligatoire.")
+
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_active', True)
 
-        if extra_fields.get('is_staff') is not True:
-            raise ValueError('Le superuser doit avoir is_staff=True.')
-        if extra_fields.get('is_superuser') is not True:
-            raise ValueError('Le superuser doit avoir is_superuser=True.')
-
-        return self.create_user(email_google, password, **extra_fields)
-
+        user = self.model(
+            email_google=self.normalize_email(email_google),
+            societe=societe,
+            adresse=adresse,
+            **extra_fields
+        )
+        if password:
+            user.set_password(password)
+        user.save(using=self._db)
+        return user
 
 
 class Utilisateur(AbstractBaseUser, PermissionsMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    adresse = models.ForeignKey(Adresse, on_delete=models.PROTECT, related_name='utilisateurs')
-    societe = models.ForeignKey(Societe, on_delete=models.PROTECT, related_name="utilisateurs")
+
+    adresse = models.ForeignKey(
+        Adresse,  # Utilise directement le modèle
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='utilisateurs'
+    )
+
+    societe = models.ForeignKey(
+        Societe,
+        on_delete=models.PROTECT,
+        related_name="utilisateurs",
+        null=True,
+        blank=True,
+    )
 
     nom = models.CharField(max_length=100)
     prenom = models.CharField(max_length=100)
-    date_naissance = models.DateField()
+    date_naissance = models.DateField(null=True, blank=True)
+
     email_google = models.EmailField(unique=True, blank=True, null=True)
     email_entreprise = models.EmailField(unique=True, blank=True, null=True)
     telephone = models.CharField(max_length=20, blank=True, null=True)
@@ -81,14 +95,12 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
     salaire_brut_employer = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     nombre_jours_preste = models.PositiveIntegerField(default=0, blank=True, null=True)
     nombre_heures_preste = models.PositiveIntegerField(default=0, blank=True, null=True)
-    taux_charges_patronales = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)  # en %
+    taux_charges_patronales = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
     salaire_majore = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    taux_precompte_professionnel = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)  # en %
-    taux_onss = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)  # en %
+    taux_precompte_professionnel = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    taux_onss = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
     salaire_net_mois = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     salaire_total = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
-
-
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -97,14 +109,8 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
 
     # TOTP
-    totp_secret = models.CharField(
-        max_length=50,
-        blank=True,
-        null=True,
-        editable=False,
-    )
+    totp_secret = models.CharField(max_length=50, blank=True, null=True, editable=False)
     totp_enabled = models.BooleanField(default=False)
-
 
     objects = UtilisateurManager()
 
@@ -127,7 +133,6 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
     )
 
     class Meta:
-        # Important : cette table doit rester dans le schema public
         app_label = 'utilisateurs'
 
     def generate_totp_secret(self):
@@ -146,13 +151,7 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
         totp = pyotp.TOTP(self.totp_secret)
         return totp.verify(token, valid_window=1)
 
-    def __str__(self):
-        return f"{self.prenom} {self.nom}"
-
     def generate_qr_code(self):
-        """
-        Génère le QR code TOTP au format base64 pour Google Authenticator.
-        """
         totp_uri = pyotp.TOTP(self.totp_secret).provisioning_uri(
             name=self.email_google,
             issuer_name="dBSolution"
@@ -163,4 +162,5 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
         qr_base64 = base64.b64encode(buffer.getvalue()).decode()
         return qr_base64
 
-
+    def __str__(self):
+        return f"{self.prenom} {self.nom}"

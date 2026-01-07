@@ -5,7 +5,6 @@ from django.contrib.auth.decorators import login_required
 from io import BytesIO
 import base64
 import qrcode
-
 from .forms import LoginForm
 from .models import Utilisateur
 
