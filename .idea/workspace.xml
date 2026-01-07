@@ -4,32 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="super user script">
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="traduction es">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/de/LC_MESSAGES/django.mo" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/de/LC_MESSAGES/django.mo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/de/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/de/LC_MESSAGES/django.po" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/el/LC_MESSAGES/django.mo" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/el/LC_MESSAGES/django.mo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/el/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/el/LC_MESSAGES/django.po" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/en/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/en/LC_MESSAGES/django.po" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/es/LC_MESSAGES/django.mo" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/es/LC_MESSAGES/django.mo" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/es/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/es/LC_MESSAGES/django.po" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/fr/LC_MESSAGES/django.mo" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/fr/LC_MESSAGES/django.mo" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/fr/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/fr/LC_MESSAGES/django.po" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/it/LC_MESSAGES/django.mo" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/it/LC_MESSAGES/django.mo" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/it/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/it/LC_MESSAGES/django.po" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/nl/LC_MESSAGES/django.mo" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/nl/LC_MESSAGES/django.mo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/nl/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/nl/LC_MESSAGES/django.po" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/apprentis/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/apprentis/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/carrossier/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/carrossier/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/chef_mecanicien/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/chef_mecanicien/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/comptabilite/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/comptabilite/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/direction/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/direction/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/instructeur/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/instructeur/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/instructeur_externe/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/instructeur_externe/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/magasinier/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/magasinier/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/mecanicien/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/mecanicien/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/vendeur/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/vendeur/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -209,15 +190,8 @@
       <workItem from="1767702391200" duration="1850000" />
       <workItem from="1767708661168" duration="3367000" />
       <workItem from="1767775521523" duration="4341000" />
-      <workItem from="1767779973943" duration="5189000" />
-    </task>
-    <task id="LOCAL-00135" summary="RAZ CustomUser">
-      <option name="closed" value="true" />
-      <created>1766917416729</created>
-      <option name="number" value="00135" />
-      <option name="presentableId" value="LOCAL-00135" />
-      <option name="project" value="LOCAL" />
-      <updated>1766917416729</updated>
+      <workItem from="1767779973943" duration="5282000" />
+      <workItem from="1767789112376" duration="391000" />
     </task>
     <task id="LOCAL-00136" summary="tenant">
       <option name="closed" value="true" />
@@ -603,7 +577,15 @@
       <option name="project" value="LOCAL" />
       <updated>1767780079190</updated>
     </task>
-    <option name="localTasksCounter" value="184" />
+    <task id="LOCAL-00184" summary="traduction es">
+      <option name="closed" value="true" />
+      <created>1767786535319</created>
+      <option name="number" value="00184" />
+      <option name="presentableId" value="LOCAL-00184" />
+      <option name="project" value="LOCAL" />
+      <updated>1767786535319</updated>
+    </task>
+    <option name="localTasksCounter" value="185" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -621,7 +603,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="super user" />
     <MESSAGE value="login totp" />
     <MESSAGE value="login OK" />
     <MESSAGE value="Tailwind 3" />
@@ -646,7 +627,8 @@
     <MESSAGE value="première création modele suite 1" />
     <MESSAGE value="première création modele suite 2" />
     <MESSAGE value="super user script" />
-    <option name="LAST_COMMIT_MESSAGE" value="super user script" />
+    <MESSAGE value="traduction es" />
+    <option name="LAST_COMMIT_MESSAGE" value="traduction es" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

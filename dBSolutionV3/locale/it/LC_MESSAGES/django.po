@@ -3760,68 +3760,51 @@ msgid "Ressources Humaines"
 msgstr "Molle valvole"
 
 #: .\utilisateurs\direction\models.py:13
-#, fuzzy
-#| msgid "Observation"
 msgid "Operations"
-msgstr "Osservazione"
+msgstr "Operaciones"
 
 #: .\utilisateurs\models.py:75 .\utilisateurs\views.py:116
-#, fuzzy
-#| msgid "Panier"
 msgid "Magasinier"
-msgstr "Carrello"
+msgstr "Almacenero"
 
 #: .\utilisateurs\models.py:76 .\utilisateurs\views.py:114
-#, fuzzy
-#| msgid "Carrosserie"
 msgid "Carrossier"
-msgstr "Carrozzeria"
+msgstr "Carrocero"
 
 #: .\utilisateurs\models.py:77 .\utilisateurs\views.py:115
-#, fuzzy
-#| msgid "Chef mécanicien"
 msgid "Chef Mécanicien"
 msgstr "Capo meccanico"
-
 #: .\utilisateurs\models.py:78 .\utilisateurs\views.py:117
-#, fuzzy
-#| msgid "Conducteur"
 msgid "Instructeur"
-msgstr "Conducente"
+msgstr "Instructor"
 
 #: .\utilisateurs\models.py:79 .\utilisateurs\views.py:118
 msgid "Instructeur Externe"
-msgstr ""
+msgstr "Instructor externo"
 
 #: .\utilisateurs\models.py:80 .\utilisateurs\views.py:119
-#, fuzzy
-#| msgid "Galet Tendeur"
 msgid "Vendeur"
-msgstr "Rullo tendicinghia"
+msgstr "Vendedor"
 
 #: .\utilisateurs\models.py:81 .\utilisateurs\views.py:120
 msgid "Comptable"
-msgstr ""
+msgstr "Contable"
 
 #: .\utilisateurs\models.py:82 .\utilisateurs\views.py:121
-#, fuzzy
-#| msgid "Description"
 msgid "Direction"
-msgstr "Descrizione"
+msgstr "Dirección"
 
 #: .\utilisateurs\views.py:80
-#, fuzzy
-#| msgid "Joint moteur"
 msgid "Révision moteur"
-msgstr "Guarnizione motore"
+msgstr "Revisión del motor"
 
 #: .\utilisateurs\views.py:81
 msgid "Changement filtre"
-msgstr ""
+msgstr "Cambio de filtro"
 
 #: .\utilisateurs\views.py:108 .\utilisateurs\views.py:123
 msgid "Rôle inconnu"
-msgstr ""
+msgstr "Rol desconocido"
 
 #~ msgid "Adresse email ou mot de passe incorrect"
 #~ msgstr "Indirizzo email o password non corretti"
