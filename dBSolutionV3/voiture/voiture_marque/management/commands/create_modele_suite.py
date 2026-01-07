@@ -43,8 +43,44 @@ class Command(BaseCommand):
 
             # UK
             "Mini": [
+                # Cooper One
+                {"modele": "Cooper", "variante": "One", "portes": 3, "places": 4, "reservoir": 40},
+                {"modele": "Cooper", "variante": "One", "portes": 5, "places": 4, "reservoir": 40},
+
+                # Cooper
+                {"modele": "Cooper", "variante": None, "portes": 3, "places": 4, "reservoir": 40},
                 {"modele": "Cooper", "variante": "S", "portes": 3, "places": 4, "reservoir": 40},
+                {"modele": "Cooper", "variante": "SE", "portes": 3, "places": 4, "reservoir": 40},  # électrique
+                {"modele": "Cooper", "variante": "John Cooper Works", "portes": 3, "places": 4, "reservoir": 40},
+                {"modele": "Cooper", "variante": None, "portes": 5, "places": 4, "reservoir": 40},
+                {"modele": "Cooper", "variante": "S", "portes": 5, "places": 4, "reservoir": 40},
+                {"modele": "Cooper", "variante": "John Cooper Works", "portes": 5, "places": 4, "reservoir": 40},
+
+                # Countryman
+                {"modele": "Countryman", "variante": "One", "portes": 5, "places": 5, "reservoir": 51},
+                {"modele": "Countryman", "variante": None, "portes": 5, "places": 5, "reservoir": 51},
+                {"modele": "Countryman", "variante": "S", "portes": 5, "places": 5, "reservoir": 51},
+                {"modele": "Countryman", "variante": "John Cooper Works", "portes": 5, "places": 5, "reservoir": 51},
+
+                # Clubman
+                {"modele": "Clubman", "variante": "One", "portes": 5, "places": 4, "reservoir": 48},
+                {"modele": "Clubman", "variante": None, "portes": 5, "places": 4, "reservoir": 48},
+                {"modele": "Clubman", "variante": "S", "portes": 5, "places": 4, "reservoir": 48},
+                {"modele": "Clubman", "variante": "John Cooper Works", "portes": 5, "places": 4, "reservoir": 48},
+
+                # Convertible
+                {"modele": "Convertible", "variante": "One", "portes": 2, "places": 4, "reservoir": 40},
+                {"modele": "Convertible", "variante": None, "portes": 2, "places": 4, "reservoir": 40},
+                {"modele": "Convertible", "variante": "S", "portes": 2, "places": 4, "reservoir": 40},
+                {"modele": "Convertible", "variante": "John Cooper Works", "portes": 2, "places": 4, "reservoir": 40},
+
+                # Paceman
+                {"modele": "Paceman", "variante": "One", "portes": 3, "places": 4, "reservoir": 50},
+                {"modele": "Paceman", "variante": None, "portes": 3, "places": 4, "reservoir": 50},
+                {"modele": "Paceman", "variante": "S", "portes": 3, "places": 4, "reservoir": 50},
+                {"modele": "Paceman", "variante": "John Cooper Works", "portes": 3, "places": 4, "reservoir": 50},
             ],
+
             "Rolls-Royce": [
                 {"modele": "Ghost", "variante": None, "portes": 4, "places": 5, "reservoir": 90},
                 {"modele": "Cullinan", "variante": None, "portes": 5, "places": 5, "reservoir": 105},
@@ -53,8 +89,52 @@ class Command(BaseCommand):
                 {"modele": "Continental GT", "variante": None, "portes": 2, "places": 4, "reservoir": 90},
             ],
             "Aston Martin": [
+                # DB5 (classique)
+                {"modele": "DB5", "variante": None, "portes": 2, "places": 4, "reservoir": 75},
+                {"modele": "DB5", "variante": "Goldfinger", "portes": 2, "places": 4, "reservoir": 75},
+
+                # DB6
+                {"modele": "DB6", "variante": None, "portes": 2, "places": 4, "reservoir": 75},
+
+                # DBS (ancienne génération)
+                {"modele": "DBS", "variante": None, "portes": 2, "places": 4, "reservoir": 78},
+
+                # V8 Vantage classique
+                {"modele": "V8 Vantage", "variante": None, "portes": 2, "places": 2, "reservoir": 78},
+
+                # DB7
+                {"modele": "DB7", "variante": None, "portes": 2, "places": 2, "reservoir": 78},
+                {"modele": "DB7", "variante": "Vantage", "portes": 2, "places": 2, "reservoir": 78},
+
+                # DB9
+                {"modele": "DB9", "variante": None, "portes": 2, "places": 4, "reservoir": 78},
+                {"modele": "DB9", "variante": "Volante", "portes": 2, "places": 4, "reservoir": 78},
+
+                # DB11
                 {"modele": "DB11", "variante": None, "portes": 2, "places": 4, "reservoir": 78},
+                {"modele": "DB11", "variante": "AMR", "portes": 2, "places": 4, "reservoir": 78},
+
+                # Vantage moderne
+                {"modele": "Vantage", "variante": None, "portes": 2, "places": 2, "reservoir": 78},
+                {"modele": "Vantage", "variante": "AMR", "portes": 2, "places": 2, "reservoir": 78},
+
+                # DBS Superleggera
+                {"modele": "DBS Superleggera", "variante": None, "portes": 2, "places": 2, "reservoir": 78},
+
+                # Rapide AMR
+                {"modele": "Rapide AMR", "variante": None, "portes": 4, "places": 4, "reservoir": 78},
+
+                # DBX (SUV moderne)
+                {"modele": "DBX", "variante": None, "portes": 5, "places": 5, "reservoir": 93},
+                {"modele": "DBX", "variante": "AMR", "portes": 5, "places": 5, "reservoir": 93},
+
+                # Valhalla (hybride)
+                {"modele": "Valhalla", "variante": None, "portes": 2, "places": 2, "reservoir": 68},
+
+                # Vulcan (track-only)
+                {"modele": "Vulcan", "variante": None, "portes": 2, "places": 1, "reservoir": 120},
             ],
+
             "Lotus": [
                 {"modele": "Elise", "variante": None, "portes": 2, "places": 2, "reservoir": 50},
                 # classique léger :contentReference[oaicite:1]{index=1}
