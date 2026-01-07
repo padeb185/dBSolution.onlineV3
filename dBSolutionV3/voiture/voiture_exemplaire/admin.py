@@ -50,7 +50,7 @@ class VoitureExemplaireAdmin(admin.ModelAdmin):
                 "immatriculation",
                 "numero_vin",
                 "type_utilisation",
-                "societe",
+
             )
         }),
         ("Marque & Modèle", {
