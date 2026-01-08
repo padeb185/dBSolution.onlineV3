@@ -773,8 +773,6 @@ msgid "Ressort"
 msgstr "Veer"
 
 #: .\maintenance\controle_check_up\models.py:148
-#, fuzzy
-#| msgid "Ressort"
 msgid "Ressorts"
 msgstr "Veer"
 
@@ -1044,10 +1042,9 @@ msgid "Maintenance %(id)s"
 msgstr "Onderhoudsbeurten %(id)s"
 
 #: .\maintenance\niveaux\models.py:55
-#, fuzzy, python-format
-#| msgid "%(maintenance)s – %(fluide)s (%(qte)s L)"
+#, python-format
 msgid "%(maintenance)s – %(fluide)s (%(qte)s L)"
-msgstr "%(maintenance)s – %(vloeistof)s (%(qte)s L)"
+msgstr "%(maintenance)s – %(fluide)s (%(qte)s L)"
 
 #: .\maintenance\silent_blocs\models.py:14
 msgid "Triangle supérieur"
@@ -1386,158 +1383,112 @@ msgid "Ampoules"
 msgstr "Lampen"
 
 #: .\piece\piece_batterie\models.py:11
-#, fuzzy
-#| msgid "Batterie"
 msgid "Batterie 12V"
-msgstr "Accu"
+msgstr "12V batterij"
 
 #: .\piece\piece_batterie\models.py:12
-#, fuzzy
-#| msgid "Batterie"
 msgid "Batterie AGM"
-msgstr "Accu"
+msgstr "AGM batterij"
 
 #: .\piece\piece_batterie\models.py:13
-#, fuzzy
-#| msgid "Batterie"
 msgid "Batterie EFB"
-msgstr "Accu"
+msgstr "EFB batterij"
 
 #: .\piece\piece_batterie\models.py:14
-#, fuzzy
-#| msgid "Batterie"
 msgid "Batterie lithium"
-msgstr "Accu"
+msgstr "Lithiumbatterij"
 
 #: .\piece\piece_batterie\models.py:15
 msgid "Batterie haute tension (hybride/électrique)"
-msgstr ""
+msgstr "Hoge spanning batterij (hybride/elektrisch)"
 
 #: .\piece\piece_batterie\models.py:18
 msgid "Capteur de batterie (IBS)"
-msgstr ""
+msgstr "Batterijsensor (IBS)"
 
 #: .\piece\piece_batterie\models.py:19
-#, fuzzy
-#| msgid "Booster batterie"
 msgid "Boîtier de batterie"
-msgstr "Accu booster"
+msgstr "Batterijkast"
 
 #: .\piece\piece_batterie\models.py:20
-#, fuzzy
-#| msgid "État batterie"
 msgid "Cache batterie"
-msgstr "Batterijconditie"
+msgstr "Batterijkap"
 
 #: .\piece\piece_batterie\models.py:21
 msgid "Système de maintien batterie"
-msgstr ""
+msgstr "Batterijbevestigingssysteem"
 
 #: .\piece\piece_batterie\models.py:24
-#, fuzzy
-#| msgid "Booster batterie"
 msgid "Cosse batterie positive"
-msgstr "Accu booster"
+msgstr "Positieve batterijaansluiting"
 
 #: .\piece\piece_batterie\models.py:25
-#, fuzzy
-#| msgid "Booster batterie"
 msgid "Cosse batterie négative"
-msgstr "Accu booster"
+msgstr "Negatieve batterijaansluiting"
 
 #: .\piece\piece_batterie\models.py:26
-#, fuzzy
-#| msgid "État batterie"
 msgid "Câble de batterie"
-msgstr "Batterijconditie"
+msgstr "Batterijkabel"
 
 #: .\piece\piece_batterie\models.py:27
-#, fuzzy
-#| msgid "Booster batterie"
 msgid "Borne de batterie"
-msgstr "Accu booster"
+msgstr "Batterijpool"
 
 #: .\piece\piece_batterie\models.py:28
-#, fuzzy
-#| msgid "Booster batterie"
 msgid "Fusible batterie"
-msgstr "Accu booster"
+msgstr "Batterijzekering"
 
 #: .\piece\piece_batterie\models.py:29
-#, fuzzy
-#| msgid "Booster batterie"
 msgid "Porte-fusible batterie"
-msgstr "Accu booster"
+msgstr "Zekeringhouder batterij"
 
 #: .\piece\piece_batterie\models.py:32
-#, fuzzy
-#| msgid "Booster batterie"
 msgid "Bride de batterie"
-msgstr "Accu booster"
+msgstr "Batterijklem"
 
 #: .\piece\piece_batterie\models.py:33
-#, fuzzy
-#| msgid "Support de radiateur"
 msgid "Support de batterie"
-msgstr "Radiatorsteun"
+msgstr "Batterijhouder"
 
 #: .\piece\piece_batterie\models.py:34
 msgid "Vis de fixation batterie"
-msgstr ""
+msgstr "Batterijbevestigingsschroef"
 
 #: .\piece\piece_batterie\models.py:37
-#, fuzzy
-#| msgid "Huile de direction"
 msgid "Gaine de protection"
-msgstr "Stuurbekrachtigingsolie"
+msgstr "Beschermhoes"
 
 #: .\piece\piece_batterie\models.py:38
-#, fuzzy
-#| msgid "Booster batterie"
 msgid "Isolant de batterie"
-msgstr "Accu booster"
+msgstr "Batterijisolator"
 
 #: .\piece\piece_batterie\models.py:39
-#, fuzzy
-#| msgid "Booster batterie"
 msgid "Tapis de batterie"
-msgstr "Accu booster"
+msgstr "Batterijmat"
 
 #: .\piece\piece_batterie\models.py:42
-#, fuzzy
-#| msgid "État batterie"
 msgid "Kit fixation batterie"
-msgstr "Batterijconditie"
+msgstr "Batterijbevestigingsset"
 
 #: .\piece\piece_batterie\models.py:43
-#, fuzzy
-#| msgid "Booster batterie"
 msgid "Kit cosses batterie"
-msgstr "Accu booster"
+msgstr "Batterijpoolset"
 
 #: .\piece\piece_batterie\models.py:44
-#, fuzzy
-#| msgid "Booster batterie"
 msgid "Kit câbles batterie"
-msgstr "Accu booster"
+msgstr "Batterijkabelset"
 
 #: .\piece\piece_batterie\models.py:50
-#, fuzzy
-#| msgid "Type de pièce moteur"
 msgid "Type de pièce batterie"
-msgstr "Type motoronderdeel"
+msgstr "Type batterijonderdeel"
 
 #: .\piece\piece_batterie\models.py:61
-#, fuzzy
-#| msgid "Pièce de freinage"
 msgid "Pièce de batterie"
-msgstr "Remonderdeel"
+msgstr "Batterijonderdeel"
 
 #: .\piece\piece_batterie\models.py:62
-#, fuzzy
-#| msgid "Pièces de freinage"
 msgid "Pièces de batterie"
-msgstr "Remonderdelen"
+msgstr "Batterijonderdelen"
 
 #: .\piece\piece_batterie\models.py:65 .\piece\piece_moteur\models.py:69
 #: .\piece\piece_pont\models.py:72 .\piece\piece_silent_bloc\models.py:60
@@ -2213,7 +2164,7 @@ msgstr "Lampen"
 #: .\piece\piece_feux\models.py:36
 #, python-format
 msgid "%(organe)s - %(type)s"
-msgstr "%(orgaan)s - %(type)s"
+msgstr "%(organe)s - %(type)s"
 
 #: .\piece\piece_filtres\models.py:7
 msgid "Filtre à air"
@@ -2244,10 +2195,9 @@ msgid "Filtres"
 msgstr "Filters"
 
 #: .\piece\piece_filtres\models.py:30 .\piece\piece_fluides\models.py:39
-#, fuzzy, python-format
-#| msgid "%(nom)s (%(type)s)"
+#, python-format
 msgid "%(nom)s (%(type)s)"
-msgstr "%(naam)s (%(type)s)"
+msgstr "%(nom)s (%(type)s)"
 
 #: .\piece\piece_fluides\models.py:8
 msgid "Huile moteur"
@@ -2291,7 +2241,7 @@ msgstr "Vloeistoffen"
 
 #: .\piece\piece_fluides\models.py:53
 msgid "+ entrée / - sortie (litres)"
-msgstr "+ in / - uit (liter)"
+msgstr "+ in / - uit (litres)"
 
 #: .\piece\piece_fluides\models.py:79
 #, python-format
@@ -2857,180 +2807,133 @@ msgid "%(type)s – %(largeur)s/%(hauteur)s R%(jante)s"
 msgstr "%(type)s – %(largeur)s/%(hauteur)s R%(jante)s"
 
 #: .\piece\piece_pont\models.py:11
-#, fuzzy
-#| msgid "Ressort avant"
 msgid "Pont avant"
-msgstr "Veer vooraan"
+msgstr "Voordifferentieel"
+
 
 #: .\piece\piece_pont\models.py:12
-#, fuzzy
-#| msgid "Ressort arrière"
 msgid "Pont arrière"
-msgstr "Veer achteraan"
+msgstr "Achterdifferentieel"
 
 #: .\piece\piece_pont\models.py:13
 msgid "Pont central"
-msgstr ""
+msgstr "Centraal differentieel"
 
 #: .\piece\piece_pont\models.py:14
 msgid "Différentiel complet"
-msgstr ""
+msgstr "Compleet differentieel"
 
 #: .\piece\piece_pont\models.py:17
-#, fuzzy
-#| msgid "Couronne et pignon"
 msgid "Couronne"
-msgstr "Tandwielset"
+msgstr "Kroonwiel"
 
 #: .\piece\piece_pont\models.py:18
 msgid "Pignon d’attaque"
-msgstr ""
+msgstr "Aandrijfpinion"
 
 #: .\piece\piece_pont\models.py:19
 msgid "Couple conique"
-msgstr ""
+msgstr "Kegeloverbrengingsverhouding"
 
 #: .\piece\piece_pont\models.py:20
-#, fuzzy
-#| msgid "Axe satellite"
 msgid "Satellite"
-msgstr "Satellietas"
+msgstr "Planeetwiel"
 
 #: .\piece\piece_pont\models.py:21
-#, fuzzy
-#| msgid "Train planétaire"
 msgid "Planétaire"
-msgstr "Planeetwielset"
+msgstr "Tandwielring"
 
 #: .\piece\piece_pont\models.py:22
-#, fuzzy
-#| msgid "Axe satellite"
 msgid "Axe de satellite"
 msgstr "Satellietas"
 
 #: .\piece\piece_pont\models.py:25
-#, fuzzy
-#| msgid "Huile de pont"
 msgid "Carter de pont"
-msgstr "Differentieelolie"
+msgstr "Differentiëlkast"
 
 #: .\piece\piece_pont\models.py:26
-#, fuzzy
-#| msgid "Huile de pont"
 msgid "Couvercle de pont"
-msgstr "Differentieelolie"
+msgstr "Differentiëldeksel"
 
 #: .\piece\piece_pont\models.py:27
 msgid "Bouchon de vidange"
-msgstr ""
+msgstr "Aftapplug"
 
 #: .\piece\piece_pont\models.py:28
 msgid "Bouchon de remplissage"
-msgstr ""
+msgstr "Vulplug"
 
 #: .\piece\piece_pont\models.py:29
-#, fuzzy
-#| msgid "Huile de pont"
 msgid "Reniflard de pont"
-msgstr "Differentieelolie"
+msgstr "Differentieel ontluchter"
 
 #: .\piece\piece_pont\models.py:32
-#, fuzzy
-#| msgid "Roulement de suspension"
 msgid "Roulement de pignon"
-msgstr "Ophanglager"
+msgstr "Tandwielager"
 
 #: .\piece\piece_pont\models.py:33
-#, fuzzy
-#| msgid "Roulements de différentiel"
 msgid "Roulement de différentiel"
 msgstr "Differentiëellagers"
 
 #: .\piece\piece_pont\models.py:34
-#, fuzzy
-#| msgid "Type de roue"
 msgid "Cage de roulement"
-msgstr "Type wiel"
+msgstr "Lagerkooi"
 
 #: .\piece\piece_pont\models.py:35
-#, fuzzy
-#| msgid "Changer de langue"
 msgid "Cale de réglage"
-msgstr "Taal wijzigen"
+msgstr "Stelschijf"
 
 #: .\piece\piece_pont\models.py:36
 msgid "Entretoise"
-msgstr ""
+msgstr "Spies / afstandbus"
 
 #: .\piece\piece_pont\models.py:39
-#, fuzzy
-#| msgid "Joint"
 msgid "Joint spi"
-msgstr "Pakking"
+msgstr "Kraagpakking"
 
 #: .\piece\piece_pont\models.py:40
-#, fuzzy
-#| msgid "Joint de porte"
 msgid "Joint de carter"
-msgstr "Deurafdichting"
+msgstr "Carterpakking"
 
 #: .\piece\piece_pont\models.py:41 .\piece\piece_transmission\models.py:32
 msgid "Joint d’étanchéité"
-msgstr ""
+msgstr "Afdichting"
 
 #: .\piece\piece_pont\models.py:44
-#, fuzzy
-#| msgid "Huile de pont"
 msgid "Bride de pont"
-msgstr "Differentieelolie"
+msgstr "Differentiëlf lensflens"
 
 #: .\piece\piece_pont\models.py:45
-#, fuzzy
-#| msgid "Vitres de porte"
 msgid "Vis de couronne"
-msgstr "Deurruiten"
+msgstr "Kroonwielbout"
 
 #: .\piece\piece_pont\models.py:46
-#, fuzzy
-#| msgid "Huile de pont"
 msgid "Boulonnerie de pont"
-msgstr "Differentieelolie"
+msgstr "Differentieelbouten"
 
 #: .\piece\piece_pont\models.py:49
-#, fuzzy
-#| msgid "Roulement de roue"
 msgid "Kit roulements de pont"
-msgstr "Wiellager"
+msgstr "Differentiëllagerset"
 
 #: .\piece\piece_pont\models.py:50
-#, fuzzy
-#| msgid "Joint de porte"
 msgid "Kit joints de pont"
-msgstr "Deurafdichting"
+msgstr "Differentiëldichtingenset"
 
 #: .\piece\piece_pont\models.py:51
-#, fuzzy
-#| msgid "Vitres de porte"
 msgid "Kit révision de pont"
-msgstr "Deurruiten"
+msgstr "Differentiëlinbouwset"
 
 #: .\piece\piece_pont\models.py:57
-#, fuzzy
-#| msgid "Type de pièce de direction"
 msgid "Type de pièce de pont"
-msgstr "Type stuuronderdeel"
+msgstr "Type differentieeld onderdeel"
 
 #: .\piece\piece_pont\models.py:68
-#, fuzzy
-#| msgid "Huile de pont"
 msgid "Pièce de pont"
-msgstr "Differentieelolie"
+msgstr "Differentieeld onderdeel"
 
 #: .\piece\piece_pont\models.py:69
-#, fuzzy
-#| msgid "Pièces de direction"
 msgid "Pièces de pont"
-msgstr "Stuuronderdelen"
+msgstr "Differentieeld onderdelen"
 
 #: .\piece\piece_roue_rechange\models.py:8
 msgid "Belgique"
@@ -3062,158 +2965,110 @@ msgid "%(quantite)s roue(s) %(type)s sur %(site)s"
 msgstr "%(quantite)s wiel(en) %(type)s in %(site)s"
 
 #: .\piece\piece_silent_bloc\models.py:11
-#, fuzzy
-#| msgid "Triangle supérieur"
 msgid "Silent-bloc de triangle supérieur"
-msgstr "bovenste draagarm"
+msgstr "Rubberbus bovenste draagarm"
 
 #: .\piece\piece_silent_bloc\models.py:12
-#, fuzzy
-#| msgid "Triangle inférieur droit"
 msgid "Silent-bloc de triangle inférieur"
-msgstr "Rechter onderste draagarm"
+msgstr "Rubberbus onderste draagarm"
 
 #: .\piece\piece_silent_bloc\models.py:13
-#, fuzzy
-#| msgid "Roulement de suspension"
 msgid "Silent-bloc de bras de suspension"
-msgstr "Ophanglager"
+msgstr "Rubberbus draagarm"
+
 
 #: .\piece\piece_silent_bloc\models.py:14
-#, fuzzy
-#| msgid "Pièce train avant"
 msgid "Silent-bloc de train avant"
-msgstr "Voorasonderdeel"
+msgstr "Rubberbus voorste ophanging"
 
 #: .\piece\piece_silent_bloc\models.py:15
-#, fuzzy
-#| msgid "Pièce train arrière"
 msgid "Silent-bloc de train arrière"
-msgstr "Achterasonderdeel"
+msgstr "Rubberbus achterste ophanging"
 
 #: .\piece\piece_silent_bloc\models.py:16
-#, fuzzy
-#| msgid "Biellette de barre stabilisatrice"
 msgid "Silent-bloc de barre stabilisatrice"
-msgstr "Stabilisatorstangverbinding"
+msgstr "Rubberbus stabilisatorstang"
 
 #: .\piece\piece_silent_bloc\models.py:17
-#, fuzzy
-#| msgid "Silent bloc"
 msgid "Silent-bloc de berceau"
-msgstr "Silentblok"
+msgstr "Rubberbus subframe"
 
 #: .\piece\piece_silent_bloc\models.py:18
-#, fuzzy
-#| msgid "Huile de pont"
 msgid "Silent-bloc de pont"
-msgstr "Differentieelolie"
+msgstr "Rubberbus achteras"
 
 #: .\piece\piece_silent_bloc\models.py:21
-#, fuzzy
-#| msgid "Fuite boîte de vitesse"
 msgid "Silent-bloc de boîte de vitesses"
-msgstr "Versnellingsbaklek"
+msgstr "Rubberbus versnellingsbak"
 
 #: .\piece\piece_silent_bloc\models.py:22
-#, fuzzy
-#| msgid "Huile de transmission"
 msgid "Silent-bloc de transmission"
-msgstr "Transmissieolie"
+msgstr "Rubberbus transmissie"
 
 #: .\piece\piece_silent_bloc\models.py:23
-#, fuzzy
-#| msgid "Arbre de transmission"
 msgid "Silent-bloc d’arbre de transmission"
-msgstr "Aandrijfas"
+msgstr "Rubberbus aandrijfas"
 
 #: .\piece\piece_silent_bloc\models.py:26
-#, fuzzy
-#| msgid "Bloc moteur"
 msgid "Silent-bloc moteur"
-msgstr "Motorblok"
+msgstr "Motorrubberbus"
 
 #: .\piece\piece_silent_bloc\models.py:27
-#, fuzzy
-#| msgid "Support de radiateur"
 msgid "Support moteur"
-msgstr "Radiatorsteun"
+msgstr "Motordrager"
 
 #: .\piece\piece_silent_bloc\models.py:28
-#, fuzzy
-#| msgid "Support de radiateur"
 msgid "Support de boîte"
-msgstr "Radiatorsteun"
+msgstr "Versnellingsbakdrager"
 
 #: .\piece\piece_silent_bloc\models.py:31
-#, fuzzy
-#| msgid "Silent blocs"
 msgid "Silent-bloc de châssis"
-msgstr "Silentblocs"
+msgstr "Chassisbussen"
 
 #: .\piece\piece_silent_bloc\models.py:32
 msgid "Silent-bloc de carrosserie"
-msgstr ""
+msgstr "Carrosseriebussen"
 
 #: .\piece\piece_silent_bloc\models.py:33
-#, fuzzy
-#| msgid "Ligne d’échappement"
 msgid "Silent-bloc d’échappement"
-msgstr "Uitlaatsysteem"
+msgstr "Uitlaatrubberbus"
 
 #: .\piece\piece_silent_bloc\models.py:34
-#, fuzzy
-#| msgid "Huile de direction"
 msgid "Silent-bloc de direction"
-msgstr "Stuurbekrachtigingsolie"
+msgstr "Stuurinrubberbus"
 
 #: .\piece\piece_silent_bloc\models.py:37
-#, fuzzy
-#| msgid "Kit silent bloc"
 msgid "Kit de silent-blocs"
 msgstr "Silentblokset"
 
 #: .\piece\piece_silent_bloc\models.py:38
-#, fuzzy
-#| msgid "Kit silent bloc"
 msgid "Kit silent-blocs train avant"
-msgstr "Silentblokset"
+msgstr "Set rubberbussen voorste ophanging"
 
 #: .\piece\piece_silent_bloc\models.py:39
-#, fuzzy
-#| msgid "Pièces train arrière"
 msgid "Kit silent-blocs train arrière"
-msgstr "Achterasonderdelen"
+msgstr "Set rubberbussen achterste ophanging"
 
 #: .\piece\piece_silent_bloc\models.py:45
-#, fuzzy
-#| msgid "Type de silentbloc"
 msgid "Type de silent-bloc"
 msgstr "Type silentblok"
 
 #: .\piece\piece_silent_bloc\models.py:56
-#, fuzzy
-#| msgid "Silent bloc"
 msgid "Silent-bloc"
 msgstr "Silentblok"
 
 #: .\piece\piece_silent_bloc\models.py:57
-#, fuzzy
-#| msgid "Silent blocs"
 msgid "Silent-blocs"
 msgstr "Silentblocs"
 
 #: .\piece\piece_suspension\models.py:9
-#, fuzzy
-#| msgid "Amortisseur"
 msgid "Amortisseur avant"
-msgstr "Schokdemper"
+msgstr "Voorste schokdemper"
 
 #: .\piece\piece_suspension\models.py:10
-#, fuzzy
-#| msgid "Témoin usure arrière"
 msgid "Amortisseur arrière"
-msgstr "Slijtindicator achteraan"
+msgstr "Achterste schokdemper"
+
 
 #: .\piece\piece_suspension\models.py:11 .\piece\piece_train_AR\models.py:21
 #: .\piece\piece_train_AV\models.py:24
