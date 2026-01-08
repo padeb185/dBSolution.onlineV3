@@ -41,4 +41,6 @@ urlpatterns = [
 
     # Autres routes
     path("voitures/marques/", include("voiture.voiture_marque.urls")),
+
+path("voitures/exemplaires/", include("voiture.voiture_exemplaire.urls", namespace="voiture_exemplaire")),
 ]

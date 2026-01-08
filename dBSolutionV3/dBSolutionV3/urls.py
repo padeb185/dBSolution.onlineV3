@@ -23,5 +23,5 @@ urlpatterns += i18n_patterns(
     path("public/", include("dBSolutionV3.urls_public")),   # URLs publiques
     path("tenant/", include("dBSolutionV3.urls_tenant")),
     path('voitures/', include('tenant.urls', namespace='tenant')),  # <-
-    # URLs propres à chaque tenant, ici voitures
+
 )

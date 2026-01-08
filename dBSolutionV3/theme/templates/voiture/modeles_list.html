@@ -3,14 +3,16 @@
 
 {% block content %}
 <div class="mx-4 sm:mx-6 lg:mx-8 p-6 w-full">
-    <h1 class="text-2xl font-bold mb-6">
-        {% trans "Modèles de" %} {{ marque.nom_marque }}
-    </h1>
+
+    <h1 class="text-2xl font-bold mb-6">{% trans "Modèles de" %} {{ marque.nom_marque }}</h1>
 
     {% if modeles %}
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
             {% for modele in modeles %}
-            <div class="bg-white shadow-md hover:shadow-lg rounded-lg p-4 flex items-center gap-4">
+            <div class="bg-white shadow-md hover:shadow-lg transition rounded-lg p-6 flex items-center gap-6 cursor-pointer w-full"
+                 onclick="window.location.href='{% url 'voiture_exemplaire:voiture_exemplaire' modele.id %}'">
+
                 <div class="flex-1">
                     <h2 class="text-lg font-semibold">{{ modele.nom_modele }}</h2>
                     {% if modele.nom_variante %}
@@ -20,11 +22,30 @@
                         {{ modele.nombre_portes }} {% trans "portes" %}, {{ modele.nbre_places }} {% trans "places" %}
                     </p>
                 </div>
+
+                <!-- Optionnel : petite image ou icône du modèle -->
+                <div class="flex-shrink-0">
+                    <img src="{% static 'images/modele/default.png' %}" alt="{{ modele.nom_modele }}"
+                         class="w-[65px] h-[65px] object-contain">
+                </div>
+
             </div>
             {% endfor %}
+
         </div>
     {% else %}
-        <p class="text-gray-600">{% trans "Aucun modèle enregistré pour cette marque." %}</p>
+        <p class="text-red-600 font-semibold mt-4">
+            {% trans "Aucun modèle enregistré pour cette marque." %}
+        </p>
     {% endif %}
+
 </div>
+
+<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+<script>
+$(document).ready(function(){
+    console.log("Page modèles chargée et jQuery fonctionne !");
+});
+</script>
+
 {% endblock %}

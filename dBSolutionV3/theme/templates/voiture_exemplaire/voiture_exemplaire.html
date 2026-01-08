@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load i18n static %}
+
+{% block content %}
+<div class="mx-4 sm:mx-6 lg:mx-8 p-6 w-full">
+    <h1 class="text-2xl font-bold mb-6">
+        {% trans "Exemplaires de" %} {{ modele.nom_modele }}
+        {% if modele.nom_variante %} - {{ modele.nom_variante }}{% endif %}
+    </h1>
+
+    {% if exemplaires %}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {% for ex in exemplaires %}
+            <div class="bg-white shadow-md hover:shadow-lg rounded-lg p-4">
+                <h2 class="text-lg font-semibold">{{ ex.immatriculation }}</h2>
+                <p class="text-gray-500">
+                    {% trans "Année de production" %}: {{ ex.annee_production }}/{{ ex.mois_production }}
+                </p>
+                <p class="text-gray-500">
+                    {% trans "Kilométrage" %}: {{ ex.kilometres_total }} km
+                </p>
+                <p class="text-gray-500">
+                    {% trans "Couleur" %}: {{ ex.couleur }}
+                </p>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-red-600 font-semibold">
+            {% trans "Ce modèle ne contient aucun exemplaire enregistré." %}
+        </p>
+    {% endif %}
+</div>
+{% endblock %}
