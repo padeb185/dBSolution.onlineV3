@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="traduction italien">
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="traduction Anglais">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/en/LC_MESSAGES/django.mo" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/en/LC_MESSAGES/django.mo" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/en/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/en/LC_MESSAGES/django.po" afterDir="false" />
@@ -189,15 +189,7 @@
       <workItem from="1767775521523" duration="4341000" />
       <workItem from="1767779973943" duration="5282000" />
       <workItem from="1767789112376" duration="4108000" />
-      <workItem from="1767857592024" duration="5101000" />
-    </task>
-    <task id="LOCAL-00139" summary="login utilisateur">
-      <option name="closed" value="true" />
-      <created>1767081594069</created>
-      <option name="number" value="00139" />
-      <option name="presentableId" value="LOCAL-00139" />
-      <option name="project" value="LOCAL" />
-      <updated>1767081594069</updated>
+      <workItem from="1767857592024" duration="6813000" />
     </task>
     <task id="LOCAL-00140" summary="login utilisateur suite">
       <option name="closed" value="true" />
@@ -583,7 +575,15 @@
       <option name="project" value="LOCAL" />
       <updated>1767861458155</updated>
     </task>
-    <option name="localTasksCounter" value="188" />
+    <task id="LOCAL-00188" summary="traduction Anglais">
+      <option name="closed" value="true" />
+      <created>1767862761750</created>
+      <option name="number" value="00188" />
+      <option name="presentableId" value="LOCAL-00188" />
+      <option name="project" value="LOCAL" />
+      <updated>1767862761750</updated>
+    </task>
+    <option name="localTasksCounter" value="189" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -601,7 +601,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="styles.css" />
     <MESSAGE value="Deconnexion" />
     <MESSAGE value="password create user validate_password" />
     <MESSAGE value="voitur_embrayage" />
@@ -626,7 +625,8 @@
     <MESSAGE value="traduction it" />
     <MESSAGE value="role utilisateurs et modele voiture" />
     <MESSAGE value="traduction italien" />
-    <option name="LAST_COMMIT_MESSAGE" value="traduction italien" />
+    <MESSAGE value="traduction Anglais" />
+    <option name="LAST_COMMIT_MESSAGE" value="traduction Anglais" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
