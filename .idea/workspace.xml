@@ -4,14 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="traduction Anglais">
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture_exemplaire/voiture_exemplaire.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dBSolution.onlineV3.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dBSolution.onlineV3.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls_public.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls_public.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture/modeles_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture/modeles_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_exemplaire/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_exemplaire/views.py" afterDir="false" />
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="voiture_exemplaire.html">
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_exemplaire/forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_exemplaire/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -194,15 +189,7 @@
       <workItem from="1767779973943" duration="5282000" />
       <workItem from="1767789112376" duration="4108000" />
       <workItem from="1767857592024" duration="7279000" />
-      <workItem from="1767870680311" duration="1972000" />
-    </task>
-    <task id="LOCAL-00142" summary="RAZ venv et BDD">
-      <option name="closed" value="true" />
-      <created>1767099225862</created>
-      <option name="number" value="00142" />
-      <option name="presentableId" value="LOCAL-00142" />
-      <option name="project" value="LOCAL" />
-      <updated>1767099225862</updated>
+      <workItem from="1767870680311" duration="2801000" />
     </task>
     <task id="LOCAL-00143" summary="3 tenants">
       <option name="closed" value="true" />
@@ -588,7 +575,15 @@
       <option name="project" value="LOCAL" />
       <updated>1767864853018</updated>
     </task>
-    <option name="localTasksCounter" value="191" />
+    <task id="LOCAL-00191" summary="voiture_exemplaire.html">
+      <option name="closed" value="true" />
+      <created>1767872762376</created>
+      <option name="number" value="00191" />
+      <option name="presentableId" value="LOCAL-00191" />
+      <option name="project" value="LOCAL" />
+      <updated>1767872762376</updated>
+    </task>
+    <option name="localTasksCounter" value="192" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -606,7 +601,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Deconnexion" />
     <MESSAGE value="password create user validate_password" />
     <MESSAGE value="voitur_embrayage" />
     <MESSAGE value="transmission, suspension" />
@@ -631,7 +625,8 @@
     <MESSAGE value="role utilisateurs et modele voiture" />
     <MESSAGE value="traduction italien" />
     <MESSAGE value="traduction Anglais" />
-    <option name="LAST_COMMIT_MESSAGE" value="traduction Anglais" />
+    <MESSAGE value="voiture_exemplaire.html" />
+    <option name="LAST_COMMIT_MESSAGE" value="voiture_exemplaire.html" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
