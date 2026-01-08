@@ -19,14 +19,261 @@ class Command(BaseCommand):
         # Marques restantes avec quelques modèles représentatifs
         marques_modeles = {
             # Italie
+            "Range Rover": [
+                {
+                    "modele": "Range Rover",
+                    "variantes": [
+                        "Base / Vogue",
+                        "Autobiography",
+                        "SV Autobiography",
+                        "SV Autobiography Dynamic",
+                        "Long Wheelbase (LWB)"
+                    ]
+                },
+                {
+                    "modele": "Range Rover Sport",
+                    "variantes": [
+                        "S",
+                        "SE",
+                        "Dynamic SE",
+                        "Dynamic HSE",
+                        "Autobiography",
+                        "SVR",
+                        "SV Carbon"
+                    ]
+                },
+                {
+                    "modele": "Range Rover Velar",
+                    "variantes": [
+                        "Standard",
+                        "R‑Dynamic S",
+                        "R‑Dynamic SE",
+                        "R‑Dynamic HSE"
+                    ]
+                },
+                {
+                    "modele": "Range Rover Evoque",
+                    "variantes": [
+                        "S",
+                        "Dynamic SE",
+                        "Dynamic HSE",
+                        "Autobiography"
+                    ]
+                }
+            ],
+
+
+            "Polestar": [
+                {
+                    "modele": "Polestar 1",
+                    "variantes": [
+                        "Standard"
+                    ]
+                },
+                {
+                    "modele": "Polestar 2",
+                    "variantes": [
+                        "Standard Range Single Motor",
+                        "Long Range Single Motor",
+                        "Long Range Dual Motor",
+                        "Long Range Dual Motor Performance"
+                    ]
+                },
+                {
+                    "modele": "Polestar 3",
+                    "variantes": [
+                        "Base",
+                        "Dual Motor",
+                        "Performance"
+                    ]
+                },
+                {
+                    "modele": "Polestar 4",
+                    "variantes": [
+                        "Standard",
+                        "Plus Pack",
+                        "Pilot Pack"
+                    ]
+                },
+                {
+                    "modele": "Polestar 5",
+                    "variantes": [
+                        "Dual Motor",
+                        "Performance"
+                    ]
+                },
+                {
+                    "modele": "Polestar 6",
+                    "variantes": [
+                        "Roadster Standard"
+                    ]
+                },
+                {
+                    "modele": "Polestar 7",
+                    "variantes": [
+                        "Standard"
+                    ]
+                }
+            ],
+            "Peugeot Sport": [
+                {
+                    "modele": "Peugeot 205",
+                    "variantes": [
+                        "GTI 1.6",
+                        "GTI 1.9"
+                    ]
+                },
+                {
+                    "modele": "Peugeot 206",
+                    "variantes": [
+                        "GTI",
+                        "RC",
+                        "S16",
+                        "206 Rallye"
+                    ]
+                },
+                {
+                    "modele": "Peugeot 207",
+                    "variantes": [
+                        "GTi",
+                        "RC",
+                        "207 S2000"
+                    ]
+                },
+                {
+                    "modele": "Peugeot 208",
+                    "variantes": [
+                        "GTi 30th Anniversary",
+                        "GTi by Peugeot Sport",
+                        "e‑208 GTi" # future / relance sport électrique
+                    ]
+                },
+                {
+                    "modele": "Peugeot 308",
+                    "variantes": [
+                        "GTi by Peugeot Sport"
+                    ]
+                },
+                {
+                    "modele": "Peugeot 508",
+                    "variantes": [
+                        "508 PEUGEOT SPORT ENGINEERED",
+                        "508 SW PEUGEOT SPORT ENGINEERED"
+                    ]
+                },
+                {
+                    "modele": "Peugeot 9X8",
+                    "variantes": [
+                        "PEUGEOT Hypercar 9X8" # prototype endurance WEC
+                    ]
+                }
+            ],
+
+
             "Fiat": [
                 {"modele": "500", "variante": "Pop", "portes": 3, "places": 4, "reservoir": 35},
                 {"modele": "Panda", "variante": "City", "portes": 5, "places": 5, "reservoir": 40},
             ],
             "Alfa Romeo": [
+                {"modele": "24 HP", "variante": "Standard", "portes": 4, "places": 5, "reservoir": 60},
+                {"modele": "G1", "variante": "Standard", "portes": 4, "places": 5, "reservoir": 65},
+                {"modele": "6C", "variante": "Standard", "portes": 2, "places": 4, "reservoir": 60},
+                {"modele": "8C 2300", "variante": "Standard", "portes": 2, "places": 2, "reservoir": 70},
+                {"modele": "8C 2900", "variante": "Standard", "portes": 2, "places": 2, "reservoir": 75},
+
+                {"modele": "Giulietta", "variante": "Standard", "portes": 4, "places": 5, "reservoir": 50},
+                {"modele": "Giulietta Spider", "variante": "Standard", "portes": 2, "places": 2, "reservoir": 45},
+                {"modele": "Giulia", "variante": "Standard", "portes": 4, "places": 5, "reservoir": 48},
                 {"modele": "Giulia", "variante": "Veloce", "portes": 4, "places": 5, "reservoir": 48},
+                {"modele": "Giulia GTA", "variante": "Performance", "portes": 4, "places": 5, "reservoir": 50},
+
+                {"modele": "Alfa 1300", "variante": "Standard", "portes": 2, "places": 4, "reservoir": 45},
+                {"modele": "Alfa 1600", "variante": "Standard", "portes": 2, "places": 4, "reservoir": 50},
+                {"modele": "Alfa 1750", "variante": "Standard", "portes": 4, "places": 5, "reservoir": 55},
+                {"modele": "Alfa 2000", "variante": "Standard", "portes": 4, "places": 5, "reservoir": 55},
+                {"modele": "Alfa 2600", "variante": "Standard", "portes": 4, "places": 5, "reservoir": 60},
+                {"modele": "Duetto", "variante": "Spider", "portes": 2, "places": 2, "reservoir": 50},
+
+                {"modele": "Alfasud", "variante": "Standard", "portes": 4, "places": 5, "reservoir": 45},
+                {"modele": "Alfetta", "variante": "Standard", "portes": 4, "places": 5, "reservoir": 50},
+                {"modele": "Alfetta GTV", "variante": "GTV", "portes": 2, "places": 4, "reservoir": 55},
+                {"modele": "75", "variante": "Standard", "portes": 4, "places": 5, "reservoir": 60},
+                {"modele": "90", "variante": "Standard", "portes": 4, "places": 5, "reservoir": 60},
+                {"modele": "164", "variante": "Standard", "portes": 4, "places": 5, "reservoir": 65},
+
+                {"modele": "33", "variante": "Standard", "portes": 3, "places": 5, "reservoir": 50},
+                {"modele": "145", "variante": "Standard", "portes": 5, "places": 5, "reservoir": 50},
+                {"modele": "146", "variante": "Standard", "portes": 5, "places": 5, "reservoir": 50},
+                {"modele": "147", "variante": "Standard", "portes": 3, "places": 5, "reservoir": 50},
+                {"modele": "155", "variante": "Standard", "portes": 4, "places": 5, "reservoir": 55},
+                {"modele": "156", "variante": "Standard", "portes": 4, "places": 5, "reservoir": 55},
+                {"modele": "159", "variante": "Standard", "portes": 4, "places": 5, "reservoir": 60},
+
+                {"modele": "GT", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 60},
+                {"modele": "Brera", "variante": "Standard", "portes": 2, "places": 4, "reservoir": 60},
+                {"modele": "Spider", "variante": "Standard", "portes": 2, "places": 2, "reservoir": 50},
+
+                {"modele": "MiTo", "variante": "Standard", "portes": 3, "places": 5, "reservoir": 45},
+                {"modele": "4C", "variante": "Standard", "portes": 2, "places": 2, "reservoir": 40},
+                {"modele": "4C Spider", "variante": "Spider", "portes": 2, "places": 2, "reservoir": 40},
+
+                {"modele": "Stelvio", "variante": "Standard", "portes": 5, "places": 5, "reservoir": 60},
                 {"modele": "Stelvio", "variante": "Quadrifoglio", "portes": 5, "places": 5, "reservoir": 60},
+                {"modele": "Tonale", "variante": "Base", "portes": 5, "places": 5, "reservoir": 50},
+                {"modele": "Milano", "variante": "Standard", "portes": 5, "places": 5, "reservoir": 50}
             ],
+
+            "BMW M": [
+                {"modele": "M1", "variante": "Standard", "portes": 2, "places": 2, "reservoir": 90},
+
+                {"modele": "M2", "variante": "Standard", "portes": 2, "places": 4, "reservoir": 50},
+                {"modele": "M2", "variante": "Competition", "portes": 2, "places": 4, "reservoir": 50},
+                {"modele": "M2", "variante": "CS", "portes": 2, "places": 4, "reservoir": 50},
+
+                {"modele": "M3", "variante": "Standard", "portes": 4, "places": 5, "reservoir": 60},
+                {"modele": "M3", "variante": "Competition", "portes": 4, "places": 5, "reservoir": 60},
+                {"modele": "M3", "variante": "CS", "portes": 4, "places": 5, "reservoir": 60},
+                {"modele": "M3", "variante": "Touring", "portes": 5, "places": 5, "reservoir": 60},
+
+                {"modele": "M4", "variante": "Standard", "portes": 2, "places": 4, "reservoir": 60},
+                {"modele": "M4", "variante": "Competition", "portes": 2, "places": 4, "reservoir": 60},
+                {"modele": "M4", "variante": "CS", "portes": 2, "places": 4, "reservoir": 60},
+                {"modele": "M4", "variante": "Cabriolet", "portes": 2, "places": 4, "reservoir": 60},
+                {"modele": "M4", "variante": "Competition Cabriolet", "portes": 2, "places": 4, "reservoir": 60},
+
+                {"modele": "M5", "variante": "Standard", "portes": 4, "places": 5, "reservoir": 68},
+                {"modele": "M5", "variante": "Competition", "portes": 4, "places": 5, "reservoir": 68},
+                {"modele": "M5", "variante": "CS", "portes": 4, "places": 5, "reservoir": 68},
+                {"modele": "M5", "variante": "Touring", "portes": 5, "places": 5, "reservoir": 68},
+
+                {"modele": "M6", "variante": "Standard", "portes": 2, "places": 4, "reservoir": 75},
+                {"modele": "M6", "variante": "Competition", "portes": 2, "places": 4, "reservoir": 75},
+                {"modele": "M6", "variante": "Gran Coupe", "portes": 4, "places": 5, "reservoir": 75},
+
+                {"modele": "M8", "variante": "Standard", "portes": 2, "places": 4, "reservoir": 78},
+                {"modele": "M8", "variante": "Competition", "portes": 2, "places": 4, "reservoir": 78},
+                {"modele": "M8", "variante": "Gran Coupe", "portes": 4, "places": 5, "reservoir": 78},
+                {"modele": "M8", "variante": "Competition Gran Coupe", "portes": 4, "places": 5, "reservoir": 78},
+
+                {"modele": "X3 M", "variante": "Standard", "portes": 5, "places": 5, "reservoir": 70},
+                {"modele": "X3 M", "variante": "Competition", "portes": 5, "places": 5, "reservoir": 70},
+
+                {"modele": "X4 M", "variante": "Standard", "portes": 5, "places": 5, "reservoir": 70},
+                {"modele": "X4 M", "variante": "Competition", "portes": 5, "places": 5, "reservoir": 70},
+
+                {"modele": "X5 M", "variante": "Standard", "portes": 5, "places": 5, "reservoir": 85},
+                {"modele": "X5 M", "variante": "Competition", "portes": 5, "places": 5, "reservoir": 85},
+
+                {"modele": "X6 M", "variante": "Standard", "portes": 5, "places": 5, "reservoir": 85},
+                {"modele": "X6 M", "variante": "Competition", "portes": 5, "places": 5, "reservoir": 85},
+
+                {"modele": "XM", "variante": "Standard", "portes": 5, "places": 5, "reservoir": 90},
+                {"modele": "XM", "variante": "Label", "portes": 5, "places": 5, "reservoir": 90},
+                {"modele": "XM", "variante": "50e", "portes": 5, "places": 5, "reservoir": 90}
+            ],
+
+
+
             "Lancia": [
                 {"modele": "Ypsilon", "variante": "Gold", "portes": 5, "places": 5, "reservoir": 40},
             ],
@@ -205,6 +452,71 @@ class Command(BaseCommand):
             ],
 
             "Renault RS": [
+
+            {"modele": "Clio II RS",
+             "variantes": [
+                 "Phase 1",
+                 "Phase 2",
+                 "RS 172",
+                 "RS 182",
+                 "V6 Phase 1",
+                 "V6 Phase 2"
+             ]
+             },
+            {"modele": "Clio III RS",
+             "variantes": [
+                 "Phase 1",
+                 "Phase 2",
+                 "Cup",
+                 "Trophy",
+                 "Gordini"
+             ]
+             },
+            {"modele": "Clio IV RS",
+             "variantes": [
+                 "Phase 1",
+                 "Phase 2",
+                 "Trophy",
+                 "Trophy R"
+             ]
+             },
+            {"modele": "Megane II RS",
+             "variantes": [
+                 "Phase 1",
+                 "Phase 2",
+                 "R26 F1 Team",
+                 "R26.R"
+             ]
+             },
+            {"modele": "Megane III RS",
+             "variantes": [
+                 "Base",
+                 "Trophy",
+                 "Trophy‑R"
+             ]
+             },
+            {"modele": "Megane IV RS",
+             "variantes": [
+                 "Base",
+                 "Trophy",
+                 "Trophy‑R",
+                 "Ultime"
+             ]
+             },
+            {"modele": "Twingo II RS",
+             "variantes": [
+                 "Phase 1",
+                 "Phase 2",
+                 "Gordini"
+             ]
+             },
+            {"modele": "Renault Sport RS 01",
+             "variantes": [
+                 "RS 01 Standard"
+             ]
+             },
+
+
                 # Modèles Renault Sport actuels et récents
                 {"modele": "Clio RS", "variante": None, "portes": 5, "places": 5, "reservoir": 50},  # compacte sportive
                 {"modele": "Megane RS", "variante": None, "portes": 5, "places": 5, "reservoir": 55},
