@@ -3221,74 +3221,52 @@ msgid "Amortisseur G/D"
 msgstr "Schokdemper L/R"
 
 #: .\piece\piece_suspension\models.py:14
-#, fuzzy
-#| msgid "Coquille d’aile"
 msgid "Coupelle d’amortisseur"
-msgstr "Spatbordkap"
+msgstr "Veerschotel"
 
 #: .\piece\piece_suspension\models.py:15
-#, fuzzy
-#| msgid "Rotule de suspension"
 msgid "Butée de suspension"
-msgstr "Ophangkogel"
+msgstr "Ophangingsstop"
 
 #: .\piece\piece_suspension\models.py:16
 msgid "Soufflet d’amortisseur"
-msgstr ""
+msgstr "Stofhoes schokdemper"
 
 #: .\piece\piece_suspension\models.py:17
-#, fuzzy
-#| msgid "Roulement de suspension"
 msgid "Silent bloc de suspension"
-msgstr "Ophanglager"
+msgstr "Rubberbus ophanging"
 
 #: .\piece\piece_suspension\models.py:18
-#, fuzzy
-#| msgid "Rotule de suspension"
 msgid "Kit de suspension"
-msgstr "Ophangkogel"
+msgstr "Ophangingsset"
 
 #: .\piece\piece_suspension\models.py:19
-#, fuzzy
-#| msgid "Plateau de pression"
 msgid "Cales de ressort"
-msgstr "Drukplaat"
+msgstr "Veerafstandhouders"
 
 #: .\piece\piece_suspension\models.py:20
-#, fuzzy
-#| msgid "Collecteur d’échappement"
 msgid "Correcteur d’assiette"
-msgstr "Uitlaatkrans"
+msgstr "Niveau-corrector"
 
 #: .\piece\piece_suspension\models.py:21
-#, fuzzy
-#| msgid "Bloc hydraulique"
 msgid "Suspension hydraulique"
-msgstr "Hydraulische blok"
+msgstr "Hydraulische ophanging"
 
 #: .\piece\piece_suspension\models.py:22
-#, fuzzy
-#| msgid "Suspension multi bras"
 msgid "Suspension pneumatique"
-msgstr "Multilink ophanging"
+msgstr "Luchtvering"
 
 #: .\piece\piece_suspension\models.py:28
-#, fuzzy
-#| msgid "Type de pièce de direction"
 msgid "Type de pièce suspension"
-msgstr "Type stuuronderdeel"
+msgstr "Type ophangingsonderdeel"
 
 #: .\piece\piece_suspension\models.py:39
-#, fuzzy
-#| msgid "Rotule de suspension"
 msgid "Pièce de suspension"
-msgstr "Ophangkogel"
+msgstr "Ophangingsonderdeel"
 
 #: .\piece\piece_suspension\models.py:40
-#, fuzzy
-#| msgid "Rotule de suspension"
 msgid "Pièces de suspension"
-msgstr "Ophangkogel"
+msgstr "Ophangingsonderdelen"
 
 #: .\piece\piece_train_AR\models.py:9 .\piece\piece_train_AV\models.py:8
 msgid "Berceau"
@@ -3383,180 +3361,148 @@ msgid "Pièces train avant"
 msgstr "Voorasonderdelen"
 
 #: .\piece\piece_transmission\models.py:11
-#, fuzzy
-#| msgid "Avant gauche"
 msgid "Cardan avant gauche"
-msgstr "Links"
+msgstr "Linker voorste aandrijfas"
 
 #: .\piece\piece_transmission\models.py:12
-#, fuzzy
-#| msgid "Avant droit"
 msgid "Cardan avant droit"
-msgstr "Rechts"
+msgstr "Rechter voorste aandrijfas"
 
 #: .\piece\piece_transmission\models.py:13
-#, fuzzy
-#| msgid "Arrière gauche"
 msgid "Cardan arrière gauche"
-msgstr "Achter links"
+msgstr "Linker achterste aandrijfas"
 
 #: .\piece\piece_transmission\models.py:14
-#, fuzzy
-#| msgid "Arrière"
 msgid "Cardan arrière droit"
-msgstr "Achter rechts"
+msgstr "Rechter achterste aandrijfas"
 
 #: .\piece\piece_transmission\models.py:17
 msgid "Noix de cardan"
-msgstr ""
+msgstr "Aandrijfaskop"
 
 #: .\piece\piece_transmission\models.py:18
-#, fuzzy
-#| msgid "Type de carburant"
 msgid "Tulipe de cardan"
-msgstr "Brandstoftype"
+msgstr "Aandrijfastulp"
 
 #: .\piece\piece_transmission\models.py:19
 msgid "Joint homocinétique extérieur"
-msgstr ""
+msgstr "Buitenste homokineet"
 
 #: .\piece\piece_transmission\models.py:20
-#, fuzzy
-#| msgid "Boîtier servitude intérieur"
 msgid "Joint homocinétique intérieur"
-msgstr "Interne stuurunit"
+msgstr "Binnenste homokineet"
 
 #: .\piece\piece_transmission\models.py:21
 msgid "Tripode"
-msgstr ""
+msgstr "Tripode"
 
 #: .\piece\piece_transmission\models.py:22
-#, fuzzy
-#| msgid "Barre de torsion"
 msgid "Galet de tripode"
-msgstr "Torsiestang"
+msgstr "Tripode-rol"
 
 #: .\piece\piece_transmission\models.py:23
 msgid "Étoile de cardan"
-msgstr ""
+msgstr "Aandrijfasster"
 
 #: .\piece\piece_transmission\models.py:24
 msgid "Cage à billes"
-msgstr ""
+msgstr "Kogelkern"
 
 #: .\piece\piece_transmission\models.py:25
-#, fuzzy
-#| msgid "Type de carburant"
 msgid "Billes de cardan"
-msgstr "Brandstoftype"
+msgstr "Aandrijfaskogels"
 
 #: .\piece\piece_transmission\models.py:26
-#, fuzzy
-#| msgid "Type de carburant"
 msgid "Axe de cardan"
-msgstr "Brandstoftype"
+msgstr "Aandrijfasas"
 
 #: .\piece\piece_transmission\models.py:29
 msgid "Soufflet de cardan intérieur"
-msgstr ""
+msgstr "Binnenste aandrijfashoes"
 
 #: .\piece\piece_transmission\models.py:30
 msgid "Soufflet de cardan extérieur"
-msgstr ""
+msgstr "Buitenste aandrijfashoes"
 
 #: .\piece\piece_transmission\models.py:31
-#, fuzzy
-#| msgid "Colliers"
 msgid "Collier de serrage"
-msgstr "Scherm"
+msgstr "Klemring"
 
 #: .\piece\piece_transmission\models.py:33
 msgid "Circlip"
-msgstr ""
+msgstr "Borgring"
 
 #: .\piece\piece_transmission\models.py:34
 msgid "Graisse de cardan"
-msgstr ""
+msgstr "Aandrijfashuisvet"
 
 #: .\piece\piece_transmission\models.py:38
-#, fuzzy
-#| msgid "Arbre de transmission"
 msgid "Palier d’arbre de transmission"
-msgstr "Aandrijfas"
+msgstr "Aandrijfaslager"
 
 #: .\piece\piece_transmission\models.py:39
-#, fuzzy
-#| msgid "Support de radiateur"
 msgid "Support de palier"
-msgstr "Radiatorsteun"
+msgstr "Lagersteun"
 
 #: .\piece\piece_transmission\models.py:40
 msgid "Croisillon"
-msgstr ""
+msgstr "Kruiskoppeling"
 
 #: .\piece\piece_transmission\models.py:41
 msgid "Flector"
-msgstr ""
+msgstr "Flexibele koppeling"
 
 #: .\piece\piece_transmission\models.py:42
-#, fuzzy
-#| msgid "Huile de transmission"
 msgid "Bride de transmission"
-msgstr "Transmissieolie"
+msgstr "Aandrijfflens"
 
 #: .\piece\piece_transmission\models.py:46
 msgid "Kit soufflet de cardan"
-msgstr ""
+msgstr "Aandrijfashoes-set"
 
 #: .\piece\piece_transmission\models.py:47
 msgid "Kit joint de cardan"
-msgstr ""
+msgstr "Aandrijfaskoppeling-set"
 
 #: .\piece\piece_transmission\models.py:48
 msgid "Kit cardan complet"
-msgstr ""
+msgstr "Complete aandrijfas-set"
 
 #: .\piece\piece_transmission\models.py:49
-#, fuzzy
-#| msgid "Arbre de transmission"
 msgid "Kit arbre de transmission"
-msgstr "Aandrijfas"
+msgstr "Aandrijfas-set"
 
 #: .\piece\piece_transmission\models.py:55
-#, fuzzy
-#| msgid "Type de pièce de climatisation"
 msgid "Type de pièce de transmission"
-msgstr "Type aircopart"
+msgstr "Type transmissieonderdeel"
 
 #: .\piece\piece_transmission\models.py:66
-#, fuzzy
-#| msgid "Huile de transmission"
 msgid "Pièce de transmission"
-msgstr "Transmissieolie"
+msgstr "Transmissieonderdeel"
 
 #: .\piece\piece_transmission\models.py:67
-#, fuzzy
-#| msgid "Huile de transmission"
 msgid "Pièces de transmission"
-msgstr "Transmissieolie"
+msgstr "Transmissieonderdelen"
 
 #: .\theme\templates\404.html:5 .\theme\templates\404.html:18
 msgid "Page introuvable"
-msgstr ""
+msgstr "Pagina niet gevonden"
 
 #: .\theme\templates\404.html:23
 msgid ""
 "Le site est actuellement en construction ou la page demandée n'existe pas "
 "encore. Certaines fonctionnalités peuvent être temporairement indisponibles."
 msgstr ""
+"De website is momenteel in aanbouw of de opgevraagde pagina bestaat nog niet. "
+"Sommige functies kunnen tijdelijk niet beschikbaar zijn."
 
 #: .\theme\templates\404.html:32
 msgid "Retour à la page précédente"
-msgstr ""
+msgstr "Terug naar de vorige pagina"
 
 #: .\theme\templates\404.html:38
 msgid "Retour à l'accueil"
-msgstr ""
+msgstr "Terug naar de startpagina"
 
 #: .\theme\templates\base.html:9
 msgid "dBSolution"
@@ -3571,10 +3517,8 @@ msgid "Tableau de Bord"
 msgstr "Dashboard"
 
 #: .\theme\templates\base.html:38
-#, fuzzy
-#| msgid "Échangeur"
 msgid "Changer"
-msgstr "Warmtewisselaar"
+msgstr "Wijzigen"
 
 #: .\theme\templates\dashboard.html:8 .\theme\views.py:81
 msgid "Bienvenue sur ton tableau de bord"
@@ -3625,10 +3569,9 @@ msgid "Modification de projet"
 msgstr "Project bewerken"
 
 #: .\theme\templates\dashboard.html:62 .\theme\templates\voiture\marques.html:8
-#, fuzzy
-#| msgid "Vitres de porte"
 msgid "Marques de voiture"
-msgstr "Deurruiten"
+msgstr "Automerken"
+
 
 #: .\theme\templates\home.html:20
 msgid "Bienvenue"
@@ -3671,44 +3614,38 @@ msgid "Aucun secret TOTP configuré pour ce compte."
 msgstr "Geen TOTP-secret ingesteld voor dit account."
 
 #: .\theme\templates\totp\setup.html:33
-#, fuzzy
-#| msgid "Veuillez entrer le code généré par Google Authenticator"
 msgid "Code généré par Google Authenticator"
-msgstr "Voer de door Google Authenticator gegenereerde code in"
+msgstr "Code gegenereerd door Google Authenticator"
 
 #: .\theme\templates\totp\setup.html:39
-#, fuzzy
-#| msgid "Validé"
 msgid "Valider"
-msgstr "Goedgekeurd"
+msgstr "Bevestigen"
 
 #: .\theme\templates\voiture\marques.html:14
 msgid "Mes marques favorites"
-msgstr ""
+msgstr "Mijn favoriete merken"
 
 #: .\theme\templates\voiture\marques.html:45
 msgid "Voir les modèles de cette marque"
-msgstr ""
+msgstr "De modellen van dit merk bekijken"
 
 #: .\theme\templates\voiture\modeles_list.html:7
-#, fuzzy
-#| msgid "Modèle"
 msgid "Modèles de"
-msgstr "Model"
+msgstr "Modellen van"
+
 
 #: .\theme\templates\voiture\modeles_list.html:20
-#, fuzzy
-#| msgid "Porte"
 msgid "portes"
 msgstr "Deur"
 
 #: .\theme\templates\voiture\modeles_list.html:20
 msgid "places"
-msgstr ""
+msgstr "plaatsen"
 
 #: .\theme\templates\voiture\modeles_list.html:27
 msgid "Aucun modèle enregistré pour cette marque."
-msgstr ""
+msgstr "Geen model geregistreerd voor dit merk."
+
 
 #: .\theme\views.py:35
 msgid "Nom d'utilisateur ou mot de passe incorrect"
@@ -3719,86 +3656,64 @@ msgid "Code de vérification invalide."
 msgstr "Ongeldige verificatiecode."
 
 #: .\utilisateurs\direction\models.py:10
-#, fuzzy
-#| msgid "Aspirateur"
 msgid "Administrateur"
-msgstr "Stofzuigen"
+msgstr "Beheerder"
 
 #: .\utilisateurs\direction\models.py:11
-#, fuzzy
-#| msgid "Maintenance"
 msgid "Finance"
-msgstr "Onderhoud"
+msgstr "Financiën"
 
 #: .\utilisateurs\direction\models.py:12
-#, fuzzy
-#| msgid "Ressorts de Soupapes"
 msgid "Ressources Humaines"
-msgstr "Klepveren"
+msgstr "Human Resources"
 
 #: .\utilisateurs\direction\models.py:13
-#, fuzzy
-#| msgid "Observation"
 msgid "Operations"
-msgstr "Opmerking"
+msgstr "Operationele zaken"
 
 #: .\utilisateurs\models.py:75 .\utilisateurs\views.py:116
-#, fuzzy
-#| msgid "Panier"
 msgid "Magasinier"
-msgstr "Winkelmand"
+msgstr "Magazijnier"
 
 #: .\utilisateurs\models.py:76 .\utilisateurs\views.py:114
-#, fuzzy
-#| msgid "Carrosserie"
 msgid "Carrossier"
-msgstr "Carrosserie"
+msgstr "Carrosseriehersteller"
 
 #: .\utilisateurs\models.py:77 .\utilisateurs\views.py:115
-#, fuzzy
-#| msgid "Chef mécanicien"
 msgid "Chef Mécanicien"
 msgstr "Hoofdmonteur"
 
 #: .\utilisateurs\models.py:78 .\utilisateurs\views.py:117
-#, fuzzy
-#| msgid "Conducteur"
 msgid "Instructeur"
-msgstr "Bestuurder"
+msgstr "Instructeur"
 
 #: .\utilisateurs\models.py:79 .\utilisateurs\views.py:118
 msgid "Instructeur Externe"
-msgstr ""
+msgstr "Externe instructeur"
 
 #: .\utilisateurs\models.py:80 .\utilisateurs\views.py:119
-#, fuzzy
-#| msgid "Galet Tendeur"
 msgid "Vendeur"
-msgstr "Spanrol"
+msgstr "Verkoper"
 
 #: .\utilisateurs\models.py:81 .\utilisateurs\views.py:120
 msgid "Comptable"
-msgstr ""
+msgstr "Boekhouder"
 
 #: .\utilisateurs\models.py:82 .\utilisateurs\views.py:121
-#, fuzzy
-#| msgid "Description"
 msgid "Direction"
-msgstr "Beschrijving"
+msgstr "Directie"
 
 #: .\utilisateurs\views.py:80
-#, fuzzy
-#| msgid "Joint moteur"
 msgid "Révision moteur"
-msgstr "Motorpakking"
+msgstr "Motorrevisie"
 
 #: .\utilisateurs\views.py:81
 msgid "Changement filtre"
-msgstr ""
+msgstr "Filtervervanging"
 
 #: .\utilisateurs\views.py:108 .\utilisateurs\views.py:123
 msgid "Rôle inconnu"
-msgstr ""
+msgstr "Onbekende rol"
 
 #~ msgid "Adresse email ou mot de passe incorrect"
 #~ msgstr "E-mailadres of wachtwoord onjuist"
