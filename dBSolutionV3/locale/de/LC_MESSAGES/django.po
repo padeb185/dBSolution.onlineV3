@@ -3473,84 +3473,70 @@ msgid "Graisse de cardan"
 msgstr ""
 
 #: .\piece\piece_transmission\models.py:38
-#, fuzzy
-#| msgid "Arbre de transmission"
 msgid "Palier d’arbre de transmission"
-msgstr "Antriebswelle"
+msgstr "Lager des Antriebswellen"
 
 #: .\piece\piece_transmission\models.py:39
-#, fuzzy
-#| msgid "Support de radiateur"
 msgid "Support de palier"
-msgstr "Kühlerträger"
+msgstr "Lagerträger"
 
 #: .\piece\piece_transmission\models.py:40
 msgid "Croisillon"
-msgstr ""
+msgstr "Kreuzgelenk"
 
 #: .\piece\piece_transmission\models.py:41
 msgid "Flector"
-msgstr ""
+msgstr "Flector"
 
 #: .\piece\piece_transmission\models.py:42
-#, fuzzy
-#| msgid "Huile de transmission"
 msgid "Bride de transmission"
-msgstr "Getriebeöl"
+msgstr "Antriebsflansch"
 
 #: .\piece\piece_transmission\models.py:46
 msgid "Kit soufflet de cardan"
-msgstr ""
+msgstr "Gelenkwellengelenksatz"
 
 #: .\piece\piece_transmission\models.py:47
 msgid "Kit joint de cardan"
-msgstr ""
+msgstr "Gelenkdichtungssatz"
 
 #: .\piece\piece_transmission\models.py:48
 msgid "Kit cardan complet"
-msgstr ""
+msgstr "Kompletter Gelenkwellensatz"
 
 #: .\piece\piece_transmission\models.py:49
-#, fuzzy
-#| msgid "Arbre de transmission"
 msgid "Kit arbre de transmission"
-msgstr "Antriebswelle"
+msgstr "Antriebswelle-Set"
 
 #: .\piece\piece_transmission\models.py:55
-#, fuzzy
-#| msgid "Type de pièce de climatisation"
 msgid "Type de pièce de transmission"
-msgstr "Art des Klimaanlagenteils"
+msgstr "Typ des Antriebswellen-Teils"
 
 #: .\piece\piece_transmission\models.py:66
-#, fuzzy
-#| msgid "Huile de transmission"
 msgid "Pièce de transmission"
-msgstr "Getriebeöl"
+msgstr "Antriebswellen-Teil"
 
 #: .\piece\piece_transmission\models.py:67
-#, fuzzy
-#| msgid "Huile de transmission"
 msgid "Pièces de transmission"
-msgstr "Getriebeöl"
+msgstr "Antriebswellen-Teile"
 
 #: .\theme\templates\404.html:5 .\theme\templates\404.html:18
 msgid "Page introuvable"
-msgstr ""
+msgstr "Seite nicht gefunden"
 
 #: .\theme\templates\404.html:23
 msgid ""
 "Le site est actuellement en construction ou la page demandée n'existe pas "
 "encore. Certaines fonctionnalités peuvent être temporairement indisponibles."
-msgstr ""
+msgstr "Die Website befindet sich derzeit im Aufbau oder die angeforderte Seite existiert noch nicht. Einige Funktionen können vorübergehend nicht verfügbar sein."
 
 #: .\theme\templates\404.html:32
 msgid "Retour à la page précédente"
-msgstr ""
+msgstr "Zurück zur vorherigen Seite"
 
 #: .\theme\templates\404.html:38
 msgid "Retour à l'accueil"
-msgstr ""
+msgstr "Zur Startseite"
 
 #: .\theme\templates\base.html:9
 msgid "dBSolution"
@@ -3565,10 +3551,8 @@ msgid "Tableau de Bord"
 msgstr "Dashboard"
 
 #: .\theme\templates\base.html:38
-#, fuzzy
-#| msgid "Échangeur"
 msgid "Changer"
-msgstr "Wärmetauscher"
+msgstr "Ändern"
 
 #: .\theme\templates\dashboard.html:8 .\theme\views.py:81
 msgid "Bienvenue sur ton tableau de bord"
@@ -3619,10 +3603,9 @@ msgid "Modification de projet"
 msgstr "Projektbearbeitung"
 
 #: .\theme\templates\dashboard.html:62 .\theme\templates\voiture\marques.html:8
-#, fuzzy
-#| msgid "Vitres de porte"
 msgid "Marques de voiture"
-msgstr "Türscheiben"
+msgstr "Automarken"
+
 
 #: .\theme\templates\home.html:20
 msgid "Bienvenue"
@@ -3668,44 +3651,37 @@ msgid "Aucun secret TOTP configuré pour ce compte."
 msgstr "Kein TOTP-Geheimnis für dieses Konto konfiguriert."
 
 #: .\theme\templates\totp\setup.html:33
-#, fuzzy
-#| msgid "Veuillez entrer le code généré par Google Authenticator"
 msgid "Code généré par Google Authenticator"
-msgstr "Bitte geben Sie den von Google Authenticator generierten Code ein"
+msgstr "Von Google Authenticator generierter Code"
 
 #: .\theme\templates\totp\setup.html:39
-#, fuzzy
-#| msgid "Validé"
 msgid "Valider"
-msgstr "Bestätigt"
+msgstr "Bestätigen"
 
 #: .\theme\templates\voiture\marques.html:14
 msgid "Mes marques favorites"
-msgstr ""
+msgstr "Meine Lieblingsmarken"
 
 #: .\theme\templates\voiture\marques.html:45
 msgid "Voir les modèles de cette marque"
-msgstr ""
+msgstr "Modelle dieser Marke anzeigen"
 
 #: .\theme\templates\voiture\modeles_list.html:7
-#, fuzzy
-#| msgid "Modèle"
 msgid "Modèles de"
-msgstr "Modell"
+msgstr "Modelle von"
 
 #: .\theme\templates\voiture\modeles_list.html:20
-#, fuzzy
-#| msgid "Porte"
 msgid "portes"
-msgstr "Tür"
+msgstr "Türen"
 
 #: .\theme\templates\voiture\modeles_list.html:20
 msgid "places"
-msgstr ""
+msgstr "Sitze"
 
 #: .\theme\templates\voiture\modeles_list.html:27
 msgid "Aucun modèle enregistré pour cette marque."
-msgstr ""
+msgstr "Für diese Marke sind keine Modelle gespeichert."
+
 
 #: .\theme\views.py:35
 msgid "Nom d'utilisateur ou mot de passe incorrect"
@@ -3716,86 +3692,64 @@ msgid "Code de vérification invalide."
 msgstr "Ungültiger Bestätigungscode."
 
 #: .\utilisateurs\direction\models.py:10
-#, fuzzy
-#| msgid "Aspirateur"
 msgid "Administrateur"
-msgstr "Staubsauger"
+msgstr "Administrator"
 
 #: .\utilisateurs\direction\models.py:11
-#, fuzzy
-#| msgid "Maintenance"
 msgid "Finance"
-msgstr "Wartung"
+msgstr "Finanzen"
 
 #: .\utilisateurs\direction\models.py:12
-#, fuzzy
-#| msgid "Ressorts de Soupapes"
 msgid "Ressources Humaines"
-msgstr "Ventilfedern"
+msgstr "Personalwesen"
 
 #: .\utilisateurs\direction\models.py:13
-#, fuzzy
-#| msgid "Observation"
 msgid "Operations"
-msgstr "Beobachtung"
+msgstr "Betrieb"
 
 #: .\utilisateurs\models.py:75 .\utilisateurs\views.py:116
-#, fuzzy
-#| msgid "Panier"
 msgid "Magasinier"
-msgstr "Warenkorb"
+msgstr "Lagerist"
 
 #: .\utilisateurs\models.py:76 .\utilisateurs\views.py:114
-#, fuzzy
-#| msgid "Carrosserie"
 msgid "Carrossier"
-msgstr "Karosserie"
+msgstr "Karosseriebauer"
 
 #: .\utilisateurs\models.py:77 .\utilisateurs\views.py:115
-#, fuzzy
-#| msgid "Chef mécanicien"
 msgid "Chef Mécanicien"
 msgstr "Werkstattleiter"
-
 #: .\utilisateurs\models.py:78 .\utilisateurs\views.py:117
-#, fuzzy
-#| msgid "Conducteur"
 msgid "Instructeur"
-msgstr "Fahrer"
+msgstr "Instruktor"
 
 #: .\utilisateurs\models.py:79 .\utilisateurs\views.py:118
 msgid "Instructeur Externe"
-msgstr ""
+msgstr "Externer Instruktor"
 
 #: .\utilisateurs\models.py:80 .\utilisateurs\views.py:119
-#, fuzzy
-#| msgid "Galet Tendeur"
 msgid "Vendeur"
-msgstr "Spannrolle"
+msgstr "Verkäufer"
 
 #: .\utilisateurs\models.py:81 .\utilisateurs\views.py:120
 msgid "Comptable"
-msgstr ""
+msgstr "Buchhalter"
 
 #: .\utilisateurs\models.py:82 .\utilisateurs\views.py:121
-#, fuzzy
-#| msgid "Description"
 msgid "Direction"
-msgstr "Beschreibung"
+msgstr "Geschäftsführung"
 
 #: .\utilisateurs\views.py:80
-#, fuzzy
-#| msgid "Joint moteur"
 msgid "Révision moteur"
-msgstr "Motordichtung"
+msgstr "Motorwartung"
 
 #: .\utilisateurs\views.py:81
 msgid "Changement filtre"
-msgstr ""
+msgstr "Filterwechsel"
 
 #: .\utilisateurs\views.py:108 .\utilisateurs\views.py:123
 msgid "Rôle inconnu"
-msgstr ""
+msgstr "Unbekannte Rolle"
+
 
 #~ msgid "Adresse email ou mot de passe incorrect"
 #~ msgstr "E-Mail-Adresse oder Passwort ungültig"
