@@ -3227,74 +3227,52 @@ msgid "Amortisseur G/D"
 msgstr "Shock absorber L/R"
 
 #: .\piece\piece_suspension\models.py:14
-#, fuzzy
-#| msgid "Coquille d’aile"
 msgid "Coupelle d’amortisseur"
-msgstr "Fender liner"
+msgstr "Strut Mount"
 
 #: .\piece\piece_suspension\models.py:15
-#, fuzzy
-#| msgid "Rotule de suspension"
 msgid "Butée de suspension"
-msgstr "Suspension ball joint"
+msgstr "Suspension Stop"
 
 #: .\piece\piece_suspension\models.py:16
 msgid "Soufflet d’amortisseur"
-msgstr ""
+msgstr "Shock Boot"
 
 #: .\piece\piece_suspension\models.py:17
-#, fuzzy
-#| msgid "Roulement de suspension"
 msgid "Silent bloc de suspension"
-msgstr "Suspension bearing"
+msgstr "Suspension Bushing"
 
 #: .\piece\piece_suspension\models.py:18
-#, fuzzy
-#| msgid "Rotule de suspension"
 msgid "Kit de suspension"
-msgstr "Suspension ball joint"
+msgstr "Suspension Kit"
 
 #: .\piece\piece_suspension\models.py:19
-#, fuzzy
-#| msgid "Plateau de pression"
 msgid "Cales de ressort"
-msgstr "Pressure plate"
+msgstr "Spring Shims"
 
 #: .\piece\piece_suspension\models.py:20
-#, fuzzy
-#| msgid "Collecteur d’échappement"
 msgid "Correcteur d’assiette"
-msgstr "Exhaust manifold"
+msgstr "Height Adjuster"
 
 #: .\piece\piece_suspension\models.py:21
-#, fuzzy
-#| msgid "Bloc hydraulique"
 msgid "Suspension hydraulique"
-msgstr "Hydraulic block"
+msgstr "Hydraulic Suspension"
 
 #: .\piece\piece_suspension\models.py:22
-#, fuzzy
-#| msgid "Suspension multi bras"
 msgid "Suspension pneumatique"
-msgstr "Multi-link suspension"
+msgstr "Air Suspension"
 
 #: .\piece\piece_suspension\models.py:28
-#, fuzzy
-#| msgid "Type de pièce de direction"
 msgid "Type de pièce suspension"
-msgstr "Steering part type"
+msgstr "Suspension Part Type"
 
 #: .\piece\piece_suspension\models.py:39
-#, fuzzy
-#| msgid "Rotule de suspension"
 msgid "Pièce de suspension"
-msgstr "Suspension ball joint"
+msgstr "Suspension Part"
 
-#: .\piece\piece_suspension\models.py:40
-#, fuzzy
-#| msgid "Rotule de suspension"
+#: .\piece\piece_suspension\models.py:4
 msgid "Pièces de suspension"
-msgstr "Suspension ball joint"
+msgstr "Suspension Parts"
 
 #: .\piece\piece_train_AR\models.py:9 .\piece\piece_train_AV\models.py:8
 msgid "Berceau"
@@ -3389,180 +3367,149 @@ msgid "Pièces train avant"
 msgstr "Front axle parts"
 
 #: .\piece\piece_transmission\models.py:11
-#, fuzzy
-#| msgid "Avant gauche"
 msgid "Cardan avant gauche"
-msgstr "Front left"
+msgstr "Front Left Drive Shaft"
 
 #: .\piece\piece_transmission\models.py:12
-#, fuzzy
-#| msgid "Avant droit"
 msgid "Cardan avant droit"
-msgstr "Front right"
+msgstr "Front Right Drive Shaft"
 
 #: .\piece\piece_transmission\models.py:13
-#, fuzzy
-#| msgid "Arrière gauche"
 msgid "Cardan arrière gauche"
-msgstr "Rear left"
+msgstr "Rear Left Drive Shaft"
 
 #: .\piece\piece_transmission\models.py:14
-#, fuzzy
-#| msgid "Arrière droit"
 msgid "Cardan arrière droit"
-msgstr "Rear right"
+msgstr "Rear Right Drive Shaft"
 
 #: .\piece\piece_transmission\models.py:17
 msgid "Noix de cardan"
-msgstr ""
+msgstr "CV Joint Yoke"
 
 #: .\piece\piece_transmission\models.py:18
-#, fuzzy
-#| msgid "Type de carburant"
 msgid "Tulipe de cardan"
-msgstr "Fuel type"
+msgstr "CV Joint Spider"
 
 #: .\piece\piece_transmission\models.py:19
 msgid "Joint homocinétique extérieur"
-msgstr ""
+msgstr "Outer CV Joint"
 
 #: .\piece\piece_transmission\models.py:20
-#, fuzzy
-#| msgid "Boîtier servitude intérieur"
 msgid "Joint homocinétique intérieur"
-msgstr "Interior control module"
+msgstr "Inner CV Joint"
 
 #: .\piece\piece_transmission\models.py:21
 msgid "Tripode"
-msgstr ""
+msgstr "Tripod Joint"
 
 #: .\piece\piece_transmission\models.py:22
-#, fuzzy
-#| msgid "Barre de torsion"
 msgid "Galet de tripode"
-msgstr "Torsion bar"
+msgstr "Tripod Roller"
 
 #: .\piece\piece_transmission\models.py:23
 msgid "Étoile de cardan"
-msgstr ""
+msgstr "CV Joint Star"
 
 #: .\piece\piece_transmission\models.py:24
 msgid "Cage à billes"
-msgstr ""
+msgstr "Ball Cage"
 
 #: .\piece\piece_transmission\models.py:25
-#, fuzzy
-#| msgid "Type de carburant"
 msgid "Billes de cardan"
-msgstr "Fuel type"
+msgstr "CV Balls"
 
 #: .\piece\piece_transmission\models.py:26
-#, fuzzy
-#| msgid "Type de carburant"
 msgid "Axe de cardan"
-msgstr "Fuel type"
+msgstr "Drive Shaft"
 
 #: .\piece\piece_transmission\models.py:29
 msgid "Soufflet de cardan intérieur"
-msgstr ""
+msgstr "Inner CV Boot"
 
 #: .\piece\piece_transmission\models.py:30
 msgid "Soufflet de cardan extérieur"
-msgstr ""
+msgstr "Outer CV Boot"
 
 #: .\piece\piece_transmission\models.py:31
-#, fuzzy
-#| msgid "Colliers"
 msgid "Collier de serrage"
-msgstr "Clamps"
+msgstr "Clamp"
 
 #: .\piece\piece_transmission\models.py:33
 msgid "Circlip"
-msgstr ""
+msgstr "Circlip"
 
 #: .\piece\piece_transmission\models.py:34
 msgid "Graisse de cardan"
-msgstr ""
+msgstr "CV Joint Grease"
 
 #: .\piece\piece_transmission\models.py:38
-#, fuzzy
-#| msgid "Arbre de transmission"
 msgid "Palier d’arbre de transmission"
-msgstr "Drive shaft"
+msgstr "Transmission Shaft Bearing"
 
 #: .\piece\piece_transmission\models.py:39
-#, fuzzy
-#| msgid "Support de radiateur"
 msgid "Support de palier"
-msgstr "Radiator support"
+msgstr "Bearing Support"
 
 #: .\piece\piece_transmission\models.py:40
 msgid "Croisillon"
-msgstr ""
+msgstr "Universal Joint Cross"
 
 #: .\piece\piece_transmission\models.py:41
 msgid "Flector"
-msgstr ""
+msgstr "Flector"
 
 #: .\piece\piece_transmission\models.py:42
-#, fuzzy
-#| msgid "Huile de transmission"
 msgid "Bride de transmission"
-msgstr "Transmission oil"
+msgstr "Transmission Flange"
 
 #: .\piece\piece_transmission\models.py:46
 msgid "Kit soufflet de cardan"
-msgstr ""
+msgstr "CV Boot Kit"
 
 #: .\piece\piece_transmission\models.py:47
 msgid "Kit joint de cardan"
-msgstr ""
+msgstr "CV Joint Kit"
 
 #: .\piece\piece_transmission\models.py:48
 msgid "Kit cardan complet"
-msgstr ""
+msgstr "Complete Drive Shaft Kit"
 
 #: .\piece\piece_transmission\models.py:49
-#, fuzzy
-#| msgid "Arbre de transmission"
 msgid "Kit arbre de transmission"
-msgstr "Drive shaft"
+msgstr "Transmission Shaft Kit"
 
 #: .\piece\piece_transmission\models.py:55
-#, fuzzy
-#| msgid "Type de pièce de climatisation"
 msgid "Type de pièce de transmission"
-msgstr "AC part type"
+msgstr "Transmission Part Type"
 
 #: .\piece\piece_transmission\models.py:66
-#, fuzzy
-#| msgid "Huile de transmission"
 msgid "Pièce de transmission"
-msgstr "Transmission oil"
+msgstr "Transmission Part"
 
 #: .\piece\piece_transmission\models.py:67
-#, fuzzy
-#| msgid "Huile de transmission"
 msgid "Pièces de transmission"
-msgstr "Transmission oil"
+msgstr "Transmission Parts"
+
 
 #: .\theme\templates\404.html:5 .\theme\templates\404.html:18
 msgid "Page introuvable"
-msgstr ""
+msgstr "Page Not Found"
 
 #: .\theme\templates\404.html:23
 msgid ""
 "Le site est actuellement en construction ou la page demandée n'existe pas "
 "encore. Certaines fonctionnalités peuvent être temporairement indisponibles."
 msgstr ""
+"The site is currently under construction or the requested page does not yet exist. Some features may be temporarily unavailable."
 
 #: .\theme\templates\404.html:32
 msgid "Retour à la page précédente"
-msgstr ""
+msgstr "Back to the previous page"
 
 #: .\theme\templates\404.html:38
 msgid "Retour à l'accueil"
-msgstr ""
+msgstr "Back to Home"
+
 
 #: .\theme\templates\base.html:9
 msgid "dBSolution"
@@ -3577,10 +3524,8 @@ msgid "Tableau de Bord"
 msgstr "Dashboard"
 
 #: .\theme\templates\base.html:38
-#, fuzzy
-#| msgid "Échangeur"
 msgid "Changer"
-msgstr "Heat exchanger"
+msgstr "Change"
 
 #: .\theme\templates\dashboard.html:8 .\theme\views.py:81
 msgid "Bienvenue sur ton tableau de bord"
@@ -3592,7 +3537,7 @@ msgstr "Users"
 
 #: .\theme\templates\dashboard.html:15 .\theme\templates\dashboard.html:63
 msgid "Nombre total :"
-msgstr "Total:"
+msgstr "Total number :"
 
 #: .\theme\templates\dashboard.html:20
 msgid "Projets"
@@ -3624,25 +3569,23 @@ msgstr "Action"
 
 #: .\theme\templates\dashboard.html:47
 msgid "Connexion"
-msgstr ""
+msgstr "Login"
 
 #: .\theme\templates\dashboard.html:52
 msgid "Modification de projet"
-msgstr ""
+msgstr "Project Edit"
 
 #: .\theme\templates\dashboard.html:62 .\theme\templates\voiture\marques.html:8
-#, fuzzy
-#| msgid "Vitres de porte"
 msgid "Marques de voiture"
-msgstr "Door windows"
+msgstr "Car Brands"
 
 #: .\theme\templates\home.html:20
 msgid "Bienvenue"
-msgstr ""
+msgstr "Welcome"
 
 #: .\theme\templates\home.html:23
 msgid "Ceci est un paragraphe stylé avec Tailwind."
-msgstr ""
+msgstr "This is a paragraph styled with Tailwind."
 
 #: .\theme\templates\home.html:29
 msgid "Se connecter"
@@ -3677,44 +3620,37 @@ msgid "Aucun secret TOTP configuré pour ce compte."
 msgstr "No TOTP secret configured for this account."
 
 #: .\theme\templates\totp\setup.html:33
-#, fuzzy
-#| msgid "Veuillez entrer le code généré par Google Authenticator"
 msgid "Code généré par Google Authenticator"
-msgstr "Please enter the code generated by Google Authenticator"
+msgstr "Code generated by Google Authenticator"
 
 #: .\theme\templates\totp\setup.html:39
-#, fuzzy
-#| msgid "Validé"
 msgid "Valider"
-msgstr "Validated"
+msgstr "Validate"
 
 #: .\theme\templates\voiture\marques.html:14
 msgid "Mes marques favorites"
-msgstr ""
+msgstr "My Favorite Brands"
 
 #: .\theme\templates\voiture\marques.html:45
 msgid "Voir les modèles de cette marque"
-msgstr ""
+msgstr "View Models of This Brand"
 
 #: .\theme\templates\voiture\modeles_list.html:7
-#, fuzzy
-#| msgid "Modèle"
 msgid "Modèles de"
-msgstr "Model"
+msgstr ""
 
 #: .\theme\templates\voiture\modeles_list.html:20
-#, fuzzy
-#| msgid "Porte"
 msgid "portes"
 msgstr "Door"
 
 #: .\theme\templates\voiture\modeles_list.html:20
 msgid "places"
-msgstr ""
+msgstr "seats"
 
 #: .\theme\templates\voiture\modeles_list.html:27
 msgid "Aucun modèle enregistré pour cette marque."
-msgstr ""
+msgstr "No model registered for this brand."
+
 
 #: .\theme\views.py:35
 msgid "Nom d'utilisateur ou mot de passe incorrect"
@@ -3725,86 +3661,65 @@ msgid "Code de vérification invalide."
 msgstr "Invalid verification code."
 
 #: .\utilisateurs\direction\models.py:10
-#, fuzzy
-#| msgid "Aspirateur"
 msgid "Administrateur"
-msgstr "Vacuum cleaning"
+msgstr "Administrator"
 
 #: .\utilisateurs\direction\models.py:11
-#, fuzzy
-#| msgid "Maintenance"
 msgid "Finance"
-msgstr "Maintenance"
+msgstr "Finance"
 
 #: .\utilisateurs\direction\models.py:12
-#, fuzzy
-#| msgid "Ressorts de Soupapes"
 msgid "Ressources Humaines"
-msgstr "Valve springs"
+msgstr "Human Resources"
 
 #: .\utilisateurs\direction\models.py:13
-#, fuzzy
-#| msgid "Observation"
 msgid "Operations"
-msgstr "Observation"
+msgstr "Operations"
 
 #: .\utilisateurs\models.py:75 .\utilisateurs\views.py:116
-#, fuzzy
-#| msgid "Panier"
 msgid "Magasinier"
-msgstr "Cart"
+msgstr "Storekeeper"
 
 #: .\utilisateurs\models.py:76 .\utilisateurs\views.py:114
-#, fuzzy
-#| msgid "Carrosserie"
 msgid "Carrossier"
-msgstr "Body shop"
+msgstr "Bodyworker"
 
 #: .\utilisateurs\models.py:77 .\utilisateurs\views.py:115
-#, fuzzy
-#| msgid "Mécanicien"
 msgid "Chef Mécanicien"
-msgstr "Mechanic"
+msgstr "Chief Mechanic"
 
 #: .\utilisateurs\models.py:78 .\utilisateurs\views.py:117
-#, fuzzy
-#| msgid "Conducteur"
 msgid "Instructeur"
-msgstr "Driver"
+msgstr "Instructor"
 
 #: .\utilisateurs\models.py:79 .\utilisateurs\views.py:118
 msgid "Instructeur Externe"
-msgstr ""
+msgstr "External Instructor"
 
 #: .\utilisateurs\models.py:80 .\utilisateurs\views.py:119
-#, fuzzy
-#| msgid "Galet Tendeur"
 msgid "Vendeur"
-msgstr "Tensioner pulley"
+msgstr "Salesperson"
 
 #: .\utilisateurs\models.py:81 .\utilisateurs\views.py:120
 msgid "Comptable"
-msgstr ""
+msgstr "Accountant"
 
 #: .\utilisateurs\models.py:82 .\utilisateurs\views.py:121
-#, fuzzy
-#| msgid "Description"
 msgid "Direction"
-msgstr "Description"
+msgstr "Management"
 
 #: .\utilisateurs\views.py:80
-#, fuzzy
-#| msgid "Joint moteur"
 msgid "Révision moteur"
-msgstr "Engine gasket"
+msgstr "Engine Overhaul"
 
 #: .\utilisateurs\views.py:81
 msgid "Changement filtre"
-msgstr ""
+msgstr "Filter Change"
 
 #: .\utilisateurs\views.py:108 .\utilisateurs\views.py:123
 msgid "Rôle inconnu"
-msgstr ""
+msgstr "Unknown Role"
+
 
 #~ msgid "Adresse email ou mot de passe incorrect"
 #~ msgstr "Incorrect email address or password"
