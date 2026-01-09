@@ -1,4 +1,3 @@
-# voiture/voiture_marque/urls.py
 from django.urls import path
 from .views import marque_list, toggle_favori_marque
 
