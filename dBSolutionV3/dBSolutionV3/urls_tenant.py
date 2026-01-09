@@ -15,4 +15,8 @@ urlpatterns = [
 
     path('modele/<uuid:modele_id>/ajouter/', ajouter_exemplaire, name='ajouter_exemplaire'),
 
+
+    path("voitures/moteurs/", include("voiture.voiture_moteur.urls", namespace="voiture_moteur")),
+
+
 ]

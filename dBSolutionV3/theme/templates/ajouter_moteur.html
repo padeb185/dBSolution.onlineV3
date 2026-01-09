@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block content %}
+<h1>Ajouter un moteur pour {{ exemplaire }}</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+        <div class="mb-4">
+            <label>{{ field.label }}</label>
+            {{ field|add_class:"border p-2 rounded w-full" }}
+            {% if field.help_text %}
+                <small class="text-gray-500">{{ field.help_text }}</small>
+            {% endif %}
+            {% for error in field.errors %}
+                <p class="text-red-500">{{ error }}</p>
+            {% endfor %}
+        </div>
+    {% endfor %}
+    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Ajouter</button>
+</form>
+{% endblock %}

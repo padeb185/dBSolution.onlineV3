@@ -7,6 +7,7 @@ from .forms import VoitureExemplaireForm
 from voiture.voiture_modele.models import VoitureModele
 
 
+
 @login_required
 def voiture_exemplaire(request, modele_id):
 
@@ -44,3 +45,10 @@ def ajouter_exemplaire(request, modele_id):
         "modele": modele,
         "marque": marque
     })
+
+
+
+@login_required()
+def voiture_exemplaire_detail(request, id):
+    exemplaire = get_object_or_404(VoitureExemplaire, id=id)
+    return render(request, "voiture_exemplaire/voiture_exemplaire_detail.html", {"exemplaire": exemplaire})

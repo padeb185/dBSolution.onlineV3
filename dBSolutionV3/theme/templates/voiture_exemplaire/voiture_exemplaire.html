@@ -11,18 +11,20 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         {% if exemplaires %}
             {% for ex in exemplaires %}
-            <div class="bg-white shadow-md hover:shadow-lg rounded-lg p-4">
-                <h2 class="text-lg font-semibold">{{ ex.immatriculation }}</h2>
-                <p class="text-gray-500">
-                    {% trans "Année de production" %}: {{ ex.annee_production }}/{{ ex.mois_production }}
-                </p>
-                <p class="text-gray-500">
-                    {% trans "Kilométrage" %}: {{ ex.kilometres_total }} km
-                </p>
-                <p class="text-gray-500">
-                    {% trans "Couleur" %}: {{ ex.couleur }}
-                </p>
-            </div>
+                <a href="{% url 'voiture_exemplaire:voiture_exemplaire_detail' ex.id %}">
+                    <div class="bg-white shadow-md hover:shadow-lg rounded-lg p-4 transition duration-200 cursor-pointer">
+                        <h2 class="text-lg font-semibold">{{ ex.immatriculation }}</h2>
+                        <p class="text-gray-500">
+                            {% trans "Année de production" %}: {{ ex.annee_production }}/{{ ex.mois_production }}
+                        </p>
+                        <p class="text-gray-500">
+                            {% trans "Kilométrage" %}: {{ ex.kilometres_total }} km
+                        </p>
+                        <p class="text-gray-500">
+                            {% trans "Couleur" %}: {{ ex.couleur }}
+                        </p>
+                    </div>
+                </a>
             {% endfor %}
         {% else %}
             <p class="text-red-600 font-semibold">
