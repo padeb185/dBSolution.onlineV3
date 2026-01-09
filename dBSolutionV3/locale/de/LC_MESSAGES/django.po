@@ -380,7 +380,7 @@ msgstr "Lieferanten"
 #: .\fournisseur\models.py:62
 #, python-format
 msgid "%(nom)s (Fournisseur)"
-msgstr "%(nom)s (Lieferant)"
+msgstr "%(nom)s (Fournisseur)"
 
 #: .\fuel\models.py:9
 msgid "Essence"
@@ -1177,7 +1177,7 @@ msgstr "Warenkorbpositionen"
 #: .\panier\models.py:129
 #, python-format
 msgid "%(piece)s × %(quantite)s"
-msgstr "%(piece)s  %(quantité)s"
+msgstr "%(piece)s  %(quantite)s"
 
 #: .\piece\models.py:16
 msgid "Code-barre"
@@ -1279,7 +1279,7 @@ msgstr "Inventare"
 #: .\piece\models.py:134
 #, python-format
 msgid "%(piece)s : %(variation)d"
-msgstr "%(teil)s : %(variation)d"
+msgstr "%(piece)s : %(variation)d"
 
 #: .\piece\piece_ampoules\models.py:13 .\piece\piece_feux\models.py:32
 #: .\piece\piece_feux\models.py:37
@@ -1379,158 +1379,113 @@ msgid "Ampoules"
 msgstr "Glühbirnen"
 
 #: .\piece\piece_batterie\models.py:11
-#, fuzzy
-#| msgid "Batterie"
 msgid "Batterie 12V"
-msgstr "Batterie"
+msgstr "12V-Batterie"
 
 #: .\piece\piece_batterie\models.py:12
-#, fuzzy
-#| msgid "Batterie"
 msgid "Batterie AGM"
-msgstr "Batterie"
+msgstr "AGM-Batterie"
 
 #: .\piece\piece_batterie\models.py:13
-#, fuzzy
-#| msgid "Batterie"
 msgid "Batterie EFB"
-msgstr "Batterie"
+msgstr "EFB-Batterie"
 
 #: .\piece\piece_batterie\models.py:14
-#, fuzzy
-#| msgid "Batterie"
 msgid "Batterie lithium"
-msgstr "Batterie"
+msgstr "Lithium-Batterie"
 
 #: .\piece\piece_batterie\models.py:15
 msgid "Batterie haute tension (hybride/électrique)"
-msgstr ""
+msgstr "Hochvolt-Batterie (Hybrid/Elektro)"
 
 #: .\piece\piece_batterie\models.py:18
 msgid "Capteur de batterie (IBS)"
-msgstr ""
+msgstr "Batteriesensor (IBS)"
 
 #: .\piece\piece_batterie\models.py:19
-#, fuzzy
-#| msgid "Booster batterie"
 msgid "Boîtier de batterie"
-msgstr "Batteriestarter"
+msgstr "Batteriegehäuse"
 
 #: .\piece\piece_batterie\models.py:20
-#, fuzzy
-#| msgid "État batterie"
 msgid "Cache batterie"
-msgstr "Batteriezustand"
+msgstr "Batterieabdeckung"
 
 #: .\piece\piece_batterie\models.py:21
 msgid "Système de maintien batterie"
-msgstr ""
+msgstr "Batteriehaltebügel"
 
 #: .\piece\piece_batterie\models.py:24
-#, fuzzy
-#| msgid "Booster batterie"
 msgid "Cosse batterie positive"
-msgstr "Batteriestarter"
+msgstr "Batteriepol Plus"
 
 #: .\piece\piece_batterie\models.py:25
-#, fuzzy
-#| msgid "Booster batterie"
 msgid "Cosse batterie négative"
-msgstr "Batteriestarter"
+msgstr "Batteriepol Minus"
 
 #: .\piece\piece_batterie\models.py:26
-#, fuzzy
-#| msgid "État batterie"
 msgid "Câble de batterie"
-msgstr "Batteriezustand"
+msgstr "Batteriekabel"
 
 #: .\piece\piece_batterie\models.py:27
-#, fuzzy
-#| msgid "Booster batterie"
 msgid "Borne de batterie"
-msgstr "Batteriestarter"
+msgstr "Batterieanschluss"
 
 #: .\piece\piece_batterie\models.py:28
-#, fuzzy
-#| msgid "Booster batterie"
 msgid "Fusible batterie"
-msgstr "Batteriestarter"
+msgstr "Batteriesicherung"
 
 #: .\piece\piece_batterie\models.py:29
-#, fuzzy
-#| msgid "Booster batterie"
 msgid "Porte-fusible batterie"
-msgstr "Batteriestarter"
+msgstr "Sicherungshalter Batterie"
 
 #: .\piece\piece_batterie\models.py:32
-#, fuzzy
-#| msgid "Booster batterie"
 msgid "Bride de batterie"
-msgstr "Batteriestarter"
+msgstr "Batterieklammer"
 
 #: .\piece\piece_batterie\models.py:33
-#, fuzzy
-#| msgid "Support de radiateur"
 msgid "Support de batterie"
-msgstr "Kühlerträger"
+msgstr "Batteriehalter"
 
 #: .\piece\piece_batterie\models.py:34
 msgid "Vis de fixation batterie"
-msgstr ""
+msgstr "Befestigungsschraube Batterie"
 
 #: .\piece\piece_batterie\models.py:37
-#, fuzzy
-#| msgid "Huile de direction"
 msgid "Gaine de protection"
-msgstr "Servolenkungsöl"
+msgstr "Schutzummantelung"
 
 #: .\piece\piece_batterie\models.py:38
-#, fuzzy
-#| msgid "Booster batterie"
 msgid "Isolant de batterie"
-msgstr "Batteriestarter"
+msgstr "Batterieisolierung"
 
 #: .\piece\piece_batterie\models.py:39
-#, fuzzy
-#| msgid "Booster batterie"
 msgid "Tapis de batterie"
-msgstr "Batteriestarter"
+msgstr "Batteriepolster"
 
 #: .\piece\piece_batterie\models.py:42
-#, fuzzy
-#| msgid "État batterie"
 msgid "Kit fixation batterie"
-msgstr "Batteriezustand"
+msgstr "Befestigungsset Batterie"
 
 #: .\piece\piece_batterie\models.py:43
-#, fuzzy
-#| msgid "Booster batterie"
 msgid "Kit cosses batterie"
-msgstr "Batteriestarter"
+msgstr "Polklemmen-Set Batterie"
 
 #: .\piece\piece_batterie\models.py:44
-#, fuzzy
-#| msgid "Booster batterie"
 msgid "Kit câbles batterie"
-msgstr "Batteriestarter"
+msgstr "Batteriekabel-Set"
 
 #: .\piece\piece_batterie\models.py:50
-#, fuzzy
-#| msgid "Type de pièce moteur"
 msgid "Type de pièce batterie"
-msgstr "Motorteiltyp"
+msgstr "Art des Batterieteils"
 
 #: .\piece\piece_batterie\models.py:61
-#, fuzzy
-#| msgid "Pièce de freinage"
 msgid "Pièce de batterie"
-msgstr "Bremsenteil"
+msgstr "Batterieteil"
 
 #: .\piece\piece_batterie\models.py:62
-#, fuzzy
-#| msgid "Pièces de freinage"
 msgid "Pièces de batterie"
-msgstr "Bremsteile"
+msgstr "Batterieteile"
+
 
 #: .\piece\piece_batterie\models.py:65 .\piece\piece_moteur\models.py:69
 #: .\piece\piece_pont\models.py:72 .\piece\piece_silent_bloc\models.py:60
@@ -1646,8 +1601,7 @@ msgid "Boîtes automatiques"
 msgstr "Automatikgetriebe"
 
 #: .\piece\piece_boite\models.py:155
-#, fuzzy, python-format
-#| msgid "Boite automatique %(vitesses)s vitesses"
+#, python-format
 msgid "Boîte automatique %(vitesses)s vitesses"
 msgstr "Automatikgetriebe %(vitesses)s Gänge"
 
@@ -2207,7 +2161,7 @@ msgstr "Lichter"
 #: .\piece\piece_feux\models.py:36
 #, python-format
 msgid "%(organe)s - %(type)s"
-msgstr "%(organe)s - %(typ)s"
+msgstr "%(organe)s - %(type)s"
 
 #: .\piece\piece_filtres\models.py:7
 msgid "Filtre à air"
@@ -2845,186 +2799,137 @@ msgid "Pneus"
 msgstr "Reifen"
 
 #: .\piece\piece_pneus\models.py:58
-#, fuzzy, python-format
-#| msgid "%(type)s  %(largeur)s/%(hauteur)s R%(jante)s"
+#, python-format
 msgid "%(type)s – %(largeur)s/%(hauteur)s R%(jante)s"
 msgstr "%(type)s  %(largeur)s/%(hauteur)s R%(jante)s"
 
 #: .\piece\piece_pont\models.py:11
-#, fuzzy
-#| msgid "Ressort avant"
 msgid "Pont avant"
-msgstr "Vorderfeder"
+msgstr "Vorderer Achsantrieb"
 
 #: .\piece\piece_pont\models.py:12
-#, fuzzy
-#| msgid "Ressort arrière"
 msgid "Pont arrière"
-msgstr "Hinterfeder"
+msgstr "Hinterer Achsantrieb"
 
 #: .\piece\piece_pont\models.py:13
 msgid "Pont central"
-msgstr ""
+msgstr "Mittlerer Achsantrieb"
 
 #: .\piece\piece_pont\models.py:14
 msgid "Différentiel complet"
-msgstr ""
+msgstr "Komplettes Differential"
 
 #: .\piece\piece_pont\models.py:17
-#, fuzzy
-#| msgid "Couronne et pignon"
 msgid "Couronne"
-msgstr "Kronen- und Tellerrad"
+msgstr "Tellerrad"
 
 #: .\piece\piece_pont\models.py:18
 msgid "Pignon d’attaque"
-msgstr ""
+msgstr "Antriebsritzel"
 
 #: .\piece\piece_pont\models.py:19
 msgid "Couple conique"
-msgstr ""
+msgstr "Kegelradpaar"
 
 #: .\piece\piece_pont\models.py:20
-#, fuzzy
-#| msgid "Axe satellite"
 msgid "Satellite"
-msgstr "Planetenachsen"
+msgstr "Ausgleichsrad"
 
 #: .\piece\piece_pont\models.py:21
-#, fuzzy
-#| msgid "Train planétaire"
 msgid "Planétaire"
-msgstr "Planetengetriebe"
+msgstr "Seitenrad"
 
 #: .\piece\piece_pont\models.py:22
-#, fuzzy
-#| msgid "Axe satellite"
 msgid "Axe de satellite"
-msgstr "Planetenachsen"
+msgstr "Achse des Ausgleichsrads"
 
 #: .\piece\piece_pont\models.py:25
-#, fuzzy
-#| msgid "Huile de pont"
 msgid "Carter de pont"
-msgstr "Differentialöl"
+msgstr "Achsantriebsgehäuse"
 
 #: .\piece\piece_pont\models.py:26
-#, fuzzy
-#| msgid "Huile de pont"
 msgid "Couvercle de pont"
-msgstr "Differentialöl"
+msgstr "Achsantriebsdeckel"
 
 #: .\piece\piece_pont\models.py:27
 msgid "Bouchon de vidange"
-msgstr ""
+msgstr "Ablassschraube"
 
 #: .\piece\piece_pont\models.py:28
 msgid "Bouchon de remplissage"
-msgstr ""
+msgstr "Einfüllschraube"
 
 #: .\piece\piece_pont\models.py:29
-#, fuzzy
-#| msgid "Huile de pont"
 msgid "Reniflard de pont"
-msgstr "Differentialöl"
+msgstr "Entlüftung des Achsantriebs"
 
 #: .\piece\piece_pont\models.py:32
-#, fuzzy
-#| msgid "Roulement de suspension"
 msgid "Roulement de pignon"
-msgstr "Fahrwerkslager"
+msgstr "Ritzellager"
 
 #: .\piece\piece_pont\models.py:33
-#, fuzzy
-#| msgid "Roulements de différentiel"
 msgid "Roulement de différentiel"
 msgstr "Differentiallager"
 
 #: .\piece\piece_pont\models.py:34
-#, fuzzy
-#| msgid "Type de roue"
 msgid "Cage de roulement"
-msgstr "Raddtyp"
+msgstr "Lagerkäfig"
 
 #: .\piece\piece_pont\models.py:35
-#, fuzzy
-#| msgid "Changer de langue"
 msgid "Cale de réglage"
-msgstr "Sprache wechseln"
+msgstr "Einstellscheibe"
 
 #: .\piece\piece_pont\models.py:36
 msgid "Entretoise"
-msgstr ""
+msgstr "Distanzhülse"
 
 #: .\piece\piece_pont\models.py:39
-#, fuzzy
-#| msgid "Joint"
 msgid "Joint spi"
-msgstr "Dichtung"
+msgstr "Wellendichtring"
 
 #: .\piece\piece_pont\models.py:40
-#, fuzzy
-#| msgid "Joint de porte"
 msgid "Joint de carter"
-msgstr "Türdichtung"
+msgstr "Gehäusedichtung"
 
 #: .\piece\piece_pont\models.py:41 .\piece\piece_transmission\models.py:32
 msgid "Joint d’étanchéité"
-msgstr ""
+msgstr "Dichtung"
 
 #: .\piece\piece_pont\models.py:44
-#, fuzzy
-#| msgid "Huile de pont"
 msgid "Bride de pont"
-msgstr "Differentialöl"
+msgstr "Achsantriebsflansch"
 
 #: .\piece\piece_pont\models.py:45
-#, fuzzy
-#| msgid "Vitres de porte"
 msgid "Vis de couronne"
-msgstr "Türscheiben"
+msgstr "Tellerradschraube"
 
 #: .\piece\piece_pont\models.py:46
-#, fuzzy
-#| msgid "Huile de pont"
 msgid "Boulonnerie de pont"
-msgstr "Differentialöl"
+msgstr "Achsantriebsschrauben"
 
 #: .\piece\piece_pont\models.py:49
-#, fuzzy
-#| msgid "Roulement de roue"
 msgid "Kit roulements de pont"
-msgstr "Radlager"
+msgstr "Lagersatz Achsantrieb"
 
 #: .\piece\piece_pont\models.py:50
-#, fuzzy
-#| msgid "Joint de porte"
 msgid "Kit joints de pont"
-msgstr "Türdichtung"
+msgstr "Dichtungssatz Achsantrieb"
 
 #: .\piece\piece_pont\models.py:51
-#, fuzzy
-#| msgid "Vitres de porte"
 msgid "Kit révision de pont"
-msgstr "Türscheiben"
+msgstr "Überholungssatz Achsantrieb"
 
 #: .\piece\piece_pont\models.py:57
-#, fuzzy
-#| msgid "Type de pièce de direction"
 msgid "Type de pièce de pont"
-msgstr "Art des Lenkungsteils"
+msgstr "Art des Achsantriebsteils"
 
 #: .\piece\piece_pont\models.py:68
-#, fuzzy
-#| msgid "Huile de pont"
 msgid "Pièce de pont"
-msgstr "Differentialöl"
+msgstr "Achsantriebsteil"
 
 #: .\piece\piece_pont\models.py:69
-#, fuzzy
-#| msgid "Pièces de direction"
 msgid "Pièces de pont"
-msgstr "Lenkungsteile"
+msgstr "Achsantriebsteile"
 
 #: .\piece\piece_roue_rechange\models.py:8
 msgid "Belgique"
@@ -3056,158 +2961,107 @@ msgid "%(quantite)s roue(s) %(type)s sur %(site)s"
 msgstr "%(quantite)s Rad(er) %(type)s auf %(site)s"
 
 #: .\piece\piece_silent_bloc\models.py:11
-#, fuzzy
-#| msgid "Triangle supérieur"
 msgid "Silent-bloc de triangle supérieur"
-msgstr "Obere Dreieckslenker"
+msgstr "Gummilager oberer Querlenker"
 
 #: .\piece\piece_silent_bloc\models.py:12
-#, fuzzy
-#| msgid "Triangle inférieur droit"
 msgid "Silent-bloc de triangle inférieur"
-msgstr "Untere Dreieckslenker rechts"
+msgstr "Gummilager unterer Querlenker"
 
 #: .\piece\piece_silent_bloc\models.py:13
-#, fuzzy
-#| msgid "Roulement de suspension"
 msgid "Silent-bloc de bras de suspension"
-msgstr "Fahrwerkslager"
+msgstr "Gummilager des Fahrwerksarms"
 
 #: .\piece\piece_silent_bloc\models.py:14
-#, fuzzy
-#| msgid "Pièce train avant"
 msgid "Silent-bloc de train avant"
-msgstr "Vorderachsteil"
+msgstr "Gummilager der Vorderachse"
 
 #: .\piece\piece_silent_bloc\models.py:15
-#, fuzzy
-#| msgid "Pièce train arrière"
 msgid "Silent-bloc de train arrière"
-msgstr "Hinterachsteil"
+msgstr "Gummilager der Hinterachse"
 
 #: .\piece\piece_silent_bloc\models.py:16
-#, fuzzy
-#| msgid "Biellette de barre stabilisatrice"
 msgid "Silent-bloc de barre stabilisatrice"
-msgstr "Stabilisatorverbindung"
+msgstr "Stabilisatorlager"
 
 #: .\piece\piece_silent_bloc\models.py:17
-#, fuzzy
-#| msgid "Silent bloc"
 msgid "Silent-bloc de berceau"
-msgstr "Gummilager"
+msgstr "Aggregateträgerlager"
 
 #: .\piece\piece_silent_bloc\models.py:18
-#, fuzzy
-#| msgid "Huile de pont"
 msgid "Silent-bloc de pont"
-msgstr "Differentialöl"
+msgstr "Achslager"
 
 #: .\piece\piece_silent_bloc\models.py:21
-#, fuzzy
-#| msgid "Fuite boîte de vitesse"
 msgid "Silent-bloc de boîte de vitesses"
-msgstr "Getriebeölverlust"
+msgstr "Getriebelager"
 
 #: .\piece\piece_silent_bloc\models.py:22
-#, fuzzy
-#| msgid "Huile de transmission"
 msgid "Silent-bloc de transmission"
-msgstr "Getriebeöl"
+msgstr "Antriebslager"
 
 #: .\piece\piece_silent_bloc\models.py:23
-#, fuzzy
-#| msgid "Arbre de transmission"
 msgid "Silent-bloc d’arbre de transmission"
-msgstr "Antriebswelle"
+msgstr "Kardanwellenlager"
 
 #: .\piece\piece_silent_bloc\models.py:26
-#, fuzzy
-#| msgid "Bloc moteur"
 msgid "Silent-bloc moteur"
-msgstr "Motorblock"
+msgstr "Motorlager"
 
 #: .\piece\piece_silent_bloc\models.py:27
-#, fuzzy
-#| msgid "Support de radiateur"
 msgid "Support moteur"
-msgstr "Kühlerträger"
+msgstr "Motorhalter"
 
 #: .\piece\piece_silent_bloc\models.py:28
-#, fuzzy
-#| msgid "Support de radiateur"
 msgid "Support de boîte"
-msgstr "Kühlerträger"
+msgstr "Getriebehalter"
 
 #: .\piece\piece_silent_bloc\models.py:31
-#, fuzzy
-#| msgid "Silent blocs"
 msgid "Silent-bloc de châssis"
-msgstr "Gummilager"
+msgstr "Rahmenlager"
 
 #: .\piece\piece_silent_bloc\models.py:32
 msgid "Silent-bloc de carrosserie"
-msgstr ""
+msgstr "Karosserielager"
 
 #: .\piece\piece_silent_bloc\models.py:33
-#, fuzzy
-#| msgid "Ligne d’échappement"
 msgid "Silent-bloc d’échappement"
-msgstr "Auspuffanlage"
+msgstr "Auspuffgummi"
 
 #: .\piece\piece_silent_bloc\models.py:34
-#, fuzzy
-#| msgid "Huile de direction"
 msgid "Silent-bloc de direction"
-msgstr "Servolenkungsöl"
+msgstr "Lenkungslager"
 
 #: .\piece\piece_silent_bloc\models.py:37
-#, fuzzy
-#| msgid "Kit silent bloc"
 msgid "Kit de silent-blocs"
 msgstr "Gummilager-Satz"
 
 #: .\piece\piece_silent_bloc\models.py:38
-#, fuzzy
-#| msgid "Kit silent bloc"
 msgid "Kit silent-blocs train avant"
-msgstr "Gummilager-Satz"
+msgstr "Lagersatz Vorderachse"
 
 #: .\piece\piece_silent_bloc\models.py:39
-#, fuzzy
-#| msgid "Pièces train arrière"
 msgid "Kit silent-blocs train arrière"
-msgstr "Hinterachsteile"
+msgstr "Lagersatz Hinterachse"
 
 #: .\piece\piece_silent_bloc\models.py:45
-#, fuzzy
-#| msgid "Type de silentbloc"
 msgid "Type de silent-bloc"
-msgstr "Typ des Silentblocks"
+msgstr "Art des Gummilagers"
 
 #: .\piece\piece_silent_bloc\models.py:56
-#, fuzzy
-#| msgid "Silent bloc"
 msgid "Silent-bloc"
 msgstr "Gummilager"
 
 #: .\piece\piece_silent_bloc\models.py:57
-#, fuzzy
-#| msgid "Silent blocs"
 msgid "Silent-blocs"
 msgstr "Gummilager"
-
 #: .\piece\piece_suspension\models.py:9
-#, fuzzy
-#| msgid "Amortisseur"
 msgid "Amortisseur avant"
-msgstr "Stoßdämpfer"
+msgstr "Vorderer Stoßdämpfer"
 
 #: .\piece\piece_suspension\models.py:10
-#, fuzzy
-#| msgid "Témoin usure arrière"
 msgid "Amortisseur arrière"
-msgstr "Verschleißanzeige hinten"
+msgstr "Hinterer Stoßdämpfer"
 
 #: .\piece\piece_suspension\models.py:11 .\piece\piece_train_AR\models.py:21
 #: .\piece\piece_train_AV\models.py:24
@@ -3215,74 +3069,52 @@ msgid "Amortisseur G/D"
 msgstr "Stoßdämpfer L/R"
 
 #: .\piece\piece_suspension\models.py:14
-#, fuzzy
-#| msgid "Coquille d’aile"
 msgid "Coupelle d’amortisseur"
-msgstr "Kotflügelschale"
+msgstr "Federbeinstützlager"
 
 #: .\piece\piece_suspension\models.py:15
-#, fuzzy
-#| msgid "Rotule de suspension"
 msgid "Butée de suspension"
-msgstr "Suspensionsgelenk"
+msgstr "Anschlagpuffer"
 
 #: .\piece\piece_suspension\models.py:16
 msgid "Soufflet d’amortisseur"
-msgstr ""
+msgstr "Stoßdämpfermanschette"
 
 #: .\piece\piece_suspension\models.py:17
-#, fuzzy
-#| msgid "Roulement de suspension"
 msgid "Silent bloc de suspension"
-msgstr "Fahrwerkslager"
+msgstr "Gummimetalllager"
 
 #: .\piece\piece_suspension\models.py:18
-#, fuzzy
-#| msgid "Rotule de suspension"
 msgid "Kit de suspension"
-msgstr "Suspensionsgelenk"
+msgstr "Fahrwerkskit"
 
 #: .\piece\piece_suspension\models.py:19
-#, fuzzy
-#| msgid "Plateau de pression"
 msgid "Cales de ressort"
-msgstr "Reifendrucksensor"
+msgstr "Federunterlagen"
 
 #: .\piece\piece_suspension\models.py:20
-#, fuzzy
-#| msgid "Collecteur d’échappement"
 msgid "Correcteur d’assiette"
-msgstr "Abgaskrümmer"
+msgstr "Niveauregler"
 
 #: .\piece\piece_suspension\models.py:21
-#, fuzzy
-#| msgid "Bloc hydraulique"
 msgid "Suspension hydraulique"
-msgstr "Hydraulikblock"
+msgstr "Hydropneumatische Federung"
 
 #: .\piece\piece_suspension\models.py:22
-#, fuzzy
-#| msgid "Suspension multi bras"
 msgid "Suspension pneumatique"
-msgstr "Mehrarmaufhängung"
+msgstr "Luftfederung"
 
 #: .\piece\piece_suspension\models.py:28
-#, fuzzy
-#| msgid "Type de pièce de direction"
 msgid "Type de pièce suspension"
-msgstr "Art des Lenkungsteils"
+msgstr "Art des Fahrwerksteils"
 
 #: .\piece\piece_suspension\models.py:39
-#, fuzzy
-#| msgid "Rotule de suspension"
 msgid "Pièce de suspension"
-msgstr "Suspensionsgelenk"
+msgstr "Fahrwerksteil"
 
 #: .\piece\piece_suspension\models.py:40
-#, fuzzy
-#| msgid "Rotule de suspension"
 msgid "Pièces de suspension"
-msgstr "Suspensionsgelenk"
+msgstr "Fahrwerksteile"
 
 #: .\piece\piece_train_AR\models.py:9 .\piece\piece_train_AV\models.py:8
 msgid "Berceau"
@@ -3372,105 +3204,86 @@ msgstr "Typ Vorderachsteile"
 msgid "Pièce train avant"
 msgstr "Vorderachsteil"
 
+
 #: .\piece\piece_train_AV\models.py:46
 msgid "Pièces train avant"
-msgstr "Vorderachsteile"
+msgstr "Teile der Vorderachse"
 
 #: .\piece\piece_transmission\models.py:11
-#, fuzzy
-#| msgid "Avant gauche"
 msgid "Cardan avant gauche"
-msgstr "Vorne Links"
+msgstr "Linke vordere Antriebswelle"
 
 #: .\piece\piece_transmission\models.py:12
-#, fuzzy
-#| msgid "Avant droit"
 msgid "Cardan avant droit"
-msgstr "Vorne Rechts"
+msgstr "Rechte vordere Antriebswelle"
 
 #: .\piece\piece_transmission\models.py:13
-#, fuzzy
-#| msgid "Arrière gauche"
 msgid "Cardan arrière gauche"
-msgstr "Hinten Links"
+msgstr "Linke hintere Antriebswelle"
 
 #: .\piece\piece_transmission\models.py:14
-#, fuzzy
-#| msgid "Arrière Droit"
 msgid "Cardan arrière droit"
-msgstr "Hinten Rechts"
+msgstr "Rechte hintere Antriebswelle"
 
 #: .\piece\piece_transmission\models.py:17
 msgid "Noix de cardan"
-msgstr ""
+msgstr "Gelenkkopf"
 
 #: .\piece\piece_transmission\models.py:18
-#, fuzzy
-#| msgid "Type de carburant"
 msgid "Tulipe de cardan"
-msgstr "Kraftstoffart"
+msgstr "Gelenkgehäuse"
 
 #: .\piece\piece_transmission\models.py:19
 msgid "Joint homocinétique extérieur"
-msgstr ""
+msgstr "Äußeres Gleichlaufgelenk"
 
 #: .\piece\piece_transmission\models.py:20
-#, fuzzy
-#| msgid "Boîtier servitude intérieur"
 msgid "Joint homocinétique intérieur"
-msgstr "Innenraum-Steuergerät"
+msgstr "Inneres Gleichlaufgelenk"
 
 #: .\piece\piece_transmission\models.py:21
 msgid "Tripode"
-msgstr ""
+msgstr "Tripodengelenk"
 
 #: .\piece\piece_transmission\models.py:22
-#, fuzzy
-#| msgid "Barre de torsion"
 msgid "Galet de tripode"
-msgstr "Torsionsstab"
+msgstr "Tripodenrolle"
 
 #: .\piece\piece_transmission\models.py:23
 msgid "Étoile de cardan"
-msgstr ""
+msgstr "Gelenkstern"
 
 #: .\piece\piece_transmission\models.py:24
 msgid "Cage à billes"
-msgstr ""
+msgstr "Kugelkäfig"
 
 #: .\piece\piece_transmission\models.py:25
-#, fuzzy
-#| msgid "Type de carburant"
 msgid "Billes de cardan"
-msgstr "Kraftstoffart"
+msgstr "Gelenkkugeln"
 
 #: .\piece\piece_transmission\models.py:26
-#, fuzzy
-#| msgid "Type de carburant"
 msgid "Axe de cardan"
-msgstr "Kraftstoffart"
+msgstr "Antriebswellenachse"
 
 #: .\piece\piece_transmission\models.py:29
 msgid "Soufflet de cardan intérieur"
-msgstr ""
+msgstr "Innerer Antriebswellenmanschette"
 
 #: .\piece\piece_transmission\models.py:30
 msgid "Soufflet de cardan extérieur"
-msgstr ""
+msgstr "Äußere Antriebswellenmanschette"
 
 #: .\piece\piece_transmission\models.py:31
-#, fuzzy
-#| msgid "Colliers"
 msgid "Collier de serrage"
-msgstr "Schellen"
+msgstr "Spannschelle"
 
 #: .\piece\piece_transmission\models.py:33
 msgid "Circlip"
-msgstr ""
+msgstr "Sicherungsring"
 
 #: .\piece\piece_transmission\models.py:34
 msgid "Graisse de cardan"
-msgstr ""
+msgstr "Gelenkfett"
 
 #: .\piece\piece_transmission\models.py:38
 msgid "Palier d’arbre de transmission"
