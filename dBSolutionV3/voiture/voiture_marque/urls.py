@@ -8,12 +8,7 @@ urlpatterns = [
     # Page principale affichant toutes les marques
     path("", marque_list, name="liste"),  # /fr/voiture/marques/
 
-
-
-    path("marque/<uuid:marque_id>/favori/",
-         toggle_favori_marque,
-         name="toggle_favori_marque"),
-
+    path("marque/<uuid:id_marque>/favori/", toggle_favori_marque, name="toggle_favori_marque"),
 
 ]
 

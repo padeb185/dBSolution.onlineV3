@@ -39,8 +39,5 @@ urlpatterns = [
     # Namespace pour ton app utilisateurs
     path("auth/", include("utilisateurs.urls", namespace="authentification")),
 
-    # Autres routes
-    path("voitures/marques/", include("voiture.voiture_marque.urls")),
 
-path("voitures/exemplaires/", include("voiture.voiture_exemplaire.urls", namespace="voiture_exemplaire")),
 ]

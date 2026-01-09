@@ -4,9 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="script modeles">
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="marque favori">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/management/commands/create_modele_suite.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/management/commands/create_modele_suite.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls_public.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls_public.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls_tenant.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls_tenant.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture/marques.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture/marques.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -192,23 +198,7 @@
       <workItem from="1767870680311" duration="4455000" />
       <workItem from="1767878368313" duration="1192000" />
       <workItem from="1767891728456" duration="2414000" />
-      <workItem from="1767943953810" duration="6723000" />
-    </task>
-    <task id="LOCAL-00151" summary="login OK">
-      <option name="closed" value="true" />
-      <created>1767268469427</created>
-      <option name="number" value="00151" />
-      <option name="presentableId" value="LOCAL-00151" />
-      <option name="project" value="LOCAL" />
-      <updated>1767268469427</updated>
-    </task>
-    <task id="LOCAL-00152" summary="Tailwind 3">
-      <option name="closed" value="true" />
-      <created>1767340253494</created>
-      <option name="number" value="00152" />
-      <option name="presentableId" value="LOCAL-00152" />
-      <option name="project" value="LOCAL" />
-      <updated>1767340253494</updated>
+      <workItem from="1767943953810" duration="9939000" />
     </task>
     <task id="LOCAL-00153" summary="styles.css">
       <option name="closed" value="true" />
@@ -586,7 +576,23 @@
       <option name="project" value="LOCAL" />
       <updated>1767949770479</updated>
     </task>
-    <option name="localTasksCounter" value="200" />
+    <task id="LOCAL-00200" summary="script modeles">
+      <option name="closed" value="true" />
+      <created>1767950737163</created>
+      <option name="number" value="00200" />
+      <option name="presentableId" value="LOCAL-00200" />
+      <option name="project" value="LOCAL" />
+      <updated>1767950737163</updated>
+    </task>
+    <task id="LOCAL-00201" summary="marque favori">
+      <option name="closed" value="true" />
+      <created>1767950887104</created>
+      <option name="number" value="00201" />
+      <option name="presentableId" value="LOCAL-00201" />
+      <option name="project" value="LOCAL" />
+      <updated>1767950887104</updated>
+    </task>
+    <option name="localTasksCounter" value="202" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -604,7 +610,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="batterie" />
     <MESSAGE value="Voiture marque + scripts" />
     <MESSAGE value="voiture marque view et html et urls" />
     <MESSAGE value="voiture marque Favoris" />
@@ -629,7 +634,8 @@
     <MESSAGE value="traduction de" />
     <MESSAGE value="traduction grec" />
     <MESSAGE value="script modeles" />
-    <option name="LAST_COMMIT_MESSAGE" value="script modeles" />
+    <MESSAGE value="marque favori" />
+    <option name="LAST_COMMIT_MESSAGE" value="marque favori" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

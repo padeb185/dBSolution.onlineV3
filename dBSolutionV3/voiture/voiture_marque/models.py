@@ -5,9 +5,6 @@ from django.conf import settings
 
 
 class VoitureMarque(models.Model):
-    """
-    Modèle représentant une marque de voiture.
-    """
     id_marque = models.UUIDField(
         primary_key=True,
         default=uuid.uuid4,
@@ -30,21 +27,16 @@ class VoitureMarque(models.Model):
     def __str__(self):
         return self.nom_marque
 
-    def est_favori_par(self, utilisateur):
-        """
-        Retourne True si la marque est dans les favoris de l'utilisateur.
-        """
+    def est_favori_par(self, societe):
+        """Retourne True si la société a cette marque dans ses favoris"""
         from .models import MarqueFavorite  # import local pour éviter boucle
-        if utilisateur.is_authenticated:
-            return MarqueFavorite.objects.filter(utilisateur=utilisateur, marque=self).exists()
+        if societe:  # societe doit être un objet valide
+            return MarqueFavorite.objects.filter(societe=societe, marque=self).exists()
         return False
 
 
 class MarqueFavorite(models.Model):
-    """
-    Modèle représentant une relation marque favorite pour un utilisateur.
-    """
-    utilisateur = models.ForeignKey(
+    societe = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name="marques_favorites"
@@ -57,10 +49,10 @@ class MarqueFavorite(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = ("utilisateur", "marque")
+        unique_together = ("societe", "marque")
         ordering = ["-created_at"]
         verbose_name = "Marque favorite"
         verbose_name_plural = "Marques favorites"
 
     def __str__(self):
-        return f"{self.utilisateur} ❤️ {self.marque}"
+        return f"{self.societe} ❤️ {self.marque}"

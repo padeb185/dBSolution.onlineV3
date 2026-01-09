@@ -4,6 +4,9 @@ from django.shortcuts import render, get_object_or_404
 from .models import VoitureMarque, MarqueFavorite
 
 
+
+
+@login_required
 def marque_list(request):
     marques = VoitureMarque.objects.all()
     favoris = []
@@ -18,17 +21,22 @@ def marque_list(request):
 
 
 
+
+
+
 @login_required
 def toggle_favori_marque(request, id_marque):
     if request.method != "POST":
         return JsonResponse({"error": "Méthode non autorisée"}, status=405)
 
-    user = request.user
-    marque = get_object_or_404(VoitureMarque, id=id_marque)
+    societe = request.user  # ou ton modèle societe
+    marque = get_object_or_404(VoitureMarque, id_marque=id_marque)
 
-    if marque in user.favoris_marques.all():
-        user.favoris_marques.remove(marque)
+    favori, created = MarqueFavorite.objects.get_or_create(societe=societe, marque=marque)
+
+    if not created:
+        # existait déjà → supprimer
+        favori.delete()
         return JsonResponse({"status": "removed"})
     else:
-        user.favoris_marques.add(marque)
         return JsonResponse({"status": "added"})
