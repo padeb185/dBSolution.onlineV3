@@ -92,9 +92,59 @@ class Command(BaseCommand):
                 {"modele": "Peugeot 9X8", "variante": "PEUGEOT Hypercar 9X8", "portes": 2, "places": 2, "reservoir": 0}
             ],
 
+            "Porsche": [
+
+            {"modele": "911", "variante": "996 Carrera", "portes": 2, "places": 4, "reservoir": 64},
+            {"modele": "911", "variante": "996 Carrera 4", "portes": 2, "places": 4, "reservoir": 64},
+            {"modele": "911", "variante": "996 Carrera 4S", "portes": 2, "places": 4, "reservoir": 64},
+            {"modele": "911", "variante": "996 Turbo", "portes": 2, "places": 4, "reservoir": 64},
+            {"modele": "911", "variante": "996 Turbo S", "portes": 2, "places": 4, "reservoir": 64},
+            {"modele": "911", "variante": "996 GT3", "portes": 2, "places": 4, "reservoir": 64},
+            {"modele": "911", "variante": "996 GT2", "portes": 2, "places": 4, "reservoir": 64},
+
+            {"modele": "911", "variante": "997 Carrera", "portes": 2, "places": 4, "reservoir": 64},
+            {"modele": "911", "variante": "997 Carrera S", "portes": 2, "places": 4, "reservoir": 64},
+            {"modele": "911", "variante": "997 Carrera 4", "portes": 2, "places": 4, "reservoir": 64},
+            {"modele": "911", "variante": "997 Carrera 4S", "portes": 2, "places": 4, "reservoir": 64},
+            {"modele": "911", "variante": "997 Targa 4", "portes": 2, "places": 4, "reservoir": 64},
+            {"modele": "911", "variante": "997 Targa 4S", "portes": 2, "places": 4, "reservoir": 64},
+            {"modele": "911", "variante": "997 Turbo", "portes": 2, "places": 4, "reservoir": 64},
+            {"modele": "911", "variante": "997 Turbo S", "portes": 2, "places": 4, "reservoir": 64},
+            {"modele": "911", "variante": "997 GT3", "portes": 2, "places": 4, "reservoir": 64},
+            {"modele": "911", "variante": "997 GT3 RS", "portes": 2, "places": 4, "reservoir": 64},
+            {"modele": "911", "variante": "997 GT2", "portes": 2, "places": 4, "reservoir": 64},
+            {"modele": "911", "variante": "997 GT2 RS", "portes": 2, "places": 4, "reservoir": 64},
 
 
-            "Fiat": [
+            {"modele": "911", "variante": "991 Carrera", "portes": 2, "places": 4, "reservoir": 64},
+            {"modele": "911", "variante": "991 Carrera S", "portes": 2, "places": 4, "reservoir": 64},
+            {"modele": "911", "variante": "991 Carrera 4", "portes": 2, "places": 4, "reservoir": 64},
+            {"modele": "911", "variante": "991 Carrera 4S", "portes": 2, "places": 4, "reservoir": 64},
+            {"modele": "911", "variante": "991 Targa 4", "portes": 2, "places": 4, "reservoir": 64},
+            {"modele": "911", "variante": "991 Targa 4S", "portes": 2, "places": 4, "reservoir": 64},
+            {"modele": "911", "variante": "991 Turbo", "portes": 2, "places": 4, "reservoir": 64},
+            {"modele": "911", "variante": "991 Turbo S", "portes": 2, "places": 4, "reservoir": 64},
+            {"modele": "911", "variante": "991 GT3", "portes": 2, "places": 4, "reservoir": 64},
+            {"modele": "911", "variante": "991 GT3 RS", "portes": 2, "places": 4, "reservoir": 64},
+            {"modele": "911", "variante": "991 GT2 RS", "portes": 2, "places": 4, "reservoir": 64},
+
+
+            {"modele": "911", "variante": "992 Carrera", "portes": 2, "places": 4, "reservoir": 64},
+            {"modele": "911", "variante": "992 Carrera S", "portes": 2, "places": 4, "reservoir": 64},
+            {"modele": "911", "variante": "992 Carrera 4", "portes": 2, "places": 4, "reservoir": 64},
+            {"modele": "911", "variante": "992 Carrera 4S", "portes": 2, "places": 4, "reservoir": 64},
+            {"modele": "911", "variante": "992 Targa 4", "portes": 2, "places": 4, "reservoir": 64},
+            {"modele": "911", "variante": "992 Targa 4S", "portes": 2, "places": 4, "reservoir": 64},
+            {"modele": "911", "variante": "992 Turbo", "portes": 2, "places": 4, "reservoir": 64},
+            {"modele": "911", "variante": "992 Turbo S", "portes": 2, "places": 4, "reservoir": 64},
+            {"modele": "911", "variante": "992 GT3", "portes": 2, "places": 4, "reservoir": 64},
+            {"modele": "911", "variante": "992 GT3 RS", "portes": 2, "places": 4, "reservoir": 64},
+            {"modele": "911", "variante": "992 GT2 RS", "portes": 2, "places": 4, "reservoir": 64}
+            ],
+
+
+
+        "Fiat": [
                 {"modele": "500", "variante": "Pop", "portes": 3, "places": 4, "reservoir": 35},
                 {"modele": "Panda", "variante": "City", "portes": 5, "places": 5, "reservoir": 40},
             ],
@@ -376,72 +426,48 @@ class Command(BaseCommand):
             ],
 
             "Renault RS": [
+                {"modele": "Clio II RS", "variante": "Phase 1", "portes": 3, "places": 4, "reservoir": 50},
+                {"modele": "Clio II RS", "variante": "Phase 2", "portes": 3, "places": 4, "reservoir": 50},
+                {"modele": "Clio II RS", "variante": "RS 172", "portes": 3, "places": 4, "reservoir": 50},
+                {"modele": "Clio II RS", "variante": "RS 182", "portes": 3, "places": 4, "reservoir": 50},
+                {"modele": "Clio II RS", "variante": "V6 Phase 1", "portes": 3, "places": 2, "reservoir": 60},
+                {"modele": "Clio II RS", "variante": "V6 Phase 2", "portes": 3, "places": 2, "reservoir": 60},
 
-            {"modele": "Clio II RS",
-             "variantes": [
-                 "Phase 1",
-                 "Phase 2",
-                 "RS 172",
-                 "RS 182",
-                 "V6 Phase 1",
-                 "V6 Phase 2"
-             ]
-             },
-            {"modele": "Clio III RS",
-             "variantes": [
-                 "Phase 1",
-                 "Phase 2",
-                 "Cup",
-                 "Trophy",
-                 "Gordini"
-             ]
-             },
-            {"modele": "Clio IV RS",
-             "variantes": [
-                 "Phase 1",
-                 "Phase 2",
-                 "Trophy",
-                 "Trophy R"
-             ]
-             },
-            {"modele": "Megane II RS",
-             "variantes": [
-                 "Phase 1",
-                 "Phase 2",
-                 "R26 F1 Team",
-                 "R26.R"
-             ]
-             },
-            {"modele": "Megane III RS",
-             "variantes": [
-                 "Base",
-                 "Trophy",
-                 "Trophy‑R"
-             ]
-             },
-            {"modele": "Megane IV RS",
-             "variantes": [
-                 "Base",
-                 "Trophy",
-                 "Trophy‑R",
-                 "Ultime"
-             ]
-             },
-            {"modele": "Twingo II RS",
-             "variantes": [
-                 "Phase 1",
-                 "Phase 2",
-                 "Gordini"
-             ]
-             },
-            {"modele": "Renault Sport RS 01",
-             "variantes": [
-                 "RS 01 Standard"
-             ]
-             },
+                {"modele": "Clio III RS", "variante": "Phase 1", "portes": 3, "places": 4, "reservoir": 50},
+                {"modele": "Clio III RS", "variante": "Phase 2", "portes": 3, "places": 4, "reservoir": 50},
+                {"modele": "Clio III RS", "variante": "Cup", "portes": 3, "places": 4, "reservoir": 50},
+                {"modele": "Clio III RS", "variante": "Trophy", "portes": 3, "places": 4, "reservoir": 50},
+                {"modele": "Clio III RS", "variante": "Gordini", "portes": 3, "places": 4, "reservoir": 50},
+
+                {"modele": "Clio IV RS", "variante": "Phase 1", "portes": 3, "places": 4, "reservoir": 50},
+                {"modele": "Clio IV RS", "variante": "Phase 2", "portes": 3, "places": 4, "reservoir": 50},
+                {"modele": "Clio IV RS", "variante": "Trophy", "portes": 3, "places": 4, "reservoir": 50},
+                {"modele": "Clio IV RS", "variante": "Trophy R", "portes": 3, "places": 4, "reservoir": 50},
+
+                {"modele": "Megane II RS", "variante": "Phase 1", "portes": 3, "places": 4, "reservoir": 55},
+                {"modele": "Megane II RS", "variante": "Phase 2", "portes": 3, "places": 4, "reservoir": 55},
+                {"modele": "Megane II RS", "variante": "R26 F1 Team", "portes": 3, "places": 2, "reservoir": 55},
+                {"modele": "Megane II RS", "variante": "R26.R", "portes": 3, "places": 2, "reservoir": 55},
+
+                {"modele": "Megane III RS", "variante": "Base", "portes": 3, "places": 4, "reservoir": 55},
+                {"modele": "Megane III RS", "variante": "Trophy", "portes": 3, "places": 4, "reservoir": 55},
+                {"modele": "Megane III RS", "variante": "Trophy-R", "portes": 3, "places": 4, "reservoir": 55},
+
+                {"modele": "Megane IV RS", "variante": "Base", "portes": 3, "places": 4, "reservoir": 55},
+                {"modele": "Megane IV RS", "variante": "Trophy", "portes": 3, "places": 4, "reservoir": 55},
+                {"modele": "Megane IV RS", "variante": "Trophy-R", "portes": 3, "places": 4, "reservoir": 55},
+                {"modele": "Megane IV RS", "variante": "Ultime", "portes": 3, "places": 4, "reservoir": 55},
+
+                {"modele": "Twingo II RS", "variante": "Phase 1", "portes": 3, "places": 4, "reservoir": 35},
+                {"modele": "Twingo II RS", "variante": "Phase 2", "portes": 3, "places": 4, "reservoir": 35},
+                {"modele": "Twingo II RS", "variante": "Gordini", "portes": 3, "places": 4, "reservoir": 35},
+
+                {"modele": "Renault Sport RS 01", "variante": "RS 01 Standard", "portes": 2, "places": 2,
+                 "reservoir": 65},
 
 
-                # Modèles Renault Sport actuels et récents
+
+            # Modèles Renault Sport actuels et récents
                 {"modele": "Clio RS", "variante": None, "portes": 5, "places": 5, "reservoir": 50},  # compacte sportive
                 {"modele": "Megane RS", "variante": None, "portes": 5, "places": 5, "reservoir": 55},
                 # berline compacte sportive
@@ -502,33 +528,50 @@ class Command(BaseCommand):
                 {"modele": "SQ7", "variante": None, "portes": 5, "places": 7, "reservoir": 85},
 
             ],
-            "Porsche": [
-                {"modele": "550 Spyder", "nom_variante": None, "nombre_portes": 2, "nbre_places": 2,
-                 "taille_reservoir": 60},
 
-                # 911 classiques
-                {"modele": "911", "nom_variante": "Carrera S", "nombre_portes": 2, "nbre_places": 4,
-                 "taille_reservoir": 67},
-                {"modele": "911", "nom_variante": "Turbo", "nombre_portes": 2, "nbre_places": 4,
-                 "taille_reservoir": 67},
+            "Alpine": [
+
+                {"modele": "A110 (1961-1977)", "variante": "Berlinette", "portes": 2, "places": 2, "reservoir": 40},
+                {"modele": "A310", "variante": "Base", "portes": 2, "places": 2, "reservoir": 60},
+                {"modele": "A310", "variante": "V6", "portes": 2, "places": 2, "reservoir": 60},
+                {"modele": "A610", "variante": "V6 Turbo", "portes": 2, "places": 2, "reservoir": 70},
+
+
+                {"modele": "A110", "variante": "Pure", "portes": 2, "places": 2, "reservoir": 45},
+                {"modele": "A110", "variante": "Legende", "portes": 2, "places": 2, "reservoir": 45},
+                {"modele": "A110", "variante": "S", "portes": 2, "places": 2, "reservoir": 45},
+                {"modele": "A110", "variante": "GT", "portes": 2, "places": 2, "reservoir": 45}
+                ],
+
+
+        #"Porsche": [
+                #{"modele": "550 Spyder", "nom_variante": None, "nombre_portes": 2, "nbre_places": 2,
+                # "taille_reservoir": 60},
+
+
+                #{"modele": "911", "nom_variante": "Carrera S", "nombre_portes": 2, "nbre_places": 4,
+                # "taille_reservoir": 67},
+                #{"modele": "911", "nom_variante": "Turbo", "nombre_portes": 2, "nbre_places": 4,
+                # "taille_reservoir": 67},
 
                 # 911 GT spéciaux
-                {"modele": "911", "nom_variante": "GT3", "nombre_portes": 2, "nbre_places": 2,
-                 "taille_reservoir": 64},
-                {"modele": "911", "nom_variante": "GT3 RS", "nombre_portes": 2, "nbre_places": 2,
-                 "taille_reservoir": 64},
-                {"modele": "911", "nom_variante": "GT2 RS", "nombre_portes": 2, "nbre_places": 2,
-                 "taille_reservoir": 64},
+
+                #{"modele": "911", "nom_variante": "GT3", "nombre_portes": 2, "nbre_places": 2,
+                 #"taille_reservoir": 64},
+                #{"modele": "911", "nom_variante": "GT3 RS", "nombre_portes": 2, "nbre_places": 2,
+                 #"taille_reservoir": 64},
+                #{"modele": "911", "nom_variante": "GT2 RS", "nombre_portes": 2, "nbre_places": 2,
+                 #"taille_reservoir": 64},
 
                 # SUV et berlines
-                {"modele": "Cayenne", "nom_variante": "S", "nombre_portes": 5, "nbre_places": 5,
-                 "taille_reservoir": 75},
-                {"modele": "Macan", "nom_variante": None, "nombre_portes": 5, "nbre_places": 5,
-                 "taille_reservoir": 60},
-                {"modele": "Panamera", "nom_variante": "4S", "nombre_portes": 5, "nbre_places": 5,
-                 "taille_reservoir": 75},
+                #{"modele": "Cayenne", "nom_variante": "S", "nombre_portes": 5, "nbre_places": 5,
+                 #"taille_reservoir": 75},
+               # {"modele": "Macan", "nom_variante": None, "nombre_portes": 5, "nbre_places": 5,
+                # "taille_reservoir": 60},
+               # {"modele": "Panamera", "nom_variante": "4S", "nombre_portes": 5, "nbre_places": 5,
+                # "taille_reservoir": 75},
 
-            ],
+            #],
 
             # Espagne
             "SEAT": [
