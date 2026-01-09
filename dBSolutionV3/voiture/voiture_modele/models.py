@@ -18,7 +18,7 @@ class VoitureModele(models.Model):
 
     # Informations du modèle
     nom_modele = models.CharField(max_length=25)
-    nom_variante = models.CharField(max_length=25, blank=True, null=True)
+    nom_variante = models.CharField(max_length=100, blank=True, null=True)
     nombre_portes = models.IntegerField(choices=NombrePortes.choices)
 
     nbre_places = models.PositiveSmallIntegerField()

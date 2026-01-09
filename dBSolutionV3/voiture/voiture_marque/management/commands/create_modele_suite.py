@@ -20,154 +20,78 @@ class Command(BaseCommand):
         marques_modeles = {
             # Italie
             "Range Rover": [
-                {
-                    "modele": "Range Rover",
-                    "variantes": [
-                        "Base / Vogue",
-                        "Autobiography",
-                        "SV Autobiography",
-                        "SV Autobiography Dynamic",
-                        "Long Wheelbase (LWB)"
-                    ]
-                },
-                {
-                    "modele": "Range Rover Sport",
-                    "variantes": [
-                        "S",
-                        "SE",
-                        "Dynamic SE",
-                        "Dynamic HSE",
-                        "Autobiography",
-                        "SVR",
-                        "SV Carbon"
-                    ]
-                },
-                {
-                    "modele": "Range Rover Velar",
-                    "variantes": [
-                        "Standard",
-                        "R‑Dynamic S",
-                        "R‑Dynamic SE",
-                        "R‑Dynamic HSE"
-                    ]
-                },
-                {
-                    "modele": "Range Rover Evoque",
-                    "variantes": [
-                        "S",
-                        "Dynamic SE",
-                        "Dynamic HSE",
-                        "Autobiography"
-                    ]
-                }
-            ],
+                {"modele": "Range Rover", "variante": "Base / Vogue", "portes": 5, "places": 5, "reservoir": 82},
+                {"modele": "Range Rover", "variante": "Autobiography", "portes": 5, "places": 5, "reservoir": 82},
+                {"modele": "Range Rover", "variante": "SV Autobiography", "portes": 5, "places": 5, "reservoir": 82},
+                {"modele": "Range Rover", "variante": "SV Autobiography Dynamic", "portes": 5, "places": 5,
+                 "reservoir": 82},
+                {"modele": "Range Rover", "variante": "Long Wheelbase (LWB)", "portes": 5, "places": 5,
+                 "reservoir": 90},
 
+                {"modele": "Range Rover Sport", "variante": "S", "portes": 5, "places": 5, "reservoir": 85},
+                {"modele": "Range Rover Sport", "variante": "SE", "portes": 5, "places": 5, "reservoir": 85},
+                {"modele": "Range Rover Sport", "variante": "Dynamic SE", "portes": 5, "places": 5, "reservoir": 85},
+                {"modele": "Range Rover Sport", "variante": "Dynamic HSE", "portes": 5, "places": 5, "reservoir": 85},
+                {"modele": "Range Rover Sport", "variante": "Autobiography", "portes": 5, "places": 5, "reservoir": 85},
+                {"modele": "Range Rover Sport", "variante": "SVR", "portes": 5, "places": 5, "reservoir": 85},
+                {"modele": "Range Rover Sport", "variante": "SV Carbon", "portes": 5, "places": 5, "reservoir": 85},
+
+                {"modele": "Range Rover Velar", "variante": "Standard", "portes": 5, "places": 5, "reservoir": 80},
+                {"modele": "Range Rover Velar", "variante": "R‑Dynamic S", "portes": 5, "places": 5, "reservoir": 80},
+                {"modele": "Range Rover Velar", "variante": "R‑Dynamic SE", "portes": 5, "places": 5, "reservoir": 80},
+                {"modele": "Range Rover Velar", "variante": "R‑Dynamic HSE", "portes": 5, "places": 5, "reservoir": 80},
+
+                {"modele": "Range Rover Evoque", "variante": "S", "portes": 5, "places": 5, "reservoir": 60},
+                {"modele": "Range Rover Evoque", "variante": "Dynamic SE", "portes": 5, "places": 5, "reservoir": 60},
+                {"modele": "Range Rover Evoque", "variante": "Dynamic HSE", "portes": 5, "places": 5, "reservoir": 60},
+                {"modele": "Range Rover Evoque", "variante": "Autobiography", "portes": 5, "places": 5, "reservoir": 60}
+            ],
 
             "Polestar": [
-                {
-                    "modele": "Polestar 1",
-                    "variantes": [
-                        "Standard"
-                    ]
-                },
-                {
-                    "modele": "Polestar 2",
-                    "variantes": [
-                        "Standard Range Single Motor",
-                        "Long Range Single Motor",
-                        "Long Range Dual Motor",
-                        "Long Range Dual Motor Performance"
-                    ]
-                },
-                {
-                    "modele": "Polestar 3",
-                    "variantes": [
-                        "Base",
-                        "Dual Motor",
-                        "Performance"
-                    ]
-                },
-                {
-                    "modele": "Polestar 4",
-                    "variantes": [
-                        "Standard",
-                        "Plus Pack",
-                        "Pilot Pack"
-                    ]
-                },
-                {
-                    "modele": "Polestar 5",
-                    "variantes": [
-                        "Dual Motor",
-                        "Performance"
-                    ]
-                },
-                {
-                    "modele": "Polestar 6",
-                    "variantes": [
-                        "Roadster Standard"
-                    ]
-                },
-                {
-                    "modele": "Polestar 7",
-                    "variantes": [
-                        "Standard"
-                    ]
-                }
+                {"modele": "Polestar 1", "variante": "Standard", "portes": 2, "places": 4, "reservoir": 0},
+                {"modele": "Polestar 2", "variante": "Standard Range Single Motor", "portes": 5, "places": 5,
+                 "reservoir": 0},
+                {"modele": "Polestar 2", "variante": "Long Range Single Motor", "portes": 5, "places": 5,
+                 "reservoir": 0},
+                {"modele": "Polestar 2", "variante": "Long Range Dual Motor", "portes": 5, "places": 5, "reservoir": 0},
+                {"modele": "Polestar 2", "variante": "Long Range Dual Motor Performance", "portes": 5, "places": 5,
+                 "reservoir": 0},
+                {"modele": "Polestar 3", "variante": "Base", "portes": 5, "places": 5, "reservoir": 0},
+                {"modele": "Polestar 3", "variante": "Dual Motor", "portes": 5, "places": 5, "reservoir": 0},
+                {"modele": "Polestar 3", "variante": "Performance", "portes": 5, "places": 5, "reservoir": 0},
+                {"modele": "Polestar 4", "variante": "Standard", "portes": 5, "places": 5, "reservoir": 0},
+                {"modele": "Polestar 4", "variante": "Plus Pack", "portes": 5, "places": 5, "reservoir": 0},
+                {"modele": "Polestar 4", "variante": "Pilot Pack", "portes": 5, "places": 5, "reservoir": 0},
+                {"modele": "Polestar 5", "variante": "Dual Motor", "portes": 5, "places": 5, "reservoir": 0},
+                {"modele": "Polestar 5", "variante": "Performance", "portes": 5, "places": 5, "reservoir": 0},
+                {"modele": "Polestar 6", "variante": "Roadster Standard", "portes": 2, "places": 2, "reservoir": 0},
+                {"modele": "Polestar 7", "variante": "Standard", "portes": 5, "places": 5, "reservoir": 0}
             ],
+
             "Peugeot Sport": [
-                {
-                    "modele": "Peugeot 205",
-                    "variantes": [
-                        "GTI 1.6",
-                        "GTI 1.9"
-                    ]
-                },
-                {
-                    "modele": "Peugeot 206",
-                    "variantes": [
-                        "GTI",
-                        "RC",
-                        "S16",
-                        "206 Rallye"
-                    ]
-                },
-                {
-                    "modele": "Peugeot 207",
-                    "variantes": [
-                        "GTi",
-                        "RC",
-                        "207 S2000"
-                    ]
-                },
-                {
-                    "modele": "Peugeot 208",
-                    "variantes": [
-                        "GTi 30th Anniversary",
-                        "GTi by Peugeot Sport",
-                        "e‑208 GTi" # future / relance sport électrique
-                    ]
-                },
-                {
-                    "modele": "Peugeot 308",
-                    "variantes": [
-                        "GTi by Peugeot Sport"
-                    ]
-                },
-                {
-                    "modele": "Peugeot 508",
-                    "variantes": [
-                        "508 PEUGEOT SPORT ENGINEERED",
-                        "508 SW PEUGEOT SPORT ENGINEERED"
-                    ]
-                },
-                {
-                    "modele": "Peugeot 9X8",
-                    "variantes": [
-                        "PEUGEOT Hypercar 9X8" # prototype endurance WEC
-                    ]
-                }
+                {"modele": "Peugeot 205", "variante": "GTI 1.6", "portes": 3, "places": 4, "reservoir": 50},
+                {"modele": "Peugeot 205", "variante": "GTI 1.9", "portes": 3, "places": 4, "reservoir": 50},
+                {"modele": "Peugeot 206", "variante": "GTI", "portes": 3, "places": 4, "reservoir": 50},
+                {"modele": "Peugeot 206", "variante": "RC", "portes": 3, "places": 4, "reservoir": 50},
+                {"modele": "Peugeot 206", "variante": "S16", "portes": 3, "places": 4, "reservoir": 50},
+                {"modele": "Peugeot 206", "variante": "206 Rallye", "portes": 3, "places": 4, "reservoir": 50},
+                {"modele": "Peugeot 207", "variante": "GTi", "portes": 3, "places": 4, "reservoir": 55},
+                {"modele": "Peugeot 207", "variante": "RC", "portes": 3, "places": 4, "reservoir": 55},
+                {"modele": "Peugeot 207", "variante": "207 S2000", "portes": 3, "places": 4, "reservoir": 55},
+                {"modele": "Peugeot 208", "variante": "GTi 30th Anniversary", "portes": 3, "places": 4,
+                 "reservoir": 45},
+                {"modele": "Peugeot 208", "variante": "GTi by Peugeot Sport", "portes": 3, "places": 4,
+                 "reservoir": 45},
+                {"modele": "Peugeot 208", "variante": "e‑208 GTi", "portes": 3, "places": 4, "reservoir": 0},
+                {"modele": "Peugeot 308", "variante": "GTi by Peugeot Sport", "portes": 5, "places": 5,
+                 "reservoir": 55},
+                {"modele": "Peugeot 508", "variante": "508 PEUGEOT SPORT ENGINEERED", "portes": 5, "places": 5,
+                 "reservoir": 60},
+                {"modele": "Peugeot 508", "variante": "508 SW PEUGEOT SPORT ENGINEERED", "portes": 5, "places": 5,
+                 "reservoir": 60},
+                {"modele": "Peugeot 9X8", "variante": "PEUGEOT Hypercar 9X8", "portes": 2, "places": 2, "reservoir": 0}
             ],
+
 
 
             "Fiat": [
