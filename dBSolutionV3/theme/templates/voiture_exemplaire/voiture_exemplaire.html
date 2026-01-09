@@ -8,8 +8,8 @@
         {% if modele.nom_variante %} - {{ modele.nom_variante }}{% endif %}
     </h1>
 
-    {% if exemplaires %}
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {% if exemplaires %}
             {% for ex in exemplaires %}
             <div class="bg-white shadow-md hover:shadow-lg rounded-lg p-4">
                 <h2 class="text-lg font-semibold">{{ ex.immatriculation }}</h2>
@@ -24,11 +24,19 @@
                 </p>
             </div>
             {% endfor %}
-        </div>
-    {% else %}
-        <p class="text-red-600 font-semibold">
-            {% trans "Ce modèle ne contient aucun exemplaire enregistré." %}
-        </p>
-    {% endif %}
+        {% else %}
+            <p class="text-red-600 font-semibold">
+                {% trans "Ce modèle ne contient aucun exemplaire enregistré." %}
+            </p>
+        {% endif %}
+
+        <!-- Box ajout véhicule : style identique aux cartes exemplaires -->
+        <a href="{% url 'ajouter_exemplaire' modele.id %}"
+           class="bg-white shadow-md hover:shadow-lg rounded-lg p-4 flex flex-col items-center justify-center border border-gray-300 transition duration-200">
+            <span class="text-gray-600 font-semibold text-center text-lg">
+                {% trans "Ajouter un véhicule" %}
+            </span>
+        </a>
+    </div>
 </div>
 {% endblock %}
