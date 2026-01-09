@@ -4,15 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="marque favori">
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture/ajouter_exemplaire.html" afterDir="false" />
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="exemplaire fomulaire et lien">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls_tenant.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls_tenant.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/static/css/dist/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/css/dist/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture_exemplaire/voiture_exemplaire.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture_exemplaire/voiture_exemplaire.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture/ajouter_exemplaire.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture/ajouter_exemplaire.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_exemplaire/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_exemplaire/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_exemplaire/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_exemplaire/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_exemplaire/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_exemplaire/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_modele/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_modele/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -199,15 +196,7 @@
       <workItem from="1767878368313" duration="1192000" />
       <workItem from="1767891728456" duration="2414000" />
       <workItem from="1767943953810" duration="10123000" />
-      <workItem from="1767954680635" duration="1957000" />
-    </task>
-    <task id="LOCAL-00155" summary="Deconnexion">
-      <option name="closed" value="true" />
-      <created>1767349243488</created>
-      <option name="number" value="00155" />
-      <option name="presentableId" value="LOCAL-00155" />
-      <option name="project" value="LOCAL" />
-      <updated>1767349243488</updated>
+      <workItem from="1767954680635" duration="3822000" />
     </task>
     <task id="LOCAL-00156" summary="password create user validate_password">
       <option name="closed" value="true" />
@@ -593,7 +582,15 @@
       <option name="project" value="LOCAL" />
       <updated>1767954728964</updated>
     </task>
-    <option name="localTasksCounter" value="204" />
+    <task id="LOCAL-00204" summary="exemplaire fomulaire et lien">
+      <option name="closed" value="true" />
+      <created>1767956775249</created>
+      <option name="number" value="00204" />
+      <option name="presentableId" value="LOCAL-00204" />
+      <option name="project" value="LOCAL" />
+      <updated>1767956775249</updated>
+    </task>
+    <option name="localTasksCounter" value="205" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -611,7 +608,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Voiture marque + scripts" />
     <MESSAGE value="voiture marque view et html et urls" />
     <MESSAGE value="voiture marque Favoris" />
     <MESSAGE value="voiture marque BDD" />
@@ -636,7 +632,8 @@
     <MESSAGE value="traduction grec" />
     <MESSAGE value="script modeles" />
     <MESSAGE value="marque favori" />
-    <option name="LAST_COMMIT_MESSAGE" value="marque favori" />
+    <MESSAGE value="exemplaire fomulaire et lien" />
+    <option name="LAST_COMMIT_MESSAGE" value="exemplaire fomulaire et lien" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

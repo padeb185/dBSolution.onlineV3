@@ -1,40 +1,35 @@
 {% extends 'base.html' %}
 {% load i18n static %}
+{% load widget_tweaks %}
 
 {% block content %}
-<div class="flex justify-center items-start mt-10">
-    <div class="bg-white shadow-md rounded-lg p-8 w-full max-w-lg" style="min-width: 500px;">
-        <h1 class="text-2xl font-bold mb-6 text-center">
+<div class="flex justify-center mt-16 mb-16"> <!-- marge haute et basse plus grande -->
+    <!-- Carte formulaire avec largeur de 500px -->
+    <div class="bg-white shadow-md rounded-lg p-8" style="width: 500px;">
+        <h1 class="text-2xl font-bold mb-10 text-center"> <!-- marge sous le titre un peu plus grande -->
             {% trans "Ajouter un exemplaire pour" %} {{ modele.nom_modele }}
             {% if modele.nom_variante %} - {{ modele.nom_variante }}{% endif %}
         </h1>
 
-        <form method="post" class="space-y-6">
+        <form method="post" class="flex flex-col space-y-8">  <!-- espace vertical entre champs augmenté -->
             {% csrf_token %}
 
             {% for field in form %}
-                <div>
+                <div class="flex flex-col">
                     {{ field.label_tag }}
-                    {{ field }}
+                    {{ field|add_class:"border border-gray-300 rounded-lg px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-300" }}
                     {% if field.errors %}
                         <p class="text-red-600 text-sm mt-1">{{ field.errors }}</p>
                     {% endif %}
                 </div>
             {% endfor %}
 
-            <div class="flex justify-center mt-6">
-                <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition">
+            <div class="flex justify-center mt-8"> <!-- marge avant bouton augmentée -->
+                <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">
                     {% trans "Ajouter" %}
                 </button>
             </div>
         </form>
     </div>
 </div>
-
-<!-- Styles Tailwind pour les champs -->
-<style>
-    input, select, textarea {
-        @apply w-full border border-gray-300 rounded px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-300;
-    }
-</style>
 {% endblock %}

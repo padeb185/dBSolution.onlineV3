@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import VoitureExemplaire
 from .forms import VoitureExemplaireForm
-from ..voiture_modele.models import VoitureModele
+from voiture.voiture_modele.models import VoitureModele
 
 
 @login_required
@@ -18,8 +18,6 @@ def voiture_exemplaire(request, modele_id):
         "exemplaires": exemplaires,
     }
     return render(request, "voiture_exemplaire/voiture_exemplaire.html", context)
-
-
 
 
 
@@ -43,5 +41,6 @@ def ajouter_exemplaire(request, modele_id):
 
     return render(request, "voiture/ajouter_exemplaire.html", {
         "form": form,
-        "modele": modele
+        "modele": modele,
+        "marque": marque
     })
