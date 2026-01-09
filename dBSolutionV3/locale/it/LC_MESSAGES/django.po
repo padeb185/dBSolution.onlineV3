@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-07 11:58+0100\n"
+"POT-Creation-Date: 2026-01-09 14:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -969,7 +969,6 @@ msgstr "Cerchi"
 msgid "Validation finale"
 msgstr "Conferma finale"
 
-
 #: .\maintenance\nettoyage_exterieur\models.py:34
 #: .\maintenance\nettoyage_interieur\models.py:38 .\piece\models.py:127
 #: .\piece\piece_fluides\models.py:66 .\theme\templates\dashboard.html:38
@@ -1358,6 +1357,7 @@ msgid "Puissance en watts"
 msgstr "Potenza in watt"
 
 #: .\piece\piece_ampoules\models.py:60 .\piece\piece_feux\models.py:29
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:23
 msgid "Couleur"
 msgstr "Colore"
 
@@ -1488,7 +1488,6 @@ msgstr "Componente batteria"
 #: .\piece\piece_batterie\models.py:62
 msgid "Pièces de batterie"
 msgstr "Componenti batteria"
-
 
 #: .\piece\piece_batterie\models.py:65 .\piece\piece_moteur\models.py:69
 #: .\piece\piece_pont\models.py:72 .\piece\piece_silent_bloc\models.py:60
@@ -2029,7 +2028,6 @@ msgstr "Frizione a disco singolo"
 msgid "Embrayage double disque"
 msgstr "Frizione a doppio disco"
 
-
 #: .\piece\piece_embrayage\models.py:13 .\piece\piece_embrayage\models.py:42
 msgid "Disque d'embrayage"
 msgstr "Disco frizione"
@@ -2037,7 +2035,6 @@ msgstr "Disco frizione"
 #: .\piece\piece_embrayage\models.py:14
 msgid "Plateau de pression"
 msgstr "Piastra di pressione"
-
 
 #: .\piece\piece_embrayage\models.py:15 .\piece\piece_embrayage\models.py:56
 msgid "Butée d'embrayage"
@@ -2074,7 +2071,6 @@ msgstr "Elenco dei componenti presenti in questa frizione"
 #: .\piece\piece_embrayage\models.py:62
 msgid "Composants"
 msgstr "Componenti"
-
 
 #: .\piece\piece_embrayage\models.py:72
 msgid "Embrayage"
@@ -2853,7 +2849,6 @@ msgstr "Asse satellite"
 msgid "Carter de pont"
 msgstr "Carter del ponte"
 
-
 #: .\piece\piece_pont\models.py:26
 msgid "Couvercle de pont"
 msgstr "Coperchio del ponte"
@@ -3071,7 +3066,6 @@ msgstr "Ammortizzatore anteriore"
 msgid "Amortisseur arrière"
 msgstr "Ammortizzatore posteriore"
 
-
 #: .\piece\piece_suspension\models.py:11 .\piece\piece_train_AR\models.py:21
 #: .\piece\piece_train_AV\models.py:24
 msgid "Amortisseur G/D"
@@ -3124,7 +3118,6 @@ msgstr "Componente della sospensione"
 #: .\piece\piece_suspension\models.py:40
 msgid "Pièces de suspension"
 msgstr "Componenti della sospensione"
-
 
 #: .\piece\piece_train_AR\models.py:9 .\piece\piece_train_AV\models.py:8
 msgid "Berceau"
@@ -3352,7 +3345,8 @@ msgid ""
 "encore. Certaines fonctionnalités peuvent être temporairement indisponibles."
 msgstr ""
 "Il sito è attualmente in costruzione oppure la pagina richiesta non esiste "
-"ancora. Alcune funzionalità potrebbero essere temporaneamente non disponibili."
+"ancora. Alcune funzionalità potrebbero essere temporaneamente non "
+"disponibili."
 
 #: .\theme\templates\404.html:32
 msgid "Retour à la page précédente"
@@ -3361,7 +3355,6 @@ msgstr "Torna alla pagina precedente"
 #: .\theme\templates\404.html:38
 msgid "Retour à l'accueil"
 msgstr "Torna alla home"
-
 
 #: .\theme\templates\base.html:9
 msgid "dBSolution"
@@ -3431,7 +3424,6 @@ msgstr "Modifica progetto"
 msgid "Marques de voiture"
 msgstr "Marchi automobilistici"
 
-
 #: .\theme\templates\home.html:20
 msgid "Bienvenue"
 msgstr "Benvenuto"
@@ -3480,6 +3472,15 @@ msgstr "Codice generato da Google Authenticator"
 msgid "Valider"
 msgstr "Conferma"
 
+#: .\theme\templates\voiture\ajouter_exemplaire.html:10
+msgid "Ajouter un exemplaire pour"
+msgstr "Aggiungi un esemplare per"
+
+#: .\theme\templates\voiture\ajouter_exemplaire.html:29
+msgid "Ajouter"
+msgstr "Aggiungi"
+
+
 #: .\theme\templates\voiture\marques.html:14
 msgid "Mes marques favorites"
 msgstr "I miei marchi preferiti"
@@ -3492,17 +3493,38 @@ msgstr "Vedi i modelli di questo marchio"
 msgid "Modèles de"
 msgstr "Modelli di"
 
-#: .\theme\templates\voiture\modeles_list.html:20
+#: .\theme\templates\voiture\modeles_list.html:22
 msgid "portes"
 msgstr "Porta"
 
-#: .\theme\templates\voiture\modeles_list.html:20
+#: .\theme\templates\voiture\modeles_list.html:22
 msgid "places"
 msgstr "posti"
 
-#: .\theme\templates\voiture\modeles_list.html:27
+#: .\theme\templates\voiture\modeles_list.html:38
 msgid "Aucun modèle enregistré pour cette marque."
 msgstr "Nessun modello registrato per questo marchio."
+
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:7
+msgid "Exemplaires de"
+msgstr "Esemplari di"
+
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:17
+msgid "Année de production"
+msgstr "Anno di produzione"
+
+
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:20
+msgid "Kilométrage"
+msgstr "Chilometraggio"
+
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:29
+msgid "Ce modèle ne contient aucun exemplaire enregistré."
+msgstr "Questo modello non contiene alcun esemplare registrato."
+
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:37
+msgid "Ajouter un véhicule"
+msgstr "Aggiungi un veicolo"
 
 
 #: .\theme\views.py:35
@@ -3540,6 +3562,7 @@ msgstr "Carrocero"
 #: .\utilisateurs\models.py:77 .\utilisateurs\views.py:115
 msgid "Chef Mécanicien"
 msgstr "Capo meccanico"
+
 #: .\utilisateurs\models.py:78 .\utilisateurs\views.py:117
 msgid "Instructeur"
 msgstr "Instructor"
@@ -3559,6 +3582,10 @@ msgstr "Contable"
 #: .\utilisateurs\models.py:82 .\utilisateurs\views.py:121
 msgid "Direction"
 msgstr "Dirección"
+
+#: .\utilisateurs\models.py:89
+msgid "Rôle"
+msgstr "Ruolo"
 
 #: .\utilisateurs\views.py:80
 msgid "Révision moteur"

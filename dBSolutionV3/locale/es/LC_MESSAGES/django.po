@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-07 13:34+0100\n"
+"POT-Creation-Date: 2026-01-09 14:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1356,6 +1356,7 @@ msgid "Puissance en watts"
 msgstr "Potencia en vatios"
 
 #: .\piece\piece_ampoules\models.py:60 .\piece\piece_feux\models.py:29
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:23
 msgid "Couleur"
 msgstr "Color"
 
@@ -3469,6 +3470,14 @@ msgstr "Código generado por Google Authenticator"
 msgid "Valider"
 msgstr "Validar"
 
+#: .\theme\templates\voiture\ajouter_exemplaire.html:10
+msgid "Ajouter un exemplaire pour"
+msgstr "Agregar un ejemplar para"
+
+#: .\theme\templates\voiture\ajouter_exemplaire.html:29
+msgid "Ajouter"
+msgstr "Agregar"
+
 #: .\theme\templates\voiture\marques.html:14
 msgid "Mes marques favorites"
 msgstr "Mis marcas favoritas"
@@ -3481,17 +3490,39 @@ msgstr "Ver los modelos de esta marca"
 msgid "Modèles de"
 msgstr "Modelos de"
 
-#: .\theme\templates\voiture\modeles_list.html:20
+#: .\theme\templates\voiture\modeles_list.html:22
 msgid "portes"
 msgstr "Puerta"
 
-#: .\theme\templates\voiture\modeles_list.html:20
+#: .\theme\templates\voiture\modeles_list.html:22
 msgid "places"
 msgstr "plazas"
 
-#: .\theme\templates\voiture\modeles_list.html:27
+#: .\theme\templates\voiture\modeles_list.html:38
 msgid "Aucun modèle enregistré pour cette marque."
 msgstr "Ningún modelo registrado para esta marca."
+
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:7
+msgid "Exemplaires de"
+msgstr "Ejemplares de"
+
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:17
+msgid "Année de production"
+msgstr "Año de fabricación"
+
+
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:20
+msgid "Kilométrage"
+msgstr "Kilometraje"
+
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:29
+msgid "Ce modèle ne contient aucun exemplaire enregistré."
+msgstr "Este modelo no tiene ningún ejemplar registrado."
+
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:37
+msgid "Ajouter un véhicule"
+msgstr "Agregar un vehículo"
+
 
 #: .\theme\views.py:35
 msgid "Nom d'utilisateur ou mot de passe incorrect"
@@ -3548,6 +3579,11 @@ msgstr "Contable"
 #: .\utilisateurs\models.py:82 .\utilisateurs\views.py:121
 msgid "Direction"
 msgstr "Dirección"
+
+#: .\utilisateurs\models.py:89
+msgid "Rôle"
+msgstr "Rol"
+
 
 #: .\utilisateurs\views.py:80
 msgid "Révision moteur"

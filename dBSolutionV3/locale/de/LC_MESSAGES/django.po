@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-07 11:58+0100\n"
+"POT-Creation-Date: 2026-01-09 14:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1355,6 +1355,7 @@ msgid "Puissance en watts"
 msgstr "Leistung in Watt"
 
 #: .\piece\piece_ampoules\models.py:60 .\piece\piece_feux\models.py:29
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:23
 msgid "Couleur"
 msgstr "Farbe"
 
@@ -1485,7 +1486,6 @@ msgstr "Batterieteil"
 #: .\piece\piece_batterie\models.py:62
 msgid "Pièces de batterie"
 msgstr "Batterieteile"
-
 
 #: .\piece\piece_batterie\models.py:65 .\piece\piece_moteur\models.py:69
 #: .\piece\piece_pont\models.py:72 .\piece\piece_silent_bloc\models.py:60
@@ -3055,6 +3055,7 @@ msgstr "Gummilager"
 #: .\piece\piece_silent_bloc\models.py:57
 msgid "Silent-blocs"
 msgstr "Gummilager"
+
 #: .\piece\piece_suspension\models.py:9
 msgid "Amortisseur avant"
 msgstr "Vorderer Stoßdämpfer"
@@ -3204,7 +3205,6 @@ msgstr "Typ Vorderachsteile"
 msgid "Pièce train avant"
 msgstr "Vorderachsteil"
 
-
 #: .\piece\piece_train_AV\models.py:46
 msgid "Pièces train avant"
 msgstr "Teile der Vorderachse"
@@ -3341,7 +3341,10 @@ msgstr "Seite nicht gefunden"
 msgid ""
 "Le site est actuellement en construction ou la page demandée n'existe pas "
 "encore. Certaines fonctionnalités peuvent être temporairement indisponibles."
-msgstr "Die Website befindet sich derzeit im Aufbau oder die angeforderte Seite existiert noch nicht. Einige Funktionen können vorübergehend nicht verfügbar sein."
+msgstr ""
+"Die Website befindet sich derzeit im Aufbau oder die angeforderte Seite "
+"existiert noch nicht. Einige Funktionen können vorübergehend nicht verfügbar "
+"sein."
 
 #: .\theme\templates\404.html:32
 msgid "Retour à la page précédente"
@@ -3419,7 +3422,6 @@ msgstr "Projektbearbeitung"
 msgid "Marques de voiture"
 msgstr "Automarken"
 
-
 #: .\theme\templates\home.html:20
 msgid "Bienvenue"
 msgstr "Willkommen"
@@ -3471,6 +3473,15 @@ msgstr "Von Google Authenticator generierter Code"
 msgid "Valider"
 msgstr "Bestätigen"
 
+#: .\theme\templates\voiture\ajouter_exemplaire.html:10
+msgid "Ajouter un exemplaire pour"
+msgstr "Ein Exemplar hinzufügen für"
+
+#: .\theme\templates\voiture\ajouter_exemplaire.html:29
+msgid "Ajouter"
+msgstr "Hinzufügen"
+
+
 #: .\theme\templates\voiture\marques.html:14
 msgid "Mes marques favorites"
 msgstr "Meine Lieblingsmarken"
@@ -3483,18 +3494,37 @@ msgstr "Modelle dieser Marke anzeigen"
 msgid "Modèles de"
 msgstr "Modelle von"
 
-#: .\theme\templates\voiture\modeles_list.html:20
+#: .\theme\templates\voiture\modeles_list.html:22
 msgid "portes"
 msgstr "Türen"
 
-#: .\theme\templates\voiture\modeles_list.html:20
+#: .\theme\templates\voiture\modeles_list.html:22
 msgid "places"
 msgstr "Sitze"
 
-#: .\theme\templates\voiture\modeles_list.html:27
+#: .\theme\templates\voiture\modeles_list.html:38
 msgid "Aucun modèle enregistré pour cette marque."
 msgstr "Für diese Marke sind keine Modelle gespeichert."
 
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:7
+msgid "Exemplaires de"
+msgstr "Exemplare von"
+
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:17
+msgid "Année de production"
+msgstr "Baujahr"
+
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:20
+msgid "Kilométrage"
+msgstr "Kilometerstand"
+
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:29
+msgid "Ce modèle ne contient aucun exemplaire enregistré."
+msgstr "Dieses Modell enthält keine registrierten Exemplare."
+
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:37
+msgid "Ajouter un véhicule"
+msgstr "Fahrzeug hinzufügen"
 
 #: .\theme\views.py:35
 msgid "Nom d'utilisateur ou mot de passe incorrect"
@@ -3531,6 +3561,7 @@ msgstr "Karosseriebauer"
 #: .\utilisateurs\models.py:77 .\utilisateurs\views.py:115
 msgid "Chef Mécanicien"
 msgstr "Werkstattleiter"
+
 #: .\utilisateurs\models.py:78 .\utilisateurs\views.py:117
 msgid "Instructeur"
 msgstr "Instruktor"
@@ -3551,6 +3582,10 @@ msgstr "Buchhalter"
 msgid "Direction"
 msgstr "Geschäftsführung"
 
+#: .\utilisateurs\models.py:89
+msgid "Rôle"
+msgstr "Rolle"
+
 #: .\utilisateurs\views.py:80
 msgid "Révision moteur"
 msgstr "Motorwartung"
@@ -3562,7 +3597,6 @@ msgstr "Filterwechsel"
 #: .\utilisateurs\views.py:108 .\utilisateurs\views.py:123
 msgid "Rôle inconnu"
 msgstr "Unbekannte Rolle"
-
 
 #~ msgid "Adresse email ou mot de passe incorrect"
 #~ msgstr "E-Mail-Adresse oder Passwort ungültig"

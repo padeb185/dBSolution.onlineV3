@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-07 11:58+0100\n"
+"POT-Creation-Date: 2026-01-09 14:06+0100\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -1354,6 +1354,7 @@ msgid "Puissance en watts"
 msgstr ""
 
 #: .\piece\piece_ampoules\models.py:60 .\piece\piece_feux\models.py:29
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:23
 msgid "Couleur"
 msgstr ""
 
@@ -3465,6 +3466,14 @@ msgstr ""
 msgid "Valider"
 msgstr ""
 
+#: .\theme\templates\voiture\ajouter_exemplaire.html:10
+msgid "Ajouter un exemplaire pour"
+msgstr ""
+
+#: .\theme\templates\voiture\ajouter_exemplaire.html:29
+msgid "Ajouter"
+msgstr ""
+
 #: .\theme\templates\voiture\marques.html:14
 msgid "Mes marques favorites"
 msgstr ""
@@ -3477,16 +3486,36 @@ msgstr ""
 msgid "Modèles de"
 msgstr ""
 
-#: .\theme\templates\voiture\modeles_list.html:20
+#: .\theme\templates\voiture\modeles_list.html:22
 msgid "portes"
 msgstr ""
 
-#: .\theme\templates\voiture\modeles_list.html:20
+#: .\theme\templates\voiture\modeles_list.html:22
 msgid "places"
 msgstr ""
 
-#: .\theme\templates\voiture\modeles_list.html:27
+#: .\theme\templates\voiture\modeles_list.html:38
 msgid "Aucun modèle enregistré pour cette marque."
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:7
+msgid "Exemplaires de"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:17
+msgid "Année de production"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:20
+msgid "Kilométrage"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:29
+msgid "Ce modèle ne contient aucun exemplaire enregistré."
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:37
+msgid "Ajouter un véhicule"
 msgstr ""
 
 #: .\theme\views.py:35
@@ -3545,6 +3574,10 @@ msgstr ""
 msgid "Direction"
 msgstr ""
 
+#: .\utilisateurs\models.py:89
+msgid "Rôle"
+msgstr ""
+
 #: .\utilisateurs\views.py:80
 msgid "Révision moteur"
 msgstr ""
@@ -3556,4 +3589,3 @@ msgstr ""
 #: .\utilisateurs\views.py:108 .\utilisateurs\views.py:123
 msgid "Rôle inconnu"
 msgstr ""
-

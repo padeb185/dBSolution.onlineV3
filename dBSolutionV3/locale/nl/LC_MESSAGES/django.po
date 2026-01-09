@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-07 11:58+0100\n"
+"POT-Creation-Date: 2026-01-09 14:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1359,6 +1359,7 @@ msgid "Puissance en watts"
 msgstr "Vermogen in watt"
 
 #: .\piece\piece_ampoules\models.py:60 .\piece\piece_feux\models.py:29
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:23
 msgid "Couleur"
 msgstr "Kleur"
 
@@ -2810,7 +2811,6 @@ msgstr "%(type)s – %(largeur)s/%(hauteur)s R%(jante)s"
 msgid "Pont avant"
 msgstr "Voordifferentieel"
 
-
 #: .\piece\piece_pont\models.py:12
 msgid "Pont arrière"
 msgstr "Achterdifferentieel"
@@ -2976,7 +2976,6 @@ msgstr "Rubberbus onderste draagarm"
 msgid "Silent-bloc de bras de suspension"
 msgstr "Rubberbus draagarm"
 
-
 #: .\piece\piece_silent_bloc\models.py:14
 msgid "Silent-bloc de train avant"
 msgstr "Rubberbus voorste ophanging"
@@ -3068,7 +3067,6 @@ msgstr "Voorste schokdemper"
 #: .\piece\piece_suspension\models.py:10
 msgid "Amortisseur arrière"
 msgstr "Achterste schokdemper"
-
 
 #: .\piece\piece_suspension\models.py:11 .\piece\piece_train_AR\models.py:21
 #: .\piece\piece_train_AV\models.py:24
@@ -3348,8 +3346,8 @@ msgid ""
 "Le site est actuellement en construction ou la page demandée n'existe pas "
 "encore. Certaines fonctionnalités peuvent être temporairement indisponibles."
 msgstr ""
-"De website is momenteel in aanbouw of de opgevraagde pagina bestaat nog niet. "
-"Sommige functies kunnen tijdelijk niet beschikbaar zijn."
+"De website is momenteel in aanbouw of de opgevraagde pagina bestaat nog "
+"niet. Sommige functies kunnen tijdelijk niet beschikbaar zijn."
 
 #: .\theme\templates\404.html:32
 msgid "Retour à la page précédente"
@@ -3427,7 +3425,6 @@ msgstr "Project bewerken"
 msgid "Marques de voiture"
 msgstr "Automerken"
 
-
 #: .\theme\templates\home.html:20
 msgid "Bienvenue"
 msgstr "Welkom"
@@ -3476,6 +3473,14 @@ msgstr "Code gegenereerd door Google Authenticator"
 msgid "Valider"
 msgstr "Bevestigen"
 
+#: .\theme\templates\voiture\ajouter_exemplaire.html:10
+msgid "Ajouter un exemplaire pour"
+msgstr "Een exemplaar toevoegen voor"
+
+#: .\theme\templates\voiture\ajouter_exemplaire.html:29
+msgid "Ajouter"
+msgstr "Toevoegen"
+
 #: .\theme\templates\voiture\marques.html:14
 msgid "Mes marques favorites"
 msgstr "Mijn favoriete merken"
@@ -3488,19 +3493,38 @@ msgstr "De modellen van dit merk bekijken"
 msgid "Modèles de"
 msgstr "Modellen van"
 
-
-#: .\theme\templates\voiture\modeles_list.html:20
+#: .\theme\templates\voiture\modeles_list.html:22
 msgid "portes"
 msgstr "Deur"
 
-#: .\theme\templates\voiture\modeles_list.html:20
+#: .\theme\templates\voiture\modeles_list.html:22
 msgid "places"
 msgstr "plaatsen"
 
-#: .\theme\templates\voiture\modeles_list.html:27
+#: .\theme\templates\voiture\modeles_list.html:38
 msgid "Aucun modèle enregistré pour cette marque."
 msgstr "Geen model geregistreerd voor dit merk."
 
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:7
+msgid "Exemplaires de"
+msgstr "Exemplaren van"
+
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:17
+msgid "Année de production"
+msgstr "Productiejaar"
+
+
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:20
+msgid "Kilométrage"
+msgstr "Kilometerstand"
+
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:29
+msgid "Ce modèle ne contient aucun exemplaire enregistré."
+msgstr "Dit model bevat geen geregistreerd exemplaar."
+
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:37
+msgid "Ajouter un véhicule"
+msgstr "Voertuig toevoegen"
 
 #: .\theme\views.py:35
 msgid "Nom d'utilisateur ou mot de passe incorrect"
@@ -3557,6 +3581,10 @@ msgstr "Boekhouder"
 #: .\utilisateurs\models.py:82 .\utilisateurs\views.py:121
 msgid "Direction"
 msgstr "Directie"
+
+#: .\utilisateurs\models.py:89
+msgid "Rôle"
+msgstr "Rol"
 
 #: .\utilisateurs\views.py:80
 msgid "Révision moteur"
