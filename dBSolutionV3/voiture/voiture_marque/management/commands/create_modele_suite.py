@@ -3053,6 +3053,28 @@ class Command(BaseCommand):
                 # Pickups et utilitaires
                 {"modele": "Wuling Rongguang", "variante": None, "portes": 2, "places": 5, "annees": "2008–présent"},
             ],
+            "XPeng": [
+                # Berlines électriques
+                {"modele": "XPeng P7", "variante": None, "portes": 4, "places": 5, "annees": "2020–présent"},
+                {"modele": "XPeng P5", "variante": None, "portes": 4, "places": 5, "annees": "2021–présent"},
+
+                # SUV électriques
+                {"modele": "XPeng G3", "variante": None, "portes": 5, "places": 5, "annees": "2018–2023"},
+                {"modele": "XPeng G6", "variante": None, "portes": 5, "places": 5, "annees": "2023–présent"},
+                {"modele": "XPeng G9", "variante": None, "portes": 5, "places": 5, "annees": "2023–présent"},
+            ],
+            "ZIL": [
+                # Modèles historiques / voitures de luxe et limousines
+                {"modele": "ZIL-111", "variante": None, "portes": 4, "places": 6, "annees": "1958–1967"},
+                {"modele": "ZIL-114", "variante": None, "portes": 4, "places": 6, "annees": "1967–1978"},
+                {"modele": "ZIL-115", "variante": None, "portes": 4, "places": 6, "annees": "1978–1989"},
+                {"modele": "ZIL-4104", "variante": None, "portes": 4, "places": 6, "annees": "1985–1994"},
+
+                # Camions et utilitaires
+                {"modele": "ZIL-130", "variante": None, "portes": 2, "places": 3, "annees": "1962–1994"},
+                {"modele": "ZIL-131", "variante": None, "portes": 2, "places": 3, "annees": "1966–1990"},
+                {"modele": "ZIL-133", "variante": None, "portes": 2, "places": 3, "annees": "1975–1991"},
+            ],
 
 
 
