@@ -5,11 +5,12 @@ from django.shortcuts import render, redirect
 from io import BytesIO
 import base64
 import qrcode
+from django_tenants.utils import schema_context
+
 from .forms import LoginForm
 from .models import Utilisateur
-from django.shortcuts import render
 from django.utils.translation import gettext as _
-
+from voiture.voiture_marque.models import VoitureMarque
 
 
 def login_view(request):
@@ -64,50 +65,48 @@ def logout_view(request):
 
 
 
-
 @login_required
 def dashboard_view(request):
     user = request.user
     context = {}
 
-    if user.role == 'apprenti':
-        context['agenda'] = []
-        context['taches'] = []
-    elif user.role == 'mecanicien':
-        # Les noms de tâches traduisibles
-        context['agenda'] = []
-        context['taches'] = [
+    # 👇 Récupération du nombre total de marques
+    with schema_context(request.tenant.schema_name):
+        context['total_marques'] = VoitureMarque.objects.count()
+
+    # Initialisation par défaut
+    context['agenda'] = []
+    context['taches'] = []
+
+    # Gestion des tâches selon le rôle
+    role_tasks = {
+        'mecanicien': [
             _("Révision moteur"),
             _("Changement filtre")
-        ]
-    elif user.role == 'carrossier':
-        context['agenda'] = []
-        context['taches'] = []
-    elif user.role == 'chef_mecanicien':
-        context['agenda'] = []
-        context['taches'] = []
-    elif user.role == 'magasinier':
-        context['agenda'] = []
-        context['taches'] = []
-    elif user.role == 'instructeur':
-        context['agenda'] = []
-        context['taches'] = []
-    elif user.role == 'instructeur_externe':
-        context['agenda'] = []
-        context['taches'] = []
-    elif user.role == 'vendeur':
-        context['agenda'] = []
-        context['taches'] = []
-    elif user.role == 'comptable':
+        ],
+        # tu peux ajouter d'autres rôles spécifiques ici
+    }
+    if user.role in role_tasks:
+        context['taches'] = role_tasks[user.role]
+
+    # Rôles avec des infos supplémentaires
+    if user.role == 'comptable':
         context['factures'] = 12
         context['depenses'] = 5
     elif user.role == 'direction':
         context['projets'] = 24
         context['utilisateurs'] = 128
-    else:
-        context['message'] = _("Rôle inconnu")  # traduction
 
-    # Pour afficher le rôle de l'utilisateur en version traduite
+    # Message pour rôle inconnu
+    if user.role not in role_tasks and user.role not in ['comptable', 'direction',
+                                                       'apprenti', 'carrossier',
+                                                       'chef_mecanicien',
+                                                       'magasinier', 'instructeur',
+                                                       'instructeur_externe',
+                                                       'vendeur']:
+        context['message'] = _("Rôle inconnu")
+
+    # Rôle affiché (version traduite)
     ROLE_DISPLAY = {
         'apprenti': _("Apprenti"),
         'mecanicien': _("Mécanicien"),
@@ -123,8 +122,6 @@ def dashboard_view(request):
     context['role_display'] = ROLE_DISPLAY.get(user.role, _("Rôle inconnu"))
 
     return render(request, 'dashboard.html', context)
-
-
 
 def totp_setup_view(request):
     user_id = request.session.get("totp_setup_user")

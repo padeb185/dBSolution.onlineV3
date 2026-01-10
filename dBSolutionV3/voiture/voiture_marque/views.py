@@ -40,3 +40,6 @@ def toggle_favori_marque(request, id_marque):
         return JsonResponse({"status": "removed"})
     else:
         return JsonResponse({"status": "added"})
+
+
+

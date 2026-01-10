@@ -60,7 +60,11 @@
   <!-- Carte Marques de Voiture -->
   <a href="{% url 'tenant:marques_list' %}" class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
     <h2 class="text-lg font-semibold mb-2">{% trans "Marques de voiture" %}</h2>
-    <p class="text-gray-600">{% trans "Nombre total :" %} <span class="font-bold">{{ marques|length }}</span></p>
+    <p class="text-gray-600">
+    {% trans "Nombre total :" %}
+    <span class="font-bold">{{ total_marques }}</span>
+</p>
+
   </a>
 
 </div>
