@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="formulaire moteur">
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="script modele">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/management/commands/create_modele_suite.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/management/commands/create_modele_suite.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_modele/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_modele/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -197,15 +196,7 @@
       <workItem from="1767954680635" duration="3967000" />
       <workItem from="1767963858537" duration="6628000" />
       <workItem from="1768028085856" duration="7486000" />
-      <workItem from="1768037607997" duration="2371000" />
-    </task>
-    <task id="LOCAL-00160" summary="Pont">
-      <option name="closed" value="true" />
-      <created>1767431787389</created>
-      <option name="number" value="00160" />
-      <option name="presentableId" value="LOCAL-00160" />
-      <option name="project" value="LOCAL" />
-      <updated>1767431787389</updated>
+      <workItem from="1768037607997" duration="3916000" />
     </task>
     <task id="LOCAL-00161" summary="silent blocs">
       <option name="closed" value="true" />
@@ -591,7 +582,15 @@
       <option name="project" value="LOCAL" />
       <updated>1768035485824</updated>
     </task>
-    <option name="localTasksCounter" value="209" />
+    <task id="LOCAL-00209" summary="script modele">
+      <option name="closed" value="true" />
+      <created>1768040296755</created>
+      <option name="number" value="00209" />
+      <option name="presentableId" value="LOCAL-00209" />
+      <option name="project" value="LOCAL" />
+      <updated>1768040296756</updated>
+    </task>
+    <option name="localTasksCounter" value="210" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -609,7 +608,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="voiture marque BDD" />
     <MESSAGE value="clean" />
     <MESSAGE value="création tenants" />
     <MESSAGE value="clean + tenant + base de donnée et utilisateur" />
@@ -634,7 +632,8 @@
     <MESSAGE value="exemplaire fomulaire et lien" />
     <MESSAGE value="exemplaire fomulaire et lien traductions" />
     <MESSAGE value="formulaire moteur" />
-    <option name="LAST_COMMIT_MESSAGE" value="formulaire moteur" />
+    <MESSAGE value="script modele" />
+    <option name="LAST_COMMIT_MESSAGE" value="script modele" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
