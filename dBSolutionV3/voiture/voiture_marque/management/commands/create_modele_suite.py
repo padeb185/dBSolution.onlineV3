@@ -1551,6 +1551,18 @@ class Command(BaseCommand):
                 {"modele": "E-HS9", "variante": "Electrique", "portes": 5, "places": 7, "reservoir": 0}
             ],
 
+            "Hummer": [
+
+                {"modele": "H1", "variante": None, "portes": 4, "places": 4, "reservoir": 95},
+
+
+                {"modele": "H2", "variante": None, "portes": 4, "places": 5, "reservoir": 96},
+                {"modele": "H3", "variante": None, "portes": 4, "places": 5, "reservoir": 80},
+
+
+                {"modele": "Hummer EV Pickup", "variante": "Electrique", "portes": 4, "places": 5, "reservoir": 0},
+                {"modele": "Hummer EV SUV", "variante": "Electrique", "portes": 5, "places": 5, "reservoir": 0}
+            ],
 
 
 
@@ -1564,9 +1576,90 @@ class Command(BaseCommand):
 
             # Corée
             "Hyundai": [
+
+                {"modele": "i10", "variante": None, "portes": 5, "places": 5, "reservoir": 35},
+                {"modele": "i20", "variante": None, "portes": 5, "places": 5, "reservoir": 45},
                 {"modele": "i20", "variante": "N", "portes": 5, "places": 5, "reservoir": 45},
+                {"modele": "i30", "variante": None, "portes": 5, "places": 5, "reservoir": 50},
+                {"modele": "i30", "variante": "N", "portes": 5, "places": 5, "reservoir": 50},
+
+
+                {"modele": "Elantra", "variante": None, "portes": 4, "places": 5, "reservoir": 50},
+                {"modele": "Sonata", "variante": None, "portes": 4, "places": 5, "reservoir": 60},
+
+
+                {"modele": "Kona", "variante": None, "portes": 5, "places": 5, "reservoir": 50},
                 {"modele": "Tucson", "variante": None, "portes": 5, "places": 5, "reservoir": 60},
+                {"modele": "Santa Fe", "variante": None, "portes": 5, "places": 7, "reservoir": 71},
+                {"modele": "Palisade", "variante": None, "portes": 5, "places": 7, "reservoir": 71},
+
+
+                {"modele": "Veloster N", "variante": "Sport", "portes": 3, "places": 4, "reservoir": 50},
+
+
+                {"modele": "Ioniq 5", "variante": "Electrique", "portes": 5, "places": 5, "reservoir": 0},
+                {"modele": "Ioniq 6", "variante": "Electrique", "portes": 4, "places": 5, "reservoir": 0},
+                {"modele": "Kona Electric", "variante": "Electrique", "portes": 5, "places": 5, "reservoir": 0},
+                {"modele": "Tucson Hybrid", "variante": "Hybride", "portes": 5, "places": 5, "reservoir": 60},
+                {"modele": "Santa Fe Hybrid", "variante": "Hybride", "portes": 5, "places": 7, "reservoir": 71}
             ],
+
+            "Hyundai N": [
+                {"modele": "i20 N", "variante": None, "portes": 5, "places": 5, "reservoir": 45},
+                {"modele": "i30 N", "variante": None, "portes": 5, "places": 5, "reservoir": 50},
+                {"modele": "Veloster N", "variante": None, "portes": 3, "places": 4, "reservoir": 50},
+                {"modele": "Kona N", "variante": None, "portes": 5, "places": 5, "reservoir": 50},
+                {"modele": "Elantra N", "variante": None, "portes": 4, "places": 5, "reservoir": 50}
+            ],
+
+            "Infiniti": [
+
+                {"modele": "Q50", "variante": None, "portes": 4, "places": 5, "reservoir": 70},
+                {"modele": "Q60", "variante": None, "portes": 2, "places": 4, "reservoir": 65},
+                {"modele": "Q70", "variante": None, "portes": 4, "places": 5, "reservoir": 80},
+                {"modele": "Q70L", "variante": "Long Wheelbase", "portes": 4, "places": 5, "reservoir": 80},
+
+
+                   {"modele": "QX30", "variante": None, "portes": 5, "places": 5, "reservoir": 60},
+                {"modele": "QX50", "variante": None, "portes": 5, "places": 5, "reservoir": 65},
+                {"modele": "QX55", "variante": None, "portes": 5, "places": 5, "reservoir": 65},
+                {"modele": "QX60", "variante": None, "portes": 5, "places": 7, "reservoir": 75},
+                {"modele": "QX80", "variante": None, "portes": 5, "places": 7, "reservoir": 95},
+
+
+                   {"modele": "Q50 Hybrid", "variante": "Hybride", "portes": 4, "places": 5, "reservoir": 70}
+            ],
+
+            "Jaguar": [
+
+                {"modele": "XE", "variante": None, "portes": 4, "places": 5,"reservoir": 63},
+                {"modele": "XF", "variante": None, "portes": 4, "places": 5, "reservoir": 66},
+                {"modele": "XJ", "variante": None, "portes": 4, "places": 5, "reservoir": 80},
+
+                {"modele": "F-Type", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 61},
+                {"modele": "F-Type", "variante": "Cabriolet", "portes": 2, "places": 2, "reservoir": 61},
+
+                {"modele": "E-Pace", "variante": None, "portes": 5, "places": 5, "reservoir": 60},
+                {"modele": "F-Pace", "variante": None, "portes": 5, "places": 5, "reservoir": 70},
+                {"modele": "I-Pace", "variante": "Electrique", "portes": 5, "places": 5, "reservoir": 0},
+
+
+                {"modele": "XK", "variante": None, "portes": 2, "places": 2, "reservoir": 70},
+                {"modele": "XJ-S", "variante": None, "portes": 2, "places": 2, "reservoir": 80}
+            ],
+
+            "Jaguar R": [
+                {"modele": "XE SV Project 8", "variante": "R", "portes": 4, "places": 5, "reservoir": 66},
+                {"modele": "XFR", "variante": None, "portes": 4, "places": 5, "reservoir": 66},
+                {"modele": "XKR", "variante": None, "portes": 2, "places": 2, "reservoir": 70},
+                {"modele": "F-Type R", "variante": None, "portes": 2, "places": 2, "reservoir": 61},
+                {"modele": "F-Type SVR", "variante": None, "portes": 2, "places": 2, "reservoir": 61},
+                {"modele": "XJ Supercharged", "variante": "R", "portes": 4, "places": 5, "reservoir": 80},
+                {"modele": "F-Pace SVR", "variante": None, "portes": 5, "places": 5, "reservoir": 70}
+            ],
+
+
+
             "Kia": [
                 {"modele": "Sorento", "variante": "GT Line", "portes": 5, "places": 7, "reservoir": 70},
             ],
