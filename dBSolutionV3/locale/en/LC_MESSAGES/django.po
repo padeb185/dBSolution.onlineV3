@@ -3525,60 +3525,46 @@ msgid "Ajouter un véhicule"
 msgstr "Add a vehicle"
 
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:9
-#, fuzzy
-#| msgid "Ajouter un véhicule"
 msgid "Détails du véhicule"
-msgstr "Add a vehicle"
+msgstr "Vehicle Details"
 
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:17
 msgid "Informations générales"
-msgstr ""
+msgstr "General Information"
 
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:25
-#, fuzzy
-#| msgid "Moteur"
 msgid "Moteurs"
-msgstr "Engine"
+msgstr "Engines"
 
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:36
-#, fuzzy
-#| msgid "Aucun modèle enregistré pour cette marque."
 msgid "Aucun moteur enregistré pour cet exemplaire."
-msgstr "No model registered for this brand."
+msgstr "No engine registered for this vehicle."
 
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:45
 #: .\voiture\voiture_moteur\views.py:30
-#, fuzzy
-#| msgid "Ajouter un exemplaire pour"
 msgid "Ajouter un moteur"
-msgstr "Add a copy for"
+msgstr "Add an Engine"
 
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:51
 msgid "Lier un moteur existant"
-msgstr ""
+msgstr "Link an Existing Engine"
 
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:62
-#, fuzzy
-#| msgid "Bloc moteur"
 msgid "Code moteur"
-msgstr "Engine block"
+msgstr "Engine Code"
 
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:64
 msgid "Motoriste"
-msgstr ""
+msgstr "Manufacturer"
 
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:69
 #: .\voiture\voiture_exemplaire\views.py:98
-#, fuzzy
-#| msgid "Huile moteur"
 msgid "Lier le moteur"
-msgstr "Engine oil"
+msgstr "Link Engine"
 
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:75
-#, fuzzy
-#| msgid "Révision moteur"
 msgid "Détails du moteur"
-msgstr "Engine Overhaul"
+msgstr "Engine Details"
 
 #: .\theme\views.py:35
 msgid "Nom d'utilisateur ou mot de passe incorrect"
@@ -3655,27 +3641,24 @@ msgstr "Unknown Role"
 #: .\voiture\voiture_exemplaire\views.py:78
 #: .\voiture\voiture_exemplaire\views.py:116
 msgid "Moteur non trouvé"
-msgstr ""
+msgstr "Engine not found"
 
 #: .\voiture\voiture_exemplaire\views.py:96
-#, fuzzy
-#| msgid "Ajouter un véhicule"
 msgid "Lier un moteur à un véhicule"
-msgstr "Add a vehicle"
+msgstr "Link an engine to a vehicle"
 
 #: .\voiture\voiture_exemplaire\views.py:97
 msgid "Voulez-vous lier ce moteur à ce véhicule ?"
-msgstr ""
+msgstr "Do you want to link this engine to this vehicle?"
 
 #: .\voiture\voiture_exemplaire\views.py:111
 msgid "Paramètres manquants"
-msgstr ""
+msgstr "Missing parameters"
 
 #: .\voiture\voiture_moteur\views.py:31
-#, fuzzy
-#| msgid "Huile moteur"
 msgid "Créer le moteur"
-msgstr "Engine oil"
+msgstr "Create engine"
+
 
 #~ msgid "Adresse email ou mot de passe incorrect"
 #~ msgstr "Incorrect email address or password"
