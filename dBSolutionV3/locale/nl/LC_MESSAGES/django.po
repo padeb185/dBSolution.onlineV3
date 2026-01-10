@@ -3529,60 +3529,47 @@ msgid "Ajouter un véhicule"
 msgstr "Voertuig toevoegen"
 
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:9
-#, fuzzy
-#| msgid "Ajouter un véhicule"
 msgid "Détails du véhicule"
-msgstr "Voertuig toevoegen"
+msgstr "Voertuigdetails"
 
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:17
 msgid "Informations générales"
-msgstr ""
+msgstr "Algemene informatie"
 
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:25
-#, fuzzy
-#| msgid "Moteur"
 msgid "Moteurs"
-msgstr "Motor"
+msgstr "Motoren"
 
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:36
-#, fuzzy
-#| msgid "Aucun modèle enregistré pour cette marque."
 msgid "Aucun moteur enregistré pour cet exemplaire."
-msgstr "Geen model geregistreerd voor dit merk."
+msgstr "Geen motor geregistreerd voor dit exemplaar."
 
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:45
 #: .\voiture\voiture_moteur\views.py:30
-#, fuzzy
-#| msgid "Ajouter un exemplaire pour"
 msgid "Ajouter un moteur"
-msgstr "Een exemplaar toevoegen voor"
+msgstr "Voeg een motor toe"
 
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:51
 msgid "Lier un moteur existant"
-msgstr ""
+msgstr "Koppel een bestaande motor"
 
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:62
-#, fuzzy
-#| msgid "Bloc moteur"
 msgid "Code moteur"
-msgstr "Motorblok"
+msgstr "Motorkode"
 
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:64
 msgid "Motoriste"
-msgstr ""
+msgstr "Fabrikant"
 
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:69
 #: .\voiture\voiture_exemplaire\views.py:98
-#, fuzzy
-#| msgid "Huile moteur"
 msgid "Lier le moteur"
-msgstr "Motorolie"
+msgstr "Koppel de motor"
 
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:75
-#, fuzzy
-#| msgid "Révision moteur"
 msgid "Détails du moteur"
-msgstr "Motorrevisie"
+msgstr "Motordetails"
+
 
 #: .\theme\views.py:35
 msgid "Nom d'utilisateur ou mot de passe incorrect"
@@ -3659,27 +3646,24 @@ msgstr "Onbekende rol"
 #: .\voiture\voiture_exemplaire\views.py:78
 #: .\voiture\voiture_exemplaire\views.py:116
 msgid "Moteur non trouvé"
-msgstr ""
+msgstr "Motor niet gevonden"
 
 #: .\voiture\voiture_exemplaire\views.py:96
-#, fuzzy
-#| msgid "Ajouter un véhicule"
 msgid "Lier un moteur à un véhicule"
-msgstr "Voertuig toevoegen"
+msgstr "Koppel een motor aan een voertuig"
 
 #: .\voiture\voiture_exemplaire\views.py:97
 msgid "Voulez-vous lier ce moteur à ce véhicule ?"
-msgstr ""
+msgstr "Wilt u deze motor aan dit voertuig koppelen?"
 
 #: .\voiture\voiture_exemplaire\views.py:111
 msgid "Paramètres manquants"
-msgstr ""
+msgstr "Ontbrekende parameters"
 
 #: .\voiture\voiture_moteur\views.py:31
-#, fuzzy
-#| msgid "Huile moteur"
 msgid "Créer le moteur"
-msgstr "Motorolie"
+msgstr "Motor aanmaken"
+
 
 #~ msgid "Adresse email ou mot de passe incorrect"
 #~ msgstr "E-mailadres of wachtwoord onjuist"
