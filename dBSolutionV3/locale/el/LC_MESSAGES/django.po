@@ -3527,62 +3527,47 @@ msgstr "Αυτό το μοντέλο δεν περιέχει κανένα κατ
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:39
 msgid "Ajouter un véhicule"
 msgstr "Προσθήκη οχήματος"
-
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:9
-#, fuzzy
-#| msgid "Ajouter un véhicule"
 msgid "Détails du véhicule"
-msgstr "Προσθήκη οχήματος"
+msgstr "Λεπτομέρειες Οχήματος"
 
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:17
 msgid "Informations générales"
-msgstr ""
+msgstr "Γενικές Πληροφορίες"
 
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:25
-#, fuzzy
-#| msgid "Moteur"
 msgid "Moteurs"
-msgstr "Κινητήρας"
+msgstr "Κινητήρες"
 
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:36
-#, fuzzy
-#| msgid "Aucun modèle enregistré pour cette marque."
 msgid "Aucun moteur enregistré pour cet exemplaire."
-msgstr "Δεν υπάρχουν καταχωρημένα μοντέλα για αυτό το σήμα."
+msgstr "Δεν έχει καταχωρηθεί κανένας κινητήρας για αυτό το όχημα."
 
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:45
 #: .\voiture\voiture_moteur\views.py:30
-#, fuzzy
-#| msgid "Ajouter un exemplaire pour"
 msgid "Ajouter un moteur"
-msgstr "Προσθήκη αντιτύπου για"
+msgstr "Προσθήκη Κινητήρα"
 
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:51
 msgid "Lier un moteur existant"
-msgstr ""
+msgstr "Σύνδεση Υφιστάμενου Κινητήρα"
 
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:62
-#, fuzzy
-#| msgid "Bloc moteur"
 msgid "Code moteur"
-msgstr "Μπλοκ κινητήρα"
+msgstr "Κωδικός Κινητήρα"
 
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:64
 msgid "Motoriste"
-msgstr ""
+msgstr "Κατασκευαστής"
 
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:69
 #: .\voiture\voiture_exemplaire\views.py:98
-#, fuzzy
-#| msgid "Huile moteur"
 msgid "Lier le moteur"
-msgstr "Λάδι κινητήρα"
+msgstr "Σύνδεση Κινητήρα"
 
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:75
-#, fuzzy
-#| msgid "Révision moteur"
 msgid "Détails du moteur"
-msgstr "Σέρβις κινητήρα"
+msgstr "Λεπτομέρειες Κινητήρα"
 
 #: .\theme\views.py:35
 msgid "Nom d'utilisateur ou mot de passe incorrect"
@@ -3659,27 +3644,23 @@ msgstr "Άγνωστος ρόλος"
 #: .\voiture\voiture_exemplaire\views.py:78
 #: .\voiture\voiture_exemplaire\views.py:116
 msgid "Moteur non trouvé"
-msgstr ""
+msgstr "Ο κινητήρας δεν βρέθηκε"
 
 #: .\voiture\voiture_exemplaire\views.py:96
-#, fuzzy
-#| msgid "Ajouter un véhicule"
 msgid "Lier un moteur à un véhicule"
-msgstr "Προσθήκη οχήματος"
+msgstr "Σύνδεση ενός κινητήρα με ένα όχημα"
 
 #: .\voiture\voiture_exemplaire\views.py:97
 msgid "Voulez-vous lier ce moteur à ce véhicule ?"
-msgstr ""
+msgstr "Θέλετε να συνδέσετε αυτόν τον κινητήρα με αυτό το όχημα;"
 
 #: .\voiture\voiture_exemplaire\views.py:111
 msgid "Paramètres manquants"
-msgstr ""
+msgstr "Λείπουν παράμετροι"
 
 #: .\voiture\voiture_moteur\views.py:31
-#, fuzzy
-#| msgid "Huile moteur"
 msgid "Créer le moteur"
-msgstr "Λάδι κινητήρα"
+msgstr "Δημιουργία κινητήρα"
 
 #~ msgid "Adresse email ou mot de passe incorrect"
 #~ msgstr "Λανθασμένο email ή κωδικός πρόσβασης"
