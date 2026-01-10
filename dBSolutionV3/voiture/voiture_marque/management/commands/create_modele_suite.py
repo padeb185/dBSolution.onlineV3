@@ -2545,6 +2545,125 @@ class Command(BaseCommand):
                 {"modele": "Pontiac G3", "variante": None, "portes": 5, "places": 5, "annees": "2006–2009"},
                 {"modele": "Pontiac Wave", "variante": None, "portes": 5, "places": 5, "annees": "2004–2007"},
             ],
+            "Radical": [
+                # Modèles principaux / sportifs
+                {"modele": "Radical SR1", "variante": None, "portes": 0, "places": 1, "annees": "2000–présent"},
+                {"modele": "Radical SR3", "variante": None, "portes": 0, "places": 1, "annees": "2002–présent"},
+                {"modele": "Radical SR8", "variante": None, "portes": 0, "places": 1, "annees": "2005–2015"},
+                {"modele": "Radical SR10", "variante": None, "portes": 0, "places": 1, "annees": "2009–présent"},
+                {"modele": "Radical RXC", "variante": None, "portes": 2, "places": 2, "annees": "2013–présent"},
+                {"modele": "Radical RXC Turbo", "variante": "Turbo", "portes": 2, "places": 2,
+                 "annees": "2015–présent"},
+                {"modele": "Radical SR3 RSX", "variante": "RSX", "portes": 0, "places": 1, "annees": "2012–présent"},
+
+                # Modèles récents / hypercars de piste
+                {"modele": "Radical SR1 Cup", "variante": "Cup", "portes": 0, "places": 1, "annees": "2000–présent"},
+                {"modele": "Radical SR3 SL", "variante": "SL", "portes": 0, "places": 1, "annees": "2005–présent"},
+                {"modele": "Radical RXC Spyder", "variante": "Spyder", "portes": 2, "places": 2,
+                 "annees": "2014–présent"},
+            ],
+
+            "Ram": [
+                # Pickups classiques et récents
+                {"modele": "Ram 1500", "variante": None, "portes": 2, "places": 3, "annees": "1981–présent"},
+                {"modele": "Ram 1500 Quad Cab", "variante": None, "portes": 4, "places": 5, "annees": "2002–présent"},
+                {"modele": "Ram 1500 Crew Cab", "variante": None, "portes": 4, "places": 5, "annees": "1994–présent"},
+                {"modele": "Ram 2500", "variante": None, "portes": 2, "places": 3, "annees": "1994–présent"},
+                {"modele": "Ram 2500 Mega Cab", "variante": None, "portes": 4, "places": 5, "annees": "2006–présent"},
+                {"modele": "Ram 3500", "variante": None, "portes": 2, "places": 3, "annees": "1994–présent"},
+                {"modele": "Ram 3500 Mega Cab", "variante": None, "portes": 4, "places": 5, "annees": "2006–présent"},
+
+                # Versions électriques / modernes
+                {"modele": "Ram 1500 REV", "variante": "Électrique", "portes": 4, "places": 5,
+                 "annees": "2024–présent"},
+
+                # Modèles classiques / historiques
+                {"modele": "Ramcharger", "variante": None, "portes": 2, "places": 5, "annees": "1974–1993"},
+            ],
+            "Rimac": [
+                # Modèles principaux / supercars électriques
+                {"modele": "Rimac Concept One", "variante": None, "portes": 2, "places": 2, "annees": "2011–2013"},
+                {"modele": "Rimac Concept S", "variante": None, "portes": 2, "places": 2, "annees": "2016–présent"},
+                {"modele": "Rimac C_Two", "variante": None, "portes": 2, "places": 2, "annees": "2018–présent"},
+                {"modele": "Rimac Nevera", "variante": None, "portes": 2, "places": 2, "annees": "2021–présent"},
+
+                # Versions limitées / spéciales
+                {"modele": "Rimac Concept One Alpha", "variante": "Alpha", "portes": 2, "places": 2,
+                 "annees": "2012–2013"},
+            ],
+
+            "Rivian": [
+                # Pickups et SUV électriques
+                {"modele": "Rivian R1T", "variante": None, "portes": 4, "places": 5, "annees": "2021–présent"},
+                {"modele": "Rivian R1S", "variante": None, "portes": 5, "places": 7, "annees": "2021–présent"},
+
+                # Éditions limitées / spéciales
+                {"modele": "Rivian R1T Launch Edition", "variante": "Launch Edition", "portes": 4, "places": 5,
+                 "annees": "2021–2022"},
+                {"modele": "Rivian R1S Launch Edition", "variante": "Launch Edition", "portes": 5, "places": 7,
+                 "annees": "2021–2022"},
+            ],
+
+            "Rover": [
+                # Modèles historiques / classiques
+                {"modele": "Rover 10", "variante": None, "portes": 4, "places": 5, "annees": "1927–1947"},
+                {"modele": "Rover 14", "variante": None, "portes": 4, "places": 5, "annees": "1924–1948"},
+                {"modele": "Rover P4", "variante": None, "portes": 4, "places": 5, "annees": "1949–1964"},
+                {"modele": "Rover P5", "variante": None, "portes": 4, "places": 5, "annees": "1958–1973"},
+                {"modele": "Rover P6", "variante": None, "portes": 4, "places": 5, "annees": "1963–1977"},
+
+                # Modèles récents / Rover classique moderne
+                {"modele": "Rover 200", "variante": None, "portes": 3, "places": 5, "annees": "1984–1999"},
+                {"modele": "Rover 400", "variante": None, "portes": 4, "places": 5, "annees": "1990–1999"},
+                {"modele": "Rover 600", "variante": None, "portes": 4, "places": 5, "annees": "1993–1999"},
+                {"modele": "Rover 75", "variante": None, "portes": 4, "places": 5, "annees": "1998–2005"},
+
+                # SUV / 4x4
+                {"modele": "Rover Streetwise", "variante": None, "portes": 5, "places": 5, "annees": "2003–2005"},
+                {"modele": "Rover SD1", "variante": None, "portes": 5, "places": 5, "annees": "1976–1986"},
+            ],
+            "Saab": [
+                # Modèles historiques / anciens
+                {"modele": "Saab 92", "variante": None, "portes": 2, "places": 4, "annees": "1949–1956"},
+                {"modele": "Saab 93", "variante": None, "portes": 2, "places": 4, "annees": "1955–1960"},
+                {"modele": "Saab 95", "variante": None, "portes": 5, "places": 7, "annees": "1959–1978"},
+                {"modele": "Saab 96", "variante": None, "portes": 2, "places": 4, "annees": "1960–1980"},
+
+                # Modèles populaires / classiques
+                {"modele": "Saab 99", "variante": None, "portes": 2, "places": 5, "annees": "1968–1984"},
+                {"modele": "Saab 900", "variante": None, "portes": 3, "places": 5, "annees": "1978–1993"},
+                {"modele": "Saab 9000", "variante": None, "portes": 4, "places": 5, "annees": "1984–1998"},
+
+                # Modèles récents / modernes
+                {"modele": "Saab 9-3", "variante": None, "portes": 4, "places": 5, "annees": "1998–2014"},
+                {"modele": "Saab 9-3 Convertible", "variante": None, "portes": 2, "places": 4, "annees": "2003–2014"},
+                {"modele": "Saab 9-5", "variante": None, "portes": 4, "places": 5, "annees": "1997–2012"},
+
+                # Modèles électriques / hybrides
+                {"modele": "Saab 9-3 EV", "variante": "Électrique", "portes": 4, "places": 5, "annees": "2010–2011"},
+            ],
+            "SAIC": [
+                # Marques sous SAIC : Roewe / MG
+                # Roewe - berlines et SUV
+                {"modele": "Roewe 350", "variante": None, "portes": 4, "places": 5, "annees": "2009–2014"},
+                {"modele": "Roewe 550", "variante": None, "portes": 4, "places": 5, "annees": "2008–2014"},
+                {"modele": "Roewe 750", "variante": None, "portes": 4, "places": 5, "annees": "2006–2016"},
+                {"modele": "Roewe RX5", "variante": None, "portes": 5, "places": 5, "annees": "2016–présent"},
+                {"modele": "Roewe i6", "variante": None, "portes": 4, "places": 5, "annees": "2017–présent"},
+
+                # MG (rachetée par SAIC) - berlines, SUV et électriques
+                {"modele": "MG3", "variante": None, "portes": 5, "places": 5, "annees": "2003–présent"},
+                {"modele": "MG ZS", "variante": None, "portes": 5, "places": 5, "annees": "2017–présent"},
+                {"modele": "MG ZS EV", "variante": "Électrique", "portes": 5, "places": 5, "annees": "2019–présent"},
+                {"modele": "MG5 EV", "variante": "Électrique", "portes": 5, "places": 5, "annees": "2020–présent"},
+                {"modele": "MG6", "variante": None, "portes": 4, "places": 5, "annees": "2011–présent"},
+                {"modele": "MG7", "variante": None, "portes": 4, "places": 5, "annees": "2007–2014"},
+
+                # SUV / crossovers électriques
+                {"modele": "MG HS", "variante": None, "portes": 5, "places": 5, "annees": "2018–présent"},
+                {"modele": "MG Marvel R", "variante": "Électrique", "portes": 5, "places": 5, "annees": "2020–présent"},
+                {"modele": "MG4 EV", "variante": "Électrique", "portes": 5, "places": 5, "annees": "2022–présent"},
+            ],
 
 
 

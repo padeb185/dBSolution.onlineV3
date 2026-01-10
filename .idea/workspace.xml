@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="nombre marques par tenant">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/static/images/Default.png" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/images/modele/default.png" afterDir="false" />
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="modele">
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/management/commands/create_modele_suite.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/management/commands/create_modele_suite.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -202,15 +200,7 @@
       <workItem from="1768054336915" duration="48000" />
       <workItem from="1768055123689" duration="1000" />
       <workItem from="1768057992234" duration="3424000" />
-      <workItem from="1768069178762" duration="2865000" />
-    </task>
-    <task id="LOCAL-00173" summary="création tenants">
-      <option name="closed" value="true" />
-      <created>1767606359114</created>
-      <option name="number" value="00173" />
-      <option name="presentableId" value="LOCAL-00173" />
-      <option name="project" value="LOCAL" />
-      <updated>1767606359114</updated>
+      <workItem from="1768069178762" duration="3041000" />
     </task>
     <task id="LOCAL-00174" summary="clean + tenant + base de donnée et utilisateur">
       <option name="closed" value="true" />
@@ -596,7 +586,15 @@
       <option name="project" value="LOCAL" />
       <updated>1768060029185</updated>
     </task>
-    <option name="localTasksCounter" value="222" />
+    <task id="LOCAL-00222" summary="modele">
+      <option name="closed" value="true" />
+      <created>1768072186280</created>
+      <option name="number" value="00222" />
+      <option name="presentableId" value="LOCAL-00222" />
+      <option name="project" value="LOCAL" />
+      <updated>1768072186281</updated>
+    </task>
+    <option name="localTasksCounter" value="223" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -614,7 +612,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="clean + tenant + base de donnée et utilisateur" />
     <MESSAGE value="logo" />
     <MESSAGE value="ajustements tenant" />
     <MESSAGE value="première création modele" />
@@ -639,7 +636,8 @@
     <MESSAGE value="script modele" />
     <MESSAGE value="traductions" />
     <MESSAGE value="nombre marques par tenant" />
-    <option name="LAST_COMMIT_MESSAGE" value="nombre marques par tenant" />
+    <MESSAGE value="modele" />
+    <option name="LAST_COMMIT_MESSAGE" value="modele" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
