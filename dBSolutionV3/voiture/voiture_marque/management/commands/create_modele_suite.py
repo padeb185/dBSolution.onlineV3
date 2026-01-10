@@ -247,15 +247,307 @@ class Command(BaseCommand):
             ],
 
 
+            "Ferrari": [
+                {"modele": "125 S", "variante": "Base", "portes": 0, "places": 2, "reservoir": 120},
+                {"modele": "166 Inter", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 120},
+                {"modele": "166 MM", "variante": "Barchetta", "portes": 0, "places": 2, "reservoir": 120},
+                {"modele": "195 Inter", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 120},
+                {"modele": "212 Inter", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 120},
 
-            "Lancia": [
+
+                {"modele": "250 GT", "variante": "Berlinetta", "portes": 2, "places": 2, "reservoir": 120},
+                {"modele": "250 GTO", "variante": "Berlinetta", "portes": 2, "places": 2, "reservoir": 120},
+                {"modele": "250 Testa Rossa", "variante": "Spyder", "portes": 0, "places": 2, "reservoir": 120},
+                {"modele": "275 GTB", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 120},
+                {"modele": "330 GTC", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 120},
+                {"modele": "365 GTB/4", "variante": "Daytona Coupe", "portes": 2, "places": 2, "reservoir": 120},
+
+
+                {"modele": "365 GT4 BB", "variante": "Berlinetta Boxer", "portes": 2, "places": 2, "reservoir": 120},
+                {"modele": "308 GTB", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 90},
+                {"modele": "308 GTS", "variante": "Targa", "portes": 2, "places": 2, "reservoir": 90},
+                {"modele": "328 GTB", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 90},
+                {"modele": "Testarossa", "variante": "Base", "portes": 2, "places": 2, "reservoir": 120},
+
+
+                {"modele": "F40", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 95},
+                {"modele": "512 TR", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 120},
+                {"modele": "F355", "variante": "Berlinetta", "portes": 2, "places": 2, "reservoir": 80},
+                {"modele": "F355", "variante": "Spider", "portes": 2, "places": 2, "reservoir": 80},
+
+
+                {"modele": "360 Modena", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 80},
+                {"modele": "360 Spider", "variante": "Convertible", "portes": 2, "places": 2, "reservoir": 80},
+                {"modele": "430 Scuderia", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 90},
+                {"modele": "F430", "variante": "Spider", "portes": 2, "places": 2, "reservoir": 90},
+                {"modele": "Enzo", "variante": "Base", "portes": 2, "places": 2, "reservoir": 90},
+
+
+                {"modele": "458 Italia", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 90},
+                {"modele": "458 Spider", "variante": "Convertible", "portes": 2, "places": 2, "reservoir": 90},
+                {"modele": "488 GTB", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 78},
+                {"modele": "488 Spider", "variante": "Convertible", "portes": 2, "places": 2, "reservoir": 78},
+                {"modele": "GTC4Lusso", "variante": "Base", "portes": 4, "places": 4, "reservoir": 92},
+
+
+                {"modele": "F8 Tributo", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 78},
+                {"modele": "F8 Spider", "variante": "Convertible", "portes": 2, "places": 2, "reservoir": 78},
+                {"modele": "SF90 Stradale", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 100},
+                {"modele": "296 GTB", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 85},
+                {"modele": "296 GTS", "variante": "Convertible", "portes": 2, "places": 2, "reservoir": 85},
+                {"modele": "Purosangue", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 92},
+                {"modele": "Roma", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 86},
+                {"modele": "Roma Spider", "variante": "Convertible", "portes": 2, "places": 4, "reservoir": 86},
+                {"modele": "Amalfi", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 82}
+            ],
+
+
+            "Mazda": [
+
+                {"modele": "R360 Coupé", "variante": "Base", "portes": 2, "places": 4, "reservoir": 30},
+                {"modele": "Mazda 1000 / Familia", "variante": "Berline", "portes": 4, "places": 5, "reservoir": 40},
+                {"modele": "Cosmo Sport", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 50},
+                {"modele": "Mazda 121", "variante": "Berline", "portes": 4, "places": 5, "reservoir": 45},
+                {"modele": "Mazda RX-7", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 70},
+                {"modele": "Mazda 323", "variante": "Hatchback", "portes": 5, "places": 5, "reservoir": 50},
+                {"modele": "Mazda MX-5 Miata NA", "variante": "Roadster", "portes": 2, "places": 2, "reservoir": 45},
+                {"modele": "Mazda RX-8", "variante": "Coupe", "portes": 4, "places": 4, "reservoir": 60},
+                {"modele": "Mazda MX-5 Miata NB", "variante": "Roadster", "portes": 2, "places": 2, "reservoir": 45},
+                {"modele": "Mazda MX-5 Miata NC", "variante": "Roadster", "portes": 2, "places": 2, "reservoir": 50},
+                {"modele": "Mazda MX-5 Miata ND", "variante": "Roadster", "portes": 2, "places": 2, "reservoir": 50},
+
+
+                {"modele": "Mazda2", "variante": "Hatchback", "portes": 5, "places": 5, "reservoir": 42},
+                {"modele": "Mazda3", "variante": "Hatchback", "portes": 5, "places": 5, "reservoir": 51},
+                {"modele": "Mazda3", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 51},
+                {"modele": "Mazda6", "variante": "Berline", "portes": 4, "places": 5, "reservoir": 62},
+                {"modele": "Mazda CX-3", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 48},
+                {"modele": "Mazda CX-30", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 50},
+                {"modele": "Mazda CX-5", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 56},
+                {"modele": "Mazda CX-50", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 61},
+                {"modele": "Mazda CX-60", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 65},
+                {"modele": "Mazda CX-70", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 65},
+                {"modele": "Mazda CX-80", "variante": "SUV", "portes": 5, "places": 7, "reservoir": 68},
+                {"modele": "Mazda CX-90", "variante": "SUV", "portes": 5, "places": 7, "reservoir": 68},
+                {"modele": "Mazda MX-30", "variante": "Crossover EV", "portes": 5, "places": 5, "reservoir": 0},
+                {"modele": "Mazda 6e", "variante": "Sedan EV", "portes": 4, "places": 5, "reservoir": 0},
+                {"modele": "Mazda Vision-X Coupe", "variante": "Concept", "portes": 4, "places": 4, "reservoir": 0}
+            ],
+
+            "Bentley": [
+
+                {"modele": "Bentley 3 Litre", "variante": "Tourer", "portes": 2, "places": 2, "reservoir": 80},
+                {"modele": "Bentley 4½ Litre", "variante": "Tourer", "portes": 2, "places": 2, "reservoir": 95},
+                {"modele": "Bentley 6½ Litre", "variante": "Speed", "portes": 2, "places": 2, "reservoir": 100},
+                {"modele": "Bentley Mark VI", "variante": "Saloon", "portes": 4, "places": 5, "reservoir": 100},
+                {"modele": "Bentley R Type", "variante": "Saloon", "portes": 4, "places": 5, "reservoir": 100},
+                {"modele": "Bentley Continental R", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 90},
+                {"modele": "Bentley Continental S", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 90},
+
+
+                {"modele": "Bentley Arnage", "variante": "Saloon", "portes": 4, "places": 5, "reservoir": 95},
+                {"modele": "Bentley Azure", "variante": "Convertible", "portes": 2, "places": 4, "reservoir": 95},
+                {"modele": "Bentley Continental GT", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 90},
+                {"modele": "Bentley Continental GTC", "variante": "Convertible", "portes": 2, "places": 4, "reservoir": 90},
+
+
+                {"modele": "Bentley Flying Spur", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 90},
+                {"modele": "Bentley Mulsanne", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 95},
+                {"modele": "Bentley Continental GT V8", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 90},
+                {"modele": "Bentley Continental GT Speed", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 90},
+                {"modele": "Bentley Continental GTC V8", "variante": "Convertible", "portes": 2, "places": 4, "reservoir": 90},
+
+
+                {"modele": "Bentley Continental GT Speed", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 90},
+                {"modele": "Bentley Continental GTC Speed", "variante": "Convertible", "portes": 2, "places": 4,
+                 "reservoir": 90},
+                {"modele": "Bentley Flying Spur W12", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 95},
+                {"modele": "Bentley Bentayga", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 85},
+                {"modele": "Bentley Bentayga Speed", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 85},
+                {"modele": "Bentley Bacalar", "variante": "Roadster", "portes": 2, "places": 2, "reservoir": 80}
+            ],
+
+
+            "Audi S": [
+
+                {"modele": "Audi S2", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 70},
+                {"modele": "Audi S4 B5", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 70},
+                {"modele": "Audi S4 B5 Avant", "variante": "Break", "portes": 5, "places": 5, "reservoir": 70},
+                {"modele": "Audi S6 C4", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 80},
+                {"modele": "Audi S6 C4 Avant", "variante": "Break", "portes": 5, "places": 5, "reservoir": 80},
+
+
+                {"modele": "Audi S3 8L", "variante": "Hatchback", "portes": 5, "places": 5, "reservoir": 55},
+                {"modele": "Audi S4 B6", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 70},
+                {"modele": "Audi S4 B6 Avant", "variante": "Break", "portes": 5, "places": 5, "reservoir": 70},
+                {"modele": "Audi S6 C5", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 80},
+                {"modele": "Audi S8 D3", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 90},
+
+
+                {"modele": "Audi S3 8P", "variante": "Hatchback", "portes": 5, "places": 5, "reservoir": 55},
+                {"modele": "Audi S4 B8", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 70},
+                {"modele": "Audi S4 B8 Avant", "variante": "Break", "portes": 5, "places": 5, "reservoir": 70},
+                {"modele": "Audi S5 B8", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 70},
+                {"modele": "Audi S5 B8 Cabriolet", "variante": "Convertible", "portes": 2, "places": 4, "reservoir": 70},
+                {"modele": "Audi S6 C6", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 80},
+                {"modele": "Audi S7 4G", "variante": "Hatchback", "portes": 5, "places": 5, "reservoir": 80},
+                {"modele": "Audi S8 D4", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 90},
+
+                {"modele": "Audi S3 8Y", "variante": "Hatchback", "portes": 5, "places": 5, "reservoir": 55},
+                {"modele": "Audi S4 B9", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 70},
+                {"modele": "Audi S4 Avant B9", "variante": "Break", "portes": 5, "places": 5, "reservoir": 70},
+                {"modele": "Audi S5 F5", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 70},
+                {"modele": "Audi S5 Cabriolet F5", "variante": "Convertible", "portes": 2, "places": 4, "reservoir": 70},
+                {"modele": "Audi S6 C8", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 80},
+                {"modele": "Audi S7 C8", "variante": "Hatchback", "portes": 5, "places": 5, "reservoir": 80},
+                {"modele": "Audi S8 D5", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 90},
+                {"modele": "Audi SQ5", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 70},
+                {"modele": "Audi SQ7", "variante": "SUV", "portes": 5, "places": 7, "reservoir": 85},
+                {"modele": "Audi SQ8", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 85}
+            ],
+
+
+
+
+            "Mazda Speed": [
+
+
+                {"modele": "MX-5 Miata NA", "variante": "Roadster", "portes": 2, "places": 2,"reservoir": 45},
+                {"modele": "MX-5 Miata NB", "variante": "Roadster", "portes": 2, "places": 2, "reservoir": 45},
+                {"modele": "Mazda3", "variante": "MazdaSpeed", "portes": 4, "places": 5, "reservoir": 51},
+                {"modele": "Mazda6", "variante": "MazdaSpeed", "portes": 4, "places": 5, "reservoir": 62},
+                {"modele": "MX-5 Miata NC", "variante": "MazdaSpeed", "portes": 2, "places": 2, "reservoir": 50}
+            ],
+
+
+
+        "Maserati": [
+
+                {"modele": "A6 1500", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 80},
+                {"modele": "A6G 2000", "variante": "Berline", "portes": 4, "places": 5, "reservoir": 80},
+                {"modele": "3500 GT", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 95},
+                {"modele": "5000 GT", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 95},
+                {"modele": "Mexico", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 95},
+                {"modele": "Quattroporte I", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 105},
+                {"modele": "Ghibli I", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 90},
+                {"modele": "Mistral", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 90},
+                {"modele": "Indy", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 90},
+                {"modele": "Bora", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 100},
+                {"modele": "Merak", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 90},
+                {"modele": "Khamsin", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 100},
+                {"modele": "Kyalami", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 100},
+
+
+                {"modele": "Biturbo", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 80},
+                {"modele": "228", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 80},
+                {"modele": "Karif", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 80},
+                {"modele": "Shamal", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 90},
+
+
+
+                {"modele": "Ghibli II", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 90},
+                {"modele": "Quattroporte IV", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 95},
+                {"modele": "3200 GT", "variante": "Coupe", "portes": 2, "places": 4,
+                 "reservoir": 90},
+
+
+
+                {"modele": "Maserati Coupé", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 90},
+                {"modele": "Maserati Spyder", "variante": "Convertible", "portes": 2, "places": 4, "reservoir": 90},
+                {"modele": "GranSport", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 90},
+                {"modele": "Quattroporte V", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 95},
+                {"modele": "MC12", "variante": "Supercar", "portes": 2, "places": 2, "reservoir": 80},
+                {"modele": "GranTurismo", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 90},
+
+
+                {"modele": "GranCabrio", "variante": "Convertible", "portes": 2, "places": 4, "reservoir": 90},
+                {"modele": "Ghibli (M157)", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 80},
+                {"modele": "Ghibli Trofeo", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 80},
+                {"modele": "Quattroporte VI", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 95},
+                {"modele": "Levante", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 85},
+                {"modele": "Levante Trofeo", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 85},
+                {"modele": "Grecale", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 80},
+                {"modele": "Grecale Trofeo", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 80},
+                {"modele": "MC20", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 75},
+                {"modele": "MC20 Cielo", "variante": "Convertible", "portes": 2, "places": 2, "reservoir": 75},
+
+
+                {"modele": "MCPura", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 75},
+                {"modele": "MCPura Cielo", "variante": "Convertible", "portes": 2, "places": 2, "reservoir": 75},
+                {"modele": "GT2 Stradale", "variante": "Supercar", "portes": 2, "places": 2, "reservoir": 75}
+            ],
+
+            "Mercedes-AMG": [
+
+                {"modele": "C36", "variante": "AMG", "portes": 4, "places": 5, "reservoir": 70},
+                {"modele": "E36", "variante": "AMG", "portes": 4, "places": 5, "reservoir": 80},
+                {"modele": "SL60", "variante": "AMG", "portes": 2, "places": 2, "reservoir": 80},
+                {"modele": "S70", "variante": "AMG", "portes": 4, "places": 5, "reservoir": 90},
+
+
+                {"modele": "C55", "variante": "AMG", "portes": 4, "places": 5, "reservoir": 70},
+                {"modele": "E55", "variante": "AMG", "portes": 4, "places": 5, "reservoir": 80},
+                {"modele": "SL55", "variante": "AMG", "portes": 2, "places": 2, "reservoir": 90},
+                {"modele": "CLK63", "variante": "AMG", "portes": 2, "places": 4, "reservoir": 80},
+                {"modele": "SLK55", "variante": "AMG", "portes": 2, "places": 2, "reservoir": 60},
+
+
+                {"modele": "C63", "variante": "AMG", "portes": 4, "places": 5, "reservoir": 66},
+                {"modele": "E63", "variante": "AMG", "portes": 4, "places": 5, "reservoir": 80},
+                {"modele": "S63", "variante": "AMG", "portes": 4, "places": 5, "reservoir": 80},
+                {"modele": "SL63", "variante": "AMG", "portes": 2, "places": 2, "reservoir": 80},
+                {"modele": "GT", "variante": "AMG", "portes": 2, "places": 2, "reservoir": 70},
+                {"modele": "GT C", "variante": "AMG", "portes": 2, "places": 2, "reservoir": 70},
+                {"modele": "GT R", "variante": "AMG", "portes": 2, "places": 2, "reservoir": 70},
+
+
+                {"modele": "C63 S", "variante": "AMG", "portes": 4, "places": 5, "reservoir": 66},
+                {"modele": "E63 S", "variante": "AMG", "portes": 4, "places": 5, "reservoir": 80},
+                {"modele": "S63", "variante": "AMG", "portes": 4, "places": 5, "reservoir": 80},
+                {"modele": "GT Black Series", "variante": "AMG", "portes": 2, "places": 2, "reservoir": 70},
+                {"modele": "GLE 63", "variante": "AMG", "portes": 5, "places": 5, "reservoir": 93},
+                {"modele": "GLC 63", "variante": "AMG", "portes": 5, "places": 5, "reservoir": 66},
+                {"modele": "AMG ONE", "variante": "Hypercar", "portes": 2, "places": 2, "reservoir": 65}
+            ],
+
+
+            "McLaren": [
+                {"modele": "F1", "variante": "Base", "portes": 2,"places": 3, "reservoir": 90},
+                {"modele": "F1 LM", "variante": "Edition Limitée", "portes": 2, "places": 3, "reservoir": 90},
+                {"modele": "F1 GTR Road Version", "variante": "Edition Limitée", "portes": 2, "places": 3, "reservoir": 90},
+
+
+                {"modele": "MP4-12C", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 78},
+                {"modele": "MP4-12C Spider", "variante": "Convertible", "portes": 2, "places": 2, "reservoir": 78},
+
+
+                {"modele": "650S", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 72},
+                {"modele": "650S Spider", "variante": "Convertible", "portes": 2, "places": 2, "reservoir": 72},
+                {"modele": "P1", "variante": "Hypercar", "portes": 2, "places": 2, "reservoir": 68},
+                {"modele": "675LT", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 72},
+                {"modele": "675LT Spider", "variante": "Convertible", "portes": 2, "places": 2, "reservoir": 72},
+
+
+                {"modele": "720S", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 72},
+                {"modele": "720S Spider", "variante": "Convertible", "portes": 2, "places": 2, "reservoir": 72},
+                {"modele": "765LT", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 72},
+                {"modele": "765LT Spider", "variante": "Convertible", "portes": 2, "places": 2, "reservoir": 72},
+                {"modele": "Speedtail", "variante": "Hypercar", "portes": 2, "places": 2, "reservoir": 85},
+                {"modele": "Elva", "variante": "Roadster", "portes": 0, "places": 2, "reservoir": 68},
+                {"modele": "Artura", "variante": "Coupe Hybride", "portes": 2, "places": 2, "reservoir": 70},
+
+
+                {"modele": "McLaren Solus", "variante": "Hypercar", "portes": 2, "places": 2, "reservoir": 70},
+                {"modele": "McLaren Sabre", "variante": "Hypercar", "portes": 2, "places": 2, "reservoir": 70},
+                {"modele": "McLaren Speedtail LM", "variante": "Edition Limitée", "portes": 2, "places": 2, "reservoir": 85}
+            ],
+
+
+
+        "Lancia": [
                 {"modele": "Ypsilon", "variante": "Gold", "portes": 5, "places": 5, "reservoir": 40},
             ],
-            "Maserati": [
-                {"modele": "Ghibli", "variante": None, "portes": 4, "places": 5, "reservoir": 80},
-                {"modele": "Levante", "variante": None, "portes": 5, "places": 5, "reservoir": 80},
-            ],
-            "Pagani": [
+                       "Pagani": [
                 {"modele": "Huayra", "variante": None, "portes": 2, "places": 2, "reservoir": 90},
             ],
             "De Tomaso": [
@@ -306,9 +598,7 @@ class Command(BaseCommand):
                 {"modele": "Ghost", "variante": None, "portes": 4, "places": 5, "reservoir": 90},
                 {"modele": "Cullinan", "variante": None, "portes": 5, "places": 5, "reservoir": 105},
             ],
-            "Bentley": [
-                {"modele": "Continental GT", "variante": None, "portes": 2, "places": 4, "reservoir": 90},
-            ],
+
             "Aston Martin": [
                 # DB5 (classique)
                 {"modele": "DB5", "variante": None, "portes": 2, "places": 4, "reservoir": 75},
@@ -489,9 +779,7 @@ class Command(BaseCommand):
 
             ],
 
-            "Alpine": [
-                {"modele": "Alpine A110 RS", "variante": None, "portes": 2, "places": 2, "reservoir": 50},  # Alpine RS
-            ],
+
 
             "Audi": [
                 {"modele": "A1", "variante": None, "portes": 5, "places": 5, "reservoir": 40},
