@@ -144,10 +144,6 @@ class Command(BaseCommand):
 
 
 
-        "Fiat": [
-                {"modele": "500", "variante": "Pop", "portes": 3, "places": 4, "reservoir": 35},
-                {"modele": "Panda", "variante": "City", "portes": 5, "places": 5, "reservoir": 40},
-            ],
             "Alfa Romeo": [
                 {"modele": "24 HP", "variante": "Standard", "portes": 4, "places": 5, "reservoir": 60},
                 {"modele": "G1", "variante": "Standard", "portes": 4, "places": 5, "reservoir": 65},
@@ -198,7 +194,45 @@ class Command(BaseCommand):
             ],
 
             "BMW M": [
-                {"modele": "M1", "variante": "Standard", "portes": 2, "places": 2, "reservoir": 90},
+
+                {"modele": "M3 E30", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 60},
+                {"modele": "M5 E28", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 70},
+
+                {"modele": "M3 E36", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 60},
+                {"modele": "M3 E36", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 60},
+                {"modele": "M3 E36 Convertible", "variante": "Convertible", "portes": 2, "places": 4, "reservoir": 60},
+                {"modele": "M5 E34", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 70},
+
+                {"modele": "M3 E46", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 60},
+                {"modele": "M3 E46 Convertible", "variante": "Convertible", "portes": 2, "places": 4, "reservoir": 60},
+                {"modele": "M5 E60", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 70},
+                {"modele": "M6 E63", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 80},
+                {"modele": "M6 E64", "variante": "Convertible", "portes": 2, "places": 4, "reservoir": 80},
+
+                {"modele": "M3 F80", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 60},
+                {"modele": "M4 F82", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 60},
+                {"modele": "M4 F83", "variante": "Convertible", "portes": 2, "places": 4, "reservoir": 60},
+                {"modele": "M5 F10", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 70},
+                {"modele": "M6 F12", "variante": "Convertible", "portes": 2, "places": 4, "reservoir": 80},
+                {"modele": "M6 F13", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 80},
+                {"modele": "X5 M E70", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 80},
+                {"modele": "X6 M E71", "variante": "SUV Coupé", "portes": 5, "places": 5, "reservoir": 80},
+
+                {"modele": "M2 F87", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 52},
+                {"modele": "M3 G80", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 60},
+                {"modele": "M4 G82", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 60},
+                {"modele": "M4 G83", "variante": "Convertible", "portes": 2, "places": 4, "reservoir": 60},
+                {"modele": "M5 G30", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 70},
+                {"modele": "M8 F91", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 80},
+                {"modele": "M8 F92", "variante": "Convertible", "portes": 2, "places": 4, "reservoir": 80},
+                {"modele": "X3 M F97", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 70},
+                {"modele": "X4 M F98", "variante": "SUV Coupé", "portes": 5, "places": 5, "reservoir": 70},
+                {"modele": "X5 M G05", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 80},
+                {"modele": "X6 M G06", "variante": "SUV Coupé", "portes": 5, "places": 5, "reservoir": 80},
+                {"modele": "X7 M G07", "variante": "SUV", "portes": 5, "places": 7, "reservoir": 85},
+
+
+                 {"modele": "M1", "variante": "Standard", "portes": 2, "places": 2, "reservoir": 90},
 
                 {"modele": "M2", "variante": "Standard", "portes": 2, "places": 4, "reservoir": 50},
                 {"modele": "M2", "variante": "Competition", "portes": 2, "places": 4, "reservoir": 50},
@@ -246,8 +280,66 @@ class Command(BaseCommand):
                 {"modele": "XM", "variante": "50e", "portes": 5, "places": 5, "reservoir": 90}
             ],
 
+            "Dacia": [
+                {"modele": "1310", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 50},
+                {"modele": "1300", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 45},
+                {"modele": "1100", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 40},
 
-            "Ferrari": [
+
+                {"modele": "Logan", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 50},
+                {"modele": "Logan MCV", "variante": "Break", "portes": 5, "places": 5, "reservoir": 50},
+                {"modele": "Sandero", "variante": "Hatchback", "portes": 5, "places": 5, "reservoir": 50},
+                {"modele": "Sandero Stepway", "variante": "Hatchback SUV", "portes": 5, "places": 5, "reservoir": 50},
+                {"modele": "Duster", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 50},
+                {"modele": "Duster Oroch", "variante": "Pickup", "portes": 4, "places": 5, "reservoir": 50},
+                {"modele": "Spring", "variante": "Hatchback Electrique", "portes": 5, "places": 4, "reservoir": 0}
+            ],
+
+            "Dodge": [
+
+                {"modele": "Charger", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 70},
+                    {"modele": "Challenger", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 65},
+                    {"modele": "Dart", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 60},
+                    {"modele": "Neon", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 50},
+                    {"modele": "Avenger", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 60},
+
+
+                    {"modele": "Durango", "variante": "SUV", "portes": 5, "places": 7, "reservoir": 80},
+                    {"modele": "Journey", "variante": "SUV / Crossover", "portes": 5, "places": 7, "reservoir": 70},
+                    {"modele": "Grand Caravan", "variante": "Minivan", "portes": 5, "places": 7, "reservoir": 70},
+                    {"modele": "Ram 1500", "variante": "Pickup", "portes": 4, "places": 5, "reservoir": 95}
+            ],
+
+            "Dodge SRT": [
+
+                {"modele": "Challenger SRT Hellcat", "variante": "Coupe", "portes": 2,"places": 4, "reservoir": 70},
+                {"modele": "Challenger SRT Demon", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 70},
+                {"modele": "Charger SRT Hellcat", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 70},
+                {"modele": "Charger SRT Widebody", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 70},
+
+
+                {"modele": "Durango SRT", "variante": "SUV", "portes": 5, "places": 7, "reservoir": 80},
+                {"modele": "Ram 1500 TRX", "variante": "Pickup", "portes": 4, "places": 5, "reservoir": 95}
+            ],
+
+            "De Tomaso": [
+                {"modele": "Pantera", "variante": "Coupe", "portes": 2, "places": 2,"reservoir": 80},
+                {"modele": "Mangusta", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 75},
+                {"modele": "Valentino", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 70},
+                {"modele": "Longchamp", "variante": "Cabriolet", "portes": 2, "places": 2, "reservoir": 65},
+                {"modele": "Deauville", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 70},
+
+
+                {"modele": "P72", "variante": "Coupé moderne", "portes": 2, "places": 2, "reservoir": 70},
+                {"modele": "P72 Spider", "variante": "Cabriolet moderne", "portes": 2, "places": 2, "reservoir": 70}
+            ],
+
+
+
+
+
+
+        "Ferrari": [
                 {"modele": "125 S", "variante": "Base", "portes": 0, "places": 2, "reservoir": 120},
                 {"modele": "166 Inter", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 120},
                 {"modele": "166 MM", "variante": "Barchetta", "portes": 0, "places": 2, "reservoir": 120},
@@ -469,50 +561,46 @@ class Command(BaseCommand):
                 {"modele": "X7 G07", "variante": "SUV", "portes": 5, "places": 7, "reservoir": 85}
             ],
 
+            "Fisker": [
 
-            "BMW M": [
-                {"modele": "M3 E30", "variante": "Coupe", "portes": 2, "places": 4,"reservoir": 60},
-                {"modele": "M5 E28", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 70},
-
-
-                {"modele": "M3 E36", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 60},
-                {"modele": "M3 E36", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 60},
-                {"modele": "M3 E36 Convertible", "variante": "Convertible", "portes": 2, "places": 4, "reservoir": 60},
-                {"modele": "M5 E34", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 70},
-
-
-                {"modele": "M3 E46", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 60},
-                {"modele": "M3 E46 Convertible", "variante": "Convertible", "portes": 2, "places": 4, "reservoir": 60},
-                {"modele": "M5 E60", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 70},
-                {"modele": "M6 E63", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 80},
-                {"modele": "M6 E64", "variante": "Convertible", "portes": 2, "places": 4, "reservoir": 80},
-
-
-                {"modele": "M3 F80", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 60},
-                {"modele": "M4 F82", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 60},
-                {"modele": "M4 F83", "variante": "Convertible", "portes": 2, "places": 4, "reservoir": 60},
-                {"modele": "M5 F10", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 70},
-                {"modele": "M6 F12", "variante": "Convertible", "portes": 2, "places": 4, "reservoir": 80},
-                {"modele": "M6 F13", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 80},
-                {"modele": "X5 M E70", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 80},
-                {"modele": "X6 M E71", "variante": "SUV Coupé", "portes": 5, "places": 5, "reservoir": 80},
-
-
-                {"modele": "M2 F87", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 52},
-                {"modele": "M3 G80", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 60},
-                {"modele": "M4 G82", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 60},
-                {"modele": "M4 G83", "variante": "Convertible", "portes": 2, "places": 4, "reservoir": 60},
-                {"modele": "M5 G30", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 70},
-                {"modele": "M8 F91", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 80},
-                {"modele": "M8 F92", "variante": "Convertible", "portes": 2, "places": 4, "reservoir": 80},
-                {"modele": "X3 M F97", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 70},
-                {"modele": "X4 M F98", "variante": "SUV Coupé", "portes": 5, "places": 5, "reservoir": 70},
-                {"modele": "X5 M G05", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 80},
-                {"modele": "X6 M G06", "variante": "SUV Coupé", "portes": 5, "places": 5, "reservoir": 80},
-                {"modele": "X7 M G07", "variante": "SUV", "portes": 5, "places": 7, "reservoir": 85}
+                {"modele": "Karma", "variante": "Sedan Hybride", "portes": 4, "places": 4,"reservoir": 50},
+                {"modele": "Ocean", "variante": "SUV Electrique", "portes": 5, "places": 5, "reservoir": 0},
+                {"modele": "Fisker Project Ronin", "variante": "Coupé Electrique", "portes": 2, "places": 2, "reservoir": 0}
             ],
 
+            "Ford": [
 
+                {"modele": "Escort", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 50},
+                {"modele": "Escort", "variante": "Hatchback", "portes": 3, "places": 4, "reservoir": 50},
+                {"modele": "Fiesta", "variante": "Hatchback", "portes": 3, "places": 4, "reservoir": 40},
+                {"modele": "Fiesta", "variante": "Hatchback", "portes": 5, "places": 5, "reservoir": 40},
+                {"modele": "Focus", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 55},
+                {"modele": "Focus", "variante": "Hatchback", "portes": 5, "places": 5, "reservoir": 55},
+                {"modele": "Mondeo", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 60},
+
+
+                   {"modele": "Kuga", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 60},
+                {"modele": "Escape", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 60},
+                {"modele": "Edge", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 70},
+                {"modele": "Explorer", "variante": "SUV", "portes": 5, "places": 7, "reservoir": 80},
+                {"modele": "Expedition", "variante": "SUV", "portes": 5, "places": 7, "reservoir": 90},
+                {"modele": "Ranger", "variante": "Pickup", "portes": 4, "places": 5, "reservoir": 80},
+                {"modele": "F-150", "variante": "Pickup", "portes": 4, "places": 5, "reservoir": 95},
+
+
+                {"modele": "Mustang Mach-E", "variante": "SUV Electrique", "portes": 5, "places": 5, "reservoir": 0},
+                {"modele": "F-150 Lightning", "variante": "Pickup Electrique", "portes": 4, "places": 5, "reservoir": 0}
+            ],
+
+            "Ford GT": [
+                {"modele": "GT40", "variante": "Coupé course", "portes": 2, "places":2, "reservoir": 90},
+                {"modele": "GT40 Mk II", "variante": "Coupé course", "portes": 2, "places": 2, "reservoir": 100},
+                {"modele": "GT40 Mk III", "variante": "Coupé route", "portes": 2, "places": 2, "reservoir": 100},
+
+
+                {"modele": "Ford GT (2005-2006)", "variante": "Supercar", "portes": 2, "places": 2, "reservoir": 90},
+                {"modele": "Ford GT (2016+)", "variante": "Supercar", "portes": 2, "places": 2, "reservoir": 90}
+            ],
 
 
         "Mazda Speed": [
@@ -629,6 +717,194 @@ class Command(BaseCommand):
                 {"modele": "XT6", "variante": "SUV", "portes": 5, "places": 7, "reservoir": 75},
                 {"modele": "Escalade", "variante": "SUV", "portes": 5, "places": 7, "reservoir": 90},
                 {"modele": "Escalade ESV", "variante": "SUV Long", "portes": 5, "places": 7, "reservoir": 95}
+            ],
+
+            "Chevrolet": [
+
+                {"modele": "Bel Air", "variante": "Sedan", "portes": 4, "places": 5,"reservoir": 70},
+                {"modele": "Impala", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 75},
+                {"modele": "Camaro", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 60},
+                {"modele": "Corvette", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 65},
+                {"modele": "Corvette", "variante": "Convertible", "portes": 2, "places": 2, "reservoir": 65},
+                {"modele": "Nova", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 65},
+
+
+                {"modele": "Malibu", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 60},
+                {"modele": "Cruze", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 55},
+                {"modele": "Spark", "variante": "Hatchback", "portes": 5, "places": 5, "reservoir": 35},
+                {"modele": "Trax", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 50},
+                {"modele": "Equinox", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 60},
+                {"modele": "Blazer", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 65},
+                {"modele": "Traverse", "variante": "SUV", "portes": 5, "places": 7, "reservoir": 70},
+                {"modele": "Tahoe", "variante": "SUV", "portes": 5, "places": 7, "reservoir": 85},
+                {"modele": "Suburban", "variante": "SUV Long", "portes": 5, "places": 8, "reservoir": 95},
+                {"modele": "Colorado", "variante": "Pickup", "portes": 4, "places": 5, "reservoir": 70},
+                {"modele": "Silverado", "variante": "Pickup", "portes": 4, "places": 5, "reservoir": 80},
+                {"modele": "Corvette C8", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 65},
+                {"modele": "Corvette C8", "variante": "Convertible", "portes": 2, "places": 2, "reservoir": 65}
+            ],
+
+            "Chery": [
+
+                {"modele": "QQ", "variante": "Hatchback", "portes": 3, "places": 4,"reservoir": 35},
+                {"modele": "QQ", "variante": "Hatchback", "portes": 5, "places": 5, "reservoir": 35},
+                {"modele": "Tiggo 3", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 55},
+                {"modele": "Tiggo 3X", "variante": "SUV Compact", "portes": 5, "places": 5, "reservoir": 50},
+                {"modele": "Tiggo 5", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 60},
+                {"modele": "Tiggo 7", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 60},
+                {"modele": "Tiggo 8", "variante": "SUV", "portes": 5, "places": 7, "reservoir": 65},
+                {"modele": "Arrizo 5", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 50},
+                {"modele": "Arrizo 6", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 55},
+                {"modele": "Arrizo GX", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 55},
+                {"modele": "Arrizo e", "variante": "Sedan Electrique", "portes": 4, "places": 5, "reservoir": 0},
+                {"modele": "Tiggo e", "variante": "SUV Electrique", "portes": 5, "places": 5, "reservoir": 0}
+            ],
+
+            "Chrysler": [
+
+                {"modele": "New Yorker", "variante": "Sedan", "portes": 4, "places": 5,"reservoir": 70},
+                {"modele": "Imperial", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 75},
+                {"modele": "Imperial", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 75},
+                {"modele": "300", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 75},
+                {"modele": "LeBaron", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 70},
+                {"modele": "LeBaron", "variante": "Convertible", "portes": 2, "places": 4, "reservoir": 70},
+
+
+                {"modele": "Pacifica", "variante": "Minivan", "portes": 5, "places": 7, "reservoir": 70},
+                {"modele": "Pacifica Hybrid", "variante": "Minivan Hybride", "portes": 5, "places": 7, "reservoir": 40},
+                {"modele": "Voyager", "variante": "Minivan", "portes": 5, "places": 7, "reservoir": 65},
+                {"modele": "300", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 75},
+                {"modele": "Aspen", "variante": "SUV", "portes": 5, "places": 7, "reservoir": 75},
+                {"modele": "Town & Country", "variante": "Minivan", "portes": 5, "places": 7, "reservoir": 75}
+            ],
+
+            "Citroën": [
+                {"modele": "2CV", "variante": "Berline", "portes": 4, "places": 4, "reservoir": 25},
+                {"modele": "DS", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 50},
+                {"modele": "CX", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 60},
+                {"modele": "BX", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 55},
+                {"modele": "XM", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 70},
+                {"modele": "C25", "variante": "Fourgon", "portes": 4, "places": 3, "reservoir": 70},
+
+
+                {"modele": "C1", "variante": "Hatchback", "portes": 3, "places": 4, "reservoir": 35},
+                {"modele": "C1", "variante": "Hatchback", "portes": 5, "places": 4, "reservoir": 35},
+                {"modele": "C3", "variante": "Hatchback", "portes": 5, "places": 5, "reservoir": 45},
+                {"modele": "C3 Aircross", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 50},
+                {"modele": "C4", "variante": "Sedan", "portes": 5, "places": 5, "reservoir": 55},
+                {"modele": "C4 Cactus", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 50},
+                {"modele": "C5", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 60},
+                {"modele": "C5 Aircross", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 60},
+                {"modele": "C6", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 70},
+                {"modele": "C-Elysée", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 50},
+                {"modele": "Berlingo", "variante": "Van", "portes": 5, "places": 5, "reservoir": 55},
+                {"modele": "Berlingo", "variante": "Van Electrique", "portes": 5, "places": 5, "reservoir": 0},
+                {"modele": "ë-C4", "variante": "Sedan Electrique", "portes": 5, "places": 5, "reservoir": 0}
+            ],
+
+            "Citroën Sport": [
+
+                {"modele": "BX 4TC", "variante": "Rallye", "portes": 5,"places": 4, "reservoir": 70},
+                {"modele": "Xsara WRC", "variante": "Rallye", "portes": 5, "places": 4, "reservoir": 60},
+                {"modele": "C4 WRC", "variante": "Rallye", "portes": 5, "places": 4, "reservoir": 60},
+                {"modele": "DS3 WRC", "variante": "Rallye", "portes": 3, "places": 4, "reservoir": 50},
+                {"modele": "DS3 R3", "variante": "Rallye / Route", "portes": 3, "places": 4, "reservoir": 50},
+                {"modele": "DS4 Racing", "variante": "Sportive", "portes": 5, "places": 4, "reservoir": 50},
+                {"modele": "DS5 Racing", "variante": "Sportive", "portes": 5, "places": 4, "reservoir": 55},
+                {"modele": "C-Elysée WTCC", "variante": "Course", "portes": 4, "places": 4, "reservoir": 50},
+
+
+                {"modele": "C3 R5", "variante": "Rallye", "portes": 5, "places": 4, "reservoir": 50},
+                {"modele": "C3 Sport", "variante": "GT / Edition Limitée", "portes": 5, "places": 4, "reservoir": 45},
+                {"modele": "C4 Sport", "variante": "GT", "portes": 5, "places": 4, "reservoir": 50},
+                {"modele": "C4 WRC Edition", "variante": "GT / Rallye", "portes": 5, "places": 4, "reservoir": 50}
+            ],
+
+            "Cupra": [
+
+                {"modele": "Cupra Ibiza", "variante": "Sport","portes": 5, "places": 5, "reservoir": 45},
+                {"modele": "Cupra Leon", "variante": "Sport", "portes": 5, "places": 5, "reservoir": 50},
+                {"modele": "Cupra Leon ST", "variante": "Sport", "portes": 5, "places": 5, "reservoir": 50},
+                {"modele": "Cupra Leon Competición", "variante": "Racing", "portes": 5, "places": 4, "reservoir": 50},
+
+
+                {"modele": "Cupra Ateca", "variante": "SUV Sport", "portes": 5, "places": 5, "reservoir": 60},
+                {"modele": "Cupra Formentor", "variante": "SUV Coupé Sport", "portes": 5, "places": 5, "reservoir": 55},
+                {"modele": "Cupra Born", "variante": "Hatchback Electrique", "portes": 5, "places": 5, "reservoir": 0},
+                {"modele": "Cupra Tavascan", "variante": "SUV Electrique Concept", "portes": 5, "places": 5, "reservoir": 0}
+            ],
+
+            "Daewoo": [
+                {"modele": "Lanos", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 50},
+                {"modele": "Lanos", "variante": "Hatchback", "portes": 3, "places": 4, "reservoir": 50},
+                {"modele": "Nubira", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 55},
+                {"modele": "Nubira", "variante": "Wagon", "portes": 5, "places": 5, "reservoir": 55},
+                {"modele": "Leganza", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 60},
+                {"modele": "Espero", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 55},
+
+
+                {"modele": "Tacuma", "variante": "MPV", "portes": 5, "places": 5, "reservoir": 60},
+                {"modele": "Rezzo", "variante": "MPV", "portes": 5, "places": 5, "reservoir": 60},
+                {"modele": "Korando", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 65}
+            ],
+
+            "Daihatsu": [
+                {"modele": "Charade", "variante": "Hatchback", "portes": 3, "places": 4,"reservoir": 35},
+                {"modele": "Charade", "variante": "Hatchback", "portes": 5, "places": 5, "reservoir": 35},
+                {"modele": "Applause", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 45},
+                {"modele": "Rocky", "variante": "SUV", "portes": 3, "places": 4, "reservoir": 50},
+                {"modele": "Rocky", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 50},
+
+
+                {"modele": "Cuore", "variante": "Hatchback", "portes": 3, "places": 4, "reservoir": 30},
+                {"modele": "Cuore", "variante": "Hatchback", "portes": 5, "places": 5, "reservoir": 30},
+                {"modele": "Move", "variante": "MPV", "portes": 5, "places": 5, "reservoir": 35},
+                {"modele": "Terios", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 50},
+                {"modele": "Sirion", "variante": "Hatchback", "portes": 5, "places": 5, "reservoir": 35},
+                {"modele": "Cast", "variante": "Hatchback", "portes": 5, "places": 4, "reservoir": 35}
+            ],
+
+            "DS Automobiles": [
+
+                {"modele": "DS", "variante": "Sedan Classique", "portes": 4, "places": 5, "reservoir": 50},
+
+                {"modele": "DS3", "variante": "Hatchback", "portes": 3, "places": 4, "reservoir": 45},
+                {"modele": "DS3 Crossback", "variante": "SUV Compact", "portes": 5, "places": 5, "reservoir": 50},
+                {"modele": "DS4", "variante": "Sedan / Hatchback", "portes": 5, "places": 5, "reservoir": 50},
+                {"modele": "DS4 Crossback", "variante": "SUV Coupé", "portes": 5, "places": 5, "reservoir": 50},
+                {"modele": "DS5", "variante": "Hatchback / SUV", "portes": 5, "places": 5, "reservoir": 55},
+                {"modele": "DS7 Crossback", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 60},
+                {"modele": "DS9", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 60},
+
+
+                {"modele": "DS3 E-Tense", "variante": "Hatchback Electrique", "portes": 5, "places": 4, "reservoir": 0},
+                {"modele": "DS7 Crossback E-Tense", "variante": "SUV Hybride Rechargeable", "portes": 5, "places": 5,"reservoir": 55}
+           ],
+
+            "Fiat": [
+
+
+                {"modele": "500", "variante": "Cabriolet Classique", "portes": 2, "places": 4,"reservoir": 20},
+                {"modele": "126", "variante": "Hatchback", "portes": 2, "places": 4, "reservoir": 22},
+                {"modele": "Panda", "variante": "Hatchback", "portes": 3, "places": 4, "reservoir": 30},
+                {"modele": "Panda", "variante": "Hatchback", "portes": 5, "places": 5, "reservoir": 30},
+                {"modele": "Tipo", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 50},
+                {"modele": "Bravo", "variante": "Hatchback", "portes": 5, "places": 5, "reservoir": 55},
+
+
+                {"modele": "500", "variante": "Hatchback", "portes": 3, "places": 4, "reservoir": 35},
+                {"modele": "500", "variante": "Hatchback", "portes": 5, "places": 4, "reservoir": 35},
+                {"modele": "500X", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 45},
+                {"modele": "500L", "variante": "MPV", "portes": 5, "places": 5, "reservoir": 45},
+                {"modele": "Punto", "variante": "Hatchback", "portes": 3, "places": 4, "reservoir": 40},
+                {"modele": "Punto", "variante": "Hatchback", "portes": 5, "places": 5, "reservoir": 40},
+                {"modele": "Doblo", "variante": "MPV / Van", "portes": 5, "places": 5, "reservoir": 60},
+                {"modele": "Fiorino", "variante": "Van", "portes": 3, "places": 2, "reservoir": 40},
+                {"modele": "Tipo Cross", "variante": "Sedan / Hatchback", "portes": 5, "places": 5, "reservoir": 50},
+
+
+                {"modele": "500e", "variante": "Hatchback Electrique", "portes": 3, "places": 4, "reservoir": 0},
+                {"modele": "500e", "variante": "Hatchback Electrique", "portes": 5, "places": 4, "reservoir": 0}
             ],
 
 
@@ -762,9 +1038,7 @@ class Command(BaseCommand):
                        "Pagani": [
                 {"modele": "Huayra", "variante": None, "portes": 2, "places": 2, "reservoir": 90},
             ],
-            "De Tomaso": [
-                {"modele": "Pantera", "variante": None, "portes": 2, "places": 2, "reservoir": 80},
-            ],
+
 
             # UK
             "Mini": [
@@ -1078,9 +1352,7 @@ class Command(BaseCommand):
                 {"modele": "Ibiza", "variante": "FR", "portes": 5, "places": 5, "reservoir": 45},
                 {"modele": "Leon", "variante": "FR", "portes": 5, "places": 5, "reservoir": 55},
             ],
-            "Cupra": [
-                {"modele": "Formentor", "variante": None, "portes": 5, "places": 5, "reservoir": 60},
-            ],
+
             "Hispano-Suiza": [
                 {"modele": "Carmen", "variante": None, "portes": 2, "places": 2, "reservoir": 0},
             ],
