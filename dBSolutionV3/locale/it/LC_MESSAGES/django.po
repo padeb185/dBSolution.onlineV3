@@ -3528,60 +3528,46 @@ msgid "Ajouter un véhicule"
 msgstr "Aggiungi un veicolo"
 
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:9
-#, fuzzy
-#| msgid "Ajouter un véhicule"
 msgid "Détails du véhicule"
-msgstr "Aggiungi un veicolo"
+msgstr "Dettagli del veicolo"
 
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:17
 msgid "Informations générales"
-msgstr ""
+msgstr "Informazioni generali"
 
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:25
-#, fuzzy
-#| msgid "Moteur"
 msgid "Moteurs"
-msgstr "Motore"
+msgstr "Motori"
 
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:36
-#, fuzzy
-#| msgid "Aucun modèle enregistré pour cette marque."
 msgid "Aucun moteur enregistré pour cet exemplaire."
-msgstr "Nessun modello registrato per questo marchio."
+msgstr "Nessun motore registrato per questo esemplare."
 
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:45
 #: .\voiture\voiture_moteur\views.py:30
-#, fuzzy
-#| msgid "Ajouter un exemplaire pour"
 msgid "Ajouter un moteur"
-msgstr "Aggiungi un esemplare per"
+msgstr "Aggiungi un motore"
 
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:51
 msgid "Lier un moteur existant"
-msgstr ""
+msgstr "Collega un motore esistente"
 
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:62
-#, fuzzy
-#| msgid "Bloc moteur"
 msgid "Code moteur"
-msgstr "Blocco motore"
+msgstr "Codice motore"
 
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:64
 msgid "Motoriste"
-msgstr ""
+msgstr "Costruttore"
 
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:69
 #: .\voiture\voiture_exemplaire\views.py:98
-#, fuzzy
-#| msgid "Huile moteur"
 msgid "Lier le moteur"
-msgstr "Olio motore"
+msgstr "Collega il motore"
 
 #: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:75
-#, fuzzy
-#| msgid "Révision moteur"
 msgid "Détails du moteur"
-msgstr "Revisión del motor"
+msgstr "Dettagli del motore"
 
 #: .\theme\views.py:35
 msgid "Nom d'utilisateur ou mot de passe incorrect"
@@ -3658,27 +3644,23 @@ msgstr "Rol desconocido"
 #: .\voiture\voiture_exemplaire\views.py:78
 #: .\voiture\voiture_exemplaire\views.py:116
 msgid "Moteur non trouvé"
-msgstr ""
+msgstr "Motore non trovato"
 
 #: .\voiture\voiture_exemplaire\views.py:96
-#, fuzzy
-#| msgid "Ajouter un véhicule"
 msgid "Lier un moteur à un véhicule"
-msgstr "Aggiungi un veicolo"
+msgstr "Collega un motore a un veicolo"
 
 #: .\voiture\voiture_exemplaire\views.py:97
 msgid "Voulez-vous lier ce moteur à ce véhicule ?"
-msgstr ""
+msgstr "Vuoi collegare questo motore a questo veicolo?"
 
 #: .\voiture\voiture_exemplaire\views.py:111
 msgid "Paramètres manquants"
-msgstr ""
+msgstr "Parametri mancanti"
 
 #: .\voiture\voiture_moteur\views.py:31
-#, fuzzy
-#| msgid "Huile moteur"
 msgid "Créer le moteur"
-msgstr "Olio motore"
+msgstr "Crea motore"
 
 #~ msgid "Adresse email ou mot de passe incorrect"
 #~ msgstr "Indirizzo email o password non corretti"
