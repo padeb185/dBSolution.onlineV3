@@ -602,6 +602,25 @@ class Command(BaseCommand):
                 {"modele": "Ford GT (2016+)", "variante": "Supercar", "portes": 2, "places": 2, "reservoir": 90}
             ],
 
+            "GAZ": [
+
+                {"modele": "M20 Pobeda", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 55},
+                {"modele": "Volga M21", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 55},
+                {"modele": "Volga M24", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 60},
+                {"modele": "Volga 3102", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 60},
+                {"modele": "Chaika GAZ-13", "variante": "Limousine", "portes": 4, "places": 7, "reservoir": 80},
+                {"modele": "Chaika GAZ-14", "variante": "Limousine", "portes": 4, "places": 7, "reservoir": 80},
+
+
+                {"modele": "GAZelle", "variante": "Fourgon", "portes": 4, "places": 3, "reservoir": 70},
+                {"modele": "GAZelle Next", "variante": "Fourgon", "portes": 4, "places": 3, "reservoir": 70},
+                {"modele": "Sobol", "variante": "Van", "portes": 5, "places": 7, "reservoir": 70},
+
+
+                {"modele": "GAZ-51", "variante": "Camion", "portes": 2, "places": 3, "reservoir": 90},
+                {"modele": "GAZ-66", "variante": "Camion 4x4", "portes": 2, "places": 2, "reservoir": 110},
+                {"modele": "Tigr", "variante": "Militaire / 4x4", "portes": 5, "places": 7, "reservoir": 120}
+            ],
 
         "Mazda Speed": [
 
@@ -1081,9 +1100,22 @@ class Command(BaseCommand):
             ],
 
             "Rolls-Royce": [
+                {"modele": "Phantom", "variante": None, "portes": 4, "places": 5, "reservoir": 100},
+                {"modele": "Phantom EWB", "variante": "Extended Wheelbase", "portes": 4, "places": 5, "reservoir": 100},
+
                 {"modele": "Ghost", "variante": None, "portes": 4, "places": 5, "reservoir": 90},
-                {"modele": "Cullinan", "variante": None, "portes": 5, "places": 5, "reservoir": 105},
+                {"modele": "Ghost EWB", "variante": "Extended Wheelbase", "portes": 4, "places": 5, "reservoir": 90},
+
+                {"modele": "Wraith", "variante": "wraith", "portes": 2, "places": 4, "reservoir": 83},
+                {"modele": "Dawn", "variante": "Cabriolet", "portes": 2, "places": 4, "reservoir": 83},
+
+                {"modele": "Cullinan", "variante": "Cullinan", "portes": 5, "places": 5, "reservoir": 105},
+                {"modele": "Cullinan Black Badge", "variante": "Sport Luxe", "portes": 5, "places": 5,
+                 "reservoir": 105},
+
+                {"modele": "Spectre", "variante": "Electrique", "portes": 2, "places": 4, "reservoir": 0}
             ],
+
 
             "Aston Martin": [
                 # DB5 (classique)
@@ -1346,18 +1378,183 @@ class Command(BaseCommand):
                 # "taille_reservoir": 75},
 
             #],
+            "GMC": [
+
+                {"modele": "Sierra 1500", "variante": "Pickup", "portes": 4, "places": 5, "reservoir": 98},
+                {"modele": "Sierra 2500HD", "variante": "Pickup", "portes": 4, "places": 5, "reservoir": 136},
+                {"modele": "Sierra 3500HD", "variante": "Pickup", "portes": 4, "places": 5, "reservoir": 136},
+
+
+                   {"modele": "Yukon", "variante": "SUV", "portes": 5, "places": 7, "reservoir": 98},
+                {"modele": "Yukon XL", "variante": "SUV Long", "portes": 5, "places": 8, "reservoir": 106},
+                {"modele": "Acadia", "variante": "SUV", "portes": 5, "places": 7, "reservoir": 75},
+                {"modele": "Terrain", "variante": "SUV Compact", "portes": 5, "places": 5, "reservoir": 60},
+
+
+                   {"modele": "Savana", "variante": "Van", "portes": 4, "places": 12, "reservoir": 117},
+                {"modele": "Canyon", "variante": "Pickup Moyen", "portes": 4, "places": 5, "reservoir": 80},
+
+
+                   {"modele": "Hummer EV", "variante": "Pickup Electrique", "portes": 4, "places": 5, "reservoir": 0}
+                ],
+
+            "Great Wall": [
+                {"modele": "Wingle 5", "variante": "Pickup", "portes": 4, "places": 5, "reservoir": 70},
+                {"modele": "Wingle 7", "variante": "Pickup", "portes": 4, "places": 5, "reservoir": 70},
+                {"modele": "Poer", "variante": "Pickup", "portes": 4, "places": 5, "reservoir": 78},
+
+
+                {"modele": "Haval H2", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 58},
+                {"modele": "Haval H6", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 58},
+                {"modele": "Haval H9", "variante": "SUV 4x4", "portes": 5, "places": 7, "reservoir": 80},
+                {"modele": "Tank 300", "variante": "SUV 4x4", "portes": 5, "places": 5, "reservoir": 80},
+
+
+                {"modele": "Ora Funky Cat", "variante": "Hatchback Electrique", "portes": 5, "places": 5, "reservoir": 0},
+                {"modele": "Tank 500 Hybrid", "variante": "SUV Hybride", "portes": 5, "places": 7, "reservoir": 70}
+            ],
+
+            "Gurgel": [
+
+                {"modele": "BR-800", "variante": "Hatchback", "portes": 3, "places": 4,"reservoir": 30},
+                {"modele": "Supermini", "variante": "Hatchback", "portes": 3, "places": 4, "reservoir": 32},
+
+
+                {"modele": "X-12", "variante": "4x4", "portes": 2, "places": 4, "reservoir": 45},
+                {"modele": "X-15", "variante": "4x4", "portes": 2, "places": 4, "reservoir": 45},
+                {"modele": "Carajas", "variante": "4x4", "portes": 4, "places": 5, "reservoir": 60},
+                {"modele": "Tocantins", "variante": "4x4", "portes": 2, "places": 4, "reservoir": 45}
+            ],
+
+            "Haval": [
+                {"modele": "H1", "variante": "SUV Compact", "portes": 5, "places": 5, "reservoir": 45},
+                {"modele": "H2", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 50},
+                {"modele": "H4", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 50},
+                {"modele": "H5", "variante": "SUV 4x4", "portes": 5, "places": 5, "reservoir": 70},
+                {"modele": "H6", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 58},
+                {"modele": "H7", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 58},
+                {"modele": "H8", "variante": "SUV Luxe", "portes": 5, "places": 5, "reservoir": 72},
+                {"modele": "H9", "variante": "SUV 4x4", "portes": 5, "places": 7, "reservoir": 80},
+                {"modele": "Jolion", "variante": "SUV Compact", "portes": 5, "places": 5, "reservoir": 55}
+            ],
+
+
 
             # Espagne
             "SEAT": [
                 {"modele": "Ibiza", "variante": "FR", "portes": 5, "places": 5, "reservoir": 45},
+                {"modele": "Ibiza", "variante": "Cupra", "portes": 3, "places": 4, "reservoir": 45},
+
                 {"modele": "Leon", "variante": "FR", "portes": 5, "places": 5, "reservoir": 55},
+                {"modele": "Leon", "variante": "Cupra", "portes": 5, "places": 5, "reservoir": 55},
+                {"modele": "Leon ST", "variante": "Break", "portes": 5, "places": 5, "reservoir": 55},
+
+                {"modele": "Arona", "variante": None, "portes": 5, "places": 5, "reservoir": 50},
+                {"modele": "Ateca", "variante": None, "portes": 5, "places": 5, "reservoir": 55},
+                {"modele": "Tarraco", "variante": None, "portes": 5, "places": 7, "reservoir": 60},
+
+                {"modele": "Toledo", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 55},
+                {"modele": "Altea", "variante": "MPV", "portes": 5, "places": 5, "reservoir": 55},
+                {"modele": "Cordoba", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 50},
+
+                {"modele": "Mii", "variante": "Citadine", "portes": 3, "places": 4, "reservoir": 35},
+                {"modele": "Mii Electric", "variante": "Electrique", "portes": 3, "places": 4, "reservoir": 0}
+            ],
+            "Honda": [
+
+                {"modele": "Civic", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 50},
+                {"modele": "Civic", "variante": "Hatchback", "portes": 5, "places": 5, "reservoir": 50},
+                {"modele": "Civic Type R", "variante": "Sport", "portes": 5, "places": 5, "reservoir": 50},
+                {"modele": "Accord", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 60},
+                {"modele": "Jazz", "variante": None, "portes": 5, "places": 5, "reservoir": 40},
+                {"modele": "City", "variante": None, "portes": 4, "places": 5, "reservoir": 40},
+
+
+                {"modele": "CR-V", "variante": None, "portes": 5, "places": 5, "reservoir": 58},
+                {"modele": "HR-V", "variante": None, "portes": 5, "places": 5, "reservoir": 50},
+                {"modele": "Passport", "variante": None, "portes": 5, "places": 5, "reservoir": 65},
+                {"modele": "Pilot", "variante": None, "portes": 5, "places": 7, "reservoir": 75},
+
+
+                {"modele": "Odyssey", "variante": None, "portes": 5, "places": 7, "reservoir": 75},
+
+                {"modele": "NSX", "variante": "Supercar", "portes": 2, "places": 2, "reservoir": 70},
+
+
+                {"modele": "Honda e", "variante": "Electrique", "portes": 5, "places": 4, "reservoir": 0},
+                {"modele": "CR-V Hybrid", "variante": "Hybride", "portes": 5, "places": 5, "reservoir": 58},
+                {"modele": "Accord Hybrid", "variante": "Hybride", "portes": 4, "places": 5, "reservoir": 60}
+            ],
+
+            "Honda Type R": [
+                {"modele": "Civic Type R", "variante": "EP3", "portes": 3, "places": 4, "reservoir": 50},
+                {"modele": "Civic Type R", "variante": "FN2", "portes": 3, "places": 4, "reservoir": 50},
+                {"modele": "Civic Type R", "variante": "FK8", "portes": 5, "places": 5, "reservoir": 50},
+                {"modele": "Integra Type R", "variante": "DC2", "portes": 3, "places": 4, "reservoir": 50}
+            ],
+
+            "Hindustan Motors": [
+
+                {"modele": "Ambassador", "variante": "Mark I", "portes": 4, "places": 5,"reservoir": 50},
+                {"modele": "Ambassador", "variante": "Mark II", "portes": 4, "places": 5, "reservoir": 50},
+                {"modele": "Ambassador", "variante": "Mark III", "portes": 4, "places": 5, "reservoir": 55},
+                {"modele": "Ambassador", "variante": "Mark IV", "portes": 4, "places": 5, "reservoir": 55},
+
+
+                {"modele": "Ambassador Classic", "variante": None, "portes": 4, "places": 5, "reservoir": 55},
+                {"modele": "Ambassador Grand", "variante": None, "portes": 4, "places": 5, "reservoir": 55}
             ],
 
             "Hispano-Suiza": [
-                {"modele": "Carmen", "variante": None, "portes": 2, "places": 2, "reservoir": 0},
+
+                {"modele": "H6B", "variante": "Berlina", "portes": 4, "places": 5,"reservoir": 80},
+                {"modele": "H6C", "variante": "Sport", "portes": 2, "places": 2, "reservoir": 80},
+                {"modele": "K6", "variante": None, "portes": 4, "places": 5, "reservoir": 80},
+
+
+                {"modele": "Carmen", "variante": "Coupe Electrique", "portes": 2, "places": 2, "reservoir": 0},
+                {"modele": "Carmen Boulogne", "variante": "Coupe Electrique", "portes": 2, "places": 2, "reservoir": 0}
             ],
 
-            # Suède
+            "Holden": [
+
+                {"modele": "Commodore", "variante": None, "portes": 4, "places": 5, "reservoir": 70},
+                {"modele": "Caprice", "variante": None, "portes": 4, "places": 5, "reservoir": 75},
+                {"modele": "Statesman", "variante": None, "portes": 4, "places": 5, "reservoir": 75},
+
+
+                {"modele": "Astra", "variante": None, "portes": 5, "places": 5, "reservoir": 50},
+                {"modele": "Zafira", "variante": None, "portes": 5, "places": 7, "reservoir": 60},
+                {"modele": "Trax", "variante": None, "portes": 5, "places": 5, "reservoir": 50},
+
+
+                {"modele": "Acadia", "variante": None, "portes": 5, "places": 7, "reservoir": 75},
+                {"modele": "Colorado", "variante": "Pickup", "portes": 4, "places": 5, "reservoir": 80},
+
+
+                {"modele": "HSV Clubsport", "variante": None, "portes": 4, "places": 5, "reservoir": 70},
+                {"modele": "HSV GTS", "variante": None, "portes": 4, "places": 5, "reservoir": 70}
+            ],
+
+            "Hongqi": [
+
+                {"modele": "CA72", "variante": None, "portes": 4, "places": 5,
+                                                     "reservoir": 90},
+                {"modele": "CA770", "variante": None, "portes": 4, "places": 5, "reservoir": 90},
+                {"modele": "L5", "variante": None, "portes": 4, "places": 5, "reservoir": 95},
+                {"modele": "H5", "variante": None, "portes": 4, "places": 5, "reservoir": 60},
+                {"modele": "H7", "variante": None, "portes": 4, "places": 5, "reservoir": 60},
+
+
+                {"modele": "HS5", "variante": None, "portes": 5, "places": 5, "reservoir": 65},
+                {"modele": "HS7", "variante": None, "portes": 5, "places": 7, "reservoir": 70},
+                {"modele": "E-HS9", "variante": "Electrique", "portes": 5, "places": 7, "reservoir": 0}
+            ],
+
+
+
+
+        # Suède
             "Saab": [
                 {"modele": "9-3", "variante": None, "portes": 5, "places": 5, "reservoir": 55},
             ],
@@ -1374,13 +1571,49 @@ class Command(BaseCommand):
                 {"modele": "Sorento", "variante": "GT Line", "portes": 5, "places": 7, "reservoir": 70},
             ],
             "Genesis": [
-                {"modele": "G70", "variante": None, "portes": 4, "places": 5, "reservoir": 60},
+
+                {"modele": "G70", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 60},
+                {"modele": "G80", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 73},
+                {"modele": "G90", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 83},
+
+
+                {"modele": "Genesis Coupe", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 65},
+
+
+                {"modele": "GV70", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 66},
+                {"modele": "GV80", "variante": "SUV", "portes": 5, "places": 7, "reservoir": 80},
+
+                {"modele": "GV60", "variante": "SUV Electrique", "portes": 5, "places": 5, "reservoir": 0},
+                {"modele": "G80 Electrified", "variante": "Sedan Electrique", "portes": 4, "places": 5, "reservoir": 0}
             ],
+            "Genesis G70 Sport": [
+                {"modele": "G70", "variante": "Sport", "portes": 4, "places": 5, "reservoir": 60}
+            ],
+
 
             # Chine
             "Geely": [
-                {"modele": "Atlas", "variante": None, "portes": 5, "places": 5, "reservoir": 60},
+
+                {"modele": "Emgrand EC7", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 50},
+                {"modele": "Emgrand GT", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 55},
+                {"modele": "Vision", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 50},
+                {"modele": "Binrui", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 50},
+                {"modele": "Panda", "variante": "Hatchback", "portes": 5, "places": 4, "reservoir": 35},
+
+
+                {"modele": "Boyue", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 60},
+                {"modele": "Atlas", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 60},
+                {"modele": "Xingyue", "variante": "SUV Coupé", "portes": 5, "places": 5, "reservoir": 60},
+                {"modele": "GX3", "variante": "SUV Compact", "portes": 5, "places": 5, "reservoir": 45},
+                {"modele": "Coolray", "variante": "SUV Compact", "portes": 5, "places": 5, "reservoir": 45},
+                {"modele": "Okavango", "variante": "SUV 7 places", "portes": 5, "places": 7, "reservoir": 60},
+
+
+                {"modele": "Geometry A", "variante": "Sedan Electrique", "portes": 4, "places": 5, "reservoir": 0},
+                {"modele": "Geometry C", "variante": "SUV Electrique", "portes": 5, "places": 5, "reservoir": 0},
+                {"modele": "Panda Mini EV", "variante": "Citadine Electrique", "portes": 3, "places": 4, "reservoir": 0}
             ],
+
             "NIO": [
                 {"modele": "ES8", "variante": None, "portes": 5, "places": 7, "reservoir": 0},
             ],
@@ -1393,23 +1626,15 @@ class Command(BaseCommand):
                 {"modele": "XUV700", "variante": None, "portes": 5, "places": 7, "reservoir": 60},
             ],
 
-            # Brésil
-            "Gurgel": [
-                {"modele": "BR-800", "variante": None, "portes": 2, "places": 4, "reservoir": 35},
-            ],
 
-            # Australie
-            "Holden": [
-                {"modele": "Commodore", "variante": None, "portes": 4, "places": 5, "reservoir": 70},
-            ],
+
+
 
             # Russie / URSS
             "Lada": [
                 {"modele": "Niva", "variante": None, "portes": 3, "places": 4, "reservoir": 42},
             ],
-            "GAZ": [
-                {"modele": "Volga", "variante": None, "portes": 4, "places": 5, "reservoir": 60},
-            ],
+
             "UAZ": [
                 {"modele": "Hunter", "variante": None, "portes": 3, "places": 5, "reservoir": 70},
             ],

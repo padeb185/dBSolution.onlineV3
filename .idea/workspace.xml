@@ -196,15 +196,7 @@
       <workItem from="1767954680635" duration="3967000" />
       <workItem from="1767963858537" duration="6628000" />
       <workItem from="1768028085856" duration="7486000" />
-      <workItem from="1768037607997" duration="6437000" />
-    </task>
-    <task id="LOCAL-00162" summary="batterie">
-      <option name="closed" value="true" />
-      <created>1767432118889</created>
-      <option name="number" value="00162" />
-      <option name="presentableId" value="LOCAL-00162" />
-      <option name="project" value="LOCAL" />
-      <updated>1767432118889</updated>
+      <workItem from="1768037607997" duration="9338000" />
     </task>
     <task id="LOCAL-00163" summary="Voiture marque + scripts">
       <option name="closed" value="true" />
@@ -590,7 +582,15 @@
       <option name="project" value="LOCAL" />
       <updated>1768041600789</updated>
     </task>
-    <option name="localTasksCounter" value="211" />
+    <task id="LOCAL-00211" summary="script modele">
+      <option name="closed" value="true" />
+      <created>1768044375623</created>
+      <option name="number" value="00211" />
+      <option name="presentableId" value="LOCAL-00211" />
+      <option name="project" value="LOCAL" />
+      <updated>1768044375623</updated>
+    </task>
+    <option name="localTasksCounter" value="212" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -647,6 +647,11 @@
           <url>file://$PROJECT_DIR$/dBSolutionV3/panier/models.py</url>
           <line>5</line>
           <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/management/commands/create_modele_suite.py</url>
+          <line>1469</line>
+          <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
