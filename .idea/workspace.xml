@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="script modele">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/management/commands/create_modele_suite.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/management/commands/create_modele_suite.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_exemplaire/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_exemplaire/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -196,15 +196,7 @@
       <workItem from="1767954680635" duration="3967000" />
       <workItem from="1767963858537" duration="6628000" />
       <workItem from="1768028085856" duration="7486000" />
-      <workItem from="1768037607997" duration="10063000" />
-    </task>
-    <task id="LOCAL-00164" summary="Voiture marque + scripts">
-      <option name="closed" value="true" />
-      <created>1767441744633</created>
-      <option name="number" value="00164" />
-      <option name="presentableId" value="LOCAL-00164" />
-      <option name="project" value="LOCAL" />
-      <updated>1767441744633</updated>
+      <workItem from="1768037607997" duration="10547000" />
     </task>
     <task id="LOCAL-00165" summary="voiture marque view et html et urls">
       <option name="closed" value="true" />
@@ -590,7 +582,15 @@
       <option name="project" value="LOCAL" />
       <updated>1768050778990</updated>
     </task>
-    <option name="localTasksCounter" value="213" />
+    <task id="LOCAL-00213" summary="script modele">
+      <option name="closed" value="true" />
+      <created>1768051490554</created>
+      <option name="number" value="00213" />
+      <option name="presentableId" value="LOCAL-00213" />
+      <option name="project" value="LOCAL" />
+      <updated>1768051490554</updated>
+    </task>
+    <option name="localTasksCounter" value="214" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

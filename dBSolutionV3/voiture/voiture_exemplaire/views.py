@@ -54,8 +54,8 @@ def ajouter_exemplaire(request, modele_id):
 
 
 @login_required()
-def voiture_exemplaire_detail(request, id):
-    exemplaire = get_object_or_404(VoitureExemplaire, id=id)
+def voiture_exemplaire_detail(request, exemplaire_id):  # <-- changé ici
+    exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
     return render(request, "voiture_exemplaire/voiture_exemplaire_detail.html", {"exemplaire": exemplaire})
 
 

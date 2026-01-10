@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-09 14:06+0100\n"
+"POT-Creation-Date: 2026-01-10 14:35+0100\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -1354,7 +1354,8 @@ msgid "Puissance en watts"
 msgstr ""
 
 #: .\piece\piece_ampoules\models.py:60 .\piece\piece_feux\models.py:29
-#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:23
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:24
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:20
 msgid "Couleur"
 msgstr ""
 
@@ -3502,20 +3503,64 @@ msgstr ""
 msgid "Exemplaires de"
 msgstr ""
 
-#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:17
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:18
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:18
 msgid "Année de production"
 msgstr ""
 
-#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:20
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:21
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:19
 msgid "Kilométrage"
 msgstr ""
 
-#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:29
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:31
 msgid "Ce modèle ne contient aucun exemplaire enregistré."
 msgstr ""
 
-#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:37
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:39
 msgid "Ajouter un véhicule"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:9
+msgid "Détails du véhicule"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:17
+msgid "Informations générales"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:25
+msgid "Moteurs"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:36
+msgid "Aucun moteur enregistré pour cet exemplaire."
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:45
+#: .\voiture\voiture_moteur\views.py:30
+msgid "Ajouter un moteur"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:51
+msgid "Lier un moteur existant"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:62
+msgid "Code moteur"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:64
+msgid "Motoriste"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:69
+#: .\voiture\voiture_exemplaire\views.py:98
+msgid "Lier le moteur"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:75
+msgid "Détails du moteur"
 msgstr ""
 
 #: .\theme\views.py:35
@@ -3588,4 +3633,25 @@ msgstr ""
 
 #: .\utilisateurs\views.py:108 .\utilisateurs\views.py:123
 msgid "Rôle inconnu"
+msgstr ""
+
+#: .\voiture\voiture_exemplaire\views.py:78
+#: .\voiture\voiture_exemplaire\views.py:116
+msgid "Moteur non trouvé"
+msgstr ""
+
+#: .\voiture\voiture_exemplaire\views.py:96
+msgid "Lier un moteur à un véhicule"
+msgstr ""
+
+#: .\voiture\voiture_exemplaire\views.py:97
+msgid "Voulez-vous lier ce moteur à ce véhicule ?"
+msgstr ""
+
+#: .\voiture\voiture_exemplaire\views.py:111
+msgid "Paramètres manquants"
+msgstr ""
+
+#: .\voiture\voiture_moteur\views.py:31
+msgid "Créer le moteur"
 msgstr ""
