@@ -2917,6 +2917,147 @@ class Command(BaseCommand):
                 {"modele": "Toyota bZ4X", "variante": "Électrique", "portes": 5, "places": 5, "annees": "2022–présent"},
             ],
 
+            "Tesla": [
+                # Modèles historiques / premiers
+                {"modele": "Tesla Roadster", "variante": None, "portes": 2, "places": 2, "annees": "2008–2012"},
+
+                # Berlines
+                {"modele": "Tesla Model S", "variante": None, "portes": 4, "places": 5, "annees": "2012–présent"},
+                {"modele": "Tesla Model 3", "variante": None, "portes": 4, "places": 5, "annees": "2017–présent"},
+
+                # SUV / crossovers
+                {"modele": "Tesla Model X", "variante": None, "portes": 5, "places": 7, "annees": "2015–présent"},
+                {"modele": "Tesla Model Y", "variante": None, "portes": 5, "places": 7, "annees": "2020–présent"},
+
+                # Futures / concepts
+                {"modele": "Tesla Cybertruck", "variante": None, "portes": 4, "places": 6, "annees": "2023–présent"},
+                {"modele": "Tesla Semi", "variante": None, "portes": 2, "places": 3, "annees": "2023–présent"},
+            ],
+
+            "Tesla Performance": [
+                # Versions haute performance
+                {"modele": "Tesla Model S Plaid", "variante": "Performance", "portes": 4, "places": 5,
+                 "annees": "2021–présent"},
+                {"modele": "Tesla Model 3 Performance", "variante": "Performance", "portes": 4, "places": 5,
+                 "annees": "2018–présent"},
+                {"modele": "Tesla Model X Plaid", "variante": "Performance", "portes": 5, "places": 7,
+                 "annees": "2021–présent"},
+                {"modele": "Tesla Model Y Performance", "variante": "Performance", "portes": 5, "places": 7,
+                 "annees": "2020–présent"},
+            ],
+            "Toyota GR": [
+                # Sportives / haute performance
+                {"modele": "Toyota GR Supra", "variante": "GR", "portes": 2, "places": 2, "annees": "2019–présent"},
+                {"modele": "Toyota GR Yaris", "variante": "GR", "portes": 3, "places": 4, "annees": "2020–présent"},
+                {"modele": "Toyota GR86", "variante": "GR", "portes": 2, "places": 4, "annees": "2021–présent"},
+                {"modele": "Toyota GR Corolla", "variante": "GR", "portes": 5, "places": 5, "annees": "2022–présent"},
+            ],
+
+            "Tata": [
+                # Modèles historiques / anciens
+                {"modele": "Tata Sierra", "variante": None, "portes": 3, "places": 5, "annees": "1991–2003"},
+                {"modele": "Tata Estate", "variante": None, "portes": 5, "places": 5, "annees": "1992–2000"},
+                {"modele": "Tata Telcoline", "variante": None, "portes": 2, "places": 5, "annees": "1988–2006"},
+
+                # Compactes / citadines
+                {"modele": "Tata Indica", "variante": None, "portes": 5, "places": 5, "annees": "1998–2018"},
+                {"modele": "Tata Indigo", "variante": None, "portes": 4, "places": 5, "annees": "2002–2012"},
+
+                # SUV / crossovers
+                {"modele": "Tata Safari", "variante": None, "portes": 5, "places": 7, "annees": "1998–présent"},
+                {"modele": "Tata Harrier", "variante": None, "portes": 5, "places": 7, "annees": "2018–présent"},
+                {"modele": "Tata Nexon", "variante": None, "portes": 5, "places": 5, "annees": "2017–présent"},
+                {"modele": "Tata Nexon EV", "variante": "Électrique", "portes": 5, "places": 5,
+                 "annees": "2020–présent"},
+
+                # Pickups / utilitaires
+                {"modele": "Tata Xenon", "variante": None, "portes": 2, "places": 5, "annees": "2006–2015"},
+            ],
+
+            "Tatra": [
+                # Modèles historiques / anciens
+                {"modele": "Tatra 11", "variante": None, "portes": 2, "places": 2, "annees": "1923–1927"},
+                {"modele": "Tatra 12", "variante": None, "portes": 2, "places": 2, "annees": "1926–1933"},
+                {"modele": "Tatra 77", "variante": None, "portes": 4, "places": 4, "annees": "1934–1938"},
+                {"modele": "Tatra 87", "variante": None, "portes": 4, "places": 4, "annees": "1936–1950"},
+                {"modele": "Tatra 97", "variante": None, "portes": 2, "places": 4, "annees": "1936–1939"},
+
+                # Modèles récents / camions et utilitaires
+                {"modele": "Tatra T815", "variante": None, "portes": 2, "places": 3, "annees": "1983–présent"},
+                {"modele": "Tatra Phoenix", "variante": None, "portes": 2, "places": 3, "annees": "2007–présent"},
+            ],
+
+            "UAZ": [
+                # Modèles historiques / anciens
+                {"modele": "UAZ 450", "variante": None, "portes": 2, "places": 4, "annees": "1958–1965"},
+                {"modele": "UAZ 469", "variante": None, "portes": 4, "places": 5, "annees": "1971–2003"},
+
+                # Modèles récents / SUV et utilitaires
+                {"modele": "UAZ Hunter", "variante": None, "portes": 3, "places": 5, "annees": "2003–présent"},
+                {"modele": "UAZ Patriot", "variante": None, "portes": 5, "places": 7, "annees": "2005–présent"},
+                {"modele": "UAZ Pickup", "variante": None, "portes": 2, "places": 3, "annees": "2008–présent"},
+                {"modele": "UAZ Profi", "variante": None, "portes": 2, "places": 3, "annees": "2015–présent"},
+            ],
+
+            "Venturi": [
+                # Modèles historiques / anciens
+                {"modele": "Venturi 260", "variante": None, "portes": 2, "places": 2, "annees": "1984–1994"},
+                {"modele": "Venturi 400 GT", "variante": None, "portes": 2, "places": 2, "annees": "1992–1995"},
+                {"modele": "Venturi Atlantique", "variante": None, "portes": 2, "places": 2, "annees": "1991–2000"},
+
+                # Modèles récents / électriques
+                {"modele": "Venturi Fétish", "variante": None, "portes": 2, "places": 2, "annees": "2004–2013"},
+                {"modele": "Venturi Buckeye Bullet", "variante": None, "portes": 2, "places": 2,
+                 "annees": "2010–présent"},
+                {"modele": "Venturi VBB-3", "variante": None, "portes": 2, "places": 1, "annees": "2016–présent"},
+            ],
+            "VinFast": [
+                # Modèles récents / voitures particulières
+                {"modele": "VinFast Lux A2.0", "variante": None, "portes": 4, "places": 5, "annees": "2018–2022"},
+                {"modele": "VinFast Lux SA2.0", "variante": None, "portes": 5, "places": 7, "annees": "2018–2022"},
+                {"modele": "VinFast Fadil", "variante": None, "portes": 5, "places": 5, "annees": "2019–2022"},
+
+                # Modèles électriques récents
+                {"modele": "VinFast VF e34", "variante": "Électrique", "portes": 5, "places": 5,
+                 "annees": "2021–présent"},
+                {"modele": "VinFast VF 5", "variante": "Électrique", "portes": 5, "places": 5,
+                 "annees": "2022–présent"},
+                {"modele": "VinFast VF 6", "variante": "Électrique", "portes": 5, "places": 5,
+                 "annees": "2022–présent"},
+                {"modele": "VinFast VF 8", "variante": "Électrique", "portes": 5, "places": 5,
+                 "annees": "2022–présent"},
+                {"modele": "VinFast VF 9", "variante": "Électrique", "portes": 5, "places": 7,
+                 "annees": "2022–présent"},
+            ],
+
+            "Wartburg": [
+                # Modèles historiques / anciens
+                {"modele": "Wartburg 311", "variante": None, "portes": 4, "places": 5, "annees": "1956–1965"},
+                {"modele": "Wartburg 312", "variante": None, "portes": 4, "places": 5, "annees": "1965–1967"},
+                {"modele": "Wartburg 353", "variante": None, "portes": 4, "places": 5, "annees": "1966–1988"},
+                {"modele": "Wartburg 1.3", "variante": None, "portes": 4, "places": 5, "annees": "1988–1991"},
+
+                # Modèles particuliers / dérivés
+                {"modele": "Wartburg Tourist", "variante": None, "portes": 2, "places": 2, "annees": "1961–1988"},
+                {"modele": "Wartburg Kombi", "variante": None, "portes": 4, "places": 5, "annees": "1966–1988"},
+            ],
+            "Wuling": [
+                # Modèles populaires / citadines et mini-vans
+                {"modele": "Wuling Hongguang", "variante": None, "portes": 5, "places": 7, "annees": "2010–présent"},
+                {"modele": "Wuling Hongguang S", "variante": None, "portes": 5, "places": 7, "annees": "2013–présent"},
+                {"modele": "Wuling Hongguang Mini EV", "variante": "Électrique", "portes": 3, "places": 4,
+                 "annees": "2020–présent"},
+                {"modele": "Wuling Baojun 510", "variante": None, "portes": 5, "places": 5, "annees": "2016–présent"},
+                {"modele": "Wuling Victory", "variante": None, "portes": 5, "places": 7, "annees": "2020–présent"},
+
+                # Pickups et utilitaires
+                {"modele": "Wuling Rongguang", "variante": None, "portes": 2, "places": 5, "annees": "2008–présent"},
+            ],
+
+
+
+
+
 
 
 
