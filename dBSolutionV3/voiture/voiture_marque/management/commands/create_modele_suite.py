@@ -2665,6 +2665,341 @@ class Command(BaseCommand):
                 {"modele": "MG4 EV", "variante": "Électrique", "portes": 5, "places": 5, "annees": "2022–présent"},
             ],
 
+            "SAIPA": [
+                # Modèles historiques / anciens
+                {"modele": "SAIPA 141", "variante": None, "portes": 4, "places": 5, "annees": "1994–2010"},
+                {"modele": "SAIPA 132", "variante": None, "portes": 4, "places": 5, "annees": "2000–2010"},
+
+                # Modèles populaires / récents
+                {"modele": "SAIPA Pride", "variante": None, "portes": 4, "places": 5, "annees": "1992–présent"},
+                {"modele": "SAIPA Saina", "variante": None, "portes": 4, "places": 5, "annees": "2016–présent"},
+                {"modele": "SAIPA Quick", "variante": None, "portes": 5, "places": 5, "annees": "2010–présent"},
+                {"modele": "SAIPA Aria", "variante": None, "portes": 4, "places": 5, "annees": "2020–présent"},
+
+                # Véhicules utilitaires légers
+                {"modele": "SAIPA 151", "variante": None, "portes": 2, "places": 3, "annees": "2000–présent"},
+            ],
+
+            "SEAT": [
+                # Modèles historiques / anciens
+                {"modele": "SEAT 600", "variante": None, "portes": 2, "places": 4, "annees": "1957–1973"},
+                {"modele": "SEAT 850", "variante": None, "portes": 2, "places": 4, "annees": "1966–1974"},
+                {"modele": "SEAT 124", "variante": None, "portes": 4, "places": 5, "annees": "1968–1980"},
+                {"modele": "SEAT 127", "variante": None, "portes": 2, "places": 4, "annees": "1972–1982"},
+
+                # Compactes / populaires
+                {"modele": "SEAT Ibiza", "variante": None, "portes": 3, "places": 5, "annees": "1984–présent"},
+                {"modele": "SEAT León", "variante": None, "portes": 5, "places": 5, "annees": "1999–présent"},
+                {"modele": "SEAT Toledo", "variante": None, "portes": 4, "places": 5, "annees": "1991–2019"},
+
+                # SUV / crossovers
+                {"modele": "SEAT Arona", "variante": None, "portes": 5, "places": 5, "annees": "2017–présent"},
+                {"modele": "SEAT Ateca", "variante": None, "portes": 5, "places": 5, "annees": "2016–présent"},
+                {"modele": "SEAT Tarraco", "variante": None, "portes": 5, "places": 7, "annees": "2018–présent"},
+
+                # Sportives / sport edition
+                {"modele": "SEAT Ibiza Cupra", "variante": "Cupra", "portes": 3, "places": 5, "annees": "1996–2012"},
+                {"modele": "SEAT León Cupra", "variante": "Cupra", "portes": 5, "places": 5, "annees": "1996–présent"},
+
+                # Électriques / hybrides
+                {"modele": "SEAT Mii Electric", "variante": "Électrique", "portes": 5, "places": 4,
+                 "annees": "2019–présent"},
+            ],
+            "Simca": [
+                # Modèles historiques / anciens
+                {"modele": "Simca 8", "variante": None, "portes": 4, "places": 5, "annees": "1937–1951"},
+                {"modele": "Simca 9 Aronde", "variante": None, "portes": 4, "places": 5, "annees": "1951–1964"},
+                {"modele": "Simca 1000", "variante": None, "portes": 4, "places": 5, "annees": "1961–1978"},
+                {"modele": "Simca 1100", "variante": None, "portes": 5, "places": 5, "annees": "1967–1982"},
+                {"modele": "Simca 1301", "variante": None, "portes": 4, "places": 5, "annees": "1966–1975"},
+                {"modele": "Simca 1307/1308", "variante": None, "portes": 4, "places": 5, "annees": "1975–1980"},
+
+                # Coupés / sportives
+                {"modele": "Simca 1200S", "variante": None, "portes": 2, "places": 4, "annees": "1961–1966"},
+                {"modele": "Simca 1000 Coupé", "variante": None, "portes": 2, "places": 4, "annees": "1962–1969"},
+
+                # Modèles utilitaires légers
+                {"modele": "Simca Cargo", "variante": None, "portes": 2, "places": 3, "annees": "1965–1980"},
+            ],
+            "Skoda": [
+                # Modèles historiques / anciens
+                {"modele": "Škoda Popular", "variante": None, "portes": 4, "places": 5, "annees": "1934–1946"},
+                {"modele": "Škoda Rapid", "variante": None, "portes": 4, "places": 5, "annees": "1935–1947"},
+                {"modele": "Škoda Octavia", "variante": None, "portes": 4, "places": 5, "annees": "1959–1971"},
+                {"modele": "Škoda Felicia", "variante": None, "portes": 2, "places": 4, "annees": "1959–1964"},
+
+                # Modèles récents / berlines et compactes
+                {"modele": "Škoda Fabia", "variante": None, "portes": 5, "places": 5, "annees": "1999–présent"},
+                {"modele": "Škoda Octavia", "variante": None, "portes": 5, "places": 5, "annees": "1996–présent"},
+                {"modele": "Škoda Superb", "variante": None, "portes": 4, "places": 5, "annees": "1934–présent"},
+
+                # SUV / crossovers
+                {"modele": "Škoda Kodiaq", "variante": None, "portes": 5, "places": 7, "annees": "2016–présent"},
+                {"modele": "Škoda Karoq", "variante": None, "portes": 5, "places": 5, "annees": "2017–présent"},
+                {"modele": "Škoda Kamiq", "variante": None, "portes": 5, "places": 5, "annees": "2019–présent"},
+                {"modele": "Škoda Enyaq iV", "variante": "Électrique", "portes": 5, "places": 5,
+                 "annees": "2020–présent"},
+
+                # Sportives / Edition spéciale
+                {"modele": "Škoda Octavia RS", "variante": "RS", "portes": 5, "places": 5, "annees": "2000–présent"},
+                {"modele": "Škoda Fabia RS", "variante": "RS", "portes": 5, "places": 5, "annees": "2003–présent"},
+            ],
+
+            "Smart": [
+                # Modèles classiques / anciens
+                {"modele": "Smart City-Coupe", "variante": None, "portes": 2, "places": 2, "annees": "1998–2007"},
+                {"modele": "Smart City-Cabrio", "variante": None, "portes": 2, "places": 2, "annees": "2000–2007"},
+
+                # Modèles modernes / électriques
+                {"modele": "Smart Fortwo", "variante": None, "portes": 2, "places": 2, "annees": "1998–présent"},
+                {"modele": "Smart Fortwo Cabrio", "variante": None, "portes": 2, "places": 2, "annees": "2000–présent"},
+                {"modele": "Smart Forfour", "variante": None, "portes": 4, "places": 4, "annees": "2004–présent"},
+
+                # Électriques / Smart EQ
+                {"modele": "Smart EQ Fortwo", "variante": "Électrique", "portes": 2, "places": 2,
+                 "annees": "2017–présent"},
+                {"modele": "Smart EQ Forfour", "variante": "Électrique", "portes": 4, "places": 4,
+                 "annees": "2017–présent"},
+            ],
+            "SsangYong": [
+                # SUV et 4x4 historiques / anciens
+                {"modele": "SsangYong Korando", "variante": None, "portes": 3, "places": 5, "annees": "1983–présent"},
+                {"modele": "SsangYong Musso", "variante": None, "portes": 4, "places": 5, "annees": "1993–2005"},
+                {"modele": "SsangYong Rexton", "variante": None, "portes": 5, "places": 5, "annees": "2001–présent"},
+                {"modele": "SsangYong Actyon", "variante": None, "portes": 5, "places": 5, "annees": "2005–2011"},
+
+                # Modèles récents / SUV et crossover
+                {"modele": "SsangYong Tivoli", "variante": None, "portes": 5, "places": 5, "annees": "2015–présent"},
+                {"modele": "SsangYong XLV", "variante": None, "portes": 5, "places": 5, "annees": "2016–présent"},
+                {"modele": "SsangYong Korando e-Motion", "variante": "Électrique", "portes": 5, "places": 5,
+                 "annees": "2021–présent"},
+
+                # Pickups
+                {"modele": "SsangYong Musso Grand", "variante": None, "portes": 4, "places": 5,
+                 "annees": "2018–présent"},
+            ],
+            "Subaru": [
+                # Modèles historiques / anciens
+                {"modele": "Subaru 360", "variante": None, "portes": 2, "places": 4, "annees": "1958–1971"},
+                {"modele": "Subaru Leone", "variante": None, "portes": 4, "places": 5, "annees": "1971–1994"},
+
+                # Modèles populaires / berlines et compactes
+                {"modele": "Subaru Impreza", "variante": None, "portes": 5, "places": 5, "annees": "1992–présent"},
+                {"modele": "Subaru Legacy", "variante": None, "portes": 4, "places": 5, "annees": "1989–présent"},
+                {"modele": "Subaru Outback", "variante": None, "portes": 5, "places": 5, "annees": "1994–présent"},
+
+                # SUV / crossovers
+                {"modele": "Subaru Forester", "variante": None, "portes": 5, "places": 5, "annees": "1997–présent"},
+                {"modele": "Subaru XV", "variante": None, "portes": 5, "places": 5, "annees": "2012–présent"},
+
+                # Sportives / rallye
+                {"modele": "Subaru WRX", "variante": None, "portes": 4, "places": 5, "annees": "1992–présent"},
+                {"modele": "Subaru WRX STI", "variante": "STI", "portes": 4, "places": 5, "annees": "1994–présent"},
+
+                # Compactes et électriques / hybrides
+                {"modele": "Subaru Solterra", "variante": "Électrique", "portes": 5, "places": 5,
+                 "annees": "2022–présent"},
+            ],
+            "Subaru STI": [
+                # Modèles sportives / rallye
+                {"modele": "Subaru Impreza WRX STI", "variante": "STI", "portes": 4, "places": 5,
+                 "annees": "1994–présent"},
+                {"modele": "Subaru WRX STI", "variante": "STI", "portes": 4, "places": 5, "annees": "2014–présent"},
+
+                # Éditions spéciales
+                {"modele": "Subaru WRX STI S209", "variante": "S209", "portes": 4, "places": 5, "annees": "2019"},
+                {"modele": "Subaru WRX STI Type RA", "variante": "Type RA", "portes": 4, "places": 5, "annees": "2021"},
+            ],
+            "Suzuki": [
+                # Modèles historiques / anciens
+                {"modele": "Suzuki LJ10", "variante": None, "portes": 2, "places": 4, "annees": "1970–1972"},
+                {"modele": "Suzuki LJ50", "variante": None, "portes": 2, "places": 4, "annees": "1972–1981"},
+                {"modele": "Suzuki Alto", "variante": None, "portes": 3, "places": 4, "annees": "1979–présent"},
+                {"modele": "Suzuki Swift", "variante": None, "portes": 3, "places": 5, "annees": "1983–présent"},
+
+                # SUV / 4x4
+                {"modele": "Suzuki Vitara", "variante": None, "portes": 3, "places": 5, "annees": "1988–présent"},
+                {"modele": "Suzuki Grand Vitara", "variante": None, "portes": 5, "places": 5, "annees": "1998–2019"},
+                {"modele": "Suzuki Jimny", "variante": None, "portes": 3, "places": 4, "annees": "1968–présent"},
+
+                # Compactes et berlines
+                {"modele": "Suzuki Celerio", "variante": None, "portes": 5, "places": 5, "annees": "2008–présent"},
+                {"modele": "Suzuki Baleno", "variante": None, "portes": 5, "places": 5, "annees": "1995–présent"},
+
+                # Sportives / édition spéciale
+                {"modele": "Suzuki Swift Sport", "variante": "Sport", "portes": 3, "places": 4,
+                 "annees": "2005–présent"},
+
+                # Électriques / hybrides
+                {"modele": "Suzuki Across", "variante": "Hybride", "portes": 5, "places": 5, "annees": "2020–présent"},
+                {"modele": "Suzuki Solio", "variante": "Hybride", "portes": 5, "places": 5, "annees": "1999–présent"},
+            ],
+
+            "Talbot": [
+                # Modèles historiques / anciens
+                {"modele": "Talbot-Lago T26", "variante": None, "portes": 4, "places": 5, "annees": "1947–1959"},
+                {"modele": "Talbot-Lago T15", "variante": None, "portes": 4, "places": 5, "annees": "1935–1950"},
+                {"modele": "Talbot Express", "variante": None, "portes": 4, "places": 2, "annees": "1981–1995"},
+
+                # Modèles récents / compactes
+                {"modele": "Talbot Samba", "variante": None, "portes": 3, "places": 4, "annees": "1981–1986"},
+                {"modele": "Talbot Horizon", "variante": None, "portes": 5, "places": 5, "annees": "1978–1987"},
+                {"modele": "Talbot Solara", "variante": None, "portes": 4, "places": 5, "annees": "1980–1986"},
+
+                # Berlines / sportives
+                {"modele": "Talbot Tagora", "variante": None, "portes": 4, "places": 5, "annees": "1980–1983"},
+                {"modele": "Talbot Lago Sport", "variante": None, "portes": 2, "places": 2, "annees": "1948–1953"},
+            ],
+            "TVR": [
+                # Modèles historiques / anciens
+                {"modele": "TVR Grantura", "variante": None, "portes": 2, "places": 2, "annees": "1958–1967"},
+                {"modele": "TVR Vixen", "variante": None, "portes": 2, "places": 2, "annees": "1967–1973"},
+                {"modele": "TVR Tuscan", "variante": None, "portes": 2, "places": 2, "annees": "1967–1971"},
+                {"modele": "TVR Chimaera", "variante": None, "portes": 2, "places": 2, "annees": "1992–2003"},
+
+                # Modèles récents / sportives
+                {"modele": "TVR Griffith", "variante": None, "portes": 2, "places": 2, "annees": "1991–2002"},
+                {"modele": "TVR Cerbera", "variante": None, "portes": 2, "places": 2, "annees": "1996–2006"},
+                {"modele": "TVR Sagaris", "variante": None, "portes": 2, "places": 2, "annees": "2005–2006"},
+
+                # Modèles très récents / revival
+                {"modele": "TVR Griffith (2020)", "variante": None, "portes": 2, "places": 2, "annees": "2020–présent"},
+                {"modele": "TVR Tuscan (2021)", "variante": None, "portes": 2, "places": 2, "annees": "2021–présent"},
+            ],
+
+            "Triumph": [
+                # Modèles historiques / anciens
+                {"modele": "Triumph TR2", "variante": None, "portes": 2, "places": 2, "annees": "1953–1955"},
+                {"modele": "Triumph TR3", "variante": None, "portes": 2, "places": 2, "annees": "1955–1962"},
+                {"modele": "Triumph TR4", "variante": None, "portes": 2, "places": 2, "annees": "1961–1965"},
+                {"modele": "Triumph TR5", "variante": None, "portes": 2, "places": 2, "annees": "1967–1968"},
+                {"modele": "Triumph TR6", "variante": None, "portes": 2, "places": 2, "annees": "1968–1976"},
+
+                # Roadsters et coupés populaires
+                {"modele": "Triumph Spitfire", "variante": None, "portes": 2, "places": 2, "annees": "1962–1980"},
+                {"modele": "Triumph Herald", "variante": None, "portes": 2, "places": 4, "annees": "1959–1971"},
+                {"modele": "Triumph Stag", "variante": None, "portes": 2, "places": 4, "annees": "1970–1978"},
+
+                # Berlines et compactes
+                {"modele": "Triumph Dolomite", "variante": None, "portes": 4, "places": 5, "annees": "1972–1980"},
+                {"modele": "Triumph Toledo", "variante": None, "portes": 4, "places": 5, "annees": "1970–1976"},
+
+                # Modèles récents / revival (si applicable)
+                {"modele": "Triumph TR25", "variante": None, "portes": 2, "places": 2, "annees": "années 1980"},
+            ],
+
+            "Toyota": [
+                # Modèles historiques / anciens
+                {"modele": "Toyota Land Cruiser 20", "variante": None, "portes": 2, "places": 4, "annees": "1955–1960"},
+                {"modele": "Toyota Land Cruiser 40", "variante": None, "portes": 2, "places": 4, "annees": "1960–1984"},
+                {"modele": "Toyota Corona", "variante": None, "portes": 4, "places": 5, "annees": "1957–2001"},
+                {"modele": "Toyota Celica", "variante": None, "portes": 2, "places": 4, "annees": "1970–2006"},
+
+                # Compactes / berlines
+                {"modele": "Toyota Corolla", "variante": None, "portes": 4, "places": 5, "annees": "1966–présent"},
+                {"modele": "Toyota Yaris", "variante": None, "portes": 5, "places": 5, "annees": "1999–présent"},
+                {"modele": "Toyota Prius", "variante": None, "portes": 5, "places": 5, "annees": "1997–présent"},
+
+                # SUV / crossovers
+                {"modele": "Toyota RAV4", "variante": None, "portes": 5, "places": 5, "annees": "1994–présent"},
+                {"modele": "Toyota Highlander", "variante": None, "portes": 5, "places": 7, "annees": "2000–présent"},
+                {"modele": "Toyota C-HR", "variante": None, "portes": 5, "places": 5, "annees": "2016–présent"},
+
+                # Pickups
+                {"modele": "Toyota Hilux", "variante": None, "portes": 2, "places": 4, "annees": "1968–présent"},
+
+                # Sportives / éditions spéciales
+                {"modele": "Toyota Supra", "variante": None, "portes": 2, "places": 2,
+                 "annees": "1978–2002, 2019–présent"},
+                {"modele": "Toyota GR Yaris", "variante": "GR", "portes": 3, "places": 4, "annees": "2020–présent"},
+
+                # Électriques / hybrides
+                {"modele": "Toyota bZ4X", "variante": "Électrique", "portes": 5, "places": 5, "annees": "2022–présent"},
+            ],
+
+
+
+
+
+
+
+            "Volvo": [
+                # Modèles historiques / anciens
+                {"modele": "Volvo PV444", "variante": None, "portes": 2, "places": 4, "annees": "1947–1958"},
+                {"modele": "Volvo PV544", "variante": None, "portes": 2, "places": 5, "annees": "1958–1965"},
+                {"modele": "Volvo Amazon", "variante": None, "portes": 4, "places": 5, "annees": "1956–1970"},
+
+                # Berlines / compactes
+                {"modele": "Volvo 140", "variante": None, "portes": 4, "places": 5, "annees": "1966–1974"},
+                {"modele": "Volvo 240", "variante": None, "portes": 4, "places": 5, "annees": "1974–1993"},
+                {"modele": "Volvo 340", "variante": None, "portes": 3, "places": 5, "annees": "1976–1991"},
+                {"modele": "Volvo 360", "variante": None, "portes": 4, "places": 5, "annees": "1982–1991"},
+
+                # Modèles récents / berlines et SUV
+                {"modele": "Volvo S60", "variante": None, "portes": 4, "places": 5, "annees": "2000–présent"},
+                {"modele": "Volvo S90", "variante": None, "portes": 4, "places": 5, "annees": "2016–présent"},
+                {"modele": "Volvo V40", "variante": None, "portes": 5, "places": 5, "annees": "1995–2019"},
+                {"modele": "Volvo V60", "variante": None, "portes": 5, "places": 5, "annees": "2010–présent"},
+                {"modele": "Volvo V90", "variante": None, "portes": 5, "places": 5, "annees": "2016–présent"},
+
+                # SUV / crossovers
+                {"modele": "Volvo XC40", "variante": None, "portes": 5, "places": 5, "annees": "2017–présent"},
+                {"modele": "Volvo XC60", "variante": None, "portes": 5, "places": 5, "annees": "2008–présent"},
+                {"modele": "Volvo XC90", "variante": None, "portes": 5, "places": 7, "annees": "2002–présent"},
+
+                # Électriques / hybrides
+                {"modele": "Volvo XC40 Recharge", "variante": "Électrique", "portes": 5, "places": 5,
+                 "annees": "2020–présent"},
+                {"modele": "Volvo C40 Recharge", "variante": "Électrique", "portes": 5, "places": 5,
+                 "annees": "2021–présent"},
+            ],
+            "Volkswagen": [
+                # Modèles historiques / anciens
+                {"modele": "Volkswagen Beetle", "variante": None, "portes": 2, "places": 4, "annees": "1938–2003"},
+                {"modele": "Volkswagen Karmann Ghia", "variante": None, "portes": 2, "places": 4,
+                 "annees": "1955–1974"},
+                {"modele": "Volkswagen Type 2", "variante": None, "portes": 3, "places": 7, "annees": "1950–2013"},
+
+                # Compactes / populaires
+                {"modele": "Volkswagen Golf", "variante": None, "portes": 5, "places": 5, "annees": "1974–présent"},
+                {"modele": "Volkswagen Polo", "variante": None, "portes": 5, "places": 5, "annees": "1975–présent"},
+
+                # Berlines / familiales
+                {"modele": "Volkswagen Passat", "variante": None, "portes": 4, "places": 5, "annees": "1973–présent"},
+                {"modele": "Volkswagen Jetta", "variante": None, "portes": 4, "places": 5, "annees": "1979–présent"},
+
+                # SUV / crossovers
+                {"modele": "Volkswagen Tiguan", "variante": None, "portes": 5, "places": 5, "annees": "2007–présent"},
+                {"modele": "Volkswagen Touareg", "variante": None, "portes": 5, "places": 5, "annees": "2002–présent"},
+                {"modele": "Volkswagen T-Roc", "variante": None, "portes": 5, "places": 5, "annees": "2017–présent"},
+                {"modele": "Volkswagen ID.4", "variante": "Électrique", "portes": 5, "places": 5,
+                 "annees": "2020–présent"},
+
+                # Sportives / éditions spéciales
+                {"modele": "Volkswagen Golf GTI", "variante": "GTI", "portes": 5, "places": 5,
+                 "annees": "1976–présent"},
+                {"modele": "Volkswagen Golf R", "variante": "R", "portes": 5, "places": 5, "annees": "2002–présent"},
+
+                # Véhicules utilitaires légers
+                {"modele": "Volkswagen Caddy", "variante": None, "portes": 5, "places": 5, "annees": "1980–présent"},
+                {"modele": "Volkswagen Transporter", "variante": None, "portes": 3, "places": 7,
+                 "annees": "1950–présent"},
+            ],
+
+            "Volkswagen R": [
+                # Sportives / performance
+                {"modele": "Volkswagen Golf R", "variante": "R", "portes": 5, "places": 5, "annees": "2002–présent"},
+                {"modele": "Volkswagen Tiguan R", "variante": "R", "portes": 5, "places": 5, "annees": "2019–présent"},
+                {"modele": "Volkswagen Arteon R", "variante": "R", "portes": 5, "places": 5, "annees": "2020–présent"},
+                {"modele": "Volkswagen Passat R-Line", "variante": "R-Line", "portes": 4, "places": 5,
+                 "annees": "2010–présent"},
+
+                # Éditions limitées / spéciales
+                {"modele": "Volkswagen Golf R32", "variante": "R32", "portes": 5, "places": 5, "annees": "2002–2005"},
+                {"modele": "Volkswagen Golf R400", "variante": "R400", "portes": 3, "places": 4, "annees": "2014–2015"},
+            ],
+
+
 
 
 
