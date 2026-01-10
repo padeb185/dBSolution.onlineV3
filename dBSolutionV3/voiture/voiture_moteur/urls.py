@@ -1,10 +1,8 @@
-# moteur/urls.py
 from django.urls import path
-from .views import AjouterMoteurView
+from . import views
 
 app_name = "voiture_moteur"
 
-
 urlpatterns = [
-    path("ajouter/<uuid:exemplaire_id>/", AjouterMoteurView.as_view(), name="ajouter_moteur"),
+    path("ajouter/<uuid:exemplaire_id>/", views.ajouter_moteur, name="ajouter_moteur"),
 ]

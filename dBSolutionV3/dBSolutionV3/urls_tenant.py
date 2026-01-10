@@ -18,5 +18,10 @@ urlpatterns = [
 
     path("voitures/moteurs/", include("voiture.voiture_moteur.urls", namespace="voiture_moteur")),
 
+    path('exemplaires/', include('voiture.voiture_exemplaire.urls')),
+
+
+
+
 
 ]

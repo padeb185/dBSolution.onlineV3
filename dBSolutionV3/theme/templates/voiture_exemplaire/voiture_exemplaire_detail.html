@@ -8,41 +8,6 @@
         <h1 class="text-2xl font-bold">
             {% trans "Détails du véhicule" %}: {{ exemplaire.immatriculation }}
         </h1>
-
-        <!-- Menu Actions -->
-        <div class="relative inline-block text-left">
-            <button id="menu-button" type="button"
-                class="inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                aria-expanded="true" aria-haspopup="true">
-                {% trans "Actions" %}
-                <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none"
-                     viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M19 9l-7 7-7-7"/>
-                </svg>
-            </button>
-
-            <!-- Dropdown menu -->
-            <div id="menu-dropdown" class="hidden origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
-                <div class="py-1 flex flex-col gap-2 px-3">
-                    <!-- Bouton Ajouter un moteur -->
-                    <a href="{% url 'voiture_moteur:ajouter_moteur' exemplaire.id %}"
-                       class="inline-block w-full text-center px-4 py-2 bg-indigo-600 text-white font-medium rounded-md shadow hover:bg-indigo-700 transition">
-                        {% trans "Ajouter un moteur" %}
-                    </a>
-
-                    <!-- Exemple d'autres actions -->
-                    <!--
-                    <a href="#" class="inline-block w-full text-center px-4 py-2 bg-gray-200 text-gray-700 font-medium rounded-md shadow hover:bg-gray-300 transition">
-                        {% trans "Modifier exemplaire" %}
-                    </a>
-                    <a href="#" class="inline-block w-full text-center px-4 py-2 bg-red-600 text-white font-medium rounded-md shadow hover:bg-red-700 transition">
-                        {% trans "Supprimer exemplaire" %}
-                    </a>
-                    -->
-                </div>
-            </div>
-        </div>
     </div>
 
     <!-- Infos principales en carte responsive -->
@@ -61,10 +26,10 @@
             {% if exemplaire.moteurs.all %}
                 <ul class="space-y-2">
                     {% for moteur in exemplaire.moteurs.all %}
-                    <li class="border p-3 rounded-md hover:bg-gray-50">
-                        {{ moteur.get_type_moteur_display }} - {{ moteur.cylindree_l }}L
-                        <span class="text-gray-500">({{ moteur.puissance_ch }} ch)</span>
-                    </li>
+                        <li class="border p-3 rounded-md hover:bg-gray-50">
+                            {{ moteur.get_type_moteur_display }} - {{ moteur.cylindree_l }}L
+                            <span class="text-gray-500">({{ moteur.puissance_ch }} ch)</span>
+                        </li>
                     {% endfor %}
                 </ul>
             {% else %}
@@ -73,20 +38,79 @@
         </div>
     </div>
 
+    <!-- Lien pour ajouter un moteur -->
+    <div class="mb-6">
+        <a href="{% url 'voiture_moteur:ajouter_moteur' exemplaire.id %}"
+           class="inline-block w-full text-center px-4 py-2 bg-indigo-600 text-white font-medium rounded-md shadow hover:bg-indigo-700 transition">
+           {% trans "Ajouter un moteur" %}
+        </a>
+    </div>
+
+    <!-- Formulaire liaison moteur -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">{% trans "Lier un moteur existant" %}</h2>
+
+        {% if error %}
+            <p class="text-red-600">{{ error }}</p>
+        {% endif %}
+
+        <form id="lier-moteur-form" method="post"
+              action="{% url 'voiture_exemplaire:lier_moteur_exemplaire_from_detail' exemplaire_id=exemplaire.id %}">
+            {% csrf_token %}
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <input type="text" id="code_moteur" name="code_moteur" placeholder="{% trans 'Code moteur' %}" required
+                       class="border rounded p-2 w-full">
+                <input type="text" id="motoriste" name="motoriste" placeholder="{% trans 'Motoriste' %}" required
+                       class="border rounded p-2 w-full">
+            </div>
+
+            <button type="submit" class="mt-4 px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">
+                {% trans "Lier le moteur" %}
+            </button>
+        </form>
+
+        <!-- Champs auto-remplis (readonly) -->
+        <div id="moteur-details" class="mt-4 hidden">
+            <h3 class="font-semibold">{% trans "Détails du moteur" %}</h3>
+            <ul class="list-disc pl-5 mt-2" id="moteur-details-list"></ul>
+        </div>
+    </div>
+
 </div>
 
-<!-- Script Dropdown -->
+<!-- jQuery pour autocomplete -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-document.addEventListener('click', function(e) {
-    const menuButton = document.getElementById('menu-button');
-    const menuDropdown = document.getElementById('menu-dropdown');
-
-    // Toggle menu si bouton cliqué
-    if (menuButton.contains(e.target)) {
-        menuDropdown.classList.toggle('hidden');
-    } else if (!menuDropdown.contains(e.target)) {
-        menuDropdown.classList.add('hidden');
+$(document).ready(function() {
+    function remplirDetailsMoteur(data) {
+        let $list = $('#moteur-details-list');
+        $list.empty();
+        for (const [key, value] of Object.entries(data)) {
+            $list.append(`<li>${key}: ${value}</li>`);
+        }
+        $('#moteur-details').removeClass('hidden');
     }
+
+    // Autocomplete à la perte de focus
+    $('#code_moteur, #motoriste').on('blur', function() {
+        let code = $('#code_moteur').val();
+        let motoriste = $('#motoriste').val();
+
+        if (code && motoriste) {
+            $.get("{% url 'voiture_exemplaire:moteur_autocomplete' %}", {
+                code_moteur: code,
+                motoriste: motoriste
+            })
+            .done(function(data) {
+                remplirDetailsMoteur(data);
+            })
+            .fail(function(xhr) {
+                alert(xhr.responseJSON.error);
+                $('#moteur-details').addClass('hidden');
+            });
+        }
+    });
 });
 </script>
 {% endblock %}

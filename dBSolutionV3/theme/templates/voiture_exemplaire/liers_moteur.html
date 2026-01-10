@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<h2>{{ title }}</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <p>{{ confirm_text }}</p>
+    <button type="submit">{{ submit_text }}</button>
+</form>
+{% endblock %}

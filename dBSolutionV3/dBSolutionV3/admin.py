@@ -53,7 +53,6 @@ admin.site.register(Instructeur)
 admin.site.register(Magasinier)
 admin.site.register(Mecanicien)
 admin.site.register(Vendeur)
-admin.site.register(MoteurVoiture)
 admin.site.register(VoitureBoite)
 
 
