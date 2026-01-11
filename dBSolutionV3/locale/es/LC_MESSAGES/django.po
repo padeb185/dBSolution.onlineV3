@@ -3466,81 +3466,66 @@ msgid "Code moteur"
 msgstr "Código del motor"
 
 #: .\theme\templates\tenant\moteur_detail.html:21
-#, fuzzy
-#| msgid "Code moteur"
 msgid "Type moteur"
-msgstr "Código del motor"
+msgstr "Tipo de motor"
 
 #: .\theme\templates\tenant\moteur_detail.html:31
 #: .\theme\templates\tenant\moteurs_list.html:35
-#, fuzzy
-#| msgid "Cylindre esclave"
 msgid "Cylindrée (L)"
-msgstr "Cilindro esclavo"
+msgstr "Cilindrada (L)"
 
 #: .\theme\templates\tenant\moteur_detail.html:36
 #: .\theme\templates\tenant\moteurs_list.html:36
-#, fuzzy
-#| msgid "Puissance"
 msgid "Puissance (ch)"
-msgstr "Potencia"
+msgstr "Potencia (CV)"
 
 #: .\theme\templates\tenant\moteur_detail.html:46
-#, fuzzy
-#| msgid "Nombre de vitesses"
 msgid "Nombre de cylindres"
-msgstr "Número de marchas"
+msgstr "Número de cilindros"
 
 #: .\theme\templates\tenant\moteurs_list.html:29
-#, fuzzy
-#| msgid "Lier le moteur"
 msgid "Liste des moteurs"
-msgstr "Vincular el motor"
+msgstr "Lista de motores"
 
 #: .\theme\templates\tenant\moteurs_list.html:38
 #: .\theme\templates\tenant\moteurs_list.html:50
 msgid "Info"
-msgstr ""
+msgstr "Información"
 
 #: .\theme\templates\tenant\moteurs_list.html:56
 #: .\theme\templates\tenant\moteurs_list.html:74
 #: .\theme\templates\tenant\moteurs_list.html:75
-#, fuzzy
-#| msgid "Moteur non trouvé"
 msgid "Aucun moteur trouvé"
-msgstr "Motor no encontrado"
+msgstr "No se encontró ningún motor"
 
 #: .\theme\templates\tenant\moteurs_list.html:71
 msgid "Rechercher:"
-msgstr ""
+msgstr "Buscar:"
 
 #: .\theme\templates\tenant\moteurs_list.html:72
 msgid "Afficher _MENU_ éléments"
-msgstr ""
+msgstr "Mostrar _MENU_ elementos"
 
 #: .\theme\templates\tenant\moteurs_list.html:73
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ moteurs"
-msgstr ""
+msgstr "Mostrando _START_ a _END_ de _TOTAL_ motores"
 
 #: .\theme\templates\tenant\moteurs_list.html:77
 msgid "Premier"
-msgstr ""
+msgstr "Primero"
 
 #: .\theme\templates\tenant\moteurs_list.html:78
-#, fuzzy
-#| msgid "Panier"
 msgid "Dernier"
-msgstr "Carrito"
+msgstr "Último"
 
 #: .\theme\templates\tenant\moteurs_list.html:79
-#, fuzzy
-#| msgid "Avant"
 msgid "Suivant"
-msgstr "Delantero"
+msgstr "Siguiente"
 
 #: .\theme\templates\tenant\moteurs_list.html:80
 msgid "Précédent"
-msgstr ""
+msgstr "Anterior"
+
 
 #: .\theme\templates\totp\setup.html:5
 msgid "Configurer TOTP"
