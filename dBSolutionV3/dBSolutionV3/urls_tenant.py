@@ -1,9 +1,10 @@
 from django.urls import path, include
 from theme.views import dashboard
 from voiture.voiture_exemplaire.views import ajouter_exemplaire
+from utilisateurs.views import dashboard_view
 
 urlpatterns = [
-    path("", dashboard, name="dashboard"),
+    path("", dashboard_view, name="dashboard"),
 
     path('voiture/', include('tenant.urls', namespace='voiture')),
 

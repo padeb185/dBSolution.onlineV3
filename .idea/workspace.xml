@@ -5,12 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="vue moteur et liste">
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/tenant/moteur_detail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/tenant/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/tenant/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/dashboard.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/tenant/moteurs_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/tenant/moteurs_list.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_moteur/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_moteur/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_moteur/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_moteur/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -208,15 +208,7 @@
       <workItem from="1768069178762" duration="5329000" />
       <workItem from="1768074680556" duration="405000" />
       <workItem from="1768116417742" duration="8106000" />
-      <workItem from="1768126153563" duration="4515000" />
-    </task>
-    <task id="LOCAL-00182" summary="première création modele suite 2">
-      <option name="closed" value="true" />
-      <created>1767711846027</created>
-      <option name="number" value="00182" />
-      <option name="presentableId" value="LOCAL-00182" />
-      <option name="project" value="LOCAL" />
-      <updated>1767711846027</updated>
+      <workItem from="1768126153563" duration="6564000" />
     </task>
     <task id="LOCAL-00183" summary="super user script">
       <option name="closed" value="true" />
@@ -602,7 +594,15 @@
       <option name="project" value="LOCAL" />
       <updated>1768128960792</updated>
     </task>
-    <option name="localTasksCounter" value="231" />
+    <task id="LOCAL-00231" summary="vue moteur et liste">
+      <option name="closed" value="true" />
+      <created>1768130726227</created>
+      <option name="number" value="00231" />
+      <option name="presentableId" value="LOCAL-00231" />
+      <option name="project" value="LOCAL" />
+      <updated>1768130726227</updated>
+    </task>
+    <option name="localTasksCounter" value="232" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -70,8 +70,15 @@ def logout_view(request):
 
 @login_required
 def dashboard_view(request):
+    total_moteurs = MoteurVoiture.objects.count()
+    moteurs = MoteurVoiture.objects.all()
+
+    total_marques = VoitureMarque.objects.count()
+    marques = VoitureMarque.objects.all()
+
     user = request.user
     context = {}
+
 
     # --- Sécurité : vérifie que request.tenant existe ---
     tenant_schema = getattr(request, 'tenant', None)
@@ -137,7 +144,12 @@ def dashboard_view(request):
     # --- DEBUG (optionnel) ---
     # print("Dashboard stats:", context['total_marques'], context['total_moteurs'])
 
-    return render(request, 'dashboard.html', context)
+    return render(request, 'dashboard.html', {
+        'total_moteurs': total_moteurs,
+        'moteurs': moteurs,
+        'total_marques': total_marques,
+        'marques': marques,
+    })
 
 
 

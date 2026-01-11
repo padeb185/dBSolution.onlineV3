@@ -24,11 +24,12 @@
 
 </div>
 
-<!-- Tableau Moteurs -->
+
 <div id="moteurs-table" class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto">
   <h2 class="text-lg font-semibold mb-4">{% trans "Liste des moteurs" %}</h2>
-  <table class="min-w-full table-auto border-collapse border border-gray-200">
-    <thead>
+ <table id="moteurs-table-dt" class="min-w-full table-auto border-collapse border border-gray-200">
+
+     <thead>
   <tr class="bg-gray-100">
     <th class="border border-gray-200 px-4 py-2 text-left">{% trans "Motoriste" %}</th>
     <th class="border border-gray-200 px-4 py-2 text-left">{% trans "Cylindrée (L)" %}</th>
@@ -63,5 +64,28 @@
 
 <!-- Safelist pour classes dynamiques Tailwind -->
 <div class="hidden bg-white bg-gray-100 bg-gray-200 bg-red-500 bg-blue-500 bg-green-50 hover:bg-blue-700 hover:bg-green-700 hover:shadow-lg shadow-md rounded-lg p-4 p-6 text-gray-600 text-gray-700 text-gray-500 font-bold font-semibold transition duration-300 min-h-[70vh] flex flex-col items-center justify-center w-full"></div>
+<script>
+$(document).ready(function() {
+    $('#moteurs-table-dt').DataTable({
+        "language": {
+            "search": "{% trans 'Rechercher:' %}",
+            "lengthMenu": "{% trans 'Afficher _MENU_ éléments' %}",
+            "info": "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ moteurs' %}",
+            "infoEmpty": "{% trans 'Aucun moteur trouvé' %}",
+            "zeroRecords": "{% trans 'Aucun moteur trouvé' %}",
+            "paginate": {
+                "first": "{% trans 'Premier' %}",
+                "last": "{% trans 'Dernier' %}",
+                "next": "{% trans 'Suivant' %}",
+                "previous": "{% trans 'Précédent' %}"
+            }
+        },
+        "order": [[0, "asc"]],  // tri par défaut sur la 1ère colonne (Motoriste)
+        "columnDefs": [
+            { "orderable": false, "targets": 4 } // colonne Info non triable
+        ]
+    });
+});
+</script>
 
 {% endblock %}
