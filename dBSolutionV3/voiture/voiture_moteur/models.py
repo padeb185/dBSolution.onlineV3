@@ -40,8 +40,8 @@ class MoteurVoiture(models.Model):
 
     # Spécifications moteur
     motoriste = models.CharField(max_length=20)
-    code_moteur = models.CharField(max_length=20)
-    type_moteur = models.CharField(max_length=20, choices=TypeMoteur.choices)
+    code_moteur = models.CharField(max_length=50)
+    type_moteur = models.CharField(max_length=40, choices=TypeMoteur.choices)
     carburant = models.CharField(max_length=20, choices=TypeCarburant.choices)
     cylindree_l = models.FloatField(verbose_name="Cylindrée (L)")
     distribution = models.CharField(max_length=20, choices=TypeDistribution.choices)

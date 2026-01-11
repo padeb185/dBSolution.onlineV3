@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="modele">
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_moteur/management/commands/create_moteur.py" afterDir="false" />
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="script moteurs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_moteur/management/commands/create_moteur.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_moteur/management/commands/create_moteur.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_moteur/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_moteur/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -203,15 +204,7 @@
       <workItem from="1768057992234" duration="3424000" />
       <workItem from="1768069178762" duration="5329000" />
       <workItem from="1768074680556" duration="405000" />
-      <workItem from="1768116417742" duration="2353000" />
-    </task>
-    <task id="LOCAL-00178" summary="logo">
-      <option name="closed" value="true" />
-      <created>1767696346745</created>
-      <option name="number" value="00178" />
-      <option name="presentableId" value="LOCAL-00178" />
-      <option name="project" value="LOCAL" />
-      <updated>1767696346745</updated>
+      <workItem from="1768116417742" duration="3805000" />
     </task>
     <task id="LOCAL-00179" summary="ajustements tenant">
       <option name="closed" value="true" />
@@ -597,7 +590,15 @@
       <option name="project" value="LOCAL" />
       <updated>1768074701896</updated>
     </task>
-    <option name="localTasksCounter" value="227" />
+    <task id="LOCAL-00227" summary="script moteurs">
+      <option name="closed" value="true" />
+      <created>1768118820566</created>
+      <option name="number" value="00227" />
+      <option name="presentableId" value="LOCAL-00227" />
+      <option name="project" value="LOCAL" />
+      <updated>1768118820566</updated>
+    </task>
+    <option name="localTasksCounter" value="228" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -615,7 +616,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="logo" />
     <MESSAGE value="ajustements tenant" />
     <MESSAGE value="première création modele" />
     <MESSAGE value="première création modele suite 1" />
@@ -640,7 +640,8 @@
     <MESSAGE value="traductions" />
     <MESSAGE value="nombre marques par tenant" />
     <MESSAGE value="modele" />
-    <option name="LAST_COMMIT_MESSAGE" value="modele" />
+    <MESSAGE value="script moteurs" />
+    <option name="LAST_COMMIT_MESSAGE" value="script moteurs" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
