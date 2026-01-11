@@ -6,11 +6,14 @@ from io import BytesIO
 import base64
 import qrcode
 from django_tenants.utils import schema_context
-
 from .forms import LoginForm
 from .models import Utilisateur
 from django.utils.translation import gettext as _
 from voiture.voiture_marque.models import VoitureMarque
+from voiture.voiture_moteur.models import MoteurVoiture
+
+
+
 
 
 def login_view(request):
@@ -73,6 +76,9 @@ def dashboard_view(request):
     # 👇 Récupération du nombre total de marques
     with schema_context(request.tenant.schema_name):
         context['total_marques'] = VoitureMarque.objects.count()
+        total_marques = VoitureMarque.objects.count()
+        context['total_moteurs'] = MoteurVoiture.objects.count()  # <-- Ici
+
 
     # Initialisation par défaut
     context['agenda'] = []

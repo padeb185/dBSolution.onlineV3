@@ -5,12 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="script moteurs">
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/management/commands/populate_marques_rsrnurburg.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/management/commands/populate_marques_rsrspa.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/management/commands/create_modele_rsrnurburg.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/management/commands/create_modele_rsrspa.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/tenant/moteurs_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dBSolution.onlineV3.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dBSolution.onlineV3.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_moteur/management/commands/create_moteur.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_moteur/management/commands/create_moteur.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls_tenant.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls_tenant.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/tenant/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/tenant/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/tenant/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/tenant/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_moteur/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_moteur/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_moteur/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_moteur/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,8 +26,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
-        <option value="HTML File" />
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -207,15 +212,8 @@
       <workItem from="1768057992234" duration="3424000" />
       <workItem from="1768069178762" duration="5329000" />
       <workItem from="1768074680556" duration="405000" />
-      <workItem from="1768116417742" duration="7351000" />
-    </task>
-    <task id="LOCAL-00180" summary="première création modele">
-      <option name="closed" value="true" />
-      <created>1767709432448</created>
-      <option name="number" value="00180" />
-      <option name="presentableId" value="LOCAL-00180" />
-      <option name="project" value="LOCAL" />
-      <updated>1767709432448</updated>
+      <workItem from="1768116417742" duration="8106000" />
+      <workItem from="1768126153563" duration="2766000" />
     </task>
     <task id="LOCAL-00181" summary="première création modele suite 1">
       <option name="closed" value="true" />
@@ -601,7 +599,15 @@
       <option name="project" value="LOCAL" />
       <updated>1768120403381</updated>
     </task>
-    <option name="localTasksCounter" value="229" />
+    <task id="LOCAL-00229" summary="script moteurs">
+      <option name="closed" value="true" />
+      <created>1768124155253</created>
+      <option name="number" value="00229" />
+      <option name="presentableId" value="LOCAL-00229" />
+      <option name="project" value="LOCAL" />
+      <updated>1768124155253</updated>
+    </task>
+    <option name="localTasksCounter" value="230" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -2,8 +2,6 @@ from django.urls import path, include
 from theme.views import dashboard
 from voiture.voiture_exemplaire.views import ajouter_exemplaire
 
-
-
 urlpatterns = [
     path("", dashboard, name="dashboard"),
 
@@ -15,13 +13,9 @@ urlpatterns = [
 
     path('modele/<uuid:modele_id>/ajouter/', ajouter_exemplaire, name='ajouter_exemplaire'),
 
+    path("voiture/moteurs/", include("voiture.voiture_moteur.urls", namespace="voiture_moteur")),
 
-    path("voitures/moteurs/", include("voiture.voiture_moteur.urls", namespace="voiture_moteur")),
 
     path('exemplaires/', include('voiture.voiture_exemplaire.urls')),
-
-
-
-
-
 ]
+

@@ -4,6 +4,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import gettext as _
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from .forms import MoteurVoitureForm
+from .models import MoteurVoiture
+
 
 @login_required
 def ajouter_moteur(request, exemplaire_id=None):
@@ -30,4 +32,6 @@ def ajouter_moteur(request, exemplaire_id=None):
         "title": _("Ajouter un moteur"),
         "submit_text": _("Créer le moteur")
     })
+
+
 
