@@ -7,11 +7,10 @@ from .forms import MoteurVoitureForm
 from .models import MoteurVoiture
 
 
+
 @login_required
 def ajouter_moteur(request, exemplaire_id=None):
-    """
-    Création d'un moteur. Optionnellement lié à un exemplaire si exemplaire_id fourni.
-    """
+
     exemplaire = None
     if exemplaire_id:
         exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
@@ -35,3 +34,12 @@ def ajouter_moteur(request, exemplaire_id=None):
 
 
 
+
+@login_required()
+def moteur_detail_view(request, moteur_id):
+    moteur = get_object_or_404(MoteurVoiture, id=moteur_id)
+
+
+    return render(request, 'tenant/moteur_detail.html', {
+        'moteur': moteur,
+    })

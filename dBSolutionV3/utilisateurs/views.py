@@ -73,29 +73,37 @@ def dashboard_view(request):
     user = request.user
     context = {}
 
-    # 👇 Récupération du nombre total de marques
-    with schema_context(request.tenant.schema_name):
-        context['total_marques'] = VoitureMarque.objects.count()
-        total_marques = VoitureMarque.objects.count()
-        context['total_moteurs'] = MoteurVoiture.objects.count()  # <-- Ici
+    # --- Sécurité : vérifie que request.tenant existe ---
+    tenant_schema = getattr(request, 'tenant', None)
+    if tenant_schema:
+        schema_name = tenant_schema.schema_name
+    else:
+        schema_name = None
 
+    # --- Récupération des stats ---
+    total_marques = 0
+    total_moteurs = 0
+    if schema_name:
+        with schema_context(schema_name):
+            total_marques = VoitureMarque.objects.count()
+            total_moteurs = MoteurVoiture.objects.count()
 
-    # Initialisation par défaut
+    context['total_marques'] = total_marques
+    context['total_moteurs'] = total_moteurs
+
+    # --- Initialisation par défaut ---
     context['agenda'] = []
     context['taches'] = []
 
-    # Gestion des tâches selon le rôle
+    # --- Tâches selon rôle ---
     role_tasks = {
-        'mecanicien': [
-            _("Révision moteur"),
-            _("Changement filtre")
-        ],
-        # tu peux ajouter d'autres rôles spécifiques ici
+        'mecanicien': [_("Révision moteur"), _("Changement filtre")],
+        # autres rôles
     }
     if user.role in role_tasks:
         context['taches'] = role_tasks[user.role]
 
-    # Rôles avec des infos supplémentaires
+    # --- Infos supplémentaires selon rôle ---
     if user.role == 'comptable':
         context['factures'] = 12
         context['depenses'] = 5
@@ -104,15 +112,14 @@ def dashboard_view(request):
         context['utilisateurs'] = 128
 
     # Message pour rôle inconnu
-    if user.role not in role_tasks and user.role not in ['comptable', 'direction',
-                                                       'apprenti', 'carrossier',
-                                                       'chef_mecanicien',
-                                                       'magasinier', 'instructeur',
-                                                       'instructeur_externe',
-                                                       'vendeur']:
+    if user.role not in role_tasks and user.role not in [
+        'comptable', 'direction', 'apprenti', 'carrossier',
+        'chef_mecanicien', 'magasinier', 'instructeur',
+        'instructeur_externe', 'vendeur'
+    ]:
         context['message'] = _("Rôle inconnu")
 
-    # Rôle affiché (version traduite)
+    # --- Affichage traduit du rôle ---
     ROLE_DISPLAY = {
         'apprenti': _("Apprenti"),
         'mecanicien': _("Mécanicien"),
@@ -127,7 +134,14 @@ def dashboard_view(request):
     }
     context['role_display'] = ROLE_DISPLAY.get(user.role, _("Rôle inconnu"))
 
+    # --- DEBUG (optionnel) ---
+    # print("Dashboard stats:", context['total_marques'], context['total_moteurs'])
+
     return render(request, 'dashboard.html', context)
+
+
+
+
 
 def totp_setup_view(request):
     user_id = request.session.get("totp_setup_user")

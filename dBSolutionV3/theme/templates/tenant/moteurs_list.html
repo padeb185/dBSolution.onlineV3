@@ -8,28 +8,7 @@
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-  <!-- Carte Utilisateurs -->
-  <div class="bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg">
-    <h2 class="text-lg font-semibold mb-2">{% trans "Utilisateurs" %}</h2>
-    <p class="text-gray-600">{% trans "Nombre total :" %} <span class="font-bold">128</span></p>
-  </div>
 
-  <!-- Carte Projets -->
-  <div class="bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg">
-    <h2 class="text-lg font-semibold mb-2">{% trans "Projets" %}</h2>
-    <p class="text-gray-600">{% trans "Projets actifs :" %} <span class="font-bold">24</span></p>
-  </div>
-
-  <!-- Carte Notifications -->
-  <div class="bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg">
-    <h2 class="text-lg font-semibold mb-2">{% trans "Notifications" %}</h2>
-    <p class="text-gray-600">{% trans "Messages non lus :" %} <span class="font-bold">5</span></p>
-  </div>
-
-</div>
-
-<!-- Cartes Marques et Moteurs -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
 
   <!-- Carte Marques -->
   <a href="{% url 'tenant:marques_list' %}" class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
@@ -50,29 +29,35 @@
   <h2 class="text-lg font-semibold mb-4">{% trans "Liste des moteurs" %}</h2>
   <table class="min-w-full table-auto border-collapse border border-gray-200">
     <thead>
-      <tr class="bg-gray-100">
-        <th class="border border-gray-200 px-4 py-2 text-left">{% trans "ID" %}</th>
-        <th class="border border-gray-200 px-4 py-2 text-left">{% trans "Nom" %}</th>
-        <th class="border border-gray-200 px-4 py-2 text-left">{% trans "Type" %}</th>
-        <th class="border border-gray-200 px-4 py-2 text-left">{% trans "Cylindrée" %}</th>
-        <th class="border border-gray-200 px-4 py-2 text-left">{% trans "Puissance (ch)" %}</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for moteur in moteurs %}
-      <tr>
-        <td class="border border-gray-200 px-4 py-2">{{ moteur.id }}</td>
-        <td class="border border-gray-200 px-4 py-2">{{ moteur.nom }}</td>
-        <td class="border border-gray-200 px-4 py-2">{{ moteur.type }}</td>
-        <td class="border border-gray-200 px-4 py-2">{{ moteur.cylindree }}</td>
-        <td class="border border-gray-200 px-4 py-2">{{ moteur.puissance }}</td>
-      </tr>
-      {% empty %}
-      <tr>
-        <td colspan="5" class="border border-gray-200 px-4 py-2 text-center">{% trans "Aucun moteur trouvé" %}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
+  <tr class="bg-gray-100">
+    <th class="border border-gray-200 px-4 py-2 text-left">{% trans "Motoriste" %}</th>
+    <th class="border border-gray-200 px-4 py-2 text-left">{% trans "Cylindrée (L)" %}</th>
+    <th class="border border-gray-200 px-4 py-2 text-left">{% trans "Puissance (ch)" %}</th>
+    <th class="border border-gray-200 px-4 py-2 text-left">{% trans "Type de carburant" %}</th>
+    <th class="border border-gray-200 px-4 py-2 text-left">{% trans "Info" %}</th>  {# nouvelle colonne #}
+  </tr>
+</thead>
+<tbody>
+  {% for moteur in moteurs %}
+  <tr>
+    <td class="border border-gray-200 px-4 py-2">{{ moteur.motoriste }}</td>
+    <td class="border border-gray-200 px-4 py-2">{{ moteur.cylindree_l }}</td>
+    <td class="border border-gray-200 px-4 py-2">{{ moteur.puissance_ch }}</td>
+    <td class="border border-gray-200 px-4 py-2">{{ moteur.get_carburant_display }}</td>
+    <td class="border border-gray-200 px-4 py-2 text-center">
+      <a href="{% url 'voiture_moteur:detail' moteur.id %}" class="text-blue-600 hover:text-blue-800 font-semibold">
+        {% trans "Info" %}
+      </a>
+    </td>
+  </tr>
+  {% empty %}
+  <tr>
+    <td colspan="5" class="border border-gray-200 px-4 py-2 text-center">{% trans "Aucun moteur trouvé" %}</td>
+  </tr>
+  {% endfor %}
+</tbody>
+
+
   </table>
 </div>
 

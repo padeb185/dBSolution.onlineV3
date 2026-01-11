@@ -9,5 +9,6 @@ urlpatterns = [
 
     path('', moteur_view, name='list'),
 
+    path('<uuid:moteur_id>/', views.moteur_detail_view, name='detail'),
 
 ]

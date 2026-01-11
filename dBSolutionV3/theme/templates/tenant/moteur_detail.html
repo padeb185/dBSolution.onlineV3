@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load i18n static widget_tweaks %}
+
+{% block title %}{{ moteur.motoriste }} - {{ moteur.cylindree_l }}L{% endblock %}
+
+{% block content %}
+<h1 class="text-2xl font-bold mb-6">{% trans "Détails du moteur" %}</h1>
+
+<form class="bg-white shadow-md rounded-lg p-6 space-y-4">
+  <div>
+    <label class="font-semibold">{% trans "Motoriste" %}</label>
+    <input type="text" value="{{ moteur.motoriste }}" class="border rounded p-2 w-full" readonly>
+  </div>
+
+  <div>
+    <label class="font-semibold">{% trans "Code moteur" %}</label>
+    <input type="text" value="{{ moteur.code_moteur }}" class="border rounded p-2 w-full" readonly>
+  </div>
+
+  <div>
+    <label class="font-semibold">{% trans "Type moteur" %}</label>
+    <input type="text" value="{{ moteur.get_type_moteur_display }}" class="border rounded p-2 w-full" readonly>
+  </div>
+
+  <div>
+    <label class="font-semibold">{% trans "Carburant" %}</label>
+    <input type="text" value="{{ moteur.get_carburant_display }}" class="border rounded p-2 w-full" readonly>
+  </div>
+
+  <div>
+    <label class="font-semibold">{% trans "Cylindrée (L)" %}</label>
+    <input type="text" value="{{ moteur.cylindree_l }}" class="border rounded p-2 w-full" readonly>
+  </div>
+
+  <div>
+    <label class="font-semibold">{% trans "Puissance (ch)" %}</label>
+    <input type="text" value="{{ moteur.puissance_ch }}" class="border rounded p-2 w-full" readonly>
+  </div>
+
+  <div>
+    <label class="font-semibold">{% trans "Distribution" %}</label>
+    <input type="text" value="{{ moteur.get_distribution_display }}" class="border rounded p-2 w-full" readonly>
+  </div>
+
+  <div>
+    <label class="font-semibold">{% trans "Nombre de cylindres" %}</label>
+    <input type="text" value="{{ moteur.nombre_cylindres }}" class="border rounded p-2 w-full" readonly>
+  </div>
+
+  <!-- Et ainsi de suite pour tous les champs que tu veux afficher -->
+</form>
+{% endblock %}

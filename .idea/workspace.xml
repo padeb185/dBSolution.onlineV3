@@ -4,15 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="script moteurs">
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/tenant/moteurs_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dBSolution.onlineV3.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dBSolution.onlineV3.iml" afterDir="false" />
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="vue moteur et liste">
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/tenant/moteur_detail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls_tenant.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls_tenant.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/tenant/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/tenant/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/tenant/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/tenant/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/tenant/moteurs_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/tenant/moteurs_list.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_moteur/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_moteur/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_moteur/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_moteur/views.py" afterDir="false" />
@@ -213,15 +208,7 @@
       <workItem from="1768069178762" duration="5329000" />
       <workItem from="1768074680556" duration="405000" />
       <workItem from="1768116417742" duration="8106000" />
-      <workItem from="1768126153563" duration="2766000" />
-    </task>
-    <task id="LOCAL-00181" summary="première création modele suite 1">
-      <option name="closed" value="true" />
-      <created>1767710807639</created>
-      <option name="number" value="00181" />
-      <option name="presentableId" value="LOCAL-00181" />
-      <option name="project" value="LOCAL" />
-      <updated>1767710807639</updated>
+      <workItem from="1768126153563" duration="4515000" />
     </task>
     <task id="LOCAL-00182" summary="première création modele suite 2">
       <option name="closed" value="true" />
@@ -607,7 +594,15 @@
       <option name="project" value="LOCAL" />
       <updated>1768124155253</updated>
     </task>
-    <option name="localTasksCounter" value="230" />
+    <task id="LOCAL-00230" summary="vue moteur et liste">
+      <option name="closed" value="true" />
+      <created>1768128960791</created>
+      <option name="number" value="00230" />
+      <option name="presentableId" value="LOCAL-00230" />
+      <option name="project" value="LOCAL" />
+      <updated>1768128960792</updated>
+    </task>
+    <option name="localTasksCounter" value="231" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -625,7 +620,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="ajustements tenant" />
     <MESSAGE value="première création modele" />
     <MESSAGE value="première création modele suite 1" />
     <MESSAGE value="première création modele suite 2" />
@@ -650,7 +644,8 @@
     <MESSAGE value="nombre marques par tenant" />
     <MESSAGE value="modele" />
     <MESSAGE value="script moteurs" />
-    <option name="LAST_COMMIT_MESSAGE" value="script moteurs" />
+    <MESSAGE value="vue moteur et liste" />
+    <option name="LAST_COMMIT_MESSAGE" value="vue moteur et liste" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -664,6 +659,11 @@
           <url>file://$PROJECT_DIR$/dBSolutionV3/panier/models.py</url>
           <line>5</line>
           <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/dBSolutionV3/voiture/voiture_moteur/models.py</url>
+          <line>47</line>
+          <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
