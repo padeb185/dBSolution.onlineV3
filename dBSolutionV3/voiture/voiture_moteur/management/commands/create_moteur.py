@@ -542,6 +542,297 @@ class Command(BaseCommand):
                  "intervalle_km_entretien": 30000},
 
             ],
+            "Bugatti": [
+
+                # ===== Anciens modèles (1910–1956) =====
+                {"code_moteur": "T13_1.3", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 1.3,
+                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 30, "puissance_tr_min": 4500,
+                 "couple_nm": 60, "couple_tr_min": 3000, "qualite_huile": "20W50", "quantite_huile_l": 4.0,
+                 "intervalle_km_entretien": 8000},
+                {"code_moteur": "T35_2.3", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 2.3,
+                 "distribution": "CHAINE", "nombre_cylindres": 8, "puissance_ch": 90, "puissance_tr_min": 5000,
+                 "couple_nm": 135, "couple_tr_min": 3000, "qualite_huile": "20W50", "quantite_huile_l": 5.0,
+                 "intervalle_km_entretien": 10000},
+                {"code_moteur": "T41_12.7", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 12.7,
+                 "distribution": "CHAINE", "nombre_cylindres": 8, "puissance_ch": 300, "puissance_tr_min": 3500,
+                 "couple_nm": 720, "couple_tr_min": 2000, "qualite_huile": "20W50", "quantite_huile_l": 12.0,
+                 "intervalle_km_entretien": 12000},
+                {"code_moteur": "T57_3.3", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 3.3,
+                 "distribution": "CHAINE", "nombre_cylindres": 8, "puissance_ch": 135, "puissance_tr_min": 4500,
+                 "couple_nm": 220, "couple_tr_min": 3000, "qualite_huile": "20W50", "quantite_huile_l": 6.0,
+                 "intervalle_km_entretien": 10000},
+                {"code_moteur": "T101_3.0", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 3.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 8, "puissance_ch": 160, "puissance_tr_min": 5000,
+                 "couple_nm": 250, "couple_tr_min": 3000, "qualite_huile": "20W50", "quantite_huile_l": 6.5,
+                 "intervalle_km_entretien": 10000},
+
+                # ===== Modernes / Veyron et Chiron (2005–2025) =====
+                {"code_moteur": "W16_8.0", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 8.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 16, "puissance_ch": 1001, "puissance_tr_min": 6000,
+                 "couple_nm": 1250, "couple_tr_min": 2200, "qualite_huile": "0W40", "quantite_huile_l": 12.0,
+                 "intervalle_km_entretien": 15000},
+                {"code_moteur": "W16_8.0C", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 8.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 16, "puissance_ch": 1500, "puissance_tr_min": 6700,
+                 "couple_nm": 1600, "couple_tr_min": 2000, "qualite_huile": "0W40", "quantite_huile_l": 12.0,
+                 "intervalle_km_entretien": 15000},
+
+                # ===== Futur / Concept électrique =====
+                {"code_moteur": "Bolide_EV", "type_moteur": "ELEC", "carburant": "ELEC", "cylindree_l": 0.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 0, "puissance_ch": 2000, "puissance_tr_min": 0,
+                 "couple_nm": 2500, "couple_tr_min": 0, "qualite_huile": "N/A", "quantite_huile_l": 0.0,
+                 "intervalle_km_entretien": 30000},
+
+            ],
+
+            "Buick": [
+
+                # ===== Anciens modèles (1930–1990) =====
+                {"code_moteur": "I4_1.2L", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 1.2,
+                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 40, "puissance_tr_min": 4000,
+                 "couple_nm": 85, "couple_tr_min": 2000, "qualite_huile": "20W50", "quantite_huile_l": 3.0,
+                 "intervalle_km_entretien": 8000},
+                {"code_moteur": "I6_3.8L", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 3.8,
+                 "distribution": "CHAINE", "nombre_cylindres": 6, "puissance_ch": 150, "puissance_tr_min": 4500,
+                 "couple_nm": 300, "couple_tr_min": 2500, "qualite_huile": "20W50", "quantite_huile_l": 5.0,
+                 "intervalle_km_entretien": 10000},
+                {"code_moteur": "V8_5.0L", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 5.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 8, "puissance_ch": 200, "puissance_tr_min": 4800,
+                 "couple_nm": 400, "couple_tr_min": 3000, "qualite_huile": "20W50", "quantite_huile_l": 6.0,
+                 "intervalle_km_entretien": 12000},
+
+                # ===== Modernes (2000–2025) =====
+                {"code_moteur": "V6_3.6L", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 3.6,
+                 "distribution": "CHAINE", "nombre_cylindres": 6, "puissance_ch": 304, "puissance_tr_min": 6600,
+                 "couple_nm": 370, "couple_tr_min": 2600, "qualite_huile": "5W30", "quantite_huile_l": 5.5,
+                 "intervalle_km_entretien": 15000},
+                {"code_moteur": "V8_6.2L", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 6.2,
+                 "distribution": "CHAINE", "nombre_cylindres": 8, "puissance_ch": 455, "puissance_tr_min": 6000,
+                 "couple_nm": 617, "couple_tr_min": 4000, "qualite_huile": "0W40", "quantite_huile_l": 8.0,
+                 "intervalle_km_entretien": 15000},
+
+                # ===== Hybrides / Futur =====
+                {"code_moteur": "Encore_PHEV", "type_moteur": "HYB_TE", "carburant": "ESS", "cylindree_l": 1.3,
+                 "distribution": "CHAINE", "nombre_cylindres": 3, "puissance_ch": 262, "puissance_tr_min": 5000,
+                 "couple_nm": 380, "couple_tr_min": 2000, "qualite_huile": "0W40", "quantite_huile_l": 4.5,
+                 "intervalle_km_entretien": 15000},
+
+            ],
+
+            "BYD": [
+
+                # ===== Anciens modèles (2003–2015) =====
+                {"code_moteur": "F3_1.5L", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 1.5,
+                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 109, "puissance_tr_min": 5800,
+                 "couple_nm": 145, "couple_tr_min": 4000, "qualite_huile": "10W40", "quantite_huile_l": 4.0,
+                 "intervalle_km_entretien": 10000},
+                {"code_moteur": "F3_1.8L", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 1.8,
+                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 136, "puissance_tr_min": 5800,
+                 "couple_nm": 170, "couple_tr_min": 4000, "qualite_huile": "10W40", "quantite_huile_l": 4.5,
+                 "intervalle_km_entretien": 10000},
+
+                # ===== Modernes (2016–2025) =====
+                {"code_moteur": "Tang_DM_2.0T", "type_moteur": "HYB_TE", "carburant": "ESS", "cylindree_l": 2.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 505, "puissance_tr_min": 5500,
+                 "couple_nm": 660, "couple_tr_min": 2000, "qualite_huile": "0W40", "quantite_huile_l": 5.0,
+                 "intervalle_km_entretien": 15000},
+                {"code_moteur": "Han_EV", "type_moteur": "ELEC", "carburant": "ELEC", "cylindree_l": 0.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 0, "puissance_ch": 363, "puissance_tr_min": 0,
+                 "couple_nm": 680, "couple_tr_min": 0, "qualite_huile": "N/A", "quantite_huile_l": 0.0,
+                 "intervalle_km_entretien": 30000},
+                {"code_moteur": "Seal_EV", "type_moteur": "ELEC", "carburant": "ELEC", "cylindree_l": 0.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 0, "puissance_ch": 530, "puissance_tr_min": 0,
+                 "couple_nm": 700, "couple_tr_min": 0, "qualite_huile": "N/A", "quantite_huile_l": 0.0,
+                 "intervalle_km_entretien": 30000},
+
+            ],
+
+            "Cadillac": [
+
+                # ===== Anciens modèles (1940–1990) =====
+                {"code_moteur": "V8_5.7L_OHV", "type_moteur": "ATMOSPHERIQUE", "carburant": "ESSENCE",
+                 "cylindree_l": 5.7, "distribution": "CHAINE", "nombre_cylindres": 8, "puissance_ch": 200,
+                 "puissance_tr_min": 4000, "couple_nm": 400, "couple_tr_min": 2500, "qualite_huile": "20W50",
+                 "quantite_huile_l": 7.0, "intervalle_km_entretien": 12000},
+                {"code_moteur": "V8_6.0L_OHV", "type_moteur": "ATMOSPHERIQUE", "carburant": "ESSENCE",
+                 "cylindree_l": 6.0, "distribution": "CHAINE", "nombre_cylindres": 8, "puissance_ch": 275,
+                 "puissance_tr_min": 4500, "couple_nm": 480, "couple_tr_min": 3000, "qualite_huile": "20W50",
+                 "quantite_huile_l": 7.5, "intervalle_km_entretien": 12000},
+                {"code_moteur": "V8_7.0L_OHV", "type_moteur": "ATMOSPHERIQUE", "carburant": "ESSENCE",
+                 "cylindree_l": 7.0, "distribution": "CHAINE", "nombre_cylindres": 8, "puissance_ch": 350,
+                 "puissance_tr_min": 5000, "couple_nm": 550, "couple_tr_min": 3200, "qualite_huile": "20W50",
+                 "quantite_huile_l": 8.0, "intervalle_km_entretien": 12000},
+
+                # ===== Modernes (2000–2025) =====
+                {"code_moteur": "V6_3.6L_DOHC", "type_moteur": "ATMOSPHERIQUE", "carburant": "ESSENCE",
+                 "cylindree_l": 3.6, "distribution": "CHAINE", "nombre_cylindres": 6, "puissance_ch": 335,
+                 "puissance_tr_min": 6700, "couple_nm": 385, "couple_tr_min": 3000, "qualite_huile": "5W30",
+                 "quantite_huile_l": 5.5, "intervalle_km_entretien": 15000},
+                {"code_moteur": "V8_6.2L_SUPERCHARGED", "type_moteur": "ATMOSPHERIQUE", "carburant": "ESSENCE",
+                 "cylindree_l": 6.2, "distribution": "CHAINE", "nombre_cylindres": 8, "puissance_ch": 640,
+                 "puissance_tr_min": 6000, "couple_nm": 855, "couple_tr_min": 3000, "qualite_huile": "0W40",
+                 "quantite_huile_l": 8.0, "intervalle_km_entretien": 15000},
+
+                # ===== Hybrides / Futur =====
+                {"code_moteur": "CT6_PHEV_2.0T", "type_moteur": "HYBRIDE_TURBO_ESSENCE", "carburant": "ESSENCE",
+                 "cylindree_l": 2.0, "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 335,
+                 "puissance_tr_min": 6000, "couple_nm": 550, "couple_tr_min": 2000, "qualite_huile": "0W40",
+                 "quantite_huile_l": 4.5, "intervalle_km_entretien": 15000},
+
+            ],
+
+            "Chery": [
+
+                # ===== Anciens modèles (2003–2015) =====
+                {"code_moteur": "ACTECO_1.5L", "type_moteur": "ATMOSPHERIQUE", "carburant": "ESSENCE",
+                 "cylindree_l": 1.5, "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 109,
+                 "puissance_tr_min": 5800, "couple_nm": 145, "couple_tr_min": 4000, "qualite_huile": "10W40",
+                 "quantite_huile_l": 4.0, "intervalle_km_entretien": 10000},
+                {"code_moteur": "ACTECO_1.6L", "type_moteur": "ATMOSPHERIQUE", "carburant": "ESSENCE",
+                 "cylindree_l": 1.6, "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 126,
+                 "puissance_tr_min": 5800, "couple_nm": 160, "couple_tr_min": 4000, "qualite_huile": "10W40",
+                 "quantite_huile_l": 4.0, "intervalle_km_entretien": 10000},
+
+                # ===== Modernes (2016–2025) =====
+                {"code_moteur": "ACTECO_1.5T", "type_moteur": "TURBO", "carburant": "ESSENCE", "cylindree_l": 1.5,
+                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 147, "puissance_tr_min": 5500,
+                 "couple_nm": 210, "couple_tr_min": 1750, "qualite_huile": "5W30", "quantite_huile_l": 4.5,
+                 "intervalle_km_entretien": 15000},
+                {"code_moteur": "ACTECO_1.6TGDI", "type_moteur": "TURBO", "carburant": "ESSENCE", "cylindree_l": 1.6,
+                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 197, "puissance_tr_min": 5500,
+                 "couple_nm": 290, "couple_tr_min": 2000, "qualite_huile": "5W30", "quantite_huile_l": 4.5,
+                 "intervalle_km_entretien": 15000},
+
+                # ===== Hybrides / Futur =====
+                {"code_moteur": "TIGGO_8_PHEV", "type_moteur": "HYBRIDE_ESSENCE", "carburant": "ESSENCE",
+                 "cylindree_l": 1.5, "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 190,
+                 "puissance_tr_min": 5500, "couple_nm": 250, "couple_tr_min": 2000, "qualite_huile": "5W30",
+                 "quantite_huile_l": 4.5, "intervalle_km_entretien": 15000},
+                {"code_moteur": "TIGGO_7_EV", "type_moteur": "ELECTRIQUE", "carburant": "ELECTRICITE",
+                 "cylindree_l": 0.0, "distribution": "CHAINE", "nombre_cylindres": 0, "puissance_ch": 218,
+                 "puissance_tr_min": 0, "couple_nm": 310, "couple_tr_min": 0, "qualite_huile": "N/A",
+                 "quantite_huile_l": 0.0, "intervalle_km_entretien": 30000},
+
+            ],
+
+            "Chevrolet": [
+
+                # ===== Anciens modèles (1950–1990) =====
+                {"code_moteur": "I6_3.8L_OHV", "type_moteur": "ATMOSPHERIQUE", "carburant": "ESSENCE",
+                 "cylindree_l": 3.8, "distribution": "CHAINE", "nombre_cylindres": 6, "puissance_ch": 140,
+                 "puissance_tr_min": 4800, "couple_nm": 290, "couple_tr_min": 3200, "qualite_huile": "20W50",
+                 "quantite_huile_l": 5.0, "intervalle_km_entretien": 10000},
+                {"code_moteur": "V8_5.0L_OHV", "type_moteur": "ATMOSPHERIQUE", "carburant": "ESSENCE",
+                 "cylindree_l": 5.0, "distribution": "CHAINE", "nombre_cylindres": 8, "puissance_ch": 200,
+                 "puissance_tr_min": 4800, "couple_nm": 380, "couple_tr_min": 3200, "qualite_huile": "20W50",
+                 "quantite_huile_l": 6.0, "intervalle_km_entretien": 12000},
+                {"code_moteur": "V8_6.6L_OHV", "type_moteur": "ATMOSPHERIQUE", "carburant": "ESSENCE",
+                 "cylindree_l": 6.6, "distribution": "CHAINE", "nombre_cylindres": 8, "puissance_ch": 300,
+                 "puissance_tr_min": 5000, "couple_nm": 500, "couple_tr_min": 3200, "qualite_huile": "20W50",
+                 "quantite_huile_l": 7.0, "intervalle_km_entretien": 12000},
+
+                # ===== Modernes (2000–2025) =====
+                {"code_moteur": "V6_3.6L_DOHC", "type_moteur": "ATMOSPHERIQUE", "carburant": "ESSENCE",
+                 "cylindree_l": 3.6, "distribution": "CHAINE", "nombre_cylindres": 6, "puissance_ch": 308,
+                 "puissance_tr_min": 6600, "couple_nm": 370, "couple_tr_min": 2600, "qualite_huile": "5W30",
+                 "quantite_huile_l": 5.5, "intervalle_km_entretien": 15000},
+                {"code_moteur": "V8_6.2L_SUPERCHARGED", "type_moteur": "ATMOSPHERIQUE", "carburant": "ESSENCE",
+                 "cylindree_l": 6.2, "distribution": "CHAINE", "nombre_cylindres": 8, "puissance_ch": 650,
+                 "puissance_tr_min": 6000, "couple_nm": 855, "couple_tr_min": 3000, "qualite_huile": "0W40",
+                 "quantite_huile_l": 8.0, "intervalle_km_entretien": 15000},
+
+                # ===== Hybrides / Futur =====
+                {"code_moteur": "Volt_PHEV_1.5T", "type_moteur": "HYBRIDE_TURBO_ESSENCE", "carburant": "ESSENCE",
+                 "cylindree_l": 1.5, "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 149,
+                 "puissance_tr_min": 5700, "couple_nm": 270, "couple_tr_min": 2000, "qualite_huile": "5W30",
+                 "quantite_huile_l": 4.5, "intervalle_km_entretien": 15000},
+                {"code_moteur": "Bolt_EV", "type_moteur": "ELECTRIQUE", "carburant": "ELECTRICITE", "cylindree_l": 0.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 0, "puissance_ch": 200, "puissance_tr_min": 0,
+                 "couple_nm": 360, "couple_tr_min": 0, "qualite_huile": "N/A", "quantite_huile_l": 0.0,
+                 "intervalle_km_entretien": 30000},
+
+            ],
+            "Chrysler": [
+
+                # ===== Anciens modèles (1950–1990) =====
+                {"code_moteur": "I6_3.7L_OHV", "type_moteur": "ATMOSPHERIQUE", "carburant": "ESSENCE",
+                 "cylindree_l": 3.7, "distribution": "CHAINE", "nombre_cylindres": 6, "puissance_ch": 150,
+                 "puissance_tr_min": 4600, "couple_nm": 280, "couple_tr_min": 3200, "qualite_huile": "20W50",
+                 "quantite_huile_l": 5.0, "intervalle_km_entretien": 10000},
+                {"code_moteur": "V8_5.2L_OHV", "type_moteur": "ATMOSPHERIQUE", "carburant": "ESSENCE",
+                 "cylindree_l": 5.2, "distribution": "CHAINE", "nombre_cylindres": 8, "puissance_ch": 230,
+                 "puissance_tr_min": 4800, "couple_nm": 410, "couple_tr_min": 3200, "qualite_huile": "20W50",
+                 "quantite_huile_l": 6.5, "intervalle_km_entretien": 12000},
+                {"code_moteur": "V8_5.9L_OHV", "type_moteur": "ATMOSPHERIQUE", "carburant": "ESSENCE",
+                 "cylindree_l": 5.9, "distribution": "CHAINE", "nombre_cylindres": 8, "puissance_ch": 250,
+                 "puissance_tr_min": 4800, "couple_nm": 460, "couple_tr_min": 3200, "qualite_huile": "20W50",
+                 "quantite_huile_l": 7.0, "intervalle_km_entretien": 12000},
+
+                # ===== Modernes (2000–2025) =====
+                {"code_moteur": "V6_3.6L_PENTASTAR", "type_moteur": "ATMOSPHERIQUE", "carburant": "ESSENCE",
+                 "cylindree_l": 3.6, "distribution": "CHAINE", "nombre_cylindres": 6, "puissance_ch": 305,
+                 "puissance_tr_min": 6400, "couple_nm": 365, "couple_tr_min": 4300, "qualite_huile": "5W30",
+                 "quantite_huile_l": 5.5, "intervalle_km_entretien": 15000},
+                {"code_moteur": "V8_6.4L_HEMI", "type_moteur": "ATMOSPHERIQUE", "carburant": "ESSENCE",
+                 "cylindree_l": 6.4, "distribution": "CHAINE", "nombre_cylindres": 8, "puissance_ch": 485,
+                 "puissance_tr_min": 6000, "couple_nm": 644, "couple_tr_min": 4300, "qualite_huile": "0W40",
+                 "quantite_huile_l": 8.0, "intervalle_km_entretien": 15000},
+
+                # ===== Hybrides / Futur =====
+                {"code_moteur": "Pacifica_PHEV_3.6L", "type_moteur": "HYBRIDE_ESSENCE", "carburant": "ESSENCE",
+                 "cylindree_l": 3.6, "distribution": "CHAINE", "nombre_cylindres": 6, "puissance_ch": 260,
+                 "puissance_tr_min": 6000, "couple_nm": 330, "couple_tr_min": 2000, "qualite_huile": "5W30",
+                 "quantite_huile_l": 5.0, "intervalle_km_entretien": 15000},
+                {"code_moteur": "Airflow_EV", "type_moteur": "ELECTRIQUE", "carburant": "ELECTRICITE",
+                 "cylindree_l": 0.0, "distribution": "CHAINE", "nombre_cylindres": 0, "puissance_ch": 300,
+                 "puissance_tr_min": 0, "couple_nm": 500, "couple_tr_min": 0, "qualite_huile": "N/A",
+                 "quantite_huile_l": 0.0, "intervalle_km_entretien": 30000},
+
+            ],
+
+            "Citroën": [
+
+                # ===== Anciens modèles (1920–1990) =====
+                {"code_moteur": "I4_1.3L", "type_moteur": "ATMOSPHERIQUE", "carburant": "ESSENCE", "cylindree_l": 1.3,
+                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 22, "puissance_tr_min": 4000,
+                 "couple_nm": 70, "couple_tr_min": 2000, "qualite_huile": "20W50", "quantite_huile_l": 3.0,
+                 "intervalle_km_entretien": 8000},
+                {"code_moteur": "I4_1.6L", "type_moteur": "ATMOSPHERIQUE", "carburant": "ESSENCE", "cylindree_l": 1.6,
+                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 45, "puissance_tr_min": 4500,
+                 "couple_nm": 100, "couple_tr_min": 2500, "qualite_huile": "20W50", "quantite_huile_l": 3.5,
+                 "intervalle_km_entretien": 8000},
+                {"code_moteur": "I4_1.9L_D", "type_moteur": "ATMOSPHERIQUE", "carburant": "DIESEL", "cylindree_l": 1.9,
+                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 65, "puissance_tr_min": 4500,
+                 "couple_nm": 130, "couple_tr_min": 2500, "qualite_huile": "15W40", "quantite_huile_l": 4.0,
+                 "intervalle_km_entretien": 10000},
+
+                # ===== Modernes (2000–2025) =====
+                {"code_moteur": "I3_1.2L_Turbo", "type_moteur": "TURBO", "carburant": "ESSENCE", "cylindree_l": 1.2,
+                 "distribution": "CHAINE", "nombre_cylindres": 3, "puissance_ch": 110, "puissance_tr_min": 5500,
+                 "couple_nm": 190, "couple_tr_min": 1500, "qualite_huile": "5W30", "quantite_huile_l": 3.5,
+                 "intervalle_km_entretien": 15000},
+                {"code_moteur": "I4_1.6L_THP", "type_moteur": "TURBO", "carburant": "ESSENCE", "cylindree_l": 1.6,
+                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 165, "puissance_tr_min": 6000,
+                 "couple_nm": 240, "couple_tr_min": 1400, "qualite_huile": "5W30", "quantite_huile_l": 4.0,
+                 "intervalle_km_entretien": 15000},
+                {"code_moteur": "I4_2.0L_BlueHDI", "type_moteur": "ATMOSPHERIQUE", "carburant": "DIESEL",
+                 "cylindree_l": 2.0, "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 180,
+                 "puissance_tr_min": 4000, "couple_nm": 400, "couple_tr_min": 2000, "qualite_huile": "5W30",
+                 "quantite_huile_l": 5.0, "intervalle_km_entretien": 15000},
+
+                # ===== Hybrides / Futur =====
+                {"code_moteur": "C5_AIR_CROSS_PHEV", "type_moteur": "HYBRIDE_TURBO_ESSENCE", "carburant": "ESSENCE",
+                 "cylindree_l": 1.6, "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 225,
+                 "puissance_tr_min": 5500, "couple_nm": 300, "couple_tr_min": 2000, "qualite_huile": "5W30",
+                 "quantite_huile_l": 4.5, "intervalle_km_entretien": 15000},
+                {"code_moteur": "eC4_EV", "type_moteur": "ELECTRIQUE", "carburant": "ELECTRICITE", "cylindree_l": 0.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 0, "puissance_ch": 136, "puissance_tr_min": 0,
+                 "couple_nm": 260, "couple_tr_min": 0, "qualite_huile": "N/A", "quantite_huile_l": 0.0,
+                 "intervalle_km_entretien": 30000},
+
+            ],
+
+
+
 
 
 
