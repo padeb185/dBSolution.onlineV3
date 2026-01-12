@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="nombre marques, nombre moteurs">
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/es/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/es/LC_MESSAGES/django.po" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/it/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/it/LC_MESSAGES/django.po" afterDir="false" />
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="traductions">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls_tenant.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls_tenant.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/tenant/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/tenant/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_moteur/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_moteur/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -204,15 +208,9 @@
       <workItem from="1768069178762" duration="5329000" />
       <workItem from="1768074680556" duration="405000" />
       <workItem from="1768116417742" duration="8106000" />
-      <workItem from="1768126153563" duration="9866000" />
-    </task>
-    <task id="LOCAL-00187" summary="traduction italien">
-      <option name="closed" value="true" />
-      <created>1767861458155</created>
-      <option name="number" value="00187" />
-      <option name="presentableId" value="LOCAL-00187" />
-      <option name="project" value="LOCAL" />
-      <updated>1767861458155</updated>
+      <workItem from="1768126153563" duration="10134000" />
+      <workItem from="1768212728243" duration="156000" />
+      <workItem from="1768216402883" duration="1256000" />
     </task>
     <task id="LOCAL-00188" summary="traduction Anglais">
       <option name="closed" value="true" />
@@ -598,7 +596,15 @@
       <option name="project" value="LOCAL" />
       <updated>1768138079511</updated>
     </task>
-    <option name="localTasksCounter" value="236" />
+    <task id="LOCAL-00236" summary="traductions">
+      <option name="closed" value="true" />
+      <created>1768138632081</created>
+      <option name="number" value="00236" />
+      <option name="presentableId" value="LOCAL-00236" />
+      <option name="project" value="LOCAL" />
+      <updated>1768138632081</updated>
+    </task>
+    <option name="localTasksCounter" value="237" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -635,13 +641,13 @@
     <MESSAGE value="exemplaire fomulaire et lien traductions" />
     <MESSAGE value="formulaire moteur" />
     <MESSAGE value="script modele" />
-    <MESSAGE value="traductions" />
     <MESSAGE value="nombre marques par tenant" />
     <MESSAGE value="modele" />
     <MESSAGE value="script moteurs" />
     <MESSAGE value="vue moteur et liste" />
     <MESSAGE value="nombre marques, nombre moteurs" />
-    <option name="LAST_COMMIT_MESSAGE" value="nombre marques, nombre moteurs" />
+    <MESSAGE value="traductions" />
+    <option name="LAST_COMMIT_MESSAGE" value="traductions" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
