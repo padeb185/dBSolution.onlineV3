@@ -15,7 +15,7 @@ def liste_marques(request):
     Affiche la liste des marques de voiture pour le tenant courant.
     """
     marques = VoitureMarque.objects.all().order_by('nom_marque')
-    return render(request, "voiture/marques.html", {'marques': marques})
+    return render(request, "voiture/marques_list.html", {'marques': marques})
 
 
 @login_required
