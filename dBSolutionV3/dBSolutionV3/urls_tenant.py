@@ -6,18 +6,30 @@ urlpatterns = [
     # Dashboard principal
     path("", dashboard_view, name="dashboard"),
 
-    # Tenant
-    path('voiture/', include('tenant.urls', namespace='voiture')),
-
     # Marques de voiture
-    path("voitures/marques/", include("voiture.voiture_marque.urls", namespace="voiture_marque")),
+    path(
+        "marques/",
+        include(("voiture.voiture_marque.urls", "voiture_marque"), namespace="voiture_marque")
+    ),
 
     # Exemplaires de voiture
-    path("voitures/exemplaires/", include("voiture.voiture_exemplaire.urls", namespace="voiture_exemplaire")),
+    path(
+        "exemplaires/",
+        include(("voiture.voiture_exemplaire.urls", "voiture_exemplaire"), namespace="voiture_exemplaire")
+    ),
 
     # Ajouter un exemplaire pour un modèle spécifique
-    path('modele/<uuid:modele_id>/ajouter/', ajouter_exemplaire, name='ajouter_exemplaire'),
+    path(
+        "modele/<uuid:modele_id>/ajouter/",
+        ajouter_exemplaire,
+        name="ajouter_exemplaire"
+    ),
 
     # Moteurs
-    path("voiture/moteurs/", include("voiture.voiture_moteur.urls", namespace="voiture_moteur")),
+    path(
+        "moteurs/",
+        include(("voiture.voiture_moteur.urls", "voiture_moteur"), namespace="voiture_moteur")
+    ),
+
+    path("voiture/", include(("tenant.urls", "tenant"), namespace="tenant")),
 ]

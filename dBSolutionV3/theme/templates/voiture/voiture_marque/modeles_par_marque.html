@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load i18n static %}
+
+{% block title %}{{ marque.nom }} - Modèles{% endblock %}
+
+{% block content %}
+<h1 class="text-2xl font-bold mb-6">{% trans "Modèles de la marque" %} {{ marque.nom }}</h1>
+
+<ul class="list-disc ml-6">
+  {% for modele in modeles %}
+    <li>{{ modele.nom }}</li>
+  {% empty %}
+    <li>{% trans "Aucun modèle trouvé pour cette marque." %}</li>
+  {% endfor %}
+</ul>
+
+<a href="{% url 'voiture_marque:marques_list' %}" class="text-blue-600 hover:underline mt-4 inline-block">
+  {% trans "Retour aux marques" %}
+</a>
+{% endblock %}

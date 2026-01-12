@@ -4,22 +4,20 @@ from django.conf.urls.i18n import i18n_patterns
 from django.shortcuts import render
 from .views import home_view
 
-
 # --- Handler 404 personnalisé ---
 def custom_404(request, exception):
     return render(request, "404.html", status=404)
 
-
 handler404 = custom_404
 
-# --- URLs hors traduction (ex : i18n) ---
+# --- URLs hors traduction ---
 urlpatterns = [
     path("i18n/", include("django.conf.urls.i18n")),  # changement de langue
 ]
 
 # --- URLs traduisibles (i18n) ---
 urlpatterns += i18n_patterns(
-    path("", home_view, name="home"),  # page d'accueil
+    path("", home_view, name="home"),
     path("admin/", admin.site.urls),
 
     # Utilisateurs
@@ -28,10 +26,7 @@ urlpatterns += i18n_patterns(
     # URLs publiques
     path("public/", include("dBSolutionV3.urls_public")),
 
-    # Tenant
-    path('voiture/', include('tenant.urls', namespace='tenant')),
-    # ici tout ce qui est marques/modeles/exemplaires/moteurs
-
-    # Si nécessaire, tu peux inclure voiture_moteur **sans doublon**
-    # path("voiture/moteurs/", include("voiture.voiture_moteur.urls", namespace="voiture_moteur")),
+    # Tenant — toutes les URLs voiture
+    # ✅ On ne met qu’une seule inclusion avec namespace correct
+    path("voiture/", include(("tenant.urls", "voiture_marque"), namespace="voiture_marque")),
 )

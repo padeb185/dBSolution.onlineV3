@@ -4,15 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="traductions">
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture/voiture_moteur/list.html" afterDir="false" />
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="corrections namespaces">
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture/voiture_marque/modeles_par_marque.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dBSolution.onlineV3.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dBSolution.onlineV3.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls_tenant.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls_tenant.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/tenant/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/tenant/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture/marques.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture/marques.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_moteur/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_moteur/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_moteur/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_moteur/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -213,14 +216,7 @@
       <workItem from="1768126153563" duration="10134000" />
       <workItem from="1768212728243" duration="156000" />
       <workItem from="1768216402883" duration="1256000" />
-    </task>
-    <task id="LOCAL-00188" summary="traduction Anglais">
-      <option name="closed" value="true" />
-      <created>1767862761750</created>
-      <option name="number" value="00188" />
-      <option name="presentableId" value="LOCAL-00188" />
-      <option name="project" value="LOCAL" />
-      <updated>1767862761750</updated>
+      <workItem from="1768223408705" duration="3714000" />
     </task>
     <task id="LOCAL-00189" summary="traduction Anglais">
       <option name="closed" value="true" />
@@ -606,7 +602,15 @@
       <option name="project" value="LOCAL" />
       <updated>1768138632081</updated>
     </task>
-    <option name="localTasksCounter" value="237" />
+    <task id="LOCAL-00237" summary="corrections namespaces">
+      <option name="closed" value="true" />
+      <created>1768222562731</created>
+      <option name="number" value="00237" />
+      <option name="presentableId" value="LOCAL-00237" />
+      <option name="project" value="LOCAL" />
+      <updated>1768222562731</updated>
+    </task>
+    <option name="localTasksCounter" value="238" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -624,7 +628,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="première création modele suite 1" />
     <MESSAGE value="première création modele suite 2" />
     <MESSAGE value="super user script" />
     <MESSAGE value="traduction es" />
@@ -649,7 +652,8 @@
     <MESSAGE value="vue moteur et liste" />
     <MESSAGE value="nombre marques, nombre moteurs" />
     <MESSAGE value="traductions" />
-    <option name="LAST_COMMIT_MESSAGE" value="traductions" />
+    <MESSAGE value="corrections namespaces" />
+    <option name="LAST_COMMIT_MESSAGE" value="corrections namespaces" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

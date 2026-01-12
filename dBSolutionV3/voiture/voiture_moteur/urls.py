@@ -1,17 +1,11 @@
 from django.urls import path
-from . import views
-from tenant.views import moteur_view
-from .views import MoteurListView
+from .views import MoteurListView, moteur_detail_view, ajouter_moteur
 
-app_name = "voiture_moteur"
+app_name = "voiture_moteur"  # ← très important
 
 urlpatterns = [
-    # Ajouter un moteur à un exemplaire
-    path("ajouter/<uuid:exemplaire_id>/", views.ajouter_moteur, name="ajouter_moteur"),
-
-
     path("", MoteurListView.as_view(), name="list"),
-
-    # Détail d'un moteur
-    path('<uuid:moteur_id>/', views.moteur_detail_view, name='detail'),
+    path("ajouter/<uuid:exemplaire_id>/", ajouter_moteur, name="ajouter_moteur"),
+    path("<uuid:moteur_id>/", moteur_detail_view, name="detail"),
 ]
+

@@ -1,14 +1,32 @@
-from django.urls import path
-from voiture.views import liste_marques, liste_voitures_modele
-from voiture.voiture_modele.views import modeles_par_marque
-
-app_name = "tenant"
+from django.urls import path, include
+from utilisateurs.views import dashboard_view
+from voiture.voiture_exemplaire.views import ajouter_exemplaire
 
 urlpatterns = [
-    # Liste des marques (chemin propre à tenant si nécessaire)
-    path("marques/", liste_marques, name="marques_list"),
+    path("", dashboard_view, name="dashboard"),
 
-    # Modèles d’une marque spécifique
-    path("marques/<uuid:marque_id>/modeles/", modeles_par_marque, name="modeles_par_marque"),
+    # Marques de voiture
+    path(
+        "marques/",
+        include(("voiture.voiture_marque.urls", "voiture_marque"), namespace="voiture_marque")
+    ),
+
+    # Exemplaires de voiture
+    path(
+        "exemplaires/",
+        include(("voiture.voiture_exemplaire.urls", "voiture_exemplaire"), namespace="voiture_exemplaire")
+    ),
+
+    # Ajouter un exemplaire
+    path(
+        "modele/<uuid:modele_id>/ajouter/",
+        ajouter_exemplaire,
+        name="ajouter_exemplaire"
+    ),
+
+    # Moteurs
+    path(
+        "moteurs/",
+        include(("voiture.voiture_moteur.urls", "voiture_moteur"), namespace="voiture_moteur")
+    ),
 ]
-
