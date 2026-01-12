@@ -6,30 +6,12 @@ from voiture.voiture_modele.models import VoitureModele
 
 
 
+
 @login_required
-def marque_list(request):
-    """
-    Affiche la liste des marques de voiture.
-    """
-    # Récupérer toutes les marques
-    marques = VoitureMarque.objects.all()
-
-    # Renvoyer au template avec le contexte
-    return render(
-        request,
-        "voiture/marques.html",  # Assure-toi que le chemin est correct
-        {
-            "marques": marques,
-        }
-    )
-
-
-
-
-
-
-
-
+def marques_list(request):
+    # Le tenant courant est déjà activé par le middleware
+    marques = VoitureMarque.objects.all().order_by("nom_marque")
+    return render(request, "voiture_marque/marques_list.html", {"marques": marques})
 
 
 
@@ -54,19 +36,9 @@ def toggle_favori_marque(request, id_marque):
 
 
 
+
+@login_required
 def modeles_par_marque(request, marque_id):
-    """
-    Affiche la liste des modèles d'une marque spécifique.
-    """
-    # Récupérer la marque ou renvoyer 404 si inexistant
-    marque = get_object_or_404(VoitureMarque, id=marque_id)
-
-    # Récupérer tous les modèles liés à cette marque
-    modeles = VoitureModele.objects.filter(marque=marque).order_by('nom')
-
-    context = {
-        'marque': marque,
-        'modeles': modeles,
-    }
-
-    return render(request, 'voiture/voiture_marque/modeles_par_marque.html', context)
+    marque = get_object_or_404(VoitureMarque, id_marque=marque_id)
+    modeles = VoitureModele.objects.filter(marque=marque).order_by("nom_modele")
+    return render(request, "voiture_marque/modeles_par_marque.html", {"marque": marque, "modeles": modeles})

@@ -23,6 +23,8 @@ urlpatterns += i18n_patterns(
     # Utilisateurs
     path("utilisateurs/", include("utilisateurs.urls", namespace="utilisateurs")),
 
+    path("utilisateurs/tenant/", include("voiture.voiture_marque.urls")),
+
     # URLs publiques
     path("public/", include("dBSolutionV3.urls_public")),
 
