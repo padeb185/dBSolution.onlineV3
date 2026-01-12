@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Liste des moteurs" %}{% endblock %}
+
+{% block content %}
+<h1 class="text-2xl font-bold mb-6">{% trans "Liste des moteurs" %}</h1>
+
+<table class="min-w-full table-auto border-collapse border border-gray-200">
+  <thead>
+    <tr class="bg-gray-100">
+      <th class="border border-gray-200 px-4 py-2">{% trans "Motoriste" %}</th>
+      <th class="border border-gray-200 px-4 py-2">{% trans "Code moteur" %}</th>
+      <th class="border border-gray-200 px-4 py-2">{% trans "Type" %}</th>
+      <th class="border border-gray-200 px-4 py-2">{% trans "Carburant" %}</th>
+      <th class="border border-gray-200 px-4 py-2">{% trans "Cylindrée (L)" %}</th>
+      <th class="border border-gray-200 px-4 py-2">{% trans "Puissance (CH)" %}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for moteur in moteurs %}
+    <tr>
+      <td class="border border-gray-200 px-4 py-2">{{ moteur.motoriste }}</td>
+      <td class="border border-gray-200 px-4 py-2">{{ moteur.code_moteur }}</td>
+      <td class="border border-gray-200 px-4 py-2">{{ moteur.get_type_moteur_display }}</td>
+      <td class="border border-gray-200 px-4 py-2">{{ moteur.get_carburant_display }}</td>
+      <td class="border border-gray-200 px-4 py-2">{{ moteur.cylindree_l }}</td>
+      <td class="border border-gray-200 px-4 py-2">{{ moteur.puissance_ch }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td class="border border-gray-200 px-4 py-2" colspan="6">{% trans "Aucun moteur trouvé." %}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

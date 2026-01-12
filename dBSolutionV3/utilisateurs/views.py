@@ -149,6 +149,7 @@ def dashboard_view(request):
         'moteurs': moteurs,
         'total_marques': total_marques,
         'marques': marques,
+
     })
 
 

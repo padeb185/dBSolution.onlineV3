@@ -27,7 +27,7 @@
             <nav class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0">
                 <div class="flex gap-4 items-center">
                     <a href="{% url 'home' %}" class="text-gray-600 hover:text-black font-semibold transition duration-300">{% trans "Accueil" %}</a>
-                    <a href="{% url 'dashboard' %}" class="text-gray-600 hover:text-black font-semibold transition duration-300">{% trans "Tableau de Bord" %}</a>
+                    <a href="{% url 'utilisateurs:dashboard' %}" class="text-gray-600 hover:text-black font-semibold transition duration-300">{% trans "Tableau de Bord" %}</a>
                 </div>
 
                 <form action="{% url 'set_language' %}" method="post" class="flex items-center gap-2 mt-2 md:mt-0">
