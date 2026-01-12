@@ -6,11 +6,6 @@ from voiture.voiture_modele.models import VoitureModele
 
 
 
-
-from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
-from voiture.voiture_marque.models import VoitureMarque
-
 @login_required
 def marque_list(request):
     """
