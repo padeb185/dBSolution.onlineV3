@@ -5,6 +5,8 @@ from django.urls import path, include
 from django.conf.urls.i18n import i18n_patterns
 from django.shortcuts import render
 from .views import home_view
+from voiture.voiture_exemplaire.views import voiture_exemplaire_detail
+
 
 # Handler 404 personnalisé
 def custom_404(request, exception):
@@ -37,4 +39,10 @@ urlpatterns += i18n_patterns(
 
     # URLs publiques
     path("public/", include("dBSolutionV3.urls_public")),
+
+# urls.py
+    path('voiture/exemplaires/<uuid:exemplaire_id>/', voiture_exemplaire_detail, name='detail')
+
+
+
 )

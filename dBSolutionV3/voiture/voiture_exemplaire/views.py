@@ -3,29 +3,34 @@ from django.shortcuts import render, get_object_or_404
 from django.shortcuts import  redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django_tenants.utils import tenant_context
 from .models import VoitureExemplaire
 from .forms import VoitureExemplaireForm
 from voiture.voiture_modele.models import VoitureModele
 from voiture.voiture_moteur.models import MoteurVoiture
 from django.utils.translation import gettext as _
+from societe.models import Societe
+
 
 
 
 @login_required
 def voiture_exemplaire(request, modele_id):
-    # Récupère le modèle
-    modele = get_object_or_404(VoitureModele, id=modele_id)
+    # Récupérer le tenant courant
+    tenant = request.user.societe  # ou adapte selon ton modèle
 
-    # Récupère les exemplaires liés à ce modèle
-    exemplaires = VoitureExemplaire.objects.filter(
-        voiture_modele=modele
-    ).order_by("id")
+    with tenant_context(tenant):
+        # Récupère le modèle
+        modele = get_object_or_404(VoitureModele, id=modele_id)
+        # Récupère les exemplaires
+        exemplaires = VoitureExemplaire.objects.filter(voiture_modele=modele).order_by("id")
 
-    # Rend le template avec le contexte
-    return render(request, "voiture_exemplaire/voiture_exemplaire.html", {
-        "modele": modele,
-        "exemplaires": exemplaires,
-    })
+        return render(request, "voiture_exemplaire/voiture_exemplaire.html", {
+            "modele": modele,
+            "exemplaires": exemplaires,
+        })
+
+
 
 
 
@@ -53,12 +58,13 @@ def ajouter_exemplaire(request, modele_id):
     })
 
 
-
-@login_required()
-def voiture_exemplaire_detail(request, exemplaire_id):  # <-- changé ici
-    exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
-    return render(request, "voiture_exemplaire/voiture_exemplaire_detail.html", {"exemplaire": exemplaire})
-
+def voiture_exemplaire_detail(request, exemplaire_id):
+    tenant = Societe.objects.get(slug='db-solution')  # ou récupère dynamiquement
+    with tenant_context(tenant):
+        exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
+        return render(request, "voiture_exemplaire/voiture_exemplaire_detail.html", {
+            "exemplaire": exemplaire
+        })
 
 
 @login_required
@@ -135,14 +141,3 @@ def moteur_autocomplete(request):
     return JsonResponse(data)
 
 
-
-def liste_exemplaires(request, modele_id):
-    # Récupère le modèle ou 404
-    modele = get_object_or_404(VoitureModele, id=modele_id)
-    # Récupère tous les exemplaires de ce modèle
-    exemplaires = VoitureExemplaire.objects.filter(modele=modele)
-    # Envoie à la template
-    return render(request, "voiture_exemplaire/exemplaires.html", {
-        "modele": modele,
-        "exemplaires": exemplaires
-    })

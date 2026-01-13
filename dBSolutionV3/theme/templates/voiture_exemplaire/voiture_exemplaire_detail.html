@@ -1,5 +1,6 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n static %}
+
 {% block content %}
 <div class="mx-4 sm:mx-6 lg:mx-8 p-6 w-full">
 
@@ -10,20 +11,20 @@
         </h1>
     </div>
 
-    <!-- Infos principales en carte responsive -->
+    <!-- Infos principales en cartes responsive -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <!-- Informations générales -->
         <div class="bg-white shadow-md rounded-lg p-6">
             <h2 class="text-lg font-semibold mb-4">{% trans "Informations générales" %}</h2>
             <p><strong>{% trans "Année de production" %}:</strong> {{ exemplaire.annee_production }}/{{ exemplaire.mois_production }}</p>
             <p><strong>{% trans "Kilométrage" %}:</strong> {{ exemplaire.kilometres_total }} km</p>
-            <p><strong>{% trans "Couleur" %}:</strong> {{ exemplaire.couleur }}</p>
+            <p><strong>{% trans "Couleur" %}:</strong> {{ exemplaire.couleur|default:_("Non renseignée") }}</p>
         </div>
 
         <!-- Moteurs -->
         <div class="bg-white shadow-md rounded-lg p-6">
             <h2 class="text-lg font-semibold mb-4">{% trans "Moteurs" %}</h2>
-            {% if exemplaire.moteurs.all %}
+            {% if exemplaire.moteurs.exists %}
                 <ul class="space-y-2">
                     {% for moteur in exemplaire.moteurs.all %}
                         <li class="border p-3 rounded-md hover:bg-gray-50">
@@ -46,29 +47,29 @@
         </a>
     </div>
 
-    <!-- Formulaire liaison moteur -->
+    <!-- Formulaire liaison moteur existant -->
     <div class="bg-white shadow-md rounded-lg p-6 mb-6">
         <h2 class="text-lg font-semibold mb-4">{% trans "Lier un moteur existant" %}</h2>
 
         {% if error %}
-            <p class="text-red-600">{{ error }}</p>
+            <p class="text-red-600 mb-4">{{ error }}</p>
         {% endif %}
 
         <form id="lier-moteur-form" method="post"
               action="{% url 'voiture_exemplaire:lier_moteur_exemplaire_from_detail' exemplaire.id %}">
             {% csrf_token %}
-
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <input type="text" id="code_moteur" name="code_moteur" placeholder="{% trans 'Code moteur' %}" required
+                <input type="text" id="code_moteur" name="code_moteur"
+                       placeholder="{% trans 'Code moteur' %}" required
                        class="border rounded p-2 w-full">
-                <input type="text" id="motoriste" name="motoriste" placeholder="{% trans 'Motoriste' %}" required
+                <input type="text" id="motoriste" name="motoriste"
+                       placeholder="{% trans 'Motoriste' %}" required
                        class="border rounded p-2 w-full">
             </div>
             <button type="submit" class="mt-4 px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">
                 {% trans "Lier le moteur" %}
             </button>
         </form>
-
 
         <!-- Champs auto-remplis (readonly) -->
         <div id="moteur-details" class="mt-4 hidden">
@@ -79,12 +80,13 @@
 
 </div>
 
-<!-- jQuery pour autocomplete -->
+<!-- jQuery pour autocomplete moteur -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
+
     function remplirDetailsMoteur(data) {
-        let $list = $('#moteur-details-list');
+        const $list = $('#moteur-details-list');
         $list.empty();
         for (const [key, value] of Object.entries(data)) {
             $list.append(`<li>${key}: ${value}</li>`);
@@ -92,10 +94,9 @@ $(document).ready(function() {
         $('#moteur-details').removeClass('hidden');
     }
 
-    // Autocomplete à la perte de focus
-    $('#code_moteur, #motoriste').on('blur', function() {
-        let code = $('#code_moteur').val();
-        let motoriste = $('#motoriste').val();
+    function verifierMoteur() {
+        const code = $('#code_moteur').val().trim();
+        const motoriste = $('#motoriste').val().trim();
 
         if (code && motoriste) {
             $.get("{% url 'voiture_exemplaire:moteur_autocomplete' %}", {
@@ -106,11 +107,18 @@ $(document).ready(function() {
                 remplirDetailsMoteur(data);
             })
             .fail(function(xhr) {
-                alert(xhr.responseJSON.error);
+                const error = xhr.responseJSON?.error || "{% trans 'Erreur lors de la récupération du moteur.' %}";
+                alert(error);
                 $('#moteur-details').addClass('hidden');
             });
+        } else {
+            $('#moteur-details').addClass('hidden');
         }
-    });
+    }
+
+    // Trigger autocomplete à la perte de focus
+    $('#code_moteur, #motoriste').on('blur', verifierMoteur);
+
 });
 </script>
 {% endblock %}

@@ -5,13 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="corrections 13/1/26 suite 2">
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture_exemplaire/exemplaires.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture_exemplaire/exemplaires.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture_exemplaire/voiture_exemplaire.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture_exemplaire/voiture_exemplaire.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture_exemplaire/voiture_exemplaire_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture_exemplaire/voiture_exemplaire_detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture_modele/modeles_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture_modele/modeles_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture_modele/modeles_par_marque.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture_modele/modeles_par_marque.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_exemplaire/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_exemplaire/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_exemplaire/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_exemplaire/views.py" afterDir="false" />
     </list>
@@ -220,15 +218,7 @@
       <workItem from="1768234565691" duration="3000" />
       <workItem from="1768237567012" duration="4675000" />
       <workItem from="1768244232648" duration="1000" />
-      <workItem from="1768286358065" duration="10120000" />
-    </task>
-    <task id="LOCAL-00196" summary="traduction de">
-      <option name="closed" value="true" />
-      <created>1767894147779</created>
-      <option name="number" value="00196" />
-      <option name="presentableId" value="LOCAL-00196" />
-      <option name="project" value="LOCAL" />
-      <updated>1767894147779</updated>
+      <workItem from="1768286358065" duration="12880000" />
     </task>
     <task id="LOCAL-00197" summary="traduction de">
       <option name="closed" value="true" />
@@ -614,7 +604,15 @@
       <option name="project" value="LOCAL" />
       <updated>1768294530624</updated>
     </task>
-    <option name="localTasksCounter" value="245" />
+    <task id="LOCAL-00245" summary="corrections 13/1/26 suite 2">
+      <option name="closed" value="true" />
+      <created>1768297901114</created>
+      <option name="number" value="00245" />
+      <option name="presentableId" value="LOCAL-00245" />
+      <option name="project" value="LOCAL" />
+      <updated>1768297901114</updated>
+    </task>
+    <option name="localTasksCounter" value="246" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
