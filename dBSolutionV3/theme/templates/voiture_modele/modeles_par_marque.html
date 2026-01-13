@@ -19,7 +19,7 @@
             <div class="bg-white shadow-md hover:shadow-lg transition rounded-lg p-6 flex items-center gap-6 cursor-pointer w-full modele-card"
                  data-modele-nom="{{ modele.nom_modele|lower }}"
                  data-modele-variante="{{ modele.nom_variante|default:''|lower }}"
-                 onclick="window.location.href='{% url 'voiture_exemplaire:detail' modele.id %}'">
+                 onclick="window.location.href='{% url 'voiture_exemplaire:voiture_exemplaire_detail' modele.id %}'">
 
                 <div class="flex-1">
                     <h2 class="text-lg font-semibold">{{ modele.nom_modele }}</h2>

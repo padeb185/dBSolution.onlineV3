@@ -62,9 +62,7 @@ def voiture_exemplaire_detail(request, exemplaire_id):
     tenant = Societe.objects.get(slug='db-solution')  # ou récupère dynamiquement
     with tenant_context(tenant):
         exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
-        return render(request, "voiture_exemplaire/voiture_exemplaire_detail.html", {
-            "exemplaire": exemplaire
-        })
+        return redirect("voiture_exemplaire_detail", exemplaire_id=exemplaire.id)
 
 
 @login_required
