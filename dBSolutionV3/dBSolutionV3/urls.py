@@ -25,10 +25,11 @@ urlpatterns += i18n_patterns(
 
     path("utilisateurs/tenant/", include("voiture.voiture_marque.urls")),
 
-    # URLs publiques
+
     path("public/", include("dBSolutionV3.urls_public")),
 
-    # Tenant — toutes les URLs voiture
-    # ✅ On ne met qu’une seule inclusion avec namespace correct
+
     path("voiture/", include(("tenant.urls", "voiture_marque"), namespace="voiture_marque")),
+
+    path('voiture/moteur/', include('voiture.voiture_moteur.urls', namespace='voiture_moteur')),
 )

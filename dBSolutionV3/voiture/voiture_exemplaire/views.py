@@ -11,11 +11,6 @@ from django.utils.translation import gettext as _
 
 
 
-from django.shortcuts import render, get_object_or_404
-from django.contrib.auth.decorators import login_required
-from .models import VoitureExemplaire
-from voiture.voiture_modele.models import VoitureModele
-
 @login_required
 def voiture_exemplaire(request, modele_id):
     # Récupère le modèle
@@ -51,7 +46,7 @@ def ajouter_exemplaire(request, modele_id):
     else:
         form = VoitureExemplaireForm()
 
-    return render(request, "voiture/ajouter_exemplaire.html", {
+    return render(request, "voiture_exemplaire/ajouter_exemplaire.html", {
         "form": form,
         "modele": modele,
         "marque": marque
