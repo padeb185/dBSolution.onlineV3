@@ -11,7 +11,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         {% if exemplaires %}
             {% for ex in exemplaires %}
-                <a href="{% url 'voiture_exemplaire:voiture_exemplaire_detail' ex.id %}">
+                <a href="{% url 'voiture_marque:voiture_exemplaire:voiture_exemplaire_detail' ex.id %}">
                     <div class="bg-white shadow-md hover:shadow-lg rounded-lg p-4 transition duration-200 cursor-pointer">
                         <h2 class="text-lg font-semibold">{{ ex.immatriculation }}</h2>
                         <p class="text-gray-500">
@@ -33,7 +33,7 @@
         {% endif %}
 
         <!-- Box ajout véhicule : style identique aux cartes exemplaires -->
-        <a href="{% url 'ajouter_exemplaire' modele.id %}"
+        <a href="{% url 'voiture_marque:voiture_exemplaire:ajouter_exemplaire' modele.id %}"
            class="bg-white shadow-md hover:shadow-lg rounded-lg p-4 flex flex-col items-center justify-center border border-gray-300 transition duration-200">
             <span class="text-gray-600 font-semibold text-center text-lg">
                 {% trans "Ajouter un véhicule" %}
@@ -42,3 +42,5 @@
     </div>
 </div>
 {% endblock %}
+
+

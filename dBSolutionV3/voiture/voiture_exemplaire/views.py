@@ -11,20 +11,26 @@ from django.utils.translation import gettext as _
 
 
 
-
+from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from .models import VoitureExemplaire
+from voiture.voiture_modele.models import VoitureModele
 
 @login_required
 def voiture_exemplaire(request, modele_id):
-
+    # Récupère le modèle
     modele = get_object_or_404(VoitureModele, id=modele_id)
-    exemplaires = VoitureExemplaire.objects.filter(voiture_modele=modele)
 
-    context = {
+    # Récupère les exemplaires liés à ce modèle
+    exemplaires = VoitureExemplaire.objects.filter(
+        voiture_modele=modele
+    ).order_by("id")
+
+    # Rend le template avec le contexte
+    return render(request, "voiture_exemplaire/voiture_exemplaire.html", {
         "modele": modele,
         "exemplaires": exemplaires,
-    }
-    return render(request, "voiture_exemplaire/voiture_exemplaire.html", context)
-
+    })
 
 
 

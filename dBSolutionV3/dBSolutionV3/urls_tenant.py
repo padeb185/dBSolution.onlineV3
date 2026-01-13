@@ -6,11 +6,7 @@ urlpatterns = [
     # Dashboard principal
     path("", dashboard_view, name="dashboard"),
 
-    # Marques de voiture
-    path(
-        "marques/",
-        include(("voiture.voiture_marque.urls", "voiture_marque"), namespace="voiture_marque")
-    ),
+
 
     # Exemplaires de voiture
     path(
@@ -32,4 +28,14 @@ urlpatterns = [
     ),
 
     path("voiture/", include(("tenant.urls", "tenant"), namespace="tenant")),
+
+    path(
+        "tenant/voiture/exemplaire/",
+        include("voiture.voiture_exemplaire.urls")
+    ),
+
+
+
+
+
 ]

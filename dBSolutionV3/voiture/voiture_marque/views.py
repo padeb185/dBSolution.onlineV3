@@ -18,8 +18,10 @@ def marques_list(request):
 @login_required
 def modeles_par_marque(request, marque_id):
     marque = get_object_or_404(VoitureMarque, id_marque=marque_id)
-    modeles = VoitureModele.objects.filter(marque=marque).order_by("nom_modele")
-    return render(request, "voiture_marque/modeles_par_marque.html", {
+    modeles = VoitureModele.objects.filter(
+        voiture_marque=marque
+    ).order_by("nom_modele")
+    return render(request, "voiture_modele/modeles_par_marque.html", {
         "marque": marque,
         "modeles": modeles,
     })

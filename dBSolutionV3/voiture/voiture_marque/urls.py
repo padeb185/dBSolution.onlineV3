@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from .views import marques_list, modeles_par_marque
 
 app_name = "voiture_marque"
@@ -10,5 +10,11 @@ urlpatterns = [
         modeles_par_marque,
         name="modeles_par_marque",
     ),
+
+    path("exemplaires/", include("voiture.voiture_exemplaire.urls")),
+
+
+
+
 ]
 
