@@ -6,12 +6,19 @@
 
     <h1 class="text-2xl font-bold mb-6">{% trans "Modèles de" %} {{ marque.nom_marque }}</h1>
 
+    <!-- Champ de recherche -->
+    <div class="mb-4">
+        <input type="text" id="search-modele" placeholder="{% trans 'Rechercher un modèle...' %}"
+               class="border rounded p-2 w-full md:w-1/2">
+    </div>
+
     {% if modeles %}
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="modeles-container">
 
             {% for modele in modeles %}
-            <div class="bg-white shadow-md hover:shadow-lg transition rounded-lg p-6 flex items-center gap-6 cursor-pointer w-full"
-                 onclick="window.location.href='{% url 'voiture_exemplaire:voiture_exemplaire' modele.id %}'">
+            <div class="bg-white shadow-md hover:shadow-lg transition rounded-lg p-6 flex items-center gap-6 cursor-pointer w-full marque-card"
+                 data-modele-nom="{{ modele.nom_modele }}"
+                 onclick="window.location.href='{% url 'voiture_exemplaire:detail' modele.id %}'">
 
                 <div class="flex-1">
                     <h2 class="text-lg font-semibold">{{ modele.nom_modele }}</h2>
@@ -41,11 +48,6 @@
 
 </div>
 
-<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
-<script>
-$(document).ready(function(){
-    console.log("Page modèles chargée et jQuery fonctionne !");
-});
-</script>
+
 
 {% endblock %}

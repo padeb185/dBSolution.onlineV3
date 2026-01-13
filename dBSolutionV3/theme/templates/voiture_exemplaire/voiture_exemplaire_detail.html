@@ -55,7 +55,7 @@
         {% endif %}
 
         <form id="lier-moteur-form" method="post"
-              action="{% url 'voiture_exemplaire:lier_moteur_exemplaire_from_detail' exemplaire_id=exemplaire.id %}">
+              action="{% url 'voiture_exemplaire:lier_moteur_exemplaire_from_detail' exemplaire.id %}">
             {% csrf_token %}
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -64,11 +64,11 @@
                 <input type="text" id="motoriste" name="motoriste" placeholder="{% trans 'Motoriste' %}" required
                        class="border rounded p-2 w-full">
             </div>
-
             <button type="submit" class="mt-4 px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">
                 {% trans "Lier le moteur" %}
             </button>
         </form>
+
 
         <!-- Champs auto-remplis (readonly) -->
         <div id="moteur-details" class="mt-4 hidden">

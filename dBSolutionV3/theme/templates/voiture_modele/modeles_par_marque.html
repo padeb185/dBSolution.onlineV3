@@ -6,12 +6,20 @@
 
     <h1 class="text-2xl font-bold mb-6">{% trans "Modèles de" %} {{ marque.nom_marque }}</h1>
 
+    <!-- Champ de recherche -->
+    <div class="mb-4">
+        <input type="text" id="search-modele" placeholder="{% trans 'Rechercher un modèle...' %}"
+               class="border rounded p-2 w-full md:w-1/2">
+    </div>
+
     {% if modeles %}
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="modeles-container">
 
             {% for modele in modeles %}
-            <div class="bg-white shadow-md hover:shadow-lg transition rounded-lg p-6 flex items-center gap-6 cursor-pointer w-full"
-                 onclick="window.location.href='{% url 'voiture_marque:voiture_exemplaire:voiture_exemplaire' modele.id %}'">
+            <div class="bg-white shadow-md hover:shadow-lg transition rounded-lg p-6 flex items-center gap-6 cursor-pointer w-full modele-card"
+                 data-modele-nom="{{ modele.nom_modele|lower }}"
+                 data-modele-variante="{{ modele.nom_variante|default:''|lower }}"
+                 onclick="window.location.href='{% url 'voiture_exemplaire:detail' modele.id %}'">
 
                 <div class="flex-1">
                     <h2 class="text-lg font-semibold">{{ modele.nom_modele }}</h2>
@@ -41,11 +49,23 @@
 
 </div>
 
-<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
 <script>
-$(function(){
-    console.log("Page modèles chargée et jQuery fonctionne !");
-});
+(function(){
+    const input = document.getElementById("search-modele");
+    if(!input) return;
+
+    input.addEventListener("input", function(){
+        const value = this.value.trim().toLowerCase();
+        const cards = document.querySelectorAll(".modele-card");
+
+        cards.forEach(card => {
+            const nom = card.dataset.modeleNom || "";
+            const variante = card.dataset.modeleVariante || "";
+            // Affiche si le terme recherché est dans le nom ou dans la variante
+            card.style.display = (!value || nom.includes(value) || variante.includes(value)) ? "flex" : "none";
+        });
+    });
+})();
 </script>
 
 {% endblock %}

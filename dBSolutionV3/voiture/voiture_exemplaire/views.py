@@ -133,3 +133,16 @@ def moteur_autocomplete(request):
     }
 
     return JsonResponse(data)
+
+
+
+def liste_exemplaires(request, modele_id):
+    # Récupère le modèle ou 404
+    modele = get_object_or_404(VoitureModele, id=modele_id)
+    # Récupère tous les exemplaires de ce modèle
+    exemplaires = VoitureExemplaire.objects.filter(modele=modele)
+    # Envoie à la template
+    return render(request, "voiture_exemplaire/exemplaires.html", {
+        "modele": modele,
+        "exemplaires": exemplaires
+    })

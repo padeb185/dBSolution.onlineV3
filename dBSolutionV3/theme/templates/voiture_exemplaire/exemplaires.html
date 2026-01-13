@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="mx-4 sm:mx-6 lg:mx-8 p-6 w-full">
+
+    <h1 class="text-2xl font-bold mb-6">
+        {% trans "Exemplaires de" %} {{ modele.nom_modele }}
+        {% if modele.nom_variante %} - {{ modele.nom_variante }}{% endif %}
+    </h1>
+
+    <!-- Champ de recherche -->
+    <div class="mb-6">
+        <input type="text" id="search-exemplaire" placeholder="{% trans 'Rechercher par immatriculation...' %}"
+               class="border rounded-lg px-4 h-12 w-full">
+    </div>
+
+    {% if exemplaires %}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="exemplaires-container">
+
+            {% for ex in exemplaires %}
+            <div class="bg-white shadow-md hover:shadow-lg transition rounded-lg p-4 flex items-center justify-between cursor-pointer exemplaire-card"
+                 data-immatriculation="{{ ex.immatriculation|lower }}"
+                 onclick="window.location.href='{% url 'voiture_exemplaire:detail' ex.id %}'">
+
+                <div>
+                    <h2 class="text-lg font-semibold">{{ ex.immatriculation }}</h2>
+                    <p class="text-gray-500">
+                        {% trans "Année" %}: {{ ex.annee_production }}/{{ ex.mois_production }}
+                    </p>
+                    <p class="text-gray-500">
+                        {% trans "Kilométrage" %}: {{ ex.kilometres_total }} km
+                    </p>
+                    <p class="text-gray-500">
+                        {% trans "Couleur" %}: {{ ex.couleur|default:"-" }}
+                    </p>
+                </div>
+
+                <div class="flex-shrink-0">
+                    <img src="{% static 'images/modele/default.png' %}" class="w-16 h-16 object-contain" alt="Exemplaire">
+                </div>
+
+            </div>
+            {% endfor %}
+
+        </div>
+    {% else %}
+        <p class="text-red-600 font-semibold">
+            {% trans "Aucun exemplaire enregistré pour ce modèle." %}
+        </p>
+    {% endif %}
+
+</div>
+
+<!-- Script pour filtrer par immatriculation -->
+<script>
+(function(){
+    const input = document.getElementById("search-exemplaire");
+    if(!input) return;
+
+    input.addEventListener("input", function(){
+        const value = this.value.trim().toLowerCase();
+        const cards = document.querySelectorAll(".exemplaire-card");
+
+        cards.forEach(card => {
+            const immat = card.dataset.immatriculation || "";
+            card.style.display = (!value || immat.includes(value)) ? "flex" : "none";
+        });
+    });
+})();
+</script>
+{% endblock %}
