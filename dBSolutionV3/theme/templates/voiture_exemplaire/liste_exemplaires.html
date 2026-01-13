@@ -10,17 +10,9 @@
         {% if modele.nom_variante %}- {{ modele.nom_variante }}{% endif %}
     </h1>
 
-    <!-- Bouton Ajouter un exemplaire -->
-    <div class="mb-6">
-        <a href="{% url 'voiture_exemplaire:ajouter_exemplaire' modele_id=modele.id %}"
-           class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-            {% trans "Ajouter un exemplaire" %}
-        </a>
-    </div>
-
     <!-- Champ de recherche uniquement si des exemplaires existent -->
     {% if exemplaires %}
-    <div class="mb-4">
+    <div class="mb-6">
         <input
             type="text"
             id="search-exemplaire"
@@ -28,55 +20,62 @@
             placeholder="{% trans 'Rechercher un exemplaire par immatriculation...' %}"
         >
     </div>
+    {% endif %}
 
-    <!-- Liste des exemplaires -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="exemplaires-container">
+    {% if exemplaires %}
+    <!-- Grille des exemplaires + carte "Ajouter" -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="exemplaires-container">
         {% for ex in exemplaires %}
-        <div class="bg-white shadow-md rounded-lg p-4 flex flex-col justify-between cursor-pointer exemplaire-card"
-             data-immatriculation="{{ ex.immatriculation|lower }}">
-            <div>
-                <h2 class="font-semibold">{{ ex.immatriculation }}</h2>
-                {% if ex.date_achat %}
-                    <p class="text-gray-500">{% trans "Date d'achat" %}: {{ ex.date_achat }}</p>
-                {% endif %}
-                {% if ex.voiture_modele.nom_variante %}
-                    <p class="text-gray-500">{% trans "Variante" %}: {{ ex.voiture_modele.nom_variante }}</p>
-                {% endif %}
-                {% if ex.annee_production %}
-                    <p class="text-gray-500">{% trans "Année de production" %}: {{ ex.annee_production }}/{{ ex.mois_production }}</p>
-                {% endif %}
-                {% if ex.kilometres_total %}
-                    <p class="text-gray-500">{% trans "Kilométrage" %}: {{ ex.kilometres_total }} km</p>
-                {% endif %}
+        <div class="bg-white shadow-md hover:shadow-lg transition rounded-lg p-4 flex items-center gap-4 cursor-pointer exemplaire-card"
+             data-immatriculation="{{ ex.immatriculation|lower }}"
+             onclick="window.location.href='{% url 'voiture_exemplaire:voiture_exemplaire_detail' exemplaire_id=ex.id %}'">
+
+            <div class="flex-1">
+                <h2 class="text-lg font-semibold">{{ ex.immatriculation }}</h2>
+                <p class="text-gray-500">
+                    {% trans "Année de production" %}: {{ ex.annee_production }}/{{ ex.mois_production }}
+                </p>
+                <p class="text-gray-500">
+                    {% trans "Kilométrage" %}: {{ ex.kilometres_total }} km
+                </p>
                 {% if ex.couleur %}
-                    <p class="text-gray-500">{% trans "Couleur" %}: {{ ex.couleur }}</p>
+                <p class="text-gray-500">
+                    {% trans "Couleur" %}: {{ ex.couleur }}
+                </p>
                 {% endif %}
             </div>
 
-            <div class="mt-2 flex gap-2">
-                <a href="{% url 'voiture_exemplaire:voiture_exemplaire_detail' exemplaire_id=ex.id %}"
-                   class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600">
-                    {% trans "Détails" %}
-                </a>
-                <a href="{% url 'voiture_exemplaire:modifier_exemplaire' exemplaire_id=ex.id %}"
-                   class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600">
-                    {% trans "Modifier" %}
-                </a>
+            <div class="flex-shrink-0">
+                <img src="{% static 'images/voiture/default.png' %}"
+                     class="w-[65px] h-[65px] object-contain"
+                     alt="{% trans 'Image de l’exemplaire' %}">
             </div>
         </div>
         {% endfor %}
-    </div>
-    {% else %}
-        <!-- Aucun exemplaire -->
-        <div class="text-center py-10">
-            <p class="text-red-600 font-semibold mb-4">
-                {% trans "Aucun exemplaire enregistré pour ce modèle." %}
-            </p>
-            <a href="{% url 'voiture_exemplaire:ajouter_exemplaire' modele_id=modele.id %}"
-               class="inline-block px-6 py-3 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition">
-                {% trans "Ajouter un exemplaire" %}
-            </a>
+
+        <!-- Carte "Ajouter un exemplaire" -->
+        <div class="bg-indigo-100 hover:bg-indigo-200 shadow-md hover:shadow-lg transition rounded-lg p-4 flex items-center justify-center cursor-pointer"
+             onclick="window.location.href='{% url 'voiture_exemplaire:ajouter_exemplaire' modele_id=modele.id %}?marque={{ modele.voiture_marque.nom }}&modele={{ modele.nom_modele }}'">
+            <div class="text-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                </svg>
+                <p class="mt-2 font-semibold text-indigo-700">{% trans "Ajouter un exemplaire" %}</p>
+            </div>
         </div>
+    </div>
+
+    {% else %}
+    <!-- Aucun exemplaire -->
+    <div class="text-center py-10">
+        <p class="text-red-600 font-semibold mb-4">
+            {% trans "Aucun exemplaire enregistré pour ce modèle." %}
+        </p>
+        <a href="{% url 'voiture_exemplaire:ajouter_exemplaire' modele_id=modele.id %}?marque={{ modele.voiture_marque.nom }}&modele={{ modele.nom_modele }}"
+           class="inline-block px-6 py-3 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition">
+            {% trans "Ajouter un exemplaire" %}
+        </a>
+    </div>
     {% endif %}
 
 </div>
