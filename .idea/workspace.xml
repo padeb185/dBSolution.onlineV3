@@ -5,13 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="corrections 13/1/26 suite 5">
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/images/voiture/default.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture_exemplaire/detail_exemplaire.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture_exemplaire/ajouter_exemplaire.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture_exemplaire/ajouter_exemplaire.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture_exemplaire/liste_exemplaires.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture_exemplaire/liste_exemplaires.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture_exemplaire/voiture_exemplaire.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture_exemplaire/voiture_exemplaire_detail.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/management/commands/create_modele_rsrnurburg.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/management/commands/create_modele_rsrnurburg.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/management/commands/create_modele_rsrspa.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/management/commands/create_modele_rsrspa.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/management/commands/create_modele_suite.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/management/commands/create_modele_suite.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -221,15 +218,7 @@
       <workItem from="1768244232648" duration="1000" />
       <workItem from="1768286358065" duration="12928000" />
       <workItem from="1768304983684" duration="6556000" />
-      <workItem from="1768312827369" duration="1045000" />
-    </task>
-    <task id="LOCAL-00200" summary="script modeles">
-      <option name="closed" value="true" />
-      <created>1767950737163</created>
-      <option name="number" value="00200" />
-      <option name="presentableId" value="LOCAL-00200" />
-      <option name="project" value="LOCAL" />
-      <updated>1767950737163</updated>
+      <workItem from="1768312827369" duration="4125000" />
     </task>
     <task id="LOCAL-00201" summary="marque favori">
       <option name="closed" value="true" />
@@ -615,7 +604,15 @@
       <option name="project" value="LOCAL" />
       <updated>1768311589935</updated>
     </task>
-    <option name="localTasksCounter" value="249" />
+    <task id="LOCAL-00249" summary="corrections 13/1/26 suite 5">
+      <option name="closed" value="true" />
+      <created>1768314038675</created>
+      <option name="number" value="00249" />
+      <option name="presentableId" value="LOCAL-00249" />
+      <option name="project" value="LOCAL" />
+      <updated>1768314038675</updated>
+    </task>
+    <option name="localTasksCounter" value="250" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

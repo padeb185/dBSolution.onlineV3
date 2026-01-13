@@ -64,27 +64,36 @@ class Command(BaseCommand):
 
             "Porsche": [
 
-                {"modele": "550 Spyder", "nom_variante": None, "nombre_portes": 2, "nbre_places": 2,
-                 "taille_reservoir": 60},
+                {"modele": "550 Spyder", "variante": None, "portes": 2, "places": 2,"reservoir": 60},
 
-                {"modele": "911", "nom_variante": "Carrera S", "nombre_portes": 2, "nbre_places": 4,
-                 "taille_reservoir": 67},
-                {"modele": "911", "nom_variante": "Turbo", "nombre_portes": 2, "nbre_places": 4,
-                 "taille_reservoir": 67},
+                {"modele": "Cayenne", "variante": None, "portes": 5, "places": 5, "reservoir": 75},
+                {"modele": "Cayenne", "variante": "S", "portes": 5, "places": 5, "reservoir": 75},
+                {"modele": "Cayenne", "variante": "GTS", "portes": 5, "places": 5, "reservoir": 75},
+                {"modele": "Cayenne", "variante": "Turbo", "portes": 5, "places": 5, "reservoir": 75},
+                {"modele": "Cayenne", "variante": "Turbo GT", "portes": 5, "places": 5, "reservoir": 75},
+                {"modele": "Cayenne", "variante": "E-Hybrid", "portes": 5, "places": 5, "reservoir": 75},
+                {"modele": "Cayenne", "variante": "S E-Hybrid", "portes": 5, "places": 5, "reservoir": 75},
+                {"modele": "Cayenne", "variante": "Turbo E-Hybrid", "portes": 5, "places": 5, "reservoir": 75},
+                {"modele": "Cayenne", "variante": "Coupe", "portes": 5, "places": 4, "reservoir": 75},
+                {"modele": "Cayenne", "variante": "Coupe Turbo", "portes": 5, "places": 4, "reservoir": 75},
 
-                {"modele": "911", "nom_variante": "GT3", "nombre_portes": 2, "nbre_places": 2,
-                 "taille_reservoir": 64},
-                {"modele": "911", "nom_variante": "GT3 RS", "nombre_portes": 2, "nbre_places": 2,
-                 "taille_reservoir": 64},
-                {"modele": "911", "nom_variante": "GT2 RS", "nombre_portes": 2, "nbre_places": 2,
-                 "taille_reservoir": 64},
+                {"modele": "Macan", "variante": None, "portes": 5, "nbre_places": 5, "reservoir": 60},
+                {"modele": "Macan", "variante": "T", "portes": 5, "nbre_places": 5, "reservoir": 60},
+                {"modele": "Macan", "variante": "S", "portes": 5, "nbre_places": 5, "reservoir": 60},
+                {"modele": "Macan", "variante": "GTS", "portes": 5, "nbre_places": 5, "reservoir": 60},
 
-                {"modele": "Cayenne", "nom_variante": "S", "nombre_portes": 5, "nbre_places": 5,
-                 "taille_reservoir": 75},
-                {"modele": "Macan", "nom_variante": None, "nombre_portes": 5, "nbre_places": 5,
-                 "taille_reservoir": 60},
-                {"modele": "Panamera", "nom_variante": "4S", "nombre_portes": 5, "nbre_places": 5,
-                 "taille_reservoir": 75},
+                {"modele": "Panamera", "variante": None, "portes": 5, "places": 4, "reservoir": 75},
+                {"modele": "Panamera", "variante": "4", "portes": 5, "places": 4, "reservoir": 75},
+                {"modele": "Panamera", "variante": "4S", "portes": 5, "places": 4, "reservoir": 75},
+                {"modele": "Panamera", "variante": "GTS", "portes": 5, "places": 4, "reservoir": 75},
+                {"modele": "Panamera", "variante": "Turbo", "portes": 5, "places": 4, "reservoir": 75},
+                {"modele": "Panamera", "variante": "Turbo S", "portes": 5, "places": 4, "reservoir": 75},
+                {"modele": "Panamera", "variante": "E-Hybrid", "portes": 5, "places": 4, "reservoir": 75},
+                {"modele": "Panamera", "variante": "4 E-Hybrid", "portes": 5, "places": 4, "reservoir": 75},
+                {"modele": "Panamera", "variante": "4S E-Hybrid", "portes": 5, "places": 4, "reservoir": 75},
+                {"modele": "Panamera", "variante": "Turbo E-Hybrid", "portes": 5, "places": 4, "reservoir": 75},
+                {"modele": "Panamera", "variante": "Sport Turismo", "portes": 5, "places": 4, "reservoir": 75},
+                {"modele": "Panamera", "variante": "Executive", "portes": 5, "places": 4, "reservoir": 75},
 
                 {"modele": "911", "variante": "996 Carrera", "portes": 2, "places": 4, "reservoir": 64},
                 {"modele": "911", "variante": "996 Carrera 4", "portes": 2, "places": 4, "reservoir": 64},
@@ -129,7 +138,17 @@ class Command(BaseCommand):
                 {"modele": "911", "variante": "992 Turbo S", "portes": 2, "places": 4, "reservoir": 64},
                 {"modele": "911", "variante": "992 GT3", "portes": 2, "places": 4, "reservoir": 64},
                 {"modele": "911", "variante": "992 GT3 RS", "portes": 2, "places": 4, "reservoir": 64},
-                {"modele": "911", "variante": "992 GT2 RS", "portes": 2, "places": 4, "reservoir": 64}
+
+                {"modele": "718", "variante": None, "portes": 2, "places": 2, "reservoir": 50},
+                {"modele": "718", "variante": "GT4", "portes": 2, "places": 2, "reservoir": 50},
+                {"modele": "Cayman", "variante": "GTS", "portes": 2, "places": 2, "reservoir": 50},
+                {"modele": "718", "variante": "Spyder", "portes": 2, "places": 2, "reservoir": 50},
+                {"modele": "718", "variante": "Spyder RS Weissach", "portes": 2, "places": 2, "reservoir": 50},
+                {"modele": "Cayman", "variante": "GT4 RS", "portes": 2, "places": 2, "taille_reservoir": 50},
+
+                {"modele": "911", "variante": "992 GT3 RS Weissach SSR", "portes": 2, "places": 4, "reservoir": 64},
+                {"modele": "911", "variante": "991.2 GT3 RS", "portes": 2, "places": 2, "reservoir": 64},
+
             ],
 
             "Alfa Romeo": [
