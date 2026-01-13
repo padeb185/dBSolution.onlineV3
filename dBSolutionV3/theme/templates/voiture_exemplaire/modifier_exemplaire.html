@@ -1,0 +1,21 @@
+{# voiture/voiture_exemplaire/templates/voiture/voiture_exemplaire/modifier_exemplaire.html #}
+{% extends 'base.html' %}
+{% load i18n static %}
+
+{% block content %}
+<div class="mx-4 sm:mx-6 lg:mx-8 p-6 w-full">
+    <h1 class="text-2xl font-bold mb-6">{% trans "Modifier l'exemplaire" %} {{ exemplaire.immatriculation }}</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+            {% trans "Enregistrer les modifications" %}
+        </button>
+        <a href="{% url 'voiture_exemplaire:voiture_exemplaire_detail' exemplaire_id=exemplaire.id %}"
+           class="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400 ml-2">
+            {% trans "Annuler" %}
+        </a>
+    </form>
+</div>
+{% endblock %}

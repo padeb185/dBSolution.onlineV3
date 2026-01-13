@@ -28,7 +28,7 @@
             {% for ex in exemplaires %}
             <div class="bg-white shadow-md hover:shadow-lg transition rounded-lg p-4 flex items-center gap-4 cursor-pointer exemplaire-card"
                  data-immatriculation="{{ ex.immatriculation|lower }}"
-                 onclick="window.location.href='{% url 'voiture_exemplaire:detail' ex.id %}'">
+                 onclick="window.location.href='{% url 'voiture_exemplaire:voiture_exemplaire_detail' exemplaire_id=ex.id %}'">
 
                 <div class="flex-1">
                     <h2 class="text-lg font-semibold">{{ ex.immatriculation }}</h2>
@@ -48,7 +48,7 @@
                 <div class="flex-shrink-0">
                     <img src="{% static 'images/voiture/default.png' %}"
                          class="w-[65px] h-[65px] object-contain"
-                         alt="{% trans 'Image de l\'exemplaire' %}">
+                         alt="{% trans 'Image de l’exemplaire' %}">
                 </div>
 
             </div>
@@ -60,7 +60,7 @@
             <p class="text-red-600 font-semibold mb-4">
                 {% trans "Aucun exemplaire enregistré pour ce modèle." %}
             </p>
-            <a href="{% url 'voiture_exemplaire:ajouter_exemplaire' modele.id %}?marque={{ modele.marque.nom }}&modele={{ modele.nom_modele }}"
+            <a href="{% url 'voiture_exemplaire:ajouter_exemplaire' modele_id=modele.id %}?marque={{ modele.voiture_marque.nom }}&modele={{ modele.nom_modele }}"
                class="inline-block px-6 py-3 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition">
                 {% trans "Ajouter un exemplaire" %}
             </a>

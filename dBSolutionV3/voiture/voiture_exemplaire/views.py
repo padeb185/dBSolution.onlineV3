@@ -1,3 +1,4 @@
+from django import forms
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.shortcuts import  redirect
@@ -13,22 +14,46 @@ from societe.models import Societe
 
 
 
-
 @login_required
-def voiture_exemplaire(request, modele_id):
-    # Récupérer le tenant courant
-    tenant = request.user.societe  # ou adapte selon ton modèle
-
+def liste_exemplaires(request, modele_id):
+    tenant = request.user.societe  # ton tenant
     with tenant_context(tenant):
-        # Récupère le modèle
         modele = get_object_or_404(VoitureModele, id=modele_id)
-        # Récupère les exemplaires
         exemplaires = VoitureExemplaire.objects.filter(voiture_modele=modele).order_by("id")
 
-        return render(request, "voiture_exemplaire/voiture_exemplaire.html", {
-            "modele": modele,
-            "exemplaires": exemplaires,
-        })
+    return render(request, "voiture_exemplaire/liste_exemplaires.html", {
+        "modele": modele,
+        "exemplaires": exemplaires,
+    })
+
+
+@login_required
+def voiture_exemplaire_liste(request, modele_id):
+    tenant = request.tenant  # si tu utilises django-tenants
+    with tenant_context(tenant):
+        modele = get_object_or_404(VoitureModele, id=modele_id)
+        exemplaires = VoitureExemplaire.objects.filter(voiture_modele=modele)
+    return render(request, 'voiture_exemplaire/liste_exemplaires.html', {
+        'modele': modele,
+        'exemplaires': exemplaires,
+    })
+
+
+
+
+
+
+
+
+@login_required
+def voiture_exemplaire_detail(request, exemplaire_id):
+    tenant = request.user.societe
+    with tenant_context(tenant):
+        exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
+
+    return render(request, "voiture_exemplaire/detail_exemplaire.html", {
+        "exemplaire": exemplaire
+    })
 
 
 
@@ -58,30 +83,26 @@ def ajouter_exemplaire(request, modele_id):
     })
 
 
-def voiture_exemplaire_detail(request, exemplaire_id):
-    tenant = Societe.objects.get(slug='db-solution')  # ou récupère dynamiquement
-    with tenant_context(tenant):
-        exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
-        return redirect("voiture_exemplaire_detail", exemplaire_id=exemplaire.id)
 
 
 @login_required
 def lier_moteur_exemplaire_from_detail(request, exemplaire_id):
-    exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
+    tenant = request.user.societe
+    with tenant_context(tenant):
+        exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
 
-    if request.method == "POST":
-        code = request.POST.get("code_moteur")
-        motoriste = request.POST.get("motoriste")
-        moteur = MoteurVoiture.objects.filter(code_moteur=code, motoriste=motoriste).first()
-        if moteur:
-            moteur.voitures_exemplaires.add(exemplaire)
-            return redirect("voiture_exemplaire_detail", id=exemplaire.id)
-        else:
-            # gérer le cas où le moteur n'existe pas
-            return render(request, "voiture_exemplaire/voiture_exemplaire_detail.html", {
-                "exemplaire": exemplaire,
-                "error": _("Moteur non trouvé")
-            })
+        if request.method == "POST":
+            code = request.POST.get("code_moteur")
+            motoriste = request.POST.get("motoriste")
+            moteur = MoteurVoiture.objects.filter(code_moteur=code, motoriste=motoriste).first()
+            if moteur:
+                moteur.voitures_exemplaires.add(exemplaire)
+                return redirect("voiture_exemplaire:voiture_exemplaire_detail", exemplaire_id=exemplaire.id)
+            else:
+                return render(request, "voiture_exemplaire/voiture_exemplaire_detail.html", {
+                    "exemplaire": exemplaire,
+                    "error": _("Moteur non trouvé")
+                })
 
 
 @login_required
@@ -139,3 +160,22 @@ def moteur_autocomplete(request):
     return JsonResponse(data)
 
 
+def modifier_exemplaire(request, exemplaire_id):
+    # Récupérer le tenant courant depuis request (ou via ton contexte multi-tenant)
+    tenant = request.user.societe  # Remplacer par logique réelle si nécessaire
+    with tenant_context(tenant):
+        exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
+
+        if request.method == "POST":
+            form = VoitureExemplaireForm(request.POST, instance=exemplaire)
+            if form.is_valid():
+                form.save()
+                messages.success(request, "Exemplaire mis à jour avec succès.")
+                return redirect('voiture_exemplaire:voiture_exemplaire_detail', exemplaire_id=exemplaire.id)
+        else:
+            form = VoitureExemplaireForm(instance=exemplaire)
+
+        return render(request, 'voiture/voiture_exemplaire/modifier_exemplaire.html', {
+            'form': form,
+            'exemplaire': exemplaire,
+        })
