@@ -87,8 +87,8 @@ def lier_moteur_exemplaire(request, moteur_id, exemplaire_id):
 
     if request.method == "POST":
         moteur.voitures_exemplaires.add(exemplaire)
-            # Message optionnel
-            # messages.success(request, _("Le moteur a été lié à l'exemplaire avec succès."))
+
+        messages.success(request, _("Le moteur a été lié à l'exemplaire avec succès."))
         return redirect("detail_exemplaire", id=exemplaire.id)
 
     return render(request, "voiture_exemplaire/liers_moteur.html", {

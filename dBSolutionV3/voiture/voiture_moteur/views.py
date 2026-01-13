@@ -27,7 +27,7 @@ def ajouter_moteur(request, exemplaire_id=None):
     else:
         form = MoteurVoitureForm()
 
-    return render(request, "voiture/voiture_moteur/ajouter_moteur.html", {
+    return render(request, "voiture_moteur/ajouter_moteur.html", {
         "form": form,
         "exemplaire": exemplaire,
         "title": _("Ajouter un moteur"),
@@ -40,7 +40,7 @@ def ajouter_moteur(request, exemplaire_id=None):
 @login_required()
 def moteur_detail_view(request, moteur_id):
     moteur = get_object_or_404(MoteurVoiture, id=moteur_id)
-    return render(request, 'tenant/moteur_detail.html', {
+    return render(request, 'voiture_moteur/moteur_detail.html', {
         'moteur': moteur,
     })
 
@@ -51,6 +51,6 @@ def moteur_detail_view(request, moteur_id):
 
 class MoteurListView(ListView):
     model = MoteurVoiture
-    template_name = "voiture/voiture_moteur/list.html"  # <-- chemin correct
+    template_name = "voiture_moteur/list.html"  # <-- chemin correct
     context_object_name = "moteurs"
     paginate_by = 20  # optionnel
