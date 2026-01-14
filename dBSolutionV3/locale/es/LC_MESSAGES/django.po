@@ -3544,14 +3544,14 @@ msgid "Valider"
 msgstr "Validar"
 
 #: .\theme\templates\utilisateurs\liste_utilisateurs.html:8
-#, fuzzy
-#| msgid "Liste des moteurs"
 msgid "Liste des utilisateurs"
-msgstr "Lista de motores"
+msgstr "Lista de usuarios"
+
 
 #: .\theme\templates\utilisateurs\liste_utilisateurs.html:17
 msgid "Email Google"
-msgstr ""
+msgstr "Correo Google"
+
 
 #: .\theme\templates\utilisateurs\liste_utilisateurs.html:18
 #: .\utilisateurs\models.py:89
@@ -3559,46 +3559,39 @@ msgid "Rôle"
 msgstr "Rol"
 
 #: .\theme\templates\utilisateurs\liste_utilisateurs.html:36
-#, fuzzy
-#| msgid "Aucun moteur trouvé"
 msgid "Aucun utilisateur trouvé."
-msgstr "No se encontró ningún motor"
+msgstr "No se encontraron usuarios."
 
 #: .\theme\templates\utilisateurs\liste_utilisateurs.html:41
 msgid "Créer un nouvel utilisateur"
-msgstr ""
+msgstr "Crear un nuevo usuario"
 
 #: .\theme\templates\utilisateurs\liste_utilisateurs.html:54
-#, fuzzy
-#| msgid "Rechercher:"
 msgid "Rechercher :"
-msgstr "Buscar:"
+msgstr "Buscar :"
+
 
 #: .\theme\templates\utilisateurs\liste_utilisateurs.html:55
-#, fuzzy
-#| msgid "Afficher _MENU_ éléments"
 msgid "Afficher _MENU_ entrées"
-msgstr "Mostrar _MENU_ elementos"
+msgstr "Mostrar _MENU_ entradas"
 
 #: .\theme\templates\utilisateurs\liste_utilisateurs.html:56
-#, fuzzy
-#| msgid "Aucun moteur trouvé"
 msgid "Aucun résultat trouvé"
-msgstr "No se encontró ningún motor"
+msgstr "No se encontraron resultados"
 
 #: .\theme\templates\utilisateurs\liste_utilisateurs.html:57
-#, fuzzy
-#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ moteurs"
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ entrées"
-msgstr "Mostrando _START_ a _END_ de _TOTAL_ motores"
+msgstr "Mostrando de _START_ a _END_ de _TOTAL_ entradas"
+
 
 #: .\theme\templates\utilisateurs\liste_utilisateurs.html:58
 msgid "Aucune entrée disponible"
-msgstr ""
+msgstr "No hay entradas disponibles"
 
 #: .\theme\templates\utilisateurs\liste_utilisateurs.html:59
 msgid "(filtré à partir de _MAX_ entrées totales)"
-msgstr ""
+msgstr "(filtrado de un total de _MAX_ entradas)"
+
 
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire.html:10
 msgid "Ajouter un exemplaire pour"
@@ -3628,7 +3621,8 @@ msgstr "Kilometraje"
 
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:21
 msgid "Non renseignée"
-msgstr ""
+msgstr "No especificado"
+
 
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:26
 #: .\theme\templates\voiture_moteur\moteurs_list.html:21
@@ -3673,7 +3667,8 @@ msgstr "Detalles del motor"
 
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:110
 msgid "Erreur lors de la récupération du moteur."
-msgstr ""
+msgstr "Error al recuperar el motor."
+
 
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:9
 msgid "Exemplaires de"
@@ -3681,48 +3676,40 @@ msgstr "Ejemplares de"
 
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:20
 msgid "Rechercher un exemplaire par immatriculation..."
-msgstr ""
+msgstr "Buscar un ejemplar por matrícula..."
 
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:51
 msgid "Image de l’exemplaire"
-msgstr ""
+msgstr "Imagen del ejemplar"
+
 
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:63
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:76
-#, fuzzy
-#| msgid "Ajouter un exemplaire pour"
 msgid "Ajouter un exemplaire"
-msgstr "Agregar un ejemplar para"
+msgstr "Agregar un ejemplar"
 
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:72
-#, fuzzy
-#| msgid "Aucun modèle enregistré pour cette marque."
 msgid "Aucun exemplaire enregistré pour ce modèle."
-msgstr "Ningún modelo registrado para esta marca."
+msgstr "No hay ejemplares registrados para este modelo."
 
 #: .\theme\templates\voiture_exemplaire\modifier_exemplaire.html:7
-#, fuzzy
-#| msgid "Voiture exemplaire"
 msgid "Modifier l'exemplaire"
-msgstr "Vehículo de ejemplo"
+msgstr "Modificar el ejemplar"
 
 #: .\theme\templates\voiture_exemplaire\modifier_exemplaire.html:13
-#, fuzzy
-#| msgid "Date de modification"
 msgid "Enregistrer les modifications"
-msgstr "Fecha de modificación"
+msgstr "Guardar cambios"
 
 #: .\theme\templates\voiture_exemplaire\modifier_exemplaire.html:17
 msgid "Annuler"
-msgstr ""
+msgstr "Cancelar"
+
 
 #: .\theme\templates\voiture_marque\marques_list.html:12
 msgid "Mes marques favorites"
 msgstr "Mis marcas favoritas"
 
 #: .\theme\templates\voiture_marque\marques_list.html:31
-#, fuzzy
-#| msgid "Rechercher:"
 msgid "Rechercher..."
 msgstr "Buscar:"
 
@@ -3738,7 +3725,8 @@ msgstr "Modelos de"
 #: .\theme\templates\voiture_modele\modeles_list.html:11
 #: .\theme\templates\voiture_modele\modeles_par_marque.html:11
 msgid "Rechercher un modèle..."
-msgstr ""
+msgstr "Buscar un modelo..."
+
 
 #: .\theme\templates\voiture_modele\modeles_list.html:29
 #: .\theme\templates\voiture_modele\modeles_par_marque.html:30
@@ -3757,7 +3745,8 @@ msgstr "Ningún modelo registrado para esta marca."
 
 #: .\theme\templates\voiture_modele\modeles_par_marque.html:37
 msgid "Image du modèle"
-msgstr ""
+msgstr "Imagen del modelo"
+
 
 #: .\theme\templates\voiture_moteur\list.html:4
 #: .\theme\templates\voiture_moteur\list.html:7
@@ -3767,7 +3756,8 @@ msgstr "Lista de motores"
 
 #: .\theme\templates\voiture_moteur\list.html:14
 msgid "Type"
-msgstr ""
+msgstr "Tipo"
+
 
 #: .\theme\templates\voiture_moteur\list.html:16
 #: .\theme\templates\voiture_moteur\moteur_detail.html:31
@@ -3776,14 +3766,10 @@ msgid "Cylindrée (L)"
 msgstr "Cilindrada (L)"
 
 #: .\theme\templates\voiture_moteur\list.html:17
-#, fuzzy
-#| msgid "Puissance (ch)"
 msgid "Puissance (CH)"
 msgstr "Potencia (CV)"
 
 #: .\theme\templates\voiture_moteur\list.html:32
-#, fuzzy
-#| msgid "Aucun moteur trouvé"
 msgid "Aucun moteur trouvé."
 msgstr "No se encontró ningún motor"
 
@@ -3914,7 +3900,8 @@ msgstr "Motor no encontrado"
 
 #: .\voiture\voiture_exemplaire\views.py:116
 msgid "Le moteur a été lié à l'exemplaire avec succès."
-msgstr ""
+msgstr "El motor se ha vinculado al vehículo con éxito."
+
 
 #: .\voiture\voiture_exemplaire\views.py:122
 msgid "Lier un moteur à un véhicule"
