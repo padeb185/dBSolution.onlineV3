@@ -3363,59 +3363,46 @@ msgid "Retour à l'accueil"
 msgstr "Επιστροφή στην αρχική σελίδα"
 
 #: .\theme\templates\admin\dashboard_admin.html:8
-#, fuzzy
-#| msgid "Tableau de bord"
 msgid "Tableau de bord Administrateur"
-msgstr "Πίνακας ελέγχου"
+msgstr "Πίνακας διαχείρισης Διαχειριστή"
 
 #: .\theme\templates\admin\dashboard_admin.html:15
-#, fuzzy
-#| msgid "Utilisateurs"
 msgid "Total utilisateurs"
-msgstr "Χρήστες"
+msgstr "Σύνολο χρηστών"
 
 #: .\theme\templates\admin\dashboard_admin.html:21
-#, fuzzy
-#| msgid "Utilisateurs"
 msgid "Utilisateurs actifs"
-msgstr "Χρήστες"
+msgstr "Ενεργοί χρήστες"
 
 #: .\theme\templates\admin\dashboard_admin.html:27
-#, fuzzy
-#| msgid "Administrateur"
 msgid "Administrateurs"
-msgstr "Διαχειριστής"
+msgstr "Διαχειριστές"
 
 #: .\theme\templates\admin\dashboard_admin.html:38
 #: .\theme\templates\utilisateurs\creer_utilisateur.html:6
-#, fuzzy
-#| msgid "Créer le moteur"
 msgid "Créer un utilisateur"
-msgstr "Δημιουργία κινητήρα"
+msgstr "Δημιουργία χρήστη"
 
 #: .\theme\templates\admin\dashboard_admin.html:39
-#, fuzzy
-#| msgid "Ajouter un exemplaire pour"
 msgid "Ajouter un nouvel employé ou administrateur."
-msgstr "Προσθήκη αντιτύπου για"
+msgstr "Προσθήκη νέου υπαλλήλου ή διαχειριστή."
 
 #: .\theme\templates\admin\dashboard_admin.html:44
-#, fuzzy
-#| msgid "Utilisateurs"
 msgid "Gérer les utilisateurs"
-msgstr "Χρήστες"
+msgstr "Διαχείριση χρηστών"
 
 #: .\theme\templates\admin\dashboard_admin.html:45
 msgid "Voir, modifier ou désactiver les comptes."
-msgstr ""
+msgstr "Προβολή, επεξεργασία ή απενεργοποίηση λογαριασμών."
 
 #: .\theme\templates\admin\dashboard_admin.html:50
 msgid "Admin Django"
-msgstr ""
+msgstr "Admin Django"
 
 #: .\theme\templates\admin\dashboard_admin.html:51
 msgid "Accéder à l’interface technique Django."
-msgstr ""
+msgstr "Πρόσβαση στην τεχνική διεπαφή του Django."
+
 
 #: .\theme\templates\base.html:9
 msgid "dBSolution"
@@ -3491,10 +3478,8 @@ msgid "Marques de voiture"
 msgstr "Μάρκες αυτοκινήτων"
 
 #: .\theme\templates\dashboard.html:88
-#, fuzzy
-#| msgid "Tableau de bord"
 msgid "Tableau de bord Admin"
-msgstr "Πίνακας ελέγχου"
+msgstr "Πίνακας διαχείρισης Admin"
 
 #: .\theme\templates\home.html:20
 msgid "Bienvenue"
@@ -3547,14 +3532,14 @@ msgid "Valider"
 msgstr "Επιβεβαίωση"
 
 #: .\theme\templates\utilisateurs\liste_utilisateurs.html:8
-#, fuzzy
-#| msgid "Liste des moteurs"
 msgid "Liste des utilisateurs"
-msgstr "Λίστα κινητήρων"
+msgstr "Λίστα χρηστών"
+
 
 #: .\theme\templates\utilisateurs\liste_utilisateurs.html:17
 msgid "Email Google"
-msgstr ""
+msgstr "Email Google"
+
 
 #: .\theme\templates\utilisateurs\liste_utilisateurs.html:18
 #: .\utilisateurs\models.py:89
@@ -3562,46 +3547,37 @@ msgid "Rôle"
 msgstr "Ρόλος"
 
 #: .\theme\templates\utilisateurs\liste_utilisateurs.html:36
-#, fuzzy
-#| msgid "Aucun moteur trouvé"
 msgid "Aucun utilisateur trouvé."
-msgstr "Δεν βρέθηκε κινητήρας"
+msgstr "Δεν βρέθηκε κανένας χρήστης."
 
 #: .\theme\templates\utilisateurs\liste_utilisateurs.html:41
 msgid "Créer un nouvel utilisateur"
-msgstr ""
+msgstr "Δημιουργία νέου χρήστη"
+
 
 #: .\theme\templates\utilisateurs\liste_utilisateurs.html:54
-#, fuzzy
-#| msgid "Rechercher:"
 msgid "Rechercher :"
-msgstr "Αναζήτηση:"
+msgstr "Αναζήτηση :"
 
 #: .\theme\templates\utilisateurs\liste_utilisateurs.html:55
-#, fuzzy
-#| msgid "Afficher _MENU_ éléments"
 msgid "Afficher _MENU_ entrées"
-msgstr "Εμφάνιση _MENU_ καταχωρήσεων"
+msgstr "Εμφάνιση _MENU_ εγγραφών"
 
 #: .\theme\templates\utilisateurs\liste_utilisateurs.html:56
-#, fuzzy
-#| msgid "Aucun moteur trouvé"
 msgid "Aucun résultat trouvé"
-msgstr "Δεν βρέθηκε κινητήρας"
+msgstr "Δεν βρέθηκε κανένα αποτέλεσμα"
 
 #: .\theme\templates\utilisateurs\liste_utilisateurs.html:57
-#, fuzzy
-#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ moteurs"
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ entrées"
-msgstr "Εμφάνιση _START_ έως _END_ από _TOTAL_ κινητήρες"
+msgstr "Εμφάνιση από _START_ έως _END_ από _TOTAL_ εγγραφές"
 
 #: .\theme\templates\utilisateurs\liste_utilisateurs.html:58
 msgid "Aucune entrée disponible"
-msgstr ""
+msgstr "Καμία διαθέσιμη εγγραφή"
 
 #: .\theme\templates\utilisateurs\liste_utilisateurs.html:59
 msgid "(filtré à partir de _MAX_ entrées totales)"
-msgstr ""
+msgstr "(φιλτραρισμένο από _MAX_ συνολικές εγγραφές)"
 
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire.html:10
 msgid "Ajouter un exemplaire pour"
@@ -3631,7 +3607,8 @@ msgstr "Χιλιομετρική απόσταση"
 
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:21
 msgid "Non renseignée"
-msgstr ""
+msgstr "Μη καταχωρημένο"
+
 
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:26
 #: .\theme\templates\voiture_moteur\moteurs_list.html:21
@@ -3676,7 +3653,8 @@ msgstr "Λεπτομέρειες Κινητήρα"
 
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:110
 msgid "Erreur lors de la récupération du moteur."
-msgstr ""
+msgstr "Σφάλμα κατά την ανάκτηση του κινητήρα."
+
 
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:9
 msgid "Exemplaires de"
@@ -3684,50 +3662,42 @@ msgstr "Αντίτυπα του"
 
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:20
 msgid "Rechercher un exemplaire par immatriculation..."
-msgstr ""
+msgstr "Αναζήτηση δείγματος με βάση την πινακίδα..."
 
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:51
 msgid "Image de l’exemplaire"
-msgstr ""
+msgstr "Εικόνα του δείγματος"
+
 
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:63
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:76
-#, fuzzy
-#| msgid "Ajouter un exemplaire pour"
 msgid "Ajouter un exemplaire"
-msgstr "Προσθήκη αντιτύπου για"
+msgstr "Προσθήκη αντιτύπου"
 
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:72
-#, fuzzy
-#| msgid "Aucun modèle enregistré pour cette marque."
 msgid "Aucun exemplaire enregistré pour ce modèle."
-msgstr "Δεν υπάρχουν καταχωρημένα μοντέλα για αυτό το σήμα."
+msgstr "Δεν έχει καταχωρηθεί κανένα δείγμα για αυτό το μοντέλο."
 
 #: .\theme\templates\voiture_exemplaire\modifier_exemplaire.html:7
-#, fuzzy
-#| msgid "Voiture exemplaire"
 msgid "Modifier l'exemplaire"
-msgstr "Δείγμα αυτοκινήτου"
+msgstr "Επεξεργασία του δείγματος"
 
 #: .\theme\templates\voiture_exemplaire\modifier_exemplaire.html:13
-#, fuzzy
-#| msgid "Date de modification"
 msgid "Enregistrer les modifications"
-msgstr "Ημερομηνία τροποποίησης"
+msgstr "Αποθήκευση αλλαγών"
 
 #: .\theme\templates\voiture_exemplaire\modifier_exemplaire.html:17
 msgid "Annuler"
-msgstr ""
+msgstr "Ακύρωση"
+
 
 #: .\theme\templates\voiture_marque\marques_list.html:12
 msgid "Mes marques favorites"
 msgstr "Αγαπημένα μου σήματα"
 
 #: .\theme\templates\voiture_marque\marques_list.html:31
-#, fuzzy
-#| msgid "Rechercher:"
 msgid "Rechercher..."
-msgstr "Αναζήτηση:"
+msgstr "Αναζήτηση..."
 
 #: .\theme\templates\voiture_marque\marques_list.html:46
 msgid "Voir les modèles de cette marque"
@@ -3741,7 +3711,8 @@ msgstr "Μοντέλα του"
 #: .\theme\templates\voiture_modele\modeles_list.html:11
 #: .\theme\templates\voiture_modele\modeles_par_marque.html:11
 msgid "Rechercher un modèle..."
-msgstr ""
+msgstr "Αναζήτηση μοντέλου..."
+
 
 #: .\theme\templates\voiture_modele\modeles_list.html:29
 #: .\theme\templates\voiture_modele\modeles_par_marque.html:30
@@ -3760,7 +3731,8 @@ msgstr "Δεν υπάρχουν καταχωρημένα μοντέλα για �
 
 #: .\theme\templates\voiture_modele\modeles_par_marque.html:37
 msgid "Image du modèle"
-msgstr ""
+msgstr "Εικόνα του μοντέλου"
+
 
 #: .\theme\templates\voiture_moteur\list.html:4
 #: .\theme\templates\voiture_moteur\list.html:7
@@ -3770,7 +3742,8 @@ msgstr "Λίστα κινητήρων"
 
 #: .\theme\templates\voiture_moteur\list.html:14
 msgid "Type"
-msgstr ""
+msgstr "Τύπος"
+
 
 #: .\theme\templates\voiture_moteur\list.html:16
 #: .\theme\templates\voiture_moteur\moteur_detail.html:31
@@ -3779,14 +3752,10 @@ msgid "Cylindrée (L)"
 msgstr "Κυβισμός (L)"
 
 #: .\theme\templates\voiture_moteur\list.html:17
-#, fuzzy
-#| msgid "Puissance (ch)"
 msgid "Puissance (CH)"
 msgstr "Ισχύς (ίπποι)"
 
 #: .\theme\templates\voiture_moteur\list.html:32
-#, fuzzy
-#| msgid "Aucun moteur trouvé"
 msgid "Aucun moteur trouvé."
 msgstr "Δεν βρέθηκε κινητήρας"
 
@@ -3917,7 +3886,8 @@ msgstr "Ο κινητήρας δεν βρέθηκε"
 
 #: .\voiture\voiture_exemplaire\views.py:116
 msgid "Le moteur a été lié à l'exemplaire avec succès."
-msgstr ""
+msgstr "Ο κινητήρας συνδέθηκε με το δείγμα με επιτυχία."
+
 
 #: .\voiture\voiture_exemplaire\views.py:122
 msgid "Lier un moteur à un véhicule"
