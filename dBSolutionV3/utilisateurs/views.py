@@ -11,9 +11,7 @@ from .models import Utilisateur
 from django.utils.translation import gettext as _
 from voiture.voiture_marque.models import VoitureMarque
 from voiture.voiture_moteur.models import MoteurVoiture
-
-
-
+from adresse.models import Adresse
 
 
 def login_view(request):
@@ -201,7 +199,6 @@ def totp_setup_view(request):
 
 
 
-from adresse.models import Adresse
 
 def is_admin(user):
     return user.is_staff and user.is_superuser
@@ -267,7 +264,9 @@ def dashboard_admin(request):
         "utilisateurs_actifs": utilisateurs_actifs,
         "total_admins": total_admins,
     }
-    return render(request, "utilisateurs/dashboard_admin.html", context)
+    return render(request, "admin/dashboard_admin.html", context)
+
+
 
 @login_required
 @user_passes_test(is_admin)

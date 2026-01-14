@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-11 14:12+0100\n"
+"POT-Creation-Date: 2026-01-14 08:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -66,6 +66,7 @@ msgid "Nom de la société"
 msgstr "Nome della società"
 
 #: .\carrosserie\models.py:13
+#: .\theme\templates\utilisateurs\liste_utilisateurs.html:19
 msgid "Téléphone"
 msgstr "Telefono"
 
@@ -199,10 +200,12 @@ msgid "Intervention %(id)s"
 msgstr "Intervento %(id)s"
 
 #: .\client\models.py:8 .\piece\models.py:8
+#: .\theme\templates\utilisateurs\liste_utilisateurs.html:15
 msgid "Nom"
 msgstr "Nome"
 
 #: .\client\models.py:9
+#: .\theme\templates\utilisateurs\liste_utilisateurs.html:16
 msgid "Prénom"
 msgstr "Cognome"
 
@@ -411,7 +414,7 @@ msgstr "Veicolo"
 msgid "Immatriculation"
 msgstr "Targa"
 
-#: .\fuel\models.py:39 .\theme\templates\tenant\moteurs_list.html:37
+#: .\fuel\models.py:39 .\theme\templates\voiture_moteur\moteurs_list.html:37
 #, fuzzy
 #| msgid "Type de pneu"
 msgid "Type de carburant"
@@ -441,7 +444,8 @@ msgstr "Prezzo al litro (€)"
 msgid "Validation"
 msgstr "Conferma"
 
-#: .\fuel\models.py:51 .\theme\templates\tenant\moteur_detail.html:26
+#: .\fuel\models.py:51 .\theme\templates\voiture_moteur\list.html:15
+#: .\theme\templates\voiture_moteur\moteur_detail.html:26
 msgid "Carburant"
 msgstr "Carburante"
 
@@ -866,14 +870,14 @@ msgid "Non précisé"
 msgstr "Non specificato"
 
 #: .\maintenance\jeux_pieces\models.py:108 .\maintenance\models.py:34
-#: .\utilisateurs\models.py:73 .\utilisateurs\views.py:131
+#: .\utilisateurs\models.py:73 .\utilisateurs\views.py:129
 msgid "Apprenti"
 msgstr "Apprendista"
 
 #: .\maintenance\jeux_pieces\models.py:109 .\maintenance\models.py:26
 #: .\maintenance\nettoyage_exterieur\models.py:25
 #: .\maintenance\nettoyage_interieur\models.py:26 .\utilisateurs\models.py:74
-#: .\utilisateurs\views.py:132
+#: .\utilisateurs\views.py:130
 msgid "Mécanicien"
 msgstr "Meccanico"
 
@@ -971,7 +975,7 @@ msgstr "Conferma finale"
 
 #: .\maintenance\nettoyage_exterieur\models.py:34
 #: .\maintenance\nettoyage_interieur\models.py:38 .\piece\models.py:127
-#: .\piece\piece_fluides\models.py:66 .\theme\templates\dashboard.html:38
+#: .\piece\piece_fluides\models.py:66 .\theme\templates\dashboard.html:39
 msgid "Date"
 msgstr ""
 
@@ -997,7 +1001,7 @@ msgstr "Vetri porta"
 
 #: .\maintenance\nettoyage_interieur\models.py:33
 #: .\theme\templates\dashboard.html:5
-#: .\theme\templates\tenant\moteurs_list.html:4
+#: .\theme\templates\voiture_moteur\moteurs_list.html:4
 msgid "Tableau de bord"
 msgstr "Cruscotto"
 
@@ -1358,8 +1362,8 @@ msgid "Puissance en watts"
 msgstr "Potenza in watt"
 
 #: .\piece\piece_ampoules\models.py:60 .\piece\piece_feux\models.py:29
-#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:24
-#: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:20
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:21
+#: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:43
 msgid "Couleur"
 msgstr "Colore"
 
@@ -2635,7 +2639,7 @@ msgid "Poulie de Vilebrequin"
 msgstr "Puleggia albero motore"
 
 #: .\piece\piece_moteur\models.py:29
-#: .\theme\templates\tenant\moteur_detail.html:41
+#: .\theme\templates\voiture_moteur\moteur_detail.html:41
 msgid "Distribution"
 msgstr "Distribuzione"
 
@@ -3359,6 +3363,61 @@ msgstr "Torna alla pagina precedente"
 msgid "Retour à l'accueil"
 msgstr "Torna alla home"
 
+#: .\theme\templates\admin\dashboard_admin.html:8
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Tableau de bord Administrateur"
+msgstr "Cruscotto"
+
+#: .\theme\templates\admin\dashboard_admin.html:15
+#, fuzzy
+#| msgid "Utilisateurs"
+msgid "Total utilisateurs"
+msgstr "Utenti"
+
+#: .\theme\templates\admin\dashboard_admin.html:21
+#, fuzzy
+#| msgid "Utilisateurs"
+msgid "Utilisateurs actifs"
+msgstr "Utenti"
+
+#: .\theme\templates\admin\dashboard_admin.html:27
+#, fuzzy
+#| msgid "Administrateur"
+msgid "Administrateurs"
+msgstr "Amministratore"
+
+#: .\theme\templates\admin\dashboard_admin.html:38
+#: .\theme\templates\utilisateurs\creer_utilisateur.html:6
+#, fuzzy
+#| msgid "Créer le moteur"
+msgid "Créer un utilisateur"
+msgstr "Crea motore"
+
+#: .\theme\templates\admin\dashboard_admin.html:39
+#, fuzzy
+#| msgid "Ajouter un exemplaire pour"
+msgid "Ajouter un nouvel employé ou administrateur."
+msgstr "Aggiungi un esemplare per"
+
+#: .\theme\templates\admin\dashboard_admin.html:44
+#, fuzzy
+#| msgid "Utilisateurs"
+msgid "Gérer les utilisateurs"
+msgstr "Utenti"
+
+#: .\theme\templates\admin\dashboard_admin.html:45
+msgid "Voir, modifier ou désactiver les comptes."
+msgstr ""
+
+#: .\theme\templates\admin\dashboard_admin.html:50
+msgid "Admin Django"
+msgstr ""
+
+#: .\theme\templates\admin\dashboard_admin.html:51
+msgid "Accéder à l’interface technique Django."
+msgstr ""
+
 #: .\theme\templates\base.html:9
 msgid "dBSolution"
 msgstr "dBSolution"
@@ -3376,68 +3435,67 @@ msgid "Changer"
 msgstr "Cambia"
 
 #: .\theme\templates\dashboard.html:8
-#: .\theme\templates\tenant\moteurs_list.html:7 .\theme\views.py:81
+#: .\theme\templates\voiture_moteur\moteurs_list.html:7 .\theme\views.py:81
 msgid "Bienvenue sur ton tableau de bord"
 msgstr "Benvenuto nel tuo pannello di controllo"
 
-#: .\theme\templates\dashboard.html:14
+#: .\theme\templates\dashboard.html:15
 msgid "Utilisateurs"
 msgstr "Utenti"
 
-#: .\theme\templates\dashboard.html:15 .\theme\templates\dashboard.html:64
-#: .\theme\templates\dashboard.html:76
-#: .\theme\templates\tenant\moteurs_list.html:16
-#: .\theme\templates\tenant\moteurs_list.html:22
+#: .\theme\templates\dashboard.html:16 .\theme\templates\dashboard.html:67
+#: .\theme\templates\voiture_moteur\moteurs_list.html:16
+#: .\theme\templates\voiture_moteur\moteurs_list.html:22
 msgid "Nombre total :"
 msgstr "Numero totale:"
 
-#: .\theme\templates\dashboard.html:20
+#: .\theme\templates\dashboard.html:21
 msgid "Projets"
 msgstr "Progetti"
 
-#: .\theme\templates\dashboard.html:21
+#: .\theme\templates\dashboard.html:22
 msgid "Projets actifs :"
 msgstr "Progetti attivi:"
 
-#: .\theme\templates\dashboard.html:26
+#: .\theme\templates\dashboard.html:27
 msgid "Notifications"
 msgstr "Notifiche"
 
-#: .\theme\templates\dashboard.html:27
+#: .\theme\templates\dashboard.html:28
 msgid "Messages non lus :"
 msgstr "Messaggi non letti:"
 
-#: .\theme\templates\dashboard.html:34
+#: .\theme\templates\dashboard.html:35
 msgid "Dernières activités"
 msgstr "Ultime attività"
 
-#: .\theme\templates\dashboard.html:39
+#: .\theme\templates\dashboard.html:40
 msgid "Utilisateur"
 msgstr "Utente"
 
-#: .\theme\templates\dashboard.html:40
+#: .\theme\templates\dashboard.html:41
 msgid "Action"
 msgstr "Azione"
 
-#: .\theme\templates\dashboard.html:47
+#: .\theme\templates\dashboard.html:48
 msgid "Connexion"
 msgstr "Accesso"
 
-#: .\theme\templates\dashboard.html:52
+#: .\theme\templates\dashboard.html:53
 msgid "Modification de projet"
 msgstr "Modifica progetto"
 
-#: .\theme\templates\dashboard.html:62
-#: .\theme\templates\tenant\moteurs_list.html:15
-#: .\theme\templates\voiture\marques.html:7
+#: .\theme\templates\dashboard.html:65
+#: .\theme\templates\voiture_marque\marques_list.html:7
+#: .\theme\templates\voiture_moteur\moteurs_list.html:15
 msgid "Marques de voiture"
 msgstr "Marchi automobilistici"
 
-#: .\theme\templates\dashboard.html:75
-#: .\theme\templates\tenant\moteurs_list.html:21
-#: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:25
-msgid "Moteurs"
-msgstr "Motori"
+#: .\theme\templates\dashboard.html:88
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Tableau de bord Admin"
+msgstr "Cruscotto"
 
 #: .\theme\templates\home.html:20
 msgid "Bienvenue"
@@ -3450,83 +3508,6 @@ msgstr "Questo è un paragrafo stilizzato con Tailwind."
 #: .\theme\templates\home.html:29
 msgid "Se connecter"
 msgstr "Accedi"
-
-#: .\theme\templates\tenant\moteur_detail.html:7
-#: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:75
-msgid "Détails du moteur"
-msgstr "Dettagli del motore"
-
-#: .\theme\templates\tenant\moteur_detail.html:11
-#: .\theme\templates\tenant\moteurs_list.html:34
-#: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:64
-msgid "Motoriste"
-msgstr "Costruttore"
-
-#: .\theme\templates\tenant\moteur_detail.html:16
-#: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:62
-msgid "Code moteur"
-msgstr "Codice motore"
-
-#: .\theme\templates\tenant\moteur_detail.html:21
-msgid "Type moteur"
-msgstr "Tipo di motore"
-
-#: .\theme\templates\tenant\moteur_detail.html:31
-#: .\theme\templates\tenant\moteurs_list.html:35
-msgid "Cylindrée (L)"
-msgstr "Cilindrata (L)"
-
-#: .\theme\templates\tenant\moteur_detail.html:36
-#: .\theme\templates\tenant\moteurs_list.html:36
-msgid "Puissance (ch)"
-msgstr "Potenza (CV)"
-
-#: .\theme\templates\tenant\moteur_detail.html:46
-msgid "Nombre de cylindres"
-msgstr "Numero di cilindri"
-
-#: .\theme\templates\tenant\moteurs_list.html:29
-msgid "Liste des moteurs"
-msgstr "Elenco dei motori"
-
-#: .\theme\templates\tenant\moteurs_list.html:38
-#: .\theme\templates\tenant\moteurs_list.html:50
-msgid "Info"
-msgstr "Informazioni"
-
-#: .\theme\templates\tenant\moteurs_list.html:56
-#: .\theme\templates\tenant\moteurs_list.html:74
-#: .\theme\templates\tenant\moteurs_list.html:75
-msgid "Aucun moteur trouvé"
-msgstr "Nessun motore trovato"
-
-#: .\theme\templates\tenant\moteurs_list.html:71
-msgid "Rechercher:"
-msgstr "Cerca:"
-
-#: .\theme\templates\tenant\moteurs_list.html:72
-msgid "Afficher _MENU_ éléments"
-msgstr "Mostra _MENU_ elementi"
-
-#: .\theme\templates\tenant\moteurs_list.html:73
-msgid "Affichage de _START_ à _END_ sur _TOTAL_ moteurs"
-msgstr "Visualizzazione da _START_ a _END_ di _TOTAL_ motori"
-
-#: .\theme\templates\tenant\moteurs_list.html:77
-msgid "Premier"
-msgstr "Primo"
-
-#: .\theme\templates\tenant\moteurs_list.html:78
-msgid "Dernier"
-msgstr "Ultimo"
-
-#: .\theme\templates\tenant\moteurs_list.html:79
-msgid "Suivant"
-msgstr "Successivo"
-
-#: .\theme\templates\tenant\moteurs_list.html:80
-msgid "Précédent"
-msgstr "Precedente"
 
 #: .\theme\templates\totp\setup.html:5
 msgid "Configurer TOTP"
@@ -3564,85 +3545,301 @@ msgstr "Codice generato da Google Authenticator"
 msgid "Valider"
 msgstr "Conferma"
 
-#: .\theme\templates\voiture\ajouter_exemplaire.html:10
+#: .\theme\templates\utilisateurs\liste_utilisateurs.html:8
+#, fuzzy
+#| msgid "Liste des moteurs"
+msgid "Liste des utilisateurs"
+msgstr "Elenco dei motori"
+
+#: .\theme\templates\utilisateurs\liste_utilisateurs.html:17
+msgid "Email Google"
+msgstr ""
+
+#: .\theme\templates\utilisateurs\liste_utilisateurs.html:18
+#: .\utilisateurs\models.py:89
+msgid "Rôle"
+msgstr "Ruolo"
+
+#: .\theme\templates\utilisateurs\liste_utilisateurs.html:36
+#, fuzzy
+#| msgid "Aucun moteur trouvé"
+msgid "Aucun utilisateur trouvé."
+msgstr "Nessun motore trovato"
+
+#: .\theme\templates\utilisateurs\liste_utilisateurs.html:41
+msgid "Créer un nouvel utilisateur"
+msgstr ""
+
+#: .\theme\templates\utilisateurs\liste_utilisateurs.html:54
+#, fuzzy
+#| msgid "Rechercher:"
+msgid "Rechercher :"
+msgstr "Cerca:"
+
+#: .\theme\templates\utilisateurs\liste_utilisateurs.html:55
+#, fuzzy
+#| msgid "Afficher _MENU_ éléments"
+msgid "Afficher _MENU_ entrées"
+msgstr "Mostra _MENU_ elementi"
+
+#: .\theme\templates\utilisateurs\liste_utilisateurs.html:56
+#, fuzzy
+#| msgid "Aucun moteur trouvé"
+msgid "Aucun résultat trouvé"
+msgstr "Nessun motore trovato"
+
+#: .\theme\templates\utilisateurs\liste_utilisateurs.html:57
+#, fuzzy
+#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ moteurs"
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ entrées"
+msgstr "Visualizzazione da _START_ a _END_ di _TOTAL_ motori"
+
+#: .\theme\templates\utilisateurs\liste_utilisateurs.html:58
+msgid "Aucune entrée disponible"
+msgstr ""
+
+#: .\theme\templates\utilisateurs\liste_utilisateurs.html:59
+msgid "(filtré à partir de _MAX_ entrées totales)"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire.html:10
 msgid "Ajouter un exemplaire pour"
 msgstr "Aggiungi un esemplare per"
 
-#: .\theme\templates\voiture\ajouter_exemplaire.html:29
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire.html:29
 msgid "Ajouter"
 msgstr "Aggiungi"
 
-#: .\theme\templates\voiture\marques.html:12
-msgid "Mes marques favorites"
-msgstr "I miei marchi preferiti"
-
-#: .\theme\templates\voiture\marques.html:47
-msgid "Voir les modèles de cette marque"
-msgstr "Vedi i modelli di questo marchio"
-
-#: .\theme\templates\voiture\modeles_list.html:7
-msgid "Modèles de"
-msgstr "Modelli di"
-
-#: .\theme\templates\voiture\modeles_list.html:22
-msgid "portes"
-msgstr "Porta"
-
-#: .\theme\templates\voiture\modeles_list.html:22
-msgid "places"
-msgstr "posti"
-
-#: .\theme\templates\voiture\modeles_list.html:38
-msgid "Aucun modèle enregistré pour cette marque."
-msgstr "Nessun modello registrato per questo marchio."
-
-#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:7
-msgid "Exemplaires de"
-msgstr "Esemplari di"
-
-#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:18
-#: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:18
-msgid "Année de production"
-msgstr "Anno di produzione"
-
-#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:21
-#: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:19
-msgid "Kilométrage"
-msgstr "Chilometraggio"
-
-#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:31
-msgid "Ce modèle ne contient aucun exemplaire enregistré."
-msgstr "Questo modello non contiene alcun esemplare registrato."
-
-#: .\theme\templates\voiture_exemplaire\voiture_exemplaire.html:39
-msgid "Ajouter un véhicule"
-msgstr "Aggiungi un veicolo"
-
-#: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:9
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:10
 msgid "Détails du véhicule"
 msgstr "Dettagli del veicolo"
 
-#: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:17
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:18
 msgid "Informations générales"
 msgstr "Informazioni generali"
 
-#: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:36
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:19
+#: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:36
+msgid "Année de production"
+msgstr "Anno di produzione"
+
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:20
+#: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:39
+msgid "Kilométrage"
+msgstr "Chilometraggio"
+
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:21
+msgid "Non renseignée"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:26
+#: .\theme\templates\voiture_moteur\moteurs_list.html:21
+msgid "Moteurs"
+msgstr "Motori"
+
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:37
 msgid "Aucun moteur enregistré pour cet exemplaire."
 msgstr "Nessun motore registrato per questo esemplare."
 
-#: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:45
-#: .\voiture\voiture_moteur\views.py:31
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:46
+#: .\voiture\voiture_moteur\views.py:33
 msgid "Ajouter un moteur"
 msgstr "Aggiungi un motore"
 
-#: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:51
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:52
 msgid "Lier un moteur existant"
 msgstr "Collega un motore esistente"
 
-#: .\theme\templates\voiture_exemplaire\voiture_exemplaire_detail.html:69
-#: .\voiture\voiture_exemplaire\views.py:98
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:63
+#: .\theme\templates\voiture_moteur\list.html:13
+#: .\theme\templates\voiture_moteur\moteur_detail.html:16
+msgid "Code moteur"
+msgstr "Codice motore"
+
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:66
+#: .\theme\templates\voiture_moteur\list.html:12
+#: .\theme\templates\voiture_moteur\moteur_detail.html:11
+#: .\theme\templates\voiture_moteur\moteurs_list.html:34
+msgid "Motoriste"
+msgstr "Costruttore"
+
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:70
+#: .\voiture\voiture_exemplaire\views.py:124
 msgid "Lier le moteur"
 msgstr "Collega il motore"
+
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:76
+#: .\theme\templates\voiture_moteur\moteur_detail.html:7
+msgid "Détails du moteur"
+msgstr "Dettagli del motore"
+
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:110
+msgid "Erreur lors de la récupération du moteur."
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:9
+msgid "Exemplaires de"
+msgstr "Esemplari di"
+
+#: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:20
+msgid "Rechercher un exemplaire par immatriculation..."
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:51
+msgid "Image de l’exemplaire"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:63
+#: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:76
+#, fuzzy
+#| msgid "Ajouter un exemplaire pour"
+msgid "Ajouter un exemplaire"
+msgstr "Aggiungi un esemplare per"
+
+#: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:72
+#, fuzzy
+#| msgid "Aucun modèle enregistré pour cette marque."
+msgid "Aucun exemplaire enregistré pour ce modèle."
+msgstr "Nessun modello registrato per questo marchio."
+
+#: .\theme\templates\voiture_exemplaire\modifier_exemplaire.html:7
+#, fuzzy
+#| msgid "Voiture exemplaire"
+msgid "Modifier l'exemplaire"
+msgstr "Esemplare auto"
+
+#: .\theme\templates\voiture_exemplaire\modifier_exemplaire.html:13
+#, fuzzy
+#| msgid "Date de modification"
+msgid "Enregistrer les modifications"
+msgstr "Data di modifica"
+
+#: .\theme\templates\voiture_exemplaire\modifier_exemplaire.html:17
+msgid "Annuler"
+msgstr ""
+
+#: .\theme\templates\voiture_marque\marques_list.html:12
+msgid "Mes marques favorites"
+msgstr "I miei marchi preferiti"
+
+#: .\theme\templates\voiture_marque\marques_list.html:31
+#, fuzzy
+#| msgid "Rechercher:"
+msgid "Rechercher..."
+msgstr "Cerca:"
+
+#: .\theme\templates\voiture_marque\marques_list.html:46
+msgid "Voir les modèles de cette marque"
+msgstr "Vedi i modelli di questo marchio"
+
+#: .\theme\templates\voiture_modele\modeles_list.html:7
+#: .\theme\templates\voiture_modele\modeles_par_marque.html:7
+msgid "Modèles de"
+msgstr "Modelli di"
+
+#: .\theme\templates\voiture_modele\modeles_list.html:11
+#: .\theme\templates\voiture_modele\modeles_par_marque.html:11
+msgid "Rechercher un modèle..."
+msgstr ""
+
+#: .\theme\templates\voiture_modele\modeles_list.html:29
+#: .\theme\templates\voiture_modele\modeles_par_marque.html:30
+msgid "portes"
+msgstr "Porta"
+
+#: .\theme\templates\voiture_modele\modeles_list.html:29
+#: .\theme\templates\voiture_modele\modeles_par_marque.html:30
+msgid "places"
+msgstr "posti"
+
+#: .\theme\templates\voiture_modele\modeles_list.html:45
+#: .\theme\templates\voiture_modele\modeles_par_marque.html:46
+msgid "Aucun modèle enregistré pour cette marque."
+msgstr "Nessun modello registrato per questo marchio."
+
+#: .\theme\templates\voiture_modele\modeles_par_marque.html:37
+msgid "Image du modèle"
+msgstr ""
+
+#: .\theme\templates\voiture_moteur\list.html:4
+#: .\theme\templates\voiture_moteur\list.html:7
+#: .\theme\templates\voiture_moteur\moteurs_list.html:29
+msgid "Liste des moteurs"
+msgstr "Elenco dei motori"
+
+#: .\theme\templates\voiture_moteur\list.html:14
+msgid "Type"
+msgstr ""
+
+#: .\theme\templates\voiture_moteur\list.html:16
+#: .\theme\templates\voiture_moteur\moteur_detail.html:31
+#: .\theme\templates\voiture_moteur\moteurs_list.html:35
+msgid "Cylindrée (L)"
+msgstr "Cilindrata (L)"
+
+#: .\theme\templates\voiture_moteur\list.html:17
+#, fuzzy
+#| msgid "Puissance (ch)"
+msgid "Puissance (CH)"
+msgstr "Potenza (CV)"
+
+#: .\theme\templates\voiture_moteur\list.html:32
+#, fuzzy
+#| msgid "Aucun moteur trouvé"
+msgid "Aucun moteur trouvé."
+msgstr "Nessun motore trovato"
+
+#: .\theme\templates\voiture_moteur\moteur_detail.html:21
+msgid "Type moteur"
+msgstr "Tipo di motore"
+
+#: .\theme\templates\voiture_moteur\moteur_detail.html:36
+#: .\theme\templates\voiture_moteur\moteurs_list.html:36
+msgid "Puissance (ch)"
+msgstr "Potenza (CV)"
+
+#: .\theme\templates\voiture_moteur\moteur_detail.html:46
+msgid "Nombre de cylindres"
+msgstr "Numero di cilindri"
+
+#: .\theme\templates\voiture_moteur\moteurs_list.html:38
+#: .\theme\templates\voiture_moteur\moteurs_list.html:50
+msgid "Info"
+msgstr "Informazioni"
+
+#: .\theme\templates\voiture_moteur\moteurs_list.html:56
+#: .\theme\templates\voiture_moteur\moteurs_list.html:74
+#: .\theme\templates\voiture_moteur\moteurs_list.html:75
+msgid "Aucun moteur trouvé"
+msgstr "Nessun motore trovato"
+
+#: .\theme\templates\voiture_moteur\moteurs_list.html:71
+msgid "Rechercher:"
+msgstr "Cerca:"
+
+#: .\theme\templates\voiture_moteur\moteurs_list.html:72
+msgid "Afficher _MENU_ éléments"
+msgstr "Mostra _MENU_ elementi"
+
+#: .\theme\templates\voiture_moteur\moteurs_list.html:73
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ moteurs"
+msgstr "Visualizzazione da _START_ a _END_ di _TOTAL_ motori"
+
+#: .\theme\templates\voiture_moteur\moteurs_list.html:77
+msgid "Premier"
+msgstr "Primo"
+
+#: .\theme\templates\voiture_moteur\moteurs_list.html:78
+msgid "Dernier"
+msgstr "Ultimo"
+
+#: .\theme\templates\voiture_moteur\moteurs_list.html:79
+msgid "Suivant"
+msgstr "Successivo"
+
+#: .\theme\templates\voiture_moteur\moteurs_list.html:80
+msgid "Précédent"
+msgstr "Precedente"
 
 #: .\theme\views.py:35
 msgid "Nom d'utilisateur ou mot de passe incorrect"
@@ -3668,74 +3865,80 @@ msgstr "Risorse Umane"
 msgid "Operations"
 msgstr "Operaciones"
 
-#: .\utilisateurs\models.py:75 .\utilisateurs\views.py:135
+#: .\utilisateurs\models.py:75 .\utilisateurs\views.py:133
 msgid "Magasinier"
 msgstr "Almacenero"
 
-#: .\utilisateurs\models.py:76 .\utilisateurs\views.py:133
+#: .\utilisateurs\models.py:76 .\utilisateurs\views.py:131
 msgid "Carrossier"
 msgstr "Carrocero"
 
-#: .\utilisateurs\models.py:77 .\utilisateurs\views.py:134
+#: .\utilisateurs\models.py:77 .\utilisateurs\views.py:132
 msgid "Chef Mécanicien"
 msgstr "Capo meccanico"
 
-#: .\utilisateurs\models.py:78 .\utilisateurs\views.py:136
+#: .\utilisateurs\models.py:78 .\utilisateurs\views.py:134
 msgid "Instructeur"
 msgstr "Instructor"
 
-#: .\utilisateurs\models.py:79 .\utilisateurs\views.py:137
+#: .\utilisateurs\models.py:79 .\utilisateurs\views.py:135
 msgid "Instructeur Externe"
 msgstr "Instructor externo"
 
-#: .\utilisateurs\models.py:80 .\utilisateurs\views.py:138
+#: .\utilisateurs\models.py:80 .\utilisateurs\views.py:136
 msgid "Vendeur"
 msgstr "Vendedor"
 
-#: .\utilisateurs\models.py:81 .\utilisateurs\views.py:139
+#: .\utilisateurs\models.py:81 .\utilisateurs\views.py:137
 msgid "Comptable"
 msgstr "Contable"
 
-#: .\utilisateurs\models.py:82 .\utilisateurs\views.py:140
+#: .\utilisateurs\models.py:82 .\utilisateurs\views.py:138
 msgid "Direction"
 msgstr "Dirección"
 
-#: .\utilisateurs\models.py:89
-msgid "Rôle"
-msgstr "Ruolo"
-
-#: .\utilisateurs\views.py:107
+#: .\utilisateurs\views.py:105
 msgid "Révision moteur"
 msgstr "Revisión del motor"
 
-#: .\utilisateurs\views.py:107
+#: .\utilisateurs\views.py:105
 msgid "Changement filtre"
 msgstr "Cambio de filtro"
 
-#: .\utilisateurs\views.py:127 .\utilisateurs\views.py:142
+#: .\utilisateurs\views.py:125 .\utilisateurs\views.py:140
 msgid "Rôle inconnu"
 msgstr "Rol desconocido"
 
-#: .\voiture\voiture_exemplaire\views.py:78
-#: .\voiture\voiture_exemplaire\views.py:116
+#: .\voiture\voiture_exemplaire\views.py:104
+#: .\voiture\voiture_exemplaire\views.py:142
 msgid "Moteur non trouvé"
 msgstr "Motore non trovato"
 
-#: .\voiture\voiture_exemplaire\views.py:96
+#: .\voiture\voiture_exemplaire\views.py:116
+msgid "Le moteur a été lié à l'exemplaire avec succès."
+msgstr ""
+
+#: .\voiture\voiture_exemplaire\views.py:122
 msgid "Lier un moteur à un véhicule"
 msgstr "Collega un motore a un veicolo"
 
-#: .\voiture\voiture_exemplaire\views.py:97
+#: .\voiture\voiture_exemplaire\views.py:123
 msgid "Voulez-vous lier ce moteur à ce véhicule ?"
 msgstr "Vuoi collegare questo motore a questo veicolo?"
 
-#: .\voiture\voiture_exemplaire\views.py:111
+#: .\voiture\voiture_exemplaire\views.py:137
 msgid "Paramètres manquants"
 msgstr "Parametri mancanti"
 
-#: .\voiture\voiture_moteur\views.py:32
+#: .\voiture\voiture_moteur\views.py:34
 msgid "Créer le moteur"
 msgstr "Crea motore"
+
+#~ msgid "Ce modèle ne contient aucun exemplaire enregistré."
+#~ msgstr "Questo modello non contiene alcun esemplare registrato."
+
+#~ msgid "Ajouter un véhicule"
+#~ msgstr "Aggiungi un veicolo"
 
 #~ msgid "Adresse email ou mot de passe incorrect"
 #~ msgstr "Indirizzo email o password non corretti"
