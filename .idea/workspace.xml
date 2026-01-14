@@ -4,15 +4,152 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="traductions grec">
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture_moteur/ajouter_moteur_seul.html" afterDir="false" />
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="vues moteur">
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/Audi-S-line-1400x5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/Sans titre.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/SsangYong.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/abarth.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/acura.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/aiways.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/alfa romeo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/alpine.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/aston martin vantage.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/aston martin.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/audi rs.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/audi s.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/audi.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/bentley.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/bmw m.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/bmw.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/borgward.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/bugatti.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/buick.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/byd.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/cadillac.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/chery.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/chevrolet.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/chrysler.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/citroën sport.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/citroën.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/cupra.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/dacia.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/daewoo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/daihatsu.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/de tomaso.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/default.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/dodge srt.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/dodge.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/ds automobiles.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/ferrari.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/fiat.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/fisker.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/ford gt.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/ford.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/gaz.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/geely.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/genesis g70 sport.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/genesis.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/gmc.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/great wall.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/gurgel.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/haval.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/hindustan motors.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/hispano-suiza.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/holden.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/honda type r.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/honda.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/hongqi.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/hummer.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/hyundai n.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/hyundai.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/infiniti.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/innocenti.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/iran khodro.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/isuzu.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/jaguar r.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/jaguar.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/jeep.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/kia gt.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/kia.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/koenigsegg.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/lada.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/lamborghini.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/lancia.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/land rover.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/lexus.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/li auto.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/lincoln.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/lotus exige.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/lotus.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/lucid.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/mahindra.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/maserati.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/maybach.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/mazda speed.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/mazda.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/mclaren.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/mercedes-amg.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/mercedes-benz.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/mercury.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/mg.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/mini.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/mitsubishi evo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/mitsubishi.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/morgan.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/moskvitch.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/nio.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/nissan nismo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/nissan.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/oldsmobile.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/opel.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/pagani.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/peugeot sport.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/peugeot.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/polestar.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/pontiac.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/porsche.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/radical.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/ram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/range rover.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/renault rs.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/renault.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/rimac.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/rivian.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/rolls-royce.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/rover.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/saab.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/saic.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/saipa.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/seat.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/simca.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/skoda.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/smart.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/subaru sti.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/subaru.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/suzuki.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/talbot.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/tata.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/tatra.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/tesla performance.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/tesla.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/toyota gr.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/toyota.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/triumph.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/tvr.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/uaz.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/venturi.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/vinfast.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/volkswagen r.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/volkswagen.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/volvo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/wartburg.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/wuling.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/xpeng.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/zil.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture_moteur/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture_moteur/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture_moteur/moteurs_list.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_moteur/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_moteur/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_moteur/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_moteur/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture_modele/modeles_par_marque.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture_modele/modeles_par_marque.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_exemplaire/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_exemplaire/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_modele/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_modele/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -225,15 +362,7 @@
       <workItem from="1768312827369" duration="4190000" />
       <workItem from="1768369832844" duration="1644000" />
       <workItem from="1768372248597" duration="8323000" />
-      <workItem from="1768381428732" duration="6569000" />
-    </task>
-    <task id="LOCAL-00211" summary="script modele">
-      <option name="closed" value="true" />
-      <created>1768044375623</created>
-      <option name="number" value="00211" />
-      <option name="presentableId" value="LOCAL-00211" />
-      <option name="project" value="LOCAL" />
-      <updated>1768044375623</updated>
+      <workItem from="1768381428732" duration="7623000" />
     </task>
     <task id="LOCAL-00212" summary="script modele">
       <option name="closed" value="true" />
@@ -619,7 +748,15 @@
       <option name="project" value="LOCAL" />
       <updated>1768383997064</updated>
     </task>
-    <option name="localTasksCounter" value="260" />
+    <task id="LOCAL-00260" summary="vues moteur">
+      <option name="closed" value="true" />
+      <created>1768392473518</created>
+      <option name="number" value="00260" />
+      <option name="presentableId" value="LOCAL-00260" />
+      <option name="project" value="LOCAL" />
+      <updated>1768392473518</updated>
+    </task>
+    <option name="localTasksCounter" value="261" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -637,7 +774,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="exemplaire fomulaire et lien" />
     <MESSAGE value="exemplaire fomulaire et lien traductions" />
     <MESSAGE value="formulaire moteur" />
     <MESSAGE value="script modele" />
@@ -662,7 +798,8 @@
     <MESSAGE value="traductions de" />
     <MESSAGE value="traductions nl" />
     <MESSAGE value="traductions grec" />
-    <option name="LAST_COMMIT_MESSAGE" value="traductions grec" />
+    <MESSAGE value="vues moteur" />
+    <option name="LAST_COMMIT_MESSAGE" value="vues moteur" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
