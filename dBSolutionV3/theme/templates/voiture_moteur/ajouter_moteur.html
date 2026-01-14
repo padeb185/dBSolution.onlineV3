@@ -1,23 +1,36 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% load widget_tweaks %}
 
 {% block content %}
-<h1>Ajouter un moteur pour {{ exemplaire }}</h1>
+<div class="max-w-xl mx-auto p-6 bg-white rounded shadow mt-16 mb-16">
+    <h1 class="text-2xl font-bold mb-4 text-center">
+        {% trans "Ajouter un moteur pour" %} {{ exemplaire }}
+    </h1>
 
-<form method="post">
-    {% csrf_token %}
-    {% for field in form %}
-        <div class="mb-4">
-            <label>{{ field.label }}</label>
-            {{ field|add_class:"border p-2 rounded w-full" }}
-            {% if field.help_text %}
-                <small class="text-gray-500">{{ field.help_text }}</small>
-            {% endif %}
-            {% for error in field.errors %}
-                <p class="text-red-500">{{ error }}</p>
-            {% endfor %}
-        </div>
+    {% for message in messages %}
+        <div class="mb-3 text-red-600">{{ message }}</div>
     {% endfor %}
-    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Ajouter</button>
-</form>
+
+    <form method="post" class="flex flex-col space-y-4">
+        {% csrf_token %}
+
+        {% for field in form %}
+            <div class="flex flex-col">
+                <label class="mb-1 font-medium">{{ field.label }}</label>
+                {{ field|add_class:"border border-gray-300 rounded px-4 py-2 w-full" }}
+                {% if field.help_text %}
+                    <small class="text-gray-500 mt-1">{{ field.help_text }}</small>
+                {% endif %}
+                {% if field.errors %}
+                    <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <button type="submit" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded w-full hover:bg-blue-700 transition">
+            {% trans "Ajouter" %}
+        </button>
+    </form>
+</div>
 {% endblock %}
