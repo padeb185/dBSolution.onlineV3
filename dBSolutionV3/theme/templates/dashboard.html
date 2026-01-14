@@ -80,4 +80,14 @@
   min-h-[70vh] flex flex-col items-center justify-center w-full">
 </div>
 
+{% if user.is_staff and user.is_superuser %}
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+
+    <a href="{% url 'utilisateurs:dashboard_admin' %}"
+       class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+         <h2 class="text-lg font-semibold mb-2">{% trans "Tableau de bord Admin" %}</h2>
+    </a>
+{% endif %}
+
+
 {% endblock %}

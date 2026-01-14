@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}Liste des utilisateurs{% endblock %}
+
+{% block content %}
+<div class="p-6">
+    <h1 class="text-3xl font-bold mb-6 text-left">{% trans "Liste des utilisateurs" %}</h1>
+
+    {% if utilisateurs %}
+        <div class="overflow-x-auto bg-white p-4 rounded shadow">
+            <table id="utilisateursTable" class="min-w-full table-auto border border-gray-200 text-left">
+                <thead>
+                    <tr class="bg-gray-100">
+                        <th class="px-4 py-2 border text-left">{% trans "Nom" %}</th>
+                        <th class="px-4 py-2 border text-left">{% trans "Prénom" %}</th>
+                        <th class="px-4 py-2 border text-left">{% trans "Email Google" %}</th>
+                        <th class="px-4 py-2 border text-left">{% trans "Rôle" %}</th>
+                        <th class="px-4 py-2 border text-left">{% trans "Téléphone" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for u in utilisateurs %}
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-4 py-2 border text-left">{{ u.nom }}</td>
+                        <td class="px-4 py-2 border text-left">{{ u.prenom }}</td>
+                        <td class="px-4 py-2 border text-left">{{ u.email_google }}</td>
+                        <td class="px-4 py-2 border text-left">{{ u.get_role_display }}</td>
+                        <td class="px-4 py-2 border text-left">{{ u.telephone }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p class="bg-white p-4 rounded shadow">{% trans "Aucun utilisateur trouvé." %}</p>
+    {% endif %}
+
+    <a href="{% url 'utilisateurs:creer_utilisateur' %}"
+       class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded w-full text-center">
+       {% trans "Créer un nouvel utilisateur" %}
+    </a>
+</div>
+
+<!-- DataTables JS & CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    $('#utilisateursTable').DataTable({
+        "language": {
+            "search": "{% trans 'Rechercher :' %}",
+            "lengthMenu": "{% trans 'Afficher _MENU_ entrées' %}",
+            "zeroRecords": "{% trans 'Aucun résultat trouvé' %}",
+            "info": "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ entrées' %}",
+            "infoEmpty": "{% trans 'Aucune entrée disponible' %}",
+            "infoFiltered": "{% trans '(filtré à partir de _MAX_ entrées totales)' %}"
+        },
+        "paging": true,
+        "ordering": true,
+        "order": [[0, "asc"]] // tri par nom par défaut
+    });
+});
+</script>
+{% endblock %}

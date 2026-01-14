@@ -4,17 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="base dd">
-      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/utilisateurs/creer_utilisateur.html" afterDir="false" />
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="admin utilistateur/creer">
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/admin/dashboard_admin.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/utilisateurs/liste_utilisateurs.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dBSolution.onlineV3.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dBSolution.onlineV3.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/project.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/dBSolutionV3/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/dashboard.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/utilisateurs/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/management/commands/create_modele_rsrnurburg.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/management/commands/create_modele_rsrnurburg.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/management/commands/create_modele_rsrspa.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/management/commands/create_modele_rsrspa.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/management/commands/create_modele_suite.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_marque/management/commands/create_modele_suite.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -226,15 +224,7 @@
       <workItem from="1768304983684" duration="6556000" />
       <workItem from="1768312827369" duration="4190000" />
       <workItem from="1768369832844" duration="1644000" />
-      <workItem from="1768372248597" duration="1558000" />
-    </task>
-    <task id="LOCAL-00202" summary="marque favori">
-      <option name="closed" value="true" />
-      <created>1767954146022</created>
-      <option name="number" value="00202" />
-      <option name="presentableId" value="LOCAL-00202" />
-      <option name="project" value="LOCAL" />
-      <updated>1767954146022</updated>
+      <workItem from="1768372248597" duration="3318000" />
     </task>
     <task id="LOCAL-00203" summary="marque favori">
       <option name="closed" value="true" />
@@ -620,7 +610,15 @@
       <option name="project" value="LOCAL" />
       <updated>1768325664832</updated>
     </task>
-    <option name="localTasksCounter" value="251" />
+    <task id="LOCAL-00251" summary="admin utilistateur/creer">
+      <option name="closed" value="true" />
+      <created>1768373930784</created>
+      <option name="number" value="00251" />
+      <option name="presentableId" value="LOCAL-00251" />
+      <option name="project" value="LOCAL" />
+      <updated>1768373930784</updated>
+    </task>
+    <option name="localTasksCounter" value="252" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -638,7 +636,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="voiture_exemplaire.html" />
     <MESSAGE value="modele script" />
     <MESSAGE value="traduction nl" />
     <MESSAGE value="traduction de" />
@@ -663,7 +660,8 @@
     <MESSAGE value="corrections 13/1/26 suite 4" />
     <MESSAGE value="corrections 13/1/26 suite 5" />
     <MESSAGE value="base dd" />
-    <option name="LAST_COMMIT_MESSAGE" value="base dd" />
+    <MESSAGE value="admin utilistateur/creer" />
+    <option name="LAST_COMMIT_MESSAGE" value="admin utilistateur/creer" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

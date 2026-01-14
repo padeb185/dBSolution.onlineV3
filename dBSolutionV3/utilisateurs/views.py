@@ -246,3 +246,33 @@ def creer_utilisateur(request):
     return render(request, "utilisateurs/creer_utilisateur.html", {
         "roles": Utilisateur.ROLE_CHOICES
     })
+
+
+
+
+def is_admin(user):
+    return user.is_staff and user.is_superuser
+
+
+
+@login_required
+@user_passes_test(is_admin)
+def dashboard_admin(request):
+    total_utilisateurs = Utilisateur.objects.count()
+    utilisateurs_actifs = Utilisateur.objects.filter(is_active=True).count()
+    total_admins = Utilisateur.objects.filter(is_staff=True, is_superuser=True).count()
+
+    context = {
+        "total_utilisateurs": total_utilisateurs,
+        "utilisateurs_actifs": utilisateurs_actifs,
+        "total_admins": total_admins,
+    }
+    return render(request, "utilisateurs/dashboard_admin.html", context)
+
+@login_required
+@user_passes_test(is_admin)
+def liste_utilisateurs(request):
+    utilisateurs = Utilisateur.objects.all().order_by("nom")
+    return render(request, "utilisateurs/liste_utilisateurs.html", {
+        "utilisateurs": utilisateurs
+    })

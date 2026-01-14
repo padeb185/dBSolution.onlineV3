@@ -20,10 +20,13 @@ urlpatterns = [
 
 urlpatterns += i18n_patterns(
     path("", home_view, name="home"),
+
+    path("utilisateurs/", include(("utilisateurs.urls", "utilisateurs"), namespace="utilisateurs")),
+
+
     path("admin/", admin.site.urls),
 
-    # Utilisateurs
-    path("utilisateurs/", include("utilisateurs.urls", namespace="utilisateurs")),
+
 
     # Marques
     path("utilisateurs/tenant/", include("voiture.voiture_marque.urls", namespace="voiture_marque")),
@@ -44,7 +47,6 @@ urlpatterns += i18n_patterns(
     path('voiture/exemplaires/<uuid:exemplaire_id>/', voiture_exemplaire_detail, name='detail'),
 
 
-    path("", include("utilisateurs.urls")),
 
 
 )
