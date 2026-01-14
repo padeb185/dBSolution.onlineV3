@@ -38,10 +38,9 @@
                 <!-- Logo de la marque à droite -->
                 <div class="flex-shrink-0">
                     {% with logo_name=marque.nom_marque|lower %}
-                        <img src="{% static 'exemplaire/'|add:logo_name|add:'.png' %}"
-                             onerror="this.onerror=null;this.src='{% static 'exemplaire/default.png' %}'"
-                             alt="{{ marque.nom_marque }}"
-                             class="w-[65px] h-[65px] object-contain">
+                        <img src="{% static 'exemplaires/' %}{{ marque.nom_marque|lower }}.png"
+                             class="w-[65px] h-[65px] object-contain"
+                             onerror="this.src='{% static 'images/marques/default.png' %}'">
                     {% endwith %}
                 </div>
 
