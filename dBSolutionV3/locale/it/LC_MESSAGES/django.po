@@ -3364,59 +3364,49 @@ msgid "Retour à l'accueil"
 msgstr "Torna alla home"
 
 #: .\theme\templates\admin\dashboard_admin.html:8
-#, fuzzy
-#| msgid "Tableau de bord"
 msgid "Tableau de bord Administrateur"
-msgstr "Cruscotto"
+msgstr "Cruscotto Amministratore"
 
 #: .\theme\templates\admin\dashboard_admin.html:15
-#, fuzzy
-#| msgid "Utilisateurs"
 msgid "Total utilisateurs"
-msgstr "Utenti"
+msgstr "Totale utenti"
 
 #: .\theme\templates\admin\dashboard_admin.html:21
-#, fuzzy
-#| msgid "Utilisateurs"
 msgid "Utilisateurs actifs"
-msgstr "Utenti"
+msgstr "Utenti attivi"
+
 
 #: .\theme\templates\admin\dashboard_admin.html:27
-#, fuzzy
-#| msgid "Administrateur"
 msgid "Administrateurs"
 msgstr "Amministratore"
 
 #: .\theme\templates\admin\dashboard_admin.html:38
 #: .\theme\templates\utilisateurs\creer_utilisateur.html:6
-#, fuzzy
-#| msgid "Créer le moteur"
 msgid "Créer un utilisateur"
-msgstr "Crea motore"
+msgstr "Crea un utente"
 
 #: .\theme\templates\admin\dashboard_admin.html:39
-#, fuzzy
-#| msgid "Ajouter un exemplaire pour"
 msgid "Ajouter un nouvel employé ou administrateur."
-msgstr "Aggiungi un esemplare per"
+msgstr "Aggiungi un nuovo dipendente o amministratore."
+
 
 #: .\theme\templates\admin\dashboard_admin.html:44
-#, fuzzy
-#| msgid "Utilisateurs"
 msgid "Gérer les utilisateurs"
-msgstr "Utenti"
+msgstr "Gestire gli utenti"
+
 
 #: .\theme\templates\admin\dashboard_admin.html:45
 msgid "Voir, modifier ou désactiver les comptes."
-msgstr ""
+msgstr "Visualizzare, modificare o disattivare gli account."
 
 #: .\theme\templates\admin\dashboard_admin.html:50
 msgid "Admin Django"
-msgstr ""
+msgstr "Admin Django"
 
 #: .\theme\templates\admin\dashboard_admin.html:51
 msgid "Accéder à l’interface technique Django."
-msgstr ""
+msgstr "Accedere all'interfaccia tecnica di Django."
+
 
 #: .\theme\templates\base.html:9
 msgid "dBSolution"
@@ -3492,10 +3482,9 @@ msgid "Marques de voiture"
 msgstr "Marchi automobilistici"
 
 #: .\theme\templates\dashboard.html:88
-#, fuzzy
-#| msgid "Tableau de bord"
 msgid "Tableau de bord Admin"
-msgstr "Cruscotto"
+msgstr "Cruscotto Admin"
+
 
 #: .\theme\templates\home.html:20
 msgid "Bienvenue"
@@ -3546,14 +3535,13 @@ msgid "Valider"
 msgstr "Conferma"
 
 #: .\theme\templates\utilisateurs\liste_utilisateurs.html:8
-#, fuzzy
-#| msgid "Liste des moteurs"
 msgid "Liste des utilisateurs"
-msgstr "Elenco dei motori"
+msgstr "Elenco degli utenti"
+
 
 #: .\theme\templates\utilisateurs\liste_utilisateurs.html:17
 msgid "Email Google"
-msgstr ""
+msgstr "Email Google"
 
 #: .\theme\templates\utilisateurs\liste_utilisateurs.html:18
 #: .\utilisateurs\models.py:89
@@ -3561,46 +3549,38 @@ msgid "Rôle"
 msgstr "Ruolo"
 
 #: .\theme\templates\utilisateurs\liste_utilisateurs.html:36
-#, fuzzy
-#| msgid "Aucun moteur trouvé"
 msgid "Aucun utilisateur trouvé."
-msgstr "Nessun motore trovato"
+msgstr "Nessun utente trovato."
 
 #: .\theme\templates\utilisateurs\liste_utilisateurs.html:41
 msgid "Créer un nouvel utilisateur"
-msgstr ""
+msgstr "Crea un nuovo utente"
+
 
 #: .\theme\templates\utilisateurs\liste_utilisateurs.html:54
-#, fuzzy
-#| msgid "Rechercher:"
 msgid "Rechercher :"
-msgstr "Cerca:"
+msgstr "Cerca :"
 
 #: .\theme\templates\utilisateurs\liste_utilisateurs.html:55
-#, fuzzy
-#| msgid "Afficher _MENU_ éléments"
 msgid "Afficher _MENU_ entrées"
-msgstr "Mostra _MENU_ elementi"
+msgstr "Mostra _MENU_ voci"
 
 #: .\theme\templates\utilisateurs\liste_utilisateurs.html:56
-#, fuzzy
-#| msgid "Aucun moteur trouvé"
 msgid "Aucun résultat trouvé"
-msgstr "Nessun motore trovato"
+msgstr "Nessun risultato trovato"
 
 #: .\theme\templates\utilisateurs\liste_utilisateurs.html:57
-#, fuzzy
-#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ moteurs"
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ entrées"
-msgstr "Visualizzazione da _START_ a _END_ di _TOTAL_ motori"
+msgstr "Visualizzazione da _START_ a _END_ di _TOTAL_ voci"
 
 #: .\theme\templates\utilisateurs\liste_utilisateurs.html:58
 msgid "Aucune entrée disponible"
-msgstr ""
+msgstr "Nessuna voce disponibile"
 
 #: .\theme\templates\utilisateurs\liste_utilisateurs.html:59
 msgid "(filtré à partir de _MAX_ entrées totales)"
-msgstr ""
+msgstr "(filtrato da _MAX_ voci totali)"
+
 
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire.html:10
 msgid "Ajouter un exemplaire pour"
@@ -3630,7 +3610,8 @@ msgstr "Chilometraggio"
 
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:21
 msgid "Non renseignée"
-msgstr ""
+msgstr "Non indicata"
+
 
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:26
 #: .\theme\templates\voiture_moteur\moteurs_list.html:21
@@ -3675,7 +3656,8 @@ msgstr "Dettagli del motore"
 
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:110
 msgid "Erreur lors de la récupération du moteur."
-msgstr ""
+msgstr "Errore durante il recupero del motore."
+
 
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:9
 msgid "Exemplaires de"
@@ -3683,50 +3665,41 @@ msgstr "Esemplari di"
 
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:20
 msgid "Rechercher un exemplaire par immatriculation..."
-msgstr ""
+msgstr "Cerca un esemplare per targa..."
 
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:51
 msgid "Image de l’exemplaire"
-msgstr ""
+msgstr "Immagine dell'esemplare"
+
 
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:63
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:76
-#, fuzzy
-#| msgid "Ajouter un exemplaire pour"
 msgid "Ajouter un exemplaire"
-msgstr "Aggiungi un esemplare per"
+msgstr "Aggiungi un esemplare"
 
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:72
-#, fuzzy
-#| msgid "Aucun modèle enregistré pour cette marque."
 msgid "Aucun exemplaire enregistré pour ce modèle."
-msgstr "Nessun modello registrato per questo marchio."
+msgstr "Nessun esemplare registrato per questo modello."
 
 #: .\theme\templates\voiture_exemplaire\modifier_exemplaire.html:7
-#, fuzzy
-#| msgid "Voiture exemplaire"
 msgid "Modifier l'exemplaire"
-msgstr "Esemplare auto"
+msgstr "Modifica l'esemplare"
 
 #: .\theme\templates\voiture_exemplaire\modifier_exemplaire.html:13
-#, fuzzy
-#| msgid "Date de modification"
 msgid "Enregistrer les modifications"
-msgstr "Data di modifica"
+msgstr "Salva le modifiche"
 
 #: .\theme\templates\voiture_exemplaire\modifier_exemplaire.html:17
 msgid "Annuler"
-msgstr ""
+msgstr "Annulla"
 
 #: .\theme\templates\voiture_marque\marques_list.html:12
 msgid "Mes marques favorites"
 msgstr "I miei marchi preferiti"
 
 #: .\theme\templates\voiture_marque\marques_list.html:31
-#, fuzzy
-#| msgid "Rechercher:"
 msgid "Rechercher..."
-msgstr "Cerca:"
+msgstr "Cerca:..."
 
 #: .\theme\templates\voiture_marque\marques_list.html:46
 msgid "Voir les modèles de cette marque"
@@ -3740,7 +3713,8 @@ msgstr "Modelli di"
 #: .\theme\templates\voiture_modele\modeles_list.html:11
 #: .\theme\templates\voiture_modele\modeles_par_marque.html:11
 msgid "Rechercher un modèle..."
-msgstr ""
+msgstr "Cerca un modello..."
+
 
 #: .\theme\templates\voiture_modele\modeles_list.html:29
 #: .\theme\templates\voiture_modele\modeles_par_marque.html:30
@@ -3759,7 +3733,8 @@ msgstr "Nessun modello registrato per questo marchio."
 
 #: .\theme\templates\voiture_modele\modeles_par_marque.html:37
 msgid "Image du modèle"
-msgstr ""
+msgstr "Immagine del modello"
+
 
 #: .\theme\templates\voiture_moteur\list.html:4
 #: .\theme\templates\voiture_moteur\list.html:7
@@ -3769,7 +3744,8 @@ msgstr "Elenco dei motori"
 
 #: .\theme\templates\voiture_moteur\list.html:14
 msgid "Type"
-msgstr ""
+msgstr "Tipo"
+
 
 #: .\theme\templates\voiture_moteur\list.html:16
 #: .\theme\templates\voiture_moteur\moteur_detail.html:31
@@ -3778,14 +3754,10 @@ msgid "Cylindrée (L)"
 msgstr "Cilindrata (L)"
 
 #: .\theme\templates\voiture_moteur\list.html:17
-#, fuzzy
-#| msgid "Puissance (ch)"
 msgid "Puissance (CH)"
 msgstr "Potenza (CV)"
 
 #: .\theme\templates\voiture_moteur\list.html:32
-#, fuzzy
-#| msgid "Aucun moteur trouvé"
 msgid "Aucun moteur trouvé."
 msgstr "Nessun motore trovato"
 
@@ -3916,7 +3888,8 @@ msgstr "Motore non trovato"
 
 #: .\voiture\voiture_exemplaire\views.py:116
 msgid "Le moteur a été lié à l'exemplaire avec succès."
-msgstr ""
+msgstr "Il motore è stato collegato all'esemplare con successo."
+
 
 #: .\voiture\voiture_exemplaire\views.py:122
 msgid "Lier un moteur à un véhicule"

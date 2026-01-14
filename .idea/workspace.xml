@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="traductions es">
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="traductions de">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/de/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/de/LC_MESSAGES/django.po" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/it/LC_MESSAGES/django.mo" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/it/LC_MESSAGES/django.mo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/it/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/it/LC_MESSAGES/django.po" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/nl/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/nl/LC_MESSAGES/django.po" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -218,15 +220,8 @@
       <workItem from="1768304983684" duration="6556000" />
       <workItem from="1768312827369" duration="4190000" />
       <workItem from="1768369832844" duration="1644000" />
-      <workItem from="1768372248597" duration="8172000" />
-    </task>
-    <task id="LOCAL-00208" summary="formulaire moteur">
-      <option name="closed" value="true" />
-      <created>1768035485824</created>
-      <option name="number" value="00208" />
-      <option name="presentableId" value="LOCAL-00208" />
-      <option name="project" value="LOCAL" />
-      <updated>1768035485824</updated>
+      <workItem from="1768372248597" duration="8323000" />
+      <workItem from="1768381428732" duration="1518000" />
     </task>
     <task id="LOCAL-00209" summary="script modele">
       <option name="closed" value="true" />
@@ -612,7 +607,15 @@
       <option name="project" value="LOCAL" />
       <updated>1768379818851</updated>
     </task>
-    <option name="localTasksCounter" value="257" />
+    <task id="LOCAL-00257" summary="traductions de">
+      <option name="closed" value="true" />
+      <created>1768380653102</created>
+      <option name="number" value="00257" />
+      <option name="presentableId" value="LOCAL-00257" />
+      <option name="project" value="LOCAL" />
+      <updated>1768380653102</updated>
+    </task>
+    <option name="localTasksCounter" value="258" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -630,7 +633,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="traduction grec" />
     <MESSAGE value="script modeles" />
     <MESSAGE value="marque favori" />
     <MESSAGE value="exemplaire fomulaire et lien" />
@@ -655,7 +657,8 @@
     <MESSAGE value="dashbard_admin" />
     <MESSAGE value="traductions en" />
     <MESSAGE value="traductions es" />
-    <option name="LAST_COMMIT_MESSAGE" value="traductions es" />
+    <MESSAGE value="traductions de" />
+    <option name="LAST_COMMIT_MESSAGE" value="traductions de" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
