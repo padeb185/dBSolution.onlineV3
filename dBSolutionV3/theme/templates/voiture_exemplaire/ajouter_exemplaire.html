@@ -31,4 +31,58 @@
         </button>
     </form>
 </div>
+<script>
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + "=")) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+const csrftoken = getCookie('csrftoken');
+
+const marqueInput = document.getElementById('id_voiture_marque');
+
+if (marqueInput) {
+    marqueInput.addEventListener('change', function () {
+        const voiture_marque = this.value;
+
+        fetch('/api/check_nom', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            },
+            body: JSON.stringify({ voiture_marque: voiture_marque })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.exist) {
+                document.getElementById('id_voiture_marque').value = data.voiture_marque;
+                document.getElementById('id_voiture_modele').value = data.voiture_modele;
+                document.getElementById('id_immatriculation').value = data.immatriculation;
+                document.getElementById('id_numero_vin').value = data.numero_vin;
+                document.getElementById('id_type_utilisation').value = data.type_utilisation;
+            } else {
+                document.getElementById('id_voiture_marque').value = '';
+                document.getElementById('id_voiture_modele').value = '';
+                document.getElementById('id_immatriculation').value = '';
+                document.getElementById('id_numero_vin').value = '';
+                document.getElementById('id_type_utilisation').value = '';
+            }
+        })
+        .catch(error => {
+            console.error('Erreur:', error);
+        });
+    });
+}
+</script>
+
 {% endblock %}

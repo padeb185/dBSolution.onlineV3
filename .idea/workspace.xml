@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="cookie créer utilisateurs">
-      <change beforePath="$PROJECT_DIR$/.idea/dBSolution.onlineV3.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dBSolution.onlineV3.iml" afterDir="false" />
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="style">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture_exemplaire/ajouter_exemplaire.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture_exemplaire/ajouter_exemplaire.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture_exemplaire/liste_exemplaires.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture_exemplaire/liste_exemplaires.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture_moteur/ajouter_moteur.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture_moteur/ajouter_moteur.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture_moteur/ajouter_moteur_seul.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture_moteur/ajouter_moteur_seul.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_exemplaire/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_exemplaire/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -222,15 +221,7 @@
       <workItem from="1768312827369" duration="4190000" />
       <workItem from="1768369832844" duration="1644000" />
       <workItem from="1768372248597" duration="8323000" />
-      <workItem from="1768381428732" duration="16922000" />
-    </task>
-    <task id="LOCAL-00218" summary="traductions">
-      <option name="closed" value="true" />
-      <created>1768053588279</created>
-      <option name="number" value="00218" />
-      <option name="presentableId" value="LOCAL-00218" />
-      <option name="project" value="LOCAL" />
-      <updated>1768053588279</updated>
+      <workItem from="1768381428732" duration="19402000" />
     </task>
     <task id="LOCAL-00219" summary="traductions">
       <option name="closed" value="true" />
@@ -616,7 +607,15 @@
       <option name="project" value="LOCAL" />
       <updated>1768406580137</updated>
     </task>
-    <option name="localTasksCounter" value="267" />
+    <task id="LOCAL-00267" summary="style">
+      <option name="closed" value="true" />
+      <created>1768408600137</created>
+      <option name="number" value="00267" />
+      <option name="presentableId" value="LOCAL-00267" />
+      <option name="project" value="LOCAL" />
+      <updated>1768408600137</updated>
+    </task>
+    <option name="localTasksCounter" value="268" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -634,7 +633,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="vue moteur et liste" />
     <MESSAGE value="nombre marques, nombre moteurs" />
     <MESSAGE value="traductions" />
     <MESSAGE value="corrections namespaces" />
@@ -659,7 +657,8 @@
     <MESSAGE value="logos exemplaires" />
     <MESSAGE value="champs de recherche" />
     <MESSAGE value="cookie créer utilisateurs" />
-    <option name="LAST_COMMIT_MESSAGE" value="cookie créer utilisateurs" />
+    <MESSAGE value="style" />
+    <option name="LAST_COMMIT_MESSAGE" value="style" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

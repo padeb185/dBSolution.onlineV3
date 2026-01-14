@@ -30,13 +30,17 @@ class VoitureExemplaire(models.Model):
     # 🚗 Identification
     immatriculation = models.CharField(
         max_length=10,
-        unique=True
+        unique=True,
+        null=True,
+        blank=True
     )
 
     numero_vin = models.CharField(
         max_length=17,
         unique=True,
-        verbose_name="Numéro VIN"
+        verbose_name="Numéro VIN",
+        null=True,
+        blank=True,
     )
 
     type_utilisation = models.CharField(
@@ -45,9 +49,9 @@ class VoitureExemplaire(models.Model):
     )
 
     # 📏 Kilométrage châssis
-    kilometres_chassis = models.PositiveIntegerField(default=0)
-    kilometres_total = models.PositiveIntegerField(default=0)
-    kilometres_derniere_intervention = models.PositiveIntegerField(default=0)
+    kilometres_chassis = models.PositiveIntegerField(default=0, null=True, blank=True)
+    kilometres_total = models.PositiveIntegerField(default=0, null=True, blank=True)
+    kilometres_derniere_intervention = models.PositiveIntegerField(default=0, null=True, blank=True)
 
     variation_kilometres = models.PositiveIntegerField(
         default=0,
@@ -124,13 +128,17 @@ class VoitureExemplaire(models.Model):
     # 👥 Propriétaires
     nombre_proprietaires = models.PositiveSmallIntegerField(
         default=1,
-        validators=[MinValueValidator(1), MaxValueValidator(10)]
+        validators=[MinValueValidator(1), MaxValueValidator(10)],
+        null=True,
+        blank=True
     )
 
     part_proprietaires_pourcent = models.DecimalField(
         max_digits=5,
         decimal_places=2,
-        validators=[MinValueValidator(0), MaxValueValidator(100)]
+        validators=[MinValueValidator(0), MaxValueValidator(100)],
+        null=True,
+        blank=True
     )
 
     created_at = models.DateTimeField(auto_now_add=True)
