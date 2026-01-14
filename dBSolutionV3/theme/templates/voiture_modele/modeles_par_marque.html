@@ -40,7 +40,7 @@
                     {% with logo_name=marque.nom_marque|lower %}
                         <img src="{% static 'exemplaires/' %}{{ marque.nom_marque|lower }}.png"
                              class="w-[65px] h-[65px] object-contain"
-                             onerror="this.src='{% static 'images/marques/default.png' %}'">
+                             onerror="this.src='{% static 'exemplaire/default.png' %}'">
                     {% endwith %}
                 </div>
 

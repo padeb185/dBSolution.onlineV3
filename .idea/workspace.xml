@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="images marque modele exemplaires">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/default.png" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/static/exemplaires/default.png" afterDir="false" />
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="images marque modele exemplaires ok">
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture_modele/modeles_par_marque.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture_modele/modeles_par_marque.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -220,15 +218,7 @@
       <workItem from="1768312827369" duration="4190000" />
       <workItem from="1768369832844" duration="1644000" />
       <workItem from="1768372248597" duration="8323000" />
-      <workItem from="1768381428732" duration="8261000" />
-    </task>
-    <task id="LOCAL-00213" summary="script modele">
-      <option name="closed" value="true" />
-      <created>1768051490554</created>
-      <option name="number" value="00213" />
-      <option name="presentableId" value="LOCAL-00213" />
-      <option name="project" value="LOCAL" />
-      <updated>1768051490554</updated>
+      <workItem from="1768381428732" duration="8344000" />
     </task>
     <task id="LOCAL-00214" summary="script modele">
       <option name="closed" value="true" />
@@ -614,7 +604,15 @@
       <option name="project" value="LOCAL" />
       <updated>1768393702388</updated>
     </task>
-    <option name="localTasksCounter" value="262" />
+    <task id="LOCAL-00262" summary="images marque modele exemplaires ok">
+      <option name="closed" value="true" />
+      <created>1768394206628</created>
+      <option name="number" value="00262" />
+      <option name="presentableId" value="LOCAL-00262" />
+      <option name="project" value="LOCAL" />
+      <updated>1768394206628</updated>
+    </task>
+    <option name="localTasksCounter" value="263" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -632,7 +630,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="formulaire moteur" />
     <MESSAGE value="script modele" />
     <MESSAGE value="nombre marques par tenant" />
     <MESSAGE value="modele" />
@@ -657,7 +654,8 @@
     <MESSAGE value="traductions grec" />
     <MESSAGE value="vues moteur" />
     <MESSAGE value="images marque modele exemplaires" />
-    <option name="LAST_COMMIT_MESSAGE" value="images marque modele exemplaires" />
+    <MESSAGE value="images marque modele exemplaires ok" />
+    <option name="LAST_COMMIT_MESSAGE" value="images marque modele exemplaires ok" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
