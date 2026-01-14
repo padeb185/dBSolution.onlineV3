@@ -113,8 +113,10 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
     email_entreprise = models.EmailField(unique=True, blank=True, null=True)
     telephone = models.CharField(max_length=20, blank=True, null=True)
 
+    schema_name = models.CharField(max_length=100, blank=True, null=True)
+
     salaire_brut_heure = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    salaire_brut_employer = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    salaire_brut_employeur = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     nombre_jours_preste = models.PositiveIntegerField(default=0, blank=True, null=True)
     nombre_heures_preste = models.PositiveIntegerField(default=0, blank=True, null=True)
     taux_charges_patronales = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
@@ -122,7 +124,10 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
     taux_precompte_professionnel = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
     taux_onss = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
     salaire_net_mois = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    conges_payes = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+
     salaire_total = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
+
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

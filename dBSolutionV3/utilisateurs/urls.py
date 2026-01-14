@@ -12,8 +12,7 @@ urlpatterns = [
     path("utilisateur/creer/", creer_utilisateur, name="creer_utilisateur"),
     path("admin/dashboard/", dashboard_admin, name="dashboard_admin"),
     path("admin/utilisateurs/", liste_utilisateurs, name="liste_utilisateurs"),
-
-
+    path('admin/creer/', views.creer_utilisateur, name='creer_utilisateur'),
 
 
 ]
