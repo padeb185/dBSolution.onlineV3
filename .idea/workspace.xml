@@ -4,10 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="traductions nl">
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="traductions grec">
+      <change afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture_moteur/ajouter_moteur_seul.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/el/LC_MESSAGES/django.mo" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/el/LC_MESSAGES/django.mo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/el/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/el/LC_MESSAGES/django.po" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture_moteur/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture_moteur/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/theme/templates/voiture_moteur/moteurs_list.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_moteur/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_moteur/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_moteur/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/voiture/voiture_moteur/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -220,15 +225,7 @@
       <workItem from="1768312827369" duration="4190000" />
       <workItem from="1768369832844" duration="1644000" />
       <workItem from="1768372248597" duration="8323000" />
-      <workItem from="1768381428732" duration="2525000" />
-    </task>
-    <task id="LOCAL-00210" summary="script modele">
-      <option name="closed" value="true" />
-      <created>1768041600789</created>
-      <option name="number" value="00210" />
-      <option name="presentableId" value="LOCAL-00210" />
-      <option name="project" value="LOCAL" />
-      <updated>1768041600789</updated>
+      <workItem from="1768381428732" duration="6569000" />
     </task>
     <task id="LOCAL-00211" summary="script modele">
       <option name="closed" value="true" />
@@ -614,7 +611,15 @@
       <option name="project" value="LOCAL" />
       <updated>1768383231047</updated>
     </task>
-    <option name="localTasksCounter" value="259" />
+    <task id="LOCAL-00259" summary="traductions grec">
+      <option name="closed" value="true" />
+      <created>1768383997063</created>
+      <option name="number" value="00259" />
+      <option name="presentableId" value="LOCAL-00259" />
+      <option name="project" value="LOCAL" />
+      <updated>1768383997064</updated>
+    </task>
+    <option name="localTasksCounter" value="260" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -632,7 +637,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="marque favori" />
     <MESSAGE value="exemplaire fomulaire et lien" />
     <MESSAGE value="exemplaire fomulaire et lien traductions" />
     <MESSAGE value="formulaire moteur" />
@@ -657,7 +661,8 @@
     <MESSAGE value="traductions es" />
     <MESSAGE value="traductions de" />
     <MESSAGE value="traductions nl" />
-    <option name="LAST_COMMIT_MESSAGE" value="traductions nl" />
+    <MESSAGE value="traductions grec" />
+    <option name="LAST_COMMIT_MESSAGE" value="traductions grec" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -54,3 +54,19 @@ class MoteurListView(ListView):
     template_name = "voiture_moteur/list.html"  # <-- chemin correct
     context_object_name = "moteurs"
     paginate_by = 20  # optionnel
+
+
+
+
+def ajouter_moteur_seul(request):
+    if request.method == "POST":
+        form = MoteurVoitureForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("voiture_moteur:list")
+    else:
+        form = MoteurVoitureForm()
+
+    return render(request, "voiture_moteur/ajouter_moteur_seul.html", {
+        "form": form
+    })

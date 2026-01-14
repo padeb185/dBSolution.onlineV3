@@ -6,32 +6,91 @@
 {% block content %}
 <h1 class="text-2xl font-bold mb-6">{% trans "Liste des moteurs" %}</h1>
 
-<table class="min-w-full table-auto border-collapse border border-gray-200">
+<!-- Filtres + bouton ajouter -->
+<div class="bg-white shadow-md rounded-lg p-4 mb-4">
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+    <input id="search-motoriste" type="text" class="border rounded px-3 py-2"
+           placeholder="{% trans 'Rechercher par motoriste' %}">
+    <input id="search-code" type="text" class="border rounded px-3 py-2"
+           placeholder="{% trans 'Rechercher par code moteur' %}">
+    <input id="search-cylindree" type="text" class="border rounded px-3 py-2"
+           placeholder="{% trans 'Rechercher par cylindrée' %}">
+
+    <!-- Bouton Ajouter moteur -->
+    <a href="{% url 'voiture_moteur:ajouter_moteur_seul' %}"
+       class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition">
+        {% trans "Ajouter un moteur" %}
+    </a>
+  </div>
+</div>
+
+<table id="moteurs-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
   <thead>
     <tr class="bg-gray-100">
-      <th class="border border-gray-200 px-4 py-2">{% trans "Motoriste" %}</th>
-      <th class="border border-gray-200 px-4 py-2">{% trans "Code moteur" %}</th>
-      <th class="border border-gray-200 px-4 py-2">{% trans "Type" %}</th>
-      <th class="border border-gray-200 px-4 py-2">{% trans "Carburant" %}</th>
-      <th class="border border-gray-200 px-4 py-2">{% trans "Cylindrée (L)" %}</th>
-      <th class="border border-gray-200 px-4 py-2">{% trans "Puissance (CH)" %}</th>
+      <th class="border px-4 py-2 cursor-pointer">{% trans "Motoriste" %}</th>
+      <th class="border px-4 py-2 cursor-pointer">{% trans "Code moteur" %}</th>
+      <th class="border px-4 py-2 cursor-pointer">{% trans "Type" %}</th>
+      <th class="border px-4 py-2 cursor-pointer">{% trans "Carburant" %}</th>
+      <th class="border px-4 py-2 cursor-pointer">{% trans "Cylindrée (L)" %}</th>
+      <th class="border px-4 py-2 cursor-pointer">{% trans "Puissance (CH)" %}</th>
+        <th class="border px-4 py-2 text-left">{% trans "Info" %}</th>
     </tr>
   </thead>
   <tbody>
     {% for moteur in moteurs %}
-    <tr>
-      <td class="border border-gray-200 px-4 py-2">{{ moteur.motoriste }}</td>
-      <td class="border border-gray-200 px-4 py-2">{{ moteur.code_moteur }}</td>
-      <td class="border border-gray-200 px-4 py-2">{{ moteur.get_type_moteur_display }}</td>
-      <td class="border border-gray-200 px-4 py-2">{{ moteur.get_carburant_display }}</td>
-      <td class="border border-gray-200 px-4 py-2">{{ moteur.cylindree_l }}</td>
-      <td class="border border-gray-200 px-4 py-2">{{ moteur.puissance_ch }}</td>
+    <tr class="bg-white hover:bg-gray-50">
+      <td class="border px-4 py-2">{{ moteur.motoriste }}</td>
+      <td class="border px-4 py-2">{{ moteur.code_moteur }}</td>
+      <td class="border px-4 py-2">{{ moteur.get_type_moteur_display }}</td>
+      <td class="border px-4 py-2">{{ moteur.get_carburant_display }}</td>
+      <td class="border px-4 py-2">{{ moteur.cylindree_l }}</td>
+      <td class="border px-4 py-2">{{ moteur.puissance_ch }}</td>
+        <td class="border px-4 py-2 text-center">
+          <a href="{% url 'voiture_moteur:detail' moteur.id %}"
+             class="text-blue-600 hover:text-blue-800 font-semibold">
+            {% trans "Info" %}
+          </a>
+        </td>
     </tr>
     {% empty %}
     <tr>
-      <td class="border border-gray-200 px-4 py-2" colspan="6">{% trans "Aucun moteur trouvé." %}</td>
+      <td colspan="6" class="border px-4 py-2 text-center">
+        {% trans "Aucun moteur trouvé." %}
+      </td>
     </tr>
     {% endfor %}
   </tbody>
 </table>
+
+<script>
+$(document).ready(function() {
+    var table = $('#moteurs-table').DataTable({
+        language: {
+            search: "{% trans 'Recherche globale :' %}",
+            lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ moteurs' %}",
+            infoEmpty: "{% trans 'Aucun moteur trouvé' %}",
+            zeroRecords: "{% trans 'Aucun moteur trouvé' %}",
+            paginate: {
+                first: "{% trans 'Premier' %}",
+                last: "{% trans 'Dernier' %}",
+                next: "{% trans 'Suivant' %}",
+                previous: "{% trans 'Précédent' %}"
+            }
+        },
+        order: [[0, "asc"]]
+    });
+
+    $('#search-motoriste').on('keyup', function () {
+        table.column(0).search(this.value).draw();
+    });
+    $('#search-code').on('keyup', function () {
+        table.column(1).search(this.value).draw();
+    });
+    $('#search-cylindree').on('keyup', function () {
+        table.column(4).search(this.value).draw();
+    });
+});
+</script>
+
 {% endblock %}
