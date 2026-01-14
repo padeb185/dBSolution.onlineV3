@@ -3362,59 +3362,48 @@ msgid "Retour à l'accueil"
 msgstr "Volver al inicio"
 
 #: .\theme\templates\admin\dashboard_admin.html:8
-#, fuzzy
-#| msgid "Tableau de bord"
 msgid "Tableau de bord Administrateur"
-msgstr "Panel de control"
+msgstr "Panel de administrador"
 
 #: .\theme\templates\admin\dashboard_admin.html:15
-#, fuzzy
-#| msgid "Utilisateurs"
 msgid "Total utilisateurs"
-msgstr "Usuarios"
+msgstr "Total de usuarios"
 
 #: .\theme\templates\admin\dashboard_admin.html:21
-#, fuzzy
-#| msgid "Utilisateurs"
 msgid "Utilisateurs actifs"
-msgstr "Usuarios"
+msgstr "Usuarios activos"
+
 
 #: .\theme\templates\admin\dashboard_admin.html:27
-#, fuzzy
-#| msgid "Administrateur"
 msgid "Administrateurs"
 msgstr "Administrador"
 
 #: .\theme\templates\admin\dashboard_admin.html:38
 #: .\theme\templates\utilisateurs\creer_utilisateur.html:6
-#, fuzzy
-#| msgid "Créer le moteur"
 msgid "Créer un utilisateur"
-msgstr "Crear motor"
+msgstr "Crear un usuario"
 
 #: .\theme\templates\admin\dashboard_admin.html:39
-#, fuzzy
-#| msgid "Ajouter un exemplaire pour"
 msgid "Ajouter un nouvel employé ou administrateur."
-msgstr "Agregar un ejemplar para"
+msgstr "Agregar un nuevo empleado o administrador"
 
 #: .\theme\templates\admin\dashboard_admin.html:44
-#, fuzzy
-#| msgid "Utilisateurs"
 msgid "Gérer les utilisateurs"
-msgstr "Usuarios"
+msgstr "Gestionar usuarios"
+
 
 #: .\theme\templates\admin\dashboard_admin.html:45
 msgid "Voir, modifier ou désactiver les comptes."
-msgstr ""
+msgstr "Ver, modificar o desactivar las cuentas."
 
 #: .\theme\templates\admin\dashboard_admin.html:50
 msgid "Admin Django"
-msgstr ""
+msgstr "Admin de Django"
 
 #: .\theme\templates\admin\dashboard_admin.html:51
 msgid "Accéder à l’interface technique Django."
-msgstr ""
+msgstr "Acceder a la interfaz técnica de Django"
+
 
 #: .\theme\templates\base.html:9
 msgid "dBSolution"
@@ -3490,10 +3479,9 @@ msgid "Marques de voiture"
 msgstr "Marcas de coches"
 
 #: .\theme\templates\dashboard.html:88
-#, fuzzy
-#| msgid "Tableau de bord"
 msgid "Tableau de bord Admin"
-msgstr "Panel de control"
+msgstr "Panel de administración"
+
 
 #: .\theme\templates\home.html:20
 msgid "Bienvenue"

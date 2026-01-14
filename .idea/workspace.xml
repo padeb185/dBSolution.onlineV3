@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="traductions en">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="42631db7-6126-41b8-9d2b-3c02e7b37bda" name="Changes" comment="traductions es">
       <change beforePath="$PROJECT_DIR$/dBSolutionV3/locale/es/LC_MESSAGES/django.po" beforeDir="false" afterPath="$PROJECT_DIR$/dBSolutionV3/locale/es/LC_MESSAGES/django.po" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -218,15 +217,7 @@
       <workItem from="1768304983684" duration="6556000" />
       <workItem from="1768312827369" duration="4190000" />
       <workItem from="1768369832844" duration="1644000" />
-      <workItem from="1768372248597" duration="6357000" />
-    </task>
-    <task id="LOCAL-00206" summary="exemplaire fomulaire et lien traductions">
-      <option name="closed" value="true" />
-      <created>1767965806223</created>
-      <option name="number" value="00206" />
-      <option name="presentableId" value="LOCAL-00206" />
-      <option name="project" value="LOCAL" />
-      <updated>1767965806224</updated>
+      <workItem from="1768372248597" duration="7207000" />
     </task>
     <task id="LOCAL-00207" summary="formulaire moteur">
       <option name="closed" value="true" />
@@ -612,7 +603,15 @@
       <option name="project" value="LOCAL" />
       <updated>1768378064128</updated>
     </task>
-    <option name="localTasksCounter" value="255" />
+    <task id="LOCAL-00255" summary="traductions es">
+      <option name="closed" value="true" />
+      <created>1768378988444</created>
+      <option name="number" value="00255" />
+      <option name="presentableId" value="LOCAL-00255" />
+      <option name="project" value="LOCAL" />
+      <updated>1768378988444</updated>
+    </task>
+    <option name="localTasksCounter" value="256" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -630,7 +629,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="traduction de" />
     <MESSAGE value="traduction grec" />
     <MESSAGE value="script modeles" />
     <MESSAGE value="marque favori" />
@@ -655,7 +653,8 @@
     <MESSAGE value="admin utilistateur/creer" />
     <MESSAGE value="dashbard_admin" />
     <MESSAGE value="traductions en" />
-    <option name="LAST_COMMIT_MESSAGE" value="traductions en" />
+    <MESSAGE value="traductions es" />
+    <option name="LAST_COMMIT_MESSAGE" value="traductions es" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
