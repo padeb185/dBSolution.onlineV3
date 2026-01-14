@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import render, redirect
 from io import BytesIO
 import base64
@@ -198,3 +198,51 @@ def totp_setup_view(request):
         "qr_code": qr_base64
     })
 
+
+
+
+from adresse.models import Adresse
+
+def is_admin(user):
+    return user.is_staff and user.is_superuser
+
+
+@login_required
+@user_passes_test(is_admin)
+def creer_utilisateur(request):
+    if request.method == "POST":
+        data = request.POST
+
+        try:
+            # 1. Création de l’adresse
+            adresse = Adresse.objects.create(
+                rue=data.get("rue"),
+                numero=data.get("numero"),
+                code_postal=data.get("code_postal"),
+                ville=data.get("ville"),
+                pays=data.get("pays"),
+            )
+
+            # 2. Création de l’utilisateur avec l’adresse créée
+            user = Utilisateur.objects.create_user(
+                email_google=data.get("email_google"),
+                password=data.get("password"),
+                nom=data.get("nom"),
+                prenom=data.get("prenom"),
+                role=data.get("role"),
+                telephone=data.get("telephone") or None,
+                email_entreprise=data.get("email_entreprise") or None,
+                date_naissance=data.get("date_naissance") or None,
+                schema_name=data.get("societe") or None,
+                adresse=adresse,   # <-- objet directement
+            )
+
+            messages.success(request, "Utilisateur créé avec succès.")
+            return redirect("liste_utilisateurs")
+
+        except Exception as e:
+            messages.error(request, f"Erreur: {e}")
+
+    return render(request, "utilisateurs/creer_utilisateur.html", {
+        "roles": Utilisateur.ROLE_CHOICES
+    })

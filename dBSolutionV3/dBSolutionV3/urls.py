@@ -41,8 +41,10 @@ urlpatterns += i18n_patterns(
     path("public/", include("dBSolutionV3.urls_public")),
 
 # urls.py
-    path('voiture/exemplaires/<uuid:exemplaire_id>/', voiture_exemplaire_detail, name='detail')
+    path('voiture/exemplaires/<uuid:exemplaire_id>/', voiture_exemplaire_detail, name='detail'),
 
+
+    path("", include("utilisateurs.urls")),
 
 
 )

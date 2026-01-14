@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
+    <h1 class="text-2xl font-bold mb-4">{% trans "Créer un utilisateur" %}</h1>
+
+    {% for message in messages %}
+        <div class="mb-3 text-red-600">{{ message }}</div>
+    {% endfor %}
+
+    <form method="post">
+        {% csrf_token %}
+
+        <input class="input" type="text" name="nom" placeholder="Nom" required>
+        <input class="input" type="text" name="prenom" placeholder="Prénom" required>
+        <input class="input" type="email" name="email_google" placeholder="Email Google" required>
+        <input class="input" type="email" name="email_entreprise" placeholder="Email entreprise">
+        <input class="input" type="tel" name="telephone" placeholder="Téléphone">
+        <input class="input" type="date" name="date_naissance">
+
+        <select class="input" name="role">
+            {% for value,label in roles %}
+                <option value="{{ value }}">{{ label }}</option>
+            {% endfor %}
+        </select>
+
+        <input class="input" type="password" name="password" placeholder="Mot de passe" required>
+
+        <!-- facultatif : société/adresse via id -->
+        <input class="input" type="text" name="societe" placeholder="Nom de la société">
+        <h3 class="font-bold mt-6">Adresse</h3>
+        <input class="input" name="rue" placeholder="Rue" required>
+        <input class="input" name="numero" placeholder="Numéro" required>
+        <input class="input" name="code_postal" placeholder="Code postal" required>
+        <input class="input" name="ville" placeholder="Ville" required>
+        <input class="input" name="pays" placeholder="Pays" required>
+
+
+        <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded w-full">
+            Créer
+        </button>
+
+    </form>
+</div>
+
+<style>
+.input{
+    width:100%;
+    border:1px solid #ccc;
+    border-radius:6px;
+    padding:8px;
+    margin-bottom:10px;
+}
+</style>
+{% endblock %}

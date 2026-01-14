@@ -220,6 +220,18 @@ class Command(BaseCommand):
             {"modele": "911", "variante": "992 GT3 RS Weissach SSR", "portes": 2, "places": 4, "reservoir": 64},
             {"modele": "911", "variante": "991.2 GT3 RS", "portes": 2, "places": 2, "reservoir": 64},
 
+
+            {"modele": "356", "variante": "", "portes": 2, "places": 4, "reservoir": 50},
+            {"modele": "912", "variante": "", "portes": 2, "places": 2, "reservoir": 62},
+            {"modele": "914", "variante": "", "portes": 2, "places": 2, "reservoir": 50},
+            {"modele": "924", "variante": "", "portes": 3, "places": 4, "reservoir": 63},
+            {"modele": "928", "variante": "", "portes": 3, "places": 4, "reservoir": 86},
+            {"modele": "944", "variante": "", "portes": 3, "places": 4, "reservoir": 80},
+            {"modele": "959", "variante": "", "portes": 2, "places": 2, "reservoir": 85},
+            {"modele": "968", "variante": "", "portes": 3, "places": 4, "reservoir": 80},
+            {"modele": "Boxster", "variante": "", "portes": 2, "places": 2, "reservoir": 64},
+
+
         ],
 
 
