@@ -65,6 +65,7 @@
 <script>
 $(document).ready(function() {
     var table = $('#moteurs-table').DataTable({
+        pageLength: -1,
         language: {
             search: "{% trans 'Recherche globale :' %}",
             lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
