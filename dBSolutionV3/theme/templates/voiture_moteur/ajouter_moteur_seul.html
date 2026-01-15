@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load i18n widget_tweaks %}
+
+{% block content %}
+<div class="mx-auto p-6 bg-white rounded shadow mt-16 mb-16" style="width:300px;">
+    <h1 class="text-2xl font-bold mb-4 text-center">
+        {% trans "Ajouter un moteur                 " %}
+    </h1>
+
+    {% for message in messages %}
+        <div class="mb-3 text-red-600">{{ message }}</div>
+    {% endfor %}
+
+    <form method="post" class="flex flex-col space-y-4">
+        {% csrf_token %}
+
+        {% for field in form %}
+            <div class="flex flex-col">
+                <label class="mb-1 font-medium">{{ field.label }}</label>
+                {{ field|add_class:"border border-gray-300 rounded px-4 py-2 w-full" }}
+                {% if field.help_text %}
+                    <small class="text-gray-500 mt-1">{{ field.help_text }}</small>
+                {% endif %}
+                {% if field.errors %}
+                    <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <button type="submit"
+                class="mt-4 bg-blue-600 text-white px-4 py-2 rounded w-full hover:bg-blue-700 transition">
+            {% trans "Ajouter" %}
+        </button>
+    </form>
+</div>
+
+<script>
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + "=")) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    const csrftoken = getCookie('csrftoken');
+
+    document.getElementById('id_motoriste').addEventListener('change', function(){
+        const nom = this.value;
+        fetch('/api/check_nom', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            },
+            body: JSON.stringify({motoriste: motoriste})
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.exist) {
+                    document.getElementById('id_motoriste').value = data.motoriste;
+                    document.getElementById('id_code_moteur').value = data.code_moteur;
+                    document.getElementById('id_type_moteur').value = data.type_moteur;
+                    document.getElementById('id_carburant').value = data.carburant;
+                    document.getElementById('id_cylindree_l').value = data.cylindree_l;
+                    document.getElementById('id_distribution').value = data.distribution;
+                    document.getElementById('id_nombre_cylindre').value = data.nombre_cylindre;
+
+
+                } else {
+                    document.getElementById('id_motoriste').value = '';
+                    document.getElementById('id_code_moteur').value = '';
+                    document.getElementById('id_type_moteur').value = '';
+                    document.getElementById('id_carburant').value = '';
+                    document.getElementById('id_cylindree_l').value = '';
+                    document.getElementById('id_distribution').value = '';
+                    document.getElementById('id_nombre_cylindre').value = '';
+                }
+            }).catch(error => {
+                console.error('Erreur: ' error);
+        });
+    });
+</script>
+
+
+
+{% endblock %}

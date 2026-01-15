@@ -27,20 +27,6 @@ def liste_exemplaires(request, modele_id):
     })
 
 
-@login_required
-def voiture_exemplaire_liste(request, modele_id):
-    tenant = request.tenant  # si tu utilises django-tenants
-    with tenant_context(tenant):
-        modele = get_object_or_404(VoitureModele, id=modele_id)
-        exemplaires = VoitureExemplaire.objects.filter(voiture_modele=modele)
-    return render(request, 'voiture_exemplaire/liste_exemplaires.html', {
-        'modele': modele,
-        'exemplaires': exemplaires,
-    })
-
-
-
-
 
 
 
@@ -175,7 +161,7 @@ def modifier_exemplaire(request, exemplaire_id):
         else:
             form = VoitureExemplaireForm(instance=exemplaire)
 
-        return render(request, 'voiture/voiture_exemplaire/modifier_exemplaire.html', {
+        return render(request, 'voiture_exemplaire/modifier_exemplaire.html', {
             'form': form,
             'exemplaire': exemplaire,
         })

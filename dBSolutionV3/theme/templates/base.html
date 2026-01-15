@@ -52,19 +52,39 @@
         </main>
 
         {% block footer %}
-        <footer class="bg-white shadow p-4 mt-auto text-center text-gray-500 flex justify-center items-center gap-2">
-            &copy; {{ now|date:"Y" }} dBSolution. Tous droits réservés.
-            {% if request.user.is_authenticated %}
-                <form action="{% url 'utilisateurs:logout' %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit"
-                            class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition duration-300">
-                        Déconnexion
+            <footer class="bg-white shadow p-4 mt-auto text-gray-500 flex items-center justify-between">
+
+                <!-- Bouton Retour à gauche -->
+                <div class="flex-shrink-0">
+                    <button type="button"
+                            onclick="history.back()"
+                            class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-gray-600 transition duration-300">
+                        {% trans "Retour" %}
                     </button>
-                </form>
-            {% endif %}
-        </footer>
+                </div>
+
+                <!-- Texte centré -->
+                <div class="flex-1 text-center">
+                    &copy; {{ now|date:"Y" }} dBSolution. {% trans "Tous droits réservés." %}
+                </div>
+
+                <!-- Bouton Déconnexion à droite -->
+                <div class="flex-shrink-0">
+                    {% if request.user.is_authenticated %}
+                        <form action="{% url 'utilisateurs:logout' %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit"
+                                    class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition duration-300">
+                                {% trans "Déconnexion" %}
+                            </button>
+                        </form>
+                    {% endif %}
+                </div>
+
+            </footer>
         {% endblock %}
+
+
 
         <!-- DUMMY POUR SAFELIST DES CLASSES DYNAMIQUES -->
         <div class="hidden bg-red-500 bg-blue-600 hover:bg-blue-700 text-gray-700 text-gray-500 border border-gray-300 px-4 py-2 rounded shadow-md flex flex-col items-center justify-center min-h-screen w-full"></div>

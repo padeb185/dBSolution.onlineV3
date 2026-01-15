@@ -28,7 +28,8 @@
         <input class="input" type="password" name="password" placeholder="Mot de passe" required>
 
         <!-- facultatif : société/adresse via id -->
-        <input class="input" type="text" name="societe" placeholder="Nom de la société">
+
+        <input class="input" type="text" name="schema_name" placeholder="nom du schema" >
         <h3 class="font-bold mt-6">Adresse</h3>
         <input class="input" name="rue" placeholder="Rue" required>
         <input class="input" name="numero" placeholder="Numéro" required>
@@ -53,4 +54,57 @@
     margin-bottom:10px;
 }
 </style>
+
+<script>
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + "=")) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    const csrftoken = getCookie('csrftoken');
+
+    document.getElementById('id_nom').addEventListener('change', function(){
+        const nom = this.value;
+        fetch('/api/check_nom', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            },
+            body: JSON.stringify({nom: nom})
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.exist) {
+                    document.getElementById('id_nom').value = data.nom;
+                    document.getElementById('id_prenom').value = data.prenom;
+                    document.getElementById('id_email_google').value = data.email_google;
+                    document.getElementById('id_email_entreprise').value = data.email_entreprise;
+                    document.getElementById('id_telephone').value = data.telephone;
+                    document.getElementById('id_date_naissance').value = data.date_naissance;
+
+
+                } else {
+                    document.getElementById('id_nom').value = '';
+                    document.getElementById('id_prenom').value = '';
+                    document.getElementById('id_email_google').value = '';
+                    document.getElementById('id_email_entreprise').value = '';
+                    document.getElementById('id_telephone').value = '';
+                    document.getElementById('id_date_naissance').value = '';
+                }
+            }).catch(error => {
+                console.error('Erreur: ' error);
+        });
+    });
+</script>
+
 {% endblock %}

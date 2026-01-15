@@ -69,6 +69,16 @@
     </p>
   </a>
 
+  <!-- Carte Moteurs -->
+  <a href="{% url 'voiture_moteur:list' %}"
+     class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-green-50">
+    <h2 class="text-lg font-semibold mb-2">{% trans "Moteurs" %}</h2>
+    <p class="text-gray-600">
+      {% trans "Nombre total :" %}
+      <span class="font-bold">{{ total_moteurs }}</span>
+    </p>
+  </a>
+
 </div>
 
 <!-- Dummy safelist Tailwind -->

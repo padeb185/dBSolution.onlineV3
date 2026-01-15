@@ -1,35 +1,88 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load i18n static %}
 {% load widget_tweaks %}
 
 {% block content %}
-<div class="flex justify-center mt-16 mb-16"> <!-- marge haute et basse plus grande -->
-    <!-- Carte formulaire avec largeur de 500px -->
-    <div class="bg-white shadow-md rounded-lg p-8" style="width: 500px;">
-        <h1 class="text-2xl font-bold mb-10 text-center"> <!-- marge sous le titre un peu plus grande -->
-            {% trans "Ajouter un exemplaire pour" %} {{ modele.nom_modele }}
-            {% if modele.nom_variante %} - {{ modele.nom_variante }}{% endif %}
-        </h1>
+<div class="max-w-xl mx-auto p-6 bg-white rounded shadow mt-16 mb-16">
+    <h1 class="text-2xl font-bold mb-4 text-center">
+        {% trans "Ajouter un exemplaire pour" %} {{ modele.nom_modele }}
+        {% if modele.nom_variante %} - {{ modele.nom_variante }}{% endif %}
+    </h1>
 
-        <form method="post" class="flex flex-col space-y-8">  <!-- espace vertical entre champs augmenté -->
-            {% csrf_token %}
+    {% for message in messages %}
+        <div class="mb-3 text-red-600">{{ message }}</div>
+    {% endfor %}
 
-            {% for field in form %}
-                <div class="flex flex-col">
-                    {{ field.label_tag }}
-                    {{ field|add_class:"border border-gray-300 rounded-lg px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-300" }}
-                    {% if field.errors %}
-                        <p class="text-red-600 text-sm mt-1">{{ field.errors }}</p>
-                    {% endif %}
-                </div>
-            {% endfor %}
+    <form method="post" class="flex flex-col space-y-4">
+        {% csrf_token %}
 
-            <div class="flex justify-center mt-8"> <!-- marge avant bouton augmentée -->
-                <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition w-full text-center">
-                    {% trans "Ajouter" %}
-                </button>
+        {% for field in form %}
+            <div class="flex flex-col">
+                <label class="mb-1 font-medium">{{ field.label }}</label>
+                {{ field|add_class:"border border-gray-300 rounded px-4 py-2 w-full" }}
+                {% if field.errors %}
+                    <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                {% endif %}
             </div>
-        </form>
-    </div>
+        {% endfor %}
+
+        <button type="submit" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded w-full hover:bg-blue-700 transition">
+            {% trans "Ajouter" %}
+        </button>
+    </form>
 </div>
+<script>
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + "=")) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+const csrftoken = getCookie('csrftoken');
+
+const marqueInput = document.getElementById('id_voiture_marque');
+
+if (marqueInput) {
+    marqueInput.addEventListener('change', function () {
+        const voiture_marque = this.value;
+
+        fetch('/api/check_nom', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            },
+            body: JSON.stringify({ voiture_marque: voiture_marque })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.exist) {
+                document.getElementById('id_voiture_marque').value = data.voiture_marque;
+                document.getElementById('id_voiture_modele').value = data.voiture_modele;
+                document.getElementById('id_immatriculation').value = data.immatriculation;
+                document.getElementById('id_numero_vin').value = data.numero_vin;
+                document.getElementById('id_type_utilisation').value = data.type_utilisation;
+            } else {
+                document.getElementById('id_voiture_marque').value = '';
+                document.getElementById('id_voiture_modele').value = '';
+                document.getElementById('id_immatriculation').value = '';
+                document.getElementById('id_numero_vin').value = '';
+                document.getElementById('id_type_utilisation').value = '';
+            }
+        })
+        .catch(error => {
+            console.error('Erreur:', error);
+        });
+    });
+}
+</script>
+
 {% endblock %}

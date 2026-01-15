@@ -1,1 +1,12 @@
-/dBSolutionV3/.venv/
+/.venv/
+
+# Python
+__pycache__/
+*.pyc
+
+# PyCharm
+.idea/
+*.iml
+
+# Node.js
+node_modules/

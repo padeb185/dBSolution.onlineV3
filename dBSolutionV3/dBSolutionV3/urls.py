@@ -27,7 +27,6 @@ urlpatterns += i18n_patterns(
     path("admin/", admin.site.urls),
 
 
-
     # Marques
     path("utilisateurs/tenant/", include("voiture.voiture_marque.urls", namespace="voiture_marque")),
 

@@ -30,6 +30,7 @@
              data-immatriculation="{{ ex.immatriculation|lower }}"
              onclick="window.location.href='{% url 'voiture_exemplaire:voiture_exemplaire_detail' exemplaire_id=ex.id %}'">
 
+            <!-- Infos de l'exemplaire -->
             <div class="flex-1">
                 <h2 class="text-lg font-semibold">{{ ex.immatriculation }}</h2>
                 <p class="text-gray-500">
@@ -45,17 +46,22 @@
                 {% endif %}
             </div>
 
+            <!-- Logo de la marque à droite -->
             <div class="flex-shrink-0">
-                <img src="{% static 'images/voiture/default.png' %}"
+                {% with logo_path="exemplaires/"|add:ex.voiture_modele.voiture_marque.nom_marque|lower|add:".png" %}
+                <img src="{% static logo_path %}"
+                     onerror="this.onerror=null;this.src='{% static 'exemplaire/default.png' %}';"
                      class="w-[65px] h-[65px] object-contain"
-                     alt="{% trans 'Image de l’exemplaire' %}">
+                     alt="{{ ex.voiture_modele.voiture_marque.nom_marque }}">
+                {% endwith %}
             </div>
+
         </div>
         {% endfor %}
 
         <!-- Carte "Ajouter un exemplaire" -->
         <div class="bg-indigo-100 hover:bg-indigo-200 shadow-md hover:shadow-lg transition rounded-lg p-4 flex items-center justify-center cursor-pointer"
-             onclick="window.location.href='{% url 'voiture_exemplaire:ajouter_exemplaire' modele_id=modele.id %}?marque={{ modele.voiture_marque.nom }}&modele={{ modele.nom_modele }}'">
+             onclick="window.location.href='{% url 'voiture_exemplaire:ajouter_exemplaire' modele_id=modele.id %}?marque={{ modele.voiture_marque.nom_marque }}&modele={{ modele.nom_modele }}'">
             <div class="text-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
@@ -65,18 +71,32 @@
         </div>
     </div>
 
-    {% else %}
-    <!-- Aucun exemplaire -->
-    <div class="text-center py-10">
-        <p class="text-red-600 font-semibold mb-4">
+   {% else %}
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+    <!-- Carte "Aucun exemplaire" -->
+    <div class="bg-red-50 border border-red-200 shadow-md rounded-lg p-6 flex items-center justify-center">
+        <p class="text-red-700 font-semibold text-center">
             {% trans "Aucun exemplaire enregistré pour ce modèle." %}
         </p>
-        <a href="{% url 'voiture_exemplaire:ajouter_exemplaire' modele_id=modele.id %}?marque={{ modele.voiture_marque.nom }}&modele={{ modele.nom_modele }}"
-           class="inline-block px-6 py-3 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition">
-            {% trans "Ajouter un exemplaire" %}
-        </a>
     </div>
-    {% endif %}
+
+    <!-- Carte "Ajouter un exemplaire" -->
+    <div class="bg-indigo-100 hover:bg-indigo-200 shadow-md hover:shadow-lg transition rounded-lg p-4 flex items-center justify-center cursor-pointer"
+         onclick="window.location.href='{% url 'voiture_exemplaire:ajouter_exemplaire' modele_id=modele.id %}?marque={{ modele.voiture_marque.nom_marque }}&modele={{ modele.nom_modele }}'">
+        <div class="text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>
+            <p class="mt-2 font-semibold text-indigo-700">
+                {% trans "Ajouter un exemplaire" %}
+            </p>
+        </div>
+    </div>
+
+</div>
+{% endif %}
+
 
 </div>
 
