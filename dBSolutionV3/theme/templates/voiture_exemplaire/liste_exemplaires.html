@@ -60,7 +60,7 @@
         {% endfor %}
 
         <!-- Carte "Ajouter un exemplaire" -->
-        <div class="bg-indigo-100 hover:bg-indigo-200 shadow-md hover:shadow-lg transition rounded-lg p-4 flex items-center justify-center cursor-pointer"
+        <div class="bg-white-100 hover:bg-indigo-200 shadow-md hover:shadow-lg transition rounded-lg p-4 flex items-center justify-center cursor-pointer"
              onclick="window.location.href='{% url 'voiture_exemplaire:ajouter_exemplaire' modele_id=modele.id %}?marque={{ modele.voiture_marque.nom_marque }}&modele={{ modele.nom_modele }}'">
             <div class="text-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -82,7 +82,7 @@
     </div>
 
     <!-- Carte "Ajouter un exemplaire" -->
-    <div class="bg-indigo-100 hover:bg-indigo-200 shadow-md hover:shadow-lg transition rounded-lg p-4 flex items-center justify-center cursor-pointer"
+    <div class="bg-white-100 hover:bg-indigo-200 shadow-md hover:shadow-lg transition rounded-lg p-4 flex items-center justify-center cursor-pointer"
          onclick="window.location.href='{% url 'voiture_exemplaire:ajouter_exemplaire' modele_id=modele.id %}?marque={{ modele.voiture_marque.nom_marque }}&modele={{ modele.nom_modele }}'">
         <div class="text-center">
             <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">

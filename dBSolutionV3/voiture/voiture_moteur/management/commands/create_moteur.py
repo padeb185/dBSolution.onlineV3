@@ -4,16 +4,17 @@ from societe.models import Societe
 from voiture.voiture_moteur.models import MoteurVoiture
 
 
+
 class Command(BaseCommand):
     help = "Ajoute des moteurs pour différentes marques pour le tenant 'db-solution'"
 
     def handle(self, *args, **options):
-        # Récupération du tenant
         try:
             tenant = Societe.objects.get(slug="db-solution")
         except Societe.DoesNotExist:
             self.stdout.write(self.style.ERROR("Tenant 'db-solution' introuvable !"))
             return
+
 
         # Données moteurs
         moteur_modeles = {

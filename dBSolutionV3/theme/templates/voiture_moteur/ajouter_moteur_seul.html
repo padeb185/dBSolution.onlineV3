@@ -1,10 +1,12 @@
 {% extends "base.html" %}
-{% load i18n widget_tweaks %}
+{% load i18n static widget_tweaks %}
 
 {% block content %}
 <div class="mx-auto p-6 bg-white rounded shadow mt-16 mb-16" style="width:300px;">
-    <h1 class="text-2xl font-bold mb-4 text-center">
-        {% trans "Ajouter un moteur                 " %}
+    <h1 class="text-2xl font-bold mb-4 text-center flex items-center">
+        <img src="{% static 'icons/engine.png' %}" alt="Moteur"
+        style="width:60px; height:60px; margin-right:10px;">
+        {% trans "Ajouter un moteur                         :" %}
     </h1>
 
     {% for message in messages %}

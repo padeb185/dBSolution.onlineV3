@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db import connection
 from django.views.generic import ListView
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.contrib.auth.decorators import login_required
@@ -53,7 +54,11 @@ class MoteurListView(ListView):
     model = MoteurVoiture
     template_name = "voiture_moteur/list.html"  # <-- chemin correct
     context_object_name = "moteurs"
-    paginate_by = 20  # optionnel
+    #paginate_by = 1000 # optionnel
+
+    def get_queryset(self):
+        print("Schema actif:", connection.schema_name)
+        return MoteurVoiture.objects.all()
 
 
 
