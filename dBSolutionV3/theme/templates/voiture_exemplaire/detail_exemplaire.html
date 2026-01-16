@@ -4,18 +4,22 @@
 {% block content %}
 <div class="mx-4 sm:mx-6 lg:mx-8 p-6 w-full">
 
-    <!-- Header -->
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold">
-            {% trans "Détails du véhicule" %}: {{ exemplaire.immatriculation }}
-        </h1>
-    </div>
-
     <!-- Infos principales en cartes responsive -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <!-- Informations générales -->
-        <div class="bg-white shadow-md rounded-lg p-6">
-            <h2 class="text-lg font-semibold mb-4">{% trans "Informations générales" %}</h2>
+        <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
+            <h2 class="text-lg font-semibold mb-2">{% trans "Informations générales" %}</h2>
+
+            <!-- Plaque belge dans la box -->
+            <div class="plaque-belge">
+                <div class="europe">
+                    <span>🇪🇺</span>
+                    <span>B</span>
+                </div>
+                <input type="text" class="plaque-complete" value="{{ exemplaire.immatriculation }}" readonly>
+            </div>
+
+            <!-- Autres informations -->
             <p><strong>{% trans "Année de production" %}:</strong> {{ exemplaire.annee_production }}/{{ exemplaire.mois_production }}</p>
             <p><strong>{% trans "Kilométrage" %}:</strong> {{ exemplaire.kilometres_total }} km</p>
             <p><strong>{% trans "Couleur" %}:</strong> {{ exemplaire.couleur|default:_("Non renseignée") }}</p>
@@ -38,8 +42,6 @@
             {% endif %}
         </div>
     </div>
-
-
 
     <!-- Formulaire liaison moteur existant -->
     <div class="bg-white shadow-md rounded-lg p-6 mb-6">
@@ -65,7 +67,6 @@
             </button>
         </form>
 
-        <!-- Champs auto-remplis (readonly) -->
         <div id="moteur-details" class="mt-4 hidden">
             <h3 class="font-semibold">{% trans "Détails du moteur" %}</h3>
             <ul class="list-disc pl-5 mt-2" id="moteur-details-list"></ul>
@@ -74,7 +75,46 @@
 
 </div>
 
-<!-- jQuery pour autocomplete moteur -->
+<style>
+.plaque-belge {
+  display: flex;
+  align-items: center;
+  width: 40%;
+  min-width: 180px;
+  background: white;
+  border: 2px solid #FF0000;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+}
+
+.plaque-belge .europe {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #003399;
+  color: white;
+  font-weight: bold;
+  padding: 3px 6px;
+  border-radius: 3px 0 0 3px;
+  margin-right: 5px;
+  font-size: 0.85rem;
+}
+
+.plaque-complete {
+  flex: 1;
+  text-align: center;
+  border: none;
+  font-weight: bold;
+  color: #FF0000;
+  font-size: 1rem;
+  background: transparent;
+  outline: none;
+}
+</style>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {

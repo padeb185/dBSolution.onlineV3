@@ -23,27 +23,42 @@
 
     <!-- Grille des exemplaires + carte "Ajouter" -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="exemplaires-container">
+
         {% for ex in exemplaires %}
-        <div class="bg-white shadow-md hover:shadow-lg transition rounded-lg p-4 flex items-center gap-4 cursor-pointer exemplaire-card"
+        <div class="exemplaire-card bg-white shadow-md hover:shadow-lg transition rounded-lg p-4 flex flex-col gap-2 cursor-pointer"
              data-immatriculation="{{ ex.immatriculation|lower }}"
              onclick="window.location.href='{% url 'voiture_exemplaire:voiture_exemplaire_detail' exemplaire_id=ex.id %}'">
 
-            <div class="flex-1">
-                <h2 class="text-lg font-semibold">{{ ex.immatriculation }}</h2>
-                <p class="text-gray-500">{% trans "Année de production" %}: {{ ex.annee_production }}/{{ ex.mois_production }}</p>
-                <p class="text-gray-500">{% trans "Kilométrage" %}: {{ ex.kilometres_total }} km</p>
-                {% if ex.couleur %}
-                <p class="text-gray-500">{% trans "Couleur" %}: {{ ex.couleur }}</p>
-                {% endif %}
+            <!-- Plaque belge tout en haut -->
+            <div class="plaque-belge">
+                <div class="europe">
+                    <span>🇪🇺</span>
+                    <span>B</span>
+                </div>
+                <!-- Un seul input pour toute la plaque -->
+                <input type="text" class="plaque-complete" value="{{ ex.immatriculation }}"
+                       oninput="this.value = this.value.toUpperCase();">
             </div>
 
-            <div class="flex-shrink-0">
-                {% with logo_path="exemplaires/"|add:ex.voiture_modele.voiture_marque.nom_marque|lower|add:".png" %}
-                <img src="{% static logo_path %}"
-                     style="width:75px; margin-right:5px;"
-                     onerror="this.onerror=null;this.src='{% static 'exemplaire/default.png' %}';"
-                     alt="{{ ex.voiture_modele.voiture_marque.nom_marque }}">
-                {% endwith %}
+            <!-- Infos de l'exemplaire -->
+            <div class="flex justify-between items-center mt-2">
+                <div>
+                    <h2 class="text-lg font-semibold">{{ ex.voiture_modele.voiture_marque.nom_marque }} {{ ex.voiture_modele.nom_modele }}</h2>
+                    <p class="text-gray-500">{% trans "Année de production" %}: {{ ex.annee_production }}/{{ ex.mois_production }}</p>
+                    <p class="text-gray-500">{% trans "Kilométrage" %}: {{ ex.kilometres_total }} km</p>
+                    {% if ex.couleur %}
+                    <p class="text-gray-500">{% trans "Couleur" %}: {{ ex.couleur }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="flex-shrink-0">
+                    {% with logo_path="exemplaires/"|add:ex.voiture_modele.voiture_marque.nom_marque|lower|add:".png" %}
+                    <img src="{% static logo_path %}"
+                         style="width:75px; margin-right:5px;"
+                         onerror="this.onerror=null;this.src='{% static 'exemplaire/default.png' %}';"
+                         alt="{{ ex.voiture_modele.voiture_marque.nom_marque }}">
+                    {% endwith %}
+                </div>
             </div>
         </div>
         {% endfor %}
@@ -58,6 +73,7 @@
                 <p class="mt-2 font-semibold text-indigo-700">{% trans "Ajouter un exemplaire" %}</p>
             </div>
         </div>
+
     </div>
 
     {% else %}
@@ -82,6 +98,48 @@
 
 </div>
 
+<!-- CSS pour la plaque belge unifiée -->
+<style>
+.plaque-belge {
+  display: flex;
+  align-items: center;
+  width: 40%;
+  min-width: 180px;
+  background: white;
+  border: 2px solid #FF0000;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-family: Arial, sans-serif;
+    font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.plaque-belge .europe {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #003399;
+  color: white;
+  font-weight: bold;
+  padding: 3px 6px;
+  border-radius: 3px 0 0 3px;
+  margin-right: 5px;
+  font-size: 0.85rem;
+}
+
+.plaque-complete {
+  flex: 1;
+  text-align: center;
+  border: none;
+  font-weight: bold;
+  color: #FF0000;
+  font-size: 1rem;
+  background: transparent;
+  outline: none;
+}
+</style>
+
 <!-- JS pour le filtre de recherche -->
 <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
 <script>
@@ -95,4 +153,5 @@ $(document).ready(function(){
     });
 });
 </script>
+
 {% endblock %}

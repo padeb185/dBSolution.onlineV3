@@ -21,10 +21,23 @@ def liste_exemplaires(request, modele_id):
         modele = get_object_or_404(VoitureModele, id=modele_id)
         exemplaires = VoitureExemplaire.objects.filter(voiture_modele=modele).order_by("id")
 
+        # Décomposer l'immatriculation belge (1-ABC-234)
+        for ex in exemplaires:
+            immat = ex.immatriculation.replace('-', '').upper()  # enlever les tirets
+            if len(immat) == 7:
+                ex.chiffre = immat[0]
+                ex.lettres = immat[1:4]
+                ex.chiffres = immat[4:7]
+            else:
+                ex.chiffre = ''
+                ex.lettres = ''
+                ex.chiffres = ''
+
     return render(request, "voiture_exemplaire/liste_exemplaires.html", {
         "modele": modele,
         "exemplaires": exemplaires,
     })
+
 
 
 
