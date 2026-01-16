@@ -12,23 +12,39 @@
 
   <!-- Carte Utilisateurs -->
   <div class="bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg">
-    <h2 class="text-lg font-semibold mb-2">{% trans "Utilisateurs" %}</h2>
-    <p class="text-gray-600">{% trans "Nombre total :" %} <span class="font-bold">128</span></p>
+    <div class="flex justify-between items-center">
+      <div>
+        <h2 class="text-lg font-semibold mb-2">{% trans "Utilisateurs" %}</h2>
+        <p class="text-gray-600">{% trans "Nombre total :" %} <span class="font-bold">128</span></p>
+      </div>
+      <img src="{% static 'icons/equipe.png' %}" alt="Utilisateurs" style="width:60px; height:60px; margin-right:10px;">
+    </div>
   </div>
 
   <!-- Carte Projets -->
   <div class="bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg">
-    <h2 class="text-lg font-semibold mb-2">{% trans "Projets" %}</h2>
-    <p class="text-gray-600">{% trans "Projets actifs :" %} <span class="font-bold">24</span></p>
+    <div class="flex justify-between items-center">
+      <div>
+        <h2 class="text-lg font-semibold mb-2">{% trans "Projets" %}</h2>
+        <p class="text-gray-600">{% trans "Projets actifs :" %} <span class="font-bold">24</span></p>
+      </div>
+      <img src="{% static 'icons/gestion-de-projet.png' %}" alt="Projets" style="width:60px; height:60px; margin-right:10px;">
+    </div>
   </div>
 
   <!-- Carte Notifications -->
   <div class="bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg">
-    <h2 class="text-lg font-semibold mb-2">{% trans "Notifications" %}</h2>
-    <p class="text-gray-600">{% trans "Messages non lus :" %} <span class="font-bold">5</span></p>
+    <div class="flex justify-between items-center">
+      <div>
+        <h2 class="text-lg font-semibold mb-2">{% trans "Notifications" %}</h2>
+        <p class="text-gray-600">{% trans "Messages non lus :" %} <span class="font-bold">5</span></p>
+      </div>
+      <img src="{% static 'icons/cloche.png' %}" alt="Notifications" style="width:60px; height:60px; margin-right:10px;">
+    </div>
   </div>
 
 </div>
+
 
 <!-- Tableau activités -->
 <div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto">
@@ -60,14 +76,28 @@
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
 
   <!-- Carte Marques de Voiture -->
-  <a href="{% url 'voiture_marque:marques_list' %}"
-     class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-    <h2 class="text-lg font-semibold mb-2">{% trans "Marques de voiture" %}</h2>
-    <p class="text-gray-600">
-      {% trans "Nombre total :" %}
-      <span class="font-bold">{{ total_marques }}</span>
-    </p>
-  </a>
+  <!-- Carte Marques de Voiture -->
+<a href="{% url 'voiture_marque:marques_list' %}"
+   class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+    <div class="flex justify-between items-center">
+        <div>
+            <h2 class="text-lg font-semibold mb-2">{% trans "Marques de voiture" %}</h2>
+            <p class="text-gray-600">
+              {% trans "Nombre total :" %}
+              <span class="font-bold">{{ total_marques }}</span>
+            </p>
+        </div>
+
+        <!-- Icône à droite -->
+        <img src="{% static 'icons/voiture-de-course.png' %}"
+             alt="Marque de voiture"
+             style="width:60px; height:60px; margin-right:10px;">
+    </div>
+
+</a>
+
+
 
   <!-- Carte Moteurs -->
  <a href="{% url 'voiture_moteur:list' %}"
@@ -102,9 +132,13 @@
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
 
     <a href="{% url 'utilisateurs:dashboard_admin' %}"
-       class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-green-50">
          <h2 class="text-lg font-semibold mb-2">{% trans "Tableau de bord Admin" %}</h2>
+         <img src="{% static 'icons/ingenieur-logiciel.png' %}" alt="Moteur"
+        style="width:60px; height:60px; margin-right:10px;">
+
     </a>
+</div>
 {% endif %}
 
 

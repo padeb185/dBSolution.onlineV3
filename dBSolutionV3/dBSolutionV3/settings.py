@@ -163,6 +163,7 @@ TENANT_APPS = (
     'piece.piece_transmission',
     'piece.piece_hydraulique',
     'piece.piece_roue_rechange',
+    'piece.piece_distribution',
 
     'voiture',
     'voiture.voiture_marque',

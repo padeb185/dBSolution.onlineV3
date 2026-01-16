@@ -125,7 +125,6 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
     taux_onss = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
     salaire_net_mois = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     conges_payes = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-
     salaire_total = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
 
 
