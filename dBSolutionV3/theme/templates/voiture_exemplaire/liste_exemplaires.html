@@ -50,8 +50,8 @@
             <div class="flex-shrink-0">
                 {% with logo_path="exemplaires/"|add:ex.voiture_modele.voiture_marque.nom_marque|lower|add:".png" %}
                 <img src="{% static logo_path %}"
+                     style="width:75px; margin-right:5px;"
                      onerror="this.onerror=null;this.src='{% static 'exemplaire/default.png' %}';"
-                     class="w-[65px] h-[65px] object-contain"
                      alt="{{ ex.voiture_modele.voiture_marque.nom_marque }}">
                 {% endwith %}
             </div>
