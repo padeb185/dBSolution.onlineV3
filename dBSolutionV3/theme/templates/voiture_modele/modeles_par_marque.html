@@ -42,7 +42,7 @@
                 <div class="flex-shrink-0">
                     {% with logo_name=marque.nom_marque|lower %}
                         <img src="{% static 'exemplaires/' %}{{ marque.nom_marque|lower }}.png"
-                             class="w-[65px] h-[65px] object-contain"
+                              style="width:75px; margin-right:5px;"
                              onerror="this.src='{% static 'exemplaire/default.png' %}'">
                     {% endwith %}
                 </div>
