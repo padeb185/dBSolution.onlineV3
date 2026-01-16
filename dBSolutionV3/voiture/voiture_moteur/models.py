@@ -39,12 +39,12 @@ class MoteurVoiture(models.Model):
     )
 
     # Spécifications moteur
-    motoriste = models.CharField(max_length=20)
+    motoriste = models.CharField(max_length=40)
     code_moteur = models.CharField(max_length=50)
     type_moteur = models.CharField(max_length=40, choices=TypeMoteur.choices)
-    carburant = models.CharField(max_length=20, choices=TypeCarburant.choices)
+    carburant = models.CharField(max_length=40, choices=TypeCarburant.choices)
     cylindree_l = models.FloatField(verbose_name="Cylindrée (L)")
-    distribution = models.CharField(max_length=20, choices=TypeDistribution.choices)
+    distribution = models.CharField(max_length=40, choices=TypeDistribution.choices)
     nombre_cylindres = models.PositiveSmallIntegerField()
     puissance_ch = models.PositiveIntegerField()
     puissance_tr_min = models.PositiveIntegerField(verbose_name="Puissance à (tr/min)")

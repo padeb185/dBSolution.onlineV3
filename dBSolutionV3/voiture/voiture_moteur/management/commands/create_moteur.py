@@ -1952,7 +1952,1414 @@ class Command(BaseCommand):
 
             ],
 
-            "Porsche": [
+            "GAZ": [
+
+                # ===== Classiques (années 60–70) =====
+                {"code_moteur": "GAZ24", "type_moteur": "OHV", "carburant": "ESS",
+                 "cylindree_l": 2.4, "distribution": "CHAINE", "nombre_cylindres": 4,
+                 "puissance_ch": 95, "puissance_tr_min": 4500, "couple_nm": 178, "couple_tr_min": 2500,
+                 "qualite_huile": "15W40", "quantite_huile_l": 5.0, "intervalle_km_entretien": 10000},
+
+                {"code_moteur": "GAZ2410", "type_moteur": "OHV", "carburant": "ESS",
+                 "cylindree_l": 2.5, "distribution": "CHAINE", "nombre_cylindres": 4,
+                 "puissance_ch": 105, "puissance_tr_min": 4600, "couple_nm": 185, "couple_tr_min": 2700,
+                 "qualite_huile": "15W40", "quantite_huile_l": 5.5, "intervalle_km_entretien": 10000},
+
+                # ===== Modernes (années 80–90) =====
+                {"code_moteur": "ZMZ406", "type_moteur": "DOHC", "carburant": "ESS",
+                 "cylindree_l": 2.3, "distribution": "CHAINE", "nombre_cylindres": 4,
+                 "puissance_ch": 100, "puissance_tr_min": 5000, "couple_nm": 185, "couple_tr_min": 3000,
+                 "qualite_huile": "10W40", "quantite_huile_l": 4.5, "intervalle_km_entretien": 8000},
+
+                {"code_moteur": "ZMZ4062", "type_moteur": "DOHC", "carburant": "ESS",
+                 "cylindree_l": 2.5, "distribution": "CHAINE", "nombre_cylindres": 4,
+                 "puissance_ch": 110, "puissance_tr_min": 5200, "couple_nm": 190, "couple_tr_min": 3200,
+                 "qualite_huile": "10W40", "quantite_huile_l": 4.5, "intervalle_km_entretien": 8000},
+
+                # ===== Diesel =====
+                {"code_moteur": "GAZ3302D", "type_moteur": "Diesel", "carburant": "DIE",
+                 "cylindree_l": 2.8, "distribution": "CHAINE", "nombre_cylindres": 4,
+                 "puissance_ch": 92, "puissance_tr_min": 4200, "couple_nm": 210, "couple_tr_min": 2500,
+                 "qualite_huile": "15W40", "quantite_huile_l": 5.0, "intervalle_km_entretien": 10000},
+            ],
+
+
+            "Geely": [
+
+                {"code_moteur": "JL376QE", "type_moteur": "NA", "carburant": "ESS",
+                 "cylindree_l": 0.993, "distribution": "DOHC", "nombre_cylindres": 3,
+                 "puissance_ch": 52, "puissance_tr_min": 6000, "couple_nm": 85, "couple_tr_min": 3500,
+                 "qualite_huile": "10W40", "quantite_huile_l": 3.5, "intervalle_km_entretien": 10000},
+
+                {"code_moteur": "JL3G10A", "type_moteur": "NA", "carburant": "ESS",
+                 "cylindree_l": 0.997, "distribution": "DOHC", "nombre_cylindres": 3,
+                 "puissance_ch": 68, "puissance_tr_min": 5500, "couple_nm": 95, "couple_tr_min": 3500,
+                 "qualite_huile": "10W40", "quantite_huile_l": 3.5, "intervalle_km_entretien": 10000},
+
+                {"code_moteur": "MR479QB", "type_moteur": "NA", "carburant": "ESS",
+                 "cylindree_l": 1.298, "distribution": "DOHC", "nombre_cylindres": 4,
+                 "puissance_ch": 86, "puissance_tr_min": 5500, "couple_nm": 115, "couple_tr_min": 3500,
+                 "qualite_huile": "10W40", "quantite_huile_l": 4.0, "intervalle_km_entretien": 10000},
+
+                {"code_moteur": "MR479QA", "type_moteur": "NA", "carburant": "ESS",
+                 "cylindree_l": 1.498, "distribution": "DOHC", "nombre_cylindres": 4,
+                 "puissance_ch": 94, "puissance_tr_min": 5500, "couple_nm": 145, "couple_tr_min": 3600,
+                 "qualite_huile": "10W40", "quantite_huile_l": 4.0, "intervalle_km_entretien": 10000},
+
+                {"code_moteur": "JLB-4G15", "type_moteur": "NA", "carburant": "ESS",
+                 "cylindree_l": 1.498, "distribution": "DOHC", "nombre_cylindres": 4,
+                 "puissance_ch": 102, "puissance_tr_min": 5500, "couple_nm": 140, "couple_tr_min": 3500,
+                 "qualite_huile": "10W40", "quantite_huile_l": 4.5, "intervalle_km_entretien": 10000},
+
+                {"code_moteur": "JLC-4G15B", "type_moteur": "NA", "carburant": "ESS",
+                 "cylindree_l": 1.498, "distribution": "DOHC", "nombre_cylindres": 4,
+                 "puissance_ch": 114, "puissance_tr_min": 5500, "couple_nm": 145, "couple_tr_min": 3500,
+                 "qualite_huile": "10W40", "quantite_huile_l": 4.5, "intervalle_km_entretien": 10000},
+
+                {"code_moteur": "JLD-4G24", "type_moteur": "NA", "carburant": "ESS",
+                 "cylindree_l": 2.378, "distribution": "DOHC", "nombre_cylindres": 4,
+                 "puissance_ch": 148, "puissance_tr_min": 5400, "couple_nm": 210, "couple_tr_min": 3200,
+                 "qualite_huile": "10W40", "quantite_huile_l": 5.5, "intervalle_km_entretien": 10000},
+
+                # TURBO / ASPIRATION FORcée
+                {"code_moteur": "JLE-4G18TDB", "type_moteur": "Turbo DOHC", "carburant": "ESS",
+                 "cylindree_l": 1.799, "distribution": "DOHC", "nombre_cylindres": 4,
+                 "puissance_ch": 184, "puissance_tr_min": 5500, "couple_nm": 300, "couple_tr_min": 2500,
+                 "qualite_huile": "5W30", "quantite_huile_l": 4.5, "intervalle_km_entretien": 15000},
+
+                {"code_moteur": "JLH-4G20TDB", "type_moteur": "Turbo DOHC", "carburant": "ESS",
+                 "cylindree_l": 1.969, "distribution": "DOHC", "nombre_cylindres": 4,
+                 "puissance_ch": 238, "puissance_tr_min": 5500, "couple_nm": 350, "couple_tr_min": 3000,
+                 "qualite_huile": "5W30", "quantite_huile_l": 5.6, "intervalle_km_entretien": 15000},
+
+                {"code_moteur": "JLH-4G20TD", "type_moteur": "Turbo DOHC", "carburant": "ESS",
+                 "cylindree_l": 1.969, "distribution": "DOHC", "nombre_cylindres": 4,
+                 "puissance_ch": 190, "puissance_tr_min": 5000, "couple_nm": 300, "couple_tr_min": 2500,
+                 "qualite_huile": "5W30", "quantite_huile_l": 5.5, "intervalle_km_entretien": 15000},
+
+                {"code_moteur": "JLY-4G18", "type_moteur": "DOHC", "carburant": "ESS",
+                 "cylindree_l": 1.808, "distribution": "DOHC", "nombre_cylindres": 4,
+                 "puissance_ch": 133, "puissance_tr_min": 5500, "couple_nm": 180, "couple_tr_min": 3500,
+                 "qualite_huile": "5W30", "quantite_huile_l": 4.5, "intervalle_km_entretien": 15000},
+
+                {"code_moteur": "BHE15-EFZ", "type_moteur": "Turbo DOHC", "carburant": "ESS",
+                 "cylindree_l": 1.499, "distribution": "DOHC + Direct Injection", "nombre_cylindres": 4,
+                 "puissance_ch": 177, "puissance_tr_min": 5500, "couple_nm": 270, "couple_tr_min": 2500,
+                 "qualite_huile": "0W20", "quantite_huile_l": 4.5, "intervalle_km_entretien": 15000},
+
+                # (Option hybride ou TD très récent)
+                {"code_moteur": "DHE15", "type_moteur": "Hybrid/Turbo", "carburant": "ESS",
+                 "cylindree_l": 1.5, "distribution": "Turbo Direct Injection", "nombre_cylindres": 4,
+                 "puissance_ch": 181, "puissance_tr_min": 5500, "couple_nm": 290, "couple_tr_min": 2000,
+                 "qualite_huile": "0W20", "quantite_huile_l": 4.5, "intervalle_km_entretien": 15000},
+
+            ],
+
+
+            "Genesis": [
+                # Essence turbo 4 cylindres
+                {"code_moteur": "2.0 T-GDi I4", "type_moteur": "Turbo DOHC",
+                 "carburant": "ESS", "cylindree_l": 2.0, "distribution": "DOHC",
+                 "nombre_cylindres": 4, "puissance_ch": 245, "puissance_tr_min": 6200,
+                 "couple_nm": 353, "couple_tr_min": 3500,
+                 "qualite_huile": "5W30", "quantite_huile_l": 5.0,
+                 "intervalle_km_entretien": 15000},
+
+                {"code_moteur": "2.0 T-GDi I4 252", "type_moteur": "Turbo DOHC",
+                 "carburant": "ESS", "cylindree_l": 2.0, "distribution": "DOHC",
+                 "nombre_cylindres": 4, "puissance_ch": 252, "puissance_tr_min": 6200,
+                 "couple_nm": 353, "couple_tr_min": 1400,
+                 "qualite_huile": "5W30", "quantite_huile_l": 5.0,
+                 "intervalle_km_entretien": 15000},
+
+                # V6 twin turbo essence
+                {"code_moteur": "3.3 T-GDi V6", "type_moteur": "Twin Turbo DOHC",
+                 "carburant": "ESS", "cylindree_l": 3.3, "distribution": "DOHC",
+                 "nombre_cylindres": 6, "puissance_ch": 365, "puissance_tr_min": 6000,
+                 "couple_nm": 510, "couple_tr_min": 1300,
+                 "qualite_huile": "5W30", "quantite_huile_l": 6.0,
+                 "intervalle_km_entretien": 15000},
+
+                # Diesel
+                {"code_moteur": "2.2 e-VGT I4", "type_moteur": "Turbo Diesel",
+                 "carburant": "DIE", "cylindree_l": 2.2, "distribution": "DOHC",
+                 "nombre_cylindres": 4, "puissance_ch": 202, "puissance_tr_min": 3800,
+                 "couple_nm": 441, "couple_tr_min": 1750,
+                 "qualite_huile": "10W40", "quantite_huile_l": 5.5,
+                 "intervalle_km_entretien": 15000},
+            ],
+
+            "Genesis": [
+                # G70 Sport – V6 3.3 Turbo
+                {
+                    "code_moteur": "G6DP / 3.3 T-GDi V6",
+                    "type_moteur": "Twin Turbo DOHC",
+                    "carburant": "ESS",
+                    "cylindree_l": 3.3,
+                    "distribution": "DOHC",
+                    "nombre_cylindres": 6,
+                    "puissance_ch": 370,
+                    "puissance_tr_min": 6000,
+                    "couple_nm": 520,
+                    "couple_tr_min": 1300,
+                    "qualite_huile": "5W30",
+                    "quantite_huile_l": 6.9,
+                    "intervalle_km_entretien": 15000,
+                },
+
+                # (Option) G70 – 2.5 Turbo, moins sportif mais courant
+                {
+                    "code_moteur": "I4 2.5 T-GDi",
+                    "type_moteur": "Turbo DOHC",
+                    "carburant": "ESS",
+                    "cylindree_l": 2.5,
+                    "distribution": "DOHC",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 300,
+                    "puissance_tr_min": 5800,
+                    "couple_nm": 430,
+                    "couple_tr_min": 1650,
+                    "qualite_huile": "5W30",
+                    "quantite_huile_l": 5.0,
+                    "intervalle_km_entretien": 15000,
+                },
+            ],
+
+            "GMC": [
+                # ===== Sierra 1500 & Denali =====
+                {"code_moteur": "L86 / 6.2 V8", "type_moteur": "V8 OHV", "carburant": "ESS",
+                 "cylindree_l": 6.2, "distribution": "OHV", "nombre_cylindres": 8,
+                 "puissance_ch": 420, "puissance_tr_min": 5600, "couple_nm": 624, "couple_tr_min": 4100,
+                 "qualite_huile": "5W30", "quantite_huile_l": 7.5, "intervalle_km_entretien": 12000},
+
+                {"code_moteur": "L83 / 5.3 V8", "type_moteur": "V8 OHV", "carburant": "ESS",
+                 "cylindree_l": 5.3, "distribution": "OHV", "nombre_cylindres": 8,
+                 "puissance_ch": 355, "puissance_tr_min": 5600, "couple_nm": 519, "couple_tr_min": 4100,
+                 "qualite_huile": "5W30", "quantite_huile_l": 6.6, "intervalle_km_entretien": 12000},
+
+                # ===== GMC Terrain & Acadia =====
+                {"code_moteur": "LGX / 3.6 V6", "type_moteur": "V6 DOHC", "carburant": "ESS",
+                 "cylindree_l": 3.6, "distribution": "DOHC", "nombre_cylindres": 6,
+                 "puissance_ch": 310, "puissance_tr_min": 6800, "couple_nm": 365, "couple_tr_min": 2700,
+                 "qualite_huile": "5W30", "quantite_huile_l": 6.0, "intervalle_km_entretien": 12000},
+
+                {"code_moteur": "LM2 / 3.0 Duramax", "type_moteur": "L6 Turbo Diesel", "carburant": "DIE",
+                 "cylindree_l": 3.0, "distribution": "DOHC", "nombre_cylindres": 6,
+                 "puissance_ch": 277, "puissance_tr_min": 3750, "couple_nm": 624, "couple_tr_min": 1500,
+                 "qualite_huile": "10W30", "quantite_huile_l": 7.5, "intervalle_km_entretien": 15000},
+
+                # ===== GMC Canyon =====
+                {"code_moteur": "L43 / 2.5 I4", "type_moteur": "I4 DOHC", "carburant": "ESS",
+                 "cylindree_l": 2.5, "distribution": "DOHC", "nombre_cylindres": 4,
+                 "puissance_ch": 200, "puissance_tr_min": 6000, "couple_nm": 252, "couple_tr_min": 4000,
+                 "qualite_huile": "5W30", "quantite_huile_l": 5.5, "intervalle_km_entretien": 10000},
+
+                {"code_moteur": "L52 / 3.6 V6", "type_moteur": "V6 DOHC", "carburant": "ESS",
+                 "cylindree_l": 3.6, "distribution": "DOHC", "nombre_cylindres": 6,
+                 "puissance_ch": 308, "puissance_tr_min": 6800, "couple_nm": 365, "couple_tr_min": 2700,
+                 "qualite_huile": "5W30", "quantite_huile_l": 6.0, "intervalle_km_entretien": 12000},
+
+                {"code_moteur": "LWN / 2.8 I4 Diesel", "type_moteur": "I4 Turbo Diesel", "carburant": "DIE",
+                 "cylindree_l": 2.8, "distribution": "DOHC", "nombre_cylindres": 4,
+                 "puissance_ch": 181, "puissance_tr_min": 3750, "couple_nm": 500, "couple_tr_min": 1500,
+                 "qualite_huile": "10W30", "quantite_huile_l": 5.5, "intervalle_km_entretien": 15000},
+            ],
+
+
+            "Great Wall": [
+
+                # ===== Classiques (années 2000–2010) =====
+                {"code_moteur": "GW4G15", "type_moteur": "DOHC", "carburant": "ESS",
+                 "cylindree_l": 1.5, "distribution": "CHAINE", "nombre_cylindres": 4,
+                 "puissance_ch": 105, "puissance_tr_min": 5800, "couple_nm": 135, "couple_tr_min": 3500,
+                 "qualite_huile": "10W40", "quantite_huile_l": 4.0, "intervalle_km_entretien": 10000},
+
+                {"code_moteur": "GW4G18", "type_moteur": "DOHC", "carburant": "ESS",
+                 "cylindree_l": 1.8, "distribution": "CHAINE", "nombre_cylindres": 4,
+                 "puissance_ch": 125, "puissance_tr_min": 6000, "couple_nm": 160, "couple_tr_min": 4000,
+                 "qualite_huile": "10W40", "quantite_huile_l": 4.0, "intervalle_km_entretien": 10000},
+
+                # ===== Modernes (années 2010–2020) =====
+                {"code_moteur": "GW4G20T", "type_moteur": "Turbo DOHC", "carburant": "ESS",
+                 "cylindree_l": 2.0, "distribution": "CHAINE", "nombre_cylindres": 4,
+                 "puissance_ch": 150, "puissance_tr_min": 5500, "couple_nm": 200, "couple_tr_min": 1800,
+                 "qualite_huile": "5W30", "quantite_huile_l": 4.5, "intervalle_km_entretien": 15000},
+
+                {"code_moteur": "GW4G22T", "type_moteur": "Turbo DOHC", "carburant": "ESS",
+                 "cylindree_l": 2.2, "distribution": "CHAINE", "nombre_cylindres": 4,
+                 "puissance_ch": 170, "puissance_tr_min": 5500, "couple_nm": 220, "couple_tr_min": 1800,
+                 "qualite_huile": "5W30", "quantite_huile_l": 4.5, "intervalle_km_entretien": 15000},
+
+                # ===== Diesel =====
+                {"code_moteur": "GW4D15", "type_moteur": "Diesel", "carburant": "DIE",
+                 "cylindree_l": 1.5, "distribution": "COURROIE", "nombre_cylindres": 4,
+                 "puissance_ch": 95, "puissance_tr_min": 4000, "couple_nm": 200, "couple_tr_min": 2000,
+                 "qualite_huile": "10W40", "quantite_huile_l": 4.5, "intervalle_km_entretien": 10000},
+            ],
+
+
+            "Gurgel": [
+                # ===== Gurgel Enertron (BR-800 / Supermini) =====
+                {"code_moteur": "Enertron H2 0.8", "type_moteur": "Flat‑Twin OHV", "carburant": "ESS",
+                 "cylindree_l": 0.792, "distribution": "OHV", "nombre_cylindres": 2,
+                 "puissance_ch": 30, "puissance_tr_min": 5000, "couple_nm": 65, "couple_tr_min": 2500,
+                 "qualite_huile": "10W40", "quantite_huile_l": 3.0, "intervalle_km_entretien": 8000},
+
+                {"code_moteur": "Enertron H2 0.8 SL", "type_moteur": "Flat‑Twin OHV", "carburant": "ESS",
+                 "cylindree_l": 0.792, "distribution": "OHV", "nombre_cylindres": 2,
+                 "puissance_ch": 36, "puissance_tr_min": 5500, "couple_nm": 65, "couple_tr_min": 2500,
+                 "qualite_huile": "10W40", "quantite_huile_l": 3.0, "intervalle_km_entretien": 8000},
+
+                # ===== Volkswagen‑derived engines used in early Gurgel models =====
+                {"code_moteur": "VW Air‑Cooled 1.6", "type_moteur": "Flat‑Four OHV", "carburant": "ESS",
+                 "cylindree_l": 1.585, "distribution": "OHV", "nombre_cylindres": 4,
+                 "puissance_ch": 48, "puissance_tr_min": 4200, "couple_nm": 108, "couple_tr_min": 2200,
+                 "qualite_huile": "15W40", "quantite_huile_l": 4.0, "intervalle_km_entretien": 8000},
+
+                {"code_moteur": "VW Air‑Cooled 1.3", "type_moteur": "Flat‑Four OHV", "carburant": "ESS",
+                 "cylindree_l": 1.285, "distribution": "OHV", "nombre_cylindres": 4,
+                 "puissance_ch": 36, "puissance_tr_min": 4600, "couple_nm": 89, "couple_tr_min": 2600,
+                 "qualite_huile": "15W40", "quantite_huile_l": 4.0, "intervalle_km_entretien": 8000},
+
+                # ===== Xavante / Tocantins (VW powerplants used) =====
+                {"code_moteur": "VW Air‑Cooled 1.6 High HP", "type_moteur": "Flat‑Four OHV", "carburant": "ESS",
+                 "cylindree_l": 1.585, "distribution": "OHV", "nombre_cylindres": 4,
+                 "puissance_ch": 60, "puissance_tr_min": 4200, "couple_nm": 108, "couple_tr_min": 2200,
+                 "qualite_huile": "15W40", "quantite_huile_l": 4.0, "intervalle_km_entretien": 8000},
+
+                {"code_moteur": "VW R4 1.8", "type_moteur": "Inline‑Four OHV", "carburant": "ESS",
+                 "cylindree_l": 1.781, "distribution": "OHV", "nombre_cylindres": 4,
+                 "puissance_ch": 85, "puissance_tr_min": 4000, "couple_nm": 140, "couple_tr_min": 2500,
+                 "qualite_huile": "15W40", "quantite_huile_l": 4.5, "intervalle_km_entretien": 10000},
+            ],
+
+            "Haval": [
+
+                # ===== 1.5T – Essence turbo 1.5L =====
+                {
+                    "code_moteur": "GW4G15B 1.5T",
+                    "type_moteur": "Turbo DOHC",
+                    "carburant": "ESS",
+                    "cylindree_l": 1.5,
+                    "distribution": "DOHC",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 143,
+                    "puissance_tr_min": 5500,
+                    "couple_nm": 210,
+                    "couple_tr_min": 2000,
+                    "qualite_huile": "5W30",
+                    "quantite_huile_l": 4.2,
+                    "intervalle_km_entretien": 10000,
+                },
+
+                {
+                    "code_moteur": "GW4G15B 1.5T High",
+                    "type_moteur": "Turbo DOHC",
+                    "carburant": "ESS",
+                    "cylindree_l": 1.5,
+                    "distribution": "DOHC",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 150,
+                    "puissance_tr_min": 5600,
+                    "couple_nm": 230,
+                    "couple_tr_min": 2200,
+                    "qualite_huile": "5W30",
+                    "quantite_huile_l": 4.2,
+                    "intervalle_km_entretien": 10000,
+                },
+
+                # ===== 2.0T – Essence turbo 2.0L =====
+                {
+                    "code_moteur": "GW4C20B 2.0T",
+                    "type_moteur": "Turbo DOHC",
+                    "carburant": "ESS",
+                    "cylindree_l": 2.0,
+                    "distribution": "DOHC",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 197,
+                    "puissance_tr_min": 5500,
+                    "couple_nm": 355,
+                    "couple_tr_min": 2200,
+                    "qualite_huile": "5W30",
+                    "quantite_huile_l": 5.0,
+                    "intervalle_km_entretien": 12000,
+                },
+
+                {
+                    "code_moteur": "GW4C20S 2.0T Sport",
+                    "type_moteur": "Turbo DOHC",
+                    "carburant": "ESS",
+                    "cylindree_l": 2.0,
+                    "distribution": "DOHC",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 224,
+                    "puissance_tr_min": 5800,
+                    "couple_nm": 385,
+                    "couple_tr_min": 2200,
+                    "qualite_huile": "5W30",
+                    "quantite_huile_l": 5.0,
+                    "intervalle_km_entretien": 12000,
+                },
+
+                # ===== 1.3T – Petite essence turbo (certaines versions Jolion) =====
+                {
+                    "code_moteur": "GW4B15A 1.3T",
+                    "type_moteur": "Turbo DOHC",
+                    "carburant": "ESS",
+                    "cylindree_l": 1.3,
+                    "distribution": "DOHC",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 156,
+                    "puissance_tr_min": 5500,
+                    "couple_nm": 230,
+                    "couple_tr_min": 2000,
+                    "qualite_huile": "5W30",
+                    "quantite_huile_l": 4.0,
+                    "intervalle_km_entretien": 10000,
+                },
+
+                # ===== (Option) essences atmosphériques ou rares =====
+                {
+                    "code_moteur": "GW4G13 1.3 NA",
+                    "type_moteur": "NA DOHC",
+                    "carburant": "ESS",
+                    "cylindree_l": 1.3,
+                    "distribution": "DOHC",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 99,
+                    "puissance_tr_min": 6000,
+                    "couple_nm": 127,
+                    "couple_tr_min": 3500,
+                    "qualite_huile": "10W40",
+                    "quantite_huile_l": 4.0,
+                    "intervalle_km_entretien": 10000,
+                },
+
+            ],
+
+            "Hindustan Motors": [
+
+                # ===== Ambassador – Moteurs à essence classiques =====
+                {
+                    "code_moteur": "BMC A Series 1.5",
+                    "type_moteur": "OHV",
+                    "carburant": "ESS",
+                    "cylindree_l": 1.5,
+                    "distribution": "OHV",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 60,
+                    "puissance_tr_min": 4500,
+                    "couple_nm": 100,
+                    "couple_tr_min": 3000,
+                    "qualite_huile": "20W50",
+                    "quantite_huile_l": 4.0,
+                    "intervalle_km_entretien": 8000,
+                },
+
+                {
+                    "code_moteur": "BMC A Series 1.6",
+                    "type_moteur": "OHV",
+                    "carburant": "ESS",
+                    "cylindree_l": 1.6,
+                    "distribution": "OHV",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 62,
+                    "puissance_tr_min": 4500,
+                    "couple_nm": 102,
+                    "couple_tr_min": 3000,
+                    "qualite_huile": "20W50",
+                    "quantite_huile_l": 4.0,
+                    "intervalle_km_entretien": 8000,
+                },
+
+                # ===== Ambassador – Diesel (Isuzu‑based) =====
+                {
+                    "code_moteur": "Isuzu C190",
+                    "type_moteur": "Diesel SOHC",
+                    "carburant": "DIE",
+                    "cylindree_l": 1.9,
+                    "distribution": "SOHC",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 68,
+                    "puissance_tr_min": 4000,
+                    "couple_nm": 130,
+                    "couple_tr_min": 2000,
+                    "qualite_huile": "15W40",
+                    "quantite_huile_l": 5.0,
+                    "intervalle_km_entretien": 10000,
+                },
+
+                {
+                    "code_moteur": "Isuzu C223",
+                    "type_moteur": "Diesel SOHC",
+                    "carburant": "DIE",
+                    "cylindree_l": 2.2,
+                    "distribution": "SOHC",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 75,
+                    "puissance_tr_min": 3800,
+                    "couple_nm": 140,
+                    "couple_tr_min": 1800,
+                    "qualite_huile": "15W40",
+                    "quantite_huile_l": 5.0,
+                    "intervalle_km_entretien": 10000,
+                },
+
+                # ===== Contessa – Moteurs essence =====
+                {
+                    "code_moteur": "GM‑Opel 1.9 CIH",
+                    "type_moteur": "OHC",
+                    "carburant": "ESS",
+                    "cylindree_l": 1.9,
+                    "distribution": "OHC",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 90,
+                    "puissance_tr_min": 5000,
+                    "couple_nm": 147,
+                    "couple_tr_min": 2800,
+                    "qualite_huile": "10W40",
+                    "quantite_huile_l": 5.0,
+                    "intervalle_km_entretien": 10000,
+                },
+
+                {
+                    "code_moteur": "GM‑Opel 2.0 CIH",
+                    "type_moteur": "OHC",
+                    "carburant": "ESS",
+                    "cylindree_l": 2.0,
+                    "distribution": "OHC",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 95,
+                    "puissance_tr_min": 5000,
+                    "couple_nm": 155,
+                    "couple_tr_min": 2800,
+                    "qualite_huile": "10W40",
+                    "quantite_huile_l": 5.0,
+                    "intervalle_km_entretien": 10000,
+                },
+
+                # ===== Contessa Diesel (rare) =====
+                {
+                    "code_moteur": "Isuzu C223 Diesel",
+                    "type_moteur": "Diesel SOHC",
+                    "carburant": "DIE",
+                    "cylindree_l": 2.2,
+                    "distribution": "SOHC",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 75,
+                    "puissance_tr_min": 3800,
+                    "couple_nm": 140,
+                    "couple_tr_min": 1800,
+                    "qualite_huile": "15W40",
+                    "quantite_huile_l": 5.0,
+                    "intervalle_km_entretien": 10000,
+                },
+            ],
+
+
+            "Hispano-Suiza": [
+
+                # ===== Années 1910–1920 – Classiques =====
+                {
+                    "code_moteur": "HS 20/24",
+                    "type_moteur": "OHV",
+                    "carburant": "ESS",
+                    "cylindree_l": 4.0,
+                    "distribution": "OHV",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 60,
+                    "puissance_tr_min": 2500,
+                    "couple_nm": 200,
+                    "couple_tr_min": 1500,
+                    "qualite_huile": "20W50",
+                    "quantite_huile_l": 7.0,
+                    "intervalle_km_entretien": 5000,
+                },
+
+                {
+                    "code_moteur": "HS 35/40",
+                    "type_moteur": "OHV",
+                    "carburant": "ESS",
+                    "cylindree_l": 6.0,
+                    "distribution": "OHV",
+                    "nombre_cylindres": 6,
+                    "puissance_ch": 80,
+                    "puissance_tr_min": 2600,
+                    "couple_nm": 320,
+                    "couple_tr_min": 1600,
+                    "qualite_huile": "20W50",
+                    "quantite_huile_l": 8.0,
+                    "intervalle_km_entretien": 5000,
+                },
+
+                # ===== Années 1920–1930 – Luxe et sport =====
+                {
+                    "code_moteur": "HS H6",
+                    "type_moteur": "Straight-6 OHV",
+                    "carburant": "ESS",
+                    "cylindree_l": 6.6,
+                    "distribution": "OHV",
+                    "nombre_cylindres": 6,
+                    "puissance_ch": 125,
+                    "puissance_tr_min": 3200,
+                    "couple_nm": 400,
+                    "couple_tr_min": 1800,
+                    "qualite_huile": "20W50",
+                    "quantite_huile_l": 9.0,
+                    "intervalle_km_entretien": 6000,
+                },
+
+                {
+                    "code_moteur": "HS J12",
+                    "type_moteur": "Straight-6 OHV",
+                    "carburant": "ESS",
+                    "cylindree_l": 9.0,
+                    "distribution": "OHV",
+                    "nombre_cylindres": 6,
+                    "puissance_ch": 220,
+                    "puissance_tr_min": 3500,
+                    "couple_nm": 500,
+                    "couple_tr_min": 2000,
+                    "qualite_huile": "20W50",
+                    "quantite_huile_l": 10.0,
+                    "intervalle_km_entretien": 6000,
+                },
+
+                # ===== Années 1930–1950 – Modèles de prestige =====
+                {
+                    "code_moteur": "HS 20/90",
+                    "type_moteur": "Straight-8 OHV",
+                    "carburant": "ESS",
+                    "cylindree_l": 8.0,
+                    "distribution": "OHV",
+                    "nombre_cylindres": 8,
+                    "puissance_ch": 160,
+                    "puissance_tr_min": 3000,
+                    "couple_nm": 450,
+                    "couple_tr_min": 1800,
+                    "qualite_huile": "20W50",
+                    "quantite_huile_l": 12.0,
+                    "intervalle_km_entretien": 6000,
+                },
+            ],
+
+            "Holden": [
+
+                # ===== Classiques (années 1950–1970) =====
+                {
+                    "code_moteur": "Grey I6",
+                    "type_moteur": "OHV",
+                    "carburant": "ESS",
+                    "cylindree_l": 2.2,
+                    "distribution": "OHV",
+                    "nombre_cylindres": 6,
+                    "puissance_ch": 75,
+                    "puissance_tr_min": 4000,
+                    "couple_nm": 150,
+                    "couple_tr_min": 2000,
+                    "qualite_huile": "20W50",
+                    "quantite_huile_l": 5.5,
+                    "intervalle_km_entretien": 5000,
+                },
+                {
+                    "code_moteur": "Red I6",
+                    "type_moteur": "OHV",
+                    "carburant": "ESS",
+                    "cylindree_l": 2.4,
+                    "distribution": "OHV",
+                    "nombre_cylindres": 6,
+                    "puissance_ch": 100,
+                    "puissance_tr_min": 4200,
+                    "couple_nm": 200,
+                    "couple_tr_min": 2200,
+                    "qualite_huile": "20W50",
+                    "quantite_huile_l": 5.5,
+                    "intervalle_km_entretien": 5000,
+                },
+
+                # ===== Années 1970–1990 – V8 =====
+                {
+                    "code_moteur": "308 V8",
+                    "type_moteur": "V8 OHV",
+                    "carburant": "ESS",
+                    "cylindree_l": 5.0,
+                    "distribution": "OHV",
+                    "nombre_cylindres": 8,
+                    "puissance_ch": 240,
+                    "puissance_tr_min": 4800,
+                    "couple_nm": 400,
+                    "couple_tr_min": 3000,
+                    "qualite_huile": "20W50",
+                    "quantite_huile_l": 7.5,
+                    "intervalle_km_entretien": 7000,
+                },
+                {
+                    "code_moteur": "253 V8",
+                    "type_moteur": "V8 OHV",
+                    "carburant": "ESS",
+                    "cylindree_l": 4.2,
+                    "distribution": "OHV",
+                    "nombre_cylindres": 8,
+                    "puissance_ch": 210,
+                    "puissance_tr_min": 4600,
+                    "couple_nm": 350,
+                    "couple_tr_min": 2800,
+                    "qualite_huile": "20W50",
+                    "quantite_huile_l": 7.5,
+                    "intervalle_km_entretien": 7000,
+                },
+
+                # ===== Années 1990–2017 – Modernes =====
+                {
+                    "code_moteur": "Alloytec V6",
+                    "type_moteur": "V6 DOHC",
+                    "carburant": "ESS",
+                    "cylindree_l": 3.6,
+                    "distribution": "DOHC",
+                    "nombre_cylindres": 6,
+                    "puissance_ch": 190,
+                    "puissance_tr_min": 5200,
+                    "couple_nm": 320,
+                    "couple_tr_min": 2800,
+                    "qualite_huile": "5W30",
+                    "quantite_huile_l": 6.0,
+                    "intervalle_km_entretien": 10000,
+                },
+                {
+                    "code_moteur": "LS V8",
+                    "type_moteur": "V8 OHV",
+                    "carburant": "ESS",
+                    "cylindree_l": 6.0,
+                    "distribution": "OHV",
+                    "nombre_cylindres": 8,
+                    "puissance_ch": 400,
+                    "puissance_tr_min": 6000,
+                    "couple_nm": 550,
+                    "couple_tr_min": 4200,
+                    "qualite_huile": "5W30",
+                    "quantite_huile_l": 7.5,
+                    "intervalle_km_entretien": 10000,
+                },
+            ],
+
+            "Honda": [
+
+                # ===== Anciens (années 70–90) =====
+                {"code_moteur": "CVCC_1.5", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 1.5,
+                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 67, "puissance_tr_min": 5000,
+                 "couple_nm": 110, "couple_tr_min": 3000, "qualite_huile": "10W40", "quantite_huile_l": 3.5,
+                 "intervalle_km_entretien": 10000},
+                {"code_moteur": "B16A", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 1.6,
+                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 160, "puissance_tr_min": 7600,
+                 "couple_nm": 150, "couple_tr_min": 7000, "qualite_huile": "10W40", "quantite_huile_l": 3.8,
+                 "intervalle_km_entretien": 10000},
+                {"code_moteur": "B18C", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 1.8,
+                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 197, "puissance_tr_min": 7800,
+                 "couple_nm": 174, "couple_tr_min": 7000, "qualite_huile": "10W40", "quantite_huile_l": 4.0,
+                 "intervalle_km_entretien": 10000},
+                {"code_moteur": "K20A", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 2.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 200, "puissance_tr_min": 7500,
+                 "couple_nm": 193, "couple_tr_min": 6500, "qualite_huile": "0W40", "quantite_huile_l": 4.2,
+                 "intervalle_km_entretien": 15000},
+
+                # ===== Modernes (2000–2015) =====
+                {"code_moteur": "R18A", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 1.8,
+                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 140, "puissance_tr_min": 6300,
+                 "couple_nm": 174, "couple_tr_min": 4300, "qualite_huile": "0W30", "quantite_huile_l": 4.0,
+                 "intervalle_km_entretien": 15000},
+                {"code_moteur": "K24A", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 2.4,
+                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 205, "puissance_tr_min": 7000,
+                 "couple_nm": 245, "couple_tr_min": 4500, "qualite_huile": "0W40", "quantite_huile_l": 4.5,
+                 "intervalle_km_entretien": 15000},
+                {"code_moteur": "N22B", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 2.2,
+                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 150, "puissance_tr_min": 6200,
+                 "couple_nm": 210, "couple_tr_min": 4200, "qualite_huile": "0W40", "quantite_huile_l": 4.5,
+                 "intervalle_km_entretien": 15000},
+
+                # ===== Récents (2016–2025) =====
+                {"code_moteur": "L15B7", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 1.5,
+                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 182, "puissance_tr_min": 5500,
+                 "couple_nm": 240, "couple_tr_min": 1700, "qualite_huile": "0W20", "quantite_huile_l": 3.7,
+                 "intervalle_km_entretien": 15000},
+                {"code_moteur": "K20C1", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 2.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 306, "puissance_tr_min": 6500,
+                 "couple_nm": 400, "couple_tr_min": 2500, "qualite_huile": "0W20", "quantite_huile_l": 4.0,
+                 "intervalle_km_entretien": 15000},
+
+                # ===== Hybride =====
+                {"code_moteur": "LFAE", "type_moteur": "HYB_E", "carburant": "ESS", "cylindree_l": 2.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 212, "puissance_tr_min": 6500,
+                 "couple_nm": 315, "couple_tr_min": 2000, "qualite_huile": "0W20", "quantite_huile_l": 4.0,
+                 "intervalle_km_entretien": 15000},
+                {"code_moteur": "LEA", "type_moteur": "HYB_E", "carburant": "ESS", "cylindree_l": 2.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 215, "puissance_tr_min": 6500,
+                 "couple_nm": 315, "couple_tr_min": 2000, "qualite_huile": "0W20", "quantite_huile_l": 4.0,
+                 "intervalle_km_entretien": 15000},
+
+                # ===== Électrique =====
+                {"code_moteur": "Honda-e", "type_moteur": "ELEC", "carburant": "ELEC", "cylindree_l": 0.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 0, "puissance_ch": 136, "puissance_tr_min": 0,
+                 "couple_nm": 315, "couple_tr_min": 0, "qualite_huile": "N/A", "quantite_huile_l": 0.0,
+                 "intervalle_km_entretien": 30000},
+
+            ],
+
+
+            "Honda Type R": [
+
+                # ===== Civic Type R – EK9 (1997‑2000) =====
+                {
+                    "code_moteur": "B16B",
+                    "type_moteur": "DOHC VTEC",
+                    "carburant": "ESS",
+                    "cylindree_l": 1.6,
+                    "distribution": "DOHC VTEC",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 185,
+                    "puissance_tr_min": 8200,
+                    "couple_nm": 160,
+                    "couple_tr_min": 7000,
+                    "qualite_huile": "10W40",
+                    "quantite_huile_l": 4.0,
+                    "intervalle_km_entretien": 8000,
+                },
+
+                # ===== Integra Type R – DC2 (1995‑2001) =====
+                {
+                    "code_moteur": "B18C5",
+                    "type_moteur": "DOHC VTEC",
+                    "carburant": "ESS",
+                    "cylindree_l": 1.8,
+                    "distribution": "DOHC VTEC",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 195,
+                    "puissance_tr_min": 8000,
+                    "couple_nm": 174,
+                    "couple_tr_min": 6000,
+                    "qualite_huile": "10W40",
+                    "quantite_huile_l": 4.5,
+                    "intervalle_km_entretien": 8000,
+                },
+
+                # ===== Civic Type R – EP3 (2001‑2005) =====
+                {
+                    "code_moteur": "K20A2",
+                    "type_moteur": "DOHC i‑VTEC",
+                    "carburant": "ESS",
+                    "cylindree_l": 2.0,
+                    "distribution": "DOHC i‑VTEC",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 200,
+                    "puissance_tr_min": 7800,
+                    "couple_nm": 193,
+                    "couple_tr_min": 6000,
+                    "qualite_huile": "5W30",
+                    "quantite_huile_l": 4.5,
+                    "intervalle_km_entretien": 10000,
+                },
+
+                # ===== Civic Type R – FN2 (2007‑2011) =====
+                {
+                    "code_moteur": "K20Z4",
+                    "type_moteur": "DOHC i‑VTEC",
+                    "carburant": "ESS",
+                    "cylindree_l": 2.0,
+                    "distribution": "DOHC i‑VTEC",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 201,
+                    "puissance_tr_min": 7800,
+                    "couple_nm": 193,
+                    "couple_tr_min": 5600,
+                    "qualite_huile": "5W30",
+                    "quantite_huile_l": 4.5,
+                    "intervalle_km_entretien": 10000,
+                },
+
+                # ===== Civic Type R – FK2 (2015‑2017) =====
+                {
+                    "code_moteur": "K20C1",
+                    "type_moteur": "Turbo DOHC i‑VTEC",
+                    "carburant": "ESS",
+                    "cylindree_l": 2.0,
+                    "distribution": "DOHC i‑VTEC Turbo",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 310,
+                    "puissance_tr_min": 6500,
+                    "couple_nm": 400,
+                    "couple_tr_min": 2500,
+                    "qualite_huile": "5W30",
+                    "quantite_huile_l": 4.5,
+                    "intervalle_km_entretien": 10000,
+                },
+
+                # ===== Civic Type R – FK8 (2017‑2021) =====
+                {
+                    "code_moteur": "K20C1",
+                    "type_moteur": "Turbo DOHC i‑VTEC",
+                    "carburant": "ESS",
+                    "cylindree_l": 2.0,
+                    "distribution": "DOHC i‑VTEC Turbo",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 320,
+                    "puissance_tr_min": 6500,
+                    "couple_nm": 400,
+                    "couple_tr_min": 2500,
+                    "qualite_huile": "5W30",
+                    "quantite_huile_l": 4.5,
+                    "intervalle_km_entretien": 10000,
+                },
+
+                # ===== Civic Type R – FL5 (2022‑ ) =====
+                {
+                    "code_moteur": "K20C1",
+                    "type_moteur": "Turbo DOHC i‑VTEC",
+                    "carburant": "ESS",
+                    "cylindree_l": 2.0,
+                    "distribution": "DOHC i‑VTEC Turbo",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 330,
+                    "puissance_tr_min": 6500,
+                    "couple_nm": 420,
+                    "couple_tr_min": 2500,
+                    "qualite_huile": "5W30",
+                    "quantite_huile_l": 4.5,
+                    "intervalle_km_entretien": 10000,
+                },
+
+                # ===== Honda NSX Type R (version spéciale) =====
+                {
+                    "code_moteur": "C32B Type R",
+                    "type_moteur": "V6 DOHC VVTL‑i",
+                    "carburant": "ESS",
+                    "cylindree_l": 3.2,
+                    "distribution": "DOHC VVTL‑i",
+                    "nombre_cylindres": 6,
+                    "puissance_ch": 290,
+                    "puissance_tr_min": 7700,
+                    "couple_nm": 305,
+                    "couple_tr_min": 6500,
+                    "qualite_huile": "5W30",
+                    "quantite_huile_l": 6.5,
+                    "intervalle_km_entretien": 10000,
+                },
+
+            ],
+
+
+            "Hongqi": [
+                # ===== Hongqi H5 – 1.5T turbo 4 cylindres =====
+                {
+                    "code_moteur": "CA4GB15TD-34",
+                    "type_moteur": "Turbo DOHC",
+                    "carburant": "ESS",
+                    "cylindree_l": 1.5,
+                    "distribution": "DOHC",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 169,
+                    "puissance_tr_min": 5500,
+                    "couple_nm": 258,
+                    "couple_tr_min": 2000,
+                    "qualite_huile": "5W30",
+                    "quantite_huile_l": 4.5,
+                    "intervalle_km_entretien": 10000,
+                },
+
+                # ===== Hongqi H5 – 2.0T turbo 4 cylindres =====
+                {
+                    "code_moteur": "CA4GC20TD",
+                    "type_moteur": "Turbo DOHC",
+                    "carburant": "ESS",
+                    "cylindree_l": 2.0,
+                    "distribution": "DOHC",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 224,
+                    "puissance_tr_min": 5500,
+                    "couple_nm": 340,
+                    "couple_tr_min": 2200,
+                    "qualite_huile": "5W30",
+                    "quantite_huile_l": 5.0,
+                    "intervalle_km_entretien": 12000,
+                },
+
+                # ===== Hongqi H9 – turbo 2.0L 4 cylindres =====
+                {
+                    "code_moteur": "CA4GC20TD-31",
+                    "type_moteur": "Turbo DOHC 48V Mild Hybrid",
+                    "carburant": "ESS",
+                    "cylindree_l": 2.0,
+                    "distribution": "DOHC",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 252,
+                    "puissance_tr_min": 5500,
+                    "couple_nm": 380,
+                    "couple_tr_min": 2500,
+                    "qualite_huile": "5W30",
+                    "quantite_huile_l": 5.5,
+                    "intervalle_km_entretien": 12000,
+                },
+
+                # ===== Hongqi H9 – turbo 3.0L V6 =====
+                {
+                    "code_moteur": "CA6GV30TD-03",
+                    "type_moteur": "Turbo V6 DOHC",
+                    "carburant": "ESS",
+                    "cylindree_l": 3.0,
+                    "distribution": "DOHC",
+                    "nombre_cylindres": 6,
+                    "puissance_ch": 337,
+                    "puissance_tr_min": 6000,
+                    "couple_nm": 445,
+                    "couple_tr_min": 3000,
+                    "qualite_huile": "5W30",
+                    "quantite_huile_l": 7.0,
+                    "intervalle_km_entretien": 12000,
+                },
+
+                # ===== Option H5 1.8T (certaines versions) =====
+                {
+                    "code_moteur": "CA4GC18TD-32",
+                    "type_moteur": "Turbo DOHC",
+                    "carburant": "ESS",
+                    "cylindree_l": 1.8,
+                    "distribution": "DOHC",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 193,
+                    "puissance_tr_min": 5600,
+                    "couple_nm": 300,
+                    "couple_tr_min": 2000,
+                    "qualite_huile": "5W30",
+                    "quantite_huile_l": 5.0,
+                    "intervalle_km_entretien": 12000,
+                },
+            ],
+
+
+            "Hummer": [
+
+                # ===== Hummer H1 – Diesel GM V8 =====
+                {
+                    "code_moteur": "V8 6.5TD Diesel",
+                    "type_moteur": "V8 Turbo Diesel",
+                    "carburant": "DIE",
+                    "cylindree_l": 6.5,
+                    "distribution": "OHV",
+                    "nombre_cylindres": 8,
+                    "puissance_ch": 190,
+                    "puissance_tr_min": 3800,
+                    "couple_nm": 520,
+                    "couple_tr_min": 2200,
+                    "qualite_huile": "15W40",
+                    "quantite_huile_l": 8.0,
+                    "intervalle_km_entretien": 10000,
+                },
+
+                {
+                    "code_moteur": "V8 6.2 Diesel",
+                    "type_moteur": "V8 Turbo Diesel",
+                    "carburant": "DIE",
+                    "cylindree_l": 6.2,
+                    "distribution": "OHV",
+                    "nombre_cylindres": 8,
+                    "puissance_ch": 195,
+                    "puissance_tr_min": 3600,
+                    "couple_nm": 550,
+                    "couple_tr_min": 2000,
+                    "qualite_huile": "15W40",
+                    "quantite_huile_l": 8.0,
+                    "intervalle_km_entretien": 10000,
+                },
+
+                # ===== Hummer H2 – Essence GM V8 =====
+                {
+                    "code_moteur": "Vortec 6000",
+                    "type_moteur": "V8 OHV",
+                    "carburant": "ESS",
+                    "cylindree_l": 6.0,
+                    "distribution": "OHV",
+                    "nombre_cylindres": 8,
+                    "puissance_ch": 325,
+                    "puissance_tr_min": 5200,
+                    "couple_nm": 515,
+                    "couple_tr_min": 4000,
+                    "qualite_huile": "5W30",
+                    "quantite_huile_l": 7.5,
+                    "intervalle_km_entretien": 12000,
+                },
+
+                {
+                    "code_moteur": "Vortec 8000",
+                    "type_moteur": "V8 OHV",
+                    "carburant": "ESS",
+                    "cylindree_l": 8.1,
+                    "distribution": "OHV",
+                    "nombre_cylindres": 8,
+                    "puissance_ch": 393,
+                    "puissance_tr_min": 5000,
+                    "couple_nm": 624,
+                    "couple_tr_min": 3800,
+                    "qualite_huile": "5W30",
+                    "quantite_huile_l": 9.0,
+                    "intervalle_km_entretien": 12000,
+                },
+
+                # ===== Hummer H3 – Essence GM V8 et I5 =====
+                {
+                    "code_moteur": "LL8 3.5 I5",
+                    "type_moteur": "I5 OHV",
+                    "carburant": "ESS",
+                    "cylindree_l": 3.5,
+                    "distribution": "OHV",
+                    "nombre_cylindres": 5,
+                    "puissance_ch": 220,
+                    "puissance_tr_min": 5200,
+                    "couple_nm": 305,
+                    "couple_tr_min": 4000,
+                    "qualite_huile": "5W30",
+                    "quantite_huile_l": 6.5,
+                    "intervalle_km_entretien": 10000,
+                },
+
+                {
+                    "code_moteur": "LM4 4.3 V6",
+                    "type_moteur": "V6 OHV",
+                    "carburant": "ESS",
+                    "cylindree_l": 4.3,
+                    "distribution": "OHV",
+                    "nombre_cylindres": 6,
+                    "puissance_ch": 242,
+                    "puissance_tr_min": 5600,
+                    "couple_nm": 370,
+                    "couple_tr_min": 3600,
+                    "qualite_huile": "5W30",
+                    "quantite_huile_l": 7.0,
+                    "intervalle_km_entretien": 10000,
+                },
+
+                {
+                    "code_moteur": "LLV 5.3 V8",
+                    "type_moteur": "V8 OHV",
+                    "carburant": "ESS",
+                    "cylindree_l": 5.3,
+                    "distribution": "OHV",
+                    "nombre_cylindres": 8,
+                    "puissance_ch": 300,
+                    "puissance_tr_min": 5600,
+                    "couple_nm": 460,
+                    "couple_tr_min": 4000,
+                    "qualite_huile": "5W30",
+                    "quantite_huile_l": 7.5,
+                    "intervalle_km_entretien": 10000,
+                },
+
+                # ===== Option – Hummer EV (électrique / placeholder) =====
+                {
+                    "code_moteur": "Electric‑Dual Motor",
+                    "type_moteur": "Electrique",
+                    "carburant": "ELEC",
+                    "cylindree_l": 0.0,
+                    "distribution": "",
+                    "nombre_cylindres": 0,
+                    "puissance_ch": 1000,  # Valeur indicative
+                    "puissance_tr_min": 0,
+                    "couple_nm": 1400,
+                    "couple_tr_min": 0,
+                    "qualite_huile": "",
+                    "quantite_huile_l": 0.0,
+                    "intervalle_km_entretien": 20000,
+                },
+
+            ],
+
+
+            "Hyundai": [
+
+                # ===== i10 – Essence =====
+                {
+                    "code_moteur": "Kappa 1.0",
+                    "type_moteur": "3 cylindres DOHC",
+                    "carburant": "ESS",
+                    "cylindree_l": 1.0,
+                    "distribution": "CHAINE",
+                    "nombre_cylindres": 3,
+                    "puissance_ch": 67,
+                    "puissance_tr_min": 5500,
+                    "couple_nm": 95,
+                    "couple_tr_min": 3500,
+                    "qualite_huile": "5W30",
+                    "quantite_huile_l": 3.5,
+                    "intervalle_km_entretien": 10000,
+                },
+                {
+                    "code_moteur": "Kappa 1.2",
+                    "type_moteur": "4 cylindres DOHC",
+                    "carburant": "ESS",
+                    "cylindree_l": 1.2,
+                    "distribution": "CHAINE",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 84,
+                    "puissance_tr_min": 6000,
+                    "couple_nm": 118,
+                    "couple_tr_min": 4000,
+                    "qualite_huile": "5W30",
+                    "quantite_huile_l": 3.8,
+                    "intervalle_km_entretien": 10000,
+                },
+
+                # ===== i20 – Essence =====
+                {
+                    "code_moteur": "Kappa 1.2",
+                    "type_moteur": "4 cylindres DOHC",
+                    "carburant": "ESS",
+                    "cylindree_l": 1.2,
+                    "distribution": "CHAINE",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 84,
+                    "puissance_tr_min": 6000,
+                    "couple_nm": 118,
+                    "couple_tr_min": 4000,
+                    "qualite_huile": "5W30",
+                    "quantite_huile_l": 3.8,
+                    "intervalle_km_entretien": 10000,
+                },
+                {
+                    "code_moteur": "Gamma 1.4",
+                    "type_moteur": "4 cylindres DOHC",
+                    "carburant": "ESS",
+                    "cylindree_l": 1.4,
+                    "distribution": "CHAINE",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 100,
+                    "puissance_tr_min": 6300,
+                    "couple_nm": 133,
+                    "couple_tr_min": 4000,
+                    "qualite_huile": "5W30",
+                    "quantite_huile_l": 4.0,
+                    "intervalle_km_entretien": 10000,
+                },
+
+                # ===== i30 – Essence =====
+                {
+                    "code_moteur": "Gamma 1.4",
+                    "type_moteur": "4 cylindres DOHC",
+                    "carburant": "ESS",
+                    "cylindree_l": 1.4,
+                    "distribution": "CHAINE",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 100,
+                    "puissance_tr_min": 6300,
+                    "couple_nm": 133,
+                    "couple_tr_min": 4000,
+                    "qualite_huile": "5W30",
+                    "quantite_huile_l": 4.0,
+                    "intervalle_km_entretien": 10000,
+                },
+                {
+                    "code_moteur": "Nu 1.6 GDI",
+                    "type_moteur": "4 cylindres DOHC",
+                    "carburant": "ESS",
+                    "cylindree_l": 1.6,
+                    "distribution": "CHAINE",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 132,
+                    "puissance_tr_min": 6300,
+                    "couple_nm": 161,
+                    "couple_tr_min": 4850,
+                    "qualite_huile": "5W30",
+                    "quantite_huile_l": 4.3,
+                    "intervalle_km_entretien": 10000,
+                },
+
+                # ===== i30 – Diesel =====
+                {
+                    "code_moteur": "U2 1.6 CRDi",
+                    "type_moteur": "4 cylindres DOHC",
+                    "carburant": "DIE",
+                    "cylindree_l": 1.6,
+                    "distribution": "CHAINE",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 110,
+                    "puissance_tr_min": 4000,
+                    "couple_nm": 280,
+                    "couple_tr_min": 1500,
+                    "qualite_huile": "5W30",
+                    "quantite_huile_l": 4.3,
+                    "intervalle_km_entretien": 15000,
+                },
+                {
+                    "code_moteur": "U2 1.6 CRDi",
+                    "type_moteur": "4 cylindres DOHC",
+                    "carburant": "DIE",
+                    "cylindree_l": 1.6,
+                    "distribution": "CHAINE",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 136,
+                    "puissance_tr_min": 4000,
+                    "couple_nm": 320,
+                    "couple_tr_min": 1750,
+                    "qualite_huile": "5W30",
+                    "quantite_huile_l": 4.3,
+                    "intervalle_km_entretien": 15000,
+                },
+
+                # ===== Tucson – Essence =====
+                {
+                    "code_moteur": "Nu 2.0 GDI",
+                    "type_moteur": "4 cylindres DOHC",
+                    "carburant": "ESS",
+                    "cylindree_l": 2.0,
+                    "distribution": "CHAINE",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 155,
+                    "puissance_tr_min": 6200,
+                    "couple_nm": 192,
+                    "couple_tr_min": 4500,
+                    "qualite_huile": "5W30",
+                    "quantite_huile_l": 4.5,
+                    "intervalle_km_entretien": 10000,
+                },
+
+                # ===== Tucson – Diesel =====
+                {
+                    "code_moteur": "U2 1.6 CRDi",
+                    "type_moteur": "4 cylindres DOHC",
+                    "carburant": "DIE",
+                    "cylindree_l": 1.6,
+                    "distribution": "CHAINE",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 115,
+                    "puissance_tr_min": 4000,
+                    "couple_nm": 280,
+                    "couple_tr_min": 1500,
+                    "qualite_huile": "5W30",
+                    "quantite_huile_l": 4.3,
+                    "intervalle_km_entretien": 15000,
+                },
+                {
+                    "code_moteur": "U2 2.0 CRDi",
+                    "type_moteur": "4 cylindres DOHC",
+                    "carburant": "DIE",
+                    "cylindree_l": 2.0,
+                    "distribution": "CHAINE",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 185,
+                    "puissance_tr_min": 4000,
+                    "couple_nm": 400,
+                    "couple_tr_min": 1750,
+                    "qualite_huile": "5W30",
+                    "quantite_huile_l": 4.5,
+                    "intervalle_km_entretien": 15000,
+                },
+
+                # ===== Santa Fe – Diesel =====
+                {
+                    "code_moteur": "R 2.2 CRDi",
+                    "type_moteur": "4 cylindres DOHC",
+                    "carburant": "DIE",
+                    "cylindree_l": 2.2,
+                    "distribution": "CHAINE",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 200,
+                    "puissance_tr_min": 3800,
+                    "couple_nm": 440,
+                    "couple_tr_min": 1750,
+                    "qualite_huile": "5W30",
+                    "quantite_huile_l": 5.0,
+                    "intervalle_km_entretien": 15000,
+                },
+            ],
+
+            "Hyundai_N": [
+
+                # ===== i20 N =====
+                {
+                    "code_moteur": "G4LP 1.6 T-GDI",
+                    "type_moteur": "4 cylindres turbo",
+                    "carburant": "ESS",
+                    "cylindree_l": 1.6,
+                    "distribution": "CHAINE",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 204,
+                    "puissance_tr_min": 6000,
+                    "couple_nm": 275,
+                    "couple_tr_min": 1750,
+                    "qualite_huile": "5W40",
+                    "quantite_huile_l": 4.0,
+                    "intervalle_km_entretien": 10000,
+                },
+
+                # ===== i30 N =====
+                {
+                    "code_moteur": "G4LK 2.0 T-GDI",
+                    "type_moteur": "4 cylindres turbo",
+                    "carburant": "ESS",
+                    "cylindree_l": 2.0,
+                    "distribution": "CHAINE",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 275,
+                    "puissance_tr_min": 6000,
+                    "couple_nm": 353,
+                    "couple_tr_min": 1450,
+                    "qualite_huile": "5W40",
+                    "quantite_huile_l": 4.8,
+                    "intervalle_km_entretien": 10000,
+                },
+                {
+                    "code_moteur": "G4LK 2.0 T-GDI Performance Pack",
+                    "type_moteur": "4 cylindres turbo",
+                    "carburant": "ESS",
+                    "cylindree_l": 2.0,
+                    "distribution": "CHAINE",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 280,
+                    "puissance_tr_min": 6000,
+                    "couple_nm": 392,
+                    "couple_tr_min": 1450,
+                    "qualite_huile": "5W40",
+                    "quantite_huile_l": 4.8,
+                    "intervalle_km_entretien": 10000,
+                },
+
+                # ===== Kona N =====
+                {
+                    "code_moteur": "G4LK 2.0 T-GDI",
+                    "type_moteur": "4 cylindres turbo",
+                    "carburant": "ESS",
+                    "cylindree_l": 2.0,
+                    "distribution": "CHAINE",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 280,
+                    "puissance_tr_min": 6000,
+                    "couple_nm": 392,
+                    "couple_tr_min": 1450,
+                    "qualite_huile": "5W40",
+                    "quantite_huile_l": 4.8,
+                    "intervalle_km_entretien": 10000,
+                },
+
+                # ===== Veloster N =====
+                {
+                    "code_moteur": "G4LK 2.0 T-GDI",
+                    "type_moteur": "4 cylindres turbo",
+                    "carburant": "ESS",
+                    "cylindree_l": 2.0,
+                    "distribution": "CHAINE",
+                    "nombre_cylindres": 4,
+                    "puissance_ch": 275,
+                    "puissance_tr_min": 6000,
+                    "couple_nm": 353,
+                    "couple_tr_min": 1450,
+                    "qualite_huile": "5W40",
+                    "quantite_huile_l": 4.8,
+                    "intervalle_km_entretien": 10000,
+                },
+            ],
+
+
+
+
+
+
+        "Porsche": [
                 # Anciens / classiques
                 {"code_moteur": "901/01", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 2.0,
                  "distribution": "CHAINE", "nombre_cylindres": 6, "puissance_ch": 130, "puissance_tr_min": 6100,
@@ -2329,67 +3736,6 @@ class Command(BaseCommand):
                  "distribution": "CHAINE", "nombre_cylindres": 8, "puissance_ch": 916, "puissance_tr_min": 7500,
                  "couple_nm": 900, "couple_tr_min": 2500, "qualite_huile": "0W40", "quantite_huile_l": 9.0,
                  "intervalle_km_entretien": 12000},
-
-            ],
-            "Honda": [
-
-                # ===== Anciens (années 70–90) =====
-                {"code_moteur": "CVCC_1.5", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 1.5,
-                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 67, "puissance_tr_min": 5000,
-                 "couple_nm": 110, "couple_tr_min": 3000, "qualite_huile": "10W40", "quantite_huile_l": 3.5,
-                 "intervalle_km_entretien": 10000},
-                {"code_moteur": "B16A", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 1.6,
-                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 160, "puissance_tr_min": 7600,
-                 "couple_nm": 150, "couple_tr_min": 7000, "qualite_huile": "10W40", "quantite_huile_l": 3.8,
-                 "intervalle_km_entretien": 10000},
-                {"code_moteur": "B18C", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 1.8,
-                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 197, "puissance_tr_min": 7800,
-                 "couple_nm": 174, "couple_tr_min": 7000, "qualite_huile": "10W40", "quantite_huile_l": 4.0,
-                 "intervalle_km_entretien": 10000},
-                {"code_moteur": "K20A", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 2.0,
-                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 200, "puissance_tr_min": 7500,
-                 "couple_nm": 193, "couple_tr_min": 6500, "qualite_huile": "0W40", "quantite_huile_l": 4.2,
-                 "intervalle_km_entretien": 15000},
-
-                # ===== Modernes (2000–2015) =====
-                {"code_moteur": "R18A", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 1.8,
-                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 140, "puissance_tr_min": 6300,
-                 "couple_nm": 174, "couple_tr_min": 4300, "qualite_huile": "0W30", "quantite_huile_l": 4.0,
-                 "intervalle_km_entretien": 15000},
-                {"code_moteur": "K24A", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 2.4,
-                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 205, "puissance_tr_min": 7000,
-                 "couple_nm": 245, "couple_tr_min": 4500, "qualite_huile": "0W40", "quantite_huile_l": 4.5,
-                 "intervalle_km_entretien": 15000},
-                {"code_moteur": "N22B", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 2.2,
-                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 150, "puissance_tr_min": 6200,
-                 "couple_nm": 210, "couple_tr_min": 4200, "qualite_huile": "0W40", "quantite_huile_l": 4.5,
-                 "intervalle_km_entretien": 15000},
-
-                # ===== Récents (2016–2025) =====
-                {"code_moteur": "L15B7", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 1.5,
-                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 182, "puissance_tr_min": 5500,
-                 "couple_nm": 240, "couple_tr_min": 1700, "qualite_huile": "0W20", "quantite_huile_l": 3.7,
-                 "intervalle_km_entretien": 15000},
-                {"code_moteur": "K20C1", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 2.0,
-                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 306, "puissance_tr_min": 6500,
-                 "couple_nm": 400, "couple_tr_min": 2500, "qualite_huile": "0W20", "quantite_huile_l": 4.0,
-                 "intervalle_km_entretien": 15000},
-
-                # ===== Hybride =====
-                {"code_moteur": "LFAE", "type_moteur": "HYB_E", "carburant": "ESS", "cylindree_l": 2.0,
-                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 212, "puissance_tr_min": 6500,
-                 "couple_nm": 315, "couple_tr_min": 2000, "qualite_huile": "0W20", "quantite_huile_l": 4.0,
-                 "intervalle_km_entretien": 15000},
-                {"code_moteur": "LEA", "type_moteur": "HYB_E", "carburant": "ESS", "cylindree_l": 2.0,
-                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 215, "puissance_tr_min": 6500,
-                 "couple_nm": 315, "couple_tr_min": 2000, "qualite_huile": "0W20", "quantite_huile_l": 4.0,
-                 "intervalle_km_entretien": 15000},
-
-                # ===== Électrique =====
-                {"code_moteur": "Honda-e", "type_moteur": "ELEC", "carburant": "ELEC", "cylindree_l": 0.0,
-                 "distribution": "CHAINE", "nombre_cylindres": 0, "puissance_ch": 136, "puissance_tr_min": 0,
-                 "couple_nm": 315, "couple_tr_min": 0, "qualite_huile": "N/A", "quantite_huile_l": 0.0,
-                 "intervalle_km_entretien": 30000},
 
             ],
 

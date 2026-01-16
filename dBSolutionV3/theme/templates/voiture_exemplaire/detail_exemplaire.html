@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n static %}
+{% load static %}
 
 {% block content %}
 <div class="mx-4 sm:mx-6 lg:mx-8 p-6 w-full">
@@ -74,7 +75,6 @@
     </div>
 
 </div>
-
 <style>
 .plaque-belge {
   display: flex;
@@ -82,7 +82,7 @@
   width: 40%;
   min-width: 180px;
   background: white;
-  border: 2px solid #FF0000;
+  border: 2px solid #8B0000;
   border-radius: 4px;
   padding: 4px 8px;
   font-family: Arial, sans-serif;
@@ -108,13 +108,12 @@
   text-align: center;
   border: none;
   font-weight: bold;
-  color: #FF0000;
+  color: #8B0000;
   font-size: 16px;
   background: transparent;
   outline: none;
 }
 </style>
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
