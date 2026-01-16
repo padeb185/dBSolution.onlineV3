@@ -5,7 +5,7 @@
 {% block content %}
 <div class="max-w-xl mx-auto p-6 bg-white rounded shadow mt-16 mb-16">
     <h1 class="text-2xl font-bold mb-4 text-center">
-        {% trans "Ajouter un exemplaire pour" %} {{ modele.nom_modele }}
+        {% trans "Ajouter un exemplaire pour" %} {{ modele.voiture_marque.nom_marque }} {{ modele.nom_modele }}
         {% if modele.nom_variante %} - {{ modele.nom_variante }}{% endif %}
     </h1>
 
@@ -17,6 +17,7 @@
         {% csrf_token %}
 
         {% for field in form %}
+            {% if field.name not in 'voiture_marque voiture_modele' %}
             <div class="flex flex-col">
                 <label class="mb-1 font-medium">{{ field.label }}</label>
                 {{ field|add_class:"border border-gray-300 rounded px-4 py-2 w-full" }}
@@ -24,7 +25,9 @@
                     <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
                 {% endif %}
             </div>
+            {% endif %}
         {% endfor %}
+
 
         <button type="submit" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded w-full hover:bg-blue-700 transition">
             {% trans "Ajouter" %}

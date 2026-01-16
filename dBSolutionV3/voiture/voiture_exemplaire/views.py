@@ -44,31 +44,39 @@ def voiture_exemplaire_detail(request, exemplaire_id):
 
 
 
-
 @login_required
 def ajouter_exemplaire(request, modele_id):
-    modele = get_object_or_404(VoitureModele, id=modele_id)
-    marque = modele.voiture_marque
+    tenant = request.user.societe
+    with tenant_context(tenant):
+        # Récupère le modèle
+        modele = get_object_or_404(VoitureModele, id=modele_id)
+        marque = modele.voiture_marque  # objet VoitureMarque
 
-    if request.method == "POST":
-        form = VoitureExemplaireForm(request.POST)
-        if form.is_valid():
-            exemplaire = form.save(commit=False)
-            exemplaire.voiture_modele = modele
-            exemplaire.voiture_marque = marque
-            exemplaire.save()
-            messages.success(request, "Exemplaire ajouté avec succès !")
-            return redirect("liste_exemplaires_modele", modele_id=modele.id)
-    else:
-        form = VoitureExemplaireForm()
+        if request.method == "POST":
+            form = VoitureExemplaireForm(request.POST)
+            if form.is_valid():
+                exemplaire = form.save(commit=False)
+                exemplaire.voiture_modele = modele
+                exemplaire.voiture_marque = marque
+                exemplaire.save()
+                messages.success(request, "Exemplaire ajouté avec succès !")
+                return redirect("liste_exemplaires_modele", modele_id=modele.id)
+            else:
+                # Form invalide → on retourne le formulaire avec erreurs
+                messages.error(request, "Veuillez corriger les erreurs ci-dessous.")
+        else:
+            # GET → formulaire pré-rempli avec la marque et le modèle
+            form = VoitureExemplaireForm(initial={
+                "voiture_marque": marque.id_marque,  # ⚠ id_marque et pas id
+                "voiture_modele": modele.id
+            })
 
-    return render(request, "voiture_exemplaire/ajouter_exemplaire.html", {
-        "form": form,
-        "modele": modele,
-        "marque": marque
-    })
-
-
+        # Retourne toujours le template avec le formulaire
+        return render(request, "voiture_exemplaire/ajouter_exemplaire.html", {
+            "form": form,
+            "modele": modele,
+            "marque": marque
+        })
 
 
 @login_required
