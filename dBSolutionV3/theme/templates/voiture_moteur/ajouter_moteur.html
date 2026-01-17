@@ -73,6 +73,51 @@
                    placeholder="Ex: 4">
         </div>
 
+         <!-- Nombre de chevaux -->
+        <div class="flex flex-col">
+            <label for="id_puissance_ch" class="mb-1 font-medium">{% trans "Puissance en Chevaux" %}</label>
+            <input type="number" id="id_puissance_ch" name="nombre de cheveaux"
+                   class="border border-gray-300 rounded px-4 py-2 w-full"
+                   placeholder="120">
+        </div>
+
+        <div class="flex flex-col">
+            <label for="id_puissance_tr_min" class="mb-1 font-medium">{% trans "Puissance à tr/min" %}</label>
+            <input type="number" id="id_puissance_tr_min" name=""
+                   class="border border-gray-300 rounded px-4 py-2 w-full"
+                   placeholder="3000">
+        </div>
+
+        <div class="flex flex-col">
+            <label for="id_couple_nm" class="mb-1 font-medium">{% trans "Couple Nm" %}</label>
+            <input type="number" id="id_couple_nm" name="Couple en Nm"
+                   class="border border-gray-300 rounded px-4 py-2 w-full"
+                   placeholder="300">
+        </div>
+
+        <div class="flex flex-col">
+            <label for="id_couple_tr_min" class="mb-1 font-medium">{% trans "Couple tr/min" %}</label>
+            <input type="number" id="id_couple_tr_min" name="couple max"
+                   class="border border-gray-300 rounded px-4 py-2 w-full"
+                   placeholder="">
+        </div>
+
+        <div class="flex flex-col">
+            <label for="id_qualité_huile" class="mb-1 font-medium">{% trans "Qualité d'huile" %}</label>
+            <input type="number" id="id_qualité_huile" name="Qualité d'huile"
+                   class="border border-gray-300 rounded px-4 py-2 w-full"
+                   placeholder="0W30">
+        </div>
+
+        <div class="flex flex-col">
+            <label for="id_quantite_huile" class="mb-1 font-medium">{% trans "Quantité d'huile" %}</label>
+            <input type="number" id="id_quantite_huile" name="Quantité d'huile"
+                   class="border border-gray-300 rounded px-4 py-2 w-full"
+                   placeholder="6,5">
+        </div>
+
+
+
         <!-- Bouton -->
         <button type="submit"
                 class="mt-4 bg-blue-600 text-white px-4 py-2 rounded w-full hover:bg-blue-700 transition">
