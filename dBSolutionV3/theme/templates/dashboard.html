@@ -9,7 +9,7 @@
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
       <!-- Carte Utilisateurs -->
-      <div class="bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg">
+      <div class="bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
         <div class="flex justify-between items-center">
           <div>
             <h2 class="text-lg font-semibold mb-2">{% trans "Utilisateurs" %}</h2>
@@ -20,7 +20,7 @@
       </div>
 
       <!-- Carte Projets -->
-      <div class="bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg">
+      <div class="bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
         <div class="flex justify-between items-center">
           <div>
             <h2 class="text-lg font-semibold mb-2">{% trans "Projets" %}</h2>
@@ -31,7 +31,7 @@
       </div>
 
       <!-- Carte Notifications -->
-      <div class="bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg">
+      <div class="bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
         <div class="flex justify-between items-center">
           <div>
             <h2 class="text-lg font-semibold mb-2">{% trans "Notifications" %}</h2>
@@ -90,7 +90,7 @@
 
   <!-- Carte Moteurs -->
     <a href="{% url 'voiture_moteur:list' %}"
-         class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-green-50">
+         class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
 
           <!-- Texte à gauche -->
           <div>
@@ -110,7 +110,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
 
         <a href="{% url 'utilisateurs:dashboard_admin' %}"
-           class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-green-50">
+           class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
              <h2 class="text-lg font-semibold mb-2">{% trans "Tableau de bord Admin" %}</h2>
              <img src="{% static 'icons/ingenieur-logiciel.png' %}" alt="Moteur" style="width:60px; height:60px;">
         </a>
