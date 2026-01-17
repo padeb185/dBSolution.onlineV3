@@ -32,15 +32,23 @@
              onclick="window.location.href='{% url 'voiture_exemplaire:voiture_exemplaire_detail' exemplaire_id=ex.id %}'">
 
             <!-- Plaque belge tout en haut -->
-            <div class="plaque-belge">
-                <div class="europe">
+            <div class="flex items-center w-[40%] min-w-[180px] h-[40px] bg-white border-2 border-[#8B0000] rounded font-[Arial]">
+
+                <!-- Partie Europe -->
+                <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
                     <span>🇪🇺</span>
                     <span>B</span>
                 </div>
-                <!-- Un seul input pour toute la plaque -->
-                <input type="text" class="plaque-complete" value="{{ ex.immatriculation }}"
-                       oninput="this.value = this.value.toUpperCase();">
-            </div>
+
+                <!-- Champ plaque -->
+                <input
+                    type="text"
+                    value="{{ ex.immatriculation }}"
+                    oninput="this.value = this.value.toUpperCase();"
+                    class="w-full text-center border-none font-bold text-[#8B0000] text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0"
+>
+           </div>
+
 
             <!-- Infos de l'exemplaire -->
             <div class="flex justify-between items-center mt-2">

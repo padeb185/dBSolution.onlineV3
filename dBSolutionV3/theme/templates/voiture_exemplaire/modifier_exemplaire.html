@@ -5,17 +5,25 @@
 <div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
     <h1 class="text-2xl font-bold mb-4">
         <span>{% trans "Modifier le véhicule" %} :</span>
+           <div class="flex items-center w-[40%] min-w-[180px] h-[40px] bg-white border-2 border-[#8B0000] rounded font-[Arial]">
 
-            <!-- Plaque belge dans la même ligne -->
-        <div class="plaque-belge">
-            <div class="europe">
-                <span>🇪🇺</span>
-                <span>B</span>
-            </div>
-                <!-- Un seul input pour toute la plaque -->
-            <input type="text" class="plaque-complete" value="{{ exemplaire.immatriculation }}"
-                       oninput="this.value = this.value.toUpperCase();">
-        </div>
+                <!-- Partie Europe -->
+                <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
+                    <span>🇪🇺</span>
+                    <span>B</span>
+                </div>
+
+                <!-- Champ plaque -->
+                <input
+                    type="text"
+                    value="{{ exemplaire.immatriculation }}"
+                    oninput="this.value = this.value.toUpperCase();"
+                    class="w-full text-center border-none font-bold text-[#8B0000] text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0"
+>
+           </div>
+
+
+
     </h1>
 
     <form method="post">
