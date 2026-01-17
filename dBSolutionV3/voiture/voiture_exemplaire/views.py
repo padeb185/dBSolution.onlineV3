@@ -105,9 +105,10 @@ def lier_moteur_exemplaire_from_detail(request, exemplaire_id):
         exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
 
         if request.method == "POST":
-            code = request.POST.get("code_moteur")
             motoriste = request.POST.get("motoriste")
-            moteur = MoteurVoiture.objects.filter(code_moteur=code, motoriste=motoriste).first()
+            cylindree = request.POST.get("cylindree_l")
+            code = request.POST.get("code_moteur")
+            moteur = MoteurVoiture.objects.filter(code_moteur=code, motoriste=motoriste, cylindree_l=cylindree).first()
             if moteur:
                 moteur.voitures_exemplaires.add(exemplaire)
                 return redirect("voiture_exemplaire:voiture_exemplaire_detail", exemplaire_id=exemplaire.id)
@@ -116,6 +117,28 @@ def lier_moteur_exemplaire_from_detail(request, exemplaire_id):
                     "exemplaire": exemplaire,
                     "error": _("Moteur non trouvé")
                 })
+
+
+
+
+@login_required
+def get_cylindrees(request):
+    motoriste = request.GET.get("motoriste")
+    tenant = request.user.societe
+    with tenant_context(tenant):
+        cylindrees = MoteurVoiture.objects.filter(motoriste=motoriste).values_list("cylindree_l", flat=True).distinct()
+        return JsonResponse(list(cylindrees), safe=False)
+
+@login_required
+def get_code_moteur(request):
+    motoriste = request.GET.get("motoriste")
+    cylindree = request.GET.get("cylindree")
+    tenant = request.user.societe
+    with tenant_context(tenant):
+        moteur = MoteurVoiture.objects.filter(motoriste=motoriste, cylindree_l=cylindree).first()
+        return JsonResponse({"code_moteur": moteur.code_moteur if moteur else ""})
+
+
 
 
 @login_required

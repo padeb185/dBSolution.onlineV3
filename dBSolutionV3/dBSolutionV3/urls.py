@@ -41,4 +41,6 @@ urlpatterns += i18n_patterns(
 
     # Détail d'exemplaire
     path('voiture/exemplaires/<uuid:exemplaire_id>/', voiture_exemplaire_detail, name='detail'),
+
+
 )

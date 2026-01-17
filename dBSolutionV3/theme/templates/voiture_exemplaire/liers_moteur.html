@@ -6,7 +6,63 @@
 
 <form method="post">
     {% csrf_token %}
-    <p>{{ confirm_text }}</p>
-    <button type="submit">{{ submit_text }}</button>
+    <label for="motoriste">Motoriste :</label>
+    <select id="motoriste" name="motoriste">
+        <option value="">-- Choisir un motoriste --</option>
+        {% for m in motoristes %}
+        <option value="{{ m }}">{{ m }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="cylindree">Cylindrée :</label>
+    <select id="cylindree" name="cylindree_l" disabled>
+        <option value="">-- Choisir une cylindrée --</option>
+    </select>
+
+    <label for="code_moteur">Code moteur :</label>
+    <input type="text" id="code_moteur" name="code_moteur" readonly>
+
+    <button type="submit">Lier le moteur</button>
 </form>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $("#motoriste").change(function() {
+        var motoriste = $(this).val();
+        if (motoriste) {
+            $.ajax({
+                url: "{% url 'voiture_exemplaire:ajax_get_cylindrees' %}",
+                data: {motoriste: motoriste},
+                success: function(data) {
+                    var select = $("#cylindree");
+                    select.empty().append('<option value="">-- Choisir une cylindrée --</option>');
+                    data.forEach(function(c) { select.append('<option value="'+c+'">'+c+'</option>'); });
+                    select.prop("disabled", false);
+                    $("#code_moteur").val("");
+                }
+            });
+        } else {
+            $("#cylindree").empty().append('<option value="">-- Choisir une cylindrée --</option>').prop("disabled", true);
+            $("#code_moteur").val("");
+        }
+    });
+
+    $("#cylindree").change(function() {
+        var motoriste = $("#motoriste").val();
+        var cylindree = $(this).val();
+        if (motoriste && cylindree) {
+            $.ajax({
+                url: "{% url 'voiture_exemplaire:ajax_get_code_moteur' %}",
+                data: {motoriste: motoriste, cylindree: cylindree},
+                success: function(data) {
+                    $("#code_moteur").val(data.code_moteur);
+                }
+            });
+        } else {
+            $("#code_moteur").val("");
+        }
+    });
+});
+</script>
 {% endblock %}

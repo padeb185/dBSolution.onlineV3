@@ -99,18 +99,29 @@
         <form id="lier-moteur-form" method="post"
               action="{% url 'voiture_exemplaire:lier_moteur_exemplaire_from_detail' exemplaire_id=exemplaire.id %}">
             {% csrf_token %}
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <input type="text" id="code_moteur" name="code_moteur"
-                       placeholder="{% trans 'Code moteur' %}" required
-                       class="border rounded p-2 w-full">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <!-- Motoriste libre -->
                 <input type="text" id="motoriste" name="motoriste"
                        placeholder="{% trans 'Motoriste' %}" required
+                       class="border rounded p-2 w-full">
+
+                <!-- Cylindrée dépend du motoriste -->
+                <select id="cylindree_l" name="cylindree_l" required disabled
+                        class="border rounded p-2 w-full">
+                    <option value="">{% trans "Choisir une cylindrée" %}</option>
+                </select>
+
+                <!-- Code moteur auto -->
+                <input type="text" id="code_moteur" name="code_moteur"
+                       placeholder="{% trans 'Code moteur' %}" readonly
                        class="border rounded p-2 w-full">
             </div>
             <button type="submit" class="mt-4 px-4 py-2 bg-blue-700 text-white rounded hover:bg-blue-400">
                 {% trans "Lier le moteur" %}
             </button>
         </form>
+
+
 
         <div id="moteur-details" class="mt-4 hidden">
             <h3 class="font-semibold">{% trans "Détails du moteur" %}</h3>
@@ -119,86 +130,49 @@
     </div>
 
 </div>
-<style>
-.plaque-belge {
-  display: flex;
-  align-items: center;
-  width: 40%;
-  min-width: 180px;
-    height: 50%;
-  background: white;
-  border: 2px solid #8B0000;
-  border-radius: 4px;
-  padding: 4px 8px;
-  font-family: Arial, sans-serif;
-  font-size: 16px;
-}
 
-.plaque-belge .europe {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: #003399;
-  color: white;
-  font-weight: bold;
-  padding: 3px 6px;
-  border-radius: 3px 0 0 3px;
-  margin-right: 5px;
-  font-size: 16px;
-    height: 50%;
-}
-
-.plaque-complete {
-  flex: 1;
-  text-align: center;
-  border: none;
-  font-weight: bold;
-  color: #8B0000;
-  font-size: 16px;
-  background: transparent;
-  outline: none;
-    height: 50%;
-}
-</style>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
 
-    function remplirDetailsMoteur(data) {
-        const $list = $('#moteur-details-list');
-        $list.empty();
-        for (const [key, value] of Object.entries(data)) {
-            $list.append(`<li>${key}: ${value}</li>`);
-        }
-        $('#moteur-details').removeClass('hidden');
-    }
-
-    function verifierMoteur() {
-        const code = $('#code_moteur').val().trim();
-        const motoriste = $('#motoriste').val().trim();
-
-        if (code && motoriste) {
-            $.get("{% url 'voiture_exemplaire:moteur_autocomplete' %}", {
-                code_moteur: code,
-                motoriste: motoriste
-            })
-            .done(function(data) {
-                remplirDetailsMoteur(data);
-            })
-            .fail(function(xhr) {
-                const error = xhr.responseJSON?.error || "{% trans 'Erreur lors de la récupération du moteur.' %}";
-                alert(error);
-                $('#moteur-details').addClass('hidden');
+    // Dès qu'on quitte le champ motoriste, on récupère les cylindrées
+    $("#motoriste").on('blur', function() {
+        const motoriste = $(this).val().trim();
+        const $cylindree = $("#cylindree_l");
+        $cylindree.empty().append('<option value="">{% trans "Choisir une cylindrée" %}</option>');
+        $("#code_moteur").val("");
+        if (motoriste) {
+            $.ajax({
+                url: "{% url 'voiture_exemplaire:ajax_get_cylindrees' %}",
+                data: { motoriste: motoriste },
+                success: function(data) {
+                    data.forEach(c => $cylindree.append('<option value="'+c+'">'+c+'</option>'));
+                    $cylindree.prop("disabled", false);
+                }
             });
         } else {
-            $('#moteur-details').addClass('hidden');
+            $cylindree.prop("disabled", true);
         }
-    }
+    });
 
-    $('#code_moteur, #motoriste').on('blur', verifierMoteur);
+    // Quand on choisit une cylindrée, on remplit le code moteur
+    $("#cylindree_l").change(function() {
+        const motoriste = $("#motoriste").val().trim();
+        const cylindree = $(this).val();
+        if (motoriste && cylindree) {
+            $.ajax({
+                url: "{% url 'voiture_exemplaire:ajax_get_code_moteur' %}",
+                data: { motoriste: motoriste, cylindree: cylindree },
+                success: function(data) {
+                    $("#code_moteur").val(data.code_moteur);
+                }
+            });
+        } else {
+            $("#code_moteur").val("");
+        }
+    });
 
 });
 </script>
+
+
 {% endblock %}
