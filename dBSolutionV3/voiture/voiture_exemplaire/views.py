@@ -80,9 +80,15 @@ def ajouter_exemplaire(request, modele_id):
         else:
             # GET → formulaire pré-rempli avec la marque et le modèle
             form = VoitureExemplaireForm(initial={
-                "voiture_marque": marque.id_marque,  # ⚠ id_marque et pas id
+                "voiture_marque": marque.id,  # ✅ utiliser id, pas id_marque
                 "voiture_modele": modele.id
             })
+
+        return render(request, "voiture_exemplaire/ajouter_exemplaire.html", {
+            "form": form,
+            "modele": modele
+        })
+
 
         # Retourne toujours le template avec le formulaire
         return render(request, "voiture_exemplaire/ajouter_exemplaire.html", {

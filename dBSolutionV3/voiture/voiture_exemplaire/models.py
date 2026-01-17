@@ -35,6 +35,11 @@ class VoitureExemplaire(models.Model):
         blank=True
     )
 
+    pays = models.CharField(
+        max_length=20,
+        null=True,
+        blank=True
+    )
     numero_vin = models.CharField(
         max_length=17,
         unique=True,
