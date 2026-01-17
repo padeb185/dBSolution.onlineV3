@@ -35,8 +35,8 @@
     <!-- Marques -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         {% for marque in marques %}
-        <div class="bg-white shadow-md hover:shadow-lg transition rounded-lg p-6 marque-card
-                    flex items-center gap-6 cursor-pointer w-full"
+        <div class="bg-white shadow-md transition duration-300 hover:shadow-lg hover:bg-blue-50 rounded-lg p-6 marque-card
+                    flex items-center gap-6 cursor-pointer w-full "
              onclick="window.location.href='{% url 'voiture_marque:modeles_par_marque' marque_id=marque.id_marque %}'"
              data-marque-id="{{ marque.id_marque }}"
              data-marque-nom="{{ marque.nom_marque|lower }}">

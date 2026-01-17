@@ -27,7 +27,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="exemplaires-container">
 
         {% for ex in exemplaires %}
-        <div class="exemplaire-card bg-white shadow-md hover:shadow-lg transition rounded-lg p-4 flex flex-col gap-2 cursor-pointer"
+        <div class="exemplaire-card bg-white shadow-md transition duration-300 hover:shadow-lg hover:bg-blue-50 rounded-lg p-4 flex flex-col gap-2 cursor-pointer"
              data-immatriculation="{{ ex.immatriculation|lower }}"
              onclick="window.location.href='{% url 'voiture_exemplaire:voiture_exemplaire_detail' exemplaire_id=ex.id %}'">
 
@@ -66,7 +66,7 @@
         {% endfor %}
 
         <!-- Carte "Ajouter un exemplaire" -->
-        <div class="bg-white-100 hover:bg-indigo-200 shadow-md hover:shadow-lg transition rounded-lg p-4 flex items-center justify-center cursor-pointer"
+       <div class="bg-white shadow-md transition duration-300 hover:shadow-lg hover:bg-blue-50 rounded-lg p-4 flex flex-col justify-center items-center gap-2 cursor-pointer"
              onclick="window.location.href='{% url 'voiture_exemplaire:ajouter_exemplaire' modele_id=modele.id %}'">
             <div class="text-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-blue-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">

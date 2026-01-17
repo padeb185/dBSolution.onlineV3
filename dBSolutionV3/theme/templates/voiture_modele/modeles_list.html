@@ -16,7 +16,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="modeles-container">
 
             {% for modele in modeles %}
-            <div class="bg-white shadow-md hover:shadow-lg transition rounded-lg p-6 flex items-center gap-6 cursor-pointer w-full marque-card"
+            <div class="bg-white shadow-md transition duration-300 hover:shadow-lg hover:bg-blue-50 rounded-lg p-6 flex items-center gap-6 cursor-pointer w-full marque-card"
                  data-modele-nom="{{ modele.nom_modele }}"
                 onclick="window.location.href='{% url 'voiture_exemplaire:voiture_exemplaire' modele_id=modele.id %}'">
 
