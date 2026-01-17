@@ -1,145 +1,120 @@
 {% extends 'base.html' %}
 {% load i18n static widget_tweaks %}
 {% get_current_language as LANGUAGE_CODE %}
-
 {% block title %}{% trans "Tableau de bord" %}{% endblock %}
-
 {% block content %}
 <h1 class="text-2xl font-bold mb-6">{% trans "Bienvenue sur ton tableau de bord" %}</h1>
 
-<!-- Cartes principales -->
+
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-  <!-- Carte Utilisateurs -->
-  <div class="bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg">
-    <div class="flex justify-between items-center">
-      <div>
-        <h2 class="text-lg font-semibold mb-2">{% trans "Utilisateurs" %}</h2>
-        <p class="text-gray-600">{% trans "Nombre total :" %} <span class="font-bold">128</span></p>
+      <!-- Carte Utilisateurs -->
+      <div class="bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg">
+        <div class="flex justify-between items-center">
+          <div>
+            <h2 class="text-lg font-semibold mb-2">{% trans "Utilisateurs" %}</h2>
+            <p class="text-gray-600">{% trans "Nombre total :" %} <span class="font-bold">128</span></p>
+          </div>
+          <img src="{% static 'icons/equipe.png' %}" alt="Utilisateurs" style="width:60px; height:60px;">
+        </div>
       </div>
-      <img src="{% static 'icons/equipe.png' %}" alt="Utilisateurs" style="width:60px; height:60px; margin-right:10px;">
-    </div>
-  </div>
 
-  <!-- Carte Projets -->
-  <div class="bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg">
-    <div class="flex justify-between items-center">
-      <div>
-        <h2 class="text-lg font-semibold mb-2">{% trans "Projets" %}</h2>
-        <p class="text-gray-600">{% trans "Projets actifs :" %} <span class="font-bold">24</span></p>
+      <!-- Carte Projets -->
+      <div class="bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg">
+        <div class="flex justify-between items-center">
+          <div>
+            <h2 class="text-lg font-semibold mb-2">{% trans "Projets" %}</h2>
+            <p class="text-gray-600">{% trans "Projets actifs :" %} <span class="font-bold">24</span></p>
+          </div>
+          <img src="{% static 'icons/gestion-de-projet.png' %}" alt="Projets" style="width:60px; height:60px;">
+        </div>
       </div>
-      <img src="{% static 'icons/gestion-de-projet.png' %}" alt="Projets" style="width:60px; height:60px; margin-right:10px;">
-    </div>
-  </div>
 
-  <!-- Carte Notifications -->
-  <div class="bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg">
-    <div class="flex justify-between items-center">
-      <div>
-        <h2 class="text-lg font-semibold mb-2">{% trans "Notifications" %}</h2>
-        <p class="text-gray-600">{% trans "Messages non lus :" %} <span class="font-bold">5</span></p>
+      <!-- Carte Notifications -->
+      <div class="bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg">
+        <div class="flex justify-between items-center">
+          <div>
+            <h2 class="text-lg font-semibold mb-2">{% trans "Notifications" %}</h2>
+            <p class="text-gray-600">{% trans "Messages non lus :" %} <span class="font-bold">5</span></p>
+          </div>
+          <img src="{% static 'icons/cloche.png' %}" alt="Notifications" style="width:60px; height:60px;">
+        </div>
       </div>
-      <img src="{% static 'icons/cloche.png' %}" alt="Notifications" style="width:60px; height:60px; margin-right:10px;">
+
     </div>
-  </div>
-
-</div>
-
-
 <!-- Tableau activités -->
-<div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto">
-  <h2 class="text-lg font-semibold mb-4">{% trans "Dernières activités" %}</h2>
-  <table class="min-w-full table-auto border-collapse border border-gray-200">
-    <thead>
-      <tr class="bg-gray-100">
-        <th class="border border-gray-200 px-4 py-2 text-left">{% trans "Date" %}</th>
-        <th class="border border-gray-200 px-4 py-2 text-left">{% trans "Utilisateur" %}</th>
-        <th class="border border-gray-200 px-4 py-2 text-left">{% trans "Action" %}</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="border border-gray-200 px-4 py-2">11/12/2025</td>
-        <td class="border border-gray-200 px-4 py-2">Pierre</td>
-        <td class="border border-gray-200 px-4 py-2">{% trans "Connexion" %}</td>
-      </tr>
-      <tr>
-        <td class="border border-gray-200 px-4 py-2">10/12/2025</td>
-        <td class="border border-gray-200 px-4 py-2">Alice</td>
-        <td class="border border-gray-200 px-4 py-2">{% trans "Modification de projet" %}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+    <div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto">
+        <h2 class="text-lg font-semibold mb-4">{% trans "Dernières activités" %}</h2>
+        <table class="min-w-full table-auto border-collapse border border-gray-200">
+            <thead> <tr class="bg-gray-100">
+                <th class="border border-gray-200 px-4 py-2 text-left">
+                {% trans "Date" %}</th>
+                <th class="border border-gray-200 px-4 py-2 text-left">{% trans "Utilisateur" %}</th>
+                <th class="border border-gray-200 px-4 py-2 text-left">{% trans "Action" %}</th> </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="border border-gray-200 px-4 py-2">11/12/2025</td>
+                <td class="border border-gray-200 px-4 py-2">Pierre</td>
+                <td class="border border-gray-200 px-4 py-2">{% trans "Connexion" %}</td>
+            </tr> <tr> <td class="border border-gray-200 px-4 py-2">10/12/2025</td>
+                <td class="border border-gray-200 px-4 py-2">Alice</td>
+                <td class="border border-gray-200 px-4 py-2">{% trans "Modification de projet" %}</td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
 
 <!-- Deuxième grille -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
 
   <!-- Carte Marques de Voiture -->
-  <!-- Carte Marques de Voiture -->
-<a href="{% url 'voiture_marque:marques_list' %}"
-   class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+      <a href="{% url 'voiture_marque:marques_list' %}"
+         class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
 
-    <div class="flex justify-between items-center">
-        <div>
-            <h2 class="text-lg font-semibold mb-2">{% trans "Marques de voiture" %}</h2>
-            <p class="text-gray-600">
-              {% trans "Nombre total :" %}
-              <span class="font-bold">{{ total_marques }}</span>
-            </p>
-        </div>
+          <div class="flex justify-between items-center">
+              <div>
+                  <h2 class="text-lg font-semibold mb-2">{% trans "Marques de voiture" %}</h2>
+                  <p class="text-gray-600">
+                    {% trans "Nombre total :" %}
+                    <span class="font-bold">{{ total_marques }}</span>
+                  </p>
+              </div>
 
-        <!-- Icône à droite -->
-        <img src="{% static 'icons/voiture-de-course.png' %}"
-             alt="Marque de voiture"
-             style="width:60px; height:60px; margin-right:10px;">
-    </div>
+              <!-- Icône à droite -->
+              <img src="{% static 'icons/voiture-de-course.png' %}" alt="Marque de voiture" style="width:60px; height:60px;">
+          </div>
 
-</a>
-
-
+      </a>
 
   <!-- Carte Moteurs -->
- <a href="{% url 'voiture_moteur:list' %}"
-   class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-green-50">
+    <a href="{% url 'voiture_moteur:list' %}"
+         class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-green-50">
 
-    <!-- Texte à gauche -->
-    <div>
-        <h2 class="text-lg font-semibold mb-1">{% trans "Moteurs" %}</h2>
-        <p class="text-gray-600 text-sm">
-            {% trans "Nombre total :" %} <span class="font-bold">{{ total_moteurs }}</span>
-        </p>
+          <!-- Texte à gauche -->
+          <div>
+              <h2 class="text-lg font-semibold mb-1">{% trans "Moteurs" %}</h2>
+              <p class="text-gray-600 text-sm">
+                  {% trans "Nombre total :" %} <span class="font-bold">{{ total_moteurs }}</span>
+              </p>
+          </div>
+
+          <!-- Icône à droite -->
+          <img src="{% static 'icons/engine.png' %}" alt="Moteur" style="width:60px; height:60px;">
+      </a>
+
     </div>
 
-    <!-- Icône à droite -->
-     <img src="{% static 'icons/engine.png' %}" alt="Moteur"
-        style="width:60px; height:60px; margin-right:10px;">
-</a>
+    {% if user.is_staff and user.is_superuser %}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
 
-
-</div>
-
-<!-- Dummy safelist Tailwind -->
-<div class="hidden
-  bg-white bg-gray-100 bg-gray-200 bg-red-500 bg-blue-500
-  hover:bg-blue-700 hover:shadow-lg shadow-md rounded-lg
-  p-4 p-6 text-gray-600 text-gray-700 text-gray-500
-  font-bold font-semibold transition duration-300
-  min-h-[70vh] flex flex-col items-center justify-center w-full">
-</div>
-
-{% if user.is_staff and user.is_superuser %}
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-
-    <a href="{% url 'utilisateurs:dashboard_admin' %}"
-       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-green-50">
-         <h2 class="text-lg font-semibold mb-2">{% trans "Tableau de bord Admin" %}</h2>
-         <img src="{% static 'icons/ingenieur-logiciel.png' %}" alt="Moteur"
-        style="width:60px; height:60px; margin-right:10px;">
-
-    </a>
-</div>
+        <a href="{% url 'utilisateurs:dashboard_admin' %}"
+           class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-green-50">
+             <h2 class="text-lg font-semibold mb-2">{% trans "Tableau de bord Admin" %}</h2>
+             <img src="{% static 'icons/ingenieur-logiciel.png' %}" alt="Moteur" style="width:60px; height:60px;">
+        </a>
+    </div>
 {% endif %}
-
 
 {% endblock %}

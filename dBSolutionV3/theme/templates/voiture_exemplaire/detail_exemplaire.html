@@ -4,6 +4,23 @@
 
 {% block content %}
 <div class="mx-4 sm:mx-6 lg:mx-8 p-6 w-full">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold flex items-center gap-4">
+            <span>{% trans "Détails du véhicule" %} :</span>
+
+            <!-- Plaque belge dans la même ligne -->
+            <div class="plaque-belge">
+                <div class="europe">
+                    <span>🇪🇺</span>
+                    <span>B</span>
+                </div>
+                <!-- Un seul input pour toute la plaque -->
+                <input type="text" class="plaque-complete" value="{{ exemplaire.immatriculation }}"
+                       oninput="this.value = this.value.toUpperCase();">
+            </div>
+        </h1>
+    </div>
 
     <!-- Infos principales en cartes responsive -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
@@ -11,19 +28,24 @@
         <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
             <h2 class="text-lg font-semibold mb-2">{% trans "Informations générales" %}</h2>
 
-            <!-- Plaque belge dans la box -->
-            <div class="plaque-belge">
-                <div class="europe">
-                    <span>🇪🇺</span>
-                    <span>B</span>
-                </div>
-                <input type="text" class="plaque-complete" value="{{ exemplaire.immatriculation }}" readonly>
-            </div>
+
 
             <!-- Autres informations -->
             <p><strong>{% trans "Année de production" %}:</strong> {{ exemplaire.annee_production }}/{{ exemplaire.mois_production }}</p>
             <p><strong>{% trans "Kilométrage" %}:</strong> {{ exemplaire.kilometres_total }} km</p>
             <p><strong>{% trans "Couleur" %}:</strong> {{ exemplaire.couleur|default:_("Non renseignée") }}</p>
+
+             <div class="mt-auto w-full">
+                <a href="{% url 'voiture_exemplaire:modifier_exemplaire' exemplaire_id=exemplaire.id %}"
+                   class="block w-full">
+                    <button type="button"
+                            class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+                        {% trans "Modifier" %}
+                    </button>
+                </a>
+             </div>
+
+
         </div>
 
         <!-- Moteurs -->
@@ -63,7 +85,7 @@
                        placeholder="{% trans 'Motoriste' %}" required
                        class="border rounded p-2 w-full">
             </div>
-            <button type="submit" class="mt-4 px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">
+            <button type="submit" class="mt-4 px-4 py-2 bg-blue-700 text-white rounded hover:bg-blue-400">
                 {% trans "Lier le moteur" %}
             </button>
         </form>
@@ -81,6 +103,7 @@
   align-items: center;
   width: 40%;
   min-width: 180px;
+    height: 50%;
   background: white;
   border: 2px solid #8B0000;
   border-radius: 4px;
@@ -101,6 +124,7 @@
   border-radius: 3px 0 0 3px;
   margin-right: 5px;
   font-size: 16px;
+    height: 50%;
 }
 
 .plaque-complete {
@@ -112,8 +136,10 @@
   font-size: 16px;
   background: transparent;
   outline: none;
+    height: 50%;
 }
 </style>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {

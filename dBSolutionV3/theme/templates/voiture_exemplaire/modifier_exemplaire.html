@@ -1,21 +1,96 @@
-{# voiture/voiture_exemplaire/templates/voiture/voiture_exemplaire/modifier_exemplaire.html #}
 {% extends 'base.html' %}
-{% load i18n static %}
+{% load i18n widget_tweaks %}
 
 {% block content %}
-<div class="mx-4 sm:mx-6 lg:mx-8 p-6 w-full">
-    <h1 class="text-2xl font-bold mb-6">{% trans "Modifier l'exemplaire" %} {{ exemplaire.immatriculation }}</h1>
+<div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
+    <h1 class="text-2xl font-bold mb-4">
+        <span>{% trans "Modifier le véhicule" %} :</span>
+
+            <!-- Plaque belge dans la même ligne -->
+        <div class="plaque-belge">
+            <div class="europe">
+                <span>🇪🇺</span>
+                <span>B</span>
+            </div>
+                <!-- Un seul input pour toute la plaque -->
+            <input type="text" class="plaque-complete" value="{{ exemplaire.immatriculation }}"
+                       oninput="this.value = this.value.toUpperCase();">
+        </div>
+    </h1>
 
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-            {% trans "Enregistrer les modifications" %}
-        </button>
-        <a href="{% url 'voiture_exemplaire:voiture_exemplaire_detail' exemplaire_id=exemplaire.id %}"
-           class="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400 ml-2">
-            {% trans "Annuler" %}
-        </a>
+
+        {% for field in form %}
+            <label class="font-semibold">{{ field.label }}</label>
+            {{ field|add_class:"input" }}
+            {% if field.help_text %}
+                <small class="text-gray-500">{{ field.help_text }}</small>
+            {% endif %}
+            {% if field.errors %}
+                <div class="text-red-600 text-sm mb-2">{{ field.errors }}</div>
+            {% endif %}
+        {% endfor %}
+
+            <button type="submit" class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400">
+                {% trans "Enregistrer les modifications" %}
+            </button>
+            <a href="{% url 'voiture_exemplaire:voiture_exemplaire_detail' exemplaire_id=exemplaire.id %}"
+               class="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400 ml-2">
+                {% trans "Annuler" %}
+            </a>
     </form>
 </div>
+<style>
+    .input {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+
+.plaque-belge {
+  display: flex;
+  align-items: center;
+  width: 40%;
+  min-width: 180px;
+  background: white;
+  border: 2px solid #8B0000;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+}
+
+.plaque-belge .europe {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #003399;
+  color: white;
+  font-weight: bold;
+  padding: 3px 6px;
+  border-radius: 3px 0 0 3px;
+  margin-right: 5px;
+  font-size: 16px;
+}
+
+.plaque-complete {
+  flex: 1;
+  text-align: center;
+  border: none;
+  font-weight: bold;
+  color: #8B0000;
+  font-size: 16px;
+  background: transparent;
+  outline: none;
+}
+
+
+</style>
+
 {% endblock %}
