@@ -35,7 +35,7 @@ def ajouter_boite(request, modele_id):
                 "voiture_modele": modele.id
             })
 
-        return render(request, "voiture_boite/ajouter_boite.html", {
+        return render(request, "voiture_boite/ajouter_boite_simple.html", {
             "form": form,
             "modele": modele
         })
@@ -60,3 +60,41 @@ def liste_boite(request):
             'exemplaires': exemplaires
         }
     )
+
+
+def ajouter_boite_simple(request):
+    if request.method == "POST":
+        VoitureBoite.objects.create(
+            fabricant=request.POST.get("fabricant"),
+            nom_du_type=request.POST.get("nom_du_type"),
+            type_de_boite=request.POST.get("type_de_boite"),
+            nombre_rapport=request.POST.get("nombre_rapport") or 5,
+            qualite_huile=request.POST.get("qualite_huile"),
+            quantite_huile_l=request.POST.get("quantite_huile_l"),
+        )
+        return redirect("voiture_boite:list")
+
+    return render(request, "voiture_boite/ajouter_boite_simple.html")
+
+
+
+from django.shortcuts import get_object_or_404
+
+def lier_boite(request, boite_id):
+    boite = get_object_or_404(VoitureBoite, id=boite_id)
+
+    if request.method == "POST":
+        type_liaison = request.POST.get("type_liaison")
+        cible_id = request.POST.get("cible_id")
+
+        if type_liaison == "modele":
+            boite.voiture_modele_id = cible_id
+            boite.voiture_exemplaire = None
+        else:
+            boite.voiture_exemplaire_id = cible_id
+            boite.voiture_modele = None
+
+        boite.save()
+        return redirect("voiture_boite:list")
+
+    return render(request, "voiture_boite/lier_boite.html", {"boite": boite})

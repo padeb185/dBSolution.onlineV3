@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="max-w-xl mx-auto p-6 bg-white rounded shadow mt-16 mb-16">
+
+    <h1 class="text-2xl font-bold mb-4 text-center flex items-center justify-center">
+        <img src="{% static 'icons/boite-de-vitesse.png' %}" alt="Boite de vitesse" style="width:60px; height:60px; margin-right:10px;">
+        {% trans "Ajouter une boite pour" %} {{ exemplaire }}
+    </h1>
+
+    {% for message in messages %}
+        <div class="mb-3 text-red-600">{{ message }}</div>
+    {% endfor %}
+
+    <form method="post" class="flex flex-col space-y-4">
+        {% csrf_token %}
+
+        <div>
+            <label for="id_fabricant">{% trans "Fabricant" %}</label>
+            <input type="text" id="id_fabricant" name="fabricant" class="border rounded px-4 py-2 w-full">
+        </div>
+
+        <div>
+            <label for="id_nom_du_type">{% trans "Nom du Type" %}</label>
+            <input type="text" id="id_nom_du_type" name="nom_du_type" class="border rounded px-4 py-2 w-full">
+        </div>
+
+        <div>
+            <label for="id_type_de_boite">{% trans "Type de boite" %}</label>
+            <input type="text" id="id_type_de_boite" name="type_de_boite" class="border rounded px-4 py-2 w-full">
+        </div>
+
+        <div>
+            <label for="id_nombre_rapport">{% trans "Nombre de rapports" %}</label>
+            <input type="number" id="id_nombre_rapport" name="nombre_rapport" class="border rounded px-4 py-2 w-full">
+        </div>
+
+        <div>
+            <label for="id_qualite_huile">{% trans "Qualité d'huile" %}</label>
+            <input type="text" id="id_qualite_huile" name="qualite_huile" class="border rounded px-4 py-2 w-full">
+        </div>
+
+        <div>
+            <label for="id_quantite_huile_l">{% trans "Quantité d'huile (L)" %}</label>
+            <input type="text" id="id_quantite_huile_l" name="quantite_huile_l" class="border rounded px-4 py-2 w-full">
+        </div>
+
+        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded w-full">
+            {% trans "Ajouter" %}
+        </button>
+    </form>
+</div>
+
+<script>
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie) {
+        document.cookie.split(';').forEach(c => {
+            c = c.trim();
+            if (c.startsWith(name + '=')) {
+                cookieValue = decodeURIComponent(c.slice(name.length + 1));
+            }
+        });
+    }
+    return cookieValue;
+}
+
+const csrftoken = getCookie('csrftoken');
+
+document.getElementById('id_fabricant').addEventListener('change', function(){
+    const fabricant = this.value;
+
+    fetch('/api/check_nom', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+        },
+        body: JSON.stringify({ fabricant: fabricant })
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.exist) {
+            document.getElementById('id_fabricant').value = data.fabricant;
+            document.getElementById('id_nom_du_type').value = data.nom_du_type;
+            document.getElementById('id_type_de_boite').value = data.type_de_boite;
+            document.getElementById('id_nombre_rapport').value = data.nombre_rapport;
+            document.getElementById('id_qualite_huile').value = data.qualite_huile;
+            document.getElementById('id_quantite_huile_l').value = data.quantite_huile_l;
+        } else {
+            document.getElementById('id_nom_du_type').value = '';
+            document.getElementById('id_type_de_boite').value = '';
+            document.getElementById('id_nombre_rapport').value = '';
+            document.getElementById('id_qualite_huile').value = '';
+            document.getElementById('id_quantite_huile_l').value = '';
+        }
+    })
+    .catch(err => console.error("Erreur:", err));
+});
+</script>
+{% endblock %}
