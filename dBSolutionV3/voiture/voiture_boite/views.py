@@ -47,19 +47,10 @@ def liste_boite(request):
     Affiche tous les exemplaires de véhicules avec recherche sur marque et immatriculation
     """
     tenant = request.user.societe
-
     with tenant_context(tenant):
-        exemplaires = VoitureBoite.objects.select_related(
-            'voiture_marque', 'voiture_modele'  # Ce sont les bons noms de champs
-        ).all().order_by('id')
+        boites = VoitureBoite.objects.all()
+    return render(request, "voiture_boite/list.html", {"boites": boites})
 
-    return render(
-        request,
-        'voiture_boite/list.html',
-        {
-            'exemplaires': exemplaires
-        }
-    )
 
 
 def ajouter_boite_simple(request):
@@ -98,3 +89,13 @@ def lier_boite(request, boite_id):
         return redirect("voiture_boite:list")
 
     return render(request, "voiture_boite/lier_boite.html", {"boite": boite})
+
+
+@login_required()
+def boite_detail_view(request, boite_id):
+    boite = get_object_or_404(VoitureBoite, id=boite_id)
+    return render(request, 'voiture_boite/bite_detail.html', {
+        'boite': boite,
+    })
+
+

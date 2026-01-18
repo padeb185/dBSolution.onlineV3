@@ -1,15 +1,16 @@
 {% extends "base.html" %}
 {% load i18n static widget_tweaks %}
-{% block title %}{% trans "Liste des boites de vitesse" %}{% endblock %}
+
+{% block title %}{% trans "Liste des boîtes de vitesse" %}{% endblock %}
 
 {% block content %}
 <h1 class="text-2xl font-bold mb-6 flex items-center">
     <img src="{% static 'icons/boite-de-vitesse.png' %}" alt="Boîte de vitesse"
          style="width:60px; height:60px; margin-right:10px;">
-    {% trans "Liste des boites de vitesse" %}
+    {% trans "Liste des boîtes de vitesse" %}
 </h1>
 
-<!-- Filtres + bouton ajouter -->
+<!-- Filtres + bouton Ajouter -->
 <div class="bg-white shadow-md rounded-lg p-4 mb-4">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
         <input id="search-fabricant" type="text" class="border rounded px-3 py-2"
@@ -17,10 +18,8 @@
         <input id="search-nom_du_type" type="text" class="border rounded px-3 py-2"
                placeholder="{% trans 'Rechercher par nom du type' %}">
         <input id="search-type_de_boite" type="text" class="border rounded px-3 py-2"
-               placeholder="{% trans 'Rechercher par type de boite' %}">
+               placeholder="{% trans 'Rechercher par type de boîte' %}">
 
-
-        <!-- Bouton Ajouter une boîte -->
         <a href="{% url 'voiture_boite:ajouter_boite_simple' %}"
            class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition">
             {% trans "Ajouter une boîte" %}
@@ -28,45 +27,54 @@
     </div>
 </div>
 
+<!-- Table -->
 <table id="boites-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
     <thead>
         <tr class="bg-gray-100">
             <th class="border px-4 py-2 cursor-pointer">{% trans "Nom du Fabricant" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Nom du Type" %}</th>
-            <th class="border px-4 py-2 cursor-pointer">{% trans "Type de boite" %}</th>
-            <th class="border px-4 py-2 cursor-pointer">{% trans "Nombre de vitesses" %}</th>
-            <th class="border px-4 py-2 text-left">{% trans "Info" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Type de Boîte" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Nombre de Rapports" %}</th>
+             <th class="border px-4 py-2 cursor-pointer">{% trans "Quantité d'huile" %}</th>
+             <th class="border px-4 py-2 cursor-pointer">{% trans "Qualité d'huile" %}</th>
+            <th class="border px-4 py-2 cursor-pointer text-center">{% trans "Info" %}</th>
         </tr>
     </thead>
     <tbody>
-         {% for boite in boites %}
-            <tr>
-                <td>{{ boite.fabricant}}</td>
-              <td>{{ boite.nom_du_type }}</td>
-              <td>{{ boite.type_de_boite }}</td>
-              <td>{{ boite.nombre_rapport }}</td>
-            </tr>
-            {% empty %}
-            <tr>
-              <td colspan="4">Aucune boite de vitesse trouvée.</td>
-            </tr>
-            {% endfor %}
-
-
-
+        {% for boite in boites %}
+        <tr>
+            <td class="border px-4 py-2">{{ boite.fabricant }}</td>
+            <td class="border px-4 py-2">{{ boite.nom_du_type }}</td>
+            <td class="border px-4 py-2">{{ boite.type_de_boite }}</td>
+             <td class="border px-4 py-2">{{ boite.nombre_rapport }}</td>
+             <td class="border px-4 py-2">{{ boite.quantite_huile_l }}</td>
+             <td class="border px-4 py-2">{{ boite.qualite_huile }}</td>
+            <td class="border px-4 py-2 text-center">
+                <a href="{% url 'voiture_boite:detail' boite.id %}"
+                   class="text-blue-600 hover:text-blue-800 font-semibold">
+                    {% trans "Info" %}
+                </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td class="border px-4 py-2 text-center" colspan="4">{% trans "Aucune boîte de vitesse trouvée." %}</td>
+        </tr>
+        {% endfor %}
     </tbody>
 </table>
+
+<!-- DataTables JS -->
 <script>
 $(document).ready(function() {
-    // Assurez-vous que l'ID correspond à celui de votre table HTML
     var table = $('#boites-table').DataTable({
         pageLength: 100,
         language: {
             search: "{% trans 'Recherche globale :' %}",
             lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
-            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ boites' %}",
-            infoEmpty: "{% trans 'Aucune boite trouvée' %}",
-            zeroRecords: "{% trans 'Aucune boite trouvée' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ boîtes' %}",
+            infoEmpty: "{% trans 'Aucune boîte trouvée' %}",
+            zeroRecords: "{% trans 'Aucune boîte trouvée' %}",
             paginate: {
                 first: "{% trans 'Premier' %}",
                 last: "{% trans 'Dernier' %}",
@@ -78,17 +86,23 @@ $(document).ready(function() {
     });
 
     // Filtres par colonne
-      $('#search-fabricant').on('keyup', function () {
+    $('#search-fabricant').on('keyup', function () {
         table.column(0).search(this.value).draw();
     });
     $('#search-nom_du_type').on('keyup', function () {
-        table.column(0).search(this.value).draw();
-    });
-    $('#search-type_de_boite').on('keyup', function () {
         table.column(1).search(this.value).draw();
     });
-    $('#search-nombre_rapport').on('keyup', function () {
+    $('#search-type_de_boite').on('keyup', function () {
         table.column(2).search(this.value).draw();
+    });
+    $('#search-nombre_rapport').on('keyup', function () {
+        table.column(3).search(this.value).draw();
+    });
+    $('#search-quantite_huile_l').on('keyup', function () {
+        table.column(4).search(this.value).draw();
+    });
+    $('#search-qualite_huile').on('keyup', function () {
+        table.column(5).search(this.value).draw();
     });
 });
 </script>

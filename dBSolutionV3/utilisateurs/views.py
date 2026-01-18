@@ -163,6 +163,7 @@ def dashboard_view(request):
         'marques': marques,
         'total_exemplaires': total_exemplaires,
         'exemplaires': exemplaires,
+        'total_boites': total_boites,
         'boites': boites,
 
     })

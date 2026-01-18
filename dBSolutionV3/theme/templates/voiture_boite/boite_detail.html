@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% load i18n static widget_tweaks %}
+
+{% block title %}{{ boite.nom_du_type }} - {{ boite.type_de_boite }}{% endblock %}
+
+{% block content %}
+<div class="max-w-xl mx-auto p-6 bg-white rounded shadow mt-16 mb-16">
+    <h1 class="text-2xl font-bold mb-4 text-center flex items-center">
+        <img src="{% static 'icons/boite-de-vitesse.png' %}" alt="Boîte de vitesse"
+             style="width:60px; height:60px; margin-right:10px;">
+        {% trans "Détails de la boîte de vitesse" %}: {{ boite.fabricant }} {{ boite.nom_du_type }}
+    </h1>
+
+    <form class="flex flex-col space-y-4">
+
+        <div class="flex flex-col">
+            <label class="mb-1 font-medium">{% trans "Fabricant" %}</label>
+            <input type="text" value="{{ boite.fabricant }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
+        </div>
+
+        <div class="flex flex-col">
+            <label class="mb-1 font-medium">{% trans "Nom du type" %}</label>
+            <input type="text" value="{{ boite.nom_du_type }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
+        </div>
+
+        <div class="flex flex-col">
+            <label class="mb-1 font-medium">{% trans "Type de boîte" %}</label>
+            <input type="text" value="{{ boite.get_type_de_boite_display }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
+        </div>
+
+        <div class="flex flex-col">
+            <label class="mb-1 font-medium">{% trans "Nombre de rapports" %}</label>
+            <input type="text" value="{{ boite.nombre_rapport }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
+        </div>
+
+        <!-- Lubrification -->
+        <div class="flex flex-col">
+            <label class="mb-1 font-medium">{% trans "Qualité de l'huile" %}</label>
+            <input type="text" value="{{ boite.qualite_huile }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
+        </div>
+
+        <div class="flex flex-col">
+            <label class="mb-1 font-medium">{% trans "Quantité d'huile (L)" %}</label>
+            <input type="text" value="{{ boite.quantite_huile_l }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
+        </div>
+
+        <!-- Kilométrage & entretien -->
+        <div class="flex flex-col">
+            <label class="mb-1 font-medium">{% trans "Kilométrage de la boîte" %}</label>
+            <input type="text" value="{{ boite.kilometrage_boite }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
+        </div>
+
+        <div class="flex flex-col">
+            <label class="mb-1 font-medium">{% trans "Intervalle entretien (km)" %}</label>
+            <input type="text" value="{{ boite.intervalle_entretien_km }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
+        </div>
+
+        <div class="flex flex-col">
+            <label class="mb-1 font-medium">{% trans "Dernier entretien" %}</label>
+            <input type="text" value="{{ boite.get_dernier_entretien_display }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
+        </div>
+
+        <!-- Gestion remplacement -->
+        <div class="flex flex-col">
+            <label class="mb-1 font-medium">{% trans "Numéro de boîte" %}</label>
+            <input type="text" value="{{ boite.numero_boite }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
+        </div>
+
+        <!-- Liens voiture -->
+        {% if boite.voiture_modele %}
+        <div class="flex flex-col">
+            <label class="mb-1 font-medium">{% trans "Modèle de voiture" %}</label>
+            <input type="text" value="{{ boite.voiture_modele.nom }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
+        </div>
+        {% endif %}
+
+        {% if boite.voiture_exemplaire %}
+        <div class="flex flex-col">
+            <label class="mb-1 font-medium">{% trans "Exemplaire de voiture" %}</label>
+            <input type="text" value="{{ boite.voiture_exemplaire.immatriculation }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
+        </div>
+        {% endif %}
+
+        <div class="flex flex-col">
+            <label class="mb-1 font-medium">{% trans "Date de création" %}</label>
+            <input type="text" value="{{ boite.date_creation|date:'d/m/Y H:i' }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
+        </div>
+
+        <!-- Bouton retour -->
+        <a href="{% url 'voiture_boite:list' %}"
+           class="mt-4 bg-blue-700 text-white px-4 py-2 rounded w-full text-center hover:bg-blue-400 transition">
+            {% trans "Retour" %}
+        </a>
+
+    </form>
+</div>
+{% endblock %}
