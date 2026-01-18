@@ -12,6 +12,7 @@ from django.utils.translation import gettext as _
 from voiture.voiture_marque.models import VoitureMarque
 from voiture.voiture_moteur.models import MoteurVoiture
 from adresse.models import Adresse
+from voiture.voiture_exemplaire.models import VoitureExemplaire
 
 
 def login_view(request):
@@ -74,6 +75,9 @@ def dashboard_view(request):
     total_marques = VoitureMarque.objects.count()
     marques = VoitureMarque.objects.all()
 
+    total_exemplaires = VoitureExemplaire.objects.count()
+    exemplaires = VoitureExemplaire.objects.all()
+
     user = request.user
     context = {}
 
@@ -88,13 +92,16 @@ def dashboard_view(request):
     # --- Récupération des stats ---
     total_marques = 0
     total_moteurs = 0
+    total_exemplaires = 0
     if schema_name:
         with schema_context(schema_name):
             total_marques = VoitureMarque.objects.count()
             total_moteurs = MoteurVoiture.objects.count()
+            total_exemplaires = VoitureExemplaire.objects.count()
 
     context['total_marques'] = total_marques
     context['total_moteurs'] = total_moteurs
+    context['total_exemplaires'] = total_exemplaires
 
     # --- Initialisation par défaut ---
     context['agenda'] = []
@@ -147,6 +154,8 @@ def dashboard_view(request):
         'moteurs': moteurs,
         'total_marques': total_marques,
         'marques': marques,
+        'total_exemplaires': total_exemplaires,
+        'exemplaires': exemplaires,
 
     })
 

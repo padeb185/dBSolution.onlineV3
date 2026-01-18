@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import ajouter_exemplaire, liste_exemplaires, voiture_exemplaire_detail, lier_moteur_exemplaire_from_detail, \
-    moteur_autocomplete, modifier_exemplaire, get_cylindrees, get_code_moteur
+    moteur_autocomplete, modifier_exemplaire, get_cylindrees, get_code_moteur, liste_exemplaires_all
 
 app_name = "voiture_exemplaire"
 
@@ -18,8 +18,9 @@ urlpatterns = [
     path('ajax/get_cylindrees/', get_cylindrees, name='ajax_get_cylindrees'),
     path('ajax/get_code_moteur/', get_code_moteur, name='ajax_get_code_moteur'),
 
-    path("modele/<uuid:id_modele>/", liste_exemplaires, name="liste_exemplaires")
+    path("modele/<uuid:id_modele>/", liste_exemplaires, name="liste_exemplaires"),
 
+    path('exemplaires/', liste_exemplaires_all, name='liste_exemplaires_all'),
 
 ]
 

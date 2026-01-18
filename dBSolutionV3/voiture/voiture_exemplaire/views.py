@@ -211,3 +211,25 @@ def modifier_exemplaire(request, exemplaire_id):
             'form': form,
             'exemplaire': exemplaire,
         })
+
+
+
+@login_required
+def liste_exemplaires_all(request):
+    """
+    Affiche tous les exemplaires de véhicules avec recherche sur marque et immatriculation
+    """
+    tenant = request.user.societe
+
+    with tenant_context(tenant):
+        exemplaires = VoitureExemplaire.objects.select_related(
+            'voiture_marque', 'voiture_modele'  # Ce sont les bons noms de champs
+        ).all().order_by('id')
+
+    return render(
+        request,
+        'voiture_exemplaire/list.html',
+        {
+            'exemplaires': exemplaires
+        }
+    )

@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="p-6 w-full ml-[-10px] mr-[10px]">
+
+    <h1 class="text-2xl font-bold mb-6">{% trans "Liste de tous les véhicules" %}</h1>
+
+    <!-- Recherche -->
+    <div class="mb-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <input
+            type="text"
+            id="search-marque"
+            class="border rounded-lg px-4 py-2 w-full"
+            placeholder="{% trans 'Rechercher une marque...' %}"
+        >
+        <input
+            type="text"
+            id="search-immatriculation"
+            class="border rounded-lg px-4 py-2 w-full"
+            placeholder="{% trans 'Rechercher une immatriculation...' %}"
+        >
+    </div>
+
+    <!-- Liste des véhicules -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {% for exemplaire in exemplaires %}
+        <div class="bg-white shadow-md transition duration-300 hover:shadow-lg hover:bg-blue-50 rounded-lg p-6 flex flex-col gap-4 cursor-pointer vehicle-card"
+             onclick="window.location.href='{% url 'voiture_exemplaire:voiture_exemplaire_detail' exemplaire_id=exemplaire.id %}'"
+             data-marque="{{ exemplaire.voiture_marque.nom_marque|lower }}"
+             data-immatriculation="{{ exemplaire.immatriculation|lower }}">
+
+
+
+            <!-- Plaque -->
+            {% if exemplaire.pays == 'Belgique' %}
+            <div class="flex items-center w-[40%] min-w-[180px] h-[40px] bg-white border-2 border-[#8B0000] rounded font-[Arial]">
+                <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
+                    <span>🇪🇺</span>
+                    <span>B</span>
+                </div>
+                <input
+                    type="text"
+                    value="{{ exemplaire.immatriculation }}"
+                    oninput="this.value = this.value.toUpperCase();"
+                    class="w-full text-center border-none font-bold text-[#8B0000] text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0"
+                    readonly
+                >
+            </div>
+            {% elif exemplaire.pays == 'Luxembourg' %}
+            <div class="flex items-center w-[40%] min-w-[180px] h-[40px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial]">
+                <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
+                    <span>🇪🇺</span>
+                    <span>L</span>
+                </div>
+                <input
+                    type="text"
+                    value="{{ exemplaire.immatriculation }}"
+                    oninput="this.value = this.value.toUpperCase();"
+                    class="w-full text-center border-none font-bold text-black text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0"
+                    readonly
+                >
+            </div>
+            {% endif %}
+             <div>
+                <p class="font-semibold">{{ exemplaire.voiture_marque.nom_marque }} {{ exemplaire.voiture_modele.nom_modele }}</p>
+                {% if exemplaire.voiture_modele.nom_variante %}
+                    <p class="text-gray-600 text-sm">{{ exemplaire.voiture_modele.nom_variante }}</p>
+                {% endif %}
+            </div>
+
+        </div>
+        {% empty %}
+        <p class="text-gray-500">{% trans "Aucun véhicule trouvé." %}</p>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+(function(){
+    const inputMarque = document.getElementById("search-marque");
+    const inputImmat = document.getElementById("search-immatriculation");
+    const cards = document.querySelectorAll(".vehicle-card");
+
+    function filterCards() {
+        const marqueValue = inputMarque.value.trim().toLowerCase();
+        const immatValue = inputImmat.value.trim().toLowerCase();
+
+        cards.forEach(card => {
+            const marque = card.dataset.marque || "";
+            const immat = card.dataset.immatriculation || "";
+
+            const show = (!marqueValue || marque.includes(marqueValue)) &&
+                         (!immatValue || immat.includes(immatValue));
+
+            card.style.display = show ? "flex" : "none";
+        });
+    }
+
+    inputMarque.addEventListener("input", filterCards);
+    inputImmat.addEventListener("input", filterCards);
+})();
+</script>
+{% endblock %}
