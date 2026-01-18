@@ -75,7 +75,7 @@ def ajouter_exemplaire(request, modele_id):
                 exemplaire.voiture_marque = marque
                 exemplaire.save()
                 messages.success(request, "Exemplaire ajouté avec succès !")
-                return redirect("liste_exemplaires_modele", modele_id=modele.id)
+                return redirect("voiture_exemplaire_liste_exemplaires", modele_id=modele.id)
             else:
                 # Form invalide → on retourne le formulaire avec erreurs
                 messages.error(request, "Veuillez corriger les erreurs ci-dessous.")
@@ -92,12 +92,6 @@ def ajouter_exemplaire(request, modele_id):
         })
 
 
-        # Retourne toujours le template avec le formulaire
-        return render(request, "voiture_exemplaire/ajouter_exemplaire.html", {
-            "form": form,
-            "modele": modele,
-            "marque": marque
-        })
 
 
 @login_required
