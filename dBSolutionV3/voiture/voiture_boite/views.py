@@ -94,7 +94,7 @@ def lier_boite(request, boite_id):
 @login_required()
 def boite_detail_view(request, boite_id):
     boite = get_object_or_404(VoitureBoite, id=boite_id)
-    return render(request, 'voiture_boite/bite_detail.html', {
+    return render(request, 'voiture_boite/boite_detail.html', {
         'boite': boite,
     })
 
