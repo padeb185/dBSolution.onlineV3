@@ -52,7 +52,7 @@ def liste_boite(request):
     return render(request, "voiture_boite/list.html", {"boites": boites})
 
 
-
+@login_required
 def ajouter_boite_simple(request):
     if request.method == "POST":
         VoitureBoite.objects.create(
@@ -69,8 +69,7 @@ def ajouter_boite_simple(request):
 
 
 
-from django.shortcuts import get_object_or_404
-
+@login_required()
 def lier_boite(request, boite_id):
     boite = get_object_or_404(VoitureBoite, id=boite_id)
 
