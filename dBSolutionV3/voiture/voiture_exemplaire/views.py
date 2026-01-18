@@ -43,18 +43,20 @@ def liste_exemplaires(request, modele_id):
 
 
 
-
 @login_required
 def voiture_exemplaire_detail(request, exemplaire_id):
     tenant = request.user.societe
     with tenant_context(tenant):
         exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
 
+        modele = exemplaire.voiture_modele
+        marque = modele.voiture_marque
+
     return render(request, "voiture_exemplaire/detail_exemplaire.html", {
-        "exemplaire": exemplaire
+        "exemplaire": exemplaire,
+        "modele": modele,
+        "marque": marque,
     })
-
-
 
 
 @login_required
@@ -80,7 +82,7 @@ def ajouter_exemplaire(request, modele_id):
         else:
             # GET → formulaire pré-rempli avec la marque et le modèle
             form = VoitureExemplaireForm(initial={
-                "voiture_marque": marque.id,  # ✅ utiliser id, pas id_marque
+                "voiture_marque": marque.pk,
                 "voiture_modele": modele.id
             })
 

@@ -18,6 +18,7 @@ urlpatterns = [
     path('ajax/get_cylindrees/', get_cylindrees, name='ajax_get_cylindrees'),
     path('ajax/get_code_moteur/', get_code_moteur, name='ajax_get_code_moteur'),
 
+    path("modele/<uuid:id_modele>/", liste_exemplaires, name="liste_exemplaires")
 
 
 ]

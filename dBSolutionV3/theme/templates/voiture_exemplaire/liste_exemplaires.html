@@ -8,7 +8,7 @@
 
     <!-- Titre -->
     <h1 class="text-2xl font-bold mb-6">
-        {% trans "Exemplaires de " %} {{ modele.voiture_marque.nom_marque }} {{ modele.nom_modele }}
+        {% trans "Véhicule : " %} {{ modele.voiture_marque.nom_marque }} {{ modele.nom_modele }}
         {% if modele.nom_variante %}- {{ modele.nom_variante }}{% endif %}
     </h1>
 
