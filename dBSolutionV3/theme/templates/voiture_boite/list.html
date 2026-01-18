@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load i18n static widget_tweaks %}
+{% block title %}{% trans "Liste des boites de vitesse" %}{% endblock %}
+
+{% block content %}
+<h1 class="text-2xl font-bold mb-6 flex items-center">
+    <img src="{% static 'icons/boite-de-vitesse.png' %}" alt="Boîte de vitesse"
+         style="width:60px; height:60px; margin-right:10px;">
+    {% trans "Liste des boites de vitesse" %}
+</h1>
+
+<!-- Filtres + bouton ajouter -->
+<div class="bg-white shadow-md rounded-lg p-4 mb-4">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+        <input id="search-nom_du_type" type="text" class="border rounded px-3 py-2"
+               placeholder="{% trans 'Rechercher par nom du type' %}">
+        <input id="search-type_de_boite" type="text" class="border rounded px-3 py-2"
+               placeholder="{% trans 'Rechercher par type de boite' %}">
+        <input id="search-nombre_vitesse" type="text" class="border rounded px-3 py-2"
+               placeholder="{% trans 'Rechercher par nombre de vitesses' %}">
+
+        <!-- Bouton Ajouter une boîte -->
+        <a href="{% url 'voiture_boite:ajouter_boite' %}"
+           class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition">
+            {% trans "Ajouter une boîte" %}
+        </a>
+    </div>
+</div>
+
+<table id="boites-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Nom du Type" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Type de boite" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Nombre de vitesses" %}</th>
+            <th class="border px-4 py-2 text-left">{% trans "Info" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for boite in boites %}
+        <tr class="bg-white hover:bg-gray-50">
+            <td class="border px-4 py-2">{{ boite.nom_du_type }}</td>
+            <td class="border px-4 py-2">{{ boite.type_de_boite }}</td>
+            <td class="border px-4 py-2">{{ boite.nombre_rapports }}</td>
+            <td class="border px-4 py-2 text-center">
+                <!-- Ici tu peux mettre un bouton de détail ou modifier si besoin -->
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4" class="border px-4 py-2 text-center text-gray-500">
+                {% trans "Aucune boite de vitesse trouvée." %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+$(document).ready(function() {
+    var table = $('#boites-table').DataTable({
+        pageLength: 100,
+        language: {
+            search: "{% trans 'Recherche globale :' %}",
+            lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ boites' %}",
+            infoEmpty: "{% trans 'Aucune boite trouvée' %}",
+            zeroRecords: "{% trans 'Aucune boite trouvée' %}",
+            paginate: {
+                first: "{% trans 'Premier' %}",
+                last: "{% trans 'Dernier' %}",
+                next: "{% trans 'Suivant' %}",
+                previous: "{% trans 'Précédent' %}"
+            }
+        },
+        order: [[0, "asc"]]
+    });
+
+    $('#search-nom_du_type').on('keyup', function () { table.column(0).search(this.value).draw(); });
+    $('#search-type_de_boite').on('keyup', function () { table.column(1).search(this.value).draw(); });
+    $('#search-nombre_vitesse').on('keyup', function () { table.column(2).search(this.value).draw(); });
+});
+</script>
+{% endblock %}

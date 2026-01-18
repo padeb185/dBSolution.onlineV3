@@ -8,6 +8,10 @@ class TypeEntretienBoite(models.TextChoices):
     FILTRE = "FILTRE", "Changement filtre"
     REMPLACEMENT = "REMPLACEMENT", "Remplacement boîte"
 
+class TypeBoite(models.TextChoices):
+    MANUELLE = "MANUELLE", "Manuelle"
+    SEMIAUTOMATIQUE = "SEMI-AUTOMATIQUE", "Semi-automatique"
+    AUTOMATIQUE = "AUTOMATIQUE", "Automatique"
 
 class VoitureBoite(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -28,6 +32,9 @@ class VoitureBoite(models.Model):
         null=True,
         blank=True
     )
+    nom_du_type = models.CharField(max_length=40, help_text="PDK, DSG ?", null=True, blank=True)
+    type_de_boite = models.CharField(max_length=40, choices=TypeBoite.choices, default="Automatique")
+    nombre_rapport = models.PositiveSmallIntegerField(default=5, help_text="nombre rapport")
 
     # Lubrification
     qualite_huile = models.CharField(max_length=20, verbose_name="Qualité huile boîte")
@@ -41,7 +48,7 @@ class VoitureBoite(models.Model):
     dernier_entretien = models.CharField(max_length=20, choices=TypeEntretienBoite.choices, null=True, blank=True)
 
     # Gestion remplacement
-    numero_boite = models.PositiveSmallIntegerField(default=1, help_text="1 à 10 (incrémenté à chaque remplacement)")
+    numero_boite = models.PositiveSmallIntegerField(default=1, help_text="1 à 10 (incrémenté à chaque remplacement)", null=True, blank=True)
 
     date_creation = models.DateTimeField(auto_now_add=True)
 
@@ -58,7 +65,7 @@ class VoitureBoite(models.Model):
         ]
 
     def __str__(self):
-        return f"Boîte #{self.numero_boite} - {self.kilometrage_boite} km"
+        return f"Boîte #{self.nom_du_type} - {self.kilometrage_boite} km"
 
     def prochain_entretien_km(self):
         return self.kilometrage_boite + self.intervalle_entretien_km
