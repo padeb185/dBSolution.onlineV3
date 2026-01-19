@@ -3686,35 +3686,25 @@ msgid "(filtré à partir de _MAX_ entrées totales)"
 msgstr "(filtrado de un total de _MAX_ entradas)"
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:9
-#, fuzzy
-#| msgid "Ajouter un moteur"
 msgid "Ajouter une boite pour"
-msgstr "Agregar un motor"
+msgstr "Agregar una caja para"
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:20
 #: .\theme\templates\voiture_boite\boite_detail.html:17
-#, fuzzy
-#| msgid "Fabricants"
 msgid "Fabricant"
-msgstr "Fabricantes"
+msgstr "Fabricante"
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:25
 #: .\theme\templates\voiture_boite\list.html:35
-#, fuzzy
-#| msgid "Nom du filtre"
 msgid "Nom du Type"
-msgstr "Nombre del filtro"
+msgstr "Nombre del tipo"
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:30
-#, fuzzy
-#| msgid "Type de filtre"
 msgid "Type de boite"
-msgstr "Tipo de filtro"
+msgstr "Tipo de caja"
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:35
 #: .\theme\templates\voiture_boite\boite_detail.html:32
-#, fuzzy
-#| msgid "Nombre de vitesses"
 msgid "Nombre de rapports"
 msgstr "Número de marchas"
 
@@ -3723,18 +3713,15 @@ msgstr "Número de marchas"
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:106
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:105
 #: .\theme\templates\voiture_moteur\moteur_detail.html:72
-#, fuzzy
-#| msgid "Qualité du fluide"
 msgid "Qualité d'huile"
-msgstr "Calidad del fluido"
+msgstr "Calidad del aceite"
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:45
 #: .\theme\templates\voiture_boite\boite_detail.html:43
 #: .\theme\templates\voiture_moteur\moteur_detail.html:77
-#, fuzzy
-#| msgid "Quantité utilisée (L)"
 msgid "Quantité d'huile (L)"
-msgstr "Cantidad utilizada (L)"
+msgstr "Cantidad de aceite (L)"
+
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:50
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:99
@@ -3768,94 +3755,75 @@ msgid "Qualité de l'huile"
 msgstr "Calidad del fluido"
 
 #: .\theme\templates\voiture_boite\boite_detail.html:49
-#, fuzzy
-#| msgid "Kilométrage boîte"
+#,
 msgid "Kilométrage de la boîte"
 msgstr "Kilometraje de la caja de cambios"
 
 #: .\theme\templates\voiture_boite\boite_detail.html:54
 #: .\theme\templates\voiture_moteur\moteur_detail.html:92
-#, fuzzy
-#| msgid "Intervention %(id)s"
+msgid "Kilométrage de la boîte"
+msgstr "Kilometraje de la caja de cambios"
+
+#: .\theme\templates\voiture_boite\boite_detail.html:54
+#: .\theme\templates\voiture_moteur\moteur_detail.html:92
 msgid "Intervalle entretien (km)"
-msgstr "Intervención %(id)s"
+msgstr "Intervalo de mantenimiento (km)"
 
 #: .\theme\templates\voiture_boite\boite_detail.html:59
 msgid "Dernier entretien"
-msgstr ""
+msgstr "Último mantenimiento"
 
 #: .\theme\templates\voiture_boite\boite_detail.html:65
-#, fuzzy
-#| msgid "Numéro de facture"
 msgid "Numéro de boîte"
-msgstr "Número de factura"
+msgstr "Número de caja"
 
 #: .\theme\templates\voiture_boite\boite_detail.html:72
-#, fuzzy
-#| msgid "Marques de voiture"
 msgid "Modèle de voiture"
-msgstr "Marcas de coches"
+msgstr "Modelo de coche"
 
 #: .\theme\templates\voiture_boite\boite_detail.html:79
-#, fuzzy
-#| msgid "Exemplaires de"
 msgid "Exemplaire de voiture"
-msgstr "Ejemplares de"
+msgstr "Ejemplar de coche"
 
 #: .\theme\templates\voiture_boite\list.html:4
 #: .\theme\templates\voiture_boite\list.html:10
-#, fuzzy
-#| msgid "Fuite boîte de vitesse"
 msgid "Liste des boîtes de vitesse"
-msgstr "Fuga de la caja de cambios"
+msgstr "Lista de cajas de cambios"
 
 #: .\theme\templates\voiture_boite\list.html:17
-#, fuzzy
-#| msgid "Rechercher :"
 msgid "Rechercher par fabricant"
-msgstr "Buscar :"
+msgstr "Buscar por fabricante"
 
 #: .\theme\templates\voiture_boite\list.html:19
-#, fuzzy
-#| msgid "Rechercher un modèle..."
 msgid "Rechercher par nom du type"
-msgstr "Buscar un modelo..."
+msgstr "Buscar por nombre del tipo"
 
 #: .\theme\templates\voiture_boite\list.html:21
 msgid "Rechercher par type de boîte"
-msgstr ""
+msgstr "Buscar por tipo de caja"
 
 #: .\theme\templates\voiture_boite\list.html:25
-#, fuzzy
-#| msgid "Ajouter un moteur"
 msgid "Ajouter une boîte"
-msgstr "Agregar un motor"
+msgstr "Agregar una caja"
 
 #: .\theme\templates\voiture_boite\list.html:34
-#, fuzzy
-#| msgid "Fabricants"
 msgid "Nom du Fabricant"
-msgstr "Fabricantes"
+msgstr "Nombre del fabricante"
 
 #: .\theme\templates\voiture_boite\list.html:36
-#, fuzzy
-#| msgid "Type de roue"
 msgid "Type de Boîte"
-msgstr "Tipo de rueda"
+msgstr "Tipo de caja"
 
 #: .\theme\templates\voiture_boite\list.html:37
-#, fuzzy
-#| msgid "Nombre de vitesses"
 msgid "Nombre de Rapports"
 msgstr "Número de marchas"
 
 #: .\theme\templates\voiture_boite\list.html:38
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:113
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:112
-#, fuzzy
-#| msgid "Quantité utilisée"
 msgid "Quantité d'huile"
-msgstr "Cantidad utilizada"
+msgstr "Cantidad de aceite"
+
 
 #: .\theme\templates\voiture_boite\list.html:40
 #: .\theme\templates\voiture_boite\list.html:55
@@ -3865,17 +3833,13 @@ msgid "Info"
 msgstr "Información"
 
 #: .\theme\templates\voiture_boite\list.html:61
-#, fuzzy
-#| msgid "Fuite boîte de vitesse"
 msgid "Aucune boîte de vitesse trouvée."
-msgstr "Fuga de la caja de cambios"
+msgstr "No se encontró ninguna caja de cambios."
 
 #: .\theme\templates\voiture_boite\list.html:73
 #: .\theme\templates\voiture_moteur\list.html:76
-#, fuzzy
-#| msgid "Rechercher :"
 msgid "Recherche globale :"
-msgstr "Buscar :"
+msgstr "Búsqueda global:"
 
 #: .\theme\templates\voiture_boite\list.html:74
 #: .\theme\templates\voiture_moteur\list.html:77
@@ -3883,17 +3847,14 @@ msgid "Afficher _MENU_ éléments"
 msgstr "Mostrar _MENU_ elementos"
 
 #: .\theme\templates\voiture_boite\list.html:75
-#, fuzzy
-#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ moteurs"
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ boîtes"
-msgstr "Mostrando _START_ a _END_ de _TOTAL_ motores"
+msgstr "Mostrando de _START_ a _END_ de _TOTAL_ cajas"
 
 #: .\theme\templates\voiture_boite\list.html:76
 #: .\theme\templates\voiture_boite\list.html:77
-#, fuzzy
-#| msgid "Aucun moteur trouvé"
 msgid "Aucune boîte trouvée"
-msgstr "No se encontró ningún motor"
+msgstr "No se encontró ninguna caja"
+
 
 #: .\theme\templates\voiture_boite\list.html:79
 #: .\theme\templates\voiture_moteur\list.html:82
@@ -3916,36 +3877,26 @@ msgid "Précédent"
 msgstr "Anterior"
 
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:14
-#, fuzzy
-#| msgid "Détails du véhicule"
 msgid "Ajouter un véhicule : "
-msgstr "Detalles del vehículo"
+msgstr "Agregar un vehículo: "
 
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:44
-#, fuzzy
-#| msgid "Immatriculation"
 msgid "Pays d'immatriculation"
-msgstr "Matrícula"
+msgstr "País de matriculación"
 
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:49
 msgid "Numero VIN"
-msgstr ""
+msgstr "Número VIN"
 
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:54
-#, fuzzy
-#| msgid "Type de pièce de climatisation"
 msgid "Type d'utilisation"
-msgstr "Tipo de pieza de aire acondicionado"
+msgstr "Tipo de uso"
 
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:59
-#, fuzzy
-#| msgid "Kilométrage châssis"
 msgid "Kilomètres du chassis"
 msgstr "Kilometraje del chasis"
 
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:64
-#, fuzzy
-#| msgid "Kilométrage à la dernière intervention"
 msgid "Kilomètres de la dernière intervention"
 msgstr "Kilometraje en la última intervención"
 
@@ -3956,30 +3907,22 @@ msgid "Année de production"
 msgstr "Año de fabricación"
 
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:79
-#, fuzzy
-#| msgid "Année de production"
 msgid "Mois de production"
-msgstr "Año de fabricación"
+msgstr "Mes de producción"
 
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:84
 msgid "Numero d'identification du moteur"
-msgstr ""
+msgstr "Número de identificación del motor"
 
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:89
-#, fuzzy
-#| msgid "Date de modification"
 msgid "Date de mise en circulation"
-msgstr "Fecha de modificación"
+msgstr "Fecha de puesta en circulación"
 
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:94
-#, fuzzy
-#| msgid "Kilométrage moteur"
 msgid "Kilomètres moteur"
-msgstr "Kilometraje del motor"
+msgstr "Kilómetros del motor"
 
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:10
-#, fuzzy
-#| msgid "Détails du véhicule"
 msgid "Détails du véhicule : "
 msgstr "Detalles del vehículo"
 
@@ -3998,7 +3941,8 @@ msgstr "No especificado"
 
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:65
 msgid "Modifier"
-msgstr ""
+msgstr "Modificar"
+
 
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:86
 msgid "Aucun moteur enregistré pour cet exemplaire."
@@ -4018,10 +3962,9 @@ msgstr "Fabricante"
 
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:111
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:140
-#, fuzzy
-#| msgid "Nombre de cylindres"
 msgid "Choisir une cylindrée"
-msgstr "Número de cilindros"
+msgstr "Elegir una cilindrada"
+
 
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:116
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:30
@@ -4042,33 +3985,23 @@ msgid "Détails du moteur"
 msgstr "Detalles del motor"
 
 #: .\theme\templates\voiture_exemplaire\list.html:7
-#, fuzzy
-#| msgid "Lier un moteur à un véhicule"
 msgid "Liste de tous les véhicules"
-msgstr "Vincular un motor a un vehículo"
+msgstr "Lista de todos los vehículos"
 
 #: .\theme\templates\voiture_exemplaire\list.html:15
 #: .\theme\templates\voiture_marque\marques_list.html:33
-#, fuzzy
-#| msgid "Rechercher un modèle..."
 msgid "Rechercher une marque..."
-msgstr "Buscar un modelo..."
+msgstr "Buscar una marca..."
 
 #: .\theme\templates\voiture_exemplaire\list.html:21
-#, fuzzy
-#| msgid "Rechercher un exemplaire par immatriculation..."
 msgid "Rechercher une immatriculation..."
-msgstr "Buscar un ejemplar por matrícula..."
+msgstr "Buscar una matrícula..."
 
 #: .\theme\templates\voiture_exemplaire\list.html:82
-#, fuzzy
-#| msgid "Aucun résultat trouvé"
 msgid "Aucun véhicule trouvé."
-msgstr "No se encontraron resultados"
+msgstr "No se encontraron vehículos."
 
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:11
-#, fuzzy
-#| msgid "Véhicule"
 msgid "Véhicule : "
 msgstr "Vehículo"
 
@@ -4086,10 +4019,9 @@ msgid "Aucun exemplaire enregistré pour ce modèle."
 msgstr "No hay ejemplares registrados para este modelo."
 
 #: .\theme\templates\voiture_exemplaire\modifier_exemplaire.html:6
-#, fuzzy
-#| msgid "Ajouter un véhicule"
 msgid "Modifier le véhicule"
-msgstr "Agregar un vehículo"
+msgstr "Modificar el vehículo"
+
 
 #: .\theme\templates\voiture_exemplaire\modifier_exemplaire.html:55
 msgid "Enregistrer les modifications"
@@ -4104,15 +4036,12 @@ msgid "Mes marques favorites"
 msgstr "Mis marcas favoritas"
 
 #: .\theme\templates\voiture_marque\marques_list.html:48
-#, fuzzy
-#| msgid "Voir les modèles de cette marque"
 msgid "Voir les modèles "
-msgstr "Ver los modelos de esta marca"
+msgstr "Ver los modelos "
+
 
 #: .\theme\templates\voiture_modele\modeles_list.html:8
 #: .\theme\templates\voiture_modele\modeles_par_marque.html:9
-#, fuzzy
-#| msgid "Modèles de"
 msgid "Modèles de "
 msgstr "Modelos de"
 
@@ -4137,22 +4066,19 @@ msgid "Aucun modèle enregistré pour cette marque."
 msgstr "Ningún modelo registrado para esta marca."
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:10
-#, fuzzy
-#| msgid "Ajouter un moteur"
 msgid "Ajouter un moteur pour"
-msgstr "Agregar un motor"
+msgstr "Agregar un motor para"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:25
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:25
-#, fuzzy
-#| msgid "Nom du fournisseur"
 msgid "Nom du motoriste"
-msgstr "Nombre del proveedor"
+msgstr "Nombre del fabricante de motores"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:33
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:33
 msgid "Ex: S14B23"
-msgstr ""
+msgstr "Ej: S14B23"
+
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:38
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:38
@@ -4163,12 +4089,13 @@ msgstr "Tipo de motor"
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:41
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:41
 msgid "Ex: ATM"
-msgstr ""
+msgstr "Ej: ATM"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:49
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:49
 msgid "Essence / Diesel / ..."
-msgstr ""
+msgstr "Gasolina / Diésel / ..."
+
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:54
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:54
@@ -4180,7 +4107,8 @@ msgstr "Cilindrada (L)"
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:65
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:65
 msgid "Chaîne / Courroie"
-msgstr ""
+msgstr "Cadena / Correa"
+
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:70
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:70
@@ -4190,33 +4118,25 @@ msgstr "Número de cilindros"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:78
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:77
-#, fuzzy
-#| msgid "Puissance en watts"
 msgid "Puissance en Chevaux"
-msgstr "Potencia en vatios"
+msgstr "Potencia en caballos"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:85
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:84
-#, fuzzy
-#| msgid "Puissance en watts"
 msgid "Puissance à tr/min"
-msgstr "Potencia en vatios"
+msgstr "Potencia a rpm"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:92
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:91
-#, fuzzy
-#| msgid "Couple conique"
 msgid "Couple Nm"
-msgstr "Conjunto cónico"
+msgstr "Par Nm"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:99
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:98
 msgid "Couple tr/min"
-msgstr ""
+msgstr "Par rpm"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:10
-#, fuzzy
-#| msgid "Lier un moteur à un véhicule"
 msgid "Ajouter un moteur pour un nouveau véhicule"
 msgstr "Vincular un motor a un vehículo"
 
@@ -4226,22 +4146,16 @@ msgid "Liste des moteurs"
 msgstr "Lista de motores"
 
 #: .\theme\templates\voiture_moteur\list.html:19
-#, fuzzy
-#| msgid "Rechercher un modèle..."
 msgid "Rechercher par motoriste"
-msgstr "Buscar un modelo..."
+msgstr "Buscar por fabricante de motores"
 
 #: .\theme\templates\voiture_moteur\list.html:21
-#, fuzzy
-#| msgid "Rechercher un modèle..."
 msgid "Rechercher par code moteur"
-msgstr "Buscar un modelo..."
+msgstr "Buscar por código de motor"
 
 #: .\theme\templates\voiture_moteur\list.html:23
-#, fuzzy
-#| msgid "Rechercher un modèle..."
 msgid "Rechercher par cylindrée"
-msgstr "Buscar un modelo..."
+msgstr "Buscar por cilindrada"
 
 #: .\theme\templates\voiture_moteur\list.html:28
 #: .\voiture\voiture_moteur\views.py:34
@@ -4271,24 +4185,21 @@ msgid "Aucun moteur trouvé"
 msgstr "No se encontró ningún motor"
 
 #: .\theme\templates\voiture_moteur\moteur_detail.html:47
-#, fuzzy
-#| msgid "Puissance (CH)"
 msgid "Puissance à (tr/min)"
-msgstr "Potencia (CV)"
+msgstr "Potencia a (rpm)"
 
 #: .\theme\templates\voiture_moteur\moteur_detail.html:52
 msgid "Couple (Nm)"
-msgstr ""
+msgstr "Par (Nm)"
 
 #: .\theme\templates\voiture_moteur\moteur_detail.html:57
 msgid "Couple à (tr/min)"
-msgstr ""
+msgstr "Par a (rpm)"
 
 #: .\theme\templates\voiture_moteur\moteur_detail.html:87
-#, fuzzy
-#| msgid "Numéro de facture"
 msgid "Numéro moteur"
-msgstr "Número de factura"
+msgstr "Número de motor"
+
 
 #: .\theme\views.py:35
 msgid "Nom d'utilisateur ou mot de passe incorrect"
@@ -4358,21 +4269,18 @@ msgstr "Cambio de filtro"
 msgid "Rôle inconnu"
 msgstr "Rol desconocido"
 
-#: .\voiture\voiture_boite\models.py:15
 msgid "Manuelle"
-msgstr ""
+msgstr "Manual"
+
 
 #: .\voiture\voiture_boite\models.py:16
-#, fuzzy
-#| msgid "Boîte automatique"
 msgid "Semi-automatique"
-msgstr "Caja de cambios automática"
+msgstr "Semiautomático"
+
 
 #: .\voiture\voiture_boite\models.py:17
-#, fuzzy
-#| msgid "Boîte automatique"
 msgid "Automatique"
-msgstr "Caja de cambios automática"
+msgstr "Automática"
 
 #: .\voiture\voiture_exemplaire\views.py:82
 #: .\voiture\voiture_exemplaire\views.py:142

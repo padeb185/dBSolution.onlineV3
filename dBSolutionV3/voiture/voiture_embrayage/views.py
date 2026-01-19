@@ -65,7 +65,7 @@ def ajouter_embrayage_simple(request):
         )
         return redirect("voiture_embrayage:list")
 
-    return render(request, "voiture_boite/ajouter_embrayage_simple.html")
+    return render(request, "voiture_embrayage/ajouter_embrayage_simple.html")
 
 
 @login_required()
