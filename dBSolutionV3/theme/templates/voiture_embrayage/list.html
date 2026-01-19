@@ -7,7 +7,7 @@
 <h1 class="text-2xl font-bold mb-6 flex items-center">
     <img src="{% static 'icons/disque-dembrayage.png' %}" alt="Embrayage"
          style="width:60px; height:60px; margin-right:10px;">
-    {% trans "Liste des boîtes de vitesse" %}
+    {% trans "Liste des embrayages" %}
 </h1>
 
 <!-- Filtres + bouton Ajouter -->
@@ -35,10 +35,10 @@
         </tr>
     </thead>
     <tbody>
-        {% for boite in boites %}
+        {% for embrayage in embrayages %}
         <tr>
-            <td class="border px-4 py-2">{{ boite.fabricant }}</td>
-            <td class="border px-4 py-2">{{ boite.type_embrayage }}</td>
+            <td class="border px-4 py-2">{{ embrayage.fabricant }}</td>
+            <td class="border px-4 py-2">{{ embrayage.type_embrayage }}</td>
             <td class="border px-4 py-2 text-center">
                 <a href="{% url 'voiture_embrayage:detail' embrayage.id %}"
                    class="text-blue-600 hover:text-blue-800 font-semibold">
@@ -48,7 +48,9 @@
         </tr>
         {% empty %}
         <tr>
-            <td class="border px-4 py-2 text-center" colspan="4">{% trans "Aucun embrayage trouvé." %}</td>
+            <td class="border px-4 py-2 text-center"></td>
+            <td class="border px-4 py-2 text-center">{% trans "Aucun embrayage trouvé." %}</td>
+            <td class="border px-4 py-2 text-center"></td>
         </tr>
         {% endfor %}
     </tbody>
@@ -62,9 +64,9 @@ $(document).ready(function() {
         language: {
             search: "{% trans 'Recherche globale :' %}",
             lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
-            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ boîtes' %}",
-            infoEmpty: "{% trans 'Aucune boîte trouvée' %}",
-            zeroRecords: "{% trans 'Aucune boîte trouvée' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ embrayages' %}",
+            infoEmpty: "{% trans 'Aucun embrayage trouvé' %}",
+            zeroRecords: "{% trans 'Aucun embrayage trouvé' %}",
             paginate: {
                 first: "{% trans 'Premier' %}",
                 last: "{% trans 'Dernier' %}",
@@ -82,8 +84,6 @@ $(document).ready(function() {
     $('#search-type_embrayage').on('keyup', function () {
         table.column(1).search(this.value).draw();
     });
-
-
 });
 </script>
 {% endblock %}
