@@ -6,7 +6,7 @@
 
     <h1 class="text-2xl font-bold mb-4 text-center flex items-center justify-center">
         <img src="{% static 'icons/disque-dembrayage.png' %}" alt="embrayage" style="width:60px; height:60px; margin-right:10px;">
-        {% trans "Ajouter un embrayage pour" %} {{ exemplaire }}
+        {% trans "Ajouter un embrayage" %}
     </h1>
 
     {% for message in messages %}
@@ -21,9 +21,43 @@
             <input type="text" id="id_fabricant" name="fabricant" class="border rounded px-4 py-2 w-full">
         </div>
 
-        <div>
-            <label for="id_type_embrayage">{% trans "Nom du Type" %}</label>
-            <input type="text" id="id_type_embrayage" name="type_embrayage" class="border rounded px-4 py-2 w-full">
+        <div class="mb-4">
+            <label for="id_type_embrayage" class="block mb-1">{% trans "Type d'embrayage" %}</label>
+            <select id="id_type_embrayage" name="type_embrayage"
+                    class="border rounded px-3 py-2 w-full text-sm h-10">
+                <option value="">{% trans "Sélectionner un type" %}</option>
+                {% for value, label in TypeEmbrayage.choices %}
+                    <option value="{{ value }}" {% if embrayage.type_embrayage == value %}selected{% endif %}>
+                        {{ label }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-4">
+            <label for="id_volant_moteur" class="block mb-1">{% trans "Type de volant moteur" %}</label>
+            <select id="id_volant_moteur" name="volant_moteur"
+                    class="border rounded px-3 py-2 w-full text-sm h-10">
+                <option value="">{% trans "Sélectionner un type" %}</option>
+                {% for value, label in TypeVolantMoteur.choices %}
+                    <option value="{{ value }}" {% if embrayage.volant_moteur == value %}selected{% endif %}>
+                        {{ label }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-4">
+            <label for="id_plateau_pression" class="block mb-1">{% trans "Type de plateau de pression" %}</label>
+            <select id="id_plateau_pression" name="plateau_pressionr"
+                    class="border rounded px-3 py-2 w-full text-sm h-10">
+                <option value="">{% trans "Sélectionner un type" %}</option>
+                {% for value, label in TypePlateauPression.choices %}
+                    <option value="{{ value }}" {% if embrayage.plateau_pression == value %}selected{% endif %}>
+                        {{ label }}
+                    </option>
+                {% endfor %}
+            </select>
         </div>
 
 

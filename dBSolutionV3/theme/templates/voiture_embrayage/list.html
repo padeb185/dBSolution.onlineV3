@@ -12,16 +12,22 @@
 
 <!-- Filtres + bouton Ajouter -->
 <div class="bg-white shadow-md rounded-lg p-4 mb-4">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+    <div class="grid grid-cols-1 md:grid-cols-6 gap-4 items-end">
         <input id="search-fabricant" type="text" class="border rounded px-3 py-2"
                placeholder="{% trans 'Rechercher par fabricant' %}">
         <input id="search-type_embrayage" type="text" class="border rounded px-3 py-2"
                placeholder="{% trans 'Rechercher par nom du type' %}">
+        <input id="search-volant_moteur" type="text" class="border rounded px-3 py-2"
+               placeholder="{% trans 'Rechercher par volant moteur' %}">
+        <input id="search-plateau_pression" type="text" class="border rounded px-3 py-2"
+               placeholder="{% trans 'Rechercher par plateau de pression' %}">
 
-        <a href="{% url 'voiture_embrayage:ajouter_embrayage_simple' %}"
-           class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition">
-            {% trans "Ajouter un embrayage" %}
-        </a>
+        <div class="md:col-span-2">
+            <a href="{% url 'voiture_embrayage:ajouter_embrayage_simple' %}"
+               class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition w-full">
+                {% trans "Ajouter un embrayage" %}
+            </a>
+        </div>
     </div>
 </div>
 
@@ -30,7 +36,9 @@
     <thead>
         <tr class="bg-gray-100">
             <th class="border px-4 py-2 cursor-pointer">{% trans "Nom du Fabricant" %}</th>
-            <th class="border px-4 py-2 cursor-pointer">{% trans "Nom du Type" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Type d'embrayage" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Type de volant moteur" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Type de plateau de pression" %}</th>
             <th class="border px-4 py-2 cursor-pointer text-center">{% trans "Info" %}</th>
         </tr>
     </thead>
@@ -39,6 +47,8 @@
         <tr>
             <td class="border px-4 py-2">{{ embrayage.fabricant }}</td>
             <td class="border px-4 py-2">{{ embrayage.type_embrayage }}</td>
+            <td class="border px-4 py-2">{{ embrayage.volant_moteur }}</td>
+            <td class="border px-4 py-2">{{ embrayage.plateau_pression }}</td>
             <td class="border px-4 py-2 text-center">
                 <a href="{% url 'voiture_embrayage:detail' embrayage.id %}"
                    class="text-blue-600 hover:text-blue-800 font-semibold">
@@ -48,9 +58,7 @@
         </tr>
         {% empty %}
         <tr>
-            <td class="border px-4 py-2 text-center"></td>
-            <td class="border px-4 py-2 text-center">{% trans "Aucun embrayage trouvé." %}</td>
-            <td class="border px-4 py-2 text-center"></td>
+            <td colspan="5" class="border px-4 py-2 text-center">{% trans "Aucun embrayage trouvé." %}</td>
         </tr>
         {% endfor %}
     </tbody>
@@ -83,6 +91,12 @@ $(document).ready(function() {
     });
     $('#search-type_embrayage').on('keyup', function () {
         table.column(1).search(this.value).draw();
+    });
+    $('#search-volant_moteur').on('keyup', function () {
+        table.column(2).search(this.value).draw();
+    });
+    $('#search-plateau_pression').on('keyup', function () {
+        table.column(3).search(this.value).draw();
     });
 });
 </script>

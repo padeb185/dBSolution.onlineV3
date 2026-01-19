@@ -11,6 +11,20 @@ class TypeEmbrayage(models.TextChoices):
     HYDRAULIQUE = "HYDRAULIQUE", _("Hydraulique")
     MECANIQUE = "MECANIQUE", _("Mécanique")
 
+class TypeVolantMoteur(models.TextChoices):
+    MONOMASSE = "MONOMASSE", _("Monomasse")
+    BIMASSE = "BIMASSE", _("Bimasse")
+    ALLEGE = "ALLEGE", _("Allégé / Performance")
+    SEGMENTE = "SEGMENTE", _("Segmenté / Compétition")
+
+
+class TypePlateauPression(models.TextChoices):
+    CLASSIQUE = "CLASSIQUE", _("Classique (mono-disque)")
+    RESSORTS_CONCENTRIQUES = "CONCENTRIQUES", _("Ressorts concentriques")
+    RESSORTS_HELICOIDAUX = "HELICOIDAUX", _("Ressorts hélicoïdaux")
+    RENFORCE = "RENFORCE", _("Renforcé / Compétition")
+    BIMASSE = "BIMASSE", _("Bimasse (pour volant moteur DMF)")
+
 
 
 class VoitureEmbrayage(models.Model):
@@ -41,10 +55,30 @@ class VoitureEmbrayage(models.Model):
         null=True,
         blank=True,
     )
+    volant_moteur = models.CharField(
+        max_length=30, choices=TypeVolantMoteur,
+        default=TypeVolantMoteur.MONOMASSE,
+        null=True, blank=True)
 
-    kilometrage_embrayage = models.PositiveIntegerField(default=0)
+    plateau_pression = models.CharField(
+        max_length=30, choices=TypePlateauPression.choices,
+        default=TypePlateauPression.CLASSIQUE,
+        null=True, blank=True
 
-    numero_embrayage = models.PositiveSmallIntegerField(default=1, help_text="1 à 10 (incrémenté à chaque remplacement)")
+    )
+
+    kilometrage_embrayage = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True
+    )
+
+    numero_embrayage = models.PositiveSmallIntegerField(
+        default=1,
+        help_text="1 à 10 (incrémenté à chaque remplacement)",
+        null=True,
+        blank=True
+    )
 
     date_creation = models.DateTimeField(auto_now_add=True)
 

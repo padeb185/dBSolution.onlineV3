@@ -5,8 +5,9 @@ from django_tenants.utils import tenant_context
 from voiture.voiture_embrayage.forms import VoitureEmbrayageForm
 from voiture.voiture_embrayage.models import VoitureEmbrayage
 from voiture.voiture_modele.models import VoitureModele
-
-
+from voiture.voiture_embrayage.models import TypeEmbrayage
+from voiture.voiture_embrayage.models import TypeVolantMoteur
+from voiture.voiture_embrayage.models import TypePlateauPression
 
 
 @login_required
@@ -53,19 +54,30 @@ def liste_embrayage(request):
     return render(request, "voiture_embrayage/list.html", {"embrayage": embrayage})
 
 
+
+
 @login_required
 def ajouter_embrayage_simple(request):
     if request.method == "POST":
         VoitureEmbrayage.objects.create(
             fabricant=request.POST.get("fabricant"),
             type_embrayage=request.POST.get("type_embrayage"),
+            volant_moteur=request.POST.get("volant_moteur"),
+            plateau_pression=request.POST.get("plateau_pression"),
             kilometrage_embrayage=request.POST.get("kilometrage_embrayage"),
             numero_embrayage=request.POST.get("numero_embrayage"),
-
         )
         return redirect("voiture_embrayage:list")
 
-    return render(request, "voiture_embrayage/ajouter_embrayage_simple.html")
+    # Passer TypeEmbrayage au template pour la liste déroulante
+    context = {
+        "TypeEmbrayage": TypeEmbrayage,
+        "TypeVolantMoteur": TypeVolantMoteur,
+        "TypePlateauPression": TypePlateauPression,
+    }
+
+    return render(request, "voiture_embrayage/ajouter_embrayage_simple.html", context)
+
 
 
 @login_required()
