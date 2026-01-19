@@ -5,7 +5,7 @@ from django_tenants.utils import tenant_context
 from voiture.voiture_boite.forms import VoitureBoiteForm
 from voiture.voiture_modele.models import VoitureModele
 from voiture.voiture_boite.models import VoitureBoite
-
+from voiture.voiture_boite.models import TypeBoite
 
 
 @login_required
@@ -52,6 +52,10 @@ def liste_boite(request):
     return render(request, "voiture_boite/list.html", {"boites": boites})
 
 
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from voiture.voiture_boite.models import VoitureBoite, TypeBoite
+
 @login_required
 def ajouter_boite_simple(request):
     if request.method == "POST":
@@ -65,8 +69,12 @@ def ajouter_boite_simple(request):
         )
         return redirect("voiture_boite:list")
 
-    return render(request, "voiture_boite/ajouter_boite_simple.html")
+    # Passer TypeBoite au template pour la liste déroulante
+    context = {
+        "TypeBoite": TypeBoite,
+    }
 
+    return render(request, "voiture_boite/ajouter_boite_simple.html", context)
 
 
 @login_required()

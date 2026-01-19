@@ -21,15 +21,19 @@
             <input type="text" id="id_fabricant" name="fabricant" class="border rounded px-4 py-2 w-full">
         </div>
 
-        <div>
-            <label for="id_nom_du_type">{% trans "Nom du Type" %}</label>
-            <input type="text" id="id_nom_du_type" name="nom_du_type" class="border rounded px-4 py-2 w-full">
+        <div class="mb-4">
+            <label for="id_type_de_boite" class="block mb-1">{% trans "Type de boîte" %}</label>
+            <select id="id_type_de_boite" name="type_de_boite"
+                    class="border rounded px-3 py-2 w-full text-sm h-10">
+                <option value="">{% trans "Sélectionner un type" %}</option>
+                {% for value, label in TypeBoite.choices %}
+                    <option value="{{ value }}" {% if boite.type_de_boite == value %}selected{% endif %}>
+                        {{ label }}
+                    </option>
+                {% endfor %}
+            </select>
         </div>
 
-        <div>
-            <label for="id_type_de_boite">{% trans "Type de boite" %}</label>
-            <input type="text" id="id_type_de_boite" name="type_de_boite" class="border rounded px-4 py-2 w-full">
-        </div>
 
         <div>
             <label for="id_nombre_rapport">{% trans "Nombre de rapports" %}</label>
