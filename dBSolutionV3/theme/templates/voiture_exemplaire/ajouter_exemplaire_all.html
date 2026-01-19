@@ -24,20 +24,22 @@
     <form method="post" class="flex flex-col space-y-4">
         {% csrf_token %}
 
-        <div>
+       <div>
             <label for="id_voiture_marque">{% trans "Marque" %}</label>
-            <input type="text" id="id_voiture_marque" name="voiture_marque" class="border rounded px-4 py-2 w-full">
-        </div>
+            <input type="text" id="id_voiture_marque" name="voiture_marque"
+                   value="{{ modele.voiture_marque.nom_marque }}" class="border rounded px-4 py-2 w-full" readonly>
+       </div>
 
         <div>
             <label for="id_voiture_modele">{% trans "Modèle" %}</label>
-            <input type="text" id="id_voiture_modele" name="voiture_modele" class="border rounded px-4 py-2 w-full">
+            <input type="text" id="id_voiture_modele" name="voiture_modele"
+                   value="{{ modele.nom_modele }}" class="border rounded px-4 py-2 w-full" readonly>
         </div>
-
         <div>
             <label for="id_immatriculation">{% trans "Immatriculation" %}</label>
             <input type="text" id="id_immatriculation" name="immatriculation" class="border rounded px-4 py-2 w-full">
         </div>
+
          <div>
             <label for="id_pays">{% trans "Pays d'immatriculation" %}</label>
             <input type="text" id="id_pays" name="pays" class="border rounded px-4 py-2 w-full">
