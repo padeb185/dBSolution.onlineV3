@@ -59,38 +59,6 @@ def voiture_exemplaire_detail(request, exemplaire_id):
     })
 
 
-@login_required
-def ajouter_exemplaire(request, modele_id):
-    tenant = request.user.societe
-    with tenant_context(tenant):
-        # Récupère le modèle
-        modele = get_object_or_404(VoitureModele, id=modele_id)
-        marque = modele.voiture_marque  # objet VoitureMarque
-
-        if request.method == "POST":
-            form = VoitureExemplaireForm(request.POST)
-            if form.is_valid():
-                exemplaire = form.save(commit=False)
-                exemplaire.voiture_modele = modele
-                exemplaire.voiture_marque = marque
-                exemplaire.save()
-                messages.success(request, "Exemplaire ajouté avec succès !")
-                return redirect("voiture_exemplaire_liste_exemplaires", modele_id=modele.id)
-            else:
-                # Form invalide → on retourne le formulaire avec erreurs
-                messages.error(request, "Veuillez corriger les erreurs ci-dessous.")
-        else:
-            # GET → formulaire pré-rempli avec la marque et le modèle
-            form = VoitureExemplaireForm(initial={
-                "voiture_marque": marque.pk,
-                "voiture_modele": modele.id
-            })
-
-        return render(request, "voiture_exemplaire/ajouter_exemplaire.html", {
-            "form": form,
-            "modele": modele
-        })
-
 
 
 
@@ -232,4 +200,30 @@ def liste_exemplaires_all(request):
         {
             'exemplaires': exemplaires
         }
+    )
+
+
+
+
+@login_required
+def ajouter_exemplaire_all(request, modele_id):
+    # Récupère le modèle correspondant à l'ID passé dans l'URL
+    modele = get_object_or_404(VoitureModele, id=modele_id)
+
+    if request.method == "POST":
+        # Crée un nouvel exemplaire lié au modèle
+        VoitureExemplaire.objects.create(
+            voiture_marque=modele.marque,            # on récupère la marque depuis le modèle
+            voiture_modele=modele,                   # on lie directement le modèle
+            immatriculation=request.POST.get("immatriculation"),
+            pays=request.POST.get("pays"),
+            numero_vin=request.POST.get("numero_vin"),
+            kilometres_chassis=request.POST.get("kilometres_chassis"),
+        )
+        return redirect("voiture_exemplaire:list")
+
+    return render(
+        request,
+        "voiture_exemplaire/ajouter_exemplaire_all.html",
+        {"modele": modele}  # on passe le modèle au template si besoin
     )

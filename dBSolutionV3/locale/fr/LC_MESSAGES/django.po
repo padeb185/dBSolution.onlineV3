@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-19 07:43+0100\n"
+"POT-Creation-Date: 2026-01-19 09:12+0100\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -396,10 +396,12 @@ msgstr ""
 
 #: .\fuel\models.py:20 .\piece\models.py:41 .\piece\models.py:99
 #: .\piece\models.py:108
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:21
 msgid "Marque"
 msgstr ""
 
 #: .\fuel\models.py:26 .\piece\models.py:32
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:26
 msgid "Modèle"
 msgstr ""
 
@@ -410,6 +412,7 @@ msgid "Véhicule"
 msgstr ""
 
 #: .\fuel\models.py:35 .\maintenance\models.py:50 .\piece\models.py:68
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:31
 msgid "Immatriculation"
 msgstr ""
 
@@ -909,6 +912,7 @@ msgid "Date d'intervention"
 msgstr ""
 
 #: .\maintenance\models.py:53
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:60
 msgid "Date de la dernière intervention"
 msgstr ""
 
@@ -3692,6 +3696,7 @@ msgstr ""
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:50
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire.html:55
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:90
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:124
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:122
 msgid "Ajouter"
@@ -3835,17 +3840,58 @@ msgstr ""
 msgid "Veuillez corriger les erreurs ci-dessous."
 msgstr ""
 
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:9
+msgid "Ajouter un véhicule : "
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:35
+msgid "Pays d'immatriculation"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:40
+msgid "Numero VIN"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:45
+msgid "Type d'utilisation"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:50
+msgid "Kilomètres du chassis"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:55
+msgid "Kilomètres de la dernière intervention"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:65
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:56
+#: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:70
+msgid "Année de production"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:70
+msgid "Mois de production"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:75
+msgid "Numero d'identification du moteur"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:80
+msgid "Date de mise en circulation"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:85
+msgid "Kilomètres moteur"
+msgstr ""
+
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:10
 msgid "Détails du véhicule : "
 msgstr ""
 
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:51
 msgid "Informations générales"
-msgstr ""
-
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:56
-#: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:70
-msgid "Année de production"
 msgstr ""
 
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:57
