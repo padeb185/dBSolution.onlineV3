@@ -3,15 +3,18 @@ import uuid
 from django.db.models import Q
 
 
+from django.db import models
+from django.utils.translation import gettext_lazy as _
+
 class TypeEntretienBoite(models.TextChoices):
-    VIDANGE = "VIDANGE", "Vidange"
-    FILTRE = "FILTRE", "Changement filtre"
-    REMPLACEMENT = "REMPLACEMENT", "Remplacement boîte"
+    VIDANGE = "VIDANGE", _("Vidange")
+    FILTRE = "FILTRE", _("Changement filtre")
+    REMPLACEMENT = "REMPLACEMENT", _("Remplacement boîte")
 
 class TypeBoite(models.TextChoices):
-    MANUELLE = "MANUELLE", "Manuelle"
-    SEMIAUTOMATIQUE = "SEMI-AUTOMATIQUE", "Semi-automatique"
-    AUTOMATIQUE = "AUTOMATIQUE", "Automatique"
+    MANUELLE = "MANUELLE", _("Manuelle")
+    SEMIAUTOMATIQUE = "SEMI-AUTOMATIQUE", _("Semi-automatique")
+    AUTOMATIQUE = "AUTOMATIQUE", _("Automatique")
 
 class VoitureBoite(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

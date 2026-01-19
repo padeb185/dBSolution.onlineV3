@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-19 09:12+0100\n"
+"POT-Creation-Date: 2026-01-19 11:50+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -395,12 +395,12 @@ msgstr "Diesel"
 
 #: .\fuel\models.py:20 .\piece\models.py:41 .\piece\models.py:99
 #: .\piece\models.py:108
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:21
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:28
 msgid "Marque"
 msgstr "Marke"
 
 #: .\fuel\models.py:26 .\piece\models.py:32
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:26
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:34
 msgid "Modèle"
 msgstr "Modell"
 
@@ -411,7 +411,7 @@ msgid "Véhicule"
 msgstr "Fahrzeug"
 
 #: .\fuel\models.py:35 .\maintenance\models.py:50 .\piece\models.py:68
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:31
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:39
 msgid "Immatriculation"
 msgstr "Kennzeichen"
 
@@ -913,7 +913,7 @@ msgid "Date d'intervention"
 msgstr "Eingriffdatum"
 
 #: .\maintenance\models.py:53
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:60
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:69
 msgid "Date de la dernière intervention"
 msgstr "Datum des letzten Eingriffs"
 
@@ -946,7 +946,7 @@ msgstr "Getriebe-Kilometerstand"
 msgid "Remplacement moteur"
 msgstr "Motorwechsel"
 
-#: .\maintenance\models.py:79
+#: .\maintenance\models.py:79 .\voiture\voiture_boite\models.py:12
 msgid "Remplacement boîte"
 msgstr "Getriebewechsel"
 
@@ -1710,7 +1710,7 @@ msgstr "Antriebswelle"
 msgid "Joint"
 msgstr "Dichtung"
 
-#: .\piece\piece_differentiel\models.py:12
+#: .\piece\piece_differentiel\models.py:12 .\voiture\voiture_boite\models.py:10
 msgid "Vidange"
 msgstr "Ölwechsel"
 
@@ -3504,17 +3504,15 @@ msgstr "Ändern"
 #: .\theme\templates\voiture_boite\boite_detail.html:92
 #: .\theme\templates\voiture_moteur\moteur_detail.html:104
 msgid "Retour"
-msgstr ""
+msgstr "Zurück"
 
 #: .\theme\templates\base.html:90
 msgid "Tous droits réservés."
-msgstr ""
+msgstr "Alle Rechte vorbehalten."
 
 #: .\theme\templates\base.html:100
-#, fuzzy
-#| msgid "Connexion"
 msgid "Déconnexion"
-msgstr "Anmeldung"
+msgstr "Abmelden"
 
 #: .\theme\templates\dashboard.html:6 .\theme\views.py:81
 msgid "Bienvenue sur ton tableau de bord"
@@ -3577,14 +3575,10 @@ msgid "Moteurs"
 msgstr "Motoren"
 
 #: .\theme\templates\dashboard.html:113
-#, fuzzy
-#| msgid "Liste des utilisateurs"
 msgid "Liste des Véhicules"
-msgstr "Benutzerliste"
+msgstr "Fahrzeugliste"
 
 #: .\theme\templates\dashboard.html:128
-#, fuzzy
-#| msgid "Boîte de vitesse"
 msgid "Boites de vitesses"
 msgstr "Getriebe"
 
@@ -3689,35 +3683,25 @@ msgid "(filtré à partir de _MAX_ entrées totales)"
 msgstr "(gefiltert von _MAX_ Gesamteinträgen)"
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:9
-#, fuzzy
-#| msgid "Ajouter un moteur"
 msgid "Ajouter une boite pour"
-msgstr "Motor hinzufügen"
+msgstr "Getriebe hinzufügen für"
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:20
 #: .\theme\templates\voiture_boite\boite_detail.html:17
-#, fuzzy
-#| msgid "Fabricants"
 msgid "Fabricant"
 msgstr "Hersteller"
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:25
 #: .\theme\templates\voiture_boite\list.html:35
-#, fuzzy
-#| msgid "Nom du filtre"
 msgid "Nom du Type"
-msgstr "Filtername"
+msgstr "Typbezeichnung"
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:30
-#, fuzzy
-#| msgid "Type de filtre"
 msgid "Type de boite"
-msgstr "Filtertyp"
+msgstr "Getriebetyp"
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:35
 #: .\theme\templates\voiture_boite\boite_detail.html:32
-#, fuzzy
-#| msgid "Nombre de vitesses"
 msgid "Nombre de rapports"
 msgstr "Anzahl der Gänge"
 
@@ -3726,140 +3710,101 @@ msgstr "Anzahl der Gänge"
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:106
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:105
 #: .\theme\templates\voiture_moteur\moteur_detail.html:72
-#, fuzzy
-#| msgid "Qualité du fluide"
 msgid "Qualité d'huile"
-msgstr "Flüssigkeitsqualität"
+msgstr "Ölqualität"
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:45
 #: .\theme\templates\voiture_boite\boite_detail.html:43
 #: .\theme\templates\voiture_moteur\moteur_detail.html:77
-#, fuzzy
-#| msgid "Quantité utilisée (L)"
 msgid "Quantité d'huile (L)"
-msgstr "Verwendete Menge (L)"
+msgstr "Ölmenge (L)"
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:50
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire.html:55
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:90
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:99
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:124
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:122
 msgid "Ajouter"
 msgstr "Hinzufügen"
 
 #: .\theme\templates\voiture_boite\boite_detail.html:11
-#, fuzzy
-#| msgid "Fuite boîte de vitesse"
 msgid "Détails de la boîte de vitesse"
-msgstr "Getriebeölverlust"
+msgstr "Getriebedetails"
 
 #: .\theme\templates\voiture_boite\boite_detail.html:22
-#, fuzzy
-#| msgid "Nom du filtre"
 msgid "Nom du type"
-msgstr "Filtername"
+msgstr "Typbezeichnung"
 
 #: .\theme\templates\voiture_boite\boite_detail.html:27
-#, fuzzy
-#| msgid "Type de roue"
 msgid "Type de boîte"
-msgstr "Raddtyp"
+msgstr "Getriebetyp"
 
 #: .\theme\templates\voiture_boite\boite_detail.html:38
-#, fuzzy
-#| msgid "Qualité du fluide"
 msgid "Qualité de l'huile"
 msgstr "Flüssigkeitsqualität"
 
 #: .\theme\templates\voiture_boite\boite_detail.html:49
-#, fuzzy
-#| msgid "Kilométrage boîte"
 msgid "Kilométrage de la boîte"
 msgstr "Getriebe-Kilometerstand"
 
 #: .\theme\templates\voiture_boite\boite_detail.html:54
 #: .\theme\templates\voiture_moteur\moteur_detail.html:92
-#, fuzzy
-#| msgid "Intervention %(id)s"
 msgid "Intervalle entretien (km)"
-msgstr "Einsatz %(id)s"
+msgstr "Serviceintervall (km)"
 
 #: .\theme\templates\voiture_boite\boite_detail.html:59
 msgid "Dernier entretien"
-msgstr ""
+msgstr "Letzter Service"
 
 #: .\theme\templates\voiture_boite\boite_detail.html:65
-#, fuzzy
-#| msgid "Numéro de facture"
 msgid "Numéro de boîte"
-msgstr "Rechnungsnummer"
+msgstr "Getriebenummer"
 
 #: .\theme\templates\voiture_boite\boite_detail.html:72
-#, fuzzy
-#| msgid "Marques de voiture"
 msgid "Modèle de voiture"
-msgstr "Automarken"
+msgstr "Fahrzeugmodell"
 
 #: .\theme\templates\voiture_boite\boite_detail.html:79
-#, fuzzy
-#| msgid "Exemplaires de"
 msgid "Exemplaire de voiture"
-msgstr "Exemplare von"
+msgstr "Fahrzeugexemplar"
 
 #: .\theme\templates\voiture_boite\list.html:4
 #: .\theme\templates\voiture_boite\list.html:10
-#, fuzzy
-#| msgid "Fuite boîte de vitesse"
 msgid "Liste des boîtes de vitesse"
-msgstr "Getriebeölverlust"
+msgstr "Liste der Getriebe"
 
 #: .\theme\templates\voiture_boite\list.html:17
-#, fuzzy
-#| msgid "Rechercher :"
 msgid "Rechercher par fabricant"
-msgstr "Suchen:"
+msgstr "Nach Hersteller suchen"
 
 #: .\theme\templates\voiture_boite\list.html:19
-#, fuzzy
-#| msgid "Rechercher un modèle..."
 msgid "Rechercher par nom du type"
-msgstr "Ein Modell suchen..."
+msgstr "Nach Typbezeichnung suchen"
 
 #: .\theme\templates\voiture_boite\list.html:21
 msgid "Rechercher par type de boîte"
-msgstr ""
+msgstr "Nach Getriebetyp suchen"
 
 #: .\theme\templates\voiture_boite\list.html:25
-#, fuzzy
-#| msgid "Ajouter un moteur"
 msgid "Ajouter une boîte"
-msgstr "Motor hinzufügen"
+msgstr "Getriebe hinzufügen"
 
 #: .\theme\templates\voiture_boite\list.html:34
-#, fuzzy
-#| msgid "Fabricants"
 msgid "Nom du Fabricant"
-msgstr "Hersteller"
+msgstr "Herstellername"
 
 #: .\theme\templates\voiture_boite\list.html:36
-#, fuzzy
-#| msgid "Type de roue"
 msgid "Type de Boîte"
-msgstr "Raddtyp"
+msgstr "Getriebetyp"
 
 #: .\theme\templates\voiture_boite\list.html:37
-#, fuzzy
-#| msgid "Nombre de vitesses"
 msgid "Nombre de Rapports"
 msgstr "Anzahl der Gänge"
 
 #: .\theme\templates\voiture_boite\list.html:38
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:113
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:112
-#, fuzzy
-#| msgid "Quantité utilisée"
 msgid "Quantité d'huile"
-msgstr "Verwendete Menge"
+msgstr "Ölmenge"
 
 #: .\theme\templates\voiture_boite\list.html:40
 #: .\theme\templates\voiture_boite\list.html:55
@@ -3869,17 +3814,13 @@ msgid "Info"
 msgstr "Info"
 
 #: .\theme\templates\voiture_boite\list.html:61
-#, fuzzy
-#| msgid "Fuite boîte de vitesse"
 msgid "Aucune boîte de vitesse trouvée."
-msgstr "Getriebeölverlust"
+msgstr "Kein Getriebe gefunden."
 
 #: .\theme\templates\voiture_boite\list.html:73
 #: .\theme\templates\voiture_moteur\list.html:76
-#, fuzzy
-#| msgid "Rechercher :"
 msgid "Recherche globale :"
-msgstr "Suchen:"
+msgstr "Globale Suche:"
 
 #: .\theme\templates\voiture_boite\list.html:74
 #: .\theme\templates\voiture_moteur\list.html:77
@@ -3887,17 +3828,13 @@ msgid "Afficher _MENU_ éléments"
 msgstr "_MENU_ Einträge anzeigen"
 
 #: .\theme\templates\voiture_boite\list.html:75
-#, fuzzy
-#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ moteurs"
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ boîtes"
-msgstr "Anzeige von _START_ bis _END_ von _TOTAL_ Motoren"
+msgstr "Anzeige von _START_ bis _END_ von _TOTAL_ Getrieben"
 
 #: .\theme\templates\voiture_boite\list.html:76
 #: .\theme\templates\voiture_boite\list.html:77
-#, fuzzy
-#| msgid "Aucun moteur trouvé"
 msgid "Aucune boîte trouvée"
-msgstr "Kein Motor gefunden"
+msgstr "Keine Getriebe gefunden"
 
 #: .\theme\templates\voiture_boite\list.html:79
 #: .\theme\templates\voiture_moteur\list.html:82
@@ -3919,81 +3856,55 @@ msgstr "Nächste"
 msgid "Précédent"
 msgstr "Vorherige"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire.html:10
-msgid "Ajouter un exemplaire pour"
-msgstr "Ein Exemplar hinzufügen für"
-
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire.html:35
-msgid "Veuillez corriger les erreurs ci-dessous."
-msgstr ""
-
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:9
-#, fuzzy
-#| msgid "Détails du véhicule"
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:14
 msgid "Ajouter un véhicule : "
-msgstr "Fahrzeugdetails"
+msgstr "Fahrzeug hinzufügen:"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:35
-#, fuzzy
-#| msgid "Immatriculation"
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:44
 msgid "Pays d'immatriculation"
-msgstr "Kennzeichen"
+msgstr "Zulassungsland"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:40
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:49
 msgid "Numero VIN"
-msgstr ""
+msgstr "VIN-Nummer"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:45
-#, fuzzy
-#| msgid "Type de pièce de climatisation"
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:54
 msgid "Type d'utilisation"
-msgstr "Art des Klimaanlagenteils"
+msgstr "Verwendungsart"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:50
-#, fuzzy
-#| msgid "Kilométrage châssis"
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:59
 msgid "Kilomètres du chassis"
-msgstr "Fahrgestell-Kilometerstand"
+msgstr "Kilometerstand des Fahrgestells"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:55
-#, fuzzy
-#| msgid "Kilométrage à la dernière intervention"
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:64
 msgid "Kilomètres de la dernière intervention"
-msgstr "Kilometerstand beim letzten Eingriff"
+msgstr "Kilometerstand des letzten Service"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:65
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:74
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:56
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:70
 msgid "Année de production"
-msgstr "Baujahr"
+msgstr "Produktionsjahr"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:70
-#, fuzzy
-#| msgid "Année de production"
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:79
 msgid "Mois de production"
-msgstr "Baujahr"
+msgstr "Produktionsmonat"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:75
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:84
 msgid "Numero d'identification du moteur"
-msgstr ""
+msgstr "Motornummer"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:80
-#, fuzzy
-#| msgid "Date de modification"
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:89
 msgid "Date de mise en circulation"
-msgstr "Änderungsdatum"
+msgstr "Inverkehrssetzungsdatum"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:85
-#, fuzzy
-#| msgid "Kilométrage moteur"
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:94
 msgid "Kilomètres moteur"
 msgstr "Motor-Kilometerstand"
 
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:10
-#, fuzzy
-#| msgid "Détails du véhicule"
 msgid "Détails du véhicule : "
-msgstr "Fahrzeugdetails"
+msgstr "Fahrzeugdetails : "
 
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:51
 msgid "Informations générales"
@@ -4010,7 +3921,7 @@ msgstr "Nicht angegeben"
 
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:65
 msgid "Modifier"
-msgstr ""
+msgstr "Bearbeiten"
 
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:86
 msgid "Aucun moteur enregistré pour cet exemplaire."
@@ -4030,10 +3941,8 @@ msgstr "Hersteller"
 
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:111
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:140
-#, fuzzy
-#| msgid "Nombre de cylindres"
 msgid "Choisir une cylindrée"
-msgstr "Anzahl der Zylinder"
+msgstr "Hubraum auswählen"
 
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:116
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:30
@@ -4044,7 +3953,7 @@ msgid "Code moteur"
 msgstr "Motorschlüssel"
 
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:120
-#: .\voiture\voiture_exemplaire\views.py:156
+#: .\voiture\voiture_exemplaire\views.py:124
 msgid "Lier le moteur"
 msgstr "Motor verknüpfen"
 
@@ -4054,35 +3963,25 @@ msgid "Détails du moteur"
 msgstr "Motordetails"
 
 #: .\theme\templates\voiture_exemplaire\list.html:7
-#, fuzzy
-#| msgid "Lier un moteur à un véhicule"
 msgid "Liste de tous les véhicules"
-msgstr "Einen Motor mit einem Fahrzeug verbinden"
+msgstr "Liste aller Fahrzeuge"
 
 #: .\theme\templates\voiture_exemplaire\list.html:15
 #: .\theme\templates\voiture_marque\marques_list.html:33
-#, fuzzy
-#| msgid "Rechercher un modèle..."
 msgid "Rechercher une marque..."
-msgstr "Ein Modell suchen..."
+msgstr "Nach einer Marke suchen..."
 
 #: .\theme\templates\voiture_exemplaire\list.html:21
-#, fuzzy
-#| msgid "Rechercher un exemplaire par immatriculation..."
 msgid "Rechercher une immatriculation..."
-msgstr "Nach einem Exemplar anhand des Kennzeichens suchen..."
+msgstr "Nach einem Kennzeichen suchen..."
 
 #: .\theme\templates\voiture_exemplaire\list.html:82
-#, fuzzy
-#| msgid "Aucun résultat trouvé"
 msgid "Aucun véhicule trouvé."
-msgstr "Kein Motor gefunden"
+msgstr "Keine Fahrzeuge gefunden."
 
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:11
-#, fuzzy
-#| msgid "Véhicule"
 msgid "Véhicule : "
-msgstr "Fahrzeug"
+msgstr "Fahrzeug : "
 
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:22
 msgid "Rechercher un exemplaire par immatriculation..."
@@ -4098,10 +3997,8 @@ msgid "Aucun exemplaire enregistré pour ce modèle."
 msgstr "Für dieses Modell sind keine Exemplare vorhanden."
 
 #: .\theme\templates\voiture_exemplaire\modifier_exemplaire.html:6
-#, fuzzy
-#| msgid "Ajouter un véhicule"
 msgid "Modifier le véhicule"
-msgstr "Fahrzeug hinzufügen"
+msgstr "Fahrzeug bearbeiten"
 
 #: .\theme\templates\voiture_exemplaire\modifier_exemplaire.html:55
 msgid "Enregistrer les modifications"
@@ -4116,15 +4013,11 @@ msgid "Mes marques favorites"
 msgstr "Meine Lieblingsmarken"
 
 #: .\theme\templates\voiture_marque\marques_list.html:48
-#, fuzzy
-#| msgid "Voir les modèles de cette marque"
 msgid "Voir les modèles "
-msgstr "Modelle dieser Marke anzeigen"
+msgstr "Modelle anzeigen"
 
 #: .\theme\templates\voiture_modele\modeles_list.html:8
 #: .\theme\templates\voiture_modele\modeles_par_marque.html:9
-#, fuzzy
-#| msgid "Modèles de"
 msgid "Modèles de "
 msgstr "Modelle von"
 
@@ -4149,22 +4042,18 @@ msgid "Aucun modèle enregistré pour cette marque."
 msgstr "Für diese Marke sind keine Modelle gespeichert."
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:10
-#, fuzzy
-#| msgid "Ajouter un moteur"
 msgid "Ajouter un moteur pour"
-msgstr "Motor hinzufügen"
+msgstr "Einen Motor hinzufügen für"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:25
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:25
-#, fuzzy
-#| msgid "Nom du fournisseur"
 msgid "Nom du motoriste"
-msgstr "Lieferantenname"
+msgstr "Name des Motorherstellers"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:33
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:33
 msgid "Ex: S14B23"
-msgstr ""
+msgstr "z. B.: S14B23"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:38
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:38
@@ -4175,12 +4064,12 @@ msgstr "Motortyp"
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:41
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:41
 msgid "Ex: ATM"
-msgstr ""
+msgstr "z. B.: ATM"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:49
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:49
 msgid "Essence / Diesel / ..."
-msgstr ""
+msgstr "Benzin / Diesel / ..."
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:54
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:54
@@ -4192,7 +4081,7 @@ msgstr "Hubraum (L)"
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:65
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:65
 msgid "Chaîne / Courroie"
-msgstr ""
+msgstr "Kette / Riemen"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:70
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:70
@@ -4202,35 +4091,27 @@ msgstr "Anzahl der Zylinder"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:78
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:77
-#, fuzzy
-#| msgid "Puissance en watts"
 msgid "Puissance en Chevaux"
-msgstr "Leistung in Watt"
+msgstr "Leistung in PS"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:85
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:84
-#, fuzzy
-#| msgid "Puissance en watts"
 msgid "Puissance à tr/min"
-msgstr "Leistung in Watt"
+msgstr "Leistung bei U/min"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:92
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:91
-#, fuzzy
-#| msgid "Couple conique"
 msgid "Couple Nm"
-msgstr "Kegelradpaar"
+msgstr "Drehmoment Nm"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:99
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:98
 msgid "Couple tr/min"
-msgstr ""
+msgstr "Drehmoment bei U/min"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:10
-#, fuzzy
-#| msgid "Lier un moteur à un véhicule"
 msgid "Ajouter un moteur pour un nouveau véhicule"
-msgstr "Einen Motor mit einem Fahrzeug verbinden"
+msgstr "Einen Motor für ein neues Fahrzeug hinzufügen"
 
 #: .\theme\templates\voiture_moteur\list.html:3
 #: .\theme\templates\voiture_moteur\list.html:11
@@ -4238,22 +4119,16 @@ msgid "Liste des moteurs"
 msgstr "Motorenliste"
 
 #: .\theme\templates\voiture_moteur\list.html:19
-#, fuzzy
-#| msgid "Rechercher un modèle..."
 msgid "Rechercher par motoriste"
-msgstr "Ein Modell suchen..."
+msgstr "Nach Motorhersteller suchen"
 
 #: .\theme\templates\voiture_moteur\list.html:21
-#, fuzzy
-#| msgid "Rechercher un modèle..."
 msgid "Rechercher par code moteur"
-msgstr "Ein Modell suchen..."
+msgstr "Nach Motorkennzeichen suchen"
 
 #: .\theme\templates\voiture_moteur\list.html:23
-#, fuzzy
-#| msgid "Rechercher un modèle..."
 msgid "Rechercher par cylindrée"
-msgstr "Ein Modell suchen..."
+msgstr "Nach Hubraum suchen"
 
 #: .\theme\templates\voiture_moteur\list.html:28
 #: .\voiture\voiture_moteur\views.py:34
@@ -4283,24 +4158,20 @@ msgid "Aucun moteur trouvé"
 msgstr "Kein Motor gefunden"
 
 #: .\theme\templates\voiture_moteur\moteur_detail.html:47
-#, fuzzy
-#| msgid "Puissance (CH)"
 msgid "Puissance à (tr/min)"
-msgstr "Leistung (PS)"
+msgstr "Leistung bei (U/min)"
 
 #: .\theme\templates\voiture_moteur\moteur_detail.html:52
 msgid "Couple (Nm)"
-msgstr ""
+msgstr "Drehmoment (Nm)"
 
 #: .\theme\templates\voiture_moteur\moteur_detail.html:57
 msgid "Couple à (tr/min)"
-msgstr ""
+msgstr "Drehmoment bei (U/min)"
 
 #: .\theme\templates\voiture_moteur\moteur_detail.html:87
-#, fuzzy
-#| msgid "Numéro de facture"
 msgid "Numéro moteur"
-msgstr "Rechnungsnummer"
+msgstr "Motornummer"
 
 #: .\theme\views.py:35
 msgid "Nom d'utilisateur ou mot de passe incorrect"
@@ -4362,7 +4233,7 @@ msgstr "Geschäftsführung"
 msgid "Révision moteur"
 msgstr "Motorwartung"
 
-#: .\utilisateurs\views.py:119
+#: .\utilisateurs\views.py:119 .\voiture\voiture_boite\models.py:11
 msgid "Changement filtre"
 msgstr "Filterwechsel"
 
@@ -4370,30 +4241,52 @@ msgstr "Filterwechsel"
 msgid "Rôle inconnu"
 msgstr "Unbekannte Rolle"
 
-#: .\voiture\voiture_exemplaire\views.py:114
-#: .\voiture\voiture_exemplaire\views.py:174
+#: .\voiture\voiture_boite\models.py:15
+msgid "Manuelle"
+msgstr ""
+
+#: .\voiture\voiture_boite\models.py:16
+#, fuzzy
+#| msgid "Boîte automatique"
+msgid "Semi-automatique"
+msgstr "Automatikgetriebe"
+
+#: .\voiture\voiture_boite\models.py:17
+#, fuzzy
+#| msgid "Boîte automatique"
+msgid "Automatique"
+msgstr "Automatikgetriebe"
+
+#: .\voiture\voiture_exemplaire\views.py:82
+#: .\voiture\voiture_exemplaire\views.py:142
 msgid "Moteur non trouvé"
 msgstr "Motor nicht gefunden"
 
-#: .\voiture\voiture_exemplaire\views.py:148
+#: .\voiture\voiture_exemplaire\views.py:116
 msgid "Le moteur a été lié à l'exemplaire avec succès."
-msgstr ""
+msgstr "Der Motor wurde erfolgreich mit dem Exemplar verknüpft."
 
-#: .\voiture\voiture_exemplaire\views.py:154
+#: .\voiture\voiture_exemplaire\views.py:122
 msgid "Lier un moteur à un véhicule"
 msgstr "Einen Motor mit einem Fahrzeug verbinden"
 
-#: .\voiture\voiture_exemplaire\views.py:155
+#: .\voiture\voiture_exemplaire\views.py:123
 msgid "Voulez-vous lier ce moteur à ce véhicule ?"
 msgstr "Möchten Sie diesen Motor mit diesem Fahrzeug verbinden?"
 
-#: .\voiture\voiture_exemplaire\views.py:169
+#: .\voiture\voiture_exemplaire\views.py:137
 msgid "Paramètres manquants"
 msgstr "Fehlende Parameter"
 
 #: .\voiture\voiture_moteur\views.py:35
 msgid "Créer le moteur"
 msgstr "Motor erstellen"
+
+#~ msgid "Ajouter un exemplaire pour"
+#~ msgstr "Ein Exemplar hinzufügen für"
+
+#~ msgid "Veuillez corriger les erreurs ci-dessous."
+#~ msgstr "Bitte korrigieren Sie die untenstehenden Fehler."
 
 #~ msgid "Erreur lors de la récupération du moteur."
 #~ msgstr "Fehler beim Abrufen des Motors."
@@ -4405,7 +4298,7 @@ msgstr "Motor erstellen"
 #~ msgstr "Exemplar bearbeiten"
 
 #~ msgid "Rechercher..."
-#~ msgstr "Suchen:"
+#~ msgstr "Suchen..."
 
 #~ msgid "Image du modèle"
 #~ msgstr "Modellbild"

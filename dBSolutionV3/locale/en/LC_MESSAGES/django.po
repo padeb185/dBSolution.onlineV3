@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-19 09:12+0100\n"
+"POT-Creation-Date: 2026-01-19 11:50+0100\n"
 "PO-Revision-Date: 2025-12-13 12:10+0100\n"
 "Last-Translator: Pierre de Bournonville [EMAIL@ADDRESS]"
 "(mailto:EMAIL@ADDRESS)\n"
@@ -397,12 +397,12 @@ msgstr ""
 
 #: .\fuel\models.py:20 .\piece\models.py:41 .\piece\models.py:99
 #: .\piece\models.py:108
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:21
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:28
 msgid "Marque"
 msgstr "Brand"
 
 #: .\fuel\models.py:26 .\piece\models.py:32
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:26
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:34
 msgid "Modèle"
 msgstr "Model"
 
@@ -413,7 +413,7 @@ msgid "Véhicule"
 msgstr "Vehicle"
 
 #: .\fuel\models.py:35 .\maintenance\models.py:50 .\piece\models.py:68
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:31
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:39
 msgid "Immatriculation"
 msgstr "License plate"
 
@@ -913,7 +913,7 @@ msgid "Date d'intervention"
 msgstr "Intervention date"
 
 #: .\maintenance\models.py:53
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:60
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:69
 msgid "Date de la dernière intervention"
 msgstr "Date of last intervention"
 
@@ -946,7 +946,7 @@ msgstr "Gearbox mileage"
 msgid "Remplacement moteur"
 msgstr "Engine replacement"
 
-#: .\maintenance\models.py:79
+#: .\maintenance\models.py:79 .\voiture\voiture_boite\models.py:12
 msgid "Remplacement boîte"
 msgstr "Gearbox replacement"
 
@@ -1710,7 +1710,7 @@ msgstr "Drive shaft"
 msgid "Joint"
 msgstr "Seal"
 
-#: .\piece\piece_differentiel\models.py:12
+#: .\piece\piece_differentiel\models.py:12 .\voiture\voiture_boite\models.py:10
 msgid "Vidange"
 msgstr "Drain"
 
@@ -3718,8 +3718,7 @@ msgid "Quantité d'huile (L)"
 msgstr "Oil quantity (L)"
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:50
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire.html:55
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:90
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:99
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:124
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:122
 msgid "Ajouter"
@@ -3855,59 +3854,49 @@ msgstr "Next"
 msgid "Précédent"
 msgstr "Previous"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire.html:10
-msgid "Ajouter un exemplaire pour"
-msgstr "Add a vehicle for"
-
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire.html:35
-msgid "Veuillez corriger les erreurs ci-dessous."
-msgstr "Please correct the errors below."
-
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:9
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:14
 msgid "Ajouter un véhicule : "
 msgstr "Add a vehicle : "
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:35
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:44
 msgid "Pays d'immatriculation"
 msgstr "Registration country"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:40
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:49
 msgid "Numero VIN"
 msgstr "VIN number"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:45
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:54
 msgid "Type d'utilisation"
 msgstr "Usage type"
 
-
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:50
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:59
 msgid "Kilomètres du chassis"
 msgstr "Chassis mileage"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:55
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:64
 msgid "Kilomètres de la dernière intervention"
 msgstr "Kilometers at last service"
 
-
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:65
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:74
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:56
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:70
 msgid "Année de production"
 msgstr "Production year"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:70
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:79
 msgid "Mois de production"
 msgstr "Month of production"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:75
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:84
 msgid "Numero d'identification du moteur"
 msgstr "Engine identification number"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:80
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:89
 msgid "Date de mise en circulation"
 msgstr "Date of first registration"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:85
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:94
 msgid "Kilomètres moteur"
 msgstr "Engine mileage"
 
@@ -3962,7 +3951,7 @@ msgid "Code moteur"
 msgstr "Engine Code"
 
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:120
-#: .\voiture\voiture_exemplaire\views.py:156
+#: .\voiture\voiture_exemplaire\views.py:124
 msgid "Lier le moteur"
 msgstr "Link Engine"
 
@@ -4242,7 +4231,7 @@ msgstr "Management"
 msgid "Révision moteur"
 msgstr "Engine Overhaul"
 
-#: .\utilisateurs\views.py:119
+#: .\utilisateurs\views.py:119 .\voiture\voiture_boite\models.py:11
 msgid "Changement filtre"
 msgstr "Filter Change"
 
@@ -4250,30 +4239,52 @@ msgstr "Filter Change"
 msgid "Rôle inconnu"
 msgstr "Unknown Role"
 
-#: .\voiture\voiture_exemplaire\views.py:114
-#: .\voiture\voiture_exemplaire\views.py:174
+#: .\voiture\voiture_boite\models.py:15
+msgid "Manuelle"
+msgstr ""
+
+#: .\voiture\voiture_boite\models.py:16
+#, fuzzy
+#| msgid "Boîte automatique"
+msgid "Semi-automatique"
+msgstr "Automatic gearbox"
+
+#: .\voiture\voiture_boite\models.py:17
+#, fuzzy
+#| msgid "Boîte automatique"
+msgid "Automatique"
+msgstr "Automatic gearbox"
+
+#: .\voiture\voiture_exemplaire\views.py:82
+#: .\voiture\voiture_exemplaire\views.py:142
 msgid "Moteur non trouvé"
 msgstr "Engine not found"
 
-#: .\voiture\voiture_exemplaire\views.py:148
+#: .\voiture\voiture_exemplaire\views.py:116
 msgid "Le moteur a été lié à l'exemplaire avec succès."
 msgstr "The engine has been successfully linked to the vehicle."
 
-#: .\voiture\voiture_exemplaire\views.py:154
+#: .\voiture\voiture_exemplaire\views.py:122
 msgid "Lier un moteur à un véhicule"
 msgstr "Link an engine to a vehicle"
 
-#: .\voiture\voiture_exemplaire\views.py:155
+#: .\voiture\voiture_exemplaire\views.py:123
 msgid "Voulez-vous lier ce moteur à ce véhicule ?"
 msgstr "Do you want to link this engine to this vehicle?"
 
-#: .\voiture\voiture_exemplaire\views.py:169
+#: .\voiture\voiture_exemplaire\views.py:137
 msgid "Paramètres manquants"
 msgstr "Missing parameters"
 
 #: .\voiture\voiture_moteur\views.py:35
 msgid "Créer le moteur"
 msgstr "Create engine"
+
+#~ msgid "Ajouter un exemplaire pour"
+#~ msgstr "Add a vehicle for"
+
+#~ msgid "Veuillez corriger les erreurs ci-dessous."
+#~ msgstr "Please correct the errors below."
 
 #~ msgid "Erreur lors de la récupération du moteur."
 #~ msgstr "Error retrieving the engine."

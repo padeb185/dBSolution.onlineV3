@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-19 09:12+0100\n"
+"POT-Creation-Date: 2026-01-19 11:50+0100\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -396,12 +396,12 @@ msgstr ""
 
 #: .\fuel\models.py:20 .\piece\models.py:41 .\piece\models.py:99
 #: .\piece\models.py:108
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:21
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:28
 msgid "Marque"
 msgstr ""
 
 #: .\fuel\models.py:26 .\piece\models.py:32
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:26
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:34
 msgid "Modèle"
 msgstr ""
 
@@ -412,7 +412,7 @@ msgid "Véhicule"
 msgstr ""
 
 #: .\fuel\models.py:35 .\maintenance\models.py:50 .\piece\models.py:68
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:31
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:39
 msgid "Immatriculation"
 msgstr ""
 
@@ -912,7 +912,7 @@ msgid "Date d'intervention"
 msgstr ""
 
 #: .\maintenance\models.py:53
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:60
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:69
 msgid "Date de la dernière intervention"
 msgstr ""
 
@@ -945,7 +945,7 @@ msgstr ""
 msgid "Remplacement moteur"
 msgstr ""
 
-#: .\maintenance\models.py:79
+#: .\maintenance\models.py:79 .\voiture\voiture_boite\models.py:12
 msgid "Remplacement boîte"
 msgstr ""
 
@@ -1709,7 +1709,7 @@ msgstr ""
 msgid "Joint"
 msgstr ""
 
-#: .\piece\piece_differentiel\models.py:12
+#: .\piece\piece_differentiel\models.py:12 .\voiture\voiture_boite\models.py:10
 msgid "Vidange"
 msgstr ""
 
@@ -3695,8 +3695,7 @@ msgid "Quantité d'huile (L)"
 msgstr ""
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:50
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire.html:55
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:90
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:99
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:124
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:122
 msgid "Ajouter"
@@ -3832,57 +3831,49 @@ msgstr ""
 msgid "Précédent"
 msgstr ""
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire.html:10
-msgid "Ajouter un exemplaire pour"
-msgstr ""
-
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire.html:35
-msgid "Veuillez corriger les erreurs ci-dessous."
-msgstr ""
-
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:9
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:14
 msgid "Ajouter un véhicule : "
 msgstr ""
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:35
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:44
 msgid "Pays d'immatriculation"
 msgstr ""
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:40
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:49
 msgid "Numero VIN"
 msgstr ""
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:45
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:54
 msgid "Type d'utilisation"
 msgstr ""
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:50
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:59
 msgid "Kilomètres du chassis"
 msgstr ""
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:55
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:64
 msgid "Kilomètres de la dernière intervention"
 msgstr ""
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:65
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:74
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:56
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:70
 msgid "Année de production"
 msgstr ""
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:70
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:79
 msgid "Mois de production"
 msgstr ""
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:75
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:84
 msgid "Numero d'identification du moteur"
 msgstr ""
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:80
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:89
 msgid "Date de mise en circulation"
 msgstr ""
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:85
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:94
 msgid "Kilomètres moteur"
 msgstr ""
 
@@ -3937,7 +3928,7 @@ msgid "Code moteur"
 msgstr ""
 
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:120
-#: .\voiture\voiture_exemplaire\views.py:156
+#: .\voiture\voiture_exemplaire\views.py:124
 msgid "Lier le moteur"
 msgstr ""
 
@@ -4217,7 +4208,7 @@ msgstr ""
 msgid "Révision moteur"
 msgstr ""
 
-#: .\utilisateurs\views.py:119
+#: .\utilisateurs\views.py:119 .\voiture\voiture_boite\models.py:11
 msgid "Changement filtre"
 msgstr ""
 
@@ -4225,24 +4216,36 @@ msgstr ""
 msgid "Rôle inconnu"
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\views.py:114
-#: .\voiture\voiture_exemplaire\views.py:174
+#: .\voiture\voiture_boite\models.py:15
+msgid "Manuelle"
+msgstr ""
+
+#: .\voiture\voiture_boite\models.py:16
+msgid "Semi-automatique"
+msgstr ""
+
+#: .\voiture\voiture_boite\models.py:17
+msgid "Automatique"
+msgstr ""
+
+#: .\voiture\voiture_exemplaire\views.py:82
+#: .\voiture\voiture_exemplaire\views.py:142
 msgid "Moteur non trouvé"
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\views.py:148
+#: .\voiture\voiture_exemplaire\views.py:116
 msgid "Le moteur a été lié à l'exemplaire avec succès."
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\views.py:154
+#: .\voiture\voiture_exemplaire\views.py:122
 msgid "Lier un moteur à un véhicule"
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\views.py:155
+#: .\voiture\voiture_exemplaire\views.py:123
 msgid "Voulez-vous lier ce moteur à ce véhicule ?"
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\views.py:169
+#: .\voiture\voiture_exemplaire\views.py:137
 msgid "Paramètres manquants"
 msgstr ""
 

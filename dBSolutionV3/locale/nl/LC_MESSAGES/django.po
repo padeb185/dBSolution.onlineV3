@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-19 09:12+0100\n"
+"POT-Creation-Date: 2026-01-19 11:50+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -397,12 +397,12 @@ msgstr "Diesel"
 
 #: .\fuel\models.py:20 .\piece\models.py:41 .\piece\models.py:99
 #: .\piece\models.py:108
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:21
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:28
 msgid "Marque"
 msgstr "Merk"
 
 #: .\fuel\models.py:26 .\piece\models.py:32
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:26
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:34
 msgid "Modèle"
 msgstr "Model"
 
@@ -413,7 +413,7 @@ msgid "Véhicule"
 msgstr "Voertuig"
 
 #: .\fuel\models.py:35 .\maintenance\models.py:50 .\piece\models.py:68
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:31
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:39
 msgid "Immatriculation"
 msgstr "Kenteken"
 
@@ -917,7 +917,7 @@ msgid "Date d'intervention"
 msgstr "Datum interventie"
 
 #: .\maintenance\models.py:53
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:60
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:69
 msgid "Date de la dernière intervention"
 msgstr "Datum laatste interventie"
 
@@ -950,7 +950,7 @@ msgstr "Versnellingsbakkilometrage"
 msgid "Remplacement moteur"
 msgstr "Motor vervangen"
 
-#: .\maintenance\models.py:79
+#: .\maintenance\models.py:79 .\voiture\voiture_boite\models.py:12
 msgid "Remplacement boîte"
 msgstr "Versnellingsbak vervangen"
 
@@ -1714,7 +1714,7 @@ msgstr "Aandrijfas"
 msgid "Joint"
 msgstr "Pakking"
 
-#: .\piece\piece_differentiel\models.py:12
+#: .\piece\piece_differentiel\models.py:12 .\voiture\voiture_boite\models.py:10
 msgid "Vidange"
 msgstr "Olie verversen"
 
@@ -3740,8 +3740,7 @@ msgid "Quantité d'huile (L)"
 msgstr "Gebruikte hoeveelheid"
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:50
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire.html:55
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:90
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:99
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:124
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:122
 msgid "Ajouter"
@@ -3919,71 +3918,63 @@ msgstr "Volgende"
 msgid "Précédent"
 msgstr "Vorige"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire.html:10
-msgid "Ajouter un exemplaire pour"
-msgstr "Een exemplaar toevoegen voor"
-
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire.html:35
-msgid "Veuillez corriger les erreurs ci-dessous."
-msgstr ""
-
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:9
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:14
 #, fuzzy
 #| msgid "Détails du véhicule"
 msgid "Ajouter un véhicule : "
 msgstr "Voertuigdetails"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:35
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:44
 #, fuzzy
 #| msgid "Immatriculation"
 msgid "Pays d'immatriculation"
 msgstr "Kenteken"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:40
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:49
 msgid "Numero VIN"
 msgstr ""
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:45
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:54
 #, fuzzy
 #| msgid "Type de pièce de climatisation"
 msgid "Type d'utilisation"
 msgstr "Type aircopart"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:50
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:59
 #, fuzzy
 #| msgid "Kilométrage châssis"
 msgid "Kilomètres du chassis"
 msgstr "Chassis kilometrage"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:55
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:64
 #, fuzzy
 #| msgid "Kilométrage à la dernière intervention"
 msgid "Kilomètres de la dernière intervention"
 msgstr "Kilometrage bij laatste interventie"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:65
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:74
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:56
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:70
 msgid "Année de production"
 msgstr "Productiejaar"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:70
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:79
 #, fuzzy
 #| msgid "Année de production"
 msgid "Mois de production"
 msgstr "Productiejaar"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:75
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:84
 msgid "Numero d'identification du moteur"
 msgstr ""
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:80
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:89
 #, fuzzy
 #| msgid "Date de modification"
 msgid "Date de mise en circulation"
 msgstr "Wijzigingsdatum"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:85
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:94
 #, fuzzy
 #| msgid "Kilométrage moteur"
 msgid "Kilomètres moteur"
@@ -4044,7 +4035,7 @@ msgid "Code moteur"
 msgstr "Motorkode"
 
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:120
-#: .\voiture\voiture_exemplaire\views.py:156
+#: .\voiture\voiture_exemplaire\views.py:124
 msgid "Lier le moteur"
 msgstr "Koppel de motor"
 
@@ -4362,7 +4353,7 @@ msgstr "Directie"
 msgid "Révision moteur"
 msgstr "Motorrevisie"
 
-#: .\utilisateurs\views.py:119
+#: .\utilisateurs\views.py:119 .\voiture\voiture_boite\models.py:11
 msgid "Changement filtre"
 msgstr "Filtervervanging"
 
@@ -4370,30 +4361,49 @@ msgstr "Filtervervanging"
 msgid "Rôle inconnu"
 msgstr "Onbekende rol"
 
-#: .\voiture\voiture_exemplaire\views.py:114
-#: .\voiture\voiture_exemplaire\views.py:174
+#: .\voiture\voiture_boite\models.py:15
+msgid "Manuelle"
+msgstr ""
+
+#: .\voiture\voiture_boite\models.py:16
+#, fuzzy
+#| msgid "Boîte automatique"
+msgid "Semi-automatique"
+msgstr "Automatische versnellingsbak"
+
+#: .\voiture\voiture_boite\models.py:17
+#, fuzzy
+#| msgid "Boîte automatique"
+msgid "Automatique"
+msgstr "Automatische versnellingsbak"
+
+#: .\voiture\voiture_exemplaire\views.py:82
+#: .\voiture\voiture_exemplaire\views.py:142
 msgid "Moteur non trouvé"
 msgstr "Motor niet gevonden"
 
-#: .\voiture\voiture_exemplaire\views.py:148
+#: .\voiture\voiture_exemplaire\views.py:116
 msgid "Le moteur a été lié à l'exemplaire avec succès."
 msgstr "De motor is succesvol gekoppeld aan het exemplaar."
 
-#: .\voiture\voiture_exemplaire\views.py:154
+#: .\voiture\voiture_exemplaire\views.py:122
 msgid "Lier un moteur à un véhicule"
 msgstr "Koppel een motor aan een voertuig"
 
-#: .\voiture\voiture_exemplaire\views.py:155
+#: .\voiture\voiture_exemplaire\views.py:123
 msgid "Voulez-vous lier ce moteur à ce véhicule ?"
 msgstr "Wilt u deze motor aan dit voertuig koppelen?"
 
-#: .\voiture\voiture_exemplaire\views.py:169
+#: .\voiture\voiture_exemplaire\views.py:137
 msgid "Paramètres manquants"
 msgstr "Ontbrekende parameters"
 
 #: .\voiture\voiture_moteur\views.py:35
 msgid "Créer le moteur"
 msgstr "Motor aanmaken"
+
+#~ msgid "Ajouter un exemplaire pour"
+#~ msgstr "Een exemplaar toevoegen voor"
 
 #~ msgid "Erreur lors de la récupération du moteur."
 #~ msgstr "Fout bij het ophalen van de motor."
