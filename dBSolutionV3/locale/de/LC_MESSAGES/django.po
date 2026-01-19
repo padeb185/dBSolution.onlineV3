@@ -1807,74 +1807,53 @@ msgid "Pièces de direction"
 msgstr "Lenkungsteile"
 
 #: .\piece\piece_distribution\models.py:12
-#, fuzzy
-#| msgid "Courroie de Distribution"
 msgid "Courroie de distribution"
 msgstr "Steuerriemen"
 
 #: .\piece\piece_distribution\models.py:13
-#, fuzzy
-#| msgid "Chaine de Distribution"
 msgid "Chaîne de distribution"
 msgstr "Steuerkette"
 
 #: .\piece\piece_distribution\models.py:14
-#, fuzzy
-#| msgid "Galet Tendeur"
 msgid "Galet tendeur"
 msgstr "Spannrolle"
 
 #: .\piece\piece_distribution\models.py:15
 msgid "Galet libre"
-msgstr ""
+msgstr "Leerlaufrolle"
+
 
 #: .\piece\piece_distribution\models.py:16
-#, fuzzy
-#| msgid "Pompe à Eau"
 msgid "Pompe à eau"
 msgstr "Wasserpumpe"
 
 #: .\piece\piece_distribution\models.py:17
-#, fuzzy
-#| msgid "Roue de rechange"
 msgid "Guide de chaîne"
-msgstr "Reserverad"
+msgstr "Kettenführung"
 
 #: .\piece\piece_distribution\models.py:18
-#, fuzzy
-#| msgid "Joint de porte"
 msgid "Joint de culot"
-msgstr "Türdichtung"
+msgstr "Bodendichtung"
 
 #: .\piece\piece_distribution\models.py:19
-#, fuzzy
-#| msgid "Type de pièce hydraulique"
 msgid "Tendeur hydraulique"
-msgstr "Art des Hydraulikteils"
+msgstr "Hydraulischer Spanner"
 
 #: .\piece\piece_distribution\models.py:20
-#, fuzzy
-#| msgid "Chaine de Distribution"
 msgid "Cache distribution"
-msgstr "Steuerkette"
+msgstr "Zahnriemenabdeckung"
 
 #: .\piece\piece_distribution\models.py:27
-#, fuzzy
-#| msgid "Type de pièce de direction"
 msgid "Type de pièce de distribution"
-msgstr "Art des Lenkungsteils"
+msgstr "Typ des Steuerteil"
 
 #: .\piece\piece_distribution\models.py:39
-#, fuzzy
-#| msgid "Pièce de direction"
 msgid "Pièce de distribution"
-msgstr "Lenkungsteil"
+msgstr "Steuerteil"
 
 #: .\piece\piece_distribution\models.py:40
-#, fuzzy
-#| msgid "Pièces de direction"
 msgid "Pièces de distribution"
-msgstr "Lenkungsteile"
+msgstr "Steuerteile"
 
 #: .\piece\piece_echappement\models.py:9
 msgid "Collecteur d’échappement"
@@ -3685,8 +3664,6 @@ msgid "(filtré à partir de _MAX_ entrées totales)"
 msgstr "(gefiltert von _MAX_ Gesamteinträgen)"
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:9
-#, fuzzy
-#| msgid "Ajouter une boîte"
 msgid "Ajouter une boite"
 msgstr "Getriebe hinzufügen"
 
@@ -3706,7 +3683,8 @@ msgstr "Getriebetyp"
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:41
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:54
 msgid "Sélectionner un type"
-msgstr ""
+msgstr "Typ auswählen"
+
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:39
 #: .\theme\templates\voiture_boite\boite_detail.html:32
@@ -3878,62 +3856,45 @@ msgstr "Vorherige"
 
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:9
 #: .\theme\templates\voiture_embrayage\list.html:28
-#, fuzzy
-#| msgid "Ajouter un exemplaire"
 msgid "Ajouter un embrayage"
-msgstr "Ein Exemplar hinzufügen"
+msgstr "Kupplung hinzufügen"
 
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:38
 #: .\theme\templates\voiture_embrayage\list.html:40
-#, fuzzy
-#| msgid "Type de pièce moteur"
 msgid "Type de volant moteur"
-msgstr "Motorteiltyp"
+msgstr "Schwungradtyp"
 
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:51
 #: .\theme\templates\voiture_embrayage\list.html:41
-#, fuzzy
-#| msgid "Plateau de pression"
 msgid "Type de plateau de pression"
-msgstr "Reifendrucksensor"
+msgstr "Druckplattentyp"
 
 #: .\theme\templates\voiture_embrayage\list.html:4
 #: .\theme\templates\voiture_embrayage\list.html:10
-#, fuzzy
-#| msgid "Disque d'embrayage"
 msgid "Liste des embrayages"
-msgstr "Kupplungsscheibe"
+msgstr "Kupplungsliste"
 
 #: .\theme\templates\voiture_embrayage\list.html:21
-#, fuzzy
-#| msgid "Rechercher par code moteur"
 msgid "Rechercher par volant moteur"
-msgstr "Nach Motorkennzeichen suchen"
+msgstr "Nach Schwungrad suchen"
 
 #: .\theme\templates\voiture_embrayage\list.html:23
-#, fuzzy
-#| msgid "Rechercher par type de boîte"
 msgid "Rechercher par plateau de pression"
-msgstr "Nach Getriebetyp suchen"
+msgstr "Nach Druckplatte suchen"
 
 #: .\theme\templates\voiture_embrayage\list.html:61
-#, fuzzy
-#| msgid "Aucun moteur trouvé."
 msgid "Aucun embrayage trouvé."
-msgstr "Kein Motor gefunden"
+msgstr "Keine Kupplung gefunden."
 
 #: .\theme\templates\voiture_embrayage\list.html:75
-#, fuzzy
-#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ entrées"
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ embrayages"
-msgstr "Anzeige von _START_ bis _END_ von _TOTAL_ Einträgen"
+msgstr "Anzeige von _START_ bis _END_ von _TOTAL_ Kupplungen"
 
 #: .\theme\templates\voiture_embrayage\list.html:76
 #: .\theme\templates\voiture_embrayage\list.html:77
-#, fuzzy
-#| msgid "Aucun moteur trouvé"
 msgid "Aucun embrayage trouvé"
-msgstr "Kein Motor gefunden"
+msgstr "Keine Kupplung gefunden"
+
 
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:14
 msgid "Ajouter un véhicule : "
@@ -4335,61 +4296,57 @@ msgstr "Automatik"
 
 #: .\voiture\voiture_embrayage\models.py:8
 msgid "Monodisque"
-msgstr ""
+msgstr "Einscheiben"
 
 #: .\voiture\voiture_embrayage\models.py:9
 msgid "Multidisque"
-msgstr ""
+msgstr "Mehrscheiben"
+
 
 #: .\voiture\voiture_embrayage\models.py:11
-#, fuzzy
-#| msgid "Bloc hydraulique"
 msgid "Hydraulique"
-msgstr "Hydraulikblock"
+msgstr "Hydraulik"
 
 #: .\voiture\voiture_embrayage\models.py:12
-#, fuzzy
-#| msgid "Mécanicien"
 msgid "Mécanique"
-msgstr "Mechaniker"
+msgstr "Mechanisch"
 
 #: .\voiture\voiture_embrayage\models.py:15
 msgid "Monomasse"
-msgstr ""
+msgstr "Einscheiben"
 
 #: .\voiture\voiture_embrayage\models.py:16
 msgid "Bimasse"
-msgstr ""
+msgstr "Zweimassenschwungrad"
 
 #: .\voiture\voiture_embrayage\models.py:17
 msgid "Allégé / Performance"
-msgstr ""
+msgstr "Leicht / Performance"
 
 #: .\voiture\voiture_embrayage\models.py:18
 msgid "Segmenté / Compétition"
-msgstr ""
+msgstr "Segmentiert / Rennsport"
 
 #: .\voiture\voiture_embrayage\models.py:22
 msgid "Classique (mono-disque)"
-msgstr ""
+msgstr "Klassisch (Einscheiben)"
 
 #: .\voiture\voiture_embrayage\models.py:23
-#, fuzzy
-#| msgid "Ressorts de Soupapes"
 msgid "Ressorts concentriques"
-msgstr "Ventilfedern"
+msgstr "Konzentrische Federn"
 
 #: .\voiture\voiture_embrayage\models.py:24
 msgid "Ressorts hélicoïdaux"
-msgstr ""
+msgstr "Schraubenfedern"
 
 #: .\voiture\voiture_embrayage\models.py:25
 msgid "Renforcé / Compétition"
-msgstr ""
+msgstr "Verstärkt / Rennsport"
 
 #: .\voiture\voiture_embrayage\models.py:26
 msgid "Bimasse (pour volant moteur DMF)"
-msgstr ""
+msgstr "Zweimassenschwungrad (für DMF)"
+
 
 #: .\voiture\voiture_exemplaire\views.py:82
 #: .\voiture\voiture_exemplaire\views.py:142
