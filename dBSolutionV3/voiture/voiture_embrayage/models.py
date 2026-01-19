@@ -1,8 +1,18 @@
 import uuid
 from django.db.models import Q
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
-# Create your models here.
+
+class TypeEmbrayage(models.TextChoices):
+    MONDISQUE = "MONDISQUE", _("Monodisque")
+    MULTIDISQUE = "MULTIDISQUE", _("Multidisque")
+    AUTOMATIQUE = "AUTOMATIQUE", _("Automatique")
+    HYDRAULIQUE = "HYDRAULIQUE", _("Hydraulique")
+    MECANIQUE = "MECANIQUE", _("Mécanique")
+
+
+
 class VoitureEmbrayage(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
@@ -21,6 +31,15 @@ class VoitureEmbrayage(models.Model):
         related_name="embrayages",
         null=True,
         blank=True
+    )
+    fabricant = models.CharField(max_length=30, null=True, blank=True)
+
+    type_embrayage = models.CharField(
+        max_length=20,
+        choices=TypeEmbrayage.choices,
+        default=TypeEmbrayage.MONDISQUE,
+        null=True,
+        blank=True,
     )
 
     kilometrage_embrayage = models.PositiveIntegerField(default=0)

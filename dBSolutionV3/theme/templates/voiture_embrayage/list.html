@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load i18n static widget_tweaks %}
+
+{% block title %}{% trans "Liste des embrayages" %}{% endblock %}
+
+{% block content %}
+<h1 class="text-2xl font-bold mb-6 flex items-center">
+    <img src="{% static 'icons/disque-dembrayage.png' %}" alt="Embrayage"
+         style="width:60px; height:60px; margin-right:10px;">
+    {% trans "Liste des boîtes de vitesse" %}
+</h1>
+
+<!-- Filtres + bouton Ajouter -->
+<div class="bg-white shadow-md rounded-lg p-4 mb-4">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+        <input id="search-fabricant" type="text" class="border rounded px-3 py-2"
+               placeholder="{% trans 'Rechercher par fabricant' %}">
+        <input id="search-type_embrayage" type="text" class="border rounded px-3 py-2"
+               placeholder="{% trans 'Rechercher par nom du type' %}">
+
+        <a href="{% url 'voiture_embrayage:ajouter_embrayage_simple' %}"
+           class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition">
+            {% trans "Ajouter un embrayage" %}
+        </a>
+    </div>
+</div>
+
+<!-- Table -->
+<table id="embrayage-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Nom du Fabricant" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Nom du Type" %}</th>
+            <th class="border px-4 py-2 cursor-pointer text-center">{% trans "Info" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for boite in boites %}
+        <tr>
+            <td class="border px-4 py-2">{{ boite.fabricant }}</td>
+            <td class="border px-4 py-2">{{ boite.type_embrayage }}</td>
+            <td class="border px-4 py-2 text-center">
+                <a href="{% url 'voiture_embrayage:detail' embrayage.id %}"
+                   class="text-blue-600 hover:text-blue-800 font-semibold">
+                    {% trans "Info" %}
+                </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td class="border px-4 py-2 text-center" colspan="4">{% trans "Aucun embrayage trouvé." %}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- DataTables JS -->
+<script>
+$(document).ready(function() {
+    var table = $('#embrayage-table').DataTable({
+        pageLength: 100,
+        language: {
+            search: "{% trans 'Recherche globale :' %}",
+            lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ boîtes' %}",
+            infoEmpty: "{% trans 'Aucune boîte trouvée' %}",
+            zeroRecords: "{% trans 'Aucune boîte trouvée' %}",
+            paginate: {
+                first: "{% trans 'Premier' %}",
+                last: "{% trans 'Dernier' %}",
+                next: "{% trans 'Suivant' %}",
+                previous: "{% trans 'Précédent' %}"
+            }
+        },
+        order: [[0, "asc"]]
+    });
+
+    // Filtres par colonne
+    $('#search-fabricant').on('keyup', function () {
+        table.column(0).search(this.value).draw();
+    });
+    $('#search-type_embrayage').on('keyup', function () {
+        table.column(1).search(this.value).draw();
+    });
+
+
+});
+</script>
+{% endblock %}

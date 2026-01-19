@@ -1,8 +1,6 @@
 from django.db import models
 import uuid
 from django.db.models import Q
-
-
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 

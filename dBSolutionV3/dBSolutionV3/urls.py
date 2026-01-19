@@ -38,6 +38,8 @@ urlpatterns += i18n_patterns(
 
     path('voiture/boite', include('voiture.voiture_boite.urls', namespace='voiture_boite')),
 
+    path('voiture/embrayage', include('voiture.voiture_embrayage.urls', namespace='voiture_embrayage')),
+
     # URLs publiques
     path("public/", include("dBSolutionV3.urls_public")),
 

@@ -117,7 +117,7 @@
               </div>
 
               <!-- Icône à droite -->
-              <img src="{% static 'icons/voiture-de-course.png' %}" alt="Moteur" style="width:60px; height:60px;">
+              <img src="{% static 'icons/voiture-de-course.png' %}" alt="Véhicules" style="width:60px; height:60px;">
           </a>
 
         <a href="{% url 'voiture_boite:list' %}"
@@ -132,7 +132,22 @@
               </div>
 
               <!-- Icône à droite -->
-              <img src="{% static 'icons/boite-de-vitesse.png' %}" alt="Moteur" style="width:60px; height:60px;">
+              <img src="{% static 'icons/boite-de-vitesse.png' %}" alt="boite de vitesse" style="width:60px; height:60px;">
+          </a>
+
+        <a href="{% url 'voiture_embrayage:list' %}"
+             class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+              <!-- Texte à gauche -->
+              <div>
+                  <h2 class="text-lg font-semibold mb-1">{% trans "Embrayage" %}</h2>
+                  <p class="text-gray-600 text-sm">
+                      {% trans "Nombre total :" %} <span class="font-bold">{{ total_embrayages }}</span>
+                  </p>
+              </div>
+
+              <!-- Icône à droite -->
+              <img src="{% static 'icons/disque-dembrayage.png' %}" alt="embrayage" style="width:60px; height:60px;">
           </a>
 
     </div>
