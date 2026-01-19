@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-19 11:50+0100\n"
+"POT-Creation-Date: 2026-01-19 15:37+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -875,14 +875,14 @@ msgid "Non précisé"
 msgstr "Niet gespecificeerd"
 
 #: .\maintenance\jeux_pieces\models.py:108 .\maintenance\models.py:34
-#: .\utilisateurs\models.py:73 .\utilisateurs\views.py:143
+#: .\utilisateurs\models.py:73 .\utilisateurs\views.py:151
 msgid "Apprenti"
 msgstr "Leerling"
 
 #: .\maintenance\jeux_pieces\models.py:109 .\maintenance\models.py:26
 #: .\maintenance\nettoyage_exterieur\models.py:25
 #: .\maintenance\nettoyage_interieur\models.py:26 .\utilisateurs\models.py:74
-#: .\utilisateurs\views.py:144
+#: .\utilisateurs\views.py:152
 #, fuzzy
 #| msgid "Chef mécanicien"
 msgid "Mécanicien"
@@ -950,7 +950,7 @@ msgstr "Versnellingsbakkilometrage"
 msgid "Remplacement moteur"
 msgstr "Motor vervangen"
 
-#: .\maintenance\models.py:79 .\voiture\voiture_boite\models.py:12
+#: .\maintenance\models.py:79 .\voiture\voiture_boite\models.py:10
 msgid "Remplacement boîte"
 msgstr "Versnellingsbak vervangen"
 
@@ -1714,7 +1714,7 @@ msgstr "Aandrijfas"
 msgid "Joint"
 msgstr "Pakking"
 
-#: .\piece\piece_differentiel\models.py:12 .\voiture\voiture_boite\models.py:10
+#: .\piece\piece_differentiel\models.py:12 .\voiture\voiture_boite\models.py:8
 msgid "Vidange"
 msgstr "Olie verversen"
 
@@ -2141,6 +2141,8 @@ msgid "Levier / fourchette"
 msgstr "Hendel / vork"
 
 #: .\piece\piece_embrayage\models.py:26
+#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:25
+#: .\theme\templates\voiture_embrayage\list.html:39
 msgid "Type d'embrayage"
 msgstr "Type koppeling"
 
@@ -2160,7 +2162,7 @@ msgstr "Lijst van componenten aanwezig in deze koppeling"
 msgid "Composants"
 msgstr "Componenten"
 
-#: .\piece\piece_embrayage\models.py:72
+#: .\piece\piece_embrayage\models.py:72 .\theme\templates\dashboard.html:143
 msgid "Embrayage"
 msgstr "Koppeling"
 
@@ -3529,7 +3531,7 @@ msgstr "Gebruikers"
 
 #: .\theme\templates\dashboard.html:16 .\theme\templates\dashboard.html:80
 #: .\theme\templates\dashboard.html:99 .\theme\templates\dashboard.html:115
-#: .\theme\templates\dashboard.html:130
+#: .\theme\templates\dashboard.html:130 .\theme\templates\dashboard.html:145
 msgid "Nombre total :"
 msgstr "Totaal aantal:"
 
@@ -3591,7 +3593,7 @@ msgstr "Gebruikerslijst"
 msgid "Boites de vitesses"
 msgstr "Versnellingsbak"
 
-#: .\theme\templates\dashboard.html:145
+#: .\theme\templates\dashboard.html:160
 msgid "Tableau de bord Admin"
 msgstr "Admin-dashboard"
 
@@ -3691,37 +3693,39 @@ msgstr "(gefilterd van _MAX_ totale vermeldingen)"
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:9
 #, fuzzy
 #| msgid "Ajouter un moteur"
-msgid "Ajouter une boite pour"
+msgid "Ajouter une boite"
 msgstr "Voeg een motor toe"
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:20
 #: .\theme\templates\voiture_boite\boite_detail.html:17
+#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:20
 #, fuzzy
 #| msgid "Fabricants"
 msgid "Fabricant"
 msgstr "Fabrikanten"
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:25
-#: .\theme\templates\voiture_boite\list.html:35
+#: .\theme\templates\voiture_boite\boite_detail.html:27
 #, fuzzy
-#| msgid "Nom du filtre"
-msgid "Nom du Type"
-msgstr "Naam van het filter"
+#| msgid "Type de roue"
+msgid "Type de boîte"
+msgstr "Type wiel"
 
-#: .\theme\templates\voiture_boite\ajouter_boite_simple.html:30
-#, fuzzy
-#| msgid "Type de filtre"
-msgid "Type de boite"
-msgstr "Type filter"
+#: .\theme\templates\voiture_boite\ajouter_boite_simple.html:28
+#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:28
+#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:41
+#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:54
+msgid "Sélectionner un type"
+msgstr ""
 
-#: .\theme\templates\voiture_boite\ajouter_boite_simple.html:35
+#: .\theme\templates\voiture_boite\ajouter_boite_simple.html:39
 #: .\theme\templates\voiture_boite\boite_detail.html:32
 #, fuzzy
 #| msgid "Nombre de vitesses"
 msgid "Nombre de rapports"
 msgstr "Aantal versnellingen"
 
-#: .\theme\templates\voiture_boite\ajouter_boite_simple.html:40
+#: .\theme\templates\voiture_boite\ajouter_boite_simple.html:44
 #: .\theme\templates\voiture_boite\list.html:39
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:106
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:105
@@ -3731,7 +3735,7 @@ msgstr "Aantal versnellingen"
 msgid "Qualité d'huile"
 msgstr "Kwaliteit van de vloeistof"
 
-#: .\theme\templates\voiture_boite\ajouter_boite_simple.html:45
+#: .\theme\templates\voiture_boite\ajouter_boite_simple.html:49
 #: .\theme\templates\voiture_boite\boite_detail.html:43
 #: .\theme\templates\voiture_moteur\moteur_detail.html:77
 #, fuzzy
@@ -3739,7 +3743,8 @@ msgstr "Kwaliteit van de vloeistof"
 msgid "Quantité d'huile (L)"
 msgstr "Gebruikte hoeveelheid"
 
-#: .\theme\templates\voiture_boite\ajouter_boite_simple.html:50
+#: .\theme\templates\voiture_boite\ajouter_boite_simple.html:54
+#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:66
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:99
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:124
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:122
@@ -3757,12 +3762,6 @@ msgstr "Versnellingsbaklek"
 #| msgid "Nom du filtre"
 msgid "Nom du type"
 msgstr "Naam van het filter"
-
-#: .\theme\templates\voiture_boite\boite_detail.html:27
-#, fuzzy
-#| msgid "Type de roue"
-msgid "Type de boîte"
-msgstr "Type wiel"
 
 #: .\theme\templates\voiture_boite\boite_detail.html:38
 #, fuzzy
@@ -3813,12 +3812,14 @@ msgid "Liste des boîtes de vitesse"
 msgstr "Versnellingsbaklek"
 
 #: .\theme\templates\voiture_boite\list.html:17
+#: .\theme\templates\voiture_embrayage\list.html:17
 #, fuzzy
 #| msgid "Rechercher :"
 msgid "Rechercher par fabricant"
 msgstr "Zoeken :"
 
 #: .\theme\templates\voiture_boite\list.html:19
+#: .\theme\templates\voiture_embrayage\list.html:19
 #, fuzzy
 #| msgid "Rechercher un modèle..."
 msgid "Rechercher par nom du type"
@@ -3835,10 +3836,17 @@ msgid "Ajouter une boîte"
 msgstr "Voeg een motor toe"
 
 #: .\theme\templates\voiture_boite\list.html:34
+#: .\theme\templates\voiture_embrayage\list.html:38
 #, fuzzy
 #| msgid "Fabricants"
 msgid "Nom du Fabricant"
 msgstr "Fabrikanten"
+
+#: .\theme\templates\voiture_boite\list.html:35
+#, fuzzy
+#| msgid "Nom du filtre"
+msgid "Nom du Type"
+msgstr "Naam van het filter"
 
 #: .\theme\templates\voiture_boite\list.html:36
 #, fuzzy
@@ -3862,6 +3870,8 @@ msgstr "Gebruikte hoeveelheid"
 
 #: .\theme\templates\voiture_boite\list.html:40
 #: .\theme\templates\voiture_boite\list.html:55
+#: .\theme\templates\voiture_embrayage\list.html:42
+#: .\theme\templates\voiture_embrayage\list.html:55
 #: .\theme\templates\voiture_moteur\list.html:42
 #: .\theme\templates\voiture_moteur\list.html:57
 msgid "Info"
@@ -3874,6 +3884,7 @@ msgid "Aucune boîte de vitesse trouvée."
 msgstr "Versnellingsbaklek"
 
 #: .\theme\templates\voiture_boite\list.html:73
+#: .\theme\templates\voiture_embrayage\list.html:73
 #: .\theme\templates\voiture_moteur\list.html:76
 #, fuzzy
 #| msgid "Rechercher :"
@@ -3881,6 +3892,7 @@ msgid "Recherche globale :"
 msgstr "Zoeken :"
 
 #: .\theme\templates\voiture_boite\list.html:74
+#: .\theme\templates\voiture_embrayage\list.html:74
 #: .\theme\templates\voiture_moteur\list.html:77
 msgid "Afficher _MENU_ éléments"
 msgstr "Toon _MENU_ items"
@@ -3899,24 +3911,87 @@ msgid "Aucune boîte trouvée"
 msgstr "Geen motor gevonden"
 
 #: .\theme\templates\voiture_boite\list.html:79
+#: .\theme\templates\voiture_embrayage\list.html:79
 #: .\theme\templates\voiture_moteur\list.html:82
 msgid "Premier"
 msgstr "Eerste"
 
 #: .\theme\templates\voiture_boite\list.html:80
+#: .\theme\templates\voiture_embrayage\list.html:80
 #: .\theme\templates\voiture_moteur\list.html:83
 msgid "Dernier"
 msgstr "Laatste"
 
 #: .\theme\templates\voiture_boite\list.html:81
+#: .\theme\templates\voiture_embrayage\list.html:81
 #: .\theme\templates\voiture_moteur\list.html:84
 msgid "Suivant"
 msgstr "Volgende"
 
 #: .\theme\templates\voiture_boite\list.html:82
+#: .\theme\templates\voiture_embrayage\list.html:82
 #: .\theme\templates\voiture_moteur\list.html:85
 msgid "Précédent"
 msgstr "Vorige"
+
+#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:9
+#: .\theme\templates\voiture_embrayage\list.html:28
+#, fuzzy
+#| msgid "Ajouter un exemplaire"
+msgid "Ajouter un embrayage"
+msgstr "Een exemplaar toevoegen"
+
+#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:38
+#: .\theme\templates\voiture_embrayage\list.html:40
+#, fuzzy
+#| msgid "Type de pièce moteur"
+msgid "Type de volant moteur"
+msgstr "Type motoronderdeel"
+
+#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:51
+#: .\theme\templates\voiture_embrayage\list.html:41
+#, fuzzy
+#| msgid "Plateau de pression"
+msgid "Type de plateau de pression"
+msgstr "Drukplaat"
+
+#: .\theme\templates\voiture_embrayage\list.html:4
+#: .\theme\templates\voiture_embrayage\list.html:10
+#, fuzzy
+#| msgid "Disque d'embrayage"
+msgid "Liste des embrayages"
+msgstr "Koppelingsschijf"
+
+#: .\theme\templates\voiture_embrayage\list.html:21
+#, fuzzy
+#| msgid "Rechercher un modèle..."
+msgid "Rechercher par volant moteur"
+msgstr "Zoek een model..."
+
+#: .\theme\templates\voiture_embrayage\list.html:23
+#, fuzzy
+#| msgid "Plateau de pression"
+msgid "Rechercher par plateau de pression"
+msgstr "Drukplaat"
+
+#: .\theme\templates\voiture_embrayage\list.html:61
+#, fuzzy
+#| msgid "Aucun moteur trouvé."
+msgid "Aucun embrayage trouvé."
+msgstr "Geen motor gevonden"
+
+#: .\theme\templates\voiture_embrayage\list.html:75
+#, fuzzy
+#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ entrées"
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ embrayages"
+msgstr "Weergeven van _START_ tot _END_ van _TOTAL_ vermeldingen"
+
+#: .\theme\templates\voiture_embrayage\list.html:76
+#: .\theme\templates\voiture_embrayage\list.html:77
+#, fuzzy
+#| msgid "Aucun moteur trouvé"
+msgid "Aucun embrayage trouvé"
+msgstr "Geen motor gevonden"
 
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:14
 #, fuzzy
@@ -4317,65 +4392,124 @@ msgstr "Human Resources"
 msgid "Operations"
 msgstr "Operationele zaken"
 
-#: .\utilisateurs\models.py:75 .\utilisateurs\views.py:147
+#: .\utilisateurs\models.py:75 .\utilisateurs\views.py:155
 msgid "Magasinier"
 msgstr "Magazijnier"
 
-#: .\utilisateurs\models.py:76 .\utilisateurs\views.py:145
+#: .\utilisateurs\models.py:76 .\utilisateurs\views.py:153
 msgid "Carrossier"
 msgstr "Carrosseriehersteller"
 
-#: .\utilisateurs\models.py:77 .\utilisateurs\views.py:146
+#: .\utilisateurs\models.py:77 .\utilisateurs\views.py:154
 msgid "Chef Mécanicien"
 msgstr "Hoofdmonteur"
 
-#: .\utilisateurs\models.py:78 .\utilisateurs\views.py:148
+#: .\utilisateurs\models.py:78 .\utilisateurs\views.py:156
 msgid "Instructeur"
 msgstr "Instructeur"
 
-#: .\utilisateurs\models.py:79 .\utilisateurs\views.py:149
+#: .\utilisateurs\models.py:79 .\utilisateurs\views.py:157
 msgid "Instructeur Externe"
 msgstr "Externe instructeur"
 
-#: .\utilisateurs\models.py:80 .\utilisateurs\views.py:150
+#: .\utilisateurs\models.py:80 .\utilisateurs\views.py:158
 msgid "Vendeur"
 msgstr "Verkoper"
 
-#: .\utilisateurs\models.py:81 .\utilisateurs\views.py:151
+#: .\utilisateurs\models.py:81 .\utilisateurs\views.py:159
 msgid "Comptable"
 msgstr "Boekhouder"
 
-#: .\utilisateurs\models.py:82 .\utilisateurs\views.py:152
+#: .\utilisateurs\models.py:82 .\utilisateurs\views.py:160
 msgid "Direction"
 msgstr "Directie"
 
-#: .\utilisateurs\views.py:119
+#: .\utilisateurs\views.py:127
 msgid "Révision moteur"
 msgstr "Motorrevisie"
 
-#: .\utilisateurs\views.py:119 .\voiture\voiture_boite\models.py:11
+#: .\utilisateurs\views.py:127 .\voiture\voiture_boite\models.py:9
 msgid "Changement filtre"
 msgstr "Filtervervanging"
 
-#: .\utilisateurs\views.py:139 .\utilisateurs\views.py:154
+#: .\utilisateurs\views.py:147 .\utilisateurs\views.py:162
 msgid "Rôle inconnu"
 msgstr "Onbekende rol"
 
-#: .\voiture\voiture_boite\models.py:15
+#: .\voiture\voiture_boite\models.py:13
 msgid "Manuelle"
 msgstr ""
 
-#: .\voiture\voiture_boite\models.py:16
+#: .\voiture\voiture_boite\models.py:14
 #, fuzzy
 #| msgid "Boîte automatique"
 msgid "Semi-automatique"
 msgstr "Automatische versnellingsbak"
 
-#: .\voiture\voiture_boite\models.py:17
+#: .\voiture\voiture_boite\models.py:15
+#: .\voiture\voiture_embrayage\models.py:10
 #, fuzzy
 #| msgid "Boîte automatique"
 msgid "Automatique"
 msgstr "Automatische versnellingsbak"
+
+#: .\voiture\voiture_embrayage\models.py:8
+msgid "Monodisque"
+msgstr ""
+
+#: .\voiture\voiture_embrayage\models.py:9
+msgid "Multidisque"
+msgstr ""
+
+#: .\voiture\voiture_embrayage\models.py:11
+#, fuzzy
+#| msgid "Bloc hydraulique"
+msgid "Hydraulique"
+msgstr "Hydraulische blok"
+
+#: .\voiture\voiture_embrayage\models.py:12
+#, fuzzy
+#| msgid "Chef mécanicien"
+msgid "Mécanique"
+msgstr "Hoofdmonteur"
+
+#: .\voiture\voiture_embrayage\models.py:15
+msgid "Monomasse"
+msgstr ""
+
+#: .\voiture\voiture_embrayage\models.py:16
+msgid "Bimasse"
+msgstr ""
+
+#: .\voiture\voiture_embrayage\models.py:17
+msgid "Allégé / Performance"
+msgstr ""
+
+#: .\voiture\voiture_embrayage\models.py:18
+msgid "Segmenté / Compétition"
+msgstr ""
+
+#: .\voiture\voiture_embrayage\models.py:22
+msgid "Classique (mono-disque)"
+msgstr ""
+
+#: .\voiture\voiture_embrayage\models.py:23
+#, fuzzy
+#| msgid "Ressorts de Soupapes"
+msgid "Ressorts concentriques"
+msgstr "Klepveren"
+
+#: .\voiture\voiture_embrayage\models.py:24
+msgid "Ressorts hélicoïdaux"
+msgstr ""
+
+#: .\voiture\voiture_embrayage\models.py:25
+msgid "Renforcé / Compétition"
+msgstr ""
+
+#: .\voiture\voiture_embrayage\models.py:26
+msgid "Bimasse (pour volant moteur DMF)"
+msgstr ""
 
 #: .\voiture\voiture_exemplaire\views.py:82
 #: .\voiture\voiture_exemplaire\views.py:142
@@ -4401,6 +4535,16 @@ msgstr "Ontbrekende parameters"
 #: .\voiture\voiture_moteur\views.py:35
 msgid "Créer le moteur"
 msgstr "Motor aanmaken"
+
+#, fuzzy
+#~| msgid "Ajouter un moteur"
+#~ msgid "Ajouter une boite pour"
+#~ msgstr "Voeg een motor toe"
+
+#, fuzzy
+#~| msgid "Type de filtre"
+#~ msgid "Type de boite"
+#~ msgstr "Type filter"
 
 #~ msgid "Ajouter un exemplaire pour"
 #~ msgstr "Een exemplaar toevoegen voor"
