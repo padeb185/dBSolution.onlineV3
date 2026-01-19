@@ -1807,74 +1807,53 @@ msgid "Pièces de direction"
 msgstr "Steering parts"
 
 #: .\piece\piece_distribution\models.py:12
-#, fuzzy
-#| msgid "Courroie de Distribution"
 msgid "Courroie de distribution"
 msgstr "Timing belt"
 
 #: .\piece\piece_distribution\models.py:13
-#, fuzzy
-#| msgid "Chaine de Distribution"
 msgid "Chaîne de distribution"
 msgstr "Timing chain"
 
 #: .\piece\piece_distribution\models.py:14
-#, fuzzy
-#| msgid "Galet Tendeur"
 msgid "Galet tendeur"
 msgstr "Tensioner pulley"
 
 #: .\piece\piece_distribution\models.py:15
 msgid "Galet libre"
-msgstr ""
+msgstr "Idler Pulley"
+
 
 #: .\piece\piece_distribution\models.py:16
-#, fuzzy
-#| msgid "Pompe à Eau"
 msgid "Pompe à eau"
 msgstr "Water pump"
 
 #: .\piece\piece_distribution\models.py:17
-#, fuzzy
-#| msgid "Roue de rechange"
 msgid "Guide de chaîne"
-msgstr "Spare wheel"
+msgstr "Chain Guide"
 
 #: .\piece\piece_distribution\models.py:18
-#, fuzzy
-#| msgid "Joint de porte"
 msgid "Joint de culot"
-msgstr "Door seal"
+msgstr "Base Gasket"
 
 #: .\piece\piece_distribution\models.py:19
-#, fuzzy
-#| msgid "Type de pièce hydraulique"
 msgid "Tendeur hydraulique"
-msgstr "Hydraulic part type"
+msgstr "Hydraulic Tensioner"
 
 #: .\piece\piece_distribution\models.py:20
-#, fuzzy
-#| msgid "Chaine de Distribution"
 msgid "Cache distribution"
-msgstr "Timing chain"
+msgstr "Timing Cover"
 
 #: .\piece\piece_distribution\models.py:27
-#, fuzzy
-#| msgid "Type de pièce de direction"
 msgid "Type de pièce de distribution"
-msgstr "Steering part type"
+msgstr "Timing Part Type"
 
 #: .\piece\piece_distribution\models.py:39
-#, fuzzy
-#| msgid "Pièce de direction"
 msgid "Pièce de distribution"
-msgstr "Steering part"
+msgstr "Timing Part"
 
 #: .\piece\piece_distribution\models.py:40
-#, fuzzy
-#| msgid "Pièces de direction"
 msgid "Pièces de distribution"
-msgstr "Steering parts"
+msgstr "Timing Parts"
 
 #: .\piece\piece_echappement\models.py:9
 msgid "Collecteur d’échappement"
@@ -3681,8 +3660,6 @@ msgid "(filtré à partir de _MAX_ entrées totales)"
 msgstr "(filtered from _MAX_ total entries)"
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:9
-#, fuzzy
-#| msgid "Ajouter une boîte"
 msgid "Ajouter une boite"
 msgstr "Add an Gearbox"
 
@@ -3702,12 +3679,11 @@ msgstr "Gearbox type"
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:41
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:54
 msgid "Sélectionner un type"
-msgstr ""
+msgstr "Select a Type"
+
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:39
 #: .\theme\templates\voiture_boite\boite_detail.html:32
-#, fuzzy
-#| msgid "Nombre de vitesses"
 msgid "Nombre de rapports"
 msgstr "Number of gears"
 
@@ -3876,62 +3852,44 @@ msgstr "Previous"
 
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:9
 #: .\theme\templates\voiture_embrayage\list.html:28
-#, fuzzy
-#| msgid "Ajouter un exemplaire"
 msgid "Ajouter un embrayage"
-msgstr "Add a vehicle"
+msgstr "Add a Clutch"
 
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:38
 #: .\theme\templates\voiture_embrayage\list.html:40
-#, fuzzy
-#| msgid "Type de pièce moteur"
 msgid "Type de volant moteur"
-msgstr "Engine part type"
+msgstr "Flywheel Type"
 
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:51
 #: .\theme\templates\voiture_embrayage\list.html:41
-#, fuzzy
-#| msgid "Plateau de pression"
 msgid "Type de plateau de pression"
-msgstr "Pressure plate"
+msgstr "Pressure Plate Type"
 
 #: .\theme\templates\voiture_embrayage\list.html:4
 #: .\theme\templates\voiture_embrayage\list.html:10
-#, fuzzy
-#| msgid "Disque d'embrayage"
 msgid "Liste des embrayages"
-msgstr "Clutch disc"
+msgstr "Clutch List"
 
 #: .\theme\templates\voiture_embrayage\list.html:21
-#, fuzzy
-#| msgid "Rechercher par code moteur"
 msgid "Rechercher par volant moteur"
-msgstr "Search by engine code"
+msgstr "Search by Flywheel"
 
 #: .\theme\templates\voiture_embrayage\list.html:23
-#, fuzzy
-#| msgid "Rechercher par type de boîte"
 msgid "Rechercher par plateau de pression"
-msgstr "Search by gearbox type"
+msgstr "Search by Pressure Plate"
 
 #: .\theme\templates\voiture_embrayage\list.html:61
-#, fuzzy
-#| msgid "Aucun moteur trouvé."
 msgid "Aucun embrayage trouvé."
-msgstr "No engine found"
+msgstr "No clutch found."
 
 #: .\theme\templates\voiture_embrayage\list.html:75
-#, fuzzy
-#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ entrées"
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ embrayages"
-msgstr "Showing _START_ to _END_ of _TOTAL_ entries"
+msgstr "Showing _START_ to _END_ of _TOTAL_ clutches"
 
 #: .\theme\templates\voiture_embrayage\list.html:76
 #: .\theme\templates\voiture_embrayage\list.html:77
-#, fuzzy
-#| msgid "Aucun moteur trouvé"
 msgid "Aucun embrayage trouvé"
-msgstr "No engine found"
+msgstr "No clutch found"
 
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:14
 msgid "Ajouter un véhicule : "
@@ -4333,61 +4291,58 @@ msgstr "Automatic"
 
 #: .\voiture\voiture_embrayage\models.py:8
 msgid "Monodisque"
-msgstr ""
+msgstr "Single-Plate"
 
 #: .\voiture\voiture_embrayage\models.py:9
 msgid "Multidisque"
-msgstr ""
+msgstr "Multi-Plate"
+
 
 #: .\voiture\voiture_embrayage\models.py:11
-#, fuzzy
-#| msgid "Bloc hydraulique"
 msgid "Hydraulique"
-msgstr "Hydraulic block"
+msgstr "Hydraulic"
 
 #: .\voiture\voiture_embrayage\models.py:12
-#, fuzzy
-#| msgid "Mécanicien"
 msgid "Mécanique"
-msgstr "Mechanic"
+msgstr "Mechanical"
 
 #: .\voiture\voiture_embrayage\models.py:15
 msgid "Monomasse"
-msgstr ""
+msgstr "Single-Mass"
 
 #: .\voiture\voiture_embrayage\models.py:16
 msgid "Bimasse"
-msgstr ""
+msgstr "Dual-Mass"
 
 #: .\voiture\voiture_embrayage\models.py:17
 msgid "Allégé / Performance"
-msgstr ""
+msgstr "Lightweight / Performance"
 
 #: .\voiture\voiture_embrayage\models.py:18
 msgid "Segmenté / Compétition"
-msgstr ""
+msgstr "Segmented / Racing"
 
 #: .\voiture\voiture_embrayage\models.py:22
 msgid "Classique (mono-disque)"
-msgstr ""
+msgstr "Classic (Single-Plate)"
 
 #: .\voiture\voiture_embrayage\models.py:23
-#, fuzzy
-#| msgid "Ressorts de Soupapes"
 msgid "Ressorts concentriques"
-msgstr "Valve springs"
+msgstr "Concentric Springs"
+
 
 #: .\voiture\voiture_embrayage\models.py:24
 msgid "Ressorts hélicoïdaux"
-msgstr ""
+msgstr "Coil Springs"
 
 #: .\voiture\voiture_embrayage\models.py:25
 msgid "Renforcé / Compétition"
-msgstr ""
+msgstr "Reinforced / Racing"
 
 #: .\voiture\voiture_embrayage\models.py:26
 msgid "Bimasse (pour volant moteur DMF)"
-msgstr ""
+msgstr "Dual-Mass (for DMF flywheel)"
+
 
 #: .\voiture\voiture_exemplaire\views.py:82
 #: .\voiture\voiture_exemplaire\views.py:142
@@ -4436,7 +4391,7 @@ msgstr "Create engine"
 #~ msgstr "Edit vehicle"
 
 #~ msgid "Rechercher..."
-#~ msgstr "Search:"
+#~ msgstr "Search..."
 
 #~ msgid "Image du modèle"
 #~ msgstr "Model image"
