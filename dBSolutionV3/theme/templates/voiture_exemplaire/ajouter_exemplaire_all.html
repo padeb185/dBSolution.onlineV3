@@ -5,10 +5,17 @@
 <div class="max-w-xl mx-auto p-6 bg-white rounded shadow mt-16 mb-16">
 
     <h1 class="text-2xl font-bold mb-4 text-center flex items-center justify-center">
-        <img src="{% static 'icons/engine.png' %}" alt="Véhicule" style="width:60px; height:60px; margin-right:10px;">
-        {% trans "Ajouter un véhicule : " %} {{ modele.voiture_marque.nom_marque }} {{ modele.nom_modele }}
+        {% with logo_path="exemplaires/"|add:modele.voiture_marque.nom_marque|lower|add:".png" %}
+            <img src="{% static logo_path %}"
+                 style="width:75px; margin-right:5px;"
+                 onerror="this.onerror=null;this.src='{% static 'exemplaires/default.png' %}';"
+                 alt="{{ modele.voiture_marque.nom_marque }}">
+        {% endwith %}
+        {% trans "Ajouter un véhicule : " %}
+        {{ modele.voiture_marque.nom_marque }} {{ modele.nom_modele }}
         {% if modele.nom_variante %} - {{ modele.nom_variante }}{% endif %}
     </h1>
+
 
     {% for message in messages %}
         <div class="mb-3 text-red-600">{{ message }}</div>
