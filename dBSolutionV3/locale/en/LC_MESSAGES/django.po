@@ -4241,19 +4241,15 @@ msgstr "Unknown Role"
 
 #: .\voiture\voiture_boite\models.py:15
 msgid "Manuelle"
-msgstr ""
+msgstr "Manual"
 
 #: .\voiture\voiture_boite\models.py:16
-#, fuzzy
-#| msgid "Boîte automatique"
 msgid "Semi-automatique"
-msgstr "Automatic gearbox"
+msgstr "Semi-automatic"
 
 #: .\voiture\voiture_boite\models.py:17
-#, fuzzy
-#| msgid "Boîte automatique"
 msgid "Automatique"
-msgstr "Automatic gearbox"
+msgstr "Automatic"
 
 #: .\voiture\voiture_exemplaire\views.py:82
 #: .\voiture\voiture_exemplaire\views.py:142
