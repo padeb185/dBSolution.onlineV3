@@ -1808,74 +1808,53 @@ msgid "Pièces de direction"
 msgstr "Piezas de dirección"
 
 #: .\piece\piece_distribution\models.py:12
-#, fuzzy
-#| msgid "Courroie de Distribution"
 msgid "Courroie de distribution"
 msgstr "Correa de distribución"
 
 #: .\piece\piece_distribution\models.py:13
-#, fuzzy
-#| msgid "Chaine de Distribution"
 msgid "Chaîne de distribution"
 msgstr "Cadena de distribución"
 
 #: .\piece\piece_distribution\models.py:14
-#, fuzzy
-#| msgid "Galet Tendeur"
 msgid "Galet tendeur"
 msgstr "Rodillo tensor"
 
 #: .\piece\piece_distribution\models.py:15
 msgid "Galet libre"
-msgstr ""
+msgstr "Rodillo libre"
+
 
 #: .\piece\piece_distribution\models.py:16
-#, fuzzy
-#| msgid "Pompe à Eau"
 msgid "Pompe à eau"
 msgstr "Bomba de agua"
 
 #: .\piece\piece_distribution\models.py:17
-#, fuzzy
-#| msgid "Roue de rechange"
 msgid "Guide de chaîne"
-msgstr "Rueda de repuesto"
+msgstr "Guía de cadena"
 
 #: .\piece\piece_distribution\models.py:18
-#, fuzzy
-#| msgid "Joint de porte"
 msgid "Joint de culot"
-msgstr "Junta de puerta"
+msgstr "Junta de base"
 
 #: .\piece\piece_distribution\models.py:19
-#, fuzzy
-#| msgid "Type de pièce hydraulique"
 msgid "Tendeur hydraulique"
-msgstr "Tipo de pieza hidráulica"
+msgstr "Tensor hidráulico"
 
 #: .\piece\piece_distribution\models.py:20
-#, fuzzy
-#| msgid "Chaine de Distribution"
 msgid "Cache distribution"
-msgstr "Cadena de distribución"
+msgstr "Tapa de distribución"
 
 #: .\piece\piece_distribution\models.py:27
-#, fuzzy
-#| msgid "Type de pièce de direction"
 msgid "Type de pièce de distribution"
-msgstr "Tipo de pieza de dirección"
+msgstr "Tipo de pieza de distribución"
 
 #: .\piece\piece_distribution\models.py:39
-#, fuzzy
-#| msgid "Pièce de direction"
 msgid "Pièce de distribution"
-msgstr "Pieza de dirección"
+msgstr "Pieza de distribución"
 
 #: .\piece\piece_distribution\models.py:40
-#, fuzzy
-#| msgid "Pièces de direction"
 msgid "Pièces de distribution"
-msgstr "Piezas de dirección"
+msgstr "Piezas de distribución"
 
 #: .\piece\piece_echappement\models.py:9
 msgid "Collecteur d’échappement"
@@ -3506,17 +3485,16 @@ msgstr "Cambiar"
 #: .\theme\templates\voiture_boite\boite_detail.html:92
 #: .\theme\templates\voiture_moteur\moteur_detail.html:104
 msgid "Retour"
-msgstr ""
+msgstr "Volver"
 
 #: .\theme\templates\base.html:90
 msgid "Tous droits réservés."
-msgstr ""
+msgstr "Todos los derechos reservados."
 
 #: .\theme\templates\base.html:100
-#, fuzzy
-#| msgid "Connexion"
 msgid "Déconnexion"
-msgstr "Iniciar sesión"
+msgstr "Cerrar sesión"
+
 
 #: .\theme\templates\dashboard.html:6 .\theme\views.py:81
 msgid "Bienvenue sur ton tableau de bord"
@@ -3530,7 +3508,7 @@ msgstr "Usuarios"
 #: .\theme\templates\dashboard.html:99 .\theme\templates\dashboard.html:115
 #: .\theme\templates\dashboard.html:130 .\theme\templates\dashboard.html:145
 msgid "Nombre total :"
-msgstr "Número total:"
+msgstr "Número total :"
 
 #: .\theme\templates\dashboard.html:26
 msgid "Projets"
@@ -3579,14 +3557,11 @@ msgid "Moteurs"
 msgstr "Motores"
 
 #: .\theme\templates\dashboard.html:113
-#, fuzzy
-#| msgid "Liste des utilisateurs"
 msgid "Liste des Véhicules"
-msgstr "Lista de usuarios"
+msgstr "Lista de Vehículos"
+
 
 #: .\theme\templates\dashboard.html:128
-#, fuzzy
-#| msgid "Boîte de vitesse"
 msgid "Boites de vitesses"
 msgstr "Caja de cambios"
 
@@ -3688,8 +3663,6 @@ msgid "(filtré à partir de _MAX_ entrées totales)"
 msgstr "(filtrado de un total de _MAX_ entradas)"
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:9
-#, fuzzy
-#| msgid "Ajouter une boîte"
 msgid "Ajouter une boite"
 msgstr "Agregar una caja"
 
@@ -3889,62 +3862,45 @@ msgstr "Anterior"
 
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:9
 #: .\theme\templates\voiture_embrayage\list.html:28
-#, fuzzy
-#| msgid "Ajouter un exemplaire"
 msgid "Ajouter un embrayage"
-msgstr "Agregar un ejemplar"
+msgstr "Agregar un embrague"
 
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:38
 #: .\theme\templates\voiture_embrayage\list.html:40
-#, fuzzy
-#| msgid "Type de pièce moteur"
 msgid "Type de volant moteur"
-msgstr "Tipo de pieza de motor"
+msgstr "Tipo de volante"
 
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:51
 #: .\theme\templates\voiture_embrayage\list.html:41
-#, fuzzy
-#| msgid "Plateau de pression"
 msgid "Type de plateau de pression"
-msgstr "Plato de presión"
+msgstr "Tipo de plato de presión"
 
 #: .\theme\templates\voiture_embrayage\list.html:4
 #: .\theme\templates\voiture_embrayage\list.html:10
-#, fuzzy
-#| msgid "Disque d'embrayage"
 msgid "Liste des embrayages"
-msgstr "Disco de embrague"
+msgstr "Lista de embragues"
 
 #: .\theme\templates\voiture_embrayage\list.html:21
-#, fuzzy
-#| msgid "Rechercher par code moteur"
 msgid "Rechercher par volant moteur"
-msgstr "Buscar por código de motor"
+msgstr "Buscar por volante"
 
 #: .\theme\templates\voiture_embrayage\list.html:23
-#, fuzzy
-#| msgid "Rechercher par type de boîte"
 msgid "Rechercher par plateau de pression"
-msgstr "Buscar por tipo de caja"
+msgstr "Buscar por plato de presión"
 
 #: .\theme\templates\voiture_embrayage\list.html:61
-#, fuzzy
-#| msgid "Aucun moteur trouvé."
 msgid "Aucun embrayage trouvé."
-msgstr "No se encontró ningún motor"
+msgstr "No se encontró ningún embrague."
 
 #: .\theme\templates\voiture_embrayage\list.html:75
-#, fuzzy
-#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ entrées"
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ embrayages"
-msgstr "Mostrando de _START_ a _END_ de _TOTAL_ entradas"
+msgstr "Mostrando _START_ a _END_ de _TOTAL_ embragues"
 
 #: .\theme\templates\voiture_embrayage\list.html:76
 #: .\theme\templates\voiture_embrayage\list.html:77
-#, fuzzy
-#| msgid "Aucun moteur trouvé"
 msgid "Aucun embrayage trouvé"
-msgstr "No se encontró ningún motor"
+msgstr "No se encontró ningún embrague"
+
 
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:14
 msgid "Ajouter un véhicule : "
@@ -3994,7 +3950,7 @@ msgstr "Kilómetros del motor"
 
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:10
 msgid "Détails du véhicule : "
-msgstr "Detalles del vehículo"
+msgstr "Detalles del vehículo : "
 
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:51
 msgid "Informations générales"
@@ -4071,7 +4027,7 @@ msgstr "No se encontraron vehículos."
 
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:11
 msgid "Véhicule : "
-msgstr "Vehículo"
+msgstr "Vehículo : "
 
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:22
 msgid "Rechercher un exemplaire par immatriculation..."
@@ -4346,61 +4302,57 @@ msgstr "Automática"
 
 #: .\voiture\voiture_embrayage\models.py:8
 msgid "Monodisque"
-msgstr ""
+msgstr "Monodisco"
 
 #: .\voiture\voiture_embrayage\models.py:9
 msgid "Multidisque"
-msgstr ""
+msgstr "Multidisco"
 
 #: .\voiture\voiture_embrayage\models.py:11
-#, fuzzy
-#| msgid "Bloc hydraulique"
 msgid "Hydraulique"
-msgstr "Bloque hidráulico"
+msgstr "Hidráulico"
 
 #: .\voiture\voiture_embrayage\models.py:12
-#, fuzzy
-#| msgid "Mécanicien"
 msgid "Mécanique"
 msgstr "Mecánico"
 
 #: .\voiture\voiture_embrayage\models.py:15
 msgid "Monomasse"
-msgstr ""
+msgstr "Monomasa"
 
 #: .\voiture\voiture_embrayage\models.py:16
 msgid "Bimasse"
-msgstr ""
+msgstr "Bimasa"
 
 #: .\voiture\voiture_embrayage\models.py:17
 msgid "Allégé / Performance"
-msgstr ""
+msgstr "Ligero / Rendimiento"
 
 #: .\voiture\voiture_embrayage\models.py:18
 msgid "Segmenté / Compétition"
-msgstr ""
+msgstr "Segmentado / Competición"
 
 #: .\voiture\voiture_embrayage\models.py:22
 msgid "Classique (mono-disque)"
-msgstr ""
+msgstr "Clásico (Monodisco)"
 
 #: .\voiture\voiture_embrayage\models.py:23
-#, fuzzy
-#| msgid "Ressorts de Soupapes"
 msgid "Ressorts concentriques"
-msgstr "Muelles de válvula"
+msgstr "Muelles concéntricos"
 
 #: .\voiture\voiture_embrayage\models.py:24
 msgid "Ressorts hélicoïdaux"
-msgstr ""
+msgstr "Muelles helicoidales"
 
 #: .\voiture\voiture_embrayage\models.py:25
 msgid "Renforcé / Compétition"
-msgstr ""
+msgstr "Reforzado / Competición"
 
 #: .\voiture\voiture_embrayage\models.py:26
 msgid "Bimasse (pour volant moteur DMF)"
-msgstr ""
+msgstr "Bimasa (para volante DMF)"
+
+
 
 #: .\voiture\voiture_exemplaire\views.py:82
 #: .\voiture\voiture_exemplaire\views.py:142
