@@ -3864,38 +3864,30 @@ msgid "Veuillez corriger les erreurs ci-dessous."
 msgstr "Please correct the errors below."
 
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:9
-#, fuzzy
-#| msgid "Ajouter un Véhicule"
 msgid "Ajouter un véhicule : "
-msgstr "Add a vehicle"
+msgstr "Add a vehicle : "
 
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:35
-#, fuzzy
-#| msgid "Immatriculation"
 msgid "Pays d'immatriculation"
-msgstr "License plate"
+msgstr "Registration country"
 
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:40
 msgid "Numero VIN"
-msgstr ""
+msgstr "VIN number"
 
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:45
-#, fuzzy
-#| msgid "Type de pièce de climatisation"
 msgid "Type d'utilisation"
-msgstr "AC part type"
+msgstr "Usage type"
+
 
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:50
-#, fuzzy
-#| msgid "Kilométrage châssis"
 msgid "Kilomètres du chassis"
 msgstr "Chassis mileage"
 
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:55
-#, fuzzy
-#| msgid "Kilométrage à la dernière intervention"
 msgid "Kilomètres de la dernière intervention"
-msgstr "Mileage at last intervention"
+msgstr "Kilometers at last service"
+
 
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:65
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:56
@@ -3904,24 +3896,18 @@ msgid "Année de production"
 msgstr "Production year"
 
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:70
-#, fuzzy
-#| msgid "Année de production"
 msgid "Mois de production"
-msgstr "Production year"
+msgstr "Month of production"
 
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:75
 msgid "Numero d'identification du moteur"
-msgstr ""
+msgstr "Engine identification number"
 
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:80
-#, fuzzy
-#| msgid "Date de modification"
 msgid "Date de mise en circulation"
-msgstr "Modification date"
+msgstr "Date of first registration"
 
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:85
-#, fuzzy
-#| msgid "Kilométrage moteur"
 msgid "Kilomètres moteur"
 msgstr "Engine mileage"
 
@@ -4012,10 +3998,8 @@ msgstr "Search a vehicle by registration..."
 
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:96
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:116
-#, fuzzy
-#| msgid "Ajouter un exemplaire pour"
 msgid "Ajouter un exemplaire"
-msgstr "Add a vehicle for"
+msgstr "Add a vehicle"
 
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:106
 msgid "Aucun exemplaire enregistré pour ce modèle."
