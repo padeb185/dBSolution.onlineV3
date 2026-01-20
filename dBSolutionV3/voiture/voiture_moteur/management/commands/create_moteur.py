@@ -8051,6 +8051,182 @@ class Command(BaseCommand):
                  "qualite_huile": "N/A", "quantite_huile_l": 0.0, "intervalle_km_entretien": 20000},
 
             ],
+            "Wuling": [
+
+                # ======================
+                # Classiques / Anciens (2000–2010)
+                # ======================
+                {"code_moteur": "Wuling-Sunny-1.2", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 1.2,
+                 "distribution": "CHAINE", "nombre_cylindres": 4,
+                 "puissance_ch": 80, "puissance_tr_min": 6000, "couple_nm": 110, "couple_tr_min": 3500,
+                 "qualite_huile": "10W40", "quantite_huile_l": 3.8, "intervalle_km_entretien": 10000},
+
+                {"code_moteur": "Wuling-Hongguang-1.5", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 1.5,
+                 "distribution": "CHAINE", "nombre_cylindres": 4,
+                 "puissance_ch": 107, "puissance_tr_min": 5800, "couple_nm": 145, "couple_tr_min": 4000,
+                 "qualite_huile": "10W40", "quantite_huile_l": 4.0, "intervalle_km_entretien": 10000},
+
+                # ======================
+                # Récents / 2011–2025
+                # ======================
+                {"code_moteur": "Wuling-Hongguang-S-1.5T", "type_moteur": "TURBO", "carburant": "ESS",
+                 "cylindree_l": 1.5, "distribution": "CHAINE", "nombre_cylindres": 4,
+                 "puissance_ch": 140, "puissance_tr_min": 5500, "couple_nm": 200, "couple_tr_min": 2000,
+                 "qualite_huile": "5W30", "quantite_huile_l": 4.2, "intervalle_km_entretien": 15000},
+
+                {"code_moteur": "Wuling-1.0Turbo", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 1.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 3,
+                 "puissance_ch": 98, "puissance_tr_min": 6000, "couple_nm": 160, "couple_tr_min": 2000,
+                 "qualite_huile": "5W30", "quantite_huile_l": 3.8, "intervalle_km_entretien": 15000},
+
+                {"code_moteur": "Wuling-EV-120kW", "type_moteur": "ELEC", "carburant": "ELEC", "cylindree_l": 0.0,
+                 "distribution": "AUCUNE", "nombre_cylindres": 0,
+                 "puissance_ch": 163, "puissance_tr_min": 0, "couple_nm": 280, "couple_tr_min": 0,
+                 "qualite_huile": "N/A", "quantite_huile_l": 0.0, "intervalle_km_entretien": 20000},
+
+                {"code_moteur": "Wuling-EV-160kW", "type_moteur": "ELEC", "carburant": "ELEC", "cylindree_l": 0.0,
+                 "distribution": "AUCUNE", "nombre_cylindres": 0,
+                 "puissance_ch": 218, "puissance_tr_min": 0, "couple_nm": 350, "couple_tr_min": 0,
+                 "qualite_huile": "N/A", "quantite_huile_l": 0.0, "intervalle_km_entretien": 20000},
+
+            ],
+
+            "XPeng": [
+
+                # ======================
+                # XPeng G3 (2018–2023) — Compact SUV électrique
+                # ======================
+                {"code_moteur": "G3-EV-FR", "type_moteur": "ELEC", "carburant": "ELEC", "cylindree_l": 0.0,
+                 "distribution": "AUCUNE", "nombre_cylindres": 0,
+                 "puissance_ch": 150, "puissance_tr_min": 0, "couple_nm": 280, "couple_tr_min": 0,
+                 "qualite_huile": "N/A", "quantite_huile_l": 0.0, "intervalle_km_entretien": 20000},
+                # moteur synchrone permanent devant :contentReference[oaicite:0]{index=0}
+
+                # ======================
+                # XPeng P5 (2021–2024) — Berline électrique
+                # ======================
+                {"code_moteur": "P5-EV", "type_moteur": "ELEC", "carburant": "ELEC", "cylindree_l": 0.0,
+                 "distribution": "AUCUNE", "nombre_cylindres": 0,
+                 "puissance_ch": 211, "puissance_tr_min": 0, "couple_nm": 340, "couple_tr_min": 0,
+                 "qualite_huile": "N/A", "quantite_huile_l": 0.0, "intervalle_km_entretien": 20000},
+                # moteur électrique ~211 PS :contentReference[oaicite:1]{index=1}
+
+                # ======================
+                # XPeng P7 / P7+ (2020–2026) — Sportback électrique
+                # ======================
+                {"code_moteur": "P7-EV-RWD", "type_moteur": "ELEC", "carburant": "ELEC", "cylindree_l": 0.0,
+                 "distribution": "AUCUNE", "nombre_cylindres": 0,
+                 "puissance_ch": 308, "puissance_tr_min": 0, "couple_nm": 450, "couple_tr_min": 0,
+                 "qualite_huile": "N/A", "quantite_huile_l": 0.0, "intervalle_km_entretien": 20000},
+                # version RWD standard :contentReference[oaicite:2]{index=2}
+
+                {"code_moteur": "P7-EV-AWD", "type_moteur": "ELEC", "carburant": "ELEC", "cylindree_l": 0.0,
+                 "distribution": "AUCUNE", "nombre_cylindres": 0,
+                 "puissance_ch": 370, "puissance_tr_min": 0, "couple_nm": 600, "couple_tr_min": 0,
+                 "qualite_huile": "N/A", "quantite_huile_l": 0.0, "intervalle_km_entretien": 20000},
+                # version AWD performance :contentReference[oaicite:3]{index=3}
+
+                # ======================
+                # XPeng G6 (2025–2026) — SUV électrique
+                # ======================
+                {"code_moteur": "G6-EV-RWD", "type_moteur": "ELEC", "carburant": "ELEC", "cylindree_l": 0.0,
+                 "distribution": "AUCUNE", "nombre_cylindres": 0,
+                 "puissance_ch": 297, "puissance_tr_min": 0, "couple_nm": 450, "couple_tr_min": 0,
+                 "qualite_huile": "N/A", "quantite_huile_l": 0.0, "intervalle_km_entretien": 20000},
+                # 218 kW ~ 297 ch moteur unique :contentReference[oaicite:4]{index=4}
+
+                {"code_moteur": "G6-EV-AWD", "type_moteur": "ELEC", "carburant": "ELEC", "cylindree_l": 0.0,
+                 "distribution": "AUCUNE", "nombre_cylindres": 0,
+                 "puissance_ch": 487, "puissance_tr_min": 0, "couple_nm": 680, "couple_tr_min": 0,
+                 "qualite_huile": "N/A", "quantite_huile_l": 0.0, "intervalle_km_entretien": 20000},
+                # dual‑motor total ~358 kW ~ 487 ch :contentReference[oaicite:5]{index=5}
+
+                # ======================
+                # XPeng G7 (2025–2026) — SUV électrique / EREV
+                # ======================
+                {"code_moteur": "G7-EV-Single", "type_moteur": "ELEC", "carburant": "ELEC", "cylindree_l": 0.0,
+                 "distribution": "AUCUNE", "nombre_cylindres": 0,
+                 "puissance_ch": 300, "puissance_tr_min": 0, "couple_nm": 450, "couple_tr_min": 0,
+                 "qualite_huile": "N/A", "quantite_huile_l": 0.0, "intervalle_km_entretien": 20000},
+                # estimation pure électrique
+
+                {"code_moteur": "G7-EREV", "type_moteur": "HYB_TE", "carburant": "ESS", "cylindree_l": 0.06,
+                 "distribution": "AUCUNE", "nombre_cylindres": 0,
+                 "puissance_ch": 450, "puissance_tr_min": 0, "couple_nm": 650, "couple_tr_min": 0,
+                 "qualite_huile": "N/A", "quantite_huile_l": 0.0, "intervalle_km_entretien": 20000},
+                # Extended Range (moteur générateur + EV) :contentReference[oaicite:6]{index=6}
+
+                # ======================
+                # XPeng G9 (2024–2026) — Grand SUV électrique
+                # ======================
+                {"code_moteur": "G9-EV-313", "type_moteur": "ELEC", "carburant": "ELEC", "cylindree_l": 0.0,
+                 "distribution": "AUCUNE", "nombre_cylindres": 0,
+                 "puissance_ch": 313, "puissance_tr_min": 0, "couple_nm": 430, "couple_tr_min": 0,
+                 "qualite_huile": "N/A", "quantite_huile_l": 0.0, "intervalle_km_entretien": 20000},
+                # version standard ~313 ch :contentReference[oaicite:7]{index=7}
+
+                {"code_moteur": "G9-EV-551", "type_moteur": "ELEC", "carburant": "ELEC", "cylindree_l": 0.0,
+                 "distribution": "AUCUNE", "nombre_cylindres": 0,
+                 "puissance_ch": 551, "puissance_tr_min": 0, "couple_nm": 717, "couple_tr_min": 0,
+                 "qualite_huile": "N/A", "quantite_huile_l": 0.0, "intervalle_km_entretien": 20000},
+                # version performance / dual‑motor :contentReference[oaicite:8]{index=8}
+
+            ],
+
+            "ZIL": [
+
+                # ======================
+                # Classiques / Anciens (1950–1980)
+                # ======================
+                {"code_moteur": "ZIL-164-V8", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 6.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 8,
+                 "puissance_ch": 150, "puissance_tr_min": 3600, "couple_nm": 400, "couple_tr_min": 2000,
+                 "qualite_huile": "20W50", "quantite_huile_l": 12.0, "intervalle_km_entretien": 10000},  # ZIL‑164
+
+                {"code_moteur": "ZIL-130-V8", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 6.9,
+                 "distribution": "CHAINE", "nombre_cylindres": 8,
+                 "puissance_ch": 195, "puissance_tr_min": 3600, "couple_nm": 520, "couple_tr_min": 2000,
+                 "qualite_huile": "20W50", "quantite_huile_l": 12.0, "intervalle_km_entretien": 10000},  # ZIL‑130
+
+                {"code_moteur": "ZIL-131-V8", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 6.9,
+                 "distribution": "CHAINE", "nombre_cylindres": 8,
+                 "puissance_ch": 195, "puissance_tr_min": 3600, "couple_nm": 520, "couple_tr_min": 2000,
+                 "qualite_huile": "20W50", "quantite_huile_l": 12.0, "intervalle_km_entretien": 10000},
+                # ZIL‑131 (camion)
+
+                # ======================
+                # Modernes / Réadaptations (1980–2000)
+                # ======================
+                {"code_moteur": "ZIL-4104-V8", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 6.9,
+                 "distribution": "CHAINE", "nombre_cylindres": 8,
+                 "puissance_ch": 315, "puissance_tr_min": 4400, "couple_nm": 550, "couple_tr_min": 2500,
+                 "qualite_huile": "15W40", "quantite_huile_l": 14.0, "intervalle_km_entretien": 12000},  # ZIL limousine
+
+                {"code_moteur": "ZIL-41047-V8", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 7.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 8,
+                 "puissance_ch": 300, "puissance_tr_min": 4400, "couple_nm": 560, "couple_tr_min": 2500,
+                 "qualite_huile": "15W40", "quantite_huile_l": 14.0, "intervalle_km_entretien": 12000},
+                # ZIL‑41047 variant
+
+                # ======================
+                # Diesel expérimental / industriel
+                # ======================
+                {"code_moteur": "ZIL-Diesel-V12", "type_moteur": "TURBO", "carburant": "DSL", "cylindree_l": 12.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 12,
+                 "puissance_ch": 400, "puissance_tr_min": 2800, "couple_nm": 1200, "couple_tr_min": 1500,
+                 "qualite_huile": "15W40", "quantite_huile_l": 20.0, "intervalle_km_entretien": 20000},
+                # usage industriel/prototype
+
+                # ======================
+                # Concept / Prototypes (1980–1990)
+                # ======================
+                {"code_moteur": "ZIL-Prototype-V8", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 7.5,
+                 "distribution": "CHAINE", "nombre_cylindres": 8,
+                 "puissance_ch": 350, "puissance_tr_min": 4200, "couple_nm": 600, "couple_tr_min": 2500,
+                 "qualite_huile": "15W40", "quantite_huile_l": 15.0, "intervalle_km_entretien": 15000},
+                # projet non série
+
+            ],
 
         }
 
