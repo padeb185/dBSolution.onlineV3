@@ -10,10 +10,24 @@
         {% trans "Ajouter un moteur pour un nouveau véhicule" %} {{ exemplaire }}
     </h1>
 
+    <!-- Messages Django -->
     {% for message in messages %}
-        <div class="mb-3 text-red-600">{{ message }}</div>
+        {% if message.tags == 'success' %}
+            <div class="mb-3 px-4 py-2 rounded bg-green-100 text-green-800 border border-green-300">
+                {{ message }}
+            </div>
+        {% elif message.tags == 'error' %}
+            <div class="mb-3 px-4 py-2 rounded bg-red-100 text-red-800 border border-red-300">
+                {{ message }}
+            </div>
+        {% else %}
+            <div class="mb-3 px-4 py-2 rounded bg-gray-100 text-gray-800 border border-gray-300">
+                {{ message }}
+            </div>
+        {% endif %}
     {% endfor %}
 
+    <!-- Formulaire -->
     <form method="post" class="flex flex-col space-y-4">
         {% csrf_token %}
 
@@ -47,21 +61,19 @@
             </select>
         </div>
 
-
         <!-- Carburant -->
-         <div class="mb-4">
+        <div class="mb-4">
             <label for="id_carburant" class="block mb-1">{% trans "Type de carburant" %}</label>
             <select id="id_carburant" name="carburant"
                     class="border rounded px-3 py-2 w-full text-sm h-10">
-                <option value="">{% trans "Sélectionner un type de moteur" %}</option>
+                <option value="">{% trans "Sélectionner un type de carburant" %}</option>
                 {% for value, label in TypeCarburant.choices %}
-                    <option value="{{ value }}" {% if moteur.carburantr == value %}selected{% endif %}>
+                    <option value="{{ value }}" {% if moteur.carburant == value %}selected{% endif %}>
                         {{ label }}
                     </option>
                 {% endfor %}
             </select>
         </div>
-
 
         <!-- Cylindrée -->
         <div class="flex flex-col">
@@ -72,70 +84,71 @@
         </div>
 
         <!-- Distribution -->
-        <div class="flex flex-col">
-            <label for="id_distribution" class="mb-1 font-medium">{% trans "Distribution" %}</label>
-            <input type="text" id="id_distribution" name="distribution"
-                   class="border border-gray-300 rounded px-4 py-2 w-full"
-                   placeholder="{% trans 'Chaîne / Courroie' %}">
+        <div class="mb-4">
+            <label for="id_distribution" class="block mb-1">{% trans "Type de distribution" %}</label>
+            <select id="id_distribution" name="distribution"
+                    class="border rounded px-3 py-2 w-full text-sm h-10">
+                <option value="">{% trans "Sélectionner un type de distribution" %}</option>
+                {% for value, label in TypeDistribution.choices %}
+                    <option value="{{ value }}" {% if moteur.distribution == value %}selected{% endif %}>
+                        {{ label }}
+                    </option>
+                {% endfor %}
+            </select>
         </div>
 
         <!-- Nombre de cylindres -->
         <div class="flex flex-col">
-            <label for="id_nombre_cylindre" class="mb-1 font-medium">{% trans "Nombre de cylindres" %}</label>
-            <input type="number" id="id_nombre_cylindre" name="nombre_cylindre"
+            <label for="id_nombre_cylindres" class="mb-1 font-medium">{% trans "Nombre de cylindres" %}</label>
+            <input type="number" id="id_nombre_cylindres" name="nombre_cylindres"
                    class="border border-gray-300 rounded px-4 py-2 w-full"
-                   placeholder="Ex: 4">
+                   placeholder="Ex: 4" min="1">
         </div>
-          <!-- Nombre de chevaux -->
+
+        <!-- Puissance et couple -->
         <div class="flex flex-col">
             <label for="id_puissance_ch" class="mb-1 font-medium">{% trans "Puissance en Chevaux" %}</label>
-            <input type="number" id="id_puissance_ch" name="nombre de cheveaux"
-                   class="border border-gray-300 rounded px-4 py-2 w-full"
-                   placeholder="120">
+            <input type="number" id="id_puissance_ch" name="puissance_ch"
+                   class="border border-gray-300 rounded px-4 py-2 w-full" placeholder="120">
         </div>
 
         <div class="flex flex-col">
             <label for="id_puissance_tr_min" class="mb-1 font-medium">{% trans "Puissance à tr/min" %}</label>
-            <input type="number" id="id_puissance_tr_min" name=""
-                   class="border border-gray-300 rounded px-4 py-2 w-full"
-                   placeholder="3000">
+            <input type="number" id="id_puissance_tr_min" name="puissance_tr_min"
+                   class="border border-gray-300 rounded px-4 py-2 w-full" placeholder="3000">
         </div>
 
         <div class="flex flex-col">
             <label for="id_couple_nm" class="mb-1 font-medium">{% trans "Couple Nm" %}</label>
-            <input type="number" id="id_couple_nm" name="Couple en Nm"
-                   class="border border-gray-300 rounded px-4 py-2 w-full"
-                   placeholder="300">
+            <input type="number" id="id_couple_nm" name="couple_nm"
+                   class="border border-gray-300 rounded px-4 py-2 w-full" placeholder="300">
         </div>
 
         <div class="flex flex-col">
             <label for="id_couple_tr_min" class="mb-1 font-medium">{% trans "Couple tr/min" %}</label>
-            <input type="number" id="id_couple_tr_min" name="couple max"
-                   class="border border-gray-300 rounded px-4 py-2 w-full"
-                   placeholder="">
+            <input type="number" id="id_couple_tr_min" name="couple_tr_min"
+                   class="border border-gray-300 rounded px-4 py-2 w-full" placeholder="4000">
+        </div>
+
+        <!-- Qualité et quantité d'huile -->
+        <div class="flex flex-col">
+            <label for="id_qualite_huile" class="mb-1 font-medium">{% trans "Qualité d'huile" %}</label>
+            <input type="text" id="id_qualite_huile" name="qualite_huile"
+                   class="border border-gray-300 rounded px-4 py-2 w-full" placeholder="0W30">
         </div>
 
         <div class="flex flex-col">
-            <label for="id_qualité_huile" class="mb-1 font-medium">{% trans "Qualité d'huile" %}</label>
-            <input type="number" id="id_qualité_huile" name="Qualité d'huile"
-                   class="border border-gray-300 rounded px-4 py-2 w-full"
-                   placeholder="0W30">
+            <label for="id_quantite_huile" class="mb-1 font-medium">{% trans "Quantité d'huile (L)" %}</label>
+            <input type="number" id="id_quantite_huile" name="quantite_huile_l"
+                   class="border border-gray-300 rounded px-4 py-2 w-full" placeholder="6.50" step="0.01" min="0">
         </div>
 
+        <!-- Intervalle entretien -->
         <div class="flex flex-col">
-            <label for="id_quantite_huile" class="mb-1 font-medium">{% trans "Quantité d'huile" %}</label>
-            <input type="number" id="id_quantite_huile" name="Quantité d'huile"
-                   class="border border-gray-300 rounded px-4 py-2 w-full"
-                   placeholder="6,5">
-        </div>
-
-         <div class="flex flex-col">
             <label for="id_intervalle_km_entretien" class="mb-1 font-medium">{% trans "Interval d'entretien" %}</label>
             <input type="number" id="id_intervalle_km_entretien" name="intervalle_km_entretien"
-                   class="border border-gray-300 rounded px-4 py-2 w-full"
-                   placeholder="10000">
+                   class="border border-gray-300 rounded px-4 py-2 w-full" placeholder="10000">
         </div>
-
 
         <button type="submit"
                 class="mt-4 bg-blue-600 text-white px-4 py-2 rounded w-full hover:bg-blue-700 transition">
@@ -143,57 +156,4 @@
         </button>
     </form>
 </div>
-
-
-<script>
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== "") {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                if (cookie.substring(0, name.length + 1) === (name + "=")) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-    const csrftoken = getCookie('csrftoken');
-
-    document.getElementById('id_motoriste').addEventListener('change', function(){
-        const motoriste = this.value;
-        fetch('/api/check_nom', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrftoken,
-            },
-            body: JSON.stringify({motoriste: motoriste})
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.exist) {
-                document.getElementById('id_motoriste').value = data.motoriste;
-                document.getElementById('id_code_moteur').value = data.code_moteur;
-                document.getElementById('id_type_moteur').value = data.type_moteur;
-                document.getElementById('id_carburant').value = data.carburant;
-                document.getElementById('id_cylindree_l').value = data.cylindree_l;
-                document.getElementById('id_distribution').value = data.distribution;
-                document.getElementById('id_nombre_cylindre').value = data.nombre_cylindre;
-            } else {
-                document.getElementById('id_code_moteur').value = '';
-                document.getElementById('id_type_moteur').value = '';
-                document.getElementById('id_carburant').value = '';
-                document.getElementById('id_cylindree_l').value = '';
-                document.getElementById('id_distribution').value = '';
-                document.getElementById('id_nombre_cylindre').value = '';
-            }
-        })
-        .catch(error => {
-            console.error('Erreur:', error);
-        });
-    });
-</script>
 {% endblock %}

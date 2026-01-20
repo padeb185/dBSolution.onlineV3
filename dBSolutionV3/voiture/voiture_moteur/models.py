@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models import Q
 import uuid
+
 from django.utils.translation import gettext_lazy as _
 
 class TypeMoteur(models.TextChoices):
@@ -46,17 +47,21 @@ class MoteurVoiture(models.Model):
     carburant = models.CharField(max_length=40, choices=TypeCarburant.choices)
     cylindree_l = models.FloatField(verbose_name="Cylindrée (L)")
     distribution = models.CharField(max_length=40, choices=TypeDistribution.choices)
-    nombre_cylindres = models.PositiveSmallIntegerField()
-    puissance_ch = models.PositiveIntegerField()
-    puissance_tr_min = models.PositiveIntegerField(verbose_name="Puissance à (tr/min)")
-    couple_nm = models.PositiveIntegerField()
-    couple_tr_min = models.PositiveIntegerField(verbose_name="Couple à (tr/min)")
-    qualite_huile = models.CharField(max_length=50)
-    quantite_huile_l = models.FloatField(verbose_name="Quantité d’huile (L)")
+    nombre_cylindres = models.IntegerField(
+        default=1,
+        verbose_name="Nombre de cylindres",
+        null=True,
+        blank=True)
+    puissance_ch = models.IntegerField(null=True, blank=True)
+    puissance_tr_min = models.IntegerField(verbose_name="Puissance à (tr/min)", null=True, blank=True)
+    couple_nm = models.IntegerField(null=True, blank=True)
+    couple_tr_min = models.PositiveIntegerField(verbose_name="Couple à (tr/min)", null=True, blank=True)
+    qualite_huile = models.CharField(max_length=50, null=True, blank=True)
+    quantite_huile_l = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
 
-    kilometrage_moteur = models.PositiveIntegerField(default=0)
-    numero_moteur = models.PositiveSmallIntegerField(default=1)
-    intervalle_km_entretien = models.PositiveIntegerField(default=15000)
+    kilometrage_moteur = models.PositiveIntegerField(default=0, null=True, blank=True)
+    numero_moteur = models.PositiveSmallIntegerField(default=1, null=True, blank=True)
+    intervalle_km_entretien = models.PositiveIntegerField(default=15000, null=True, blank=True)
     date_creation = models.DateTimeField(auto_now_add=True)
 
     class Meta:
