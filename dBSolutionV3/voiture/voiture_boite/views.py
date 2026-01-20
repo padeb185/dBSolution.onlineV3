@@ -49,7 +49,8 @@ def liste_boite(request):
     tenant = request.user.societe
     with tenant_context(tenant):
         boites = VoitureBoite.objects.all()
-    return render(request, "voiture_boite/list.html", {"boites": boites})
+        context = {"boites": boites}
+    return render(request, "voiture_boite/list.html", context)
 
 
 
