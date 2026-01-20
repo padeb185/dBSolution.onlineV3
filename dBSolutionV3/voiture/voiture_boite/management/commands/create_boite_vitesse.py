@@ -2821,8 +2821,2005 @@ class Command(BaseCommand):
                     "voiture_exemplaire": None,
                 },
 
+                # ======================
+                # Boîtes manuelles Honda
+                # ======================
+                {
+                    "fabricant": "Honda",
+                    "nom_du_type": "Manual 5-speed",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "SAE 75W80 GL-4",
+                    "quantite_huile_l": 2.4,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
 
+                {
+                    "fabricant": "Honda",
+                    "nom_du_type": "Manual 6-speed",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "SAE 75W80 GL-4",
+                    "quantite_huile_l": 2.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
 
+                # ======================
+                # Automatiques / CVT Honda
+                # ======================
+                {
+                    "fabricant": "Honda",
+                    "nom_du_type": "5-speed Automatic",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "ATF DW-1",
+                    "quantite_huile_l": 7.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Honda",
+                    "nom_du_type": "CVT",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "Honda CVT Fluid",
+                    "quantite_huile_l": 3.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 70000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes sport Honda Type R
+                # ======================
+                {
+                    "fabricant": "Honda Type R",
+                    "nom_du_type": "Manual 6-speed Type R",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "Honda MTF-3",
+                    "quantite_huile_l": 2.2,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 50000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Type R moderne (automatique sport rare)
+                # ======================
+                {
+                    "fabricant": "Honda Type R",
+                    "nom_du_type": "10-speed Automatic Performance",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 10,
+                    "qualite_huile": "ATF Performance Fluid",
+                    "quantite_huile_l": 9.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes manuelles Hongqi (anciens modèles)
+                # ======================
+                {
+                    "fabricant": "Hongqi",
+                    "nom_du_type": "Manual 5-speed Classic",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "SAE 75W90 GL-4",
+                    "quantite_huile_l": 2.7,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Automatiques modernes
+                # ======================
+                {
+                    "fabricant": "Hongqi",
+                    "nom_du_type": "6-speed Automatic",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "ATF Dexron-VI",
+                    "quantite_huile_l": 7.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Hongqi",
+                    "nom_du_type": "8-speed Automatic Luxury",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 8,
+                    "qualite_huile": "ATF ZF Lifeguard",
+                    "quantite_huile_l": 8.2,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 90000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Hybride / Electrique
+                # ======================
+                {
+                    "fabricant": "Hongqi",
+                    "nom_du_type": "Hybrid e-CVT",
+                    "type_de_boite": "Hybride",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "e-CVT Fluid",
+                    "quantite_huile_l": 2.6,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Hongqi",
+                    "nom_du_type": "Electric Single-Speed",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.1,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes manuelles Hummer (anciens modèles H1/H2)
+                # ======================
+                {
+                    "fabricant": "Hummer",
+                    "nom_du_type": "Manual 5-speed Heavy Duty",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "SAE 75W90 GL-5",
+                    "quantite_huile_l": 3.2,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Automatiques classiques
+                # ======================
+                {
+                    "fabricant": "Hummer",
+                    "nom_du_type": "4-speed Automatic Heavy Duty",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 4,
+                    "qualite_huile": "ATF Dexron-III",
+                    "quantite_huile_l": 8.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 70000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Hummer",
+                    "nom_du_type": "6-speed Automatic",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "ATF Dexron-VI",
+                    "quantite_huile_l": 9.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Hummer électrique (GMC Hummer EV)
+                # ======================
+                {
+                    "fabricant": "Hummer",
+                    "nom_du_type": "Electric Performance Single-Speed",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid Heavy Duty",
+                    "quantite_huile_l": 2.3,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes manuelles Hyundai
+                # ======================
+                {
+                    "fabricant": "Hyundai",
+                    "nom_du_type": "Manual 5-speed",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "SAE 75W85 GL-4",
+                    "quantite_huile_l": 2.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Hyundai",
+                    "nom_du_type": "Manual 6-speed",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "SAE 75W85 GL-4",
+                    "quantite_huile_l": 2.6,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Automatiques / DCT / CVT
+                # ======================
+                {
+                    "fabricant": "Hyundai",
+                    "nom_du_type": "6-speed Automatic",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "ATF SP-IV",
+                    "quantite_huile_l": 7.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Hyundai",
+                    "nom_du_type": "8-speed Automatic",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 8,
+                    "qualite_huile": "ATF SP-IV / ZF Lifeguard",
+                    "quantite_huile_l": 8.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 90000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Hyundai",
+                    "nom_du_type": "7-speed DCT",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 7,
+                    "qualite_huile": "DCT Fluid",
+                    "quantite_huile_l": 3.6,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 90000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Hyundai",
+                    "nom_du_type": "CVT",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "Hyundai CVT Fluid",
+                    "quantite_huile_l": 3.8,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 70000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Hybride / Electrique
+                # ======================
+                {
+                    "fabricant": "Hyundai",
+                    "nom_du_type": "Hybrid e-CVT",
+                    "type_de_boite": "Hybride",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "e-CVT Fluid",
+                    "quantite_huile_l": 2.6,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Hyundai",
+                    "nom_du_type": "Electric Single-Speed",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.1,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes sport Hyundai N
+                # ======================
+                {
+                    "fabricant": "Hyundai N",
+                    "nom_du_type": "Manual 6-speed N",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "Hyundai MTF N",
+                    "quantite_huile_l": 2.3,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 50000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Hyundai N",
+                    "nom_du_type": "8-speed DCT N",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 8,
+                    "qualite_huile": "N DCT Fluid",
+                    "quantite_huile_l": 4.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes manuelles Infiniti (anciens modèles)
+                # ======================
+                {
+                    "fabricant": "Infiniti",
+                    "nom_du_type": "Manual 6-speed",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "SAE 75W85 GL-4",
+                    "quantite_huile_l": 2.6,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Automatiques modernes (7 à 9 rapports)
+                # ======================
+                {
+                    "fabricant": "Infiniti",
+                    "nom_du_type": "7-speed Automatic",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 7,
+                    "qualite_huile": "ATF Matic-S",
+                    "quantite_huile_l": 8.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Infiniti",
+                    "nom_du_type": "9-speed Automatic",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 9,
+                    "qualite_huile": "ATF Matic-9",
+                    "quantite_huile_l": 8.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 90000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # CVT / Hybride
+                # ======================
+                {
+                    "fabricant": "Infiniti",
+                    "nom_du_type": "CVT",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "Nissan NS-3 CVT Fluid",
+                    "quantite_huile_l": 3.9,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 70000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Infiniti",
+                    "nom_du_type": "Hybrid e-CVT",
+                    "type_de_boite": "Hybride",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "e-CVT Fluid",
+                    "quantite_huile_l": 2.6,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Électrique
+                # ======================
+                {
+                    "fabricant": "Infiniti",
+                    "nom_du_type": "Electric Single-Speed",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.1,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes manuelles Innocenti (classiques)
+                # ======================
+                {
+                    "fabricant": "Innocenti",
+                    "nom_du_type": "Manual 4-speed Classic",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 4,
+                    "qualite_huile": "SAE 80W90 GL-4",
+                    "quantite_huile_l": 2.3,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 40000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Innocenti",
+                    "nom_du_type": "Manual 5-speed",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "SAE 75W90 GL-4",
+                    "quantite_huile_l": 2.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 50000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîte automatique rare (Innocenti De Tomaso / utilitaire)
+                # ======================
+                {
+                    "fabricant": "Innocenti",
+                    "nom_du_type": "3-speed Automatic",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 3,
+                    "qualite_huile": "ATF Dexron-II",
+                    "quantite_huile_l": 6.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes manuelles Iran Khodro – classiques et modernes
+                # ======================
+                {
+                    "fabricant": "Iran Khodro",
+                    "nom_du_type": "Manual 5-speed Classic",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "SAE 75W90 GL-4",
+                    "quantite_huile_l": 2.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 50000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Iran Khodro",
+                    "nom_du_type": "Manual 6-speed",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "SAE 75W90 GL-4",
+                    "quantite_huile_l": 2.7,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes automatiques Iran Khodro
+                # ======================
+                {
+                    "fabricant": "Iran Khodro",
+                    "nom_du_type": "4-speed Automatic",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 4,
+                    "qualite_huile": "ATF Dexron-III",
+                    "quantite_huile_l": 7.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 70000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Iran Khodro",
+                    "nom_du_type": "6-speed Automatic",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "ATF Dexron-VI",
+                    "quantite_huile_l": 7.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes modernes / CVT / hybrides
+                # ======================
+                {
+                    "fabricant": "Iran Khodro",
+                    "nom_du_type": "CVT",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "Iran Khodro CVT Fluid",
+                    "quantite_huile_l": 3.8,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 70000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Iran Khodro",
+                    "nom_du_type": "Hybrid e-CVT",
+                    "type_de_boite": "Hybride",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "e-CVT Fluid",
+                    "quantite_huile_l": 2.6,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes manuelles Isuzu
+                # ======================
+                {
+                    "fabricant": "Isuzu",
+                    "nom_du_type": "Manual 5-speed",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "SAE 75W90 GL-4",
+                    "quantite_huile_l": 3.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 70000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Isuzu",
+                    "nom_du_type": "Manual 6-speed",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "SAE 80W90 GL-5",
+                    "quantite_huile_l": 3.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes automatiques Isuzu
+                # ======================
+                {
+                    "fabricant": "Isuzu",
+                    "nom_du_type": "4-speed Automatic",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 4,
+                    "qualite_huile": "ATF Dexron-III",
+                    "quantite_huile_l": 7.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Isuzu",
+                    "nom_du_type": "5-speed Automatic",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "ATF Dexron-VI",
+                    "quantite_huile_l": 8.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 90000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes modernes / DCT / hybride légère
+                # ======================
+                {
+                    "fabricant": "Isuzu",
+                    "nom_du_type": "6-speed Automatic D-MAX",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "DCT Transmission Fluid",
+                    "quantite_huile_l": 4.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 90000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Isuzu",
+                    "nom_du_type": "Electric Single-Speed (concept / EV)",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.2,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes manuelles Jaguar (anciens modèles classiques)
+                # ======================
+                {
+                    "fabricant": "Jaguar",
+                    "nom_du_type": "Manual 5-speed Classic",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "SAE 75W90 GL-4",
+                    "quantite_huile_l": 2.8,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes automatiques Jaguar (modernes)
+                # ======================
+                {
+                    "fabricant": "Jaguar",
+                    "nom_du_type": "6-speed Automatic",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "ATF Jaguar Land Rover LR 307",
+                    "quantite_huile_l": 7.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Jaguar",
+                    "nom_du_type": "8-speed Automatic ZF",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 8,
+                    "qualite_huile": "ZF Lifeguard 8",
+                    "quantite_huile_l": 8.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 90000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes électriques / hybrides
+                # ======================
+                {
+                    "fabricant": "Jaguar",
+                    "nom_du_type": "Electric Single-Speed",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Jaguar",
+                    "nom_du_type": "Hybrid e-CVT",
+                    "type_de_boite": "Hybride",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "Jaguar e-CVT Fluid",
+                    "quantite_huile_l": 2.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes sport Jaguar R
+                # ======================
+                {
+                    "fabricant": "Jaguar R",
+                    "nom_du_type": "Manual 6-speed R",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "Jaguar MTF R",
+                    "quantite_huile_l": 2.3,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 50000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Jaguar R",
+                    "nom_du_type": "8-speed Automatic Performance",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 8,
+                    "qualite_huile": "ZF Lifeguard 8 Performance",
+                    "quantite_huile_l": 8.2,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Jaguar R",
+                    "nom_du_type": "Electric Single-Speed R",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Performance Gear Fluid",
+                    "quantite_huile_l": 2.1,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes manuelles Jeep (Wrangler, anciens Cherokee)
+                # ======================
+                {
+                    "fabricant": "Jeep",
+                    "nom_du_type": "Manual 5-speed",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "SAE 75W90 GL-4",
+                    "quantite_huile_l": 3.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Jeep",
+                    "nom_du_type": "Manual 6-speed",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "SAE 75W90 GL-4",
+                    "quantite_huile_l": 3.2,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 70000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes automatiques Jeep (modernes – 4, 5, 8 rapports)
+                # ======================
+                {
+                    "fabricant": "Jeep",
+                    "nom_du_type": "4-speed Automatic Classic",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 4,
+                    "qualite_huile": "ATF Dexron-III",
+                    "quantite_huile_l": 7.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 70000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Jeep",
+                    "nom_du_type": "5-speed Automatic",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "ATF Dexron-VI",
+                    "quantite_huile_l": 7.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Jeep",
+                    "nom_du_type": "8-speed Automatic ZF",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 8,
+                    "qualite_huile": "ZF Lifeguard 8",
+                    "quantite_huile_l": 8.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 90000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes hybrides / électriques
+                # ======================
+                {
+                    "fabricant": "Jeep",
+                    "nom_du_type": "Hybrid e-CVT",
+                    "type_de_boite": "Hybride",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "e-CVT Fluid",
+                    "quantite_huile_l": 2.6,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Jeep",
+                    "nom_du_type": "Electric Single-Speed",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes manuelles Kia
+                # ======================
+                {
+                    "fabricant": "Kia",
+                    "nom_du_type": "Manual 5-speed",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "SAE 75W85 GL-4",
+                    "quantite_huile_l": 2.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Kia",
+                    "nom_du_type": "Manual 6-speed",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "SAE 75W85 GL-4",
+                    "quantite_huile_l": 2.6,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes automatiques Kia
+                # ======================
+                {
+                    "fabricant": "Kia",
+                    "nom_du_type": "6-speed Automatic",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "ATF SP-IV",
+                    "quantite_huile_l": 7.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Kia",
+                    "nom_du_type": "8-speed Automatic",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 8,
+                    "qualite_huile": "ZF Lifeguard 8 / SP-IV",
+                    "quantite_huile_l": 8.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 90000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes hybrides / électriques Kia
+                # ======================
+                {
+                    "fabricant": "Kia",
+                    "nom_du_type": "Hybrid e-CVT",
+                    "type_de_boite": "Hybride",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "e-CVT Fluid",
+                    "quantite_huile_l": 2.6,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Kia",
+                    "nom_du_type": "Electric Single-Speed",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes sport Kia GT
+                # ======================
+                {
+                    "fabricant": "Kia GT",
+                    "nom_du_type": "Manual 6-speed GT",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "Kia MTF GT",
+                    "quantite_huile_l": 2.3,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 50000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Kia GT",
+                    "nom_du_type": "8-speed DCT GT",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 8,
+                    "qualite_huile": "DCT GT Fluid",
+                    "quantite_huile_l": 4.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes sportives Koenigsegg – manuelles / séquentielles
+                # ======================
+                {
+                    "fabricant": "Koenigsegg",
+                    "nom_du_type": "Sequential 7-speed Light",
+                    "type_de_boite": "Séquentielle",
+                    "nombre_rapport": 7,
+                    "qualite_huile": "Koenigsegg Gear Oil 75W140",
+                    "quantite_huile_l": 3.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 30000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes automatiques / DCT Koenigsegg
+                # ======================
+                {
+                    "fabricant": "Koenigsegg",
+                    "nom_du_type": "7-speed DCT Light",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 7,
+                    "qualite_huile": "Koenigsegg DCT Fluid",
+                    "quantite_huile_l": 3.8,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 40000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîte hybride / électrique Koenigsegg (Regera)
+                # ======================
+                {
+                    "fabricant": "Koenigsegg",
+                    "nom_du_type": "Koenigsegg Direct Drive (Regera)",
+                    "type_de_boite": "Electrique / Direct Drive",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "Koenigsegg EV Gear Fluid",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Jesko – boîtes séquentielles légères (7-speed Light)
+                # ======================
+                {
+                    "fabricant": "Koenigsegg Jesko",
+                    "nom_du_type": "7-speed Light Sequential",
+                    "type_de_boite": "Séquentielle",
+                    "nombre_rapport": 7,
+                    "qualite_huile": "Koenigsegg Gear Oil 75W140",
+                    "quantite_huile_l": 3.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 25000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Koenigsegg Jesko",
+                    "nom_du_type": "7-speed DCT Jesko Absolut",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 7,
+                    "qualite_huile": "Koenigsegg DCT Fluid High Performance",
+                    "quantite_huile_l": 3.8,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 30000,
+                    "dernier_entretien": None,
+                    "numero_boite": 2,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Gemera – Direct Drive + électriques
+                # ======================
+                {
+                    "fabricant": "Koenigsegg Gemera",
+                    "nom_du_type": "Koenigsegg Direct Drive",
+                    "type_de_boite": "Electrique / Direct Drive",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "Koenigsegg EV Gear Fluid",
+                    "quantite_huile_l": 2.2,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Koenigsegg Gemera",
+                    "nom_du_type": "Electric Auxiliary Drive",
+                    "type_de_boite": "Electrique / e-CVT",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "e-CVT Fluid Gemera",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 2,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes manuelles Lada
+                # ======================
+                {
+                    "fabricant": "Lada",
+                    "nom_du_type": "Manual 4-speed Classic",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 4,
+                    "qualite_huile": "SAE 75W90 GL-4",
+                    "quantite_huile_l": 2.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 50000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Lada",
+                    "nom_du_type": "Manual 5-speed",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "SAE 75W90 GL-4",
+                    "quantite_huile_l": 2.7,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 2,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes automatiques Lada (récentes – Vesta / XRAY)
+                # ======================
+                {
+                    "fabricant": "Lada",
+                    "nom_du_type": "4-speed Automatic",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 4,
+                    "qualite_huile": "ATF Dexron-III",
+                    "quantite_huile_l": 6.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 70000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Lada",
+                    "nom_du_type": "5-speed Automatic",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "ATF Dexron-VI",
+                    "quantite_huile_l": 7.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 2,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes hybrides / électriques Lada (modèles concept / e-Lada)
+                # ======================
+                {
+                    "fabricant": "Lada",
+                    "nom_du_type": "Electric Single-Speed",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 3,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes Lamborghini – manuelles / anciennes
+                # ======================
+                {
+                    "fabricant": "Lamborghini",
+                    "nom_du_type": "Manual 6-speed Classic",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "SAE 75W90 GL-4",
+                    "quantite_huile_l": 2.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 40000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes automatiques / DCT Lamborghini (Huracán, Aventador, Urus)
+                # ======================
+                {
+                    "fabricant": "Lamborghini",
+                    "nom_du_type": "7-speed ISR (Aventador)",
+                    "type_de_boite": "Séquentielle / ISR",
+                    "nombre_rapport": 7,
+                    "qualite_huile": "Lamborghini Gear Oil 75W140",
+                    "quantite_huile_l": 3.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 30000,
+                    "dernier_entretien": None,
+                    "numero_boite": 2,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Lamborghini",
+                    "nom_du_type": "7-speed DCT (Huracán / Performante)",
+                    "type_de_boite": "Double embrayage",
+                    "nombre_rapport": 7,
+                    "qualite_huile": "Lamborghini DCT Fluid",
+                    "quantite_huile_l": 4.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 40000,
+                    "dernier_entretien": None,
+                    "numero_boite": 3,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Lamborghini",
+                    "nom_du_type": "8-speed Automatic (Urus)",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 8,
+                    "qualite_huile": "ZF Lifeguard 8",
+                    "quantite_huile_l": 8.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 90000,
+                    "dernier_entretien": None,
+                    "numero_boite": 4,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes hybrides / électriques Lamborghini (concept / hybride futur)
+                # ======================
+                {
+                    "fabricant": "Lamborghini",
+                    "nom_du_type": "Hybrid e-CVT / PHEV",
+                    "type_de_boite": "Hybride",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "e-CVT Fluid",
+                    "quantite_huile_l": 2.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 5,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Lamborghini",
+                    "nom_du_type": "Electric Single-Speed",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 6,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes manuelles Lancia
+                # ======================
+                {
+                    "fabricant": "Lancia",
+                    "nom_du_type": "Manual 4-speed Classic",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 4,
+                    "qualite_huile": "SAE 75W90 GL-4",
+                    "quantite_huile_l": 2.3,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 50000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Lancia",
+                    "nom_du_type": "Manual 5-speed",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "SAE 75W90 GL-4",
+                    "quantite_huile_l": 2.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 2,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes automatiques Lancia (récentes – Delta, Ypsilon, Thema)
+                # ======================
+                {
+                    "fabricant": "Lancia",
+                    "nom_du_type": "4-speed Automatic",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 4,
+                    "qualite_huile": "ATF Dexron-III",
+                    "quantite_huile_l": 6.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 70000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Lancia",
+                    "nom_du_type": "5-speed Automatic",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "ATF Dexron-VI",
+                    "quantite_huile_l": 7.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 2,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes hybrides / électriques Lancia (concept / e-Lancia)
+                # ======================
+                {
+                    "fabricant": "Lancia",
+                    "nom_du_type": "Electric Single-Speed",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 3,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes manuelles Land Rover (anciens modèles Defender, Freelander)
+                # ======================
+                {
+                    "fabricant": "Land Rover",
+                    "nom_du_type": "Manual 5-speed Classic",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "SAE 75W90 GL-4",
+                    "quantite_huile_l": 3.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes automatiques Land Rover (moderne – Discovery, Range Rover, Evoque)
+                # ======================
+                {
+                    "fabricant": "Land Rover",
+                    "nom_du_type": "6-speed Automatic ZF",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "ATF Dexron-VI / Land Rover LR Fluid",
+                    "quantite_huile_l": 8.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 2,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Land Rover",
+                    "nom_du_type": "8-speed Automatic ZF",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 8,
+                    "qualite_huile": "ZF Lifeguard 8 / LR Fluid",
+                    "quantite_huile_l": 8.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 90000,
+                    "dernier_entretien": None,
+                    "numero_boite": 3,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes hybrides / électriques Land Rover (PHEV / EV)
+                # ======================
+                {
+                    "fabricant": "Land Rover",
+                    "nom_du_type": "Hybrid e-CVT PHEV",
+                    "type_de_boite": "Hybride",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "e-CVT Fluid",
+                    "quantite_huile_l": 2.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 4,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Land Rover",
+                    "nom_du_type": "Electric Single-Speed",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 5,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes manuelles Lexus (rares, modèles sport RC / IS manuels)
+                # ======================
+                {
+                    "fabricant": "Lexus",
+                    "nom_du_type": "Manual 6-speed",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "SAE 75W90 GL-4",
+                    "quantite_huile_l": 2.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes automatiques Lexus (AT / Sport – RC, GS, LS, SUV)
+                # ======================
+                {
+                    "fabricant": "Lexus",
+                    "nom_du_type": "6-speed Automatic",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "ATF Toyota WS / Dexron-VI",
+                    "quantite_huile_l": 6.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 70000,
+                    "dernier_entretien": None,
+                    "numero_boite": 2,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Lexus",
+                    "nom_du_type": "8-speed Automatic (LS / RX / GX)",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 8,
+                    "qualite_huile": "ZF Lifeguard 8 / Toyota WS",
+                    "quantite_huile_l": 7.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 90000,
+                    "dernier_entretien": None,
+                    "numero_boite": 3,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes hybrides Lexus (ES, RX, NX, UX, LC Hybrid)
+                # ======================
+                {
+                    "fabricant": "Lexus",
+                    "nom_du_type": "Hybrid e-CVT",
+                    "type_de_boite": "Hybride",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "e-CVT Fluid Toyota / Lexus",
+                    "quantite_huile_l": 2.6,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 4,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Lexus",
+                    "nom_du_type": "Electric Single-Speed",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 5,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Li Auto – Hybrid e-CVT (SUV Li ONE)
+                # ======================
+                {
+                    "fabricant": "Li Auto",
+                    "nom_du_type": "Hybrid e-CVT",
+                    "type_de_boite": "Hybride",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "e-CVT Fluid",
+                    "quantite_huile_l": 2.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Li Auto – Electric Single-Speed (concept)
+                # ======================
+                {
+                    "fabricant": "Li Auto",
+                    "nom_du_type": "Electric Single-Speed",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 2,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Lotus – Manuelles sportives
+                # ======================
+                {
+                    "fabricant": "Lotus",
+                    "nom_du_type": "Manual 6-speed",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "Lotus MTF / 75W90 GL-4",
+                    "quantite_huile_l": 2.3,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 50000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Lotus – Boîtes automatiques / DCT sportives
+                # ======================
+                {
+                    "fabricant": "Lotus",
+                    "nom_du_type": "6-speed Automatic / DCT",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "Lotus DCT Fluid",
+                    "quantite_huile_l": 3.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 2,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Lotus – Electrique (Evija)
+                # ======================
+                {
+                    "fabricant": "Lotus",
+                    "nom_du_type": "Electric Single-Speed",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 3,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+                # ======================
+                # Lotus Exige – Manuelles sportives
+                # ======================
+                {
+                    "fabricant": "Lotus Exige",
+                    "nom_du_type": "Manual 6-speed Sport",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "Lotus MTF Sport",
+                    "quantite_huile_l": 2.2,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 40000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Lotus Exige – DCT / automatique (rare, version sportive spéciale)
+                # ======================
+                {
+                    "fabricant": "Lotus Exige",
+                    "nom_du_type": "6-speed DCT Sport",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "Lotus DCT Sport Fluid",
+                    "quantite_huile_l": 3.3,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 50000,
+                    "dernier_entretien": None,
+                    "numero_boite": 2,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes automatiques Lincoln (berlines et SUV)
+                # ======================
+                {
+                    "fabricant": "Lincoln",
+                    "nom_du_type": "6-speed Automatic",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "Ford ATF Mercon LV",
+                    "quantite_huile_l": 6.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 70000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Lincoln",
+                    "nom_du_type": "8-speed Automatic",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 8,
+                    "qualite_huile": "Ford ATF 8-SP",
+                    "quantite_huile_l": 8.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 90000,
+                    "dernier_entretien": None,
+                    "numero_boite": 2,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes hybrides Lincoln (Aviator PHEV, Corsair Hybrid)
+                # ======================
+                {
+                    "fabricant": "Lincoln",
+                    "nom_du_type": "Hybrid e-CVT / PHEV",
+                    "type_de_boite": "Hybride",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "e-CVT Fluid",
+                    "quantite_huile_l": 2.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 3,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes électriques Lincoln (concept / EV)
+                # ======================
+                {
+                    "fabricant": "Lincoln",
+                    "nom_du_type": "Electric Single-Speed",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 4,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Lucid Air / Gravity – Electric Single-Speed
+                # ======================
+                {
+                    "fabricant": "Lucid",
+                    "nom_du_type": "Electric Single-Speed",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Lucid – Transmission dual-motor / AWD (concept)
+                # ======================
+                {
+                    "fabricant": "Lucid",
+                    "nom_du_type": "Dual Motor AWD Single-Speed",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid High Performance",
+                    "quantite_huile_l": 2.2,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 2,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes manuelles Mahindra (SUV et pickups)
+                # ======================
+                {
+                    "fabricant": "Mahindra",
+                    "nom_du_type": "Manual 5-speed Classic",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "SAE 75W90 GL-4",
+                    "quantite_huile_l": 3.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Mahindra",
+                    "nom_du_type": "Manual 6-speed (Thar / XUV)",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "SAE 75W90 GL-4",
+                    "quantite_huile_l": 3.2,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 2,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes automatiques Mahindra (SUV / pickups modernes)
+                # ======================
+                {
+                    "fabricant": "Mahindra",
+                    "nom_du_type": "6-speed Automatic (XUV / Scorpio)",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "ATF Dexron-VI",
+                    "quantite_huile_l": 6.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 3,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes hybrides / électriques Mahindra (e-KUV, eXUV)
+                # ======================
+                {
+                    "fabricant": "Mahindra",
+                    "nom_du_type": "Electric Single-Speed",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 4,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
 
                 {
                     "fabricant": "ZF",
@@ -2928,8 +4925,71 @@ class Command(BaseCommand):
                     "voiture_exemplaire": None,
                 },
 
+                # ======================
+                # Boîtes automatiques Range Rover (moderne)
+                # ======================
+                {
+                    "fabricant": "Range Rover",
+                    "nom_du_type": "8-speed Automatic ZF",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 8,
+                    "qualite_huile": "ZF Lifeguard 8 / LR Fluid",
+                    "quantite_huile_l": 8.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 90000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
 
+                {
+                    "fabricant": "Range Rover",
+                    "nom_du_type": "8-speed Automatic Sport / SV",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 8,
+                    "qualite_huile": "ZF Lifeguard 8 Performance",
+                    "quantite_huile_l": 8.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 90000,
+                    "dernier_entretien": None,
+                    "numero_boite": 2,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
 
+                # ======================
+                # Boîtes hybrides / PHEV Range Rover
+                # ======================
+                {
+                    "fabricant": "Range Rover",
+                    "nom_du_type": "Hybrid e-CVT PHEV",
+                    "type_de_boite": "Hybride",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "e-CVT Fluid",
+                    "quantite_huile_l": 2.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 3,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Range Rover",
+                    "nom_du_type": "Electric Single-Speed",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 4,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
 
             ]
 
