@@ -13,6 +13,7 @@ class TypeBoite(models.TextChoices):
     MANUELLE = "MANUELLE", _("Manuelle")
     SEMIAUTOMATIQUE = "SEMI-AUTOMATIQUE", _("Semi-automatique")
     AUTOMATIQUE = "AUTOMATIQUE", _("Automatique")
+    ELECTRIQUE = "ELECTRIQUE", _("Electrique")
 
 class VoitureBoite(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -34,12 +35,12 @@ class VoitureBoite(models.Model):
         blank=True
     )
     fabricant = models.CharField(max_length=30,null=True,blank=True)
-    nom_du_type = models.CharField(max_length=40, help_text="PDK, DSG ?", null=True, blank=True)
+    nom_du_type = models.CharField(max_length=50, help_text="PDK, DSG ?", null=True, blank=True)
     type_de_boite = models.CharField(max_length=40, choices=TypeBoite.choices,default=TypeBoite.AUTOMATIQUE, null=True, blank=True)
     nombre_rapport = models.PositiveSmallIntegerField(default=5, help_text="nombre rapport", null=True, blank=True)
 
     # Lubrification
-    qualite_huile = models.CharField(max_length=20, verbose_name="Qualité huile boîte", null=True, blank=True)
+    qualite_huile = models.CharField(max_length=50, verbose_name="Qualité huile boîte", null=True, blank=True)
     quantite_huile_l = models.FloatField(verbose_name="Quantité huile boîte (L)", null=True, blank=True)
 
     # Suivi kilométrique

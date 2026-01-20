@@ -807,6 +807,148 @@ class Command(BaseCommand):
                 },
 
 
+                    # ======================
+                    # BYD e6 / e‑Series EV (2010–2025) — Transmission unique EV
+                    {
+                        "fabricant": "BYD",
+                        "nom_du_type": "Electric Single‑Speed e6",
+                        "type_de_boite": "Electrique",
+                        "nombre_rapport": 1,
+                        "qualite_huile": "EV Gear Fluid",
+                        "quantite_huile_l": 2.0,
+                        "kilometrage_boite": 0,
+                        "intervalle_entretien_km": 80000,
+                        "dernier_entretien": None,
+                        "numero_boite": 1,
+                        "voiture_modele": modele,
+                        "voiture_exemplaire": None,
+                    },
+
+                    # ======================
+                    # BYD Seal EV (2022–2025) — Transmission unique EV
+                    {
+                        "fabricant": "BYD",
+                        "nom_du_type": "Electric Single‑Speed Seal",
+                        "type_de_boite": "Electrique",
+                        "nombre_rapport": 1,
+                        "qualite_huile": "EV Gear Fluid",
+                        "quantite_huile_l": 2.0,
+                        "kilometrage_boite": 0,
+                        "intervalle_entretien_km": 80000,
+                        "dernier_entretien": None,
+                        "numero_boite": 1,
+                        "voiture_modele": modele,
+                        "voiture_exemplaire": None,
+                    },
+
+                    # ======================
+                    # BYD Dolphin EV (2021–2025) — Transmission unique EV
+                    {
+                        "fabricant": "BYD",
+                        "nom_du_type": "Electric Single‑Speed Dolphin",
+                        "type_de_boite": "Electrique",
+                        "nombre_rapport": 1,
+                        "qualite_huile": "EV Gear Fluid",
+                        "quantite_huile_l": 1.8,
+                        "kilometrage_boite": 0,
+                        "intervalle_entretien_km": 80000,
+                        "dernier_entretien": None,
+                        "numero_boite": 1,
+                        "voiture_modele": modele,
+                        "voiture_exemplaire": None,
+                    },
+
+                    # ======================
+                    # BYD Atto 3 EV (2021–2025) — Transmission unique EV
+                    {
+                        "fabricant": "BYD",
+                        "nom_du_type": "Electric Single‑Speed Atto 3",
+                        "type_de_boite": "Electrique",
+                        "nombre_rapport": 1,
+                        "qualite_huile": "EV Gear Fluid",
+                        "quantite_huile_l": 2.2,
+                        "kilometrage_boite": 0,
+                        "intervalle_entretien_km": 80000,
+                        "dernier_entretien": None,
+                        "numero_boite": 1,
+                        "voiture_modele": modele,
+                        "voiture_exemplaire": None,
+                    },
+
+                    # ======================
+                    # BYD Han EV / Han DM‑i (2020–2025)
+                    # ======================
+                    {
+                        "fabricant": "BYD",
+                        "nom_du_type": "DHT Pro‑Hybrid Han",
+                        "type_de_boite": "Automatique",
+                        "nombre_rapport": 2,
+                        "qualite_huile": "DHT Transmission Fluid",
+                        "quantite_huile_l": 3.5,
+                        "kilometrage_boite": 0,
+                        "intervalle_entretien_km": 60000,
+                        "dernier_entretien": None,
+                        "numero_boite": 1,
+                        "voiture_modele": modele,
+                        "voiture_exemplaire": None,
+                    },
+
+                    # ======================
+                    # BYD Tang DM‑i / DM‑p (2020–2025)
+                    # ======================
+                    {
+                        "fabricant": "BYD",
+                        "nom_du_type": "DHT Pro‑Hybrid Tang",
+                        "type_de_boite": "Automatique",
+                        "nombre_rapport": 2,
+                        "qualite_huile": "DHT Transmission Fluid",
+                        "quantite_huile_l": 3.5,
+                        "kilometrage_boite": 0,
+                        "intervalle_entretien_km": 60000,
+                        "dernier_entretien": None,
+                        "numero_boite": 1,
+                        "voiture_modele": modele,
+                        "voiture_exemplaire": None,
+                    },
+
+                    # ======================
+                    # BYD Seal DM‑i / DM‑p (2022–2025)
+                    # ======================
+                    {
+                        "fabricant": "BYD",
+                        "nom_du_type": "DHT Pro‑Hybrid Seal",
+                        "type_de_boite": "Automatique",
+                        "nombre_rapport": 2,
+                        "qualite_huile": "DHT Transmission Fluid",
+                        "quantite_huile_l": 3.5,
+                        "kilometrage_boite": 0,
+                        "intervalle_entretien_km": 60000,
+                        "dernier_entretien": None,
+                        "numero_boite": 1,
+                        "voiture_modele": modele,
+                        "voiture_exemplaire": None,
+                    },
+
+                    # ======================
+                    # BYD Flyer / Small City EVs (2020–2025)
+                    # ======================
+                    {
+                        "fabricant": "BYD",
+                        "nom_du_type": "Electric Single‑Speed Flyer",
+                        "type_de_boite": "Electrique",
+                        "nombre_rapport": 1,
+                        "qualite_huile": "EV Gear Fluid",
+                        "quantite_huile_l": 1.5,
+                        "kilometrage_boite": 0,
+                        "intervalle_entretien_km": 80000,
+                        "dernier_entretien": None,
+                        "numero_boite": 1,
+                        "voiture_modele": modele,
+                        "voiture_exemplaire": None,
+                    },
+
+
+
                 {
                     "fabricant": "Cadillac",
                     "nom_du_type": "Hydra-Matic 3-speed Eldorado",
@@ -1401,9 +1543,848 @@ class Command(BaseCommand):
 
 
 
+                # ======================
+                # Boîtes manuelles classiques
+                # ======================
+
+                # Fiat 124 / 131 / Ritmo (années 70–80)
+                {
+                    "fabricant": "Fiat",
+                    "nom_du_type": "Manual 4‑speed Classic",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 4,
+                    "qualite_huile": "SAE 80W90 GL‑4",
+                    "quantite_huile_l": 2.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 50000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # Fiat Uno / Punto / Tipo (années 80–90)
+                {
+                    "fabricant": "Fiat",
+                    "nom_du_type": "Manual 5‑speed Mk1",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "SAE 75W80 GL‑4",
+                    "quantite_huile_l": 2.7,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes manuelles modernes
+                # ======================
+
+                # Fiat Grande Punto / Bravo
+                {
+                    "fabricant": "Fiat",
+                    "nom_du_type": "Manual 5‑speed Modern",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "SAE 75W85 GL‑4",
+                    "quantite_huile_l": 2.8,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # Fiat 500 / Panda / Tipo récents
+                {
+                    "fabricant": "Fiat",
+                    "nom_du_type": "Manual 6‑speed Modern",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "SAE 75W85 GL‑4",
+                    "quantite_huile_l": 3.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes automatiques / robotisées
+                # ======================
+
+                # Fiat Dualogic (robotisée, Punto / Panda)
+                {
+                    "fabricant": "Fiat",
+                    "nom_du_type": "Dualogic 5‑speed",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "Dualogic Transmission Fluid",
+                    "quantite_huile_l": 3.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 50000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # Fiat C510 / TCT (DCT 6 vitesses)
+                {
+                    "fabricant": "Fiat",
+                    "nom_du_type": "C510 TCT 6‑speed",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "Fiat TCT Gear Oil",
+                    "quantite_huile_l": 4.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 70000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes automatiques traditionnelles
+                # ======================
+
+                # Fiat Aisin 4HP14 (utilisée sur certains 2.0 / Lancia partage)
+                {
+                    "fabricant": "Fiat",
+                    "nom_du_type": "Aisin 4HP14",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 4,
+                    "qualite_huile": "ATF Dexron‑III",
+                    "quantite_huile_l": 8.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes électriques (EV)
+                # ======================
+
+                # Fiat 500e / New 500 EV
+                {
+                    "fabricant": "Fiat",
+                    "nom_du_type": "Electric Single‑Speed 500e",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # Fiat Centoventi EV concept (si applicable)
+                {
+                    "fabricant": "Fiat",
+                    "nom_du_type": "Electric Single‑Speed Centoventi",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
 
 
-            {
+
+                # ======================
+                # Fisker Karma (2011–2012)
+                # ======================
+                {
+                    "fabricant": "Fisker",
+                    "nom_du_type": "Karma REX Single‑Speed",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Fisker Ocean (2022–2025)
+                # ======================
+                {
+                    "fabricant": "Fisker",
+                    "nom_du_type": "Ocean Front Single‑Speed",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Fisker",
+                    "nom_du_type": "Ocean Dual‑Motor Single‑Speed",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Fisker Pear (2024–2025)
+                # ======================
+                {
+                    "fabricant": "Fisker",
+                    "nom_du_type": "Pear Single‑Speed",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 1.8,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+
+
+                # ======================
+                # Boîtes manuelles classiques (Ford Fiesta, Focus, Mondeo)
+                # ======================
+                {
+                    "fabricant": "Ford",
+                    "nom_du_type": "Manual 5‑speed Classic",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "Ford Manual Gear Oil",
+                    "quantite_huile_l": 2.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # Ford Focus / Fiesta modernes
+                {
+                    "fabricant": "Ford",
+                    "nom_du_type": "Manual 6‑speed Modern",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "Ford Manual Gear Oil",
+                    "quantite_huile_l": 2.7,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes automatiques classiques / Powershift / 10R80
+                # ======================
+                # Powershift 6 rapports (Focus / Fiesta)
+                {
+                    "fabricant": "Ford",
+                    "nom_du_type": "Powershift 6‑speed",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "Ford ATF‑6",
+                    "quantite_huile_l": 3.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 70000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # 10R80 10 rapports (Mustang / Explorer / F‑150)
+                {
+                    "fabricant": "Ford",
+                    "nom_du_type": "10R80 10‑speed",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 10,
+                    "qualite_huile": "Ford MERCON‑LV",
+                    "quantite_huile_l": 7.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 100000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes électriques / hybrides
+                # ======================
+                # Ford Mustang Mach‑E (EV)
+                {
+                    "fabricant": "Ford",
+                    "nom_du_type": "Mach‑E Single‑Speed",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+
+            # ======================
+            # Ford GT (sportive)
+            # ======================
+
+
+                # Ford GT 2005–2006 / 2017–2025
+                {
+                    "fabricant": "Ford",
+                    "nom_du_type": "7‑speed Dual Clutch GT",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 7,
+                    "qualite_huile": "Ford GT Dual Clutch Fluid",
+                    "quantite_huile_l": 5.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 50000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+
+                # ======================
+                # GAZ‑21 Volga (1956–1970) – boîte manuelle classique
+                {
+                    "fabricant": "GAZ",
+                    "nom_du_type": "Manual 3‑speed GAZ‑21",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 3,
+                    "qualite_huile": "SAE 80W90 GL‑4",
+                    "quantite_huile_l": 4.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 15000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # GAZ‑24 Volga (1970–1992) – manuelle 4 vitesses
+                {
+                    "fabricant": "GAZ",
+                    "nom_du_type": "Manual 4‑speed GAZ‑24",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 4,
+                    "qualite_huile": "SAE 80W90 GL‑4",
+                    "quantite_huile_l": 4.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 20000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # GAZ‑3102 / 31029 (1982–2009) – manuelle 5 vitesses
+                {
+                    "fabricant": "GAZ",
+                    "nom_du_type": "Manual 5‑speed GAZ‑3102",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "SAE 80W90 GL‑4",
+                    "quantite_huile_l": 4.8,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 25000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # GAZ‑53 / 3307 / 3309 – boîtes manuelles utilitaires
+                {
+                    "fabricant": "GAZ",
+                    "nom_du_type": "Manual 5‑speed GAZ‑53",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "SAE 85W140 GL‑5",
+                    "quantite_huile_l": 7.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 30000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # GAZ‑24 / 3102 avec automatique (rare)
+                {
+                    "fabricant": "GAZ",
+                    "nom_du_type": "Automatic 3‑speed GAZ‑24",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 3,
+                    "qualite_huile": "ATF Dexron‑II",
+                    "quantite_huile_l": 8.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 40000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # GAZelle / Sobol (1990–2025) – transmissions modernes
+                {
+                    "fabricant": "GAZ",
+                    "nom_du_type": "Manual 5‑speed GAZelle",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "SAE 75W90 GL‑4",
+                    "quantite_huile_l": 5.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 30000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # GAZelle avec automatique (optionnel / aftermarket)
+                {
+                    "fabricant": "GAZ",
+                    "nom_du_type": "Automatic 6‑speed GAZelle",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "ATF Mercon‑V",
+                    "quantite_huile_l": 9.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Geely",
+                    "nom_du_type": "Manual 5‑speed Classic",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "API GL‑4 / SAE 75W90",
+                    "quantite_huile_l": 2.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Geely",
+                    "nom_du_type": "Manual 6‑speed Modern",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "API GL‑4 / SAE 75W90",
+                    "quantite_huile_l": 2.7,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Automatiques hydromécaniques
+                # ======================
+                {
+                    "fabricant": "Geely",
+                    "nom_du_type": "6AT Automatic (DSI/TA‑series)",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "ATF Dexron‑type / MERCON",
+                    "quantite_huile_l": 7.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Double embrayage (DCT)
+                # ======================
+                {
+                    "fabricant": "Geely",
+                    "nom_du_type": "7‑speed Wet DCT",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 7,
+                    "qualite_huile": "Geely DCT Fluid",
+                    "quantite_huile_l": 3.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 90000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Geely",
+                    "nom_du_type": "8‑speed AMT / Auto‑Manual",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 8,
+                    "qualite_huile": "ATF Dexron‑type / MERCON",
+                    "quantite_huile_l": 8.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 90000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Hybrides – transmissions DHT
+                # ======================
+                {
+                    "fabricant": "Geely",
+                    "nom_du_type": "3‑speed DHT Hybrid",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 3,
+                    "qualite_huile": "DHT Transmission Fluid",
+                    "quantite_huile_l": 3.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Électriques – transmission à rapport unique
+                # ======================
+                {
+                    "fabricant": "Geely",
+                    "nom_du_type": "Electric Single‑Speed",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Genesis",
+                    "nom_du_type": "8‑speed Automatic",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 8,
+                    "qualite_huile": "Genesis ATF / Dexron‑type",
+                    "quantite_huile_l": 8.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # Option “with paddles/shift‑by‑wire” (caractéristiques électroniques mais même mécanique)
+                {
+                    "fabricant": "Genesis",
+                    "nom_du_type": "8‑speed Automatic Shift‑by‑Wire",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 8,
+                    "qualite_huile": "Genesis ATF / Dexron‑type",
+                    "quantite_huile_l": 8.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+
+                # ======================
+                # Genesis G70 2.0T – boîte auto 8 vitesses
+                {
+                    "fabricant": "Genesis",
+                    "nom_du_type": "8‑speed Automatic G70 2.0T",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 8,
+                    "qualite_huile": "Genesis ATF / Dexron‑type",
+                    "quantite_huile_l": 8.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Genesis G70 Sport 2.0T – boîte manuelle 6 vitesses (rare)
+                {
+                    "fabricant": "Genesis",
+                    "nom_du_type": "Manual 6‑speed G70 Sport 2.0T",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "SAE 75W90 GL‑4",
+                    "quantite_huile_l": 2.8,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Genesis G70 Sport 3.3T – boîte auto 8 vitesses
+                {
+                    "fabricant": "Genesis",
+                    "nom_du_type": "8‑speed Automatic G70 Sport 3.3T",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 8,
+                    "qualite_huile": "Genesis ATF / Dexron‑type",
+                    "quantite_huile_l": 8.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes automatiques classiques (SUVs et pickups)
+                # ======================
+                # 6‑speed automatique (Sierra, Yukon, Terrain 2010–2015)
+                {
+                    "fabricant": "GMC",
+                    "nom_du_type": "6‑speed Automatic Classic",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "Dexron‑VI",
+                    "quantite_huile_l": 8.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # 8‑speed automatique (Sierra, Yukon, Acadia 2016–2025)
+                {
+                    "fabricant": "GMC",
+                    "nom_du_type": "8‑speed Automatic Modern",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 8,
+                    "qualite_huile": "Dexron‑VI",
+                    "quantite_huile_l": 8.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 100000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # 10‑speed automatique (Sierra HD / Yukon Denali 2020–2025)
+                {
+                    "fabricant": "GMC",
+                    "nom_du_type": "10‑speed Automatic Heavy Duty",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 10,
+                    "qualite_huile": "Dexron‑VI",
+                    "quantite_huile_l": 9.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 120000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes manuelles (rare sur modèles légers / anciens)
+                # ======================
+                {
+                    "fabricant": "GMC",
+                    "nom_du_type": "Manual 5‑speed Classic",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "SAE 75W90 GL‑4",
+                    "quantite_huile_l": 4.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Hybrides / Electriques – transmission unique
+                # ======================
+                # GMC Hummer EV / électrique
+                {
+                    "fabricant": "GMC",
+                    "nom_du_type": "Electric Single‑Speed",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+                {
+                    "fabricant": "Great Wall",
+                    "nom_du_type": "Manual 5‑speed Classic",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "SAE 75W90 GL‑4",
+                    "quantite_huile_l": 2.8,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Great Wall",
+                    "nom_du_type": "Manual 6‑speed Modern",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "SAE 75W90 GL‑4",
+                    "quantite_huile_l": 3.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes automatiques classiques (SUV / pickups)
+                # ======================
+                {
+                    "fabricant": "Great Wall",
+                    "nom_du_type": "6‑speed Automatic",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "ATF Dexron‑VI",
+                    "quantite_huile_l": 7.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Great Wall",
+                    "nom_du_type": "7‑speed DCT",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 7,
+                    "qualite_huile": "DCT Transmission Fluid",
+                    "quantite_huile_l": 3.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 90000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Hybrides / Electriques – transmission unique
+                # ======================
+                {
+                    "fabricant": "Great Wall",
+                    "nom_du_type": "Electric Single‑Speed",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+
+
+
+
+
+
+                {
                     "fabricant": "ZF",
                     "nom_du_type": "ZF8HP",
                     "type_de_boite": TypeBoite.AUTOMATIQUE,
