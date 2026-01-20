@@ -5625,7 +5625,6 @@ class Command(BaseCommand):
                     "voiture_modele": modele,
                     "voiture_exemplaire": None,
                 },
-
                 ### ZF
 
                 {
@@ -5643,6 +5642,476 @@ class Command(BaseCommand):
                     "voiture_exemplaire": None,
                 },
 
+                # ======================
+                # Mitsubishi – Boîtes manuelles classiques
+                # ======================
+                {
+                    "fabricant": "Mitsubishi",
+                    "nom_du_type": "Manual 5-speed",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "Mitsubishi MTF / SAE 75W90 GL-4",
+                    "quantite_huile_l": 2.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Mitsubishi",
+                    "nom_du_type": "Manual 6-speed (Sport / Lancer GT, Outlander PHEV)",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "Mitsubishi MTF Sport / SAE 75W90 GL-4",
+                    "quantite_huile_l": 2.7,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 2,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Mitsubishi – Boîtes automatiques classiques (INVECS-II / III)
+                # ======================
+                {
+                    "fabricant": "Mitsubishi",
+                    "nom_du_type": "4-speed Automatic INVECS-II",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 4,
+                    "qualite_huile": "Mitsubishi ATF SP-III",
+                    "quantite_huile_l": 5.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 3,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Mitsubishi",
+                    "nom_du_type": "5-speed / 6-speed Automatic INVECS-III / CVT (Outlander PHEV, Eclipse Cross)",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "Mitsubishi ATF SP-III / J3 CVT Fluid",
+                    "quantite_huile_l": 6.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 4,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Mitsubishi – Hybrides / Electriques (i-MiEV, Outlander PHEV)
+                # ======================
+                {
+                    "fabricant": "Mitsubishi",
+                    "nom_du_type": "Hybrid e-CVT / Single-Speed (Outlander PHEV)",
+                    "type_de_boite": "Hybride",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "e-CVT Fluid",
+                    "quantite_huile_l": 2.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 5,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Mitsubishi",
+                    "nom_du_type": "Electric Single-Speed (i-MiEV)",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 6,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Mitsubishi Lancer Evo – Boîtes manuelles sportives
+                # ======================
+                {
+                    "fabricant": "Mitsubishi",
+                    "nom_du_type": "Manual 5-speed / 6-speed Sport",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "Mitsubishi MTF Sport / SAE 75W90 GL-4",
+                    "quantite_huile_l": 2.7,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 50000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Mitsubishi Lancer Evo – Boîtes automatiques / Twin Clutch SST
+                # ======================
+                {
+                    "fabricant": "Mitsubishi",
+                    "nom_du_type": "6-speed Twin Clutch SST (Evo X)",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "Mitsubishi SST Fluid / ATF SP-III",
+                    "quantite_huile_l": 3.2,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 50000,
+                    "dernier_entretien": None,
+                    "numero_boite": 2,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Morgan – Boîtes manuelles classiques
+                # ======================
+                {
+                    "fabricant": "Morgan",
+                    "nom_du_type": "Manual 4-speed / 5-speed (Plus 4, Plus 8, 3 Wheeler)",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "SAE 75W90 GL-4",
+                    "quantite_huile_l": 2.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 50000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Morgan – Boîtes automatiques (modernes sur Plus 8 V8, Aero)
+                # ======================
+                {
+                    "fabricant": "Morgan",
+                    "nom_du_type": "6-speed Automatic ZF / GM (Plus 8 V8, Aero)",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "ZF ATF / Dexron-VI",
+                    "quantite_huile_l": 6.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 2,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Morgan – Hybrides / Electriques (EV3 / EV Plus Four)
+                # ======================
+                {
+                    "fabricant": "Morgan",
+                    "nom_du_type": "Electric Single-Speed (EV3, Plus Four EV)",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 3,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+                # ======================
+                # Moskvitch – Boîtes manuelles classiques
+                # ======================
+                {
+                    "fabricant": "Moskvitch",
+                    "nom_du_type": "Manual 4-speed / 5-speed (412, 2140, 2141)",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "SAE 75W90 GL-4",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Moskvitch – Boîtes automatiques (rares sur modèles récents)
+                # ======================
+                {
+                    "fabricant": "Moskvitch",
+                    "nom_du_type": "3-speed / 4-speed Automatic",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 4,
+                    "qualite_huile": "MTF / ATF Standard",
+                    "quantite_huile_l": 4.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 2,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Moskvitch – Electriques / concepts modernes (3.0 EV)
+                # ======================
+                {
+                    "fabricant": "Moskvitch",
+                    "nom_du_type": "Electric Single-Speed",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 3,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # NIO – Electric Single-Speed (ES8, ES6, ET7)
+                # ======================
+                {
+                    "fabricant": "NIO",
+                    "nom_du_type": "Electric Single-Speed",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid High Performance",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # NIO – Futurs modèles électriques / PHEV concepts
+                # ======================
+                {
+                    "fabricant": "NIO",
+                    "nom_du_type": "Electric Single-Speed / e-CVT Concept",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid Concept",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 2,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Nissan – Boîtes manuelles classiques
+                # ======================
+                {
+                    "fabricant": "Nissan",
+                    "nom_du_type": "Manual 5-speed / 6-speed (Micra, Juke, Qashqai, X-Trail)",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "Nissan MTF / SAE 75W90 GL-4",
+                    "quantite_huile_l": 2.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Nissan – Boîtes automatiques classiques / CVT
+                # ======================
+                {
+                    "fabricant": "Nissan",
+                    "nom_du_type": "4-speed / 5-speed Automatic",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "Nissan ATF Matic S / J",
+                    "quantite_huile_l": 6.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 2,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Nissan",
+                    "nom_du_type": "CVT Xtronic (Micra, Juke, Qashqai, Leaf, Ariya)",
+                    "type_de_boite": "Automatique CVT",
+                    "nombre_rapport": 0,  # continu
+                    "qualite_huile": "Nissan CVT Fluid NS-3 / NS-2",
+                    "quantite_huile_l": 4.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 3,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Nissan – Electriques (Leaf, Ariya)
+                # ======================
+                {
+                    "fabricant": "Nissan",
+                    "nom_du_type": "Electric Single-Speed (Leaf, Ariya)",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 4,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Nissan – Boîtes manuelles classiques
+                # ======================
+                {
+                    "fabricant": "Nissan",
+                    "nom_du_type": "Manual 5-speed / 6-speed (Micra, Juke, Qashqai, X-Trail)",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "Nissan MTF / SAE 75W90 GL-4",
+                    "quantite_huile_l": 2.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Nissan – Boîtes automatiques classiques / CVT
+                # ======================
+                {
+                    "fabricant": "Nissan",
+                    "nom_du_type": "4-speed / 5-speed Automatic",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "Nissan ATF Matic S / J",
+                    "quantite_huile_l": 6.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 2,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Nissan",
+                    "nom_du_type": "CVT Xtronic (Micra, Juke, Qashqai, Leaf, Ariya)",
+                    "type_de_boite": "Automatique CVT",
+                    "nombre_rapport": 0,  # continu
+                    "qualite_huile": "Nissan CVT Fluid NS-3 / NS-2",
+                    "quantite_huile_l": 4.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 3,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Nissan – Electriques (Leaf, Ariya)
+                # ======================
+                {
+                    "fabricant": "Nissan",
+                    "nom_du_type": "Electric Single-Speed (Leaf, Ariya)",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 4,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Nismo – Boîtes manuelles sportives
+                # ======================
+                {
+                    "fabricant": "Nissan Nismo",
+                    "nom_du_type": "Manual 6-speed Sport (370Z Nismo, GT-R Nismo)",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "Nissan MTF Sport / SAE 75W90 GL-4",
+                    "quantite_huile_l": 2.7,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 50000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Nismo – Boîtes automatiques / DCT (GT-R Nismo, Juke Nismo RS)
+                # ======================
+                {
+                    "fabricant": "Nissan Nismo",
+                    "nom_du_type": "6-speed DCT / 7-speed Automatic",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "Nissan DCT Fluid / ATF Matic S",
+                    "quantite_huile_l": 3.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 50000,
+                    "dernier_entretien": None,
+                    "numero_boite": 2,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Nismo – Electriques / PHEV (Leaf e+, Ariya Nismo)
+                # ======================
+                {
+                    "fabricant": "Nissan Nismo",
+                    "nom_du_type": "Electric Single-Speed (Leaf e+, Ariya Nismo)",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 3,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
                 {
                     "fabricant": "Porsche",
                     "nom_du_type": "915",
@@ -5657,6 +6126,65 @@ class Command(BaseCommand):
                     "voiture_modele": modele,
                     "voiture_exemplaire": None,
                 },
+
+                # ======================
+                # Oldsmobile – Boîtes manuelles classiques
+                # ======================
+                {
+                    "fabricant": "Oldsmobile",
+                    "nom_du_type": "Manual 3-speed / 4-speed (Cutlass, 88, 98, Alero)",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 4,
+                    "qualite_huile": "SAE 75W90 GL-4 / Dexron-III",
+                    "quantite_huile_l": 2.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Oldsmobile – Boîtes automatiques classiques
+                # ======================
+                {
+                    "fabricant": "Oldsmobile",
+                    "nom_du_type": "3-speed / 4-speed Automatic (Cutlass, 88, 98, Alero, Aurora, Bravada)",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 4,
+                    "qualite_huile": "Dexron-II / Dexron-III / Dexron-V",
+                    "quantite_huile_l": 5.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 2,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Oldsmobile – Electriques / concept modernes (futurs rares)
+                # ======================
+                {
+                    "fabricant": "Oldsmobile",
+                    "nom_du_type": "Electric Single-Speed (Concepts EV récents)",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 3,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+
+
+
+
                 {
                     "fabricant": "Porsche",
                     "nom_du_type": "G50",
