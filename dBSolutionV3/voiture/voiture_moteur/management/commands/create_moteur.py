@@ -4295,6 +4295,55 @@ class Command(BaseCommand):
                  "intervalle_km_entretien": 10000},
             ],
 
+            "Lamborghini": [
+
+                # ===== Classiques (années 60–90) =====
+                {"code_moteur": "V12_Bizzarrini", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 3.5,
+                 "distribution": "CHAINE", "nombre_cylindres": 12, "puissance_ch": 280, "puissance_tr_min": 6500,
+                 "couple_nm": 325, "couple_tr_min": 4000, "qualite_huile": "20W50", "quantite_huile_l": 9.5,
+                 "intervalle_km_entretien": 10000},
+                {"code_moteur": "V12_5.2_Countach", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 5.2,
+                 "distribution": "CHAINE", "nombre_cylindres": 12, "puissance_ch": 455, "puissance_tr_min": 7000,
+                 "couple_nm": 500, "couple_tr_min": 5200, "qualite_huile": "20W50", "quantite_huile_l": 10.0,
+                 "intervalle_km_entretien": 10000},
+
+                # ===== Modernes (2000–2010) =====
+                {"code_moteur": "V12_Murcielago", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 6.2,
+                 "distribution": "CHAINE", "nombre_cylindres": 12, "puissance_ch": 580, "puissance_tr_min": 7500,
+                 "couple_nm": 650, "couple_tr_min": 5400, "qualite_huile": "5W40", "quantite_huile_l": 11.0,
+                 "intervalle_km_entretien": 15000},
+                {"code_moteur": "V10_Gallardo", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 5.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 10, "puissance_ch": 520, "puissance_tr_min": 8000,
+                 "couple_nm": 510, "couple_tr_min": 4250, "qualite_huile": "5W40", "quantite_huile_l": 9.0,
+                 "intervalle_km_entretien": 15000},
+
+                # ===== Récents (2011–2023) =====
+                {"code_moteur": "V12_Aventador", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 6.5,
+                 "distribution": "CHAINE", "nombre_cylindres": 12, "puissance_ch": 770, "puissance_tr_min": 8500,
+                 "couple_nm": 720, "couple_tr_min": 6750, "qualite_huile": "0W40", "quantite_huile_l": 11.5,
+                 "intervalle_km_entretien": 15000},
+                {"code_moteur": "V10_Huracan", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 5.2,
+                 "distribution": "CHAINE", "nombre_cylindres": 10, "puissance_ch": 640, "puissance_tr_min": 8000,
+                 "couple_nm": 600, "couple_tr_min": 6500, "qualite_huile": "0W40", "quantite_huile_l": 9.5,
+                 "intervalle_km_entretien": 15000},
+
+                # ===== SUV / Turbo =====
+                {"code_moteur": "V8_Urus", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 4.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 8, "puissance_ch": 666, "puissance_tr_min": 6000,
+                 "couple_nm": 850, "couple_tr_min": 2300, "qualite_huile": "0W40", "quantite_huile_l": 8.0,
+                 "intervalle_km_entretien": 15000},
+
+                # ===== Hybrides =====
+                {"code_moteur": "V12_Revuelto", "type_moteur": "HYB_E", "carburant": "ESS", "cylindree_l": 6.5,
+                 "distribution": "CHAINE", "nombre_cylindres": 12, "puissance_ch": 1015, "puissance_tr_min": 9000,
+                 "couple_nm": 725, "couple_tr_min": 6750, "qualite_huile": "0W40", "quantite_huile_l": 11.5,
+                 "intervalle_km_entretien": 15000},
+                {"code_moteur": "V10_Temerario", "type_moteur": "HYB_E", "carburant": "ESS", "cylindree_l": 4.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 8, "puissance_ch": 920, "puissance_tr_min": 9000,
+                 "couple_nm": 800, "couple_tr_min": 3000, "qualite_huile": "0W40", "quantite_huile_l": 8.0,
+                 "intervalle_km_entretien": 15000},
+            ],
+
             "Lancia": [
                 # -------------------
                 # Anciens (1950–1989)
@@ -4722,6 +4771,654 @@ class Command(BaseCommand):
                  "intervalle_km_entretien": 10000},
             ],
 
+            "Maybach": [
+                # -------------------
+                # Anciens (1930–1941)
+                # -------------------
+                {"code_moteur": "DS7-5.0-V12", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 5.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 12, "puissance_ch": 200, "puissance_tr_min": 3200,
+                 "couple_nm": 430, "couple_tr_min": 1800, "qualite_huile": "20W50", "quantite_huile_l": 10.0,
+                 "intervalle_km_entretien": 8000},
+
+                {"code_moteur": "Zeppelin-8.0-V12", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 8.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 12, "puissance_ch": 300, "puissance_tr_min": 3500,
+                 "couple_nm": 600, "couple_tr_min": 2000, "qualite_huile": "20W50", "quantite_huile_l": 12.0,
+                 "intervalle_km_entretien": 8000},
+
+                # -------------------
+                # Récents (2002–2012)
+                # -------------------
+                {"code_moteur": "Maybach-57-5.5-V12-TT", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 5.5,
+                 "distribution": "CHAINE", "nombre_cylindres": 12, "puissance_ch": 550, "puissance_tr_min": 5250,
+                 "couple_nm": 900, "couple_tr_min": 2300, "qualite_huile": "0W40", "quantite_huile_l": 9.5,
+                 "intervalle_km_entretien": 15000},
+
+                {"code_moteur": "Maybach-62-6.0-V12-TT", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 6.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 12, "puissance_ch": 612, "puissance_tr_min": 4800,
+                 "couple_nm": 1000, "couple_tr_min": 2300, "qualite_huile": "0W40", "quantite_huile_l": 10.0,
+                 "intervalle_km_entretien": 15000},
+
+                # -------------------
+                # Nouveaux (2015–2024, Mercedes-Maybach)
+                # -------------------
+                {"code_moteur": "S560-Maybach-4.0-V8-TT", "type_moteur": "TURBO", "carburant": "ESS",
+                 "cylindree_l": 4.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 8, "puissance_ch": 469, "puissance_tr_min": 5250,
+                 "couple_nm": 700, "couple_tr_min": 2000, "qualite_huile": "0W40", "quantite_huile_l": 8.5,
+                 "intervalle_km_entretien": 15000},
+
+                {"code_moteur": "S680-Maybach-6.0-V12-TT", "type_moteur": "TURBO", "carburant": "ESS",
+                 "cylindree_l": 6.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 12, "puissance_ch": 612, "puissance_tr_min": 5250,
+                 "couple_nm": 900, "couple_tr_min": 2000, "qualite_huile": "0W40", "quantite_huile_l": 10.0,
+                 "intervalle_km_entretien": 15000},
+            ],
+
+            "Mazda": [
+                # -------------------
+                # Anciens (1960–1999)
+                # -------------------
+                {"code_moteur": "Cosmo-2.0-Rotary", "type_moteur": "WANKEL", "carburant": "ESS", "cylindree_l": 2.0,
+                 "distribution": "ROTATIF", "nombre_cylindres": 2, "puissance_ch": 130, "puissance_tr_min": 7000,
+                 "couple_nm": 172, "couple_tr_min": 5000, "qualite_huile": "20W50", "quantite_huile_l": 4.5,
+                 "intervalle_km_entretien": 8000},
+
+                {"code_moteur": "MX5-1.6", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 1.6,
+                 "distribution": "COURROIE", "nombre_cylindres": 4, "puissance_ch": 115, "puissance_tr_min": 6500,
+                 "couple_nm": 135, "couple_tr_min": 5500, "qualite_huile": "10W40", "quantite_huile_l": 3.7,
+                 "intervalle_km_entretien": 10000},
+
+                # -------------------
+                # Récents (2000–2015)
+                # -------------------
+                {"code_moteur": "RX8-1.3-Rotary", "type_moteur": "WANKEL", "carburant": "ESS", "cylindree_l": 1.3,
+                 "distribution": "ROTATIF", "nombre_cylindres": 2, "puissance_ch": 231, "puissance_tr_min": 8200,
+                 "couple_nm": 211, "couple_tr_min": 5500, "qualite_huile": "5W30", "quantite_huile_l": 4.5,
+                 "intervalle_km_entretien": 10000},
+
+                {"code_moteur": "Mazda6-2.3", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 2.3,
+                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 166, "puissance_tr_min": 6500,
+                 "couple_nm": 207, "couple_tr_min": 4000, "qualite_huile": "5W30", "quantite_huile_l": 4.3,
+                 "intervalle_km_entretien": 15000},
+
+                # -------------------
+                # Nouveaux (2016–2024)
+                # -------------------
+                {"code_moteur": "SkyactivG-2.0", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 2.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 165, "puissance_tr_min": 6000,
+                 "couple_nm": 213, "couple_tr_min": 4000, "qualite_huile": "0W20", "quantite_huile_l": 4.2,
+                 "intervalle_km_entretien": 20000},
+
+                {"code_moteur": "SkyactivX-2.0", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 2.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 186, "puissance_tr_min": 6000,
+                 "couple_nm": 240, "couple_tr_min": 3000, "qualite_huile": "0W20", "quantite_huile_l": 4.3,
+                 "intervalle_km_entretien": 20000},
+            ],
+
+            "MazdaSpeed": [
+                # -------------------
+                # Versions sportives MazdaSpeed
+                # -------------------
+                {"code_moteur": "MazdaSpeed3-2.3-Turbo", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 2.3,
+                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 260, "puissance_tr_min": 5500,
+                 "couple_nm": 380, "couple_tr_min": 3000, "qualite_huile": "5W30", "quantite_huile_l": 4.8,
+                 "intervalle_km_entretien": 10000},
+
+                {"code_moteur": "MazdaSpeed6-2.3-Turbo", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 2.3,
+                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 260, "puissance_tr_min": 5500,
+                 "couple_nm": 380, "couple_tr_min": 3000, "qualite_huile": "5W30", "quantite_huile_l": 4.8,
+                 "intervalle_km_entretien": 10000},
+            ],
+
+            "McLaren": [
+
+                # ===== Premiers modèles (années 90) =====
+                {"code_moteur": "BMW_S70_6.1", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 6.1,
+                 "distribution": "CHAINE", "nombre_cylindres": 12, "puissance_ch": 627, "puissance_tr_min": 7400,
+                 "couple_nm": 651, "couple_tr_min": 5600, "qualite_huile": "10W60", "quantite_huile_l": 12.0,
+                 "intervalle_km_entretien": 12000},
+
+                # ===== 2000–2010 =====
+                {"code_moteur": "Mercedes_M838T", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 3.8,
+                 "distribution": "CHAINE", "nombre_cylindres": 8, "puissance_ch": 600, "puissance_tr_min": 7000,
+                 "couple_nm": 600, "couple_tr_min": 3000, "qualite_huile": "5W40", "quantite_huile_l": 8.5,
+                 "intervalle_km_entretien": 15000},
+
+                # ===== 2011–2020 =====
+                {"code_moteur": "M838T_650S", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 3.8,
+                 "distribution": "CHAINE", "nombre_cylindres": 8, "puissance_ch": 650, "puissance_tr_min": 7250,
+                 "couple_nm": 678, "couple_tr_min": 3000, "qualite_huile": "0W40", "quantite_huile_l": 8.5,
+                 "intervalle_km_entretien": 15000},
+                {"code_moteur": "M838T_720S", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 4.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 8, "puissance_ch": 720, "puissance_tr_min": 7500,
+                 "couple_nm": 770, "couple_tr_min": 3000, "qualite_huile": "0W40", "quantite_huile_l": 8.5,
+                 "intervalle_km_entretien": 15000},
+
+                # ===== Hybrides =====
+                {"code_moteur": "V6_Artura", "type_moteur": "HYB_TE", "carburant": "ESS", "cylindree_l": 3.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 6, "puissance_ch": 680, "puissance_tr_min": 7500,
+                 "couple_nm": 720, "couple_tr_min": 3000, "qualite_huile": "0W40", "quantite_huile_l": 7.5,
+                 "intervalle_km_entretien": 15000},
+
+                # ===== Extrêmes =====
+                {"code_moteur": "V8_Senna", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 4.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 8, "puissance_ch": 800, "puissance_tr_min": 7250,
+                 "couple_nm": 800, "couple_tr_min": 3500, "qualite_huile": "0W40", "quantite_huile_l": 9.0,
+                 "intervalle_km_entretien": 12000},
+                {"code_moteur": "V8_P1", "type_moteur": "HYB_TE", "carburant": "ESS", "cylindree_l": 3.8,
+                 "distribution": "CHAINE", "nombre_cylindres": 8, "puissance_ch": 916, "puissance_tr_min": 7500,
+                 "couple_nm": 900, "couple_tr_min": 2500, "qualite_huile": "0W40", "quantite_huile_l": 9.0,
+                 "intervalle_km_entretien": 12000},
+
+            ],
+
+            "Mercedes-AMG": [
+                # -------------------
+                # Anciens (1990–2009)
+                # -------------------
+                {"code_moteur": "C36-AMG-3.6", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 3.6,
+                 "distribution": "CHAINE", "nombre_cylindres": 6, "puissance_ch": 280, "puissance_tr_min": 5750,
+                 "couple_nm": 385, "couple_tr_min": 4000, "qualite_huile": "10W40", "quantite_huile_l": 6.5,
+                 "intervalle_km_entretien": 10000},
+
+                {"code_moteur": "E55-AMG-5.4", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 5.4,
+                 "distribution": "CHAINE", "nombre_cylindres": 8, "puissance_ch": 354, "puissance_tr_min": 5500,
+                 "couple_nm": 530, "couple_tr_min": 3150, "qualite_huile": "10W60", "quantite_huile_l": 8.0,
+                 "intervalle_km_entretien": 10000},
+
+                # -------------------
+                # Récents (2010–2017)
+                # -------------------
+                {"code_moteur": "C63-AMG-6.2", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 6.2,
+                 "distribution": "CHAINE", "nombre_cylindres": 8, "puissance_ch": 457, "puissance_tr_min": 6800,
+                 "couple_nm": 600, "couple_tr_min": 5000, "qualite_huile": "10W60", "quantite_huile_l": 8.5,
+                 "intervalle_km_entretien": 12000},
+
+                {"code_moteur": "CLS63-AMG-5.5-TT", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 5.5,
+                 "distribution": "CHAINE", "nombre_cylindres": 8, "puissance_ch": 557, "puissance_tr_min": 5250,
+                 "couple_nm": 720, "couple_tr_min": 2000, "qualite_huile": "5W40", "quantite_huile_l": 8.0,
+                 "intervalle_km_entretien": 12000},
+
+                # -------------------
+                # Nouveaux (2018–2024)
+                # -------------------
+                {"code_moteur": "C63-AMG-4.0-TT", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 4.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 8, "puissance_ch": 510, "puissance_tr_min": 5500,
+                 "couple_nm": 700, "couple_tr_min": 2000, "qualite_huile": "0W40", "quantite_huile_l": 8.5,
+                 "intervalle_km_entretien": 15000},
+
+                {"code_moteur": "A45-AMG-2.0-Turbo", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 2.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 421, "puissance_tr_min": 6750,
+                 "couple_nm": 500, "couple_tr_min": 5000, "qualite_huile": "0W40", "quantite_huile_l": 6.0,
+                 "intervalle_km_entretien": 15000},
+
+                # -------------------
+                # Versions sportives / Black Series / GT
+                # -------------------
+                {"code_moteur": "C63-BlackSeries-6.2", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 6.2,
+                 "distribution": "CHAINE", "nombre_cylindres": 8, "puissance_ch": 517, "puissance_tr_min": 7200,
+                 "couple_nm": 620, "couple_tr_min": 5200, "qualite_huile": "10W60", "quantite_huile_l": 8.5,
+                 "intervalle_km_entretien": 10000},
+
+                {"code_moteur": "AMG-GT-R-4.0-TT", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 4.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 8, "puissance_ch": 585, "puissance_tr_min": 5500,
+                 "couple_nm": 700, "couple_tr_min": 2100, "qualite_huile": "0W40", "quantite_huile_l": 9.0,
+                 "intervalle_km_entretien": 10000},
+            ],
+
+            "Mercedes-Benz": [
+
+                # ===== Classiques (années 50–80) =====
+                {"code_moteur": "M121", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 1.9,
+                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 90, "puissance_tr_min": 5200,
+                 "couple_nm": 142, "couple_tr_min": 3500, "qualite_huile": "20W50", "quantite_huile_l": 6.0,
+                 "intervalle_km_entretien": 10000},
+                {"code_moteur": "M180", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 2.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 6, "puissance_ch": 109, "puissance_tr_min": 5200,
+                 "couple_nm": 170, "couple_tr_min": 3500, "qualite_huile": "20W50", "quantite_huile_l": 6.5,
+                 "intervalle_km_entretien": 10000},
+                {"code_moteur": "M127", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 2.2,
+                 "distribution": "CHAINE", "nombre_cylindres": 6, "puissance_ch": 120, "puissance_tr_min": 5800,
+                 "couple_nm": 176, "couple_tr_min": 4000, "qualite_huile": "20W50", "quantite_huile_l": 6.5,
+                 "intervalle_km_entretien": 10000},
+                {"code_moteur": "OM615", "type_moteur": "ATM", "carburant": "DSL", "cylindree_l": 2.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 55, "puissance_tr_min": 4500,
+                 "couple_nm": 123, "couple_tr_min": 2500, "qualite_huile": "15W40", "quantite_huile_l": 7.0,
+                 "intervalle_km_entretien": 10000},
+                {"code_moteur": "OM617", "type_moteur": "ATM", "carburant": "DSL", "cylindree_l": 3.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 5, "puissance_ch": 88, "puissance_tr_min": 4200,
+                 "couple_nm": 172, "couple_tr_min": 2400, "qualite_huile": "15W40", "quantite_huile_l": 7.5,
+                 "intervalle_km_entretien": 10000},
+
+                # ===== Modernes (1990–2010) =====
+                {"code_moteur": "M102", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 2.3,
+                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 136, "puissance_tr_min": 5800,
+                 "couple_nm": 205, "couple_tr_min": 3500, "qualite_huile": "10W40", "quantite_huile_l": 6.0,
+                 "intervalle_km_entretien": 15000},
+                {"code_moteur": "M104", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 3.2,
+                 "distribution": "CHAINE", "nombre_cylindres": 6, "puissance_ch": 231, "puissance_tr_min": 6300,
+                 "couple_nm": 315, "couple_tr_min": 3750, "qualite_huile": "5W40", "quantite_huile_l": 7.5,
+                 "intervalle_km_entretien": 15000},
+                {"code_moteur": "M111", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 2.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 136, "puissance_tr_min": 5800,
+                 "couple_nm": 190, "couple_tr_min": 4000, "qualite_huile": "5W40", "quantite_huile_l": 6.5,
+                 "intervalle_km_entretien": 15000},
+                {"code_moteur": "M112", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 3.2,
+                 "distribution": "CHAINE", "nombre_cylindres": 6, "puissance_ch": 218, "puissance_tr_min": 5700,
+                 "couple_nm": 310, "couple_tr_min": 3000, "qualite_huile": "5W40", "quantite_huile_l": 7.5,
+                 "intervalle_km_entretien": 15000},
+                {"code_moteur": "OM646", "type_moteur": "TURBO", "carburant": "DSL", "cylindree_l": 2.1,
+                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 140, "puissance_tr_min": 4200,
+                 "couple_nm": 300, "couple_tr_min": 1600, "qualite_huile": "5W30", "quantite_huile_l": 7.0,
+                 "intervalle_km_entretien": 20000},
+
+                # ===== Récents (2011–2025) =====
+                {"code_moteur": "M274", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 2.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 211, "puissance_tr_min": 5500,
+                 "couple_nm": 350, "couple_tr_min": 1200, "qualite_huile": "0W40", "quantite_huile_l": 6.5,
+                 "intervalle_km_entretien": 15000},
+                {"code_moteur": "M264", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 1.3,
+                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 163, "puissance_tr_min": 5000,
+                 "couple_nm": 250, "couple_tr_min": 1500, "qualite_huile": "0W40", "quantite_huile_l": 5.5,
+                 "intervalle_km_entretien": 15000},
+                {"code_moteur": "M256", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 3.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 6, "puissance_ch": 435, "puissance_tr_min": 6100,
+                 "couple_nm": 520, "couple_tr_min": 1800, "qualite_huile": "0W40", "quantite_huile_l": 8.0,
+                 "intervalle_km_entretien": 15000},
+                {"code_moteur": "OM651", "type_moteur": "TURBO", "carburant": "DSL", "cylindree_l": 2.1,
+                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 170, "puissance_tr_min": 4200,
+                 "couple_nm": 400, "couple_tr_min": 1600, "qualite_huile": "5W30", "quantite_huile_l": 7.5,
+                 "intervalle_km_entretien": 20000},
+                {"code_moteur": "OM654", "type_moteur": "TURBO", "carburant": "DSL", "cylindree_l": 2.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 194, "puissance_tr_min": 4200,
+                 "couple_nm": 400, "couple_tr_min": 1400, "qualite_huile": "0W30", "quantite_huile_l": 7.5,
+                 "intervalle_km_entretien": 20000},
+
+                # ===== Hybrides =====
+                {"code_moteur": "M254e", "type_moteur": "HYB_TE", "carburant": "ESS", "cylindree_l": 2.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 4, "puissance_ch": 320, "puissance_tr_min": 6000,
+                 "couple_nm": 400, "couple_tr_min": 2000, "qualite_huile": "0W40", "quantite_huile_l": 6.5,
+                 "intervalle_km_entretien": 15000},
+                {"code_moteur": "M256e", "type_moteur": "HYB_TE", "carburant": "ESS", "cylindree_l": 3.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 6, "puissance_ch": 510, "puissance_tr_min": 6000,
+                 "couple_nm": 750, "couple_tr_min": 2000, "qualite_huile": "0W40", "quantite_huile_l": 8.0,
+                 "intervalle_km_entretien": 15000},
+
+                # ===== Électriques =====
+                {"code_moteur": "EQA-E", "type_moteur": "ELEC", "carburant": "ELEC", "cylindree_l": 0.0,
+                 "distribution": "ELEC", "nombre_cylindres": 0, "puissance_ch": 190, "puissance_tr_min": 0,
+                 "couple_nm": 375, "couple_tr_min": 0, "qualite_huile": "N/A", "quantite_huile_l": 0.0,
+                 "intervalle_km_entretien": 30000},
+                {"code_moteur": "EQC-E", "type_moteur": "ELEC", "carburant": "ELEC", "cylindree_l": 0.0,
+                 "distribution": "ELEC", "nombre_cylindres": 0, "puissance_ch": 408, "puissance_tr_min": 0,
+                 "couple_nm": 760, "couple_tr_min": 0, "qualite_huile": "N/A", "quantite_huile_l": 0.0,
+                 "intervalle_km_entretien": 30000},
+                {"code_moteur": "EQS-E", "type_moteur": "ELEC", "carburant": "ELEC", "cylindree_l": 0.0,
+                 "distribution": "ELEC", "nombre_cylindres": 0, "puissance_ch": 516, "puissance_tr_min": 0,
+                 "couple_nm": 855, "couple_tr_min": 0, "qualite_huile": "N/A", "quantite_huile_l": 0.0,
+                 "intervalle_km_entretien": 30000},
+            ],
+
+            "Mercury": [
+
+                # ===== Classiques (années 50–79) =====
+                {"code_moteur": "Y-Block-4.5", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 4.5,
+                 "distribution": "CHAINE", "nombre_cylindres": 8,
+                 "puissance_ch": 160, "puissance_tr_min": 4200, "couple_nm": 350, "couple_tr_min": 2200,
+                 "qualite_huile": "20W50", "quantite_huile_l": 8.5, "intervalle_km_entretien": 8000},
+
+                {"code_moteur": "Marauder-4.9", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 4.9,
+                 "distribution": "CHAINE", "nombre_cylindres": 8,
+                 "puissance_ch": 200, "puissance_tr_min": 4400, "couple_nm": 410, "couple_tr_min": 2400,
+                 "qualite_huile": "20W50", "quantite_huile_l": 9.0, "intervalle_km_entretien": 8000},
+
+                {"code_moteur": "Thunderbird-3.8", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 3.8,
+                 "distribution": "CHAINE", "nombre_cylindres": 8,
+                 "puissance_ch": 200, "puissance_tr_min": 4400, "couple_nm": 360, "couple_tr_min": 2400,
+                 "qualite_huile": "20W50", "quantite_huile_l": 8.0, "intervalle_km_entretien": 8000},
+
+                # ===== Modernes (1980–1999) =====
+                {"code_moteur": "2.3-L4-Turbo", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 2.3,
+                 "distribution": "CHAINE", "nombre_cylindres": 4,
+                 "puissance_ch": 150, "puissance_tr_min": 6000, "couple_nm": 240, "couple_tr_min": 3200,
+                 "qualite_huile": "10W40", "quantite_huile_l": 5.5, "intervalle_km_entretien": 12000},
+
+                {"code_moteur": "5.0-V8", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 5.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 8,
+                 "puissance_ch": 200, "puissance_tr_min": 4400, "couple_nm": 380, "couple_tr_min": 2600,
+                 "qualite_huile": "10W40", "quantite_huile_l": 8.5, "intervalle_km_entretien": 12000},
+
+                {"code_moteur": "4.9-V8", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 4.9,
+                 "distribution": "CHAINE", "nombre_cylindres": 8,
+                 "puissance_ch": 195, "puissance_tr_min": 4400, "couple_nm": 370, "couple_tr_min": 2600,
+                 "qualite_huile": "10W40", "quantite_huile_l": 8.5, "intervalle_km_entretien": 12000},
+
+                # ===== Récents (2000–2010) =====
+                {"code_moteur": "4.6-V8", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 4.6,
+                 "distribution": "CHAINE", "nombre_cylindres": 8,
+                 "puissance_ch": 224, "puissance_tr_min": 5000, "couple_nm": 358, "couple_tr_min": 3500,
+                 "qualite_huile": "5W30", "quantite_huile_l": 8.5, "intervalle_km_entretien": 15000},
+
+                {"code_moteur": "3.0-V6", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 3.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 6,
+                 "puissance_ch": 200, "puissance_tr_min": 5500, "couple_nm": 270, "couple_tr_min": 3500,
+                 "qualite_huile": "5W30", "quantite_huile_l": 7.5, "intervalle_km_entretien": 15000},
+
+                {"code_moteur": "5.4-V8", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 5.4,
+                 "distribution": "CHAINE", "nombre_cylindres": 8,
+                 "puissance_ch": 300, "puissance_tr_min": 5200, "couple_nm": 420, "couple_tr_min": 3500,
+                 "qualite_huile": "5W30", "quantite_huile_l": 9.0, "intervalle_km_entretien": 15000},
+
+                # ===== Versions sportives / performance =====
+                {"code_moteur": "Cougar-V8-225", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 4.6,
+                 "distribution": "CHAINE", "nombre_cylindres": 8,
+                 "puissance_ch": 225, "puissance_tr_min": 5000, "couple_nm": 370, "couple_tr_min": 3500,
+                 "qualite_huile": "5W30", "quantite_huile_l": 8.5, "intervalle_km_entretien": 12000},
+
+                {"code_moteur": "Sable-ST-3.0", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 3.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 6,
+                 "puissance_ch": 200, "puissance_tr_min": 5500, "couple_nm": 280, "couple_tr_min": 3500,
+                 "qualite_huile": "5W30", "quantite_huile_l": 7.5, "intervalle_km_entretien": 12000},
+
+                {"code_moteur": "Mariner-V6-3.0", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 3.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 6,
+                 "puissance_ch": 200, "puissance_tr_min": 5500, "couple_nm": 280, "couple_tr_min": 3500,
+                 "qualite_huile": "5W30", "quantite_huile_l": 7.5, "intervalle_km_entretien": 12000},
+            ],
+
+            "MG": [
+
+                # ======================
+                # Anciens / Classiques
+                # ======================
+                {"code_moteur": "XPAG-1.3", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 1.3,
+                 "distribution": "CHAINE", "nombre_cylindres": 4,
+                 "puissance_ch": 54, "puissance_tr_min": 5200, "couple_nm": 95, "couple_tr_min": 3000,
+                 "qualite_huile": "20W50", "quantite_huile_l": 4.5, "intervalle_km_entretien": 8000},
+
+                {"code_moteur": "B-Series-1.8", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 1.8,
+                 "distribution": "CHAINE", "nombre_cylindres": 4,
+                 "puissance_ch": 95, "puissance_tr_min": 5500, "couple_nm": 145, "couple_tr_min": 3000,
+                 "qualite_huile": "20W50", "quantite_huile_l": 4.5, "intervalle_km_entretien": 8000},
+
+                {"code_moteur": "Rover-V8-3.5", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 3.5,
+                 "distribution": "CHAINE", "nombre_cylindres": 8,
+                 "puissance_ch": 137, "puissance_tr_min": 5000, "couple_nm": 250, "couple_tr_min": 2500,
+                 "qualite_huile": "20W50", "quantite_huile_l": 5.5, "intervalle_km_entretien": 8000},
+
+                # ======================
+                # Modernes (1990–2005)
+                # ======================
+                {"code_moteur": "K-Series-1.6", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 1.6,
+                 "distribution": "COURROIE", "nombre_cylindres": 4,
+                 "puissance_ch": 111, "puissance_tr_min": 6500, "couple_nm": 145, "couple_tr_min": 4000,
+                 "qualite_huile": "10W40", "quantite_huile_l": 4.5, "intervalle_km_entretien": 10000},
+
+                {"code_moteur": "K-Series-1.8-VVC", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 1.8,
+                 "distribution": "COURROIE", "nombre_cylindres": 4,
+                 "puissance_ch": 160, "puissance_tr_min": 7000, "couple_nm": 174, "couple_tr_min": 4500,
+                 "qualite_huile": "10W40", "quantite_huile_l": 4.5, "intervalle_km_entretien": 10000},
+
+                {"code_moteur": "KV6-2.5", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 2.5,
+                 "distribution": "COURROIE", "nombre_cylindres": 6,
+                 "puissance_ch": 177, "puissance_tr_min": 6500, "couple_nm": 240, "couple_tr_min": 4000,
+                 "qualite_huile": "10W40", "quantite_huile_l": 5.5, "intervalle_km_entretien": 12000},
+
+                # ======================
+                # Récents (2010–2020)
+                # ======================
+                {"code_moteur": "SAIC-1.5T", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 1.5,
+                 "distribution": "CHAINE", "nombre_cylindres": 4,
+                 "puissance_ch": 162, "puissance_tr_min": 5600, "couple_nm": 250, "couple_tr_min": 1700,
+                 "qualite_huile": "5W30", "quantite_huile_l": 4.5, "intervalle_km_entretien": 15000},
+
+                {"code_moteur": "SAIC-2.0T", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 2.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 4,
+                 "puissance_ch": 231, "puissance_tr_min": 5600, "couple_nm": 370, "couple_tr_min": 2000,
+                 "qualite_huile": "5W30", "quantite_huile_l": 5.0, "intervalle_km_entretien": 15000},
+
+                {"code_moteur": "EV-150kW", "type_moteur": "ELEC", "carburant": "ELEC", "cylindree_l": 0.0,
+                 "distribution": "AUCUNE", "nombre_cylindres": 0,
+                 "puissance_ch": 204, "puissance_tr_min": 0, "couple_nm": 353, "couple_tr_min": 0,
+                 "qualite_huile": "N/A", "quantite_huile_l": 0.0, "intervalle_km_entretien": 20000},
+
+                # ======================
+                # Sport / Performance
+                # ======================
+                {"code_moteur": "MG6-XPower-2.0T", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 2.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 4,
+                 "puissance_ch": 260, "puissance_tr_min": 5500, "couple_nm": 400, "couple_tr_min": 2000,
+                 "qualite_huile": "5W40", "quantite_huile_l": 5.5, "intervalle_km_entretien": 10000},
+
+                {"code_moteur": "MG4-XPower-EV", "type_moteur": "ELEC", "carburant": "ELEC", "cylindree_l": 0.0,
+                 "distribution": "AUCUNE", "nombre_cylindres": 0,
+                 "puissance_ch": 435, "puissance_tr_min": 0, "couple_nm": 600, "couple_tr_min": 0,
+                 "qualite_huile": "N/A", "quantite_huile_l": 0.0, "intervalle_km_entretien": 20000},
+            ],
+
+            "Mini": [
+
+                # ======================
+                # Anciens / Classiques
+                # ======================
+                {"code_moteur": "A-Series-0.85", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 0.85,
+                 "distribution": "CHAINE", "nombre_cylindres": 4,
+                 "puissance_ch": 34, "puissance_tr_min": 5200, "couple_nm": 60, "couple_tr_min": 3000,
+                 "qualite_huile": "20W50", "quantite_huile_l": 4.0, "intervalle_km_entretien": 8000},
+
+                {"code_moteur": "A-Series-1.0", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 1.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 4,
+                 "puissance_ch": 40, "puissance_tr_min": 5250, "couple_nm": 70, "couple_tr_min": 3000,
+                 "qualite_huile": "20W50", "quantite_huile_l": 4.0, "intervalle_km_entretien": 8000},
+
+                {"code_moteur": "A-Series-1.3", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 1.3,
+                 "distribution": "CHAINE", "nombre_cylindres": 4,
+                 "puissance_ch": 63, "puissance_tr_min": 5750, "couple_nm": 95, "couple_tr_min": 3000,
+                 "qualite_huile": "20W50", "quantite_huile_l": 4.0, "intervalle_km_entretien": 8000},
+
+                # ======================
+                # Modernes (BMW Era 2001–2010)
+                # ======================
+                {"code_moteur": "Tritec-1.6", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 1.6,
+                 "distribution": "CHAINE", "nombre_cylindres": 4,
+                 "puissance_ch": 115, "puissance_tr_min": 6000, "couple_nm": 149, "couple_tr_min": 4500,
+                 "qualite_huile": "5W40", "quantite_huile_l": 4.5, "intervalle_km_entretien": 15000},
+
+                {"code_moteur": "Tritec-1.6S", "type_moteur": "COMPRESSEUR", "carburant": "ESS", "cylindree_l": 1.6,
+                 "distribution": "CHAINE", "nombre_cylindres": 4,
+                 "puissance_ch": 163, "puissance_tr_min": 6000, "couple_nm": 210, "couple_tr_min": 4000,
+                 "qualite_huile": "5W40", "quantite_huile_l": 4.5, "intervalle_km_entretien": 10000},
+
+                # ======================
+                # PSA / BMW Turbo (2010–2019)
+                # ======================
+                {"code_moteur": "N14-1.6T", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 1.6,
+                 "distribution": "CHAINE", "nombre_cylindres": 4,
+                 "puissance_ch": 184, "puissance_tr_min": 5500, "couple_nm": 240, "couple_tr_min": 1600,
+                 "qualite_huile": "5W30", "quantite_huile_l": 4.5, "intervalle_km_entretien": 12000},
+
+                {"code_moteur": "N18-1.6T", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 1.6,
+                 "distribution": "CHAINE", "nombre_cylindres": 4,
+                 "puissance_ch": 211, "puissance_tr_min": 6000, "couple_nm": 260, "couple_tr_min": 1600,
+                 "qualite_huile": "5W30", "quantite_huile_l": 4.8, "intervalle_km_entretien": 12000},
+
+                {"code_moteur": "B37D15", "type_moteur": "TURBO", "carburant": "DSL", "cylindree_l": 1.5,
+                 "distribution": "CHAINE", "nombre_cylindres": 3,
+                 "puissance_ch": 116, "puissance_tr_min": 4000, "couple_nm": 270, "couple_tr_min": 1750,
+                 "qualite_huile": "5W30", "quantite_huile_l": 4.5, "intervalle_km_entretien": 20000},
+
+                # ======================
+                # Récents (2020–2025)
+                # ======================
+                {"code_moteur": "B38-1.5T", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 1.5,
+                 "distribution": "CHAINE", "nombre_cylindres": 3,
+                 "puissance_ch": 136, "puissance_tr_min": 4500, "couple_nm": 220, "couple_tr_min": 1480,
+                 "qualite_huile": "0W20", "quantite_huile_l": 4.25, "intervalle_km_entretien": 20000},
+
+                {"code_moteur": "B48-2.0T", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 2.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 4,
+                 "puissance_ch": 231, "puissance_tr_min": 5200, "couple_nm": 320, "couple_tr_min": 1450,
+                 "qualite_huile": "0W20", "quantite_huile_l": 5.0, "intervalle_km_entretien": 20000},
+
+                # ======================
+                # JCW / Sport
+                # ======================
+                {"code_moteur": "B48-JCW", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 2.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 4,
+                 "puissance_ch": 306, "puissance_tr_min": 5000, "couple_nm": 450, "couple_tr_min": 1750,
+                 "qualite_huile": "0W20", "quantite_huile_l": 5.2, "intervalle_km_entretien": 15000},
+
+                # ======================
+                # Électrique
+                # ======================
+                {"code_moteur": "Mini-EV", "type_moteur": "ELEC", "carburant": "ELEC", "cylindree_l": 0.0,
+                 "distribution": "AUCUNE", "nombre_cylindres": 0,
+                 "puissance_ch": 184, "puissance_tr_min": 0, "couple_nm": 270, "couple_tr_min": 0,
+                 "qualite_huile": "N/A", "quantite_huile_l": 0.0, "intervalle_km_entretien": 20000},
+            ],
+
+            "Mitsubishi": [
+
+                # ======================
+                # Anciens / Classiques
+                # ======================
+                {"code_moteur": "4G32", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 1.6,
+                 "distribution": "CHAINE", "nombre_cylindres": 4,
+                 "puissance_ch": 85, "puissance_tr_min": 5500, "couple_nm": 127, "couple_tr_min": 3500,
+                 "qualite_huile": "20W50", "quantite_huile_l": 4.0, "intervalle_km_entretien": 8000},
+
+                {"code_moteur": "4G54", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 2.6,
+                 "distribution": "CHAINE", "nombre_cylindres": 4,
+                 "puissance_ch": 103, "puissance_tr_min": 5000, "couple_nm": 191, "couple_tr_min": 3000,
+                 "qualite_huile": "20W50", "quantite_huile_l": 4.5, "intervalle_km_entretien": 8000},
+
+                {"code_moteur": "4D55", "type_moteur": "ATM", "carburant": "DSL", "cylindree_l": 2.3,
+                 "distribution": "COURROIE", "nombre_cylindres": 4,
+                 "puissance_ch": 67, "puissance_tr_min": 4200, "couple_nm": 138, "couple_tr_min": 2500,
+                 "qualite_huile": "15W40", "quantite_huile_l": 5.5, "intervalle_km_entretien": 8000},
+
+                # ======================
+                # Modernes (1990–2005)
+                # ======================
+                {"code_moteur": "4G63", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 2.0,
+                 "distribution": "COURROIE", "nombre_cylindres": 4,
+                 "puissance_ch": 136, "puissance_tr_min": 6000, "couple_nm": 176, "couple_tr_min": 4500,
+                 "qualite_huile": "10W40", "quantite_huile_l": 4.5, "intervalle_km_entretien": 10000},
+
+                {"code_moteur": "4G63T", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 2.0,
+                 "distribution": "COURROIE", "nombre_cylindres": 4,
+                 "puissance_ch": 280, "puissance_tr_min": 6500, "couple_nm": 373, "couple_tr_min": 3000,
+                 "qualite_huile": "5W40", "quantite_huile_l": 5.0, "intervalle_km_entretien": 8000},
+
+                {"code_moteur": "6G72", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 3.0,
+                 "distribution": "COURROIE", "nombre_cylindres": 6,
+                 "puissance_ch": 220, "puissance_tr_min": 6000, "couple_nm": 278, "couple_tr_min": 4000,
+                 "qualite_huile": "10W40", "quantite_huile_l": 5.0, "intervalle_km_entretien": 12000},
+
+                # ======================
+                # Récents (2006–2020)
+                # ======================
+                {"code_moteur": "4B11", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 2.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 4,
+                 "puissance_ch": 150, "puissance_tr_min": 6000, "couple_nm": 197, "couple_tr_min": 4200,
+                 "qualite_huile": "5W30", "quantite_huile_l": 4.3, "intervalle_km_entretien": 15000},
+
+                {"code_moteur": "4B11T", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 2.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 4,
+                 "puissance_ch": 295, "puissance_tr_min": 6500, "couple_nm": 366, "couple_tr_min": 3000,
+                 "qualite_huile": "5W40", "quantite_huile_l": 5.0, "intervalle_km_entretien": 8000},
+
+                {"code_moteur": "4N15", "type_moteur": "TURBO", "carburant": "DSL", "cylindree_l": 2.4,
+                 "distribution": "CHAINE", "nombre_cylindres": 4,
+                 "puissance_ch": 181, "puissance_tr_min": 3500, "couple_nm": 430, "couple_tr_min": 2500,
+                 "qualite_huile": "5W30", "quantite_huile_l": 6.5, "intervalle_km_entretien": 20000},
+
+                # ======================
+                # Hybride / Électrique
+                # ======================
+                {"code_moteur": "PHEV-2.4", "type_moteur": "HYB_TE", "carburant": "ESS", "cylindree_l": 2.4,
+                 "distribution": "CHAINE", "nombre_cylindres": 4,
+                 "puissance_ch": 224, "puissance_tr_min": 6000, "couple_nm": 300, "couple_tr_min": 3000,
+                 "qualite_huile": "0W20", "quantite_huile_l": 4.5, "intervalle_km_entretien": 15000},
+
+                {"code_moteur": "Outlander-EV", "type_moteur": "ELEC", "carburant": "ELEC", "cylindree_l": 0.0,
+                 "distribution": "AUCUNE", "nombre_cylindres": 0,
+                 "puissance_ch": 204, "puissance_tr_min": 0, "couple_nm": 332, "couple_tr_min": 0,
+                 "qualite_huile": "N/A", "quantite_huile_l": 0.0, "intervalle_km_entretien": 20000},
+
+                # ======================
+                # Sport / Evolution
+                # ======================
+                {"code_moteur": "4G63-Evo-IX", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 2.0,
+                 "distribution": "COURROIE", "nombre_cylindres": 4,
+                 "puissance_ch": 280, "puissance_tr_min": 6500, "couple_nm": 400, "couple_tr_min": 3000,
+                 "qualite_huile": "5W40", "quantite_huile_l": 5.0, "intervalle_km_entretien": 8000},
+
+                {"code_moteur": "4B11T-Evo-X", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 2.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 4,
+                 "puissance_ch": 295, "puissance_tr_min": 6500, "couple_nm": 407, "couple_tr_min": 3000,
+                 "qualite_huile": "5W40", "quantite_huile_l": 5.0, "intervalle_km_entretien": 8000},
+            ],
+
+            "Morgan": [
+
+                # ======================
+                # Classiques / Historiques
+                # ======================
+                {"code_moteur": "V-Twin-2.0", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 2.0,
+                 "distribution": "COURROIE", "nombre_cylindres": 2,
+                 "puissance_ch": 21, "puissance_tr_min": 4000, "couple_nm": 50, "couple_tr_min": 2000,
+                 "qualite_huile": "20W50", "quantite_huile_l": 3.0, "intervalle_km_entretien": 5000},
+
+                {"code_moteur": "Ford-1.6-Kent", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 1.6,
+                 "distribution": "COURROIE", "nombre_cylindres": 4,
+                 "puissance_ch": 96, "puissance_tr_min": 6000, "couple_nm": 135, "couple_tr_min": 4000,
+                 "qualite_huile": "20W50", "quantite_huile_l": 4.5, "intervalle_km_entretien": 8000},
+
+                {"code_moteur": "Rover-V8-3.5", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 3.5,
+                 "distribution": "CHAINE", "nombre_cylindres": 8,
+                 "puissance_ch": 190, "puissance_tr_min": 5200, "couple_nm": 285, "couple_tr_min": 3000,
+                 "qualite_huile": "20W50", "quantite_huile_l": 5.5, "intervalle_km_entretien": 8000},
+
+                # ======================
+                # Modernes (1995–2010)
+                # ======================
+                {"code_moteur": "Ford-2.0-Duratec", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 2.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 4,
+                 "puissance_ch": 145, "puissance_tr_min": 6000, "couple_nm": 185, "couple_tr_min": 4500,
+                 "qualite_huile": "5W30", "quantite_huile_l": 4.5, "intervalle_km_entretien": 12000},
+
+                {"code_moteur": "Ford-3.0-V6", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 3.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 6,
+                 "puissance_ch": 223, "puissance_tr_min": 6000, "couple_nm": 280, "couple_tr_min": 4500,
+                 "qualite_huile": "5W30", "quantite_huile_l": 5.5, "intervalle_km_entretien": 12000},
+
+                # ======================
+                # Récents (2011–2025)
+                # ======================
+                {"code_moteur": "Ford-2.0-GDi", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 2.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 4,
+                 "puissance_ch": 154, "puissance_tr_min": 6500, "couple_nm": 201, "couple_tr_min": 4500,
+                 "qualite_huile": "5W30", "quantite_huile_l": 4.5, "intervalle_km_entretien": 15000},
+
+                {"code_moteur": "BMW-3.0-Turbo", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 3.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 6,
+                 "puissance_ch": 340, "puissance_tr_min": 5500, "couple_nm": 500, "couple_tr_min": 1600,
+                 "qualite_huile": "0W30", "quantite_huile_l": 6.5, "intervalle_km_entretien": 15000},
+
+                # ======================
+                # Spécial / 3 Wheeler
+                # ======================
+                {"code_moteur": "S&S-V-Twin", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 2.0,
+                 "distribution": "COURROIE", "nombre_cylindres": 2,
+                 "puissance_ch": 82, "puissance_tr_min": 4500, "couple_nm": 140, "couple_tr_min": 2500,
+                 "qualite_huile": "20W50", "quantite_huile_l": 3.5, "intervalle_km_entretien": 5000},
+
+                {"code_moteur": "Ford-1.5T-3W", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 1.5,
+                 "distribution": "CHAINE", "nombre_cylindres": 3,
+                 "puissance_ch": 118, "puissance_tr_min": 6000, "couple_nm": 150, "couple_tr_min": 2000,
+                 "qualite_huile": "5W20", "quantite_huile_l": 4.0, "intervalle_km_entretien": 15000},
+            ],
 
 
 
@@ -5070,122 +5767,9 @@ class Command(BaseCommand):
                  "intervalle_km_entretien": 30000},
             ],
 
-            "Lamborghini": [
 
-                # ===== Classiques (années 60–90) =====
-                {"code_moteur": "V12_Bizzarrini", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 3.5,
-                 "distribution": "CHAINE", "nombre_cylindres": 12, "puissance_ch": 280, "puissance_tr_min": 6500,
-                 "couple_nm": 325, "couple_tr_min": 4000, "qualite_huile": "20W50", "quantite_huile_l": 9.5,
-                 "intervalle_km_entretien": 10000},
-                {"code_moteur": "V12_5.2_Countach", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 5.2,
-                 "distribution": "CHAINE", "nombre_cylindres": 12, "puissance_ch": 455, "puissance_tr_min": 7000,
-                 "couple_nm": 500, "couple_tr_min": 5200, "qualite_huile": "20W50", "quantite_huile_l": 10.0,
-                 "intervalle_km_entretien": 10000},
 
-                # ===== Modernes (2000–2010) =====
-                {"code_moteur": "V12_Murcielago", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 6.2,
-                 "distribution": "CHAINE", "nombre_cylindres": 12, "puissance_ch": 580, "puissance_tr_min": 7500,
-                 "couple_nm": 650, "couple_tr_min": 5400, "qualite_huile": "5W40", "quantite_huile_l": 11.0,
-                 "intervalle_km_entretien": 15000},
-                {"code_moteur": "V10_Gallardo", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 5.0,
-                 "distribution": "CHAINE", "nombre_cylindres": 10, "puissance_ch": 520, "puissance_tr_min": 8000,
-                 "couple_nm": 510, "couple_tr_min": 4250, "qualite_huile": "5W40", "quantite_huile_l": 9.0,
-                 "intervalle_km_entretien": 15000},
 
-                # ===== Récents (2011–2023) =====
-                {"code_moteur": "V12_Aventador", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 6.5,
-                 "distribution": "CHAINE", "nombre_cylindres": 12, "puissance_ch": 770, "puissance_tr_min": 8500,
-                 "couple_nm": 720, "couple_tr_min": 6750, "qualite_huile": "0W40", "quantite_huile_l": 11.5,
-                 "intervalle_km_entretien": 15000},
-                {"code_moteur": "V10_Huracan", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 5.2,
-                 "distribution": "CHAINE", "nombre_cylindres": 10, "puissance_ch": 640, "puissance_tr_min": 8000,
-                 "couple_nm": 600, "couple_tr_min": 6500, "qualite_huile": "0W40", "quantite_huile_l": 9.5,
-                 "intervalle_km_entretien": 15000},
-
-                # ===== SUV / Turbo =====
-                {"code_moteur": "V8_Urus", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 4.0,
-                 "distribution": "CHAINE", "nombre_cylindres": 8, "puissance_ch": 666, "puissance_tr_min": 6000,
-                 "couple_nm": 850, "couple_tr_min": 2300, "qualite_huile": "0W40", "quantite_huile_l": 8.0,
-                 "intervalle_km_entretien": 15000},
-
-                # ===== Hybrides =====
-                {"code_moteur": "V12_Revuelto", "type_moteur": "HYB_E", "carburant": "ESS", "cylindree_l": 6.5,
-                 "distribution": "CHAINE", "nombre_cylindres": 12, "puissance_ch": 1015, "puissance_tr_min": 9000,
-                 "couple_nm": 725, "couple_tr_min": 6750, "qualite_huile": "0W40", "quantite_huile_l": 11.5,
-                 "intervalle_km_entretien": 15000},
-                {"code_moteur": "V10_Temerario", "type_moteur": "HYB_E", "carburant": "ESS", "cylindree_l": 4.0,
-                 "distribution": "CHAINE", "nombre_cylindres": 8, "puissance_ch": 920, "puissance_tr_min": 9000,
-                 "couple_nm": 800, "couple_tr_min": 3000, "qualite_huile": "0W40", "quantite_huile_l": 8.0,
-                 "intervalle_km_entretien": 15000},
-            ],
-
-            "McLaren": [
-
-                # ===== Premiers modèles (années 90) =====
-                {"code_moteur": "BMW_S70_6.1", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 6.1,
-                 "distribution": "CHAINE", "nombre_cylindres": 12, "puissance_ch": 627, "puissance_tr_min": 7400,
-                 "couple_nm": 651, "couple_tr_min": 5600, "qualite_huile": "10W60", "quantite_huile_l": 12.0,
-                 "intervalle_km_entretien": 12000},
-
-                # ===== 2000–2010 =====
-                {"code_moteur": "Mercedes_M838T", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 3.8,
-                 "distribution": "CHAINE", "nombre_cylindres": 8, "puissance_ch": 600, "puissance_tr_min": 7000,
-                 "couple_nm": 600, "couple_tr_min": 3000, "qualite_huile": "5W40", "quantite_huile_l": 8.5,
-                 "intervalle_km_entretien": 15000},
-
-                # ===== 2011–2020 =====
-                {"code_moteur": "M838T_650S", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 3.8,
-                 "distribution": "CHAINE", "nombre_cylindres": 8, "puissance_ch": 650, "puissance_tr_min": 7250,
-                 "couple_nm": 678, "couple_tr_min": 3000, "qualite_huile": "0W40", "quantite_huile_l": 8.5,
-                 "intervalle_km_entretien": 15000},
-                {"code_moteur": "M838T_720S", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 4.0,
-                 "distribution": "CHAINE", "nombre_cylindres": 8, "puissance_ch": 720, "puissance_tr_min": 7500,
-                 "couple_nm": 770, "couple_tr_min": 3000, "qualite_huile": "0W40", "quantite_huile_l": 8.5,
-                 "intervalle_km_entretien": 15000},
-
-                # ===== Hybrides =====
-                {"code_moteur": "V6_Artura", "type_moteur": "HYB_TE", "carburant": "ESS", "cylindree_l": 3.0,
-                 "distribution": "CHAINE", "nombre_cylindres": 6, "puissance_ch": 680, "puissance_tr_min": 7500,
-                 "couple_nm": 720, "couple_tr_min": 3000, "qualite_huile": "0W40", "quantite_huile_l": 7.5,
-                 "intervalle_km_entretien": 15000},
-
-                # ===== Extrêmes =====
-                {"code_moteur": "V8_Senna", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 4.0,
-                 "distribution": "CHAINE", "nombre_cylindres": 8, "puissance_ch": 800, "puissance_tr_min": 7250,
-                 "couple_nm": 800, "couple_tr_min": 3500, "qualite_huile": "0W40", "quantite_huile_l": 9.0,
-                 "intervalle_km_entretien": 12000},
-                {"code_moteur": "V8_P1", "type_moteur": "HYB_TE", "carburant": "ESS", "cylindree_l": 3.8,
-                 "distribution": "CHAINE", "nombre_cylindres": 8, "puissance_ch": 916, "puissance_tr_min": 7500,
-                 "couple_nm": 900, "couple_tr_min": 2500, "qualite_huile": "0W40", "quantite_huile_l": 9.0,
-                 "intervalle_km_entretien": 12000},
-
-            ],
-
-                "Mercedes-Benz": [
-
-                    # ===== Classiques (années 60–80) =====
-                    {"code_moteur":"M180","type_moteur":"ATM","carburant":"ESS","cylindree_l":2.0,"distribution":"CHAINE","nombre_cylindres":4,"puissance_ch":109,"puissance_tr_min":5200,"couple_nm":170,"couple_tr_min":3500,"qualite_huile":"20W50","quantite_huile_l":6.5,"intervalle_km_entretien":10000},
-                    {"code_moteur":"M127","type_moteur":"ATM","carburant":"ESS","cylindree_l":2.0,"distribution":"CHAINE","nombre_cylindres":4,"puissance_ch":120,"puissance_tr_min":5800,"couple_nm":170,"couple_tr_min":4000,"qualite_huile":"20W50","quantite_huile_l":6.5,"intervalle_km_entretien":10000},
-                    {"code_moteur":"OM615","type_moteur":"ATM","carburant":"DSL","cylindree_l":2.0,"distribution":"CHAINE","nombre_cylindres":4,"puissance_ch":55,"puissance_tr_min":4500,"couple_nm":123,"couple_tr_min":2500,"qualite_huile":"15W40","quantite_huile_l":7.0,"intervalle_km_entretien":10000},
-
-                    # ===== Modernes (1990–2010) =====
-                    {"code_moteur":"M111","type_moteur":"ATM","carburant":"ESS","cylindree_l":2.0,"distribution":"CHAINE","nombre_cylindres":4,"puissance_ch":136,"puissance_tr_min":5800,"couple_nm":190,"couple_tr_min":4000,"qualite_huile":"5W40","quantite_huile_l":6.5,"intervalle_km_entretien":15000},
-                    {"code_moteur":"M272","type_moteur":"ATM","carburant":"ESS","cylindree_l":3.0,"distribution":"CHAINE","nombre_cylindres":6,"puissance_ch":231,"puissance_tr_min":6200,"couple_nm":300,"couple_tr_min":3500,"qualite_huile":"5W40","quantite_huile_l":7.5,"intervalle_km_entretien":15000},
-                    {"code_moteur":"OM646","type_moteur":"TURBO","carburant":"DSL","cylindree_l":2.1,"distribution":"CHAINE","nombre_cylindres":4,"puissance_ch":140,"puissance_tr_min":4200,"couple_nm":300,"couple_tr_min":1600,"qualite_huile":"5W30","quantite_huile_l":7.0,"intervalle_km_entretien":20000},
-                    {"code_moteur":"OM651","type_moteur":"TURBO","carburant":"DSL","cylindree_l":2.1,"distribution":"CHAINE","nombre_cylindres":4,"puissance_ch":170,"puissance_tr_min":4200,"couple_nm":400,"couple_tr_min":1600,"qualite_huile":"5W30","quantite_huile_l":7.5,"intervalle_km_entretien":20000},
-
-                    # ===== Récents (2011–2025) =====
-                    {"code_moteur":"M274","type_moteur":"TURBO","carburant":"ESS","cylindree_l":2.0,"distribution":"CHAINE","nombre_cylindres":4,"puissance_ch":211,"puissance_tr_min":5500,"couple_nm":350,"couple_tr_min":1200,"qualite_huile":"0W40","quantite_huile_l":6.5,"intervalle_km_entretien":15000},
-                    {"code_moteur":"M264","type_moteur":"TURBO","carburant":"ESS","cylindree_l":1.3,"distribution":"CHAINE","nombre_cylindres":4,"puissance_ch":163,"puissance_tr_min":5000,"couple_nm":250,"couple_tr_min":1500,"qualite_huile":"0W40","quantite_huile_l":5.5,"intervalle_km_entretien":15000},
-                    {"code_moteur":"OM654","type_moteur":"TURBO","carburant":"DSL","cylindree_l":2.0,"distribution":"CHAINE","nombre_cylindres":4,"puissance_ch":194,"puissance_tr_min":4200,"couple_nm":400,"couple_tr_min":1400,"qualite_huile":"0W30","quantite_huile_l":7.5,"intervalle_km_entretien":20000},
-
-                    # ===== Hybrides =====
-                    {"code_moteur":"M254e","type_moteur":"HYB_TE","carburant":"ESS","cylindree_l":2.0,"distribution":"CHAINE","nombre_cylindres":4,"puissance_ch":320,"puissance_tr_min":6000,"couple_nm":400,"couple_tr_min":2000,"qualite_huile":"0W40","quantite_huile_l":6.5,"intervalle_km_entretien":15000},
-
-                    # ===== Électrique =====
-                    {"code_moteur":"EQC-E","type_moteur":"ELEC","carburant":"ELEC","cylindree_l":0.0,"distribution":"CHAINE","nombre_cylindres":0,"puissance_ch":408,"puissance_tr_min":0,"couple_nm":760,"couple_tr_min":0,"qualite_huile":"N/A","quantite_huile_l":0.0,"intervalle_km_entretien":30000},
-
-                ],
 
 
         }
