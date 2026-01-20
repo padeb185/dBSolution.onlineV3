@@ -1,83 +1,83 @@
 {% extends "base.html" %}
 {% load i18n static widget_tweaks %}
+
 {% block title %}{% trans "Liste des moteurs" %}{% endblock %}
 
 {% block content %}
 <h1 class="text-2xl font-bold mb-6 flex items-center">
-    <!-- Icône PNG plus petite -->
-    <img src="{% static 'icons/engine.png' %}" alt="Moteur"
-     style="width:60px; height:60px; margin-right:10px;">
-
+    <img src="{% static 'icons/engine.png' %}" alt="Liste des moteurs"
+         style="width:60px; height:60px; margin-right:10px;">
     {% trans "Liste des moteurs" %}
 </h1>
 
-
-<!-- Filtres + bouton ajouter -->
+<!-- Filtres + bouton Ajouter -->
 <div class="bg-white shadow-md rounded-lg p-4 mb-4">
-  <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
-    <input id="search-motoriste" type="text" class="border rounded px-3 py-2"
-           placeholder="{% trans 'Rechercher par motoriste' %}">
-    <input id="search-code" type="text" class="border rounded px-3 py-2"
-           placeholder="{% trans 'Rechercher par code moteur' %}">
-    <input id="search-cylindree" type="text" class="border rounded px-3 py-2"
-           placeholder="{% trans 'Rechercher par cylindrée' %}">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+        <input id="search-motoriste" type="text" class="border rounded px-3 py-2"
+               placeholder="{% trans 'Rechercher par motoriste' %}">
+        <input id="search-code_moteur" type="text" class="border rounded px-3 py-2"
+               placeholder="{% trans 'Rechercher par code moteur' %}">
+        <input id="search-cylindree_l" type="text" class="border rounded px-3 py-2"
+               placeholder="{% trans 'Rechercher par cylindrée' %}">
 
-    <!-- Bouton Ajouter moteur -->
-    <a href="{% url 'voiture_moteur:ajouter_moteur_seul' %}"
-       class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition">
-        {% trans "Ajouter un moteur" %}
-    </a>
-  </div>
+        <a href="{% url 'voiture_moteur:ajouter_moteur_seul' %}"
+           class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition">
+            {% trans "Ajouter un moteur" %}
+        </a>
+    </div>
 </div>
 
-<table id="moteurs-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
-  <thead>
-    <tr class="bg-gray-100">
-      <th class="border px-4 py-2 cursor-pointer">{% trans "Motoriste" %}</th>
-      <th class="border px-4 py-2 cursor-pointer">{% trans "Code moteur" %}</th>
-      <th class="border px-4 py-2 cursor-pointer">{% trans "Type" %}</th>
-      <th class="border px-4 py-2 cursor-pointer">{% trans "Carburant" %}</th>
-      <th class="border px-4 py-2 cursor-pointer">{% trans "Cylindrée (L)" %}</th>
-      <th class="border px-4 py-2 cursor-pointer">{% trans "Puissance (CH)" %}</th>
-        <th class="border px-4 py-2 text-left">{% trans "Info" %}</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for moteur in moteurs %}
-    <tr class="bg-white hover:bg-gray-50">
-      <td class="border px-4 py-2">{{ moteur.motoriste }}</td>
-      <td class="border px-4 py-2">{{ moteur.code_moteur }}</td>
-      <td class="border px-4 py-2">{{ moteur.get_type_moteur_display }}</td>
-      <td class="border px-4 py-2">{{ moteur.get_carburant_display }}</td>
-      <td class="border px-4 py-2">{{ moteur.cylindree_l }}</td>
-      <td class="border px-4 py-2">{{ moteur.puissance_ch }}</td>
-        <td class="border px-4 py-2 text-center">
-          <a href="{% url 'voiture_moteur:detail' moteur.id %}"
-             class="text-blue-600 hover:text-blue-800 font-semibold">
-            {% trans "Info" %}
-          </a>
-        </td>
-    </tr>
-    {% empty %}
-    <tr>
-      <td colspan="6" class="border px-4 py-2 text-center">
-        {% trans "Aucun moteur trouvé." %}
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
+<!-- Table -->
+<table id="boites-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Nom du Motoristet" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Code moteur" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Cylindree" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Type moteur" %}</th>
+             <th class="border px-4 py-2 cursor-pointer">{% trans "Carburant" %}</th>
+             <th class="border px-4 py-2 cursor-pointer">{% trans "Nombre de cylindres" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Puissance (CH)" %}</th>
+            <th class="border px-4 py-2 cursor-pointer text-center">{% trans "Info" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for moteur in moteurs %}
+        <tr>
+            <td class="border px-4 py-2">{{ moteur.motoriste }}</td>
+            <td class="border px-4 py-2">{{ moteur.code_moteur }}</td>
+            <td class="border px-4 py-2">{{ moteur.cylindree_l}}</td>
+             <td class="border px-4 py-2">{{ moteur.get_type_moteur_display }}</td>
+             <td class="border px-4 py-2">{{ moteur.get_carburant_display }}</td>
+             <td class="border px-4 py-2">{{ moteur.nombre_cylindres }}</td>
+             <td class="border px-4 py-2">{{ moteur.puissance_ch }}</td>
+
+            <td class="border px-4 py-2 text-center">
+                <a href="{% url 'voiture_moteur:detail' moteur.id %}"
+                   class="text-blue-600 hover:text-blue-800 font-semibold">
+                    {% trans "Info" %}
+                </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td class="border px-4 py-2 text-center" colspan="4">{% trans "Aucun moteur trouvé." %}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
 </table>
 
+<!-- DataTables JS -->
 <script>
 $(document).ready(function() {
-    var table = $('#moteurs-table').DataTable({
+    var table = $('#boites-table').DataTable({
         pageLength: 100,
         language: {
             search: "{% trans 'Recherche globale :' %}",
             lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
-            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ moteurs' %}",
-            infoEmpty: "{% trans 'Aucun moteur trouvé' %}",
-            zeroRecords: "{% trans 'Aucun moteur trouvé' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ boîtes' %}",
+            infoEmpty: "{% trans 'Aucune boîte trouvée' %}",
+            zeroRecords: "{% trans 'Aucune boîte trouvée' %}",
             paginate: {
                 first: "{% trans 'Premier' %}",
                 last: "{% trans 'Dernier' %}",
@@ -88,16 +88,25 @@ $(document).ready(function() {
         order: [[0, "asc"]]
     });
 
-    $('#search-motoriste').on('keyup', function () {
+    // Filtres par colonne
+    $('#search-fabricant').on('keyup', function () {
         table.column(0).search(this.value).draw();
     });
-    $('#search-code').on('keyup', function () {
+    $('#search-nom_du_type').on('keyup', function () {
         table.column(1).search(this.value).draw();
     });
-    $('#search-cylindree').on('keyup', function () {
+    $('#search-type_de_boite').on('keyup', function () {
+        table.column(2).search(this.value).draw();
+    });
+    $('#search-nombre_rapport').on('keyup', function () {
+        table.column(3).search(this.value).draw();
+    });
+    $('#search-quantite_huile_l').on('keyup', function () {
         table.column(4).search(this.value).draw();
+    });
+    $('#search-qualite_huile').on('keyup', function () {
+        table.column(5).search(this.value).draw();
     });
 });
 </script>
-
 {% endblock %}

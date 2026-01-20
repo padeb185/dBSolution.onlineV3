@@ -1,26 +1,27 @@
 from django.db import models
 from django.db.models import Q
 import uuid
+from django.utils.translation import gettext_lazy as _
 
 class TypeMoteur(models.TextChoices):
-    TURBO = "TURBO", "Turbo"
-    ATMOSPHERIQUE = "ATM", "Atmosphérique"
-    WANKEL = "WANKEL", "Wankel"
-    HYBRIDE_ESSENCE = "HYB_E", "Hybride essence"
-    HYBRIDE_TURBO_ESSENCE = "HYB_TE", "Hybride turbo essence"
-    ELECTRIQUE = "ELEC", "Machine électrique"
+    TURBO = "TURBO", _("Turbo")
+    ATMOSPHERIQUE = "ATM", _("Atmosphérique")
+    WANKEL = "WANKEL", _("Wankel")
+    HYBRIDE_ESSENCE = "HYB_E", _("Hybride essence")
+    HYBRIDE_TURBO_ESSENCE = "HYB_TE", _("Hybride turbo essence")
+    ELECTRIQUE = "ELEC", _("Machine électrique")
 
 class TypeCarburant(models.TextChoices):
-    ESSENCE = "ESS", "Essence"
-    DIESEL = "DSL", "Diesel"
-    ELECTRICITE = "ELEC", "Électricité"
-    CNG = "CNG", "Gaz naturel (CNG)"
-    LPG = "LPG", "GPL"
-    HYDROGENE = "H2", "Hydrogène"
+    ESSENCE = "ESS", _("Essence")
+    DIESEL = "DSL", _("Diesel")
+    ELECTRICITE = "ELEC", _("Électricité")
+    CNG = "CNG", _("Gaz naturel (CNG)")
+    LPG = "LPG", _("GPL")
+    HYDROGENE = "H2", _("Hydrogène")
 
 class TypeDistribution(models.TextChoices):
-    CHAINE = "CHAINE", "Chaîne"
-    COURROIE = "COURROIE", "Courroie"
+    CHAINE = "CHAINE", _("Chaîne")
+    COURROIE = "COURROIE", _("Courroie")
 
 class MoteurVoiture(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

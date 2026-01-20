@@ -1,14 +1,13 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import connection
 from django.views.generic import ListView
+from django_tenants.utils import tenant_context
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import gettext as _
-from voiture.voiture_exemplaire.models import VoitureExemplaire
 from .forms import MoteurVoitureForm
-from .models import MoteurVoiture
-
+from .models import MoteurVoiture, TypeCarburant, TypeMoteur
 
 
 @login_required
@@ -47,31 +46,35 @@ def moteur_detail_view(request, moteur_id):
 
 
 
+@login_required
+def liste_moteur(request):
 
-
-
-class MoteurListView(ListView):
-    model = MoteurVoiture
-    template_name = "voiture_moteur/list.html"  # <-- chemin correct
-    context_object_name = "moteurs"
-    #paginate_by = 1000 # optionnel
-
-    def get_queryset(self):
-        print("Schema actif:", connection.schema_name)
-        return MoteurVoiture.objects.all()
+    tenant = request.user.societe
+    with tenant_context(tenant):
+        moteurs = MoteurVoiture.objects.all()
+    return render(request, "voiture_moteur/list.html", {"moteurs": moteurs})
 
 
 
 
+@login_required
 def ajouter_moteur_seul(request):
     if request.method == "POST":
-        form = MoteurVoitureForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("voiture_moteur:list")
-    else:
-        form = MoteurVoitureForm()
+        MoteurVoiture.objects.create(
+            motoriste=request.POST.get("motoriste"),
+            code_moteur=request.POST.get("code_moteur"),
+            type_moteur=request.POST.get("type_moteur"),
+            carburant=request.POST.get("carburant"),
+            cylindree_l=request.POST.get("cylindree_l"),
+            nombre_cylindres=request.POST.get("nombre_cylindres"),
+        )
+        return redirect("voiture_moteur:list")
 
-    return render(request, "voiture_moteur/ajouter_moteur_seul.html", {
-        "form": form
-    })
+    # Passer TypeEmbrayage au template pour la liste déroulante
+    context = {
+        "TypeMoteur": TypeMoteur,
+        "TypeCarburant": TypeCarburant,
+
+    }
+
+    return render(request, "voiture_moteur/ajouter_moteur_seul.html", context)

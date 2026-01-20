@@ -52,9 +52,7 @@ def liste_boite(request):
     return render(request, "voiture_boite/list.html", {"boites": boites})
 
 
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-from voiture.voiture_boite.models import VoitureBoite, TypeBoite
+
 
 @login_required
 def ajouter_boite_simple(request):
