@@ -6430,9 +6430,158 @@ class Command(BaseCommand):
 
             ],
 
+            "Rimac": [
 
+                # ======================
+                # Électriques (2011–2025)
+                # ======================
+                {"code_moteur": "Rimac-Concept_One", "type_moteur": "ELEC", "carburant": "ELEC", "cylindree_l": 0.0,
+                 "distribution": "AUCUNE", "nombre_cylindres": 0,
+                 "puissance_ch": 1088, "puissance_tr_min": 0, "couple_nm": 1600, "couple_tr_min": 0,
+                 "qualite_huile": "N/A", "quantite_huile_l": 0.0, "intervalle_km_entretien": 30000},
 
+                {"code_moteur": "Rimac-C_Two", "type_moteur": "ELEC", "carburant": "ELEC", "cylindree_l": 0.0,
+                 "distribution": "AUCUNE", "nombre_cylindres": 0,
+                 "puissance_ch": 1914, "puissance_tr_min": 0, "couple_nm": 2300, "couple_tr_min": 0,
+                 "qualite_huile": "N/A", "quantite_huile_l": 0.0, "intervalle_km_entretien": 30000},
 
+                {"code_moteur": "Rimac-Nevera", "type_moteur": "ELEC", "carburant": "ELEC", "cylindree_l": 0.0,
+                 "distribution": "AUCUNE", "nombre_cylindres": 0,
+                 "puissance_ch": 1914, "puissance_tr_min": 0, "couple_nm": 2360, "couple_tr_min": 0,
+                 "qualite_huile": "N/A", "quantite_huile_l": 0.0, "intervalle_km_entretien": 30000},
+
+            ],
+
+            "Rivian": [
+
+                # ======================
+                # Électriques récents (2018–2025)
+                # ======================
+                {"code_moteur": "R1T-Quad-Motor", "type_moteur": "ELEC", "carburant": "ELEC", "cylindree_l": 0.0,
+                 "distribution": "AUCUNE", "nombre_cylindres": 0,
+                 "puissance_ch": 750, "puissance_tr_min": 0, "couple_nm": 1120, "couple_tr_min": 0,
+                 "qualite_huile": "N/A", "quantite_huile_l": 0.0, "intervalle_km_entretien": 25000},
+
+                {"code_moteur": "R1S-Quad-Motor", "type_moteur": "ELEC", "carburant": "ELEC", "cylindree_l": 0.0,
+                 "distribution": "AUCUNE", "nombre_cylindres": 0,
+                 "puissance_ch": 750, "puissance_tr_min": 0, "couple_nm": 1120, "couple_tr_min": 0,
+                 "qualite_huile": "N/A", "quantite_huile_l": 0.0, "intervalle_km_entretien": 25000},
+
+                {"code_moteur": "R1T-Dual-Motor", "type_moteur": "ELEC", "carburant": "ELEC", "cylindree_l": 0.0,
+                 "distribution": "AUCUNE", "nombre_cylindres": 0,
+                 "puissance_ch": 600, "puissance_tr_min": 0, "couple_nm": 900, "couple_tr_min": 0,
+                 "qualite_huile": "N/A", "quantite_huile_l": 0.0, "intervalle_km_entretien": 25000},
+
+                {"code_moteur": "R1S-Dual-Motor", "type_moteur": "ELEC", "carburant": "ELEC", "cylindree_l": 0.0,
+                 "distribution": "AUCUNE", "nombre_cylindres": 0,
+                 "puissance_ch": 600, "puissance_tr_min": 0, "couple_nm": 900, "couple_tr_min": 0,
+                 "qualite_huile": "N/A", "quantite_huile_l": 0.0, "intervalle_km_entretien": 25000},
+
+            ],
+
+            "Rolls-Royce": [
+
+                # ======================
+                # Classiques / Anciens (1950–1999)
+                # ======================
+                {"code_moteur": "L6-6.2", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 6.2,
+                 "distribution": "CHAINE", "nombre_cylindres": 6,
+                 "puissance_ch": 200, "puissance_tr_min": 4500, "couple_nm": 460, "couple_tr_min": 2500,
+                 "qualite_huile": "20W50", "quantite_huile_l": 8.0, "intervalle_km_entretien": 12000},
+
+                {"code_moteur": "V8-6.75", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 6.75,
+                 "distribution": "CHAINE", "nombre_cylindres": 8,
+                 "puissance_ch": 300, "puissance_tr_min": 4500, "couple_nm": 550, "couple_tr_min": 2500,
+                 "qualite_huile": "20W50", "quantite_huile_l": 8.0, "intervalle_km_entretien": 12000},
+
+                # ======================
+                # Modernes / 2000–2015
+                # ======================
+                {"code_moteur": "V12-6.75TwinTurbo", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 6.75,
+                 "distribution": "CHAINE", "nombre_cylindres": 12,
+                 "puissance_ch": 460, "puissance_tr_min": 5000, "couple_nm": 720, "couple_tr_min": 3000,
+                 "qualite_huile": "0W40", "quantite_huile_l": 10.0, "intervalle_km_entretien": 15000},
+
+                {"code_moteur": "V12-6.75TwinTurbo-Phantom", "type_moteur": "TURBO", "carburant": "ESS",
+                 "cylindree_l": 6.75, "distribution": "CHAINE", "nombre_cylindres": 12,
+                 "puissance_ch": 570, "puissance_tr_min": 5000, "couple_nm": 780, "couple_tr_min": 3000,
+                 "qualite_huile": "0W40", "quantite_huile_l": 10.0, "intervalle_km_entretien": 15000},
+
+                # ======================
+                # Très récents / 2016–2025
+                # ======================
+                {"code_moteur": "V12-6.75TT-PhantomVIII", "type_moteur": "TURBO", "carburant": "ESS",
+                 "cylindree_l": 6.75, "distribution": "CHAINE", "nombre_cylindres": 12,
+                 "puissance_ch": 563, "puissance_tr_min": 5000, "couple_nm": 900, "couple_tr_min": 3000,
+                 "qualite_huile": "0W40", "quantite_huile_l": 10.0, "intervalle_km_entretien": 20000},
+
+                {"code_moteur": "V12-6.75TT-Cullinan", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 6.75,
+                 "distribution": "CHAINE", "nombre_cylindres": 12,
+                 "puissance_ch": 563, "puissance_tr_min": 5000, "couple_nm": 850, "couple_tr_min": 3000,
+                 "qualite_huile": "0W40", "quantite_huile_l": 10.0, "intervalle_km_entretien": 20000},
+
+                # ======================
+                # Hybride expérimental / Électrique (futur concept)
+                # ======================
+                {"code_moteur": "Silent-Soul-EV", "type_moteur": "ELEC", "carburant": "ELEC", "cylindree_l": 0.0,
+                 "distribution": "AUCUNE", "nombre_cylindres": 0,
+                 "puissance_ch": 600, "puissance_tr_min": 0, "couple_nm": 950, "couple_tr_min": 0,
+                 "qualite_huile": "N/A", "quantite_huile_l": 0.0, "intervalle_km_entretien": 30000},
+
+            ],
+
+            "Rover": [
+
+                # ======================
+                # Classiques / Anciens (1950–1999)
+                # ======================
+                {"code_moteur": "P6-2000", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 2.0,
+                 "distribution": "CHAINE", "nombre_cylindres": 4,
+                 "puissance_ch": 104, "puissance_tr_min": 5400, "couple_nm": 160, "couple_tr_min": 3500,
+                 "qualite_huile": "20W50", "quantite_huile_l": 5.0, "intervalle_km_entretien": 10000},
+
+                {"code_moteur": "P6-2200", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 2.2,
+                 "distribution": "CHAINE", "nombre_cylindres": 4,
+                 "puissance_ch": 118, "puissance_tr_min": 5400, "couple_nm": 180, "couple_tr_min": 3500,
+                 "qualite_huile": "20W50", "quantite_huile_l": 5.0, "intervalle_km_entretien": 10000},
+
+                {"code_moteur": "V8-3.5", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 3.5,
+                 "distribution": "CHAINE", "nombre_cylindres": 8,
+                 "puissance_ch": 135, "puissance_tr_min": 5000, "couple_nm": 270, "couple_tr_min": 3500,
+                 "qualite_huile": "20W50", "quantite_huile_l": 6.5, "intervalle_km_entretien": 10000},
+
+                # ======================
+                # Modernes / 2000–2010
+                # ======================
+                {"code_moteur": "K-Serie-1.4", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 1.4,
+                 "distribution": "CHAINE", "nombre_cylindres": 4,
+                 "puissance_ch": 103, "puissance_tr_min": 6000, "couple_nm": 128, "couple_tr_min": 4000,
+                 "qualite_huile": "5W40", "quantite_huile_l": 4.0, "intervalle_km_entretien": 10000},
+
+                {"code_moteur": "K-Serie-1.6", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 1.6,
+                 "distribution": "CHAINE", "nombre_cylindres": 4,
+                 "puissance_ch": 120, "puissance_tr_min": 6000, "couple_nm": 160, "couple_tr_min": 4000,
+                 "qualite_huile": "5W40", "quantite_huile_l": 4.5, "intervalle_km_entretien": 10000},
+
+                {"code_moteur": "KV6-2.5V6", "type_moteur": "ATM", "carburant": "ESS", "cylindree_l": 2.5,
+                 "distribution": "CHAINE", "nombre_cylindres": 6,
+                 "puissance_ch": 177, "puissance_tr_min": 6000, "couple_nm": 240, "couple_tr_min": 4000,
+                 "qualite_huile": "5W40", "quantite_huile_l": 5.5, "intervalle_km_entretien": 12000},
+
+                {"code_moteur": "KV6-2.5V6-Turbo", "type_moteur": "TURBO", "carburant": "ESS", "cylindree_l": 2.5,
+                 "distribution": "CHAINE", "nombre_cylindres": 6,
+                 "puissance_ch": 200, "puissance_tr_min": 6000, "couple_nm": 280, "couple_tr_min": 4000,
+                 "qualite_huile": "5W40", "quantite_huile_l": 5.5, "intervalle_km_entretien": 12000},
+
+                # ======================
+                # Électriques / hybrides (concepts récents)
+                # ======================
+                {"code_moteur": "Rover-EV-Prototype", "type_moteur": "ELEC", "carburant": "ELEC", "cylindree_l": 0.0,
+                 "distribution": "AUCUNE", "nombre_cylindres": 0,
+                 "puissance_ch": 150, "puissance_tr_min": 0, "couple_nm": 300, "couple_tr_min": 0,
+                 "qualite_huile": "N/A", "quantite_huile_l": 0.0, "intervalle_km_entretien": 20000},
+
+            ],
 
         }
 
