@@ -43,10 +43,13 @@
              data-marque-id="{{ marque.id_marque }}"
              data-marque-nom="{{ marque.nom_marque|lower }}">
 
-            <div class="flex-1">
+           <div class="flex-1">
                 <h2 class="text-lg font-semibold">{{ marque.nom_marque }}</h2>
-                <p class="text-gray-600">{% trans "Voir les modèles " %} {{ marque.nom_marque }} </p>
-            </div>
+                <p class="text-gray-600">
+                    {% trans "Voir les" %} {{ marque.modeles.count }} {% trans "modèles de" %} {{ marque.nom_marque }}
+                </p>
+           </div>
+
 
             <img src="{% static 'images/marques/' %}{{ marque.nom_marque|lower }}.png"
                  style="width:75px; margin-right:5px;"

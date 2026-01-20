@@ -108,17 +108,12 @@ def ajouter_moteur_seul(request):
 
         messages.success(request, "Moteur ajouté avec succès !")
 
-
-
         return redirect("voiture_moteur:ajouter_moteur_seul")
 
-    # Passer TypeMoteur, TypeCarburant et TypeDistribution au template
     context = {
         "TypeMoteur": TypeMoteur,
         "TypeCarburant": TypeCarburant,
         "TypeDistribution": TypeDistribution,
 
     }
-
-
     return render(request, "voiture_moteur/ajouter_moteur_seul.html", context)
