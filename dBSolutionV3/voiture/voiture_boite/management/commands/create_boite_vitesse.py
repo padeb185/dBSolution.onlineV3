@@ -4821,6 +4821,813 @@ class Command(BaseCommand):
                     "voiture_exemplaire": None,
                 },
 
+                # ======================
+                # Boîtes automatiques Maserati – berlines et SUV
+                # ======================
+                {
+                    "fabricant": "Maserati",
+                    "nom_du_type": "8-speed Automatic ZF",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 8,
+                    "qualite_huile": "ZF Lifeguard 8 / Maserati Gear Oil",
+                    "quantite_huile_l": 7.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 90000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Maserati",
+                    "nom_du_type": "8-speed Automatic Sport / MC20",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 8,
+                    "qualite_huile": "ZF Lifeguard 8 Sport / Maserati Gear Oil",
+                    "quantite_huile_l": 7.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 2,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes hybrides Maserati – Ghibli Hybrid, Levante Hybrid
+                # ======================
+                {
+                    "fabricant": "Maserati",
+                    "nom_du_type": "Hybrid e-CVT / PHEV",
+                    "type_de_boite": "Hybride",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "e-CVT Fluid",
+                    "quantite_huile_l": 2.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 3,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes électriques Maserati – MC20 EV concept
+                # ======================
+                {
+                    "fabricant": "Maserati",
+                    "nom_du_type": "Electric Single-Speed",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 4,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes automatiques Maybach (S-Class, GLS)
+                # ======================
+                {
+                    "fabricant": "Maybach",
+                    "nom_du_type": "9-speed Automatic 9G-Tronic",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 9,
+                    "qualite_huile": "Mercedes-Benz 236.15 / 236.14 ATF",
+                    "quantite_huile_l": 9.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 90000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Maybach",
+                    "nom_du_type": "9-speed Automatic 9G-Tronic (GLS 600 4MATIC)",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 9,
+                    "qualite_huile": "Mercedes-Benz 236.15 / 236.14 ATF",
+                    "quantite_huile_l": 9.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 90000,
+                    "dernier_entretien": None,
+                    "numero_boite": 2,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes hybrides / PHEV Maybach (S 580e)
+                # ======================
+                {
+                    "fabricant": "Maybach",
+                    "nom_du_type": "Hybrid e-CVT / PHEV",
+                    "type_de_boite": "Hybride",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "e-CVT Fluid / Mercedes-Benz PHEV Fluid",
+                    "quantite_huile_l": 2.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 3,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes électriques Maybach (concept ou futur EQS / EQS SUV)
+                # ======================
+                {
+                    "fabricant": "Maybach",
+                    "nom_du_type": "Electric Single-Speed",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 4,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes manuelles Mazda (Mazda3, Mazda6, CX-3, MX-5)
+                # ======================
+                {
+                    "fabricant": "Mazda",
+                    "nom_du_type": "Manual 5-speed",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "SAE 75W90 GL-4",
+                    "quantite_huile_l": 2.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 50000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Mazda",
+                    "nom_du_type": "Manual 6-speed",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "SAE 75W90 GL-4",
+                    "quantite_huile_l": 2.7,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 2,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes automatiques Mazda (SkyActiv 6 / 6-speed AT / 8-speed AT)
+                # ======================
+                {
+                    "fabricant": "Mazda",
+                    "nom_du_type": "6-speed Automatic SkyActiv",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "Mazda ATF FZ / Dexron-VI",
+                    "quantite_huile_l": 6.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 3,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Mazda",
+                    "nom_du_type": "8-speed Automatic (CX-9, Mazda6 newer)",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 8,
+                    "qualite_huile": "Mazda ATF FZ / Dexron-VI",
+                    "quantite_huile_l": 7.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 90000,
+                    "dernier_entretien": None,
+                    "numero_boite": 4,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Boîtes hybrides / électriques Mazda (MX-30 PHEV / EV)
+                # ======================
+                {
+                    "fabricant": "Mazda",
+                    "nom_du_type": "Hybrid e-CVT (MX-30 PHEV)",
+                    "type_de_boite": "Hybride",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "e-CVT Fluid",
+                    "quantite_huile_l": 2.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 5,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Mazda",
+                    "nom_du_type": "Electric Single-Speed (MX-30 EV)",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 6,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # MazdaSpeed – Manuelles sportives
+                # ======================
+                {
+                    "fabricant": "MazdaSpeed",
+                    "nom_du_type": "Manual 6-speed Sport",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "Mazda MTF / 75W90 GL-4 Sport",
+                    "quantite_huile_l": 2.7,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 50000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # MazdaSpeed – DCT / Automatic (Mazdaspeed6 / MX-5 RF editions)
+                # ======================
+                {
+                    "fabricant": "MazdaSpeed",
+                    "nom_du_type": "6-speed Automatic / DCT Sport",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "Mazda DCT Fluid / FZ",
+                    "quantite_huile_l": 3.2,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 2,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+                # ======================
+                # McLaren – Boîtes sportives (DCT double embrayage)
+                # ======================
+                {
+                    "fabricant": "McLaren",
+                    "nom_du_type": "7-speed Dual-Clutch Transmission (DCT)",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 7,
+                    "qualite_huile": "McLaren DCT Fluid",
+                    "quantite_huile_l": 3.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 40000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "McLaren",
+                    "nom_du_type": "7-speed Dual-Clutch Sport / GT",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 7,
+                    "qualite_huile": "McLaren DCT Sport Fluid",
+                    "quantite_huile_l": 3.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 50000,
+                    "dernier_entretien": None,
+                    "numero_boite": 2,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # McLaren – Hybrides (Artura, P1)
+                # ======================
+                {
+                    "fabricant": "McLaren",
+                    "nom_du_type": "8-speed DCT Hybrid / Artura",
+                    "type_de_boite": "Hybride",
+                    "nombre_rapport": 8,
+                    "qualite_huile": "McLaren DCT Hybrid Fluid",
+                    "quantite_huile_l": 3.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 40000,
+                    "dernier_entretien": None,
+                    "numero_boite": 3,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "McLaren",
+                    "nom_du_type": "7-speed DCT P1 Hybrid",
+                    "type_de_boite": "Hybride",
+                    "nombre_rapport": 7,
+                    "qualite_huile": "McLaren DCT Hybrid Fluid",
+                    "quantite_huile_l": 3.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 40000,
+                    "dernier_entretien": None,
+                    "numero_boite": 4,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # McLaren – Electrique concept (single-speed, futur)
+                # ======================
+                {
+                    "fabricant": "McLaren",
+                    "nom_du_type": "Electric Single-Speed",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 5,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # AMG – Boîtes automatiques / Speedshift MCT
+                # ======================
+                {
+                    "fabricant": "Mercedes-AMG",
+                    "nom_du_type": "7-speed AMG Speedshift MCT (C63, E63)",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 7,
+                    "qualite_huile": "AMG MCT Fluid",
+                    "quantite_huile_l": 9.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 40000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Mercedes-AMG",
+                    "nom_du_type": "9-speed AMG Speedshift TCT / 9G-Tronic (GT, S63, G63)",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 9,
+                    "qualite_huile": "AMG ATF / Mercedes 236.15",
+                    "quantite_huile_l": 9.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 90000,
+                    "dernier_entretien": None,
+                    "numero_boite": 2,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # AMG – Hybrides / PHEV (GT 63 S E Performance, EQS 53 AMG)
+                # ======================
+                {
+                    "fabricant": "Mercedes-AMG",
+                    "nom_du_type": "Hybrid e-CVT / PHEV AMG",
+                    "type_de_boite": "Hybride",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "e-CVT Fluid / AMG Hybrid Fluid",
+                    "quantite_huile_l": 2.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 3,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # AMG – Electriques (EQS 53 AMG, concept)
+                # ======================
+                {
+                    "fabricant": "Mercedes-AMG",
+                    "nom_du_type": "Electric Single-Speed AMG",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid High Performance",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 4,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Mercedes-Benz – Boîtes manuelles classiques (rare sur modernes)
+                # ======================
+                {
+                    "fabricant": "Mercedes-Benz",
+                    "nom_du_type": "Manual 5-speed / 6-speed",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "Mercedes-Benz Manual Transmission Fluid",
+                    "quantite_huile_l": 2.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Mercedes-Benz – Automatiques 7G-Tronic / 9G-Tronic
+                # ======================
+                {
+                    "fabricant": "Mercedes-Benz",
+                    "nom_du_type": "7-speed Automatic 7G-Tronic",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 7,
+                    "qualite_huile": "Mercedes 236.14 / 236.12 ATF",
+                    "quantite_huile_l": 7.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 90000,
+                    "dernier_entretien": None,
+                    "numero_boite": 2,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Mercedes-Benz",
+                    "nom_du_type": "9-speed Automatic 9G-Tronic",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 9,
+                    "qualite_huile": "Mercedes 236.15 ATF",
+                    "quantite_huile_l": 9.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 90000,
+                    "dernier_entretien": None,
+                    "numero_boite": 3,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Mercedes-Benz – Hybrides / PHEV (C 300e, E 300e, GLC 300e)
+                # ======================
+                {
+                    "fabricant": "Mercedes-Benz",
+                    "nom_du_type": "Hybrid e-CVT / PHEV",
+                    "type_de_boite": "Hybride",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "e-CVT Fluid / Mercedes PHEV Fluid",
+                    "quantite_huile_l": 2.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 4,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Mercedes-Benz – Electriques EQ / EQC / EQS
+                # ======================
+                {
+                    "fabricant": "Mercedes-Benz",
+                    "nom_du_type": "Electric Single-Speed",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 5,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Mercury – Boîtes manuelles (rares, modèles anciens)
+                # ======================
+                {
+                    "fabricant": "Mercury",
+                    "nom_du_type": "Manual 4-speed / 5-speed",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 4,
+                    "qualite_huile": "SAE 75W90 GL-4 / Mercury MTF",
+                    "quantite_huile_l": 2.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Mercury – Boîtes automatiques classiques (4-6 vitesses)
+                # ======================
+                {
+                    "fabricant": "Mercury",
+                    "nom_du_type": "4-speed Automatic / 5-speed Automatic",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 4,
+                    "qualite_huile": "Ford ATF Mercon / Mercon V",
+                    "quantite_huile_l": 6.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 2,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "Mercury",
+                    "nom_du_type": "6-speed Automatic (Mountaineer, Milan later models)",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "Ford ATF 6-SP / Mercon LV",
+                    "quantite_huile_l": 6.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 90000,
+                    "dernier_entretien": None,
+                    "numero_boite": 3,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # Mercury – Boîtes hybrides / électriques (rares, concept ou futurs)
+                # ======================
+                {
+                    "fabricant": "Mercury",
+                    "nom_du_type": "Hybrid e-CVT / Single-Speed",
+                    "type_de_boite": "Hybride",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "e-CVT Fluid / EV Gear Fluid",
+                    "quantite_huile_l": 2.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 4,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # MG – Boîtes manuelles (ZS, MG6, modèles compacts)
+                # ======================
+                {
+                    "fabricant": "MG",
+                    "nom_du_type": "Manual 5-speed",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "SAE 75W90 GL-4",
+                    "quantite_huile_l": 2.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "MG",
+                    "nom_du_type": "Manual 6-speed (MG6 Sport / MG HS Turbo)",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "SAE 75W90 GL-4 Sport",
+                    "quantite_huile_l": 2.7,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 2,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # MG – Boîtes automatiques (HS, ZS, MG6)
+                # ======================
+                {
+                    "fabricant": "MG",
+                    "nom_du_type": "6-speed Automatic / DCT",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "MG ATF / Dexron-VI",
+                    "quantite_huile_l": 6.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 3,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # MG – Hybrides / PHEV (HS PHEV)
+                # ======================
+                {
+                    "fabricant": "MG",
+                    "nom_du_type": "Hybrid e-CVT (HS PHEV)",
+                    "type_de_boite": "Hybride",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "e-CVT Fluid",
+                    "quantite_huile_l": 2.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 4,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # MG – Electriques (MG5 EV, ZS EV)
+                # ======================
+                {
+                    "fabricant": "MG",
+                    "nom_du_type": "Electric Single-Speed",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 5,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+                # ======================
+                # MINI – Boîtes manuelles anciennes
+                # ======================
+                {
+                    "fabricant": "MINI",
+                    "nom_du_type": "Manual 4-speed / 5-speed (Classic, R50/R53/R52)",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 5,
+                    "qualite_huile": "SAE 75W90 GL-4",
+                    "quantite_huile_l": 2.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 50000,
+                    "dernier_entretien": None,
+                    "numero_boite": 1,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # MINI – Boîtes automatiques anciennes
+                # ======================
+                {
+                    "fabricant": "MINI",
+                    "nom_du_type": "4-speed Automatic / Steptronic (Classic, R50/R53/R52)",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 4,
+                    "qualite_huile": "ZF ATF / Dexron-II",
+                    "quantite_huile_l": 4.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 70000,
+                    "dernier_entretien": None,
+                    "numero_boite": 2,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+                # ======================
+                # MINI – Boîtes manuelles récentes
+                # ======================
+                {
+                    "fabricant": "MINI",
+                    "nom_du_type": "Manual 6-speed (F55/F56/F57/F60)",
+                    "type_de_boite": "Manuelle",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "SAE 75W90 GL-4 Sport",
+                    "quantite_huile_l": 2.7,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 3,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # MINI – Boîtes automatiques récentes (Steptronic 6/7/8-speed)
+                # ======================
+                {
+                    "fabricant": "MINI",
+                    "nom_du_type": "6-speed Automatic Steptronic",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 6,
+                    "qualite_huile": "ZF ATF / Dexron-VI",
+                    "quantite_huile_l": 6.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 4,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                {
+                    "fabricant": "MINI",
+                    "nom_du_type": "7-speed DCT / Steptronic Sport (John Cooper Works)",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 7,
+                    "qualite_huile": "ZF DCT Fluid Sport",
+                    "quantite_huile_l": 3.2,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 50000,
+                    "dernier_entretien": None,
+                    "numero_boite": 5,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+                # ======================
+                # MINI – Hybrides PHEV (Countryman SE, Mini Cooper SE Hybrid)
+                # ======================
+                {
+                    "fabricant": "MINI",
+                    "nom_du_type": "Hybrid e-CVT / PHEV",
+                    "type_de_boite": "Hybride",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "e-CVT Fluid",
+                    "quantite_huile_l": 2.5,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 6,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                # ======================
+                # MINI – Electrique (Mini Cooper SE / Concept EV)
+                # ======================
+                {
+                    "fabricant": "MINI",
+                    "nom_du_type": "Electric Single-Speed",
+                    "type_de_boite": "Electrique",
+                    "nombre_rapport": 1,
+                    "qualite_huile": "EV Gear Fluid",
+                    "quantite_huile_l": 2.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 80000,
+                    "dernier_entretien": None,
+                    "numero_boite": 7,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+                # ======================
+                # MINI – R50 / R53 Automatic CVT
+                # ======================
+                {
+                    "fabricant": "MINI",
+                    "nom_du_type": "CVT Automatic / Steptronic",
+                    "type_de_boite": "Automatique",
+                    "nombre_rapport": 0,  # CVT = rapports continus
+                    "qualite_huile": "ZF CVT Fluid / Dexron-III",
+                    "quantite_huile_l": 3.0,
+                    "kilometrage_boite": 0,
+                    "intervalle_entretien_km": 60000,
+                    "dernier_entretien": None,
+                    "numero_boite": 3,
+                    "voiture_modele": modele,
+                    "voiture_exemplaire": None,
+                },
+
+                ### ZF
+
                 {
                     "fabricant": "ZF",
                     "nom_du_type": "ZF8HP",
