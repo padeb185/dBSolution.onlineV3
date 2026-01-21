@@ -10,7 +10,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         try:
-            tenant = Societe.objects.get(slug="db-solution")
+            tenant = Societe.objects.get(slug="dbsolution")
         except Societe.DoesNotExist:
             self.stdout.write(self.style.ERROR("Tenant 'db-solution' introuvable !"))
             return

@@ -10,7 +10,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         try:
-            tenant = Societe.objects.get(slug="db-solution")
+            tenant = Societe.objects.get(slug="dbsolution")
         except Societe.DoesNotExist:
             self.stdout.write(self.style.ERROR("Tenant 'db-solution' introuvable !"))
             return
@@ -8468,16 +8468,14 @@ class Command(BaseCommand):
 
             ]
 
-
             created_count = 0
 
             for data in boites_data:
+                # 1️⃣ Crée la boîte sans les ManyToMany
                 boite, created = VoitureBoite.objects.get_or_create(
                     fabricant=data["fabricant"],
                     nom_du_type=data["nom_du_type"],
                     numero_boite=data["numero_boite"],
-                    voiture_modele=data["voiture_modele"],
-                    voiture_exemplaire=data["voiture_exemplaire"],
                     defaults={
                         "type_de_boite": data["type_de_boite"],
                         "nombre_rapport": data["nombre_rapport"],
@@ -8489,9 +8487,19 @@ class Command(BaseCommand):
                     }
                 )
 
+                # 2️⃣ Lier le modèle (ManyToMany)
+                modele = data.get("voiture_modele")
+                if modele:
+                    boite.voitures_modeles.add(modele)  # add() ou set([modele]) si tu veux remplacer
+
+                # 3️⃣ Lier l'exemplaire (ManyToMany)
+                exemplaire = data.get("voiture_exemplaire")
+                if exemplaire:
+                    boite.voitures_exemplaires.add(exemplaire)
+
                 if created:
                     created_count += 1
 
-        self.stdout.write(self.style.SUCCESS(
-            f"{created_count} boîtes ajoutées pour le tenant '{tenant.schema_name}'"
-        ))
+            self.stdout.write(self.style.SUCCESS(
+                f"{created_count} boîtes ajoutées pour le tenant '{tenant.schema_name}'"
+            ))
