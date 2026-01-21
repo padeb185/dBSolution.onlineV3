@@ -27,13 +27,12 @@ class VoitureBoite(models.Model):
         blank=True
     )
 
-    voiture_exemplaire = models.ForeignKey(
-        "voiture_exemplaire.VoitureExemplaire",
-        on_delete=models.CASCADE,
-        related_name="boites",
-        null=True,
-        blank=True
+    voitures_exemplaires = models.ManyToManyField(
+        'voiture_exemplaire.VoitureExemplaire',
+        blank=True,
+        related_name='boites'
     )
+
     fabricant = models.CharField(max_length=30,null=True,blank=True)
     nom_du_type = models.CharField(max_length=100, help_text="PDK, DSG ?", null=True, blank=True)
     type_de_boite = models.CharField(max_length=40, choices=TypeBoite.choices,default=TypeBoite.AUTOMATIQUE, null=True, blank=True)
@@ -61,10 +60,7 @@ class VoitureBoite(models.Model):
                 condition=Q(numero_boite__gte=1) & Q(numero_boite__lte=10),
                 name="numero_boite_1_10"
             ),
-            models.CheckConstraint(
-                condition=Q(voiture_modele__isnull=False) | Q(voiture_exemplaire__isnull=False),
-                name="boite_liée_a_voiture"
-            ),
+
         ]
 
     def __str__(self):

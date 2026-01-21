@@ -1,8 +1,11 @@
 from django.db import models
 from django.db.models import Q
 import uuid
-
 from django.utils.translation import gettext_lazy as _
+from voiture.voiture_boite.models import VoitureBoite
+
+
+
 
 class TypeMoteur(models.TextChoices):
     TURBO = "TURBO", _("Turbo")
@@ -63,6 +66,8 @@ class MoteurVoiture(models.Model):
     numero_moteur = models.PositiveSmallIntegerField(default=1, null=True, blank=True)
     intervalle_km_entretien = models.PositiveIntegerField(default=15000, null=True, blank=True)
     date_creation = models.DateTimeField(auto_now_add=True)
+
+    boite = models.ForeignKey(VoitureBoite, null=True, blank=True, on_delete=models.SET_NULL, related_name="moteurs")
 
     class Meta:
         constraints = [
