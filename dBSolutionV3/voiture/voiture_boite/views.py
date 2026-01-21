@@ -76,7 +76,9 @@ def ajouter_boite_simple(request):
     return render(request, "voiture_boite/ajouter_boite_simple.html", context)
 
 
-@login_required()
+
+
+@login_required
 def lier_boite(request, boite_id):
     boite = get_object_or_404(VoitureBoite, id=boite_id)
 
@@ -85,23 +87,25 @@ def lier_boite(request, boite_id):
         cible_id = request.POST.get("cible_id")
 
         if type_liaison == "modele":
+            # Lier à un modèle et dé-lier de tout exemplaire
             boite.voiture_modele_id = cible_id
-            boite.voiture_exemplaire = None
+            if hasattr(boite, 'voitures_exemplaires'):
+                boite.voitures_exemplaires.clear()
         else:
-            boite.voiture_exemplaire_id = cible_id
+            # Lier à un exemplaire et dé-lier du modèle
+            boite.voitures_exemplaires.clear()
+            boite.voitures_exemplaires.add(cible_id)
             boite.voiture_modele = None
 
         boite.save()
+        messages.success(request, "La boîte a été liée avec succès.")
         return redirect("voiture_boite:list")
 
     return render(request, "voiture_boite/lier_boite.html", {"boite": boite})
 
 
-@login_required()
+@login_required
 def boite_detail_view(request, boite_id):
     boite = get_object_or_404(VoitureBoite, id=boite_id)
-    return render(request, 'voiture_boite/boite_detail.html', {
-        'boite': boite,
-    })
-
+    return render(request, "voiture_boite/boite_detail.html", {"boite": boite})
 

@@ -70,31 +70,58 @@
 
         </div>
 
-        <!-- Moteurs -->
-        <div class="bg-white shadow-md rounded-lg p-6">
-            <h2 class="text-lg font-semibold mb-4">{% trans "Moteurs" %}</h2>
-            {% if exemplaire.moteurs.exists %}
-                <ul class="space-y-2">
-                    {% for moteur in exemplaire.moteurs.all %}
-                        <li class="border p-3 rounded-md hover:bg-gray-50">
-                            {{ moteur.get_type_moteur_display }} - {{ moteur.cylindree_l }}L
-                            <span class="text-gray-500">({{ moteur.puissance_ch }} ch)</span>
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <p class="text-gray-500">{% trans "Aucun moteur enregistré pour cet exemplaire." %}</p>
-            {% endif %}
-        </div>
+    <!-- Moteurs -->
+    <!-- Moteurs et Boîtes de l'exemplaire -->
+<div class="bg-white shadow-md rounded-lg p-6">
+    <!-- Moteurs -->
+    <h2 class="text-lg font-semibold mb-4">{% trans "Moteurs" %}</h2>
+        {% if exemplaire.moteurs.exists %}
+            <ul class="space-y-2">
+                {% for moteur in exemplaire.moteurs.all %}
+                    <li class="border p-3 rounded-md hover:bg-gray-50">
+                        {{ moteur.get_type_moteur_display }} - {{ moteur.cylindree_l }}L
+                        <span class="text-gray-500">({{ moteur.puissance_ch }} ch)</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="text-gray-500">{% trans "Aucun moteur enregistré pour cet exemplaire." %}</p>
+        {% endif %}
+
+        <!-- Boîtes de vitesse -->
+        <h2 class="text-lg font-semibold mb-4 mt-6">{% trans "Boite de vitesse" %}</h2>
+        {% if exemplaire.boites.exists %}
+            <ul class="space-y-2">
+                {% for boite in exemplaire.boites.all %}
+                    <li class="border p-3 rounded-md hover:bg-gray-50">
+                        {{ boite.get_fabricant_display }} - {{ boite.nom_du_type }}
+                        <span class="text-gray-500">({{ boite.type_de_boite }})</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="text-gray-500">{% trans "Aucune boite enregistrée pour cet exemplaire." %}</p>
+        {% endif %}
     </div>
+
 
     <!-- Formulaire liaison moteur existant -->
     <div class="bg-white shadow-md rounded-lg p-6 mb-6">
         <h2 class="text-lg font-semibold mb-4">{% trans "Lier un moteur existant" %}</h2>
 
-        {% if error %}
-            <p class="text-red-600 mb-4">{{ error }}</p>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="mb-3 px-4 py-2 rounded
+                    {% if message.tags == 'success' %}
+                        bg-green-100 text-green-800 border border-green-300
+                    {% else %}
+                        bg-red-100 text-red-800 border border-red-300
+                    {% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
         {% endif %}
+
 
         <form id="lier-moteur-form" method="post"
               action="{% url 'voiture_exemplaire:lier_moteur_exemplaire_from_detail' exemplaire_id=exemplaire.id %}">
@@ -123,10 +150,60 @@
 
 
 
+
         <div id="moteur-details" class="mt-4 hidden">
             <h3 class="font-semibold">{% trans "Détails du moteur" %}</h3>
             <ul class="list-disc pl-5 mt-2" id="moteur-details-list"></ul>
         </div>
+    </div>
+
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">{% trans "Lier une boîte de vitesse existante" %}</h2>
+
+       {% if messages %}
+            {% for message in messages %}
+                <div class="mb-3 px-4 py-2 rounded
+                    {% if message.tags == 'success' %}
+                        bg-green-100 text-green-800 border border-green-300
+                    {% else %}
+                        bg-red-100 text-red-800 border border-red-300
+                    {% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <form id="lier-boite-form" method="post"
+              action="{% url 'voiture_exemplaire:lier_boite_exemplaire_from_detail' exemplaire_id=exemplaire.id %}">
+            {% csrf_token %}
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <!-- Fabricant libre -->
+                <input list="fabricants" id="fabricant" name="fabricant" placeholder="Fabricant" class="border rounded p-2 w-full" required>
+                <datalist id="fabricants">
+                    {% for f in fabricants|dictsort:"nom" %}
+                        <option value="{{ f.nom }}">
+                    {% endfor %}
+                </datalist>
+
+
+                <!-- Type de boîte auto -->
+                <select id="type_de_boite" name="type_de_boite" required disabled
+                        class="border rounded p-2 w-full">
+                    <option value="">{% trans "Choisir un type" %}</option>
+                </select>
+
+                <!-- Nom du type auto -->
+                <select type="text" id="nom_du_type" name="nom_du_type"  required disabled
+                       class="border rounded p-2 w-full">
+                    <option value="">{% trans "Choisir une boite" %}</option>
+                </select>
+            </div>
+
+            <button type="submit" class="mt-4 px-4 py-2 bg-blue-700 text-white rounded hover:bg-blue-400">
+                {% trans "Lier la boîte" %}
+            </button>
+        </form>
+
     </div>
 
 </div>
@@ -134,7 +211,8 @@
 <script>
 $(document).ready(function() {
 
-    $("#motoriste").on('blur', function() {
+    // -------------------- MOTEUR --------------------
+    $("#motoriste").on('blur', function () {
         const motoriste = $(this).val().trim();
         const $cylindree = $("#cylindree_l");
         $cylindree.empty().append('<option value="">{% trans "Choisir une cylindrée" %}</option>');
@@ -142,9 +220,9 @@ $(document).ready(function() {
         if (motoriste) {
             $.ajax({
                 url: "{% url 'voiture_exemplaire:ajax_get_cylindrees' %}",
-                data: { motoriste: motoriste },
-                success: function(data) {
-                    data.forEach(c => $cylindree.append('<option value="'+c+'">'+c+'</option>'));
+                data: {motoriste: motoriste},
+                success: function (data) {
+                    data.forEach(c => $cylindree.append('<option value="' + c + '">' + c + '</option>'));
                     $cylindree.prop("disabled", false);
                 }
             });
@@ -153,15 +231,14 @@ $(document).ready(function() {
         }
     });
 
-    // Quand on choisit une cylindrée, on remplit le code moteur
-    $("#cylindree_l").change(function() {
+    $("#cylindree_l").change(function () {
         const motoriste = $("#motoriste").val().trim();
         const cylindree = $(this).val();
         if (motoriste && cylindree) {
             $.ajax({
                 url: "{% url 'voiture_exemplaire:ajax_get_code_moteur' %}",
-                data: { motoriste: motoriste, cylindree: cylindree },
-                success: function(data) {
+                data: {motoriste: motoriste, cylindree: cylindree},
+                success: function (data) {
                     $("#code_moteur").val(data.code_moteur);
                 }
             });
@@ -170,8 +247,55 @@ $(document).ready(function() {
         }
     });
 
+    // -------------------- BOITE --------------------
+
+
+    // Auto-completion des boîtes
+     $("#fabricant").change(function() {
+        const fabricant = $(this).val().trim();
+        const $type_de_boite = $("#type_de_boite");
+        const $nom_du_type = $("#nom_du_type");
+
+        $type_de_boite.empty().append('<option value="">{% trans "Choisir un type" %}</option>');
+        $nom_du_type.empty().append('<option value="">{% trans "Choisir une boite" %}</option>');
+
+        if (fabricant) {
+            $.ajax({
+                url: "{% url 'voiture_exemplaire:ajax_get_type_de_boite' %}",
+                data: { fabricant: fabricant },
+                success: function(data) {
+                    data.forEach(c => $type_de_boite.append('<option value="'+c+'">'+c+'</option>'));
+                    $type_de_boite.prop("disabled", false);
+                    $nom_du_type.prop("disabled", true);
+                }
+            });
+        } else {
+            $type_de_boite.prop("disabled", true);
+            $nom_du_type.prop("disabled", true);
+        }
+    });
+
+    $("#type_de_boite").change(function() {
+        const fabricant = $("#fabricant").val().trim();
+        const type_de_boite = $(this).val();
+        const $nom_du_type = $("#nom_du_type");
+
+        $nom_du_type.empty().append('<option value="">{% trans "Choisir une boite" %}</option>');
+
+        if (fabricant && type_de_boite) {
+            $.ajax({
+                url: "{% url 'voiture_exemplaire:ajax_get_nom_du_type' %}",
+                data: { fabricant: fabricant, type_de_boite: type_de_boite },
+                success: function(data) {
+                    $nom_du_type.append('<option value="'+data.nom_du_type+'" selected>'+data.nom_du_type+'</option>');
+                    $nom_du_type.prop("disabled", false);
+                }
+            });
+        } else {
+            $nom_du_type.prop("disabled", true);
+        }
+    });
+
 });
 </script>
-
-
 {% endblock %}

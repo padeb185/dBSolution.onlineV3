@@ -3,15 +3,17 @@ from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils import timezone
 
+from voiture.voiture_boite.models import VoitureBoite
+from voiture.voiture_moteur.models import MoteurVoiture
+
+
+class TypeUtilisation(models.TextChoices):
+    SOCIETE = "societe", "Société"
+    CLIENT = "client", "Client"
+    PRIVE = "prive", "Privé"
+    LOCATION = "location", "Location"
 
 class VoitureExemplaire(models.Model):
-
-    class TypeUtilisation(models.TextChoices):
-        SOCIETE = "societe", "Société"
-        CLIENT = "client", "Client"
-        PRIVE = "prive", "Privé"
-        LOCATION = "location", "Location"
-
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
 
@@ -145,6 +147,9 @@ class VoitureExemplaire(models.Model):
         null=True,
         blank=True
     )
+
+
+
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
