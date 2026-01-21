@@ -11,7 +11,7 @@ class Command(BaseCommand):
 
         # Récupère le tenant 'dbsolution'
         try:
-            tenant = Societe.objects.get(slug='db-solution')  # ou schema_name='dbsolution'
+            tenant = Societe.objects.get(schema_name='dbsolution')  # ou schema_name='dbsolution'
         except Societe.DoesNotExist:
             self.stdout.write(self.style.ERROR("Tenant 'dbsolution' introuvable !"))
             return
@@ -68,6 +68,7 @@ class Command(BaseCommand):
             # 🇷🇴 Roumanie
             "Dacia",
 
+            "Radical",
             # 🇮🇷 Iran
             "Iran Khodro", "SAIPA",
 

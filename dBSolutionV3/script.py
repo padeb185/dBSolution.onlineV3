@@ -18,12 +18,13 @@ adresse_public = Adresse.objects.create(
 
 # 2️⃣ Créer le tenant public
 societe = Societe.objects.create(
-    schema_name="public",
-    nom="Admin Global",
+    schema_name="dbsolution",
+    nom_du_type="dbsolution",
+    nom="dbsolution",
     adresse=adresse_public,
     paid_until=date.today() + timedelta(days=365),
-    slug=slugify("Admin Global"),
-    numero_tva="ADMIN-000"# valeur obligatoire pour paid_until
+    slug=slugify("dbsolution"),
+    numero_tva="BE1234567891"
 
 )
 
@@ -34,17 +35,15 @@ Domain.objects.create(
     is_primary=True
 )
 
-# 4️⃣ Créer un superuser global (dans le schema public)
-User = get_user_model()
-if not User.objects.filter(username="admin_global").exists():
-    User.objects.create_superuser(
-        username="Pierre-AndredeBournonville",
-        email="pierre;andre1367@gmail.com",
-        password="JIsWrpuRfjkW9bBFPd1GLsIFRFgbbxKrqWjZXxGd",
-        first_name="Pierre",
-        last_name="Andre",
-        is_active=True
-    )
+from utilisateurs.models import Utilisateur
 
-print("Tenant public et superuser global créés avec succès !")
+superuser = Utilisateur.objects.create_superuser(
+    email="pierre.andre1367@gmail.com",
+    prenom="Pierre André",
+    last_name="de Bournonville",
+    password="9y7-T!c&wi]vwm&,s|#kFlD=@4skRG6ri#Z90GT,",
+    is_active=True
+)
+
+print("Tenant dbsolution et superuser global créés avec succès !")
 

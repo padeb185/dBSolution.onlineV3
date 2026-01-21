@@ -11,7 +11,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         # Récupération du tenant
         try:
-            tenant = Societe.objects.get(slug='db-solution')
+            tenant = Societe.objects.get(schema_name='dbsolution')
         except Societe.DoesNotExist:
             self.stdout.write(self.style.ERROR("Tenant 'db-solution' introuvable !"))
             return
@@ -134,6 +134,31 @@ class Command(BaseCommand):
             ],
 
             "Porsche": [
+
+                {"modele": "550 Spyder", "variante": None, "portes": 2, "places": 2,
+                 "reservoir": 60},
+
+                # 911 classiques
+                {"modele": "911", "variante": "Carrera S", "portes": 2, "places": 4,
+                 "reservoir": 67},
+                {"modele": "911", "variante": "Turbo", "portes": 2, "places": 4,
+                 "reservoir": 67},
+
+                # 911 GT spéciaux
+                {"modele": "911", "variante": "GT3", "portes": 2, "places": 2,
+                 "reservoir": 64},
+                {"modele": "911", "variante": "GT3 RS", "portes": 2, "places": 2,
+                 "reservoir": 64},
+                {"modele": "911", "variante": "GT2 RS", "portes": 2, "places": 2,
+                 "reservoir": 64},
+
+                # SUV et berlines
+                {"modele": "Cayenne", "variante": "S", "portes": 5, "places": 5,
+                "reservoir": 75},
+                {"modele": "Macan", "variante": None, "portes": 5, "places": 5,
+                 "reservoir": 60},
+                {"modele": "Panamera", "variante": "4S", "portes": 5, "places": 5,
+                 "reservoir": 75},
 
             {"modele": "911", "variante": "996 Carrera", "portes": 2, "places": 4, "reservoir": 64},
             {"modele": "911", "variante": "996 Carrera 4", "portes": 2, "places": 4, "reservoir": 64},

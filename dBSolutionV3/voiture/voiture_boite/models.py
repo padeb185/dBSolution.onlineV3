@@ -1,14 +1,16 @@
 from django.db import models
 import uuid
 from django.db.models import Q
-from django.db import models
+from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
+# Types d'entretien pour la boîte
 class TypeEntretienBoite(models.TextChoices):
     VIDANGE = "VIDANGE", _("Vidange")
     FILTRE = "FILTRE", _("Changement filtre")
     REMPLACEMENT = "REMPLACEMENT", _("Remplacement boîte")
 
+# Types de boîte
 class TypeBoite(models.TextChoices):
     MANUELLE = "MANUELLE", _("Manuelle")
     SEMIAUTOMATIQUE = "SEMI-AUTOMATIQUE", _("Semi-automatique")
@@ -18,25 +20,29 @@ class TypeBoite(models.TextChoices):
 class VoitureBoite(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
-    # Relations (1 des 2 obligatoire)
-    voiture_modele = models.ForeignKey(
+    # Relations ManyToMany
+    voitures_modeles = models.ManyToManyField(
         "voiture_modele.VoitureModele",
-        on_delete=models.CASCADE,
         related_name="boites",
-        null=True,
         blank=True
     )
 
-    voiture_exemplaire = models.ForeignKey(
+    voitures_exemplaires = models.ManyToManyField(
         "voiture_exemplaire.VoitureExemplaire",
-        on_delete=models.CASCADE,
         related_name="boites",
+        blank=True
+    )
+
+    # Informations générales
+    fabricant = models.CharField(max_length=30, null=True, blank=True)
+    nom_du_type = models.CharField(max_length=100, help_text="PDK, DSG ?", null=True, blank=True)
+    type_de_boite = models.CharField(
+        max_length=40,
+        choices=TypeBoite.choices,
+        default=TypeBoite.AUTOMATIQUE,
         null=True,
         blank=True
     )
-    fabricant = models.CharField(max_length=30,null=True,blank=True)
-    nom_du_type = models.CharField(max_length=100, help_text="PDK, DSG ?", null=True, blank=True)
-    type_de_boite = models.CharField(max_length=40, choices=TypeBoite.choices,default=TypeBoite.AUTOMATIQUE, null=True, blank=True)
     nombre_rapport = models.PositiveSmallIntegerField(default=5, help_text="nombre rapport", null=True, blank=True)
 
     # Lubrification
@@ -61,15 +67,14 @@ class VoitureBoite(models.Model):
                 condition=Q(numero_boite__gte=1) & Q(numero_boite__lte=10),
                 name="numero_boite_1_10"
             ),
-            models.CheckConstraint(
-                condition=Q(voiture_modele__isnull=False) | Q(voiture_exemplaire__isnull=False),
-                name="boite_liée_a_voiture"
-            ),
         ]
 
     def __str__(self):
         return f"Boîte #{self.nom_du_type} - {self.kilometrage_boite} km"
 
+
+
+    # Méthodes utilitaires
     def prochain_entretien_km(self):
         return self.kilometrage_boite + self.intervalle_entretien_km
 
