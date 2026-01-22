@@ -66,7 +66,9 @@ def ajouter_boite_simple(request):
             qualite_huile=request.POST.get("qualite_huile"),
             quantite_huile_l=request.POST.get("quantite_huile_l"),
         )
-        return redirect("voiture_boite:list")
+        messages.success(request, "Boite de vitesse ajoutée avec succès")
+
+        return redirect("voiture_boite:ajouter_boite_simple")
 
     # Passer TypeBoite au template pour la liste déroulante
     context = {
