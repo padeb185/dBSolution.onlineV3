@@ -284,29 +284,31 @@ def liste_exemplaires_all(request):
 
 
 
-
 @login_required
 def ajouter_exemplaire_all(request, modele_id):
     # Récupère le modèle correspondant à l'ID passé dans l'URL
     modele = get_object_or_404(VoitureModele, id=modele_id)
 
     if request.method == "POST":
-        # Crée un nouvel exemplaire lié au modèle
         VoitureExemplaire.objects.create(
-            voiture_marque=modele.marque,            # on récupère la marque depuis le modèle
-            voiture_modele=modele,                   # on lie directement le modèle
+            voiture_marque=modele.voiture_marque,   # marque depuis le modèle
+            voiture_modele=modele,                  # lien vers le modèle
             immatriculation=request.POST.get("immatriculation"),
             pays=request.POST.get("pays"),
             numero_vin=request.POST.get("numero_vin"),
             kilometres_chassis=request.POST.get("kilometres_chassis"),
+            annee_production=request.POST.get("annee_production"),
+            mois_production=request.POST.get("mois_production"),
         )
-        return redirect("voiture_exemplaire:list")
+        return redirect("voiture_exemplaire:voiture_exemplaire", modele_id=modele.id)
+
 
     return render(
         request,
         "voiture_exemplaire/ajouter_exemplaire_all.html",
-        {"modele": modele}  # on passe le modèle au template si besoin
+        {"modele": modele}
     )
+
 
 
 
