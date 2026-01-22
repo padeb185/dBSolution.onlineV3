@@ -1,4 +1,3 @@
-from django import forms
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.shortcuts import  redirect
@@ -61,7 +60,6 @@ def voiture_exemplaire_detail(request, exemplaire_id):
 
 
 
-
 @login_required
 def lier_moteur_exemplaire_from_detail(request, exemplaire_id):
     tenant = request.user.societe
@@ -90,27 +88,18 @@ def lier_boite_exemplaire_from_detail(request, exemplaire_id):
         exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
 
         if request.method == "POST":
-            # Récupération des champs du formulaire
             fabricant = request.POST.get("fabricant")
             type_de_boite = request.POST.get("type_de_boite")
             nom_du_type = request.POST.get("nom_du_type")
-
-            # Recherche de la boîte correspondante
-            boite = VoitureBoite.objects.filter(
-                fabricant__iexact=fabricant,      # insensible à la casse
-                type_de_boite=type_de_boite,
-                nom_du_type=nom_du_type
-            ).first()
-
+            boite = VoitureBoite.objects.filter(fabricant__iexact=fabricant, type_de_boite=type_de_boite, nom_du_type=nom_du_type).first()
             if boite:
-                # Lier la boîte à l'exemplaire
                 boite.voitures_exemplaires.add(exemplaire)
-                messages.success(request, _("Boîte de vitesse liée à l'exemplaire avec succès"))
                 return redirect("voiture_exemplaire:detail_exemplaire", exemplaire_id=exemplaire.id)
             else:
-                # Message d'erreur et retour sur la page détail
-                messages.error(request, _("Boîte de vitesse non trouvée"))
-                return redirect("voiture_exemplaire:detail_exemplaire", exemplaire_id=exemplaire.id)
+                return redirect("voiture_exemplaire:detail_exemplaire.html",{
+                    "exemplaire": exemplaire,
+                    "error": _("Boite de vitesse non trouvé")
+                })
 
 
 @login_required
@@ -121,15 +110,30 @@ def get_cylindrees(request):
         cylindrees = MoteurVoiture.objects.filter(motoriste=motoriste).values_list("cylindree_l", flat=True).distinct()
         return JsonResponse(list(cylindrees), safe=False)
 
+"""
 @login_required
-def ajax_get_type_de_boite(request):
+def get_type_de_boite(request):
     fabricant = request.GET.get("fabricant", "").strip()
     tenant = request.user.societe
     with tenant_context(tenant):
-        types = VoitureBoite.objects.filter(fabricant__iexact=fabricant)\
+        type_de_boite = VoitureBoite.objects.filter(fabricant__iexact=fabricant)\
                     .values_list('type_de_boite', flat=True).distinct()
-        return JsonResponse(list(types), safe=False)
+        return JsonResponse(list(type_de_boite), safe=False)
+"""
+@login_required
+def get_type_de_boite(request):
+    fabricant = request.GET.get("fabricant", "").strip()
+    tenant = request.user.societe
 
+    with tenant_context(tenant):
+        types = (
+            VoitureBoite.objects
+            .filter(fabricant__iexact=fabricant)
+            .values_list("type_de_boite", flat=True)
+            .distinct()
+        )
+
+    return JsonResponse(list(types), safe=False)
 
 
 @login_required
@@ -141,20 +145,31 @@ def get_code_moteur(request):
         moteur = MoteurVoiture.objects.filter(motoriste=motoriste, cylindree_l=cylindree).first()
         return JsonResponse({"code_moteur": moteur.code_moteur if moteur else ""})
 
-
+"""
 @login_required
-def ajax_get_nom_du_type(request):
+def get_nom_du_type(request):
+    fabricant = request.GET.get("fabricant")
+    type_de_boite = request.GET.get("type_de_boite")
+    tenant = request.user.societe
+    with tenant_context(tenant):
+        boite = VoitureBoite.objects.filter(fabricant=fabricant, type_de_boite=type_de_boite).first()
+        return JsonResponse({"nom_du_type": boite.nom_du_type if boite else ""})
+"""
+@login_required
+def get_nom_du_type(request):
     fabricant = request.GET.get("fabricant", "").strip()
     type_de_boite = request.GET.get("type_de_boite", "").strip()
     tenant = request.user.societe
+
     with tenant_context(tenant):
-        noms = VoitureBoite.objects.filter(
+        boite = VoitureBoite.objects.filter(
             fabricant__iexact=fabricant,
             type_de_boite__iexact=type_de_boite
-        ).values_list('nom_du_type', flat=True)
-        return JsonResponse(list(noms), safe=False)
+        ).first()
 
-
+    return JsonResponse({
+        "nom_du_type": boite.nom_du_type if boite else ""
+    })
 
 
 
@@ -177,23 +192,18 @@ def lier_moteur_exemplaire(request, moteur_id, exemplaire_id):
         "submit_text": _("Lier le moteur"),
         })
 
+
 @login_required
 def lier_boite_exemplaire(request, boite_id, exemplaire_id):
-
     boite = get_object_or_404(VoitureBoite, id=boite_id)
     exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
 
     if request.method == "POST":
-        # Lier la boîte à l'exemplaire
         boite.voitures_exemplaires.add(exemplaire)
 
-        # Message succès
         messages.success(request, _("La boîte de vitesse a été liée à l'exemplaire avec succès."))
-
-        # Redirection vers la page détail de l'exemplaire
         return redirect("detail_exemplaire", exemplaire_id=exemplaire.id)
 
-    # GET : afficher la confirmation
     return render(request, "voiture_exemplaire/liers_boite.html", {
         "boite": boite,
         "exemplaire": exemplaire,
@@ -203,33 +213,8 @@ def lier_boite_exemplaire(request, boite_id, exemplaire_id):
     })
 
 
-"""
-@login_required
-def lier_boite_exemplaire_from_detail(request, exemplaire_id):
-    tenant = request.user.societe
-    with tenant_context(tenant):
-        exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
 
-        if request.method == "POST":
-            fabricant = request.POST.get("fabricant")
-            type_de_boite = request.POST.get("type_de_boite")
-            nom_du_type = request.POST.get("nom_du_type")
 
-            boite = VoitureBoite.objects.filter(
-                fabricant__iexact=fabricant,
-                type_de_boite=type_de_boite,
-                nom_du_type=nom_du_type
-            ).first()
-
-            if boite:
-                boite.voitures_exemplaires.add(exemplaire)
-                messages.success(request, _("Boîte de vitesse liée à l'exemplaire avec succès"))
-            else:
-                messages.error(request, _("Boîte de vitesse non trouvée"))
-
-            return redirect("voiture_exemplaire:detail_exemplaire", exemplaire_id=exemplaire.id)
-
-"""
 
 @login_required
 def moteur_autocomplete(request):
@@ -310,7 +295,6 @@ def liste_exemplaires_all(request):
 
 @login_required
 def ajouter_exemplaire_all(request, modele_id):
-    # Récupère le modèle correspondant à l'ID passé dans l'URL
     modele = get_object_or_404(VoitureModele, id=modele_id)
 
     if request.method == "POST":
@@ -335,34 +319,6 @@ def ajouter_exemplaire_all(request, modele_id):
 
 
 
-
-
-
-
-"""
-def lier_boite(request, pk):
-    exemplaire = get_object_or_404(VoitureExemplaire, pk=pk)
-
-    if request.method == "POST":
-        fabricant = request.POST.get("fabricant")
-        type_de_boite = request.POST.get("type_de_boite")
-        nom_du_type = request.POST.get("nom_du_type")
-
-        boite = VoitureBoite.objects.filter(
-            fabricant=fabricant,
-            type_de_boite=type_de_boite,
-            nom_du_type=nom_du_type
-        ).first()
-
-        if boite:
-            exemplaire.boite = boite
-            exemplaire.save()
-            return JsonResponse({"success": True, "message": "Boîte liée avec succès"})
-        else:
-            return JsonResponse({"success": False, "message": "Boîte introuvable"})
-
-
-"""
 
 def exemplaire_detail(request, exemplaire_id):
     exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)

@@ -1,209 +1,163 @@
 {% extends "base.html" %}
 {% load i18n static %}
-{% load static %}
 
 {% block content %}
 <div class="p-6 w-full ml-[-10px] mr-[10px]">
+
     <!-- Header -->
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold flex items-center gap-4">
-            <span>{% trans "Détails du véhicule : " %}  </span>
+            <span>{% trans "Détails du véhicule : " %}</span>
 
-
-           <!-- Plaque Belgique -->
-        {% if exemplaire.pays == 'Belgique' %}
-        <div class="flex items-center w-[40%] min-w-[180px] h-[40px] bg-white border-2 border-[#8B0000] rounded font-[Arial] mb-4">
-            <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
-                <span>🇪🇺</span>
-                <span>B</span>
+            <!-- Plaque Belgique -->
+            {% if exemplaire.pays == 'Belgique' %}
+            <div class="flex items-center w-[40%] min-w-[180px] h-[40px] bg-white border-2 border-[#8B0000] rounded font-[Arial] mb-4">
+                <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
+                    <span>🇪🇺</span>
+                    <span>B</span>
+                </div>
+                <input type="text"
+                       value="{{ exemplaire.immatriculation }}"
+                       oninput="this.value = this.value.toUpperCase();"
+                       class="w-full text-center border-none font-bold text-[#8B0000] text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0">
             </div>
-            <input
-                type="text"
-                value="{{ exemplaire.immatriculation }}"
-                oninput="this.value = this.value.toUpperCase();"
-                class="w-full text-center border-none font-bold text-[#8B0000] text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0"
-            >
-        </div>
 
-        {% elif exemplaire.pays == 'Luxembourg' %}
-        <div class="flex items-center w-[40%] min-w-[180px] h-[40px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial] mb-4">
-            <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
-                <span>🇪🇺</span>
-                <span>L</span>
+            {% elif exemplaire.pays == 'Luxembourg' %}
+            <div class="flex items-center w-[40%] min-w-[180px] h-[40px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial] mb-4">
+                <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
+                    <span>🇪🇺</span>
+                    <span>L</span>
+                </div>
+                <input type="text"
+                       value="{{ exemplaire.immatriculation }}"
+                       oninput="this.value = this.value.toUpperCase();"
+                       class="w-full text-center border-none font-bold text-black text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0">
             </div>
-            <input
-                type="text"
-                value="{{ exemplaire.immatriculation }}"
-                oninput="this.value = this.value.toUpperCase();"
-                class="w-full text-center border-none font-bold text-black text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0"
-            >
-        </div>
-        {% endif %}
-
+            {% endif %}
 
         </h1>
     </div>
 
     <!-- Infos principales en cartes responsive -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
         <!-- Informations générales -->
         <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
             <h2 class="text-lg font-semibold mb-2">{% trans "Informations générales" %}</h2>
-
-
-
-            <!-- Autres informations -->
             <p><strong>{% trans "Année de production" %}:</strong> {{ exemplaire.annee_production }}/{{ exemplaire.mois_production }}</p>
             <p><strong>{% trans "Kilométrage" %}:</strong> {{ exemplaire.kilometres_total }} km</p>
             <p><strong>{% trans "Couleur" %}:</strong> {{ exemplaire.couleur|default:_("Non renseignée") }}</p>
 
-             <div class="mt-auto w-full">
-                <a href="{% url 'voiture_exemplaire:modifier_exemplaire' exemplaire_id=exemplaire.id %}"
-                   class="block w-full">
-                    <button type="button"
-                            class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+            <div class="mt-auto w-full">
+                <a href="{% url 'voiture_exemplaire:modifier_exemplaire' exemplaire_id=exemplaire.id %}" class="block w-full">
+                    <button type="button" class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
                         {% trans "Modifier" %}
                     </button>
                 </a>
-             </div>
-
-
+            </div>
         </div>
 
+        <!-- Moteurs et boîtes -->
         <div class="bg-white shadow-md rounded-lg p-6">
+
+            <!-- Moteurs -->
             <h2 class="text-lg font-semibold mb-4">{% trans "Moteurs" %}</h2>
-                {% if exemplaire.moteurs.exists %}
-                <ul class="space-y-2">
-                    {% for moteur in exemplaire.moteurs.all %}
-                        <li class="border p-3 rounded-md hover:bg-gray-50">
-                            {{ moteur.get_type_moteur_display }} - {{ moteur.cylindree_l }}L
-                            <span class="text-gray-500">({{ moteur.puissance_ch }} ch)</span>
-                        </li>
-                    {% endfor %}
-                </ul>
-                {% else %}
-                    <p class="text-gray-500">{% trans "Aucun moteur enregistré pour cet exemplaire." %}</p>
-                {% endif %}
+            {% if exemplaire.moteurs.exists %}
+            <ul class="space-y-2">
+                {% for moteur in exemplaire.moteurs.all %}
+                <li class="border p-3 rounded-md hover:bg-gray-50">
+                    {{ moteur.get_type_moteur_display }} - {{ moteur.cylindree_l }}L
+                    <span class="text-gray-500">({{ moteur.puissance_ch }} ch)</span>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p class="text-gray-500">{% trans "Aucun moteur enregistré pour cet exemplaire." %}</p>
+            {% endif %}
 
+            <!-- Boîte de vitesse -->
             <h2 class="text-lg font-semibold mb-4 mt-6">{% trans "Boîte de vitesse" %}</h2>
-                {% if exemplaire.boites.exists %}
-                    <ul class="space-y-2">
-                        {% for boite in exemplaire.boites.all %}
-                            <li class="border p-3 rounded-md hover:bg-gray-50">
-                                {{ boite.fabricant }} - {{ boite.type_de_boite }}
-                                <span class="text-gray-500">({{ boite.get_nom_de_boite_display }})</span>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <p class="text-gray-500">{% trans "Aucune boîte enregistrée pour cet exemplaire." %}</p>
-                {% endif %}
+            {% if exemplaire.boites.exists %}
+            <ul class="space-y-2">
+                {% for boite in exemplaire.boites.all %}
+                <li class="border p-3 rounded-md hover:bg-gray-50">
+                    {{ boite.fabricant }} - {{ boite.type_de_boite }}
+                    <span class="text-gray-500">({{ boite.get_nom_de_boite_display }})</span>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p class="text-gray-500">{% trans "Aucune boîte enregistrée pour cet exemplaire." %}</p>
+            {% endif %}
         </div>
-
-
-
+    </div>
 
     <!-- Formulaire liaison moteur existant -->
     <div class="bg-white shadow-md rounded-lg p-6 mb-6">
         <h2 class="text-lg font-semibold mb-4">{% trans "Lier un moteur existant" %}</h2>
 
         {% if messages %}
-            {% for message in messages %}
-                <div class="mb-3 px-4 py-2 rounded
-                    {% if message.tags == 'success' %}
-                        bg-green-100 text-green-800 border border-green-300
-                    {% else %}
-                        bg-red-100 text-red-800 border border-red-300
-                    {% endif %}">
-                    {{ message }}
-                </div>
-            {% endfor %}
+        {% for message in messages %}
+        <div class="mb-3 px-4 py-2 rounded
+            {% if message.tags == 'success' %}
+                bg-green-100 text-green-800 border border-green-300
+            {% else %}
+                bg-red-100 text-red-800 border border-red-300
+            {% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
         {% endif %}
 
-
-        <form id="lier-moteur-form" method="post"
-              action="{% url 'voiture_exemplaire:lier_moteur_exemplaire_from_detail' exemplaire_id=exemplaire.id %}">
+        <form id="lier-moteur-form" method="post" action="{% url 'voiture_exemplaire:lier_moteur_exemplaire_from_detail' exemplaire_id=exemplaire.id %}">
             {% csrf_token %}
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <!-- Motoriste libre -->
-                <input type="text" id="motoriste" name="motoriste"
-                       placeholder="{% trans 'Motoriste' %}" required
-                       class="border rounded p-2 w-full">
-
-                <!-- Cylindrée dépend du motoriste -->
-                <select id="cylindree_l" name="cylindree_l" required disabled
-                        class="border rounded p-2 w-full">
+                <input type="text" id="motoriste" name="motoriste" placeholder="{% trans 'Motoriste' %}" required class="border rounded p-2 w-full">
+                <select id="cylindree_l" name="cylindree_l" required disabled class="border rounded p-2 w-full">
                     <option value="">{% trans "Choisir une cylindrée" %}</option>
                 </select>
-
-                <!-- Code moteur auto -->
-                <input type="text" id="code_moteur" name="code_moteur"
-                       placeholder="{% trans 'Code moteur' %}" readonly
-                       class="border rounded p-2 w-full">
+                <input type="text" id="code_moteur" name="code_moteur" placeholder="{% trans 'Code moteur' %}" readonly class="border rounded p-2 w-full">
             </div>
-            <button type="submit" class="mt-4 px-4 py-2 bg-blue-700 text-white rounded hover:bg-blue-400">
-                {% trans "Lier le moteur" %}
-            </button>
+            <button type="submit" class="mt-4 px-4 py-2 bg-blue-700 text-white rounded hover:bg-blue-400">{% trans "Lier le moteur" %}</button>
         </form>
-
-
-
-
-        <div id="moteur-details" class="mt-4 hidden">
-            <h3 class="font-semibold">{% trans "Détails du moteur" %}</h3>
-            <ul class="list-disc pl-5 mt-2" id="moteur-details-list"></ul>
-        </div>
     </div>
 
+    <!-- Formulaire liaison boîte -->
     <div class="bg-white shadow-md rounded-lg p-6 mb-6">
         <h2 class="text-lg font-semibold mb-4">{% trans "Lier une boîte de vitesse existante" %}</h2>
 
-       {% if messages %}
-            {% for message in messages %}
-                <div class="mb-3 px-4 py-2 rounded
-                    {% if message.tags == 'success' %}
-                        bg-green-100 text-green-800 border border-green-300
-                    {% else %}
-                        bg-red-100 text-red-800 border border-red-300
-                    {% endif %}">
-                    {{ message }}
-                </div>
-            {% endfor %}
+        {% if messages %}
+        {% for message in messages %}
+        <div class="mb-3 px-4 py-2 rounded
+            {% if message.tags == 'success' %}
+                bg-green-100 text-green-800 border border-green-300
+            {% else %}
+                bg-red-100 text-red-800 border border-red-300
+            {% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
         {% endif %}
 
-        <form id="lier-boite-form" method="post"
-              action="{% url 'voiture_exemplaire:lier_boite_exemplaire_from_detail' exemplaire_id=exemplaire.id %}">
+        <form id="lier-boite-form" method="post" action="{% url 'voiture_exemplaire:lier_boite_exemplaire_from_detail' exemplaire_id=exemplaire.id %}">
             {% csrf_token %}
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <!-- Fabricant libre -->
                 <input list="fabricants" id="fabricant" name="fabricant" placeholder="Fabricant" class="border rounded p-2 w-full" required>
                 <datalist id="fabricants">
                     {% for f in fabricants|dictsort:"nom" %}
-                        <option value="{{ f.nom }}">
+                    <option value="{{ f.nom }}">
                     {% endfor %}
                 </datalist>
 
-
-                <!-- Type de boîte auto -->
-                <select id="type_de_boite" name="type_de_boite" required disabled
-                        class="border rounded p-2 w-full">
+                <select id="type_de_boite" name="type_de_boite" required disabled class="border rounded p-2 w-full">
                     <option value="">{% trans "Choisir un type" %}</option>
                 </select>
 
-                <!-- Nom du type auto -->
-                <select type="text" id="nom_du_type" name="nom_du_type"  required disabled
-                       class="border rounded p-2 w-full">
-                    <option value="">{% trans "Choisir une boite" %}</option>
-                </select>
+                <input type="text" id="nom_du_type" name="nom_du_type" placeholder="{% trans 'Choisir une boite' %}" readonly class="border rounded p-2 w-full">
             </div>
-
-            <button type="submit" class="mt-4 px-4 py-2 bg-blue-700 text-white rounded hover:bg-blue-400">
-                {% trans "Lier la boîte" %}
-            </button>
+            <button type="submit" class="mt-4 px-4 py-2 bg-blue-700 text-white rounded hover:bg-blue-400">{% trans "Lier la boîte" %}</button>
         </form>
-
     </div>
-
 </div>
 
 <script>
@@ -215,12 +169,13 @@ $(document).ready(function() {
         const $cylindree = $("#cylindree_l");
         $cylindree.empty().append('<option value="">{% trans "Choisir une cylindrée" %}</option>');
         $("#code_moteur").val("");
+
         if (motoriste) {
             $.ajax({
                 url: "{% url 'voiture_exemplaire:ajax_get_cylindrees' %}",
-                data: {motoriste: motoriste},
+                data: { motoriste: motoriste },
                 success: function (data) {
-                    data.forEach(c => $cylindree.append('<option value="' + c + '">' + c + '</option>'));
+                    data.forEach(c => $cylindree.append('<option value="'+c+'">'+c+'</option>'));
                     $cylindree.prop("disabled", false);
                 }
             });
@@ -235,7 +190,7 @@ $(document).ready(function() {
         if (motoriste && cylindree) {
             $.ajax({
                 url: "{% url 'voiture_exemplaire:ajax_get_code_moteur' %}",
-                data: {motoriste: motoriste, cylindree: cylindree},
+                data: { motoriste: motoriste, cylindree: cylindree },
                 success: function (data) {
                     $("#code_moteur").val(data.code_moteur);
                 }
@@ -246,52 +201,42 @@ $(document).ready(function() {
     });
 
     // -------------------- BOITE --------------------
-
-
-    // Auto-completion des boîtes
-     $("#fabricant").change(function() {
+    $("#fabricant").on("change", function() {
         const fabricant = $(this).val().trim();
-        const $type_de_boite = $("#type_de_boite");
-        const $nom_du_type = $("#nom_du_type");
+        const $typeDeBoite = $("#type_de_boite");
+        const $nomDuType = $("#nom_du_type");
 
-        $type_de_boite.empty().append('<option value="">{% trans "Choisir un type" %}</option>');
-        $nom_du_type.empty().append('<option value="">{% trans "Choisir une boite" %}</option>');
+        $typeDeBoite.empty().append('<option value="">{% trans "Choisir un type" %}</option>').prop("disabled", true);
+        $nomDuType.val("").prop("readonly", true);
 
-        if (fabricant) {
-            $.ajax({
-                url: "{% url 'voiture_exemplaire:ajax_get_type_de_boite' %}",
-                data: { fabricant: fabricant },
-                success: function(data) {
-                    data.forEach(c => $type_de_boite.append('<option value="'+c+'">'+c+'</option>'));
-                    $type_de_boite.prop("disabled", false);
-                    $nom_du_type.prop("disabled", true);
-                }
-            });
-        } else {
-            $type_de_boite.prop("disabled", true);
-            $nom_du_type.prop("disabled", true);
-        }
+        if (!fabricant) return;
+
+        $.ajax({
+            url: "{% url 'voiture_exemplaire:ajax_get_type_de_boite' %}",
+            data: { fabricant: fabricant },
+            success: function(data) {
+                data.forEach(type => $typeDeBoite.append('<option value="'+type+'">'+type+'</option>'));
+                $typeDeBoite.prop("disabled", false);
+            }
+        });
     });
 
-    $("#type_de_boite").change(function() {
+    $("#type_de_boite").on("change", function() {
         const fabricant = $("#fabricant").val().trim();
-        const type_de_boite = $(this).val();
-        const $nom_du_type = $("#nom_du_type");
+        const typeDeBoite = $(this).val();
+        const $nomDuType = $("#nom_du_type");
 
-        $nom_du_type.empty().append('<option value="">{% trans "Choisir une boite" %}</option>');
+        $nomDuType.val("");
 
-        if (fabricant && type_de_boite) {
-            $.ajax({
-                url: "{% url 'voiture_exemplaire:ajax_get_nom_du_type' %}",
-                data: { fabricant: fabricant, type_de_boite: type_de_boite },
-                success: function(data) {
-                    $nom_du_type.append('<option value="'+data.nom_du_type+'" selected>'+data.nom_du_type+'</option>');
-                    $nom_du_type.prop("disabled", false);
-                }
-            });
-        } else {
-            $nom_du_type.prop("disabled", true);
-        }
+        if (!fabricant || !typeDeBoite) return;
+
+        $.ajax({
+            url: "{% url 'voiture_exemplaire:ajax_get_nom_du_type' %}",
+            data: { fabricant: fabricant, type_de_boite: typeDeBoite },
+            success: function(data) {
+                $nomDuType.val(data.nom_du_type);
+            }
+        });
     });
 
 });
