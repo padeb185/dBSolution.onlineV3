@@ -177,7 +177,7 @@ def lier_moteur_exemplaire(request, moteur_id, exemplaire_id):
 @login_required
 def lier_boite_exemplaire(request, exemplaire_id):
     exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
-    boites = VoitureBoite.objects.all()  # Ou filtre selon fabricant si tu veux
+    boites = VoitureBoite.objects.all()  # Tu peux filtrer selon fabricant si tu veux
 
     if request.method == "POST":
         boite_id = request.POST.get("boite_id")
@@ -185,7 +185,9 @@ def lier_boite_exemplaire(request, exemplaire_id):
             boite = get_object_or_404(VoitureBoite, id=boite_id)
             boite.voitures_exemplaires.add(exemplaire)
             messages.success(request, _("La boîte de vitesse a été liée à l'exemplaire avec succès."))
-            return redirect("voiture_exemplaire:detail_exemplaire", exemplaire_id=exemplaire.id)
+
+            # 🔹 Correct redirect vers la même page pour voir le message
+            return redirect("voiture_exemplaire:lier_boite_exemplaire", exemplaire_id=exemplaire.id)
         else:
             messages.error(request, _("Veuillez sélectionner une boîte à lier."))
 
@@ -194,10 +196,6 @@ def lier_boite_exemplaire(request, exemplaire_id):
         "boites": boites,
         "title": _("Lier une boîte de vitesse à un véhicule"),
     })
-
-
-
-
 
 
 @login_required

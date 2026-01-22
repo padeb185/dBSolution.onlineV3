@@ -74,6 +74,20 @@
             <p class="text-gray-500">{% trans "Aucun moteur enregistré pour cet exemplaire." %}</p>
             {% endif %}
 
+            <h2 class="text-lg font-semibold mb-4">{% trans "Boite de vitesse" %}</h2>
+            {% if exemplaire.boites.exists %}
+            <ul class="space-y-2">
+                {% for boite in exemplaire.boites.all %}
+                <li class="border p-3 rounded-md hover:bg-gray-50">
+                    {{ moteur.get_type_de_boite_display }} - {{ boite.nom_du_type }}L
+                    <span class="text-gray-500">({{ moteur.fabricant }} ch)</span>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p class="text-gray-500">{% trans "Aucune boite enregistrée pour cet exemplaire." %}</p>
+            {% endif %}
+
 
         </div>
     </div>
@@ -108,13 +122,14 @@
         </form>
     </div>
 
-    <!-- Bouton pour lier une nouvelle boîte -->
-    <div class="mt-4">
-        <a href="{% url 'voiture_exemplaire:lier_boite_exemplaire' exemplaire_id=exemplaire.id %}">
-            <button type="button" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-400">
-                {% trans "Lier une boîte" %}
-            </button>
-        </a>
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <div class="mt-4">
+            <a href="{% url 'voiture_exemplaire:lier_boite_exemplaire' exemplaire_id=exemplaire.id %}">
+                <button type="button"class="mt-4 px-4 py-2 bg-blue-700 text-white rounded hover:bg-blue-400">
+                    {% trans "Lier une boîte" %}
+                </button>
+            </a>
+        </div>
     </div>
 
 
