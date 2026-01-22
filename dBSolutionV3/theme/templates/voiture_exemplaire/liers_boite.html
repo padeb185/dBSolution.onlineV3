@@ -7,63 +7,81 @@
 <form method="post" id="lier-boite-form">
     {% csrf_token %}
 
+    <!-- Fabricant -->
     <label for="fabricant">Fabricant</label>
-    <input type="text" id="fabricant" name="fabricant">
+    <input type="text" id="fabricant" name="fabricant" autocomplete="off">
 
+    <!-- Type de boîte -->
     <label for="type_de_boite">Type de boîte</label>
-    <select id="type_de_boite" name="type_de_boite">
+    <select id="type_de_boite" name="type_de_boite" disabled>
         <option value="">-- Choisir --</option>
     </select>
 
+    <!-- Nom du type -->
     <label for="nom_du_type">Nom du type</label>
-    <input type="text" id="nom_du_type" name="nom_du_type" readonly>
+    <select id="nom_du_type" name="nom_du_type" disabled>
+        <option value="">-- Choisir --</option>
+    </select>
 
     <button type="submit">Lier la boîte</button>
 </form>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const fabricantInput = document.getElementById("fabricant");
-    const typeSelect = document.getElementById("type_de_boite");
-    const nomInput = document.getElementById("nom_du_type");
+$(document).ready(function() {
 
-    fabricantInput.addEventListener("change", function() {
-        const fabricant = this.value;
+    // --- Quand le fabricant change ---
+    $("#fabricant").on("input", function() {
+        var fabricant = $(this).val().trim();
+        var selectType = $("#type_de_boite");
+        var selectNom = $("#nom_du_type");
 
-        // 1️⃣ récupérer les types de boîte
-        fetch(`/fr/voiture/exemplaires/ajax/get_type_de_boite/?fabricant=${fabricant}`)
-        .then(response => response.json())
-        .then(data => {
-            // vider l'ancienne liste
-            typeSelect.innerHTML = '<option value="">-- Choisir --</option>';
-            data.forEach(type => {
-                const option = document.createElement("option");
-                option.value = type;
-                option.textContent = type;
-                typeSelect.appendChild(option);
+        selectType.empty().append('<option value="">-- Choisir --</option>').prop("disabled", true);
+        selectNom.empty().append('<option value="">-- Choisir --</option>').prop("disabled", true);
+
+        if (fabricant) {
+            $.ajax({
+                url: "{% url 'voiture_exemplaire:ajax_get_type_de_boite' %}",
+                data: { fabricant: fabricant },
+                success: function(data) {
+                    if (data.length > 0) {
+                        data.forEach(function(t) {
+                            selectType.append('<option value="'+t+'">'+t+'</option>');
+                        });
+                        selectType.prop("disabled", false);
+                    }
+                }
             });
-            nomInput.value = ""; // reset nom du type
-        });
-    });
-
-    typeSelect.addEventListener("change", function() {
-        const type_de_boite = this.value;
-        const fabricant = fabricantInput.value;
-
-        if (!type_de_boite) {
-            nomInput.value = "";
-            return;
         }
-
-        // 2️⃣ récupérer le nom du type
-        fetch(`/fr/voiture/exemplaires/ajax/get_nom_du_type/?fabricant=${fabricant}&type_de_boite=${type_de_boite}`)
-        .then(response => response.json())
-        .then(data => {
-            nomInput.value = data.nom_du_type || "";
-        });
     });
+
+    // --- Quand le type de boîte change ---
+    $("#type_de_boite").change(function() {
+        var fabricant = $("#fabricant").val().trim();
+        var type_de_boite = $(this).val();
+        var selectNom = $("#nom_du_type");
+
+        selectNom.empty().append('<option value="">-- Choisir --</option>').prop("disabled", true);
+
+        if (fabricant && type_de_boite) {
+            $.ajax({
+                url: "{% url 'voiture_exemplaire:ajax_get_nom_du_type' %}",
+                data: { fabricant: fabricant, type_de_boite: type_de_boite },
+                success: function(data) {
+                    if (data.length > 0) {
+                        data.forEach(function(nom) {
+                            selectNom.append('<option value="'+nom+'">'+nom+'</option>');
+                        });
+                        selectNom.prop("disabled", false);
+                    } else if (data.nom_du_type) {
+                        // Si le view renvoie un seul nom
+                        selectNom.append('<option value="'+data.nom_du_type+'">'+data.nom_du_type+'</option>').prop("disabled", false);
+                    }
+                }
+            });
+        }
+    });
+
 });
 </script>
-
 {% endblock %}
