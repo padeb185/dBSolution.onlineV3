@@ -365,7 +365,7 @@ def lier_boite(request, pk):
 
 
 
-def exemplaire_detail_view(request, exemplaire_id):
+def exemplaire_detail(request, exemplaire_id):
     exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
 
     moteurs = MoteurVoiture.objects.filter(voitures_exemplaires=exemplaire)
