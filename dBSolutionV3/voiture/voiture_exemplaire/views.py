@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.shortcuts import  redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.cache import never_cache
 from django_tenants.utils import tenant_context
 from .models import VoitureExemplaire
 from .forms import VoitureExemplaireForm
@@ -41,7 +42,7 @@ def liste_exemplaires(request, modele_id):
 
 
 
-
+@never_cache
 @login_required
 def voiture_exemplaire_detail(request, exemplaire_id):
     tenant = request.user.societe
@@ -67,7 +68,7 @@ def voiture_exemplaire_detail(request, exemplaire_id):
 def lier_boite_exemplaire(request, exemplaire_id):
     exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
     with tenant_context(request.user.societe):
-        boites = VoitureBoite.objects.all()  # Tu peux filtrer selon fabricant si tu veux
+        boites = VoitureBoite.objects.all().order_by('fabricant')
 
         if request.method == "POST":
             boite_id = request.POST.get("boite_id")
@@ -92,7 +93,7 @@ def lier_boite_exemplaire(request, exemplaire_id):
 def lier_moteur_exemplaire(request, exemplaire_id):
     exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
     with tenant_context(request.user.societe):
-        moteurs = MoteurVoiture.objects.all()
+        moteurs = MoteurVoiture.objects.all().order_by('motoriste')
 
         if request.method == "POST":
             moteur_id = request.POST.get("moteur_id")
