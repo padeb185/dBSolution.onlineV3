@@ -31,22 +31,21 @@ class VoitureEmbrayage(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
     # Relations (1 des 2 obligatoire)
-    voiture_modele = models.ForeignKey(
+    voitures_modeles = models.ManyToManyField(
         "voiture_modele.VoitureModele",
-        on_delete=models.CASCADE,
         related_name="embrayages",
-        null=True,
         blank=True
     )
 
-    voiture_exemplaire = models.ForeignKey(
+    voitures_exemplaires = models.ManyToManyField(
         "voiture_exemplaire.VoitureExemplaire",
-        on_delete=models.CASCADE,
         related_name="embrayages",
-        null=True,
         blank=True
     )
+
     fabricant = models.CharField(max_length=30, null=True, blank=True)
+
+    oem = models.CharField(max_length=50, null=True, blank=True)
 
     type_embrayage = models.CharField(
         max_length=20,
@@ -80,18 +79,13 @@ class VoitureEmbrayage(models.Model):
         blank=True
     )
 
+
+
     date_creation = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         constraints = [
-            models.CheckConstraint(
-                condition=Q(numero_embrayage__gte=1) & Q(numero_embrayage__lte=10),
-                name="numero_embrayage_1_10"
-            ),
-            models.CheckConstraint(
-                condition=Q(voiture_modele__isnull=False) | Q(voiture_exemplaire__isnull=False),
-                name="embrayage_liée_a_voiture"
-            ),
+
         ]
 
     def __str__(self):

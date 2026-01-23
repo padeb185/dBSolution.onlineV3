@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import ajouter_exemplaire_all, liste_exemplaires, voiture_exemplaire_detail, \
-    moteur_autocomplete, modifier_exemplaire,\
-    liste_exemplaires_all, lier_boite_exemplaire, lier_moteur_exemplaire
+    moteur_autocomplete, modifier_exemplaire, \
+    liste_exemplaires_all, lier_boite_exemplaire, lier_moteur_exemplaire, lier_embrayage_exemplaire
 
 app_name = "voiture_exemplaire"
 
@@ -22,10 +22,11 @@ urlpatterns = [
 
     path('exemplaires/', liste_exemplaires_all, name='liste_exemplaires_all'),
 
-    path(
-        'exemplaire/<uuid:exemplaire_id>/lier-boite/',lier_boite_exemplaire,name='lier_boite_exemplaire'),
-    path(
-        'exemplaire/<uuid:exemplaire_id>/lier-moteur/',lier_moteur_exemplaire,name='lier_moteur_exemplaire'),
+    path('exemplaire/<uuid:exemplaire_id>/lier-boite/',lier_boite_exemplaire,name='lier_boite_exemplaire'),
+
+    path('exemplaire/<uuid:exemplaire_id>/lier-moteur/',lier_moteur_exemplaire,name='lier_moteur_exemplaire'),
+
+    path('exemplaire/<uuid:exemplaire_id>/lier-embrayage/', lier_embrayage_exemplaire, name='lier_embrayage_exemplaire'),
 
 
 ]

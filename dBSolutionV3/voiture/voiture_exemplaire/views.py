@@ -13,6 +13,8 @@ from django.utils.translation import gettext as _
 from societe.models import Societe
 from voiture.voiture_boite.models import VoitureBoite
 
+from ..voiture_embrayage.models import VoitureEmbrayage
+
 
 @login_required
 def liste_exemplaires(request, modele_id):
@@ -111,6 +113,32 @@ def lier_moteur_exemplaire(request, exemplaire_id):
             "exemplaire": exemplaire,
             "moteurs": moteurs,
             "title": _("Lier un moteur à un véhicule"),
+        })
+
+
+
+@login_required
+def lier_embrayage_exemplaire(request, exemplaire_id):
+    exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
+    with tenant_context(request.user.societe):
+        embrayages = VoitureEmbrayage.objects.all().order_by('fabricant')
+
+        if request.method == "POST":
+            embrayage_id = request.POST.get("embrayage_id")
+            if embrayage_id:
+                embrayage = get_object_or_404(VoitureEmbrayage, id=embrayage_id)
+                embrayage.voiture_exemplaire.add(exemplaire)
+                messages.success(request, _("L'embrayage a été lié à l'exemplaire avec succès."))
+
+
+                return redirect("voiture_exemplaire:lier_embrayage_exemplaire", exemplaire_id=exemplaire.id)
+            else:
+                messages.error(request, _("Veuillez sélectionner un embrayage à lier."))
+
+        return render(request, "voiture_exemplaire/lier_embrayage.html", {
+            "exemplaire": exemplaire,
+            "embrayages": embrayages,
+            "title": _("Lier un embrayage à un véhicule"),
         })
 
 
