@@ -106,27 +106,21 @@
         {% endfor %}
     {% endif %}
 
-    <!-- Formulaire liaison moteur -->
-    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
-        <h2 class="text-lg font-semibold mb-4">{% trans "Lier un moteur existant" %}</h2>
-        <form id="lier-moteur-form" method="post" action="{% url 'voiture_exemplaire:lier_moteur_exemplaire_from_detail' exemplaire_id=exemplaire.id %}">
-            {% csrf_token %}
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <input type="text" id="motoriste" name="motoriste" placeholder="{% trans 'Motoriste' %}" required class="border rounded p-2 w-full">
-                <select id="cylindree_l" name="cylindree_l" required disabled class="border rounded p-2 w-full">
-                    <option value="">{% trans "Choisir une cylindrée" %}</option>
-                </select>
-                <input type="text" id="code_moteur" name="code_moteur" placeholder="{% trans 'Code moteur' %}" readonly class="border rounded p-2 w-full">
-            </div>
-            <button type="submit" class="mt-4 px-4 py-2 bg-blue-700 text-white rounded hover:bg-blue-400">{% trans "Lier le moteur" %}</button>
-        </form>
-    </div>
 
     <div class="bg-white shadow-md rounded-lg p-6 mb-6">
         <div class="mt-4">
             <a href="{% url 'voiture_exemplaire:lier_boite_exemplaire' exemplaire_id=exemplaire.id %}">
                 <button type="button"class="mt-4 px-4 py-2 bg-blue-700 text-white rounded hover:bg-blue-400">
                     {% trans "Lier une boîte" %}
+                </button>
+            </a>
+        </div>
+    </div>
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <div class="mt-4">
+            <a href="{% url 'voiture_exemplaire:lier_moteur_exemplaire' exemplaire_id=exemplaire.id %}">
+                <button type="button"class="mt-4 px-4 py-2 bg-blue-700 text-white rounded hover:bg-blue-400">
+                    {% trans "Lier un moteur" %}
                 </button>
             </a>
         </div>

@@ -9,7 +9,7 @@
 
         <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold flex items-center gap-4">
-            <span>{% trans "Boite de vitesse du véhicule : " %}</span>
+            <span>{% trans "Moteur du véhicule : " %}</span>
 
             {% if exemplaire.pays == 'Belgique' %}
             <div class="flex items-center w-[40%] min-w-[180px] h-[40px] bg-white border-2 border-[#8B0000] rounded font-[Arial] mb-4">
@@ -54,19 +54,19 @@
 
     <form method="post">
         {% csrf_token %}
-        <label for="boite_id" class="block mb-2 font-semibold">{% trans "Choisir une boîte" %}</label>
-        <select name="boite_id" id="boite_id" required class="border rounded p-2 w-full mb-4">
-            <option value="">{% trans "Sélectionner une boîte" %}</option>
-            {% for boite in boites %}
-                <option value="{{ boite.id }}">
-                    {{ boite.fabricant }}  {{ boite.type_de_boite }}  {{ boite.nom_du_type }}
+        <label for="moteur_id" class="block mb-2 font-semibold">{% trans "Choisir un moteur" %}</label>
+        <select name="moteur_id" id="moteur_id" required class="border rounded p-2 w-full mb-4">
+            <option value="">{% trans "Sélectionner un moteur" %}</option>
+            {% for moteur in moteurs %}
+                <option value="{{ moteur.id }}">
+                    {{ moteur.motoriste }}  {{ moteur.cylindree_l }}  {{ moteur.code_moteur }}
                 </option>
             {% endfor %}
         </select>
         <button
             type="submit"
             class="w-full mt-[50px] px-4 py-2 bg-blue-700 text-white rounded hover:bg-blue-400">
-            {% trans "Lier la boîte" %}
+            {% trans "Lier le moteur" %}
         </button>
 
     </form>
