@@ -7,7 +7,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "dBSolutionV3.settings")
 django.setup()
 
 from django_tenants.utils import get_tenant_model, tenant_context
-from utilisateurs.models import Person  # ton modèle user custom
+from utilisateurs.models import Utilisateur
 
 # 1️⃣ Créer le tenant
 TenantModel = get_tenant_model()
@@ -16,7 +16,7 @@ TenantModel = get_tenant_model()
 tenant, created = TenantModel.objects.get_or_create(
     schema_name='dbsolution',
     defaults={
-        'name': 'DB Solution',
+        'scema_name': 'dbsolution',
         'paid_until': '2030-01-01',
         'on_trial': False,
         'auto_create_schema': True,
@@ -73,3 +73,5 @@ tenant, created = TenantModel.objects.get_or_create(
 )
 
 print("✅ Tenant créé" if created else "⚠️ Tenant existait déjà")
+
+

@@ -9,39 +9,49 @@ class VoitureFreins(models.Model):
         editable=False
     )
 
-    voiture_modele = models.ForeignKey(
+    # Relations ManyToMany
+    voitures_modeles = models.ManyToManyField(
         "voiture_modele.VoitureModele",
-        on_delete=models.CASCADE,
         related_name="freins",
-        verbose_name="Voiture modèle"
+        blank=True
     )
 
-    voiture_exemplaire = models.ForeignKey(
+    voitures_exemplaires = models.ManyToManyField(
         "voiture_exemplaire.VoitureExemplaire",
-        on_delete=models.CASCADE,
         related_name="freins",
-        verbose_name="Voiture exemplaire"
+        blank=True
     )
-
     taille_disque_av = models.FloatField(
-        verbose_name="Taille disque AV (mm)"
+        verbose_name="Taille disque AV (mm)",
+        null=True,
+        blank=True
     )
     taille_disque_ar = models.FloatField(
-        verbose_name="Taille disque AR (mm)"
+        verbose_name="Taille disque AR (mm)",
+        null=True,
+        blank=True
     )
 
     epaisseur_disque_av = models.FloatField(
-        verbose_name="Épaisseur disque AV (mm)"
+        verbose_name="Épaisseur disque AV (mm)",
+        null=True,
+        blank=True
     )
     epaisseur_disque_ar = models.FloatField(
-        verbose_name="Épaisseur disque AR (mm)"
+        verbose_name="Épaisseur disque AR (mm)",
+        null=True,
+        blank=True
     )
 
     epaisseur_min_disque_av = models.FloatField(
-        verbose_name="Épaisseur minimum disque AV (mm)"
+        verbose_name="Épaisseur minimum disque AV (mm)",
+        null=True,
+        blank=True
     )
     epaisseur_min_disque_ar = models.FloatField(
-        verbose_name="Épaisseur minimum disque AR (mm)"
+        verbose_name="Épaisseur minimum disque AR (mm)",
+        null=True,
+        blank=True
     )
 
     class Meta:

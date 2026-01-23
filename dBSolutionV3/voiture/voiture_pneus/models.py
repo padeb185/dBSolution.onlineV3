@@ -14,24 +14,17 @@ class VoiturePneus(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
-    voiture_modele = models.ForeignKey(
-        'voiture_modele.VoitureModele',
-        on_delete=models.PROTECT,
-        related_name="configurations_pneus"
-    )
-    societe = models.ForeignKey(
-        "societe.Societe",
-        on_delete=models.PROTECT,
+    # Relations ManyToMany
+    voitures_modeles = models.ManyToManyField(
+        "voiture_modele.VoitureModele",
         related_name="pneus",
-        null=True,
         blank=True
     )
 
-    voiture_exemplaire = models.ForeignKey(
+    voitures_exemplaires = models.ManyToManyField(
         "voiture_exemplaire.VoitureExemplaire",
-        on_delete=models.PROTECT,
         related_name="pneus",
-        null=True, blank=True
+        blank=True
     )
 
     fournisseur = models.ForeignKey(

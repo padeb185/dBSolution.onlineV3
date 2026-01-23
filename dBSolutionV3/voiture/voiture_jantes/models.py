@@ -10,18 +10,17 @@ class VoitureJante(models.Model):
         editable=False
     )
 
-    voiture_modele = models.ForeignKey(
+    # Relations ManyToMany
+    voitures_modeles = models.ManyToManyField(
         "voiture_modele.VoitureModele",
-        on_delete=models.CASCADE,
         related_name="jantes",
-        verbose_name="Voiture modèle"
+        blank=True
     )
 
-    voiture_exemplaire = models.ForeignKey(
+    voitures_exemplaires = models.ManyToManyField(
         "voiture_exemplaire.VoitureExemplaire",
-        on_delete=models.CASCADE,
         related_name="jantes",
-        verbose_name="Voiture exemplaire"
+        blank=True
     )
 
     # 🔹 Jantes d'origine

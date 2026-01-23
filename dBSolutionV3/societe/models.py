@@ -11,7 +11,7 @@ class Societe(TenantMixin):
     on_trial = models.BooleanField(default=True)
     created_on = models.DateField(auto_now_add=True)
 
-    auto_create_schema = True  # ⚠️ indispensable
+    auto_create_schema = False
 
     # Champs spécifiques à ta société
     id_societe = models.UUIDField(
