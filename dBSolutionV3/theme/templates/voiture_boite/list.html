@@ -70,7 +70,7 @@ $(document).ready(function() {
     var table = $('#boites-table').DataTable({
         pageLength: 100,
         language: {
-            search: "{% trans 'Recherche globale :' %}",
+            search: "{% trans 'Recherche :' %}",
             lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
             info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ boîtes' %}",
             infoEmpty: "{% trans 'Aucune boîte trouvée' %}",
@@ -84,6 +84,22 @@ $(document).ready(function() {
         },
         order: [[0, "asc"]]
     });
+            // Fonction générique pour filtrer par colonne insensible à la casse
+        function bindColumnFilter(selector, columnIndex) {
+            const $input = $(selector);
+            if ($input.length) {
+                $input.on('keyup change', function() {
+                    const val = $.trim(this.value);
+                    table.column(columnIndex).search(val, true, false, true).draw();
+                });
+            }
+        }
+
+        // Appliquer les filtres par colonne
+        bindColumnFilter('#search-fabricant', 0);
+        bindColumnFilter('#search-nom_du_type', 1);
+        bindColumnFilter('#search-type_de_boite', 2);
+
 
     // Filtres par colonne
     $('#search-fabricant').on('keyup', function () {

@@ -23,15 +23,9 @@ urlpatterns = [
     path('exemplaires/', liste_exemplaires_all, name='liste_exemplaires_all'),
 
     path(
-        'exemplaire/<uuid:exemplaire_id>/lier-boite/',
-        lier_boite_exemplaire,
-        name='lier_boite_exemplaire'
-    ),
+        'exemplaire/<uuid:exemplaire_id>/lier-boite/',lier_boite_exemplaire,name='lier_boite_exemplaire'),
     path(
-        'exemplaire/<uuid:exemplaire_id>/lier-moteur/',
-        lier_moteur_exemplaire,
-        name='lier_moteur_exemplaire'
-    ),
+        'exemplaire/<uuid:exemplaire_id>/lier-moteur/',lier_moteur_exemplaire,name='lier_moteur_exemplaire'),
 
 
 ]

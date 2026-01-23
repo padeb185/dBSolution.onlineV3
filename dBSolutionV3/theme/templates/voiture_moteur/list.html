@@ -31,7 +31,7 @@
 <table id="moteurs-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
     <thead>
         <tr class="bg-gray-100">
-            <th class="border px-4 py-2 cursor-pointer">{% trans "Nom du Motoristet" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Nom du Motoriste" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Code moteur" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Cylindree" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Type moteur" %}</th>
@@ -73,7 +73,7 @@ $(document).ready(function() {
     var table = $('#moteurs-table').DataTable({
         pageLength: 100,
         language: {
-            search: "{% trans 'Recherche globale :' %}",
+            search: "{% trans 'Recherche :' %}",
             lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
             info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ moteurs' %}",
             infoEmpty: "{% trans 'Aucun moteur trouvé' %}",
@@ -87,6 +87,21 @@ $(document).ready(function() {
         },
         order: [[0, "asc"]]
     });
+
+     function bindColumnFilter(selector, columnIndex) {
+        var $input = $(selector);
+        if ($input.length) {
+            $input.on('keyup change', function() {
+                var val = $.trim(this.value);
+                table.column(columnIndex).search(val, true, false, true).draw();
+            });
+        }
+    }
+
+    // Appliquer filtres
+    bindColumnFilter('#search-motoriste', 0);
+    bindColumnFilter('#search-code_moteur', 1);
+    bindColumnFilter('#search-cylindree_l', 2);
 
     // Filtre pour "Motoriste" -> colonne 0
     $('#search-motoriste').on('keyup change', function () {
