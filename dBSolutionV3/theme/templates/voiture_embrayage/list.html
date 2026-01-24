@@ -11,35 +11,36 @@
 </h1>
 
 <div class="bg-white shadow-md rounded-lg p-4 mb-4">
-    <div class="grid grid-cols-1 md:grid-cols-8 gap-3 items-end">
+    <div class="grid grid-cols-1 md:grid-cols-6 gap-3 items-end">
         <input id="search-fabricant" type="text"
-               class="border rounded px-3 py-2"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Fabricant' %}">
 
         <input id="search-type_embrayage" type="text"
-               class="border rounded px-3 py-2"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Type embrayage' %}">
 
         <input id="search-volant_moteur" type="text"
-               class="border rounded px-3 py-2"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Volant moteur' %}">
 
         <input id="search-plateau_pression" type="text"
-               class="border rounded px-3 py-2"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Plateau de pression' %}">
 
         <input id="search-oem" type="text"
-               class="border rounded px-3 py-2"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Numéro OEM' %}">
 
-        <div class="md:col-span-3">
+        <div>
             <a href="{% url 'voiture_embrayage:ajouter_embrayage_simple' %}"
-               class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition w-full">
+               class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
                 {% trans "Ajouter un embrayage" %}
             </a>
         </div>
     </div>
 </div>
+
 
 
 

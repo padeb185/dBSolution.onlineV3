@@ -8,7 +8,7 @@
     <h1 class="text-2xl font-bold mb-4 text-center flex items-center">
         <img src="{% static 'icons/disque-dembrayage.png' %}" alt="Embrayage"
              style="width:60px; height:60px; margin-right:10px;">
-        {% trans "Détails de la boîte de vitesse" %}: {{ boite.fabricant }} {{ boite.nom_du_type }}
+        {% trans "Détails de l'embrayage" %}: {{ embrayage.fabricant }} {{ embrayage.type_embrayage }}
     </h1>
 
     <form class="flex flex-col space-y-4">
@@ -39,10 +39,7 @@
             <input type="text" value="{{ embrayage.oem }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
         </div>
 
-        <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Quantité d'huile (L)" %}</label>
-            <input type="text" value="{{ boite.quantite_huile_l }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
-        </div>
+
 
         <!-- Kilométrage & entretien -->
         <div class="flex flex-col">

@@ -51,8 +51,8 @@ def liste_embrayage(request):
     """
     tenant = request.user.societe
     with tenant_context(tenant):
-        embrayage = VoitureEmbrayage.objects.all()
-    return render(request, "voiture_embrayage/list.html", {"embrayage": embrayage})
+        embrayages = VoitureEmbrayage.objects.all()
+    return render(request, "voiture_embrayage/list.html", {"embrayages": embrayages})
 
 
 
