@@ -1,14 +1,11 @@
 {% extends "base.html" %}
 {% load i18n %}
-
+{% load static %}
 {% block content %}
 <div class="bg-white p-6 pb-16 max-w-xl mx-auto">
-
-
-
-
-        <div class="flex justify-between items-center mb-6">
+    <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold flex items-center gap-4">
+            <img src="{% static 'icons/disque-dembrayage.png' %}" alt="embrayage" style="width:60px; height:60px; margin-right:10px;">
             <span>{% trans "Embrayage du véhicule : " %}</span>
 
             {% if exemplaire.pays == 'Belgique' %}
@@ -58,7 +55,7 @@
         <select name="embrayage_id" id="embrayage_id" required class="border rounded p-2 w-full mb-4">
             <option value="">{% trans "Sélectionner un embrayage" %}</option>
             {% for embrayage in embrayages %}
-                <option value="{{ moteur.id }}">
+                <option value="{{ embrayage.id }}">
                     {{ embrayage.fabricant }}  {{ embrayage.type_embrayage }}  {{ embrayage.volant_moteur }}
                 </option>
             {% endfor %}

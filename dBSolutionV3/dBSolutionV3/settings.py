@@ -241,6 +241,7 @@ MIDDLEWARE = [
 
 
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "dBSolutionV3.middleware.tenant_required.TenantRequiredMiddleware",
 ]
 
 # ------------------------------------------------------------------------------

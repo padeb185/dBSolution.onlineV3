@@ -127,7 +127,7 @@ def lier_embrayage_exemplaire(request, exemplaire_id):
             embrayage_id = request.POST.get("embrayage_id")
             if embrayage_id:
                 embrayage = get_object_or_404(VoitureEmbrayage, id=embrayage_id)
-                embrayage.voiture_exemplaire.add(exemplaire)
+                embrayage.voitures_exemplaires.add(exemplaire)
                 messages.success(request, _("L'embrayage a été lié à l'exemplaire avec succès."))
 
 

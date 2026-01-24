@@ -80,30 +80,6 @@ def ajouter_boite_simple(request):
 
 
 
-@login_required
-def lier_boite(request, boite_id):
-    boite = get_object_or_404(VoitureBoite, id=boite_id)
-
-    if request.method == "POST":
-        type_liaison = request.POST.get("type_liaison")
-        cible_id = request.POST.get("cible_id")
-
-        if type_liaison == "modele":
-            # Lier à un modèle et dé-lier de tout exemplaire
-            boite.voiture_modele_id = cible_id
-            if hasattr(boite, 'voitures_exemplaires'):
-                boite.voitures_exemplaires.clear()
-        else:
-            # Lier à un exemplaire et dé-lier du modèle
-            boite.voitures_exemplaires.clear()
-            boite.voitures_exemplaires.add(cible_id)
-            boite.voiture_modele = None
-
-        boite.save()
-        messages.success(request, "La boîte a été liée avec succès.")
-        return redirect("voiture_boite:list")
-
-    return render(request, "voiture_boite/lier_boite.html", {"boite": boite})
 
 
 @login_required

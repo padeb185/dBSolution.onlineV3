@@ -89,6 +89,22 @@
             <p class="text-gray-500">{% trans "Aucune boite enregistrée pour cet exemplaire." %}</p>
             {% endif %}
 
+            <!-- embrayages -->
+
+            <h2 class="text-lg font-semibold mt-6 mb-4">{% trans "Embrayages" %}</h2>
+            {% if exemplaire.embrayages.exists %}
+            <ul class="space-y-2">
+                {% for embrayage in exemplaire.embrayages.all %}
+                <li class="border p-3 rounded-md hover:bg-gray-50">
+                    {{ embrayage.volant_moteur }} - {{ embrayage.type_embrayage }}
+                    <span class="text-gray-500">({{ embrayage.fabricant }})</span>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p class="text-gray-500">{% trans "Aucun embrayage enregistré pour cet exemplaire." %}</p>
+            {% endif %}
+
         </div>
     </div>
 

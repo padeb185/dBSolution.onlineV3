@@ -8,6 +8,7 @@ from voiture.voiture_modele.models import VoitureModele
 from voiture.voiture_embrayage.models import TypeEmbrayage
 from voiture.voiture_embrayage.models import TypeVolantMoteur
 from voiture.voiture_embrayage.models import TypePlateauPression
+from voiture.voiture_exemplaire.models import VoitureExemplaire
 
 
 @login_required
@@ -80,25 +81,30 @@ def ajouter_embrayage_simple(request):
 
 
 
-@login_required()
+
+@login_required
 def lier_embrayage(request, embrayage_id):
-    embrayage = get_object_or_404(VoitureEmbrayage, id=embrayage_id)
+    tenant = request.user.societe  # ton tenant
+    with tenant_context(tenant):
+        embrayage = get_object_or_404(VoitureEmbrayage, id=embrayage_id)
+        exemplaires = VoitureExemplaire.objects.all().order_by("id")
 
-    if request.method == "POST":
-        type_liaison = request.POST.get("type_liaison")
-        cible_id = request.POST.get("cible_id")
+        if request.method == "POST":
+            cible_id = request.POST.get("cible_id")
+            if cible_id:
+                embrayage.voiture_exemplaire_id = cible_id
+                embrayage.voiture_modele = None  # on supprime tout lien précédent avec un modèle
+                embrayage.save()
+                return redirect("voiture_embrayage:list")  # ou vers la page détail
 
-        if type_liaison == "modele":
-            embrayage.voiture_modele_id = cible_id
-            embrayage.voiture_exemplaire = None
-        else:
-            embrayage.voiture_exemplaire_id = cible_id
-            embrayage.voiture_modele = None
+    return render(request, "voiture_embrayage/lier_embrayage.html", {
+        "embrayage": embrayage,
+        "exemplaires": exemplaires
+    })
 
-        embrayage.save()
-        return redirect("voiture_embrayage:list")
 
-    return render(request, "voiture_embrayage/lier_embrayage.html", {"embrayage": embrayage})
+
+
 
 
 @login_required()
