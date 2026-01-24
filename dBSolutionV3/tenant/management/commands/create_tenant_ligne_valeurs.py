@@ -1,3 +1,8 @@
+"""
+
+
+
+
 python manage.py create_tenant_ligne `
     --nom "dbsolution" `
     --directeur "Pierre-André de Bournonville" `
@@ -8,3 +13,4 @@ python manage.py create_tenant_ligne `
     --numero "3" `
     --code_postal "4960" `
     --ville "Malmedy"
+"""
