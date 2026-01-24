@@ -43,6 +43,8 @@ class VoitureBoite(models.Model):
         null=True,
         blank=True
     )
+    oem = models.CharField(max_length=50, null=True, blank=True)
+
     nombre_rapport = models.PositiveSmallIntegerField(default=5, help_text="nombre rapport", null=True, blank=True)
 
     # Lubrification

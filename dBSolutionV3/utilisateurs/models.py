@@ -103,6 +103,7 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
         related_name="utilisateurs",
         null=True,
         blank=True,
+        to_field="id_societe"
     )
 
     nom = models.CharField(max_length=100)
