@@ -5,7 +5,7 @@ from django_tenants.utils import tenant_context
 from django.shortcuts import render
 from voiture.voiture_freins.forms import VoitureFreinsForm
 from voiture.voiture_modele.models import VoitureModele
-from oiture.voiture_freins.models import VoitureFreins
+from voiture.voiture_freins.models import VoitureFreins
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 
 
@@ -105,4 +105,4 @@ def ajouter_freins_simple(request):
 
 
     return render(request, "voiture_freins/ajouter_freins_simple.html")
-    })
+

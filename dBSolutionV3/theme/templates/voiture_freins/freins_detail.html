@@ -1,57 +1,36 @@
 {% extends "base.html" %}
 {% load i18n static widget_tweaks %}
 
-{% block title %}{{ embrayage.type_embrayage }} - {{ embrayage.plateau_pression }}{% endblock %}
+{% block title %}{{ frein.marque_disque_av }} - {{ frein.marque_disque_ar }}{% endblock %}
 
 {% block content %}
 <div class="max-w-xl mx-auto p-6 bg-white rounded shadow mt-16 mb-16">
     <h1 class="text-2xl font-bold mb-4 text-center flex items-center">
-        <img src="{% static 'icons/disque-dembrayage.png' %}" alt="Embrayage"
+        <img src="{% static 'icons/disque-de-frein.png' %}" alt="freins"
              style="width:60px; height:60px; margin-right:10px;">
-        {% trans "Détails de l'embrayage" %}: {{ embrayage.fabricant }} {{ embrayage.type_embrayage }}
+        {% trans "Détails du freinage" %}: {{ frein.marque_disque_av }} {{ frein.marque_disque_ar }}
     </h1>
 
     <form class="flex flex-col space-y-4">
 
         <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Fabricant" %}</label>
-            <input type="text" value="{{ embrayage.fabricant }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
+            <label class="mb-1 font-medium">{% trans "Marque disque avant" %}</label>
+            <input type="text" value="{{ frein.marque_disque_av }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
         </div>
 
         <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Type d'embrayage" %}</label>
-            <input type="text" value="{{ embrayage.type_embrayage }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
+            <label class="mb-1 font-medium">{% trans "Taille disque avant" %}</label>
+            <input type="text" value="{{ frein.taille_disque_av }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
         </div>
 
         <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Volant moteur" %}</label>
-            <input type="text" value="{{ embrayage.volant_moteur }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
+            <label class="mb-1 font-medium">{% trans "Epaisseur du disque avant" %}</label>
+            <input type="text" value="{{ frein.epaisseur_disque_av }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
         </div>
 
         <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Plateau de pression" %}</label>
-            <input type="text" value="{{ embrayage.plateau_pression }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
-        </div>
-
-
-        <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Numero OEM" %}</label>
-            <input type="text" value="{{ embrayage.oem }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
-        </div>
-
-
-
-        <!-- Kilométrage & entretien -->
-        <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Kilométrage de l'embrayage" %}</label>
-            <input type="text" value="{{ embrayage.kilometrage_embrayage }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
-        </div>
-
-
-        <!-- Gestion remplacement -->
-        <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Numéro d'embrayage" %}</label>
-            <input type="text" value="{{ embrayage.numero_embrayage }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
+            <label class="mb-1 font-medium">{% trans "Epaisseur minimum du disque avant" %}</label>
+            <input type="text" value="{{ frein.epaisseur_min_disque_av }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
         </div>
 
         <!-- Liens voiture -->
@@ -69,13 +48,9 @@
         </div>
         {% endif %}
 
-        <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Date de création" %}</label>
-            <input type="text" value="{{ boite.date_creation|date:'d/m/Y H:i' }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
-        </div>
 
         <!-- Bouton retour -->
-        <a href="{% url 'voiture_boite:list' %}"
+        <a href="{% url 'voiture_frein:list' %}"
            class="mt-4 bg-blue-700 text-white px-4 py-2 rounded w-full text-center hover:bg-blue-400 transition">
             {% trans "Retour" %}
         </a>

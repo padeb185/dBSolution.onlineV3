@@ -8,8 +8,8 @@ urlpatterns = [
     path("", liste_freins, name="list"),
 
 
-    path("ajouter/", ajouter_freins_simple, name="ajouter"),
+    path("ajouter/", ajouter_freins_simple, name="ajouter_freins_simple"),
 
 
-    path("frein/<uuid:frein_id>/", freins_detail_view, name="detail"),
+    path("frein/<uuid:frein_id>/", freins_detail_view, name="detail_freins"),
 ]

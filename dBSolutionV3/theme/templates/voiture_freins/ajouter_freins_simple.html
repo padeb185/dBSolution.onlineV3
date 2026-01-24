@@ -21,6 +21,11 @@
             <input type="text" id="id_marque_disques_av" name="marque_disques_av" class="border rounded px-4 py-2 w-full">
         </div>
 
+         <div>
+            <label for="id_taille_disques_av">{% trans "Diamètre disques avant" %}</label>
+            <input type="text" id="id_taille_disques_av" name="marque_disques_av" class="border rounded px-4 py-2 w-full">
+        </div>
+
         <div>
             <label for="id_epaisseur_disques_av">{% trans "Epaisseur disques avant" %}</label>
             <input type="text" id="id_epaisseur_disques_av" name="epaisseur_disques_av" class="border rounded px-4 py-2 w-full">
@@ -49,7 +54,7 @@
 
 
          <div>
-            <label for="id_taille_disque_ar">{% trans "Taille disques arrière" %}</label>
+            <label for="id_taille_disque_ar">{% trans "Diamètre disques arrière" %}</label>
             <input type="text" id="id_taille_disque_ar" name="taille_disque_ar" class="border rounded px-4 py-2 w-full">
         </div>
 
@@ -97,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const input = document.getElementById(id);
         if (!input) return;
 
-        input.placeholder = "XX,XX";
+        input.placeholder = "XXX,XX";
 
         input.addEventListener("input", function () {
             // Remplace point par virgule
