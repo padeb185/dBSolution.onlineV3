@@ -5,7 +5,8 @@
 <div class="max-w-xl mx-auto p-6 bg-white rounded shadow mt-16 mb-16">
 
     <h1 class="text-2xl font-bold mb-4 text-center flex items-center justify-center">
-        <img src="{% static 'icons/disque-de-frein.png' %}" alt="frein" style="width:60px; height:60px; margin-right:10px;">
+        <img src="{% static 'icons/disque-de-frein.png' %}" alt="frein"
+             style="width:60px; height:60px; margin-right:10px;">
         {% trans "Ajouter un système de freinage" %}
     </h1>
 
@@ -46,39 +47,6 @@
             <input type="text" id="id_marque_plaquettes_av" name="marque_plaquettes_av" class="border rounded px-4 py-2 w-full">
         </div>
 
-
-         <div>
-            <label for="id_marque_disque_ar">{% trans "Marque disques arrière" %}</label>
-            <input type="text" id="id_marque_disque_ar" name="marque_disque_ar" class="border rounded px-4 py-2 w-full">
-        </div>
-
-
-         <div>
-            <label for="id_taille_disque_ar">{% trans "Diamètre disques arrière" %}</label>
-            <input type="text" id="id_taille_disque_ar" name="taille_disque_ar" class="border rounded px-4 py-2 w-full">
-        </div>
-
-         <div>
-            <label for="id_epaisseur_disque_ar">{% trans "Epaisseur disques arrière" %}</label>
-            <input type="text" id="id_epaisseur_disque_ar" name="epaisseur_disque_ar" class="border rounded px-4 py-2 w-full">
-        </div>
-
-        <div>
-            <label for="id_epaisseur_min_disque_ar">{% trans "Epaisseur minimum des disques arrière" %}</label>
-            <input type="text" id="id_epaisseur_min_disque_ar" name="epaisseur_min_disque_ar" class="border rounded px-4 py-2 w-full">
-        </div>
-
-        <div>
-            <label for="id_plaquettes_ar">{% trans "Epaisseur plaquettes arrière" %}</label>
-            <input type="text" id="id_plaquettes_ar" name="plaquettes_ar" class="border rounded px-4 py-2 w-full">
-        </div>
-
-        <div>
-            <label for="id_marque_plaquettes_ar">{% trans "Marque plaquettes arrière" %}</label>
-            <input type="text" id="id_marque_plaquettes_ar" name="marque_plaquettes_ar" class="border rounded px-4 py-2 w-full">
-        </div>
-
-
         <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded w-full">
             {% trans "Ajouter" %}
         </button>
@@ -92,10 +60,8 @@ document.addEventListener("DOMContentLoaded", function () {
         "id_epaisseur_disques_av",
         "id_epaisseur_min_disque_av",
         "id_plaquettes_av",
-        "id_taille_disque_ar",
-        "id_epaisseur_disque_ar",
-        "id_epaisseur_min_disque_ar",
-        "id_plaquettes_ar"
+        "id_taille_disque_av",
+        "id_plaquettes_av"
     ];
 
     decimalInputs.forEach(id => {

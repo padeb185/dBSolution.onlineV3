@@ -10,7 +10,7 @@ from voiture.voiture_exemplaire.models import VoitureExemplaire
 
 
 @login_required
-def ajouter_embrayage(request, modele_id):
+def ajouter_freins_av(request, modele_id):
     tenant = request.user.societe
     with tenant_context(tenant):
         # Récupère le modèle
@@ -41,7 +41,37 @@ def ajouter_embrayage(request, modele_id):
             "modele": modele
         })
 
+@login_required
+def ajouter_freins_ar(request, modele_id):
+    tenant = request.user.societe
+    with tenant_context(tenant):
+        # Récupère le modèle
+        modele = get_object_or_404(VoitureModele, id=modele_id)
+        marque = modele.voiture_marque  # objet VoitureMarque
 
+        if request.method == "POST":
+            form = VoitureFreinsForm(request.POST)
+            if form.is_valid():
+                exemplaire = form.save(commit=False)
+                exemplaire.voiture_modele = modele
+                exemplaire.voiture_marque = marque
+                exemplaire.save()
+                messages.success(request, "Freins ajoutée avec succès !")
+                return redirect("voiture_exemplaire_liste_exemplaires", modele_id=modele.id)
+            else:
+                # Form invalide → on retourne le formulaire avec erreurs
+                messages.error(request, "Veuillez corriger les erreurs ci-dessous.")
+        else:
+            # GET → formulaire pré-rempli avec la marque et le modèle
+            form = VoitureFreinsForm(initial={
+                "voiture_marque": marque.pk,
+                "voiture_modele": modele.id
+            })
+
+        return render(request, "voiture_freins/ajouter_freins_ar_simple.html", {
+            "form": form,
+            "modele": modele
+        })
 
 
 @login_required
@@ -53,11 +83,33 @@ def liste_freins(request):
     return render(request, "voiture_freins/list.html", {"freins": freins})
 
 
+@login_required
+def liste_freins_ar(request):
+
+    tenant = request.user.societe
+    with tenant_context(tenant):
+        freins_ar = VoitureFreins.objects.all()
+    return render(request, "voiture_freins/list_ar.html", {"freins_ar": freins_ar})
+
+
+
+
+
 
 @login_required()
 def freins_detail_view(request, frein_id):
     frein = get_object_or_404(VoitureFreins, id=frein_id)
     return render(request, 'voiture_freins/freins_detail.html', {
+        'frein': frein,
+    })
+
+
+
+
+@login_required()
+def freins_ar_detail_view(request, frein_id):
+    frein = get_object_or_404(VoitureFreins, id=frein_id)
+    return render(request, 'voiture_freins/freins_ar_detail_.html', {
         'frein': frein,
     })
 
@@ -79,10 +131,33 @@ def lier_freins(request, frein_id):
                 frein.save()
                 return redirect("voiture_freins:list")  # ou vers la page détail
 
-    return render(request, "voiture_embrayage/lier_freins.html", {
+    return render(request, "voiture_freins/lier_freins.html", {
         "frein": frein,
         "exemplaires": exemplaires
     })
+
+
+@login_required
+def lier_freins(request, frein_id):
+    tenant = request.user.societe  # ton tenant
+    with tenant_context(tenant):
+        frein = get_object_or_404(VoitureFreins, id=frein_id)
+        exemplaires = VoitureExemplaire.objects.all().order_by("id")
+
+        if request.method == "POST":
+            cible_id = request.POST.get("cible_id")
+            if cible_id:
+                frein.voiture_exemplaire_id = cible_id
+                frein.voiture_modele = None  # on supprime tout lien précédent avec un modèle
+                frein.save()
+                return redirect("voiture_freins:list")  # ou vers la page détail
+
+    return render(request, "voiture_freins/lier_freins_ar.html", {
+        "frein": frein,
+        "exemplaires": exemplaires
+    })
+
+
 
 
 @login_required
@@ -94,15 +169,22 @@ def ajouter_freins_simple(request):
             taille_disque_av=request.POST.get("taille_disque_av"),
             epaisseur_disque_av=request.POST.get("epaisseur_disque_av"),
             épaisseur_min_disque_av=request.POST.get("epaisseur_min_disque_av"),
+
+        )
+        return redirect("voiture_freins:list")
+
+@login_required
+def ajouter_freins_ar_simple(request):
+    if request.method == "POST":
+        VoitureFreins.objects.create(
             marque_disque_ar=request.POST.get("marque_disque_ar"),
             marque_plaquettes_ar=request.POST.get("marque_plaquettes_ar"),
             taille_disque_ar=request.POST.get("taille_disque_ar"),
             epaisseur_disque_ar=request.POST.get("epaisseur_disque_ar"),
             épaisseur_min_disque_ar=request.POST.get("epaisseur_min_disque_ar"),
         )
-        return redirect("voiture_freins:list")
+        return redirect("voiture_freins:list_ar")
 
+    return render(request, "voiture_freins/ajouter_freins_ar_simple.html")
 
-
-    return render(request, "voiture_freins/ajouter_freins_simple.html")
 

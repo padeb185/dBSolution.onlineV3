@@ -90,6 +90,9 @@ def dashboard_view(request):
     total_freins = VoitureFreins.objects.count()
     freins = VoitureFreins.objects.all()
 
+    total_freins_ar = VoitureFreins.objects.count()
+    freins_ar = VoitureFreins.objects.all()
+
     user = request.user
     context = {}
 
@@ -108,6 +111,7 @@ def dashboard_view(request):
     total_boites = 0
     total_embrayages = 0
     total_freins = 0
+    total_freins_ar = 0
     if schema_name:
         with schema_context(schema_name):
             total_marques = VoitureMarque.objects.count()
@@ -116,6 +120,7 @@ def dashboard_view(request):
             total_boites = VoitureBoite.objects.count()
             total_embrayages = VoitureEmbrayage.objects.count()
             total_freins = VoitureFreins.objects.count()
+            total_freins_ar = VoitureFreins.objects.count()
 
     context['total_marques'] = total_marques
     context['total_moteurs'] = total_moteurs
@@ -123,6 +128,8 @@ def dashboard_view(request):
     context['total_boites'] = total_boites
     context['total_embrayages'] = total_embrayages
     context['total_freins'] = total_freins
+    context['total_freins_ar'] = total_freins_ar
+
 
     # --- Initialisation par défaut ---
     context['agenda'] = []
@@ -183,6 +190,8 @@ def dashboard_view(request):
         'embrayages': embrayages,
         "total_freins": total_freins,
         'freins': freins,
+        "total_freins_ar": total_freins_ar,
+        'freins_ar': freins_ar,
 
     })
 

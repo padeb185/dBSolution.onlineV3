@@ -12,9 +12,8 @@ from voiture.voiture_moteur.models import MoteurVoiture
 from django.utils.translation import gettext as _
 from societe.models import Societe
 from voiture.voiture_boite.models import VoitureBoite
-
-from ..voiture_embrayage.models import VoitureEmbrayage
-from ..voiture_freins.models import VoitureFreins
+from voiture.voiture_embrayage.models import VoitureEmbrayage
+from voiture.voiture_freins.models import VoitureFreins
 
 
 @login_required
@@ -173,6 +172,37 @@ def lier_freins_exemplaire(request, exemplaire_id):
             "freins": freins,
             "title": _("Lier un système de freinage à un véhicule"),
         })
+
+
+
+@login_required
+def lier_freins_ar_exemplaire(request, exemplaire_id):
+    # Récupération de l'exemplaire
+    exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
+
+    with tenant_context(request.user.societe):
+        # Liste de tous les systèmes de freins
+        freins_ar = VoitureFreins.objects.all().order_by('taille_disque_ar')
+
+        if request.method == "POST":
+            frein_ar_id = request.POST.get("frein_ar_id")
+            if frein_ar_id:
+                frein_ar = get_object_or_404(VoitureFreins, id=frein_ar_id)
+                # Lier le frein à l'exemplaire
+                frein_ar.voitures_exemplaires.add(exemplaire)
+                messages.success(request, _("Le système de freinage a été lié à l'exemplaire avec succès."))
+
+                # Redirection vers la page de détail de l'exemplaire (ou une page liste)
+                return redirect("voiture_exemplaire:detail_ar", exemplaire_id=exemplaire.id)
+            else:
+                messages.error(request, _("Veuillez sélectionner un système de freinage à lier."))
+
+        return render(request, "voiture_exemplaire/lier_frein_ar.html", {
+            "exemplaire": exemplaire,
+            "freins_ar": freins_ar,
+            "title": _("Lier un système de freinage à un véhicule"),
+        })
+
 
 
 

@@ -155,7 +155,7 @@
 
               <!-- Texte à gauche -->
               <div>
-                  <h2 class="text-lg font-semibold mb-1">{% trans "Freins" %}</h2>
+                  <h2 class="text-lg font-semibold mb-1">{% trans "Freins avant" %}</h2>
                   <p class="text-gray-600 text-sm">
                       {% trans "Nombre total :" %} <span class="font-bold">{{ total_freins }}</span>
                   </p>
@@ -163,6 +163,21 @@
 
               <!-- Icône à droite -->
               <img src="{% static 'icons/disque-de-frein.png' %}" alt="Freins" style="width:60px; height:60px;">
+          </a>
+
+        <a href="{% url 'voiture_freins:list_ar' %}"
+             class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+              <!-- Texte à gauche -->
+              <div>
+                  <h2 class="text-lg font-semibold mb-1">{% trans "Freins arrière" %}</h2>
+                  <p class="text-gray-600 text-sm">
+                      {% trans "Nombre total :" %} <span class="font-bold">{{ total_freins_ar }}</span>
+                  </p>
+              </div>
+
+              <!-- Icône à droite -->
+              <img src="{% static 'icons/disque-de-frein.png' %}" alt="Freins arrières" style="width:60px; height:60px;">
           </a>
 
     </div>

@@ -6,7 +6,7 @@
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold flex items-center gap-4">
             <img src="{% static 'icons/disque-de-frein.png' %}" alt="Moteur" style="width:60px; height:60px; margin-right:10px;">
-            <span>{% trans "Freins avant du véhicule: " %}</span>
+            <span>{% trans "Freins arrière du véhicule: " %}</span>
 
             {% if exemplaire.pays == 'Belgique' %}
             <div class="flex items-center w-[40%] min-w-[180px] h-[40px] bg-white border-2 border-[#8B0000] rounded font-[Arial] mb-4">
@@ -51,19 +51,19 @@
 
     <form method="post">
         {% csrf_token %}
-        <label for="frein_id" class="block mb-2 font-semibold">{% trans "Choisir le système de Freinage avant" %}</label>
-        <select name="frein_id" id="frein_id" required class="border rounded p-2 w-full mb-4">
-            <option value="">{% trans "Sélectionner un système de freinage avant" %}</option>
+        <label for="frein_ar_id" class="block mb-2 font-semibold">{% trans "Choisir le système de freinage arrière" %}</label>
+        <select name="frein_ar_id" id="frein_ar_id" required class="border rounded p-2 w-full mb-4">
+            <option value="">{% trans "Sélectionner un système de freinage arrière" %}</option>
             {% for frein in freins %}
                 <option value="{{ frein.id }}">
-                    {{ frein.marque_disque_av }}  {{ frein.taille_disque_av }}  {{ frein.epaisseur_disque_av }}
+                    {{ frein.marque_disque_ar }}  {{ frein.taille_disque_av }}  {{ frein.epaisseur_disque_ar }}
                 </option>
             {% endfor %}
         </select>
         <button
             type="submit"
             class="w-full mt-[50px] px-4 py-2 bg-blue-700 text-white rounded hover:bg-blue-400">
-            {% trans "Lier les freins avant" %}
+            {% trans "Lier les freins arrière" %}
         </button>
 
     </form>

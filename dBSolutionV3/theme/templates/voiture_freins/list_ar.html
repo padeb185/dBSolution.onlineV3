@@ -7,30 +7,30 @@
 <h1 class="text-2xl font-bold mb-6 flex items-center">
     <img src="{% static 'icons/disque-de-frein.png' %}" alt="Frein"
          style="width:60px; height:60px; margin-right:10px;">
-    {% trans "Liste des freins avant" %}
+    {% trans "Liste des freins arrière" %}
 </h1>
 
 <div class="bg-white shadow-md rounded-lg p-4 mb-4">
     <div class="flex flex-wrap gap-3 items-end">
-        <input id="search-marque_disque_av" type="text"
+        <input id="search-marque_disque_ar" type="text"
                class="flex-1 min-w-[150px] border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Marque des disques avant' %}">
+               placeholder="{% trans 'Marque des disques arrière' %}">
 
-        <input id="search-taille_disque_av" type="text"
+        <input id="search-taille_disque_ar" type="text"
                class="flex-1 min-w-[150px] border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Taille des disques avant' %}">
+               placeholder="{% trans 'Diamètre des disques disques' %}">
 
-        <input id="search-epaisseur_disque_av" type="text"
+        <input id="search-epaisseur_disque_ar" type="text"
                class="flex-1 min-w-[150px] border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Epaisseur des disques avant' %}">
+               placeholder="{% trans 'Epaisseur des disques arrière' %}">
 
-        <input id="search-epaisseur_min_disque_av" type="text"
+        <input id="search-epaisseur_min_disque_ar" type="text"
                class="flex-1 min-w-[150px] border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Epaisseur minimum des disques avant' %}">
+               placeholder="{% trans 'Epaisseur minimum des disques arrière' %}">
 
-        <a href="{% url 'voiture_freins:ajouter_freins_simple' %}"
+        <a href="{% url 'voiture_freins:ajouter_freins_ar_simple' %}"
            class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition min-w-[200px]">
-            {% trans "Ajouter un système de freinage avant" %}
+            {% trans "Ajouter un système de freinage arrière" %}
         </a>
     </div>
 </div>
@@ -39,25 +39,25 @@
 
 
 <!-- Table -->
-<table id="frein-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+<table id="frein_ar-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
     <thead>
         <tr class="bg-gray-100">
-            <th class="border px-4 py-2 cursor-pointer">{% trans "Marque des disques avant" %}</th>
-            <th class="border px-4 py-2 cursor-pointer">{% trans "Diamètre des disques avant" %}</th>
-            <th class="border px-4 py-2 cursor-pointer">{% trans "Epaisseur des disques avant" %}</th>
-            <th class="border px-4 py-2 cursor-pointer">{% trans "Epaisseur minimum des disques avant" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Marque des disques arrière" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Diamètre des disques arrière" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Epaisseur des disques arrière" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Epaisseur minimum des disques arrière" %}</th>
             <th class="border px-4 py-2 cursor-pointer text-center">{% trans "Info" %}</th>
         </tr>
     </thead>
     <tbody>
         {% for frein in freins %}
         <tr>
-            <td class="border px-4 py-2">{{ frein.marque_disque_av }}</td>
-            <td class="border px-4 py-2">{{ frein.taille_disque_av }}</td>
-            <td class="border px-4 py-2">{{ frein.epaisseur_disque_av }}</td>
-            <td class="border px-4 py-2">{{ frein.epaisseur_min_disque_av }}</td>
+            <td class="border px-4 py-2">{{ frein.marque_disque_ar }}</td>
+            <td class="border px-4 py-2">{{ frein.taille_disque_ar }}</td>
+            <td class="border px-4 py-2">{{ frein.epaisseur_disque_ar }}</td>
+            <td class="border px-4 py-2">{{ frein.epaisseur_min_disque_ar }}</td>
             <td class="border px-4 py-2 text-center">
-                <a href="{% url 'voiture_freins:detail' frein.id %}"
+                <a href="{% url 'voiture_freins:detail_ar' frein_ar.id %}"
                    class="text-blue-600 hover:text-blue-800 font-semibold">
                     {% trans "Info" %}
                 </a>
@@ -71,7 +71,7 @@
 <!-- DataTables JS -->
 <script>
 $(document).ready(function() {
-    var table = $('#frein-table').DataTable({
+    var table = $('#embrayage-table').DataTable({
         pageLength: 100,
         language: {
             search: "{% trans 'Recherche globale :' %}",
@@ -90,16 +90,16 @@ $(document).ready(function() {
     });
 
     // Filtres par colonne
-    $('#search-marque_disque_av').on('keyup', function () {
+    $('#search-marque_disque_ar').on('keyup', function () {
         table.column(0).search(this.value).draw();
     });
-    $('#search-taille_disque_av').on('keyup', function () {
+    $('#search-taille_disque_ar').on('keyup', function () {
         table.column(1).search(this.value).draw();
     });
-    $('#search-epaisseur_disque_av').on('keyup', function () {
+    $('#search-epaisseur_disque_ar').on('keyup', function () {
         table.column(2).search(this.value).draw();
     });
-    $('#search-epaisseur_min_disque_av').on('keyup', function () {
+    $('#search-epaisseur_min_disque_ar').on('keyup', function () {
         table.column(3).search(this.value).draw();
     });
 
