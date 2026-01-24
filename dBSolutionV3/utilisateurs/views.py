@@ -15,7 +15,7 @@ from adresse.models import Adresse
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from voiture.voiture_boite.models import VoitureBoite
 from voiture.voiture_embrayage.models import VoitureEmbrayage
-
+from voiture.voiture_freins.models import VoitureFreins
 
 
 def login_view(request):
@@ -87,6 +87,9 @@ def dashboard_view(request):
     total_embrayages = VoitureEmbrayage.objects.count()
     embrayages = VoitureEmbrayage.objects.all()
 
+    total_freins = VoitureFreins.objects.count()
+    freins = VoitureFreins.objects.all()
+
     user = request.user
     context = {}
 
@@ -104,6 +107,7 @@ def dashboard_view(request):
     total_exemplaires = 0
     total_boites = 0
     total_embrayages = 0
+    total_freins = 0
     if schema_name:
         with schema_context(schema_name):
             total_marques = VoitureMarque.objects.count()
@@ -111,12 +115,14 @@ def dashboard_view(request):
             total_exemplaires = VoitureExemplaire.objects.count()
             total_boites = VoitureBoite.objects.count()
             total_embrayages = VoitureEmbrayage.objects.count()
+            total_freins = VoitureFreins.objects.count()
 
     context['total_marques'] = total_marques
     context['total_moteurs'] = total_moteurs
     context['total_exemplaires'] = total_exemplaires
     context['total_boites'] = total_boites
     context['total_embrayages'] = total_embrayages
+    context['total_freins'] = total_freins
 
     # --- Initialisation par défaut ---
     context['agenda'] = []
@@ -175,6 +181,8 @@ def dashboard_view(request):
         'boites': boites,
         'total_embrayages': total_embrayages,
         'embrayages': embrayages,
+        "total_freins": total_freins,
+        'freins': freins,
 
     })
 

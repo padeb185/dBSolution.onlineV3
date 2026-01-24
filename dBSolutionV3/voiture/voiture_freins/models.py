@@ -10,7 +10,7 @@ class VoitureFreins(models.Model):
     )
 
     # 🔗 Relation principale
-    voiture_exemplaire = models.ManyToManyField(
+    voitures_exemplaires = models.ManyToManyField(
         "voiture_exemplaire.VoitureExemplaire",
         related_name="freins",
         blank=True,
@@ -55,6 +55,8 @@ class VoitureFreins(models.Model):
     class Meta:
         verbose_name = "Voiture – Freins"
         verbose_name_plural = "Voitures – Freins"
+
+
 
     def __str__(self):
         return f"{self.voiture_exemplaire} – Freins"

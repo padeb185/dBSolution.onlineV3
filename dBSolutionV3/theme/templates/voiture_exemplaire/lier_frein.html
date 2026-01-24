@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+<div class="bg-white p-6 pb-16 max-w-xl mx-auto">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold flex items-center gap-4">
+            <img src="{% static 'icons/disque-de-frein.png' %}" alt="Moteur" style="width:60px; height:60px; margin-right:10px;">
+            <span>{% trans "Freins du véhicule: " %}</span>
+
+            {% if exemplaire.pays == 'Belgique' %}
+            <div class="flex items-center w-[40%] min-w-[180px] h-[40px] bg-white border-2 border-[#8B0000] rounded font-[Arial] mb-4">
+                <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
+                    <span>🇪🇺</span>
+                    <span>B</span>
+                </div>
+                <input type="text"
+                       value="{{ exemplaire.immatriculation }}"
+                       oninput="this.value = this.value.toUpperCase();"
+                       class="w-full text-center border-none font-bold text-[#8B0000] text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0">
+            </div>
+
+            {% elif exemplaire.pays == 'Luxembourg' %}
+            <div class="flex items-center w-[40%] min-w-[180px] h-[40px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial] mb-4">
+                <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
+                    <span>🇪🇺</span>
+                    <span>L</span>
+                </div>
+                <input type="text"
+                       value="{{ exemplaire.immatriculation }}"
+                       oninput="this.value = this.value.toUpperCase();"
+                       class="w-full text-center border-none font-bold text-black text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0">
+            </div>
+            {% endif %}
+
+        </h1>
+    </div>
+
+    {% if messages %}
+    {% for message in messages %}
+    <div class="mb-3 px-4 py-2 rounded
+        {% if message.tags == 'success' %}
+            bg-green-100 text-green-800 border border-green-300
+        {% else %}
+            bg-red-100 text-red-800 border border-red-300
+        {% endif %}">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        <label for="frein_id" class="block mb-2 font-semibold">{% trans "Choisir le système de Freinage" %}</label>
+        <select name="frein_id" id="frein_id" required class="border rounded p-2 w-full mb-4">
+            <option value="">{% trans "Sélectionner un système de freinage" %}</option>
+            {% for frein in freins %}
+                <option value="{{ frein.id }}">
+                    {{ frein.marque_disque_av }}  {{ frein.taille_dique_av }}  {{ frein.epaisseur_disque_av }}
+                </option>
+            {% endfor %}
+        </select>
+        <button
+            type="submit"
+            class="w-full mt-[50px] px-4 py-2 bg-blue-700 text-white rounded hover:bg-blue-400">
+            {% trans "Lier les freins" %}
+        </button>
+
+    </form>
+
+</div>
+{% endblock %}

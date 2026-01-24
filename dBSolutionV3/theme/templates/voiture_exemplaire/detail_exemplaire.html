@@ -90,19 +90,33 @@
             {% endif %}
 
             <!-- embrayages -->
-
             <h2 class="text-lg font-semibold mt-6 mb-4">{% trans "Embrayages" %}</h2>
             {% if exemplaire.embrayages.exists %}
             <ul class="space-y-2">
                 {% for embrayage in exemplaire.embrayages.all %}
                 <li class="border p-3 rounded-md hover:bg-gray-50">
-                    {{ embrayage.volant_moteur }} - {{ embrayage.type_embrayage }}
+                    {{ embrayage.volant_moteur }}  {{ embrayage.type_embrayage }}
                     <span class="text-gray-500">({{ embrayage.fabricant }})</span>
                 </li>
                 {% endfor %}
             </ul>
             {% else %}
             <p class="text-gray-500">{% trans "Aucun embrayage enregistré pour cet exemplaire." %}</p>
+            {% endif %}
+
+             <!-- freins -->
+            <h2 class="text-lg font-semibold mt-6 mb-4">{% trans "Freins" %}</h2>
+            {% if exemplaire.freins.exists %}
+            <ul class="space-y-2">
+                {% for frein in exemplaire.freins.all %}
+                <li class="border p-3 rounded-md hover:bg-gray-50">
+                    {{ frein.marque_disque_av }} - {{ frein.taille_sique_av }}
+                    <span class="text-gray-500">({{ frein.epaisseur_disque_av }})</span>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p class="text-gray-500">{% trans "Aucun frein enregistré pour cet exemplaire." %}</p>
             {% endif %}
 
         </div>
@@ -138,6 +152,12 @@
          <a href="{% url 'voiture_exemplaire:lier_embrayage_exemplaire' exemplaire_id=exemplaire.id %}" class="flex-1">
             <button type="button" class="w-full px-4 py-2 bg-blue-700 text-white rounded hover:bg-blue-400">
                 {% trans "Lier un embrayage" %}
+            </button>
+        </a>
+
+         <a href="{% url 'voiture_exemplaire:lier_frein_exemplaire' exemplaire_id=exemplaire.id %}" class="flex-1">
+            <button type="button" class="w-full px-4 py-2 bg-blue-700 text-white rounded hover:bg-blue-400">
+                {% trans "Lier les freins" %}
             </button>
         </a>
     </div>
