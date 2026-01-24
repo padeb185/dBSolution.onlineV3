@@ -41,7 +41,7 @@ superuser = Utilisateur.objects.create_superuser(
     email="pierre.andre1367@gmail.com",
     prenom="Pierre André",
     last_name="de Bournonville",
-    password="9y7-T!c&wi]vwm&,s|#kFlD=@4skRG6ri#Z90GT,",
+    password="",
     is_active=True
 )
 

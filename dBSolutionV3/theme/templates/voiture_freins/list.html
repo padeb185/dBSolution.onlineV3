@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% load i18n static widget_tweaks %}
+
+{% block title %}{% trans "Liste des pièces de frein" %}{% endblock %}
+
+{% block content %}
+<h1 class="text-2xl font-bold mb-6 flex items-center">
+    <img src="{% static 'icons/disque-de-frein.png' %}" alt="Frein"
+         style="width:60px; height:60px; margin-right:10px;">
+    {% trans "Liste des freins" %}
+</h1>
+
+<div class="bg-white shadow-md rounded-lg p-4 mb-4">
+    <div class="grid grid-cols-1 md:grid-cols-6 gap-3 items-end">
+        <input id="search-marque_disque_av" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Fabricant' %}">
+
+        <input id="search-type_embrayage" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Type embrayage' %}">
+
+        <input id="search-volant_moteur" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Volant moteur' %}">
+
+        <input id="search-plateau_pression" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Plateau de pression' %}">
+
+        <input id="search-oem" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Numéro OEM' %}">
+
+        <div>
+            <a href="{% url 'voiture_embrayage:ajouter_embrayage_simple' %}"
+               class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+                {% trans "Ajouter un embrayage" %}
+            </a>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Table -->
+<table id="embrayage-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Nom du Fabricant" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Type d'embrayage" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Type de volant moteur" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Type de plateau de pression" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Numero OEM" %}</th>
+            <th class="border px-4 py-2 cursor-pointer text-center">{% trans "Info" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for embrayage in embrayages %}
+        <tr>
+            <td class="border px-4 py-2">{{ embrayage.fabricant }}</td>
+            <td class="border px-4 py-2">{{ embrayage.type_embrayage }}</td>
+            <td class="border px-4 py-2">{{ embrayage.volant_moteur }}</td>
+            <td class="border px-4 py-2">{{ embrayage.plateau_pression }}</td>
+            <td class="border px-4 py-2">{{ embrayage.oem }}</td>
+            <td class="border px-4 py-2 text-center">
+                <a href="{% url 'voiture_embrayage:detail' embrayage.id %}"
+                   class="text-blue-600 hover:text-blue-800 font-semibold">
+                    {% trans "Info" %}
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
+<!-- DataTables JS -->
+<script>
+$(document).ready(function() {
+    var table = $('#embrayage-table').DataTable({
+        pageLength: 100,
+        language: {
+            search: "{% trans 'Recherche globale :' %}",
+            lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ embrayages' %}",
+            infoEmpty: "{% trans 'Aucun embrayage trouvé' %}",
+            zeroRecords: "{% trans 'Aucun embrayage trouvé' %}",
+            paginate: {
+                first: "{% trans 'Premier' %}",
+                last: "{% trans 'Dernier' %}",
+                next: "{% trans 'Suivant' %}",
+                previous: "{% trans 'Précédent' %}"
+            }
+        },
+        order: [[0, "asc"]]
+    });
+
+    // Filtres par colonne
+    $('#search-fabricant').on('keyup', function () {
+        table.column(0).search(this.value).draw();
+    });
+    $('#search-type_embrayage').on('keyup', function () {
+        table.column(1).search(this.value).draw();
+    });
+    $('#search-volant_moteur').on('keyup', function () {
+        table.column(2).search(this.value).draw();
+    });
+    $('#search-plateau_pression').on('keyup', function () {
+        table.column(3).search(this.value).draw();
+    });
+     $('#search-oem').on('keyup', function () {
+        table.column(4).search(this.value).draw();
+    });
+});
+</script>
+{% endblock %}
