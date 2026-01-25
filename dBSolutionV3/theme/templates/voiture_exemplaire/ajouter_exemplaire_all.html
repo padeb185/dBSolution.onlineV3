@@ -50,10 +50,19 @@
             <input type="number" id="id_numero_vin" name="numero_vin" class="border rounded px-4 py-2 w-full">
         </div>
 
-        <div>
-            <label for="id_type_utilisation">{% trans "Type d'utilisation" %}</label>
-            <input type="text" id="id_type_utilisation" name="type_utilisation" class="border rounded px-4 py-2 w-full">
+        <div class="mb-4">
+            <label for="id_type_utilisation" class="block font-semibold mb-1">{% trans "Type d'utilisation" %}</label>
+            <select id="id_type_utilisation" name="type_utilisation"
+                    class="border rounded px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="societe">{% trans "Société" %}</option>
+                <option value="client" selected>{% trans "Client" %}</option>
+                <option value="prive">{% trans "Privé" %}</option>
+                <option value="location">{% trans "Location" %}</option>
+            </select>
         </div>
+
+
+
 
         <div>
             <label for="id_kilometres_chassis">{% trans "Kilomètres du chassis" %}</label>

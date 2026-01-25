@@ -5,9 +5,9 @@
 <div class="max-w-xl mx-auto p-6 bg-white rounded shadow mt-16 mb-16">
 
     <h1 class="text-2xl font-bold mb-4 text-center flex items-center justify-center">
-        <img src="{% static 'icons/disque-de-frein.png' %}" alt="frein"
+        <img src="{% static 'icons/disque-de-frein.png' %}" alt="freins"
              style="width:60px; height:60px; margin-right:10px;">
-        {% trans "Ajouter un système de freinage" %}
+        {% trans "Ajouter un système de freinage avant" %}
     </h1>
 
     {% for message in messages %}
@@ -19,26 +19,26 @@
 
         <div>
             <label for="id_marque_disques_av">{% trans "Marque disques avant" %}</label>
-            <input type="text" id="id_marque_disques_av" name="marque_disques_av" class="border rounded px-4 py-2 w-full">
-        </div>
-
-         <div>
-            <label for="id_taille_disques_av">{% trans "Diamètre disques avant" %}</label>
-            <input type="text" id="id_taille_disques_av" name="marque_disques_av" class="border rounded px-4 py-2 w-full">
+            <input type="text" id="id_marque_disques_av" name="marque_disque_av" class="border rounded px-4 py-2 w-full">
         </div>
 
         <div>
-            <label for="id_epaisseur_disques_av">{% trans "Epaisseur disques avant" %}</label>
-            <input type="text" id="id_epaisseur_disques_av" name="epaisseur_disques_av" class="border rounded px-4 py-2 w-full">
+            <label for="id_taille_disques_av">{% trans "Diamètre disques avant (mm)" %}</label>
+            <input type="text" id="id_taille_disques_av" name="taille_disque_av" class="border rounded px-4 py-2 w-full">
         </div>
 
         <div>
-            <label for="id_epaisseur_min_disque_av">{% trans "Epaisseur minimum des disques avant" %}</label>
+            <label for="id_epaisseur_disques_av">{% trans "Épaisseur disques avant (mm)" %}</label>
+            <input type="text" id="id_epaisseur_disques_av" name="epaisseur_disque_av" class="border rounded px-4 py-2 w-full">
+        </div>
+
+        <div>
+            <label for="id_epaisseur_min_disque_av">{% trans "Épaisseur minimum disques avant (mm)" %}</label>
             <input type="text" id="id_epaisseur_min_disque_av" name="epaisseur_min_disque_av" class="border rounded px-4 py-2 w-full">
         </div>
 
-         <div>
-            <label for="id_plaquettes_av">{% trans "Epaisseur plaquettes avant" %}</label>
+        <div>
+            <label for="id_plaquettes_av">{% trans "Épaisseur plaquettes avant (mm)" %}</label>
             <input type="text" id="id_plaquettes_av" name="plaquettes_av" class="border rounded px-4 py-2 w-full">
         </div>
 
@@ -47,7 +47,7 @@
             <input type="text" id="id_marque_plaquettes_av" name="marque_plaquettes_av" class="border rounded px-4 py-2 w-full">
         </div>
 
-        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded w-full">
+        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded w-full hover:bg-blue-700 transition">
             {% trans "Ajouter" %}
         </button>
     </form>
@@ -55,12 +55,10 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-
     const decimalInputs = [
+        "id_taille_disques_av",
         "id_epaisseur_disques_av",
         "id_epaisseur_min_disque_av",
-        "id_plaquettes_av",
-        "id_taille_disque_av",
         "id_plaquettes_av"
     ];
 
@@ -91,5 +89,4 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 </script>
-
 {% endblock %}

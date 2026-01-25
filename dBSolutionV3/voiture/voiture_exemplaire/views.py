@@ -15,6 +15,8 @@ from voiture.voiture_boite.models import VoitureBoite
 from voiture.voiture_embrayage.models import VoitureEmbrayage
 from voiture.voiture_freins.models import VoitureFreins
 
+from ..voiture_freins_ar.models import VoitureFreinsAR
+
 
 @login_required
 def liste_exemplaires(request, modele_id):
@@ -182,7 +184,7 @@ def lier_freins_ar_exemplaire(request, exemplaire_id):
 
     with tenant_context(request.user.societe):
         # Liste de tous les systèmes de freins
-        freins_ar = VoitureFreins.objects.all().order_by('taille_disque_ar')
+        freins_ar = VoitureFreinsAR.objects.all().order_by('taille_disque_ar')
 
         if request.method == "POST":
             frein_ar_id = request.POST.get("frein_ar_id")
@@ -200,7 +202,7 @@ def lier_freins_ar_exemplaire(request, exemplaire_id):
         return render(request, "voiture_exemplaire/lier_frein_ar.html", {
             "exemplaire": exemplaire,
             "freins_ar": freins_ar,
-            "title": _("Lier un système de freinage à un véhicule"),
+            "title": _("Lier un système de freinage arrière à un véhicule"),
         })
 
 

@@ -16,6 +16,7 @@ from voiture.voiture_exemplaire.models import VoitureExemplaire
 from voiture.voiture_boite.models import VoitureBoite
 from voiture.voiture_embrayage.models import VoitureEmbrayage
 from voiture.voiture_freins.models import VoitureFreins
+from voiture.voiture_freins_ar.models import VoitureFreinsAR
 
 
 def login_view(request):
@@ -90,8 +91,8 @@ def dashboard_view(request):
     total_freins = VoitureFreins.objects.count()
     freins = VoitureFreins.objects.all()
 
-    total_freins_ar = VoitureFreins.objects.count()
-    freins_ar = VoitureFreins.objects.all()
+    total_freins_ar = VoitureFreinsAR.objects.count()
+    freins_ar = VoitureFreinsAR.objects.all()
 
     user = request.user
     context = {}

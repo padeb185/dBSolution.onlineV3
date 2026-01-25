@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load i18n static widget_tweaks %}
 
-{% block title %}{% trans "Liste des pièces de frein" %}{% endblock %}
+{% block title %}{% trans "Liste des pièces de frein arrière" %}{% endblock %}
 
 {% block content %}
 <h1 class="text-2xl font-bold mb-6 flex items-center">
@@ -18,7 +18,7 @@
 
         <input id="search-taille_disque_ar" type="text"
                class="flex-1 min-w-[150px] border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Diamètre des disques disques' %}">
+               placeholder="{% trans 'Diamètre des disques arrière' %}">
 
         <input id="search-epaisseur_disque_ar" type="text"
                class="flex-1 min-w-[150px] border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -28,7 +28,7 @@
                class="flex-1 min-w-[150px] border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Epaisseur minimum des disques arrière' %}">
 
-        <a href="{% url 'voiture_freins:ajouter_freins_ar_simple' %}"
+        <a href="{% url 'voiture_freins_ar:ajouter_freins_ar_simple' %}"
            class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition min-w-[200px]">
             {% trans "Ajouter un système de freinage arrière" %}
         </a>
@@ -71,7 +71,7 @@
 <!-- DataTables JS -->
 <script>
 $(document).ready(function() {
-    var table = $('#embrayage-table').DataTable({
+    var table = $('#frein_ar-table').DataTable({
         pageLength: 100,
         language: {
             search: "{% trans 'Recherche globale :' %}",
