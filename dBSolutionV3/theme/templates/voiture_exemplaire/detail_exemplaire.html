@@ -181,13 +181,13 @@
             </button>
         </a>
 
-         <a href="{% url 'voiture_exemplaire:lier_frein_exemplaire' exemplaire_id=exemplaire.id %}" class="flex-1">
+         <a href="{% url 'voiture_exemplaire:lier_frein' exemplaire_id=exemplaire.id %}" class="flex-1">
             <button type="button" class="w-full px-4 py-2 bg-blue-700 text-white rounded hover:bg-blue-400">
                 {% trans "Lier les freins avant" %}
             </button>
         </a>
 
-         <a href="{% url 'voiture_exemplaire:lier_frein_ar_exemplaire' exemplaire_id=exemplaire.id %}" class="flex-1">
+         <a href="{% url 'voiture_exemplaire:lier_frein_ar' exemplaire_id=exemplaire.id %}" class="flex-1">
             <button type="button" class="w-full px-4 py-2 bg-blue-700 text-white rounded hover:bg-blue-400">
                 {% trans "Lier les freins arrière" %}
             </button>

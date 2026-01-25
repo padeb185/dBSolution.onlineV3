@@ -2,7 +2,7 @@ from django.urls import path
 from .views import ajouter_exemplaire_all, liste_exemplaires, voiture_exemplaire_detail, \
     moteur_autocomplete, modifier_exemplaire, \
     liste_exemplaires_all, lier_boite_exemplaire, lier_moteur_exemplaire, lier_embrayage_exemplaire, \
-    lier_freins_exemplaire, lier_freins_ar_exemplaire
+    lier_freins, lier_freins_ar
 
 app_name = "voiture_exemplaire"
 
@@ -29,9 +29,9 @@ urlpatterns = [
 
     path('exemplaire/<uuid:exemplaire_id>/lier-embrayage/', lier_embrayage_exemplaire, name='lier_embrayage_exemplaire'),
 
-    path('exemplaire/<uuid:exemplaire_id>/lier-frein/', lier_freins_exemplaire, name='lier_frein_exemplaire'),
+    path('exemplaire/<uuid:exemplaire_id>/lier-frein/', lier_freins, name='lier_frein'),
 
-    path('exemplaire/<uuid:exemplaire_id>/lier-frein_ar/', lier_freins_ar_exemplaire, name='lier_frein_ar_exemplaire'),
+    path('exemplaire/<uuid:exemplaire_id>/lier-frein_ar/', lier_freins_ar, name='lier_frein_ar'),
 
 ]
 
