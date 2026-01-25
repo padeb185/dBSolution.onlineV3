@@ -2,11 +2,11 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django_tenants.utils import tenant_context
-from voiture.voiture_freins.forms import VoitureFreinsForm
-from voiture.voiture_modele.models import VoitureModele
-from voiture.voiture_freins.models import VoitureFreins
-from voiture.voiture_exemplaire.models import VoitureExemplaire
-from voiture.voiture_freins_ar.models import VoitureFreinsAR
+from ..voiture_freins.forms import VoitureFreinsForm
+from ..voiture_modele.models import VoitureModele
+from ..voiture_freins.models import VoitureFreins
+from ..voiture_exemplaire.models import VoitureExemplaire
+from ..voiture_freins_ar.models import VoitureFreinsAR
 
 
 
@@ -45,7 +45,7 @@ def ajouter_freins_ar(request, modele_id):
 
 # Create your views here.
 @login_required
-def lier_freins_ar(request, frein_id):
+def lier_freins_arriere(request, frein_id):
     tenant = request.user.societe  # ton tenant
     with tenant_context(tenant):
         frein = get_object_or_404(VoitureFreins, id=frein_id)
@@ -69,18 +69,23 @@ def lier_freins_ar(request, frein_id):
 @login_required
 def ajouter_freins_ar_simple(request):
     if request.method == "POST":
+
+        # Fonction utilitaire pour convertir en float ou None
+        def to_float(value):
+            if not value:  # vide → None
+                return None
+            return float(value.replace(',', '.'))  # transforme 20,4 → 20.4
+
         VoitureFreinsAR.objects.create(
-            marque_disque_ar=request.POST.get("marque_disque_ar"),
+            marque_disques_ar=request.POST.get("marque_disques_ar"),
             marque_plaquettes_ar=request.POST.get("marque_plaquettes_ar"),
-            taille_disque_ar=request.POST.get("taille_disque_ar"),
-            epaisseur_disque_ar=request.POST.get("epaisseur_disque_ar"),
-            épaisseur_min_disque_ar=request.POST.get("epaisseur_min_disque_ar"),
+            taille_disque_ar=to_float(request.POST.get("taille_disque_ar")),
+            epaisseur_disque_ar=to_float(request.POST.get("epaisseur_disque_ar")),
+            epaisseur_min_disque_ar=to_float(request.POST.get("epaisseur_min_disque_ar")),
         )
         return redirect("voiture_freins_ar:list_ar")
 
     return render(request, "voiture_freins_ar/ajouter_freins_ar_simple.html")
-
-
 
 
 

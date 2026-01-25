@@ -1,5 +1,5 @@
 from django import forms
-from voiture.voiture_freins.models import VoitureFreins
+from ..voiture_freins.models import VoitureFreins
 
 
 class VoitureFreinsForm(forms.ModelForm):

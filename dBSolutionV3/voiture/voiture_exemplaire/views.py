@@ -165,7 +165,7 @@ def lier_freins_exemplaire(request, exemplaire_id):
                 messages.success(request, _("Le système de freinage a été lié à l'exemplaire avec succès."))
 
                 # Redirection vers la page de détail de l'exemplaire (ou une page liste)
-                return redirect("voiture_exemplaire:detail", exemplaire_id=exemplaire.id)
+                return redirect("voiture_exemplaire:lier_frein", exemplaire_id=exemplaire.id)
             else:
                 messages.error(request, _("Veuillez sélectionner un système de freinage à lier."))
 
@@ -195,11 +195,11 @@ def lier_freins_ar_exemplaire(request, exemplaire_id):
                 messages.success(request, _("Le système de freinage a été lié à l'exemplaire avec succès."))
 
                 # Redirection vers la page de détail de l'exemplaire (ou une page liste)
-                return redirect("voiture_exemplaire:detail_ar", exemplaire_id=exemplaire.id)
+                return redirect("voiture_exemplaire:lier_frein_arriere", exemplaire_id=exemplaire.id)
             else:
                 messages.error(request, _("Veuillez sélectionner un système de freinage à lier."))
 
-        return render(request, "voiture_exemplaire/lier_frein_ar.html", {
+        return render(request, "voiture_exemplaire/lier_frein_arriere.html", {
             "exemplaire": exemplaire,
             "freins_ar": freins_ar,
             "title": _("Lier un système de freinage arrière à un véhicule"),

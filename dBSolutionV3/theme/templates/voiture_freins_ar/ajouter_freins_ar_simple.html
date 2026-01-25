@@ -5,7 +5,7 @@
 <div class="max-w-xl mx-auto p-6 bg-white rounded shadow mt-16 mb-16">
 
     <h1 class="text-2xl font-bold mb-4 text-center flex items-center justify-center">
-         <img src="{% static 'icons/disque-de-frein.png' %}" alt="freins"
+         <img src="{% static 'icons/disque-de-frein.png' %}" alt="freins arrière"
              style="width:60px; height:60px; margin-right:10px;">
         {% trans "Ajouter un système de freinage arrière" %}
     </h1>
@@ -23,13 +23,13 @@
         </div>
 
         <div>
-            <label for="id_taille_disques_ar">{% trans "Diamètre disques arrière (mm)" %}</label>
-            <input type="text" id="id_taille_disques_ar" name="taille_disques_ar" class="border rounded px-4 py-2 w-full">
+            <label for="id_taille_disque_ar">{% trans "Diamètre disques arrière (mm)" %}</label>
+            <input type="text" id="id_taille_disque_ar" name="taille_disque_ar" class="border rounded px-4 py-2 w-full">
         </div>
 
         <div>
-            <label for="id_epaisseur_disques_ar">{% trans "Épaisseur disques arrière (mm)" %}</label>
-            <input type="text" id="id_epaisseur_disques_ar" name="epaisseur_disques_ar" class="border rounded px-4 py-2 w-full">
+            <label for="id_epaisseur_disque_ar">{% trans "Épaisseur disques arrière (mm)" %}</label>
+            <input type="text" id="id_epaisseur_disque_ar" name="epaisseur_disque_ar" class="border rounded px-4 py-2 w-full">
         </div>
 
         <div>
@@ -38,14 +38,16 @@
         </div>
 
         <div>
+            <label for="id_marque_plaquettes_ar">{% trans "Marque plaquettes arrière" %}</label>
+            <input type="text" id="id_marque_plaquettes_ar" name="marque_plaquettes_ar" class="border rounded px-4 py-2 w-full">
+        </div>
+
+        <div>
             <label for="id_plaquettes_ar">{% trans "Épaisseur plaquettes arrière (mm)" %}</label>
             <input type="text" id="id_plaquettes_ar" name="plaquettes_ar" class="border rounded px-4 py-2 w-full">
         </div>
 
-        <div>
-            <label for="id_marque_plaquettes_ar">{% trans "Marque plaquettes arrière" %}</label>
-            <input type="text" id="id_marque_plaquettes_ar" name="marque_plaquettes_ar" class="border rounded px-4 py-2 w-full">
-        </div>
+
 
         <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded w-full hover:bg-blue-700 transition">
             {% trans "Ajouter" %}
@@ -56,8 +58,8 @@
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const decimalInputs = [
-        "id_taille_disques_ar",
-        "id_epaisseur_disques_ar",
+        "id_taille_disque_ar",
+        "id_epaisseur_disque_ar",
         "id_epaisseur_min_disque_ar",
         "id_plaquettes_ar"
     ];
@@ -66,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const input = document.getElementById(id);
         if (!input) return;
 
-        input.placeholder = "XXX,XX";
+        input.placeholder = "XXX,X";
 
         input.addEventListener("input", function () {
             // Remplace point par virgule
