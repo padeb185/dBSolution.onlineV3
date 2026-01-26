@@ -12,7 +12,7 @@
 
 <div class="bg-white shadow-md rounded-lg p-4 mb-4">
     <div class="flex flex-wrap gap-3 items-end">
-        <input id="search-marque_disque_ar" type="text"
+        <input id="search-marque_disques_ar" type="text"
                class="flex-1 min-w-[150px] border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Marque des disques arrière' %}">
 
@@ -50,14 +50,14 @@
         </tr>
     </thead>
     <tbody>
-        {% for frein in freins %}
+        {% for frein_ar in freins_ar %}
         <tr>
-            <td class="border px-4 py-2">{{ frein.marque_disque_ar }}</td>
-            <td class="border px-4 py-2">{{ frein.taille_disque_ar }}</td>
-            <td class="border px-4 py-2">{{ frein.epaisseur_disque_ar }}</td>
-            <td class="border px-4 py-2">{{ frein.epaisseur_min_disque_ar }}</td>
+            <td class="border px-4 py-2">{{ frein_ar.marque_disques_ar }}</td>
+            <td class="border px-4 py-2">{{ frein_ar.taille_disque_ar }}</td>
+            <td class="border px-4 py-2">{{ frein_ar.epaisseur_disque_ar }}</td>
+            <td class="border px-4 py-2">{{ frein_ar.epaisseur_min_disque_ar }}</td>
             <td class="border px-4 py-2 text-center">
-                <a href="{% url 'voiture_freins:detail_ar' frein_ar.id %}"
+                <a href="{% url 'voiture_freins_ar:detail_ar' frein_ar.id %}"
                    class="text-blue-600 hover:text-blue-800 font-semibold">
                     {% trans "Info" %}
                 </a>
@@ -90,7 +90,7 @@ $(document).ready(function() {
     });
 
     // Filtres par colonne
-    $('#search-marque_disque_ar').on('keyup', function () {
+    $('#search-marque_disques_ar').on('keyup', function () {
         table.column(0).search(this.value).draw();
     });
     $('#search-taille_disque_ar').on('keyup', function () {

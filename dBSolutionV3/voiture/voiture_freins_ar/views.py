@@ -2,9 +2,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django_tenants.utils import tenant_context
-from ..voiture_freins.forms import VoitureFreinsForm
+from .forms import VoitureFreinsARForm
 from ..voiture_modele.models import VoitureModele
-from ..voiture_freins.models import VoitureFreins
 from ..voiture_exemplaire.models import VoitureExemplaire
 from ..voiture_freins_ar.models import VoitureFreinsAR
 
@@ -20,7 +19,7 @@ def ajouter_freins_ar(request, modele_id):
         marque = modele.voiture_marque  # objet VoitureMarque
 
         if request.method == "POST":
-            form = VoitureFreinsForm(request.POST)
+            form = VoitureFreinsARForm(request.POST)
             if form.is_valid():
                 exemplaire = form.save(commit=False)
                 exemplaire.voiture_modele = modele
@@ -33,7 +32,7 @@ def ajouter_freins_ar(request, modele_id):
                 messages.error(request, "Veuillez corriger les erreurs ci-dessous.")
         else:
             # GET → formulaire pré-rempli avec la marque et le modèle
-            form = VoitureFreinsForm(initial={
+            form = VoitureFreinsARForm(initial={
                 "voiture_marque": marque.pk,
                 "voiture_modele": modele.id
             })
@@ -48,7 +47,7 @@ def ajouter_freins_ar(request, modele_id):
 def lier_freins_arriere(request, frein_id):
     tenant = request.user.societe  # ton tenant
     with tenant_context(tenant):
-        frein = get_object_or_404(VoitureFreins, id=frein_id)
+        frein = get_object_or_404(VoitureFreinsAR, id=frein_id)
         exemplaires = VoitureExemplaire.objects.all().order_by("id")
 
         if request.method == "POST":
@@ -57,9 +56,9 @@ def lier_freins_arriere(request, frein_id):
                 frein.voiture_exemplaire_id = cible_id
                 frein.voiture_modele = None  # on supprime tout lien précédent avec un modèle
                 frein.save()
-                return redirect("voiture_freins:list_ar")  # ou vers la page détail
+                return redirect("voiture_freins_ar:list_ar")  # ou vers la page détail
 
-    return render(request, "voiture_freins/lier_freins_ar.html", {
+    return render(request, "voiture_freins_ar/lier_freins_ar.html", {
         "frein": frein,
         "exemplaires": exemplaires
     })
@@ -93,7 +92,7 @@ def ajouter_freins_ar_simple(request):
 @login_required()
 def freins_ar_detail_view(request, frein_id):
     frein = get_object_or_404(VoitureFreinsAR, id=frein_id)
-    return render(request, 'voiture_freins_ar/freins_ar_detail_.html', {
+    return render(request, 'voiture_freins_ar/freins_ar_detail.html', {
         'frein': frein,
     })
 

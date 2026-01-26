@@ -55,14 +55,14 @@
         </div>
 
         <!-- Liens voiture -->
-        {% if boite.voiture_modele %}
+        {% if embrayage.voiture_modele %}
         <div class="flex flex-col">
             <label class="mb-1 font-medium">{% trans "Modèle de voiture" %}</label>
             <input type="text" value="{{ embrayage.voiture_modele.nom }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
         </div>
         {% endif %}
 
-        {% if boite.voiture_exemplaire %}
+        {% if embrayage.voiture_exemplaire %}
         <div class="flex flex-col">
             <label class="mb-1 font-medium">{% trans "Exemplaire de voiture" %}</label>
             <input type="text" value="{{ embrayage.voiture_exemplaire.immatriculation }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>

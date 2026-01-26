@@ -1,56 +1,56 @@
 {% extends "base.html" %}
 {% load i18n static widget_tweaks %}
 
-{% block title %}{{ frein.marque_disque_ar }} {% endblock %}
+{% block title %}{{ frein_ar.marque_disque_ar }} {% endblock %}
 
 {% block content %}
 <div class="max-w-xl mx-auto p-6 bg-white rounded shadow mt-16 mb-16">
     <h1 class="text-2xl font-bold mb-4 text-center flex items-center">
         <img src="{% static 'icons/disque-de-frein.png' %}" alt="freins"
              style="width:60px; height:60px; margin-right:10px;">
-        {% trans "Détails du freinage" %}: {{ frein.marque_disque_ar }}
+        {% trans "Détails du freinage" %}: {{ frein_ar.marque_disque_ar }}
     </h1>
 
     <form class="flex flex-col space-y-4">
 
         <div class="flex flex-col">
             <label class="mb-1 font-medium">{% trans "Marque disque arrière" %}</label>
-            <input type="text" value="{{ frein.marque_disque_ar }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
+            <input type="text" value="{{ frein_ar.marque_disque_ar }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
         </div>
 
         <div class="flex flex-col">
             <label class="mb-1 font-medium">{% trans "Taille disque arrière" %}</label>
-            <input type="text" value="{{ frein.taille_disque_ar }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
+            <input type="text" value="{{ frein_ar.taille_disque_ar }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
         </div>
 
         <div class="flex flex-col">
             <label class="mb-1 font-medium">{% trans "Epaisseur du disque arrière" %}</label>
-            <input type="text" value="{{ frein.epaisseur_disque_ar }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
+            <input type="text" value="{{ frein_ar.epaisseur_disque_ar }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
         </div>
 
         <div class="flex flex-col">
             <label class="mb-1 font-medium">{% trans "Epaisseur minimum du disque arrière" %}</label>
-            <input type="text" value="{{ frein.epaisseur_min_disque_ar }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
+            <input type="text" value="{{ frein_ar.epaisseur_min_disque_ar }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
         </div>
 
         <!-- Liens voiture -->
-        {% if boite.voiture_modele %}
+        {% if frein_ar.voiture_modele %}
         <div class="flex flex-col">
             <label class="mb-1 font-medium">{% trans "Modèle de voiture" %}</label>
-            <input type="text" value="{{ embrayage.voiture_modele.nom }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
+            <input type="text" value="{{ frein_ar.voiture_modele.nom }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
         </div>
         {% endif %}
 
-        {% if boite.voiture_exemplaire %}
+        {% if frein_ar.voiture_exemplaire %}
         <div class="flex flex-col">
             <label class="mb-1 font-medium">{% trans "Exemplaire de voiture" %}</label>
-            <input type="text" value="{{ embrayage.voiture_exemplaire.immatriculation }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
+            <input type="text" value="{{ frein_ar.voiture_exemplaire.immatriculation }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
         </div>
         {% endif %}
 
 
         <!-- Bouton retour -->
-        <a href="{% url 'voiture_frein:list' %}"
+        <a href="{% url 'voiture_frein_ar:list_ar' %}"
            class="mt-4 bg-blue-700 text-white px-4 py-2 rounded w-full text-center hover:bg-blue-400 transition">
             {% trans "Retour" %}
         </a>
