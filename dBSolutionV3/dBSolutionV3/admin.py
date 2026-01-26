@@ -11,7 +11,6 @@ from outillage.models import Outillage
 from panier.models import Panier
 from piece.models import Piece
 from facture.models import Company, FactureLine
-from client.societe_cliente.models import SocieteCliente
 from societe.models import Societe
 from utilisateurs.apprentis.models import Apprenti
 from utilisateurs.carrossier.models import Carrossier
@@ -23,12 +22,21 @@ from utilisateurs.magasinier.models import Magasinier
 from utilisateurs.mecanicien.models import Mecanicien
 from utilisateurs.vendeur.models import Vendeur
 from voiture.voiture_boite.models import VoitureBoite
+from voiture.voiture_embrayage.models import VoitureEmbrayage
 from voiture.voiture_exemplaire.models import VoitureExemplaire
+from voiture.voiture_freins.models import VoitureFreins
+from voiture.voiture_freins_ar.models import VoitureFreinsAR
 from voiture.voiture_marque.models import VoitureMarque
 from voiture.voiture_modele.models import VoitureModele
 from voiture.voiture_moteur.models import MoteurVoiture
 from voiture.voiture_pneus.models import VoiturePneus
 from voiture.voiture_pneus_historique.models import VoiturePneusHistorique
+
+
+
+
+
+
 
 admin.site.register(Utilisateur)
 admin.site.register(Adresse)
@@ -54,6 +62,17 @@ admin.site.register(Magasinier)
 admin.site.register(Mecanicien)
 admin.site.register(Vendeur)
 admin.site.register(VoitureBoite)
+admin.site.register(VoitureEmbrayage)
+
+
+
+
+
+
+
+
+
+
 
 
 

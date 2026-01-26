@@ -132,18 +132,25 @@
 
             <!-- freins arrière-->
             <h2 class="text-lg font-semibold mt-6 mb-4">{% trans "Freins arrière" %}</h2>
-            {% if exemplaire.freins.exists %}
+            {% if exemplaire.freins_ar.exists %}
             <ul class="space-y-2">
-                {% for frein in exemplaire.freins.all %}
-                <li class="border p-3 rounded-md hover:bg-gray-50">
-                    {{ frein.marque_disques_ar }}  {{ frein.taille_disque_ar }}
-                    <span class="text-green-500">({{ frein.epaisseur_disque_ar }})</span>
-                </li>
+                {% for frein in exemplaire.freins_ar.all %}
+                    <li class="border p-3 rounded-md hover:bg-gray-50 flex justify-between items-center">
+                        <div>
+                            <span class="font-medium">{{ frein.marque_disques_ar|default:"N/A" }}</span>
+                            <span> {{ frein.taille_disque_ar|default:"?" }} mm</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <span class="text-green-500">{{ frein.epaisseur_disque_ar|default:"?" }} mm</span>
+                            <span class="text-red-500">{{ frein.epaisseur_min_disque_ar|default:"?" }} mm</span>
+                        </div>
+                    </li>
                 {% endfor %}
             </ul>
             {% else %}
             <p class="text-gray-500">{% trans "Aucun frein arrière enregistré pour cet exemplaire." %}</p>
             {% endif %}
+
 
         </div>
     </div>

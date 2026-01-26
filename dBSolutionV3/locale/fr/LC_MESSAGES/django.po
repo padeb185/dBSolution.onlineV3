@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-19 15:37+0100\n"
+"POT-Creation-Date: 2026-01-26 13:55+0100\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -253,6 +253,8 @@ msgid "Historique"
 msgstr ""
 
 #: .\client\models.py:53
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:60
+#: .\voiture\voiture_exemplaire\models.py:12
 msgid "Location"
 msgstr ""
 
@@ -261,6 +263,8 @@ msgid "Actif"
 msgstr ""
 
 #: .\client\models.py:60 .\facture\models.py:69 .\panier\models.py:25
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:58
+#: .\voiture\voiture_exemplaire\models.py:10
 msgid "Client"
 msgstr ""
 
@@ -386,11 +390,11 @@ msgstr ""
 msgid "%(nom)s (Fournisseur)"
 msgstr ""
 
-#: .\fuel\models.py:9
+#: .\fuel\models.py:9 .\voiture\voiture_moteur\models.py:19
 msgid "Essence"
 msgstr ""
 
-#: .\fuel\models.py:10
+#: .\fuel\models.py:10 .\voiture\voiture_moteur\models.py:20
 msgid "Diesel"
 msgstr ""
 
@@ -417,6 +421,7 @@ msgid "Immatriculation"
 msgstr ""
 
 #: .\fuel\models.py:39
+#: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:66
 msgid "Type de carburant"
 msgstr ""
 
@@ -445,8 +450,7 @@ msgid "Validation"
 msgstr ""
 
 #: .\fuel\models.py:51 .\theme\templates\voiture_moteur\ajouter_moteur.html:46
-#: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:46
-#: .\theme\templates\voiture_moteur\list.html:39
+#: .\theme\templates\voiture_moteur\list.html:38
 #: .\theme\templates\voiture_moteur\moteur_detail.html:32
 msgid "Carburant"
 msgstr ""
@@ -872,14 +876,14 @@ msgid "Non précisé"
 msgstr ""
 
 #: .\maintenance\jeux_pieces\models.py:108 .\maintenance\models.py:34
-#: .\utilisateurs\models.py:73 .\utilisateurs\views.py:151
+#: .\utilisateurs\models.py:73 .\utilisateurs\views.py:165
 msgid "Apprenti"
 msgstr ""
 
 #: .\maintenance\jeux_pieces\models.py:109 .\maintenance\models.py:26
 #: .\maintenance\nettoyage_exterieur\models.py:25
 #: .\maintenance\nettoyage_interieur\models.py:26 .\utilisateurs\models.py:74
-#: .\utilisateurs\views.py:152
+#: .\utilisateurs\views.py:166
 msgid "Mécanicien"
 msgstr ""
 
@@ -912,7 +916,7 @@ msgid "Date d'intervention"
 msgstr ""
 
 #: .\maintenance\models.py:53
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:69
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:78
 msgid "Date de la dernière intervention"
 msgstr ""
 
@@ -945,7 +949,7 @@ msgstr ""
 msgid "Remplacement moteur"
 msgstr ""
 
-#: .\maintenance\models.py:79 .\voiture\voiture_boite\models.py:10
+#: .\maintenance\models.py:79 .\voiture\voiture_boite\models.py:11
 msgid "Remplacement boîte"
 msgstr ""
 
@@ -1128,6 +1132,8 @@ msgstr ""
 
 #: .\panier\models.py:39 .\piece\models.py:95
 #: .\theme\templates\voiture_boite\boite_detail.html:85
+#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:76
+#: .\theme\templates\voiture_embrayage\embrayage_detail.html:73
 #: .\theme\templates\voiture_moteur\moteur_detail.html:97
 msgid "Date de création"
 msgstr ""
@@ -1367,7 +1373,7 @@ msgid "Puissance en watts"
 msgstr ""
 
 #: .\piece\piece_ampoules\models.py:60 .\piece\piece_feux\models.py:29
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:58
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:48
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:73
 msgid "Couleur"
 msgstr ""
@@ -1709,7 +1715,7 @@ msgstr ""
 msgid "Joint"
 msgstr ""
 
-#: .\piece\piece_differentiel\models.py:12 .\voiture\voiture_boite\models.py:8
+#: .\piece\piece_differentiel\models.py:12 .\voiture\voiture_boite\models.py:9
 msgid "Vidange"
 msgstr ""
 
@@ -2094,6 +2100,8 @@ msgid "Disque d'embrayage"
 msgstr ""
 
 #: .\piece\piece_embrayage\models.py:14
+#: .\theme\templates\voiture_embrayage\embrayage_detail.html:32
+#: .\theme\templates\voiture_embrayage\list.html:29
 msgid "Plateau de pression"
 msgstr ""
 
@@ -2115,7 +2123,8 @@ msgstr ""
 
 #: .\piece\piece_embrayage\models.py:26
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:25
-#: .\theme\templates\voiture_embrayage\list.html:39
+#: .\theme\templates\voiture_embrayage\embrayage_detail.html:22
+#: .\theme\templates\voiture_embrayage\list.html:52
 msgid "Type d'embrayage"
 msgstr ""
 
@@ -2135,11 +2144,12 @@ msgstr ""
 msgid "Composants"
 msgstr ""
 
-#: .\piece\piece_embrayage\models.py:72 .\theme\templates\dashboard.html:143
+#: .\piece\piece_embrayage\models.py:72
 msgid "Embrayage"
 msgstr ""
 
-#: .\piece\piece_embrayage\models.py:73
+#: .\piece\piece_embrayage\models.py:73 .\theme\templates\dashboard.html:143
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:93
 msgid "Embrayages"
 msgstr ""
 
@@ -2697,7 +2707,6 @@ msgstr ""
 
 #: .\piece\piece_moteur\models.py:29
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:62
-#: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:62
 #: .\theme\templates\voiture_moteur\moteur_detail.html:62
 msgid "Distribution"
 msgstr ""
@@ -2750,7 +2759,7 @@ msgstr ""
 msgid "Rampe d'injection"
 msgstr ""
 
-#: .\piece\piece_moteur\models.py:43
+#: .\piece\piece_moteur\models.py:43 .\voiture\voiture_moteur\models.py:11
 msgid "Turbo"
 msgstr ""
 
@@ -3480,6 +3489,9 @@ msgstr ""
 
 #: .\theme\templates\base.html:84
 #: .\theme\templates\voiture_boite\boite_detail.html:92
+#: .\theme\templates\voiture_embrayage\embrayage_detail.html:80
+#: .\theme\templates\voiture_freins\freins_detail.html:55
+#: .\theme\templates\voiture_freins_ar\freins_ar_detail.html:55
 #: .\theme\templates\voiture_moteur\moteur_detail.html:104
 msgid "Retour"
 msgstr ""
@@ -3503,6 +3515,7 @@ msgstr ""
 #: .\theme\templates\dashboard.html:16 .\theme\templates\dashboard.html:80
 #: .\theme\templates\dashboard.html:99 .\theme\templates\dashboard.html:115
 #: .\theme\templates\dashboard.html:130 .\theme\templates\dashboard.html:145
+#: .\theme\templates\dashboard.html:160 .\theme\templates\dashboard.html:175
 msgid "Nombre total :"
 msgstr ""
 
@@ -3548,7 +3561,7 @@ msgid "Marques de voiture"
 msgstr ""
 
 #: .\theme\templates\dashboard.html:97
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:75
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:63
 msgid "Moteurs"
 msgstr ""
 
@@ -3560,7 +3573,17 @@ msgstr ""
 msgid "Boites de vitesses"
 msgstr ""
 
-#: .\theme\templates\dashboard.html:160
+#: .\theme\templates\dashboard.html:158
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:108
+msgid "Freins avant"
+msgstr ""
+
+#: .\theme\templates\dashboard.html:173
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:134
+msgid "Freins arrière"
+msgstr ""
+
+#: .\theme\templates\dashboard.html:190
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Tableau de bord Admin"
@@ -3660,51 +3683,56 @@ msgid "(filtré à partir de _MAX_ entrées totales)"
 msgstr ""
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:9
-msgid "Ajouter une boite"
+msgid "Ajouter une boite de vitesse"
 msgstr ""
 
-#: .\theme\templates\voiture_boite\ajouter_boite_simple.html:20
+#: .\theme\templates\voiture_boite\ajouter_boite_simple.html:33
 #: .\theme\templates\voiture_boite\boite_detail.html:17
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:20
+#: .\theme\templates\voiture_embrayage\embrayage_detail.html:17
+#: .\theme\templates\voiture_embrayage\list.html:17
 msgid "Fabricant"
 msgstr ""
 
-#: .\theme\templates\voiture_boite\ajouter_boite_simple.html:25
+#: .\theme\templates\voiture_boite\ajouter_boite_simple.html:38
 #: .\theme\templates\voiture_boite\boite_detail.html:27
 msgid "Type de boîte"
 msgstr ""
 
-#: .\theme\templates\voiture_boite\ajouter_boite_simple.html:28
+#: .\theme\templates\voiture_boite\ajouter_boite_simple.html:41
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:28
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:41
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:54
 msgid "Sélectionner un type"
 msgstr ""
 
-#: .\theme\templates\voiture_boite\ajouter_boite_simple.html:39
+#: .\theme\templates\voiture_boite\ajouter_boite_simple.html:52
 #: .\theme\templates\voiture_boite\boite_detail.html:32
 msgid "Nombre de rapports"
 msgstr ""
 
-#: .\theme\templates\voiture_boite\ajouter_boite_simple.html:44
+#: .\theme\templates\voiture_boite\ajouter_boite_simple.html:57
 #: .\theme\templates\voiture_boite\list.html:39
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:106
-#: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:105
+#: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:135
 #: .\theme\templates\voiture_moteur\moteur_detail.html:72
 msgid "Qualité d'huile"
 msgstr ""
 
-#: .\theme\templates\voiture_boite\ajouter_boite_simple.html:49
+#: .\theme\templates\voiture_boite\ajouter_boite_simple.html:62
 #: .\theme\templates\voiture_boite\boite_detail.html:43
+#: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:141
 #: .\theme\templates\voiture_moteur\moteur_detail.html:77
 msgid "Quantité d'huile (L)"
 msgstr ""
 
-#: .\theme\templates\voiture_boite\ajouter_boite_simple.html:54
-#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:66
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:99
+#: .\theme\templates\voiture_boite\ajouter_boite_simple.html:67
+#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:83
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:108
+#: .\theme\templates\voiture_freins\ajouter_freins_simple.html:53
+#: .\theme\templates\voiture_freins_ar\ajouter_freins_ar_simple.html:53
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:124
-#: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:122
+#: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:155
 msgid "Ajouter"
 msgstr ""
 
@@ -3738,10 +3766,16 @@ msgid "Numéro de boîte"
 msgstr ""
 
 #: .\theme\templates\voiture_boite\boite_detail.html:72
+#: .\theme\templates\voiture_embrayage\embrayage_detail.html:60
+#: .\theme\templates\voiture_freins\freins_detail.html:39
+#: .\theme\templates\voiture_freins_ar\freins_ar_detail.html:39
 msgid "Modèle de voiture"
 msgstr ""
 
 #: .\theme\templates\voiture_boite\boite_detail.html:79
+#: .\theme\templates\voiture_embrayage\embrayage_detail.html:67
+#: .\theme\templates\voiture_freins\freins_detail.html:46
+#: .\theme\templates\voiture_freins_ar\freins_ar_detail.html:46
 msgid "Exemplaire de voiture"
 msgstr ""
 
@@ -3751,12 +3785,10 @@ msgid "Liste des boîtes de vitesse"
 msgstr ""
 
 #: .\theme\templates\voiture_boite\list.html:17
-#: .\theme\templates\voiture_embrayage\list.html:17
 msgid "Rechercher par fabricant"
 msgstr ""
 
 #: .\theme\templates\voiture_boite\list.html:19
-#: .\theme\templates\voiture_embrayage\list.html:19
 msgid "Rechercher par nom du type"
 msgstr ""
 
@@ -3769,7 +3801,7 @@ msgid "Ajouter une boîte"
 msgstr ""
 
 #: .\theme\templates\voiture_boite\list.html:34
-#: .\theme\templates\voiture_embrayage\list.html:38
+#: .\theme\templates\voiture_embrayage\list.html:51
 msgid "Nom du Fabricant"
 msgstr ""
 
@@ -3787,16 +3819,19 @@ msgstr ""
 
 #: .\theme\templates\voiture_boite\list.html:38
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:113
-#: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:112
 msgid "Quantité d'huile"
 msgstr ""
 
 #: .\theme\templates\voiture_boite\list.html:40
 #: .\theme\templates\voiture_boite\list.html:55
-#: .\theme\templates\voiture_embrayage\list.html:42
-#: .\theme\templates\voiture_embrayage\list.html:55
-#: .\theme\templates\voiture_moteur\list.html:42
-#: .\theme\templates\voiture_moteur\list.html:57
+#: .\theme\templates\voiture_embrayage\list.html:56
+#: .\theme\templates\voiture_embrayage\list.html:70
+#: .\theme\templates\voiture_freins\list.html:49
+#: .\theme\templates\voiture_freins\list.html:62
+#: .\theme\templates\voiture_freins_ar\list_ar.html:46
+#: .\theme\templates\voiture_freins_ar\list_ar.html:59
+#: .\theme\templates\voiture_moteur\list.html:41
+#: .\theme\templates\voiture_moteur\list.html:58
 msgid "Info"
 msgstr ""
 
@@ -3805,13 +3840,14 @@ msgid "Aucune boîte de vitesse trouvée."
 msgstr ""
 
 #: .\theme\templates\voiture_boite\list.html:73
-#: .\theme\templates\voiture_embrayage\list.html:73
 #: .\theme\templates\voiture_moteur\list.html:76
-msgid "Recherche globale :"
+msgid "Recherche :"
 msgstr ""
 
 #: .\theme\templates\voiture_boite\list.html:74
-#: .\theme\templates\voiture_embrayage\list.html:74
+#: .\theme\templates\voiture_embrayage\list.html:86
+#: .\theme\templates\voiture_freins\list.html:78
+#: .\theme\templates\voiture_freins_ar\list_ar.html:74
 #: .\theme\templates\voiture_moteur\list.html:77
 msgid "Afficher _MENU_ éléments"
 msgstr ""
@@ -3826,42 +3862,81 @@ msgid "Aucune boîte trouvée"
 msgstr ""
 
 #: .\theme\templates\voiture_boite\list.html:79
-#: .\theme\templates\voiture_embrayage\list.html:79
+#: .\theme\templates\voiture_embrayage\list.html:91
+#: .\theme\templates\voiture_freins\list.html:83
+#: .\theme\templates\voiture_freins_ar\list_ar.html:79
 #: .\theme\templates\voiture_moteur\list.html:82
 msgid "Premier"
 msgstr ""
 
 #: .\theme\templates\voiture_boite\list.html:80
-#: .\theme\templates\voiture_embrayage\list.html:80
+#: .\theme\templates\voiture_embrayage\list.html:92
+#: .\theme\templates\voiture_freins\list.html:84
+#: .\theme\templates\voiture_freins_ar\list_ar.html:80
 #: .\theme\templates\voiture_moteur\list.html:83
 msgid "Dernier"
 msgstr ""
 
 #: .\theme\templates\voiture_boite\list.html:81
-#: .\theme\templates\voiture_embrayage\list.html:81
+#: .\theme\templates\voiture_embrayage\list.html:93
+#: .\theme\templates\voiture_freins\list.html:85
+#: .\theme\templates\voiture_freins_ar\list_ar.html:81
 #: .\theme\templates\voiture_moteur\list.html:84
 msgid "Suivant"
 msgstr ""
 
 #: .\theme\templates\voiture_boite\list.html:82
-#: .\theme\templates\voiture_embrayage\list.html:82
+#: .\theme\templates\voiture_embrayage\list.html:94
+#: .\theme\templates\voiture_freins\list.html:86
+#: .\theme\templates\voiture_freins_ar\list_ar.html:82
 #: .\theme\templates\voiture_moteur\list.html:85
 msgid "Précédent"
 msgstr ""
 
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:9
-#: .\theme\templates\voiture_embrayage\list.html:28
+#: .\theme\templates\voiture_embrayage\list.html:38
 msgid "Ajouter un embrayage"
 msgstr ""
 
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:38
-#: .\theme\templates\voiture_embrayage\list.html:40
+#: .\theme\templates\voiture_embrayage\list.html:53
 msgid "Type de volant moteur"
 msgstr ""
 
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:51
-#: .\theme\templates\voiture_embrayage\list.html:41
+#: .\theme\templates\voiture_embrayage\list.html:54
 msgid "Type de plateau de pression"
+msgstr ""
+
+#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:64
+#: .\theme\templates\voiture_embrayage\embrayage_detail.html:38
+#: .\theme\templates\voiture_embrayage\list.html:55
+msgid "Numero OEM"
+msgstr ""
+
+#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:68
+msgid "Kilometrage"
+msgstr ""
+
+#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:72
+msgid "Numero"
+msgstr ""
+
+#: .\theme\templates\voiture_embrayage\embrayage_detail.html:11
+msgid "Détails de l'embrayage"
+msgstr ""
+
+#: .\theme\templates\voiture_embrayage\embrayage_detail.html:27
+#: .\theme\templates\voiture_embrayage\list.html:25
+msgid "Volant moteur"
+msgstr ""
+
+#: .\theme\templates\voiture_embrayage\embrayage_detail.html:46
+msgid "Kilométrage de l'embrayage"
+msgstr ""
+
+#: .\theme\templates\voiture_embrayage\embrayage_detail.html:53
+msgid "Numéro d'embrayage"
 msgstr ""
 
 #: .\theme\templates\voiture_embrayage\list.html:4
@@ -3870,23 +3945,25 @@ msgid "Liste des embrayages"
 msgstr ""
 
 #: .\theme\templates\voiture_embrayage\list.html:21
-msgid "Rechercher par volant moteur"
+msgid "Type embrayage"
 msgstr ""
 
-#: .\theme\templates\voiture_embrayage\list.html:23
-msgid "Rechercher par plateau de pression"
+#: .\theme\templates\voiture_embrayage\list.html:33
+msgid "Numéro OEM"
 msgstr ""
 
-#: .\theme\templates\voiture_embrayage\list.html:61
-msgid "Aucun embrayage trouvé."
+#: .\theme\templates\voiture_embrayage\list.html:85
+#: .\theme\templates\voiture_freins\list.html:77
+#: .\theme\templates\voiture_freins_ar\list_ar.html:73
+msgid "Recherche globale :"
 msgstr ""
 
-#: .\theme\templates\voiture_embrayage\list.html:75
+#: .\theme\templates\voiture_embrayage\list.html:87
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ embrayages"
 msgstr ""
 
-#: .\theme\templates\voiture_embrayage\list.html:76
-#: .\theme\templates\voiture_embrayage\list.html:77
+#: .\theme\templates\voiture_embrayage\list.html:88
+#: .\theme\templates\voiture_embrayage\list.html:89
 msgid "Aucun embrayage trouvé"
 msgstr ""
 
@@ -3906,33 +3983,43 @@ msgstr ""
 msgid "Type d'utilisation"
 msgstr ""
 
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:57
+#: .\voiture\voiture_exemplaire\models.py:9
+msgid "Société"
+msgstr ""
+
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:59
+#: .\voiture\voiture_exemplaire\models.py:11
+msgid "Privé"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:68
 msgid "Kilomètres du chassis"
 msgstr ""
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:64
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:73
 msgid "Kilomètres de la dernière intervention"
 msgstr ""
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:74
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:56
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:83
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:46
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:70
 msgid "Année de production"
 msgstr ""
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:79
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:88
 msgid "Mois de production"
 msgstr ""
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:84
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:93
 msgid "Numero d'identification du moteur"
 msgstr ""
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:89
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:98
 msgid "Date de mise en circulation"
 msgstr ""
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:94
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:103
 msgid "Kilomètres moteur"
 msgstr ""
 
@@ -3940,60 +4027,136 @@ msgstr ""
 msgid "Détails du véhicule : "
 msgstr ""
 
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:51
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:45
 msgid "Informations générales"
 msgstr ""
 
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:57
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:47
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:71
 msgid "Kilométrage"
 msgstr ""
 
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:58
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:48
 msgid "Non renseignée"
 msgstr ""
 
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:65
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:53
 msgid "Modifier"
 msgstr ""
 
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:86
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:74
 msgid "Aucun moteur enregistré pour cet exemplaire."
 msgstr ""
 
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:93
-msgid "Lier un moteur existant"
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:78
+msgid "Boite de vitesse"
 msgstr ""
 
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:105
-#: .\theme\templates\voiture_moteur\ajouter_moteur.html:22
-#: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:22
-#: .\theme\templates\voiture_moteur\list.html:36
-#: .\theme\templates\voiture_moteur\moteur_detail.html:17
-msgid "Motoriste"
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:89
+msgid "Aucune boite enregistrée pour cet exemplaire."
 msgstr ""
 
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:111
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:140
-msgid "Choisir une cylindrée"
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:104
+msgid "Aucun embrayage enregistré pour cet exemplaire."
 msgstr ""
 
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:116
-#: .\theme\templates\voiture_moteur\ajouter_moteur.html:30
-#: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:30
-#: .\theme\templates\voiture_moteur\list.html:37
-#: .\theme\templates\voiture_moteur\moteur_detail.html:22
-msgid "Code moteur"
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:130
+msgid "Aucun frein avant enregistré pour cet exemplaire."
 msgstr ""
 
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:120
-#: .\voiture\voiture_exemplaire\views.py:124
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:151
+msgid "Aucun frein arrière enregistré pour cet exemplaire."
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:176
+msgid "Lier une boîte"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:182
+msgid "Lier un moteur"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:187
+#: .\theme\templates\voiture_exemplaire\lier_embrayage.html:66
+msgid "Lier un embrayage"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:193
+#: .\theme\templates\voiture_exemplaire\lier_frein.html:66
+msgid "Lier les freins avant"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:199
+#: .\theme\templates\voiture_exemplaire\lier_frein_ar.html:66
+msgid "Lier les freins arrière"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\lier_boite.html:10
+msgid "Boite de vitesse du véhicule : "
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\lier_boite.html:55
+msgid "Choisir une boîte"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\lier_boite.html:57
+msgid "Sélectionner une boîte"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\lier_boite.html:67
+msgid "Lier la boîte"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\lier_embrayage.html:9
+msgid "Embrayage du véhicule : "
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\lier_embrayage.html:54
+msgid "Choisir un embrayage"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\lier_embrayage.html:56
+msgid "Sélectionner un embrayage"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\lier_frein.html:9
+msgid "Freins avant du véhicule: "
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\lier_frein.html:54
+msgid "Choisir le système de Freinage avant"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\lier_frein.html:56
+msgid "Sélectionner un système de freinage avant"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\lier_frein_ar.html:9
+msgid "Freins arrière du véhicule: "
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\lier_frein_ar.html:54
+msgid "Choisir le système de freinage arrière"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\lier_frein_ar.html:56
+msgid "Sélectionner un système de freinage arrière"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\lier_moteur.html:9
+msgid "Moteur du véhicule: "
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\lier_moteur.html:54
+msgid "Choisir un moteur"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\lier_moteur.html:56
+msgid "Sélectionner un moteur"
+msgstr ""
+
+#: .\theme\templates\voiture_exemplaire\lier_moteur.html:66
 msgid "Lier le moteur"
-msgstr ""
-
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:127
-#: .\theme\templates\voiture_moteur\moteur_detail.html:11
-msgid "Détails du moteur"
 msgstr ""
 
 #: .\theme\templates\voiture_exemplaire\list.html:7
@@ -4042,12 +4205,182 @@ msgstr ""
 msgid "Annuler"
 msgstr ""
 
+#: .\theme\templates\voiture_freins\ajouter_freins_simple.html:10
+#: .\theme\templates\voiture_freins\list.html:33
+msgid "Ajouter un système de freinage avant"
+msgstr ""
+
+#: .\theme\templates\voiture_freins\ajouter_freins_simple.html:21
+msgid "Marque disques avant"
+msgstr ""
+
+#: .\theme\templates\voiture_freins\ajouter_freins_simple.html:26
+msgid "Diamètre disques avant (mm)"
+msgstr ""
+
+#: .\theme\templates\voiture_freins\ajouter_freins_simple.html:31
+msgid "Épaisseur disques avant (mm)"
+msgstr ""
+
+#: .\theme\templates\voiture_freins\ajouter_freins_simple.html:36
+msgid "Épaisseur minimum disques avant (mm)"
+msgstr ""
+
+#: .\theme\templates\voiture_freins\ajouter_freins_simple.html:41
+msgid "Marque plaquettes avant"
+msgstr ""
+
+#: .\theme\templates\voiture_freins\ajouter_freins_simple.html:46
+msgid "Épaisseur plaquettes avant (mm)"
+msgstr ""
+
+#: .\theme\templates\voiture_freins\freins_detail.html:11
+#: .\theme\templates\voiture_freins_ar\freins_ar_detail.html:11
+msgid "Détails du freinage"
+msgstr ""
+
+#: .\theme\templates\voiture_freins\freins_detail.html:17
+msgid "Marque disque avant"
+msgstr ""
+
+#: .\theme\templates\voiture_freins\freins_detail.html:22
+msgid "Taille disque avant"
+msgstr ""
+
+#: .\theme\templates\voiture_freins\freins_detail.html:27
+msgid "Epaisseur du disque avant"
+msgstr ""
+
+#: .\theme\templates\voiture_freins\freins_detail.html:32
+msgid "Epaisseur minimum du disque avant"
+msgstr ""
+
+#: .\theme\templates\voiture_freins\list.html:4
+msgid "Liste des pièces de frein avant"
+msgstr ""
+
+#: .\theme\templates\voiture_freins\list.html:10
+msgid "Liste des freins avant"
+msgstr ""
+
+#: .\theme\templates\voiture_freins\list.html:17
+#: .\theme\templates\voiture_freins\list.html:45
+msgid "Marque des disques avant"
+msgstr ""
+
+#: .\theme\templates\voiture_freins\list.html:21
+#: .\theme\templates\voiture_freins\list.html:46
+msgid "Diamètre des disques avant"
+msgstr ""
+
+#: .\theme\templates\voiture_freins\list.html:25
+#: .\theme\templates\voiture_freins\list.html:47
+msgid "Epaisseur des disques avant"
+msgstr ""
+
+#: .\theme\templates\voiture_freins\list.html:29
+#: .\theme\templates\voiture_freins_ar\list_ar.html:29
+#: .\theme\templates\voiture_freins_ar\list_ar.html:45
+msgid "Epaisseur minimum des disques arrière"
+msgstr ""
+
+#: .\theme\templates\voiture_freins\list.html:48
+msgid "Epaisseur minimum des disques avant"
+msgstr ""
+
+#: .\theme\templates\voiture_freins\list.html:79
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ freins"
+msgstr ""
+
+#: .\theme\templates\voiture_freins\list.html:80
+#: .\theme\templates\voiture_freins\list.html:81
+#: .\theme\templates\voiture_freins_ar\list_ar.html:76
+#: .\theme\templates\voiture_freins_ar\list_ar.html:77
+msgid "Aucun système de freinage trouvé"
+msgstr ""
+
+#: .\theme\templates\voiture_freins_ar\ajouter_freins_ar_simple.html:10
+#: .\theme\templates\voiture_freins_ar\list_ar.html:33
+msgid "Ajouter un système de freinage arrière"
+msgstr ""
+
+#: .\theme\templates\voiture_freins_ar\ajouter_freins_ar_simple.html:21
+msgid "Marque disques arrière"
+msgstr ""
+
+#: .\theme\templates\voiture_freins_ar\ajouter_freins_ar_simple.html:26
+msgid "Diamètre disques arrière (mm)"
+msgstr ""
+
+#: .\theme\templates\voiture_freins_ar\ajouter_freins_ar_simple.html:31
+msgid "Épaisseur disques arrière (mm)"
+msgstr ""
+
+#: .\theme\templates\voiture_freins_ar\ajouter_freins_ar_simple.html:36
+msgid "Épaisseur minimum disques arrière (mm)"
+msgstr ""
+
+#: .\theme\templates\voiture_freins_ar\ajouter_freins_ar_simple.html:41
+msgid "Marque plaquettes arrière"
+msgstr ""
+
+#: .\theme\templates\voiture_freins_ar\ajouter_freins_ar_simple.html:46
+msgid "Épaisseur plaquettes arrière (mm)"
+msgstr ""
+
+#: .\theme\templates\voiture_freins_ar\freins_ar_detail.html:17
+msgid "Marque disque arrière"
+msgstr ""
+
+#: .\theme\templates\voiture_freins_ar\freins_ar_detail.html:22
+msgid "Taille disque arrière"
+msgstr ""
+
+#: .\theme\templates\voiture_freins_ar\freins_ar_detail.html:27
+msgid "Epaisseur du disque arrière"
+msgstr ""
+
+#: .\theme\templates\voiture_freins_ar\freins_ar_detail.html:32
+msgid "Epaisseur minimum du disque arrière"
+msgstr ""
+
+#: .\theme\templates\voiture_freins_ar\list_ar.html:4
+msgid "Liste des pièces de frein arrière"
+msgstr ""
+
+#: .\theme\templates\voiture_freins_ar\list_ar.html:10
+msgid "Liste des freins arrière"
+msgstr ""
+
+#: .\theme\templates\voiture_freins_ar\list_ar.html:17
+#: .\theme\templates\voiture_freins_ar\list_ar.html:42
+msgid "Marque des disques arrière"
+msgstr ""
+
+#: .\theme\templates\voiture_freins_ar\list_ar.html:21
+#: .\theme\templates\voiture_freins_ar\list_ar.html:43
+msgid "Diamètre des disques arrière"
+msgstr ""
+
+#: .\theme\templates\voiture_freins_ar\list_ar.html:25
+#: .\theme\templates\voiture_freins_ar\list_ar.html:44
+msgid "Epaisseur des disques arrière"
+msgstr ""
+
+#: .\theme\templates\voiture_freins_ar\list_ar.html:75
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ Freins"
+msgstr ""
+
 #: .\theme\templates\voiture_marque\marques_list.html:14
 msgid "Mes marques favorites"
 msgstr ""
 
-#: .\theme\templates\voiture_marque\marques_list.html:48
-msgid "Voir les modèles "
+#: .\theme\templates\voiture_marque\marques_list.html:49
+msgid "Voir les"
+msgstr ""
+
+#: .\theme\templates\voiture_marque\marques_list.html:49
+msgid "modèles de"
 msgstr ""
 
 #: .\theme\templates\voiture_modele\modeles_list.html:8
@@ -4079,67 +4412,77 @@ msgstr ""
 msgid "Ajouter un moteur pour"
 msgstr ""
 
+#: .\theme\templates\voiture_moteur\ajouter_moteur.html:22
+#: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:36
+#: .\theme\templates\voiture_moteur\moteur_detail.html:17
+msgid "Motoriste"
+msgstr ""
+
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:25
-#: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:25
+#: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:39
 msgid "Nom du motoriste"
 msgstr ""
 
+#: .\theme\templates\voiture_moteur\ajouter_moteur.html:30
+#: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:44
+#: .\theme\templates\voiture_moteur\list.html:35
+#: .\theme\templates\voiture_moteur\moteur_detail.html:22
+msgid "Code moteur"
+msgstr ""
+
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:33
-#: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:33
+#: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:47
 msgid "Ex: S14B23"
 msgstr ""
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:38
-#: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:38
+#: .\theme\templates\voiture_moteur\list.html:37
 #: .\theme\templates\voiture_moteur\moteur_detail.html:27
 msgid "Type moteur"
 msgstr ""
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:41
-#: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:41
 msgid "Ex: ATM"
 msgstr ""
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:49
-#: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:49
 msgid "Essence / Diesel / ..."
 msgstr ""
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:54
-#: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:54
-#: .\theme\templates\voiture_moteur\list.html:40
+#: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:80
 #: .\theme\templates\voiture_moteur\moteur_detail.html:37
 msgid "Cylindrée (L)"
 msgstr ""
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:65
-#: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:65
 msgid "Chaîne / Courroie"
 msgstr ""
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:70
-#: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:70
+#: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:102
+#: .\theme\templates\voiture_moteur\list.html:39
 #: .\theme\templates\voiture_moteur\moteur_detail.html:67
 msgid "Nombre de cylindres"
 msgstr ""
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:78
-#: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:77
+#: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:110
 msgid "Puissance en Chevaux"
 msgstr ""
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:85
-#: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:84
+#: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:116
 msgid "Puissance à tr/min"
 msgstr ""
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:92
-#: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:91
+#: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:122
 msgid "Couple Nm"
 msgstr ""
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:99
-#: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:98
+#: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:128
 msgid "Couple tr/min"
 msgstr ""
 
@@ -4147,33 +4490,61 @@ msgstr ""
 msgid "Ajouter un moteur pour un nouveau véhicule"
 msgstr ""
 
-#: .\theme\templates\voiture_moteur\list.html:3
-#: .\theme\templates\voiture_moteur\list.html:11
+#: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:52
+msgid "Type de moteur"
+msgstr ""
+
+#: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:55
+msgid "Sélectionner un type de moteur"
+msgstr ""
+
+#: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:69
+msgid "Sélectionner un type de carburant"
+msgstr ""
+
+#: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:88
+msgid "Type de distribution"
+msgstr ""
+
+#: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:91
+msgid "Sélectionner un type de distribution"
+msgstr ""
+
+#: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:148
+msgid "Interval d'entretien"
+msgstr ""
+
+#: .\theme\templates\voiture_moteur\list.html:4
+#: .\theme\templates\voiture_moteur\list.html:10
 msgid "Liste des moteurs"
 msgstr ""
 
-#: .\theme\templates\voiture_moteur\list.html:19
+#: .\theme\templates\voiture_moteur\list.html:17
 msgid "Rechercher par motoriste"
 msgstr ""
 
-#: .\theme\templates\voiture_moteur\list.html:21
+#: .\theme\templates\voiture_moteur\list.html:19
 msgid "Rechercher par code moteur"
 msgstr ""
 
-#: .\theme\templates\voiture_moteur\list.html:23
+#: .\theme\templates\voiture_moteur\list.html:21
 msgid "Rechercher par cylindrée"
 msgstr ""
 
-#: .\theme\templates\voiture_moteur\list.html:28
+#: .\theme\templates\voiture_moteur\list.html:25
 #: .\voiture\voiture_moteur\views.py:34
 msgid "Ajouter un moteur"
 msgstr ""
 
-#: .\theme\templates\voiture_moteur\list.html:38
-msgid "Type"
+#: .\theme\templates\voiture_moteur\list.html:34
+msgid "Nom du Motoriste"
 msgstr ""
 
-#: .\theme\templates\voiture_moteur\list.html:41
+#: .\theme\templates\voiture_moteur\list.html:36
+msgid "Cylindree"
+msgstr ""
+
+#: .\theme\templates\voiture_moteur\list.html:40
 #: .\theme\templates\voiture_moteur\moteur_detail.html:42
 msgid "Puissance (CH)"
 msgstr ""
@@ -4189,6 +4560,10 @@ msgstr ""
 #: .\theme\templates\voiture_moteur\list.html:79
 #: .\theme\templates\voiture_moteur\list.html:80
 msgid "Aucun moteur trouvé"
+msgstr ""
+
+#: .\theme\templates\voiture_moteur\moteur_detail.html:11
+msgid "Détails du moteur"
 msgstr ""
 
 #: .\theme\templates\voiture_moteur\moteur_detail.html:47
@@ -4231,61 +4606,65 @@ msgstr ""
 msgid "Operations"
 msgstr ""
 
-#: .\utilisateurs\models.py:75 .\utilisateurs\views.py:155
+#: .\utilisateurs\models.py:75 .\utilisateurs\views.py:169
 msgid "Magasinier"
 msgstr ""
 
-#: .\utilisateurs\models.py:76 .\utilisateurs\views.py:153
+#: .\utilisateurs\models.py:76 .\utilisateurs\views.py:167
 msgid "Carrossier"
 msgstr ""
 
-#: .\utilisateurs\models.py:77 .\utilisateurs\views.py:154
+#: .\utilisateurs\models.py:77 .\utilisateurs\views.py:168
 msgid "Chef Mécanicien"
 msgstr ""
 
-#: .\utilisateurs\models.py:78 .\utilisateurs\views.py:156
+#: .\utilisateurs\models.py:78 .\utilisateurs\views.py:170
 msgid "Instructeur"
 msgstr ""
 
-#: .\utilisateurs\models.py:79 .\utilisateurs\views.py:157
+#: .\utilisateurs\models.py:79 .\utilisateurs\views.py:171
 msgid "Instructeur Externe"
 msgstr ""
 
-#: .\utilisateurs\models.py:80 .\utilisateurs\views.py:158
+#: .\utilisateurs\models.py:80 .\utilisateurs\views.py:172
 msgid "Vendeur"
 msgstr ""
 
-#: .\utilisateurs\models.py:81 .\utilisateurs\views.py:159
+#: .\utilisateurs\models.py:81 .\utilisateurs\views.py:173
 msgid "Comptable"
 msgstr ""
 
-#: .\utilisateurs\models.py:82 .\utilisateurs\views.py:160
+#: .\utilisateurs\models.py:82 .\utilisateurs\views.py:174
 msgid "Direction"
 msgstr ""
 
-#: .\utilisateurs\views.py:127
+#: .\utilisateurs\views.py:141
 msgid "Révision moteur"
 msgstr ""
 
-#: .\utilisateurs\views.py:127 .\voiture\voiture_boite\models.py:9
+#: .\utilisateurs\views.py:141 .\voiture\voiture_boite\models.py:10
 msgid "Changement filtre"
 msgstr ""
 
-#: .\utilisateurs\views.py:147 .\utilisateurs\views.py:162
+#: .\utilisateurs\views.py:161 .\utilisateurs\views.py:176
 msgid "Rôle inconnu"
 msgstr ""
 
-#: .\voiture\voiture_boite\models.py:13
+#: .\voiture\voiture_boite\models.py:15
 msgid "Manuelle"
 msgstr ""
 
-#: .\voiture\voiture_boite\models.py:14
+#: .\voiture\voiture_boite\models.py:16
 msgid "Semi-automatique"
 msgstr ""
 
-#: .\voiture\voiture_boite\models.py:15
+#: .\voiture\voiture_boite\models.py:17
 #: .\voiture\voiture_embrayage\models.py:10
 msgid "Automatique"
+msgstr ""
+
+#: .\voiture\voiture_boite\models.py:18
+msgid "Electrique"
 msgstr ""
 
 #: .\voiture\voiture_embrayage\models.py:8
@@ -4341,24 +4720,109 @@ msgid "Bimasse (pour volant moteur DMF)"
 msgstr ""
 
 #: .\voiture\voiture_exemplaire\views.py:82
-#: .\voiture\voiture_exemplaire\views.py:142
-msgid "Moteur non trouvé"
+msgid "La boîte de vitesse a été liée à l'exemplaire avec succès."
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\views.py:116
+#: .\voiture\voiture_exemplaire\views.py:87
+msgid "Veuillez sélectionner une boîte à lier."
+msgstr ""
+
+#: .\voiture\voiture_exemplaire\views.py:92
+msgid "Lier une boîte de vitesse à un véhicule"
+msgstr ""
+
+#: .\voiture\voiture_exemplaire\views.py:107
 msgid "Le moteur a été lié à l'exemplaire avec succès."
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\views.py:122
+#: .\voiture\voiture_exemplaire\views.py:112
+msgid "Veuillez sélectionner un moteur à lier."
+msgstr ""
+
+#: .\voiture\voiture_exemplaire\views.py:117
 msgid "Lier un moteur à un véhicule"
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\views.py:123
-msgid "Voulez-vous lier ce moteur à ce véhicule ?"
+#: .\voiture\voiture_exemplaire\views.py:133
+msgid "L'embrayage a été lié à l'exemplaire avec succès."
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\views.py:137
+#: .\voiture\voiture_exemplaire\views.py:138
+msgid "Veuillez sélectionner un embrayage à lier."
+msgstr ""
+
+#: .\voiture\voiture_exemplaire\views.py:143
+msgid "Lier un embrayage à un véhicule"
+msgstr ""
+
+#: .\voiture\voiture_exemplaire\views.py:165
+#: .\voiture\voiture_exemplaire\views.py:195
+msgid "Le système de freinage a été lié à l'exemplaire avec succès."
+msgstr ""
+
+#: .\voiture\voiture_exemplaire\views.py:170
+#: .\voiture\voiture_exemplaire\views.py:200
+msgid "Veuillez sélectionner un système de freinage à lier."
+msgstr ""
+
+#: .\voiture\voiture_exemplaire\views.py:175
+msgid "Lier un système de freinage à un véhicule"
+msgstr ""
+
+#: .\voiture\voiture_exemplaire\views.py:205
+msgid "Lier un système de freinage arrière à un véhicule"
+msgstr ""
+
+#: .\voiture\voiture_exemplaire\views.py:221
 msgid "Paramètres manquants"
+msgstr ""
+
+#: .\voiture\voiture_exemplaire\views.py:226
+msgid "Moteur non trouvé"
+msgstr ""
+
+#: .\voiture\voiture_moteur\models.py:12
+msgid "Atmosphérique"
+msgstr ""
+
+#: .\voiture\voiture_moteur\models.py:13
+msgid "Wankel"
+msgstr ""
+
+#: .\voiture\voiture_moteur\models.py:14
+msgid "Hybride essence"
+msgstr ""
+
+#: .\voiture\voiture_moteur\models.py:15
+msgid "Hybride turbo essence"
+msgstr ""
+
+#: .\voiture\voiture_moteur\models.py:16
+msgid "Machine électrique"
+msgstr ""
+
+#: .\voiture\voiture_moteur\models.py:21
+msgid "Électricité"
+msgstr ""
+
+#: .\voiture\voiture_moteur\models.py:22
+msgid "Gaz naturel (CNG)"
+msgstr ""
+
+#: .\voiture\voiture_moteur\models.py:23
+msgid "GPL"
+msgstr ""
+
+#: .\voiture\voiture_moteur\models.py:24
+msgid "Hydrogène"
+msgstr ""
+
+#: .\voiture\voiture_moteur\models.py:27
+msgid "Chaîne"
+msgstr ""
+
+#: .\voiture\voiture_moteur\models.py:28
+msgid "Courroie"
 msgstr ""
 
 #: .\voiture\voiture_moteur\views.py:35

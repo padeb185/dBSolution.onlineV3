@@ -47,7 +47,6 @@ class VoitureFreinsAR(models.Model):
         verbose_name = "Voiture – Freins Arrière"
         verbose_name_plural = "Voitures – Freins Arrière"
 
-
-
     def __str__(self):
-        return f"{self.voiture_exemplaire} – Freins arrière"
+        voitures = ", ".join([str(v) for v in self.voitures_exemplaires.all()])
+        return f"{voitures or self.id} – Freins arrière"
