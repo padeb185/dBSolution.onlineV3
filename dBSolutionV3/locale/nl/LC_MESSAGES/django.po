@@ -4229,147 +4229,109 @@ msgstr "Koppel de motor"
 
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:187
 #: .\theme\templates\voiture_exemplaire\lier_embrayage.html:66
-#, fuzzy
-#| msgid "Ajouter un exemplaire"
 msgid "Lier un embrayage"
-msgstr "Een exemplaar toevoegen"
+msgstr "Een koppeling koppelen"
 
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:193
 #: .\theme\templates\voiture_exemplaire\lier_frein.html:66
-#, fuzzy
-#| msgid "Pièces train avant"
 msgid "Lier les freins avant"
-msgstr "Voorasonderdelen"
+msgstr "De voorremmen koppelen"
 
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:199
 #: .\theme\templates\voiture_exemplaire\lier_frein_ar.html:66
-#, fuzzy
-#| msgid "Pièces train arrière"
 msgid "Lier les freins arrière"
-msgstr "Achterasonderdelen"
+msgstr "De achterremmen koppelen"
 
 #: .\theme\templates\voiture_exemplaire\lier_boite.html:10
-#, fuzzy
-#| msgid "Détails du véhicule"
 msgid "Boite de vitesse du véhicule : "
-msgstr "Voertuigdetails"
+msgstr "Versnellingsbak van het voertuig: "
 
 #: .\theme\templates\voiture_exemplaire\lier_boite.html:55
-#, fuzzy
-#| msgid "Ajouter un moteur"
 msgid "Choisir une boîte"
-msgstr "Voeg een motor toe"
+msgstr "Kies een versnellingsbak"
 
 #: .\theme\templates\voiture_exemplaire\lier_boite.html:57
-#, fuzzy
-#| msgid "Ajouter un moteur"
 msgid "Sélectionner une boîte"
-msgstr "Voeg een motor toe"
+msgstr "Selecteer een versnellingsbak"
 
 #: .\theme\templates\voiture_exemplaire\lier_boite.html:67
-#, fuzzy
-#| msgid "Lier le moteur"
 msgid "Lier la boîte"
-msgstr "Koppel de motor"
+msgstr "De versnellingsbak koppelen"
 
 #: .\theme\templates\voiture_exemplaire\lier_embrayage.html:9
-#, fuzzy
-#| msgid "Détails du véhicule"
 msgid "Embrayage du véhicule : "
-msgstr "Voertuigdetails"
+msgstr "Koppeling van het voertuig: "
 
 #: .\theme\templates\voiture_exemplaire\lier_embrayage.html:54
-#, fuzzy
-#| msgid "Ajouter un exemplaire"
 msgid "Choisir un embrayage"
-msgstr "Een exemplaar toevoegen"
+msgstr "Kies een koppeling"
 
 #: .\theme\templates\voiture_exemplaire\lier_embrayage.html:56
-#, fuzzy
-#| msgid "Ajouter un exemplaire"
 msgid "Sélectionner un embrayage"
-msgstr "Een exemplaar toevoegen"
+msgstr "Selecteer een koppeling"
 
 #: .\theme\templates\voiture_exemplaire\lier_frein.html:9
-#, fuzzy
-#| msgid "Détails du véhicule"
 msgid "Freins avant du véhicule: "
-msgstr "Voertuigdetails"
+msgstr "Voorremmen van het voertuig: "
 
 #: .\theme\templates\voiture_exemplaire\lier_frein.html:54
 msgid "Choisir le système de Freinage avant"
-msgstr ""
+msgstr "Kies het voorremsysteem"
 
 #: .\theme\templates\voiture_exemplaire\lier_frein.html:56
 msgid "Sélectionner un système de freinage avant"
-msgstr ""
+msgstr "Selecteer een voorremsysteem"
 
 #: .\theme\templates\voiture_exemplaire\lier_frein_ar.html:9
-#, fuzzy
-#| msgid "Emplacement / partie du véhicule"
 msgid "Freins arrière du véhicule: "
-msgstr "Locatie / voertuigdeel"
+msgstr "Achterremmen van het voertuig: "
 
 #: .\theme\templates\voiture_exemplaire\lier_frein_ar.html:54
 msgid "Choisir le système de freinage arrière"
-msgstr ""
+msgstr "Kies het achterremsysteem"
 
 #: .\theme\templates\voiture_exemplaire\lier_frein_ar.html:56
 msgid "Sélectionner un système de freinage arrière"
-msgstr ""
+msgstr "Selecteer een achterremsysteem"
 
 #: .\theme\templates\voiture_exemplaire\lier_moteur.html:9
-#, fuzzy
-#| msgid "Détails du véhicule"
 msgid "Moteur du véhicule: "
-msgstr "Voertuigdetails"
+msgstr "Motor van het voertuig: "
 
 #: .\theme\templates\voiture_exemplaire\lier_moteur.html:54
-#, fuzzy
-#| msgid "Ajouter un moteur"
 msgid "Choisir un moteur"
-msgstr "Voeg een motor toe"
+msgstr "Kies een motor"
 
 #: .\theme\templates\voiture_exemplaire\lier_moteur.html:56
-#, fuzzy
-#| msgid "Ajouter un moteur"
 msgid "Sélectionner un moteur"
-msgstr "Voeg een motor toe"
+msgstr "Selecteer een motor"
+
 
 #: .\theme\templates\voiture_exemplaire\lier_moteur.html:66
 msgid "Lier le moteur"
 msgstr "Koppel de motor"
 
 #: .\theme\templates\voiture_exemplaire\list.html:7
-#, fuzzy
-#| msgid "Lier un moteur à un véhicule"
 msgid "Liste de tous les véhicules"
-msgstr "Koppel een motor aan een voertuig"
+msgstr "Lijst van alle voertuigen"
 
 #: .\theme\templates\voiture_exemplaire\list.html:15
 #: .\theme\templates\voiture_marque\marques_list.html:33
-#, fuzzy
-#| msgid "Rechercher un modèle..."
 msgid "Rechercher une marque..."
-msgstr "Zoek een model..."
+msgstr "Zoek een merk..."
 
 #: .\theme\templates\voiture_exemplaire\list.html:21
-#, fuzzy
-#| msgid "Rechercher un exemplaire par immatriculation..."
 msgid "Rechercher une immatriculation..."
-msgstr "Zoek een exemplaar op kenteken..."
+msgstr "Zoek een kenteken..."
 
 #: .\theme\templates\voiture_exemplaire\list.html:82
-#, fuzzy
-#| msgid "Aucun résultat trouvé"
 msgid "Aucun véhicule trouvé."
-msgstr "Geen motor gevonden"
+msgstr "Geen voertuigen gevonden."
+
 
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:11
-#, fuzzy
-#| msgid "Véhicule"
 msgid "Véhicule : "
-msgstr "Voertuig"
+msgstr "Voertuig : "
 
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:22
 msgid "Rechercher un exemplaire par immatriculation..."
@@ -4385,10 +4347,9 @@ msgid "Aucun exemplaire enregistré pour ce modèle."
 msgstr "Geen exemplaar geregistreerd voor dit model."
 
 #: .\theme\templates\voiture_exemplaire\modifier_exemplaire.html:6
-#, fuzzy
-#| msgid "Ajouter un véhicule"
 msgid "Modifier le véhicule"
-msgstr "Voertuig toevoegen"
+msgstr "Voertuig wijzigen"
+
 
 #: .\theme\templates\voiture_exemplaire\modifier_exemplaire.html:55
 msgid "Enregistrer les modifications"
@@ -4401,255 +4362,187 @@ msgstr "Annuleren"
 #: .\theme\templates\voiture_freins\ajouter_freins_simple.html:10
 #: .\theme\templates\voiture_freins\list.html:33
 msgid "Ajouter un système de freinage avant"
-msgstr ""
+msgstr "Voorremsysteem toevoegen"
 
 #: .\theme\templates\voiture_freins\ajouter_freins_simple.html:21
-#, fuzzy
-#| msgid "Marques de voiture"
 msgid "Marque disques avant"
-msgstr "Automerken"
+msgstr "Merk van de voorremschijven"
 
 #: .\theme\templates\voiture_freins\ajouter_freins_simple.html:26
-#, fuzzy
-#| msgid "Diamètre central en mm"
 msgid "Diamètre disques avant (mm)"
-msgstr "Centrale boring in mm"
+msgstr "Diameter van de voorremschijven (mm)"
 
 #: .\theme\templates\voiture_freins\ajouter_freins_simple.html:31
-#, fuzzy
-#| msgid "Épaisseur des disques (mm)"
 msgid "Épaisseur disques avant (mm)"
-msgstr "Schijfdikte (mm)"
+msgstr "Dikte van de voorremschijven (mm)"
 
 #: .\theme\templates\voiture_freins\ajouter_freins_simple.html:36
-#, fuzzy
-#| msgid "Épaisseur des disques (mm)"
 msgid "Épaisseur minimum disques avant (mm)"
-msgstr "Schijfdikte (mm)"
+msgstr "Minimale dikte van de voorremschijven (mm)"
 
 #: .\theme\templates\voiture_freins\ajouter_freins_simple.html:41
 msgid "Marque plaquettes avant"
-msgstr ""
+msgstr "Merk van de voorremblokken"
 
 #: .\theme\templates\voiture_freins\ajouter_freins_simple.html:46
-#, fuzzy
-#| msgid "Épaisseur des disques (mm)"
 msgid "Épaisseur plaquettes avant (mm)"
-msgstr "Schijfdikte (mm)"
+msgstr "Dikte van de voorremblokken (mm)"
 
 #: .\theme\templates\voiture_freins\freins_detail.html:11
 #: .\theme\templates\voiture_freins_ar\freins_ar_detail.html:11
-#, fuzzy
-#| msgid "Détails du moteur"
 msgid "Détails du freinage"
-msgstr "Motordetails"
+msgstr "Remdetails"
 
 #: .\theme\templates\voiture_freins\freins_detail.html:17
-#, fuzzy
-#| msgid "Marques de voiture"
 msgid "Marque disque avant"
-msgstr "Automerken"
+msgstr "Merk van de voorremschijf"
 
 #: .\theme\templates\voiture_freins\freins_detail.html:22
-#, fuzzy
-#| msgid "Témoin usure avant"
 msgid "Taille disque avant"
-msgstr "Slijtindicator vooraan"
+msgstr "Grootte van de voorremschijf"
 
 #: .\theme\templates\voiture_freins\freins_detail.html:27
-#, fuzzy
-#| msgid "Épaisseur des disques (mm)"
 msgid "Epaisseur du disque avant"
-msgstr "Schijfdikte (mm)"
+msgstr "Dikte van de voorremschijf"
 
 #: .\theme\templates\voiture_freins\freins_detail.html:32
-#, fuzzy
-#| msgid "Épaisseur des disques (mm)"
 msgid "Epaisseur minimum du disque avant"
-msgstr "Schijfdikte (mm)"
+msgstr "Minimale dikte van de voorremschijf"
 
 #: .\theme\templates\voiture_freins\list.html:4
-#, fuzzy
-#| msgid "Type de pièce de freinage"
 msgid "Liste des pièces de frein avant"
-msgstr "Type remonderdeel"
+msgstr "Lijst van voorremonderdelen"
 
 #: .\theme\templates\voiture_freins\list.html:10
-#, fuzzy
-#| msgid "Liste des utilisateurs"
 msgid "Liste des freins avant"
-msgstr "Gebruikerslijst"
+msgstr "Lijst van de voorremmen"
 
 #: .\theme\templates\voiture_freins\list.html:17
 #: .\theme\templates\voiture_freins\list.html:45
-#, fuzzy
-#| msgid "Marques de voiture"
 msgid "Marque des disques avant"
-msgstr "Automerken"
+msgstr "Merk van de voorremschijven"
 
 #: .\theme\templates\voiture_freins\list.html:21
 #: .\theme\templates\voiture_freins\list.html:46
-#, fuzzy
-#| msgid "Diamètre en pouces"
 msgid "Diamètre des disques avant"
-msgstr "Diameter in inches"
+msgstr "Diameter van de voorremschijven"
 
 #: .\theme\templates\voiture_freins\list.html:25
 #: .\theme\templates\voiture_freins\list.html:47
-#, fuzzy
-#| msgid "Épaisseur des disques (mm)"
 msgid "Epaisseur des disques avant"
-msgstr "Schijfdikte (mm)"
+msgstr "Dikte van de voorremschijven"
 
 #: .\theme\templates\voiture_freins\list.html:29
 #: .\theme\templates\voiture_freins_ar\list_ar.html:29
 #: .\theme\templates\voiture_freins_ar\list_ar.html:45
-#, fuzzy
-#| msgid "Épaisseur des disques (mm)"
 msgid "Epaisseur minimum des disques arrière"
-msgstr "Schijfdikte (mm)"
+msgstr "Minimale dikte van de achterremschijven"
 
 #: .\theme\templates\voiture_freins\list.html:48
-#, fuzzy
-#| msgid "Épaisseur des disques (mm)"
 msgid "Epaisseur minimum des disques avant"
-msgstr "Schijfdikte (mm)"
+msgstr "Minimale dikte van de voorremschijven"
 
 #: .\theme\templates\voiture_freins\list.html:79
-#, fuzzy
-#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ entrées"
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ freins"
-msgstr "Weergeven van _START_ tot _END_ van _TOTAL_ vermeldingen"
+msgstr "Weergave van _START_ tot _END_ van in totaal _TOTAL_ remmen"
 
 #: .\theme\templates\voiture_freins\list.html:80
 #: .\theme\templates\voiture_freins\list.html:81
 #: .\theme\templates\voiture_freins_ar\list_ar.html:76
 #: .\theme\templates\voiture_freins_ar\list_ar.html:77
-#, fuzzy
-#| msgid "Aucun moteur trouvé"
 msgid "Aucun système de freinage trouvé"
-msgstr "Geen motor gevonden"
+msgstr "Geen remsysteem gevonden"
 
 #: .\theme\templates\voiture_freins_ar\ajouter_freins_ar_simple.html:10
 #: .\theme\templates\voiture_freins_ar\list_ar.html:33
 msgid "Ajouter un système de freinage arrière"
-msgstr ""
+msgstr "Achterremsysteem toevoegen"
 
 #: .\theme\templates\voiture_freins_ar\ajouter_freins_ar_simple.html:21
-#, fuzzy
-#| msgid "Marques de voiture"
 msgid "Marque disques arrière"
-msgstr "Automerken"
+msgstr "Merk van de achterremschijven"
 
 #: .\theme\templates\voiture_freins_ar\ajouter_freins_ar_simple.html:26
 msgid "Diamètre disques arrière (mm)"
-msgstr ""
+msgstr "Diameter van de achterremschijven (mm)"
 
 #: .\theme\templates\voiture_freins_ar\ajouter_freins_ar_simple.html:31
-#, fuzzy
-#| msgid "Épaisseur des disques (mm)"
 msgid "Épaisseur disques arrière (mm)"
-msgstr "Schijfdikte (mm)"
+msgstr "Dikte van de achterremschijven (mm)"
 
 #: .\theme\templates\voiture_freins_ar\ajouter_freins_ar_simple.html:36
-#, fuzzy
-#| msgid "Épaisseur des disques (mm)"
 msgid "Épaisseur minimum disques arrière (mm)"
-msgstr "Schijfdikte (mm)"
+msgstr "Minimale dikte van de achterremschijven (mm)"
 
 #: .\theme\templates\voiture_freins_ar\ajouter_freins_ar_simple.html:41
-#, fuzzy
-#| msgid "À remplacer arrière"
 msgid "Marque plaquettes arrière"
-msgstr "Te vervangen achteraan"
+msgstr "Merk van de achterremblokken"
 
 #: .\theme\templates\voiture_freins_ar\ajouter_freins_ar_simple.html:46
-#, fuzzy
-#| msgid "Épaisseur des disques (mm)"
 msgid "Épaisseur plaquettes arrière (mm)"
-msgstr "Schijfdikte (mm)"
+msgstr "Dikte van de achterremblokken (mm)"
 
 #: .\theme\templates\voiture_freins_ar\freins_ar_detail.html:17
-#, fuzzy
-#| msgid "Marques de voiture"
 msgid "Marque disque arrière"
-msgstr "Automerken"
+msgstr "Merk van de achterremschijf"
 
 #: .\theme\templates\voiture_freins_ar\freins_ar_detail.html:22
-#, fuzzy
-#| msgid "Témoin usure arrière"
 msgid "Taille disque arrière"
-msgstr "Slijtindicator achteraan"
+msgstr "Grootte van de achterremschijf"
 
 #: .\theme\templates\voiture_freins_ar\freins_ar_detail.html:27
-#, fuzzy
-#| msgid "Épaisseur des disques (mm)"
 msgid "Epaisseur du disque arrière"
-msgstr "Schijfdikte (mm)"
+msgstr "Dikte van de achterremschijf"
 
 #: .\theme\templates\voiture_freins_ar\freins_ar_detail.html:32
 msgid "Epaisseur minimum du disque arrière"
-msgstr ""
+msgstr "Minimale dikte van de achterremschijf"
 
 #: .\theme\templates\voiture_freins_ar\list_ar.html:4
-#, fuzzy
-#| msgid "Type de pièce train arrière"
 msgid "Liste des pièces de frein arrière"
-msgstr "Type achterasonderdeel"
+msgstr "Lijst van achterremonderdelen"
 
 #: .\theme\templates\voiture_freins_ar\list_ar.html:10
-#, fuzzy
-#| msgid "Pièces train arrière"
 msgid "Liste des freins arrière"
-msgstr "Achterasonderdelen"
+msgstr "Lijst van de achterremmen"
 
 #: .\theme\templates\voiture_freins_ar\list_ar.html:17
 #: .\theme\templates\voiture_freins_ar\list_ar.html:42
-#, fuzzy
-#| msgid "Marques de voiture"
 msgid "Marque des disques arrière"
-msgstr "Automerken"
+msgstr "Merk van de achterremschijven"
 
 #: .\theme\templates\voiture_freins_ar\list_ar.html:21
 #: .\theme\templates\voiture_freins_ar\list_ar.html:43
-#, fuzzy
-#| msgid "Pièces train arrière"
 msgid "Diamètre des disques arrière"
-msgstr "Achterasonderdelen"
+msgstr "Diameter van de achterremschijven"
 
 #: .\theme\templates\voiture_freins_ar\list_ar.html:25
 #: .\theme\templates\voiture_freins_ar\list_ar.html:44
-#, fuzzy
-#| msgid "Épaisseur des disques (mm)"
 msgid "Epaisseur des disques arrière"
-msgstr "Schijfdikte (mm)"
+msgstr "Dikte van de achterremschijven"
 
 #: .\theme\templates\voiture_freins_ar\list_ar.html:75
-#, fuzzy
-#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ entrées"
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ Freins"
-msgstr "Weergeven van _START_ tot _END_ van _TOTAL_ vermeldingen"
+msgstr "Weergave van _START_ tot _END_ van in totaal _TOTAL_ remmen"
+
 
 #: .\theme\templates\voiture_marque\marques_list.html:14
 msgid "Mes marques favorites"
 msgstr "Mijn favoriete merken"
 
 #: .\theme\templates\voiture_marque\marques_list.html:49
-#, fuzzy
-#| msgid "Voir les modèles de cette marque"
 msgid "Voir les"
-msgstr "De modellen van dit merk bekijken"
+msgstr "Bekijk de"
+
 
 #: .\theme\templates\voiture_marque\marques_list.html:49
-#, fuzzy
-#| msgid "Modèles de"
+
 msgid "modèles de"
 msgstr "Modellen van"
 
 #: .\theme\templates\voiture_modele\modeles_list.html:8
 #: .\theme\templates\voiture_modele\modeles_par_marque.html:9
-#, fuzzy
-#| msgid "Modèles de"
+
 msgid "Modèles de "
 msgstr "Modellen van"
 
@@ -4674,23 +4567,20 @@ msgid "Aucun modèle enregistré pour cette marque."
 msgstr "Geen model geregistreerd voor dit merk."
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:10
-#, fuzzy
-#| msgid "Ajouter un moteur"
 msgid "Ajouter un moteur pour"
-msgstr "Voeg een motor toe"
+msgstr "Een motor toevoegen voor"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:22
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:36
 #: .\theme\templates\voiture_moteur\moteur_detail.html:17
 msgid "Motoriste"
-msgstr "Fabrikant"
+msgstr "Motorfabrikant"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:25
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:39
-#, fuzzy
-#| msgid "Nom du fournisseur"
 msgid "Nom du motoriste"
-msgstr "Naam leverancier"
+msgstr "Naam van de motorfabrikant"
+
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:30
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:44
@@ -4702,7 +4592,8 @@ msgstr "Motorkode"
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:33
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:47
 msgid "Ex: S14B23"
-msgstr ""
+msgstr "Bijv: S14B23"
+
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:38
 #: .\theme\templates\voiture_moteur\list.html:37
@@ -4712,11 +4603,12 @@ msgstr "Motortype"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:41
 msgid "Ex: ATM"
-msgstr ""
+msgstr "Bijv: ATM"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:49
 msgid "Essence / Diesel / ..."
-msgstr ""
+msgstr "Benzine / Diesel / ..."
+
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:54
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:80
@@ -4726,7 +4618,7 @@ msgstr "Cilinderinhoud (L)"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:65
 msgid "Chaîne / Courroie"
-msgstr ""
+msgstr "Ketting / Riemaandrijving"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:70
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:102
@@ -4737,71 +4629,53 @@ msgstr "Aantal cilinders"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:78
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:110
-#, fuzzy
-#| msgid "Puissance en watts"
 msgid "Puissance en Chevaux"
-msgstr "Vermogen in watt"
+msgstr "Vermogen in pk"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:85
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:116
-#, fuzzy
-#| msgid "Puissance en watts"
 msgid "Puissance à tr/min"
-msgstr "Vermogen in watt"
+msgstr "Vermogen bij omw/min"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:92
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:122
-#, fuzzy
-#| msgid "Couple conique"
 msgid "Couple Nm"
-msgstr "Kegeloverbrengingsverhouding"
+msgstr "Koppel (Nm)"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:99
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:128
 msgid "Couple tr/min"
-msgstr ""
+msgstr "Koppel bij omw/min"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:10
-#, fuzzy
-#| msgid "Lier un moteur à un véhicule"
 msgid "Ajouter un moteur pour un nouveau véhicule"
-msgstr "Koppel een motor aan een voertuig"
+msgstr "Een motor toevoegen voor een nieuw voertuig"
+
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:52
-#, fuzzy
-#| msgid "Type moteur"
 msgid "Type de moteur"
 msgstr "Motortype"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:55
-#, fuzzy
-#| msgid "Électrovanne de turbo"
 msgid "Sélectionner un type de moteur"
-msgstr "Turbo magneetklep"
+msgstr "Selecteer een motortype"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:69
-#, fuzzy
-#| msgid "Type de carburant"
 msgid "Sélectionner un type de carburant"
-msgstr "Brandstoftype"
+msgstr "Selecteer een brandstoftype"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:88
-#, fuzzy
-#| msgid "Pièce de direction"
 msgid "Type de distribution"
-msgstr "Stuuronderdeel"
+msgstr "Type distributie"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:91
-#, fuzzy
-#| msgid "Pièce de direction"
 msgid "Sélectionner un type de distribution"
-msgstr "Stuuronderdeel"
+msgstr "Selecteer een distributietype"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:148
-#, fuzzy
-#| msgid "Intervention %(id)s"
 msgid "Interval d'entretien"
-msgstr "Interventie %(id)s"
+msgstr "Onderhoudsinterval"
+
 
 #: .\theme\templates\voiture_moteur\list.html:4
 #: .\theme\templates\voiture_moteur\list.html:10
@@ -4809,22 +4683,17 @@ msgid "Liste des moteurs"
 msgstr "Motorenlijst"
 
 #: .\theme\templates\voiture_moteur\list.html:17
-#, fuzzy
-#| msgid "Rechercher un modèle..."
 msgid "Rechercher par motoriste"
-msgstr "Zoek een model..."
+msgstr "Zoeken op motorfabrikant"
 
 #: .\theme\templates\voiture_moteur\list.html:19
-#, fuzzy
-#| msgid "Rechercher un modèle..."
 msgid "Rechercher par code moteur"
-msgstr "Zoek een model..."
+msgstr "Zoeken op motornummer"
 
 #: .\theme\templates\voiture_moteur\list.html:21
-#, fuzzy
-#| msgid "Rechercher un modèle..."
 msgid "Rechercher par cylindrée"
-msgstr "Zoek een model..."
+msgstr "Zoeken op cilinderinhoud"
+
 
 #: .\theme\templates\voiture_moteur\list.html:25
 #: .\voiture\voiture_moteur\views.py:34
@@ -4832,16 +4701,13 @@ msgid "Ajouter un moteur"
 msgstr "Voeg een motor toe"
 
 #: .\theme\templates\voiture_moteur\list.html:34
-#, fuzzy
-#| msgid "Nom du fournisseur"
 msgid "Nom du Motoriste"
-msgstr "Naam leverancier"
+msgstr "Naam van de motorfabrikant"
 
 #: .\theme\templates\voiture_moteur\list.html:36
-#, fuzzy
-#| msgid "Cylindre esclave"
 msgid "Cylindree"
-msgstr "Slavecilinder"
+msgstr "Cilinderinhoud"
+
 
 #: .\theme\templates\voiture_moteur\list.html:40
 #: .\theme\templates\voiture_moteur\moteur_detail.html:42
@@ -4866,24 +4732,20 @@ msgid "Détails du moteur"
 msgstr "Motordetails"
 
 #: .\theme\templates\voiture_moteur\moteur_detail.html:47
-#, fuzzy
-#| msgid "Puissance (CH)"
 msgid "Puissance à (tr/min)"
-msgstr "Vermogen (pk)"
+msgstr "Vermogen bij (omw/min)"
 
 #: .\theme\templates\voiture_moteur\moteur_detail.html:52
 msgid "Couple (Nm)"
-msgstr ""
+msgstr "Koppel (Nm)"
 
 #: .\theme\templates\voiture_moteur\moteur_detail.html:57
 msgid "Couple à (tr/min)"
-msgstr ""
+msgstr "Koppel bij (omw/min)"
 
 #: .\theme\templates\voiture_moteur\moteur_detail.html:87
-#, fuzzy
-#| msgid "Numéro de facture"
 msgid "Numéro moteur"
-msgstr "Factuurnummer"
+msgstr "Motornummer"
 
 #: .\theme\views.py:35
 msgid "Nom d'utilisateur ou mot de passe incorrect"
@@ -4955,100 +4817,85 @@ msgstr "Onbekende rol"
 
 #: .\voiture\voiture_boite\models.py:15
 msgid "Manuelle"
-msgstr ""
+msgstr "Handgeschakeld"
 
 #: .\voiture\voiture_boite\models.py:16
-#, fuzzy
-#| msgid "Boîte automatique"
 msgid "Semi-automatique"
-msgstr "Automatische versnellingsbak"
+msgstr "Halfautomatisch"
 
 #: .\voiture\voiture_boite\models.py:17
 #: .\voiture\voiture_embrayage\models.py:10
-#, fuzzy
-#| msgid "Boîte automatique"
 msgid "Automatique"
-msgstr "Automatische versnellingsbak"
+msgstr "Automatisch"
 
 #: .\voiture\voiture_boite\models.py:18
-#, fuzzy
-#| msgid "Historique"
 msgid "Electrique"
-msgstr "Geschiedenis"
+msgstr "Elektrisch"
 
 #: .\voiture\voiture_embrayage\models.py:8
 msgid "Monodisque"
-msgstr ""
+msgstr "Enkelplaat"
 
 #: .\voiture\voiture_embrayage\models.py:9
 msgid "Multidisque"
-msgstr ""
+msgstr "Meervoudige platen"
 
 #: .\voiture\voiture_embrayage\models.py:11
-#, fuzzy
-#| msgid "Bloc hydraulique"
 msgid "Hydraulique"
-msgstr "Hydraulische blok"
+msgstr "Hydraulisch"
 
 #: .\voiture\voiture_embrayage\models.py:12
-#, fuzzy
-#| msgid "Chef mécanicien"
 msgid "Mécanique"
-msgstr "Hoofdmonteur"
+msgstr "Mechanisch"
 
 #: .\voiture\voiture_embrayage\models.py:15
 msgid "Monomasse"
-msgstr ""
+msgstr "Enkelmassa"
 
 #: .\voiture\voiture_embrayage\models.py:16
 msgid "Bimasse"
-msgstr ""
+msgstr "Dubbelmassa"
 
 #: .\voiture\voiture_embrayage\models.py:17
 msgid "Allégé / Performance"
-msgstr ""
+msgstr "Verlicht / Performance"
 
 #: .\voiture\voiture_embrayage\models.py:18
 msgid "Segmenté / Compétition"
-msgstr ""
+msgstr "Segmented / Competitie"
 
 #: .\voiture\voiture_embrayage\models.py:22
 msgid "Classique (mono-disque)"
-msgstr ""
+msgstr "Klassiek (enkelplaat)"
 
 #: .\voiture\voiture_embrayage\models.py:23
-#, fuzzy
-#| msgid "Ressorts de Soupapes"
 msgid "Ressorts concentriques"
-msgstr "Klepveren"
+msgstr "Concentrische veren"
 
 #: .\voiture\voiture_embrayage\models.py:24
 msgid "Ressorts hélicoïdaux"
-msgstr ""
+msgstr "Spiraalveren"
 
 #: .\voiture\voiture_embrayage\models.py:25
 msgid "Renforcé / Compétition"
-msgstr ""
+msgstr "Versterkt / Competitie"
 
 #: .\voiture\voiture_embrayage\models.py:26
 msgid "Bimasse (pour volant moteur DMF)"
-msgstr ""
+msgstr "Dubbelmassa (voor DMF-vliegwiel)"
 
 #: .\voiture\voiture_exemplaire\views.py:82
-#, fuzzy
-#| msgid "Le moteur a été lié à l'exemplaire avec succès."
 msgid "La boîte de vitesse a été liée à l'exemplaire avec succès."
-msgstr "De motor is succesvol gekoppeld aan het exemplaar."
+msgstr "De versnellingsbak is succesvol aan het exemplaar gekoppeld."
 
 #: .\voiture\voiture_exemplaire\views.py:87
 msgid "Veuillez sélectionner une boîte à lier."
-msgstr ""
+msgstr "Selecteer een versnellingsbak om te koppelen."
 
 #: .\voiture\voiture_exemplaire\views.py:92
-#, fuzzy
-#| msgid "Lier un moteur à un véhicule"
 msgid "Lier une boîte de vitesse à un véhicule"
-msgstr "Koppel een motor aan een voertuig"
+msgstr "Een versnellingsbak aan een voertuig koppelen"
+
 
 #: .\voiture\voiture_exemplaire\views.py:107
 msgid "Le moteur a été lié à l'exemplaire avec succès."
@@ -5056,51 +4903,42 @@ msgstr "De motor is succesvol gekoppeld aan het exemplaar."
 
 #: .\voiture\voiture_exemplaire\views.py:112
 msgid "Veuillez sélectionner un moteur à lier."
-msgstr ""
+msgstr "Selecteer een motor om te koppelen."
+
 
 #: .\voiture\voiture_exemplaire\views.py:117
 msgid "Lier un moteur à un véhicule"
 msgstr "Koppel een motor aan een voertuig"
 
 #: .\voiture\voiture_exemplaire\views.py:133
-#, fuzzy
-#| msgid "Le moteur a été lié à l'exemplaire avec succès."
 msgid "L'embrayage a été lié à l'exemplaire avec succès."
-msgstr "De motor is succesvol gekoppeld aan het exemplaar."
+msgstr "De koppeling is succesvol aan het exemplaar gekoppeld."
 
 #: .\voiture\voiture_exemplaire\views.py:138
 msgid "Veuillez sélectionner un embrayage à lier."
-msgstr ""
+msgstr "Selecteer een koppeling om te koppelen."
 
 #: .\voiture\voiture_exemplaire\views.py:143
-#, fuzzy
-#| msgid "Lier un moteur à un véhicule"
 msgid "Lier un embrayage à un véhicule"
-msgstr "Koppel een motor aan een voertuig"
+msgstr "Een koppeling aan een voertuig koppelen"
 
 #: .\voiture\voiture_exemplaire\views.py:165
 #: .\voiture\voiture_exemplaire\views.py:195
-#, fuzzy
-#| msgid "Le moteur a été lié à l'exemplaire avec succès."
 msgid "Le système de freinage a été lié à l'exemplaire avec succès."
-msgstr "De motor is succesvol gekoppeld aan het exemplaar."
+msgstr "Het remsysteem is succesvol aan het exemplaar gekoppeld."
 
 #: .\voiture\voiture_exemplaire\views.py:170
 #: .\voiture\voiture_exemplaire\views.py:200
 msgid "Veuillez sélectionner un système de freinage à lier."
-msgstr ""
+msgstr "Selecteer een remsysteem om te koppelen."
 
 #: .\voiture\voiture_exemplaire\views.py:175
-#, fuzzy
-#| msgid "Lier un moteur à un véhicule"
 msgid "Lier un système de freinage à un véhicule"
-msgstr "Koppel een motor aan een voertuig"
+msgstr "Een remsysteem aan een voertuig koppelen"
 
 #: .\voiture\voiture_exemplaire\views.py:205
-#, fuzzy
-#| msgid "Lier un moteur à un véhicule"
 msgid "Lier un système de freinage arrière à un véhicule"
-msgstr "Koppel een motor aan een voertuig"
+msgstr "Een achterremsysteem aan een voertuig koppelen"
 
 #: .\voiture\voiture_exemplaire\views.py:221
 msgid "Paramètres manquants"
@@ -5112,53 +4950,47 @@ msgstr "Motor niet gevonden"
 
 #: .\voiture\voiture_moteur\models.py:12
 msgid "Atmosphérique"
-msgstr ""
+msgstr "Atmosferisch"
 
 #: .\voiture\voiture_moteur\models.py:13
 msgid "Wankel"
-msgstr ""
+msgstr "Wankelmotor"
 
 #: .\voiture\voiture_moteur\models.py:14
 msgid "Hybride essence"
-msgstr ""
+msgstr "Hybride benzine"
 
 #: .\voiture\voiture_moteur\models.py:15
 msgid "Hybride turbo essence"
-msgstr ""
+msgstr "Hybride turbobenzine"
 
 #: .\voiture\voiture_moteur\models.py:16
-#, fuzzy
-#| msgid "Machine de géométrie"
 msgid "Machine électrique"
-msgstr "Uitlijnmachine"
+msgstr "Elektrische motor"
 
 #: .\voiture\voiture_moteur\models.py:21
 msgid "Électricité"
-msgstr ""
+msgstr "Elektriciteit"
 
 #: .\voiture\voiture_moteur\models.py:22
 msgid "Gaz naturel (CNG)"
-msgstr ""
+msgstr "Aardgas (CNG)"
 
 #: .\voiture\voiture_moteur\models.py:23
-#, fuzzy
-#| msgid "GPS"
 msgid "GPL"
-msgstr "GPS"
+msgstr "LPG"
 
 #: .\voiture\voiture_moteur\models.py:24
 msgid "Hydrogène"
-msgstr ""
+msgstr "Waterstof"
 
 #: .\voiture\voiture_moteur\models.py:27
 msgid "Chaîne"
-msgstr ""
+msgstr "Ketting"
 
 #: .\voiture\voiture_moteur\models.py:28
-#, fuzzy
-#| msgid "Couronne"
 msgid "Courroie"
-msgstr "Kroonwiel"
+msgstr "Riem"
 
 #: .\voiture\voiture_moteur\views.py:35
 msgid "Créer le moteur"
