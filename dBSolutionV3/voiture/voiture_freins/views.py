@@ -6,6 +6,7 @@ from django.shortcuts import render
 from ..voiture_freins.models import VoitureFreins
 from ..voiture_exemplaire.models import VoitureExemplaire
 from .forms import VoitureFreinsForm
+from ..voiture_freins_ar.models import VoitureFreinsAR
 from ..voiture_modele.models import VoitureModele
 
 
@@ -69,26 +70,6 @@ def freins_detail_view(request, frein_id):
 
 
 
-
-@login_required
-def lier_freins(request, frein_id):
-    tenant = request.user.societe  # ton tenant
-    with tenant_context(tenant):
-        frein = get_object_or_404(VoitureFreins, id=frein_id)
-        exemplaires = VoitureExemplaire.objects.all().order_by("id")
-
-        if request.method == "POST":
-            cible_id = request.POST.get("cible_id")
-            if cible_id:
-                frein.voiture_exemplaire_id = cible_id
-                frein.voiture_modele = None  # on supprime tout lien précédent avec un modèle
-                frein.save()
-                return redirect("voiture_freins:list")  # ou vers la page détail
-
-    return render(request, "voiture_freins/lier_freins.html", {
-        "frein": frein,
-        "exemplaires": exemplaires
-    })
 
 @login_required
 def ajouter_freins_simple(request):

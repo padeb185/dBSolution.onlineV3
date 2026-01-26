@@ -178,7 +178,7 @@ def lier_freins(request, exemplaire_id):
 
 
 @login_required
-def lier_freins_ar(request, exemplaire_id):
+def lier_frein_ar(request, exemplaire_id):
     # Récupération de l'exemplaire
     exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
 
@@ -189,7 +189,7 @@ def lier_freins_ar(request, exemplaire_id):
         if request.method == "POST":
             frein_ar_id = request.POST.get("frein_ar_id")
             if frein_ar_id:
-                frein_ar = get_object_or_404(VoitureFreins, id=frein_ar_id)
+                frein_ar = get_object_or_404(VoitureFreinsAR, id=frein_ar_id)
                 # Lier le frein à l'exemplaire
                 frein_ar.voitures_exemplaires.add(exemplaire)
                 messages.success(request, _("Le système de freinage a été lié à l'exemplaire avec succès."))

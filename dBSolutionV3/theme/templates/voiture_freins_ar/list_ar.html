@@ -35,9 +35,6 @@
     </div>
 </div>
 
-
-
-
 <!-- Table -->
 <table id="frein_ar-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
     <thead>
@@ -57,7 +54,7 @@
             <td class="border px-4 py-2">{{ frein_ar.epaisseur_disque_ar }}</td>
             <td class="border px-4 py-2">{{ frein_ar.epaisseur_min_disque_ar }}</td>
             <td class="border px-4 py-2 text-center">
-                <a href="{% url 'voiture_freins_ar:detail_ar' frein_ar.id %}"
+                <a href="{% url 'voiture_freins_ar:detail_freins_ar' frein_ar.id %}"
                    class="text-blue-600 hover:text-blue-800 font-semibold">
                     {% trans "Info" %}
                 </a>
@@ -65,7 +62,6 @@
         </tr>
         {% endfor %}
     </tbody>
-
 </table>
 
 <!-- DataTables JS -->
