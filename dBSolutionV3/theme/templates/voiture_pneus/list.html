@@ -18,7 +18,11 @@
 
         <input id="search-type_pneus" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Type embrayage' %}">
+               placeholder="{% trans 'Type pneus' %}">
+
+        <input id="search-nom_type" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Nom du pneus' %}">
 
 
         <input id="search-pneus_largeur" type="text"
@@ -41,6 +45,10 @@
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Indice de charge' %}">
 
+        <input id="search-numero_oem" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Numero OEM' %}">
+
         <div>
             <a href="{% url 'voiture_pneus:ajouter_pneus_simple' %}"
                class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -59,11 +67,13 @@
         <tr class="bg-gray-100">
             <th class="border px-4 py-2 cursor-pointer">{% trans "Nom du Manufacturier" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Type de pneus" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Nom du pneus" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Largeur en millimètres" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "hauteur en pourcent" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Jante en pouces" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Indice de vitesse" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Indice de charge" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Numero OEM" %}</th>
             <th class="border px-4 py-2 cursor-pointer text-center">{% trans "Info" %}</th>
         </tr>
     </thead>
@@ -72,11 +82,13 @@
         <tr>
             <td class="border px-4 py-2">{{ pneu.manufacturier }}</td>
             <td class="border px-4 py-2">{{ pneu.get_type_pneus_display }}</td>
+            <td class="border px-4 py-2">{{ pneu.nom_type }}</td>
             <td class="border px-4 py-2">{{ pneu.pneus_largeur }}</td>
             <td class="border px-4 py-2">{{ pneu.pneus_hauteur }}</td>
             <td class="border px-4 py-2">{{ pneu.pneus_jante }}</td>
             <td class="border px-4 py-2">{{ pneu.get_indice_vitesse_display }}</td>
             <td class="border px-4 py-2">{{ pneu.get_indice_charge_display }}</td>
+            <td class="border px-4 py-2">{{ pneu.numero_oem }}</td>
             <td class="border px-4 py-2 text-center">
                 <a href="{% url 'voiture_pneus:detail' pneu.id %}"
                    class="text-blue-600 hover:text-blue-800 font-semibold">
@@ -117,20 +129,23 @@ $(document).ready(function() {
     $('#search-type_pneus').on('keyup', function () {
         table.column(1).search(this.value).draw();
     });
-    $('#search-pneus_largeur').on('keyup', function () {
+    $('#search-nom_type').on('keyup', function () {
         table.column(2).search(this.value).draw();
     });
-    $('#search-pneus_hauteur').on('keyup', function () {
+    $('#search-pneus_largeur').on('keyup', function () {
         table.column(3).search(this.value).draw();
     });
-     $('#search-pneus_jante').on('keyup', function () {
+     $('#search-pneus_hauteur').on('keyup', function () {
         table.column(4).search(this.value).draw();
+    });
+     $('#search-pneus_jante').on('keyup', function () {
+        table.column(5).search(this.value).draw();
     });
      $('#search-indice_vitesse').on('keyup', function () {
-        table.column(4).search(this.value).draw();
+        table.column(6).search(this.value).draw();
     });
      $('#search-indice_charge').on('keyup', function () {
-        table.column(4).search(this.value).draw();
+        table.column(7).search(this.value).draw();
     });
 });
 </script>

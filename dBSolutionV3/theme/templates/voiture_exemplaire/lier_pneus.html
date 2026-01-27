@@ -41,11 +41,13 @@
 
             {% for pneu in pneus %}
                 <option value="{{ pneu.id }}">
-                    {{ pneu.manufacturier }} –
-                    {{ pneu.get_type_pneus_display }} |
-                    {{ pneu.pneus_avant_largeur }}/{{ pneu.pneus_avant_hauteur }}
-                    R{{ pneu.pneus_avant_jante }}
+                    {{ pneu.manufacturier }}
+                    {{ pneu.get_type_pneus_display }}  {{ pneu.nom_type }}
+                    {{ pneu.pneus_largeur }}/{{ pneu.pneus_hauteur }}
+                    {{ pneu.pneus_jante }}
                     {{ pneu.indice_charge }} {{ pneu.indice_vitesse }}
+                    {{ pneu.numero_oem }}
+
                 </option>
             {% endfor %}
         </select>

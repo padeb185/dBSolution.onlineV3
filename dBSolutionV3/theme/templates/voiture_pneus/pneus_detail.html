@@ -24,6 +24,11 @@
         </div>
 
         <div class="flex flex-col">
+            <label class="mb-1 font-medium">{% trans "Nom du pneus" %}</label>
+            <input type="text" value="{{ pneus.nom_type }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
+        </div>
+
+        <div class="flex flex-col">
             <label class="mb-1 font-medium">{% trans "Largeur en millimètres" %}</label>
             <input type="text" value="{{ pneus.pneus_largeur }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
         </div>
@@ -39,7 +44,10 @@
             <input type="text" value="{{ pneus.pneus_jante }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
         </div>
 
-
+        <div class="flex flex-col">
+            <label class="mb-1 font-medium">{% trans "Numero OEM" %}</label>
+            <input type="text" value="{{ pneus.numero_oem }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
+        </div>
 
         <!-- Liens voiture -->
        {% if pneus.voitures_modeles.all %}
@@ -55,6 +63,7 @@
                 <input type="text" value="{{ pneus.voitures_exemplaires.all|first }}" class="border px-4 py-2 w-full" readonly>
             </div>
         {% endif %}
+
 
 
 

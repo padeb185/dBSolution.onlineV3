@@ -88,6 +88,15 @@ class VoiturePneus(models.Model):
         choices=TypePneus.choices
     )
 
+    nom_type = models.CharField(
+        max_length=50,
+        null=True,
+        blank=True
+    )
+
+    numero_oem = models.CharField(max_length=50, blank=True, null=True)
+
+
     pneus_largeur = models.CharField(max_length=15, help_text="175 mm", default="175")
     pneus_hauteur = models.CharField(max_length=15, help_text="65 %", default="65")
     pneus_jante = models.CharField(max_length=15, help_text="15 pouces", default="15")
