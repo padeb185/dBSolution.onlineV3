@@ -14,6 +14,47 @@ class TypePneus(models.TextChoices):
     HIVER = "hiver", _("Hiver")
 
 
+
+class IndiceVitesse(models.TextChoices):
+    Q = "Q", _("Q (160 km/h)")
+    R = "R", _("R (170 km/h)")
+    S = "S", _("S (180 km/h)")
+    T = "T", _("T (190 km/h)")
+    H = "H", _("H (210 km/h)")
+    V = "V", _("V (240 km/h)")
+    W = "W", _("W (270 km/h)")
+    Y = "Y", _("Y (300 km/h)")
+    ZR_W = "ZR W", _("ZR W (>270 km/h)")
+    ZR_Y = "ZR Y", _("ZR Y (>300 km/h)")
+    ZR = "ZR", _("ZR (historique >240 km/h)")
+
+
+
+class IndiceCharge(models.TextChoices):
+    L60 = "60", _("60 (250 kg)")
+    M62 = "62", _("62 (265 kg)")
+    N64 = "64", _("64 (280 kg)")
+    P68 = "68", _("68 (315 kg)")
+    Q70 = "70", _("70 (335 kg)")
+    R73 = "73", _("73 (365 kg)")
+    S75 = "75", _("75 (387 kg)")
+    T78 = "78", _("78 (425 kg)")
+    U81 = "81", _("81 (450 kg)")
+    V84 = "84", _("84 (500 kg)")
+    W87 = "87", _("87 (545 kg)")
+    Y91 = "91", _("91 (615 kg)")
+    Z94 = "94", _("94 (670 kg)")
+    X97 = "97", _("97 (730 kg)")
+    ZR100 = "100", _("100 (800 kg)")
+    ZR103 = "103", _("103 (875 kg)")
+    ZR106 = "106", _("106 (950 kg)")
+    ZR109 = "109", _("109 (1030 kg)")
+    ZR112 = "112", _("112 (1120 kg)")
+    ZR115 = "115", _("115 (1215 kg)")
+    ZR118 = "118", _("118 (1320 kg)")
+
+
+
 class VoiturePneus(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -50,9 +91,22 @@ class VoiturePneus(models.Model):
     pneus_arriere_hauteur = models.CharField(max_length=15, help_text="65 %")
     pneus_arriere_jante = models.CharField(max_length=15, help_text="15 pouces")
 
+    kilometre_pneus_av = models.PositiveIntegerField(default=0, verbose_name=_("Kilomètres pneus avant"))
+    kilometre_pneus_ar = models.PositiveIntegerField(default=0, verbose_name=_("Kilomètres pneus arrière"))
 
-    kilometre_pneus_av= models.PositiveIntegerField(default=0)
-    kilometre_pneus_ar = models.PositiveIntegerField(default=0)
+    # Indices
+    indice_vitesse = models.CharField(
+        max_length=10,
+        choices=IndiceVitesse.choices,
+        default=IndiceVitesse.T,
+        verbose_name=_("Indice de vitesse")
+    )
+    indice_charge = models.CharField(
+        max_length=10,
+        choices=IndiceCharge.choices,
+        default=IndiceCharge.Y91,
+        verbose_name=_("Indice de charge")
+    )
 
 
     date_remplacement = models.DateField(null=True, blank=True)
