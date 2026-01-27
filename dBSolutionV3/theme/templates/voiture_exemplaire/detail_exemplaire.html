@@ -158,9 +158,11 @@
                 {% for pneus in exemplaire.pneus.all %}
                     <li class="border p-3 rounded-md hover:bg-gray-50 flex justify-between items-center">
                         <div>
-                            <span class="font-medium">{{ pneus.manufacturier|default:"N/A" }}</span>
-                            <span> {{ pneus.type_pneus|default:"?" }}</span>
-                            <span> {{ pneus.pneus_largeur}}</span>
+                            <span class="font-medium">{{ pneus.manufacturier }}</span>
+                            <span> {{ pneus.type_pneus}}</span>
+                            <span> {{ pneus.pneus_largeur}} / {{ pneus.pneus_hauteur }}
+                                   / {{ pneus.pneus_jante }} {{pneus.indice_vitesse }}
+                                    {{ pneus.indice_charge }}</span>
                         </div>
 
                     </li>
