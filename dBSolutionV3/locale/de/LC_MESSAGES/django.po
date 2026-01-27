@@ -3871,8 +3871,6 @@ msgstr "Kein Getriebe gefunden."
 
 #: .\theme\templates\voiture_boite\list.html:73
 #: .\theme\templates\voiture_moteur\list.html:76
-#, fuzzy
-#| msgid "Rechercher :"
 msgid "Recherche :"
 msgstr "Suchen:"
 
@@ -3952,47 +3950,35 @@ msgstr "Druckplattentyp"
 #: .\theme\templates\voiture_pneus\list.html:50
 #: .\theme\templates\voiture_pneus\list.html:76
 #: .\theme\templates\voiture_pneus\pneus_detail.html:48
-#, fuzzy
-#| msgid "Numero VIN"
 msgid "Numero OEM"
-msgstr "VIN-Nummer"
+msgstr "OEM-Nummer"
 
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:68
-#, fuzzy
-#| msgid "Kilométrage"
 msgid "Kilometrage"
 msgstr "Kilometerstand"
 
+
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:72
-#, fuzzy
-#| msgid "Numero VIN"
 msgid "Numero"
-msgstr "VIN-Nummer"
+msgstr "Nummer"
 
 #: .\theme\templates\voiture_embrayage\embrayage_detail.html:11
-#, fuzzy
-#| msgid "Disque d'embrayage"
 msgid "Détails de l'embrayage"
-msgstr "Kupplungsscheibe"
+msgstr "Kupplungsdetails"
 
 #: .\theme\templates\voiture_embrayage\embrayage_detail.html:27
 #: .\theme\templates\voiture_embrayage\list.html:25
-#, fuzzy
-#| msgid "Joint moteur"
 msgid "Volant moteur"
-msgstr "Motordichtung"
+msgstr "Schwungrad"
 
 #: .\theme\templates\voiture_embrayage\embrayage_detail.html:46
-#, fuzzy
-#| msgid "Kilométrage de la boîte"
 msgid "Kilométrage de l'embrayage"
-msgstr "Getriebe-Kilometerstand"
+msgstr "Kilometerstand der Kupplung"
 
 #: .\theme\templates\voiture_embrayage\embrayage_detail.html:53
-#, fuzzy
-#| msgid "Butée d'embrayage"
 msgid "Numéro d'embrayage"
-msgstr "Kupplungslager"
+msgstr "Kupplungsnummer"
+
 
 #: .\theme\templates\voiture_embrayage\list.html:4
 #: .\theme\templates\voiture_embrayage\list.html:10
@@ -4000,16 +3986,13 @@ msgid "Liste des embrayages"
 msgstr "Kupplungsliste"
 
 #: .\theme\templates\voiture_embrayage\list.html:21
-#, fuzzy
-#| msgid "Type d'embrayage"
 msgid "Type embrayage"
-msgstr "Kupplungsart"
+msgstr "Kupplungstyp"
+
 
 #: .\theme\templates\voiture_embrayage\list.html:33
-#, fuzzy
-#| msgid "Numéro"
 msgid "Numéro OEM"
-msgstr "Nummer"
+msgstr "OEM Nummer"
 
 #: .\theme\templates\voiture_embrayage\list.html:85
 #: .\theme\templates\voiture_freins\list.html:77
@@ -4045,10 +4028,9 @@ msgstr "Verwendungsart"
 
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:57
 #: .\voiture\voiture_exemplaire\models.py:9
-#, fuzzy
-#| msgid "Société cliente"
 msgid "Société"
-msgstr "Kundenunternehmen"
+msgstr "Firma"
+
 
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:59
 #: .\voiture\voiture_exemplaire\models.py:11
@@ -4131,10 +4113,9 @@ msgid "Aucun frein arrière enregistré pour cet exemplaire."
 msgstr "Keine hinteren Bremsen für dieses Exemplar registriert."
 
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:172
-#, fuzzy
-#| msgid "Aucun moteur enregistré pour cet exemplaire."
 msgid "Aucun pneus enregistré pour cet exemplaire."
-msgstr "Für dieses Fahrzeug sind keine Motoren eingetragen."
+msgstr "Für dieses Exemplar sind keine Reifen registriert."
+
 
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:197
 msgid "Lier une boîte"
@@ -4161,10 +4142,9 @@ msgstr "Hintere Bremsen verbinden"
 
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:226
 #: .\theme\templates\voiture_exemplaire\lier_pneus.html:59
-#, fuzzy
-#| msgid "Lier le moteur"
 msgid "Lier les pneus"
-msgstr "Motor verknüpfen"
+msgstr "Reifen verbinden"
+
 
 #: .\theme\templates\voiture_exemplaire\lier_boite.html:10
 msgid "Boite de vitesse du véhicule : "
@@ -4235,16 +4215,13 @@ msgid "Lier le moteur"
 msgstr "Motor verknüpfen"
 
 #: .\theme\templates\voiture_exemplaire\lier_pneus.html:12
-#, fuzzy
-#| msgid "Moteur du véhicule: "
 msgid "Pneus du véhicule"
-msgstr "Motor des Fahrzeugs: "
+msgstr "Fahrzeugreifen"
 
 #: .\theme\templates\voiture_exemplaire\lier_pneus.html:40
-#, fuzzy
-#| msgid "Sélectionner un type"
 msgid "Sélectionner les pneus"
-msgstr "Typ auswählen"
+msgstr "Reifen auswählen"
+
 
 #: .\theme\templates\voiture_exemplaire\list.html:7
 msgid "Liste de tous les véhicules"
@@ -4295,134 +4272,97 @@ msgstr "Abbrechen"
 #: .\theme\templates\voiture_freins\ajouter_freins_simple.html:10
 #: .\theme\templates\voiture_freins\list.html:33
 msgid "Ajouter un système de freinage avant"
-msgstr ""
+msgstr "Vorderbremssystem hinzufügen"
 
 #: .\theme\templates\voiture_freins\ajouter_freins_simple.html:21
-#, fuzzy
-#| msgid "Marques de voiture"
 msgid "Marque disques avant"
-msgstr "Automarken"
+msgstr "Marke der Vorderscheiben"
 
 #: .\theme\templates\voiture_freins\ajouter_freins_simple.html:26
-#, fuzzy
-#| msgid "Diamètre central en mm"
 msgid "Diamètre disques avant (mm)"
-msgstr "Zentraldurchmesser in mm"
+msgstr "Durchmesser der Vorderscheiben (mm)"
 
 #: .\theme\templates\voiture_freins\ajouter_freins_simple.html:31
-#, fuzzy
-#| msgid "Épaisseur des disques (mm)"
 msgid "Épaisseur disques avant (mm)"
-msgstr "Scheibendicke (mm)"
+msgstr "Dicke der Vorderscheiben (mm)"
 
 #: .\theme\templates\voiture_freins\ajouter_freins_simple.html:36
-#, fuzzy
-#| msgid "Épaisseur des disques (mm)"
 msgid "Épaisseur minimum disques avant (mm)"
-msgstr "Scheibendicke (mm)"
+msgstr "Mindestdicke der Vorderscheiben (mm)"
 
 #: .\theme\templates\voiture_freins\ajouter_freins_simple.html:41
 msgid "Marque plaquettes avant"
-msgstr ""
+msgstr "Marke der Vorderbremsbeläge"
 
 #: .\theme\templates\voiture_freins\ajouter_freins_simple.html:46
-#, fuzzy
-#| msgid "Épaisseur des disques (mm)"
 msgid "Épaisseur plaquettes avant (mm)"
-msgstr "Scheibendicke (mm)"
+msgstr "Dicke der Vorderbremsbeläge (mm)"
 
 #: .\theme\templates\voiture_freins\freins_detail.html:11
 #: .\theme\templates\voiture_freins_ar\freins_ar_detail.html:11
-#, fuzzy
-#| msgid "Détails du moteur"
 msgid "Détails du freinage"
-msgstr "Motordetails"
+msgstr "Bremssystem-Details"
 
 #: .\theme\templates\voiture_freins\freins_detail.html:17
-#, fuzzy
-#| msgid "Marques de voiture"
 msgid "Marque disque avant"
-msgstr "Automarken"
+msgstr "Marke der Vorderscheibe"
 
 #: .\theme\templates\voiture_freins\freins_detail.html:22
-#, fuzzy
-#| msgid "Témoin usure avant"
 msgid "Taille disque avant"
-msgstr "Verschleißanzeige vorne"
+msgstr "Größe der Vorderscheibe"
 
 #: .\theme\templates\voiture_freins\freins_detail.html:27
-#, fuzzy
-#| msgid "Épaisseur des disques (mm)"
 msgid "Epaisseur du disque avant"
-msgstr "Scheibendicke (mm)"
+msgstr "Dicke der Vorderscheibe"
 
 #: .\theme\templates\voiture_freins\freins_detail.html:32
-#, fuzzy
-#| msgid "Épaisseur des disques (mm)"
 msgid "Epaisseur minimum du disque avant"
-msgstr "Scheibendicke (mm)"
+msgstr "Mindestdicke der Vorderscheibe"
 
 #: .\theme\templates\voiture_freins\list.html:4
-#, fuzzy
-#| msgid "Type de pièce de freinage"
 msgid "Liste des pièces de frein avant"
-msgstr "Art des Bremsenteils"
+msgstr "Liste der Vorderbremsenteile"
 
 #: .\theme\templates\voiture_freins\list.html:10
-#, fuzzy
-#| msgid "Liste des utilisateurs"
 msgid "Liste des freins avant"
-msgstr "Benutzerliste"
+msgstr "Liste der Vorderbremsen"
 
 #: .\theme\templates\voiture_freins\list.html:17
 #: .\theme\templates\voiture_freins\list.html:45
-#, fuzzy
-#| msgid "Marques de voiture"
 msgid "Marque des disques avant"
-msgstr "Automarken"
+msgstr "Marke der Vorderscheiben"
 
 #: .\theme\templates\voiture_freins\list.html:21
 #: .\theme\templates\voiture_freins\list.html:46
-#, fuzzy
-#| msgid "Diamètre en pouces"
 msgid "Diamètre des disques avant"
-msgstr "Durchmesser in Zoll"
+msgstr "Durchmesser der Vorderscheiben"
 
 #: .\theme\templates\voiture_freins\list.html:25
 #: .\theme\templates\voiture_freins\list.html:47
-#, fuzzy
-#| msgid "Épaisseur des disques (mm)"
 msgid "Epaisseur des disques avant"
-msgstr "Scheibendicke (mm)"
+msgstr "Dicke der Vorderscheiben"
 
 #: .\theme\templates\voiture_freins\list.html:29
 #: .\theme\templates\voiture_freins_ar\list_ar.html:29
 #: .\theme\templates\voiture_freins_ar\list_ar.html:45
-#, fuzzy
-#| msgid "Épaisseur des disques (mm)"
 msgid "Epaisseur minimum des disques arrière"
-msgstr "Scheibendicke (mm)"
+msgstr "Mindestdicke der Hinterbremsen"
 
 #: .\theme\templates\voiture_freins\list.html:48
-#, fuzzy
-#| msgid "Épaisseur des disques (mm)"
 msgid "Epaisseur minimum des disques avant"
-msgstr "Scheibendicke (mm)"
+msgstr "Mindestdicke der Vorderscheiben"
 
 #: .\theme\templates\voiture_freins\list.html:79
-#, fuzzy
-#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ entrées"
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ freins"
-msgstr "Anzeige von _START_ bis _END_ von _TOTAL_ Einträgen"
+msgstr "Anzeige von _START_ bis _END_ von insgesamt _TOTAL_ Bremsen"
 
 #: .\theme\templates\voiture_freins\list.html:80
 #: .\theme\templates\voiture_freins\list.html:81
 #: .\theme\templates\voiture_freins_ar\list_ar.html:76
 #: .\theme\templates\voiture_freins_ar\list_ar.html:77
-#, fuzzy
-#| msgid "Aucun embrayage trouvé"
 msgid "Aucun système de freinage trouvé"
-msgstr "Keine Kupplung gefunden"
+msgstr "Kein Bremssystem gefunden"
+
 
 #: .\theme\templates\voiture_freins_ar\ajouter_freins_ar_simple.html:10
 #: .\theme\templates\voiture_freins_ar\list_ar.html:33
@@ -4708,22 +4648,17 @@ msgid "Numéro moteur"
 msgstr "Motornummer"
 
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:9
-#, fuzzy
-#| msgid "Ajouter un moteur"
 msgid "Ajouter des Pneus"
-msgstr "Motor hinzufügen"
+msgstr "Reifen hinzufügen"
 
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:29
-#, fuzzy
-#| msgid "Sélectionner un embrayage"
 msgid "Sélectionner un emplacement"
-msgstr "Kupplung auswählen"
+msgstr "Standort auswählen"
+
 
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:38
 #: .\theme\templates\voiture_pneus\list.html:69
 #: .\theme\templates\voiture_pneus\pneus_detail.html:22
-#, fuzzy
-#| msgid "Type de pneu"
 msgid "Type de pneus"
 msgstr "Reifentyp"
 
@@ -4731,131 +4666,94 @@ msgstr "Reifentyp"
 #: .\theme\templates\voiture_pneus\list.html:25
 #: .\theme\templates\voiture_pneus\list.html:70
 #: .\theme\templates\voiture_pneus\pneus_detail.html:27
-#, fuzzy
-#| msgid "Nom du type"
 msgid "Nom du pneus"
-msgstr "Typbezeichnung"
+msgstr "Reifenname"
+
 
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:54
-#, fuzzy
-#| msgid "Largeur"
 msgid "Largeur (mm)"
-msgstr "Breite"
+msgstr "Breite (mm)"
 
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:58
-#, fuzzy, python-format
-#| msgid "Hauteur"
 msgid "Hauteur (%%)"
-msgstr "Höhe"
+msgstr "Höhe %"
 
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:62
-#, fuzzy
-#| msgid "Diamètre en pouces"
 msgid "Diamètre jante (pouces)"
-msgstr "Durchmesser in Zoll"
+msgstr "Felgendurchmesser (Zoll)"
 
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:68
-#, fuzzy
-#| msgid "Indice de vitesse"
 msgid "Indice de Vitesse"
 msgstr "Geschwindigkeitsindex"
 
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:70
-#, fuzzy
-#| msgid "Sélectionner un type de moteur"
 msgid "Sélectionner un indice de vitesse"
-msgstr "Motortyp auswählen"
+msgstr "Geschwindigkeitsindex auswählen"
 
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:80
-#, fuzzy
-#| msgid "Sélectionner un type de carburant"
 msgid "Sélectionner un indice de charge"
-msgstr "Kraftstoffart auswählen"
+msgstr "Lastindex auswählen"
 
 #: .\theme\templates\voiture_pneus\list.html:4
 #: .\theme\templates\voiture_pneus\list.html:10
-#, fuzzy
-#| msgid "Liste des moteurs"
 msgid "Liste des Pneus"
-msgstr "Motorenliste"
+msgstr "Reifenliste"
+
 
 #: .\theme\templates\voiture_pneus\list.html:21
-#, fuzzy
-#| msgid "Type de pneu"
 msgid "Type pneus"
 msgstr "Reifentyp"
 
 #: .\theme\templates\voiture_pneus\list.html:30
-#, fuzzy
-#| msgid "Largeur"
 msgid "Largeur du pneus"
-msgstr "Breite"
+msgstr "Reifenbreite"
 
 #: .\theme\templates\voiture_pneus\list.html:34
-#, fuzzy
-#| msgid "Capteur pression pneus"
 msgid "Hauteur du pneus"
-msgstr "Reifendrucksensor"
+msgstr "Reifenhöhe"
 
 #: .\theme\templates\voiture_pneus\list.html:38
-#, fuzzy
-#| msgid "Diamètre en pouces"
 msgid "Diamètre de la jante en pouces"
-msgstr "Durchmesser in Zoll"
+msgstr "Felgendurchmesser in Zoll"
 
 #: .\theme\templates\voiture_pneus\list.html:55
-#, fuzzy
-#| msgid "Booster pneus"
 msgid "Ajouter des pneus"
-msgstr "Reifen-Starter"
+msgstr "Reifen hinzufügen"
 
 #: .\theme\templates\voiture_pneus\list.html:68
-#, fuzzy
-#| msgid "Manufacturier"
 msgid "Nom du Manufacturier"
 msgstr "Hersteller"
 
 #: .\theme\templates\voiture_pneus\list.html:71
 #: .\theme\templates\voiture_pneus\pneus_detail.html:32
 msgid "Largeur en millimètres"
-msgstr ""
+msgstr "Breite in Millimetern"
 
 #: .\theme\templates\voiture_pneus\list.html:72
-#, fuzzy
-#| msgid "Diamètre en pouces"
 msgid "hauteur en pourcent"
-msgstr "Durchmesser in Zoll"
+msgstr "Höhe in Prozent"
 
 #: .\theme\templates\voiture_pneus\list.html:73
-#, fuzzy
-#| msgid "Diamètre en pouces"
 msgid "Jante en pouces"
-msgstr "Durchmesser in Zoll"
+msgstr "Felge in Zoll"
 
 #: .\theme\templates\voiture_pneus\list.html:112
-#, fuzzy
-#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ moteurs"
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ pneus"
-msgstr "Anzeige von _START_ bis _END_ von _TOTAL_ Motoren"
+msgstr "Anzeige von _START_ bis _END_ von insgesamt _TOTAL_ Reifen"
 
 #: .\theme\templates\voiture_pneus\list.html:113
 #: .\theme\templates\voiture_pneus\list.html:114
-#, fuzzy
-#| msgid "Aucun moteur trouvé"
 msgid "Aucun pneu trouvé"
-msgstr "Kein Motor gefunden"
+msgstr "Keine Reifen gefunden"
 
 #: .\theme\templates\voiture_pneus\pneus_detail.html:11
-#, fuzzy
-#| msgid "Détails du moteur"
 msgid "Détails des pneus"
-msgstr "Motordetails"
+msgstr "Reifendetails"
 
 #: .\theme\templates\voiture_pneus\pneus_detail.html:37
-#, fuzzy, python-format
-#| msgid "Hauteur"
 msgid "Hauteur en %%"
-msgstr "Höhe"
+msgstr "Höhe in %"
+
 
 #: .\theme\views.py:35
 msgid "Nom d'utilisateur ou mot de passe incorrect"
@@ -5007,22 +4905,17 @@ msgid "Lier une boîte de vitesse à un véhicule"
 msgstr "Ein Getriebe mit einem Fahrzeug verknüpfen"
 
 #: .\voiture\voiture_exemplaire\views.py:108
-#, fuzzy
-#| msgid "Le moteur a été lié à l'exemplaire avec succès."
 msgid "Les pneus ont été liés à l'exemplaire avec succès."
-msgstr "Der Motor wurde erfolgreich mit dem Exemplar verknüpft."
+msgstr "Die Reifen wurden erfolgreich mit dem Exemplar verbunden."
 
 #: .\voiture\voiture_exemplaire\views.py:111
-#, fuzzy
-#| msgid "Veuillez sélectionner un moteur à lier."
 msgid "Veuillez sélectionner des pneus à lier."
-msgstr "Bitte wählen Sie einen Motor zum Verknüpfen aus."
+msgstr "Bitte wählen Sie Reifen aus, die verbunden werden sollen."
 
 #: .\voiture\voiture_exemplaire\views.py:116
-#, fuzzy
-#| msgid "Lier un moteur à un véhicule"
 msgid "Lier des pneus à un véhicule"
-msgstr "Einen Motor mit einem Fahrzeug verbinden"
+msgstr "Reifen mit einem Fahrzeug verbinden"
+
 
 #: .\voiture\voiture_exemplaire\views.py:134
 msgid "Le moteur a été lié à l'exemplaire avec succès."
@@ -5123,10 +5016,9 @@ msgid "Créer le moteur"
 msgstr "Motor erstellen"
 
 #: .\voiture\voiture_pneus\models.py:14
-#, fuzzy
-#| msgid "Côté"
 msgid "Été"
-msgstr "Seite"
+msgstr "Sommer"
+
 
 #: .\voiture\voiture_pneus\models.py:18
 msgid "4 saisons"
@@ -5178,7 +5070,8 @@ msgstr ""
 
 #: .\voiture\voiture_pneus\models.py:32
 msgid "ZR (historique >240 km/h)"
-msgstr ""
+msgstr "ZR (historisch >240 km/h)"
+
 
 #: .\voiture\voiture_pneus\models.py:35
 msgid "60 (250 kg)"
@@ -5265,22 +5158,17 @@ msgid "118 (1320 kg)"
 msgstr ""
 
 #: .\voiture\voiture_pneus\models.py:62
-#, fuzzy
-#| msgid "Avant et arrière"
 msgid "Avant et Arrière"
 msgstr "Hinterfeder"
 
 #: .\voiture\voiture_pneus\models.py:107
-#, fuzzy
-#| msgid "Kilomètres moteur"
 msgid "Kilomètres pneus avant"
-msgstr "Motor-Kilometerstand"
+msgstr "Kilometer Vorderreifen"
 
 #: .\voiture\voiture_pneus\models.py:113
-#, fuzzy
-#| msgid "Diamètre des disques arrière"
 msgid "Kilomètres pneus arrière"
-msgstr "Durchmesser der Hinterradscheiben"
+msgstr "Kilometer Hinterreifen"
+
 
 #~ msgid "Rechercher par volant moteur"
 #~ msgstr "Nach Schwungrad suchen"
