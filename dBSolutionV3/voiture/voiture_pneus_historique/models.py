@@ -12,8 +12,8 @@ class VoiturePneusHistorique(models.Model):
     )
 
     type_pneus = models.CharField(max_length=20)
-    pneus_avant = models.CharField(max_length=15)
-    pneus_arriere = models.CharField(max_length=15)
+    pneus_avant_largeur = models.CharField(max_length=15)
+    pneus_arriere_largeur = models.CharField(max_length=15)
 
     kilometres_effectues = models.PositiveIntegerField()
 

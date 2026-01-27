@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import VoiturePneus
-from voiture.voiture_pneus_historique.models import VoiturePneusHistorique  # import direct du modèle
+from ..voiture_pneus_historique.models import VoiturePneusHistorique
 
 class VoiturePneusHistoriqueInline(admin.TabularInline):
     model = VoiturePneusHistorique  # obligatoire
@@ -9,8 +9,8 @@ class VoiturePneusHistoriqueInline(admin.TabularInline):
     readonly_fields = (
         "numero_remplacement",
         "type_pneus",
-        "pneus_avant",
-        "pneus_arriere",
+        "pneus_avant_largeur",
+        "pneus_arriere_largeur",
         "kilometres_effectues",
         "date_remplacement",
     )
@@ -20,9 +20,10 @@ class VoiturePneusHistoriqueInline(admin.TabularInline):
 class VoiturePneusAdmin(admin.ModelAdmin):
     list_display = (
         "type_pneus",
-        "pneus_avant",
-        "pneus_arriere",
-        "kilometre_pneus",
+        "pneus_avant_largeur",
+        "pneus_arriere_largeur",
+        "kilometre_pneus_av",
+        "kilometre_pneus_ar",
         "date_remplacement",
     )
     list_filter = ("type_pneus", "fournisseur")
@@ -31,7 +32,8 @@ class VoiturePneusAdmin(admin.ModelAdmin):
         "voiture_modele__nom",
     )
     readonly_fields = (
-        "kilometre_pneus",
+        "kilometre_pneus_av",
+        "kilometre_pneus_ar",
         "date_remplacement",
         "created_at",
     )
@@ -42,7 +44,7 @@ class VoiturePneusAdmin(admin.ModelAdmin):
             "fields": ("voiture_modele", "voiture_exemplaire", "fournisseur")
         }),
         ("Monte actuelle", {
-            "fields": ("type_pneus", "pneus_avant", "pneus_arriere")
+            "fields": ("type_pneus", "pneus_avant_largeur", "pneus_arriere_largeur")
         }),
         ("Kilométrage", {
             "fields": ("kilometre_pneus", "date_remplacement", "kilometre_remplacement")

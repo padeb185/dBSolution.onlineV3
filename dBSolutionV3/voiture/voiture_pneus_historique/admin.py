@@ -10,8 +10,8 @@ class VoiturePneusHistoriqueAdmin(admin.ModelAdmin):
     list_display = (
         "voiture_pneus",
         "type_pneus",
-        "pneus_avant",
-        "pneus_arriere",
+        "pneus_avant_largeur",
+        "pneus_arriere_largeur",
         "kilometres_effectues",
         "numero_remplacement",
         "date_remplacement",
@@ -24,8 +24,8 @@ class VoiturePneusHistoriqueAdmin(admin.ModelAdmin):
 
     search_fields = (
         "voiture_pneus__voiture__immatriculation",
-        "pneus_avant",
-        "pneus_arriere",
+        "pneus_avant_largeur",
+        "pneus_arriere_largeur",
     )
 
     ordering = (

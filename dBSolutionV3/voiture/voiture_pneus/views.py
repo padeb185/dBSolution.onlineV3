@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .voiture_pneus.admin_forms import RemplacementPneusForm
+from voiture.voiture_pneus.admin_forms import RemplacementPneusForm
 
 
 def remplacer_pneus(self, request, pk):
