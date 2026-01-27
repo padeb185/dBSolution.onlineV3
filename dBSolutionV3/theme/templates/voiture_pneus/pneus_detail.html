@@ -6,7 +6,7 @@
 {% block content %}
 <div class="max-w-xl mx-auto p-6 bg-white rounded shadow mt-16 mb-16">
     <h1 class="text-2xl font-bold mb-4 text-center flex items-center">
-        <img src="{% static 'icons/pneus.png' %}" alt="Embrayage"
+        <img src="{% static 'icons/pneus.png' %}" alt="Pneus"
              style="width:60px; height:60px; margin-right:10px;">
         {% trans "Détails des pneus" %}: {{ pneus.manufacturier }} {{ pneus.type_pneus }}
     </h1>
@@ -42,14 +42,14 @@
 
 
         <!-- Liens voiture -->
-       {% if embrayage.voitures_modeles.all %}
+       {% if pneus.voitures_modeles.all %}
             <div class="flex flex-col">
                 <label class="mb-1 font-medium">{% trans "Modèle de voiture" %}</label>
                 <input type="text" value="{{ pneus.voitures_modeles.all|first }}" class="border px-4 py-2 w-full" readonly>
             </div>
         {% endif %}
 
-        {% if embrayage.voitures_exemplaires.all %}
+        {% if pneus.voitures_exemplaires.all %}
             <div class="flex flex-col">
                 <label class="mb-1 font-medium">{% trans "Exemplaire de voiture" %}</label>
                 <input type="text" value="{{ pneus.voitures_exemplaires.all|first }}" class="border px-4 py-2 w-full" readonly>

@@ -16,75 +16,65 @@
     <form method="post" class="flex flex-col space-y-4">
         {% csrf_token %}
 
+        <!-- Manufacturier -->
         <div>
             <label for="id_manufacturier">{% trans "Manufacturier" %}</label>
-            <input type="text" id="id_manufacturier" name="manufacturier" class="border rounded px-4 py-2 w-full">
+            <input type="text" id="id_manufacturier" name="manufacturier" class="border rounded px-4 py-2 w-full" required>
         </div>
 
-         <div class="mb-4">
-            <label for="id_emplacement" class="block mb-1">{% trans "Emplacement" %}</label>
-            <select id="id_emplacement" name="emplacement"
-                    class="border rounded px-3 py-2 w-full text-sm h-10">
+        <!-- Emplacement -->
+        <div>
+            <label for="id_emplacement">{% trans "Emplacement" %}</label>
+            <select id="id_emplacement" name="emplacement" class="border rounded px-3 py-2 w-full" required>
                 <option value="">{% trans "Sélectionner un emplacement" %}</option>
                 {% for value, label in EmplacementPneus.choices %}
-                    <option value="{{ value }}" {% if pneus.emplacement == value %}selected{% endif %}>
-                        {{ label }}
-                    </option>
+                    <option value="{{ value }}">{{ label }}</option>
                 {% endfor %}
             </select>
         </div>
 
-
-        <div class="mb-4">
-            <label for="id_type_pneus" class="block mb-1">{% trans "Type de pneus" %}</label>
-            <select id="id_type_pneus" name="type_pneus"
-                    class="border rounded px-3 py-2 w-full text-sm h-10">
+        <!-- Type de pneus -->
+        <div>
+            <label for="id_type_pneus">{% trans "Type de pneus" %}</label>
+            <select id="id_type_pneus" name="type_pneus" class="border rounded px-3 py-2 w-full" required>
                 <option value="">{% trans "Sélectionner un type" %}</option>
                 {% for value, label in TypePneus.choices %}
-                    <option value="{{ value }}" {% if pneus.type_pneus == value %}selected{% endif %}>
-                        {{ label }}
-                    </option>
+                    <option value="{{ value }}">{{ label }}</option>
                 {% endfor %}
             </select>
         </div>
 
+        <!-- Dimensions -->
         <div>
-            <label for="id_pneus_avant_largeur">{% trans "Largeur" %}</label>
-            <input type="text" id="id_pneus_avant_largeur" name="pneus_avant_largeur" class="border rounded px-4 py-2 w-full">
+            <label for="id_pneus_largeur">{% trans "Largeur (mm)" %}</label>
+            <input type="text" id="id_pneus_largeur" name="pneus_largeur" class="border rounded px-4 py-2 w-full" required>
         </div>
         <div>
-            <label for="id_pneus_avant_hauteur">{% trans "Hauteur" %}</label>
-            <input type="text" id="id_pneus_avant_hauteur" name="pneus_avant_hauteur" class="border rounded px-4 py-2 w-full">
+            <label for="id_pneus_hauteur">{% trans "Hauteur (%)" %}</label>
+            <input type="text" id="id_pneus_hauteur" name="pneus_hauteur" class="border rounded px-4 py-2 w-full" required>
         </div>
         <div>
-            <label for="id_pneus_avant_jante">{% trans "Diamètre en pouces" %}</label>
-            <input type="text" id="id_pneus_avant_jante" name="pneus_avant_jante" class="border rounded px-4 py-2 w-full">
+            <label for="id_pneus_jante">{% trans "Diamètre jante (pouces)" %}</label>
+            <input type="text" id="id_pneus_jante" name="pneus_jante" class="border rounded px-4 py-2 w-full" required>
         </div>
 
-
-
-        <div class="mb-4">
-            <label for="id_indice_vitesse" class="block mb-1">{% trans "Indice de Vitesse" %}</label>
-            <select id="id_indice_vitesse" name="indice_vitesse"
-                    class="border rounded px-3 py-2 w-full text-sm h-10">
+        <!-- Indices -->
+        <div>
+            <label for="id_indice_vitesse">{% trans "Indice de Vitesse" %}</label>
+            <select id="id_indice_vitesse" name="indice_vitesse" class="border rounded px-3 py-2 w-full" required>
                 <option value="">{% trans "Sélectionner un indice de vitesse" %}</option>
                 {% for value, label in IndiceVitesse.choices %}
-                    <option value="{{ value }}" {% if pneus.indice_vitesse == value %}selected{% endif %}>
-                        {{ label }}
-                    </option>
+                    <option value="{{ value }}">{{ label }}</option>
                 {% endfor %}
             </select>
         </div>
 
-        <div class="mb-4">
-            <label for="id_indice_charge" class="block mb-1">{% trans "Indice de charge" %}</label>
-            <select id="id_indice_charge" name="indice_charge"
-                    class="border rounded px-3 py-2 w-full text-sm h-10">
+        <div>
+            <label for="id_indice_charge">{% trans "Indice de charge" %}</label>
+            <select id="id_indice_charge" name="indice_charge" class="border rounded px-3 py-2 w-full" required>
                 <option value="">{% trans "Sélectionner un indice de charge" %}</option>
                 {% for value, label in IndiceCharge.choices %}
-                    <option value="{{ value }}" {% if pneus.indice_charge == value %}selected{% endif %}>
-                        {{ label }}
-                    </option>
+                    <option value="{{ value }}">{{ label }}</option>
                 {% endfor %}
             </select>
         </div>
@@ -94,47 +84,4 @@
         </button>
     </form>
 </div>
-
-<script>
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie) {
-        document.cookie.split(';').forEach(c => {
-            c = c.trim();
-            if (c.startsWith(name + '=')) {
-                cookieValue = decodeURIComponent(c.slice(name.length + 1));
-            }
-        });
-    }
-    return cookieValue;
-}
-
-const csrftoken = getCookie('csrftoken');
-
-document.getElementById('id_fabricant').addEventListener('change', function(){
-    const manufacturier = this.value;
-
-    fetch('/api/check_nom', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': csrftoken,
-        },
-        body: JSON.stringify({ manufacturier: manufacturier })
-    })
-    .then(r => r.json())
-    .then(data => {
-        if (data.exist) {
-            document.getElementById('id_manufacturier').value = data.manufacturier;
-            document.getElementById('id_type_pneu').value = data.type_pneus;
-
-        } else {
-            document.getElementById('id_pneus_largeur').value = '';
-            document.getElementById('id_pneus_largeur').value = '';
-
-        }
-    })
-    .catch(err => console.error("Erreur:", err));
-});
-</script>
 {% endblock %}

@@ -79,7 +79,7 @@ class VoiturePneus(models.Model):
     manufacturier = models.CharField(max_length=100)
 
     emplacement = models.CharField(
-        max_length=200,
+        max_length=50,
         choices=EmplacementPneus.choices
     )
 
@@ -88,9 +88,9 @@ class VoiturePneus(models.Model):
         choices=TypePneus.choices
     )
 
-    pneus_largeur = models.CharField(max_length=15, help_text="175 mm")
-    pneus_hauteur = models.CharField(max_length=15, help_text="65 %")
-    pneus_jante = models.CharField(max_length=15, help_text="15 pouces")
+    pneus_largeur = models.CharField(max_length=15, help_text="175 mm", default="175")
+    pneus_hauteur = models.CharField(max_length=15, help_text="65 %", default="65")
+    pneus_jante = models.CharField(max_length=15, help_text="15 pouces", default="15")
 
 
     kilometre_pneus_av = models.PositiveIntegerField(

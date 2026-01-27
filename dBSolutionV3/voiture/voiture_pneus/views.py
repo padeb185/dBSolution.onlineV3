@@ -55,12 +55,12 @@ def liste_pneus(request):
 
 
 
-@login_required()
-def pneus_detail_view(request, pneus_id):
-    pneus = get_object_or_404(VoiturePneus, id=pneus_id)
-    return render(request, 'voiture_pneus/pneus_detail.html', {
-        'pneus': pneus,
-    })
+@login_required
+def pneus_detail_view(request, embrayage_id):
+    from .models import VoiturePneus
+    pneu = VoiturePneus.objects.get(id=embrayage_id)
+    context = {'pneus': pneu}
+    return render(request, "voiture_pneus/pneus_detail.html", context)
 
 
 from django.shortcuts import render, redirect
