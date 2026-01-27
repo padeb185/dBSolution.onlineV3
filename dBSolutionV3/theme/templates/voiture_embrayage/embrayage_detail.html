@@ -55,27 +55,28 @@
         </div>
 
         <!-- Liens voiture -->
-        {% if embrayage.voiture_modele %}
-        <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Modèle de voiture" %}</label>
-            <input type="text" value="{{ embrayage.voiture_modele.nom }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
-        </div>
+       {% if embrayage.voitures_modeles.all %}
+            <div class="flex flex-col">
+                <label class="mb-1 font-medium">{% trans "Modèle de voiture" %}</label>
+                <input type="text" value="{{ embrayage.voitures_modeles.all|first }}" class="border px-4 py-2 w-full" readonly>
+            </div>
         {% endif %}
 
-        {% if embrayage.voiture_exemplaire %}
-        <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Exemplaire de voiture" %}</label>
-            <input type="text" value="{{ embrayage.voiture_exemplaire.immatriculation }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
-        </div>
+        {% if embrayage.voitures_exemplaires.all %}
+            <div class="flex flex-col">
+                <label class="mb-1 font-medium">{% trans "Exemplaire de voiture" %}</label>
+                <input type="text" value="{{ embrayage.voitures_exemplaires.all|first }}" class="border px-4 py-2 w-full" readonly>
+            </div>
         {% endif %}
+
 
         <div class="flex flex-col">
             <label class="mb-1 font-medium">{% trans "Date de création" %}</label>
-            <input type="text" value="{{ boite.date_creation|date:'d/m/Y H:i' }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
+            <input type="text" value="{{ embrayage.date_creation|date:'d/m/Y H:i' }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
         </div>
 
         <!-- Bouton retour -->
-        <a href="{% url 'voiture_boite:list' %}"
+        <a href="{% url 'voiture_embrayage:list' %}"
            class="mt-4 bg-blue-700 text-white px-4 py-2 rounded w-full text-center hover:bg-blue-400 transition">
             {% trans "Retour" %}
         </a>
