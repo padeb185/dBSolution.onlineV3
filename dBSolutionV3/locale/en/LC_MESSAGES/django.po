@@ -4109,10 +4109,9 @@ msgid "Aucun frein arrière enregistré pour cet exemplaire."
 msgstr "No rear brakes recorded for this vehicle."
 
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:172
-#, fuzzy
-#| msgid "Aucun moteur enregistré pour cet exemplaire."
 msgid "Aucun pneus enregistré pour cet exemplaire."
-msgstr "No engine registered for this vehicle."
+msgstr "No tires recorded for this vehicle."
+
 
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:197
 msgid "Lier une boîte"
@@ -4139,10 +4138,9 @@ msgstr "Link rear brakes"
 
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:226
 #: .\theme\templates\voiture_exemplaire\lier_pneus.html:59
-#, fuzzy
-#| msgid "Lier le moteur"
 msgid "Lier les pneus"
-msgstr "Link Engine"
+msgstr "Link tires"
+
 
 #: .\theme\templates\voiture_exemplaire\lier_boite.html:10
 msgid "Boite de vitesse du véhicule : "
@@ -4213,16 +4211,12 @@ msgid "Lier le moteur"
 msgstr "Link Engine"
 
 #: .\theme\templates\voiture_exemplaire\lier_pneus.html:12
-#, fuzzy
-#| msgid "Moteur du véhicule: "
 msgid "Pneus du véhicule"
-msgstr "Vehicle engine: "
+msgstr "Vehicle tires"
 
 #: .\theme\templates\voiture_exemplaire\lier_pneus.html:40
-#, fuzzy
-#| msgid "Sélectionner un type"
 msgid "Sélectionner les pneus"
-msgstr "Select a Type"
+msgstr "Select tires"
 
 #: .\theme\templates\voiture_exemplaire\list.html:7
 msgid "Liste de tous les véhicules"
@@ -4648,22 +4642,17 @@ msgid "Numéro moteur"
 msgstr "Engine number"
 
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:9
-#, fuzzy
-#| msgid "Ajouter un moteur"
 msgid "Ajouter des Pneus"
-msgstr "Add an Engine"
+msgstr "Add tires"
 
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:29
-#, fuzzy
-#| msgid "Sélectionner un embrayage"
 msgid "Sélectionner un emplacement"
-msgstr "Select a clutch"
+msgstr "Select a position"
+
 
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:38
 #: .\theme\templates\voiture_pneus\list.html:69
 #: .\theme\templates\voiture_pneus\pneus_detail.html:22
-#, fuzzy
-#| msgid "Type de pneu"
 msgid "Type de pneus"
 msgstr "Tire type"
 
@@ -4671,131 +4660,95 @@ msgstr "Tire type"
 #: .\theme\templates\voiture_pneus\list.html:25
 #: .\theme\templates\voiture_pneus\list.html:70
 #: .\theme\templates\voiture_pneus\pneus_detail.html:27
-#, fuzzy
-#| msgid "Nom du type"
 msgid "Nom du pneus"
-msgstr "Type name"
+msgstr "Tire name"
 
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:54
-#, fuzzy
-#| msgid "Largeur"
 msgid "Largeur (mm)"
-msgstr "Width"
+msgstr "Width (mm)"
 
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:58
-#, fuzzy, python-format
-#| msgid "Hauteur"
 msgid "Hauteur (%%)"
-msgstr "Height"
+msgstr "Aspect ratio (%)"
 
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:62
-#, fuzzy
-#| msgid "Diamètre en pouces"
 msgid "Diamètre jante (pouces)"
-msgstr "Diameter in inches"
+msgstr "Rim diameter (inches)"
 
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:68
-#, fuzzy
-#| msgid "Indice de vitesse"
 msgid "Indice de Vitesse"
 msgstr "Speed index"
 
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:70
-#, fuzzy
-#| msgid "Sélectionner un type de moteur"
 msgid "Sélectionner un indice de vitesse"
-msgstr "Select an engine type"
+msgstr "Select a speed rating"
 
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:80
-#, fuzzy
-#| msgid "Sélectionner un type de carburant"
 msgid "Sélectionner un indice de charge"
-msgstr "Select a fuel type"
+msgstr "Select a load index"
 
 #: .\theme\templates\voiture_pneus\list.html:4
 #: .\theme\templates\voiture_pneus\list.html:10
-#, fuzzy
-#| msgid "Liste des moteurs"
 msgid "Liste des Pneus"
-msgstr "Engine list"
+msgstr "Tire list"
 
 #: .\theme\templates\voiture_pneus\list.html:21
-#, fuzzy
-#| msgid "Type de pneu"
 msgid "Type pneus"
 msgstr "Tire type"
 
 #: .\theme\templates\voiture_pneus\list.html:30
-#, fuzzy
-#| msgid "Largeur"
 msgid "Largeur du pneus"
-msgstr "Width"
+msgstr "Tire width"
 
 #: .\theme\templates\voiture_pneus\list.html:34
-#, fuzzy
-#| msgid "Capteur pression pneus"
 msgid "Hauteur du pneus"
-msgstr "Tire pressure sensor"
+msgstr "Tire height"
 
 #: .\theme\templates\voiture_pneus\list.html:38
-#, fuzzy
-#| msgid "Diamètre en pouces"
 msgid "Diamètre de la jante en pouces"
-msgstr "Diameter in inches"
+msgstr "Rim diameter in inches"
+
 
 #: .\theme\templates\voiture_pneus\list.html:55
-#, fuzzy
-#| msgid "Booster pneus"
 msgid "Ajouter des pneus"
-msgstr "Tire inflator"
+msgstr "Add tires"
+
 
 #: .\theme\templates\voiture_pneus\list.html:68
-#, fuzzy
-#| msgid "Manufacturier"
 msgid "Nom du Manufacturier"
 msgstr "Manufacturer"
 
 #: .\theme\templates\voiture_pneus\list.html:71
 #: .\theme\templates\voiture_pneus\pneus_detail.html:32
 msgid "Largeur en millimètres"
-msgstr ""
+msgstr "Width in millimeters"
 
 #: .\theme\templates\voiture_pneus\list.html:72
-#, fuzzy
-#| msgid "Diamètre en pouces"
 msgid "hauteur en pourcent"
-msgstr "Diameter in inches"
+msgstr "Height in percent"
+
 
 #: .\theme\templates\voiture_pneus\list.html:73
-#, fuzzy
-#| msgid "Diamètre en pouces"
 msgid "Jante en pouces"
 msgstr "Diameter in inches"
 
 #: .\theme\templates\voiture_pneus\list.html:112
-#, fuzzy
-#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ moteurs"
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ pneus"
-msgstr "Showing _START_ to _END_ of _TOTAL_ engines"
+msgstr "Showing _START_ to _END_ of _TOTAL_ tyres"
 
 #: .\theme\templates\voiture_pneus\list.html:113
 #: .\theme\templates\voiture_pneus\list.html:114
-#, fuzzy
-#| msgid "Aucun moteur trouvé"
 msgid "Aucun pneu trouvé"
-msgstr "No engine found"
+msgstr "No tyre found"
 
 #: .\theme\templates\voiture_pneus\pneus_detail.html:11
-#, fuzzy
-#| msgid "Détails du moteur"
 msgid "Détails des pneus"
-msgstr "Engine Details"
+msgstr "Tire Details"
 
 #: .\theme\templates\voiture_pneus\pneus_detail.html:37
-#, fuzzy, python-format
-#| msgid "Hauteur"
+#, python-format
 msgid "Hauteur en %%"
-msgstr "Height"
+msgstr "Height in %"
 
 #: .\theme\views.py:35
 msgid "Nom d'utilisateur ou mot de passe incorrect"
@@ -4879,10 +4832,8 @@ msgid "Automatique"
 msgstr "Automatic"
 
 #: .\voiture\voiture_boite\models.py:18
-#, fuzzy
-#| msgid "Historique"
 msgid "Electrique"
-msgstr "History"
+msgstr "Electric"
 
 #: .\voiture\voiture_embrayage\models.py:8
 msgid "Monodisque"
@@ -4949,22 +4900,16 @@ msgid "Lier une boîte de vitesse à un véhicule"
 msgstr "Link a gearbox to a vehicle"
 
 #: .\voiture\voiture_exemplaire\views.py:108
-#, fuzzy
-#| msgid "Le moteur a été lié à l'exemplaire avec succès."
 msgid "Les pneus ont été liés à l'exemplaire avec succès."
-msgstr "The engine has been successfully linked to the vehicle."
+msgstr "The tires have been successfully linked to the vehicle."
 
 #: .\voiture\voiture_exemplaire\views.py:111
-#, fuzzy
-#| msgid "Veuillez sélectionner un moteur à lier."
 msgid "Veuillez sélectionner des pneus à lier."
-msgstr "Please select an engine to link."
+msgstr "Please select tires to link."
 
 #: .\voiture\voiture_exemplaire\views.py:116
-#, fuzzy
-#| msgid "Lier un moteur à un véhicule"
 msgid "Lier des pneus à un véhicule"
-msgstr "Link an engine to a vehicle"
+msgstr "Link tires to a vehicle"
 
 #: .\voiture\voiture_exemplaire\views.py:134
 msgid "Le moteur a été lié à l'exemplaire avec succès."
@@ -5065,18 +5010,17 @@ msgid "Créer le moteur"
 msgstr "Create engine"
 
 #: .\voiture\voiture_pneus\models.py:14
-#, fuzzy
-#| msgid "Côté"
 msgid "Été"
-msgstr "Side"
+msgstr "Summer"
 
 #: .\voiture\voiture_pneus\models.py:18
 msgid "4 saisons"
-msgstr ""
+msgstr "All-season"
 
 #: .\voiture\voiture_pneus\models.py:19
 msgid "Hiver"
-msgstr ""
+msgstr "Winter"
+
 
 #: .\voiture\voiture_pneus\models.py:22
 msgid "Q (160 km/h)"
@@ -5120,7 +5064,8 @@ msgstr ""
 
 #: .\voiture\voiture_pneus\models.py:32
 msgid "ZR (historique >240 km/h)"
-msgstr ""
+msgstr "ZR (history >240 km/h)"
+
 
 #: .\voiture\voiture_pneus\models.py:35
 msgid "60 (250 kg)"
@@ -5207,22 +5152,16 @@ msgid "118 (1320 kg)"
 msgstr ""
 
 #: .\voiture\voiture_pneus\models.py:62
-#, fuzzy
-#| msgid "Avant et arrière"
 msgid "Avant et Arrière"
 msgstr "Front and rear"
 
 #: .\voiture\voiture_pneus\models.py:107
-#, fuzzy
-#| msgid "Kilomètres moteur"
 msgid "Kilomètres pneus avant"
-msgstr "Engine mileage"
+msgstr "Front tire mileage"
 
 #: .\voiture\voiture_pneus\models.py:113
-#, fuzzy
-#| msgid "Diamètre des disques arrière"
 msgid "Kilomètres pneus arrière"
-msgstr "Rear disc diameter"
+msgstr "Rear tire mileage"
 
 #~ msgid "Rechercher par volant moteur"
 #~ msgstr "Search by Flywheel"
