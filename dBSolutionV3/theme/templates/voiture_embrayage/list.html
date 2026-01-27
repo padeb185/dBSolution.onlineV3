@@ -60,9 +60,9 @@
         {% for embrayage in embrayages %}
         <tr>
             <td class="border px-4 py-2">{{ embrayage.fabricant }}</td>
-            <td class="border px-4 py-2">{{ embrayage.type_embrayage }}</td>
-            <td class="border px-4 py-2">{{ embrayage.volant_moteur }}</td>
-            <td class="border px-4 py-2">{{ embrayage.plateau_pression }}</td>
+             <td class="border px-4 py-2">{{ embrayage.get_type_embrayage_display }}</td>
+            <td class="border px-4 py-2">{{ embrayage.get_volant_moteur_display }}</td>
+            <td class="border px-4 py-2">{{ embrayage.get_plateau_pression_display }}</td>
             <td class="border px-4 py-2">{{ embrayage.oem }}</td>
             <td class="border px-4 py-2 text-center">
                 <a href="{% url 'voiture_embrayage:detail' embrayage.id %}"
