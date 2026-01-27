@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-26 13:55+0100\n"
+"POT-Creation-Date: 2026-01-27 16:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -561,6 +561,7 @@ msgstr "%(libelle)s - Proveedor: %(fournisseur)s"
 #: .\maintenance\silent_blocs\models.py:5
 #: .\piece\piece_carrosserie\models.py:12
 #: .\piece\piece_roue_rechange\models.py:13
+#: .\voiture\voiture_pneus\models.py:60
 msgid "Avant"
 msgstr "Delantero"
 
@@ -569,6 +570,7 @@ msgstr "Delantero"
 #: .\maintenance\silent_blocs\models.py:6
 #: .\piece\piece_carrosserie\models.py:13
 #: .\piece\piece_roue_rechange\models.py:14
+#: .\voiture\voiture_pneus\models.py:61
 msgid "Arrière"
 msgstr "Trasero"
 
@@ -629,6 +631,7 @@ msgstr "Mantenimiento"
 #: .\maintenance\controle_check_up\models.py:137
 #: .\maintenance\jeux_pieces\models.py:60
 #: .\maintenance\silent_blocs\models.py:33
+#: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:27
 msgid "Emplacement"
 msgstr "Ubicación"
 
@@ -878,14 +881,14 @@ msgid "Non précisé"
 msgstr "No especificado"
 
 #: .\maintenance\jeux_pieces\models.py:108 .\maintenance\models.py:34
-#: .\utilisateurs\models.py:73 .\utilisateurs\views.py:165
+#: .\utilisateurs\models.py:73 .\utilisateurs\views.py:172
 msgid "Apprenti"
 msgstr "Aprendiz"
 
 #: .\maintenance\jeux_pieces\models.py:109 .\maintenance\models.py:26
 #: .\maintenance\nettoyage_exterieur\models.py:25
 #: .\maintenance\nettoyage_interieur\models.py:26 .\utilisateurs\models.py:74
-#: .\utilisateurs\views.py:166
+#: .\utilisateurs\views.py:173
 msgid "Mécanicien"
 msgstr "Mecánico"
 
@@ -1135,7 +1138,7 @@ msgstr "Empresa cliente"
 #: .\panier\models.py:39 .\piece\models.py:95
 #: .\theme\templates\voiture_boite\boite_detail.html:85
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:76
-#: .\theme\templates\voiture_embrayage\embrayage_detail.html:73
+#: .\theme\templates\voiture_embrayage\embrayage_detail.html:74
 #: .\theme\templates\voiture_moteur\moteur_detail.html:97
 msgid "Date de création"
 msgstr "Fecha de creación"
@@ -2603,6 +2606,7 @@ msgid "Largeur en pouces, ex: 7, 7.5, 8"
 msgstr "Anchura en pulgadas, ej.: 7, 7.5, 8"
 
 #: .\piece\piece_jantes\models.py:13 .\piece\piece_pneus\models.py:29
+#: .\theme\templates\voiture_pneus\pneus_detail.html:43
 msgid "Diamètre en pouces"
 msgstr "Diámetro en pulgadas"
 
@@ -2806,14 +2810,17 @@ msgid "Train AR"
 msgstr "Eje trasero"
 
 #: .\piece\piece_pneus\models.py:12 .\piece\piece_roue_rechange\models.py:17
+#: .\voiture\voiture_pneus\models.py:17
 msgid "Slick"
 msgstr "Slick"
 
 #: .\piece\piece_pneus\models.py:13 .\piece\piece_roue_rechange\models.py:18
+#: .\voiture\voiture_pneus\models.py:16
 msgid "Semi-slick"
 msgstr "Semi-slick"
 
 #: .\piece\piece_pneus\models.py:14 .\piece\piece_roue_rechange\models.py:19
+#: .\voiture\voiture_pneus\models.py:15
 msgid "Pluie"
 msgstr "Lluvia"
 
@@ -2842,6 +2849,9 @@ msgid "Savon"
 msgstr "Jabón"
 
 #: .\piece\piece_pneus\models.py:26
+#: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:21
+#: .\theme\templates\voiture_pneus\list.html:17
+#: .\theme\templates\voiture_pneus\pneus_detail.html:17
 msgid "Manufacturier"
 msgstr "Fabricante"
 
@@ -2858,10 +2868,17 @@ msgid "Type de pneu"
 msgstr "Tipo de neumático"
 
 #: .\piece\piece_pneus\models.py:31
+#: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:78
+#: .\theme\templates\voiture_pneus\list.html:46
+#: .\theme\templates\voiture_pneus\list.html:75
+#: .\voiture\voiture_pneus\models.py:130
 msgid "Indice de charge"
 msgstr "Índice de carga"
 
 #: .\piece\piece_pneus\models.py:32
+#: .\theme\templates\voiture_pneus\list.html:42
+#: .\theme\templates\voiture_pneus\list.html:74
+#: .\voiture\voiture_pneus\models.py:124
 msgid "Indice de vitesse"
 msgstr "Índice de velocidad"
 
@@ -2873,7 +2890,9 @@ msgstr "Cantidad montada"
 msgid "Pneu"
 msgstr "Neumático"
 
-#: .\piece\piece_pneus\models.py:55
+#: .\piece\piece_pneus\models.py:55 .\theme\templates\dashboard.html:188
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:155
+#: .\theme\templates\voiture_exemplaire\lier_pneus.html:35
 msgid "Pneus"
 msgstr "Neumáticos"
 
@@ -3489,20 +3508,21 @@ msgstr "Panel de control"
 msgid "Changer"
 msgstr "Cambiar"
 
-#: .\theme\templates\base.html:84
+#: .\theme\templates\base.html:90
 #: .\theme\templates\voiture_boite\boite_detail.html:92
-#: .\theme\templates\voiture_embrayage\embrayage_detail.html:80
+#: .\theme\templates\voiture_embrayage\embrayage_detail.html:81
 #: .\theme\templates\voiture_freins\freins_detail.html:55
 #: .\theme\templates\voiture_freins_ar\freins_ar_detail.html:55
 #: .\theme\templates\voiture_moteur\moteur_detail.html:104
+#: .\theme\templates\voiture_pneus\pneus_detail.html:73
 msgid "Retour"
 msgstr "Volver"
 
-#: .\theme\templates\base.html:90
+#: .\theme\templates\base.html:96
 msgid "Tous droits réservés."
 msgstr "Todos los derechos reservados."
 
-#: .\theme\templates\base.html:100
+#: .\theme\templates\base.html:106
 msgid "Déconnexion"
 msgstr "Cerrar sesión"
 
@@ -3518,6 +3538,7 @@ msgstr "Usuarios"
 #: .\theme\templates\dashboard.html:99 .\theme\templates\dashboard.html:115
 #: .\theme\templates\dashboard.html:130 .\theme\templates\dashboard.html:145
 #: .\theme\templates\dashboard.html:160 .\theme\templates\dashboard.html:175
+#: .\theme\templates\dashboard.html:190
 msgid "Nombre total :"
 msgstr "Número total :"
 
@@ -3585,8 +3606,7 @@ msgstr "Frenos delanteros"
 msgid "Freins arrière"
 msgstr "Frenos traseros"
 
-
-#: .\theme\templates\dashboard.html:190
+#: .\theme\templates\dashboard.html:205
 msgid "Tableau de bord Admin"
 msgstr "Panel de administración"
 
@@ -3704,9 +3724,9 @@ msgstr "Tipo de caja"
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:28
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:41
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:54
+#: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:40
 msgid "Sélectionner un type"
 msgstr "Seleccionar un tipo"
-
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:52
 #: .\theme\templates\voiture_boite\boite_detail.html:32
@@ -3735,6 +3755,7 @@ msgstr "Cantidad de aceite (L)"
 #: .\theme\templates\voiture_freins_ar\ajouter_freins_ar_simple.html:53
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:124
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:155
+#: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:93
 msgid "Ajouter"
 msgstr "Agregar"
 
@@ -3749,7 +3770,6 @@ msgstr "Nombre del tipo"
 #: .\theme\templates\voiture_boite\boite_detail.html:38
 msgid "Qualité de l'huile"
 msgstr "Calidad del aceite"
-
 
 #: .\theme\templates\voiture_boite\boite_detail.html:49
 msgid "Kilométrage de la boîte"
@@ -3772,6 +3792,7 @@ msgstr "Número de caja"
 #: .\theme\templates\voiture_embrayage\embrayage_detail.html:60
 #: .\theme\templates\voiture_freins\freins_detail.html:39
 #: .\theme\templates\voiture_freins_ar\freins_ar_detail.html:39
+#: .\theme\templates\voiture_pneus\pneus_detail.html:55
 msgid "Modèle de voiture"
 msgstr "Modelo de coche"
 
@@ -3779,6 +3800,7 @@ msgstr "Modelo de coche"
 #: .\theme\templates\voiture_embrayage\embrayage_detail.html:67
 #: .\theme\templates\voiture_freins\freins_detail.html:46
 #: .\theme\templates\voiture_freins_ar\freins_ar_detail.html:46
+#: .\theme\templates\voiture_pneus\pneus_detail.html:62
 msgid "Exemplaire de voiture"
 msgstr "Ejemplar de coche"
 
@@ -3835,6 +3857,8 @@ msgstr "Cantidad de aceite"
 #: .\theme\templates\voiture_freins_ar\list_ar.html:59
 #: .\theme\templates\voiture_moteur\list.html:41
 #: .\theme\templates\voiture_moteur\list.html:58
+#: .\theme\templates\voiture_pneus\list.html:77
+#: .\theme\templates\voiture_pneus\list.html:95
 msgid "Info"
 msgstr "Información"
 
@@ -3854,6 +3878,7 @@ msgstr "Buscar :"
 #: .\theme\templates\voiture_freins\list.html:78
 #: .\theme\templates\voiture_freins_ar\list_ar.html:74
 #: .\theme\templates\voiture_moteur\list.html:77
+#: .\theme\templates\voiture_pneus\list.html:111
 msgid "Afficher _MENU_ éléments"
 msgstr "Mostrar _MENU_ elementos"
 
@@ -3871,6 +3896,7 @@ msgstr "No se encontró ninguna caja"
 #: .\theme\templates\voiture_freins\list.html:83
 #: .\theme\templates\voiture_freins_ar\list_ar.html:79
 #: .\theme\templates\voiture_moteur\list.html:82
+#: .\theme\templates\voiture_pneus\list.html:116
 msgid "Premier"
 msgstr "Primero"
 
@@ -3879,6 +3905,7 @@ msgstr "Primero"
 #: .\theme\templates\voiture_freins\list.html:84
 #: .\theme\templates\voiture_freins_ar\list_ar.html:80
 #: .\theme\templates\voiture_moteur\list.html:83
+#: .\theme\templates\voiture_pneus\list.html:117
 msgid "Dernier"
 msgstr "Último"
 
@@ -3887,6 +3914,7 @@ msgstr "Último"
 #: .\theme\templates\voiture_freins\list.html:85
 #: .\theme\templates\voiture_freins_ar\list_ar.html:81
 #: .\theme\templates\voiture_moteur\list.html:84
+#: .\theme\templates\voiture_pneus\list.html:118
 msgid "Suivant"
 msgstr "Siguiente"
 
@@ -3895,6 +3923,7 @@ msgstr "Siguiente"
 #: .\theme\templates\voiture_freins\list.html:86
 #: .\theme\templates\voiture_freins_ar\list_ar.html:82
 #: .\theme\templates\voiture_moteur\list.html:85
+#: .\theme\templates\voiture_pneus\list.html:119
 msgid "Précédent"
 msgstr "Anterior"
 
@@ -3916,6 +3945,10 @@ msgstr "Tipo de plato de presión"
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:64
 #: .\theme\templates\voiture_embrayage\embrayage_detail.html:38
 #: .\theme\templates\voiture_embrayage\list.html:55
+#: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:88
+#: .\theme\templates\voiture_pneus\list.html:50
+#: .\theme\templates\voiture_pneus\list.html:76
+#: .\theme\templates\voiture_pneus\pneus_detail.html:48
 msgid "Numero OEM"
 msgstr "Número OEM"
 
@@ -3944,7 +3977,6 @@ msgstr "Kilometraje del embrague"
 msgid "Numéro d'embrayage"
 msgstr "Número de embrague"
 
-
 #: .\theme\templates\voiture_embrayage\list.html:4
 #: .\theme\templates\voiture_embrayage\list.html:10
 msgid "Liste des embrayages"
@@ -3961,6 +3993,7 @@ msgstr "Número OEM"
 #: .\theme\templates\voiture_embrayage\list.html:85
 #: .\theme\templates\voiture_freins\list.html:77
 #: .\theme\templates\voiture_freins_ar\list_ar.html:73
+#: .\theme\templates\voiture_pneus\list.html:110
 msgid "Recherche globale :"
 msgstr "Búsqueda global:"
 
@@ -3998,7 +4031,6 @@ msgstr "Empresa"
 #: .\voiture\voiture_exemplaire\models.py:11
 msgid "Privé"
 msgstr "Privado"
-
 
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:68
 msgid "Kilomètres du chassis"
@@ -4075,29 +4107,41 @@ msgstr "No hay frenos delanteros registrados para este ejemplar."
 msgid "Aucun frein arrière enregistré pour cet exemplaire."
 msgstr "No hay frenos traseros registrados para este ejemplar."
 
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:176
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:172
+#, fuzzy
+#| msgid "Aucun moteur enregistré pour cet exemplaire."
+msgid "Aucun pneus enregistré pour cet exemplaire."
+msgstr "No hay motores registrados para este vehículo."
+
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:197
 msgid "Lier une boîte"
 msgstr "Vincular una caja de cambios"
 
-
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:182
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:203
 msgid "Lier un moteur"
 msgstr "Vincular un motor"
 
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:187
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:208
 #: .\theme\templates\voiture_exemplaire\lier_embrayage.html:66
 msgid "Lier un embrayage"
 msgstr "Vincular un embrague"
 
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:193
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:214
 #: .\theme\templates\voiture_exemplaire\lier_frein.html:66
 msgid "Lier les freins avant"
 msgstr "Vincular los frenos delanteros"
 
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:199
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:220
 #: .\theme\templates\voiture_exemplaire\lier_frein_ar.html:66
 msgid "Lier les freins arrière"
 msgstr "Vincular los frenos traseros"
+
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:226
+#: .\theme\templates\voiture_exemplaire\lier_pneus.html:59
+#, fuzzy
+#| msgid "Lier le moteur"
+msgid "Lier les pneus"
+msgstr "Vincular el motor"
 
 #: .\theme\templates\voiture_exemplaire\lier_boite.html:10
 msgid "Boite de vitesse du véhicule : "
@@ -4167,6 +4211,18 @@ msgstr "Seleccionar un motor"
 msgid "Lier le moteur"
 msgstr "Vincular el motor"
 
+#: .\theme\templates\voiture_exemplaire\lier_pneus.html:12
+#, fuzzy
+#| msgid "Moteur du véhicule: "
+msgid "Pneus du véhicule"
+msgstr "Motor del vehículo: "
+
+#: .\theme\templates\voiture_exemplaire\lier_pneus.html:40
+#, fuzzy
+#| msgid "Sélectionner un type"
+msgid "Sélectionner les pneus"
+msgstr "Seleccionar un tipo"
+
 #: .\theme\templates\voiture_exemplaire\list.html:7
 msgid "Liste de tous les véhicules"
 msgstr "Lista de todos los vehículos"
@@ -4212,6 +4268,7 @@ msgstr "Guardar cambios"
 #: .\theme\templates\voiture_exemplaire\modifier_exemplaire.html:59
 msgid "Annuler"
 msgstr "Cancelar"
+
 #: .\theme\templates\voiture_freins\ajouter_freins_simple.html:10
 #: .\theme\templates\voiture_freins\list.html:33
 msgid "Ajouter un système de freinage avant"
@@ -4261,7 +4318,6 @@ msgstr "Espesor del disco delantero"
 #: .\theme\templates\voiture_freins\freins_detail.html:32
 msgid "Epaisseur minimum du disque avant"
 msgstr "Espesor mínimo del disco delantero"
-
 
 #: .\theme\templates\voiture_freins\list.html:4
 msgid "Liste des pièces de frein avant"
@@ -4328,7 +4384,6 @@ msgstr "Espesor de los discos traseros (mm)"
 msgid "Épaisseur minimum disques arrière (mm)"
 msgstr "Espesor mínimo de los discos traseros (mm)"
 
-
 #: .\theme\templates\voiture_freins_ar\ajouter_freins_ar_simple.html:41
 msgid "Marque plaquettes arrière"
 msgstr "Marca de las pastillas traseras"
@@ -4380,13 +4435,11 @@ msgstr "Espesor de los discos traseros"
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ Freins"
 msgstr "Mostrando de _START_ a _END_ de _TOTAL_ frenos"
 
-
 #: .\theme\templates\voiture_marque\marques_list.html:14
 msgid "Mes marques favorites"
 msgstr "Mis marcas favoritas"
 
 #: .\theme\templates\voiture_marque\marques_list.html:49
-
 msgid "Voir les"
 msgstr "Ver los"
 
@@ -4551,10 +4604,10 @@ msgstr "Agregar un motor"
 msgid "Nom du Motoriste"
 msgstr "Nombre del fabricante de motores"
 
-##: .\theme\templates\voiture_moteur\list.html:36
+# #: .\theme\templates\voiture_moteur\list.html:36
+#: .\theme\templates\voiture_moteur\list.html:36
 msgid "Cylindree"
 msgstr "Cilindrada"
-
 
 #: .\theme\templates\voiture_moteur\list.html:40
 #: .\theme\templates\voiture_moteur\moteur_detail.html:42
@@ -4594,6 +4647,156 @@ msgstr "Par a (rpm)"
 msgid "Numéro moteur"
 msgstr "Número de motor"
 
+#: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:9
+#, fuzzy
+#| msgid "Ajouter un moteur"
+msgid "Ajouter des Pneus"
+msgstr "Agregar un motor"
+
+#: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:29
+#, fuzzy
+#| msgid "Sélectionner un embrayage"
+msgid "Sélectionner un emplacement"
+msgstr "Seleccionar un embrague"
+
+#: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:38
+#: .\theme\templates\voiture_pneus\list.html:69
+#: .\theme\templates\voiture_pneus\pneus_detail.html:22
+#, fuzzy
+#| msgid "Type de pneu"
+msgid "Type de pneus"
+msgstr "Tipo de neumático"
+
+#: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:48
+#: .\theme\templates\voiture_pneus\list.html:25
+#: .\theme\templates\voiture_pneus\list.html:70
+#: .\theme\templates\voiture_pneus\pneus_detail.html:27
+#, fuzzy
+#| msgid "Nom du type"
+msgid "Nom du pneus"
+msgstr "Nombre del tipo"
+
+#: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:54
+#, fuzzy
+#| msgid "Largeur"
+msgid "Largeur (mm)"
+msgstr "Anchura"
+
+#: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:58
+#, fuzzy, python-format
+#| msgid "Hauteur"
+msgid "Hauteur (%%)"
+msgstr "Altura"
+
+#: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:62
+#, fuzzy
+#| msgid "Diamètre en pouces"
+msgid "Diamètre jante (pouces)"
+msgstr "Diámetro en pulgadas"
+
+#: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:68
+#, fuzzy
+#| msgid "Indice de vitesse"
+msgid "Indice de Vitesse"
+msgstr "Índice de velocidad"
+
+#: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:70
+#, fuzzy
+#| msgid "Sélectionner un type de moteur"
+msgid "Sélectionner un indice de vitesse"
+msgstr "Seleccionar un tipo de motor"
+
+#: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:80
+#, fuzzy
+#| msgid "Sélectionner un type de carburant"
+msgid "Sélectionner un indice de charge"
+msgstr "Seleccionar un tipo de combustible"
+
+#: .\theme\templates\voiture_pneus\list.html:4
+#: .\theme\templates\voiture_pneus\list.html:10
+#, fuzzy
+#| msgid "Liste des moteurs"
+msgid "Liste des Pneus"
+msgstr "Lista de motores"
+
+#: .\theme\templates\voiture_pneus\list.html:21
+#, fuzzy
+#| msgid "Type de pneu"
+msgid "Type pneus"
+msgstr "Tipo de neumático"
+
+#: .\theme\templates\voiture_pneus\list.html:30
+#, fuzzy
+#| msgid "Largeur"
+msgid "Largeur du pneus"
+msgstr "Anchura"
+
+#: .\theme\templates\voiture_pneus\list.html:34
+#, fuzzy
+#| msgid "Capteur pression pneus"
+msgid "Hauteur du pneus"
+msgstr "Sensor de presión de neumáticos"
+
+#: .\theme\templates\voiture_pneus\list.html:38
+#, fuzzy
+#| msgid "Diamètre en pouces"
+msgid "Diamètre de la jante en pouces"
+msgstr "Diámetro en pulgadas"
+
+#: .\theme\templates\voiture_pneus\list.html:55
+#, fuzzy
+#| msgid "Booster pneus"
+msgid "Ajouter des pneus"
+msgstr "Inflador de neumáticos"
+
+#: .\theme\templates\voiture_pneus\list.html:68
+#, fuzzy
+#| msgid "Manufacturier"
+msgid "Nom du Manufacturier"
+msgstr "Fabricante"
+
+#: .\theme\templates\voiture_pneus\list.html:71
+#: .\theme\templates\voiture_pneus\pneus_detail.html:32
+msgid "Largeur en millimètres"
+msgstr ""
+
+#: .\theme\templates\voiture_pneus\list.html:72
+#, fuzzy
+#| msgid "Diamètre en pouces"
+msgid "hauteur en pourcent"
+msgstr "Diámetro en pulgadas"
+
+#: .\theme\templates\voiture_pneus\list.html:73
+#, fuzzy
+#| msgid "Diamètre en pouces"
+msgid "Jante en pouces"
+msgstr "Diámetro en pulgadas"
+
+#: .\theme\templates\voiture_pneus\list.html:112
+#, fuzzy
+#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ moteurs"
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ pneus"
+msgstr "Mostrando _START_ a _END_ de _TOTAL_ motores"
+
+#: .\theme\templates\voiture_pneus\list.html:113
+#: .\theme\templates\voiture_pneus\list.html:114
+#, fuzzy
+#| msgid "Aucun moteur trouvé"
+msgid "Aucun pneu trouvé"
+msgstr "No se encontró ningún motor"
+
+#: .\theme\templates\voiture_pneus\pneus_detail.html:11
+#, fuzzy
+#| msgid "Détails du moteur"
+msgid "Détails des pneus"
+msgstr "Detalles del motor"
+
+#: .\theme\templates\voiture_pneus\pneus_detail.html:37
+#, fuzzy, python-format
+#| msgid "Hauteur"
+msgid "Hauteur en %%"
+msgstr "Altura"
+
 #: .\theme\views.py:35
 msgid "Nom d'utilisateur ou mot de passe incorrect"
 msgstr "Nombre de usuario o contraseña incorrectos"
@@ -4618,47 +4821,47 @@ msgstr "Recursos Humanos"
 msgid "Operations"
 msgstr "Operaciones"
 
-#: .\utilisateurs\models.py:75 .\utilisateurs\views.py:169
+#: .\utilisateurs\models.py:75 .\utilisateurs\views.py:176
 msgid "Magasinier"
 msgstr "Almacenero"
 
-#: .\utilisateurs\models.py:76 .\utilisateurs\views.py:167
+#: .\utilisateurs\models.py:76 .\utilisateurs\views.py:174
 msgid "Carrossier"
 msgstr "Carrocero"
 
-#: .\utilisateurs\models.py:77 .\utilisateurs\views.py:168
+#: .\utilisateurs\models.py:77 .\utilisateurs\views.py:175
 msgid "Chef Mécanicien"
 msgstr "Jefe de mecánicos"
 
-#: .\utilisateurs\models.py:78 .\utilisateurs\views.py:170
+#: .\utilisateurs\models.py:78 .\utilisateurs\views.py:177
 msgid "Instructeur"
 msgstr "Instructor"
 
-#: .\utilisateurs\models.py:79 .\utilisateurs\views.py:171
+#: .\utilisateurs\models.py:79 .\utilisateurs\views.py:178
 msgid "Instructeur Externe"
 msgstr "Instructor Externo"
 
-#: .\utilisateurs\models.py:80 .\utilisateurs\views.py:172
+#: .\utilisateurs\models.py:80 .\utilisateurs\views.py:179
 msgid "Vendeur"
 msgstr "Vendedor"
 
-#: .\utilisateurs\models.py:81 .\utilisateurs\views.py:173
+#: .\utilisateurs\models.py:81 .\utilisateurs\views.py:180
 msgid "Comptable"
 msgstr "Contable"
 
-#: .\utilisateurs\models.py:82 .\utilisateurs\views.py:174
+#: .\utilisateurs\models.py:82 .\utilisateurs\views.py:181
 msgid "Direction"
 msgstr "Dirección"
 
-#: .\utilisateurs\views.py:141
+#: .\utilisateurs\views.py:148
 msgid "Révision moteur"
 msgstr "Revisión del motor"
 
-#: .\utilisateurs\views.py:141 .\voiture\voiture_boite\models.py:10
+#: .\utilisateurs\views.py:148 .\voiture\voiture_boite\models.py:10
 msgid "Changement filtre"
 msgstr "Cambio de filtro"
 
-#: .\utilisateurs\views.py:161 .\utilisateurs\views.py:176
+#: .\utilisateurs\views.py:168 .\utilisateurs\views.py:183
 msgid "Rôle inconnu"
 msgstr "Rol desconocido"
 
@@ -4678,7 +4881,6 @@ msgstr "Automática"
 #: .\voiture\voiture_boite\models.py:18
 msgid "Electrique"
 msgstr "Eléctrico"
-
 
 #: .\voiture\voiture_embrayage\models.py:8
 msgid "Monodisque"
@@ -4744,53 +4946,71 @@ msgstr "Por favor, seleccione una caja de cambios para vincular."
 msgid "Lier une boîte de vitesse à un véhicule"
 msgstr "Vincular una caja de cambios a un vehículo"
 
-#: .\voiture\voiture_exemplaire\views.py:107
+#: .\voiture\voiture_exemplaire\views.py:108
+#, fuzzy
+#| msgid "Le moteur a été lié à l'exemplaire avec succès."
+msgid "Les pneus ont été liés à l'exemplaire avec succès."
+msgstr "El motor se ha vinculado al vehículo con éxito."
+
+#: .\voiture\voiture_exemplaire\views.py:111
+#, fuzzy
+#| msgid "Veuillez sélectionner un moteur à lier."
+msgid "Veuillez sélectionner des pneus à lier."
+msgstr "Por favor, seleccione un motor para vincular."
+
+#: .\voiture\voiture_exemplaire\views.py:116
+#, fuzzy
+#| msgid "Lier un moteur à un véhicule"
+msgid "Lier des pneus à un véhicule"
+msgstr "Vincular un motor a un vehículo"
+
+#: .\voiture\voiture_exemplaire\views.py:134
 msgid "Le moteur a été lié à l'exemplaire avec succès."
 msgstr "El motor se ha vinculado al vehículo con éxito."
 
-#: .\voiture\voiture_exemplaire\views.py:112
+#: .\voiture\voiture_exemplaire\views.py:139
 msgid "Veuillez sélectionner un moteur à lier."
 msgstr "Por favor, seleccione un motor para vincular."
 
-#: .\voiture\voiture_exemplaire\views.py:117
+#: .\voiture\voiture_exemplaire\views.py:144
 msgid "Lier un moteur à un véhicule"
 msgstr "Vincular un motor a un vehículo"
 
-#: .\voiture\voiture_exemplaire\views.py:133
+#: .\voiture\voiture_exemplaire\views.py:160
 msgid "L'embrayage a été lié à l'exemplaire avec succès."
 msgstr "El embrague se ha vinculado al vehículo con éxito."
 
-#: .\voiture\voiture_exemplaire\views.py:138
+#: .\voiture\voiture_exemplaire\views.py:165
 msgid "Veuillez sélectionner un embrayage à lier."
 msgstr "Por favor, seleccione un embrague para vincular."
 
-#: .\voiture\voiture_exemplaire\views.py:143
+#: .\voiture\voiture_exemplaire\views.py:170
 msgid "Lier un embrayage à un véhicule"
 msgstr "Vincular un embrague a un vehículo"
 
-#: .\voiture\voiture_exemplaire\views.py:165
-#: .\voiture\voiture_exemplaire\views.py:195
+#: .\voiture\voiture_exemplaire\views.py:192
+#: .\voiture\voiture_exemplaire\views.py:222
 msgid "Le système de freinage a été lié à l'exemplaire avec succès."
 msgstr "El sistema de frenado se ha vinculado al vehículo con éxito."
 
-#: .\voiture\voiture_exemplaire\views.py:170
-#: .\voiture\voiture_exemplaire\views.py:200
+#: .\voiture\voiture_exemplaire\views.py:197
+#: .\voiture\voiture_exemplaire\views.py:227
 msgid "Veuillez sélectionner un système de freinage à lier."
 msgstr "Por favor, seleccione un sistema de frenado para vincular."
 
-#: .\voiture\voiture_exemplaire\views.py:175
+#: .\voiture\voiture_exemplaire\views.py:202
 msgid "Lier un système de freinage à un véhicule"
 msgstr "Vincular un sistema de frenado a un vehículo"
 
-#: .\voiture\voiture_exemplaire\views.py:205
+#: .\voiture\voiture_exemplaire\views.py:232
 msgid "Lier un système de freinage arrière à un véhicule"
 msgstr "Vincular un sistema de frenado trasero a un vehículo"
 
-#: .\voiture\voiture_exemplaire\views.py:221
+#: .\voiture\voiture_exemplaire\views.py:248
 msgid "Paramètres manquants"
 msgstr "Parámetros faltantes"
 
-#: .\voiture\voiture_exemplaire\views.py:226
+#: .\voiture\voiture_exemplaire\views.py:253
 msgid "Moteur non trouvé"
 msgstr "Motor no encontrado"
 
@@ -4838,10 +5058,169 @@ msgstr "Cadena"
 msgid "Courroie"
 msgstr "Correa"
 
-
 #: .\voiture\voiture_moteur\views.py:35
 msgid "Créer le moteur"
 msgstr "Crear motor"
+
+#: .\voiture\voiture_pneus\models.py:14
+#, fuzzy
+#| msgid "Côté"
+msgid "Été"
+msgstr "Lado"
+
+#: .\voiture\voiture_pneus\models.py:18
+msgid "4 saisons"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:19
+msgid "Hiver"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:22
+msgid "Q (160 km/h)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:23
+msgid "R (170 km/h)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:24
+msgid "S (180 km/h)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:25
+msgid "T (190 km/h)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:26
+msgid "H (210 km/h)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:27
+msgid "V (240 km/h)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:28
+msgid "W (270 km/h)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:29
+msgid "Y (300 km/h)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:30
+msgid "ZR W (>270 km/h)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:31
+msgid "ZR Y (>300 km/h)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:32
+msgid "ZR (historique >240 km/h)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:35
+msgid "60 (250 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:36
+msgid "62 (265 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:37
+msgid "64 (280 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:38
+msgid "68 (315 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:39
+msgid "70 (335 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:40
+msgid "73 (365 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:41
+msgid "75 (387 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:42
+msgid "78 (425 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:43
+msgid "81 (450 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:44
+msgid "84 (500 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:45
+msgid "87 (545 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:46
+msgid "91 (615 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:47
+msgid "94 (670 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:48
+msgid "97 (730 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:49
+msgid "100 (800 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:50
+msgid "103 (875 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:51
+msgid "106 (950 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:52
+msgid "109 (1030 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:53
+msgid "112 (1120 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:54
+msgid "115 (1215 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:55
+msgid "118 (1320 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:62
+#, fuzzy
+#| msgid "Avant et arrière"
+msgid "Avant et Arrière"
+msgstr "Delantero y trasero"
+
+#: .\voiture\voiture_pneus\models.py:107
+#, fuzzy
+#| msgid "Kilomètres moteur"
+msgid "Kilomètres pneus avant"
+msgstr "Kilómetros del motor"
+
+#: .\voiture\voiture_pneus\models.py:113
+#, fuzzy
+#| msgid "Diamètre des disques arrière"
+msgid "Kilomètres pneus arrière"
+msgstr "Diámetro de los discos traseros"
 
 #~ msgid "Rechercher par volant moteur"
 #~ msgstr "Buscar por volante"

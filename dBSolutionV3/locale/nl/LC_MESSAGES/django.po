@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-26 13:55+0100\n"
+"POT-Creation-Date: 2026-01-27 16:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -560,6 +560,7 @@ msgstr "%(libelle)s - Leverancier: %(fournisseur)s"
 #: .\maintenance\silent_blocs\models.py:5
 #: .\piece\piece_carrosserie\models.py:12
 #: .\piece\piece_roue_rechange\models.py:13
+#: .\voiture\voiture_pneus\models.py:60
 msgid "Avant"
 msgstr "Voor"
 
@@ -568,6 +569,7 @@ msgstr "Voor"
 #: .\maintenance\silent_blocs\models.py:6
 #: .\piece\piece_carrosserie\models.py:13
 #: .\piece\piece_roue_rechange\models.py:14
+#: .\voiture\voiture_pneus\models.py:61
 msgid "Arrière"
 msgstr "Achter"
 
@@ -630,6 +632,7 @@ msgstr "Onderhoud"
 #: .\maintenance\controle_check_up\models.py:137
 #: .\maintenance\jeux_pieces\models.py:60
 #: .\maintenance\silent_blocs\models.py:33
+#: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:27
 msgid "Emplacement"
 msgstr "locatie"
 
@@ -879,14 +882,14 @@ msgid "Non précisé"
 msgstr "Niet gespecificeerd"
 
 #: .\maintenance\jeux_pieces\models.py:108 .\maintenance\models.py:34
-#: .\utilisateurs\models.py:73 .\utilisateurs\views.py:165
+#: .\utilisateurs\models.py:73 .\utilisateurs\views.py:172
 msgid "Apprenti"
 msgstr "Leerling"
 
 #: .\maintenance\jeux_pieces\models.py:109 .\maintenance\models.py:26
 #: .\maintenance\nettoyage_exterieur\models.py:25
 #: .\maintenance\nettoyage_interieur\models.py:26 .\utilisateurs\models.py:74
-#: .\utilisateurs\views.py:166
+#: .\utilisateurs\views.py:173
 #, fuzzy
 #| msgid "Chef mécanicien"
 msgid "Mécanicien"
@@ -1138,7 +1141,7 @@ msgstr "Klantbedrijf"
 #: .\panier\models.py:39 .\piece\models.py:95
 #: .\theme\templates\voiture_boite\boite_detail.html:85
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:76
-#: .\theme\templates\voiture_embrayage\embrayage_detail.html:73
+#: .\theme\templates\voiture_embrayage\embrayage_detail.html:74
 #: .\theme\templates\voiture_moteur\moteur_detail.html:97
 msgid "Date de création"
 msgstr "Aanmaakdatum"
@@ -2628,6 +2631,7 @@ msgid "Largeur en pouces, ex: 7, 7.5, 8"
 msgstr "Breedte in inches, bv: 7, 7.5, 8"
 
 #: .\piece\piece_jantes\models.py:13 .\piece\piece_pneus\models.py:29
+#: .\theme\templates\voiture_pneus\pneus_detail.html:43
 msgid "Diamètre en pouces"
 msgstr "Diameter in inches"
 
@@ -2831,14 +2835,17 @@ msgid "Train AR"
 msgstr "Achteras"
 
 #: .\piece\piece_pneus\models.py:12 .\piece\piece_roue_rechange\models.py:17
+#: .\voiture\voiture_pneus\models.py:17
 msgid "Slick"
 msgstr "Slick"
 
 #: .\piece\piece_pneus\models.py:13 .\piece\piece_roue_rechange\models.py:18
+#: .\voiture\voiture_pneus\models.py:16
 msgid "Semi-slick"
 msgstr "Semi-slick"
 
 #: .\piece\piece_pneus\models.py:14 .\piece\piece_roue_rechange\models.py:19
+#: .\voiture\voiture_pneus\models.py:15
 msgid "Pluie"
 msgstr "Regen"
 
@@ -2867,6 +2874,9 @@ msgid "Savon"
 msgstr "Montagezeep"
 
 #: .\piece\piece_pneus\models.py:26
+#: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:21
+#: .\theme\templates\voiture_pneus\list.html:17
+#: .\theme\templates\voiture_pneus\pneus_detail.html:17
 msgid "Manufacturier"
 msgstr "Fabrikant"
 
@@ -2883,10 +2893,17 @@ msgid "Type de pneu"
 msgstr "Type band"
 
 #: .\piece\piece_pneus\models.py:31
+#: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:78
+#: .\theme\templates\voiture_pneus\list.html:46
+#: .\theme\templates\voiture_pneus\list.html:75
+#: .\voiture\voiture_pneus\models.py:130
 msgid "Indice de charge"
 msgstr "Draagvermogenindex"
 
 #: .\piece\piece_pneus\models.py:32
+#: .\theme\templates\voiture_pneus\list.html:42
+#: .\theme\templates\voiture_pneus\list.html:74
+#: .\voiture\voiture_pneus\models.py:124
 msgid "Indice de vitesse"
 msgstr "Snelheidsindex"
 
@@ -2898,7 +2915,9 @@ msgstr "Gemonteerde hoeveelheid"
 msgid "Pneu"
 msgstr "Band"
 
-#: .\piece\piece_pneus\models.py:55
+#: .\piece\piece_pneus\models.py:55 .\theme\templates\dashboard.html:188
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:155
+#: .\theme\templates\voiture_exemplaire\lier_pneus.html:35
 msgid "Pneus"
 msgstr "Banden"
 
@@ -3514,23 +3533,23 @@ msgstr "Dashboard"
 msgid "Changer"
 msgstr "Wijzigen"
 
-#: .\theme\templates\base.html:84
+#: .\theme\templates\base.html:90
 #: .\theme\templates\voiture_boite\boite_detail.html:92
-#: .\theme\templates\voiture_embrayage\embrayage_detail.html:80
+#: .\theme\templates\voiture_embrayage\embrayage_detail.html:81
 #: .\theme\templates\voiture_freins\freins_detail.html:55
 #: .\theme\templates\voiture_freins_ar\freins_ar_detail.html:55
 #: .\theme\templates\voiture_moteur\moteur_detail.html:104
+#: .\theme\templates\voiture_pneus\pneus_detail.html:73
 msgid "Retour"
 msgstr "Terug"
 
-#: .\theme\templates\base.html:90
+#: .\theme\templates\base.html:96
 msgid "Tous droits réservés."
 msgstr "Alle rechten voorbehouden."
 
-#: .\theme\templates\base.html:100
+#: .\theme\templates\base.html:106
 msgid "Déconnexion"
 msgstr "Afmelden"
-
 
 #: .\theme\templates\dashboard.html:6 .\theme\views.py:81
 msgid "Bienvenue sur ton tableau de bord"
@@ -3544,6 +3563,7 @@ msgstr "Gebruikers"
 #: .\theme\templates\dashboard.html:99 .\theme\templates\dashboard.html:115
 #: .\theme\templates\dashboard.html:130 .\theme\templates\dashboard.html:145
 #: .\theme\templates\dashboard.html:160 .\theme\templates\dashboard.html:175
+#: .\theme\templates\dashboard.html:190
 msgid "Nombre total :"
 msgstr "Totaal aantal:"
 
@@ -3597,7 +3617,6 @@ msgstr "Motoren"
 msgid "Liste des Véhicules"
 msgstr "Lijst van voertuigen"
 
-
 #: .\theme\templates\dashboard.html:128
 msgid "Boites de vitesses"
 msgstr "Versnellingsbak"
@@ -3612,7 +3631,7 @@ msgstr "Voorremmen"
 msgid "Freins arrière"
 msgstr "Achterremmen"
 
-#: .\theme\templates\dashboard.html:190
+#: .\theme\templates\dashboard.html:205
 msgid "Tableau de bord Admin"
 msgstr "Admin-dashboard"
 
@@ -3713,7 +3732,6 @@ msgstr "(gefilterd van _MAX_ totale vermeldingen)"
 msgid "Ajouter une boite de vitesse"
 msgstr "Versnellingsbak toevoegen"
 
-
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:33
 #: .\theme\templates\voiture_boite\boite_detail.html:17
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:20
@@ -3731,6 +3749,7 @@ msgstr "Type versnellingsbak"
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:28
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:41
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:54
+#: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:40
 msgid "Sélectionner un type"
 msgstr "Selecteer een type"
 
@@ -3756,7 +3775,6 @@ msgstr "Oliekwaliteit"
 msgid "Quantité d'huile (L)"
 msgstr "Oliehoeveelheid (L)"
 
-
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:67
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:83
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:108
@@ -3764,6 +3782,7 @@ msgstr "Oliehoeveelheid (L)"
 #: .\theme\templates\voiture_freins_ar\ajouter_freins_ar_simple.html:53
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:124
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:155
+#: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:93
 msgid "Ajouter"
 msgstr "Toevoegen"
 
@@ -3800,6 +3819,7 @@ msgstr "Versnellingsbaknummer"
 #: .\theme\templates\voiture_embrayage\embrayage_detail.html:60
 #: .\theme\templates\voiture_freins\freins_detail.html:39
 #: .\theme\templates\voiture_freins_ar\freins_ar_detail.html:39
+#: .\theme\templates\voiture_pneus\pneus_detail.html:55
 msgid "Modèle de voiture"
 msgstr "Automodel"
 
@@ -3807,6 +3827,7 @@ msgstr "Automodel"
 #: .\theme\templates\voiture_embrayage\embrayage_detail.html:67
 #: .\theme\templates\voiture_freins\freins_detail.html:46
 #: .\theme\templates\voiture_freins_ar\freins_ar_detail.html:46
+#: .\theme\templates\voiture_pneus\pneus_detail.html:62
 msgid "Exemplaire de voiture"
 msgstr "Voertuigexemplaar"
 
@@ -3844,7 +3865,6 @@ msgstr "Type naam"
 msgid "Type de Boîte"
 msgstr "Type versnellingsbak"
 
-
 #: .\theme\templates\voiture_boite\list.html:37
 msgid "Nombre de Rapports"
 msgstr "Aantal versnellingen"
@@ -3853,7 +3873,6 @@ msgstr "Aantal versnellingen"
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:113
 msgid "Quantité d'huile"
 msgstr "Hoeveelheid olie"
-
 
 #: .\theme\templates\voiture_boite\list.html:40
 #: .\theme\templates\voiture_boite\list.html:55
@@ -3865,13 +3884,14 @@ msgstr "Hoeveelheid olie"
 #: .\theme\templates\voiture_freins_ar\list_ar.html:59
 #: .\theme\templates\voiture_moteur\list.html:41
 #: .\theme\templates\voiture_moteur\list.html:58
+#: .\theme\templates\voiture_pneus\list.html:77
+#: .\theme\templates\voiture_pneus\list.html:95
 msgid "Info"
 msgstr "Info"
 
 #: .\theme\templates\voiture_boite\list.html:61
 msgid "Aucune boîte de vitesse trouvée."
 msgstr "Geen versnellingsbak gevonden."
-
 
 #: .\theme\templates\voiture_boite\list.html:73
 #: .\theme\templates\voiture_moteur\list.html:76
@@ -3883,6 +3903,7 @@ msgstr "Zoeken :"
 #: .\theme\templates\voiture_freins\list.html:78
 #: .\theme\templates\voiture_freins_ar\list_ar.html:74
 #: .\theme\templates\voiture_moteur\list.html:77
+#: .\theme\templates\voiture_pneus\list.html:111
 msgid "Afficher _MENU_ éléments"
 msgstr "Toon _MENU_ items"
 
@@ -3900,6 +3921,7 @@ msgstr "Geen versnellingsbak gevonden"
 #: .\theme\templates\voiture_freins\list.html:83
 #: .\theme\templates\voiture_freins_ar\list_ar.html:79
 #: .\theme\templates\voiture_moteur\list.html:82
+#: .\theme\templates\voiture_pneus\list.html:116
 msgid "Premier"
 msgstr "Eerste"
 
@@ -3908,6 +3930,7 @@ msgstr "Eerste"
 #: .\theme\templates\voiture_freins\list.html:84
 #: .\theme\templates\voiture_freins_ar\list_ar.html:80
 #: .\theme\templates\voiture_moteur\list.html:83
+#: .\theme\templates\voiture_pneus\list.html:117
 msgid "Dernier"
 msgstr "Laatste"
 
@@ -3916,6 +3939,7 @@ msgstr "Laatste"
 #: .\theme\templates\voiture_freins\list.html:85
 #: .\theme\templates\voiture_freins_ar\list_ar.html:81
 #: .\theme\templates\voiture_moteur\list.html:84
+#: .\theme\templates\voiture_pneus\list.html:118
 msgid "Suivant"
 msgstr "Volgende"
 
@@ -3924,6 +3948,7 @@ msgstr "Volgende"
 #: .\theme\templates\voiture_freins\list.html:86
 #: .\theme\templates\voiture_freins_ar\list_ar.html:82
 #: .\theme\templates\voiture_moteur\list.html:85
+#: .\theme\templates\voiture_pneus\list.html:119
 msgid "Précédent"
 msgstr "Vorige"
 
@@ -3945,6 +3970,10 @@ msgstr "Type drukplaat"
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:64
 #: .\theme\templates\voiture_embrayage\embrayage_detail.html:38
 #: .\theme\templates\voiture_embrayage\list.html:55
+#: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:88
+#: .\theme\templates\voiture_pneus\list.html:50
+#: .\theme\templates\voiture_pneus\list.html:76
+#: .\theme\templates\voiture_pneus\pneus_detail.html:48
 msgid "Numero OEM"
 msgstr "OEM-nummer"
 
@@ -3978,7 +4007,6 @@ msgstr "Koppelingsnummer"
 msgid "Liste des embrayages"
 msgstr "Lijst van koppelingen"
 
-
 #: .\theme\templates\voiture_embrayage\list.html:21
 msgid "Type embrayage"
 msgstr "Type koppeling"
@@ -3990,6 +4018,7 @@ msgstr "OEM-nummer"
 #: .\theme\templates\voiture_embrayage\list.html:85
 #: .\theme\templates\voiture_freins\list.html:77
 #: .\theme\templates\voiture_freins_ar\list_ar.html:73
+#: .\theme\templates\voiture_pneus\list.html:110
 msgid "Recherche globale :"
 msgstr "Globale zoekopdracht:"
 
@@ -4023,12 +4052,10 @@ msgstr "Type gebruik"
 msgid "Société"
 msgstr "Bedrijf"
 
-
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:59
 #: .\voiture\voiture_exemplaire\models.py:11
 msgid "Privé"
 msgstr "Privé"
-
 
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:68
 msgid "Kilomètres du chassis"
@@ -4056,7 +4083,6 @@ msgstr "Motoridentificatienummer"
 msgid "Date de mise en circulation"
 msgstr "Datum van eerste inschrijving"
 
-
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:103
 msgid "Kilomètres moteur"
 msgstr "Motor kilometrage"
@@ -4082,7 +4108,6 @@ msgstr "Niet ingevuld"
 msgid "Modifier"
 msgstr "Wijzigen"
 
-
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:74
 msgid "Aucun moteur enregistré pour cet exemplaire."
 msgstr "Geen motor geregistreerd voor dit exemplaar."
@@ -4107,28 +4132,41 @@ msgstr "Geen voorrem geregistreerd voor dit exemplaar."
 msgid "Aucun frein arrière enregistré pour cet exemplaire."
 msgstr "Geen achterrem geregistreerd voor dit exemplaar."
 
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:176
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:172
+#, fuzzy
+#| msgid "Aucun moteur enregistré pour cet exemplaire."
+msgid "Aucun pneus enregistré pour cet exemplaire."
+msgstr "Geen motor geregistreerd voor dit exemplaar."
+
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:197
 msgid "Lier une boîte"
 msgstr "Een versnellingsbak koppelen"
 
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:182
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:203
 msgid "Lier un moteur"
 msgstr "Koppel de motor"
 
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:187
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:208
 #: .\theme\templates\voiture_exemplaire\lier_embrayage.html:66
 msgid "Lier un embrayage"
 msgstr "Een koppeling koppelen"
 
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:193
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:214
 #: .\theme\templates\voiture_exemplaire\lier_frein.html:66
 msgid "Lier les freins avant"
 msgstr "De voorremmen koppelen"
 
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:199
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:220
 #: .\theme\templates\voiture_exemplaire\lier_frein_ar.html:66
 msgid "Lier les freins arrière"
 msgstr "De achterremmen koppelen"
+
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:226
+#: .\theme\templates\voiture_exemplaire\lier_pneus.html:59
+#, fuzzy
+#| msgid "Lier le moteur"
+msgid "Lier les pneus"
+msgstr "Koppel de motor"
 
 #: .\theme\templates\voiture_exemplaire\lier_boite.html:10
 msgid "Boite de vitesse du véhicule : "
@@ -4194,10 +4232,21 @@ msgstr "Kies een motor"
 msgid "Sélectionner un moteur"
 msgstr "Selecteer een motor"
 
-
 #: .\theme\templates\voiture_exemplaire\lier_moteur.html:66
 msgid "Lier le moteur"
 msgstr "Koppel de motor"
+
+#: .\theme\templates\voiture_exemplaire\lier_pneus.html:12
+#, fuzzy
+#| msgid "Moteur du véhicule: "
+msgid "Pneus du véhicule"
+msgstr "Motor van het voertuig: "
+
+#: .\theme\templates\voiture_exemplaire\lier_pneus.html:40
+#, fuzzy
+#| msgid "Sélectionner un type"
+msgid "Sélectionner les pneus"
+msgstr "Selecteer een type"
 
 #: .\theme\templates\voiture_exemplaire\list.html:7
 msgid "Liste de tous les véhicules"
@@ -4215,7 +4264,6 @@ msgstr "Zoek een kenteken..."
 #: .\theme\templates\voiture_exemplaire\list.html:82
 msgid "Aucun véhicule trouvé."
 msgstr "Geen voertuigen gevonden."
-
 
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:11
 msgid "Véhicule : "
@@ -4237,7 +4285,6 @@ msgstr "Geen exemplaar geregistreerd voor dit model."
 #: .\theme\templates\voiture_exemplaire\modifier_exemplaire.html:6
 msgid "Modifier le véhicule"
 msgstr "Voertuig wijzigen"
-
 
 #: .\theme\templates\voiture_exemplaire\modifier_exemplaire.html:55
 msgid "Enregistrer les modifications"
@@ -4413,7 +4460,6 @@ msgstr "Dikte van de achterremschijven"
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ Freins"
 msgstr "Weergave van _START_ tot _END_ van in totaal _TOTAL_ remmen"
 
-
 #: .\theme\templates\voiture_marque\marques_list.html:14
 msgid "Mes marques favorites"
 msgstr "Mijn favoriete merken"
@@ -4422,15 +4468,12 @@ msgstr "Mijn favoriete merken"
 msgid "Voir les"
 msgstr "Bekijk de"
 
-
 #: .\theme\templates\voiture_marque\marques_list.html:49
-
 msgid "modèles de"
 msgstr "Modellen van"
 
 #: .\theme\templates\voiture_modele\modeles_list.html:8
 #: .\theme\templates\voiture_modele\modeles_par_marque.html:9
-
 msgid "Modèles de "
 msgstr "Modellen van"
 
@@ -4469,7 +4512,6 @@ msgstr "Motorfabrikant"
 msgid "Nom du motoriste"
 msgstr "Naam van de motorfabrikant"
 
-
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:30
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:44
 #: .\theme\templates\voiture_moteur\list.html:35
@@ -4481,7 +4523,6 @@ msgstr "Motorkode"
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:47
 msgid "Ex: S14B23"
 msgstr "Bijv: S14B23"
-
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:38
 #: .\theme\templates\voiture_moteur\list.html:37
@@ -4496,7 +4537,6 @@ msgstr "Bijv: ATM"
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:49
 msgid "Essence / Diesel / ..."
 msgstr "Benzine / Diesel / ..."
-
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:54
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:80
@@ -4539,7 +4579,6 @@ msgstr "Koppel bij omw/min"
 msgid "Ajouter un moteur pour un nouveau véhicule"
 msgstr "Een motor toevoegen voor een nieuw voertuig"
 
-
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:52
 msgid "Type de moteur"
 msgstr "Motortype"
@@ -4564,7 +4603,6 @@ msgstr "Selecteer een distributietype"
 msgid "Interval d'entretien"
 msgstr "Onderhoudsinterval"
 
-
 #: .\theme\templates\voiture_moteur\list.html:4
 #: .\theme\templates\voiture_moteur\list.html:10
 msgid "Liste des moteurs"
@@ -4582,7 +4620,6 @@ msgstr "Zoeken op motornummer"
 msgid "Rechercher par cylindrée"
 msgstr "Zoeken op cilinderinhoud"
 
-
 #: .\theme\templates\voiture_moteur\list.html:25
 #: .\voiture\voiture_moteur\views.py:34
 msgid "Ajouter un moteur"
@@ -4595,7 +4632,6 @@ msgstr "Naam van de motorfabrikant"
 #: .\theme\templates\voiture_moteur\list.html:36
 msgid "Cylindree"
 msgstr "Cilinderinhoud"
-
 
 #: .\theme\templates\voiture_moteur\list.html:40
 #: .\theme\templates\voiture_moteur\moteur_detail.html:42
@@ -4635,6 +4671,156 @@ msgstr "Koppel bij (omw/min)"
 msgid "Numéro moteur"
 msgstr "Motornummer"
 
+#: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:9
+#, fuzzy
+#| msgid "Ajouter un moteur"
+msgid "Ajouter des Pneus"
+msgstr "Voeg een motor toe"
+
+#: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:29
+#, fuzzy
+#| msgid "Sélectionner un embrayage"
+msgid "Sélectionner un emplacement"
+msgstr "Selecteer een koppeling"
+
+#: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:38
+#: .\theme\templates\voiture_pneus\list.html:69
+#: .\theme\templates\voiture_pneus\pneus_detail.html:22
+#, fuzzy
+#| msgid "Type de pneu"
+msgid "Type de pneus"
+msgstr "Type band"
+
+#: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:48
+#: .\theme\templates\voiture_pneus\list.html:25
+#: .\theme\templates\voiture_pneus\list.html:70
+#: .\theme\templates\voiture_pneus\pneus_detail.html:27
+#, fuzzy
+#| msgid "Nom du type"
+msgid "Nom du pneus"
+msgstr "Type naam"
+
+#: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:54
+#, fuzzy
+#| msgid "Largeur"
+msgid "Largeur (mm)"
+msgstr "Breedte"
+
+#: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:58
+#, fuzzy, python-format
+#| msgid "Hauteur"
+msgid "Hauteur (%%)"
+msgstr "Hoogte"
+
+#: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:62
+#, fuzzy
+#| msgid "Diamètre en pouces"
+msgid "Diamètre jante (pouces)"
+msgstr "Diameter in inches"
+
+#: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:68
+#, fuzzy
+#| msgid "Indice de vitesse"
+msgid "Indice de Vitesse"
+msgstr "Snelheidsindex"
+
+#: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:70
+#, fuzzy
+#| msgid "Sélectionner un type de moteur"
+msgid "Sélectionner un indice de vitesse"
+msgstr "Selecteer een motortype"
+
+#: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:80
+#, fuzzy
+#| msgid "Sélectionner un type de carburant"
+msgid "Sélectionner un indice de charge"
+msgstr "Selecteer een brandstoftype"
+
+#: .\theme\templates\voiture_pneus\list.html:4
+#: .\theme\templates\voiture_pneus\list.html:10
+#, fuzzy
+#| msgid "Liste des moteurs"
+msgid "Liste des Pneus"
+msgstr "Motorenlijst"
+
+#: .\theme\templates\voiture_pneus\list.html:21
+#, fuzzy
+#| msgid "Type de pneu"
+msgid "Type pneus"
+msgstr "Type band"
+
+#: .\theme\templates\voiture_pneus\list.html:30
+#, fuzzy
+#| msgid "Largeur"
+msgid "Largeur du pneus"
+msgstr "Breedte"
+
+#: .\theme\templates\voiture_pneus\list.html:34
+#, fuzzy
+#| msgid "Capteur pression pneus"
+msgid "Hauteur du pneus"
+msgstr "Bandenspanningssensor"
+
+#: .\theme\templates\voiture_pneus\list.html:38
+#, fuzzy
+#| msgid "Diamètre en pouces"
+msgid "Diamètre de la jante en pouces"
+msgstr "Diameter in inches"
+
+#: .\theme\templates\voiture_pneus\list.html:55
+#, fuzzy
+#| msgid "Booster pneus"
+msgid "Ajouter des pneus"
+msgstr "Banden booster"
+
+#: .\theme\templates\voiture_pneus\list.html:68
+#, fuzzy
+#| msgid "Manufacturier"
+msgid "Nom du Manufacturier"
+msgstr "Fabrikant"
+
+#: .\theme\templates\voiture_pneus\list.html:71
+#: .\theme\templates\voiture_pneus\pneus_detail.html:32
+msgid "Largeur en millimètres"
+msgstr ""
+
+#: .\theme\templates\voiture_pneus\list.html:72
+#, fuzzy
+#| msgid "Diamètre en pouces"
+msgid "hauteur en pourcent"
+msgstr "Diameter in inches"
+
+#: .\theme\templates\voiture_pneus\list.html:73
+#, fuzzy
+#| msgid "Diamètre en pouces"
+msgid "Jante en pouces"
+msgstr "Diameter in inches"
+
+#: .\theme\templates\voiture_pneus\list.html:112
+#, fuzzy
+#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ moteurs"
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ pneus"
+msgstr "Weergeven van _START_ tot _END_ van _TOTAL_ motoren"
+
+#: .\theme\templates\voiture_pneus\list.html:113
+#: .\theme\templates\voiture_pneus\list.html:114
+#, fuzzy
+#| msgid "Aucun moteur trouvé"
+msgid "Aucun pneu trouvé"
+msgstr "Geen motor gevonden"
+
+#: .\theme\templates\voiture_pneus\pneus_detail.html:11
+#, fuzzy
+#| msgid "Détails du moteur"
+msgid "Détails des pneus"
+msgstr "Motordetails"
+
+#: .\theme\templates\voiture_pneus\pneus_detail.html:37
+#, fuzzy, python-format
+#| msgid "Hauteur"
+msgid "Hauteur en %%"
+msgstr "Hoogte"
+
 #: .\theme\views.py:35
 msgid "Nom d'utilisateur ou mot de passe incorrect"
 msgstr "Gebruikersnaam of wachtwoord onjuist"
@@ -4659,47 +4845,47 @@ msgstr "Human Resources"
 msgid "Operations"
 msgstr "Operationele zaken"
 
-#: .\utilisateurs\models.py:75 .\utilisateurs\views.py:169
+#: .\utilisateurs\models.py:75 .\utilisateurs\views.py:176
 msgid "Magasinier"
 msgstr "Magazijnier"
 
-#: .\utilisateurs\models.py:76 .\utilisateurs\views.py:167
+#: .\utilisateurs\models.py:76 .\utilisateurs\views.py:174
 msgid "Carrossier"
 msgstr "Carrosseriehersteller"
 
-#: .\utilisateurs\models.py:77 .\utilisateurs\views.py:168
+#: .\utilisateurs\models.py:77 .\utilisateurs\views.py:175
 msgid "Chef Mécanicien"
 msgstr "Hoofdmonteur"
 
-#: .\utilisateurs\models.py:78 .\utilisateurs\views.py:170
+#: .\utilisateurs\models.py:78 .\utilisateurs\views.py:177
 msgid "Instructeur"
 msgstr "Instructeur"
 
-#: .\utilisateurs\models.py:79 .\utilisateurs\views.py:171
+#: .\utilisateurs\models.py:79 .\utilisateurs\views.py:178
 msgid "Instructeur Externe"
 msgstr "Externe instructeur"
 
-#: .\utilisateurs\models.py:80 .\utilisateurs\views.py:172
+#: .\utilisateurs\models.py:80 .\utilisateurs\views.py:179
 msgid "Vendeur"
 msgstr "Verkoper"
 
-#: .\utilisateurs\models.py:81 .\utilisateurs\views.py:173
+#: .\utilisateurs\models.py:81 .\utilisateurs\views.py:180
 msgid "Comptable"
 msgstr "Boekhouder"
 
-#: .\utilisateurs\models.py:82 .\utilisateurs\views.py:174
+#: .\utilisateurs\models.py:82 .\utilisateurs\views.py:181
 msgid "Direction"
 msgstr "Directie"
 
-#: .\utilisateurs\views.py:141
+#: .\utilisateurs\views.py:148
 msgid "Révision moteur"
 msgstr "Motorrevisie"
 
-#: .\utilisateurs\views.py:141 .\voiture\voiture_boite\models.py:10
+#: .\utilisateurs\views.py:148 .\voiture\voiture_boite\models.py:10
 msgid "Changement filtre"
 msgstr "Filtervervanging"
 
-#: .\utilisateurs\views.py:161 .\utilisateurs\views.py:176
+#: .\utilisateurs\views.py:168 .\utilisateurs\views.py:183
 msgid "Rôle inconnu"
 msgstr "Onbekende rol"
 
@@ -4784,55 +4970,71 @@ msgstr "Selecteer een versnellingsbak om te koppelen."
 msgid "Lier une boîte de vitesse à un véhicule"
 msgstr "Een versnellingsbak aan een voertuig koppelen"
 
+#: .\voiture\voiture_exemplaire\views.py:108
+#, fuzzy
+#| msgid "Le moteur a été lié à l'exemplaire avec succès."
+msgid "Les pneus ont été liés à l'exemplaire avec succès."
+msgstr "De motor is succesvol gekoppeld aan het exemplaar."
 
-#: .\voiture\voiture_exemplaire\views.py:107
+#: .\voiture\voiture_exemplaire\views.py:111
+#, fuzzy
+#| msgid "Veuillez sélectionner un moteur à lier."
+msgid "Veuillez sélectionner des pneus à lier."
+msgstr "Selecteer een motor om te koppelen."
+
+#: .\voiture\voiture_exemplaire\views.py:116
+#, fuzzy
+#| msgid "Lier un moteur à un véhicule"
+msgid "Lier des pneus à un véhicule"
+msgstr "Koppel een motor aan een voertuig"
+
+#: .\voiture\voiture_exemplaire\views.py:134
 msgid "Le moteur a été lié à l'exemplaire avec succès."
 msgstr "De motor is succesvol gekoppeld aan het exemplaar."
 
-#: .\voiture\voiture_exemplaire\views.py:112
+#: .\voiture\voiture_exemplaire\views.py:139
 msgid "Veuillez sélectionner un moteur à lier."
 msgstr "Selecteer een motor om te koppelen."
 
-
-#: .\voiture\voiture_exemplaire\views.py:117
+#: .\voiture\voiture_exemplaire\views.py:144
 msgid "Lier un moteur à un véhicule"
 msgstr "Koppel een motor aan een voertuig"
 
-#: .\voiture\voiture_exemplaire\views.py:133
+#: .\voiture\voiture_exemplaire\views.py:160
 msgid "L'embrayage a été lié à l'exemplaire avec succès."
 msgstr "De koppeling is succesvol aan het exemplaar gekoppeld."
 
-#: .\voiture\voiture_exemplaire\views.py:138
+#: .\voiture\voiture_exemplaire\views.py:165
 msgid "Veuillez sélectionner un embrayage à lier."
 msgstr "Selecteer een koppeling om te koppelen."
 
-#: .\voiture\voiture_exemplaire\views.py:143
+#: .\voiture\voiture_exemplaire\views.py:170
 msgid "Lier un embrayage à un véhicule"
 msgstr "Een koppeling aan een voertuig koppelen"
 
-#: .\voiture\voiture_exemplaire\views.py:165
-#: .\voiture\voiture_exemplaire\views.py:195
+#: .\voiture\voiture_exemplaire\views.py:192
+#: .\voiture\voiture_exemplaire\views.py:222
 msgid "Le système de freinage a été lié à l'exemplaire avec succès."
 msgstr "Het remsysteem is succesvol aan het exemplaar gekoppeld."
 
-#: .\voiture\voiture_exemplaire\views.py:170
-#: .\voiture\voiture_exemplaire\views.py:200
+#: .\voiture\voiture_exemplaire\views.py:197
+#: .\voiture\voiture_exemplaire\views.py:227
 msgid "Veuillez sélectionner un système de freinage à lier."
 msgstr "Selecteer een remsysteem om te koppelen."
 
-#: .\voiture\voiture_exemplaire\views.py:175
+#: .\voiture\voiture_exemplaire\views.py:202
 msgid "Lier un système de freinage à un véhicule"
 msgstr "Een remsysteem aan een voertuig koppelen"
 
-#: .\voiture\voiture_exemplaire\views.py:205
+#: .\voiture\voiture_exemplaire\views.py:232
 msgid "Lier un système de freinage arrière à un véhicule"
 msgstr "Een achterremsysteem aan een voertuig koppelen"
 
-#: .\voiture\voiture_exemplaire\views.py:221
+#: .\voiture\voiture_exemplaire\views.py:248
 msgid "Paramètres manquants"
 msgstr "Ontbrekende parameters"
 
-#: .\voiture\voiture_exemplaire\views.py:226
+#: .\voiture\voiture_exemplaire\views.py:253
 msgid "Moteur non trouvé"
 msgstr "Motor niet gevonden"
 
@@ -4883,6 +5085,166 @@ msgstr "Riem"
 #: .\voiture\voiture_moteur\views.py:35
 msgid "Créer le moteur"
 msgstr "Motor aanmaken"
+
+#: .\voiture\voiture_pneus\models.py:14
+#, fuzzy
+#| msgid "Côté"
+msgid "Été"
+msgstr "Zijde"
+
+#: .\voiture\voiture_pneus\models.py:18
+msgid "4 saisons"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:19
+msgid "Hiver"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:22
+msgid "Q (160 km/h)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:23
+msgid "R (170 km/h)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:24
+msgid "S (180 km/h)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:25
+msgid "T (190 km/h)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:26
+msgid "H (210 km/h)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:27
+msgid "V (240 km/h)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:28
+msgid "W (270 km/h)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:29
+msgid "Y (300 km/h)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:30
+msgid "ZR W (>270 km/h)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:31
+msgid "ZR Y (>300 km/h)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:32
+msgid "ZR (historique >240 km/h)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:35
+msgid "60 (250 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:36
+msgid "62 (265 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:37
+msgid "64 (280 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:38
+msgid "68 (315 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:39
+msgid "70 (335 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:40
+msgid "73 (365 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:41
+msgid "75 (387 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:42
+msgid "78 (425 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:43
+msgid "81 (450 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:44
+msgid "84 (500 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:45
+msgid "87 (545 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:46
+msgid "91 (615 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:47
+msgid "94 (670 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:48
+msgid "97 (730 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:49
+msgid "100 (800 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:50
+msgid "103 (875 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:51
+msgid "106 (950 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:52
+msgid "109 (1030 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:53
+msgid "112 (1120 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:54
+msgid "115 (1215 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:55
+msgid "118 (1320 kg)"
+msgstr ""
+
+#: .\voiture\voiture_pneus\models.py:62
+#, fuzzy
+#| msgid "Avant et arrière"
+msgid "Avant et Arrière"
+msgstr "Voor en achter"
+
+#: .\voiture\voiture_pneus\models.py:107
+#, fuzzy
+#| msgid "Kilomètres moteur"
+msgid "Kilomètres pneus avant"
+msgstr "Motor kilometrage"
+
+#: .\voiture\voiture_pneus\models.py:113
+#, fuzzy
+#| msgid "Diamètre des disques arrière"
+msgid "Kilomètres pneus arrière"
+msgstr "Diameter van de achterremschijven"
 
 #, fuzzy
 #~| msgid "Rechercher un modèle..."
