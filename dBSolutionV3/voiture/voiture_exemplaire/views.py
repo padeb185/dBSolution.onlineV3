@@ -7,15 +7,15 @@ from django.views.decorators.cache import never_cache
 from django_tenants.utils import tenant_context
 from .models import VoitureExemplaire
 from .forms import VoitureExemplaireForm
-from voiture.voiture_modele.models import VoitureModele
-from voiture.voiture_moteur.models import MoteurVoiture
+from ..voiture_modele.models import VoitureModele
+from ..voiture_moteur.models import MoteurVoiture
 from django.utils.translation import gettext as _
 from societe.models import Societe
-from voiture.voiture_boite.models import VoitureBoite
-from voiture.voiture_embrayage.models import VoitureEmbrayage
-from voiture.voiture_freins.models import VoitureFreins
-
+from ..voiture_boite.models import VoitureBoite
+from ..voiture_embrayage.models import VoitureEmbrayage
+from ..voiture_freins.models import VoitureFreins
 from ..voiture_freins_ar.models import VoitureFreinsAR
+from ..voiture_pneus.models import VoiturePneus
 
 
 @login_required
@@ -91,6 +91,34 @@ def lier_boite_exemplaire(request, exemplaire_id):
             "boites": boites,
             "title": _("Lier une boîte de vitesse à un véhicule"),
         })
+
+
+
+@login_required
+def lier_pneus_exemplaire(request, exemplaire_id):
+    exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
+    with tenant_context(request.user.societe):
+        pneus = VoiturePneus.objects.all().order_by('fournisseur')
+
+        if request.method == "POST":
+            pneu_id = request.POST.get("pneu_id")
+            if pneu_id:
+                pneu = get_object_or_404(VoitureBoite, id=pneu_id)
+                pneu.voitures_exemplaires.add(exemplaire)
+                messages.success(request, _("Les pneus ont étés liés à l'exemplaire avec succès."))
+
+
+                return redirect("voiture_exemplaire:lier_pneus_exemplaire", exemplaire_id=exemplaire.id)
+            else:
+                messages.error(request, _("Veuillez sélectionner des pneus à lier."))
+
+        return render(request, "voiture_exemplaire/lier_pneus.html", {
+            "exemplaire": exemplaire,
+            "pneus": pneus,
+            "title": _("Lier des pneus à un véhicule"),
+        })
+
+
 
 
 @login_required

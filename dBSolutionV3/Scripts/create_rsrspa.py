@@ -19,7 +19,7 @@ from adresse.models import Adresse
 def create_societe_dbsolution():
     schema_name = "rsrspa"
     nom = ("RSR Spa")
-    domain_url = "dbsolution.rsrspa.localhost"
+    domain_url = "dbsolution.localhost/rsrspa"
     directeur = "Fred Mayeur"
     numero_tva = "BE0847181667"
     site = "https://dbsolution.localhost/rsrspa"
@@ -37,7 +37,7 @@ def create_societe_dbsolution():
             ville__iexact="Stavelot"
         )
     except Adresse.DoesNotExist:
-        print("❌ Adresse 'Rue du Pouhon' 4000 Liège' introuvable")
+        print("❌ Adresse 'Rue du Pouhon' 4970 Stavelot' introuvable")
         print("➡️ Crée l’adresse avant de lancer ce script")
         return
     except Adresse.MultipleObjectsReturned:

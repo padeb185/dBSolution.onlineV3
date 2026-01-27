@@ -63,9 +63,6 @@ def freins_detail_view(request, pneus_id):
 
 
 
-
-
-
 @login_required
 def ajouter_pneus_simple(request):
     if request.method == "POST":
@@ -85,6 +82,6 @@ def ajouter_pneus_simple(request):
 
 
         )
-        return redirect("voiture_freins:list")
+        return redirect("voiture_pneus:list")
 
-    return render(request, "voiture_freins/ajouter_freins_simple.html")
+    return render(request, "voiture_pneus/ajouter_pneus_simple.html")

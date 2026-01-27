@@ -19,7 +19,7 @@ from adresse.models import Adresse
 def create_societe_dbsolution():
     schema_name = "rsrnurburg"
     nom = "RSR Nurburg"
-    domain_url = "dbsolution.rsrnurburg.localhost"
+    domain_url = "dbsolution.localhost/rsrnurburg"
     directeur = "Ron Simons"
     numero_tva = "DE814467844"
     site = "https://dbsolution.localhost/rsrnurburg"
