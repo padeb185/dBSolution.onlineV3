@@ -3521,17 +3521,16 @@ msgstr "Wijzigen"
 #: .\theme\templates\voiture_freins_ar\freins_ar_detail.html:55
 #: .\theme\templates\voiture_moteur\moteur_detail.html:104
 msgid "Retour"
-msgstr ""
+msgstr "Terug"
 
 #: .\theme\templates\base.html:90
 msgid "Tous droits réservés."
-msgstr ""
+msgstr "Alle rechten voorbehouden."
 
 #: .\theme\templates\base.html:100
-#, fuzzy
-#| msgid "Connexion"
 msgid "Déconnexion"
-msgstr "Inloggen"
+msgstr "Afmelden"
+
 
 #: .\theme\templates\dashboard.html:6 .\theme\views.py:81
 msgid "Bienvenue sur ton tableau de bord"
@@ -3595,30 +3594,23 @@ msgid "Moteurs"
 msgstr "Motoren"
 
 #: .\theme\templates\dashboard.html:113
-#, fuzzy
-#| msgid "Liste des utilisateurs"
 msgid "Liste des Véhicules"
-msgstr "Gebruikerslijst"
+msgstr "Lijst van voertuigen"
+
 
 #: .\theme\templates\dashboard.html:128
-#, fuzzy
-#| msgid "Boîte de vitesse"
 msgid "Boites de vitesses"
 msgstr "Versnellingsbak"
 
 #: .\theme\templates\dashboard.html:158
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:108
-#, fuzzy
-#| msgid "Ressort avant"
 msgid "Freins avant"
-msgstr "Veer vooraan"
+msgstr "Voorremmen"
 
 #: .\theme\templates\dashboard.html:173
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:134
-#, fuzzy
-#| msgid "Pont arrière"
 msgid "Freins arrière"
-msgstr "Achterdifferentieel"
+msgstr "Achterremmen"
 
 #: .\theme\templates\dashboard.html:190
 msgid "Tableau de bord Admin"
@@ -3718,34 +3710,29 @@ msgid "(filtré à partir de _MAX_ entrées totales)"
 msgstr "(gefilterd van _MAX_ totale vermeldingen)"
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:9
-#, fuzzy
-#| msgid "Ajouter un moteur"
 msgid "Ajouter une boite de vitesse"
-msgstr "Voeg een motor toe"
+msgstr "Versnellingsbak toevoegen"
+
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:33
 #: .\theme\templates\voiture_boite\boite_detail.html:17
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:20
 #: .\theme\templates\voiture_embrayage\embrayage_detail.html:17
 #: .\theme\templates\voiture_embrayage\list.html:17
-#, fuzzy
-#| msgid "Fabricants"
 msgid "Fabricant"
-msgstr "Fabrikanten"
+msgstr "Fabrikant"
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:38
 #: .\theme\templates\voiture_boite\boite_detail.html:27
-#, fuzzy
-#| msgid "Type de roue"
 msgid "Type de boîte"
-msgstr "Type wiel"
+msgstr "Type versnellingsbak"
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:41
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:28
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:41
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:54
 msgid "Sélectionner un type"
-msgstr ""
+msgstr "Selecteer een type"
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:52
 #: .\theme\templates\voiture_boite\boite_detail.html:32
@@ -3759,19 +3746,16 @@ msgstr "Aantal versnellingen"
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:106
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:135
 #: .\theme\templates\voiture_moteur\moteur_detail.html:72
-#, fuzzy
-#| msgid "Qualité du fluide"
 msgid "Qualité d'huile"
-msgstr "Kwaliteit van de vloeistof"
+msgstr "Oliekwaliteit"
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:62
 #: .\theme\templates\voiture_boite\boite_detail.html:43
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:141
 #: .\theme\templates\voiture_moteur\moteur_detail.html:77
-#, fuzzy
-#| msgid "Quantité utilisée (L)"
 msgid "Quantité d'huile (L)"
-msgstr "Gebruikte hoeveelheid"
+msgstr "Oliehoeveelheid (L)"
+
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:67
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:83
@@ -3784,22 +3768,16 @@ msgid "Ajouter"
 msgstr "Toevoegen"
 
 #: .\theme\templates\voiture_boite\boite_detail.html:11
-#, fuzzy
-#| msgid "Fuite boîte de vitesse"
 msgid "Détails de la boîte de vitesse"
-msgstr "Versnellingsbaklek"
+msgstr "Details van de versnellingsbak"
 
 #: .\theme\templates\voiture_boite\boite_detail.html:22
-#, fuzzy
-#| msgid "Nom du filtre"
 msgid "Nom du type"
-msgstr "Naam van het filter"
+msgstr "Type naam"
 
 #: .\theme\templates\voiture_boite\boite_detail.html:38
-#, fuzzy
-#| msgid "Qualité du fluide"
 msgid "Qualité de l'huile"
-msgstr "Kwaliteit van de vloeistof"
+msgstr "Oliekwaliteit"
 
 #: .\theme\templates\voiture_boite\boite_detail.html:49
 msgid "Kilométrage de la boîte"
