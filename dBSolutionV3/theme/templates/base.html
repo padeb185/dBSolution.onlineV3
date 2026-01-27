@@ -68,19 +68,12 @@
             </nav>
         </header>
         {% endblock %}
+        <!-- Blason sous le header -->
 
-       <main class="{% block main_class %}container mx-auto p-6 flex-1 relative{% endblock %}"
-                style="padding-top:70px; padding-right:20px; padding-bottom:50px;">
-
-            <!-- Image du blason dans le coin supérieur droit, juste sous le header -->
-            <div style="position:absolute; top:calc(64px + 15px); right:15px; width:100px; height:100px;">
-                <img src="{% static 'blason/blason.png' %}" alt="Blason"
-                     style="width:100%; height:100%; object-fit:contain;">
-            </div>
-
+       <main class="{% block main_class %}container mx-auto p-6 flex-1{% endblock %}">
             {% block content %}{% endblock %}
+       </main>
 
-        </main>
 
 
 

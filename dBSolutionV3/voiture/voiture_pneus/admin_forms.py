@@ -1,13 +1,15 @@
 from django import forms
 from django.utils import timezone
 from .models import VoiturePneus
+from django import forms
+from .models import VoiturePneus, TypePneus
 
 
 
 class RemplacementPneusForm(forms.Form):
-    nouveau_type = forms.ChoiceField(
-        choices=VoiturePneus.TypePneus.choices,
-        label="Nouveau type de pneus"
+    type_pneus = forms.ChoiceField(
+        choices=TypePneus.choices,
+        label="Type de pneus"
     )
 
     pneus_avant = forms.CharField(

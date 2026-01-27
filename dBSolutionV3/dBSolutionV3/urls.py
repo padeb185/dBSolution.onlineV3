@@ -54,4 +54,8 @@ urlpatterns += i18n_patterns(
         "fr/voiture/freins_ar/",
         include(("voiture.voiture_freins_ar.urls", "voiture_freins_ar"), namespace="voiture_freins_ar"),
     ),
+path(
+        "fr/voiture/pneus/",
+        include(("voiture.voiture_pneus.urls", "voiture_pneus"), namespace="voiture_pneus"),
+    ),
 )

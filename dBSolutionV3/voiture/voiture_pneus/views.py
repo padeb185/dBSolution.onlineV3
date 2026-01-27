@@ -41,7 +41,7 @@ def remplacer_pneus(self, request, pk):
 
 
 @login_required
-def liste_freins(request):
+def liste_pneus(request):
 
     tenant = request.user.societe
     with tenant_context(tenant):
@@ -55,7 +55,7 @@ def liste_freins(request):
 
 
 @login_required()
-def freins_detail_view(request, pneus_id):
+def pneus_detail_view(request, pneus_id):
     pneus = get_object_or_404(VoiturePneus, id=pneus_id)
     return render(request, 'voiture_pneus/pneus_detail.html', {
         'pneus': pneus,

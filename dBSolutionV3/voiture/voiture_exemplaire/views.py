@@ -95,7 +95,7 @@ def lier_boite_exemplaire(request, exemplaire_id):
 
 
 @login_required
-def lier_pneus_exemplaire(request, exemplaire_id):
+def lier_pneus(request, exemplaire_id):
     exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
     with tenant_context(request.user.societe):
         pneus = VoiturePneus.objects.all().order_by('fournisseur')

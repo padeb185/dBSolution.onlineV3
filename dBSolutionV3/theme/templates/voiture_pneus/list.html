@@ -12,30 +12,39 @@
 
 <div class="bg-white shadow-md rounded-lg p-4 mb-4">
     <div class="grid grid-cols-1 md:grid-cols-6 gap-3 items-end">
-        <input id="search-fabricant" type="text"
+        <input id="search-fournisseur" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Fabricant' %}">
+               placeholder="{% trans 'Manufaturier' %}">
 
-        <input id="search-type_embrayage" type="text"
+        <input id="search-type_pneus" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Type embrayage' %}">
 
-        <input id="search-volant_moteur" type="text"
-               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Volant moteur' %}">
 
-        <input id="search-plateau_pression" type="text"
+        <input id="search-pneus_avant_largeur" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Plateau de pression' %}">
+               placeholder="{% trans 'Largeur du pneus avant' %}">
 
-        <input id="search-oem" type="text"
+        <input id="search-pneus_avant_hauteur" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Numéro OEM' %}">
+               placeholder="{% trans 'Hauteur du pneus avant' %}">
+
+        <input id="search-pneus_avant_jante" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Diamètre de la jante en pouces' %}">
+
+        <input id="search-indice_vitesse" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Indice de vitesse' %}">
+
+        <input id="search-indice_charge" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Indice de charge' %}">
 
         <div>
-            <a href="{% url 'voiture_embrayage:ajouter_embrayage_simple' %}"
+            <a href="{% url 'voiture_pneus:ajouter_pneus_simple' %}"
                class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
-                {% trans "Ajouter un embrayage" %}
+                {% trans "Ajouter des pneus" %}
             </a>
         </div>
     </div>
@@ -45,27 +54,31 @@
 
 
 <!-- Table -->
-<table id="embrayage-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+<table id="pneus-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
     <thead>
         <tr class="bg-gray-100">
-            <th class="border px-4 py-2 cursor-pointer">{% trans "Nom du Fabricant" %}</th>
-            <th class="border px-4 py-2 cursor-pointer">{% trans "Type d'embrayage" %}</th>
-            <th class="border px-4 py-2 cursor-pointer">{% trans "Type de volant moteur" %}</th>
-            <th class="border px-4 py-2 cursor-pointer">{% trans "Type de plateau de pression" %}</th>
-            <th class="border px-4 py-2 cursor-pointer">{% trans "Numero OEM" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Nom du Manufacturier" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Type de pneus" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Largeur en millimètres" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "hauteur en pourcent" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Jante en pouces" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Indice de vitesse" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Indice de charge" %}</th>
             <th class="border px-4 py-2 cursor-pointer text-center">{% trans "Info" %}</th>
         </tr>
     </thead>
     <tbody>
-        {% for embrayage in embrayages %}
+        {% for pneu in pneus %}
         <tr>
-            <td class="border px-4 py-2">{{ embrayage.fabricant }}</td>
-             <td class="border px-4 py-2">{{ embrayage.get_type_embrayage_display }}</td>
-            <td class="border px-4 py-2">{{ embrayage.get_volant_moteur_display }}</td>
-            <td class="border px-4 py-2">{{ embrayage.get_plateau_pression_display }}</td>
-            <td class="border px-4 py-2">{{ embrayage.oem }}</td>
+            <td class="border px-4 py-2">{{ pneu.fournisseur }}</td>
+            <td class="border px-4 py-2">{{ pneu.get_type_pneus_display }}</td>
+            <td class="border px-4 py-2">{{ pneu.pneus_avant_largeur }}</td>
+            <td class="border px-4 py-2">{{ pneu.pneus_avant_hauteur }}</td>
+            <td class="border px-4 py-2">{{ pneu.pneus_avant_jante }}</td>
+            <td class="border px-4 py-2">{{ pneu.get_indice_vitesse_display }}</td>
+            <td class="border px-4 py-2">{{ pneu.get_indice_charge_display }}</td>
             <td class="border px-4 py-2 text-center">
-                <a href="{% url 'voiture_embrayage:detail' embrayage.id %}"
+                <a href="{% url 'voiture_pneus:detail' pneus.id %}"
                    class="text-blue-600 hover:text-blue-800 font-semibold">
                     {% trans "Info" %}
                 </a>
@@ -79,14 +92,14 @@
 <!-- DataTables JS -->
 <script>
 $(document).ready(function() {
-    var table = $('#embrayage-table').DataTable({
+    var table = $('#pneus-table').DataTable({
         pageLength: 100,
         language: {
             search: "{% trans 'Recherche globale :' %}",
             lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
-            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ embrayages' %}",
-            infoEmpty: "{% trans 'Aucun embrayage trouvé' %}",
-            zeroRecords: "{% trans 'Aucun embrayage trouvé' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ pneus' %}",
+            infoEmpty: "{% trans 'Aucun pneu trouvé' %}",
+            zeroRecords: "{% trans 'Aucun pneu trouvé' %}",
             paginate: {
                 first: "{% trans 'Premier' %}",
                 last: "{% trans 'Dernier' %}",
@@ -98,22 +111,27 @@ $(document).ready(function() {
     });
 
     // Filtres par colonne
-    $('#search-fabricant').on('keyup', function () {
+    $('#search-fournisseur').on('keyup', function () {
         table.column(0).search(this.value).draw();
     });
-    $('#search-type_embrayage').on('keyup', function () {
+    $('#search-type_pneus').on('keyup', function () {
         table.column(1).search(this.value).draw();
     });
-    $('#search-volant_moteur').on('keyup', function () {
+    $('#search-pneus_avant_largeur').on('keyup', function () {
         table.column(2).search(this.value).draw();
     });
-    $('#search-plateau_pression').on('keyup', function () {
+    $('#search-pneus_avant_hauteur').on('keyup', function () {
         table.column(3).search(this.value).draw();
     });
-     $('#search-oem').on('keyup', function () {
+     $('#search-pneus_avant_jante').on('keyup', function () {
+        table.column(4).search(this.value).draw();
+    });
+     $('#search-indice_vitesse').on('keyup', function () {
+        table.column(4).search(this.value).draw();
+    });
+     $('#search-indice_charge').on('keyup', function () {
         table.column(4).search(this.value).draw();
     });
 });
 </script>
 {% endblock %}
-tml>
