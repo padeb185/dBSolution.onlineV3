@@ -98,17 +98,15 @@ def lier_boite_exemplaire(request, exemplaire_id):
 def lier_pneus(request, exemplaire_id):
     exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
     with tenant_context(request.user.societe):
-        pneus = VoiturePneus.objects.all().order_by('fournisseur')
+        pneus = VoiturePneus.objects.all().order_by('manufacturier')
 
         if request.method == "POST":
             pneu_id = request.POST.get("pneu_id")
             if pneu_id:
-                pneu = get_object_or_404(VoitureBoite, id=pneu_id)
+                pneu = get_object_or_404(VoiturePneus, id=pneu_id)  # ← corrigé ici
                 pneu.voitures_exemplaires.add(exemplaire)
-                messages.success(request, _("Les pneus ont étés liés à l'exemplaire avec succès."))
-
-
-                return redirect("voiture_exemplaire:lier_pneus_exemplaire", exemplaire_id=exemplaire.id)
+                messages.success(request, _("Les pneus ont été liés à l'exemplaire avec succès."))
+                return redirect("voiture_exemplaire:lier_pneus", exemplaire_id=exemplaire.id)
             else:
                 messages.error(request, _("Veuillez sélectionner des pneus à lier."))
 
@@ -117,6 +115,7 @@ def lier_pneus(request, exemplaire_id):
             "pneus": pneus,
             "title": _("Lier des pneus à un véhicule"),
         })
+
 
 
 

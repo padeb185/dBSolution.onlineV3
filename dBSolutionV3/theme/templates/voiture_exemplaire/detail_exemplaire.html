@@ -151,6 +151,25 @@
             <p class="text-gray-500">{% trans "Aucun frein arrière enregistré pour cet exemplaire." %}</p>
             {% endif %}
 
+            <!-- freins arrière-->
+            <h2 class="text-lg font-semibold mt-6 mb-4">{% trans "Pneus" %}</h2>
+            {% if exemplaire.pneus.exists %}
+            <ul class="space-y-2">
+                {% for pneus in exemplaire.pneus.all %}
+                    <li class="border p-3 rounded-md hover:bg-gray-50 flex justify-between items-center">
+                        <div>
+                            <span class="font-medium">{{ pneus.manufacturier|default:"N/A" }}</span>
+                            <span> {{ pneus.type_pneus|default:"?" }}</span>
+                            <span> {{ pneus.pneus_largeur}}</span>
+                        </div>
+
+                    </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p class="text-gray-500">{% trans "Aucun pneus enregistré pour cet exemplaire." %}</p>
+            {% endif %}
+
 
         </div>
     </div>
@@ -197,6 +216,12 @@
          <a href="{% url 'voiture_exemplaire:lier_frein_ar' exemplaire_id=exemplaire.id %}" class="flex-1">
             <button type="button" class="w-full px-4 py-2 bg-blue-700 text-white rounded hover:bg-blue-400">
                 {% trans "Lier les freins arrière" %}
+            </button>
+        </a>
+
+          <a href="{% url 'voiture_exemplaire:lier_pneus' exemplaire_id=exemplaire.id %}" class="flex-1">
+            <button type="button" class="w-full px-4 py-2 bg-blue-700 text-white rounded hover:bg-blue-400">
+                {% trans "Lier les pneus" %}
             </button>
         </a>
     </div>

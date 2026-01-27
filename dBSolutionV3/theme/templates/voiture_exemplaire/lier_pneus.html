@@ -31,17 +31,17 @@
         {% csrf_token %}
 
         <!-- 🔵 PNEUS AVANT -->
-        <label for="pneu_av_id" class="block mb-2 font-semibold">
-            {% trans "Pneus avant" %}
+        <label for="pneu_id" class="block mb-2 font-semibold">
+            {% trans "Pneus" %}
         </label>
 
-        <select name="pneu_av_id" id="pneu_av_id" required
+        <select name="pneu_id" id="pneu_id" required
                 class="border rounded p-2 w-full mb-6">
-            <option value="">{% trans "Sélectionner les pneus avant" %}</option>
+            <option value="">{% trans "Sélectionner les pneus" %}</option>
 
             {% for pneu in pneus %}
                 <option value="{{ pneu.id }}">
-                    {{ pneu.fournisseur }} –
+                    {{ pneu.manufacturier }} –
                     {{ pneu.get_type_pneus_display }} |
                     {{ pneu.pneus_avant_largeur }}/{{ pneu.pneus_avant_hauteur }}
                     R{{ pneu.pneus_avant_jante }}
@@ -50,25 +50,6 @@
             {% endfor %}
         </select>
 
-        <!-- 🔴 PNEUS ARRIÈRE -->
-        <label for="pneu_ar_id" class="block mb-2 font-semibold">
-            {% trans "Pneus arrière" %}
-        </label>
-
-        <select name="pneu_ar_id" id="pneu_ar_id" required
-                class="border rounded p-2 w-full mb-10">
-            <option value="">{% trans "Sélectionner les pneus arrière" %}</option>
-
-            {% for pneu in pneus %}
-                <option value="{{ pneu.id }}">
-                    {{ pneu.fournisseur }} –
-                    {{ pneu.get_type_pneus_display }} |
-                    {{ pneu.pneus_arriere_largeur }}/{{ pneu.pneus_arriere_hauteur }}
-                    R{{ pneu.pneus_arriere_jante }}
-                    {{ pneu.indice_charge }} {{ pneu.indice_vitesse }}
-                </option>
-            {% endfor %}
-        </select>
 
         <!-- BOUTON -->
         <button type="submit"
