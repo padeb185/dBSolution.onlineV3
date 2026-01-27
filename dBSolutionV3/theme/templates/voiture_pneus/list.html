@@ -12,24 +12,24 @@
 
 <div class="bg-white shadow-md rounded-lg p-4 mb-4">
     <div class="grid grid-cols-1 md:grid-cols-6 gap-3 items-end">
-        <input id="search-fournisseur" type="text"
+        <input id="search-manufacturier" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Manufaturier' %}">
+               placeholder="{% trans 'Manufacturier' %}">
 
         <input id="search-type_pneus" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Type embrayage' %}">
 
 
-        <input id="search-pneus_avant_largeur" type="text"
+        <input id="search-pneus_largeur" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Largeur du pneus avant' %}">
+               placeholder="{% trans 'Largeur du pneus' %}">
 
-        <input id="search-pneus_avant_hauteur" type="text"
+        <input id="search-pneus_hauteur" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Hauteur du pneus avant' %}">
+               placeholder="{% trans 'Hauteur du pneus' %}">
 
-        <input id="search-pneus_avant_jante" type="text"
+        <input id="search-pneus_jante" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Diamètre de la jante en pouces' %}">
 
@@ -70,11 +70,11 @@
     <tbody>
         {% for pneu in pneus %}
         <tr>
-            <td class="border px-4 py-2">{{ pneu.fournisseur }}</td>
+            <td class="border px-4 py-2">{{ pneu.manufacturier }}</td>
             <td class="border px-4 py-2">{{ pneu.get_type_pneus_display }}</td>
-            <td class="border px-4 py-2">{{ pneu.pneus_avant_largeur }}</td>
-            <td class="border px-4 py-2">{{ pneu.pneus_avant_hauteur }}</td>
-            <td class="border px-4 py-2">{{ pneu.pneus_avant_jante }}</td>
+            <td class="border px-4 py-2">{{ pneu.pneus_largeur }}</td>
+            <td class="border px-4 py-2">{{ pneu.pneus_hauteur }}</td>
+            <td class="border px-4 py-2">{{ pneu.pneus_jante }}</td>
             <td class="border px-4 py-2">{{ pneu.get_indice_vitesse_display }}</td>
             <td class="border px-4 py-2">{{ pneu.get_indice_charge_display }}</td>
             <td class="border px-4 py-2 text-center">
@@ -111,19 +111,19 @@ $(document).ready(function() {
     });
 
     // Filtres par colonne
-    $('#search-fournisseur').on('keyup', function () {
+    $('#search-manufacturier').on('keyup', function () {
         table.column(0).search(this.value).draw();
     });
     $('#search-type_pneus').on('keyup', function () {
         table.column(1).search(this.value).draw();
     });
-    $('#search-pneus_avant_largeur').on('keyup', function () {
+    $('#search-pneus_largeur').on('keyup', function () {
         table.column(2).search(this.value).draw();
     });
-    $('#search-pneus_avant_hauteur').on('keyup', function () {
+    $('#search-pneus_hauteur').on('keyup', function () {
         table.column(3).search(this.value).draw();
     });
-     $('#search-pneus_avant_jante').on('keyup', function () {
+     $('#search-pneus_jante').on('keyup', function () {
         table.column(4).search(this.value).draw();
     });
      $('#search-indice_vitesse').on('keyup', function () {

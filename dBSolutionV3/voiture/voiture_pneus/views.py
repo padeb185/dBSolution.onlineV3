@@ -1,9 +1,10 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django_tenants.utils import tenant_context
 from ..voiture_pneus.admin_forms import RemplacementPneusForm
 from ..voiture_pneus.models import VoiturePneus
-
+from fournisseur.models import Fournisseur
 
 
 @login_required()
@@ -62,26 +63,31 @@ def pneus_detail_view(request, pneus_id):
     })
 
 
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from .models import VoiturePneus
 
 @login_required
 def ajouter_pneus_simple(request):
     if request.method == "POST":
-
         VoiturePneus.objects.create(
-            pneus_avant_largeur=request.POST.get("pneus_avant_largeur"),
-            pneus_avant_hauteur=request.POST.get("pneus_avant_hauteur"),
-            pneus_avant_jante=request.POST.get("pneus_avant_jante"),
-
-            pneus_arriere_largeur=request.POST.get("pneus_arriere_largeur"),
-            pneus_arriere_hauteur=request.POST.get("pneus_arriere_hauteur"),
-            pneus_arriere_jante=request.POST.get("pneus_arriere_jante"),
-
+            manufacturier=request.POST.get("manufacturier"),
+            emplacement=request.POST.get("emplacement"),
+            type_pneus=request.POST.get("type_pneus"),
+            pneus_largeur=request.POST.get("pneus_largeur"),
+            pneus_hauteur=request.POST.get("pneus_hauteur"),
+            pneus_jante=request.POST.get("pneus_jante"),
             indice_vitesse=request.POST.get("indice_vitesse"),
             indice_charge=request.POST.get("indice_charge"),
-
-
-
         )
         return redirect("voiture_pneus:list")
 
-    return render(request, "voiture_pneus/ajouter_pneus_simple.html")
+    # GET request
+    context = {
+        'TypePneus': VoiturePneus.TypePneus,
+        'IndiceVitesse': VoiturePneus.IndiceVitesse,
+        'IndiceCharge': VoiturePneus.IndiceCharge,
+        'EmplacementPneus': VoiturePneus.EmplacementPneus,
+    }
+
+    return render(request, "voiture_pneus/ajouter_pneus_simple.html", context)

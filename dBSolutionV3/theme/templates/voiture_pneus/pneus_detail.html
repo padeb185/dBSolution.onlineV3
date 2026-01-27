@@ -8,14 +8,14 @@
     <h1 class="text-2xl font-bold mb-4 text-center flex items-center">
         <img src="{% static 'icons/pneus.png' %}" alt="Embrayage"
              style="width:60px; height:60px; margin-right:10px;">
-        {% trans "Détails des pneus" %}: {{ pneus.fournisseur }} {{ pneus.type_pneus }}
+        {% trans "Détails des pneus" %}: {{ pneus.manufacturier }} {{ pneus.type_pneus }}
     </h1>
 
     <form class="flex flex-col space-y-4">
 
         <div class="flex flex-col">
             <label class="mb-1 font-medium">{% trans "Manufacturier" %}</label>
-            <input type="text" value="{{ pneus.fournisseur }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
+            <input type="text" value="{{ pneus.manufacturier }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
         </div>
 
         <div class="flex flex-col">
@@ -25,18 +25,18 @@
 
         <div class="flex flex-col">
             <label class="mb-1 font-medium">{% trans "Largeur en millimètres" %}</label>
-            <input type="text" value="{{ pneus.pneus_avant_largeur }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
+            <input type="text" value="{{ pneus.pneus_largeur }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
         </div>
 
         <div class="flex flex-col">
             <label class="mb-1 font-medium">{% trans "Hauteur en %" %}</label>
-            <input type="text" value="{{ pneus.pneus_avant_hauteur }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
+            <input type="text" value="{{ pneus.pneus_hauteur }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
         </div>
 
 
         <div class="flex flex-col">
             <label class="mb-1 font-medium">{% trans "Diamètre en pouces" %}</label>
-            <input type="text" value="{{ pneus.pneus_avant_jante }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
+            <input type="text" value="{{ pneus.pneus_jante }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
         </div>
 
 

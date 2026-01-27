@@ -5,57 +5,61 @@ from django.utils.translation import gettext_lazy as _
 
 
 
-class TypePneus(models.TextChoices):
-    ETE = "ete", _("Été")
-    PLUIE = "pluie", _("Pluie")
-    SEMI_SLICK = "semi_slick", _("Semi-slick")
-    SLICK = "slick", _("Slick")
-    QUATRE_SAISONS = "4saisons", _("4 saisons")
-    HIVER = "hiver", _("Hiver")
-
-
-
-class IndiceVitesse(models.TextChoices):
-    Q = "Q", _("Q (160 km/h)")
-    R = "R", _("R (170 km/h)")
-    S = "S", _("S (180 km/h)")
-    T = "T", _("T (190 km/h)")
-    H = "H", _("H (210 km/h)")
-    V = "V", _("V (240 km/h)")
-    W = "W", _("W (270 km/h)")
-    Y = "Y", _("Y (300 km/h)")
-    ZR_W = "ZR W", _("ZR W (>270 km/h)")
-    ZR_Y = "ZR Y", _("ZR Y (>300 km/h)")
-    ZR = "ZR", _("ZR (historique >240 km/h)")
-
-
-
-class IndiceCharge(models.TextChoices):
-    L60 = "60", _("60 (250 kg)")
-    M62 = "62", _("62 (265 kg)")
-    N64 = "64", _("64 (280 kg)")
-    P68 = "68", _("68 (315 kg)")
-    Q70 = "70", _("70 (335 kg)")
-    R73 = "73", _("73 (365 kg)")
-    S75 = "75", _("75 (387 kg)")
-    T78 = "78", _("78 (425 kg)")
-    U81 = "81", _("81 (450 kg)")
-    V84 = "84", _("84 (500 kg)")
-    W87 = "87", _("87 (545 kg)")
-    Y91 = "91", _("91 (615 kg)")
-    Z94 = "94", _("94 (670 kg)")
-    X97 = "97", _("97 (730 kg)")
-    ZR100 = "100", _("100 (800 kg)")
-    ZR103 = "103", _("103 (875 kg)")
-    ZR106 = "106", _("106 (950 kg)")
-    ZR109 = "109", _("109 (1030 kg)")
-    ZR112 = "112", _("112 (1120 kg)")
-    ZR115 = "115", _("115 (1215 kg)")
-    ZR118 = "118", _("118 (1320 kg)")
-
 
 
 class VoiturePneus(models.Model):
+
+
+    class TypePneus(models.TextChoices):
+        ETE = "ete", _("Été")
+        PLUIE = "pluie", _("Pluie")
+        SEMI_SLICK = "semi_slick", _("Semi-slick")
+        SLICK = "slick", _("Slick")
+        QUATRE_SAISONS = "4saisons", _("4 saisons")
+        HIVER = "hiver", _("Hiver")
+
+    class IndiceVitesse(models.TextChoices):
+        Q = "Q", _("Q (160 km/h)")
+        R = "R", _("R (170 km/h)")
+        S = "S", _("S (180 km/h)")
+        T = "T", _("T (190 km/h)")
+        H = "H", _("H (210 km/h)")
+        V = "V", _("V (240 km/h)")
+        W = "W", _("W (270 km/h)")
+        Y = "Y", _("Y (300 km/h)")
+        ZR_W = "ZR W", _("ZR W (>270 km/h)")
+        ZR_Y = "ZR Y", _("ZR Y (>300 km/h)")
+        ZR = "ZR", _("ZR (historique >240 km/h)")
+
+    class IndiceCharge(models.TextChoices):
+        L60 = "60", _("60 (250 kg)")
+        M62 = "62", _("62 (265 kg)")
+        N64 = "64", _("64 (280 kg)")
+        P68 = "68", _("68 (315 kg)")
+        Q70 = "70", _("70 (335 kg)")
+        R73 = "73", _("73 (365 kg)")
+        S75 = "75", _("75 (387 kg)")
+        T78 = "78", _("78 (425 kg)")
+        U81 = "81", _("81 (450 kg)")
+        V84 = "84", _("84 (500 kg)")
+        W87 = "87", _("87 (545 kg)")
+        Y91 = "91", _("91 (615 kg)")
+        Z94 = "94", _("94 (670 kg)")
+        X97 = "97", _("97 (730 kg)")
+        ZR100 = "100", _("100 (800 kg)")
+        ZR103 = "103", _("103 (875 kg)")
+        ZR106 = "106", _("106 (950 kg)")
+        ZR109 = "109", _("109 (1030 kg)")
+        ZR112 = "112", _("112 (1120 kg)")
+        ZR115 = "115", _("115 (1215 kg)")
+        ZR118 = "118", _("118 (1320 kg)")
+
+
+
+    class EmplacementPneus(models.TextChoices):
+        AVANT = "avant", _("Avant")
+        ARRIERE = "arriere", _("Arrière")
+        AVANT_ET_ARRIERE = "avant_arriere", _("Avant et Arrière")
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
@@ -72,10 +76,11 @@ class VoiturePneus(models.Model):
         blank=True
     )
 
-    fournisseur = models.ForeignKey(
-        "fournisseur.Fournisseur",
-        on_delete=models.PROTECT,
-        related_name="pneus"
+    manufacturier = models.CharField(max_length=100)
+
+    emplacement = models.CharField(
+        max_length=200,
+        choices=EmplacementPneus.choices
     )
 
     type_pneus = models.CharField(
@@ -83,16 +88,24 @@ class VoiturePneus(models.Model):
         choices=TypePneus.choices
     )
 
-    pneus_avant_largeur = models.CharField(max_length=15, help_text="175 mm")
-    pneus_avant_hauteur = models.CharField(max_length=15, help_text="65 %")
-    pneus_avant_jante = models.CharField(max_length=15, help_text="15 pouces")
+    pneus_largeur = models.CharField(max_length=15, help_text="175 mm")
+    pneus_hauteur = models.CharField(max_length=15, help_text="65 %")
+    pneus_jante = models.CharField(max_length=15, help_text="15 pouces")
 
-    pneus_arriere_largeur = models.CharField(max_length=15, help_text="175 mm")
-    pneus_arriere_hauteur = models.CharField(max_length=15, help_text="65 %")
-    pneus_arriere_jante = models.CharField(max_length=15, help_text="15 pouces")
 
-    kilometre_pneus_av = models.PositiveIntegerField(default=0, verbose_name=_("Kilomètres pneus avant"))
-    kilometre_pneus_ar = models.PositiveIntegerField(default=0, verbose_name=_("Kilomètres pneus arrière"))
+    kilometre_pneus_av = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Kilomètres pneus avant"),
+        null=True,
+        blank=True
+    )
+    kilometre_pneus_ar = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Kilomètres pneus arrière"),
+        null=True,
+        blank=True
+
+    )
 
     # Indices
     indice_vitesse = models.CharField(
@@ -112,8 +125,8 @@ class VoiturePneus(models.Model):
     date_remplacement = models.DateField(null=True, blank=True)
     kilometre_remplacement = models.PositiveIntegerField(null=True, blank=True)
 
-    nombre_trains_av = models.PositiveSmallIntegerField(default=1)
-    nombre_trains_ar = models.PositiveSmallIntegerField(default=1)
+    nombre_trains_av = models.PositiveSmallIntegerField(default=1, null=True, blank=True)
+    nombre_trains_ar = models.PositiveSmallIntegerField(default=1, null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -129,8 +142,8 @@ class VoiturePneus(models.Model):
             VoiturePneusHistorique.objects.create(
                 voiture_pneus=self,
                 type_pneus=self.type_pneus,
-                pneus_avant_largeur=self.pneus_avant_largeur,
-                pneus_arriere_largeur=self.pneus_arriere_largeur,
+                pneus_avant_largeur=self.pneus_largeur,
+                pneus_arriere_largeur=self.pneus_largeur,
                 kilometres_effectues=self.kilometre_pneus_av,
                 kilometres_effectues_ar=self.kilometre_pneus_ar,
                 numero_remplacement=self.historiques.count() + 1 if hasattr(self, 'historiques') else 1,

@@ -1,53 +1,32 @@
 from django.contrib import admin
 from .models import VoiturePneus
-from ..voiture_pneus_historique.models import VoiturePneusHistorique
-
-class VoiturePneusHistoriqueInline(admin.TabularInline):
-    model = VoiturePneusHistorique  # obligatoire
-    extra = 0
-    can_delete = False
-    readonly_fields = (
-        "numero_remplacement",
-        "type_pneus",
-        "pneus_avant_largeur",
-        "pneus_arriere_largeur",
-        "kilometres_effectues",
-        "date_remplacement",
-    )
 
 
 @admin.register(VoiturePneus)
 class VoiturePneusAdmin(admin.ModelAdmin):
     list_display = (
+        "manufacturier",
+        "emplacement",
         "type_pneus",
-        "pneus_avant_largeur",
-        "pneus_arriere_largeur",
+        "pneus_largeur",
+        "pneus_hauteur",
+        "pneus_jante",
         "kilometre_pneus_av",
         "kilometre_pneus_ar",
         "date_remplacement",
     )
-    list_filter = ("type_pneus", "fournisseur")
-    search_fields = (
-        "voiture_exemplaire__immatriculation",
-        "voiture_modele__nom",
-    )
-    readonly_fields = (
-        "kilometre_pneus_av",
-        "kilometre_pneus_ar",
-        "date_remplacement",
-        "created_at",
-    )
-    inlines = [VoiturePneusHistoriqueInline]
+    list_filter = ("type_pneus", "emplacement")
+    search_fields = ("manufacturier",)
 
     fieldsets = (
-        ("Véhicule", {
-            "fields": ("voiture_modele", "voiture_exemplaire", "fournisseur")
+        ("Informations générales", {
+            "fields": ("manufacturier", "emplacement", "type_pneus")
         }),
-        ("Monte actuelle", {
-            "fields": ("type_pneus", "pneus_avant_largeur", "pneus_arriere_largeur")
+        ("Dimensions", {
+            "fields": ("pneus_largeur", "pneus_hauteur", "pneus_jante")
         }),
         ("Kilométrage", {
-            "fields": ("kilometre_pneus", "date_remplacement", "kilometre_remplacement")
+            "fields": ("kilometre_pneus_av", "kilometre_pneus_ar", "date_remplacement")
         }),
         ("Statistiques", {
             "fields": ("nombre_trains_av", "nombre_trains_ar")
@@ -56,3 +35,4 @@ class VoiturePneusAdmin(admin.ModelAdmin):
             "fields": ("created_at",)
         }),
     )
+    readonly_fields = ("kilometre_pneus_av", "kilometre_pneus_ar", "date_remplacement", "created_at")

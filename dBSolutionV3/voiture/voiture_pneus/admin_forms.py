@@ -2,15 +2,14 @@ from django import forms
 from django.utils import timezone
 from .models import VoiturePneus
 from django import forms
-from .models import VoiturePneus, TypePneus
+from .models import VoiturePneus
+
+
 
 
 
 class RemplacementPneusForm(forms.Form):
-    type_pneus = forms.ChoiceField(
-        choices=TypePneus.choices,
-        label="Type de pneus"
-    )
+
 
     pneus_avant = forms.CharField(
         max_length=15,

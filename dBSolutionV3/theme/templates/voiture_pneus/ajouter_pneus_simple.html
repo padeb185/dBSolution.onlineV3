@@ -6,7 +6,7 @@
 
     <h1 class="text-2xl font-bold mb-4 text-center flex items-center justify-center">
         <img src="{% static 'icons/pneus.png' %}" alt="pneus" style="width:60px; height:60px; margin-right:10px;">
-        {% trans "Ajouter un embrayage" %}
+        {% trans "Ajouter des Pneus" %}
     </h1>
 
     {% for message in messages %}
@@ -17,9 +17,23 @@
         {% csrf_token %}
 
         <div>
-            <label for="id_fournisseur">{% trans "Manufacturier" %}</label>
-            <input type="text" id="id_fournisseur" name="fournisseur" class="border rounded px-4 py-2 w-full">
+            <label for="id_manufacturier">{% trans "Manufacturier" %}</label>
+            <input type="text" id="id_manufacturier" name="manufacturier" class="border rounded px-4 py-2 w-full">
         </div>
+
+         <div class="mb-4">
+            <label for="id_emplacement" class="block mb-1">{% trans "Emplacement" %}</label>
+            <select id="id_emplacement" name="emplacement"
+                    class="border rounded px-3 py-2 w-full text-sm h-10">
+                <option value="">{% trans "Sélectionner un emplacement" %}</option>
+                {% for value, label in EmplacementPneus.choices %}
+                    <option value="{{ value }}" {% if pneus.emplacement == value %}selected{% endif %}>
+                        {{ label }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
 
         <div class="mb-4">
             <label for="id_type_pneus" class="block mb-1">{% trans "Type de pneus" %}</label>
@@ -27,7 +41,7 @@
                     class="border rounded px-3 py-2 w-full text-sm h-10">
                 <option value="">{% trans "Sélectionner un type" %}</option>
                 {% for value, label in TypePneus.choices %}
-                    <option value="{{ value }}" {% if embrayage.type_pneus == value %}selected{% endif %}>
+                    <option value="{{ value }}" {% if pneus.type_pneus == value %}selected{% endif %}>
                         {{ label }}
                     </option>
                 {% endfor %}
@@ -98,7 +112,7 @@ function getCookie(name) {
 const csrftoken = getCookie('csrftoken');
 
 document.getElementById('id_fabricant').addEventListener('change', function(){
-    const fournisseur = this.value;
+    const manufacturier = this.value;
 
     fetch('/api/check_nom', {
         method: 'POST',
@@ -106,17 +120,17 @@ document.getElementById('id_fabricant').addEventListener('change', function(){
             'Content-Type': 'application/json',
             'X-CSRFToken': csrftoken,
         },
-        body: JSON.stringify({ fournisseur: fournisseur })
+        body: JSON.stringify({ manufacturier: manufacturier })
     })
     .then(r => r.json())
     .then(data => {
         if (data.exist) {
-            document.getElementById('id_fournisseur').value = data.fournisseur;
+            document.getElementById('id_manufacturier').value = data.manufacturier;
             document.getElementById('id_type_pneu').value = data.type_pneus;
 
         } else {
-            document.getElementById('id_pneus_avant_largeur').value = '';
-            document.getElementById('id_pneus_avant_largeur').value = '';
+            document.getElementById('id_pneus_largeur').value = '';
+            document.getElementById('id_pneus_largeur').value = '';
 
         }
     })
