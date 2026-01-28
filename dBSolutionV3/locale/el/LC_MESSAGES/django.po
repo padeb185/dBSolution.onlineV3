@@ -4463,255 +4463,185 @@ msgstr "Ακύρωση"
 #: .\theme\templates\voiture_freins\ajouter_freins_simple.html:10
 #: .\theme\templates\voiture_freins\list.html:33
 msgid "Ajouter un système de freinage avant"
-msgstr ""
+msgstr "Προσθήκη συστήματος εμπρόσθιου φρένου"
 
 #: .\theme\templates\voiture_freins\ajouter_freins_simple.html:21
-#, fuzzy
-#| msgid "Marques de voiture"
 msgid "Marque disques avant"
-msgstr "Μάρκες αυτοκινήτων"
+msgstr "Μάρκα δίσκων εμπρός"
 
 #: .\theme\templates\voiture_freins\ajouter_freins_simple.html:26
-#, fuzzy
-#| msgid "Diamètre central en mm"
 msgid "Diamètre disques avant (mm)"
-msgstr "Κεντρική διάμετρος σε mm"
+msgstr "Διάμετρος δίσκων εμπρός (mm)"
 
 #: .\theme\templates\voiture_freins\ajouter_freins_simple.html:31
-#, fuzzy
-#| msgid "Épaisseur des disques (mm)"
 msgid "Épaisseur disques avant (mm)"
-msgstr "Πάχος δίσκων (mm)"
+msgstr "Πάχος δίσκων εμπρός (mm)"
 
 #: .\theme\templates\voiture_freins\ajouter_freins_simple.html:36
-#, fuzzy
-#| msgid "Épaisseur des disques (mm)"
 msgid "Épaisseur minimum disques avant (mm)"
-msgstr "Πάχος δίσκων (mm)"
+msgstr "Ελάχιστο πάχος δίσκων εμπρός (mm)"
 
 #: .\theme\templates\voiture_freins\ajouter_freins_simple.html:41
 msgid "Marque plaquettes avant"
-msgstr ""
+msgstr "Μάρκα τακακίων εμπρός"
 
 #: .\theme\templates\voiture_freins\ajouter_freins_simple.html:46
-#, fuzzy
-#| msgid "Épaisseur des disques (mm)"
 msgid "Épaisseur plaquettes avant (mm)"
-msgstr "Πάχος δίσκων (mm)"
+msgstr "Πάχος τακακίων εμπρός (mm)"
 
 #: .\theme\templates\voiture_freins\freins_detail.html:11
 #: .\theme\templates\voiture_freins_ar\freins_ar_detail.html:11
-#, fuzzy
-#| msgid "Détails du moteur"
 msgid "Détails du freinage"
-msgstr "Λεπτομέρειες Κινητήρα"
+msgstr "Λεπτομέρειες φρένων"
 
 #: .\theme\templates\voiture_freins\freins_detail.html:17
-#, fuzzy
-#| msgid "Marques de voiture"
 msgid "Marque disque avant"
-msgstr "Μάρκες αυτοκινήτων"
+msgstr "Μάρκα δίσκου εμπρός"
 
 #: .\theme\templates\voiture_freins\freins_detail.html:22
-#, fuzzy
-#| msgid "Témoin usure avant"
 msgid "Taille disque avant"
-msgstr "Ένδειξη φθοράς εμπρός"
+msgstr "Μέγεθος δίσκου εμπρός"
 
 #: .\theme\templates\voiture_freins\freins_detail.html:27
-#, fuzzy
-#| msgid "Épaisseur des disques (mm)"
 msgid "Epaisseur du disque avant"
-msgstr "Πάχος δίσκων (mm)"
+msgstr "Πάχος δίσκου εμπρός"
 
 #: .\theme\templates\voiture_freins\freins_detail.html:32
-#, fuzzy
-#| msgid "Épaisseur des disques (mm)"
 msgid "Epaisseur minimum du disque avant"
-msgstr "Πάχος δίσκων (mm)"
+msgstr "Ελάχιστο πάχος δίσκου εμπρός"
 
 #: .\theme\templates\voiture_freins\list.html:4
-#, fuzzy
-#| msgid "Type de pièce de freinage"
 msgid "Liste des pièces de frein avant"
-msgstr "Τύπος εξαρτήματος φρένων"
+msgstr "Λίστα εξαρτημάτων εμπρόσθιου φρένου"
 
 #: .\theme\templates\voiture_freins\list.html:10
-#, fuzzy
-#| msgid "Liste des utilisateurs"
 msgid "Liste des freins avant"
-msgstr "Λίστα χρηστών"
+msgstr "Λίστα εμπρόσθιων φρένων"
 
 #: .\theme\templates\voiture_freins\list.html:17
 #: .\theme\templates\voiture_freins\list.html:45
-#, fuzzy
-#| msgid "Marques de voiture"
 msgid "Marque des disques avant"
-msgstr "Μάρκες αυτοκινήτων"
+msgstr "Μάρκα δίσκων εμπρός"
 
 #: .\theme\templates\voiture_freins\list.html:21
 #: .\theme\templates\voiture_freins\list.html:46
-#, fuzzy
-#| msgid "Diamètre en pouces"
 msgid "Diamètre des disques avant"
-msgstr "Διάμετρος σε ίντσες"
+msgstr "Διάμετρος δίσκων εμπρός"
 
 #: .\theme\templates\voiture_freins\list.html:25
 #: .\theme\templates\voiture_freins\list.html:47
-#, fuzzy
-#| msgid "Épaisseur des disques (mm)"
 msgid "Epaisseur des disques avant"
-msgstr "Πάχος δίσκων (mm)"
+msgstr "Πάχος δίσκων εμπρός"
 
 #: .\theme\templates\voiture_freins\list.html:29
 #: .\theme\templates\voiture_freins_ar\list_ar.html:29
 #: .\theme\templates\voiture_freins_ar\list_ar.html:45
-#, fuzzy
-#| msgid "Épaisseur des disques (mm)"
 msgid "Epaisseur minimum des disques arrière"
-msgstr "Πάχος δίσκων (mm)"
+msgstr "Ελάχιστο πάχος δίσκων πίσω"
 
 #: .\theme\templates\voiture_freins\list.html:48
-#, fuzzy
-#| msgid "Épaisseur des disques (mm)"
 msgid "Epaisseur minimum des disques avant"
-msgstr "Πάχος δίσκων (mm)"
+msgstr "Ελάχιστο πάχος δίσκων εμπρός"
 
 #: .\theme\templates\voiture_freins\list.html:79
-#, fuzzy
-#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ entrées"
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ freins"
-msgstr "Εμφάνιση από _START_ έως _END_ από _TOTAL_ εγγραφές"
+msgstr "Εμφάνιση από _START_ έως _END_ από _TOTAL_ φρένα"
+
 
 #: .\theme\templates\voiture_freins\list.html:80
 #: .\theme\templates\voiture_freins\list.html:81
 #: .\theme\templates\voiture_freins_ar\list_ar.html:76
 #: .\theme\templates\voiture_freins_ar\list_ar.html:77
-#, fuzzy
-#| msgid "Aucun moteur trouvé"
 msgid "Aucun système de freinage trouvé"
-msgstr "Δεν βρέθηκε κινητήρας"
+msgstr "Δεν βρέθηκε κανένα σύστημα πέδησης"
 
 #: .\theme\templates\voiture_freins_ar\ajouter_freins_ar_simple.html:10
 #: .\theme\templates\voiture_freins_ar\list_ar.html:33
 msgid "Ajouter un système de freinage arrière"
-msgstr ""
+msgstr "Προσθήκη συστήματος πίσω φρένων"
 
 #: .\theme\templates\voiture_freins_ar\ajouter_freins_ar_simple.html:21
-#, fuzzy
-#| msgid "Marques de voiture"
 msgid "Marque disques arrière"
-msgstr "Μάρκες αυτοκινήτων"
+msgstr "Μάρκα δίσκων πίσω"
 
 #: .\theme\templates\voiture_freins_ar\ajouter_freins_ar_simple.html:26
 msgid "Diamètre disques arrière (mm)"
-msgstr ""
+msgstr "Διάμετρος δίσκων πίσω (mm)"
 
 #: .\theme\templates\voiture_freins_ar\ajouter_freins_ar_simple.html:31
-#, fuzzy
-#| msgid "Épaisseur des disques (mm)"
 msgid "Épaisseur disques arrière (mm)"
-msgstr "Πάχος δίσκων (mm)"
+msgstr "Πάχος δίσκων πίσω (mm)"
 
 #: .\theme\templates\voiture_freins_ar\ajouter_freins_ar_simple.html:36
-#, fuzzy
-#| msgid "Épaisseur des disques (mm)"
 msgid "Épaisseur minimum disques arrière (mm)"
-msgstr "Πάχος δίσκων (mm)"
+msgstr "Ελάχιστο πάχος δίσκων πίσω (mm)"
 
 #: .\theme\templates\voiture_freins_ar\ajouter_freins_ar_simple.html:41
-#, fuzzy
-#| msgid "À remplacer arrière"
 msgid "Marque plaquettes arrière"
-msgstr "Να αντικατασταθεί πίσω"
+msgstr "Μάρκα τακακίων πίσω"
 
 #: .\theme\templates\voiture_freins_ar\ajouter_freins_ar_simple.html:46
-#, fuzzy
-#| msgid "Épaisseur des disques (mm)"
 msgid "Épaisseur plaquettes arrière (mm)"
-msgstr "Πάχος δίσκων (mm)"
+msgstr "Πάχος τακακίων πίσω (mm)"
 
 #: .\theme\templates\voiture_freins_ar\freins_ar_detail.html:17
-#, fuzzy
-#| msgid "Marques de voiture"
 msgid "Marque disque arrière"
-msgstr "Μάρκες αυτοκινήτων"
+msgstr "Μάρκα δίσκου πίσω"
 
 #: .\theme\templates\voiture_freins_ar\freins_ar_detail.html:22
-#, fuzzy
-#| msgid "Témoin usure arrière"
 msgid "Taille disque arrière"
-msgstr "Ένδειξη φθοράς πίσω"
+msgstr "Μέγεθος δίσκου πίσω"
 
 #: .\theme\templates\voiture_freins_ar\freins_ar_detail.html:27
-#, fuzzy
-#| msgid "Épaisseur des disques (mm)"
 msgid "Epaisseur du disque arrière"
-msgstr "Πάχος δίσκων (mm)"
+msgstr "Πάχος δίσκου πίσω"
 
 #: .\theme\templates\voiture_freins_ar\freins_ar_detail.html:32
 msgid "Epaisseur minimum du disque arrière"
-msgstr ""
+msgstr "Ελάχιστο πάχος δίσκου πίσω"
 
 #: .\theme\templates\voiture_freins_ar\list_ar.html:4
-#, fuzzy
-#| msgid "Type de pièce train arrière"
 msgid "Liste des pièces de frein arrière"
-msgstr "Τύπος εξαρτήματος πίσω άξονα"
+msgstr "Λίστα εξαρτημάτων πίσω φρένων"
 
 #: .\theme\templates\voiture_freins_ar\list_ar.html:10
-#, fuzzy
-#| msgid "Pièces train arrière"
 msgid "Liste des freins arrière"
-msgstr "Εξαρτήματα πίσω άξονα"
+msgstr "Λίστα πίσω φρένων"
 
 #: .\theme\templates\voiture_freins_ar\list_ar.html:17
 #: .\theme\templates\voiture_freins_ar\list_ar.html:42
-#, fuzzy
-#| msgid "Marques de voiture"
 msgid "Marque des disques arrière"
-msgstr "Μάρκες αυτοκινήτων"
+msgstr "Μάρκα δίσκων πίσω"
 
 #: .\theme\templates\voiture_freins_ar\list_ar.html:21
 #: .\theme\templates\voiture_freins_ar\list_ar.html:43
-#, fuzzy
-#| msgid "Pièces train arrière"
 msgid "Diamètre des disques arrière"
-msgstr "Εξαρτήματα πίσω άξονα"
+msgstr "Διάμετρος δίσκων πίσω"
 
 #: .\theme\templates\voiture_freins_ar\list_ar.html:25
 #: .\theme\templates\voiture_freins_ar\list_ar.html:44
-#, fuzzy
-#| msgid "Épaisseur des disques (mm)"
 msgid "Epaisseur des disques arrière"
-msgstr "Πάχος δίσκων (mm)"
+msgstr "Πάχος δίσκων πίσω"
 
 #: .\theme\templates\voiture_freins_ar\list_ar.html:75
-#, fuzzy
-#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ entrées"
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ Freins"
-msgstr "Εμφάνιση από _START_ έως _END_ από _TOTAL_ εγγραφές"
+msgstr "Εμφάνιση από _START_ έως _END_ από _TOTAL_ φρένα"
 
 #: .\theme\templates\voiture_marque\marques_list.html:14
 msgid "Mes marques favorites"
 msgstr "Αγαπημένα μου σήματα"
 
 #: .\theme\templates\voiture_marque\marques_list.html:49
-#, fuzzy
-#| msgid "Voir les modèles de cette marque"
 msgid "Voir les"
-msgstr "Δείτε τα μοντέλα αυτού του σήματος"
+msgstr "Δείτε τα"
+
 
 #: .\theme\templates\voiture_marque\marques_list.html:49
-#, fuzzy
-#| msgid "Modèles de"
 msgid "modèles de"
 msgstr "Μοντέλα του"
 
 #: .\theme\templates\voiture_modele\modeles_list.html:8
 #: .\theme\templates\voiture_modele\modeles_par_marque.html:9
-#, fuzzy
-#| msgid "Modèles de"
 msgid "Modèles de "
 msgstr "Μοντέλα του"
 
@@ -4736,10 +4666,9 @@ msgid "Aucun modèle enregistré pour cette marque."
 msgstr "Δεν υπάρχουν καταχωρημένα μοντέλα για αυτό το σήμα."
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:10
-#, fuzzy
-#| msgid "Ajouter un moteur"
 msgid "Ajouter un moteur pour"
-msgstr "Προσθήκη Κινητήρα"
+msgstr "Προσθήκη κινητήρα για"
+
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:22
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:36
@@ -4749,10 +4678,9 @@ msgstr "Κατασκευαστής"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:25
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:39
-#, fuzzy
-#| msgid "Nom du fournisseur"
 msgid "Nom du motoriste"
-msgstr "Όνομα προμηθευτή"
+msgstr "Όνομα κατασκευαστή κινητήρα"
+
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:30
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:44
@@ -4764,7 +4692,8 @@ msgstr "Κωδικός Κινητήρα"
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:33
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:47
 msgid "Ex: S14B23"
-msgstr ""
+msgstr "Π.χ.: S14B23"
+
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:38
 #: .\theme\templates\voiture_moteur\list.html:37
@@ -4774,11 +4703,11 @@ msgstr "Τύπος κινητήρα"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:41
 msgid "Ex: ATM"
-msgstr ""
+msgstr "Π.χ.: ATM"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:49
 msgid "Essence / Diesel / ..."
-msgstr ""
+msgstr "Βενζίνη / Diesel / ..."
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:54
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:80
