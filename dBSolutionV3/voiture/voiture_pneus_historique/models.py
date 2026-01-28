@@ -10,13 +10,13 @@ class VoiturePneusHistorique(models.Model):
         on_delete=models.CASCADE,
         related_name="historiques"
     )
+    voitures_exemplaires = models.ManyToManyField(
+        "voiture_exemplaire.VoitureExemplaire",
+        related_name="historique_pneus",
+        blank=True
+    )
 
-    type_pneus = models.CharField(max_length=20)
-    pneus_avant_largeur = models.CharField(max_length=15)
-    pneus_arriere_largeur = models.CharField(max_length=15)
-
-
-
+    kilometre_montage = models.PositiveIntegerField
     kilometres_effectues = models.PositiveIntegerField()
 
     date_remplacement = models.DateField(auto_now_add=True)

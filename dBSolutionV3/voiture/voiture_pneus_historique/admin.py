@@ -5,7 +5,6 @@ from .models import VoiturePneusHistorique
 class VoiturePneusHistoriqueAdmin(admin.ModelAdmin):
     list_display = (
         "voiture_pneus",
-        "type_pneus",
         "get_emplacement",
         "get_pneus_largeur",
         "kilometres_effectues",
@@ -14,7 +13,6 @@ class VoiturePneusHistoriqueAdmin(admin.ModelAdmin):
     )
 
     list_filter = (
-        "type_pneus",
         "voiture_pneus__emplacement",  # filtre via relation
         "date_remplacement",
     )

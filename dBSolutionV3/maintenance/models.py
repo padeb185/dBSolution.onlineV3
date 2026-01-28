@@ -39,7 +39,7 @@ class Maintenance(models.Model):
 
     chef_mecanicien = models.ForeignKey(
         "chef_mecanicien.ChefMecanicien",
-        verbose_name=_("Apprentis"),
+        verbose_name=_("Chef mécanicien"),
         on_delete=models.SET_NULL,
         null=True,
         blank=True
