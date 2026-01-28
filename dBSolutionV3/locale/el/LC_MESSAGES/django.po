@@ -4788,7 +4788,8 @@ msgstr "Κυβισμός (L)"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:65
 msgid "Chaîne / Courroie"
-msgstr ""
+msgstr "Αλυσίδα / Ιμάντας"
+
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:70
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:102
@@ -4799,71 +4800,51 @@ msgstr "Αριθμός κυλίνδρων"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:78
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:110
-#, fuzzy
-#| msgid "Puissance en watts"
 msgid "Puissance en Chevaux"
-msgstr "Ισχύς σε βατ"
+msgstr "Ισχύς σε ίππους"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:85
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:116
-#, fuzzy
-#| msgid "Puissance en watts"
 msgid "Puissance à tr/min"
-msgstr "Ισχύς σε βατ"
+msgstr "Ισχύς σε σ.α.λ."
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:92
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:122
-#, fuzzy
-#| msgid "Couple conique"
 msgid "Couple Nm"
-msgstr "Κωνικό ζεύγος"
+msgstr "Ροπή Nm"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:99
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:128
 msgid "Couple tr/min"
-msgstr ""
+msgstr "Ροπή σε σ.α.λ."
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:10
-#, fuzzy
-#| msgid "Lier un moteur à un véhicule"
 msgid "Ajouter un moteur pour un nouveau véhicule"
-msgstr "Σύνδεση ενός κινητήρα με ένα όχημα"
+msgstr "Προσθήκη κινητήρα για νέο όχημα"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:52
-#, fuzzy
-#| msgid "Type moteur"
 msgid "Type de moteur"
 msgstr "Τύπος κινητήρα"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:55
-#, fuzzy
-#| msgid "Électrovanne de turbo"
 msgid "Sélectionner un type de moteur"
-msgstr "Ηλεκτροβαλβίδα τουρμπίνας"
+msgstr "Επιλέξτε τύπο κινητήρα"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:69
-#, fuzzy
-#| msgid "Type de carburant"
 msgid "Sélectionner un type de carburant"
-msgstr "Τύπος καυσίμου"
+msgstr "Επιλέξτε τύπο καυσίμου"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:88
-#, fuzzy
-#| msgid "Pièce de direction"
 msgid "Type de distribution"
-msgstr "Εξάρτημα τιμονιού"
+msgstr "Τύπος διανομής"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:91
-#, fuzzy
-#| msgid "Pièce de direction"
 msgid "Sélectionner un type de distribution"
-msgstr "Εξάρτημα τιμονιού"
+msgstr "Επιλέξτε τύπο διανομής"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:148
-#, fuzzy
-#| msgid "Intervention %(id)s"
 msgid "Interval d'entretien"
-msgstr "Επέμβαση %(id)s"
+msgstr "Διάστημα συντήρησης"
 
 #: .\theme\templates\voiture_moteur\list.html:4
 #: .\theme\templates\voiture_moteur\list.html:10
@@ -4871,22 +4852,17 @@ msgid "Liste des moteurs"
 msgstr "Λίστα κινητήρων"
 
 #: .\theme\templates\voiture_moteur\list.html:17
-#, fuzzy
-#| msgid "Rechercher un modèle..."
 msgid "Rechercher par motoriste"
-msgstr "Αναζήτηση μοντέλου..."
+msgstr "Αναζήτηση κατά κατασκευαστή κινητήρα"
 
 #: .\theme\templates\voiture_moteur\list.html:19
-#, fuzzy
-#| msgid "Rechercher un modèle..."
 msgid "Rechercher par code moteur"
-msgstr "Αναζήτηση μοντέλου..."
+msgstr "Αναζήτηση κατά κωδικό κινητήρα"
 
 #: .\theme\templates\voiture_moteur\list.html:21
-#, fuzzy
-#| msgid "Rechercher un modèle..."
 msgid "Rechercher par cylindrée"
-msgstr "Αναζήτηση μοντέλου..."
+msgstr "Αναζήτηση κατά κυβισμό"
+
 
 #: .\theme\templates\voiture_moteur\list.html:25
 #: .\voiture\voiture_moteur\views.py:34
@@ -4894,16 +4870,12 @@ msgid "Ajouter un moteur"
 msgstr "Προσθήκη Κινητήρα"
 
 #: .\theme\templates\voiture_moteur\list.html:34
-#, fuzzy
-#| msgid "Nom du fournisseur"
 msgid "Nom du Motoriste"
-msgstr "Όνομα προμηθευτή"
+msgstr "Όνομα κατασκευαστή κινητήρα"
 
 #: .\theme\templates\voiture_moteur\list.html:36
-#, fuzzy
-#| msgid "Cylindre esclave"
 msgid "Cylindree"
-msgstr "Υποκύλινδρος"
+msgstr "Κυβισμός"
 
 #: .\theme\templates\voiture_moteur\list.html:40
 #: .\theme\templates\voiture_moteur\moteur_detail.html:42
@@ -4928,62 +4900,47 @@ msgid "Détails du moteur"
 msgstr "Λεπτομέρειες Κινητήρα"
 
 #: .\theme\templates\voiture_moteur\moteur_detail.html:47
-#, fuzzy
-#| msgid "Puissance (CH)"
 msgid "Puissance à (tr/min)"
-msgstr "Ισχύς (ίπποι)"
+msgstr "Ισχύς σε (σ.α.λ.)"
 
 #: .\theme\templates\voiture_moteur\moteur_detail.html:52
 msgid "Couple (Nm)"
-msgstr ""
+msgstr "Ροπή (Nm)"
 
 #: .\theme\templates\voiture_moteur\moteur_detail.html:57
 msgid "Couple à (tr/min)"
-msgstr ""
+msgstr "Ροπή σε (σ.α.λ.)"
 
 #: .\theme\templates\voiture_moteur\moteur_detail.html:87
-#, fuzzy
-#| msgid "Numéro de facture"
 msgid "Numéro moteur"
-msgstr "Αριθμός τιμολογίου"
+msgstr "Αριθμός κινητήρα"
 
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:9
-#, fuzzy
-#| msgid "Ajouter un moteur"
 msgid "Ajouter des Pneus"
-msgstr "Προσθήκη Κινητήρα"
+msgstr "Προσθήκη ελαστικών"
 
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:29
-#, fuzzy
-#| msgid "Ajouter un exemplaire"
 msgid "Sélectionner un emplacement"
-msgstr "Προσθήκη αντιτύπου"
+msgstr "Επιλέξτε θέση"
 
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:38
 #: .\theme\templates\voiture_pneus\list.html:69
 #: .\theme\templates\voiture_pneus\pneus_detail.html:22
-#, fuzzy
-#| msgid "Type de pneu"
 msgid "Type de pneus"
-msgstr "Τύπος ελαστικού"
+msgstr "Τύπος ελαστικών"
 
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:48
 #: .\theme\templates\voiture_pneus\list.html:25
 #: .\theme\templates\voiture_pneus\list.html:70
 #: .\theme\templates\voiture_pneus\pneus_detail.html:27
-#, fuzzy
-#| msgid "Nom du filtre"
 msgid "Nom du pneus"
-msgstr "Όνομα φίλτρου"
+msgstr "Όνομα ελαστικού"
 
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:54
-#, fuzzy
-#| msgid "Largeur"
 msgid "Largeur (mm)"
-msgstr "Πλάτος"
+msgstr "Πλάτος (mm)"
 
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:58
-
 msgid "Hauteur (%%)"
 msgstr "Ύψος (%)"
 
