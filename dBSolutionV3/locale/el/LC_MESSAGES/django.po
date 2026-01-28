@@ -1818,74 +1818,52 @@ msgid "Pièces de direction"
 msgstr "Εξαρτήματα τιμονιού"
 
 #: .\piece\piece_distribution\models.py:12
-#, fuzzy
-#| msgid "Courroie de Distribution"
 msgid "Courroie de distribution"
 msgstr "Ιμάντας χρονισμού"
 
 #: .\piece\piece_distribution\models.py:13
-#, fuzzy
-#| msgid "Chaine de Distribution"
 msgid "Chaîne de distribution"
 msgstr "Αλυσίδα χρονισμού"
 
 #: .\piece\piece_distribution\models.py:14
-#, fuzzy
-#| msgid "Galet Tendeur"
 msgid "Galet tendeur"
 msgstr "Τεντωτήρας ιμάντα"
 
 #: .\piece\piece_distribution\models.py:15
 msgid "Galet libre"
-msgstr ""
+msgstr "Ελεύθερος τροχός"
 
 #: .\piece\piece_distribution\models.py:16
-#, fuzzy
-#| msgid "Pompe à Eau"
 msgid "Pompe à eau"
 msgstr "Αντλία νερού"
 
 #: .\piece\piece_distribution\models.py:17
-#, fuzzy
-#| msgid "Roue de rechange"
 msgid "Guide de chaîne"
-msgstr "Ρεζέρβα"
+msgstr "Οδηγός αλυσίδας"
 
 #: .\piece\piece_distribution\models.py:18
-#, fuzzy
-#| msgid "Joint de porte"
 msgid "Joint de culot"
-msgstr "Λάστιχο πόρτας"
+msgstr "Στεγανοποιητικό βάσης"
 
 #: .\piece\piece_distribution\models.py:19
-#, fuzzy
-#| msgid "Type de pièce hydraulique"
 msgid "Tendeur hydraulique"
-msgstr "Τύπος υδραυλικού εξαρτήματος"
+msgstr "Υδραυλικός τεντωτήρας"
 
 #: .\piece\piece_distribution\models.py:20
-#, fuzzy
-#| msgid "Chaine de Distribution"
 msgid "Cache distribution"
-msgstr "Αλυσίδα χρονισμού"
+msgstr "Κάλυμμα εκκεντροφόρου"
 
 #: .\piece\piece_distribution\models.py:27
-#, fuzzy
-#| msgid "Type de pièce de direction"
 msgid "Type de pièce de distribution"
-msgstr "Τύπος εξαρτήματος τιμονιού"
+msgstr "Τύπος εξαρτήματος χρονισμού"
 
 #: .\piece\piece_distribution\models.py:39
-#, fuzzy
-#| msgid "Pièce de direction"
 msgid "Pièce de distribution"
-msgstr "Εξάρτημα τιμονιού"
+msgstr "Εξάρτημα χρονισμού"
 
 #: .\piece\piece_distribution\models.py:40
-#, fuzzy
-#| msgid "Pièces de direction"
 msgid "Pièces de distribution"
-msgstr "Εξαρτήματα τιμονιού"
+msgstr "Εξαρτήματα χρονισμού"
 
 #: .\piece\piece_echappement\models.py:9
 msgid "Collecteur d’échappement"
