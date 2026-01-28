@@ -4428,10 +4428,9 @@ msgid "Aucun véhicule trouvé."
 msgstr "Δεν βρέθηκε κανένα αποτέλεσμα"
 
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:11
-#, fuzzy
-#| msgid "Véhicule"
+
 msgid "Véhicule : "
-msgstr "Όχημα"
+msgstr "Όχημα : "
 
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:22
 msgid "Rechercher un exemplaire par immatriculation..."
@@ -4447,10 +4446,9 @@ msgid "Aucun exemplaire enregistré pour ce modèle."
 msgstr "Δεν έχει καταχωρηθεί κανένα δείγμα για αυτό το μοντέλο."
 
 #: .\theme\templates\voiture_exemplaire\modifier_exemplaire.html:6
-#, fuzzy
-#| msgid "Ajouter un véhicule"
 msgid "Modifier le véhicule"
-msgstr "Προσθήκη οχήματος"
+msgstr "Τροποποίηση οχήματος"
+
 
 #: .\theme\templates\voiture_exemplaire\modifier_exemplaire.html:55
 msgid "Enregistrer les modifications"
