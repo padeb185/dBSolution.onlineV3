@@ -898,22 +898,17 @@ msgid "Chef mécanicien"
 msgstr "Αρχιμηχανικός"
 
 #: .\maintenance\models.py:8
-#, fuzzy
-#| msgid "Check up"
 msgid "Check-up"
 msgstr "Έλεγχος"
 
 #: .\maintenance\models.py:9 .\maintenance\views.py:41
-#, fuzzy
-#| msgid "Entretoise"
 msgid "Entretien"
-msgstr "Αποστάτης"
+msgstr "Συντήρηση"
 
 #: .\maintenance\models.py:10 .\maintenance\views.py:42
-#, fuzzy
-#| msgid "Freins avant"
 msgid "Freins"
-msgstr "Μπροστινά Φρένα"
+msgstr "Φρένα"
+
 
 #: .\maintenance\models.py:11 .\maintenance\views.py:43
 #: .\piece\piece_pneus\models.py:55 .\theme\templates\dashboard.html:188
@@ -933,16 +928,12 @@ msgid "Nettoyage intérieur"
 msgstr "Καθαρισμός εσωτερικού"
 
 #: .\maintenance\models.py:14 .\maintenance\views.py:46
-#, fuzzy
-#| msgid "Niveau"
 msgid "Niveaux"
-msgstr "Επίπεδο"
+msgstr "Επίπεδα"
 
 #: .\maintenance\models.py:15 .\maintenance\views.py:47
-#, fuzzy
-#| msgid "Date d'intervention"
 msgid "Autres interventions"
-msgstr "Ημερομηνία παρέμβασης"
+msgstr "Άλλες επεμβάσεις"
 
 #: .\maintenance\models.py:20
 msgid "Vert"
@@ -995,10 +986,8 @@ msgid "Kilométrage boîte"
 msgstr "Χιλιομετρική απόσταση κιβωτίου"
 
 #: .\maintenance\models.py:91
-#, fuzzy
-#| msgid "Type de boite"
 msgid "Type de maintenance"
-msgstr "Τύπος κιβωτίου"
+msgstr "Τύπος συντήρησης"
 
 #: .\maintenance\models.py:100
 msgid "Maintenances"
@@ -1129,8 +1118,6 @@ msgid "%(type)s - %(empl)s (%(etat)s)"
 msgstr "%(type)s - %(empl)s (%(etat)s)"
 
 #: .\maintenance\views.py:40
-#, fuzzy
-#| msgid "Check up"
 msgid "Checkup"
 msgstr "Έλεγχος"
 
@@ -3659,13 +3646,11 @@ msgstr "Σύνδεση"
 
 #: .\theme\templates\maintenance\choisir_type.html:13
 msgid "Choisir le type de maintenance pour :"
-msgstr ""
+msgstr "Επιλέξτε τον τύπο συντήρησης για:"
 
 #: .\theme\templates\maintenance\list.html:11
-#, fuzzy
-#| msgid "Moteur du véhicule: "
 msgid "Maintenance du véhicule :"
-msgstr "Κινητήρας οχήματος: "
+msgstr "Συντήρηση οχήματος:"
 
 #: .\theme\templates\maintenance\list.html:23
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:22
@@ -3679,10 +3664,8 @@ msgid "Kilométrage"
 msgstr "Χιλιομετρική απόσταση"
 
 #: .\theme\templates\maintenance\list.html:76
-#, fuzzy
-#| msgid "Aucun exemplaire enregistré pour ce modèle."
 msgid "Aucun exemplaire disponible pour la maintenance."
-msgstr "Δεν έχει καταχωρηθεί κανένα δείγμα για αυτό το μοντέλο."
+msgstr "Κανένα όχημα διαθέσιμο για συντήρηση."
 
 #: .\theme\templates\totp\setup.html:5
 msgid "Configurer TOTP"
