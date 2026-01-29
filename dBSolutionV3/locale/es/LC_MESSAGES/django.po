@@ -897,22 +897,17 @@ msgid "Chef mécanicien"
 msgstr "Jefe de mecánicos"
 
 #: .\maintenance\models.py:8
-#, fuzzy
-#| msgid "Check up"
 msgid "Check-up"
 msgstr "Revisión"
 
 #: .\maintenance\models.py:9 .\maintenance\views.py:41
-#, fuzzy
-#| msgid "Entretoise"
 msgid "Entretien"
-msgstr "Espaciador"
+msgstr "Mantenimiento"
+
 
 #: .\maintenance\models.py:10 .\maintenance\views.py:42
-#, fuzzy
-#| msgid "Freins avant"
 msgid "Freins"
-msgstr "Frenos delanteros"
+msgstr "Frenos"
 
 #: .\maintenance\models.py:11 .\maintenance\views.py:43
 #: .\piece\piece_pneus\models.py:55 .\theme\templates\dashboard.html:188
@@ -932,16 +927,12 @@ msgid "Nettoyage intérieur"
 msgstr "Limpieza interior"
 
 #: .\maintenance\models.py:14 .\maintenance\views.py:46
-#, fuzzy
-#| msgid "Niveau"
 msgid "Niveaux"
-msgstr "Nivel"
+msgstr "Niveles"
 
 #: .\maintenance\models.py:15 .\maintenance\views.py:47
-#, fuzzy
-#| msgid "Date d'intervention"
 msgid "Autres interventions"
-msgstr "Fecha de intervención"
+msgstr "Otras intervenciones"
 
 #: .\maintenance\models.py:20
 msgid "Vert"
@@ -994,10 +985,8 @@ msgid "Kilométrage boîte"
 msgstr "Kilometraje de la caja de cambios"
 
 #: .\maintenance\models.py:91
-#, fuzzy
-#| msgid "Type de boite"
 msgid "Type de maintenance"
-msgstr "Tipo de caja"
+msgstr "Tipo de mantenimiento"
 
 #: .\maintenance\models.py:100
 msgid "Maintenances"
@@ -1128,8 +1117,6 @@ msgid "%(type)s - %(empl)s (%(etat)s)"
 msgstr "%(type)s - %(empl)s (%(etat)s)"
 
 #: .\maintenance\views.py:40
-#, fuzzy
-#| msgid "Check up"
 msgid "Checkup"
 msgstr "Revisión"
 
@@ -3658,13 +3645,11 @@ msgstr "Iniciar sesión"
 
 #: .\theme\templates\maintenance\choisir_type.html:13
 msgid "Choisir le type de maintenance pour :"
-msgstr ""
+msgstr "Seleccionar el tipo de mantenimiento para:"
 
 #: .\theme\templates\maintenance\list.html:11
-#, fuzzy
-#| msgid "Moteur du véhicule: "
 msgid "Maintenance du véhicule :"
-msgstr "Motor del vehículo: "
+msgstr "Mantenimiento del vehículo:"
 
 #: .\theme\templates\maintenance\list.html:23
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:22
@@ -3678,10 +3663,9 @@ msgid "Kilométrage"
 msgstr "Kilometraje"
 
 #: .\theme\templates\maintenance\list.html:76
-#, fuzzy
-#| msgid "Aucun exemplaire enregistré pour ce modèle."
 msgid "Aucun exemplaire disponible pour la maintenance."
-msgstr "No hay ejemplares registrados para este modelo."
+msgstr "No hay vehículo disponible para mantenimiento."
+
 
 #: .\theme\templates\totp\setup.html:5
 msgid "Configurer TOTP"
