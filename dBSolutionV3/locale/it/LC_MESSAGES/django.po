@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-27 16:35+0100\n"
+"POT-Creation-Date: 2026-01-29 17:33+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -416,7 +416,7 @@ msgstr "Modello"
 msgid "Véhicule"
 msgstr "Veicolo"
 
-#: .\fuel\models.py:35 .\maintenance\models.py:50 .\piece\models.py:68
+#: .\fuel\models.py:35 .\maintenance\models.py:61 .\piece\models.py:68
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:39
 msgid "Immatriculation"
 msgstr "Targa"
@@ -622,8 +622,8 @@ msgstr "Cambio"
 #: .\maintenance\bruits\models.py:24
 #: .\maintenance\controle_check_up\models.py:32
 #: .\maintenance\freins\models.py:17 .\maintenance\jeux_pieces\models.py:38
-#: .\maintenance\models.py:82 .\maintenance\niveaux\models.py:12
-#: .\maintenance\silent_blocs\models.py:27
+#: .\maintenance\models.py:99 .\maintenance\niveaux\models.py:12
+#: .\maintenance\silent_blocs\models.py:27 .\theme\templates\dashboard.html:203
 msgid "Maintenance"
 msgstr "Manutenzione"
 
@@ -881,89 +881,130 @@ msgstr "%(piece)s – %(empl)s (%(etat)s / %(tag)s)"
 msgid "Non précisé"
 msgstr "Non specificato"
 
-#: .\maintenance\jeux_pieces\models.py:108 .\maintenance\models.py:34
-#: .\utilisateurs\models.py:73 .\utilisateurs\views.py:172
+#: .\maintenance\jeux_pieces\models.py:108 .\maintenance\models.py:45
+#: .\utilisateurs\models.py:73 .\utilisateurs\views.py:161
 msgid "Apprenti"
 msgstr "Apprendista"
 
-#: .\maintenance\jeux_pieces\models.py:109 .\maintenance\models.py:26
+#: .\maintenance\jeux_pieces\models.py:109 .\maintenance\models.py:37
 #: .\maintenance\nettoyage_exterieur\models.py:25
 #: .\maintenance\nettoyage_interieur\models.py:26 .\utilisateurs\models.py:74
-#: .\utilisateurs\views.py:173
+#: .\utilisateurs\views.py:162
 msgid "Mécanicien"
 msgstr "Meccanico"
 
-#: .\maintenance\jeux_pieces\models.py:110
+#: .\maintenance\jeux_pieces\models.py:110 .\maintenance\models.py:53
 msgid "Chef mécanicien"
 msgstr "Capo meccanico"
 
-#: .\maintenance\models.py:9
+#: .\maintenance\models.py:8
+#, fuzzy
+#| msgid "Check up"
+msgid "Check-up"
+msgstr "Controllo"
+
+#: .\maintenance\models.py:9 .\maintenance\views.py:41
+#, fuzzy
+#| msgid "Entretoise"
+msgid "Entretien"
+msgstr "Distanziale"
+
+#: .\maintenance\models.py:10 .\maintenance\views.py:42
+#, fuzzy
+#| msgid "Freins avant"
+msgid "Freins"
+msgstr "Freni anteriori"
+
+#: .\maintenance\models.py:11 .\maintenance\views.py:43
+#: .\piece\piece_pneus\models.py:55 .\theme\templates\dashboard.html:188
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:155
+#: .\theme\templates\voiture_exemplaire\lier_pneus.html:35
+msgid "Pneus"
+msgstr "Pneumatici"
+
+#: .\maintenance\models.py:12 .\maintenance\nettoyage_exterieur\models.py:37
+#: .\maintenance\views.py:44
+msgid "Nettoyage extérieur"
+msgstr "Pulizia esterna"
+
+#: .\maintenance\models.py:13 .\maintenance\nettoyage_interieur\models.py:41
+#: .\maintenance\views.py:45
+msgid "Nettoyage intérieur"
+msgstr "Pulizia interna"
+
+#: .\maintenance\models.py:14 .\maintenance\views.py:46
+#, fuzzy
+#| msgid "Niveau"
+msgid "Niveaux"
+msgstr "Livello"
+
+#: .\maintenance\models.py:15 .\maintenance\views.py:47
+#, fuzzy
+#| msgid "Date d'intervention"
+msgid "Autres interventions"
+msgstr "Data intervento"
+
+#: .\maintenance\models.py:20
 msgid "Vert"
 msgstr "Verde"
 
-#: .\maintenance\models.py:10
+#: .\maintenance\models.py:21
 msgid "Jaune"
 msgstr "Giallo"
 
-#: .\maintenance\models.py:11
+#: .\maintenance\models.py:22
 msgid "Rouge"
 msgstr "Rosso"
 
-#: .\maintenance\models.py:17
+#: .\maintenance\models.py:28
 msgid "Voiture exemplaire"
 msgstr "Esemplare auto"
 
-#: .\maintenance\models.py:42
-msgid "Apprentis"
-msgstr "Apprendisti"
-
-#: .\maintenance\models.py:51
+#: .\maintenance\models.py:62
 msgid "Date d'intervention"
 msgstr "Data intervento"
 
-#: .\maintenance\models.py:53
+#: .\maintenance\models.py:64
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:78
 msgid "Date de la dernière intervention"
 msgstr "Data ultimo intervento"
 
-#: .\maintenance\models.py:58
+#: .\maintenance\models.py:69
 msgid "Étiquette"
 msgstr "Etichetta"
 
-#: .\maintenance\models.py:65
+#: .\maintenance\models.py:76
 msgid "Kilométrage total"
 msgstr "Chilometraggio totale"
 
-#: .\maintenance\models.py:67
+#: .\maintenance\models.py:78
 msgid "Kilométrage à la dernière intervention"
 msgstr "Chilometraggio all'ultimo intervento"
 
-#: .\maintenance\models.py:71
+#: .\maintenance\models.py:82
 msgid "Kilométrage châssis"
 msgstr "Chilometraggio telaio"
 
-#: .\maintenance\models.py:74
+#: .\maintenance\models.py:86
 #: .\theme\templates\voiture_moteur\moteur_detail.html:82
 msgid "Kilométrage moteur"
 msgstr "Chilometraggio motore"
 
-#: .\maintenance\models.py:75
+#: .\maintenance\models.py:87
 msgid "Kilométrage boîte"
 msgstr "Chilometraggio cambio"
 
-#: .\maintenance\models.py:78
-msgid "Remplacement moteur"
-msgstr "Sostituzione motore"
+#: .\maintenance\models.py:91
+#, fuzzy
+#| msgid "Type de boite"
+msgid "Type de maintenance"
+msgstr "Tipo di cambio"
 
-#: .\maintenance\models.py:79 .\voiture\voiture_boite\models.py:11
-msgid "Remplacement boîte"
-msgstr "Sostituzione cambio"
-
-#: .\maintenance\models.py:83
+#: .\maintenance\models.py:100
 msgid "Maintenances"
 msgstr "Manutenzioni"
 
-#: .\maintenance\models.py:101
+#: .\maintenance\models.py:118
 #, python-format
 msgid "Maintenance %(voiture)s (%(date)s)"
 msgstr "Manutenzione %(voiture)s (%(date)s)"
@@ -993,10 +1034,6 @@ msgstr "Conferma finale"
 msgid "Date"
 msgstr ""
 
-#: .\maintenance\nettoyage_exterieur\models.py:37
-msgid "Nettoyage extérieur"
-msgstr "Pulizia esterna"
-
 #: .\maintenance\nettoyage_exterieur\models.py:38
 msgid "Nettoyages extérieurs"
 msgstr "Pulizie esterne"
@@ -1021,10 +1058,6 @@ msgstr "Cruscotto"
 #: .\maintenance\nettoyage_interieur\models.py:34
 msgid "Plastiques"
 msgstr "Plastica"
-
-#: .\maintenance\nettoyage_interieur\models.py:41
-msgid "Nettoyage intérieur"
-msgstr "Pulizia interna"
 
 #: .\maintenance\nettoyage_interieur\models.py:42
 msgid "Nettoyages intérieurs"
@@ -1094,6 +1127,12 @@ msgstr "Tipo di silentbloc"
 #, python-format
 msgid "%(type)s - %(empl)s (%(etat)s)"
 msgstr "%(type)s - %(empl)s (%(etat)s)"
+
+#: .\maintenance\views.py:40
+#, fuzzy
+#| msgid "Check up"
+msgid "Checkup"
+msgstr "Controllo"
 
 #: .\outillage\models.py:9 .\panier\models.py:16 .\panier\models.py:71
 msgid "Identifiant"
@@ -1215,7 +1254,7 @@ msgstr "Produttori"
 msgid "Codes-barres"
 msgstr "Codici a barre"
 
-#: .\piece\models.py:69
+#: .\piece\models.py:69 .\theme\templates\maintenance\list.html:61
 msgid "Année"
 msgstr "Anno"
 
@@ -1379,6 +1418,7 @@ msgid "Puissance en watts"
 msgstr "Potenza in watt"
 
 #: .\piece\piece_ampoules\models.py:60 .\piece\piece_feux\models.py:29
+#: .\theme\templates\maintenance\list.html:64
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:48
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:73
 msgid "Couleur"
@@ -2891,12 +2931,6 @@ msgstr "Quantità montata"
 msgid "Pneu"
 msgstr "Pneumatico"
 
-#: .\piece\piece_pneus\models.py:55 .\theme\templates\dashboard.html:188
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:155
-#: .\theme\templates\voiture_exemplaire\lier_pneus.html:35
-msgid "Pneus"
-msgstr "Pneumatici"
-
 #: .\piece\piece_pneus\models.py:58
 #, python-format
 msgid "%(type)s – %(largeur)s/%(hauteur)s R%(jante)s"
@@ -3540,7 +3574,7 @@ msgstr "Utenti"
 #: .\theme\templates\dashboard.html:99 .\theme\templates\dashboard.html:115
 #: .\theme\templates\dashboard.html:130 .\theme\templates\dashboard.html:145
 #: .\theme\templates\dashboard.html:160 .\theme\templates\dashboard.html:175
-#: .\theme\templates\dashboard.html:190
+#: .\theme\templates\dashboard.html:190 .\theme\templates\dashboard.html:205
 msgid "Nombre total :"
 msgstr "Numero totale:"
 
@@ -3608,7 +3642,7 @@ msgstr "Freni anteriori"
 msgid "Freins arrière"
 msgstr "Freni posteriori"
 
-#: .\theme\templates\dashboard.html:205
+#: .\theme\templates\dashboard.html:220
 msgid "Tableau de bord Admin"
 msgstr "Cruscotto Admin"
 
@@ -3623,6 +3657,33 @@ msgstr "Questo è un paragrafo stilizzato con Tailwind."
 #: .\theme\templates\home.html:29
 msgid "Se connecter"
 msgstr "Accedi"
+
+#: .\theme\templates\maintenance\choisir_type.html:13
+msgid "Choisir le type de maintenance pour :"
+msgstr ""
+
+#: .\theme\templates\maintenance\list.html:11
+#, fuzzy
+#| msgid "Moteur du véhicule: "
+msgid "Maintenance du véhicule :"
+msgstr "Motore del veicolo: "
+
+#: .\theme\templates\maintenance\list.html:23
+#: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:22
+msgid "Rechercher un exemplaire par immatriculation..."
+msgstr "Cerca un esemplare per targa..."
+
+#: .\theme\templates\maintenance\list.html:62
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:47
+#: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:71
+msgid "Kilométrage"
+msgstr "Chilometraggio"
+
+#: .\theme\templates\maintenance\list.html:76
+#, fuzzy
+#| msgid "Aucun exemplaire enregistré pour ce modèle."
+msgid "Aucun exemplaire disponible pour la maintenance."
+msgstr "Nessun esemplare registrato per questo modello."
 
 #: .\theme\templates\totp\setup.html:5
 msgid "Configurer TOTP"
@@ -4072,11 +4133,6 @@ msgstr "Dettagli del veicolo : "
 msgid "Informations générales"
 msgstr "Informazioni generali"
 
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:47
-#: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:71
-msgid "Kilométrage"
-msgstr "Chilometraggio"
-
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:48
 msgid "Non renseignée"
 msgstr "Non indicata"
@@ -4208,6 +4264,7 @@ msgstr "Seleziona un motore"
 #: .\theme\templates\voiture_exemplaire\lier_moteur.html:66
 msgid "Lier le moteur"
 msgstr "Collega il motore"
+
 #: .\theme\templates\voiture_exemplaire\lier_pneus.html:12
 msgid "Pneus du véhicule"
 msgstr "Pneumatici del veicolo"
@@ -4236,10 +4293,6 @@ msgstr "Nessun veicolo trovato."
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:11
 msgid "Véhicule : "
 msgstr "Veicolo : "
-
-#: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:22
-msgid "Rechercher un exemplaire par immatriculation..."
-msgstr "Cerca un esemplare per targa..."
 
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:96
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:116
@@ -4647,7 +4700,6 @@ msgstr "Aggiungi pneumatici"
 msgid "Sélectionner un emplacement"
 msgstr "Seleziona una posizione"
 
-
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:38
 #: .\theme\templates\voiture_pneus\list.html:69
 #: .\theme\templates\voiture_pneus\pneus_detail.html:22
@@ -4666,13 +4718,13 @@ msgid "Largeur (mm)"
 msgstr "Larghezza (mm)"
 
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:58
+#, python-format
 msgid "Hauteur (%%)"
 msgstr "Altezza (%%)"
 
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:62
 msgid "Diamètre jante (pouces)"
 msgstr "Diametro del cerchio (pollici)"
-
 
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:68
 msgid "Indice de Vitesse"
@@ -4742,9 +4794,9 @@ msgid "Détails des pneus"
 msgstr "Dettagli dei pneumatici"
 
 #: .\theme\templates\voiture_pneus\pneus_detail.html:37
+#, python-format
 msgid "Hauteur en %%"
 msgstr "Altezza in %%"
-
 
 #: .\theme\views.py:35
 msgid "Nom d'utilisateur ou mot de passe incorrect"
@@ -4770,49 +4822,53 @@ msgstr "Risorse Umane"
 msgid "Operations"
 msgstr "Operaciones"
 
-#: .\utilisateurs\models.py:75 .\utilisateurs\views.py:176
+#: .\utilisateurs\models.py:75 .\utilisateurs\views.py:165
 msgid "Magasinier"
 msgstr "Almacenero"
 
-#: .\utilisateurs\models.py:76 .\utilisateurs\views.py:174
+#: .\utilisateurs\models.py:76 .\utilisateurs\views.py:163
 msgid "Carrossier"
 msgstr "Carrocero"
 
-#: .\utilisateurs\models.py:77 .\utilisateurs\views.py:175
+#: .\utilisateurs\models.py:77 .\utilisateurs\views.py:164
 msgid "Chef Mécanicien"
 msgstr "Capo meccanico"
 
-#: .\utilisateurs\models.py:78 .\utilisateurs\views.py:177
+#: .\utilisateurs\models.py:78 .\utilisateurs\views.py:166
 msgid "Instructeur"
 msgstr "Instructor"
 
-#: .\utilisateurs\models.py:79 .\utilisateurs\views.py:178
+#: .\utilisateurs\models.py:79 .\utilisateurs\views.py:167
 msgid "Instructeur Externe"
 msgstr "Instructor externo"
 
-#: .\utilisateurs\models.py:80 .\utilisateurs\views.py:179
+#: .\utilisateurs\models.py:80 .\utilisateurs\views.py:168
 msgid "Vendeur"
 msgstr "Vendedor"
 
-#: .\utilisateurs\models.py:81 .\utilisateurs\views.py:180
+#: .\utilisateurs\models.py:81 .\utilisateurs\views.py:169
 msgid "Comptable"
 msgstr "Contable"
 
-#: .\utilisateurs\models.py:82 .\utilisateurs\views.py:181
+#: .\utilisateurs\models.py:82 .\utilisateurs\views.py:170
 msgid "Direction"
 msgstr "Dirección"
 
-#: .\utilisateurs\views.py:148
+#: .\utilisateurs\views.py:147
 msgid "Révision moteur"
 msgstr "Revisión del motor"
 
-#: .\utilisateurs\views.py:148 .\voiture\voiture_boite\models.py:10
+#: .\utilisateurs\views.py:147 .\voiture\voiture_boite\models.py:10
 msgid "Changement filtre"
 msgstr "Cambio de filtro"
 
-#: .\utilisateurs\views.py:168 .\utilisateurs\views.py:183
+#: .\utilisateurs\views.py:172
 msgid "Rôle inconnu"
 msgstr "Rol desconocido"
+
+#: .\voiture\voiture_boite\models.py:11
+msgid "Remplacement boîte"
+msgstr "Sostituzione cambio"
 
 #: .\voiture\voiture_boite\models.py:15
 msgid "Manuelle"
@@ -4906,7 +4962,6 @@ msgstr "Seleziona gli pneumatici da collegare."
 #: .\voiture\voiture_exemplaire\views.py:116
 msgid "Lier des pneus à un véhicule"
 msgstr "Collegare gli pneumatici a un veicolo"
-
 
 #: .\voiture\voiture_exemplaire\views.py:134
 msgid "Le moteur a été lié à l'exemplaire avec succès."
@@ -5018,7 +5073,6 @@ msgstr "4 stagioni"
 msgid "Hiver"
 msgstr "Inverno"
 
-
 #: .\voiture\voiture_pneus\models.py:22
 msgid "Q (160 km/h)"
 msgstr ""
@@ -5062,7 +5116,6 @@ msgstr ""
 #: .\voiture\voiture_pneus\models.py:32
 msgid "ZR (historique >240 km/h)"
 msgstr "ZR (storico >240 km/h)"
-
 
 #: .\voiture\voiture_pneus\models.py:35
 msgid "60 (250 kg)"
@@ -5160,7 +5213,11 @@ msgstr "Chilometri pneumatici anteriori"
 msgid "Kilomètres pneus arrière"
 msgstr "Chilometri pneumatici posteriori"
 
+#~ msgid "Apprentis"
+#~ msgstr "Apprendisti"
 
+#~ msgid "Remplacement moteur"
+#~ msgstr "Sostituzione motore"
 
 #~ msgid "Rechercher par volant moteur"
 #~ msgstr "Cerca per volano motore"
@@ -5170,7 +5227,6 @@ msgstr "Chilometri pneumatici posteriori"
 
 #~ msgid "Aucun embrayage trouvé."
 #~ msgstr "Nessuna frizione trovata."
-
 
 #~ msgid "Lier un moteur existant"
 #~ msgstr "Collega un motore esistente"
@@ -5184,13 +5240,8 @@ msgstr "Chilometri pneumatici posteriori"
 #~ msgid "Voulez-vous lier ce moteur à ce véhicule ?"
 #~ msgstr "Vuoi collegare questo motore a questo veicolo?"
 
-
 #~ msgid "Ajouter une boite pour"
 #~ msgstr "Aggiungi un cambio per"
-
-#~ msgid "Type de boite"
-#~ msgstr "Tipo di cambio"
-
 
 #~ msgid "Ajouter un exemplaire pour"
 #~ msgstr "Aggiungi un esemplare per"

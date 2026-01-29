@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-27 16:35+0100\n"
+"POT-Creation-Date: 2026-01-29 17:33+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -416,7 +416,7 @@ msgstr "Model"
 msgid "Véhicule"
 msgstr "Voertuig"
 
-#: .\fuel\models.py:35 .\maintenance\models.py:50 .\piece\models.py:68
+#: .\fuel\models.py:35 .\maintenance\models.py:61 .\piece\models.py:68
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:39
 msgid "Immatriculation"
 msgstr "Kenteken"
@@ -620,8 +620,8 @@ msgstr "Versnellingsbak"
 #: .\maintenance\bruits\models.py:24
 #: .\maintenance\controle_check_up\models.py:32
 #: .\maintenance\freins\models.py:17 .\maintenance\jeux_pieces\models.py:38
-#: .\maintenance\models.py:82 .\maintenance\niveaux\models.py:12
-#: .\maintenance\silent_blocs\models.py:27
+#: .\maintenance\models.py:99 .\maintenance\niveaux\models.py:12
+#: .\maintenance\silent_blocs\models.py:27 .\theme\templates\dashboard.html:203
 msgid "Maintenance"
 msgstr "Onderhoud"
 
@@ -879,90 +879,130 @@ msgstr "%(piece)s – %(empl)s (%(etat)s / %(tag)s)"
 msgid "Non précisé"
 msgstr "Niet gespecificeerd"
 
-#: .\maintenance\jeux_pieces\models.py:108 .\maintenance\models.py:34
-#: .\utilisateurs\models.py:73 .\utilisateurs\views.py:172
+#: .\maintenance\jeux_pieces\models.py:108 .\maintenance\models.py:45
+#: .\utilisateurs\models.py:73 .\utilisateurs\views.py:161
 msgid "Apprenti"
 msgstr "Leerling"
 
-#: .\maintenance\jeux_pieces\models.py:109 .\maintenance\models.py:26
+#: .\maintenance\jeux_pieces\models.py:109 .\maintenance\models.py:37
 #: .\maintenance\nettoyage_exterieur\models.py:25
 #: .\maintenance\nettoyage_interieur\models.py:26 .\utilisateurs\models.py:74
-#: .\utilisateurs\views.py:173
+#: .\utilisateurs\views.py:162
 msgid "Mécanicien"
 msgstr "Monteur"
 
-
-#: .\maintenance\jeux_pieces\models.py:110
+#: .\maintenance\jeux_pieces\models.py:110 .\maintenance\models.py:53
 msgid "Chef mécanicien"
 msgstr "Hoofdmonteur"
 
-#: .\maintenance\models.py:9
+#: .\maintenance\models.py:8
+#, fuzzy
+#| msgid "Check up"
+msgid "Check-up"
+msgstr "Controle"
+
+#: .\maintenance\models.py:9 .\maintenance\views.py:41
+#, fuzzy
+#| msgid "Entretoise"
+msgid "Entretien"
+msgstr "Spies / afstandbus"
+
+#: .\maintenance\models.py:10 .\maintenance\views.py:42
+#, fuzzy
+#| msgid "Freins avant"
+msgid "Freins"
+msgstr "Voorremmen"
+
+#: .\maintenance\models.py:11 .\maintenance\views.py:43
+#: .\piece\piece_pneus\models.py:55 .\theme\templates\dashboard.html:188
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:155
+#: .\theme\templates\voiture_exemplaire\lier_pneus.html:35
+msgid "Pneus"
+msgstr "Banden"
+
+#: .\maintenance\models.py:12 .\maintenance\nettoyage_exterieur\models.py:37
+#: .\maintenance\views.py:44
+msgid "Nettoyage extérieur"
+msgstr "Exterieur reiniging"
+
+#: .\maintenance\models.py:13 .\maintenance\nettoyage_interieur\models.py:41
+#: .\maintenance\views.py:45
+msgid "Nettoyage intérieur"
+msgstr "Interieur reiniging"
+
+#: .\maintenance\models.py:14 .\maintenance\views.py:46
+#, fuzzy
+#| msgid "Niveau"
+msgid "Niveaux"
+msgstr "Niveau"
+
+#: .\maintenance\models.py:15 .\maintenance\views.py:47
+#, fuzzy
+#| msgid "Date d'intervention"
+msgid "Autres interventions"
+msgstr "Datum interventie"
+
+#: .\maintenance\models.py:20
 msgid "Vert"
 msgstr "Groen"
 
-#: .\maintenance\models.py:10
+#: .\maintenance\models.py:21
 msgid "Jaune"
 msgstr "Geel"
 
-#: .\maintenance\models.py:11
+#: .\maintenance\models.py:22
 msgid "Rouge"
 msgstr "Rood"
 
-#: .\maintenance\models.py:17
+#: .\maintenance\models.py:28
 msgid "Voiture exemplaire"
 msgstr "Exemplaar auto"
 
-#: .\maintenance\models.py:42
-msgid "Apprentis"
-msgstr "Leerlingen"
-
-#: .\maintenance\models.py:51
+#: .\maintenance\models.py:62
 msgid "Date d'intervention"
 msgstr "Datum interventie"
 
-#: .\maintenance\models.py:53
+#: .\maintenance\models.py:64
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:78
 msgid "Date de la dernière intervention"
 msgstr "Datum laatste interventie"
 
-#: .\maintenance\models.py:58
+#: .\maintenance\models.py:69
 msgid "Étiquette"
 msgstr "Label"
 
-#: .\maintenance\models.py:65
+#: .\maintenance\models.py:76
 msgid "Kilométrage total"
 msgstr "Total kilometrage"
 
-#: .\maintenance\models.py:67
+#: .\maintenance\models.py:78
 msgid "Kilométrage à la dernière intervention"
 msgstr "Kilometrage bij laatste interventie"
 
-#: .\maintenance\models.py:71
+#: .\maintenance\models.py:82
 msgid "Kilométrage châssis"
 msgstr "Chassis kilometrage"
 
-#: .\maintenance\models.py:74
+#: .\maintenance\models.py:86
 #: .\theme\templates\voiture_moteur\moteur_detail.html:82
 msgid "Kilométrage moteur"
 msgstr "Motor kilometrage"
 
-#: .\maintenance\models.py:75
+#: .\maintenance\models.py:87
 msgid "Kilométrage boîte"
 msgstr "Versnellingsbakkilometrage"
 
-#: .\maintenance\models.py:78
-msgid "Remplacement moteur"
-msgstr "Motor vervangen"
+#: .\maintenance\models.py:91
+#, fuzzy
+#| msgid "Type de boite"
+msgid "Type de maintenance"
+msgstr "Type versnellingsbak"
 
-#: .\maintenance\models.py:79 .\voiture\voiture_boite\models.py:11
-msgid "Remplacement boîte"
-msgstr "Versnellingsbak vervangen"
-
-#: .\maintenance\models.py:83
+#: .\maintenance\models.py:100
 msgid "Maintenances"
 msgstr "Onderhoudsbeurten"
 
-#: .\maintenance\models.py:101
+#: .\maintenance\models.py:118
 #, python-format
 msgid "Maintenance %(voiture)s (%(date)s)"
 msgstr "Onderhoud %(voiture)s (%(date)s)"
@@ -992,10 +1032,6 @@ msgstr "Eindcontrole"
 msgid "Date"
 msgstr "Datum"
 
-#: .\maintenance\nettoyage_exterieur\models.py:37
-msgid "Nettoyage extérieur"
-msgstr "Exterieur reiniging"
-
 #: .\maintenance\nettoyage_exterieur\models.py:38
 msgid "Nettoyages extérieurs"
 msgstr "Exterieur reinigingen"
@@ -1020,10 +1056,6 @@ msgstr "Dashboard"
 #: .\maintenance\nettoyage_interieur\models.py:34
 msgid "Plastiques"
 msgstr "Kunststof oppervlakken"
-
-#: .\maintenance\nettoyage_interieur\models.py:41
-msgid "Nettoyage intérieur"
-msgstr "Interieur reiniging"
 
 #: .\maintenance\nettoyage_interieur\models.py:42
 msgid "Nettoyages intérieurs"
@@ -1093,6 +1125,12 @@ msgstr "Type silentblok"
 #, python-format
 msgid "%(type)s - %(empl)s (%(etat)s)"
 msgstr "%(type)s - %(empl)s (%(etat)s)"
+
+#: .\maintenance\views.py:40
+#, fuzzy
+#| msgid "Check up"
+msgid "Checkup"
+msgstr "Controle"
 
 #: .\outillage\models.py:9 .\panier\models.py:16 .\panier\models.py:71
 msgid "Identifiant"
@@ -1214,7 +1252,7 @@ msgstr "Fabrikanten"
 msgid "Codes-barres"
 msgstr "Streepjescodes"
 
-#: .\piece\models.py:69
+#: .\piece\models.py:69 .\theme\templates\maintenance\list.html:61
 msgid "Année"
 msgstr "Jaar"
 
@@ -1378,6 +1416,7 @@ msgid "Puissance en watts"
 msgstr "Vermogen in watt"
 
 #: .\piece\piece_ampoules\models.py:60 .\piece\piece_feux\models.py:29
+#: .\theme\templates\maintenance\list.html:64
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:48
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:73
 msgid "Couleur"
@@ -1832,7 +1871,6 @@ msgstr "Spanrol"
 msgid "Galet libre"
 msgstr "Loslooprol"
 
-
 #: .\piece\piece_distribution\models.py:16
 msgid "Pompe à eau"
 msgstr "Waterpomp"
@@ -1864,7 +1902,6 @@ msgstr "Distributieonderdeel"
 #: .\piece\piece_distribution\models.py:40
 msgid "Pièces de distribution"
 msgstr "Distributieonderdelen"
-
 
 #: .\piece\piece_echappement\models.py:9
 msgid "Collecteur d’échappement"
@@ -2892,12 +2929,6 @@ msgstr "Gemonteerde hoeveelheid"
 msgid "Pneu"
 msgstr "Band"
 
-#: .\piece\piece_pneus\models.py:55 .\theme\templates\dashboard.html:188
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:155
-#: .\theme\templates\voiture_exemplaire\lier_pneus.html:35
-msgid "Pneus"
-msgstr "Banden"
-
 #: .\piece\piece_pneus\models.py:58
 #, python-format
 msgid "%(type)s – %(largeur)s/%(hauteur)s R%(jante)s"
@@ -3540,7 +3571,7 @@ msgstr "Gebruikers"
 #: .\theme\templates\dashboard.html:99 .\theme\templates\dashboard.html:115
 #: .\theme\templates\dashboard.html:130 .\theme\templates\dashboard.html:145
 #: .\theme\templates\dashboard.html:160 .\theme\templates\dashboard.html:175
-#: .\theme\templates\dashboard.html:190
+#: .\theme\templates\dashboard.html:190 .\theme\templates\dashboard.html:205
 msgid "Nombre total :"
 msgstr "Totaal aantal:"
 
@@ -3608,7 +3639,7 @@ msgstr "Voorremmen"
 msgid "Freins arrière"
 msgstr "Achterremmen"
 
-#: .\theme\templates\dashboard.html:205
+#: .\theme\templates\dashboard.html:220
 msgid "Tableau de bord Admin"
 msgstr "Admin-dashboard"
 
@@ -3623,6 +3654,33 @@ msgstr "Dit is een paragraaf gestileerd met Tailwind."
 #: .\theme\templates\home.html:29
 msgid "Se connecter"
 msgstr "Inloggen"
+
+#: .\theme\templates\maintenance\choisir_type.html:13
+msgid "Choisir le type de maintenance pour :"
+msgstr ""
+
+#: .\theme\templates\maintenance\list.html:11
+#, fuzzy
+#| msgid "Moteur du véhicule: "
+msgid "Maintenance du véhicule :"
+msgstr "Motor van het voertuig: "
+
+#: .\theme\templates\maintenance\list.html:23
+#: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:22
+msgid "Rechercher un exemplaire par immatriculation..."
+msgstr "Zoek een exemplaar op kenteken..."
+
+#: .\theme\templates\maintenance\list.html:62
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:47
+#: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:71
+msgid "Kilométrage"
+msgstr "Kilometerstand"
+
+#: .\theme\templates\maintenance\list.html:76
+#, fuzzy
+#| msgid "Aucun exemplaire enregistré pour ce modèle."
+msgid "Aucun exemplaire disponible pour la maintenance."
+msgstr "Geen exemplaar geregistreerd voor dit model."
 
 #: .\theme\templates\totp\setup.html:5
 msgid "Configurer TOTP"
@@ -4070,11 +4128,6 @@ msgstr "Voertuigdetails : "
 msgid "Informations générales"
 msgstr "Algemene informatie"
 
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:47
-#: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:71
-msgid "Kilométrage"
-msgstr "Kilometerstand"
-
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:48
 msgid "Non renseignée"
 msgstr "Niet ingevuld"
@@ -4111,7 +4164,6 @@ msgstr "Geen achterrem geregistreerd voor dit exemplaar."
 msgid "Aucun pneus enregistré pour cet exemplaire."
 msgstr "Geen banden geregistreerd voor dit exemplaar."
 
-
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:197
 msgid "Lier une boîte"
 msgstr "Een versnellingsbak koppelen"
@@ -4139,7 +4191,6 @@ msgstr "De achterremmen koppelen"
 #: .\theme\templates\voiture_exemplaire\lier_pneus.html:59
 msgid "Lier les pneus"
 msgstr "Banden koppelen"
-
 
 #: .\theme\templates\voiture_exemplaire\lier_boite.html:10
 msgid "Boite de vitesse du véhicule : "
@@ -4241,10 +4292,6 @@ msgstr "Geen voertuigen gevonden."
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:11
 msgid "Véhicule : "
 msgstr "Voertuig : "
-
-#: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:22
-msgid "Rechercher un exemplaire par immatriculation..."
-msgstr "Zoek een exemplaar op kenteken..."
 
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:96
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:116
@@ -4678,7 +4725,6 @@ msgstr "Hoogte (%)"
 msgid "Diamètre jante (pouces)"
 msgstr "Velgdiameter (inches)"
 
-
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:68
 msgid "Indice de Vitesse"
 msgstr "Snelheidsindex"
@@ -4695,7 +4741,6 @@ msgstr "Selecteer een draagkrachtindex"
 #: .\theme\templates\voiture_pneus\list.html:10
 msgid "Liste des Pneus"
 msgstr "Bandenlijst"
-
 
 #: .\theme\templates\voiture_pneus\list.html:21
 msgid "Type pneus"
@@ -4748,9 +4793,10 @@ msgid "Détails des pneus"
 msgstr "Bandendetails"
 
 #: .\theme\templates\voiture_pneus\pneus_detail.html:37
+#, fuzzy, python-format
+#| msgid "Hauteur en %%"
 msgid "Hauteur en %%"
 msgstr "Hoogte in %"
-
 
 #: .\theme\views.py:35
 msgid "Nom d'utilisateur ou mot de passe incorrect"
@@ -4776,49 +4822,53 @@ msgstr "Human Resources"
 msgid "Operations"
 msgstr "Operationele zaken"
 
-#: .\utilisateurs\models.py:75 .\utilisateurs\views.py:176
+#: .\utilisateurs\models.py:75 .\utilisateurs\views.py:165
 msgid "Magasinier"
 msgstr "Magazijnier"
 
-#: .\utilisateurs\models.py:76 .\utilisateurs\views.py:174
+#: .\utilisateurs\models.py:76 .\utilisateurs\views.py:163
 msgid "Carrossier"
 msgstr "Carrosseriehersteller"
 
-#: .\utilisateurs\models.py:77 .\utilisateurs\views.py:175
+#: .\utilisateurs\models.py:77 .\utilisateurs\views.py:164
 msgid "Chef Mécanicien"
 msgstr "Hoofdmonteur"
 
-#: .\utilisateurs\models.py:78 .\utilisateurs\views.py:177
+#: .\utilisateurs\models.py:78 .\utilisateurs\views.py:166
 msgid "Instructeur"
 msgstr "Instructeur"
 
-#: .\utilisateurs\models.py:79 .\utilisateurs\views.py:178
+#: .\utilisateurs\models.py:79 .\utilisateurs\views.py:167
 msgid "Instructeur Externe"
 msgstr "Externe instructeur"
 
-#: .\utilisateurs\models.py:80 .\utilisateurs\views.py:179
+#: .\utilisateurs\models.py:80 .\utilisateurs\views.py:168
 msgid "Vendeur"
 msgstr "Verkoper"
 
-#: .\utilisateurs\models.py:81 .\utilisateurs\views.py:180
+#: .\utilisateurs\models.py:81 .\utilisateurs\views.py:169
 msgid "Comptable"
 msgstr "Boekhouder"
 
-#: .\utilisateurs\models.py:82 .\utilisateurs\views.py:181
+#: .\utilisateurs\models.py:82 .\utilisateurs\views.py:170
 msgid "Direction"
 msgstr "Directie"
 
-#: .\utilisateurs\views.py:148
+#: .\utilisateurs\views.py:147
 msgid "Révision moteur"
 msgstr "Motorrevisie"
 
-#: .\utilisateurs\views.py:148 .\voiture\voiture_boite\models.py:10
+#: .\utilisateurs\views.py:147 .\voiture\voiture_boite\models.py:10
 msgid "Changement filtre"
 msgstr "Filtervervanging"
 
-#: .\utilisateurs\views.py:168 .\utilisateurs\views.py:183
+#: .\utilisateurs\views.py:172
 msgid "Rôle inconnu"
 msgstr "Onbekende rol"
+
+#: .\voiture\voiture_boite\models.py:11
+msgid "Remplacement boîte"
+msgstr "Versnellingsbak vervangen"
 
 #: .\voiture\voiture_boite\models.py:15
 msgid "Manuelle"
@@ -4912,7 +4962,6 @@ msgstr "Selecteer alstublieft banden om te koppelen."
 #: .\voiture\voiture_exemplaire\views.py:116
 msgid "Lier des pneus à un véhicule"
 msgstr "Banden aan een voertuig koppelen"
-
 
 #: .\voiture\voiture_exemplaire\views.py:134
 msgid "Le moteur a été lié à l'exemplaire avec succès."
@@ -5164,10 +5213,14 @@ msgstr "Kilometers voorbanden"
 msgid "Kilomètres pneus arrière"
 msgstr "Kilometers achterbanden"
 
+#~ msgid "Apprentis"
+#~ msgstr "Leerlingen"
+
+#~ msgid "Remplacement moteur"
+#~ msgstr "Motor vervangen"
 
 #~ msgid "Rechercher par volant moteur"
 #~ msgstr "Zoeken op vliegwiel"
-
 
 #~ msgid "Rechercher par plateau de pression"
 #~ msgstr "Zoeken op drukplaat"
@@ -5175,13 +5228,11 @@ msgstr "Kilometers achterbanden"
 #~ msgid "Aucun embrayage trouvé."
 #~ msgstr "Geen koppeling gevonden."
 
-
 #~ msgid "Lier un moteur existant"
 #~ msgstr "Koppel een bestaande motor"
 
 #~ msgid "Choisir une cylindrée"
 #~ msgstr "Cilinderinhoud kiezen"
-
 
 #~ msgid "Type"
 #~ msgstr "Type"
@@ -5191,10 +5242,6 @@ msgstr "Kilometers achterbanden"
 
 #~ msgid "Ajouter une boite pour"
 #~ msgstr "Een versnellingsbak toevoegen voor"
-
-#~ msgid "Type de boite"
-#~ msgstr "Type versnellingsbak"
-
 
 #~ msgid "Ajouter un exemplaire pour"
 #~ msgstr "Een exemplaar toevoegen voor"
