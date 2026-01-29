@@ -5,13 +5,14 @@
 
 <div class="p-6 w-full ml-[-10px] mr-[10px]">
 
-    <h1 class="text-2xl font-bold mb-6">
-        {% trans "Maintenance – Véhicule :" %}
+     <h1 class="text-2xl font-bold mb-6 flex items-center gap-4">
+       <img src="{% static 'icons/mecanique.png' %}" alt="Mécanique"
+             style="width:60px; height:60px; margin-right:10px;">
+        {% trans "Maintenance du véhicule :" %}
         {{ modele.voiture_marque.nom_marque }} {{ modele.nom_modele }}
         {% if modele.nom_variante %}- {{ modele.nom_variante }}{% endif %}
-    </h1>
-
-    {% if exemplaires %}
+     </h1>
+     {% if exemplaires %}
 
     <!-- Recherche -->
     <div class="mb-6">
@@ -26,26 +27,45 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="exemplaires-container">
 
         {% for ex in exemplaires %}
-        <div class="exemplaire-card bg-white shadow-md transition duration-300 hover:shadow-lg hover:bg-blue-50 rounded-lg p-4 flex flex-col gap-2"
-             data-immatriculation="{{ ex.immatriculation|lower }}">
+        <a href="{% url 'maintenance:choisir_type' exemplaire_id=ex.id %}"
+           class="exemplaire-card bg-white shadow-md transition duration-300 hover:shadow-lg hover:bg-blue-50 rounded-lg p-4 flex flex-col gap-4 cursor-pointer"
+           data-immatriculation="{{ ex.immatriculation|lower }}">
 
-            <!-- Plaque et infos de l'exemplaire -->
-            <div class="mb-2">
-                <p class="font-bold text-lg">{{ ex.voiture_modele.voiture_marque.nom_marque }} {{ ex.voiture_modele.nom_modele }}</p>
-                <p class="text-gray-500">{% trans "Immatriculation" %}: {{ ex.immatriculation }}</p>
-                <p class="text-gray-500">{% trans "Année" %}: {{ ex.annee_production }}/{{ ex.mois_production }}</p>
-                <p class="text-gray-500">{% trans "Kilométrage" %}: {{ ex.kilometres_total }} km</p>
+            <!-- Plaque Belgique / Luxembourg -->
+            {% if ex.pays == 'Belgique' %}
+             <div class="flex items-center w-[40%] min-w-[180px] h-[40px] bg-white border-2 border-[#8B0000] rounded font-[Arial] mb-4">
+                <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
+                    <span>🇪🇺</span>
+                    <span>B</span>
+                </div>
+                <input type="text" value="{{ ex.immatriculation }}" readonly
+                       class="w-full text-center border-none font-bold text-[#8B0000] text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0">
+            </div>
+            {% elif ex.pays == 'Luxembourg' %}
+              <div class="flex items-center w-[40%] min-w-[180px] h-[40px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial] mb-4">
+                <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
+                    <span>🇪🇺</span>
+                    <span>L</span>
+                </div>
+                <input type="text" value="{{ ex.immatriculation }}" readonly
+                       class="w-full text-center border-none font-bold text-black text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0">
+            </div>
+            {% endif %}
+
+            <!-- Infos voiture -->
+            <div>
+                <p class="font-semibold">{{ ex.voiture_modele.voiture_marque.nom_marque }} {{ ex.voiture_modele.nom_modele }}</p>
+                {% if ex.voiture_modele.nom_variante %}
+                    <p class="text-gray-600 text-sm">{{ ex.voiture_modele.nom_variante }}</p>
+                {% endif %}
+                <p class="text-gray-500 text-sm">{% trans "Année" %}: {{ ex.annee_production }}/{{ ex.mois_production }}</p>
+                <p class="text-gray-500 text-sm">{% trans "Kilométrage" %}: {{ ex.kilometres_total }} km</p>
+                {% if ex.couleur %}
+                    <p class="text-gray-500 text-sm">{% trans "Couleur" %}: {{ ex.couleur }}</p>
+                {% endif %}
             </div>
 
-            <!-- Bouton Ajouter maintenance -->
-            <div class="mt-auto">
-                <a href="{% url 'maintenance:choisir_type' exemplaire_id=ex.id %}"
-                   class="bg-green-500 text-white px-3 py-2 rounded hover:bg-green-600 inline-block">
-                   {% trans "Ajouter maintenance" %}
-                </a>
-            </div>
-
-        </div>
+        </a>
         {% endfor %}
 
     </div>
