@@ -4,6 +4,17 @@ from django.utils.translation import gettext_lazy as _
 from maintenance.entretien.models import Entretien
 
 
+class TypeMaintenance(models.TextChoices):
+    CHECKUP = "checkup", _("Check-up")
+    ENTRETIEN = "entretien", _("Entretien")
+    FREINS = "freins", _("Freins")
+    PNEUS = "pneus", _("Pneus")
+    NETTOYAGE_EXTERIEUR = "nettoyage_exterieur", _("Nettoyage extérieur")
+    NETTOYAGE_INTERIEUR = "nettoyage_interieur", _("Nettoyage intérieur")
+    NIVEAUX = "niveaux", _("Niveaux")
+    AUTRES = "autres", _("Autres interventions")
+
+
 class Maintenance(models.Model):
     class Tag(models.TextChoices):
         VERT = "VERT", _("Vert")
@@ -75,6 +86,14 @@ class Maintenance(models.Model):
     kilometres_moteur = models.PositiveIntegerField(_("Kilométrage moteur"), default=0)
     kilometres_boite = models.PositiveIntegerField(_("Kilométrage boîte"), default=0)
 
+
+    type_maintenance = models.CharField(
+        _("Type de maintenance"),
+        max_length=50,
+        choices=TypeMaintenance.choices,
+        null=True,
+        blank=True
+    )
 
     class Meta:
         verbose_name = _("Maintenance")

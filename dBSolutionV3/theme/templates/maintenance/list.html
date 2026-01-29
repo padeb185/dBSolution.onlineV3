@@ -26,11 +26,24 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="exemplaires-container">
 
         {% for ex in exemplaires %}
-        <div class="exemplaire-card bg-white shadow-md transition duration-300 hover:shadow-lg hover:bg-blue-50 rounded-lg p-4 flex flex-col gap-2 cursor-pointer"
-             data-immatriculation="{{ ex.immatriculation|lower }}"
-             onclick="window.location.href='{% url 'maintenance:detail_exemplaire' exemplaire_id=ex.id %}'">
+        <div class="exemplaire-card bg-white shadow-md transition duration-300 hover:shadow-lg hover:bg-blue-50 rounded-lg p-4 flex flex-col gap-2"
+             data-immatriculation="{{ ex.immatriculation|lower }}">
 
-            {# 👉 tout ton code de plaque et infos reste IDENTIQUE #}
+            <!-- Plaque et infos de l'exemplaire -->
+            <div class="mb-2">
+                <p class="font-bold text-lg">{{ ex.voiture_modele.voiture_marque.nom_marque }} {{ ex.voiture_modele.nom_modele }}</p>
+                <p class="text-gray-500">{% trans "Immatriculation" %}: {{ ex.immatriculation }}</p>
+                <p class="text-gray-500">{% trans "Année" %}: {{ ex.annee_production }}/{{ ex.mois_production }}</p>
+                <p class="text-gray-500">{% trans "Kilométrage" %}: {{ ex.kilometres_total }} km</p>
+            </div>
+
+            <!-- Bouton Ajouter maintenance -->
+            <div class="mt-auto">
+                <a href="{% url 'maintenance:choisir_type' exemplaire_id=ex.id %}"
+                   class="bg-green-500 text-white px-3 py-2 rounded hover:bg-green-600 inline-block">
+                   {% trans "Ajouter maintenance" %}
+                </a>
+            </div>
 
         </div>
         {% endfor %}
@@ -38,12 +51,27 @@
     </div>
 
     {% else %}
-    <div class="bg-red-50 border border-red-200 shadow-md rounded-lg p-6">
-        <p class="text-red-700 font-semibold text-center">
+    <div class="bg-red-50 border border-red-200 shadow-md rounded-lg p-6 text-center">
+        <p class="text-red-700 font-semibold">
             {% trans "Aucun exemplaire disponible pour la maintenance." %}
         </p>
     </div>
     {% endif %}
 
 </div>
+
+<!-- JS pour le filtre de recherche -->
+<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+<script>
+$(document).ready(function(){
+    $('#search-exemplaire').on('input', function(){
+        const value = $(this).val().trim().toLowerCase();
+        $('.exemplaire-card').each(function(){
+            const immat = $(this).data('immatriculation') || '';
+            $(this).toggle(!value || immat.includes(value));
+        });
+    });
+});
+</script>
+
 {% endblock %}
