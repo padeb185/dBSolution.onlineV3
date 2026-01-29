@@ -1,28 +1,31 @@
 {% extends 'base.html' %}
+
 {% load i18n static %}
 
 {% block content %}
 
-<div class="p-6 w-full ml-[-10px] mr-[10px]">
+<div class="p-6">
 
-    <h1 class="text-2xl font-bold mb-6">
+    <h1 class="text-2xl font-bold mb-6 flex items-center gap-3">
+        <img src="{% static 'icons/mecanique.png' %}" alt="Maintenance" class="w-12 h-12">
         {% trans "Choisir le type de maintenance pour :" %}
         {{ exemplaire.voiture_modele.voiture_marque.nom_marque }} {{ exemplaire.voiture_modele.nom_modele }}
-        {% if exemplaire.voiture_modele.nom_variante %}- {{ exemplaire.voiture_modele.nom_variante }}{% endif %}
-        ({{ exemplaire.immatriculation }})
     </h1>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
 
         {% for type in types_maintenance %}
-        <a href="{% url 'maintenance:creer_maintenance' exemplaire_id=exemplaire.id type_maintenance=type.slug %}"
-           class="bg-white shadow-md rounded-lg p-6 flex flex-col items-center justify-center transition duration-300 hover:shadow-lg hover:bg-blue-50 text-center cursor-pointer">
-
-            <img src="{% static type.icon %}" alt="{{ type.nom }}" class="w-16 h-16 mb-4">
-            <h2 class="text-lg font-semibold">{{ type.nom }}</h2>
-        </a>
+        <form method="post" action="">
+            {% csrf_token %}
+            <input type="hidden" name="type_maintenance" value="{{ type.code }}">
+            <input type="hidden" name="date_intervention" value="{{ now|date:'Y-m-d' }}">
+            <button type="submit"
+                    class="cursor-pointer p-6 bg-white shadow-md rounded-lg hover:shadow-lg hover:bg-blue-50 flex flex-col items-center justify-center text-center transition w-full">
+                <img src="{% static 'icons/'|add:type.code|add:'.png' %}" alt="{{ type.nom }}" class="w-16 h-16 mb-4">
+                <p class="font-semibold">{{ type.nom }}</p>
+            </button>
+        </form>
         {% endfor %}
-
     </div>
 
 </div>
