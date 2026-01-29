@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load i18n static %}
+
+{% block content %}
+
+<div class="p-6 w-full ml-[-10px] mr-[10px]">
+
+    <h1 class="text-2xl font-bold mb-6">
+        {% trans "Maintenance – Véhicule :" %}
+        {{ modele.voiture_marque.nom_marque }} {{ modele.nom_modele }}
+        {% if modele.nom_variante %}- {{ modele.nom_variante }}{% endif %}
+    </h1>
+
+    {% if exemplaires %}
+
+    <!-- Recherche -->
+    <div class="mb-6">
+        <input
+            type="text"
+            id="search-exemplaire"
+            class="border rounded-lg px-4 py-2 w-full"
+            placeholder="{% trans 'Rechercher un exemplaire par immatriculation...' %}"
+        >
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="exemplaires-container">
+
+        {% for ex in exemplaires %}
+        <div class="exemplaire-card bg-white shadow-md transition duration-300 hover:shadow-lg hover:bg-blue-50 rounded-lg p-4 flex flex-col gap-2 cursor-pointer"
+             data-immatriculation="{{ ex.immatriculation|lower }}"
+             onclick="window.location.href='{% url 'maintenance:detail_exemplaire' exemplaire_id=ex.id %}'">
+
+            {# 👉 tout ton code de plaque et infos reste IDENTIQUE #}
+
+        </div>
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+    <div class="bg-red-50 border border-red-200 shadow-md rounded-lg p-6">
+        <p class="text-red-700 font-semibold text-center">
+            {% trans "Aucun exemplaire disponible pour la maintenance." %}
+        </p>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}

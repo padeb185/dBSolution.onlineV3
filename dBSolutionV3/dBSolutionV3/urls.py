@@ -58,4 +58,7 @@ path(
         "fr/voiture/pneus/",
         include(("voiture.voiture_pneus.urls", "voiture_pneus"), namespace="voiture_pneus"),
     ),
+
+    path("", include("maintenance.urls")),
+
 )

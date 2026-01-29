@@ -18,6 +18,8 @@ from voiture.voiture_embrayage.models import VoitureEmbrayage
 from voiture.voiture_freins.models import VoitureFreins
 from voiture.voiture_freins_ar.models import VoitureFreinsAR
 from voiture.voiture_pneus.models import VoiturePneus
+from maintenance.models import Maintenance
+from voiture.voiture_modele.models import VoitureModele
 
 
 def login_view(request):
@@ -69,81 +71,78 @@ def logout_view(request):
 
 
 
-
-
-
 @login_required
 def dashboard_view(request):
-    total_moteurs = MoteurVoiture.objects.count()
-    moteurs = MoteurVoiture.objects.all()
-
-    total_marques = VoitureMarque.objects.count()
-    marques = VoitureMarque.objects.all()
-
-    total_exemplaires = VoitureExemplaire.objects.count()
-    exemplaires = VoitureExemplaire.objects.all()
-
-    total_boites = VoitureBoite.objects.count()
-    boites = VoitureBoite.objects.all()
-
-    total_embrayages = VoitureEmbrayage.objects.count()
-    embrayages = VoitureEmbrayage.objects.all()
-
-    total_freins = VoitureFreins.objects.count()
-    freins = VoitureFreins.objects.all()
-
-    total_freins_ar = VoitureFreinsAR.objects.count()
-    freins_ar = VoitureFreinsAR.objects.all()
-
-    total_pneus = VoiturePneus.objects.count()
-    pneus = VoiturePneus.objects.all()
-
     user = request.user
     context = {}
 
-
-    # --- Sécurité : vérifie que request.tenant existe ---
+    # --- Sécurité : récupère le tenant ---
     tenant_schema = getattr(request, 'tenant', None)
-    if tenant_schema:
-        schema_name = tenant_schema.schema_name
-    else:
-        schema_name = None
+    schema_name = tenant_schema.schema_name if tenant_schema else None
 
-    # --- Récupération des stats ---
-    total_marques = 0
-    total_moteurs = 0
-    total_exemplaires = 0
-    total_boites = 0
-    total_embrayages = 0
-    total_freins = 0
-    total_freins_ar = 0
-    total_pneus = 0
+    # --- Stats initialisées à zéro ---
+    total_marques = total_moteurs = total_exemplaires = 0
+    total_boites = total_embrayages = total_freins = 0
+    total_freins_ar = total_pneus = total_maintenance = 0
+
+    marques = moteurs = exemplaires = boites = embrayages = freins = freins_ar = pneus = maintenance = []
+
+    # --- Récupération des stats selon le tenant ---
     if schema_name:
         with schema_context(schema_name):
-            total_marques = VoitureMarque.objects.count()
-            total_moteurs = MoteurVoiture.objects.count()
-            total_exemplaires = VoitureExemplaire.objects.count()
-            total_boites = VoitureBoite.objects.count()
-            total_embrayages = VoitureEmbrayage.objects.count()
-            total_freins = VoitureFreins.objects.count()
-            total_freins_ar = VoitureFreins.objects.count()
-            total_pneus = VoiturePneus.objects.count()
+            marques = VoitureMarque.objects.all()
+            moteurs = MoteurVoiture.objects.all()
+            exemplaires = VoitureExemplaire.objects.all()
+            boites = VoitureBoite.objects.all()
+            embrayages = VoitureEmbrayage.objects.all()
+            freins = VoitureFreins.objects.all()
+            freins_ar = VoitureFreinsAR.objects.all()
+            pneus = VoiturePneus.objects.all()
+            maintenance = Maintenance.objects.all()
 
-    context['total_marques'] = total_marques
-    context['total_moteurs'] = total_moteurs
-    context['total_exemplaires'] = total_exemplaires
-    context['total_boites'] = total_boites
-    context['total_embrayages'] = total_embrayages
-    context['total_freins'] = total_freins
-    context['total_freins_ar'] = total_freins_ar
-    context['total_pneus'] = total_pneus
+            # Totaux
+            total_marques = marques.count()
+            total_moteurs = moteurs.count()
+            total_exemplaires = exemplaires.count()
+            total_boites = boites.count()
+            total_embrayages = embrayages.count()
+            total_freins = freins.count()
+            total_freins_ar = freins_ar.count()
+            total_pneus = pneus.count()
+            total_maintenance = maintenance.count()
 
+            # Récupère les modèles existants pour les liens maintenance
+            modeles = VoitureModele.objects.all()
+    else:
+        modeles = []
 
-    # --- Initialisation par défaut ---
+    # --- Passage dans le contexte ---
+    context.update({
+        'total_marques': total_marques,
+        'total_moteurs': total_moteurs,
+        'total_exemplaires': total_exemplaires,
+        'total_boites': total_boites,
+        'total_embrayages': total_embrayages,
+        'total_freins': total_freins,
+        'total_freins_ar': total_freins_ar,
+        'total_pneus': total_pneus,
+        'total_maintenance': total_maintenance,
+        'marques': marques,
+        'moteurs': moteurs,
+        'exemplaires': exemplaires,
+        'boites': boites,
+        'embrayages': embrayages,
+        'freins': freins,
+        'freins_ar': freins_ar,
+        'pneus': pneus,
+        'maintenance': maintenance,
+        'modeles': modeles,  # <-- Pour liens maintenance
+    })
+
+    # --- Tâches et rôles ---
     context['agenda'] = []
     context['taches'] = []
 
-    # --- Tâches selon rôle ---
     role_tasks = {
         'mecanicien': [_("Révision moteur"), _("Changement filtre")],
         # autres rôles
@@ -151,7 +150,6 @@ def dashboard_view(request):
     if user.role in role_tasks:
         context['taches'] = role_tasks[user.role]
 
-    # --- Infos supplémentaires selon rôle ---
     if user.role == 'comptable':
         context['factures'] = 12
         context['depenses'] = 5
@@ -159,15 +157,6 @@ def dashboard_view(request):
         context['projets'] = 24
         context['utilisateurs'] = 128
 
-    # Message pour rôle inconnu
-    if user.role not in role_tasks and user.role not in [
-        'comptable', 'direction', 'apprenti', 'carrossier',
-        'chef_mecanicien', 'magasinier', 'instructeur',
-        'instructeur_externe', 'vendeur'
-    ]:
-        context['message'] = _("Rôle inconnu")
-
-    # --- Affichage traduit du rôle ---
     ROLE_DISPLAY = {
         'apprenti': _("Apprenti"),
         'mecanicien': _("Mécanicien"),
@@ -182,29 +171,8 @@ def dashboard_view(request):
     }
     context['role_display'] = ROLE_DISPLAY.get(user.role, _("Rôle inconnu"))
 
-    # --- DEBUG (optionnel) ---
-    # print("Dashboard stats:", context['total_marques'], context['total_moteurs'])
-
-    return render(request, 'dashboard.html', {
-        'total_moteurs': total_moteurs,
-        'moteurs': moteurs,
-        'total_marques': total_marques,
-        'marques': marques,
-        'total_exemplaires': total_exemplaires,
-        'exemplaires': exemplaires,
-        'total_boites': total_boites,
-        'boites': boites,
-        'total_embrayages': total_embrayages,
-        'embrayages': embrayages,
-        "total_freins": total_freins,
-        'freins': freins,
-        "total_freins_ar": total_freins_ar,
-        'freins_ar': freins_ar,
-        'total_pneus': total_pneus,
-        'pneus': pneus,
-
-    })
-
+    # --- Rend le template ---
+    return render(request, 'dashboard.html', context)
 
 
 
