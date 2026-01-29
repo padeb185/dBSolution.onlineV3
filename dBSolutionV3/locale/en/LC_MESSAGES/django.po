@@ -896,22 +896,17 @@ msgid "Chef mécanicien"
 msgstr "Chief Mechanic"
 
 #: .\maintenance\models.py:8
-#, fuzzy
-#| msgid "Check up"
 msgid "Check-up"
 msgstr "Check Up"
 
 #: .\maintenance\models.py:9 .\maintenance\views.py:41
-#, fuzzy
-#| msgid "Entretoise"
 msgid "Entretien"
-msgstr "Spacer"
+msgstr "Service"
+
 
 #: .\maintenance\models.py:10 .\maintenance\views.py:42
-#, fuzzy
-#| msgid "Freins avant"
 msgid "Freins"
-msgstr "Front Brakes"
+msgstr "Brakes"
 
 #: .\maintenance\models.py:11 .\maintenance\views.py:43
 #: .\piece\piece_pneus\models.py:55 .\theme\templates\dashboard.html:188
@@ -931,16 +926,12 @@ msgid "Nettoyage intérieur"
 msgstr "Interior cleaning"
 
 #: .\maintenance\models.py:14 .\maintenance\views.py:46
-#, fuzzy
-#| msgid "Niveau"
 msgid "Niveaux"
-msgstr "Level"
+msgstr "Levels"
 
 #: .\maintenance\models.py:15 .\maintenance\views.py:47
-#, fuzzy
-#| msgid "Date d'intervention"
 msgid "Autres interventions"
-msgstr "Intervention date"
+msgstr "Other interventions"
 
 #: .\maintenance\models.py:20
 msgid "Vert"
@@ -993,10 +984,8 @@ msgid "Kilométrage boîte"
 msgstr "Gearbox mileage"
 
 #: .\maintenance\models.py:91
-#, fuzzy
-#| msgid "Type de boite"
 msgid "Type de maintenance"
-msgstr "Filter type"
+msgstr "Maintenance type"
 
 #: .\maintenance\models.py:100
 msgid "Maintenances"
@@ -1127,8 +1116,6 @@ msgid "%(type)s - %(empl)s (%(etat)s)"
 msgstr "%(type)s - %(empl)s (%(etat)s)"
 
 #: .\maintenance\views.py:40
-#, fuzzy
-#| msgid "Check up"
 msgid "Checkup"
 msgstr "Check Up"
 
@@ -3657,13 +3644,11 @@ msgstr "Log in"
 
 #: .\theme\templates\maintenance\choisir_type.html:13
 msgid "Choisir le type de maintenance pour :"
-msgstr ""
+msgstr "Choose the maintenance type for:"
 
 #: .\theme\templates\maintenance\list.html:11
-#, fuzzy
-#| msgid "Moteur du véhicule: "
 msgid "Maintenance du véhicule :"
-msgstr "Vehicle engine: "
+msgstr "Vehicle maintenance:"
 
 #: .\theme\templates\maintenance\list.html:23
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:22
@@ -3677,10 +3662,9 @@ msgid "Kilométrage"
 msgstr "Mileage"
 
 #: .\theme\templates\maintenance\list.html:76
-#, fuzzy
-#| msgid "Aucun exemplaire enregistré pour ce modèle."
 msgid "Aucun exemplaire disponible pour la maintenance."
-msgstr "No vehicle registered for this model."
+msgstr "No vehicle available for maintenance."
+
 
 #: .\theme\templates\totp\setup.html:5
 msgid "Configurer TOTP"
@@ -3928,8 +3912,6 @@ msgstr "No gearbox found."
 
 #: .\theme\templates\voiture_boite\list.html:73
 #: .\theme\templates\voiture_moteur\list.html:76
-#, fuzzy
-#| msgid "Rechercher :"
 msgid "Recherche :"
 msgstr "Search :"
 
