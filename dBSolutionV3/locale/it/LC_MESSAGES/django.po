@@ -898,22 +898,17 @@ msgid "Chef mécanicien"
 msgstr "Capo meccanico"
 
 #: .\maintenance\models.py:8
-#, fuzzy
-#| msgid "Check up"
 msgid "Check-up"
 msgstr "Controllo"
 
 #: .\maintenance\models.py:9 .\maintenance\views.py:41
-#, fuzzy
-#| msgid "Entretoise"
 msgid "Entretien"
-msgstr "Distanziale"
+msgstr "Manutenzione"
+
 
 #: .\maintenance\models.py:10 .\maintenance\views.py:42
-#, fuzzy
-#| msgid "Freins avant"
 msgid "Freins"
-msgstr "Freni anteriori"
+msgstr "Freni"
 
 #: .\maintenance\models.py:11 .\maintenance\views.py:43
 #: .\piece\piece_pneus\models.py:55 .\theme\templates\dashboard.html:188
@@ -933,16 +928,13 @@ msgid "Nettoyage intérieur"
 msgstr "Pulizia interna"
 
 #: .\maintenance\models.py:14 .\maintenance\views.py:46
-#, fuzzy
-#| msgid "Niveau"
 msgid "Niveaux"
-msgstr "Livello"
+msgstr "Livelli"
 
 #: .\maintenance\models.py:15 .\maintenance\views.py:47
-#, fuzzy
-#| msgid "Date d'intervention"
 msgid "Autres interventions"
-msgstr "Data intervento"
+msgstr "Altri interventi"
+
 
 #: .\maintenance\models.py:20
 msgid "Vert"
@@ -995,10 +987,8 @@ msgid "Kilométrage boîte"
 msgstr "Chilometraggio cambio"
 
 #: .\maintenance\models.py:91
-#, fuzzy
-#| msgid "Type de boite"
 msgid "Type de maintenance"
-msgstr "Tipo di cambio"
+msgstr "Tipo di manutenzione"
 
 #: .\maintenance\models.py:100
 msgid "Maintenances"
@@ -1032,7 +1022,7 @@ msgstr "Conferma finale"
 #: .\maintenance\nettoyage_interieur\models.py:38 .\piece\models.py:127
 #: .\piece\piece_fluides\models.py:66 .\theme\templates\dashboard.html:51
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: .\maintenance\nettoyage_exterieur\models.py:38
 msgid "Nettoyages extérieurs"
@@ -1129,8 +1119,6 @@ msgid "%(type)s - %(empl)s (%(etat)s)"
 msgstr "%(type)s - %(empl)s (%(etat)s)"
 
 #: .\maintenance\views.py:40
-#, fuzzy
-#| msgid "Check up"
 msgid "Checkup"
 msgstr "Controllo"
 
@@ -3660,13 +3648,11 @@ msgstr "Accedi"
 
 #: .\theme\templates\maintenance\choisir_type.html:13
 msgid "Choisir le type de maintenance pour :"
-msgstr ""
+msgstr "Seleziona il tipo di manutenzione per:"
 
 #: .\theme\templates\maintenance\list.html:11
-#, fuzzy
-#| msgid "Moteur du véhicule: "
 msgid "Maintenance du véhicule :"
-msgstr "Motore del veicolo: "
+msgstr "Manutenzione del veicolo:"
 
 #: .\theme\templates\maintenance\list.html:23
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:22
@@ -3680,10 +3666,8 @@ msgid "Kilométrage"
 msgstr "Chilometraggio"
 
 #: .\theme\templates\maintenance\list.html:76
-#, fuzzy
-#| msgid "Aucun exemplaire enregistré pour ce modèle."
 msgid "Aucun exemplaire disponible pour la maintenance."
-msgstr "Nessun esemplare registrato per questo modello."
+msgstr "Nessun veicolo disponibile per la manutenzione."
 
 #: .\theme\templates\totp\setup.html:5
 msgid "Configurer TOTP"
