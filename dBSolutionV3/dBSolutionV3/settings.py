@@ -113,7 +113,6 @@ TENANT_APPS = (
     'investissements',
 
     'maintenance',
-    'maintenance.check_up',
     'maintenance.entretien',
     'maintenance.niveaux',
     'maintenance.jeux_pieces',

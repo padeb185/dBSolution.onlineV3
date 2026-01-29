@@ -58,7 +58,7 @@ class Maintenance(models.Model):
         _("Étiquette"),
         max_length=10,
         choices=Tag.choices,
-        default=Tag.VERT
+        default=Tag.JAUNE
     )
 
     # Kilométrage général
@@ -71,12 +71,10 @@ class Maintenance(models.Model):
     kilometres_chassis = models.PositiveIntegerField(_("Kilométrage châssis"), null=True, blank=True)
 
     # Kilométrage spécifiques
+
     kilometres_moteur = models.PositiveIntegerField(_("Kilométrage moteur"), default=0)
     kilometres_boite = models.PositiveIntegerField(_("Kilométrage boîte"), default=0)
 
-    # Suivi des remplacements
-    remplacement_moteur = models.BooleanField(_("Remplacement moteur"), default=False)
-    remplacement_boite = models.BooleanField(_("Remplacement boîte"), default=False)
 
     class Meta:
         verbose_name = _("Maintenance")
