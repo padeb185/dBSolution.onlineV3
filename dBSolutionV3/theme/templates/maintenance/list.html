@@ -14,13 +14,19 @@
      </h1>
      {% if exemplaires %}
 
-    <!-- Recherche -->
-    <div class="mb-6">
+     <!-- Recherche -->
+    <div class="mb-6 grid grid-cols-1 md:grid-cols-2 gap-4">
         <input
             type="text"
-            id="search-exemplaire"
+            id="search-marque"
             class="border rounded-lg px-4 py-2 w-full"
-            placeholder="{% trans 'Rechercher un exemplaire par immatriculation...' %}"
+            placeholder="{% trans 'Rechercher une marque...' %}"
+        >
+        <input
+            type="text"
+            id="search-immatriculation"
+            class="border rounded-lg px-4 py-2 w-full"
+            placeholder="{% trans 'Rechercher une immatriculation...' %}"
         >
     </div>
 
@@ -29,7 +35,8 @@
         {% for ex in exemplaires %}
         <a href="{% url 'maintenance:choisir_type' exemplaire_id=ex.id %}"
            class="exemplaire-card bg-white shadow-md transition duration-300 hover:shadow-lg hover:bg-blue-50 rounded-lg p-4 flex flex-col gap-4 cursor-pointer"
-           data-immatriculation="{{ ex.immatriculation|lower }}">
+                data-marque="{{ ex.voiture_marque.nom_marque|lower }}"
+                data-immatriculation="{{ ex.immatriculation|lower }}">
 
             <!-- Plaque Belgique / Luxembourg -->
             {% if ex.pays == 'Belgique' %}
@@ -83,15 +90,28 @@
 <!-- JS pour le filtre de recherche -->
 <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
 <script>
-$(document).ready(function(){
-    $('#search-exemplaire').on('input', function(){
-        const value = $(this).val().trim().toLowerCase();
-        $('.exemplaire-card').each(function(){
-            const immat = $(this).data('immatriculation') || '';
-            $(this).toggle(!value || immat.includes(value));
-        });
-    });
-});
-</script>
+(function(){
+    const inputMarque = document.getElementById("search-marque");
+    const inputImmat = document.getElementById("search-immatriculation");
+    const cards = document.querySelectorAll(".exemplaire-card");
 
+    function filterCards() {
+        const marqueValue = inputMarque.value.trim().toLowerCase();
+        const immatValue = inputImmat.value.trim().toLowerCase();
+
+        cards.forEach(card => {
+            const marque = card.dataset.marque || "";
+            const immat = card.dataset.immatriculation || "";
+
+            const show = (!marqueValue || marque.includes(marqueValue)) &&
+                         (!immatValue || immat.includes(immatValue));
+
+            card.style.display = show ? "flex" : "none";
+        });
+    }
+
+    inputMarque.addEventListener("input", filterCards);
+    inputImmat.addEventListener("input", filterCards);
+})();
+</script>
 {% endblock %}
