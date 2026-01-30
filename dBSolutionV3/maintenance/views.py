@@ -10,7 +10,8 @@ from maintenance.utils import creer_maintenance_complete
 from voiture.voiture_marque.models import VoitureMarque
 from voiture.voiture_exemplaire.models import TypeUtilisation
 from django.utils import timezone
-
+from maintenance.check_up.views import TYPES_MAINTENANCE
+from maintenance.check_up.views import creer_checkup_complet
 
 
 @login_required
@@ -31,27 +32,6 @@ def liste_maintenance_all(request):
     )
 
 
-@login_required
-def detail_exemplaire_maintenance(request, exemplaire_id):
-    tenant = request.user.societe
-    with tenant_context(tenant):
-        exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
-
-    return render(request, "maintenance/exemplaire_detail.html", {
-        "exemplaire": exemplaire,
-    })
-
-# Types possibles de maintenance
-TYPES_MAINTENANCE = [
-    {"code": "checkup", "nom": _("Checkup")},
-    {"code": "entretien", "nom": _("Entretien")},
-    {"code": "freins", "nom": _("Freins")},
-    {"code": "pneus", "nom": _("Pneus")},
-    {"code": "nettoyage_ext", "nom": _("Nettoyage extérieur")},
-    {"code": "nettoyage_int", "nom": _("Nettoyage intérieur")},
-    {"code": "niveaux", "nom": _("Niveaux")},
-    {"code": "autres", "nom": _("Autres interventions")},
-]
 
 @login_required
 def choisir_type_maintenance(request, exemplaire_id):
@@ -80,12 +60,6 @@ def choisir_type_maintenance(request, exemplaire_id):
     }
     return render(request, "maintenance/choisir_type.html", context)
 
-
-
-
-
-
-
 @login_required
 def maintenance_tenant_view(request, exemplaire_id):
     tenant = request.user.societe  # ton tenant actuel
@@ -99,29 +73,10 @@ def maintenance_tenant_view(request, exemplaire_id):
 
         if request.method == "POST":
             # Création de la maintenance complète dans le tenant
-            maintenance = creer_maintenance_complete(exemplaire, mecanicien, tenant)
+            maintenance = creer_checkup_complet(exemplaire, mecanicien, tenant)
             return redirect("maintenance_detail", maintenance_id=maintenance.id)
 
         return render(request, "maintenance/creer_maintenance.html", {
             "exemplaire": exemplaire,
             "now": timezone.now(),
         })
-
-
-
-
-
-
-
-def creer_maintenance_complete(exemplaire, mecanicien):
-    maintenance = Maintenance.objects.create(
-        voiture_exemplaire=exemplaire,  # champ correct
-        mecanicien=mecanicien,          # ton utilisateur responsable
-        immatriculation=exemplaire.immatriculation,
-        date_intervention=timezone.now().date(),
-        kilometres_total=exemplaire.kilometres_total,
-        kilometres_derniere_intervention=exemplaire.kilometres_derniere_intervention,
-        type_maintenance="checkup",
-        tag=Maintenance.Tag.JAUNE
-    )
-    return maintenance

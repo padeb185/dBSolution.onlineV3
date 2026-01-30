@@ -54,11 +54,16 @@ urlpatterns += i18n_patterns(
         "fr/voiture/freins_ar/",
         include(("voiture.voiture_freins_ar.urls", "voiture_freins_ar"), namespace="voiture_freins_ar"),
     ),
-path(
+    path(
         "fr/voiture/pneus/",
         include(("voiture.voiture_pneus.urls", "voiture_pneus"), namespace="voiture_pneus"),
     ),
 
-    path("", include("maintenance.urls")),
+    path('maintenance/', include('maintenance.urls', namespace='maintenance')),
+
+    # Check-up (app spécifique)
+    path('maintenance/checkup/', include('maintenance.check_up.urls', namespace='check_up')),
+
+
 
 )
