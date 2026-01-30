@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from maintenance.models import Maintenance
 from utilisateurs.models import Utilisateur
-from voiture_exemplaire.models import VoitureExemplaire
+from voiture.voiture_exemplaire.models import VoitureExemplaire
 
 # ---------------------------
 # TextChoices
@@ -27,10 +27,6 @@ class BatterieEtat(models.TextChoices):
     OK = "OK", _("OK")
     A_REMPLACER = "A_REMPLACER", _("À remplacer")
 
-
-class EmplacementBruit(Location):
-    """Réutilise Location pour les emplacements de bruit"""
-    pass
 
 
 class TypeBruit(models.TextChoices):
@@ -71,7 +67,7 @@ class ControleGeneral(models.Model):
     maintenance = models.ForeignKey(
         Maintenance,
         on_delete=models.CASCADE,
-        related_name="controle_general",
+        related_name="controle_general_checkup",
         verbose_name=_("Maintenance")
     )
 
@@ -84,9 +80,17 @@ class ControleGeneral(models.Model):
     )
 
     # Essuie-glace
-    essuie_glace_av = models.BooleanField(default=True, verbose_name=_("Essuie-glace AV fonctionnel"))
-    essuie_glace_ar = models.BooleanField(default=True, verbose_name=_("Essuie-glace AR fonctionnel"))
-    pare_brise = models.BooleanField(default=True, verbose_name=_("Pare-brise sans coups"))
+    essuie_glace_av = models.BooleanField(
+        default=True,
+        verbose_name=_("Essuie-glace AV fonctionnel"))
+
+    essuie_glace_ar = models.BooleanField(
+        default=True,
+        verbose_name=_("Essuie-glace AR fonctionnel"))
+
+    pare_brise = models.BooleanField(
+        default=True,
+        verbose_name=_("Pare-brise sans coups"))
 
     # Moteur
     moteur_fuite = models.CharField(
@@ -111,9 +115,18 @@ class ControleGeneral(models.Model):
         default=EtatOKNotOK.OK,
         verbose_name=_("État liquide de frein")
     )
-    remplacement_liquide_frein = models.BooleanField(default=False, verbose_name=_("Remplacement liquide de frein"))
-    specif_liquide_frein = models.CharField(max_length=100, blank=True, verbose_name=_("Spécification liquide de frein"))
-    quantite_liquide_frein = models.FloatField(default=0.0, verbose_name=_("Quantité liquide de frein (L)"))
+    remplacement_liquide_frein = models.BooleanField(
+        default=False,
+        verbose_name=_("Remplacement liquide de frein"))
+
+    specif_liquide_frein = models.CharField(
+        max_length=100,
+        blank=True,
+        verbose_name=_("Spécification liquide de frein"))
+
+    quantite_liquide_frein = models.FloatField(
+        default=0.0,
+        verbose_name=_("Quantité liquide de frein (L)"))
 
     # Direction assistée / crémaillère
     direction_fuite = models.CharField(
@@ -122,7 +135,9 @@ class ControleGeneral(models.Model):
         default=EtatOKNotOK.OK,
         verbose_name=_("Fuite direction assistée / crémaillère")
     )
-    niveau_direction = models.FloatField(default=0.0, verbose_name=_("Niveau liquide direction"))
+    niveau_direction = models.FloatField(
+        default=0.0,
+        verbose_name=_("Niveau liquide direction"))
 
     bruit_roulement = models.CharField(
         max_length=25,
@@ -147,7 +162,9 @@ class ControleGeneral(models.Model):
     )
 
     # Réglage phares
-    reglage_phares = models.BooleanField(default=True, verbose_name=_("Phares réglés correctement"))
+    reglage_phares = models.BooleanField(
+        default=True,
+        verbose_name=_("Phares réglés correctement"))
 
     date = models.DateTimeField(auto_now_add=True)
 
@@ -163,11 +180,17 @@ class AmortisseurControle(models.Model):
     controle_general = models.ForeignKey(
         ControleGeneral,
         on_delete=models.CASCADE,
-        related_name="amortisseurs",
+        related_name="amortisseurs_checkup",
         verbose_name=_("Contrôle général")
     )
-    emplacement = models.CharField(max_length=25, choices=Location.choices, verbose_name=_("Emplacement"))
-    fuite = models.BooleanField(default=False, verbose_name=_("Fuite"))
+    emplacement = models.CharField(
+        max_length=25,
+        choices=Location.choices,
+        verbose_name=_("Emplacement"))
+
+    fuite = models.BooleanField(
+        default=False,
+        verbose_name=_("Fuite"))
 
     class Meta:
         verbose_name = _("Amortisseur")
@@ -207,21 +230,37 @@ class ControleBruit(models.Model):
     maintenance = models.ForeignKey(
         Maintenance,
         on_delete=models.CASCADE,
-        related_name="bruits",
+        related_name="bruits_checkup",  # <-- unique
         verbose_name=_("Maintenance")
     )
-    emplacement = models.CharField(max_length=10, choices=EmplacementBruit.choices, verbose_name=_("Emplacement"))
-    type_bruit = models.CharField(max_length=30, choices=TypeBruit.choices, verbose_name=_("Type de bruit"))
+    emplacement = models.CharField(
+        max_length=10,
+        choices=Location.choices,
+        verbose_name=_("Emplacement"))
+
+    type_bruit = models.CharField(
+        max_length=30,
+        choices=TypeBruit.choices,
+        verbose_name=_("Type de bruit"))
+
     niveau_bruit = models.CharField(
         max_length=10,
         choices=[("NORMAL", _("Normal")), ("ANORMAL", _("Anormal"))],
         default="NORMAL",
         verbose_name=_("Niveau de bruit")
     )
-    commentaire = models.TextField(blank=True, verbose_name=_("Observation"))
+    commentaire = models.TextField(
+        blank=True,
+        verbose_name=_("Observation"))
 
     TAG_CHOICES = [("VERT", "Vert"), ("JAUNE", "Jaune"), ("ROUGE", "Rouge")]
-    tag = models.CharField(max_length=10, choices=TAG_CHOICES, default="VERT", verbose_name=_("Tag"))
+
+
+    tag = models.CharField(
+        max_length=10,
+        choices=TAG_CHOICES,
+        default="JAUNE",
+        verbose_name=_("Tag"))
 
     date = models.DateTimeField(auto_now_add=True)
 
@@ -245,16 +284,51 @@ class ControleBruit(models.Model):
 # Pièces
 # ---------------------------
 class JeuPiece(models.Model):
-    maintenance = models.ForeignKey(Maintenance, on_delete=models.CASCADE, related_name="jeux_pieces", verbose_name=_("Maintenance"))
-    vehicle = models.ForeignKey(VoitureExemplaire, on_delete=models.PROTECT, null=True, blank=True, verbose_name=_("Véhicule"))
-    type_piece = models.CharField(max_length=50, choices=TypePieceControle.choices, verbose_name=_("Pièce contrôlée"))
-    emplacement = models.CharField(max_length=10, choices=Location.choices, verbose_name=_("Emplacement"))
-    etat = models.CharField(max_length=10, choices=EtatPiece.choices, null=True, blank=True, verbose_name=_("État"))
+    maintenance = models.ForeignKey(
+        Maintenance,
+        on_delete=models.CASCADE,
+        related_name="jeux_pieces_checkup",
+        verbose_name=_("Maintenance"))
+
+    vehicle = models.ForeignKey(
+        VoitureExemplaire,
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+        related_name="jeux_pieces_checkup",  # <-- unique
+        verbose_name=_("Véhicule")
+    )
+
+    type_piece = models.CharField(
+        max_length=50,
+        choices=TypePieceControle.choices,
+        verbose_name=_("Pièce contrôlée"))
+
+    emplacement = models.CharField(
+        max_length=10,
+        choices=Location.choices,
+        verbose_name=_("Emplacement"))
+
+
+    etat = models.CharField(
+        max_length=10,
+        choices=EtatPiece.choices,
+        null=True,
+        blank=True,
+        verbose_name=_("État"))
 
     TAG_CHOICES = [("VERT", "Vert"), ("JAUNE", "Jaune"), ("ROUGE", "Rouge")]
-    tag = models.CharField(max_length=10, choices=TAG_CHOICES, default="VERT", verbose_name=_("État visuel / Tag"))
 
-    commentaire = models.TextField(blank=True, verbose_name=_("Observation"))
+    tag = models.CharField(
+        max_length=10,
+        choices=TAG_CHOICES,
+        default="VERT",
+        verbose_name=_("État visuel / Tag"))
+
+    commentaire = models.TextField(
+        blank=True,
+        verbose_name=_("Observation"))
+
     date = models.DateTimeField(auto_now_add=True)
 
     def is_critique(self):
@@ -273,10 +347,27 @@ class JeuPiece(models.Model):
 # Notes
 # ---------------------------
 class NoteMaintenance(models.Model):
-    ROLE_CHOICES = [("APPRENTI", _("Apprenti")), ("MECANICIEN", _("Mécanicien")), ("CHEF", _("Chef mécanicien"))]
+    ROLE_CHOICES = [
+        ("APPRENTI", _("Apprenti")),
+        ("MECANICIEN", _("Mécanicien")),
+        ("CHEF", _("Chef mécanicien"))
+    ]
 
-    maintenance = models.ForeignKey(Maintenance, on_delete=models.CASCADE, related_name="notes", null=True)
-    auteur = models.ForeignKey(Utilisateur, on_delete=models.PROTECT, null=True, blank=True)
+    maintenance = models.ForeignKey(
+        Maintenance,
+        on_delete=models.CASCADE,
+        related_name="notes_checkup",  # <- unique pour check_up
+        null=True
+    )
+
+    auteur = models.ForeignKey(
+        Utilisateur,
+        on_delete=models.PROTECT,
+        related_name="notes_checkup_auteur",  # <- unique
+        null=True,
+        blank=True
+    )
+
     role = models.CharField(max_length=20, choices=ROLE_CHOICES)
     note = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
@@ -285,21 +376,52 @@ class NoteMaintenance(models.Model):
         return f"Note de {self.role} – {self.date:%Y-%m-%d %H:%M}"
 
 
+
 # ---------------------------
 # Freins
 # ---------------------------
 class ControleFreins(models.Model):
-    maintenance = models.ForeignKey(Maintenance, on_delete=models.CASCADE, related_name="controle_freins", verbose_name=_("Maintenance"))
-    partie = models.CharField(max_length=10, choices=PartieFrein.choices, verbose_name=_("Partie contrôlée"))
+    maintenance = models.ForeignKey(
+        Maintenance,
+        on_delete=models.CASCADE,
+        related_name="controle_freins_checkup",
+        verbose_name=_("Maintenance"))
 
-    usure_plaquettes = models.FloatField(verbose_name=_("Usure des plaquettes (%)"))
-    epaisseur_disques = models.FloatField(verbose_name=_("Épaisseur des disques (mm)"))
-    fentes_disques = models.BooleanField(default=False, verbose_name=_("Présence de fentes sur les disques"))
-    fuites = models.BooleanField(default=False, verbose_name=_("Présence de fuite du système de freinage"))
-    disques_remplacer_av = models.BooleanField(default=False, verbose_name=_("Disques avant à remplacer"))
-    disques_remplacer_ar = models.BooleanField(default=False, verbose_name=_("Disques arrière à remplacer"))
-    Plaquettes_remplacer_av = models.BooleanField(default=False, verbose_name=_("Plaquettes avant à remplacer"))
-    plaquettes_remplacer_ar = models.BooleanField(default=False, verbose_name=_("Plaquettes arrière à remplacer"))
+    partie = models.CharField(
+        max_length=10,
+        choices=PartieFrein.choices,
+        verbose_name=_("Partie contrôlée"))
+
+    usure_plaquettes = models.FloatField(
+        verbose_name=_("Usure des plaquettes (%)"))
+
+    epaisseur_disques = models.FloatField(
+        verbose_name=_("Épaisseur des disques (mm)"))
+
+    fentes_disques = models.BooleanField(
+        default=False,
+        verbose_name=_("Présence de fentes sur les disques"))
+
+    fuites = models.BooleanField(
+        default=False,
+        verbose_name=_("Présence de fuite du système de freinage"))
+
+    disques_remplacer_av = models.BooleanField(
+        default=False,
+        verbose_name=_("Disques avant à remplacer"))
+
+    disques_remplacer_ar = models.BooleanField(
+        default=False,
+        verbose_name=_("Disques arrière à remplacer"))
+
+    Plaquettes_remplacer_av = models.BooleanField(
+        default=False,
+        verbose_name=_("Plaquettes avant à remplacer"))
+
+    plaquettes_remplacer_ar = models.BooleanField(
+        default=False,
+        verbose_name=_("Plaquettes arrière à remplacer"))
+
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -325,9 +447,26 @@ class ControleFreins(models.Model):
 # Nettoyage
 # ---------------------------
 class NettoyageExterieur(models.Model):
-    maintenance = models.ForeignKey(Maintenance, on_delete=models.CASCADE, related_name="nettoyages_exterieur", verbose_name=_("Check up"))
-    voiture_exemplaire = models.ForeignKey(VoitureExemplaire, on_delete=models.CASCADE, related_name="nettoyages_exterieur", verbose_name=_("Véhicule"))
-    mecanicien = models.ForeignKey(Utilisateur, on_delete=models.PROTECT, related_name="nettoyage_exterieur", verbose_name=_("Mécanicien"))
+    maintenance = models.ForeignKey(
+        Maintenance,
+        on_delete=models.CASCADE,
+        related_name="nettoyages_exterieur_nettoyage_exterieur",  # unique
+        verbose_name=_("Maintenance")
+    )
+
+    voiture_exemplaire = models.ForeignKey(
+        VoitureExemplaire,
+        on_delete=models.CASCADE,
+        related_name="nettoyages_exterieur_nettoyage_exterieur",  # unique
+        verbose_name=_("Véhicule")
+    )
+
+    mecanicien = models.ForeignKey(
+        Utilisateur,
+        on_delete=models.PROTECT,
+        related_name="nettoyages_exterieur_nettoyage_exterieur_mecanicien",  # unique
+        verbose_name=_("Mécanicien")
+    )
 
     traces_gomme = models.BooleanField(default=False, verbose_name=_("Traces de gomme"))
     carrosserie = models.BooleanField(default=False, verbose_name=_("Carrosserie"))
@@ -342,11 +481,28 @@ class NettoyageExterieur(models.Model):
     def __str__(self):
         return f"Nettoyage extérieur – {self.voiture_exemplaire} ({self.date:%Y-%m-%d})"
 
-
+# Nettoyage intérieur
 class NettoyageInterieur(models.Model):
-    maintenance = models.ForeignKey(Maintenance, on_delete=models.CASCADE, related_name="nettoyages_interieur", verbose_name=_("Nettoyage intérieur"))
-    voiture_exemplaire = models.ForeignKey(VoitureExemplaire, on_delete=models.CASCADE, related_name="nettoyages_interieur", verbose_name=_("Véhicule"))
-    mecanicien = models.ForeignKey(Utilisateur, on_delete=models.PROTECT, related_name="nettoyages_interieur", verbose_name=_("Mécanicien"))
+    maintenance = models.ForeignKey(
+        Maintenance,
+        on_delete=models.CASCADE,
+        related_name="nettoyages_interieur_checkup",  # unique, pas de conflit
+        verbose_name=_("Nettoyage intérieur")
+    )
+
+    voiture_exemplaire = models.ForeignKey(
+        VoitureExemplaire,
+        on_delete=models.CASCADE,
+        related_name="nettoyages_interieur_checkup",  # unique
+        verbose_name=_("Véhicule")
+    )
+
+    mecanicien = models.ForeignKey(
+        Utilisateur,
+        on_delete=models.PROTECT,
+        related_name="nettoyages_interieur_checkup_mecanicien",  # unique
+        verbose_name=_("Mécanicien")
+    )
 
     vitres = models.BooleanField(default=False, verbose_name=_("Vitres"))
     pare_brise = models.BooleanField(default=False, verbose_name=_("Pare-brise"))
@@ -355,6 +511,7 @@ class NettoyageInterieur(models.Model):
     tableau_de_bord = models.BooleanField(default=False, verbose_name=_("Tableau de bord"))
     plastiques = models.BooleanField(default=False, verbose_name=_("Plastiques"))
     validation = models.BooleanField(default=False, verbose_name=_("Validation finale"))
+
     date = models.DateTimeField(auto_now_add=True, verbose_name=_("Date"))
 
     class Meta:
@@ -363,3 +520,4 @@ class NettoyageInterieur(models.Model):
 
     def __str__(self):
         return f"Nettoyage intérieur – {self.voiture_exemplaire} ({self.date:%Y-%m-%d})"
+

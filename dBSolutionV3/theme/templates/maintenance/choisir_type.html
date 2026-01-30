@@ -52,17 +52,23 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
 
         {% for type in types_maintenance %}
-        <form method="post" action="">
+        <form method="post"
+              action="{% url 'maintenance:maintenance_tenant_creer' exemplaire.id %}">
             {% csrf_token %}
             <input type="hidden" name="type_maintenance" value="{{ type.code }}">
             <input type="hidden" name="date_intervention" value="{{ now|date:'Y-m-d' }}">
+
             <button type="submit"
                     class="cursor-pointer p-6 bg-white shadow-md rounded-lg hover:shadow-lg hover:bg-blue-50 flex flex-col items-center justify-center text-center transition w-full">
-                <img src="{% static 'icons/'|add:type.code|add:'.png' %}" alt="{{ type.nom }}" class="w-16 h-16 mb-4">
+                <img src="{% static 'icons/'|add:type.code|add:'.png' %}"
+                     alt="{{ type.nom }}"
+                     class="w-16 h-16 mb-4">
                 <p class="font-semibold">{{ type.nom }}</p>
             </button>
         </form>
+
         {% endfor %}
+
     </div>
 
 </div>
