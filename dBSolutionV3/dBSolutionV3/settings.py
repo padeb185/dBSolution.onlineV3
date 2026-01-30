@@ -119,7 +119,7 @@ TENANT_APPS = (
     'maintenance.freins',
     'maintenance.silent_blocs',
     'maintenance.bruits',
-    'maintenance.controle_check_up',
+    'maintenance.check_up',
     'maintenance.nettoyage_interieur',
     'maintenance.nettoyage_exterieur',
 

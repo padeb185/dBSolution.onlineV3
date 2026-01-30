@@ -33,7 +33,7 @@ class ControleBruit(models.Model):
     type_bruit = models.CharField(
         max_length=30,
         choices=TypeBruit.choices,
-        verbose_name=_("Type de composant")
+        verbose_name=_("Type de bruit")
     )
 
     niveau_bruit = models.CharField(
@@ -57,7 +57,7 @@ class ControleBruit(models.Model):
         max_length=10,
         choices=TAG_CHOICES,
         default="VERT",
-        verbose_name=_("État visuel / Tag")
+        verbose_name=_("Tag")
     )
 
     date = models.DateTimeField(auto_now_add=True)

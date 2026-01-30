@@ -81,6 +81,13 @@ class ControleGeneral(models.Model):
     )
     niveau_direction = models.FloatField(default=0.0, verbose_name=_("Niveau liquide direction"))
 
+    bruit_roulement = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("État roulement de roue")
+    )
+
     # Batterie
     batterie_etat = models.CharField(
         max_length=25,
