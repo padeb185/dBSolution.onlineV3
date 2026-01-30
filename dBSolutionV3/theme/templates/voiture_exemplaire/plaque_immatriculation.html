@@ -78,3 +78,38 @@
 
   </div>
 </div>
+
+
+<!-- Plaque allemande éditable -->
+<div class="flex justify-center mb-8">
+  <div class="flex items-center bg-[#FFF200] border-4 border-[#003399] rounded-lg px-4 py-2 shadow-lg space-x-2">
+
+    <!-- Bande bleue européenne -->
+    <div class="bg-blue-700 text-white font-bold px-2 py-4 rounded-l flex flex-col items-center">
+      <span>🇪🇺</span>
+      <span>L</span>
+    </div>
+
+    <!-- 2 lettres -->
+    <input
+      type="text"
+      maxlength="3"
+      class="w-16 text-center text-3xl font-bold text-[#003399] border-b-2 border-[#003399] tracking-widest focus:outline-none"
+      placeholder="ABC"
+      oninput="this.value = this.value.replace(/[^A-Za-z]/g,'').toUpperCase()"
+    >
+
+    <span class="text-3xl font-bold text-[#003399]">-</span>
+
+    <!-- 4 chiffres -->
+    <input
+      type="text"
+      maxlength="6"
+      inputmode="numeric"
+      class="w-24 text-center text-3xl font-bold text-[#003399] border-b-2 border-[#003399] tracking-widest focus:outline-none"
+      placeholder="1234"
+      oninput="this.value = this.value.replace(/[^0-9^A-Za-z]/g,'')"
+    >
+
+  </div>
+</div>

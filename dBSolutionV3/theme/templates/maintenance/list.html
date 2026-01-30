@@ -2,19 +2,19 @@
 {% load i18n static %}
 
 {% block content %}
-
 <div class="p-6 w-full ml-[-10px] mr-[10px]">
 
-     <h1 class="text-2xl font-bold mb-6 flex items-center gap-4">
-       <img src="{% static 'icons/mecanique.png' %}" alt="Mécanique"
+    <h1 class="text-2xl font-bold mb-6 flex items-center gap-4">
+        <img src="{% static 'icons/mecanique.png' %}" alt="Mécanique"
              style="width:60px; height:60px; margin-right:10px;">
         {% trans "Maintenance du véhicule :" %}
         {{ modele.voiture_marque.nom_marque }} {{ modele.nom_modele }}
         {% if modele.nom_variante %}- {{ modele.nom_variante }}{% endif %}
-     </h1>
-     {% if exemplaires %}
+    </h1>
 
-     <!-- Recherche -->
+    {% if exemplaires %}
+
+    <!-- Recherche -->
     <div class="mb-6 grid grid-cols-1 md:grid-cols-2 gap-4">
         <input
             type="text"
@@ -35,33 +35,42 @@
         {% for ex in exemplaires %}
         <a href="{% url 'maintenance:choisir_type' exemplaire_id=ex.id %}"
            class="exemplaire-card bg-white shadow-md transition duration-300 hover:shadow-lg hover:bg-blue-50 rounded-lg p-4 flex flex-col gap-4 cursor-pointer"
-                data-marque="{{ ex.voiture_marque.nom_marque|lower }}"
-                data-immatriculation="{{ ex.immatriculation|lower }}">
+           data-marque="{{ ex.voiture_marque.nom_marque|lower }}"
+           data-immatriculation="{{ ex.immatriculation|lower }}">
 
-            <!-- Plaque Belgique / Luxembourg -->
+            {% comment %} Gestion des plaques par pays {% endcomment %}
             {% if ex.pays == 'Belgique' %}
-             <div class="flex items-center w-[40%] min-w-[180px] h-[40px] bg-white border-2 border-[#8B0000] rounded font-[Arial] mb-4">
-                <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
-                    <span>🇪🇺</span>
-                    <span>B</span>
+                <div class="flex items-center w-[40%] min-w-[180px] h-[40px] bg-white border-2 border-[#8B0000] rounded font-[Arial] mb-4">
+                    <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
+                        <span>🇪🇺</span>
+                        <span>B</span>
+                    </div>
+                    <input type="text" value="{{ ex.immatriculation }}" readonly
+                           class="w-full text-center border-none font-bold text-[#8B0000] text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0">
                 </div>
-                <input type="text" value="{{ ex.immatriculation }}" readonly
-                       class="w-full text-center border-none font-bold text-[#8B0000] text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0">
-            </div>
             {% elif ex.pays == 'Luxembourg' %}
-              <div class="flex items-center w-[40%] min-w-[180px] h-[40px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial] mb-4">
-                <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
-                    <span>🇪🇺</span>
-                    <span>L</span>
+                <div class="flex items-center w-[40%] min-w-[180px] h-[40px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial] mb-4">
+                    <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
+                        <span>🇪🇺</span>
+                        <span>L</span>
+                    </div>
+                    <input type="text" value="{{ ex.immatriculation }}" readonly
+                           class="w-full text-center border-none font-bold text-black text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0">
                 </div>
-                <input type="text" value="{{ ex.immatriculation }}" readonly
-                       class="w-full text-center border-none font-bold text-black text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0">
-            </div>
+            {% elif ex.pays == 'Allemagne' %}
+                <div class="flex items-center w-[40%] min-w-[180px] h-[40px] bg-white border-2 border-black rounded font-[Arial] mb-4">
+                    <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
+                        <span>🇪🇺</span>
+                        <span>D</span>
+                    </div>
+                    <input type="text" value="{{ ex.immatriculation }}" readonly
+                           class="w-full text-center border-none font-bold text-black text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0">
+                </div>
             {% endif %}
 
             <!-- Infos voiture -->
             <div>
-                <p class="font-semibold">{{ ex.voiture_modele.voiture_marque.nom_marque }} {{ ex.voiture_modele.nom_modele }}</p>
+                <p class="font-semibold">{{ ex.voiture_marque.nom_marque }} {{ ex.voiture_modele.nom_modele }}</p>
                 {% if ex.voiture_modele.nom_variante %}
                     <p class="text-gray-600 text-sm">{{ ex.voiture_modele.nom_variante }}</p>
                 {% endif %}
@@ -87,8 +96,6 @@
 
 </div>
 
-<!-- JS pour le filtre de recherche -->
-<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
 <script>
 (function(){
     const inputMarque = document.getElementById("search-marque");

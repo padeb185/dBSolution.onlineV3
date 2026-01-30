@@ -51,7 +51,8 @@ class VoitureExemplaire(models.Model):
 
     type_utilisation = models.CharField(
         max_length=10,
-        choices=TypeUtilisation.choices
+        choices=TypeUtilisation.choices,
+        default=TypeUtilisation.CLIENT
     )
 
     # 📏 Kilométrage châssis

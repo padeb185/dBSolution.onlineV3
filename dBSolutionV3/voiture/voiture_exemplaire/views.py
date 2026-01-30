@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
 from django_tenants.utils import tenant_context
-from .models import VoitureExemplaire
+from .models import VoitureExemplaire, TypeUtilisation
 from .forms import VoitureExemplaireForm
 from ..voiture_modele.models import VoitureModele
 from ..voiture_moteur.models import MoteurVoiture
@@ -318,28 +318,38 @@ def liste_exemplaires_all(request):
 
 
 
+
 @login_required
 def ajouter_exemplaire_all(request, modele_id):
     modele = get_object_or_404(VoitureModele, id=modele_id)
 
     if request.method == "POST":
+        type_utilisation = request.POST.get("type_utilisation")  # récupère la valeur sélectionnée
+
         VoitureExemplaire.objects.create(
             voiture_marque=modele.voiture_marque,   # marque depuis le modèle
             voiture_modele=modele,                  # lien vers le modèle
             immatriculation=request.POST.get("immatriculation"),
             pays=request.POST.get("pays"),
             numero_vin=request.POST.get("numero_vin"),
+            type_utilisation=type_utilisation,      # <-- ici
             kilometres_chassis=request.POST.get("kilometres_chassis"),
             annee_production=request.POST.get("annee_production"),
             mois_production=request.POST.get("mois_production"),
         )
         return redirect("voiture_exemplaire:voiture_exemplaire", modele_id=modele.id)
 
+    # Pour pré-remplir le formulaire si nécessaire (ex: après erreur)
+    type_utilisation = None  # aucune sélection par défaut
 
     return render(
         request,
         "voiture_exemplaire/ajouter_exemplaire_all.html",
-        {"modele": modele}
+        {
+            "modele": modele,
+            "TypeUtilisation": TypeUtilisation,   # pour boucler dans le template
+            "type_utilisation": type_utilisation  # valeur sélectionnée
+        }
     )
 
 

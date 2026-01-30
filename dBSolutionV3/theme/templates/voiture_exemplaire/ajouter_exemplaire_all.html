@@ -51,16 +51,27 @@
         </div>
 
         <div class="mb-4">
-            <label for="id_type_utilisation" class="block font-semibold mb-1">{% trans "Type d'utilisation" %}</label>
-            <select id="id_type_utilisation" name="type_utilisation"
-                    class="border rounded px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option value="societe">{% trans "Société" %}</option>
-                <option value="client" selected>{% trans "Client" %}</option>
-                <option value="prive">{% trans "Privé" %}</option>
-                <option value="location">{% trans "Location" %}</option>
-            </select>
-        </div>
+            <label for="id_type_utilisation" class="block mb-1">
+                {% trans "Type d'utilisation" %}
+            </label>
 
+            {% with value=request.POST.type_utilisation|default_if_none:'' %}
+            <select id="id_type_utilisation"
+                    name="type_utilisation"
+                    class="border rounded px-3 py-2 w-full text-sm h-10">
+
+                <option value="">{% trans "Sélectionner un type d'utilisation" %}</option>
+
+                {% for choice, label in TypeUtilisation.choices %}
+                    <option value="{{ choice }}"
+                        {% if value == choice %}selected{% endif %}>
+                        {{ label }}
+                    </option>
+                {% endfor %}
+
+            </select>
+            {% endwith %}
+        </div>
 
 
 
