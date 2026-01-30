@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-
 {% load i18n static %}
 
 {% block content %}
@@ -14,14 +13,14 @@
                 <span class="font-semibold">
                     {{ exemplaire.voiture_modele.voiture_marque.nom_marque }}
                     {{ exemplaire.voiture_modele.nom_modele }}
-                    {{ exemplaire.voiture_modele.nom_variante }}
+                    {% if exemplaire.voiture_modele.nom_variante %}{{ exemplaire.voiture_modele.nom_variante }}{% endif %}
                 </span>
             </div>
         </div>
 
         <!-- Plaque d'immatriculation -->
         {% if exemplaire.pays == 'Belgique' %}
-            <div class="flex items-center w-[15%] min-w-[90px] h-[40px] bg-white border-2 border-[#8B0000] rounded font-[Arial] mt-4 md:mt-0">
+            <div class="flex items-center w-[14%] min-w-[180px] h-[40px] bg-white border-2 border-[#8B0000] rounded font-[Arial] mb-4">
                 <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
                     <span>🇪🇺</span>
                     <span>B</span>
@@ -30,7 +29,7 @@
                        class="w-full text-center border-none font-bold text-[#8B0000] text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0">
             </div>
         {% elif exemplaire.pays == 'Luxembourg' %}
-            <div class="flex items-center w-[15%] min-w-[90px] h-[40px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial] mt-4 md:mt-0">
+            <div class="flex items-center w-[14%] min-w-[180px] h-[40px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial] mb-4">
                 <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
                     <span>🇪🇺</span>
                     <span>L</span>
@@ -38,9 +37,17 @@
                 <input type="text" value="{{ exemplaire.immatriculation }}" readonly
                        class="w-full text-center border-none font-bold text-black text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0">
             </div>
+        {% elif exemplaire.pays == 'Allemagne' %}
+            <div class="flex items-center w-[14%] min-w-[180px] h-[40px] bg-white border-2 border-black rounded font-[Arial] mb-4">
+                <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
+                    <span>🇪🇺</span>
+                    <span>D</span>
+                </div>
+                <input type="text" value="{{ exemplaire.immatriculation }}" readonly
+                       class="w-full text-center border-none font-bold text-black text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0">
+            </div>
         {% endif %}
     </h1>
-
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
 
