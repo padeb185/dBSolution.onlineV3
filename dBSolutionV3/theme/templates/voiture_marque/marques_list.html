@@ -8,21 +8,7 @@
 
     <h1 class="text-2xl font-bold mb-6">{% trans "Marques de voiture" %}</h1>
 
-    <!-- Favoris -->
-    <div id="favoris-section"
-         class="mb-6 bg-yellow-50 border border-yellow-200 rounded-lg p-4 {% if not favoris %}hidden{% endif %}">
-        <h2 class="font-semibold text-yellow-600 mb-2">⭐ {% trans "Mes marques favorites" %}</h2>
-        <div id="favoris-list" class="flex flex-wrap gap-4">
-            {% for marque in favoris %}
-                <div class="flex items-center gap-2" data-marque-id="{{ marque.id_marque }}">
-                    <span>{{ marque.nom_marque }}</span>
-                    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="blue" stroke="currentColor" stroke-width="2">
-                        <path d="M11.48 3.5a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442a.562.562 0 01.32.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0l-4.725 2.885a.562.562 0 01-.84-.61l1.285-5.385a.563.563 0 00-.182-.557l-4.204-3.602a.562.562 0 01.32-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/>
-                    </svg>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
+
 
     <!-- Recherche -->
    <div class="mb-6">
@@ -33,6 +19,12 @@
             placeholder="{% trans 'Rechercher une marque...' %}"
         >
     </div>
+    <div class="flex justify-end mb-6">
+        <a href="{% url 'voiture_marque:marques_favorites' %}"
+           class="inline-flex items-center gap-2 px-4 py-2 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold rounded-lg transition">
+            ⭐ {% trans "Mes marques favorites" %}
+        </a>
+    </div>
 
     <!-- Marques -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -42,6 +34,20 @@
              onclick="window.location.href='{% url 'voiture_marque:modeles_par_marque' marque_id=marque.id_marque %}'"
              data-marque-id="{{ marque.id_marque }}"
              data-marque-nom="{{ marque.nom_marque|lower }}">
+
+             <!-- ⭐ ÉTOILE FAVORI -->
+            <div class="absolute top-3 right-3 z-10">
+                <button
+                    class="favorite-btn text-2xl"
+                    data-url="{% url 'voiture_marque:toggle_marque_favorite' marque_id=marque.id_marque %}"
+                    onclick="event.stopPropagation();">
+                    {% if marque.id_marque in favorites_ids %}
+                        ⭐
+                    {% else %}
+                        ☆
+                    {% endif %}
+                </button>
+            </div>
 
            <div class="flex-1">
                 <h2 class="text-lg font-semibold">{{ marque.nom_marque }}</h2>
@@ -61,22 +67,22 @@
 </div>
 
 <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
-
 <script>
-(function(){
-  const input = document.getElementById("search-marque");
-  if(!input) return;
-
-  input.addEventListener("input", function(){
-      const value = this.value.trim().toLowerCase();
-      const cards = document.querySelectorAll(".marque-card");
-
-      cards.forEach(card => {
-          const nom = (card.dataset.marqueNom || "").toLowerCase();
-          card.style.display = (!value || nom.startsWith(value)) ? "flex" : "none";
-      });
-  });
-})();
+document.querySelectorAll(".favorite-btn").forEach(btn => {
+    btn.addEventListener("click", function () {
+        fetch(this.dataset.url, {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": "{{ csrf_token }}",
+            },
+        })
+        .then(res => res.json())
+        .then(data => {
+            this.textContent = data.is_favorite ? "⭐" : "☆";
+        });
+    });
+});
 </script>
+
 
 {% endblock %}

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="p-6">
+
+    <h1 class="text-2xl font-bold mb-6">
+        ⭐ {% trans "Mes marques favorites" %}
+    </h1>
+
+    {% if marques %}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {% for marque in marques %}
+                <div class="bg-white shadow rounded-lg p-6 flex items-center gap-6 cursor-pointer"
+                     onclick="window.location.href='{% url 'voiture_marque:modeles_par_marque' marque_id=marque.id_marque %}'">
+
+                    <div class="flex-1">
+                        <h2 class="text-lg font-semibold">{{ marque.nom_marque }}</h2>
+                    </div>
+
+                    <img src="{% static 'images/marques/' %}{{ marque.nom_marque|lower }}.png"
+                         style="width:75px;"
+                         onerror="this.src='{% static 'images/marques/default.png' %}'">
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-gray-500">
+            {% trans "Aucune marque favorite pour le moment." %}
+        </p>
+    {% endif %}
+
+</div>
+{% endblock %}
