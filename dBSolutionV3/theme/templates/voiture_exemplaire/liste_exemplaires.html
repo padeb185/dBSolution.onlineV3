@@ -60,7 +60,7 @@
                         class="w-full text-center border-none font-bold text-black text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0"
                     >
                 </div>
-            {% elif exemplaire.pays == 'Allemagne' %}
+            {% elif ex.pays == 'Allemagne' %}
                 <div class="flex items-center w-[40%] min-w-[180px] h-[40px] bg-white border-2 border-black rounded font-[Arial] mb-4">
                     <!-- Bande UE -->
                     <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
@@ -69,7 +69,7 @@
                     </div>
                     <input
                             type="text"
-                            value="{{ exemplaire.immatriculation }}"
+                            value="{{ ex.immatriculation }}"
                             oninput="this.value = this.value.toUpperCase();"
                             class="w-full text-center border-none font-bold text-black text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0"
                             readonly
