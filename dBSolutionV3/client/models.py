@@ -7,7 +7,8 @@ from adresse.models import Adresse
 
 
 class Client(models.Model):
-    # Informations personnelles
+
+
     nom = models.CharField(_("Nom"), max_length=255)
 
     prenom = models.CharField(_("Prénom"), max_length=255)
