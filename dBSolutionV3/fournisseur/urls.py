@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import FournisseurListView, FournisseurCreateView, fournisseur_detail
+from .views import FournisseurListView, fournisseur_detail, ajouter_fournisseur_all
 
 app_name = "fournisseur"
 
@@ -12,7 +12,7 @@ urlpatterns = [
     ),
     path(
         "fournisseur/creer/",
-        FournisseurCreateView.as_view(),
+        ajouter_fournisseur_all,
         name="fournisseur_create",
     ),
 

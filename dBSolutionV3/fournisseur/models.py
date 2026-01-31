@@ -43,7 +43,9 @@ class Fournisseur(models.Model):
         _("Code pays"),
         max_length=2,
         default="BE",
-        help_text=_("ISO 3166-1 alpha-2")
+        help_text=_("ISO 3166-1 alpha-2"),
+        null=True,
+        blank=True
     )
 
     email = models.EmailField(
@@ -72,7 +74,8 @@ class Fournisseur(models.Model):
 
 
     # --- Métadonnées ---
-    is_active = models.BooleanField(_("Actif"), default=True)
+    is_active = models.BooleanField(_("Actif"), default=True, null=True, blank=True)
+
     created_at = models.DateTimeField(_("Créé le"), auto_now_add=True)
 
     class Meta:

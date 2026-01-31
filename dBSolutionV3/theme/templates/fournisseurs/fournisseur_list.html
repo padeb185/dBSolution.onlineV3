@@ -25,13 +25,13 @@
                placeholder="{% trans 'Numéro Peppol' %}">
 
 
-        <input id="search-country_code" type="text"
+        <input id="search-email" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Code pays' %}">
+               placeholder="{% trans 'info@...' %}">
 
-        <input id="search-is_active" type="text"
+        <input id="search-telephone_fixe" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Actif' %}">
+               placeholder="{% trans '0032' %}">
 
 
         <div>
@@ -47,25 +47,25 @@
 
 
 <!-- Table -->
-<table id="pneus-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+<table id="fournisseurs-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
     <thead>
         <tr class="bg-gray-100">
             <th class="border px-4 py-2 cursor-pointer">{% trans "Nom du Fournisseur" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Numero de TVA" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Numero Peppol" %}</th>
-            <th class="border px-4 py-2 cursor-pointer">{% trans "Code Pays" %}</th>
-            <th class="border px-4 py-2 cursor-pointer">{% trans "Statut" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Email" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Téléphone" %}</th>
             <th class="border px-4 py-2 cursor-pointer text-center">{% trans "Info" %}</th>
         </tr>
     </thead>
     <tbody>
-        {% for pneu in pneus %}
+        {% for fournisseur in fournisseurs %}
         <tr>
             <td class="border px-4 py-2">{{ fournisseur.nom }}</td>
             <td class="border px-4 py-2">{{ fournisseur.numero_tva }}</td>
             <td class="border px-4 py-2">{{ fournisseur.peppol_id }}</td>
-            <td class="border px-4 py-2">{{ fournisseur.country_code }}</td>
-            <td class="border px-4 py-2">{{ fournisseur.is_active }}</td>
+            <td class="border px-4 py-2">{{ fournisseur.email }}</td>
+            <td class="border px-4 py-2">{{ fournisseur.telephone_fixe }}</td>
             <td class="border px-4 py-2 text-center">
                 <a href="{% url 'fournisseur:fournisseur_detail' fournisseur.id %}"
                    class="text-blue-600 hover:text-blue-800 font-semibold">
@@ -109,10 +109,10 @@ $(document).ready(function() {
     $('#search-numero_peppol').on('keyup', function () {
         table.column(2).search(this.value).draw();
     });
-    $('#search-country_code').on('keyup', function () {
+    $('#search-email').on('keyup', function () {
         table.column(3).search(this.value).draw();
     });
-     $('#search-is_active').on('keyup', function () {
+     $('#search-telephone_fixe').on('keyup', function () {
         table.column(4).search(this.value).draw();
     });
 
