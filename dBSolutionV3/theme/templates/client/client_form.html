@@ -29,63 +29,69 @@
     <form method="post" class="flex flex-col space-y-4">
         {% csrf_token %}
 
-        <!-- Informations client -->
+        <!-- Prénom -->
         <div>
             <label for="id_prenom">{% trans "Prénom" %}</label>
             <input type="text" id="id_prenom" name="prenom"
-                   value="{{ request.POST.prenom|default:client.prenom }}"
+                   value="{{ request.POST.prenom|default:client.prenom|default_if_none:'' }}"
                    class="border rounded px-4 py-2 w-full"
                    placeholder="{% trans 'Prénom' %}">
         </div>
 
+        <!-- Nom -->
         <div>
             <label for="id_nom">{% trans "Nom" %}</label>
             <input type="text" id="id_nom" name="nom"
-                   value="{{ request.POST.nom|default:client.nom }}"
+                   value="{{ request.POST.nom|default:client.nom|default_if_none:'' }}"
                    class="border rounded px-4 py-2 w-full"
                    placeholder="{% trans 'Nom' %}">
         </div>
 
+        <!-- Numéro de téléphone -->
         <div>
             <label for="id_numero_telephone">{% trans "Numéro de téléphone" %}</label>
             <input type="text" id="id_numero_telephone" name="numero_telephone"
-                   value="{{ request.POST.numero_telephone|default:client.numero_telephone }}"
+                   value="{{ request.POST.numero_telephone|default:client.numero_telephone|default_if_none:'' }}"
                    class="border rounded px-4 py-2 w-full"
                    placeholder="+32 123 45 67 89">
         </div>
 
+        <!-- Numéro de permis -->
         <div>
             <label for="id_numero_permis">{% trans "Numéro de permis" %}</label>
             <input type="text" id="id_numero_permis" name="numero_permis"
-                   value="{{ request.POST.numero_permis|default:client.numero_permis }}"
+                   value="{{ request.POST.numero_permis|default:client.numero_permis|default_if_none:'' }}"
                    class="border rounded px-4 py-2 w-full"
                    placeholder="1234567890">
         </div>
+
+        <!-- Numéro de carte d'identité -->
         <div>
             <label for="id_numero_carte_id">{% trans "Numéro de carte d'identité" %}</label>
             <input type="text" id="id_numero_carte_id" name="numero_carte_id"
-                   value="{{ request.POST.numero_carte_id|default:client.numero_carte_id }}"
+                   value="{{ request.POST.numero_carte_id|default:client.numero_carte_id|default_if_none:'' }}"
                    class="border rounded px-4 py-2 w-full">
         </div>
 
-
+        <!-- Numéro de compte bancaire -->
         <div>
             <label for="id_numero_compte">{% trans "Numéro de compte bancaire" %}</label>
             <input type="text" id="id_numero_compte" name="numero_compte"
-                   value="{{ request.POST.numero_compte|default:client.numero_compte }}"
+                   value="{{ request.POST.numero_compte|default:client.numero_compte|default_if_none:'' }}"
                    class="border rounded px-4 py-2 w-full"
                    placeholder="BE12 3456 7890 1234">
         </div>
 
+        <!-- Email -->
         <div>
             <label for="id_email">{% trans "Email" %}</label>
             <input type="email" id="id_email" name="email"
-                   value="{{ request.POST.email|default:client.email }}"
+                   value="{{ request.POST.email|default:client.email|default_if_none:'' }}"
                    class="border rounded px-4 py-2 w-full"
                    placeholder="exemple@domaine.com">
         </div>
 
-       <!-- Date de naissance -->
+        <!-- Date de naissance -->
         <div>
             <label for="id_date_naissance">{% trans "Date de naissance" %}</label>
             <input type="date" id="id_date_naissance" name="date_naissance"
@@ -93,24 +99,26 @@
                    class="border rounded px-4 py-2 w-full">
         </div>
 
-        <!-- Âge calculé -->
+        <!-- Âge -->
         <div>
             <label for="id_age">{% trans "Âge" %}</label>
             <input type="text" id="id_age" name="age"
                    class="border rounded px-4 py-2 w-full bg-gray-100"
                    readonly>
         </div>
+
+        <!-- Niveau -->
         <div>
             <label for="id_niveau">{% trans "Niveau" %}</label>
             <select id="id_niveau" name="niveau" class="border rounded px-4 py-2 w-full">
                 {% for choice, label in client.Niveau.choices %}
-                    <option value="{{ choice }}" {% if request.POST.niveau == choice or client.niveau == choice %}selected{% endif %}>
+                    <option value="{{ choice }}"
+                        {% if request.POST.niveau == choice or client.niveau == choice %}selected{% endif %}>
                         {{ label }}
                     </option>
                 {% endfor %}
             </select>
         </div>
-
 
         <!-- Adresse -->
         <h2 class="text-lg font-semibold mt-6 mb-2">{% trans "Adresse" %}</h2>
@@ -152,32 +160,32 @@
                    class="border rounded px-4 py-2 w-full">
         </div>
 
-                <button type="submit"
-                        class="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded w-full mt-4">
-                    {% trans "Enregistrer" %}
-                </button>
+        <button type="submit"
+                class="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded w-full mt-4">
+            {% trans "Enregistrer" %}
+        </button>
 
     </form>
 </div>
 
-
-
-
 <script>
-document.getElementById('id_date_naissance').addEventListener('change', function() {
-    const dateValue = this.value;
-    if (!dateValue) return;
-
-    const birthDate = new Date(dateValue);
-    const today = new Date();
-    let age = today.getFullYear() - birthDate.getFullYear();
-    const m = today.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-        age--;
+    // Calcul automatique de l'âge
+    function updateAge() {
+        const dateInput = document.getElementById('id_date_naissance');
+        const ageInput = document.getElementById('id_age');
+        if (!dateInput.value) return;
+        const birthDate = new Date(dateInput.value);
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) age--;
+        ageInput.value = age;
     }
+    document.getElementById('id_date_naissance').addEventListener('change', updateAge);
+    window.addEventListener('DOMContentLoaded', updateAge);
 
-    document.getElementById('id_age').value = age;
-});
+
+
 
 // Si le client existe déjà, remplir l'âge au chargement
 window.addEventListener('DOMContentLoaded', () => {

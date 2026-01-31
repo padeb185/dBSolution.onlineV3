@@ -1,3 +1,4 @@
+import uuid
 from datetime import date
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -6,6 +7,8 @@ from adresse.models import Adresse
 
 
 class Client(models.Model):
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
     prenom = models.CharField(_("Prénom"), max_length=50)
     nom = models.CharField(_("Nom"), max_length=50)
