@@ -22,7 +22,6 @@ class SocieteClienteForm(forms.ModelForm):
             "code_pays",
             "numero_telephone",
             "email",
-            "is_active",
         ]
         widgets = {
             "societe": forms.Select(attrs={"class": "form-select"}),
@@ -35,7 +34,6 @@ class SocieteClienteForm(forms.ModelForm):
             "code_pays": forms.TextInput(attrs={"class": "form-control"}),
             "numero_telephone": forms.TextInput(attrs={"class": "form-control"}),
             "email": forms.EmailInput(attrs={"class": "form-control"}),
-            "is_active": forms.CheckboxInput(),
         }
 
     def clean_numero_tva(self):

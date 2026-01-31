@@ -7,23 +7,14 @@
     <!-- Header -->
     <div class="flex justify-between items-center mb-6">
        <h1 class="text-2xl font-bold flex items-center gap-4">
-            <span>{% trans "Détails du fournisseur :" %}</span>
-            <span class="text-black-700">{{ fournisseur.nom }}</span>
+            <span>{% trans "Détails du client :" %}</span>
+            <span class="text-black-700">{{ client.prenom}} {{ client.nom }}</span>
 
-            {% comment %}
-            On tente de charger une image spécifique nom_du_fournisseur.png depuis le dossier static
-            {% endcomment %}
-            {% with image_name=fournisseur.nom|slugify %}
-                <img src="{% static 'fournisseurs/'|add:image_name|add:'.png' %}"
-                     alt="{{ fournisseur.nom }}"
-                     class="w-12 h-12"
-                     onerror="this.src='{% static 'fournisseurs/fournisseur.png' %}';">
-            {% endwith %}
         </h1>
 
-        <a href="{% url 'fournisseur:fournisseur_list' %}"
+        <a href="{% url 'client:client_list' %}"
            class="text-blue-600 hover:underline">
-            ← {% trans "Retour à la liste des fournisseurs" %}
+            ← {% trans "Retour à la liste des clients" %}
         </a>
     </div>
 
@@ -37,27 +28,27 @@
             </h2>
 
             <p>
-                <strong>{% trans "Numéro de TVA" %} :</strong>
-                {{ fournisseur.numero_tva }}
+                <strong>{% trans "Numéro de compte" %} :</strong>
+                {{ client.numero_compte }}
             </p>
 
             <p>
-                <strong>{% trans "Taux de TVA" %} :</strong>
-                {{ fournisseur.taux_tva }} %
+                <strong>{% trans "Numéro de carte d'identité" %} :</strong>
+                {{ client.numero_carte_id }}
             </p>
 
-            <p>
-                <strong>{% trans "Pays" %} :</strong>
-                {{ fournisseur.country_code }}
+             <p>
+                <strong>{% trans "Numéro de permis" %} :</strong>
+                {{ client.numero_permis }}
             </p>
 
 
 
            <div class="mt-auto w-full">
-                <a href="{% url 'fournisseur:modifier_fournisseur' fournisseur.id %}" class="block w-full">
+                <a href="{% url 'client:modifier_client' client.id %}" class="block w-full">
                     <button type="button"
                             class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
-                        {% trans "Modifier le fournisseur" %}
+                        {% trans "Modifier le client" %}
                     </button>
                 </a>
            </div>
@@ -67,12 +58,12 @@
         <!-- Peppol -->
         <div class="bg-white shadow-md rounded-lg p-6">
             <h2 class="text-lg font-semibold mb-4">
-                {% trans "Informations Peppol" %}
+                {% trans "Niveau " %}
             </h2>
 
             <p>
-                <strong>{% trans "Identifiant Peppol" %} :</strong><br>
-                {{ fournisseur.peppol_id }}
+                <strong>{% trans "Niveau" %} :</strong><br>
+                {{ client.niveau }}
             </p>
 
         </div>
@@ -84,8 +75,8 @@
             {% trans "Adresse" %}
         </h2>
 
-        {% if fournisseur.adresse %}
-            <p>{{ fournisseur.adresse }}</p>
+        {% if client.adresse %}
+            <p>{{ client.adresse }}</p>
         {% else %}
             <p class="text-gray-500">
                 {% trans "Aucune adresse renseignée." %}
@@ -101,7 +92,7 @@
 
         <p>
             <strong>{% trans "Créé le" %} :</strong>
-            {{ fournisseur.created_at|date:"d/m/Y H:i" }}
+            {{ client.created_at|date:"d/m/Y H:i" }}
         </p>
     </div>
 
@@ -121,9 +112,9 @@
 
     <!-- Actions -->
     <div class="bg-white shadow-md rounded-lg p-6 flex gap-4">
-        <a href="{% url 'fournisseur:fournisseur_list' %}" class="flex-1">
+        <a href="{% url 'client:client_list' %}" class="flex-1">
               <button type="button" class="bg-blue-700 text-white px-4 py-2 rounded w-full mt-4">
-                    {% trans "Retour à la liste des fournisseurs" %}
+                    {% trans "Retour à la liste des clients" %}
               </button>
         </a>
     </div>

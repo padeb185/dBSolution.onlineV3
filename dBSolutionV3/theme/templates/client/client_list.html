@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+{% load i18n static widget_tweaks %}
+
+{% block title %}{% trans "Liste des Clients" %}{% endblock %}
+
+{% block content %}
+<h1 class="text-2xl font-bold mb-6 flex items-center">
+    <img src="{% static 'icons/client.png' %}" alt="client"
+         style="width:60px; height:60px; margin-right:10px;">
+    {% trans "Liste des Clients" %}
+</h1>
+
+<div class="bg-white shadow-md rounded-lg p-4 mb-4">
+    <div class="grid grid-cols-1 md:grid-cols-6 gap-3 items-end">
+
+        <input id="search-prenom" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Prenom du client' %}">
+
+        <input id="search-nom" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Nom du client' %}">
+
+
+        <input id="search-adresse" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Adresse' %}">
+
+        <input id="search-numero_telephone" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Numéro de téléphone' %}">
+
+
+        <input id="search-email" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'nom.prenom@...' %}">
+
+        <input id="search-date_naissance" type="date"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans '2008-01-01 %}">
+
+        <input id="search-age" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'min 18' %}">
+
+        <input id="search-numero_carte_id" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans '111-1111111-11' %}">
+
+        <input id="search-numero_permis" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans '1735181734' %}">
+
+        <input id="search-numero_compte" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'BEXX XXXX XXXX XXXX' %}">
+
+        <input id="search-niveau" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans '0032' %}">
+
+        <input id="search-historique" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'historique' %}">
+
+        <input id="search-location" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'location' %}">
+
+
+        <div>
+            <a href="{% url 'client:client_create' %}"
+               class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+                {% trans "Ajouter un client" %}
+            </a>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Table -->
+<table id="client-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Prénom" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Nom" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Adresse" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Numéro de téléphone" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Email" %}</th>
+            <th class="border px-4 py-2 cursor-pointer text-center">{% trans "Info" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for client in clients %}
+        <tr>
+            <td class="border px-4 py-2">{{ client.prenom }}</td>
+            <td class="border px-4 py-2">{{ client.nom }}</td>
+            <td class="border px-4 py-2">{{ client.adresse }}</td>
+            <td class="border px-4 py-2">{{ client.numero_telephone }}</td>
+            <td class="border px-4 py-2">{{ client.email }}</td>
+            <td class="border px-4 py-2 text-center">
+                <a href="{% url 'client:client_detail' client.id %}"
+                   class="text-blue-600 hover:text-blue-800 font-semibold">
+                    {% trans "Info" %}
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
+<!-- DataTables JS -->
+<script>
+$(document).ready(function() {
+    var table = $('#client-table').DataTable({
+        pageLength: 100,
+        language: {
+            search: "{% trans 'Recherche globale :' %}",
+            lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ client' %}",
+            infoEmpty: "{% trans 'Aucun client trouvé' %}",
+            zeroRecords: "{% trans 'Aucun client trouvé' %}",
+            paginate: {
+                first: "{% trans 'Premier' %}",
+                last: "{% trans 'Dernier' %}",
+                next: "{% trans 'Suivant' %}",
+                previous: "{% trans 'Précédent' %}"
+            }
+        },
+        order: [[0, "asc"]]
+    });
+
+    // Filtres par colonne
+    $('#search-prenom').on('keyup', function () {
+        table.column(0).search(this.value).draw();
+    });
+    $('#search-nom').on('keyup', function () {
+        table.column(1).search(this.value).draw();
+    });
+    $('#search-adresse').on('keyup', function () {
+        table.column(2).search(this.value).draw();
+    });
+    $('#search-numero_telephone').on('keyup', function () {
+        table.column(3).search(this.value).draw();
+    });
+     $('#search-email').on('keyup', function () {
+        table.column(4).search(this.value).draw();
+    });
+
+});
+</script>
+{% endblock %}

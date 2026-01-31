@@ -11,12 +11,14 @@ from adresse.forms import AdresseForm
 from adresse.models import Adresse
 
 
+
 class FournisseurListView(ListView):
     model = Fournisseur
     template_name = "fournisseurs/fournisseur_list.html"
     context_object_name = "fournisseurs"
     paginate_by = 20
     ordering = ["nom"]
+
 
 
 
