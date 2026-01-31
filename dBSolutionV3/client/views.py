@@ -14,9 +14,11 @@ from client.models import Client
 class ClientListView(ListView):
     model = Client
     template_name = "client/client_list.html"
-    context_object_name = "client"
+    context_object_name = "clients"
     paginate_by = 20
     ordering = ["nom", "prenom"]
+
+
 
 
 @never_cache
@@ -39,17 +41,22 @@ def client_detail(request, client_id):
 
 
 
+
+
+
+
 @login_required
 def ajouter_client_all(request):
+    # Crée un objet client vide pour le formulaire
     client = Client()
     client.adresse = Adresse()
 
     if request.method == "POST":
-        nom = request.POST.get("client")
+        nom = request.POST.get("nom")
+        prenom = request.POST.get("prenom")
 
-
-        if not nom:
-            messages.error(request, "Le nom du client est obligatoire.")
+        if not nom or not prenom:
+            messages.error(request, "Le prénom et le nom du client sont obligatoires.")
         else:
             adresse = Adresse.objects.create(
                 rue=request.POST.get("rue"),
@@ -59,30 +66,34 @@ def ajouter_client_all(request):
                 pays=request.POST.get("pays"),
                 code_pays=request.POST.get("code_pays")
             )
+
             client = Client.objects.create(
-                prenom=request.POST.get("prenom"),
+                prenom=prenom,
                 nom=nom,
                 date_naissance=request.POST.get("date_naissance"),
-                age=request.POST.get("age") or 0,
-                numero_cate_id=request.POST.get("numero_cate_id"),
                 numero_permis=request.POST.get("numero_permis"),
+                numero_carte_id=request.POST.get("numero_carte_id"),
                 numero_compte=request.POST.get("numero_compte"),
-
                 email=request.POST.get("email"),
                 numero_telephone=request.POST.get("numero_telephone"),
-                niveau=request.POST.get("niveau"),
+                niveau=request.POST.get("niveau") or Client.Niveau.DEBUTANT,
                 historique=request.POST.get("historique"),
-                localisation=request.POST.get("localisation"),
+                location=request.POST.get("location"),
                 adresse=adresse
             )
-            messages.success(request, f"Client '{client.nom}' ajouté avec succès !")
-            return redirect("client:client_forms")
 
-    # S'assurer que fournisseur.adresse existe
+            messages.success(request, f"Client '{client.nom}' ajouté avec succès !")
+
+            # NE PAS faire de redirect, on reste sur le formulaire
+            # client = Client()  # si tu veux réinitialiser le formulaire
+
+    # S'assurer que client.adresse existe
     if not hasattr(client, "adresse") or client.adresse is None:
         client.adresse = Adresse()
 
     return render(request, "client/client_form.html", {"client": client})
+
+
 
 
 

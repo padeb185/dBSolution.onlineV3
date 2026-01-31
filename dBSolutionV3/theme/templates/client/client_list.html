@@ -101,11 +101,16 @@
             <td class="border px-4 py-2">{{ client.numero_telephone }}</td>
             <td class="border px-4 py-2">{{ client.email }}</td>
             <td class="border px-4 py-2 text-center">
-                <a href="{% url 'client:client_detail' client.id %}"
-                   class="text-blue-600 hover:text-blue-800 font-semibold">
-                    {% trans "Info" %}
-                </a>
+                {% if client.id %}
+                    <a href="{% url 'client:client_detail' client.id %}"
+                       class="text-blue-600 hover:text-blue-800 font-semibold">
+                        {% trans "Info" %}
+                    </a>
+                {% else %}
+                    <span class="text-gray-400">{% trans "Info indisponible" %}</span>
+                {% endif %}
             </td>
+
         </tr>
         {% endfor %}
     </tbody>
