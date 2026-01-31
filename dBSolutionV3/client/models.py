@@ -8,10 +8,9 @@ from adresse.models import Adresse
 
 class Client(models.Model):
 
+    prenom = models.CharField(_("Prénom"), max_length=50)
 
-    nom = models.CharField(_("Nom"), max_length=255)
-
-    prenom = models.CharField(_("Prénom"), max_length=255)
+    nom = models.CharField(_("Nom"), max_length=50)
 
     adresse = models.OneToOneField(
         Adresse,
