@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load i18n widget_tweaks %}
+
+{% block content %}
+<div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
+
+    <h1 class="text-2xl font-bold mb-6">
+        {% trans "Modifier le fournisseur" %} :
+        <span class="text-blue-700">{{ fournisseur.nom }}</span>
+    </h1>
+
+    <form method="post" class="space-y-4">
+        {% csrf_token %}
+
+        {% for field in form %}
+            <div>
+                <label class="block font-semibold mb-1">
+                    {{ field.label }}
+                </label>
+
+                {{ field|add_class:"input" }}
+
+                {% if field.help_text %}
+                    <p class="text-gray-500 text-sm mt-1">
+                        {{ field.help_text }}
+                    </p>
+                {% endif %}
+
+                {% if field.errors %}
+                    <p class="text-red-600 text-sm mt-1">
+                        {{ field.errors|striptags }}
+                    </p>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <div class="flex gap-3 mt-6">
+            <button type="submit"
+                    class="bg-blue-700 text-white px-5 py-2 rounded hover:bg-blue-400 font-semibold">
+                {% trans "Enregistrer" %}
+            </button>
+
+            <a href="{% url 'fournisseur:fournisseur_detail' fournisseur_id=fournisseur.id %}"
+               class="bg-gray-300 text-black px-5 py-2 rounded hover:bg-gray-400">
+                {% trans "Annuler" %}
+            </a>
+        </div>
+    </form>
+</div>
+
+<style>
+.input {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 8px;
+}
+</style>
+{% endblock %}

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import FournisseurListView, fournisseur_detail, ajouter_fournisseur_all
+from .views import FournisseurListView, fournisseur_detail, ajouter_fournisseur_all, modifier_fournisseur
 
 app_name = "fournisseur"
 
@@ -21,4 +21,13 @@ path(
         fournisseur_detail,
         name="fournisseur_detail",
     ),
+
+    path(
+        'fournisseurs/<uuid:fournisseur_id>/modifier/',
+        modifier_fournisseur,
+        name='modifier_fournisseur'),
+
+
+
+
 ]

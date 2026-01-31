@@ -109,3 +109,34 @@ def ajouter_fournisseur_all(request):
         fournisseur.adresse = Adresse()
 
     return render(request, "fournisseurs/fournisseur_form.html", {"fournisseur": fournisseur})
+
+
+
+
+@login_required
+def modifier_fournisseur(request, fournisseur_id):
+    tenant = request.user.societe
+
+    with tenant_context(tenant):
+        fournisseur = get_object_or_404(Fournisseur, id=fournisseur_id)
+
+        if request.method == "POST":
+            form = FournisseurForm(request.POST, instance=fournisseur)
+            if form.is_valid():
+                form.save()
+                messages.success(request, "Fournisseur mis à jour avec succès.")
+                return redirect(
+                    'fournisseur:modifier_fournisseur',
+                    fournisseur_id=fournisseur.id
+                )
+        else:
+            form = FournisseurForm(instance=fournisseur)
+
+    return render(
+        request,
+        "fournisseurs/modifier_fournisseur.html",
+        {
+            "form": form,
+            "fournisseur": fournisseur,
+        }
+    )
