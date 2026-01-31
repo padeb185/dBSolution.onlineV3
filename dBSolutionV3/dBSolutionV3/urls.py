@@ -64,6 +64,6 @@ urlpatterns += i18n_patterns(
     # Check-up (app spécifique)
     path('maintenance/checkup/', include('maintenance.check_up.urls', namespace='check_up')),
 
-
+    path("fournisseurs/", include("fournisseur.urls")),
 
 )

@@ -20,6 +20,7 @@ from voiture.voiture_freins_ar.models import VoitureFreinsAR
 from voiture.voiture_pneus.models import VoiturePneus
 from maintenance.models import Maintenance
 from voiture.voiture_modele.models import VoitureModele
+from fournisseur.models import Fournisseur
 
 
 def login_view(request):
@@ -99,6 +100,7 @@ def dashboard_view(request):
             freins_ar = VoitureFreinsAR.objects.all()
             pneus = VoiturePneus.objects.all()
             maintenance = Maintenance.objects.all()
+            fournisseur = Fournisseur.objects.all()
 
             # Totaux
             total_marques = marques.count()
@@ -110,6 +112,7 @@ def dashboard_view(request):
             total_freins_ar = freins_ar.count()
             total_pneus = pneus.count()
             total_maintenance = maintenance.count()
+            total_fournisseur = fournisseur.count()
 
             # Récupère les modèles existants pour les liens maintenance
             modeles = VoitureModele.objects.all()
@@ -127,6 +130,8 @@ def dashboard_view(request):
         'total_freins_ar': total_freins_ar,
         'total_pneus': total_pneus,
         'total_maintenance': total_maintenance,
+        'total_fournisseur': total_fournisseur,
+
         'marques': marques,
         'moteurs': moteurs,
         'exemplaires': exemplaires,
@@ -136,7 +141,8 @@ def dashboard_view(request):
         'freins_ar': freins_ar,
         'pneus': pneus,
         'maintenance': maintenance,
-        'modeles': modeles,  # <-- Pour liens maintenance
+        'modeles': modeles,
+        'fournisseur': fournisseur,
     })
 
     # --- Tâches et rôles ---

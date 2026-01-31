@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="max-w-xl mx-auto p-6 bg-white rounded shadow mt-16 mb-16">
+
+    <!-- Header -->
+    <h1 class="text-2xl font-bold mb-4 text-center flex items-center justify-center">
+        <img src="{% static 'icons/fournisseur.png' %}"
+             style="width:75px; margin-right:5px;"
+             alt="{{ object.nom }}">
+        {% trans "Ajouter un Fournisseur : " %}
+    </h1>
+
+    {% for message in messages %}
+        <div class="mb-3 text-red-600">{{ message }}</div>
+    {% endfor %}
+
+    <form method="post" class="flex flex-col space-y-4">
+        {% csrf_token %}
+
+        <!-- Fournisseur -->
+        <div>
+            <label for="id_fournisseur">{% trans "Fournisseur" %}</label>
+            <input type="text" id="id_fournisseur" name="fournisseur"
+                   value="{{ fournisseur.nom }}" class="border rounded px-4 py-2 w-full" readonly>
+        </div>
+
+        <div>
+            <label for="id_numero_tva">{% trans "Numéro de TVA" %}</label>
+            <input type="text" id="id_numero_tva" name="numero_tva"
+                   value="{{ fournisseur.numero_tva }}" class="border rounded px-4 py-2 w-full" readonly>
+        </div>
+
+        <div>
+            <label for="id_numero_peppol">{% trans "Numéro Peppol" %}</label>
+            <input type="text" id="id_numero_peppol" name="numero_peppol" class="border rounded px-4 py-2 w-full">
+        </div>
+
+        <div>
+            <label for="id_email" class="block font-medium mb-1">{% trans "Email" %}</label>
+            <input type="email" id="id_email" name="email"
+                   value="{{ object.email|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+
+        <div>
+            <label for="id_telephone_fixe" class="block font-medium mb-1">{% trans "Téléphone fixe" %}</label>
+            <input type="text" id="id_telephone_fixe" name="telephone_fixe"
+                   value="{{ object.telephone_fixe|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+
+        <div>
+            <label for="id_gsm" class="block font-medium mb-1">{% trans "GSM" %}</label>
+            <input type="text" id="id_gsm" name="gsm"
+                   value="{{ object.gsm|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+
+
+        <div>
+            <label for="id_is_active">{% trans "Status" %}</label>
+            <input type="text" id="id_is_active" name="is_active" class="border rounded px-4 py-2 w-full">
+        </div>
+
+        <!-- Adresse -->
+        <h2 class="text-lg font-semibold mt-6 mb-2">{% trans "Adresse" %}</h2>
+
+        <div>
+            <label for="id_rue">{% trans "Rue" %}</label>
+            <input type="text" id="id_rue" name="rue"
+                   value="{{ fournisseur.adresse.rue|default:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+
+        <div>
+            <label for="id_numero">{% trans "Numéro" %}</label>
+            <input type="text" id="id_numero" name="numero"
+                   value="{{ fournisseur.adresse.numero|default:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+
+        <div>
+            <label for="id_code_postal">{% trans "Code postal" %}</label>
+            <input type="text" id="id_code_postal" name="code_postal"
+                   value="{{ fournisseur.adresse.code_postal|default:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+
+        <div>
+            <label for="id_ville">{% trans "Ville" %}</label>
+            <input type="text" id="id_ville" name="ville"
+                   value="{{ fournisseur.adresse.ville|default:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+
+        <div>
+            <label for="id_pays">{% trans "Pays" %}</label>
+            <input type="text" id="id_pays" name="pays"
+                   value="{{ fournisseur.adresse.pays|default:'Belgique' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+
+        <div>
+            <label for="id_code_pays">{% trans "Code pays" %}</label>
+            <input type="text" id="id_code_pays" name="code_pays"
+                   value="{{ fournisseur.adresse.code_pays|default:'BE' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+
+        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded w-full mt-4">
+            {% trans "Ajouter" %}
+        </button>
+    </form>
+</div>
+<script>
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie) {
+        document.cookie.split(';').forEach(c => {
+            c = c.trim();
+            if (c.startsWith(name + '=')) {
+                cookieValue = decodeURIComponent(c.slice(name.length + 1));
+            }
+        });
+    }
+    return cookieValue;
+}
+
+const csrftoken = getCookie('csrftoken');
+
+document.getElementById('id_voiture_marque').addEventListener('change', function(){
+    const fournisseur = this.value;
+
+    fetch('/api/check_nom', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+        },
+        body: JSON.stringify({ fournisseur: fournisseur })
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.exist) {
+            document.getElementById('id_nom').value = data.voiture_marque;
+            document.getElementById('id_numero_tva').value = data.voiture_modele;
+            document.getElementById('id_numero_peppol').value = data.immatriculation;
+            document.getElementById('id_country_code').value = data.pays;
+            document.getElementById('id_is_active').value = data.numero_vin;
+
+        } else {
+            document.getElementById('id_nom').value = '';
+            document.getElementById('id_numero_tva').value = '';
+            document.getElementById('id_numero_peppol').value = '';
+            document.getElementById('id_country_code').value = '';
+            document.getElementById('id_is_active').value = '';
+
+        }
+    })
+    .catch(err => console.error("Erreur:", err));
+});
+</script>
+{% endblock %}

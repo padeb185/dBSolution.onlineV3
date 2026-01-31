@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="p-6 w-full ml-[-10px] mr-[10px]">
+
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold flex items-center gap-4">
+            <span>{% trans "Détails du fournisseur :" %}</span>
+            <span class="text-blue-700">{{ fournisseur.nom }}</span>
+        </h1>
+
+        <a href="{% url 'fournisseur:fournisseur_list' %}"
+           class="text-blue-600 hover:underline">
+            ← {% trans "Retour à la liste" %}
+        </a>
+    </div>
+
+    <!-- Infos principales -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+
+        <!-- Informations générales -->
+        <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
+            <h2 class="text-lg font-semibold mb-2">
+                {% trans "Informations générales" %}
+            </h2>
+
+            <p>
+                <strong>{% trans "Numéro de TVA" %} :</strong>
+                {{ fournisseur.numero_tva }}
+            </p>
+
+            <p>
+                <strong>{% trans "Taux de TVA" %} :</strong>
+                {{ fournisseur.taux_tva }} %
+            </p>
+
+            <p>
+                <strong>{% trans "Pays" %} :</strong>
+                {{ fournisseur.country_code }}
+            </p>
+
+            <p>
+                <strong>{% trans "Statut" %} :</strong>
+                {% if fournisseur.is_active %}
+                    <span class="text-green-600 font-semibold">
+                        {% trans "Actif" %}
+                    </span>
+                {% else %}
+                    <span class="text-red-600 font-semibold">
+                        {% trans "Inactif" %}
+                    </span>
+                {% endif %}
+            </p>
+
+            <div class="mt-auto w-full">
+                <a href="#"
+                   class="block w-full">
+                    <button type="button"
+                            class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+                        {% trans "Modifier le fournisseur" %}
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        <!-- Peppol -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-lg font-semibold mb-4">
+                {% trans "Informations Peppol" %}
+            </h2>
+
+            <p>
+                <strong>{% trans "Identifiant Peppol" %} :</strong><br>
+                {{ fournisseur.peppol_id }}
+            </p>
+
+            <p class="mt-2">
+                <strong>{% trans "Scheme" %} :</strong>
+                {{ fournisseur.peppol_scheme }}
+            </p>
+
+            <p>
+                <strong>{% trans "Value" %} :</strong>
+                {{ fournisseur.peppol_value }}
+            </p>
+        </div>
+    </div>
+
+    <!-- Adresse -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">
+            {% trans "Adresse" %}
+        </h2>
+
+        {% if fournisseur.adresse %}
+            <p>{{ fournisseur.adresse }}</p>
+        {% else %}
+            <p class="text-gray-500">
+                {% trans "Aucune adresse renseignée." %}
+            </p>
+        {% endif %}
+    </div>
+
+    <!-- Métadonnées -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">
+            {% trans "Métadonnées" %}
+        </h2>
+
+        <p>
+            <strong>{% trans "Créé le" %} :</strong>
+            {{ fournisseur.created_at|date:"d/m/Y H:i" }}
+        </p>
+    </div>
+
+    <!-- Messages -->
+    {% if messages %}
+        {% for message in messages %}
+        <div class="mb-3 px-4 py-2 rounded
+            {% if message.tags == 'success' %}
+                bg-green-100 text-green-800 border border-green-300
+            {% else %}
+                bg-red-100 text-red-800 border border-red-300
+            {% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Actions -->
+    <div class="bg-white shadow-md rounded-lg p-6 flex gap-4">
+        <a href="{% url 'fournisseur:fournisseur_list' %}" class="flex-1">
+            <button type="button"
+                    class="w-full px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-500">
+                {% trans "Retour à la liste" %}
+            </button>
+        </a>
+
+        <a href="#"
+           class="flex-1">
+            <button type="button"
+                    class="w-full px-4 py-2 bg-red-700 text-white rounded hover:bg-red-500">
+                {% trans "Désactiver" %}
+            </button>
+        </a>
+    </div>
+
+</div>
+{% endblock %}

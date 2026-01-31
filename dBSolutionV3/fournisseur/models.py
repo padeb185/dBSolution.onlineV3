@@ -46,6 +46,31 @@ class Fournisseur(models.Model):
         help_text=_("ISO 3166-1 alpha-2")
     )
 
+    email = models.EmailField(
+        _("Email"),
+        max_length=254,
+        blank=True,
+        null=True,
+        help_text=_("Email du fournisseur")
+    )
+
+    telephone_fixe = models.CharField(
+        _("Téléphone fixe"),
+        max_length=20,
+        blank=True,
+        null=True,
+        help_text=_("Numéro de téléphone fixe")
+    )
+
+    gsm = models.CharField(
+        _("GSM"),
+        max_length=20,
+        blank=True,
+        null=True,
+        help_text=_("Numéro de téléphone mobile")
+    )
+
+
     # --- Métadonnées ---
     is_active = models.BooleanField(_("Actif"), default=True)
     created_at = models.DateTimeField(_("Créé le"), auto_now_add=True)

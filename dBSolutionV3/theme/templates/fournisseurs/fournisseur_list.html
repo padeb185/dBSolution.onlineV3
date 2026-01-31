@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% load i18n static widget_tweaks %}
+
+{% block title %}{% trans "Liste des Fournisseurs" %}{% endblock %}
+
+{% block content %}
+<h1 class="text-2xl font-bold mb-6 flex items-center">
+    <img src="{% static 'icons/fournisseur.png' %}" alt="fournisseur"
+         style="width:60px; height:60px; margin-right:10px;">
+    {% trans "Liste des Fournisseurs" %}
+</h1>
+
+<div class="bg-white shadow-md rounded-lg p-4 mb-4">
+    <div class="grid grid-cols-1 md:grid-cols-6 gap-3 items-end">
+        <input id="search-nom" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Nom du fournisseur' %}">
+
+        <input id="search-numero_tva" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Numero de TVA' %}">
+
+        <input id="search-peppol_id" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Numéro Peppol' %}">
+
+
+        <input id="search-country_code" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Code pays' %}">
+
+        <input id="search-is_active" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Actif' %}">
+
+
+        <div>
+            <a href="{% url 'fournisseur:fournisseur_create' %}"
+               class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+                {% trans "Ajouter un fournisseur" %}
+            </a>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Table -->
+<table id="pneus-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Nom du Fournisseur" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Numero de TVA" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Numero Peppol" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Code Pays" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Statut" %}</th>
+            <th class="border px-4 py-2 cursor-pointer text-center">{% trans "Info" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for pneu in pneus %}
+        <tr>
+            <td class="border px-4 py-2">{{ fournisseur.nom }}</td>
+            <td class="border px-4 py-2">{{ fournisseur.numero_tva }}</td>
+            <td class="border px-4 py-2">{{ fournisseur.peppol_id }}</td>
+            <td class="border px-4 py-2">{{ fournisseur.country_code }}</td>
+            <td class="border px-4 py-2">{{ fournisseur.is_active }}</td>
+            <td class="border px-4 py-2 text-center">
+                <a href="{% url 'fournisseur:fournisseur_detail' fournisseur.id %}"
+                   class="text-blue-600 hover:text-blue-800 font-semibold">
+                    {% trans "Info" %}
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
+<!-- DataTables JS -->
+<script>
+$(document).ready(function() {
+    var table = $('#pneus-table').DataTable({
+        pageLength: 100,
+        language: {
+            search: "{% trans 'Recherche globale :' %}",
+            lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ fournisseurs' %}",
+            infoEmpty: "{% trans 'Aucun fournisseur trouvé' %}",
+            zeroRecords: "{% trans 'Aucun fournisseur trouvé' %}",
+            paginate: {
+                first: "{% trans 'Premier' %}",
+                last: "{% trans 'Dernier' %}",
+                next: "{% trans 'Suivant' %}",
+                previous: "{% trans 'Précédent' %}"
+            }
+        },
+        order: [[0, "asc"]]
+    });
+
+    // Filtres par colonne
+    $('#search-nom').on('keyup', function () {
+        table.column(0).search(this.value).draw();
+    });
+    $('#search-numero_tva').on('keyup', function () {
+        table.column(1).search(this.value).draw();
+    });
+    $('#search-numero_peppol').on('keyup', function () {
+        table.column(2).search(this.value).draw();
+    });
+    $('#search-country_code').on('keyup', function () {
+        table.column(3).search(this.value).draw();
+    });
+     $('#search-is_active').on('keyup', function () {
+        table.column(4).search(this.value).draw();
+    });
+
+});
+</script>
+{% endblock %}
