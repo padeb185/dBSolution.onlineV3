@@ -1,13 +1,24 @@
 {% extends 'base.html' %}
 {% load i18n widget_tweaks %}
 
+
 {% block content %}
 <div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
 
-    <h1 class="text-2xl font-bold mb-6">
-        {% trans "Modifier le fournisseur" %} :
-        <span class="text-blue-700">{{ fournisseur.nom }}</span>
+   <h1 class="text-2xl font-bold mb-6 flex items-center gap-3">
+        <span>
+            {% trans "Modifier le fournisseur" %} :
+            <span class="text-blue-700">{{ fournisseur.nom }}</span>
+        </span>
+
+        {% with image_name=fournisseur.nom|slugify %}
+            <img src="{% static 'fournisseurs/' %}{{ image_name }}.png"
+                 alt="{{ fournisseur.nom }}"
+                 class="w-12 h-12 object-contain"
+                 onerror="this.onerror=null;this.src='{% static 'fournisseurs/fournisseur.png' %}';">
+        {% endwith %}
     </h1>
+
 
     <form method="post" class="space-y-4">
         {% csrf_token %}
@@ -34,17 +45,21 @@
             </div>
         {% endfor %}
 
-        <div class="flex gap-3 mt-6">
-            <button type="submit"
-                    class="bg-blue-700 text-white px-5 py-2 rounded hover:bg-blue-400 font-semibold">
-                {% trans "Enregistrer" %}
-            </button>
 
-            <a href="{% url 'fournisseur:fournisseur_detail' fournisseur_id=fournisseur.id %}"
-               class="bg-gray-300 text-black px-5 py-2 rounded hover:bg-gray-400">
-                {% trans "Annuler" %}
-            </a>
-        </div>
+          <div class="flex gap-3 mt-6">
+                <button type="submit"
+                        class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+                    {% trans "Enregistrer" %}
+                </button>
+
+                <a href="{% url 'fournisseur:fournisseur_detail' fournisseur_id=fournisseur.id %}"
+                   class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
+                    {% trans "Annuler" %}
+                </a>
+            </div>
+
+
+
     </form>
 </div>
 
