@@ -34,14 +34,16 @@
             <label for="id_fournisseur">{% trans "Fournisseur" %}</label>
             <input type="text" id="id_fournisseur" name="fournisseur"
                    value="{{ request.POST.fournisseur|default:fournisseur.nom|default:'' }}"
-                   class="border rounded px-4 py-2 w-full">
+                   class="border rounded px-4 py-2 w-full"
+                    placeholder="nom">
         </div>
 
         <div>
             <label for="id_numero_tva">{% trans "Numéro de TVA" %}</label>
             <input type="text" id="id_numero_tva" name="numero_tva"
                    value="{{ request.POST.numero_tva|default:fournisseur.numero_tva|default:'' }}"
-                   class="border rounded px-4 py-2 w-full">
+                   class="border rounded px-4 py-2 w-full"
+                    placeholder="BE1234567891">
         </div>
 
         <div>
@@ -55,7 +57,8 @@
             <label for="id_peppol_id">{% trans "Numéro Peppol" %}</label>
             <input type="text" id="id_peppol_id" name="peppol_id"
                    value="{{ request.POST.peppol_id|default:fournisseur.peppol_id|default:'' }}"
-                   class="border rounded px-4 py-2 w-full">
+                   class="border rounded px-4 py-2 w-full"
+                    placeholder="0208:0630675588">
         </div>
 
         <div>
