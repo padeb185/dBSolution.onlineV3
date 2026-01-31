@@ -4,15 +4,14 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
 from django_tenants.utils import tenant_context
-
-from dBSolutionV3.adresse.models import Adresse
-from dBSolutionV3.client.forms import ClientForm
-from dBSolutionV3.client.models import Client
-
+from adresse.models import Adresse
+from client.forms import ClientForm
+from client.models import Client
 
 
 
-class FournisseurListView(ListView):
+
+class ClientListView(ListView):
     model = Client
     template_name = "client/client_list.html"
     context_object_name = "client"
@@ -22,7 +21,7 @@ class FournisseurListView(ListView):
 
 @never_cache
 @login_required
-def fournisseur_detail(request, client_id):
+def client_detail(request, client_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
@@ -89,7 +88,7 @@ def ajouter_client_all(request):
 
 
 @login_required
-def modifier_fournisseur(request, client_id):
+def modifier_client(request, client_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):

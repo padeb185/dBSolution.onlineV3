@@ -66,4 +66,6 @@ urlpatterns += i18n_patterns(
 
     path("fournisseurs/", include("fournisseur.urls")),
 
+    path("client/", include("client.urls")),
+
 )
