@@ -6,9 +6,19 @@
 
     <!-- Header -->
     <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold flex items-center gap-4">
+       <h1 class="text-2xl font-bold flex items-center gap-4">
             <span>{% trans "Détails du fournisseur :" %}</span>
             <span class="text-blue-700">{{ fournisseur.nom }}</span>
+
+            {% comment %}
+            On tente de charger une image spécifique nom_du_fournisseur.png depuis le dossier static
+            {% endcomment %}
+            {% with image_name=fournisseur.nom|slugify %}
+                <img src="{% static 'fournisseurs/'|add:image_name|add:'.png' %}"
+                     alt="{{ fournisseur.nom }}"
+                     class="w-12 h-12"
+                     onerror="this.src='{% static 'fournisseurs/fournisseur.png' %}';">
+            {% endwith %}
         </h1>
 
         <a href="{% url 'fournisseur:fournisseur_list' %}"
@@ -41,18 +51,7 @@
                 {{ fournisseur.country_code }}
             </p>
 
-            <p>
-                <strong>{% trans "Statut" %} :</strong>
-                {% if fournisseur.is_active %}
-                    <span class="text-green-600 font-semibold">
-                        {% trans "Actif" %}
-                    </span>
-                {% else %}
-                    <span class="text-red-600 font-semibold">
-                        {% trans "Inactif" %}
-                    </span>
-                {% endif %}
-            </p>
+
 
             <div class="mt-auto w-full">
                 <a href="#"
@@ -76,15 +75,6 @@
                 {{ fournisseur.peppol_id }}
             </p>
 
-            <p class="mt-2">
-                <strong>{% trans "Scheme" %} :</strong>
-                {{ fournisseur.peppol_scheme }}
-            </p>
-
-            <p>
-                <strong>{% trans "Value" %} :</strong>
-                {{ fournisseur.peppol_value }}
-            </p>
         </div>
     </div>
 
@@ -132,18 +122,9 @@
     <!-- Actions -->
     <div class="bg-white shadow-md rounded-lg p-6 flex gap-4">
         <a href="{% url 'fournisseur:fournisseur_list' %}" class="flex-1">
-            <button type="button"
-                    class="w-full px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-500">
-                {% trans "Retour à la liste" %}
-            </button>
-        </a>
-
-        <a href="#"
-           class="flex-1">
-            <button type="button"
-                    class="w-full px-4 py-2 bg-red-700 text-white rounded hover:bg-red-500">
-                {% trans "Désactiver" %}
-            </button>
+              <button type="button" class="bg-blue-700 text-white px-4 py-2 rounded w-full mt-4">
+                    {% trans "Retour à la liste" %}
+              </button>
         </a>
     </div>
 
