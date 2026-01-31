@@ -5,21 +5,12 @@
 {% block content %}
 <div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
 
-   <h1 class="text-2xl font-bold mb-6 flex items-center gap-3">
-        <span>
-            {% trans "Modifier le fournisseur" %} :
-            <span class="text-blue-700">{{ fournisseur.nom }}</span>
-        </span>
-
-        {% with image_name=fournisseur.nom|slugify %}
-            <img src="{% static 'fournisseurs/' %}{{ image_name }}.png"
-                 alt="{{ fournisseur.nom }}"
-                 class="w-12 h-12 object-contain"
-                 onerror="this.onerror=null;this.src='{% static 'fournisseurs/fournisseur.png' %}';">
-        {% endwith %}
-    </h1>
-
-
+    <div class="flex justify-between items-center mb-6">
+       <h1 class="text-2xl font-bold flex items-center gap-4">
+            <span>{% trans "Modifier le fournisseur :" %}</span>
+            <span class="text-black-700">{{ fournisseur.nom }}</span>
+        </h1>
+    </div>
     <form method="post" class="space-y-4">
         {% csrf_token %}
 
@@ -65,10 +56,11 @@
 
 <style>
 .input {
-    width: 100%;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    padding: 8px;
+    width: 100% !important;
+    border: 1px solid #ccc !important;
+    border-radius: 6px !important;
+    padding: 8px !important;
+    box-sizing: border-box !important;
 }
 </style>
 {% endblock %}
