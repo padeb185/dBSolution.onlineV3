@@ -13,11 +13,43 @@
     <div class="bg-white shadow rounded p-4 mb-6">
         <h2 class="text-xl font-semibold mb-3">{% trans "Détails de l'exemplaire" %}</h2>
         <ul class="text-gray-700 space-y-1">
-            <li><strong>{% trans "Immatriculation" %}:</strong> {{ exemplaire.immatriculation }}</li>
+            <li><strong>{% trans "Immatriculation" %}:</strong>
+            {% if exemplaire.pays == 'Belgique' %}
+            <div class="flex items-center w-[14%] min-w-[180px] h-[40px] bg-white border-2 border-[#8B0000] rounded font-[Arial] mb-4">
+                <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
+                    <span>🇪🇺</span>
+                    <span>B</span>
+                </div>
+                <input type="text" value="{{ exemplaire.immatriculation }}" readonly
+                       class="w-full text-center border-none font-bold text-[#8B0000] text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0">
+            </div>
+
+            {% elif exemplaire.pays == 'Luxembourg' %}
+            <div class="flex items-center w-[14%] min-w-[180px] h-[40px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial] mb-4">
+                <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
+                    <span>🇪🇺</span>
+                    <span>L</span>
+                </div>
+                <input type="text" value="{{ exemplaire.immatriculation }}" readonly
+                       class="w-full text-center border-none font-bold text-black text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0">
+            </div>
+
+            {% elif exemplaire.pays == 'Allemagne' %}
+            <div class="flex items-center w-[14%] min-w-[180px] h-[40px] bg-white border-2 border-black rounded font-[Arial] mb-4">
+                <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
+                    <span>🇪🇺</span>
+                    <span>D</span>
+                </div>
+                <input type="text" value="{{ exemplaire.immatriculation }}" readonly
+                       class="w-full text-center border-none font-bold text-black text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0">
+            </div>
+            {% endif %}</li>
+
             <li><strong>{% trans "Kilomètres total" %}:</strong> {{ exemplaire.kilometres_total }}</li>
             <li><strong>{% trans "Kilomètres depuis dernière intervention" %}:</strong> {{ exemplaire.kilometres_derniere_intervention }}</li>
             <li><strong>{% trans "Marque" %}:</strong> {{ exemplaire.voiture_marque.nom_marque }}</li>
             <li><strong>{% trans "Modèle" %}:</strong> {{ exemplaire.voiture_modele.nom_modele }}</li>
+            <li><strong>{% trans "Variante" %}:</strong> {{ exemplaire.voiture_modele.nom_variante }}</li>
         </ul>
     </div>
 
