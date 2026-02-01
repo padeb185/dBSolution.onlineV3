@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-29 17:33+0100\n"
+"POT-Creation-Date: 2026-02-01 06:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,33 +18,47 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\adresse\models.py:9
+#: .\adresse\forms.py:18 .\adresse\models.py:9
+#: .\theme\templates\client\client_form.html:127
+#: .\theme\templates\fournisseurs\fournisseur_form.html:89
 msgid "Rue"
 msgstr "Straat"
 
-#: .\adresse\models.py:10
+#: .\adresse\forms.py:19 .\adresse\models.py:10
+#: .\theme\templates\client\client_form.html:133
+#: .\theme\templates\fournisseurs\fournisseur_form.html:96
 msgid "Numéro"
 msgstr "Nummer"
 
-#: .\adresse\models.py:11
+#: .\adresse\forms.py:20 .\adresse\models.py:11
+#: .\theme\templates\client\client_form.html:139
+#: .\theme\templates\fournisseurs\fournisseur_form.html:103
 msgid "Code postal"
 msgstr "Postcode"
 
-#: .\adresse\models.py:12
+#: .\adresse\forms.py:21 .\adresse\models.py:12
+#: .\theme\templates\client\client_form.html:145
+#: .\theme\templates\fournisseurs\fournisseur_form.html:110
 msgid "Ville"
 msgstr "Stad"
 
-#: .\adresse\models.py:14 .\carrosserie\models.py:12 .\piece\models.py:9
-#: .\piece\models.py:71
+#: .\adresse\forms.py:22 .\adresse\models.py:14 .\carrosserie\models.py:12
+#: .\piece\models.py:9 .\piece\models.py:71
+#: .\theme\templates\client\client_form.html:151
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:51
+#: .\theme\templates\fournisseurs\fournisseur_form.html:117
 msgid "Pays"
 msgstr "Land"
 
-#: .\adresse\models.py:15 .\facture\models.py:29 .\fournisseur\models.py:43
+#: .\adresse\forms.py:23 .\adresse\models.py:15 .\facture\models.py:29
+#: .\fournisseur\models.py:43 .\theme\templates\client\client_form.html:157
+#: .\theme\templates\fournisseurs\fournisseur_form.html:124
 msgid "Code pays"
 msgstr "Landcode"
 
-#: .\adresse\models.py:17 .\client\models.py:57 .\facture\models.py:34
-#: .\fournisseur\models.py:51
+#: .\adresse\models.py:17 .\client\models.py:118 .\facture\models.py:34
+#: .\fournisseur\models.py:79 .\theme\templates\client\client_detail.html:94
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:104
 msgid "Créé le"
 msgstr "Aangemaakt op"
 
@@ -52,8 +66,14 @@ msgstr "Aangemaakt op"
 msgid "Mis à jour le"
 msgstr "Bijgewerkt op"
 
-#: .\adresse\models.py:21 .\carrosserie\models.py:11 .\client\models.py:12
+#: .\adresse\models.py:21 .\carrosserie\models.py:11 .\client\models.py:18
 #: .\facture\models.py:17 .\fournisseur\models.py:19
+#: .\theme\templates\client\client_detail.html:75
+#: .\theme\templates\client\client_form.html:124
+#: .\theme\templates\client\client_list.html:27
+#: .\theme\templates\client\client_list.html:89
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:85
+#: .\theme\templates\fournisseurs\fournisseur_form.html:86
 msgid "Adresse"
 msgstr "Adres"
 
@@ -66,19 +86,27 @@ msgid "Nom de la société"
 msgstr "Bedrijfsnaam"
 
 #: .\carrosserie\models.py:13
+#: .\theme\templates\fournisseurs\fournisseur_list.html:57
 #: .\theme\templates\utilisateurs\liste_utilisateurs.html:19
 msgid "Téléphone"
 msgstr "Telefoon"
 
-#: .\carrosserie\models.py:14 .\client\models.py:22
+#: .\carrosserie\models.py:14 .\client\models.py:51 .\fournisseur\models.py:52
+#: .\theme\templates\client\client_form.html:87
+#: .\theme\templates\client\client_list.html:91
+#: .\theme\templates\fournisseurs\fournisseur_form.html:65
+#: .\theme\templates\fournisseurs\fournisseur_list.html:56
 msgid "Email"
 msgstr "E-mail"
 
 #: .\carrosserie\models.py:15 .\fournisseur\models.py:24
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:41
+#: .\theme\templates\fournisseurs\fournisseur_form.html:42
 msgid "Numéro de TVA"
 msgstr "BTW-nummer"
 
 #: .\carrosserie\models.py:18 .\carrosserie\models.py:29
+#: .\maintenance\check_up\models.py:472
 #: .\maintenance\nettoyage_exterieur\models.py:29
 msgid "Carrosserie"
 msgstr "Carrosserie"
@@ -95,7 +123,8 @@ msgstr "Bumper"
 msgid "Bouclier"
 msgstr "Scherm"
 
-#: .\carrosserie\models.py:38 .\maintenance\nettoyage_interieur\models.py:30
+#: .\carrosserie\models.py:38 .\maintenance\check_up\models.py:508
+#: .\maintenance\nettoyage_interieur\models.py:30
 #: .\piece\piece_carrosserie\models.py:19
 msgid "Pare-brise"
 msgstr "Voorruit"
@@ -199,86 +228,110 @@ msgstr "Interventie %(id)s – %(carrosserie)s"
 msgid "Intervention %(id)s"
 msgstr "Interventie %(id)s"
 
-#: .\client\models.py:8 .\piece\models.py:8
-#: .\theme\templates\utilisateurs\liste_utilisateurs.html:15
-msgid "Nom"
-msgstr "Naam"
-
-#: .\client\models.py:9
+#: .\client\models.py:13 .\theme\templates\client\client_form.html:34
+#: .\theme\templates\client\client_form.html:38
+#: .\theme\templates\client\client_list.html:87
 #: .\theme\templates\utilisateurs\liste_utilisateurs.html:16
 msgid "Prénom"
 msgstr "Voornaam"
 
-#: .\client\models.py:16
+#: .\client\models.py:14 .\piece\models.py:8
+#: .\theme\templates\client\client_form.html:43
+#: .\theme\templates\client\client_form.html:47
+#: .\theme\templates\client\client_list.html:88
+#: .\theme\templates\utilisateurs\liste_utilisateurs.html:15
+msgid "Nom"
+msgstr "Naam"
+
+#: .\client\models.py:23 .\theme\templates\client\client_form.html:52
+#: .\theme\templates\client\client_list.html:31
+#: .\theme\templates\client\client_list.html:90
 msgid "Numéro de téléphone"
 msgstr "Telefoonnummer"
 
-#: .\client\models.py:29
-msgid "Âge"
-msgstr "Leeftijd"
-
-#: .\client\models.py:31
-msgid "Numéro de permis"
+#: .\client\models.py:30
+#, fuzzy
+#| msgid "Numéro de permis"
+msgid "Numéro de permis de conduire"
 msgstr "Rijbewijsnummer"
 
-#: .\client\models.py:38
+#: .\client\models.py:37 .\theme\templates\client\client_detail.html:36
+#: .\theme\templates\client\client_form.html:70
+#, fuzzy
+#| msgid "Numéro de facture"
+msgid "Numéro de carte d'identité"
+msgstr "Factuurnummer"
+
+#: .\client\models.py:44 .\theme\templates\client\client_form.html:78
+#, fuzzy
+#| msgid "Numéro de facture"
+msgid "Numéro de compte bancaire"
+msgstr "Factuurnummer"
+
+#: .\client\models.py:58 .\theme\templates\client\client_form.html:96
+#, fuzzy
+#| msgid "Bas de caisse"
+msgid "Date de naissance"
+msgstr "Dorpel"
+
+#: .\client\models.py:75
+msgid "La personne doit avoir au moins 18 ans."
+msgstr ""
+
+#: .\client\models.py:90
 msgid "Débutant"
 msgstr "Beginner"
 
-#: .\client\models.py:39
+#: .\client\models.py:91
 msgid "Intermédiaire"
 msgstr "Gemiddeld"
 
-#: .\client\models.py:40
+#: .\client\models.py:92
 msgid "Expert"
 msgstr "Expert"
 
-#: .\client\models.py:41
+#: .\client\models.py:93
 msgid "Bronze"
 msgstr "Brons"
 
-#: .\client\models.py:42
+#: .\client\models.py:94
 msgid "Silver"
 msgstr "Zilver"
 
-#: .\client\models.py:43
+#: .\client\models.py:95
 msgid "Gold"
 msgstr "Goud"
 
-#: .\client\models.py:46
+#: .\client\models.py:98 .\theme\templates\client\client_detail.html:65
+#: .\theme\templates\client\client_form.html:112
 msgid "Niveau"
 msgstr "Niveau"
 
-#: .\client\models.py:52
+#: .\client\models.py:105
 msgid "Historique"
 msgstr "Geschiedenis"
 
-#: .\client\models.py:53
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:60
-#: .\voiture\voiture_exemplaire\models.py:12
+#: .\client\models.py:111 .\voiture\voiture_exemplaire\models.py:12
 msgid "Location"
 msgstr "Verhuur"
 
-#: .\client\models.py:56 .\fournisseur\models.py:50
-msgid "Actif"
-msgstr "Actief"
-
-#: .\client\models.py:60 .\facture\models.py:69 .\panier\models.py:25
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:58
+#: .\client\models.py:123 .\facture\models.py:69 .\panier\models.py:25
+#: .\theme\templates\client\client_form.html:11
 #: .\voiture\voiture_exemplaire\models.py:10
 msgid "Client"
 msgstr "Klant"
 
-#: .\client\models.py:61
+#: .\client\models.py:124 .\theme\templates\dashboard.html:234
 msgid "Clients"
 msgstr "Klanten"
 
-#: .\client\models.py:64
+#: .\client\models.py:127
 #, python-format
 msgid "%(nom)s %(prenom)s (Client)"
 msgstr "%(nom)s %(prenom)s (Klant)"
 
 #: .\facture\models.py:23 .\fournisseur\models.py:37
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:75
 msgid "Identifiant Peppol"
 msgstr "Peppol-ID"
 
@@ -341,6 +394,8 @@ msgid "Prix unitaire"
 msgstr "Prijs per eenheid"
 
 #: .\facture\models.py:113
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:46
+#: .\theme\templates\fournisseurs\fournisseur_form.html:50
 msgid "Taux de TVA"
 msgstr "BTW-tarief"
 
@@ -362,6 +417,7 @@ msgid "%(desc)s (%(facture)s)"
 msgstr "%(desc)s (%(factuur)s)"
 
 #: .\fournisseur\models.py:12
+#: .\theme\templates\fournisseurs\fournisseur_list.html:17
 msgid "Nom du fournisseur"
 msgstr "Naam leverancier"
 
@@ -377,16 +433,53 @@ msgstr "Peppol-ID, bv.: 0208:BE0123456789"
 msgid "ISO 3166-1 alpha-2"
 msgstr "ISO 3166-1 alpha-2"
 
-#: .\fournisseur\models.py:54 .\investissements\models.py:11
+#: .\fournisseur\models.py:56
+#, fuzzy
+#| msgid "Nom du fournisseur"
+msgid "Email du fournisseur"
+msgstr "Naam leverancier"
+
+#: .\fournisseur\models.py:60
+#: .\theme\templates\fournisseurs\fournisseur_form.html:72
+#, fuzzy
+#| msgid "Téléphone"
+msgid "Téléphone fixe"
+msgstr "Telefoon"
+
+#: .\fournisseur\models.py:64
+#, fuzzy
+#| msgid "Numéro de téléphone"
+msgid "Numéro de téléphone fixe"
+msgstr "Telefoonnummer"
+
+#: .\fournisseur\models.py:68
+#: .\theme\templates\fournisseurs\fournisseur_form.html:79
+#, fuzzy
+#| msgid "GPS"
+msgid "GSM"
+msgstr "GPS"
+
+#: .\fournisseur\models.py:72
+#, fuzzy
+#| msgid "Numéro de téléphone"
+msgid "Numéro de téléphone mobile"
+msgstr "Telefoonnummer"
+
+#: .\fournisseur\models.py:77
+msgid "Actif"
+msgstr "Actief"
+
+#: .\fournisseur\models.py:82 .\investissements\models.py:11
 #: .\outillage\models.py:16
+#: .\theme\templates\fournisseurs\fournisseur_form.html:34
 msgid "Fournisseur"
 msgstr "Leverancier"
 
-#: .\fournisseur\models.py:55
+#: .\fournisseur\models.py:83 .\theme\templates\dashboard.html:218
 msgid "Fournisseurs"
 msgstr "Leveranciers"
 
-#: .\fournisseur\models.py:62
+#: .\fournisseur\models.py:90
 #, python-format
 msgid "%(nom)s (Fournisseur)"
 msgstr "%(nom)s (Leverancier)"
@@ -401,22 +494,27 @@ msgstr "Diesel"
 
 #: .\fuel\models.py:20 .\piece\models.py:41 .\piece\models.py:99
 #: .\piece\models.py:108
+#: .\theme\templates\maintenance\check_up\creer_maintenance.html:19
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:28
 msgid "Marque"
 msgstr "Merk"
 
 #: .\fuel\models.py:26 .\piece\models.py:32
+#: .\theme\templates\maintenance\check_up\creer_maintenance.html:20
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:34
 msgid "Modèle"
 msgstr "Model"
 
-#: .\fuel\models.py:32 .\maintenance\jeux_pieces\models.py:48
+#: .\fuel\models.py:32 .\maintenance\check_up\models.py:299
+#: .\maintenance\check_up\models.py:461 .\maintenance\check_up\models.py:497
+#: .\maintenance\jeux_pieces\models.py:48
 #: .\maintenance\nettoyage_exterieur\models.py:18
 #: .\maintenance\nettoyage_interieur\models.py:19 .\piece\models.py:50
 msgid "Véhicule"
 msgstr "Voertuig"
 
 #: .\fuel\models.py:35 .\maintenance\models.py:61 .\piece\models.py:68
+#: .\theme\templates\maintenance\check_up\creer_maintenance.html:16
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:39
 msgid "Immatriculation"
 msgstr "Kenteken"
@@ -461,7 +559,7 @@ msgid "Carburants"
 msgstr "Brandstoffen"
 
 #: .\investissements\models.py:18 .\maintenance\bruits\models.py:17
-#: .\piece\piece_train_AR\models.py:8
+#: .\maintenance\check_up\models.py:37 .\piece\piece_train_AR\models.py:8
 msgid "Pont"
 msgstr "Autobrug"
 
@@ -555,8 +653,9 @@ msgstr "Investeringen"
 msgid "%(libelle)s - Fournisseur: %(fournisseur)s"
 msgstr "%(libelle)s - Leverancier: %(fournisseur)s"
 
-#: .\maintenance\bruits\models.py:5 .\maintenance\controle_check_up\models.py:7
-#: .\maintenance\freins\models.py:7 .\maintenance\jeux_pieces\models.py:21
+#: .\maintenance\bruits\models.py:5 .\maintenance\check_up\models.py:11
+#: .\maintenance\check_up\models.py:58 .\maintenance\freins\models.py:7
+#: .\maintenance\jeux_pieces\models.py:21
 #: .\maintenance\silent_blocs\models.py:5
 #: .\piece\piece_carrosserie\models.py:12
 #: .\piece\piece_roue_rechange\models.py:13
@@ -564,8 +663,9 @@ msgstr "%(libelle)s - Leverancier: %(fournisseur)s"
 msgid "Avant"
 msgstr "Voor"
 
-#: .\maintenance\bruits\models.py:6 .\maintenance\controle_check_up\models.py:8
-#: .\maintenance\freins\models.py:8 .\maintenance\jeux_pieces\models.py:22
+#: .\maintenance\bruits\models.py:6 .\maintenance\check_up\models.py:12
+#: .\maintenance\check_up\models.py:59 .\maintenance\freins\models.py:8
+#: .\maintenance\jeux_pieces\models.py:22
 #: .\maintenance\silent_blocs\models.py:6
 #: .\piece\piece_carrosserie\models.py:13
 #: .\piece\piece_roue_rechange\models.py:14
@@ -573,243 +673,457 @@ msgstr "Voor"
 msgid "Arrière"
 msgstr "Achter"
 
-#: .\maintenance\bruits\models.py:7 .\maintenance\controle_check_up\models.py:9
+#: .\maintenance\bruits\models.py:7 .\maintenance\check_up\models.py:13
 #: .\maintenance\jeux_pieces\models.py:17
 #: .\maintenance\silent_blocs\models.py:7
 msgid "Avant gauche"
 msgstr "Links voor"
 
-#: .\maintenance\bruits\models.py:8
-#: .\maintenance\controle_check_up\models.py:10
+#: .\maintenance\bruits\models.py:8 .\maintenance\check_up\models.py:14
 #: .\maintenance\jeux_pieces\models.py:18
 #: .\maintenance\silent_blocs\models.py:8
 msgid "Avant droit"
 msgstr "Rechts voor"
 
-
-#: .\maintenance\bruits\models.py:9
-#: .\maintenance\controle_check_up\models.py:11
+#: .\maintenance\bruits\models.py:9 .\maintenance\check_up\models.py:15
 #: .\maintenance\jeux_pieces\models.py:19
 #: .\maintenance\silent_blocs\models.py:9
 msgid "Arrière gauche"
 msgstr "Achter links"
 
-#: .\maintenance\bruits\models.py:10
-#: .\maintenance\controle_check_up\models.py:12
+#: .\maintenance\bruits\models.py:10 .\maintenance\check_up\models.py:16
 #: .\maintenance\jeux_pieces\models.py:20
 #: .\maintenance\silent_blocs\models.py:10
 msgid "Arrière droit"
 msgstr "Achter rechts"
 
-#: .\maintenance\bruits\models.py:13 .\maintenance\jeux_pieces\models.py:11
+#: .\maintenance\bruits\models.py:13 .\maintenance\check_up\models.py:33
+#: .\maintenance\check_up\models.py:46 .\maintenance\jeux_pieces\models.py:11
 #: .\piece\piece_train_AR\models.py:17 .\piece\piece_train_AV\models.py:20
 msgid "Roulement de roue"
 msgstr "Wiellager"
 
-#: .\maintenance\bruits\models.py:14 .\piece\piece_train_AV\models.py:26
+#: .\maintenance\bruits\models.py:14 .\maintenance\check_up\models.py:34
+#: .\piece\piece_train_AV\models.py:26
 msgid "Roulement de suspension"
 msgstr "Ophanglager"
 
-#: .\maintenance\bruits\models.py:15 .\maintenance\silent_blocs\models.py:18
+#: .\maintenance\bruits\models.py:15 .\maintenance\check_up\models.py:35
+#: .\maintenance\silent_blocs\models.py:18
 msgid "Moteur"
 msgstr "Motor"
 
-#: .\maintenance\bruits\models.py:16
+#: .\maintenance\bruits\models.py:16 .\maintenance\check_up\models.py:36
 msgid "Boîte de vitesse"
 msgstr "Versnellingsbak"
 
-#: .\maintenance\bruits\models.py:24
-#: .\maintenance\controle_check_up\models.py:32
+#: .\maintenance\bruits\models.py:24 .\maintenance\check_up\models.py:71
+#: .\maintenance\check_up\models.py:234 .\maintenance\check_up\models.py:291
+#: .\maintenance\check_up\models.py:388 .\maintenance\check_up\models.py:454
 #: .\maintenance\freins\models.py:17 .\maintenance\jeux_pieces\models.py:38
 #: .\maintenance\models.py:99 .\maintenance\niveaux\models.py:12
 #: .\maintenance\silent_blocs\models.py:27 .\theme\templates\dashboard.html:203
 msgid "Maintenance"
 msgstr "Onderhoud"
 
-#: .\maintenance\bruits\models.py:30
-#: .\maintenance\controle_check_up\models.py:115
-#: .\maintenance\controle_check_up\models.py:137
-#: .\maintenance\jeux_pieces\models.py:60
+#: .\maintenance\bruits\models.py:30 .\maintenance\check_up\models.py:189
+#: .\maintenance\check_up\models.py:210 .\maintenance\check_up\models.py:239
+#: .\maintenance\check_up\models.py:310 .\maintenance\jeux_pieces\models.py:60
 #: .\maintenance\silent_blocs\models.py:33
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:27
 msgid "Emplacement"
 msgstr "locatie"
 
-#: .\maintenance\bruits\models.py:36
-msgid "Type de composant"
-msgstr "Type component"
+#: .\maintenance\bruits\models.py:36 .\maintenance\check_up\models.py:244
+#, fuzzy
+#| msgid "Type de roue"
+msgid "Type de bruit"
+msgstr "Type wiel"
 
-#: .\maintenance\bruits\models.py:41
+#: .\maintenance\bruits\models.py:41 .\maintenance\check_up\models.py:248
 msgid "Normal"
 msgstr "Normaal"
 
-#: .\maintenance\bruits\models.py:41
+#: .\maintenance\bruits\models.py:41 .\maintenance\check_up\models.py:248
 msgid "Anormal"
 msgstr "Abnormaal"
 
-#: .\maintenance\bruits\models.py:43
+#: .\maintenance\bruits\models.py:43 .\maintenance\check_up\models.py:250
 msgid "Niveau de bruit"
 msgstr "Geluidsniveau"
 
-#: .\maintenance\bruits\models.py:48 .\maintenance\jeux_pieces\models.py:86
+#: .\maintenance\bruits\models.py:48 .\maintenance\check_up\models.py:254
+#: .\maintenance\check_up\models.py:330 .\maintenance\jeux_pieces\models.py:86
 #: .\maintenance\silent_blocs\models.py:50
 msgid "Observation"
 msgstr "Opmerking"
 
-#: .\maintenance\bruits\models.py:60 .\maintenance\jeux_pieces\models.py:81
-#: .\maintenance\silent_blocs\models.py:63
-msgid "État visuel / Tag"
-msgstr "Visuele staat / Tag"
+#: .\maintenance\bruits\models.py:60 .\maintenance\check_up\models.py:263
+msgid "Tag"
+msgstr ""
 
-#: .\maintenance\bruits\models.py:74
+#: .\maintenance\bruits\models.py:74 .\maintenance\check_up\models.py:276
 #, python-format
 msgid "%(type)s - %(empl)s (%(niveau)s)"
 msgstr "%(type)s - %(empl)s (%(niveau)s)"
 
-#: .\maintenance\controle_check_up\models.py:13
-#: .\maintenance\jeux_pieces\models.py:23
+#: .\maintenance\check_up\models.py:17 .\maintenance\jeux_pieces\models.py:23
 msgid "Supérieur"
 msgstr "Boven"
 
-#: .\maintenance\controle_check_up\models.py:14
-#: .\maintenance\jeux_pieces\models.py:24
+#: .\maintenance\check_up\models.py:18 .\maintenance\jeux_pieces\models.py:24
 msgid "Inférieur"
 msgstr "Onder"
 
-#: .\maintenance\controle_check_up\models.py:18
-#: .\maintenance\controle_check_up\models.py:23
-#: .\maintenance\controle_check_up\models.py:141
+#: .\maintenance\check_up\models.py:22 .\maintenance\check_up\models.py:27
+#: .\maintenance\check_up\models.py:213
 msgid "OK"
 msgstr "OK"
 
-#: .\maintenance\controle_check_up\models.py:19
-#: .\maintenance\controle_check_up\models.py:24
+#: .\maintenance\check_up\models.py:23 .\maintenance\check_up\models.py:28
 msgid "À remplacer"
 msgstr "Te vervangen"
 
-#: .\maintenance\controle_check_up\models.py:38
-msgid "Emplacement / partie du véhicule"
-msgstr "Locatie / voertuigdeel"
+#: .\maintenance\check_up\models.py:41 .\maintenance\jeux_pieces\models.py:6
+msgid "Rotule de direction"
+msgstr "Stuurkogel"
 
-#: .\maintenance\controle_check_up\models.py:44
-msgid "Essuie-glace AV fonctionnel"
-msgstr "Voorruitwisser werkt"
+#: .\maintenance\check_up\models.py:42 .\maintenance\jeux_pieces\models.py:7
+msgid "Rotule de suspension"
+msgstr "Ophangkogel"
 
-#: .\maintenance\controle_check_up\models.py:45
-msgid "Essuie-glace AR fonctionnel"
-msgstr "Achterruitwisser werkt"
+#: .\maintenance\check_up\models.py:43 .\maintenance\jeux_pieces\models.py:8
+#: .\piece\piece_train_AR\models.py:24 .\piece\piece_train_AV\models.py:28
+msgid "Biellette de barre stabilisatrice"
+msgstr "Stabilisatorstangverbinding"
 
-#: .\maintenance\controle_check_up\models.py:46
-msgid "Pare_Brise sans coups"
-msgstr "Voorruit zonder schade"
+#: .\maintenance\check_up\models.py:44 .\maintenance\jeux_pieces\models.py:9
+#: .\piece\piece_train_AR\models.py:23 .\piece\piece_train_AV\models.py:27
+msgid "Barre stabilisatrice"
+msgstr "Stabilisatorstang"
 
-#: .\maintenance\controle_check_up\models.py:53
-msgid "Fuite moteur"
-msgstr "Motorlek"
-
-#: .\maintenance\controle_check_up\models.py:61
-msgid "Fuite boîte de vitesse"
-msgstr "Versnellingsbaklek"
-
-#: .\maintenance\controle_check_up\models.py:69
-msgid "État liquide de frein"
-msgstr "Remvloeistofconditie"
-
-#: .\maintenance\controle_check_up\models.py:71
-msgid "Remplacement liquide de frein"
-msgstr "Remvloeistof vervangen"
-
-#: .\maintenance\controle_check_up\models.py:72
-msgid "Spécification liquide de frein"
-msgstr "Remvloeistofspecificatie"
-
-#: .\maintenance\controle_check_up\models.py:73
-msgid "Quantité liquide de frein (L)"
-msgstr "Remvloeistof hoeveelheid (L)"
-
-#: .\maintenance\controle_check_up\models.py:80
-msgid "Fuite direction assistée / crémaillère"
-msgstr "Stuurinrichting / tandheugellek"
-
-#: .\maintenance\controle_check_up\models.py:82
-msgid "Niveau liquide direction"
-msgstr "Stuurbekrachtigingsvloeistofniveau"
-
-#: .\maintenance\controle_check_up\models.py:89
-msgid "État batterie"
-msgstr "Batterijconditie"
-
-#: .\maintenance\controle_check_up\models.py:93
-msgid "Phares réglés correctement"
-msgstr "Koplampen correct afgesteld"
-
-#: .\maintenance\controle_check_up\models.py:98
-#: .\maintenance\controle_check_up\models.py:110
-#: .\maintenance\controle_check_up\models.py:132
-msgid "Contrôle général"
-msgstr "Algemene controle"
-
-#: .\maintenance\controle_check_up\models.py:99
-msgid "Contrôles généraux"
-msgstr "Algemene controles"
-
-#: .\maintenance\controle_check_up\models.py:102
-#, python-format
-msgid "Contrôle général – Maintenance %(id)s"
-msgstr "Algemene controle – Onderhoud %(id)s"
-
-#: .\maintenance\controle_check_up\models.py:117
-msgid "Fuite"
-msgstr "Lek"
-
-#: .\maintenance\controle_check_up\models.py:120
+#: .\maintenance\check_up\models.py:45 .\maintenance\check_up\models.py:196
 #: .\maintenance\jeux_pieces\models.py:10
 msgid "Amortisseur"
 msgstr "Schokdemper"
 
-#: .\maintenance\controle_check_up\models.py:121
+#: .\maintenance\check_up\models.py:47 .\maintenance\jeux_pieces\models.py:12
+#: .\maintenance\silent_blocs\models.py:13
+msgid "Triangle"
+msgstr "Driehoek"
+
+#: .\maintenance\check_up\models.py:48 .\maintenance\jeux_pieces\models.py:13
+msgid "Multi-bras"
+msgstr "Multilink"
+
+#: .\maintenance\check_up\models.py:52 .\maintenance\jeux_pieces\models.py:28
+msgid "Bon"
+msgstr "Goed"
+
+#: .\maintenance\check_up\models.py:53 .\maintenance\jeux_pieces\models.py:29
+msgid "Usé"
+msgstr "Versleten"
+
+#: .\maintenance\check_up\models.py:54 .\maintenance\jeux_pieces\models.py:30
+msgid "Hors service"
+msgstr "Buiten gebruik"
+
+#: .\maintenance\check_up\models.py:60 .\maintenance\freins\models.py:9
+msgid "Avant et arrière"
+msgstr "Voor en achter"
+
+#: .\maintenance\check_up\models.py:77
+msgid "Emplacement / partie du véhicule"
+msgstr "Locatie / voertuigdeel"
+
+#: .\maintenance\check_up\models.py:85
+msgid "Essuie-glace AV fonctionnel"
+msgstr "Voorruitwisser werkt"
+
+#: .\maintenance\check_up\models.py:89
+msgid "Essuie-glace AR fonctionnel"
+msgstr "Achterruitwisser werkt"
+
+#: .\maintenance\check_up\models.py:93
+#, fuzzy
+#| msgid "Pare_Brise sans coups"
+msgid "Pare-brise sans coups"
+msgstr "Voorruit zonder schade"
+
+#: .\maintenance\check_up\models.py:100
+msgid "Fuite moteur"
+msgstr "Motorlek"
+
+#: .\maintenance\check_up\models.py:108
+msgid "Fuite boîte de vitesse"
+msgstr "Versnellingsbaklek"
+
+#: .\maintenance\check_up\models.py:116
+msgid "État liquide de frein"
+msgstr "Remvloeistofconditie"
+
+#: .\maintenance\check_up\models.py:120
+msgid "Remplacement liquide de frein"
+msgstr "Remvloeistof vervangen"
+
+#: .\maintenance\check_up\models.py:125
+msgid "Spécification liquide de frein"
+msgstr "Remvloeistofspecificatie"
+
+#: .\maintenance\check_up\models.py:129
+msgid "Quantité liquide de frein (L)"
+msgstr "Remvloeistof hoeveelheid (L)"
+
+#: .\maintenance\check_up\models.py:136
+msgid "Fuite direction assistée / crémaillère"
+msgstr "Stuurinrichting / tandheugellek"
+
+#: .\maintenance\check_up\models.py:140
+msgid "Niveau liquide direction"
+msgstr "Stuurbekrachtigingsvloeistofniveau"
+
+#: .\maintenance\check_up\models.py:146
+#, fuzzy
+#| msgid "Roulement de roue"
+msgid "État roulement de roue"
+msgstr "Wiellager"
+
+#: .\maintenance\check_up\models.py:151
+#, fuzzy
+#| msgid "Cage de roulement"
+msgid "Emplacement du roulement"
+msgstr "Lagerkooi"
+
+#: .\maintenance\check_up\models.py:161
+msgid "État batterie"
+msgstr "Batterijconditie"
+
+#: .\maintenance\check_up\models.py:167
+msgid "Phares réglés correctement"
+msgstr "Koplampen correct afgesteld"
+
+#: .\maintenance\check_up\models.py:172 .\maintenance\check_up\models.py:184
+#: .\maintenance\check_up\models.py:208
+msgid "Contrôle général"
+msgstr "Algemene controle"
+
+#: .\maintenance\check_up\models.py:173
+msgid "Contrôles généraux"
+msgstr "Algemene controles"
+
+#: .\maintenance\check_up\models.py:176
+#, python-format
+msgid "Contrôle général – Maintenance %(id)s"
+msgstr "Algemene controle – Onderhoud %(id)s"
+
+#: .\maintenance\check_up\models.py:193
+msgid "Fuite"
+msgstr "Lek"
+
+#: .\maintenance\check_up\models.py:197
 msgid "Amortisseurs"
 msgstr "Schokdemper L/R"
 
-#: .\maintenance\controle_check_up\models.py:141
+#: .\maintenance\check_up\models.py:213
 msgid "Cassé"
 msgstr "Gebroken"
 
-#: .\maintenance\controle_check_up\models.py:143
+#: .\maintenance\check_up\models.py:215 .\maintenance\check_up\models.py:318
 #: .\maintenance\jeux_pieces\models.py:68
 #: .\maintenance\silent_blocs\models.py:45
 msgid "État"
 msgstr "Staat"
 
-#: .\maintenance\controle_check_up\models.py:147
-#: .\piece\piece_embrayage\models.py:19 .\piece\piece_train_AR\models.py:22
-#: .\piece\piece_train_AV\models.py:25
+#: .\maintenance\check_up\models.py:219 .\piece\piece_embrayage\models.py:19
+#: .\piece\piece_train_AR\models.py:22 .\piece\piece_train_AV\models.py:25
 msgid "Ressort"
 msgstr "Veer"
 
-#: .\maintenance\controle_check_up\models.py:148
+#: .\maintenance\check_up\models.py:220
 msgid "Ressorts"
 msgstr "Veer"
 
-#: .\maintenance\freins\models.py:9
-msgid "Avant et arrière"
-msgstr "Voor en achter"
+#: .\maintenance\check_up\models.py:305 .\maintenance\jeux_pieces\models.py:54
+msgid "Pièce contrôlée"
+msgstr "Gecontroleerd onderdeel"
 
-#: .\maintenance\freins\models.py:23
+#: .\maintenance\check_up\models.py:326 .\maintenance\jeux_pieces\models.py:81
+#: .\maintenance\silent_blocs\models.py:63
+msgid "État visuel / Tag"
+msgstr "Visuele staat / Tag"
+
+#: .\maintenance\check_up\models.py:338 .\maintenance\jeux_pieces\models.py:97
+#, python-format
+msgid "%(piece)s – %(empl)s (%(etat)s / %(tag)s)"
+msgstr "%(piece)s – %(empl)s (%(etat)s / %(tag)s)"
+
+#: .\maintenance\check_up\models.py:341 .\maintenance\jeux_pieces\models.py:101
+msgid "Non précisé"
+msgstr "Niet gespecificeerd"
+
+#: .\maintenance\check_up\models.py:351 .\maintenance\jeux_pieces\models.py:108
+#: .\maintenance\models.py:45 .\utilisateurs\models.py:73
+#: .\utilisateurs\views.py:172
+msgid "Apprenti"
+msgstr "Leerling"
+
+#: .\maintenance\check_up\models.py:352 .\maintenance\check_up\models.py:468
+#: .\maintenance\check_up\models.py:504 .\maintenance\jeux_pieces\models.py:109
+#: .\maintenance\models.py:37 .\maintenance\nettoyage_exterieur\models.py:25
+#: .\maintenance\nettoyage_interieur\models.py:26 .\utilisateurs\models.py:74
+#: .\utilisateurs\views.py:173
+msgid "Mécanicien"
+msgstr "Monteur"
+
+#: .\maintenance\check_up\models.py:353 .\maintenance\jeux_pieces\models.py:110
+#: .\maintenance\models.py:53
+msgid "Chef mécanicien"
+msgstr "Hoofdmonteur"
+
+#: .\maintenance\check_up\models.py:393 .\maintenance\freins\models.py:23
 msgid "Partie contrôlée"
 msgstr "Gecontroleerd onderdeel"
 
-#: .\maintenance\freins\models.py:28
+#: .\maintenance\check_up\models.py:396 .\maintenance\freins\models.py:28
 msgid "Usure des plaquettes (%)"
 msgstr "Remblokken slijtage (%)"
 
-#: .\maintenance\freins\models.py:33
+#: .\maintenance\check_up\models.py:399 .\maintenance\freins\models.py:33
 msgid "Épaisseur des disques (mm)"
 msgstr "Schijfdikte (mm)"
 
-#: .\maintenance\freins\models.py:37
+#: .\maintenance\check_up\models.py:403 .\maintenance\freins\models.py:37
 msgid "Présence de fentes sur les disques"
 msgstr "Aanwezigheid van scheuren op de schijven"
+
+#: .\maintenance\check_up\models.py:407
+#, fuzzy
+#| msgid "Sélectionner un système de freinage avant"
+msgid "Présence de fuite du système de freinage"
+msgstr "Selecteer een voorremsysteem"
+
+#: .\maintenance\check_up\models.py:411
+msgid "Disques avant à remplacer"
+msgstr ""
+
+#: .\maintenance\check_up\models.py:415
+#, fuzzy
+#| msgid "Sièges arrière gauche"
+msgid "Disques arrière à remplacer"
+msgstr "Linker achterzetel"
+
+#: .\maintenance\check_up\models.py:419
+msgid "Plaquettes avant à remplacer"
+msgstr ""
+
+#: .\maintenance\check_up\models.py:423
+#, fuzzy
+#| msgid "Marque plaquettes arrière"
+msgid "Plaquettes arrière à remplacer"
+msgstr "Merk van de achterremblokken"
+
+#: .\maintenance\check_up\models.py:428 .\maintenance\freins\models.py:60
+#, python-format
+msgid "Contrôle freins – %(partie)s (%(date)s)"
+msgstr "Remmencontrole – %(partie)s (%(date)s)"
+
+#: .\maintenance\check_up\models.py:471
+#: .\maintenance\nettoyage_exterieur\models.py:28
+msgid "Traces de gomme"
+msgstr "Bandensporen"
+
+#: .\maintenance\check_up\models.py:473
+#: .\maintenance\nettoyage_exterieur\models.py:30
+#: .\piece\piece_jantes\models.py:28
+msgid "Jantes"
+msgstr "Velgen"
+
+#: .\maintenance\check_up\models.py:474 .\maintenance\check_up\models.py:513
+#: .\maintenance\nettoyage_exterieur\models.py:32
+#: .\maintenance\nettoyage_interieur\models.py:36
+msgid "Validation finale"
+msgstr "Eindcontrole"
+
+#: .\maintenance\check_up\models.py:475 .\maintenance\check_up\models.py:515
+#: .\maintenance\nettoyage_exterieur\models.py:34
+#: .\maintenance\nettoyage_interieur\models.py:38 .\piece\models.py:127
+#: .\piece\piece_fluides\models.py:66 .\theme\templates\dashboard.html:51
+msgid "Date"
+msgstr "Datum"
+
+#: .\maintenance\check_up\models.py:478 .\maintenance\check_up\views.py:130
+#: .\maintenance\models.py:12 .\maintenance\nettoyage_exterieur\models.py:37
+msgid "Nettoyage extérieur"
+msgstr "Exterieur reiniging"
+
+#: .\maintenance\check_up\models.py:479
+#: .\maintenance\nettoyage_exterieur\models.py:38
+msgid "Nettoyages extérieurs"
+msgstr "Exterieur reinigingen"
+
+#: .\maintenance\check_up\models.py:490 .\maintenance\check_up\models.py:518
+#: .\maintenance\check_up\views.py:131 .\maintenance\models.py:13
+#: .\maintenance\nettoyage_interieur\models.py:41
+msgid "Nettoyage intérieur"
+msgstr "Interieur reiniging"
+
+#: .\maintenance\check_up\models.py:507
+#: .\maintenance\nettoyage_interieur\models.py:29
+msgid "Vitres"
+msgstr "Ruiten"
+
+#: .\maintenance\check_up\models.py:509
+#: .\maintenance\nettoyage_interieur\models.py:31
+msgid "Aspirateur"
+msgstr "Stofzuigen"
+
+#: .\maintenance\check_up\models.py:510
+#: .\maintenance\nettoyage_interieur\models.py:32
+msgid "Intérieurs de porte"
+msgstr "Deurinterieurs"
+
+#: .\maintenance\check_up\models.py:511
+#: .\maintenance\nettoyage_interieur\models.py:33
+#: .\theme\templates\dashboard.html:4
+msgid "Tableau de bord"
+msgstr "Dashboard"
+
+#: .\maintenance\check_up\models.py:512
+#: .\maintenance\nettoyage_interieur\models.py:34
+msgid "Plastiques"
+msgstr "Kunststof oppervlakken"
+
+#: .\maintenance\check_up\models.py:519
+#: .\maintenance\nettoyage_interieur\models.py:42
+msgid "Nettoyages intérieurs"
+msgstr "Interieur reinigingen"
+
+#: .\maintenance\check_up\views.py:126
+msgid "Checkup"
+msgstr "Controle"
+
+#: .\maintenance\check_up\views.py:127 .\maintenance\models.py:9
+msgid "Entretien"
+msgstr "Onderhoud"
+
+#: .\maintenance\check_up\views.py:128 .\maintenance\models.py:10
+msgid "Freins"
+msgstr "Remmen"
+
+#: .\maintenance\check_up\views.py:129 .\maintenance\models.py:11
+#: .\piece\piece_pneus\models.py:55 .\theme\templates\dashboard.html:188
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:170
+#: .\theme\templates\voiture_exemplaire\lier_pneus.html:35
+msgid "Pneus"
+msgstr "Banden"
+
+#: .\maintenance\check_up\views.py:132 .\maintenance\models.py:14
+msgid "Niveaux"
+msgstr "Niveaus"
+
+#: .\maintenance\check_up\views.py:133 .\maintenance\models.py:15
+msgid "Autres interventions"
+msgstr "Andere werkzaamheden"
 
 #: .\maintenance\freins\models.py:43
 msgid "Présence de fuite"
@@ -823,116 +1137,9 @@ msgstr "Te vervangen vooraan"
 msgid "À remplacer arrière"
 msgstr "Te vervangen achteraan"
 
-#: .\maintenance\freins\models.py:60
-#, python-format
-msgid "Contrôle freins – %(partie)s (%(date)s)"
-msgstr "Remmencontrole – %(partie)s (%(date)s)"
-
-#: .\maintenance\jeux_pieces\models.py:6
-msgid "Rotule de direction"
-msgstr "Stuurkogel"
-
-#: .\maintenance\jeux_pieces\models.py:7
-msgid "Rotule de suspension"
-msgstr "Ophangkogel"
-
-#: .\maintenance\jeux_pieces\models.py:8 .\piece\piece_train_AR\models.py:24
-#: .\piece\piece_train_AV\models.py:28
-msgid "Biellette de barre stabilisatrice"
-msgstr "Stabilisatorstangverbinding"
-
-#: .\maintenance\jeux_pieces\models.py:9 .\piece\piece_train_AR\models.py:23
-#: .\piece\piece_train_AV\models.py:27
-msgid "Barre stabilisatrice"
-msgstr "Stabilisatorstang"
-
-#: .\maintenance\jeux_pieces\models.py:12
-#: .\maintenance\silent_blocs\models.py:13
-msgid "Triangle"
-msgstr "Driehoek"
-
-#: .\maintenance\jeux_pieces\models.py:13
-msgid "Multi-bras"
-msgstr "Multilink"
-
-#: .\maintenance\jeux_pieces\models.py:28
-msgid "Bon"
-msgstr "Goed"
-
-#: .\maintenance\jeux_pieces\models.py:29
-msgid "Usé"
-msgstr "Versleten"
-
-#: .\maintenance\jeux_pieces\models.py:30
-msgid "Hors service"
-msgstr "Buiten gebruik"
-
-#: .\maintenance\jeux_pieces\models.py:54
-msgid "Pièce contrôlée"
-msgstr "Gecontroleerd onderdeel"
-
-#: .\maintenance\jeux_pieces\models.py:97
-#, python-format
-msgid "%(piece)s – %(empl)s (%(etat)s / %(tag)s)"
-msgstr "%(piece)s – %(empl)s (%(etat)s / %(tag)s)"
-
-#: .\maintenance\jeux_pieces\models.py:101
-msgid "Non précisé"
-msgstr "Niet gespecificeerd"
-
-#: .\maintenance\jeux_pieces\models.py:108 .\maintenance\models.py:45
-#: .\utilisateurs\models.py:73 .\utilisateurs\views.py:161
-msgid "Apprenti"
-msgstr "Leerling"
-
-#: .\maintenance\jeux_pieces\models.py:109 .\maintenance\models.py:37
-#: .\maintenance\nettoyage_exterieur\models.py:25
-#: .\maintenance\nettoyage_interieur\models.py:26 .\utilisateurs\models.py:74
-#: .\utilisateurs\views.py:162
-msgid "Mécanicien"
-msgstr "Monteur"
-
-#: .\maintenance\jeux_pieces\models.py:110 .\maintenance\models.py:53
-msgid "Chef mécanicien"
-msgstr "Hoofdmonteur"
-
 #: .\maintenance\models.py:8
 msgid "Check-up"
 msgstr "Controle"
-
-#: .\maintenance\models.py:9 .\maintenance\views.py:41
-msgid "Entretien"
-msgstr "Onderhoud"
-
-#: .\maintenance\models.py:10 .\maintenance\views.py:42
-msgid "Freins"
-msgstr "Remmen"
-
-#: .\maintenance\models.py:11 .\maintenance\views.py:43
-#: .\piece\piece_pneus\models.py:55 .\theme\templates\dashboard.html:188
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:155
-#: .\theme\templates\voiture_exemplaire\lier_pneus.html:35
-msgid "Pneus"
-msgstr "Banden"
-
-#: .\maintenance\models.py:12 .\maintenance\nettoyage_exterieur\models.py:37
-#: .\maintenance\views.py:44
-msgid "Nettoyage extérieur"
-msgstr "Exterieur reiniging"
-
-#: .\maintenance\models.py:13 .\maintenance\nettoyage_interieur\models.py:41
-#: .\maintenance\views.py:45
-msgid "Nettoyage intérieur"
-msgstr "Interieur reiniging"
-
-#: .\maintenance\models.py:14 .\maintenance\views.py:46
-msgid "Niveaux"
-msgstr "Niveaus"
-
-#: .\maintenance\models.py:15 .\maintenance\views.py:47
-msgid "Autres interventions"
-msgstr "Andere werkzaamheden"
-
 
 #: .\maintenance\models.py:20
 msgid "Vert"
@@ -955,7 +1162,7 @@ msgid "Date d'intervention"
 msgstr "Datum interventie"
 
 #: .\maintenance\models.py:64
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:78
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:89
 msgid "Date de la dernière intervention"
 msgstr "Datum laatste interventie"
 
@@ -988,7 +1195,6 @@ msgstr "Versnellingsbakkilometrage"
 msgid "Type de maintenance"
 msgstr "Onderhoudstype"
 
-
 #: .\maintenance\models.py:100
 msgid "Maintenances"
 msgstr "Onderhoudsbeurten"
@@ -1002,55 +1208,6 @@ msgstr "Onderhoud %(voiture)s (%(date)s)"
 #: .\maintenance\nettoyage_interieur\models.py:12
 msgid "Check up"
 msgstr "Controle"
-
-#: .\maintenance\nettoyage_exterieur\models.py:28
-msgid "Traces de gomme"
-msgstr "Bandensporen"
-
-#: .\maintenance\nettoyage_exterieur\models.py:30
-#: .\piece\piece_jantes\models.py:28
-msgid "Jantes"
-msgstr "Velgen"
-
-#: .\maintenance\nettoyage_exterieur\models.py:32
-#: .\maintenance\nettoyage_interieur\models.py:36
-msgid "Validation finale"
-msgstr "Eindcontrole"
-
-#: .\maintenance\nettoyage_exterieur\models.py:34
-#: .\maintenance\nettoyage_interieur\models.py:38 .\piece\models.py:127
-#: .\piece\piece_fluides\models.py:66 .\theme\templates\dashboard.html:51
-msgid "Date"
-msgstr "Datum"
-
-#: .\maintenance\nettoyage_exterieur\models.py:38
-msgid "Nettoyages extérieurs"
-msgstr "Exterieur reinigingen"
-
-#: .\maintenance\nettoyage_interieur\models.py:29
-msgid "Vitres"
-msgstr "Ruiten"
-
-#: .\maintenance\nettoyage_interieur\models.py:31
-msgid "Aspirateur"
-msgstr "Stofzuigen"
-
-#: .\maintenance\nettoyage_interieur\models.py:32
-msgid "Intérieurs de porte"
-msgstr "Deurinterieurs"
-
-#: .\maintenance\nettoyage_interieur\models.py:33
-#: .\theme\templates\dashboard.html:4
-msgid "Tableau de bord"
-msgstr "Dashboard"
-
-#: .\maintenance\nettoyage_interieur\models.py:34
-msgid "Plastiques"
-msgstr "Kunststof oppervlakken"
-
-#: .\maintenance\nettoyage_interieur\models.py:42
-msgid "Nettoyages intérieurs"
-msgstr "Interieur reinigingen"
 
 #: .\maintenance\niveaux\models.py:18 .\piece\piece_fluides\models.py:35
 #: .\piece\piece_fluides\models.py:50
@@ -1116,10 +1273,6 @@ msgstr "Type silentblok"
 #, python-format
 msgid "%(type)s - %(empl)s (%(etat)s)"
 msgstr "%(type)s - %(empl)s (%(etat)s)"
-
-#: .\maintenance\views.py:40
-msgid "Checkup"
-msgstr "Controle"
 
 #: .\outillage\models.py:9 .\panier\models.py:16 .\panier\models.py:71
 msgid "Identifiant"
@@ -1241,7 +1394,7 @@ msgstr "Fabrikanten"
 msgid "Codes-barres"
 msgstr "Streepjescodes"
 
-#: .\piece\models.py:69 .\theme\templates\maintenance\list.html:61
+#: .\piece\models.py:69 .\theme\templates\maintenance\list.html:78
 msgid "Année"
 msgstr "Jaar"
 
@@ -1405,9 +1558,9 @@ msgid "Puissance en watts"
 msgstr "Vermogen in watt"
 
 #: .\piece\piece_ampoules\models.py:60 .\piece\piece_feux\models.py:29
-#: .\theme\templates\maintenance\list.html:64
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:48
-#: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:73
+#: .\theme\templates\maintenance\list.html:81
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:63
+#: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:88
 msgid "Couleur"
 msgstr "Kleur"
 
@@ -2182,7 +2335,7 @@ msgid "Embrayage"
 msgstr "Koppeling"
 
 #: .\piece\piece_embrayage\models.py:73 .\theme\templates\dashboard.html:143
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:93
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:108
 msgid "Embrayages"
 msgstr "Koppeling"
 
@@ -3548,6 +3701,257 @@ msgstr "Alle rechten voorbehouden."
 msgid "Déconnexion"
 msgstr "Afmelden"
 
+#: .\theme\templates\client\client_detail.html:10
+#, fuzzy
+#| msgid "Détails du véhicule : "
+msgid "Détails du client :"
+msgstr "Voertuigdetails : "
+
+#: .\theme\templates\client\client_detail.html:17
+#: .\theme\templates\client\client_detail.html:117
+#, fuzzy
+#| msgid "Retour à la page précédente"
+msgid "Retour à la liste des clients"
+msgstr "Terug naar de vorige pagina"
+
+#: .\theme\templates\client\client_detail.html:27
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:37
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:60
+msgid "Informations générales"
+msgstr "Algemene informatie"
+
+#: .\theme\templates\client\client_detail.html:31
+#, fuzzy
+#| msgid "Numéro de boîte"
+msgid "Numéro de compte"
+msgstr "Versnellingsbaknummer"
+
+#: .\theme\templates\client\client_detail.html:41
+#: .\theme\templates\client\client_form.html:61
+msgid "Numéro de permis"
+msgstr "Rijbewijsnummer"
+
+#: .\theme\templates\client\client_detail.html:51
+#, fuzzy
+#| msgid "Modifier le véhicule"
+msgid "Modifier le client"
+msgstr "Voertuig wijzigen"
+
+#: .\theme\templates\client\client_detail.html:61
+#, fuzzy
+#| msgid "Niveau"
+msgid "Niveau "
+msgstr "Niveau"
+
+#: .\theme\templates\client\client_detail.html:82
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:92
+#, fuzzy
+#| msgid "Non renseignée"
+msgid "Aucune adresse renseignée."
+msgstr "Niet ingevuld"
+
+#: .\theme\templates\client\client_detail.html:90
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:100
+msgid "Métadonnées"
+msgstr ""
+
+#: .\theme\templates\client\client_form.html:12
+#, fuzzy
+#| msgid "Créer un utilisateur"
+msgid "Créer un client"
+msgstr "Maak een gebruiker aan"
+
+#: .\theme\templates\client\client_form.html:104
+msgid "Âge"
+msgstr "Leeftijd"
+
+#: .\theme\templates\client\client_form.html:165
+#: .\theme\templates\client\modifier_client.html:43
+#: .\theme\templates\fournisseurs\fournisseur_form.html:131
+#: .\theme\templates\fournisseurs\modifier_fournisseur.html:43
+msgid "Enregistrer"
+msgstr ""
+
+#: .\theme\templates\client\client_list.html:4
+#: .\theme\templates\client\client_list.html:10
+#, fuzzy
+#| msgid "Liste des Pneus"
+msgid "Liste des Clients"
+msgstr "Bandenlijst"
+
+#: .\theme\templates\client\client_list.html:18
+#, fuzzy
+#| msgid "Nom du fluide"
+msgid "Prenom du client"
+msgstr "Naam van de vloeistof"
+
+#: .\theme\templates\client\client_list.html:22
+#, fuzzy
+#| msgid "Nom du fluide"
+msgid "Nom du client"
+msgstr "Naam van de vloeistof"
+
+#: .\theme\templates\client\client_list.html:36
+msgid "nom.prenom@..."
+msgstr ""
+
+#: .\theme\templates\client\client_list.html:40
+msgid "2008-01-01"
+msgstr ""
+
+#: .\theme\templates\client\client_list.html:44
+msgid "min 18"
+msgstr ""
+
+#: .\theme\templates\client\client_list.html:48
+msgid "111-1111111-11"
+msgstr ""
+
+#: .\theme\templates\client\client_list.html:52
+msgid "1735181734"
+msgstr ""
+
+#: .\theme\templates\client\client_list.html:56
+msgid "BEXX XXXX XXXX XXXX"
+msgstr ""
+
+#: .\theme\templates\client\client_list.html:60
+#: .\theme\templates\fournisseurs\fournisseur_list.html:34
+msgid "0032"
+msgstr ""
+
+#: .\theme\templates\client\client_list.html:64
+#, fuzzy
+#| msgid "Historique"
+msgid "historique"
+msgstr "Geschiedenis"
+
+#: .\theme\templates\client\client_list.html:68
+#, fuzzy
+#| msgid "Location"
+msgid "location"
+msgstr "Verhuur"
+
+#: .\theme\templates\client\client_list.html:74
+#, fuzzy
+#| msgid "Ajouter un exemplaire"
+msgid "Ajouter un client"
+msgstr "Een exemplaar toevoegen"
+
+#: .\theme\templates\client\client_list.html:92
+#: .\theme\templates\client\client_list.html:107
+#: .\theme\templates\fournisseurs\fournisseur_list.html:58
+#: .\theme\templates\fournisseurs\fournisseur_list.html:72
+#: .\theme\templates\voiture_boite\list.html:40
+#: .\theme\templates\voiture_boite\list.html:55
+#: .\theme\templates\voiture_embrayage\list.html:56
+#: .\theme\templates\voiture_embrayage\list.html:70
+#: .\theme\templates\voiture_freins\list.html:49
+#: .\theme\templates\voiture_freins\list.html:62
+#: .\theme\templates\voiture_freins_ar\list_ar.html:46
+#: .\theme\templates\voiture_freins_ar\list_ar.html:59
+#: .\theme\templates\voiture_moteur\list.html:41
+#: .\theme\templates\voiture_moteur\list.html:58
+#: .\theme\templates\voiture_pneus\list.html:77
+#: .\theme\templates\voiture_pneus\list.html:95
+msgid "Info"
+msgstr "Info"
+
+#: .\theme\templates\client\client_list.html:110
+#, fuzzy
+#| msgid "Aucune entrée disponible"
+msgid "Info indisponible"
+msgstr "Geen vermeldingen beschikbaar"
+
+#: .\theme\templates\client\client_list.html:126
+#: .\theme\templates\fournisseurs\fournisseur_list.html:87
+#: .\theme\templates\voiture_embrayage\list.html:85
+#: .\theme\templates\voiture_freins\list.html:77
+#: .\theme\templates\voiture_freins_ar\list_ar.html:73
+#: .\theme\templates\voiture_pneus\list.html:110
+msgid "Recherche globale :"
+msgstr "Globale zoekopdracht:"
+
+#: .\theme\templates\client\client_list.html:127
+#: .\theme\templates\fournisseurs\fournisseur_list.html:88
+#: .\theme\templates\voiture_boite\list.html:74
+#: .\theme\templates\voiture_embrayage\list.html:86
+#: .\theme\templates\voiture_freins\list.html:78
+#: .\theme\templates\voiture_freins_ar\list_ar.html:74
+#: .\theme\templates\voiture_moteur\list.html:77
+#: .\theme\templates\voiture_pneus\list.html:111
+msgid "Afficher _MENU_ éléments"
+msgstr "Toon _MENU_ items"
+
+#: .\theme\templates\client\client_list.html:128
+#, fuzzy
+#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ entrées"
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ client"
+msgstr "Weergeven van _START_ tot _END_ van _TOTAL_ vermeldingen"
+
+#: .\theme\templates\client\client_list.html:129
+#: .\theme\templates\client\client_list.html:130
+#, fuzzy
+#| msgid "Aucun pneu trouvé"
+msgid "Aucun client trouvé"
+msgstr "Geen band gevonden"
+
+#: .\theme\templates\client\client_list.html:132
+#: .\theme\templates\fournisseurs\fournisseur_list.html:93
+#: .\theme\templates\voiture_boite\list.html:79
+#: .\theme\templates\voiture_embrayage\list.html:91
+#: .\theme\templates\voiture_freins\list.html:83
+#: .\theme\templates\voiture_freins_ar\list_ar.html:79
+#: .\theme\templates\voiture_moteur\list.html:82
+#: .\theme\templates\voiture_pneus\list.html:116
+msgid "Premier"
+msgstr "Eerste"
+
+#: .\theme\templates\client\client_list.html:133
+#: .\theme\templates\fournisseurs\fournisseur_list.html:94
+#: .\theme\templates\voiture_boite\list.html:80
+#: .\theme\templates\voiture_embrayage\list.html:92
+#: .\theme\templates\voiture_freins\list.html:84
+#: .\theme\templates\voiture_freins_ar\list_ar.html:80
+#: .\theme\templates\voiture_moteur\list.html:83
+#: .\theme\templates\voiture_pneus\list.html:117
+msgid "Dernier"
+msgstr "Laatste"
+
+#: .\theme\templates\client\client_list.html:134
+#: .\theme\templates\fournisseurs\fournisseur_list.html:95
+#: .\theme\templates\voiture_boite\list.html:81
+#: .\theme\templates\voiture_embrayage\list.html:93
+#: .\theme\templates\voiture_freins\list.html:85
+#: .\theme\templates\voiture_freins_ar\list_ar.html:81
+#: .\theme\templates\voiture_moteur\list.html:84
+#: .\theme\templates\voiture_pneus\list.html:118
+msgid "Suivant"
+msgstr "Volgende"
+
+#: .\theme\templates\client\client_list.html:135
+#: .\theme\templates\fournisseurs\fournisseur_list.html:96
+#: .\theme\templates\voiture_boite\list.html:82
+#: .\theme\templates\voiture_embrayage\list.html:94
+#: .\theme\templates\voiture_freins\list.html:86
+#: .\theme\templates\voiture_freins_ar\list_ar.html:82
+#: .\theme\templates\voiture_moteur\list.html:85
+#: .\theme\templates\voiture_pneus\list.html:119
+msgid "Précédent"
+msgstr "Vorige"
+
+#: .\theme\templates\client\modifier_client.html:10
+#, fuzzy
+#| msgid "Modifier le véhicule"
+msgid "Modifier le client :"
+msgstr "Voertuig wijzigen"
+
+#: .\theme\templates\client\modifier_client.html:48
+#: .\theme\templates\fournisseurs\modifier_fournisseur.html:48
+#: .\theme\templates\voiture_exemplaire\modifier_exemplaire.html:73
+msgid "Annuler"
+msgstr "Annuleren"
+
 #: .\theme\templates\dashboard.html:6 .\theme\views.py:81
 msgid "Bienvenue sur ton tableau de bord"
 msgstr "Welkom op je dashboard"
@@ -3561,6 +3965,7 @@ msgstr "Gebruikers"
 #: .\theme\templates\dashboard.html:130 .\theme\templates\dashboard.html:145
 #: .\theme\templates\dashboard.html:160 .\theme\templates\dashboard.html:175
 #: .\theme\templates\dashboard.html:190 .\theme\templates\dashboard.html:205
+#: .\theme\templates\dashboard.html:220 .\theme\templates\dashboard.html:236
 msgid "Nombre total :"
 msgstr "Totaal aantal:"
 
@@ -3606,7 +4011,7 @@ msgid "Marques de voiture"
 msgstr "Automerken"
 
 #: .\theme\templates\dashboard.html:97
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:63
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:78
 msgid "Moteurs"
 msgstr "Motoren"
 
@@ -3619,18 +4024,109 @@ msgid "Boites de vitesses"
 msgstr "Versnellingsbak"
 
 #: .\theme\templates\dashboard.html:158
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:108
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:123
 msgid "Freins avant"
 msgstr "Voorremmen"
 
 #: .\theme\templates\dashboard.html:173
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:134
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:149
 msgid "Freins arrière"
 msgstr "Achterremmen"
 
-#: .\theme\templates\dashboard.html:220
+#: .\theme\templates\dashboard.html:250
 msgid "Tableau de bord Admin"
 msgstr "Admin-dashboard"
+
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:10
+#, fuzzy
+#| msgid "Détails du moteur"
+msgid "Détails du fournisseur :"
+msgstr "Motordetails"
+
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:27
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:127
+msgid "Retour à la liste des fournisseurs"
+msgstr ""
+
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:61
+#, fuzzy
+#| msgid "Nom du fournisseur"
+msgid "Modifier le fournisseur"
+msgstr "Naam leverancier"
+
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:71
+#, fuzzy
+#| msgid "Informations générales"
+msgid "Informations Peppol"
+msgstr "Algemene informatie"
+
+#: .\theme\templates\fournisseurs\fournisseur_form.html:12
+#, fuzzy
+#| msgid "Créer un utilisateur"
+msgid "Créer un Fournisseur"
+msgstr "Maak een gebruiker aan"
+
+#: .\theme\templates\fournisseurs\fournisseur_form.html:57
+#: .\theme\templates\fournisseurs\fournisseur_list.html:25
+#, fuzzy
+#| msgid "Numéro"
+msgid "Numéro Peppol"
+msgstr "Nummer"
+
+#: .\theme\templates\fournisseurs\fournisseur_list.html:4
+#: .\theme\templates\fournisseurs\fournisseur_list.html:10
+#, fuzzy
+#| msgid "Liste des utilisateurs"
+msgid "Liste des Fournisseurs"
+msgstr "Gebruikerslijst"
+
+#: .\theme\templates\fournisseurs\fournisseur_list.html:21
+#: .\theme\templates\fournisseurs\fournisseur_list.html:54
+#, fuzzy
+#| msgid "Numéro de TVA"
+msgid "Numero de TVA"
+msgstr "BTW-nummer"
+
+#: .\theme\templates\fournisseurs\fournisseur_list.html:30
+msgid "info@..."
+msgstr ""
+
+#: .\theme\templates\fournisseurs\fournisseur_list.html:40
+#, fuzzy
+#| msgid "Ajouter un moteur"
+msgid "Ajouter un fournisseur"
+msgstr "Voeg een motor toe"
+
+#: .\theme\templates\fournisseurs\fournisseur_list.html:53
+#, fuzzy
+#| msgid "Nom du fournisseur"
+msgid "Nom du Fournisseur"
+msgstr "Naam leverancier"
+
+#: .\theme\templates\fournisseurs\fournisseur_list.html:55
+#, fuzzy
+#| msgid "Numero"
+msgid "Numero Peppol"
+msgstr "Nummer"
+
+#: .\theme\templates\fournisseurs\fournisseur_list.html:89
+#, fuzzy
+#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ moteurs"
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ fournisseurs"
+msgstr "Weergeven van _START_ tot _END_ van _TOTAL_ motoren"
+
+#: .\theme\templates\fournisseurs\fournisseur_list.html:90
+#: .\theme\templates\fournisseurs\fournisseur_list.html:91
+#, fuzzy
+#| msgid "Aucun moteur trouvé"
+msgid "Aucun fournisseur trouvé"
+msgstr "Geen motor gevonden"
+
+#: .\theme\templates\fournisseurs\modifier_fournisseur.html:10
+#, fuzzy
+#| msgid "Nom du fournisseur"
+msgid "Modifier le fournisseur :"
+msgstr "Naam leverancier"
 
 #: .\theme\templates\home.html:20
 msgid "Bienvenue"
@@ -3644,27 +4140,100 @@ msgstr "Dit is een paragraaf gestileerd met Tailwind."
 msgid "Se connecter"
 msgstr "Inloggen"
 
-#: .\theme\templates\maintenance\choisir_type.html:13
+#: .\theme\templates\maintenance\check_up\creer_maintenance.html:9
+msgid "Créer un check-up complet pour :"
+msgstr ""
+
+#: .\theme\templates\maintenance\check_up\creer_maintenance.html:14
+#, fuzzy
+#| msgid "Détails de l'embrayage"
+msgid "Détails de l'exemplaire"
+msgstr "Details van de koppeling"
+
+#: .\theme\templates\maintenance\check_up\creer_maintenance.html:17
+#, fuzzy
+#| msgid "Kilométrage total"
+msgid "Kilomètres total"
+msgstr "Total kilometrage"
+
+#: .\theme\templates\maintenance\check_up\creer_maintenance.html:18
+#, fuzzy
+#| msgid "Kilomètres de la dernière intervention"
+msgid "Kilomètres depuis dernière intervention"
+msgstr "Kilometrage bij laatste interventie"
+
+#: .\theme\templates\maintenance\check_up\creer_maintenance.html:26
+msgid "Aperçu du check-up complet"
+msgstr ""
+
+#: .\theme\templates\maintenance\check_up\creer_maintenance.html:29
+#, fuzzy
+#| msgid "Contrôle général"
+msgid "Contrôle général du véhicule"
+msgstr "Algemene controle"
+
+#: .\theme\templates\maintenance\check_up\creer_maintenance.html:30
+msgid "Vérification des amortisseurs et ressorts"
+msgstr ""
+
+#: .\theme\templates\maintenance\check_up\creer_maintenance.html:31
+msgid "Contrôle des bruits par emplacement et type"
+msgstr ""
+
+#: .\theme\templates\maintenance\check_up\creer_maintenance.html:32
+msgid "Vérification des pièces (rotules, biellettes, barre stabilisatrice…)"
+msgstr ""
+
+#: .\theme\templates\maintenance\check_up\creer_maintenance.html:33
+#, fuzzy
+#| msgid "Contrôle freins – %(partie)s (%(date)s)"
+msgid "Contrôle des freins (plaquettes, disques, fuites…)"
+msgstr "Remmencontrole – %(partie)s (%(date)s)"
+
+#: .\theme\templates\maintenance\check_up\creer_maintenance.html:34
+msgid "Nettoyage intérieur (vitres, tableau de bord, plastiques…)"
+msgstr ""
+
+#: .\theme\templates\maintenance\check_up\creer_maintenance.html:35
+msgid "Nettoyage extérieur (carrosserie, jantes, traces de gomme…)"
+msgstr ""
+
+#: .\theme\templates\maintenance\check_up\creer_maintenance.html:45
+msgid "Créer le check-up complet"
+msgstr ""
+
+#: .\theme\templates\maintenance\check_up\creer_maintenance.html:50
+#, fuzzy
+#| msgid "Date du plein"
+msgid "Date actuelle"
+msgstr "Tankdatum"
+
+#: .\theme\templates\maintenance\choisir_type.html:12
 msgid "Choisir le type de maintenance pour :"
 msgstr "Kies het type onderhoud voor:"
 
-#: .\theme\templates\maintenance\list.html:11
+#: .\theme\templates\maintenance\list.html:10
 msgid "Maintenance du véhicule :"
 msgstr "Voertuigonderhoud:"
 
-
 #: .\theme\templates\maintenance\list.html:23
-#: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:22
-msgid "Rechercher un exemplaire par immatriculation..."
-msgstr "Zoek een exemplaar op kenteken..."
+#: .\theme\templates\voiture_exemplaire\list.html:15
+#: .\theme\templates\voiture_marque\marques_list.html:19
+msgid "Rechercher une marque..."
+msgstr "Zoek een merk..."
 
-#: .\theme\templates\maintenance\list.html:62
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:47
-#: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:71
+#: .\theme\templates\maintenance\list.html:29
+#: .\theme\templates\voiture_exemplaire\list.html:21
+msgid "Rechercher une immatriculation..."
+msgstr "Zoek een kenteken..."
+
+#: .\theme\templates\maintenance\list.html:79
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:62
+#: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:86
 msgid "Kilométrage"
 msgstr "Kilometerstand"
 
-#: .\theme\templates\maintenance\list.html:76
+#: .\theme\templates\maintenance\list.html:93
 msgid "Aucun exemplaire disponible pour la maintenance."
 msgstr "Geen voertuig beschikbaar voor onderhoud."
 
@@ -3796,7 +4365,7 @@ msgstr "Oliehoeveelheid (L)"
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:67
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:83
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:108
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:119
 #: .\theme\templates\voiture_freins\ajouter_freins_simple.html:53
 #: .\theme\templates\voiture_freins_ar\ajouter_freins_ar_simple.html:53
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:124
@@ -3893,21 +4462,6 @@ msgstr "Aantal versnellingen"
 msgid "Quantité d'huile"
 msgstr "Hoeveelheid olie"
 
-#: .\theme\templates\voiture_boite\list.html:40
-#: .\theme\templates\voiture_boite\list.html:55
-#: .\theme\templates\voiture_embrayage\list.html:56
-#: .\theme\templates\voiture_embrayage\list.html:70
-#: .\theme\templates\voiture_freins\list.html:49
-#: .\theme\templates\voiture_freins\list.html:62
-#: .\theme\templates\voiture_freins_ar\list_ar.html:46
-#: .\theme\templates\voiture_freins_ar\list_ar.html:59
-#: .\theme\templates\voiture_moteur\list.html:41
-#: .\theme\templates\voiture_moteur\list.html:58
-#: .\theme\templates\voiture_pneus\list.html:77
-#: .\theme\templates\voiture_pneus\list.html:95
-msgid "Info"
-msgstr "Info"
-
 #: .\theme\templates\voiture_boite\list.html:61
 msgid "Aucune boîte de vitesse trouvée."
 msgstr "Geen versnellingsbak gevonden."
@@ -3917,15 +4471,6 @@ msgstr "Geen versnellingsbak gevonden."
 msgid "Recherche :"
 msgstr "Zoeken :"
 
-#: .\theme\templates\voiture_boite\list.html:74
-#: .\theme\templates\voiture_embrayage\list.html:86
-#: .\theme\templates\voiture_freins\list.html:78
-#: .\theme\templates\voiture_freins_ar\list_ar.html:74
-#: .\theme\templates\voiture_moteur\list.html:77
-#: .\theme\templates\voiture_pneus\list.html:111
-msgid "Afficher _MENU_ éléments"
-msgstr "Toon _MENU_ items"
-
 #: .\theme\templates\voiture_boite\list.html:75
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ boîtes"
 msgstr "Weergave van _START_ tot _END_ van _TOTAL_ versnellingsbakken"
@@ -3934,42 +4479,6 @@ msgstr "Weergave van _START_ tot _END_ van _TOTAL_ versnellingsbakken"
 #: .\theme\templates\voiture_boite\list.html:77
 msgid "Aucune boîte trouvée"
 msgstr "Geen versnellingsbak gevonden"
-
-#: .\theme\templates\voiture_boite\list.html:79
-#: .\theme\templates\voiture_embrayage\list.html:91
-#: .\theme\templates\voiture_freins\list.html:83
-#: .\theme\templates\voiture_freins_ar\list_ar.html:79
-#: .\theme\templates\voiture_moteur\list.html:82
-#: .\theme\templates\voiture_pneus\list.html:116
-msgid "Premier"
-msgstr "Eerste"
-
-#: .\theme\templates\voiture_boite\list.html:80
-#: .\theme\templates\voiture_embrayage\list.html:92
-#: .\theme\templates\voiture_freins\list.html:84
-#: .\theme\templates\voiture_freins_ar\list_ar.html:80
-#: .\theme\templates\voiture_moteur\list.html:83
-#: .\theme\templates\voiture_pneus\list.html:117
-msgid "Dernier"
-msgstr "Laatste"
-
-#: .\theme\templates\voiture_boite\list.html:81
-#: .\theme\templates\voiture_embrayage\list.html:93
-#: .\theme\templates\voiture_freins\list.html:85
-#: .\theme\templates\voiture_freins_ar\list_ar.html:81
-#: .\theme\templates\voiture_moteur\list.html:84
-#: .\theme\templates\voiture_pneus\list.html:118
-msgid "Suivant"
-msgstr "Volgende"
-
-#: .\theme\templates\voiture_boite\list.html:82
-#: .\theme\templates\voiture_embrayage\list.html:94
-#: .\theme\templates\voiture_freins\list.html:86
-#: .\theme\templates\voiture_freins_ar\list_ar.html:82
-#: .\theme\templates\voiture_moteur\list.html:85
-#: .\theme\templates\voiture_pneus\list.html:119
-msgid "Précédent"
-msgstr "Vorige"
 
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:9
 #: .\theme\templates\voiture_embrayage\list.html:38
@@ -4034,13 +4543,6 @@ msgstr "Type koppeling"
 msgid "Numéro OEM"
 msgstr "OEM-nummer"
 
-#: .\theme\templates\voiture_embrayage\list.html:85
-#: .\theme\templates\voiture_freins\list.html:77
-#: .\theme\templates\voiture_freins_ar\list_ar.html:73
-#: .\theme\templates\voiture_pneus\list.html:110
-msgid "Recherche globale :"
-msgstr "Globale zoekopdracht:"
-
 #: .\theme\templates\voiture_embrayage\list.html:87
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ embrayages"
 msgstr "Weergave van _START_ tot _END_ van _TOTAL_ koppelingen"
@@ -4062,47 +4564,43 @@ msgstr "Land van inschrijving"
 msgid "Numero VIN"
 msgstr "VIN-nummer"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:54
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:55
 msgid "Type d'utilisation"
 msgstr "Type gebruik"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:57
-#: .\voiture\voiture_exemplaire\models.py:9
-msgid "Société"
-msgstr "Bedrijf"
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:63
+#, fuzzy
+#| msgid "Sélectionner un type de distribution"
+msgid "Sélectionner un type d'utilisation"
+msgstr "Selecteer een distributietype"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:59
-#: .\voiture\voiture_exemplaire\models.py:11
-msgid "Privé"
-msgstr "Privé"
-
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:68
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:79
 msgid "Kilomètres du chassis"
 msgstr "Chassis kilometrage"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:73
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:84
 msgid "Kilomètres de la dernière intervention"
 msgstr "Kilometrage bij laatste interventie"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:83
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:46
-#: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:70
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:94
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:61
+#: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:85
 msgid "Année de production"
 msgstr "Productiejaar"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:88
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:99
 msgid "Mois de production"
 msgstr "Productiemaand"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:93
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:104
 msgid "Numero d'identification du moteur"
 msgstr "Motoridentificatienummer"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:98
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:109
 msgid "Date de mise en circulation"
 msgstr "Datum van eerste inschrijving"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:103
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:114
 msgid "Kilomètres moteur"
 msgstr "Motor kilometrage"
 
@@ -4110,70 +4608,66 @@ msgstr "Motor kilometrage"
 msgid "Détails du véhicule : "
 msgstr "Voertuigdetails : "
 
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:45
-msgid "Informations générales"
-msgstr "Algemene informatie"
-
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:48
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:63
 msgid "Non renseignée"
 msgstr "Niet ingevuld"
 
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:53
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:68
 msgid "Modifier"
 msgstr "Wijzigen"
 
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:74
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:89
 msgid "Aucun moteur enregistré pour cet exemplaire."
 msgstr "Geen motor geregistreerd voor dit exemplaar."
 
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:78
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:93
 msgid "Boite de vitesse"
 msgstr "Versnellingsbak"
 
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:89
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:104
 msgid "Aucune boite enregistrée pour cet exemplaire."
 msgstr "Geen versnellingsbak geregistreerd voor dit exemplaar."
 
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:104
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:119
 msgid "Aucun embrayage enregistré pour cet exemplaire."
 msgstr "Geen koppeling geregistreerd voor dit exemplaar."
 
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:130
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:145
 msgid "Aucun frein avant enregistré pour cet exemplaire."
 msgstr "Geen voorrem geregistreerd voor dit exemplaar."
 
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:151
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:166
 msgid "Aucun frein arrière enregistré pour cet exemplaire."
 msgstr "Geen achterrem geregistreerd voor dit exemplaar."
 
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:172
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:187
 msgid "Aucun pneus enregistré pour cet exemplaire."
 msgstr "Geen banden geregistreerd voor dit exemplaar."
 
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:197
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:212
 msgid "Lier une boîte"
 msgstr "Een versnellingsbak koppelen"
 
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:203
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:218
 msgid "Lier un moteur"
 msgstr "Koppel de motor"
 
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:208
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:223
 #: .\theme\templates\voiture_exemplaire\lier_embrayage.html:66
 msgid "Lier un embrayage"
 msgstr "Een koppeling koppelen"
 
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:214
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:229
 #: .\theme\templates\voiture_exemplaire\lier_frein.html:66
 msgid "Lier les freins avant"
 msgstr "De voorremmen koppelen"
 
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:220
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:235
 #: .\theme\templates\voiture_exemplaire\lier_frein_ar.html:66
 msgid "Lier les freins arrière"
 msgstr "De achterremmen koppelen"
 
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:226
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:241
 #: .\theme\templates\voiture_exemplaire\lier_pneus.html:59
 msgid "Lier les pneus"
 msgstr "Banden koppelen"
@@ -4262,16 +4756,7 @@ msgstr "Selecteer een type"
 msgid "Liste de tous les véhicules"
 msgstr "Lijst van alle voertuigen"
 
-#: .\theme\templates\voiture_exemplaire\list.html:15
-#: .\theme\templates\voiture_marque\marques_list.html:33
-msgid "Rechercher une marque..."
-msgstr "Zoek een merk..."
-
-#: .\theme\templates\voiture_exemplaire\list.html:21
-msgid "Rechercher une immatriculation..."
-msgstr "Zoek een kenteken..."
-
-#: .\theme\templates\voiture_exemplaire\list.html:82
+#: .\theme\templates\voiture_exemplaire\list.html:99
 msgid "Aucun véhicule trouvé."
 msgstr "Geen voertuigen gevonden."
 
@@ -4279,12 +4764,16 @@ msgstr "Geen voertuigen gevonden."
 msgid "Véhicule : "
 msgstr "Voertuig : "
 
-#: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:96
-#: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:116
+#: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:22
+msgid "Rechercher un exemplaire par immatriculation..."
+msgstr "Zoek een exemplaar op kenteken..."
+
+#: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:111
+#: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:131
 msgid "Ajouter un exemplaire"
 msgstr "Een exemplaar toevoegen"
 
-#: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:106
+#: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:121
 msgid "Aucun exemplaire enregistré pour ce modèle."
 msgstr "Geen exemplaar geregistreerd voor dit model."
 
@@ -4292,13 +4781,9 @@ msgstr "Geen exemplaar geregistreerd voor dit model."
 msgid "Modifier le véhicule"
 msgstr "Voertuig wijzigen"
 
-#: .\theme\templates\voiture_exemplaire\modifier_exemplaire.html:55
+#: .\theme\templates\voiture_exemplaire\modifier_exemplaire.html:69
 msgid "Enregistrer les modifications"
 msgstr "Wijzigingen opslaan"
-
-#: .\theme\templates\voiture_exemplaire\modifier_exemplaire.html:59
-msgid "Annuler"
-msgstr "Annuleren"
 
 #: .\theme\templates\voiture_freins\ajouter_freins_simple.html:10
 #: .\theme\templates\voiture_freins\list.html:33
@@ -4466,15 +4951,22 @@ msgstr "Dikte van de achterremschijven"
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ Freins"
 msgstr "Weergave van _START_ tot _END_ van in totaal _TOTAL_ remmen"
 
-#: .\theme\templates\voiture_marque\marques_list.html:14
+#: .\theme\templates\voiture_marque\marques_favorites.html:8
+#: .\theme\templates\voiture_marque\marques_list.html:25
 msgid "Mes marques favorites"
 msgstr "Mijn favoriete merken"
 
-#: .\theme\templates\voiture_marque\marques_list.html:49
+#: .\theme\templates\voiture_marque\marques_favorites.html:29
+#, fuzzy
+#| msgid "Aucun exemplaire enregistré pour ce modèle."
+msgid "Aucune marque favorite pour le moment."
+msgstr "Geen exemplaar geregistreerd voor dit model."
+
+#: .\theme\templates\voiture_marque\marques_list.html:55
 msgid "Voir les"
 msgstr "Bekijk de"
 
-#: .\theme\templates\voiture_marque\marques_list.html:49
+#: .\theme\templates\voiture_marque\marques_list.html:55
 msgid "modèles de"
 msgstr "Modellen van"
 
@@ -4808,47 +5300,47 @@ msgstr "Human Resources"
 msgid "Operations"
 msgstr "Operationele zaken"
 
-#: .\utilisateurs\models.py:75 .\utilisateurs\views.py:165
+#: .\utilisateurs\models.py:75 .\utilisateurs\views.py:176
 msgid "Magasinier"
 msgstr "Magazijnier"
 
-#: .\utilisateurs\models.py:76 .\utilisateurs\views.py:163
+#: .\utilisateurs\models.py:76 .\utilisateurs\views.py:174
 msgid "Carrossier"
 msgstr "Carrosseriehersteller"
 
-#: .\utilisateurs\models.py:77 .\utilisateurs\views.py:164
+#: .\utilisateurs\models.py:77 .\utilisateurs\views.py:175
 msgid "Chef Mécanicien"
 msgstr "Hoofdmonteur"
 
-#: .\utilisateurs\models.py:78 .\utilisateurs\views.py:166
+#: .\utilisateurs\models.py:78 .\utilisateurs\views.py:177
 msgid "Instructeur"
 msgstr "Instructeur"
 
-#: .\utilisateurs\models.py:79 .\utilisateurs\views.py:167
+#: .\utilisateurs\models.py:79 .\utilisateurs\views.py:178
 msgid "Instructeur Externe"
 msgstr "Externe instructeur"
 
-#: .\utilisateurs\models.py:80 .\utilisateurs\views.py:168
+#: .\utilisateurs\models.py:80 .\utilisateurs\views.py:179
 msgid "Vendeur"
 msgstr "Verkoper"
 
-#: .\utilisateurs\models.py:81 .\utilisateurs\views.py:169
+#: .\utilisateurs\models.py:81 .\utilisateurs\views.py:180
 msgid "Comptable"
 msgstr "Boekhouder"
 
-#: .\utilisateurs\models.py:82 .\utilisateurs\views.py:170
+#: .\utilisateurs\models.py:82 .\utilisateurs\views.py:181
 msgid "Direction"
 msgstr "Directie"
 
-#: .\utilisateurs\views.py:147
+#: .\utilisateurs\views.py:158
 msgid "Révision moteur"
 msgstr "Motorrevisie"
 
-#: .\utilisateurs\views.py:147 .\voiture\voiture_boite\models.py:10
+#: .\utilisateurs\views.py:158 .\voiture\voiture_boite\models.py:10
 msgid "Changement filtre"
 msgstr "Filtervervanging"
 
-#: .\utilisateurs\views.py:172
+#: .\utilisateurs\views.py:183
 msgid "Rôle inconnu"
 msgstr "Onbekende rol"
 
@@ -4924,6 +5416,14 @@ msgstr "Versterkt / Competitie"
 #: .\voiture\voiture_embrayage\models.py:26
 msgid "Bimasse (pour volant moteur DMF)"
 msgstr "Dubbelmassa (voor DMF-vliegwiel)"
+
+#: .\voiture\voiture_exemplaire\models.py:9
+msgid "Société"
+msgstr "Bedrijf"
+
+#: .\voiture\voiture_exemplaire\models.py:11
+msgid "Privé"
+msgstr "Privé"
 
 #: .\voiture\voiture_exemplaire\views.py:82
 msgid "La boîte de vitesse a été liée à l'exemplaire avec succès."
@@ -5198,6 +5698,9 @@ msgstr "Kilometers voorbanden"
 #: .\voiture\voiture_pneus\models.py:113
 msgid "Kilomètres pneus arrière"
 msgstr "Kilometers achterbanden"
+
+#~ msgid "Type de composant"
+#~ msgstr "Type component"
 
 #~ msgid "Apprentis"
 #~ msgstr "Leerlingen"
