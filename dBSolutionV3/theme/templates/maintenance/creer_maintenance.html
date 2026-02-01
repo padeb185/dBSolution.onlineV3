@@ -6,7 +6,7 @@
 
     <h1 class="text-3xl font-bold mb-6 flex items-center gap-3">
         <img src="{% static 'icons/mecanique.png' %}" alt="Maintenance" class="w-12 h-12">
-        {% trans "Créer un check-up complet pour :" %} {{ exemplaire.voiture_modele.nom }}
+        {% trans "Créer un check-up complet pour :" %} {{ exemplaire.voiture_marque.nom_marque }} {{ exemplaire.voiture_modele.nom_modele }}
     </h1>
 
     <!-- Détails de l'exemplaire -->
