@@ -3,7 +3,8 @@ from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-
+from client.models import Client
+from django.conf import settings
 
 class TypeUtilisation(models.TextChoices):
     SOCIETE = "societe", _("Société")
@@ -148,7 +149,20 @@ class VoitureExemplaire(models.Model):
         blank=True
     )
 
+    client = models.ForeignKey(
+        Client,
+        on_delete=models.CASCADE,
+        related_name="exemplaires"
+    )
 
+
+    last_maintained_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="entretien_voitures"
+    )
 
 
     created_at = models.DateTimeField(auto_now_add=True)

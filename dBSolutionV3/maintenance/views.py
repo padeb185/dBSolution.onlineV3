@@ -60,20 +60,30 @@ def choisir_type_maintenance(request, exemplaire_id):
     }
     return render(request, "maintenance/choisir_type.html", context)
 
+
+
+
 @login_required
 def maintenance_tenant_view(request, exemplaire_id):
     tenant = request.user.societe  # ton tenant actuel
 
-    # ⚡ Tout se passe dans le contexte du tenant
     with tenant_context(tenant):
-        # Récupération de l'exemplaire uniquement dans le schema du tenant
         exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
 
-        mecanicien = request.user  # l'utilisateur qui crée la maintenance
+        # ⚡ Vérifie que l'exemplaire appartient bien au tenant courant
+        if exemplaire.client.societe_id != tenant.id:
+            return render(request, "403.html", status=403)
 
         if request.method == "POST":
-            # Création de la maintenance complète dans le tenant
-            maintenance = creer_checkup_complet(exemplaire, mecanicien, tenant)
+            maintenance = creer_checkup_complet(
+                exemplaire=exemplaire,
+                mecanicien=request.user,
+                tenant=tenant
+            )
+            # Met à jour l'utilisateur qui a fait la maintenance
+            exemplaire.last_maintained_by = request.user
+            exemplaire.save(update_fields=["last_maintained_by"])
+
             return redirect("maintenance_detail", maintenance_id=maintenance.id)
 
         return render(request, "maintenance/creer_maintenance.html", {

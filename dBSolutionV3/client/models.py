@@ -118,6 +118,12 @@ class Client(models.Model):
         blank=True
     )
 
+    societe = models.ForeignKey(
+        "societe.Societe",  # ou Tenant, selon ton modèle
+        on_delete=models.CASCADE,
+        related_name="clients"
+    )
+
     created_at = models.DateTimeField(
         _("Créé le"),
         auto_now_add=True
