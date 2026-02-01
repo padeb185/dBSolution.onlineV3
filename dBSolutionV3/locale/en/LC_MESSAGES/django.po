@@ -4860,10 +4860,8 @@ msgid "Mes marques favorites"
 msgstr "My Favorite Brands"
 
 #: .\theme\templates\voiture_marque\marques_favorites.html:29
-#, fuzzy
-#| msgid "Aucun exemplaire enregistré pour ce modèle."
 msgid "Aucune marque favorite pour le moment."
-msgstr "No vehicle registered for this model."
+msgstr "No favorite brands at the moment."
 
 #: .\theme\templates\voiture_marque\marques_list.html:55
 msgid "Voir les"

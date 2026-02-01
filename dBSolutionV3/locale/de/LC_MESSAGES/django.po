@@ -4081,51 +4081,38 @@ msgstr "Benutzerliste"
 
 #: .\theme\templates\fournisseurs\fournisseur_list.html:21
 #: .\theme\templates\fournisseurs\fournisseur_list.html:54
-#, fuzzy
-#| msgid "Numéro de TVA"
 msgid "Numero de TVA"
 msgstr "Umsatzsteuer-Nummer"
 
 #: .\theme\templates\fournisseurs\fournisseur_list.html:30
 msgid "info@..."
-msgstr ""
+msgstr "info@..."  # reste inchangé, adresse générique
 
 #: .\theme\templates\fournisseurs\fournisseur_list.html:40
-#, fuzzy
-#| msgid "Ajouter un moteur"
 msgid "Ajouter un fournisseur"
-msgstr "Motor hinzufügen"
+msgstr "Lieferanten hinzufügen"
+
 
 #: .\theme\templates\fournisseurs\fournisseur_list.html:53
-#, fuzzy
-#| msgid "Nom du fournisseur"
 msgid "Nom du Fournisseur"
 msgstr "Lieferantenname"
 
 #: .\theme\templates\fournisseurs\fournisseur_list.html:55
-#, fuzzy
-#| msgid "Numero"
 msgid "Numero Peppol"
-msgstr "Nummer"
+msgstr "PEPPOL-Nummer"
 
 #: .\theme\templates\fournisseurs\fournisseur_list.html:89
-#, fuzzy
-#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ moteurs"
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ fournisseurs"
-msgstr "Anzeige von _START_ bis _END_ von _TOTAL_ Motoren"
+msgstr "Anzeige von _START_ bis _END_ von _TOTAL_ Lieferanten"
 
 #: .\theme\templates\fournisseurs\fournisseur_list.html:90
 #: .\theme\templates\fournisseurs\fournisseur_list.html:91
-#, fuzzy
-#| msgid "Aucun moteur trouvé"
 msgid "Aucun fournisseur trouvé"
-msgstr "Kein Motor gefunden"
+msgstr "Keine Lieferanten gefunden"
 
 #: .\theme\templates\fournisseurs\modifier_fournisseur.html:10
-#, fuzzy
-#| msgid "Nom du fournisseur"
 msgid "Modifier le fournisseur :"
-msgstr "Lieferantenname"
+msgstr "Lieferant bearbeiten:"
 
 #: .\theme\templates\home.html:20
 msgid "Bienvenue"
@@ -4141,71 +4128,60 @@ msgstr "Einloggen"
 
 #: .\theme\templates\maintenance\check_up\creer_maintenance.html:9
 msgid "Créer un check-up complet pour :"
-msgstr ""
+msgstr "Vollständige Inspektion erstellen für:"
 
 #: .\theme\templates\maintenance\check_up\creer_maintenance.html:14
-#, fuzzy
-#| msgid "Détails de l'embrayage"
 msgid "Détails de l'exemplaire"
-msgstr "Kupplungsdetails"
+msgstr "Fahrzeugdetails"
+
 
 #: .\theme\templates\maintenance\check_up\creer_maintenance.html:17
-#, fuzzy
-#| msgid "Kilométrage total"
 msgid "Kilomètres total"
 msgstr "Gesamt-Kilometerstand"
 
 #: .\theme\templates\maintenance\check_up\creer_maintenance.html:18
-#, fuzzy
-#| msgid "Kilomètres de la dernière intervention"
 msgid "Kilomètres depuis dernière intervention"
-msgstr "Kilometerstand des letzten Service"
+msgstr "Kilometer seit letzter Wartung"
 
 #: .\theme\templates\maintenance\check_up\creer_maintenance.html:26
 msgid "Aperçu du check-up complet"
-msgstr ""
+msgstr "Übersicht der vollständigen Inspektion"
 
 #: .\theme\templates\maintenance\check_up\creer_maintenance.html:29
-#, fuzzy
-#| msgid "Contrôle général"
 msgid "Contrôle général du véhicule"
-msgstr "Allgemeine Kontrolle"
+msgstr "Allgemeine Fahrzeugprüfung"
 
 #: .\theme\templates\maintenance\check_up\creer_maintenance.html:30
 msgid "Vérification des amortisseurs et ressorts"
-msgstr ""
+msgstr "Überprüfung von Stoßdämpfern und Federn"
 
 #: .\theme\templates\maintenance\check_up\creer_maintenance.html:31
 msgid "Contrôle des bruits par emplacement et type"
-msgstr ""
+msgstr "Geräuschprüfung nach Position und Typ"
 
 #: .\theme\templates\maintenance\check_up\creer_maintenance.html:32
 msgid "Vérification des pièces (rotules, biellettes, barre stabilisatrice…)"
-msgstr ""
+msgstr "Überprüfung der Teile (Gelenkköpfe, Spurstangen, Stabilisator…)"
 
 #: .\theme\templates\maintenance\check_up\creer_maintenance.html:33
-#, fuzzy
-#| msgid "Contrôle freins – %(partie)s (%(date)s)"
 msgid "Contrôle des freins (plaquettes, disques, fuites…)"
-msgstr "Bremsenprüfung – %(partie)s (%(date)s)"
+msgstr "Bremsprüfung (Beläge, Scheiben, Lecks…)"
 
 #: .\theme\templates\maintenance\check_up\creer_maintenance.html:34
 msgid "Nettoyage intérieur (vitres, tableau de bord, plastiques…)"
-msgstr ""
+msgstr "Innenreinigung (Fenster, Armaturenbrett, Kunststoff…)"
 
 #: .\theme\templates\maintenance\check_up\creer_maintenance.html:35
 msgid "Nettoyage extérieur (carrosserie, jantes, traces de gomme…)"
-msgstr ""
+msgstr "Außenreinigung (Karosserie, Felgen, Gummispuren…)"
 
 #: .\theme\templates\maintenance\check_up\creer_maintenance.html:45
 msgid "Créer le check-up complet"
-msgstr ""
+msgstr "Vollständige Inspektion erstellen"
 
 #: .\theme\templates\maintenance\check_up\creer_maintenance.html:50
-#, fuzzy
-#| msgid "Date du plein"
 msgid "Date actuelle"
-msgstr "Tankdatum"
+msgstr "Aktuelles Datum"
 
 #: .\theme\templates\maintenance\choisir_type.html:12
 msgid "Choisir le type de maintenance pour :"
@@ -4571,10 +4547,8 @@ msgid "Type d'utilisation"
 msgstr "Verwendungsart"
 
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:63
-#, fuzzy
-#| msgid "Sélectionner un type de distribution"
 msgid "Sélectionner un type d'utilisation"
-msgstr "Ventilsteuerungstyp auswählen"
+msgstr "Wählen Sie eine Nutzungsart aus"
 
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:79
 msgid "Kilomètres du chassis"
@@ -4955,10 +4929,9 @@ msgid "Mes marques favorites"
 msgstr "Meine Lieblingsmarken"
 
 #: .\theme\templates\voiture_marque\marques_favorites.html:29
-#, fuzzy
-#| msgid "Aucun exemplaire enregistré pour ce modèle."
 msgid "Aucune marque favorite pour le moment."
-msgstr "Für dieses Modell sind keine Exemplare vorhanden."
+msgstr "Derzeit keine Lieblingsmarken vorhanden."
+
 
 #: .\theme\templates\voiture_marque\marques_list.html:55
 msgid "Voir les"
@@ -5193,8 +5166,6 @@ msgid "Largeur (mm)"
 msgstr "Breite (mm)"
 
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:58
-#, fuzzy, python-format
-#| msgid "Hauteur (%%)"
 msgid "Hauteur (%%)"
 msgstr "Höhe %"
 
@@ -5270,8 +5241,6 @@ msgid "Détails des pneus"
 msgstr "Reifendetails"
 
 #: .\theme\templates\voiture_pneus\pneus_detail.html:37
-#, fuzzy, python-format
-#| msgid "Hauteur en %%"
 msgid "Hauteur en %%"
 msgstr "Höhe in %"
 
