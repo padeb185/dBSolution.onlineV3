@@ -248,33 +248,26 @@ msgid "Numéro de téléphone"
 msgstr "Telefonnummer"
 
 #: .\client\models.py:30
-#, fuzzy
-#| msgid "Numéro de permis"
 msgid "Numéro de permis de conduire"
 msgstr "Führerscheinnummer"
 
 #: .\client\models.py:37 .\theme\templates\client\client_detail.html:36
 #: .\theme\templates\client\client_form.html:70
-#, fuzzy
-#| msgid "Numéro de facture"
 msgid "Numéro de carte d'identité"
-msgstr "Rechnungsnummer"
+msgstr "Personalausweisnummer"
 
 #: .\client\models.py:44 .\theme\templates\client\client_form.html:78
-#, fuzzy
-#| msgid "Numéro de facture"
 msgid "Numéro de compte bancaire"
-msgstr "Rechnungsnummer"
+msgstr "Bankkontonummer"
 
 #: .\client\models.py:58 .\theme\templates\client\client_form.html:96
-#, fuzzy
-#| msgid "Bas de caisse"
 msgid "Date de naissance"
-msgstr "Schweller"
+msgstr "Geburtsdatum"
+
 
 #: .\client\models.py:75
 msgid "La personne doit avoir au moins 18 ans."
-msgstr ""
+msgstr "Die Person muss mindestens 18 Jahre alt sein."
 
 #: .\client\models.py:90
 msgid "Débutant"
@@ -432,36 +425,26 @@ msgid "ISO 3166-1 alpha-2"
 msgstr "ISO 3166-1 Alpha-2"
 
 #: .\fournisseur\models.py:56
-#, fuzzy
-#| msgid "Nom du fournisseur"
 msgid "Email du fournisseur"
-msgstr "Lieferantenname"
+msgstr "Lieferanten-E-Mail"
 
 #: .\fournisseur\models.py:60
 #: .\theme\templates\fournisseurs\fournisseur_form.html:72
-#, fuzzy
-#| msgid "Téléphone"
 msgid "Téléphone fixe"
-msgstr "Telefon"
+msgstr "Festnetz"
 
 #: .\fournisseur\models.py:64
-#, fuzzy
-#| msgid "Numéro de téléphone"
 msgid "Numéro de téléphone fixe"
-msgstr "Telefonnummer"
+msgstr "Festnetznummer"
 
 #: .\fournisseur\models.py:68
 #: .\theme\templates\fournisseurs\fournisseur_form.html:79
-#, fuzzy
-#| msgid "GPS"
 msgid "GSM"
-msgstr "GPS"
+msgstr "Mobil"
 
 #: .\fournisseur\models.py:72
-#, fuzzy
-#| msgid "Numéro de téléphone"
 msgid "Numéro de téléphone mobile"
-msgstr "Telefonnummer"
+msgstr "Mobilnummer"
 
 #: .\fournisseur\models.py:77
 msgid "Actif"
@@ -733,10 +716,8 @@ msgid "Emplacement"
 msgstr "Position"
 
 #: .\maintenance\bruits\models.py:36 .\maintenance\check_up\models.py:244
-#, fuzzy
-#| msgid "Type de roue"
 msgid "Type de bruit"
-msgstr "Raddtyp"
+msgstr "Geräuschtyp"
 
 #: .\maintenance\bruits\models.py:41 .\maintenance\check_up\models.py:248
 msgid "Normal"
@@ -758,7 +739,7 @@ msgstr "Beobachtung"
 
 #: .\maintenance\bruits\models.py:60 .\maintenance\check_up\models.py:263
 msgid "Tag"
-msgstr ""
+msgstr "Tag"
 
 #: .\maintenance\bruits\models.py:74 .\maintenance\check_up\models.py:276
 #, python-format
@@ -843,8 +824,6 @@ msgid "Essuie-glace AR fonctionnel"
 msgstr "Funktionierender Heckscheibenwischer"
 
 #: .\maintenance\check_up\models.py:93
-#, fuzzy
-#| msgid "Pare_Brise sans coups"
 msgid "Pare-brise sans coups"
 msgstr "Unbeschädigte Windschutzscheibe"
 
@@ -881,16 +860,12 @@ msgid "Niveau liquide direction"
 msgstr "Servolenkungsflüssigkeitsstand"
 
 #: .\maintenance\check_up\models.py:146
-#, fuzzy
-#| msgid "Roulement de roue"
 msgid "État roulement de roue"
-msgstr "Radlager"
+msgstr "Zustand des Radlagers"
 
 #: .\maintenance\check_up\models.py:151
-#, fuzzy
-#| msgid "Cage de roulement"
 msgid "Emplacement du roulement"
-msgstr "Lagerkäfig"
+msgstr "Lagerposition"
 
 #: .\maintenance\check_up\models.py:161
 msgid "État batterie"
@@ -995,30 +970,24 @@ msgid "Présence de fentes sur les disques"
 msgstr "Vorhandensein von Rissen in den Scheiben"
 
 #: .\maintenance\check_up\models.py:407
-#, fuzzy
-#| msgid "Sélectionner un système de freinage avant"
 msgid "Présence de fuite du système de freinage"
-msgstr "Vorderes Bremssystem auswählen"
+msgstr "Bremsanlagenleck vorhanden"
 
 #: .\maintenance\check_up\models.py:411
 msgid "Disques avant à remplacer"
-msgstr ""
+msgstr "Vordere Bremsscheiben zu ersetzen"
 
 #: .\maintenance\check_up\models.py:415
-#, fuzzy
-#| msgid "Sièges arrière gauche"
 msgid "Disques arrière à remplacer"
-msgstr "Hinterer linker Sitz"
+msgstr "Hintere Bremsscheiben zu ersetzen"
 
 #: .\maintenance\check_up\models.py:419
 msgid "Plaquettes avant à remplacer"
-msgstr ""
+msgstr "Vordere Bremsbeläge zu ersetzen"
 
 #: .\maintenance\check_up\models.py:423
-#, fuzzy
-#| msgid "Marque plaquettes arrière"
 msgid "Plaquettes arrière à remplacer"
-msgstr "Marke der Hinterbremsbeläge"
+msgstr "Hintere Bremsbeläge zu ersetzen"
 
 #: .\maintenance\check_up\models.py:428 .\maintenance\freins\models.py:60
 #, python-format
@@ -3701,17 +3670,14 @@ msgid "Déconnexion"
 msgstr "Abmelden"
 
 #: .\theme\templates\client\client_detail.html:10
-#, fuzzy
-#| msgid "Détails du véhicule : "
 msgid "Détails du client :"
-msgstr "Fahrzeugdetails : "
+msgstr "Kundendetails:"
 
 #: .\theme\templates\client\client_detail.html:17
 #: .\theme\templates\client\client_detail.html:117
-#, fuzzy
-#| msgid "Retour à la page précédente"
 msgid "Retour à la liste des clients"
-msgstr "Zurück zur vorherigen Seite"
+msgstr "Zur Kundenliste zurück"
+
 
 #: .\theme\templates\client\client_detail.html:27
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:37
@@ -3720,10 +3686,9 @@ msgid "Informations générales"
 msgstr "Allgemeine Informationen"
 
 #: .\theme\templates\client\client_detail.html:31
-#, fuzzy
-#| msgid "Numéro de boîte"
 msgid "Numéro de compte"
-msgstr "Getriebenummer"
+msgstr "Kontonummer"
+
 
 #: .\theme\templates\client\client_detail.html:41
 #: .\theme\templates\client\client_form.html:61
@@ -3731,34 +3696,26 @@ msgid "Numéro de permis"
 msgstr "Führerscheinnummer"
 
 #: .\theme\templates\client\client_detail.html:51
-#, fuzzy
-#| msgid "Modifier le véhicule"
 msgid "Modifier le client"
-msgstr "Fahrzeug bearbeiten"
+msgstr "Kunden bearbeiten"
 
 #: .\theme\templates\client\client_detail.html:61
-#, fuzzy
-#| msgid "Niveau"
 msgid "Niveau "
 msgstr "Level"
 
 #: .\theme\templates\client\client_detail.html:82
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:92
-#, fuzzy
-#| msgid "Non renseignée"
 msgid "Aucune adresse renseignée."
-msgstr "Nicht angegeben"
+msgstr "Keine Adresse angegeben."
 
 #: .\theme\templates\client\client_detail.html:90
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:100
 msgid "Métadonnées"
-msgstr ""
+msgstr "Metadaten"
 
 #: .\theme\templates\client\client_form.html:12
-#, fuzzy
-#| msgid "Créer un utilisateur"
 msgid "Créer un client"
-msgstr "Benutzer erstellen"
+msgstr "Kunden erstellen"
 
 #: .\theme\templates\client\client_form.html:104
 msgid "Âge"
@@ -3769,30 +3726,25 @@ msgstr "Alter"
 #: .\theme\templates\fournisseurs\fournisseur_form.html:131
 #: .\theme\templates\fournisseurs\modifier_fournisseur.html:43
 msgid "Enregistrer"
-msgstr ""
+msgstr "Speichern"
 
 #: .\theme\templates\client\client_list.html:4
 #: .\theme\templates\client\client_list.html:10
-#, fuzzy
-#| msgid "Liste des Pneus"
 msgid "Liste des Clients"
-msgstr "Reifenliste"
+msgstr "Kundenliste"
 
 #: .\theme\templates\client\client_list.html:18
-#, fuzzy
-#| msgid "Nom du fluide"
 msgid "Prenom du client"
-msgstr "Name der Flüssigkeit"
+msgstr "Vorname des Kunden"
 
 #: .\theme\templates\client\client_list.html:22
-#, fuzzy
-#| msgid "Nom du fluide"
 msgid "Nom du client"
-msgstr "Name der Flüssigkeit"
+msgstr "Nachname des Kunden"
 
 #: .\theme\templates\client\client_list.html:36
 msgid "nom.prenom@..."
-msgstr ""
+msgstr "vorname.nachname@..."
+
 
 #: .\theme\templates\client\client_list.html:40
 msgid "2008-01-01"
@@ -3820,22 +3772,17 @@ msgid "0032"
 msgstr ""
 
 #: .\theme\templates\client\client_list.html:64
-#, fuzzy
-#| msgid "Historique"
 msgid "historique"
 msgstr "Historie"
 
 #: .\theme\templates\client\client_list.html:68
-#, fuzzy
-#| msgid "Location"
 msgid "location"
 msgstr "Vermietung"
 
 #: .\theme\templates\client\client_list.html:74
-#, fuzzy
-#| msgid "Ajouter un exemplaire"
 msgid "Ajouter un client"
-msgstr "Ein Exemplar hinzufügen"
+msgstr "Kunden hinzufügen"
+
 
 #: .\theme\templates\client\client_list.html:92
 #: .\theme\templates\client\client_list.html:107
@@ -3857,10 +3804,8 @@ msgid "Info"
 msgstr "Info"
 
 #: .\theme\templates\client\client_list.html:110
-#, fuzzy
-#| msgid "Aucune entrée disponible"
 msgid "Info indisponible"
-msgstr "Keine Einträge verfügbar"
+msgstr "Information nicht verfügbar"
 
 #: .\theme\templates\client\client_list.html:126
 #: .\theme\templates\fournisseurs\fournisseur_list.html:87
@@ -3883,17 +3828,14 @@ msgid "Afficher _MENU_ éléments"
 msgstr "_MENU_ Einträge anzeigen"
 
 #: .\theme\templates\client\client_list.html:128
-#, fuzzy
-#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ entrées"
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ client"
-msgstr "Anzeige von _START_ bis _END_ von _TOTAL_ Einträgen"
+msgstr "Anzeige von _START_ bis _END_ von _TOTAL_ Kunden"
 
 #: .\theme\templates\client\client_list.html:129
 #: .\theme\templates\client\client_list.html:130
-#, fuzzy
-#| msgid "Aucun pneu trouvé"
 msgid "Aucun client trouvé"
-msgstr "Keine Reifen gefunden"
+msgstr "Keine Kunden gefunden"
+
 
 #: .\theme\templates\client\client_list.html:132
 #: .\theme\templates\fournisseurs\fournisseur_list.html:93
@@ -3940,10 +3882,8 @@ msgid "Précédent"
 msgstr "Vorherige"
 
 #: .\theme\templates\client\modifier_client.html:10
-#, fuzzy
-#| msgid "Modifier le véhicule"
 msgid "Modifier le client :"
-msgstr "Fahrzeug bearbeiten"
+msgstr "Kunden bearbeiten:"
 
 #: .\theme\templates\client\modifier_client.html:48
 #: .\theme\templates\fournisseurs\modifier_fournisseur.html:48
@@ -4037,47 +3977,35 @@ msgid "Tableau de bord Admin"
 msgstr "Admin-Dashboard"
 
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:10
-#, fuzzy
-#| msgid "Détails du moteur"
 msgid "Détails du fournisseur :"
-msgstr "Motordetails"
+msgstr "Lieferantendetails:"
 
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:27
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:127
 msgid "Retour à la liste des fournisseurs"
-msgstr ""
+msgstr "Zur Lieferantenliste zurück"
 
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:61
-#, fuzzy
-#| msgid "Nom du fournisseur"
 msgid "Modifier le fournisseur"
-msgstr "Lieferantenname"
+msgstr "Lieferant bearbeiten"
 
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:71
-#, fuzzy
-#| msgid "Informations générales"
 msgid "Informations Peppol"
-msgstr "Allgemeine Informationen"
+msgstr "PEPPOL-Informationen"
 
 #: .\theme\templates\fournisseurs\fournisseur_form.html:12
-#, fuzzy
-#| msgid "Créer un utilisateur"
 msgid "Créer un Fournisseur"
-msgstr "Benutzer erstellen"
+msgstr "Lieferanten erstellen"
 
 #: .\theme\templates\fournisseurs\fournisseur_form.html:57
 #: .\theme\templates\fournisseurs\fournisseur_list.html:25
-#, fuzzy
-#| msgid "Numéro"
 msgid "Numéro Peppol"
-msgstr "Nummer"
+msgstr "PEPPOL-Nummer"
 
 #: .\theme\templates\fournisseurs\fournisseur_list.html:4
 #: .\theme\templates\fournisseurs\fournisseur_list.html:10
-#, fuzzy
-#| msgid "Liste des utilisateurs"
 msgid "Liste des Fournisseurs"
-msgstr "Benutzerliste"
+msgstr "Lieferantenliste"
 
 #: .\theme\templates\fournisseurs\fournisseur_list.html:21
 #: .\theme\templates\fournisseurs\fournisseur_list.html:54
@@ -4086,7 +4014,7 @@ msgstr "Umsatzsteuer-Nummer"
 
 #: .\theme\templates\fournisseurs\fournisseur_list.html:30
 msgid "info@..."
-msgstr "info@..."  # reste inchangé, adresse générique
+msgstr "info@..."
 
 #: .\theme\templates\fournisseurs\fournisseur_list.html:40
 msgid "Ajouter un fournisseur"
