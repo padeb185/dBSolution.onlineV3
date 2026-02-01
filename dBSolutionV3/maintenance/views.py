@@ -12,6 +12,7 @@ from voiture.voiture_exemplaire.models import TypeUtilisation
 from django.utils import timezone
 from maintenance.check_up.views import TYPES_MAINTENANCE
 from maintenance.check_up.views import creer_checkup_complet
+from maintenance.check_up.models import Checkup
 
 
 @login_required
@@ -65,12 +66,12 @@ def choisir_type_maintenance(request, exemplaire_id):
 
 @login_required
 def maintenance_tenant_view(request, exemplaire_id):
-    tenant = request.user.societe  # ton tenant actuel
+    tenant = request.user.societe
 
     with tenant_context(tenant):
         exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
 
-        # ⚡ Vérifie que l'exemplaire appartient bien au tenant courant
+        # Vérifie que le client appartient au tenant courant
         if exemplaire.client.societe_id != tenant.id:
             return render(request, "403.html", status=403)
 
@@ -78,9 +79,11 @@ def maintenance_tenant_view(request, exemplaire_id):
             maintenance = creer_checkup_complet(
                 exemplaire=exemplaire,
                 mecanicien=request.user,
-                tenant=tenant
+                tenant=tenant,
+                request=request
             )
-            # Met à jour l'utilisateur qui a fait la maintenance
+
+            # Met à jour le dernier utilisateur ayant fait la maintenance
             exemplaire.last_maintained_by = request.user
             exemplaire.save(update_fields=["last_maintained_by"])
 
@@ -90,3 +93,41 @@ def maintenance_tenant_view(request, exemplaire_id):
             "exemplaire": exemplaire,
             "now": timezone.now(),
         })
+
+
+
+
+
+@login_required
+def maintenance_tenant_view(request, exemplaire_id):
+    # Récupère le tenant courant
+    tenant = request.user.societe
+
+    with tenant_context(tenant):
+        # Récupération de l'exemplaire par UUID
+        exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
+
+        # Vérifie que le client appartient au tenant courant
+        if exemplaire.client.societe_id != tenant.id:
+            return render(request, "403.html", status=403)
+
+        # Vérifie que l'utilisateur est un mécanicien
+        if request.user.role != "mécanicien":
+            return render(request, "403.html", status=403)
+
+
+        return render(request, "maintenance/creer_maintenance.html", {
+            "exemplaire": exemplaire,
+            "now": timezone.now(),
+        })
+
+
+
+
+
+@login_required
+def maintenance_detail_view(request, maintenance_id):
+    maintenance = get_object_or_404(Maintenance, id=maintenance_id)
+    return render(request, "maintenance/detail.html", {
+        "maintenance": maintenance
+    })

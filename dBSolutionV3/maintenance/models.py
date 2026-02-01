@@ -37,7 +37,8 @@ class Maintenance(models.Model):
         verbose_name=_("Mécanicien"),
         on_delete=models.SET_NULL,
         null=True,
-        blank=True
+        blank=True,
+        related_name="maintenances_mecanicien"
     )
 
     apprentis = models.ForeignKey(
@@ -45,7 +46,8 @@ class Maintenance(models.Model):
         verbose_name=_("Apprenti"),
         on_delete=models.SET_NULL,
         null=True,
-        blank=True
+        blank=True,
+        related_name="maintenances_apprenti"
     )
 
     chef_mecanicien = models.ForeignKey(
@@ -53,7 +55,8 @@ class Maintenance(models.Model):
         verbose_name=_("Chef mécanicien"),
         on_delete=models.SET_NULL,
         null=True,
-        blank=True
+        blank=True,
+        related_name="maintenances_chef"
     )
 
 
@@ -106,13 +109,6 @@ class Maintenance(models.Model):
             return self.kilometres_total - self.kilometres_derniere_intervention
         return None
 
-    def save(self, *args, **kwargs):
-        # Remise à zéro des compteurs si remplacement
-        if self.remplacement_moteur:
-            self.kilometres_moteur = 0
-        if self.remplacement_boite:
-            self.kilometres_boite = 0
-        super().save(*args, **kwargs)
 
     def __str__(self):
         return _("Maintenance %(voiture)s (%(date)s)") % {

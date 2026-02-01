@@ -2,7 +2,6 @@
 {% load i18n static %}
 
 {% block content %}
-
 <div class="p-6">
 
     <h1 class="text-2xl font-bold mb-6 flex flex-col md:flex-row md:items-center gap-3">
@@ -13,64 +12,58 @@
                 <span class="font-semibold">
                     {{ exemplaire.voiture_modele.voiture_marque.nom_marque }}
                     {{ exemplaire.voiture_modele.nom_modele }}
-                    {% if exemplaire.voiture_modele.nom_variante %}{{ exemplaire.voiture_modele.nom_variante }}{% endif %}
+                    {% if exemplaire.voiture_modele.nom_variante %}
+                        {{ exemplaire.voiture_modele.nom_variante }}
+                    {% endif %}
                 </span>
             </div>
         </div>
 
-        <!-- Plaque d'immatriculation -->
-        {% if exemplaire.pays == 'Belgique' %}
-            <div class="flex items-center w-[14%] min-w-[180px] h-[40px] bg-white border-2 border-[#8B0000] rounded font-[Arial] mb-4">
-                <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
-                    <span>🇪🇺</span>
-                    <span>B</span>
-                </div>
-                <input type="text" value="{{ exemplaire.immatriculation }}" readonly
-                       class="w-full text-center border-none font-bold text-[#8B0000] text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0">
-            </div>
-        {% elif exemplaire.pays == 'Luxembourg' %}
-            <div class="flex items-center w-[14%] min-w-[180px] h-[40px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial] mb-4">
-                <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
-                    <span>🇪🇺</span>
-                    <span>L</span>
-                </div>
-                <input type="text" value="{{ exemplaire.immatriculation }}" readonly
-                       class="w-full text-center border-none font-bold text-black text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0">
-            </div>
-        {% elif exemplaire.pays == 'Allemagne' %}
-            <div class="flex items-center w-[14%] min-w-[180px] h-[40px] bg-white border-2 border-black rounded font-[Arial] mb-4">
-                <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
-                    <span>🇪🇺</span>
-                    <span>D</span>
-                </div>
-                <input type="text" value="{{ exemplaire.immatriculation }}" readonly
-                       class="w-full text-center border-none font-bold text-black text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0">
-            </div>
-        {% endif %}
+        <!-- Plaque -->
+        {% include "maintenance/partials/plaque.html" %}
     </h1>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
 
         {% for type in types_maintenance %}
-        <form method="post"
-              action="{% url 'maintenance:maintenance_tenant_creer' exemplaire.id %}">
-            {% csrf_token %}
-            <input type="hidden" name="type_maintenance" value="{{ type.code }}">
-            <input type="hidden" name="date_intervention" value="{{ now|date:'Y-m-d' }}">
 
-            <button type="submit"
-                    class="cursor-pointer p-6 bg-white shadow-md rounded-lg hover:shadow-lg hover:bg-blue-50 flex flex-col items-center justify-center text-center transition w-full">
-                <img src="{% static 'icons/'|add:type.code|add:'.png' %}"
-                     alt="{{ type.nom }}"
-                     class="w-16 h-16 mb-4">
-                <p class="font-semibold">{{ type.nom }}</p>
-            </button>
-        </form>
+            {% if type.code == "checkup" %}
+                <!-- ✅ CHECK-UP → PAGE DÉDIÉE -->
+                <a href="{% url 'maintenance:maintenance_tenant_creer' exemplaire.id %}"
+                   class="p-6 bg-white shadow-md rounded-lg hover:shadow-lg hover:bg-green-50
+                          flex flex-col items-center justify-center text-center transition">
+
+                    <img src="{% static 'icons/checkup.png' %}"
+                         alt="Check-up"
+                         class="w-16 h-16 mb-4">
+
+                    <p class="font-semibold text-green-700">
+                        {{ type.nom }}
+                    </p>
+                </a>
+
+            {% else %}
+                <!-- 🔧 AUTRES MAINTENANCES -->
+                <form method="post"
+                      action="{% url 'maintenance:maintenance_tenant_creer' exemplaire.id %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="type_maintenance" value="{{ type.code }}">
+
+                    <button type="submit"
+                            class="cursor-pointer p-6 bg-white shadow-md rounded-lg
+                                   hover:shadow-lg hover:bg-blue-50
+                                   flex flex-col items-center justify-center text-center transition w-full">
+
+                        <img src="{% static 'icons/'|add:type.code|add:'.png' %}"
+                             alt="{{ type.nom }}"
+                             class="w-16 h-16 mb-4">
+
+                        <p class="font-semibold">{{ type.nom }}</p>
+                    </button>
+                </form>
+            {% endif %}
 
         {% endfor %}
-
     </div>
-
 </div>
-
 {% endblock %}

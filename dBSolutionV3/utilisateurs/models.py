@@ -191,3 +191,15 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return f"{self.prenom} {self.nom}"
+
+
+
+
+
+class Mecanicien(Utilisateur):
+    class Meta:
+        proxy = True  # Très important : pas de table supplémentaire, juste une vue "proxy"
+
+    def __str__(self):
+        return f"{self.prenom} {self.nom} - {self.get_role_display()}"
+

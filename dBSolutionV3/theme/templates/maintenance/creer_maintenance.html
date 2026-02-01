@@ -5,7 +5,7 @@
 <div class="p-6 max-w-4xl mx-auto">
 
     <h1 class="text-3xl font-bold mb-6 flex items-center gap-3">
-        <img src="{% static 'icons/maintenance.png' %}" alt="Maintenance" class="w-12 h-12">
+        <img src="{% static 'icons/mecanique.png' %}" alt="Maintenance" class="w-12 h-12">
         {% trans "Créer un check-up complet pour :" %} {{ exemplaire.voiture_modele.nom }}
     </h1>
 
@@ -16,8 +16,8 @@
             <li><strong>{% trans "Immatriculation" %}:</strong> {{ exemplaire.immatriculation }}</li>
             <li><strong>{% trans "Kilomètres total" %}:</strong> {{ exemplaire.kilometres_total }}</li>
             <li><strong>{% trans "Kilomètres depuis dernière intervention" %}:</strong> {{ exemplaire.kilometres_derniere_intervention }}</li>
-            <li><strong>{% trans "Marque" %}:</strong> {{ exemplaire.voiture_marque.nom }}</li>
-            <li><strong>{% trans "Modèle" %}:</strong> {{ exemplaire.voiture_modele.nom }}</li>
+            <li><strong>{% trans "Marque" %}:</strong> {{ exemplaire.voiture_marque.nom_marque }}</li>
+            <li><strong>{% trans "Modèle" %}:</strong> {{ exemplaire.voiture_modele.nom_modele }}</li>
         </ul>
     </div>
 
@@ -39,6 +39,7 @@
     <!-- Bouton de création -->
     <form method="POST">
         {% csrf_token %}
+        <input type="hidden" name="exemplaire_id" value="{{ exemplaire.id }}">
         <div class="flex justify-end">
             <button type="submit"
                     class="bg-green-600 text-white font-bold py-2 px-4 rounded hover:bg-green-700 transition-colors">

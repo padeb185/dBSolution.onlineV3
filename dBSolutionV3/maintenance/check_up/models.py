@@ -521,3 +521,13 @@ class NettoyageInterieur(models.Model):
     def __str__(self):
         return f"Nettoyage intérieur – {self.voiture_exemplaire} ({self.date:%Y-%m-%d})"
 
+
+class Checkup(models.Model):
+    exemplaire = models.ForeignKey(VoitureExemplaire, on_delete=models.CASCADE, related_name="checkups")
+    client = models.ForeignKey("client.Client", on_delete=models.CASCADE)
+    mecanicien = models.ForeignKey(Utilisateur, on_delete=models.PROTECT)
+    maintenance = models.OneToOneField(Maintenance, on_delete=models.CASCADE, related_name="checkup", null=True)
+    date_creation = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Checkup – {self.exemplaire} ({self.date_creation:%Y-%m-%d})"
