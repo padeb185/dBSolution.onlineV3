@@ -10,8 +10,7 @@ urlpatterns = [
     # Détail d’un exemplaire
     path('exemplaire/<uuid:exemplaire_id>/', detail_exemplaire_maintenance, name='detail_exemplaire'),
 
-    # Créer un check-up complet
-    path('creer/<uuid:exemplaire_id>/', creer_checkup_complet, name='creer_checkup'),
+
 
 
 

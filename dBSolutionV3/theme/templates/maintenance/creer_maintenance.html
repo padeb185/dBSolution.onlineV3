@@ -5,7 +5,7 @@
 <div class="p-6 max-w-4xl mx-auto">
 
     <h1 class="text-3xl font-bold mb-6 flex items-center gap-3">
-        <img src="{% static 'icons/mecanique.png' %}" alt="Maintenance" class="w-12 h-12">
+        <img src="{% static 'icons/checkup.png' %}" alt="Maintenance" class="w-12 h-12">
         {% trans "Créer un check-up complet pour :" %} {{ exemplaire.voiture_marque.nom_marque }} {{ exemplaire.voiture_modele.nom_modele }}
     </h1>
 
@@ -53,25 +53,28 @@
         </ul>
     </div>
 
-    <!-- Aperçu des contrôles -->
-    <div class="bg-white shadow rounded p-4 mb-6">
-        <h2 class="text-xl font-semibold mb-3">{% trans "Aperçu du check-up complet" %}</h2>
-
-        <ul class="list-disc list-inside text-gray-700 space-y-1">
-            <li>{% trans "Contrôle général du véhicule" %}</li>
-            <li>{% trans "Vérification des amortisseurs et ressorts" %}</li>
-            <li>{% trans "Contrôle des bruits par emplacement et type" %}</li>
-            <li>{% trans "Vérification des pièces (rotules, biellettes, barre stabilisatrice…)" %}</li>
-            <li>{% trans "Contrôle des freins (plaquettes, disques, fuites…)" %}</li>
-            <li>{% trans "Nettoyage intérieur (vitres, tableau de bord, plastiques…)" %}</li>
-            <li>{% trans "Nettoyage extérieur (carrosserie, jantes, traces de gomme…)" %}</li>
-        </ul>
-    </div>
-
-    <!-- Bouton de création -->
+    <!-- Formulaire de check-up -->
     <form method="POST">
         {% csrf_token %}
         <input type="hidden" name="exemplaire_id" value="{{ exemplaire.id }}">
+
+        <!-- Aperçu des contrôles avec checkboxes -->
+        <div class="bg-white shadow rounded p-4 mb-6">
+            <h2 class="text-xl font-semibold mb-3">{% trans "Aperçu du check-up complet" %}</h2>
+
+            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                {% for controle in controles %}
+                <li>
+                    <label class="flex items-center gap-2">
+                        <input type="checkbox" name="controles" value="{{ controle.id }}" class="form-checkbox h-5 w-5 text-green-600">
+                        <span>{{ controle.nom }}</span>
+                    </label>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Bouton de création -->
         <div class="flex justify-end">
             <button type="submit"
                     class="bg-green-600 text-white font-bold py-2 px-4 rounded hover:bg-green-700 transition-colors">

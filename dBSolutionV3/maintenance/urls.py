@@ -1,5 +1,5 @@
 from django.urls import path
-
+from .check_up.views import creer_checkup_complet
 from .views import maintenance_detail_view
 from .views import (
     liste_maintenance_all,
@@ -17,8 +17,10 @@ urlpatterns = [
         "<uuid:maintenance_id>/",
         maintenance_detail_view,
         name="maintenance_detail",
-    )
+    ),
 
+
+    path('creer/<uuid:exemplaire_id>/', creer_checkup_complet, name='creer_checkup'),
 
 
 ]

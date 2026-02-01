@@ -1,10 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load i18n static %}
 
-</body>
-</html>
+{% block content %}
+<div class="p-6 max-w-4xl mx-auto">
+
+    <h1 class="text-3xl font-bold mb-6 flex items-center gap-3">
+        <img src="{% static 'icons/checkup.png' %}" alt="Maintenance" class="w-12 h-12">
+        {% trans "Détail de la maintenance" %}
+    </h1>
+
+    <div class="bg-white shadow rounded p-4 mb-6">
+        <h2 class="text-xl font-semibold mb-3">{% trans "Informations générales" %}</h2>
+        <ul class="text-gray-700 space-y-1">
+            <li><strong>{% trans "ID Maintenance" %}:</strong> {{ maintenance.id }}</li>
+            <li><strong>{% trans "Exemplaire" %}:</strong> {{ maintenance.voiture_exemplaire.immatriculation }}</li>
+            <li><strong>{% trans "Mécanicien" %}:</strong> {{ maintenance.mecanicien.prenom }} {{ maintenance.mecanicien.nom }}</li>
+            <li><strong>{% trans "Type" %}:</strong> {{ maintenance.type_maintenance }}</li>
+            <li><strong>{% trans "Date" %}:</strong> {{ maintenance.date_intervention }}</li>
+        </ul>
+    </div>
+
+    <div class="bg-white shadow rounded p-4 mb-6">
+        <h2 class="text-xl font-semibold mb-3">{% trans "Contrôles généraux" %}</h2>
+        {% for controle in maintenance.controles_generaux.all %}
+            <p>{{ controle }}</p>
+        {% empty %}
+            <p>{% trans "Aucun contrôle enregistré." %}</p>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

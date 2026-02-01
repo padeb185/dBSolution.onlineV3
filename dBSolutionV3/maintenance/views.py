@@ -62,7 +62,7 @@ def choisir_type_maintenance(request, exemplaire_id):
     return render(request, "maintenance/choisir_type.html", context)
 
 
-
+"""
 
 @login_required
 def maintenance_tenant_view(request, exemplaire_id):
@@ -94,9 +94,9 @@ def maintenance_tenant_view(request, exemplaire_id):
             "now": timezone.now(),
         })
 
+"""
 
-
-
+"""
 
 @login_required
 def maintenance_tenant_view(request, exemplaire_id):
@@ -121,6 +121,38 @@ def maintenance_tenant_view(request, exemplaire_id):
             "now": timezone.now(),
         })
 
+"""
+
+
+
+@login_required
+def maintenance_tenant_view(request, exemplaire_id):
+    tenant = request.user.societe
+
+    # Utilisation du contexte du tenant si tu as multi-tenant
+    with tenant_context(tenant):
+        exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
+
+        # Vérifie que le client appartient au tenant courant
+        if exemplaire.client.societe_id != tenant.id:
+            return render(request, "403.html", status=403)
+
+        if request.method == "POST":
+            # Création du check-up complet
+            maintenance = creer_checkup_complet(request, exemplaire)
+
+            # Met à jour le dernier utilisateur ayant fait la maintenance
+            exemplaire.last_maintained_by = request.user
+            exemplaire.save(update_fields=["last_maintained_by"])
+
+            # Redirection vers la page détail du check-up
+            return redirect('maintenance:maintenance_detail', maintenance_id=maintenance.id)
+
+        # GET → afficher la page de création
+        return render(request, "maintenance/creer_maintenance.html", {
+            "exemplaire": exemplaire,
+            "now": timezone.now(),
+        })
 
 
 
