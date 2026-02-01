@@ -82,6 +82,14 @@
                    placeholder="BE12 3456 7890 1234">
         </div>
 
+        <div>
+            <label for="id_numero_carte_bancaire">{% trans "Numéro de carte bancaire" %}</label>
+            <input type="text" id="id_numero_carte_bancaire" name="numero_carte_bancaire"
+                   value="{{ request.POST.numero_carte_bancaire|default:client.numero_carte_bancaire|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full"
+                   placeholder="5389 3456 7890 1234">
+        </div>
+
         <!-- Email -->
         <div>
             <label for="id_email">{% trans "Email" %}</label>

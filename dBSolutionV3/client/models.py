@@ -8,8 +8,6 @@ from adresse.models import Adresse
 
 class Client(models.Model):
 
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-
     prenom = models.CharField(_("Prénom"), max_length=50)
     nom = models.CharField(_("Nom"), max_length=50)
 
@@ -42,6 +40,12 @@ class Client(models.Model):
 
     numero_compte = models.CharField(
         _("Numéro de compte bancaire"),
+        max_length=20,
+        null=True,
+        blank=True
+    )
+    numero_carte_bancaire =models.CharField(
+        _("Numéro de carte bancaire"),
         max_length=20,
         null=True,
         blank=True

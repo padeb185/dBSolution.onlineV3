@@ -18,14 +18,14 @@ urlpatterns = [
 
 
     path(
-        "<uuid:client_id>/",
+        "<int:client_id>/",
         client_detail,
         name="client_detail"
     ),
 
 
     path(
-        'client/<uuid:client_id>/modifier/',
+        'client/<int:client_id>/modifier/',
         modifier_client,
         name='modifier_client'),
 
