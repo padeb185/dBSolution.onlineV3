@@ -7,6 +7,8 @@
     <!-- Header -->
     <div class="flex justify-between items-center mb-6">
        <h1 class="text-2xl font-bold flex items-center gap-4">
+           <img src="{% static 'icons/client.png' %}" alt="client"
+         style="width:60px; height:60px; margin-right:10px;">
             <span>{% trans "Détails du client :" %}</span>
             <span class="text-black-700">{{ client.prenom}} {{ client.nom }}</span>
 
@@ -22,7 +24,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
 
         <!-- Informations générales -->
-        <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
+        <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-6">
             <h2 class="text-lg font-semibold mb-2">
                 {% trans "Informations générales" %}
             </h2>
@@ -78,9 +80,6 @@
 
         <!-- Peppol -->
         <div class="bg-white shadow-md rounded-lg p-6">
-            <h2 class="text-lg font-semibold mb-4">
-                {% trans "Niveau " %}
-            </h2>
 
             <p>
                 <strong>{% trans "Niveau" %} :</strong><br>

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load i18n widget_tweaks %}
+{% load i18n widget_tweaks static %}
 
 
 {% block content %}
@@ -7,9 +7,13 @@
 
     <div class="flex justify-between items-center mb-6">
        <h1 class="text-2xl font-bold flex items-center gap-4">
-            <span>{% trans "Modifier le client :" %}</span>
-            <span class="text-black-700">{{ client.prenom }} {{ client.nom }}</span>
-        </h1>
+           <img src="{% static 'icons/client.png' %}" alt="client"
+         style="width:60px; height:60px; margin-right:10px;">
+            <span class="text-black-700">
+                {% trans "Modifier le client :" %} {{ client.prenom }} {{ client.nom }}
+            </span>
+
+       </h1>
     </div>
     <form method="post" class="space-y-4">
         {% csrf_token %}
