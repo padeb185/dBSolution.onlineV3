@@ -6,6 +6,7 @@ class FournisseurForm(forms.ModelForm):
     class Meta:
         model = Fournisseur
         fields = "__all__"
+        exclude = ("is_active",)
         widgets = {
             "peppol_id": forms.TextInput(attrs={
                 "placeholder": "0208:BE0123456789"

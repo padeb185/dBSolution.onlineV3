@@ -8,17 +8,13 @@
     <div class="flex justify-between items-center mb-6">
        <h1 class="text-2xl font-bold flex items-center gap-4">
             <span>{% trans "Détails du fournisseur :" %}</span>
-            <span class="text-black-700">{{ fournisseur.nom }}</span>
-
-            {% comment %}
-            On tente de charger une image spécifique nom_du_fournisseur.png depuis le dossier static
-            {% endcomment %}
             {% with image_name=fournisseur.nom|slugify %}
                 <img src="{% static 'fournisseurs/'|add:image_name|add:'.png' %}"
                      alt="{{ fournisseur.nom }}"
                      class="w-12 h-12"
                      onerror="this.src='{% static 'fournisseurs/fournisseur.png' %}';">
             {% endwith %}
+           <span class="text-black-700">{{ fournisseur.nom }}</span>
         </h1>
 
         <a href="{% url 'fournisseur:fournisseur_list' %}"
