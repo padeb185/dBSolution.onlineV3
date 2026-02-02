@@ -250,40 +250,30 @@ msgid "Numéro de téléphone"
 msgstr "Numero di telefono"
 
 #: .\client\models.py:28
-#, fuzzy
-#| msgid "Numéro de permis"
 msgid "Numéro de permis de conduire"
-msgstr "Numero patente"
+msgstr "Numero di patente di guida"
 
 #: .\client\models.py:35 .\theme\templates\client\client_detail.html:41
 #: .\theme\templates\client\client_form.html:70
-#, fuzzy
-#| msgid "Numéro de facture"
 msgid "Numéro de carte d'identité"
-msgstr "Numero fattura"
+msgstr "Numero della carta d'identità"
 
 #: .\client\models.py:42 .\theme\templates\client\client_form.html:78
-#, fuzzy
-#| msgid "Numéro de facture"
 msgid "Numéro de compte bancaire"
-msgstr "Numero fattura"
+msgstr "Numero di conto bancario"
 
 #: .\client\models.py:48 .\theme\templates\client\client_detail.html:36
 #: .\theme\templates\client\client_form.html:86
-#, fuzzy
-#| msgid "Numéro de facture"
 msgid "Numéro de carte bancaire"
-msgstr "Numero fattura"
+msgstr "Numero della carta di credito"
 
 #: .\client\models.py:62 .\theme\templates\client\client_form.html:104
-#, fuzzy
-#| msgid "Bas de caisse"
 msgid "Date de naissance"
-msgstr "Soglia"
+msgstr "Data di nascita"
 
 #: .\client\models.py:79
 msgid "La personne doit avoir au moins 18 ans."
-msgstr ""
+msgstr "La persona deve avere almeno 18 anni."
 
 #: .\client\models.py:94
 msgid "Débutant"
@@ -441,36 +431,27 @@ msgid "ISO 3166-1 alpha-2"
 msgstr "ISO 3166-1 alpha-2"
 
 #: .\fournisseur\models.py:56
-#, fuzzy
-#| msgid "Nom du fournisseur"
 msgid "Email du fournisseur"
-msgstr "Nome del fornitore"
+msgstr "Email del fornitore"
 
 #: .\fournisseur\models.py:60
 #: .\theme\templates\fournisseurs\fournisseur_form.html:72
-#, fuzzy
-#| msgid "Téléphone"
 msgid "Téléphone fixe"
-msgstr "Telefono"
+msgstr "Telefono fisso"
 
 #: .\fournisseur\models.py:64
-#, fuzzy
-#| msgid "Numéro de téléphone"
 msgid "Numéro de téléphone fixe"
-msgstr "Numero di telefono"
+msgstr "Numero di telefono fisso"
 
 #: .\fournisseur\models.py:68
 #: .\theme\templates\fournisseurs\fournisseur_form.html:79
-#, fuzzy
-#| msgid "GPS"
 msgid "GSM"
-msgstr "GPS"
+msgstr "Cellulare"
 
 #: .\fournisseur\models.py:72
-#, fuzzy
-#| msgid "Numéro de téléphone"
 msgid "Numéro de téléphone mobile"
-msgstr "Numero di telefono"
+msgstr "Numero di telefono mobile"
+
 
 #: .\fournisseur\models.py:77
 msgid "Actif"
@@ -528,10 +509,9 @@ msgstr "Targa"
 
 #: .\fuel\models.py:39
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:66
-#, fuzzy
-#| msgid "Type de pneu"
 msgid "Type de carburant"
-msgstr "Tipo di pneumatico"
+msgstr "Tipo di carburante"
+
 
 #: .\fuel\models.py:42
 msgid "Volume max (L)"
@@ -744,10 +724,9 @@ msgid "Emplacement"
 msgstr "Posizione"
 
 #: .\maintenance\bruits\models.py:36 .\maintenance\check_up\models.py:244
-#, fuzzy
-#| msgid "Type de roue"
 msgid "Type de bruit"
-msgstr "Tipo di ruota"
+msgstr "Tipo di rumore"
+
 
 #: .\maintenance\bruits\models.py:41 .\maintenance\check_up\models.py:248
 msgid "Normal"
@@ -854,8 +833,6 @@ msgid "Essuie-glace AR fonctionnel"
 msgstr "Tergicristallo posteriore funzionante"
 
 #: .\maintenance\check_up\models.py:93
-#, fuzzy
-#| msgid "Pare_Brise sans coups"
 msgid "Pare-brise sans coups"
 msgstr "Parabrezza senza scheggiature"
 
@@ -892,16 +869,13 @@ msgid "Niveau liquide direction"
 msgstr "Livello liquido sterzo"
 
 #: .\maintenance\check_up\models.py:146
-#, fuzzy
-#| msgid "Roulement de roue"
 msgid "État roulement de roue"
-msgstr "Cuscinetto ruota"
+msgstr "Stato cuscinetto ruota"
 
 #: .\maintenance\check_up\models.py:151
-#, fuzzy
-#| msgid "Cage de roulement"
 msgid "Emplacement du roulement"
-msgstr "Gabbia del cuscinetto"
+msgstr "Posizione del cuscinetto"
+
 
 #: .\maintenance\check_up\models.py:161
 msgid "État batterie"
@@ -1008,30 +982,24 @@ msgid "Présence de fentes sur les disques"
 msgstr "Presenza di fenditure sui dischi"
 
 #: .\maintenance\check_up\models.py:407
-#, fuzzy
-#| msgid "Sélectionner un système de freinage avant"
 msgid "Présence de fuite du système de freinage"
 msgstr "Seleziona un sistema frenante anteriore"
 
 #: .\maintenance\check_up\models.py:411
 msgid "Disques avant à remplacer"
-msgstr ""
+msgstr "Dischi anteriori da sostituire"
 
 #: .\maintenance\check_up\models.py:415
-#, fuzzy
-#| msgid "Sièges arrière gauche"
 msgid "Disques arrière à remplacer"
-msgstr "Sedili posteriori sinistri"
+msgstr "Dischi posteriori da sostituire"
 
 #: .\maintenance\check_up\models.py:419
 msgid "Plaquettes avant à remplacer"
-msgstr ""
+msgstr "Pastiglie anteriori da sostituire"
 
 #: .\maintenance\check_up\models.py:423
-#, fuzzy
-#| msgid "Marque plaquettes arrière"
 msgid "Plaquettes arrière à remplacer"
-msgstr "Marca pastiglie posteriori"
+msgstr "Pastiglie posteriori da sostituire"
 
 #: .\maintenance\check_up\models.py:428 .\maintenance\freins\models.py:60
 #, python-format
@@ -3620,7 +3588,8 @@ msgstr "Componenti di trasmissione"
 
 #: .\theme\templates\403.html:7
 msgid "Vous n'avez pas les droits pour accéder à cette page."
-msgstr ""
+msgstr "Non hai i diritti per accedere a questa pagina."
+
 
 #: .\theme\templates\404.html:5 .\theme\templates\404.html:18
 msgid "Page introuvable"
@@ -3719,17 +3688,13 @@ msgid "Déconnexion"
 msgstr "Disconnetti"
 
 #: .\theme\templates\client\client_detail.html:10
-#, fuzzy
-#| msgid "Détails du véhicule : "
 msgid "Détails du client :"
-msgstr "Dettagli del veicolo : "
+msgstr "Dettagli del cliente:"
 
 #: .\theme\templates\client\client_detail.html:17
 #: .\theme\templates\client\client_detail.html:122
-#, fuzzy
-#| msgid "Retour à la page précédente"
 msgid "Retour à la liste des clients"
-msgstr "Torna alla pagina precedente"
+msgstr "Torna all'elenco dei clienti"
 
 #: .\theme\templates\client\client_detail.html:27
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:37
@@ -3739,10 +3704,9 @@ msgid "Informations générales"
 msgstr "Informazioni generali"
 
 #: .\theme\templates\client\client_detail.html:31
-#, fuzzy
-#| msgid "Numéro de boîte"
 msgid "Numéro de compte"
-msgstr "Numero del cambio"
+msgstr "Numero di conto"
+
 
 #: .\theme\templates\client\client_detail.html:46
 #: .\theme\templates\client\client_form.html:61
@@ -3750,34 +3714,28 @@ msgid "Numéro de permis"
 msgstr "Numero patente"
 
 #: .\theme\templates\client\client_detail.html:56
-#, fuzzy
-#| msgid "Modifier le véhicule"
 msgid "Modifier le client"
-msgstr "Modifica il veicolo"
+msgstr "Modifica il cliente"
+
 
 #: .\theme\templates\client\client_detail.html:66
-#, fuzzy
-#| msgid "Niveau"
 msgid "Niveau "
 msgstr "Livello"
 
 #: .\theme\templates\client\client_detail.html:87
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:92
-#, fuzzy
-#| msgid "Non renseignée"
 msgid "Aucune adresse renseignée."
-msgstr "Non indicata"
+msgstr "Nessun indirizzo fornito."
 
 #: .\theme\templates\client\client_detail.html:95
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:100
 msgid "Métadonnées"
-msgstr ""
+msgstr "Metadati"
 
 #: .\theme\templates\client\client_form.html:12
-#, fuzzy
-#| msgid "Créer un utilisateur"
 msgid "Créer un client"
-msgstr "Crea un utente"
+msgstr "Crea un cliente"
+
 
 #: .\theme\templates\client\client_form.html:112
 msgid "Âge"
@@ -3788,40 +3746,35 @@ msgstr "Età"
 #: .\theme\templates\fournisseurs\fournisseur_form.html:131
 #: .\theme\templates\fournisseurs\modifier_fournisseur.html:43
 msgid "Enregistrer"
-msgstr ""
+msgstr "Salva"
 
 #: .\theme\templates\client\client_list.html:4
 #: .\theme\templates\client\client_list.html:10
-#, fuzzy
-#| msgid "Liste des Pneus"
 msgid "Liste des Clients"
-msgstr "Elenco dei pneumatici"
+msgstr "Elenco dei clienti"
 
 #: .\theme\templates\client\client_list.html:18
-#, fuzzy
-#| msgid "Nom du fluide"
 msgid "Prenom du client"
-msgstr "Nome del fluido"
+msgstr "Nome del cliente"
 
 #: .\theme\templates\client\client_list.html:22
-#, fuzzy
-#| msgid "Nom du fluide"
 msgid "Nom du client"
-msgstr "Nome del fluido"
+msgstr "Cognome del cliente"
+
 
 #: .\theme\templates\client\client_list.html:36
 msgid "nom.prenom@..."
-msgstr ""
+msgstr "nome.cognome@..."
+
 
 #: .\theme\templates\client\client_list.html:41
 msgid "BEXX XXXX XXXX XXXX"
 msgstr ""
 
 #: .\theme\templates\client\client_list.html:46
-#, fuzzy
-#| msgid "Ajouter un exemplaire"
 msgid "Ajouter un client"
-msgstr "Aggiungi un esemplare"
+msgstr "Aggiungi un cliente"
+
 
 #: .\theme\templates\client\client_list.html:64
 #: .\theme\templates\client\client_list.html:79
@@ -3843,10 +3796,9 @@ msgid "Info"
 msgstr "Informazioni"
 
 #: .\theme\templates\client\client_list.html:82
-#, fuzzy
-#| msgid "Aucune entrée disponible"
 msgid "Info indisponible"
-msgstr "Nessuna voce disponibile"
+msgstr "Informazioni non disponibili"
+
 
 #: .\theme\templates\client\client_list.html:98
 #: .\theme\templates\fournisseurs\fournisseur_list.html:87
@@ -3869,17 +3821,14 @@ msgid "Afficher _MENU_ éléments"
 msgstr "Mostra _MENU_ elementi"
 
 #: .\theme\templates\client\client_list.html:100
-#, fuzzy
-#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ entrées"
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ client"
-msgstr "Visualizzazione da _START_ a _END_ di _TOTAL_ voci"
+msgstr "Visualizzazione da _START_ a _END_ di _TOTAL_ cliente"
 
 #: .\theme\templates\client\client_list.html:101
 #: .\theme\templates\client\client_list.html:102
-#, fuzzy
-#| msgid "Aucun pneu trouvé"
 msgid "Aucun client trouvé"
-msgstr "Nessun pneumatico trovato"
+msgstr "Nessun cliente trovato"
+
 
 #: .\theme\templates\client\client_list.html:104
 #: .\theme\templates\fournisseurs\fournisseur_list.html:93
@@ -3926,10 +3875,9 @@ msgid "Précédent"
 msgstr "Precedente"
 
 #: .\theme\templates\client\modifier_client.html:10
-#, fuzzy
-#| msgid "Modifier le véhicule"
 msgid "Modifier le client :"
-msgstr "Modifica il veicolo"
+msgstr "Modifica il cliente:"
+
 
 #: .\theme\templates\client\modifier_client.html:48
 #: .\theme\templates\fournisseurs\modifier_fournisseur.html:48
@@ -4023,52 +3971,38 @@ msgid "Tableau de bord Admin"
 msgstr "Cruscotto Admin"
 
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:10
-#, fuzzy
-#| msgid "Détails du moteur"
 msgid "Détails du fournisseur :"
-msgstr "Dettagli del motore"
+msgstr "Dettagli del fornitore:"
 
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:27
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:127
 msgid "Retour à la liste des fournisseurs"
-msgstr ""
+msgstr "Torna alla lista dei fornitori"
 
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:61
-#, fuzzy
-#| msgid "Nom du fournisseur"
 msgid "Modifier le fournisseur"
-msgstr "Nome del fornitore"
+msgstr "Modifica il fornitore"
 
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:71
-#, fuzzy
-#| msgid "Informations générales"
 msgid "Informations Peppol"
-msgstr "Informazioni generali"
+msgstr "Informazioni Peppol"
 
 #: .\theme\templates\fournisseurs\fournisseur_form.html:12
-#, fuzzy
-#| msgid "Créer un utilisateur"
 msgid "Créer un Fournisseur"
-msgstr "Crea un utente"
+msgstr "Crea un fornitore"
 
 #: .\theme\templates\fournisseurs\fournisseur_form.html:57
 #: .\theme\templates\fournisseurs\fournisseur_list.html:25
-#, fuzzy
-#| msgid "Numéro"
 msgid "Numéro Peppol"
-msgstr "Numero"
+msgstr "Numero Peppol"
 
 #: .\theme\templates\fournisseurs\fournisseur_list.html:4
 #: .\theme\templates\fournisseurs\fournisseur_list.html:10
-#, fuzzy
-#| msgid "Liste des utilisateurs"
 msgid "Liste des Fournisseurs"
-msgstr "Elenco degli utenti"
+msgstr "Elenco dei fornitori"
 
 #: .\theme\templates\fournisseurs\fournisseur_list.html:21
 #: .\theme\templates\fournisseurs\fournisseur_list.html:54
-#, fuzzy
-#| msgid "Numéro de TVA"
 msgid "Numero de TVA"
 msgstr "Partita IVA"
 
@@ -4080,42 +4014,31 @@ msgstr ""
 msgid "0032"
 msgstr ""
 
-#: .\theme\templates\fournisseurs\fournisseur_list.html:40
-#, fuzzy
-#| msgid "Ajouter un moteur"
-msgid "Ajouter un fournisseur"
-msgstr "Aggiungi un motore"
+# .\theme\templates\fournisseurs\fournisseur_list.html:40
+msgid "Ajouter un fournisseur: "
+msgstr "Aggiungi un fornitore: "
+
 
 #: .\theme\templates\fournisseurs\fournisseur_list.html:53
-#, fuzzy
-#| msgid "Nom du fournisseur"
 msgid "Nom du Fournisseur"
 msgstr "Nome del fornitore"
 
 #: .\theme\templates\fournisseurs\fournisseur_list.html:55
-#, fuzzy
-#| msgid "Numero"
 msgid "Numero Peppol"
-msgstr "Numero"
+msgstr "Numero Peppol"
 
 #: .\theme\templates\fournisseurs\fournisseur_list.html:89
-#, fuzzy
-#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ moteurs"
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ fournisseurs"
-msgstr "Visualizzazione da _START_ a _END_ di _TOTAL_ motori"
+msgstr "Visualizzazione da _START_ a _END_ di _TOTAL_ fornitori"
 
 #: .\theme\templates\fournisseurs\fournisseur_list.html:90
 #: .\theme\templates\fournisseurs\fournisseur_list.html:91
-#, fuzzy
-#| msgid "Aucun moteur trouvé"
 msgid "Aucun fournisseur trouvé"
-msgstr "Nessun motore trovato"
+msgstr "Nessun fornitore trovato"
 
 #: .\theme\templates\fournisseurs\modifier_fournisseur.html:10
-#, fuzzy
-#| msgid "Nom du fournisseur"
 msgid "Modifier le fournisseur :"
-msgstr "Nome del fornitore"
+msgstr "Modifica il fornitore:"
 
 #: .\theme\templates\home.html:20
 msgid "Bienvenue"
@@ -4135,73 +4058,57 @@ msgstr "Seleziona il tipo di manutenzione per:"
 
 #: .\theme\templates\maintenance\creer_maintenance.html:9
 msgid "Créer un check-up complet pour :"
-msgstr ""
+msgstr "Crea un check-up completo per:"
 
 #: .\theme\templates\maintenance\creer_maintenance.html:14
-#, fuzzy
-#| msgid "Détails de l'embrayage"
 msgid "Détails de l'exemplaire"
-msgstr "Dettagli della frizione"
+msgstr "Dettagli dell'esemplare"
 
 #: .\theme\templates\maintenance\creer_maintenance.html:48
-#, fuzzy
-#| msgid "Kilométrage total"
 msgid "Kilomètres total"
 msgstr "Chilometraggio totale"
 
 #: .\theme\templates\maintenance\creer_maintenance.html:49
-#, fuzzy
-#| msgid "Kilomètres de la dernière intervention"
 msgid "Kilomètres depuis dernière intervention"
-msgstr "Chilometraggio all'ultimo intervento"
+msgstr "Chilometri dall'ultimo intervento"
 
 #: .\theme\templates\maintenance\creer_maintenance.html:52
-#, fuzzy
-#| msgid "Variation"
 msgid "Variante"
-msgstr "Variazione"
+msgstr "Variante"
 
 #: .\theme\templates\maintenance\creer_maintenance.html:63
 msgid "Aperçu du check-up complet"
-msgstr ""
+msgstr "Anteprima del check-up completo"
 
 #: .\theme\templates\maintenance\creer_maintenance.html:81
 msgid "Créer le check-up complet"
-msgstr ""
+msgstr "Crea il check-up completo"
 
 #: .\theme\templates\maintenance\creer_maintenance.html:86
-#, fuzzy
-#| msgid "Date du plein"
 msgid "Date actuelle"
-msgstr "Data rifornimento"
+msgstr "Data attuale"
 
 #: .\theme\templates\maintenance\detail.html:9
-#, fuzzy
-#| msgid "Type de maintenance"
 msgid "Détail de la maintenance"
-msgstr "Tipo di manutenzione"
+msgstr "Dettaglio della manutenzione"
 
 #: .\theme\templates\maintenance\detail.html:15
-#, fuzzy
-#| msgid "Maintenance"
 msgid "ID Maintenance"
-msgstr "Manutenzione"
+msgstr "ID Manutenzione"
+
 
 #: .\theme\templates\maintenance\detail.html:16
-#, fuzzy
-#| msgid "Exemplaire de voiture"
+
 msgid "Exemplaire"
-msgstr "Esemplare di auto"
+msgstr "Esemplare"
 
 #: .\theme\templates\maintenance\detail.html:18
 msgid "Type"
 msgstr "Tipo"
 
 #: .\theme\templates\maintenance\detail.html:28
-#, fuzzy
-#| msgid "Aucun modèle enregistré pour cette marque."
 msgid "Aucun contrôle enregistré."
-msgstr "Nessun modello registrato per questo marchio."
+msgstr "Nessun controllo registrato."
 
 #: .\theme\templates\maintenance\list.html:10
 msgid "Maintenance du véhicule :"
@@ -4459,8 +4366,6 @@ msgstr "Nessun cambio trovato."
 
 #: .\theme\templates\voiture_boite\list.html:73
 #: .\theme\templates\voiture_moteur\list.html:76
-#, fuzzy
-#| msgid "Rechercher :"
 msgid "Recherche :"
 msgstr "Cerca :"
 
@@ -4562,10 +4467,9 @@ msgid "Type d'utilisation"
 msgstr "Tipo di utilizzo"
 
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:63
-#, fuzzy
-#| msgid "Sélectionner un type de distribution"
 msgid "Sélectionner un type d'utilisation"
-msgstr "Seleziona un tipo di distribuzione"
+msgstr "Seleziona un tipo di utilizzo"
+
 
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:79
 msgid "Kilomètres du chassis"
@@ -4946,10 +4850,8 @@ msgid "Mes marques favorites"
 msgstr "I miei marchi preferiti"
 
 #: .\theme\templates\voiture_marque\marques_favorites.html:29
-#, fuzzy
-#| msgid "Aucun exemplaire enregistré pour ce modèle."
 msgid "Aucune marque favorite pour le moment."
-msgstr "Nessun esemplare registrato per questo modello."
+msgstr "Nessun marchio preferito al momento."
 
 #: .\theme\templates\voiture_marque\marques_list.html:55
 msgid "Voir les"
@@ -5687,25 +5589,19 @@ msgstr "Chilometri pneumatici anteriori"
 msgid "Kilomètres pneus arrière"
 msgstr "Chilometri pneumatici posteriori"
 
-#, fuzzy
-#~| msgid "Historique"
+
 #~ msgid "historique"
 #~ msgstr "Storico"
 
-#, fuzzy
-#~| msgid "Location"
 #~ msgid "location"
 #~ msgstr "Noleggio"
 
-#, fuzzy
-#~| msgid "Contrôle général"
 #~ msgid "Contrôle général du véhicule"
-#~ msgstr "Controllo generale"
+#~ msgstr "Controllo generale del veicolo"
 
-#, fuzzy
-#~| msgid "Contrôle freins – %(partie)s (%(date)s)"
 #~ msgid "Contrôle des freins (plaquettes, disques, fuites…)"
-#~ msgstr "Controllo freni – %(partie)s (%(date)s)"
+#~ msgstr "Controllo dei freni (pastiglie, dischi, perdite…)"
+
 
 #~ msgid "Type de composant"
 #~ msgstr "Tipo di componente"
