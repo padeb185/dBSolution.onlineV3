@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-01 06:17+0100\n"
+"POT-Creation-Date: 2026-02-02 08:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,45 +19,45 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: .\adresse\forms.py:18 .\adresse\models.py:9
-#: .\theme\templates\client\client_form.html:127
+#: .\theme\templates\client\client_form.html:135
 #: .\theme\templates\fournisseurs\fournisseur_form.html:89
 msgid "Rue"
 msgstr "Via"
 
 #: .\adresse\forms.py:19 .\adresse\models.py:10
-#: .\theme\templates\client\client_form.html:133
+#: .\theme\templates\client\client_form.html:141
 #: .\theme\templates\fournisseurs\fournisseur_form.html:96
 msgid "Numéro"
 msgstr "Numero"
 
 #: .\adresse\forms.py:20 .\adresse\models.py:11
-#: .\theme\templates\client\client_form.html:139
+#: .\theme\templates\client\client_form.html:147
 #: .\theme\templates\fournisseurs\fournisseur_form.html:103
 msgid "Code postal"
 msgstr "CAP"
 
 #: .\adresse\forms.py:21 .\adresse\models.py:12
-#: .\theme\templates\client\client_form.html:145
+#: .\theme\templates\client\client_form.html:153
 #: .\theme\templates\fournisseurs\fournisseur_form.html:110
 msgid "Ville"
 msgstr "Città"
 
 #: .\adresse\forms.py:22 .\adresse\models.py:14 .\carrosserie\models.py:12
 #: .\piece\models.py:9 .\piece\models.py:71
-#: .\theme\templates\client\client_form.html:151
+#: .\theme\templates\client\client_form.html:159
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:51
 #: .\theme\templates\fournisseurs\fournisseur_form.html:117
 msgid "Pays"
 msgstr "Paese"
 
 #: .\adresse\forms.py:23 .\adresse\models.py:15 .\facture\models.py:29
-#: .\fournisseur\models.py:43 .\theme\templates\client\client_form.html:157
+#: .\fournisseur\models.py:43 .\theme\templates\client\client_form.html:165
 #: .\theme\templates\fournisseurs\fournisseur_form.html:124
 msgid "Code pays"
 msgstr "Codice paese"
 
-#: .\adresse\models.py:17 .\client\models.py:118 .\facture\models.py:34
-#: .\fournisseur\models.py:79 .\theme\templates\client\client_detail.html:94
+#: .\adresse\models.py:17 .\client\models.py:128 .\facture\models.py:34
+#: .\fournisseur\models.py:79 .\theme\templates\client\client_detail.html:99
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:104
 msgid "Créé le"
 msgstr "Creato il"
@@ -66,12 +66,12 @@ msgstr "Creato il"
 msgid "Mis à jour le"
 msgstr "Aggiornato il"
 
-#: .\adresse\models.py:21 .\carrosserie\models.py:11 .\client\models.py:18
+#: .\adresse\models.py:21 .\carrosserie\models.py:11 .\client\models.py:16
 #: .\facture\models.py:17 .\fournisseur\models.py:19
-#: .\theme\templates\client\client_detail.html:75
-#: .\theme\templates\client\client_form.html:124
+#: .\theme\templates\client\client_detail.html:80
+#: .\theme\templates\client\client_form.html:132
 #: .\theme\templates\client\client_list.html:27
-#: .\theme\templates\client\client_list.html:89
+#: .\theme\templates\client\client_list.html:61
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:85
 #: .\theme\templates\fournisseurs\fournisseur_form.html:86
 msgid "Adresse"
@@ -91,9 +91,9 @@ msgstr "Nome della società"
 msgid "Téléphone"
 msgstr "Telefono"
 
-#: .\carrosserie\models.py:14 .\client\models.py:51 .\fournisseur\models.py:52
-#: .\theme\templates\client\client_form.html:87
-#: .\theme\templates\client\client_list.html:91
+#: .\carrosserie\models.py:14 .\client\models.py:55 .\fournisseur\models.py:52
+#: .\theme\templates\client\client_form.html:95
+#: .\theme\templates\client\client_list.html:63
 #: .\theme\templates\fournisseurs\fournisseur_form.html:65
 #: .\theme\templates\fournisseurs\fournisseur_list.html:56
 msgid "Email"
@@ -228,104 +228,111 @@ msgstr "Intervento %(id)s – %(carrosserie)s"
 msgid "Intervention %(id)s"
 msgstr "Intervento %(id)s"
 
-#: .\client\models.py:13 .\theme\templates\client\client_form.html:34
+#: .\client\models.py:11 .\theme\templates\client\client_form.html:34
 #: .\theme\templates\client\client_form.html:38
-#: .\theme\templates\client\client_list.html:87
+#: .\theme\templates\client\client_list.html:59
 #: .\theme\templates\utilisateurs\liste_utilisateurs.html:16
 msgid "Prénom"
 msgstr "Cognome"
 
-#: .\client\models.py:14 .\piece\models.py:8
+#: .\client\models.py:12 .\piece\models.py:8
 #: .\theme\templates\client\client_form.html:43
 #: .\theme\templates\client\client_form.html:47
-#: .\theme\templates\client\client_list.html:88
+#: .\theme\templates\client\client_list.html:60
 #: .\theme\templates\utilisateurs\liste_utilisateurs.html:15
 msgid "Nom"
 msgstr "Nome"
 
-#: .\client\models.py:23 .\theme\templates\client\client_form.html:52
+#: .\client\models.py:21 .\theme\templates\client\client_form.html:52
 #: .\theme\templates\client\client_list.html:31
-#: .\theme\templates\client\client_list.html:90
+#: .\theme\templates\client\client_list.html:62
 msgid "Numéro de téléphone"
 msgstr "Numero di telefono"
 
-#: .\client\models.py:30
+#: .\client\models.py:28
 #, fuzzy
 #| msgid "Numéro de permis"
 msgid "Numéro de permis de conduire"
 msgstr "Numero patente"
 
-#: .\client\models.py:37 .\theme\templates\client\client_detail.html:36
+#: .\client\models.py:35 .\theme\templates\client\client_detail.html:41
 #: .\theme\templates\client\client_form.html:70
 #, fuzzy
 #| msgid "Numéro de facture"
 msgid "Numéro de carte d'identité"
 msgstr "Numero fattura"
 
-#: .\client\models.py:44 .\theme\templates\client\client_form.html:78
+#: .\client\models.py:42 .\theme\templates\client\client_form.html:78
 #, fuzzy
 #| msgid "Numéro de facture"
 msgid "Numéro de compte bancaire"
 msgstr "Numero fattura"
 
-#: .\client\models.py:58 .\theme\templates\client\client_form.html:96
+#: .\client\models.py:48 .\theme\templates\client\client_detail.html:36
+#: .\theme\templates\client\client_form.html:86
+#, fuzzy
+#| msgid "Numéro de facture"
+msgid "Numéro de carte bancaire"
+msgstr "Numero fattura"
+
+#: .\client\models.py:62 .\theme\templates\client\client_form.html:104
 #, fuzzy
 #| msgid "Bas de caisse"
 msgid "Date de naissance"
 msgstr "Soglia"
 
-#: .\client\models.py:75
+#: .\client\models.py:79
 msgid "La personne doit avoir au moins 18 ans."
 msgstr ""
 
-#: .\client\models.py:90
+#: .\client\models.py:94
 msgid "Débutant"
 msgstr "Principiante"
 
-#: .\client\models.py:91
+#: .\client\models.py:95
 msgid "Intermédiaire"
 msgstr "Intermedio"
 
-#: .\client\models.py:92
+#: .\client\models.py:96
 msgid "Expert"
 msgstr "Esperto"
 
-#: .\client\models.py:93
+#: .\client\models.py:97
 msgid "Bronze"
 msgstr "Bronzo"
 
-#: .\client\models.py:94
+#: .\client\models.py:98
 msgid "Silver"
 msgstr "Argento"
 
-#: .\client\models.py:95
+#: .\client\models.py:99
 msgid "Gold"
 msgstr "Oro"
 
-#: .\client\models.py:98 .\theme\templates\client\client_detail.html:65
-#: .\theme\templates\client\client_form.html:112
+#: .\client\models.py:102 .\theme\templates\client\client_detail.html:70
+#: .\theme\templates\client\client_form.html:120
 msgid "Niveau"
 msgstr "Livello"
 
-#: .\client\models.py:105
+#: .\client\models.py:109
 msgid "Historique"
 msgstr "Storico"
 
-#: .\client\models.py:111 .\voiture\voiture_exemplaire\models.py:12
+#: .\client\models.py:115 .\voiture\voiture_exemplaire\models.py:13
 msgid "Location"
 msgstr "Noleggio"
 
-#: .\client\models.py:123 .\facture\models.py:69 .\panier\models.py:25
+#: .\client\models.py:133 .\facture\models.py:69 .\panier\models.py:25
 #: .\theme\templates\client\client_form.html:11
-#: .\voiture\voiture_exemplaire\models.py:10
+#: .\voiture\voiture_exemplaire\models.py:11
 msgid "Client"
 msgstr "Cliente"
 
-#: .\client\models.py:124 .\theme\templates\dashboard.html:234
+#: .\client\models.py:134 .\theme\templates\dashboard.html:234
 msgid "Clients"
 msgstr "Clienti"
 
-#: .\client\models.py:127
+#: .\client\models.py:137
 #, python-format
 msgid "%(nom)s %(prenom)s (Client)"
 msgstr "%(nom)s %(prenom)s (Cliente)"
@@ -494,13 +501,13 @@ msgstr "Diesel"
 
 #: .\fuel\models.py:20 .\piece\models.py:41 .\piece\models.py:99
 #: .\piece\models.py:108
-#: .\theme\templates\maintenance\check_up\creer_maintenance.html:19
+#: .\theme\templates\maintenance\creer_maintenance.html:50
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:28
 msgid "Marque"
 msgstr "Marca"
 
 #: .\fuel\models.py:26 .\piece\models.py:32
-#: .\theme\templates\maintenance\check_up\creer_maintenance.html:20
+#: .\theme\templates\maintenance\creer_maintenance.html:51
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:34
 msgid "Modèle"
 msgstr "Modello"
@@ -513,8 +520,8 @@ msgstr "Modello"
 msgid "Véhicule"
 msgstr "Veicolo"
 
-#: .\fuel\models.py:35 .\maintenance\models.py:61 .\piece\models.py:68
-#: .\theme\templates\maintenance\check_up\creer_maintenance.html:16
+#: .\fuel\models.py:35 .\maintenance\models.py:64 .\piece\models.py:68
+#: .\theme\templates\maintenance\creer_maintenance.html:16
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:39
 msgid "Immatriculation"
 msgstr "Targa"
@@ -723,7 +730,7 @@ msgstr "Cambio"
 #: .\maintenance\check_up\models.py:234 .\maintenance\check_up\models.py:291
 #: .\maintenance\check_up\models.py:388 .\maintenance\check_up\models.py:454
 #: .\maintenance\freins\models.py:17 .\maintenance\jeux_pieces\models.py:38
-#: .\maintenance\models.py:99 .\maintenance\niveaux\models.py:12
+#: .\maintenance\models.py:102 .\maintenance\niveaux\models.py:12
 #: .\maintenance\silent_blocs\models.py:27 .\theme\templates\dashboard.html:203
 msgid "Maintenance"
 msgstr "Manutenzione"
@@ -910,6 +917,7 @@ msgid "Contrôle général"
 msgstr "Controllo generale"
 
 #: .\maintenance\check_up\models.py:173
+#: .\theme\templates\maintenance\detail.html:24
 msgid "Contrôles généraux"
 msgstr "Controlli generali"
 
@@ -964,7 +972,7 @@ msgid "Non précisé"
 msgstr "Non specificato"
 
 #: .\maintenance\check_up\models.py:351 .\maintenance\jeux_pieces\models.py:108
-#: .\maintenance\models.py:45 .\utilisateurs\models.py:73
+#: .\maintenance\models.py:46 .\utilisateurs\models.py:73
 #: .\utilisateurs\views.py:172
 msgid "Apprenti"
 msgstr "Apprendista"
@@ -972,13 +980,14 @@ msgstr "Apprendista"
 #: .\maintenance\check_up\models.py:352 .\maintenance\check_up\models.py:468
 #: .\maintenance\check_up\models.py:504 .\maintenance\jeux_pieces\models.py:109
 #: .\maintenance\models.py:37 .\maintenance\nettoyage_exterieur\models.py:25
-#: .\maintenance\nettoyage_interieur\models.py:26 .\utilisateurs\models.py:74
+#: .\maintenance\nettoyage_interieur\models.py:26
+#: .\theme\templates\maintenance\detail.html:17 .\utilisateurs\models.py:74
 #: .\utilisateurs\views.py:173
 msgid "Mécanicien"
 msgstr "Meccanico"
 
 #: .\maintenance\check_up\models.py:353 .\maintenance\jeux_pieces\models.py:110
-#: .\maintenance\models.py:53
+#: .\maintenance\models.py:55
 msgid "Chef mécanicien"
 msgstr "Capo meccanico"
 
@@ -1050,10 +1059,11 @@ msgstr "Conferma finale"
 #: .\maintenance\nettoyage_exterieur\models.py:34
 #: .\maintenance\nettoyage_interieur\models.py:38 .\piece\models.py:127
 #: .\piece\piece_fluides\models.py:66 .\theme\templates\dashboard.html:51
+#: .\theme\templates\maintenance\detail.html:19
 msgid "Date"
 msgstr "Data"
 
-#: .\maintenance\check_up\models.py:478 .\maintenance\check_up\views.py:130
+#: .\maintenance\check_up\models.py:478 .\maintenance\check_up\views.py:114
 #: .\maintenance\models.py:12 .\maintenance\nettoyage_exterieur\models.py:37
 msgid "Nettoyage extérieur"
 msgstr "Pulizia esterna"
@@ -1064,7 +1074,7 @@ msgid "Nettoyages extérieurs"
 msgstr "Pulizie esterne"
 
 #: .\maintenance\check_up\models.py:490 .\maintenance\check_up\models.py:518
-#: .\maintenance\check_up\views.py:131 .\maintenance\models.py:13
+#: .\maintenance\check_up\views.py:115 .\maintenance\models.py:13
 #: .\maintenance\nettoyage_interieur\models.py:41
 msgid "Nettoyage intérieur"
 msgstr "Pulizia interna"
@@ -1100,30 +1110,30 @@ msgstr "Plastica"
 msgid "Nettoyages intérieurs"
 msgstr "Pulizie interne"
 
-#: .\maintenance\check_up\views.py:126
+#: .\maintenance\check_up\views.py:110
 msgid "Checkup"
 msgstr "Controllo"
 
-#: .\maintenance\check_up\views.py:127 .\maintenance\models.py:9
+#: .\maintenance\check_up\views.py:111 .\maintenance\models.py:9
 msgid "Entretien"
 msgstr "Manutenzione"
 
-#: .\maintenance\check_up\views.py:128 .\maintenance\models.py:10
+#: .\maintenance\check_up\views.py:112 .\maintenance\models.py:10
 msgid "Freins"
 msgstr "Freni"
 
-#: .\maintenance\check_up\views.py:129 .\maintenance\models.py:11
+#: .\maintenance\check_up\views.py:113 .\maintenance\models.py:11
 #: .\piece\piece_pneus\models.py:55 .\theme\templates\dashboard.html:188
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:170
 #: .\theme\templates\voiture_exemplaire\lier_pneus.html:35
 msgid "Pneus"
 msgstr "Pneumatici"
 
-#: .\maintenance\check_up\views.py:132 .\maintenance\models.py:14
+#: .\maintenance\check_up\views.py:116 .\maintenance\models.py:14
 msgid "Niveaux"
 msgstr "Livelli"
 
-#: .\maintenance\check_up\views.py:133 .\maintenance\models.py:15
+#: .\maintenance\check_up\views.py:117 .\maintenance\models.py:15
 msgid "Autres interventions"
 msgstr "Altri interventi"
 
@@ -1159,49 +1169,49 @@ msgstr "Rosso"
 msgid "Voiture exemplaire"
 msgstr "Esemplare auto"
 
-#: .\maintenance\models.py:62
+#: .\maintenance\models.py:65
 msgid "Date d'intervention"
 msgstr "Data intervento"
 
-#: .\maintenance\models.py:64
+#: .\maintenance\models.py:67
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:89
 msgid "Date de la dernière intervention"
 msgstr "Data ultimo intervento"
 
-#: .\maintenance\models.py:69
+#: .\maintenance\models.py:72
 msgid "Étiquette"
 msgstr "Etichetta"
 
-#: .\maintenance\models.py:76
+#: .\maintenance\models.py:79
 msgid "Kilométrage total"
 msgstr "Chilometraggio totale"
 
-#: .\maintenance\models.py:78
+#: .\maintenance\models.py:81
 msgid "Kilométrage à la dernière intervention"
 msgstr "Chilometraggio all'ultimo intervento"
 
-#: .\maintenance\models.py:82
+#: .\maintenance\models.py:85
 msgid "Kilométrage châssis"
 msgstr "Chilometraggio telaio"
 
-#: .\maintenance\models.py:86
+#: .\maintenance\models.py:89
 #: .\theme\templates\voiture_moteur\moteur_detail.html:82
 msgid "Kilométrage moteur"
 msgstr "Chilometraggio motore"
 
-#: .\maintenance\models.py:87
+#: .\maintenance\models.py:90
 msgid "Kilométrage boîte"
 msgstr "Chilometraggio cambio"
 
-#: .\maintenance\models.py:91
+#: .\maintenance\models.py:94
 msgid "Type de maintenance"
 msgstr "Tipo di manutenzione"
 
-#: .\maintenance\models.py:100
+#: .\maintenance\models.py:103
 msgid "Maintenances"
 msgstr "Manutenzioni"
 
-#: .\maintenance\models.py:118
+#: .\maintenance\models.py:114
 #, python-format
 msgid "Maintenance %(voiture)s (%(date)s)"
 msgstr "Manutenzione %(voiture)s (%(date)s)"
@@ -3608,6 +3618,10 @@ msgstr "Componente di trasmissione"
 msgid "Pièces de transmission"
 msgstr "Componenti di trasmissione"
 
+#: .\theme\templates\403.html:7
+msgid "Vous n'avez pas les droits pour accéder à cette page."
+msgstr ""
+
 #: .\theme\templates\404.html:5 .\theme\templates\404.html:18
 msgid "Page introuvable"
 msgstr "Pagina non trovata"
@@ -3711,7 +3725,7 @@ msgid "Détails du client :"
 msgstr "Dettagli del veicolo : "
 
 #: .\theme\templates\client\client_detail.html:17
-#: .\theme\templates\client\client_detail.html:117
+#: .\theme\templates\client\client_detail.html:122
 #, fuzzy
 #| msgid "Retour à la page précédente"
 msgid "Retour à la liste des clients"
@@ -3719,6 +3733,7 @@ msgstr "Torna alla pagina precedente"
 
 #: .\theme\templates\client\client_detail.html:27
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:37
+#: .\theme\templates\maintenance\detail.html:13
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:60
 msgid "Informations générales"
 msgstr "Informazioni generali"
@@ -3729,31 +3744,31 @@ msgstr "Informazioni generali"
 msgid "Numéro de compte"
 msgstr "Numero del cambio"
 
-#: .\theme\templates\client\client_detail.html:41
+#: .\theme\templates\client\client_detail.html:46
 #: .\theme\templates\client\client_form.html:61
 msgid "Numéro de permis"
 msgstr "Numero patente"
 
-#: .\theme\templates\client\client_detail.html:51
+#: .\theme\templates\client\client_detail.html:56
 #, fuzzy
 #| msgid "Modifier le véhicule"
 msgid "Modifier le client"
 msgstr "Modifica il veicolo"
 
-#: .\theme\templates\client\client_detail.html:61
+#: .\theme\templates\client\client_detail.html:66
 #, fuzzy
 #| msgid "Niveau"
 msgid "Niveau "
 msgstr "Livello"
 
-#: .\theme\templates\client\client_detail.html:82
+#: .\theme\templates\client\client_detail.html:87
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:92
 #, fuzzy
 #| msgid "Non renseignée"
 msgid "Aucune adresse renseignée."
 msgstr "Non indicata"
 
-#: .\theme\templates\client\client_detail.html:90
+#: .\theme\templates\client\client_detail.html:95
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:100
 msgid "Métadonnées"
 msgstr ""
@@ -3764,11 +3779,11 @@ msgstr ""
 msgid "Créer un client"
 msgstr "Crea un utente"
 
-#: .\theme\templates\client\client_form.html:104
+#: .\theme\templates\client\client_form.html:112
 msgid "Âge"
 msgstr "Età"
 
-#: .\theme\templates\client\client_form.html:165
+#: .\theme\templates\client\client_form.html:173
 #: .\theme\templates\client\modifier_client.html:43
 #: .\theme\templates\fournisseurs\fournisseur_form.html:131
 #: .\theme\templates\fournisseurs\modifier_fournisseur.html:43
@@ -3798,51 +3813,18 @@ msgstr "Nome del fluido"
 msgid "nom.prenom@..."
 msgstr ""
 
-#: .\theme\templates\client\client_list.html:40
-msgid "2008-01-01"
-msgstr ""
-
-#: .\theme\templates\client\client_list.html:44
-msgid "min 18"
-msgstr ""
-
-#: .\theme\templates\client\client_list.html:48
-msgid "111-1111111-11"
-msgstr ""
-
-#: .\theme\templates\client\client_list.html:52
-msgid "1735181734"
-msgstr ""
-
-#: .\theme\templates\client\client_list.html:56
+#: .\theme\templates\client\client_list.html:41
 msgid "BEXX XXXX XXXX XXXX"
 msgstr ""
 
-#: .\theme\templates\client\client_list.html:60
-#: .\theme\templates\fournisseurs\fournisseur_list.html:34
-msgid "0032"
-msgstr ""
-
-#: .\theme\templates\client\client_list.html:64
-#, fuzzy
-#| msgid "Historique"
-msgid "historique"
-msgstr "Storico"
-
-#: .\theme\templates\client\client_list.html:68
-#, fuzzy
-#| msgid "Location"
-msgid "location"
-msgstr "Noleggio"
-
-#: .\theme\templates\client\client_list.html:74
+#: .\theme\templates\client\client_list.html:46
 #, fuzzy
 #| msgid "Ajouter un exemplaire"
 msgid "Ajouter un client"
 msgstr "Aggiungi un esemplare"
 
-#: .\theme\templates\client\client_list.html:92
-#: .\theme\templates\client\client_list.html:107
+#: .\theme\templates\client\client_list.html:64
+#: .\theme\templates\client\client_list.html:79
 #: .\theme\templates\fournisseurs\fournisseur_list.html:58
 #: .\theme\templates\fournisseurs\fournisseur_list.html:72
 #: .\theme\templates\voiture_boite\list.html:40
@@ -3860,13 +3842,13 @@ msgstr "Aggiungi un esemplare"
 msgid "Info"
 msgstr "Informazioni"
 
-#: .\theme\templates\client\client_list.html:110
+#: .\theme\templates\client\client_list.html:82
 #, fuzzy
 #| msgid "Aucune entrée disponible"
 msgid "Info indisponible"
 msgstr "Nessuna voce disponibile"
 
-#: .\theme\templates\client\client_list.html:126
+#: .\theme\templates\client\client_list.html:98
 #: .\theme\templates\fournisseurs\fournisseur_list.html:87
 #: .\theme\templates\voiture_embrayage\list.html:85
 #: .\theme\templates\voiture_freins\list.html:77
@@ -3875,7 +3857,7 @@ msgstr "Nessuna voce disponibile"
 msgid "Recherche globale :"
 msgstr "Cerca :"
 
-#: .\theme\templates\client\client_list.html:127
+#: .\theme\templates\client\client_list.html:99
 #: .\theme\templates\fournisseurs\fournisseur_list.html:88
 #: .\theme\templates\voiture_boite\list.html:74
 #: .\theme\templates\voiture_embrayage\list.html:86
@@ -3886,20 +3868,20 @@ msgstr "Cerca :"
 msgid "Afficher _MENU_ éléments"
 msgstr "Mostra _MENU_ elementi"
 
-#: .\theme\templates\client\client_list.html:128
+#: .\theme\templates\client\client_list.html:100
 #, fuzzy
 #| msgid "Affichage de _START_ à _END_ sur _TOTAL_ entrées"
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ client"
 msgstr "Visualizzazione da _START_ a _END_ di _TOTAL_ voci"
 
-#: .\theme\templates\client\client_list.html:129
-#: .\theme\templates\client\client_list.html:130
+#: .\theme\templates\client\client_list.html:101
+#: .\theme\templates\client\client_list.html:102
 #, fuzzy
 #| msgid "Aucun pneu trouvé"
 msgid "Aucun client trouvé"
 msgstr "Nessun pneumatico trovato"
 
-#: .\theme\templates\client\client_list.html:132
+#: .\theme\templates\client\client_list.html:104
 #: .\theme\templates\fournisseurs\fournisseur_list.html:93
 #: .\theme\templates\voiture_boite\list.html:79
 #: .\theme\templates\voiture_embrayage\list.html:91
@@ -3910,7 +3892,7 @@ msgstr "Nessun pneumatico trovato"
 msgid "Premier"
 msgstr "Primo"
 
-#: .\theme\templates\client\client_list.html:133
+#: .\theme\templates\client\client_list.html:105
 #: .\theme\templates\fournisseurs\fournisseur_list.html:94
 #: .\theme\templates\voiture_boite\list.html:80
 #: .\theme\templates\voiture_embrayage\list.html:92
@@ -3921,7 +3903,7 @@ msgstr "Primo"
 msgid "Dernier"
 msgstr "Ultimo"
 
-#: .\theme\templates\client\client_list.html:134
+#: .\theme\templates\client\client_list.html:106
 #: .\theme\templates\fournisseurs\fournisseur_list.html:95
 #: .\theme\templates\voiture_boite\list.html:81
 #: .\theme\templates\voiture_embrayage\list.html:93
@@ -3932,7 +3914,7 @@ msgstr "Ultimo"
 msgid "Suivant"
 msgstr "Successivo"
 
-#: .\theme\templates\client\client_list.html:135
+#: .\theme\templates\client\client_list.html:107
 #: .\theme\templates\fournisseurs\fournisseur_list.html:96
 #: .\theme\templates\voiture_boite\list.html:82
 #: .\theme\templates\voiture_embrayage\list.html:94
@@ -4094,6 +4076,10 @@ msgstr "Partita IVA"
 msgid "info@..."
 msgstr ""
 
+#: .\theme\templates\fournisseurs\fournisseur_list.html:34
+msgid "0032"
+msgstr ""
+
 #: .\theme\templates\fournisseurs\fournisseur_list.html:40
 #, fuzzy
 #| msgid "Ajouter un moteur"
@@ -4143,77 +4129,79 @@ msgstr "Questo è un paragrafo stilizzato con Tailwind."
 msgid "Se connecter"
 msgstr "Accedi"
 
-#: .\theme\templates\maintenance\check_up\creer_maintenance.html:9
+#: .\theme\templates\maintenance\choisir_type.html:11
+msgid "Choisir le type de maintenance pour :"
+msgstr "Seleziona il tipo di manutenzione per:"
+
+#: .\theme\templates\maintenance\creer_maintenance.html:9
 msgid "Créer un check-up complet pour :"
 msgstr ""
 
-#: .\theme\templates\maintenance\check_up\creer_maintenance.html:14
+#: .\theme\templates\maintenance\creer_maintenance.html:14
 #, fuzzy
 #| msgid "Détails de l'embrayage"
 msgid "Détails de l'exemplaire"
 msgstr "Dettagli della frizione"
 
-#: .\theme\templates\maintenance\check_up\creer_maintenance.html:17
+#: .\theme\templates\maintenance\creer_maintenance.html:48
 #, fuzzy
 #| msgid "Kilométrage total"
 msgid "Kilomètres total"
 msgstr "Chilometraggio totale"
 
-#: .\theme\templates\maintenance\check_up\creer_maintenance.html:18
+#: .\theme\templates\maintenance\creer_maintenance.html:49
 #, fuzzy
 #| msgid "Kilomètres de la dernière intervention"
 msgid "Kilomètres depuis dernière intervention"
 msgstr "Chilometraggio all'ultimo intervento"
 
-#: .\theme\templates\maintenance\check_up\creer_maintenance.html:26
+#: .\theme\templates\maintenance\creer_maintenance.html:52
+#, fuzzy
+#| msgid "Variation"
+msgid "Variante"
+msgstr "Variazione"
+
+#: .\theme\templates\maintenance\creer_maintenance.html:63
 msgid "Aperçu du check-up complet"
 msgstr ""
 
-#: .\theme\templates\maintenance\check_up\creer_maintenance.html:29
-#, fuzzy
-#| msgid "Contrôle général"
-msgid "Contrôle général du véhicule"
-msgstr "Controllo generale"
-
-#: .\theme\templates\maintenance\check_up\creer_maintenance.html:30
-msgid "Vérification des amortisseurs et ressorts"
-msgstr ""
-
-#: .\theme\templates\maintenance\check_up\creer_maintenance.html:31
-msgid "Contrôle des bruits par emplacement et type"
-msgstr ""
-
-#: .\theme\templates\maintenance\check_up\creer_maintenance.html:32
-msgid "Vérification des pièces (rotules, biellettes, barre stabilisatrice…)"
-msgstr ""
-
-#: .\theme\templates\maintenance\check_up\creer_maintenance.html:33
-#, fuzzy
-#| msgid "Contrôle freins – %(partie)s (%(date)s)"
-msgid "Contrôle des freins (plaquettes, disques, fuites…)"
-msgstr "Controllo freni – %(partie)s (%(date)s)"
-
-#: .\theme\templates\maintenance\check_up\creer_maintenance.html:34
-msgid "Nettoyage intérieur (vitres, tableau de bord, plastiques…)"
-msgstr ""
-
-#: .\theme\templates\maintenance\check_up\creer_maintenance.html:35
-msgid "Nettoyage extérieur (carrosserie, jantes, traces de gomme…)"
-msgstr ""
-
-#: .\theme\templates\maintenance\check_up\creer_maintenance.html:45
+#: .\theme\templates\maintenance\creer_maintenance.html:81
 msgid "Créer le check-up complet"
 msgstr ""
 
-#: .\theme\templates\maintenance\check_up\creer_maintenance.html:50
+#: .\theme\templates\maintenance\creer_maintenance.html:86
 #, fuzzy
 #| msgid "Date du plein"
 msgid "Date actuelle"
 msgstr "Data rifornimento"
 
-#: .\theme\templates\maintenance\choisir_type.html:12
-msgid "Choisir le type de maintenance pour :"
-msgstr "Seleziona il tipo di manutenzione per:"
+#: .\theme\templates\maintenance\detail.html:9
+#, fuzzy
+#| msgid "Type de maintenance"
+msgid "Détail de la maintenance"
+msgstr "Tipo di manutenzione"
+
+#: .\theme\templates\maintenance\detail.html:15
+#, fuzzy
+#| msgid "Maintenance"
+msgid "ID Maintenance"
+msgstr "Manutenzione"
+
+#: .\theme\templates\maintenance\detail.html:16
+#, fuzzy
+#| msgid "Exemplaire de voiture"
+msgid "Exemplaire"
+msgstr "Esemplare di auto"
+
+#: .\theme\templates\maintenance\detail.html:18
+msgid "Type"
+msgstr "Tipo"
+
+#: .\theme\templates\maintenance\detail.html:28
+#, fuzzy
+#| msgid "Aucun modèle enregistré pour cette marque."
+msgid "Aucun contrôle enregistré."
+msgstr "Nessun modello registrato per questo marchio."
 
 #: .\theme\templates\maintenance\list.html:10
 msgid "Maintenance du véhicule :"
@@ -5417,11 +5405,11 @@ msgstr "Rinforzato / Competizione"
 msgid "Bimasse (pour volant moteur DMF)"
 msgstr "Bimassa (per volano DMF)"
 
-#: .\voiture\voiture_exemplaire\models.py:9
+#: .\voiture\voiture_exemplaire\models.py:10
 msgid "Société"
 msgstr "Società"
 
-#: .\voiture\voiture_exemplaire\models.py:11
+#: .\voiture\voiture_exemplaire\models.py:12
 msgid "Privé"
 msgstr "Privato"
 
@@ -5699,6 +5687,26 @@ msgstr "Chilometri pneumatici anteriori"
 msgid "Kilomètres pneus arrière"
 msgstr "Chilometri pneumatici posteriori"
 
+#, fuzzy
+#~| msgid "Historique"
+#~ msgid "historique"
+#~ msgstr "Storico"
+
+#, fuzzy
+#~| msgid "Location"
+#~ msgid "location"
+#~ msgstr "Noleggio"
+
+#, fuzzy
+#~| msgid "Contrôle général"
+#~ msgid "Contrôle général du véhicule"
+#~ msgstr "Controllo generale"
+
+#, fuzzy
+#~| msgid "Contrôle freins – %(partie)s (%(date)s)"
+#~ msgid "Contrôle des freins (plaquettes, disques, fuites…)"
+#~ msgstr "Controllo freni – %(partie)s (%(date)s)"
+
 #~ msgid "Type de composant"
 #~ msgstr "Tipo di componente"
 
@@ -5722,9 +5730,6 @@ msgstr "Chilometri pneumatici posteriori"
 
 #~ msgid "Choisir une cylindrée"
 #~ msgstr "Scegli una cilindrata"
-
-#~ msgid "Type"
-#~ msgstr "Tipo"
 
 #~ msgid "Voulez-vous lier ce moteur à ce véhicule ?"
 #~ msgstr "Vuoi collegare questo motore a questo veicolo?"

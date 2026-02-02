@@ -220,6 +220,11 @@ LOGIN_REDIRECT_URL = '/fr/'
 LOGOUT_REDIRECT_URL = '/fr/login/'
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SECURE_SSL_REDIRECT = False  # True seulement si tu passes par Nginx
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+
 
 # ------------------------------------------------------------------------------
 # MIDDLEWARE (ORDRE CRITIQUE)
