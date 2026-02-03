@@ -4020,52 +4020,38 @@ msgid "Tableau de bord Admin"
 msgstr "Admin-dashboard"
 
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:10
-#, fuzzy
-#| msgid "Détails du moteur"
 msgid "Détails du fournisseur :"
-msgstr "Motordetails"
+msgstr "Leveranciersdetails:"
 
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:27
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:127
 msgid "Retour à la liste des fournisseurs"
-msgstr ""
+msgstr "Terug naar de leverancierslijst"
 
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:61
-#, fuzzy
-#| msgid "Nom du fournisseur"
 msgid "Modifier le fournisseur"
-msgstr "Naam leverancier"
+msgstr "Leverancier wijzigen"
 
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:71
-#, fuzzy
-#| msgid "Informations générales"
 msgid "Informations Peppol"
-msgstr "Algemene informatie"
+msgstr "Peppol-informatie"
 
 #: .\theme\templates\fournisseurs\fournisseur_form.html:12
-#, fuzzy
-#| msgid "Créer un utilisateur"
 msgid "Créer un Fournisseur"
-msgstr "Maak een gebruiker aan"
+msgstr "Leverancier aanmaken"
 
 #: .\theme\templates\fournisseurs\fournisseur_form.html:57
 #: .\theme\templates\fournisseurs\fournisseur_list.html:25
-#, fuzzy
-#| msgid "Numéro"
 msgid "Numéro Peppol"
-msgstr "Nummer"
+msgstr "Peppol-nummer"
 
 #: .\theme\templates\fournisseurs\fournisseur_list.html:4
 #: .\theme\templates\fournisseurs\fournisseur_list.html:10
-#, fuzzy
-#| msgid "Liste des utilisateurs"
 msgid "Liste des Fournisseurs"
-msgstr "Gebruikerslijst"
+msgstr "Leverancierslijst"
 
 #: .\theme\templates\fournisseurs\fournisseur_list.html:21
 #: .\theme\templates\fournisseurs\fournisseur_list.html:54
-#, fuzzy
-#| msgid "Numéro de TVA"
 msgid "Numero de TVA"
 msgstr "BTW-nummer"
 
@@ -4078,41 +4064,30 @@ msgid "0032"
 msgstr ""
 
 #: .\theme\templates\fournisseurs\fournisseur_list.html:40
-#, fuzzy
-#| msgid "Ajouter un moteur"
 msgid "Ajouter un fournisseur"
-msgstr "Voeg een motor toe"
+msgstr "Voeg een leverancier toe"
 
 #: .\theme\templates\fournisseurs\fournisseur_list.html:53
-#, fuzzy
-#| msgid "Nom du fournisseur"
 msgid "Nom du Fournisseur"
 msgstr "Naam leverancier"
 
 #: .\theme\templates\fournisseurs\fournisseur_list.html:55
-#, fuzzy
-#| msgid "Numero"
 msgid "Numero Peppol"
-msgstr "Nummer"
+msgstr "Peppol-nummer"
 
 #: .\theme\templates\fournisseurs\fournisseur_list.html:89
-#, fuzzy
-#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ moteurs"
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ fournisseurs"
-msgstr "Weergeven van _START_ tot _END_ van _TOTAL_ motoren"
+msgstr "Weergeven van _START_ tot _END_ van _TOTAL_ leveranciers"
 
 #: .\theme\templates\fournisseurs\fournisseur_list.html:90
 #: .\theme\templates\fournisseurs\fournisseur_list.html:91
-#, fuzzy
-#| msgid "Aucun moteur trouvé"
 msgid "Aucun fournisseur trouvé"
-msgstr "Geen motor gevonden"
+msgstr "Geen leverancier gevonden"
 
 #: .\theme\templates\fournisseurs\modifier_fournisseur.html:10
-#, fuzzy
-#| msgid "Nom du fournisseur"
 msgid "Modifier le fournisseur :"
-msgstr "Naam leverancier"
+msgstr "Leverancier wijzigen:"
+
 
 #: .\theme\templates\home.html:20
 msgid "Bienvenue"
@@ -4132,73 +4107,57 @@ msgstr "Kies het type onderhoud voor:"
 
 #: .\theme\templates\maintenance\creer_maintenance.html:9
 msgid "Créer un check-up complet pour :"
-msgstr ""
+msgstr "Volledige check-up aanmaken voor:"
 
 #: .\theme\templates\maintenance\creer_maintenance.html:14
-#, fuzzy
-#| msgid "Détails de l'embrayage"
 msgid "Détails de l'exemplaire"
-msgstr "Details van de koppeling"
+msgstr "Details van het exemplaar"
 
 #: .\theme\templates\maintenance\creer_maintenance.html:48
-#, fuzzy
-#| msgid "Kilométrage total"
 msgid "Kilomètres total"
 msgstr "Total kilometrage"
 
 #: .\theme\templates\maintenance\creer_maintenance.html:49
-#, fuzzy
-#| msgid "Kilomètres de la dernière intervention"
 msgid "Kilomètres depuis dernière intervention"
-msgstr "Kilometrage bij laatste interventie"
+msgstr "Kilometers sinds laatste onderhoud"
 
 #: .\theme\templates\maintenance\creer_maintenance.html:52
-#, fuzzy
-#| msgid "Variation"
 msgid "Variante"
-msgstr "Variatie"
+msgstr "Variant"
 
 #: .\theme\templates\maintenance\creer_maintenance.html:63
 msgid "Aperçu du check-up complet"
-msgstr ""
+msgstr "Overzicht van de volledige check-up"
 
 #: .\theme\templates\maintenance\creer_maintenance.html:81
 msgid "Créer le check-up complet"
-msgstr ""
+msgstr "Volledige check-up aanmaken"
 
 #: .\theme\templates\maintenance\creer_maintenance.html:86
-#, fuzzy
-#| msgid "Date du plein"
 msgid "Date actuelle"
-msgstr "Tankdatum"
+msgstr "Huidige datum"
 
 #: .\theme\templates\maintenance\detail.html:9
-#, fuzzy
-#| msgid "Type de maintenance"
 msgid "Détail de la maintenance"
-msgstr "Onderhoudstype"
+msgstr "Onderhoudsdetail"
+
 
 #: .\theme\templates\maintenance\detail.html:15
-#, fuzzy
-#| msgid "Maintenance"
 msgid "ID Maintenance"
-msgstr "Onderhoud"
+msgstr "Onderhouds-ID"
 
 #: .\theme\templates\maintenance\detail.html:16
-#, fuzzy
-#| msgid "Exemplaire de voiture"
 msgid "Exemplaire"
-msgstr "Voertuigexemplaar"
+msgstr "Exemplaar"
 
 #: .\theme\templates\maintenance\detail.html:18
 msgid "Type"
 msgstr "Type"
 
 #: .\theme\templates\maintenance\detail.html:28
-#, fuzzy
-#| msgid "Aucun modèle enregistré pour cette marque."
 msgid "Aucun contrôle enregistré."
-msgstr "Geen model geregistreerd voor dit merk."
+msgstr "Geen controle geregistreerd."
+
 
 #: .\theme\templates\maintenance\list.html:10
 msgid "Maintenance du véhicule :"
@@ -4557,10 +4516,9 @@ msgid "Type d'utilisation"
 msgstr "Type gebruik"
 
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:63
-#, fuzzy
-#| msgid "Sélectionner un type de distribution"
 msgid "Sélectionner un type d'utilisation"
-msgstr "Selecteer een distributietype"
+msgstr "Selecteer een gebruikstype"
+
 
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:79
 msgid "Kilomètres du chassis"
@@ -4729,16 +4687,13 @@ msgid "Lier le moteur"
 msgstr "Koppel de motor"
 
 #: .\theme\templates\voiture_exemplaire\lier_pneus.html:12
-#, fuzzy
-#| msgid "Moteur du véhicule: "
 msgid "Pneus du véhicule"
-msgstr "Motor van het voertuig: "
+msgstr "Voertuigbanden"
 
 #: .\theme\templates\voiture_exemplaire\lier_pneus.html:40
-#, fuzzy
-#| msgid "Sélectionner un type"
 msgid "Sélectionner les pneus"
-msgstr "Selecteer een type"
+msgstr "Selecteer de banden"
+
 
 #: .\theme\templates\voiture_exemplaire\list.html:7
 msgid "Liste de tous les véhicules"
@@ -4945,10 +4900,9 @@ msgid "Mes marques favorites"
 msgstr "Mijn favoriete merken"
 
 #: .\theme\templates\voiture_marque\marques_favorites.html:29
-#, fuzzy
-#| msgid "Aucun exemplaire enregistré pour ce modèle."
 msgid "Aucune marque favorite pour le moment."
-msgstr "Geen exemplaar geregistreerd voor dit model."
+msgstr "Nog geen favoriete merken."
+
 
 #: .\theme\templates\voiture_marque\marques_list.html:55
 msgid "Voir les"
@@ -5259,8 +5213,6 @@ msgid "Détails des pneus"
 msgstr "Bandendetails"
 
 #: .\theme\templates\voiture_pneus\pneus_detail.html:37
-#, fuzzy, python-format
-#| msgid "Hauteur en %%"
 msgid "Hauteur en %%"
 msgstr "Hoogte in %"
 
@@ -5687,25 +5639,17 @@ msgstr "Kilometers voorbanden"
 msgid "Kilomètres pneus arrière"
 msgstr "Kilometers achterbanden"
 
-#, fuzzy
-#~| msgid "Historique"
 #~ msgid "historique"
 #~ msgstr "Geschiedenis"
 
-#, fuzzy
-#~| msgid "Location"
 #~ msgid "location"
 #~ msgstr "Verhuur"
 
-#, fuzzy
-#~| msgid "Contrôle général"
 #~ msgid "Contrôle général du véhicule"
-#~ msgstr "Algemene controle"
+#~ msgstr "Algemene voertuigcontrole"
 
-#, fuzzy
-#~| msgid "Contrôle freins – %(partie)s (%(date)s)"
 #~ msgid "Contrôle des freins (plaquettes, disques, fuites…)"
-#~ msgstr "Remmencontrole – %(partie)s (%(date)s)"
+#~ msgstr "Remmencontrole (blokjes, schijven, lekken…)"
 
 #~ msgid "Type de composant"
 #~ msgstr "Type component"
