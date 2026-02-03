@@ -23,9 +23,7 @@ from voiture.voiture_modele.models import VoitureModele
 from fournisseur.models import Fournisseur
 from client.models import Client
 from carrosserie.models import Carrosserie
-from carrosserie.models import Intervention
-
-
+from intervention.models import Intervention
 
 
 def login_view(request):

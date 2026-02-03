@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import CarrosserieListView, carrosserie_detail, ajouter_carrosserie_all, modifier_carrosserie, \
-    InterventionListView, ajouter_intervention_all
+from .views import CarrosserieListView, carrosserie_detail, ajouter_carrosserie_all, modifier_carrosserie
+
 
 app_name = "carrosserie"
 
@@ -28,17 +28,6 @@ path(
         'carrosserie/<uuid:carrosserie_id>/modifier/',
         modifier_carrosserie,
         name='modifier_carrosserie'),
-
-    path(
-        "intervention/",
-        InterventionListView,
-        name="carrosserie_list",
-    ),
-    path(
-        "information/creer/",
-        ajouter_intervention_all,
-        name="intervention_create",
-    ),
 
 path(
         "<uuid:carrosserie_id>/",
