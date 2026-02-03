@@ -250,40 +250,30 @@ msgid "Numéro de téléphone"
 msgstr "Telefoonnummer"
 
 #: .\client\models.py:28
-#, fuzzy
-#| msgid "Numéro de permis"
 msgid "Numéro de permis de conduire"
 msgstr "Rijbewijsnummer"
 
 #: .\client\models.py:35 .\theme\templates\client\client_detail.html:41
 #: .\theme\templates\client\client_form.html:70
-#, fuzzy
-#| msgid "Numéro de facture"
 msgid "Numéro de carte d'identité"
-msgstr "Factuurnummer"
+msgstr "Identiteitskaartnummer"
 
 #: .\client\models.py:42 .\theme\templates\client\client_form.html:78
-#, fuzzy
-#| msgid "Numéro de facture"
 msgid "Numéro de compte bancaire"
-msgstr "Factuurnummer"
+msgstr "Bankrekeningnummer"
 
 #: .\client\models.py:48 .\theme\templates\client\client_detail.html:36
 #: .\theme\templates\client\client_form.html:86
-#, fuzzy
-#| msgid "Numéro de facture"
 msgid "Numéro de carte bancaire"
-msgstr "Factuurnummer"
+msgstr "Creditcardnummer"
 
 #: .\client\models.py:62 .\theme\templates\client\client_form.html:104
-#, fuzzy
-#| msgid "Bas de caisse"
 msgid "Date de naissance"
-msgstr "Dorpel"
+msgstr "Geboortedatum"
 
 #: .\client\models.py:79
 msgid "La personne doit avoir au moins 18 ans."
-msgstr ""
+msgstr "De persoon moet minstens 18 jaar oud zijn."
 
 #: .\client\models.py:94
 msgid "Débutant"
@@ -441,36 +431,27 @@ msgid "ISO 3166-1 alpha-2"
 msgstr "ISO 3166-1 alpha-2"
 
 #: .\fournisseur\models.py:56
-#, fuzzy
-#| msgid "Nom du fournisseur"
 msgid "Email du fournisseur"
-msgstr "Naam leverancier"
+msgstr "E-mail van de leverancier"
 
 #: .\fournisseur\models.py:60
 #: .\theme\templates\fournisseurs\fournisseur_form.html:72
-#, fuzzy
-#| msgid "Téléphone"
 msgid "Téléphone fixe"
-msgstr "Telefoon"
+msgstr "Vaste telefoon"
 
 #: .\fournisseur\models.py:64
-#, fuzzy
-#| msgid "Numéro de téléphone"
 msgid "Numéro de téléphone fixe"
-msgstr "Telefoonnummer"
+msgstr "Vast telefoonnummer"
 
 #: .\fournisseur\models.py:68
 #: .\theme\templates\fournisseurs\fournisseur_form.html:79
-#, fuzzy
-#| msgid "GPS"
 msgid "GSM"
-msgstr "GPS"
+msgstr "Mobiel"
 
 #: .\fournisseur\models.py:72
-#, fuzzy
-#| msgid "Numéro de téléphone"
 msgid "Numéro de téléphone mobile"
-msgstr "Telefoonnummer"
+msgstr "Mobiel nummer"
+
 
 #: .\fournisseur\models.py:77
 msgid "Actif"
@@ -742,10 +723,9 @@ msgid "Emplacement"
 msgstr "locatie"
 
 #: .\maintenance\bruits\models.py:36 .\maintenance\check_up\models.py:244
-#, fuzzy
-#| msgid "Type de roue"
 msgid "Type de bruit"
-msgstr "Type wiel"
+msgstr "Geluidstype"
+
 
 #: .\maintenance\bruits\models.py:41 .\maintenance\check_up\models.py:248
 msgid "Normal"
@@ -852,10 +832,9 @@ msgid "Essuie-glace AR fonctionnel"
 msgstr "Achterruitwisser werkt"
 
 #: .\maintenance\check_up\models.py:93
-#, fuzzy
-#| msgid "Pare_Brise sans coups"
 msgid "Pare-brise sans coups"
-msgstr "Voorruit zonder schade"
+msgstr "Ruit zonder beschadigingen"
+
 
 #: .\maintenance\check_up\models.py:100
 msgid "Fuite moteur"
@@ -890,16 +869,12 @@ msgid "Niveau liquide direction"
 msgstr "Stuurbekrachtigingsvloeistofniveau"
 
 #: .\maintenance\check_up\models.py:146
-#, fuzzy
-#| msgid "Roulement de roue"
 msgid "État roulement de roue"
-msgstr "Wiellager"
+msgstr "Staat van het wielager"
 
 #: .\maintenance\check_up\models.py:151
-#, fuzzy
-#| msgid "Cage de roulement"
 msgid "Emplacement du roulement"
-msgstr "Lagerkooi"
+msgstr "Locatie van het lager"
 
 #: .\maintenance\check_up\models.py:161
 msgid "État batterie"
@@ -1006,30 +981,24 @@ msgid "Présence de fentes sur les disques"
 msgstr "Aanwezigheid van scheuren op de schijven"
 
 #: .\maintenance\check_up\models.py:407
-#, fuzzy
-#| msgid "Sélectionner un système de freinage avant"
 msgid "Présence de fuite du système de freinage"
-msgstr "Selecteer een voorremsysteem"
+msgstr "Aanwezigheid van lekkage in het remsysteem"
 
 #: .\maintenance\check_up\models.py:411
 msgid "Disques avant à remplacer"
-msgstr ""
+msgstr "Voorste schijven te vervangen"
 
 #: .\maintenance\check_up\models.py:415
-#, fuzzy
-#| msgid "Sièges arrière gauche"
 msgid "Disques arrière à remplacer"
-msgstr "Linker achterzetel"
+msgstr "Achterste schijven te vervangen"
 
 #: .\maintenance\check_up\models.py:419
 msgid "Plaquettes avant à remplacer"
-msgstr ""
+msgstr "Voorste remblokken te vervangen"
 
 #: .\maintenance\check_up\models.py:423
-#, fuzzy
-#| msgid "Marque plaquettes arrière"
 msgid "Plaquettes arrière à remplacer"
-msgstr "Merk van de achterremblokken"
+msgstr "Achterste remblokken te vervangen"
 
 #: .\maintenance\check_up\models.py:428 .\maintenance\freins\models.py:60
 #, python-format
