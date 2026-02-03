@@ -5,6 +5,7 @@ from .views import CarrosserieListView, carrosserie_detail, ajouter_carrosserie_
 app_name = "carrosserie"
 
 
+
 urlpatterns = [
     path(
         "carrosserie/",

@@ -23,6 +23,9 @@ from voiture.voiture_modele.models import VoitureModele
 from fournisseur.models import Fournisseur
 from client.models import Client
 from carrosserie.models import Carrosserie
+from carrosserie.models import Intervention
+
+
 
 
 def login_view(request):
@@ -87,10 +90,10 @@ def dashboard_view(request):
     total_marques = total_moteurs = total_exemplaires = 0
     total_boites = total_embrayages = total_freins = 0
     total_freins_ar = total_pneus = total_maintenance = 0
-    total_client = total_carrosserie = 0
+    total_client = total_carrosserie = total_intervention = 0
 
     marques = moteurs = exemplaires = boites = embrayages = freins =\
-        freins_ar = pneus = maintenance = carrosserie =  client = []
+        freins_ar = pneus = maintenance = carrosserie = intervention =  client = []
 
     # --- Récupération des stats selon le tenant ---
     if schema_name:
@@ -107,6 +110,7 @@ def dashboard_view(request):
             fournisseur = Fournisseur.objects.all()
             client = Client.objects.all()
             carrosserie = Carrosserie.objects.all()
+            intervention = Intervention.objects.all()
 
             # Totaux
             total_marques = marques.count()
@@ -121,6 +125,7 @@ def dashboard_view(request):
             total_fournisseur = fournisseur.count()
             total_client = client.count()
             total_carrosserie = carrosserie.count()
+            total_intervention = intervention.count()
 
             # Récupère les modèles existants pour les liens maintenance
             modeles = VoitureModele.objects.all()
@@ -141,6 +146,7 @@ def dashboard_view(request):
         'total_fournisseur': total_fournisseur,
         'total_client': total_client,
         'total_carrosserie': total_carrosserie,
+        'total_intervention': total_intervention,
 
         'marques': marques,
         'moteurs': moteurs,
@@ -155,6 +161,7 @@ def dashboard_view(request):
         'fournisseur': fournisseur,
         'client': client,
         'carrosserie': carrosserie,
+        'intervention': intervention,
     })
 
     # --- Tâches et rôles ---
