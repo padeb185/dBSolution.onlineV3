@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="p-6 w-full ml-[-10px] mr-[10px]">
+
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
+       <h1 class="text-2xl font-bold flex items-center gap-4">
+            <span>{% trans "Détails de la carrosserie :" %}</span>
+            {% with image_name=carrosserie.nom_societe|slugify %}
+                <img src="{% static 'carrosserie/'|add:image_name|add:'.png' %}"
+                     alt="{{ carrosserie.nom }}"
+                     class="w-12 h-12"
+                     onerror="this.src='{% static 'carrosserie/carrosserie.png' %}';">
+            {% endwith %}
+           <span class="text-black-700">{{ carrosserie.nom_societe }}</span>
+        </h1>
+
+        <a href="{% url 'carrosserie:carrosserie_list' %}"
+           class="text-blue-600 hover:underline">
+            ← {% trans "Retour à la liste des carrosseries" %}
+        </a>
+    </div>
+
+    <!-- Infos principales -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+
+        <!-- Informations générales -->
+        <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
+            <h2 class="text-lg font-semibold mb-2">
+                {% trans "Informations générales" %}
+            </h2>
+
+            <p>
+                <strong>{% trans "Numéro de TVA" %} :</strong>
+                {{ carrosserie.numero_tva }}
+            </p>
+
+            <p>
+                <strong>{% trans "Taux de TVA" %} :</strong>
+                {{ carrosserie.taux_tva }} %
+            </p>
+
+            <p>
+                <strong>{% trans "Pays" %} :</strong>
+                {{ carrosserie.country_code }}
+            </p>
+
+
+
+           <div class="mt-auto w-full">
+                <a href="{% url 'carrosserie:modifier_carrosserie' carrosserie.id %}" class="block w-full">
+                    <button type="button"
+                            class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+                        {% trans "Modifier le carrosserie" %}
+                    </button>
+                </a>
+           </div>
+
+        </div>
+
+        <!-- Peppol -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-lg font-semibold mb-4">
+                {% trans "Informations Peppol" %}
+            </h2>
+
+            <p>
+                <strong>{% trans "Identifiant Peppol" %} :</strong><br>
+                {{ carrosserie.peppol_id }}
+            </p>
+
+        </div>
+    </div>
+
+    <!-- Adresse -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">
+            {% trans "Adresse" %}
+        </h2>
+
+        {% if carrosserie.adresse %}
+            <p>{{ carrosserie.adresse }}</p>
+        {% else %}
+            <p class="text-gray-500">
+                {% trans "Aucune adresse renseignée." %}
+            </p>
+        {% endif %}
+    </div>
+
+    <!-- Métadonnées -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">
+            {% trans "Métadonnées" %}
+        </h2>
+
+        <p>
+            <strong>{% trans "Créé le" %} :</strong>
+            {{ carrosserie.created_at|date:"d/m/Y H:i" }}
+        </p>
+    </div>
+
+    <!-- Messages -->
+    {% if messages %}
+        {% for message in messages %}
+        <div class="mb-3 px-4 py-2 rounded
+            {% if message.tags == 'success' %}
+                bg-green-100 text-green-800 border border-green-300
+            {% else %}
+                bg-red-100 text-red-800 border border-red-300
+            {% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Actions -->
+    <div class="bg-white shadow-md rounded-lg p-6 flex gap-4">
+        <a href="{% url 'carrosserie:carrosserie_list' %}" class="flex-1">
+              <button type="button" class="bg-blue-700 text-white px-4 py-2 rounded w-full mt-4">
+                    {% trans "Retour à la liste des carrosseries" %}
+              </button>
+        </a>
+    </div>
+
+</div>
+{% endblock %}

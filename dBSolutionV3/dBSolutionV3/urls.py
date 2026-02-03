@@ -68,4 +68,6 @@ urlpatterns += i18n_patterns(
 
     path("client/", include("client.urls")),
 
+    path("carrosserie/", include("carrosserie.urls")),
+
 )

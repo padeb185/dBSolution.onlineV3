@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load i18n widget_tweaks static %}
+
+
+{% block content %}
+<div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
+
+    <div class="flex justify-between items-center mb-6">
+       <h1 class="text-2xl font-bold flex items-center gap-4">
+            <span>{% trans "Modifier le carrosserie :" %}</span>
+           {% with image_name=carrosserie.nom|slugify %}
+                <img src="{% static 'carrosserie/'|add:image_name|add:'.png' %}"
+                     alt="{{ carrosserie.nom }}"
+                     class="w-12 h-12"
+                     onerror="this.src='{% static 'carrosseriescarrosserie.png' %}';">
+            {% endwith %}
+           <span class="text-black-700">{{ carrosserie.nom }}</span>
+        </h1>
+    </div>
+    <form method="post" class="space-y-4">
+        {% csrf_token %}
+
+        {% for field in form %}
+            <div>
+                <label class="block font-semibold mb-1">
+                    {{ field.label }}
+                </label>
+
+                {{ field|add_class:"input" }}
+
+                {% if field.help_text %}
+                    <p class="text-gray-500 text-sm mt-1">
+                        {{ field.help_text }}
+                    </p>
+                {% endif %}
+
+                {% if field.errors %}
+                    <p class="text-red-600 text-sm mt-1">
+                        {{ field.errors|striptags }}
+                    </p>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+
+          <div class="flex gap-3 mt-6">
+                <button type="submit"
+                        class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+                    {% trans "Enregistrer" %}
+                </button>
+
+                <a href="{% url 'carrosserie:carrosserie_detail' carrosserie_id=carrosserie.id %}"
+                   class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
+                    {% trans "Annuler" %}
+                </a>
+            </div>
+
+
+
+    </form>
+</div>
+
+<style>
+.input {
+    width: 100% !important;
+    border: 1px solid #ccc !important;
+    border-radius: 6px !important;
+    padding: 8px !important;
+    box-sizing: border-box !important;
+}
+</style>
+{% endblock %}
