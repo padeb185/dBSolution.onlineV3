@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import CarrosserieListView, carrosserie_detail, ajouter_carrosserie_all, modifier_carrosserie, \
-    InterventionListView
+    InterventionListView, ajouter_intervention_all
 
 app_name = "carrosserie"
 
@@ -8,7 +8,7 @@ app_name = "carrosserie"
 urlpatterns = [
     path(
         "carrosserie/",
-        CarrosserieListView.as_view(),
+        CarrosserieListView,
         name="carrosserie_list",
     ),
     path(
@@ -30,7 +30,7 @@ path(
 
     path(
         "intervention/",
-        InterventionListView.as_view(),
+        InterventionListView,
         name="carrosserie_list",
     ),
     path(

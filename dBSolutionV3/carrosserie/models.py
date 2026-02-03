@@ -45,6 +45,14 @@ class Intervention(models.Model):
         blank=True
     )
 
+    voiture_exemplaire = models.ForeignKey(
+        "voiture_exemplaire.VoitureExemplaire",
+        on_delete=models.PROTECT,
+        related_name="intervention",
+        null=True,
+        blank=True
+    )
+
     pare_chocs = models.BooleanField(_("Pare-chocs"), default=False)
     pare_chocs_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
     pare_chocs_quantite = models.PositiveIntegerField(null=True, blank=True)

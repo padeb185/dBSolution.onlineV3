@@ -165,7 +165,7 @@ def ajouter_intervention_all(request):
     else:
         form = InterventionForm()
 
-    return render(request, "intervention/ajouter_intervention.html", {"form": form})
+    return render(request, "intervention/intervention_form.html", {"form": form})
 
 
 
