@@ -3618,7 +3618,7 @@ msgstr "Transmissieonderdelen"
 
 #: .\theme\templates\403.html:7
 msgid "Vous n'avez pas les droits pour accéder à cette page."
-msgstr ""
+msgstr "U hebt geen toestemming om deze pagina te bekijken."
 
 #: .\theme\templates\404.html:5 .\theme\templates\404.html:18
 msgid "Page introuvable"
@@ -3716,17 +3716,14 @@ msgid "Déconnexion"
 msgstr "Afmelden"
 
 #: .\theme\templates\client\client_detail.html:10
-#, fuzzy
-#| msgid "Détails du véhicule : "
 msgid "Détails du client :"
-msgstr "Voertuigdetails : "
+msgstr "Klantdetails:"
 
 #: .\theme\templates\client\client_detail.html:17
 #: .\theme\templates\client\client_detail.html:122
-#, fuzzy
-#| msgid "Retour à la page précédente"
 msgid "Retour à la liste des clients"
-msgstr "Terug naar de vorige pagina"
+msgstr "Terug naar de klantenlijst"
+
 
 #: .\theme\templates\client\client_detail.html:27
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:37
@@ -3736,10 +3733,8 @@ msgid "Informations générales"
 msgstr "Algemene informatie"
 
 #: .\theme\templates\client\client_detail.html:31
-#, fuzzy
-#| msgid "Numéro de boîte"
 msgid "Numéro de compte"
-msgstr "Versnellingsbaknummer"
+msgstr "Bankrekeningnummer"
 
 #: .\theme\templates\client\client_detail.html:46
 #: .\theme\templates\client\client_form.html:61
@@ -3747,34 +3742,27 @@ msgid "Numéro de permis"
 msgstr "Rijbewijsnummer"
 
 #: .\theme\templates\client\client_detail.html:56
-#, fuzzy
-#| msgid "Modifier le véhicule"
 msgid "Modifier le client"
-msgstr "Voertuig wijzigen"
+msgstr "Klant wijzigen"
+
 
 #: .\theme\templates\client\client_detail.html:66
-#, fuzzy
-#| msgid "Niveau"
 msgid "Niveau "
 msgstr "Niveau"
 
 #: .\theme\templates\client\client_detail.html:87
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:92
-#, fuzzy
-#| msgid "Non renseignée"
 msgid "Aucune adresse renseignée."
-msgstr "Niet ingevuld"
+msgstr "Geen adres opgegeven."
 
 #: .\theme\templates\client\client_detail.html:95
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:100
 msgid "Métadonnées"
-msgstr ""
+msgstr "Metadata"
 
 #: .\theme\templates\client\client_form.html:12
-#, fuzzy
-#| msgid "Créer un utilisateur"
 msgid "Créer un client"
-msgstr "Maak een gebruiker aan"
+msgstr "Maak een klant aan"
 
 #: .\theme\templates\client\client_form.html:112
 msgid "Âge"
@@ -3785,40 +3773,34 @@ msgstr "Leeftijd"
 #: .\theme\templates\fournisseurs\fournisseur_form.html:131
 #: .\theme\templates\fournisseurs\modifier_fournisseur.html:43
 msgid "Enregistrer"
-msgstr ""
+msgstr "Opslaan"
 
 #: .\theme\templates\client\client_list.html:4
 #: .\theme\templates\client\client_list.html:10
-#, fuzzy
-#| msgid "Liste des Pneus"
 msgid "Liste des Clients"
-msgstr "Bandenlijst"
+msgstr "Klantenlijst"
 
 #: .\theme\templates\client\client_list.html:18
-#, fuzzy
-#| msgid "Nom du fluide"
 msgid "Prenom du client"
-msgstr "Naam van de vloeistof"
+msgstr "Voornaam van de klant"
 
 #: .\theme\templates\client\client_list.html:22
-#, fuzzy
-#| msgid "Nom du fluide"
 msgid "Nom du client"
-msgstr "Naam van de vloeistof"
+msgstr "Achternaam van de klant"
+
 
 #: .\theme\templates\client\client_list.html:36
 msgid "nom.prenom@..."
-msgstr ""
+msgstr "naam.voornaam@..."
 
 #: .\theme\templates\client\client_list.html:41
 msgid "BEXX XXXX XXXX XXXX"
 msgstr ""
 
 #: .\theme\templates\client\client_list.html:46
-#, fuzzy
-#| msgid "Ajouter un exemplaire"
 msgid "Ajouter un client"
-msgstr "Een exemplaar toevoegen"
+msgstr "Klant toevoegen"
+
 
 #: .\theme\templates\client\client_list.html:64
 #: .\theme\templates\client\client_list.html:79
@@ -3840,10 +3822,9 @@ msgid "Info"
 msgstr "Info"
 
 #: .\theme\templates\client\client_list.html:82
-#, fuzzy
-#| msgid "Aucune entrée disponible"
 msgid "Info indisponible"
-msgstr "Geen vermeldingen beschikbaar"
+msgstr "Informatie niet beschikbaar"
+
 
 #: .\theme\templates\client\client_list.html:98
 #: .\theme\templates\fournisseurs\fournisseur_list.html:87
@@ -3866,17 +3847,14 @@ msgid "Afficher _MENU_ éléments"
 msgstr "Toon _MENU_ items"
 
 #: .\theme\templates\client\client_list.html:100
-#, fuzzy
-#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ entrées"
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ client"
-msgstr "Weergeven van _START_ tot _END_ van _TOTAL_ vermeldingen"
+msgstr "Weergeven van _START_ tot _END_ van _TOTAL_ klant"
 
 #: .\theme\templates\client\client_list.html:101
 #: .\theme\templates\client\client_list.html:102
-#, fuzzy
-#| msgid "Aucun pneu trouvé"
 msgid "Aucun client trouvé"
-msgstr "Geen band gevonden"
+msgstr "Geen klant gevonden"
+
 
 #: .\theme\templates\client\client_list.html:104
 #: .\theme\templates\fournisseurs\fournisseur_list.html:93
@@ -3923,10 +3901,9 @@ msgid "Précédent"
 msgstr "Vorige"
 
 #: .\theme\templates\client\modifier_client.html:10
-#, fuzzy
-#| msgid "Modifier le véhicule"
 msgid "Modifier le client :"
-msgstr "Voertuig wijzigen"
+msgstr "Klant wijzigen :"
+
 
 #: .\theme\templates\client\modifier_client.html:48
 #: .\theme\templates\fournisseurs\modifier_fournisseur.html:48
