@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+
+
 class Intervention(models.Model):
     id = models.AutoField(primary_key=True)
 
@@ -16,7 +18,8 @@ class Intervention(models.Model):
     voiture_exemplaire = models.ForeignKey(
         "voiture_exemplaire.VoitureExemplaire",
         on_delete=models.PROTECT,
-        related_name="intervention",
+        verbose_name="Voiture",
+        related_name="interventions",
         null=True,
         blank=True
     )
@@ -269,19 +272,25 @@ class Intervention(models.Model):
         _("Montant du devis"),
         max_digits=10,
         decimal_places=2,
-        default=0
+        default=0,
+        null=True,
+        blank=True,
     )
     montant_facture = models.DecimalField(
         _("Montant de la facture"),
         max_digits=10,
         decimal_places=2,
-        default=0
+        default=0,
+        null=True,
+        blank=True,
     )
     montant_total = models.DecimalField(
         _("Montant total"),
         max_digits=10,
         decimal_places=2,
-        default=0
+        default=0,
+        null=True,
+        blank=True,
     )
 
     class Meta:

@@ -1,6 +1,6 @@
 from adresse.models import Adresse
 from societe.models import Societe
-from client.societe_cliente.models import SocieteCliente
+from societe_cliente.models import SocieteCliente
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 import uuid
@@ -68,7 +68,9 @@ class Facture(models.Model):
         SocieteCliente,
         verbose_name=_("Client"),
         on_delete=models.PROTECT,
-        related_name="purchases"
+        related_name="purchases",
+        null=True,
+        blank=True
     )
 
     issue_date = models.DateField(_("Date d’émission"))
@@ -92,7 +94,9 @@ class FactureLine(models.Model):
         Facture,
         verbose_name=_("Facture"),
         related_name="lines",
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
     )
 
     description = models.CharField(_("Description"), max_length=255)

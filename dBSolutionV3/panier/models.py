@@ -4,7 +4,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from client.models import Client
-from client.societe_cliente.models import SocieteCliente
+from societe_cliente.models import SocieteCliente
 from piece.models import Piece
 
 

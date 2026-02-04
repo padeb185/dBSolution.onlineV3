@@ -42,7 +42,7 @@ def intervention_create(request):
 @login_required
 def ajouter_intervention_all(request):
     carrosseries = Carrosserie.objects.all()
-    voitures = VoitureExemplaire.objects.all()
+    voitures = VoitureExemplaire.objects.all().values_list('immatriculation', flat=True)
     pieces = ["pare_chocs", "bouclier_av", "pare_brise"]  # Liste des éléments à réparer
 
     # Préparer un dictionnaire pour stocker les valeurs des pièces
@@ -54,6 +54,14 @@ def ajouter_intervention_all(request):
         form = InterventionForm(request.POST)
         if form.is_valid():
             intervention = form.save(commit=False)
+
+            # Récupérer la voiture via UUID
+            voiture_uuid = request.POST.get("voiture_immatriculation")
+            if voiture_uuid:
+                try:
+                    intervention.voiture_immatriculation = VoitureExemplaire.objects.get(id=UUID(voiture_uuid))
+                except VoitureExemplaire.DoesNotExist:
+                    form.add_error("voiture_immatriculation", "Voiture non trouvée.")
 
             # Récupérer les informations des pièces depuis POST
             for piece in pieces:
@@ -71,6 +79,7 @@ def ajouter_intervention_all(request):
             intervention.save()
             return redirect(reverse("intervention:intervention_list"))
         else:
+            print(form.errors)
             # Si le formulaire est invalide, on conserve les valeurs des pièces pour réaffichage
             for piece in pieces:
                 checked = request.POST.get(f"{piece}_checked") == "on"

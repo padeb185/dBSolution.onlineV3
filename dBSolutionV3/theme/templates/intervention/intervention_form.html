@@ -19,8 +19,8 @@
         {% endfor %}
     {% endif %}
 
-    <form method="post" class="flex flex-col space-y-4">
-        {% csrf_token %}
+   <form method="post" class="flex flex-col space-y-4">
+    {% csrf_token %}
 
         <!-- Carrosserie -->
         <div>
@@ -28,26 +28,38 @@
             <select id="id_carrosserie" name="carrosserie" class="border rounded px-4 py-2 w-full">
                 <option value="">{% trans "Sélectionnez une carrosserie" %}</option>
                 {% for c in carrosseries %}
-                    <option value="{{ c.id }}" {% if c.id == request.POST.carrosserie|default:intervention.carrosserie.id|default:'' %}selected{% endif %}>
+                    <option value="{{ c.id }}"
+                        {% if request.POST.carrosserie %}
+                            {% if request.POST.carrosserie == c.id|stringformat:"s" %}selected{% endif %}
+                        {% elif intervention and intervention.carrosserie %}
+                            {% if intervention.carrosserie.id == c.id %}selected{% endif %}
+                        {% endif %}
+                    >
                         {{ c.nom_societe }}
                     </option>
                 {% endfor %}
             </select>
         </div>
 
-        <!-- Voiture exemplaire -->
-        <div>
-            <label for="id_voiture_exemplaire">{% trans "Voiture" %}</label>
-            <select id="id_voiture_exemplaire" name="voiture_exemplaire" class="border rounded px-4 py-2 w-full">
-                <option value="">{% trans "Sélectionnez une voiture" %}</option>
-                {% for v in voitures %}
-                    <option value="{{ v.id }}" {% if v.id == request.POST.voiture_exemplaire|default:intervention.voiture_exemplaire.id|default:'' %}selected{% endif %}>
-                        {{ v.nom }} ({{ v.matricule }})
-                    </option>
-                {% endfor %}
-            </select>
-        </div>
 
+
+        <!-- Voiture exemplaire -->
+        <div class="mb-3">
+           <select name="voiture_exemplaire">
+                {% for voiture in voitures %}
+                      <option value="{{ voiture.id }}">{{ voiture.immatriculation }}</option>
+                {% endfor %}
+           </select>
+
+
+            {% if form.voiture_immatriculation.errors %}
+                <ul class="errorlist">
+                    {% for error in form.voiture_immatriculation.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
         <!-- Exemples d'éléments à réparer -->
         {% for piece in pieces %}
         <div>
