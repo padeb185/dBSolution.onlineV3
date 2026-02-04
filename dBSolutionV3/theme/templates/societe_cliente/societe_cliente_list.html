@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% load i18n static widget_tweaks %}
+
+{% block title %}{% trans "Liste des sociétés clientes" %}{% endblock %}
+
+{% block content %}
+<h1 class="text-2xl font-bold mb-6 flex items-center">
+    <img src="{% static 'icons/societe_cliente.png' %}" alt="client"
+         style="width:60px; height:60px; margin-right:10px;">
+    {% trans "Liste des sociétés clientes" %}
+</h1>
+
+<div class="bg-white shadow-md rounded-lg p-4 mb-4">
+    <div class="grid grid-cols-1 md:grid-cols-6 gap-3 items-end">
+
+        <input id="search-nom_societe_cliente" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Nom de la société cliente' %}">
+
+        <input id="search-adresse" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Adresse de la societe cliente' %}">
+
+
+        <input id="search-directeur_nom_prenom" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Nom et prénom du directeur' %}">
+
+        <input id="search-numero_telephone" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Numéro de téléphone' %}">
+
+
+        <input id="search-email" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'nom.prenom@...' %}">
+
+
+        <input id="search-numero_compte" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'BEXX XXXX XXXX XXXX' %}">
+
+        <div>
+            <a href="{% url 'societe_cliente:societe_cliente_create' %}"
+               class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+                {% trans "Ajouter une societe cliente" %}
+            </a>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Table -->
+<table id="client-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Nom de la société" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Adresse" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Nom du directeur" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Numéro de téléphone" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Email" %}</th>
+            <th class="border px-4 py-2 cursor-pointer text-center">{% trans "Info" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for societe_cliente in societe_clientes %}
+        <tr>
+            <td class="border px-4 py-2">{{ societe_cliente.nom_societe_cliente }}</td>
+            <td class="border px-4 py-2">{{ societe_cliente.adresse }}</td>
+            <td class="border px-4 py-2">{{ societe_cliente.directeur_nom_prenom }}</td>
+            <td class="border px-4 py-2">{{ societe_cliente.numero_telephone }}</td>
+            <td class="border px-4 py-2">{{ societe_cliente.email }}</td>
+            <td class="border px-4 py-2 text-center">
+                {% if societe_cliente.id %}
+                    <a href="{% url 'societe_cliente:societe_cliente_detail' societe_cliente.id %}"
+                       class="text-blue-600 hover:text-blue-800 font-semibold">
+                        {% trans "Info" %}
+                    </a>
+                {% else %}
+                    <span class="text-gray-400">{% trans "Info indisponible" %}</span>
+                {% endif %}
+            </td>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
+<!-- DataTables JS -->
+<script>
+$(document).ready(function() {
+    var table = $('#societe_cliente-table').DataTable({
+        pageLength: 100,
+        language: {
+            search: "{% trans 'Recherche globale :' %}",
+            lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ Société cliente' %}",
+            infoEmpty: "{% trans 'Aucun société cliente trouvé' %}",
+            zeroRecords: "{% trans 'Aucun société cliente trouvé' %}",
+            paginate: {
+                first: "{% trans 'Premier' %}",
+                last: "{% trans 'Dernier' %}",
+                next: "{% trans 'Suivant' %}",
+                previous: "{% trans 'Précédent' %}"
+            }
+        },
+        order: [[0, "asc"]]
+    });
+
+    // Filtres par colonne
+    $('#search-nom_societe_cliente').on('keyup', function () {
+        table.column(0).search(this.value).draw();
+    });
+    $('#search-adresse').on('keyup', function () {
+        table.column(1).search(this.value).draw();
+    });
+    $('#search-directeur_nom_prenom').on('keyup', function () {
+        table.column(2).search(this.value).draw();
+    });
+    $('#search-numero_telephone').on('keyup', function () {
+        table.column(3).search(this.value).draw();
+    });
+     $('#search-email').on('keyup', function () {
+        table.column(4).search(this.value).draw();
+    });
+
+});
+</script>
+{% endblock %}

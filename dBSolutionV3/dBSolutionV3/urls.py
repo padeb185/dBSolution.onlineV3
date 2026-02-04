@@ -72,5 +72,9 @@ urlpatterns += i18n_patterns(
 
     path("intervention/", include("intervention.urls")),
 
+    path("societe_cliente/", include("societe_cliente.urls")),
+
+
+
 
 )

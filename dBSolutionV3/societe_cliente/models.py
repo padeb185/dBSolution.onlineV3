@@ -1,5 +1,6 @@
 from django.db import models
 import uuid
+from django.utils.translation import gettext_lazy as _
 
 
 
@@ -32,6 +33,21 @@ class SocieteCliente(models.Model):
         null=True,
         blank=True
     )
+
+    numero_telephone = models.CharField(
+        _("Numéro de téléphone"),
+        max_length=20,
+        null=True,
+        blank=True
+    )
+
+    email = models.EmailField(
+        _("Email"),
+        max_length=100,
+        null=True,
+        blank=True
+    )
+
     numero_tva = models.CharField(
         max_length=20,
         unique=True,
@@ -66,6 +82,28 @@ class SocieteCliente(models.Model):
     numero_entreprise = models.CharField(max_length=255, blank=True, null=True)
 
     taux_tva = models.DecimalField(max_digits=5, decimal_places=2, default=21.00, verbose_name="Taux de TVA (%)")
+
+    historique = models.TextField(
+        _("Historique"),
+        null=True,
+        blank=True
+    )
+
+    location = models.CharField(
+        _("Location"),
+        max_length=255,
+        null=True,
+        blank=True
+    )
+
+
+
+    created_at = models.DateTimeField(
+        _("Créé le"),
+        auto_now_add=True,
+        null=True,
+        blank=True
+    )
 
 
     class Meta:
