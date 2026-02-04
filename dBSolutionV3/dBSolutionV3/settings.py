@@ -104,7 +104,7 @@ TENANT_APPS = (
     'panier',
     'facture',
 
-    'client',
+    'client_particulier',
     'societe_cliente',
     'fournisseur',
     'carrosserie',

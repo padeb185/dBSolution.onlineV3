@@ -21,7 +21,7 @@ from voiture.voiture_pneus.models import VoiturePneus
 from maintenance.models import Maintenance
 from voiture.voiture_modele.models import VoitureModele
 from fournisseur.models import Fournisseur
-from client.models import Client
+from client_particulier.models import ClientParticulier
 from carrosserie.models import Carrosserie
 from intervention.models import Intervention
 from societe_cliente.models import SocieteCliente
@@ -107,10 +107,10 @@ def dashboard_view(request):
             pneus = VoiturePneus.objects.all()
             maintenance = Maintenance.objects.all()
             fournisseurs = Fournisseur.objects.all()
-            clients = Client.objects.all()
+            client_particulier = ClientParticulier.objects.all()
             carrosseries = Carrosserie.objects.all()
             interventions = Intervention.objects.all()
-            societe_clients = SocieteCliente.objects.all()
+            societe_cliente = SocieteCliente.objects.all()
 
             # Totaux
             total_marques = marques.count()
@@ -123,10 +123,10 @@ def dashboard_view(request):
             total_pneus = pneus.count()
             total_maintenance = maintenance.count()
             total_fournisseur = fournisseurs.count()
-            total_client = clients.count()
+            total_client_particulier = client_particulier.count()
             total_carrosserie = carrosseries.count()
             total_intervention = interventions.count()
-            total_societe_cliente = societe_clients.count()
+            total_societe_cliente = societe_cliente.count()
 
             # Récupère les modèles existants pour les liens maintenance
             modeles = VoitureModele.objects.all()
@@ -144,7 +144,7 @@ def dashboard_view(request):
         'total_pneus': total_pneus,
         'total_maintenance': total_maintenance,
         'total_fournisseur': total_fournisseur,
-        'total_client': total_client,
+        'total_client_particulier': total_client_particulier,
         'total_carrosserie': total_carrosserie,
         'total_intervention': total_intervention,
         'total_societe_cliente': total_societe_cliente,
@@ -160,7 +160,7 @@ def dashboard_view(request):
         'maintenance': maintenance,
         'modeles': modeles,
         'fournisseur': fournisseurs,
-        'client': clients,
+        'client_particulier': client_particulier,
         'carrosserie': carrosseries,
         'intervention': interventions,
         'societe_cliente': societe_clients,

@@ -3,7 +3,7 @@ from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from client.models import Client
+from client_particulier.models import ClientParticulier
 from django.conf import settings
 
 class TypeUtilisation(models.TextChoices):
@@ -150,7 +150,7 @@ class VoitureExemplaire(models.Model):
     )
 
     client = models.ForeignKey(
-        Client,
+        ClientParticulier,
         on_delete=models.CASCADE,
         related_name="exemplaires",
         null=True,

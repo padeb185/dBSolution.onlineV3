@@ -3,7 +3,7 @@ from facture.models import Facture
 from utilisateurs.models import Utilisateur
 from django.contrib import admin
 from carrosserie.models import Carrosserie
-from client.models import Client
+from client_particulier.models import ClientParticulier
 from fournisseur.models import Fournisseur
 from investissements.models import Investissement
 from maintenance.models import Maintenance
@@ -42,7 +42,7 @@ admin.site.register(Utilisateur)
 admin.site.register(Adresse)
 admin.site.register(Facture)
 admin.site.register(Carrosserie)
-admin.site.register(Client)
+admin.site.register(ClientParticulier)
 admin.site.register(Fournisseur)
 admin.site.register(Investissement)
 admin.site.register(Maintenance)

@@ -524,7 +524,7 @@ class NettoyageInterieur(models.Model):
 
 class Checkup(models.Model):
     exemplaire = models.ForeignKey(VoitureExemplaire, on_delete=models.CASCADE, related_name="checkups")
-    client = models.ForeignKey("client.Client", on_delete=models.CASCADE)
+    client_particulier = models.ForeignKey("client_particulier.ClientParticulier", on_delete=models.CASCADE)
     mecanicien = models.ForeignKey(Utilisateur, on_delete=models.PROTECT)
     maintenance = models.OneToOneField(Maintenance, on_delete=models.CASCADE, related_name="checkup", null=True)
     date_creation = models.DateTimeField(auto_now_add=True)

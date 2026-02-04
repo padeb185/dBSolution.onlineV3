@@ -3,7 +3,7 @@ from decimal import Decimal
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from client.models import Client
+from client_particulier.models import ClientParticulier
 from societe_cliente.models import SocieteCliente
 from piece.models import Piece
 
@@ -17,7 +17,7 @@ class Panier(models.Model):
     )
 
     client = models.ForeignKey(
-        Client,
+        ClientParticulier,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
