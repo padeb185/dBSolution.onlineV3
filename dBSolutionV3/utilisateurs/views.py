@@ -24,7 +24,6 @@ from fournisseur.models import Fournisseur
 from client.models import Client
 from carrosserie.models import Carrosserie
 from intervention.models import Intervention
-#from facture.test.test_generate_send import societe_cliente
 from societe_cliente.models import SocieteCliente
 
 
@@ -90,12 +89,12 @@ def dashboard_view(request):
     total_marques = total_moteurs = total_exemplaires = 0
     total_boites = total_embrayages = total_freins = 0
     total_freins_ar = total_pneus = total_maintenance = 0
-    total_client = total_carrosserie = total_intervention = 0
+    total_fournisseur = total_client = 0
+    total_carrosserie = total_intervention = total_societe_cliente = 0
 
-    marques = moteurs = exemplaires = boites = embrayages = freins =\
-        freins_ar = pneus = maintenance = carrosserie = intervention =  client = []
+    marques = moteurs = exemplaires = boites = embrayages = freins = \
+        freins_ar = pneus = maintenance = fournisseurs = clients = carrosseries = interventions = societe_clients = []
 
-    # --- Récupération des stats selon le tenant ---
     if schema_name:
         with schema_context(schema_name):
             marques = VoitureMarque.objects.all()
@@ -107,11 +106,11 @@ def dashboard_view(request):
             freins_ar = VoitureFreinsAR.objects.all()
             pneus = VoiturePneus.objects.all()
             maintenance = Maintenance.objects.all()
-            fournisseur = Fournisseur.objects.all()
-            client = Client.objects.all()
-            carrosserie = Carrosserie.objects.all()
-            intervention = Intervention.objects.all()
-            societe_cliente = SocieteCliente.objects.all()
+            fournisseurs = Fournisseur.objects.all()
+            clients = Client.objects.all()
+            carrosseries = Carrosserie.objects.all()
+            interventions = Intervention.objects.all()
+            societe_clients = SocieteCliente.objects.all()
 
             # Totaux
             total_marques = marques.count()
@@ -123,18 +122,17 @@ def dashboard_view(request):
             total_freins_ar = freins_ar.count()
             total_pneus = pneus.count()
             total_maintenance = maintenance.count()
-            total_fournisseur = fournisseur.count()
-            total_client = client.count()
-            total_carrosserie = carrosserie.count()
-            total_intervention = intervention.count()
-            total_societe_cliente = societe_cliente.count()
+            total_fournisseur = fournisseurs.count()
+            total_client = clients.count()
+            total_carrosserie = carrosseries.count()
+            total_intervention = interventions.count()
+            total_societe_cliente = societe_clients.count()
 
             # Récupère les modèles existants pour les liens maintenance
             modeles = VoitureModele.objects.all()
     else:
         modeles = []
 
-    # --- Passage dans le contexte ---
     context.update({
         'total_marques': total_marques,
         'total_moteurs': total_moteurs,
@@ -161,11 +159,11 @@ def dashboard_view(request):
         'pneus': pneus,
         'maintenance': maintenance,
         'modeles': modeles,
-        'fournisseur': fournisseur,
-        'client': client,
-        'carrosserie': carrosserie,
-        'intervention': intervention,
-        'societe_cliente': societe_cliente,
+        'fournisseur': fournisseurs,
+        'client': clients,
+        'carrosserie': carrosseries,
+        'intervention': interventions,
+        'societe_cliente': societe_clients,
     })
 
     # --- Tâches et rôles ---
@@ -174,7 +172,6 @@ def dashboard_view(request):
 
     role_tasks = {
         'mecanicien': [_("Révision moteur"), _("Changement filtre")],
-        # autres rôles
     }
     if user.role in role_tasks:
         context['taches'] = role_tasks[user.role]
@@ -200,8 +197,9 @@ def dashboard_view(request):
     }
     context['role_display'] = ROLE_DISPLAY.get(user.role, _("Rôle inconnu"))
 
-    # --- Rend le template ---
     return render(request, 'dashboard.html', context)
+
+
 
 
 
