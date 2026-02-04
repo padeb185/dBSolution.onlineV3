@@ -7,8 +7,10 @@ from adresse.models import Adresse
 
 
 class Client(models.Model):
+    id_client = models.UUIDField(default=uuid.uuid4)  # sans unique pour commencer
 
     prenom = models.CharField(_("Prénom"), max_length=50)
+
     nom = models.CharField(_("Nom"), max_length=50)
 
     adresse = models.OneToOneField(
