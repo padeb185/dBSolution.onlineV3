@@ -24,22 +24,16 @@ class ClientListView(ListView):
 @never_cache
 @login_required
 def client_detail(request, client_id):
-    tenant = request.user.societe
+    tenant = request.tenant  # tenant actuel fourni par le middleware
 
     with tenant_context(tenant):
         client = get_object_or_404(Client, id=client_id)
         adresse = client.adresse
 
-    return render(
-        request,
-        "client/client_detail.html",
-        {
-            "client": client,
-            "adresse": adresse,
-        },
-    )
-
-
+    return render(request, "client/client_detail.html", {
+        "client": client,
+        "adresse": adresse,
+    })
 
 
 

@@ -268,6 +268,20 @@
               <!-- Icône à droite -->
               <img src="{% static 'icons/carrosserie.png' %}" alt="client" style="width:60px; height:60px;">
           </a>
+         <a href="{% url 'societe_cliente:societe_cliente_list' %}"
+           class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+              <!-- Texte à gauche -->
+              <div>
+                  <h2 class="text-lg font-semibold mb-1">{% trans "Société cliente" %}</h2>
+                  <p class="text-gray-600 text-sm">
+                      {% trans "Nombre total :" %} <span class="font-bold">{{ total_societe_cliente }}</span>
+                  </p>
+              </div>
+
+              <!-- Icône à droite -->
+              <img src="{% static 'icons/societe_cliente.png' %}" alt="client" style="width:60px; height:60px;">
+          </a>
     </div>
 
     {% if user.is_staff and user.is_superuser %}
