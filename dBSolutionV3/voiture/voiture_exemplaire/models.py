@@ -152,7 +152,9 @@ class VoitureExemplaire(models.Model):
     client = models.ForeignKey(
         Client,
         on_delete=models.CASCADE,
-        related_name="exemplaires"
+        related_name="exemplaires",
+        null=True,
+        blank=True
     )
 
 

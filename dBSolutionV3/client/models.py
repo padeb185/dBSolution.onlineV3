@@ -14,7 +14,9 @@ class Client(models.Model):
     adresse = models.OneToOneField(
         Adresse,
         verbose_name=_("Adresse"),
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
     )
 
     numero_telephone = models.CharField(
@@ -118,13 +120,7 @@ class Client(models.Model):
         blank=True
     )
 
-    societe = models.ForeignKey(
-        "societe.Societe",  # ou Tenant, selon ton modèle
-        on_delete=models.CASCADE,
-        related_name="clients",
-        null=True,
-        blank=True
-    )
+
 
     created_at = models.DateTimeField(
         _("Créé le"),

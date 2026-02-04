@@ -24,7 +24,7 @@ from fournisseur.models import Fournisseur
 from client.models import Client
 from carrosserie.models import Carrosserie
 from intervention.models import Intervention
-from facture.test.test_generate_send import societe_cliente
+#from facture.test.test_generate_send import societe_cliente
 from societe_cliente.models import SocieteCliente
 
 

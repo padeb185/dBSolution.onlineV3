@@ -6,8 +6,7 @@ from django.views.generic import ListView
 from django_tenants.utils import tenant_context
 from adresse.models import Adresse
 from societe_cliente.models import SocieteCliente
-
-from dBSolutionV3.societe_cliente.forms import SocieteClienteForm
+from societe_cliente.forms import SocieteClienteForm
 
 
 class SocieteClienteListView(ListView):

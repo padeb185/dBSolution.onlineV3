@@ -24,7 +24,7 @@ class ClientListView(ListView):
 @never_cache
 @login_required
 def client_detail(request, client_id):
-    tenant = request.tenant  # tenant actuel fourni par le middleware
+    tenant = request.user.societe
 
     with tenant_context(tenant):
         client = get_object_or_404(Client, id=client_id)
