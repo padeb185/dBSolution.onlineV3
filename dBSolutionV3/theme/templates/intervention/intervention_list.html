@@ -13,29 +13,19 @@
 
 <div class="bg-white shadow-md rounded-lg p-4 mb-4">
     <div class="flex flex-wrap items-end gap-3">
-        <input id="search-nom_societe" type="text"
+        <input id="search-carrosserie.nom_societe" type="text"
                class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Nom de la intervention' %}">
+               placeholder="{% trans 'Nom de la carrosserie' %}">
 
-        <input id="search-" type="text"
+        <input id="search-voiture_exemplaire.immatriculation" type="text"
                class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Adresse' %}">
 
-        <input id="search-pays" type="text"
+        <input id="search-montant_devis type="text"
                class="border rounded px-3 py-2 flex-1 min-w-[120px] focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Pays' %}">
 
-        <input id="search-peppol_id" type="text"
-               class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Numéro Peppol' %}">
 
-        <input id="search-numero_tva" type="text"
-               class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'BEXX XXXX XXXX' %}">
-
-        <input id="telephone" type="text"
-               class="border rounded px-3 py-2 flex-1 min-w-[120px] focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Numéro téléphone' %}">
 
         <!-- Bouton sur la même ligne -->
         <a href="{% url 'intervention:intervention_create' %}"
@@ -51,22 +41,18 @@
 <table id="interventions-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
     <thead>
         <tr class="bg-gray-100">
-            <th class="border px-4 py-2 cursor-pointer">{% trans "Nom de la intervention" %}</th>
-            <th class="border px-4 py-2 cursor-pointer">{% trans "Numero de TVA" %}</th>
-            <th class="border px-4 py-2 cursor-pointer">{% trans "Numero Peppol" %}</th>
-            <th class="border px-4 py-2 cursor-pointer">{% trans "Email" %}</th>
-            <th class="border px-4 py-2 cursor-pointer">{% trans "Téléphone" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Nom de la carrosserie" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Immatriculation" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Montant du devis" %}</th>
             <th class="border px-4 py-2 cursor-pointer text-center">{% trans "Info" %}</th>
         </tr>
     </thead>
     <tbody>
         {% for intervention in interventions %}
         <tr>
-            <td class="border px-4 py-2">{{ intervention.nom_societe }}</td>
-            <td class="border px-4 py-2">{{ intervention.numero_tva }}</td>
-            <td class="border px-4 py-2">{{ intervention.peppol_id }}</td>
-            <td class="border px-4 py-2">{{ intervention.email }}</td>
-            <td class="border px-4 py-2">{{ intervention.telephone }}</td>
+            <td class="border px-4 py-2">{{ intervention.carrosserie.nom_societe }}</td>
+            <td class="border px-4 py-2">{{ intervention.vehicule_exemplaire.immatriculation }}</td>
+            <td class="border px-4 py-2">{{ intervention.montant_devis }}</td>
             <td class="border px-4 py-2 text-center">
                 <a href="{% url 'intervention:intervention_detail' intervention.id %}"
                    class="text-blue-600 hover:text-blue-800 font-semibold">
@@ -101,21 +87,16 @@ $(document).ready(function() {
     });
 
     // Filtres par colonne
-    $('#search-nom_societe').on('keyup', function () {
+    $('#search-carrosserie.nom_societe').on('keyup', function () {
         table.column(0).search(this.value).draw();
     });
-    $('#search-numero_tva').on('keyup', function () {
+    $('#search-voiture_exemplaire.immatriculation').on('keyup', function () {
         table.column(1).search(this.value).draw();
     });
-    $('#search-numero_peppol').on('keyup', function () {
+    $('#search-montant_devis').on('keyup', function () {
         table.column(2).search(this.value).draw();
     });
-    $('#search-email').on('keyup', function () {
-        table.column(3).search(this.value).draw();
-    });
-     $('#search-telephone').on('keyup', function () {
-        table.column(4).search(this.value).draw();
-    });
+
 
 });
 </script>

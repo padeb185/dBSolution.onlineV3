@@ -1,11 +1,97 @@
 {% extends "base.html" %}
+{% load i18n static %}
 
 {% block content %}
-<h2>Ajouter une nouvelle intervention</h2>
+<div class="max-w-4xl mx-auto p-6 bg-white rounded shadow mt-16 mb-16">
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Enregistrer</button>
-</form>
+    <h1 class="text-2xl font-bold mb-4 text-center">{% trans "Créer une intervention" %}</h1>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="mb-3 px-4 py-2 rounded
+                {% if message.tags == 'success' %}
+                    bg-green-100 text-green-800 border border-green-300
+                {% else %}
+                    bg-red-100 text-red-800 border border-red-300
+                {% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post" class="flex flex-col space-y-4">
+        {% csrf_token %}
+
+        <!-- Carrosserie -->
+        <div>
+            <label for="id_carrosserie">{% trans "Carrosserie" %}</label>
+            <select id="id_carrosserie" name="carrosserie" class="border rounded px-4 py-2 w-full">
+                <option value="">{% trans "Sélectionnez une carrosserie" %}</option>
+                {% for c in carrosseries %}
+                    <option value="{{ c.id }}" {% if c.id == request.POST.carrosserie|default:intervention.carrosserie.id|default:'' %}selected{% endif %}>
+                        {{ c.nom_societe }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Voiture exemplaire -->
+        <div>
+            <label for="id_voiture_exemplaire">{% trans "Voiture" %}</label>
+            <select id="id_voiture_exemplaire" name="voiture_exemplaire" class="border rounded px-4 py-2 w-full">
+                <option value="">{% trans "Sélectionnez une voiture" %}</option>
+                {% for v in voitures %}
+                    <option value="{{ v.id }}" {% if v.id == request.POST.voiture_exemplaire|default:intervention.voiture_exemplaire.id|default:'' %}selected{% endif %}>
+                        {{ v.nom }} ({{ v.matricule }})
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Exemples d'éléments à réparer -->
+        {% for piece in pieces %}
+        <div>
+            <label>
+                <input type="checkbox" class="piece-checkbox" data-piece="{{ piece }}"
+                    {% if pieces_values.piece.checked %}checked{% endif %}>
+                {% trans piece %}
+            </label>
+
+            <input type="number" step="" name="{{ piece }}_prix" placeholder="{% trans 'Prix' %}"
+                   value="{{ pieces_values.piece.prix }}" class="piece-input">
+
+            <input type="number" name="{{ piece }}_quantite" placeholder="{% trans 'Quantité' %}"
+                   value="{{ pieces_values.piece.quantite }}" class="piece-input">
+        </div>
+        {% endfor %}
+
+
+
+        <!-- Bouton -->
+        <button type="submit" class="bg-blue-700 text-white px-4 py-2 rounded w-full mt-4">
+            {% trans "Enregistrer l'intervention" %}
+        </button>
+    </form>
+</div>
+
+<script>
+// Fonction pour activer/désactiver les inputs
+function toggleInputs() {
+    document.querySelectorAll('.piece-checkbox').forEach(cb => {
+        const piece = cb.dataset.piece;
+        const inputs = document.querySelectorAll('.piece-input[data-piece="'+piece+'"]');
+        inputs.forEach(input => {
+            input.disabled = !cb.checked;
+        });
+    });
+}
+
+// Initialisation au chargement de la page
+document.addEventListener('DOMContentLoaded', toggleInputs);
+
+// Mise à jour lors du clic sur une checkbox
+document.querySelectorAll('.piece-checkbox').forEach(cb => {
+    cb.addEventListener('change', toggleInputs);
+});
+</script>
 {% endblock %}

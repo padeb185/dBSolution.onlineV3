@@ -8,13 +8,13 @@
     <div class="flex justify-between items-center mb-6">
        <h1 class="text-2xl font-bold flex items-center gap-4">
             <span>{% trans "Modifier le carrosserie :" %}</span>
-           {% with image_name=carrosserie.nom|slugify %}
+           {% with image_name=carrosserie.nom_societe|slugify %}
                 <img src="{% static 'carrosserie/'|add:image_name|add:'.png' %}"
-                     alt="{{ carrosserie.nom }}"
+                     alt="{{ carrosserie.nom_societe }}"
                      class="w-12 h-12"
                      onerror="this.src='{% static 'carrosseriescarrosserie.png' %}';">
             {% endwith %}
-           <span class="text-black-700">{{ carrosserie.nom }}</span>
+           <span class="text-black-700">{{ carrosserie.nom_societe }}</span>
         </h1>
     </div>
     <form method="post" class="space-y-4">

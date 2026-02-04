@@ -9,7 +9,7 @@ app_name = "carrosserie"
 urlpatterns = [
     path(
         "carrosserie/",
-        CarrosserieListView,
+        CarrosserieListView.as_view(),
         name="carrosserie_list",
     ),
     path(
@@ -18,7 +18,7 @@ urlpatterns = [
         name="carrosserie_create",
     ),
 
-path(
+    path(
         "<uuid:carrosserie_id>/",
         carrosserie_detail,
         name="carrosserie_detail",
@@ -28,19 +28,6 @@ path(
         'carrosserie/<uuid:carrosserie_id>/modifier/',
         modifier_carrosserie,
         name='modifier_carrosserie'),
-
-path(
-        "<uuid:carrosserie_id>/",
-        carrosserie_detail,
-        name="carrosserie_detail",
-    ),
-
-    path(
-        'carrosserie/<uuid:carrosserie_id>/modifier/',
-        modifier_carrosserie,
-        name='modifier_carrosserie'),
-
-
 
 
 ]

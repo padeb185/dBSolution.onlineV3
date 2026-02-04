@@ -70,4 +70,7 @@ urlpatterns += i18n_patterns(
 
     path("carrosserie/", include("carrosserie.urls")),
 
+    path("intervention/", include("intervention.urls")),
+
+
 )

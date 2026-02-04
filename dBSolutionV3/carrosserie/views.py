@@ -13,8 +13,6 @@ from adresse.models import Adresse
 
 
 
-@never_cache
-@login_required
 class CarrosserieListView(ListView):
     model = Carrosserie
     template_name = "carrosserie/carrosserie_list.html"
@@ -27,7 +25,7 @@ class CarrosserieListView(ListView):
 
 
 
-@never_cache
+
 @login_required
 def carrosserie_detail(request, carrosserie_id):
     tenant = request.user.societe

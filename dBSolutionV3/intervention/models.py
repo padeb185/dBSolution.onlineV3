@@ -25,11 +25,11 @@ class Intervention(models.Model):
     pare_chocs_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
     pare_chocs_quantite = models.PositiveIntegerField(null=True, blank=True)
 
-    bouclier_avant = models.BooleanField(_("Bouclier avant"), default=False)
+    bouclier_av = models.BooleanField(_("Bouclier avant"), default=False)
     bouclier_av_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
     bouclier_av_quantite = models.PositiveIntegerField(null=True, blank=True)
 
-    bouclier_arriere = models.BooleanField(_("Bouclier arrière"), default=False)
+    bouclier_ar = models.BooleanField(_("Bouclier arrière"), default=False)
     bouclier_ar_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
     bouclier_ar_quantite = models.PositiveIntegerField(null=True, blank=True)
 
@@ -57,11 +57,11 @@ class Intervention(models.Model):
     lunette_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
     lunette_quantite = models.PositiveIntegerField(null=True, blank=True)
 
-    retroviseur_droit = models.BooleanField(_("Rétroviseur droit"), default=False)
+    retroviseur_d = models.BooleanField(_("Rétroviseur droit"), default=False)
     retroviseur_d_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
     retroviseur_d_quantite = models.PositiveIntegerField(null=True, blank=True)
 
-    retroviseur_gauche = models.BooleanField(_("Rétroviseur gauche"), default=False)
+    retroviseur_g = models.BooleanField(_("Rétroviseur gauche"), default=False)
     retroviseur_g_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
     retroviseur_g_quantite = models.PositiveIntegerField(null=True, blank=True)
 
@@ -97,11 +97,11 @@ class Intervention(models.Model):
     elargisseur_aile_arg_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
     elargisseur_aile_arg_quantite = models.PositiveIntegerField(null=True, blank=True)
 
-    bas_de_caisse_droit = models.BooleanField(_("Bas de caisse droit"), default=False)
+    bas_de_caisse_d = models.BooleanField(_("Bas de caisse droit"), default=False)
     bas_de_caisse_d_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
     bas_de_caisse_d_quantite = models.PositiveIntegerField(null=True, blank=True)
 
-    bas_de_caisse_gauche = models.BooleanField(_("Bas de caisse gauche"), default=False)
+    bas_de_caisse_g = models.BooleanField(_("Bas de caisse gauche"), default=False)
     bas_de_caisse_g_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
     bas_de_caisse_g_quantite = models.PositiveIntegerField(null=True, blank=True)
 
@@ -216,6 +216,51 @@ class Intervention(models.Model):
     peinture_complete = models.BooleanField(_("Peinture complete"), default=False)
     peinture_complete_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
     peinture_complete_quantite = models.PositiveIntegerField(null=True, blank=True)
+
+    phare_avd = models.BooleanField(_("Phare avant droit"), default=False)
+    phare_avd_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+    phare_avd_quantite = models.PositiveIntegerField(null=True, blank=True)
+
+    phare_avg = models.BooleanField(_("Phare avant gauche"), default=False)
+    phare_avg_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+    phare_avg_quantite = models.PositiveIntegerField(null=True, blank=True)
+
+    phare_ard = models.BooleanField(_("Phare arrière droite"), default=False)
+    phare_ard_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+    phare_ard_quantite = models.PositiveIntegerField(null=True, blank=True)
+
+    phare_arg = models.BooleanField(_("Phare arrière gauche"), default=False)
+    phare_arg_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+    phare_arg_quantite = models.PositiveIntegerField(null=True, blank=True)
+
+    clignotant_avd = models.BooleanField(_("Clignotant avant droit"), default=False)
+    clignotant_avd_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+    clignotant_avd_quantite = models.PositiveIntegerField(null=True, blank=True)
+
+    clignotant_avg = models.BooleanField(_("Clignotant avant gauche"), default=False)
+    clignotant_avg_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+    clignotant_avg_quantite = models.PositiveIntegerField(null=True, blank=True)
+
+    clignotant_ard = models.BooleanField(_("Clignotant arrière droit"), default=False)
+    clignotant_ard_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+    clignotant_ard_quantite = models.PositiveIntegerField(null=True, blank=True)
+
+    anti_brouillard_avd = models.BooleanField(_("Anti Brouillard avant droit"), default=False)
+    anti_brouillard_avd_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+    anti_brouillard_avd_quantite = models.PositiveIntegerField(null=True, blank=True)
+
+    anti_brouillard_avg = models.BooleanField(_("Anti Brouillard avant gauche"), default=False)
+    anti_brouillard_avg_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+    anti_brouillard_avg_quantite = models.PositiveIntegerField(null=True, blank=True)
+
+    troisieme_feux_stop = models.BooleanField(_("Troisième feux stop"), default=False)
+    troisieme_feux_stop_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+    troisieme_feux_stop_quantite = models.PositiveIntegerField(null=True, blank=True)
+
+    capteur_recul = models.BooleanField(_("Capteur recul"), default=False)
+    capteur_recul_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+    capteur_recul_quantite = models.PositiveIntegerField(null=True, blank=True)
+
 
 
 
