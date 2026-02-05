@@ -6,10 +6,12 @@ app_name = "societe_cliente"
 
 urlpatterns = [
     path(
-        "client",
+        "societe_cliente",
         SocieteClienteListView.as_view(),
         name="societe_cliente_list",
     ),
+
+
     path(
         "societe_cliente/creer/",
         ajouter_societe_cliente_all,
@@ -20,12 +22,12 @@ urlpatterns = [
     path(
         "<int:societe_cliente_id>/",
         societe_cliente_detail,
-        name="client_detail"
+        name="societe_cliente_detail"
     ),
 
 
     path(
-        'client/<int:client_id>/modifier/',
+        'societe_cliente/<int:client_id>/modifier/',
         modifier_societe_cliente,
         name='modifier_societe_cliente'),
 

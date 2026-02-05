@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render, redirect
+from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
 from django_tenants.utils import tenant_context
@@ -9,12 +10,20 @@ from societe_cliente.models import SocieteCliente
 from societe_cliente.forms import SocieteClienteForm
 
 
+
+
+@method_decorator([login_required, never_cache], name='dispatch')
 class SocieteClienteListView(ListView):
     model = SocieteCliente
     template_name = "societe_cliente/societe_cliente_list.html"
     context_object_name = "societe_clientes"
     paginate_by = 20
     ordering = ["nom_societe_cliente", ]
+
+    def get_queryset(self):
+        # On ne récupère que les objets enregistrés
+        return SocieteCliente.objects.filter(id__isnull=False).order_by("nom_societe_cliente")
+
 
 
 
