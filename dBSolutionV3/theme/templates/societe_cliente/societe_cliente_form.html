@@ -1,0 +1,200 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="max-w-xl mx-auto p-6 bg-white rounded shadow mt-16 mb-16">
+
+    <!-- Header -->
+    <h1 class="text-2xl font-bold mb-4 text-center flex items-center justify-center">
+        <img src="{% static 'icons/societe_cliente.png' %}"
+             style="width:75px; margin-right:5px;"
+             alt="{% trans 'Client' %}">
+        {% trans "Créer une societe cliente" %}
+    </h1>
+
+    <!-- Messages -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="mb-3 px-4 py-2 rounded
+                {% if message.tags == 'success' %}
+                    bg-green-100 text-green-800 border border-green-300
+                {% else %}
+                    bg-red-100 text-red-800 border border-red-300
+                {% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post" class="flex flex-col space-y-4">
+        {% csrf_token %}
+
+        <!-- Prénom -->
+        <div>
+            <label for="id_nom_societe_cliente">{% trans "Nom de la société" %}</label>
+            <input type="text" id="id_nom_societe_cliente" name="nom_societe_cliente"
+                   value="{{ request.POST.nom_societe_cliente|default:societe_cliente.nom_societe_cliente|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full"
+                   placeholder="{% trans 'Nom de la sociéte' %}">
+        </div>
+
+        <!-- Nom -->
+        <div>
+            <label for="id_directeur_nom_prenom">{% trans "Nom du Directeur" %}</label>
+            <input type="text" id="id_directeur_nom_prenom" name="directeur_nom_prenom"
+                   value="{{ request.POST.directeur_nom_prenom|default:societe_cliente.directeur_nom_prenom|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full"
+                   placeholder="{% trans 'Nom du directeur' %}">
+        </div>
+
+        <!-- Numéro de téléphone -->
+        <div>
+            <label for="id_numero_telephone">{% trans "Numéro de téléphone" %}</label>
+            <input type="text" id="id_numero_telephone" name="numero_telephone"
+                   value="{{ request.POST.numero_telephone|default:societe_cliente.numero_telephone|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full"
+                   placeholder="+32 123 45 67 89">
+        </div>
+
+
+        <!-- Numéro de compte bancaire -->
+        <div>
+            <label for="id_numero_compte">{% trans "Numéro de compte bancaire" %}</label>
+            <input type="text" id="id_numero_compte" name="numero_compte"
+                   value="{{ request.POST.numero_compte|default:societe_cliente.numero_compte|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full"
+                   placeholder="BE12 3456 7890 1234">
+        </div>
+
+
+        <!-- Email -->
+        <div>
+            <label for="id_email">{% trans "Email" %}</label>
+            <input type="email" id="id_email" name="email"
+                   value="{{ request.POST.email|default:societe_cliente.email|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full"
+                   placeholder="exemple@domaine.com">
+        </div>
+
+
+
+        <!-- Adresse -->
+        <h2 class="text-lg font-semibold mt-6 mb-2">{% trans "Adresse" %}</h2>
+
+        <div>
+            <label for="id_rue">{% trans "Rue" %}</label>
+            <input type="text" id="id_rue" name="rue"
+                   value="{{ request.POST.rue|default:societe_cliente.adresse.rue|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+        <div>
+            <label for="id_numero">{% trans "Numéro" %}</label>
+            <input type="text" id="id_numero" name="numero"
+                   value="{{ request.POST.numero|default:societe_cliente.adresse.numero|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+        <div>
+            <label for="id_code_postal">{% trans "Code postal" %}</label>
+            <input type="text" id="id_code_postal" name="code_postal"
+                   value="{{ request.POST.code_postal|default:societe_cliente.adresse.code_postal|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+        <div>
+            <label for="id_ville">{% trans "Ville" %}</label>
+            <input type="text" id="id_ville" name="ville"
+                   value="{{ request.POST.ville|default:societe_cliente.adresse.ville|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+        <div>
+            <label for="id_pays">{% trans "Pays" %}</label>
+            <input type="text" id="id_pays" name="pays"
+                   value="{{ request.POST.pays|default:societe_cliente.adresse.pays|default:'Belgique' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+        <div>
+            <label for="id_code_pays">{% trans "Code pays" %}</label>
+            <input type="text" id="id_code_pays" name="code_pays"
+                   value="{{ request.POST.code_pays|default:societe_cliente.adresse.code_pays|default:'BE' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+
+        <button type="submit"
+                class="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded w-full mt-4">
+            {% trans "Enregistrer" %}
+        </button>
+
+    </form>
+</div>
+
+<script>
+
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie) {
+            document.cookie.split(';').forEach(c => {
+                c = c.trim();
+                if (c.startsWith(name + '=')) {
+                    cookieValue = decodeURIComponent(c.slice(name.length + 1));
+                }
+            });
+        }
+        return cookieValue;
+    }
+
+    const csrftoken = getCookie('csrftoken');
+    const societeClienteInput = document.getElementById('id_nom_societe_cliente');
+
+    if (!societeClienteInput) return;
+
+    // Écoute le champ numéro de permis
+    societeClienteInput.addEventListener('blur', function () {
+
+        const numero_permis = this.value.trim();
+        if (!numero_permis) return;
+
+        fetch('/api/check_nom_societe/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            },
+            body: JSON.stringify({ nom_societe_cliente })
+        })
+        .then(r => r.json())
+        .then(data => {
+
+            if (data.exist) {
+                document.getElementById('id_nom_societe_cliente').value = data.nom_societe_cliente || '';
+                document.getElementById('id_directeur_nom_prenom').value = data.directeur_nom_prenom || '';
+                document.getElementById('id_email').value = data.email || '';
+
+                if (data.adresse) {
+                    document.getElementById('id_rue').value = data.adresse.rue || '';
+                    document.getElementById('id_numero').value = data.adresse.numero || '';
+                    document.getElementById('id_code_postal').value = data.adresse.code_postal || '';
+                    document.getElementById('id_ville').value = data.adresse.ville || '';
+                    document.getElementById('id_pays').value = data.adresse.pays || '';
+                    document.getElementById('id_code_pays').value = data.adresse.code_pays || '';
+                }
+
+            } else {
+                document.getElementById('id_prenom').value = '';
+                document.getElementById('id_nom').value = '';
+                document.getElementById('id_email').value = '';
+
+                document.getElementById('id_rue').value = '';
+                document.getElementById('id_numero').value = '';
+                document.getElementById('id_code_postal').value = '';
+                document.getElementById('id_ville').value = '';
+                document.getElementById('id_pays').value = 'Belgique';
+                document.getElementById('id_code_pays').value = 'BE';
+            }
+        })
+        .catch(err => console.error("Erreur:", err));
+    });
+});
+</script>
+{% endblock %}

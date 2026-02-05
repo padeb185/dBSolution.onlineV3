@@ -1,10 +1,139 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% load i18n static %}
 
-</body>
-</html>
+{% block content %}
+<div class="p-6 w-full ml-[-10px] mr-[10px]">
+
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
+       <h1 class="text-2xl font-bold flex items-center gap-4">
+           <img src="{% static 'icons/client.png' %}" alt="client"
+         style="width:60px; height:60px; margin-right:10px;">
+            <span>{% trans "Détails du client :" %}</span>
+            <span class="text-black-700">{{ client.prenom}} {{ client.nom }}</span>
+
+        </h1>
+
+        <a href="{% url 'client_particulier:client_list' %}"
+           class="text-blue-600 hover:underline">
+            ← {% trans "Retour à la liste des clients" %}
+        </a>
+    </div>
+
+    <!-- Infos principales -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+
+        <!-- Informations générales -->
+        <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-6">
+            <h2 class="text-lg font-semibold mb-2">
+                {% trans "Informations générales" %}
+            </h2>
+
+            <p>
+                <strong>{% trans "Nom de la société" %} :</strong>
+                {{ societe_cliente.nom_societe_cliente }}
+            </p>
+            <p>
+                <strong>{% trans "Directeur" %} :</strong>
+                {{ societe_cliente.directeur_nom_prenom }}
+            </p>
+            <p>
+                <strong>{% trans "Numéro de TVA" %} :</strong>
+                {{ societe_cliente.numero_tva }}
+            </p>
+            <p>
+                <strong>{% trans "Numéro Peppol" %} :</strong>
+                {{ societe_cliente.peppol_id }}
+            </p>
+            <p>
+                <strong>{% trans "Email" %} :</strong>
+                {{ societe_cliente.email }}
+            </p>
+
+            <p>
+                <strong>{% trans "Numéro de téléphone" %} :</strong>
+                {{ societe_cliente.numero_telephone }}
+            </p>
+
+
+            <p>
+                <strong>{% trans "Numéro de compte" %} :</strong>
+                {{ societe_cliente.numero_compte }}
+            </p>
+
+
+
+           <div class="mt-auto w-full">
+                <a href="{% url 'societe_cliente:modifier_societe_cliente' societe_cliente.id %}" class="block w-full">
+                    <button type="button"
+                            class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+                        {% trans "Modifier la societe" %}
+                    </button>
+                </a>
+           </div>
+
+        </div>
+
+        <!-- Peppol -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+
+            <p>
+                <strong>{% trans "Historique" %} :</strong><br>
+                {{ societe_cliente.historique }}
+            </p>
+
+        </div>
+    </div>
+
+    <!-- Adresse -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">
+            {% trans "Adresse" %}
+        </h2>
+
+        {% if societe_cliente.adresse %}
+            <p>{{ societe_cliente.adresse }}</p>
+        {% else %}
+            <p class="text-gray-500">
+                {% trans "Aucune adresse renseignée." %}
+            </p>
+        {% endif %}
+    </div>
+
+    <!-- Métadonnées -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">
+            {% trans "Métadonnées" %}
+        </h2>
+
+        <p>
+            <strong>{% trans "Créé le" %} :</strong>
+            {{ client.created_at|date:"d/m/Y H:i" }}
+        </p>
+    </div>
+
+    <!-- Messages -->
+    {% if messages %}
+        {% for message in messages %}
+        <div class="mb-3 px-4 py-2 rounded
+            {% if message.tags == 'success' %}
+                bg-green-100 text-green-800 border border-green-300
+            {% else %}
+                bg-red-100 text-red-800 border border-red-300
+            {% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Actions -->
+    <div class="bg-white shadow-md rounded-lg p-6 flex gap-4">
+        <a href="{% url 'client:client_list' %}" class="flex-1">
+              <button type="button" class="bg-blue-700 text-white px-4 py-2 rounded w-full mt-4">
+                    {% trans "Retour à la liste des sociétés" %}
+              </button>
+        </a>
+    </div>
+
+</div>
+{% endblock %}

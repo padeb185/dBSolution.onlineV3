@@ -69,6 +69,13 @@ class SocieteCliente(models.Model):
         blank=True
 
     )
+    numero_compte = models.CharField(
+        _("Numéro de compte bancaire"),
+        max_length=20,
+        null=True,
+        blank=True
+    )
+
     pays = models.CharField(
         max_length=100,
         blank=True,
