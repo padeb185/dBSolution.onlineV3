@@ -41,7 +41,7 @@
                placeholder="{% trans 'BEXX XXXX XXXX XXXX' %}">
 
         <div>
-            <a href="{% url 'societe_cliente:societe_cliente_create' %}"
+            <a href="{% url 'societe_cliente:societe_cliente_form' %}"
                class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
                 {% trans "Ajouter une societe cliente" %}
             </a>
@@ -73,17 +73,11 @@
             <td class="border px-4 py-2">{{ societe_cliente.numero_telephone }}</td>
             <td class="border px-4 py-2">{{ societe_cliente.email }}</td>
             <td class="border px-4 py-2 text-center">
-                {% if societe_cliente.id_societe_cliente %}
-                    <a href="{% url 'societe_cliente:societe_cliente_detail' societe_cliente.id_societe_cliente %}"
-                       class="text-blue-600 hover:text-blue-800 font-semibold">
-                        {% trans "Info" %}
-                    </a>
-                {% else %}
-                    <span class="text-gray-400">{% trans "Non disponible" %}</span>
-                {% endif %}
+               <a href="{% url 'societe_cliente:societe_cliente_detail' societe_cliente.id_societe_cliente %}"
+                   class="text-blue-600 hover:text-blue-800 font-semibold">
+                    {% trans "Info" %}
+               </a>
             </td>
-
->
 
         </tr>
         {% endfor %}

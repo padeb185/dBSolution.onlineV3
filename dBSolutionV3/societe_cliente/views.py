@@ -16,13 +16,10 @@ from societe_cliente.forms import SocieteClienteForm
 class SocieteClienteListView(ListView):
     model = SocieteCliente
     template_name = "societe_cliente/societe_cliente_list.html"
-    context_object_name = "societe_cliente"
+    context_object_name = "societe_clientes"
     paginate_by = 20
-    ordering = ["nom_societe_cliente", ]
+    ordering = ["nom_societe_cliente" ]
 
-    def get_queryset(self):
-        # On ne récupère que les objets enregistrés
-        return SocieteCliente.objects.filter(id__isnull=False).order_by("nom_societe_cliente")
 
 
 
@@ -34,7 +31,11 @@ def societe_cliente_detail(request, societe_cliente_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
-        societe_cliente = get_object_or_404(SocieteCliente, id=societe_cliente_id)
+        societe_cliente = get_object_or_404(
+            SocieteCliente,
+            id_societe_cliente=societe_cliente_id
+        )
+
         adresse = societe_cliente.adresse
 
     return render(
@@ -88,7 +89,7 @@ def ajouter_societe_cliente_all(request):
                 code_pays=request.POST.get("code_pays")
             )
 
-            messages.success(request, f"Client '{societe_cliente.nom_societe_cliente}' ajouté avec succès !")
+            messages.success(request, f"SocieteCliente '{societe_cliente.nom_societe_cliente}' ajouté avec succès !")
 
             # NE PAS faire de redirect, on reste sur le formulaire
             # client = Client()  # si tu veux réinitialiser le formulaire
@@ -109,7 +110,10 @@ def modifier_societe_cliente(request, societe_cliente_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
-        societe_cliente = get_object_or_404(SocieteCliente, id=societe_cliente_id)
+        societe_cliente = get_object_or_404(
+            SocieteCliente,
+            id_societe_cliente=societe_cliente_id
+        )
 
         if request.method == "POST":
             form = SocieteClienteForm(request.POST, instance=societe_cliente)
@@ -117,8 +121,8 @@ def modifier_societe_cliente(request, societe_cliente_id):
                 form.save()
                 messages.success(request, "Société cliente mis à jour avec succès.")
                 return redirect(
-                    'client:modifier_societe_cliente',
-                    client_id=societe_cliente.id
+                    'societe_cliente:modifier_societe_cliente',
+                    societe_cliente_id=societe_cliente.id_societe_cliente
                 )
         else:
             form = SocieteClienteForm(instance=societe_cliente)

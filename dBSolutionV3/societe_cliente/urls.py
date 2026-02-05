@@ -11,8 +11,8 @@ urlpatterns = [
     path("creer/", ajouter_societe_cliente_all, name="societe_cliente_form"),
 
     # Détail d’une société cliente
-    path("<int:societe_cliente_id>/", societe_cliente_detail, name="societe_cliente_detail"),
+    path("<uuid:societe_cliente_id>/", societe_cliente_detail, name="societe_cliente_detail"),
 
     # Modifier une société cliente
-    path("<int:societe_cliente_id>/modifier/", modifier_societe_cliente, name="modifier_societe_cliente"),
+    path("<uuid:societe_cliente_id>/modifier/", modifier_societe_cliente, name="modifier_societe_cliente"),
 ]

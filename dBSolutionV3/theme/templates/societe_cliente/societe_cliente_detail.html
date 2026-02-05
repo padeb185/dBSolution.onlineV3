@@ -64,7 +64,7 @@
 
 
            <div class="mt-auto w-full">
-                <a href="{% url 'societe_cliente:modifier_societe_cliente' societe_cliente.id %}" class="block w-full">
+                <a href="{% url 'societe_cliente:modifier_societe_cliente' societe_cliente.id_societe_cliente %}" class="block w-full">
                     <button type="button"
                             class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
                         {% trans "Modifier la societe" %}
@@ -128,7 +128,7 @@
 
     <!-- Actions -->
     <div class="bg-white shadow-md rounded-lg p-6 flex gap-4">
-        <a href="{% url 'client:client_list' %}" class="flex-1">
+        <a href="{% url 'societe_cliente:societe_cliente_list' %}" class="flex-1">
               <button type="button" class="bg-blue-700 text-white px-4 py-2 rounded w-full mt-4">
                     {% trans "Retour à la liste des sociétés" %}
               </button>

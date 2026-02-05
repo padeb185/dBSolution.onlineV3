@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
+from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
 from django_tenants.utils import tenant_context
@@ -12,7 +13,7 @@ from adresse.models import Adresse
 
 
 
-
+@method_decorator([login_required, never_cache], name='dispatch')
 class CarrosserieListView(ListView):
     model = Carrosserie
     template_name = "carrosserie/carrosserie_list.html"
