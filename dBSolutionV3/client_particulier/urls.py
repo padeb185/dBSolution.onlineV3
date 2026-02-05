@@ -25,7 +25,7 @@ urlpatterns = [
 
 
     path(
-        'client/<int:client_particulier_id>/modifier/',
+        'client_particulier/<int:client_particulier_id>/modifier/',
         modifier_client,
         name='modifier_client'),
 

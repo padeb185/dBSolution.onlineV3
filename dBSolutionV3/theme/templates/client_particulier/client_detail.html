@@ -14,7 +14,7 @@
 
         </h1>
 
-        <a href="{% url 'client:client_list' %}"
+        <a href="{% url 'client_particulier:client_list' %}"
            class="text-blue-600 hover:underline">
             ← {% trans "Retour à la liste des clients" %}
         </a>
@@ -68,7 +68,7 @@
 
 
            <div class="mt-auto w-full">
-                <a href="{% url 'client:modifier_client' client.id %}" class="block w-full">
+                <a href="{% url 'client_particulier:modifier_client' client.id %}" class="block w-full">
                     <button type="button"
                             class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
                         {% trans "Modifier le client" %}
