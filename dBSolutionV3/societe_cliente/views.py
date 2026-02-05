@@ -16,7 +16,7 @@ from societe_cliente.forms import SocieteClienteForm
 class SocieteClienteListView(ListView):
     model = SocieteCliente
     template_name = "societe_cliente/societe_cliente_list.html"
-    context_object_name = "societe_clientes"
+    context_object_name = "societe_cliente"
     paginate_by = 20
     ordering = ["nom_societe_cliente", ]
 

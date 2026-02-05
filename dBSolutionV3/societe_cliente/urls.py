@@ -3,35 +3,16 @@ from .views import SocieteClienteListView, ajouter_societe_cliente_all, societe_
 
 app_name = "societe_cliente"
 
-
 urlpatterns = [
-    path(
-        "societe_cliente",
-        SocieteClienteListView.as_view(),
-        name="societe_cliente_list",
-    ),
+    # Liste des sociétés clientes
+    path("", SocieteClienteListView.as_view(), name="societe_cliente_list"),
 
+    # Créer une société cliente
+    path("creer/", ajouter_societe_cliente_all, name="societe_cliente_form"),
 
-    path(
-        "societe_cliente/creer/",
-        ajouter_societe_cliente_all,
-        name="societe_cliente_create",
-    ),
+    # Détail d’une société cliente
+    path("<int:societe_cliente_id>/", societe_cliente_detail, name="societe_cliente_detail"),
 
-
-    path(
-        "<int:societe_cliente_id>/",
-        societe_cliente_detail,
-        name="societe_cliente_detail"
-    ),
-
-
-    path(
-        'societe_cliente/<int:client_id>/modifier/',
-        modifier_societe_cliente,
-        name='modifier_societe_cliente'),
-
-
-
-
+    # Modifier une société cliente
+    path("<int:societe_cliente_id>/modifier/", modifier_societe_cliente, name="modifier_societe_cliente"),
 ]
