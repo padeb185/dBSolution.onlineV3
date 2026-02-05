@@ -67,7 +67,7 @@ def ajouter_societe_cliente_all(request):
 
             societe_cliente = SocieteCliente.objects.create(
                 nom_societe_cliente=nom_societe_cliente,
-                directeur=request.POST.get("directeur_nom_prenom"),
+                directeur_nom_prenom=request.POST.get("directeur_nom_prenom"),
                 numero_telephone=request.POST.get("numero_telephone"),
                 numero_compte=request.POST.get("numero_compte"),
                 numero_tva=request.POST.get("numero_tva"),
