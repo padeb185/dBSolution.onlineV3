@@ -89,11 +89,11 @@ def dashboard_view(request):
     total_marques = total_moteurs = total_exemplaires = 0
     total_boites = total_embrayages = total_freins = 0
     total_freins_ar = total_pneus = total_maintenance = 0
-    total_fournisseur = total_client = 0
+    total_fournisseur = total_client_particulier = 0
     total_carrosserie = total_intervention = total_societe_cliente = 0
 
     marques = moteurs = exemplaires = boites = embrayages = freins = \
-        freins_ar = pneus = maintenance = fournisseurs = clients = carrosseries = interventions = societe_clients = []
+        freins_ar = pneus = maintenance = fournisseurs = client_particulier = carrosseries = interventions = societe_clients = []
 
     if schema_name:
         with schema_context(schema_name):
@@ -163,7 +163,7 @@ def dashboard_view(request):
         'client_particulier': client_particulier,
         'carrosserie': carrosseries,
         'intervention': interventions,
-        'societe_cliente': societe_clients,
+        'societe_cliente': societe_cliente,
     })
 
     # --- Tâches et rôles ---

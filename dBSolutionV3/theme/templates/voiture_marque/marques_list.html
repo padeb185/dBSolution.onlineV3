@@ -19,7 +19,8 @@
             placeholder="{% trans 'Rechercher une marque...' %}"
         >
     </div>
-    <div class="flex justify-end mb-6">
+    <div class="flex justify-start mb-6">
+
         <a href="{% url 'voiture_marque:marques_favorites' %}"
            class="inline-flex items-center gap-2 px-4 py-2 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold rounded-lg transition">
             ⭐ {% trans "Mes marques favorites" %}
@@ -29,14 +30,15 @@
     <!-- Marques -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         {% for marque in marques %}
-        <div class="bg-white shadow-md transition duration-300 hover:shadow-lg hover:bg-blue-50 rounded-lg p-6 marque-card
+        <div class="relative bg-white shadow-md transition duration-300 hover:shadow-lg hover:bg-blue-50 rounded-lg p-6 marque-card
                     flex items-center gap-6 cursor-pointer w-full "
              onclick="window.location.href='{% url 'voiture_marque:modeles_par_marque' marque_id=marque.id_marque %}'"
              data-marque-id="{{ marque.id_marque }}"
              data-marque-nom="{{ marque.nom_marque|lower }}">
 
              <!-- ⭐ ÉTOILE FAVORI -->
-            <div class="absolute top-3 right-3 z-10">
+            <div class="absolute -bottom-4 right-3 z-10">
+
                 <button
                     class="favorite-btn text-2xl"
                     data-url="{% url 'voiture_marque:toggle_marque_favorite' marque_id=marque.id_marque %}"
@@ -58,8 +60,9 @@
 
 
             <img src="{% static 'images/marques/' %}{{ marque.nom_marque|lower }}.png"
-                 style="width:75px; margin-right:5px;"
+                 style="width:75px; margin-right:20px;"
                  onerror="this.src='{% static 'images/marques/default.png' %}'">
+
         </div>
         {% endfor %}
     </div>
