@@ -71,6 +71,27 @@
 
 <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
 <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const searchInput = document.getElementById("search-marque");
+    const cards = document.querySelectorAll(".marque-card");
+
+    searchInput.addEventListener("input", function () {
+        const query = this.value.toLowerCase().trim();
+
+        cards.forEach(card => {
+            const nom = card.dataset.marqueNom;
+
+            if (nom.includes(query)) {
+                card.style.display = "flex";
+            } else {
+                card.style.display = "none";
+            }
+        });
+    });
+});
+
+
+
 document.querySelectorAll(".favorite-btn").forEach(btn => {
     btn.addEventListener("click", function () {
         fetch(this.dataset.url, {
@@ -85,6 +106,9 @@ document.querySelectorAll(".favorite-btn").forEach(btn => {
         });
     });
 });
+
+
+
 </script>
 
 
