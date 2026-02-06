@@ -3,7 +3,7 @@ from datetime import date
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from adresse.models import Adresse
+
 
 
 class ClientParticulier(models.Model):
@@ -14,7 +14,7 @@ class ClientParticulier(models.Model):
     nom = models.CharField(_("Nom"), max_length=50)
 
     adresse = models.OneToOneField(
-        Adresse,
+        "adresse.Adresse",
         verbose_name=_("Adresse"),
         on_delete=models.CASCADE,
         null=True,
