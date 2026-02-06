@@ -317,36 +317,49 @@ def liste_exemplaires_all(request):
 
 
 
+
 @login_required
 def ajouter_exemplaire_all(request, modele_id):
     modele = get_object_or_404(VoitureModele, id=modele_id)
+    type_utilisation_selected = None  # valeur sélectionnée pour pré-remplissage
 
     if request.method == "POST":
-        type_utilisation = request.POST.get("type_utilisation")  # récupère la valeur sélectionnée
+        # Récupération des valeurs du formulaire
+        immatriculation = request.POST.get("immatriculation")
+        pays = request.POST.get("pays")
+        numero_vin = request.POST.get("numero_vin")
+        type_utilisation_selected = request.POST.get("type_utilisation")
+        kilometres_chassis = request.POST.get("kilometres_chassis")
+        annee_production = request.POST.get("annee_production")
+        mois_production = request.POST.get("mois_production")
 
-        VoitureExemplaire.objects.create(
-            voiture_marque=modele.voiture_marque,   # marque depuis le modèle
-            voiture_modele=modele,                  # lien vers le modèle
-            immatriculation=request.POST.get("immatriculation"),
-            pays=request.POST.get("pays"),
-            numero_vin=request.POST.get("numero_vin"),
-            type_utilisation=type_utilisation,      # <-- ici
-            kilometres_chassis=request.POST.get("kilometres_chassis"),
-            annee_production=request.POST.get("annee_production"),
-            mois_production=request.POST.get("mois_production"),
-        )
-        return redirect("voiture_exemplaire:voiture_exemplaire", modele_id=modele.id)
-
-    # Pour pré-remplir le formulaire si nécessaire (ex: après erreur)
-    type_utilisation = None  # aucune sélection par défaut
+        # Vérifications basiques
+        if not immatriculation or not pays:
+            messages.error(request, "Veuillez renseigner au moins l'immatriculation et le pays.")
+        else:
+            try:
+                VoitureExemplaire.objects.create(
+                    voiture_marque=modele.voiture_marque,
+                    voiture_modele=modele,
+                    immatriculation=immatriculation,
+                    pays=pays,
+                    numero_vin=numero_vin,
+                    type_utilisation=type_utilisation_selected,
+                    kilometres_chassis=kilometres_chassis,
+                    annee_production=annee_production,
+                    mois_production=mois_production,
+                )
+                messages.success(request, "Exemplaire ajouté avec succès !")
+            except Exception as e:
+                messages.error(request, f"Une erreur est survenue : {str(e)}")
 
     return render(
         request,
         "voiture_exemplaire/ajouter_exemplaire_all.html",
         {
             "modele": modele,
-            "TypeUtilisation": TypeUtilisation,   # pour boucler dans le template
-            "type_utilisation": type_utilisation  # valeur sélectionnée
+            "TypeUtilisation": TypeUtilisation,   # pour la liste déroulante
+            "type_utilisation": type_utilisation_selected,  # valeur pré-remplie
         }
     )
 

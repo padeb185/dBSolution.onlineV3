@@ -11,47 +11,17 @@ from voiture.voiture_embrayage.models import TypePlateauPression
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 
 
-@login_required
-def ajouter_embrayage(request, modele_id):
-    tenant = request.user.societe
-    with tenant_context(tenant):
-        # Récupère le modèle
-        modele = get_object_or_404(VoitureModele, id=modele_id)
-        marque = modele.voiture_marque  # objet VoitureMarque
-
-        if request.method == "POST":
-            form = VoitureEmbrayageForm(request.POST)
-            if form.is_valid():
-                exemplaire = form.save(commit=False)
-                exemplaire.voiture_modele = modele
-                exemplaire.voiture_marque = marque
-                exemplaire.save()
-                messages.success(request, "Embrayage ajoutée avec succès !")
-            else:
-                # Form invalide → on retourne le formulaire avec erreurs
-                messages.error(request, "Veuillez corriger les erreurs ci-dessous.")
-        else:
-            # GET → formulaire pré-rempli avec la marque et le modèle
-            form = VoitureEmbrayageForm(initial={
-                "voiture_marque": marque.pk,
-                "voiture_modele": modele.id
-            })
-
-        return render(request, "voiture_embrayage/ajouter_embrayage_simple.html", {
-            "form": form,
-            "modele": modele
-        })
-
 
 @login_required
 def liste_embrayage(request):
-    """
-    Affiche tous les exemplaires de véhicules avec recherche sur marque et immatriculation
-    """
+
     tenant = request.user.societe
     with tenant_context(tenant):
         embrayages = VoitureEmbrayage.objects.all()
-    return render(request, "voiture_embrayage/list.html", {"embrayages": embrayages})
+    return render(request, "voiture_embrayage/list.html",
+                  {
+                      "embrayages": embrayages
+                  })
 
 
 
@@ -69,7 +39,8 @@ def ajouter_embrayage_simple(request):
 
         # Vérification basique : champs obligatoires
         if not fabricant or not type_embrayage:
-            messages.error(request, "Veuillez renseigner au moins le fabricant et le type d'embrayage.")
+            messages.error(request,
+                           "Veuillez renseigner au moins le fabricant et le type d'embrayage.")
         else:
             try:
                 VoitureEmbrayage.objects.create(
@@ -84,7 +55,7 @@ def ajouter_embrayage_simple(request):
             except Exception as e:
                 messages.error(request, f"Une erreur est survenue : {str(e)}")
 
-    # Passer les choix au template pour les listes déroulantes
+
     context = {
         "TypeEmbrayage": TypeEmbrayage,
         "TypeVolantMoteur": TypeVolantMoteur,
