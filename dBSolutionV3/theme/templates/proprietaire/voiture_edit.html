@@ -1,0 +1,61 @@
+<form method="POST">
+    {% csrf_token %}
+    <label for="id_nombre_proprietaires">Nombre de propriétaires :</label>
+    <input type="number" id="id_nombre_proprietaires" value="{{ voiture.nombre_proprietaires }}" min="1" max="10">
+
+    <div id="proprietaires-container">
+        {{ formset.management_form }}
+        {% for form in formset %}
+            <div class="proprietaire-row mb-2">
+                {{ form.nom_proprietaire.label_tag }} {{ form.nom_proprietaire }}
+                {{ form.part_proprietaire_pourcent.label_tag }} {{ form.part_proprietaire_pourcent }}
+            </div>
+        {% endfor %}
+    </div>
+
+    <p id="total-parts">Total des parts : <span>0</span>%</p>
+
+    <button type="submit">Enregistrer</button>
+</form>
+
+<script>
+const container = document.getElementById('proprietaires-container');
+const nombreInput = document.getElementById('id_nombre_proprietaires');
+const totalPartsEl = document.getElementById('total-parts').querySelector('span');
+
+function updateTotal() {
+    let total = 0;
+    container.querySelectorAll('input[name$="part_proprietaire_pourcent"]').forEach(input => {
+        total += parseFloat(input.value) || 0;
+    });
+    totalPartsEl.textContent = total.toFixed(2);
+}
+
+function adjustProprietaires() {
+    let nombre = parseInt(nombreInput.value) || 1;
+    let current = container.querySelectorAll('.proprietaire-row').length;
+
+    if (nombre > current) {
+        for (let i = current; i < nombre; i++) {
+            const div = document.createElement('div');
+            div.classList.add('proprietaire-row', 'mb-2');
+            div.innerHTML = `
+                <input type="text" name="proprietaire-${i}-nom_proprietaire" placeholder="Nom propriétaire ${i+1}" />
+                <input type="number" step="0.01" min="0" max="100" name="proprietaire-${i}-part_proprietaire_pourcent" placeholder="Part (%)" />
+            `;
+            container.appendChild(div);
+        }
+    } else if (nombre < current) {
+        for (let i = current; i > nombre; i--) {
+            container.querySelector('.proprietaire-row:last-child').remove();
+        }
+    }
+    updateTotal();
+}
+
+nombreInput.addEventListener('change', adjustProprietaires);
+container.addEventListener('input', updateTotal);
+
+// Initial total
+updateTotal();
+</script>

@@ -273,10 +273,9 @@ def moteur_autocomplete(request):
 
 
 
-
 def modifier_exemplaire(request, exemplaire_id):
-    # Récupérer le tenant courant depuis request (ou via ton contexte multi-tenant)
-    tenant = request.user.societe  # Remplacer par logique réelle si nécessaire
+    # Récupérer le tenant courant depuis request
+    tenant = request.user.societe  # Ajuster selon ton contexte
     with tenant_context(tenant):
         exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
 
@@ -284,8 +283,9 @@ def modifier_exemplaire(request, exemplaire_id):
             form = VoitureExemplaireForm(request.POST, instance=exemplaire)
             if form.is_valid():
                 form.save()
+                # Message de succès affiché sur la même page
                 messages.success(request, "Exemplaire mis à jour avec succès.")
-                return redirect('voiture_exemplaire:voiture_exemplaire_detail', exemplaire_id=exemplaire.id)
+                # PAS DE REDIRECTION : on continue à afficher le formulaire
         else:
             form = VoitureExemplaireForm(instance=exemplaire)
 
@@ -293,8 +293,6 @@ def modifier_exemplaire(request, exemplaire_id):
             'form': form,
             'exemplaire': exemplaire,
         })
-
-
 
 @login_required
 def liste_exemplaires_all(request):

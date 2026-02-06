@@ -27,7 +27,6 @@ def ajouter_embrayage(request, modele_id):
                 exemplaire.voiture_marque = marque
                 exemplaire.save()
                 messages.success(request, "Embrayage ajoutée avec succès !")
-                return redirect("voiture_exemplaire_liste_exemplaires", modele_id=modele.id)
             else:
                 # Form invalide → on retourne le formulaire avec erreurs
                 messages.error(request, "Veuillez corriger les erreurs ci-dessous.")
@@ -60,17 +59,32 @@ def liste_embrayage(request):
 @login_required
 def ajouter_embrayage_simple(request):
     if request.method == "POST":
-        VoitureEmbrayage.objects.create(
-            fabricant=request.POST.get("fabricant"),
-            type_embrayage=request.POST.get("type_embrayage"),
-            volant_moteur=request.POST.get("volant_moteur"),
-            plateau_pression=request.POST.get("plateau_pression"),
-            kilometrage_embrayage=request.POST.get("kilometrage_embrayage"),
-            numero_embrayage=request.POST.get("numero_embrayage"),
-        )
-        return redirect("voiture_embrayage:list")
+        # Récupération des valeurs
+        fabricant = request.POST.get("fabricant")
+        type_embrayage = request.POST.get("type_embrayage")
+        volant_moteur = request.POST.get("volant_moteur")
+        plateau_pression = request.POST.get("plateau_pression")
+        kilometrage_embrayage = request.POST.get("kilometrage_embrayage")
+        numero_embrayage = request.POST.get("numero_embrayage")
 
-    # Passer TypeEmbrayage au template pour la liste déroulante
+        # Vérification basique : champs obligatoires
+        if not fabricant or not type_embrayage:
+            messages.error(request, "Veuillez renseigner au moins le fabricant et le type d'embrayage.")
+        else:
+            try:
+                VoitureEmbrayage.objects.create(
+                    fabricant=fabricant,
+                    type_embrayage=type_embrayage,
+                    volant_moteur=volant_moteur,
+                    plateau_pression=plateau_pression,
+                    kilometrage_embrayage=kilometrage_embrayage,
+                    numero_embrayage=numero_embrayage,
+                )
+                messages.success(request, "Embrayage ajouté avec succès !")
+            except Exception as e:
+                messages.error(request, f"Une erreur est survenue : {str(e)}")
+
+    # Passer les choix au template pour les listes déroulantes
     context = {
         "TypeEmbrayage": TypeEmbrayage,
         "TypeVolantMoteur": TypeVolantMoteur,
