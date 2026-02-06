@@ -8,6 +8,7 @@ from django_tenants.utils import tenant_context
 from adresse.models import Adresse
 from societe_cliente.models import SocieteCliente
 from societe_cliente.forms import SocieteClienteForm
+from django.utils.translation import gettext as _
 
 
 
@@ -89,7 +90,7 @@ def ajouter_societe_cliente_all(request):
                 code_pays=request.POST.get("code_pays")
             )
 
-            messages.success(request, f"SocieteCliente '{societe_cliente.nom_societe_cliente}' ajouté avec succès !")
+            messages.success(request, _(f"SocieteCliente '{societe_cliente.nom_societe_cliente}' ajoutée avec succès !"))
 
             # NE PAS faire de redirect, on reste sur le formulaire
             # client = Client()  # si tu veux réinitialiser le formulaire
@@ -119,11 +120,8 @@ def modifier_societe_cliente(request, societe_cliente_id):
             form = SocieteClienteForm(request.POST, instance=societe_cliente)
             if form.is_valid():
                 form.save()
-                messages.success(request, "Société cliente mis à jour avec succès.")
-                return redirect(
-                    'societe_cliente:modifier_societe_cliente',
-                    societe_cliente_id=societe_cliente.id_societe_cliente
-                )
+                messages.success(request,  _(f"SocieteCliente '{societe_cliente.nom_societe_cliente}' modifiée avec succès !"))
+
         else:
             form = SocieteClienteForm(instance=societe_cliente)
 

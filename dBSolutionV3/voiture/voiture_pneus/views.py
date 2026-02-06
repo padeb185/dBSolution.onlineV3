@@ -1,8 +1,13 @@
+from django.contrib import messages
 from django_tenants.utils import tenant_context
+
+from .. import voiture_pneus
 from ..voiture_pneus.admin_forms import RemplacementPneusForm
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import VoiturePneus
+from django.utils.translation import gettext as _
+
 
 
 
@@ -19,10 +24,8 @@ def remplacer_pneus(self, request, pk):
                 nouveaux_pneus_arriere=form.cleaned_data["pneus_arriere"],
                 date=form.cleaned_data["date_remplacement"],
             )
-            self.message_user(request, "Pneus remplacés avec succès.")
-            return redirect(
-                f"../../{pk}/change/"
-            )
+            self.message_user(request, _("Pneus remplacés avec succès."))
+
     else:
         form = RemplacementPneusForm()
 
@@ -67,21 +70,36 @@ def pneus_detail_view(request, embrayage_id):
 @login_required
 def ajouter_pneus_simple(request):
     if request.method == "POST":
-        VoiturePneus.objects.create(
-            manufacturier=request.POST.get("manufacturier"),
-            emplacement=request.POST.get("emplacement"),
-            type_pneus=request.POST.get("type_pneus"),
-            nom_type=request.POST.get("nom_type"),
-            pneus_largeur=request.POST.get("pneus_largeur"),
-            pneus_hauteur=request.POST.get("pneus_hauteur"),
-            pneus_jante=request.POST.get("pneus_jante"),
-            indice_vitesse=request.POST.get("indice_vitesse"),
-            indice_charge=request.POST.get("indice_charge"),
-            numero_oem=request.POST.get("numero_oem"),
-        )
-        return redirect("voiture_pneus:list")
+        manufacturier = request.POST.get("manufacturier")
+        emplacement = request.POST.get("emplacement")
+        type_pneus = request.POST.get("type_pneus")
+        nom_type = request.POST.get("nom_type")
+        pneus_largeur = request.POST.get("pneus_largeur")
+        pneus_hauteur = request.POST.get("pneus_hauteur")
+        pneus_jante = request.POST.get("pneus_jante")
+        indice_vitesse = request.POST.get("indice_vitesse")
+        indice_charge = request.POST.get("indice_charge")
+        numero_oem = request.POST.get("numero_oem")
 
-    # GET request
+        # Vérification simple pour un champ obligatoire, exemple "manufacturier"
+        if not manufacturier:
+            messages.error(request, _("Le nom du manufacturier est obligatoire."))
+        else:
+            VoiturePneus.objects.create(
+                manufacturier=manufacturier,
+                emplacement=emplacement,
+                type_pneus=type_pneus,
+                nom_type=nom_type,
+                pneus_largeur=pneus_largeur,
+                pneus_hauteur=pneus_hauteur,
+                pneus_jante=pneus_jante,
+                indice_vitesse=indice_vitesse,
+                indice_charge=indice_charge,
+                numero_oem=numero_oem,
+            )
+            messages.success(request,
+                             _(f"Le pneu '{voiture_pneus.manufatcurier}' ajouté avec succès !"))
+
     context = {
         'TypePneus': VoiturePneus.TypePneus,
         'IndiceVitesse': VoiturePneus.IndiceVitesse,

@@ -8,7 +8,7 @@ from django_tenants.utils import tenant_context
 from .models import Fournisseur
 from .forms import FournisseurForm
 from adresse.forms import AdresseForm
-from ..adresse.models import Adresse
+from adresse.models import Adresse
 from django.utils.translation import gettext as _
 
 

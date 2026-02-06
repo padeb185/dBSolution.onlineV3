@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
 from django_tenants.utils import tenant_context
-from ..adresse.models import Adresse
+from adresse.models import Adresse
 from .forms import ClientParticulierForm
 from .models import ClientParticulier
 from django.utils.translation import gettext as _

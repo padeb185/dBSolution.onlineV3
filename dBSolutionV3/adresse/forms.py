@@ -22,11 +22,4 @@ class AdresseForm(forms.ModelForm):
             "pays": _("Pays"),
             "code_pays": _("Code pays"),
         }
-        widgets = {
-            "rue": forms.TextInput(attrs={"class": "border rounded px-4 py-2 w-full"}),
-            "numero": forms.TextInput(attrs={"class": "border rounded px-4 py-2 w-full"}),
-            "code_postal": forms.TextInput(attrs={"class": "border rounded px-4 py-2 w-full"}),
-            "ville": forms.TextInput(attrs={"class": "border rounded px-4 py-2 w-full"}),
-            "pays": forms.TextInput(attrs={"class": "border rounded px-4 py-2 w-full"}),
-            "code_pays": forms.TextInput(attrs={"class": "border rounded px-4 py-2 w-full"}),
-        }
+

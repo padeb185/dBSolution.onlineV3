@@ -7,7 +7,7 @@ app_name = "intervention"
 urlpatterns = [
     path(
         "intervention/",
-         InterventionListView.as_view(),
+         InterventionListView,
          name="intervention_list"
          ),
 
