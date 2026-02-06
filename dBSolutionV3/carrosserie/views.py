@@ -10,6 +10,7 @@ from django_tenants.utils import tenant_context
 from .forms import CarrosserieForm
 from .models import Carrosserie
 from adresse.models import Adresse
+from django.utils.translation import gettext as _
 
 
 
@@ -57,7 +58,7 @@ def ajouter_carrosserie_all(request):
 
 
         if not nom_societe:
-            messages.error(request, "Le nom de la carrosserie est obligatoire.")
+            messages.error(request, _("Le nom de la carrosserie est obligatoire."))
         else:
             adresse = Adresse.objects.create(
                 rue=request.POST.get("rue"),
@@ -77,7 +78,7 @@ def ajouter_carrosserie_all(request):
                 responsable_nom=request.POST.get("responsable_nom"),
                 adresse=adresse
             )
-            messages.success(request, f"Carrosserie '{carrosserie.nom_societe}' ajouté avec succès !")
+            messages.success(request, _(f"Carrosserie '{carrosserie.nom_societe}' ajouté avec succès !"))
             return redirect("carrosserie:carrosserie_list")
 
     # S'assurer que fournisseur.adresse existe

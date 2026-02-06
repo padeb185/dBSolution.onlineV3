@@ -8,7 +8,8 @@ from django_tenants.utils import tenant_context
 from .models import Fournisseur
 from .forms import FournisseurForm
 from adresse.forms import AdresseForm
-from adresse.models import Adresse
+from ..adresse.models import Adresse
+from django.utils.translation import gettext as _
 
 
 
@@ -59,7 +60,7 @@ def liste_fournisseur_all(request):
             ).all().order_by('id')
     except Exception as e:
         # En cas d'erreur (rare), on affiche un message
-        messages.error(request, f"Erreur lors de la récupération des fournisseurs : {e}")
+        messages.error(request, _(f"Erreur lors de la récupération des fournisseurs : {e}"))
         fournisseurs = []
 
     return render(
@@ -83,7 +84,7 @@ def ajouter_fournisseur_all(request):
 
 
         if not nom:
-            messages.error(request, "Le nom du fournisseur est obligatoire.")
+            messages.error(request, _("Le nom du fournisseur est obligatoire."))
         else:
             adresse = Adresse.objects.create(
                 rue=request.POST.get("rue"),
@@ -103,8 +104,8 @@ def ajouter_fournisseur_all(request):
                 gsm=request.POST.get("gsm"),
                 adresse=adresse
             )
-            messages.success(request, f"Fournisseur '{fournisseur.nom}' ajouté avec succès !")
-            return redirect("fournisseur:fournisseur_list")
+            messages.success(request, _(f"Fournisseur '{fournisseur.nom}' ajouté avec succès !"))
+
 
     # S'assurer que fournisseur.adresse existe
     if not hasattr(fournisseur, "adresse") or fournisseur.adresse is None:
@@ -126,11 +127,9 @@ def modifier_fournisseur(request, fournisseur_id):
             form = FournisseurForm(request.POST, instance=fournisseur)
             if form.is_valid():
                 form.save()
-                messages.success(request, "Fournisseur mis à jour avec succès.")
-                return redirect(
-                    'fournisseur:modifier_fournisseur',
-                    fournisseur_id=fournisseur.id
-                )
+                messages.success(request, _(f"Fournisseur '{fournisseur.nom}' modifié avec succès !"))
+
+
         else:
             form = FournisseurForm(instance=fournisseur)
 

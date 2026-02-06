@@ -10,8 +10,12 @@ from django.views.generic import ListView
 from django_tenants.utils import tenant_context
 from carrosserie.models import Carrosserie
 from voiture.voiture_exemplaire.models import VoitureExemplaire
+from django.utils.translation import gettext as _
 
 
+
+@never_cache
+@login_required
 class InterventionListView(ListView):
     model = Intervention
     template_name = "intervention_list.html"
@@ -21,7 +25,7 @@ class InterventionListView(ListView):
 
 
 
-@login_required()
+@login_required
 def intervention_create(request):
     if request.method == "POST":
         form = InterventionForm(request.POST)
@@ -30,6 +34,9 @@ def intervention_create(request):
             # Calcul automatique du total
             intervention.montant_total = intervention.total_prix
             intervention.save()
+
+
+
             return redirect(reverse("intervention_list"))  # à adapter selon ta vue liste
     else:
         form = InterventionForm()

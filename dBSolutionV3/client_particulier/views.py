@@ -4,9 +4,10 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
 from django_tenants.utils import tenant_context
-from adresse.models import Adresse
+from ..adresse.models import Adresse
 from .forms import ClientParticulierForm
 from .models import ClientParticulier
+from django.utils.translation import gettext as _
 
 
 
@@ -50,7 +51,7 @@ def ajouter_client_all(request):
         prenom = request.POST.get("prenom")
 
         if not nom or not prenom:
-            messages.error(request, "Le prénom et le nom du client sont obligatoires.")
+            messages.error(request, _("Le prénom et le nom du client sont obligatoires."))
         else:
             adresse = Adresse.objects.create(
                 rue=request.POST.get("rue"),
@@ -76,10 +77,9 @@ def ajouter_client_all(request):
                 adresse=adresse
             )
 
-            messages.success(request, f"Client '{client_particulier.nom}' ajouté avec succès !")
+            messages.success(request, _(f"Client '{client_particulier.nom}' ajouté avec succès !"))
 
-            # NE PAS faire de redirect, on reste sur le formulaire
-            # client = Client()  # si tu veux réinitialiser le formulaire
+
 
     # S'assurer que client.adresse existe
     if not hasattr(client_particulier, "adresse") or client_particulier.adresse is None:
@@ -103,11 +103,8 @@ def modifier_client(request, client_particulier_id):
             form = ClientParticulierForm(request.POST, instance=client_particulier)
             if form.is_valid():
                 form.save()
-                messages.success(request, "Client mis à jour avec succès.")
-                return redirect(
-                    'client:modifier_client',
-                    client_id=client_particulier.id
-                )
+                messages.success(request, _(f"Client '{client_particulier.nom}' modifié avec succès !"))
+
         else:
             form = ClientParticulierForm(instance=client_particulier)
 
@@ -117,5 +114,6 @@ def modifier_client(request, client_particulier_id):
         {
             "form": form,
             "client_particulier": client_particulier,
+            "client_particulier.nom": client_particulier.nom
         }
     )
