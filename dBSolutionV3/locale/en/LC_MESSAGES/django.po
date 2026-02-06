@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-02 08:09+0100\n"
+"POT-Creation-Date: 2026-02-06 06:48+0100\n"
 "PO-Revision-Date: 2025-12-13 12:10+0100\n"
 "Last-Translator: Pierre de Bournonville [EMAIL@ADDRESS]"
 "(mailto:EMAIL@ADDRESS)\n"
@@ -19,46 +19,68 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: .\adresse\forms.py:18 .\adresse\models.py:9
-#: .\theme\templates\client\client_form.html:135
+#: .\theme\templates\carrosserie\carrosserie_form.html:85
+#: .\theme\templates\client_particulier\client_form.html:135
 #: .\theme\templates\fournisseurs\fournisseur_form.html:89
+#: .\theme\templates\societe_cliente\societe_cliente_form.html:85
 msgid "Rue"
 msgstr "Street"
 
 #: .\adresse\forms.py:19 .\adresse\models.py:10
-#: .\theme\templates\client\client_form.html:141
+#: .\theme\templates\carrosserie\carrosserie_form.html:91
+#: .\theme\templates\client_particulier\client_form.html:141
 #: .\theme\templates\fournisseurs\fournisseur_form.html:96
+#: .\theme\templates\societe_cliente\societe_cliente_form.html:91
 msgid "Numéro"
 msgstr "Number"
 
 #: .\adresse\forms.py:20 .\adresse\models.py:11
-#: .\theme\templates\client\client_form.html:147
+#: .\theme\templates\carrosserie\carrosserie_form.html:97
+#: .\theme\templates\client_particulier\client_form.html:147
 #: .\theme\templates\fournisseurs\fournisseur_form.html:103
+#: .\theme\templates\societe_cliente\societe_cliente_form.html:97
 msgid "Code postal"
 msgstr "Postal code"
 
 #: .\adresse\forms.py:21 .\adresse\models.py:12
-#: .\theme\templates\client\client_form.html:153
+#: .\theme\templates\carrosserie\carrosserie_form.html:103
+#: .\theme\templates\client_particulier\client_form.html:153
 #: .\theme\templates\fournisseurs\fournisseur_form.html:110
+#: .\theme\templates\societe_cliente\societe_cliente_form.html:103
 msgid "Ville"
 msgstr "City"
 
-#: .\adresse\forms.py:22 .\adresse\models.py:14 .\carrosserie\models.py:12
-#: .\piece\models.py:9 .\piece\models.py:71
-#: .\theme\templates\client\client_form.html:159
-#: .\theme\templates\fournisseurs\fournisseur_detail.html:51
+#: .\adresse\forms.py:22 .\adresse\models.py:14 .\carrosserie\models.py:14
+#: .\piece\models.py:9 .\piece\models.py:71 .\societe_cliente\models.py:82
+#: .\theme\templates\carrosserie\carrosserie_detail.html:46
+#: .\theme\templates\carrosserie\carrosserie_form.html:109
+#: .\theme\templates\carrosserie\carrosserie_list.html:26
+#: .\theme\templates\client_particulier\client_form.html:159
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:46
 #: .\theme\templates\fournisseurs\fournisseur_form.html:117
+#: .\theme\templates\intervention\intervention_detail.html:46
+#: .\theme\templates\intervention\intervention_list.html:26
+#: .\theme\templates\societe_cliente\societe_cliente_form.html:109
 msgid "Pays"
 msgstr "Country"
 
 #: .\adresse\forms.py:23 .\adresse\models.py:15 .\facture\models.py:29
-#: .\fournisseur\models.py:43 .\theme\templates\client\client_form.html:165
+#: .\fournisseur\models.py:43 .\societe_cliente\models.py:89
+#: .\theme\templates\carrosserie\carrosserie_form.html:115
+#: .\theme\templates\client_particulier\client_form.html:165
 #: .\theme\templates\fournisseurs\fournisseur_form.html:124
+#: .\theme\templates\societe_cliente\societe_cliente_form.html:115
 msgid "Code pays"
 msgstr "Country code"
 
-#: .\adresse\models.py:17 .\client\models.py:128 .\facture\models.py:34
-#: .\fournisseur\models.py:79 .\theme\templates\client\client_detail.html:99
-#: .\theme\templates\fournisseurs\fournisseur_detail.html:104
+#: .\adresse\models.py:17 .\client_particulier\models.py:128
+#: .\facture\models.py:34 .\fournisseur\models.py:79
+#: .\societe_cliente\models.py:124
+#: .\theme\templates\carrosserie\carrosserie_detail.html:99
+#: .\theme\templates\client_particulier\client_detail.html:114
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:99
+#: .\theme\templates\intervention\intervention_detail.html:99
+#: .\theme\templates\societe_cliente\societe_cliente_detail.html:110
 msgid "Créé le"
 msgstr "Created at"
 
@@ -66,14 +88,23 @@ msgstr "Created at"
 msgid "Mis à jour le"
 msgstr "Updated at"
 
-#: .\adresse\models.py:21 .\carrosserie\models.py:11 .\client\models.py:16
-#: .\facture\models.py:17 .\fournisseur\models.py:19
-#: .\theme\templates\client\client_detail.html:80
-#: .\theme\templates\client\client_form.html:132
-#: .\theme\templates\client\client_list.html:27
-#: .\theme\templates\client\client_list.html:61
-#: .\theme\templates\fournisseurs\fournisseur_detail.html:85
+#: .\adresse\models.py:21 .\carrosserie\models.py:13
+#: .\client_particulier\models.py:18 .\facture\models.py:17
+#: .\fournisseur\models.py:19
+#: .\theme\templates\carrosserie\carrosserie_detail.html:80
+#: .\theme\templates\carrosserie\carrosserie_form.html:82
+#: .\theme\templates\carrosserie\carrosserie_list.html:22
+#: .\theme\templates\client_particulier\client_detail.html:95
+#: .\theme\templates\client_particulier\client_form.html:132
+#: .\theme\templates\client_particulier\client_list.html:27
+#: .\theme\templates\client_particulier\client_list.html:61
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:80
 #: .\theme\templates\fournisseurs\fournisseur_form.html:86
+#: .\theme\templates\intervention\intervention_detail.html:80
+#: .\theme\templates\intervention\intervention_list.html:22
+#: .\theme\templates\societe_cliente\societe_cliente_detail.html:91
+#: .\theme\templates\societe_cliente\societe_cliente_form.html:82
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:60
 msgid "Adresse"
 msgstr "Address"
 
@@ -82,256 +113,191 @@ msgid "Adresses"
 msgstr "Addresses"
 
 #: .\carrosserie\models.py:10
+#: .\theme\templates\societe_cliente\societe_cliente_detail.html:33
+#: .\theme\templates\societe_cliente\societe_cliente_form.html:34
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:59
 msgid "Nom de la société"
 msgstr "Company name"
 
-#: .\carrosserie\models.py:13
+#: .\carrosserie\models.py:11
+msgid "Responsable nom"
+msgstr "Responsible last name"
+
+#: .\carrosserie\models.py:12
+msgid "Responsable prenom"
+msgstr "Responsible first name"
+
+
+#: .\carrosserie\models.py:15
+#: .\theme\templates\carrosserie\carrosserie_form.html:64
+#: .\theme\templates\carrosserie\carrosserie_list.html:58
 #: .\theme\templates\fournisseurs\fournisseur_list.html:57
 #: .\theme\templates\utilisateurs\liste_utilisateurs.html:19
 msgid "Téléphone"
 msgstr "Phone"
 
-#: .\carrosserie\models.py:14 .\client\models.py:55 .\fournisseur\models.py:52
-#: .\theme\templates\client\client_form.html:95
-#: .\theme\templates\client\client_list.html:63
+#: .\carrosserie\models.py:16 .\client_particulier\models.py:59
+#: .\fournisseur\models.py:52 .\societe_cliente\models.py:45
+#: .\theme\templates\carrosserie\carrosserie_form.html:57
+#: .\theme\templates\carrosserie\carrosserie_list.html:57
+#: .\theme\templates\client_particulier\client_detail.html:33
+#: .\theme\templates\client_particulier\client_form.html:95
+#: .\theme\templates\client_particulier\client_list.html:63
 #: .\theme\templates\fournisseurs\fournisseur_form.html:65
 #: .\theme\templates\fournisseurs\fournisseur_list.html:56
+#: .\theme\templates\societe_cliente\societe_cliente_detail.html:49
+#: .\theme\templates\societe_cliente\societe_cliente_form.html:72
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:63
 msgid "Email"
 msgstr "Email"
 
-#: .\carrosserie\models.py:15 .\fournisseur\models.py:24
-#: .\theme\templates\fournisseurs\fournisseur_detail.html:41
+#: .\carrosserie\models.py:17 .\fournisseur\models.py:24
+#: .\theme\templates\carrosserie\carrosserie_detail.html:36
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:36
 #: .\theme\templates\fournisseurs\fournisseur_form.html:42
+#: .\theme\templates\societe_cliente\societe_cliente_detail.html:41
 msgid "Numéro de TVA"
 msgstr "VAT number"
 
-#: .\carrosserie\models.py:18 .\carrosserie\models.py:29
+#: .\carrosserie\models.py:19 .\facture\models.py:23 .\fournisseur\models.py:37
+#: .\theme\templates\carrosserie\carrosserie_detail.html:70
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:70
+#: .\theme\templates\intervention\intervention_detail.html:70
+msgid "Identifiant Peppol"
+msgstr "Peppol identifier"
+
+#: .\carrosserie\models.py:21 .\fournisseur\models.py:39
+msgid "Identifiant Peppol, ex : 0208:BE0123456789"
+msgstr "Peppol identifier, e.g.: 0208:BE0123456789"
+
+#: .\carrosserie\models.py:30 .\intervention\models.py:11
 #: .\maintenance\check_up\models.py:472
 #: .\maintenance\nettoyage_exterieur\models.py:29
+#: .\theme\templates\carrosserie\carrosserie_form.html:34
+#: .\theme\templates\intervention\intervention_form.html:27
 msgid "Carrosserie"
 msgstr "Body shop"
 
-#: .\carrosserie\models.py:19
+#: .\carrosserie\models.py:31 .\theme\templates\dashboard.html:248
 msgid "Carrosseries"
 msgstr "Body shops"
 
-#: .\carrosserie\models.py:36 .\piece\piece_carrosserie\models.py:17
-msgid "Pare-chocs"
-msgstr "Bumper"
-
-#: .\carrosserie\models.py:37 .\piece\piece_carrosserie\models.py:18
-msgid "Bouclier"
-msgstr "Bumper cover"
-
-#: .\carrosserie\models.py:38 .\maintenance\check_up\models.py:508
-#: .\maintenance\nettoyage_interieur\models.py:30
-#: .\piece\piece_carrosserie\models.py:19
-msgid "Pare-brise"
-msgstr "Windshield"
-
-#: .\carrosserie\models.py:39
-msgid "Vitre de porte"
-msgstr "Door window"
-
-#: .\carrosserie\models.py:40 .\piece\piece_carrosserie\models.py:21
-msgid "Lunette"
-msgstr "Rear window"
-
-#: .\carrosserie\models.py:41 .\piece\piece_carrosserie\models.py:22
-msgid "Rétroviseur"
-msgstr "Side mirror"
-
-#: .\carrosserie\models.py:42 .\piece\piece_carrosserie\models.py:23
-msgid "Aile"
-msgstr "Fender"
-
-#: .\carrosserie\models.py:43 .\piece\piece_carrosserie\models.py:24
-msgid "Élargisseur d’aile"
-msgstr "Fender flare"
-
-#: .\carrosserie\models.py:44 .\piece\piece_carrosserie\models.py:25
-msgid "Bas de caisse"
-msgstr "Side skirt"
-
-#: .\carrosserie\models.py:45 .\piece\piece_carrosserie\models.py:26
-msgid "Support de radiateur"
-msgstr "Radiator support"
-
-#: .\carrosserie\models.py:46 .\piece\piece_carrosserie\models.py:27
-msgid "Support de pare-chocs"
-msgstr "Bumper support"
-
-#: .\carrosserie\models.py:47 .\piece\piece_carrosserie\models.py:28
-msgid "Porte"
-msgstr "Door"
-
-#: .\carrosserie\models.py:48 .\piece\piece_carrosserie\models.py:29
-msgid "Poignée de porte"
-msgstr "Door handle"
-
-#: .\carrosserie\models.py:49 .\piece\piece_carrosserie\models.py:30
-msgid "Coffre / hayon"
-msgstr "Trunk / tailgate"
-
-#: .\carrosserie\models.py:50 .\piece\piece_carrosserie\models.py:31
-msgid "Joint de coffre"
-msgstr "Trunk seal"
-
-#: .\carrosserie\models.py:51 .\piece\piece_carrosserie\models.py:32
-msgid "Joint de porte"
-msgstr "Door seal"
-
-#: .\carrosserie\models.py:52 .\piece\piece_carrosserie\models.py:33
-msgid "Coquille d’aile"
-msgstr "Fender liner"
-
-#: .\carrosserie\models.py:53 .\piece\piece_carrosserie\models.py:34
-msgid "Clips"
-msgstr "Clips"
-
-#: .\carrosserie\models.py:54 .\piece\piece_carrosserie\models.py:35
-#: .\piece\piece_differentiel\models.py:16 .\piece\piece_freins\models.py:34
-msgid "Visserie"
-msgstr "Fasteners"
-
-#: .\carrosserie\models.py:55 .\piece\piece_carrosserie\models.py:36
-msgid "Capot"
-msgstr "Hood"
-
-#: .\carrosserie\models.py:58
-msgid "Montant du devis"
-msgstr "Quotation amount"
-
-#: .\carrosserie\models.py:64
-msgid "Montant de la facture"
-msgstr "Invoice amount"
-
-#: .\carrosserie\models.py:70
-msgid "Montant total"
-msgstr "Total amount"
-
-#: .\carrosserie\models.py:77
-msgid "Intervention"
-msgstr "Intervention"
-
-#: .\carrosserie\models.py:78
-msgid "Interventions"
-msgstr "Interventions"
-
-#: .\carrosserie\models.py:82
-#, python-format
-msgid "Intervention %(id)s – %(carrosserie)s"
-msgstr "Intervention %(id)s – %(carrosserie)s"
-
-#: .\carrosserie\models.py:86
-#, python-format
-msgid "Intervention %(id)s"
-msgstr "Intervention %(id)s"
-
-#: .\client\models.py:11 .\theme\templates\client\client_form.html:34
-#: .\theme\templates\client\client_form.html:38
-#: .\theme\templates\client\client_list.html:59
+#: .\client_particulier\models.py:12
+#: .\theme\templates\client_particulier\client_form.html:34
+#: .\theme\templates\client_particulier\client_form.html:38
+#: .\theme\templates\client_particulier\client_list.html:59
 #: .\theme\templates\utilisateurs\liste_utilisateurs.html:16
 msgid "Prénom"
 msgstr "First name"
 
-#: .\client\models.py:12 .\piece\models.py:8
-#: .\theme\templates\client\client_form.html:43
-#: .\theme\templates\client\client_form.html:47
-#: .\theme\templates\client\client_list.html:60
+#: .\client_particulier\models.py:14 .\piece\models.py:8
+#: .\theme\templates\client_particulier\client_form.html:43
+#: .\theme\templates\client_particulier\client_form.html:47
+#: .\theme\templates\client_particulier\client_list.html:60
 #: .\theme\templates\utilisateurs\liste_utilisateurs.html:15
 msgid "Nom"
 msgstr "Last name"
 
-#: .\client\models.py:21 .\theme\templates\client\client_form.html:52
-#: .\theme\templates\client\client_list.html:31
-#: .\theme\templates\client\client_list.html:62
+#: .\client_particulier\models.py:25 .\societe_cliente\models.py:38
+#: .\theme\templates\client_particulier\client_detail.html:38
+#: .\theme\templates\client_particulier\client_form.html:52
+#: .\theme\templates\client_particulier\client_list.html:31
+#: .\theme\templates\client_particulier\client_list.html:62
+#: .\theme\templates\societe_cliente\societe_cliente_detail.html:54
+#: .\theme\templates\societe_cliente\societe_cliente_form.html:52
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:31
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:62
 msgid "Numéro de téléphone"
 msgstr "Phone number"
 
-#: .\client\models.py:28
+#: .\client_particulier\models.py:32
 msgid "Numéro de permis de conduire"
 msgstr "Driver's license number"
 
-#: .\client\models.py:35 .\theme\templates\client\client_detail.html:41
-#: .\theme\templates\client\client_form.html:70
+#: .\client_particulier\models.py:39
+#: .\theme\templates\client_particulier\client_detail.html:59
+#: .\theme\templates\client_particulier\client_form.html:70
 msgid "Numéro de carte d'identité"
 msgstr "ID card number"
 
-#: .\client\models.py:42 .\theme\templates\client\client_form.html:78
+#: .\client_particulier\models.py:46 .\societe_cliente\models.py:75
+#: .\theme\templates\client_particulier\client_form.html:78
+#: .\theme\templates\societe_cliente\societe_cliente_form.html:62
 msgid "Numéro de compte bancaire"
 msgstr "Bank account number"
 
-#: .\client\models.py:48 .\theme\templates\client\client_detail.html:36
-#: .\theme\templates\client\client_form.html:86
+#: .\client_particulier\models.py:52
+#: .\theme\templates\client_particulier\client_detail.html:54
+#: .\theme\templates\client_particulier\client_form.html:86
 msgid "Numéro de carte bancaire"
 msgstr "Credit card number"
 
-
-#: .\client\models.py:62 .\theme\templates\client\client_form.html:104
+#: .\client_particulier\models.py:66
+#: .\theme\templates\client_particulier\client_detail.html:43
+#: .\theme\templates\client_particulier\client_form.html:104
 msgid "Date de naissance"
 msgstr "Date of birth"
 
-#: .\client\models.py:79
+#: .\client_particulier\models.py:83
 msgid "La personne doit avoir au moins 18 ans."
 msgstr "The person must be at least 18 years old."
 
-#: .\client\models.py:94
+#: .\client_particulier\models.py:98
 msgid "Débutant"
 msgstr "Beginner"
 
-#: .\client\models.py:95
+#: .\client_particulier\models.py:99
 msgid "Intermédiaire"
 msgstr "Intermediate"
 
-#: .\client\models.py:96
+#: .\client_particulier\models.py:100
 msgid "Expert"
 msgstr "Expert"
 
-#: .\client\models.py:97
+#: .\client_particulier\models.py:101
 msgid "Bronze"
 msgstr "Bronze"
 
-#: .\client\models.py:98
+#: .\client_particulier\models.py:102
 msgid "Silver"
 msgstr "Silver"
 
-#: .\client\models.py:99
+#: .\client_particulier\models.py:103
 msgid "Gold"
 msgstr "Gold"
 
-#: .\client\models.py:102 .\theme\templates\client\client_detail.html:70
-#: .\theme\templates\client\client_form.html:120
+#: .\client_particulier\models.py:106
+#: .\theme\templates\client_particulier\client_detail.html:85
+#: .\theme\templates\client_particulier\client_form.html:120
 msgid "Niveau"
 msgstr "Level"
 
-#: .\client\models.py:109
+#: .\client_particulier\models.py:113 .\societe_cliente\models.py:109
+#: .\theme\templates\societe_cliente\societe_cliente_detail.html:81
 msgid "Historique"
 msgstr "History"
 
-#: .\client\models.py:115 .\voiture\voiture_exemplaire\models.py:13
+#: .\client_particulier\models.py:119 .\societe_cliente\models.py:115
+#: .\voiture\voiture_exemplaire\models.py:13
 msgid "Location"
 msgstr "Rental"
 
-#: .\client\models.py:133 .\facture\models.py:69 .\panier\models.py:25
-#: .\theme\templates\client\client_form.html:11
+#: .\client_particulier\models.py:133 .\facture\models.py:69
+#: .\panier\models.py:25
+#: .\theme\templates\client_particulier\client_form.html:11
+#: .\theme\templates\societe_cliente\societe_cliente_form.html:11
 #: .\voiture\voiture_exemplaire\models.py:11
 msgid "Client"
 msgstr "Customer"
 
-#: .\client\models.py:134 .\theme\templates\dashboard.html:234
+#: .\client_particulier\models.py:134 .\theme\templates\dashboard.html:234
 msgid "Clients"
 msgstr "Customers"
 
-#: .\client\models.py:137
+#: .\client_particulier\models.py:137
 #, python-format
 msgid "%(nom)s %(prenom)s (Client)"
 msgstr "%(nom)s %(prenom)s (Customer)"
-
-#: .\facture\models.py:23 .\fournisseur\models.py:37
-#: .\theme\templates\fournisseurs\fournisseur_detail.html:75
-msgid "Identifiant Peppol"
-msgstr "Peppol identifier"
 
 #: .\facture\models.py:25
 msgid "Ex : 0208:BE0123456789"
@@ -353,63 +319,65 @@ msgstr "Invoice identifier"
 msgid "Numéro de facture"
 msgstr "Invoice number"
 
-#: .\facture\models.py:74
+#: .\facture\models.py:76
 msgid "Date d’émission"
 msgstr "Issue date"
 
-#: .\facture\models.py:75
+#: .\facture\models.py:77
 msgid "Devise"
 msgstr "Currency"
 
-#: .\facture\models.py:77
+#: .\facture\models.py:79
 msgid "Total"
 msgstr "Total"
 
-#: .\facture\models.py:83 .\facture\models.py:93
+#: .\facture\models.py:85 .\facture\models.py:95
 msgid "Facture"
 msgstr "Invoice"
 
-#: .\facture\models.py:84
+#: .\facture\models.py:86
 msgid "Factures"
 msgstr "Invoices"
 
-#: .\facture\models.py:87
+#: .\facture\models.py:89
 #, python-format
 msgid "Facture %(numero)s"
 msgstr "Invoice %(numero)s"
 
-#: .\facture\models.py:98
+#: .\facture\models.py:102
 msgid "Description"
 msgstr "Description"
 
-#: .\facture\models.py:101 .\outillage\models.py:33 .\panier\models.py:90
+#: .\facture\models.py:105 .\outillage\models.py:33 .\panier\models.py:90
 #: .\piece\piece_roue_rechange\models.py:26
+#: .\theme\templates\intervention\intervention_form.html:75
 msgid "Quantité"
 msgstr "Quantity"
 
-#: .\facture\models.py:107
+#: .\facture\models.py:111
 msgid "Prix unitaire"
 msgstr "Unit price"
 
-#: .\facture\models.py:113
-#: .\theme\templates\fournisseurs\fournisseur_detail.html:46
+#: .\facture\models.py:117
+#: .\theme\templates\carrosserie\carrosserie_detail.html:41
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:41
 #: .\theme\templates\fournisseurs\fournisseur_form.html:50
 msgid "Taux de TVA"
 msgstr "VAT rate"
 
-#: .\facture\models.py:116
+#: .\facture\models.py:120
 msgid "Taux de TVA : 6, 12, 21"
 msgstr "VAT rate: 6, 12, 21"
 
-#: .\facture\models.py:120
+#: .\facture\models.py:124
 msgid "Ligne de facture"
 msgstr "Invoice line"
 
-#: .\facture\models.py:121
+#: .\facture\models.py:125
 msgid "Lignes de facture"
 msgstr "Invoice lines"
 
-#: .\facture\models.py:124
+#: .\facture\models.py:128
 #, python-format
 msgid "%(desc)s (%(facture)s)"
 msgstr "%(desc)s (%(facture)s)"
@@ -422,10 +390,6 @@ msgstr "Supplier name"
 #: .\fournisseur\models.py:30 .\outillage\models.py:46
 msgid "Taux de TVA (%)"
 msgstr "VAT rate (%)"
-
-#: .\fournisseur\models.py:39
-msgid "Identifiant Peppol, ex : 0208:BE0123456789"
-msgstr "Peppol identifier, e.g.: 0208:BE0123456789"
 
 #: .\fournisseur\models.py:46
 msgid "ISO 3166-1 alpha-2"
@@ -502,6 +466,8 @@ msgid "Véhicule"
 msgstr "Vehicle"
 
 #: .\fuel\models.py:35 .\maintenance\models.py:64 .\piece\models.py:68
+#: .\theme\templates\intervention\intervention_detail.html:41
+#: .\theme\templates\intervention\intervention_list.html:45
 #: .\theme\templates\maintenance\creer_maintenance.html:16
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:39
 msgid "Immatriculation"
@@ -545,6 +511,282 @@ msgstr "Fuel"
 #: .\fuel\models.py:52
 msgid "Carburants"
 msgstr "Fuels"
+
+#: .\intervention\models.py:27 .\piece\piece_carrosserie\models.py:17
+msgid "Pare-chocs"
+msgstr "Bumper"
+
+#: .\intervention\models.py:31
+msgid "Bouclier avant"
+msgstr "Front bumper cover"
+
+#: .\intervention\models.py:35
+msgid "Bouclier arrière"
+msgstr "Rear bumper cover"
+
+#: .\intervention\models.py:39 .\maintenance\check_up\models.py:508
+#: .\maintenance\nettoyage_interieur\models.py:30
+#: .\piece\piece_carrosserie\models.py:19
+msgid "Pare-brise"
+msgstr "Windscreen"
+
+#: .\intervention\models.py:43
+msgid "Vitre de porte avant droit"
+msgstr "Front right door window"
+
+#: .\intervention\models.py:47
+msgid "Vitre de porte avant gauche"
+msgstr "Front left door window"
+
+#: .\intervention\models.py:51
+msgid "Vitre de porte arrière droit"
+msgstr "Rear right door window"
+
+#: .\intervention\models.py:55
+msgid "Vitre de porte arrière gauche"
+msgstr "Rear left door window"
+
+#: .\intervention\models.py:59 .\piece\piece_carrosserie\models.py:21
+msgid "Lunette"
+msgstr "Rear window"
+
+#: .\intervention\models.py:63
+msgid "Rétroviseur droit"
+msgstr "Side mirror"
+
+#: .\intervention\models.py:67
+msgid "Rétroviseur gauche"
+msgstr "Side mirror"
+
+#: .\intervention\models.py:71
+msgid "Aile avant droit"
+msgstr "Front right fender"
+
+#: .\intervention\models.py:75
+msgid "Aile avant gauche"
+msgstr "Front left fender"
+
+#: .\intervention\models.py:79
+msgid "Aile arrière droit"
+msgstr "Rear right fender"
+
+#: .\intervention\models.py:83
+msgid "Aile arrière gauche"
+msgstr "Rear left fender"
+
+#: .\intervention\models.py:87
+msgid "Élargisseur d’aile avant droit"
+msgstr "Front right fender flare"
+
+#: .\intervention\models.py:91
+msgid "Élargisseur d’aile avant gauche"
+msgstr "Front left fender flare"
+
+#: .\intervention\models.py:95
+msgid "Élargisseur d’aile arrière droit"
+msgstr "Rear right fender flare"
+
+#: .\intervention\models.py:99
+msgid "Élargisseur d’aile arrière gauche"
+msgstr "Rear left fender flare"
+
+#: .\intervention\models.py:103
+msgid "Bas de caisse droit"
+msgstr "Right side skirt"
+
+#: .\intervention\models.py:107
+msgid "Bas de caisse gauche"
+msgstr "Left side skirt"
+
+#: .\intervention\models.py:111 .\piece\piece_carrosserie\models.py:26
+msgid "Support de radiateur"
+msgstr "Radiator support"
+
+#: .\intervention\models.py:115 .\piece\piece_carrosserie\models.py:27
+msgid "Support de pare-chocs"
+msgstr "Bumper support"
+
+#: .\intervention\models.py:119
+msgid "Calandre"
+msgstr "Grille"
+
+#: .\intervention\models.py:123
+msgid "Porte avant droite"
+msgstr "Front right door"
+
+#: .\intervention\models.py:127
+msgid "Porte avant gauche"
+msgstr "Front left door"
+
+#: .\intervention\models.py:131
+msgid "Porte arrière droite"
+msgstr "Rear right door"
+
+#: .\intervention\models.py:135
+msgid "Porte arrière gauche"
+msgstr "Rear left door"
+
+#: .\intervention\models.py:139 .\piece\piece_carrosserie\models.py:29
+msgid "Poignée de porte"
+msgstr "Door handle"
+
+#: .\intervention\models.py:143 .\piece\piece_carrosserie\models.py:30
+msgid "Coffre / hayon"
+msgstr "Trunk / tailgate"
+
+#: .\intervention\models.py:147 .\piece\piece_carrosserie\models.py:31
+msgid "Joint de coffre"
+msgstr "Trunk seal"
+
+#: .\intervention\models.py:151
+msgid "Joint de porte avant droit"
+msgstr "Front right door seal"
+
+#: .\intervention\models.py:155
+msgid "Joint de porte avant gauche"
+msgstr "Front left door seal"
+
+#: .\intervention\models.py:159
+msgid "Joint de porte arrière droit"
+msgstr "Rear right door seal"
+
+#: .\intervention\models.py:163
+msgid "Joint de porte arrière gauche"
+msgstr "Rear left door seal"
+
+#: .\intervention\models.py:167
+msgid "Coquille d’aile avant droit"
+msgstr "Front right fender liner"
+
+#: .\intervention\models.py:171
+msgid "Coquille d’aile avant gauche"
+msgstr "front left fender liner"
+
+#: .\intervention\models.py:175
+msgid "Coquille d’aile arrière droit"
+msgstr "Rear right fender liner"
+
+#: .\intervention\models.py:179
+msgid "Coquille d’aile arrière gauche"
+msgstr "Rear Left fender liner"
+
+#: .\intervention\models.py:183 .\piece\piece_carrosserie\models.py:34
+msgid "Clips"
+msgstr "Clips"
+
+#: .\intervention\models.py:187 .\piece\piece_carrosserie\models.py:35
+#: .\piece\piece_differentiel\models.py:16 .\piece\piece_freins\models.py:34
+msgid "Visserie"
+msgstr "Fasteners"
+
+#: .\intervention\models.py:191 .\piece\piece_carrosserie\models.py:36
+msgid "Capot"
+msgstr "Hood"
+
+#: .\intervention\models.py:195
+msgid "Peinture avant gauche"
+msgstr "Front left paint"
+
+#: .\intervention\models.py:199
+msgid "Peinture avant droite"
+msgstr "Front right paint"
+
+#: .\intervention\models.py:203
+msgid "Peinture arriere gauche"
+msgstr "Rear left paint"
+
+#: .\intervention\models.py:207
+msgid "Peinture face avant"
+msgstr "Front end paint"
+
+#: .\intervention\models.py:211
+msgid "Peinture capot"
+msgstr "Hood paint"
+
+#: .\intervention\models.py:215
+msgid "Peinture arriere"
+msgstr "Rear paint"
+
+#: .\intervention\models.py:219
+msgid "Peinture complete"
+msgstr "Full paint job"
+
+#: .\intervention\models.py:223
+msgid "Phare avant droit"
+msgstr "Front right headlight"
+
+#: .\intervention\models.py:227
+msgid "Phare avant gauche"
+msgstr "Front left headlight"
+
+#: .\intervention\models.py:231
+msgid "Phare arrière droite"
+msgstr "Rear right taillight"
+
+#: .\intervention\models.py:235
+msgid "Phare arrière gauche"
+msgstr "Rear left taillight"
+
+#: .\intervention\models.py:239
+msgid "Clignotant avant droit"
+msgstr "Front right turn signal"
+
+
+#: .\intervention\models.py:243
+msgid "Clignotant avant gauche"
+msgstr "Front left turn signal"
+
+#: .\intervention\models.py:247
+msgid "Clignotant arrière droit"
+msgstr "Rear right turn signal"
+
+#: .\intervention\models.py:251
+msgid "Anti Brouillard avant droit"
+msgstr "Front right fog light"
+
+#: .\intervention\models.py:255
+msgid "Anti Brouillard avant gauche"
+msgstr "Front left fog light"
+
+#: .\intervention\models.py:259
+msgid "Troisième feux stop"
+msgstr "Third brake light"
+
+#: .\intervention\models.py:263
+msgid "Capteur recul"
+msgstr "Parking sensor"
+
+
+#: .\intervention\models.py:272
+#: .\theme\templates\intervention\intervention_list.html:46
+msgid "Montant du devis"
+msgstr "Quotation amount"
+
+#: .\intervention\models.py:280
+msgid "Montant de la facture"
+msgstr "Invoice amount"
+
+#: .\intervention\models.py:288
+msgid "Montant total"
+msgstr "Total amount"
+
+#: .\intervention\models.py:297
+msgid "Intervention"
+msgstr "Intervention"
+
+#: .\intervention\models.py:298
+msgid "Interventions"
+msgstr "Interventions"
+
+#: .\intervention\models.py:302
+#, python-format
+msgid "Intervention %(id)s – %(carrosserie)s"
+msgstr "Intervention %(id)s – %(carrosserie)s"
+
+#: .\intervention\models.py:306
+#, python-format
+msgid "Intervention %(id)s"
+msgstr "Intervention %(id)s"
 
 #: .\investissements\models.py:18 .\maintenance\bruits\models.py:17
 #: .\maintenance\check_up\models.py:37 .\piece\piece_train_AR\models.py:8
@@ -944,7 +1186,7 @@ msgstr "Not specified"
 
 #: .\maintenance\check_up\models.py:351 .\maintenance\jeux_pieces\models.py:108
 #: .\maintenance\models.py:46 .\utilisateurs\models.py:73
-#: .\utilisateurs\views.py:172
+#: .\utilisateurs\views.py:187
 msgid "Apprenti"
 msgstr "Apprentice"
 
@@ -953,7 +1195,7 @@ msgstr "Apprentice"
 #: .\maintenance\models.py:37 .\maintenance\nettoyage_exterieur\models.py:25
 #: .\maintenance\nettoyage_interieur\models.py:26
 #: .\theme\templates\maintenance\detail.html:17 .\utilisateurs\models.py:74
-#: .\utilisateurs\views.py:173
+#: .\utilisateurs\views.py:188
 msgid "Mécanicien"
 msgstr "Mechanic"
 
@@ -982,7 +1224,6 @@ msgstr "Presence of cracks on discs"
 msgid "Présence de fuite du système de freinage"
 msgstr "Brake system leak detected"
 
-
 #: .\maintenance\check_up\models.py:411
 msgid "Disques avant à remplacer"
 msgstr "Front brake discs need to be replaced"
@@ -991,7 +1232,6 @@ msgstr "Front brake discs need to be replaced"
 msgid "Disques arrière à remplacer"
 msgstr "Rear brake discs need to be replaced"
 
-
 #: .\maintenance\check_up\models.py:419
 msgid "Plaquettes avant à remplacer"
 msgstr "Front brake pads need to be replaced"
@@ -999,7 +1239,6 @@ msgstr "Front brake pads need to be replaced"
 #: .\maintenance\check_up\models.py:423
 msgid "Plaquettes arrière à remplacer"
 msgstr "Rear brake pads need to be replaced"
-
 
 #: .\maintenance\check_up\models.py:428 .\maintenance\freins\models.py:60
 #, python-format
@@ -1291,7 +1530,7 @@ msgstr "No reference"
 msgid "%(libelle)s (%(reference)s) – %(quantite)s pcs"
 msgstr "%(libelle)s (%(reference)s) – %(quantite)s pcs"
 
-#: .\panier\models.py:34
+#: .\panier\models.py:34 .\theme\templates\dashboard.html:276
 msgid "Société cliente"
 msgstr "Customer company"
 
@@ -1798,9 +2037,41 @@ msgstr "Left"
 msgid "Droit"
 msgstr "Right"
 
+#: .\piece\piece_carrosserie\models.py:18
+msgid "Bouclier"
+msgstr "Bumper cover"
+
 #: .\piece\piece_carrosserie\models.py:20
 msgid "Vitres de porte"
 msgstr "Door windows"
+
+#: .\piece\piece_carrosserie\models.py:22
+msgid "Rétroviseur"
+msgstr "Side mirror"
+
+#: .\piece\piece_carrosserie\models.py:23
+msgid "Aile"
+msgstr "Fender"
+
+#: .\piece\piece_carrosserie\models.py:24
+msgid "Élargisseur d’aile"
+msgstr "Fender flare"
+
+#: .\piece\piece_carrosserie\models.py:25
+msgid "Bas de caisse"
+msgstr "Side skirt"
+
+#: .\piece\piece_carrosserie\models.py:28
+msgid "Porte"
+msgstr "Door"
+
+#: .\piece\piece_carrosserie\models.py:32
+msgid "Joint de porte"
+msgstr "Door seal"
+
+#: .\piece\piece_carrosserie\models.py:33
+msgid "Coquille d’aile"
+msgstr "Fender liner"
 
 #: .\piece\piece_climatisation\models.py:9
 msgid "Qualité de gaz"
@@ -3586,9 +3857,42 @@ msgstr "Transmission Part"
 msgid "Pièces de transmission"
 msgstr "Transmission Parts"
 
+#: .\societe_cliente\models.py:24
+msgid "Nom de la societe"
+msgstr "Company name"
+
+#: .\societe_cliente\models.py:31
+#: .\theme\templates\societe_cliente\societe_cliente_form.html:43
+msgid "Nom du Directeur"
+msgstr "Director's last name"
+
+
+#: .\societe_cliente\models.py:52
+#: .\theme\templates\carrosserie\carrosserie_list.html:55
+#: .\theme\templates\fournisseurs\fournisseur_list.html:21
+#: .\theme\templates\fournisseurs\fournisseur_list.html:54
+msgid "Numero de TVA"
+msgstr "VAT number"
+
+#: .\societe_cliente\models.py:59
+msgid "Site internet"
+msgstr "Website"
+
+#: .\societe_cliente\models.py:67
+msgid "Peppol id"
+msgstr "Peppol ID"
+
+#: .\societe_cliente\models.py:94
+msgid "Numero d'entreprise"
+msgstr "Company number"
+
+#: .\societe_cliente\models.py:101
+msgid "Taux de tva"
+msgstr "VAT rate"
+
 #: .\theme\templates\403.html:7
 msgid "Vous n'avez pas les droits pour accéder à cette page."
-msgstr ""
+msgstr "You do not have permission to access this page."
 
 #: .\theme\templates\404.html:5 .\theme\templates\404.html:18
 msgid "Page introuvable"
@@ -3685,93 +3989,128 @@ msgstr "All rights reserved."
 msgid "Déconnexion"
 msgstr "Logout"
 
-#: .\theme\templates\client\client_detail.html:10
-msgid "Détails du client :"
-msgstr "Client details:"
+#: .\theme\templates\carrosserie\carrosserie_detail.html:10
+#: .\theme\templates\intervention\intervention_detail.html:10
+msgid "Détails de la carrosserie :"
+msgstr "Bodyshop details:"
 
-#: .\theme\templates\client\client_detail.html:17
-#: .\theme\templates\client\client_detail.html:122
-msgid "Retour à la liste des clients"
-msgstr "Back to client list"
 
-#: .\theme\templates\client\client_detail.html:27
-#: .\theme\templates\fournisseurs\fournisseur_detail.html:37
+#: .\theme\templates\carrosserie\carrosserie_detail.html:32
+#: .\theme\templates\client_particulier\client_detail.html:29
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:32
+#: .\theme\templates\intervention\intervention_detail.html:32
 #: .\theme\templates\maintenance\detail.html:13
+#: .\theme\templates\societe_cliente\societe_cliente_detail.html:29
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:60
 msgid "Informations générales"
 msgstr "General Information"
 
-#: .\theme\templates\client\client_detail.html:31
-msgid "Numéro de compte"
-msgstr "Account number"
+#: .\theme\templates\carrosserie\carrosserie_detail.html:56
+msgid "Modifier le carrosserie"
+msgstr "Edit bodyshop"
 
-#: .\theme\templates\client\client_detail.html:46
-#: .\theme\templates\client\client_form.html:61
-msgid "Numéro de permis"
-msgstr "Driver's license number"
+#: .\theme\templates\carrosserie\carrosserie_detail.html:66
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:66
+#: .\theme\templates\intervention\intervention_detail.html:66
+msgid "Informations Peppol"
+msgstr "PEPPOL information"
 
-#: .\theme\templates\client\client_detail.html:56
-msgid "Modifier le client"
-msgstr "Edit client"
-
-#: .\theme\templates\client\client_detail.html:66
-msgid "Niveau "
-msgstr "Level"
-
-#: .\theme\templates\client\client_detail.html:87
-#: .\theme\templates\fournisseurs\fournisseur_detail.html:92
+#: .\theme\templates\carrosserie\carrosserie_detail.html:87
+#: .\theme\templates\client_particulier\client_detail.html:102
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:87
+#: .\theme\templates\intervention\intervention_detail.html:87
+#: .\theme\templates\societe_cliente\societe_cliente_detail.html:98
 msgid "Aucune adresse renseignée."
 msgstr "No address provided."
 
-#: .\theme\templates\client\client_detail.html:95
-#: .\theme\templates\fournisseurs\fournisseur_detail.html:100
+#: .\theme\templates\carrosserie\carrosserie_detail.html:95
+#: .\theme\templates\client_particulier\client_detail.html:110
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:95
+#: .\theme\templates\intervention\intervention_detail.html:95
+#: .\theme\templates\societe_cliente\societe_cliente_detail.html:106
 msgid "Métadonnées"
 msgstr "Metadata"
 
-#: .\theme\templates\client\client_form.html:12
-msgid "Créer un client"
-msgstr "Create client"
+#: .\theme\templates\carrosserie\carrosserie_detail.html:122
+msgid "Retour à la liste des carrosseries"
+msgstr "Back to bodyshop list"
 
-#: .\theme\templates\client\client_form.html:112
-msgid "Âge"
-msgstr "Age"
+#: .\theme\templates\carrosserie\carrosserie_form.html:12
+msgid "Créer une carrosserie"
+msgstr "Create bodyshop"
 
-#: .\theme\templates\client\client_form.html:173
-#: .\theme\templates\client\modifier_client.html:43
+#: .\theme\templates\carrosserie\carrosserie_form.html:43
+msgid "Numero de tva"
+msgstr "VAT number"
+
+#: .\theme\templates\carrosserie\carrosserie_form.html:49
+#: .\theme\templates\carrosserie\carrosserie_list.html:30
+#: .\theme\templates\fournisseurs\fournisseur_form.html:57
+#: .\theme\templates\fournisseurs\fournisseur_list.html:25
+#: .\theme\templates\societe_cliente\societe_cliente_detail.html:45
+msgid "Numéro Peppol"
+msgstr "PEPPOL number"
+#: .\theme\templates\carrosserie\carrosserie_form.html:70
+msgid "Nom du responsable"
+msgstr "Responsible person's last name"
+
+#: .\theme\templates\carrosserie\carrosserie_form.html:76
+msgid "Prénom du responsable"
+msgstr "Responsible person's first name"
+
+
+#: .\theme\templates\carrosserie\carrosserie_form.html:121
+#: .\theme\templates\carrosserie\modifier_carrosserie.html:49
+#: .\theme\templates\client_particulier\client_form.html:173
+#: .\theme\templates\client_particulier\modifier_client.html:47
 #: .\theme\templates\fournisseurs\fournisseur_form.html:131
-#: .\theme\templates\fournisseurs\modifier_fournisseur.html:43
+#: .\theme\templates\fournisseurs\modifier_fournisseur.html:49
+#: .\theme\templates\intervention\modifier_intervention.html:49
+#: .\theme\templates\societe_cliente\modifier_societe_cliente.html:47
+#: .\theme\templates\societe_cliente\societe_cliente_form.html:123
 msgid "Enregistrer"
 msgstr "Save"
 
-#: .\theme\templates\client\client_list.html:4
-#: .\theme\templates\client\client_list.html:10
-msgid "Liste des Clients"
-msgstr "Client list"
+#: .\theme\templates\carrosserie\carrosserie_list.html:4
+#: .\theme\templates\carrosserie\carrosserie_list.html:10
+msgid "Liste des Carrosseries"
+msgstr "Bodyshops list"
 
-#: .\theme\templates\client\client_list.html:18
-msgid "Prenom du client"
-msgstr "Client first name"
+#: .\theme\templates\carrosserie\carrosserie_list.html:18
+#: .\theme\templates\carrosserie\carrosserie_list.html:54
+#: .\theme\templates\intervention\intervention_detail.html:36
+#: .\theme\templates\intervention\intervention_list.html:18
+#: .\theme\templates\intervention\intervention_list.html:44
+msgid "Nom de la carrosserie"
+msgstr "Bodyshop name"
 
-#: .\theme\templates\client\client_list.html:22
-msgid "Nom du client"
-msgstr "Client last name"
-
-#: .\theme\templates\client\client_list.html:36
-msgid "nom.prenom@..."
-msgstr "firstname.lastname@...."
-
-#: .\theme\templates\client\client_list.html:41
-msgid "BEXX XXXX XXXX XXXX"
+#: .\theme\templates\carrosserie\carrosserie_list.html:34
+msgid "BEXX XXXX XXXX"
 msgstr ""
 
-#: .\theme\templates\client\client_list.html:46
-msgid "Ajouter un client"
-msgstr "Add client"
+#: .\theme\templates\carrosserie\carrosserie_list.html:38
+msgid "Numéro téléphone"
+msgstr "Phone number"
 
-#: .\theme\templates\client\client_list.html:64
-#: .\theme\templates\client\client_list.html:79
+#: .\theme\templates\carrosserie\carrosserie_list.html:43
+msgid "Ajouter une carrosserie"
+msgstr "Add bodyshop"
+
+#: .\theme\templates\carrosserie\carrosserie_list.html:56
+#: .\theme\templates\fournisseurs\fournisseur_list.html:55
+msgid "Numero Peppol"
+msgstr "Peppol number"
+
+#: .\theme\templates\carrosserie\carrosserie_list.html:59
+#: .\theme\templates\carrosserie\carrosserie_list.html:73
+#: .\theme\templates\client_particulier\client_list.html:64
+#: .\theme\templates\client_particulier\client_list.html:79
 #: .\theme\templates\fournisseurs\fournisseur_list.html:58
 #: .\theme\templates\fournisseurs\fournisseur_list.html:72
+#: .\theme\templates\intervention\intervention_list.html:47
+#: .\theme\templates\intervention\intervention_list.html:59
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:64
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:78
 #: .\theme\templates\voiture_boite\list.html:40
 #: .\theme\templates\voiture_boite\list.html:55
 #: .\theme\templates\voiture_embrayage\list.html:56
@@ -3787,12 +4126,11 @@ msgstr "Add client"
 msgid "Info"
 msgstr "Info"
 
-#: .\theme\templates\client\client_list.html:82
-msgid "Info indisponible"
-msgstr "Information unavailable"
-
-#: .\theme\templates\client\client_list.html:98
+#: .\theme\templates\carrosserie\carrosserie_list.html:88
+#: .\theme\templates\client_particulier\client_list.html:98
 #: .\theme\templates\fournisseurs\fournisseur_list.html:87
+#: .\theme\templates\intervention\intervention_list.html:74
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:94
 #: .\theme\templates\voiture_embrayage\list.html:85
 #: .\theme\templates\voiture_freins\list.html:77
 #: .\theme\templates\voiture_freins_ar\list_ar.html:73
@@ -3800,8 +4138,11 @@ msgstr "Information unavailable"
 msgid "Recherche globale :"
 msgstr "Global search:"
 
-#: .\theme\templates\client\client_list.html:99
+#: .\theme\templates\carrosserie\carrosserie_list.html:89
+#: .\theme\templates\client_particulier\client_list.html:99
 #: .\theme\templates\fournisseurs\fournisseur_list.html:88
+#: .\theme\templates\intervention\intervention_list.html:75
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:95
 #: .\theme\templates\voiture_boite\list.html:74
 #: .\theme\templates\voiture_embrayage\list.html:86
 #: .\theme\templates\voiture_freins\list.html:78
@@ -3811,17 +4152,23 @@ msgstr "Global search:"
 msgid "Afficher _MENU_ éléments"
 msgstr "Show _MENU_ entries"
 
-#: .\theme\templates\client\client_list.html:100
-msgid "Affichage de _START_ à _END_ sur _TOTAL_ client"
-msgstr "Showing _START_ to _END_ of _TOTAL_ clients"
+#: .\theme\templates\carrosserie\carrosserie_list.html:90
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ carrosseries"
+msgstr "Showing _START_ to _END_ of _TOTAL_ bodyshops"
 
-#: .\theme\templates\client\client_list.html:101
-#: .\theme\templates\client\client_list.html:102
-msgid "Aucun client trouvé"
-msgstr "No clients found"
+#: .\theme\templates\carrosserie\carrosserie_list.html:91
+msgid "Aucune carrosserie trouvé"
+msgstr "No bodyshop found"
 
-#: .\theme\templates\client\client_list.html:104
+#: .\theme\templates\carrosserie\carrosserie_list.html:92
+msgid "Aucun carrosserie trouvé"
+msgstr "No bodyshop found"
+
+#: .\theme\templates\carrosserie\carrosserie_list.html:94
+#: .\theme\templates\client_particulier\client_list.html:104
 #: .\theme\templates\fournisseurs\fournisseur_list.html:93
+#: .\theme\templates\intervention\intervention_list.html:80
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:100
 #: .\theme\templates\voiture_boite\list.html:79
 #: .\theme\templates\voiture_embrayage\list.html:91
 #: .\theme\templates\voiture_freins\list.html:83
@@ -3831,8 +4178,11 @@ msgstr "No clients found"
 msgid "Premier"
 msgstr "First"
 
-#: .\theme\templates\client\client_list.html:105
+#: .\theme\templates\carrosserie\carrosserie_list.html:95
+#: .\theme\templates\client_particulier\client_list.html:105
 #: .\theme\templates\fournisseurs\fournisseur_list.html:94
+#: .\theme\templates\intervention\intervention_list.html:81
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:101
 #: .\theme\templates\voiture_boite\list.html:80
 #: .\theme\templates\voiture_embrayage\list.html:92
 #: .\theme\templates\voiture_freins\list.html:84
@@ -3842,8 +4192,11 @@ msgstr "First"
 msgid "Dernier"
 msgstr "Last"
 
-#: .\theme\templates\client\client_list.html:106
+#: .\theme\templates\carrosserie\carrosserie_list.html:96
+#: .\theme\templates\client_particulier\client_list.html:106
 #: .\theme\templates\fournisseurs\fournisseur_list.html:95
+#: .\theme\templates\intervention\intervention_list.html:82
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:102
 #: .\theme\templates\voiture_boite\list.html:81
 #: .\theme\templates\voiture_embrayage\list.html:93
 #: .\theme\templates\voiture_freins\list.html:85
@@ -3853,8 +4206,11 @@ msgstr "Last"
 msgid "Suivant"
 msgstr "Next"
 
-#: .\theme\templates\client\client_list.html:107
+#: .\theme\templates\carrosserie\carrosserie_list.html:97
+#: .\theme\templates\client_particulier\client_list.html:107
 #: .\theme\templates\fournisseurs\fournisseur_list.html:96
+#: .\theme\templates\intervention\intervention_list.html:83
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:103
 #: .\theme\templates\voiture_boite\list.html:82
 #: .\theme\templates\voiture_embrayage\list.html:94
 #: .\theme\templates\voiture_freins\list.html:86
@@ -3864,16 +4220,95 @@ msgstr "Next"
 msgid "Précédent"
 msgstr "Previous"
 
-#: .\theme\templates\client\modifier_client.html:10
-msgid "Modifier le client :"
-msgstr "Edit client:"
+#: .\theme\templates\carrosserie\modifier_carrosserie.html:10
+msgid "Modifier le carrosserie :"
+msgstr "Edit bodyshop :"
 
-
-#: .\theme\templates\client\modifier_client.html:48
-#: .\theme\templates\fournisseurs\modifier_fournisseur.html:48
+#: .\theme\templates\carrosserie\modifier_carrosserie.html:54
+#: .\theme\templates\client_particulier\modifier_client.html:52
+#: .\theme\templates\fournisseurs\modifier_fournisseur.html:54
+#: .\theme\templates\intervention\modifier_intervention.html:54
+#: .\theme\templates\societe_cliente\modifier_societe_cliente.html:52
 #: .\theme\templates\voiture_exemplaire\modifier_exemplaire.html:73
 msgid "Annuler"
 msgstr "Cancel"
+
+#: .\theme\templates\client_particulier\client_detail.html:12
+#: .\theme\templates\societe_cliente\societe_cliente_detail.html:12
+msgid "Détails du client :"
+msgstr "Client details:"
+
+#: .\theme\templates\client_particulier\client_detail.html:19
+#: .\theme\templates\client_particulier\client_detail.html:137
+#: .\theme\templates\societe_cliente\societe_cliente_detail.html:19
+msgid "Retour à la liste des clients"
+msgstr "Back to client list"
+
+#: .\theme\templates\client_particulier\client_detail.html:49
+#: .\theme\templates\societe_cliente\societe_cliente_detail.html:60
+msgid "Numéro de compte"
+msgstr "Account number"
+
+#: .\theme\templates\client_particulier\client_detail.html:64
+#: .\theme\templates\client_particulier\client_form.html:61
+msgid "Numéro de permis"
+msgstr "Driver's license number"
+
+#: .\theme\templates\client_particulier\client_detail.html:74
+msgid "Modifier le client"
+msgstr "Edit client"
+
+#: .\theme\templates\client_particulier\client_form.html:12
+msgid "Créer un client"
+msgstr "Create client"
+
+#: .\theme\templates\client_particulier\client_form.html:112
+msgid "Âge"
+msgstr "Age"
+
+#: .\theme\templates\client_particulier\client_list.html:4
+#: .\theme\templates\client_particulier\client_list.html:10
+msgid "Liste des Clients"
+msgstr "Client list"
+
+#: .\theme\templates\client_particulier\client_list.html:18
+msgid "Prenom du client"
+msgstr "Client first name"
+
+#: .\theme\templates\client_particulier\client_list.html:22
+msgid "Nom du client"
+msgstr "Client last name"
+
+#: .\theme\templates\client_particulier\client_list.html:36
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:36
+msgid "nom.prenom@..."
+msgstr "firstname.lastname@...."
+
+#: .\theme\templates\client_particulier\client_list.html:41
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:41
+msgid "BEXX XXXX XXXX XXXX"
+msgstr ""
+
+#: .\theme\templates\client_particulier\client_list.html:46
+msgid "Ajouter un client"
+msgstr "Add client"
+
+#: .\theme\templates\client_particulier\client_list.html:82
+msgid "Info indisponible"
+msgstr "Information unavailable"
+
+#: .\theme\templates\client_particulier\client_list.html:100
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ client"
+msgstr "Showing _START_ to _END_ of _TOTAL_ clients"
+
+#: .\theme\templates\client_particulier\client_list.html:101
+#: .\theme\templates\client_particulier\client_list.html:102
+msgid "Aucun client trouvé"
+msgstr "No clients found"
+
+#: .\theme\templates\client_particulier\modifier_client.html:13
+msgid "Modifier le client :"
+msgstr "Edit client:"
 
 #: .\theme\templates\dashboard.html:6 .\theme\views.py:81
 msgid "Bienvenue sur ton tableau de bord"
@@ -3889,6 +4324,8 @@ msgstr "Users"
 #: .\theme\templates\dashboard.html:160 .\theme\templates\dashboard.html:175
 #: .\theme\templates\dashboard.html:190 .\theme\templates\dashboard.html:205
 #: .\theme\templates\dashboard.html:220 .\theme\templates\dashboard.html:236
+#: .\theme\templates\dashboard.html:250 .\theme\templates\dashboard.html:264
+#: .\theme\templates\dashboard.html:278
 msgid "Nombre total :"
 msgstr "Total number :"
 
@@ -3956,7 +4393,11 @@ msgstr "Front Brakes"
 msgid "Freins arrière"
 msgstr "Rear Brakes"
 
-#: .\theme\templates\dashboard.html:250
+#: .\theme\templates\dashboard.html:262
+msgid "Intervention carrosserie"
+msgstr "Bodyshop intervention"
+
+#: .\theme\templates\dashboard.html:292
 msgid "Tableau de bord Admin"
 msgstr "Admin Dashboard"
 
@@ -3964,37 +4405,23 @@ msgstr "Admin Dashboard"
 msgid "Détails du fournisseur :"
 msgstr "Supplier details:"
 
-#: .\theme\templates\fournisseurs\fournisseur_detail.html:27
-#: .\theme\templates\fournisseurs\fournisseur_detail.html:127
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:22
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:122
 msgid "Retour à la liste des fournisseurs"
 msgstr "Back to supplier list"
 
-#: .\theme\templates\fournisseurs\fournisseur_detail.html:61
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:56
 msgid "Modifier le fournisseur"
 msgstr "Edit supplier"
-
-#: .\theme\templates\fournisseurs\fournisseur_detail.html:71
-msgid "Informations Peppol"
-msgstr "PEPPOL information"
 
 #: .\theme\templates\fournisseurs\fournisseur_form.html:12
 msgid "Créer un Fournisseur"
 msgstr "Create supplier"
 
-#: .\theme\templates\fournisseurs\fournisseur_form.html:57
-#: .\theme\templates\fournisseurs\fournisseur_list.html:25
-msgid "Numéro Peppol"
-msgstr "PEPPOL number"
-
 #: .\theme\templates\fournisseurs\fournisseur_list.html:4
 #: .\theme\templates\fournisseurs\fournisseur_list.html:10
 msgid "Liste des Fournisseurs"
 msgstr "Suppliers List"
-
-#: .\theme\templates\fournisseurs\fournisseur_list.html:21
-#: .\theme\templates\fournisseurs\fournisseur_list.html:54
-msgid "Numero de TVA"
-msgstr "VAT number"
 
 #: .\theme\templates\fournisseurs\fournisseur_list.html:30
 msgid "info@..."
@@ -4011,10 +4438,6 @@ msgstr "Add supplier"
 #: .\theme\templates\fournisseurs\fournisseur_list.html:53
 msgid "Nom du Fournisseur"
 msgstr "Supplier name"
-
-#: .\theme\templates\fournisseurs\fournisseur_list.html:55
-msgid "Numero Peppol"
-msgstr "Peppol number"
 
 #: .\theme\templates\fournisseurs\fournisseur_list.html:89
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ fournisseurs"
@@ -4040,6 +4463,55 @@ msgstr "This is a paragraph styled with Tailwind."
 #: .\theme\templates\home.html:29
 msgid "Se connecter"
 msgstr "Log in"
+
+#: .\theme\templates\intervention\intervention_detail.html:56
+msgid "Modifier l'intervention"
+msgstr "Edit intervention"
+
+#: .\theme\templates\intervention\intervention_detail.html:122
+msgid "Retour à la liste des interventions"
+msgstr "Back to the interventions list"
+
+#: .\theme\templates\intervention\intervention_form.html:7
+msgid "Créer une intervention"
+msgstr "Create an intervention"
+
+#: .\theme\templates\intervention\intervention_form.html:29
+msgid "Sélectionnez une carrosserie"
+msgstr "Select a bodyshop"
+
+#: .\theme\templates\intervention\intervention_form.html:72
+msgid "Prix"
+msgstr "Price"
+
+#: .\theme\templates\intervention\intervention_form.html:84
+msgid "Enregistrer l'intervention"
+msgstr "Save intervention"
+
+#: .\theme\templates\intervention\intervention_list.html:4
+#: .\theme\templates\intervention\intervention_list.html:10
+msgid "Liste des interventions"
+msgstr "Interventions list"
+
+#: .\theme\templates\intervention\intervention_list.html:33
+msgid "Ajouter une intervention"
+msgstr "Add intervention"
+
+#: .\theme\templates\intervention\intervention_list.html:76
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ interventions"
+msgstr "Showing _START_ to _END_ of _TOTAL_ interventions"
+
+#: .\theme\templates\intervention\intervention_list.html:77
+msgid "Aucune intervention trouvé"
+msgstr "No intervention found"
+
+#: .\theme\templates\intervention\intervention_list.html:78
+msgid "Aucun intervention trouvé"
+msgstr "No intervention found"
+
+#: .\theme\templates\intervention\modifier_intervention.html:10
+msgid "Modifier l'intervention :"
+msgstr "Edit intervention:"
 
 #: .\theme\templates\maintenance\choisir_type.html:11
 msgid "Choisir le type de maintenance pour :"
@@ -4081,7 +4553,6 @@ msgstr "Current date"
 msgid "Détail de la maintenance"
 msgstr "Maintenance details"
 
-
 #: .\theme\templates\maintenance\detail.html:15
 msgid "ID Maintenance"
 msgstr "ID Maintenance"
@@ -4089,7 +4560,6 @@ msgstr "ID Maintenance"
 #: .\theme\templates\maintenance\detail.html:16
 msgid "Exemplaire"
 msgstr "Item"
-
 
 #: .\theme\templates\maintenance\detail.html:18
 msgid "Type"
@@ -4123,6 +4593,65 @@ msgstr "Mileage"
 #: .\theme\templates\maintenance\list.html:93
 msgid "Aucun exemplaire disponible pour la maintenance."
 msgstr "No vehicle available for maintenance."
+
+#: .\theme\templates\societe_cliente\modifier_societe_cliente.html:13
+msgid "Modifier la societe :"
+msgstr "Edit company:"
+
+#: .\theme\templates\societe_cliente\societe_cliente_detail.html:37
+msgid "Directeur"
+msgstr "Manager"
+
+#: .\theme\templates\societe_cliente\societe_cliente_detail.html:70
+msgid "Modifier la societe"
+msgstr "Edit company"
+
+#: .\theme\templates\societe_cliente\societe_cliente_detail.html:133
+msgid "Retour à la liste des sociétés"
+msgstr "Back to company list"
+
+#: .\theme\templates\societe_cliente\societe_cliente_form.html:12
+msgid "Créer une societe cliente"
+msgstr "Create customer company"
+
+#: .\theme\templates\societe_cliente\societe_cliente_form.html:38
+msgid "Nom de la sociéte"
+msgstr "Company name"
+
+#: .\theme\templates\societe_cliente\societe_cliente_form.html:47
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:61
+msgid "Nom du directeur"
+msgstr "Manager name"
+
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:4
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:10
+msgid "Liste des sociétés clientes"
+msgstr "Customers companies list"
+
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:18
+msgid "Nom de la société cliente"
+msgstr "Customer company name"
+
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:22
+msgid "Adresse de la societe cliente"
+msgstr "Client company's address"
+
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:27
+msgid "Nom et prénom du directeur"
+msgstr "Director's full name"
+
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:46
+msgid "Ajouter une societe cliente"
+msgstr "Add client company"
+
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:96
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ Société cliente"
+msgstr "Showing _START_ to _END_ of _TOTAL_ client companies"
+
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:97
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:98
+msgid "Aucun société cliente trouvé"
+msgstr "No client company found"
 
 #: .\theme\templates\totp\setup.html:5
 msgid "Configurer TOTP"
@@ -4833,7 +5362,7 @@ msgid "Affichage de _START_ à _END_ sur _TOTAL_ Freins"
 msgstr "Showing _START_ to _END_ of _TOTAL_ brakes"
 
 #: .\theme\templates\voiture_marque\marques_favorites.html:8
-#: .\theme\templates\voiture_marque\marques_list.html:25
+#: .\theme\templates\voiture_marque\marques_list.html:26
 msgid "Mes marques favorites"
 msgstr "My Favorite Brands"
 
@@ -4841,11 +5370,11 @@ msgstr "My Favorite Brands"
 msgid "Aucune marque favorite pour le moment."
 msgstr "No favorite brands at the moment."
 
-#: .\theme\templates\voiture_marque\marques_list.html:55
+#: .\theme\templates\voiture_marque\marques_list.html:57
 msgid "Voir les"
 msgstr "View"
 
-#: .\theme\templates\voiture_marque\marques_list.html:55
+#: .\theme\templates\voiture_marque\marques_list.html:57
 msgid "modèles de"
 msgstr "Models of"
 
@@ -5179,47 +5708,47 @@ msgstr "Human Resources"
 msgid "Operations"
 msgstr "Operations"
 
-#: .\utilisateurs\models.py:75 .\utilisateurs\views.py:176
+#: .\utilisateurs\models.py:75 .\utilisateurs\views.py:191
 msgid "Magasinier"
 msgstr "Storekeeper"
 
-#: .\utilisateurs\models.py:76 .\utilisateurs\views.py:174
+#: .\utilisateurs\models.py:76 .\utilisateurs\views.py:189
 msgid "Carrossier"
 msgstr "Bodyworker"
 
-#: .\utilisateurs\models.py:77 .\utilisateurs\views.py:175
+#: .\utilisateurs\models.py:77 .\utilisateurs\views.py:190
 msgid "Chef Mécanicien"
 msgstr "Chief Mechanic"
 
-#: .\utilisateurs\models.py:78 .\utilisateurs\views.py:177
+#: .\utilisateurs\models.py:78 .\utilisateurs\views.py:192
 msgid "Instructeur"
 msgstr "Instructor"
 
-#: .\utilisateurs\models.py:79 .\utilisateurs\views.py:178
+#: .\utilisateurs\models.py:79 .\utilisateurs\views.py:193
 msgid "Instructeur Externe"
 msgstr "External Instructor"
 
-#: .\utilisateurs\models.py:80 .\utilisateurs\views.py:179
+#: .\utilisateurs\models.py:80 .\utilisateurs\views.py:194
 msgid "Vendeur"
 msgstr "Salesperson"
 
-#: .\utilisateurs\models.py:81 .\utilisateurs\views.py:180
+#: .\utilisateurs\models.py:81 .\utilisateurs\views.py:195
 msgid "Comptable"
 msgstr "Accountant"
 
-#: .\utilisateurs\models.py:82 .\utilisateurs\views.py:181
+#: .\utilisateurs\models.py:82 .\utilisateurs\views.py:196
 msgid "Direction"
 msgstr "Management"
 
-#: .\utilisateurs\views.py:158
+#: .\utilisateurs\views.py:174
 msgid "Révision moteur"
 msgstr "Engine Overhaul"
 
-#: .\utilisateurs\views.py:158 .\voiture\voiture_boite\models.py:10
+#: .\utilisateurs\views.py:174 .\voiture\voiture_boite\models.py:10
 msgid "Changement filtre"
 msgstr "Filter Change"
 
-#: .\utilisateurs\views.py:183
+#: .\utilisateurs\views.py:198
 msgid "Rôle inconnu"
 msgstr "Unknown Role"
 
@@ -5577,6 +6106,9 @@ msgstr "Front tire mileage"
 #: .\voiture\voiture_pneus\models.py:113
 msgid "Kilomètres pneus arrière"
 msgstr "Rear tire mileage"
+
+#~ msgid "Niveau "
+#~ msgstr "Level"
 
 #~ msgid "historique"
 #~ msgstr "History"
