@@ -10,22 +10,27 @@
 
 
 
-    <!-- Recherche -->
-   <div class="mb-6">
-        <input
-            type="text"
-            id="search-marque"
-            class="border rounded-lg px-4 py-2 w-full"
-            placeholder="{% trans 'Rechercher une marque...' %}"
-        >
-    </div>
-    <div class="flex justify-start mb-6">
+     <!-- Conteneur flex pour aligner sur la même ligne -->
+    <div class="flex items-center gap-4 mb-6">
+        <!-- Recherche -->
+        <div class="flex-1">
+            <input
+                type="text"
+                id="search-marque"
+                class="border rounded-lg gap-2 px-4 py-2 w-full"
+                placeholder="{% trans 'Rechercher une marque...' %}"
+            >
+        </div>
 
-        <a href="{% url 'voiture_marque:marques_favorites' %}"
-           class="inline-flex items-center gap-2 px-4 py-2 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold rounded-lg transition">
-            ⭐ {% trans "Mes marques favorites" %}
-        </a>
+        <!-- Bouton marques favorites -->
+        <div>
+            <a href="{% url 'voiture_marque:marques_favorites' %}"
+               class="inline-flex items-center gap-2 px-4 py-2 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold rounded-lg transition">
+                ⭐ {% trans "Mes marques favorites" %}
+            </a>
+        </div>
     </div>
+
 
     <!-- Marques -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -37,8 +42,7 @@
              data-marque-nom="{{ marque.nom_marque|lower }}">
 
              <!-- ⭐ ÉTOILE FAVORI -->
-            <div class="absolute -bottom-4 right-3 z-10">
-
+            <div class="absolute right-3 z-10" style="bottom: 15px;">
                 <button
                     class="favorite-btn text-2xl"
                     data-url="{% url 'voiture_marque:toggle_marque_favorite' marque_id=marque.id_marque %}"
@@ -50,6 +54,7 @@
                     {% endif %}
                 </button>
             </div>
+
 
            <div class="flex-1">
                 <h2 class="text-lg font-semibold">{{ marque.nom_marque }}</h2>
