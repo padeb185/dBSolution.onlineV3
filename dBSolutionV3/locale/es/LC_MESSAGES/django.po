@@ -965,10 +965,9 @@ msgid "Emplacement"
 msgstr "Ubicación"
 
 #: .\maintenance\bruits\models.py:36 .\maintenance\check_up\models.py:244
-#, fuzzy
-#| msgid "Type de roue"
 msgid "Type de bruit"
-msgstr "Tipo de rueda"
+msgstr "Tipo de ruido"
+
 
 #: .\maintenance\bruits\models.py:41 .\maintenance\check_up\models.py:248
 msgid "Normal"
@@ -990,7 +989,7 @@ msgstr "Observación"
 
 #: .\maintenance\bruits\models.py:60 .\maintenance\check_up\models.py:263
 msgid "Tag"
-msgstr ""
+msgstr "Etiqueta"
 
 #: .\maintenance\bruits\models.py:74 .\maintenance\check_up\models.py:276
 #, python-format
@@ -1075,8 +1074,6 @@ msgid "Essuie-glace AR fonctionnel"
 msgstr "Limpiaparabrisas trasero funcional"
 
 #: .\maintenance\check_up\models.py:93
-#, fuzzy
-#| msgid "Pare_Brise sans coups"
 msgid "Pare-brise sans coups"
 msgstr "Parabrisas sin impactos"
 
@@ -3862,17 +3859,13 @@ msgid "Pièces de transmission"
 msgstr "Piezas de transmisión"
 
 #: .\societe_cliente\models.py:24
-#, fuzzy
-#| msgid "Nom de la société"
 msgid "Nom de la societe"
 msgstr "Nombre de la empresa"
 
 #: .\societe_cliente\models.py:31
 #: .\theme\templates\societe_cliente\societe_cliente_form.html:43
-#, fuzzy
-#| msgid "Nom du filtre"
 msgid "Nom du Directeur"
-msgstr "Nombre del filtro"
+msgstr "Nombre del Director"
 
 #: .\societe_cliente\models.py:52
 #: .\theme\templates\carrosserie\carrosserie_list.html:55
@@ -3882,24 +3875,18 @@ msgid "Numero de TVA"
 msgstr "Número de IVA"
 
 #: .\societe_cliente\models.py:59
-#, fuzzy
-#| msgid "Date d'intervention"
 msgid "Site internet"
-msgstr "Fecha de intervención"
+msgstr "Sitio web"
 
 #: .\societe_cliente\models.py:67
 msgid "Peppol id"
-msgstr ""
+msgstr "ID Peppol"
 
 #: .\societe_cliente\models.py:94
-#, fuzzy
-#| msgid "Numéro de permis"
 msgid "Numero d'entreprise"
-msgstr "Número de licencia"
+msgstr "Número de empresa"
 
 #: .\societe_cliente\models.py:101
-#, fuzzy
-#| msgid "Taux de TVA"
 msgid "Taux de tva"
 msgstr "Tipo de IVA"
 
@@ -4004,10 +3991,9 @@ msgstr "Cerrar sesión"
 
 #: .\theme\templates\carrosserie\carrosserie_detail.html:10
 #: .\theme\templates\intervention\intervention_detail.html:10
-#, fuzzy
-#| msgid "Détails du fournisseur :"
 msgid "Détails de la carrosserie :"
-msgstr "Detalles del proveedor:"
+msgstr "Detalles de la carrocería:"
+
 
 #: .\theme\templates\carrosserie\carrosserie_detail.html:32
 #: .\theme\templates\client_particulier\client_detail.html:29
@@ -4020,10 +4006,8 @@ msgid "Informations générales"
 msgstr "Información general"
 
 #: .\theme\templates\carrosserie\carrosserie_detail.html:56
-#, fuzzy
-#| msgid "Modifier le fournisseur"
 msgid "Modifier le carrosserie"
-msgstr "Editar proveedor"
+msgstr "Editar la carrocería"
 
 #: .\theme\templates\carrosserie\carrosserie_detail.html:66
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:66
@@ -4048,20 +4032,14 @@ msgid "Métadonnées"
 msgstr "Metadatos"
 
 #: .\theme\templates\carrosserie\carrosserie_detail.html:122
-#, fuzzy
-#| msgid "Retour à la liste des clients"
 msgid "Retour à la liste des carrosseries"
-msgstr "Volver a la lista de clientes"
+msgstr "Volver a la lista de carrocerías"
 
 #: .\theme\templates\carrosserie\carrosserie_form.html:12
-#, fuzzy
-#| msgid "Créer un Fournisseur"
 msgid "Créer une carrosserie"
-msgstr "Crear un proveedor"
+msgstr "Crear una carrocería"
 
 #: .\theme\templates\carrosserie\carrosserie_form.html:43
-#, fuzzy
-#| msgid "Numero de TVA"
 msgid "Numero de tva"
 msgstr "Número de IVA"
 
@@ -4074,14 +4052,12 @@ msgid "Numéro Peppol"
 msgstr "Número Peppol"
 
 #: .\theme\templates\carrosserie\carrosserie_form.html:70
-#, fuzzy
-#| msgid "Nom du pneus"
 msgid "Nom du responsable"
-msgstr "Nombre del neumático"
+msgstr "Apellido del responsable"
 
 #: .\theme\templates\carrosserie\carrosserie_form.html:76
 msgid "Prénom du responsable"
-msgstr ""
+msgstr "Nombre del responsable"
 
 #: .\theme\templates\carrosserie\carrosserie_form.html:121
 #: .\theme\templates\carrosserie\modifier_carrosserie.html:49
@@ -4097,36 +4073,30 @@ msgstr "Guardar"
 
 #: .\theme\templates\carrosserie\carrosserie_list.html:4
 #: .\theme\templates\carrosserie\carrosserie_list.html:10
-#, fuzzy
-#| msgid "Liste des Fournisseurs"
 msgid "Liste des Carrosseries"
-msgstr "Lista de proveedores"
+msgstr "Lista de carrocerías"
 
 #: .\theme\templates\carrosserie\carrosserie_list.html:18
 #: .\theme\templates\carrosserie\carrosserie_list.html:54
 #: .\theme\templates\intervention\intervention_detail.html:36
 #: .\theme\templates\intervention\intervention_list.html:18
 #: .\theme\templates\intervention\intervention_list.html:44
-#, fuzzy
-#| msgid "Silent-bloc de carrosserie"
 msgid "Nom de la carrosserie"
-msgstr "Silentblock de la carrocería"
+msgstr "Nombre de la carrocería"
+
 
 #: .\theme\templates\carrosserie\carrosserie_list.html:34
 msgid "BEXX XXXX XXXX"
-msgstr ""
+msgstr "NIF: A1234567C"
+
 
 #: .\theme\templates\carrosserie\carrosserie_list.html:38
-#, fuzzy
-#| msgid "Numéro de téléphone"
 msgid "Numéro téléphone"
 msgstr "Número de teléfono"
 
 #: .\theme\templates\carrosserie\carrosserie_list.html:43
-#, fuzzy
-#| msgid "Ajouter un fournisseur"
 msgid "Ajouter une carrosserie"
-msgstr "Agregar un proveedor"
+msgstr "Agregar una carrocería"
 
 #: .\theme\templates\carrosserie\carrosserie_list.html:56
 #: .\theme\templates\fournisseurs\fournisseur_list.html:55
@@ -4185,22 +4155,17 @@ msgid "Afficher _MENU_ éléments"
 msgstr "Mostrar _MENU_ elementos"
 
 #: .\theme\templates\carrosserie\carrosserie_list.html:90
-#, fuzzy
-#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ freins"
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ carrosseries"
-msgstr "Mostrando de _START_ a _END_ de _TOTAL_ frenos"
+msgstr "Mostrando _START_ a _END_ de _TOTAL_ carrocerías"
 
 #: .\theme\templates\carrosserie\carrosserie_list.html:91
-#, fuzzy
-#| msgid "Aucun fournisseur trouvé"
 msgid "Aucune carrosserie trouvé"
-msgstr "No se encontró ningún proveedor"
+msgstr "No se encontró ninguna carrocería"
 
 #: .\theme\templates\carrosserie\carrosserie_list.html:92
-#, fuzzy
-#| msgid "Aucun fournisseur trouvé"
 msgid "Aucun carrosserie trouvé"
-msgstr "No se encontró ningún proveedor"
+msgstr "No se encontró ninguna carrocería"
+
 
 #: .\theme\templates\carrosserie\carrosserie_list.html:94
 #: .\theme\templates\client_particulier\client_list.html:104
@@ -4259,10 +4224,8 @@ msgid "Précédent"
 msgstr "Anterior"
 
 #: .\theme\templates\carrosserie\modifier_carrosserie.html:10
-#, fuzzy
-#| msgid "Modifier le fournisseur :"
 msgid "Modifier le carrosserie :"
-msgstr "Editar proveedor:"
+msgstr "Editar la carrocería:"
 
 #: .\theme\templates\carrosserie\modifier_carrosserie.html:54
 #: .\theme\templates\client_particulier\modifier_client.html:52
@@ -4327,7 +4290,8 @@ msgstr "nombre.apellido@..."
 #: .\theme\templates\client_particulier\client_list.html:41
 #: .\theme\templates\societe_cliente\societe_cliente_list.html:41
 msgid "BEXX XXXX XXXX XXXX"
-msgstr ""
+msgstr "IBAN: ES91 2100 0418 4502 0005 1332"
+
 
 #: .\theme\templates\client_particulier\client_list.html:46
 msgid "Ajouter un client"
@@ -4434,10 +4398,8 @@ msgid "Freins arrière"
 msgstr "Frenos traseros"
 
 #: .\theme\templates\dashboard.html:262
-#, fuzzy
-#| msgid "Intervention %(id)s – %(carrosserie)s"
 msgid "Intervention carrosserie"
-msgstr "Intervención %(id)s – %(carrosserie)s"
+msgstr "Intervención de carrocería"
 
 #: .\theme\templates\dashboard.html:292
 msgid "Tableau de bord Admin"
@@ -4468,10 +4430,10 @@ msgstr "Lista de proveedores"
 #: .\theme\templates\fournisseurs\fournisseur_list.html:30
 msgid "info@..."
 msgstr ""
-
 #: .\theme\templates\fournisseurs\fournisseur_list.html:34
 msgid "0032"
-msgstr ""
+msgstr "+34"
+
 
 #: .\theme\templates\fournisseurs\fournisseur_list.html:40
 msgid "Ajouter un fournisseur"
@@ -4507,77 +4469,54 @@ msgid "Se connecter"
 msgstr "Iniciar sesión"
 
 #: .\theme\templates\intervention\intervention_detail.html:56
-#, fuzzy
-#| msgid "Date d'intervention"
 msgid "Modifier l'intervention"
-msgstr "Fecha de intervención"
+msgstr "Editar la intervención"
 
 #: .\theme\templates\intervention\intervention_detail.html:122
-#, fuzzy
-#| msgid "Retour à la liste des clients"
 msgid "Retour à la liste des interventions"
-msgstr "Volver a la lista de clientes"
+msgstr "Volver a la lista de intervenciones"
 
 #: .\theme\templates\intervention\intervention_form.html:7
-#, fuzzy
-#| msgid "Créer un client"
 msgid "Créer une intervention"
-msgstr "Crear un cliente"
+msgstr "Crear una intervención"
 
 #: .\theme\templates\intervention\intervention_form.html:29
-#, fuzzy
-#| msgid "Sélectionner un moteur"
 msgid "Sélectionnez une carrosserie"
-msgstr "Seleccionar un motor"
+msgstr "Seleccione una carrocería"
+
 
 #: .\theme\templates\intervention\intervention_form.html:72
-#, fuzzy
-#| msgid "Prix HTVA"
 msgid "Prix"
-msgstr "Precio sin IVA"
+msgstr "Precio"
 
 #: .\theme\templates\intervention\intervention_form.html:84
-#, fuzzy
-#| msgid "Date d'intervention"
 msgid "Enregistrer l'intervention"
-msgstr "Fecha de intervención"
+msgstr "Guardar la intervención"
 
 #: .\theme\templates\intervention\intervention_list.html:4
 #: .\theme\templates\intervention\intervention_list.html:10
-#, fuzzy
-#| msgid "Autres interventions"
 msgid "Liste des interventions"
-msgstr "Otras intervenciones"
+msgstr "Lista de intervenciones"
 
 #: .\theme\templates\intervention\intervention_list.html:33
-#, fuzzy
-#| msgid "Autres interventions"
 msgid "Ajouter une intervention"
-msgstr "Otras intervenciones"
+msgstr "Agregar una intervención"
 
 #: .\theme\templates\intervention\intervention_list.html:76
-#, fuzzy
-#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ freins"
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ interventions"
-msgstr "Mostrando de _START_ a _END_ de _TOTAL_ frenos"
+msgstr "Mostrando _START_ a _END_ de _TOTAL_ intervenciones"
 
 #: .\theme\templates\intervention\intervention_list.html:77
-#, fuzzy
-#| msgid "Aucun client trouvé"
 msgid "Aucune intervention trouvé"
-msgstr "No se encontró ningún cliente"
+msgstr "No se encontró ninguna intervención"
 
 #: .\theme\templates\intervention\intervention_list.html:78
-#, fuzzy
-#| msgid "Aucun client trouvé"
 msgid "Aucun intervention trouvé"
-msgstr "No se encontró ningún cliente"
+msgstr "No se encontró ninguna intervención"
 
 #: .\theme\templates\intervention\modifier_intervention.html:10
-#, fuzzy
-#| msgid "Modifier le client :"
 msgid "Modifier l'intervention :"
-msgstr "Editar cliente:"
+msgstr "Editar la intervención:"
 
 #: .\theme\templates\maintenance\choisir_type.html:11
 msgid "Choisir le type de maintenance pour :"
@@ -4661,87 +4600,65 @@ msgid "Aucun exemplaire disponible pour la maintenance."
 msgstr "No hay vehículo disponible para mantenimiento."
 
 #: .\theme\templates\societe_cliente\modifier_societe_cliente.html:13
-#, fuzzy
-#| msgid "Modifier le client :"
 msgid "Modifier la societe :"
-msgstr "Editar cliente:"
+msgstr "Editar la sociedad:"
 
 #: .\theme\templates\societe_cliente\societe_cliente_detail.html:37
-#, fuzzy
-#| msgid "Direction"
 msgid "Directeur"
-msgstr "Dirección"
+msgstr "Director"
 
 #: .\theme\templates\societe_cliente\societe_cliente_detail.html:70
-#, fuzzy
-#| msgid "Modifier le client"
 msgid "Modifier la societe"
-msgstr "Editar cliente"
+msgstr "Editar la sociedad"
 
 #: .\theme\templates\societe_cliente\societe_cliente_detail.html:133
-#, fuzzy
-#| msgid "Retour à la liste des clients"
 msgid "Retour à la liste des sociétés"
-msgstr "Volver a la lista de clientes"
+msgstr "Volver a la lista de sociedades"
 
 #: .\theme\templates\societe_cliente\societe_cliente_form.html:12
-#, fuzzy
-#| msgid "Créer un client"
 msgid "Créer une societe cliente"
-msgstr "Crear un cliente"
+msgstr "Crear una sociedad cliente"
 
 #: .\theme\templates\societe_cliente\societe_cliente_form.html:38
-#, fuzzy
-#| msgid "Nom de la société"
 msgid "Nom de la sociéte"
-msgstr "Nombre de la empresa"
+msgstr "Nombre de la sociedad"
 
 #: .\theme\templates\societe_cliente\societe_cliente_form.html:47
 #: .\theme\templates\societe_cliente\societe_cliente_list.html:61
-#, fuzzy
-#| msgid "Nom du filtre"
 msgid "Nom du directeur"
-msgstr "Nombre del filtro"
+msgstr "Apellido del director"
 
 #: .\theme\templates\societe_cliente\societe_cliente_list.html:4
 #: .\theme\templates\societe_cliente\societe_cliente_list.html:10
-#, fuzzy
-#| msgid "Liste des Clients"
 msgid "Liste des sociétés clientes"
-msgstr "Lista de clientes"
+msgstr "Lista de sociedades clientes"
 
 #: .\theme\templates\societe_cliente\societe_cliente_list.html:18
-#, fuzzy
-#| msgid "Nom de la société"
 msgid "Nom de la société cliente"
-msgstr "Nombre de la empresa"
+msgstr "Nombre de la sociedad cliente"
 
 #: .\theme\templates\societe_cliente\societe_cliente_list.html:22
 msgid "Adresse de la societe cliente"
-msgstr ""
+msgstr "Dirección de la sociedad cliente"
 
 #: .\theme\templates\societe_cliente\societe_cliente_list.html:27
 msgid "Nom et prénom du directeur"
-msgstr ""
+msgstr "Nombre y apellido del director"
 
 #: .\theme\templates\societe_cliente\societe_cliente_list.html:46
-#, fuzzy
-#| msgid "Ajouter un client"
 msgid "Ajouter une societe cliente"
-msgstr "Agregar un cliente"
+msgstr "Agregar una sociedad cliente"
+
 
 #: .\theme\templates\societe_cliente\societe_cliente_list.html:96
-#, fuzzy
-#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ client"
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ Société cliente"
-msgstr "Mostrando _START_ a _END_ de _TOTAL_ cliente(s)"
+msgstr ""
 
 #: .\theme\templates\societe_cliente\societe_cliente_list.html:97
 #: .\theme\templates\societe_cliente\societe_cliente_list.html:98
-#, fuzzy
-#| msgid "Aucun client trouvé"
 msgid "Aucun société cliente trouvé"
-msgstr "No se encontró ningún cliente"
+msgstr "No se encontró ninguna sociedad cliente"
+
 
 #: .\theme\templates\totp\setup.html:5
 msgid "Configurer TOTP"
