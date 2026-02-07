@@ -56,7 +56,7 @@
             <option value="">{% trans "Sélectionner un moteur" %}</option>
             {% for moteur in moteurs %}
                 <option value="{{ moteur.id }}">
-                    {{ moteur.motoriste }}  {{ moteur.cylindree_l }}  {{ moteur.code_moteur }}
+                    {{ moteur.motoriste }}  {{ moteur.cylindree_l }}  {{ moteur.code_moteur }} {{ moteur.get_carburant_display }} {{ moteur.puissance_ch}}
                 </option>
             {% endfor %}
         </select>
