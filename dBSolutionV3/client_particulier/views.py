@@ -111,7 +111,7 @@ def modifier_client(request, client_particulier_id):
 
     return render(
         request,
-        "client/modifier_client.html",
+        "client_particulier/modifier_client.html",
         {
             "form": form,
             "client_particulier": client_particulier,
