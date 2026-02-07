@@ -18,7 +18,7 @@ from ..voiture_freins_ar.models import VoitureFreinsAR
 from ..voiture_pneus.models import VoiturePneus
 
 
-
+@never_cache
 @login_required
 def liste_exemplaires(request, modele_id):
     tenant = request.user.societe  # ton tenant
@@ -273,7 +273,7 @@ def moteur_autocomplete(request):
 
 
 
-
+@login_required
 def modifier_exemplaire(request, exemplaire_id):
     # Récupérer le tenant courant depuis request
     tenant = request.user.societe  # Ajuster selon ton contexte
@@ -295,6 +295,7 @@ def modifier_exemplaire(request, exemplaire_id):
             'exemplaire': exemplaire,
         })
 
+@never_cache
 @login_required
 def liste_exemplaires_all(request):
     """
