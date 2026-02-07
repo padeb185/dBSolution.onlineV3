@@ -16,7 +16,11 @@
 
                     <div class="flex-1">
                         <h2 class="text-lg font-semibold">{{ marque.nom_marque }}</h2>
-                    </div>
+                        <p class="text-gray-600">
+                            {% trans "Voir les" %} {{ marque.modeles.count }} {% trans "modèles de" %} {{ marque.nom_marque }}
+                        </p>
+                   </div>
+
 
                     <img src="{% static 'images/marques/' %}{{ marque.nom_marque|lower }}.png"
                          style="width:75px;"

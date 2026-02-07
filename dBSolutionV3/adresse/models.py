@@ -3,8 +3,18 @@ from django.utils.translation import gettext_lazy as _
 import uuid
 
 
+
 class Adresse(models.Model):
+    societe = models.ForeignKey(
+        "societe.Societe",
+        on_delete=models.CASCADE,
+        related_name="adresses",
+        null=True,
+        blank=True,
+    )
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
 
     rue = models.CharField(_("Rue"), max_length=255)
     numero = models.CharField(_("Numéro"), max_length=10)

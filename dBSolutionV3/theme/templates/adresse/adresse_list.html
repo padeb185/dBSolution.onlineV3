@@ -1,49 +1,49 @@
 {% extends "base.html" %}
 {% load i18n static widget_tweaks %}
 
-{% block title %}{% trans "Liste des Clients" %}{% endblock %}
+{% block title %}{% trans "Liste des Adresses" %}{% endblock %}
 
 {% block content %}
 <h1 class="text-2xl font-bold mb-6 flex items-center">
-    <img src="{% static 'icons/client.png' %}" alt="client"
+    <img src="{% static 'icons/adresse.png' %}" alt="adresse"
          style="width:60px; height:60px; margin-right:10px;">
-    {% trans "Liste des Clients" %}
+    {% trans "Liste des Adresses" %}
 </h1>
 
 <div class="bg-white shadow-md rounded-lg p-4 mb-4">
     <div class="grid grid-cols-1 md:grid-cols-6 gap-3 items-end">
 
-        <input id="search-prenom" type="text"
+        <input id="search-rue" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Prenom du client' %}">
+               placeholder="{% trans 'Rue' %}">
 
-        <input id="search-nom" type="text"
+        <input id="search-numero" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Nom du client' %}">
+               placeholder="{% trans 'Numero' %}">
 
 
-        <input id="search-adresse" type="text"
+        <input id="search-code_postal" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Adresse' %}">
+               placeholder="{% trans 'Code postal' %}">
 
-        <input id="search-numero_telephone" type="text"
+        <input id="search-ville" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Numéro de téléphone' %}">
+               placeholder="{% trans 'Ville' %}">
 
 
-        <input id="search-email" type="text"
+        <input id="search-pays" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'nom.prenom@...' %}">
+               placeholder="{% trans 'Pays' %}">
 
 
-        <input id="search-numero_compte" type="text"
+        <input id="search-code_pays" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'BEXX XXXX XXXX XXXX' %}">
+               placeholder="{% trans 'Code pays, ex: BE' %}">
 
         <div>
-            <a href="{% url 'client_particulier:client_create' %}"
+            <a href="{% url 'adresse:adresse_form' %}"
                class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
-                {% trans "Ajouter un client" %}
+                {% trans "Ajouter une adresse" %}
             </a>
         </div>
     </div>
@@ -53,28 +53,28 @@
 
 
 <!-- Table -->
-<table id="client-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+<table id="adresse-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
     <thead>
         <tr class="bg-gray-100">
-            <th class="border px-4 py-2 cursor-pointer">{% trans "Prénom" %}</th>
-            <th class="border px-4 py-2 cursor-pointer">{% trans "Nom" %}</th>
-            <th class="border px-4 py-2 cursor-pointer">{% trans "Adresse" %}</th>
-            <th class="border px-4 py-2 cursor-pointer">{% trans "Numéro de téléphone" %}</th>
-            <th class="border px-4 py-2 cursor-pointer">{% trans "Email" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Rue" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Numero" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Code postal" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Ville" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Pays" %}</th>
             <th class="border px-4 py-2 cursor-pointer text-center">{% trans "Info" %}</th>
         </tr>
     </thead>
     <tbody>
-        {% for client in clients %}
+        {% for adresse in adresses %}
         <tr>
-            <td class="border px-4 py-2">{{ client.prenom }}</td>
-            <td class="border px-4 py-2">{{ client.nom }}</td>
-            <td class="border px-4 py-2">{{ client.adresse }}</td>
-            <td class="border px-4 py-2">{{ client.numero_telephone }}</td>
-            <td class="border px-4 py-2">{{ client.email }}</td>
+            <td class="border px-4 py-2">{{ adresse.rue }}</td>
+            <td class="border px-4 py-2">{{ adresse.numero }}</td>
+            <td class="border px-4 py-2">{{ adresse.code_postal }}</td>
+            <td class="border px-4 py-2">{{ adresse.ville }}</td>
+            <td class="border px-4 py-2">{{ adresse.pays }}</td>
             <td class="border px-4 py-2 text-center">
-                {% if client.id %}
-                    <a href="{% url 'client_particulier:client_detail' client.id %}"
+                {% if adresse.id %}
+                    <a href="{% url 'adresse:adresse_detail' adresse.id %}"
                        class="text-blue-600 hover:text-blue-800 font-semibold">
                         {% trans "Info" %}
                     </a>
@@ -92,14 +92,14 @@
 <!-- DataTables JS -->
 <script>
 $(document).ready(function() {
-    var table = $('#client-table').DataTable({
+    var table = $('#adresse-table').DataTable({
         pageLength: 100,
         language: {
             search: "{% trans 'Recherche globale :' %}",
             lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
-            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ client' %}",
-            infoEmpty: "{% trans 'Aucun client trouvé' %}",
-            zeroRecords: "{% trans 'Aucun client trouvé' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ adresse' %}",
+            infoEmpty: "{% trans 'Aucune adresse trouvée' %}",
+            zeroRecords: "{% trans 'Aucune adresse trouvée' %}",
             paginate: {
                 first: "{% trans 'Premier' %}",
                 last: "{% trans 'Dernier' %}",
@@ -111,19 +111,19 @@ $(document).ready(function() {
     });
 
     // Filtres par colonne
-    $('#search-prenom').on('keyup', function () {
+    $('#search-rue').on('keyup', function () {
         table.column(0).search(this.value).draw();
     });
-    $('#search-nom').on('keyup', function () {
+    $('#search-numero').on('keyup', function () {
         table.column(1).search(this.value).draw();
     });
-    $('#search-adresse').on('keyup', function () {
+    $('#search-code_postal').on('keyup', function () {
         table.column(2).search(this.value).draw();
     });
-    $('#search-numero_telephone').on('keyup', function () {
+    $('#search-ville').on('keyup', function () {
         table.column(3).search(this.value).draw();
     });
-     $('#search-email').on('keyup', function () {
+     $('#search-pays').on('keyup', function () {
         table.column(4).search(this.value).draw();
     });
 

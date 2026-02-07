@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="max-w-xl mx-auto p-6 bg-white rounded shadow mt-16 mb-16">
+
+    <!-- Header -->
+    <h1 class="text-2xl font-bold mb-4 text-center flex items-center justify-center">
+        <img src="{% static 'icons/adresse.png' %}"
+             style="width:75px; margin-right:5px;"
+             alt="{% trans 'Adresse' %}">
+        {% trans "Créer une adresse" %}
+    </h1>
+
+    <!-- Messages -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="mb-3 px-4 py-2 rounded
+                {% if message.tags == 'success' %}
+                    bg-green-100 text-green-800 border border-green-300
+                {% else %}
+                    bg-red-100 text-red-800 border border-red-300
+                {% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post" class="flex flex-col space-y-4">
+        {% csrf_token %}
+
+
+        <div>
+            <label for="id_rue">{% trans "Rue" %}</label>
+            <input type="text" id="id_rue" name="rue"
+                   value="{{ request.POST.rue|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+        <div>
+            <label for="id_numero">{% trans "Numéro" %}</label>
+            <input type="text" id="id_numero" name="numero"
+                   value="{{ request.POST.numero|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+        <div>
+            <label for="id_code_postal">{% trans "Code postal" %}</label>
+            <input type="text" id="id_code_postal" name="code_postal"
+                   value="{{ request.POST.code_postal|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+        <div>
+            <label for="id_ville">{% trans "Ville" %}</label>
+            <input type="text" id="id_ville" name="ville"
+                   value="{{ request.POST.ville|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+        <div>
+            <label for="id_pays">{% trans "Pays" %}</label>
+            <input type="text" id="id_pays" name="pays"
+                   value="{{ request.POST.pays|default:'Belgique' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+        <div>
+            <label for="id_code_pays">{% trans "Code pays" %}</label>
+            <input type="text" id="id_code_pays" name="code_pays"
+                   value="{{ request.POST.code_pays|default:'BE' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+
+        <button type="submit"
+                class="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded w-full mt-4">
+            {% trans "Enregistrer" %}
+        </button>
+
+    </form>
+</div>
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie) {
+            document.cookie.split(';').forEach(c => {
+                c = c.trim();
+                if (c.startsWith(name + '=')) {
+                    cookieValue = decodeURIComponent(c.slice(name.length + 1));
+                }
+            });
+        }
+        return cookieValue;
+    }
+
+    const csrftoken = getCookie('csrftoken');
+    const rueInput = document.getElementById('id_rue');
+
+    if (!rueInput) return;
+
+    // Écoute le champ numéro de permis
+    rueInput.addEventListener('blur', function () {
+
+        const ville = this.value.trim();
+        if (!ville) return;
+
+        fetch('/api/check_rue', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            },
+            body: JSON.stringify({ rue })
+        })
+        .then(r => r.json())
+        .then(data => {
+
+            if (data.exist) {
+                document.getElementById('id_rue').value = data.prenom || '';
+                document.getElementById('id_numero').value = data.nom || '';
+                document.getElementById('id_code_postal').value = data.email || '';
+
+
+
+            } else {
+                document.getElementById('id_rue').value = '';
+                document.getElementById('id_numero').value = '';
+                document.getElementById('id_code_postal').value = '';
+                document.getElementById('id_ville').value = '';
+                document.getElementById('id_pays').value = 'Belgique';
+                document.getElementById('id_code_pays').value = 'BE';
+            }
+        })
+        .catch(err => console.error("Erreur:", err));
+    });
+});
+</script>
+{% endblock %}

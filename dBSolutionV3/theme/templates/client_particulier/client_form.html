@@ -221,23 +221,23 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const csrftoken = getCookie('csrftoken');
-    const numeroPermisInput = document.getElementById('id_numero_permis');
+    const dateNaissanceInput = document.getElementById('id_prenom');
 
-    if (!numeroPermisInput) return;
+    if (!dateNaissanceInput) return;
 
     // Écoute le champ numéro de permis
-    numeroPermisInput.addEventListener('blur', function () {
+    dateNaissanceInput.addEventListener('blur', function () {
 
         const numero_permis = this.value.trim();
         if (!numero_permis) return;
 
-        fetch('/api/check_numero_permis/', {
+        fetch('/api/check_prenom/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRFToken': csrftoken,
             },
-            body: JSON.stringify({ numero_permis })
+            body: JSON.stringify({ prenom })
         })
         .then(r => r.json())
         .then(data => {

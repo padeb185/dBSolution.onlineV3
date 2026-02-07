@@ -91,9 +91,11 @@ def dashboard_view(request):
     total_freins_ar = total_pneus = total_maintenance = 0
     total_fournisseur = total_client_particulier = 0
     total_carrosserie = total_intervention = total_societe_cliente = 0
+    total_adresse = 0
 
     marques = moteurs = exemplaires = boites = embrayages = freins = \
-        freins_ar = pneus = maintenance = fournisseurs = client_particulier = carrosseries = interventions = societe_clients = []
+        freins_ar = pneus = maintenance = fournisseurs = client_particulier =\
+        carrosseries = interventions = societe_cliente = adresse =  []
 
     if schema_name:
         with schema_context(schema_name):
@@ -111,6 +113,7 @@ def dashboard_view(request):
             carrosseries = Carrosserie.objects.all()
             interventions = Intervention.objects.all()
             societe_cliente = SocieteCliente.objects.all()
+            adresse = Adresse.objects.all()
 
             # Totaux
             total_marques = marques.count()
@@ -127,6 +130,7 @@ def dashboard_view(request):
             total_carrosserie = carrosseries.count()
             total_intervention = interventions.count()
             total_societe_cliente = societe_cliente.count()
+            total_adresse = adresse.count()
 
             # Récupère les modèles existants pour les liens maintenance
             modeles = VoitureModele.objects.all()
@@ -148,6 +152,7 @@ def dashboard_view(request):
         'total_carrosserie': total_carrosserie,
         'total_intervention': total_intervention,
         'total_societe_cliente': total_societe_cliente,
+        'total_adresse': total_adresse,
 
         'marques': marques,
         'moteurs': moteurs,
@@ -164,6 +169,7 @@ def dashboard_view(request):
         'carrosserie': carrosseries,
         'intervention': interventions,
         'societe_cliente': societe_cliente,
+        'adresse': adresse,
     })
 
     # --- Tâches et rôles ---

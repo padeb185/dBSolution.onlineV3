@@ -11,8 +11,7 @@
 </h1>
 
 <div class="bg-white shadow-md rounded-lg p-4 mb-4">
-    <div class="grid grid-cols-1 md:grid-cols-6 gap-3 items-end">
-
+    <div class="grid grid-cols-1 md:grid-cols-6 gap-3 mb-4">
         <input id="search-nom_societe_cliente" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Nom de la société cliente' %}">
@@ -20,7 +19,6 @@
         <input id="search-adresse" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Adresse de la societe cliente' %}">
-
 
         <input id="search-directeur_nom_prenom" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -30,24 +28,25 @@
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Numéro de téléphone' %}">
 
-
         <input id="search-email" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'nom.prenom@...' %}">
 
-
         <input id="search-numero_compte" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'BEXX XXXX XXXX XXXX' %}">
+    </div>
 
-        <div>
-            <a href="{% url 'societe_cliente:societe_cliente_form' %}"
-               class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
-                {% trans "Ajouter une societe cliente" %}
-            </a>
-        </div>
+    <!-- Bouton sur une seule ligne, en dessous -->
+    <div class="flex justify-start">
+        <a href="{% url 'societe_cliente:societe_cliente_form' %}"
+           class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition
+                  focus:outline-none focus:ring-2 focus:ring-blue-500">
+            {% trans "Ajouter une societe cliente" %}
+        </a>
     </div>
 </div>
+
 
 
 

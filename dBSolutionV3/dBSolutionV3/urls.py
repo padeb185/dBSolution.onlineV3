@@ -74,6 +74,9 @@ urlpatterns += i18n_patterns(
 
     path("societe_cliente/", include("societe_cliente.urls")),
 
+    path("adresse/", include("adresse.urls")),
+
+
 
 
 

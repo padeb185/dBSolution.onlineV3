@@ -7,20 +7,22 @@ from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
 from django_tenants.utils import tenant_context
 from .forms import AdresseForm
-from .models import adresse
 from adresse.models import Adresse
 from django.utils.translation import gettext as _
-
+from .models import Adresse
 
 
 @method_decorator([login_required, never_cache], name='dispatch')
 class AdresseListView(ListView):
-    model = adresse
+    model = Adresse
     template_name = "adresse/adresse_list.html"
     context_object_name = "adresses"
     paginate_by = 20
-    ordering = ["nom_societe"]
+    ordering = ["rue"]
 
+    def get_queryset(self):
+        tenant = self.request.user.societe
+        return Adresse.objects.filter(societe=tenant)
 
 
 
@@ -32,8 +34,12 @@ def adresse_detail(request, adresse_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
-        adresse = get_object_or_404(Adresse, id=adresse_id)
-        adresse = adresse.adresse
+        adresse = get_object_or_404(
+            Adresse,
+            id=adresse_id,
+            societe=tenant
+        )
+
 
     return render(
         request,
@@ -48,17 +54,17 @@ def adresse_detail(request, adresse_id):
 
 @login_required
 def ajouter_adresse_all(request):
-    adresse = Adresse()
-    adresse.adresse = Adresse()
+    tenant = request.user.societe
 
     if request.method == "POST":
-        nom_societe = request.POST.get("adresse")
+        rue= request.POST.get("rue")
 
 
-        if not nom_societe:
-            messages.error(request, _("Le nom de la adresse est obligatoire."))
+        if not rue:
+            messages.error(request, _("Le nom de la rue est obligatoire."))
         else:
             adresse = Adresse.objects.create(
+                societe=tenant,
                 rue=request.POST.get("rue"),
                 numero=request.POST.get("numero"),
                 code_postal=request.POST.get("code_postal"),
@@ -70,12 +76,7 @@ def ajouter_adresse_all(request):
             messages.success(request, _(f"Adresse '{adresse.rue}, {adresse.code_postal}' ajoutée avec succès !"))
 
 
-
-    # S'assurer que fournisseur.adresse existe
-    if not hasattr(adresse, "adresse") or adresse.adresse is None:
-        adresse.adresse = Adresse()
-
-    return render(request, "adresse/adresse_form.html", {"adresse":adresse})
+    return render(request, "adresse/adresse_form.html")
 
 
 
@@ -85,14 +86,23 @@ def modifier_adresse(request, adresse_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
-        adresse = get_object_or_404(Adresse, id=adresse_id)
+        adresse = get_object_or_404(
+            Adresse,
+            id=adresse_id,
+            societe=tenant
+        )
 
         if request.method == "POST":
             form = AdresseForm(request.POST, instance=adresse)
             if form.is_valid():
                 form.save()
-                messages.success(request, _(f"Adresse '{adresse.rue}, {adresse.code_postal}' modifiée avec succès !"))
-
+                messages.success(
+                    request,
+                    _("Adresse '%(rue)s, %(cp)s' modifiée avec succès !") % {
+                        "rue": adresse.rue,
+                        "cp": adresse.code_postal
+                    }
+                )
         else:
             form = AdresseForm(instance=adresse)
 
@@ -104,7 +114,3 @@ def modifier_adresse(request, adresse_id):
             "adresse": adresse,
         }
     )
-
-
-
-

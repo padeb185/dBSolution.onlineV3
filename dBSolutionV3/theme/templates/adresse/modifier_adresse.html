@@ -7,15 +7,14 @@
 
     <div class="flex justify-between items-center mb-6">
        <h1 class="text-2xl font-bold flex items-center gap-4">
-           <img src="{% static 'icons/societe_cliente.png' %}" alt="client"
+           <img src="{% static 'icons/adresse.png' %}" alt="client"
          style="width:60px; height:60px; margin-right:10px;">
             <span class="text-black-700">
-                {% trans "Modifier la societe :" %} {{ societe_cliente.nom_societe_cliente }}
+                {% trans "Modifier l'adresse :" %} {{ adresse.rue }} {{ adresse.numero }}
             </span>
 
        </h1>
     </div>
-
     <!-- Messages -->
     {% if messages %}
         {% for message in messages %}
@@ -29,7 +28,6 @@
         </div>
         {% endfor %}
     {% endif %}
-
     <form method="post" class="space-y-4">
         {% csrf_token %}
 
@@ -62,7 +60,7 @@
                     {% trans "Enregistrer" %}
                 </button>
 
-                <a href="{% url 'societe_cliente:societe_cliente_detail' societe_cliente.id_societe_cliente %}"
+                <a href="{% url 'adresse:adresse_detail' adresse_id=adresse.id %}"
                    class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
                     {% trans "Annuler" %}
                 </a>

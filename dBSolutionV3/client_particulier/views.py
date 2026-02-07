@@ -29,12 +29,13 @@ def client_detail(request, client_particulier_id):
 
     with tenant_context(tenant):
         client_particulier = get_object_or_404(ClientParticulier, id=client_particulier_id)
-        adresse = client_particulier.adresse
+        adresse = client_particulier.adresse  # si tu veux l’afficher séparément
 
     return render(request, "client_particulier/client_detail.html", {
         "client_particulier": client_particulier,
         "adresse": adresse,
     })
+
 
 
 
@@ -114,6 +115,6 @@ def modifier_client(request, client_particulier_id):
         {
             "form": form,
             "client_particulier": client_particulier,
-            "client_particulier.nom": client_particulier.nom
+
         }
     )
