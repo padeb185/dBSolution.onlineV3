@@ -5,6 +5,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
 from django_tenants.utils import tenant_context
+
+from .management.commands.ajouter_exemplaire import exemplaire
 from .models import VoitureExemplaire, TypeUtilisation
 from .forms import VoitureExemplaireForm
 from ..voiture_modele.models import VoitureModele
@@ -131,7 +133,7 @@ def lier_moteur_exemplaire(request, exemplaire_id):
             if moteur_id:
                 moteur = get_object_or_404(MoteurVoiture, id=moteur_id)
                 moteur.voitures_exemplaires.add(exemplaire)
-                messages.success(request, _("Le moteur a été lié à l'exemplaire avec succès."))
+                messages.success(request, _(f"Le moteur a été lié au véhicule '{exemplaire.voiture_marque} { exemplaire.immatriculation }' avec succès."))
 
 
                 return redirect("voiture_exemplaire:lier_moteur_exemplaire", exemplaire_id=exemplaire.id)
@@ -157,7 +159,7 @@ def lier_embrayage_exemplaire(request, exemplaire_id):
             if embrayage_id:
                 embrayage = get_object_or_404(VoitureEmbrayage, id=embrayage_id)
                 embrayage.voitures_exemplaires.add(exemplaire)
-                messages.success(request, _("L'embrayage a été lié à l'exemplaire avec succès."))
+                messages.success(request, _(f"L'embrayage a été lié au véhicule '{exemplaire.voiture_marque} { exemplaire.immatriculation }' avec succès."))
 
 
                 return redirect("voiture_exemplaire:lier_embrayage_exemplaire", exemplaire_id=exemplaire.id)
@@ -189,7 +191,7 @@ def lier_freins(request, exemplaire_id):
                 frein = get_object_or_404(VoitureFreins, id=frein_id)
                 # Lier le frein à l'exemplaire
                 frein.voitures_exemplaires.add(exemplaire)
-                messages.success(request, _("Le système de freinage a été lié à l'exemplaire avec succès."))
+                messages.success(request, _(f"Le système de freinage a été lié au véhicule '{exemplaire.voiture_marque}  { exemplaire.immatriculation }' avec succès."))
 
                 # Redirection vers la page de détail de l'exemplaire (ou une page liste)
                 return redirect("voiture_exemplaire:lier_frein", exemplaire_id=exemplaire.id)
@@ -219,7 +221,7 @@ def lier_frein_ar(request, exemplaire_id):
                 frein_ar = get_object_or_404(VoitureFreinsAR, id=frein_ar_id)
                 # Lier le frein à l'exemplaire
                 frein_ar.voitures_exemplaires.add(exemplaire)
-                messages.success(request, _("Le système de freinage a été lié à l'exemplaire avec succès."))
+                messages.success(request, _(f"Le système de freinage a été lié au véhicule '{exemplaire.voiture_marque}  { exemplaire.immatriculation }' avec succès."))
 
                 # Redirection vers la page de détail de l'exemplaire (ou une page liste)
                 return redirect("voiture_exemplaire:lier_frein_ar", exemplaire_id=exemplaire.id)
@@ -283,9 +285,9 @@ def modifier_exemplaire(request, exemplaire_id):
             form = VoitureExemplaireForm(request.POST, instance=exemplaire)
             if form.is_valid():
                 form.save()
-                # Message de succès affiché sur la même page
-                messages.success(request, "Exemplaire mis à jour avec succès.")
-                # PAS DE REDIRECTION : on continue à afficher le formulaire
+
+                messages.success(request, _(f"Véhicule '{exemplaire.voiture_marque} { exemplaire.immatriculation }' mis à jour avec succès."))
+
         else:
             form = VoitureExemplaireForm(instance=exemplaire)
 
@@ -347,7 +349,7 @@ def ajouter_exemplaire_all(request, modele_id):
                     annee_production=annee_production,
                     mois_production=mois_production,
                 )
-                messages.success(request, "Exemplaire ajouté avec succès !")
+                messages.success(request, _(f"Véhicule ' {exemplaire.voiture_marque} {exemplaire.voiture_modele} ' ajouté avec succès !"))
             except Exception as e:
                 messages.error(request, f"Une erreur est survenue : {str(e)}")
 
