@@ -1,5 +1,7 @@
 import uuid
 from django.db import models
+from societe.models import Societe
+
 
 class VoitureModele(models.Model):
     class NombrePortes(models.IntegerChoices):
@@ -15,6 +17,7 @@ class VoitureModele(models.Model):
         on_delete=models.PROTECT,
         related_name="modeles"
     )
+    societe = models.ForeignKey(Societe, on_delete=models.CASCADE)
 
     # Informations du modèle
     nom_modele = models.CharField(max_length=100)

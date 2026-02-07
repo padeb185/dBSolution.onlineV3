@@ -5,6 +5,8 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from client_particulier.models import ClientParticulier
 from django.conf import settings
+from societe.models import Societe
+
 
 class TypeUtilisation(models.TextChoices):
     SOCIETE = "societe", _("Société")
@@ -28,6 +30,8 @@ class VoitureExemplaire(models.Model):
         on_delete=models.PROTECT,
         related_name="voitures"
     )
+
+    societe = models.ForeignKey(Societe, on_delete=models.CASCADE)
 
     # 🚗 Identification
     immatriculation = models.CharField(

@@ -5,8 +5,6 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
 from django_tenants.utils import tenant_context
-
-from .management.commands.ajouter_exemplaire import exemplaire
 from .models import VoitureExemplaire, TypeUtilisation
 from .forms import VoitureExemplaireForm
 from ..voiture_modele.models import VoitureModele
@@ -18,6 +16,7 @@ from ..voiture_embrayage.models import VoitureEmbrayage
 from ..voiture_freins.models import VoitureFreins
 from ..voiture_freins_ar.models import VoitureFreinsAR
 from ..voiture_pneus.models import VoiturePneus
+
 
 
 @login_required
@@ -81,7 +80,7 @@ def lier_boite_exemplaire(request, exemplaire_id):
             if boite_id:
                 boite = get_object_or_404(VoitureBoite, id=boite_id)
                 boite.voitures_exemplaires.add(exemplaire)
-                messages.success(request, _("La boîte de vitesse a été liée à l'exemplaire avec succès."))
+                messages.success(request, _(f"La boîte de vitesse a été liée au véhicule '{exemplaire.voiture_marque} { exemplaire.immatriculation}' avec succès."))
 
 
                 return redirect("voiture_exemplaire:lier_boite_exemplaire", exemplaire_id=exemplaire.id)
@@ -107,7 +106,7 @@ def lier_pneus(request, exemplaire_id):
             if pneu_id:
                 pneu = get_object_or_404(VoiturePneus, id=pneu_id)  # ← corrigé ici
                 pneu.voitures_exemplaires.add(exemplaire)
-                messages.success(request, _("Les pneus ont été liés à l'exemplaire avec succès."))
+                messages.success(request, _(f"Les pneus ont été liés au véhivule '{exemplaire.voiture_marque}  {exemplaire.immatriculation}'  avec succès."))
                 return redirect("voiture_exemplaire:lier_pneus", exemplaire_id=exemplaire.id)
             else:
                 messages.error(request, _("Veuillez sélectionner des pneus à lier."))
@@ -317,52 +316,53 @@ def liste_exemplaires_all(request):
     )
 
 
-
 @login_required
 def ajouter_exemplaire_all(request, modele_id):
-    modele = get_object_or_404(VoitureModele, id=modele_id)
-    type_utilisation_selected = None  # valeur sélectionnée pour pré-remplissage
+    tenant = request.user.societe
+    with tenant_context(tenant):
+        # 🔹 Ici, on récupère le modèle en s'assurant qu'il appartient au tenant
+        modele = get_object_or_404(VoitureModele, id=modele_id, societe=tenant)
 
-    if request.method == "POST":
-        # Récupération des valeurs du formulaire
-        immatriculation = request.POST.get("immatriculation")
-        pays = request.POST.get("pays")
-        numero_vin = request.POST.get("numero_vin")
-        type_utilisation_selected = request.POST.get("type_utilisation")
-        kilometres_chassis = request.POST.get("kilometres_chassis")
-        annee_production = request.POST.get("annee_production")
-        mois_production = request.POST.get("mois_production")
+        type_utilisation_selected = None  # valeur sélectionnée pour pré-remplissage
 
-        # Vérifications basiques
-        if not immatriculation or not pays:
-            messages.error(request, "Veuillez renseigner au moins l'immatriculation et le pays.")
-        else:
-            try:
-                VoitureExemplaire.objects.create(
-                    voiture_marque=modele.voiture_marque,
-                    voiture_modele=modele,
-                    immatriculation=immatriculation,
-                    pays=pays,
-                    numero_vin=numero_vin,
-                    type_utilisation=type_utilisation_selected,
-                    kilometres_chassis=kilometres_chassis,
-                    annee_production=annee_production,
-                    mois_production=mois_production,
-                )
-                messages.success(request, _(f"Véhicule ' {exemplaire.voiture_marque} {exemplaire.voiture_modele} ' ajouté avec succès !"))
-            except Exception as e:
-                messages.error(request, f"Une erreur est survenue : {str(e)}")
+        if request.method == "POST":
+            immatriculation = request.POST.get("immatriculation")
+            pays = request.POST.get("pays")
+            numero_vin = request.POST.get("numero_vin")
+            type_utilisation_selected = request.POST.get("type_utilisation")
+            kilometres_chassis = request.POST.get("kilometres_chassis")
+            annee_production = request.POST.get("annee_production")
+            mois_production = request.POST.get("mois_production")
+
+            if not immatriculation or not pays:
+                messages.error(request, _("Veuillez renseigner au moins l'immatriculation et le pays."))
+            else:
+                try:
+                    exemplaire = VoitureExemplaire.objects.create(
+                        societe=tenant,
+                        voiture_marque=modele.voiture_marque,
+                        voiture_modele=modele,
+                        immatriculation=immatriculation,
+                        pays=pays,
+                        numero_vin=numero_vin,
+                        type_utilisation=type_utilisation_selected,
+                        kilometres_chassis=kilometres_chassis,
+                        annee_production=annee_production,
+                        mois_production=mois_production,
+                    )
+                    messages.success(
+                        request,
+                        _(f"Véhicule '{exemplaire.voiture_marque} {exemplaire.immatriculation}' ajouté avec succès !")
+                    )
+                except Exception as e:
+                    messages.error(request, _("Une erreur est survenue : ") + str(e))
 
     return render(
         request,
         "voiture_exemplaire/ajouter_exemplaire_all.html",
         {
             "modele": modele,
-            "TypeUtilisation": TypeUtilisation,   # pour la liste déroulante
-            "type_utilisation": type_utilisation_selected,  # valeur pré-remplie
+            "TypeUtilisation": TypeUtilisation,
+            "type_utilisation": type_utilisation_selected,
         }
     )
-
-
-
-
