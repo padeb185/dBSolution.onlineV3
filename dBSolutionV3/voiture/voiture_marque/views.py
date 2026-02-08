@@ -9,7 +9,8 @@ from voiture.voiture_marque.models import MarqueFavorite
 @login_required
 def marques_list(request):
     marques = VoitureMarque.objects.all().order_by("nom_marque")
-
+    modeles = VoitureModele.objects.filter(
+    ).order_by("nom_modele")
     favorites_ids = set(
         MarqueFavorite.objects.filter(
             societe=request.user
@@ -18,6 +19,7 @@ def marques_list(request):
 
     return render(request, "voiture_marque/marques_list.html", {
         "marques": marques,
+        "modeles": modeles,
         "favorites_ids": favorites_ids,
     })
 
