@@ -49,7 +49,7 @@ class Command(BaseCommand):
                 {"modele": "Range Rover Classic", "variante": None, "portes": 5, "places": 5, "annees": "1970–1996"},
                 {"modele": "Range Rover P38A", "variante": None, "portes": 5, "places": 5, "annees": "1994–2001"},
                 {"modele": "Range Rover L322", "variante": None, "portes": 5, "places": 5, "annees": "2001–2012"},
-                # 3e génération :contentReference[oaicite:0]{index=0}
+                # 3e génération :
                 {"modele": "Range Rover SV Coupé", "variante": "édition limitée", "portes": 3, "places": 4,
                  "annees": "2018 (édition spéciale)"},
                 # (Petites variantes historiques, ex. éditions spéciales rares)
@@ -507,7 +507,10 @@ class Command(BaseCommand):
                 {"modele": "Purosangue", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 92},
                 {"modele": "Roma", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 86},
                 {"modele": "Roma Spider", "variante": "Convertible", "portes": 2, "places": 4, "reservoir": 86},
-                {"modele": "Amalfi", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 82}
+                {"modele": "Amalfi", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 82},
+
+
+
             ],
 
 
@@ -696,7 +699,7 @@ class Command(BaseCommand):
                 {"modele": "Mondeo", "variante": "Sedan", "portes": 4, "places": 5, "reservoir": 60},
 
 
-                   {"modele": "Kuga", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 60},
+                {"modele": "Kuga", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 60},
                 {"modele": "Escape", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 60},
                 {"modele": "Edge", "variante": "SUV", "portes": 5, "places": 5, "reservoir": 70},
                 {"modele": "Explorer", "variante": "SUV", "portes": 5, "places": 7, "reservoir": 80},
