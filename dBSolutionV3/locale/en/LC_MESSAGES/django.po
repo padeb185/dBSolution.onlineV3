@@ -132,14 +132,11 @@ msgstr "Address"
 msgid "Adresses"
 msgstr "Addresses"
 
-#: .\adresse\views.py:64
 msgid "Le nom de la rue est obligatoire."
-msgstr ""
+msgstr "The street name is required."
 
-#: .\adresse\views.py:101
-#, python-format
 msgid "Adresse '%(rue)s, %(cp)s' modifiée avec succès !"
-msgstr ""
+msgstr "Address '%(rue)s, %(cp)s' updated successfully!"
 
 #: .\carrosserie\models.py:10
 #: .\theme\templates\societe_cliente\societe_cliente_detail.html:33
