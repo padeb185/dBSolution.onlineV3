@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-06 06:48+0100\n"
+"POT-Creation-Date: 2026-02-08 13:35+0100\n"
 "PO-Revision-Date: 2025-12-13 12:10+0100\n"
 "Last-Translator: Pierre de Bournonville [EMAIL@ADDRESS]"
 "(mailto:EMAIL@ADDRESS)\n"
@@ -18,7 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\adresse\forms.py:18 .\adresse\models.py:9
+#: .\adresse\forms.py:18 .\adresse\models.py:19
+#: .\theme\templates\adresse\adresse_detail.html:33
+#: .\theme\templates\adresse\adresse_form.html:34
+#: .\theme\templates\adresse\adresse_list.html:18
+#: .\theme\templates\adresse\adresse_list.html:59
 #: .\theme\templates\carrosserie\carrosserie_form.html:85
 #: .\theme\templates\client_particulier\client_form.html:135
 #: .\theme\templates\fournisseurs\fournisseur_form.html:89
@@ -26,7 +30,9 @@ msgstr ""
 msgid "Rue"
 msgstr "Street"
 
-#: .\adresse\forms.py:19 .\adresse\models.py:10
+#: .\adresse\forms.py:19 .\adresse\models.py:20
+#: .\theme\templates\adresse\adresse_detail.html:38
+#: .\theme\templates\adresse\adresse_form.html:40
 #: .\theme\templates\carrosserie\carrosserie_form.html:91
 #: .\theme\templates\client_particulier\client_form.html:141
 #: .\theme\templates\fournisseurs\fournisseur_form.html:96
@@ -34,7 +40,10 @@ msgstr "Street"
 msgid "Numéro"
 msgstr "Number"
 
-#: .\adresse\forms.py:20 .\adresse\models.py:11
+#: .\adresse\forms.py:20 .\adresse\models.py:21
+#: .\theme\templates\adresse\adresse_form.html:46
+#: .\theme\templates\adresse\adresse_list.html:27
+#: .\theme\templates\adresse\adresse_list.html:61
 #: .\theme\templates\carrosserie\carrosserie_form.html:97
 #: .\theme\templates\client_particulier\client_form.html:147
 #: .\theme\templates\fournisseurs\fournisseur_form.html:103
@@ -42,7 +51,11 @@ msgstr "Number"
 msgid "Code postal"
 msgstr "Postal code"
 
-#: .\adresse\forms.py:21 .\adresse\models.py:12
+#: .\adresse\forms.py:21 .\adresse\models.py:22
+#: .\theme\templates\adresse\adresse_detail.html:49
+#: .\theme\templates\adresse\adresse_form.html:52
+#: .\theme\templates\adresse\adresse_list.html:31
+#: .\theme\templates\adresse\adresse_list.html:62
 #: .\theme\templates\carrosserie\carrosserie_form.html:103
 #: .\theme\templates\client_particulier\client_form.html:153
 #: .\theme\templates\fournisseurs\fournisseur_form.html:110
@@ -50,8 +63,12 @@ msgstr "Postal code"
 msgid "Ville"
 msgstr "City"
 
-#: .\adresse\forms.py:22 .\adresse\models.py:14 .\carrosserie\models.py:14
+#: .\adresse\forms.py:22 .\adresse\models.py:24 .\carrosserie\models.py:14
 #: .\piece\models.py:9 .\piece\models.py:71 .\societe_cliente\models.py:82
+#: .\theme\templates\adresse\adresse_detail.html:54
+#: .\theme\templates\adresse\adresse_form.html:58
+#: .\theme\templates\adresse\adresse_list.html:36
+#: .\theme\templates\adresse\adresse_list.html:63
 #: .\theme\templates\carrosserie\carrosserie_detail.html:46
 #: .\theme\templates\carrosserie\carrosserie_form.html:109
 #: .\theme\templates\carrosserie\carrosserie_list.html:26
@@ -64,8 +81,10 @@ msgstr "City"
 msgid "Pays"
 msgstr "Country"
 
-#: .\adresse\forms.py:23 .\adresse\models.py:15 .\facture\models.py:29
+#: .\adresse\forms.py:23 .\adresse\models.py:25 .\facture\models.py:29
 #: .\fournisseur\models.py:43 .\societe_cliente\models.py:89
+#: .\theme\templates\adresse\adresse_detail.html:59
+#: .\theme\templates\adresse\adresse_form.html:64
 #: .\theme\templates\carrosserie\carrosserie_form.html:115
 #: .\theme\templates\client_particulier\client_form.html:165
 #: .\theme\templates\fournisseurs\fournisseur_form.html:124
@@ -73,9 +92,10 @@ msgstr "Country"
 msgid "Code pays"
 msgstr "Country code"
 
-#: .\adresse\models.py:17 .\client_particulier\models.py:128
+#: .\adresse\models.py:27 .\client_particulier\models.py:128
 #: .\facture\models.py:34 .\fournisseur\models.py:79
 #: .\societe_cliente\models.py:124
+#: .\theme\templates\adresse\adresse_detail.html:88
 #: .\theme\templates\carrosserie\carrosserie_detail.html:99
 #: .\theme\templates\client_particulier\client_detail.html:114
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:99
@@ -84,13 +104,13 @@ msgstr "Country code"
 msgid "Créé le"
 msgstr "Created at"
 
-#: .\adresse\models.py:18 .\facture\models.py:35
+#: .\adresse\models.py:28 .\facture\models.py:35
 msgid "Mis à jour le"
 msgstr "Updated at"
 
-#: .\adresse\models.py:21 .\carrosserie\models.py:13
+#: .\adresse\models.py:31 .\carrosserie\models.py:13
 #: .\client_particulier\models.py:18 .\facture\models.py:17
-#: .\fournisseur\models.py:19
+#: .\fournisseur\models.py:19 .\theme\templates\adresse\adresse_form.html:11
 #: .\theme\templates\carrosserie\carrosserie_detail.html:80
 #: .\theme\templates\carrosserie\carrosserie_form.html:82
 #: .\theme\templates\carrosserie\carrosserie_list.html:22
@@ -104,18 +124,27 @@ msgstr "Updated at"
 #: .\theme\templates\intervention\intervention_list.html:22
 #: .\theme\templates\societe_cliente\societe_cliente_detail.html:91
 #: .\theme\templates\societe_cliente\societe_cliente_form.html:82
-#: .\theme\templates\societe_cliente\societe_cliente_list.html:60
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:59
 msgid "Adresse"
 msgstr "Address"
 
-#: .\adresse\models.py:22
+#: .\adresse\models.py:32 .\theme\templates\dashboard.html:290
 msgid "Adresses"
 msgstr "Addresses"
+
+#: .\adresse\views.py:64
+msgid "Le nom de la rue est obligatoire."
+msgstr ""
+
+#: .\adresse\views.py:101
+#, python-format
+msgid "Adresse '%(rue)s, %(cp)s' modifiée avec succès !"
+msgstr ""
 
 #: .\carrosserie\models.py:10
 #: .\theme\templates\societe_cliente\societe_cliente_detail.html:33
 #: .\theme\templates\societe_cliente\societe_cliente_form.html:34
-#: .\theme\templates\societe_cliente\societe_cliente_list.html:59
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:58
 msgid "Nom de la société"
 msgstr "Company name"
 
@@ -126,7 +155,6 @@ msgstr "Responsible last name"
 #: .\carrosserie\models.py:12
 msgid "Responsable prenom"
 msgstr "Responsible first name"
-
 
 #: .\carrosserie\models.py:15
 #: .\theme\templates\carrosserie\carrosserie_form.html:64
@@ -147,7 +175,7 @@ msgstr "Phone"
 #: .\theme\templates\fournisseurs\fournisseur_list.html:56
 #: .\theme\templates\societe_cliente\societe_cliente_detail.html:49
 #: .\theme\templates\societe_cliente\societe_cliente_form.html:72
-#: .\theme\templates\societe_cliente\societe_cliente_list.html:63
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:62
 msgid "Email"
 msgstr "Email"
 
@@ -182,6 +210,10 @@ msgstr "Body shop"
 msgid "Carrosseries"
 msgstr "Body shops"
 
+msgid "Le nom de la carrosserie est obligatoire."
+msgstr "The bodyshop name is required."
+
+
 #: .\client_particulier\models.py:12
 #: .\theme\templates\client_particulier\client_form.html:34
 #: .\theme\templates\client_particulier\client_form.html:38
@@ -205,8 +237,8 @@ msgstr "Last name"
 #: .\theme\templates\client_particulier\client_list.html:62
 #: .\theme\templates\societe_cliente\societe_cliente_detail.html:54
 #: .\theme\templates\societe_cliente\societe_cliente_form.html:52
-#: .\theme\templates\societe_cliente\societe_cliente_list.html:31
-#: .\theme\templates\societe_cliente\societe_cliente_list.html:62
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:29
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:61
 msgid "Numéro de téléphone"
 msgstr "Phone number"
 
@@ -278,7 +310,7 @@ msgid "Historique"
 msgstr "History"
 
 #: .\client_particulier\models.py:119 .\societe_cliente\models.py:115
-#: .\voiture\voiture_exemplaire\models.py:13
+#: .\voiture\voiture_exemplaire\models.py:15
 msgid "Location"
 msgstr "Rental"
 
@@ -286,7 +318,7 @@ msgstr "Rental"
 #: .\panier\models.py:25
 #: .\theme\templates\client_particulier\client_form.html:11
 #: .\theme\templates\societe_cliente\societe_cliente_form.html:11
-#: .\voiture\voiture_exemplaire\models.py:11
+#: .\voiture\voiture_exemplaire\models.py:13
 msgid "Client"
 msgstr "Customer"
 
@@ -298,6 +330,9 @@ msgstr "Customers"
 #, python-format
 msgid "%(nom)s %(prenom)s (Client)"
 msgstr "%(nom)s %(prenom)s (Customer)"
+
+msgid "Le prénom et le nom du client sont obligatoires."
+msgstr "The client's first and last name are required."
 
 #: .\facture\models.py:25
 msgid "Ex : 0208:BE0123456789"
@@ -436,6 +471,10 @@ msgstr "Suppliers"
 msgid "%(nom)s (Fournisseur)"
 msgstr "%(nom)s (Supplier)"
 
+#: .\fournisseur\views.py:87
+msgid "Le nom du fournisseur est obligatoire."
+msgstr "the supplier name is required"
+
 #: .\fuel\models.py:9 .\voiture\voiture_moteur\models.py:19
 msgid "Essence"
 msgstr "Petrol"
@@ -447,13 +486,13 @@ msgstr "Diesel"
 #: .\fuel\models.py:20 .\piece\models.py:41 .\piece\models.py:99
 #: .\piece\models.py:108
 #: .\theme\templates\maintenance\creer_maintenance.html:50
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:28
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:37
 msgid "Marque"
 msgstr "Brand"
 
 #: .\fuel\models.py:26 .\piece\models.py:32
 #: .\theme\templates\maintenance\creer_maintenance.html:51
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:34
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:43
 msgid "Modèle"
 msgstr "Model"
 
@@ -469,7 +508,7 @@ msgstr "Vehicle"
 #: .\theme\templates\intervention\intervention_detail.html:41
 #: .\theme\templates\intervention\intervention_list.html:45
 #: .\theme\templates\maintenance\creer_maintenance.html:16
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:39
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:48
 msgid "Immatriculation"
 msgstr "License plate"
 
@@ -731,7 +770,6 @@ msgstr "Rear left taillight"
 msgid "Clignotant avant droit"
 msgstr "Front right turn signal"
 
-
 #: .\intervention\models.py:243
 msgid "Clignotant avant gauche"
 msgstr "Front left turn signal"
@@ -755,7 +793,6 @@ msgstr "Third brake light"
 #: .\intervention\models.py:263
 msgid "Capteur recul"
 msgstr "Parking sensor"
-
 
 #: .\intervention\models.py:272
 #: .\theme\templates\intervention\intervention_list.html:46
@@ -1186,7 +1223,7 @@ msgstr "Not specified"
 
 #: .\maintenance\check_up\models.py:351 .\maintenance\jeux_pieces\models.py:108
 #: .\maintenance\models.py:46 .\utilisateurs\models.py:73
-#: .\utilisateurs\views.py:187
+#: .\utilisateurs\views.py:193
 msgid "Apprenti"
 msgstr "Apprentice"
 
@@ -1195,7 +1232,7 @@ msgstr "Apprentice"
 #: .\maintenance\models.py:37 .\maintenance\nettoyage_exterieur\models.py:25
 #: .\maintenance\nettoyage_interieur\models.py:26
 #: .\theme\templates\maintenance\detail.html:17 .\utilisateurs\models.py:74
-#: .\utilisateurs\views.py:188
+#: .\utilisateurs\views.py:194
 msgid "Mécanicien"
 msgstr "Mechanic"
 
@@ -1381,7 +1418,7 @@ msgid "Date d'intervention"
 msgstr "Intervention date"
 
 #: .\maintenance\models.py:67
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:89
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:98
 msgid "Date de la dernière intervention"
 msgstr "Date of last intervention"
 
@@ -1536,7 +1573,7 @@ msgstr "Customer company"
 
 #: .\panier\models.py:39 .\piece\models.py:95
 #: .\theme\templates\voiture_boite\boite_detail.html:85
-#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:76
+#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:85
 #: .\theme\templates\voiture_embrayage\embrayage_detail.html:74
 #: .\theme\templates\voiture_moteur\moteur_detail.html:97
 msgid "Date de création"
@@ -2559,7 +2596,7 @@ msgid "Levier / fourchette"
 msgstr "Release lever / fork"
 
 #: .\piece\piece_embrayage\models.py:26
-#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:25
+#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:34
 #: .\theme\templates\voiture_embrayage\embrayage_detail.html:22
 #: .\theme\templates\voiture_embrayage\list.html:52
 msgid "Type d'embrayage"
@@ -3866,7 +3903,6 @@ msgstr "Company name"
 msgid "Nom du Directeur"
 msgstr "Director's last name"
 
-
 #: .\societe_cliente\models.py:52
 #: .\theme\templates\carrosserie\carrosserie_list.html:55
 #: .\theme\templates\fournisseurs\fournisseur_list.html:21
@@ -3955,6 +3991,224 @@ msgstr "Django Admin"
 msgid "Accéder à l’interface technique Django."
 msgstr "Access the Django admin interface."
 
+msgid "Détails de l'adresse :"
+msgstr "Address details:"
+
+msgid "Retour à la liste des adresses"
+msgstr "Back to the address list"
+
+#: .\theme\templates\adresse\adresse_detail.html:29
+#: .\theme\templates\carrosserie\carrosserie_detail.html:32
+#: .\theme\templates\client_particulier\client_detail.html:29
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:32
+#: .\theme\templates\intervention\intervention_detail.html:32
+#: .\theme\templates\maintenance\detail.html:13
+#: .\theme\templates\societe_cliente\societe_cliente_detail.html:29
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:60
+msgid "Informations générales"
+msgstr "General Information"
+
+#: .\theme\templates\adresse\adresse_detail.html:43
+msgid "Code Postal"
+msgstr "Postal code"
+
+#: .\theme\templates\adresse\adresse_detail.html:70
+
+msgid "Modifier l'adresse"
+msgstr "Edit address"
+
+#: .\theme\templates\adresse\adresse_detail.html:84
+#: .\theme\templates\carrosserie\carrosserie_detail.html:95
+#: .\theme\templates\client_particulier\client_detail.html:110
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:95
+#: .\theme\templates\intervention\intervention_detail.html:95
+#: .\theme\templates\societe_cliente\societe_cliente_detail.html:106
+msgid "Métadonnées"
+msgstr "Metadata"
+
+#: .\theme\templates\adresse\adresse_form.html:12
+
+msgid "Créer une adresse"
+msgstr "Create address"
+
+#: .\theme\templates\adresse\adresse_form.html:72
+#: .\theme\templates\adresse\modifier_adresse.html:60
+#: .\theme\templates\carrosserie\carrosserie_form.html:121
+#: .\theme\templates\carrosserie\modifier_carrosserie.html:49
+#: .\theme\templates\client_particulier\client_form.html:173
+#: .\theme\templates\client_particulier\modifier_client.html:60
+#: .\theme\templates\fournisseurs\fournisseur_form.html:131
+#: .\theme\templates\fournisseurs\modifier_fournisseur.html:49
+#: .\theme\templates\intervention\modifier_intervention.html:49
+#: .\theme\templates\societe_cliente\modifier_societe_cliente.html:62
+#: .\theme\templates\societe_cliente\societe_cliente_form.html:123
+msgid "Enregistrer"
+msgstr "Save"
+
+#: .\theme\templates\adresse\adresse_list.html:4
+#: .\theme\templates\adresse\adresse_list.html:10
+msgid "Liste des Adresses"
+msgstr "Addresses list"
+
+#: .\theme\templates\adresse\adresse_list.html:22
+#: .\theme\templates\adresse\adresse_list.html:60
+#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:81
+msgid "Numero"
+msgstr "Number"
+
+#: .\theme\templates\adresse\adresse_list.html:41
+
+msgid "Code pays, ex: BE"
+msgstr "Country code, ex: BE"
+
+#: .\theme\templates\adresse\adresse_list.html:46
+msgid "Ajouter une adresse"
+msgstr "Add address"
+
+#: .\theme\templates\adresse\adresse_list.html:64
+#: .\theme\templates\adresse\adresse_list.html:79
+#: .\theme\templates\carrosserie\carrosserie_list.html:59
+#: .\theme\templates\carrosserie\carrosserie_list.html:73
+#: .\theme\templates\client_particulier\client_list.html:64
+#: .\theme\templates\client_particulier\client_list.html:79
+#: .\theme\templates\fournisseurs\fournisseur_list.html:58
+#: .\theme\templates\fournisseurs\fournisseur_list.html:72
+#: .\theme\templates\intervention\intervention_list.html:47
+#: .\theme\templates\intervention\intervention_list.html:59
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:63
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:77
+#: .\theme\templates\voiture_boite\list.html:40
+#: .\theme\templates\voiture_boite\list.html:55
+#: .\theme\templates\voiture_embrayage\list.html:56
+#: .\theme\templates\voiture_embrayage\list.html:70
+#: .\theme\templates\voiture_freins\list.html:49
+#: .\theme\templates\voiture_freins\list.html:62
+#: .\theme\templates\voiture_freins_ar\list_ar.html:46
+#: .\theme\templates\voiture_freins_ar\list_ar.html:59
+#: .\theme\templates\voiture_moteur\list.html:41
+#: .\theme\templates\voiture_moteur\list.html:58
+#: .\theme\templates\voiture_pneus\list.html:77
+#: .\theme\templates\voiture_pneus\list.html:95
+msgid "Info"
+msgstr "Info"
+
+#: .\theme\templates\adresse\adresse_list.html:82
+#: .\theme\templates\client_particulier\client_list.html:82
+msgid "Info indisponible"
+msgstr "Information unavailable"
+
+#: .\theme\templates\adresse\adresse_list.html:98
+#: .\theme\templates\carrosserie\carrosserie_list.html:88
+#: .\theme\templates\client_particulier\client_list.html:98
+#: .\theme\templates\fournisseurs\fournisseur_list.html:87
+#: .\theme\templates\intervention\intervention_list.html:74
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:93
+#: .\theme\templates\voiture_embrayage\list.html:85
+#: .\theme\templates\voiture_freins\list.html:77
+#: .\theme\templates\voiture_freins_ar\list_ar.html:73
+#: .\theme\templates\voiture_pneus\list.html:110
+msgid "Recherche globale :"
+msgstr "Global search:"
+
+#: .\theme\templates\adresse\adresse_list.html:99
+#: .\theme\templates\carrosserie\carrosserie_list.html:89
+#: .\theme\templates\client_particulier\client_list.html:99
+#: .\theme\templates\fournisseurs\fournisseur_list.html:88
+#: .\theme\templates\intervention\intervention_list.html:75
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:94
+#: .\theme\templates\voiture_boite\list.html:74
+#: .\theme\templates\voiture_embrayage\list.html:86
+#: .\theme\templates\voiture_freins\list.html:78
+#: .\theme\templates\voiture_freins_ar\list_ar.html:74
+#: .\theme\templates\voiture_moteur\list.html:77
+#: .\theme\templates\voiture_pneus\list.html:111
+msgid "Afficher _MENU_ éléments"
+msgstr "Show _MENU_ entries"
+
+#: .\theme\templates\adresse\adresse_list.html:100
+
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ adresse"
+msgstr "Showing _START_ to _END_ of _TOTAL_ addresses"
+
+#: .\theme\templates\adresse\adresse_list.html:101
+#: .\theme\templates\adresse\adresse_list.html:102
+msgid "Aucune adresse trouvée"
+msgstr "No address found"
+
+#: .\theme\templates\adresse\adresse_list.html:104
+#: .\theme\templates\carrosserie\carrosserie_list.html:94
+#: .\theme\templates\client_particulier\client_list.html:104
+#: .\theme\templates\fournisseurs\fournisseur_list.html:93
+#: .\theme\templates\intervention\intervention_list.html:80
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:99
+#: .\theme\templates\voiture_boite\list.html:79
+#: .\theme\templates\voiture_embrayage\list.html:91
+#: .\theme\templates\voiture_freins\list.html:83
+#: .\theme\templates\voiture_freins_ar\list_ar.html:79
+#: .\theme\templates\voiture_moteur\list.html:82
+#: .\theme\templates\voiture_pneus\list.html:116
+msgid "Premier"
+msgstr "First"
+
+#: .\theme\templates\adresse\adresse_list.html:105
+#: .\theme\templates\carrosserie\carrosserie_list.html:95
+#: .\theme\templates\client_particulier\client_list.html:105
+#: .\theme\templates\fournisseurs\fournisseur_list.html:94
+#: .\theme\templates\intervention\intervention_list.html:81
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:100
+#: .\theme\templates\voiture_boite\list.html:80
+#: .\theme\templates\voiture_embrayage\list.html:92
+#: .\theme\templates\voiture_freins\list.html:84
+#: .\theme\templates\voiture_freins_ar\list_ar.html:80
+#: .\theme\templates\voiture_moteur\list.html:83
+#: .\theme\templates\voiture_pneus\list.html:117
+msgid "Dernier"
+msgstr "Last"
+
+#: .\theme\templates\adresse\adresse_list.html:106
+#: .\theme\templates\carrosserie\carrosserie_list.html:96
+#: .\theme\templates\client_particulier\client_list.html:106
+#: .\theme\templates\fournisseurs\fournisseur_list.html:95
+#: .\theme\templates\intervention\intervention_list.html:82
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:101
+#: .\theme\templates\voiture_boite\list.html:81
+#: .\theme\templates\voiture_embrayage\list.html:93
+#: .\theme\templates\voiture_freins\list.html:85
+#: .\theme\templates\voiture_freins_ar\list_ar.html:81
+#: .\theme\templates\voiture_moteur\list.html:84
+#: .\theme\templates\voiture_pneus\list.html:118
+msgid "Suivant"
+msgstr "Next"
+
+#: .\theme\templates\adresse\adresse_list.html:107
+#: .\theme\templates\carrosserie\carrosserie_list.html:97
+#: .\theme\templates\client_particulier\client_list.html:107
+#: .\theme\templates\fournisseurs\fournisseur_list.html:96
+#: .\theme\templates\intervention\intervention_list.html:83
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:102
+#: .\theme\templates\voiture_boite\list.html:82
+#: .\theme\templates\voiture_embrayage\list.html:94
+#: .\theme\templates\voiture_freins\list.html:86
+#: .\theme\templates\voiture_freins_ar\list_ar.html:82
+#: .\theme\templates\voiture_moteur\list.html:85
+#: .\theme\templates\voiture_pneus\list.html:119
+msgid "Précédent"
+msgstr "Previous"
+
+#: .\theme\templates\adresse\modifier_adresse.html:13
+msgid "Modifier l'adresse :"
+msgstr "Edit address :"
+
+#: .\theme\templates\adresse\modifier_adresse.html:65
+#: .\theme\templates\carrosserie\modifier_carrosserie.html:54
+#: .\theme\templates\client_particulier\modifier_client.html:65
+#: .\theme\templates\fournisseurs\modifier_fournisseur.html:54
+#: .\theme\templates\intervention\modifier_intervention.html:54
+#: .\theme\templates\societe_cliente\modifier_societe_cliente.html:67
+#: .\theme\templates\voiture_exemplaire\modifier_exemplaire.html:84
+msgid "Annuler"
+msgstr "Cancel"
+
 #: .\theme\templates\base.html:9
 msgid "dBSolution"
 msgstr "dBSolution"
@@ -3994,17 +4248,6 @@ msgstr "Logout"
 msgid "Détails de la carrosserie :"
 msgstr "Bodyshop details:"
 
-
-#: .\theme\templates\carrosserie\carrosserie_detail.html:32
-#: .\theme\templates\client_particulier\client_detail.html:29
-#: .\theme\templates\fournisseurs\fournisseur_detail.html:32
-#: .\theme\templates\intervention\intervention_detail.html:32
-#: .\theme\templates\maintenance\detail.html:13
-#: .\theme\templates\societe_cliente\societe_cliente_detail.html:29
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:60
-msgid "Informations générales"
-msgstr "General Information"
-
 #: .\theme\templates\carrosserie\carrosserie_detail.html:56
 msgid "Modifier le carrosserie"
 msgstr "Edit bodyshop"
@@ -4022,14 +4265,6 @@ msgstr "PEPPOL information"
 #: .\theme\templates\societe_cliente\societe_cliente_detail.html:98
 msgid "Aucune adresse renseignée."
 msgstr "No address provided."
-
-#: .\theme\templates\carrosserie\carrosserie_detail.html:95
-#: .\theme\templates\client_particulier\client_detail.html:110
-#: .\theme\templates\fournisseurs\fournisseur_detail.html:95
-#: .\theme\templates\intervention\intervention_detail.html:95
-#: .\theme\templates\societe_cliente\societe_cliente_detail.html:106
-msgid "Métadonnées"
-msgstr "Metadata"
 
 #: .\theme\templates\carrosserie\carrosserie_detail.html:122
 msgid "Retour à la liste des carrosseries"
@@ -4050,6 +4285,7 @@ msgstr "VAT number"
 #: .\theme\templates\societe_cliente\societe_cliente_detail.html:45
 msgid "Numéro Peppol"
 msgstr "PEPPOL number"
+
 #: .\theme\templates\carrosserie\carrosserie_form.html:70
 msgid "Nom du responsable"
 msgstr "Responsible person's last name"
@@ -4057,19 +4293,6 @@ msgstr "Responsible person's last name"
 #: .\theme\templates\carrosserie\carrosserie_form.html:76
 msgid "Prénom du responsable"
 msgstr "Responsible person's first name"
-
-
-#: .\theme\templates\carrosserie\carrosserie_form.html:121
-#: .\theme\templates\carrosserie\modifier_carrosserie.html:49
-#: .\theme\templates\client_particulier\client_form.html:173
-#: .\theme\templates\client_particulier\modifier_client.html:47
-#: .\theme\templates\fournisseurs\fournisseur_form.html:131
-#: .\theme\templates\fournisseurs\modifier_fournisseur.html:49
-#: .\theme\templates\intervention\modifier_intervention.html:49
-#: .\theme\templates\societe_cliente\modifier_societe_cliente.html:47
-#: .\theme\templates\societe_cliente\societe_cliente_form.html:123
-msgid "Enregistrer"
-msgstr "Save"
 
 #: .\theme\templates\carrosserie\carrosserie_list.html:4
 #: .\theme\templates\carrosserie\carrosserie_list.html:10
@@ -4101,57 +4324,6 @@ msgstr "Add bodyshop"
 msgid "Numero Peppol"
 msgstr "Peppol number"
 
-#: .\theme\templates\carrosserie\carrosserie_list.html:59
-#: .\theme\templates\carrosserie\carrosserie_list.html:73
-#: .\theme\templates\client_particulier\client_list.html:64
-#: .\theme\templates\client_particulier\client_list.html:79
-#: .\theme\templates\fournisseurs\fournisseur_list.html:58
-#: .\theme\templates\fournisseurs\fournisseur_list.html:72
-#: .\theme\templates\intervention\intervention_list.html:47
-#: .\theme\templates\intervention\intervention_list.html:59
-#: .\theme\templates\societe_cliente\societe_cliente_list.html:64
-#: .\theme\templates\societe_cliente\societe_cliente_list.html:78
-#: .\theme\templates\voiture_boite\list.html:40
-#: .\theme\templates\voiture_boite\list.html:55
-#: .\theme\templates\voiture_embrayage\list.html:56
-#: .\theme\templates\voiture_embrayage\list.html:70
-#: .\theme\templates\voiture_freins\list.html:49
-#: .\theme\templates\voiture_freins\list.html:62
-#: .\theme\templates\voiture_freins_ar\list_ar.html:46
-#: .\theme\templates\voiture_freins_ar\list_ar.html:59
-#: .\theme\templates\voiture_moteur\list.html:41
-#: .\theme\templates\voiture_moteur\list.html:58
-#: .\theme\templates\voiture_pneus\list.html:77
-#: .\theme\templates\voiture_pneus\list.html:95
-msgid "Info"
-msgstr "Info"
-
-#: .\theme\templates\carrosserie\carrosserie_list.html:88
-#: .\theme\templates\client_particulier\client_list.html:98
-#: .\theme\templates\fournisseurs\fournisseur_list.html:87
-#: .\theme\templates\intervention\intervention_list.html:74
-#: .\theme\templates\societe_cliente\societe_cliente_list.html:94
-#: .\theme\templates\voiture_embrayage\list.html:85
-#: .\theme\templates\voiture_freins\list.html:77
-#: .\theme\templates\voiture_freins_ar\list_ar.html:73
-#: .\theme\templates\voiture_pneus\list.html:110
-msgid "Recherche globale :"
-msgstr "Global search:"
-
-#: .\theme\templates\carrosserie\carrosserie_list.html:89
-#: .\theme\templates\client_particulier\client_list.html:99
-#: .\theme\templates\fournisseurs\fournisseur_list.html:88
-#: .\theme\templates\intervention\intervention_list.html:75
-#: .\theme\templates\societe_cliente\societe_cliente_list.html:95
-#: .\theme\templates\voiture_boite\list.html:74
-#: .\theme\templates\voiture_embrayage\list.html:86
-#: .\theme\templates\voiture_freins\list.html:78
-#: .\theme\templates\voiture_freins_ar\list_ar.html:74
-#: .\theme\templates\voiture_moteur\list.html:77
-#: .\theme\templates\voiture_pneus\list.html:111
-msgid "Afficher _MENU_ éléments"
-msgstr "Show _MENU_ entries"
-
 #: .\theme\templates\carrosserie\carrosserie_list.html:90
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ carrosseries"
 msgstr "Showing _START_ to _END_ of _TOTAL_ bodyshops"
@@ -4164,74 +4336,9 @@ msgstr "No bodyshop found"
 msgid "Aucun carrosserie trouvé"
 msgstr "No bodyshop found"
 
-#: .\theme\templates\carrosserie\carrosserie_list.html:94
-#: .\theme\templates\client_particulier\client_list.html:104
-#: .\theme\templates\fournisseurs\fournisseur_list.html:93
-#: .\theme\templates\intervention\intervention_list.html:80
-#: .\theme\templates\societe_cliente\societe_cliente_list.html:100
-#: .\theme\templates\voiture_boite\list.html:79
-#: .\theme\templates\voiture_embrayage\list.html:91
-#: .\theme\templates\voiture_freins\list.html:83
-#: .\theme\templates\voiture_freins_ar\list_ar.html:79
-#: .\theme\templates\voiture_moteur\list.html:82
-#: .\theme\templates\voiture_pneus\list.html:116
-msgid "Premier"
-msgstr "First"
-
-#: .\theme\templates\carrosserie\carrosserie_list.html:95
-#: .\theme\templates\client_particulier\client_list.html:105
-#: .\theme\templates\fournisseurs\fournisseur_list.html:94
-#: .\theme\templates\intervention\intervention_list.html:81
-#: .\theme\templates\societe_cliente\societe_cliente_list.html:101
-#: .\theme\templates\voiture_boite\list.html:80
-#: .\theme\templates\voiture_embrayage\list.html:92
-#: .\theme\templates\voiture_freins\list.html:84
-#: .\theme\templates\voiture_freins_ar\list_ar.html:80
-#: .\theme\templates\voiture_moteur\list.html:83
-#: .\theme\templates\voiture_pneus\list.html:117
-msgid "Dernier"
-msgstr "Last"
-
-#: .\theme\templates\carrosserie\carrosserie_list.html:96
-#: .\theme\templates\client_particulier\client_list.html:106
-#: .\theme\templates\fournisseurs\fournisseur_list.html:95
-#: .\theme\templates\intervention\intervention_list.html:82
-#: .\theme\templates\societe_cliente\societe_cliente_list.html:102
-#: .\theme\templates\voiture_boite\list.html:81
-#: .\theme\templates\voiture_embrayage\list.html:93
-#: .\theme\templates\voiture_freins\list.html:85
-#: .\theme\templates\voiture_freins_ar\list_ar.html:81
-#: .\theme\templates\voiture_moteur\list.html:84
-#: .\theme\templates\voiture_pneus\list.html:118
-msgid "Suivant"
-msgstr "Next"
-
-#: .\theme\templates\carrosserie\carrosserie_list.html:97
-#: .\theme\templates\client_particulier\client_list.html:107
-#: .\theme\templates\fournisseurs\fournisseur_list.html:96
-#: .\theme\templates\intervention\intervention_list.html:83
-#: .\theme\templates\societe_cliente\societe_cliente_list.html:103
-#: .\theme\templates\voiture_boite\list.html:82
-#: .\theme\templates\voiture_embrayage\list.html:94
-#: .\theme\templates\voiture_freins\list.html:86
-#: .\theme\templates\voiture_freins_ar\list_ar.html:82
-#: .\theme\templates\voiture_moteur\list.html:85
-#: .\theme\templates\voiture_pneus\list.html:119
-msgid "Précédent"
-msgstr "Previous"
-
 #: .\theme\templates\carrosserie\modifier_carrosserie.html:10
 msgid "Modifier le carrosserie :"
 msgstr "Edit bodyshop :"
-
-#: .\theme\templates\carrosserie\modifier_carrosserie.html:54
-#: .\theme\templates\client_particulier\modifier_client.html:52
-#: .\theme\templates\fournisseurs\modifier_fournisseur.html:54
-#: .\theme\templates\intervention\modifier_intervention.html:54
-#: .\theme\templates\societe_cliente\modifier_societe_cliente.html:52
-#: .\theme\templates\voiture_exemplaire\modifier_exemplaire.html:73
-msgid "Annuler"
-msgstr "Cancel"
 
 #: .\theme\templates\client_particulier\client_detail.html:12
 #: .\theme\templates\societe_cliente\societe_cliente_detail.html:12
@@ -4239,7 +4346,7 @@ msgid "Détails du client :"
 msgstr "Client details:"
 
 #: .\theme\templates\client_particulier\client_detail.html:19
-#: .\theme\templates\client_particulier\client_detail.html:137
+#: .\theme\templates\client_particulier\client_detail.html:125
 #: .\theme\templates\societe_cliente\societe_cliente_detail.html:19
 msgid "Retour à la liste des clients"
 msgstr "Back to client list"
@@ -4280,22 +4387,18 @@ msgid "Nom du client"
 msgstr "Client last name"
 
 #: .\theme\templates\client_particulier\client_list.html:36
-#: .\theme\templates\societe_cliente\societe_cliente_list.html:36
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:33
 msgid "nom.prenom@..."
 msgstr "firstname.lastname@...."
 
 #: .\theme\templates\client_particulier\client_list.html:41
-#: .\theme\templates\societe_cliente\societe_cliente_list.html:41
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:37
 msgid "BEXX XXXX XXXX XXXX"
 msgstr ""
 
 #: .\theme\templates\client_particulier\client_list.html:46
 msgid "Ajouter un client"
 msgstr "Add client"
-
-#: .\theme\templates\client_particulier\client_list.html:82
-msgid "Info indisponible"
-msgstr "Information unavailable"
 
 #: .\theme\templates\client_particulier\client_list.html:100
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ client"
@@ -4325,7 +4428,7 @@ msgstr "Users"
 #: .\theme\templates\dashboard.html:190 .\theme\templates\dashboard.html:205
 #: .\theme\templates\dashboard.html:220 .\theme\templates\dashboard.html:236
 #: .\theme\templates\dashboard.html:250 .\theme\templates\dashboard.html:264
-#: .\theme\templates\dashboard.html:278
+#: .\theme\templates\dashboard.html:278 .\theme\templates\dashboard.html:292
 msgid "Nombre total :"
 msgstr "Total number :"
 
@@ -4397,7 +4500,7 @@ msgstr "Rear Brakes"
 msgid "Intervention carrosserie"
 msgstr "Bodyshop intervention"
 
-#: .\theme\templates\dashboard.html:292
+#: .\theme\templates\dashboard.html:306
 msgid "Tableau de bord Admin"
 msgstr "Admin Dashboard"
 
@@ -4575,7 +4678,7 @@ msgstr "Vehicle maintenance:"
 
 #: .\theme\templates\maintenance\list.html:23
 #: .\theme\templates\voiture_exemplaire\list.html:15
-#: .\theme\templates\voiture_marque\marques_list.html:19
+#: .\theme\templates\voiture_marque\marques_list.html:21
 msgid "Rechercher une marque..."
 msgstr "Search for a brand..."
 
@@ -4619,7 +4722,7 @@ msgid "Nom de la sociéte"
 msgstr "Company name"
 
 #: .\theme\templates\societe_cliente\societe_cliente_form.html:47
-#: .\theme\templates\societe_cliente\societe_cliente_list.html:61
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:60
 msgid "Nom du directeur"
 msgstr "Manager name"
 
@@ -4628,28 +4731,28 @@ msgstr "Manager name"
 msgid "Liste des sociétés clientes"
 msgstr "Customers companies list"
 
-#: .\theme\templates\societe_cliente\societe_cliente_list.html:18
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:17
 msgid "Nom de la société cliente"
 msgstr "Customer company name"
 
-#: .\theme\templates\societe_cliente\societe_cliente_list.html:22
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:21
 msgid "Adresse de la societe cliente"
 msgstr "Client company's address"
 
-#: .\theme\templates\societe_cliente\societe_cliente_list.html:27
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:25
 msgid "Nom et prénom du directeur"
 msgstr "Director's full name"
 
-#: .\theme\templates\societe_cliente\societe_cliente_list.html:46
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:45
 msgid "Ajouter une societe cliente"
 msgstr "Add client company"
 
-#: .\theme\templates\societe_cliente\societe_cliente_list.html:96
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:95
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ Société cliente"
 msgstr "Showing _START_ to _END_ of _TOTAL_ client companies"
 
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:96
 #: .\theme\templates\societe_cliente\societe_cliente_list.html:97
-#: .\theme\templates\societe_cliente\societe_cliente_list.html:98
 msgid "Aucun société cliente trouvé"
 msgstr "No client company found"
 
@@ -4740,7 +4843,7 @@ msgstr "Add an Gearbox"
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:33
 #: .\theme\templates\voiture_boite\boite_detail.html:17
-#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:20
+#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:29
 #: .\theme\templates\voiture_embrayage\embrayage_detail.html:17
 #: .\theme\templates\voiture_embrayage\list.html:17
 msgid "Fabricant"
@@ -4752,9 +4855,9 @@ msgid "Type de boîte"
 msgstr "Gearbox type"
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:41
-#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:28
-#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:41
-#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:54
+#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:37
+#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:50
+#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:63
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:40
 msgid "Sélectionner un type"
 msgstr "Select a Type"
@@ -4780,9 +4883,9 @@ msgid "Quantité d'huile (L)"
 msgstr "Oil quantity (L)"
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:67
-#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:83
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:119
-#: .\theme\templates\voiture_freins\ajouter_freins_simple.html:53
+#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:92
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:128
+#: .\theme\templates\voiture_freins\ajouter_freins_simple.html:62
 #: .\theme\templates\voiture_freins_ar\ajouter_freins_ar_simple.html:53
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:124
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:155
@@ -4901,17 +5004,17 @@ msgstr "No gearbox found"
 msgid "Ajouter un embrayage"
 msgstr "Add a Clutch"
 
-#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:38
+#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:47
 #: .\theme\templates\voiture_embrayage\list.html:53
 msgid "Type de volant moteur"
 msgstr "Flywheel Type"
 
-#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:51
+#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:60
 #: .\theme\templates\voiture_embrayage\list.html:54
 msgid "Type de plateau de pression"
 msgstr "Pressure Plate Type"
 
-#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:64
+#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:73
 #: .\theme\templates\voiture_embrayage\embrayage_detail.html:38
 #: .\theme\templates\voiture_embrayage\list.html:55
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:88
@@ -4921,13 +5024,9 @@ msgstr "Pressure Plate Type"
 msgid "Numero OEM"
 msgstr "OEM number"
 
-#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:68
+#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:77
 msgid "Kilometrage"
 msgstr "Mileage"
-
-#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:72
-msgid "Numero"
-msgstr "Number"
 
 #: .\theme\templates\voiture_embrayage\embrayage_detail.html:11
 msgid "Détails de l'embrayage"
@@ -4972,49 +5071,49 @@ msgstr "No clutch found"
 msgid "Ajouter un véhicule : "
 msgstr "Add a vehicle : "
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:44
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:53
 msgid "Pays d'immatriculation"
 msgstr "Registration country"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:49
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:58
 msgid "Numero VIN"
 msgstr "VIN number"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:55
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:64
 msgid "Type d'utilisation"
 msgstr "Usage type"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:63
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:72
 msgid "Sélectionner un type d'utilisation"
 msgstr "Select a type of use"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:79
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:88
 msgid "Kilomètres du chassis"
 msgstr "Chassis mileage"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:84
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:93
 msgid "Kilomètres de la dernière intervention"
 msgstr "Kilometers at last service"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:94
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:103
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:61
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:85
 msgid "Année de production"
 msgstr "Production year"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:99
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:108
 msgid "Mois de production"
 msgstr "Month of production"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:104
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:113
 msgid "Numero d'identification du moteur"
 msgstr "Engine identification number"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:109
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:118
 msgid "Date de mise en circulation"
 msgstr "Date of first registration"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:114
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:123
 msgid "Kilomètres moteur"
 msgstr "Engine mileage"
 
@@ -5191,7 +5290,7 @@ msgstr "No vehicle registered for this model."
 msgid "Modifier le véhicule"
 msgstr "Modify a vehicle"
 
-#: .\theme\templates\voiture_exemplaire\modifier_exemplaire.html:69
+#: .\theme\templates\voiture_exemplaire\modifier_exemplaire.html:80
 msgid "Enregistrer les modifications"
 msgstr "Save changes"
 
@@ -5200,27 +5299,27 @@ msgstr "Save changes"
 msgid "Ajouter un système de freinage avant"
 msgstr "Add a front braking system"
 
-#: .\theme\templates\voiture_freins\ajouter_freins_simple.html:21
+#: .\theme\templates\voiture_freins\ajouter_freins_simple.html:30
 msgid "Marque disques avant"
 msgstr "Front disc brand"
 
-#: .\theme\templates\voiture_freins\ajouter_freins_simple.html:26
+#: .\theme\templates\voiture_freins\ajouter_freins_simple.html:35
 msgid "Diamètre disques avant (mm)"
 msgstr "Front disc diameter (mm)"
 
-#: .\theme\templates\voiture_freins\ajouter_freins_simple.html:31
+#: .\theme\templates\voiture_freins\ajouter_freins_simple.html:40
 msgid "Épaisseur disques avant (mm)"
 msgstr "Disc thickness (mm)"
 
-#: .\theme\templates\voiture_freins\ajouter_freins_simple.html:36
+#: .\theme\templates\voiture_freins\ajouter_freins_simple.html:45
 msgid "Épaisseur minimum disques avant (mm)"
 msgstr "Minimum front disc thickness (mm)"
 
-#: .\theme\templates\voiture_freins\ajouter_freins_simple.html:41
+#: .\theme\templates\voiture_freins\ajouter_freins_simple.html:50
 msgid "Marque plaquettes avant"
 msgstr "Front brake pad brand"
 
-#: .\theme\templates\voiture_freins\ajouter_freins_simple.html:46
+#: .\theme\templates\voiture_freins\ajouter_freins_simple.html:55
 msgid "Épaisseur plaquettes avant (mm)"
 msgstr "Front brake pad thickness (mm)"
 
@@ -5362,21 +5461,23 @@ msgid "Affichage de _START_ à _END_ sur _TOTAL_ Freins"
 msgstr "Showing _START_ to _END_ of _TOTAL_ brakes"
 
 #: .\theme\templates\voiture_marque\marques_favorites.html:8
-#: .\theme\templates\voiture_marque\marques_list.html:26
+#: .\theme\templates\voiture_marque\marques_list.html:29
 msgid "Mes marques favorites"
 msgstr "My Favorite Brands"
 
-#: .\theme\templates\voiture_marque\marques_favorites.html:29
-msgid "Aucune marque favorite pour le moment."
-msgstr "No favorite brands at the moment."
-
-#: .\theme\templates\voiture_marque\marques_list.html:57
+#: .\theme\templates\voiture_marque\marques_favorites.html:20
+#: .\theme\templates\voiture_marque\marques_list.html:62
 msgid "Voir les"
 msgstr "View"
 
-#: .\theme\templates\voiture_marque\marques_list.html:57
+#: .\theme\templates\voiture_marque\marques_favorites.html:20
+#: .\theme\templates\voiture_marque\marques_list.html:62
 msgid "modèles de"
 msgstr "Models of"
+
+#: .\theme\templates\voiture_marque\marques_favorites.html:33
+msgid "Aucune marque favorite pour le moment."
+msgstr "No favorite brands at the moment."
 
 #: .\theme\templates\voiture_modele\modeles_list.html:8
 #: .\theme\templates\voiture_modele\modeles_par_marque.html:9
@@ -5708,47 +5809,47 @@ msgstr "Human Resources"
 msgid "Operations"
 msgstr "Operations"
 
-#: .\utilisateurs\models.py:75 .\utilisateurs\views.py:191
+#: .\utilisateurs\models.py:75 .\utilisateurs\views.py:197
 msgid "Magasinier"
 msgstr "Storekeeper"
 
-#: .\utilisateurs\models.py:76 .\utilisateurs\views.py:189
+#: .\utilisateurs\models.py:76 .\utilisateurs\views.py:195
 msgid "Carrossier"
 msgstr "Bodyworker"
 
-#: .\utilisateurs\models.py:77 .\utilisateurs\views.py:190
+#: .\utilisateurs\models.py:77 .\utilisateurs\views.py:196
 msgid "Chef Mécanicien"
 msgstr "Chief Mechanic"
 
-#: .\utilisateurs\models.py:78 .\utilisateurs\views.py:192
+#: .\utilisateurs\models.py:78 .\utilisateurs\views.py:198
 msgid "Instructeur"
 msgstr "Instructor"
 
-#: .\utilisateurs\models.py:79 .\utilisateurs\views.py:193
+#: .\utilisateurs\models.py:79 .\utilisateurs\views.py:199
 msgid "Instructeur Externe"
 msgstr "External Instructor"
 
-#: .\utilisateurs\models.py:80 .\utilisateurs\views.py:194
+#: .\utilisateurs\models.py:80 .\utilisateurs\views.py:200
 msgid "Vendeur"
 msgstr "Salesperson"
 
-#: .\utilisateurs\models.py:81 .\utilisateurs\views.py:195
+#: .\utilisateurs\models.py:81 .\utilisateurs\views.py:201
 msgid "Comptable"
 msgstr "Accountant"
 
-#: .\utilisateurs\models.py:82 .\utilisateurs\views.py:196
+#: .\utilisateurs\models.py:82 .\utilisateurs\views.py:202
 msgid "Direction"
 msgstr "Management"
 
-#: .\utilisateurs\views.py:174
+#: .\utilisateurs\views.py:180
 msgid "Révision moteur"
 msgstr "Engine Overhaul"
 
-#: .\utilisateurs\views.py:174 .\voiture\voiture_boite\models.py:10
+#: .\utilisateurs\views.py:180 .\voiture\voiture_boite\models.py:10
 msgid "Changement filtre"
 msgstr "Filter Change"
 
-#: .\utilisateurs\views.py:198
+#: .\utilisateurs\views.py:204
 msgid "Rôle inconnu"
 msgstr "Unknown Role"
 
@@ -5825,87 +5926,72 @@ msgstr "Reinforced / Racing"
 msgid "Bimasse (pour volant moteur DMF)"
 msgstr "Dual-Mass (for DMF flywheel)"
 
-#: .\voiture\voiture_exemplaire\models.py:10
+#: .\voiture\voiture_exemplaire\models.py:12
 msgid "Société"
 msgstr "Company"
 
-#: .\voiture\voiture_exemplaire\models.py:12
+#: .\voiture\voiture_exemplaire\models.py:14
 msgid "Privé"
 msgstr "Private"
 
-#: .\voiture\voiture_exemplaire\views.py:82
-msgid "La boîte de vitesse a été liée à l'exemplaire avec succès."
-msgstr "The gearbox has been successfully linked to the vehicle."
-
-#: .\voiture\voiture_exemplaire\views.py:87
+#: .\voiture\voiture_exemplaire\views.py:88
 msgid "Veuillez sélectionner une boîte à lier."
 msgstr "Please select a gearbox to link."
 
-#: .\voiture\voiture_exemplaire\views.py:92
+#: .\voiture\voiture_exemplaire\views.py:93
 msgid "Lier une boîte de vitesse à un véhicule"
 msgstr "Link a gearbox to a vehicle"
 
-#: .\voiture\voiture_exemplaire\views.py:108
-msgid "Les pneus ont été liés à l'exemplaire avec succès."
-msgstr "The tires have been successfully linked to the vehicle."
-
-#: .\voiture\voiture_exemplaire\views.py:111
+#: .\voiture\voiture_exemplaire\views.py:112
 msgid "Veuillez sélectionner des pneus à lier."
 msgstr "Please select tires to link."
 
-#: .\voiture\voiture_exemplaire\views.py:116
+#: .\voiture\voiture_exemplaire\views.py:117
 msgid "Lier des pneus à un véhicule"
 msgstr "Link tires to a vehicle"
 
-#: .\voiture\voiture_exemplaire\views.py:134
-msgid "Le moteur a été lié à l'exemplaire avec succès."
-msgstr "The engine has been successfully linked to the vehicle."
-
-#: .\voiture\voiture_exemplaire\views.py:139
+#: .\voiture\voiture_exemplaire\views.py:140
 msgid "Veuillez sélectionner un moteur à lier."
 msgstr "Please select an engine to link."
 
-#: .\voiture\voiture_exemplaire\views.py:144
+#: .\voiture\voiture_exemplaire\views.py:145
 msgid "Lier un moteur à un véhicule"
 msgstr "Link an engine to a vehicle"
 
-#: .\voiture\voiture_exemplaire\views.py:160
-msgid "L'embrayage a été lié à l'exemplaire avec succès."
-msgstr "The clutch has been successfully linked to the vehicle."
-
-#: .\voiture\voiture_exemplaire\views.py:165
+#: .\voiture\voiture_exemplaire\views.py:166
 msgid "Veuillez sélectionner un embrayage à lier."
 msgstr "Please select a clutch to link."
 
-#: .\voiture\voiture_exemplaire\views.py:170
+#: .\voiture\voiture_exemplaire\views.py:171
 msgid "Lier un embrayage à un véhicule"
 msgstr "Link a clutch to a vehicle"
 
-#: .\voiture\voiture_exemplaire\views.py:192
-#: .\voiture\voiture_exemplaire\views.py:222
-msgid "Le système de freinage a été lié à l'exemplaire avec succès."
-msgstr "The braking system has been successfully linked to the vehicle."
-
-#: .\voiture\voiture_exemplaire\views.py:197
-#: .\voiture\voiture_exemplaire\views.py:227
+#: .\voiture\voiture_exemplaire\views.py:198
+#: .\voiture\voiture_exemplaire\views.py:228
 msgid "Veuillez sélectionner un système de freinage à lier."
 msgstr "Please select a braking system to link."
 
-#: .\voiture\voiture_exemplaire\views.py:202
+#: .\voiture\voiture_exemplaire\views.py:203
 msgid "Lier un système de freinage à un véhicule"
 msgstr "Link a braking system to a vehicle"
 
-#: .\voiture\voiture_exemplaire\views.py:232
+#: .\voiture\voiture_exemplaire\views.py:233
 msgid "Lier un système de freinage arrière à un véhicule"
 msgstr "Link a rear braking system to a vehicle"
 
-#: .\voiture\voiture_exemplaire\views.py:248
+#: .\voiture\voiture_exemplaire\views.py:249
 msgid "Paramètres manquants"
 msgstr "Missing parameters"
 
-#: .\voiture\voiture_exemplaire\views.py:253
+#: .\voiture\voiture_exemplaire\views.py:254
 msgid "Moteur non trouvé"
 msgstr "Engine not found"
+
+msgid "Veuillez renseigner au moins l'immatriculation et le pays."
+msgstr "Please provide at least the registration number and the country."
+
+msgid "Une erreur est survenue : "
+msgstr "An error occurred: "
 
 #: .\voiture\voiture_moteur\models.py:12
 msgid "Atmosphérique"
@@ -6106,6 +6192,28 @@ msgstr "Front tire mileage"
 #: .\voiture\voiture_pneus\models.py:113
 msgid "Kilomètres pneus arrière"
 msgstr "Rear tire mileage"
+
+#: .\voiture\voiture_pneus\views.py:27
+msgid "Pneus remplacés avec succès."
+msgstr ""
+
+msgid "Le nom du manufacturier est obligatoire."
+msgstr "The manufacturer name is required."
+
+#~ msgid "La boîte de vitesse a été liée à l'exemplaire avec succès."
+#~ msgstr "The gearbox has been successfully linked to the vehicle."
+
+#~ msgid "Les pneus ont été liés à l'exemplaire avec succès."
+#~ msgstr "The tires have been successfully linked to the vehicle."
+
+#~ msgid "Le moteur a été lié à l'exemplaire avec succès."
+#~ msgstr "The engine has been successfully linked to the vehicle."
+
+#~ msgid "L'embrayage a été lié à l'exemplaire avec succès."
+#~ msgstr "The clutch has been successfully linked to the vehicle."
+
+#~ msgid "Le système de freinage a été lié à l'exemplaire avec succès."
+#~ msgstr "The braking system has been successfully linked to the vehicle."
 
 #~ msgid "Niveau "
 #~ msgstr "Level"
