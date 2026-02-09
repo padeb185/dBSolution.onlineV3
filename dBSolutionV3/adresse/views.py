@@ -28,7 +28,7 @@ class AdresseListView(ListView):
 
 
 
-
+@never_cache
 @login_required
 def adresse_detail(request, adresse_id):
     tenant = request.user.societe
@@ -67,6 +67,7 @@ def ajouter_adresse_all(request):
                 societe=tenant,
                 rue=request.POST.get("rue"),
                 numero=request.POST.get("numero"),
+                boite=request.POST.get("boite"),
                 code_postal=request.POST.get("code_postal"),
                 ville=request.POST.get("ville"),
                 pays=request.POST.get("pays"),

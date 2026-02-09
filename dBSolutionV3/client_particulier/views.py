@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render, redirect
+from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
 from django_tenants.utils import tenant_context
@@ -11,7 +12,7 @@ from django.utils.translation import gettext as _
 
 
 
-
+@method_decorator([login_required, never_cache], name='dispatch')
 class ClientParticulierListView(ListView):
     model = ClientParticulier
     template_name = "client_particulier/client_list.html"
@@ -78,7 +79,7 @@ def ajouter_client_all(request):
                 adresse=adresse
             )
 
-            messages.success(request, _(f"Client '{client_particulier.nom}' ajouté avec succès !"))
+            messages.success(request, _(f"Client '{client_particulier.prenom} {client_particulier.nom}' ajouté avec succès !"))
 
 
 

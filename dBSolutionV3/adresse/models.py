@@ -18,6 +18,7 @@ class Adresse(models.Model):
 
     rue = models.CharField(_("Rue"), max_length=255)
     numero = models.CharField(_("Numéro"), max_length=10)
+    boite = models.CharField(_("Boite"), max_length=10, null=True, blank=True)
     code_postal = models.CharField(_("Code postal"), max_length=10)
     ville = models.CharField(_("Ville"), max_length=100)
 

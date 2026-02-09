@@ -9,6 +9,7 @@ class AdresseForm(forms.ModelForm):
         fields = [
             "rue",
             "numero",
+            "boite",
             "code_postal",
             "ville",
             "pays",
@@ -17,6 +18,7 @@ class AdresseForm(forms.ModelForm):
         labels = {
             "rue": _("Rue"),
             "numero": _("Numéro"),
+            "boite": _("Boite"),
             "code_postal": _("Code postal"),
             "ville": _("Ville"),
             "pays": _("Pays"),

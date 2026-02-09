@@ -11,7 +11,7 @@ class AddressAdminForm(forms.ModelForm):
 
 class AdresseAdmin(admin.ModelAdmin):
     form = AddressAdminForm
-    list_display = ('rue', 'numero', 'code_postal', 'ville', 'pays')
+    list_display = ('rue', 'numero', 'boite', 'code_postal', 'ville', 'pays')
     search_fields = ('rue', 'ville', 'code_postal')  # Facilite la recherche dans l'admin
     list_filter = ('ville', 'pays')  # Permet de filtrer par ville ou pays
 
