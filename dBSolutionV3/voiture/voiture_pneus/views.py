@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.views.decorators.cache import never_cache
 from django_tenants.utils import tenant_context
 
 from .. import voiture_pneus
@@ -42,7 +43,7 @@ def remplacer_pneus(self, request, pk):
     )
 
 
-
+@never_cache
 @login_required
 def liste_pneus(request):
 
@@ -85,7 +86,8 @@ def ajouter_pneus_simple(request):
         if not manufacturier:
             messages.error(request, _("Le nom du manufacturier est obligatoire."))
         else:
-            VoiturePneus.objects.create(
+            # Créer le pneu et assigner à une variable
+            pneu = VoiturePneus.objects.create(
                 manufacturier=manufacturier,
                 emplacement=emplacement,
                 type_pneus=type_pneus,
@@ -97,8 +99,12 @@ def ajouter_pneus_simple(request):
                 indice_charge=indice_charge,
                 numero_oem=numero_oem,
             )
-            messages.success(request,
-                             _(f"Le pneu '{voiture_pneus.manufatcurier}' ajouté avec succès !"))
+
+            messages.success(
+                request,
+                _(f"Le pneu '{pneu.manufacturier} {pneu.pneus_largeur}/{pneu.pneus_hauteur} "
+                  f"R{pneu.pneus_jante}' ajouté avec succès !")
+            )
 
     context = {
         'TypePneus': VoiturePneus.TypePneus,
