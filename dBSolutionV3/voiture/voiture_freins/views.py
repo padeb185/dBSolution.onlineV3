@@ -88,6 +88,7 @@ def ajouter_freins_simple(request):
             epaisseur_disque_av=to_float(request.POST.get("epaisseur_disque_av")),
             epaisseur_min_disque_av=to_float(request.POST.get("epaisseur_min_disque_av")),
         )
+        messages.success(request, "Freins avant ajoutés avec succès !")
 
 
     return render(request, "voiture_freins/ajouter_freins_simple.html")

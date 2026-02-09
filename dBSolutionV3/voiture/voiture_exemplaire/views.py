@@ -174,7 +174,6 @@ def lier_embrayage_exemplaire(request, exemplaire_id):
 
 
 
-
 @login_required
 def lier_freins(request, exemplaire_id):
     # Récupération de l'exemplaire
@@ -186,13 +185,25 @@ def lier_freins(request, exemplaire_id):
 
         if request.method == "POST":
             frein_id = request.POST.get("frein_id")
+            marque_disques_av = request.POST.get("marque_disques_av")
+            marque_plaquettes_av = request.POST.get("marque_plaquettes_av")
+
             if frein_id:
                 frein = get_object_or_404(VoitureFreins, id=frein_id)
+
+                # Mettre à jour le fabricant si fourni
+                if marque_disques_av:
+                    frein.marque_disques_av = marque_disques_av
+                if marque_plaquettes_av:
+                    frein.marque_plaquettes_av = marque_plaquettes_av
+                frein.save()
+
                 # Lier le frein à l'exemplaire
                 frein.voitures_exemplaires.add(exemplaire)
-                messages.success(request, _(f"Le système de freinage a été lié au véhicule '{exemplaire.voiture_marque}  { exemplaire.immatriculation }' avec succès."))
 
-                # Redirection vers la page de détail de l'exemplaire (ou une page liste)
+                messages.success(request, _(f"Le système de freinage a été lié au véhicule '{exemplaire.voiture_marque} {exemplaire.immatriculation}' avec succès."))
+
+                # Redirection vers la page de liaison
                 return redirect("voiture_exemplaire:lier_frein", exemplaire_id=exemplaire.id)
             else:
                 messages.error(request, _("Veuillez sélectionner un système de freinage à lier."))
@@ -204,7 +215,6 @@ def lier_freins(request, exemplaire_id):
         })
 
 
-
 @login_required
 def lier_frein_ar(request, exemplaire_id):
     # Récupération de l'exemplaire
@@ -212,12 +222,22 @@ def lier_frein_ar(request, exemplaire_id):
 
     with tenant_context(request.user.societe):
         # Liste de tous les systèmes de freins
+
         freins_ar = VoitureFreinsAR.objects.all().order_by('taille_disque_ar')
+        marque_disques_ar = request.POST.get("marque_disques_ar")
+        marque_plaquettes_ar = request.POST.get("marque_plaquettes_ar")
 
         if request.method == "POST":
             frein_ar_id = request.POST.get("frein_ar_id")
             if frein_ar_id:
                 frein_ar = get_object_or_404(VoitureFreinsAR, id=frein_ar_id)
+
+                if marque_disques_ar:
+                    frein_ar.marque_disques_av = marque_disques_ar
+                if marque_plaquettes_ar:
+                    frein_ar.marque_plaquettes_av = marque_plaquettes_ar
+                frein_ar.save()
+
                 # Lier le frein à l'exemplaire
                 frein_ar.voitures_exemplaires.add(exemplaire)
                 messages.success(request, _(f"Le système de freinage a été lié au véhicule '{exemplaire.voiture_marque}  { exemplaire.immatriculation }' avec succès."))
