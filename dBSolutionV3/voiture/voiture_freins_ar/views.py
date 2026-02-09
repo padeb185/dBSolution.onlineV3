@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views.decorators.cache import never_cache
 from django_tenants.utils import tenant_context
 from .forms import VoitureFreinsARForm
 from ..voiture_modele.models import VoitureModele
@@ -25,7 +26,7 @@ def ajouter_freins_ar(request, modele_id):
                 exemplaire.voiture_marque = marque
                 exemplaire.save()
                 messages.success(request, "Freins arrière ajouté avec succès !")
-                return redirect("voiture_exemplaire_liste_exemplaires", modele_id=modele.id)
+
             else:
                 # Form invalide → on retourne le formulaire avec erreurs
                 messages.error(request, "Veuillez corriger les erreurs ci-dessous.")
@@ -59,7 +60,8 @@ def ajouter_freins_ar_simple(request):
             epaisseur_disque_ar=to_float(request.POST.get("epaisseur_disque_ar")),
             epaisseur_min_disque_ar=to_float(request.POST.get("epaisseur_min_disque_ar")),
         )
-        return redirect("voiture_freins_ar:list_ar")
+        messages.success(request, "Freins arrière ajouté avec succès !")
+
 
     return render(request, "voiture_freins_ar/ajouter_freins_ar_simple.html")
 
@@ -74,7 +76,7 @@ def freins_ar_detail_view(request, frein_id):
     })
 
 
-
+@never_cache
 @login_required
 def liste_freins_ar(request):
 

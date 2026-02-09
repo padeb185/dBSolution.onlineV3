@@ -10,9 +10,23 @@
         {% trans "Ajouter un système de freinage arrière" %}
     </h1>
 
-    {% for message in messages %}
-        <div class="mb-3 text-red-600">{{ message }}</div>
-    {% endfor %}
+   <!-- Messages Django -->
+       {% for message in messages %}
+            {% if 'success' in message.tags %}
+                <div class="mb-3 px-4 py-2 rounded bg-green-100 text-green-800 border border-green-300">
+                    {{ message }}
+                </div>
+            {% elif 'error' in message.tags %}
+                <div class="mb-3 px-4 py-2 rounded bg-red-100 text-red-800 border border-red-300">
+                    {{ message }}
+                </div>
+            {% else %}
+                <div class="mb-3 px-4 py-2 rounded bg-gray-100 text-gray-800 border border-gray-300">
+                    {{ message }}
+                </div>
+            {% endif %}
+       {% endfor %}
+
 
     <form method="post" class="flex flex-col space-y-4">
         {% csrf_token %}

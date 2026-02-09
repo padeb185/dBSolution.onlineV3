@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views.decorators.cache import never_cache
 from django_tenants.utils import tenant_context
 from voiture.voiture_embrayage.forms import VoitureEmbrayageForm
 from voiture.voiture_embrayage.models import VoitureEmbrayage
@@ -11,7 +12,7 @@ from voiture.voiture_embrayage.models import TypePlateauPression
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 
 
-
+@never_cache
 @login_required
 def liste_embrayage(request):
 

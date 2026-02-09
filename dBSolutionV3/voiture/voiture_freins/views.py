@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect
+from django.views.decorators.cache import never_cache
 from django_tenants.utils import tenant_context
 from django.shortcuts import render
 from ..voiture_freins.models import VoitureFreins
@@ -27,7 +28,7 @@ def ajouter_freins_all(request, modele_id):
                 exemplaire.voiture_marque = marque
                 exemplaire.save()
                 messages.success(request, "Freins avant ajoutés avec succès !")
-                return redirect("voiture_exemplaire_liste_exemplaires", modele_id=modele.id)
+
             else:
                 messages.error(request, "Veuillez corriger les erreurs ci-dessous.")
         else:
@@ -44,7 +45,7 @@ def ajouter_freins_all(request, modele_id):
 
 
 
-
+@never_cache
 @login_required
 def liste_freins(request):
 
@@ -87,6 +88,6 @@ def ajouter_freins_simple(request):
             epaisseur_disque_av=to_float(request.POST.get("epaisseur_disque_av")),
             epaisseur_min_disque_av=to_float(request.POST.get("epaisseur_min_disque_av")),
         )
-        return redirect("voiture_freins:list")
+
 
     return render(request, "voiture_freins/ajouter_freins_simple.html")
