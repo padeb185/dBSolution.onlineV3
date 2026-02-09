@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 import uuid
@@ -32,6 +33,32 @@ class Adresse(models.Model):
         verbose_name = _("Adresse")
         verbose_name_plural = _("Adresses")
         ordering = ["ville", "rue"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["societe", "rue", "numero", "boite", "code_postal", "ville"],
+                name="unique_adresse_par_societe"
+            )
+        ]
+
+    def clean(self):
+        """
+        Vérifie qu'il n'y a pas de doublon pour la même société.
+        """
+        if Adresse.objects.filter(
+                societe=self.societe,
+                rue__iexact=self.rue,
+                numero__iexact=self.numero,
+                code_postal__iexact=self.code_postal,
+                ville__iexact=self.ville
+        ).exclude(id=self.id).exists():
+            raise ValidationError(
+                _("Cette adresse existe déjà pour cette société.")
+            )
+
+    def save(self, *args, **kwargs):
+        self.full_clean()  # Appelle clean() avant de sauvegarder
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.rue} {self.numero}, {self.code_postal} {self.ville}"
+

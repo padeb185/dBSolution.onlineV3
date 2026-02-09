@@ -43,6 +43,12 @@
                    class="border rounded px-4 py-2 w-full">
         </div>
         <div>
+            <label for="id_boite">{% trans "Boite" %}</label>
+            <input type="text" id="id_boite" name="boite"
+                   value="{{ request.POST.boite|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+        <div>
             <label for="id_code_postal">{% trans "Code postal" %}</label>
             <input type="text" id="id_code_postal" name="code_postal"
                    value="{{ request.POST.code_postal|default_if_none:'' }}"

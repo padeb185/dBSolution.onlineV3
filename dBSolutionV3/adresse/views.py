@@ -1,6 +1,8 @@
 # adresse/views.py
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ValidationError
+from django.db import IntegrityError
 from django.shortcuts import render, get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
@@ -52,34 +54,37 @@ def adresse_detail(request, adresse_id):
 
 
 
+
 @login_required
 def ajouter_adresse_all(request):
     tenant = request.user.societe
 
     if request.method == "POST":
-        rue= request.POST.get("rue")
-
+        rue = request.POST.get("rue")
 
         if not rue:
             messages.error(request, _("Le nom de la rue est obligatoire."))
         else:
-            adresse = Adresse.objects.create(
-                societe=tenant,
-                rue=request.POST.get("rue"),
-                numero=request.POST.get("numero"),
-                boite=request.POST.get("boite"),
-                code_postal=request.POST.get("code_postal"),
-                ville=request.POST.get("ville"),
-                pays=request.POST.get("pays"),
-                code_pays=request.POST.get("code_pays")
-            )
+            try:
+                adresse = Adresse.objects.create(
+                    societe=tenant,
+                    rue=request.POST.get("rue"),
+                    numero=request.POST.get("numero"),
+                    boite=request.POST.get("boite"),
+                    code_postal=request.POST.get("code_postal"),
+                    ville=request.POST.get("ville"),
+                    pays=request.POST.get("pays"),
+                    code_pays=request.POST.get("code_pays")
+                )
 
-            messages.success(request, _(f"Adresse '{adresse.rue}, {adresse.code_postal}' ajoutée avec succès !"))
-
+                messages.success(
+                    request,
+                    _(f"Adresse '{adresse.rue}, {adresse.code_postal}' ajoutée avec succès !")
+                )
+            except (IntegrityError, ValidationError):
+                messages.error(request, _("Cette adresse existe déjà pour cette société."))
 
     return render(request, "adresse/adresse_form.html")
-
-
 
 
 @login_required
