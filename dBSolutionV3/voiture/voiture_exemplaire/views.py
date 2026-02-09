@@ -191,17 +191,19 @@ def lier_freins(request, exemplaire_id):
             if frein_id:
                 frein = get_object_or_404(VoitureFreins, id=frein_id)
 
-                # Mettre à jour le fabricant si fourni
-                if marque_disques_av:
-                    frein.marque_disques_av = marque_disques_av
-                if marque_plaquettes_av:
-                    frein.marque_plaquettes_av = marque_plaquettes_av
-                frein.save()
+                if frein_id:
+                    frein_ar = get_object_or_404(VoitureFreinsAR, id=frein_id)
+
+                    if marque_disques_av:
+                        frein_ar.marque_disques_av = marque_disques_av
+                    if marque_plaquettes_av:
+                        frein_ar.marque_plaquettes_av = marque_plaquettes_av
+                    frein_ar.save()
 
                 # Lier le frein à l'exemplaire
                 frein.voitures_exemplaires.add(exemplaire)
 
-                messages.success(request, _(f"Le système de freinage a été lié au véhicule '{exemplaire.voiture_marque} {exemplaire.immatriculation}' avec succès."))
+                messages.success(request, _(f"Le système de freinage avant a été lié au véhicule '{exemplaire.voiture_marque} {exemplaire.immatriculation}' avec succès."))
 
                 # Redirection vers la page de liaison
                 return redirect("voiture_exemplaire:lier_frein", exemplaire_id=exemplaire.id)
@@ -240,7 +242,7 @@ def lier_frein_ar(request, exemplaire_id):
 
                 # Lier le frein à l'exemplaire
                 frein_ar.voitures_exemplaires.add(exemplaire)
-                messages.success(request, _(f"Le système de freinage a été lié au véhicule '{exemplaire.voiture_marque}  { exemplaire.immatriculation }' avec succès."))
+                messages.success(request, _(f"Le système de freinage arrière a été lié au véhicule '{exemplaire.voiture_marque}  { exemplaire.immatriculation }' avec succès."))
 
                 # Redirection vers la page de détail de l'exemplaire (ou une page liste)
                 return redirect("voiture_exemplaire:lier_frein_ar", exemplaire_id=exemplaire.id)
