@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-06 06:48+0100\n"
+"POT-Creation-Date: 2026-02-08 13:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\adresse\forms.py:18 .\adresse\models.py:9
+#: .\adresse\forms.py:18 .\adresse\models.py:19
+#: .\theme\templates\adresse\adresse_detail.html:33
+#: .\theme\templates\adresse\adresse_form.html:34
+#: .\theme\templates\adresse\adresse_list.html:18
+#: .\theme\templates\adresse\adresse_list.html:59
 #: .\theme\templates\carrosserie\carrosserie_form.html:85
 #: .\theme\templates\client_particulier\client_form.html:135
 #: .\theme\templates\fournisseurs\fournisseur_form.html:89
@@ -26,7 +30,9 @@ msgstr ""
 msgid "Rue"
 msgstr "Οδός"
 
-#: .\adresse\forms.py:19 .\adresse\models.py:10
+#: .\adresse\forms.py:19 .\adresse\models.py:20
+#: .\theme\templates\adresse\adresse_detail.html:38
+#: .\theme\templates\adresse\adresse_form.html:40
 #: .\theme\templates\carrosserie\carrosserie_form.html:91
 #: .\theme\templates\client_particulier\client_form.html:141
 #: .\theme\templates\fournisseurs\fournisseur_form.html:96
@@ -34,7 +40,10 @@ msgstr "Οδός"
 msgid "Numéro"
 msgstr "Αριθμός"
 
-#: .\adresse\forms.py:20 .\adresse\models.py:11
+#: .\adresse\forms.py:20 .\adresse\models.py:21
+#: .\theme\templates\adresse\adresse_form.html:46
+#: .\theme\templates\adresse\adresse_list.html:27
+#: .\theme\templates\adresse\adresse_list.html:61
 #: .\theme\templates\carrosserie\carrosserie_form.html:97
 #: .\theme\templates\client_particulier\client_form.html:147
 #: .\theme\templates\fournisseurs\fournisseur_form.html:103
@@ -42,7 +51,11 @@ msgstr "Αριθμός"
 msgid "Code postal"
 msgstr "Τ.Κ."
 
-#: .\adresse\forms.py:21 .\adresse\models.py:12
+#: .\adresse\forms.py:21 .\adresse\models.py:22
+#: .\theme\templates\adresse\adresse_detail.html:49
+#: .\theme\templates\adresse\adresse_form.html:52
+#: .\theme\templates\adresse\adresse_list.html:31
+#: .\theme\templates\adresse\adresse_list.html:62
 #: .\theme\templates\carrosserie\carrosserie_form.html:103
 #: .\theme\templates\client_particulier\client_form.html:153
 #: .\theme\templates\fournisseurs\fournisseur_form.html:110
@@ -50,8 +63,12 @@ msgstr "Τ.Κ."
 msgid "Ville"
 msgstr "Πόλη"
 
-#: .\adresse\forms.py:22 .\adresse\models.py:14 .\carrosserie\models.py:14
+#: .\adresse\forms.py:22 .\adresse\models.py:24 .\carrosserie\models.py:14
 #: .\piece\models.py:9 .\piece\models.py:71 .\societe_cliente\models.py:82
+#: .\theme\templates\adresse\adresse_detail.html:54
+#: .\theme\templates\adresse\adresse_form.html:58
+#: .\theme\templates\adresse\adresse_list.html:36
+#: .\theme\templates\adresse\adresse_list.html:63
 #: .\theme\templates\carrosserie\carrosserie_detail.html:46
 #: .\theme\templates\carrosserie\carrosserie_form.html:109
 #: .\theme\templates\carrosserie\carrosserie_list.html:26
@@ -64,8 +81,10 @@ msgstr "Πόλη"
 msgid "Pays"
 msgstr "Χώρα"
 
-#: .\adresse\forms.py:23 .\adresse\models.py:15 .\facture\models.py:29
+#: .\adresse\forms.py:23 .\adresse\models.py:25 .\facture\models.py:29
 #: .\fournisseur\models.py:43 .\societe_cliente\models.py:89
+#: .\theme\templates\adresse\adresse_detail.html:59
+#: .\theme\templates\adresse\adresse_form.html:64
 #: .\theme\templates\carrosserie\carrosserie_form.html:115
 #: .\theme\templates\client_particulier\client_form.html:165
 #: .\theme\templates\fournisseurs\fournisseur_form.html:124
@@ -73,9 +92,10 @@ msgstr "Χώρα"
 msgid "Code pays"
 msgstr "Κωδικός χώρας"
 
-#: .\adresse\models.py:17 .\client_particulier\models.py:128
+#: .\adresse\models.py:27 .\client_particulier\models.py:128
 #: .\facture\models.py:34 .\fournisseur\models.py:79
 #: .\societe_cliente\models.py:124
+#: .\theme\templates\adresse\adresse_detail.html:88
 #: .\theme\templates\carrosserie\carrosserie_detail.html:99
 #: .\theme\templates\client_particulier\client_detail.html:114
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:99
@@ -84,13 +104,13 @@ msgstr "Κωδικός χώρας"
 msgid "Créé le"
 msgstr "Δημιουργήθηκε στις"
 
-#: .\adresse\models.py:18 .\facture\models.py:35
+#: .\adresse\models.py:28 .\facture\models.py:35
 msgid "Mis à jour le"
 msgstr "Ενημερώθηκε στις"
 
-#: .\adresse\models.py:21 .\carrosserie\models.py:13
+#: .\adresse\models.py:31 .\carrosserie\models.py:13
 #: .\client_particulier\models.py:18 .\facture\models.py:17
-#: .\fournisseur\models.py:19
+#: .\fournisseur\models.py:19 .\theme\templates\adresse\adresse_form.html:11
 #: .\theme\templates\carrosserie\carrosserie_detail.html:80
 #: .\theme\templates\carrosserie\carrosserie_form.html:82
 #: .\theme\templates\carrosserie\carrosserie_list.html:22
@@ -104,18 +124,27 @@ msgstr "Ενημερώθηκε στις"
 #: .\theme\templates\intervention\intervention_list.html:22
 #: .\theme\templates\societe_cliente\societe_cliente_detail.html:91
 #: .\theme\templates\societe_cliente\societe_cliente_form.html:82
-#: .\theme\templates\societe_cliente\societe_cliente_list.html:60
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:59
 msgid "Adresse"
 msgstr "Διεύθυνση"
 
-#: .\adresse\models.py:22
+#: .\adresse\models.py:32 .\theme\templates\dashboard.html:290
 msgid "Adresses"
 msgstr "Διευθύνσεις"
+
+#: .\adresse\views.py:64
+msgid "Le nom de la rue est obligatoire."
+msgstr "Το όνομα του δρόμου είναι υποχρεωτικό."
+
+#: .\adresse\views.py:101
+#, python-format
+msgid "Adresse '%(rue)s, %(cp)s' modifiée avec succès !"
+msgstr "Η διεύθυνση '%(rue)s, %(cp)s' ενημερώθηκε με επιτυχία!"
 
 #: .\carrosserie\models.py:10
 #: .\theme\templates\societe_cliente\societe_cliente_detail.html:33
 #: .\theme\templates\societe_cliente\societe_cliente_form.html:34
-#: .\theme\templates\societe_cliente\societe_cliente_list.html:59
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:58
 msgid "Nom de la société"
 msgstr "Όνομα εταιρείας"
 
@@ -126,7 +155,6 @@ msgstr "Επώνυμο υπευθύνου"
 #: .\carrosserie\models.py:12
 msgid "Responsable prenom"
 msgstr "Όνομα υπευθύνου"
-
 
 #: .\carrosserie\models.py:15
 #: .\theme\templates\carrosserie\carrosserie_form.html:64
@@ -147,7 +175,7 @@ msgstr "Τηλέφωνο"
 #: .\theme\templates\fournisseurs\fournisseur_list.html:56
 #: .\theme\templates\societe_cliente\societe_cliente_detail.html:49
 #: .\theme\templates\societe_cliente\societe_cliente_form.html:72
-#: .\theme\templates\societe_cliente\societe_cliente_list.html:63
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:62
 msgid "Email"
 msgstr "Email"
 
@@ -182,6 +210,10 @@ msgstr "Σασί"
 msgid "Carrosseries"
 msgstr "Σασί"
 
+#: .\carrosserie\views.py:61
+msgid "Le nom de la carrosserie est obligatoire."
+msgstr "Το όνομα του αμαξώματος είναι υποχρεωτικό."
+
 #: .\client_particulier\models.py:12
 #: .\theme\templates\client_particulier\client_form.html:34
 #: .\theme\templates\client_particulier\client_form.html:38
@@ -205,8 +237,8 @@ msgstr "Επώνυμο"
 #: .\theme\templates\client_particulier\client_list.html:62
 #: .\theme\templates\societe_cliente\societe_cliente_detail.html:54
 #: .\theme\templates\societe_cliente\societe_cliente_form.html:52
-#: .\theme\templates\societe_cliente\societe_cliente_list.html:31
-#: .\theme\templates\societe_cliente\societe_cliente_list.html:62
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:29
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:61
 msgid "Numéro de téléphone"
 msgstr "Τηλέφωνο"
 
@@ -220,8 +252,7 @@ msgstr "Αριθμός άδειας οδήγησης"
 msgid "Numéro de carte d'identité"
 msgstr "Αριθμός δελτίου ταυτότητας"
 
-#: .\client_particulier\models.py:46
-#: .\societe_cliente\models.py:75
+#: .\client_particulier\models.py:46 .\societe_cliente\models.py:75
 #: .\theme\templates\client_particulier\client_form.html:78
 #: .\theme\templates\societe_cliente\societe_cliente_form.html:62
 msgid "Numéro de compte bancaire"
@@ -279,7 +310,7 @@ msgid "Historique"
 msgstr "Ιστορικό"
 
 #: .\client_particulier\models.py:119 .\societe_cliente\models.py:115
-#: .\voiture\voiture_exemplaire\models.py:13
+#: .\voiture\voiture_exemplaire\models.py:15
 msgid "Location"
 msgstr "Ενοικίαση"
 
@@ -287,7 +318,7 @@ msgstr "Ενοικίαση"
 #: .\panier\models.py:25
 #: .\theme\templates\client_particulier\client_form.html:11
 #: .\theme\templates\societe_cliente\societe_cliente_form.html:11
-#: .\voiture\voiture_exemplaire\models.py:11
+#: .\voiture\voiture_exemplaire\models.py:13
 msgid "Client"
 msgstr "Πελάτης"
 
@@ -299,6 +330,10 @@ msgstr "Πελάτες"
 #, python-format
 msgid "%(nom)s %(prenom)s (Client)"
 msgstr "%(nom)s %(prenom)s (client)"
+
+#: .\client_particulier\views.py:55
+msgid "Le prénom et le nom du client sont obligatoires."
+msgstr "Το όνομα και το επώνυμο του πελάτη είναι υποχρεωτικά."
 
 #: .\facture\models.py:25
 msgid "Ex : 0208:BE0123456789"
@@ -418,7 +453,6 @@ msgstr "Κινητό τηλέφωνο"
 msgid "Numéro de téléphone mobile"
 msgstr "Αριθμός κινητού τηλεφώνου"
 
-
 #: .\fournisseur\models.py:77
 msgid "Actif"
 msgstr "Ενεργός"
@@ -438,6 +472,10 @@ msgstr "Προμηθευτές"
 msgid "%(nom)s (Fournisseur)"
 msgstr "%(nom)s (Fournisseur)"
 
+#: .\fournisseur\views.py:87
+msgid "Le nom du fournisseur est obligatoire."
+msgstr "Το όνομα του προμηθευτή είναι υποχρεωτικό."
+
 #: .\fuel\models.py:9 .\voiture\voiture_moteur\models.py:19
 msgid "Essence"
 msgstr "Βενζίνη"
@@ -449,13 +487,13 @@ msgstr "Ντίζελ"
 #: .\fuel\models.py:20 .\piece\models.py:41 .\piece\models.py:99
 #: .\piece\models.py:108
 #: .\theme\templates\maintenance\creer_maintenance.html:50
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:28
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:37
 msgid "Marque"
 msgstr "Μάρκα"
 
 #: .\fuel\models.py:26 .\piece\models.py:32
 #: .\theme\templates\maintenance\creer_maintenance.html:51
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:34
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:43
 msgid "Modèle"
 msgstr "Μοντέλο"
 
@@ -471,7 +509,7 @@ msgstr "Όχημα"
 #: .\theme\templates\intervention\intervention_detail.html:41
 #: .\theme\templates\intervention\intervention_list.html:45
 #: .\theme\templates\maintenance\creer_maintenance.html:16
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:39
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:48
 msgid "Immatriculation"
 msgstr "Άδεια κυκλοφορίας"
 
@@ -966,8 +1004,7 @@ msgstr "Συντήρηση"
 msgid "Emplacement"
 msgstr "Θέση"
 
-#: .\maintenance\bruits\models.py:36
-#: .\maintenance\check_up\models.py:244
+#: .\maintenance\bruits\models.py:36 .\maintenance\check_up\models.py:244
 msgid "Type de bruit"
 msgstr "Τύπος θορύβου"
 
@@ -1189,7 +1226,7 @@ msgstr "Μη καθορισμένο"
 
 #: .\maintenance\check_up\models.py:351 .\maintenance\jeux_pieces\models.py:108
 #: .\maintenance\models.py:46 .\utilisateurs\models.py:73
-#: .\utilisateurs\views.py:187
+#: .\utilisateurs\views.py:193
 msgid "Apprenti"
 msgstr "Μαθητευόμενος"
 
@@ -1198,7 +1235,7 @@ msgstr "Μαθητευόμενος"
 #: .\maintenance\models.py:37 .\maintenance\nettoyage_exterieur\models.py:25
 #: .\maintenance\nettoyage_interieur\models.py:26
 #: .\theme\templates\maintenance\detail.html:17 .\utilisateurs\models.py:74
-#: .\utilisateurs\views.py:188
+#: .\utilisateurs\views.py:194
 msgid "Mécanicien"
 msgstr "Μηχανικός"
 
@@ -1384,7 +1421,7 @@ msgid "Date d'intervention"
 msgstr "Ημερομηνία παρέμβασης"
 
 #: .\maintenance\models.py:67
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:89
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:98
 msgid "Date de la dernière intervention"
 msgstr "Ημερομηνία τελευταίας παρέμβασης"
 
@@ -1539,7 +1576,7 @@ msgstr "Εταιρεία πελάτη"
 
 #: .\panier\models.py:39 .\piece\models.py:95
 #: .\theme\templates\voiture_boite\boite_detail.html:85
-#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:76
+#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:85
 #: .\theme\templates\voiture_embrayage\embrayage_detail.html:74
 #: .\theme\templates\voiture_moteur\moteur_detail.html:97
 msgid "Date de création"
@@ -2562,7 +2599,7 @@ msgid "Levier / fourchette"
 msgstr "Μοχλός / πιρούνι"
 
 #: .\piece\piece_embrayage\models.py:26
-#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:25
+#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:34
 #: .\theme\templates\voiture_embrayage\embrayage_detail.html:22
 #: .\theme\templates\voiture_embrayage\list.html:52
 msgid "Type d'embrayage"
@@ -3957,6 +3994,224 @@ msgstr "Admin Django"
 msgid "Accéder à l’interface technique Django."
 msgstr "Πρόσβαση στην τεχνική διεπαφή του Django."
 
+#: .\theme\templates\adresse\adresse_detail.html:12
+msgid "Détails de l'adresse :"
+msgstr "Λεπτομέρειες διεύθυνσης:"
+
+#: .\theme\templates\adresse\adresse_detail.html:19
+#: .\theme\templates\adresse\adresse_detail.html:111
+msgid "Retour à la liste des adresses"
+msgstr "Επιστροφή στη λίστα διευθύνσεων"
+
+#: .\theme\templates\adresse\adresse_detail.html:29
+#: .\theme\templates\carrosserie\carrosserie_detail.html:32
+#: .\theme\templates\client_particulier\client_detail.html:29
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:32
+#: .\theme\templates\intervention\intervention_detail.html:32
+#: .\theme\templates\maintenance\detail.html:13
+#: .\theme\templates\societe_cliente\societe_cliente_detail.html:29
+#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:60
+msgid "Informations générales"
+msgstr "Γενικές Πληροφορίες"
+
+#: .\theme\templates\adresse\adresse_detail.html:43
+msgid "Code Postal"
+msgstr "Τ.Κ."
+
+#: .\theme\templates\adresse\adresse_detail.html:70
+msgid "Modifier l'adresse"
+msgstr "Επεξεργασία διεύθυνσης"
+
+#: .\theme\templates\adresse\adresse_detail.html:84
+#: .\theme\templates\carrosserie\carrosserie_detail.html:95
+#: .\theme\templates\client_particulier\client_detail.html:110
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:95
+#: .\theme\templates\intervention\intervention_detail.html:95
+#: .\theme\templates\societe_cliente\societe_cliente_detail.html:106
+msgid "Métadonnées"
+msgstr "Μεταδεδομένα"
+
+#: .\theme\templates\adresse\adresse_form.html:12
+msgid "Créer une adresse"
+msgstr "Δημιουργία διεύθυνσης"
+
+#: .\theme\templates\adresse\adresse_form.html:72
+#: .\theme\templates\adresse\modifier_adresse.html:60
+#: .\theme\templates\carrosserie\carrosserie_form.html:121
+#: .\theme\templates\carrosserie\modifier_carrosserie.html:49
+#: .\theme\templates\client_particulier\client_form.html:173
+#: .\theme\templates\client_particulier\modifier_client.html:60
+#: .\theme\templates\fournisseurs\fournisseur_form.html:131
+#: .\theme\templates\fournisseurs\modifier_fournisseur.html:49
+#: .\theme\templates\intervention\modifier_intervention.html:49
+#: .\theme\templates\societe_cliente\modifier_societe_cliente.html:62
+#: .\theme\templates\societe_cliente\societe_cliente_form.html:123
+msgid "Enregistrer"
+msgstr "Αποθήκευση"
+
+#: .\theme\templates\adresse\adresse_list.html:4
+#: .\theme\templates\adresse\adresse_list.html:10
+msgid "Liste des Adresses"
+msgstr "Λίστα διευθύνσεων"
+
+#: .\theme\templates\adresse\adresse_list.html:22
+#: .\theme\templates\adresse\adresse_list.html:60
+#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:81
+msgid "Numero"
+msgstr "Αριθμός"
+
+#: .\theme\templates\adresse\adresse_list.html:41
+msgid "Code pays, ex: BE"
+msgstr "Κωδικός χώρας"
+
+#: .\theme\templates\adresse\adresse_list.html:46
+msgid "Ajouter une adresse"
+msgstr "Προσθήκη διεύθυνσης"
+
+#: .\theme\templates\adresse\adresse_list.html:64
+#: .\theme\templates\adresse\adresse_list.html:79
+#: .\theme\templates\carrosserie\carrosserie_list.html:59
+#: .\theme\templates\carrosserie\carrosserie_list.html:73
+#: .\theme\templates\client_particulier\client_list.html:64
+#: .\theme\templates\client_particulier\client_list.html:79
+#: .\theme\templates\fournisseurs\fournisseur_list.html:58
+#: .\theme\templates\fournisseurs\fournisseur_list.html:72
+#: .\theme\templates\intervention\intervention_list.html:47
+#: .\theme\templates\intervention\intervention_list.html:59
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:63
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:77
+#: .\theme\templates\voiture_boite\list.html:40
+#: .\theme\templates\voiture_boite\list.html:55
+#: .\theme\templates\voiture_embrayage\list.html:56
+#: .\theme\templates\voiture_embrayage\list.html:70
+#: .\theme\templates\voiture_freins\list.html:49
+#: .\theme\templates\voiture_freins\list.html:62
+#: .\theme\templates\voiture_freins_ar\list_ar.html:46
+#: .\theme\templates\voiture_freins_ar\list_ar.html:59
+#: .\theme\templates\voiture_moteur\list.html:41
+#: .\theme\templates\voiture_moteur\list.html:58
+#: .\theme\templates\voiture_pneus\list.html:77
+#: .\theme\templates\voiture_pneus\list.html:95
+msgid "Info"
+msgstr "Πληροφορίες"
+
+#: .\theme\templates\adresse\adresse_list.html:82
+#: .\theme\templates\client_particulier\client_list.html:82
+msgid "Info indisponible"
+msgstr "Μη διαθέσιμες πληροφορίες"
+
+#: .\theme\templates\adresse\adresse_list.html:98
+#: .\theme\templates\carrosserie\carrosserie_list.html:88
+#: .\theme\templates\client_particulier\client_list.html:98
+#: .\theme\templates\fournisseurs\fournisseur_list.html:87
+#: .\theme\templates\intervention\intervention_list.html:74
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:93
+#: .\theme\templates\voiture_embrayage\list.html:85
+#: .\theme\templates\voiture_freins\list.html:77
+#: .\theme\templates\voiture_freins_ar\list_ar.html:73
+#: .\theme\templates\voiture_pneus\list.html:110
+msgid "Recherche globale :"
+msgstr "Παγκόσμια αναζήτηση:"
+
+#: .\theme\templates\adresse\adresse_list.html:99
+#: .\theme\templates\carrosserie\carrosserie_list.html:89
+#: .\theme\templates\client_particulier\client_list.html:99
+#: .\theme\templates\fournisseurs\fournisseur_list.html:88
+#: .\theme\templates\intervention\intervention_list.html:75
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:94
+#: .\theme\templates\voiture_boite\list.html:74
+#: .\theme\templates\voiture_embrayage\list.html:86
+#: .\theme\templates\voiture_freins\list.html:78
+#: .\theme\templates\voiture_freins_ar\list_ar.html:74
+#: .\theme\templates\voiture_moteur\list.html:77
+#: .\theme\templates\voiture_pneus\list.html:111
+msgid "Afficher _MENU_ éléments"
+msgstr "Εμφάνιση _MENU_ καταχωρήσεων"
+
+#: .\theme\templates\adresse\adresse_list.html:100
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ adresse"
+msgstr "Εμφάνιση από _START_ έως _END_ από συνολικά _TOTAL_ διευθύνσεις"
+
+#: .\theme\templates\adresse\adresse_list.html:101
+#: .\theme\templates\adresse\adresse_list.html:102
+msgid "Aucune adresse trouvée"
+msgstr "Δεν βρέθηκαν διευθύνσεις"
+
+
+#: .\theme\templates\adresse\adresse_list.html:104
+#: .\theme\templates\carrosserie\carrosserie_list.html:94
+#: .\theme\templates\client_particulier\client_list.html:104
+#: .\theme\templates\fournisseurs\fournisseur_list.html:93
+#: .\theme\templates\intervention\intervention_list.html:80
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:99
+#: .\theme\templates\voiture_boite\list.html:79
+#: .\theme\templates\voiture_embrayage\list.html:91
+#: .\theme\templates\voiture_freins\list.html:83
+#: .\theme\templates\voiture_freins_ar\list_ar.html:79
+#: .\theme\templates\voiture_moteur\list.html:82
+#: .\theme\templates\voiture_pneus\list.html:116
+msgid "Premier"
+msgstr "Πρώτος"
+
+#: .\theme\templates\adresse\adresse_list.html:105
+#: .\theme\templates\carrosserie\carrosserie_list.html:95
+#: .\theme\templates\client_particulier\client_list.html:105
+#: .\theme\templates\fournisseurs\fournisseur_list.html:94
+#: .\theme\templates\intervention\intervention_list.html:81
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:100
+#: .\theme\templates\voiture_boite\list.html:80
+#: .\theme\templates\voiture_embrayage\list.html:92
+#: .\theme\templates\voiture_freins\list.html:84
+#: .\theme\templates\voiture_freins_ar\list_ar.html:80
+#: .\theme\templates\voiture_moteur\list.html:83
+#: .\theme\templates\voiture_pneus\list.html:117
+msgid "Dernier"
+msgstr "Τελευταίος"
+
+#: .\theme\templates\adresse\adresse_list.html:106
+#: .\theme\templates\carrosserie\carrosserie_list.html:96
+#: .\theme\templates\client_particulier\client_list.html:106
+#: .\theme\templates\fournisseurs\fournisseur_list.html:95
+#: .\theme\templates\intervention\intervention_list.html:82
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:101
+#: .\theme\templates\voiture_boite\list.html:81
+#: .\theme\templates\voiture_embrayage\list.html:93
+#: .\theme\templates\voiture_freins\list.html:85
+#: .\theme\templates\voiture_freins_ar\list_ar.html:81
+#: .\theme\templates\voiture_moteur\list.html:84
+#: .\theme\templates\voiture_pneus\list.html:118
+msgid "Suivant"
+msgstr "Επόμενος"
+
+#: .\theme\templates\adresse\adresse_list.html:107
+#: .\theme\templates\carrosserie\carrosserie_list.html:97
+#: .\theme\templates\client_particulier\client_list.html:107
+#: .\theme\templates\fournisseurs\fournisseur_list.html:96
+#: .\theme\templates\intervention\intervention_list.html:83
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:102
+#: .\theme\templates\voiture_boite\list.html:82
+#: .\theme\templates\voiture_embrayage\list.html:94
+#: .\theme\templates\voiture_freins\list.html:86
+#: .\theme\templates\voiture_freins_ar\list_ar.html:82
+#: .\theme\templates\voiture_moteur\list.html:85
+#: .\theme\templates\voiture_pneus\list.html:119
+msgid "Précédent"
+msgstr "Προηγούμενος"
+
+#: .\theme\templates\adresse\modifier_adresse.html:13
+msgid "Modifier l'adresse :"
+msgstr "Επεξεργασία διεύθυνσης:"
+
+#: .\theme\templates\adresse\modifier_adresse.html:65
+#: .\theme\templates\carrosserie\modifier_carrosserie.html:54
+#: .\theme\templates\client_particulier\modifier_client.html:65
+#: .\theme\templates\fournisseurs\modifier_fournisseur.html:54
+#: .\theme\templates\intervention\modifier_intervention.html:54
+#: .\theme\templates\societe_cliente\modifier_societe_cliente.html:67
+#: .\theme\templates\voiture_exemplaire\modifier_exemplaire.html:84
+msgid "Annuler"
+msgstr "Ακύρωση"
+
 #: .\theme\templates\base.html:9
 msgid "dBSolution"
 msgstr "dBSolution"
@@ -3996,16 +4251,6 @@ msgstr "Αποσύνδεση"
 msgid "Détails de la carrosserie :"
 msgstr "Λεπτομέρειες αμαξώματος:"
 
-#: .\theme\templates\carrosserie\carrosserie_detail.html:32
-#: .\theme\templates\client_particulier\client_detail.html:29
-#: .\theme\templates\fournisseurs\fournisseur_detail.html:32
-#: .\theme\templates\intervention\intervention_detail.html:32
-#: .\theme\templates\maintenance\detail.html:13
-#: .\theme\templates\societe_cliente\societe_cliente_detail.html:29
-#: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:60
-msgid "Informations générales"
-msgstr "Γενικές Πληροφορίες"
-
 #: .\theme\templates\carrosserie\carrosserie_detail.html:56
 msgid "Modifier le carrosserie"
 msgstr "Τροποποίηση αμαξώματος"
@@ -4023,14 +4268,6 @@ msgstr "Πληροφορίες Peppol"
 #: .\theme\templates\societe_cliente\societe_cliente_detail.html:98
 msgid "Aucune adresse renseignée."
 msgstr "Δεν έχει καταχωρηθεί διεύθυνση."
-
-#: .\theme\templates\carrosserie\carrosserie_detail.html:95
-#: .\theme\templates\client_particulier\client_detail.html:110
-#: .\theme\templates\fournisseurs\fournisseur_detail.html:95
-#: .\theme\templates\intervention\intervention_detail.html:95
-#: .\theme\templates\societe_cliente\societe_cliente_detail.html:106
-msgid "Métadonnées"
-msgstr "Μεταδεδομένα"
 
 #: .\theme\templates\carrosserie\carrosserie_detail.html:122
 msgid "Retour à la liste des carrosseries"
@@ -4059,18 +4296,6 @@ msgstr "Επώνυμο υπευθύνου"
 #: .\theme\templates\carrosserie\carrosserie_form.html:76
 msgid "Prénom du responsable"
 msgstr "Όνομα υπευθύνου"
-
-#: .\theme\templates\carrosserie\carrosserie_form.html:121
-#: .\theme\templates\carrosserie\modifier_carrosserie.html:49
-#: .\theme\templates\client_particulier\client_form.html:173
-#: .\theme\templates\client_particulier\modifier_client.html:47
-#: .\theme\templates\fournisseurs\fournisseur_form.html:131
-#: .\theme\templates\fournisseurs\modifier_fournisseur.html:49
-#: .\theme\templates\intervention\modifier_intervention.html:49
-#: .\theme\templates\societe_cliente\modifier_societe_cliente.html:47
-#: .\theme\templates\societe_cliente\societe_cliente_form.html:123
-msgid "Enregistrer"
-msgstr "Αποθήκευση"
 
 #: .\theme\templates\carrosserie\carrosserie_list.html:4
 #: .\theme\templates\carrosserie\carrosserie_list.html:10
@@ -4102,57 +4327,6 @@ msgstr "Προσθήκη αμαξώματος"
 msgid "Numero Peppol"
 msgstr "Αριθμός Peppol"
 
-#: .\theme\templates\carrosserie\carrosserie_list.html:59
-#: .\theme\templates\carrosserie\carrosserie_list.html:73
-#: .\theme\templates\client_particulier\client_list.html:64
-#: .\theme\templates\client_particulier\client_list.html:79
-#: .\theme\templates\fournisseurs\fournisseur_list.html:58
-#: .\theme\templates\fournisseurs\fournisseur_list.html:72
-#: .\theme\templates\intervention\intervention_list.html:47
-#: .\theme\templates\intervention\intervention_list.html:59
-#: .\theme\templates\societe_cliente\societe_cliente_list.html:64
-#: .\theme\templates\societe_cliente\societe_cliente_list.html:78
-#: .\theme\templates\voiture_boite\list.html:40
-#: .\theme\templates\voiture_boite\list.html:55
-#: .\theme\templates\voiture_embrayage\list.html:56
-#: .\theme\templates\voiture_embrayage\list.html:70
-#: .\theme\templates\voiture_freins\list.html:49
-#: .\theme\templates\voiture_freins\list.html:62
-#: .\theme\templates\voiture_freins_ar\list_ar.html:46
-#: .\theme\templates\voiture_freins_ar\list_ar.html:59
-#: .\theme\templates\voiture_moteur\list.html:41
-#: .\theme\templates\voiture_moteur\list.html:58
-#: .\theme\templates\voiture_pneus\list.html:77
-#: .\theme\templates\voiture_pneus\list.html:95
-msgid "Info"
-msgstr "Πληροφορίες"
-
-#: .\theme\templates\carrosserie\carrosserie_list.html:88
-#: .\theme\templates\client_particulier\client_list.html:98
-#: .\theme\templates\fournisseurs\fournisseur_list.html:87
-#: .\theme\templates\intervention\intervention_list.html:74
-#: .\theme\templates\societe_cliente\societe_cliente_list.html:94
-#: .\theme\templates\voiture_embrayage\list.html:85
-#: .\theme\templates\voiture_freins\list.html:77
-#: .\theme\templates\voiture_freins_ar\list_ar.html:73
-#: .\theme\templates\voiture_pneus\list.html:110
-msgid "Recherche globale :"
-msgstr "Παγκόσμια αναζήτηση:"
-
-#: .\theme\templates\carrosserie\carrosserie_list.html:89
-#: .\theme\templates\client_particulier\client_list.html:99
-#: .\theme\templates\fournisseurs\fournisseur_list.html:88
-#: .\theme\templates\intervention\intervention_list.html:75
-#: .\theme\templates\societe_cliente\societe_cliente_list.html:95
-#: .\theme\templates\voiture_boite\list.html:74
-#: .\theme\templates\voiture_embrayage\list.html:86
-#: .\theme\templates\voiture_freins\list.html:78
-#: .\theme\templates\voiture_freins_ar\list_ar.html:74
-#: .\theme\templates\voiture_moteur\list.html:77
-#: .\theme\templates\voiture_pneus\list.html:111
-msgid "Afficher _MENU_ éléments"
-msgstr "Εμφάνιση _MENU_ καταχωρήσεων"
-
 #: .\theme\templates\carrosserie\carrosserie_list.html:90
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ carrosseries"
 msgstr "Εμφάνιση από _START_ έως _END_ από _TOTAL_ αμαξώματα"
@@ -4165,75 +4339,9 @@ msgstr "Δεν βρέθηκε κανένα αμάξωμα"
 msgid "Aucun carrosserie trouvé"
 msgstr "Δεν βρέθηκε κανένα αμάξωμα"
 
-#: .\theme\templates\carrosserie\carrosserie_list.html:94
-#: .\theme\templates\client_particulier\client_list.html:104
-#: .\theme\templates\fournisseurs\fournisseur_list.html:93
-#: .\theme\templates\intervention\intervention_list.html:80
-#: .\theme\templates\societe_cliente\societe_cliente_list.html:100
-#: .\theme\templates\voiture_boite\list.html:79
-#: .\theme\templates\voiture_embrayage\list.html:91
-#: .\theme\templates\voiture_freins\list.html:83
-#: .\theme\templates\voiture_freins_ar\list_ar.html:79
-#: .\theme\templates\voiture_moteur\list.html:82
-#: .\theme\templates\voiture_pneus\list.html:116
-msgid "Premier"
-msgstr "Πρώτος"
-
-#: .\theme\templates\carrosserie\carrosserie_list.html:95
-#: .\theme\templates\client_particulier\client_list.html:105
-#: .\theme\templates\fournisseurs\fournisseur_list.html:94
-#: .\theme\templates\intervention\intervention_list.html:81
-#: .\theme\templates\societe_cliente\societe_cliente_list.html:101
-#: .\theme\templates\voiture_boite\list.html:80
-#: .\theme\templates\voiture_embrayage\list.html:92
-#: .\theme\templates\voiture_freins\list.html:84
-#: .\theme\templates\voiture_freins_ar\list_ar.html:80
-#: .\theme\templates\voiture_moteur\list.html:83
-#: .\theme\templates\voiture_pneus\list.html:117
-msgid "Dernier"
-msgstr "Τελευταίος"
-
-#: .\theme\templates\carrosserie\carrosserie_list.html:96
-#: .\theme\templates\client_particulier\client_list.html:106
-#: .\theme\templates\fournisseurs\fournisseur_list.html:95
-#: .\theme\templates\intervention\intervention_list.html:82
-#: .\theme\templates\societe_cliente\societe_cliente_list.html:102
-#: .\theme\templates\voiture_boite\list.html:81
-#: .\theme\templates\voiture_embrayage\list.html:93
-#: .\theme\templates\voiture_freins\list.html:85
-#: .\theme\templates\voiture_freins_ar\list_ar.html:81
-#: .\theme\templates\voiture_moteur\list.html:84
-#: .\theme\templates\voiture_pneus\list.html:118
-msgid "Suivant"
-msgstr "Επόμενος"
-
-#: .\theme\templates\carrosserie\carrosserie_list.html:97
-#: .\theme\templates\client_particulier\client_list.html:107
-#: .\theme\templates\fournisseurs\fournisseur_list.html:96
-#: .\theme\templates\intervention\intervention_list.html:83
-#: .\theme\templates\societe_cliente\societe_cliente_list.html:103
-#: .\theme\templates\voiture_boite\list.html:82
-#: .\theme\templates\voiture_embrayage\list.html:94
-#: .\theme\templates\voiture_freins\list.html:86
-#: .\theme\templates\voiture_freins_ar\list_ar.html:82
-#: .\theme\templates\voiture_moteur\list.html:85
-#: .\theme\templates\voiture_pneus\list.html:119
-msgid "Précédent"
-msgstr "Προηγούμενος"
-
 #: .\theme\templates\carrosserie\modifier_carrosserie.html:10
 msgid "Modifier le carrosserie :"
 msgstr "Τροποποίηση αμαξώματος:"
-
-
-#: .\theme\templates\carrosserie\modifier_carrosserie.html:54
-#: .\theme\templates\client_particulier\modifier_client.html:52
-#: .\theme\templates\fournisseurs\modifier_fournisseur.html:54
-#: .\theme\templates\intervention\modifier_intervention.html:54
-#: .\theme\templates\societe_cliente\modifier_societe_cliente.html:52
-#: .\theme\templates\voiture_exemplaire\modifier_exemplaire.html:73
-msgid "Annuler"
-msgstr "Ακύρωση"
 
 #: .\theme\templates\client_particulier\client_detail.html:12
 #: .\theme\templates\societe_cliente\societe_cliente_detail.html:12
@@ -4241,7 +4349,7 @@ msgid "Détails du client :"
 msgstr "Λεπτομέρειες πελάτη:"
 
 #: .\theme\templates\client_particulier\client_detail.html:19
-#: .\theme\templates\client_particulier\client_detail.html:137
+#: .\theme\templates\client_particulier\client_detail.html:125
 #: .\theme\templates\societe_cliente\societe_cliente_detail.html:19
 msgid "Retour à la liste des clients"
 msgstr "Επιστροφή στη λίστα πελατών"
@@ -4268,33 +4376,43 @@ msgstr "Δημιουργία πελάτη"
 msgid "Âge"
 msgstr "Ηλικία"
 
+#: .\theme\templates\client_particulier\client_list.html:4
+#: .\theme\templates\client_particulier\client_list.html:10
 msgid "Liste des Clients"
 msgstr "Λίστα πελατών"
 
+#: .\theme\templates\client_particulier\client_list.html:18
 msgid "Prenom du client"
 msgstr "Όνομα πελάτη"
 
+#: .\theme\templates\client_particulier\client_list.html:22
 msgid "Nom du client"
 msgstr "Επώνυμο πελάτη"
 
+#: .\theme\templates\client_particulier\client_list.html:36
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:33
 msgid "nom.prenom@..."
 msgstr "όνομα.επώνυμο@..."
 
+#: .\theme\templates\client_particulier\client_list.html:41
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:37
 msgid "BEXX XXXX XXXX XXXX"
 msgstr "BEXX XXXX XXXX XXXX"
 
+#: .\theme\templates\client_particulier\client_list.html:46
 msgid "Ajouter un client"
 msgstr "Προσθήκη πελάτη"
 
-msgid "Info indisponible"
-msgstr "Μη διαθέσιμες πληροφορίες"
-
+#: .\theme\templates\client_particulier\client_list.html:100
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ client"
 msgstr "Εμφάνιση από _START_ έως _END_ από _TOTAL_ πελάτες"
 
+#: .\theme\templates\client_particulier\client_list.html:101
+#: .\theme\templates\client_particulier\client_list.html:102
 msgid "Aucun client trouvé"
 msgstr "Δεν βρέθηκε κανένας πελάτης"
 
+#: .\theme\templates\client_particulier\modifier_client.html:13
 msgid "Modifier le client :"
 msgstr "Τροποποίηση πελάτη:"
 
@@ -4313,7 +4431,7 @@ msgstr "Χρήστες"
 #: .\theme\templates\dashboard.html:190 .\theme\templates\dashboard.html:205
 #: .\theme\templates\dashboard.html:220 .\theme\templates\dashboard.html:236
 #: .\theme\templates\dashboard.html:250 .\theme\templates\dashboard.html:264
-#: .\theme\templates\dashboard.html:278
+#: .\theme\templates\dashboard.html:278 .\theme\templates\dashboard.html:292
 msgid "Nombre total :"
 msgstr "Συνολικός αριθμός:"
 
@@ -4381,46 +4499,62 @@ msgstr "Μπροστινά Φρένα"
 msgid "Freins arrière"
 msgstr "Πίσω Φρένα"
 
+#: .\theme\templates\dashboard.html:262
 msgid "Intervention carrosserie"
 msgstr "Εργασία αμαξώματος"
 
-#: .\theme\templates\dashboard.html:292
+#: .\theme\templates\dashboard.html:306
 msgid "Tableau de bord Admin"
 msgstr "Πίνακας διαχείρισης Admin"
 
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:10
 msgid "Détails du fournisseur :"
 msgstr "Λεπτομέρειες προμηθευτή :"
 
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:22
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:122
 msgid "Retour à la liste des fournisseurs"
 msgstr "Επιστροφή στη λίστα προμηθευτών"
 
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:56
 msgid "Modifier le fournisseur"
 msgstr "Τροποποίηση προμηθευτή"
 
+#: .\theme\templates\fournisseurs\fournisseur_form.html:12
 msgid "Créer un Fournisseur"
 msgstr "Δημιουργία προμηθευτή"
 
+#: .\theme\templates\fournisseurs\fournisseur_list.html:4
+#: .\theme\templates\fournisseurs\fournisseur_list.html:10
 msgid "Liste des Fournisseurs"
 msgstr "Λίστα προμηθευτών"
 
+#: .\theme\templates\fournisseurs\fournisseur_list.html:30
 msgid "info@..."
 msgstr "info@..."
 
+#: .\theme\templates\fournisseurs\fournisseur_list.html:34
 msgid "0032"
 msgstr "0032"
 
+#: .\theme\templates\fournisseurs\fournisseur_list.html:40
 msgid "Ajouter un fournisseur"
 msgstr "Προσθήκη προμηθευτή"
 
+#: .\theme\templates\fournisseurs\fournisseur_list.html:53
 msgid "Nom du Fournisseur"
 msgstr "Όνομα προμηθευτή"
 
+#: .\theme\templates\fournisseurs\fournisseur_list.html:89
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ fournisseurs"
 msgstr "Εμφάνιση από _START_ έως _END_ από _TOTAL_ προμηθευτές"
 
+#: .\theme\templates\fournisseurs\fournisseur_list.html:90
+#: .\theme\templates\fournisseurs\fournisseur_list.html:91
 msgid "Aucun fournisseur trouvé"
 msgstr "Δεν βρέθηκε κανένας προμηθευτής"
 
+#: .\theme\templates\fournisseurs\modifier_fournisseur.html:10
 msgid "Modifier le fournisseur :"
 msgstr "Τροποποίηση προμηθευτή :"
 
@@ -4436,39 +4570,52 @@ msgstr "Αυτή είναι μια παράγραφος διαμορφωμένη
 msgid "Se connecter"
 msgstr "Σύνδεση"
 
+#: .\theme\templates\intervention\intervention_detail.html:56
 msgid "Modifier l'intervention"
 msgstr "Τροποποίηση επέμβασης"
 
+#: .\theme\templates\intervention\intervention_detail.html:122
 msgid "Retour à la liste des interventions"
 msgstr "Επιστροφή στη λίστα επεμβάσεων"
 
+#: .\theme\templates\intervention\intervention_form.html:7
 msgid "Créer une intervention"
 msgstr "Δημιουργία επέμβασης"
 
+#: .\theme\templates\intervention\intervention_form.html:29
 msgid "Sélectionnez une carrosserie"
 msgstr "Επιλέξτε αμάξωμα"
 
+#: .\theme\templates\intervention\intervention_form.html:72
 msgid "Prix"
 msgstr "Τιμή"
 
+#: .\theme\templates\intervention\intervention_form.html:84
 msgid "Enregistrer l'intervention"
 msgstr "Αποθήκευση επέμβασης"
 
+#: .\theme\templates\intervention\intervention_list.html:4
+#: .\theme\templates\intervention\intervention_list.html:10
 msgid "Liste des interventions"
 msgstr "Λίστα επεμβάσεων"
 
+#: .\theme\templates\intervention\intervention_list.html:33
 msgid "Ajouter une intervention"
 msgstr "Προσθήκη επέμβασης"
 
+#: .\theme\templates\intervention\intervention_list.html:76
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ interventions"
 msgstr "Εμφάνιση από _START_ έως _END_ από _TOTAL_ επεμβάσεις"
 
+#: .\theme\templates\intervention\intervention_list.html:77
 msgid "Aucune intervention trouvé"
 msgstr "Δεν βρέθηκε καμία επέμβαση"
 
+#: .\theme\templates\intervention\intervention_list.html:78
 msgid "Aucun intervention trouvé"
 msgstr "Δεν βρέθηκε καμία επέμβαση"
 
+#: .\theme\templates\intervention\modifier_intervention.html:10
 msgid "Modifier l'intervention :"
 msgstr "Τροποποίηση επέμβασης :"
 
@@ -4476,36 +4623,47 @@ msgstr "Τροποποίηση επέμβασης :"
 msgid "Choisir le type de maintenance pour :"
 msgstr "Επιλέξτε τον τύπο συντήρησης για:"
 
+#: .\theme\templates\maintenance\creer_maintenance.html:9
 msgid "Créer un check-up complet pour :"
 msgstr "Δημιουργία πλήρους ελέγχου για :"
 
+#: .\theme\templates\maintenance\creer_maintenance.html:14
 msgid "Détails de l'exemplaire"
 msgstr "Λεπτομέρειες του αντιγράφου"
 
+#: .\theme\templates\maintenance\creer_maintenance.html:48
 msgid "Kilomètres total"
 msgstr "Συνολικά χιλιόμετρα"
 
+#: .\theme\templates\maintenance\creer_maintenance.html:49
 msgid "Kilomètres depuis dernière intervention"
 msgstr "Χιλιόμετρα από την τελευταία επέμβαση"
 
+#: .\theme\templates\maintenance\creer_maintenance.html:52
 msgid "Variante"
 msgstr "Παραλλαγή"
 
+#: .\theme\templates\maintenance\creer_maintenance.html:63
 msgid "Aperçu du check-up complet"
 msgstr "Προεπισκόπηση πλήρους ελέγχου"
 
+#: .\theme\templates\maintenance\creer_maintenance.html:81
 msgid "Créer le check-up complet"
 msgstr "Δημιουργία πλήρους ελέγχου"
 
+#: .\theme\templates\maintenance\creer_maintenance.html:86
 msgid "Date actuelle"
 msgstr "Τρέχουσα ημερομηνία"
 
+#: .\theme\templates\maintenance\detail.html:9
 msgid "Détail de la maintenance"
 msgstr "Λεπτομέρεια συντήρησης"
 
+#: .\theme\templates\maintenance\detail.html:15
 msgid "ID Maintenance"
 msgstr "ID Συντήρησης"
 
+#: .\theme\templates\maintenance\detail.html:16
 msgid "Exemplaire"
 msgstr "Αντίγραφο"
 
@@ -4513,6 +4671,7 @@ msgstr "Αντίγραφο"
 msgid "Type"
 msgstr "Τύπος"
 
+#: .\theme\templates\maintenance\detail.html:28
 msgid "Aucun contrôle enregistré."
 msgstr "Δεν έχει καταγραφεί κανένας έλεγχος."
 
@@ -4522,7 +4681,7 @@ msgstr "Συντήρηση οχήματος:"
 
 #: .\theme\templates\maintenance\list.html:23
 #: .\theme\templates\voiture_exemplaire\list.html:15
-#: .\theme\templates\voiture_marque\marques_list.html:19
+#: .\theme\templates\voiture_marque\marques_list.html:21
 msgid "Rechercher une marque..."
 msgstr "Αναζήτηση μάρκας..."
 
@@ -4541,45 +4700,62 @@ msgstr "Χιλιομετρική απόσταση"
 msgid "Aucun exemplaire disponible pour la maintenance."
 msgstr "Κανένα όχημα διαθέσιμο για συντήρηση."
 
+#: .\theme\templates\societe_cliente\modifier_societe_cliente.html:13
 msgid "Modifier la societe :"
 msgstr "Τροποποίηση εταιρείας :"
 
+#: .\theme\templates\societe_cliente\societe_cliente_detail.html:37
 msgid "Directeur"
 msgstr "Διευθυντής"
 
+#: .\theme\templates\societe_cliente\societe_cliente_detail.html:70
 msgid "Modifier la societe"
 msgstr "Τροποποίηση εταιρείας"
 
+#: .\theme\templates\societe_cliente\societe_cliente_detail.html:133
 msgid "Retour à la liste des sociétés"
 msgstr "Επιστροφή στη λίστα εταιρειών"
 
+#: .\theme\templates\societe_cliente\societe_cliente_form.html:12
 msgid "Créer une societe cliente"
 msgstr "Δημιουργία πελάτη-εταιρείας"
 
+#: .\theme\templates\societe_cliente\societe_cliente_form.html:38
 msgid "Nom de la sociéte"
 msgstr "Όνομα εταιρείας"
 
+#: .\theme\templates\societe_cliente\societe_cliente_form.html:47
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:60
 msgid "Nom du directeur"
 msgstr "Όνομα διευθυντή"
 
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:4
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:10
 msgid "Liste des sociétés clientes"
 msgstr "Λίστα εταιρικών πελατών"
 
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:17
 msgid "Nom de la société cliente"
 msgstr "Όνομα εταιρικού πελάτη"
 
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:21
 msgid "Adresse de la societe cliente"
 msgstr "Διεύθυνση εταιρικού πελάτη"
 
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:25
 msgid "Nom et prénom du directeur"
 msgstr "Όνομα και επώνυμο διευθυντή"
 
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:45
 msgid "Ajouter une societe cliente"
 msgstr "Προσθήκη πελάτη-εταιρείας"
 
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:95
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ Société cliente"
 msgstr "Εμφάνιση από _START_ έως _END_ από _TOTAL_ εταιρικούς πελάτες"
 
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:96
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:97
 msgid "Aucun société cliente trouvé"
 msgstr "Δεν βρέθηκε καμία εταιρεία-πελάτης"
 
@@ -4672,7 +4848,7 @@ msgstr "Προσθήκη κιβωτίου ταχυτήτων"
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:33
 #: .\theme\templates\voiture_boite\boite_detail.html:17
-#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:20
+#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:29
 #: .\theme\templates\voiture_embrayage\embrayage_detail.html:17
 #: .\theme\templates\voiture_embrayage\list.html:17
 msgid "Fabricant"
@@ -4684,9 +4860,9 @@ msgid "Type de boîte"
 msgstr "Τύπος κιβωτίου"
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:41
-#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:28
-#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:41
-#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:54
+#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:37
+#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:50
+#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:63
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:40
 msgid "Sélectionner un type"
 msgstr "Επιλέξτε τύπο"
@@ -4712,9 +4888,9 @@ msgid "Quantité d'huile (L)"
 msgstr "Ποσότητα λαδιού (L)"
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:67
-#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:83
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:119
-#: .\theme\templates\voiture_freins\ajouter_freins_simple.html:53
+#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:92
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:128
+#: .\theme\templates\voiture_freins\ajouter_freins_simple.html:62
 #: .\theme\templates\voiture_freins_ar\ajouter_freins_ar_simple.html:53
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:124
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:155
@@ -4833,17 +5009,17 @@ msgstr "Δεν βρέθηκε κανένα κιβώτιο"
 msgid "Ajouter un embrayage"
 msgstr "Προσθήκη συμπλέκτη"
 
-#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:38
+#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:47
 #: .\theme\templates\voiture_embrayage\list.html:53
 msgid "Type de volant moteur"
 msgstr "Τύπος βολάν κινητήρα"
 
-#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:51
+#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:60
 #: .\theme\templates\voiture_embrayage\list.html:54
 msgid "Type de plateau de pression"
 msgstr "Τύπος πλάκας πίεσης"
 
-#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:64
+#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:73
 #: .\theme\templates\voiture_embrayage\embrayage_detail.html:38
 #: .\theme\templates\voiture_embrayage\list.html:55
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:88
@@ -4853,13 +5029,9 @@ msgstr "Τύπος πλάκας πίεσης"
 msgid "Numero OEM"
 msgstr "Αριθμός OEM"
 
-#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:68
+#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:77
 msgid "Kilometrage"
 msgstr "Χιλιομετρική απόσταση"
-
-#: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:72
-msgid "Numero"
-msgstr "Αριθμός"
 
 #: .\theme\templates\voiture_embrayage\embrayage_detail.html:11
 msgid "Détails de l'embrayage"
@@ -4904,49 +5076,49 @@ msgstr "Δεν βρέθηκε κανένας συμπλέκτης"
 msgid "Ajouter un véhicule : "
 msgstr "Προσθήκη οχήματος: "
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:44
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:53
 msgid "Pays d'immatriculation"
 msgstr "Χώρα εγγραφής"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:49
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:58
 msgid "Numero VIN"
 msgstr "Αριθμός VIN"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:55
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:64
 msgid "Type d'utilisation"
 msgstr "Τύπος χρήσης"
 
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:72
 msgid "Sélectionner un type d'utilisation"
 msgstr "Επιλέξτε τύπο χρήσης"
 
-
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:79
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:88
 msgid "Kilomètres du chassis"
 msgstr "Χιλιομετρική απόσταση πλαισίου"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:84
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:93
 msgid "Kilomètres de la dernière intervention"
 msgstr "Χιλιομετρική απόσταση στην τελευταία παρέμβαση"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:94
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:103
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:61
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:85
 msgid "Année de production"
 msgstr "Έτος παραγωγής"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:99
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:108
 msgid "Mois de production"
 msgstr "Μήνας παραγωγής"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:104
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:113
 msgid "Numero d'identification du moteur"
 msgstr "Αριθμός αναγνώρισης κινητήρα"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:109
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:118
 msgid "Date de mise en circulation"
 msgstr "Ημερομηνία θέσης σε κυκλοφορία"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:114
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:123
 msgid "Kilomètres moteur"
 msgstr "Χιλιομετρική απόσταση κινητήρα"
 
@@ -5123,7 +5295,7 @@ msgstr "Δεν έχει καταχωρηθεί κανένα δείγμα για 
 msgid "Modifier le véhicule"
 msgstr "Τροποποίηση οχήματος"
 
-#: .\theme\templates\voiture_exemplaire\modifier_exemplaire.html:69
+#: .\theme\templates\voiture_exemplaire\modifier_exemplaire.html:80
 msgid "Enregistrer les modifications"
 msgstr "Αποθήκευση αλλαγών"
 
@@ -5132,27 +5304,27 @@ msgstr "Αποθήκευση αλλαγών"
 msgid "Ajouter un système de freinage avant"
 msgstr "Προσθήκη συστήματος εμπρόσθιου φρένου"
 
-#: .\theme\templates\voiture_freins\ajouter_freins_simple.html:21
+#: .\theme\templates\voiture_freins\ajouter_freins_simple.html:30
 msgid "Marque disques avant"
 msgstr "Μάρκα δίσκων εμπρός"
 
-#: .\theme\templates\voiture_freins\ajouter_freins_simple.html:26
+#: .\theme\templates\voiture_freins\ajouter_freins_simple.html:35
 msgid "Diamètre disques avant (mm)"
 msgstr "Διάμετρος δίσκων εμπρός (mm)"
 
-#: .\theme\templates\voiture_freins\ajouter_freins_simple.html:31
+#: .\theme\templates\voiture_freins\ajouter_freins_simple.html:40
 msgid "Épaisseur disques avant (mm)"
 msgstr "Πάχος δίσκων εμπρός (mm)"
 
-#: .\theme\templates\voiture_freins\ajouter_freins_simple.html:36
+#: .\theme\templates\voiture_freins\ajouter_freins_simple.html:45
 msgid "Épaisseur minimum disques avant (mm)"
 msgstr "Ελάχιστο πάχος δίσκων εμπρός (mm)"
 
-#: .\theme\templates\voiture_freins\ajouter_freins_simple.html:41
+#: .\theme\templates\voiture_freins\ajouter_freins_simple.html:50
 msgid "Marque plaquettes avant"
 msgstr "Μάρκα τακακίων εμπρός"
 
-#: .\theme\templates\voiture_freins\ajouter_freins_simple.html:46
+#: .\theme\templates\voiture_freins\ajouter_freins_simple.html:55
 msgid "Épaisseur plaquettes avant (mm)"
 msgstr "Πάχος τακακίων εμπρός (mm)"
 
@@ -5294,20 +5466,23 @@ msgid "Affichage de _START_ à _END_ sur _TOTAL_ Freins"
 msgstr "Εμφάνιση από _START_ έως _END_ από _TOTAL_ φρένα"
 
 #: .\theme\templates\voiture_marque\marques_favorites.html:8
-#: .\theme\templates\voiture_marque\marques_list.html:26
+#: .\theme\templates\voiture_marque\marques_list.html:29
 msgid "Mes marques favorites"
 msgstr "Αγαπημένα μου σήματα"
 
-msgid "Aucune marque favorite pour le moment."
-msgstr "Δεν υπάρχει αγαπημένη μάρκα προς το παρόν."
-
-#: .\theme\templates\voiture_marque\marques_list.html:57
+#: .\theme\templates\voiture_marque\marques_favorites.html:20
+#: .\theme\templates\voiture_marque\marques_list.html:62
 msgid "Voir les"
 msgstr "Δείτε τα"
 
-#: .\theme\templates\voiture_marque\marques_list.html:57
+#: .\theme\templates\voiture_marque\marques_favorites.html:20
+#: .\theme\templates\voiture_marque\marques_list.html:62
 msgid "modèles de"
 msgstr "Μοντέλα του"
+
+#: .\theme\templates\voiture_marque\marques_favorites.html:33
+msgid "Aucune marque favorite pour le moment."
+msgstr "Δεν υπάρχει αγαπημένη μάρκα προς το παρόν."
 
 #: .\theme\templates\voiture_modele\modeles_list.html:8
 #: .\theme\templates\voiture_modele\modeles_par_marque.html:9
@@ -5534,6 +5709,8 @@ msgid "Largeur (mm)"
 msgstr "Πλάτος (mm)"
 
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:58
+#, fuzzy, python-format
+#| msgid "Hauteur (%%)"
 msgid "Hauteur (%%)"
 msgstr "Ύψος (%)"
 
@@ -5609,6 +5786,8 @@ msgid "Détails des pneus"
 msgstr "Λεπτομέρειες ελαστικών"
 
 #: .\theme\templates\voiture_pneus\pneus_detail.html:37
+#, fuzzy, python-format
+#| msgid "Hauteur en %%"
 msgid "Hauteur en %%"
 msgstr "Ύψος σε %"
 
@@ -5636,47 +5815,47 @@ msgstr "Ανθρώπινοι Πόροι"
 msgid "Operations"
 msgstr "Λειτουργίες"
 
-#: .\utilisateurs\models.py:75 .\utilisateurs\views.py:191
+#: .\utilisateurs\models.py:75 .\utilisateurs\views.py:197
 msgid "Magasinier"
 msgstr "Αποθηκάριος"
 
-#: .\utilisateurs\models.py:76 .\utilisateurs\views.py:189
+#: .\utilisateurs\models.py:76 .\utilisateurs\views.py:195
 msgid "Carrossier"
 msgstr "Σιδηρουργός αμαξώματος"
 
-#: .\utilisateurs\models.py:77 .\utilisateurs\views.py:190
+#: .\utilisateurs\models.py:77 .\utilisateurs\views.py:196
 msgid "Chef Mécanicien"
 msgstr "Αρχιμηχανικός"
 
-#: .\utilisateurs\models.py:78 .\utilisateurs\views.py:192
+#: .\utilisateurs\models.py:78 .\utilisateurs\views.py:198
 msgid "Instructeur"
 msgstr "Εκπαιδευτής"
 
-#: .\utilisateurs\models.py:79 .\utilisateurs\views.py:193
+#: .\utilisateurs\models.py:79 .\utilisateurs\views.py:199
 msgid "Instructeur Externe"
 msgstr "Εξωτερικός Εκπαιδευτής"
 
-#: .\utilisateurs\models.py:80 .\utilisateurs\views.py:194
+#: .\utilisateurs\models.py:80 .\utilisateurs\views.py:200
 msgid "Vendeur"
 msgstr "Πωλητής"
 
-#: .\utilisateurs\models.py:81 .\utilisateurs\views.py:195
+#: .\utilisateurs\models.py:81 .\utilisateurs\views.py:201
 msgid "Comptable"
 msgstr "Λογιστής"
 
-#: .\utilisateurs\models.py:82 .\utilisateurs\views.py:196
+#: .\utilisateurs\models.py:82 .\utilisateurs\views.py:202
 msgid "Direction"
 msgstr "Διοίκηση"
 
-#: .\utilisateurs\views.py:174
+#: .\utilisateurs\views.py:180
 msgid "Révision moteur"
 msgstr "Σέρβις κινητήρα"
 
-#: .\utilisateurs\views.py:174 .\voiture\voiture_boite\models.py:10
+#: .\utilisateurs\views.py:180 .\voiture\voiture_boite\models.py:10
 msgid "Changement filtre"
 msgstr "Αλλαγή φίλτρου"
 
-#: .\utilisateurs\views.py:198
+#: .\utilisateurs\views.py:204
 msgid "Rôle inconnu"
 msgstr "Άγνωστος ρόλος"
 
@@ -5753,87 +5932,74 @@ msgstr "Ενισχυμένο / Αγωνιστικό"
 msgid "Bimasse (pour volant moteur DMF)"
 msgstr "Διπλής μάζας (για DMF σφόνδυλο)"
 
-#: .\voiture\voiture_exemplaire\models.py:10
+#: .\voiture\voiture_exemplaire\models.py:12
 msgid "Société"
 msgstr "Εταιρεία"
 
-#: .\voiture\voiture_exemplaire\models.py:12
+#: .\voiture\voiture_exemplaire\models.py:14
 msgid "Privé"
 msgstr "Ιδιωτικό"
 
-#: .\voiture\voiture_exemplaire\views.py:82
-msgid "La boîte de vitesse a été liée à l'exemplaire avec succès."
-msgstr "Το κιβώτιο ταχυτήτων συνδέθηκε με το όχημα με επιτυχία."
-
-#: .\voiture\voiture_exemplaire\views.py:87
+#: .\voiture\voiture_exemplaire\views.py:88
 msgid "Veuillez sélectionner une boîte à lier."
 msgstr "Παρακαλώ επιλέξτε ένα κιβώτιο για σύνδεση."
 
-#: .\voiture\voiture_exemplaire\views.py:92
+#: .\voiture\voiture_exemplaire\views.py:93
 msgid "Lier une boîte de vitesse à un véhicule"
 msgstr "Σύνδεση κιβωτίου ταχυτήτων με όχημα"
 
-#: .\voiture\voiture_exemplaire\views.py:108
-msgid "Les pneus ont été liés à l'exemplaire avec succès."
-msgstr "Τα ελαστικά συνδέθηκαν με το όχημα με επιτυχία."
-
-#: .\voiture\voiture_exemplaire\views.py:111
+#: .\voiture\voiture_exemplaire\views.py:112
 msgid "Veuillez sélectionner des pneus à lier."
 msgstr "Παρακαλώ επιλέξτε ελαστικά για σύνδεση."
 
-#: .\voiture\voiture_exemplaire\views.py:116
+#: .\voiture\voiture_exemplaire\views.py:117
 msgid "Lier des pneus à un véhicule"
 msgstr "Σύνδεση ελαστικών με όχημα"
 
-#: .\voiture\voiture_exemplaire\views.py:134
-msgid "Le moteur a été lié à l'exemplaire avec succès."
-msgstr "Ο κινητήρας συνδέθηκε με το δείγμα με επιτυχία."
-
-#: .\voiture\voiture_exemplaire\views.py:139
+#: .\voiture\voiture_exemplaire\views.py:140
 msgid "Veuillez sélectionner un moteur à lier."
 msgstr "Παρακαλώ επιλέξτε έναν κινητήρα για σύνδεση."
 
-#: .\voiture\voiture_exemplaire\views.py:144
+#: .\voiture\voiture_exemplaire\views.py:145
 msgid "Lier un moteur à un véhicule"
 msgstr "Σύνδεση ενός κινητήρα με ένα όχημα"
 
-#: .\voiture\voiture_exemplaire\views.py:160
-msgid "L'embrayage a été lié à l'exemplaire avec succès."
-msgstr "Ο συμπλέκτης συνδέθηκε με το όχημα με επιτυχία."
-
-#: .\voiture\voiture_exemplaire\views.py:165
+#: .\voiture\voiture_exemplaire\views.py:166
 msgid "Veuillez sélectionner un embrayage à lier."
 msgstr "Παρακαλώ επιλέξτε έναν συμπλέκτη για σύνδεση."
 
-#: .\voiture\voiture_exemplaire\views.py:170
+#: .\voiture\voiture_exemplaire\views.py:171
 msgid "Lier un embrayage à un véhicule"
 msgstr "Σύνδεση συμπλέκτη με όχημα"
 
-#: .\voiture\voiture_exemplaire\views.py:192
-#: .\voiture\voiture_exemplaire\views.py:222
-msgid "Le système de freinage a été lié à l'exemplaire avec succès."
-msgstr "Το σύστημα πέδησης συνδέθηκε με το όχημα με επιτυχία."
-
-#: .\voiture\voiture_exemplaire\views.py:197
-#: .\voiture\voiture_exemplaire\views.py:227
+#: .\voiture\voiture_exemplaire\views.py:198
+#: .\voiture\voiture_exemplaire\views.py:228
 msgid "Veuillez sélectionner un système de freinage à lier."
 msgstr "Παρακαλώ επιλέξτε ένα σύστημα πέδησης για σύνδεση."
 
-#: .\voiture\voiture_exemplaire\views.py:202
+#: .\voiture\voiture_exemplaire\views.py:203
 msgid "Lier un système de freinage à un véhicule"
 msgstr "Σύνδεση συστήματος πέδησης με όχημα"
 
-#: .\voiture\voiture_exemplaire\views.py:232
+#: .\voiture\voiture_exemplaire\views.py:233
 msgid "Lier un système de freinage arrière à un véhicule"
 msgstr "Σύνδεση συστήματος πίσω φρένων με όχημα"
 
-#: .\voiture\voiture_exemplaire\views.py:248
+#: .\voiture\voiture_exemplaire\views.py:249
 msgid "Paramètres manquants"
 msgstr "Λείπουν παράμετροι"
 
-#: .\voiture\voiture_exemplaire\views.py:253
+#: .\voiture\voiture_exemplaire\views.py:254
 msgid "Moteur non trouvé"
 msgstr "Ο κινητήρας δεν βρέθηκε"
+
+#: .\voiture\voiture_exemplaire\views.py:339
+msgid "Veuillez renseigner au moins l'immatriculation et le pays."
+msgstr "Παρακαλώ εισάγετε τουλάχιστον την πινακίδα και τη χώρα."
+
+#: .\voiture\voiture_exemplaire\views.py:359
+msgid "Une erreur est survenue : "
+msgstr "Παρουσιάστηκε σφάλμα: "
 
 #: .\voiture\voiture_moteur\models.py:12
 msgid "Atmosphérique"
@@ -6035,6 +6201,28 @@ msgstr "Χιλιόμετρα εμπρόσθιων ελαστικών"
 msgid "Kilomètres pneus arrière"
 msgstr "Χιλιόμετρα οπίσθιων ελαστικών"
 
+#: .\voiture\voiture_pneus\views.py:27
+msgid "Pneus remplacés avec succès."
+msgstr "Τα ελαστικά αντικαταστάθηκαν με επιτυχία."
+
+#: .\voiture\voiture_pneus\views.py:86
+msgid "Le nom du manufacturier est obligatoire."
+msgstr "Το όνομα του κατασκευαστή είναι υποχρεωτικό."
+
+#~ msgid "La boîte de vitesse a été liée à l'exemplaire avec succès."
+#~ msgstr "Το κιβώτιο ταχυτήτων συνδέθηκε με το όχημα με επιτυχία."
+
+#~ msgid "Les pneus ont été liés à l'exemplaire avec succès."
+#~ msgstr "Τα ελαστικά συνδέθηκαν με το όχημα με επιτυχία."
+
+#~ msgid "Le moteur a été lié à l'exemplaire avec succès."
+#~ msgstr "Ο κινητήρας συνδέθηκε με το δείγμα με επιτυχία."
+
+#~ msgid "L'embrayage a été lié à l'exemplaire avec succès."
+#~ msgstr "Ο συμπλέκτης συνδέθηκε με το όχημα με επιτυχία."
+
+#~ msgid "Le système de freinage a été lié à l'exemplaire avec succès."
+#~ msgstr "Το σύστημα πέδησης συνδέθηκε με το όχημα με επιτυχία."
 
 #~ msgid "Niveau "
 #~ msgstr "Επίπεδο"
