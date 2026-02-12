@@ -27,18 +27,19 @@
 
         <input id="search-type_carburant" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'info@...' %}">
+               placeholder="{% trans 'essence, ...' %}">
 
         <input id="search-litres" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans '0032' %}">
+               placeholder="{% trans '14,32 Litres' %}">
 
+        <input id="search-date" type="date"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Date' %}">
 
         <div>
-            <a href="{% url 'fuel:fuel_add' %}"
-               class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
-                {% trans "Ajouter un plein de carburant" %}
-            </a>
+           <a href="{% url 'fuel:fuel_add' %}" class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition w-full focus:outline-none focus:ring-2 focus:ring-blue-500 whitespace-nowrap">{% trans "Ajouter un plein de carburant" %}</a>
+
         </div>
     </div>
 </div>
@@ -55,6 +56,7 @@
             <th class="border px-4 py-2 cursor-pointer">{% trans "Véhicule" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Type de carburant" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Litres" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Date" %}</th>
             <th class="border px-4 py-2 cursor-pointer text-center">{% trans "Info" %}</th>
         </tr>
     </thead>
@@ -66,6 +68,7 @@
             <td class="border px-4 py-2">{{ fuel.exemplaire }}</td>
             <td class="border px-4 py-2">{{ fuel.type_carburant }}</td>
             <td class="border px-4 py-2">{{ fuel.litres }}</td>
+             <td class="border px-4 py-2">{{ fuel.date }}</td>
             <td class="border px-4 py-2 text-center">
                 <a href="{% url 'fuel:fuel_confirm_delete' fuel.id %}"
                    class="text-blue-600 hover:text-blue-800 font-semibold">
@@ -113,6 +116,9 @@ $(document).ready(function() {
         table.column(3).search(this.value).draw();
     });
      $('#search-litres').on('keyup', function () {
+        table.column(4).search(this.value).draw();
+    });
+     $('#search-date').on('keyup', function () {
         table.column(4).search(this.value).draw();
     });
 
