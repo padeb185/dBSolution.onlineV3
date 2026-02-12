@@ -65,16 +65,16 @@
         {% for fuel in fuels %}
         <tr>
             <td class="border px-4 py-2">{{ fuel.utilisateur }}</td>
-            <td class="border px-4 py-2">{{ fuel.immatriculation }}</td>
-            <td class="border px-4 py-2">{{ fuel.exemplaire }}</td>
+            <td class="border px-4 py-2">{{ fuel.voiture_exemplaire.immatriculation }}</td>
+            <td class="border px-4 py-2">
+                {{ fuel.voiture_exemplaire.voiture_modele.voiture_marque.nom_marque }}
+                {{ fuel.voiture_exemplaire.voiture_modele.nom_modele }}
+            </td>
             <td class="border px-4 py-2">{{ fuel.type_carburant }}</td>
             <td class="border px-4 py-2">{{ fuel.litres }}</td>
-             <td class="border px-4 py-2">{{ fuel.date }}</td>
+            <td class="border px-4 py-2">{{ fuel.date }}</td>
             <td class="border px-4 py-2 text-center">
-                <a href="{% url 'fuel:fuel_confirm_delete' fuel.id %}"
-                   class="text-blue-600 hover:text-blue-800 font-semibold">
-                    {% trans "Info" %}
-                </a>
+
             </td>
         </tr>
         {% endfor %}
