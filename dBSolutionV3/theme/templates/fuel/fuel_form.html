@@ -29,7 +29,7 @@
         {% csrf_token %}
 
         <!-- Masqué : voiture_exemplaire -->
-        <input type="hidden" name="voiture_exemplaire"
+        <input type="hidden" id="id_voiture_exemplaire" name="voiture_exemplaire"
                value="{{ request.POST.voiture_exemplaire|default:fuel.voiture_exemplaire.id|default:'' }}">
 
         <!-- Immatriculation -->

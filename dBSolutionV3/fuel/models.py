@@ -5,8 +5,6 @@ from django.db.models import Sum
 from decimal import Decimal
 from utilisateurs.models import Utilisateur
 from societe.models import Societe
-from voiture.voiture_moteur.models import TypeCarburant
-
 
 
 
@@ -46,9 +44,6 @@ class Fuel(models.Model):
         related_name="fuels",
         verbose_name=_("Véhicule")
     )
-
-
-
 
     type_carburant = models.CharField(
         max_length=10,

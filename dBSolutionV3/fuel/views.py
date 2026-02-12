@@ -111,40 +111,20 @@ def fuel_delete(request, pk):
 
 
 
-def get_car_info(request):
-    immatriculation = request.GET.get('immatriculation')
-    data = {}
-    if immatriculation:
-        try:
-            voiture = VoitureExemplaire.objects.get(immatriculation=immatriculation)
-            data = {
-                'voiture_exemplaire_id': str(voiture.id),
-                'voiture_marque': voiture.voiture_marque.nom_marque,
-                'voiture_modele': voiture.voiture_modele.nom_modele,
-                'taille_reservoir': voiture.voiture_modele.taille_reservoir,
-                'type_carburant': voiture.voiture_modele.type_carburant,
-            }
-        except VoitureExemplaire.DoesNotExist:
-            data = {'error': 'Véhicule non trouvé'}
-    return JsonResponse(data)
 
 
 
-
-
-
-def get_voiture_by_immat(request):
-    immat = request.GET.get("immatriculation")
-
+def check_immatriculation(request):
+    immat = request.GET.get('immatriculation', '').strip()
     try:
-        voiture = VoitureExemplaire.objects.get(immatriculation=immat)
-
-        return JsonResponse({
-            "id": voiture.id,
-            "marque": voiture.voiture_marque.nom_marque,
-            "modele": voiture.voiture_modele.nom_modele,
-            "volume": voiture.voiture_modele.taille_reservoir,
-        })
-
+        voiture = VoitureExemplaire.objects.get(immatriculation__iexact=immat)
+        data = {
+            'id': voiture.id,
+            'marque': voiture.voiture_modele.voiture_marque.nom_marque,
+            'modele': voiture.voiture_modele.nom_modele,
+            'volume': voiture.voiture_modele.taille_reservoir,
+            'kilometrage': voiture.voiture_exemplaire.kilometrage_total,
+        }
+        return JsonResponse(data)
     except VoitureExemplaire.DoesNotExist:
-        return JsonResponse({"error": "Immatriculation introuvable"})
+        return JsonResponse({'error': 'not found'})
