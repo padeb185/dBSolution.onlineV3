@@ -15,4 +15,28 @@
         <a href="{% url 'fuel:fuel_list' %}" class="btn btn-secondary">{% trans "Annuler" %}</a>
     </form>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const immatInput = document.getElementById('id_immatriculation');
+
+    immatInput.addEventListener('change', function() {
+        const immat = this.value;
+        fetch(`/ajax/get_car_info/?immatriculation=${immat}`)
+            .then(response => response.json())
+            .then(data => {
+                if (!data.error) {
+                    document.getElementById('id_voiture_exemplaire').value = data.voiture_exemplaire_id;
+                    document.getElementById('id_voiture_marque').value = data.voiture_marque;
+                    document.getElementById('id_voiture_modele').value = data.voiture_modele;
+                    document.getElementById('id_taille_reservoir').value = data.taille_reservoir;
+                    document.getElementById('id_type_carburant').value = data.type_carburant;
+                } else {
+                    alert(data.error);
+                }
+            });
+    });
+});
+</script>
+
 {% endblock %}

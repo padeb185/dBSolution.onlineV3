@@ -5,6 +5,8 @@ from django.db.models import Sum
 from decimal import Decimal
 from utilisateurs.models import Utilisateur
 from societe.models import Societe
+from voiture.voiture_moteur.models import TypeCarburant
+
 
 
 
@@ -15,7 +17,6 @@ class TypeCarburant(models.TextChoices):
     LPG = "LPG", _("LPG")
     CNG = "CNG", _("CNG")
     ETHANOL = "ETHANOL", _("Ethanol")
-
 
 class Fuel(models.Model):
     id = models.AutoField(primary_key=True)
@@ -58,6 +59,7 @@ class Fuel(models.Model):
         verbose_name=_("Véhicule")
     )
 
+
     immatriculation = models.CharField(
         max_length=20,
         verbose_name=_("Immatriculation"))
@@ -68,7 +70,7 @@ class Fuel(models.Model):
         verbose_name=_("Type de carburant"),
 
     )
-    volume_max = models.FloatField(verbose_name=_("Volume max (L)"))
+    taille_reservoir = models.FloatField(verbose_name=_("Volume max (L)"))
     date = models.DateField(default=timezone.now, verbose_name=_("Date du plein"))
     litres = models.DecimalField(max_digits = 10 , decimal_places = 2, verbose_name=_("Litres"))
     prix_litre = models.DecimalField(max_digits=6, decimal_places=3, verbose_name=_("Prix au litre (€)"))

@@ -8,5 +8,6 @@ urlpatterns = [
     path("ajouter/", ajouter_moteur_seul, name="ajouter_moteur_seul"),
     path("ajouter/<uuid:exemplaire_id>/", ajouter_moteur, name="ajouter_moteur"),
     path("<uuid:moteur_id>/", moteur_detail_view, name="detail"),
+
 ]
 
