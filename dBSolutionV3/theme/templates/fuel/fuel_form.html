@@ -78,14 +78,6 @@
                    class="border rounded px-4 py-2 w-full">
         </div>
 
-        <!-- Validation -->
-        <div>
-            <label for="id_validation">{% trans "Validation" %}</label>
-            <input type="checkbox" id="id_validation" name="validation"
-                   {% if request.POST.validation or fuel.validation %}checked{% endif %}
-                   class="rounded">
-        </div>
-
         <!-- Champs readonly -->
         <div>
             <label for="id_voiture_marque">{% trans "Marque" %}</label>
@@ -106,6 +98,14 @@
             <input type="number" id="id_taille_reservoir_display" name="taille_reservoir_display"
                    value="{{ fuel.voiture_exemplaire.voiture_modele.taille_reservoir|default:'' }}"
                    class="border rounded px-4 py-2 w-full bg-gray-100 cursor-not-allowed" disabled>
+        </div>
+
+         <!-- Validation -->
+        <div>
+            <label for="id_validation">{% trans "Validation" %}</label>
+            <input type="checkbox" id="id_validation" name="validation"
+                   {% if request.POST.validation or fuel.validation %}checked{% endif %}
+                   class="rounded">
         </div>
 
         <div class="mt-4">
