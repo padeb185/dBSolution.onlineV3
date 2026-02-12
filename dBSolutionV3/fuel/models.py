@@ -44,10 +44,10 @@ class Fuel(models.Model):
         related_name="fuels",
         verbose_name=_("Véhicule")
     )
-
     type_carburant = models.CharField(
         max_length=10,
         choices=TypeCarburant.choices,
+        default=TypeCarburant.ESSENCE,
         verbose_name=_("Type de carburant"),
 
     )
@@ -60,6 +60,13 @@ class Fuel(models.Model):
     date = models.DateField(default=timezone.now, verbose_name=_("Date du plein"))
     litres = models.DecimalField(max_digits = 10 , decimal_places = 2, verbose_name=_("Litres"))
     prix_litre = models.DecimalField(max_digits=6, decimal_places=3, verbose_name=_("Prix au litre (€)"))
+
+    @property
+    def prix_litre(self):
+        if self.litres:  # éviter division par zéro
+            return self.prix_refuelling / self.litres
+        return 0
+
     prix_refuelling = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_("Prix du plein (€)"))
 
     validation = models.BooleanField(default=True, verbose_name=_("Validation"))
@@ -71,6 +78,8 @@ class Fuel(models.Model):
 
     def __str__(self):
         return f"{self.voiture_exemplaire} – {self.date} – {self.litres} L"
+
+
 
     def save(self, *args, **kwargs):
         # Calcul automatique du prix au litre si non renseigné
