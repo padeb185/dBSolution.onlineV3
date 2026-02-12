@@ -25,6 +25,7 @@ from client_particulier.models import ClientParticulier
 from carrosserie.models import Carrosserie
 from intervention.models import Intervention
 from societe_cliente.models import SocieteCliente
+from fuel.models import Fuel
 
 
 def login_view(request):
@@ -114,6 +115,7 @@ def dashboard_view(request):
             interventions = Intervention.objects.all()
             societe_cliente = SocieteCliente.objects.all()
             adresse = Adresse.objects.all()
+            carburant = Fuel.objects.all()
 
             # Totaux
             total_marques = marques.count()
@@ -131,6 +133,7 @@ def dashboard_view(request):
             total_intervention = interventions.count()
             total_societe_cliente = societe_cliente.count()
             total_adresse = adresse.count()
+            total_carburant = carburant.count()
 
             # Récupère les modèles existants pour les liens maintenance
             modeles = VoitureModele.objects.all()
@@ -153,6 +156,7 @@ def dashboard_view(request):
         'total_intervention': total_intervention,
         'total_societe_cliente': total_societe_cliente,
         'total_adresse': total_adresse,
+        'total_carburant': total_carburant,
 
         'marques': marques,
         'moteurs': moteurs,
@@ -170,6 +174,7 @@ def dashboard_view(request):
         'intervention': interventions,
         'societe_cliente': societe_cliente,
         'adresse': adresse,
+        'carburant': carburant,
     })
 
     # --- Tâches et rôles ---

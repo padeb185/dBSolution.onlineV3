@@ -76,6 +76,10 @@ urlpatterns += i18n_patterns(
 
     path("adresse/", include("adresse.urls")),
 
+    path("fuel/", include("fuel.urls", namespace="fuel")),
+
+
+
 
 
 

@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% load i18n static widget_tweaks %}
+
+{% block title %}{% trans "Liste des pleins de carburant" %}{% endblock %}
+
+{% block content %}
+<h1 class="text-2xl font-bold mb-6 flex items-center">
+    <img src="{% static 'icons/pompe-a-essence.png' %}" alt="carburant"
+         style="width:60px; height:60px; margin-right:10px;">
+    {% trans "Liste des pleins de carburant" %}
+</h1>
+
+<div class="bg-white shadow-md rounded-lg p-4 mb-4">
+    <div class="grid grid-cols-1 md:grid-cols-6 gap-3 items-end">
+        <input id="search-utilisateur" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Utilisateur' %}">
+
+        <input id="search-immatriculation" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'immatriculation' %}">
+
+        <input id="search-exemplaire" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'exemplaire' %}">
+
+
+        <input id="search-type_carburant" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'info@...' %}">
+
+        <input id="search-litres" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans '0032' %}">
+
+
+        <div>
+            <a href="{% url 'fuel:fuel_add' %}"
+               class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+                {% trans "Ajouter un plein de carburant" %}
+            </a>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Table -->
+<table id="fuel-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Utilisateur" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Immatriculation" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Véhicule" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Type de carburant" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Litres" %}</th>
+            <th class="border px-4 py-2 cursor-pointer text-center">{% trans "Info" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for fuel in fuels %}
+        <tr>
+            <td class="border px-4 py-2">{{ fuel.utilisateur }}</td>
+            <td class="border px-4 py-2">{{ fuel.immatriculation }}</td>
+            <td class="border px-4 py-2">{{ fuel.exemplaire }}</td>
+            <td class="border px-4 py-2">{{ fuel.type_carburant }}</td>
+            <td class="border px-4 py-2">{{ fuel.litres }}</td>
+            <td class="border px-4 py-2 text-center">
+                <a href="{% url 'fuel:fuel_confirm_delete' fuel.id %}"
+                   class="text-blue-600 hover:text-blue-800 font-semibold">
+                    {% trans "Info" %}
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
+<!-- DataTables JS -->
+<script>
+$(document).ready(function() {
+    var table = $('#fuel-table').DataTable({
+        pageLength: 100,
+        language: {
+            search: "{% trans 'Recherche globale :' %}",
+            lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ fuels' %}",
+            infoEmpty: "{% trans 'Aucun fuel trouvé' %}",
+            zeroRecords: "{% trans 'Aucun fuel trouvé' %}",
+            paginate: {
+                first: "{% trans 'Premier' %}",
+                last: "{% trans 'Dernier' %}",
+                next: "{% trans 'Suivant' %}",
+                previous: "{% trans 'Précédent' %}"
+            }
+        },
+        order: [[0, "asc"]]
+    });
+
+    // Filtres par colonne
+    $('#search-utilisateur').on('keyup', function () {
+        table.column(0).search(this.value).draw();
+    });
+    $('#search-immatriculation').on('keyup', function () {
+        table.column(1).search(this.value).draw();
+    });
+    $('#search-exemplaire').on('keyup', function () {
+        table.column(2).search(this.value).draw();
+    });
+    $('#search-type_carburant').on('keyup', function () {
+        table.column(3).search(this.value).draw();
+    });
+     $('#search-litres').on('keyup', function () {
+        table.column(4).search(this.value).draw();
+    });
+
+});
+</script>
+{% endblock %}

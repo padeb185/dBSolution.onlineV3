@@ -3,6 +3,9 @@ from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from django.db.models import Sum
 from decimal import Decimal
+from utilisateurs.models import Utilisateur
+from societe.models import Societe
+
 
 
 class TypeCarburant(models.TextChoices):
@@ -17,11 +20,30 @@ class TypeCarburant(models.TextChoices):
 class Fuel(models.Model):
     id = models.AutoField(primary_key=True)
 
+    societe = models.ForeignKey(
+        Societe,
+        on_delete=models.CASCADE,
+        related_name="fuel",
+        verbose_name=_("Societe"),
+        null=True,
+        blank=True,
+    )
+
+    utilisateur = models.ForeignKey(
+        Utilisateur,  # FK vers ton modèle concret
+        on_delete=models.CASCADE,
+        related_name="fuels",
+        verbose_name=_("Utilisateur"),
+        null=True,
+        blank=True,
+    )
+
     voiture_marque = models.ForeignKey(
         "voiture_marque.VoitureMarque",
         on_delete=models.CASCADE,
         related_name="fuels",
         verbose_name=_("Marque")
+
     )
     voiture_modele = models.ForeignKey(
         "voiture_modele.VoitureModele",
@@ -36,18 +58,24 @@ class Fuel(models.Model):
         verbose_name=_("Véhicule")
     )
 
-    immatriculation = models.CharField(max_length=20, verbose_name=_("Immatriculation"))
+    immatriculation = models.CharField(
+        max_length=20,
+        verbose_name=_("Immatriculation"))
+
     type_carburant = models.CharField(
         max_length=10,
         choices=TypeCarburant.choices,
         verbose_name=_("Type de carburant"),
-        editable=False  # pas de choix pour l'utilisateur
+
     )
     volume_max = models.FloatField(verbose_name=_("Volume max (L)"))
     date = models.DateField(default=timezone.now, verbose_name=_("Date du plein"))
-    litres = models.FloatField(verbose_name=_("Litres"))
+    litres = models.DecimalField(max_digits = 10 , decimal_places = 2, verbose_name=_("Litres"))
+    prix_litre = models.DecimalField(max_digits=6, decimal_places=3, verbose_name=_("Prix au litre (€)"))
     prix_refuelling = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_("Prix du plein (€)"))
-    prix_litre = models.DecimalField(max_digits=6, decimal_places=4, verbose_name=_("Prix au litre (€)"))
+
+
+
 
     validation = models.BooleanField(default=True, verbose_name=_("Validation"))
 
