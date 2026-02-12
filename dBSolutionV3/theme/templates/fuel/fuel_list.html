@@ -57,6 +57,7 @@
             <th class="border px-4 py-2 cursor-pointer">{% trans "Véhicule" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Type de carburant" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Litres" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Prix Total" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Date" %}</th>
             <th class="border px-4 py-2 cursor-pointer text-center">{% trans "Info" %}</th>
         </tr>
@@ -72,6 +73,7 @@
             </td>
             <td class="border px-4 py-2">{{ fuel.type_carburant }}</td>
             <td class="border px-4 py-2">{{ fuel.litres }}</td>
+            <td class="border px-4 py-2">{{ fuel.prix_refuelling }}</td>
             <td class="border px-4 py-2">{{ fuel.date }}</td>
             <td class="border px-4 py-2 text-center">
 
