@@ -4,12 +4,13 @@ from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
+from django.views.decorators.http import require_GET
 from django.views.generic import ListView
 from .forms import FuelForm
 from .models import Fuel
 from voiture.voiture_exemplaire.models import VoitureExemplaire
-
-
+from voiture.voiture_marque.models import VoitureMarque
+from voiture.voiture_modele.models import VoitureModele
 
 
 
@@ -123,8 +124,46 @@ def check_immatriculation(request):
             'marque': voiture.voiture_modele.voiture_marque.nom_marque,
             'modele': voiture.voiture_modele.nom_modele,
             'volume': voiture.voiture_modele.taille_reservoir,
-            'kilometrage': voiture.voiture_exemplaire.kilometrage_total,
+
         }
         return JsonResponse(data)
     except VoitureExemplaire.DoesNotExist:
         return JsonResponse({'error': 'not found'})
+
+
+
+
+
+
+@require_GET
+def get_marques(request):
+    query = request.GET.get("q", "").strip()
+
+    if not query:
+        return JsonResponse([], safe=False)
+
+    marques = (
+        VoitureMarque.objects
+        .filter(nom_marque__icontains=query)
+        .values_list("nom_marque", flat=True)
+        .distinct()[:10]
+    )
+
+    return JsonResponse(list(marques), safe=False)
+
+
+@require_GET
+def get_modeles(request):
+    query = request.GET.get("q", "").strip()
+
+    if not query:
+        return JsonResponse([], safe=False)
+
+    modeles = (
+        VoitureModele.objects
+        .filter(nom_modele__icontains=query)
+        .values_list("nom_modele", flat=True)
+        .distinct()[:10]
+    )
+
+    return JsonResponse(list(modeles), safe=False)

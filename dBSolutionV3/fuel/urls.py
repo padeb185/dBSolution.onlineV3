@@ -8,6 +8,8 @@ urlpatterns = [
     path("fuel/add/", views.fuel_add, name="fuel_add"),
     path("fuel/edit/<int:pk>/", views.fuel_edit, name="fuel_edit"),
     path("fuel/delete/<int:pk>/", views.fuel_delete, name="fuel_delete"),
-    path('ajax/check-immatriculation/', views.check_immatriculation, name='check_immatriculation'),
+    path("ajax/check-immatriculation/", views.check_immatriculation, name="check_immatriculation"),
+    path("ajax/get-marques/", views.get_marques, name="get_marques"),
+    path("ajax/get-modeles/", views.get_modeles, name="get_modeles"),
 
 ]
