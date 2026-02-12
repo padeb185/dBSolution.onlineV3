@@ -38,8 +38,9 @@
                placeholder="{% trans 'Date' %}">
 
         <div>
-           <a href="{% url 'fuel:fuel_add' %}" class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition w-full focus:outline-none focus:ring-2 focus:ring-blue-500 whitespace-nowrap">{% trans "Ajouter un plein de carburant" %}</a>
-
+            <a href="{% url 'fuel:fuel_add' %}" class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition focus:outline-none focus:ring-2 focus:ring-blue-500 whitespace-nowrap">
+                {% trans "Ajouter un plein de carburant" %}
+            </a>
         </div>
     </div>
 </div>
