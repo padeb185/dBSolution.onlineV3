@@ -339,46 +339,30 @@ def liste_exemplaires_all(request):
     )
 
 
+
 @login_required
 def ajouter_exemplaire_all(request, modele_id):
     tenant = request.user.societe
     with tenant_context(tenant):
-        # 🔹 Ici, on récupère le modèle en s'assurant qu'il appartient au tenant
         modele = get_object_or_404(VoitureModele, id=modele_id, societe=tenant)
 
-        type_utilisation_selected = None  # valeur sélectionnée pour pré-remplissage
-
         if request.method == "POST":
-            immatriculation = request.POST.get("immatriculation")
-            pays = request.POST.get("pays")
-            numero_vin = request.POST.get("numero_vin")
-            type_utilisation_selected = request.POST.get("type_utilisation")
-            kilometres_chassis = request.POST.get("kilometres_chassis")
-            annee_production = request.POST.get("annee_production")
-            mois_production = request.POST.get("mois_production")
-
-            if not immatriculation or not pays:
-                messages.error(request, _("Veuillez renseigner au moins l'immatriculation et le pays."))
+            form = VoitureExemplaireForm(request.POST)
+            if form.is_valid():
+                exemplaire = form.save(commit=False)
+                # ⚙️ Assigner les champs liés au modèle et au tenant
+                exemplaire.societe = tenant
+                exemplaire.voiture_marque = modele.voiture_marque
+                exemplaire.voiture_modele = modele
+                exemplaire.save()
+                messages.success(
+                    request,
+                    _(f"Véhicule '{exemplaire.voiture_marque} {exemplaire.immatriculation}' ajouté avec succès !")
+                )
             else:
-                try:
-                    exemplaire = VoitureExemplaire.objects.create(
-                        societe=tenant,
-                        voiture_marque=modele.voiture_marque,
-                        voiture_modele=modele,
-                        immatriculation=immatriculation,
-                        pays=pays,
-                        numero_vin=numero_vin,
-                        type_utilisation=type_utilisation_selected,
-                        kilometres_chassis=kilometres_chassis,
-                        annee_production=annee_production,
-                        mois_production=mois_production,
-                    )
-                    messages.success(
-                        request,
-                        _(f"Véhicule '{exemplaire.voiture_marque} {exemplaire.immatriculation}' ajouté avec succès !")
-                    )
-                except Exception as e:
-                    messages.error(request, _("Une erreur est survenue : ") + str(e))
+                messages.error(request, _("Veuillez corriger les erreurs dans le formulaire."))
+        else:
+            form = VoitureExemplaireForm()
 
     return render(
         request,
@@ -386,6 +370,6 @@ def ajouter_exemplaire_all(request, modele_id):
         {
             "modele": modele,
             "TypeUtilisation": TypeUtilisation,
-            "type_utilisation": type_utilisation_selected,
+            "form": form,
         }
     )

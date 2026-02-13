@@ -55,9 +55,18 @@
         </div>
 
         <div>
-            <label for="id_numero_vin">{% trans "Numero VIN" %}</label>
-            <input type="number" id="id_numero_vin" name="numero_vin" class="border rounded px-4 py-2 w-full">
+            <label for="id_numero_vin">{% trans "Numéro VIN" %}</label>
+            <input
+                type="text"
+                id="id_numero_vin"
+                name="numero_vin"
+                maxlength="17"
+                class="border rounded px-4 py-2 w-full"
+                style="text-transform:uppercase"
+                placeholder="Ex: 1HGCM82633A004352"
+            >
         </div>
+
 
         <div class="mb-4">
             <label for="id_type_utilisation" class="block mb-1">
@@ -96,7 +105,7 @@
 
          <div>
             <label for="id_date_derniere_intervention">{% trans "Date de la dernière intervention" %}</label>
-            <input type="text" id="id_date_derniere_intervention" name="date_derniere_intervention" class="border rounded px-4 py-2 w-full">
+            <input type="date" id="id_date_derniere_intervention" name="date_derniere_intervention" class="border rounded px-4 py-2 w-full">
         </div>
 
          <div>
@@ -116,7 +125,7 @@
 
         <div>
             <label for="id_date_mise_en_circulation">{% trans "Date de mise en circulation" %}</label>
-            <input type="text" id="id_date_mise_en_circulation" name="date_mise_en_circulation" class="border rounded px-4 py-2 w-full">
+            <input type="date" id="id_date_mise_en_circulation" name="date_mise_en_circulation" class="border rounded px-4 py-2 w-full">
         </div>
 
         <div>
@@ -177,6 +186,31 @@ document.getElementById('id_voiture_marque').addEventListener('change', function
         }
     })
     .catch(err => console.error("Erreur:", err));
+
+
+
+    const vinInput = document.getElementById('id_numero_vin');
+    const anneeInput = document.getElementById('id_annee_production');
+
+    const VIN_YEAR_BASE = {
+        "A":1980,"B":1981,"C":1982,"D":1983,"E":1984,"F":1985,"G":1986,"H":1987,
+        "J":1988,"K":1989,"L":1990,"M":1991,"N":1992,"P":1993,"R":1994,"S":1995,
+        "T":1996,"V":1997,"W":1998,"X":1999,"Y":2000,
+        "1":2001,"2":2002,"3":2003,"4":2004,"5":2005,"6":2006,"7":2007,"8":2008,"9":2009
+    };
+
+    vinInput.addEventListener('input', function() {
+        if (vinInput.value.length >= 10) {
+            const code = vinInput.value[9].toUpperCase();
+            let year = VIN_YEAR_BASE[code] ? VIN_YEAR_BASE[code] + 30 : '';
+            anneeInput.value = year;
+        } else {
+            anneeInput.value = '';
+        }
+    });
+
 });
 </script>
+
+
 {% endblock %}
