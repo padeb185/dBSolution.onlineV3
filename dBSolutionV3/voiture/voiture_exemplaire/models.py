@@ -1,11 +1,12 @@
 import uuid
 from django.db import models
-from django.core.validators import MinValueValidator, MaxValueValidator
+from django.core.validators import MinValueValidator, MaxValueValidator, RegexValidator
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from client_particulier.models import ClientParticulier
 from django.conf import settings
 from societe.models import Societe
+from voiture.voiture_exemplaire.utils_vin import get_vin_year
 
 
 class TypeUtilisation(models.TextChoices):
@@ -46,12 +47,34 @@ class VoitureExemplaire(models.Model):
         null=True,
         blank=True
     )
+    vin_validator = RegexValidator(
+        regex=r'^[A-HJ-NPR-Z0-9]{17}$',
+        message="Le numéro VIN doit contenir exactement 17 caractères alphanumériques (lettres A-H, J-N, P, R-Z et chiffres)."
+    )
+
     numero_vin = models.CharField(
         max_length=17,
         unique=True,
         verbose_name="Numéro VIN",
+        validators=[vin_validator],
         null=True,
         blank=True,
+    )
+    vin_simplifie = models.CharField(
+        max_length=10,
+        verbose_name="VIN simplifié",
+        editable=False,
+        blank=True,
+        null=True,
+    )
+    annee_production = models.PositiveIntegerField(
+        verbose_name="Année de production",
+        editable=False,
+        blank=True,
+        null=True,
+    )
+    mois_production = models.PositiveSmallIntegerField(
+        validators=[MinValueValidator(1), MaxValueValidator(12)]
     )
 
     type_utilisation = models.CharField(
@@ -74,13 +97,9 @@ class VoitureExemplaire(models.Model):
     date_derniere_intervention = models.DateField(blank=True, null=True)
 
     # 🏭 Production
-    annee_production = models.PositiveSmallIntegerField(
-        validators=[MinValueValidator(1900), MaxValueValidator(timezone.now().year + 1)]
-    )
 
-    mois_production = models.PositiveSmallIntegerField(
-        validators=[MinValueValidator(1), MaxValueValidator(12)]
-    )
+
+
 
     # ⚙️ Moteur / transmission
     numero_moteur = models.CharField(max_length=50, null=True, blank=True)
@@ -174,12 +193,21 @@ class VoitureExemplaire(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    # ⚙️ Logique métier
-    def save(self, *args, **kwargs):
-        self.variation_kilometres = max(
-            0,
-            self.kilometres_total - self.kilometres_derniere_intervention
-        )
+    def save(self, *args, after_2010=True, **kwargs):
+        if self.numero_vin:
+            self.vin_simplifie = self.numero_vin[-10:]
+            dixieme = self.numero_vin[9]
+            self.annee_production = get_vin_year(dixieme, after_2010=after_2010)
+        else:
+            self.vin_simplifie = None
+            self.annee_production = None
+
+        if hasattr(self, 'kilometres_total') and hasattr(self, 'kilometres_derniere_intervention'):
+            self.variation_kilometres = max(
+                0,
+                self.kilometres_total - self.kilometres_derniere_intervention
+            )
+
         super().save(*args, **kwargs)
 
     def __str__(self):
