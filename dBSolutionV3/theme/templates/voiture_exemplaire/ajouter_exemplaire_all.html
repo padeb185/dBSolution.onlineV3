@@ -1,224 +1,103 @@
 {% extends "base.html" %}
 {% load i18n static %}
+{% load widget_tweaks %}
 
 {% block content %}
 <div class="max-w-xl mx-auto p-6 bg-white rounded shadow mt-16 mb-16">
 
-    <h1 class="text-2xl font-bold mb-4 text-center flex items-center justify-center">
-        {% with logo_path="exemplaires/"|add:modele.voiture_marque.nom_marque|lower|add:".png" %}
-            <img src="{% static logo_path %}"
-                 style="width:75px; margin-right:5px;"
-                 onerror="this.onerror=null;this.src='{% static 'exemplaires/default.png' %}';"
-                 alt="{{ modele.voiture_marque.nom_marque }}">
-        {% endwith %}
-        {% trans "Ajouter un véhicule : " %}
-        {{ modele.voiture_marque.nom_marque }} {{ modele.nom_modele }}
-        {% if modele.nom_variante %} - {{ modele.nom_variante }}{% endif %}
+    <h1 class="text-2xl font-bold mb-4 text-center">
+        {% trans "Ajouter un véhicule" %}
     </h1>
 
-
     {% if messages %}
-    {% for message in messages %}
-    <div class="mb-3 px-4 py-2 rounded
-        {% if message.tags == 'success' %}
-            bg-green-100 text-green-800 border border-green-300
-        {% else %}
-            bg-red-100 text-red-800 border border-red-300
-        {% endif %}">
-        {{ message }}
-    </div>
-    {% endfor %}
+        {% for message in messages %}
+            <div class="mb-3 px-4 py-2 rounded
+                {% if message.tags == 'success' %}
+                    bg-green-100 text-green-800 border border-green-300
+                {% else %}
+                    bg-red-100 text-red-800 border border-red-300
+                {% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
     {% endif %}
 
-    <form method="post" class="flex flex-col space-y-4">
+    <form method="post" class="mt-6">
         {% csrf_token %}
 
+        {% for field in form %}
+            <label class="font-semibold">{{ field.label }}</label>
+            {{ field|add_class:"input" }}
+            {% if field.errors %}
+                <div class="text-red-600 text-sm mb-2">{{ field.errors }}</div>
+            {% endif %}
+        {% endfor %}
 
+        <!-- Année auto -->
+        <label class="font-semibold">{% trans "Année de production" %}</label>
+        <input type="number" id="id_annee_production" class="input" readonly>
 
-       <div>
-            <label for="id_voiture_marque">{% trans "Marque" %}</label>
-            <input type="text" id="id_voiture_marque" name="voiture_marque"
-                   value="{{ modele.voiture_marque.nom_marque }}" class="border rounded px-4 py-2 w-full" readonly>
-       </div>
+        <div class="flex gap-2 mt-4">
+            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded w-full">
+                {% trans "Ajouter" %}
+            </button>
 
-        <div>
-            <label for="id_voiture_modele">{% trans "Modèle" %}</label>
-            <input type="text" id="id_voiture_modele" name="voiture_modele"
-                   value="{{ modele.nom_modele }}" class="border rounded px-4 py-2 w-full" readonly>
+            <a href="{% url 'voiture_exemplaire:voiture_exemplaire' modele_id=modele.id %}"
+               class="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400">
+                {% trans "Annuler" %}
+            </a>
         </div>
-        <div>
-            <label for="id_immatriculation">{% trans "Immatriculation" %}</label>
-            <input type="text" id="id_immatriculation" name="immatriculation" class="border rounded px-4 py-2 w-full">
-        </div>
-
-         <div>
-            <label for="id_pays">{% trans "Pays d'immatriculation" %}</label>
-            <input type="text" id="id_pays" name="pays" class="border rounded px-4 py-2 w-full">
-        </div>
-
-        <div>
-            <label for="id_numero_vin">{% trans "Numéro VIN" %}</label>
-            <input
-                type="text"
-                id="id_numero_vin"
-                name="numero_vin"
-                maxlength="17"
-                class="border rounded px-4 py-2 w-full"
-                style="text-transform:uppercase"
-                placeholder="Ex: 1HGCM82633A004352"
-            >
-        </div>
-
-
-        <div class="mb-4">
-            <label for="id_type_utilisation" class="block mb-1">
-                {% trans "Type d'utilisation" %}
-            </label>
-
-            {% with value=request.POST.type_utilisation|default_if_none:'' %}
-            <select id="id_type_utilisation"
-                    name="type_utilisation"
-                    class="border rounded px-3 py-2 w-full text-sm h-10">
-
-                <option value="">{% trans "Sélectionner un type d'utilisation" %}</option>
-
-                {% for choice, label in TypeUtilisation.choices %}
-                    <option value="{{ choice }}"
-                        {% if value == choice %}selected{% endif %}>
-                        {{ label }}
-                    </option>
-                {% endfor %}
-
-            </select>
-            {% endwith %}
-        </div>
-
-
-
-        <div>
-            <label for="id_kilometres_chassis">{% trans "Kilomètres du chassis" %}</label>
-            <input type="text" id="id_kilometres_chassis" name="kilometres_chassis" class="border rounded px-4 py-2 w-full">
-        </div>
-
-         <div>
-            <label for="id_kilometres_moteur">{% trans "Kilomètres moteur" %}</label>
-            <input type="text" id="id_kilometres_moteur" name="kilometres_moteur" class="border rounded px-4 py-2 w-full">
-        </div>
-
-        <div>
-            <label for="id_kilometres_derniere_intervention">{% trans "Kilomètres de la dernière intervention" %}</label>
-            <input type="text" id="id_kilometres_derniere_intervention" name="kilometres_derniere_intervention" class="border rounded px-4 py-2 w-full">
-        </div>
-
-
-
-        <div>
-            <label for="id_annee_production">Année de production</label>
-            <input type="text" id="id_annee_production" name="annee_production"
-                   value="{{ form.instance.annee_production }}" class="border rounded px-4 py-2 w-full" readonly>
-        </div>
-
-        <div>
-            <label for="id_est_avant_2010" class="flex items-center space-x-2">
-                <input type="checkbox" id="id_est_avant_2010" name="est_avant_2010"
-                       {% if form.instance.est_avant_2010 %}checked{% endif %}>
-                <span>Véhicule d'avant 2010</span>
-            </label>
-        </div>
-
-
-        <div>
-            <label for="id_mois_production">{% trans "Mois de production" %}</label>
-            <input type="text" id="id_mois_production" name="mois_production" class="border rounded px-4 py-2 w-full">
-        </div>
-
-
-        <div>
-            <label for="id_date_mise_en_circulation">{% trans "Date de mise en circulation" %}</label>
-            <input type="date" id="id_date_mise_en_circulation" name="date_mise_en_circulation" class="border rounded px-4 py-2 w-full">
-        </div>
-
-
-
-
-        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded w-full">
-            {% trans "Ajouter" %}
-        </button>
     </form>
 </div>
 
-<script>
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie) {
-        document.cookie.split(';').forEach(c => {
-            c = c.trim();
-            if (c.startsWith(name + '=')) {
-                cookieValue = decodeURIComponent(c.slice(name.length + 1));
-            }
-        });
-    }
-    return cookieValue;
+<style>
+.input {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 8px;
+    margin-bottom: 10px;
 }
+</style>
 
-const csrftoken = getCookie('csrftoken');
+<script>
+const VIN_YEAR_BASE = {
+    "A":1980,"B":1981,"C":1982,"D":1983,"E":1984,"F":1985,"G":1986,"H":1987,
+    "J":1988,"K":1989,"L":1990,"M":1991,"N":1992,"P":1993,"R":1994,"S":1995,
+    "T":1996,"V":1997,"W":1998,"X":1999,"Y":2000,
+    "1":2001,"2":2002,"3":2003,"4":2004,"5":2005,"6":2006,"7":2007,"8":2008,"9":2009
+};
 
-document.getElementById('id_voiture_marque').addEventListener('change', function(){
-    const fabricant = this.value;
+const INVALID_CHARS = ["I","O","Q"];
 
-    fetch('/api/check_nom', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': csrftoken,
-        },
-        body: JSON.stringify({ voiture_marque: voiture_marque })
-    })
-    .then(r => r.json())
-    .then(data => {
-        if (data.exist) {
-            document.getElementById('id_voiture_marque').value = data.voiture_marque;
-            document.getElementById('id_voiture_modele').value = data.voiture_modele;
-            document.getElementById('id_immatriculation').value = data.immatriculation;
-            document.getElementById('id_pays').value = data.pays;
-            document.getElementById('id_numero_vin').value = data.numero_vin;
-            document.getElementById('id_type_utilisation').value = data.type_utilisation;
-            document.getElementById('id_kilometres_chassis').value = data.kilometres_chassis;
-        } else {
-            document.getElementById('id_voiture_modele').value = '';
-            document.getElementById('id_immatriculation').value = '';
-            document.getElementById('id_pays').value = '';
-            document.getElementById('id_numero_vin').value = '';
-            document.getElementById('id_type_utilisation').value = '';
-            document.getElementById('id_kilometres_chassis').value = '';
+const vinInput = document.getElementById("id_numero_vin");
+const anneeInput = document.getElementById("id_annee_production");
+const avant2010Checkbox = document.getElementById("id_est_avant_2010");
+
+vinInput.addEventListener("input", function () {
+    let vin = vinInput.value.toUpperCase();
+    vinInput.value = vin;
+
+    if (vin.length === 17) {
+
+        if (INVALID_CHARS.some(c => vin.includes(c))) {
+            anneeInput.value = "";
+            return;
         }
-    })
-    .catch(err => console.error("Erreur:", err));
 
+        const code = vin[9];
+        const year = VIN_YEAR_BASE[code] || "";
 
+        anneeInput.value = year;
 
-    const vinInput = document.getElementById('id_numero_vin');
-    const anneeInput = document.getElementById('id_annee_production');
-
-    const VIN_YEAR_BASE = {
-        "A":1980,"B":1981,"C":1982,"D":1983,"E":1984,"F":1985,"G":1986,"H":1987,
-        "J":1988,"K":1989,"L":1990,"M":1991,"N":1992,"P":1993,"R":1994,"S":1995,
-        "T":1996,"V":1997,"W":1998,"X":1999,"Y":2000,
-        "1":2001,"2":2002,"3":2003,"4":2004,"5":2005,"6":2006,"7":2007,"8":2008,"9":2009
-    };
-
-    vinInput.addEventListener('input', function() {
-        if (vinInput.value.length >= 10) {
-            const code = vinInput.value[9].toUpperCase();
-            let year = VIN_YEAR_BASE[code] ? VIN_YEAR_BASE[code] + 30 : '';
-            anneeInput.value = year;
-        } else {
-            anneeInput.value = '';
+        if (year) {
+            avant2010Checkbox.checked = year < 2010;
         }
-    });
-
+    } else {
+        anneeInput.value = "";
+        avant2010Checkbox.checked = false;
+    }
 });
 </script>
-
 
 {% endblock %}

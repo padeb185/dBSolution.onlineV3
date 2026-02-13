@@ -317,6 +317,8 @@ def modifier_exemplaire(request, exemplaire_id):
             'exemplaire': exemplaire,
         })
 
+
+
 @never_cache
 @login_required
 def liste_exemplaires_all(request):
@@ -340,42 +342,34 @@ def liste_exemplaires_all(request):
 
 
 
-
 @login_required
 def ajouter_exemplaire_all(request, modele_id):
     modele = get_object_or_404(VoitureModele, id=modele_id)
 
     if request.method == "POST":
-        form = VoitureExemplaireForm(request.POST or None)
+        form = VoitureExemplaireForm(request.POST, user=request.user)  # <-- passer l'user
+
         if form.is_valid():
             instance = form.save(commit=False)
 
-            # Calcul automatique de l'année de production à partir du VIN
-            vin = form.cleaned_data.get("numero_vin", "")
-            annee_calculee = None
-            if vin and len(vin) >= 10:
-                code = vin[9].upper()
-                VIN_YEAR_BASE = {
-                    "A": 1980, "B": 1981, "C": 1982, "D": 1983, "E": 1984, "F": 1985, "G": 1986, "H": 1987,
-                    "J": 1988, "K": 1989, "L": 1990, "M": 1991, "N": 1992, "P": 1993, "R": 1994, "S": 1995,
-                    "T": 1996, "V": 1997, "W": 1998, "X": 1999, "Y": 2000,
-                    "1": 2001, "2": 2002, "3": 2003, "4": 2004, "5": 2005, "6": 2006, "7": 2007, "8": 2008, "9": 2009
-                }
-                if code in VIN_YEAR_BASE:
-                    annee_calculee = VIN_YEAR_BASE[code]  # pas de +30
-                instance.annee_production = annee_calculee # ta logique existante
+            vin = form.cleaned_data.get("numero_vin")
+            annee = form.cleaned_data.get("annee_production")
 
-
-            # Déterminer automatiquement si le véhicule est avant 2010
-            instance.est_avant_2010 = annee_calculee is not None and annee_calculee < 2010
+            instance.annee_production = annee
+            instance.est_avant_2010 = bool(annee and annee < 2010)
 
             instance.modele = modele
+            instance.societe = request.user.societe  # <-- affecter la société automatiquement
+
             instance.save()
-            messages.success(request, "Véhicule ajouté avec succès !")
+
+            messages.success(request, "Véhicule ajouté avec succès.")
+
         else:
             messages.error(request, "Merci de corriger les erreurs ci-dessous.")
+
     else:
-        form = VoitureExemplaireForm()
+        form = VoitureExemplaireForm(user=request.user)  # <-- passer l'user
 
     return render(request, "voiture_exemplaire/ajouter_exemplaire_all.html", {
         "modele": modele,
