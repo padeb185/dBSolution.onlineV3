@@ -17,7 +17,7 @@
     </h1>
 
 
-        {% if messages %}
+    {% if messages %}
     {% for message in messages %}
     <div class="mb-3 px-4 py-2 rounded
         {% if message.tags == 'success' %}
@@ -32,6 +32,8 @@
 
     <form method="post" class="flex flex-col space-y-4">
         {% csrf_token %}
+
+
 
        <div>
             <label for="id_voiture_marque">{% trans "Marque" %}</label>
@@ -99,39 +101,45 @@
         </div>
 
          <div>
+            <label for="id_kilometres_moteur">{% trans "Kilomètres moteur" %}</label>
+            <input type="text" id="id_kilometres_moteur" name="kilometres_moteur" class="border rounded px-4 py-2 w-full">
+        </div>
+
+        <div>
             <label for="id_kilometres_derniere_intervention">{% trans "Kilomètres de la dernière intervention" %}</label>
             <input type="text" id="id_kilometres_derniere_intervention" name="kilometres_derniere_intervention" class="border rounded px-4 py-2 w-full">
         </div>
 
-         <div>
-            <label for="id_date_derniere_intervention">{% trans "Date de la dernière intervention" %}</label>
-            <input type="date" id="id_date_derniere_intervention" name="date_derniere_intervention" class="border rounded px-4 py-2 w-full">
+
+
+        <div>
+            <label for="id_annee_production">Année de production</label>
+            <input type="text" id="id_annee_production" name="annee_production"
+                   value="{{ form.instance.annee_production }}" class="border rounded px-4 py-2 w-full" readonly>
         </div>
 
-         <div>
-            <label for="id_annee_production">{% trans "Année de production" %}</label>
-            <input type="text" id="id_annee_production" name="annee_production" class="border rounded px-4 py-2 w-full">
+        <div>
+            <label for="id_est_avant_2010" class="flex items-center space-x-2">
+                <input type="checkbox" id="id_est_avant_2010" name="est_avant_2010"
+                       {% if form.instance.est_avant_2010 %}checked{% endif %}>
+                <span>Véhicule d'avant 2010</span>
+            </label>
         </div>
+
 
         <div>
             <label for="id_mois_production">{% trans "Mois de production" %}</label>
             <input type="text" id="id_mois_production" name="mois_production" class="border rounded px-4 py-2 w-full">
         </div>
 
-        <div>
-            <label for="id_numero_moteur">{% trans "Numero d'identification du moteur" %}</label>
-            <input type="text" id="id_numero_moteur" name="numero_moteur" class="border rounded px-4 py-2 w-full">
-        </div>
 
         <div>
             <label for="id_date_mise_en_circulation">{% trans "Date de mise en circulation" %}</label>
             <input type="date" id="id_date_mise_en_circulation" name="date_mise_en_circulation" class="border rounded px-4 py-2 w-full">
         </div>
 
-        <div>
-            <label for="id_kilometres_moteur">{% trans "Kilomètres moteur" %}</label>
-            <input type="text" id="id_kilometres_moteur" name="kilometres_moteur" class="border rounded px-4 py-2 w-full">
-        </div>
+
+
 
         <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded w-full">
             {% trans "Ajouter" %}

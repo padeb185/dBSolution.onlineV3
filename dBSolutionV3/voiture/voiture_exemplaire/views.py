@@ -340,36 +340,44 @@ def liste_exemplaires_all(request):
 
 
 
+
 @login_required
 def ajouter_exemplaire_all(request, modele_id):
-    tenant = request.user.societe
-    with tenant_context(tenant):
-        modele = get_object_or_404(VoitureModele, id=modele_id, societe=tenant)
+    modele = get_object_or_404(VoitureModele, id=modele_id)
 
-        if request.method == "POST":
-            form = VoitureExemplaireForm(request.POST)
-            if form.is_valid():
-                exemplaire = form.save(commit=False)
-                # ⚙️ Assigner les champs liés au modèle et au tenant
-                exemplaire.societe = tenant
-                exemplaire.voiture_marque = modele.voiture_marque
-                exemplaire.voiture_modele = modele
-                exemplaire.save()
-                messages.success(
-                    request,
-                    _(f"Véhicule '{exemplaire.voiture_marque} {exemplaire.immatriculation}' ajouté avec succès !")
-                )
-            else:
-                messages.error(request, _("Veuillez corriger les erreurs dans le formulaire."))
+    if request.method == "POST":
+        form = VoitureExemplaireForm(request.POST or None)
+        if form.is_valid():
+            instance = form.save(commit=False)
+
+            # Calcul automatique de l'année de production à partir du VIN
+            vin = form.cleaned_data.get("numero_vin", "")
+            annee_calculee = None
+            if vin and len(vin) >= 10:
+                code = vin[9].upper()
+                VIN_YEAR_BASE = {
+                    "A": 1980, "B": 1981, "C": 1982, "D": 1983, "E": 1984, "F": 1985, "G": 1986, "H": 1987,
+                    "J": 1988, "K": 1989, "L": 1990, "M": 1991, "N": 1992, "P": 1993, "R": 1994, "S": 1995,
+                    "T": 1996, "V": 1997, "W": 1998, "X": 1999, "Y": 2000,
+                    "1": 2001, "2": 2002, "3": 2003, "4": 2004, "5": 2005, "6": 2006, "7": 2007, "8": 2008, "9": 2009
+                }
+                if code in VIN_YEAR_BASE:
+                    annee_calculee = VIN_YEAR_BASE[code]  # pas de +30
+                instance.annee_production = annee_calculee # ta logique existante
+
+
+            # Déterminer automatiquement si le véhicule est avant 2010
+            instance.est_avant_2010 = annee_calculee is not None and annee_calculee < 2010
+
+            instance.modele = modele
+            instance.save()
+            messages.success(request, "Véhicule ajouté avec succès !")
         else:
-            form = VoitureExemplaireForm()
+            messages.error(request, "Merci de corriger les erreurs ci-dessous.")
+    else:
+        form = VoitureExemplaireForm()
 
-    return render(
-        request,
-        "voiture_exemplaire/ajouter_exemplaire_all.html",
-        {
-            "modele": modele,
-            "TypeUtilisation": TypeUtilisation,
-            "form": form,
-        }
-    )
+    return render(request, "voiture_exemplaire/ajouter_exemplaire_all.html", {
+        "modele": modele,
+        "form": form,
+    })
