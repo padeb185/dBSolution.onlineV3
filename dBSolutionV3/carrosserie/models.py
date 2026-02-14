@@ -10,7 +10,12 @@ class Carrosserie(models.Model):
     nom_societe = models.CharField(_("Nom de la société"), max_length=100)
     responsable_nom = models.CharField(_("Responsable nom"), null=True, blank=True, max_length=100)
     responsable_prenom = models.CharField(_("Responsable prenom"),null=True,blank=True, max_length=100)
-    adresse = models.CharField(_("Adresse"), max_length=255, blank=True, null=True)
+    adresse = models.ForeignKey(
+        "adresse.Adresse",  # app_label.ModelName
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+    )
     pays = models.CharField(_("Pays"), max_length=50, blank=True, null=True)
     telephone = models.CharField(_("Téléphone"), max_length=20, blank=True, null=True)
     email = models.EmailField(_("Email"), blank=True, null=True)
