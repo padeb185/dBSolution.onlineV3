@@ -7,13 +7,14 @@
     <!-- Header -->
     <div class="flex justify-between items-center mb-6">
        <h1 class="text-2xl font-bold flex items-center gap-4">
-            <span>{% trans "Détails de la assurance :" %}</span>
             {% with image_name=assurance.nom_societe|slugify %}
                 <img src="{% static 'assurance/'|add:image_name|add:'.png' %}"
                      alt="{{ assurance.nom_compagnie }}"
                      class="w-12 h-12"
-                     onerror="this.src='{% static 'assurance/assurance-voiture.png' %}';">
+                     onerror="this.src='{% static 'icons/assurance-voiture.png' %}';">
             {% endwith %}
+            <span>{% trans "Détails de la compagnie d'assurance :" %}</span>
+
            <span class="text-black-700">{{ assurance.nom_compagnie }}</span>
         </h1>
 
@@ -46,7 +47,7 @@
             </p>
             <p>
                 <strong>{% trans "Pays" %} :</strong>
-                {{ assurance.country_code }}
+                {{ assurance.adresse.pays }}
             </p>
 
 

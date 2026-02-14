@@ -11,7 +11,7 @@ class Assurance(models.Model):
     nom_compagnie= models.CharField(_("Nom de la compagnie"), max_length=100, blank=True, null=True)
     courtier_nom = models.CharField(_("Nom du courtier"), null=True, blank=True, max_length=100)
     courtier_prenom = models.CharField(_("Prénom du courtier"),null=True,blank=True, max_length=100)
-    adresse = models.CharField(_("Adresse"), max_length=255, blank=True, null=True)
+
     telephone = models.CharField(_("Téléphone"), max_length=20, blank=True, null=True)
     email = models.EmailField(_("Email"), max_length=255 ,blank=True, null=True)
     peppol_id = models.CharField(
@@ -22,6 +22,13 @@ class Assurance(models.Model):
         blank=True,
     )
     numero_iban = models.CharField(max_length=36, blank=True, null=True)
+
+    adresse = models.ForeignKey(
+        "adresse.Adresse",  # app_label.ModelName
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+    )
 
     created_at = models.DateTimeField(_("Créé le"), auto_now_add=True)
     updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True)
