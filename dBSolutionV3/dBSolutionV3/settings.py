@@ -191,7 +191,7 @@ TENANT_APPS = (
     'utilisateurs.magasinier',
     'utilisateurs.vendeur',
 
-
+    'assurance',
     'recharge',
 
     'tenant',
