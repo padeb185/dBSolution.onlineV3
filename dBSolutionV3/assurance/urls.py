@@ -1,8 +1,7 @@
 from django.urls import path
 from .views import modifier_assurance, assurance_detail, ajouter_assurance_all, AssuranceListView
 
-
-app_name = "carrosserie"
+app_name = "assurance"
 
 
 
@@ -15,7 +14,7 @@ urlpatterns = [
     path(
         "assurance/creer/",
         ajouter_assurance_all,
-        name="carrosserie_create",
+        name="assurance_form",
     ),
 
     path(

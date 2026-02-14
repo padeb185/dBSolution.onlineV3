@@ -1,10 +1,94 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% load i18n static %}
 
-</body>
-</html>
+{% block content %}
+<div class="max-w-xl mx-auto p-6 bg-white rounded shadow mt-16 mb-16">
+
+    <h1 class="text-2xl font-bold mb-4 text-center flex items-center justify-center">
+        <img src="{% static 'icons/assurance-voiture.png' %}" style="width:75px; margin-right:5px;" alt="">
+        {% trans "Créer une assurance" %}
+    </h1>
+
+    <!-- Messages -->
+    {% if messages %}
+        {% for message in messages %}
+        <div class="mb-3 px-4 py-2 rounded
+            {% if message.tags == 'success' %}
+                bg-green-100 text-green-800 border border-green-300
+            {% else %}
+                bg-red-100 text-red-800 border border-red-300
+            {% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post" class="flex flex-col space-y-4">
+        {% csrf_token %}
+
+        <!-- Nom de la compagnie -->
+        <div>
+            {{ form.nom_compagnie.label_tag }}
+            {{ form.nom_compagnie }}
+            {% if form.nom_compagnie.errors %}
+                <p class="text-red-600">{{ form.nom_compagnie.errors }}</p>
+            {% endif %}
+        </div>
+
+        <!-- Courtier -->
+        <div>
+            {{ form.courtier_nom.label_tag }}
+            {{ form.courtier_nom }}
+        </div>
+        <div>
+            {{ form.courtier_prenom.label_tag }}
+            {{ form.courtier_prenom }}
+        </div>
+
+        <!-- Adresse -->
+        <h2 class="text-lg font-semibold mt-6 mb-2">{% trans "Adresse" %}</h2>
+        <div>
+            <label for="id_rue">{% trans "Rue" %}</label>
+            <input type="text" id="id_rue" name="rue" value="{{ request.POST.rue|default:'' }}" class="border rounded px-4 py-2 w-full">
+        </div>
+        <div>
+            <label for="id_numero">{% trans "Numéro" %}</label>
+            <input type="text" id="id_numero" name="numero" value="{{ request.POST.numero|default:'' }}" class="border rounded px-4 py-2 w-full">
+        </div>
+        <div>
+            <label for="id_code_postal">{% trans "Code postal" %}</label>
+            <input type="text" id="id_code_postal" name="code_postal" value="{{ request.POST.code_postal|default:'' }}" class="border rounded px-4 py-2 w-full">
+        </div>
+        <div>
+            <label for="id_ville">{% trans "Ville" %}</label>
+            <input type="text" id="id_ville" name="ville" value="{{ request.POST.ville|default:'' }}" class="border rounded px-4 py-2 w-full">
+        </div>
+        <div>
+            <label for="id_pays">{% trans "Pays" %}</label>
+            <input type="text" id="id_pays" name="pays" value="{{ request.POST.pays|default:'' }}" class="border rounded px-4 py-2 w-full">
+        </div>
+        <div>
+            <label for="id_code_pays">{% trans "Code pays" %}</label>
+            <input type="text" id="id_code_pays" name="code_pays" value="{{ request.POST.code_pays|default:'' }}" class="border rounded px-4 py-2 w-full">
+        </div>
+
+        <!-- Peppol, email, téléphone -->
+        <div>
+            {{ form.peppol_id.label_tag }}
+            {{ form.peppol_id }}
+        </div>
+        <div>
+            {{ form.email.label_tag }}
+            {{ form.email }}
+        </div>
+        <div>
+            {{ form.telephone.label_tag }}
+            {{ form.telephone }}
+        </div>
+
+        <button type="submit" class="bg-blue-700 text-white px-4 py-2 rounded w-full mt-4">
+            {% trans "Enregistrer" %}
+        </button>
+    </form>
+</div>
+{% endblock %}

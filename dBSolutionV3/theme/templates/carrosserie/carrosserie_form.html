@@ -29,13 +29,13 @@
     <form method="post" class="flex flex-col space-y-4">
         {% csrf_token %}
 
-        <!-- Fournisseur -->
+
         <div>
             <label for="id_carrosserie">{% trans "Carrosserie" %}</label>
             <input type="text" id="id_carrosserie" name="carrosserie"
                    value="{{ request.POST.carrosserie|default:carrosserie.nom_societe|default:'' }}"
                    class="border rounded px-4 py-2 w-full"
-                    placeholder="nom de la carrosserie">
+                    placeholder="Nom de la carrosserie">
         </div>
 
 
@@ -142,7 +142,7 @@ function getCookie(name) {
 const csrftoken = getCookie('csrftoken');
 
 document.getElementById('id_nom_societe').addEventListener('change', function(){
-    const fournisseur = this.value;
+    const carrosserie = this.value;
 
     fetch('/api/check_nom_societe', {
         method: 'POST',

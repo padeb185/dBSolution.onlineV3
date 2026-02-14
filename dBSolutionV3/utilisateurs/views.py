@@ -26,6 +26,7 @@ from carrosserie.models import Carrosserie
 from intervention.models import Intervention
 from societe_cliente.models import SocieteCliente
 from fuel.models import Fuel
+from assurance.models import Assurance
 
 
 def login_view(request):
@@ -92,11 +93,11 @@ def dashboard_view(request):
     total_freins_ar = total_pneus = total_maintenance = 0
     total_fournisseur = total_client_particulier = 0
     total_carrosserie = total_intervention = total_societe_cliente = 0
-    total_adresse = 0
+    total_adresse = total_assurance = 0
 
     marques = moteurs = exemplaires = boites = embrayages = freins = \
         freins_ar = pneus = maintenance = fournisseurs = client_particulier =\
-        carrosseries = interventions = societe_cliente = adresse =  []
+        carrosseries = interventions = societe_cliente = adresse = assurance = []
 
     if schema_name:
         with schema_context(schema_name):
@@ -116,6 +117,7 @@ def dashboard_view(request):
             societe_cliente = SocieteCliente.objects.all()
             adresse = Adresse.objects.all()
             carburant = Fuel.objects.all()
+            assurance = Assurance.objects.all()
 
             # Totaux
             total_marques = marques.count()
@@ -134,6 +136,7 @@ def dashboard_view(request):
             total_societe_cliente = societe_cliente.count()
             total_adresse = adresse.count()
             total_carburant = carburant.count()
+            total_assurance = assurance.count()
 
             # Récupère les modèles existants pour les liens maintenance
             modeles = VoitureModele.objects.all()
@@ -157,6 +160,7 @@ def dashboard_view(request):
         'total_societe_cliente': total_societe_cliente,
         'total_adresse': total_adresse,
         'total_carburant': total_carburant,
+        'total_assurance': total_assurance,
 
         'marques': marques,
         'moteurs': moteurs,
@@ -175,6 +179,7 @@ def dashboard_view(request):
         'societe_cliente': societe_cliente,
         'adresse': adresse,
         'carburant': carburant,
+        'assurance': assurance,
     })
 
     # --- Tâches et rôles ---

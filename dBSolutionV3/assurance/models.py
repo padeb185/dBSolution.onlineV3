@@ -7,9 +7,9 @@ from django.utils.translation import gettext_lazy as _
 class Assurance(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
-    nom_compagnie= models.CharField(_("Nom de la compagnie"), max_length=100)
+    nom_compagnie= models.CharField(_("Nom de la compagnie"), max_length=100, blank=True, null=True)
     courtier_nom = models.CharField(_("Nom du courtier"), null=True, blank=True, max_length=100)
-    courier_prenom = models.CharField(_("Prénom du courtier"),null=True,blank=True, max_length=100)
+    courtier_prenom = models.CharField(_("Prénom du courtier"),null=True,blank=True, max_length=100)
     adresse = models.CharField(_("Adresse"), max_length=255, blank=True, null=True)
     telephone = models.CharField(_("Téléphone"), max_length=20, blank=True, null=True)
     email = models.EmailField(_("Email"), max_length=255 ,blank=True, null=True)
@@ -25,9 +25,9 @@ class Assurance(models.Model):
 
 
     class Meta:
-        verbose_name = _("Carrosserie")
-        verbose_name_plural = _("Carrosseries")
+        verbose_name = _("Assurance")
+        verbose_name_plural = _("Assurances")
 
     def __str__(self):
-        return self.nom_societe
+        return self.nom_compagnie
 

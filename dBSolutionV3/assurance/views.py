@@ -10,8 +10,7 @@ from django_tenants.utils import tenant_context
 from adresse.models import Adresse
 from django.utils.translation import gettext as _
 from assurance.models import Assurance
-
-from dBSolutionV3.assurance.form import AssuranceForm
+from assurance.forms import AssuranceForm
 
 
 @method_decorator([login_required, never_cache], name='dispatch')
@@ -50,42 +49,39 @@ def assurance_detail(request, assurance_id):
 
 @login_required
 def ajouter_assurance_all(request):
-    assurance = Assurance()
-    assurance.adresse = Adresse()
-
     if request.method == "POST":
-        nom_societe = request.POST.get("assurance")
+        form = AssuranceForm(request.POST)
+        if form.is_valid():
+            # Crée ou récupère l'adresse
+            rue = request.POST.get("rue")
+            numero = request.POST.get("numero")
+            code_postal = request.POST.get("code_postal")
+            ville = request.POST.get("ville")
+            pays = request.POST.get("pays")
+            code_pays = request.POST.get("code_pays")
 
-
-        if not nom_societe:
-            messages.error(request, _("Le nom de la assurance est obligatoire."))
-        else:
-            adresse = Adresse.objects.create(
-                rue=request.POST.get("rue"),
-                numero=request.POST.get("numero"),
-                code_postal=request.POST.get("code_postal"),
-                ville=request.POST.get("ville"),
-                pays=request.POST.get("pays"),
-                code_pays=request.POST.get("code_pays")
+            adresse, created = Adresse.objects.get_or_create(
+                rue=rue,
+                numero=numero,
+                code_postal=code_postal,
+                ville=ville,
+                pays=pays,
+                code_pays=code_pays
             )
-            assurance = Assurance.objects.create(
-                nom_compagnie=request.POST.get("nom_compagnie"),
-                nom_courtier=request.POST.get("nom_courtier"),
-                prenom_courtier=request.POST.get("prenom_courtier"),
-                peppol_id=request.POST.get("peppol_id"),
-                email=request.POST.get("email"),
-                telephone=request.POST.get("telephone"),
 
-                adresse=adresse
-            )
-            messages.success(request, _(f"Compagnie d'assurance: '{assurance.nom_societe}' ajouté avec succès !"))
+            # Crée l'assurance avec l'adresse
+            assurance = form.save(commit=False)
+            assurance.adresse = adresse
+            assurance.save()
+
+            messages.success(request, f"Compagnie d'assurance '{assurance.nom_compagnie}' ajoutée avec succès !")
             return redirect("assurance:assurance_list")
+        else:
+            messages.error(request, "Le formulaire contient des erreurs. Vérifiez les champs obligatoires.")
+    else:
+        form = AssuranceForm()
 
-    # S'assurer que fournisseur.adresse existe
-    if not hasattr(assurance, "adresse") or assurance.adresse is None:
-        assurance.adresse = Adresse()
-
-    return render(request, "assurance/assurance_form.html", {"assurance":assurance})
+    return render(request, "assurance/assurance_form.html", {"form": form})
 
 
 
@@ -117,6 +113,7 @@ def modifier_assurance(request, assurance_id):
             "assurance": assurance,
         }
     )
+
 
 
 
