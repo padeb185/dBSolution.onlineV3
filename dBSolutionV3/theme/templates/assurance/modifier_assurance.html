@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% load i18n widget_tweaks static %}
 
-
 {% block content %}
 <div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
 
+    <!-- Header -->
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold flex items-center gap-4">
             {% with image_name=assurance.nom_compagnie|slugify %}
@@ -13,10 +13,26 @@
                      class="w-12 h-12"
                      onerror="this.onerror=null; this.src='{% static 'icons/assurance-voiture.png' %}';">
             {% endwith %}
-            <span>{% trans "Modifier la Compagnie d'assurance: " %}</span>
+            <span>{% trans "Modifier la Compagnie d'assurance:" %}</span>
             <span class="text-black-700">{{ assurance.nom_compagnie }}</span>
         </h1>
     </div>
+
+    <!-- Messages -->
+    {% if messages %}
+        {% for message in messages %}
+        <div class="mb-3 px-4 py-2 rounded
+            {% if message.tags == 'success' %}
+                bg-green-100 text-green-800 border border-green-300
+            {% else %}
+                bg-red-100 text-red-800 border border-red-300
+            {% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Formulaire -->
     <form method="post" class="space-y-4">
         {% csrf_token %}
 
@@ -42,21 +58,18 @@
             </div>
         {% endfor %}
 
+        <!-- Boutons -->
+        <div class="flex gap-3 mt-6">
+            <button type="submit"
+                    class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-500 font-semibold text-center">
+                {% trans "Enregistrer" %}
+            </button>
 
-          <div class="flex gap-3 mt-6">
-                <button type="submit"
-                        class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
-                    {% trans "Enregistrer" %}
-                </button>
-
-                <a href="{% url 'assurance:assurance_detail' assurance_id=assurance.id %}"
-                   class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
-                    {% trans "Annuler" %}
-                </a>
-            </div>
-
-
-
+            <a href="{% url 'assurance:assurance_detail' assurance_id=assurance.id %}"
+               class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
+                {% trans "Annuler" %}
+            </a>
+        </div>
     </form>
 </div>
 
