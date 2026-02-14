@@ -6,7 +6,7 @@
 
     <h1 class="text-2xl font-bold mb-4 text-center flex items-center justify-center">
         <img src="{% static 'icons/assurance-voiture.png' %}" style="width:75px; margin-right:5px;" alt="">
-        {% trans "Créer une assurance" %}
+        {% trans "Créer une compagnie d'assurance" %}
     </h1>
 
     <!-- Messages -->
@@ -45,6 +45,21 @@
             {{ form.courtier_prenom }}
         </div>
 
+          <!-- Peppol, email, téléphone -->
+        <div>
+            {{ form.peppol_id.label_tag }}
+            {{ form.peppol_id }}
+        </div>
+        <div>
+            {{ form.email.label_tag }}
+            {{ form.email }}
+        </div>
+
+        <div>
+            {{ form.telephone.label_tag }}
+            {{ form.telephone }}
+        </div>
+
         <!-- Adresse -->
         <h2 class="text-lg font-semibold mt-6 mb-2">{% trans "Adresse" %}</h2>
         <div>
@@ -72,19 +87,7 @@
             <input type="text" id="id_code_pays" name="code_pays" value="{{ request.POST.code_pays|default:'' }}" class="border rounded px-4 py-2 w-full">
         </div>
 
-        <!-- Peppol, email, téléphone -->
-        <div>
-            {{ form.peppol_id.label_tag }}
-            {{ form.peppol_id }}
-        </div>
-        <div>
-            {{ form.email.label_tag }}
-            {{ form.email }}
-        </div>
-        <div>
-            {{ form.telephone.label_tag }}
-            {{ form.telephone }}
-        </div>
+
 
         <button type="submit" class="bg-blue-700 text-white px-4 py-2 rounded w-full mt-4">
             {% trans "Enregistrer" %}

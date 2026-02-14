@@ -1,5 +1,6 @@
 import uuid
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 
@@ -20,9 +21,10 @@ class Assurance(models.Model):
         null=True,
         blank=True,
     )
+    numero_iban = models.CharField(max_length=36, blank=True, null=True)
 
-
-
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True)
 
     class Meta:
         verbose_name = _("Assurance")

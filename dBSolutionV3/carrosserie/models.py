@@ -23,8 +23,10 @@ class Carrosserie(models.Model):
         blank=True,
     )
 
+    numero_iban = models.CharField(max_length=36, blank=True, null=True)
 
-
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True)
 
     class Meta:
         verbose_name = _("Carrosserie")

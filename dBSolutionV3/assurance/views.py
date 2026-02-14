@@ -48,41 +48,29 @@ def assurance_detail(request, assurance_id):
 
 
 @login_required
-def ajouter_assurance_all(request):
+def ajouter_assurance_all(request, assurance_id=None):
+    tenant = request.user.societe
+
+    with tenant_context(tenant):
+        if assurance_id:
+            # modification
+            assurance = get_object_or_404(Assurance, id=assurance_id)
+        else:
+            # création
+            assurance = Assurance()
+
     if request.method == "POST":
-        form = AssuranceForm(request.POST)
+        form = AssuranceForm(request.POST, instance=assurance)
         if form.is_valid():
-            # Crée ou récupère l'adresse
-            rue = request.POST.get("rue")
-            numero = request.POST.get("numero")
-            code_postal = request.POST.get("code_postal")
-            ville = request.POST.get("ville")
-            pays = request.POST.get("pays")
-            code_pays = request.POST.get("code_pays")
+            form.save()
+            messages.success(request, "Compagnie d'assurance enregistrée avec succès.")
 
-            adresse, created = Adresse.objects.get_or_create(
-                rue=rue,
-                numero=numero,
-                code_postal=code_postal,
-                ville=ville,
-                pays=pays,
-                code_pays=code_pays
-            )
-
-            # Crée l'assurance avec l'adresse
-            assurance = form.save(commit=False)
-            assurance.adresse = adresse
-            assurance.save()
-
-            messages.success(request, f"Compagnie d'assurance '{assurance.nom_compagnie}' ajoutée avec succès !")
-            return redirect("assurance:assurance_list")
         else:
             messages.error(request, "Le formulaire contient des erreurs. Vérifiez les champs obligatoires.")
     else:
-        form = AssuranceForm()
+        form = AssuranceForm(instance=assurance)
 
     return render(request, "assurance/assurance_form.html", {"form": form})
-
 
 
 
