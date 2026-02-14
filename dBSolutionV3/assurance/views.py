@@ -11,6 +11,7 @@ from adresse.models import Adresse
 from django.utils.translation import gettext as _
 from assurance.models import Assurance
 from assurance.forms import AssuranceForm
+from adresse.forms import AdresseForm
 
 
 @method_decorator([login_required, never_cache], name='dispatch')
@@ -47,30 +48,50 @@ def assurance_detail(request, assurance_id):
 
 
 
-@login_required
-def ajouter_assurance_all(request, assurance_id=None):
-    tenant = request.user.societe
 
-    with tenant_context(tenant):
-        if assurance_id:
-            # modification
-            assurance = get_object_or_404(Assurance, id=assurance_id)
-        else:
-            # création
-            assurance = Assurance()
+@login_required
+def ajouter_assurance_all(request):
+    tenant = request.user.societe  # si tu utilises tenant
+    assurance = Assurance()  # objet vide pour formulaire
 
     if request.method == "POST":
-        form = AssuranceForm(request.POST, instance=assurance)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Compagnie d'assurance enregistrée avec succès.")
+        form_assurance = AssuranceForm(request.POST)
+
+        # Créer ou récupérer une adresse
+        adresse_data = {
+            "rue": request.POST.get("rue"),
+            "numero": request.POST.get("numero"),
+            "code_postal": request.POST.get("code_postal"),
+            "ville": request.POST.get("ville"),
+            "pays": request.POST.get("pays"),
+            "code_pays": request.POST.get("code_pays"),
+            "societe": tenant
+        }
+
+        # Si l'un des champs obligatoires est vide, on renvoie une erreur
+        if not adresse_data["rue"] or not adresse_data["numero"] or not adresse_data["code_postal"] or not adresse_data["ville"]:
+            messages.error(request, "Les champs d'adresse sont obligatoires.")
+        elif form_assurance.is_valid():
+            # Créer l'adresse en base
+            adresse = Adresse.objects.create(**adresse_data)
+
+            # Créer l'assurance et l'associer à l'adresse
+            assurance = form_assurance.save(commit=False)
+            assurance.adresse = adresse
+            assurance.save()
+
+            messages.success(request, f"Assurance '{assurance.nom_compagnie}' créée avec succès !")
 
         else:
-            messages.error(request, "Le formulaire contient des erreurs. Vérifiez les champs obligatoires.")
-    else:
-        form = AssuranceForm(instance=assurance)
+            messages.error(request, "Le formulaire contient des erreurs.")
 
-    return render(request, "assurance/assurance_form.html", {"form": form})
+    else:
+        form_assurance = AssuranceForm()
+
+    return render(request, "assurance/assurance_form.html", {
+        "form": form_assurance
+    })
+
 
 
 
@@ -79,30 +100,44 @@ def modifier_assurance(request, assurance_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
-        assurance = get_object_or_404(Assurance, id=assurance_id)
+        # Récupérer l'assureur et son adresse liée
+        assurance = get_object_or_404(
+            Assurance.objects.select_related("adresse"),
+            id=assurance_id
+        )
+        adresse = assurance.adresse
 
         if request.method == "POST":
-            form = AssuranceForm(request.POST, instance=assurance)
-            if form.is_valid():
-                form.save()
-                messages.success(request, "assurance mise à jour avec succès.")
+            # Formulaires pour Assurance et Adresse
+            form_assurance = AssuranceForm(request.POST, instance=assurance)
+            form_adresse = AdresseForm(request.POST, instance=adresse)
+
+            if form_assurance.is_valid() and form_adresse.is_valid():
+                # Sauvegarde adresse puis mise à jour de l'assurance
+                adresse = form_adresse.save()
+                assurance = form_assurance.save(commit=False)
+                assurance.adresse = adresse
+                assurance.save()
+
+                messages.success(request, "Assurance et adresse mises à jour avec succès.")
                 return redirect(
-                    'assurance:modifier_assurance',
+                    "assurance:modifier_assurance",
                     assurance_id=assurance.id
                 )
+            else:
+                messages.error(request, "Le formulaire contient des erreurs.")
         else:
-            form = AssuranceForm(instance=assurance)
+            # Pré-remplissage des formulaires
+            form_assurance = AssuranceForm(instance=assurance)
+            form_adresse = AdresseForm(instance=adresse)
 
     return render(
         request,
         "assurance/modifier_assurance.html",
         {
-            "form": form,
+            "form": form_assurance,
+            "form_adresse": form_adresse,
             "assurance": assurance,
+            "adresse": adresse,
         }
     )
-
-
-
-
-

@@ -36,41 +36,39 @@
     <form method="post" class="space-y-4">
         {% csrf_token %}
 
+        <h2 class="text-lg font-semibold mb-2">{% trans "Assurance" %}</h2>
         {% for field in form %}
-            <div>
-                <label class="block font-semibold mb-1">
-                    {{ field.label }}
-                </label>
-
+            <div class="mb-4">
+                <label class="block font-semibold mb-1">{{ field.label }}</label>
                 {{ field|add_class:"input" }}
-
-                {% if field.help_text %}
-                    <p class="text-gray-500 text-sm mt-1">
-                        {{ field.help_text }}
-                    </p>
-                {% endif %}
-
                 {% if field.errors %}
-                    <p class="text-red-600 text-sm mt-1">
-                        {{ field.errors|striptags }}
-                    </p>
+                    <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
                 {% endif %}
             </div>
         {% endfor %}
 
-        <!-- Boutons -->
+        <h2 class="text-lg font-semibold mt-6 mb-2">{% trans "Adresse" %}</h2>
+        {% for field in form_adresse %}
+            <div class="mb-4">
+                <label class="block font-semibold mb-1">{{ field.label }}</label>
+                {{ field|add_class:"input" }}
+                {% if field.errors %}
+                    <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+
         <div class="flex gap-3 mt-6">
-            <button type="submit"
-                    class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-500 font-semibold text-center">
+            <button type="submit" class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-500 font-semibold text-center">
                 {% trans "Enregistrer" %}
             </button>
-
             <a href="{% url 'assurance:assurance_detail' assurance_id=assurance.id %}"
                class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
                 {% trans "Annuler" %}
             </a>
         </div>
     </form>
+
 </div>
 
 <style>

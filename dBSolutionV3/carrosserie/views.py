@@ -47,45 +47,48 @@ def carrosserie_detail(request, carrosserie_id):
 
 
 
-
 @login_required
-def ajouter_carrosserie_all(request):
-    carrosserie = Carrosserie()
-    carrosserie.adresse = Adresse()
+def ajouter_assurance_all(request):
+    tenant = request.user.societe  # si tu utilises tenant
+    carrosserie = Carrosserie()  # objet vide pour formulaire
 
     if request.method == "POST":
-        nom_societe = request.POST.get("carrosserie")
+        form_carrosserie = CarrosserieForm(request.POST)
 
+        # Créer ou récupérer une adresse
+        adresse_data = {
+            "rue": request.POST.get("rue"),
+            "numero": request.POST.get("numero"),
+            "code_postal": request.POST.get("code_postal"),
+            "ville": request.POST.get("ville"),
+            "pays": request.POST.get("pays"),
+            "code_pays": request.POST.get("code_pays"),
+            "societe": tenant
+        }
 
-        if not nom_societe:
-            messages.error(request, _("Le nom de la carrosserie est obligatoire."))
+        # Si l'un des champs obligatoires est vide, on renvoie une erreur
+        if not adresse_data["rue"] or not adresse_data["numero"] or not adresse_data["code_postal"] or not adresse_data["ville"]:
+            messages.error(request, "Les champs d'adresse sont obligatoires.")
+        elif form_carrosserie.is_valid():
+            # Créer l'adresse en base
+            adresse = Adresse.objects.create(**adresse_data)
+
+            # Créer la carrosserie et l'associer à l'adresse
+            carrosserie = form_carrosserie.save(commit=False)
+            carrosserie.adresse = adresse
+            carrosserie.save()
+
+            messages.success(request, f"carrosserie '{carrosserie.nom_compagnie}' créée avec succès !")
+
         else:
-            adresse = Adresse.objects.create(
-                rue=request.POST.get("rue"),
-                numero=request.POST.get("numero"),
-                code_postal=request.POST.get("code_postal"),
-                ville=request.POST.get("ville"),
-                pays=request.POST.get("pays"),
-                code_pays=request.POST.get("code_pays")
-            )
-            carrosserie = Carrosserie.objects.create(
-                nom_societe=nom_societe,
-                numero_tva=request.POST.get("numero_tva"),
-                peppol_id=request.POST.get("peppol_id"),
-                email=request.POST.get("email"),
-                telephone=request.POST.get("telephone"),
-                responsable_prenom=request.POST.get("responsable_prenom"),
-                responsable_nom=request.POST.get("responsable_nom"),
-                adresse=adresse
-            )
-            messages.success(request, _(f"Carrosserie '{carrosserie.nom_societe}' ajouté avec succès !"))
-            return redirect("carrosserie:carrosserie_list")
+            messages.error(request, "Le formulaire contient des erreurs.")
 
-    # S'assurer que fournisseur.adresse existe
-    if not hasattr(carrosserie, "adresse") or carrosserie.adresse is None:
-        carrosserie.adresse = Adresse()
+    else:
+        form_carrosserie = CarrosserieForm()
 
-    return render(request, "carrosserie/carrosserie_form.html", {"carrosserie":carrosserie})
+    return render(request, "carrosserie/carrosserie_form.html", {
+        "form": form_carrosserie
+    })
 
 
 

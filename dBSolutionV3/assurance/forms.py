@@ -7,7 +7,7 @@ class AssuranceForm(forms.ModelForm):
         model = Assurance
         fields = [
             'nom_compagnie', 'courtier_nom', 'courtier_prenom',
-            'telephone', 'email', 'peppol_id', 'numero_iban', 'adresse'
+            'telephone', 'email', 'peppol_id', 'numero_iban'
         ]
         widgets = {
             'nom_compagnie': forms.TextInput(attrs={
@@ -40,9 +40,6 @@ class AssuranceForm(forms.ModelForm):
                 'class': 'border rounded px-4 py-2 w-full',
                 'placeholder': 'Numéro IBAN',
             }),
-            'adresse': forms.TextInput(attrs={
-                'class': 'border rounded px-4 py-2 w-full',
-                'placeholder': 'Adresse',
-            }),
+
 
         }

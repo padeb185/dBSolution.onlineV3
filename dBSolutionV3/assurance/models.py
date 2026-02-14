@@ -24,10 +24,11 @@ class Assurance(models.Model):
     numero_iban = models.CharField(max_length=36, blank=True, null=True)
 
     adresse = models.ForeignKey(
-        "adresse.Adresse",  # app_label.ModelName
-        on_delete=models.CASCADE,
+        "adresse.Adresse",
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
+        related_name="assurances"
     )
 
     created_at = models.DateTimeField(_("Créé le"), auto_now_add=True)
