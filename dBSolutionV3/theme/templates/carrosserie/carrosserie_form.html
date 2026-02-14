@@ -8,12 +8,12 @@
     <h1 class="text-2xl font-bold mb-4 text-center flex items-center justify-center">
         <img src="{% static 'icons/carrosserie.png' %}"
              style="width:75px; margin-right:5px;"
-             alt="{{ carrosserie.nom_societe|default:'' }}">
+             alt="{{ request.POST.nom_societe|default:'' }}">
         {% trans "Créer une carrosserie" %}
     </h1>
 
     <!-- Messages -->
-     {% if messages %}
+    {% if messages %}
         {% for message in messages %}
         <div class="mb-3 px-4 py-2 rounded
             {% if message.tags == 'success' %}
@@ -29,91 +29,94 @@
     <form method="post" class="flex flex-col space-y-4">
         {% csrf_token %}
 
-
+        <!-- Carrosserie -->
         <div>
-            <label for="id_carrosserie">{% trans "Carrosserie" %}</label>
-            <input type="text" id="id_carrosserie" name="carrosserie"
-                   value="{{ request.POST.carrosserie|default:carrosserie.nom_societe|default:'' }}"
+            <label for="id_nom_societe">{% trans "Nom de la carrosserie" %}</label>
+            <input type="text" id="id_nom_societe" name="nom_societe"
+                   value="{{ request.POST.nom_societe|default:'' }}"
                    class="border rounded px-4 py-2 w-full"
-                    placeholder="Nom de la carrosserie">
+                   placeholder="Nom de la carrosserie">
         </div>
 
-
         <div>
-            <label for="id_numero_tva">{% trans "Numero de tva" %}</label>
+            <label for="id_numero_tva">{% trans "Numero de TVA" %}</label>
             <input type="text" id="id_numero_tva" name="numero_tva"
+                   value="{{ request.POST.numero_tva|default:'' }}"
                    class="border rounded px-4 py-2 w-full">
         </div>
 
         <div>
             <label for="id_peppol_id">{% trans "Numéro Peppol" %}</label>
             <input type="text" id="id_peppol_id" name="peppol_id"
-                   value="{{ request.POST.peppol_id|default:carrosserie.peppol_id|default:'' }}"
+                   value="{{ request.POST.peppol_id|default:'' }}"
                    class="border rounded px-4 py-2 w-full"
-                    placeholder="0208:0630675588">
+                   placeholder="0208:0630675588">
         </div>
 
         <div>
             <label for="id_email">{% trans "Email" %}</label>
             <input type="email" id="id_email" name="email"
-                   value="{{ request.POST.email|default:carrosserie.email|default:'' }}"
+                   value="{{ request.POST.email|default:'' }}"
                    class="border rounded px-4 py-2 w-full">
         </div>
 
         <div>
             <label for="id_telephone">{% trans "Téléphone" %}</label>
             <input type="text" id="id_telephone" name="telephone"
+                   value="{{ request.POST.telephone|default:'' }}"
                    class="border rounded px-4 py-2 w-full">
         </div>
 
         <div>
             <label for="id_responsable_nom">{% trans "Nom du responsable" %}</label>
             <input type="text" id="id_responsable_nom" name="responsable_nom"
+                   value="{{ request.POST.responsable_nom|default:'' }}"
                    class="border rounded px-4 py-2 w-full">
         </div>
 
         <div>
             <label for="id_responsable_prenom">{% trans "Prénom du responsable" %}</label>
             <input type="text" id="id_responsable_prenom" name="responsable_prenom"
+                   value="{{ request.POST.responsable_prenom|default:'' }}"
                    class="border rounded px-4 py-2 w-full">
         </div>
 
         <!-- Adresse -->
         <h2 class="text-lg font-semibold mt-6 mb-2">{% trans "Adresse" %}</h2>
-
         <div>
             <label for="id_rue">{% trans "Rue" %}</label>
             <input type="text" id="id_rue" name="rue"
+                   value="{{ request.POST.rue|default:'' }}"
                    class="border rounded px-4 py-2 w-full">
         </div>
-
         <div>
             <label for="id_numero">{% trans "Numéro" %}</label>
             <input type="text" id="id_numero" name="numero"
+                   value="{{ request.POST.numero|default:'' }}"
                    class="border rounded px-4 py-2 w-full">
         </div>
-
         <div>
             <label for="id_code_postal">{% trans "Code postal" %}</label>
             <input type="text" id="id_code_postal" name="code_postal"
+                   value="{{ request.POST.code_postal|default:'' }}"
                    class="border rounded px-4 py-2 w-full">
         </div>
-
         <div>
             <label for="id_ville">{% trans "Ville" %}</label>
             <input type="text" id="id_ville" name="ville"
+                   value="{{ request.POST.ville|default:'' }}"
                    class="border rounded px-4 py-2 w-full">
         </div>
-
         <div>
             <label for="id_pays">{% trans "Pays" %}</label>
             <input type="text" id="id_pays" name="pays"
+                   value="{{ request.POST.pays|default:'' }}"
                    class="border rounded px-4 py-2 w-full">
         </div>
-
         <div>
             <label for="id_code_pays">{% trans "Code pays" %}</label>
             <input type="text" id="id_code_pays" name="code_pays"
+                   value="{{ request.POST.code_pays|default:'' }}"
                    class="border rounded px-4 py-2 w-full">
         </div>
 
@@ -122,55 +125,4 @@
         </button>
     </form>
 </div>
-
-
-
-<script>
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie) {
-        document.cookie.split(';').forEach(c => {
-            c = c.trim();
-            if (c.startsWith(name + '=')) {
-                cookieValue = decodeURIComponent(c.slice(name.length + 1));
-            }
-        });
-    }
-    return cookieValue;
-}
-
-const csrftoken = getCookie('csrftoken');
-
-document.getElementById('id_nom_societe').addEventListener('change', function(){
-    const carrosserie = this.value;
-
-    fetch('/api/check_nom_societe', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': csrftoken,
-        },
-        body: JSON.stringify({ carrosserie: carrosserie })
-    })
-    .then(r => r.json())
-    .then(data => {
-        if (data.exist) {
-            document.getElementById('id_nom_societe').value = data.nom;
-            document.getElementById('id_numero_tva').value = data.numero_tva;
-            document.getElementById('id_peppol_id').value = data.peppol_id;
-            document.getElementById('id_pays').value = data.pays;
-
-
-        } else {
-            document.getElementById('id_nom_societe').value = '';
-            document.getElementById('id_numero_tva').value = '';
-            document.getElementById('id_peppol_id').value = '';
-            document.getElementById('id_pays').value = '';
-
-
-        }
-    })
-    .catch(err => console.error("Erreur:", err));
-});
-</script>
 {% endblock %}

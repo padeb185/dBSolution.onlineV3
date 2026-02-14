@@ -15,8 +15,9 @@ class Carrosserie(models.Model):
         on_delete=models.CASCADE,
         null=True,
         blank=True,
+        related_name="carrosserie",
     )
-    pays = models.CharField(_("Pays"), max_length=50, blank=True, null=True)
+
     telephone = models.CharField(_("Téléphone"), max_length=20, blank=True, null=True)
     email = models.EmailField(_("Email"), blank=True, null=True)
     numero_tva = models.CharField(_("Numéro de TVA"), max_length=50, blank=True, null=True)

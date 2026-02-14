@@ -7,7 +7,7 @@ class CarrosserieForm(forms.ModelForm):
         model = Carrosserie
         fields = [
             'nom_societe', 'responsable_nom', 'responsable_prenom',
-            'adresse', 'pays', 'telephone', 'email', 'numero_tva', 'numero_iban',
+         'telephone', 'email', 'numero_tva', 'numero_iban',
         ]
 
 
