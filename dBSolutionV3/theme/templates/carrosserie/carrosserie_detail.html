@@ -7,13 +7,14 @@
     <!-- Header -->
     <div class="flex justify-between items-center mb-6">
        <h1 class="text-2xl font-bold flex items-center gap-4">
-            <span>{% trans "Détails de la carrosserie :" %}</span>
-            {% with image_name=carrosserie.nom_societe|slugify %}
-                <img src="{% static 'carrosserie/'|add:image_name|add:'.png' %}"
-                     alt="{{ carrosserie.nom }}"
-                     class="w-12 h-12"
-                     onerror="this.src='{% static 'carrosserie/carrosserie.png' %}';">
+           {% with image_name=carrosserie.nom_societe|slugify %}
+            <img src="{% static 'carrosseries/'|add:image_name|add:'.png' %}"
+                 alt="{{ carrosserie.nom_societe }}"
+                 class="w-12 h-12"
+                 onerror="this.onerror=null;this.src='{% static 'icons/carrosserie.png' %}';">
             {% endwith %}
+            <span>{% trans "Détails de la carrosserie :" %}</span>
+
            <span class="text-black-700">{{ carrosserie.nom_societe }}</span>
         </h1>
 
@@ -33,19 +34,24 @@
             </h2>
 
             <p>
+                <strong>{% trans "Nom" %} :</strong>
+                {{ carrosserie.nom_societe }}
+            </p>
+            <p>
+                <strong>{% trans "Téléphone" %} :</strong>
+                {{ carrosserie.telephone }}
+            </p>
+            <p>
+                <strong>{% trans "Email" %} :</strong>
+                {{ carrosserie.email }}
+            </p>
+
+            <p>
                 <strong>{% trans "Numéro de TVA" %} :</strong>
                 {{ carrosserie.numero_tva }}
             </p>
 
-            <p>
-                <strong>{% trans "Taux de TVA" %} :</strong>
-                {{ carrosserie.taux_tva }} %
-            </p>
 
-            <p>
-                <strong>{% trans "Pays" %} :</strong>
-                {{ carrosserie.country_code }}
-            </p>
 
 
 
@@ -67,7 +73,7 @@
             </h2>
 
             <p>
-                <strong>{% trans "Identifiant Peppol" %} :</strong><br>
+                <strong>{% trans "Identifiant Peppol" %} :</strong>
                 {{ carrosserie.peppol_id }}
             </p>
 
@@ -98,6 +104,10 @@
         <p>
             <strong>{% trans "Créé le" %} :</strong>
             {{ carrosserie.created_at|date:"d/m/Y H:i" }}
+        </p>
+        <p>
+            <strong>{% trans "Mis à jour le" %} :</strong>
+            {{ carrosserie.updated_at|date:"d/m/Y H:i" }}
         </p>
     </div>
 

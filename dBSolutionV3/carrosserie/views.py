@@ -46,7 +46,52 @@ def carrosserie_detail(request, carrosserie_id):
         },
     )
 
+@login_required
+def modifier_assurance(request, assurance_id):
+    tenant = request.user.societe
 
+    with tenant_context(tenant):
+        # Récupérer l'assureur et son adresse liée
+        assurance = get_object_or_404(
+            Assurance.objects.select_related("adresse"),
+            id=assurance_id
+        )
+        adresse = assurance.adresse
+
+        if request.method == "POST":
+            # Formulaires pour Assurance et Adresse
+            form_assurance = AssuranceForm(request.POST, instance=assurance)
+            form_adresse = AdresseForm(request.POST, instance=adresse)
+
+            if form_assurance.is_valid() and form_adresse.is_valid():
+                # Sauvegarde adresse puis mise à jour de l'assurance
+                adresse = form_adresse.save()
+                assurance = form_assurance.save(commit=False)
+                assurance.adresse = adresse
+                assurance.save()
+
+                messages.success(request, "Assurance et adresse mises à jour avec succès.")
+                return redirect(
+                    "assurance:modifier_assurance",
+                    assurance_id=assurance.id
+                )
+            else:
+                messages.error(request, "Le formulaire contient des erreurs.")
+        else:
+            # Pré-remplissage des formulaires
+            form_assurance = AssuranceForm(instance=assurance)
+            form_adresse = AdresseForm(instance=adresse)
+
+    return render(
+        request,
+        "assurance/modifier_assurance.html",
+        {
+            "form": form_assurance,
+            "form_adresse": form_adresse,
+            "assurance": assurance,
+            "adresse": adresse,
+        }
+    )
 
 @login_required
 def ajouter_carrosserie_all(request):

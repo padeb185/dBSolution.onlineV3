@@ -7,13 +7,14 @@
 
     <div class="flex justify-between items-center mb-6">
        <h1 class="text-2xl font-bold flex items-center gap-4">
-            <span>{% trans "Modifier le carrosserie :" %}</span>
            {% with image_name=carrosserie.nom_societe|slugify %}
                 <img src="{% static 'carrosserie/'|add:image_name|add:'.png' %}"
                      alt="{{ carrosserie.nom_societe }}"
                      class="w-12 h-12"
-                     onerror="this.src='{% static 'carrosseries.carrosserie.png' %}';">
+                     onerror="this.src='{% static 'icons/carrosserie.png' %}';">
             {% endwith %}
+            <span>{% trans "Modifier le carrosserie :" %}</span>
+
            <span class="text-black-700">{{ carrosserie.nom_societe }}</span>
         </h1>
     </div>
@@ -42,6 +43,16 @@
             </div>
         {% endfor %}
 
+         <h2 class="text-lg font-semibold mt-6 mb-2">{% trans "Adresse" %}</h2>
+        {% for field in form_adresse %}
+            <div class="mb-4">
+                <label class="block font-semibold mb-1">{{ field.label }}</label>
+                {{ field|add_class:"input" }}
+                {% if field.errors %}
+                    <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
 
           <div class="flex gap-3 mt-6">
                 <button type="submit"

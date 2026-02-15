@@ -60,5 +60,5 @@ class Adresse(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.rue} {self.numero}, {self.code_postal} {self.ville}"
+        return f"{self.rue} {self.numero}, {self.code_postal} {self.ville} {self.pays} {self.code_pays}"
 

@@ -27,6 +27,7 @@ class Carrosserie(models.Model):
         help_text=_("Identifiant Peppol, ex : 0208:BE0123456789"),
         null=True,
         blank=True,
+
     )
 
     numero_iban = models.CharField(max_length=36, blank=True, null=True)
