@@ -130,7 +130,18 @@ class AssurancePolice(models.Model):
             return False
         return timezone.now().date() <= self.date_fin <= timezone.now().date() + timezone.timedelta(days=30)
 
+    @staticmethod
+    def cout_total_annuel():
+        polices = AssurancePolice.objects.filter(actif=True)
 
+        total = 0
+        for p in polices:
+            if p.prime_annuelle:
+                total += p.prime_annuelle
+            elif p.prime_mensuelle:
+                total += p.prime_mensuelle * 12
+
+        return total
 
 
 

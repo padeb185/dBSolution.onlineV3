@@ -25,4 +25,5 @@ def dashboard_assurances(request):
         'cout_total': cout_total,
     }
 
-    return render(request, 'assurances/dashboard.html', context)
+    return render(request, 'assurance_police/dashboard.html', context)
+
