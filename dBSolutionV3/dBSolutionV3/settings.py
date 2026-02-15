@@ -192,6 +192,7 @@ TENANT_APPS = (
     'utilisateurs.vendeur',
 
     'assurance',
+    'assurance_police',
     'recharge',
 
     'tenant',
