@@ -13,7 +13,7 @@ class VoitureExemplaireForm(forms.ModelForm):
     class Meta:
         model = VoitureExemplaire
         fields = (
-            "societe",
+
             "voiture_marque",
             "voiture_modele",
             "immatriculation",
