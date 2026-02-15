@@ -231,6 +231,13 @@ SECURE_SSL_REDIRECT = False  # True seulement si tu passes par Nginx
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 
+#pour les uploads pdf
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+
+
 
 
 # ------------------------------------------------------------------------------

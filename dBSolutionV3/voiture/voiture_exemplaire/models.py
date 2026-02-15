@@ -1,6 +1,7 @@
 import uuid
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator, RegexValidator
+from django.db.models import Sum
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from client_particulier.models import ClientParticulier
@@ -214,3 +215,22 @@ class VoitureExemplaire(models.Model):
 
     def __str__(self):
         return f"{self.immatriculation} ({self.voiture_marque} {self.voiture_modele})"
+
+
+
+
+
+
+
+@property
+def cout_assurance_annuel(self):
+    polices = self.polices_assurance.filter(actif=True)
+
+    total = 0
+    for p in polices:
+        if p.prime_annuelle:
+            total += p.prime_annuelle
+        elif p.prime_mensuelle:
+            total += p.prime_mensuelle * 12
+    return total
+

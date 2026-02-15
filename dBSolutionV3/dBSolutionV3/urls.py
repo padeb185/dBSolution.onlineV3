@@ -4,6 +4,11 @@ from django.conf.urls.i18n import i18n_patterns
 from django.shortcuts import render
 from .views import home_view
 from voiture.voiture_exemplaire.views import voiture_exemplaire_detail
+from django.conf import settings
+from django.conf.urls.static import static
+
+
+
 
 # Handler 404 personnalisé
 def custom_404(request, exception):
@@ -80,8 +85,12 @@ urlpatterns += i18n_patterns(
 
     path("assurance/", include("assurance.urls", namespace="assurance")),
 
+    path("assurance_police/", include("assurance_police.urls", namespace="assurance_police")),
+
 
 
 
 
 )
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
