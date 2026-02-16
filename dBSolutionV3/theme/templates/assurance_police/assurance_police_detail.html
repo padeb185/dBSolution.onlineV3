@@ -8,17 +8,17 @@
     <div class="flex justify-between items-center mb-6">
        <h1 class="text-2xl font-bold flex items-center gap-4">
             {% with image_name=assurance_police.nom_societe|slugify %}
-                <img src="{% static 'assurance/'|add:image_name|add:'.png' %}"
+                <img src="{% static 'assurance_police/'|add:image_name|add:'.png' %}"
                      alt="{{ assurance_police.nom_compagnie }}"
                      class="w-12 h-12"
                      onerror="this.src='{% static 'icons/assurance-voiture.png' %}';">
             {% endwith %}
-            <span>{% trans "Détails de la compagnie d'assurance :" %}</span>
+            <span>{% trans "Détails de la police d'assurance :" %}</span>
 
-           <span class="text-black-700">{{ assurance_police.nom_compagnie }}</span>
+           <span class="text-black-700">{{ assurance_police.assurance.nom_compagnie }}</span>
         </h1>
 
-        <a href="{% url 'assurance:assurance_list' %}"
+        <a href="{% url 'assurance_police:assurance_police_list' %}"
            class="text-blue-600 hover:underline">
             {% trans "Retour à la liste des assurances" %}
         </a>
@@ -35,19 +35,19 @@
 
             <p>
                 <strong>{% trans "Compagnie" %} :</strong>
-                {{ assurance_police.nom_compagnie }}
+                {{ assurance_police.assurance.nom_compagnie }}
             </p>
             <p>
-                <strong>{% trans "Email" %} :</strong>
-                {{ assurance.email }}
+                <strong>{% trans "Immatriculation" %} :</strong>
+                {{ assurance_police.voiture_exemplaire.immatriculation }}
             </p>
             <p>
-                <strong>{% trans "Téléphone" %} :</strong>
-                {{ assurance.telephone }}
+                <strong>{% trans "Numéro de Police" %} :</strong>
+                {{ assurance_police.numero_contrat }}
             </p>
             <p>
-                <strong>{% trans "Pays" %} :</strong>
-                {{ assurance.adresse.pays }}
+                <strong>{% trans "Prime annuelle" %} :</strong>
+                {{ assurance_police.prime_annuelle }}
             </p>
 
 

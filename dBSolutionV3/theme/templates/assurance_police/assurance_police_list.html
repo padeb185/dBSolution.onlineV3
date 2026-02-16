@@ -13,11 +13,11 @@
 <div class="bg-white shadow-md rounded-lg p-4 mb-4">
     <div class="flex flex-wrap items-end gap-3">
 
-        <input id="search-assurance_police.nom_compagnie" type="text"
+        <input id="search-assurance_police.assurance.nom_compagnie" type="text"
                class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Nom de la compagnie' %}">
 
-        <input id="search-assurance_police.immatriculation" type="text"
+        <input id="search-assurance_police.voiture_exemplaire.immatriculation" type="text"
                class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Immatriculation' %}">
 
@@ -62,13 +62,52 @@
     <tbody>
         {% for assurance_police in assurance_polices %}
         <tr>
-            <td class="border px-4 py-2">{{ assurance_police.nom_compagnie }}</td>
-            <td class="border px-4 py-2">{{ assurance_police.immatriculation }}</td>
+            <td class="border px-4 py-2">{{ assurance_police.assurance.nom_compagnie }}</td>
+
+            <!-- Plaque stylisée -->
+            <td class="p-3">
+                {% with exemplaire=assurance_police.voiture_exemplaire %}
+                    {% if exemplaire.pays == 'Belgique' %}
+                    <div class="flex items-center w-[180px] h-[40px] bg-white border-2 border-[#8B0000] rounded font-[Arial]">
+                        <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                            <span>🇪🇺</span>
+                            <span>B</span>
+                        </div>
+                        <div class="w-full text-center font-bold text-[#8B0000] text-[18px]">
+                            {{ exemplaire.immatriculation|upper }}
+                        </div>
+                    </div>
+
+                    {% elif exemplaire.pays == 'Luxembourg' %}
+                    <div class="flex items-center w-[180px] h-[40px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial]">
+                        <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                            <span>🇪🇺</span>
+                            <span>L</span>
+                        </div>
+                        <div class="w-full text-center font-bold text-black text-[18px]">
+                            {{ exemplaire.immatriculation|upper }}
+                        </div>
+                    </div>
+
+                    {% elif exemplaire.pays == 'Allemagne' %}
+                    <div class="flex items-center w-[180px] h-[40px] bg-white border-2 border-black rounded font-[Arial]">
+                        <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                            <span>🇪🇺</span>
+                            <span>D</span>
+                        </div>
+                        <div class="w-full text-center font-bold text-black text-[18px]">
+                            {{ exemplaire.immatriculation|upper }}
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endwith %}
+            </td>
+
             <td class="border px-4 py-2">{{ assurance_police.numero_contrat }}</td>
             <td class="border px-4 py-2">{{ assurance_police.prime_annuelle }}</td>
             <td class="border px-4 py-2">{{ assurance_police.franchise }}</td>
             <td class="border px-4 py-2 text-center">
-                <a href="{% url 'assurance_police:assurance_police_detail' assurance_police.id %}"
+                <a href="{% url 'assurance_police:assurance_police_detail' assurance_police_id=assurance_police.id %}"
                    class="text-blue-600 hover:text-blue-800 font-semibold">
                     {% trans "Info" %}
                 </a>
@@ -76,6 +115,7 @@
         </tr>
         {% endfor %}
     </tbody>
+
 </table>
 
 <!-- DataTables JS -->
