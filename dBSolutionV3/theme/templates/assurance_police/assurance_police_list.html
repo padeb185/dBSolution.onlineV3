@@ -13,11 +13,11 @@
 <div class="bg-white shadow-md rounded-lg p-4 mb-4">
     <div class="flex flex-wrap items-end gap-3">
 
-        <input id="search-assurance.nom_compagnie" type="text"
+        <input id="search-assurance_police.nom_compagnie" type="text"
                class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Nom de la compagnie' %}">
 
-        <input id="search-voiture_exemplaire.immatriculation" type="text"
+        <input id="search-assurance_police.immatriculation" type="text"
                class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Immatriculation' %}">
 
@@ -25,7 +25,7 @@
                class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Numéro de Police' %}">
 
-        <input id="search-prime_annuelle" type="text"
+        <input id="search-prime_annuelle" type="number"
                class="border rounded px-3 py-2 flex-1 min-w-[120px] focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Prime Annuelle' %}">
 
@@ -40,7 +40,7 @@
         </a>
 
         <a href="{% url 'assurance_police:dashboard' %}"
-           class="bg-gray-600 text-white px-6 py-2 rounded hover:bg-gray-700 transition whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-gray-500">
+           class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-blue-500">
             {% trans "Dashboard" %}
         </a>
 
@@ -63,7 +63,7 @@
         {% for assurance_police in assurance_polices %}
         <tr>
             <td class="border px-4 py-2">{{ assurance_police.nom_compagnie }}</td>
-            <td class="border px-4 py-2">{{ assurance_police.voiture_exemplaire.immatriculation }}</td>
+            <td class="border px-4 py-2">{{ assurance_police.immatriculation }}</td>
             <td class="border px-4 py-2">{{ assurance_police.numero_contrat }}</td>
             <td class="border px-4 py-2">{{ assurance_police.prime_annuelle }}</td>
             <td class="border px-4 py-2">{{ assurance_police.franchise }}</td>

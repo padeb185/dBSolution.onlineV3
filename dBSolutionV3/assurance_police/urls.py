@@ -13,6 +13,16 @@ urlpatterns = [
     path('', AssurancePoliceListView.as_view(), name='assurance_police_list'),
     path('formulaire/', ajouter_assurance_all, name='assurance_police_form'),
     path('dashboard/', dashboard_assurances, name='dashboard'),
-    path('<uuid:assurance_id>/modifier/', modifier_assurance_police, name='modifier_assurance_police'),
-    path('detail/<uuid:assurance_police_id>/', assurance_police_detail, name='assurance_police_detail'),
+    path(
+        '<uuid:assurance_police_id>/modifier/',
+        modifier_assurance_police,
+        name='modifier_assurance_police'
+    ),
+
+    path(
+        'detail/<uuid:assurance_police_id>/',
+        assurance_police_detail,
+        name='assurance_police_detail'
+    )
+
 ]

@@ -98,40 +98,32 @@ def modifier_assurance_police(request, assurance_police_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
-        # Récupérer l'assureur et son adresse liée
         assurance_police = get_object_or_404(
-            AssurancePolice.objects.select_related("adresse"),
-            id=assurance_police_id
+            AssurancePolice,
+            pk=assurance_police_id
         )
 
-
         if request.method == "POST":
-            # Formulaires pour Assurance et Adresse
-            form_assurance_police = AssurancePoliceForm(request.POST, instance=assurance_police)
+            form = AssurancePoliceForm(
+                request.POST,
+                request.FILES,
+                instance=assurance_police
+            )
 
+            if form.is_valid():
+                assurance_police = form.save()
+                messages.success(request, "Police d'assurance mise à jour avec succès.")
 
-            if form_assurance_police.is_valid():
-                assurance_police = form_assurance_police.save(commit=False)
-                assurance_police.save()
-
-                messages.success(request, "Assurance et adresse mises à jour avec succès.")
-                return redirect(
-                    "assurance:modifier_assurance",
-                    assurance_id=assurance_police.id
-                )
             else:
                 messages.error(request, "Le formulaire contient des erreurs.")
         else:
-            # Pré-remplissage des formulaires
-            form_assurance_police = AssurancePoliceForm(instance=assurance_police)
-
+            form = AssurancePoliceForm(instance=assurance_police)
 
     return render(
         request,
-        "assurance/modifier_assurance_police.html",
+        "assurance_police/modifier_assurance_police.html",
         {
-            "form": form_assurance_police,
-            "assurance": assurance_police,
-
+            "form": form,
+            "assurance_police": assurance_police,
         }
     )
