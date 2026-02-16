@@ -1,6 +1,10 @@
+from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from datetime import timedelta
 from django.shortcuts import render
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import never_cache
+from django.views.generic import ListView
 from .models import AssurancePolice, Sinistre
 
 
@@ -27,3 +31,10 @@ def dashboard_assurances(request):
 
     return render(request, 'assurance_police/dashboard.html', context)
 
+
+
+@method_decorator([login_required, never_cache], name='dispatch')
+class AssurancePoliceListView(ListView):
+    model = AssurancePolice
+    template_name = "assurance_police/assurance_police_list.html"
+    context_object_name = "assurance_polices"

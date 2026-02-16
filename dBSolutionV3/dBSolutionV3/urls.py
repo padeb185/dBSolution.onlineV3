@@ -88,9 +88,6 @@ urlpatterns += i18n_patterns(
     path("assurance_police/", include("assurance_police.urls", namespace="assurance_police")),
 
 
-
-
-
 )
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
