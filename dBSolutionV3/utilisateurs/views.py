@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from io import BytesIO
 import base64
 import qrcode
+from django.views.decorators.cache import never_cache
 from django_tenants.utils import schema_context
 from .forms import LoginForm
 from .models import Utilisateur
@@ -27,6 +28,10 @@ from intervention.models import Intervention
 from societe_cliente.models import SocieteCliente
 from fuel.models import Fuel
 from assurance.models import Assurance
+from assurance_police.models import AssurancePolice
+
+
+
 
 
 def login_view(request):
@@ -77,7 +82,7 @@ def logout_view(request):
     return redirect("utilisateurs:login")
 
 
-
+@never_cache
 @login_required
 def dashboard_view(request):
     user = request.user
@@ -97,7 +102,8 @@ def dashboard_view(request):
 
     marques = moteurs = exemplaires = boites = embrayages = freins = \
         freins_ar = pneus = maintenance = fournisseurs = client_particulier =\
-        carrosseries = interventions = societe_cliente = adresse = assurance = []
+        carrosseries = interventions = societe_cliente = adresse = assurance = \
+        assurance_police = []
 
     if schema_name:
         with schema_context(schema_name):
@@ -118,6 +124,7 @@ def dashboard_view(request):
             adresse = Adresse.objects.all()
             carburant = Fuel.objects.all()
             assurance = Assurance.objects.all()
+            assurance_police = AssurancePolice.objects.all()
 
             # Totaux
             total_marques = marques.count()
@@ -137,6 +144,7 @@ def dashboard_view(request):
             total_adresse = adresse.count()
             total_carburant = carburant.count()
             total_assurance = assurance.count()
+            total_assurance_police = assurance_police.count()
 
             # Récupère les modèles existants pour les liens maintenance
             modeles = VoitureModele.objects.all()
@@ -161,6 +169,7 @@ def dashboard_view(request):
         'total_adresse': total_adresse,
         'total_carburant': total_carburant,
         'total_assurance': total_assurance,
+        'total_assurance_police': total_assurance_police,
 
         'marques': marques,
         'moteurs': moteurs,
@@ -180,6 +189,7 @@ def dashboard_view(request):
         'adresse': adresse,
         'carburant': carburant,
         'assurance': assurance,
+        'assurance_police': assurance_police,
     })
 
     # --- Tâches et rôles ---

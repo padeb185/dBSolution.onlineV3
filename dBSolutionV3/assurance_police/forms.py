@@ -21,6 +21,7 @@ class AssurancePoliceCreateView(CreateView):
 class AssurancePoliceForm(forms.ModelForm):
     class Meta:
         model = AssurancePolice
+        fields = '__all__'
         exclude = ('courtier', 'is_active')
 
         widgets = {
@@ -95,5 +96,27 @@ class AssurancePoliceForm(forms.ModelForm):
             }),
         }
 
+    def clean(self):
+        cleaned_data = super().clean()
+        prime_annuelle = cleaned_data.get('prime_annuelle')
+        prime_mensuelle = cleaned_data.get('prime_mensuelle')
+
+        # Si prime_annuelle est renseignée mais pas prime_mensuelle
+        if prime_annuelle and not prime_mensuelle:
+            cleaned_data['prime_mensuelle'] = round(prime_annuelle / 12, 2)
+
+        # Si prime_mensuelle est renseignée mais pas prime_annuelle
+        if prime_mensuelle and not prime_annuelle:
+            cleaned_data['prime_annuelle'] = round(prime_mensuelle * 12, 2)
+
+        # Si les deux sont renseignées, on peut vérifier la cohérence
+        if prime_annuelle and prime_mensuelle:
+            expected_annuelle = round(prime_mensuelle * 12, 2)
+            if abs(expected_annuelle - prime_annuelle) > 0.01:
+                raise forms.ValidationError(
+                    "La prime annuelle et mensuelle ne sont pas cohérentes (mensuelle × 12 ≠ annuelle)."
+                )
+
+        return cleaned_data
 
 

@@ -14,7 +14,7 @@
                      onerror="this.onerror=null; this.src='{% static 'icons/assurance-voiture.png' %}';">
             {% endwith %}
             <span>{% trans "Modifier la police d'assurance:" %}</span>
-            <span class="text-black-700">{{ assurance_police.nom_compagnie }}</span>
+            <span class="text-black-700">{{ assurance_police.assurance.nom_compagnie }}</span>
         </h1>
     </div>
 
