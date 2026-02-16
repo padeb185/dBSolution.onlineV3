@@ -250,8 +250,8 @@ def totp_setup_view(request):
 
             messages.success(
                 request,
-                "TOTP configuré avec succès. Vous pouvez maintenant vous connecter."
-            )
+                _("TOTP configuré avec succès. Vous pouvez maintenant vous connecter."
+            ))
 
             # 🔁 REDIRECTION VERS LOGIN
             return redirect("utilisateurs:login")
@@ -300,7 +300,7 @@ def creer_utilisateur(request):
                 adresse=adresse,   # <-- objet directement
             )
 
-            messages.success(request, "Utilisateur créé avec succès.")
+            messages.success(request, _("Utilisateur créé avec succès."))
             return redirect("liste_utilisateurs")
 
         except Exception as e:
