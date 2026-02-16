@@ -59,17 +59,14 @@ class Fuel(models.Model):
 
     date = models.DateField(default=timezone.now, verbose_name=_("Date du plein"))
     litres = models.DecimalField(max_digits = 10 , decimal_places = 2, verbose_name=_("Litres"))
-    prix_litre = models.DecimalField(max_digits=6, decimal_places=3, verbose_name=_("Prix au litre (€)"))
-
-    @property
-    def prix_litre(self):
-        if self.litres:  # éviter division par zéro
-            return self.prix_refuelling / self.litres
-        return 0
 
     prix_refuelling = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_("Prix du plein (€)"))
 
+    prix_litre = models.DecimalField(max_digits=6, decimal_places=3, verbose_name="Prix au litre (€)")
+
     validation = models.BooleanField(default=True, verbose_name=_("Validation"))
+
+
 
     class Meta:
         verbose_name = _("Carburant")
@@ -81,11 +78,8 @@ class Fuel(models.Model):
 
 
 
-    def save(self, *args, **kwargs):
-        # Calcul automatique du prix au litre si non renseigné
-        if not self.prix_litre is None and self.litres:
-            self.prix_litre = Decimal(self.prix_refuelling) / Decimal(self.litres)
-        super().save(*args, **kwargs)
+
+
 
     @classmethod
     def total_litres_mois(cls, vehicule, year=None, month=None):
@@ -94,6 +88,8 @@ class Fuel(models.Model):
             qs = qs.filter(date__year=year, date__month=month)
         return qs.aggregate(total=Sum('litres'))['total'] or 0
 
+
+
     @classmethod
     def total_litres_an(cls, vehicule, year=None):
         qs = cls.objects.filter(vehicule=vehicule)
@@ -101,9 +97,14 @@ class Fuel(models.Model):
             qs = qs.filter(date__year=year)
         return qs.aggregate(total=Sum('litres'))['total'] or 0
 
+
+
+
     @classmethod
     def total_litres_all(cls, vehicule):
         return cls.objects.filter(vehicule=vehicule).aggregate(total=Sum('litres'))['total'] or 0
+
+
 
     @classmethod
     def total_prix_mois(cls, vehicule, year=None, month=None):
@@ -111,6 +112,9 @@ class Fuel(models.Model):
         if year and month:
             qs = qs.filter(date__year=year, date__month=month)
         return qs.aggregate(total=Sum('prix_refuelling'))['total'] or 0
+
+
+
 
     @classmethod
     def total_prix_an(cls, vehicule, year=None):
