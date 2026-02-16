@@ -40,7 +40,7 @@ def login_view(request):
         user = authenticate(request, email_google=email, password=password)
 
         if not user:
-            messages.error(request, "Email ou mot de passe incorrect")
+            messages.error(request, _("Email ou mot de passe incorrect"))
             return render(request, "login.html", {"form": form})
 
         # 🔐 TOTP non configuré → enrôlement
@@ -54,11 +54,11 @@ def login_view(request):
         # 🔐 TOTP activé → validation
         if user.totp_enabled:
             if not totp_code:
-                messages.error(request, "Code TOTP requis")
+                messages.error(request, _("Code TOTP requis"))
                 return render(request, "login.html", {"form": form})
 
             if not user.verify_totp(totp_code):
-                messages.error(request, "Code TOTP invalide")
+                messages.error(request, _("Code TOTP invalide"))
                 return render(request, "login.html", {"form": form})
 
         # ✅ Login final
