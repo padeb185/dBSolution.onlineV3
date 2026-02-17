@@ -76,7 +76,7 @@ class AssurancePoliceForm(forms.ModelForm):
 
             'frequence_paiement': forms.Select(attrs={
                 'class': 'border rounded px-4 py-2 w-full',
-                'placeholder': 'Frequence paiement',
+                'placeholder': 'Fréquence paiement',
             }),
 
             'mode_paiement': forms.Select(attrs={
