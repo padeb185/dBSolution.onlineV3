@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-12 20:16+0100\n"
+"POT-Creation-Date: 2026-02-17 13:21+0100\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -22,7 +22,8 @@ msgstr ""
 #: .\theme\templates\adresse\adresse_form.html:34
 #: .\theme\templates\adresse\adresse_list.html:18
 #: .\theme\templates\adresse\adresse_list.html:63
-#: .\theme\templates\carrosserie\carrosserie_form.html:85
+#: .\theme\templates\assurance\assurance_form.html:66
+#: .\theme\templates\carrosserie\carrosserie_form.html:87
 #: .\theme\templates\client_particulier\client_form.html:135
 #: .\theme\templates\fournisseurs\fournisseur_form.html:89
 #: .\theme\templates\societe_cliente\societe_cliente_form.html:85
@@ -32,7 +33,8 @@ msgstr ""
 #: .\adresse\forms.py:20 .\adresse\models.py:21
 #: .\theme\templates\adresse\adresse_detail.html:38
 #: .\theme\templates\adresse\adresse_form.html:40
-#: .\theme\templates\carrosserie\carrosserie_form.html:91
+#: .\theme\templates\assurance\assurance_form.html:70
+#: .\theme\templates\carrosserie\carrosserie_form.html:93
 #: .\theme\templates\client_particulier\client_form.html:141
 #: .\theme\templates\fournisseurs\fournisseur_form.html:96
 #: .\theme\templates\societe_cliente\societe_cliente_form.html:91
@@ -51,7 +53,8 @@ msgstr ""
 #: .\theme\templates\adresse\adresse_form.html:52
 #: .\theme\templates\adresse\adresse_list.html:31
 #: .\theme\templates\adresse\adresse_list.html:66
-#: .\theme\templates\carrosserie\carrosserie_form.html:97
+#: .\theme\templates\assurance\assurance_form.html:74
+#: .\theme\templates\carrosserie\carrosserie_form.html:99
 #: .\theme\templates\client_particulier\client_form.html:147
 #: .\theme\templates\fournisseurs\fournisseur_form.html:103
 #: .\theme\templates\societe_cliente\societe_cliente_form.html:97
@@ -63,21 +66,23 @@ msgstr ""
 #: .\theme\templates\adresse\adresse_form.html:58
 #: .\theme\templates\adresse\adresse_list.html:35
 #: .\theme\templates\adresse\adresse_list.html:67
-#: .\theme\templates\carrosserie\carrosserie_form.html:103
+#: .\theme\templates\assurance\assurance_form.html:78
+#: .\theme\templates\carrosserie\carrosserie_form.html:105
 #: .\theme\templates\client_particulier\client_form.html:153
 #: .\theme\templates\fournisseurs\fournisseur_form.html:110
 #: .\theme\templates\societe_cliente\societe_cliente_form.html:103
 msgid "Ville"
 msgstr ""
 
-#: .\adresse\forms.py:24 .\adresse\models.py:26 .\carrosserie\models.py:14
-#: .\piece\models.py:9 .\piece\models.py:71 .\societe_cliente\models.py:82
+#: .\adresse\forms.py:24 .\adresse\models.py:26 .\piece\models.py:9
+#: .\piece\models.py:71 .\societe_cliente\models.py:82
 #: .\theme\templates\adresse\adresse_detail.html:58
 #: .\theme\templates\adresse\adresse_form.html:64
 #: .\theme\templates\adresse\adresse_list.html:40
 #: .\theme\templates\adresse\adresse_list.html:68
-#: .\theme\templates\carrosserie\carrosserie_detail.html:46
-#: .\theme\templates\carrosserie\carrosserie_form.html:109
+#: .\theme\templates\assurance\assurance_detail.html:49
+#: .\theme\templates\assurance\assurance_form.html:82
+#: .\theme\templates\carrosserie\carrosserie_form.html:111
 #: .\theme\templates\carrosserie\carrosserie_list.html:26
 #: .\theme\templates\client_particulier\client_form.html:159
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:46
@@ -92,18 +97,21 @@ msgstr ""
 #: .\fournisseur\models.py:43 .\societe_cliente\models.py:89
 #: .\theme\templates\adresse\adresse_detail.html:63
 #: .\theme\templates\adresse\adresse_form.html:70
-#: .\theme\templates\carrosserie\carrosserie_form.html:115
+#: .\theme\templates\assurance\assurance_form.html:86
+#: .\theme\templates\carrosserie\carrosserie_form.html:117
 #: .\theme\templates\client_particulier\client_form.html:165
 #: .\theme\templates\fournisseurs\fournisseur_form.html:124
 #: .\theme\templates\societe_cliente\societe_cliente_form.html:115
 msgid "Code pays"
 msgstr ""
 
-#: .\adresse\models.py:29 .\client_particulier\models.py:128
-#: .\facture\models.py:34 .\fournisseur\models.py:79
-#: .\societe_cliente\models.py:124
+#: .\adresse\models.py:29 .\assurance\models.py:34 .\carrosserie\models.py:35
+#: .\client_particulier\models.py:128 .\facture\models.py:34
+#: .\fournisseur\models.py:79 .\societe_cliente\models.py:124
 #: .\theme\templates\adresse\adresse_detail.html:92
-#: .\theme\templates\carrosserie\carrosserie_detail.html:99
+#: .\theme\templates\assurance\assurance_detail.html:104
+#: .\theme\templates\assurance_police\assurance_police_detail.html:103
+#: .\theme\templates\carrosserie\carrosserie_detail.html:105
 #: .\theme\templates\client_particulier\client_detail.html:114
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:99
 #: .\theme\templates\intervention\intervention_detail.html:99
@@ -111,16 +119,25 @@ msgstr ""
 msgid "Créé le"
 msgstr ""
 
-#: .\adresse\models.py:30 .\facture\models.py:35
+#: .\adresse\models.py:30 .\assurance\models.py:35 .\carrosserie\models.py:36
+#: .\facture\models.py:35
+#: .\theme\templates\carrosserie\carrosserie_detail.html:109
 msgid "Mis à jour le"
 msgstr ""
 
-#: .\adresse\models.py:33 .\carrosserie\models.py:13
-#: .\client_particulier\models.py:18 .\facture\models.py:17
-#: .\fournisseur\models.py:19 .\theme\templates\adresse\adresse_form.html:11
-#: .\theme\templates\carrosserie\carrosserie_detail.html:80
-#: .\theme\templates\carrosserie\carrosserie_form.html:82
+#: .\adresse\models.py:33 .\client_particulier\models.py:18
+#: .\facture\models.py:17 .\fournisseur\models.py:19
+#: .\theme\templates\adresse\adresse_form.html:11
+#: .\theme\templates\assurance\assurance_detail.html:85
+#: .\theme\templates\assurance\assurance_form.html:64
+#: .\theme\templates\assurance\assurance_list.html:24
+#: .\theme\templates\assurance\assurance_list.html:55
+#: .\theme\templates\assurance\modifier_assurance.html:50
+#: .\theme\templates\assurance_police\assurance_police_detail.html:84
+#: .\theme\templates\carrosserie\carrosserie_detail.html:86
+#: .\theme\templates\carrosserie\carrosserie_form.html:85
 #: .\theme\templates\carrosserie\carrosserie_list.html:22
+#: .\theme\templates\carrosserie\modifier_carrosserie.html:46
 #: .\theme\templates\client_particulier\client_detail.html:95
 #: .\theme\templates\client_particulier\client_form.html:132
 #: .\theme\templates\client_particulier\client_list.html:27
@@ -152,6 +169,150 @@ msgstr ""
 msgid "Adresse '%(rue)s, %(cp)s' modifiée avec succès !"
 msgstr ""
 
+#: .\assurance\models.py:11 .\theme\templates\assurance\assurance_list.html:19
+#: .\theme\templates\assurance\assurance_list.html:54
+#: .\theme\templates\assurance_police\assurance_police_list.html:18
+#: .\theme\templates\assurance_police\assurance_police_list.html:54
+msgid "Nom de la compagnie"
+msgstr ""
+
+#: .\assurance\models.py:12
+msgid "Nom du courtier"
+msgstr ""
+
+#: .\assurance\models.py:13
+msgid "Prénom du courtier"
+msgstr ""
+
+#: .\assurance\models.py:15 .\carrosserie\models.py:21
+#: .\theme\templates\assurance\assurance_detail.html:45
+#: .\theme\templates\assurance\assurance_list.html:58
+#: .\theme\templates\carrosserie\carrosserie_detail.html:41
+#: .\theme\templates\carrosserie\carrosserie_form.html:64
+#: .\theme\templates\carrosserie\carrosserie_list.html:58
+#: .\theme\templates\fournisseurs\fournisseur_list.html:57
+#: .\theme\templates\utilisateurs\liste_utilisateurs.html:19
+msgid "Téléphone"
+msgstr "Phone"
+
+#: .\assurance\models.py:16 .\carrosserie\models.py:22
+#: .\client_particulier\models.py:59 .\fournisseur\models.py:52
+#: .\societe_cliente\models.py:45
+#: .\theme\templates\assurance\assurance_detail.html:41
+#: .\theme\templates\assurance\assurance_list.html:33
+#: .\theme\templates\assurance\assurance_list.html:57
+#: .\theme\templates\carrosserie\carrosserie_detail.html:45
+#: .\theme\templates\carrosserie\carrosserie_form.html:57
+#: .\theme\templates\carrosserie\carrosserie_list.html:57
+#: .\theme\templates\client_particulier\client_detail.html:33
+#: .\theme\templates\client_particulier\client_form.html:95
+#: .\theme\templates\client_particulier\client_list.html:63
+#: .\theme\templates\fournisseurs\fournisseur_form.html:65
+#: .\theme\templates\fournisseurs\fournisseur_list.html:56
+#: .\theme\templates\societe_cliente\societe_cliente_detail.html:49
+#: .\theme\templates\societe_cliente\societe_cliente_form.html:72
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:62
+msgid "Email"
+msgstr ""
+
+#: .\assurance\models.py:18 .\carrosserie\models.py:25 .\facture\models.py:23
+#: .\fournisseur\models.py:37
+#: .\theme\templates\assurance\assurance_detail.html:75
+#: .\theme\templates\assurance_police\assurance_police_detail.html:74
+#: .\theme\templates\carrosserie\carrosserie_detail.html:76
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:70
+#: .\theme\templates\intervention\intervention_detail.html:70
+msgid "Identifiant Peppol"
+msgstr ""
+
+#: .\assurance\models.py:20 .\carrosserie\models.py:27
+#: .\fournisseur\models.py:39
+msgid "Identifiant Peppol, ex : 0208:BE0123456789"
+msgstr ""
+
+#: .\assurance\models.py:38
+#: .\theme\templates\assurance\modifier_assurance.html:39
+#: .\theme\templates\assurance_police\modifier_assurance_police.html:39
+#: .\theme\templates\dashboard.html:318
+msgid "Assurance"
+msgstr ""
+
+#: .\assurance\models.py:39
+msgid "Assurances"
+msgstr ""
+
+#: .\assurance_police\models.py:11
+msgid "Mensuel"
+msgstr ""
+
+#: .\assurance_police\models.py:12
+msgid "Annuel"
+msgstr ""
+
+#: .\assurance_police\models.py:16
+msgid "Virement"
+msgstr ""
+
+#: .\assurance_police\models.py:17
+msgid "Domiciliation"
+msgstr ""
+
+#: .\assurance_police\models.py:18
+msgid "Cash"
+msgstr ""
+
+#: .\assurance_police\models.py:19
+msgid "Carte bancaire"
+msgstr ""
+
+#: .\assurance_police\models.py:23
+msgid "Responsabilité civile"
+msgstr ""
+
+#: .\assurance_police\models.py:24
+msgid "Mini-Omnium"
+msgstr ""
+
+#: .\assurance_police\models.py:25
+msgid "Omnium complète"
+msgstr ""
+
+#: .\assurance_police\models.py:26
+msgid "Omnium financière"
+msgstr ""
+
+#: .\assurance_police\models.py:74
+msgid "Type de couverture"
+msgstr ""
+
+#: .\assurance_police\models.py:83
+msgid "Fréquence de paiement"
+msgstr ""
+
+#: .\assurance_police\models.py:91
+msgid "Mode de paiement"
+msgstr ""
+
+#: .\assurance_police\models.py:115 .\theme\templates\dashboard.html:333
+msgid "Police d'assurance"
+msgstr ""
+
+#: .\assurance_police\models.py:116
+msgid "Polices d'assurance"
+msgstr ""
+
+#: .\assurance_police\models.py:177
+msgid "Responsable"
+msgstr ""
+
+#: .\assurance_police\models.py:184
+msgid "Sinistre"
+msgstr ""
+
+#: .\assurance_police\models.py:185
+msgid "Sinistres"
+msgstr ""
+
 #: .\carrosserie\models.py:10
 #: .\theme\templates\societe_cliente\societe_cliente_detail.html:33
 #: .\theme\templates\societe_cliente\societe_cliente_form.html:34
@@ -167,62 +328,23 @@ msgstr ""
 msgid "Responsable prenom"
 msgstr ""
 
-#: .\carrosserie\models.py:15
-#: .\theme\templates\carrosserie\carrosserie_form.html:64
-#: .\theme\templates\carrosserie\carrosserie_list.html:58
-#: .\theme\templates\fournisseurs\fournisseur_list.html:57
-#: .\theme\templates\utilisateurs\liste_utilisateurs.html:19
-msgid "Téléphone"
-msgstr ""
-
-#: .\carrosserie\models.py:16 .\client_particulier\models.py:59
-#: .\fournisseur\models.py:52 .\societe_cliente\models.py:45
-#: .\theme\templates\carrosserie\carrosserie_form.html:57
-#: .\theme\templates\carrosserie\carrosserie_list.html:57
-#: .\theme\templates\client_particulier\client_detail.html:33
-#: .\theme\templates\client_particulier\client_form.html:95
-#: .\theme\templates\client_particulier\client_list.html:63
-#: .\theme\templates\fournisseurs\fournisseur_form.html:65
-#: .\theme\templates\fournisseurs\fournisseur_list.html:56
-#: .\theme\templates\societe_cliente\societe_cliente_detail.html:49
-#: .\theme\templates\societe_cliente\societe_cliente_form.html:72
-#: .\theme\templates\societe_cliente\societe_cliente_list.html:62
-msgid ""
-msgstr ""
-
-#: .\carrosserie\models.py:17 .\fournisseur\models.py:24
-#: .\theme\templates\carrosserie\carrosserie_detail.html:36
+#: .\carrosserie\models.py:23 .\fournisseur\models.py:24
+#: .\theme\templates\carrosserie\carrosserie_detail.html:50
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:36
 #: .\theme\templates\fournisseurs\fournisseur_form.html:42
 #: .\theme\templates\societe_cliente\societe_cliente_detail.html:41
 msgid "Numéro de TVA"
 msgstr ""
 
-#: .\carrosserie\models.py:19 .\facture\models.py:23 .\fournisseur\models.py:37
-#: .\theme\templates\carrosserie\carrosserie_detail.html:70
-#: .\theme\templates\fournisseurs\fournisseur_detail.html:70
-#: .\theme\templates\intervention\intervention_detail.html:70
-msgid "Identifiant Peppol"
-msgstr ""
-
-#: .\carrosserie\models.py:21 .\fournisseur\models.py:39
-msgid "Identifiant Peppol, ex : 0208:BE0123456789"
-msgstr ""
-
-#: .\carrosserie\models.py:30 .\intervention\models.py:11
+#: .\carrosserie\models.py:39 .\intervention\models.py:11
 #: .\maintenance\check_up\models.py:472
 #: .\maintenance\nettoyage_exterieur\models.py:29
-#: .\theme\templates\carrosserie\carrosserie_form.html:34
 #: .\theme\templates\intervention\intervention_form.html:27
 msgid "Carrosserie"
 msgstr ""
 
-#: .\carrosserie\models.py:31 .\theme\templates\dashboard.html:248
+#: .\carrosserie\models.py:40 .\theme\templates\dashboard.html:248
 msgid "Carrosseries"
-msgstr ""
-
-#: .\carrosserie\views.py:61
-msgid "Le nom de la carrosserie est obligatoire."
 msgstr ""
 
 #: .\client_particulier\models.py:12
@@ -234,6 +356,7 @@ msgid "Prénom"
 msgstr ""
 
 #: .\client_particulier\models.py:14 .\piece\models.py:8
+#: .\theme\templates\carrosserie\carrosserie_detail.html:37
 #: .\theme\templates\client_particulier\client_form.html:43
 #: .\theme\templates\client_particulier\client_form.html:47
 #: .\theme\templates\client_particulier\client_list.html:60
@@ -321,7 +444,7 @@ msgid "Historique"
 msgstr ""
 
 #: .\client_particulier\models.py:119 .\societe_cliente\models.py:115
-#: .\voiture\voiture_exemplaire\models.py:15
+#: .\voiture\voiture_exemplaire\models.py:17
 msgid "Location"
 msgstr ""
 
@@ -329,7 +452,7 @@ msgstr ""
 #: .\panier\models.py:25
 #: .\theme\templates\client_particulier\client_form.html:11
 #: .\theme\templates\societe_cliente\societe_cliente_form.html:11
-#: .\voiture\voiture_exemplaire\models.py:13
+#: .\voiture\voiture_exemplaire\models.py:15
 msgid "Client"
 msgstr ""
 
@@ -406,7 +529,6 @@ msgid "Prix unitaire"
 msgstr ""
 
 #: .\facture\models.py:117
-#: .\theme\templates\carrosserie\carrosserie_detail.html:41
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:41
 #: .\theme\templates\fournisseurs\fournisseur_form.html:50
 msgid "Taux de TVA"
@@ -538,12 +660,15 @@ msgid "Type de carburant"
 msgstr ""
 
 #: .\fuel\models.py:56 .\maintenance\models.py:64 .\piece\models.py:68
-#: .\recharge\models.py:41 .\theme\templates\fuel\fuel_form.html:37
+#: .\recharge\models.py:41
+#: .\theme\templates\assurance_police\assurance_police_detail.html:41
+#: .\theme\templates\assurance_police\assurance_police_list.html:22
+#: .\theme\templates\assurance_police\assurance_police_list.html:55
+#: .\theme\templates\fuel\fuel_form.html:37
 #: .\theme\templates\fuel\fuel_list.html:56
 #: .\theme\templates\intervention\intervention_detail.html:41
 #: .\theme\templates\intervention\intervention_list.html:45
 #: .\theme\templates\maintenance\creer_maintenance.html:16
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:48
 msgid "Immatriculation"
 msgstr ""
 
@@ -556,20 +681,16 @@ msgstr ""
 msgid "Litres"
 msgstr ""
 
-#: .\fuel\models.py:62
-msgid "Prix au litre (€)"
-msgstr ""
-
-#: .\fuel\models.py:70 .\theme\templates\fuel\fuel_form.html:75
+#: .\fuel\models.py:63 .\theme\templates\fuel\fuel_form.html:75
 msgid "Prix du plein (€)"
 msgstr ""
 
-#: .\fuel\models.py:72 .\recharge\models.py:54
+#: .\fuel\models.py:67 .\recharge\models.py:54
 #: .\theme\templates\fuel\fuel_form.html:105
 msgid "Validation"
 msgstr ""
 
-#: .\fuel\models.py:75 .\theme\templates\dashboard.html:304
+#: .\fuel\models.py:72 .\theme\templates\dashboard.html:304
 #: .\theme\templates\fuel\fuel_form.html:11
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:46
 #: .\theme\templates\voiture_moteur\list.html:38
@@ -577,7 +698,7 @@ msgstr ""
 msgid "Carburant"
 msgstr ""
 
-#: .\fuel\models.py:76
+#: .\fuel\models.py:73
 msgid "Carburants"
 msgstr ""
 
@@ -1273,7 +1394,7 @@ msgstr ""
 
 #: .\maintenance\check_up\models.py:351 .\maintenance\jeux_pieces\models.py:108
 #: .\maintenance\models.py:46 .\utilisateurs\models.py:73
-#: .\utilisateurs\views.py:198
+#: .\utilisateurs\views.py:213
 msgid "Apprenti"
 msgstr ""
 
@@ -1282,7 +1403,7 @@ msgstr ""
 #: .\maintenance\models.py:37 .\maintenance\nettoyage_exterieur\models.py:25
 #: .\maintenance\nettoyage_interieur\models.py:26
 #: .\theme\templates\maintenance\detail.html:17 .\utilisateurs\models.py:74
-#: .\utilisateurs\views.py:199
+#: .\utilisateurs\views.py:214
 msgid "Mécanicien"
 msgstr ""
 
@@ -1470,7 +1591,6 @@ msgid "Date d'intervention"
 msgstr ""
 
 #: .\maintenance\models.py:67
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:98
 msgid "Date de la dernière intervention"
 msgstr ""
 
@@ -1697,14 +1817,12 @@ msgstr ""
 #: .\piece\models.py:32 .\recharge\models.py:32
 #: .\theme\templates\fuel\fuel_form.html:90
 #: .\theme\templates\maintenance\creer_maintenance.html:51
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:43
 msgid "Modèle"
 msgstr ""
 
 #: .\piece\models.py:41 .\piece\models.py:99 .\piece\models.py:108
 #: .\recharge\models.py:26 .\theme\templates\fuel\fuel_form.html:83
 #: .\theme\templates\maintenance\creer_maintenance.html:50
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:37
 msgid "Marque"
 msgstr ""
 
@@ -3998,6 +4116,7 @@ msgid "Nom du Directeur"
 msgstr ""
 
 #: .\societe_cliente\models.py:52
+#: .\theme\templates\carrosserie\carrosserie_form.html:42
 #: .\theme\templates\carrosserie\carrosserie_list.html:55
 #: .\theme\templates\fournisseurs\fournisseur_list.html:21
 #: .\theme\templates\fournisseurs\fournisseur_list.html:54
@@ -4095,7 +4214,9 @@ msgid "Retour à la liste des adresses"
 msgstr ""
 
 #: .\theme\templates\adresse\adresse_detail.html:29
-#: .\theme\templates\carrosserie\carrosserie_detail.html:32
+#: .\theme\templates\assurance\assurance_detail.html:33
+#: .\theme\templates\assurance_police\assurance_police_detail.html:33
+#: .\theme\templates\carrosserie\carrosserie_detail.html:33
 #: .\theme\templates\client_particulier\client_detail.html:29
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:32
 #: .\theme\templates\intervention\intervention_detail.html:32
@@ -4114,7 +4235,9 @@ msgid "Modifier l'adresse"
 msgstr ""
 
 #: .\theme\templates\adresse\adresse_detail.html:88
-#: .\theme\templates\carrosserie\carrosserie_detail.html:95
+#: .\theme\templates\assurance\assurance_detail.html:100
+#: .\theme\templates\assurance_police\assurance_police_detail.html:99
+#: .\theme\templates\carrosserie\carrosserie_detail.html:101
 #: .\theme\templates\client_particulier\client_detail.html:110
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:95
 #: .\theme\templates\intervention\intervention_detail.html:95
@@ -4128,8 +4251,12 @@ msgstr ""
 
 #: .\theme\templates\adresse\adresse_form.html:78
 #: .\theme\templates\adresse\modifier_adresse.html:60
-#: .\theme\templates\carrosserie\carrosserie_form.html:121
-#: .\theme\templates\carrosserie\modifier_carrosserie.html:49
+#: .\theme\templates\assurance\assurance_form.html:93
+#: .\theme\templates\assurance\modifier_assurance.html:63
+#: .\theme\templates\assurance_police\assurance_police_form.html:39
+#: .\theme\templates\assurance_police\modifier_assurance_police.html:54
+#: .\theme\templates\carrosserie\carrosserie_form.html:124
+#: .\theme\templates\carrosserie\modifier_carrosserie.html:60
 #: .\theme\templates\client_particulier\client_form.html:173
 #: .\theme\templates\client_particulier\modifier_client.html:60
 #: .\theme\templates\fournisseurs\fournisseur_form.html:131
@@ -4162,6 +4289,10 @@ msgstr ""
 
 #: .\theme\templates\adresse\adresse_list.html:69
 #: .\theme\templates\adresse\adresse_list.html:85
+#: .\theme\templates\assurance\assurance_list.html:59
+#: .\theme\templates\assurance\assurance_list.html:73
+#: .\theme\templates\assurance_police\assurance_police_list.html:59
+#: .\theme\templates\assurance_police\assurance_police_list.html:112
 #: .\theme\templates\carrosserie\carrosserie_list.html:59
 #: .\theme\templates\carrosserie\carrosserie_list.html:73
 #: .\theme\templates\client_particulier\client_list.html:64
@@ -4194,10 +4325,12 @@ msgid "Info indisponible"
 msgstr ""
 
 #: .\theme\templates\adresse\adresse_list.html:104
+#: .\theme\templates\assurance\assurance_list.html:88
+#: .\theme\templates\assurance_police\assurance_police_list.html:127
 #: .\theme\templates\carrosserie\carrosserie_list.html:88
 #: .\theme\templates\client_particulier\client_list.html:98
 #: .\theme\templates\fournisseurs\fournisseur_list.html:87
-#: .\theme\templates\fuel\fuel_list.html:95
+#: .\theme\templates\fuel\fuel_list.html:136
 #: .\theme\templates\intervention\intervention_list.html:74
 #: .\theme\templates\societe_cliente\societe_cliente_list.html:93
 #: .\theme\templates\voiture_embrayage\list.html:85
@@ -4208,10 +4341,12 @@ msgid "Recherche globale :"
 msgstr ""
 
 #: .\theme\templates\adresse\adresse_list.html:105
+#: .\theme\templates\assurance\assurance_list.html:89
+#: .\theme\templates\assurance_police\assurance_police_list.html:128
 #: .\theme\templates\carrosserie\carrosserie_list.html:89
 #: .\theme\templates\client_particulier\client_list.html:99
 #: .\theme\templates\fournisseurs\fournisseur_list.html:88
-#: .\theme\templates\fuel\fuel_list.html:96
+#: .\theme\templates\fuel\fuel_list.html:137
 #: .\theme\templates\intervention\intervention_list.html:75
 #: .\theme\templates\societe_cliente\societe_cliente_list.html:94
 #: .\theme\templates\voiture_boite\list.html:74
@@ -4233,10 +4368,12 @@ msgid "Aucune adresse trouvée"
 msgstr ""
 
 #: .\theme\templates\adresse\adresse_list.html:110
+#: .\theme\templates\assurance\assurance_list.html:94
+#: .\theme\templates\assurance_police\assurance_police_list.html:133
 #: .\theme\templates\carrosserie\carrosserie_list.html:94
 #: .\theme\templates\client_particulier\client_list.html:104
 #: .\theme\templates\fournisseurs\fournisseur_list.html:93
-#: .\theme\templates\fuel\fuel_list.html:101
+#: .\theme\templates\fuel\fuel_list.html:142
 #: .\theme\templates\intervention\intervention_list.html:80
 #: .\theme\templates\societe_cliente\societe_cliente_list.html:99
 #: .\theme\templates\voiture_boite\list.html:79
@@ -4249,10 +4386,12 @@ msgid "Premier"
 msgstr ""
 
 #: .\theme\templates\adresse\adresse_list.html:111
+#: .\theme\templates\assurance\assurance_list.html:95
+#: .\theme\templates\assurance_police\assurance_police_list.html:134
 #: .\theme\templates\carrosserie\carrosserie_list.html:95
 #: .\theme\templates\client_particulier\client_list.html:105
 #: .\theme\templates\fournisseurs\fournisseur_list.html:94
-#: .\theme\templates\fuel\fuel_list.html:102
+#: .\theme\templates\fuel\fuel_list.html:143
 #: .\theme\templates\intervention\intervention_list.html:81
 #: .\theme\templates\societe_cliente\societe_cliente_list.html:100
 #: .\theme\templates\voiture_boite\list.html:80
@@ -4265,10 +4404,12 @@ msgid "Dernier"
 msgstr ""
 
 #: .\theme\templates\adresse\adresse_list.html:112
+#: .\theme\templates\assurance\assurance_list.html:96
+#: .\theme\templates\assurance_police\assurance_police_list.html:135
 #: .\theme\templates\carrosserie\carrosserie_list.html:96
 #: .\theme\templates\client_particulier\client_list.html:106
 #: .\theme\templates\fournisseurs\fournisseur_list.html:95
-#: .\theme\templates\fuel\fuel_list.html:103
+#: .\theme\templates\fuel\fuel_list.html:144
 #: .\theme\templates\intervention\intervention_list.html:82
 #: .\theme\templates\societe_cliente\societe_cliente_list.html:101
 #: .\theme\templates\voiture_boite\list.html:81
@@ -4281,10 +4422,12 @@ msgid "Suivant"
 msgstr ""
 
 #: .\theme\templates\adresse\adresse_list.html:113
+#: .\theme\templates\assurance\assurance_list.html:97
+#: .\theme\templates\assurance_police\assurance_police_list.html:136
 #: .\theme\templates\carrosserie\carrosserie_list.html:97
 #: .\theme\templates\client_particulier\client_list.html:107
 #: .\theme\templates\fournisseurs\fournisseur_list.html:96
-#: .\theme\templates\fuel\fuel_list.html:104
+#: .\theme\templates\fuel\fuel_list.html:145
 #: .\theme\templates\intervention\intervention_list.html:83
 #: .\theme\templates\societe_cliente\societe_cliente_list.html:102
 #: .\theme\templates\voiture_boite\list.html:82
@@ -4301,14 +4444,169 @@ msgid "Modifier l'adresse :"
 msgstr ""
 
 #: .\theme\templates\adresse\modifier_adresse.html:65
-#: .\theme\templates\carrosserie\modifier_carrosserie.html:54
+#: .\theme\templates\assurance\modifier_assurance.html:67
+#: .\theme\templates\assurance_police\assurance_police_form.html:35
+#: .\theme\templates\assurance_police\modifier_assurance_police.html:58
+#: .\theme\templates\carrosserie\modifier_carrosserie.html:65
 #: .\theme\templates\client_particulier\modifier_client.html:65
 #: .\theme\templates\fournisseurs\modifier_fournisseur.html:54
 #: .\theme\templates\fuel\fuel_form.html:117
 #: .\theme\templates\intervention\modifier_intervention.html:54
 #: .\theme\templates\societe_cliente\modifier_societe_cliente.html:67
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:47
 #: .\theme\templates\voiture_exemplaire\modifier_exemplaire.html:84
 msgid "Annuler"
+msgstr ""
+
+#: .\theme\templates\assurance\assurance_detail.html:16
+msgid "Détails de la compagnie d'assurance :"
+msgstr ""
+
+#: .\theme\templates\assurance\assurance_detail.html:23
+#: .\theme\templates\assurance_police\assurance_police_detail.html:23
+msgid "Retour à la liste des assurances"
+msgstr ""
+
+#: .\theme\templates\assurance\assurance_detail.html:37
+#: .\theme\templates\assurance_police\assurance_police_detail.html:37
+msgid "Compagnie"
+msgstr ""
+
+#: .\theme\templates\assurance\assurance_detail.html:61
+msgid "Modifier l'assureur"
+msgstr ""
+
+#: .\theme\templates\assurance\assurance_detail.html:71
+#: .\theme\templates\assurance_police\assurance_police_detail.html:70
+#: .\theme\templates\carrosserie\carrosserie_detail.html:72
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:66
+#: .\theme\templates\intervention\intervention_detail.html:66
+msgid "Informations Peppol"
+msgstr ""
+
+#: .\theme\templates\assurance\assurance_detail.html:92
+#: .\theme\templates\assurance_police\assurance_police_detail.html:91
+#: .\theme\templates\carrosserie\carrosserie_detail.html:93
+#: .\theme\templates\client_particulier\client_detail.html:102
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:87
+#: .\theme\templates\intervention\intervention_detail.html:87
+#: .\theme\templates\societe_cliente\societe_cliente_detail.html:98
+msgid "Aucune adresse renseignée."
+msgstr ""
+
+#: .\theme\templates\assurance\assurance_detail.html:115
+#: .\theme\templates\assurance_police\assurance_police_detail.html:114
+msgid "Retour à la liste des assureurs"
+msgstr ""
+
+#: .\theme\templates\assurance\assurance_form.html:9
+msgid "Créer une compagnie d'assurance"
+msgstr ""
+
+#: .\theme\templates\assurance\assurance_list.html:4
+#: .\theme\templates\assurance\assurance_list.html:10
+msgid "Liste des Assureurs"
+msgstr ""
+
+#: .\theme\templates\assurance\assurance_list.html:29
+#: .\theme\templates\carrosserie\carrosserie_form.html:49
+#: .\theme\templates\carrosserie\carrosserie_list.html:30
+#: .\theme\templates\fournisseurs\fournisseur_form.html:57
+#: .\theme\templates\fournisseurs\fournisseur_list.html:25
+#: .\theme\templates\societe_cliente\societe_cliente_detail.html:45
+msgid "Numéro Peppol"
+msgstr ""
+
+#: .\theme\templates\assurance\assurance_list.html:38
+#: .\theme\templates\carrosserie\carrosserie_list.html:38
+msgid "Numéro téléphone"
+msgstr ""
+
+#: .\theme\templates\assurance\assurance_list.html:43
+msgid "Ajouter une compagnie d'assurance"
+msgstr ""
+
+#: .\theme\templates\assurance\assurance_list.html:56
+#: .\theme\templates\carrosserie\carrosserie_list.html:56
+#: .\theme\templates\fournisseurs\fournisseur_list.html:55
+msgid "Numero Peppol"
+msgstr ""
+
+#: .\theme\templates\assurance\assurance_list.html:90
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ compagnies"
+msgstr ""
+
+#: .\theme\templates\assurance\assurance_list.html:91
+msgid "Aucune compagnie trouvé"
+msgstr ""
+
+#: .\theme\templates\assurance\assurance_list.html:92
+msgid "Aucun compagnie trouvé"
+msgstr ""
+
+#: .\theme\templates\assurance\modifier_assurance.html:16
+msgid "Modifier la Compagnie d'assurance:"
+msgstr ""
+
+#: .\theme\templates\assurance_police\assurance_police_detail.html:16
+msgid "Détails de la police d'assurance :"
+msgstr ""
+
+#: .\theme\templates\assurance_police\assurance_police_detail.html:45
+#: .\theme\templates\assurance_police\assurance_police_list.html:26
+msgid "Numéro de Police"
+msgstr ""
+
+#: .\theme\templates\assurance_police\assurance_police_detail.html:49
+#: .\theme\templates\assurance_police\assurance_police_list.html:57
+msgid "Prime annuelle"
+msgstr ""
+
+#: .\theme\templates\assurance_police\assurance_police_detail.html:60
+msgid "Modifier la police"
+msgstr ""
+
+#: .\theme\templates\assurance_police\assurance_police_form.html:7
+msgid "Ajouter / Modifier une police d'assurance"
+msgstr ""
+
+#: .\theme\templates\assurance_police\assurance_police_list.html:4
+#: .\theme\templates\assurance_police\assurance_police_list.html:10
+msgid "Liste des polices"
+msgstr ""
+
+#: .\theme\templates\assurance_police\assurance_police_list.html:30
+msgid "Prime Annuelle"
+msgstr ""
+
+#: .\theme\templates\assurance_police\assurance_police_list.html:34
+#: .\theme\templates\assurance_police\assurance_police_list.html:58
+msgid "Franchise"
+msgstr ""
+
+#: .\theme\templates\assurance_police\assurance_police_list.html:39
+msgid "Ajouter une Police d'assurance"
+msgstr ""
+
+#: .\theme\templates\assurance_police\assurance_police_list.html:44
+msgid "Dashboard"
+msgstr ""
+
+#: .\theme\templates\assurance_police\assurance_police_list.html:56
+msgid "Numero de Police"
+msgstr ""
+
+#: .\theme\templates\assurance_police\assurance_police_list.html:129
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ polices"
+msgstr ""
+
+#: .\theme\templates\assurance_police\assurance_police_list.html:130
+#: .\theme\templates\assurance_police\assurance_police_list.html:131
+msgid "Aucune police trouvée"
+msgstr ""
+
+#: .\theme\templates\assurance_police\modifier_assurance_police.html:16
+msgid "Modifier la police d'assurance:"
 msgstr ""
 
 #: .\theme\templates\base.html:9
@@ -4345,62 +4643,25 @@ msgstr ""
 msgid "Déconnexion"
 msgstr ""
 
-#: .\theme\templates\carrosserie\carrosserie_detail.html:10
+#: .\theme\templates\carrosserie\carrosserie_detail.html:16
 #: .\theme\templates\intervention\intervention_detail.html:10
 msgid "Détails de la carrosserie :"
 msgstr ""
 
-#: .\theme\templates\carrosserie\carrosserie_detail.html:56
-msgid "Modifier le carrosserie"
-msgstr ""
-
-#: .\theme\templates\carrosserie\carrosserie_detail.html:66
-#: .\theme\templates\fournisseurs\fournisseur_detail.html:66
-#: .\theme\templates\intervention\intervention_detail.html:66
-msgid "Informations Peppol"
-msgstr ""
-
-#: .\theme\templates\carrosserie\carrosserie_detail.html:87
-#: .\theme\templates\client_particulier\client_detail.html:102
-#: .\theme\templates\fournisseurs\fournisseur_detail.html:87
-#: .\theme\templates\intervention\intervention_detail.html:87
-#: .\theme\templates\societe_cliente\societe_cliente_detail.html:98
-msgid "Aucune adresse renseignée."
-msgstr ""
-
-#: .\theme\templates\carrosserie\carrosserie_detail.html:122
+#: .\theme\templates\carrosserie\carrosserie_detail.html:23
+#: .\theme\templates\carrosserie\carrosserie_detail.html:132
 msgid "Retour à la liste des carrosseries"
+msgstr ""
+
+#: .\theme\templates\carrosserie\carrosserie_detail.html:62
+msgid "Modifier le carrosserie"
 msgstr ""
 
 #: .\theme\templates\carrosserie\carrosserie_form.html:12
 msgid "Créer une carrosserie"
 msgstr ""
 
-#: .\theme\templates\carrosserie\carrosserie_form.html:43
-msgid "Numero de tva"
-msgstr ""
-
-#: .\theme\templates\carrosserie\carrosserie_form.html:49
-#: .\theme\templates\carrosserie\carrosserie_list.html:30
-#: .\theme\templates\fournisseurs\fournisseur_form.html:57
-#: .\theme\templates\fournisseurs\fournisseur_list.html:25
-#: .\theme\templates\societe_cliente\societe_cliente_detail.html:45
-msgid "Numéro Peppol"
-msgstr ""
-
-#: .\theme\templates\carrosserie\carrosserie_form.html:70
-msgid "Nom du responsable"
-msgstr ""
-
-#: .\theme\templates\carrosserie\carrosserie_form.html:76
-msgid "Prénom du responsable"
-msgstr ""
-
-#: .\theme\templates\carrosserie\carrosserie_list.html:4
-#: .\theme\templates\carrosserie\carrosserie_list.html:10
-msgid "Liste des Carrosseries"
-msgstr ""
-
+#: .\theme\templates\carrosserie\carrosserie_form.html:34
 #: .\theme\templates\carrosserie\carrosserie_list.html:18
 #: .\theme\templates\carrosserie\carrosserie_list.html:54
 #: .\theme\templates\intervention\intervention_detail.html:36
@@ -4409,21 +4670,25 @@ msgstr ""
 msgid "Nom de la carrosserie"
 msgstr ""
 
+#: .\theme\templates\carrosserie\carrosserie_form.html:71
+msgid "Nom du responsable"
+msgstr ""
+
+#: .\theme\templates\carrosserie\carrosserie_form.html:78
+msgid "Prénom du responsable"
+msgstr ""
+
+#: .\theme\templates\carrosserie\carrosserie_list.html:4
+#: .\theme\templates\carrosserie\carrosserie_list.html:10
+msgid "Liste des Carrosseries"
+msgstr ""
+
 #: .\theme\templates\carrosserie\carrosserie_list.html:34
 msgid "BEXX XXXX XXXX"
 msgstr ""
 
-#: .\theme\templates\carrosserie\carrosserie_list.html:38
-msgid "Numéro téléphone"
-msgstr ""
-
 #: .\theme\templates\carrosserie\carrosserie_list.html:43
 msgid "Ajouter une carrosserie"
-msgstr ""
-
-#: .\theme\templates\carrosserie\carrosserie_list.html:56
-#: .\theme\templates\fournisseurs\fournisseur_list.html:55
-msgid "Numero Peppol"
 msgstr ""
 
 #: .\theme\templates\carrosserie\carrosserie_list.html:90
@@ -4438,7 +4703,7 @@ msgstr ""
 msgid "Aucun carrosserie trouvé"
 msgstr ""
 
-#: .\theme\templates\carrosserie\modifier_carrosserie.html:10
+#: .\theme\templates\carrosserie\modifier_carrosserie.html:16
 msgid "Modifier le carrosserie :"
 msgstr ""
 
@@ -4531,7 +4796,8 @@ msgstr ""
 #: .\theme\templates\dashboard.html:220 .\theme\templates\dashboard.html:236
 #: .\theme\templates\dashboard.html:250 .\theme\templates\dashboard.html:264
 #: .\theme\templates\dashboard.html:278 .\theme\templates\dashboard.html:292
-#: .\theme\templates\dashboard.html:306
+#: .\theme\templates\dashboard.html:306 .\theme\templates\dashboard.html:320
+#: .\theme\templates\dashboard.html:335
 msgid "Nombre total :"
 msgstr ""
 
@@ -4599,7 +4865,7 @@ msgstr ""
 msgid "Intervention carrosserie"
 msgstr ""
 
-#: .\theme\templates\dashboard.html:320
+#: .\theme\templates\dashboard.html:349
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Tableau de bord Admin"
@@ -4697,12 +4963,12 @@ msgstr ""
 msgid "Prix au litre"
 msgstr ""
 
-#: .\theme\templates\fuel\fuel_list.html:97
+#: .\theme\templates\fuel\fuel_list.html:138
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ fuels"
 msgstr ""
 
-#: .\theme\templates\fuel\fuel_list.html:98
-#: .\theme\templates\fuel\fuel_list.html:99
+#: .\theme\templates\fuel\fuel_list.html:139
+#: .\theme\templates\fuel\fuel_list.html:140
 msgid "Aucun fuel trouvé"
 msgstr ""
 
@@ -5035,7 +5301,7 @@ msgstr ""
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:67
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:92
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:128
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:42
 #: .\theme\templates\voiture_freins\ajouter_freins_simple.html:67
 #: .\theme\templates\voiture_freins_ar\ajouter_freins_ar_simple.html:67
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:124
@@ -5218,54 +5484,14 @@ msgstr ""
 msgid "Aucun embrayage trouvé"
 msgstr ""
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:14
-msgid "Ajouter un véhicule : "
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:9
+msgid "Ajouter un véhicule"
 msgstr ""
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:53
-msgid "Pays d'immatriculation"
-msgstr ""
-
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:58
-msgid "Numero VIN"
-msgstr ""
-
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:64
-msgid "Type d'utilisation"
-msgstr ""
-
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:72
-msgid "Sélectionner un type d'utilisation"
-msgstr ""
-
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:88
-msgid "Kilomètres du chassis"
-msgstr ""
-
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:93
-msgid "Kilomètres de la dernière intervention"
-msgstr ""
-
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:103
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:37
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:61
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:85
 msgid "Année de production"
-msgstr ""
-
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:108
-msgid "Mois de production"
-msgstr ""
-
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:113
-msgid "Numero d'identification du moteur"
-msgstr ""
-
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:118
-msgid "Date de mise en circulation"
-msgstr ""
-
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:123
-msgid "Kilomètres moteur"
 msgstr ""
 
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:10
@@ -5855,8 +6081,7 @@ msgid "Largeur (mm)"
 msgstr ""
 
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:71
-#, python-format
-msgid "Hauteur (%%)"
+msgid "Hauteur en pourecent"
 msgstr ""
 
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:75
@@ -5931,8 +6156,7 @@ msgid "Détails des pneus"
 msgstr ""
 
 #: .\theme\templates\voiture_pneus\pneus_detail.html:37
-#, python-format
-msgid "Hauteur en %%"
+msgid "Hauteur en pourcent"
 msgstr ""
 
 #: .\theme\views.py:35
@@ -5959,48 +6183,68 @@ msgstr ""
 msgid "Operations"
 msgstr ""
 
-#: .\utilisateurs\models.py:75 .\utilisateurs\views.py:202
+#: .\utilisateurs\models.py:75 .\utilisateurs\views.py:217
 msgid "Magasinier"
 msgstr ""
 
-#: .\utilisateurs\models.py:76 .\utilisateurs\views.py:200
+#: .\utilisateurs\models.py:76 .\utilisateurs\views.py:215
 msgid "Carrossier"
 msgstr ""
 
-#: .\utilisateurs\models.py:77 .\utilisateurs\views.py:201
+#: .\utilisateurs\models.py:77 .\utilisateurs\views.py:216
 msgid "Chef Mécanicien"
 msgstr ""
 
-#: .\utilisateurs\models.py:78 .\utilisateurs\views.py:203
+#: .\utilisateurs\models.py:78 .\utilisateurs\views.py:218
 msgid "Instructeur"
 msgstr ""
 
-#: .\utilisateurs\models.py:79 .\utilisateurs\views.py:204
+#: .\utilisateurs\models.py:79 .\utilisateurs\views.py:219
 msgid "Instructeur Externe"
 msgstr ""
 
-#: .\utilisateurs\models.py:80 .\utilisateurs\views.py:205
+#: .\utilisateurs\models.py:80 .\utilisateurs\views.py:220
 msgid "Vendeur"
 msgstr ""
 
-#: .\utilisateurs\models.py:81 .\utilisateurs\views.py:206
+#: .\utilisateurs\models.py:81 .\utilisateurs\views.py:221
 msgid "Comptable"
 msgstr ""
 
-#: .\utilisateurs\models.py:82 .\utilisateurs\views.py:207
+#: .\utilisateurs\models.py:82 .\utilisateurs\views.py:222
 msgid "Direction"
 msgstr ""
 
-#: .\utilisateurs\views.py:185
+#: .\utilisateurs\views.py:48
+msgid "Email ou mot de passe incorrect"
+msgstr ""
+
+#: .\utilisateurs\views.py:62
+msgid "Code TOTP requis"
+msgstr ""
+
+#: .\utilisateurs\views.py:66
+msgid "Code TOTP invalide"
+msgstr ""
+
+#: .\utilisateurs\views.py:200
 msgid "Révision moteur"
 msgstr ""
 
-#: .\utilisateurs\views.py:185 .\voiture\voiture_boite\models.py:10
+#: .\utilisateurs\views.py:200 .\voiture\voiture_boite\models.py:10
 msgid "Changement filtre"
 msgstr ""
 
-#: .\utilisateurs\views.py:209
+#: .\utilisateurs\views.py:224
 msgid "Rôle inconnu"
+msgstr ""
+
+#: .\utilisateurs\views.py:263
+msgid "TOTP configuré avec succès. Vous pouvez maintenant vous connecter."
+msgstr ""
+
+#: .\utilisateurs\views.py:313
+msgid "Utilisateur créé avec succès."
 msgstr ""
 
 #: .\voiture\voiture_boite\models.py:11
@@ -6076,11 +6320,11 @@ msgstr ""
 msgid "Bimasse (pour volant moteur DMF)"
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\models.py:12
+#: .\voiture\voiture_exemplaire\models.py:14
 msgid "Société"
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\models.py:14
+#: .\voiture\voiture_exemplaire\models.py:16
 msgid "Privé"
 msgstr ""
 
@@ -6135,14 +6379,6 @@ msgstr ""
 
 #: .\voiture\voiture_exemplaire\views.py:276
 msgid "Moteur non trouvé"
-msgstr ""
-
-#: .\voiture\voiture_exemplaire\views.py:361
-msgid "Veuillez renseigner au moins l'immatriculation et le pays."
-msgstr ""
-
-#: .\voiture\voiture_exemplaire\views.py:381
-msgid "Une erreur est survenue : "
 msgstr ""
 
 #: .\voiture\voiture_moteur\models.py:12
