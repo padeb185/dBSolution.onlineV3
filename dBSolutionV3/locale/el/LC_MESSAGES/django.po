@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-12 20:16+0100\n"
+"POT-Creation-Date: 2026-02-17 13:21+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,7 +23,8 @@ msgstr ""
 #: .\theme\templates\adresse\adresse_form.html:34
 #: .\theme\templates\adresse\adresse_list.html:18
 #: .\theme\templates\adresse\adresse_list.html:63
-#: .\theme\templates\carrosserie\carrosserie_form.html:85
+#: .\theme\templates\assurance\assurance_form.html:66
+#: .\theme\templates\carrosserie\carrosserie_form.html:87
 #: .\theme\templates\client_particulier\client_form.html:135
 #: .\theme\templates\fournisseurs\fournisseur_form.html:89
 #: .\theme\templates\societe_cliente\societe_cliente_form.html:85
@@ -33,7 +34,8 @@ msgstr "Οδός"
 #: .\adresse\forms.py:20 .\adresse\models.py:21
 #: .\theme\templates\adresse\adresse_detail.html:38
 #: .\theme\templates\adresse\adresse_form.html:40
-#: .\theme\templates\carrosserie\carrosserie_form.html:91
+#: .\theme\templates\assurance\assurance_form.html:70
+#: .\theme\templates\carrosserie\carrosserie_form.html:93
 #: .\theme\templates\client_particulier\client_form.html:141
 #: .\theme\templates\fournisseurs\fournisseur_form.html:96
 #: .\theme\templates\societe_cliente\societe_cliente_form.html:91
@@ -52,7 +54,8 @@ msgstr "Ταχυδρομική θυρίδα"
 #: .\theme\templates\adresse\adresse_form.html:52
 #: .\theme\templates\adresse\adresse_list.html:31
 #: .\theme\templates\adresse\adresse_list.html:66
-#: .\theme\templates\carrosserie\carrosserie_form.html:97
+#: .\theme\templates\assurance\assurance_form.html:74
+#: .\theme\templates\carrosserie\carrosserie_form.html:99
 #: .\theme\templates\client_particulier\client_form.html:147
 #: .\theme\templates\fournisseurs\fournisseur_form.html:103
 #: .\theme\templates\societe_cliente\societe_cliente_form.html:97
@@ -64,21 +67,23 @@ msgstr "Τ.Κ."
 #: .\theme\templates\adresse\adresse_form.html:58
 #: .\theme\templates\adresse\adresse_list.html:35
 #: .\theme\templates\adresse\adresse_list.html:67
-#: .\theme\templates\carrosserie\carrosserie_form.html:103
+#: .\theme\templates\assurance\assurance_form.html:78
+#: .\theme\templates\carrosserie\carrosserie_form.html:105
 #: .\theme\templates\client_particulier\client_form.html:153
 #: .\theme\templates\fournisseurs\fournisseur_form.html:110
 #: .\theme\templates\societe_cliente\societe_cliente_form.html:103
 msgid "Ville"
 msgstr "Πόλη"
 
-#: .\adresse\forms.py:24 .\adresse\models.py:26 .\carrosserie\models.py:14
-#: .\piece\models.py:9 .\piece\models.py:71 .\societe_cliente\models.py:82
+#: .\adresse\forms.py:24 .\adresse\models.py:26 .\piece\models.py:9
+#: .\piece\models.py:71 .\societe_cliente\models.py:82
 #: .\theme\templates\adresse\adresse_detail.html:58
 #: .\theme\templates\adresse\adresse_form.html:64
 #: .\theme\templates\adresse\adresse_list.html:40
 #: .\theme\templates\adresse\adresse_list.html:68
-#: .\theme\templates\carrosserie\carrosserie_detail.html:46
-#: .\theme\templates\carrosserie\carrosserie_form.html:109
+#: .\theme\templates\assurance\assurance_detail.html:49
+#: .\theme\templates\assurance\assurance_form.html:82
+#: .\theme\templates\carrosserie\carrosserie_form.html:111
 #: .\theme\templates\carrosserie\carrosserie_list.html:26
 #: .\theme\templates\client_particulier\client_form.html:159
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:46
@@ -93,18 +98,21 @@ msgstr "Χώρα"
 #: .\fournisseur\models.py:43 .\societe_cliente\models.py:89
 #: .\theme\templates\adresse\adresse_detail.html:63
 #: .\theme\templates\adresse\adresse_form.html:70
-#: .\theme\templates\carrosserie\carrosserie_form.html:115
+#: .\theme\templates\assurance\assurance_form.html:86
+#: .\theme\templates\carrosserie\carrosserie_form.html:117
 #: .\theme\templates\client_particulier\client_form.html:165
 #: .\theme\templates\fournisseurs\fournisseur_form.html:124
 #: .\theme\templates\societe_cliente\societe_cliente_form.html:115
 msgid "Code pays"
 msgstr "Κωδικός χώρας"
 
-#: .\adresse\models.py:29 .\client_particulier\models.py:128
-#: .\facture\models.py:34 .\fournisseur\models.py:79
-#: .\societe_cliente\models.py:124
+#: .\adresse\models.py:29 .\assurance\models.py:34 .\carrosserie\models.py:35
+#: .\client_particulier\models.py:128 .\facture\models.py:34
+#: .\fournisseur\models.py:79 .\societe_cliente\models.py:124
 #: .\theme\templates\adresse\adresse_detail.html:92
-#: .\theme\templates\carrosserie\carrosserie_detail.html:99
+#: .\theme\templates\assurance\assurance_detail.html:104
+#: .\theme\templates\assurance_police\assurance_police_detail.html:103
+#: .\theme\templates\carrosserie\carrosserie_detail.html:105
 #: .\theme\templates\client_particulier\client_detail.html:114
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:99
 #: .\theme\templates\intervention\intervention_detail.html:99
@@ -112,16 +120,25 @@ msgstr "Κωδικός χώρας"
 msgid "Créé le"
 msgstr "Δημιουργήθηκε στις"
 
-#: .\adresse\models.py:30 .\facture\models.py:35
+#: .\adresse\models.py:30 .\assurance\models.py:35 .\carrosserie\models.py:36
+#: .\facture\models.py:35
+#: .\theme\templates\carrosserie\carrosserie_detail.html:109
 msgid "Mis à jour le"
 msgstr "Ενημερώθηκε στις"
 
-#: .\adresse\models.py:33 .\carrosserie\models.py:13
-#: .\client_particulier\models.py:18 .\facture\models.py:17
-#: .\fournisseur\models.py:19 .\theme\templates\adresse\adresse_form.html:11
-#: .\theme\templates\carrosserie\carrosserie_detail.html:80
-#: .\theme\templates\carrosserie\carrosserie_form.html:82
+#: .\adresse\models.py:33 .\client_particulier\models.py:18
+#: .\facture\models.py:17 .\fournisseur\models.py:19
+#: .\theme\templates\adresse\adresse_form.html:11
+#: .\theme\templates\assurance\assurance_detail.html:85
+#: .\theme\templates\assurance\assurance_form.html:64
+#: .\theme\templates\assurance\assurance_list.html:24
+#: .\theme\templates\assurance\assurance_list.html:55
+#: .\theme\templates\assurance\modifier_assurance.html:50
+#: .\theme\templates\assurance_police\assurance_police_detail.html:84
+#: .\theme\templates\carrosserie\carrosserie_detail.html:86
+#: .\theme\templates\carrosserie\carrosserie_form.html:85
 #: .\theme\templates\carrosserie\carrosserie_list.html:22
+#: .\theme\templates\carrosserie\modifier_carrosserie.html:46
 #: .\theme\templates\client_particulier\client_detail.html:95
 #: .\theme\templates\client_particulier\client_form.html:132
 #: .\theme\templates\client_particulier\client_list.html:27
@@ -153,6 +170,152 @@ msgstr "Το όνομα του δρόμου είναι υποχρεωτικό."
 msgid "Adresse '%(rue)s, %(cp)s' modifiée avec succès !"
 msgstr "Η διεύθυνση '%(rue)s, %(cp)s' ενημερώθηκε με επιτυχία!"
 
+#: .\assurance\models.py:11
+#: .\theme\templates\assurance\assurance_list.html:19
+#: .\theme\templates\assurance\assurance_list.html:54
+#: .\theme\templates\assurance_police\assurance_police_list.html:18
+#: .\theme\templates\assurance_police\assurance_police_list.html:54
+msgid "Nom de la compagnie"
+msgstr "Όνομα της εταιρείας"
+
+#: .\assurance\models.py:12
+msgid "Nom du courtier"
+msgstr "Επώνυμο του μεσίτη"
+
+#: .\assurance\models.py:13
+msgid "Prénom du courtier"
+msgstr "Όνομα του μεσίτη"
+
+#: .\assurance\models.py:15 .\carrosserie\models.py:21
+#: .\theme\templates\assurance\assurance_detail.html:45
+#: .\theme\templates\assurance\assurance_list.html:58
+#: .\theme\templates\carrosserie\carrosserie_detail.html:41
+#: .\theme\templates\carrosserie\carrosserie_form.html:64
+#: .\theme\templates\carrosserie\carrosserie_list.html:58
+#: .\theme\templates\fournisseurs\fournisseur_list.html:57
+#: .\theme\templates\utilisateurs\liste_utilisateurs.html:19
+msgid "Téléphone"
+msgstr "Τηλέφωνο"
+
+#: .\assurance\models.py:16 .\carrosserie\models.py:22
+#: .\client_particulier\models.py:59 .\fournisseur\models.py:52
+#: .\societe_cliente\models.py:45
+#: .\theme\templates\assurance\assurance_detail.html:41
+#: .\theme\templates\assurance\assurance_list.html:33
+#: .\theme\templates\assurance\assurance_list.html:57
+#: .\theme\templates\carrosserie\carrosserie_detail.html:45
+#: .\theme\templates\carrosserie\carrosserie_form.html:57
+#: .\theme\templates\carrosserie\carrosserie_list.html:57
+#: .\theme\templates\client_particulier\client_detail.html:33
+#: .\theme\templates\client_particulier\client_form.html:95
+#: .\theme\templates\client_particulier\client_list.html:63
+#: .\theme\templates\fournisseurs\fournisseur_form.html:65
+#: .\theme\templates\fournisseurs\fournisseur_list.html:56
+#: .\theme\templates\societe_cliente\societe_cliente_detail.html:49
+#: .\theme\templates\societe_cliente\societe_cliente_form.html:72
+#: .\theme\templates\societe_cliente\societe_cliente_list.html:62
+msgid "Email"
+msgstr "Email"
+
+#: .\assurance\models.py:18 .\carrosserie\models.py:25 .\facture\models.py:23
+#: .\fournisseur\models.py:37
+#: .\theme\templates\assurance\assurance_detail.html:75
+#: .\theme\templates\assurance_police\assurance_police_detail.html:74
+#: .\theme\templates\carrosserie\carrosserie_detail.html:76
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:70
+#: .\theme\templates\intervention\intervention_detail.html:70
+msgid "Identifiant Peppol"
+msgstr "Αναγνωριστικό Peppol"
+
+#: .\assurance\models.py:20 .\carrosserie\models.py:27
+#: .\fournisseur\models.py:39
+msgid "Identifiant Peppol, ex : 0208:BE0123456789"
+msgstr "Αναγνωριστικό Peppol, π.χ.: 0208:BE0123456789"
+
+#: .\assurance\models.py:38
+#: .\theme\templates\assurance\modifier_assurance.html:39
+#: .\theme\templates\assurance_police\modifier_assurance_police.html:39
+#: .\theme\templates\dashboard.html:318
+msgid "Assurance"
+msgstr "Ασφάλιση"
+
+#: .\assurance\models.py:39
+msgid "Assurances"
+msgstr "Ασφαλίσεις"
+
+#: .\assurance_police\models.py:11
+msgid "Mensuel"
+msgstr "Μηνιαίος"
+
+#: .\assurance_police\models.py:12
+msgid "Annuel"
+msgstr "Ετήσιος"
+
+#: .\assurance_police\models.py:16
+msgid "Virement"
+msgstr "Μεταφορά"
+
+#: .\assurance_police\models.py:17
+msgid "Domiciliation"
+msgstr "Αυτόματη χρέωση"
+
+#: .\assurance_police\models.py:18
+msgid "Cash"
+msgstr "Μετρητά"
+
+#: .\assurance_police\models.py:19
+msgid "Carte bancaire"
+msgstr "Πιστωτική/Χρεωστική κάρτα"
+
+#: .\assurance_police\models.py:23
+msgid "Responsabilité civile"
+msgstr "Αστική ευθύνη"
+
+#: .\assurance_police\models.py:24
+msgid "Mini-Omnium"
+msgstr "Μίνι-Ομνίουμ"
+
+#: .\assurance_police\models.py:25
+msgid "Omnium complète"
+msgstr "Πλήρες Ομνίουμ"
+
+#: .\assurance_police\models.py:26
+msgid "Omnium financière"
+msgstr "Οικονομικό Ομνίουμ"
+
+#: .\assurance_police\models.py:74
+msgid "Type de couverture"
+msgstr "Τύπος κάλυψης"
+
+#: .\assurance_police\models.py:83
+msgid "Fréquence de paiement"
+msgstr "Συχνότητα πληρωμής"
+
+#: .\assurance_police\models.py:91
+msgid "Mode de paiement"
+msgstr "Τρόπος πληρωμής"
+
+#: .\assurance_police\models.py:115
+#: .\theme\templates\dashboard.html:333
+msgid "Police d'assurance"
+msgstr "Ασφαλιστική Πολιτική"
+
+#: .\assurance_police\models.py:116
+msgid "Polices d'assurance"
+msgstr "Ασφαλιστικές Πολιτικές"
+
+#: .\assurance_police\models.py:177
+msgid "Responsable"
+msgstr "Υπεύθυνος"
+
+#: .\assurance_police\models.py:184
+msgid "Sinistre"
+msgstr "Ζημιά"
+
+#: .\assurance_police\models.py:185
+msgid "Sinistres"
+msgstr "Ζημιές"
+
 #: .\carrosserie\models.py:10
 #: .\theme\templates\societe_cliente\societe_cliente_detail.html:33
 #: .\theme\templates\societe_cliente\societe_cliente_form.html:34
@@ -168,63 +331,24 @@ msgstr "Επώνυμο υπευθύνου"
 msgid "Responsable prenom"
 msgstr "Όνομα υπευθύνου"
 
-#: .\carrosserie\models.py:15
-#: .\theme\templates\carrosserie\carrosserie_form.html:64
-#: .\theme\templates\carrosserie\carrosserie_list.html:58
-#: .\theme\templates\fournisseurs\fournisseur_list.html:57
-#: .\theme\templates\utilisateurs\liste_utilisateurs.html:19
-msgid "Téléphone"
-msgstr "Τηλέφωνο"
-
-#: .\carrosserie\models.py:16 .\client_particulier\models.py:59
-#: .\fournisseur\models.py:52 .\societe_cliente\models.py:45
-#: .\theme\templates\carrosserie\carrosserie_form.html:57
-#: .\theme\templates\carrosserie\carrosserie_list.html:57
-#: .\theme\templates\client_particulier\client_detail.html:33
-#: .\theme\templates\client_particulier\client_form.html:95
-#: .\theme\templates\client_particulier\client_list.html:63
-#: .\theme\templates\fournisseurs\fournisseur_form.html:65
-#: .\theme\templates\fournisseurs\fournisseur_list.html:56
-#: .\theme\templates\societe_cliente\societe_cliente_detail.html:49
-#: .\theme\templates\societe_cliente\societe_cliente_form.html:72
-#: .\theme\templates\societe_cliente\societe_cliente_list.html:62
-msgid "Email"
-msgstr "Email"
-
-#: .\carrosserie\models.py:17 .\fournisseur\models.py:24
-#: .\theme\templates\carrosserie\carrosserie_detail.html:36
+#: .\carrosserie\models.py:23 .\fournisseur\models.py:24
+#: .\theme\templates\carrosserie\carrosserie_detail.html:50
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:36
 #: .\theme\templates\fournisseurs\fournisseur_form.html:42
 #: .\theme\templates\societe_cliente\societe_cliente_detail.html:41
 msgid "Numéro de TVA"
 msgstr "ΑΦΜ"
 
-#: .\carrosserie\models.py:19 .\facture\models.py:23 .\fournisseur\models.py:37
-#: .\theme\templates\carrosserie\carrosserie_detail.html:70
-#: .\theme\templates\fournisseurs\fournisseur_detail.html:70
-#: .\theme\templates\intervention\intervention_detail.html:70
-msgid "Identifiant Peppol"
-msgstr "Αναγνωριστικό Peppol"
-
-#: .\carrosserie\models.py:21 .\fournisseur\models.py:39
-msgid "Identifiant Peppol, ex : 0208:BE0123456789"
-msgstr "Αναγνωριστικό Peppol, π.χ.: 0208:BE0123456789"
-
-#: .\carrosserie\models.py:30 .\intervention\models.py:11
+#: .\carrosserie\models.py:39 .\intervention\models.py:11
 #: .\maintenance\check_up\models.py:472
 #: .\maintenance\nettoyage_exterieur\models.py:29
-#: .\theme\templates\carrosserie\carrosserie_form.html:34
 #: .\theme\templates\intervention\intervention_form.html:27
 msgid "Carrosserie"
 msgstr "Σασί"
 
-#: .\carrosserie\models.py:31 .\theme\templates\dashboard.html:248
+#: .\carrosserie\models.py:40 .\theme\templates\dashboard.html:248
 msgid "Carrosseries"
 msgstr "Σασί"
-
-#: .\carrosserie\views.py:61
-msgid "Le nom de la carrosserie est obligatoire."
-msgstr "Το όνομα του αμαξώματος είναι υποχρεωτικό."
 
 #: .\client_particulier\models.py:12
 #: .\theme\templates\client_particulier\client_form.html:34
@@ -235,6 +359,7 @@ msgid "Prénom"
 msgstr "Όνομα"
 
 #: .\client_particulier\models.py:14 .\piece\models.py:8
+#: .\theme\templates\carrosserie\carrosserie_detail.html:37
 #: .\theme\templates\client_particulier\client_form.html:43
 #: .\theme\templates\client_particulier\client_form.html:47
 #: .\theme\templates\client_particulier\client_list.html:60
@@ -322,7 +447,7 @@ msgid "Historique"
 msgstr "Ιστορικό"
 
 #: .\client_particulier\models.py:119 .\societe_cliente\models.py:115
-#: .\voiture\voiture_exemplaire\models.py:15
+#: .\voiture\voiture_exemplaire\models.py:17
 msgid "Location"
 msgstr "Ενοικίαση"
 
@@ -330,7 +455,7 @@ msgstr "Ενοικίαση"
 #: .\panier\models.py:25
 #: .\theme\templates\client_particulier\client_form.html:11
 #: .\theme\templates\societe_cliente\societe_cliente_form.html:11
-#: .\voiture\voiture_exemplaire\models.py:13
+#: .\voiture\voiture_exemplaire\models.py:15
 msgid "Client"
 msgstr "Πελάτης"
 
@@ -407,7 +532,6 @@ msgid "Prix unitaire"
 msgstr "Τιμή ανά μονάδα"
 
 #: .\facture\models.py:117
-#: .\theme\templates\carrosserie\carrosserie_detail.html:41
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:41
 #: .\theme\templates\fournisseurs\fournisseur_form.html:50
 msgid "Taux de TVA"
@@ -539,12 +663,15 @@ msgid "Type de carburant"
 msgstr "Τύπος καυσίμου"
 
 #: .\fuel\models.py:56 .\maintenance\models.py:64 .\piece\models.py:68
-#: .\recharge\models.py:41 .\theme\templates\fuel\fuel_form.html:37
+#: .\recharge\models.py:41
+#: .\theme\templates\assurance_police\assurance_police_detail.html:41
+#: .\theme\templates\assurance_police\assurance_police_list.html:22
+#: .\theme\templates\assurance_police\assurance_police_list.html:55
+#: .\theme\templates\fuel\fuel_form.html:37
 #: .\theme\templates\fuel\fuel_list.html:56
 #: .\theme\templates\intervention\intervention_detail.html:41
 #: .\theme\templates\intervention\intervention_list.html:45
 #: .\theme\templates\maintenance\creer_maintenance.html:16
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:48
 msgid "Immatriculation"
 msgstr "Άδεια κυκλοφορίας"
 
@@ -557,20 +684,16 @@ msgstr "Ημερομηνία γέμισματος"
 msgid "Litres"
 msgstr "Λίτρα"
 
-#: .\fuel\models.py:62
-msgid "Prix au litre (€)"
-msgstr "Τιμή ανά λίτρο (€)"
-
-#: .\fuel\models.py:70 .\theme\templates\fuel\fuel_form.html:75
+#: .\fuel\models.py:63 .\theme\templates\fuel\fuel_form.html:75
 msgid "Prix du plein (€)"
 msgstr "Τιμή πλήρωσης (€)"
 
-#: .\fuel\models.py:72 .\recharge\models.py:54
+#: .\fuel\models.py:67 .\recharge\models.py:54
 #: .\theme\templates\fuel\fuel_form.html:105
 msgid "Validation"
 msgstr "Επιβεβαίωση"
 
-#: .\fuel\models.py:75 .\theme\templates\dashboard.html:304
+#: .\fuel\models.py:72 .\theme\templates\dashboard.html:304
 #: .\theme\templates\fuel\fuel_form.html:11
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:46
 #: .\theme\templates\voiture_moteur\list.html:38
@@ -578,7 +701,7 @@ msgstr "Επιβεβαίωση"
 msgid "Carburant"
 msgstr "Καύσιμο"
 
-#: .\fuel\models.py:76
+#: .\fuel\models.py:73
 msgid "Carburants"
 msgstr "Καύσιμα"
 
@@ -1274,7 +1397,7 @@ msgstr "Μη καθορισμένο"
 
 #: .\maintenance\check_up\models.py:351 .\maintenance\jeux_pieces\models.py:108
 #: .\maintenance\models.py:46 .\utilisateurs\models.py:73
-#: .\utilisateurs\views.py:198
+#: .\utilisateurs\views.py:213
 msgid "Apprenti"
 msgstr "Μαθητευόμενος"
 
@@ -1283,7 +1406,7 @@ msgstr "Μαθητευόμενος"
 #: .\maintenance\models.py:37 .\maintenance\nettoyage_exterieur\models.py:25
 #: .\maintenance\nettoyage_interieur\models.py:26
 #: .\theme\templates\maintenance\detail.html:17 .\utilisateurs\models.py:74
-#: .\utilisateurs\views.py:199
+#: .\utilisateurs\views.py:214
 msgid "Mécanicien"
 msgstr "Μηχανικός"
 
@@ -1471,7 +1594,6 @@ msgid "Date d'intervention"
 msgstr "Ημερομηνία παρέμβασης"
 
 #: .\maintenance\models.py:67
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:98
 msgid "Date de la dernière intervention"
 msgstr "Ημερομηνία τελευταίας παρέμβασης"
 
@@ -1698,14 +1820,12 @@ msgstr "Barcode"
 #: .\piece\models.py:32 .\recharge\models.py:32
 #: .\theme\templates\fuel\fuel_form.html:90
 #: .\theme\templates\maintenance\creer_maintenance.html:51
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:43
 msgid "Modèle"
 msgstr "Μοντέλο"
 
 #: .\piece\models.py:41 .\piece\models.py:99 .\piece\models.py:108
 #: .\recharge\models.py:26 .\theme\templates\fuel\fuel_form.html:83
 #: .\theme\templates\maintenance\creer_maintenance.html:50
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:37
 msgid "Marque"
 msgstr "Μάρκα"
 
@@ -3999,6 +4119,7 @@ msgid "Nom du Directeur"
 msgstr "Όνομα Διευθυντή"
 
 #: .\societe_cliente\models.py:52
+#: .\theme\templates\carrosserie\carrosserie_form.html:42
 #: .\theme\templates\carrosserie\carrosserie_list.html:55
 #: .\theme\templates\fournisseurs\fournisseur_list.html:21
 #: .\theme\templates\fournisseurs\fournisseur_list.html:54
@@ -4096,7 +4217,9 @@ msgid "Retour à la liste des adresses"
 msgstr "Επιστροφή στη λίστα διευθύνσεων"
 
 #: .\theme\templates\adresse\adresse_detail.html:29
-#: .\theme\templates\carrosserie\carrosserie_detail.html:32
+#: .\theme\templates\assurance\assurance_detail.html:33
+#: .\theme\templates\assurance_police\assurance_police_detail.html:33
+#: .\theme\templates\carrosserie\carrosserie_detail.html:33
 #: .\theme\templates\client_particulier\client_detail.html:29
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:32
 #: .\theme\templates\intervention\intervention_detail.html:32
@@ -4115,7 +4238,9 @@ msgid "Modifier l'adresse"
 msgstr "Επεξεργασία διεύθυνσης"
 
 #: .\theme\templates\adresse\adresse_detail.html:88
-#: .\theme\templates\carrosserie\carrosserie_detail.html:95
+#: .\theme\templates\assurance\assurance_detail.html:100
+#: .\theme\templates\assurance_police\assurance_police_detail.html:99
+#: .\theme\templates\carrosserie\carrosserie_detail.html:101
 #: .\theme\templates\client_particulier\client_detail.html:110
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:95
 #: .\theme\templates\intervention\intervention_detail.html:95
@@ -4129,8 +4254,12 @@ msgstr "Δημιουργία διεύθυνσης"
 
 #: .\theme\templates\adresse\adresse_form.html:78
 #: .\theme\templates\adresse\modifier_adresse.html:60
-#: .\theme\templates\carrosserie\carrosserie_form.html:121
-#: .\theme\templates\carrosserie\modifier_carrosserie.html:49
+#: .\theme\templates\assurance\assurance_form.html:93
+#: .\theme\templates\assurance\modifier_assurance.html:63
+#: .\theme\templates\assurance_police\assurance_police_form.html:39
+#: .\theme\templates\assurance_police\modifier_assurance_police.html:54
+#: .\theme\templates\carrosserie\carrosserie_form.html:124
+#: .\theme\templates\carrosserie\modifier_carrosserie.html:60
 #: .\theme\templates\client_particulier\client_form.html:173
 #: .\theme\templates\client_particulier\modifier_client.html:60
 #: .\theme\templates\fournisseurs\fournisseur_form.html:131
@@ -4163,6 +4292,10 @@ msgstr "Προσθήκη διεύθυνσης"
 
 #: .\theme\templates\adresse\adresse_list.html:69
 #: .\theme\templates\adresse\adresse_list.html:85
+#: .\theme\templates\assurance\assurance_list.html:59
+#: .\theme\templates\assurance\assurance_list.html:73
+#: .\theme\templates\assurance_police\assurance_police_list.html:59
+#: .\theme\templates\assurance_police\assurance_police_list.html:112
 #: .\theme\templates\carrosserie\carrosserie_list.html:59
 #: .\theme\templates\carrosserie\carrosserie_list.html:73
 #: .\theme\templates\client_particulier\client_list.html:64
@@ -4195,10 +4328,12 @@ msgid "Info indisponible"
 msgstr "Μη διαθέσιμες πληροφορίες"
 
 #: .\theme\templates\adresse\adresse_list.html:104
+#: .\theme\templates\assurance\assurance_list.html:88
+#: .\theme\templates\assurance_police\assurance_police_list.html:127
 #: .\theme\templates\carrosserie\carrosserie_list.html:88
 #: .\theme\templates\client_particulier\client_list.html:98
 #: .\theme\templates\fournisseurs\fournisseur_list.html:87
-#: .\theme\templates\fuel\fuel_list.html:95
+#: .\theme\templates\fuel\fuel_list.html:136
 #: .\theme\templates\intervention\intervention_list.html:74
 #: .\theme\templates\societe_cliente\societe_cliente_list.html:93
 #: .\theme\templates\voiture_embrayage\list.html:85
@@ -4209,10 +4344,12 @@ msgid "Recherche globale :"
 msgstr "Παγκόσμια αναζήτηση:"
 
 #: .\theme\templates\adresse\adresse_list.html:105
+#: .\theme\templates\assurance\assurance_list.html:89
+#: .\theme\templates\assurance_police\assurance_police_list.html:128
 #: .\theme\templates\carrosserie\carrosserie_list.html:89
 #: .\theme\templates\client_particulier\client_list.html:99
 #: .\theme\templates\fournisseurs\fournisseur_list.html:88
-#: .\theme\templates\fuel\fuel_list.html:96
+#: .\theme\templates\fuel\fuel_list.html:137
 #: .\theme\templates\intervention\intervention_list.html:75
 #: .\theme\templates\societe_cliente\societe_cliente_list.html:94
 #: .\theme\templates\voiture_boite\list.html:74
@@ -4234,10 +4371,12 @@ msgid "Aucune adresse trouvée"
 msgstr "Δεν βρέθηκαν διευθύνσεις"
 
 #: .\theme\templates\adresse\adresse_list.html:110
+#: .\theme\templates\assurance\assurance_list.html:94
+#: .\theme\templates\assurance_police\assurance_police_list.html:133
 #: .\theme\templates\carrosserie\carrosserie_list.html:94
 #: .\theme\templates\client_particulier\client_list.html:104
 #: .\theme\templates\fournisseurs\fournisseur_list.html:93
-#: .\theme\templates\fuel\fuel_list.html:101
+#: .\theme\templates\fuel\fuel_list.html:142
 #: .\theme\templates\intervention\intervention_list.html:80
 #: .\theme\templates\societe_cliente\societe_cliente_list.html:99
 #: .\theme\templates\voiture_boite\list.html:79
@@ -4250,10 +4389,12 @@ msgid "Premier"
 msgstr "Πρώτος"
 
 #: .\theme\templates\adresse\adresse_list.html:111
+#: .\theme\templates\assurance\assurance_list.html:95
+#: .\theme\templates\assurance_police\assurance_police_list.html:134
 #: .\theme\templates\carrosserie\carrosserie_list.html:95
 #: .\theme\templates\client_particulier\client_list.html:105
 #: .\theme\templates\fournisseurs\fournisseur_list.html:94
-#: .\theme\templates\fuel\fuel_list.html:102
+#: .\theme\templates\fuel\fuel_list.html:143
 #: .\theme\templates\intervention\intervention_list.html:81
 #: .\theme\templates\societe_cliente\societe_cliente_list.html:100
 #: .\theme\templates\voiture_boite\list.html:80
@@ -4266,10 +4407,12 @@ msgid "Dernier"
 msgstr "Τελευταίος"
 
 #: .\theme\templates\adresse\adresse_list.html:112
+#: .\theme\templates\assurance\assurance_list.html:96
+#: .\theme\templates\assurance_police\assurance_police_list.html:135
 #: .\theme\templates\carrosserie\carrosserie_list.html:96
 #: .\theme\templates\client_particulier\client_list.html:106
 #: .\theme\templates\fournisseurs\fournisseur_list.html:95
-#: .\theme\templates\fuel\fuel_list.html:103
+#: .\theme\templates\fuel\fuel_list.html:144
 #: .\theme\templates\intervention\intervention_list.html:82
 #: .\theme\templates\societe_cliente\societe_cliente_list.html:101
 #: .\theme\templates\voiture_boite\list.html:81
@@ -4282,10 +4425,12 @@ msgid "Suivant"
 msgstr "Επόμενος"
 
 #: .\theme\templates\adresse\adresse_list.html:113
+#: .\theme\templates\assurance\assurance_list.html:97
+#: .\theme\templates\assurance_police\assurance_police_list.html:136
 #: .\theme\templates\carrosserie\carrosserie_list.html:97
 #: .\theme\templates\client_particulier\client_list.html:107
 #: .\theme\templates\fournisseurs\fournisseur_list.html:96
-#: .\theme\templates\fuel\fuel_list.html:104
+#: .\theme\templates\fuel\fuel_list.html:145
 #: .\theme\templates\intervention\intervention_list.html:83
 #: .\theme\templates\societe_cliente\societe_cliente_list.html:102
 #: .\theme\templates\voiture_boite\list.html:82
@@ -4302,15 +4447,171 @@ msgid "Modifier l'adresse :"
 msgstr "Επεξεργασία διεύθυνσης:"
 
 #: .\theme\templates\adresse\modifier_adresse.html:65
-#: .\theme\templates\carrosserie\modifier_carrosserie.html:54
+#: .\theme\templates\assurance\modifier_assurance.html:67
+#: .\theme\templates\assurance_police\assurance_police_form.html:35
+#: .\theme\templates\assurance_police\modifier_assurance_police.html:58
+#: .\theme\templates\carrosserie\modifier_carrosserie.html:65
 #: .\theme\templates\client_particulier\modifier_client.html:65
 #: .\theme\templates\fournisseurs\modifier_fournisseur.html:54
 #: .\theme\templates\fuel\fuel_form.html:117
 #: .\theme\templates\intervention\modifier_intervention.html:54
 #: .\theme\templates\societe_cliente\modifier_societe_cliente.html:67
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:47
 #: .\theme\templates\voiture_exemplaire\modifier_exemplaire.html:84
 msgid "Annuler"
 msgstr "Ακύρωση"
+
+#: .\theme\templates\assurance\assurance_detail.html:16
+msgid "Détails de la compagnie d'assurance :"
+msgstr "Λεπτομέρειες της ασφαλιστικής εταιρείας:"
+
+#: .\theme\templates\assurance\assurance_detail.html:23
+#: .\theme\templates\assurance_police\assurance_police_detail.html:23
+msgid "Retour à la liste des assurances"
+msgstr "Επιστροφή στη λίστα ασφαλίσεων"
+
+#: .\theme\templates\assurance\assurance_detail.html:37
+#: .\theme\templates\assurance_police\assurance_police_detail.html:37
+msgid "Compagnie"
+msgstr "Εταιρεία"
+
+#: .\theme\templates\assurance\assurance_detail.html:61
+msgid "Modifier l'assureur"
+msgstr "Τροποποίηση ασφαλιστή"
+
+#: .\theme\templates\assurance\assurance_detail.html:71
+#: .\theme\templates\assurance_police\assurance_police_detail.html:70
+#: .\theme\templates\carrosserie\carrosserie_detail.html:72
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:66
+#: .\theme\templates\intervention\intervention_detail.html:66
+msgid "Informations Peppol"
+msgstr "Πληροφορίες Peppol"
+
+#: .\theme\templates\assurance\assurance_detail.html:92
+#: .\theme\templates\assurance_police\assurance_police_detail.html:91
+#: .\theme\templates\carrosserie\carrosserie_detail.html:93
+#: .\theme\templates\client_particulier\client_detail.html:102
+#: .\theme\templates\fournisseurs\fournisseur_detail.html:87
+#: .\theme\templates\intervention\intervention_detail.html:87
+#: .\theme\templates\societe_cliente\societe_cliente_detail.html:98
+msgid "Aucune adresse renseignée."
+msgstr "Δεν έχει καταχωρηθεί διεύθυνση."
+
+#: .\theme\templates\assurance\assurance_detail.html:115
+#: .\theme\templates\assurance_police\assurance_police_detail.html:114
+msgid "Retour à la liste des assureurs"
+msgstr "Επιστροφή στη λίστα ασφαλιστών"
+
+#: .\theme\templates\assurance\assurance_form.html:9
+msgid "Créer une compagnie d'assurance"
+msgstr "Δημιουργία ασφαλιστικής εταιρείας"
+
+#: .\theme\templates\assurance\assurance_list.html:4
+#: .\theme\templates\assurance\assurance_list.html:10
+msgid "Liste des Assureurs"
+msgstr "Λίστα ασφαλιστών"
+
+#: .\theme\templates\assurance\assurance_list.html:29
+#: .\theme\templates\carrosserie\carrosserie_form.html:49
+#: .\theme\templates\carrosserie\carrosserie_list.html:30
+#: .\theme\templates\fournisseurs\fournisseur_form.html:57
+#: .\theme\templates\fournisseurs\fournisseur_list.html:25
+#: .\theme\templates\societe_cliente\societe_cliente_detail.html:45
+msgid "Numéro Peppol"
+msgstr "Αριθμός Peppol"
+
+#: .\theme\templates\assurance\assurance_list.html:38
+#: .\theme\templates\carrosserie\carrosserie_list.html:38
+msgid "Numéro téléphone"
+msgstr "Αριθμός τηλεφώνου"
+
+#: .\theme\templates\assurance\assurance_list.html:43
+msgid "Ajouter une compagnie d'assurance"
+msgstr "Προσθήκη ασφαλιστικής εταιρείας"
+
+#: .\theme\templates\assurance\assurance_list.html:56
+#: .\theme\templates\carrosserie\carrosserie_list.html:56
+#: .\theme\templates\fournisseurs\fournisseur_list.html:55
+msgid "Numero Peppol"
+msgstr "Αριθμός Peppol"
+
+#: .\theme\templates\assurance\assurance_list.html:90
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ compagnies"
+msgstr "Εμφάνιση από _START_ έως _END_ από _TOTAL_ εταιρείες"
+
+#: .\theme\templates\assurance\assurance_list.html:91
+msgid "Aucune compagnie trouvé"
+msgstr "Καμία εταιρεία δεν βρέθηκε"
+
+#: .\theme\templates\assurance\assurance_list.html:92
+msgid "Aucun compagnie trouvé"
+msgstr "Καμία εταιρεία δεν βρέθηκε"
+
+#: .\theme\templates\assurance\modifier_assurance.html:16
+msgid "Modifier la Compagnie d'assurance:"
+msgstr "Τροποποίηση ασφαλιστικής εταιρείας:"
+
+#: .\theme\templates\assurance_police\assurance_police_detail.html:16
+msgid "Détails de la police d'assurance :"
+msgstr "Λεπτομέρειες ασφαλιστικής πολιτικής:"
+
+#: .\theme\templates\assurance_police\assurance_police_detail.html:45
+#: .\theme\templates\assurance_police\assurance_police_list.html:26
+msgid "Numéro de Police"
+msgstr "Αριθμός Πολιτικής"
+
+#: .\theme\templates\assurance_police\assurance_police_detail.html:49
+#: .\theme\templates\assurance_police\assurance_police_list.html:57
+msgid "Prime annuelle"
+msgstr "Ετήσιο ασφάλιστρο"
+
+#: .\theme\templates\assurance_police\assurance_police_detail.html:60
+msgid "Modifier la police"
+msgstr "Τροποποίηση ασφαλιστικής πολιτικής"
+
+#: .\theme\templates\assurance_police\assurance_police_form.html:7
+msgid "Ajouter / Modifier une police d'assurance"
+msgstr "Προσθήκη / Τροποποίηση ασφαλιστικής πολιτικής"
+
+#: .\theme\templates\assurance_police\assurance_police_list.html:4
+#: .\theme\templates\assurance_police\assurance_police_list.html:10
+msgid "Liste des polices"
+msgstr "Λίστα ασφαλιστικών πολιτικών"
+
+#: .\theme\templates\assurance_police\assurance_police_list.html:30
+msgid "Prime Annuelle"
+msgstr "Ετήσιο ασφάλιστρο"
+
+#: .\theme\templates\assurance_police\assurance_police_list.html:34
+#: .\theme\templates\assurance_police\assurance_police_list.html:58
+msgid "Franchise"
+msgstr "Αυτοσυνεισφορά"
+
+#: .\theme\templates\assurance_police\assurance_police_list.html:39
+msgid "Ajouter une Police d'assurance"
+msgstr "Προσθήκη ασφαλιστικής πολιτικής"
+
+#: .\theme\templates\assurance_police\assurance_police_list.html:44
+msgid "Dashboard"
+msgstr "Πίνακας Ελέγχου"
+
+#: .\theme\templates\assurance_police\assurance_police_list.html:56
+msgid "Numero de Police"
+msgstr "Αριθμός Πολιτικής"
+
+#: .\theme\templates\assurance_police\assurance_police_list.html:129
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ polices"
+msgstr "Εμφάνιση από _START_ έως _END_ από _TOTAL_ πολιτικές"
+
+#: .\theme\templates\assurance_police\assurance_police_list.html:130
+#: .\theme\templates\assurance_police\assurance_police_list.html:131
+msgid "Aucune police trouvée"
+msgstr "Καμία ασφαλιστική πολιτική δεν βρέθηκε"
+
+#: .\theme\templates\assurance_police\modifier_assurance_police.html:16
+msgid "Modifier la police d'assurance:"
+msgstr "Τροποποίηση ασφαλιστικής πολιτικής:"
+
 
 #: .\theme\templates\base.html:9
 msgid "dBSolution"
@@ -4346,62 +4647,25 @@ msgstr "Με επιφύλαξη παντός δικαιώματος."
 msgid "Déconnexion"
 msgstr "Αποσύνδεση"
 
-#: .\theme\templates\carrosserie\carrosserie_detail.html:10
+#: .\theme\templates\carrosserie\carrosserie_detail.html:16
 #: .\theme\templates\intervention\intervention_detail.html:10
 msgid "Détails de la carrosserie :"
 msgstr "Λεπτομέρειες αμαξώματος:"
 
-#: .\theme\templates\carrosserie\carrosserie_detail.html:56
-msgid "Modifier le carrosserie"
-msgstr "Τροποποίηση αμαξώματος"
-
-#: .\theme\templates\carrosserie\carrosserie_detail.html:66
-#: .\theme\templates\fournisseurs\fournisseur_detail.html:66
-#: .\theme\templates\intervention\intervention_detail.html:66
-msgid "Informations Peppol"
-msgstr "Πληροφορίες Peppol"
-
-#: .\theme\templates\carrosserie\carrosserie_detail.html:87
-#: .\theme\templates\client_particulier\client_detail.html:102
-#: .\theme\templates\fournisseurs\fournisseur_detail.html:87
-#: .\theme\templates\intervention\intervention_detail.html:87
-#: .\theme\templates\societe_cliente\societe_cliente_detail.html:98
-msgid "Aucune adresse renseignée."
-msgstr "Δεν έχει καταχωρηθεί διεύθυνση."
-
-#: .\theme\templates\carrosserie\carrosserie_detail.html:122
+#: .\theme\templates\carrosserie\carrosserie_detail.html:23
+#: .\theme\templates\carrosserie\carrosserie_detail.html:132
 msgid "Retour à la liste des carrosseries"
 msgstr "Επιστροφή στη λίστα αμαξωμάτων"
+
+#: .\theme\templates\carrosserie\carrosserie_detail.html:62
+msgid "Modifier le carrosserie"
+msgstr "Τροποποίηση αμαξώματος"
 
 #: .\theme\templates\carrosserie\carrosserie_form.html:12
 msgid "Créer une carrosserie"
 msgstr "Δημιουργία αμαξώματος"
 
-#: .\theme\templates\carrosserie\carrosserie_form.html:43
-msgid "Numero de tva"
-msgstr "Αριθμός ΦΠΑ"
-
-#: .\theme\templates\carrosserie\carrosserie_form.html:49
-#: .\theme\templates\carrosserie\carrosserie_list.html:30
-#: .\theme\templates\fournisseurs\fournisseur_form.html:57
-#: .\theme\templates\fournisseurs\fournisseur_list.html:25
-#: .\theme\templates\societe_cliente\societe_cliente_detail.html:45
-msgid "Numéro Peppol"
-msgstr "Αριθμός Peppol"
-
-#: .\theme\templates\carrosserie\carrosserie_form.html:70
-msgid "Nom du responsable"
-msgstr "Επώνυμο υπευθύνου"
-
-#: .\theme\templates\carrosserie\carrosserie_form.html:76
-msgid "Prénom du responsable"
-msgstr "Όνομα υπευθύνου"
-
-#: .\theme\templates\carrosserie\carrosserie_list.html:4
-#: .\theme\templates\carrosserie\carrosserie_list.html:10
-msgid "Liste des Carrosseries"
-msgstr "Λίστα αμαξωμάτων"
-
+#: .\theme\templates\carrosserie\carrosserie_form.html:34
 #: .\theme\templates\carrosserie\carrosserie_list.html:18
 #: .\theme\templates\carrosserie\carrosserie_list.html:54
 #: .\theme\templates\intervention\intervention_detail.html:36
@@ -4410,22 +4674,26 @@ msgstr "Λίστα αμαξωμάτων"
 msgid "Nom de la carrosserie"
 msgstr "Όνομα αμαξώματος"
 
+#: .\theme\templates\carrosserie\carrosserie_form.html:71
+msgid "Nom du responsable"
+msgstr "Επώνυμο υπευθύνου"
+
+#: .\theme\templates\carrosserie\carrosserie_form.html:78
+msgid "Prénom du responsable"
+msgstr "Όνομα υπευθύνου"
+
+#: .\theme\templates\carrosserie\carrosserie_list.html:4
+#: .\theme\templates\carrosserie\carrosserie_list.html:10
+msgid "Liste des Carrosseries"
+msgstr "Λίστα αμαξωμάτων"
+
 #: .\theme\templates\carrosserie\carrosserie_list.html:34
 msgid "BEXX XXXX XXXX"
 msgstr "BEXX XXXX XXXX"
 
-#: .\theme\templates\carrosserie\carrosserie_list.html:38
-msgid "Numéro téléphone"
-msgstr "Αριθμός τηλεφώνου"
-
 #: .\theme\templates\carrosserie\carrosserie_list.html:43
 msgid "Ajouter une carrosserie"
 msgstr "Προσθήκη αμαξώματος"
-
-#: .\theme\templates\carrosserie\carrosserie_list.html:56
-#: .\theme\templates\fournisseurs\fournisseur_list.html:55
-msgid "Numero Peppol"
-msgstr "Αριθμός Peppol"
 
 #: .\theme\templates\carrosserie\carrosserie_list.html:90
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ carrosseries"
@@ -4439,7 +4707,7 @@ msgstr "Δεν βρέθηκε κανένα αμάξωμα"
 msgid "Aucun carrosserie trouvé"
 msgstr "Δεν βρέθηκε κανένα αμάξωμα"
 
-#: .\theme\templates\carrosserie\modifier_carrosserie.html:10
+#: .\theme\templates\carrosserie\modifier_carrosserie.html:16
 msgid "Modifier le carrosserie :"
 msgstr "Τροποποίηση αμαξώματος:"
 
@@ -4532,7 +4800,8 @@ msgstr "Χρήστες"
 #: .\theme\templates\dashboard.html:220 .\theme\templates\dashboard.html:236
 #: .\theme\templates\dashboard.html:250 .\theme\templates\dashboard.html:264
 #: .\theme\templates\dashboard.html:278 .\theme\templates\dashboard.html:292
-#: .\theme\templates\dashboard.html:306
+#: .\theme\templates\dashboard.html:306 .\theme\templates\dashboard.html:320
+#: .\theme\templates\dashboard.html:335
 msgid "Nombre total :"
 msgstr "Συνολικός αριθμός:"
 
@@ -4600,7 +4869,7 @@ msgstr "Πίσω Φρένα"
 msgid "Intervention carrosserie"
 msgstr "Εργασία αμαξώματος"
 
-#: .\theme\templates\dashboard.html:320
+#: .\theme\templates\dashboard.html:349
 msgid "Tableau de bord Admin"
 msgstr "Πίνακας διαχείρισης Admin"
 
@@ -4677,7 +4946,6 @@ msgid "exemplaire"
 msgstr "Αντίγραφο"
 
 #: .\theme\templates\fuel\fuel_list.html:30
-
 msgid "essence, ..."
 msgstr "Βενζίνη, ..."
 
@@ -4697,12 +4965,12 @@ msgstr "Συνολική τιμή"
 msgid "Prix au litre"
 msgstr "Τιμή ανά λίτρο"
 
-#: .\theme\templates\fuel\fuel_list.html:97
+#: .\theme\templates\fuel\fuel_list.html:138
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ fuels"
 msgstr "Εμφάνιση από _START_ έως _END_ από _TOTAL_ καύσιμα"
 
-#: .\theme\templates\fuel\fuel_list.html:98
-#: .\theme\templates\fuel\fuel_list.html:99
+#: .\theme\templates\fuel\fuel_list.html:139
+#: .\theme\templates\fuel\fuel_list.html:140
 msgid "Aucun fuel trouvé"
 msgstr "Δεν βρέθηκε κανένα καύσιμο"
 
@@ -5037,7 +5305,7 @@ msgstr "Ποσότητα λαδιού (L)"
 
 #: .\theme\templates\voiture_boite\ajouter_boite_simple.html:67
 #: .\theme\templates\voiture_embrayage\ajouter_embrayage_simple.html:92
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:128
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:42
 #: .\theme\templates\voiture_freins\ajouter_freins_simple.html:67
 #: .\theme\templates\voiture_freins_ar\ajouter_freins_ar_simple.html:67
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:124
@@ -5220,55 +5488,15 @@ msgstr "Εμφάνιση από _START_ έως _END_ από _TOTAL_ συμπλέ
 msgid "Aucun embrayage trouvé"
 msgstr "Δεν βρέθηκε κανένας συμπλέκτης"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:14
-msgid "Ajouter un véhicule : "
-msgstr "Προσθήκη οχήματος: "
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:9
+msgid "Ajouter un véhicule"
+msgstr "Προσθήκη οχήματος"
 
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:53
-msgid "Pays d'immatriculation"
-msgstr "Χώρα εγγραφής"
-
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:58
-msgid "Numero VIN"
-msgstr "Αριθμός VIN"
-
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:64
-msgid "Type d'utilisation"
-msgstr "Τύπος χρήσης"
-
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:72
-msgid "Sélectionner un type d'utilisation"
-msgstr "Επιλέξτε τύπο χρήσης"
-
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:88
-msgid "Kilomètres du chassis"
-msgstr "Χιλιομετρική απόσταση πλαισίου"
-
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:93
-msgid "Kilomètres de la dernière intervention"
-msgstr "Χιλιομετρική απόσταση στην τελευταία παρέμβαση"
-
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:103
+#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:37
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:61
 #: .\theme\templates\voiture_exemplaire\liste_exemplaires.html:85
 msgid "Année de production"
 msgstr "Έτος παραγωγής"
-
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:108
-msgid "Mois de production"
-msgstr "Μήνας παραγωγής"
-
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:113
-msgid "Numero d'identification du moteur"
-msgstr "Αριθμός αναγνώρισης κινητήρα"
-
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:118
-msgid "Date de mise en circulation"
-msgstr "Ημερομηνία θέσης σε κυκλοφορία"
-
-#: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:123
-msgid "Kilomètres moteur"
-msgstr "Χιλιομετρική απόσταση κινητήρα"
 
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:10
 msgid "Détails du véhicule : "
@@ -5857,10 +6085,8 @@ msgid "Largeur (mm)"
 msgstr "Πλάτος (mm)"
 
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:71
-#, fuzzy, python-format
-#| msgid "Hauteur (%%)"
-msgid "Hauteur (%%)"
-msgstr "Ύψος (%)"
+msgid "Hauteur en pourcent"
+msgstr "Ύψος σε ποσοστό"
 
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:75
 msgid "Diamètre jante (pouces)"
@@ -5934,8 +6160,8 @@ msgid "Détails des pneus"
 msgstr "Λεπτομέρειες ελαστικών"
 
 #: .\theme\templates\voiture_pneus\pneus_detail.html:37
-msgid "Hauteur en %"
-msgstr "Ύψος σε %"
+msgid "Hauteur en pourcent"
+msgstr "Ύψος σε ποσοστό"
 
 #: .\theme\views.py:35
 msgid "Nom d'utilisateur ou mot de passe incorrect"
@@ -5961,49 +6187,70 @@ msgstr "Ανθρώπινοι Πόροι"
 msgid "Operations"
 msgstr "Λειτουργίες"
 
-#: .\utilisateurs\models.py:75 .\utilisateurs\views.py:202
+#: .\utilisateurs\models.py:75 .\utilisateurs\views.py:217
 msgid "Magasinier"
 msgstr "Αποθηκάριος"
 
-#: .\utilisateurs\models.py:76 .\utilisateurs\views.py:200
+#: .\utilisateurs\models.py:76 .\utilisateurs\views.py:215
 msgid "Carrossier"
 msgstr "Σιδηρουργός αμαξώματος"
 
-#: .\utilisateurs\models.py:77 .\utilisateurs\views.py:201
+#: .\utilisateurs\models.py:77 .\utilisateurs\views.py:216
 msgid "Chef Mécanicien"
 msgstr "Αρχιμηχανικός"
 
-#: .\utilisateurs\models.py:78 .\utilisateurs\views.py:203
+#: .\utilisateurs\models.py:78 .\utilisateurs\views.py:218
 msgid "Instructeur"
 msgstr "Εκπαιδευτής"
 
-#: .\utilisateurs\models.py:79 .\utilisateurs\views.py:204
+#: .\utilisateurs\models.py:79 .\utilisateurs\views.py:219
 msgid "Instructeur Externe"
 msgstr "Εξωτερικός Εκπαιδευτής"
 
-#: .\utilisateurs\models.py:80 .\utilisateurs\views.py:205
+#: .\utilisateurs\models.py:80 .\utilisateurs\views.py:220
 msgid "Vendeur"
 msgstr "Πωλητής"
 
-#: .\utilisateurs\models.py:81 .\utilisateurs\views.py:206
+#: .\utilisateurs\models.py:81 .\utilisateurs\views.py:221
 msgid "Comptable"
 msgstr "Λογιστής"
 
-#: .\utilisateurs\models.py:82 .\utilisateurs\views.py:207
+#: .\utilisateurs\models.py:82 .\utilisateurs\views.py:222
 msgid "Direction"
 msgstr "Διοίκηση"
 
-#: .\utilisateurs\views.py:185
+#: .\utilisateurs\views.py:48
+msgid "Email ou mot de passe incorrect"
+msgstr "Λανθασμένο email ή κωδικός πρόσβασης"
+
+#: .\utilisateurs\views.py:62
+msgid "Code TOTP requis"
+msgstr "Απαιτείται κωδικός TOTP"
+
+#: .\utilisateurs\views.py:66
+msgid "Code TOTP invalide"
+msgstr "Μη έγκυρος κωδικός TOTP"
+
+
+#: .\utilisateurs\views.py:200
 msgid "Révision moteur"
 msgstr "Σέρβις κινητήρα"
 
-#: .\utilisateurs\views.py:185 .\voiture\voiture_boite\models.py:10
+#: .\utilisateurs\views.py:200 .\voiture\voiture_boite\models.py:10
 msgid "Changement filtre"
 msgstr "Αλλαγή φίλτρου"
 
-#: .\utilisateurs\views.py:209
+#: .\utilisateurs\views.py:224
 msgid "Rôle inconnu"
 msgstr "Άγνωστος ρόλος"
+
+#: .\utilisateurs\views.py:263
+msgid "TOTP configuré avec succès. Vous pouvez maintenant vous connecter."
+msgstr "Η ρύθμιση του TOTP ολοκληρώθηκε με επιτυχία. Τώρα μπορείτε να συνδεθείτε."
+
+#: .\utilisateurs\views.py:313
+msgid "Utilisateur créé avec succès."
+msgstr "Ο χρήστης δημιουργήθηκε με επιτυχία."
 
 #: .\voiture\voiture_boite\models.py:11
 msgid "Remplacement boîte"
@@ -6078,11 +6325,11 @@ msgstr "Ενισχυμένο / Αγωνιστικό"
 msgid "Bimasse (pour volant moteur DMF)"
 msgstr "Διπλής μάζας (για DMF σφόνδυλο)"
 
-#: .\voiture\voiture_exemplaire\models.py:12
+#: .\voiture\voiture_exemplaire\models.py:14
 msgid "Société"
 msgstr "Εταιρεία"
 
-#: .\voiture\voiture_exemplaire\models.py:14
+#: .\voiture\voiture_exemplaire\models.py:16
 msgid "Privé"
 msgstr "Ιδιωτικό"
 
@@ -6138,14 +6385,6 @@ msgstr "Λείπουν παράμετροι"
 #: .\voiture\voiture_exemplaire\views.py:276
 msgid "Moteur non trouvé"
 msgstr "Ο κινητήρας δεν βρέθηκε"
-
-#: .\voiture\voiture_exemplaire\views.py:361
-msgid "Veuillez renseigner au moins l'immatriculation et le pays."
-msgstr "Παρακαλώ εισάγετε τουλάχιστον την πινακίδα και τη χώρα."
-
-#: .\voiture\voiture_exemplaire\views.py:381
-msgid "Une erreur est survenue : "
-msgstr "Παρουσιάστηκε σφάλμα: "
 
 #: .\voiture\voiture_moteur\models.py:12
 msgid "Atmosphérique"
@@ -6351,6 +6590,57 @@ msgstr "Τα ελαστικά αντικαταστάθηκαν με επιτυχ
 msgid "Le nom du manufacturier est obligatoire."
 msgstr "Το όνομα του κατασκευαστή είναι υποχρεωτικό."
 
+#~ msgid "Le nom de la carrosserie est obligatoire."
+#~ msgstr "Το όνομα του αμαξώματος είναι υποχρεωτικό."
+
+#~ msgid "Prix au litre (€)"
+#~ msgstr "Τιμή ανά λίτρο (€)"
+
+#~ msgid "Numero de tva"
+#~ msgstr "Αριθμός ΦΠΑ"
+
+#~ msgid "Pays d'immatriculation"
+#~ msgstr "Χώρα εγγραφής"
+
+#~ msgid "Numero VIN"
+#~ msgstr "Αριθμός VIN"
+
+#~ msgid "Type d'utilisation"
+#~ msgstr "Τύπος χρήσης"
+
+#~ msgid "Sélectionner un type d'utilisation"
+#~ msgstr "Επιλέξτε τύπο χρήσης"
+
+#~ msgid "Kilomètres du chassis"
+#~ msgstr "Χιλιομετρική απόσταση πλαισίου"
+
+#~ msgid "Kilomètres de la dernière intervention"
+#~ msgstr "Χιλιομετρική απόσταση στην τελευταία παρέμβαση"
+
+#~ msgid "Mois de production"
+#~ msgstr "Μήνας παραγωγής"
+
+#~ msgid "Numero d'identification du moteur"
+#~ msgstr "Αριθμός αναγνώρισης κινητήρα"
+
+#~ msgid "Date de mise en circulation"
+#~ msgstr "Ημερομηνία θέσης σε κυκλοφορία"
+
+#~ msgid "Kilomètres moteur"
+#~ msgstr "Χιλιομετρική απόσταση κινητήρα"
+
+#~ msgid "Hauteur (%)"
+#~ msgstr "Ύψος (%)"
+
+#~ msgid "Hauteur en %"
+#~ msgstr "Ύψος σε %"
+
+#~ msgid "Veuillez renseigner au moins l'immatriculation et le pays."
+#~ msgstr "Παρακαλώ εισάγετε τουλάχιστον την πινακίδα και τη χώρα."
+
+#~ msgid "Une erreur est survenue : "
+#~ msgstr "Παρουσιάστηκε σφάλμα: "
+
 #~ msgid "La boîte de vitesse a été liée à l'exemplaire avec succès."
 #~ msgstr "Το κιβώτιο ταχυτήτων συνδέθηκε με το όχημα με επιτυχία."
 
@@ -6408,9 +6698,6 @@ msgstr "Το όνομα του κατασκευαστή είναι υποχρε�
 #~ msgid "Voulez-vous lier ce moteur à ce véhicule ?"
 #~ msgstr "Θέλετε να συνδέσετε αυτόν τον κινητήρα με αυτό το όχημα;"
 
-#~ msgid "Ajouter une boite pour"
-#~ msgstr "Προσθήκη κιβωτίου για"
-
 #~ msgid "Ajouter un exemplaire pour"
 #~ msgstr "Προσθήκη αντιτύπου για"
 
@@ -6437,9 +6724,6 @@ msgstr "Το όνομα του κατασκευαστή είναι υποχρε�
 
 #~ msgid "Ce modèle ne contient aucun exemplaire enregistré."
 #~ msgstr "Αυτό το μοντέλο δεν περιέχει κανένα καταχωρημένο όχημα."
-
-#~ msgid "Adresse email ou mot de passe incorrect"
-#~ msgstr "Λανθασμένο email ή κωδικός πρόσβασης"
 
 #~ msgid "Code de vérification"
 #~ msgstr "Κωδικός επιβεβαίωσης"
