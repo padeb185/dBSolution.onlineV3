@@ -40,6 +40,13 @@
                    class="border rounded px-4 py-2 w-full">
         </div>
 
+         <div>
+            <label for="id_kilometrage_fuel">{% trans "Kilomètres" %}</label>
+            <input type="text" id="id_kilometrage_fuel" name="kilometrage_fuel"
+                   value="{{ request.POST.kilometrage_fuel|default:fuel.kilometrage_fuel|default:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+
         <!-- Type de carburant -->
         <div>
             <label for="id_type_carburant">{% trans "Type de carburant" %}</label>

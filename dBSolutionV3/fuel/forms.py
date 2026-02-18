@@ -1,29 +1,18 @@
 from django import forms
 from decimal import Decimal
 from .models import Fuel
+from django.utils.translation import gettext_lazy as _
 
 class FuelForm(forms.ModelForm):
+    # ---------------------------
+    # Champs affichés dans le formulaire
+    # ---------------------------
 
-    # Champs affichés en lecture seule
-    voiture_marque = forms.CharField(
-        label="Marque",
-        required=False,
-        disabled=True
-    )
+    voiture_marque = forms.CharField(label="Marque", required=False, disabled=True)
+    voiture_modele = forms.CharField(label="Modèle", required=False, disabled=True)
+    taille_reservoir_display = forms.FloatField(label="Volume max (L)", required=False, disabled=True)
 
-    voiture_modele = forms.CharField(
-        label="Modèle",
-        required=False,
-        disabled=True
-    )
-
-    taille_reservoir_display = forms.FloatField(
-        label="Volume max (L)",
-        required=False,
-        disabled=True
-    )
-
-    # Taux de TVA par pays
+    # Taux de TVA
     TVA_PAYS = {
         'BE': Decimal('21.0'),
         'LU': Decimal('17.0'),
@@ -35,6 +24,7 @@ class FuelForm(forms.ModelForm):
         fields = [
             "immatriculation",
             "voiture_exemplaire",
+            "kilometrage_fuel",
             "type_carburant",
             "date",
             "litres",
@@ -48,70 +38,52 @@ class FuelForm(forms.ModelForm):
         }
 
     # ---------------------------
-    # INITIALISATION
+    # Initialisation
     # ---------------------------
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        if self.instance.pk and self.instance.voiture_exemplaire:
-            self._fill_readonly_fields(self.instance.voiture_exemplaire)
 
-    def _fill_readonly_fields(self, voiture):
-        self.fields["voiture_marque"].initial = voiture.voiture_marque.nom_marque
-        self.fields["voiture_modele"].initial = voiture.voiture_modele.nom_modele
-        self.fields["taille_reservoir_display"].initial = (
-            voiture.voiture_modele.taille_reservoir
-        )
+        # Récupérer voiture_exemplaire uniquement si elle existe
+        voiture = getattr(self.instance, "voiture_exemplaire", None)
+        if voiture is not None:
+            self.fields["voiture_marque"].initial = voiture.voiture_marque.nom_marque
+            self.fields["voiture_modele"].initial = voiture.voiture_modele.nom_modele
+            self.fields["taille_reservoir_display"].initial = voiture.voiture_modele.taille_reservoir
 
-    # ---------------------------
-    # VALIDATION
-    # ---------------------------
-    def clean(self):
-        cleaned_data = super().clean()
-
-        voiture = cleaned_data.get("voiture_exemplaire")
-        litres = cleaned_data.get("litres")
-        prix_refuelling = cleaned_data.get("prix_refuelling")
-
-        if voiture and litres:
-            taille_max = voiture.voiture_modele.taille_reservoir
-            if litres > taille_max:
-                raise forms.ValidationError(
-                    "Le nombre de litres ne peut pas dépasser le volume maximum du réservoir."
-                )
-
-        if prix_refuelling and prix_refuelling <= 0:
-            raise forms.ValidationError(
-                "Le prix du plein doit être supérieur à 0."
-            )
-
-        return cleaned_data
+            # Initialiser kilometrage_fuel à partir du Fuel existant, sinon voiture
+            if getattr(self.instance, "kilometrage_fuel", None) is not None:
+                self.fields["kilometrage_fuel"].initial = self.instance.kilometrage_fuel
+            else:
+                self.fields["kilometrage_fuel"].initial = voiture.kilometres_chassis
 
     # ---------------------------
-    # SAVE
+    # Save
     # ---------------------------
     def save(self, commit=True):
         instance = super().save(commit=False)
+        voiture = instance.voiture_exemplaire
+
+        # 1️⃣ Sauvegarder le kilométrage du plein dans Fuel
+        instance.kilometrage_fuel = self.cleaned_data["kilometrage_fuel"]
+
+        # 2️⃣ Mettre à jour le kilométrage de la voiture si le plein est plus grand
+        if voiture and instance.kilometrage_fuel >= voiture.kilometres_chassis:
+            voiture.kilometres_chassis = instance.kilometrage_fuel
+            voiture.save()
 
         # Remplissage automatique des infos voiture
-        if instance.voiture_exemplaire:
-            instance.voiture_marque = instance.voiture_exemplaire.voiture_marque
-            instance.voiture_modele = instance.voiture_exemplaire.voiture_modele
-            instance.taille_reservoir = instance.voiture_exemplaire.voiture_modele.taille_reservoir
+        if voiture:
+            instance.voiture_marque = voiture.voiture_marque
+            instance.voiture_modele = voiture.voiture_modele
+            instance.taille_reservoir = voiture.voiture_modele.taille_reservoir
 
         # Calcul du prix au litre et TVA
         if instance.litres and instance.prix_refuelling:
             instance.prix_litre = Decimal(instance.prix_refuelling) / Decimal(instance.litres)
-
             taux_tva = self.TVA_PAYS.get(instance.pays, Decimal('0.0'))
             instance.montant_tva = Decimal(instance.prix_refuelling) * taux_tva / Decimal('100.0')
-
-            # Montant hors TVA
-            if instance.montant_tva is not None:
-                instance.montant_ht = Decimal(instance.prix_refuelling) - instance.montant_tva
-            else:
-                instance.montant_ht = Decimal(instance.prix_refuelling)
+            instance.montant_ht = Decimal(instance.prix_refuelling) - instance.montant_tva
         else:
-            # valeurs par défaut si données manquantes
             instance.prix_litre = Decimal('0.0')
             instance.montant_tva = Decimal('0.0')
             instance.montant_ht = Decimal('0.0')

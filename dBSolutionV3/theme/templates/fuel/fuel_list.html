@@ -55,6 +55,7 @@
             <th class="border px-4 py-2 cursor-pointer">{% trans "Utilisateur" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Immatriculation" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Véhicule" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Kilomètres" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Type de carburant" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Litres" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Prix Total" %}</th>
@@ -65,66 +66,82 @@
         </tr>
     </thead>
    <tbody>
-        {% for fuel in fuels %}
-        <tr>
-            <td class="border px-4 py-2">{{ fuel.utilisateur }}</td>
+    {% for fuel in fuels %}
+    <tr>
+        <td class="border px-4 py-2">{{ fuel.utilisateur }}</td>
 
-            <!-- Immatriculation stylisée -->
-            <td class="p-3">
-                {% with exemplaire=fuel.voiture_exemplaire %}
-                    {% if exemplaire.pays == 'Belgique' %}
-                    <div class="flex items-center w-[180px] h-[40px] bg-white border-2 border-[#8B0000] rounded font-[Arial]">
-                        <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
-                            <span>🇪🇺</span>
-                            <span>B</span>
-                        </div>
-                        <div class="w-full text-center font-bold text-[#8B0000] text-[18px]">
-                            {{ exemplaire.immatriculation|upper }}
-                        </div>
+        <!-- Immatriculation stylisée -->
+        <td class="p-3">
+            {% with exemplaire=fuel.voiture_exemplaire %}
+                {% if exemplaire.pays == 'Belgique' %}
+                <div class="flex items-center w-[180px] h-[40px] bg-white border-2 border-[#8B0000] rounded font-[Arial]">
+                    <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                        <span>🇪🇺</span>
+                        <span>B</span>
                     </div>
-
-                    {% elif exemplaire.pays == 'Luxembourg' %}
-                    <div class="flex items-center w-[180px] h-[40px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial]">
-                        <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
-                            <span>🇪🇺</span>
-                            <span>L</span>
-                        </div>
-                        <div class="w-full text-center font-bold text-black text-[18px]">
-                            {{ exemplaire.immatriculation|upper }}
-                        </div>
+                    <div class="w-full text-center font-bold text-[#8B0000] text-[18px]">
+                        {{ exemplaire.immatriculation|upper }}
                     </div>
-
-                    {% elif exemplaire.pays == 'Allemagne' %}
-                    <div class="flex items-center w-[180px] h-[40px] bg-white border-2 border-black rounded font-[Arial]">
-                        <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
-                            <span>🇪🇺</span>
-                            <span>D</span>
-                        </div>
-                        <div class="w-full text-center font-bold text-black text-[18px]">
-                            {{ exemplaire.immatriculation|upper }}
-                        </div>
+                </div>
+                {% elif exemplaire.pays == 'Luxembourg' %}
+                <div class="flex items-center w-[180px] h-[40px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial]">
+                    <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                        <span>🇪🇺</span>
+                        <span>L</span>
                     </div>
-                    {% endif %}
-                {% endwith %}
+                    <div class="w-full text-center font-bold text-black text-[18px]">
+                        {{ exemplaire.immatriculation|upper }}
+                    </div>
+                </div>
+                {% elif exemplaire.pays == 'Allemagne' %}
+                <div class="flex items-center w-[180px] h-[40px] bg-white border-2 border-black rounded font-[Arial]">
+                    <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                        <span>🇪🇺</span>
+                        <span>D</span>
+                    </div>
+                    <div class="w-full text-center font-bold text-black text-[18px]">
+                        {{ exemplaire.immatriculation|upper }}
+                    </div>
+                </div>
+                {% endif %}
+            {% endwith %}
             </td>
 
+            <!-- Véhicule -->
             <td class="border px-4 py-2">
                 {{ fuel.voiture_exemplaire.voiture_modele.voiture_marque.nom_marque }}
                 {{ fuel.voiture_exemplaire.voiture_modele.nom_modele }}
             </td>
+
+            <!-- Kilomètres -->
+            <td class="border px-4 py-2">{{ fuel.kilometrage_fuel }}</td>
+
+            <!-- Type carburant -->
             <td class="border px-4 py-2">{{ fuel.get_type_carburant_display }}</td>
+
+            <!-- Litres -->
             <td class="border px-4 py-2">{{ fuel.litres }}</td>
+
+            <!-- Prix Total -->
             <td class="border px-4 py-2">{{ fuel.prix_refuelling }}</td>
+
+            <!-- Prix au litre -->
             <td class="border px-4 py-2">{{ fuel.prix_litre|floatformat:3 }}</td>
+
+            <!-- Montant TVA -->
             <td class="border px-4 py-2">{{ fuel.montant_tva|floatformat:2 }} €</td>
+
+            <!-- Date -->
             <td class="border px-4 py-2">{{ fuel.date }}</td>
 
+            <!-- Info -->
             <td class="border px-4 py-2 text-center">
-                <!-- Actions possibles, ex: voir détail -->
+                <!-- Actions possibles -->
             </td>
         </tr>
-        {% endfor %}
+    {% endfor %}
     </tbody>
+
 
 
 </table>

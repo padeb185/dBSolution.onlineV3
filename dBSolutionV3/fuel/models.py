@@ -73,6 +73,17 @@ class Fuel(models.Model):
         verbose_name=_("Immatriculation"),
         blank=True,
     )
+    kilometres_chassis = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True
+    )
+
+    kilometrage_fuel = models.IntegerField(
+        _("Kilométrage au plein"),
+        null=True,
+        blank=True
+    )
 
     date = models.DateField(default=timezone.now, verbose_name=_("Date du plein"))
     litres = models.DecimalField(max_digits = 10 , decimal_places = 2, verbose_name=_("Litres"))
@@ -105,12 +116,11 @@ class Fuel(models.Model):
         ordering = ['-date']
 
     def __str__(self):
-        return f"{self.voiture_exemplaire} – {self.date} – {self.litres} L"
-
-
-
-
-
+        voiture = getattr(self, "voiture_exemplaire", None)
+        immat = str(voiture) if voiture else "N/A"
+        date = self.date if self.date else "N/A"
+        litres = f"{self.litres} L" if self.litres else "N/A"
+        return f"{immat} – {date} – {litres}"
 
     @classmethod
     def total_litres_mois(cls, vehicule, year=None, month=None):
