@@ -16,6 +16,23 @@ class TypeCarburant(models.TextChoices):
     CNG = "CNG", _("CNG")
     ETHANOL = "ETHANOL", _("Ethanol")
 
+class RechargeCarburant(models.Model):
+    # Choix des pays
+    PAYS_CHOICES = [
+        ('BE', _("Belgique")),
+        ('LU', _("Luxembourg")),
+        ('DE', _("Allemagne")),
+    ]
+
+    # Mapping pays → TVA carburant
+    TVA_CARBURANT = {
+        'BE': 21,
+        'LU': 17,
+        'DE': 19,
+    }
+
+
+
 class Fuel(models.Model):
     id = models.AutoField(primary_key=True)
 
@@ -63,6 +80,20 @@ class Fuel(models.Model):
     prix_refuelling = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_("Prix du plein (€)"))
 
     prix_litre = models.DecimalField(max_digits=6, decimal_places=3, verbose_name="Prix au litre (€)")
+
+
+    pays = models.CharField(
+        max_length=2,
+        choices=RechargeCarburant.PAYS_CHOICES,
+        verbose_name=_("Pays du plein")
+    )
+
+    montant_ht = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_("Montant HT"))
+
+    montant_tva = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_("TVA"), blank=True, null=True)
+
+
+
 
     validation = models.BooleanField(default=True, verbose_name=_("Validation"))
 

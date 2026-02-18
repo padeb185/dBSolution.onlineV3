@@ -2,7 +2,6 @@ from django import forms
 from decimal import Decimal
 from .models import Fuel
 
-
 class FuelForm(forms.ModelForm):
 
     # Champs affichés en lecture seule
@@ -24,6 +23,13 @@ class FuelForm(forms.ModelForm):
         disabled=True
     )
 
+    # Taux de TVA par pays
+    TVA_PAYS = {
+        'BE': Decimal('21.0'),
+        'LU': Decimal('17.0'),
+        'DE': Decimal('19.0'),
+    }
+
     class Meta:
         model = Fuel
         fields = [
@@ -33,6 +39,7 @@ class FuelForm(forms.ModelForm):
             "date",
             "litres",
             "prix_refuelling",
+            "pays",
             "validation",
         ]
         widgets = {
@@ -45,7 +52,6 @@ class FuelForm(forms.ModelForm):
     # ---------------------------
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
         if self.instance.pk and self.instance.voiture_exemplaire:
             self._fill_readonly_fields(self.instance.voiture_exemplaire)
 
@@ -86,21 +92,31 @@ class FuelForm(forms.ModelForm):
     def save(self, commit=True):
         instance = super().save(commit=False)
 
+        # Remplissage automatique des infos voiture
         if instance.voiture_exemplaire:
             instance.voiture_marque = instance.voiture_exemplaire.voiture_marque
             instance.voiture_modele = instance.voiture_exemplaire.voiture_modele
-            instance.taille_reservoir = (
-                instance.voiture_exemplaire.voiture_modele.taille_reservoir
-            )
+            instance.taille_reservoir = instance.voiture_exemplaire.voiture_modele.taille_reservoir
 
+        # Calcul du prix au litre et TVA
         if instance.litres and instance.prix_refuelling:
-            instance.prix_litre = (
-                Decimal(instance.prix_refuelling) /
-                Decimal(instance.litres)
-            )
+            instance.prix_litre = Decimal(instance.prix_refuelling) / Decimal(instance.litres)
+
+            taux_tva = self.TVA_PAYS.get(instance.pays, Decimal('0.0'))
+            instance.montant_tva = Decimal(instance.prix_refuelling) * taux_tva / Decimal('100.0')
+
+            # Montant hors TVA
+            if instance.montant_tva is not None:
+                instance.montant_ht = Decimal(instance.prix_refuelling) - instance.montant_tva
+            else:
+                instance.montant_ht = Decimal(instance.prix_refuelling)
+        else:
+            # valeurs par défaut si données manquantes
+            instance.prix_litre = Decimal('0.0')
+            instance.montant_tva = Decimal('0.0')
+            instance.montant_ht = Decimal('0.0')
 
         if commit:
             instance.save()
 
         return instance
-
