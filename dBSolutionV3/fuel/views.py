@@ -6,6 +6,8 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_GET
 from django.views.generic import ListView
+from django_tenants.utils import tenant_context
+
 from .forms import FuelForm
 from .models import Fuel
 from voiture.voiture_exemplaire.models import VoitureExemplaire
@@ -13,8 +15,9 @@ from voiture.voiture_marque.models import VoitureMarque
 from voiture.voiture_modele.models import VoitureModele
 
 
-
-
+"""
+@never_cache
+@login_required
 class FuelListView(ListView):
     model = Fuel
     template_name = "fuel/fuel_list.html"
@@ -34,52 +37,76 @@ class FuelListView(ListView):
             .order_by("-date")
         )
 
-
+"""
 
 
 @login_required
-def fuel_add(request):
-    if request.method == "POST":
-        form = FuelForm(request.POST)
-        if form.is_valid():
-            fuel = form.save(commit=False)
-            fuel.utilisateur = request.user  # ⚡ Utilisateur courant
-            fuel.save()
-            messages.success(request, _("Carburant ajouté avec succès."))
+def ajouter_fuel_all(request):
+    tenant = request.user.societe
 
+    with tenant_context(tenant):
+        if request.method == "POST":
+            form = FuelForm(request.POST)
+            if form.is_valid():
+                fuel = form.save(commit=False)
+                fuel.utilisateur = request.user  # ⚡ Utilisateur courant
+                fuel.save()
+                messages.success(request, _("Carburant ajouté avec succès."))
+
+            else:
+                messages.error(request, _("Veuillez corriger les erreurs ci-dessous."))
         else:
-            messages.error(request, _("Veuillez corriger les erreurs ci-dessous."))
-    else:
-        form = FuelForm()
+            form = FuelForm()
 
-    # ⚡ Passer les choices de type_carburant au template
-    type_carburant_choices = Fuel._meta.get_field("type_carburant").choices
+        # ⚡ Passer les choices de type_carburant au template
+        type_carburant_choices = Fuel._meta.get_field("type_carburant").choices
 
-    return render(
-        request,
-        "fuel/fuel_form.html",
-        {
-            "form": form,
-            "fuel": form.instance,
-            "type_carburant_choices": type_carburant_choices,
-        },
-    )
+        return render(
+            request,
+            "fuel/fuel_form.html",
+            {
+                "form": form,
+                "fuel": form.instance,
+                "type_carburant_choices": type_carburant_choices,
+            },
+        )
 
 
 @never_cache
 @login_required
 def fuel_list(request):
     # On sélectionne les relations nécessaires pour éviter les requêtes supplémentaires
-    fuels = Fuel.objects.select_related(
-        "utilisateur",
-        "voiture_exemplaire",
-        "voiture_exemplaire__voiture_modele",
-        "voiture_exemplaire__voiture_modele__voiture_marque",
-    ).order_by("-date")
+    tenant = request.user.societe
 
-    return render(request, "fuel/fuel_list.html", {
-        "fuels": fuels
-    })
+    with tenant_context(tenant):
+        fuels = Fuel.objects.select_related(
+            "utilisateur",
+            "voiture_exemplaire",
+            "voiture_exemplaire__voiture_modele",
+            "voiture_exemplaire__voiture_modele__voiture_marque",
+        ).order_by("-date")
+
+        return render(request, "fuel/fuel_list.html", {
+            "fuels": fuels
+        })
+
+@login_required
+def fuel_detail(request, fuel_id):
+    tenant = request.user.societe
+
+    with tenant_context(tenant):
+        # Utiliser pk au lieu de id pour supporter UUID
+        fuel = get_object_or_404(Fuel, pk=fuel_id)
+
+    return render(
+        request,
+        "fuel/fuel_detail.html",
+        {"fuel": fuel},
+    )
+
+
+
+
 
 def fuel_edit(request, pk):
     fuel = get_object_or_404(Fuel, pk=pk)

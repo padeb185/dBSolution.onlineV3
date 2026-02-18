@@ -38,7 +38,7 @@
                placeholder="{% trans 'Date' %}">
 
         <div>
-            <a href="{% url 'fuel:fuel_add' %}" class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition focus:outline-none focus:ring-2 focus:ring-blue-500 whitespace-nowrap">
+            <a href="{% url 'fuel:ajouter_fuel_all' %}" class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition focus:outline-none focus:ring-2 focus:ring-blue-500 whitespace-nowrap">
                 {% trans "Ajouter un plein de carburant" %}
             </a>
         </div>
@@ -136,7 +136,9 @@
 
             <!-- Info -->
             <td class="border px-4 py-2 text-center">
-                <!-- Actions possibles -->
+                <a href="{% url 'fuel:fuel_detail' fuel.id %}" class="text-blue-600 hover:text-blue-800 font-semibold">
+                    {% trans "Info" %}
+                </a>
             </td>
         </tr>
     {% endfor %}

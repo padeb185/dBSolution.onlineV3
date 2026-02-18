@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="p-6 w-full ml-[-10px] mr-[10px]">
+
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
+       <h1 class="text-2xl font-bold flex items-center gap-4">
+            {% with image_name=assurance.nom_societe|slugify %}
+                <img src="{% static 'assurance/'|add:image_name|add:'.png' %}"
+                     alt="{{ assurance.nom_compagnie }}"
+                     class="w-12 h-12"
+                     onerror="this.src='{% static 'icons/assurance-voiture.png' %}';">
+            {% endwith %}
+            <span>{% trans "Détails de la compagnie d'assurance :" %}</span>
+
+           <span class="text-black-700">{{ assurance.nom_compagnie }}</span>
+        </h1>
+
+        <a href="{% url 'fuel:fuel_list' %}"
+           class="text-blue-600 hover:underline">
+            {% trans "Retour à la liste des pleins" %}
+        </a>
+    </div>
+
+    <!-- Infos principales -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+
+        <!-- Informations générales -->
+        <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
+            <h2 class="text-lg font-semibold mb-2">
+                {% trans "Informations générales" %}
+            </h2>
+
+            <p>
+                <strong>{% trans "" %} :</strong>
+                {{ fuel. }}
+            </p>
+            <p>
+                <strong>{% trans "Email" %} :</strong>
+                {{ assurance.email }}
+            </p>
+            <p>
+                <strong>{% trans "Téléphone" %} :</strong>
+                {{ assurance.telephone }}
+            </p>
+            <p>
+                <strong>{% trans "Pays" %} :</strong>
+                {{ assurance.adresse.pays }}
+            </p>
+
+
+
+
+
+           <div class="mt-auto w-full">
+                <a href="{% url 'fuel:modifier_fuel' fuel.id %}" class="block w-full">
+                    <button type="button"
+                            class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+                        {% trans "Modifier le plein" %}
+                    </button>
+                </a>
+           </div>
+
+        </div>
+
+        <!-- Peppol -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-lg font-semibold mb-4">
+                {% trans "Informations Peppol" %}
+            </h2>
+
+            <p>
+                <strong>{% trans "Identifiant Peppol" %} :</strong><br>
+                {{ assurance.peppol_id }}
+            </p>
+
+        </div>
+    </div>
+
+    <!-- Adresse -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">
+            {% trans "Adresse" %}
+        </h2>
+
+        {% if assurance.adresse %}
+            <p>{{ assurance.adresse }}</p>
+        {% else %}
+            <p class="text-gray-500">
+                {% trans "Aucune adresse renseignée." %}
+            </p>
+        {% endif %}
+    </div>
+
+    <!-- Métadonnées -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">
+            {% trans "Métadonnées" %}
+        </h2>
+
+        <p>
+            <strong>{% trans "Créé le" %} :</strong>
+            {{ fuel.created_at|date:"d/m/Y H:i" }}
+        </p>
+    </div>
+
+
+
+    <!-- Actions -->
+    <div class="bg-white shadow-md rounded-lg p-6 flex gap-4">
+        <a href="{% url 'fuel:fuel_list' %}" class="flex-1">
+              <button type="button" class="bg-blue-700 text-white px-4 py-2 rounded w-full mt-4">
+                    {% trans "Retour à la liste des pleins" %}
+              </button>
+        </a>
+    </div>
+
+</div>
+{% endblock %}
