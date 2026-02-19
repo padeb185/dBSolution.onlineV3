@@ -3,7 +3,6 @@ import uuid
 from django.utils.translation import gettext_lazy as _
 
 
-
 class SocieteCliente(models.Model):
     id_societe_cliente = models.UUIDField(
         primary_key=True,
@@ -125,9 +124,9 @@ class SocieteCliente(models.Model):
     )
 
 
+
     class Meta:
         verbose_name = "Société cliente"
         verbose_name_plural = "Sociétés clientes"
         ordering = ['nom_societe_cliente']
-
 

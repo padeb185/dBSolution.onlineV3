@@ -50,7 +50,7 @@ class VoitureExemplaire(models.Model):
     )
     vin_validator = RegexValidator(
         regex=r'^[A-HJ-NPR-Z0-9]{17}$',
-        message="Le numéro VIN doit contenir exactement 17 caractères alphanumériques (lettres A-H, J-N, P, R-Z et chiffres)."
+        message=_("Le numéro VIN doit contenir exactement 17 caractères alphanumériques (lettres A-H, J-N, P, R-Z et chiffres).")
     )
 
     numero_vin = models.CharField(
@@ -196,7 +196,16 @@ class VoitureExemplaire(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+
+
     def save(self, *args, after_2010=True, **kwargs):
+        if self.numero_vin:
+            self.vin_simplifie = self.numero_vin[-10:]
+        else:
+            self.vin_simplifie = None
+        super().save(*args, **kwargs)
+
+
         if self.numero_vin:
             self.vin_simplifie = self.numero_vin[-10:]
             dixieme = self.numero_vin[9]

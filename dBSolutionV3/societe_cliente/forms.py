@@ -3,6 +3,21 @@ from .models import SocieteCliente
 from django.utils.translation import gettext_lazy as _
 
 
+EU_VAT_PREFIXES = [
+    "AT", "BE", "BG", "CY", "CZ", "DE", "DK", "EE", "EL", "ES",
+    "FI", "FR", "HR", "HU", "IE", "IT", "LT", "LU", "LV", "MT",
+    "NL", "PL", "PT", "RO", "SE", "SI", "SK"
+]
+
+
+def clean_numero_tva(self):
+    tva = self.cleaned_data.get('numero_tva', '').upper().replace(' ', '')
+    if len(tva) < 2 or tva[:2] not in EU_VAT_PREFIXES:
+        raise forms.ValidationError(
+            _("Le numéro de TVA doit commencer par un code pays européen valide (ex: BE, FR, DE...)."))
+
+    return tva
+
 
 def luhn_check(card_number: str) -> bool:
     """Vérifie si un numéro de carte est valide selon Luhn"""

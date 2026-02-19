@@ -240,40 +240,80 @@ document.addEventListener('DOMContentLoaded', function () {
                 'Content-Type': 'application/json',
                 'X-CSRFToken': csrftoken,
             },
-            body: JSON.stringify({ prenom })
+            body: JSON.stringify({prenom})
         })
-        .then(r => r.json())
-        .then(data => {
+            .then(r => r.json())
+            .then(data => {
 
-            if (data.exist) {
-                document.getElementById('id_prenom').value = data.prenom || '';
-                document.getElementById('id_nom').value = data.nom || '';
-                document.getElementById('id_email').value = data.email || '';
+                if (data.exist) {
+                    document.getElementById('id_prenom').value = data.prenom || '';
+                    document.getElementById('id_nom').value = data.nom || '';
+                    document.getElementById('id_email').value = data.email || '';
 
-                if (data.adresse) {
-                    document.getElementById('id_rue').value = data.adresse.rue || '';
-                    document.getElementById('id_numero').value = data.adresse.numero || '';
-                    document.getElementById('id_code_postal').value = data.adresse.code_postal || '';
-                    document.getElementById('id_ville').value = data.adresse.ville || '';
-                    document.getElementById('id_pays').value = data.adresse.pays || '';
-                    document.getElementById('id_code_pays').value = data.adresse.code_pays || '';
+                    if (data.adresse) {
+                        document.getElementById('id_rue').value = data.adresse.rue || '';
+                        document.getElementById('id_numero').value = data.adresse.numero || '';
+                        document.getElementById('id_code_postal').value = data.adresse.code_postal || '';
+                        document.getElementById('id_ville').value = data.adresse.ville || '';
+                        document.getElementById('id_pays').value = data.adresse.pays || '';
+                        document.getElementById('id_code_pays').value = data.adresse.code_pays || '';
+                    }
+
+                } else {
+                    document.getElementById('id_prenom').value = '';
+                    document.getElementById('id_nom').value = '';
+                    document.getElementById('id_email').value = '';
+
+                    document.getElementById('id_rue').value = '';
+                    document.getElementById('id_numero').value = '';
+                    document.getElementById('id_code_postal').value = '';
+                    document.getElementById('id_ville').value = '';
+                    document.getElementById('id_pays').value = 'Belgique';
+                    document.getElementById('id_code_pays').value = 'BE';
                 }
-
-            } else {
-                document.getElementById('id_prenom').value = '';
-                document.getElementById('id_nom').value = '';
-                document.getElementById('id_email').value = '';
-
-                document.getElementById('id_rue').value = '';
-                document.getElementById('id_numero').value = '';
-                document.getElementById('id_code_postal').value = '';
-                document.getElementById('id_ville').value = '';
-                document.getElementById('id_pays').value = 'Belgique';
-                document.getElementById('id_code_pays').value = 'BE';
-            }
-        })
-        .catch(err => console.error("Erreur:", err));
+            })
+            .catch(err => console.error("Erreur:", err));
     });
+
+});
+document.addEventListener("DOMContentLoaded", function () {
+
+    const cardInput = document.getElementById("id_numero_carte_bancaire"); // ton champ
+
+    if (!cardInput) return;
+
+    cardInput.addEventListener("input", function () {
+        let val = cardInput.value.toUpperCase();
+
+        // Supprime tout sauf lettres et chiffres
+        val = val.replace(/[^A-Z0-9]/g, "");
+
+        let formatted = "";
+        let i = 0;
+
+        while (i < val.length) {
+            if (i === 0) {
+                // deux lettres
+                formatted += val.substr(i, 2);
+                i += 2;
+            } else if (i === 2) {
+                // deux chiffres
+                formatted += val.substr(i, 2) + " ";
+                i += 2;
+            } else {
+                // groupes de quatre chiffres
+                formatted += val.substr(i, 4) + " ";
+                i += 4;
+            }
+        }
+
+        // supprime l'espace final
+        formatted = formatted.trim();
+
+        cardInput.value = formatted;
+    });
+
+
 });
 </script>
 {% endblock %}

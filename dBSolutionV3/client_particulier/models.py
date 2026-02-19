@@ -48,7 +48,7 @@ class ClientParticulier(models.Model):
         null=True,
         blank=True
     )
-    numero_carte_bancaire =models.CharField(
+    numero_carte_bancaire = models.CharField(
         _("Numéro de carte bancaire"),
         max_length=20,
         null=True,

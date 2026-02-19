@@ -206,5 +206,46 @@ document.addEventListener('DOMContentLoaded', function () {
         .catch(err => console.error("Erreur:", err));
     });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const cardInput = document.getElementById("id_numero_carte_bancaire"); // ton champ
+
+    if (!cardInput) return;
+
+    cardInput.addEventListener("input", function () {
+        let val = cardInput.value.toUpperCase();
+
+        // Supprime tout sauf lettres et chiffres
+        val = val.replace(/[^A-Z0-9]/g, "");
+
+        let formatted = "";
+        let i = 0;
+
+        while (i < val.length) {
+            if (i === 0) {
+                // deux lettres
+                formatted += val.substr(i, 2);
+                i += 2;
+            } else if (i === 2) {
+                // deux chiffres
+                formatted += val.substr(i, 2) + " ";
+                i += 2;
+            } else {
+                // groupes de quatre chiffres
+                formatted += val.substr(i, 4) + " ";
+                i += 4;
+            }
+        }
+
+        // supprime l'espace final
+        formatted = formatted.trim();
+
+        cardInput.value = formatted;
+    });
+
+
+});
+
 </script>
 {% endblock %}
