@@ -268,6 +268,7 @@ class FuelStatView(LoginRequiredMixin, TemplateView):
                 "voiture_exemplaire__id",
                 "voiture_exemplaire__voiture_modele__nom_modele",
                 "voiture_exemplaire__voiture_modele__voiture_marque__nom_marque",
+                "voiture_exemplaire__immatriculation",
             )
             .annotate(
                 total_litres=Sum("litres"),

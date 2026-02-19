@@ -35,31 +35,74 @@
 <!-- 🚗 Par voiture -->
 <h2 class="text-xl font-semibold mb-3">{% trans "Par voiture" %}</h2>
 
-<table class="table-auto w-full border mb-8">
-    <thead class="bg-gray-200">
-        <tr>
-            <th class="px-4 py-2">{% trans "Voiture" %}</th>
-            <th class="px-4 py-2">{% trans "Pleins" %}</th>
-            <th class="px-4 py-2">{% trans "Litres" %}</th>
-            <th class="px-4 py-2">{% trans "Coût total" %}</th>
-            <th class="px-4 py-2">{% trans "Prix moyen / L" %}</th>
+<table class="min-w-full table-auto border-collapse border border-gray-200 bg-white mb-8">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2">{% trans "Voiture" %}</th>
+            <th class="border px-4 py-2">{% trans "Immatriculation" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Pleins" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Litres" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Coût total" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Prix moyen / L" %}</th>
         </tr>
     </thead>
-     <tbody class="bg-white">
+    <tbody>
         {% for v in par_voiture %}
-        <tr class="border-t">
-            <td class="px-4 py-2">
+        <tr>
+            <td class="border px-4 py-2">
                 {{ v.voiture_exemplaire__voiture_modele__voiture_marque__nom_marque }}
-                {{ v.voiture_exemplaire__voiture_modele__nom_marque }}
+                {{ v.voiture_exemplaire__voiture_modele__nom_modele }}
+                {{ v.voiture_exemplaire__voiture_modele__nom_variante }}
             </td>
-            <td class="px-4 py-2 text-center">{{ v.nb_pleins }}</td>
-            <td class="px-4 py-2 text-center">{{ v.total_litres|floatformat:2 }}</td>
-            <td class="px-4 py-2 text-center">{{ v.total_cout|floatformat:2 }} €</td>
-            <td class="px-4 py-2 text-center">{{ v.prix_moyen_litre|floatformat:3 }} €</td>
+
+            <td class="border px-4 py-2">
+                {% with pays=v.voiture_exemplaire__pays|default:""|lower imm=v.voiture_exemplaire__immatriculation %}
+                    {% if pays == "Belgique" or pays == "be" %}
+                        <div class="flex items-center w-[180px] h-[40px] bg-white border-2 border-[#8B0000] rounded font-[Arial]">
+                            <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                                <span>🇪🇺</span>
+                                <span>B</span>
+                            </div>
+                            <div class="w-full text-center font-bold text-[#8B0000] text-[18px]">
+                                {{ imm|upper }}
+                            </div>
+                        </div>
+
+                    {% elif pays == "luxembourg" or pays == "lu" %}
+                        <div class="flex items-center w-[180px] h-[40px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial]">
+                            <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                                <span>🇪🇺</span>
+                                <span>L</span>
+                            </div>
+                            <div class="w-full text-center font-bold text-black text-[18px]">
+                                {{ imm|upper }}
+                            </div>
+                        </div>
+
+                    {% elif pays == "allemagne" or pays == "de" %}
+                        <div class="flex items-center w-[180px] h-[40px] bg-white border-2 border-black rounded font-[Arial]">
+                            <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                                <span>🇪🇺</span>
+                                <span>D</span>
+                            </div>
+                            <div class="w-full text-center font-bold text-black text-[18px]">
+                                {{ imm|upper }}
+                            </div>
+                        </div>
+                    {% else %}
+                        {{ imm|upper }}
+                    {% endif %}
+                {% endwith %}
+            </td>
+
+            <td class="border px-4 py-2 text-center">{{ v.nb_pleins }}</td>
+            <td class="border px-4 py-2 text-center">{{ v.total_litres|floatformat:2 }}</td>
+            <td class="border px-4 py-2 text-center">{{ v.total_cout|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-center">{{ v.prix_moyen_litre|floatformat:3 }} €</td>
         </tr>
         {% empty %}
         <tr>
-            <td colspan="5" class="text-center py-4">{% trans "Aucune donnée" %}</td>
+            <td colspan="6" class="border px-4 py-4 text-center">{% trans "Aucune donnée" %}</td>
         </tr>
         {% endfor %}
     </tbody>
@@ -68,26 +111,26 @@
 <!-- 📅 Par mois -->
 <h2 class="text-xl font-semibold mb-3">{% trans "Par mois" %}</h2>
 
-<table class="table-auto w-full border">
-    <thead class="bg-gray-200">
-        <tr>
-            <th class="px-4 py-2">{% trans "Mois" %}</th>
-            <th class="px-4 py-2">{% trans "Pleins" %}</th>
-            <th class="px-4 py-2">{% trans "Litres" %}</th>
-            <th class="px-4 py-2">{% trans "Coût total" %}</th>
+<table class="min-w-full table-auto border-collapse border border-gray-200 bg-white mb-8">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2">{% trans "Mois" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Pleins" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Litres" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Coût total" %}</th>
         </tr>
     </thead>
-     <tbody class="bg-white">
+    <tbody>
         {% for m in par_mois %}
-        <tr class="border-t">
-            <td class="px-4 py-2">{{ m.mois|date:"F Y" }}</td>
-            <td class="px-4 py-2 text-center">{{ m.nb_pleins }}</td>
-            <td class="px-4 py-2 text-center">{{ m.total_litres|floatformat:2 }}</td>
-            <td class="px-4 py-2 text-center">{{ m.total_cout|floatformat:2 }} €</td>
+        <tr>
+            <td class="border px-4 py-2">{{ m.mois|date:"F Y" }}</td>
+            <td class="border px-4 py-2 text-center">{{ m.nb_pleins }}</td>
+            <td class="border px-4 py-2 text-center">{{ m.total_litres|floatformat:2 }}</td>
+            <td class="border px-4 py-2 text-center">{{ m.total_cout|floatformat:2 }} €</td>
         </tr>
         {% empty %}
         <tr>
-            <td colspan="4" class="text-center py-4">{% trans "Aucune donnée" %}</td>
+            <td colspan="4" class="border px-4 py-4 text-center">{% trans "Aucune donnée" %}</td>
         </tr>
         {% endfor %}
     </tbody>
@@ -95,30 +138,31 @@
 
 <h2 class="text-xl font-semibold mt-8 mb-3">{% trans "Par année" %}</h2>
 
-<table class="table-auto w-full border">
-    <thead class="bg-gray-200">
-        <tr>
-            <th class="px-4 py-2">{% trans "Année" %}</th>
-            <th class="px-4 py-2">{% trans "Pleins" %}</th>
-            <th class="px-4 py-2">{% trans "Litres" %}</th>
-            <th class="px-4 py-2">{% trans "Coût total" %}</th>
+<table class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2">{% trans "Année" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Pleins" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Litres" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Coût total" %}</th>
         </tr>
     </thead>
-     <tbody class="bg-white">
+    <tbody>
         {% for a in par_an %}
-        <tr class="border-t">
-            <td class="px-4 py-2">{{ a.an|date:"Y" }}</td>
-            <td class="px-4 py-2 text-center">{{ a.nb_pleins }}</td>
-            <td class="px-4 py-2 text-center">{{ a.total_litres|floatformat:2 }}</td>
-            <td class="px-4 py-2 text-center">{{ a.total_cout|floatformat:2 }} €</td>
+        <tr>
+            <td class="border px-4 py-2">{{ a.an|date:"Y" }}</td>
+            <td class="border px-4 py-2 text-center">{{ a.nb_pleins }}</td>
+            <td class="border px-4 py-2 text-center">{{ a.total_litres|floatformat:2 }}</td>
+            <td class="border px-4 py-2 text-center">{{ a.total_cout|floatformat:2 }} €</td>
         </tr>
         {% empty %}
         <tr>
-            <td colspan="4" class="text-center py-4">{% trans "Aucune donnée" %}</td>
+            <td colspan="4" class="border px-4 py-4 text-center">{% trans "Aucune donnée" %}</td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+
 
 
 {% endblock %}
