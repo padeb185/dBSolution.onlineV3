@@ -7,12 +7,18 @@ from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_GET
 from django.views.generic import ListView
 from django_tenants.utils import tenant_context
-
 from .forms import FuelForm
 from .models import Fuel
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from voiture.voiture_marque.models import VoitureMarque
 from voiture.voiture_modele.models import VoitureModele
+from django.views.generic import TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Sum, Avg, Count, Case, When, Value
+from django.db.models.functions import TruncMonth
+from django.db.models.functions import TruncYear
+from django.db.models import Min, Max, F, FloatField, ExpressionWrapper
+
 
 
 
@@ -229,3 +235,100 @@ def get_modeles(request):
     )
 
     return JsonResponse(list(modeles), safe=False)
+
+
+
+
+
+class FuelStatView(LoginRequiredMixin, TemplateView):
+    template_name = "fuel/fuel_stat.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        fuels = Fuel.objects.select_related(
+            "voiture_exemplaire",
+            "voiture_exemplaire__voiture_modele",
+            "voiture_exemplaire__voiture_modele__voiture_marque",
+        )
+
+        # 📊 Statistiques globales
+        global_stats = fuels.aggregate(
+            total_litres=Sum("litres"),
+            total_cout=Sum("prix_refuelling"),
+            total_tva=Sum("montant_tva"),
+            prix_moyen_litre=Avg("prix_litre"),
+            total_pleins=Count("id"),
+        )
+        context["global"] = global_stats
+
+        # 🚗 Stats par voiture
+        par_voiture = (
+            fuels.values(
+                "voiture_exemplaire__id",
+                "voiture_exemplaire__voiture_modele__nom_modele",
+                "voiture_exemplaire__voiture_modele__voiture_marque__nom_marque",
+            )
+            .annotate(
+                total_litres=Sum("litres"),
+                total_cout=Sum("prix_refuelling"),
+                prix_moyen_litre=Avg("prix_litre"),
+                nb_pleins=Count("id"),
+                km_min=Min("kilometrage_fuel"),
+                km_max=Max("kilometrage_fuel"),
+            )
+            .annotate(
+                km_parcourus=F("km_max") - F("km_min"),
+            )
+            .annotate(
+                # ⚠️ sécurisation division par zéro
+                conso_moyenne=Case(
+                    When(km_parcourus__gt=0,
+                         then=ExpressionWrapper(
+                             F("total_litres") * 100.0 / F("km_parcourus"),
+                             output_field=FloatField()
+                         )),
+                    default=Value(0.0),
+                    output_field=FloatField()
+                ),
+                cout_km=Case(
+                    When(km_parcourus__gt=0,
+                         then=ExpressionWrapper(
+                             F("total_cout") / F("km_parcourus"),
+                             output_field=FloatField()
+                         )),
+                    default=Value(0.0),
+                    output_field=FloatField()
+                ),
+            )
+            .order_by("-total_cout")
+        )
+        context["par_voiture"] = par_voiture
+
+        # 📅 Stats par mois
+        par_mois = (
+            fuels.annotate(mois=TruncMonth("date"))
+            .values("mois")
+            .annotate(
+                total_litres=Sum("litres"),
+                total_cout=Sum("prix_refuelling"),
+                nb_pleins=Count("id"),
+            )
+            .order_by("mois")
+        )
+        context["par_mois"] = par_mois
+
+        # 📅 Stats par année
+        par_an = (
+            fuels.annotate(an=TruncYear("date"))
+            .values("an")
+            .annotate(
+                total_litres=Sum("litres"),
+                total_cout=Sum("prix_refuelling"),
+                nb_pleins=Count("id"),
+            )
+            .order_by("an")
+        )
+        context["par_an"] = par_an
+
+        return context

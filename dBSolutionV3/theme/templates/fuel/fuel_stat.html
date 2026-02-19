@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<h1 class="text-2xl font-bold mb-6">{% trans "Statistiques carburant" %}</h1>
+
+<!-- 📊 Global -->
+<div class="grid grid-cols-5 gap-4 mb-8 text-center">
+    <div class="bg-gray-100 p-4 rounded">
+        <div class="text-sm text-gray-500">{% trans "Pleins" %}</div>
+        <div class="text-xl font-bold">{{ global.total_pleins }}</div>
+    </div>
+
+    <div class="bg-gray-100 p-4 rounded">
+        <div class="text-sm text-gray-500">{% trans "Litres totaux" %}</div>
+        <div class="text-xl font-bold">{{ global.total_litres|floatformat:2 }}</div>
+    </div>
+
+    <div class="bg-gray-100 p-4 rounded">
+        <div class="text-sm text-gray-500">{% trans "Coût total" %}</div>
+        <div class="text-xl font-bold">{{ global.total_cout|floatformat:2 }} €</div>
+    </div>
+
+    <div class="bg-gray-100 p-4 rounded">
+        <div class="text-sm text-gray-500">{% trans "TVA totale" %}</div>
+        <div class="text-xl font-bold">{{ global.total_tva|floatformat:2 }} €</div>
+    </div>
+
+    <div class="bg-gray-100 p-4 rounded">
+        <div class="text-sm text-gray-500">{% trans "Prix moyen / L" %}</div>
+        <div class="text-xl font-bold">{{ global.prix_moyen_litre|floatformat:3 }} €</div>
+    </div>
+</div>
+
+<!-- 🚗 Par voiture -->
+<h2 class="text-xl font-semibold mb-3">{% trans "Par voiture" %}</h2>
+
+<table class="table-auto w-full border mb-8">
+    <thead class="bg-gray-200">
+        <tr>
+            <th class="px-4 py-2">{% trans "Voiture" %}</th>
+            <th class="px-4 py-2">{% trans "Pleins" %}</th>
+            <th class="px-4 py-2">{% trans "Litres" %}</th>
+            <th class="px-4 py-2">{% trans "Coût total" %}</th>
+            <th class="px-4 py-2">{% trans "Prix moyen / L" %}</th>
+        </tr>
+    </thead>
+     <tbody class="bg-white">
+        {% for v in par_voiture %}
+        <tr class="border-t">
+            <td class="px-4 py-2">
+                {{ v.voiture_exemplaire__voiture_modele__voiture_marque__nom_marque }}
+                {{ v.voiture_exemplaire__voiture_modele__nom_marque }}
+            </td>
+            <td class="px-4 py-2 text-center">{{ v.nb_pleins }}</td>
+            <td class="px-4 py-2 text-center">{{ v.total_litres|floatformat:2 }}</td>
+            <td class="px-4 py-2 text-center">{{ v.total_cout|floatformat:2 }} €</td>
+            <td class="px-4 py-2 text-center">{{ v.prix_moyen_litre|floatformat:3 }} €</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5" class="text-center py-4">{% trans "Aucune donnée" %}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- 📅 Par mois -->
+<h2 class="text-xl font-semibold mb-3">{% trans "Par mois" %}</h2>
+
+<table class="table-auto w-full border">
+    <thead class="bg-gray-200">
+        <tr>
+            <th class="px-4 py-2">{% trans "Mois" %}</th>
+            <th class="px-4 py-2">{% trans "Pleins" %}</th>
+            <th class="px-4 py-2">{% trans "Litres" %}</th>
+            <th class="px-4 py-2">{% trans "Coût total" %}</th>
+        </tr>
+    </thead>
+     <tbody class="bg-white">
+        {% for m in par_mois %}
+        <tr class="border-t">
+            <td class="px-4 py-2">{{ m.mois|date:"F Y" }}</td>
+            <td class="px-4 py-2 text-center">{{ m.nb_pleins }}</td>
+            <td class="px-4 py-2 text-center">{{ m.total_litres|floatformat:2 }}</td>
+            <td class="px-4 py-2 text-center">{{ m.total_cout|floatformat:2 }} €</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4" class="text-center py-4">{% trans "Aucune donnée" %}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2 class="text-xl font-semibold mt-8 mb-3">{% trans "Par année" %}</h2>
+
+<table class="table-auto w-full border">
+    <thead class="bg-gray-200">
+        <tr>
+            <th class="px-4 py-2">{% trans "Année" %}</th>
+            <th class="px-4 py-2">{% trans "Pleins" %}</th>
+            <th class="px-4 py-2">{% trans "Litres" %}</th>
+            <th class="px-4 py-2">{% trans "Coût total" %}</th>
+        </tr>
+    </thead>
+     <tbody class="bg-white">
+        {% for a in par_an %}
+        <tr class="border-t">
+            <td class="px-4 py-2">{{ a.an|date:"Y" }}</td>
+            <td class="px-4 py-2 text-center">{{ a.nb_pleins }}</td>
+            <td class="px-4 py-2 text-center">{{ a.total_litres|floatformat:2 }}</td>
+            <td class="px-4 py-2 text-center">{{ a.total_cout|floatformat:2 }} €</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4" class="text-center py-4">{% trans "Aucune donnée" %}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+{% endblock %}

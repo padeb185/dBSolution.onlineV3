@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 from .views import fuel_list, ajouter_fuel_all, fuel_detail, fuel_delete, check_immatriculation, get_marques, \
-    get_modeles, modifier_fuel
+    get_modeles, modifier_fuel, FuelStatView
 
 app_name = "fuel"
 
@@ -21,6 +21,9 @@ urlpatterns = [
         modifier_fuel,
         name='modifier_fuel'
     ),
+
+    path("stats/", FuelStatView.as_view(), name="fuel_stat"),
+
 
     # Supprimer un fuel (UUID)
     path("delete/<uuid:fuel_id>/", fuel_delete, name="fuel_delete"),

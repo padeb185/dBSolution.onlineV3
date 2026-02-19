@@ -59,7 +59,7 @@
         <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
             <h2 class="text-lg font-semibold mb-2">{% trans "Informations générales" %}</h2>
             <p><strong>{% trans "Année de production" %}:</strong> {{ exemplaire.annee_production }}/{{ exemplaire.mois_production }}</p>
-            <p><strong>{% trans "Kilométrage" %}:</strong> {{ exemplaire.kilometres_total }} km</p>
+            <p><strong>{% trans "Kilométrage" %}:</strong> {{ exemplaire.kilometres_chassis }} km</p>
             <p><strong>{% trans "Couleur" %}:</strong> {{ exemplaire.couleur|default:_("Non renseignée") }}</p>
 
             <div class="mt-auto w-full">
