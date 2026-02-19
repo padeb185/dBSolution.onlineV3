@@ -66,6 +66,16 @@
                    placeholder="BE12 3456 7890 1234">
         </div>
 
+        <div>
+            {{ form.numero_carte_bancaire.label_tag }}
+            {{ form.numero_carte_bancaire }}
+            {% if form.numero_carte_bancaire.errors %}
+            <p class="text-red-600 text-sm mt-1">
+                {{ form.numero_carte_bancaire.errors.0 }}
+            </p>
+            {% endif %}
+        </div>
+
 
         <!-- Email -->
         <div>

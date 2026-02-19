@@ -94,6 +94,7 @@ def ajouter_client_all(request):
 
 
 
+
 @login_required
 def modifier_client(request, client_particulier_id):
     tenant = request.user.societe
@@ -105,8 +106,11 @@ def modifier_client(request, client_particulier_id):
             form = ClientParticulierForm(request.POST, instance=client_particulier)
             if form.is_valid():
                 form.save()
-                messages.success(request, _(f"Client '{client_particulier.nom}' modifié avec succès !"))
+                messages.success(request, _(f"Client '{client_particulier.prenom} {client_particulier.nom}' modifié avec succès !"))
 
+            else:
+                # Ici, si la carte bancaire est invalide, Django affichera automatiquement l'erreur
+                messages.error(request, _("Veuillez corriger les erreurs dans le formulaire."))
         else:
             form = ClientParticulierForm(instance=client_particulier)
 
@@ -116,6 +120,25 @@ def modifier_client(request, client_particulier_id):
         {
             "form": form,
             "client_particulier": client_particulier,
-
         }
     )
+
+
+
+def client_create_view(request):
+    tenant = request.user.societe
+
+    with tenant_context(tenant):
+
+        if request.method == "POST":
+            form = ClientParticulierForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, "Client créé avec succès !")
+                return redirect("client_list")
+            else:
+                messages.error(request, "Veuillez corriger les erreurs dans le formulaire.")
+        else:
+            form = ClientParticulierForm()
+
+        return render(request, "client_form.html", {"form": form})
