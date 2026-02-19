@@ -129,44 +129,46 @@
 
 </div>
 <script>
+
 document.addEventListener("DOMContentLoaded", function () {
 
-    const cardInput = document.getElementById("id_numero_carte_bancaire"); // ton champ
+    function formatBankNumber(inputId) {
+        const input = document.getElementById(inputId);
+        if (!input) return;
 
-    if (!cardInput) return;
+        input.addEventListener("input", function () {
+            let val = input.value.toUpperCase();
 
-    cardInput.addEventListener("input", function () {
-        let val = cardInput.value.toUpperCase();
+            // Supprime tout sauf lettres et chiffres
+            val = val.replace(/[^A-Z0-9]/g, "");
 
-        // Supprime tout sauf lettres et chiffres
-        val = val.replace(/[^A-Z0-9]/g, "");
+            let formatted = "";
+            let i = 0;
 
-        let formatted = "";
-        let i = 0;
-
-        while (i < val.length) {
-            if (i === 0) {
-                // deux lettres
-                formatted += val.substr(i, 2);
-                i += 2;
-            } else if (i === 2) {
-                // deux chiffres
-                formatted += val.substr(i, 2) + " ";
-                i += 2;
-            } else {
-                // groupes de quatre chiffres
-                formatted += val.substr(i, 4) + " ";
-                i += 4;
+            while (i < val.length) {
+                if (i === 0) {
+                    // deux lettres
+                    formatted += val.substr(i, 2);
+                    i += 2;
+                } else if (i === 2) {
+                    // deux chiffres + espace
+                    formatted += val.substr(i, 2) + " ";
+                    i += 2;
+                } else {
+                    // groupes de quatre chiffres + espace
+                    formatted += val.substr(i, 4) + " ";
+                    i += 4;
+                }
             }
-        }
 
-        // supprime l'espace final
-        formatted = formatted.trim();
+            // Supprime l'espace final
+            input.value = formatted.trim();
+        });
+    }
 
-        cardInput.value = formatted;
-    });
-
+    // Appliquer aux deux champs
+    formatBankNumber("id_numero_carte_bancaire");
+    formatBankNumber("id_numero_compte");
 
 });
 </script>
-{% endblock %}

@@ -11,7 +11,6 @@ class SocieteCliente(models.Model):
     )
 
 
-
     nom_societe_cliente = models.CharField(
         _('Nom de la societe'),
         max_length=100,

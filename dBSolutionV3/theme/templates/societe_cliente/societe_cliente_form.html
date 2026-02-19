@@ -67,6 +67,11 @@
         </div>
 
         <div>
+            <label for="id_numero_carte_bancaire">{% trans "Numéro de carte bancaire" %}</label>
+            <input type="text" id="id_numero_carte_bancaire" name="numero_carte_bancaire"
+                   value="{{ request.POST.numero_carte_bancaire|default:societe_cliente.numero_carte_bancaire|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full"
+                   placeholder="5389 3456 7890 1234">
             {{ form.numero_carte_bancaire.label_tag }}
             {{ form.numero_carte_bancaire }}
             {% if form.numero_carte_bancaire.errors %}
@@ -209,43 +214,45 @@ document.addEventListener('DOMContentLoaded', function () {
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    const cardInput = document.getElementById("id_numero_carte_bancaire"); // ton champ
+    function formatBankNumber(inputId) {
+        const input = document.getElementById(inputId);
+        if (!input) return;
 
-    if (!cardInput) return;
+        input.addEventListener("input", function () {
+            let val = input.value.toUpperCase();
 
-    cardInput.addEventListener("input", function () {
-        let val = cardInput.value.toUpperCase();
+            // Supprime tout sauf lettres et chiffres
+            val = val.replace(/[^A-Z0-9]/g, "");
 
-        // Supprime tout sauf lettres et chiffres
-        val = val.replace(/[^A-Z0-9]/g, "");
+            let formatted = "";
+            let i = 0;
 
-        let formatted = "";
-        let i = 0;
-
-        while (i < val.length) {
-            if (i === 0) {
-                // deux lettres
-                formatted += val.substr(i, 2);
-                i += 2;
-            } else if (i === 2) {
-                // deux chiffres
-                formatted += val.substr(i, 2) + " ";
-                i += 2;
-            } else {
-                // groupes de quatre chiffres
-                formatted += val.substr(i, 4) + " ";
-                i += 4;
+            while (i < val.length) {
+                if (i === 0) {
+                    // deux lettres
+                    formatted += val.substr(i, 2);
+                    i += 2;
+                } else if (i === 2) {
+                    // deux chiffres + espace
+                    formatted += val.substr(i, 2) + " ";
+                    i += 2;
+                } else {
+                    // groupes de quatre chiffres + espace
+                    formatted += val.substr(i, 4) + " ";
+                    i += 4;
+                }
             }
-        }
 
-        // supprime l'espace final
-        formatted = formatted.trim();
+            // Supprime l'espace final
+            input.value = formatted.trim();
+        });
+    }
 
-        cardInput.value = formatted;
-    });
-
+    // Appliquer aux deux champs
+    formatBankNumber("id_numero_carte_bancaire");
+    formatBankNumber("id_numero_compte");
 
 });
-
 </script>
+
 {% endblock %}
