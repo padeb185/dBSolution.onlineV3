@@ -1,9 +1,9 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse_lazy
+from django.shortcuts import render, get_object_or_404
+from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
-from django.views.generic import CreateView, ListView
+from django.views.generic import  ListView
 from django_tenants.utils import tenant_context
 from .models import Fournisseur
 from .forms import FournisseurForm
@@ -13,6 +13,7 @@ from django.utils.translation import gettext as _
 
 
 
+@method_decorator([login_required, never_cache], name='dispatch')
 class FournisseurListView(ListView):
     model = Fournisseur
     template_name = "fournisseurs/fournisseur_list.html"
