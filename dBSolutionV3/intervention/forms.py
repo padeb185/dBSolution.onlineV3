@@ -8,8 +8,8 @@ class InterventionForm(forms.ModelForm):
     voiture_exemplaire = forms.ModelChoiceField(
         queryset=VoitureExemplaire.objects.all(),
         label="Voiture",
-        to_field_name='id',
-        empty_label="-- Sélectionnez une voiture --"
+        empty_label="-- Sélectionnez une voiture --",
+        widget=forms.Select(attrs={'class': 'border rounded px-4 py-2 w-full'})
     )
 
     class Meta:
@@ -89,7 +89,7 @@ class InterventionForm(forms.ModelForm):
 
         widgets = {
             'carrosserie': forms.Select(attrs={'class': 'border rounded px-4 py-2 w-full'}),
-            'voiture_exemplaire': forms.Select(attrs={'class': 'border rounded px-4 py-2 w-full'}),
+
         }
 
     # Optionnel : on peut ajouter une validation pour recalculer total
@@ -105,20 +105,3 @@ class InterventionForm(forms.ModelForm):
                     total += prix * qty
         cleaned_data['montant_total'] = total
         return cleaned_data
-
-
-
-
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        # Remplir le ChoiceField avec les immatriculations
-        voitures = VoitureExemplaire.objects.all()
-        self.fields[('voiture_exemplaire')].choices = [(v.immatriculation, v.immatriculation) for v in voitures]
-
-    def clean_voiture_immatriculation(self):
-        imm = self.cleaned_data['voiture_exemplaire']
-        try:
-            return VoitureExemplaire.objects.get(immatriculation=imm)
-        except VoitureExemplaire.DoesNotExist:
-            raise forms.ValidationError("Voiture non trouvée.")

@@ -11,14 +11,15 @@ from django_tenants.utils import tenant_context
 from carrosserie.models import Carrosserie
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.utils.translation import gettext as _
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import ListView
+from .models import Intervention
 
 
 
-@never_cache
-@login_required
-class InterventionListView(ListView):
+class InterventionListView(LoginRequiredMixin, ListView):
     model = Intervention
-    template_name = "intervention_list.html"
+    template_name = "intervention/intervention_list.html"
     context_object_name = "interventions"
     paginate_by = 20
 

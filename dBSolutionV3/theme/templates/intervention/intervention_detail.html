@@ -19,7 +19,7 @@
 
         <a href="{% url 'intervention:intervention_list' %}"
            class="text-blue-600 hover:underline">
-            ← {% trans "Retour à la liste des interventins %}
+            {% trans "Retour à la liste des interventions" %}
         </a>
     </div>
 
@@ -39,11 +39,11 @@
 
             <p>
                 <strong>{% trans "Immatriculation" %} :</strong>
-                {{ intervention.voiture_exemplaire.immatriculation }} %
+                {{ intervention.voiture_exemplaire.immatriculation }}
             </p>
 
             <p>
-                <strong>{% trans "Pays" %} :</strong>
+                <strong>{% trans "Montant du devis" %} :</strong>
                 {{ intervention.montant_devis }}
             </p>
 

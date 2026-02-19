@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.urls import path
 from .views import InterventionListView, modifier_intervention, ajouter_intervention_all, intervention_detail
 
@@ -7,9 +8,9 @@ app_name = "intervention"
 urlpatterns = [
     path(
         "intervention/",
-         InterventionListView,
-         name="intervention_list"
-         ),
+        login_required(InterventionListView.as_view()),
+        name="intervention_list",
+    ),
 
 path(
         "intervention/creer/",
