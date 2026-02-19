@@ -11,14 +11,7 @@ class SocieteCliente(models.Model):
         editable=False
     )
 
-    adresse = models.ForeignKey(
-        'adresse.Adresse',
-        on_delete=models.CASCADE,
-        related_name='societe_cliente',
-        verbose_name='Adresse',
-        null=True,
-        blank=True
-    )
+
 
     nom_societe_cliente = models.CharField(
         _('Nom de la societe'),
@@ -84,19 +77,16 @@ class SocieteCliente(models.Model):
         null=True,
         blank=True
     )
-
-    pays = models.CharField(
-        _("Pays"),
-        max_length=100,
-        blank=True,
+    adresse = models.ForeignKey(
+        'adresse.Adresse',
+        on_delete=models.CASCADE,
+        related_name='societe_cliente',
+        verbose_name='Adresse',
         null=True,
+        blank=True
     )
 
-    code_pays = models.CharField(
-        _("Code pays"),
-        max_length=2,
-        default="BE"
-    )
+
     numero_entreprise = models.CharField(
         _("Numero d'entreprise"),
         max_length=255,

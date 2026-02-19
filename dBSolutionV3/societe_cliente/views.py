@@ -13,16 +13,31 @@ from django.utils.translation import gettext as _
 
 
 
-@method_decorator([login_required, never_cache], name='dispatch')
+
+
+@method_decorator([login_required, never_cache], name="dispatch")
 class SocieteClienteListView(ListView):
     model = SocieteCliente
     template_name = "societe_cliente/societe_cliente_list.html"
     context_object_name = "societe_clientes"
     paginate_by = 20
-    ordering = ["nom_societe_cliente" ]
+    ordering = ["nom_societe_cliente"]
 
+    def dispatch(self, request, *args, **kwargs):
+        self.tenant = getattr(request.user, "societe", None)
 
+        if not self.tenant:
+            messages.error(request, "Aucune société sélectionnée.")
+            return redirect("dashboard")  # adapte la redirection
 
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        with tenant_context(self.tenant):
+            return (
+                SocieteCliente.objects.all()
+                .order_by("nom_societe_cliente")
+            )
 
 
 
