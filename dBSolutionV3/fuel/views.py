@@ -15,7 +15,7 @@ from voiture.voiture_marque.models import VoitureMarque
 from voiture.voiture_modele.models import VoitureModele
 
 
-"""
+
 @never_cache
 @login_required
 class FuelListView(ListView):
@@ -37,7 +37,7 @@ class FuelListView(ListView):
             .order_by("-date")
         )
 
-"""
+
 
 
 @login_required
@@ -90,13 +90,14 @@ def fuel_list(request):
             "fuels": fuels
         })
 
+
+
 @login_required
 def fuel_detail(request, fuel_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
-        # Utiliser pk au lieu de id pour supporter UUID
-        fuel = get_object_or_404(Fuel, pk=fuel_id)
+        fuel = get_object_or_404(Fuel, id=fuel_id)
 
     return render(
         request,
@@ -105,6 +106,40 @@ def fuel_detail(request, fuel_id):
     )
 
 
+@login_required
+def modifier_fuel(request, fuel_id):
+    tenant = request.user.societe
+
+    with tenant_context(tenant):
+        fuel = get_object_or_404(
+            Fuel,
+            pk=fuel_id
+        )
+
+        if request.method == "POST":
+            form = FuelForm(
+                request.POST,
+                request.FILES,
+                instance=fuel_id
+            )
+
+            if form.is_valid():
+                fuel = form.save()
+                messages.success(request, "le plein de carburant a été mis à jour avec succès.")
+
+            else:
+                messages.error(request, "Le formulaire contient des erreurs.")
+        else:
+            form = FuelForm(instance=fuel)
+
+    return render(
+        request,
+        "fuel/modifier_fuel.html",
+        {
+            "form": form,
+            "fuel": fuel,
+        }
+    )
 
 
 

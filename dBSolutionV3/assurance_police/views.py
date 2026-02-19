@@ -36,39 +36,48 @@ def dashboard_assurances(request):
     return render(request, 'assurance_police/dashboard.html', context)
 
 
-
-@method_decorator([login_required, never_cache], name='dispatch')
+@method_decorator([login_required, never_cache], name="dispatch")
 class AssurancePoliceListView(ListView):
     model = AssurancePolice
     template_name = "assurance_police/assurance_police_list.html"
     context_object_name = "assurance_polices"
 
+    def get_queryset(self):
+        tenant = self.request.user.societe  # récupération du tenant via le request
+
+        with tenant_context(tenant):
+            return (
+                AssurancePolice.objects
+                .select_related("compagnie_assurance", "vehicule")
+                .all()
+                .order_by("-date_debut")
+            )
 
 
 @login_required
 def ajouter_assurance_all(request):
     tenant = request.user.societe  # si tu utilises tenant
-
-    if request.method == "POST":
-        form_assurance_police = AssurancePoliceForm(request.POST)
-        if form_assurance_police.is_valid():
-            assurance_police = form_assurance_police.save(commit=False)
-            # tu peux ajouter tenant ou autre info ici si nécessaire
-            # assurance_police.societe = tenant
-            assurance_police.save()
-            messages.success(
-                request,
-                f"Assurance '{assurance_police.assurance.nom_compagnie}' créée avec succès !"
-            )
-            return redirect('assurance_police:assurance_police_list')  # redirection après succès
+    with tenant_context(tenant):
+        if request.method == "POST":
+            form_assurance_police = AssurancePoliceForm(request.POST)
+            if form_assurance_police.is_valid():
+                assurance_police = form_assurance_police.save(commit=False)
+                # tu peux ajouter tenant ou autre info ici si nécessaire
+                # assurance_police.societe = tenant
+                assurance_police.save()
+                messages.success(
+                    request,
+                    f"Assurance '{assurance_police.assurance.nom_compagnie}' créée avec succès !"
+                )
+                return redirect('assurance_police:assurance_police_list')  # redirection après succès
+            else:
+                messages.error(request, "Le formulaire contient des erreurs.")
         else:
-            messages.error(request, "Le formulaire contient des erreurs.")
-    else:
-        form_assurance_police = AssurancePoliceForm()
+            form_assurance_police = AssurancePoliceForm()
 
-    return render(request, "assurance_police/assurance_police_form.html", {
-        "form": form_assurance_police
-    })
+        return render(request, "assurance_police/assurance_police_form.html", {
+            "form": form_assurance_police
+        })
 
 
 

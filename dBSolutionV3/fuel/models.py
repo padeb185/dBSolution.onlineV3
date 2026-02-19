@@ -85,6 +85,12 @@ class Fuel(models.Model):
         blank=True
     )
 
+    nom_station = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True
+    )
+
     date = models.DateField(default=timezone.now, verbose_name=_("Date du plein"))
     litres = models.DecimalField(max_digits = 10 , decimal_places = 2, verbose_name=_("Litres"))
 
@@ -108,7 +114,8 @@ class Fuel(models.Model):
 
     validation = models.BooleanField(default=True, verbose_name=_("Validation"))
 
-
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = _("Carburant")

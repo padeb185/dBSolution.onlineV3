@@ -7,15 +7,15 @@
     <!-- Header -->
     <div class="flex justify-between items-center mb-6">
        <h1 class="text-2xl font-bold flex items-center gap-4">
-            {% with image_name=assurance.nom_societe|slugify %}
-                <img src="{% static 'assurance/'|add:image_name|add:'.png' %}"
-                     alt="{{ assurance.nom_compagnie }}"
+            {% with image_name=fuel.nom_station|slugify %}
+                <img src="{% static 'fuel/'|add:image_name|add:'.png' %}"
+                     alt="{{ assurance.nom_station }}"
                      class="w-12 h-12"
-                     onerror="this.src='{% static 'icons/assurance-voiture.png' %}';">
+                     onerror="this.src='{% static 'icons/pompe-a-essence.png' %}';">
             {% endwith %}
-            <span>{% trans "Détails de la compagnie d'assurance :" %}</span>
+            <span>{% trans "Détails du plein de carburant :" %}</span>
 
-           <span class="text-black-700">{{ assurance.nom_compagnie }}</span>
+           <span class="text-black-700">{{ fuel.nom_station }}</span>
         </h1>
 
         <a href="{% url 'fuel:fuel_list' %}"
@@ -34,20 +34,20 @@
             </h2>
 
             <p>
-                <strong>{% trans "" %} :</strong>
-                {{ fuel. }}
+                <strong>{% trans "Immatriculation" %} :</strong>
+                {{ fuel.immatriculation }}
             </p>
             <p>
-                <strong>{% trans "Email" %} :</strong>
-                {{ assurance.email }}
+                <strong>{% trans "Kilomètres" %} :</strong>
+                {{ fuel.kilometrage_fuel }}
             </p>
             <p>
-                <strong>{% trans "Téléphone" %} :</strong>
-                {{ assurance.telephone }}
+                <strong>{% trans "Carburant" %} :</strong>
+                {{ fuel.type_carburant }}
             </p>
             <p>
                 <strong>{% trans "Pays" %} :</strong>
-                {{ assurance.adresse.pays }}
+                {{ fuel.pays }}
             </p>
 
 
@@ -79,20 +79,7 @@
         </div>
     </div>
 
-    <!-- Adresse -->
-    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
-        <h2 class="text-lg font-semibold mb-4">
-            {% trans "Adresse" %}
-        </h2>
 
-        {% if assurance.adresse %}
-            <p>{{ assurance.adresse }}</p>
-        {% else %}
-            <p class="text-gray-500">
-                {% trans "Aucune adresse renseignée." %}
-            </p>
-        {% endif %}
-    </div>
 
     <!-- Métadonnées -->
     <div class="bg-white shadow-md rounded-lg p-6 mb-6">
