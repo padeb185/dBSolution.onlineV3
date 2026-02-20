@@ -1,6 +1,15 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 import uuid
 from django.utils.translation import gettext_lazy as _
+from stdnum import iban
+
+
+def validate_iban(value):
+    if not iban.is_valid(value):
+        raise ValidationError("IBAN invalide")
+
+
 
 
 class SocieteCliente(models.Model):
@@ -64,9 +73,10 @@ class SocieteCliente(models.Model):
     )
     numero_compte = models.CharField(
         _("Numéro de compte bancaire"),
-        max_length=20,
+        max_length=34,
         null=True,
-        blank=True
+        blank=True,
+        validators=[validate_iban]
     )
 
     numero_carte_bancaire = models.CharField(
