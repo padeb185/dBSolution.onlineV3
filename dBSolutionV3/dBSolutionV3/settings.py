@@ -197,6 +197,7 @@ TENANT_APPS = (
 
     'tenant',
 
+    'core',     # format iban, carte, ...
 
 
 

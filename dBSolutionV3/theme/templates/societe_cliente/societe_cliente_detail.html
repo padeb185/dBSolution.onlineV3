@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n static %}
+{% load i18n static format_numbers %}
 
 {% block content %}
 <div class="p-6 w-full ml-[-10px] mr-[10px]">
@@ -58,9 +58,13 @@
 
             <p>
                 <strong>{% trans "Numéro de compte" %} :</strong>
-                {{ societe_cliente.numero_compte }}
+                {{ societe_cliente.numero_compte|format_iban }}
             </p>
 
+            <p>
+                <strong>{% trans "Numéro de carte bancaire" %} :</strong>
+                {{ societe_cliente.numero_carte_bancaire|format_card }}
+            </p>
 
 
            <div class="mt-auto w-full">
@@ -136,48 +140,5 @@
     </div>
 
 </div>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-
-    function formatBankNumber(inputId) {
-        const input = document.getElementById(inputId);
-        if (!input) return;
-
-        input.addEventListener("input", function () {
-            let val = input.value.toUpperCase();
-
-            // Supprime tout sauf lettres et chiffres
-            val = val.replace(/[^A-Z0-9]/g, "");
-
-            let formatted = "";
-            let i = 0;
-
-            while (i < val.length) {
-                if (i === 0) {
-                    // deux lettres
-                    formatted += val.substr(i, 2);
-                    i += 2;
-                } else if (i === 2) {
-                    // deux chiffres + espace
-                    formatted += val.substr(i, 2) + " ";
-                    i += 2;
-                } else {
-                    // groupes de quatre chiffres + espace
-                    formatted += val.substr(i, 4) + " ";
-                    i += 4;
-                }
-            }
-
-            // Supprime l'espace final
-            input.value = formatted.trim();
-        });
-    }
-
-    // Appliquer aux deux champs
-    formatBankNumber("id_numero_carte_bancaire");
-    formatBankNumber("id_numero_compte");
-
-});
-</script>
 
 {% endblock %}

@@ -84,45 +84,54 @@
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
-    function formatBankNumber(inputId) {
-        const input = document.getElementById(inputId);
-        if (!input) return;
+    // Fonction générique de groupage
+    function formatGroups(value, groups, separator = " ") {
+        if (!value) return "";
+        // Retire tout sauf lettres et chiffres
+        value = value.replace(/[^A-Z0-9]/gi, "").toUpperCase();
 
-        input.addEventListener("input", function () {
-            let val = input.value.toUpperCase();
+        let result = "";
+        let index = 0;
 
-            // Supprime tout sauf lettres et chiffres
-            val = val.replace(/[^A-Z0-9]/g, "");
+        for (let size of groups) {
+            if (index >= value.length) break;
+            result += value.substr(index, size) + separator;
+            index += size;
+        }
 
-            let formatted = "";
-            let i = 0;
+        if (index < value.length) {
+            result += value.substr(index);
+        }
 
-            while (i < val.length) {
-                if (i === 0) {
-                    // deux lettres
-                    formatted += val.substr(i, 2);
-                    i += 2;
-                } else if (i === 2) {
-                    // deux chiffres + espace
-                    formatted += val.substr(i, 2) + " ";
-                    i += 2;
-                } else {
-                    // groupes de quatre chiffres + espace
-                    formatted += val.substr(i, 4) + " ";
-                    i += 4;
-                }
-            }
-
-            // Supprime l'espace final
-            input.value = formatted.trim();
-        });
+        return result.trim();
     }
 
-    // Appliquer aux deux champs
-    formatBankNumber("id_numero_carte_bancaire");
-    formatBankNumber("id_numero_compte");
+    // Applique format sur un input ciblé par name
+    function attachFormatter(inputName, groups, separator = " ") {
+        const input = document.querySelector(`input[name="${inputName}"]`);
+        if (!input) return;
 
+        const applyFormat = () => {
+            const cursorPos = input.selectionStart; // garde la position du curseur
+            input.value = formatGroups(input.value, groups, separator);
+            // repositionne le curseur à la fin
+            input.setSelectionRange(cursorPos, cursorPos);
+        };
+
+        // Format immédiatement au chargement, même si prérempli
+        applyFormat();
+
+        // Format en live
+        input.addEventListener("input", applyFormat);
+    }
+
+    // =================
+    // Champs à formater
+    // =================
+    attachFormatter("numero_compte", [4, 4, 4, 4]);           // IBAN
+    attachFormatter("numero_carte_bancaire", [4, 4, 4, 4]);       // Carte bancaire
 });
 </script>
+
 
 {% endblock %}
