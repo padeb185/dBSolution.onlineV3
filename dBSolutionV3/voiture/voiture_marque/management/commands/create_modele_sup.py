@@ -283,6 +283,53 @@ class Command(BaseCommand):
                 {"modele": "S2000 CR", "variante": "Club Racer", "portes": 2, "places": 2, "reservoir": 50}
             ],
 
+            "Cadillac V-Series": [
+                {"modele": "CTS-V", "variante": None, "portes": 4, "places": 5, "reservoir": 72},
+                {"modele": "CTS-V Wagon", "variante": None, "portes": 5, "places": 5, "reservoir": 72},
+                {"modele": "ATS-V", "variante": None, "portes": 4, "places": 5, "reservoir": 64},
+                {"modele": "CT4-V", "variante": None, "portes": 4, "places": 5, "reservoir": 60},
+                {"modele": "CT5-V", "variante": None, "portes": 4, "places": 5, "reservoir": 61},
+                {"modele": "CT5-V Blackwing", "variante": "Edition performance", "portes": 4, "places": 5,
+                 "reservoir": 61},
+                {"modele": "Escalade-V", "variante": None, "portes": 5, "places": 7, "reservoir": 90}
+            ],
+
+            "Shelby": [
+                {"modele": "Shelby GT350", "variante": None, "portes": 2, "places": 4, "reservoir": 60},
+                {"modele": "Shelby GT500", "variante": None, "portes": 2, "places": 4, "reservoir": 61},
+                {"modele": "Shelby Cobra 427", "variante": None, "portes": 2, "places": 2, "reservoir": 65},
+                {"modele": "Shelby Super Snake", "variante": None, "portes": 2, "places": 4, "reservoir": 60},
+                {"modele": "Shelby Daytona Coupe", "variante": None, "portes": 2, "places": 2, "reservoir": 60},
+                {"modele": "Shelby Series 1", "variante": None, "portes": 2, "places": 2, "reservoir": 60}
+            ],
+
+            "Hennessey Venom": [
+                {"modele": "Venom GT", "variante": None, "portes": 2, "places": 2, "reservoir": 90},
+                {"modele": "Venom F5", "variante": None, "portes": 2, "places": 2, "reservoir": 90},
+                {"modele": "Venom F5 Roadster", "variante": "Roadster", "portes": 2, "places": 2, "reservoir": 90}
+            ],
+
+            "Chevrolet Corvette": [
+                {"modele": "Corvette C1", "variante": None, "portes": 2, "places": 2, "reservoir": 70},
+                {"modele": "Corvette C2", "variante": None, "portes": 2, "places": 2, "reservoir": 70},
+                {"modele": "Corvette C3", "variante": None, "portes": 2, "places": 2, "reservoir": 75},
+                {"modele": "Corvette C4", "variante": None, "portes": 2, "places": 2, "reservoir": 75},
+                {"modele": "Corvette C5", "variante": None, "portes": 2, "places": 2, "reservoir": 80},
+                {"modele": "Corvette C6", "variante": None, "portes": 2, "places": 2, "reservoir": 80},
+                {"modele": "Corvette C7", "variante": None, "portes": 2, "places": 2, "reservoir": 82},
+                {"modele": "Corvette C8", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 72},
+                {"modele": "Corvette C8 Convertible", "variante": "Cabriolet", "portes": 2, "places": 2,
+                 "reservoir": 72}
+            ],
+            "Dodge SRT": [
+                {"modele": "Challenger SRT Hellcat", "variante": None, "portes": 2, "places": 4, "reservoir": 70},
+                {"modele": "Challenger SRT Hellcat Redeye", "variante": None, "portes": 2, "places": 4,
+                 "reservoir": 70},
+                {"modele": "Challenger SRT Demon", "variante": None, "portes": 2, "places": 2, "reservoir": 70},
+                {"modele": "Charger SRT Hellcat", "variante": None, "portes": 4, "places": 5, "reservoir": 70},
+                {"modele": "Durango SRT", "variante": None, "portes": 5, "places": 7, "reservoir": 85}
+            ]
+
 
 
 
