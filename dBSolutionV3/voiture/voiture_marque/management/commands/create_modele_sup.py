@@ -130,6 +130,14 @@ class Command(BaseCommand):
                 {"modele": "Panhard 24 CT", "variante": None, "portes": 2, "places": 4, "reservoir": 60},
                 {"modele": "Panhard LM64", "variante": "Prototype", "portes": 0, "places": 1, "reservoir": 80},
                 {"modele": "Panhard X86", "variante": "Prototype", "portes": 0, "places": 1, "reservoir": 80},
+
+
+
+                {"modele": "X85", "variante": None, "portes": 0, "places": 1, "reservoir": 60},
+                {"modele": "X88", "variante": None, "portes": 0, "places": 1, "reservoir": 60},
+                {"modele": "Dyna X", "variante": None, "portes": 0, "places": 1, "reservoir": 60},
+                {"modele": "24 CT", "variante": None, "portes": 0, "places": 1, "reservoir": 60},
+                {"modele": "24 BT", "variante": None, "portes": 0, "places": 1, "reservoir": 60}
             ],
 
             "Talbot-Lago": [
@@ -328,7 +336,44 @@ class Command(BaseCommand):
                 {"modele": "Challenger SRT Demon", "variante": None, "portes": 2, "places": 2, "reservoir": 70},
                 {"modele": "Charger SRT Hellcat", "variante": None, "portes": 4, "places": 5, "reservoir": 70},
                 {"modele": "Durango SRT", "variante": None, "portes": 5, "places": 7, "reservoir": 85}
-            ]
+            ],
+
+            "Saleen": [
+                {"modele": "S7", "variante": None, "portes": 2, "places": 2, "reservoir": 80},
+                {"modele": "S7 Twin Turbo", "variante": None, "portes": 2, "places": 2, "reservoir": 80},
+                {"modele": "S281", "variante": None, "portes": 2, "places": 4, "reservoir": 72},
+                {"modele": "S302", "variante": None, "portes": 2, "places": 4, "reservoir": 72},
+                {"modele": "S351", "variante": None, "portes": 2, "places": 4, "reservoir": 72},
+                {"modele": "S7 LM", "variante": None, "portes": 2, "places": 2, "reservoir": 80}
+            ],
+
+            "SSC Tuatara": [
+                {"modele": "Tuatara Coupe", "variante": None, "portes": 2, "places": 2, "reservoir": 100},
+                {"modele": "Tuatara Roadster", "variante": "Roadster", "portes": 2, "places": 2, "reservoir": 100}
+            ],
+
+            "Chevrolet Camaro ZL1": [
+                {"modele": "Camaro ZL1 2012-2015", "variante": None, "portes": 2, "places": 4, "reservoir": 70},
+                {"modele": "Camaro ZL1 2017-2023", "variante": None, "portes": 2, "places": 4, "reservoir": 72},
+                {"modele": "Camaro ZL1 Convertible", "variante": "Cabriolet", "portes": 2, "places": 4, "reservoir": 72}
+            ],
+
+            "Lola": [
+                {"modele": "T70", "variante": None, "portes": 0, "places": 1, "reservoir": 120},
+                {"modele": "T212", "variante": None, "portes": 0, "places": 1, "reservoir": 100},
+                {"modele": "B98/10", "variante": None, "portes": 0, "places": 1, "reservoir": 100},
+                {"modele": "B05/40", "variante": None, "portes": 0, "places": 1, "reservoir": 100},
+                {"modele": "B12/80", "variante": None, "portes": 0, "places": 1, "reservoir": 100},
+                {"modele": "T3000", "variante": None, "portes": 0, "places": 1, "reservoir": 100}
+            ],
+
+            "Marcos": [
+                {"modele": "GT", "variante": None, "portes": 2, "places": 2, "reservoir": 60},
+                {"modele": "Mantara", "variante": None, "portes": 2, "places": 2, "reservoir": 60},
+                {"modele": "Talon", "variante": None, "portes": 2, "places": 2, "reservoir": 60},
+                {"modele": "GTS", "variante": None, "portes": 2, "places": 2, "reservoir": 60},
+                {"modele": "LM600", "variante": None, "portes": 2, "places": 2, "reservoir": 60}
+            ],
 
 
 
