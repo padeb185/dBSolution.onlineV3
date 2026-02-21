@@ -44,14 +44,11 @@ class AssurancePoliceListView(ListView):
 
     def get_queryset(self):
         tenant = self.request.user.societe  # récupération du tenant via le request
-
         with tenant_context(tenant):
-            return (
-                AssurancePolice.objects
-                .select_related("compagnie_assurance", "vehicule")
-                .all()
-                .order_by("-date_debut")
-            )
+            return AssurancePolice.objects.select_related(
+                "assurance",
+                "voiture_exemplaire"
+            ).all().order_by("-date_debut")
 
 
 @login_required

@@ -1,0 +1,115 @@
+/* === RESET DE BASE === */
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+header, footer {
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    margin: 0 50px;
+}
+
+/* === PAGE LOADER === */
+#page-loader {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #f8fafc, #e0f2fe);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.loader-content {
+    text-align: center;
+    font-family: Inter, Segoe UI, Arial, sans-serif;
+    color: #1e3a8a;
+}
+
+.kpi-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    background: linear-gradient(135deg, #bae6fd, #93c5fd, #60a5fa);
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.bar {
+    position: absolute;
+    bottom: 15px;
+    width: 6px;
+    background: white;
+    border-radius: 3px;
+    opacity: 0.9;
+    animation: barAnim 1.2s infinite ease-in-out;
+}
+
+.b1 { left: 22px; height: 18px; animation-delay: 0s; }
+.b2 { left: 36px; height: 28px; animation-delay: 0.2s; }
+.b3 { left: 50px; height: 38px; animation-delay: 0.4s; }
+
+@keyframes barAnim {
+    0%, 100% { transform: scaleY(0.6); }
+    50% { transform: scaleY(1); }
+}
+
+.curve {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.curve path {
+    fill: none;
+    stroke: #2563eb;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-dasharray: 120;
+    stroke-dashoffset: 120;
+    animation: draw 2s infinite ease-in-out;
+}
+
+@keyframes draw {
+    0% { stroke-dashoffset: 120; }
+    50% { stroke-dashoffset: 0; }
+    100% { stroke-dashoffset: 120; }
+}
+
+.progress {
+    width: 220px;
+    height: 6px;
+    background: #e2e8f0;
+    border-radius: 999px;
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    width: 40%;
+    height: 100%;
+    background: linear-gradient(90deg, #2563eb, #38bdf8);
+    border-radius: 999px;
+    animation: progressAnim 1.5s infinite ease-in-out;
+}
+
+@keyframes progressAnim {
+    0% { margin-left: -40%; }
+    50% { margin-left: 100%; }
+    100% { margin-left: -40%; }
+}
+
+.loader-text {
+    font-size: 14px;
+    color: #64748b;
+}
