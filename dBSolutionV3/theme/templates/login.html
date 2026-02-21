@@ -21,12 +21,18 @@ flex flex-col items-center justify-center w-full
 
     <h1 class="text-2xl font-bold mb-4 text-center">Connexion</h1>
 
+     <!-- Messages -->
     {% if messages %}
-        <div class="mb-4">
-            {% for message in messages %}
-                <p class="text-red-500">{{ message }}</p>
-            {% endfor %}
+        {% for message in messages %}
+        <div class="mb-3 px-4 py-2 rounded
+            {% if message.tags == 'success' %}
+                bg-green-100 text-green-800 border border-green-300
+            {% else %}
+                bg-red-100 text-red-800 border border-red-300
+            {% endif %}">
+            {{ message }}
         </div>
+        {% endfor %}
     {% endif %}
 
     <form method="post" class="flex flex-col gap-4">
