@@ -52,7 +52,7 @@ class Command(BaseCommand):
                 {"modele": "Monza SP2", "variante": "Roadster", "portes": 0, "places": 2, "reservoir": 75},
                 {"modele": "Portofino Cabrio", "variante": "Cabriolet", "portes": 2, "places": 2, "reservoir": 90}
             ],
-            "ligier": [
+            "Ligier": [
                 {"modele": "JS50", "variante": None, "portes": 2, "places": 2, "reservoir": 15},
                 {"modele": "JS50L", "variante": None, "portes": 2, "places": 2, "reservoir": 15},
                 {"modele": "Myli", "variante": None, "portes": 2, "places": 2, "reservoir": 10},
@@ -240,6 +240,54 @@ class Command(BaseCommand):
                 {"modele": "Noble M600", "variante": None, "portes": 2, "places": 2, "reservoir": 80},
                 {"modele": "Noble M600 Speedster", "variante": None, "portes": 2, "places": 2, "reservoir": 80}
             ],
+
+            "Morgan Aero": [
+                {"modele": "Aero 8", "variante": None, "portes": 2, "places": 2, "reservoir": 60},
+                {"modele": "Aero SuperSports", "variante": None, "portes": 2, "places": 2, "reservoir": 60},
+                {"modele": "Aero Coupe", "variante": None, "portes": 2, "places": 2, "reservoir": 60},
+                {"modele": "Aero Roadster", "variante": None, "portes": 2, "places": 2, "reservoir": 60}
+            ],
+
+            "Gordon Murray Automotive": [
+                {"modele": "T.50", "variante": "Coupe", "portes": 2, "places": 3, "reservoir": 60},
+                {"modele": "T.50s Niki Lauda", "variante": "Edition limitée", "portes": 2, "places": 1,
+                 "reservoir": 60},
+                {"modele": "T.33", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 65},
+                {"modele": "T.33C", "variante": "Cabriolet", "portes": 2, "places": 2, "reservoir": 65}
+            ],
+
+            "Nissan Nismo": [
+                {"modele": "370Z Nismo", "variante": None, "portes": 2, "places": 2, "reservoir": 72},
+                {"modele": "GT-R Nismo", "variante": None, "portes": 2, "places": 4, "reservoir": 74},
+                {"modele": "Juke Nismo", "variante": None, "portes": 5, "places": 5, "reservoir": 50},
+                {"modele": "Juke Nismo RS", "variante": None, "portes": 5, "places": 5, "reservoir": 50},
+                {"modele": "March Nismo", "variante": None, "portes": 3, "places": 4, "reservoir": 41},
+                {"modele": "Leaf Nismo RC", "variante": "Electrique", "portes": 2, "places": 2, "reservoir": 0},
+                {"modele": "Skyline GT-R Nismo", "variante": None, "portes": 2, "places": 4, "reservoir": 75},
+                {"modele": "Note Nismo", "variante": None, "portes": 5, "places": 5, "reservoir": 46}
+            ],
+
+            "Toyota Supra": [
+                {"modele": "Supra A40 (MK1)", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 70},
+                {"modele": "Supra A60 (MK2)", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 70},
+                {"modele": "Supra A70 (MK3)", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 70},
+                {"modele": "Supra A80 (MK4)", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 72},
+                {"modele": "Supra A90 (MK5)", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 70},
+                {"modele": "Supra GR", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 70},
+                {"modele": "Supra GR Sport", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 70}
+            ],
+
+            "Honda S2000": [
+                {"modele": "S2000 AP1", "variante": None, "portes": 2, "places": 2, "reservoir": 50},
+                {"modele": "S2000 AP2", "variante": None, "portes": 2, "places": 2, "reservoir": 50},
+                {"modele": "S2000 CR", "variante": "Club Racer", "portes": 2, "places": 2, "reservoir": 50}
+            ],
+
+
+
+
+
+
 
 
 
