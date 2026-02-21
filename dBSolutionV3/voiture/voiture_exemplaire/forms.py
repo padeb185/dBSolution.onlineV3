@@ -2,18 +2,14 @@ from django import forms
 from .models import VoitureExemplaire
 from .utils_vin import get_vin_year
 
-
-# voiture/voiture_exemplaire/forms.py
-
-# Ajouter cette ligne en haut du fichier
-INVALID_VIN_CHARS = set("IOQ")  # Les lettres interdites dans un VIN
+# Lettres interdites dans un VIN
+INVALID_VIN_CHARS = set("IOQ")
 
 
 class VoitureExemplaireForm(forms.ModelForm):
     class Meta:
         model = VoitureExemplaire
         fields = (
-
             "voiture_marque",
             "voiture_modele",
             "immatriculation",
@@ -40,30 +36,21 @@ class VoitureExemplaireForm(forms.ModelForm):
                 "class": "input"
             }),
             "est_avant_2010": forms.CheckboxInput(attrs={"class": "mt-2"}),
-
-
         }
 
     def __init__(self, *args, **kwargs):
-        user = kwargs.pop('user', None)  # on récupère l'utilisateur depuis la vue
+        # Récupère l'utilisateur depuis la vue
+        self.user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
-        if user:
-            # societe est rempli automatiquement et en lecture seule
-            self.fields['societe'].initial = user.societe
-            self.fields['societe'].disabled = True  # read-only
 
     def clean_numero_vin(self):
         vin = self.cleaned_data.get("numero_vin")
-
         if vin:
             vin = vin.upper()
-
             if len(vin) != 17:
                 raise forms.ValidationError("Le VIN doit contenir 17 caractères.")
-
             if any(c in INVALID_VIN_CHARS for c in vin):
                 raise forms.ValidationError("Le VIN contient des caractères interdits (I, O, Q).")
-
         return vin
 
     def clean(self):
@@ -72,11 +59,15 @@ class VoitureExemplaireForm(forms.ModelForm):
 
         annee = get_vin_year(vin) if vin else None
         cleaned_data["annee_production"] = annee
-
         cleaned_data["est_avant_2010"] = bool(annee and annee < 2010)
 
         return cleaned_data
 
-
-
-
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        # Assigne automatiquement la société depuis l'utilisateur
+        if self.user:
+            instance.societe = getattr(self.user, 'societe', None)
+        if commit:
+            instance.save()
+        return instance
