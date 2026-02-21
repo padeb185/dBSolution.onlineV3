@@ -1,9 +1,16 @@
+from django.contrib import messages
 from django.http import Http404, JsonResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from voiture.voiture_marque.models import VoitureMarque
 from voiture.voiture_modele.models import VoitureModele
 from voiture.voiture_marque.models import MarqueFavorite
+from django.utils.translation import gettext as _
+from voiture.voiture_marque.forms import VoitureMarqueForm
+from voiture.voiture_moteur.forms import MoteurVoitureForm
+
+
 
 
 @login_required
@@ -70,3 +77,29 @@ def marques_favorites(request):
     return render(request, "voiture_marque/marques_favorites.html", {
         "marques": marques
     })
+
+
+def ajouter_marque(request):
+    if request.method == "POST":
+        nom_marque = request.POST.get("marque", "").strip()
+        if nom_marque:
+            # Vérifie si la marque existe déjà
+            if VoitureMarque.objects.filter(nom_marque__iexact=nom_marque).exists():
+                messages.error(request, "Cette marque existe déjà !")
+            else:
+                marque = VoitureMarque.objects.create(nom_marque=nom_marque)
+                messages.success(request, f"Marque '{marque.nom_marque}' ajoutée avec succès !")
+                return redirect("voiture_marque:ajouter_marque")
+        else:
+            messages.error(request, "Veuillez entrer un nom de marque.")
+
+    return render(request, "voiture_marque/ajouter_marque.html")
+
+
+@require_POST
+def check_marque(request):
+    nom_marque = request.POST.get("nom_marque", "").strip()
+    exists = False
+    if nom_marque:
+        exists = VoitureMarque.objects.filter(nom_marque__iexact=nom_marque).exists()
+    return JsonResponse({"exists": exists})

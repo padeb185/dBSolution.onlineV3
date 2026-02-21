@@ -28,6 +28,10 @@
                class="inline-flex items-center gap-2 px-4 py-2 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold rounded-lg transition">
                 ⭐ {% trans "Mes marques favorites" %}
             </a>
+             <a href="{% url 'voiture_marque:ajouter_marque' %}"
+               class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition">
+                {% trans "Ajouter une marque" %}
+            </a>
         </div>
     </div>
 

@@ -108,7 +108,7 @@ def ajouter_moteur_seul(request):
 
         messages.success(request, "Moteur ajouté avec succès !")
 
-        return redirect("voiture_moteur:ajouter_moteur_seul")
+
 
     context = {
         "TypeMoteur": TypeMoteur,

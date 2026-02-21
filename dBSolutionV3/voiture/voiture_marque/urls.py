@@ -1,5 +1,6 @@
 from django.urls import path, include
-from .views import marques_list, modeles_par_marque, toggle_marque_favorite, marques_favorites
+from .views import marques_list, modeles_par_marque, toggle_marque_favorite, marques_favorites, ajouter_marque, \
+    check_marque
 
 app_name = "voiture_marque"
 
@@ -26,8 +27,8 @@ urlpatterns = [
 
     path("exemplaires/", include("voiture.voiture_exemplaire.urls")),
 
+    path("ajouter/", ajouter_marque, name="ajouter_marque"),
 
-
-
+    path('api/check_marque', check_marque, name='check_marque'),
 ]
 

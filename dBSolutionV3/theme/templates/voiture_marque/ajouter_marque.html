@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="max-w-xl mx-auto p-6 bg-white rounded shadow mt-16 mb-16">
+
+    <h1 class="text-2xl font-bold mb-4 text-center flex items-center justify-center">
+        <img src="{% static 'icons/voiture-de-course.png' %}" alt="Marque" class="w-16 h-16 mr-2">
+        {% trans "Ajouter une Marque" %}
+    </h1>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="mb-3 px-4 py-2 rounded
+                {% if message.tags == 'success' %}
+                    bg-green-100 text-green-800 border border-green-300
+                {% else %}
+                    bg-red-100 text-red-800 border border-red-300
+                {% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post" id="form-ajouter-marque" class="flex flex-col space-y-4">
+        {% csrf_token %}
+        <div class="flex flex-col relative">
+            <label for="id_marque" class="mb-1 font-medium">{% trans "Marque" %}</label>
+            <input type="text" id="id_marque" name="marque"
+                   class="border border-gray-300 rounded px-4 py-2 w-full focus:ring-2 focus:ring-blue-400"
+                   placeholder="{% trans 'Nom de la marque' %}" autocomplete="off">
+            <p id="marque-feedback" class="text-sm mt-1 hidden"></p>
+        </div>
+
+        <button type="submit" id="btn-ajouter-marque"
+                class="mt-4 bg-blue-600 text-white px-4 py-2 rounded w-full hover:bg-blue-700 transition disabled:opacity-50">
+            {% trans "Ajouter" %}
+        </button>
+    </form>
+</div>
+
+<script>
+const inputMarque = document.getElementById('id_marque');
+const btnAjouter = document.getElementById('btn-ajouter-marque');
+const feedback = document.getElementById('marque-feedback');
+const checkMarqueUrl = "{% url 'voiture_marque:check_marque' %}";
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+        document.cookie.split(';').forEach(c => {
+            if (c.trim().startsWith(name + '=')) {
+                cookieValue = decodeURIComponent(c.trim().substring(name.length + 1));
+            }
+        });
+    }
+    return cookieValue;
+}
+
+const csrftoken = getCookie('csrftoken');
+let debounceTimer;
+
+inputMarque.addEventListener('input', function() {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+        const marque = this.value.trim();
+        if (!marque) {
+            feedback.classList.add('hidden');
+            btnAjouter.disabled = false;
+            return;
+        }
+
+        feedback.textContent = "{% trans 'Vérification…' %}";
+        feedback.classList.remove('hidden', 'text-red-600', 'text-green-600');
+
+        fetch(checkMarqueUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': csrftoken
+            },
+            body: new URLSearchParams({ nom_marque: marque })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.exists) {
+                feedback.textContent = "❌ {% trans 'Cette marque existe déjà !' %}";
+                feedback.classList.add('text-red-600');
+                btnAjouter.disabled = true;
+            } else {
+                feedback.textContent = "✅ {% trans 'Marque disponible' %}";
+                feedback.classList.add('text-green-600');
+                btnAjouter.disabled = false;
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            feedback.textContent = "{% trans 'Erreur lors de la vérification' %}";
+            feedback.classList.add('text-red-600');
+            btnAjouter.disabled = false;
+        });
+    }, 400); // Debounce 400ms
+});
+</script>
+{% endblock %}
