@@ -19,32 +19,44 @@ class Command(BaseCommand):
         # Liste des marques/variantes sportives
         sportives = [
             # 🇫🇷 France
-            "Renault RS", "Peugeot Sport", "Citroën Sport", "Alpine",
+            "Renault RS", "Peugeot Sport", "Citroën Sport", "Alpine", "Venturi", "Matra",
+            "Ligier", "Ginetta", "Bugatti (ancien)", "Panhard Racing", "Talbot-Lago",
 
             # 🇩🇪 Allemagne
-            "BMW M", "Mercedes-AMG", "Audi S", "Audi RS", "Porsche",
-            "Volkswagen R",
+            "BMW M", "Mercedes-AMG", "Audi S", "Audi RS", "Porsche", "Opel OPC", "Mercedes-Benz Maybach",
+            "Wiesmann", "Artega", "Porsche 918 Spyder", "BMW i8", "Alpina",
 
             # 🇮🇹 Italie
-            "Ferrari", "Lamborghini", "Maserati", "Alfa Romeo",
-            "Abarth",
+            "Ferrari", "Lamborghini", "Maserati", "Alfa Romeo", "Abarth", "Pagani",
+            "Lancia HF", "De Tomaso", "Mazzanti", "Dallara", "Pininfarina Battista",
 
             # 🇬🇧 Royaume-Uni
-            "Jaguar R", "Aston Martin Vantage", "Lotus Exige", "McLaren",
+            "Jaguar R", "Aston Martin Vantage", "Lotus Exige", "McLaren", "Caterham",
+            "Bentley Continental GT", "TVR", "Noble", "Morgan Aero", "Gordon Murray Automotive",
 
             # 🇯🇵 Japon
-            "Nissan Nismo", "Toyota GR", "Honda Type R", "Mazda Speed",
-            "Subaru STI", "Mitsubishi Evo",
+            "Nissan Nismo", "Toyota GR", "Honda Type R", "Mazda Speed", "Subaru STI",
+            "Mitsubishi Evo", "Lexus F", "Acura NSX", "Toyota Supra", "Honda S2000",
 
             # 🇰🇷 Corée du Sud
-            "Hyundai N", "Kia GT", "Genesis G70 Sport",
+            "Hyundai N", "Kia GT", "Genesis G70 Sport", "Kia Stinger GT", "Hyundai Veloster N",
 
             # 🇺🇸 États-Unis
-            "Ford GT", "Chevrolet", "Dodge SRT", "Tesla Performance",
+            "Ford GT", "Chevrolet Corvette", "Chevrolet Camaro ZL1", "Dodge SRT", "Tesla Performance",
+            "Cadillac V-Series", "Shelby", "Hennessey Venom", "Saleen", "SSC Tuatara",
 
-            # 🌍 Autres / électriques
-            "Porsche", "Tesla", "Rimac", "Lotus"
+            # 🇸🇪 Suède
+            "Koenigsegg", "Volvo Polestar", "NEVS", "Scania Racing", "Svenska Supercars",
+
+            # 🌍 Autres / électriques & hypercars
+            "Rimac", "Lotus", "Bugatti", "Pagani", "Vector", "Apollo", "Czinger", "Drako GTE",
+            "Porsche Taycan Turbo S", "Tesla Roadster",
+
+            # Petites marques historiques ou courses
+            "Brabham", "Lola", "Ginetta", "Ligier", "Osella", "March Engineering", "Caparo",
+            "Marcos", "Spania GTA", "BAC Mono", "Radical", "Caterham 7", "Ultima Sports"
         ]
+
 
         created_count = 0
 

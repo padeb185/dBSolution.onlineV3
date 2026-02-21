@@ -52,6 +52,204 @@ class Command(BaseCommand):
                 {"modele": "Monza SP2", "variante": "Roadster", "portes": 0, "places": 2, "reservoir": 75},
                 {"modele": "Portofino Cabrio", "variante": "Cabriolet", "portes": 2, "places": 2, "reservoir": 90}
             ],
+            "ligier": [
+                {"modele": "JS50", "variante": None, "portes": 2, "places": 2, "reservoir": 15},
+                {"modele": "JS50L", "variante": None, "portes": 2, "places": 2, "reservoir": 15},
+                {"modele": "Myli", "variante": None, "portes": 2, "places": 2, "reservoir": 10},
+                {"modele": "Ixo", "variante": None, "portes": 2, "places": 2, "reservoir": 10},
+                {"modele": "BE", "variante": None, "portes": 2, "places": 2, "reservoir": 10},
+                {"modele": "Optimax", "variante": None, "portes": 2, "places": 2, "reservoir": 10},
+                {"modele": "Pulse 4", "variante": None, "portes": 2, "places": 2, "reservoir": 10},
+                {"modele": "X-too RS", "variante": None, "portes": 2, "places": 2, "reservoir": 10},
+                {"modele": "JS1", "variante": None, "portes": 2, "places": 2, "reservoir": 50},
+                {"modele": "JS2", "variante": None, "portes": 2, "places": 2, "reservoir": 60},
+                {"modele": "JS3", "variante": None, "portes": 0, "places": 1, "reservoir": 80},
+                {"modele": "JS P4", "variante": None, "portes": 0, "places": 1, "reservoir": 80},
+                {"modele": "JS2 R", "variante": None, "portes": 0, "places": 1, "reservoir": 80},
+                {"modele": "JS2 RS", "variante": None, "portes": 0, "places": 1, "reservoir": 80},
+                {"modele": "JS51", "variante": None, "portes": 0, "places": 1, "reservoir": 80},
+                {"modele": "JS55", "variante": None, "portes": 0, "places": 1, "reservoir": 80},
+            ],
+
+            "Ginetta": [
+                {"modele": "G4", "variante": None, "portes": 2, "places": 2, "reservoir": 60},
+                {"modele": "G15", "variante": None, "portes": 2, "places": 2, "reservoir": 55},
+                {"modele": "G32", "variante": None, "portes": 2, "places": 2, "reservoir": 55},
+                {"modele": "G40", "variante": None, "portes": 2, "places": 2, "reservoir": 55},
+                {"modele": "G50", "variante": None, "portes": 2, "places": 2, "reservoir": 60},
+                {"modele": "G60", "variante": None, "portes": 2, "places": 2, "reservoir": 60},
+                {"modele": "G55", "variante": None, "portes": 2, "places": 2, "reservoir": 65},
+                {"modele": "G56", "variante": None, "portes": 2, "places": 2, "reservoir": 65},
+                {"modele": "GT2", "variante": None, "portes": 2, "places": 2, "reservoir": 60},
+                {"modele": "Akula", "variante": None, "portes": 2, "places": 2, "reservoir": 80}
+            ],
+            "Brabham": [
+                {"modele": "BT14", "variante": "Formula", "portes": 0, "places": 1, "reservoir": 80},
+                {"modele": "BT17", "variante": "Sports Prototype", "portes": 0, "places": 1, "reservoir": 90},
+                {"modele": "BT18", "variante": "Formula 2/3", "portes": 0, "places": 1, "reservoir": 75},
+                {"modele": "BT24", "variante": "Formula 1", "portes": 0, "places": 1, "reservoir": 90},
+                {"modele": "BT34", "variante": "Formula 1", "portes": 0, "places": 1, "reservoir": 90},
+                {"modele": "BT44", "variante": "Formula 1", "portes": 0, "places": 1, "reservoir": 90},
+                {"modele": "BT45", "variante": "Formula 1", "portes": 0, "places": 1, "reservoir": 90},
+                {"modele": "BT49", "variante": "Formula 1", "portes": 0, "places": 1, "reservoir": 90},
+                {"modele": "BT50", "variante": "Formula 1", "portes": 0, "places": 1, "reservoir": 90},
+                {"modele": "BT52", "variante": "Formula 1", "portes": 0, "places": 1, "reservoir": 90},
+                {"modele": "BT56", "variante": "Formula 1", "portes": 0, "places": 1, "reservoir": 90},
+                {"modele": "BT60", "variante": "Formula 1", "portes": 0, "places": 1, "reservoir": 90},
+                {"modele": "BT62", "variante": "Track Hypercar", "portes": 2, "places": 2, "reservoir": 80},
+            ],
+
+            "Venturi": [
+                {"modele": "Venturi 400 GT", "variante": None, "portes": 2, "places": 2, "reservoir": 80},
+                {"modele": "Venturi 260", "variante": None, "portes": 2, "places": 2, "reservoir": 70},
+                {"modele": "Venturi Atlantique 300", "variante": None, "portes": 2, "places": 2, "reservoir": 80},
+                {"modele": "Venturi Atlantique 300 Biturbo", "variante": None, "portes": 2, "places": 2,
+                 "reservoir": 80},
+                {"modele": "Venturi Fétish", "variante": "Électrique", "portes": 2, "places": 2, "reservoir": 0},
+                {"modele": "Venturi Volage", "variante": "Électrique", "portes": 2, "places": 2, "reservoir": 0},
+            ],
+
+            "Matra": [
+                {"modele": "Matra Djet", "variante": None, "portes": 2, "places": 2, "reservoir": 50},
+                {"modele": "Matra 530", "variante": None, "portes": 2, "places": 2, "reservoir": 60},
+                {"modele": "Matra Bagheera", "variante": None, "portes": 3, "places": 3, "reservoir": 60},
+                {"modele": "Matra Murena", "variante": None, "portes": 3, "places": 3, "reservoir": 60},
+                {"modele": "Matra Rancho", "variante": None, "portes": 5, "places": 5, "reservoir": 70},
+            ],
+
+            "Bugatti (ancien)": [
+                {"modele": "Type 35", "variante": "Grand Prix", "portes": 0, "places": 1, "reservoir": 40},
+                {"modele": "Type 37", "variante": None, "portes": 0, "places": 1, "reservoir": 40},
+                {"modele": "Type 41 Royale", "variante": None, "portes": 4, "places": 4, "reservoir": 120},
+                {"modele": "Type 57", "variante": "SC Atlantic", "portes": 2, "places": 2, "reservoir": 70},
+                {"modele": "Type 101", "variante": None, "portes": 2, "places": 2, "reservoir": 60},
+            ],
+
+            "Panhard Racing": [
+                {"modele": "Panhard CD", "variante": None, "portes": 2, "places": 2, "reservoir": 50},
+                {"modele": "Panhard 24 CT", "variante": None, "portes": 2, "places": 4, "reservoir": 60},
+                {"modele": "Panhard LM64", "variante": "Prototype", "portes": 0, "places": 1, "reservoir": 80},
+                {"modele": "Panhard X86", "variante": "Prototype", "portes": 0, "places": 1, "reservoir": 80},
+            ],
+
+            "Talbot-Lago": [
+                {"modele": "T26 Record", "variante": None, "portes": 4, "places": 4, "reservoir": 100},
+                {"modele": "T150 C-SS", "variante": "Roadster", "portes": 2, "places": 2, "reservoir": 90},
+                {"modele": "T23", "variante": None, "portes": 2, "places": 2, "reservoir": 80},
+                {"modele": "T26 Grand Sport", "variante": None, "portes": 2, "places": 2, "reservoir": 90},
+            ],
+            "Opel OPC": [
+                {"modele": "Astra G OPC", "variante": None, "portes": 5, "places": 5, "reservoir": 60},
+                {"modele": "Astra H OPC", "variante": None, "portes": 5, "places": 5, "reservoir": 60},
+                {"modele": "Astra J OPC", "variante": None, "portes": 5, "places": 5, "reservoir": 60},
+                {"modele": "Vectra OPC", "variante": None, "portes": 5, "places": 5, "reservoir": 70},
+                {"modele": "Zafira A OPC", "variante": None, "portes": 5, "places": 7, "reservoir": 70},
+                {"modele": "Zafira B OPC", "variante": None, "portes": 5, "places": 7, "reservoir": 70},
+                {"modele": "Meriva A OPC", "variante": None, "portes": 5, "places": 5, "reservoir": 60},
+                {"modele": "Corsa D OPC", "variante": None, "portes": 3, "places": 5, "reservoir": 45},
+                {"modele": "Corsa E OPC", "variante": None, "portes": 3, "places": 5, "reservoir": 45},
+                {"modele": "Insignia OPC", "variante": "Berline", "portes": 5, "places": 5, "reservoir": 70},
+                {"modele": "Insignia OPC Sports Tourer", "variante": "Break", "portes": 5, "places": 5, "reservoir": 70}
+            ],
+
+            "Dallara": [
+                # Monoplaces de course
+                {"modele": "F3", "variante": "Formula 3", "portes": 0, "places": 1, "reservoir": 70},
+                {"modele": "F2", "variante": "Formula 2", "portes": 0, "places": 1, "reservoir": 75},
+                {"modele": "IndyCar", "variante": None, "portes": 0, "places": 1, "reservoir": 80},
+                {"modele": "GP2", "variante": None, "portes": 0, "places": 1, "reservoir": 75},
+                {"modele": "Super Formula", "variante": None, "portes": 0, "places": 1, "reservoir": 75},
+
+                # Voitures de sport / prototypes routiers
+                {"modele": "Stradale", "variante": "Roadster", "portes": 2, "places": 2, "reservoir": 90},
+                {"modele": "PZero", "variante": "GT", "portes": 2, "places": 2, "reservoir": 100},
+                {"modele": "DPV8", "variante": "Prototype", "portes": 0, "places": 1, "reservoir": 90},
+
+                # Voitures pour courses spécifiques
+                {"modele": "DW12", "variante": "IndyCar chassis", "portes": 0, "places": 1, "reservoir": 80},
+                {"modele": "Tatuus F4 chassis", "variante": None, "portes": 0, "places": 1, "reservoir": 70}
+            ],
+            "Wiesmann": [
+                {"modele": "MF3", "variante": "Roadster", "portes": 2, "places": 2, "reservoir": 70},
+                {"modele": "MF4", "variante": "Roadster", "portes": 2, "places": 2, "reservoir": 70},
+                {"modele": "MF4", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 70},
+                {"modele": "MF5", "variante": "Roadster", "portes": 2, "places": 2, "reservoir": 80},
+                {"modele": "MF5", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 80},
+                {"modele": "MF6", "variante": "Roadster", "portes": 2, "places": 2, "reservoir": 80},
+                {"modele": "GT MF4-CS", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 70},
+                {"modele": "GT MF4-R", "variante": "Roadster", "portes": 2, "places": 2, "reservoir": 70},
+                {"modele": "GT MF5", "variante": "Roadster", "portes": 2, "places": 2, "reservoir": 80},
+            ],
+
+            "Artega": [
+                {"modele": "GT", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 70},
+                {"modele": "Scalo", "variante": "Electrique Concept", "portes": 2, "places": 2, "reservoir": 0},
+                {"modele": "Karo", "variante": "Roadster Prototype", "portes": 2, "places": 2, "reservoir": 60},
+                {"modele": "SE", "variante": "Electrique", "portes": 2, "places": 2, "reservoir": 0}
+            ],
+
+            "Lancia HF": [
+                {"modele": "Fulvia HF", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 50},
+                {"modele": "Fulvia HF 1.6", "variante": None, "portes": 2, "places": 4, "reservoir": 50},
+                {"modele": "Stratos HF", "variante": "Stradale", "portes": 2, "places": 2, "reservoir": 60},
+                {"modele": "Stratos HF Rally", "variante": "Rally", "portes": 2, "places": 2, "reservoir": 60},
+                {"modele": "037 Rally", "variante": None, "portes": 2, "places": 2, "reservoir": 65},
+                {"modele": "Delta HF 4WD", "variante": "Turbo", "portes": 5, "places": 5, "reservoir": 60},
+                {"modele": "Delta HF Integrale", "variante": "Evoluzione", "portes": 5, "places": 5, "reservoir": 60},
+                {"modele": "Delta HF Integrale 16V", "variante": None, "portes": 5, "places": 5, "reservoir": 60},
+            ],
+
+            "Pininfarina Battista": [
+                {"modele": "Battista", "variante": "Roadster Concept", "portes": 2, "places": 2, "reservoir": 0},
+                {"modele": "Battista Anniversario", "variante": "Coupe", "portes": 2, "places": 2, "reservoir": 0},
+                {"modele": "Battista Anniversario Roadster", "variante": "Roadster", "portes": 2, "places": 2,
+                 "reservoir": 0},
+                {"modele": "Battista Anniversario N-Largo", "variante": "Edition limitée", "portes": 2, "places": 2,
+                 "reservoir": 0}
+            ],
+            "Caterham": [
+                {"modele": "Caterham Seven 160", "variante": None, "portes": 2, "places": 2, "reservoir": 35},
+                {"modele": "Caterham Seven 270", "variante": None, "portes": 2, "places": 2, "reservoir": 40},
+                {"modele": "Caterham Seven 310", "variante": None, "portes": 2, "places": 2, "reservoir": 40},
+                {"modele": "Caterham Seven 360", "variante": None, "portes": 2, "places": 2, "reservoir": 40},
+                {"modele": "Caterham Seven 420", "variante": None, "portes": 2, "places": 2, "reservoir": 40},
+                {"modele": "Caterham Seven 485", "variante": None, "portes": 2, "places": 2, "reservoir": 40},
+                {"modele": "Caterham Seven 620", "variante": None, "portes": 2, "places": 2, "reservoir": 45},
+                {"modele": "Caterham Seven CSR", "variante": None, "portes": 2, "places": 2, "reservoir": 45},
+                {"modele": "Caterham Seven R500", "variante": None, "portes": 2, "places": 2, "reservoir": 45}
+            ],
+
+            "Bentley Continental GT": [
+                {"modele": "Continental GT", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 90},
+                {"modele": "Continental GT Speed", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 90},
+                {"modele": "Continental GT V8", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 90},
+                {"modele": "Continental GT Convertible", "variante": "Cabriolet", "portes": 2, "places": 4,
+                 "reservoir": 90},
+                {"modele": "Continental GT Speed Convertible", "variante": "Cabriolet", "portes": 2, "places": 4,
+                 "reservoir": 90},
+                {"modele": "Continental GT Mulliner", "variante": "Coupe", "portes": 2, "places": 4, "reservoir": 90},
+                {"modele": "Continental GT Mulliner Convertible", "variante": "Cabriolet", "portes": 2, "places": 4,
+                 "reservoir": 90}
+            ],
+
+            "Noble": [
+                {"modele": "M12 GTO", "variante": None, "portes": 2, "places": 2, "reservoir": 70},
+                {"modele": "M12 GTO-3R", "variante": None, "portes": 2, "places": 2, "reservoir": 70},
+                {"modele": "M12 GTO-3R RS", "variante": None, "portes": 2, "places": 2, "reservoir": 70},
+                {"modele": "M400", "variante": None, "portes": 2, "places": 2, "reservoir": 70},
+                {"modele": "Noble M600", "variante": None, "portes": 2, "places": 2, "reservoir": 80},
+                {"modele": "Noble M600 Speedster", "variante": None, "portes": 2, "places": 2, "reservoir": 80}
+            ],
+
+
+
+
+
+
+
+
+
+
         }
 
         created_count = 0
