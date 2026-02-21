@@ -75,11 +75,11 @@
 
         <!-- Numéro de compte bancaire -->
        <div>
-            {{ form.numero_carte_bancaire.label_tag }}
-            {{ form.numero_carte_bancaire }}
-            {% if form.numero_carte_bancaire.errors %}
+            {{ form.numero_compte.label_tag }}
+            {{ form.numero_compte }}
+            {% if form.numero_compte.errors %}
                 <p class="text-red-600 text-sm mt-1">
-                    {{ form.numero_carte_bancaire.errors.0 }}
+                    {{ form.numero_compte.errors.0 }}
                 </p>
             {% endif %}
        </div>

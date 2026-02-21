@@ -1,7 +1,17 @@
 import uuid
 
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from stdnum import iban
+
+
+def validate_iban(value):
+    if not iban.is_valid(value):
+        raise ValidationError("IBAN invalide")
+
+
+
 
 
 class Carrosserie(models.Model):
@@ -30,7 +40,12 @@ class Carrosserie(models.Model):
 
     )
 
-    numero_iban = models.CharField(max_length=36, blank=True, null=True)
+    numero_iban = models.CharField(
+        max_length=36,
+        blank=True,
+        null=True,
+        validators=[validate_iban]
+    )
 
     created_at = models.DateTimeField(_("Créé le"), auto_now_add=True)
     updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True)

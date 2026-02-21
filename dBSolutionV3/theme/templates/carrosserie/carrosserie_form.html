@@ -125,4 +125,46 @@
         </button>
     </form>
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    function formatBankNumber(inputId) {
+        const input = document.getElementById(inputId);
+        if (!input) return;
+
+        input.addEventListener("input", function () {
+            let val = input.value.toUpperCase();
+
+            // Supprime tout sauf lettres et chiffres
+            val = val.replace(/[^A-Z0-9]/g, "");
+
+            let formatted = "";
+            let i = 0;
+
+            while (i < val.length) {
+                if (i === 0) {
+                    // deux lettres
+                    formatted += val.substr(i, 2);
+                    i += 2;
+                } else if (i === 2) {
+                    // deux chiffres + espace
+                    formatted += val.substr(i, 2) + " ";
+                    i += 2;
+                } else {
+                    // groupes de quatre chiffres + espace
+                    formatted += val.substr(i, 4) + " ";
+                    i += 4;
+                }
+            }
+
+            // Supprime l'espace final
+            input.value = formatted.trim();
+        });
+    }
+
+    formatBankNumber("id_numero_iban");
+
+});
+</script>
 {% endblock %}
