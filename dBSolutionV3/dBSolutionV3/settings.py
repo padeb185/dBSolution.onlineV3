@@ -123,6 +123,7 @@ TENANT_APPS = (
     'maintenance.check_up',
     'maintenance.nettoyage_interieur',
     'maintenance.nettoyage_exterieur',
+    'maintenance.autres_interventions',
 
     'fuel',
 
@@ -199,6 +200,14 @@ TENANT_APPS = (
 
     'core',     # format iban, carte, ...
 
+
+    'maintenance.autres_interventions.vitres',
+    'maintenance.autres_interventions.système_de_refroidissement',
+    'maintenance.autres_interventions.moteur',
+    'maintenance.autres_interventions.geometrie',
+    'maintenance.autres_interventions.electricite',
+    'maintenance.autres_interventions.climatisation',
+    'maintenance.autres_interventions.boite_de_vitesse',
 
 
 

@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-
+from piece.models import Piece
 
 
 class PartieFrein(models.TextChoices):
@@ -44,14 +44,25 @@ class ControleFreins(models.Model):
     )
 
     # Remplacement
-    a_remplacer_av = models.BooleanField(
+    disque_a_remplacer_av = models.BooleanField(
         default=False,
-        verbose_name=_("À remplacer avant")
+        verbose_name=_("Disques à remplacer avant")
     )
-    a_remplacer_ar = models.BooleanField(
+    disque_a_remplacer_ar = models.BooleanField(
         default=False,
-        verbose_name=_("À remplacer arrière")
+        verbose_name=_("disques à remplacer arrière")
     )
+
+    plaquettes_a_remplacer_av = models.BooleanField(
+        default=False,
+        verbose_name=_("Plaquettes à remplacer avant")
+    )
+    plaquettes_a_remplacer_ar = models.BooleanField(
+        default=False,
+        verbose_name=_("Plaquettes à  remplacer arrière")
+    )
+
+
 
     date = models.DateTimeField(auto_now_add=True)
 
@@ -78,3 +89,52 @@ class ControleFreins(models.Model):
     def is_critique(self):
         """Retourne True si l'une des conditions critiques est remplie."""
         return self.plaque_critique() or self.disque_critique() or self.fuite_critique()
+
+
+
+class RemplacementFreins(models.Model):
+    maintenance = models.ForeignKey(
+        "maintenance.Maintenance",
+        on_delete=models.CASCADE,
+        related_name="remplacements_freins",
+        verbose_name=_("Maintenance")
+    )
+
+    piece = models.ForeignKey(
+        Piece,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name=_("Pièce remplacée"),
+        help_text=_("La pièce de frein remplacée, ex : plaquettes, disques, étrier…")
+    )
+
+    # Durée en minutes
+    duree_remplacement = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        verbose_name=_("Durée de remplacement (minutes)"),
+        help_text=_("Temps estimé ou réel pour effectuer le remplacement")
+    )
+
+    # Description libre
+    description = models.TextField(
+        blank=True,
+        verbose_name=_("Détails"),
+        help_text=_("Notes ou détails supplémentaires sur le remplacement effectué")
+    )
+
+    date_remplacement = models.DateTimeField(auto_now_add=True, verbose_name=_("Date de remplacement"))
+
+    class Meta:
+        verbose_name = _("Remplacement de freins")
+        verbose_name_plural = _("Remplacements de freins")
+        ordering = ["-date_remplacement"]
+
+    def __str__(self):
+        return _(
+            "Remplacement – %(piece)s (%(date)s)"
+        ) % {
+            "piece": self.piece.nom if self.piece else _("Pièce non spécifiée"),
+            "date": self.date_remplacement.strftime("%Y-%m-%d %H:%M")
+        }

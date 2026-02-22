@@ -45,15 +45,30 @@ def choisir_type_maintenance(request, exemplaire_id):
     tenant_schema = getattr(request, 'tenant', None)
     schema_name = tenant_schema.schema_name if tenant_schema else None
 
-    total_checkup = total_entretien = 0
+    total_checkup = total_entretien = total_freins = total_pneus = \
+    total_niveaux = total_nettoyage_exterieur = total_nettoyage_interieur =\
+    total_autres = 0
     checkup = entretien = []
 
     if schema_name:
         with schema_context(schema_name):
             checkup = Maintenance.objects.all()
             entretien = Maintenance.objects.all()
+            freins = Maintenance.objects.all()
+            pneus = Maintenance.objects.all()
+            niveaux = Maintenance.objects.all()
+            nettoyage_exterieur = Maintenance.objects.all()
+            nettoyage_interieur = Maintenance.objects.all()
+            autres = Maintenance.objects.all()
+
             total_checkup = checkup.count()
             total_entretien = entretien.count()
+            total_freins = freins.count()
+            total_pneus = pneus.count()
+            total_niveaux = niveaux.count()
+            total_nettoyage_exterieur = nettoyage_interieur.count()
+            total_nettoyage_interieur = nettoyage_interieur.count()
+            total_autres = autres.count()
             modeles = VoitureModele.objects.all()
     else:
         modeles = []
@@ -82,8 +97,21 @@ def choisir_type_maintenance(request, exemplaire_id):
         "types_maintenance": TYPES_MAINTENANCE,
         "total_checkup": total_checkup,
         "total_entretien": total_entretien,
+        'total_freins': total_freins,
+        'total_pneus': total_pneus,
+        'total_niveaux': total_niveaux,
+        'total_autres': total_autres,
+        'total_nettoyage_exterieur': total_nettoyage_exterieur,
+        'total_nettoyage_interieur': total_nettoyage_interieur,
+
         "checkup": checkup,
         "entretien": entretien,
+        'freins': freins,
+        'pneus': pneus,
+        'niveaux': niveaux,
+        'nettoyage_exterieur': nettoyage_exterieur,
+        'nettoyage_interieur': nettoyage_interieur,
+        'autres': autres,
         "modeles": modeles,
     })
 
