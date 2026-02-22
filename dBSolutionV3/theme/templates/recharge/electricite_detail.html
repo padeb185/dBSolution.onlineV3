@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="p-6 w-full ml-[-10px] mr-[10px]">
+
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
+       <h1 class="text-2xl font-bold flex items-center gap-4">
+            {% with image_name=electricite.nom_station|slugify %}
+                <img src="{% static 'electricite/'|add:image_name|add:'.png' %}"
+                     alt="{{ electricite.nom_station }}"
+                     class="w-12 h-12"
+                     onerror="this.src='{% static 'icons/electricite.png' %}';">
+            {% endwith %}
+            <span>{% trans "Détails des recharges électriques :" %}</span>
+
+           <span class="text-black-700">{{ electricite.nom_station }}</span>
+        </h1>
+
+        <a href="{% url 'electricite:electricite_list' %}"
+           class="text-blue-600 hover:underline">
+            {% trans "Retour à la liste des recharges" %}
+        </a>
+    </div>
+
+    <!-- Infos principales -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+
+        <!-- Informations générales -->
+        <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
+            <h2 class="text-lg font-semibold mb-2">
+                {% trans "Informations générales" %}
+            </h2>
+
+            <p>
+                <strong>{% trans "Immatriculation" %} :</strong>
+                {{ electricite.immatriculation }}
+            </p>
+            <p>
+                <strong>{% trans "Kilomètres" %} :</strong>
+                {{ electricite.kilometrage_electricite }}
+            </p>
+            <p>
+                <strong>{% trans "Carburant" %} :</strong>
+                {{ electricite.type_carburant }}
+            </p>
+
+
+
+
+
+           <div class="mt-auto w-full">
+                <a href="{% url 'electricite:modifier_electricite' electricite.id %}" class="block w-full">
+                    <button type="button"
+                            class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+                        {% trans "Modifier le plein" %}
+                    </button>
+                </a>
+           </div>
+
+        </div>
+
+        <!-- Peppol -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-lg font-semibold mb-4">
+                {% trans "Informations Peppol" %}
+            </h2>
+
+            <p>
+                <strong>{% trans "Identifiant Peppol" %} :</strong><br>
+                {{ assurance.peppol_id }}
+            </p>
+
+        </div>
+    </div>
+
+
+
+    <!-- Métadonnées -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">
+            {% trans "Métadonnées" %}
+        </h2>
+
+        <p>
+            <strong>{% trans "Créé le" %} :</strong>
+            {{ electricite.created_at|date:"d/m/Y H:i" }}
+        </p>
+    </div>
+
+
+
+    <!-- Actions -->
+    <div class="bg-white shadow-md rounded-lg p-6 flex gap-4">
+        <a href="{% url 'electricite:electricite_list' %}" class="flex-1">
+              <button type="button" class="bg-blue-700 text-white px-4 py-2 rounded w-full mt-4">
+                    {% trans "Retour à la liste des recharges" %}
+              </button>
+        </a>
+
+         <!-- Bouton statistiques -->
+        <a href="{% url 'electricite:electricite_stat' %}" class="flex-1">
+              <button type="button" class="bg-green-600 text-white px-4 py-2 rounded w-full mt-4 hover:bg-green-500">
+                    {% trans "Voir les statistiques" %}
+              </button>
+        </a>
+
+    </div>
+
+</div>
+{% endblock %}

@@ -29,7 +29,7 @@
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Electricité' %}">
 
-        <input id="search-litres" type="text"
+        <input id="search-kW" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans '20 kW' %}">
 
@@ -49,7 +49,7 @@
 
 
 <!-- Table -->
-<table id="fuel-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+<table id="electricite-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
     <thead>
         <tr class="bg-gray-100">
             <th class="border px-4 py-2 cursor-pointer">{% trans "Utilisateur" %}</th>
@@ -57,22 +57,22 @@
             <th class="border px-4 py-2 cursor-pointer">{% trans "Véhicule" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Kilomètres" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Type de carburant" %}</th>
-            <th class="border px-4 py-2 cursor-pointer">{% trans "Litres" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Kilo Watts" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Prix Total" %}</th>
-            <th class="border px-4 py-2 cursor-pointer">{% trans "Prix au litre" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Prix au kW" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Montant TVA" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Date" %}</th>
             <th class="border px-4 py-2 cursor-pointer text-center">{% trans "Info" %}</th>
         </tr>
     </thead>
    <tbody>
-    {% for fuel in fuels %}
+    {% for recharge in recharges %}
     <tr>
-        <td class="border px-4 py-2">{{ fuel.utilisateur }}</td>
+        <td class="border px-4 py-2">{{ electricite.utilisateur }}</td>
 
         <!-- Immatriculation stylisée -->
         <td class="p-3">
-            {% with exemplaire=fuel.voiture_exemplaire %}
+            {% with exemplaire=electricite.voiture_exemplaire %}
                 {% if exemplaire.pays == 'Belgique' %}
                 <div class="flex items-center w-[180px] h-[40px] bg-white border-2 border-[#8B0000] rounded font-[Arial]">
                     <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
@@ -109,34 +109,34 @@
 
             <!-- Véhicule -->
             <td class="border px-4 py-2">
-                {{ fuel.voiture_exemplaire.voiture_modele.voiture_marque.nom_marque }}
-                {{ fuel.voiture_exemplaire.voiture_modele.nom_modele }}
+                {{ electricitevoiture_exemplaire.voiture_modele.voiture_marque.nom_marque }}
+                {{ electricite.voiture_exemplaire.voiture_modele.nom_modele }}
             </td>
 
             <!-- Kilomètres -->
-            <td class="border px-4 py-2">{{ fuel.kilometrage_fuel }}</td>
+            <td class="border px-4 py-2">{{ electricite.kilometrage_recharge }}</td>
 
             <!-- Type carburant -->
-            <td class="border px-4 py-2">{{ fuel.get_type_carburant_display }}</td>
+            <td class="border px-4 py-2">{{ electricite.get_type_carburant_display }}</td>
 
             <!-- Litres -->
-            <td class="border px-4 py-2">{{ fuel.litres }}</td>
+            <td class="border px-4 py-2">{{ electricite.kW}}</td>
 
             <!-- Prix Total -->
-            <td class="border px-4 py-2">{{ fuel.prix_refuelling }}</td>
+            <td class="border px-4 py-2">{{ electricite.prix_recharge }}</td>
 
             <!-- Prix au litre -->
-            <td class="border px-4 py-2">{{ fuel.prix_litre|floatformat:3 }}</td>
+            <td class="border px-4 py-2">{{ electricite.prix_kW|floatformat:3 }}</td>
 
             <!-- Montant TVA -->
-            <td class="border px-4 py-2">{{ fuel.montant_tva|floatformat:2 }} €</td>
+            <td class="border px-4 py-2">{{ electricite.montant_tva|floatformat:2 }} €</td>
 
             <!-- Date -->
-            <td class="border px-4 py-2">{{ fuel.date }}</td>
+            <td class="border px-4 py-2">{{ electricite.date_recharge }}</td>
 
             <!-- Info -->
             <td class="border px-4 py-2 text-center">
-                <a href="{% url 'fuel:fuel_detail' fuel_id=fuel.id %}" class="text-blue-600 hover:text-blue-800 font-semibold">
+                <a href="{% url 'electricite:electricite_detail' electricite_id=electricite.id %}" class="text-blue-600 hover:text-blue-800 font-semibold">
                     {% trans "Info" %}
                 </a>
             </td>
@@ -151,14 +151,14 @@
 <!-- DataTables JS -->
 <script>
 $(document).ready(function() {
-    var table = $('#fuel-table').DataTable({
+    var table = $('#electricite-table').DataTable({
         pageLength: 100,
         language: {
             search: "{% trans 'Recherche globale :' %}",
             lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
-            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ fuels' %}",
-            infoEmpty: "{% trans 'Aucun fuel trouvé' %}",
-            zeroRecords: "{% trans 'Aucun fuel trouvé' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ electricites' %}",
+            infoEmpty: "{% trans 'Aucune recharge electrique trouvée' %}",
+            zeroRecords: "{% trans 'Aucune recharge electrique trouvée' %}",
             paginate: {
                 first: "{% trans 'Premier' %}",
                 last: "{% trans 'Dernier' %}",
@@ -182,10 +182,10 @@ $(document).ready(function() {
     $('#search-type_carburant').on('keyup', function () {
         table.column(3).search(this.value).draw();
     });
-     $('#search-litres').on('keyup', function () {
+     $('#search-kW').on('keyup', function () {
         table.column(4).search(this.value).draw();
     });
-     $('#search-date').on('keyup', function () {
+     $('#search-date_recharge').on('keyup', function () {
         table.column(4).search(this.value).draw();
     });
 
