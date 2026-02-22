@@ -21,7 +21,7 @@
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 </head>
 
-{% block header %}<header class="bg-white w-full shadow h-[50px] flex items-center">
+{% block header %}<header class="bg-white w-full shadow h-[100px] flex items-center">
   <nav class="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0 w-full px-4">
     <div class="flex gap-4 items-center">
       <a href="{% url 'home' %}" class="text-gray-600 hover:text-black font-semibold transition duration-300">{% trans "Accueil" %}</a>
@@ -78,7 +78,7 @@
 </body>
 
 {% block footer %}
-<footer class="bg-white w-full shadow h-[50px] flex items-center justify-between text-gray-500 px-4">
+<footer class="bg-white w-full shadow h-[100px] flex items-center justify-between text-gray-500 px-4">
   <div>
     <button type="button" onclick="history.back()" class="bg-blue-700 text-white px-3 py-1 rounded hover:bg-blue-400 transition duration-300">{% trans "Retour" %}</button>
   </div>

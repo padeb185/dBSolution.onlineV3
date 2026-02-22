@@ -25,70 +25,126 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
 
-              <!-- ✅ CHECK-UP → PAGE DÉDIÉE -->
-                <a href="{% url 'maintenance:maintenance_tenant_creer' exemplaire.id %}"
-                     class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <!-- ✅ CHECK-UP → PAGE DÉDIÉE -->
+        <a href="{% url 'maintenance:maintenance_tenant_creer' exemplaire.id %}"
+           class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h2 class="text-lg font-semibold mb-2">{% trans "Checkup" %}</h2>
+                    <p class="text-gray-600">
+                        {% trans "Nombre total :" %}
+                        <span class="font-bold">{{ total_checkup }}</span>
+                    </p>
+                </div>
+                <img src="{% static 'icons/checkup.png' %}" alt="Checkup" style="width:60px; height:60px;">
+            </div>
+        </a>
 
-                      <div class="flex justify-between items-center">
-                          <div>
-                              <h2 class="text-lg font-semibold mb-2">{% trans "Checkup" %}</h2>
-                              <p class="text-gray-600">
-                                {% trans "Nombre total :" %}
-                                <span class="font-bold">{{ total_checkup }}</span>
-                              </p>
-                          </div>
+        <!-- Entretien -->
+        <a href="{% url 'entretien:creer_entretien' exemplaire.id %}"
+           class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h2 class="text-lg font-semibold mb-2">{% trans "Entretien" %}</h2>
+                    <p class="text-gray-600">
+                        {% trans "Nombre total :" %}
+                        <span class="font-bold">{{ total_entretien }}</span>
+                    </p>
+                </div>
+                <img src="{% static 'icons/entretien.png' %}" alt="Entretien" style="width:60px; height:60px;">
+            </div>
+        </a>
 
-                          <!-- Icône à droite -->
-                          <img src="{% static 'icons/checkup.png' %}" alt="Checkup" style="width:60px; height:60px;">
-                      </div>
+        <!-- Freins -->
+        <a href="{% url 'entretien:creer_entretien' exemplaire.id %}"
+           class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h2 class="text-lg font-semibold mb-2">{% trans "Freins" %}</h2>
+                    <p class="text-gray-600">
+                        {% trans "Nombre total :" %}
+                        <span class="font-bold">{{ total_freins }}</span>
+                    </p>
+                </div>
+                <img src="{% static 'icons/freins.png' %}" alt="Freins" style="width:60px; height:60px;">
+            </div>
+        </a>
 
-                </a>
+        <!-- Pneus -->
+        <a href="{% url 'entretien:creer_entretien' exemplaire.id %}"
+           class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h2 class="text-lg font-semibold mb-2">{% trans "Pneus" %}</h2>
+                    <p class="text-gray-600">
+                        {% trans "Nombre total :" %}
+                        <span class="font-bold">{{ total_pneus }}</span>
+                    </p>
+                </div>
+                <img src="{% static 'icons/pneus.png' %}" alt="Pneus" style="width:60px; height:60px;">
+            </div>
+        </a>
 
-                <a href="{% url 'entretien:creer_entretien' exemplaire.id %}"
-                   class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <!-- Nettoyage extérieur -->
+        <a href="{% url 'entretien:creer_entretien' exemplaire.id %}"
+           class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h2 class="text-lg font-semibold mb-2">{% trans "Nettoyage extérieur" %}</h2>
+                    <p class="text-gray-600">
+                        {% trans "Nombre total :" %}
+                        <span class="font-bold">{{ total_nettoyage_exterieur }}</span>
+                    </p>
+                </div>
+                <img src="{% static 'icons/nettoyage_ext.png' %}" alt="Nettoyage extérieur" style="width:60px; height:60px;">
+            </div>
+        </a>
 
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <h2 class="text-lg font-semibold mb-2">{% trans "Entretien" %}</h2>
-                            <p class="text-gray-600">
-                                {% trans "Nombre total :" %}
-                                <span class="font-bold">{{ total_entretien }}</span>
-                            </p>
-                        </div>
+        <!-- Nettoyage intérieur -->
+        <a href="{% url 'entretien:creer_entretien' exemplaire.id %}"
+           class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h2 class="text-lg font-semibold mb-2">{% trans "Nettoyage intérieur" %}</h2>
+                    <p class="text-gray-600">
+                        {% trans "Nombre total :" %}
+                        <span class="font-bold">{{ total_nettoyage_interieur }}</span>
+                    </p>
+                </div>
+                <img src="{% static 'icons/nettoyage_int.png' %}" alt="Nettoyage intérieur" style="width:60px; height:60px;">
+            </div>
+        </a>
 
-                        <img src="{% static 'icons/entretien.png' %}" alt="entretien" style="width:60px; height:60px;">
-                    </div>
-                </a>
+        <!-- Niveaux -->
+        <a href="{% url 'entretien:creer_entretien' exemplaire.id %}"
+           class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h2 class="text-lg font-semibold mb-2">{% trans "Niveaux" %}</h2>
+                    <p class="text-gray-600">
+                        {% trans "Nombre total :" %}
+                        <span class="font-bold">{{ total_niveaux }}</span>
+                    </p>
+                </div>
+                <img src="{% static 'icons/niveaux.png' %}" alt="Niveaux" style="width:60px; height:60px;">
+            </div>
+        </a>
 
+        <!-- Autres interventions -->
+        <a href="{% url 'entretien:creer_entretien' exemplaire.id %}"
+           class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h2 class="text-lg font-semibold mb-2">{% trans "Autres interventions" %}</h2>
+                    <p class="text-gray-600">
+                        {% trans "Nombre total :" %}
+                        <span class="font-bold">{{ total_autres }}</span>
+                    </p>
+                </div>
+                <img src="{% static 'icons/autres.png' %}" alt="Autres interventions" style="width:60px; height:60px;">
+            </div>
+        </a>
 
-        {% for type in types_maintenance %}
-
-            {% if type.code == "checkup" %}
-
-
-
-            {% else %}
-                <!-- 🔧 AUTRES MAINTENANCES -->
-                <form method="post"
-                      action="{% url 'maintenance:maintenance_tenant_creer' exemplaire.id %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="type_maintenance" value="{{ type.code }}">
-
-                    <button type="submit"
-                            class="cursor-pointer p-6 bg-white shadow-md rounded-lg
-                                   hover:shadow-lg hover:bg-blue-50
-                                   flex flex-col items-center justify-center text-center transition w-full">
-
-                        <img src="{% static 'icons/'|add:type.code|add:'.png' %}"
-                             alt="{{ type.nom }}"
-                             class="w-16 h-16 mb-4">
-
-                        <p class="font-semibold">{{ type.nom }}</p>
-                    </button>
-                </form>
-            {% endif %}
-
-        {% endfor %}
     </div>
 </div>
 {% endblock %}

@@ -4,6 +4,7 @@
 {% block content %}
 <div class="p-6">
 
+    <!-- Titre -->
     <h1 class="text-2xl font-bold mb-6 flex items-center gap-3">
         <img src="{% static 'icons/entretien.png' %}" alt="Entretien" class="w-12 h-12">
         {% trans "Créer un entretien pour :" %}
@@ -31,10 +32,9 @@
             {{ operation_formset.management_form }}
             {% for form in operation_formset %}
                 <div class="mb-4 border-b pb-4">
-                    {{ form.as_p }}
-                    {% if form.DELETE %}
-                        <label>{{ form.DELETE }} {% trans "Supprimer" %}</label>
-                    {% endif %}
+                    <p class="font-semibold">{% trans "Type d'opération:" %} {{ form.type_operation.value }}</p>
+                    {{ form.piece.label_tag }} {{ form.piece }}
+                    {{ form.quantite.label_tag }} {{ form.quantite }}
                 </div>
             {% endfor %}
         </div>
@@ -45,7 +45,8 @@
             {{ fluide_formset.management_form }}
             {% for form in fluide_formset %}
                 <div class="mb-4 border-b pb-4">
-                    {{ form.as_p }}
+                    {{ form.piece_fluide.label_tag }} {{ form.piece_fluide }}
+                    {{ form.quantite.label_tag }} {{ form.quantite }}
                     {% if form.DELETE %}
                         <label>{{ form.DELETE }} {% trans "Supprimer" %}</label>
                     {% endif %}
