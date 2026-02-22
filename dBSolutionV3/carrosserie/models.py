@@ -18,8 +18,8 @@ class Carrosserie(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
     nom_societe = models.CharField(_("Nom de la société"), max_length=100)
-    responsable_nom = models.CharField(_("Responsable nom"), null=True, blank=True, max_length=100)
-    responsable_prenom = models.CharField(_("Responsable prenom"),null=True,blank=True, max_length=100)
+    responsable_nom = models.CharField(_("Nom du responsable"), null=True, blank=True, max_length=100)
+    responsable_prenom = models.CharField(_("Prenom du responsable"),null=True,blank=True, max_length=100)
     adresse = models.ForeignKey(
         "adresse.Adresse",  # app_label.ModelName
         on_delete=models.CASCADE,
@@ -41,7 +41,7 @@ class Carrosserie(models.Model):
     )
 
     numero_iban = models.CharField(
-        max_length=36,
+        max_length=44,
         blank=True,
         null=True,
         validators=[validate_iban]
