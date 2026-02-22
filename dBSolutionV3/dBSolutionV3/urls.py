@@ -88,6 +88,9 @@ urlpatterns += i18n_patterns(
     path("assurance_police/", include("assurance_police.urls", namespace="assurance_police")),
 
     path("maintenance/entretien/", include("maintenance.entretien.urls", namespace="entretien")),
+
+    path("recharge/", include("recharge.urls")),
+
 )
 
 

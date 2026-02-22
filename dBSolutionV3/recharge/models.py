@@ -50,6 +50,10 @@ class Electricite(models.Model):
     kW = models.FloatField(verbose_name=_("Kilos Watt"))
     prix_recharge = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_("Prix de la recharge (€)"))
     prix_watt = models.DecimalField(max_digits=6, decimal_places=4, verbose_name=_("Prix au kilo Watt (€)"))
+    date_recharge = models.DateField(default=timezone.now, verbose_name=_("Date de la recharge"))
+    temps_recharge = models.DurationField(
+        verbose_name=_("Temps de recharge")
+    )
 
     validation = models.BooleanField(default=True, verbose_name=_("Validation"))
 

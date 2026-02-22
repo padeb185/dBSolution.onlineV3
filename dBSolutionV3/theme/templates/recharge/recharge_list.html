@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+{% load i18n static widget_tweaks %}
+
+{% block title %}{% trans "Liste des pleins de carburant" %}{% endblock %}
+
+{% block content %}
+<h1 class="text-2xl font-bold mb-6 flex items-center">
+    <img src="{% static 'icons/electricite.png' %}" alt="recharge electrique"
+         style="width:60px; height:60px; margin-right:10px;">
+    {% trans "Liste des recharges électriques" %}
+</h1>
+
+<div class="bg-white shadow-md rounded-lg p-4 mb-4">
+    <div class="grid grid-cols-1 md:grid-cols-6 gap-3 items-end">
+        <input id="search-utilisateur" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Utilisateur' %}">
+
+        <input id="search-immatriculation" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'immatriculation' %}">
+
+        <input id="search-exemplaire" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'exemplaire' %}">
+
+
+        <input id="search-type_carburant" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Electricité' %}">
+
+        <input id="search-litres" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans '20 kW' %}">
+
+        <input id="search-date_recharge" type="date"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Date de la recharge' %}">
+
+        <div>
+            <a href="{% url 'recharge:ajouter_recharge_all' %}" class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition focus:outline-none focus:ring-2 focus:ring-blue-500 whitespace-nowrap">
+                {% trans "Ajouter une recharge électrique" %}
+            </a>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Table -->
+<table id="fuel-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Utilisateur" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Immatriculation" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Véhicule" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Kilomètres" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Type de carburant" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Litres" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Prix Total" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Prix au litre" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Montant TVA" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Date" %}</th>
+            <th class="border px-4 py-2 cursor-pointer text-center">{% trans "Info" %}</th>
+        </tr>
+    </thead>
+   <tbody>
+    {% for fuel in fuels %}
+    <tr>
+        <td class="border px-4 py-2">{{ fuel.utilisateur }}</td>
+
+        <!-- Immatriculation stylisée -->
+        <td class="p-3">
+            {% with exemplaire=fuel.voiture_exemplaire %}
+                {% if exemplaire.pays == 'Belgique' %}
+                <div class="flex items-center w-[180px] h-[40px] bg-white border-2 border-[#8B0000] rounded font-[Arial]">
+                    <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                        <span>🇪🇺</span>
+                        <span>B</span>
+                    </div>
+                    <div class="w-full text-center font-bold text-[#8B0000] text-[18px]">
+                        {{ exemplaire.immatriculation|upper }}
+                    </div>
+                </div>
+                {% elif exemplaire.pays == 'Luxembourg' %}
+                <div class="flex items-center w-[180px] h-[40px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial]">
+                    <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                        <span>🇪🇺</span>
+                        <span>L</span>
+                    </div>
+                    <div class="w-full text-center font-bold text-black text-[18px]">
+                        {{ exemplaire.immatriculation|upper }}
+                    </div>
+                </div>
+                {% elif exemplaire.pays == 'Allemagne' %}
+                <div class="flex items-center w-[180px] h-[40px] bg-white border-2 border-black rounded font-[Arial]">
+                    <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                        <span>🇪🇺</span>
+                        <span>D</span>
+                    </div>
+                    <div class="w-full text-center font-bold text-black text-[18px]">
+                        {{ exemplaire.immatriculation|upper }}
+                    </div>
+                </div>
+                {% endif %}
+            {% endwith %}
+            </td>
+
+            <!-- Véhicule -->
+            <td class="border px-4 py-2">
+                {{ fuel.voiture_exemplaire.voiture_modele.voiture_marque.nom_marque }}
+                {{ fuel.voiture_exemplaire.voiture_modele.nom_modele }}
+            </td>
+
+            <!-- Kilomètres -->
+            <td class="border px-4 py-2">{{ fuel.kilometrage_fuel }}</td>
+
+            <!-- Type carburant -->
+            <td class="border px-4 py-2">{{ fuel.get_type_carburant_display }}</td>
+
+            <!-- Litres -->
+            <td class="border px-4 py-2">{{ fuel.litres }}</td>
+
+            <!-- Prix Total -->
+            <td class="border px-4 py-2">{{ fuel.prix_refuelling }}</td>
+
+            <!-- Prix au litre -->
+            <td class="border px-4 py-2">{{ fuel.prix_litre|floatformat:3 }}</td>
+
+            <!-- Montant TVA -->
+            <td class="border px-4 py-2">{{ fuel.montant_tva|floatformat:2 }} €</td>
+
+            <!-- Date -->
+            <td class="border px-4 py-2">{{ fuel.date }}</td>
+
+            <!-- Info -->
+            <td class="border px-4 py-2 text-center">
+                <a href="{% url 'fuel:fuel_detail' fuel_id=fuel.id %}" class="text-blue-600 hover:text-blue-800 font-semibold">
+                    {% trans "Info" %}
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+
+
+
+</table>
+
+<!-- DataTables JS -->
+<script>
+$(document).ready(function() {
+    var table = $('#fuel-table').DataTable({
+        pageLength: 100,
+        language: {
+            search: "{% trans 'Recherche globale :' %}",
+            lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ fuels' %}",
+            infoEmpty: "{% trans 'Aucun fuel trouvé' %}",
+            zeroRecords: "{% trans 'Aucun fuel trouvé' %}",
+            paginate: {
+                first: "{% trans 'Premier' %}",
+                last: "{% trans 'Dernier' %}",
+                next: "{% trans 'Suivant' %}",
+                previous: "{% trans 'Précédent' %}"
+            }
+        },
+        order: [[0, "asc"]]
+    });
+
+    // Filtres par colonne
+    $('#search-utilisateur').on('keyup', function () {
+        table.column(0).search(this.value).draw();
+    });
+    $('#search-immatriculation').on('keyup', function () {
+        table.column(1).search(this.value).draw();
+    });
+    $('#search-exemplaire').on('keyup', function () {
+        table.column(2).search(this.value).draw();
+    });
+    $('#search-type_carburant').on('keyup', function () {
+        table.column(3).search(this.value).draw();
+    });
+     $('#search-litres').on('keyup', function () {
+        table.column(4).search(this.value).draw();
+    });
+     $('#search-date').on('keyup', function () {
+        table.column(4).search(this.value).draw();
+    });
+
+});
+</script>
+{% endblock %}

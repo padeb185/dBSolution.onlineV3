@@ -3,353 +3,316 @@
 {% get_current_language as LANGUAGE_CODE %}
 {% block title %}{% trans "Tableau de bord" %}{% endblock %}
 {% block content %}
-<h1 class="text-2xl font-bold mb-6">{% trans "Bienvenue sur le tableau de bord" %}</h1>
 
+<h1 class="text-2xl font-bold mb-6">{% trans "Bienvenue sur le tableau de bord" %}</h1>
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-      <!-- Carte Utilisateurs -->
-      <div class="bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-        <div class="flex justify-between items-center">
-          <div>
-            <h2 class="text-lg font-semibold mb-2">{% trans "Utilisateurs" %}</h2>
-            <p class="text-gray-600">{% trans "Nombre total :" %} <span class="font-bold">128</span></p>
-          </div>
-          <img src="{% static 'icons/equipe.png' %}" alt="Utilisateurs" style="width:60px; height:60px;">
-        </div>
+  <!-- Carte Utilisateurs -->
+  <div class="bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <div class="flex justify-between items-center">
+      <div>
+        <h2 class="text-lg font-semibold mb-2">{% trans "Utilisateurs" %}</h2>
+        <p class="text-gray-600">{% trans "Nombre total :" %} <span class="font-bold">128</span></p>
       </div>
-
-      <!-- Carte Projets -->
-      <div class="bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-        <div class="flex justify-between items-center">
-          <div>
-            <h2 class="text-lg font-semibold mb-2">{% trans "Projets" %}</h2>
-            <p class="text-gray-600">{% trans "Projets actifs :" %} <span class="font-bold">24</span></p>
-          </div>
-          <img src="{% static 'icons/gestion-de-projet.png' %}" alt="Projets" style="width:60px; height:60px;">
-        </div>
-      </div>
-
-      <!-- Carte Notifications -->
-      <div class="bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-        <div class="flex justify-between items-center">
-          <div>
-            <h2 class="text-lg font-semibold mb-2">{% trans "Notifications" %}</h2>
-            <p class="text-gray-600">{% trans "Messages non lus :" %} <span class="font-bold">5</span></p>
-          </div>
-          <img src="{% static 'icons/cloche.png' %}" alt="Notifications" style="width:60px; height:60px;">
-        </div>
-      </div>
-
+      <img src="{% static 'icons/equipe.png' %}" alt="Utilisateurs" style="width:60px; height:60px;">
     </div>
+  </div>
+
+  <!-- Carte Projets -->
+  <div class="bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <div class="flex justify-between items-center">
+      <div>
+        <h2 class="text-lg font-semibold mb-2">{% trans "Projets" %}</h2>
+        <p class="text-gray-600">{% trans "Projets actifs :" %} <span class="font-bold">24</span></p>
+      </div>
+      <img src="{% static 'icons/gestion-de-projet.png' %}" alt="Projets" style="width:60px; height:60px;">
+    </div>
+  </div>
+
+  <!-- Carte Notifications -->
+  <div class="bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <div class="flex justify-between items-center">
+      <div>
+        <h2 class="text-lg font-semibold mb-2">{% trans "Notifications" %}</h2>
+        <p class="text-gray-600">{% trans "Messages non lus :" %} <span class="font-bold">5</span></p>
+      </div>
+      <img src="{% static 'icons/cloche.png' %}" alt="Notifications" style="width:60px; height:60px;">
+    </div>
+  </div>
+
+</div>
+
 <!-- Tableau activités -->
-    <div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto">
-        <h2 class="text-lg font-semibold mb-4">{% trans "Dernières activités" %}</h2>
-        <table class="min-w-full table-auto border-collapse border border-gray-200">
-            <thead> <tr class="bg-gray-100">
-                <th class="border border-gray-200 px-4 py-2 text-left">
-                {% trans "Date" %}</th>
-                <th class="border border-gray-200 px-4 py-2 text-left">{% trans "Utilisateur" %}</th>
-                <th class="border border-gray-200 px-4 py-2 text-left">{% trans "Action" %}</th> </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td class="border border-gray-200 px-4 py-2">11/12/2025</td>
-                <td class="border border-gray-200 px-4 py-2">Pierre</td>
-                <td class="border border-gray-200 px-4 py-2">{% trans "Connexion" %}</td>
-            </tr> <tr> <td class="border border-gray-200 px-4 py-2">10/12/2025</td>
-                <td class="border border-gray-200 px-4 py-2">Alice</td>
-                <td class="border border-gray-200 px-4 py-2">{% trans "Modification de projet" %}</td>
-            </tr>
-            </tbody>
-        </table>
+<div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto">
+  <h2 class="text-lg font-semibold mb-4">{% trans "Dernières activités" %}</h2>
 
-    </div>
+  <table class="min-w-full table-auto border-collapse border border-gray-200">
+    <thead>
+      <tr class="bg-gray-100">
+        <th class="border border-gray-200 px-4 py-2 text-left">{% trans "Date" %}</th>
+        <th class="border border-gray-200 px-4 py-2 text-left">{% trans "Utilisateur" %}</th>
+        <th class="border border-gray-200 px-4 py-2 text-left">{% trans "Action" %}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="border border-gray-200 px-4 py-2">11/12/2025</td>
+        <td class="border border-gray-200 px-4 py-2">Pierre</td>
+        <td class="border border-gray-200 px-4 py-2">{% trans "Connexion" %}</td>
+      </tr>
+      <tr>
+        <td class="border border-gray-200 px-4 py-2">10/12/2025</td>
+        <td class="border border-gray-200 px-4 py-2">Alice</td>
+        <td class="border border-gray-200 px-4 py-2">{% trans "Modification de projet" %}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 <!-- Deuxième grille -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
 
   <!-- Carte Marques de Voiture -->
-      <a href="{% url 'voiture_marque:marques_list' %}"
-         class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-
-          <div class="flex justify-between items-center">
-              <div>
-                  <h2 class="text-lg font-semibold mb-2">{% trans "Marques de voiture" %}</h2>
-                  <p class="text-gray-600">
-                    {% trans "Nombre total :" %}
-                    <span class="font-bold">{{ total_marques }}</span>
-                  </p>
-              </div>
-
-              <!-- Icône à droite -->
-              <img src="{% static 'icons/voiture-de-course.png' %}" alt="Marque de voiture" style="width:60px; height:60px;">
-          </div>
-
-      </a>
+  <a href="{% url 'voiture_marque:marques_list' %}"
+     class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <div class="flex justify-between items-center">
+      <div>
+        <h2 class="text-lg font-semibold mb-2">{% trans "Marques de voiture" %}</h2>
+        <p class="text-gray-600">
+          {% trans "Nombre total :" %}
+          <span class="font-bold">{{ total_marques }}</span>
+        </p>
+      </div>
+      <img src="{% static 'icons/voiture-de-course.png' %}" alt="Marque de voiture" style="width:60px; height:60px;">
+    </div>
+  </a>
 
   <!-- Carte Moteurs -->
-        <a href="{% url 'voiture_moteur:list' %}"
-             class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-
-              <!-- Texte à gauche -->
-              <div>
-                  <h2 class="text-lg font-semibold mb-1">{% trans "Moteurs" %}</h2>
-                  <p class="text-gray-600 text-sm">
-                      {% trans "Nombre total :" %} <span class="font-bold">{{ total_moteurs }}</span>
-                  </p>
-              </div>
-
-              <!-- Icône à droite -->
-              <img src="{% static 'icons/engine.png' %}" alt="Moteur" style="width:60px; height:60px;">
-          </a>
-
-        <!-- Carte Moteurs -->
-        <a href="{% url 'voiture_exemplaire:liste_exemplaires_all' %}"
-             class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-
-              <!-- Texte à gauche -->
-              <div>
-                  <h2 class="text-lg font-semibold mb-1">{% trans "Liste des Véhicules" %}</h2>
-                  <p class="text-gray-600 text-sm">
-                      {% trans "Nombre total :" %} <span class="font-bold">{{ total_exemplaires }}</span>
-                  </p>
-              </div>
-
-              <!-- Icône à droite -->
-              <img src="{% static 'icons/voiture-de-course.png' %}" alt="Véhicules" style="width:60px; height:60px;">
-          </a>
-
-        <a href="{% url 'voiture_boite:list' %}"
-             class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-
-              <!-- Texte à gauche -->
-              <div>
-                  <h2 class="text-lg font-semibold mb-1">{% trans "Boites de vitesses" %}</h2>
-                  <p class="text-gray-600 text-sm">
-                      {% trans "Nombre total :" %} <span class="font-bold">{{ total_boites }}</span>
-                  </p>
-              </div>
-
-              <!-- Icône à droite -->
-              <img src="{% static 'icons/boite-de-vitesse.png' %}" alt="boite de vitesse" style="width:60px; height:60px;">
-          </a>
-
-        <a href="{% url 'voiture_embrayage:list' %}"
-             class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-
-              <!-- Texte à gauche -->
-              <div>
-                  <h2 class="text-lg font-semibold mb-1">{% trans "Embrayages" %}</h2>
-                  <p class="text-gray-600 text-sm">
-                      {% trans "Nombre total :" %} <span class="font-bold">{{ total_embrayages }}</span>
-                  </p>
-              </div>
-
-              <!-- Icône à droite -->
-              <img src="{% static 'icons/disque-dembrayage.png' %}" alt="embrayage" style="width:60px; height:60px;">
-          </a>
-
-          <a href="{% url 'voiture_freins:list' %}"
-             class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-
-              <!-- Texte à gauche -->
-              <div>
-                  <h2 class="text-lg font-semibold mb-1">{% trans "Freins avant" %}</h2>
-                  <p class="text-gray-600 text-sm">
-                      {% trans "Nombre total :" %} <span class="font-bold">{{ total_freins }}</span>
-                  </p>
-              </div>
-
-              <!-- Icône à droite -->
-              <img src="{% static 'icons/disque-de-frein.png' %}" alt="Freins" style="width:60px; height:60px;">
-          </a>
-
-        <a href="{% url 'voiture_freins_ar:list_ar' %}"
-             class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-
-              <!-- Texte à gauche -->
-              <div>
-                  <h2 class="text-lg font-semibold mb-1">{% trans "Freins arrière" %}</h2>
-                  <p class="text-gray-600 text-sm">
-                      {% trans "Nombre total :" %} <span class="font-bold">{{ total_freins_ar }}</span>
-                  </p>
-              </div>
-
-              <!-- Icône à droite -->
-              <img src="{% static 'icons/disque-de-frein.png' %}" alt="Freins arrières" style="width:60px; height:60px;">
-          </a>
-
-        <a href="{% url 'voiture_pneus:list' %}"
-             class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-
-              <!-- Texte à gauche -->
-              <div>
-                  <h2 class="text-lg font-semibold mb-1">{% trans "Pneus" %}</h2>
-                  <p class="text-gray-600 text-sm">
-                      {% trans "Nombre total :" %} <span class="font-bold">{{ total_pneus }}</span>
-                  </p>
-              </div>
-
-              <!-- Icône à droite -->
-              <img src="{% static 'icons/pneus.png' %}" alt="Pneus" style="width:60px; height:60px;">
-          </a>
-
-       <a href="{% url 'maintenance:liste_maintenance_all' %}"
-           class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-
-              <!-- Texte à gauche -->
-              <div>
-                  <h2 class="text-lg font-semibold mb-1">{% trans "Maintenance" %}</h2>
-                  <p class="text-gray-600 text-sm">
-                      {% trans "Nombre total :" %} <span class="font-bold">{{ total_maintenance }}</span>
-                  </p>
-              </div>
-
-              <!-- Icône à droite -->
-              <img src="{% static 'icons/mecanique.png' %}" alt="Maintenance" style="width:60px; height:60px;">
-          </a>
-
-        <a href="{% url 'fournisseur:fournisseur_list' %}"
-           class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-
-              <!-- Texte à gauche -->
-              <div>
-                  <h2 class="text-lg font-semibold mb-1">{% trans "Fournisseurs" %}</h2>
-                  <p class="text-gray-600 text-sm">
-                      {% trans "Nombre total :" %} <span class="font-bold">{{ total_fournisseur }}</span>
-                  </p>
-              </div>
-
-              <!-- Icône à droite -->
-              <img src="{% static 'icons/fournisseur.png' %}" alt="Fournisseur" style="width:60px; height:60px;">
-          </a>
-
-
-        <a href="{% url 'client_particulier:client_list' %}"
-           class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-
-              <!-- Texte à gauche -->
-              <div>
-                  <h2 class="text-lg font-semibold mb-1">{% trans "Clients" %}</h2>
-                  <p class="text-gray-600 text-sm">
-                      {% trans "Nombre total :" %} <span class="font-bold">{{ total_client_particulier }}</span>
-                  </p>
-              </div>
-
-              <!-- Icône à droite -->
-              <img src="{% static 'icons/client.png' %}" alt="client" style="width:60px; height:60px;">
-          </a>
-         <a href="{% url 'carrosserie:carrosserie_list' %}"
-           class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-
-              <!-- Texte à gauche -->
-              <div>
-                  <h2 class="text-lg font-semibold mb-1">{% trans "Carrosseries" %}</h2>
-                  <p class="text-gray-600 text-sm">
-                      {% trans "Nombre total :" %} <span class="font-bold">{{ total_carrosserie }}</span>
-                  </p>
-              </div>
-
-              <!-- Icône à droite -->
-              <img src="{% static 'icons/carrosserie.png' %}" alt="client" style="width:60px; height:60px;">
-          </a>
-         <a href="{% url 'intervention:intervention_list' %}"
-           class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-
-              <!-- Texte à gauche -->
-              <div>
-                  <h2 class="text-lg font-semibold mb-1">{% trans "Intervention carrosserie" %}</h2>
-                  <p class="text-gray-600 text-sm">
-                      {% trans "Nombre total :" %} <span class="font-bold">{{ total_intervention }}</span>
-                  </p>
-              </div>
-
-              <!-- Icône à droite -->
-              <img src="{% static 'icons/carrosserie.png' %}" alt="client" style="width:60px; height:60px;">
-          </a>
-         <a href="{% url 'societe_cliente:societe_cliente_list' %}"
-           class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-
-              <!-- Texte à gauche -->
-              <div>
-                  <h2 class="text-lg font-semibold mb-1">{% trans "Société cliente" %}</h2>
-                  <p class="text-gray-600 text-sm">
-                      {% trans "Nombre total :" %} <span class="font-bold">{{ total_societe_cliente }}</span>
-                  </p>
-              </div>
-
-              <!-- Icône à droite -->
-              <img src="{% static 'icons/societe_cliente.png' %}" alt="client" style="width:60px; height:60px;">
-          </a>
-         <a href="{% url 'adresse:adresse_list' %}"
-           class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-
-              <!-- Texte à gauche -->
-              <div>
-                  <h2 class="text-lg font-semibold mb-1">{% trans "Adresses" %}</h2>
-                  <p class="text-gray-600 text-sm">
-                      {% trans "Nombre total :" %} <span class="font-bold">{{ total_adresse }}</span>
-                  </p>
-              </div>
-
-              <!-- Icône à droite -->
-              <img src="{% static 'icons/adresse.png' %}" alt="client" style="width:60px; height:60px;">
-          </a>
-        <a href="{% url 'fuel:fuel_list' %}"
-           class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-
-              <!-- Texte à gauche -->
-              <div>
-                  <h2 class="text-lg font-semibold mb-1">{% trans "Carburant" %}</h2>
-                  <p class="text-gray-600 text-sm">
-                      {% trans "Nombre total :" %} <span class="font-bold">{{ total_carburant }}</span>
-                  </p>
-              </div>
-
-              <!-- Icône à droite -->
-              <img src="{% static 'icons/pompe-a-essence.png' %}" alt="client" style="width:60px; height:60px;">
-          </a>
-        <a href="{% url 'assurance:assurance_list' %}"
-           class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-
-              <!-- Texte à gauche -->
-              <div>
-                  <h2 class="text-lg font-semibold mb-1">{% trans "Assurance" %}</h2>
-                  <p class="text-gray-600 text-sm">
-                      {% trans "Nombre total :" %} <span class="font-bold">{{ total_assurance }}</span>
-                  </p>
-              </div>
-
-              <!-- Icône à droite -->
-              <img src="{% static 'icons/assurance-voiture.png' %}" alt="assurance" style="width:60px; height:60px;">
-          </a>
-
-        <a href="{% url 'assurance_police:assurance_police_list' %}"
-           class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-
-              <!-- Texte à gauche -->
-              <div>
-                  <h2 class="text-lg font-semibold mb-1">{% trans "Police d'assurance" %}</h2>
-                  <p class="text-gray-600 text-sm">
-                      {% trans "Nombre total :" %} <span class="font-bold">{{ total_assurance_police }}</span>
-                  </p>
-              </div>
-
-              <!-- Icône à droite -->
-              <img src="{% static 'icons/assurance-voiture.png' %}" alt="assurance_police" style="width:60px; height:60px;">
-          </a>
+  <a href="{% url 'voiture_moteur:list' %}"
+     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <div>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Moteurs" %}</h2>
+      <p class="text-gray-600 text-sm">
+        {% trans "Nombre total :" %} <span class="font-bold">{{ total_moteurs }}</span>
+      </p>
     </div>
+    <img src="{% static 'icons/engine.png' %}" alt="Moteur" style="width:60px; height:60px;">
+  </a>
 
-    {% if user.is_staff and user.is_superuser %}
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-
-        <a href="{% url 'utilisateurs:dashboard_admin' %}"
-           class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-             <h2 class="text-lg font-semibold mb-2">{% trans "Tableau de bord Admin" %}</h2>
-             <img src="{% static 'icons/ingenieur-logiciel.png' %}" alt="Moteur" style="width:60px; height:60px;">
-        </a>
+  <!-- Carte Liste des Véhicules -->
+  <a href="{% url 'voiture_exemplaire:liste_exemplaires_all' %}"
+     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <div>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Liste des Véhicules" %}</h2>
+      <p class="text-gray-600 text-sm">
+        {% trans "Nombre total :" %} <span class="font-bold">{{ total_exemplaires }}</span>
+      </p>
     </div>
+    <img src="{% static 'icons/voiture-de-course.png' %}" alt="Véhicules" style="width:60px; height:60px;">
+  </a>
+
+  <!-- Carte Boites de vitesses -->
+  <a href="{% url 'voiture_boite:list' %}"
+     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <div>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Boites de vitesses" %}</h2>
+      <p class="text-gray-600 text-sm">
+        {% trans "Nombre total :" %} <span class="font-bold">{{ total_boites }}</span>
+      </p>
+    </div>
+    <img src="{% static 'icons/boite-de-vitesse.png' %}" alt="boite de vitesse" style="width:60px; height:60px;">
+  </a>
+
+  <!-- Carte Embrayages -->
+  <a href="{% url 'voiture_embrayage:list' %}"
+     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <div>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Embrayages" %}</h2>
+      <p class="text-gray-600 text-sm">
+        {% trans "Nombre total :" %} <span class="font-bold">{{ total_embrayages }}</span>
+      </p>
+    </div>
+    <img src="{% static 'icons/disque-dembrayage.png' %}" alt="embrayage" style="width:60px; height:60px;">
+  </a>
+
+  <!-- Carte Freins avant -->
+  <a href="{% url 'voiture_freins:list' %}"
+     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <div>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Freins avant" %}</h2>
+      <p class="text-gray-600 text-sm">
+        {% trans "Nombre total :" %} <span class="font-bold">{{ total_freins }}</span>
+      </p>
+    </div>
+    <img src="{% static 'icons/disque-de-frein.png' %}" alt="Freins" style="width:60px; height:60px;">
+  </a>
+
+  <!-- Carte Freins arrière -->
+  <a href="{% url 'voiture_freins_ar:list_ar' %}"
+     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <div>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Freins arrière" %}</h2>
+      <p class="text-gray-600 text-sm">
+        {% trans "Nombre total :" %} <span class="font-bold">{{ total_freins_ar }}</span>
+      </p>
+    </div>
+    <img src="{% static 'icons/disque-de-frein.png' %}" alt="Freins arrières" style="width:60px; height:60px;">
+  </a>
+
+  <!-- Carte Pneus -->
+  <a href="{% url 'voiture_pneus:list' %}"
+     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <div>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Pneus" %}</h2>
+      <p class="text-gray-600 text-sm">
+        {% trans "Nombre total :" %} <span class="font-bold">{{ total_pneus }}</span>
+      </p>
+    </div>
+    <img src="{% static 'icons/pneus.png' %}" alt="Pneus" style="width:60px; height:60px;">
+  </a>
+
+  <!-- Carte Maintenance -->
+  <a href="{% url 'maintenance:liste_maintenance_all' %}"
+     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <div>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Maintenance" %}</h2>
+      <p class="text-gray-600 text-sm">
+        {% trans "Nombre total :" %} <span class="font-bold">{{ total_maintenance }}</span>
+      </p>
+    </div>
+    <img src="{% static 'icons/mecanique.png' %}" alt="Maintenance" style="width:60px; height:60px;">
+  </a>
+
+  <!-- Carte Fournisseurs -->
+  <a href="{% url 'fournisseur:fournisseur_list' %}"
+     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <div>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Fournisseurs" %}</h2>
+      <p class="text-gray-600 text-sm">
+        {% trans "Nombre total :" %} <span class="font-bold">{{ total_fournisseur }}</span>
+      </p>
+    </div>
+    <img src="{% static 'icons/fournisseur.png' %}" alt="Fournisseur" style="width:60px; height:60px;">
+  </a>
+
+  <!-- Carte Clients -->
+  <a href="{% url 'client_particulier:client_list' %}"
+     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <div>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Clients" %}</h2>
+      <p class="text-gray-600 text-sm">
+        {% trans "Nombre total :" %} <span class="font-bold">{{ total_client_particulier }}</span>
+      </p>
+    </div>
+    <img src="{% static 'icons/client.png' %}" alt="client" style="width:60px; height:60px;">
+  </a>
+
+  <!-- Carte Carrosseries -->
+  <a href="{% url 'carrosserie:carrosserie_list' %}"
+     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <div>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Carrosseries" %}</h2>
+      <p class="text-gray-600 text-sm">
+        {% trans "Nombre total :" %} <span class="font-bold">{{ total_carrosserie }}</span>
+      </p>
+    </div>
+    <img src="{% static 'icons/carrosserie.png' %}" alt="carrosserie" style="width:60px; height:60px;">
+  </a>
+
+  <!-- Carte Intervention carrosserie -->
+  <a href="{% url 'intervention:intervention_list' %}"
+     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <div>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Intervention carrosserie" %}</h2>
+      <p class="text-gray-600 text-sm">
+        {% trans "Nombre total :" %} <span class="font-bold">{{ total_intervention }}</span>
+      </p>
+    </div>
+    <img src="{% static 'icons/carrosserie.png' %}" alt="intervention" style="width:60px; height:60px;">
+  </a>
+
+  <!-- Carte Société cliente -->
+  <a href="{% url 'societe_cliente:societe_cliente_list' %}"
+     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <div>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Société cliente" %}</h2>
+      <p class="text-gray-600 text-sm">
+        {% trans "Nombre total :" %} <span class="font-bold">{{ total_societe_cliente }}</span>
+      </p>
+    </div>
+    <img src="{% static 'icons/societe_cliente.png' %}" alt="societe cliente" style="width:60px; height:60px;">
+  </a>
+
+  <!-- Carte Adresses -->
+  <a href="{% url 'adresse:adresse_list' %}"
+     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <div>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Adresses" %}</h2>
+      <p class="text-gray-600 text-sm">
+        {% trans "Nombre total :" %} <span class="font-bold">{{ total_adresse }}</span>
+      </p>
+    </div>
+    <img src="{% static 'icons/adresse.png' %}" alt="adresses" style="width:60px; height:60px;">
+  </a>
+
+  <!-- Carte Carburant -->
+  <a href="{% url 'fuel:fuel_list' %}"
+     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <div>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Carburant" %}</h2>
+      <p class="text-gray-600 text-sm">
+        {% trans "Nombre total :" %} <span class="font-bold">{{ total_carburant }}</span>
+      </p>
+    </div>
+    <img src="{% static 'icons/pompe-a-essence.png' %}" alt="carburant" style="width:60px; height:60px;">
+  </a>
+  <!-- Carte Recharge electrique -->
+  <a href="{% url 'recharge:recharge_list' %}"
+     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <div>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Recharge électrique" %}</h2>
+      <p class="text-gray-600 text-sm">
+        {% trans "Nombre total :" %} <span class="font-bold">{{ total_recharge }}</span>
+      </p>
+    </div>
+    <img src="{% static 'icons/electricite.png' %}" alt="recharge electrique" style="width:60px; height:60px;">
+  </a>
+
+  <!-- Carte Assurance -->
+  <a href="{% url 'assurance:assurance_list' %}"
+     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <div>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Assurance" %}</h2>
+      <p class="text-gray-600 text-sm">
+        {% trans "Nombre total :" %} <span class="font-bold">{{ total_assurance }}</span>
+      </p>
+    </div>
+    <img src="{% static 'icons/assurance-voiture.png' %}" alt="assurance" style="width:60px; height:60px;">
+  </a>
+
+  <!-- Carte Police d'assurance -->
+  <a href="{% url 'assurance_police:assurance_police_list' %}"
+     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <div>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Police d'assurance" %}</h2>
+      <p class="text-gray-600 text-sm">
+        {% trans "Nombre total :" %} <span class="font-bold">{{ total_assurance_police }}</span>
+      </p>
+    </div>
+    <img src="{% static 'icons/assurance-voiture.png' %}" alt="assurance police" style="width:60px; height:60px;">
+  </a>
+
+</div>
+
+{% if user.is_staff and user.is_superuser %}
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+  <a href="{% url 'utilisateurs:dashboard_admin' %}"
+     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <h2 class="text-lg font-semibold mb-2">{% trans "Tableau de bord Admin" %}</h2>
+    <img src="{% static 'icons/ingenieur-logiciel.png' %}" alt="Admin" style="width:60px; height:60px;">
+  </a>
+</div>
 {% endif %}
 
 {% endblock %}
