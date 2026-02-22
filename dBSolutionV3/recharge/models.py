@@ -65,7 +65,7 @@ class Electricite(models.Model):
     )
 
     kilometrage_electricite = models.IntegerField(
-        _("Kilométrage"),
+        _("Kilométrage recharge"),
         null=True,
         blank=True
     )
