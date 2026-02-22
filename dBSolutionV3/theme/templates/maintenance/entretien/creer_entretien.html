@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load i18n static %}
+
+{% block content %}
+<div class="p-6">
+
+    <h1 class="text-2xl font-bold mb-6 flex items-center gap-3">
+        <img src="{% static 'icons/entretien.png' %}" alt="Entretien" class="w-12 h-12">
+        {% trans "Créer un entretien pour :" %}
+        <span class="font-semibold">
+            {{ voiture.voiture_modele.voiture_marque.nom_marque }}
+            {{ voiture.voiture_modele.nom_modele }}
+            {% if voiture.voiture_modele.nom_variante %}
+                {{ voiture.voiture_modele.nom_variante }}
+            {% endif %}
+        </span>
+    </h1>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <!-- Entretien de base -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h2 class="text-lg font-semibold mb-4">{% trans "Informations de l'entretien" %}</h2>
+            {{ entretien_form.as_p }}
+        </div>
+
+        <!-- Formset opérations -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h2 class="text-lg font-semibold mb-4">{% trans "Opérations" %}</h2>
+            {{ operation_formset.management_form }}
+            {% for form in operation_formset %}
+                <div class="mb-4 border-b pb-4">
+                    {{ form.as_p }}
+                    {% if form.DELETE %}
+                        <label>{{ form.DELETE }} {% trans "Supprimer" %}</label>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Formset fluides -->
+        <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+            <h2 class="text-lg font-semibold mb-4">{% trans "Fluides" %}</h2>
+            {{ fluide_formset.management_form }}
+            {% for form in fluide_formset %}
+                <div class="mb-4 border-b pb-4">
+                    {{ form.as_p }}
+                    {% if form.DELETE %}
+                        <label>{{ form.DELETE }} {% trans "Supprimer" %}</label>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+
+        <button type="submit"
+                class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+            {% trans "Créer l'entretien" %}
+        </button>
+    </form>
+
+</div>
+{% endblock %}

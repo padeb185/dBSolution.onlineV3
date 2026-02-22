@@ -1,5 +1,7 @@
 from django.urls import path
+from . import entretien
 from .check_up.views import creer_checkup_complet
+from .entretien.views import creer_entretien
 from .views import maintenance_detail_view
 from .views import (
     liste_maintenance_all,
@@ -7,12 +9,14 @@ from .views import (
     maintenance_tenant_view,
 )
 
+
 app_name = "maintenance"
 
 urlpatterns = [
     path('', liste_maintenance_all, name='liste_maintenance_all'),
     path('<uuid:exemplaire_id>/choisir_type/', choisir_type_maintenance, name='choisir_type'),
     path('<uuid:exemplaire_id>/checkup/', maintenance_tenant_view, name='maintenance_tenant_creer'),  # <-- création maintenance complète
+    path('<uuid:exemplaire_id>/entretien/', creer_entretien, name='creer_entretien'),  # <-- création maintenance complète
     path(
         "<uuid:maintenance_id>/",
         maintenance_detail_view,

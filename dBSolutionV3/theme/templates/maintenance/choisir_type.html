@@ -25,22 +25,47 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
 
+              <!-- ✅ CHECK-UP → PAGE DÉDIÉE -->
+                <a href="{% url 'maintenance:maintenance_tenant_creer' exemplaire.id %}"
+                     class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+                      <div class="flex justify-between items-center">
+                          <div>
+                              <h2 class="text-lg font-semibold mb-2">{% trans "Checkup" %}</h2>
+                              <p class="text-gray-600">
+                                {% trans "Nombre total :" %}
+                                <span class="font-bold">{{ total_checkup }}</span>
+                              </p>
+                          </div>
+
+                          <!-- Icône à droite -->
+                          <img src="{% static 'icons/checkup.png' %}" alt="Checkup" style="width:60px; height:60px;">
+                      </div>
+
+                </a>
+
+                <a href="{% url 'entretien:creer_entretien' exemplaire.id %}"
+                   class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h2 class="text-lg font-semibold mb-2">{% trans "Entretien" %}</h2>
+                            <p class="text-gray-600">
+                                {% trans "Nombre total :" %}
+                                <span class="font-bold">{{ total_entretien }}</span>
+                            </p>
+                        </div>
+
+                        <img src="{% static 'icons/entretien.png' %}" alt="entretien" style="width:60px; height:60px;">
+                    </div>
+                </a>
+
+
         {% for type in types_maintenance %}
 
             {% if type.code == "checkup" %}
-                <!-- ✅ CHECK-UP → PAGE DÉDIÉE -->
-                <a href="{% url 'maintenance:maintenance_tenant_creer' exemplaire.id %}"
-                   class="p-6 bg-white shadow-md rounded-lg hover:shadow-lg hover:bg-green-50
-                          flex flex-col items-center justify-center text-center transition">
 
-                    <img src="{% static 'icons/checkup.png' %}"
-                         alt="Check-up"
-                         class="w-16 h-16 mb-4">
 
-                    <p class="font-semibold text-green-700">
-                        {{ type.nom }}
-                    </p>
-                </a>
 
             {% else %}
                 <!-- 🔧 AUTRES MAINTENANCES -->

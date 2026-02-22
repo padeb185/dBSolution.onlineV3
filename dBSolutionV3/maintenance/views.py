@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
-from django_tenants.utils import tenant_context
+from django.views.decorators.cache import never_cache
+from django_tenants.utils import tenant_context, schema_context
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from voiture.voiture_modele.models import VoitureModele
 from maintenance.models import Maintenance
@@ -34,8 +35,28 @@ def liste_maintenance_all(request):
 
 
 
+@never_cache
 @login_required
 def choisir_type_maintenance(request, exemplaire_id):
+    user = request.user
+    context = {}
+
+    # --- Sécurité : récupère le tenant ---
+    tenant_schema = getattr(request, 'tenant', None)
+    schema_name = tenant_schema.schema_name if tenant_schema else None
+
+    total_checkup = total_entretien = 0
+    checkup = entretien = []
+
+    if schema_name:
+        with schema_context(schema_name):
+            checkup = Maintenance.objects.all()
+            entretien = Maintenance.objects.all()
+            total_checkup = checkup.count()
+            total_entretien = entretien.count()
+            modeles = VoitureModele.objects.all()
+    else:
+        modeles = []
 
     exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
 
@@ -55,11 +76,22 @@ def choisir_type_maintenance(request, exemplaire_id):
             # Redirige vers la liste de maintenance du modèle
             return redirect('maintenance:list', modele_id=exemplaire.voiture_modele.id)
 
-    context = {
+    # --- Construit le contexte final avec toutes les infos ---
+    context.update({
         "exemplaire": exemplaire,
-        "types_maintenance": TYPES_MAINTENANCE
-    }
+        "types_maintenance": TYPES_MAINTENANCE,
+        "total_checkup": total_checkup,
+        "total_entretien": total_entretien,
+        "checkup": checkup,
+        "entretien": entretien,
+        "modeles": modeles,
+    })
+
     return render(request, "maintenance/choisir_type.html", context)
+
+
+
+
 
 
 """
