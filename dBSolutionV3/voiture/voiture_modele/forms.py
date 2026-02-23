@@ -27,24 +27,26 @@ class VoitureModeleForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        user = kwargs.pop("user", None)
+        self.user = kwargs.pop("user", None)  # ✅ stocker le user
         super().__init__(*args, **kwargs)
 
-        # 🔒 Filtrer les marques par société de l'utilisateur
-        if user and hasattr(user, "societe"):
+        # 🔒 Filtrer les marques par société
+        if self.user and hasattr(self.user, "societe"):
             self.fields["voiture_marque"].queryset = VoitureMarque.objects.filter(
-                societe=user.societe
+                societe=self.user.societe
             )
+        else:
+            self.fields["voiture_marque"].queryset = VoitureMarque.objects.none()
 
-        # Optionnel : rendre batterie non obligatoire
+        # Batterie optionnelle
         self.fields["capacite_batterie"].required = False
 
     def save(self, commit=True):
         instance = super().save(commit=False)
 
         # ⚡ Assigner automatiquement la société
-        if self.initial.get("user"):
-            instance.societe = self.initial["user"].societe
+        if self.user and hasattr(self.user, "societe"):
+            instance.societe = self.user.societe
 
         if commit:
             instance.save()

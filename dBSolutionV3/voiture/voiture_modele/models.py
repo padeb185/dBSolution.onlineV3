@@ -1,4 +1,6 @@
 import uuid
+from django.utils.translation import gettext as _
+from django import forms
 from django.db import models
 from societe.models import Societe
 
@@ -35,3 +37,36 @@ class VoitureModele(models.Model):
 
     def __str__(self):
         return f"{self.nom_modele} {self.nom_variante or ''}".strip()
+
+    def clean(self):
+        cleaned_data = super().clean()
+        marque = cleaned_data.get("voiture_marque")
+        nom_modele = cleaned_data.get("nom_modele")
+        nom_variante = cleaned_data.get("nom_variante")
+
+        if marque and nom_modele:
+            qs = VoitureModele.objects.filter(
+                voiture_marque=marque,
+                nom_modele__iexact=nom_modele,
+            )
+
+            # 👉 si une variante est fournie → on vérifie le triplet complet
+            if nom_variante:
+                qs = qs.filter(nom_variante__iexact=nom_variante)
+
+            # 👉 exclure l’instance en cas de modification
+            if self.instance.pk:
+                qs = qs.exclude(pk=self.instance.pk)
+
+            if qs.exists():
+                raise forms.ValidationError(
+                    _("Ce modèle avec cette variante existe déjà pour cette marque.")
+                )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=["voiture_marque", "nom_modele", "nom_variante"],
+                name="unique_modele_variante_par_marque"
+            )
+        ]

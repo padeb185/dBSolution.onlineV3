@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
@@ -60,33 +61,40 @@ def voiture_modele_detail(request, voiture_modele_id):
     )
 
 
-@login_required
-def ajouter_modele(request, voiture_modele_id=None):
 
-    voiture_modele = None
-    if voiture_modele_id:
-        voiture_modele = get_object_or_404(VoitureModele, id=voiture_modele_id)
+@login_required
+def ajouter_modele(request):
+    societe = request.user.societe  # si multi-tenant
 
     if request.method == "POST":
-        form = VoitureModeleForm(request.POST)
-        if form.is_valid():
-            moteur = form.save()
-            if voiture_modele:
-                moteur.voitures_voiture_modeles.add(voiture_modele)
+        form = VoitureModeleForm(request.POST, user=request.user)
 
-            messages.success(request, _("Le moteur a été ajouté avec succès."))
+        if form.is_valid():
+            voiture_modele = form.save()
+
+            messages.success(
+                request,
+                _("Le modèle a été ajouté avec succès pour la marque %(marque)s.") % {
+                    "marque": voiture_modele.marque.nom_marque
+                }
+            )
+
+            return redirect("voiture_modele:voiture_modele_list")
+
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
     else:
-        form = VoitureModeleForm()
+        form = VoitureModeleForm(user=request.user)
 
-    return render(request, "voiture_modele/ajouter_modele.html", {
-        "form": form,
-        "voiture_modele": voiture_modele,
-        "title": _("Ajouter un moteur"),
-        "submit_text": _("Créer le moteur")
-    })
-
+    return render(
+        request,
+        "voiture_modele/ajouter_modele.html",
+        {
+            "form": form,
+            "title": _("Ajouter un modèle"),
+            "submit_text": _("Créer le modèle"),
+        },
+    )
 
 
 @login_required
@@ -158,3 +166,9 @@ def modifier_voiture_modele(request, voiture_modele_id):
             "voiture_modele": voiture_modele,
         }
     )
+
+
+def check_nom(request):
+    nom = request.POST.get("nom")
+    existe = VoitureModele.objects.filter(nom__iexact=nom).exists()
+    return JsonResponse({"existe": existe})
