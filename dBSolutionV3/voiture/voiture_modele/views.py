@@ -168,26 +168,6 @@ def modifier_voiture_modele(request, voiture_modele_id):
         }
     )
 
-def modifier_voiture_modele_view(request, voiture_modele_id):
-    voiture_modele = get_object_or_404(VoitureModele, id=voiture_modele_id)
-
-    if request.method == "POST":
-        form = VoitureModeleForm(request.POST, instance=voiture_modele, user=request.user)
-        if form.is_valid():
-            form.save()
-            messages.success(request, _("Le modèle a été modifié avec succès."))
-            return redirect("voiture_modele:voiture_modele_detail", voiture_modele_id=voiture_modele.id)
-        else:
-            messages.error(request, _("Le formulaire contient des erreurs."))
-    else:
-        form = VoitureModeleForm(instance=voiture_modele, user=request.user)
-
-    return render(
-        request,
-        "voiture_modele/modifier_modele_view.html",
-        {"form": form, "voiture_modele": voiture_modele},
-    )
-
 
 
 

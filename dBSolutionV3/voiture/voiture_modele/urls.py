@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import VoitureModeleListView, modifier_voiture_modele, voiture_modele_detail, ajouter_voiture_modele_all, \
-    ajouter_modele, check_nom, modifier_voiture_modele_view
+    ajouter_modele, check_nom
 from voiture.voiture_modele.views import modeles_par_marque
 
 app_name = "voiture_modele"
@@ -28,10 +28,7 @@ urlpatterns = [
         modifier_voiture_modele,
         name='modifier_voiture_modele'),
 
-path(
-        '<uuid:voiture_modele_id>/modifier/',
-        modifier_voiture_modele_view,
-        name='modifier_voiture_modele_view'),
+
 
     path("api/check_nom", check_nom, name="check_nom"),
 
