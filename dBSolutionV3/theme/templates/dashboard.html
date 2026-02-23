@@ -88,6 +88,20 @@
     </div>
   </a>
 
+   <a href="{% url 'voiture_modele:voituremodele_list' %}"
+     class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <div class="flex justify-between items-center">
+      <div>
+        <h2 class="text-lg font-semibold mb-2">{% trans "Modèles de voiture" %}</h2>
+        <p class="text-gray-600">
+          {% trans "Nombre total :" %}
+          <span class="font-bold">{{ total_modele }}</span>
+        </p>
+      </div>
+      <img src="{% static 'icons/voiture-de-course.png' %}" alt="Modele de voiture" style="width:60px; height:60px;">
+    </div>
+  </a>
+
   <!-- Carte Moteurs -->
   <a href="{% url 'voiture_moteur:list' %}"
      class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">

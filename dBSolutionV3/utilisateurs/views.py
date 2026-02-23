@@ -98,16 +98,17 @@ def dashboard_view(request):
     total_freins_ar = total_pneus = total_maintenance = 0
     total_fournisseur = total_client_particulier = 0
     total_carrosserie = total_intervention = total_societe_cliente = 0
-    total_adresse = total_assurance = 0
+    total_adresse = total_assurance = total_modele = 0
 
     marques = moteurs = exemplaires = boites = embrayages = freins = \
         freins_ar = pneus = maintenance = fournisseurs = client_particulier =\
         carrosseries = interventions = societe_cliente = adresse = assurance = \
-        assurance_police = []
+        assurance_police = modele = []
 
     if schema_name:
         with schema_context(schema_name):
             marques = VoitureMarque.objects.all()
+            modele = VoitureModele.objects.all()
             moteurs = MoteurVoiture.objects.all()
             exemplaires = VoitureExemplaire.objects.all()
             boites = VoitureBoite.objects.all()
@@ -128,6 +129,7 @@ def dashboard_view(request):
 
             # Totaux
             total_marques = marques.count()
+            total_modele = modele.count()
             total_moteurs = moteurs.count()
             total_exemplaires = exemplaires.count()
             total_boites = boites.count()
@@ -153,6 +155,7 @@ def dashboard_view(request):
 
     context.update({
         'total_marques': total_marques,
+        'total_modele': total_modele,
         'total_moteurs': total_moteurs,
         'total_exemplaires': total_exemplaires,
         'total_boites': total_boites,
@@ -172,6 +175,7 @@ def dashboard_view(request):
         'total_assurance_police': total_assurance_police,
 
         'marques': marques,
+        'modele' : modele,
         'moteurs': moteurs,
         'exemplaires': exemplaires,
         'boites': boites,

@@ -10,7 +10,7 @@ urlpatterns = [
     # Affiche les modèles pour une marque
     path("marque/<uuid:marque_id>/modeles/", modeles_par_marque, name="modeles_par_marque"),
 
-    path("modeles/", VoitureModeleListView.as_view(), name="modele_list_all"),
+    path("modeles/", VoitureModeleListView.as_view(), name="voituremodele_list"),
 
     path(
         "carrosserie/creer/",

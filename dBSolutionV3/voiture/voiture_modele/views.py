@@ -1,14 +1,12 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, render, redirect
-from django_tenants.utils import tenant_context
-from voiture.voiture_marque.models import VoitureMarque
-from voiture.voiture_modele.models import VoitureModele
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
-
-from .forms import VoitureModeleForm
+from django_tenants.utils import tenant_context
+from voiture.voiture_marque.models import VoitureMarque
 from .models import VoitureModele
+from .forms import VoitureModeleForm
 
 
 
@@ -23,18 +21,29 @@ def modeles_par_marque(request, marque_id):
     return render(request, 'voiture_modele/modeles_list_all.html', context)
 
 
-@login_required
+
+
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import ListView
+from django_tenants.utils import tenant_context
+from .models import VoitureModele
+
 class VoitureModeleListView(LoginRequiredMixin, ListView):
     model = VoitureModele
-    template_name = "voiture_modele/modele_list_all.html"
-    context_object_name = "modeles"
-    paginate_by = 10
+    template_name = "voiture_modele/voituremodele_list.html"  # ton template actuel
+    context_object_name = "voiture_modeles"  # ⚡ correspond à ta boucle {% for voiture_modele in voiture_modeles %}
+
 
     def get_queryset(self):
-        # 🔒 Filtrer par société de l'utilisateur
-        return VoitureModele.objects.filter(
-            societe=self.request.user.societe
-        ).select_related("voiture_marque").order_by("nom_modele")
+        # ⚡ multi-tenant : on ne renvoie que les modèles de la société de l'utilisateur
+        tenant = self.request.user.societe
+        with tenant_context(tenant):
+            return (
+                VoitureModele.objects
+                .filter(societe=tenant)
+                .select_related("voiture_marque")
+                .order_by("voiture_marque__nom_marque", "nom_modele")
+            )
 
 
 

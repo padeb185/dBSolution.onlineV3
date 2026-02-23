@@ -11,14 +11,14 @@
                 <img src="{% static 'voiture_modele/'|add:image_name|add:'.png' %}"
                      alt="{{ voiture_modele.nom_modele }}"
                      class="w-12 h-12"
-                     onerror="this.src='{% static 'icons/voiture-de-sport.png' %}';">
+                     onerror="this.src='{% static 'icons/voiture_de_sport.png' %}';">
             {% endwith %}
             <span>{% trans "Détails du modèle :" %}</span>
 
            <span class="text-black-700">{{ voiture_modele.nom_modele }}</span>
         </h1>
 
-        <a href="{% url 'voiture_modele:voiture_modele_list_all' %}"
+        <a href="{% url 'voiture_modele:voituremodele_list' %}"
            class="text-blue-600 hover:underline">
             {% trans "Retour à la liste des modèles" %}
         </a>
@@ -47,7 +47,7 @@
             </p>
             <p>
                 <strong>{% trans "Batterie" %} :</strong>
-                {{ voiture_modele.capacite_baterie }}
+                {{ voiture_modele.capacite_batterie }}
             </p>
 
 

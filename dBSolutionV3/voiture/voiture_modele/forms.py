@@ -1,6 +1,6 @@
 from django import forms
 from .models import VoitureModele
-from voiture_marque.models import VoitureMarque
+from voiture.voiture_marque.models import VoitureMarque
 
 
 class VoitureModeleForm(forms.ModelForm):
