@@ -7,6 +7,7 @@ from django_tenants.utils import tenant_context
 from voiture.voiture_marque.models import VoitureMarque
 from .models import VoitureModele
 from .forms import VoitureModeleForm
+from django.utils.translation import gettext as _
 
 
 
@@ -60,6 +61,35 @@ def voiture_modele_detail(request, voiture_modele_id):
 
 
 @login_required
+def ajouter_modele(request, voiture_modele_id=None):
+
+    voiture_modele = None
+    if voiture_modele_id:
+        voiture_modele = get_object_or_404(VoitureModele, id=voiture_modele_id)
+
+    if request.method == "POST":
+        form = VoitureModeleForm(request.POST)
+        if form.is_valid():
+            moteur = form.save()
+            if voiture_modele:
+                moteur.voitures_voiture_modeles.add(voiture_modele)
+
+            messages.success(request, _("Le moteur a été ajouté avec succès."))
+        else:
+            messages.error(request, _("Le formulaire contient des erreurs."))
+    else:
+        form = VoitureModeleForm()
+
+    return render(request, "voiture_modele/ajouter_modele.html", {
+        "form": form,
+        "voiture_modele": voiture_modele,
+        "title": _("Ajouter un moteur"),
+        "submit_text": _("Créer le moteur")
+    })
+
+
+
+@login_required
 def ajouter_voiture_modele_all(request):
     tenant = request.user.societe  # Société liée à l'utilisateur
 
@@ -95,7 +125,7 @@ def ajouter_voiture_modele_all(request):
 
     return render(request, "voiture_modele/voiture_modele_form.html", {
         "form": form_voiture_modele,
-        "adresse": adresse_data  # permet de pré-remplir le template
+
     })
 
 
@@ -105,36 +135,20 @@ def modifier_voiture_modele(request, voiture_modele_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
-        # Récupérer l'assureur et son adresse liée
-        voiture_modele = get_object_or_404(
-            VoitureModele.objects.select_related("adresse"),
-            id=voiture_modele_id
-        )
-        adresse = voiture_modele.adresse
+        # Récupérer le modèle voiture
+        voiture_modele = get_object_or_404(VoitureModele, id=voiture_modele_id)
 
         if request.method == "POST":
-            # Formulaires pour VoitureModele et Adresse
             form_voiture_modele = VoitureModeleForm(request.POST, instance=voiture_modele)
 
-
             if form_voiture_modele.is_valid():
-
-
-                voiture_modele = form_voiture_modele.save(commit=False)
-                voiture_modele.adresse = adresse
-                voiture_modele.save()
-
-                messages.success(request, "VoitureModele et adresse mises à jour avec succès.")
-                return redirect(
-                    "voiture_modele:modifier_voiture_modele",
-                    voiture_modele_id=voiture_modele.id
-                )
+                form_voiture_modele.save()  # pas besoin de commit=False si pas de traitement spécial
+                messages.success(request, "VoitureModele mise à jour avec succès.")
+                return redirect("voiture_modele:modifier_voiture_modele", voiture_modele_id=voiture_modele.id)
             else:
                 messages.error(request, "Le formulaire contient des erreurs.")
         else:
-            # Pré-remplissage des formulaires
             form_voiture_modele = VoitureModeleForm(instance=voiture_modele)
-
 
     return render(
         request,
@@ -142,6 +156,5 @@ def modifier_voiture_modele(request, voiture_modele_id):
         {
             "form": form_voiture_modele,
             "voiture_modele": voiture_modele,
-            "adresse": adresse,
         }
     )

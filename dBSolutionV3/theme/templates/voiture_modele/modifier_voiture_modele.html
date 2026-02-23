@@ -8,10 +8,9 @@
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold flex items-center gap-4">
             {% with image_name=voiture_modele.nom_modele|slugify %}
-                <img src="{% static 'voiture_modele/'|add:image_name|add:'.png' %}"
-                     alt="{{ voiture_modele.nom_modele }}"
-                     class="w-12 h-12"
-                     onerror="this.onerror=null; this.src='{% static 'icons/voiture-de-sport.png' %}';">
+               <img src="{% static 'images/marques/' %}{{ voiture_modele.voiture_marque.nom_marque|lower }}.png"
+                 style="width:75px; margin-right:20px;"
+                 onerror="this.src='{% static 'images/marques/default.png' %}'">
             {% endwith %}
             <span>{% trans "Modifier le modèle:" %}</span>
             <span class="text-black-700">{{ voiture_modele.nom_modele }}</span>

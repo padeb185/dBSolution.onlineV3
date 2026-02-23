@@ -8,14 +8,13 @@
     <div class="flex justify-between items-center mb-6">
        <h1 class="text-2xl font-bold flex items-center gap-4">
             {% with image_name=voiture_modele.nom_modele|slugify %}
-                <img src="{% static 'voiture_modele/'|add:image_name|add:'.png' %}"
-                     alt="{{ voiture_modele.nom_modele }}"
-                     class="w-12 h-12"
-                     onerror="this.src='{% static 'icons/voiture_de_sport.png' %}';">
+                 <img src="{% static 'images/marques/' %}{{ voiture_modele.voiture_marque.nom_marque|lower }}.png"
+                 style="width:75px; margin-right:20px;"
+                 onerror="this.src='{% static 'images/marques/default.png' %}'">
+
             {% endwith %}
             <span>{% trans "Détails du modèle :" %}</span>
-
-           <span class="text-black-700">{{ voiture_modele.nom_modele }}</span>
+            <span class="text-black-700">{{ voiture_modele.nom_modele }}</span>
         </h1>
 
         <a href="{% url 'voiture_modele:voituremodele_list' %}"
@@ -34,11 +33,11 @@
             </h2>
 
             <p>
-                <strong>{% trans "Modèle" %} :</strong>
+                <strong>{% trans "Marque" %} :</strong>
                 {{ voiture_modele.voiture_marque }}
             </p>
             <p>
-                <strong>{% trans "" %} :</strong>
+                <strong>{% trans "Modèle" %} :</strong>
                 {{ voiture_modele.nom_modele }}
             </p>
             <p>
@@ -50,22 +49,17 @@
                 {{ voiture_modele.capacite_batterie }}
             </p>
 
-
-
-
-
-           <div class="mt-auto w-full">
+            <div class="mt-auto w-full">
                 <a href="{% url 'voiture_modele:modifier_voiture_modele' voiture_modele.id %}" class="block w-full">
                     <button type="button"
                             class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
-                        {% trans "Modifier le modele" %}
+                        {% trans "Modifier le modèle" %}
                     </button>
                 </a>
            </div>
-
         </div>
 
-        <!-- Peppol -->
+        <!-- Informations Peppol -->
         <div class="bg-white shadow-md rounded-lg p-6">
             <h2 class="text-lg font-semibold mb-4">
                 {% trans "Informations Peppol" %}
@@ -75,11 +69,8 @@
                 <strong>{% trans "Identifiant Peppol" %} :</strong><br>
                 {{ voiture_modele.peppol_id }}
             </p>
-
         </div>
     </div>
-
-
 
     <!-- Métadonnées -->
     <div class="bg-white shadow-md rounded-lg p-6 mb-6">
@@ -93,11 +84,9 @@
         </p>
     </div>
 
-
-
     <!-- Actions -->
     <div class="bg-white shadow-md rounded-lg p-6 flex gap-4">
-        <a href="{% url 'voiture_modele:voiture_modele_list' %}" class="flex-1">
+        <a href="{% url 'voiture_modele:voituremodele_list' %}" class="flex-1">
               <button type="button" class="bg-blue-700 text-white px-4 py-2 rounded w-full mt-4">
                     {% trans "Retour à la liste des modèles" %}
               </button>
