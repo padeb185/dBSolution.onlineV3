@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="max-w-xl mx-auto p-6 bg-white rounded shadow mt-16 mb-16">
+
+    <h1 class="text-2xl font-bold mb-4 text-center flex items-center justify-center">
+        <img src="{% static 'icons/voiture-de-sport.png' %}" style="width:75px; margin-right:5px;" alt="">
+        {% trans "Créer un modèle de voiture" %}
+    </h1>
+
+    <!-- Messages -->
+    {% if messages %}
+        {% for message in messages %}
+        <div class="mb-3 px-4 py-2 rounded
+            {% if message.tags == 'success' %}
+                bg-green-100 text-green-800 border border-green-300
+            {% else %}
+                bg-red-100 text-red-800 border border-red-300
+            {% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post" class="flex flex-col space-y-4">
+        {% csrf_token %}
+
+        <!-- Nom du Modele -->
+        <div>
+            {{ form.nom_modele.label_tag }}
+            {{ form.nom_modele }}
+            {% if form.nom_modele.errors %}
+                <p class="text-red-600">{{ form.nom_modele.errors }}</p>
+            {% endif %}
+        </div>
+
+        <!-- Marque -->
+        <div>
+            {{ form.voiture_marque.label_tag }}
+            {{ form.voiture_marque }}
+        </div>
+        <div>
+            {{ form.nom_variante.label_tag }}
+            {{ form.nom_variante }}
+        </div>
+
+          <!-- "voiture_marque",
+            "nom_modele",
+            "nom_variante",
+            "nombre_portes",
+            "nbre_places",
+            "taille_reservoir",
+            "capacite_batterie", -->
+        <div>
+            {{ form.nombre_portes.label_tag }}
+            {{ form.nombre_portes }}
+        </div>
+        <div>
+            {{ form.nbre_places.label_tag }}
+            {{ form.nbre_places }}
+        </div>
+
+        <div>
+            {{ form.taille_reservoir.label_tag }}
+            {{ form.taille_reservoir }}
+        </div>
+         <div>
+            {{ form.capacite_batterie.label_tag }}
+            {{ form.capacite_batterie }}
+        </div>
+
+
+        <button type="submit" class="bg-blue-700 text-white px-4 py-2 rounded w-full mt-4">
+            {% trans "Enregistrer" %}
+        </button>
+    </form>
+</div>
+{% endblock %}

@@ -1,10 +1,108 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% load i18n static %}
 
-</body>
-</html>
+{% block content %}
+<div class="p-6 w-full ml-[-10px] mr-[10px]">
+
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
+       <h1 class="text-2xl font-bold flex items-center gap-4">
+            {% with image_name=voiture_modele.nom_modele|slugify %}
+                <img src="{% static 'voiture_modele/'|add:image_name|add:'.png' %}"
+                     alt="{{ voiture_modele.nom_modele }}"
+                     class="w-12 h-12"
+                     onerror="this.src='{% static 'icons/voiture-de-sport.png' %}';">
+            {% endwith %}
+            <span>{% trans "Détails du modèle :" %}</span>
+
+           <span class="text-black-700">{{ voiture_modele.nom_modele }}</span>
+        </h1>
+
+        <a href="{% url 'voiture_modele:voiture_modele_list_all' %}"
+           class="text-blue-600 hover:underline">
+            {% trans "Retour à la liste des modèles" %}
+        </a>
+    </div>
+
+    <!-- Infos principales -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+
+        <!-- Informations générales -->
+        <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
+            <h2 class="text-lg font-semibold mb-2">
+                {% trans "Informations générales" %}
+            </h2>
+
+            <p>
+                <strong>{% trans "Modèle" %} :</strong>
+                {{ voiture_modele.voiture_marque }}
+            </p>
+            <p>
+                <strong>{% trans "" %} :</strong>
+                {{ voiture_modele.nom_modele }}
+            </p>
+            <p>
+                <strong>{% trans "Réservoir" %} :</strong>
+                {{ voiture_modele.taille_reservoir }}
+            </p>
+            <p>
+                <strong>{% trans "Batterie" %} :</strong>
+                {{ voiture_modele.capacite_baterie }}
+            </p>
+
+
+
+
+
+           <div class="mt-auto w-full">
+                <a href="{% url 'voiture_modele:modifier_voiture_modele' voiture_modele.id %}" class="block w-full">
+                    <button type="button"
+                            class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+                        {% trans "Modifier le modele" %}
+                    </button>
+                </a>
+           </div>
+
+        </div>
+
+        <!-- Peppol -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-lg font-semibold mb-4">
+                {% trans "Informations Peppol" %}
+            </h2>
+
+            <p>
+                <strong>{% trans "Identifiant Peppol" %} :</strong><br>
+                {{ voiture_modele.peppol_id }}
+            </p>
+
+        </div>
+    </div>
+
+
+
+    <!-- Métadonnées -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">
+            {% trans "Métadonnées" %}
+        </h2>
+
+        <p>
+            <strong>{% trans "Créé le" %} :</strong>
+            {{ voiture_modele.created_at|date:"d/m/Y H:i" }}
+        </p>
+    </div>
+
+
+
+    <!-- Actions -->
+    <div class="bg-white shadow-md rounded-lg p-6 flex gap-4">
+        <a href="{% url 'voiture_modele:voiture_modele_list' %}" class="flex-1">
+              <button type="button" class="bg-blue-700 text-white px-4 py-2 rounded w-full mt-4">
+                    {% trans "Retour à la liste des modèles" %}
+              </button>
+        </a>
+    </div>
+
+</div>
+{% endblock %}
