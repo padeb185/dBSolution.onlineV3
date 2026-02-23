@@ -7,11 +7,9 @@
     <!-- Header -->
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold flex items-center gap-4">
-            {% with image_name=voiture_modele.nom_modele|slugify %}
-               <img src="{% static 'images/marques/' %}{{ voiture_modele.voiture_marque.nom_marque|lower }}.png"
+            <img src="{% static 'images/marques/' %}{{ voiture_modele.voiture_marque.nom_marque|lower }}.png"
                  style="width:75px; margin-right:20px;"
                  onerror="this.src='{% static 'images/marques/default.png' %}'">
-            {% endwith %}
             <span>{% trans "Modifier le modèle:" %}</span>
             <span class="text-black-700">{{ voiture_modele.nom_modele }}</span>
         </h1>
@@ -35,8 +33,21 @@
     <form method="post" class="space-y-4">
         {% csrf_token %}
 
-        <h2 class="text-lg font-semibold mb-2">{% trans "Modèle" %}</h2>
+        <!-- Affichage readonly de la marque -->
+        <div class="mb-4">
+            <label class="block font-semibold mb-1">{% trans "Marque" %}</label>
+            <input type="text"
+                   value="{{ voiture_modele.voiture_marque.nom_marque }}"
+                   class="input bg-gray-100 cursor-not-allowed"
+                   readonly>
+        </div>
+
+        <!-- Champ caché envoyé au serveur -->
+        <input type="hidden" name="voiture_marque" value="{{ voiture_modele.voiture_marque.id }}">
+
+        <!-- Champs du formulaire (exclure voiture_marque) -->
         {% for field in form %}
+            {% if field.name != 'voiture_marque' %}
             <div class="mb-4">
                 <label class="block font-semibold mb-1">{{ field.label }}</label>
                 {{ field|add_class:"input" }}
@@ -44,10 +55,10 @@
                     <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
                 {% endif %}
             </div>
+            {% endif %}
         {% endfor %}
 
-
-
+        <!-- Boutons -->
         <div class="flex gap-3 mt-6">
             <button type="submit" class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-500 font-semibold text-center">
                 {% trans "Enregistrer" %}

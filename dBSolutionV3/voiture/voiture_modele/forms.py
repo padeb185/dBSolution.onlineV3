@@ -1,4 +1,6 @@
 from django import forms
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext as _
 from .models import VoitureModele
 from voiture.voiture_marque.models import VoitureMarque
 
@@ -41,6 +43,12 @@ class VoitureModeleForm(forms.ModelForm):
         # Batterie optionnelle
         self.fields["capacite_batterie"].required = False
 
+        self.user = kwargs.pop("user", None)
+        super().__init__(*args, **kwargs)
+
+        # Champ readonly : on le rend optionnel
+        self.fields["voiture_marque"].required = False
+
     def save(self, commit=True):
         instance = super().save(commit=False)
 
@@ -52,3 +60,16 @@ class VoitureModeleForm(forms.ModelForm):
             instance.save()
 
         return instance
+
+
+
+
+    def clean_voiture_marque(self):
+        # Si c’est une modification, on force la marque à rester la même
+        if self.instance.pk:
+            return self.instance.voiture_marque
+        # Sinon, vérifier qu’une marque est fournie
+        marque = self.cleaned_data.get("voiture_marque")
+        if not marque:
+            raise ValidationError(_("La marque est obligatoire."))
+        return marque
