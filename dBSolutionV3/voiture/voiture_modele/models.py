@@ -25,7 +25,10 @@ class VoitureModele(models.Model):
     nombre_portes = models.IntegerField(choices=NombrePortes.choices)
 
     nbre_places = models.PositiveSmallIntegerField()
+
     taille_reservoir = models.DecimalField(max_digits=5, decimal_places=2, help_text="En litres")
+
+    capacite_batterie = models.PositiveIntegerField(default=0, help_text="Capacité batterie", null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -8,9 +8,6 @@ from .models import MoteurVoiture, TypeCarburant, TypeMoteur, TypeDistribution
 from django.contrib import messages
 from django.views.decorators.cache import never_cache
 
-
-
-
 @login_required
 def ajouter_moteur(request, exemplaire_id=None):
 
@@ -54,8 +51,6 @@ def liste_moteur(request):
         moteurs = MoteurVoiture.objects.all()  # tous les moteurs du tenant
         context = {"moteurs": moteurs}
         return render(request, "voiture_moteur/list.html", context)
-
-
 
 
 

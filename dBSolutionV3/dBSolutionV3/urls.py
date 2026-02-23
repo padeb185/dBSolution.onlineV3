@@ -91,6 +91,10 @@ urlpatterns += i18n_patterns(
 
     path("recharge/", include("recharge.urls")),
 
+    path("voiture_modele/", include("voiture_modele.urls")),
+
+
+
 )
 
 
