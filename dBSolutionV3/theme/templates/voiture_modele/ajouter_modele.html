@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n static %}
+{% load i18n static widget_tweaks %}
 
 {% block content %}
 <div class="max-w-xl mx-auto p-6 bg-white rounded shadow mt-16 mb-16">
@@ -7,9 +7,10 @@
     <!-- Titre avec icône -->
     <h1 class="text-2xl font-bold mb-4 text-center flex items-center justify-center">
         <img src="{% static 'icons/voiture-de-course.png' %}" alt="Modele" style="width:60px; height:60px; margin-right:10px;">
-        {% trans "Ajouter un modele de voiture" %}
+        {% trans "Ajouter un modèle de voiture" %}
     </h1>
 
+    <!-- Messages Django -->
    {% if messages %}
         {% for message in messages %}
             <div class="mb-3 px-4 py-2 rounded
@@ -23,69 +24,80 @@
         {% endfor %}
     {% endif %}
 
+    <!-- Erreurs globales du formulaire -->
+    {% if form.non_field_errors %}
+        <div class="mb-3 px-4 py-2 rounded bg-red-100 text-red-800 border border-red-300">
+            {% for error in form.non_field_errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
 
     <form method="post" class="flex flex-col space-y-4">
         {% csrf_token %}
 
-        <!-- Motoriste -->
+        <!-- Marque -->
         <div class="flex flex-col">
-            <label for="id_nom_marque" class="mb-1 font-medium">{% trans "Marque" %}</label>
-            <input type="text" id="id_nom_marque" name="nom_marque"
-                   class="border border-gray-300 rounded px-4 py-2 w-full"
-                   placeholder="{% trans 'Nom de la marque' %}">
+            <label for="{{ form.voiture_marque.id_for_label }}" class="mb-1 font-medium">{% trans "Marque" %}</label>
+            {{ form.voiture_marque|add_class:"border border-gray-300 rounded px-4 py-2 w-full" }}
+            {% for error in form.voiture_marque.errors %}
+                <span class="text-red-600 text-sm mt-1">{{ error }}</span>
+            {% endfor %}
         </div>
 
-        <!-- Modele -->
+        <!-- Modèle -->
         <div class="flex flex-col">
-            <label for="id_modele" class="mb-1 font-medium">{% trans "Modèle" %}</label>
-            <input type="text" id="id_modele" name="modele"
-                   class="border border-gray-300 rounded px-4 py-2 w-full"
-                   placeholder="{% trans 'Nom du modèle' %}">
+            <label for="{{ form.nom_modele.id_for_label }}" class="mb-1 font-medium">{% trans "Modèle" %}</label>
+            {{ form.nom_modele|add_class:"border border-gray-300 rounded px-4 py-2 w-full" }}
+            {% for error in form.nom_modele.errors %}
+                <span class="text-red-600 text-sm mt-1">{{ error }}</span>
+            {% endfor %}
         </div>
 
-        <!-- Code moteur -->
+        <!-- Variante -->
         <div class="flex flex-col">
-            <label for="id_nom_variante" class="mb-1 font-medium">{% trans "Variante" %}</label>
-            <input type="text" id="id_nom_variante" name="nom_variante"
-                   class="border border-gray-300 rounded px-4 py-2 w-full"
-                   placeholder="{% trans 'Nom de la variante' %}">
+            <label for="{{ form.nom_variante.id_for_label }}" class="mb-1 font-medium">{% trans "Variante" %}</label>
+            {{ form.nom_variante|add_class:"border border-gray-300 rounded px-4 py-2 w-full" }}
+            {% for error in form.nom_variante.errors %}
+                <span class="text-red-600 text-sm mt-1">{{ error }}</span>
+            {% endfor %}
         </div>
-
 
         <!-- Nombre de portes -->
         <div class="flex flex-col">
-            <label for="id_nombre_portes" class="mb-1 font-medium">{% trans "Nombre de portes" %}</label>
-            <input type="text" id="id_nombre_portes" name="nombre_portes"
-                   class="border border-gray-300 rounded px-4 py-2 w-full"
-                   placeholder="{% trans 'Ex: 5' %}">
+            <label for="{{ form.nombre_portes.id_for_label }}" class="mb-1 font-medium">{% trans "Nombre de portes" %}</label>
+            {{ form.nombre_portes|add_class:"border border-gray-300 rounded px-4 py-2 w-full" }}
+            {% for error in form.nombre_portes.errors %}
+                <span class="text-red-600 text-sm mt-1">{{ error }}</span>
+            {% endfor %}
         </div>
 
-        <!-- nombre de places -->
+        <!-- Nombre de places -->
         <div class="flex flex-col">
-            <label for="id_nbre_places" class="mb-1 font-medium">{% trans "Nombre de places" %}</label>
-            <input type="number" step="0.01" id="id_nbre_places" name="nbre_places"
-                   class="border border-gray-300 rounded px-4 py-2 w-full"
-                   placeholder="Ex: 2">
+            <label for="{{ form.nbre_places.id_for_label }}" class="mb-1 font-medium">{% trans "Nombre de places" %}</label>
+            {{ form.nbre_places|add_class:"border border-gray-300 rounded px-4 py-2 w-full" }}
+            {% for error in form.nbre_places.errors %}
+                <span class="text-red-600 text-sm mt-1">{{ error }}</span>
+            {% endfor %}
         </div>
 
-        <!-- taille_reservoir -->
+        <!-- Taille du réservoir -->
         <div class="flex flex-col">
-            <label for="id_taille_reservoir" class="mb-1 font-medium">{% trans "Taille du réservoir el litres" %}</label>
-            <input type="text" id="id_taille_reservoir" name="taille_reservoir"
-                   class="border border-gray-300 rounded px-4 py-2 w-full"
-                   placeholder="{% trans '50' %}">
+            <label for="{{ form.taille_reservoir.id_for_label }}" class="mb-1 font-medium">{% trans "Taille du réservoir en litres" %}</label>
+            {{ form.taille_reservoir|add_class:"border border-gray-300 rounded px-4 py-2 w-full" }}
+            {% for error in form.taille_reservoir.errors %}
+                <span class="text-red-600 text-sm mt-1">{{ error }}</span>
+            {% endfor %}
         </div>
 
-        <!-- capacite_batterie -->
+        <!-- Capacité de batterie -->
         <div class="flex flex-col">
-            <label for="id_capacite_batterie" class="mb-1 font-medium">{% trans "Capacité de la batterie en kWh" %}</label>
-            <input type="number" id="id_capacite_batterie" name="capacite_batterie"
-                   class="border border-gray-300 rounded px-4 py-2 w-full"
-                   placeholder="Ex: 90">
+            <label for="{{ form.capacite_batterie.id_for_label }}" class="mb-1 font-medium">{% trans "Capacité de la batterie en kWh" %}</label>
+            {{ form.capacite_batterie|add_class:"border border-gray-300 rounded px-4 py-2 w-full" }}
+            {% for error in form.capacite_batterie.errors %}
+                <span class="text-red-600 text-sm mt-1">{{ error }}</span>
+            {% endfor %}
         </div>
-
-
-
 
         <!-- Bouton -->
         <button type="submit"
@@ -94,6 +106,7 @@
         </button>
     </form>
 </div>
+
 <script>
     // Fonction pour récupérer le cookie CSRF
     function getCookie(name) {
@@ -113,11 +126,11 @@
 
     const csrftoken = getCookie('csrftoken');
 
-    // On cible le champ "Marque"
-    const nomMarqueField = document.getElementById('id_nom_marque');
-    if (nomMarqueField) {
-        nomMarqueField.addEventListener('change', function(){
-            const motoriste = this.value;
+    // Exemple: préremplir les champs si nécessaire
+    const marqueField = document.getElementById('id_voiture_marque');
+    if (marqueField) {
+        marqueField.addEventListener('change', function(){
+            const marque = this.value;
 
             fetch('/api/check_nom', {
                 method: 'POST',
@@ -125,14 +138,12 @@
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrftoken,
                 },
-                body: JSON.stringify({motoriste: motoriste})
+                body: JSON.stringify({marque: marque})
             })
             .then(response => response.json())
             .then(data => {
-                // Remplir les champs seulement s'ils existent dans le DOM
                 const mapping = {
-                    'id_nom_marque': data.voiture_marque,
-                    'id_modele': data.voiture_modele,
+                    'id_nom_modele': data.nom_modele,
                     'id_nom_variante': data.nom_variante,
                     'id_nombre_portes': data.nombre_portes,
                     'id_nbre_places': data.nbre_places,
@@ -142,16 +153,11 @@
 
                 for (const [fieldId, value] of Object.entries(mapping)) {
                     const el = document.getElementById(fieldId);
-                    if (el) {
-                        el.value = value || '';
-                    }
+                    if (el) el.value = value || '';
                 }
             })
-            .catch(error => {
-                console.error('Erreur:', error);
-            });
+            .catch(error => console.error('Erreur:', error));
         });
     }
 </script>
 {% endblock %}
-

@@ -62,10 +62,14 @@ def voiture_modele_detail(request, voiture_modele_id):
 
 
 
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from django.utils.translation import gettext as _
+from .forms import VoitureModeleForm
+
 @login_required
 def ajouter_modele(request):
-    societe = request.user.societe  # si multi-tenant
-
     if request.method == "POST":
         form = VoitureModeleForm(request.POST, user=request.user)
 
@@ -75,11 +79,9 @@ def ajouter_modele(request):
             messages.success(
                 request,
                 _("Le modèle a été ajouté avec succès pour la marque %(marque)s.") % {
-                    "marque": voiture_modele.marque.nom_marque
+                    "marque": voiture_modele.voiture_marque.nom_marque
                 }
             )
-
-            return redirect("voiture_modele:voiture_modele_list")
 
         else:
             messages.error(request, _("Le formulaire contient des erreurs."))
@@ -95,7 +97,6 @@ def ajouter_modele(request):
             "submit_text": _("Créer le modèle"),
         },
     )
-
 
 @login_required
 def ajouter_voiture_modele_all(request):

@@ -35,11 +35,12 @@ class MarqueFavoriteForm(forms.ModelForm):
         """
         self.societe = kwargs.pop('societe', None)
         super().__init__(*args, **kwargs)
-        if self.societe:
-            # Exclure les marques déjà favorites
-            self.fields['marque'].queryset = VoitureMarque.objects.exclude(
-                favoris__societe=self.societe
+        if self.user and hasattr(self.user, "societe"):
+            self.fields["voiture_marque"].queryset = VoitureMarque.objects.filter(
+                societe=self.user.societe
             )
+        else:
+            self.fields["voiture_marque"].queryset = VoitureMarque.objects.none()
 
     def save(self, commit=True):
         instance = super().save(commit=False)

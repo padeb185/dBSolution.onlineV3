@@ -1,4 +1,6 @@
 import uuid
+
+from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
 from django import forms
 from django.db import models
@@ -30,38 +32,14 @@ class VoitureModele(models.Model):
 
     taille_reservoir = models.DecimalField(max_digits=5, decimal_places=2, help_text="En litres")
 
-    capacite_batterie = models.PositiveIntegerField(default=0, help_text="Capacité batterie", null=True, blank=True)
+    capacite_batterie = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        help_text="Capacité batterie en kWh"
+    )
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return f"{self.nom_modele} {self.nom_variante or ''}".strip()
-
-    def clean(self):
-        cleaned_data = super().clean()
-        marque = cleaned_data.get("voiture_marque")
-        nom_modele = cleaned_data.get("nom_modele")
-        nom_variante = cleaned_data.get("nom_variante")
-
-        if marque and nom_modele:
-            qs = VoitureModele.objects.filter(
-                voiture_marque=marque,
-                nom_modele__iexact=nom_modele,
-            )
-
-            # 👉 si une variante est fournie → on vérifie le triplet complet
-            if nom_variante:
-                qs = qs.filter(nom_variante__iexact=nom_variante)
-
-            # 👉 exclure l’instance en cas de modification
-            if self.instance.pk:
-                qs = qs.exclude(pk=self.instance.pk)
-
-            if qs.exists():
-                raise forms.ValidationError(
-                    _("Ce modèle avec cette variante existe déjà pour cette marque.")
-                )
 
     class Meta:
         constraints = [
@@ -70,3 +48,40 @@ class VoitureModele(models.Model):
                 name="unique_modele_variante_par_marque"
             )
         ]
+
+    def __str__(self):
+        return f"{self.voiture_marque} {self.nom_modele} {self.nom_variante or ''}".strip()
+
+    def clean(self):
+        super().clean()  # Appel recommandé
+        marque = self.voiture_marque
+        nom_modele = self.nom_modele
+        nom_variante = self.nom_variante
+
+        if marque and nom_modele:
+            qs = VoitureModele.objects.filter(
+                voiture_marque=marque,
+                nom_modele__iexact=nom_modele,
+            )
+
+            # Vérifier la variante si elle est définie
+            if nom_variante:
+                qs = qs.filter(nom_variante__iexact=nom_variante) if nom_variante else qs.filter(
+                    nom_variante__isnull=True)
+
+            else:
+                # Si aucune variante, ne considérer que les modèles sans variante
+                qs = qs.filter(nom_variante__isnull=True)
+
+            # Exclure l’instance actuelle si modification
+            if self.pk:
+                qs = qs.exclude(pk=self.pk)
+
+            if qs.exists():
+                raise ValidationError(
+                    _("Ce modèle avec cette variante existe déjà pour cette marque.")
+                )
+
+    def save(self, *args, **kwargs):
+        self.full_clean()  # valide l’instance avant sauvegarde
+        super().save(*args, **kwargs)

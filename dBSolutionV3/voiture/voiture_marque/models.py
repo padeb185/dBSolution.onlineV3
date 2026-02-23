@@ -2,6 +2,7 @@ from django.db import models
 from django.core.validators import MaxLengthValidator, MinLengthValidator
 import uuid
 from django.conf import settings
+from societe.models import Societe
 
 
 class VoitureMarque(models.Model):
@@ -10,6 +11,8 @@ class VoitureMarque(models.Model):
         default=uuid.uuid4,
         editable=False
     )
+    societe = models.ForeignKey(Societe, on_delete=models.CASCADE)
+
     nom_marque = models.CharField(
         max_length=50,
         unique=True,
