@@ -22,12 +22,6 @@ def modeles_par_marque(request, marque_id):
 
 
 
-
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView
-from django_tenants.utils import tenant_context
-from .models import VoitureModele
-
 class VoitureModeleListView(LoginRequiredMixin, ListView):
     model = VoitureModele
     template_name = "voiture_modele/voituremodele_list.html"  # ton template actuel
