@@ -46,20 +46,20 @@ class ControleFreins(models.Model):
     # Remplacement
     disque_a_remplacer_av = models.BooleanField(
         default=False,
-        verbose_name=_("Disques à remplacer avant")
+        verbose_name=_("Disques avant à remplacer")
     )
     disque_a_remplacer_ar = models.BooleanField(
         default=False,
-        verbose_name=_("disques à remplacer arrière")
+        verbose_name=_("Disques arrière à remplacer")
     )
 
     plaquettes_a_remplacer_av = models.BooleanField(
         default=False,
-        verbose_name=_("Plaquettes à remplacer avant")
+        verbose_name=_("Plaquettes avant à remplacer")
     )
     plaquettes_a_remplacer_ar = models.BooleanField(
         default=False,
-        verbose_name=_("Plaquettes à  remplacer arrière")
+        verbose_name=_("Plaquettes arrière à  remplacer")
     )
 
 
@@ -127,8 +127,8 @@ class RemplacementFreins(models.Model):
     date_remplacement = models.DateTimeField(auto_now_add=True, verbose_name=_("Date de remplacement"))
 
     class Meta:
-        verbose_name = _("Remplacement de freins")
-        verbose_name_plural = _("Remplacements de freins")
+        verbose_name = _("Remplacement des freins")
+        verbose_name_plural = _("Remplacements des freins")
         ordering = ["-date_remplacement"]
 
     def __str__(self):
