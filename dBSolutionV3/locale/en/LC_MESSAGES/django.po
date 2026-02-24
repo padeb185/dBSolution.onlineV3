@@ -1502,6 +1502,7 @@ msgid "Présence de fuite du système de freinage"
 msgstr "Brake system leak detected"
 
 #: .\maintenance\check_up\models.py:411
+#: .\maintenance\freins\models.py:49
 msgid "Disques avant à remplacer"
 msgstr "Front brake discs need to be replaced"
 
@@ -1509,6 +1510,7 @@ msgstr "Front brake discs need to be replaced"
 msgid "Disques arrière à remplacer"
 msgstr "Rear brake discs need to be replaced"
 
+#: .\maintenance\freins\models.py:58
 #: .\maintenance\check_up\models.py:419
 msgid "Plaquettes avant à remplacer"
 msgstr "Front brake pads need to be replaced"
@@ -1636,17 +1638,10 @@ msgstr "Other interventions"
 msgid "Présence de fuite"
 msgstr "Presence of leaks"
 
-#: .\maintenance\freins\models.py:49
-msgid "Disques avant à remplacer"
-msgstr "Front discs to replace"
-
 #: .\maintenance\freins\models.py:53
 msgid "disques arrière à remplacer"
 msgstr "Rear discs to replace"
 
-#: .\maintenance\freins\models.py:58
-msgid "Plaquettes avant à remplacer"
-msgstr "Front brake pads need to be replaced"
 
 #: .\maintenance\freins\models.py:62
 msgid "Plaquettes arrière à  remplacer"
