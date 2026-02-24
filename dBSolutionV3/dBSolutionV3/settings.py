@@ -202,7 +202,7 @@ TENANT_APPS = (
 
 
     'maintenance.autres_interventions.vitres',
-    'maintenance.autres_interventions.système_de_refroidissement',
+    'maintenance.autres_interventions.systeme_de_refroidissement',
     'maintenance.autres_interventions.moteur',
     'maintenance.autres_interventions.geometrie',
     'maintenance.autres_interventions.electricite',
