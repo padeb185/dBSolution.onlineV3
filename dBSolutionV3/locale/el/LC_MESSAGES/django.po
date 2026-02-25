@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-21 18:11+0100\n"
+"POT-Creation-Date: 2026-02-24 12:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -116,7 +116,9 @@ msgstr "Κωδικός χώρας"
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:99
 #: .\theme\templates\fuel\fuel_detail.html:91
 #: .\theme\templates\intervention\intervention_detail.html:99
+#: .\theme\templates\recharge\electricite_detail.html:87
 #: .\theme\templates\societe_cliente\societe_cliente_detail.html:114
+#: .\theme\templates\voiture_modele\voiture_modele_detail.html:82
 msgid "Créé le"
 msgstr "Δημιουργήθηκε στις"
 
@@ -153,7 +155,7 @@ msgstr "Ενημερώθηκε στις"
 msgid "Adresse"
 msgstr "Διεύθυνση"
 
-#: .\adresse\models.py:34 .\theme\templates\dashboard.html:290
+#: .\adresse\models.py:34 .\theme\templates\dashboard.html:265
 msgid "Adresses"
 msgstr "Διευθύνσεις"
 
@@ -224,6 +226,8 @@ msgstr "Email"
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:70
 #: .\theme\templates\fuel\fuel_detail.html:75
 #: .\theme\templates\intervention\intervention_detail.html:70
+#: .\theme\templates\recharge\electricite_detail.html:71
+#: .\theme\templates\voiture_modele\voiture_modele_detail.html:69
 msgid "Identifiant Peppol"
 msgstr "Αναγνωριστικό Peppol"
 
@@ -235,7 +239,7 @@ msgstr "Αναγνωριστικό Peppol, π.χ.: 0208:BE0123456789"
 #: .\assurance\models.py:38
 #: .\theme\templates\assurance\modifier_assurance.html:39
 #: .\theme\templates\assurance_police\modifier_assurance_police.html:39
-#: .\theme\templates\dashboard.html:318
+#: .\theme\templates\dashboard.html:300
 msgid "Assurance"
 msgstr "Ασφάλιση"
 
@@ -295,7 +299,7 @@ msgstr "Συχνότητα πληρωμής"
 msgid "Mode de paiement"
 msgstr "Τρόπος πληρωμής"
 
-#: .\assurance_police\models.py:115 .\theme\templates\dashboard.html:333
+#: .\assurance_police\models.py:115 .\theme\templates\dashboard.html:312
 msgid "Police d'assurance"
 msgstr "Ασφαλιστική Πολιτική"
 
@@ -323,11 +327,14 @@ msgid "Nom de la société"
 msgstr "Όνομα εταιρείας"
 
 #: .\carrosserie\models.py:21
-msgid "Responsable nom"
+#: .\theme\templates\carrosserie\carrosserie_form.html:71
+msgid "Nom du responsable"
 msgstr "Επώνυμο υπευθύνου"
 
 #: .\carrosserie\models.py:22
-msgid "Responsable prenom"
+#, fuzzy
+#| msgid "Prénom du responsable"
+msgid "Prenom du responsable"
 msgstr "Όνομα υπευθύνου"
 
 #: .\carrosserie\models.py:33 .\fournisseur\models.py:24
@@ -345,7 +352,7 @@ msgstr "ΑΦΜ"
 msgid "Carrosserie"
 msgstr "Σασί"
 
-#: .\carrosserie\models.py:55 .\theme\templates\dashboard.html:248
+#: .\carrosserie\models.py:55 .\theme\templates\dashboard.html:229
 msgid "Carrosseries"
 msgstr "Σασί"
 
@@ -467,7 +474,7 @@ msgstr "Ενοικίαση"
 msgid "Client"
 msgstr "Πελάτης"
 
-#: .\client_particulier\models.py:141 .\theme\templates\dashboard.html:234
+#: .\client_particulier\models.py:141 .\theme\templates\dashboard.html:217
 msgid "Clients"
 msgstr "Πελάτες"
 
@@ -611,7 +618,7 @@ msgstr "Ενεργός"
 msgid "Fournisseur"
 msgstr "Προμηθευτής"
 
-#: .\fournisseur\models.py:83 .\theme\templates\dashboard.html:218
+#: .\fournisseur\models.py:83 .\theme\templates\dashboard.html:205
 msgid "Fournisseurs"
 msgstr "Προμηθευτές"
 
@@ -664,9 +671,11 @@ msgstr "Γερμανία"
 msgid "Societe"
 msgstr "Εταιρεία"
 
-#: .\fuel\models.py:52 .\theme\templates\dashboard.html:52
-#: .\theme\templates\fuel\fuel_list.html:17
+#: .\fuel\models.py:52 .\recharge\models.py:25
+#: .\theme\templates\dashboard.html:54 .\theme\templates\fuel\fuel_list.html:17
 #: .\theme\templates\fuel\fuel_list.html:55
+#: .\theme\templates\recharge\recharge_list.html:17
+#: .\theme\templates\recharge\recharge_list.html:55
 msgid "Utilisateur"
 msgstr "Χρήστης"
 
@@ -675,19 +684,23 @@ msgstr "Χρήστης"
 #: .\maintenance\jeux_pieces\models.py:48
 #: .\maintenance\nettoyage_exterieur\models.py:18
 #: .\maintenance\nettoyage_interieur\models.py:19 .\piece\models.py:50
-#: .\recharge\models.py:38 .\theme\templates\fuel\fuel_list.html:57
+#: .\recharge\forms.py:31 .\recharge\models.py:46
+#: .\theme\templates\fuel\fuel_list.html:57
+#: .\theme\templates\recharge\recharge_list.html:57
 msgid "Véhicule"
 msgstr "Όχημα"
 
-#: .\fuel\models.py:68 .\recharge\models.py:45
+#: .\fuel\models.py:68 .\recharge\models.py:53
 #: .\theme\templates\fuel\fuel_form.html:52
 #: .\theme\templates\fuel\fuel_list.html:59
+#: .\theme\templates\recharge\electricite_form.html:52
+#: .\theme\templates\recharge\recharge_list.html:59
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:63
 msgid "Type de carburant"
 msgstr "Τύπος καυσίμου"
 
 #: .\fuel\models.py:73 .\maintenance\models.py:64 .\piece\models.py:68
-#: .\recharge\models.py:41
+#: .\recharge\forms.py:32 .\recharge\models.py:49
 #: .\theme\templates\assurance_police\assurance_police_detail.html:41
 #: .\theme\templates\assurance_police\assurance_police_list.html:22
 #: .\theme\templates\assurance_police\assurance_police_list.html:55
@@ -698,6 +711,9 @@ msgstr "Τύπος καυσίμου"
 #: .\theme\templates\intervention\intervention_detail.html:41
 #: .\theme\templates\intervention\intervention_list.html:45
 #: .\theme\templates\maintenance\creer_maintenance.html:16
+#: .\theme\templates\recharge\electricite_detail.html:37
+#: .\theme\templates\recharge\electricite_form.html:37
+#: .\theme\templates\recharge\recharge_list.html:56
 msgid "Immatriculation"
 msgstr "Άδεια κυκλοφορίας"
 
@@ -718,6 +734,7 @@ msgid "Litres"
 msgstr "Λίτρα"
 
 #: .\fuel\models.py:97 .\theme\templates\fuel\fuel_form.html:82
+#: .\theme\templates\recharge\electricite_form.html:82
 msgid "Prix du plein (€)"
 msgstr "Τιμή πλήρωσης (€)"
 
@@ -730,19 +747,20 @@ msgid "Montant HT"
 msgstr "Ποσό χωρίς ΦΠΑ"
 
 #: .\fuel\models.py:110
-
 msgid "TVA"
 msgstr "ΦΠΑ"
 
-#: .\fuel\models.py:115 .\recharge\models.py:54
+#: .\fuel\models.py:115 .\recharge\forms.py:38 .\recharge\models.py:73
 #: .\theme\templates\fuel\fuel_form.html:123
+#: .\theme\templates\recharge\electricite_form.html:112
 msgid "Validation"
 msgstr "Επιβεβαίωση"
 
-#: .\fuel\models.py:121 .\theme\templates\dashboard.html:304
+#: .\fuel\models.py:121 .\theme\templates\dashboard.html:277
 #: .\theme\templates\fuel\fuel_detail.html:45
 #: .\theme\templates\fuel\fuel_form.html:11
 #: .\theme\templates\fuel\modifier_fuel.html:39
+#: .\theme\templates\recharge\electricite_detail.html:45
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:56
 #: .\theme\templates\voiture_moteur\list.html:38
 #: .\theme\templates\voiture_moteur\moteur_detail.html:32
@@ -757,7 +775,7 @@ msgstr "Καύσιμα"
 msgid "Carburant ajouté avec succès."
 msgstr "Το καύσιμο προστέθηκε με επιτυχία."
 
-#: .\fuel\views.py:63 .\fuel\views.py:161
+#: .\fuel\views.py:63 .\fuel\views.py:161 .\recharge\views.py:51
 msgid "Veuillez corriger les erreurs ci-dessous."
 msgstr "Παρακαλώ διορθώστε τα σφάλματα παρακάτω."
 
@@ -1102,7 +1120,7 @@ msgstr "Διαγνωστική συσκευή"
 msgid "Libellé"
 msgstr "Ετικέτα"
 
-#: .\investissements\models.py:38
+#: .\investissements\models.py:38 .\maintenance\freins\models.py:123
 msgid "Détails"
 msgstr "Λεπτομέρειες"
 
@@ -1210,9 +1228,10 @@ msgstr "Σασμάν / Κιβώτιο ταχυτήτων"
 #: .\maintenance\bruits\models.py:24 .\maintenance\check_up\models.py:71
 #: .\maintenance\check_up\models.py:234 .\maintenance\check_up\models.py:291
 #: .\maintenance\check_up\models.py:388 .\maintenance\check_up\models.py:454
-#: .\maintenance\freins\models.py:17 .\maintenance\jeux_pieces\models.py:38
-#: .\maintenance\models.py:102 .\maintenance\niveaux\models.py:12
-#: .\maintenance\silent_blocs\models.py:27 .\theme\templates\dashboard.html:203
+#: .\maintenance\freins\models.py:17 .\maintenance\freins\models.py:100
+#: .\maintenance\jeux_pieces\models.py:38 .\maintenance\models.py:102
+#: .\maintenance\niveaux\models.py:12 .\maintenance\silent_blocs\models.py:27
+#: .\theme\templates\dashboard.html:193
 msgid "Maintenance"
 msgstr "Συντήρηση"
 
@@ -1446,7 +1465,7 @@ msgstr "Μη καθορισμένο"
 
 #: .\maintenance\check_up\models.py:351 .\maintenance\jeux_pieces\models.py:108
 #: .\maintenance\models.py:46 .\utilisateurs\models.py:73
-#: .\utilisateurs\views.py:213
+#: .\utilisateurs\views.py:217
 msgid "Apprenti"
 msgstr "Μαθητευόμενος"
 
@@ -1455,7 +1474,7 @@ msgstr "Μαθητευόμενος"
 #: .\maintenance\models.py:37 .\maintenance\nettoyage_exterieur\models.py:25
 #: .\maintenance\nettoyage_interieur\models.py:26
 #: .\theme\templates\maintenance\detail.html:17 .\utilisateurs\models.py:74
-#: .\utilisateurs\views.py:214
+#: .\utilisateurs\views.py:218
 msgid "Mécanicien"
 msgstr "Μηχανικός"
 
@@ -1500,7 +1519,7 @@ msgstr "Εμπρός τακάκια φρένων προς αντικατάστα
 msgid "Plaquettes arrière à remplacer"
 msgstr "Πίσω τακάκια φρένων προς αντικατάσταση"
 
-#: .\maintenance\check_up\models.py:428 .\maintenance\freins\models.py:60
+#: .\maintenance\check_up\models.py:428 .\maintenance\freins\models.py:71
 #, python-format
 msgid "Contrôle freins – %(partie)s (%(date)s)"
 msgstr "Έλεγχος φρένων – %(partie)s (%(date)s)"
@@ -1525,15 +1544,17 @@ msgstr "Τελική έγκριση"
 #: .\maintenance\check_up\models.py:475 .\maintenance\check_up\models.py:515
 #: .\maintenance\nettoyage_exterieur\models.py:34
 #: .\maintenance\nettoyage_interieur\models.py:38 .\piece\models.py:127
-#: .\piece\piece_fluides\models.py:66 .\theme\templates\dashboard.html:51
+#: .\piece\piece_fluides\models.py:66 .\theme\templates\dashboard.html:53
 #: .\theme\templates\fuel\fuel_list.html:38
 #: .\theme\templates\fuel\fuel_list.html:64
 #: .\theme\templates\maintenance\detail.html:19
+#: .\theme\templates\recharge\recharge_list.html:64
 msgid "Date"
 msgstr "Ημερομηνία"
 
 #: .\maintenance\check_up\models.py:478 .\maintenance\check_up\views.py:114
 #: .\maintenance\models.py:12 .\maintenance\nettoyage_exterieur\models.py:37
+#: .\theme\templates\maintenance\choisir_type.html:93
 msgid "Nettoyage extérieur"
 msgstr "Καθαρισμός εξωτερικού"
 
@@ -1545,6 +1566,7 @@ msgstr "Καθαρισμοί εξωτερικού"
 #: .\maintenance\check_up\models.py:490 .\maintenance\check_up\models.py:518
 #: .\maintenance\check_up\views.py:115 .\maintenance\models.py:13
 #: .\maintenance\nettoyage_interieur\models.py:41
+#: .\theme\templates\maintenance\choisir_type.html:108
 msgid "Nettoyage intérieur"
 msgstr "Καθαρισμός εσωτερικού"
 
@@ -1580,29 +1602,35 @@ msgid "Nettoyages intérieurs"
 msgstr "Καθαρισμοί εσωτερικού"
 
 #: .\maintenance\check_up\views.py:110
+#: .\theme\templates\maintenance\choisir_type.html:33
 msgid "Checkup"
 msgstr "Έλεγχος"
 
 #: .\maintenance\check_up\views.py:111 .\maintenance\models.py:9
+#: .\theme\templates\maintenance\choisir_type.html:48
 msgid "Entretien"
 msgstr "Συντήρηση"
 
 #: .\maintenance\check_up\views.py:112 .\maintenance\models.py:10
+#: .\theme\templates\maintenance\choisir_type.html:63
 msgid "Freins"
 msgstr "Φρένα"
 
 #: .\maintenance\check_up\views.py:113 .\maintenance\models.py:11
-#: .\piece\piece_pneus\models.py:55 .\theme\templates\dashboard.html:188
+#: .\piece\piece_pneus\models.py:55 .\theme\templates\dashboard.html:181
+#: .\theme\templates\maintenance\choisir_type.html:78
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:170
 #: .\theme\templates\voiture_exemplaire\lier_pneus.html:35
 msgid "Pneus"
 msgstr "Ελαστικά"
 
 #: .\maintenance\check_up\views.py:116 .\maintenance\models.py:14
+#: .\theme\templates\maintenance\choisir_type.html:123
 msgid "Niveaux"
 msgstr "Επίπεδα"
 
 #: .\maintenance\check_up\views.py:117 .\maintenance\models.py:15
+#: .\theme\templates\maintenance\choisir_type.html:138
 msgid "Autres interventions"
 msgstr "Άλλες επεμβάσεις"
 
@@ -1611,12 +1639,82 @@ msgid "Présence de fuite"
 msgstr "Παρουσία διαρροής"
 
 #: .\maintenance\freins\models.py:49
-msgid "À remplacer avant"
+#, fuzzy
+#| msgid "À remplacer avant"
+msgid "Disques à remplacer avant"
 msgstr "Να αντικατασταθεί μπροστά"
 
 #: .\maintenance\freins\models.py:53
-msgid "À remplacer arrière"
+#, fuzzy
+#| msgid "À remplacer arrière"
+msgid "disques à remplacer arrière"
 msgstr "Να αντικατασταθεί πίσω"
+
+#: .\maintenance\freins\models.py:58
+#, fuzzy
+#| msgid "Plaquettes avant à remplacer"
+msgid "Plaquettes à remplacer avant"
+msgstr "Εμπρός τακάκια φρένων προς αντικατάσταση"
+
+#: .\maintenance\freins\models.py:62
+#, fuzzy
+#| msgid "Plaquettes avant à remplacer"
+msgid "Plaquettes à  remplacer arrière"
+msgstr "Εμπρός τακάκια φρένων προς αντικατάσταση"
+
+#: .\maintenance\freins\models.py:108
+#, fuzzy
+#| msgid "À remplacer"
+msgid "Pièce remplacée"
+msgstr "Να αντικατασταθεί"
+
+#: .\maintenance\freins\models.py:109
+#, fuzzy
+#| msgid "Contrôle des freins (plaquettes, disques, fuites…)"
+msgid "La pièce de frein remplacée, ex : plaquettes, disques, étrier…"
+msgstr "Έλεγχος φρένων (κάλαθες, δίσκοι, διαρροές…)"
+
+#: .\maintenance\freins\models.py:116
+msgid "Durée de remplacement (minutes)"
+msgstr ""
+
+#: .\maintenance\freins\models.py:117
+msgid "Temps estimé ou réel pour effectuer le remplacement"
+msgstr ""
+
+#: .\maintenance\freins\models.py:124
+msgid "Notes ou détails supplémentaires sur le remplacement effectué"
+msgstr ""
+
+#: .\maintenance\freins\models.py:127
+#, fuzzy
+#| msgid "Cage de roulement"
+msgid "Date de remplacement"
+msgstr "Κλουβί ρουλεμάν"
+
+#: .\maintenance\freins\models.py:130
+#, fuzzy
+#| msgid "Remplacement liquide de frein"
+msgid "Remplacement de freins"
+msgstr "Αντικατάσταση υγρού φρένων"
+
+#: .\maintenance\freins\models.py:131
+#, fuzzy
+#| msgid "Remplacement liquide de frein"
+msgid "Remplacements de freins"
+msgstr "Αντικατάσταση υγρού φρένων"
+
+#: .\maintenance\freins\models.py:136
+#, fuzzy, python-format
+#| msgid "Contrôle freins – %(partie)s (%(date)s)"
+msgid "Remplacement – %(piece)s (%(date)s)"
+msgstr "Έλεγχος φρένων – %(partie)s (%(date)s)"
+
+#: .\maintenance\freins\models.py:138
+#, fuzzy
+#| msgid "Pièce contrôlée"
+msgid "Pièce non spécifiée"
+msgstr "Ελεγχόμενο εξάρτημα"
 
 #: .\maintenance\models.py:8
 msgid "Check-up"
@@ -1791,7 +1889,7 @@ msgstr "Χωρίς αναφορά"
 msgid "%(libelle)s (%(reference)s) – %(quantite)s pcs"
 msgstr "%(libelle)s (%(reference)s) – %(quantite)s τεμ"
 
-#: .\panier\models.py:34 .\theme\templates\dashboard.html:276
+#: .\panier\models.py:34 .\theme\templates\dashboard.html:253
 msgid "Société cliente"
 msgstr "Εταιρεία πελάτη"
 
@@ -1866,16 +1964,24 @@ msgstr "%(piece)s × %(quantite)s"
 msgid "Code-barre"
 msgstr "Barcode"
 
-#: .\piece\models.py:32 .\recharge\models.py:32
+#: .\piece\models.py:32 .\recharge\forms.py:30 .\recharge\models.py:40
 #: .\theme\templates\fuel\fuel_form.html:97
 #: .\theme\templates\maintenance\creer_maintenance.html:51
+#: .\theme\templates\recharge\electricite_form.html:97
+#: .\theme\templates\voiture_modele\ajouter_modele.html:50
+#: .\theme\templates\voiture_modele\voiture_modele_detail.html:40
 msgid "Modèle"
 msgstr "Μοντέλο"
 
 #: .\piece\models.py:41 .\piece\models.py:99 .\piece\models.py:108
-#: .\recharge\models.py:26 .\theme\templates\fuel\fuel_form.html:90
+#: .\recharge\forms.py:29 .\recharge\models.py:34
+#: .\theme\templates\fuel\fuel_form.html:90
 #: .\theme\templates\maintenance\creer_maintenance.html:50
+#: .\theme\templates\recharge\electricite_form.html:90
 #: .\theme\templates\voiture_marque\ajouter_marque.html:28
+#: .\theme\templates\voiture_modele\ajouter_modele.html:41
+#: .\theme\templates\voiture_modele\modifier_voiture_modele1.html:38
+#: .\theme\templates\voiture_modele\voiture_modele_detail.html:36
 msgid "Marque"
 msgstr "Μάρκα"
 
@@ -2508,6 +2614,7 @@ msgid "Huile de direction (qualité)"
 msgstr "Λάδι τιμονιού (ποιότητα)"
 
 #: .\piece\piece_direction\models.py:19
+#: .\theme\templates\voiture_modele\voiture_modele_detail.html:44
 msgid "Réservoir"
 msgstr "Δοχείο"
 
@@ -2636,6 +2743,7 @@ msgid "Alternateur"
 msgstr "Δυναμό"
 
 #: .\piece\piece_electricite\models.py:9
+#: .\theme\templates\voiture_modele\voiture_modele_detail.html:48
 msgid "Batterie"
 msgstr "Μπαταρία"
 
@@ -2860,7 +2968,7 @@ msgstr "Στοιχεία"
 msgid "Embrayage"
 msgstr "Συμπλέκτης"
 
-#: .\piece\piece_embrayage\models.py:73 .\theme\templates\dashboard.html:143
+#: .\piece\piece_embrayage\models.py:73 .\theme\templates\dashboard.html:145
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:108
 msgid "Embrayages"
 msgstr "Συμπλέκτες"
@@ -3020,6 +3128,7 @@ msgid "Qualité du fluide"
 msgstr "Ποιότητα υγρού"
 
 #: .\piece\piece_fluides\models.py:36
+#: .\theme\templates\maintenance\entretien\creer_entretien.html:44
 msgid "Fluides"
 msgstr "Υγρά"
 
@@ -4124,39 +4233,62 @@ msgstr "Εξάρτημα μετάδοσης"
 msgid "Pièces de transmission"
 msgstr "Εξαρτήματα μετάδοσης"
 
-#: .\recharge\models.py:11 .\recharge\models.py:57
-msgid "Electricite"
-msgstr "Ηλεκτρικό ρεύμα"
-
-#: .\recharge\models.py:48
+#: .\recharge\forms.py:33 .\recharge\models.py:56
 msgid "Kilos Watt max"
 msgstr "Μέγιστα κιλοβάτ"
 
-#: .\recharge\models.py:49
-msgid "Date de la recharge"
-msgstr "Ημερομηνία φόρτισης"
-
-#: .\recharge\models.py:50
+#: .\recharge\forms.py:34 .\recharge\models.py:58
 msgid "Kilos Watt"
 msgstr "Κιλοβάτ"
 
-#: .\recharge\models.py:51
+#: .\recharge\forms.py:35 .\recharge\models.py:59
 msgid "Prix de la recharge (€)"
 msgstr "Τιμή φόρτισης (€)"
 
-#: .\recharge\models.py:52
+#: .\recharge\forms.py:36 .\recharge\models.py:57 .\recharge\models.py:61
+#: .\theme\templates\recharge\electricite_form.html:66
+#: .\theme\templates\recharge\recharge_list.html:38
+msgid "Date de la recharge"
+msgstr "Ημερομηνία φόρτισης"
+
+#: .\recharge\forms.py:37 .\recharge\models.py:63
+#, fuzzy
+#| msgid "Roues de rechange"
+msgid "Temps de recharge"
+msgstr "Ρεζέρβες"
+
+#: .\recharge\models.py:11 .\recharge\models.py:76
+msgid "Electricite"
+msgstr "Ηλεκτρικό ρεύμα"
+
+#: .\recharge\models.py:60
 msgid "Prix au kilo Watt (€)"
 msgstr "Τιμή ανά κιλοβάτ (€)"
 
-#: .\recharge\models.py:58
+#: .\recharge\models.py:68
+#, fuzzy
+#| msgid "Kilométrage moteur"
+msgid "Kilométrage recharge"
+msgstr "Χιλιομετρική απόσταση κινητήρα"
+
+#: .\recharge\models.py:77
 msgid "Electricites"
 msgstr "Ηλεκτρισμοί"
+
+#: .\recharge\views.py:48
+#, fuzzy
+#| msgid "Carburant ajouté avec succès."
+msgid "Recharge électrique ajoutée avec succès."
+msgstr "Το καύσιμο προστέθηκε με επιτυχία."
 
 #: .\societe_cliente\forms.py:17
 msgid ""
 "Le numéro de TVA doit commencer par un code pays européen valide (ex: BE, "
 "FR, DE...)."
-msgstr "Ο αριθμός ΦΠΑ πρέπει να ξεκινά με έναν έγκυρο ευρωπαϊκό κωδικό χώρας (π.χ. BE, FR, DE...)."
+msgstr ""
+"Ο αριθμός ΦΠΑ πρέπει να ξεκινά με έναν έγκυρο ευρωπαϊκό κωδικό χώρας (π.χ. "
+"BE, FR, DE...)."
+
 #: .\societe_cliente\models.py:24
 msgid "Nom de la societe"
 msgstr "Όνομα εταιρείας"
@@ -4273,8 +4405,10 @@ msgstr "Επιστροφή στη λίστα διευθύνσεων"
 #: .\theme\templates\fuel\fuel_detail.html:33
 #: .\theme\templates\intervention\intervention_detail.html:32
 #: .\theme\templates\maintenance\detail.html:13
+#: .\theme\templates\recharge\electricite_detail.html:33
 #: .\theme\templates\societe_cliente\societe_cliente_detail.html:29
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:60
+#: .\theme\templates\voiture_modele\voiture_modele_detail.html:32
 msgid "Informations générales"
 msgstr "Γενικές Πληροφορίες"
 
@@ -4294,7 +4428,9 @@ msgstr "Επεξεργασία διεύθυνσης"
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:95
 #: .\theme\templates\fuel\fuel_detail.html:87
 #: .\theme\templates\intervention\intervention_detail.html:95
+#: .\theme\templates\recharge\electricite_detail.html:83
 #: .\theme\templates\societe_cliente\societe_cliente_detail.html:110
+#: .\theme\templates\voiture_modele\voiture_modele_detail.html:78
 msgid "Métadonnées"
 msgstr "Μεταδεδομένα"
 
@@ -4317,8 +4453,12 @@ msgstr "Δημιουργία διεύθυνσης"
 #: .\theme\templates\fuel\fuel_form.html:132
 #: .\theme\templates\fuel\modifier_fuel.html:54
 #: .\theme\templates\intervention\modifier_intervention.html:49
+#: .\theme\templates\recharge\electricite_form.html:121
 #: .\theme\templates\societe_cliente\modifier_societe_cliente.html:62
 #: .\theme\templates\societe_cliente\societe_cliente_form.html:138
+#: .\theme\templates\voiture_modele\modifier_voiture_modele1.html:64
+#: .\theme\templates\voiture_modele\modifier_voiture_modele_view.html:46
+#: .\theme\templates\voiture_modele\voiture_modele_form.html:75
 msgid "Enregistrer"
 msgstr "Αποθήκευση"
 
@@ -4357,6 +4497,8 @@ msgstr "Προσθήκη διεύθυνσης"
 #: .\theme\templates\fuel\fuel_list.html:140
 #: .\theme\templates\intervention\intervention_list.html:47
 #: .\theme\templates\intervention\intervention_list.html:59
+#: .\theme\templates\recharge\recharge_list.html:65
+#: .\theme\templates\recharge\recharge_list.html:140
 #: .\theme\templates\societe_cliente\societe_cliente_list.html:63
 #: .\theme\templates\societe_cliente\societe_cliente_list.html:77
 #: .\theme\templates\voiture_boite\list.html:40
@@ -4367,6 +4509,8 @@ msgstr "Προσθήκη διεύθυνσης"
 #: .\theme\templates\voiture_freins\list.html:62
 #: .\theme\templates\voiture_freins_ar\list_ar.html:46
 #: .\theme\templates\voiture_freins_ar\list_ar.html:59
+#: .\theme\templates\voiture_modele\voituremodele_list.html:67
+#: .\theme\templates\voiture_modele\voituremodele_list.html:84
 #: .\theme\templates\voiture_moteur\list.html:41
 #: .\theme\templates\voiture_moteur\list.html:58
 #: .\theme\templates\voiture_pneus\list.html:77
@@ -4387,10 +4531,12 @@ msgstr "Μη διαθέσιμες πληροφορίες"
 #: .\theme\templates\fournisseurs\fournisseur_list.html:87
 #: .\theme\templates\fuel\fuel_list.html:157
 #: .\theme\templates\intervention\intervention_list.html:74
+#: .\theme\templates\recharge\recharge_list.html:157
 #: .\theme\templates\societe_cliente\societe_cliente_list.html:93
 #: .\theme\templates\voiture_embrayage\list.html:85
 #: .\theme\templates\voiture_freins\list.html:77
 #: .\theme\templates\voiture_freins_ar\list_ar.html:73
+#: .\theme\templates\voiture_modele\voituremodele_list.html:99
 #: .\theme\templates\voiture_pneus\list.html:110
 msgid "Recherche globale :"
 msgstr "Παγκόσμια αναζήτηση:"
@@ -4403,11 +4549,13 @@ msgstr "Παγκόσμια αναζήτηση:"
 #: .\theme\templates\fournisseurs\fournisseur_list.html:88
 #: .\theme\templates\fuel\fuel_list.html:158
 #: .\theme\templates\intervention\intervention_list.html:75
+#: .\theme\templates\recharge\recharge_list.html:158
 #: .\theme\templates\societe_cliente\societe_cliente_list.html:94
 #: .\theme\templates\voiture_boite\list.html:74
 #: .\theme\templates\voiture_embrayage\list.html:86
 #: .\theme\templates\voiture_freins\list.html:78
 #: .\theme\templates\voiture_freins_ar\list_ar.html:74
+#: .\theme\templates\voiture_modele\voituremodele_list.html:100
 #: .\theme\templates\voiture_moteur\list.html:77
 #: .\theme\templates\voiture_pneus\list.html:111
 msgid "Afficher _MENU_ éléments"
@@ -4430,11 +4578,13 @@ msgstr "Δεν βρέθηκαν διευθύνσεις"
 #: .\theme\templates\fournisseurs\fournisseur_list.html:93
 #: .\theme\templates\fuel\fuel_list.html:163
 #: .\theme\templates\intervention\intervention_list.html:80
+#: .\theme\templates\recharge\recharge_list.html:163
 #: .\theme\templates\societe_cliente\societe_cliente_list.html:99
 #: .\theme\templates\voiture_boite\list.html:79
 #: .\theme\templates\voiture_embrayage\list.html:91
 #: .\theme\templates\voiture_freins\list.html:83
 #: .\theme\templates\voiture_freins_ar\list_ar.html:79
+#: .\theme\templates\voiture_modele\voituremodele_list.html:105
 #: .\theme\templates\voiture_moteur\list.html:82
 #: .\theme\templates\voiture_pneus\list.html:116
 msgid "Premier"
@@ -4448,11 +4598,13 @@ msgstr "Πρώτος"
 #: .\theme\templates\fournisseurs\fournisseur_list.html:94
 #: .\theme\templates\fuel\fuel_list.html:164
 #: .\theme\templates\intervention\intervention_list.html:81
+#: .\theme\templates\recharge\recharge_list.html:164
 #: .\theme\templates\societe_cliente\societe_cliente_list.html:100
 #: .\theme\templates\voiture_boite\list.html:80
 #: .\theme\templates\voiture_embrayage\list.html:92
 #: .\theme\templates\voiture_freins\list.html:84
 #: .\theme\templates\voiture_freins_ar\list_ar.html:80
+#: .\theme\templates\voiture_modele\voituremodele_list.html:106
 #: .\theme\templates\voiture_moteur\list.html:83
 #: .\theme\templates\voiture_pneus\list.html:117
 msgid "Dernier"
@@ -4466,11 +4618,13 @@ msgstr "Τελευταίος"
 #: .\theme\templates\fournisseurs\fournisseur_list.html:95
 #: .\theme\templates\fuel\fuel_list.html:165
 #: .\theme\templates\intervention\intervention_list.html:82
+#: .\theme\templates\recharge\recharge_list.html:165
 #: .\theme\templates\societe_cliente\societe_cliente_list.html:101
 #: .\theme\templates\voiture_boite\list.html:81
 #: .\theme\templates\voiture_embrayage\list.html:93
 #: .\theme\templates\voiture_freins\list.html:85
 #: .\theme\templates\voiture_freins_ar\list_ar.html:81
+#: .\theme\templates\voiture_modele\voituremodele_list.html:107
 #: .\theme\templates\voiture_moteur\list.html:84
 #: .\theme\templates\voiture_pneus\list.html:118
 msgid "Suivant"
@@ -4484,11 +4638,13 @@ msgstr "Επόμενος"
 #: .\theme\templates\fournisseurs\fournisseur_list.html:96
 #: .\theme\templates\fuel\fuel_list.html:166
 #: .\theme\templates\intervention\intervention_list.html:83
+#: .\theme\templates\recharge\recharge_list.html:166
 #: .\theme\templates\societe_cliente\societe_cliente_list.html:102
 #: .\theme\templates\voiture_boite\list.html:82
 #: .\theme\templates\voiture_embrayage\list.html:94
 #: .\theme\templates\voiture_freins\list.html:86
 #: .\theme\templates\voiture_freins_ar\list_ar.html:82
+#: .\theme\templates\voiture_modele\voituremodele_list.html:108
 #: .\theme\templates\voiture_moteur\list.html:85
 #: .\theme\templates\voiture_pneus\list.html:119
 msgid "Précédent"
@@ -4508,9 +4664,12 @@ msgstr "Επεξεργασία διεύθυνσης:"
 #: .\theme\templates\fuel\fuel_form.html:135
 #: .\theme\templates\fuel\modifier_fuel.html:58
 #: .\theme\templates\intervention\modifier_intervention.html:54
+#: .\theme\templates\recharge\electricite_form.html:124
 #: .\theme\templates\societe_cliente\modifier_societe_cliente.html:67
 #: .\theme\templates\voiture_exemplaire\ajouter_exemplaire_all.html:47
 #: .\theme\templates\voiture_exemplaire\modifier_exemplaire.html:84
+#: .\theme\templates\voiture_modele\modifier_voiture_modele1.html:68
+#: .\theme\templates\voiture_modele\modifier_voiture_modele_view.html:50
 msgid "Annuler"
 msgstr "Ακύρωση"
 
@@ -4538,6 +4697,8 @@ msgstr "Τροποποίηση ασφαλιστή"
 #: .\theme\templates\fournisseurs\fournisseur_detail.html:66
 #: .\theme\templates\fuel\fuel_detail.html:71
 #: .\theme\templates\intervention\intervention_detail.html:66
+#: .\theme\templates\recharge\electricite_detail.html:67
+#: .\theme\templates\voiture_modele\voiture_modele_detail.html:65
 msgid "Informations Peppol"
 msgstr "Πληροφορίες Peppol"
 
@@ -4727,10 +4888,6 @@ msgstr "Δημιουργία αμαξώματος"
 msgid "Nom de la carrosserie"
 msgstr "Όνομα αμαξώματος"
 
-#: .\theme\templates\carrosserie\carrosserie_form.html:71
-msgid "Nom du responsable"
-msgstr "Επώνυμο υπευθύνου"
-
 #: .\theme\templates\carrosserie\carrosserie_form.html:78
 msgid "Prénom du responsable"
 msgstr "Όνομα υπευθύνου"
@@ -4837,7 +4994,7 @@ msgstr "Δεν βρέθηκε κανένας πελάτης"
 msgid "Modifier le client :"
 msgstr "Τροποποίηση πελάτη:"
 
-#: .\theme\templates\dashboard.html:6
+#: .\theme\templates\dashboard.html:7
 msgid "Bienvenue sur le tableau de bord"
 msgstr "Καλώς ήρθατε στον πίνακα ελέγχου"
 
@@ -4845,16 +5002,25 @@ msgstr "Καλώς ήρθατε στον πίνακα ελέγχου"
 msgid "Utilisateurs"
 msgstr "Χρήστες"
 
-#: .\theme\templates\dashboard.html:16 .\theme\templates\dashboard.html:80
-#: .\theme\templates\dashboard.html:99 .\theme\templates\dashboard.html:115
-#: .\theme\templates\dashboard.html:130 .\theme\templates\dashboard.html:145
-#: .\theme\templates\dashboard.html:160 .\theme\templates\dashboard.html:175
-#: .\theme\templates\dashboard.html:190 .\theme\templates\dashboard.html:205
-#: .\theme\templates\dashboard.html:220 .\theme\templates\dashboard.html:236
-#: .\theme\templates\dashboard.html:250 .\theme\templates\dashboard.html:264
-#: .\theme\templates\dashboard.html:278 .\theme\templates\dashboard.html:292
-#: .\theme\templates\dashboard.html:306 .\theme\templates\dashboard.html:320
-#: .\theme\templates\dashboard.html:335
+#: .\theme\templates\dashboard.html:16 .\theme\templates\dashboard.html:83
+#: .\theme\templates\dashboard.html:97 .\theme\templates\dashboard.html:111
+#: .\theme\templates\dashboard.html:123 .\theme\templates\dashboard.html:135
+#: .\theme\templates\dashboard.html:147 .\theme\templates\dashboard.html:159
+#: .\theme\templates\dashboard.html:171 .\theme\templates\dashboard.html:183
+#: .\theme\templates\dashboard.html:195 .\theme\templates\dashboard.html:207
+#: .\theme\templates\dashboard.html:219 .\theme\templates\dashboard.html:231
+#: .\theme\templates\dashboard.html:243 .\theme\templates\dashboard.html:255
+#: .\theme\templates\dashboard.html:267 .\theme\templates\dashboard.html:279
+#: .\theme\templates\dashboard.html:290 .\theme\templates\dashboard.html:302
+#: .\theme\templates\dashboard.html:314
+#: .\theme\templates\maintenance\choisir_type.html:35
+#: .\theme\templates\maintenance\choisir_type.html:50
+#: .\theme\templates\maintenance\choisir_type.html:65
+#: .\theme\templates\maintenance\choisir_type.html:80
+#: .\theme\templates\maintenance\choisir_type.html:95
+#: .\theme\templates\maintenance\choisir_type.html:110
+#: .\theme\templates\maintenance\choisir_type.html:125
+#: .\theme\templates\maintenance\choisir_type.html:140
 msgid "Nombre total :"
 msgstr "Συνολικός αριθμός:"
 
@@ -4874,55 +5040,68 @@ msgstr "Ειδοποιήσεις"
 msgid "Messages non lus :"
 msgstr "Αδιάβαστα μηνύματα: "
 
-#: .\theme\templates\dashboard.html:47
+#: .\theme\templates\dashboard.html:48
 msgid "Dernières activités"
 msgstr "Τελευταίες δραστηριότητες"
 
-#: .\theme\templates\dashboard.html:53
+#: .\theme\templates\dashboard.html:55
 msgid "Action"
 msgstr "Ενέργεια"
 
-#: .\theme\templates\dashboard.html:59
+#: .\theme\templates\dashboard.html:62
 msgid "Connexion"
 msgstr "Σύνδεση"
 
-#: .\theme\templates\dashboard.html:62
+#: .\theme\templates\dashboard.html:67
 msgid "Modification de projet"
 msgstr "Τροποποίηση έργου"
 
-#: .\theme\templates\dashboard.html:78
+#: .\theme\templates\dashboard.html:81
 #: .\theme\templates\voiture_marque\marques_list.html:9
 msgid "Marques de voiture"
 msgstr "Μάρκες αυτοκινήτων"
 
-#: .\theme\templates\dashboard.html:97
+#: .\theme\templates\dashboard.html:95
+#, fuzzy
+#| msgid "Modèle de voiture"
+msgid "Modèles de voiture"
+msgstr "Μοντέλο αυτοκινήτου"
+
+#: .\theme\templates\dashboard.html:109
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:78
 msgid "Moteurs"
 msgstr "Κινητήρες"
 
-#: .\theme\templates\dashboard.html:113
+#: .\theme\templates\dashboard.html:121
 msgid "Liste des Véhicules"
 msgstr "Λίστα Οχημάτων"
 
-#: .\theme\templates\dashboard.html:128
+#: .\theme\templates\dashboard.html:133
 msgid "Boites de vitesses"
 msgstr "Κιβώτια Ταχυτήτων"
 
-#: .\theme\templates\dashboard.html:158
+#: .\theme\templates\dashboard.html:157
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:123
 msgid "Freins avant"
 msgstr "Μπροστινά Φρένα"
 
-#: .\theme\templates\dashboard.html:173
+#: .\theme\templates\dashboard.html:169
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:149
 msgid "Freins arrière"
 msgstr "Πίσω Φρένα"
 
-#: .\theme\templates\dashboard.html:262
+#: .\theme\templates\dashboard.html:241
 msgid "Intervention carrosserie"
 msgstr "Εργασία αμαξώματος"
 
-#: .\theme\templates\dashboard.html:349
+#: .\theme\templates\dashboard.html:288
+#: .\theme\templates\recharge\electricite_form.html:11
+#, fuzzy
+#| msgid "Machine électrique"
+msgid "Recharge électrique"
+msgstr "Ηλεκτρικός κινητήρας"
+
+#: .\theme\templates\dashboard.html:326
 msgid "Tableau de bord Admin"
 msgstr "Πίνακας διαχείρισης Admin"
 
@@ -4989,14 +5168,19 @@ msgstr "Επιστροφή στη λίστα γεμισμάτων"
 #: .\theme\templates\fuel\fuel_detail.html:41
 #: .\theme\templates\fuel\fuel_form.html:44
 #: .\theme\templates\fuel\fuel_list.html:58
+#: .\theme\templates\recharge\electricite_detail.html:41
+#: .\theme\templates\recharge\electricite_form.html:44
+#: .\theme\templates\recharge\recharge_list.html:58
 msgid "Kilomètres"
 msgstr "Χιλιόμετρα"
 
 #: .\theme\templates\fuel\fuel_detail.html:61
+#: .\theme\templates\recharge\electricite_detail.html:57
 msgid "Modifier le plein"
 msgstr "Επεξεργασία γεμίσματος"
 
 #: .\theme\templates\fuel\fuel_detail.html:109
+#: .\theme\templates\recharge\electricite_detail.html:105
 msgid "Voir les statistiques"
 msgstr "Δείτε τα στατιστικά"
 
@@ -5010,14 +5194,17 @@ msgstr "Μέγιστος όγκος (L)"
 
 #: .\theme\templates\fuel\fuel_list.html:4
 #: .\theme\templates\fuel\fuel_list.html:10
+#: .\theme\templates\recharge\recharge_list.html:4
 msgid "Liste des pleins de carburant"
 msgstr "Λίστα γεμισμάτων καυσίμου"
 
 #: .\theme\templates\fuel\fuel_list.html:21
+#: .\theme\templates\recharge\recharge_list.html:21
 msgid "immatriculation"
 msgstr "Άδεια κυκλοφορίας"
 
 #: .\theme\templates\fuel\fuel_list.html:25
+#: .\theme\templates\recharge\recharge_list.html:25
 msgid "exemplaire"
 msgstr "Αντίγραφο"
 
@@ -5034,6 +5221,7 @@ msgid "Ajouter un plein de carburant"
 msgstr "Προσθήκη γεμίσματος καυσίμου"
 
 #: .\theme\templates\fuel\fuel_list.html:61
+#: .\theme\templates\recharge\recharge_list.html:61
 msgid "Prix Total"
 msgstr "Συνολική τιμή"
 
@@ -5042,6 +5230,7 @@ msgid "Prix au litre"
 msgstr "Τιμή ανά λίτρο"
 
 #: .\theme\templates\fuel\fuel_list.html:63
+#: .\theme\templates\recharge\recharge_list.html:63
 msgid "Montant TVA"
 msgstr "Ποσό ΦΠΑ"
 
@@ -5198,6 +5387,9 @@ msgid "Kilomètres depuis dernière intervention"
 msgstr "Χιλιόμετρα από την τελευταία επέμβαση"
 
 #: .\theme\templates\maintenance\creer_maintenance.html:52
+#: .\theme\templates\voiture_modele\ajouter_modele.html:59
+#: .\theme\templates\voiture_modele\voituremodele_list.html:26
+#: .\theme\templates\voiture_modele\voituremodele_list.html:62
 msgid "Variante"
 msgstr "Παραλλαγή"
 
@@ -5233,6 +5425,42 @@ msgstr "Τύπος"
 msgid "Aucun contrôle enregistré."
 msgstr "Δεν έχει καταγραφεί κανένας έλεγχος."
 
+#: .\theme\templates\maintenance\entretien\creer_entretien.html:10
+#, fuzzy
+#| msgid "Créer une intervention"
+msgid "Créer un entretien pour :"
+msgstr "Δημιουργία επέμβασης"
+
+#: .\theme\templates\maintenance\entretien\creer_entretien.html:25
+#, fuzzy
+#| msgid "Interval d'entretien"
+msgid "Informations de l'entretien"
+msgstr "Διάστημα συντήρησης"
+
+#: .\theme\templates\maintenance\entretien\creer_entretien.html:31
+#, fuzzy
+#| msgid "Operations"
+msgid "Opérations"
+msgstr "Λειτουργίες"
+
+#: .\theme\templates\maintenance\entretien\creer_entretien.html:35
+#, fuzzy
+#| msgid "Type d'utilisation"
+msgid "Type d'opération:"
+msgstr "Τύπος χρήσης"
+
+#: .\theme\templates\maintenance\entretien\creer_entretien.html:51
+#, fuzzy
+#| msgid "Support moteur"
+msgid "Supprimer"
+msgstr "Βάση κινητήρα"
+
+#: .\theme\templates\maintenance\entretien\creer_entretien.html:59
+#, fuzzy
+#| msgid "Dernier entretien"
+msgid "Créer l'entretien"
+msgstr "Τελευταία συντήρηση"
+
 #: .\theme\templates\maintenance\list.html:10
 msgid "Maintenance du véhicule :"
 msgstr "Συντήρηση οχήματος:"
@@ -5257,6 +5485,79 @@ msgstr "Χιλιομετρική απόσταση"
 #: .\theme\templates\maintenance\list.html:93
 msgid "Aucun exemplaire disponible pour la maintenance."
 msgstr "Κανένα όχημα διαθέσιμο για συντήρηση."
+
+#: .\theme\templates\recharge\electricite_detail.html:16
+#, fuzzy
+#| msgid "Détails de la carrosserie :"
+msgid "Détails des recharges électriques :"
+msgstr "Λεπτομέρειες αμαξώματος:"
+
+#: .\theme\templates\recharge\electricite_detail.html:23
+#: .\theme\templates\recharge\electricite_detail.html:98
+#, fuzzy
+#| msgid "Retour à la liste des adresses"
+msgid "Retour à la liste des recharges"
+msgstr "Επιστροφή στη λίστα διευθύνσεων"
+
+#: .\theme\templates\recharge\electricite_form.html:12
+#, fuzzy
+#| msgid "Ajouter une carrosserie"
+msgid "Ajouter une recharge electrique"
+msgstr "Προσθήκη αμαξώματος"
+
+#: .\theme\templates\recharge\electricite_form.html:74
+#: .\theme\templates\recharge\recharge_list.html:60
+#, fuzzy
+#| msgid "Kilos Watt"
+msgid "Kilo Watts"
+msgstr "Κιλοβάτ"
+
+#: .\theme\templates\recharge\electricite_form.html:104
+#, fuzzy
+#| msgid "Volume max (L)"
+msgid "Volume max (kW)"
+msgstr "Μέγιστος όγκος (L)"
+
+#: .\theme\templates\recharge\recharge_list.html:10
+#, fuzzy
+#| msgid "Liste des Carrosseries"
+msgid "Liste des recharges électriques"
+msgstr "Λίστα αμαξωμάτων"
+
+#: .\theme\templates\recharge\recharge_list.html:30
+#, fuzzy
+#| msgid "Électricité"
+msgid "Electricité"
+msgstr "Ηλεκτρισμός"
+
+#: .\theme\templates\recharge\recharge_list.html:34
+msgid "20 kW"
+msgstr ""
+
+#: .\theme\templates\recharge\recharge_list.html:42
+#, fuzzy
+#| msgid "Ajouter une carrosserie"
+msgid "Ajouter une recharge électrique"
+msgstr "Προσθήκη αμαξώματος"
+
+#: .\theme\templates\recharge\recharge_list.html:62
+#, fuzzy
+#| msgid "Prix au litre"
+msgid "Prix au kW"
+msgstr "Τιμή ανά λίτρο"
+
+#: .\theme\templates\recharge\recharge_list.html:159
+#, fuzzy
+#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ polices"
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ electricites"
+msgstr "Εμφάνιση από _START_ έως _END_ από _TOTAL_ πολιτικές"
+
+#: .\theme\templates\recharge\recharge_list.html:160
+#: .\theme\templates\recharge\recharge_list.html:161
+#, fuzzy
+#| msgid "Aucune carrosserie trouvé"
+msgid "Aucune recharge electrique trouvée"
+msgstr "Δεν βρέθηκε κανένα αμάξωμα"
 
 #: .\theme\templates\societe_cliente\modifier_societe_cliente.html:13
 msgid "Modifier la societe :"
@@ -5451,6 +5752,7 @@ msgstr "Ποσότητα λαδιού (L)"
 #: .\theme\templates\voiture_freins\ajouter_freins_simple.html:67
 #: .\theme\templates\voiture_freins_ar\ajouter_freins_ar_simple.html:67
 #: .\theme\templates\voiture_marque\ajouter_marque.html:37
+#: .\theme\templates\voiture_modele\ajouter_modele.html:105
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:134
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:152
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:102
@@ -5989,6 +6291,8 @@ msgid "Ajouter une Marque"
 msgstr "Προσθήκη μάρκας"
 
 #: .\theme\templates\voiture_marque\ajouter_marque.html:31
+#: .\theme\templates\voiture_modele\voituremodele_list.html:18
+#: .\theme\templates\voiture_modele\voituremodele_list.html:60
 msgid "Nom de la marque"
 msgstr "Όνομα μάρκας"
 
@@ -6031,6 +6335,40 @@ msgstr "Δεν υπάρχει αγαπημένη μάρκα προς το παρ
 msgid "Ajouter une marque"
 msgstr "Προσθήκη μάρκας"
 
+#: .\theme\templates\voiture_modele\ajouter_modele.html:10
+#, fuzzy
+#| msgid "Ajouter une boite de vitesse"
+msgid "Ajouter un modèle de voiture"
+msgstr "Προσθήκη κιβωτίου ταχυτήτων"
+
+#: .\theme\templates\voiture_modele\ajouter_modele.html:68
+#: .\theme\templates\voiture_modele\voituremodele_list.html:30
+#: .\theme\templates\voiture_modele\voituremodele_list.html:63
+#, fuzzy
+#| msgid "Nombre de rapports"
+msgid "Nombre de portes"
+msgstr "Αριθμός ταχυτήτων"
+
+#: .\theme\templates\voiture_modele\ajouter_modele.html:77
+#: .\theme\templates\voiture_modele\voituremodele_list.html:34
+#: .\theme\templates\voiture_modele\voituremodele_list.html:64
+#, fuzzy
+#| msgid "Nombre de cylindres"
+msgid "Nombre de places"
+msgstr "Αριθμός κυλίνδρων"
+
+#: .\theme\templates\voiture_modele\ajouter_modele.html:86
+msgid "Taille du réservoir en litres"
+msgstr ""
+
+#: .\theme\templates\voiture_modele\ajouter_modele.html:95
+#: .\theme\templates\voiture_modele\voituremodele_list.html:42
+#: .\theme\templates\voiture_modele\voituremodele_list.html:66
+#, fuzzy
+#| msgid "Tapis de batterie"
+msgid "Capacité de la batterie en kWh"
+msgstr "Ταπέτο μπαταρίας"
+
 #: .\theme\templates\voiture_modele\modeles_list.html:8
 #: .\theme\templates\voiture_modele\modeles_par_marque.html:9
 msgid "Modèles de "
@@ -6055,6 +6393,87 @@ msgstr "θέσεις"
 #: .\theme\templates\voiture_modele\modeles_par_marque.html:57
 msgid "Aucun modèle enregistré pour cette marque."
 msgstr "Δεν υπάρχουν καταχωρημένα μοντέλα για αυτό το σήμα."
+
+#: .\theme\templates\voiture_modele\modifier_voiture_modele1.html:13
+#: .\theme\templates\voiture_modele\modifier_voiture_modele_view.html:11
+#, fuzzy
+#| msgid "Modifier le plein"
+msgid "Modifier le modèle:"
+msgstr "Επεξεργασία γεμίσματος"
+
+#: .\theme\templates\voiture_modele\voiture_modele_detail.html:16
+#, fuzzy
+#| msgid "Détails du client :"
+msgid "Détails du modèle :"
+msgstr "Λεπτομέρειες πελάτη:"
+
+#: .\theme\templates\voiture_modele\voiture_modele_detail.html:22
+#: .\theme\templates\voiture_modele\voiture_modele_detail.html:91
+#, fuzzy
+#| msgid "Retour à la liste des pleins"
+msgid "Retour à la liste des modèles"
+msgstr "Επιστροφή στη λίστα γεμισμάτων"
+
+#: .\theme\templates\voiture_modele\voiture_modele_detail.html:56
+#, fuzzy
+#| msgid "Modifier le plein"
+msgid "Modifier le modèle"
+msgstr "Επεξεργασία γεμίσματος"
+
+#: .\theme\templates\voiture_modele\voiture_modele_form.html:9
+#, fuzzy
+#| msgid "Modèle de voiture"
+msgid "Créer un modèle de voiture"
+msgstr "Μοντέλο αυτοκινήτου"
+
+#: .\theme\templates\voiture_modele\voituremodele_list.html:4
+#, fuzzy
+#| msgid "Liste des polices"
+msgid "Liste des Modèles"
+msgstr "Λίστα ασφαλιστικών πολιτικών"
+
+#: .\theme\templates\voiture_modele\voituremodele_list.html:10
+#, fuzzy
+#| msgid "Liste des moteurs"
+msgid "Liste des modèles"
+msgstr "Λίστα κινητήρων"
+
+#: .\theme\templates\voiture_modele\voituremodele_list.html:22
+#: .\theme\templates\voiture_modele\voituremodele_list.html:61
+#, fuzzy
+#| msgid "Image du modèle"
+msgid "Nom du modèle"
+msgstr "Εικόνα του μοντέλου"
+
+#: .\theme\templates\voiture_modele\voituremodele_list.html:38
+#: .\theme\templates\voiture_modele\voituremodele_list.html:65
+msgid "Capacité du réservoir en litres"
+msgstr ""
+
+#: .\theme\templates\voiture_modele\voituremodele_list.html:49
+#: .\voiture\voiture_modele\views.py:96
+#, fuzzy
+#| msgid "Ajouter un moteur"
+msgid "Ajouter un modèle"
+msgstr "Προσθήκη Κινητήρα"
+
+#: .\theme\templates\voiture_modele\voituremodele_list.html:101
+#, fuzzy
+#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ moteurs"
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ voiture_modeles"
+msgstr "Εμφάνιση _START_ έως _END_ από _TOTAL_ κινητήρες"
+
+#: .\theme\templates\voiture_modele\voituremodele_list.html:102
+#, fuzzy
+#| msgid "Aucun moteur trouvé"
+msgid "Aucune voiture_modele trouvé"
+msgstr "Δεν βρέθηκε κινητήρας"
+
+#: .\theme\templates\voiture_modele\voituremodele_list.html:103
+#, fuzzy
+#| msgid "Aucun moteur trouvé"
+msgid "Aucun voiture_modele trouvé"
+msgstr "Δεν βρέθηκε κινητήρας"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:10
 msgid "Ajouter un moteur pour"
@@ -6180,7 +6599,7 @@ msgid "Rechercher par cylindrée"
 msgstr "Αναζήτηση κατά κυβισμό"
 
 #: .\theme\templates\voiture_moteur\list.html:25
-#: .\voiture\voiture_moteur\views.py:34
+#: .\voiture\voiture_moteur\views.py:31
 msgid "Ajouter un moteur"
 msgstr "Προσθήκη Κινητήρα"
 
@@ -6359,35 +6778,35 @@ msgstr "Ανθρώπινοι Πόροι"
 msgid "Operations"
 msgstr "Λειτουργίες"
 
-#: .\utilisateurs\models.py:75 .\utilisateurs\views.py:217
+#: .\utilisateurs\models.py:75 .\utilisateurs\views.py:221
 msgid "Magasinier"
 msgstr "Αποθηκάριος"
 
-#: .\utilisateurs\models.py:76 .\utilisateurs\views.py:215
+#: .\utilisateurs\models.py:76 .\utilisateurs\views.py:219
 msgid "Carrossier"
 msgstr "Σιδηρουργός αμαξώματος"
 
-#: .\utilisateurs\models.py:77 .\utilisateurs\views.py:216
+#: .\utilisateurs\models.py:77 .\utilisateurs\views.py:220
 msgid "Chef Mécanicien"
 msgstr "Αρχιμηχανικός"
 
-#: .\utilisateurs\models.py:78 .\utilisateurs\views.py:218
+#: .\utilisateurs\models.py:78 .\utilisateurs\views.py:222
 msgid "Instructeur"
 msgstr "Εκπαιδευτής"
 
-#: .\utilisateurs\models.py:79 .\utilisateurs\views.py:219
+#: .\utilisateurs\models.py:79 .\utilisateurs\views.py:223
 msgid "Instructeur Externe"
 msgstr "Εξωτερικός Εκπαιδευτής"
 
-#: .\utilisateurs\models.py:80 .\utilisateurs\views.py:220
+#: .\utilisateurs\models.py:80 .\utilisateurs\views.py:224
 msgid "Vendeur"
 msgstr "Πωλητής"
 
-#: .\utilisateurs\models.py:81 .\utilisateurs\views.py:221
+#: .\utilisateurs\models.py:81 .\utilisateurs\views.py:225
 msgid "Comptable"
 msgstr "Λογιστής"
 
-#: .\utilisateurs\models.py:82 .\utilisateurs\views.py:222
+#: .\utilisateurs\models.py:82 .\utilisateurs\views.py:226
 msgid "Direction"
 msgstr "Διοίκηση"
 
@@ -6403,24 +6822,24 @@ msgstr "Απαιτείται κωδικός TOTP"
 msgid "Code TOTP invalide"
 msgstr "Μη έγκυρος κωδικός TOTP"
 
-#: .\utilisateurs\views.py:200
+#: .\utilisateurs\views.py:204
 msgid "Révision moteur"
 msgstr "Σέρβις κινητήρα"
 
-#: .\utilisateurs\views.py:200 .\voiture\voiture_boite\models.py:10
+#: .\utilisateurs\views.py:204 .\voiture\voiture_boite\models.py:10
 msgid "Changement filtre"
 msgstr "Αλλαγή φίλτρου"
 
-#: .\utilisateurs\views.py:224
+#: .\utilisateurs\views.py:228
 msgid "Rôle inconnu"
 msgstr "Άγνωστος ρόλος"
 
-#: .\utilisateurs\views.py:263
+#: .\utilisateurs\views.py:267
 msgid "TOTP configuré avec succès. Vous pouvez maintenant vous connecter."
 msgstr ""
 "Η ρύθμιση του TOTP ολοκληρώθηκε με επιτυχία. Τώρα μπορείτε να συνδεθείτε."
 
-#: .\utilisateurs\views.py:313
+#: .\utilisateurs\views.py:317
 msgid "Utilisateur créé avec succès."
 msgstr "Ο χρήστης δημιουργήθηκε με επιτυχία."
 
@@ -6509,7 +6928,9 @@ msgstr "Ιδιωτικό"
 msgid ""
 "Le numéro VIN doit contenir exactement 17 caractères alphanumériques "
 "(lettres A-H, J-N, P, R-Z et chiffres)."
-msgstr "Ο αριθμός VIN πρέπει να περιέχει ακριβώς 17 αλφαριθμητικούς χαρακτήρες (γράμματα A-H, J-N, P, R-Z και αριθμούς)."
+msgstr ""
+"Ο αριθμός VIN πρέπει να περιέχει ακριβώς 17 αλφαριθμητικούς χαρακτήρες "
+"(γράμματα A-H, J-N, P, R-Z και αριθμούς)."
 
 #: .\voiture\voiture_exemplaire\views.py:88
 msgid "Veuillez sélectionner une boîte à lier."
@@ -6564,6 +6985,33 @@ msgstr "Λείπουν παράμετροι"
 msgid "Moteur non trouvé"
 msgstr "Ο κινητήρας δεν βρέθηκε"
 
+#: .\voiture\voiture_modele\forms.py:74
+#, fuzzy
+#| msgid "Le nom de la rue est obligatoire."
+msgid "La marque est obligatoire."
+msgstr "Το όνομα του δρόμου είναι υποχρεωτικό."
+
+#: .\voiture\voiture_modele\models.py:58
+#, fuzzy
+#| msgid "Aucun modèle enregistré pour cette marque."
+msgid "Ce modèle avec cette variante existe déjà pour cette marque."
+msgstr "Δεν υπάρχουν καταχωρημένα μοντέλα για αυτό το σήμα."
+
+#: .\voiture\voiture_modele\views.py:81
+#, python-format
+msgid "Le modèle a été ajouté avec succès pour la marque %(marque)s."
+msgstr ""
+
+#: .\voiture\voiture_modele\views.py:87
+msgid "Le formulaire contient des erreurs."
+msgstr ""
+
+#: .\voiture\voiture_modele\views.py:97
+#, fuzzy
+#| msgid "Créer le moteur"
+msgid "Créer le modèle"
+msgstr "Δημιουργία κινητήρα"
+
 #: .\voiture\voiture_moteur\models.py:12
 msgid "Atmosphérique"
 msgstr "Ατμοσφαιρικός"
@@ -6604,7 +7052,7 @@ msgstr "Αλυσίδα"
 msgid "Courroie"
 msgstr "Ιμάντας"
 
-#: .\voiture\voiture_moteur\views.py:35
+#: .\voiture\voiture_moteur\views.py:32
 msgid "Créer le moteur"
 msgstr "Δημιουργία κινητήρα"
 
@@ -6768,6 +7216,12 @@ msgstr "Τα ελαστικά αντικαταστάθηκαν με επιτυχ
 msgid "Le nom du manufacturier est obligatoire."
 msgstr "Το όνομα του κατασκευαστή είναι υποχρεωτικό."
 
+#~ msgid "Responsable nom"
+#~ msgstr "Επώνυμο υπευθύνου"
+
+#~ msgid "Responsable prenom"
+#~ msgstr "Όνομα υπευθύνου"
+
 #~ msgid "Le nom de la carrosserie est obligatoire."
 #~ msgstr "Το όνομα του αμαξώματος είναι υποχρεωτικό."
 
@@ -6782,9 +7236,6 @@ msgstr "Το όνομα του κατασκευαστή είναι υποχρε�
 
 #~ msgid "Numero VIN"
 #~ msgstr "Αριθμός VIN"
-
-#~ msgid "Type d'utilisation"
-#~ msgstr "Τύπος χρήσης"
 
 #~ msgid "Sélectionner un type d'utilisation"
 #~ msgstr "Επιλέξτε τύπο χρήσης"
@@ -6846,9 +7297,6 @@ msgstr "Το όνομα του κατασκευαστή είναι υποχρε�
 #~ msgid "Contrôle général du véhicule"
 #~ msgstr "Γενικός έλεγχος οχήματος"
 
-#~ msgid "Contrôle des freins (plaquettes, disques, fuites…)"
-#~ msgstr "Έλεγχος φρένων (κάλαθες, δίσκοι, διαρροές…)"
-
 #~ msgid "Type de composant"
 #~ msgstr "Τύπος εξαρτήματος"
 
@@ -6887,9 +7335,6 @@ msgstr "Το όνομα του κατασκευαστή είναι υποχρε�
 
 #~ msgid "Rechercher..."
 #~ msgstr "Αναζήτηση..."
-
-#~ msgid "Image du modèle"
-#~ msgstr "Εικόνα του μοντέλου"
 
 #~ msgid "Puissance (ch)"
 #~ msgstr "Ισχύς (ίπποι)"

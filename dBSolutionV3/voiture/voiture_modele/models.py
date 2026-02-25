@@ -1,13 +1,15 @@
 import uuid
 from django.core.exceptions import ValidationError
-
 from django.db import models
 from societe.models import Societe
+from django.utils.translation import gettext as _
 
 class VoitureModele(models.Model):
     class NombrePortes(models.IntegerChoices):
+        ZERO = 0, "0 portes"
         DEUX = 2, "2 portes"
         TROIS = 3, "3 portes"
+        QUATRE = 4, "4 portes"
         CINQ = 5, "5 portes"
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

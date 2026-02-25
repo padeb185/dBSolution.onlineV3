@@ -4,36 +4,38 @@ from societe.models import Societe, Domain
 from adresse.models import Adresse
 
 class Command(BaseCommand):
-    help = "Créer le tenant RSR Spa"
+    help = "Créer le tenant CarsCosts"
 
     def handle(self, *args, **kwargs):
-        schema_name = "rsrspa"
-        nom = "RSR Spa"
-        domain_url = "dbsolution.localhost/rsrspa"
-        directeur = "Fred Mayeur"
-        numero_tva = "BE0847181667"
-        site = "https://dbsolution.localhost/rsrspa"
+        schema_name = "carscosts"
+        nom = "CarsCosts"
+        domain_url = "CarsCosts.localhost"
+        directeur = "Pierre-André de Bournonville"
+        numero_tva = "BE0123456789"
+        site = "https://CarsCosts.localhost"
 
         # 🔹 Vérifie si la société existe déjà
         if Societe.objects.filter(schema_name=schema_name).exists():
-            self.stdout.write(self.style.WARNING(f"❌ La société '{schema_name}' existe déjà"))
+            self.stdout.write(self.style.WARNING(f"La société '{schema_name}' existe déjà"))
             return
 
         # 🔹 Création ou récupération de l'adresse
         adresse, created = Adresse.objects.get_or_create(
-            rue="Rue du Pouhon",
-            numero= 25,
-            code_postal="4970",
-            ville="Stavelot",
+            rue="Place de Cochem",
+            numero= 3,
+            boite= 8,
+            code_postal="4960",
+            ville="Malmedy",
             defaults={
-                "pays": "Belgique"
-            }
+                "pays": "Belgique"  # Ajouter d'autres champs si nécessaire
+            },
+            code_pays="BE",
         )
 
         if created:
-            self.stdout.write(self.style.SUCCESS(f"✅ Adresse créée : {adresse}"))
+            self.stdout.write(self.style.SUCCESS(f"Adresse créée : {adresse}"))
         else:
-            self.stdout.write(self.style.WARNING(f"ℹ️ Adresse existante utilisée : {adresse}"))
+            self.stdout.write(self.style.WARNING(f"Adresse existante utilisée : {adresse}"))
 
         # 🔹 Génération du slug unique
         slug = slugify(nom)
@@ -43,7 +45,7 @@ class Command(BaseCommand):
             slug = f"{original_slug}-{i}"
             i += 1
 
-        # 🔹 Création du tenant (schéma auto)
+        # 🔹 Création du tenant
         societe = Societe.objects.create(
             schema_name=schema_name,
             nom=nom,
@@ -51,7 +53,7 @@ class Command(BaseCommand):
             directeur=directeur,
             numero_tva=numero_tva,
             site=site,
-            adresse=adresse
+            adresse=adresse  # ⚠️ juste l'objet Adresse
         )
 
         # 🔹 Domaine principal
@@ -61,4 +63,4 @@ class Command(BaseCommand):
             is_primary=True
         )
 
-        self.stdout.write(self.style.SUCCESS(f"✅ Société '{nom}' créée avec succès"))
+        self.stdout.write(self.style.SUCCESS(f"Société '{nom}' créée avec succès"))

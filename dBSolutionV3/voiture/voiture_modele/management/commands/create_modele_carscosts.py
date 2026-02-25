@@ -13,14 +13,14 @@ from voiture.voiture_modele.models import VoitureModele
 
 
 class Command(BaseCommand):
-    help = "Ajoute des modèles pour d'autres marques mondiales pour le tenant 'rsrnurburg'"
+    help = "Ajoute des modèles pour d'autres marques mondiales pour le tenant 'carscosts'"
 
     def handle(self, *args, **options):
         # Récupération du tenant
         try:
-            tenant = Societe.objects.get(schema_name='rsrnurburg')
+            tenant = Societe.objects.get(schema_name='carscosts')
         except Societe.DoesNotExist:
-            self.stdout.write(self.style.ERROR("Tenant 'rsrnurburg' introuvable !"))
+            self.stdout.write(self.style.ERROR("Tenant 'carscosts' introuvable !"))
             return
 
 

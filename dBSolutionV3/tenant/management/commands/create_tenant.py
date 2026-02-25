@@ -16,7 +16,7 @@ TenantModel = get_tenant_model()
 tenant, created = TenantModel.objects.get_or_create(
     schema_name='dbsolution',
     defaults={
-        'scema_name': 'dbsolution',
+        'schema_name': 'dbsolution',
         'paid_until': '2030-01-01',
         'on_trial': False,
         'auto_create_schema': True,
@@ -39,8 +39,8 @@ with tenant_context(tenant):
 
     # 3️⃣ Créer un superuser tenant si nécessaire
     email_admin = "admin@dbsolution.localhost"
-    if not Person.objects.filter(email=email_admin).exists():
-        Person.objects.create_superuser(
+    if not Utilisateur.objects.filter(email=email_admin).exists():
+        Utilisateur.objects.create_superuser(
             email=email_admin,
             prenom="Admin",
             last_name="Tenant",

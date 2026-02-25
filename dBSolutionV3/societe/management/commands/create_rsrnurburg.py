@@ -22,11 +22,14 @@ class Command(BaseCommand):
         # 🔹 Création ou récupération de l'adresse
         adresse, created = Adresse.objects.get_or_create(
             rue="Antoniusweg",
+            numero= 1,
+            boite= 1,
             code_postal="53520",
             ville="Nürburg",
             defaults={
                 "pays": "Allemagne"
-            }
+            },
+            code_pays ="DE"
         )
 
         if created:

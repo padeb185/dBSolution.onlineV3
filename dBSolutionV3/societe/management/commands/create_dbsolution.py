@@ -11,7 +11,7 @@ class Command(BaseCommand):
         nom = "dB Solution"
         domain_url = "dbsolution.localhost"
         directeur = "Pierre-André de Bournonville"
-        numero_tva = "BE0123456789"
+        numero_tva = "BE0123456722"
         site = "https://dbsolution.localhost"
 
         # 🔹 Vérifie si la société existe déjà
@@ -22,11 +22,14 @@ class Command(BaseCommand):
         # 🔹 Création ou récupération de l'adresse
         adresse, created = Adresse.objects.get_or_create(
             rue="Place de Cochem",
+            numero= 4,
             code_postal="4960",
             ville="Malmedy",
             defaults={
                 "pays": "Belgique"  # Ajouter d'autres champs si nécessaire
-            }
+            },
+            code_pays="BE",
+
         )
 
         if created:

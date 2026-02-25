@@ -57,13 +57,15 @@ class Command(BaseCommand):
             "Marcos", "Spania GTA", "BAC Mono", "Radical", "Caterham 7", "Ultima Sports"
         ]
 
-
         created_count = 0
 
-        # Active le tenant pour insérer les données dans le schema correct
         with tenant_context(tenant):
             for marque in sportives:
-                _, created = VoitureMarque.objects.get_or_create(nom_marque=marque)
+                # ✅ on précise le tenant pour le champ NOT NULL
+                _, created = VoitureMarque.objects.get_or_create(
+                    nom_marque=marque,
+                    societe=tenant
+                )
                 if created:
                     created_count += 1
 
