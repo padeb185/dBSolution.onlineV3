@@ -344,7 +344,9 @@ def liste_exemplaires_all(request):
 
 @login_required
 def ajouter_exemplaire_all(request, modele_id):
-    modele = get_object_or_404(VoitureModele, id=modele_id)
+    tenant = request.user.societe  # ton tenant
+    with tenant_context(tenant):
+        modele = get_object_or_404(VoitureModele, id=modele_id)
 
     if request.method == "POST":
         form = VoitureExemplaireForm(request.POST, user=request.user)  # <-- passer l'user
