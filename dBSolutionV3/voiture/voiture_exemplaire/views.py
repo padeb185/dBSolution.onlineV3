@@ -51,9 +51,12 @@ def liste_exemplaires(request, modele_id):
 @login_required
 def voiture_exemplaire_detail(request, exemplaire_id):
     tenant = request.user.societe
+    print("Tenant actif :", tenant)
     with tenant_context(tenant):
-        exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
-
+        exemplaire = get_object_or_404(
+            VoitureExemplaire.objects.filter(voiture_modele__societe=tenant),
+            id=exemplaire_id
+        )
         modele = exemplaire.voiture_modele
         marque = modele.voiture_marque
 

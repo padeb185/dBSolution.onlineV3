@@ -129,8 +129,6 @@ def modifier_voiture_modele(request, voiture_modele_id):
     )
 
 
-
-
 def check_nom(request):
     nom = request.POST.get("nom")
     existe = VoitureModele.objects.filter(nom__iexact=nom).exists()
