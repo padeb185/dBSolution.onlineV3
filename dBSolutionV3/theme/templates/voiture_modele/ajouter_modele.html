@@ -11,7 +11,7 @@
     </h1>
 
     <!-- Messages Django -->
-   {% if messages %}
+    {% if messages %}
         {% for message in messages %}
             <div class="mb-3 px-4 py-2 rounded
                 {% if message.tags == 'success' %}
@@ -99,6 +99,42 @@
             {% endfor %}
         </div>
 
+        <!-- Mois de début -->
+        <div class="flex flex-col">
+            <label for="{{ form.mois_debut.id_for_label }}" class="mb-1 font-medium">{% trans "Mois de début" %}</label>
+            {{ form.mois_debut|add_class:"border border-gray-300 rounded px-4 py-2 w-full" }}
+            {% for error in form.mois_debut.errors %}
+                <span class="text-red-600 text-sm mt-1">{{ error }}</span>
+            {% endfor %}
+        </div>
+
+        <!-- Année de début -->
+        <div class="flex flex-col">
+            <label for="{{ form.annee_debut.id_for_label }}" class="mb-1 font-medium">{% trans "Année de début" %}</label>
+            {{ form.annee_debut|add_class:"border border-gray-300 rounded px-4 py-2 w-full" }}
+            {% for error in form.annee_debut.errors %}
+                <span class="text-red-600 text-sm mt-1">{{ error }}</span>
+            {% endfor %}
+        </div>
+
+        <!-- Mois de fin -->
+        <div class="flex flex-col">
+            <label for="{{ form.mois_fin.id_for_label }}" class="mb-1 font-medium">{% trans "Mois de fin" %}</label>
+            {{ form.mois_fin|add_class:"border border-gray-300 rounded px-4 py-2 w-full" }}
+            {% for error in form.mois_fin.errors %}
+                <span class="text-red-600 text-sm mt-1">{{ error }}</span>
+            {% endfor %}
+        </div>
+
+        <!-- Année de fin -->
+        <div class="flex flex-col">
+            <label for="{{ form.annee_fin.id_for_label }}" class="mb-1 font-medium">{% trans "Année de fin" %}</label>
+            {{ form.annee_fin|add_class:"border border-gray-300 rounded px-4 py-2 w-full" }}
+            {% for error in form.annee_fin.errors %}
+                <span class="text-red-600 text-sm mt-1">{{ error }}</span>
+            {% endfor %}
+        </div>
+
         <!-- Bouton -->
         <button type="submit"
                 class="mt-4 bg-blue-600 text-white px-4 py-2 rounded w-full hover:bg-blue-700 transition">
@@ -126,7 +162,7 @@
 
     const csrftoken = getCookie('csrftoken');
 
-    // Exemple: préremplir les champs si nécessaire
+    // Préremplissage depuis l'API si nécessaire
     const marqueField = document.getElementById('id_voiture_marque');
     if (marqueField) {
         marqueField.addEventListener('change', function(){
@@ -148,7 +184,11 @@
                     'id_nombre_portes': data.nombre_portes,
                     'id_nbre_places': data.nbre_places,
                     'id_taille_reservoir': data.taille_reservoir,
-                    'id_capacite_batterie': data.capacite_batterie
+                    'id_capacite_batterie': data.capacite_batterie,
+                    'id_mois_debut': data.mois_debut,
+                    'id_annee_debut': data.annee_debut,
+                    'id_mois_fin': data.mois_fin,
+                    'id_annee_fin': data.annee_fin
                 };
 
                 for (const [fieldId, value] of Object.entries(mapping)) {

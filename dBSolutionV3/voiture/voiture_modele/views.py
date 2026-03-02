@@ -62,80 +62,40 @@ def voiture_modele_detail(request, voiture_modele_id):
 
 
 
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
-from django.utils.translation import gettext as _
-from .forms import VoitureModeleForm
-
 @login_required
 def ajouter_modele(request):
-    if request.method == "POST":
-        form = VoitureModeleForm(request.POST, user=request.user)
+    tenant = request.user.societe
 
-        if form.is_valid():
-            voiture_modele = form.save()
+    with tenant_context(tenant):
+        if request.method == "POST":
+            form = VoitureModeleForm(request.POST, user=request.user)
 
-            messages.success(
-                request,
-                _("Le modèle a été ajouté avec succès pour la marque %(marque)s.") % {
-                    "marque": voiture_modele.voiture_marque.nom_marque
-                }
-            )
+            if form.is_valid():
+                voiture_modele = form.save(commit=True)
 
-        else:
-            messages.error(request, _("Le formulaire contient des erreurs."))
-    else:
-        form = VoitureModeleForm(user=request.user)
+                # sécuriser l'accès à la marque
+                nom_marque = (
+                    voiture_modele.voiture_marque.nom_marque
+                    if voiture_modele.voiture_marque
+                    else _("(Marque non définie)")
+                )
 
-    return render(
-        request,
-        "voiture_modele/ajouter_modele.html",
-        {
-            "form": form,
-            "title": _("Ajouter un modèle"),
-            "submit_text": _("Créer le modèle"),
-        },
-    )
-
-@login_required
-def ajouter_voiture_modele_all(request):
-    tenant = request.user.societe  # Société liée à l'utilisateur
-
-    # Pré-remplissage en cas d'erreur
-    adresse_data = {}
-
-    if request.method == "POST":
-        form_voiture_modele = VoitureModeleForm(request.POST)
-
-        # Récupération des données adresse
-        adresse_data = {
-            "rue": request.POST.get("rue", "").strip(),
-            "numero": request.POST.get("numero", "").strip(),
-            "code_postal": request.POST.get("code_postal", "").strip(),
-            "ville": request.POST.get("ville", "").strip(),
-            "pays": request.POST.get("pays", "Belgique").strip(),
-            "code_pays": request.POST.get("code_pays", "BE").strip(),
-            "societe": tenant
-        }
-
-
-
-        if form_voiture_modele.is_valid():
-            voiture_modele = form_voiture_modele.save(commit=False)
-            voiture_modele.save()
-
-            messages.success(request, f"Modèle  '{voiture_modele.nom_modele}' créée avec succès !")
+                messages.success(
+                    request,
+                    _("Le modèle a été ajouté avec succès pour la marque %(marque)s.") % {
+                        "marque": nom_marque
+                    }
+                )
+                return redirect("voiture_modele:voituremodele_list")
 
         else:
-            messages.error(request, "Le formulaire contient des erreurs.")
-    else:
-        form_voiture_modele = VoitureModeleForm()
+            form = VoitureModeleForm(user=request.user)
 
-    return render(request, "voiture_modele/voiture_modele_form.html", {
-        "form": form_voiture_modele,
-
-    })
+        return render(
+            request,
+            "voiture_modele/ajouter_modele.html",
+            {"form": form, "title": _("Ajouter un modèle"), "submit_text": _("Créer le modèle")},
+        )
 
 
 
