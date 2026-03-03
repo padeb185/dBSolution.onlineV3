@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-24 12:34+0100\n"
+"POT-Creation-Date: 2026-03-03 17:29+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1499,15 +1499,15 @@ msgstr "Vorhandensein von Rissen in den Scheiben"
 msgid "Présence de fuite du système de freinage"
 msgstr "Bremsanlagenleck vorhanden"
 
-#: .\maintenance\check_up\models.py:411
+#: .\maintenance\check_up\models.py:411 .\maintenance\freins\models.py:49
 msgid "Disques avant à remplacer"
 msgstr "Vordere Bremsscheiben zu ersetzen"
 
-#: .\maintenance\check_up\models.py:415
+#: .\maintenance\check_up\models.py:415 .\maintenance\freins\models.py:53
 msgid "Disques arrière à remplacer"
 msgstr "Hintere Bremsscheiben zu ersetzen"
 
-#: .\maintenance\check_up\models.py:419
+#: .\maintenance\check_up\models.py:419 .\maintenance\freins\models.py:58
 msgid "Plaquettes avant à remplacer"
 msgstr "Vordere Bremsbeläge zu ersetzen"
 
@@ -1634,18 +1634,6 @@ msgstr "Weitere Arbeiten"
 msgid "Présence de fuite"
 msgstr "Vorhandensein von Leckage"
 
-#: .\maintenance\freins\models.py:49
-msgid "Disques avant à remplacer"
-msgstr "Vordere Bremsscheiben zu ersetzen"
-
-#: .\maintenance\freins\models.py:53
-msgid "disques arrière à remplacer"
-msgstr "Hintere Bremsscheiben zu ersetzen"
-
-#: .\maintenance\freins\models.py:58
-msgid "Plaquettes avant à remplacer"
-msgstr "Vordere Bremsbeläge zu ersetzen"
-
 #: .\maintenance\freins\models.py:62
 msgid "Plaquettes arrière à  remplacer"
 msgstr "Hintere Bremsbeläge zu ersetzen"
@@ -1656,7 +1644,8 @@ msgstr "Ersetztes Teil"
 
 #: .\maintenance\freins\models.py:109
 msgid "La pièce de frein remplacée, ex : plaquettes, disques, étrier…"
-msgstr "Das ersetzte Bremsteil, z. B.: Bremsbeläge, Bremsscheiben, Bremssattel…"
+msgstr ""
+"Das ersetzte Bremsteil, z. B.: Bremsbeläge, Bremsscheiben, Bremssattel…"
 
 #: .\maintenance\freins\models.py:116
 msgid "Durée de remplacement (minutes)"
@@ -1683,6 +1672,7 @@ msgid "Remplacements des freins"
 msgstr "Bremsenwechsel"
 
 #: .\maintenance\freins\models.py:136
+#, python-format
 msgid "Remplacement – %(piece)s (%(date)s)"
 msgstr "Austausch – %(piece)s (%(date)s)"
 
@@ -5482,8 +5472,10 @@ msgid "Prix au kW"
 msgstr "Preis pro kW"
 
 #: .\theme\templates\recharge\recharge_list.html:159
-msgid "Affichage de _START_ à _END_ sur _TOTAL_ electricites"
-msgstr "Anzeige von _START_ bis _END_ von insgesamt _TOTAL_ Aufladungen"
+#, fuzzy
+#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ adresse"
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ recharges"
+msgstr "Anzeige von _START_ bis _END_ von insgesamt _TOTAL_ Adressen"
 
 #: .\theme\templates\recharge\recharge_list.html:160
 #: .\theme\templates\recharge\recharge_list.html:161
@@ -5684,7 +5676,7 @@ msgstr "Ölmenge (L)"
 #: .\theme\templates\voiture_freins\ajouter_freins_simple.html:67
 #: .\theme\templates\voiture_freins_ar\ajouter_freins_ar_simple.html:67
 #: .\theme\templates\voiture_marque\ajouter_marque.html:37
-#: .\theme\templates\voiture_modele\ajouter_modele.html:105
+#: .\theme\templates\voiture_modele\ajouter_modele.html:141
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:134
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:152
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:102
@@ -6293,6 +6285,30 @@ msgstr "Tankgröße in Litern"
 msgid "Capacité de la batterie en kWh"
 msgstr "Batteriekapazität in kWh"
 
+#: .\theme\templates\voiture_modele\ajouter_modele.html:104
+#, fuzzy
+#| msgid "Mois de production"
+msgid "Mois de début"
+msgstr "Produktionsmonat"
+
+#: .\theme\templates\voiture_modele\ajouter_modele.html:113
+#, fuzzy
+#| msgid "Année de production"
+msgid "Année de début"
+msgstr "Produktionsjahr"
+
+#: .\theme\templates\voiture_modele\ajouter_modele.html:122
+#, fuzzy
+#| msgid "Mois de production"
+msgid "Mois de fin"
+msgstr "Produktionsmonat"
+
+#: .\theme\templates\voiture_modele\ajouter_modele.html:131
+#, fuzzy
+#| msgid "Année de production"
+msgid "Année de fin"
+msgstr "Produktionsjahr"
+
 #: .\theme\templates\voiture_modele\modeles_list.html:8
 #: .\theme\templates\voiture_modele\modeles_par_marque.html:9
 msgid "Modèles de "
@@ -6359,16 +6375,20 @@ msgid "Capacité du réservoir en litres"
 msgstr "Tankkapazität in Litern"
 
 #: .\theme\templates\voiture_modele\voituremodele_list.html:49
-#: .\voiture\voiture_modele\views.py:96
+#: .\voiture\voiture_modele\views.py:97
 msgid "Ajouter un modèle"
 msgstr "Modell hinzufügen"
 
 #: .\theme\templates\voiture_modele\voituremodele_list.html:101
-msgid "Affichage de _START_ à _END_ sur _TOTAL_ voiture_modeles"
-msgstr "Anzeige von _START_ bis _END_ von insgesamt _TOTAL_ Automodellen"
+#, fuzzy
+#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ polices"
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ Modèles"
+msgstr "Anzeige von _START_ bis _END_ von insgesamt _TOTAL_ Policen"
 
 #: .\theme\templates\voiture_modele\voituremodele_list.html:102
-msgid "Aucun modèle trouvé"
+#, fuzzy
+#| msgid "Aucun modèle trouvé"
+msgid "Aucune modèle trouvé"
 msgstr "Kein Modell gefunden"
 
 #: .\theme\templates\voiture_modele\voituremodele_list.html:103
@@ -6831,75 +6851,94 @@ msgstr ""
 "Die VIN-Nummer muss genau 17 alphanumerische Zeichen enthalten (Buchstaben A-"
 "H, J-N, P, R-Z und Ziffern)."
 
-#: .\voiture\voiture_exemplaire\views.py:88
+#: .\voiture\voiture_exemplaire\views.py:91
 msgid "Veuillez sélectionner une boîte à lier."
 msgstr "Bitte wählen Sie ein Getriebe zum Verknüpfen aus."
 
-#: .\voiture\voiture_exemplaire\views.py:93
+#: .\voiture\voiture_exemplaire\views.py:96
 msgid "Lier une boîte de vitesse à un véhicule"
 msgstr "Ein Getriebe mit einem Fahrzeug verknüpfen"
 
-#: .\voiture\voiture_exemplaire\views.py:112
+#: .\voiture\voiture_exemplaire\views.py:115
 msgid "Veuillez sélectionner des pneus à lier."
 msgstr "Bitte wählen Sie Reifen aus, die verbunden werden sollen."
 
-#: .\voiture\voiture_exemplaire\views.py:117
+#: .\voiture\voiture_exemplaire\views.py:120
 msgid "Lier des pneus à un véhicule"
 msgstr "Reifen mit einem Fahrzeug verbinden"
 
-#: .\voiture\voiture_exemplaire\views.py:140
+#: .\voiture\voiture_exemplaire\views.py:143
 msgid "Veuillez sélectionner un moteur à lier."
 msgstr "Bitte wählen Sie einen Motor zum Verknüpfen aus."
 
-#: .\voiture\voiture_exemplaire\views.py:145
+#: .\voiture\voiture_exemplaire\views.py:148
 msgid "Lier un moteur à un véhicule"
 msgstr "Einen Motor mit einem Fahrzeug verbinden"
 
-#: .\voiture\voiture_exemplaire\views.py:166
+#: .\voiture\voiture_exemplaire\views.py:169
 msgid "Veuillez sélectionner un embrayage à lier."
 msgstr "Bitte wählen Sie eine Kupplung zum Verknüpfen aus."
 
-#: .\voiture\voiture_exemplaire\views.py:171
+#: .\voiture\voiture_exemplaire\views.py:174
 msgid "Lier un embrayage à un véhicule"
 msgstr "Kupplung mit einem Fahrzeug verknüpfen"
 
-#: .\voiture\voiture_exemplaire\views.py:211
-#: .\voiture\voiture_exemplaire\views.py:250
+#: .\voiture\voiture_exemplaire\views.py:214
+#: .\voiture\voiture_exemplaire\views.py:253
 msgid "Veuillez sélectionner un système de freinage à lier."
 msgstr "Bitte wählen Sie ein Bremssystem zum Verknüpfen aus."
 
-#: .\voiture\voiture_exemplaire\views.py:216
+#: .\voiture\voiture_exemplaire\views.py:219
 msgid "Lier un système de freinage à un véhicule"
 msgstr "Bremssystem mit einem Fahrzeug verknüpfen"
 
-#: .\voiture\voiture_exemplaire\views.py:255
+#: .\voiture\voiture_exemplaire\views.py:258
 msgid "Lier un système de freinage arrière à un véhicule"
 msgstr "Hinteres Bremssystem mit einem Fahrzeug verknüpfen"
 
-#: .\voiture\voiture_exemplaire\views.py:271
+#: .\voiture\voiture_exemplaire\views.py:274
 msgid "Paramètres manquants"
 msgstr "Fehlende Parameter"
 
-#: .\voiture\voiture_exemplaire\views.py:276
+#: .\voiture\voiture_exemplaire\views.py:279
 msgid "Moteur non trouvé"
 msgstr "Motor nicht gefunden"
 
-#: .\voiture\voiture_modele\forms.py:74
-msgid "La marque est obligatoire."
-msgstr "Die Marke ist erforderlich."
+#: .\voiture\voiture_modele\forms.py:104
+msgid "Le mois de début doit être compris entre 1 et 12."
+msgstr ""
 
-#: .\voiture\voiture_modele\models.py:58
+#: .\voiture\voiture_modele\forms.py:112
+msgid "Le mois de fin doit être compris entre 1 et 12."
+msgstr ""
+
+#: .\voiture\voiture_modele\forms.py:122
+#, python-format
+msgid "L’année de début doit être comprise entre 1850 et %(annee)s."
+msgstr ""
+
+#: .\voiture\voiture_modele\forms.py:144
+msgid "L’année de fin doit être supérieure ou égale à l’année de début."
+msgstr ""
+
+#: .\voiture\voiture_modele\forms.py:150
+msgid "Le mois de fin doit être supérieur ou égal au mois de début."
+msgstr ""
+
+#: .\voiture\voiture_modele\models.py:111
 msgid "Ce modèle avec cette variante existe déjà pour cette marque."
 msgstr "Dieses Modell mit dieser Variante existiert bereits für diese Marke."
 
-#: .\voiture\voiture_modele\views.py:81
+#: .\voiture\voiture_modele\views.py:80
+#, fuzzy
+#| msgid "Marque disponible"
+msgid "(Marque non définie)"
+msgstr "Marke verfügbar"
+
+#: .\voiture\voiture_modele\views.py:85
 #, python-format
 msgid "Le modèle a été ajouté avec succès pour la marque %(marque)s."
 msgstr "Das Modell wurde erfolgreich für die Marke %(marque)s hinzugefügt."
-
-#: .\voiture\voiture_modele\views.py:87
-msgid "Le formulaire contient des erreurs."
-msgstr "Das Formular enthält Fehler."
 
 #: .\voiture\voiture_modele\views.py:97
 msgid "Créer le modèle"
@@ -7109,6 +7148,21 @@ msgstr "Reifen erfolgreich ersetzt."
 msgid "Le nom du manufacturier est obligatoire."
 msgstr "Der Name des Herstellers ist erforderlich."
 
+#~ msgid "disques arrière à remplacer"
+#~ msgstr "Hintere Bremsscheiben zu ersetzen"
+
+#~ msgid "Affichage de _START_ à _END_ sur _TOTAL_ electricites"
+#~ msgstr "Anzeige von _START_ bis _END_ von insgesamt _TOTAL_ Aufladungen"
+
+#~ msgid "Affichage de _START_ à _END_ sur _TOTAL_ voiture_modeles"
+#~ msgstr "Anzeige von _START_ bis _END_ von insgesamt _TOTAL_ Automodellen"
+
+#~ msgid "La marque est obligatoire."
+#~ msgstr "Die Marke ist erforderlich."
+
+#~ msgid "Le formulaire contient des erreurs."
+#~ msgstr "Das Formular enthält Fehler."
+
 #~ msgid "Responsable nom"
 #~ msgstr "Name des Verantwortlichen"
 
@@ -7144,9 +7198,6 @@ msgstr "Der Name des Herstellers ist erforderlich."
 
 #~ msgid "Kilomètres de la dernière intervention"
 #~ msgstr "Kilometerstand des letzten Service"
-
-#~ msgid "Mois de production"
-#~ msgstr "Produktionsmonat"
 
 #~ msgid "Numero d'identification du moteur"
 #~ msgstr "Motornummer"
