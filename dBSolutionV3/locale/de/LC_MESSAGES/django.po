@@ -6286,28 +6286,20 @@ msgid "Capacité de la batterie en kWh"
 msgstr "Batteriekapazität in kWh"
 
 #: .\theme\templates\voiture_modele\ajouter_modele.html:104
-#, fuzzy
-#| msgid "Mois de production"
 msgid "Mois de début"
-msgstr "Produktionsmonat"
+msgstr "Startmonat"
 
 #: .\theme\templates\voiture_modele\ajouter_modele.html:113
-#, fuzzy
-#| msgid "Année de production"
 msgid "Année de début"
-msgstr "Produktionsjahr"
+msgstr "Startjahr"
 
 #: .\theme\templates\voiture_modele\ajouter_modele.html:122
-#, fuzzy
-#| msgid "Mois de production"
 msgid "Mois de fin"
-msgstr "Produktionsmonat"
+msgstr "Endmonat"
 
 #: .\theme\templates\voiture_modele\ajouter_modele.html:131
-#, fuzzy
-#| msgid "Année de production"
 msgid "Année de fin"
-msgstr "Produktionsjahr"
+msgstr "Endjahr"
 
 #: .\theme\templates\voiture_modele\modeles_list.html:8
 #: .\theme\templates\voiture_modele\modeles_par_marque.html:9
@@ -6380,14 +6372,10 @@ msgid "Ajouter un modèle"
 msgstr "Modell hinzufügen"
 
 #: .\theme\templates\voiture_modele\voituremodele_list.html:101
-#, fuzzy
-#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ polices"
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ Modèles"
-msgstr "Anzeige von _START_ bis _END_ von insgesamt _TOTAL_ Policen"
+msgstr "Anzeige von _START_ bis _END_ von insgesamt _TOTAL_ Modellen"
 
 #: .\theme\templates\voiture_modele\voituremodele_list.html:102
-#, fuzzy
-#| msgid "Aucun modèle trouvé"
 msgid "Aucune modèle trouvé"
 msgstr "Kein Modell gefunden"
 
@@ -6906,34 +6894,28 @@ msgstr "Motor nicht gefunden"
 
 #: .\voiture\voiture_modele\forms.py:104
 msgid "Le mois de début doit être compris entre 1 et 12."
-msgstr ""
+msgstr "Der Startmonat muss zwischen 1 und 12 liegen."
 
 #: .\voiture\voiture_modele\forms.py:112
 msgid "Le mois de fin doit être compris entre 1 et 12."
-msgstr ""
+msgstr "Der Endmonat muss zwischen 1 und 12 liegen."
 
 #: .\voiture\voiture_modele\forms.py:122
 #, python-format
 msgid "L’année de début doit être comprise entre 1850 et %(annee)s."
-msgstr ""
+msgstr "Das Startjahr muss zwischen 1850 und %(annee)s liegen."
 
 #: .\voiture\voiture_modele\forms.py:144
 msgid "L’année de fin doit être supérieure ou égale à l’année de début."
-msgstr ""
+msgstr "Das Endjahr muss größer oder gleich dem Startjahr sein."
 
 #: .\voiture\voiture_modele\forms.py:150
 msgid "Le mois de fin doit être supérieur ou égal au mois de début."
-msgstr ""
-
-#: .\voiture\voiture_modele\models.py:111
-msgid "Ce modèle avec cette variante existe déjà pour cette marque."
-msgstr "Dieses Modell mit dieser Variante existiert bereits für diese Marke."
+msgstr "Der Endmonat muss größer oder gleich dem Startmonat sein."
 
 #: .\voiture\voiture_modele\views.py:80
-#, fuzzy
-#| msgid "Marque disponible"
 msgid "(Marque non définie)"
-msgstr "Marke verfügbar"
+msgstr "(Marke nicht definiert)"
 
 #: .\voiture\voiture_modele\views.py:85
 #, python-format

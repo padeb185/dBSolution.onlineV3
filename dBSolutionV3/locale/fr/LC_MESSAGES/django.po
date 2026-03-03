@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-24 12:34+0100\n"
+"POT-Creation-Date: 2026-03-03 17:29+0100\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -1500,15 +1500,15 @@ msgstr ""
 msgid "Présence de fuite du système de freinage"
 msgstr ""
 
-#: .\maintenance\check_up\models.py:411
+#: .\maintenance\check_up\models.py:411 .\maintenance\freins\models.py:49
 msgid "Disques avant à remplacer"
 msgstr ""
 
-#: .\maintenance\check_up\models.py:415
+#: .\maintenance\check_up\models.py:415 .\maintenance\freins\models.py:53
 msgid "Disques arrière à remplacer"
 msgstr ""
 
-#: .\maintenance\check_up\models.py:419
+#: .\maintenance\check_up\models.py:419 .\maintenance\freins\models.py:58
 msgid "Plaquettes avant à remplacer"
 msgstr ""
 
@@ -1635,20 +1635,8 @@ msgstr ""
 msgid "Présence de fuite"
 msgstr ""
 
-#: .\maintenance\freins\models.py:49
-msgid "Disques à remplacer avant"
-msgstr ""
-
-#: .\maintenance\freins\models.py:53
-msgid "disques à remplacer arrière"
-msgstr ""
-
-#: .\maintenance\freins\models.py:58
-msgid "Plaquettes à remplacer avant"
-msgstr ""
-
 #: .\maintenance\freins\models.py:62
-msgid "Plaquettes à  remplacer arrière"
+msgid "Plaquettes arrière à  remplacer"
 msgstr ""
 
 #: .\maintenance\freins\models.py:108
@@ -1676,11 +1664,11 @@ msgid "Date de remplacement"
 msgstr ""
 
 #: .\maintenance\freins\models.py:130
-msgid "Remplacement de freins"
+msgid "Remplacement des freins"
 msgstr ""
 
 #: .\maintenance\freins\models.py:131
-msgid "Remplacements de freins"
+msgid "Remplacements des freins"
 msgstr ""
 
 #: .\maintenance\freins\models.py:136
@@ -5483,7 +5471,7 @@ msgid "Prix au kW"
 msgstr ""
 
 #: .\theme\templates\recharge\recharge_list.html:159
-msgid "Affichage de _START_ à _END_ sur _TOTAL_ electricites"
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ recharges"
 msgstr ""
 
 #: .\theme\templates\recharge\recharge_list.html:160
@@ -5682,7 +5670,7 @@ msgstr ""
 #: .\theme\templates\voiture_freins\ajouter_freins_simple.html:67
 #: .\theme\templates\voiture_freins_ar\ajouter_freins_ar_simple.html:67
 #: .\theme\templates\voiture_marque\ajouter_marque.html:37
-#: .\theme\templates\voiture_modele\ajouter_modele.html:105
+#: .\theme\templates\voiture_modele\ajouter_modele.html:141
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:134
 #: .\theme\templates\voiture_moteur\ajouter_moteur_seul.html:152
 #: .\theme\templates\voiture_pneus\ajouter_pneus_simple.html:102
@@ -6291,6 +6279,22 @@ msgstr ""
 msgid "Capacité de la batterie en kWh"
 msgstr ""
 
+#: .\theme\templates\voiture_modele\ajouter_modele.html:104
+msgid "Mois de début"
+msgstr ""
+
+#: .\theme\templates\voiture_modele\ajouter_modele.html:113
+msgid "Année de début"
+msgstr ""
+
+#: .\theme\templates\voiture_modele\ajouter_modele.html:122
+msgid "Mois de fin"
+msgstr ""
+
+#: .\theme\templates\voiture_modele\ajouter_modele.html:131
+msgid "Année de fin"
+msgstr ""
+
 #: .\theme\templates\voiture_modele\modeles_list.html:8
 #: .\theme\templates\voiture_modele\modeles_par_marque.html:9
 msgid "Modèles de "
@@ -6357,20 +6361,20 @@ msgid "Capacité du réservoir en litres"
 msgstr ""
 
 #: .\theme\templates\voiture_modele\voituremodele_list.html:49
-#: .\voiture\voiture_modele\views.py:96
+#: .\voiture\voiture_modele\views.py:97
 msgid "Ajouter un modèle"
 msgstr ""
 
 #: .\theme\templates\voiture_modele\voituremodele_list.html:101
-msgid "Affichage de _START_ à _END_ sur _TOTAL_ voiture_modeles"
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ Modèles"
 msgstr ""
 
 #: .\theme\templates\voiture_modele\voituremodele_list.html:102
-msgid "Aucune voiture_modele trouvé"
+msgid "Aucune modèle trouvé"
 msgstr ""
 
 #: .\theme\templates\voiture_modele\voituremodele_list.html:103
-msgid "Aucun voiture_modele trouvé"
+msgid "Aucun modèle trouvé"
 msgstr ""
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:10
@@ -6827,74 +6831,91 @@ msgid ""
 "(lettres A-H, J-N, P, R-Z et chiffres)."
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\views.py:88
+#: .\voiture\voiture_exemplaire\views.py:91
 msgid "Veuillez sélectionner une boîte à lier."
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\views.py:93
+#: .\voiture\voiture_exemplaire\views.py:96
 msgid "Lier une boîte de vitesse à un véhicule"
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\views.py:112
+#: .\voiture\voiture_exemplaire\views.py:115
 msgid "Veuillez sélectionner des pneus à lier."
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\views.py:117
+#: .\voiture\voiture_exemplaire\views.py:120
 msgid "Lier des pneus à un véhicule"
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\views.py:140
+#: .\voiture\voiture_exemplaire\views.py:143
 msgid "Veuillez sélectionner un moteur à lier."
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\views.py:145
+#: .\voiture\voiture_exemplaire\views.py:148
 msgid "Lier un moteur à un véhicule"
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\views.py:166
+#: .\voiture\voiture_exemplaire\views.py:169
 msgid "Veuillez sélectionner un embrayage à lier."
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\views.py:171
+#: .\voiture\voiture_exemplaire\views.py:174
 msgid "Lier un embrayage à un véhicule"
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\views.py:211
-#: .\voiture\voiture_exemplaire\views.py:250
+#: .\voiture\voiture_exemplaire\views.py:214
+#: .\voiture\voiture_exemplaire\views.py:253
 msgid "Veuillez sélectionner un système de freinage à lier."
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\views.py:216
+#: .\voiture\voiture_exemplaire\views.py:219
 msgid "Lier un système de freinage à un véhicule"
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\views.py:255
+#: .\voiture\voiture_exemplaire\views.py:258
 msgid "Lier un système de freinage arrière à un véhicule"
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\views.py:271
+#: .\voiture\voiture_exemplaire\views.py:274
 msgid "Paramètres manquants"
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\views.py:276
+#: .\voiture\voiture_exemplaire\views.py:279
 msgid "Moteur non trouvé"
 msgstr ""
 
-#: .\voiture\voiture_modele\forms.py:74
-msgid "La marque est obligatoire."
+#: .\voiture\voiture_modele\forms.py:104
+msgid "Le mois de début doit être compris entre 1 et 12."
 msgstr ""
 
-#: .\voiture\voiture_modele\models.py:58
+#: .\voiture\voiture_modele\forms.py:112
+msgid "Le mois de fin doit être compris entre 1 et 12."
+msgstr ""
+
+#: .\voiture\voiture_modele\forms.py:122
+#, python-format
+msgid "L’année de début doit être comprise entre 1850 et %(annee)s."
+msgstr ""
+
+#: .\voiture\voiture_modele\forms.py:144
+msgid "L’année de fin doit être supérieure ou égale à l’année de début."
+msgstr ""
+
+#: .\voiture\voiture_modele\forms.py:150
+msgid "Le mois de fin doit être supérieur ou égal au mois de début."
+msgstr ""
+
+#: .\voiture\voiture_modele\models.py:111
 msgid "Ce modèle avec cette variante existe déjà pour cette marque."
 msgstr ""
 
-#: .\voiture\voiture_modele\views.py:81
-#, python-format
-msgid "Le modèle a été ajouté avec succès pour la marque %(marque)s."
+#: .\voiture\voiture_modele\views.py:80
+msgid "(Marque non définie)"
 msgstr ""
 
-#: .\voiture\voiture_modele\views.py:87
-msgid "Le formulaire contient des erreurs."
+#: .\voiture\voiture_modele\views.py:85
+#, python-format
+msgid "Le modèle a été ajouté avec succès pour la marque %(marque)s."
 msgstr ""
 
 #: .\voiture\voiture_modele\views.py:97
