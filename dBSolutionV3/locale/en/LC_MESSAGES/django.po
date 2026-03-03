@@ -6281,28 +6281,20 @@ msgid "Capacité de la batterie en kWh"
 msgstr "Battery capacity (kWh)"
 
 #: .\theme\templates\voiture_modele\ajouter_modele.html:104
-#, fuzzy
-#| msgid "Mois de production"
 msgid "Mois de début"
-msgstr "Month of production"
+msgstr "Start month"
 
 #: .\theme\templates\voiture_modele\ajouter_modele.html:113
-#, fuzzy
-#| msgid "Année de production"
 msgid "Année de début"
-msgstr "Production year"
+msgstr "Start year"
 
 #: .\theme\templates\voiture_modele\ajouter_modele.html:122
-#, fuzzy
-#| msgid "Mois de production"
 msgid "Mois de fin"
-msgstr "Month of production"
+msgstr "End month"
 
 #: .\theme\templates\voiture_modele\ajouter_modele.html:131
-#, fuzzy
-#| msgid "Année de production"
 msgid "Année de fin"
-msgstr "Production year"
+msgstr "End year"
 
 #: .\theme\templates\voiture_modele\modeles_list.html:8
 #: .\theme\templates\voiture_modele\modeles_par_marque.html:9
@@ -6375,20 +6367,15 @@ msgid "Ajouter un modèle"
 msgstr "Add a model"
 
 #: .\theme\templates\voiture_modele\voituremodele_list.html:101
-#, fuzzy
-#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ polices"
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ Modèles"
-msgstr "Showing _START_ to _END_ of _TOTAL_ policies"
+msgstr "Showing _START_ to _END_ of _TOTAL_ models"
 
 #: .\theme\templates\voiture_modele\voituremodele_list.html:102
-#, fuzzy
-#| msgid "Aucun modèle trouvé"
+#: .\theme\templates\voiture_modele\voituremodele_list.html:103
 msgid "Aucune modèle trouvé"
 msgstr "No model found"
 
-#: .\theme\templates\voiture_modele\voituremodele_list.html:103
-msgid "Aucun modèle trouvé"
-msgstr "No model found"
+
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:10
 msgid "Ajouter un moteur pour"
@@ -6901,34 +6888,32 @@ msgstr "Engine not found"
 
 #: .\voiture\voiture_modele\forms.py:104
 msgid "Le mois de début doit être compris entre 1 et 12."
-msgstr ""
+msgstr "The start month must be between 1 and 12."
 
 #: .\voiture\voiture_modele\forms.py:112
 msgid "Le mois de fin doit être compris entre 1 et 12."
-msgstr ""
+msgstr "The end month must be between 1 and 12."
 
 #: .\voiture\voiture_modele\forms.py:122
 #, python-format
 msgid "L’année de début doit être comprise entre 1850 et %(annee)s."
-msgstr ""
+msgstr "The start year must be between 1850 and %(annee)s."
 
 #: .\voiture\voiture_modele\forms.py:144
 msgid "L’année de fin doit être supérieure ou égale à l’année de début."
-msgstr ""
+msgstr "The end year must be greater than or equal to the start year."
 
 #: .\voiture\voiture_modele\forms.py:150
 msgid "Le mois de fin doit être supérieur ou égal au mois de début."
-msgstr ""
+msgstr "The end month must be greater than or equal to the start month."
 
 #: .\voiture\voiture_modele\models.py:111
 msgid "Ce modèle avec cette variante existe déjà pour cette marque."
 msgstr "This model with this variant already exists for this brand."
 
 #: .\voiture\voiture_modele\views.py:80
-#, fuzzy
-#| msgid "Marque disponible"
 msgid "(Marque non définie)"
-msgstr "Brand available"
+msgstr "(Brand not defined)"
 
 #: .\voiture\voiture_modele\views.py:85
 #, python-format
@@ -7137,7 +7122,7 @@ msgstr "Rear tire mileage"
 
 #: .\voiture\voiture_pneus\views.py:28
 msgid "Pneus remplacés avec succès."
-msgstr ""
+msgstr "Tires replaced successfully."
 
 #: .\voiture\voiture_pneus\views.py:87
 msgid "Le nom du manufacturier est obligatoire."
