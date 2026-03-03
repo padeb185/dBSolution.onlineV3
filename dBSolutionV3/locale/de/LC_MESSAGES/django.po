@@ -330,8 +330,6 @@ msgid "Nom du responsable"
 msgstr "Name des Verantwortlichen"
 
 #: .\carrosserie\models.py:22
-#, fuzzy
-#| msgid "Prénom du responsable"
 msgid "Prenom du responsable"
 msgstr "Vorname des Verantwortlichen"
 
@@ -1637,82 +1635,60 @@ msgid "Présence de fuite"
 msgstr "Vorhandensein von Leckage"
 
 #: .\maintenance\freins\models.py:49
-#, fuzzy
-#| msgid "À remplacer avant"
-msgid "Disques à remplacer avant"
-msgstr "Vorne zu ersetzen"
+msgid "Disques avant à remplacer"
+msgstr "Vordere Bremsscheiben zu ersetzen"
 
 #: .\maintenance\freins\models.py:53
-#, fuzzy
-#| msgid "À remplacer arrière"
-msgid "disques à remplacer arrière"
-msgstr "Hinten zu ersetzen"
+msgid "disques arrière à remplacer"
+msgstr "Hintere Bremsscheiben zu ersetzen"
 
 #: .\maintenance\freins\models.py:58
-#, fuzzy
-#| msgid "Plaquettes avant à remplacer"
-msgid "Plaquettes à remplacer avant"
+msgid "Plaquettes avant à remplacer"
 msgstr "Vordere Bremsbeläge zu ersetzen"
 
 #: .\maintenance\freins\models.py:62
-#, fuzzy
-#| msgid "Plaquettes avant à remplacer"
-msgid "Plaquettes à  remplacer arrière"
-msgstr "Vordere Bremsbeläge zu ersetzen"
+msgid "Plaquettes arrière à  remplacer"
+msgstr "Hintere Bremsbeläge zu ersetzen"
 
 #: .\maintenance\freins\models.py:108
-#, fuzzy
-#| msgid "À remplacer"
 msgid "Pièce remplacée"
-msgstr "Zu ersetzen"
+msgstr "Ersetztes Teil"
 
 #: .\maintenance\freins\models.py:109
-#, fuzzy
-#| msgid "Contrôle des freins (plaquettes, disques, fuites…)"
 msgid "La pièce de frein remplacée, ex : plaquettes, disques, étrier…"
-msgstr "Bremsprüfung (Beläge, Scheiben, Lecks…)"
+msgstr "Das ersetzte Bremsteil, z. B.: Bremsbeläge, Bremsscheiben, Bremssattel…"
 
 #: .\maintenance\freins\models.py:116
 msgid "Durée de remplacement (minutes)"
-msgstr ""
+msgstr "Austauschdauer (Minuten)"
 
 #: .\maintenance\freins\models.py:117
 msgid "Temps estimé ou réel pour effectuer le remplacement"
-msgstr ""
+msgstr "Geschätzte oder tatsächliche Dauer für den Austausch"
 
 #: .\maintenance\freins\models.py:124
 msgid "Notes ou détails supplémentaires sur le remplacement effectué"
-msgstr ""
+msgstr "Zusätzliche Hinweise oder Details zum durchgeführten Austausch"
 
 #: .\maintenance\freins\models.py:127
-#, fuzzy
-#| msgid "Cage de roulement"
 msgid "Date de remplacement"
-msgstr "Lagerkäfig"
+msgstr "Austauschdatum"
 
 #: .\maintenance\freins\models.py:130
-#, fuzzy
-#| msgid "Remplacement liquide de frein"
-msgid "Remplacement de freins"
-msgstr "Bremsflüssigkeit ersetzen"
+msgid "Remplacement des freins"
+msgstr "Bremsenwechsel"
 
 #: .\maintenance\freins\models.py:131
-#, fuzzy
-#| msgid "Remplacement liquide de frein"
-msgid "Remplacements de freins"
-msgstr "Bremsflüssigkeit ersetzen"
+msgid "Remplacements des freins"
+msgstr "Bremsenwechsel"
 
 #: .\maintenance\freins\models.py:136
-#, fuzzy, python-format
-#| msgid "Contrôle freins – %(partie)s (%(date)s)"
 msgid "Remplacement – %(piece)s (%(date)s)"
-msgstr "Bremsenprüfung – %(partie)s (%(date)s)"
+msgstr "Austausch – %(piece)s (%(date)s)"
 
 #: .\maintenance\freins\models.py:138
-#, fuzzy
-#| msgid "Pièce contrôlée"
 msgid "Pièce non spécifiée"
-msgstr "Geprüftes Teil"
+msgstr "Teil nicht angegeben"
 
 #: .\maintenance\models.py:8
 msgid "Check-up"
@@ -4250,10 +4226,8 @@ msgid "Date de la recharge"
 msgstr "Ladedatum"
 
 #: .\recharge\forms.py:37 .\recharge\models.py:63
-#, fuzzy
-#| msgid "Roues de rechange"
 msgid "Temps de recharge"
-msgstr "Reserveräder"
+msgstr "Ladezeit"
 
 #: .\recharge\models.py:11 .\recharge\models.py:76
 msgid "Electricite"
@@ -4264,20 +4238,16 @@ msgid "Prix au kilo Watt (€)"
 msgstr "Preis pro Kilowatt (€)"
 
 #: .\recharge\models.py:68
-#, fuzzy
-#| msgid "Kilométrage moteur"
 msgid "Kilométrage recharge"
-msgstr "Motor-Kilometerstand"
+msgstr "Lade-Kilometer"
 
 #: .\recharge\models.py:77
 msgid "Electricites"
 msgstr "Stromarten"
 
 #: .\recharge\views.py:48
-#, fuzzy
-#| msgid "Carburant ajouté avec succès."
 msgid "Recharge électrique ajoutée avec succès."
-msgstr "Kraftstoff erfolgreich hinzugefügt."
+msgstr "Elektroaufladung erfolgreich hinzugefügt."
 
 #: .\societe_cliente\forms.py:17
 msgid ""
@@ -5061,8 +5031,6 @@ msgid "Marques de voiture"
 msgstr "Automarken"
 
 #: .\theme\templates\dashboard.html:95
-#, fuzzy
-#| msgid "Modèle de voiture"
 msgid "Modèles de voiture"
 msgstr "Fahrzeugmodell"
 
@@ -5095,10 +5063,8 @@ msgstr "Karosserieeinsatz"
 
 #: .\theme\templates\dashboard.html:288
 #: .\theme\templates\recharge\electricite_form.html:11
-#, fuzzy
-#| msgid "Machine électrique"
 msgid "Recharge électrique"
-msgstr "Elektromotor"
+msgstr "Elektroaufladung"
 
 #: .\theme\templates\dashboard.html:326
 msgid "Tableau de bord Admin"
@@ -5425,40 +5391,28 @@ msgid "Aucun contrôle enregistré."
 msgstr "Keine Kontrollen erfasst."
 
 #: .\theme\templates\maintenance\entretien\creer_entretien.html:10
-#, fuzzy
-#| msgid "Créer une intervention"
 msgid "Créer un entretien pour :"
-msgstr "Einsatz erstellen"
+msgstr "Wartung erstellen für:"
 
 #: .\theme\templates\maintenance\entretien\creer_entretien.html:25
-#, fuzzy
-#| msgid "Interval d'entretien"
 msgid "Informations de l'entretien"
-msgstr "Wartungsintervall"
+msgstr "Wartungsinformationen"
 
 #: .\theme\templates\maintenance\entretien\creer_entretien.html:31
-#, fuzzy
-#| msgid "Operations"
 msgid "Opérations"
 msgstr "Betrieb"
 
 #: .\theme\templates\maintenance\entretien\creer_entretien.html:35
-#, fuzzy
-#| msgid "Type d'utilisation"
 msgid "Type d'opération:"
-msgstr "Verwendungsart"
+msgstr "Art der Operation:"
 
 #: .\theme\templates\maintenance\entretien\creer_entretien.html:51
-#, fuzzy
-#| msgid "Support moteur"
 msgid "Supprimer"
-msgstr "Motorhalter"
+msgstr "Löschen"
 
 #: .\theme\templates\maintenance\entretien\creer_entretien.html:59
-#, fuzzy
-#| msgid "Dernier entretien"
 msgid "Créer l'entretien"
-msgstr "Letzter Service"
+msgstr "Wartung erstellen"
 
 #: .\theme\templates\maintenance\list.html:10
 msgid "Maintenance du véhicule :"
@@ -5486,46 +5440,32 @@ msgid "Aucun exemplaire disponible pour la maintenance."
 msgstr "Kein Fahrzeug für die Wartung verfügbar."
 
 #: .\theme\templates\recharge\electricite_detail.html:16
-#, fuzzy
-#| msgid "Détails de la carrosserie :"
 msgid "Détails des recharges électriques :"
-msgstr "Karosseriedetails:"
+msgstr "Details zu den Elektroaufladungen:"
 
 #: .\theme\templates\recharge\electricite_detail.html:23
 #: .\theme\templates\recharge\electricite_detail.html:98
-#, fuzzy
-#| msgid "Retour à la liste des adresses"
 msgid "Retour à la liste des recharges"
-msgstr "Zur Adressliste zurückkehren"
+msgstr "Zurück zur Liste der Aufladungen"
 
 #: .\theme\templates\recharge\electricite_form.html:12
-#, fuzzy
-#| msgid "Ajouter une carrosserie"
 msgid "Ajouter une recharge electrique"
-msgstr "Karosserie hinzufügen"
+msgstr "Elektroaufladung hinzufügen"
 
 #: .\theme\templates\recharge\electricite_form.html:74
 #: .\theme\templates\recharge\recharge_list.html:60
-#, fuzzy
-#| msgid "Kilos Watt"
 msgid "Kilo Watts"
 msgstr "Kilowatt"
 
 #: .\theme\templates\recharge\electricite_form.html:104
-#, fuzzy
-#| msgid "Volume max (L)"
 msgid "Volume max (kW)"
-msgstr "Maximalvolumen (L)"
+msgstr "Maximalvolumen (kW)"
 
 #: .\theme\templates\recharge\recharge_list.html:10
-#, fuzzy
-#| msgid "Liste des Carrosseries"
 msgid "Liste des recharges électriques"
-msgstr "Liste der Karosserien"
+msgstr "Liste der Elektroaufladungen"
 
 #: .\theme\templates\recharge\recharge_list.html:30
-#, fuzzy
-#| msgid "Électricité"
 msgid "Electricité"
 msgstr "Elektrizität"
 
@@ -5534,29 +5474,21 @@ msgid "20 kW"
 msgstr ""
 
 #: .\theme\templates\recharge\recharge_list.html:42
-#, fuzzy
-#| msgid "Ajouter une carrosserie"
 msgid "Ajouter une recharge électrique"
-msgstr "Karosserie hinzufügen"
+msgstr "Elektroaufladung hinzufügen"
 
 #: .\theme\templates\recharge\recharge_list.html:62
-#, fuzzy
-#| msgid "Prix au litre"
 msgid "Prix au kW"
-msgstr "Preis pro Liter"
+msgstr "Preis pro kW"
 
 #: .\theme\templates\recharge\recharge_list.html:159
-#, fuzzy
-#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ polices"
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ electricites"
-msgstr "Anzeige von _START_ bis _END_ von insgesamt _TOTAL_ Policen"
+msgstr "Anzeige von _START_ bis _END_ von insgesamt _TOTAL_ Aufladungen"
 
 #: .\theme\templates\recharge\recharge_list.html:160
 #: .\theme\templates\recharge\recharge_list.html:161
-#, fuzzy
-#| msgid "Aucune carrosserie trouvé"
 msgid "Aucune recharge electrique trouvée"
-msgstr "Keine Karosserie gefunden"
+msgstr "Keine Elektroaufladung gefunden"
 
 #: .\theme\templates\societe_cliente\modifier_societe_cliente.html:13
 msgid "Modifier la societe :"
@@ -6336,38 +6268,30 @@ msgid "Ajouter une marque"
 msgstr "Marke hinzufügen"
 
 #: .\theme\templates\voiture_modele\ajouter_modele.html:10
-#, fuzzy
-#| msgid "Ajouter une boite de vitesse"
 msgid "Ajouter un modèle de voiture"
-msgstr "Getriebe hinzufügen"
+msgstr "Automodell hinzufügen"
 
 #: .\theme\templates\voiture_modele\ajouter_modele.html:68
 #: .\theme\templates\voiture_modele\voituremodele_list.html:30
 #: .\theme\templates\voiture_modele\voituremodele_list.html:63
-#, fuzzy
-#| msgid "Nombre de rapports"
 msgid "Nombre de portes"
-msgstr "Anzahl der Gänge"
+msgstr "Anzahl der Türen"
 
 #: .\theme\templates\voiture_modele\ajouter_modele.html:77
 #: .\theme\templates\voiture_modele\voituremodele_list.html:34
 #: .\theme\templates\voiture_modele\voituremodele_list.html:64
-#, fuzzy
-#| msgid "Nombre de cylindres"
 msgid "Nombre de places"
-msgstr "Anzahl der Zylinder"
+msgstr "Anzahl der Sitzplätze"
 
 #: .\theme\templates\voiture_modele\ajouter_modele.html:86
 msgid "Taille du réservoir en litres"
-msgstr ""
+msgstr "Tankgröße in Litern"
 
 #: .\theme\templates\voiture_modele\ajouter_modele.html:95
 #: .\theme\templates\voiture_modele\voituremodele_list.html:42
 #: .\theme\templates\voiture_modele\voituremodele_list.html:66
-#, fuzzy
-#| msgid "Tapis de batterie"
 msgid "Capacité de la batterie en kWh"
-msgstr "Batteriepolster"
+msgstr "Batteriekapazität in kWh"
 
 #: .\theme\templates\voiture_modele\modeles_list.html:8
 #: .\theme\templates\voiture_modele\modeles_par_marque.html:9
@@ -6396,84 +6320,60 @@ msgstr "Für diese Marke sind keine Modelle gespeichert."
 
 #: .\theme\templates\voiture_modele\modifier_voiture_modele1.html:13
 #: .\theme\templates\voiture_modele\modifier_voiture_modele_view.html:11
-#, fuzzy
-#| msgid "Modifier le plein"
 msgid "Modifier le modèle:"
-msgstr "Betankung bearbeiten"
+msgstr "Modell bearbeiten:"
 
 #: .\theme\templates\voiture_modele\voiture_modele_detail.html:16
-#, fuzzy
-#| msgid "Détails du client :"
 msgid "Détails du modèle :"
-msgstr "Kundendetails:"
+msgstr "Modell-Details:"
 
 #: .\theme\templates\voiture_modele\voiture_modele_detail.html:22
 #: .\theme\templates\voiture_modele\voiture_modele_detail.html:91
-#, fuzzy
-#| msgid "Retour à la liste des pleins"
 msgid "Retour à la liste des modèles"
-msgstr "Zurück zur Liste der Betankungen"
+msgstr "Zurück zur Modells-Liste"
 
 #: .\theme\templates\voiture_modele\voiture_modele_detail.html:56
-#, fuzzy
-#| msgid "Modifier le plein"
 msgid "Modifier le modèle"
-msgstr "Betankung bearbeiten"
+msgstr "Modell bearbeiten"
 
 #: .\theme\templates\voiture_modele\voiture_modele_form.html:9
-#, fuzzy
-#| msgid "Modèle de voiture"
 msgid "Créer un modèle de voiture"
-msgstr "Fahrzeugmodell"
+msgstr "Automodell erstellen"
 
 #: .\theme\templates\voiture_modele\voituremodele_list.html:4
-#, fuzzy
-#| msgid "Liste des polices"
 msgid "Liste des Modèles"
-msgstr "Policenliste"
+msgstr "Modellliste"
 
 #: .\theme\templates\voiture_modele\voituremodele_list.html:10
-#, fuzzy
-#| msgid "Liste des moteurs"
 msgid "Liste des modèles"
-msgstr "Motorenliste"
+msgstr "Modellliste"
 
 #: .\theme\templates\voiture_modele\voituremodele_list.html:22
 #: .\theme\templates\voiture_modele\voituremodele_list.html:61
-#, fuzzy
-#| msgid "Image du modèle"
 msgid "Nom du modèle"
-msgstr "Modellbild"
+msgstr "Modellname"
 
 #: .\theme\templates\voiture_modele\voituremodele_list.html:38
 #: .\theme\templates\voiture_modele\voituremodele_list.html:65
 msgid "Capacité du réservoir en litres"
-msgstr ""
+msgstr "Tankkapazität in Litern"
 
 #: .\theme\templates\voiture_modele\voituremodele_list.html:49
 #: .\voiture\voiture_modele\views.py:96
-#, fuzzy
-#| msgid "Ajouter un moteur"
 msgid "Ajouter un modèle"
-msgstr "Motor hinzufügen"
+msgstr "Modell hinzufügen"
 
 #: .\theme\templates\voiture_modele\voituremodele_list.html:101
-#, fuzzy
-#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ moteurs"
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ voiture_modeles"
-msgstr "Anzeige von _START_ bis _END_ von _TOTAL_ Motoren"
+msgstr "Anzeige von _START_ bis _END_ von insgesamt _TOTAL_ Automodellen"
 
 #: .\theme\templates\voiture_modele\voituremodele_list.html:102
-#, fuzzy
-#| msgid "Aucun moteur trouvé"
-msgid "Aucune voiture_modele trouvé"
-msgstr "Kein Motor gefunden"
+msgid "Aucun modèle trouvé"
+msgstr "Kein Modell gefunden"
 
 #: .\theme\templates\voiture_modele\voituremodele_list.html:103
-#, fuzzy
-#| msgid "Aucun moteur trouvé"
-msgid "Aucun voiture_modele trouvé"
-msgstr "Kein Motor gefunden"
+msgid "Aucun modèle trouvé"
+msgstr "Kein Modell gefunden"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:10
 msgid "Ajouter un moteur pour"
@@ -6985,31 +6885,25 @@ msgid "Moteur non trouvé"
 msgstr "Motor nicht gefunden"
 
 #: .\voiture\voiture_modele\forms.py:74
-#, fuzzy
-#| msgid "Le nom de la rue est obligatoire."
 msgid "La marque est obligatoire."
-msgstr "Der Straßenname ist erforderlich."
+msgstr "Die Marke ist erforderlich."
 
 #: .\voiture\voiture_modele\models.py:58
-#, fuzzy
-#| msgid "Aucun modèle enregistré pour cette marque."
 msgid "Ce modèle avec cette variante existe déjà pour cette marque."
-msgstr "Für diese Marke sind keine Modelle gespeichert."
+msgstr "Dieses Modell mit dieser Variante existiert bereits für diese Marke."
 
 #: .\voiture\voiture_modele\views.py:81
 #, python-format
 msgid "Le modèle a été ajouté avec succès pour la marque %(marque)s."
-msgstr ""
+msgstr "Das Modell wurde erfolgreich für die Marke %(marque)s hinzugefügt."
 
 #: .\voiture\voiture_modele\views.py:87
 msgid "Le formulaire contient des erreurs."
-msgstr ""
+msgstr "Das Formular enthält Fehler."
 
 #: .\voiture\voiture_modele\views.py:97
-#, fuzzy
-#| msgid "Créer le moteur"
 msgid "Créer le modèle"
-msgstr "Motor erstellen"
+msgstr "Modell erstellen"
 
 #: .\voiture\voiture_moteur\models.py:12
 msgid "Atmosphérique"
