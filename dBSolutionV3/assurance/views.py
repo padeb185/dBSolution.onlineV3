@@ -1,6 +1,7 @@
 # assurance/views.py
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.utils.decorators import method_decorator
@@ -47,16 +48,13 @@ def assurance_detail(request, assurance_id):
 
 
 
-
 @login_required
 def ajouter_assurance_all(request):
-    tenant = request.user.societe  # si tu utilises tenant
-    assurance = Assurance()  # objet vide pour formulaire
+    tenant = request.user.societe
 
     if request.method == "POST":
         form_assurance = AssuranceForm(request.POST)
 
-        # Créer ou récupérer une adresse
         adresse_data = {
             "rue": request.POST.get("rue"),
             "numero": request.POST.get("numero"),
@@ -67,19 +65,30 @@ def ajouter_assurance_all(request):
             "societe": tenant
         }
 
-        # Si l'un des champs obligatoires est vide, on renvoie une erreur
-        if not adresse_data["rue"] or not adresse_data["numero"] or not adresse_data["code_postal"] or not adresse_data["ville"]:
+        # Vérification champs obligatoires
+        if not all([
+            adresse_data["rue"],
+            adresse_data["numero"],
+            adresse_data["code_postal"],
+            adresse_data["ville"]
+        ]):
             messages.error(request, "Les champs d'adresse sont obligatoires.")
+
         elif form_assurance.is_valid():
-            # Créer l'adresse en base
-            adresse = Adresse.objects.create(**adresse_data)
+            with transaction.atomic():     # évite la création d'adresse orpheline
 
-            # Créer l'assurance et l'associer à l'adresse
-            assurance = form_assurance.save(commit=False)
-            assurance.adresse = adresse
-            assurance.save()
+                adresse = Adresse.objects.create(**adresse_data)
 
-            messages.success(request, f"Assurance '{assurance.nom_compagnie}' créée avec succès !")
+                # Création assurance
+                assurance = form_assurance.save(commit=False)
+                assurance.adresse = adresse
+                assurance.societe = tenant
+                assurance.save()
+
+                messages.success(
+                    request,
+                    f"Assurance '{assurance.nom_compagnie}' créée avec succès !"
+                )
 
         else:
             messages.error(request, "Le formulaire contient des erreurs.")
@@ -88,9 +97,8 @@ def ajouter_assurance_all(request):
         form_assurance = AssuranceForm()
 
     return render(request, "assurance/assurance_form.html", {
-        "form": form_assurance
+                "form": form_assurance
     })
-
 
 
 

@@ -55,9 +55,21 @@ class Adresse(models.Model):
                 _("Cette adresse existe déjà pour cette société.")
             )
 
-    def save(self, *args, **kwargs):
-        self.full_clean()  # Appelle clean() avant de sauvegarder
-        super().save(*args, **kwargs)
+    def clean(self):
+        if not self.societe:
+            raise ValidationError(_("Une société est obligatoire pour une adresse."))
+
+        if Adresse.objects.filter(
+                societe=self.societe,
+                rue__iexact=self.rue,
+                numero__iexact=self.numero,
+                boite__iexact=self.boite or "",
+                code_postal__iexact=self.code_postal,
+                ville__iexact=self.ville
+        ).exclude(id=self.id).exists():
+            raise ValidationError(
+                _("Cette adresse existe déjà pour cette société.")
+            )
 
     def __str__(self):
         return f"{self.rue} {self.numero}, {self.code_postal} {self.ville} {self.pays} {self.code_pays}"
