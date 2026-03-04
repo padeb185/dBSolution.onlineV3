@@ -23,7 +23,9 @@ class InterventionListView(LoginRequiredMixin, ListView):
     context_object_name = "interventions"
     paginate_by = 20
 
-
+    def get_queryset(self):
+        societe = self.request.user.societe
+        return Intervention.objects.filter(societe=societe)
 
 
 @login_required

@@ -86,11 +86,13 @@ def logout_view(request):
 @login_required
 def dashboard_view(request):
     user = request.user
+    societe = user.societe
     context = {}
 
-    # --- Sécurité : récupère le tenant ---
-    tenant_schema = getattr(request, 'tenant', None)
-    schema_name = tenant_schema.schema_name if tenant_schema else None
+    # --- Sécurité : récupère le tenant (la société de l'utilisateur) ---
+    societe = request.user.societe
+    schema_name = societe.schema_name  # pour django-tenants
+
 
     # --- Stats initialisées à zéro ---
     total_marques = total_moteurs = total_exemplaires = 0
@@ -107,25 +109,25 @@ def dashboard_view(request):
 
     if schema_name:
         with schema_context(schema_name):
-            marques = VoitureMarque.objects.all()
-            modele = VoitureModele.objects.all()
+            marques = VoitureMarque.objects.filter(societe=societe)
+            modele = VoitureModele.objects.filter(societe=societe)
             moteurs = MoteurVoiture.objects.all()
-            exemplaires = VoitureExemplaire.objects.all()
+            exemplaires = VoitureExemplaire.objects.filter(societe=societe)
             boites = VoitureBoite.objects.all()
             embrayages = VoitureEmbrayage.objects.all()
-            freins = VoitureFreins.objects.all()
-            freins_ar = VoitureFreinsAR.objects.all()
-            pneus = VoiturePneus.objects.all()
-            maintenance = Maintenance.objects.all()
-            fournisseurs = Fournisseur.objects.all()
-            client_particulier = ClientParticulier.objects.all()
-            carrosseries = Carrosserie.objects.all()
+            freins = VoitureFreins.objects.filter(societe=societe)
+            freins_ar = VoitureFreinsAR.objects.filter(societe=societe)
+            pneus = VoiturePneus.objects.filter(societe=societe)
+            maintenance = Maintenance.objects.filter(societe=societe)
+            fournisseurs = Fournisseur.objects.filter(societe=societe)
+            client_particulier = ClientParticulier.objects.filter(societe=societe)
+            carrosseries = Carrosserie.objects.filter(societe=societe)
             interventions = Intervention.objects.all()
-            societe_cliente = SocieteCliente.objects.all()
-            adresse = Adresse.objects.all()
-            carburant = Fuel.objects.all()
-            assurance = Assurance.objects.all()
-            assurance_police = AssurancePolice.objects.all()
+            societe_cliente = SocieteCliente.objects.filter(societe=societe)
+            adresse = Adresse.objects.filter(societe=societe)
+            carburant = Fuel.objects.filter(societe=societe)
+            assurance = Assurance.objects.filter(societe=societe)
+            assurance_police = AssurancePolice.objects.filter(societe=societe)
 
             # Totaux
             total_marques = marques.count()
@@ -154,6 +156,8 @@ def dashboard_view(request):
         modeles = []
 
     context.update({
+        'user': user,
+        'societe': societe,
         'total_marques': total_marques,
         'total_modele': total_modele,
         'total_moteurs': total_moteurs,

@@ -21,6 +21,7 @@ class ElectriciteListView(ListView):
     ordering = ["-date"]
 
     def get_queryset(self):
+        societe = self.request.user.societe
         return (
             Electricite.objects
             .select_related(
@@ -30,6 +31,7 @@ class ElectriciteListView(ListView):
                 "voiture_exemplaire__voiture_modele__voiture_marque",
             )
             .order_by("-date_recharge")
+            .filter(societe=societe)
         )
 
 

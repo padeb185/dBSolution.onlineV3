@@ -24,9 +24,9 @@ class CarrosserieListView(ListView):
     paginate_by = 20
     ordering = ["nom_societe"]
 
-
-
-
+    def get_queryset(self):
+        societe = self.request.user.societe
+        return Carrosserie.objects.filter(societe=societe)
 
 
 

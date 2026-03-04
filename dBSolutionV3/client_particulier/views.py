@@ -20,7 +20,9 @@ class ClientParticulierListView(ListView):
     paginate_by = 20
     ordering = ["nom", "prenom"]
 
-
+    def get_queryset(self):
+        societe = self.request.user.societe
+        return ClientParticulier.objects.filter(societe=societe)
 
 
 @never_cache

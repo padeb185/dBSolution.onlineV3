@@ -28,6 +28,16 @@ class Carrosserie(models.Model):
         related_name="carrosserie",
     )
 
+    societe = models.ForeignKey(
+        "societe.Societe",
+        on_delete=models.CASCADE,
+        related_name="carrosserie_ext",
+        null=True,
+        blank=True,
+    )
+
+
+
     telephone = models.CharField(_("Téléphone"), max_length=20, blank=True, null=True)
     email = models.EmailField(_("Email"), blank=True, null=True)
     numero_tva = models.CharField(_("Numéro de TVA"), max_length=50, blank=True, null=True)

@@ -30,6 +30,14 @@ class TypePlateauPression(models.TextChoices):
 class VoitureEmbrayage(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
+    societe = models.ForeignKey(
+        "societe.Societe",
+        on_delete=models.CASCADE,
+        related_name="embrayages",
+        null=True,
+        blank=True,
+    )
+
     # Relations (1 des 2 obligatoire)
     voitures_modeles = models.ManyToManyField(
         "voiture_modele.VoitureModele",

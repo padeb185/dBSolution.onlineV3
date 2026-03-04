@@ -23,6 +23,14 @@ class Maintenance(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
+    societe = models.ForeignKey(
+        "societe.Societe",
+        on_delete=models.CASCADE,
+        related_name="maintenance",
+        null=True,
+        blank=True,
+    )
+
     voiture_exemplaire = models.ForeignKey(
         "voiture_exemplaire.VoitureExemplaire",
         verbose_name=_("Voiture exemplaire"),

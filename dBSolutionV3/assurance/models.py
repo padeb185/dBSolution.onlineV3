@@ -8,6 +8,14 @@ from django.utils.translation import gettext_lazy as _
 class Assurance(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
+    societe = models.ForeignKey(
+        "societe.Societe",
+        on_delete=models.CASCADE,
+        related_name="assureur",
+        null=True,
+        blank=True,
+    )
+
     nom_compagnie= models.CharField(_("Nom de la compagnie"), max_length=100, blank=True, null=True)
     courtier_nom = models.CharField(_("Nom du courtier"), null=True, blank=True, max_length=100)
     courtier_prenom = models.CharField(_("Prénom du courtier"),null=True,blank=True, max_length=100)

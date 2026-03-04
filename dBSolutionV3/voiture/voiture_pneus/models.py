@@ -63,6 +63,14 @@ class VoiturePneus(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
+    societe = models.ForeignKey(
+        "societe.Societe",
+        on_delete=models.CASCADE,
+        related_name="pneus",
+        null=True,
+        blank=True,
+    )
+
     # Relations ManyToMany
     voitures_modeles = models.ManyToManyField(
         "voiture_modele.VoitureModele",

@@ -6,6 +6,14 @@ from django.utils.translation import gettext_lazy as _
 class Investissement(models.Model):
     id_investissement = models.AutoField(primary_key=True)
 
+    societe = models.ForeignKey(
+        "societe.Societe",
+        on_delete=models.CASCADE,
+        related_name="investissements",
+        null=True,
+        blank=True,
+    )
+
     fournisseur = models.ForeignKey(
         "fournisseur.Fournisseur",
         verbose_name=_("Fournisseur"),

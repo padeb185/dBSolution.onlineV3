@@ -12,6 +12,7 @@ from .forms import AdresseForm
 from adresse.models import Adresse
 from django.utils.translation import gettext as _
 from .models import Adresse
+from societe.models import Societe
 
 
 @method_decorator([login_required, never_cache], name='dispatch')
@@ -23,10 +24,8 @@ class AdresseListView(ListView):
     ordering = ["rue"]
 
     def get_queryset(self):
-        tenant = self.request.user.societe
-        return Adresse.objects.filter(societe=tenant)
-
-
+        societe = self.request.user.societe
+        return Adresse.objects.filter(societe=societe)
 
 
 

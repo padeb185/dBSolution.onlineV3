@@ -22,6 +22,14 @@ class CodeBarre(models.Model):
 class Piece(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
+    societe = models.ForeignKey(
+        "societe.Societe",
+        on_delete=models.CASCADE,
+        related_name="pieces",
+        null=True,
+        blank=True,
+    )
+
     # Relations véhicule
     modele = models.ForeignKey(
         "voiture_modele.VoitureModele",

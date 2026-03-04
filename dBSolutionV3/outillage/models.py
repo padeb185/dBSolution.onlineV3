@@ -9,6 +9,14 @@ class Outillage(models.Model):
         verbose_name=_("Identifiant")
     )
 
+    societe = models.ForeignKey(
+        "societe.Societe",
+        on_delete=models.CASCADE,
+        related_name="outillage",
+        null=True,
+        blank=True,
+    )
+
     fournisseur = models.ForeignKey(
         Fournisseur,
         on_delete=models.CASCADE,

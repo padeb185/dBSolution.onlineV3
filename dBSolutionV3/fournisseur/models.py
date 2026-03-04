@@ -8,6 +8,14 @@ class Fournisseur(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
+    societe = models.ForeignKey(
+        "societe.Societe",
+        on_delete=models.CASCADE,
+        related_name="fournisseurs",
+        null=True,
+        blank=True,
+    )
+
     nom = models.CharField(
         _("Nom du fournisseur"),
         max_length=200,

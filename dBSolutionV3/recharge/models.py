@@ -18,6 +18,16 @@ class Electricite(models.Model):
         default=uuid.uuid4,
         editable=False
     )
+
+    societe = models.ForeignKey(
+        "societe.Societe",
+        on_delete=models.CASCADE,
+        related_name="recharge",
+        null=True,
+        blank=True,
+    )
+
+
     utilisateur = models.ForeignKey(
         Utilisateur,  # FK vers ton modèle concret
         on_delete=models.CASCADE,

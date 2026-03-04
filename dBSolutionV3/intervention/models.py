@@ -6,6 +6,14 @@ from django.utils.translation import gettext_lazy as _
 class Intervention(models.Model):
     id = models.AutoField(primary_key=True)
 
+    societe = models.ForeignKey(
+        "societe.Societe",
+        on_delete=models.CASCADE,
+        related_name="intervention",
+        null=True,
+        blank=True,
+    )
+
     carrosserie = models.ForeignKey(
         "carrosserie.Carrosserie",
         verbose_name=_("Carrosserie"),

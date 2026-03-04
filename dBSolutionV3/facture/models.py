@@ -18,6 +18,13 @@ class Company(models.Model):
         on_delete=models.PROTECT,
         related_name="companies"
     )
+    societe = models.ForeignKey(
+        "societe.Societe",
+        on_delete=models.CASCADE,
+        related_name="facture_clients",
+        null=True,
+        blank=True,
+    )
 
     peppol_id = models.CharField(
         _("Identifiant Peppol"),

@@ -32,6 +32,7 @@ class FuelListView(ListView):
     ordering = ["-date"]
 
     def get_queryset(self):
+        societe = self.request.user.societe
         return (
             Fuel.objects
             .select_related(
@@ -41,7 +42,9 @@ class FuelListView(ListView):
                 "voiture_exemplaire__voiture_modele__voiture_marque",
             )
             .order_by("-date")
+            .filter(societe=societe)
         )
+
 
 
 

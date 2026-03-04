@@ -33,10 +33,12 @@ class SocieteClienteListView(ListView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
+        societe = self.request.user.societe
         with tenant_context(self.tenant):
             return (
                 SocieteCliente.objects.all()
                 .order_by("nom_societe_cliente")
+                .filter(societe=societe)
             )
 
 

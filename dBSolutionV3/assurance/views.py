@@ -22,10 +22,9 @@ class AssuranceListView(ListView):
     paginate_by = 20
     ordering = ["nom_compagnie"]
 
-
-
-
-
+    def get_queryset(self):
+        societe = self.request.user.societe
+        return Assurance.objects.filter(societe=societe)
 
 
 @login_required

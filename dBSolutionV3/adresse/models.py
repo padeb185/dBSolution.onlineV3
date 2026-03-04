@@ -9,7 +9,7 @@ class Adresse(models.Model):
     societe = models.ForeignKey(
         "societe.Societe",
         on_delete=models.CASCADE,
-        related_name="adresses",
+        related_name="adresse_clients",
         null=True,
         blank=True,
     )

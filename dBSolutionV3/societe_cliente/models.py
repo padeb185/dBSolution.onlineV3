@@ -19,6 +19,13 @@ class SocieteCliente(models.Model):
         editable=False
     )
 
+    societe = models.ForeignKey(
+        "societe.Societe",
+        on_delete=models.CASCADE,
+        related_name="societe_clientes",
+        null=True,
+        blank=True,
+    )
 
     nom_societe_cliente = models.CharField(
         _('Nom de la societe'),

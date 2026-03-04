@@ -9,6 +9,14 @@ class VoitureFreins(models.Model):
         editable=False
     )
 
+    societe = models.ForeignKey(
+        "societe.Societe",
+        on_delete=models.CASCADE,
+        related_name="friens",
+        null=True,
+        blank=True,
+    )
+
     # 🔗 Relation principale
     voitures_exemplaires = models.ManyToManyField(
         "voiture_exemplaire.VoitureExemplaire",

@@ -21,9 +21,9 @@ class FournisseurListView(ListView):
     paginate_by = 20
     ordering = ["nom"]
 
-
-
-
+    def get_queryset(self):
+        societe = self.request.user.societe
+        return Fournisseur.objects.filter(societe=societe)
 
 
 @never_cache

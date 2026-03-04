@@ -19,6 +19,14 @@ class ClientParticulier(models.Model):
 
     nom = models.CharField(_("Nom"), max_length=50)
 
+    societe = models.ForeignKey(
+        "societe.Societe",
+        on_delete=models.CASCADE,
+        related_name="client_particulier",
+        null=True,
+        blank=True,
+    )
+
     adresse = models.OneToOneField(
         "adresse.Adresse",
         verbose_name=_("Adresse"),

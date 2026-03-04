@@ -82,5 +82,5 @@ def liste_freins_ar(request):
 
     tenant = request.user.societe
     with tenant_context(tenant):
-        freins_ar = VoitureFreinsAR.objects.all()
+        freins_ar = VoitureFreinsAR.objects.filter(societe=tenant)
     return render(request, "voiture_freins_ar/list_ar.html", {"freins_ar": freins_ar})

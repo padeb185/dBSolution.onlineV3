@@ -16,6 +16,14 @@ class Panier(models.Model):
         verbose_name=_("Identifiant")
     )
 
+    societe = models.ForeignKey(
+        "societe.Societe",
+        on_delete=models.CASCADE,
+        related_name="panier",
+        null=True,
+        blank=True,
+    )
+
     client = models.ForeignKey(
         ClientParticulier,
         on_delete=models.SET_NULL,

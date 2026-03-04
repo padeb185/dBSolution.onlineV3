@@ -49,9 +49,9 @@ def ajouter_freins_all(request, modele_id):
 @login_required
 def liste_freins(request):
 
-    tenant = request.user.societe
-    with tenant_context(tenant):
-        freins = VoitureFreins.objects.all()
+    societe = request.user.societe
+    with tenant_context(societe):
+        freins = VoitureFreins.objects.filter(societe=societe)
     return render(request, "voiture_freins/list.html", {"freins": freins})
 
 

@@ -44,6 +44,14 @@ class AssurancePolice(models.Model):
         blank=True,
     )
 
+    societe = models.ForeignKey(
+        "societe.Societe",
+        on_delete=models.CASCADE,
+        related_name="polices_assurance",
+        null=True,
+        blank=True,
+    )
+
     numero_contrat = models.CharField(max_length=100, unique=True)
 
     date_debut = models.DateField()
