@@ -42,7 +42,6 @@ def moteur_detail_view(request, moteur_id):
         'moteur': moteur,
     })
 
-
 @never_cache
 @login_required
 def liste_moteur(request):
@@ -51,7 +50,6 @@ def liste_moteur(request):
         moteurs = MoteurVoiture.objects.all()  # tous les moteurs du tenant
         context = {"moteurs": moteurs}
         return render(request, "voiture_moteur/list.html", context)
-
 
 
 @login_required
