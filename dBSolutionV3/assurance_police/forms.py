@@ -19,10 +19,26 @@ class AssurancePoliceCreateView(CreateView):
 
 
 class AssurancePoliceForm(forms.ModelForm):
+    date_debut = forms.DateField(
+        widget=forms.DateInput(
+            attrs={"type": "date"},
+            format="%Y-%m-%d"  # format HTML requis pour le champ type=date
+        ),
+        input_formats=["%d/%m/%Y", "%Y-%m-%d"]  # accepte le format JJ/MM/YYYY ou ISO
+    )
+    date_fin = forms.DateField(
+        widget=forms.DateInput(
+            attrs={"type": "date"},
+            format="%Y-%m-%d"
+        ),
+        input_formats=["%d/%m/%Y", "%Y-%m-%d"]
+    )
+
+
     class Meta:
         model = AssurancePolice
         fields = '__all__'
-        exclude = ('courtier', 'is_active')
+        exclude = ('courtier', 'is_active', 'societe')
 
         widgets = {
             'nom_compagnie': forms.TextInput(attrs={

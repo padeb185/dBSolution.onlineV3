@@ -44,11 +44,17 @@ class AssurancePoliceListView(ListView):
 
     def get_queryset(self):
         tenant = self.request.user.societe  # récupération du tenant via le request
+
         with tenant_context(tenant):
-            return AssurancePolice.objects.select_related(
-                "assurance",
-                "voiture_exemplaire"
-            ).all().order_by("-date_debut")
+            # Récupérer toutes les polices du tenant, avec select_related pour les relations
+            queryset = (
+                AssurancePolice.objects
+                .select_related("assurance", "voiture_exemplaire")
+                .order_by("-date_debut")
+            )
+        return queryset
+
+
 
 
 @login_required
@@ -59,8 +65,8 @@ def ajouter_assurance_all(request):
             form_assurance_police = AssurancePoliceForm(request.POST)
             if form_assurance_police.is_valid():
                 assurance_police = form_assurance_police.save(commit=False)
-                # tu peux ajouter tenant ou autre info ici si nécessaire
-                # assurance_police.societe = tenant
+
+                assurance_police.societe = tenant
                 assurance_police.save()
                 messages.success(
                     request,
@@ -104,6 +110,7 @@ def modifier_assurance_police(request, assurance_police_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
+        # Récupère l'objet AssurancePolice du tenant
         assurance_police = get_object_or_404(
             AssurancePolice,
             pk=assurance_police_id
@@ -119,11 +126,18 @@ def modifier_assurance_police(request, assurance_police_id):
             if form.is_valid():
                 assurance_police = form.save()
                 messages.success(request, "Police d'assurance mise à jour avec succès.")
-
             else:
                 messages.error(request, "Le formulaire contient des erreurs.")
+
         else:
-            form = AssurancePoliceForm(instance=assurance_police)
+            # Pour GET : initialiser le formulaire avec les valeurs existantes
+            # et formater les dates correctement si nécessaire
+            initial_data = {
+                "date_debut": assurance_police.date_debut,
+                "date_fin": assurance_police.date_fin,
+                # ajouter d'autres champs si nécessaire
+            }
+            form = AssurancePoliceForm(instance=assurance_police, initial=initial_data)
 
     return render(
         request,
