@@ -265,45 +265,5 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
-
-document.addEventListener("DOMContentLoaded", function () {
-
-    const immatriculationInput = document.getElementById("id_immatriculation");
-    const voitureField = document.getElementById("id_voiture_exemplaire");
-
-    const marqueField = document.getElementById("id_marque");
-    const modeleField = document.getElementById("id_modele");
-    const volumeField = document.getElementById("id_volume_max");
-
-    immatriculationInput.addEventListener("change", function () {
-
-        fetch("/fr/fuel/ajax/check-immatriculation/?immatriculation=" + immatriculationInput.value)
-        .then(response => response.json())
-        .then(data => {
-
-            if (data.exists) {
-
-                voitureField.value = data.voiture_id;
-
-                marqueField.value = data.marque;
-                modeleField.value = data.modele;
-                volumeField.value = data.volume_max;
-
-            } else {
-
-                voitureField.value = "";
-                marqueField.value = "";
-                modeleField.value = "";
-                volumeField.value = "";
-
-                alert("Véhicule non trouvé");
-
-            }
-        });
-
-    });
-
-});
-
 </script>
 {% endblock %}
