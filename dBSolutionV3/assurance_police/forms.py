@@ -38,7 +38,7 @@ class AssurancePoliceForm(forms.ModelForm):
     class Meta:
         model = AssurancePolice
         fields = '__all__'
-        exclude = ('courtier', 'is_active', 'societe')
+        exclude = ('courtier', 'is_active', 'societe', 'actif')
 
         widgets = {
             'nom_compagnie': forms.TextInput(attrs={
