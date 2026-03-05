@@ -40,20 +40,7 @@ class Adresse(models.Model):
             )
         ]
 
-    def clean(self):
-        """
-        Vérifie qu'il n'y a pas de doublon pour la même société.
-        """
-        if Adresse.objects.filter(
-                societe=self.societe,
-                rue__iexact=self.rue,
-                numero__iexact=self.numero,
-                code_postal__iexact=self.code_postal,
-                ville__iexact=self.ville
-        ).exclude(id=self.id).exists():
-            raise ValidationError(
-                _("Cette adresse existe déjà pour cette société.")
-            )
+
 
     def clean(self):
         if not self.societe:
