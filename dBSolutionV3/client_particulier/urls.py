@@ -8,7 +8,7 @@ urlpatterns = [
     path(
         "client_particulier",
         ClientParticulierListView.as_view(),
-        name="client_list",
+        name="clientparticulier_list",
     ),
     path(
         "client_particulier/creer/",

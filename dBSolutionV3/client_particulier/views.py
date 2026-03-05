@@ -15,7 +15,7 @@ from django.utils.translation import gettext as _
 @method_decorator([login_required, never_cache], name='dispatch')
 class ClientParticulierListView(ListView):
     model = ClientParticulier
-    template_name = "client_particulier/client_list.html"
+    template_name = "client_particulier/clientparticulier_list.html"
     context_object_name = "clients"
     paginate_by = 20
     ordering = ["nom", "prenom"]
@@ -46,6 +46,8 @@ def client_detail(request, client_particulier_id):
 
 @login_required
 def ajouter_client_all(request):
+    tenant = request.user.societe  # le tenant courant
+
     # Crée un objet client vide pour le formulaire
     client_particulier = ClientParticulier()
     client_particulier.adresse = Adresse()
@@ -57,40 +59,49 @@ def ajouter_client_all(request):
         if not nom or not prenom:
             messages.error(request, _("Le prénom et le nom du client sont obligatoires."))
         else:
-            adresse = Adresse.objects.create(
-                rue=request.POST.get("rue"),
-                numero=request.POST.get("numero"),
-                code_postal=request.POST.get("code_postal"),
-                ville=request.POST.get("ville"),
-                pays=request.POST.get("pays"),
-                code_pays=request.POST.get("code_pays")
-            )
+            # Crée l'adresse en tenant compte du tenant
+            with tenant_context(tenant):
+                adresse = Adresse.objects.create(
+                    societe=tenant,
+                    rue=request.POST.get("rue"),
+                    numero=request.POST.get("numero"),
+                    code_postal=request.POST.get("code_postal"),
+                    ville=request.POST.get("ville"),
+                    pays=request.POST.get("pays"),
+                    code_pays=request.POST.get("code_pays")
+                )
 
-            client_particulier = ClientParticulier.objects.create(
-                prenom=prenom,
-                nom=nom,
-                date_naissance=request.POST.get("date_naissance"),
-                numero_permis=request.POST.get("numero_permis"),
-                numero_carte_id=request.POST.get("numero_carte_id"),
-                numero_compte=request.POST.get("numero_compte"),
-                email=request.POST.get("email"),
-                numero_telephone=request.POST.get("numero_telephone"),
-                niveau=request.POST.get("niveau") or ClientParticulier.Niveau.DEBUTANT,
-                historique=request.POST.get("historique"),
-                location=request.POST.get("location"),
-                adresse=adresse
-            )
+                # Crée le client en associant le tenant et l'adresse
+                client_particulier = ClientParticulier.objects.create(
+                    societe=tenant,
+                    prenom=prenom,
+                    nom=nom,
+                    date_naissance=request.POST.get("date_naissance"),
+                    numero_permis=request.POST.get("numero_permis"),
+                    numero_carte_id=request.POST.get("numero_carte_id"),
+                    numero_compte=request.POST.get("numero_compte"),
+                    email=request.POST.get("email"),
+                    numero_telephone=request.POST.get("numero_telephone"),
+                    niveau=request.POST.get("niveau") or ClientParticulier.Niveau.DEBUTANT,
+                    historique=request.POST.get("historique"),
+                    location=request.POST.get("location"),
+                    adresse=adresse
+                )
 
-            messages.success(request, _(f"Client '{client_particulier.prenom} {client_particulier.nom}' ajouté avec succès !"))
+                messages.success(
+                    request,
+                    _(f"Client '{client_particulier.prenom} {client_particulier.nom}' ajouté avec succès !")
+                )
 
-
-
-    # S'assurer que client.adresse existe
+    # S'assurer que client.adresse existe pour le formulaire
     if not hasattr(client_particulier, "adresse") or client_particulier.adresse is None:
         client_particulier.adresse = Adresse()
 
-    return render(request, "client_particulier/client_form.html", {"client_particulier": client_particulier})
-
+    return render(
+        request,
+        "client_particulier/client_form.html",
+        {"client_particulier": client_particulier, "tenant": tenant}
+    )
 
 
 
