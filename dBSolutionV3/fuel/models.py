@@ -61,6 +61,15 @@ class Fuel(models.Model):
         related_name="fuels",
         verbose_name=_("Véhicule")
     )
+
+
+
+    immatriculation = models.CharField(
+        max_length=20,
+        verbose_name=_("Immatriculation"),
+        blank=True,
+    )
+
     type_carburant = models.CharField(
         max_length=10,
         choices=TypeCarburant.choices,

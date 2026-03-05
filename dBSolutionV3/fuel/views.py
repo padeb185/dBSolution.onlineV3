@@ -127,24 +127,22 @@ def modifier_fuel(request, fuel_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
-        fuel = get_object_or_404(
-            Fuel,
-            pk=fuel_id
-        )
+        fuel = get_object_or_404(Fuel, pk=fuel_id)
 
         if request.method == "POST":
             form = FuelForm(
                 request.POST,
                 request.FILES,
-                instance=fuel_id
+                instance=fuel  # ✅ utiliser l'objet complet
             )
 
             if form.is_valid():
                 fuel = form.save()
-                messages.success(request, "le plein de carburant a été mis à jour avec succès.")
-
+                messages.success(request, "Le plein de carburant a été mis à jour avec succès.")
             else:
                 messages.error(request, "Le formulaire contient des erreurs.")
+                print(form.errors)  # utile pour debug
+
         else:
             form = FuelForm(instance=fuel)
 
@@ -156,7 +154,6 @@ def modifier_fuel(request, fuel_id):
             "fuel": fuel,
         }
     )
-
 
 
 def fuel_edit(request, pk):
@@ -249,6 +246,12 @@ def get_modeles(request):
 
 
 
+from django.db.models import Sum, Count, Min, Max, F, FloatField, ExpressionWrapper, Case, When, Value, Avg
+from django.db.models.functions import TruncMonth, TruncYear
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import TemplateView
+from fuel.models import Fuel
+
 
 class FuelStatView(LoginRequiredMixin, TemplateView):
     template_name = "fuel/fuel_stat.html"
@@ -279,6 +282,7 @@ class FuelStatView(LoginRequiredMixin, TemplateView):
                 "voiture_exemplaire__voiture_modele__nom_modele",
                 "voiture_exemplaire__voiture_modele__voiture_marque__nom_marque",
                 "voiture_exemplaire__immatriculation",
+                "voiture_exemplaire__pays",  # <-- ajoute le pays ici
             )
             .annotate(
                 total_litres=Sum("litres"),
@@ -292,24 +296,27 @@ class FuelStatView(LoginRequiredMixin, TemplateView):
                 km_parcourus=F("km_max") - F("km_min"),
             )
             .annotate(
-                # ⚠️ sécurisation division par zéro
                 conso_moyenne=Case(
-                    When(km_parcourus__gt=0,
-                         then=ExpressionWrapper(
-                             F("total_litres") * 100.0 / F("km_parcourus"),
-                             output_field=FloatField()
-                         )),
+                    When(
+                        km_parcourus__gt=0,
+                        then=ExpressionWrapper(
+                            F("total_litres") * 100.0 / F("km_parcourus"),
+                            output_field=FloatField(),
+                        ),
+                    ),
                     default=Value(0.0),
-                    output_field=FloatField()
+                    output_field=FloatField(),
                 ),
                 cout_km=Case(
-                    When(km_parcourus__gt=0,
-                         then=ExpressionWrapper(
-                             F("total_cout") / F("km_parcourus"),
-                             output_field=FloatField()
-                         )),
+                    When(
+                        km_parcourus__gt=0,
+                        then=ExpressionWrapper(
+                            F("total_cout") / F("km_parcourus"),
+                            output_field=FloatField(),
+                        ),
+                    ),
                     default=Value(0.0),
-                    output_field=FloatField()
+                    output_field=FloatField(),
                 ),
             )
             .order_by("-total_cout")

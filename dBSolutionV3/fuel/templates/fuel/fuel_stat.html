@@ -49,15 +49,17 @@
     <tbody>
         {% for v in par_voiture %}
         <tr>
+            <!-- Voiture -->
             <td class="border px-4 py-2">
                 {{ v.voiture_exemplaire__voiture_modele__voiture_marque__nom_marque }}
                 {{ v.voiture_exemplaire__voiture_modele__nom_modele }}
                 {{ v.voiture_exemplaire__voiture_modele__nom_variante }}
             </td>
 
+            <!-- Immatriculation avec mise en forme -->
             <td class="border px-4 py-2">
-                {% with pays=v.voiture_exemplaire__pays|default:""|lower imm=v.voiture_exemplaire__immatriculation %}
-                    {% if pays == "Belgique" or pays == "be" %}
+                {% with pays=v.voiture_exemplaire__pays imm=v.voiture_exemplaire__immatriculation %}
+                    {% if pays == "Belgique" %}
                         <div class="flex items-center w-[180px] h-[40px] bg-white border-2 border-[#8B0000] rounded font-[Arial]">
                             <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
                                 <span>🇪🇺</span>
@@ -67,8 +69,7 @@
                                 {{ imm|upper }}
                             </div>
                         </div>
-
-                    {% elif pays == "luxembourg" or pays == "lu" %}
+                    {% elif pays == "Luxembourg" %}
                         <div class="flex items-center w-[180px] h-[40px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial]">
                             <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
                                 <span>🇪🇺</span>
@@ -78,8 +79,7 @@
                                 {{ imm|upper }}
                             </div>
                         </div>
-
-                    {% elif pays == "allemagne" or pays == "de" %}
+                    {% elif pays == "Allemagne" %}
                         <div class="flex items-center w-[180px] h-[40px] bg-white border-2 border-black rounded font-[Arial]">
                             <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
                                 <span>🇪🇺</span>
@@ -95,6 +95,7 @@
                 {% endwith %}
             </td>
 
+            <!-- Pleins, Litres, Coût, Prix moyen -->
             <td class="border px-4 py-2 text-center">{{ v.nb_pleins }}</td>
             <td class="border px-4 py-2 text-center">{{ v.total_litres|floatformat:2 }}</td>
             <td class="border px-4 py-2 text-center">{{ v.total_cout|floatformat:2 }} €</td>
@@ -105,7 +106,7 @@
             <td colspan="6" class="border px-4 py-4 text-center">{% trans "Aucune donnée" %}</td>
         </tr>
         {% endfor %}
-    </tbody>
+</tbody>
 </table>
 
 <!-- 📅 Par mois -->
