@@ -10,13 +10,14 @@ from .forms import FournisseurForm
 from adresse.forms import AdresseForm
 from adresse.models import Adresse
 from django.utils.translation import gettext as _
+from societe.models import Societe
 
 
 
 @method_decorator([login_required, never_cache], name='dispatch')
 class FournisseurListView(ListView):
     model = Fournisseur
-    template_name = "fournisseurs/fournisseur_list.html"
+    template_name = "fournisseur/fournisseur_list.html"
     context_object_name = "fournisseurs"
     paginate_by = 20
     ordering = ["nom"]
@@ -37,7 +38,7 @@ def fournisseur_detail(request, fournisseur_id):
 
     return render(
         request,
-        "fournisseurs/fournisseur_detail.html",
+        "fournisseur/fournisseur_detail.html",
         {
             "fournisseur": fournisseur,
             "adresse": adresse,
@@ -45,28 +46,20 @@ def fournisseur_detail(request, fournisseur_id):
     )
 
 
+
 @login_required
 def liste_fournisseur_all(request):
-    tenant = request.user.societe
+    tenant = request.user.societe  # le tenant de l'utilisateur
 
-    try:
-        with tenant_context(tenant):
-            fournisseurs = Fournisseur.objects.select_related(
-                'nom', 'numero_tva'
-            ).all().order_by('id')
-    except Exception as e:
-        # En cas d'erreur (rare), on affiche un message
-        messages.error(request, _(f"Erreur lors de la récupération des fournisseurs : {e}"))
-        fournisseurs = []
+    with tenant_context(tenant):
+        # Récupérer tous les fournisseurs liés à ce tenant
+        fournisseurs = Fournisseur.objects.filter(societe=tenant).order_by('id')
 
     return render(
         request,
         'fournisseur/fournisseur_list.html',
-        {'fournisseurs': fournisseurs}  # pluriel plus clair
+        {'fournisseurs': fournisseurs}
     )
-
-
-
 
 
 
@@ -81,11 +74,12 @@ def ajouter_fournisseur_all(request):
         if request.method == "POST":
             nom = request.POST.get("fournisseur")
 
-
             if not nom:
                 messages.error(request, _("Le nom du fournisseur est obligatoire."))
             else:
+                # Crée l'adresse avec le tenant
                 adresse = Adresse.objects.create(
+                    societe=tenant,  # <-- ici
                     rue=request.POST.get("rue"),
                     numero=request.POST.get("numero"),
                     boite=request.POST.get("boite"),
@@ -94,7 +88,10 @@ def ajouter_fournisseur_all(request):
                     pays=request.POST.get("pays"),
                     code_pays=request.POST.get("code_pays")
                 )
+
+                # Crée le fournisseur avec le tenant
                 fournisseur = Fournisseur.objects.create(
+                    societe=tenant,  # <-- ici aussi
                     nom=nom,
                     numero_tva=request.POST.get("numero_tva"),
                     taux_tva=request.POST.get("taux_tva") or 0,
@@ -104,15 +101,18 @@ def ajouter_fournisseur_all(request):
                     gsm=request.POST.get("gsm"),
                     adresse=adresse
                 )
-                messages.success(request, _(f"Fournisseur '{fournisseur.nom}' ajouté avec succès !"))
 
+                messages.success(request, _(f"Fournisseur '{fournisseur.nom}' ajouté avec succès !"))
 
         # S'assurer que fournisseur.adresse existe
         if not hasattr(fournisseur, "adresse") or fournisseur.adresse is None:
             fournisseur.adresse = Adresse()
 
-        return render(request, "fournisseurs/fournisseur_form.html", {"fournisseur": fournisseur})
-
+        return render(
+            request,
+            "fournisseur/fournisseur_form.html",
+            {"fournisseur": fournisseur}
+        )
 
 
 
@@ -135,7 +135,7 @@ def modifier_fournisseur(request, fournisseur_id):
 
     return render(
         request,
-        "fournisseurs/modifier_fournisseur.html",
+        "fournisseur/modifier_fournisseur.html",
         {
             "form": form,
             "fournisseur": fournisseur,
