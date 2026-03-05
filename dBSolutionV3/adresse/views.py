@@ -20,7 +20,7 @@ class AdresseListView(ListView):
     model = Adresse
     template_name = "adresse/adresse_list.html"
     context_object_name = "adresses"
-    paginate_by = 20
+    paginate_by = 100
     ordering = ["rue"]
 
     def get_queryset(self):
@@ -53,10 +53,9 @@ def adresse_detail(request, adresse_id):
 
 
 
-
 @login_required
 def ajouter_adresse_all(request):
-    tenant = request.user.societe
+    tenant = request.user.societe  # le tenant actuel
 
     if request.method == "POST":
         rue = request.POST.get("rue")
@@ -65,16 +64,18 @@ def ajouter_adresse_all(request):
             messages.error(request, _("Le nom de la rue est obligatoire."))
         else:
             try:
-                adresse = Adresse.objects.create(
-                    societe=tenant,
-                    rue=request.POST.get("rue"),
-                    numero=request.POST.get("numero"),
-                    boite=request.POST.get("boite"),
-                    code_postal=request.POST.get("code_postal"),
-                    ville=request.POST.get("ville"),
-                    pays=request.POST.get("pays"),
-                    code_pays=request.POST.get("code_pays")
-                )
+                # On passe le tenant dans le contexte pour la création
+                with tenant_context(tenant):
+                    adresse = Adresse.objects.create(
+                        societe=tenant,
+                        rue=rue,
+                        numero=request.POST.get("numero"),
+                        boite=request.POST.get("boite"),
+                        code_postal=request.POST.get("code_postal"),
+                        ville=request.POST.get("ville"),
+                        pays=request.POST.get("pays"),
+                        code_pays=request.POST.get("code_pays")
+                    )
 
                 messages.success(
                     request,
@@ -83,8 +84,11 @@ def ajouter_adresse_all(request):
             except (IntegrityError, ValidationError):
                 messages.error(request, _("Cette adresse existe déjà pour cette société."))
 
-    return render(request, "adresse/adresse_form.html")
-
+    return render(
+        request,
+        "adresse/adresse_form.html",
+        {"tenant": tenant}  # passer le tenant au template si besoin
+    )
 
 @login_required
 def modifier_adresse(request, adresse_id):

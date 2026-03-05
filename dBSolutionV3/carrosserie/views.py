@@ -16,18 +16,21 @@ from assurance.forms import AssuranceForm
 from assurance.models import Assurance
 
 
+
+
 @method_decorator([login_required, never_cache], name='dispatch')
 class CarrosserieListView(ListView):
     model = Carrosserie
     template_name = "carrosserie/carrosserie_list.html"
     context_object_name = "carrosseries"
-    paginate_by = 20
+    paginate_by = 100
     ordering = ["nom_societe"]
 
     def get_queryset(self):
         societe = self.request.user.societe
-        return Carrosserie.objects.filter(societe=societe)
-
+        with tenant_context(societe):
+            # On récupère uniquement les carrosseries du tenant courant
+            return Carrosserie.objects.all().order_by("nom_societe")
 
 
 @login_required
