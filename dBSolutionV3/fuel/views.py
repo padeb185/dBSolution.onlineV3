@@ -245,14 +245,6 @@ def get_modeles(request):
 
 
 
-
-from django.db.models import Sum, Count, Min, Max, F, FloatField, ExpressionWrapper, Case, When, Value, Avg
-from django.db.models.functions import TruncMonth, TruncYear
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import TemplateView
-from fuel.models import Fuel
-
-
 class FuelStatView(LoginRequiredMixin, TemplateView):
     template_name = "fuel/fuel_stat.html"
 
