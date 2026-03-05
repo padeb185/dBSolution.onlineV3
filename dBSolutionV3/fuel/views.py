@@ -48,26 +48,26 @@ class FuelListView(ListView):
 
 
 
-
 @login_required
 def ajouter_fuel_all(request):
-    tenant = request.user.societe
+    tenant = request.user.societe  # récupère le tenant de l'utilisateur
 
     with tenant_context(tenant):
         if request.method == "POST":
             form = FuelForm(request.POST)
             if form.is_valid():
                 fuel = form.save(commit=False)
-                fuel.utilisateur = request.user  # ⚡ Utilisateur courant
+                fuel.utilisateur = request.user.societe
                 fuel.save()
                 messages.success(request, _("Carburant ajouté avec succès."))
 
             else:
+                print(form.errors)  # 👈 VERY IMPORTANT
                 messages.error(request, _("Veuillez corriger les erreurs ci-dessous."))
         else:
             form = FuelForm()
 
-        # ⚡ Passer les choices de type_carburant au template
+        # Passer les choix de type_carburant au template
         type_carburant_choices = Fuel._meta.get_field("type_carburant").choices
 
         return render(
@@ -93,7 +93,7 @@ def fuel_list(request):
             "voiture_exemplaire",
             "voiture_exemplaire__voiture_modele",
             "voiture_exemplaire__voiture_modele__voiture_marque",
-        ).order_by("-date")
+        ).order_by("-date").filter(societe=tenant)
 
         return render(request, "fuel/fuel_list.html", {
             "fuels": fuels

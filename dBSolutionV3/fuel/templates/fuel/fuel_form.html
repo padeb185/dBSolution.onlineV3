@@ -33,18 +33,26 @@
                value="{{ request.POST.voiture_exemplaire|default:fuel.voiture_exemplaire.id|default:'' }}">
 
         <!-- Immatriculation -->
+       <!-- Immatriculation -->
         <div>
             <label for="id_immatriculation">{% trans "Immatriculation" %}</label>
             <input type="text" id="id_immatriculation" name="immatriculation"
                    value="{{ request.POST.immatriculation|default:fuel.immatriculation|default:'' }}"
                    class="border rounded px-4 py-2 w-full">
+            {% for error in form.immatriculation.errors %}
+                <p class="text-red-600 text-sm">{{ error }}</p>
+            {% endfor %}
         </div>
 
-         <div>
+        <!-- Kilométrage -->
+        <div>
             <label for="id_kilometrage_fuel">{% trans "Kilomètres" %}</label>
             <input type="text" id="id_kilometrage_fuel" name="kilometrage_fuel"
                    value="{{ request.POST.kilometrage_fuel|default:fuel.kilometrage_fuel|default:'' }}"
                    class="border rounded px-4 py-2 w-full">
+            {% for error in form.kilometrage_fuel.errors %}
+                <p class="text-red-600 text-sm">{{ error }}</p>
+            {% endfor %}
         </div>
 
         <!-- Type de carburant -->
@@ -59,6 +67,9 @@
                     </option>
                 {% endfor %}
             </select>
+            {% for error in form.type_carburant.errors %}
+                <p class="text-red-600 text-sm">{{ error }}</p>
+            {% endfor %}
         </div>
 
         <!-- Date -->
@@ -67,6 +78,9 @@
             <input type="date" id="id_date" name="date"
                    value="{{ request.POST.date|default:fuel.date|default:'' }}"
                    class="border rounded px-4 py-2 w-full">
+            {% for error in form.date.errors %}
+                <p class="text-red-600 text-sm">{{ error }}</p>
+            {% endfor %}
         </div>
 
         <!-- Litres -->
@@ -75,6 +89,9 @@
             <input type="number" step="0.01" id="id_litres" name="litres"
                    value="{{ request.POST.litres|default:fuel.litres|default:'' }}"
                    class="border rounded px-4 py-2 w-full">
+            {% for error in form.litres.errors %}
+                <p class="text-red-600 text-sm">{{ error }}</p>
+            {% endfor %}
         </div>
 
         <!-- Prix du plein -->
@@ -83,30 +100,40 @@
             <input type="number" step="0.01" id="id_prix_refuelling" name="prix_refuelling"
                    value="{{ request.POST.prix_refuelling|default:fuel.prix_refuelling|default:'' }}"
                    class="border rounded px-4 py-2 w-full">
+            {% for error in form.prix_refuelling.errors %}
+                <p class="text-red-600 text-sm">{{ error }}</p>
+            {% endfor %}
         </div>
 
-        <!-- Champs readonly -->
+        <!-- Champs readonly voiture -->
+        <!-- Marque -->
         <div>
             <label for="id_voiture_marque">{% trans "Marque" %}</label>
-            <input type="text" id="id_voiture_marque" name="voiture_marque"
-                   value="{{ fuel.voiture_exemplaire.voiture_modele.voiture_marque.nom_marque|default:'' }}"
-                   class="border rounded px-4 py-2 w-full bg-gray-100 cursor-not-allowed" disabled>
+            <input type="text"
+                   id="id_voiture_marque"
+                   class="border rounded px-4 py-2 w-full bg-gray-100"
+                   readonly>
         </div>
 
+        <!-- Modèle -->
         <div>
             <label for="id_voiture_modele">{% trans "Modèle" %}</label>
-            <input type="text" id="id_voiture_modele" name="voiture_modele"
-                   value="{{ fuel.voiture_exemplaire.voiture_modele.nom_modele|default:'' }}"
-                   class="border rounded px-4 py-2 w-full bg-gray-100 cursor-not-allowed" disabled>
+            <input type="text"
+                   id="id_voiture_modele"
+                   class="border rounded px-4 py-2 w-full bg-gray-100"
+                   readonly>
         </div>
 
+        <!-- Volume -->
         <div>
             <label for="id_taille_reservoir_display">{% trans "Volume max (L)" %}</label>
-            <input type="number" id="id_taille_reservoir_display" name="taille_reservoir_display"
-                   value="{{ fuel.voiture_exemplaire.voiture_modele.taille_reservoir|default:'' }}"
-                   class="border rounded px-4 py-2 w-full bg-gray-100 cursor-not-allowed" disabled>
+            <input type="number"
+                   id="id_taille_reservoir_display"
+                   class="border rounded px-4 py-2 w-full bg-gray-100"
+                   readonly>
         </div>
 
+        <!-- Pays -->
         <div>
             <label for="id_pays">{% trans "Pays" %}</label>
             <select id="id_pays" name="pays"
@@ -116,6 +143,9 @@
                 <option value="LU" {% if fuel.pays == "LU" %}selected{% endif %}>Luxembourg</option>
                 <option value="DE" {% if fuel.pays == "DE" %}selected{% endif %}>Allemagne</option>
             </select>
+            {% for error in form.pays.errors %}
+                <p class="text-red-600 text-sm">{{ error }}</p>
+            {% endfor %}
         </div>
 
          <!-- Validation -->
@@ -234,5 +264,46 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 });
+
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const immatriculationInput = document.getElementById("id_immatriculation");
+    const voitureField = document.getElementById("id_voiture_exemplaire");
+
+    const marqueField = document.getElementById("id_marque");
+    const modeleField = document.getElementById("id_modele");
+    const volumeField = document.getElementById("id_volume_max");
+
+    immatriculationInput.addEventListener("change", function () {
+
+        fetch("/fr/fuel/ajax/check-immatriculation/?immatriculation=" + immatriculationInput.value)
+        .then(response => response.json())
+        .then(data => {
+
+            if (data.exists) {
+
+                voitureField.value = data.voiture_id;
+
+                marqueField.value = data.marque;
+                modeleField.value = data.modele;
+                volumeField.value = data.volume_max;
+
+            } else {
+
+                voitureField.value = "";
+                marqueField.value = "";
+                modeleField.value = "";
+                volumeField.value = "";
+
+                alert("Véhicule non trouvé");
+
+            }
+        });
+
+    });
+
+});
+
 </script>
 {% endblock %}
