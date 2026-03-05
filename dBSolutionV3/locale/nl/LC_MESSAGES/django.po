@@ -332,8 +332,6 @@ msgid "Nom du responsable"
 msgstr "Achternaam van de verantwoordelijke"
 
 #: .\carrosserie\models.py:22
-#, fuzzy
-#| msgid "Prénom du responsable"
 msgid "Prenom du responsable"
 msgstr "Voornaam van de verantwoordelijke"
 
@@ -1639,64 +1637,49 @@ msgid "Présence de fuite"
 msgstr "Aanwezigheid van lekkage"
 
 #: .\maintenance\freins\models.py:62
-#, fuzzy
-#| msgid "Plaquettes arrière à remplacer"
 msgid "Plaquettes arrière à  remplacer"
 msgstr "Achterste remblokken te vervangen"
 
 #: .\maintenance\freins\models.py:108
-#, fuzzy
-#| msgid "À remplacer"
 msgid "Pièce remplacée"
-msgstr "Te vervangen"
+msgstr "Vervangen onderdeel"
 
 #: .\maintenance\freins\models.py:109
-#, fuzzy
-#| msgid "Contrôle des freins (plaquettes, disques, fuites…)"
 msgid "La pièce de frein remplacée, ex : plaquettes, disques, étrier…"
-msgstr "Remmencontrole (blokjes, schijven, lekken…)"
+msgstr "Het vervangen remonderdeel, bijv.: remblokken, remschijven, remklauw…"
 
 #: .\maintenance\freins\models.py:116
 msgid "Durée de remplacement (minutes)"
-msgstr ""
+msgstr "Vervangingstijd (minuten)"
 
 #: .\maintenance\freins\models.py:117
 msgid "Temps estimé ou réel pour effectuer le remplacement"
-msgstr ""
+msgstr "Geschatte of werkelijke tijd om de vervanging uit te voeren"
 
 #: .\maintenance\freins\models.py:124
 msgid "Notes ou détails supplémentaires sur le remplacement effectué"
-msgstr ""
+msgstr "Extra opmerkingen of details over de uitgevoerde vervanging"
 
 #: .\maintenance\freins\models.py:127
-#, fuzzy
-#| msgid "Cage de roulement"
 msgid "Date de remplacement"
-msgstr "Lagerkooi"
+msgstr "Vervangingsdatum"
 
 #: .\maintenance\freins\models.py:130
-#, fuzzy
-#| msgid "Remplacement liquide de frein"
 msgid "Remplacement des freins"
-msgstr "Remvloeistof vervangen"
+msgstr "Remmen vervangen"
 
 #: .\maintenance\freins\models.py:131
-#, fuzzy
-#| msgid "Remplacement liquide de frein"
 msgid "Remplacements des freins"
-msgstr "Remvloeistof vervangen"
+msgstr "Remmenvervangingen"
 
 #: .\maintenance\freins\models.py:136
-#, fuzzy, python-format
-#| msgid "Contrôle freins – %(partie)s (%(date)s)"
+#, python-format
 msgid "Remplacement – %(piece)s (%(date)s)"
-msgstr "Remmencontrole – %(partie)s (%(date)s)"
+msgstr "Vervanging – %(piece)s (%(date)s)"
 
 #: .\maintenance\freins\models.py:138
-#, fuzzy
-#| msgid "Pièce contrôlée"
 msgid "Pièce non spécifiée"
-msgstr "Gecontroleerd onderdeel"
+msgstr "Onderdeel niet gespecificeerd"
 
 #: .\maintenance\models.py:8
 msgid "Check-up"
@@ -4233,11 +4216,10 @@ msgstr "Prijs van de laadbeurt (€)"
 msgid "Date de la recharge"
 msgstr "Datum van de laadbeurt"
 
-#: .\recharge\forms.py:37 .\recharge\models.py:63
-#, fuzzy
-#| msgid "Roues de rechange"
+#: .\recharge\forms.py:37
+#: .\recharge\models.py:63
 msgid "Temps de recharge"
-msgstr "Reservewielen"
+msgstr "Oplaadtijd"
 
 #: .\recharge\models.py:11 .\recharge\models.py:76
 msgid "Electricite"
@@ -4248,20 +4230,16 @@ msgid "Prix au kilo Watt (€)"
 msgstr "Prijs per kilowatt (€)"
 
 #: .\recharge\models.py:68
-#, fuzzy
-#| msgid "Kilométrage moteur"
 msgid "Kilométrage recharge"
-msgstr "Motor kilometrage"
+msgstr "Laadkilometrage"
 
 #: .\recharge\models.py:77
 msgid "Electricites"
 msgstr "Elektriciteit"
 
 #: .\recharge\views.py:48
-#, fuzzy
-#| msgid "Carburant ajouté avec succès."
 msgid "Recharge électrique ajoutée avec succès."
-msgstr "Brandstof succesvol toegevoegd."
+msgstr "Elektrische lading succesvol toegevoegd."
 
 #: .\societe_cliente\forms.py:17
 msgid ""
@@ -5044,10 +5022,8 @@ msgid "Marques de voiture"
 msgstr "Automerken"
 
 #: .\theme\templates\dashboard.html:95
-#, fuzzy
-#| msgid "Modèle de voiture"
 msgid "Modèles de voiture"
-msgstr "Automodel"
+msgstr "Automodellen"
 
 #: .\theme\templates\dashboard.html:109
 #: .\theme\templates\voiture_exemplaire\detail_exemplaire.html:78
@@ -5078,10 +5054,8 @@ msgstr "Carrosserie-interventie"
 
 #: .\theme\templates\dashboard.html:288
 #: .\theme\templates\recharge\electricite_form.html:11
-#, fuzzy
-#| msgid "Machine électrique"
 msgid "Recharge électrique"
-msgstr "Elektrische motor"
+msgstr "Elektrische lading"
 
 #: .\theme\templates\dashboard.html:326
 msgid "Tableau de bord Admin"
@@ -5408,40 +5382,28 @@ msgid "Aucun contrôle enregistré."
 msgstr "Geen controle geregistreerd."
 
 #: .\theme\templates\maintenance\entretien\creer_entretien.html:10
-#, fuzzy
-#| msgid "Créer une intervention"
 msgid "Créer un entretien pour :"
-msgstr "Maak een interventie"
+msgstr "Onderhoud aanmaken voor:"
 
 #: .\theme\templates\maintenance\entretien\creer_entretien.html:25
-#, fuzzy
-#| msgid "Interval d'entretien"
 msgid "Informations de l'entretien"
-msgstr "Onderhoudsinterval"
+msgstr "Onderhoudsinformatie"
 
 #: .\theme\templates\maintenance\entretien\creer_entretien.html:31
-#, fuzzy
-#| msgid "Operations"
 msgid "Opérations"
 msgstr "Operationele zaken"
 
 #: .\theme\templates\maintenance\entretien\creer_entretien.html:35
-#, fuzzy
-#| msgid "Type d'utilisation"
 msgid "Type d'opération:"
-msgstr "Type gebruik"
+msgstr "Type bewerking:"
 
 #: .\theme\templates\maintenance\entretien\creer_entretien.html:51
-#, fuzzy
-#| msgid "Support moteur"
 msgid "Supprimer"
-msgstr "Motordrager"
+msgstr "Verwijderen"
 
 #: .\theme\templates\maintenance\entretien\creer_entretien.html:59
-#, fuzzy
-#| msgid "Dernier entretien"
 msgid "Créer l'entretien"
-msgstr "Laatste onderhoud"
+msgstr "Onderhoud aanmaken"
 
 #: .\theme\templates\maintenance\list.html:10
 msgid "Maintenance du véhicule :"
@@ -5469,77 +5431,56 @@ msgid "Aucun exemplaire disponible pour la maintenance."
 msgstr "Geen voertuig beschikbaar voor onderhoud."
 
 #: .\theme\templates\recharge\electricite_detail.html:16
-#, fuzzy
-#| msgid "Détails de la carrosserie :"
 msgid "Détails des recharges électriques :"
-msgstr "Carrosseriedetails:"
+msgstr "Details van elektrische ladingen:"
 
 #: .\theme\templates\recharge\electricite_detail.html:23
 #: .\theme\templates\recharge\electricite_detail.html:98
-#, fuzzy
-#| msgid "Retour à la liste des adresses"
 msgid "Retour à la liste des recharges"
-msgstr "Terug naar de adressenlijst"
+msgstr "Terug naar de lijst met ladingen"
 
 #: .\theme\templates\recharge\electricite_form.html:12
-#, fuzzy
-#| msgid "Ajouter une carrosserie"
 msgid "Ajouter une recharge electrique"
-msgstr "Voeg een carrosserie toe"
+msgstr "Elektrische lading toevoegen"
 
 #: .\theme\templates\recharge\electricite_form.html:74
 #: .\theme\templates\recharge\recharge_list.html:60
-#, fuzzy
-#| msgid "Kilos Watt"
 msgid "Kilo Watts"
 msgstr "Kilowatt"
 
 #: .\theme\templates\recharge\electricite_form.html:104
-#, fuzzy
-#| msgid "Volume max (L)"
+
 msgid "Volume max (kW)"
-msgstr "Maximaal volume (L)"
+msgstr "Maximaal volume (kW)"
 
 #: .\theme\templates\recharge\recharge_list.html:10
-#, fuzzy
-#| msgid "Liste des Carrosseries"
 msgid "Liste des recharges électriques"
-msgstr "Lijst van carrosserieën"
+msgstr "Lijst van elektrische ladingen"
 
 #: .\theme\templates\recharge\recharge_list.html:30
-#, fuzzy
-#| msgid "Électricité"
 msgid "Electricité"
 msgstr "Elektriciteit"
 
 #: .\theme\templates\recharge\recharge_list.html:34
 msgid "20 kW"
-msgstr ""
+msgstr "20 kW"
 
 #: .\theme\templates\recharge\recharge_list.html:42
-#, fuzzy
-#| msgid "Ajouter une carrosserie"
 msgid "Ajouter une recharge électrique"
-msgstr "Voeg een carrosserie toe"
+msgstr "Elektrische lading toevoegen"
 
 #: .\theme\templates\recharge\recharge_list.html:62
-#, fuzzy
-#| msgid "Prix au litre"
 msgid "Prix au kW"
-msgstr "Prijs per liter"
+msgstr "Prijs per kW"
 
 #: .\theme\templates\recharge\recharge_list.html:159
-#, fuzzy
-#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ adresse"
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ recharges"
-msgstr "Weergave van _START_ tot _END_ van in totaal _TOTAL_ adres"
+msgstr "Weergave van _START_ tot _END_ van in totaal _TOTAL_ ladingen"
 
 #: .\theme\templates\recharge\recharge_list.html:160
 #: .\theme\templates\recharge\recharge_list.html:161
-#, fuzzy
-#| msgid "Aucune carrosserie trouvé"
 msgid "Aucune recharge electrique trouvée"
-msgstr "Geen carrosserie gevonden"
+msgstr "Geen elektrische ladingen gevonden"
 
 #: .\theme\templates\societe_cliente\modifier_societe_cliente.html:13
 msgid "Modifier la societe :"
@@ -6316,62 +6257,46 @@ msgid "Ajouter une marque"
 msgstr "Voeg een merk toe"
 
 #: .\theme\templates\voiture_modele\ajouter_modele.html:10
-#, fuzzy
-#| msgid "Ajouter une boite de vitesse"
 msgid "Ajouter un modèle de voiture"
-msgstr "Versnellingsbak toevoegen"
+msgstr "Auto model toevoegen"
 
 #: .\theme\templates\voiture_modele\ajouter_modele.html:68
 #: .\theme\templates\voiture_modele\voituremodele_list.html:30
 #: .\theme\templates\voiture_modele\voituremodele_list.html:63
-#, fuzzy
-#| msgid "Nombre de rapports"
 msgid "Nombre de portes"
-msgstr "Aantal versnellingen"
+msgstr "Aantal deuren"
 
 #: .\theme\templates\voiture_modele\ajouter_modele.html:77
 #: .\theme\templates\voiture_modele\voituremodele_list.html:34
 #: .\theme\templates\voiture_modele\voituremodele_list.html:64
-#, fuzzy
-#| msgid "Nombre de cylindres"
 msgid "Nombre de places"
-msgstr "Aantal cilinders"
+msgstr "Aantal zitplaatsen"
 
 #: .\theme\templates\voiture_modele\ajouter_modele.html:86
 msgid "Taille du réservoir en litres"
-msgstr ""
+msgstr "Tankinhoud in liters"
 
 #: .\theme\templates\voiture_modele\ajouter_modele.html:95
 #: .\theme\templates\voiture_modele\voituremodele_list.html:42
 #: .\theme\templates\voiture_modele\voituremodele_list.html:66
-#, fuzzy
-#| msgid "Tapis de batterie"
 msgid "Capacité de la batterie en kWh"
-msgstr "Batterijmat"
+msgstr "Batterijcapaciteit in kWh"
 
 #: .\theme\templates\voiture_modele\ajouter_modele.html:104
-#, fuzzy
-#| msgid "Mois de production"
 msgid "Mois de début"
-msgstr "Productiemaand"
+msgstr "Startmaand"
 
 #: .\theme\templates\voiture_modele\ajouter_modele.html:113
-#, fuzzy
-#| msgid "Année de production"
 msgid "Année de début"
-msgstr "Productiejaar"
+msgstr "Startjaar"
 
 #: .\theme\templates\voiture_modele\ajouter_modele.html:122
-#, fuzzy
-#| msgid "Mois de production"
 msgid "Mois de fin"
-msgstr "Productiemaand"
+msgstr "Eindmaand"
 
 #: .\theme\templates\voiture_modele\ajouter_modele.html:131
-#, fuzzy
-#| msgid "Année de production"
 msgid "Année de fin"
-msgstr "Productiejaar"
+msgstr "Eindjaar"
 
 #: .\theme\templates\voiture_modele\modeles_list.html:8
 #: .\theme\templates\voiture_modele\modeles_par_marque.html:9
@@ -6400,84 +6325,60 @@ msgstr "Geen model geregistreerd voor dit merk."
 
 #: .\theme\templates\voiture_modele\modifier_voiture_modele1.html:13
 #: .\theme\templates\voiture_modele\modifier_voiture_modele_view.html:11
-#, fuzzy
-#| msgid "Modifier le plein"
 msgid "Modifier le modèle:"
-msgstr "Tankbeurt bewerken"
+msgstr "Model bewerken:"
 
 #: .\theme\templates\voiture_modele\voiture_modele_detail.html:16
-#, fuzzy
-#| msgid "Détails du client :"
 msgid "Détails du modèle :"
-msgstr "Klantdetails:"
+msgstr "Modeldetails:"
 
 #: .\theme\templates\voiture_modele\voiture_modele_detail.html:22
 #: .\theme\templates\voiture_modele\voiture_modele_detail.html:91
-#, fuzzy
-#| msgid "Retour à la liste des pleins"
 msgid "Retour à la liste des modèles"
-msgstr "Terug naar de lijst met tankbeurten"
+msgstr "Terug naar de modellenlijst"
 
 #: .\theme\templates\voiture_modele\voiture_modele_detail.html:56
-#, fuzzy
-#| msgid "Modifier le plein"
 msgid "Modifier le modèle"
-msgstr "Tankbeurt bewerken"
+msgstr "Model bewerken"
 
 #: .\theme\templates\voiture_modele\voiture_modele_form.html:9
-#, fuzzy
-#| msgid "Modèle de voiture"
 msgid "Créer un modèle de voiture"
-msgstr "Automodel"
+msgstr "Auto model aanmaken"
 
 #: .\theme\templates\voiture_modele\voituremodele_list.html:4
-#, fuzzy
-#| msgid "Liste des polices"
 msgid "Liste des Modèles"
-msgstr "Lijst van polissen"
+msgstr "Modelenlijst"
 
 #: .\theme\templates\voiture_modele\voituremodele_list.html:10
-#, fuzzy
-#| msgid "Liste des moteurs"
 msgid "Liste des modèles"
-msgstr "Motorenlijst"
+msgstr "Modelenlijst"
 
 #: .\theme\templates\voiture_modele\voituremodele_list.html:22
 #: .\theme\templates\voiture_modele\voituremodele_list.html:61
-#, fuzzy
-#| msgid "Image du modèle"
 msgid "Nom du modèle"
-msgstr "Afbeelding van het model"
+msgstr "Modelnaam"
 
 #: .\theme\templates\voiture_modele\voituremodele_list.html:38
 #: .\theme\templates\voiture_modele\voituremodele_list.html:65
 msgid "Capacité du réservoir en litres"
-msgstr ""
+msgstr "Tankinhoud in liters"
 
 #: .\theme\templates\voiture_modele\voituremodele_list.html:49
 #: .\voiture\voiture_modele\views.py:97
-#, fuzzy
-#| msgid "Ajouter un moteur"
 msgid "Ajouter un modèle"
-msgstr "Voeg een motor toe"
+msgstr "Model toevoegen"
 
 #: .\theme\templates\voiture_modele\voituremodele_list.html:101
-#, fuzzy
-#| msgid "Affichage de _START_ à _END_ sur _TOTAL_ polices"
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ Modèles"
-msgstr "Weergave van _START_ tot _END_ van _TOTAL_ polissen"
+msgstr "Weergave van _START_ tot _END_ van in totaal _TOTAL_ modellen"
 
 #: .\theme\templates\voiture_modele\voituremodele_list.html:102
-#, fuzzy
-#| msgid "Aucune police trouvée"
 msgid "Aucune modèle trouvé"
-msgstr "Geen polis gevonden"
+msgstr "Geen model gevonden"
 
 #: .\theme\templates\voiture_modele\voituremodele_list.html:103
-#, fuzzy
-#| msgid "Aucun moteur trouvé"
 msgid "Aucun modèle trouvé"
-msgstr "Geen motor gevonden"
+msgstr "Geen model gevonden"
 
 #: .\theme\templates\voiture_moteur\ajouter_moteur.html:10
 msgid "Ajouter un moteur pour"
@@ -6928,10 +6829,8 @@ msgid "Privé"
 msgstr "Privé"
 
 #: .\voiture\voiture_exemplaire\models.py:53
-msgid ""
-"Le numéro VIN doit contenir exactement 17 caractères alphanumériques "
-"(lettres A-H, J-N, P, R-Z et chiffres)."
-msgstr ""
+msgid "Le numéro VIN doit contenir exactement 17 caractères alphanumériques (lettres A-H, J-N, P, R-Z et chiffres)."
+msgstr "Het VIN-nummer moet exact 17 alfanumerieke tekens bevatten (letters A-H, J-N, P, R-Z en cijfers)."
 
 #: .\voiture\voiture_exemplaire\views.py:91
 msgid "Veuillez sélectionner une boîte à lier."
@@ -6988,47 +6887,41 @@ msgstr "Motor niet gevonden"
 
 #: .\voiture\voiture_modele\forms.py:104
 msgid "Le mois de début doit être compris entre 1 et 12."
-msgstr ""
+msgstr "De startmaand moet tussen 1 en 12 liggen."
 
 #: .\voiture\voiture_modele\forms.py:112
 msgid "Le mois de fin doit être compris entre 1 et 12."
-msgstr ""
+msgstr "De eindmaand moet tussen 1 en 12 liggen."
 
 #: .\voiture\voiture_modele\forms.py:122
 #, python-format
 msgid "L’année de début doit être comprise entre 1850 et %(annee)s."
-msgstr ""
+msgstr "Het startjaar moet tussen 1850 en %(annee)s liggen."
 
 #: .\voiture\voiture_modele\forms.py:144
 msgid "L’année de fin doit être supérieure ou égale à l’année de début."
-msgstr ""
+msgstr "Het eindjaar moet groter of gelijk zijn aan het startjaar."
 
 #: .\voiture\voiture_modele\forms.py:150
 msgid "Le mois de fin doit être supérieur ou égal au mois de début."
-msgstr ""
+msgstr "De eindmaand moet groter of gelijk zijn aan de startmaand."
 
 #: .\voiture\voiture_modele\models.py:111
-#, fuzzy
-#| msgid "Aucun modèle enregistré pour cette marque."
 msgid "Ce modèle avec cette variante existe déjà pour cette marque."
-msgstr "Geen model geregistreerd voor dit merk."
+msgstr "Dit model met deze variant bestaat al voor dit merk."
 
 #: .\voiture\voiture_modele\views.py:80
-#, fuzzy
-#| msgid "Marque disponible"
 msgid "(Marque non définie)"
-msgstr "Merk beschikbaar"
+msgstr "(Merk niet gedefinieerd)"
 
 #: .\voiture\voiture_modele\views.py:85
 #, python-format
 msgid "Le modèle a été ajouté avec succès pour la marque %(marque)s."
-msgstr ""
+msgstr "Het model is succesvol toegevoegd voor het merk %(marque)s."
 
 #: .\voiture\voiture_modele\views.py:97
-#, fuzzy
-#| msgid "Créer le moteur"
 msgid "Créer le modèle"
-msgstr "Motor aanmaken"
+msgstr "Model aanmaken"
 
 #: .\voiture\voiture_moteur\models.py:12
 msgid "Atmosphérique"
@@ -7234,50 +7127,33 @@ msgstr "Banden succesvol vervangen."
 msgid "Le nom du manufacturier est obligatoire."
 msgstr "De naam van de fabrikant is verplicht."
 
-#, fuzzy
-#~| msgid "À remplacer avant"
+
 #~ msgid "Disques à remplacer avant"
-#~ msgstr "Te vervangen vooraan"
+#~ msgstr "Te vervangen remschijven vooraan"
 
-#, fuzzy
-#~| msgid "À remplacer arrière"
 #~ msgid "disques à remplacer arrière"
-#~ msgstr "Te vervangen achteraan"
+#~ msgstr "Te vervangen remschijven achteraan"
 
-#, fuzzy
-#~| msgid "Plaquettes avant à remplacer"
 #~ msgid "Plaquettes à remplacer avant"
-#~ msgstr "Voorste remblokken te vervangen"
+#~ msgstr "Te vervangen remblokken vooraan"
 
-#, fuzzy
-#~| msgid "Plaquettes avant à remplacer"
 #~ msgid "Plaquettes à  remplacer arrière"
-#~ msgstr "Voorste remblokken te vervangen"
+#~ msgstr "Te vervangen remblokken achteraan"
 
-#, fuzzy
-#~| msgid "Affichage de _START_ à _END_ sur _TOTAL_ polices"
 #~ msgid "Affichage de _START_ à _END_ sur _TOTAL_ electricites"
-#~ msgstr "Weergave van _START_ tot _END_ van _TOTAL_ polissen"
+#~ msgstr "Weergave van _START_ tot _END_ van in totaal _TOTAL_ elektrische ladingen"
 
-#, fuzzy
-#~| msgid "Affichage de _START_ à _END_ sur _TOTAL_ moteurs"
 #~ msgid "Affichage de _START_ à _END_ sur _TOTAL_ voiture_modeles"
-#~ msgstr "Weergeven van _START_ tot _END_ van _TOTAL_ motoren"
+#~ msgstr "Weergave van _START_ tot _END_ van in totaal _TOTAL_ automodellen"
 
-#, fuzzy
-#~| msgid "Aucun moteur trouvé"
 #~ msgid "Aucune voiture_modele trouvé"
-#~ msgstr "Geen motor gevonden"
+#~ msgstr "Geen automodel gevonden"
 
-#, fuzzy
-#~| msgid "Aucun moteur trouvé"
 #~ msgid "Aucun voiture_modele trouvé"
-#~ msgstr "Geen motor gevonden"
+#~ msgstr "Geen automodel gevonden"
 
-#, fuzzy
-#~| msgid "Le nom de la rue est obligatoire."
 #~ msgid "La marque est obligatoire."
-#~ msgstr "De straatnaam is verplicht."
+#~ msgstr "Het merk is verplicht."
 
 #~ msgid "Responsable nom"
 #~ msgstr "Achternaam van de verantwoordelijke"
