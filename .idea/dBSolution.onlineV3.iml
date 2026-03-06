@@ -13,16 +13,7 @@
         <option value="$MODULE_DIR$/dBSolutionV3/theme" />
         <option value="$MODULE_DIR$/dBSolutionV3/theme/templates" />
         <option value="$MODULE_DIR$/dBSolutionV3/theme/templates/totp" />
-        <option value="$MODULE_DIR$/dBSolutionV3/theme/templates/voiture_exemplaire" />
-        <option value="$MODULE_DIR$/dBSolutionV3/theme/templates/voiture_marque" />
-        <option value="$MODULE_DIR$/dBSolutionV3/theme/templates/voiture_modele" />
-        <option value="$MODULE_DIR$/dBSolutionV3/theme/templates/utilisateurs" />
         <option value="$MODULE_DIR$/dBSolutionV3/theme/templates/admin" />
-        <option value="$MODULE_DIR$/dBSolutionV3/theme/templates/voiture_boite" />
-        <option value="$MODULE_DIR$/dBSolutionV3/theme/templates/voiture_embrayage" />
-        <option value="$MODULE_DIR$/dBSolutionV3/theme/templates/voiture_freins" />
-        <option value="$MODULE_DIR$/dBSolutionV3/theme/templates/voiture_freins_ar" />
-        <option value="$MODULE_DIR$/dBSolutionV3/theme/templates/voiture_pneus" />
         <option value="$MODULE_DIR$/dBSolutionV3/theme/templates/proprietaire" />
         <option value="$MODULE_DIR$/dBSolutionV3/adresse/templates" />
         <option value="$MODULE_DIR$/dBSolutionV3/adresse/templates/adresse" />
@@ -44,6 +35,24 @@
         <option value="$MODULE_DIR$/dBSolutionV3/recharge/templates/recharge" />
         <option value="$MODULE_DIR$/dBSolutionV3/societe_cliente/templates" />
         <option value="$MODULE_DIR$/dBSolutionV3/societe_cliente/templates/societe_cliente" />
+        <option value="$MODULE_DIR$/dBSolutionV3/voiture/voiture_boite/templates" />
+        <option value="$MODULE_DIR$/dBSolutionV3/voiture/voiture_boite/templates/voiture_boite" />
+        <option value="$MODULE_DIR$/dBSolutionV3/voiture/voiture_embrayage/templates" />
+        <option value="$MODULE_DIR$/dBSolutionV3/voiture/voiture_embrayage/templates/voiture_embrayage" />
+        <option value="$MODULE_DIR$/dBSolutionV3/voiture/voiture_exemplaire/templates" />
+        <option value="$MODULE_DIR$/dBSolutionV3/voiture/voiture_exemplaire/templates/voiture_exemplaire" />
+        <option value="$MODULE_DIR$/dBSolutionV3/voiture/voiture_freins/templates" />
+        <option value="$MODULE_DIR$/dBSolutionV3/voiture/voiture_freins/templates/voiture_freins" />
+        <option value="$MODULE_DIR$/dBSolutionV3/voiture/voiture_freins_ar/templates" />
+        <option value="$MODULE_DIR$/dBSolutionV3/voiture/voiture_freins_ar/templates/voiture_freins_ar" />
+        <option value="$MODULE_DIR$/dBSolutionV3/voiture/voiture_marque/templates" />
+        <option value="$MODULE_DIR$/dBSolutionV3/voiture/voiture_marque/templates/voiture_marque" />
+        <option value="$MODULE_DIR$/dBSolutionV3/voiture/voiture_modele/templates" />
+        <option value="$MODULE_DIR$/dBSolutionV3/voiture/voiture_modele/templates/voiture_modele" />
+        <option value="$MODULE_DIR$/dBSolutionV3/utilisateurs/templates" />
+        <option value="$MODULE_DIR$/dBSolutionV3/utilisateurs/templates/utilisateurs" />
+        <option value="$MODULE_DIR$/dBSolutionV3/voiture/voiture_pneus/templates" />
+        <option value="$MODULE_DIR$/dBSolutionV3/voiture/voiture_pneus/templates/voiture_pneus" />
       </list>
     </option>
   </component>
