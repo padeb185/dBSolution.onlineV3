@@ -4,30 +4,68 @@
 {% block content %}
 <div class="p-6 max-w-4xl mx-auto">
 
+    {% if maintenance %}
     <h1 class="text-3xl font-bold mb-6 flex items-center gap-3">
         <img src="{% static 'icons/checkup.png' %}" alt="Maintenance" class="w-12 h-12">
-        {% trans "Détail de la maintenance" %}
+        {% trans "Détail de la maintenance pour :" %}
+        {{ maintenance.exemplaire.voiture_marque.nom_marque }}
+        {{ maintenance.exemplaire.voiture_modele.nom_modele }}
+        ({{ maintenance.exemplaire.plaque }})
     </h1>
 
+    <!-- Messages flash -->
+    {% if messages %}
+    <ul class="mb-4">
+        {% for message in messages %}
+            <li class="p-2 rounded {{ message.tags|default:'bg-gray-200' }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <!-- Informations générales -->
     <div class="bg-white shadow rounded p-4 mb-6">
         <h2 class="text-xl font-semibold mb-3">{% trans "Informations générales" %}</h2>
         <ul class="text-gray-700 space-y-1">
-            <li><strong>{% trans "ID Maintenance" %}:</strong> {{ maintenance.id }}</li>
-            <li><strong>{% trans "Exemplaire" %}:</strong> {{ maintenance.voiture_exemplaire.immatriculation }}</li>
-            <li><strong>{% trans "Mécanicien" %}:</strong> {{ maintenance.mecanicien.prenom }} {{ maintenance.mecanicien.nom }}</li>
-            <li><strong>{% trans "Type" %}:</strong> {{ maintenance.type_maintenance }}</li>
-            <li><strong>{% trans "Date" %}:</strong> {{ maintenance.date_intervention }}</li>
+            <li><strong>{% trans "ID de maintenance" %}:</strong> {{ maintenance.id }}</li>
+            <li><strong>{% trans "Exemplaire" %}:</strong> {{ maintenance.exemplaire.voiture_marque.nom_marque }} {{ maintenance.exemplaire.voiture_modele.nom_modele }} ({{ maintenance.exemplaire.plaque }})</li>
+            <li><strong>{% trans "Créée par" %}:</strong> {{ maintenance.exemplaire.last_maintained_by }}</li>
+            <li><strong>{% trans "Date de création" %}:</strong> {{ maintenance.created_at|date:"d/m/Y H:i" }}</li>
         </ul>
     </div>
 
+    <!-- Contrôles réalisés -->
+    {% if maintenance.controles.exists %}
     <div class="bg-white shadow rounded p-4 mb-6">
-        <h2 class="text-xl font-semibold mb-3">{% trans "Contrôles généraux" %}</h2>
-        {% for controle in maintenance.controles_generaux.all %}
-            <p>{{ controle }}</p>
-        {% empty %}
-            <p>{% trans "Aucun contrôle enregistré." %}</p>
-        {% endfor %}
+        <h2 class="text-xl font-semibold mb-3">{% trans "Contrôles réalisés" %}</h2>
+        <ul class="list-disc list-inside text-gray-700 space-y-1">
+            {% for controle in maintenance.controles.all %}
+                <li>{{ controle.nom }}</li>
+            {% endfor %}
+        </ul>
     </div>
+    {% endif %}
+
+    <!-- Liens d’action -->
+    <div class="flex gap-4">
+        <a href="{% url 'maintenance_tenant' maintenance.exemplaire.id %}"
+           class="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition-colors">
+            {% trans "Créer une nouvelle maintenance" %}
+        </a>
+        <a href="{% url 'maintenance_liste_all' %}"
+           class="bg-gray-600 text-white py-2 px-4 rounded hover:bg-gray-700 transition-colors">
+            {% trans "Retour à la liste des maintenances" %}
+        </a>
+    </div>
+
+    {% else %}
+    <h1 class="text-3xl font-bold mb-6">
+        {% trans "Aucune maintenance disponible pour cet exemplaire" %}
+    </h1>
+    <a href="{% url 'maintenance_liste_all' %}"
+       class="bg-gray-600 text-white py-2 px-4 rounded hover:bg-gray-700 transition-colors">
+        {% trans "Retour à la liste des maintenances" %}
+    </a>
+    {% endif %}
 
 </div>
 {% endblock %}

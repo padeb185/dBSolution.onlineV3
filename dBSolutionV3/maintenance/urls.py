@@ -15,7 +15,10 @@ app_name = "maintenance"
 urlpatterns = [
     path('', liste_maintenance_all, name='liste_maintenance_all'),
     path('<uuid:exemplaire_id>/choisir_type/', choisir_type_maintenance, name='choisir_type'),
-    path('<uuid:exemplaire_id>/checkup/', maintenance_tenant_view, name='maintenance_tenant_creer'),  # <-- création maintenance complète
+
+
+    #path('<uuid:exemplaire_id>/checkup/', maintenance_tenant_view, name='maintenance_tenant_creer'),  # <-- création maintenance complète
+
     path('<uuid:exemplaire_id>/entretien/', creer_entretien, name='creer_entretien'),  # <-- création maintenance complète
     path(
         "<uuid:maintenance_id>/",
@@ -23,6 +26,7 @@ urlpatterns = [
         name="maintenance_detail",
     ),
 
+    path("maintenance/<uuid:exemplaire_id>/", maintenance_tenant_view, name="maintenance_tenant"),
 
     path('creer/<uuid:exemplaire_id>/', creer_checkup_complet, name='creer_checkup'),
 

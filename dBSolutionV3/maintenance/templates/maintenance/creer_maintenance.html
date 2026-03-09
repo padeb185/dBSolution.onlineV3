@@ -4,9 +4,11 @@
 {% block content %}
 <div class="p-6 max-w-4xl mx-auto">
 
+    {% if exemplaire %}
     <h1 class="text-3xl font-bold mb-6 flex items-center gap-3">
         <img src="{% static 'icons/checkup.png' %}" alt="Maintenance" class="w-12 h-12">
-        {% trans "Créer un check-up complet pour :" %} {{ exemplaire.voiture_marque.nom_marque }} {{ exemplaire.voiture_modele.nom_modele }}
+        {% trans "Créer un check-up complet pour :" %}
+        {{ exemplaire.voiture_marque.nom_marque }} {{ exemplaire.voiture_modele.nom_modele }}
     </h1>
 
     <!-- Détails de l'exemplaire -->
@@ -14,37 +16,32 @@
         <h2 class="text-xl font-semibold mb-3">{% trans "Détails de l'exemplaire" %}</h2>
         <ul class="text-gray-700 space-y-1">
             <li><strong>{% trans "Immatriculation" %}:</strong>
-            {% if exemplaire.pays == 'Belgique' %}
-            <div class="flex items-center w-[14%] min-w-[180px] h-[40px] bg-white border-2 border-[#8B0000] rounded font-[Arial] mb-4">
-                <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
-                    <span>🇪🇺</span>
-                    <span>B</span>
+                {% if exemplaire.pays == 'Belgique' %}
+                <div class="flex items-center w-[14%] min-w-[180px] h-[40px] bg-white border-2 border-[#8B0000] rounded font-[Arial] mb-4">
+                    <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
+                        <span>🇪🇺</span><span>B</span>
+                    </div>
+                    <input type="text" value="{{ exemplaire.immatriculation }}" readonly
+                           class="w-full text-center border-none font-bold text-[#8B0000] text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0">
                 </div>
-                <input type="text" value="{{ exemplaire.immatriculation }}" readonly
-                       class="w-full text-center border-none font-bold text-[#8B0000] text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0">
-            </div>
-
-            {% elif exemplaire.pays == 'Luxembourg' %}
-            <div class="flex items-center w-[14%] min-w-[180px] h-[40px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial] mb-4">
-                <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
-                    <span>🇪🇺</span>
-                    <span>L</span>
+                {% elif exemplaire.pays == 'Luxembourg' %}
+                <div class="flex items-center w-[14%] min-w-[180px] h-[40px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial] mb-4">
+                    <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
+                        <span>🇪🇺</span><span>L</span>
+                    </div>
+                    <input type="text" value="{{ exemplaire.immatriculation }}" readonly
+                           class="w-full text-center border-none font-bold text-black text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0">
                 </div>
-                <input type="text" value="{{ exemplaire.immatriculation }}" readonly
-                       class="w-full text-center border-none font-bold text-black text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0">
-            </div>
-
-            {% elif exemplaire.pays == 'Allemagne' %}
-            <div class="flex items-center w-[14%] min-w-[180px] h-[40px] bg-white border-2 border-black rounded font-[Arial] mb-4">
-                <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
-                    <span>🇪🇺</span>
-                    <span>D</span>
+                {% elif exemplaire.pays == 'Allemagne' %}
+                <div class="flex items-center w-[14%] min-w-[180px] h-[40px] bg-white border-2 border-black rounded font-[Arial] mb-4">
+                    <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
+                        <span>🇪🇺</span><span>D</span>
+                    </div>
+                    <input type="text" value="{{ exemplaire.immatriculation }}" readonly
+                           class="w-full text-center border-none font-bold text-black text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0">
                 </div>
-                <input type="text" value="{{ exemplaire.immatriculation }}" readonly
-                       class="w-full text-center border-none font-bold text-black text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0">
-            </div>
-            {% endif %}</li>
-
+                {% endif %}
+            </li>
             <li><strong>{% trans "Kilomètres total" %}:</strong> {{ exemplaire.kilometres_total }}</li>
             <li><strong>{% trans "Kilomètres depuis dernière intervention" %}:</strong> {{ exemplaire.kilometres_derniere_intervention }}</li>
             <li><strong>{% trans "Marque" %}:</strong> {{ exemplaire.voiture_marque.nom_marque }}</li>
@@ -61,7 +58,6 @@
         <!-- Aperçu des contrôles avec checkboxes -->
         <div class="bg-white shadow rounded p-4 mb-6">
             <h2 class="text-xl font-semibold mb-3">{% trans "Aperçu du check-up complet" %}</h2>
-
             <ul class="list-disc list-inside text-gray-700 space-y-1">
                 {% for controle in controles %}
                 <li>
@@ -83,7 +79,36 @@
         </div>
     </form>
 
+    {% if messages %}
+    <div class="mt-4 p-4 bg-gray-100 rounded">
+        {% for message in messages %}
+            <p class="mb-2 {{ message.tags|default:'text-gray-800' }}">{{ message }}</p>
+        {% endfor %}
+
+        {% if maintenance %}
+        <div class="flex gap-4 mt-2">
+            <a href="{% url 'maintenance_detail' maintenance.id %}" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition-colors">
+                {% trans "Voir le détail de la maintenance" %}
+            </a>
+            <a href="{% url 'maintenance_liste_all' %}" class="bg-gray-600 text-white py-2 px-4 rounded hover:bg-gray-700 transition-colors">
+                {% trans "Retour à la liste des maintenances" %}
+            </a>
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+
     <p class="text-sm text-gray-500 mt-4">{% trans "Date actuelle" %}: {{ now|date:"Y-m-d H:i" }}</p>
+
+    {% else %}
+    <h1 class="text-3xl font-bold mb-6">
+        {% trans "Exemplaire non trouvé" %}
+    </h1>
+    <a href="{% url 'maintenance_liste_all' %}"
+       class="bg-gray-600 text-white py-2 px-4 rounded hover:bg-gray-700 transition-colors">
+        {% trans "Retour à la liste des maintenances" %}
+    </a>
+    {% endif %}
 
 </div>
 {% endblock %}
