@@ -192,6 +192,7 @@ class AmortisseurControle(models.Model):
         default=False,
         verbose_name=_("Fuite"))
 
+
     class Meta:
         verbose_name = _("Amortisseur")
         verbose_name_plural = _("Amortisseurs")

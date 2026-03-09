@@ -14,8 +14,7 @@ from maintenance.utils import creer_maintenance_complete
 from voiture.voiture_marque.models import VoitureMarque
 from voiture.voiture_exemplaire.models import TypeUtilisation
 from django.utils import timezone
-from maintenance.check_up.views import TYPES_MAINTENANCE
-from maintenance.check_up.views import creer_checkup_complet
+from maintenance.types_maintenances import TYPES_MAINTENANCE
 from maintenance.check_up.models import Checkup
 
 
