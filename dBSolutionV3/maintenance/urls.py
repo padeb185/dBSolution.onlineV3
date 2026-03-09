@@ -1,7 +1,8 @@
 from django.urls import path
 from . import entretien
+from .check_up.views import controle_total_view
 from .entretien.views import creer_entretien
-from .views import maintenance_detail_view
+from .views import maintenance_detail_view, maintenance_liste_view
 from .views import (
     liste_maintenance_all,
     choisir_type_maintenance,
@@ -25,7 +26,13 @@ urlpatterns = [
 
     path("maintenance/<uuid:exemplaire_id>/", maintenance_tenant_view, name="maintenance_tenant"),
 
+    path(
+        "maintenance/<uuid:exemplaire_id>/",
+        controle_total_view,
+        name="controle_total_view"
+    ),
 
+    path("liste/", maintenance_liste_view, name="maintenance_liste"),
 
 
 ]

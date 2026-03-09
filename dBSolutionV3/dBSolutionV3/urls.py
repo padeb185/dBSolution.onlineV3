@@ -95,6 +95,8 @@ urlpatterns += i18n_patterns(
 
 
 
+
+
 )
 
 

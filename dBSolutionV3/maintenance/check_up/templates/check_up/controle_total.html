@@ -7,17 +7,21 @@
     <h1 class="text-3xl font-bold mb-6 flex items-center gap-3">
         <img src="{% static 'icons/checkup.png' %}" alt="Maintenance" class="w-12 h-12">
         {% trans "Contrôle complet pour :" %}
-        {{ exemplaire.voiture_marque.nom_marque }} {{ exemplaire.voiture_modele.nom_modele }}
-        ({{ exemplaire.plaque }})
+        {{ exemplaire.voiture_marque.nom_marque }} {{ exemplaire.voiture_modele.nom_modele }} {{ exemplaire.plaque }}
     </h1>
 
     <!-- Affichage des messages -->
-    {% if messages %}
-    <ul class="mb-4">
+     {% if messages %}
         {% for message in messages %}
-            <li class="p-2 rounded {{ message.tags|default:'bg-gray-200' }}">{{ message }}</li>
+            <div class="mb-3 px-4 py-2 rounded
+                {% if message.tags == 'success' %}
+                    bg-green-100 text-green-800 border border-green-300
+                {% else %}
+                    bg-red-100 text-red-800 border border-red-300
+                {% endif %}">
+                {{ message }}
+            </div>
         {% endfor %}
-    </ul>
     {% endif %}
 
     <form method="POST">
@@ -108,11 +112,12 @@
                     class="bg-green-600 text-white font-bold py-2 px-4 rounded hover:bg-green-700 transition-colors">
                 {% trans "Enregistrer le contrôle complet" %}
             </button>
-            <a href="{% url 'maintenance_liste_all' %}"
+            <a href="{% url 'maintenance:choisir_type' exemplaire.id %}"
                class="bg-gray-600 text-white font-bold py-2 px-4 rounded hover:bg-gray-700 transition-colors">
                 {% trans "Annuler / Retour" %}
             </a>
         </div>
+
 
         <p class="text-sm text-gray-500 mt-4">{% trans "Date actuelle" %}: {{ now|date:"Y-m-d H:i" }}</p>
     </form>

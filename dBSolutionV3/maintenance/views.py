@@ -16,6 +16,10 @@ from voiture.voiture_exemplaire.models import TypeUtilisation
 from django.utils import timezone
 from maintenance.types_maintenances import TYPES_MAINTENANCE
 from maintenance.check_up.models import Checkup
+from maintenance.check_up.models import ControleGeneral
+from utilisateurs.models import Mecanicien
+
+
 
 
 @login_required
@@ -128,7 +132,7 @@ def maintenance_tenant_view(request, exemplaire_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
-        # Récupère l'exemplaire correspondant au tenant ou client None
+        # 🔎 Vérifie que l'exemplaire appartient au tenant
         exemplaire = get_object_or_404(
             VoitureExemplaire.objects.filter(
                 Q(client__societe=tenant) | Q(client__isnull=True, societe=tenant)
@@ -136,50 +140,56 @@ def maintenance_tenant_view(request, exemplaire_id):
             id=exemplaire_id
         )
 
+        # Vérifie que l'utilisateur est mécanicien
+        if request.user.role != "mécanicien":
+            messages.error(request, "Seuls les mécaniciens peuvent effectuer un check-up.")
+            return redirect("maintenance:choisir_type", exemplaire.id)
+
+        mecanicien = get_object_or_404(Mecanicien, id=request.user.id)
+
         if request.method == "POST":
             try:
                 with transaction.atomic():
-                    # Création du check-up complet
-                    maintenance = creer_checkup_complet(request, exemplaire)
 
-                    # Mise à jour du dernier utilisateur ayant fait la maintenance
+                    # 🧰 Création de la maintenance
+                    maintenance = Maintenance.objects.create(
+                        voiture_exemplaire=exemplaire,
+                        mecanicien=mecanicien,
+                        immatriculation=exemplaire.immatriculation,
+                        date_intervention=timezone.now().date(),
+                        kilometres_total=exemplaire.kilometres_total,
+                        kilometres_derniere_intervention=exemplaire.kilometres_derniere_intervention,
+                        type_maintenance="checkup",
+                        tag=Maintenance.Tag.JAUNE,
+                    )
+
+                    # 🔧 Création du contrôle général
+                    ControleGeneral.objects.create(
+                        maintenance=maintenance
+                    )
+
+                    # 👤 Dernier mécanicien ayant fait la maintenance
                     exemplaire.last_maintained_by = request.user
                     exemplaire.save(update_fields=["last_maintained_by"])
 
-                messages.success(request, "Maintenance créée avec succès !")
+                messages.success(request, "Check-up créé avec succès.")
 
-                # POST → GET : retourne le formulaire avec le lien vers la maintenance créée
-                return render(
-                    request,
-                    "maintenance/creer_maintenance.html",
-                    {
-                        "exemplaire": exemplaire,
-                        "now": timezone.now(),
-                        "maintenance": maintenance,  # pour le lien vers détail
-
-                    },
+                # 🚀 Redirection vers le contrôle complet
+                return redirect(
+                    "maintenance:controle_total_view",
+                    exemplaire_id=exemplaire.id
                 )
 
             except Exception as e:
                 messages.error(request, f"Erreur lors de la création : {e}")
-                return render(
-                    request,
-                    "maintenance/creer_maintenance.html",
-                    {
-                        "exemplaire": exemplaire,
-                        "now": timezone.now(),
 
-                    },
-                )
-
-        # GET → affiche le formulaire de création
+        # GET → affiche la page de confirmation
         return render(
             request,
             "maintenance/creer_maintenance.html",
             {
                 "exemplaire": exemplaire,
                 "now": timezone.now(),
-
             },
         )
 
@@ -204,3 +214,17 @@ def maintenance_detail_view(request, maintenance_id):
     return render(request, "maintenance/detail.html", {
         "maintenance": maintenance
     })
+
+
+
+@login_required
+def maintenance_liste_view(request):
+    maintenances = Maintenance.objects.all().order_by("-date_intervention")
+
+    return render(
+        request,
+        "maintenance/liste.html",
+        {
+            "maintenances": maintenances
+        }
+    )
