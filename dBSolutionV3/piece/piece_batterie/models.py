@@ -57,6 +57,17 @@ class PieceBatterie(Piece):
         blank=True
     )
 
+    amperage = models.IntegerField(
+        default=0,
+        verbose_name=_("Amperage"),
+        help_text=_("Ampèrage Maximum")
+    )
+
+    ampere_heures = models.IntegerField(
+        default=0,
+        verbose_name=_("Ampere heures"),
+    )
+
     class Meta:
         verbose_name = _("Pièce de batterie")
         verbose_name_plural = _("Pièces de batterie")
