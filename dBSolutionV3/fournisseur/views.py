@@ -23,7 +23,7 @@ class FournisseurListView(ListView):
     ordering = ["nom"]
 
     def get_queryset(self):
-        societe = self.request.user.societe
+        societe = self.request.societe
         return Fournisseur.objects.filter(societe=societe)
 
 

@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="max-w-xl mx-auto p-6 bg-white rounded shadow mt-16 mb-16">
+
+    <!-- Header -->
+    <h1 class="text-2xl font-bold mb-4 text-center flex items-center justify-center">
+        <img src="{% static 'icons/piece.png' %}" style="width:75px; margin-right:5px;" alt="">
+        {% trans "Créer une pièce" %}
+    </h1>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="mb-3 px-4 py-2 rounded
+                {% if message.tags == 'success' %}
+                    bg-green-100 text-green-800 border border-green-300
+                {% else %}
+                    bg-red-100 text-red-800 border border-red-300
+                {% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post" class="flex flex-col space-y-4">
+        {% csrf_token %}
+
+        <!-- Fabricants -->
+        <div>
+            <label for="id_fabricants">{% trans "Fabricants" %}</label>
+            <select id="id_fabricants" name="fabricants" multiple
+                    class="border rounded px-4 py-2 w-full">
+                {% for fabricant in form.fields.fabricants.queryset %}
+                    <option value="{{ fabricant.id }}"
+                        {% if fabricant.id in form.fabricants.value %}selected{% endif %}>
+                        {{ fabricant.nom }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- OEM -->
+        <div>
+            <label for="id_oem">{% trans "Numéro OEM" %}</label>
+            <input type="text" id="id_oem" name="oem"
+                   value="{{ form.oem.value|default:'' }}"
+                   class="border rounded px-4 py-2 w-full"
+                   placeholder="">
+        </div>
+
+        <!-- Codes-barres -->
+        <div>
+            <label for="id_codes_barres">{% trans "Codes-barres" %}</label>
+            <select id="id_codes_barres" name="codes_barres" multiple
+                    class="border rounded px-4 py-2 w-full">
+                {% for code in form.fields.codes_barres.queryset %}
+                    <option value="{{ code.id }}"
+                        {% if code.id in form.codes_barres.value %}selected{% endif %}>
+                        {{ code.code }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Emplacement étagère -->
+        <div>
+            <label for="id_emplacement_etagere">{% trans "Emplacement étagère" %}</label>
+            <input type="text" id="id_emplacement_etagere" name="emplacement_etagere"
+                   value="{{ form.emplacement_etagere.value|default:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+
+        <!-- Quantité stock -->
+        <div>
+            <label for="id_quantite_stock">{% trans "Quantité stock" %}</label>
+            <input type="number" id="id_quantite_stock" name="quantite_stock"
+                   value="{{ form.quantite_stock.value|default:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+
+        <!-- Prix achat -->
+        <div>
+            <label for="id_prix_achat">{% trans "Prix achat" %}</label>
+            <input type="number" step="0.01" id="id_prix_achat" name="prix_achat"
+                   value="{{ form.prix_achat.value|default:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+
+        <!-- Majoration -->
+        <div>
+            <label for="id_majoration_pourcent">{% trans "Majoration (%)" %}</label>
+            <input type="number" step="0.01" id="id_majoration_pourcent" name="majoration_pourcent"
+                   value="{{ form.majoration_pourcent.value|default:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+
+        <!-- TVA -->
+        <div>
+            <label for="id_tva">{% trans "TVA (%)" %}</label>
+            <input type="number" step="0.01" id="id_tva" name="tva"
+                   value="{{ form.tva.value|default:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+
+        <!-- Prix vente -->
+        <div>
+            <label for="id_prix_vente">{% trans "Prix vente" %}</label>
+            <input type="number" step="0.01" id="id_prix_vente" name="prix_vente"
+                   value="{{ form.prix_vente.value|default:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+
+        <!-- Quantité minimum -->
+        <div>
+            <label for="id_quantite_min">{% trans "Quantité minimum" %}</label>
+            <input type="number" id="id_quantite_min" name="quantite_min"
+                   value="{{ form.quantite_min.value|default:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+
+        <button type="submit" class="bg-blue-700 text-white px-4 py-2 rounded w-full mt-4">
+            {% trans "Enregistrer" %}
+        </button>
+    </form>
+</div>
+
+<script>
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie) {
+        document.cookie.split(';').forEach(c => {
+            c = c.trim();
+            if (c.startsWith(name + '=')) {
+                cookieValue = decodeURIComponent(c.slice(name.length + 1));
+            }
+        });
+    }
+    return cookieValue;
+}
+
+const csrftoken = getCookie('csrftoken');
+
+document.getElementById('id_fabricants').addEventListener('change', function(){
+    const piece = this.value;
+
+    fetch('/api/check_fabricants', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+        },
+        body: JSON.stringify({ piece: piece })
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.exist) {
+            document.getElementById('id_oem').value = data.oem;
+            document.getElementById('id_emplacement_etagere').value = data.emplacement_etagere;
+            // Gestion codes_barres multiple
+            const codesSelect = document.getElementById('id_codes_barres');
+            for (let i = 0; i < codesSelect.options.length; i++) {
+                codesSelect.options[i].selected = data.codes_barres.includes(parseInt(codesSelect.options[i].value));
+            }
+        } else {
+            document.getElementById('id_oem').value = '';
+            document.getElementById('id_emplacement_etagere').value = '';
+            const codesSelect = document.getElementById('id_codes_barres');
+            for (let i = 0; i < codesSelect.options.length; i++) {
+                codesSelect.options[i].selected = false;
+            }
+        }
+    })
+    .catch(err => console.error("Erreur:", err));
+});
+</script>
+{% endblock %}

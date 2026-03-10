@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<h1>{{ piece.organe|default:_("Pièce") }} - {{ piece.marque|default:_("Marque") }}</h1>
+
+<p><strong>{% trans "Société" %}:</strong> {{ piece.societe }}</p>
+<p><strong>{% trans "Modèle" %}:</strong> {{ piece.modele }}</p>
+<p><strong>{% trans "Marque véhicule" %}:</strong> {{ piece.voiture_marque }}</p>
+<p><strong>{% trans "Véhicule" %}:</strong> {{ piece.vehicule }}</p>
+
+<p><strong>{% trans "Fabricants" %}:</strong>
+    {% for f in piece.fabricants.all %}
+        {{ f }}{% if not forloop.last %}, {% endif %}
+    {% empty %}
+        {% trans "Aucun" %}
+    {% endfor %}
+</p>
+
+<p><strong>{% trans "Codes-barres" %}:</strong>
+    {% for c in piece.codes_barres.all %}
+        {{ c.code }}{% if not forloop.last %}, {% endif %}
+    {% empty %}
+        {% trans "Aucun" %}
+    {% endfor %}
+</p>
+
+<p><strong>{% trans "Immatriculation" %}:</strong> {{ piece.immatriculation }}</p>
+<p><strong>{% trans "Année" %}:</strong> {{ piece.annee }}</p>
+<p><strong>{% trans "Site" %}:</strong> {{ piece.site }}</p>
+<p><strong>{% trans "Pays" %}:</strong> {{ piece.pays }}</p>
+<p><strong>{% trans "Emplacement étagère" %}:</strong> {{ piece.emplacement_etagere }}</p>
+<p><strong>{% trans "Qualité" %}:</strong> {{ piece.qualite }}</p>
+<p><strong>{% trans "Code OEM" %}:</strong> {{ piece.oem }}</p>
+<p><strong>{% trans "Prix d'achat" %}:</strong> {{ piece.prix_achat }}</p>
+<p><strong>{% trans "Majoration (%)" %}:</strong> {{ piece.majoration_pourcent }}</p>
+<p><strong>{% trans "TVA (%)" %}:</strong> {{ piece.tva }}</p>
+<p><strong>{% trans "Prix de vente calculé" %}:</strong> {{ piece.calcul_prix_vente }}</p>
+
+<p><strong>{% trans "Quantité en stock" %}:</strong> {{ piece.quantite_stock }}</p>
+<p><strong>{% trans "Quantité utilisée" %}:</strong> {{ piece.quantite_utilisee }}</p>
+<p><strong>{% trans "Quantité minimale" %}:</strong> {{ piece.quantite_min }}</p>
+<p><strong>{% trans "Date de création" %}:</strong> {{ piece.date_creation }}</p>
+
+<a href="{% url 'piece:edit' piece.pk %}">{% trans "Modifier" %}</a> |
+<a href="{% url 'piece:delete' piece.pk %}">{% trans "Supprimer" %}</a> |
+<a href="{% url 'piece:list' %}">{% trans "Retour à la liste" %}</a>
+{% endblock %}

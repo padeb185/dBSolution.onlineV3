@@ -75,12 +75,12 @@ class Piece(models.Model):
     # Informations générales
     immatriculation = models.CharField(max_length=20, blank=True, verbose_name=_("Immatriculation"))
     annee = models.PositiveSmallIntegerField(default=timezone.now().year, verbose_name=_("Année"))
-    site = models.CharField(max_length=100, blank=True, verbose_name=_("Site"))
-    pays = models.CharField(max_length=100, blank=True, verbose_name=_("Pays"))
+    site = models.CharField(max_length=100, blank=True, null=True, verbose_name=_("Site"))
+    pays = models.CharField(max_length=100, blank=True, null=True, verbose_name=_("Pays"))
     emplacement_etagere = models.CharField(
         max_length=4,
         blank=True,
-        help_text=_("A-Z / 1-50"),
+        help_text=_("A-Z / 1-4 / 1-50"),
         verbose_name=_("Emplacement étagère")
     )
     qualite = models.CharField(max_length=50, blank=True, verbose_name=_("Qualité"))

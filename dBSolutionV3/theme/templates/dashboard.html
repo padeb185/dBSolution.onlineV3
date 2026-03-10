@@ -316,6 +316,22 @@
     </div>
     <img src="{% static 'icons/assurance-voiture.png' %}" alt="assurance police" style="width:60px; height:60px;">
   </a>
+    <!-- Carte Pièces -->
+  <a href="{% url 'piece:list' %}"
+     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+
+    <div>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Pièces" %}</h2>
+      <p class="text-gray-600 text-sm">
+        {% trans "Nombre total :" %}
+        <span class="font-bold">{{ total_pieces }}</span>
+      </p>
+    </div>
+
+    <img src="{% static 'icons/piece.png' %}"
+         alt="piece"
+         style="width:60px; height:60px;">
+  </a>
 
 </div>
 

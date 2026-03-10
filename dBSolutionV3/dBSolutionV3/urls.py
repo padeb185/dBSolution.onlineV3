@@ -93,6 +93,7 @@ urlpatterns += i18n_patterns(
 
     path("voiture_modele/", include("voiture.voiture_modele.urls")),
 
+    path("piece/", include("piece.urls", namespace="piece")),
 
 
 

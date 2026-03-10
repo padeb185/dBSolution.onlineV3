@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<h1>{% trans "Supprimer la pièce" %}</h1>
+
+<p>{% blocktrans with organe=piece.organe marque=piece.marque %}
+Voulez-vous vraiment supprimer la pièce "{{ organe }} - {{ marque }}" ?
+{% endblocktrans %}</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">{% trans "Confirmer" %}</button>
+    <a href="{% url 'pieces:list' %}" class="btn btn-secondary">{% trans "Annuler" %}</a>
+</form>
+{% endblock %}
