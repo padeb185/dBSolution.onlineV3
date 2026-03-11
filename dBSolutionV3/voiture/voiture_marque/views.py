@@ -2,16 +2,16 @@ from django.contrib import messages
 from django.http import Http404, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_POST
-from django_tenants.utils import tenant_context
+from django_tenants.utils import tenant_context, schema_context
 from voiture.voiture_marque.models import VoitureMarque
 from voiture.voiture_modele.models import VoitureModele
 from voiture.voiture_marque.models import MarqueFavorite
 from django.utils.translation import gettext as _
 from voiture.voiture_marque.forms import VoitureMarqueForm
 from voiture.voiture_moteur.forms import MoteurVoitureForm
-
-
+from voiture.voiture_exemplaire.models import VoitureExemplaire
 
 
 @login_required
@@ -116,3 +116,56 @@ def check_marque(request):
         if nom_marque:
             exists = VoitureMarque.objects.filter(nom_marque__iexact=nom_marque).exists()
         return JsonResponse({"exists": exists})
+
+
+
+@never_cache
+@login_required
+def dashboard_voiture_view(request):
+    user = request.user
+    societe = user.societe
+    context = {}
+
+    # --- Sécurité : récupère le tenant (la société de l'utilisateur) ---
+    societe = request.user.societe
+    schema_name = societe.schema_name  # pour django-tenants
+
+
+    # --- Stats initialisées à zéro ---
+    total_marques = total_exemplaires = total_modele = 0
+
+    marques = exemplaires = modele = []
+
+    if schema_name:
+        with schema_context(schema_name):
+            marques = VoitureMarque.objects.filter(societe=societe)
+            modele = VoitureModele.objects.filter(societe=societe)
+            exemplaires = VoitureExemplaire.objects.filter(societe=societe)
+
+
+            # Totaux
+            total_marques = marques.count()
+            total_modele = modele.count()
+            total_exemplaires = exemplaires.count()
+
+    else:
+        modeles = []
+
+    context.update({
+        'user': user,
+        'societe': societe,
+        'total_marques': total_marques,
+        'total_modele': total_modele,
+        'total_exemplaires': total_exemplaires,
+
+
+        'marques': marques,
+        'modele' : modele,
+        'exemplaires': exemplaires,
+
+    })
+
+
+    return render(request, 'voiture_marque/dashboard_voiture.html', context)
+
+

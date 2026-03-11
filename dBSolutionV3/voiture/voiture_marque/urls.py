@@ -1,10 +1,13 @@
 from django.urls import path, include
 from .views import marques_list, modeles_par_marque, toggle_marque_favorite, marques_favorites, ajouter_marque, \
-    check_marque
+    check_marque, dashboard_voiture_view
 
 app_name = "voiture_marque"
 
 urlpatterns = [
+
+    path('', dashboard_voiture_view, name="dashboard_voiture"),
+
     path("marques/", marques_list, name="marques_list"),
     path(
         "marque/<uuid:marque_id>/modeles/",
