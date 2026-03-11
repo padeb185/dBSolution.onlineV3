@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
-from django_tenants.utils import tenant_context
+from django_tenants.utils import tenant_context, schema_context
 from .forms import CarrosserieForm
 from .models import Carrosserie
 from adresse.models import Adresse
@@ -14,8 +14,7 @@ from django.utils.translation import gettext as _
 from adresse.forms import AdresseForm
 from assurance.forms import AssuranceForm
 from assurance.models import Assurance
-
-
+from intervention.models import Intervention
 
 
 @method_decorator([login_required, never_cache], name='dispatch')
@@ -144,3 +143,58 @@ def modifier_carrosserie(request, carrosserie_id):
             "adresse": adresse,
         }
     )
+
+
+
+@never_cache
+@login_required
+def dashboard_carrosserie_view(request):
+    user = request.user
+    societe = user.societe
+    context = {}
+
+    # --- Sécurité : récupère le tenant (la société de l'utilisateur) ---
+    societe = request.user.societe
+    schema_name = societe.schema_name  # pour django-tenants
+
+
+    # --- Stats initialisées à zéro ---
+
+    total_carrosserie = total_intervention = 0
+
+
+    carrosseries = interventions = []
+
+    if schema_name:
+        with schema_context(schema_name):
+
+            carrosseries = Carrosserie.objects.filter(societe=societe)
+            interventions = Intervention.objects.all()
+
+
+            # Totaux
+
+            total_carrosserie = carrosseries.count()
+            total_intervention = interventions.count()
+
+
+
+    else:
+        modeles = []
+
+    context.update({
+        'user': user,
+        'societe': societe,
+
+        'total_carrosserie': total_carrosserie,
+        'total_intervention': total_intervention,
+
+
+        'carrosserie': carrosseries,
+        'intervention': interventions,
+
+    })
+
+
+    return render(request, "carrosserie/dashboard_carrosserie.html", context)
+
