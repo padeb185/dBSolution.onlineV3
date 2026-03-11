@@ -7,12 +7,13 @@ from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
-from django_tenants.utils import tenant_context
+from django_tenants.utils import tenant_context, schema_context
 from adresse.models import Adresse
 from django.utils.translation import gettext as _
 from assurance.models import Assurance
 from assurance.forms import AssuranceForm
 from adresse.forms import AdresseForm
+from assurance_police.models import AssurancePolice
 
 
 @method_decorator([login_required, never_cache], name='dispatch')
@@ -148,3 +149,41 @@ def modifier_assurance(request, assurance_id):
             "adresse": adresse,
         }
     )
+
+
+
+
+
+@never_cache
+@login_required
+def dashboard_assurance_view(request):
+    user = request.user
+    societe = getattr(user, "societe", None)
+
+    # Valeurs par défaut
+    total_assurance = 0
+    total_assurance_police = 0
+    assurance = []
+    assurance_police = []
+
+    if societe:
+        schema_name = societe.schema_name
+
+        with schema_context(schema_name):
+
+            assurance = Assurance.objects.filter(societe=societe)
+            assurance_police = AssurancePolice.objects.filter(societe=societe)
+
+            total_assurance = assurance.count()
+            total_assurance_police = assurance_police.count()
+
+    context = {
+        "user": user,
+        "societe": societe,
+        "total_assurance": total_assurance,
+        "total_assurance_police": total_assurance_police,
+        "assurance": assurance,
+        "assurance_police": assurance_police,
+    }
+
+    return render(request, "assurance/dashboard_assurance.html", context)

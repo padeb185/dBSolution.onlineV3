@@ -294,28 +294,16 @@
   </a>
 
   <!-- Carte Assurance -->
-  <a href="{% url 'assurance:assurance_list' %}"
+  <a href="{% url 'assurance:dashboard_assurance' %}"
      class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
     <div>
       <h2 class="text-lg font-semibold mb-1">{% trans "Assurance" %}</h2>
-      <p class="text-gray-600 text-sm">
-        {% trans "Nombre total :" %} <span class="font-bold">{{ total_assurance }}</span>
-      </p>
+
     </div>
     <img src="{% static 'icons/assurance-voiture.png' %}" alt="assurance" style="width:60px; height:60px;">
   </a>
 
-  <!-- Carte Police d'assurance -->
-  <a href="{% url 'assurance_police:assurance_police_list' %}"
-     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-    <div>
-      <h2 class="text-lg font-semibold mb-1">{% trans "Police d'assurance" %}</h2>
-      <p class="text-gray-600 text-sm">
-        {% trans "Nombre total :" %} <span class="font-bold">{{ total_assurance_police }}</span>
-      </p>
-    </div>
-    <img src="{% static 'icons/assurance-voiture.png' %}" alt="assurance police" style="width:60px; height:60px;">
-  </a>
+
     <!-- Carte Pièces -->
   <a href="{% url 'piece:list' %}"
      class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
