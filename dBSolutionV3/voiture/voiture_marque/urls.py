@@ -6,7 +6,7 @@ app_name = "voiture_marque"
 
 urlpatterns = [
 
-    path('', dashboard_voiture_view, name="dashboard_voiture"),
+    path('dashboard-voiture/', dashboard_voiture_view, name="dashboard_voiture"),
 
     path("marques/", marques_list, name="marques_list"),
     path(

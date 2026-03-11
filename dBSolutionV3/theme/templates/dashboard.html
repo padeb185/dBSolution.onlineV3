@@ -78,12 +78,25 @@
      class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
     <div class="flex justify-between items-center">
       <div>
-        <h2 class="text-lg font-semibold mb-2">{% trans "Voiture" %}</h2>
+        <h2 class="text-lg font-semibold mb-2">{% trans "Voitures" %}</h2>
 
       </div>
-      <img src="{% static 'icons/voiture-de-course.png' %}" alt="Marque de voiture" style="width:60px; height:60px;">
+      <img src="{% static 'icons/voiture-de-course.png' %}" alt="Voiture" style="width:60px; height:60px;">
     </div>
   </a>
+
+   <!-- Carte Moteurs -->
+  <a href="{% url 'voiture_moteur:list' %}"
+     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <div>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Moteurs" %}</h2>
+      <p class="text-gray-600 text-sm">
+        {% trans "Nombre total :" %} <span class="font-bold">{{ total_moteurs }}</span>
+      </p>
+    </div>
+    <img src="{% static 'icons/engine.png' %}" alt="Moteur" style="width:60px; height:60px;">
+  </a>
+
 
 
   <!-- Carte Boites de vitesses -->
@@ -137,7 +150,7 @@
   <a href="{% url 'maintenance:liste_maintenance_all' %}"
      class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
     <div>
-      <h2 class="text-lg font-semibold mb-1">{% trans "Maintenance" %}</h2>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Maintenances" %}</h2>
       <p class="text-gray-600 text-sm">
         {% trans "Nombre total :" %} <span class="font-bold">{{ total_maintenance }}</span>
       </p>
@@ -173,7 +186,7 @@
   <a href="{% url 'carrosserie:dashboard_carrosserie' %}"
      class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
     <div>
-      <h2 class="text-lg font-semibold mb-1">{% trans "Carrosserie" %}</h2>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Carrosseries" %}</h2>
 
     </div>
     <img src="{% static 'icons/carrosserie.png' %}" alt="carrosserie" style="width:60px; height:60px;">
@@ -184,7 +197,7 @@
   <a href="{% url 'societe_cliente:societe_cliente_list' %}"
      class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
     <div>
-      <h2 class="text-lg font-semibold mb-1">{% trans "Société cliente" %}</h2>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Sociétés clientes" %}</h2>
       <p class="text-gray-600 text-sm">
         {% trans "Nombre total :" %} <span class="font-bold">{{ total_societe_cliente }}</span>
       </p>
@@ -208,7 +221,7 @@
   <a href="{% url 'fuel:fuel_list' %}"
      class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
     <div>
-      <h2 class="text-lg font-semibold mb-1">{% trans "Carburant" %}</h2>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Carburants" %}</h2>
       <p class="text-gray-600 text-sm">
         {% trans "Nombre total :" %} <span class="font-bold">{{ total_carburant }}</span>
       </p>
@@ -219,7 +232,7 @@
   <a href="{% url 'recharge:recharge_list' %}"
      class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
     <div>
-      <h2 class="text-lg font-semibold mb-1">{% trans "Recharge électrique" %}</h2>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Recharges électriques" %}</h2>
       <p class="text-gray-600 text-sm">
         {% trans "Nombre total :" %} <span class="font-bold">{{ total_recharge }}</span>
       </p>
@@ -231,7 +244,7 @@
   <a href="{% url 'assurance:dashboard_assurance' %}"
      class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
     <div>
-      <h2 class="text-lg font-semibold mb-1">{% trans "Assurance" %}</h2>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Assurances" %}</h2>
 
     </div>
     <img src="{% static 'icons/assurance-voiture.png' %}" alt="assurance" style="width:60px; height:60px;">
