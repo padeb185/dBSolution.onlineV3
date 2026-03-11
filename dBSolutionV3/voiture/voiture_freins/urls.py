@@ -1,13 +1,32 @@
 from django.shortcuts import redirect
 from django.urls import path
-from .views import liste_freins, freins_detail_view, ajouter_freins_simple
+from .views import (
+    liste_freins,
+    freins_detail_view,
+    ajouter_freins_simple,
+    dashboard_frein_view
+)
 
 app_name = "voiture_freins"
 
 urlpatterns = [
-    path("", lambda request: redirect('voiture_freins:list'), name="list"),
+    path("", dashboard_frein_view, name="dashboard_frein"),
+
     path("avant/", liste_freins, name="list"),
-    path("avant/ajouter/", ajouter_freins_simple, name="ajouter_freins_simple"),
-    path("avant/<uuid:frein_id>/", freins_detail_view, name="detail"),
+
+    path(
+        "avant/ajouter/",
+        ajouter_freins_simple,
+        name="ajouter_freins_simple"
+    ),
+
+    path(
+        "avant/<uuid:frein_id>/",
+        freins_detail_view,
+        name="detail"
+    ),
 ]
+
+
+
 

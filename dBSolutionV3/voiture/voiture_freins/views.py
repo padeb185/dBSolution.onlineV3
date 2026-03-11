@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect
 from django.views.decorators.cache import never_cache
-from django_tenants.utils import tenant_context
+from django_tenants.utils import tenant_context, schema_context
 from django.shortcuts import render
 from ..voiture_freins.models import VoitureFreins
 from ..voiture_exemplaire.models import VoitureExemplaire
@@ -92,3 +92,57 @@ def ajouter_freins_simple(request):
 
 
     return render(request, "voiture_freins/ajouter_freins_simple.html")
+
+
+
+
+@never_cache
+@login_required
+def dashboard_frein_view(request):
+    user = request.user
+    societe = user.societe
+    context = {}
+
+    # --- Sécurité : récupère le tenant (la société de l'utilisateur) ---
+    societe = request.user.societe
+    schema_name = societe.schema_name  # pour django-tenants
+
+
+    # --- Stats initialisées à zéro ---
+    total_freins = 0
+    total_freins_ar = 0
+
+
+    freins = freins_ar = []
+
+    if schema_name:
+        with schema_context(schema_name):
+
+            freins = VoitureFreins.objects.filter(societe=societe)
+            freins_ar = VoitureFreinsAR.objects.filter(societe=societe)
+
+
+            # Totaux
+            total_freins = freins.count()
+            total_freins_ar = freins_ar.count()
+
+    else:
+        freins = []
+
+    context.update({
+        'user': user,
+        'societe': societe,
+
+        'total_freins': total_freins,
+        'total_freins_ar': total_freins_ar,
+
+
+
+        'freins': freins,
+        'freins_ar': freins_ar,
+
+    })
+
+    return render(request, "voiture_freins/dashboard_frein.html", context)
+
+
