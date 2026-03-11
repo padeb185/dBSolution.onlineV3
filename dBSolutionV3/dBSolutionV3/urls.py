@@ -95,6 +95,8 @@ urlpatterns += i18n_patterns(
 
     path("piece/", include("piece.urls", namespace="piece")),
 
+    path("outillage/", include("outillage.urls", namespace="outillage")),
+
 
 
 

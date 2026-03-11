@@ -29,8 +29,7 @@ from societe_cliente.models import SocieteCliente
 from fuel.models import Fuel
 from assurance.models import Assurance
 from assurance_police.models import AssurancePolice
-
-
+from outillage.models import Outillage
 
 
 
@@ -100,12 +99,12 @@ def dashboard_view(request):
     total_freins_ar = total_pneus = total_maintenance = 0
     total_fournisseur = total_client_particulier = 0
     total_carrosserie = total_intervention = total_societe_cliente = 0
-    total_adresse = total_assurance = total_modele = 0
+    total_adresse = total_assurance = total_modele = total_outils = 0
 
     marques = moteurs = exemplaires = boites = embrayages = freins = \
         freins_ar = pneus = maintenance = fournisseurs = client_particulier =\
         carrosseries = interventions = societe_cliente = adresse = assurance = \
-        assurance_police = modele = []
+        assurance_police = modele = outils = []
 
     if schema_name:
         with schema_context(schema_name):
@@ -128,6 +127,8 @@ def dashboard_view(request):
             carburant = Fuel.objects.filter(societe=societe)
             assurance = Assurance.objects.filter(societe=societe)
             assurance_police = AssurancePolice.objects.filter(societe=societe)
+            outils = Outillage.objects.filter(societe=societe)
+
 
             # Totaux
             total_marques = marques.count()
@@ -149,6 +150,7 @@ def dashboard_view(request):
             total_carburant = carburant.count()
             total_assurance = assurance.count()
             total_assurance_police = assurance_police.count()
+            total_outils = outils.count()
 
             # Récupère les modèles existants pour les liens maintenance
             modeles = VoitureModele.objects.all()
@@ -177,6 +179,7 @@ def dashboard_view(request):
         'total_carburant': total_carburant,
         'total_assurance': total_assurance,
         'total_assurance_police': total_assurance_police,
+        'total_outils': total_outils,
 
         'marques': marques,
         'modele' : modele,
@@ -198,6 +201,7 @@ def dashboard_view(request):
         'carburant': carburant,
         'assurance': assurance,
         'assurance_police': assurance_police,
+        'outils': outils,
     })
 
     # --- Tâches et rôles ---
