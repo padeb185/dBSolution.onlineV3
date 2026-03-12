@@ -46,6 +46,7 @@ class FuelListView(ListView):
         )
 
 
+
 @login_required
 def ajouter_fuel_all(request):
     tenant = request.user.societe  # récupère le tenant de l'utilisateur
@@ -54,12 +55,11 @@ def ajouter_fuel_all(request):
         if request.method == "POST":
             form = FuelForm(request.POST)
 
-            # Auto-remplissage de voiture_exemplaire via immatriculation si absent
+            # --- Auto-remplissage de voiture_exemplaire via immatriculation si absent ---
             immatriculation = request.POST.get("immatriculation")
             if not request.POST.get("voiture_exemplaire") and immatriculation:
                 try:
                     voiture = VoitureExemplaire.objects.get(immatriculation=immatriculation)
-                    # Injecte la voiture dans le POST pour le formulaire
                     form.data = form.data.copy()
                     form.data["voiture_exemplaire"] = str(voiture.id)
                 except VoitureExemplaire.DoesNotExist:
@@ -67,11 +67,15 @@ def ajouter_fuel_all(request):
 
             if form.is_valid():
                 fuel = form.save(commit=False)
-                fuel.Utilisateur = request.user.societe
+
+
+                fuel.utilisateur = request.user
+                fuel.societe = request.user.societe
+
                 fuel.save()
                 messages.success(request, _("Carburant ajouté avec succès."))
             else:
-                print(form.errors)  # très utile pour debug
+                print(form.errors)  # utile pour debug
                 messages.error(request, _("Veuillez corriger les erreurs ci-dessous."))
         else:
             form = FuelForm()
@@ -87,6 +91,8 @@ def ajouter_fuel_all(request):
                 "type_carburant_choices": type_carburant_choices,
             },
         )
+
+
 
 @never_cache
 @login_required
