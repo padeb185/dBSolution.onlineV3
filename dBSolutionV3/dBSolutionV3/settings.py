@@ -305,6 +305,13 @@ STATIC_VERSION = '1.0'
 # ------------------------------------------------------------------------------
 # DATABASE
 # ------------------------------------------------------------------------------
+import os
+
+db_password = os.environ.get('DB_PASSWORD')
+if db_password:
+    # Encode en latin1 puis décode en UTF-8
+    db_password = db_password.encode('latin1').decode('utf-8')
+
 
 DATABASES = {
     'default': {
