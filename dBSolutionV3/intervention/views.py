@@ -1,12 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.decorators.cache import never_cache
-from .forms import InterventionForm
+from .forms import InterventionForm, MainOeuvreFormSet, PeintureFormSet, InterventionItemFormSet
 from .models import Intervention
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
-from django.views.generic import ListView
+from django.views.generic import ListView, CreateView
 from django_tenants.utils import tenant_context
 from carrosserie.models import Carrosserie
 from voiture.voiture_exemplaire.models import VoitureExemplaire
@@ -14,6 +14,9 @@ from django.utils.translation import gettext as _
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
 from .models import Intervention
+from django.shortcuts import render, redirect
+from django.views import View
+from .forms import InterventionForm, MainOeuvreFormSet, PeintureFormSet
 
 
 
@@ -22,33 +25,65 @@ class InterventionListView(LoginRequiredMixin, ListView):
     template_name = "intervention/intervention_list.html"
     context_object_name = "interventions"
     paginate_by = 20
+    ordering = ["-created_at"]
 
     def get_queryset(self):
         societe = self.request.user.societe
         return Intervention.objects.filter(societe=societe)
 
 
-@login_required
-def intervention_create(request):
-    if request.method == "POST":
-        form = InterventionForm(request.POST)
-        if form.is_valid():
-            intervention = form.save(commit=False)
-            # Calcul automatique du total
-            intervention.montant_total = intervention.total_prix
-            intervention.save()
 
+class InterventionCreateView(View):
+    template_name = "intervention/intervention_create.html"
 
-
-            return redirect(reverse("intervention_list"))  # à adapter selon ta vue liste
-    else:
+    def get(self, request, *args, **kwargs):
         form = InterventionForm()
+        item_formset = InterventionItemFormSet()
+        main_formset = MainOeuvreFormSet()
+        peinture_formset = PeintureFormSet()
 
-    return render(request, "intervention/intervention_form.html", {"form": form})
+        return render(request, self.template_name, {
+            'form': form,
+            'item_formset': item_formset,
+            'main_formset': main_formset,
+            'peinture_formset': peinture_formset,
+        })
+
+    def post(self, request, *args, **kwargs):
+        form = InterventionForm(request.POST)
+        item_formset = InterventionItemFormSet(request.POST)
+        main_formset = MainOeuvreFormSet(request.POST)
+        peinture_formset = PeintureFormSet(request.POST)
+
+        if form.is_valid() and item_formset.is_valid() and main_formset.is_valid() and peinture_formset.is_valid():
+            intervention = form.save()
+
+            # Lier les formsets à l'intervention
+            item_formset.instance = intervention
+            item_formset.save()
+
+            main_formset.instance = intervention
+            main_formset.save()
+
+            peinture_formset.instance = intervention
+            peinture_formset.save()
+
+            return redirect('intervention:intervention_list')
+
+        return render(request, self.template_name, {
+            'form': form,
+            'item_formset': item_formset,
+            'main_formset': main_formset,
+            'peinture_formset': peinture_formset,
+        })
 
 
 
 
+
+
+
+"""
 @login_required
 def ajouter_intervention_all(request):
     carrosseries = Carrosserie.objects.all()
@@ -113,7 +148,7 @@ def ajouter_intervention_all(request):
 
 
 
-
+"""
 
 @login_required
 def modifier_intervention(request, intervention_id):
@@ -161,3 +196,6 @@ def intervention_detail(request, intervention_id):
             "adresse": adresse,
         },
     )
+
+
+

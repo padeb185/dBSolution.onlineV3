@@ -1,341 +1,255 @@
+from decimal import Decimal
+
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 
 
-class Intervention(models.Model):
-    id = models.AutoField(primary_key=True)
+class TypePieceCarrosserie(models.TextChoices):
 
+    PARE_CHOCS_AVANT = "pare_chocs_avant", _("Pare-chocs avant")
+    PARE_CHOCS_ARRIERE = "pare_chocs_arrière", _("Pare-chocs arrière")
+    BOUCLIER_AV = "bouclier_av", _("Bouclier avant")
+    BOUCLIER_AR = "bouclier_ar", _("Bouclier arrière")
+
+    PARE_BRISE = "pare_brise", _("Pare-brise")
+
+    VITRE_PORTE_AVD = "vitre_porte_avd", _("Vitre porte avant droite")
+    VITRE_PORTE_AVG = "vitre_porte_avg", _("Vitre porte avant gauche")
+    VITRE_PORTE_ARD = "vitre_porte_ard", _("Vitre porte arrière droite")
+    VITRE_PORTE_ARG = "vitre_porte_arg", _("Vitre porte arrière gauche")
+
+    LUNETTE = "lunette", _("Lunette arrière")
+
+    RETROVISEUR_D = "retroviseur_d", _("Rétroviseur droit")
+    RETROVISEUR_G = "retroviseur_g", _("Rétroviseur gauche")
+
+    AILE_AVD = "aile_avd", _("Aile avant droite")
+    AILE_AVG = "aile_avg", _("Aile avant gauche")
+    AILE_ARD = "aile_ard", _("Aile arrière droite")
+    AILE_ARG = "aile_arg", _("Aile arrière gauche")
+
+    ELARGISSEUR_AILE_AVD = "elargisseur_aile_avd", _("Élargisseur aile avant droite")
+    ELARGISSEUR_AILE_AVG = "elargisseur_aile_avg", _("Élargisseur aile avant gauche")
+    ELARGISSEUR_AILE_ARD = "elargisseur_aile_ard", _("Élargisseur aile arrière droite")
+    ELARGISSEUR_AILE_ARG = "elargisseur_aile_arg", _("Élargisseur aile arrière gauche")
+
+    BAS_DE_CAISSE_D = "bas_de_caisse_d", _("Bas de caisse droit")
+    BAS_DE_CAISSE_G = "bas_de_caisse_g", _("Bas de caisse gauche")
+
+    SUPPORT_RADIATEUR = "support_radiateur", _("Support radiateur")
+    SUPPORT_PARE_CHOC = "support_pare_choc", _("Support pare-chocs")
+
+    CALANDRE = "calandre", _("Calandre")
+
+    PORTE_AVD = "porte_avd", _("Porte avant droite")
+    PORTE_AVG = "porte_avg", _("Porte avant gauche")
+    PORTE_ARD = "porte_ard", _("Porte arrière droite")
+    PORTE_ARG = "porte_arg", _("Porte arrière gauche")
+
+    POIGNEE_PORTE = "poignee_porte", _("Poignée de porte")
+
+    COFFRE_HAILLON = "coffre_haillon", _("Coffre / Hayon")
+
+    JOINT_COFFRE = "joint_coffre", _("Joint de coffre")
+
+    JOINT_PORTE_AVD = "joint_porte_avd", _("Joint porte avant droite")
+    JOINT_PORTE_AVG = "joint_porte_avg", _("Joint porte avant gauche")
+    JOINT_PORTE_ARD = "joint_porte_ard", _("Joint porte arrière droite")
+    JOINT_PORTE_ARG = "joint_porte_arg", _("Joint porte arrière gauche")
+
+    COQUILLE_AILE_AVD = "coquille_aile_avd", _("Coquille aile avant droite")
+    COQUILLE_AILE_AVG = "coquille_aile_avg", _("Coquille aile avant gauche")
+    COQUILLE_AILE_ARD = "coquille_aile_ard", _("Coquille aile arrière droite")
+    COQUILLE_AILE_ARG = "coquille_aile_arg", _("Coquille aile arrière gauche")
+
+    CLIPS = "clips", _("Clips")
+    VISSERIE = "visserie", _("Visserie")
+
+    CAPOT = "capot", _("Capot")
+
+    PEINTURE_AVANT_GAUCHE = "peinture_avant_gauche", _("Peinture avant gauche")
+    PEINTURE_AVANT_DROITE = "peinture_avant_droite", _("Peinture avant droite")
+    PEINTURE_ARRIERE_GAUCHE = "peinture_arriere_gauche", _("Peinture arrière gauche")
+    PEINTURE_FACE_AVANT = "peinture_face_avant", _("Peinture face avant")
+    PEINTURE_CAPOT = "peinture_capot", _("Peinture capot")
+    PEINTURE_ARRIERE = "peinture_arriere", _("Peinture arrière")
+    PEINTURE_COMPLETE = "peinture_complete", _("Peinture complète")
+
+    PHARE_AVD = "phare_avd", _("Phare avant droit")
+    PHARE_AVG = "phare_avg", _("Phare avant gauche")
+    PHARE_ARD = "phare_ard", _("Feu arrière droit")
+    PHARE_ARG = "phare_arg", _("Feu arrière gauche")
+
+    CLIGNOTANT_AVD = "clignotant_avd", _("Clignotant avant droit")
+    CLIGNOTANT_AVG = "clignotant_avg", _("Clignotant avant gauche")
+    CLIGNOTANT_ARD = "clignotant_ard", _("Clignotant arrière droit")
+    CLIGNOTANT_ARG = "clignotant_arg", _("Clignotant arrière gauche")
+
+
+    ANTI_BROUILLARD_AVD = "anti_brouillard_avd", _("Anti-brouillard avant droit")
+    ANTI_BROUILLARD_AVG = "anti_brouillard_avg", _("Anti-brouillard avant gauche")
+    ANTI_BROUILLARD_AR = "anti_brouillard_ar", _("Anti-brouillard ar")
+
+    TROISIEME_FEU_STOP = "troisieme_feux_stop", _("Troisième feu stop")
+
+    CAPTEUR_RECUL = "capteur_recul", _("Capteur de recul")
+
+
+
+
+
+class Intervention(models.Model):
     societe = models.ForeignKey(
         "societe.Societe",
         on_delete=models.CASCADE,
-        related_name="intervention",
-        null=True,
-        blank=True,
+        related_name="interventions"
     )
-
-    carrosserie = models.ForeignKey(
-        "carrosserie.Carrosserie",
-        verbose_name=_("Carrosserie"),
-        on_delete=models.CASCADE,
-        related_name="interventions",
-        null=True,
-        blank=True
-    )
-
     voiture_exemplaire = models.ForeignKey(
         "voiture_exemplaire.VoitureExemplaire",
         on_delete=models.PROTECT,
-        verbose_name="Voiture",
-        related_name="interventions",
-        null=True,
-        blank=True
+        related_name="interventions"
     )
-
-    pare_chocs = models.BooleanField(_("Pare-chocs"), default=False)
-    pare_chocs_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    pare_chocs_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    bouclier_av = models.BooleanField(_("Bouclier avant"), default=False)
-    bouclier_av_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    bouclier_av_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    bouclier_ar = models.BooleanField(_("Bouclier arrière"), default=False)
-    bouclier_ar_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    bouclier_ar_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    pare_brise = models.BooleanField(_("Pare-brise"), default=False)
-    pare_brise_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    pare_brise_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    vitre_porte_avd = models.BooleanField(_("Vitre de porte avant droit"), default=False)
-    vitre_porte_avd_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    vitre_porte_avd_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    vitre_porte_avg = models.BooleanField(_("Vitre de porte avant gauche"), default=False)
-    vitre_porte_avg_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    vitre_porte_avg_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    vitre_porte_ard = models.BooleanField(_("Vitre de porte arrière droit"), default=False)
-    vitre_porte_ard_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    vitre_porte_ard_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    vitre_porte_arg = models.BooleanField(_("Vitre de porte arrière gauche"), default=False)
-    vitre_porte_arg_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    vitre_porte_arg_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    lunette = models.BooleanField(_("Lunette"), default=False)
-    lunette_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    lunette_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    retroviseur_d = models.BooleanField(_("Rétroviseur droit"), default=False)
-    retroviseur_d_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    retroviseur_d_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    retroviseur_g = models.BooleanField(_("Rétroviseur gauche"), default=False)
-    retroviseur_g_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    retroviseur_g_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    aile_avd = models.BooleanField(_("Aile avant droit"), default=False)
-    aile_avd_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    aile_avd_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    aile_avg = models.BooleanField(_("Aile avant gauche"), default=False)
-    aile_avg_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    aile_avg_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    aile_ard = models.BooleanField(_("Aile arrière droit"), default=False)
-    aile_ard_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    aile_ard_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    aile_arg = models.BooleanField(_("Aile arrière gauche"), default=False)
-    aile_arg_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    aile_arg_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    elargisseur_aile_avd = models.BooleanField(_("Élargisseur d’aile avant droit"), default=False)
-    elargisseur_aile_avd_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    elargisseur_aile_avd_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    elargisseur_aile_avg = models.BooleanField(_("Élargisseur d’aile avant gauche"), default=False)
-    elargisseur_aile_avg_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    elargisseur_aile_avg_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    elargisseur_aile_ard = models.BooleanField(_("Élargisseur d’aile arrière droit"), default=False)
-    elargisseur_aile_ard_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    elargisseur_aile_ard_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    elargisseur_aile_arg = models.BooleanField(_("Élargisseur d’aile arrière gauche"), default=False)
-    elargisseur_aile_arg_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    elargisseur_aile_arg_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    bas_de_caisse_d = models.BooleanField(_("Bas de caisse droit"), default=False)
-    bas_de_caisse_d_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    bas_de_caisse_d_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    bas_de_caisse_g = models.BooleanField(_("Bas de caisse gauche"), default=False)
-    bas_de_caisse_g_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    bas_de_caisse_g_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    support_radiateur = models.BooleanField(_("Support de radiateur"), default=False)
-    support_radiateur_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    support_radiateur_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    support_pare_choc = models.BooleanField(_("Support de pare-chocs"), default=False)
-    support_pare_choc_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    support_pare_choc_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    calandre = models.BooleanField(_("Calandre"), default=False)
-    calandre_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    calandre_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    porte_avd = models.BooleanField(_("Porte avant droite"), default=False)
-    porte_avd_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    porte_avd_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    porte_avg = models.BooleanField(_("Porte avant gauche"), default=False)
-    porte_avg_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    porte_avg_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    porte_ard = models.BooleanField(_("Porte arrière droite"), default=False)
-    porte_ard_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    porte_ard_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    porte_arg = models.BooleanField(_("Porte arrière gauche"), default=False)
-    porte_arg_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    porte_arg_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    poignee_porte = models.BooleanField(_("Poignée de porte"), default=False)
-    poignee_porte_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    poignee_porte_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    coffre_haillon = models.BooleanField(_("Coffre / hayon"), default=False)
-    coffre_haillon_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    coffre_haillon_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    joint_coffre = models.BooleanField(_("Joint de coffre"), default=False)
-    joint_coffre_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    joint_coffre_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    joint_porte_avd = models.BooleanField(_("Joint de porte avant droit"), default=False)
-    joint_porte_avd_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    joint_porte_avd_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    joint_porte_avg = models.BooleanField(_("Joint de porte avant gauche"), default=False)
-    joint_porte_avg_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    joint_porte_avg_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    joint_porte_ard = models.BooleanField(_("Joint de porte arrière droit"), default=False)
-    joint_porte_ard_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    joint_porte_ard_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    joint_porte_arg = models.BooleanField(_("Joint de porte arrière gauche"), default=False)
-    joint_porte_arg_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    joint_porte_arg_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    coquille_aile_avd = models.BooleanField(_("Coquille d’aile avant droit"), default=False)
-    coquille_aile_avd_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    coquille_aile_avd_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    coquille_aile_avg = models.BooleanField(_("Coquille d’aile avant gauche"), default=False)
-    coquille_aile_avg_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    coquille_aile_avg_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    coquille_aile_ard = models.BooleanField(_("Coquille d’aile arrière droit"), default=False)
-    coquille_aile_ard_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    coquille_aile_ard_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    coquille_aile_arg = models.BooleanField(_("Coquille d’aile arrière gauche"), default=False)
-    coquille_aile_arg_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    coquille_aile_arg_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    clips = models.BooleanField(_("Clips"), default=False)
-    clips_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    clips_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    visserie = models.BooleanField(_("Visserie"), default=False)
-    visserie_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    visserie_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    capot = models.BooleanField(_("Capot"), default=False)
-    capot_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    capot_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    peinture_avant_gauche = models.BooleanField(_("Peinture avant gauche"), default=False)
-    peinture_avant_gauche_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    peinture_avant_gauche_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    peinture_avant_droite = models.BooleanField(_("Peinture avant droite"), default=False)
-    peinture_avant_droite_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    peinture_avant_droite_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    peinture_arriere_gauche = models.BooleanField(_("Peinture arriere gauche"), default=False)
-    peinture_arriere_gauche_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    peinture_arriere_gauche_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    peinture_face_avant = models.BooleanField(_("Peinture face avant"), default=False)
-    peinture_face_avant_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    peinture_face_avant_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    peinture_capot = models.BooleanField(_("Peinture capot"), default=False)
-    peinture_capot_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    peinture_capot_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    peinture_arriere = models.BooleanField(_("Peinture arriere"), default=False)
-    peinture_arriere_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    peinture_arriere_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    peinture_complete = models.BooleanField(_("Peinture complete"), default=False)
-    peinture_complete_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    peinture_complete_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    phare_avd = models.BooleanField(_("Phare avant droit"), default=False)
-    phare_avd_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    phare_avd_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    phare_avg = models.BooleanField(_("Phare avant gauche"), default=False)
-    phare_avg_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    phare_avg_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    phare_ard = models.BooleanField(_("Phare arrière droite"), default=False)
-    phare_ard_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    phare_ard_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    phare_arg = models.BooleanField(_("Phare arrière gauche"), default=False)
-    phare_arg_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    phare_arg_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    clignotant_avd = models.BooleanField(_("Clignotant avant droit"), default=False)
-    clignotant_avd_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    clignotant_avd_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    clignotant_avg = models.BooleanField(_("Clignotant avant gauche"), default=False)
-    clignotant_avg_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    clignotant_avg_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    clignotant_ard = models.BooleanField(_("Clignotant arrière droit"), default=False)
-    clignotant_ard_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    clignotant_ard_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    anti_brouillard_avd = models.BooleanField(_("Anti Brouillard avant droit"), default=False)
-    anti_brouillard_avd_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    anti_brouillard_avd_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    anti_brouillard_avg = models.BooleanField(_("Anti Brouillard avant gauche"), default=False)
-    anti_brouillard_avg_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    anti_brouillard_avg_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    troisieme_feux_stop = models.BooleanField(_("Troisième feux stop"), default=False)
-    troisieme_feux_stop_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    troisieme_feux_stop_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-    capteur_recul = models.BooleanField(_("Capteur recul"), default=False)
-    capteur_recul_prix = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    capteur_recul_quantite = models.PositiveIntegerField(null=True, blank=True)
-
-
-
-
-
-    montant_devis = models.DecimalField(
-        _("Montant du devis"),
-        max_digits=10,
-        decimal_places=2,
-        default=0,
-        null=True,
-        blank=True,
-    )
-    montant_facture = models.DecimalField(
-        _("Montant de la facture"),
-        max_digits=10,
-        decimal_places=2,
-        default=0,
-        null=True,
-        blank=True,
-    )
-    montant_total = models.DecimalField(
-        _("Montant total"),
-        max_digits=10,
-        decimal_places=2,
-        default=0,
-        null=True,
-        blank=True,
-    )
-
-    class Meta:
-        verbose_name = _("Intervention")
-        verbose_name_plural = _("Interventions")
-
-    def __str__(self):
-        if self.carrosserie:
-            return _("Intervention %(id)s – %(carrosserie)s") % {
-                "id": self.id,
-                "carrosserie": self.carrosserie.nom_societe,
-            }
-        return _("Intervention %(id)s") % {"id": self.id}
-
-    def clean(self):
-        for field in self._meta.fields:
-
-            if field.name.endswith("_prix"):
-                base = field.name.replace("_prix", "")
-
-                if not getattr(self, base):
-                    setattr(self, field.name, None)
-                    setattr(self, f"{base}_quantite", None)
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    total_pieces = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    total_main_oeuvre = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    total_peinture = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+
+    total_htva = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    total_tva = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    total_tvac = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+
+    def recalcul_totaux(self):
+        pieces = sum(item.montant_calcule for item in self.items.all())
+        main_oeuvre = sum(item.montant_htva for item in getattr(self, "main_oeuvre", []))
+        peinture = sum(item.montant_htva for item in getattr(self, "peinture", []))
+
+        htva = pieces + main_oeuvre + peinture
+        tva = htva * Decimal("0.21")
+
+        self.total_pieces = pieces
+        self.total_main_oeuvre = main_oeuvre
+        self.total_peinture = peinture
+
+        self.total_htva = htva
+        self.total_tva = tva
+        self.total_tvac = htva + tva
+
+        self.save(update_fields=[
+            "total_pieces",
+            "total_main_oeuvre",
+            "total_peinture",
+            "total_htva",
+            "total_tva",
+            "total_tvac",
+        ])
 
     @property
-    def total_prix(self):
-        total = 0
+    def total_htva(self):
+        return sum(item.montant_calcule for item in self.items.all())
 
-        for field in self._meta.fields:
+    @property
+    def total_tva(self):
+        return sum(item.tva_a_recuperer for item in self.items.all())
 
-            if field.name.endswith("_prix"):
-                base = field.name.replace("_prix", "")
+    @property
+    def total_tvac(self):
+        return self.total_htva + self.total_tva
 
-                if getattr(self, base):
-                    prix = getattr(self, field.name) or 0
-                    qty = getattr(self, f"{base}_quantite") or 0
+class InterventionItem(models.Model):
+    intervention = models.ForeignKey(
+        "Intervention",
+        on_delete=models.CASCADE,
+        related_name="items"
+    )
+    type = models.CharField(
+        max_length=50,
+        choices=TypePieceCarrosserie.choices,
+        verbose_name=_("Type de pièce")
+    )
+    reference = models.CharField(max_length=100, blank=True, null=True)
+    quantite = models.PositiveIntegerField(default=1)
+    prix_unitaire = models.DecimalField(max_digits=10, decimal_places=2)
+    taux_tva = models.DecimalField(max_digits=5, decimal_places=2, default=21.0)
+    montant_calcule = models.DecimalField(max_digits=12, decimal_places=2, editable=False)
 
-                    total += prix * qty
+    def save(self, *args, **kwargs):
+        self.montant_calcule = (self.prix_unitaire or 0) * (self.quantite or 0)
+        super().save(*args, **kwargs)
+        self.intervention.recalcul_totaux()
 
-        return total
+    @property
+    def tva_a_recuperer(self):
+        return self.montant_calcule * (self.taux_tva / 100)
+
+
+
+
+class MainOeuvre(models.Model):
+
+    intervention = models.ForeignKey(
+        Intervention,
+        on_delete=models.CASCADE,
+        related_name="main_oeuvre"
+    )
+
+    description = models.CharField(max_length=200)
+
+    heures = models.DecimalField(
+        max_digits=5,
+        decimal_places=2
+    )
+
+    taux_horaire = models.DecimalField(
+        max_digits=10,
+        decimal_places=2
+    )
+
+    montant_htva = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        editable=False
+    )
+
+    def save(self, *args, **kwargs):
+
+        self.montant_htva = self.heures * self.taux_horaire
+
+        super().save(*args, **kwargs)
+
+        self.intervention.recalcul_totaux()
+
+
+class Peinture(models.Model):
+
+    intervention = models.ForeignKey(
+        Intervention,
+        on_delete=models.CASCADE,
+        related_name="peinture"
+    )
+
+    zone = models.CharField(max_length=100)
+
+    prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2
+    )
+
+    montant_htva = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        editable=False
+    )
+
+    def save(self, *args, **kwargs):
+
+        self.montant_htva = self.prix
+
+        super().save(*args, **kwargs)
+
+        self.intervention.recalcul_totaux()
+
+
