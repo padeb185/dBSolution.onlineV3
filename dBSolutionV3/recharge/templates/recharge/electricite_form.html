@@ -9,7 +9,7 @@
         <img src="{% static 'icons/voyage.png' %}"
              style="width:75px; margin-right:5px;"
              alt="{% trans 'Recharge électrique' %}">
-        {% trans "Ajouter une recharge electrique" %}
+        {% trans "Ajouter une recharge électrique" %}
     </h1>
 
     {% if messages %}
@@ -28,91 +28,116 @@
     <form method="post" class="flex flex-col space-y-4">
         {% csrf_token %}
 
-        <!-- Masqué : voiture_exemplaire -->
+        <!-- Hidden: voiture_exemplaire -->
         <input type="hidden" id="id_voiture_exemplaire" name="voiture_exemplaire"
-               value="{{ request.POST.voiture_exemplaire|default:electricite.voiture_exemplaire.id|default:'' }}">
+               value="{{ form.instance.voiture_exemplaire.id|default:'' }}">
 
         <!-- Immatriculation -->
         <div>
             <label for="id_immatriculation">{% trans "Immatriculation" %}</label>
             <input type="text" id="id_immatriculation" name="immatriculation"
-                   value="{{ request.POST.immatriculation|default:electricite.immatriculation|default:'' }}"
+                   value="{{ request.POST.immatriculation|default:form.instance.immatriculation|default:'' }}"
                    class="border rounded px-4 py-2 w-full">
+            {% if form.immatriculation.errors %}
+                <p class="text-red-600 text-sm mt-1">{{ form.immatriculation.errors|join:", " }}</p>
+            {% endif %}
         </div>
 
-         <div>
+        <!-- Kilométrage -->
+        <div>
             <label for="id_kilometrage_electricite">{% trans "Kilomètres" %}</label>
             <input type="text" id="id_kilometrage_electricite" name="kilometrage_electricite"
-                   value="{{ request.POST.kilometrage_electricite|default:electricite.kilometrage_electricite|default:'' }}"
+                   value="{{ request.POST.kilometrage_electricite|default:form.instance.kilometrage_electricite|default:'' }}"
                    class="border rounded px-4 py-2 w-full">
+            {% if form.kilometrage_electricite.errors %}
+                <p class="text-red-600 text-sm mt-1">{{ form.kilometrage_electricite.errors|join:", " }}</p>
+            {% endif %}
         </div>
 
-        <!-- Type de carburant -->
+        <!-- Type carburant -->
         <div>
             <label for="id_type_carburant">{% trans "Type de carburant" %}</label>
             <select id="id_type_carburant" name="type_carburant"
                     class="border rounded px-4 py-2 w-full">
                 {% for key, label in type_carburant_choices %}
                     <option value="{{ key }}"
-                        {% if request.POST.type_carburant == key or electricite.type_carburant == key %}selected{% endif %}>
+                        {% if request.POST.type_carburant == key or form.instance.type_carburant == key %}selected{% endif %}>
                         {{ label }}
                     </option>
                 {% endfor %}
             </select>
+            {% if form.type_carburant.errors %}
+                <p class="text-red-600 text-sm mt-1">{{ form.type_carburant.errors|join:", " }}</p>
+            {% endif %}
         </div>
 
-        <!-- Date -->
+        <!-- Date de recharge -->
         <div>
             <label for="id_date_recharge">{% trans "Date de la recharge" %}</label>
             <input type="date" id="id_date_recharge" name="date_recharge"
-                   value="{{ request.POST.date_recharge|default:electricite.date|default:'' }}"
+                   value="{{ request.POST.date_recharge|default:form.instance.date|default:'' }}"
                    class="border rounded px-4 py-2 w-full">
+            {% if form.date_recharge.errors %}
+                <p class="text-red-600 text-sm mt-1">{{ form.date_recharge.errors|join:", " }}</p>
+            {% endif %}
         </div>
 
-        <!-- Litres -->
+        <!-- kW -->
         <div>
             <label for="id_kW">{% trans "Kilo Watts" %}</label>
             <input type="number" step="0.01" id="id_kW" name="kW"
-                   value="{{ request.POST.kW|default:electricite.kW|default:'' }}"
+                   value="{{ request.POST.kW|default:form.instance.kW|default:'' }}"
                    class="border rounded px-4 py-2 w-full">
+            {% if form.kW.errors %}
+                <p class="text-red-600 text-sm mt-1">{{ form.kW.errors|join:", " }}</p>
+            {% endif %}
         </div>
 
-        <!-- Prix du plein -->
+        <!-- Prix -->
         <div>
             <label for="id_prix_recharge">{% trans "Prix du plein (€)" %}</label>
             <input type="number" step="0.01" id="id_prix_recharge" name="prix_recharge"
-                   value="{{ request.POST.prix_recharge|default:electricite.prix_recharge|default:'' }}"
+                   value="{{ request.POST.prix_recharge|default:form.instance.prix_recharge|default:'' }}"
                    class="border rounded px-4 py-2 w-full">
+            {% if form.prix_recharge.errors %}
+                <p class="text-red-600 text-sm mt-1">{{ form.prix_recharge.errors|join:", " }}</p>
+            {% endif %}
         </div>
 
         <!-- Champs readonly -->
         <div>
-            <label for="id_voiture_marque">{% trans "Marque" %}</label>
-            <input type="text" id="id_voiture_marque" name="voiture_marque"
-                   value="{{ fuel.voiture_exemplaire.voiture_modele.voiture_marque.nom_marque|default:'' }}"
-                   class="border rounded px-4 py-2 w-full bg-gray-100 cursor-not-allowed" disabled>
+            <label>{% trans "Marque" %}</label>
+            <input type="text"
+                   value="{{ form.instance.voiture_marque.nom_marque|default:'' }}"
+                   class="border rounded px-4 py-2 w-full bg-gray-100 cursor-not-allowed"
+                   readonly>
         </div>
 
         <div>
-            <label for="id_voiture_modele">{% trans "Modèle" %}</label>
-            <input type="text" id="id_voiture_modele" name="voiture_modele"
-                   value="{{ fuel.voiture_exemplaire.voiture_modele.nom_modele|default:'' }}"
-                   class="border rounded px-4 py-2 w-full bg-gray-100 cursor-not-allowed" disabled>
+            <label>{% trans "Modèle" %}</label>
+            <input type="text"
+                   value="{{ form.instance.voiture_modele.nom_modele|default:'' }}"
+                   class="border rounded px-4 py-2 w-full bg-gray-100 cursor-not-allowed"
+                   readonly>
         </div>
 
         <div>
-            <label for="id_volume_max">{% trans "Volume max (kW)" %}</label>
-            <input type="number" id="id_volume_max" name="volume_max"
-                   value="{{ fuel.voiture_exemplaire.voiture_modele.volume_max|default:'' }}"
-                   class="border rounded px-4 py-2 w-full bg-gray-100 cursor-not-allowed" disabled>
+            <label>{% trans "Volume max (kW)" %}</label>
+            <input type="number"
+                   value="{{ form.instance.volume_max|default:'' }}"
+                   class="border rounded px-4 py-2 w-full bg-gray-100 cursor-not-allowed"
+                   readonly>
         </div>
 
-         <!-- Validation -->
+        <!-- Validation -->
         <div>
             <label for="id_validation">{% trans "Validation" %}</label>
             <input type="checkbox" id="id_validation" name="validation"
-                   {% if request.POST.validation or fuel.validation %}checked{% endif %}
+                   {% if request.POST.validation or form.instance.validation %}checked{% endif %}
                    class="rounded">
+            {% if form.validation.errors %}
+                <p class="text-red-600 text-sm mt-1">{{ form.validation.errors|join:", " }}</p>
+            {% endif %}
         </div>
 
         <div class="mt-4">
@@ -120,108 +145,10 @@
                     class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
                 {% trans "Enregistrer" %}
             </button>
-            <a href="{% url 'fuel:fuel_list' %}"
+            <a href="{% url 'recharge:recharge_list' %}"
                class="ml-2 text-gray-600 hover:text-gray-800 font-semibold">{% trans "Annuler" %}</a>
         </div>
 
     </form>
 </div>
-
-<script>
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie) {
-        document.cookie.split(';').forEach(c => {
-            c = c.trim();
-            if (c.startsWith(name + '=')) {
-                cookieValue = decodeURIComponent(c.slice(name.length + 1));
-            }
-        });
-    }
-    return cookieValue;
-}
-
-const csrftoken = getCookie('csrftoken');
-
-document.addEventListener("DOMContentLoaded", function () {
-
-    // -----------------------------
-    // Auto-completion immatriculation
-    // -----------------------------
-    const immatInput = document.getElementById("id_immatriculation");
-    if (immatInput) {
-        immatInput.addEventListener("input", function () {
-            const value = this.value;
-            if (value.length < 2) return; // éviter les requêtes inutiles
-
-            fetch(`/fuel/ajax/check-immatriculation/?immatriculation=${value}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (!data.error) {
-                        // remplir le champ caché obligatoire
-                        document.getElementById("id_voiture_exemplaire").value = data.id;
-
-                        // remplir les champs readonly
-                        document.getElementById("id_voiture_marque").value = data.marque;
-                        document.getElementById("id_voiture_modele").value = data.modele;
-                        document.getElementById("id_volume_max").value = data.volume;
-                    } else {
-                        document.getElementById("id_voiture_exemplaire").value = "";
-                        document.getElementById("id_voiture_marque").value = "";
-                        document.getElementById("id_voiture_modele").value = "";
-                        document.getElementById("id_volume_max").value = "";
-                    }
-                })
-                .catch(err => console.error("Erreur:", err));
-        });
-    }
-
-    // -----------------------------
-    // Auto-complétion marque et modèle (optionnel)
-    // -----------------------------
-    const marqueInput = document.getElementById("id_voiture_marque");
-    const modeleInput = document.getElementById("id_voiture_modele");
-
-    if (marqueInput && modeleInput) {
-        // Auto-complétion marque
-        marqueInput.addEventListener("input", function () {
-            const query = this.value;
-            fetch(`/fuel/ajax/get-marques/?q=${query}`)
-                .then(r => r.json())
-                .then(data => {
-                    const list = document.getElementById("marque-list");
-                    if (list) {
-                        list.innerHTML = "";
-                        data.forEach(item => {
-                            const option = document.createElement("option");
-                            option.value = item;
-                            list.appendChild(option);
-                        });
-                    }
-                })
-                .catch(err => console.error("Erreur marques:", err));
-        });
-
-        // Auto-complétion modèle
-        modeleInput.addEventListener("input", function () {
-            const query = this.value;
-            fetch(`/fuel/ajax/get-modeles/?q=${query}`)
-                .then(r => r.json())
-                .then(data => {
-                    const list = document.getElementById("modele-list");
-                    if (list) {
-                        list.innerHTML = "";
-                        data.forEach(item => {
-                            const option = document.createElement("option");
-                            option.value = item;
-                            list.appendChild(option);
-                        });
-                    }
-                })
-                .catch(err => console.error("Erreur modèles:", err));
-        });
-    }
-
-});
-</script>
 {% endblock %}

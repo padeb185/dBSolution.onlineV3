@@ -104,20 +104,34 @@ def modifier_voiture_modele(request, voiture_modele_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
-        # Récupérer le modèle voiture
-        voiture_modele = get_object_or_404(VoitureModele, id=voiture_modele_id)
+        # Récupérer le modèle voiture pour ce tenant
+        voiture_modele = get_object_or_404(
+            VoitureModele,
+            id=voiture_modele_id,
+            societe=tenant  # filtrer par société
+        )
 
         if request.method == "POST":
-            form_voiture_modele = VoitureModeleForm(request.POST, instance=voiture_modele)
+            form_voiture_modele = VoitureModeleForm(
+                request.POST,
+                instance=voiture_modele,
+                user=request.user  # passer le user pour filtrer les marques
+            )
 
             if form_voiture_modele.is_valid():
-                form_voiture_modele.save()  # pas besoin de commit=False si pas de traitement spécial
+                form_voiture_modele.save()
                 messages.success(request, "VoitureModele mise à jour avec succès.")
-                return redirect("voiture_modele:modifier_voiture_modele", voiture_modele_id=voiture_modele.id)
+                return redirect(
+                    "voiture_modele:modifier_voiture_modele",
+                    voiture_modele_id=voiture_modele.id
+                )
             else:
                 messages.error(request, "Le formulaire contient des erreurs.")
         else:
-            form_voiture_modele = VoitureModeleForm(instance=voiture_modele)
+            form_voiture_modele = VoitureModeleForm(
+                instance=voiture_modele,
+                user=request.user  # nécessaire pour que la marque apparaisse
+            )
 
     return render(
         request,
@@ -127,7 +141,6 @@ def modifier_voiture_modele(request, voiture_modele_id):
             "voiture_modele": voiture_modele,
         }
     )
-
 
 def check_nom(request):
     nom = request.POST.get("nom")

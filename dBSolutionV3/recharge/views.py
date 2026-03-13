@@ -8,8 +8,7 @@ from django_tenants.utils import tenant_context
 from recharge.models import Electricite
 from recharge.forms import ElectriciteForm
 from django.utils.translation import gettext_lazy as _
-
-
+from voiture.voiture_exemplaire.models import VoitureExemplaire
 
 
 @method_decorator([login_required, never_cache], name="dispatch")
@@ -36,43 +35,34 @@ class ElectriciteListView(ListView):
 
 
 
+
 @login_required
 def ajouter_recharge_all(request):
-    tenant = request.user.societe
+    voiture = None
 
-    with tenant_context(tenant):
-        if request.method == "POST":
-            form = ElectriciteForm(request.POST)
-            if form.is_valid():
-                electricite = form.save(commit=False)
-                electricite.utilisateur = request.user  # ⚡ Utilisateur courant
-                electricite.save()
-                messages.success(request, _("Recharge électrique ajoutée avec succès."))
-                return redirect("recharge:recharge_list")  # redirection après POST
-            else:
-                messages.error(request, _("Veuillez corriger les erreurs ci-dessous."))
+    # ⚡ Si immatriculation déjà passée en GET ou POST
+    immat = request.GET.get("immat") or request.POST.get("immatriculation")
+    if immat:
+        try:
+            voiture = VoitureExemplaire.objects.get(immatriculation=immat)
+        except VoitureExemplaire.DoesNotExist:
+            voiture = None
+
+    if request.method == "POST":
+        form = ElectriciteForm(request.POST, voiture=voiture)
+        if form.is_valid():
+            electricite = form.save(commit=False)
+            electricite.utilisateur = request.user
+            electricite.save()
+            messages.success(request, "Recharge électrique ajoutée avec succès.")
+            return redirect("recharge:recharge_list")
         else:
-            form = ElectriciteForm()
+            print("ERREURS FORMULAIRE:", form.errors)
+            messages.error(request, "Veuillez corriger les erreurs ci-dessous.")
+    else:
+        form = ElectriciteForm(voiture=voiture)
 
-        # ⚡ Créer une instance vierge sécurisée pour le template
-        electricite_instance = form.instance
-        if not electricite_instance.voiture_exemplaire_id:
-            # On évite l'erreur RelatedObjectDoesNotExist
-            electricite_instance.voiture_exemplaire = None
-
-        # ⚡ Passer les choices de type_carburant au template
-        type_carburant_choices = Electricite._meta.get_field("type_carburant").choices
-
-        return render(
-            request,
-            "recharge/electricite_form.html",
-            {
-                "form": form,
-                "electricite": electricite_instance,
-                "type_carburant_choices": type_carburant_choices,
-            },
-        )
-
+    return render(request, "recharge/electricite_form.html", {"form": form})
 
 
 
