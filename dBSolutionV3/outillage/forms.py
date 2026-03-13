@@ -6,7 +6,7 @@ class OutillageForm(forms.ModelForm):
         model = Outillage
         # Champs que l'utilisateur pourra remplir
         fields = [
-            'societe',
+
             'fournisseur',
             'libelle',
             'reference',

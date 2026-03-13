@@ -2,7 +2,6 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from fournisseur.models import Fournisseur
 
-
 class Outillage(models.Model):
     id_outillage = models.AutoField(
         primary_key=True,
@@ -73,9 +72,10 @@ class Outillage(models.Model):
         verbose_name_plural = _("Outillages")
 
     def save(self, *args, **kwargs):
-        # Calcul automatique du montant total et de la TVA à récupérer
-        self.montant_calcule = self.prix_htva * self.quantite
-        self.tva_a_recuperer = self.montant_calcule * (self.taux_tva / 100)
+        # Montant TTC
+        self.montant_calcule = self.prix_htva * self.quantite * (1 + self.taux_tva / 100)
+        # TVA à récupérer
+        self.tva_a_recuperer = self.montant_calcule - (self.prix_htva * self.quantite)
         super().save(*args, **kwargs)
 
     def __str__(self):

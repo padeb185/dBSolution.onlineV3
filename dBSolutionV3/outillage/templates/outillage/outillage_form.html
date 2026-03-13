@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="max-w-xl mx-auto p-6 bg-white rounded shadow mt-16 mb-16">
+
+    <h1 class="text-2xl font-bold mb-4 text-center flex items-center justify-center">
+        <img src="{% static 'icons/outils.png' %}" style="width:75px; margin-right:5px;" alt="">
+        {% trans "Ajouter un outil" %}
+    </h1>
+
+    <!-- Messages -->
+    {% if messages %}
+        {% for message in messages %}
+        <div class="mb-3 px-4 py-2 rounded
+            {% if message.tags == 'success' %}
+                bg-green-100 text-green-800 border border-green-300
+            {% else %}
+                bg-red-100 text-red-800 border border-red-300
+            {% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="post" class="flex flex-col space-y-4">
+        {% csrf_token %}
+
+        <!-- Societe -->
+        <div>
+            {{ form.societe.label_tag }}
+            {{ form.societe }}
+            {% if form.societe.errors %}
+                <p class="text-red-600">{{ form.societe.errors }}</p>
+            {% endif %}
+        </div>
+
+        <!-- Fournisseur -->
+        <div>
+            {{ form.fournisseur.label_tag }}
+            {{ form.fournisseur }}
+            {% if form.fournisseur.errors %}
+                <p class="text-red-600">{{ form.fournisseur.errors }}</p>
+            {% endif %}
+        </div>
+
+        <!-- Libellé -->
+        <div>
+            {{ form.libelle.label_tag }}
+            {{ form.libelle }}
+            {% if form.libelle.errors %}
+                <p class="text-red-600">{{ form.libelle.errors }}</p>
+            {% endif %}
+        </div>
+
+        <!-- Référence -->
+        <div>
+            {{ form.reference.label_tag }}
+            {{ form.reference }}
+            {% if form.reference.errors %}
+                <p class="text-red-600">{{ form.reference.errors }}</p>
+            {% endif %}
+        </div>
+
+        <!-- Quantité -->
+        <div>
+            {{ form.quantite.label_tag }}
+            {{ form.quantite }}
+            {% if form.quantite.errors %}
+                <p class="text-red-600">{{ form.quantite.errors }}</p>
+            {% endif %}
+        </div>
+
+        <!-- Prix HTVA -->
+        <div>
+            {{ form.prix_htva.label_tag }}
+            {{ form.prix_htva }}
+            {% if form.prix_htva.errors %}
+                <p class="text-red-600">{{ form.prix_htva.errors }}</p>
+            {% endif %}
+        </div>
+
+        <!-- Taux TVA -->
+        <div>
+            {{ form.taux_tva.label_tag }}
+            {{ form.taux_tva }}
+            {% if form.taux_tva.errors %}
+                <p class="text-red-600">{{ form.taux_tva.errors }}</p>
+            {% endif %}
+        </div>
+
+        <button type="submit" class="bg-blue-700 text-white px-4 py-2 rounded w-full mt-4">
+            {% trans "Enregistrer" %}
+        </button>
+    </form>
+</div>
+{% endblock %}
