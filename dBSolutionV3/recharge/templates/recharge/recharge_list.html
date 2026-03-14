@@ -68,13 +68,13 @@
    <tbody>
     {% for recharge in recharges %}
     <tr>
-        <td class="border px-4 py-2">{{ electricite.utilisateur }}</td>
+        <td class="border px-4 py-2">{{ recharge.utilisateur }}</td>
 
         <!-- Immatriculation stylisée -->
         <td class="p-3">
-            {% with exemplaire=electricite.voiture_exemplaire %}
+            {% with exemplaire=recharge.voiture_exemplaire %}
                 {% if exemplaire.pays == 'Belgique' %}
-                <div class="flex items-center w-[180px] h-[40px] bg-white border-2 border-[#8B0000] rounded font-[Arial]">
+                <div class="flex items-center w-[180px] h-[36px] bg-white border-2 border-[#8B0000] rounded font-[Arial]">
                     <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
                         <span>🇪🇺</span>
                         <span>B</span>
@@ -84,7 +84,7 @@
                     </div>
                 </div>
                 {% elif exemplaire.pays == 'Luxembourg' %}
-                <div class="flex items-center w-[180px] h-[40px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial]">
+                <div class="flex items-center w-[180px] h-[36px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial]">
                     <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
                         <span>🇪🇺</span>
                         <span>L</span>
@@ -94,7 +94,7 @@
                     </div>
                 </div>
                 {% elif exemplaire.pays == 'Allemagne' %}
-                <div class="flex items-center w-[180px] h-[40px] bg-white border-2 border-black rounded font-[Arial]">
+                <div class="flex items-center w-[180px] h-[36px] bg-white border-2 border-black rounded font-[Arial]">
                     <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
                         <span>🇪🇺</span>
                         <span>D</span>
@@ -109,36 +109,36 @@
 
             <!-- Véhicule -->
             <td class="border px-4 py-2">
-                {{ electricitevoiture_exemplaire.voiture_modele.voiture_marque.nom_marque }}
-                {{ electricite.voiture_exemplaire.voiture_modele.nom_modele }}
+                {{ rechargevoiture_exemplaire.voiture_modele.voiture_marque.nom_marque }}
+                {{ recharge.voiture_exemplaire.voiture_modele.nom_modele }}
             </td>
 
             <!-- Kilomètres -->
-            <td class="border px-4 py-2">{{ electricite.kilometrage_recharge }}</td>
+            <td class="border px-4 py-2">{{ recharge.kilometrage_recharge }}</td>
 
             <!-- Type carburant -->
-            <td class="border px-4 py-2">{{ electricite.get_type_carburant_display }}</td>
+            <td class="border px-4 py-2">{{ recharge.get_type_carburant_display }}</td>
 
             <!-- Litres -->
-            <td class="border px-4 py-2">{{ electricite.kW}}</td>
+            <td class="border px-4 py-2">{{ recharge.kW}}</td>
 
             <!-- Prix Total -->
-            <td class="border px-4 py-2">{{ electricite.prix_recharge }}</td>
+            <td class="border px-4 py-2">{{ recharge.prix_recharge }}</td>
 
             <!-- Prix au litre -->
-            <td class="border px-4 py-2">{{ electricite.prix_kW|floatformat:3 }}</td>
+            <td class="border px-4 py-2">{{ recharge.prix_kW|floatformat:3 }}</td>
 
             <!-- Montant TVA -->
-            <td class="border px-4 py-2">{{ electricite.montant_tva|floatformat:2 }} €</td>
+            <td class="border px-4 py-2">{{ recharge.montant_tva|floatformat:2 }} €</td>
 
             <!-- Date -->
-            <td class="border px-4 py-2">{{ electricite.date_recharge }}</td>
+            <td class="border px-4 py-2">{{ recharge.date_recharge }}</td>
 
             <!-- Info -->
             <td class="border px-4 py-2 text-center">
-                <a href="{% url 'electricite:electricite_detail' electricite_id=electricite.id %}" class="text-blue-600 hover:text-blue-800 font-semibold">
-                    {% trans "Info" %}
-                </a>
+              <a href="{% url 'recharge:electricite_detail' electricite_id=recharge.id %}" class="text-blue-600 hover:text-blue-800 font-semibold">
+                  {% trans "Info" %}
+              </a>
             </td>
         </tr>
     {% endfor %}
@@ -151,7 +151,7 @@
 <!-- DataTables JS -->
 <script>
 $(document).ready(function() {
-    var table = $('#electricite-table').DataTable({
+    var table = $('#recharges-table').DataTable({
         pageLength: 100,
         language: {
             search: "{% trans 'Recherche globale :' %}",

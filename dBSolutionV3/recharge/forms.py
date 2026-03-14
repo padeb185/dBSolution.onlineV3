@@ -56,7 +56,7 @@ class ElectriciteForm(forms.ModelForm):
 
         # Mettre à jour le kilométrage de la voiture si plus grand
         if voiture and instance.kilometrage_electricite >= voiture.kilometres_chassis:
-            voiture.kilometres_chassis = instance.kilometrage_recharge
+            voiture.kilometres_chassis = instance.kilometrage_electricite
             voiture.save()
 
         # Remplissage automatique des infos voiture
