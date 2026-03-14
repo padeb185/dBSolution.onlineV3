@@ -10,7 +10,13 @@ from utilisateurs.models import Utilisateur
 class TypeCarburant(models.TextChoices):
     ELECTRICITE = "ELECTRICITE", _("Electricite")
 
-
+class RechargeCarburant(models.Model):
+    # Choix des pays
+    PAYS_CHOICES = [
+        ('BE', _("Belgique")),
+        ('LU', _("Luxembourg")),
+        ('DE', _("Allemagne")),
+    ]
 
 class Electricite(models.Model):
     id = models.UUIDField(
@@ -61,7 +67,7 @@ class Electricite(models.Model):
         max_length=15,
         choices=TypeCarburant.choices,
         verbose_name=_("Type de carburant"),
-        editable=False  # pas de choix pour l'utilisateur
+
     )
     volume_max = models.FloatField(verbose_name=_("Kilos Watt max"))
     date = models.DateField(default=timezone.now, verbose_name=_("Date de la recharge"))
@@ -74,6 +80,12 @@ class Electricite(models.Model):
         null=True, blank=True
     )
 
+    pays = models.CharField(
+        max_length=2,
+        choices=RechargeCarburant.PAYS_CHOICES,
+        verbose_name=_("Pays de la recharge")
+    )
+
     kilometrage_electricite = models.IntegerField(
         _("Kilométrage recharge"),
         null=True,
@@ -81,6 +93,11 @@ class Electricite(models.Model):
     )
 
     validation = models.BooleanField(default=True, verbose_name=_("Validation"))
+
+    montant_ht = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_("Montant HT"))
+
+    montant_tva = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_("TVA"), blank=True, null=True)
+
 
     class Meta:
         verbose_name = _("Electricite")
@@ -92,43 +109,48 @@ class Electricite(models.Model):
         return f"{voiture} – {self.date} – {self.kW} kW"
 
     def save(self, *args, **kwargs):
-        # Calcul automatique du prix au litre si non renseigné
+
+        # type carburant automatique
+        self.type_carburant = TypeCarburant.ELECTRICITE
+
+        # calcul du prix au kW si nécessaire
         if not self.prix_watt and self.kW:
-            self.prix_litre = Decimal(self.prix_recharge) / Decimal(self.kW)
+            self.prix_watt = Decimal(self.prix_recharge) / Decimal(self.kW)
+
         super().save(*args, **kwargs)
 
     @classmethod
     def total_kW_mois(cls, vehicule, year=None, month=None):
-        qs = cls.objects.filter(vehicule=vehicule)
+        qs = cls.objects.filter(voiture_exemplaire=vehicule)
         if year and month:
             qs = qs.filter(date__year=year, date__month=month)
         return qs.aggregate(total=Sum('kW'))['total'] or 0
 
     @classmethod
     def total_kW_an(cls, vehicule, year=None):
-        qs = cls.objects.filter(vehicule=vehicule)
+        qs = cls.objects.filter(voiture_exemplaire=vehicule)
         if year:
             qs = qs.filter(date__year=year)
         return qs.aggregate(total=Sum('kW'))['total'] or 0
 
     @classmethod
     def total_kW_all(cls, vehicule):
-        return cls.objects.filter(vehicule=vehicule).aggregate(total=Sum('kW'))['total'] or 0
+        return cls.objects.filter(voiture_exemplaire=vehicule).aggregate(total=Sum('kW'))['total'] or 0
 
     @classmethod
     def total_prix_mois(cls, vehicule, year=None, month=None):
-        qs = cls.objects.filter(vehicule=vehicule)
+        qs = cls.objects.filter(voiture_exemplaire=vehicule)
         if year and month:
             qs = qs.filter(date__year=year, date__month=month)
         return qs.aggregate(total=Sum('prix_recharge'))['total'] or 0
 
     @classmethod
     def total_prix_an(cls, vehicule, year=None):
-        qs = cls.objects.filter(vehicule=vehicule)
+        qs = cls.objects.filter(voiture_exemplaire=vehicule)
         if year:
             qs = qs.filter(date__year=year)
         return qs.aggregate(total=Sum('prix_recharge'))['total'] or 0
 
     @classmethod
     def total_prix_all(cls, vehicule):
-        return cls.objects.filter(vehicule=vehicule).aggregate(total=Sum('prix_recharge'))['total'] or 0
+        return cls.objects.filter(voiture_exemplaire=vehicule).aggregate(total=Sum('prix_recharge'))['total'] or 0

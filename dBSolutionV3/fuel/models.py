@@ -77,11 +77,7 @@ class Fuel(models.Model):
         verbose_name=_("Type de carburant"),
 
     )
-    immatriculation = models.CharField(
-        max_length=20,
-        verbose_name=_("Immatriculation"),
-        blank=True,
-    )
+
     kilometres_chassis = models.PositiveIntegerField(
         default=0,
         null=True,
