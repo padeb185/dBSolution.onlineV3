@@ -9,6 +9,18 @@
         {% trans "Ajouter un véhicule" %}
     </h1>
 
+    <div class="text-center mb-6 p-3 bg-gray-50 rounded border">
+
+        <div class="text-lg font-semibold text-gray-700">
+            {{ modele.voiture_marque.nom_marque }}
+        </div>
+
+        <div class="text-gray-600">
+            {{ modele.nom_modele }}
+        </div>
+
+    </div>
+
     {% if messages %}
         {% for message in messages %}
             <div class="mb-3 px-4 py-2 rounded

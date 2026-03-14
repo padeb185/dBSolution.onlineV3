@@ -347,36 +347,41 @@ def liste_exemplaires_all(request):
 
 @login_required
 def ajouter_exemplaire_all(request, modele_id):
-    tenant = request.user.societe  # ton tenant
+
+    tenant = request.user.societe
+
     with tenant_context(tenant):
+
         modele = get_object_or_404(VoitureModele, id=modele_id)
+        marque = modele.voiture_marque
 
-    if request.method == "POST":
-        form = VoitureExemplaireForm(request.POST, user=request.user)  # <-- passer l'user
+        if request.method == "POST":
+            form = VoitureExemplaireForm(request.POST, user=request.user)
 
-        if form.is_valid():
-            instance = form.save(commit=False)
+            if form.is_valid():
+                instance = form.save(commit=False)
 
-            vin = form.cleaned_data.get("numero_vin")
-            annee = form.cleaned_data.get("annee_production")
+                annee = form.cleaned_data.get("annee_production")
 
-            instance.annee_production = annee
-            instance.est_avant_2010 = bool(annee and annee < 2010)
+                instance.modele = modele
+                instance.voiture_marque = marque
+                instance.societe = request.user.societe
+                instance.est_avant_2010 = bool(annee and annee < 2010)
 
-            instance.modele = modele
-            instance.societe = request.user.societe  # <-- affecter la société automatiquement
+                instance.save()
 
-            instance.save()
-
-            messages.success(request, "Véhicule ajouté avec succès.")
+                messages.success(request, "Véhicule ajouté avec succès.")
 
         else:
-            messages.error(request, "Merci de corriger les erreurs ci-dessous.")
-
-    else:
-        form = VoitureExemplaireForm(user=request.user)  # <-- passer l'user
+            form = VoitureExemplaireForm(
+                user=request.user,
+                initial={
+                    "voiture_marque": marque,
+                    "voiture_modele": modele
+                }
+            )
 
     return render(request, "voiture_exemplaire/ajouter_exemplaire_all.html", {
-        "modele": modele,
         "form": form,
+        "modele": modele
     })
