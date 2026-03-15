@@ -91,6 +91,7 @@ def ajouter_pneus_simple(request):
             else:
                 # Créer le pneu et assigner à une variable
                 pneu = VoiturePneus.objects.create(
+                    societe=tenant,
                     manufacturier=manufacturier,
                     emplacement=emplacement,
                     type_pneus=type_pneus,
