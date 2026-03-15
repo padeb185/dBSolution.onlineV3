@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<h1 class="text-2xl font-bold mb-6">{% trans "Statistiques Recharges électriques" %}</h1>
+
+<!-- 📊 Global -->
+<div class="grid grid-cols-5 gap-4 mb-8 text-center">
+    <div class="bg-gray-100 p-4 rounded">
+        <div class="text-sm text-gray-500">{% trans "Recharges" %}</div>
+        <div class="text-xl font-bold">{{ global.total_recharges }}</div>
+    </div>
+
+    <div class="bg-gray-100 p-4 rounded">
+        <div class="text-sm text-gray-500">{% trans "Kilos Watts totaux" %}</div>
+        <div class="text-xl font-bold">{{ global.total_kW|floatformat:2 }}</div>
+    </div>
+
+    <div class="bg-gray-100 p-4 rounded">
+        <div class="text-sm text-gray-500">{% trans "Coût total" %}</div>
+        <div class="text-xl font-bold">{{ global.total_cout|floatformat:2 }} €</div>
+    </div>
+
+    <div class="bg-gray-100 p-4 rounded">
+        <div class="text-sm text-gray-500">{% trans "TVA totale" %}</div>
+        <div class="text-xl font-bold">{{ global.total_tva|floatformat:2 }} €</div>
+    </div>
+
+    <div class="bg-gray-100 p-4 rounded">
+        <div class="text-sm text-gray-500">{% trans "Prix moyen / kw" %}</div>
+        <div class="text-xl font-bold">{{ global.prix_moyen_litre|floatformat:3 }} €</div>
+    </div>
+</div>
+
+<!-- 🚗 Par voiture -->
+<h2 class="text-xl font-semibold mb-3">{% trans "Par voiture" %}</h2>
+
+<table class="min-w-full table-auto border-collapse border border-gray-200 bg-white mb-8">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2">{% trans "Voiture" %}</th>
+            <th class="border px-4 py-2">{% trans "Immatriculation" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Recharges" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Kilos Watt" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Coût total" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Prix moyen / kW" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for v in par_voiture %}
+        <tr>
+            <!-- Voiture -->
+            <td class="border px-4 py-2">
+                {{ v.voiture_exemplaire__voiture_modele__voiture_marque__nom_marque }}
+                {{ v.voiture_exemplaire__voiture_modele__nom_modele }}
+                {{ v.voiture_exemplaire__voiture_modele__nom_variante }}
+            </td>
+
+            <!-- Immatriculation avec mise en forme -->
+            <td class="border px-4 py-2">
+                {% with pays=v.voiture_exemplaire__pays imm=v.voiture_exemplaire__immatriculation %}
+                    {% if pays == "Belgique" %}
+                        <div class="flex items-center w-[180px] h-[40px] bg-white border-2 border-[#8B0000] rounded font-[Arial]">
+                            <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                                <span>🇪🇺</span>
+                                <span>B</span>
+                            </div>
+                            <div class="w-full text-center font-bold text-[#8B0000] text-[18px]">
+                                {{ imm|upper }}
+                            </div>
+                        </div>
+                    {% elif pays == "Luxembourg" %}
+                        <div class="flex items-center w-[180px] h-[40px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial]">
+                            <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                                <span>🇪🇺</span>
+                                <span>L</span>
+                            </div>
+                            <div class="w-full text-center font-bold text-black text-[18px]">
+                                {{ imm|upper }}
+                            </div>
+                        </div>
+                    {% elif pays == "Allemagne" %}
+                        <div class="flex items-center w-[180px] h-[40px] bg-white border-2 border-black rounded font-[Arial]">
+                            <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                                <span>🇪🇺</span>
+                                <span>D</span>
+                            </div>
+                            <div class="w-full text-center font-bold text-black text-[18px]">
+                                {{ imm|upper }}
+                            </div>
+                        </div>
+                    {% else %}
+                        {{ imm|upper }}
+                    {% endif %}
+                {% endwith %}
+            </td>
+
+            <!-- Pleins, Litres, Coût, Prix moyen -->
+            <td class="border px-4 py-2 text-center">{{ v.nb_recharges }}</td>
+            <td class="border px-4 py-2 text-center">{{ v.total_kW|floatformat:2 }}</td>
+            <td class="border px-4 py-2 text-center">{{ v.total_cout|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-center">{{ v.prix_moyen_kW|floatformat:3 }} €</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6" class="border px-4 py-4 text-center">{% trans "Aucune donnée" %}</td>
+        </tr>
+        {% endfor %}
+</tbody>
+</table>
+
+<!-- 📅 Par mois -->
+<h2 class="text-xl font-semibold mb-3">{% trans "Par mois" %}</h2>
+
+<table class="min-w-full table-auto border-collapse border border-gray-200 bg-white mb-8">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2">{% trans "Mois" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Recharges" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Kilos Watt" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Coût total" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for m in par_mois %}
+        <tr>
+            <td class="border px-4 py-2">{{ m.mois|date:"F Y" }}</td>
+            <td class="border px-4 py-2 text-center">{{ m.nb_recharges }}</td>
+            <td class="border px-4 py-2 text-center">{{ m.total_kW|floatformat:2 }}</td>
+            <td class="border px-4 py-2 text-center">{{ m.total_cout|floatformat:2 }} €</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4" class="border px-4 py-4 text-center">{% trans "Aucune donnée" %}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2 class="text-xl font-semibold mt-8 mb-3">{% trans "Par année" %}</h2>
+
+<table class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2">{% trans "Année" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Recharges" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Kilos Watt" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Coût total" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for a in par_an %}
+        <tr>
+            <td class="border px-4 py-2">{{ a.an|date:"Y" }}</td>
+            <td class="border px-4 py-2 text-center">{{ a.nb_recharges }}</td>
+            <td class="border px-4 py-2 text-center">{{ a.total_kW|floatformat:2 }}</td>
+            <td class="border px-4 py-2 text-center">{{ a.total_cout|floatformat:2 }} €</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4" class="border px-4 py-4 text-center">{% trans "Aucune donnée" %}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+
+{% endblock %}

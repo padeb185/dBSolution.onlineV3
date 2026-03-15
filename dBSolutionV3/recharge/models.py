@@ -98,6 +98,11 @@ class Electricite(models.Model):
 
     montant_tva = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_("TVA"), blank=True, null=True)
 
+    nom_station = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True
+    )
 
     class Meta:
         verbose_name = _("Electricite")

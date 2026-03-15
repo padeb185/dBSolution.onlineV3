@@ -8,7 +8,7 @@
     <div class="flex justify-between items-center mb-6">
        <h1 class="text-2xl font-bold flex items-center gap-4">
             {% with image_name=electricite.nom_station|slugify %}
-                <img src="{% static 'electricite/'|add:image_name|add:'.png' %}"
+                <img src="{% static 'recharge'|add:image_name|add:'.png' %}"
                      alt="{{ electricite.nom_station }}"
                      class="w-12 h-12"
                      onerror="this.src='{% static 'icons/voyage.png' %}';">
@@ -18,7 +18,7 @@
            <span class="text-black-700">{{ electricite.nom_station }}</span>
         </h1>
 
-        <a href="{% url 'electricite:electricite_list' %}"
+        <a href="{% url 'recharge:recharge_list' %}"
            class="text-blue-600 hover:underline">
             {% trans "Retour à la liste des recharges" %}
         </a>
@@ -42,7 +42,7 @@
                 {{ electricite.kilometrage_electricite }}
             </p>
             <p>
-                <strong>{% trans "Carburant" %} :</strong>
+                <strong>{% trans "Energie" %} :</strong>
                 {{ electricite.type_carburant }}
             </p>
 
@@ -51,10 +51,10 @@
 
 
            <div class="mt-auto w-full">
-                <a href="{% url 'electricite:modifier_electricite' electricite.id %}" class="block w-full">
+                <a href="{% url 'recharge:modifier_electricite' electricite.id %}" class="block w-full">
                     <button type="button"
                             class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
-                        {% trans "Modifier le plein" %}
+                        {% trans "Modifier la recharge" %}
                     </button>
                 </a>
            </div>
@@ -85,7 +85,7 @@
 
         <p>
             <strong>{% trans "Créé le" %} :</strong>
-            {{ electricite.created_at|date:"d/m/Y H:i" }}
+            {{ recharge.created_at|date:"d/m/Y H:i" }}
         </p>
     </div>
 
@@ -93,14 +93,14 @@
 
     <!-- Actions -->
     <div class="bg-white shadow-md rounded-lg p-6 flex gap-4">
-        <a href="{% url 'electricite:electricite_list' %}" class="flex-1">
+        <a href="{% url 'recharge:recharge_list' %}" class="flex-1">
               <button type="button" class="bg-blue-700 text-white px-4 py-2 rounded w-full mt-4">
                     {% trans "Retour à la liste des recharges" %}
               </button>
         </a>
 
          <!-- Bouton statistiques -->
-        <a href="{% url 'electricite:electricite_stat' %}" class="flex-1">
+        <a href="{% url 'recharge:electricite_stat' %}" class="flex-1">
               <button type="button" class="bg-green-600 text-white px-4 py-2 rounded w-full mt-4 hover:bg-green-500">
                     {% trans "Voir les statistiques" %}
               </button>
