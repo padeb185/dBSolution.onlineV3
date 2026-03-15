@@ -1,5 +1,5 @@
 from django import forms
-from decimal import Decimal
+from decimal import Decimal, ROUND_HALF_UP
 from .models import Electricite
 from django.utils.translation import gettext_lazy as _
 
@@ -51,10 +51,8 @@ class ElectriciteForm(forms.ModelForm):
         instance = super().save(commit=False)
         voiture = instance.voiture_exemplaire
 
-        # Sauvegarder le kilométrage Fuel
+        # Kilométrage
         instance.kilometrage_electricite = self.cleaned_data.get("kilometrage_electricite", 0)
-
-        # Mettre à jour le kilométrage de la voiture si plus grand
         if voiture and instance.kilometrage_electricite >= voiture.kilometres_chassis:
             voiture.kilometres_chassis = instance.kilometrage_electricite
             voiture.save()
@@ -66,11 +64,14 @@ class ElectriciteForm(forms.ModelForm):
             instance.capacite_batterie = voiture.voiture_modele.capacite_batterie
 
         # Calcul automatique des prix et TVA
-        if instance.kW and instance.prix_recharge:
-            instance.prix_watt = Decimal(instance.prix_recharge) / Decimal(instance.kW)
+        if instance.kW and instance.kW > 0 and instance.prix_recharge:
+            instance.prix_watt = (Decimal(instance.prix_recharge) / Decimal(instance.kW)).quantize(Decimal('0.001'),
+                                                                                                   rounding=ROUND_HALF_UP)
             taux_tva = self.TVA_PAYS.get(instance.pays, Decimal('0.0'))
-            instance.montant_tva = Decimal(instance.prix_recharge) * taux_tva / Decimal('100.0')
-            instance.montant_ht = Decimal(instance.prix_recharge) - instance.montant_tva
+            instance.montant_tva = (Decimal(instance.prix_recharge) * taux_tva / Decimal('100.0')).quantize(
+                Decimal('0.01'), rounding=ROUND_HALF_UP)
+            instance.montant_ht = (Decimal(instance.prix_recharge) - instance.montant_tva).quantize(Decimal('0.01'),
+                                                                                                    rounding=ROUND_HALF_UP)
         else:
             instance.prix_watt = Decimal('0.0')
             instance.montant_tva = Decimal('0.0')
@@ -79,5 +80,3 @@ class ElectriciteForm(forms.ModelForm):
         if commit:
             instance.save()
         return instance
-
-

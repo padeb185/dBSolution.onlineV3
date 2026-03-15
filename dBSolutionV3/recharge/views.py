@@ -11,10 +11,8 @@ from django.views.generic import ListView, TemplateView
 from django.utils.translation import gettext_lazy as _
 from django_tenants.utils import tenant_context
 from guardian.mixins import LoginRequiredMixin
-
 from recharge.models import Electricite
 from recharge.forms import ElectriciteForm
-
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from voiture.voiture_marque.models import VoitureMarque
 from voiture.voiture_modele.models import VoitureModele
@@ -267,7 +265,6 @@ def get_modeles(request):
 
 
 
-
 class ElectriciteStatView(LoginRequiredMixin, TemplateView):
     template_name = "recharge/electricite_stat.html"
 
@@ -282,11 +279,11 @@ class ElectriciteStatView(LoginRequiredMixin, TemplateView):
 
         # 📊 Statistiques globales
         global_stats = electricites.aggregate(
-            total_litres=Sum("litres"),
-            total_cout=Sum("prix_refuelling"),
+            total_recharges=Count("id"),
+            total_kW=Sum("kW"),  # <-- ancien total_litres
+            total_cout=Sum("prix_recharge"),
             total_tva=Sum("montant_tva"),
-            prix_moyen_litre=Avg("prix_litre"),
-            total_pleins=Count("id"),
+            prix_moyen_kW=Avg("prix_kW"),  # <-- ancien prix_moyen_litre
         )
         context["global"] = global_stats
 
@@ -297,13 +294,13 @@ class ElectriciteStatView(LoginRequiredMixin, TemplateView):
                 "voiture_exemplaire__voiture_modele__nom_modele",
                 "voiture_exemplaire__voiture_modele__voiture_marque__nom_marque",
                 "voiture_exemplaire__immatriculation",
-                "voiture_exemplaire__pays",  # <-- ajoute le pays ici
+                "voiture_exemplaire__pays",
             )
             .annotate(
-                total_litres=Sum("kW"),
+                nb_recharges=Count("id"),
+                total_kW=Sum("kW"),  # <-- ancien total_litres
                 total_cout=Sum("prix_recharge"),
-                prix_moyen_litre=Avg("prix_kW"),
-                nb_pleins=Count("id"),
+                prix_moyen_kW=Avg("prix_kW"),  # <-- ancien prix_moyen_litre
                 km_min=Min("kilometrage_electricite"),
                 km_max=Max("kilometrage_electricite"),
             )
@@ -343,9 +340,9 @@ class ElectriciteStatView(LoginRequiredMixin, TemplateView):
             electricites.annotate(mois=TruncMonth("date"))
             .values("mois")
             .annotate(
-                total_litres=Sum("kW"),
+                nb_recharges=Count("id"),
+                total_kW=Sum("kW"),
                 total_cout=Sum("prix_recharge"),
-                nb_pleins=Count("id"),
             )
             .order_by("mois")
         )
@@ -356,9 +353,9 @@ class ElectriciteStatView(LoginRequiredMixin, TemplateView):
             electricites.annotate(an=TruncYear("date"))
             .values("an")
             .annotate(
-                total_litres=Sum("kW"),
+                nb_recharges=Count("id"),
+                total_kW=Sum("kW"),
                 total_cout=Sum("prix_recharge"),
-                nb_pleins=Count("id"),
             )
             .order_by("an")
         )
