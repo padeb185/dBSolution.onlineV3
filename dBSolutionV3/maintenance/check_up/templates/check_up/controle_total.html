@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% load i18n static %}
+{% load widget_tweaks %}
+
 
 {% block content %}
 <div class="p-6 max-w-6xl mx-auto">
@@ -7,11 +9,13 @@
     <h1 class="text-3xl font-bold mb-6 flex items-center gap-3">
         <img src="{% static 'icons/checkup.png' %}" alt="Maintenance" class="w-12 h-12">
         {% trans "Contrôle complet pour :" %}
-        {{ exemplaire.voiture_marque.nom_marque }} {{ exemplaire.voiture_modele.nom_modele }} {{ exemplaire.plaque }}
+        {{ exemplaire.voiture_marque.nom_marque }} {{ exemplaire.voiture_modele.nom_modele }}
+        {{ exemplaire.voiture_modele.nom_variante }}
+        {% include "maintenance/partials/plaque.html" %}
     </h1>
 
     <!-- Affichage des messages -->
-     {% if messages %}
+    {% if messages %}
         {% for message in messages %}
             <div class="mb-3 px-4 py-2 rounded
                 {% if message.tags == 'success' %}
@@ -27,98 +31,23 @@
     <form method="POST">
         {% csrf_token %}
 
-        <!-- ----------------- Contrôle Général ----------------- -->
+        <!-- Formulaire complet du CheckUp -->
         <div class="bg-white shadow rounded p-4 mb-6">
-            <h2 class="text-xl font-semibold mb-3">{% trans "Contrôle général" %}</h2>
-            {{ controle_general_form.as_p }}
-        </div>
-
-        <!-- ----------------- Amortisseurs ----------------- -->
-        <div class="bg-white shadow rounded p-4 mb-6">
-            <h2 class="text-xl font-semibold mb-3">{% trans "Amortisseurs" %}</h2>
-            {{ amortisseur_formset.management_form }}
-            {% for form in amortisseur_formset %}
-                <div class="border p-2 mb-2 rounded">
-                    {{ form.as_p }}
+            <h2 class="text-xl font-semibold mb-3">{% trans "Contrôle complet" %}</h2>
+            {% for field in form %}
+                <div class="mb-3">
+                    {{ field.label_tag }}
+                    {{ field|add_class:"input" }}
+                    {% if field.errors %}
+                        <div class="text-red-600 text-sm mt-1">
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
                 </div>
             {% endfor %}
         </div>
 
-        <!-- ----------------- Ressorts ----------------- -->
-        <div class="bg-white shadow rounded p-4 mb-6">
-            <h2 class="text-xl font-semibold mb-3">{% trans "Ressorts" %}</h2>
-            {{ ressort_formset.management_form }}
-            {% for form in ressort_formset %}
-                <div class="border p-2 mb-2 rounded">
-                    {{ form.as_p }}
-                </div>
-            {% endfor %}
-        </div>
-
-        <!-- ----------------- Bruits ----------------- -->
-        <div class="bg-white shadow rounded p-4 mb-6">
-            <h2 class="text-xl font-semibold mb-3">{% trans "Bruits" %}</h2>
-            {{ bruit_formset.management_form }}
-            {% for form in bruit_formset %}
-                <div class="border p-2 mb-2 rounded">
-                    {{ form.as_p }}
-                </div>
-            {% endfor %}
-        </div>
-
-
-        <!-- ----------------- Bruits ----------------- -->
-        <div class="bg-white shadow rounded p-4 mb-6">
-            <h2 class="text-xl font-semibold mb-3">{% trans "Jeux Pièces" %}</h2>
-            {{ jeux_pieces_formset.management_form }}
-            {% for form in jeux_pieces_formset %}
-                <div class="border p-2 mb-2 rounded">
-                    {{ form.as_p }}
-                </div>
-            {% endfor %}
-        </div>
-
-        <!-- ----------------- Freins ----------------- -->
-        <div class="bg-white shadow rounded p-4 mb-6">
-            <h2 class="text-xl font-semibold mb-3">{% trans "Contrôle des freins" %}</h2>
-            {{ freins_form.as_p }}
-        </div>
-
-        <!-- ----------------- Nettoyage Extérieur ----------------- -->
-        <div class="bg-white shadow rounded p-4 mb-6">
-            <h2 class="text-xl font-semibold mb-3">{% trans "Nettoyage extérieur" %}</h2>
-            {{ nettoyage_ext_form.as_p }}
-        </div>
-
-        <!-- ----------------- Nettoyage Intérieur ----------------- -->
-        <div class="bg-white shadow rounded p-4 mb-6">
-            <h2 class="text-xl font-semibold mb-3">{% trans "Nettoyage intérieur" %}</h2>
-            {{ nettoyage_int_form.as_p }}
-        </div>
-
-        <!-- ----------------- Pièces ----------------- -->
-        <div class="bg-white shadow rounded p-4 mb-6">
-            <h2 class="text-xl font-semibold mb-3">{% trans "Pièces contrôlées" %}</h2>
-            {{ jeux_pieces_formset.management_form }}
-            {% for form in jeux_pieces_formset %}
-                <div class="border p-2 mb-2 rounded">
-                    {{ form.as_p }}
-                </div>
-            {% endfor %}
-        </div>
-
-        <!-- ----------------- Notes ----------------- -->
-        <div class="bg-white shadow rounded p-4 mb-6">
-            <h2 class="text-xl font-semibold mb-3">{% trans "Notes" %}</h2>
-            {{ notes_formset.management_form }}
-            {% for form in notes_formset %}
-                <div class="border p-2 mb-2 rounded">
-                    {{ form.as_p }}
-                </div>
-            {% endfor %}
-        </div>
-
-        <!-- ----------------- Bouton de soumission ----------------- -->
+        <!-- Boutons -->
         <div class="flex justify-end gap-2">
             <button type="submit"
                     class="bg-green-600 text-white font-bold py-2 px-4 rounded hover:bg-green-700 transition-colors">
@@ -130,8 +59,17 @@
             </a>
         </div>
 
-
         <p class="text-sm text-gray-500 mt-4">{% trans "Date actuelle" %}: {{ now|date:"Y-m-d H:i" }}</p>
     </form>
 </div>
+
+<style>
+.input {
+    width: 100% !important;
+    border: 1px solid #ccc !important;
+    border-radius: 6px !important;
+    padding: 8px !important;
+    box-sizing: border-box !important;
+}
+</style>
 {% endblock %}
