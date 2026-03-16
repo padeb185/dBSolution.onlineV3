@@ -47,6 +47,7 @@ class EntretienOperation(models.Model):
             ("BOUGIES", "Bougies"),
             ("FILTRE_AIR", "Filtre à air"),
             ("FILTRE_HABITACLE", "Filtre habitacle"),
+            ("FILTRE_CARBURANT", "Filtre à carburant"),
         ]
     )
 

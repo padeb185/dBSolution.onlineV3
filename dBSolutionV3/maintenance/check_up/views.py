@@ -30,11 +30,13 @@ def controle_total_view(request, exemplaire_id):
             id=exemplaire_id
         )
         from django.utils.translation import gettext_lazy as _
-        # --- Vérification mécanicien ---
-        if request.user.role != "mécanicien":
-            messages.error(request, _("Seuls les mécaniciens peuvent accéder à cette page."))
-            return redirect("maintenance_liste_all")
 
+        roles_autorises = ["mécanicien", "apprenti", "magasinier", "chef_mécanicien"]
+
+        if request.user.role not in roles_autorises:
+            messages.error(request,
+                           _("Seuls les mécaniciens, apprenti, magasiniers et chefs mécaniciens peuvent accéder à cette page."))
+            return redirect("maintenance_liste_all")
         mecanicien = get_object_or_404(Mecanicien, id=request.user.id)
 
         # --- Récupération ou création maintenance ---
