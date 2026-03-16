@@ -31,12 +31,19 @@ def controle_total_view(request, exemplaire_id):
         )
 
         from django.utils.translation import gettext_lazy as _
+
         roles_autorises = ["mécanicien", "apprenti", "magasinier", "chef_mécanicien"]
+
         if request.user.role not in roles_autorises:
-            messages.error(request, _("Seuls les mécaniciens, apprenti, magasiniers et chefs mécaniciens peuvent accéder à cette page."))
+            messages.error(
+                request,
+                _("Seuls les mécaniciens, apprentis, magasiniers et chefs mécaniciens peuvent accéder à cette page.")
+            )
             return redirect("maintenance_liste_all")
 
-        mecanicien = get_object_or_404(Mecanicien, id=request.user.id)
+        # L'utilisateur courant est déjà l'instance que l'on veut
+        utilisateur_actuel = request.user
+
 
         # Récupération ou création maintenance
         maintenance = Maintenance.objects.filter(
@@ -47,7 +54,7 @@ def controle_total_view(request, exemplaire_id):
         if not maintenance:
             maintenance = Maintenance.objects.create(
                 voiture_exemplaire=exemplaire,
-                mecanicien=mecanicien,
+                mecanicien=utilisateur_actuel,
                 immatriculation=exemplaire.immatriculation,
                 date_intervention=timezone.now().date(),
                 kilometres_total=exemplaire.kilometres_total,

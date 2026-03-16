@@ -25,7 +25,13 @@ AmortisseurFormSet = modelformset_factory(AmortisseurControle, fields="__all__",
 RessortFormSet = modelformset_factory(RessortControle, fields="__all__", extra=0)
 BruitFormSet = modelformset_factory(ControleBruit, fields="__all__", extra=0)
 JeuxPiecesFormSet = modelformset_factory(JeuPiece, fields="__all__", extra=0)
+
+
+NettoyageExterieurFormSet = modelformset_factory(NettoyageExterieur, fields= "__all__",extra=0)
+NettoyageInterieurFormset = modelformset_factory(NettoyageInterieur, fields= "__all__",extra=0)
 NotesFormSet = modelformset_factory(NoteMaintenance, fields="__all__", extra=0)
+
+
 
 class ControleFreinsForm(forms.ModelForm):
     class Meta:
@@ -94,7 +100,7 @@ BruitFormSet = inlineformset_factory(
     ControleGeneral,
     ControleBruit,
     fields='__all__',
-    extra=3
+
 )
 
 JeuPieceFormSet = inlineformset_factory(
@@ -102,7 +108,24 @@ JeuPieceFormSet = inlineformset_factory(
     JeuPiece,
     form=JeuPieceForm,
     fields='__all__',
-    extra=5
+
+)
+
+
+
+NettoyageExterieurFormSet = inlineformset_factory(
+    Maintenance,
+    NettoyageExterieur,
+    form=NettoyageExterieurForm,
+    fields='__all__',
+)
+
+NettoyageInterieurFormset = inlineformset_factory(
+    Maintenance,
+    NettoyageInterieur,
+    form=NettoyageInterieurForm,
+    fields='__all__',
+
 )
 
 NoteMaintenanceFormSet = inlineformset_factory(

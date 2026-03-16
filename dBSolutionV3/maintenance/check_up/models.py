@@ -3,7 +3,6 @@ from django.utils.translation import gettext_lazy as _
 from maintenance.models import Maintenance
 from utilisateurs.models import Utilisateur
 from voiture.voiture_exemplaire.models import VoitureExemplaire
-
 from maintenance.nettoyage_exterieur.models import NettoyageExterieur
 from maintenance.nettoyage_interieur.models import NettoyageInterieur
 
@@ -77,13 +76,6 @@ class ControleGeneral(models.Model):
         verbose_name=_("Maintenance")
     )
 
-    location = models.CharField(
-        max_length=10,
-        choices=Location.choices,
-        verbose_name=_("Emplacement / partie du véhicule"),
-        null=True,
-        blank=True
-    )
 
     # Essuie-glace
     essuie_glace_av = models.BooleanField(
@@ -316,6 +308,12 @@ class JeuPiece(models.Model):
         related_name="jeux_pieces_checkup",  # <-- unique
         verbose_name=_("Véhicule")
     )
+    controle_general = models.ForeignKey(
+        ControleGeneral,
+        on_delete=models.CASCADE,
+        related_name="jeux_pieces_checkup",
+        default=1
+    )
 
     type_piece = models.CharField(
         max_length=50,
@@ -359,6 +357,167 @@ class JeuPiece(models.Model):
             "etat": self.get_etat_display() if self.etat else _("Non précisé"),
             "tag": self.tag
         }
+
+
+
+from django.db import models
+from django.utils.translation import gettext_lazy as _
+from maintenance.check_up.models import ControleGeneral  # Assure-toi que ControleGeneral existe
+
+
+class PartieFrein(models.TextChoices):
+    AVANT = "AVANT", _("Avant")
+    ARRIERE = "ARRIERE", _("Arrière")
+    AVANT_AR = "AV_AR", _("Avant et arrière")
+
+
+class ControleFreins(models.Model):
+    # --- Liens ---
+    maintenance = models.ForeignKey(
+        "maintenance.Maintenance",
+        on_delete=models.CASCADE,
+        related_name="controles_freins",
+        verbose_name=_("Maintenance")
+    )
+
+    # --- Partie du frein contrôlée ---
+    partie = models.CharField(
+        max_length=10,
+        choices=PartieFrein.choices,
+        verbose_name=_("Partie contrôlée")
+    )
+
+    # --- Plaquettes ---
+    usure_plaquettes = models.FloatField(
+        verbose_name=_("Usure des plaquettes (%)")
+    )
+
+    # --- Disques ---
+    epaisseur_disques = models.FloatField(
+        verbose_name=_("Épaisseur des disques (mm)")
+    )
+    fentes_disques = models.BooleanField(
+        default=False,
+        verbose_name=_("Présence de fentes sur les disques")
+    )
+
+    # --- Fuites ---
+    fuites = models.BooleanField(
+        default=False,
+        verbose_name=_("Présence de fuite")
+    )
+
+    # --- Remplacement ---
+    disque_a_remplacer_av = models.BooleanField(
+        default=False,
+        verbose_name=_("Disques avant à remplacer")
+    )
+    disque_a_remplacer_ar = models.BooleanField(
+        default=False,
+        verbose_name=_("Disques arrière à remplacer")
+    )
+    plaquettes_a_remplacer_av = models.BooleanField(
+        default=False,
+        verbose_name=_("Plaquettes avant à remplacer")
+    )
+    plaquettes_a_remplacer_ar = models.BooleanField(
+        default=False,
+        verbose_name=_("Plaquettes arrière à remplacer")
+    )
+
+    # --- Date d'enregistrement ---
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return _(
+            "Contrôle freins – %(partie)s (%(date)s)"
+        ) % {
+            "partie": self.get_partie_display(),
+            "date": self.date.strftime("%Y-%m-%d %H:%M")
+        }
+
+    # --- Méthodes utilitaires ---
+    def plaque_critique(self, seuil_usure=30):
+        """Retourne True si les plaquettes sont trop usées (critique)."""
+        return self.usure_plaquettes >= seuil_usure
+
+    def disque_critique(self, epaisseur_min=20):
+        """Retourne True si les disques sont trop fins ou fendus."""
+        return self.epaisseur_disques <= epaisseur_min or self.fentes_disques
+
+    def fuite_critique(self):
+        """Retourne True si une fuite est détectée."""
+        return self.fuites
+
+    def is_critique(self):
+        """Retourne True si l'une des conditions critiques est remplie."""
+        return self.plaque_critique() or self.disque_critique() or self.fuite_critique()
+
+
+
+class NettoyageExterieur(models.Model):
+    maintenance = models.ForeignKey(
+        Maintenance,
+        on_delete=models.CASCADE,
+        related_name="checkup_nettoyages_exterieur",
+        verbose_name=_("Check up")
+    )
+
+
+
+    traces_gomme = models.BooleanField(default=False, verbose_name=_("Traces de gomme"))
+    carrosserie = models.BooleanField(default=False, verbose_name=_("Carrosserie"))
+    jantes = models.BooleanField(default=False, verbose_name=_("Jantes"))
+
+    validation = models.BooleanField(default=False, verbose_name=_("Validation finale"))
+
+    date = models.DateTimeField(auto_now_add=True, verbose_name=_("Date"))
+
+    class Meta:
+        verbose_name = _("Nettoyage extérieur")
+        verbose_name_plural = _("Nettoyages extérieurs")
+
+    def __str__(self):
+        return f"Nettoyage extérieur – {self.vehicule} ({self.date:%Y-%m-%d})"
+
+
+
+class NettoyageInterieur(models.Model):
+    maintenance = models.ForeignKey(
+        Maintenance,
+        on_delete=models.CASCADE,
+        related_name="checkup_nettoyages_interieur",
+        verbose_name=_("Check up")
+    )
+
+
+
+    voiture_exemplaire = models.ForeignKey(
+        "voiture_exemplaire.VoitureExemplaire",
+        on_delete=models.CASCADE,
+        related_name="checkup_nettoyages_interieur",
+        verbose_name=_("Véhicule")
+    )
+
+
+
+    vitres = models.BooleanField(default=False, verbose_name=_("Vitres"))
+    pare_brise = models.BooleanField(default=False, verbose_name=_("Pare-brise"))
+    aspirateur = models.BooleanField(default=False, verbose_name=_("Aspirateur"))
+    interieur_portes = models.BooleanField(default=False, verbose_name=_("Intérieurs de porte"))
+    tableau_de_bord = models.BooleanField(default=False, verbose_name=_("Tableau de bord"))
+    plastiques = models.BooleanField(default=False, verbose_name=_("Plastiques"))
+
+    validation = models.BooleanField(default=False, verbose_name=_("Validation finale"))
+
+    date = models.DateTimeField(auto_now_add=True, verbose_name=_("Date"))
+
+    class Meta:
+        verbose_name = _("Nettoyage intérieur")
+        verbose_name_plural = _("Nettoyages intérieurs")
+
+    def __str__(self):
+        return f"Nettoyage intérieur – {self.vehicule} ({self.date:%Y-%m-%d})"
 
 
 # ---------------------------

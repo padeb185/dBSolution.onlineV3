@@ -66,6 +66,18 @@
             {% endfor %}
         </div>
 
+
+        <!-- ----------------- Bruits ----------------- -->
+        <div class="bg-white shadow rounded p-4 mb-6">
+            <h2 class="text-xl font-semibold mb-3">{% trans "Jeux Pièces" %}</h2>
+            {{ jeux_pieces_formset.management_form }}
+            {% for form in jeux_pieces_formset %}
+                <div class="border p-2 mb-2 rounded">
+                    {{ form.as_p }}
+                </div>
+            {% endfor %}
+        </div>
+
         <!-- ----------------- Freins ----------------- -->
         <div class="bg-white shadow rounded p-4 mb-6">
             <h2 class="text-xl font-semibold mb-3">{% trans "Contrôle des freins" %}</h2>
