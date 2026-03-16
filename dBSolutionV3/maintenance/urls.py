@@ -9,7 +9,6 @@ from .views import (
     maintenance_tenant_view,
 )
 
-
 app_name = "maintenance"
 
 urlpatterns = [
@@ -17,22 +16,13 @@ urlpatterns = [
 
     path('<uuid:exemplaire_id>/choisir_type/', choisir_type_maintenance, name='choisir_type'),
 
-    path('<uuid:exemplaire_id>/entretien/', creer_entretien, name='creer_entretien'),  # <-- création maintenance complète
-    path(
-        "<uuid:maintenance_id>/",
-        maintenance_detail_view,
-        name="maintenance_detail",
-    ),
+    path('<uuid:exemplaire_id>/entretien/', creer_entretien, name='creer_entretien'),  # création maintenance complète
 
-    path("maintenance/<uuid:exemplaire_id>/", maintenance_tenant_view, name="maintenance_tenant"),
+    path("<uuid:maintenance_id>/", maintenance_detail_view, name="maintenance_detail"),
 
-    path(
-        "maintenance/<uuid:exemplaire_id>/",
-        controle_total_view,
-        name="controle_total_view"
-    ),
+    # Routes maintenance pour check-up ou tenant
+    path("maintenance/<uuid:exemplaire_id>/tenant/", maintenance_tenant_view, name="maintenance_tenant"),
+    path("maintenance/<uuid:exemplaire_id>/checkup/", controle_total_view, name="controle_total_view"),
 
     path("liste/", maintenance_liste_view, name="maintenance_liste"),
-
-
 ]

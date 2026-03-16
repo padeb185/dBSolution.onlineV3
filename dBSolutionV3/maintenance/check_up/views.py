@@ -1,21 +1,19 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-from django_tenants.utils import tenant_context
 from django.contrib import messages
 from django.db import transaction
 from django.urls import reverse
 from django.db.models import Q
-from maintenance.models import Maintenance
-from maintenance.check_up.models import (
-    ControleGeneral, AmortisseurControle, RessortControle, ControleBruit, JeuPiece,
-    ControleFreins, NettoyageExterieur, NettoyageInterieur, NoteMaintenance
-)
-from voiture.voiture_exemplaire.models import VoitureExemplaire
-from utilisateurs.models import Mecanicien
+from django.utils.translation import gettext_lazy as _
 
-from maintenance.check_up.forms import ControleGeneralForm, AmortisseurFormSet, RessortFormSet, \
-    BruitFormSet, JeuxPiecesFormSet, NotesFormSet
+from django_tenants.utils import tenant_context
+
+from maintenance.models import Maintenance
+from maintenance.check_up.models import ControleGeneral
+from maintenance.check_up.forms import ControleGeneralForm
+from voiture.voiture_exemplaire.models import VoitureExemplaire
+from utilisateurs.models import Utilisateur
 
 
 @login_required
@@ -23,6 +21,7 @@ def controle_total_view(request, exemplaire_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
+        # Récupération de l'exemplaire
         exemplaire = get_object_or_404(
             VoitureExemplaire.objects.filter(
                 Q(client__societe=tenant) | Q(client__isnull=True, societe=tenant)
@@ -30,10 +29,8 @@ def controle_total_view(request, exemplaire_id):
             id=exemplaire_id
         )
 
-        from django.utils.translation import gettext_lazy as _
-
+        # Vérification des rôles autorisés
         roles_autorises = ["mécanicien", "apprenti", "magasinier", "chef_mécanicien"]
-
         if request.user.role not in roles_autorises:
             messages.error(
                 request,
@@ -41,11 +38,9 @@ def controle_total_view(request, exemplaire_id):
             )
             return redirect("maintenance_liste_all")
 
-        # L'utilisateur courant est déjà l'instance que l'on veut
         utilisateur_actuel = request.user
 
-
-        # Récupération ou création maintenance
+        # Récupération ou création de la maintenance checkup
         maintenance = Maintenance.objects.filter(
             voiture_exemplaire=exemplaire,
             type_maintenance="checkup"
@@ -63,57 +58,29 @@ def controle_total_view(request, exemplaire_id):
                 tag=Maintenance.Tag.JAUNE,
             )
 
+        # Récupération ou création du contrôle général
         controle_general, _ = ControleGeneral.objects.get_or_create(maintenance=maintenance)
 
-        # --- Création des formulaires bindés ---
+        # --- Gestion du formulaire ---
         if request.method == "POST":
-            controle_general_form = ControleGeneralForm(request.POST, instance=controle_general)
-            amortisseur_formset = AmortisseurFormSet(request.POST, queryset=controle_general.amortisseurs_checkup.all())
-            ressort_formset = RessortFormSet(request.POST, queryset=controle_general.ressorts.all())
-            bruit_formset = BruitFormSet(request.POST, queryset=controle_general.bruits_checkup.all())
-            jeux_pieces_formset = JeuxPiecesFormSet(request.POST, queryset=maintenance.jeux_pieces_checkup.all())
-            notes_formset = NotesFormSet(request.POST, queryset=maintenance.notes_checkup.all())
-
-            if all([
-                controle_general_form.is_valid(),
-                amortisseur_formset.is_valid(),
-                ressort_formset.is_valid(),
-                bruit_formset.is_valid(),
-                jeux_pieces_formset.is_valid(),
-                notes_formset.is_valid()
-            ]):
+            form = ControleGeneralForm(request.POST, instance=controle_general)
+            if form.is_valid():
                 try:
                     with transaction.atomic():
-                        controle_general_form.save()
-                        amortisseur_formset.save()
-                        ressort_formset.save()
-                        bruit_formset.save()
-                        jeux_pieces_formset.save()
-                        notes_formset.save()
+                        form.save()
                     messages.success(request, _("Maintenance mise à jour avec succès."))
-                    return redirect(reverse("controle_total_view", args=[exemplaire.id]))
+                    return redirect(reverse("maintenance:controle_total_view", args=[exemplaire.id]))
                 except Exception as e:
                     messages.error(request, _("Erreur lors de l'enregistrement : ") + str(e))
             else:
-                messages.error(request, _("Certains formulaires contiennent des erreurs."))
+                messages.error(request, _("Le formulaire contient des erreurs."))
         else:
-            # GET → on initialise les formulaires avec les instances existantes
-            controle_general_form = ControleGeneralForm(instance=controle_general)
-            amortisseur_formset = AmortisseurFormSet(queryset=controle_general.amortisseurs_checkup.all())
-            ressort_formset = RessortFormSet(queryset=controle_general.ressorts.all())
-            bruit_formset = BruitFormSet(queryset=controle_general.bruits_checkup.all())
-            jeux_pieces_formset = JeuxPiecesFormSet(queryset=maintenance.jeux_pieces_checkup.all())
-            notes_formset = NotesFormSet(queryset=maintenance.notes_checkup.all())
+            form = ControleGeneralForm(instance=controle_general)
 
         context = {
             "exemplaire": exemplaire,
             "maintenance": maintenance,
-            "controle_general_form": controle_general_form,
-            "amortisseur_formset": amortisseur_formset,
-            "ressort_formset": ressort_formset,
-            "bruit_formset": bruit_formset,
-            "jeux_pieces_formset": jeux_pieces_formset,
-            "notes_formset": notes_formset,
+            "form": form,
             "now": timezone.now(),
         }
 

@@ -1,8 +1,7 @@
 from django.template.loader import render_to_string
 from weasyprint import HTML
 from maintenance.models import Maintenance
-from maintenance.check_up.models import ControleGeneral, AmortisseurControle, RessortControle, ControleBruit, JeuPiece, \
-    ControleFreins, NettoyageInterieur, NettoyageExterieur
+from maintenance.check_up.models import ControleGeneral
 from utilisateurs.models import Utilisateur
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 
