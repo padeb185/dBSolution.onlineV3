@@ -4,21 +4,28 @@ from django.forms import inlineformset_factory
 from .models import (
     ControleGeneral, AmortisseurControle, RessortControle,
     ControleBruit, ControleFreins, NettoyageExterieur,
-    NettoyageInterieur, JeuPiece, NoteMaintenance
+    NettoyageInterieur, JeuPiece, NoteMaintenance,
 )
+from django.forms import ModelForm
+from django.forms.models import modelformset_factory
 from ..models import Maintenance
 
 
 # ---------------------------
 # Forms principaux
 # ---------------------------
-class ControleGeneralForm(forms.ModelForm):
+
+
+class ControleGeneralForm(ModelForm):
     class Meta:
         model = ControleGeneral
         fields = '__all__'
-        widgets = {
-            'maintenance': forms.HiddenInput(),
-        }
+
+AmortisseurFormSet = modelformset_factory(AmortisseurControle, fields="__all__", extra=0)
+RessortFormSet = modelformset_factory(RessortControle, fields="__all__", extra=0)
+BruitFormSet = modelformset_factory(ControleBruit, fields="__all__", extra=0)
+JeuxPiecesFormSet = modelformset_factory(JeuPiece, fields="__all__", extra=0)
+NotesFormSet = modelformset_factory(NoteMaintenance, fields="__all__", extra=0)
 
 class ControleFreinsForm(forms.ModelForm):
     class Meta:

@@ -14,32 +14,31 @@ from maintenance.check_up.models import (
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from utilisateurs.models import Mecanicien
 
+from maintenance.check_up.forms import ControleGeneralForm, AmortisseurFormSet, RessortFormSet, \
+    BruitFormSet, JeuxPiecesFormSet, NotesFormSet
+
 
 @login_required
 def controle_total_view(request, exemplaire_id):
-
     tenant = request.user.societe
 
     with tenant_context(tenant):
-
-        # --- Récupération de l'exemplaire ---
         exemplaire = get_object_or_404(
             VoitureExemplaire.objects.filter(
                 Q(client__societe=tenant) | Q(client__isnull=True, societe=tenant)
             ),
             id=exemplaire_id
         )
+
         from django.utils.translation import gettext_lazy as _
-
         roles_autorises = ["mécanicien", "apprenti", "magasinier", "chef_mécanicien"]
-
         if request.user.role not in roles_autorises:
-            messages.error(request,
-                           _("Seuls les mécaniciens, apprenti, magasiniers et chefs mécaniciens peuvent accéder à cette page."))
+            messages.error(request, _("Seuls les mécaniciens, apprenti, magasiniers et chefs mécaniciens peuvent accéder à cette page."))
             return redirect("maintenance_liste_all")
+
         mecanicien = get_object_or_404(Mecanicien, id=request.user.id)
 
-        # --- Récupération ou création maintenance ---
+        # Récupération ou création maintenance
         maintenance = Maintenance.objects.filter(
             voiture_exemplaire=exemplaire,
             type_maintenance="checkup"
@@ -57,105 +56,58 @@ def controle_total_view(request, exemplaire_id):
                 tag=Maintenance.Tag.JAUNE,
             )
 
-        # --- Contrôle général ---
-        controle_general, _ = ControleGeneral.objects.get_or_create(
-            maintenance=maintenance
-        )
+        controle_general, _ = ControleGeneral.objects.get_or_create(maintenance=maintenance)
 
-        # ---------------- POST ----------------
+        # --- Création des formulaires bindés ---
         if request.method == "POST":
+            controle_general_form = ControleGeneralForm(request.POST, instance=controle_general)
+            amortisseur_formset = AmortisseurFormSet(request.POST, queryset=controle_general.amortisseurs_checkup.all())
+            ressort_formset = RessortFormSet(request.POST, queryset=controle_general.ressorts.all())
+            bruit_formset = BruitFormSet(request.POST, queryset=controle_general.bruits_checkup.all())
+            jeux_pieces_formset = JeuxPiecesFormSet(request.POST, queryset=maintenance.jeux_pieces_checkup.all())
+            notes_formset = NotesFormSet(request.POST, queryset=maintenance.notes_checkup.all())
 
-            try:
-                with transaction.atomic():
-
-                    # ---- Contrôle général ----
-                    controle_general.essuie_glace_av = request.POST.get("essuie_glace_av") == "on"
-                    controle_general.essuie_glace_ar = request.POST.get("essuie_glace_ar") == "on"
-                    controle_general.pare_brise = request.POST.get("pare_brise") == "on"
-                    controle_general.moteur_fuite = request.POST.get("moteur_fuite") or "OK"
-                    controle_general.boite_fuite = request.POST.get("boite_fuite") or "OK"
-                    controle_general.liquide_frein_etat = request.POST.get("liquide_frein_etat") or "OK"
-                    controle_general.remplacement_liquide_frein = request.POST.get("remplacement_liquide_frein") == "on"
-
-                    controle_general.save()
-
-                    # ---- Amortisseurs ----
-                    for amortisseur in controle_general.amortisseurs_checkup.all():
-                        field = f"amortisseur_{amortisseur.emplacement}"
-                        amortisseur.fuite = request.POST.get(field) == "on"
-                        amortisseur.save()
-
-                    # ---- Ressorts ----
-                    for ressort in controle_general.ressorts.all():
-                        field = f"ressort_{ressort.emplacement}"
-                        ressort.etat = request.POST.get(field) or "OK"
-                        ressort.save()
-
-                    # ---- Bruits ----
-                    for bruit in controle_general.bruits_checkup.all():
-                        bruit.niveau_bruit = request.POST.get(f"bruit_{bruit.id}_niveau", "NORMAL")
-                        bruit.commentaire = request.POST.get(f"bruit_{bruit.id}_commentaire", "")
-                        bruit.save()
-
-                    # ---- Pièces ----
-                    for piece in maintenance.jeux_pieces_checkup.all():
-                        piece.etat = request.POST.get(f"piece_{piece.id}_etat") or piece.etat
-                        piece.save()
-
-                    # ---- Freins ----
-                    for frein in maintenance.controle_freins_checkup.all():
-
-                        usure = request.POST.get(f"frein_{frein.id}_usure")
-                        epaisseur = request.POST.get(f"frein_{frein.id}_epaisseur")
-
-                        if usure:
-                            frein.usure_plaquettes = float(usure)
-
-                        if epaisseur:
-                            frein.epaisseur_disques = float(epaisseur)
-
-                        frein.fentes_disques = request.POST.get(f"frein_{frein.id}_fentes") == "on"
-                        frein.fuites = request.POST.get(f"frein_{frein.id}_fuites") == "on"
-
-                        frein.save()
-
-                    # ---- Nettoyage extérieur ----
-                    nettoyage_ext = maintenance.nettoyages_exterieur_nettoyage_exterieur.first()
-
-                    if nettoyage_ext:
-                        nettoyage_ext.traces_gomme = request.POST.get("nettoyage_traces_gomme") == "on"
-                        nettoyage_ext.carrosserie = request.POST.get("nettoyage_carrosserie") == "on"
-                        nettoyage_ext.jantes = request.POST.get("nettoyage_jantes") == "on"
-                        nettoyage_ext.save()
-
-                    # ---- Nettoyage intérieur ----
-                    nettoyage_int = maintenance.nettoyages_interieur_checkup.first()
-
-                    if nettoyage_int:
-                        nettoyage_int.vitres = request.POST.get("nettoyage_vitres") == "on"
-                        nettoyage_int.pare_brise = request.POST.get("nettoyage_pare_brise") == "on"
-                        nettoyage_int.aspirateur = request.POST.get("nettoyage_aspirateur") == "on"
-                        nettoyage_int.tableau_de_bord = request.POST.get("nettoyage_tableau") == "on"
-                        nettoyage_int.save()
-
-                messages.success(request, _("Maintenance mise à jour avec succès."))
-
-                return redirect(
-                    reverse("controle_total_view", args=[exemplaire.id])
-                )
-
-            except Exception as e:
-                messages.error(request, _("Erreur lors de l'enregistrement : ") + str(e))
+            if all([
+                controle_general_form.is_valid(),
+                amortisseur_formset.is_valid(),
+                ressort_formset.is_valid(),
+                bruit_formset.is_valid(),
+                jeux_pieces_formset.is_valid(),
+                notes_formset.is_valid()
+            ]):
+                try:
+                    with transaction.atomic():
+                        controle_general_form.save()
+                        amortisseur_formset.save()
+                        ressort_formset.save()
+                        bruit_formset.save()
+                        jeux_pieces_formset.save()
+                        notes_formset.save()
+                    messages.success(request, _("Maintenance mise à jour avec succès."))
+                    return redirect(reverse("controle_total_view", args=[exemplaire.id]))
+                except Exception as e:
+                    messages.error(request, _("Erreur lors de l'enregistrement : ") + str(e))
+            else:
+                messages.error(request, _("Certains formulaires contiennent des erreurs."))
+        else:
+            # GET → on initialise les formulaires avec les instances existantes
+            controle_general_form = ControleGeneralForm(instance=controle_general)
+            amortisseur_formset = AmortisseurFormSet(queryset=controle_general.amortisseurs_checkup.all())
+            ressort_formset = RessortFormSet(queryset=controle_general.ressorts.all())
+            bruit_formset = BruitFormSet(queryset=controle_general.bruits_checkup.all())
+            jeux_pieces_formset = JeuxPiecesFormSet(queryset=maintenance.jeux_pieces_checkup.all())
+            notes_formset = NotesFormSet(queryset=maintenance.notes_checkup.all())
 
         context = {
             "exemplaire": exemplaire,
             "maintenance": maintenance,
-            "controle_general": controle_general,
+            "controle_general_form": controle_general_form,
+            "amortisseur_formset": amortisseur_formset,
+            "ressort_formset": ressort_formset,
+            "bruit_formset": bruit_formset,
+            "jeux_pieces_formset": jeux_pieces_formset,
+            "notes_formset": notes_formset,
             "now": timezone.now(),
         }
 
-        return render(
-            request,
-            "check_up/controle_total.html",
-            context
-        )
+        return render(request, "check_up/controle_total.html", context)

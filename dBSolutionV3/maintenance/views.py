@@ -15,7 +15,6 @@ from voiture.voiture_marque.models import VoitureMarque
 from voiture.voiture_exemplaire.models import TypeUtilisation
 from django.utils import timezone
 from maintenance.types_maintenances import TYPES_MAINTENANCE
-from maintenance.check_up.models import Checkup
 from maintenance.check_up.models import ControleGeneral
 from utilisateurs.models import Mecanicien
 

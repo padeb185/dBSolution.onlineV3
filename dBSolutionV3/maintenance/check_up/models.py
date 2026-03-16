@@ -4,6 +4,10 @@ from maintenance.models import Maintenance
 from utilisateurs.models import Utilisateur
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 
+from maintenance.nettoyage_exterieur.models import NettoyageExterieur
+from maintenance.nettoyage_interieur.models import NettoyageInterieur
+
+
 # ---------------------------
 # TextChoices
 # ---------------------------
@@ -58,6 +62,8 @@ class PartieFrein(models.TextChoices):
     AVANT = "AVANT", _("Avant")
     ARRIERE = "ARRIERE", _("Arrière")
     AVANT_AR = "AV_AR", _("Avant et arrière")
+
+
 
 
 # ---------------------------
@@ -234,6 +240,17 @@ class ControleBruit(models.Model):
         related_name="bruits_checkup",  # <-- unique
         verbose_name=_("Maintenance")
     )
+    controle_general = models.ForeignKey(
+        ControleGeneral,
+        related_name="bruits_checkup",
+        on_delete=models.CASCADE,
+        default = 1
+    )
+
+    niveau_bruit = models.CharField(max_length=50, default="NORMAL")
+
+    commentaire = models.TextField(blank=True, null=True)
+
     emplacement = models.CharField(
         max_length=10,
         choices=Location.choices,
@@ -291,7 +308,7 @@ class JeuPiece(models.Model):
         related_name="jeux_pieces_checkup",
         verbose_name=_("Maintenance"))
 
-    vehicle = models.ForeignKey(
+    vehicule = models.ForeignKey(
         VoitureExemplaire,
         on_delete=models.PROTECT,
         null=True,
@@ -415,7 +432,7 @@ class ControleFreins(models.Model):
         default=False,
         verbose_name=_("Disques arrière à remplacer"))
 
-    Plaquettes_remplacer_av = models.BooleanField(
+    plaquettes_remplacer_av = models.BooleanField(
         default=False,
         verbose_name=_("Plaquettes avant à remplacer"))
 
@@ -444,91 +461,39 @@ class ControleFreins(models.Model):
         return self.plaque_critique() or self.disque_critique() or self.fuite_critique()
 
 
-# ---------------------------
-# Nettoyage
-# ---------------------------
-class NettoyageExterieur(models.Model):
-    maintenance = models.ForeignKey(
-        Maintenance,
-        on_delete=models.CASCADE,
-        related_name="nettoyages_exterieur_nettoyage_exterieur",  # unique
-        verbose_name=_("Maintenance")
-    )
+
+
+class CheckUp(models.Model):
 
     voiture_exemplaire = models.ForeignKey(
         VoitureExemplaire,
         on_delete=models.CASCADE,
-        related_name="nettoyages_exterieur_nettoyage_exterieur",  # unique
-        verbose_name=_("Véhicule")
+        null=True,
+        blank=True
     )
 
-    mecanicien = models.ForeignKey(
+    utilisateur = models.ForeignKey(
         Utilisateur,
-        on_delete=models.PROTECT,
-        related_name="nettoyages_exterieur_nettoyage_exterieur_mecanicien",  # unique
-        verbose_name=_("Mécanicien")
+        on_delete=models.PROTECT
     )
 
-    traces_gomme = models.BooleanField(default=False, verbose_name=_("Traces de gomme"))
-    carrosserie = models.BooleanField(default=False, verbose_name=_("Carrosserie"))
-    jantes = models.BooleanField(default=False, verbose_name=_("Jantes"))
-    validation = models.BooleanField(default=False, verbose_name=_("Validation finale"))
-    date = models.DateTimeField(auto_now_add=True, verbose_name=_("Date"))
-
-    class Meta:
-        verbose_name = _("Nettoyage extérieur")
-        verbose_name_plural = _("Nettoyages extérieurs")
-
-    def __str__(self):
-        return f"Nettoyage extérieur – {self.voiture_exemplaire} ({self.date:%Y-%m-%d})"
-
-# Nettoyage intérieur
-class NettoyageInterieur(models.Model):
-    maintenance = models.ForeignKey(
+    maintenance = models.OneToOneField(
         Maintenance,
         on_delete=models.CASCADE,
-        related_name="nettoyages_interieur_checkup",  # unique, pas de conflit
-        verbose_name=_("Nettoyage intérieur")
+        null=True,
+        blank=True
     )
 
-    voiture_exemplaire = models.ForeignKey(
-        VoitureExemplaire,
+    nettoyage_exterieur = models.OneToOneField(
+        NettoyageExterieur,
         on_delete=models.CASCADE,
-        related_name="nettoyages_interieur_checkup",  # unique
-        verbose_name=_("Véhicule")
+        null=True,
+        blank=True
     )
 
-    mecanicien = models.ForeignKey(
-        Utilisateur,
-        on_delete=models.PROTECT,
-        related_name="nettoyages_interieur_checkup_mecanicien",  # unique
-        verbose_name=_("Mécanicien")
+    nettoyage_interieur = models.OneToOneField(
+        NettoyageInterieur,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
     )
-
-    vitres = models.BooleanField(default=False, verbose_name=_("Vitres"))
-    pare_brise = models.BooleanField(default=False, verbose_name=_("Pare-brise"))
-    aspirateur = models.BooleanField(default=False, verbose_name=_("Aspirateur"))
-    interieur_portes = models.BooleanField(default=False, verbose_name=_("Intérieurs de porte"))
-    tableau_de_bord = models.BooleanField(default=False, verbose_name=_("Tableau de bord"))
-    plastiques = models.BooleanField(default=False, verbose_name=_("Plastiques"))
-    validation = models.BooleanField(default=False, verbose_name=_("Validation finale"))
-
-    date = models.DateTimeField(auto_now_add=True, verbose_name=_("Date"))
-
-    class Meta:
-        verbose_name = _("Nettoyage intérieur")
-        verbose_name_plural = _("Nettoyages intérieurs")
-
-    def __str__(self):
-        return f"Nettoyage intérieur – {self.voiture_exemplaire} ({self.date:%Y-%m-%d})"
-
-
-class Checkup(models.Model):
-    exemplaire = models.ForeignKey(VoitureExemplaire, on_delete=models.CASCADE, related_name="checkups")
-    client_particulier = models.ForeignKey("client_particulier.ClientParticulier", on_delete=models.CASCADE)
-    mecanicien = models.ForeignKey(Utilisateur, on_delete=models.PROTECT)
-    maintenance = models.OneToOneField(Maintenance, on_delete=models.CASCADE, related_name="checkup", null=True)
-    date_creation = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"Checkup – {self.exemplaire} ({self.date_creation:%Y-%m-%d})"
