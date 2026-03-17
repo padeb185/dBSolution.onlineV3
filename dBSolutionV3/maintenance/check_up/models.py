@@ -73,14 +73,13 @@ class ControleGeneral(models.Model):
     )
 
     # --- Essuie-glaces & Pare-brise ---
-    essuie_glace_av = models.BooleanField(default=True, verbose_name=_("Essuie-glace AV fonctionnel"))
-    essuie_glace_ar = models.BooleanField(default=True, verbose_name=_("Essuie-glace AR fonctionnel"))
-    balais_essuie_av =  models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Balais avants a remplacer"))
+    essuie_glace_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.NOT_OK, verbose_name=_("Essuie-glace AV fonctionnel"))
+    essuie_glace_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.NOT_OK, verbose_name=_("Essuie-glace AR fonctionnel"))
+    balais_essuie_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Balais avants a remplacer"))
     balais_essuie_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Balai arrière à remplacer"))
 
-
-    pare_brise = models.BooleanField(default=True, verbose_name=_("Pare-brise sans coups"))
-    pare_brise_remplacer = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Pare-brise à remplacer"))
+    pare_brise_coups = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Pare-brise avec coups"))
+    pare_brise_remplacer = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Pare-brise à remplacer"))
 
     # --- Moteur & transmission ---
     moteur_fuite =  models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Fuite moteur"))
@@ -93,24 +92,24 @@ class ControleGeneral(models.Model):
     boite_embrayage = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Problème d'embrayage"))
     # --- Freins ---
 
-    freins_usure_plaquettes_av = models.FloatField(default=0, verbose_name=_("Usure des plaquettes avants (%)"))
-    freins_plaquettes_remplacer_av = models.BooleanField(default=False, verbose_name=_("Plaquettes avant à remplacer"))
+    freins_usure_plaquettes_av = models.IntegerField(default=0, verbose_name=_("Usure des plaquettes avants (%)"))
+    freins_plaquettes_remplacer_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Plaquettes avant à remplacer"))
     freins_epaisseur_disques_av = models.FloatField(default=0, verbose_name=_("Épaisseur des disques avants (mm)"))
-    freins_fentes_disques_av = models.BooleanField(default=False, verbose_name=_("Présence de fentes sur les disques avants"))
-    freins_disques_remplacer_av = models.BooleanField(default=False, verbose_name=_("Disques avants à remplacer"))
+    freins_fentes_disques_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Présence de fentes sur les disques avants"))
+    freins_disques_remplacer_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Disques avants à remplacer"))
 
-    freins_usure_plaquettes_ar = models.FloatField(default=0, verbose_name=_("Usure des plaquettes arrières (%)"))
-    freins_plaquettes_remplacer_ar = models.BooleanField(default=False, verbose_name=_("Plaquettes arrière à remplacer"))
+    freins_usure_plaquettes_ar = models.IntegerField(default=0, verbose_name=_("Usure des plaquettes arrières (%)"))
+    freins_plaquettes_remplacer_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Plaquettes arrière à remplacer"))
     freins_epaisseur_disques_ar = models.FloatField(default=0, verbose_name=_("Épaisseur des disques arrières (mm)"))
-    freins_fentes_disques_ar = models.BooleanField(default=False, verbose_name=_("Présence de fentes sur les disques arrières"))
-    freins_disques_remplacer_ar = models.BooleanField(default=False, verbose_name=_("Disques arrières à remplacer"))
+    freins_fentes_disques_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Présence de fentes sur les disques arrières"))
+    freins_disques_remplacer_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Disques arrières à remplacer"))
 
-    freins_fuites = models.BooleanField(default=False, verbose_name=_("Présence de fuite"))
+    freins_fuites = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Présence de fuite"))
 
 
     # --- Liquide ---
     frein_liquide_frein_etat = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("État liquide de frein"))
-    freins_remplacement_liquide_frein = models.BooleanField(default=False, verbose_name=_("Remplacement liquide de frein"))
+    freins_remplacement_liquide_frein = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Remplacement liquide de frein"))
     freins_specif_liquide_frein = models.CharField(max_length=100, blank=True, verbose_name=_("Spécification liquide de frein"))
     freins_quantite_liquide_frein = models.FloatField(default=0, verbose_name=_("Quantité liquide de frein (L)"))
 
@@ -159,10 +158,6 @@ class ControleGeneral(models.Model):
 
 
 
-    ROULEMENT_ROUE = "ROULEMENT_ROUE", _("Roulement de roue")
-    TRIANGLE = "TRIANGLE", _("Triangle")
-    MULTI_BRAS = "MULTI_BRAS", _("Multi-bras")
-
 
 
 
@@ -198,3 +193,6 @@ class ControleGeneral(models.Model):
 
     def __str__(self):
         return _("Contrôle général – Maintenance %(id)s") % {"id": self.maintenance.id}
+
+
+

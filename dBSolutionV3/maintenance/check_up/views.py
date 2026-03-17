@@ -5,15 +5,12 @@ from django.contrib import messages
 from django.db import transaction
 from django.urls import reverse
 from django.db.models import Q
-from django.utils.translation import gettext_lazy as _
-
 from django_tenants.utils import tenant_context
-
 from maintenance.models import Maintenance
 from maintenance.check_up.models import ControleGeneral
 from maintenance.check_up.forms import ControleGeneralForm
 from voiture.voiture_exemplaire.models import VoitureExemplaire
-from utilisateurs.models import Utilisateur
+from utilisateurs.models import (Utilisateur)
 
 
 @login_required
@@ -32,6 +29,7 @@ def controle_total_view(request, exemplaire_id):
         # Vérification des rôles autorisés
         roles_autorises = ["mécanicien", "apprenti", "magasinier", "chef_mécanicien"]
         if request.user.role not in roles_autorises:
+            from django.utils.translation import gettext_lazy as _
             messages.error(
                 request,
                 _("Seuls les mécaniciens, apprentis, magasiniers et chefs mécaniciens peuvent accéder à cette page.")
