@@ -21,6 +21,7 @@ class Location(models.TextChoices):
 class EtatOKNotOK(models.TextChoices):
     OK = "OK", _("OK")
     A_REMPLACER = "A_REMPLACER", _("À remplacer")
+    REMPLACER = "REMPLACE", _("Remplacé")
 
 
 class BatterieEtat(models.TextChoices):
