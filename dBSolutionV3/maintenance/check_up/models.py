@@ -111,7 +111,7 @@ class ControleGeneral(models.Model):
     # --- Liquide ---
     frein_liquide_frein_etat = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("État liquide de frein"))
     freins_remplacement_liquide_frein = models.BooleanField(default=False, verbose_name=_("Remplacement liquide de frein"))
-    friens_specif_liquide_frein = models.CharField(max_length=100, blank=True, verbose_name=_("Spécification liquide de frein"))
+    freins_specif_liquide_frein = models.CharField(max_length=100, blank=True, verbose_name=_("Spécification liquide de frein"))
     freins_quantite_liquide_frein = models.FloatField(default=0, verbose_name=_("Quantité liquide de frein (L)"))
 
     direction_fuite = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Fuite direction assistée / crémaillère"))
@@ -144,18 +144,18 @@ class ControleGeneral(models.Model):
     jeu_rotule_suspension_superieure_arD = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeux rotule de suspension supérieure arrière droite"))
     jeu_rotule_suspension_superieure_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeux rotule de suspension supérieure arrière droite"))
 
-    jeu_Biellette_barre_stabilisatrice_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeux biellette de barre stabilisatrice avant droite"))
-    jeu_Biellette_barre_stabilisatrice_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeux biellette de barre stabilisatrice avant gauche"))
-    jeu_Biellette_barre_stabilisatrice_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeux biellette de barre stabilisatrice avant droite"))
-    jeu_Biellette_barre_stabilisatrice_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeux biellette de barre stabilisatrice avant gauche"))
+    jeu_Biellette_barre_stabilisatrice_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeu biellette de barre stabilisatrice avant droite"))
+    jeu_Biellette_barre_stabilisatrice_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeu biellette de barre stabilisatrice avant gauche"))
+    jeu_Biellette_barre_stabilisatrice_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeu biellette de barre stabilisatrice avant droite"))
+    jeu_Biellette_barre_stabilisatrice_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeu biellette de barre stabilisatrice avant gauche"))
 
-    jeu_barre_stabilisatrice_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeux barre stabilisatrice avant"))
-    jeu_barre_stabilisatrice_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeux barre stabilisatrice arrière"))
+    jeu_barre_stabilisatrice_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeu barre stabilisatrice avant"))
+    jeu_barre_stabilisatrice_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeu barre stabilisatrice arrière"))
 
-    jeu_amortisseur_avd =  models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeux barre amortisseur avant droit"))
-    jeu_amortisseur_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeux barre amortisseur avant gauche"))
-    jeu_amortisseur_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeux barre amortisseur arrière droit"))
-    jeu_amortisseur_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeux barre amortisseur arrière gauche"))
+    jeu_amortisseur_avd =  models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeu amortisseur avant droit"))
+    jeu_amortisseur_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu amortisseur avant gauche"))
+    jeu_amortisseur_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu amortisseur arrière droit"))
+    jeu_amortisseur_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu amortisseur arrière gauche"))
 
 
 
@@ -175,16 +175,18 @@ class ControleGeneral(models.Model):
     nettoyage_exterieur_traces_gomme = models.BooleanField(default=False, verbose_name=_("Traces de gomme"))
     nettoyage_exterieur_carrosserie = models.BooleanField(default=False, verbose_name=_("Carrosserie"))
     nettoyage_exterieur_jantes = models.BooleanField(default=False, verbose_name=_("Jantes"))
-    nettoyage_exterieur_validation = models.BooleanField(default=False, verbose_name=_("Validation finale"))
+    nettoyage_exterieur_sechage = models.BooleanField(default=False, verbose_name=_("Séchage"))
 
     # --- Nettoyage intérieur ---
     nettoyage_interieur_vitres = models.BooleanField(default=False, verbose_name=_("Vitres"))
     nettoyage_interieur_pare_brise = models.BooleanField(default=False, verbose_name=_("Pare-brise"))
     nettoyage_interieur_aspirateur = models.BooleanField(default=False, verbose_name=_("Aspirateur"))
     nettoyage_interieur_portes = models.BooleanField(default=False, verbose_name=_("Intérieurs de porte"))
+    nettoyage_interieur_sieges = models.BooleanField(default=False, verbose_name=_("Sièges"))
+    nettoyage_interieur_carpettes = models.BooleanField(default=False, verbose_name=_("Carpettes"))
     nettoyage_interieur_tableau_de_bord = models.BooleanField(default=False, verbose_name=_("Tableau de bord"))
     nettoyage_interieur_plastiques = models.BooleanField(default=False, verbose_name=_("Plastiques"))
-    nettoyage_interieur_validation = models.BooleanField(default=False, verbose_name=_("Validation finale"))
+
 
 
     # --- Date d'enregistrement ---
