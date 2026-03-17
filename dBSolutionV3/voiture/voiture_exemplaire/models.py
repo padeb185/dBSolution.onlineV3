@@ -16,6 +16,7 @@ class TypeUtilisation(models.TextChoices):
     CLIENT = "client", _("Client")
     PRIVE = "prive", _("Privé")
     LOCATION = "location", _("Location")
+    INTERNE = "interne", _("Interne")
 
 
 class VoitureExemplaire(models.Model):
@@ -69,7 +70,7 @@ class VoitureExemplaire(models.Model):
         blank=True,
         null=True,
     )
-    est_avant_2010 = models.BooleanField(default=False)
+    est_avant_2010 = models.BooleanField(default=True)
 
     annee_production = models.PositiveIntegerField(
         verbose_name="Année de production",
@@ -197,29 +198,29 @@ class VoitureExemplaire(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-
-
-    def save(self, *args, after_2010=True, **kwargs):
+    def save(self, *args, **kwargs):
+        # 🚗 VIN
         if self.numero_vin:
-            self.vin_simplifie = self.numero_vin[-10:]
-        else:
-            self.vin_simplifie = None
-        super().save(*args, **kwargs)
+            self.numero_vin = self.numero_vin.upper()
 
-
-        if self.numero_vin:
+            # VIN simplifié
             self.vin_simplifie = self.numero_vin[-10:]
+
+            # Année via VIN (10e caractère = index 9)
             dixieme = self.numero_vin[9]
-            self.annee_production = get_vin_year(dixieme, after_2010=after_2010)
+            self.annee_production = get_vin_year(dixieme)
         else:
             self.vin_simplifie = None
             self.annee_production = None
 
-        if hasattr(self, 'kilometres_total') and hasattr(self, 'kilometres_derniere_intervention'):
+        # 📏 Variation kilomètres
+        if self.kilometres_total is not None and self.kilometres_derniere_intervention is not None:
             self.variation_kilometres = max(
                 0,
                 self.kilometres_total - self.kilometres_derniere_intervention
             )
+        else:
+            self.variation_kilometres = 0
 
         super().save(*args, **kwargs)
 
