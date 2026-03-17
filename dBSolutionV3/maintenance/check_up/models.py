@@ -80,17 +80,24 @@ class ControleGeneral(models.Model):
     boite_fuite = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Fuite boîte de vitesse"))
 
     # --- Freins ---
-    freins_partie = models.CharField(max_length=10, choices=PartieFrein.choices, blank=True, null=True,
-                                     verbose_name=_("Partie contrôlée"))
-    freins_usure_plaquettes = models.FloatField(default=0.0, verbose_name=_("Usure des plaquettes (%)"))
-    freins_epaisseur_disques = models.FloatField(default=0.0, verbose_name=_("Épaisseur des disques (mm)"))
-    freins_fentes_disques = models.BooleanField(default=False, verbose_name=_("Présence de fentes sur les disques"))
-    freins_fuites = models.BooleanField(default=False, verbose_name=_("Présence de fuite"))
-    freins_disques_remplacer_av = models.BooleanField(default=False, verbose_name=_("Disques avant à remplacer"))
-    freins_disques_remplacer_ar = models.BooleanField(default=False, verbose_name=_("Disques arrière à remplacer"))
+
+    freins_usure_plaquettes_av = models.FloatField(default=0.0, verbose_name=_("Usure des plaquettes avants (%)"))
     freins_plaquettes_remplacer_av = models.BooleanField(default=False, verbose_name=_("Plaquettes avant à remplacer"))
-    freins_plaquettes_remplacer_ar = models.BooleanField(default=False,
-                                                         verbose_name=_("Plaquettes arrière à remplacer"))
+    freins_epaisseur_disques_av = models.FloatField(default=0.0, verbose_name=_("Épaisseur des disques avants (mm)"))
+    freins_fentes_disques_av = models.BooleanField(default=False, verbose_name=_("Présence de fentes sur les disques avants"))
+    freins_disques_remplacer_av = models.BooleanField(default=False, verbose_name=_("Disques avants à remplacer"))
+
+    freins_usure_plaquettes_ar = models.FloatField(default=0.0, verbose_name=_("Usure des plaquettes arrières (%)"))
+    freins_plaquettes_remplacer_ar = models.BooleanField(default=False, verbose_name=_("Plaquettes arrière à remplacer"))
+    freins_epaisseur_disques_ar = models.FloatField(default=0.0, verbose_name=_("Épaisseur des disques arrières (mm)"))
+    freins_fentes_disques_ar = models.BooleanField(default=False, verbose_name=_("Présence de fentes sur les disques arrières"))
+    freins_disques_remplacer_ar = models.BooleanField(default=False, verbose_name=_("Disques arrières à remplacer"))
+
+    freins_fuites = models.BooleanField(default=False, verbose_name=_("Présence de fuite"))
+
+
+
+
 
     # --- Liquide ---
     liquide_frein_etat = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("État liquide de frein"))
@@ -106,7 +113,48 @@ class ControleGeneral(models.Model):
     location_roulement = models.CharField(max_length=10, choices=Location.choices, blank=True, null=True, verbose_name=_("Emplacement du roulement"))
 
     # --- Batterie ---
-    batterie_etat = models.CharField(max_length=25, choices=BatterieEtat.choices, default=BatterieEtat.OK, verbose_name=_("État batterie"))
+    batterie_etat =models.CharField(max_length=25, choices=BatterieEtat.choices, default=BatterieEtat.OK, verbose_name=_("État batterie"))
+
+    # --- Jeux ---
+
+    rotule_direction_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Jeux rotule de direction avant droite"))
+    rotule_direction_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Jeux rotule de direction avant gauche"))
+    rotule_direction_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Jeux rotule de direction arrière droite"))
+    rotule_direction_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Jeux rotule de direction arrière gauche"))
+
+    rotule_suspension_inferieure_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeux rotule de suspension inférieure avant droite"))
+    rotule_suspension_inferieure_avg= models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeux rotule de suspension inférieure avant gauche"))
+    rotule_suspension_inferieure_arD = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeux rotule de suspension inférieure arrière droite"))
+    rotule_suspension_inferieure_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeux rotule de suspension inférieure arrière droite"))
+
+    rotule_suspension_superieure_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeux rotule de suspension supérieure avant droite"))
+    rotule_suspension_superieure_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeux rotule de suspension supérieure avant gauche"))
+    rotule_suspension_superieure_arD = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeux rotule de suspension supérieure arrière droite"))
+    rotule_suspension_superieure_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeux rotule de suspension supérieure arrière droite"))
+
+    Biellette_barre_stabilisatrice_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeux biellette de barre stabilisatrice avant droite"))
+    Biellette_barre_stabilisatrice_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeux biellette de barre stabilisatrice avant gauche"))
+    Biellette_barre_stabilisatrice_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeux biellette de barre stabilisatrice avant droite"))
+    Biellette_barre_stabilisatrice_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeux biellette de barre stabilisatrice avant gauche"))
+
+    barre_stabilisatrice_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeux barre stabilisatrice avant"))
+    barre_stabilisatrice_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeux barre stabilisatrice arrière"))
+
+    amortisseur_avd =  models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeux barre amortisseur avant droit"))
+    amortisseur_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeux barre amortisseur avant gauche"))
+    amortisseur_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeux barre amortisseur arrière droit"))
+    amortisseur_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeux barre amortisseur arrière gauche"))
+
+
+
+    ROULEMENT_ROUE = "ROULEMENT_ROUE", _("Roulement de roue")
+    TRIANGLE = "TRIANGLE", _("Triangle")
+    MULTI_BRAS = "MULTI_BRAS", _("Multi-bras")
+
+
+
+
+
 
     # --- Réglage phares ---
     reglage_phares = models.BooleanField(default=True, verbose_name=_("Phares réglés correctement"))
