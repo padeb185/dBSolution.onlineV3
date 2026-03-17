@@ -90,7 +90,7 @@ class VoitureModele(models.Model):
         ]
 
     def __str__(self):
-        return f"{self.voiture_marque} {self.nom_modele} {self.nom_variante or ''}".strip()
+        return f"{self.nom_modele} {self.nom_variante or ''}".strip()
 
     def clean(self):
         super().clean()

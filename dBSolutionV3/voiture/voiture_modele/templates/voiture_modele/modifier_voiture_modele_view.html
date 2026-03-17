@@ -8,7 +8,7 @@
         <img src="{% static 'images/marques/' %}{{ voiture_modele.voiture_marque.nom_marque|lower }}.png"
              style="width:75px; margin-right:20px;"
              onerror="this.src='{% static 'images/marques/default.png' %}'">
-        {% trans "Modifier le modèle:" %} {{ voiture_modele.nom_modele }}
+        {% trans "Modifier le modèle:" %} {{ voiture_modele.nom_modele }} {{voiture_modele.nom_variante }}
     </h1>
 
     {% if messages %}
