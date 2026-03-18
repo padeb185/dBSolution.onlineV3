@@ -14,6 +14,8 @@
                 {{ exemplaire.voiture_marque.nom_marque }}
                 {{ exemplaire.voiture_modele.nom_modele }}
                 {{ exemplaire.voiture_modele.nom_variante }}
+
+
             </span>
         </h1>
     </div>
@@ -22,6 +24,7 @@
     <div class="mb-4">
         {% include "maintenance/partials/plaque.html" %}
     </div>
+
 
     <!-- Messages -->
     {% if messages %}
@@ -36,7 +39,9 @@
         </div>
         {% endfor %}
     {% endif %}
-
+    <div>
+        {{ exemplaire.kilometres_chassis }} Kilomètres
+    </div>
     <!-- Form -->
     <form method="POST" class="space-y-4">
         {% csrf_token %}
