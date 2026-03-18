@@ -11,7 +11,7 @@ from maintenance.check_up.models import ControleGeneral
 from maintenance.check_up.forms import ControleGeneralForm
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from utilisateurs.models import (Utilisateur)
-
+from django.utils.translation import gettext_lazy as _
 
 @login_required
 def controle_total_view(request, exemplaire_id):
@@ -29,7 +29,7 @@ def controle_total_view(request, exemplaire_id):
         # Vérification des rôles autorisés
         roles_autorises = ["mécanicien", "apprenti", "magasinier", "chef_mécanicien"]
         if request.user.role not in roles_autorises:
-            from django.utils.translation import gettext_lazy as _
+
             messages.error(
                 request,
                 _("Seuls les mécaniciens, apprentis, magasiniers et chefs mécaniciens peuvent accéder à cette page.")
@@ -57,7 +57,7 @@ def controle_total_view(request, exemplaire_id):
             )
 
         # Récupération ou création du contrôle général
-        controle_general, _ = ControleGeneral.objects.get_or_create(maintenance=maintenance)
+        controle_general, created = ControleGeneral.objects.get_or_create(maintenance=maintenance)
 
         # --- Gestion du formulaire ---
         if request.method == "POST":
@@ -71,6 +71,7 @@ def controle_total_view(request, exemplaire_id):
                 except Exception as e:
                     messages.error(request, _("Erreur lors de l'enregistrement : ") + str(e))
             else:
+                print(form.errors)
                 messages.error(request, _("Le formulaire contient des erreurs."))
         else:
             form = ControleGeneralForm(instance=controle_general)

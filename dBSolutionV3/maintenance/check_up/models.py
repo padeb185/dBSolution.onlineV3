@@ -7,16 +7,6 @@ from voiture.voiture_exemplaire.models import VoitureExemplaire
 # ---------------------------
 # TextChoices
 # ---------------------------
-class Location(models.TextChoices):
-    AV = "AV", _("Avant")
-    AR = "AR", _("Arrière")
-    AVG = "AVG", _("Avant gauche")
-    AVD = "AVD", _("Avant droit")
-    ARG = "ARG", _("Arrière gauche")
-    ARD = "ARD", _("Arrière droit")
-    SUP = "SUP", _("Supérieur")
-    INF = "INF", _("Inférieur")
-
 
 class EtatOKNotOK(models.TextChoices):
     OK = "OK", _("Non")
@@ -38,16 +28,6 @@ class TypeBruit(models.TextChoices):
     PONT = "PONT", _("Pont")
 
 
-class TypePieceControle(models.TextChoices):
-    ROTULE_DIRECTION = "ROTULE_DIRECTION", _("Rotule de direction")
-    ROTULE_SUSPENSION = "ROTULE_SUSPENSION", _("Rotule de suspension")
-    BIELLETTE_BARRE_STAB = "BIELLETTE_BARRE_STAB", _("Biellette de barre stabilisatrice")
-    BARRE_STABILISATRICE = "BARRE_STABILISATRICE", _("Barre stabilisatrice")
-    AMORTISSEUR = "AMORTISSEUR", _("Amortisseur")
-    ROULEMENT_ROUE = "ROULEMENT_ROUE", _("Roulement de roue")
-    TRIANGLE = "TRIANGLE", _("Triangle")
-    MULTI_BRAS = "MULTI_BRAS", _("Multi-bras")
-
 
 class EtatPiece(models.TextChoices):
     BON = "BON", _("Bon")
@@ -60,6 +40,11 @@ class PartieFrein(models.TextChoices):
     ARRIERE = "ARRIERE", _("Arrière")
     AVANT_AR = "AV_AR", _("Avant et arrière")
 
+class NettoyageEtat(models.TextChoices):
+    A_FAIRE = "A_FAIRE", _("A faire")
+    FAIT = "FAIT", _("Fait")
+    REPORTER = "REPORTER", _("Reporter")
+
 
 # ---------------------------
 # Modèle fusionné
@@ -69,7 +54,9 @@ class ControleGeneral(models.Model):
         Maintenance,
         on_delete=models.CASCADE,
         related_name="controle_general_checkup",
-        verbose_name=_("Maintenance")
+        verbose_name=_("Maintenance"),
+        null=True,  # autorisé vide à la création
+        blank=True
     )
 
     # --- Essuie-glaces & Pare-brise ---
@@ -90,11 +77,18 @@ class ControleGeneral(models.Model):
     boite_fuite = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Fuite boîte de vitesse"))
     boite_bruit = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Bruits boîte de vitesse"))
     boite_embrayage = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Problème d'embrayage"))
+
+    # --- Pont ----
+
+    pont_fuite = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Fuite pont arrière"))
+    pont_bruit = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Bruits pont arrière"))
+    pont_jeu = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Jeu pont arrière"))
+
     # --- Freins ---
 
     freins_usure_plaquettes_av = models.IntegerField(default=0, verbose_name=_("Usure des plaquettes avants (%)"))
     freins_plaquettes_remplacer_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Plaquettes avant à remplacer"))
-    freins_epaisseur_disques_av = models.FloatField(default=0, verbose_name=_("Épaisseur des disques avants (mm)"))
+    freins_epaisseur_disques_av = models.FloatField(default=0.0, verbose_name=_("Épaisseur des disques avants (mm)"))
     freins_fentes_disques_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Présence de fentes sur les disques avants"))
     freins_disques_remplacer_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Disques avants à remplacer"))
 
@@ -111,16 +105,16 @@ class ControleGeneral(models.Model):
     frein_liquide_frein_etat = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("État liquide de frein"))
     freins_remplacement_liquide_frein = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Remplacement liquide de frein"))
     freins_specif_liquide_frein = models.CharField(max_length=100, blank=True, verbose_name=_("Spécification liquide de frein"))
-    freins_quantite_liquide_frein = models.FloatField(default=0, verbose_name=_("Quantité liquide de frein (L)"))
+    freins_quantite_liquide_frein = models.FloatField(default=0, null=True, blank=True, verbose_name=_("Quantité liquide de frein (L)"))
 
-    direction_fuite = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Fuite direction assistée / crémaillère"))
-    niveau_direction = models.FloatField(default=0, verbose_name=_("Niveau liquide direction"))
+    direction_fuite = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Fuite direction assistée / crémaillère"), null=True, blank=True)
+    niveau_direction = models.FloatField(default=0.0, null=True, blank=True, verbose_name=_("Niveau liquide direction"))
 
     # --- Bruits ---
-    bruit_roulement_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("État roulement de roue avant droit"))
-    bruit_roulement_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("État roulement de roue avant gauche"))
-    bruit_roulement_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("État roulement de roue arrière droit"))
-    bruit_roulement_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("État roulement de roue arrière gauche"))
+    bruit_roulement_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("État roulement de roue avant droit"), blank=True, null=True)
+    bruit_roulement_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("État roulement de roue avant gauche"),  blank=True, null=True)
+    bruit_roulement_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("État roulement de roue arrière droit"), blank=True, null=True)
+    bruit_roulement_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("État roulement de roue arrière gauche"),  blank=True, null=True)
 
 
     # --- Batterie ---
@@ -151,36 +145,52 @@ class ControleGeneral(models.Model):
     jeu_barre_stabilisatrice_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeu barre stabilisatrice avant"))
     jeu_barre_stabilisatrice_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeu barre stabilisatrice arrière"))
 
-    jeu_amortisseur_avd =  models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeu amortisseur avant droit"))
+    jeu_amortisseur_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeu amortisseur avant droit"))
     jeu_amortisseur_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu amortisseur avant gauche"))
     jeu_amortisseur_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu amortisseur arrière droit"))
     jeu_amortisseur_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu amortisseur arrière gauche"))
 
+    jeu_roulement_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Jeu roulement avant droit"))
+    jeu_roulement_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Jeu roulement avant gauche"))
+    jeu_roulement_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Jeu roulement arrière droit"))
+    jeu_roulement_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Jeu roulement arrière gauche"))
 
+    jeu_triangle_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu triangle avant droit"))
+    jeu_triangle_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu triangle avant gauche"))
+    jeu_triangle_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu triangle arrière droit"))
+    jeu_triangle_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu triangle arrière gauche"))
 
-
-
-
+    jeu_multi_bras_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu suspension multi-bras avant droit"))
+    jeu_multi_bras_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu suspension multi-bras avant gauche"))
+    jeu_multi_bras_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu suspension multi-bras arrière droit"))
+    jeu_multi_bras_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu suspension multi-bras arrière gauche"))
 
 
     # --- Réglage phares ---
-    reglage_phares = models.BooleanField(default=True, verbose_name=_("Phares réglés correctement"))
+    phares_reglages = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Réglage phares"))
+    phares_avant = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Feux de routes"))
+    phares_gros_phares = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Grand phares"))
+    phares_clignotants = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Clignotants"))
+    phares_recul = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Feux de recul"))
+    phares_anti_brouillard_avant = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Phares anti-brouillard avant"))
+    phares_anti_brouillard_arrière = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Phares anti-brouillard arrière"))
+
 
     # --- Nettoyage extérieur ---
-    nettoyage_exterieur_traces_gomme = models.BooleanField(default=False, verbose_name=_("Traces de gomme"))
-    nettoyage_exterieur_carrosserie = models.BooleanField(default=False, verbose_name=_("Carrosserie"))
-    nettoyage_exterieur_jantes = models.BooleanField(default=False, verbose_name=_("Jantes"))
-    nettoyage_exterieur_sechage = models.BooleanField(default=False, verbose_name=_("Séchage"))
+    nettoyage_exterieur_traces_gomme = models.CharField(max_length=25, choices=NettoyageEtat.choices, default=NettoyageEtat.A_FAIRE, verbose_name=_("Traces de gomme"))
+    nettoyage_exterieur_carrosserie = models.CharField(max_length=25, choices=NettoyageEtat.choices, default=NettoyageEtat.A_FAIRE, verbose_name=_("Carrosserie"))
+    nettoyage_exterieur_jantes = models.CharField(max_length=25, choices=NettoyageEtat.choices, default=NettoyageEtat.A_FAIRE, verbose_name=_("Jantes"))
+    nettoyage_exterieur_sechage = models.CharField(max_length=25, choices=NettoyageEtat.choices, default=NettoyageEtat.A_FAIRE, verbose_name=_("Séchage"))
 
     # --- Nettoyage intérieur ---
-    nettoyage_interieur_vitres = models.BooleanField(default=False, verbose_name=_("Vitres"))
-    nettoyage_interieur_pare_brise = models.BooleanField(default=False, verbose_name=_("Pare-brise"))
-    nettoyage_interieur_aspirateur = models.BooleanField(default=False, verbose_name=_("Aspirateur"))
-    nettoyage_interieur_portes = models.BooleanField(default=False, verbose_name=_("Intérieurs de porte"))
-    nettoyage_interieur_sieges = models.BooleanField(default=False, verbose_name=_("Sièges"))
-    nettoyage_interieur_carpettes = models.BooleanField(default=False, verbose_name=_("Carpettes"))
-    nettoyage_interieur_tableau_de_bord = models.BooleanField(default=False, verbose_name=_("Tableau de bord"))
-    nettoyage_interieur_plastiques = models.BooleanField(default=False, verbose_name=_("Plastiques"))
+    nettoyage_interieur_vitres = models.CharField(max_length=25, choices=NettoyageEtat.choices, default=NettoyageEtat.A_FAIRE, verbose_name=_("Vitres"))
+    nettoyage_interieur_pare_brise = models.CharField(max_length=25, choices=NettoyageEtat.choices, default=NettoyageEtat.A_FAIRE, verbose_name=_("Pare-brise"))
+    nettoyage_interieur_aspirateur = models.CharField(max_length=25, choices=NettoyageEtat.choices, default=NettoyageEtat.A_FAIRE, verbose_name=_("Aspirateur"))
+    nettoyage_interieur_portes = models.CharField(max_length=25, choices=NettoyageEtat.choices, default=NettoyageEtat.A_FAIRE, verbose_name=_("Intérieurs de porte"))
+    nettoyage_interieur_sieges = models.CharField(max_length=25, choices=NettoyageEtat.choices, default=NettoyageEtat.A_FAIRE, verbose_name=_("Sièges"))
+    nettoyage_interieur_carpettes = models.CharField(max_length=25, choices=NettoyageEtat.choices, default=NettoyageEtat.A_FAIRE, verbose_name=_("Carpettes"))
+    nettoyage_interieur_tableau_de_bord = models.CharField(max_length=25, choices=NettoyageEtat.choices, default=NettoyageEtat.A_FAIRE, verbose_name=_("Tableau de bord"))
+    nettoyage_interieur_plastiques = models.CharField(max_length=25, choices=NettoyageEtat.choices, default=NettoyageEtat.A_FAIRE, verbose_name=_("Plastiques"))
 
 
 
