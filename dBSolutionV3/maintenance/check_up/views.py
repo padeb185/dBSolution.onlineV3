@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.db import transaction
 from django.urls import reverse
 from django.db.models import Q
+from django.views.decorators.cache import never_cache
 from django_tenants.utils import tenant_context
 from maintenance.models import Maintenance
 from maintenance.check_up.models import ControleGeneral
@@ -13,6 +14,8 @@ from voiture.voiture_exemplaire.models import VoitureExemplaire
 from utilisateurs.models import Utilisateur
 from django.utils.translation import gettext_lazy as _
 
+
+@never_cache
 @login_required
 def controle_total_view(request, exemplaire_id):
     tenant = request.user.societe
