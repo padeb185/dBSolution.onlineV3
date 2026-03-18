@@ -14,10 +14,10 @@ class TypePieceCarrosserie(models.TextChoices):
 
     PARE_BRISE = "pare_brise", _("Pare-brise")
 
-    VITRE_PORTE_AVD = "vitre_porte_avd", _("Vitre porte avant droite")
-    VITRE_PORTE_AVG = "vitre_porte_avg", _("Vitre porte avant gauche")
-    VITRE_PORTE_ARD = "vitre_porte_ard", _("Vitre porte arrière droite")
-    VITRE_PORTE_ARG = "vitre_porte_arg", _("Vitre porte arrière gauche")
+    VITRE_PORTE_AVD = "vitre_porte_avd", _("Vitre de porte avant droite")
+    VITRE_PORTE_AVG = "vitre_porte_avg", _("Vitre de porte avant gauche")
+    VITRE_PORTE_ARD = "vitre_porte_ard", _("Vitre de porte arrière droite")
+    VITRE_PORTE_ARG = "vitre_porte_arg", _("Vitre de porte arrière gauche")
 
     LUNETTE = "lunette", _("Lunette arrière")
 
@@ -29,16 +29,16 @@ class TypePieceCarrosserie(models.TextChoices):
     AILE_ARD = "aile_ard", _("Aile arrière droite")
     AILE_ARG = "aile_arg", _("Aile arrière gauche")
 
-    ELARGISSEUR_AILE_AVD = "elargisseur_aile_avd", _("Élargisseur aile avant droite")
-    ELARGISSEUR_AILE_AVG = "elargisseur_aile_avg", _("Élargisseur aile avant gauche")
-    ELARGISSEUR_AILE_ARD = "elargisseur_aile_ard", _("Élargisseur aile arrière droite")
-    ELARGISSEUR_AILE_ARG = "elargisseur_aile_arg", _("Élargisseur aile arrière gauche")
+    ELARGISSEUR_AILE_AVD = "elargisseur_aile_avd", _("Élargisseur d'aile avant droite")
+    ELARGISSEUR_AILE_AVG = "elargisseur_aile_avg", _("Élargisseur d'aile avant gauche")
+    ELARGISSEUR_AILE_ARD = "elargisseur_aile_ard", _("Élargisseur d'aile arrière droite")
+    ELARGISSEUR_AILE_ARG = "elargisseur_aile_arg", _("Élargisseur d'aile arrière gauche")
 
     BAS_DE_CAISSE_D = "bas_de_caisse_d", _("Bas de caisse droit")
     BAS_DE_CAISSE_G = "bas_de_caisse_g", _("Bas de caisse gauche")
 
-    SUPPORT_RADIATEUR = "support_radiateur", _("Support radiateur")
-    SUPPORT_PARE_CHOC = "support_pare_choc", _("Support pare-chocs")
+    SUPPORT_RADIATEUR = "support_radiateur", _("Support de radiateur")
+    SUPPORT_PARE_CHOC = "support_pare_choc", _("Support de pare-chocs")
 
     CALANDRE = "calandre", _("Calandre")
 
@@ -53,15 +53,15 @@ class TypePieceCarrosserie(models.TextChoices):
 
     JOINT_COFFRE = "joint_coffre", _("Joint de coffre")
 
-    JOINT_PORTE_AVD = "joint_porte_avd", _("Joint porte avant droite")
-    JOINT_PORTE_AVG = "joint_porte_avg", _("Joint porte avant gauche")
-    JOINT_PORTE_ARD = "joint_porte_ard", _("Joint porte arrière droite")
-    JOINT_PORTE_ARG = "joint_porte_arg", _("Joint porte arrière gauche")
+    JOINT_PORTE_AVD = "joint_porte_avd", _("Joint de porte avant droite")
+    JOINT_PORTE_AVG = "joint_porte_avg", _("Joint de porte avant gauche")
+    JOINT_PORTE_ARD = "joint_porte_ard", _("Joint de porte arrière droite")
+    JOINT_PORTE_ARG = "joint_porte_arg", _("Joint de porte arrière gauche")
 
-    COQUILLE_AILE_AVD = "coquille_aile_avd", _("Coquille aile avant droite")
-    COQUILLE_AILE_AVG = "coquille_aile_avg", _("Coquille aile avant gauche")
-    COQUILLE_AILE_ARD = "coquille_aile_ard", _("Coquille aile arrière droite")
-    COQUILLE_AILE_ARG = "coquille_aile_arg", _("Coquille aile arrière gauche")
+    COQUILLE_AILE_AVD = "coquille_aile_avd", _("Coquille d'aile avant droite")
+    COQUILLE_AILE_AVG = "coquille_aile_avg", _("Coquille d'aile avant gauche")
+    COQUILLE_AILE_ARD = "coquille_aile_ard", _("Coquille d'aile arrière droite")
+    COQUILLE_AILE_ARG = "coquille_aile_arg", _("Coquille d'aile arrière gauche")
 
     CLIPS = "clips", _("Clips")
     VISSERIE = "visserie", _("Visserie")
@@ -89,7 +89,7 @@ class TypePieceCarrosserie(models.TextChoices):
 
     ANTI_BROUILLARD_AVD = "anti_brouillard_avd", _("Anti-brouillard avant droit")
     ANTI_BROUILLARD_AVG = "anti_brouillard_avg", _("Anti-brouillard avant gauche")
-    ANTI_BROUILLARD_AR = "anti_brouillard_ar", _("Anti-brouillard ar")
+    ANTI_BROUILLARD_AR = "anti_brouillard_ar", _("Anti-brouillard arrière")
 
     TROISIEME_FEU_STOP = "troisieme_feux_stop", _("Troisième feu stop")
 
