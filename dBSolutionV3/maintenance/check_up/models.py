@@ -20,26 +20,6 @@ class BatterieEtat(models.TextChoices):
     A_REMPLACER = "A_REMPLACER", _("À remplacer")
 
 
-class TypeBruit(models.TextChoices):
-    ROULEMENT_ROUE = "ROULEMENT_ROUE", _("Roulement de roue")
-    ROULEMENT_SUSPENSION = "ROULEMENT_SUSPENSION", _("Roulement de suspension")
-    MOTEUR = "MOTEUR", _("Moteur")
-    BOITE_VITESSE = "BOITE_VITESSE", _("Boîte de vitesse")
-    PONT = "PONT", _("Pont")
-
-
-
-class EtatPiece(models.TextChoices):
-    BON = "BON", _("Bon")
-    USE = "USE", _("Usé")
-    HS = "HS", _("Hors service")
-
-
-class PartieFrein(models.TextChoices):
-    AVANT = "AVANT", _("Avant")
-    ARRIERE = "ARRIERE", _("Arrière")
-    AVANT_AR = "AV_AR", _("Avant et arrière")
-
 class NettoyageEtat(models.TextChoices):
     A_FAIRE = "A_FAIRE", _("A faire")
     FAIT = "FAIT", _("Fait")
@@ -67,7 +47,7 @@ class ControleGeneral(models.Model):
         null=True, blank=True
     )
 
-    kilometres_maintenance = models.FloatField(
+    kilometres_checkup = models.FloatField(
         default=0,
         verbose_name=_("Kilomètres enregistrés pour cette maintenance")
     )

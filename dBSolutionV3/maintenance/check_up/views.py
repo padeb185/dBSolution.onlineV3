@@ -75,7 +75,7 @@ def controle_total_view(request, exemplaire_id):
                                 exemplaire.save()
 
                             # Enregistrer le kilométrage dans la maintenance
-                            maintenance.kilometres_total = exemplaire.kilometres_chassis
+                            maintenance.kilometres_checkup = exemplaire.kilometres_chassis
                             maintenance.save()
 
                         controle_general.save()
