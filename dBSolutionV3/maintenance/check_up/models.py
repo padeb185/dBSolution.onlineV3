@@ -59,7 +59,7 @@ class HuileBoiteEtat(models.TextChoices):
     QUATRE_20_90 = "80W90", _("80W90")
     QUATRE_25_90 = "85W90", _("85W90")
     ATF3 = "ATF_III", _("ATF III")
-    ATFDSG = "ATF DSG", _("ATF DSG")
+    ATF_DSG = "ATF DSG", _("ATF DSG")
 
 
 class HuilePontEtat(models.TextChoices):
@@ -121,17 +121,18 @@ class ControleGeneral(models.Model):
     boite_fuite = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Fuite boîte de vitesse"))
     boite_bruit = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Bruits boîte de vitesse"))
     boite_embrayage = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Problème d'embrayage"))
-    boite_niveau_huile_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,
-                                                verbose_name=_("Niveau d'huile"))
+    boite_niveau_huile_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau d'huile"))
     boite_niveau_huile_quantite = models.FloatField(default=0, verbose_name=_("Quantité d'huile ajoutée en litres"))
-    boite_niveau_huile_qualite = models.CharField(max_length=25, choices=HuileBoitetat.choices, default=HuileBoiteEtat.ZERO_30,
-                                                   verbose_name=_("Qualité d'huile"))
+    boite_niveau_huile_qualite = models.CharField(max_length=25, choices=HuileBoiteEtat.choices, default=HuileBoiteEtat.SEPTANTE_CINQ, verbose_name=_("Qualité d'huile"))
 
     # --- Pont ----
 
     pont_fuite = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Fuite pont arrière"))
     pont_bruit = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Bruits pont arrière"))
     pont_jeu = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Jeu pont arrière"))
+    pont_niveau_huile_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau d'huile"))
+    pont_niveau_huile_quantite = models.FloatField(default=0, verbose_name=_("Quantité d'huile ajoutée en litres"))
+    pont_niveau_huile_qualite = models.CharField(max_length=25, choices=HuilePontEtat.choices,default=HuilePontEtat.SEPTANTE_CINQ140,verbose_name=_("Qualité d'huile"))
 
     # --- Freins ---
 
