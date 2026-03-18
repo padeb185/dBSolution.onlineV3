@@ -41,6 +41,52 @@
     <form method="POST" class="space-y-4">
         {% csrf_token %}
 
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Kilométrage" %}</h2>
+        {% for field in form %}
+            {% if "kilo" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">
+                        {{ field.label }}
+                    </label>
+
+                    {{ field|add_class:"input" }}
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">
+                            {{ field.help_text }}
+                        </p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Essuie-glace" %}</h2>
         {% for field in form %}
             {% if "essuie" in field.name %}

@@ -10,7 +10,7 @@ from maintenance.models import Maintenance
 from maintenance.check_up.models import ControleGeneral
 from maintenance.check_up.forms import ControleGeneralForm
 from voiture.voiture_exemplaire.models import VoitureExemplaire
-from utilisateurs.models import (Utilisateur)
+from utilisateurs.models import Utilisateur
 from django.utils.translation import gettext_lazy as _
 
 @login_required
@@ -29,7 +29,6 @@ def controle_total_view(request, exemplaire_id):
         # Vérification des rôles autorisés
         roles_autorises = ["mécanicien", "apprenti", "magasinier", "chef_mécanicien"]
         if request.user.role not in roles_autorises:
-
             messages.error(
                 request,
                 _("Seuls les mécaniciens, apprentis, magasiniers et chefs mécaniciens peuvent accéder à cette page.")
@@ -50,7 +49,7 @@ def controle_total_view(request, exemplaire_id):
                 mecanicien=utilisateur_actuel,
                 immatriculation=exemplaire.immatriculation,
                 date_intervention=timezone.now().date(),
-                kilometres_total=exemplaire.kilometres_total,
+                kilometres_chassis=exemplaire.kilometres_chassis,
                 kilometres_derniere_intervention=exemplaire.kilometres_derniere_intervention,
                 type_maintenance="checkup",
                 tag=Maintenance.Tag.JAUNE,
@@ -65,7 +64,22 @@ def controle_total_view(request, exemplaire_id):
             if form.is_valid():
                 try:
                     with transaction.atomic():
-                        form.save()
+                        controle_general = form.save(commit=False)
+
+                        # Récupérer le nouveau kilométrage du formulaire (si ajouté)
+                        nouveau_km = form.cleaned_data.get("kilometres")
+                        if nouveau_km is not None:
+                            # Mettre à jour la voiture si le kilométrage est supérieur
+                            if nouveau_km >= (exemplaire.kilometres_chassis or 0):
+                                exemplaire.kilometres_chassis = nouveau_km
+                                exemplaire.save()
+
+                            # Enregistrer le kilométrage dans la maintenance
+                            maintenance.kilometres_total = exemplaire.kilometres_chassis
+                            maintenance.save()
+
+                        controle_general.save()
+
                     messages.success(request, _("Maintenance mise à jour avec succès."))
                     return redirect(reverse("maintenance:controle_total_view", args=[exemplaire.id]))
                 except Exception as e:
@@ -74,7 +88,9 @@ def controle_total_view(request, exemplaire_id):
                 print(form.errors)
                 messages.error(request, _("Le formulaire contient des erreurs."))
         else:
-            form = ControleGeneralForm(instance=controle_general)
+            # Pré-remplir le champ kilomètres dans le formulaire si nécessaire
+            initial = {"kilometres": exemplaire.kilometres_chassis}
+            form = ControleGeneralForm(instance=controle_general, initial=initial)
 
         context = {
             "exemplaire": exemplaire,

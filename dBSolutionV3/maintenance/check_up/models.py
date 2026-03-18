@@ -59,6 +59,20 @@ class ControleGeneral(models.Model):
         blank=True
     )
 
+    voiture_exemplaire = models.ForeignKey(
+        VoitureExemplaire,
+        on_delete=models.CASCADE,
+        related_name="controle_general_checkup_exemplaire_km",
+        verbose_name="Kilomètres",
+        null=True, blank=True
+    )
+
+    kilometres_maintenance = models.FloatField(
+        default=0,
+        verbose_name=_("Kilomètres enregistrés pour cette maintenance")
+    )
+
+
     # --- Essuie-glaces & Pare-brise ---
     essuie_glace_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.NOT_OK, verbose_name=_("Essuie-glace AV fonctionnel"))
     essuie_glace_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.NOT_OK, verbose_name=_("Essuie-glace AR fonctionnel"))
