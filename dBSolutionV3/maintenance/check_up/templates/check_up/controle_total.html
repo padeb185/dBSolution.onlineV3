@@ -48,7 +48,7 @@
 
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Kilométrage" %}</h2>
         {% for field in form %}
-            {% if "kilometres_check" in field.name %}
+            {% if "kilo" in field.name %}
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">

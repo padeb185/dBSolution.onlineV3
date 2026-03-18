@@ -13,7 +13,6 @@ from voiture.voiture_exemplaire.models import VoitureExemplaire
 from utilisateurs.models import Utilisateur
 from django.utils.translation import gettext_lazy as _
 
-# --- Vue ---
 @login_required
 def controle_total_view(request, exemplaire_id):
     tenant = request.user.societe
@@ -36,6 +35,7 @@ def controle_total_view(request, exemplaire_id):
 
         utilisateur_actuel = request.user
 
+        # 🔧 Récupération ou création maintenance
         maintenance = Maintenance.objects.filter(
             voiture_exemplaire=exemplaire,
             type_maintenance="checkup"
@@ -53,44 +53,66 @@ def controle_total_view(request, exemplaire_id):
                 tag=Maintenance.Tag.JAUNE,
             )
 
-        controle_general, created = ControleGeneral.objects.get_or_create(maintenance=maintenance)
+        controle_general, created = ControleGeneral.objects.get_or_create(
+            maintenance=maintenance
+        )
 
-        # --- POST ---
+        # ------------------- POST -------------------
         if request.method == "POST":
             form = ControleGeneralForm(request.POST, instance=controle_general)
+
             if form.is_valid():
                 try:
                     with transaction.atomic():
                         controle_general = form.save(commit=False)
 
-                        kilometres_checkup = form.cleaned_data.get("kilometres")
-                        if kilometres_checkup is not None:
-                            # Vérification : kilométrage >= kilométrage actuel de la voiture
-                            if kilometres_checkup < (exemplaire.kilometres_chassis):
-                                messages.error(
-                                    request,
-                                    _("Le kilométrage du check-up doit être supérieur ou égal au kilométrage actuel de la voiture.")
-                                )
-                                return redirect(reverse("maintenance:controle_total_view", args=[exemplaire.id]))
+                        km_checkup = form.cleaned_data.get("kilometres_chassis")
 
-                            # Mise à jour
-                            exemplaire.kilometres_chassis = kilometres_checkup
+                        if km_checkup is not None:
+                            # 🔒 sécurité
+                            if km_checkup < exemplaire.kilometres_chassis:
+                                form.add_error(
+                                    "kilometres_chassis",
+                                    "Le kilométrage ne peut pas être inférieur au kilométrage actuel."
+                                )
+                                return render(request, "check_up/controle_total.html", {
+                                    "form": form,
+                                    "exemplaire": exemplaire,
+                                    "maintenance": maintenance,
+                                })
+
+                            # ✅ 1. stocker dans ControleGeneral
+                            controle_general.kilometres_chassis = km_checkup
+
+                            # ✅ 2. METTRE À JOUR LA VOITURE (C'EST ÇA QUI TE MANQUE)
+                            exemplaire.kilometres_chassis = km_checkup
                             exemplaire.save()
-                            maintenance.kilometres_checkup = kilometres_checkup
-                            maintenance.save()
+
+                        # 🔗 lier la voiture
+                        controle_general.voiture_exemplaire = exemplaire
 
                         controle_general.save()
 
                     messages.success(request, _("Maintenance enregistrée avec succès."))
-                    return redirect(reverse("maintenance:controle_total_view", args=[exemplaire.id]))
+                    return redirect(
+                        reverse("maintenance:controle_total_view", args=[exemplaire.id])
+                    )
+
                 except Exception as e:
                     messages.error(request, _("Erreur lors de l'enregistrement : ") + str(e))
             else:
                 print(form.errors)
                 messages.error(request, _("Le formulaire contient des erreurs."))
+
         else:
-            initial = {"kilometres": exemplaire.kilometres_chassis}
-            form = ControleGeneralForm(instance=controle_general, initial=initial)
+            # ✅ pré-remplissage avec le km actuel
+            initial = {
+                "kilometres_chassis": exemplaire.kilometres_chassis
+            }
+            form = ControleGeneralForm(
+                instance=controle_general,
+                initial=initial
+            )
 
         context = {
             "exemplaire": exemplaire,

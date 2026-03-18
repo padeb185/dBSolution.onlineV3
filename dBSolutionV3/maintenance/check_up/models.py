@@ -3,7 +3,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from maintenance.models import Maintenance
 from utilisateurs.models import Utilisateur
-from voiture.voiture_exemplaire.models import VoitureExemplaire
+
 
 # ---------------------------
 # TextChoices
@@ -20,6 +20,9 @@ class BatterieEtat(models.TextChoices):
     OK = "OK", _("OK")
     A_REMPLACER = "A_REMPLACER", _("À remplacer")
 
+class PhareEtat(models.TextChoices):
+    OK = "OK", _("OK")
+    A_REMPLACER = "A_REMPLACER", _("À remplacer")
 
 class NettoyageEtat(models.TextChoices):
     A_FAIRE = "A_FAIRE", _("A faire")
@@ -41,18 +44,24 @@ class ControleGeneral(models.Model):
     )
 
     voiture_exemplaire = models.ForeignKey(
-        VoitureExemplaire,
+        "voiture_exemplaire.VoitureExemplaire",
         on_delete=models.CASCADE,
         related_name="controle_general_checkup_exemplaire_km",
-        verbose_name="Kilomètres",
+        verbose_name="Kilomètres_checkup",
         null=True, blank=True
     )
-
-    kilometres_checkup = models.FloatField(
+    kilometres_chassis = models.PositiveIntegerField(
         default=0,
-        verbose_name=_("Kilomètres enregistrés pour cette maintenance"),
-
+        null=True,
+        blank=True
     )
+
+    kilometrage_checkup = models.PositiveIntegerField(
+        _("Kilométrage au moment du Checkup"),
+        null=True,
+        blank=True
+    )
+
 
 
     # --- Essuie-glaces & Pare-brise ---
@@ -163,13 +172,13 @@ class ControleGeneral(models.Model):
 
 
     # --- Réglage phares ---
-    phares_reglages = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Réglage phares"))
-    phares_avant = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Feux de routes"))
-    phares_gros_phares = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Grand phares"))
-    phares_clignotants = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Clignotants"))
-    phares_recul = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Feux de recul"))
-    phares_anti_brouillard_avant = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Phares anti-brouillard avant"))
-    phares_anti_brouillard_arrière = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Phares anti-brouillard arrière"))
+    phares_reglages = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,verbose_name=_("Réglage phares"))
+    phares_avant = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,verbose_name=_("Feux de routes"))
+    phares_gros_phares = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,verbose_name=_("Grand phares"))
+    phares_clignotants = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,verbose_name=_("Clignotants"))
+    phares_recul = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,verbose_name=_("Feux de recul"))
+    phares_anti_brouillard_avant = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,verbose_name=_("Phares anti-brouillard avant"))
+    phares_anti_brouillard_arriere = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK, verbose_name=_("Phares anti-brouillard arrière"))
 
 
     # --- Nettoyage extérieur ---
@@ -202,10 +211,24 @@ class ControleGeneral(models.Model):
 
     def clean(self):
         super().clean()
-        if self.maintenance and self.kilometres_checkup < self.voiture_exemplaire.exemplaire.voiture_chassis:
-            raise ValidationError({
-                'kilometres_checkup': _(
-                    f"Le kilométrage du check-up ({self.kilometres_checkup}) "
-                    f"ne peut pas être inférieur au kilométrage actuel de la voiture ({self.maintenance.exemplaire.voiture_chassis})."
-                )
-            })
+        if self.voiture_exemplaire and self.kilometrage_checkup is not None:
+            if self.kilometrage_checkup < self.voiture_exemplaire.kilometres_chassis:
+                raise ValidationError({
+                    'kilometrage_checkup': _(
+                        f"Le kilométrage du check-up ({self.kilometrage_checkup}) "
+                        f"ne peut pas être inférieur au kilométrage actuel de la voiture ({self.voiture_exemplaire.kilometres_chassis})."
+                    )
+                })
+
+    def save(self, *args, **kwargs):
+        # Si checkup > km actuel, mettre à jour la voiture
+        if self.voiture_exemplaire and self.kilometrage_checkup:
+            if self.kilometrage_checkup > self.voiture_exemplaire.kilometres_chassis:
+                self.voiture_exemplaire.kilometres_chassis = self.kilometrage_checkup
+                self.voiture_exemplaire.save(update_fields=["kilometres_chassis"])
+
+        # Toujours garder une copie dans le contrôle
+        if self.voiture_exemplaire:
+            self.kilometres_chassis = self.voiture_exemplaire.kilometres_chassis
+
+        super().save(*args, **kwargs)
