@@ -11,34 +11,31 @@
 {% block main_class %}flex-1{% endblock %}
 
 {% block content %}
-<!-- Conteneur centré verticalement et horizontalement -->
-<div class="flex flex-col md:flex-row items-center justify-center min-h-[70vh] gap-6 p-6">
 
-    <!-- Texte avec bouton -->
-    <div class="text-center md:text-left max-w-lg">
-        <h1 class="text-4xl font-bold text-blue-700">
+<!-- HERO -->
+<div class="relative w-full min-h-[70vh] flex flex-col items-center justify-start text-center pt-32">
+
+    <!-- LOGO visible en background (taille adaptée) -->
+    <div class="w-40 h-40 bg-center bg-no-repeat bg-contain"
+         style="background-image: url('{% static "images/CarsCostsLogo.png" %}');">
+    </div>
+
+    <!-- TEXTE SOUS LE LOGO -->
+    <div class="mt-8 px-6">
+        <h1 class="text-4xl font-bold text-black">
             {% trans "Bienvenue" %}
         </h1>
-        <p class="text-blue-700 mt-4 text-lg">
+
+        <p class="mt-4 text-lg text-black">
             {% trans "Ceci est un paragraphe stylé avec Tailwind." %}
         </p>
 
-        <!-- Bouton pour accéder au login -->
         <a href="{% url 'utilisateurs:login' %}"
-           class="inline-block mt-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 shadow-md">
+           class="inline-block mt-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-md">
             {% trans "Se connecter" %}
         </a>
     </div>
 
-    <!-- Image à droite -->
-    <img
-        src="{% static 'images/blason.png' %}"
-        class="w-[250px] h-[250px] object-contain"
-        alt="Blason"
-    />
-</div>
-
-<!-- DUMMY POUR SAFELIST DES CLASSES DYNAMIQUES -->
-<div class="hidden flex flex-col items-center justify-center gap-4 text-red-500 text-blue-700 text-gray-700 text-gray-500 bg-blue-500 hover:bg-blue-700 bg-red-500 px-4 py-2 rounded shadow-md min-h-[70vh] w-full"></div>
-
 {% endblock %}
+
+

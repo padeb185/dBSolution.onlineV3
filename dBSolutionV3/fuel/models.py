@@ -105,9 +105,9 @@ class Fuel(models.Model):
 
 
     pays = models.CharField(
-        max_length=2,
+        max_length=25,
         choices=RechargeCarburant.PAYS_CHOICES,
-        verbose_name=_("Pays du plein")
+        verbose_name=_("Pays de la station")
     )
 
     montant_ht = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_("Montant HT"))

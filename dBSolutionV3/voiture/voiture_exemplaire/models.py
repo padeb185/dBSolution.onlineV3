@@ -18,6 +18,12 @@ class TypeUtilisation(models.TextChoices):
     LOCATION = "location", _("Location")
     INTERNE = "interne", _("Interne")
 
+class NomPays(models.TextChoices):
+    BE = "BE", _("Belgique")
+    LU = "LU", _("Luxembourg")
+    DE = "DE", _("Allemagne")
+
+
 
 class VoitureExemplaire(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -47,9 +53,11 @@ class VoitureExemplaire(models.Model):
 
     pays = models.CharField(
         max_length=20,
+        choices=NomPays.choices,
         null=True,
         blank=True
     )
+
     vin_validator = RegexValidator(
         regex=r'^[A-HJ-NPR-Z0-9]{17}$',
         message=_("Le numéro VIN doit contenir exactement 17 caractères alphanumériques (lettres A-H, J-N, P, R-Z et chiffres).")
