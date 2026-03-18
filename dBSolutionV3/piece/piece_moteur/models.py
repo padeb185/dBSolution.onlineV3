@@ -33,6 +33,7 @@ class PieceMoteur(Piece):
         ("galet_tendeur", _("Galet Tendeur")),
         ("cache_soupapes", _("Cache Soupapes")),
         ("Bougies_allumage", _("Bougies Allumage")),
+        ("Bobine d'allumage", _("Bobine d'allumage")),
         ("bougies_préchauffage", _("Bougies Préchauffage")),
         ("vanne_EGR", _("Vanne EGR")),
         ("collecteur_admission", _("Collecteur d'admission")),

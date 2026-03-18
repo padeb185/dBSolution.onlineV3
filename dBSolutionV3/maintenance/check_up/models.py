@@ -30,6 +30,42 @@ class NettoyageEtat(models.TextChoices):
     REPORTER = "REPORTER", _("Reporter")
 
 
+class NiveauxEtat(models.TextChoices):
+    BON = "BON", _("Bon")
+    AJOUTER = "AJOUTER", _("Ajouter")
+
+
+class HuileEtat(models.TextChoices):
+    ZERO_16 = "0W16", _("0W16")
+    ZERO_20 = "0W20", _("0W20")
+    ZERO_30 = "0W30", _("0W30")
+    ZERO_40 = "0W40", _("0W40")
+    CINQ_20 = "5W20", _("5W20")
+    CINQ_30 = "5W30", _("5W30")
+    CINQ_40 = "5W40", _("5W40")
+    DIX_40 = "10W40", _("10W40")
+    DIX_50 = "10W50", _("10W50")
+    DIX_60 = "10W60", _("10W60")
+    QUINZE_40 = "15W40", _("15W40")
+    QUINZE_50 = "15W50", _("15W50")
+    VINGT_50 = "20W50", _("20W50")
+
+
+class HuileBoiteEtat(models.TextChoices):
+    SEPTANTE_CINQ = "75W", _("75W")
+    SEPTANTE_5_80 = "75W80", _("75W80")
+    SEPTANTE_CINQ90  = "75W90", _("75W90")
+    QUATRE_20 = "80W", "80W"
+    QUATRE_20_90 = "80W90", _("80W90")
+    QUATRE_25_90 = "85W90", _("85W90")
+    ATF3 = "ATF_III", _("ATF III")
+    ATFDSG = "ATF DSG", _("ATF DSG")
+
+
+class HuilePontEtat(models.TextChoices):
+    SEPTANTE_CINQ140 = "75W140", _("75W140")
+
+
 # ---------------------------
 # Modèle fusionné
 # ---------------------------
@@ -78,10 +114,18 @@ class ControleGeneral(models.Model):
     moteur_bruit =  models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Bruit moteur"))
     moteur_perte =  models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Perte de puissance"))
     moteur_casse =  models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Moteur à remplacer"))
+    moteur_niveau_huile_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON, verbose_name=_("Niveau d'huile"))
+    moteur_niveau_huile_quantite = models.FloatField(default=0, verbose_name=_("Quantité d'huile ajoutée en litres"))
+    moteur_niveau_huile_qualite = models.CharField(max_length=25, choices=HuileEtat.choices, default=HuileEtat.ZERO_30, verbose_name=_("Qualité d'huile"))
 
     boite_fuite = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Fuite boîte de vitesse"))
     boite_bruit = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Bruits boîte de vitesse"))
     boite_embrayage = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Problème d'embrayage"))
+    boite_niveau_huile_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,
+                                                verbose_name=_("Niveau d'huile"))
+    boite_niveau_huile_quantite = models.FloatField(default=0, verbose_name=_("Quantité d'huile ajoutée en litres"))
+    boite_niveau_huile_qualite = models.CharField(max_length=25, choices=HuileBoitetat.choices, default=HuileBoiteEtat.ZERO_30,
+                                                   verbose_name=_("Qualité d'huile"))
 
     # --- Pont ----
 
@@ -198,6 +242,12 @@ class ControleGeneral(models.Model):
     nettoyage_interieur_plastiques = models.CharField(max_length=25, choices=NettoyageEtat.choices, default=NettoyageEtat.A_FAIRE, verbose_name=_("Plastiques"))
 
 
+
+   # niveau boite
+
+    #niveau pont
+   # pneus bande de roulement sidewall
+    #pression pneus
 
     # --- Date d'enregistrement ---
     date = models.DateTimeField(auto_now_add=True)
