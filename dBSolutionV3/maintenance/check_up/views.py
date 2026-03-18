@@ -80,7 +80,7 @@ def controle_total_view(request, exemplaire_id):
 
                         controle_general.save()
 
-                    messages.success(request, _("Maintenance mise à jour avec succès."))
+                    messages.success(request, _("Maintenance enregistrée avec succès."))
                     return redirect(reverse("maintenance:controle_total_view", args=[exemplaire.id]))
                 except Exception as e:
                     messages.error(request, _("Erreur lors de l'enregistrement : ") + str(e))
