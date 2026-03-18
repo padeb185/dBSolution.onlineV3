@@ -366,7 +366,7 @@ def ajouter_exemplaire_all(request, modele_id):
                 instance.modele = modele
                 instance.voiture_marque = marque
                 instance.societe = request.user.societe
-                instance.est_avant_2010 = bool(annee and annee < 2010)
+                instance.est_apres_2010 = bool(annee and annee > 2010)
 
                 instance.save()
 

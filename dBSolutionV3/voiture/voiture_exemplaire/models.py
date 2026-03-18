@@ -70,7 +70,7 @@ class VoitureExemplaire(models.Model):
         blank=True,
         null=True,
     )
-    est_avant_2010 = models.BooleanField(default=True)
+    est_apres_2010 = models.BooleanField(default=True)
 
     annee_production = models.PositiveIntegerField(
         verbose_name="Année de production",
