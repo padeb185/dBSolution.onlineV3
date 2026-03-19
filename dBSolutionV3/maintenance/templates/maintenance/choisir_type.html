@@ -144,6 +144,20 @@
                 <img src="{% static 'icons/autres.png' %}" alt="Autres interventions" style="width:60px; height:60px;">
             </div>
         </a>
+        <!-- Autres interventions -->
+        <a href="{% url 'jeux_pieces:controle_jeux_pieces_view' exemplaire.id %}"
+           class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h2 class="text-lg font-semibold mb-2">{% trans "Controle des jeux" %}</h2>
+                    <p class="text-gray-600">
+                        {% trans "Nombre total :" %}
+                        <span class="font-bold">{{ total_jeu }}</span>
+                    </p>
+                </div>
+                <img src="{% static 'icons/jeu.png' %}" alt="Jeux Pièces" style="width:60px; height:60px;">
+            </div>
+        </a>
 
     </div>
 </div>

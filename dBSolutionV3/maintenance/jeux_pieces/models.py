@@ -1,6 +1,13 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+# -------------------- Choices --------------------
+
+class EtatOKNotOK(models.TextChoices):
+    OK = "OK", _("Non")
+    NOT_OK = "NOT_OK", _("Oui")
+    A_REMPLACER = "A_REMPLACER", _("À remplacer")
+    REMPLACE = "REMPLACE", _("Remplacé")
 
 class TypePieceControle(models.TextChoices):
     ROTULE_DIRECTION = "ROTULE_DIRECTION", _("Rotule de direction")
@@ -12,7 +19,6 @@ class TypePieceControle(models.TextChoices):
     TRIANGLE = "TRIANGLE", _("Triangle")
     MULTI_BRAS = "MULTI_BRAS", _("Multi-bras")
 
-
 class Emplacement(models.TextChoices):
     AVG = "AVG", _("Avant gauche")
     AVD = "AVD", _("Avant droit")
@@ -23,115 +29,132 @@ class Emplacement(models.TextChoices):
     SUP = "SUP", _("Supérieur")
     INF = "INF", _("Inférieur")
 
-
 class EtatPiece(models.TextChoices):
     BON = "BON", _("Bon")
     USE = "USE", _("Usé")
     HS = "HS", _("Hors service")
 
+class RoleUtilisateur(models.TextChoices):
+    APPRENTI = "APPRENTI", _("Apprenti")
+    MECANICIEN = "MECANICIEN", _("Mécanicien")
+    CHEF = "CHEF", _("Chef mécanicien")
 
-class JeuPiece(models.Model):
+# -------------------- Modèle --------------------
+
+class ControleJeuxPieces(models.Model):
     maintenance = models.ForeignKey(
         "maintenance.Maintenance",
         on_delete=models.CASCADE,
         related_name="jeux_pieces",
         verbose_name=_("Maintenance"),
         default=1
-
     )
 
-    vehicle = models.ForeignKey(
+    voiture_exemplaire = models.ForeignKey(
         "voiture_exemplaire.VoitureExemplaire",
-        on_delete=models.PROTECT,
+        on_delete=models.CASCADE,
+        related_name="jeux_pieces_checkup",
+        verbose_name=_("Kilomètres jeu pièces"),
         null=True,
-        blank=True,
-        verbose_name=_("Véhicule")
+        blank=True
     )
 
-    type_piece = models.CharField(
-        max_length=50,
-        choices=TypePieceControle.choices,
-        verbose_name=_("Pièce contrôlée")
-    )
-
-    emplacement = models.CharField(
-        max_length=10,
-        choices=Emplacement.choices,
-        verbose_name=_("Emplacement")
-    )
-
-    etat = models.CharField(
-        max_length=10,
-        choices=EtatPiece.choices,
+    kilometres_chassis = models.PositiveIntegerField(
+        default=0,
         null=True,
-        blank=True,
-        verbose_name=_("État")
+        blank=True
     )
 
+    kilometrage_checkup = models.PositiveIntegerField(
+        _("Kilométrage au moment du Checkup"),
+        null=True,
+        blank=True
+    )
+
+    # --- Jeux ---
+
+    jeu_rotule_direction_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu rotule de direction avant droite"))
+    jeu_rotule_direction_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu rotule de direction avant gauche"))
+    jeu_rotule_direction_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu rotule de direction arrière droite"))
+    jeu_rotule_direction_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu rotule de direction arrière gauche"))
+
+
+    jeu_rotule_suspension_inferieure_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeux rotule de suspension inférieure avant droite"))
+    jeu_rotule_suspension_inferieure_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeux rotule de suspension inférieure avant gauche"))
+    jeu_rotule_suspension_inferieure_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeux rotule de suspension inférieure arrière droite"))
+    jeu_rotule_suspension_inferieure_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeux rotule de suspension inférieure arrière droite"))
+
+    jeu_rotule_suspension_superieure_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeux rotule de suspension supérieure avant droite"))
+    jeu_rotule_suspension_superieure_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeux rotule de suspension supérieure avant gauche"))
+    jeu_rotule_suspension_superieure_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeux rotule de suspension supérieure arrière droite"))
+    jeu_rotule_suspension_superieure_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeux rotule de suspension supérieure arrière droite"))
+
+    jeu_Biellette_barre_stabilisatrice_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeu biellette de barre stabilisatrice avant droite"))
+    jeu_Biellette_barre_stabilisatrice_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeu biellette de barre stabilisatrice avant gauche"))
+    jeu_Biellette_barre_stabilisatrice_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeu biellette de barre stabilisatrice arrière droite"))
+    jeu_Biellette_barre_stabilisatrice_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeu biellette de barre stabilisatrice arrière gauche"))
+
+    jeu_barre_stabilisatrice_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu barre stabilisatrice avant"))
+    jeu_barre_stabilisatrice_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu barre stabilisatrice arrière"))
+
+    jeu_amortisseur_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu amortisseur avant droit"))
+    jeu_amortisseur_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu amortisseur avant gauche"))
+    jeu_amortisseur_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu amortisseur arrière droit"))
+    jeu_amortisseur_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu amortisseur arrière gauche"))
+
+    jeu_roulement_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Jeu roulement avant droit"))
+    jeu_roulement_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Jeu roulement avant gauche"))
+    jeu_roulement_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu roulement arrière droit"))
+    jeu_roulement_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu roulement arrière gauche"))
+
+    jeu_triangle_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu triangle avant droit"))
+    jeu_triangle_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu triangle avant gauche"))
+    jeu_triangle_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu triangle arrière droit"))
+    jeu_triangle_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu triangle arrière gauche"))
+
+    jeu_multi_bras_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu suspension multi-bras avant droit"))
+    jeu_multi_bras_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu suspension multi-bras avant gauche"))
+    jeu_multi_bras_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu suspension multi-bras arrière droit"))
+    jeu_multi_bras_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu suspension multi-bras arrière gauche"))
+
+    # Tag visuel
     TAG_CHOICES = [
-        ("VERT", "Vert"),
-        ("JAUNE", "Jaune"),
-        ("ROUGE", "Rouge"),  # critique
+        ("VERT", _("Vert")),
+        ("JAUNE", _("Jaune")),
+        ("ROUGE", _("Rouge")),
     ]
 
     tag = models.CharField(
         max_length=10,
         choices=TAG_CHOICES,
-        default="VERT",
+        default="JAUNE",
         verbose_name=_("État visuel / Tag")
     )
 
-    commentaire = models.TextField(
-        blank=True,
-        verbose_name=_("Observation")
-    )
+    remarques = models.TextField(verbose_name=_("Remarques"), blank=True, null=True)
 
-    date = models.DateTimeField(auto_now_add=True)
+    date_creation = models.DateTimeField(auto_now_add=True)
 
-    def is_critique(self):
-        """Renvoie True si la pièce est critique (tag rouge)."""
-        return self.tag == "ROUGE"
-
-    def __str__(self):
-        return _(
-            "%(piece)s – %(empl)s (%(etat)s / %(tag)s)"
-        ) % {
-            "piece": self.get_type_piece_display(),
-            "empl": self.get_emplacement_display(),
-            "etat": self.get_etat_display() if self.etat else _("Non précisé"),
-            "tag": self.tag
-        }
-
-
-class NoteMaintenance(models.Model):
-    ROLE_CHOICES = [
-        ("APPRENTI", _("Apprenti")),
-        ("MECANICIEN", _("Mécanicien")),
-        ("CHEF", _("Chef mécanicien")),
-    ]
-
-    maintenance = models.ForeignKey(
-        "maintenance.Maintenance",
-        on_delete=models.CASCADE,
-        related_name="notes",
-        null=True,
-    )
-
-    auteur = models.ForeignKey(
+    # Auteur et rôle
+    utilisateur_auteur = models.ForeignKey(
         "utilisateurs.Utilisateur",
         on_delete=models.PROTECT,
         null=True,
         blank=True,
     )
 
-    role = models.CharField(
+    utilisateur_role = models.CharField(
         max_length=20,
-        choices=ROLE_CHOICES
+        choices=RoleUtilisateur.choices,
+        null=True,
+        blank=True
     )
 
-    note = models.TextField()
+    # -------------------- Méthodes --------------------
 
-    date = models.DateTimeField(auto_now_add=True)
+    def is_critique(self):
+        """Renvoie True si la pièce est critique (tag rouge)."""
+        return self.tag == "ROUGE"
 
     def __str__(self):
-        return f"Note de {self.role} – {self.date.strftime('%Y-%m-%d %H:%M')}"
+        return f"{self.voiture_exemplaire} – Kilométrage {self.kilometres_chassis} – Tag {self.tag}"

@@ -97,6 +97,8 @@ urlpatterns += i18n_patterns(
 
     path("outillage/", include("outillage.urls", namespace="outillage")),
 
+    path('maintenance/jeux_pieces/', include('maintenance.jeux_pieces.urls', namespace='jeux_pieces')),
+
 
 
 
