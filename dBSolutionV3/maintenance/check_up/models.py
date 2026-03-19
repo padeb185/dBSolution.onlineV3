@@ -3,6 +3,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from maintenance.models import Maintenance
 from utilisateurs.models import Utilisateur
+from django.conf import settings
 
 
 # ---------------------------
@@ -65,6 +66,58 @@ class HuileBoiteEtat(models.TextChoices):
 class HuilePontEtat(models.TextChoices):
     SEPTANTE_CINQ140 = "75W140", _("75W140")
 
+
+class RefroidissementEtat(models.TextChoices):
+    OK = "OK", _("OK")
+    A_REMPLACER = "A_REMPLACER", _("À remplacer")
+
+
+class PneuEtat(models.TextChoices):
+    OK = "OK", _("OK")
+    NON = "NON", _("Non")
+    A_REMPLACER = "A_REMPLACER", _("À remplacer")
+
+class RefroidissementQualiteEtat(models.TextChoices):
+    # Volkswagen Group
+    G11 = "G11", _("G 11")
+    G12 = "G12", _("G 12")
+    G12_PLUS = "G12_PLUS", _("G 12+")
+    G12_PLUS_PLUS = "G12_PLUS_PLUS", _("G 12++")
+    G13 = "G13", _("G 13")
+
+    # BMW
+    G48 = "G48", _("G 48")
+
+    # Mercedes-Benz
+    MB_325_0 = "MB_325_0", _("MB 325.0")
+    MB_325_3 = "MB_325_3", _("MB 325.3")
+    MB_325_5 = "MB_325_5", _("MB 325.5")
+
+    # Renault / Dacia
+    TYPE_D = "TYPE_D", _("Type D")
+
+    # PSA (Peugeot / Citroën)
+    PSA_B71_5110 = "PSA_B71_5110", _("PSA B71 5110")
+
+    # Ford
+    WSS_M97B44_D = "WSS_M97B44_D", _("WSS-M97B44-D")
+    WSS_M97B51_A1 = "WSS_M97B51_A1", _("WSS-M97B51-A1")
+
+    # General Motors
+    DEX_COOL = "DEX_COOL", _("Dex-Cool")
+
+    # Toyota / Lexus
+    TOYOTA_SLLC = "TOYOTA_SLLC", _("Toyota SLLC")
+
+    # Honda
+    HONDA_TYPE_2 = "HONDA_TYPE_2", _("Honda Type 2")
+
+    # Nissan
+    NISSAN_L248 = "NISSAN_L248", _("Nissan L248")
+    NISSAN_L250 = "NISSAN_L250", _("Nissan L250")
+
+    # Hyundai / Kia
+    HYUNDAI_KIA_LLC = "HYUNDAI_KIA_LLC", _("Hyundai/Kia Long Life Coolant")
 
 # ---------------------------
 # Modèle fusionné
@@ -134,6 +187,12 @@ class ControleGeneral(models.Model):
     pont_niveau_huile_quantite = models.FloatField(default=0, verbose_name=_("Quantité d'huile ajoutée en litres"))
     pont_niveau_huile_qualite = models.CharField(max_length=25, choices=HuilePontEtat.choices,default=HuilePontEtat.SEPTANTE_CINQ140,verbose_name=_("Qualité d'huile"))
 
+
+    # --- Refroidissement ---
+
+    refroidissement_radiateur = models.CharField(max_length=25, choices=RefroidissementEtat.choices, default=RefroidissementEtat.OK, verbose_name=_("Radiateur"))
+    refroidissement_quantite = models.FloatField(default=0, verbose_name=_("Quantité de liquide de refroidissement ajoutée en litres"))
+    refroidissement_qualite = models.CharField(max_length=25, choices=RefroidissementQualiteEtat.choices,default=RefroidissementQualiteEtat.G13, verbose_name=_("Qualité de liquide de refroidissement"))
     # --- Freins ---
 
     freins_usure_plaquettes_av = models.IntegerField(default=0, verbose_name=_("Usure des plaquettes avants (%)"))
@@ -215,6 +274,28 @@ class ControleGeneral(models.Model):
     jeu_multi_bras_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu suspension multi-bras arrière droit"))
     jeu_multi_bras_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu suspension multi-bras arrière gauche"))
 
+    # --- Pneus et Pression
+
+    pneu_epaisseur_avd = models.FloatField(default=0.0, verbose_name=_("Épaisseur du pneus avant droit (mm)"))
+    pneu_epaisseur_avg = models.FloatField(default=0.0, verbose_name=_("Épaisseur du pneus avant gauche (mm)"))
+    pneu_epaisseur_ard = models.FloatField(default=0.0, verbose_name=_("Épaisseur du pneus arrière droit (mm)"))
+    pneu_epaisseur_arg = models.FloatField(default=0.0, verbose_name=_("Épaisseur du pneus arrière gauche (mm)"))
+
+    pneu_sidewall_avd = models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.OK,verbose_name=_("flanc du pneu avant droit"))
+    pneu_sidewall_avg = models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.OK, verbose_name=_("flanc du pneu avant gauche"))
+    pneu_sidewall_ard = models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.OK, verbose_name=_("flanc du pneu arrière droit"))
+    pneu_sidewall_arg = models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.OK, verbose_name=_("flanc du pneu arrière gauche"))
+
+    pneu_pression_bar_avd = models.FloatField(default=2.4, verbose_name=_("Pression du pneu avant droit en bar"))
+    pneu_pression_bar_avg = models.FloatField(default=2.4, verbose_name=_("Pression du pneu avant gauche en bar"))
+    pneu_pression_bar_ard = models.FloatField(default=2.4, verbose_name=_("Pression du pneu arrière droit en bar"))
+    pneu_pression_bar_arg = models.FloatField(default=2.4, verbose_name=_("Pression du pneu arrière gauche en bar"))
+
+
+    pneu_train_av =  models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.NON, verbose_name=_("Train avant à remplacer"))
+    pneu_train_ar =  models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.NON, verbose_name=_("Train arrière à remplacer"))
+
+
 
     # --- Réglage phares ---
     phares_reglages = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,verbose_name=_("Réglage phares"))
@@ -242,13 +323,59 @@ class ControleGeneral(models.Model):
     nettoyage_interieur_tableau_de_bord = models.CharField(max_length=25, choices=NettoyageEtat.choices, default=NettoyageEtat.A_FAIRE, verbose_name=_("Tableau de bord"))
     nettoyage_interieur_plastiques = models.CharField(max_length=25, choices=NettoyageEtat.choices, default=NettoyageEtat.A_FAIRE, verbose_name=_("Plastiques"))
 
+    remarques = models.TextField(
+        verbose_name=_("Remarques"), blank=True, null=True)
+
+    # Champ pour l’utilisateur affecté (utilisateur courant)
+    utilisateurs = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name=_("Utilisateur"),
+        related_name="controle_generals"
+    )
+
+    # Technicien qui fait le checkup (toujours l'utilisateur courant)
+    tech_technicien = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name=_("Technicien"),
+        related_name="controle_techs"
+    )
+
+    tech_nom_technicien = models.CharField(
+        _("Nom du technicien"),
+        max_length=255,
+        blank=True
+    )
+
+    tech_role_technicien = models.CharField(
+        _("Rôle du technicien"),
+        max_length=255,
+        blank=True
+    )
+
+    tech_societe = models.ForeignKey(
+        "societe.Societe",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name=_("Société"),
+        related_name="controle_tech_societe"
+    )
+
+    # Méthode pour assigner l’utilisateur courant automatiquement
+    def assign_technicien(self, user):
+        """Assigne l'utilisateur courant et met à jour les champs dérivés"""
+        self.tech_technicien = user
+        self.tech_nom_technicien = f"{user.prenom} {user.nom}"
+        self.tech_role_technicien = user.role
+        self.tech_societe = user.societe
 
 
-   # niveau boite
-
-    #niveau pont
-   # pneus bande de roulement sidewall
-    #pression pneus
 
     # --- Date d'enregistrement ---
     date = models.DateTimeField(auto_now_add=True)

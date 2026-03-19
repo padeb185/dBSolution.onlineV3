@@ -1,6 +1,8 @@
 from decimal import Decimal
 from django import forms
 from .models import ControleGeneral
+from django.utils.translation import gettext_lazy as _
+
 
 class ControleGeneralForm(forms.ModelForm):
     class Meta:
@@ -8,11 +10,31 @@ class ControleGeneralForm(forms.ModelForm):
         fields = "__all__"
         widgets = {
             'maintenance': forms.HiddenInput(),
+            'remarques': forms.Textarea(attrs={
+                'rows': 4,
+                'placeholder': _("Ajoutez des remarques ici...")
+            }),
+
         }
 
     def __init__(self, *args, **kwargs):
-        self.exemplaire = kwargs.pop("exemplaire", None)
+        user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
+
+        # Champs readonly pour le technicien
+        self.fields['tech_nom_technicien']
+        self.fields['tech_role_technicien']
+
+        self.fields['tech_technicien']
+        self.fields['tech_societe']
+
+        # Pré-remplissage si user fourni
+        if user:
+            self.fields['tech_technicien'].initial = user
+            self.fields['tech_societe'].initial = user.societe
+            self.fields['tech_nom_technicien'].initial = f"{user.prenom} {user.nom}"
+            self.fields['tech_role_technicien'].initial = user.role
+
 
     def save(self, commit=True):
         instance = super().save(commit=False)
