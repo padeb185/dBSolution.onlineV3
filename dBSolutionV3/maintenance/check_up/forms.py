@@ -18,6 +18,7 @@ class ControleGeneralForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
+        self.exemplaire = kwargs.pop('exemplaire', None)
         super().__init__(*args, **kwargs)
 
 

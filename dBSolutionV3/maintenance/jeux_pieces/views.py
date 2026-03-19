@@ -67,45 +67,25 @@ def controle_jeux_pieces_view(request, exemplaire_id):
             form = ControleJeuxPiecesForm(
                 request.POST,
                 instance=controle_jeux_pieces,
-                user=request.user  # pré-remplissage champs technicien
+                user=request.user,
+                exemplaire=exemplaire
             )
 
             if form.is_valid():
                 try:
                     with transaction.atomic():
-                        controle_jeux_pieces = form.save(commit=False)
-
-
-
-                        # 🔹 Gestion du kilométrage
-                        km_checkup = form.cleaned_data.get("kilometres_chassis")
-                        if km_checkup is not None:
-                            if km_checkup < exemplaire.kilometres_chassis:
-                                form.add_error(
-                                    "kilometres_chassis",
-                                    _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
-                                )
-                                return render(request, "check_up/controle_total.html", {
-                                    "form": form,
-                                    "exemplaire": exemplaire,
-                                    "maintenance": maintenance,
-                                })
-                            controle_jeux_pieces.kilometres_chassis = km_checkup
-                            exemplaire.kilometres_chassis = km_checkup
-                            exemplaire.save()
-
-                        # 🔹 Lier l'exemplaire
-                        controle_jeux_pieces.voiture_exemplaire = exemplaire
-                        controle_jeux_pieces.save()
+                        form.save()
 
                     messages.success(request, _("Maintenance enregistrée avec succès."))
-                    return redirect(reverse("maintenance:controle_jeux_pieces_view", args=[exemplaire.id]))
+                    return redirect(reverse(
+                        "maintenance:controle_jeux_pieces_view",
+                        args=[exemplaire.id]
+                    ))
 
                 except Exception as e:
                     messages.error(request, _("Erreur lors de l'enregistrement : ") + str(e))
             else:
                 messages.error(request, _("Le formulaire contient des erreurs."))
-                print(form.errors)
 
         # ------------------- GET -------------------
         else:
@@ -114,8 +94,9 @@ def controle_jeux_pieces_view(request, exemplaire_id):
             }
             form = ControleJeuxPiecesForm(
                 instance=controle_jeux_pieces,
-                initial=initial,
-                user=request.user  # pré-remplissage champs technicien readonly
+                initial={"kilometres_chassis": exemplaire.kilometres_chassis},
+                user=request.user,
+                exemplaire=exemplaire
             )
 
         context = {
