@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -135,26 +136,37 @@ class ControleJeuxPieces(models.Model):
 
     date_creation = models.DateTimeField(auto_now_add=True)
 
-    # Auteur et rôle
-    utilisateur_auteur = models.ForeignKey(
-        "utilisateurs.Utilisateur",
-        on_delete=models.PROTECT,
-        null=True,
-        blank=True,
-    )
 
-    utilisateur_role = models.CharField(
-        max_length=20,
-        choices=RoleUtilisateur.choices,
-        null=True,
-        blank=True
-    )
+    class Meta:
+        verbose_name = _("Contrôle Jeu")
+        verbose_name_plural = _("Contrôles Jeux")
 
-    # -------------------- Méthodes --------------------
-
-    def is_critique(self):
-        """Renvoie True si la pièce est critique (tag rouge)."""
-        return self.tag == "ROUGE"
 
     def __str__(self):
-        return f"{self.voiture_exemplaire} – Kilométrage {self.kilometres_chassis} – Tag {self.tag}"
+        return _("Contrôle jeux – Maintenance %(id)s") % {"id": self.maintenance.id}
+
+
+    def clean(self):
+        super().clean()
+        if self.voiture_exemplaire and self.kilometrage_checkup is not None:
+            if self.kilometrage_checkup < self.voiture_exemplaire.kilometres_chassis:
+                raise ValidationError({
+                    'kilometrage_checkup': _(
+                        f"Le kilométrage du check-up ({self.kilometrage_checkup}) "
+                        f"ne peut pas être inférieur au kilométrage actuel de la voiture ({self.voiture_exemplaire.kilometres_chassis})."
+                    )
+                })
+
+
+    def save(self, *args, **kwargs):
+        # Si checkup > km actuel, mettre à jour la voiture
+        if self.voiture_exemplaire and self.kilometrage_checkup:
+            if self.kilometrage_checkup > self.voiture_exemplaire.kilometres_chassis:
+                self.voiture_exemplaire.kilometres_chassis = self.kilometrage_checkup
+                self.voiture_exemplaire.save(update_fields=["kilometres_chassis"])
+
+        # Toujours garder une copie dans le contrôle
+        if self.voiture_exemplaire:
+            self.kilometres_chassis = self.voiture_exemplaire.kilometres_chassis
+
+        super().save(*args, **kwargs)

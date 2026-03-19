@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.contrib import messages
@@ -7,19 +7,19 @@ from django.urls import reverse
 from django.db.models import Q
 from django.views.decorators.cache import never_cache
 from django_tenants.utils import tenant_context
-from django.utils.translation import gettext_lazy as _
-
 from maintenance.models import Maintenance
 from maintenance.jeux_pieces.models import ControleJeuxPieces
 from maintenance.jeux_pieces.forms import ControleJeuxPiecesForm
 from voiture.voiture_exemplaire.models import VoitureExemplaire
+
+from .forms import ControleJeuxPiecesForm
 
 
 @never_cache
 @login_required
 def controle_jeux_pieces_view(request, exemplaire_id):
     tenant = request.user.societe
-
+    from django.utils.translation import gettext_lazy as _
     with tenant_context(tenant):
         exemplaire = get_object_or_404(
             VoitureExemplaire.objects.filter(
@@ -28,7 +28,7 @@ def controle_jeux_pieces_view(request, exemplaire_id):
             id=exemplaire_id
         )
 
-        # Vérification des rôles autorisés
+        # Vérification du rôle autorisé
         roles_autorises = ["mécanicien", "apprenti", "magasinier", "chef mécanicien"]
         if request.user.role not in roles_autorises:
             messages.error(
@@ -37,16 +37,18 @@ def controle_jeux_pieces_view(request, exemplaire_id):
             )
             return redirect("maintenance_liste_all")
 
+        utilisateur_actuel = request.user
+
         # 🔧 Récupération ou création de la maintenance
         maintenance = Maintenance.objects.filter(
             voiture_exemplaire=exemplaire,
-            type_maintenance="checkup"
+            type_maintenance="jeux_pieces"
         ).order_by("-date_intervention").first()
 
         if not maintenance:
             maintenance = Maintenance.objects.create(
                 voiture_exemplaire=exemplaire,
-                mecanicien=request.user,
+                mecanicien=utilisateur_actuel,
                 immatriculation=exemplaire.immatriculation,
                 date_intervention=timezone.now().date(),
                 kilometres_chassis=exemplaire.kilometres_chassis,
@@ -55,7 +57,7 @@ def controle_jeux_pieces_view(request, exemplaire_id):
                 tag=Maintenance.Tag.JAUNE,
             )
 
-        # 🔧 Récupération ou création du ControleJeuxPieces
+        # 🔧 Récupération ou création du ControleGeneral
         controle_jeux_pieces, _ = ControleJeuxPieces.objects.get_or_create(
             maintenance=maintenance
         )
@@ -63,34 +65,57 @@ def controle_jeux_pieces_view(request, exemplaire_id):
         # ------------------- POST -------------------
         if request.method == "POST":
             form = ControleJeuxPiecesForm(
+                request.POST,
                 instance=controle_jeux_pieces,
-                initial={"kilometres_chassis": exemplaire.kilometres_chassis},
-                user=request.user
+                user=request.user  # pré-remplissage champs technicien
             )
 
-            if form.is_valid():  # ✅ appeler la méthode
+            if form.is_valid():
                 try:
                     with transaction.atomic():
-                        form.save()  # la logique kilométrage est gérée dans le formulaire
+                        controle_jeux_pieces = form.save(commit=False)
 
-                    messages.success(request, _("Contrôle des jeux enregistré avec succès."))
-                    return redirect(reverse(
-                        "jeux_pieces:controle_jeux_pieces_view",
-                        args=[exemplaire.id]
-                    ))
+
+
+                        # 🔹 Gestion du kilométrage
+                        km_checkup = form.cleaned_data.get("kilometres_chassis")
+                        if km_checkup is not None:
+                            if km_checkup < exemplaire.kilometres_chassis:
+                                form.add_error(
+                                    "kilometres_chassis",
+                                    _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
+                                )
+                                return render(request, "check_up/controle_total.html", {
+                                    "form": form,
+                                    "exemplaire": exemplaire,
+                                    "maintenance": maintenance,
+                                })
+                            controle_jeux_pieces.kilometres_chassis = km_checkup
+                            exemplaire.kilometres_chassis = km_checkup
+                            exemplaire.save()
+
+                        # 🔹 Lier l'exemplaire
+                        controle_jeux_pieces.voiture_exemplaire = exemplaire
+                        controle_jeux_pieces.save()
+
+                    messages.success(request, _("Maintenance enregistrée avec succès."))
+                    return redirect(reverse("maintenance:controle_jeux_pieces_view", args=[exemplaire.id]))
 
                 except Exception as e:
                     messages.error(request, _("Erreur lors de l'enregistrement : ") + str(e))
-            if not form.is_valid():
-                print(form.errors)  # Affiche tous les messages d'erreur par champ
-                messages.error(request, _("Le formulaire contient des erreurs : ") + str(form.errors))
+            else:
+                messages.error(request, _("Le formulaire contient des erreurs."))
+                print(form.errors)
 
         # ------------------- GET -------------------
         else:
+            initial = {
+                "kilometres_chassis": exemplaire.kilometres_chassis,
+            }
             form = ControleJeuxPiecesForm(
                 instance=controle_jeux_pieces,
-                initial={"kilometres_chassis": exemplaire.kilometres_chassis},
-                user=request.user  # ✅ passer l'utilisateur, pas la société
+                initial=initial,
+                user=request.user  # pré-remplissage champs technicien readonly
             )
 
         context = {
