@@ -4,23 +4,21 @@ from django.utils import timezone
 from django.contrib import messages
 from django.db import transaction
 from django.urls import reverse
-from django.db.models import Q
 from django.views.decorators.cache import never_cache
 from django_tenants.utils import tenant_context
 from maintenance.models import Maintenance
 from maintenance.jeux_pieces.models import ControleJeuxPieces
 from maintenance.jeux_pieces.forms import ControleJeuxPiecesForm
 from voiture.voiture_exemplaire.models import VoitureExemplaire
-
-from .forms import ControleJeuxPiecesForm
-
+from django.db.models import Q
 
 @never_cache
 @login_required
 def controle_jeux_pieces_view(request, exemplaire_id):
     tenant = request.user.societe
-    from django.utils.translation import gettext_lazy as _
+
     with tenant_context(tenant):
+        # Récupérer l'exemplaire
         exemplaire = get_object_or_404(
             VoitureExemplaire.objects.filter(
                 Q(client__societe=tenant) | Q(client__isnull=True, societe=tenant)
@@ -33,13 +31,11 @@ def controle_jeux_pieces_view(request, exemplaire_id):
         if request.user.role not in roles_autorises:
             messages.error(
                 request,
-                _("Seuls les mécaniciens, apprentis, magasiniers et chefs mécaniciens peuvent accéder à cette page.")
+                "Seuls les mécaniciens, apprentis, magasiniers et chefs mécaniciens peuvent accéder à cette page."
             )
             return redirect("maintenance_liste_all")
 
-        utilisateur_actuel = request.user
-
-        # 🔧 Récupération ou création de la maintenance
+        # Récupération ou création de la maintenance
         maintenance = Maintenance.objects.filter(
             voiture_exemplaire=exemplaire,
             type_maintenance="jeux_pieces"
@@ -48,7 +44,7 @@ def controle_jeux_pieces_view(request, exemplaire_id):
         if not maintenance:
             maintenance = Maintenance.objects.create(
                 voiture_exemplaire=exemplaire,
-                mecanicien=utilisateur_actuel,
+                mecanicien=request.user,
                 immatriculation=exemplaire.immatriculation,
                 date_intervention=timezone.now().date(),
                 kilometres_chassis=exemplaire.kilometres_chassis,
@@ -57,12 +53,12 @@ def controle_jeux_pieces_view(request, exemplaire_id):
                 tag=Maintenance.Tag.JAUNE,
             )
 
-        # 🔧 Récupération ou création du ControleGeneral
+        # Récupération ou création du contrôle
         controle_jeux_pieces, _ = ControleJeuxPieces.objects.get_or_create(
             maintenance=maintenance
         )
 
-        # ------------------- POST -------------------
+        # Gestion POST
         if request.method == "POST":
             form = ControleJeuxPiecesForm(
                 request.POST,
@@ -70,28 +66,45 @@ def controle_jeux_pieces_view(request, exemplaire_id):
                 user=request.user,
                 exemplaire=exemplaire
             )
-
             if form.is_valid():
                 try:
                     with transaction.atomic():
-                        form.save()
+                        controle = form.save(commit=False)
+                        controle.tech_technicien = request.user
+                        controle.tech_nom_technicien = f"{request.user.prenom} {request.user.nom}"
+                        controle.tech_role_technicien = request.user.role
+                        controle.tech_societe = request.user.societe
 
-                    messages.success(request, _("Maintenance enregistrée avec succès."))
-                    return redirect(reverse(
-                        "maintenance:controle_jeux_pieces_view",
-                        args=[exemplaire.id]
-                    ))
+                        # Vérification du kilométrage
+                        km_checkup = form.cleaned_data.get("kilometres_chassis")
+                        if km_checkup is not None and km_checkup < exemplaire.kilometres_chassis:
+                            form.add_error(
+                                "kilometres_chassis",
+                                "Le kilométrage ne peut pas être inférieur au kilométrage actuel."
+                            )
+                            raise ValueError("Kilométrage invalide.")
+
+                        if km_checkup is not None:
+                            controle.kilometres_chassis = km_checkup
+                            exemplaire.kilometres_chassis = km_checkup
+                            exemplaire.save()
+
+                        # Lier maintenance et exemplaire
+                        controle.voiture_exemplaire = exemplaire
+                        controle.maintenance = maintenance
+                        controle.save()
+
+                    messages.success(request, "Maintenance des jeux enregistrée avec succès.")
+                    return redirect("jeux_pieces:controle_jeux_pieces_view", exemplaire.id)
 
                 except Exception as e:
-                    messages.error(request, _("Erreur lors de l'enregistrement : ") + str(e))
+                    messages.error(request, f"Erreur lors de l'enregistrement : {str(e)}")
             else:
-                messages.error(request, _("Le formulaire contient des erreurs."))
+                messages.error(request, "Le formulaire contient des erreurs.")
+                print(form.errors)
 
-        # ------------------- GET -------------------
+        # GET
         else:
-            initial = {
-                "kilometres_chassis": exemplaire.kilometres_chassis,
-            }
             form = ControleJeuxPiecesForm(
                 instance=controle_jeux_pieces,
                 initial={"kilometres_chassis": exemplaire.kilometres_chassis},

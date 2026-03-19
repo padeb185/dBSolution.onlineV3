@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -129,22 +130,60 @@ class ControleJeuxPieces(models.Model):
         max_length=10,
         choices=TAG_CHOICES,
         default="JAUNE",
-        verbose_name=_("État visuel / Tag")
+        verbose_name=_("État visuel / Tag"),
+
     )
 
-    remarques = models.TextField(verbose_name=_("Remarques"), blank=True, null=True)
+    # Champ pour l’utilisateur affecté (utilisateur courant)
+    tech_utilisateurs = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name=_("Utilisateur"),
+        related_name="controle_jeux_utilisateurs"
+    )
 
-    date_creation = models.DateTimeField(auto_now_add=True)
 
+
+    tech_nom_technicien = models.CharField(
+        _("Nom du technicien"),
+        max_length=255,
+        blank=True
+    )
+
+    tech_role_technicien = models.CharField(
+        _("Rôle du technicien"),
+        max_length=255,
+        blank=True
+    )
+
+    tech_societe = models.ForeignKey(
+        "societe.Societe",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name=_("Société"),
+        related_name="controle_jeux_societe"
+    )
+
+    # Méthode pour assigner l’utilisateur courant automatiquement
+    def assign_technicien(self, user):
+        """Assigne l'utilisateur courant et met à jour les champs dérivés"""
+        self.tech_technicien = user
+        self.tech_nom_technicien = f"{user.prenom} {user.nom}"
+        self.tech_role_technicien = user.role
+        self.tech_societe = user.societe
+
+    # --- Date d'enregistrement ---
+    date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name = _("Contrôle Jeu")
         verbose_name_plural = _("Contrôles Jeux")
 
-
     def __str__(self):
-        return _("Contrôle jeux – Maintenance %(id)s") % {"id": self.maintenance.id}
-
+        return _("Contrôle général – Maintenance %(id)s") % {"id": self.maintenance.id}
 
     def clean(self):
         super().clean()
@@ -156,7 +195,6 @@ class ControleJeuxPieces(models.Model):
                         f"ne peut pas être inférieur au kilométrage actuel de la voiture ({self.voiture_exemplaire.kilometres_chassis})."
                     )
                 })
-
 
     def save(self, *args, **kwargs):
         # Si checkup > km actuel, mettre à jour la voiture
@@ -170,3 +208,4 @@ class ControleJeuxPieces(models.Model):
             self.kilometres_chassis = self.voiture_exemplaire.kilometres_chassis
 
         super().save(*args, **kwargs)
+

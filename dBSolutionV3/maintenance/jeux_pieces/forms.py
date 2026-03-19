@@ -7,6 +7,7 @@ class ControleJeuxPiecesForm(forms.ModelForm):
     class Meta:
         model = ControleJeuxPieces
         fields = "__all__"
+        exclude = ['maintenance']
         widgets = {
             'maintenance': forms.HiddenInput(),
             'remarques': forms.Textarea(attrs={
@@ -15,47 +16,39 @@ class ControleJeuxPiecesForm(forms.ModelForm):
             }),
         }
 
-    def __init__(self, *args, user=None, exemplaire=None, **kwargs):
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        self.exemplaire = kwargs.pop('exemplaire', None)
         super().__init__(*args, **kwargs)
-        self.user = user
-        self.exemplaire = exemplaire
 
-    # ✅ VALIDATION UNIQUE
-    def clean(self):
-        cleaned_data = super().clean()
-
-        voiture = self.instance.voiture_exemplaire or self.exemplaire
-        km_checkup = cleaned_data.get("kilometres_chassis")
-
-        if voiture and km_checkup is not None:
-            if km_checkup < voiture.kilometres_chassis:
-                raise forms.ValidationError(
-                    _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
-                )
-
-        return cleaned_data
-
-    # ✅ LOGIQUE MÉTIER UNIQUE
     def save(self, commit=True):
         instance = super().save(commit=False)
+        voiture = instance.voiture_exemplaire or self.exemplaire  # fallback si pas encore lié
 
-        voiture = instance.voiture_exemplaire or self.exemplaire
-        km_checkup = self.cleaned_data.get("kilometres_chassis")
+        # Récupération du kilométrage check-up depuis le formulaire
+        kilometrage_checkup = self.cleaned_data.get("kilometres_chassis")
 
-        if voiture and km_checkup is not None:
+        if voiture and kilometrage_checkup is not None:
+            # 🔒 Sécurité : ne jamais diminuer le kilométrage
+            if kilometrage_checkup < voiture.kilometres_chassis:
+                raise forms.ValidationError(
+                    f"Le kilométrage du check-up ({kilometrage_checkup}) "
+                    f"ne peut pas être inférieur au kilométrage actuel de la voiture ({voiture.kilometres_chassis})."
+                )
 
-            # Mise à jour voiture si augmentation
-            if km_checkup > voiture.kilometres_chassis:
-                voiture.kilometres_chassis = km_checkup
+            # ✅ Mettre à jour la voiture si le kilométrage a augmenté
+            if kilometrage_checkup > voiture.kilometres_chassis:
+                voiture.kilometres_chassis = kilometrage_checkup
                 voiture.save(update_fields=["kilometres_chassis"])
 
-            # Mise à jour contrôle
-            instance.kilometres_chassis = km_checkup
+            # ✅ Mettre à jour le contrôle
+            instance.kilometres_chassis = kilometrage_checkup
 
-            # Lien voiture
+            # 🔗 Lier la voiture si ce n'était pas déjà fait
             if not instance.voiture_exemplaire:
                 instance.voiture_exemplaire = voiture
 
+        # Sauvegarde finale
         if commit:
             instance.save()
 
