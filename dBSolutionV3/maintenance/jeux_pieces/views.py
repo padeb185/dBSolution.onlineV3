@@ -63,9 +63,9 @@ def controle_jeux_pieces_view(request, exemplaire_id):
         # ------------------- POST -------------------
         if request.method == "POST":
             form = ControleJeuxPiecesForm(
-                request.POST,
                 instance=controle_jeux_pieces,
-                user=request.user  # ✅ passer l'utilisateur
+                initial={"kilometres_chassis": exemplaire.kilometres_chassis},
+                user=request.user
             )
 
             if form.is_valid():  # ✅ appeler la méthode
@@ -81,9 +81,9 @@ def controle_jeux_pieces_view(request, exemplaire_id):
 
                 except Exception as e:
                     messages.error(request, _("Erreur lors de l'enregistrement : ") + str(e))
-            else:
-                messages.error(request, _("Le formulaire contient des erreurs."))
-                print(form.errors)
+            if not form.is_valid():
+                print(form.errors)  # Affiche tous les messages d'erreur par champ
+                messages.error(request, _("Le formulaire contient des erreurs : ") + str(form.errors))
 
         # ------------------- GET -------------------
         else:
