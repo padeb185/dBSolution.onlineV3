@@ -57,11 +57,12 @@ def nettoyage_exterieur_view(request, exemplaire_id):
                 tag=Maintenance.Tag.JAUNE,
             )
 
-        # Récupération ou création du contrôle
-        nettoyage_exterieur, _ = NettoyageExterieur.objects.get_or_create(
-            maintenance=maintenance,
-            defaults = {"voiture_exemplaire": exemplaire}
-        )
+            # Création d'un nouveau nettoyage_exterieur lié à cette maintenance
+            nettoyage_exterieur = NettoyageExterieur.objects.create(
+                maintenance=maintenance,
+                voiture_exemplaire=exemplaire
+            )
+
 
         # Gestion POST
         if request.method == "POST":
@@ -76,6 +77,7 @@ def nettoyage_exterieur_view(request, exemplaire_id):
                 try:
                     with transaction.atomic():
                         controle = form.save(commit=False)
+                        controle.voiture_exemplaire = exemplaire
                         controle.tech_technicien = request.user
                         controle.tech_nom_technicien = f"{request.user.prenom} {request.user.nom}"
                         controle.tech_role_technicien = request.user.role
@@ -124,4 +126,4 @@ def nettoyage_exterieur_view(request, exemplaire_id):
             "now": timezone.now(),
         }
 
-        return render(request, 'nettoyage_exterieur/simple.html', {'exemplaire': exemplaire})
+        return render(request, 'nettoyage_exterieur/simple.html', context)

@@ -54,7 +54,7 @@ def choisir_type_maintenance(request, exemplaire_id):
     total_checkup = total_entretien = total_freins = total_pneus = \
     total_niveaux = total_nettoyage_exterieur = total_nettoyage_interieur =\
     total_autres = total_jeux_pieces = 0
-    checkup = entretien = []
+    checkup = entretien = nettoyage_exterieur = jeux_pieces= []
 
     if schema_name:
         with schema_context(schema_name):
@@ -73,7 +73,7 @@ def choisir_type_maintenance(request, exemplaire_id):
             total_freins = freins.count()
             total_pneus = pneus.count()
             total_niveaux = niveaux.count()
-            total_nettoyage_exterieur = nettoyage_interieur.count()
+            total_nettoyage_exterieur = nettoyage_exterieur.count()
             total_nettoyage_interieur = nettoyage_interieur.count()
             total_autres = autres.count()
             total_jeux_pieces = jeux_pieces.count()

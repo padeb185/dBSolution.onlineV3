@@ -7,7 +7,7 @@ class NettoyageExterieurForm(forms.ModelForm):
     class Meta:
         model = NettoyageExterieur
         fields = "__all__"
-        exclude = ['maintenance']
+        exclude = ['maintenance', "voiture_exemplaire",]
         widgets = {
             'maintenance': forms.HiddenInput(),
             'remarques': forms.Textarea(attrs={

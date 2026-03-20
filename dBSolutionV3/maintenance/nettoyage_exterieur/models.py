@@ -107,7 +107,7 @@ class NettoyageExterieur(models.Model):
 
     def clean(self):
         super().clean()
-        if self.voiture_exemplaire and self.kilometrage_checkup is not None:
+        if self.voiture_exemplaire and self.kilometrage_net_ext is not None:
             if self.kilometrage_net_ext < self.voiture_exemplaire.kilometres_chassis:
                 raise ValidationError({
                     'kilometrage_checkup': _(
