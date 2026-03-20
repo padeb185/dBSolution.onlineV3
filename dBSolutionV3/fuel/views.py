@@ -144,9 +144,9 @@ def modifier_fuel(request, fuel_id):
 
             if form.is_valid():
                 fuel = form.save()
-                messages.success(request, "Le plein de carburant a été mis à jour avec succès.")
+                messages.success(request, _("Le plein de carburant a été mis à jour avec succès."))
             else:
-                messages.error(request, "Le formulaire contient des erreurs.")
+                messages.error(request, _("Le formulaire contient des erreurs."))
                 print(form.errors)  # utile pour debug
 
         else:
