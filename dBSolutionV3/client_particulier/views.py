@@ -147,10 +147,10 @@ def client_create_view(request):
             form = ClientParticulierForm(request.POST)
             if form.is_valid():
                 form.save()
-                messages.success(request, "Client créé avec succès !")
+                messages.success(request, _("Client créé avec succès !"))
                 return redirect("client_list")
             else:
-                messages.error(request, "Veuillez corriger les erreurs dans le formulaire.")
+                messages.error(request, _("Veuillez corriger les erreurs dans le formulaire."))
         else:
             form = ClientParticulierForm()
 
