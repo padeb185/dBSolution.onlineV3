@@ -60,6 +60,7 @@ def controle_jeux_pieces_view(request, exemplaire_id):
 
         # Gestion POST
         if request.method == "POST":
+            from django.utils.translation import gettext as _
             form = ControleJeuxPiecesForm(
                 request.POST,
                 instance=controle_jeux_pieces,
@@ -79,9 +80,8 @@ def controle_jeux_pieces_view(request, exemplaire_id):
                         km_checkup = form.cleaned_data.get("kilometres_chassis")
                         if km_checkup is not None and km_checkup < exemplaire.kilometres_chassis:
                             form.add_error(
-                                "kilometres_chassis",
-                                "Le kilométrage ne peut pas être inférieur au kilométrage actuel."
-                            )
+                                _("kilometres_chassis, Le kilométrage ne peut pas être inférieur au kilométrage actuel."
+                            ))
                             raise ValueError("Kilométrage invalide.")
 
                         if km_checkup is not None:
@@ -94,13 +94,13 @@ def controle_jeux_pieces_view(request, exemplaire_id):
                         controle.maintenance = maintenance
                         controle.save()
 
-                    messages.success(request, "Maintenance des jeux enregistrée avec succès.")
+                    messages.success(request, _("Maintenance des jeux enregistrée avec succès."))
                     return redirect("jeux_pieces:controle_jeux_pieces_view", exemplaire.id)
 
                 except Exception as e:
-                    messages.error(request, f"Erreur lors de l'enregistrement : {str(e)}")
+                    messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
             else:
-                messages.error(request, "Le formulaire contient des erreurs.")
+                messages.error(request, _("Le formulaire contient des erreurs."))
                 print(form.errors)
 
         # GET
