@@ -161,7 +161,7 @@ def modifier_intervention(request, intervention_id):
             form = InterventionForm(request.POST, instance=intervention)
             if form.is_valid():
                 form.save()
-                messages.success(request, "Intervention mise à jour avec succès.")
+                messages.success(request, _("Intervention mise à jour avec succès."))
                 return redirect(
                     'intervention:modifier_intervention',
                     intervention_id=intervention.id
