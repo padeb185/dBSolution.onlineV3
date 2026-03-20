@@ -17,7 +17,8 @@ from django.utils import timezone
 from maintenance.types_maintenances import TYPES_MAINTENANCE
 from maintenance.check_up.models import ControleGeneral
 from utilisateurs.models import Mecanicien
-
+from maintenance.jeux_pieces.models import ControleJeuxPieces
+from maintenance.nettoyage_exterieur.models import NettoyageExterieur
 
 
 
@@ -52,19 +53,20 @@ def choisir_type_maintenance(request, exemplaire_id):
 
     total_checkup = total_entretien = total_freins = total_pneus = \
     total_niveaux = total_nettoyage_exterieur = total_nettoyage_interieur =\
-    total_autres = 0
+    total_autres = total_jeux_pieces = 0
     checkup = entretien = []
 
     if schema_name:
         with schema_context(schema_name):
-            checkup = Maintenance.objects.all()
+            checkup = ControleGeneral.objects.all()
             entretien = Maintenance.objects.all()
             freins = Maintenance.objects.all()
             pneus = Maintenance.objects.all()
             niveaux = Maintenance.objects.all()
-            nettoyage_exterieur = Maintenance.objects.all()
+            nettoyage_exterieur = NettoyageExterieur.objects.all()
             nettoyage_interieur = Maintenance.objects.all()
             autres = Maintenance.objects.all()
+            jeux_pieces =ControleJeuxPieces.objects.all()
 
             total_checkup = checkup.count()
             total_entretien = entretien.count()
@@ -74,6 +76,7 @@ def choisir_type_maintenance(request, exemplaire_id):
             total_nettoyage_exterieur = nettoyage_interieur.count()
             total_nettoyage_interieur = nettoyage_interieur.count()
             total_autres = autres.count()
+            total_jeux_pieces = jeux_pieces.count()
             modeles = VoitureModele.objects.all()
     else:
         modeles = []
@@ -108,6 +111,7 @@ def choisir_type_maintenance(request, exemplaire_id):
         'total_autres': total_autres,
         'total_nettoyage_exterieur': total_nettoyage_exterieur,
         'total_nettoyage_interieur': total_nettoyage_interieur,
+        'total_jeux_pieces': total_jeux_pieces,
 
         "checkup": checkup,
         "entretien": entretien,
@@ -117,6 +121,7 @@ def choisir_type_maintenance(request, exemplaire_id):
         'nettoyage_exterieur': nettoyage_exterieur,
         'nettoyage_interieur': nettoyage_interieur,
         'autres': autres,
+        'jeux_pieces': jeux_pieces,
         "modeles": modeles,
     })
 

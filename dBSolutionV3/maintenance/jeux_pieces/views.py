@@ -18,6 +18,7 @@ def controle_jeux_pieces_view(request, exemplaire_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
+
         # Récupérer l'exemplaire
         exemplaire = get_object_or_404(
             VoitureExemplaire.objects.filter(
@@ -29,10 +30,11 @@ def controle_jeux_pieces_view(request, exemplaire_id):
         # Vérification du rôle autorisé
         roles_autorises = ["mécanicien", "apprenti", "magasinier", "chef mécanicien"]
         if request.user.role not in roles_autorises:
+            from django.utils.translation import gettext_lazy as _
             messages.error(
                 request,
-                "Seuls les mécaniciens, apprentis, magasiniers et chefs mécaniciens peuvent accéder à cette page."
-            )
+                _("Seuls les mécaniciens, apprentis, magasiniers et chefs mécaniciens peuvent accéder à cette page."
+            ))
             return redirect("maintenance_liste_all")
 
         # Récupération ou création de la maintenance
@@ -60,7 +62,8 @@ def controle_jeux_pieces_view(request, exemplaire_id):
 
         # Gestion POST
         if request.method == "POST":
-            from django.utils.translation import gettext as _
+            from django.utils.translation import gettext_lazy as _
+
             form = ControleJeuxPiecesForm(
                 request.POST,
                 instance=controle_jeux_pieces,

@@ -29,6 +29,7 @@ class NettoyageEtat(models.TextChoices):
     A_FAIRE = "A_FAIRE", _("A faire")
     FAIT = "FAIT", _("Fait")
     REPORTER = "REPORTER", _("Reporter")
+    PROPRE = "PROPRE", _("Propre")
 
 
 class NiveauxEtat(models.TextChoices):
