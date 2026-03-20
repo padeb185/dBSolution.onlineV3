@@ -9,7 +9,7 @@ from django.views.generic import ListView
 from django_tenants.utils import tenant_context
 from .forms import AssurancePoliceForm
 from .models import AssurancePolice, Sinistre
-
+from django.utils.translation import gettext as _
 
 
 @login_required
@@ -70,11 +70,11 @@ def ajouter_assurance_all(request):
                 assurance_police.save()
                 messages.success(
                     request,
-                    f"Assurance '{assurance_police.assurance.nom_compagnie}' créée avec succès !"
-                )
+                    _(f"Assurance '{assurance_police.assurance.nom_compagnie}' créée avec succès !"
+                ))
                 return redirect('assurance_police:assurance_police_list')  # redirection après succès
             else:
-                messages.error(request, "Le formulaire contient des erreurs.")
+                messages.error(request, _("Le formulaire contient des erreurs."))
         else:
             form_assurance_police = AssurancePoliceForm()
 
@@ -125,9 +125,9 @@ def modifier_assurance_police(request, assurance_police_id):
 
             if form.is_valid():
                 assurance_police = form.save()
-                messages.success(request, "Police d'assurance mise à jour avec succès.")
+                messages.success(request, _("Police d'assurance mise à jour avec succès."))
             else:
-                messages.error(request, "Le formulaire contient des erreurs.")
+                messages.error(request, _("Le formulaire contient des erreurs."))
 
         else:
             # Pour GET : initialiser le formulaire avec les valeurs existantes
