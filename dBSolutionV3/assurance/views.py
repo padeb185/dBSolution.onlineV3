@@ -73,7 +73,7 @@ def ajouter_assurance_all(request):
             adresse_data["code_postal"],
             adresse_data["ville"]
         ]):
-            messages.error(request, "Les champs d'adresse sont obligatoires.")
+            messages.error(request, _("Les champs d'adresse sont obligatoires."))
 
         elif form_assurance.is_valid():
             with transaction.atomic():     # évite la création d'adresse orpheline
@@ -88,11 +88,11 @@ def ajouter_assurance_all(request):
 
                 messages.success(
                     request,
-                    f"Assurance '{assurance.nom_compagnie}' créée avec succès !"
-                )
+                    _(f"Assurance '{assurance.nom_compagnie}' créée avec succès !"
+                ))
 
         else:
-            messages.error(request, "Le formulaire contient des erreurs.")
+            messages.error(request, _("Le formulaire contient des erreurs."))
 
     else:
         form_assurance = AssuranceForm()
@@ -127,13 +127,13 @@ def modifier_assurance(request, assurance_id):
                 assurance.adresse = adresse
                 assurance.save()
 
-                messages.success(request, "Assurance et adresse mises à jour avec succès.")
+                messages.success(request, _("Assurance et adresse mises à jour avec succès."))
                 return redirect(
                     "assurance:modifier_assurance",
                     assurance_id=assurance.id
                 )
             else:
-                messages.error(request, "Le formulaire contient des erreurs.")
+                messages.error(request, _("Le formulaire contient des erreurs."))
         else:
             # Pré-remplissage des formulaires
             form_assurance = AssuranceForm(instance=assurance)
