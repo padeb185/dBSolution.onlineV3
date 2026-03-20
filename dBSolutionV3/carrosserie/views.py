@@ -73,7 +73,7 @@ def ajouter_carrosserie_all(request):
 
         # Vérification des champs obligatoires
         if not adresse_data["rue"] or not adresse_data["numero"] or not adresse_data["code_postal"] or not adresse_data["ville"]:
-            messages.error(request, "Les champs d'adresse (rue, numéro, code postal, ville) sont obligatoires.")
+            messages.error(request, _("Les champs d'adresse (rue, numéro, code postal, ville) sont obligatoires."))
         elif form_carrosserie.is_valid():
             # Crée l'adresse
             adresse = Adresse.objects.create(**adresse_data)
@@ -83,10 +83,10 @@ def ajouter_carrosserie_all(request):
             carrosserie.adresse = adresse
             carrosserie.save()
 
-            messages.success(request, f"Carrosserie '{carrosserie.nom_societe}' créée avec succès !")
+            messages.success(request, _(f"Carrosserie '{carrosserie.nom_societe}' créée avec succès !"))
 
         else:
-            messages.error(request, "Le formulaire contient des erreurs.")
+            messages.error(request, _("Le formulaire contient des erreurs."))
     else:
         form_carrosserie = CarrosserieForm()
 
@@ -121,13 +121,13 @@ def modifier_carrosserie(request, carrosserie_id):
                 carrosserie.adresse = adresse
                 carrosserie.save()
 
-                messages.success(request, "Carrosserie et adresse mises à jour avec succès.")
+                messages.success(request, _("Carrosserie et adresse mises à jour avec succès."))
                 return redirect(
                     "carrosserie:modifier_carrosserie",
                     carrosserie_id=carrosserie.id
                 )
             else:
-                messages.error(request, "Le formulaire contient des erreurs.")
+                messages.error(request, _("Le formulaire contient des erreurs."))
         else:
             # Pré-remplissage des formulaires
             form_carrosserie = CarrosserieForm(instance=carrosserie)
