@@ -13,6 +13,7 @@ from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 
 
+
 @never_cache
 @login_required
 def controle_total_view(request, exemplaire_id):
@@ -31,8 +32,8 @@ def controle_total_view(request, exemplaire_id):
         if request.user.role not in roles_autorises:
             messages.error(
                 request,
-                "Seuls les mécaniciens, apprentis, magasiniers et chefs mécaniciens peuvent accéder à cette page."
-            )
+                -("Seuls les mécaniciens, apprentis, magasiniers et chefs mécaniciens peuvent accéder à cette page."
+            ))
             return redirect("maintenance_liste_all")
 
         # 🔧 Récupération ou création de la maintenance
@@ -60,6 +61,7 @@ def controle_total_view(request, exemplaire_id):
 
         # POST
         if request.method == "POST":
+            from django.utils.translation import gettext as _
             # Passer l'exemplaire au formulaire pour validations éventuelles
             form = ControleGeneralForm(request.POST, instance=controle_general, exemplaire=exemplaire)
 
@@ -78,9 +80,9 @@ def controle_total_view(request, exemplaire_id):
                         km_checkup = form.cleaned_data.get("kilometres_chassis")
                         if km_checkup is not None and km_checkup < exemplaire.kilometres_chassis:
                             form.add_error(
-                                "kilometres_chassis",
+                                _("kilometres_chassis",
                                 "Le kilométrage ne peut pas être inférieur au kilométrage actuel."
-                            )
+                            ))
                             return render(request, "check_up/controle_total.html", {
                                 "form": form,
                                 "exemplaire": exemplaire,
@@ -97,14 +99,14 @@ def controle_total_view(request, exemplaire_id):
                         controle_general.voiture_exemplaire = exemplaire
                         controle_general.save()
 
-                    messages.success(request, "Maintenance enregistrée avec succès.")
+                    messages.success(request, _("Maintenance enregistrée avec succès."))
                     return redirect(reverse("maintenance:controle_total_view", args=[exemplaire.id]))
 
                 except Exception as e:
-                    messages.error(request, f"Erreur lors de l'enregistrement : {str(e)}")
+                    messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
 
             else:
-                messages.error(request, "Le formulaire contient des erreurs.")
+                messages.error(request, _("Le formulaire contient des erreurs."))
                 print(form.errors)
 
         # GET
