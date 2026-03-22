@@ -4,13 +4,53 @@ from django.utils import timezone
 from django.contrib import messages
 from django.db import transaction
 from django.urls import reverse
+from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
+from django.views.generic import ListView
 from django_tenants.utils import tenant_context
 from maintenance.models import Maintenance
 from maintenance.check_up.models import ControleGeneral
 from maintenance.check_up.forms import ControleGeneralForm
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
+from maintenance.nettoyage_exterieur.models import NettoyageExterieur
+
+
+
+
+@method_decorator([login_required, never_cache], name='dispatch')
+class NettoyageExterieurListView(ListView):
+    model = NettoyageExterieur
+    template_name = "nettoyage/assurance_list.html"
+    context_object_name = "assurances"
+    paginate_by = 20
+    ordering = ["nom_compagnie"]
+
+    def get_queryset(self):
+        societe = self.request.user.societe
+        return Assurance.objects.filter(societe=societe)
+
+
+@login_required
+def assurance_detail(request, assurance_id):
+    tenant = request.user.societe
+
+    with tenant_context(tenant):
+        assurance = get_object_or_404(Assurance, id=assurance_id)
+        adresse = assurance.adresse
+
+    return render(
+        request,
+        "assurance/assurance_detail.html",
+        {
+            "assurance": assurance,
+            "adresse": adresse,
+        },
+    )
+
+
+
+
 
 
 
@@ -80,8 +120,8 @@ def controle_total_view(request, exemplaire_id):
                         km_checkup = form.cleaned_data.get("kilometres_chassis")
                         if km_checkup is not None and km_checkup < exemplaire.kilometres_chassis:
                             form.add_error(
-                                _("kilometres_chassis",
-                                "Le kilométrage ne peut pas être inférieur au kilométrage actuel."
+                                "kilometres_chassis",
+                                _("Le kilométrage ne peut pas être inférieur au kilométrage actuel."
                             ))
                             return render(request, "check_up/controle_total.html", {
                                 "form": form,

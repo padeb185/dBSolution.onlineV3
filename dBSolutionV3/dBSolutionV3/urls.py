@@ -99,7 +99,7 @@ urlpatterns += i18n_patterns(
 
     path('maintenance/jeux_pieces/', include('maintenance.jeux_pieces.urls', namespace='jeux_pieces')),
 
-    path('maintenance/nettoyage_exterieur/', include('maintenance.nettoyage_exterieur.urls', namespace='nettoyage_exterieur')),
+    path('maintenance/nettoyage-exterieur/', include(('maintenance.nettoyage_exterieur.urls', 'nettoyage_exterieur'),namespace='nettoyage_exterieur')),
 
 )
 

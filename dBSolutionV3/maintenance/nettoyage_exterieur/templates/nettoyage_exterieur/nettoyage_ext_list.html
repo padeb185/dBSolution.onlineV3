@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% load i18n static widget_tweaks %}
+
+{% block title %}{% trans "Liste des Assureurs" %}{% endblock %}
+
+{% block content %}
+<h1 class="text-2xl font-bold mb-6 flex items-center">
+    <img src="{% static 'icons/nettoyage_ext.png' %}" alt="Nettoyage Extérieur"
+         style="width:60px; height:60px; margin-right:10px;">
+    {% trans "Liste des Nettoyages extérieurs" %}
+</h1>
+
+
+<div class="bg-white shadow-md rounded-lg p-4 mb-4">
+    <div class="flex flex-wrap items-end gap-3">
+
+        <input id="search-voiture_exemplaire.immatriculation" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'immatriculation' %}" >
+
+
+        <input id="search-kilometres chassis" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Kilomètres' %}">
+
+
+        <input id="search-Tag" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Etiquette' %}">
+
+        <input id="search-tech_utilisateur" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[120px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Technicien' %}">
+
+
+        <input id="search-date" type="date"
+               class="border rounded px-3 py-2 flex-1 min-w-[120px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Date du dernier nettoyage' %}">
+
+        <!-- Bouton sur la même ligne -->
+        <a href="{% url 'nettoyage_exerieur:nettoyage_exterieur_view' %}"
+           class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-blue-500">
+            {% trans "Ajouter un nettoyage extérieur" %}
+        </a>
+    </div>
+</div>
+
+
+
+<!-- Table -->
+<table id="assurances-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Nom de la compagnie" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Adresse" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Numero Peppol" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Email" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Téléphone" %}</th>
+            <th class="border px-4 py-2 cursor-pointer text-center">{% trans "Info" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for assurance in assurances %}
+        <tr>
+            <td class="border px-4 py-2">{{ assurance.nom_compagnie }}</td>
+            <td class="border px-4 py-2">{{ assurance.adresse }}</td>
+            <td class="border px-4 py-2">{{ assurance.peppol_id }}</td>
+            <td class="border px-4 py-2">{{ assurance.email }}</td>
+            <td class="border px-4 py-2">{{ assurance.telephone }}</td>
+            <td class="border px-4 py-2 text-center">
+                <a href="{% url 'assurance:assurance_detail' assurance.id %}"
+                   class="text-blue-600 hover:text-blue-800 font-semibold">
+                    {% trans "Info" %}
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
+<!-- DataTables JS -->
+<script>
+$(document).ready(function() {
+    var table = $('#assurances-table').DataTable({
+        pageLength: 100,
+        language: {
+            search: "{% trans 'Recherche globale :' %}",
+            lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ compagnies' %}",
+            infoEmpty: "{% trans 'Aucune compagnie trouvé' %}",
+            zeroRecords: "{% trans 'Aucun compagnie trouvé' %}",
+            paginate: {
+                first: "{% trans 'Premier' %}",
+                last: "{% trans 'Dernier' %}",
+                next: "{% trans 'Suivant' %}",
+                previous: "{% trans 'Précédent' %}"
+            }
+        },
+        order: [[0, "asc"]]
+    });
+
+    // Filtres par colonne
+    $('#search-nom_compagnie').on('keyup', function () {
+        table.column(0).search(this.value).draw();
+    });
+    $('#search-adresse').on('keyup', function () {
+        table.column(1).search(this.value).draw();
+    });
+    $('#search-numero_peppol').on('keyup', function () {
+        table.column(2).search(this.value).draw();
+    });
+    $('#search-email').on('keyup', function () {
+        table.column(3).search(this.value).draw();
+    });
+     $('#search-telephone').on('keyup', function () {
+        table.column(4).search(this.value).draw();
+    });
+
+});
+</script>
+{% endblock %}
