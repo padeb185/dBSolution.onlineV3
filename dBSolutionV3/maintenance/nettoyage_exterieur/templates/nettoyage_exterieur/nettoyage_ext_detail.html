@@ -2,25 +2,22 @@
 {% load i18n static %}
 
 {% block content %}
-<div class="p-6 w-full ml-[-10px] mr-[10px]">
+<div class="p-6 w-full">
 
     <!-- Header -->
     <div class="flex justify-between items-center mb-6">
        <h1 class="text-2xl font-bold flex items-center gap-4">
-            {% with image_name=assurance.nom_societe|slugify %}
-                <img src="{% static 'assurance/'|add:image_name|add:'.png' %}"
-                     alt="{{ assurance.nom_compagnie }}"
-                     class="w-12 h-12"
-                     onerror="this.src='{% static 'icons/assurance-voiture.png' %}';">
-            {% endwith %}
-            <span>{% trans "Détails de la compagnie d'assurance :" %}</span>
-
-           <span class="text-black-700">{{ assurance.nom_compagnie }}</span>
+            <img src="{% static 'icons/nettoyage_ext.png' %}"
+                 alt="{{ nettoyage_exterieur.voiture_exemplaire.immatriculation }}"
+                 class="w-12 h-12">
+            <span>{% trans "Détails du nettoyage extérieur" %}</span>
         </h1>
 
-        <a href="{% url 'assurance:assurance_list' %}"
+        <a href="{% if nettoyage_exterieur.voiture_exemplaire %}
+                   {% url 'nettoyage_exterieur:nettoyage_ext_list' nettoyage_exterieur.voiture_exemplaire.id %}
+               {% else %}# {% endif %}"
            class="text-blue-600 hover:underline">
-            {% trans "Retour à la liste des assurances" %}
+            {% trans "Retour à la liste des nettoyages extérieurs" %}
         </a>
     </div>
 
@@ -34,86 +31,43 @@
             </h2>
 
             <p>
-                <strong>{% trans "Compagnie" %} :</strong>
-                {{ assurance.nom_compagnie }}
+                <strong>{% trans "Immatriculation" %} :</strong>
+                {{ nettoyage_exterieur.voiture_exemplaire.immatriculation }}
             </p>
             <p>
-                <strong>{% trans "Email" %} :</strong>
-                {{ assurance.email }}
+                <strong>{% trans "Kilométrage" %} :</strong>
+                {{ nettoyage_exterieur.kilometres_chassis }}
             </p>
             <p>
-                <strong>{% trans "Téléphone" %} :</strong>
-                {{ assurance.telephone }}
+                <strong>{% trans "Tag" %} :</strong>
+                {{ nettoyage_exterieur.tag }}
             </p>
             <p>
-                <strong>{% trans "Pays" %} :</strong>
-                {{ assurance.adresse.pays }}
+                <strong>{% trans "Technicien" %} :</strong>
+                {{ nettoyage_exterieur.tech_nom_technicien }} ({{ nettoyage_exterieur.tech_role_technicien }})
             </p>
-
-
-
-
-
-           <div class="mt-auto w-full">
-                <a href="{% url 'assurance:modifier_assurance' assurance.id %}" class="block w-full">
-                    <button type="button"
-                            class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
-                        {% trans "Modifier l'assureur" %}
-                    </button>
-                </a>
-           </div>
-
         </div>
 
-        <!-- Peppol -->
+        <!-- Si tu as des informations supplémentaires, sinon supprimer -->
+        <!-- Exemple : maintenance -->
         <div class="bg-white shadow-md rounded-lg p-6">
             <h2 class="text-lg font-semibold mb-4">
-                {% trans "Informations Peppol" %}
+                {% trans "Maintenance" %}
             </h2>
-
             <p>
-                <strong>{% trans "Identifiant Peppol" %} :</strong><br>
-                {{ assurance.peppol_id }}
+                <strong>{% trans "Date de l'intervention" %} :</strong>
+                {{ nettoyage_exterieur.maintenance.date_intervention|date:"d/m/Y" }}
             </p>
-
         </div>
     </div>
-
-    <!-- Adresse -->
-    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
-        <h2 class="text-lg font-semibold mb-4">
-            {% trans "Adresse" %}
-        </h2>
-
-        {% if assurance.adresse %}
-            <p>{{ assurance.adresse }}</p>
-        {% else %}
-            <p class="text-gray-500">
-                {% trans "Aucune adresse renseignée." %}
-            </p>
-        {% endif %}
-    </div>
-
-    <!-- Métadonnées -->
-    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
-        <h2 class="text-lg font-semibold mb-4">
-            {% trans "Métadonnées" %}
-        </h2>
-
-        <p>
-            <strong>{% trans "Créé le" %} :</strong>
-            {{ assurance.created_at|date:"d/m/Y H:i" }}
-        </p>
-    </div>
-
-
 
     <!-- Actions -->
     <div class="bg-white shadow-md rounded-lg p-6 flex gap-4">
-        <a href="{% url 'assurance:assurance_list' %}" class="flex-1">
-              <button type="button" class="bg-blue-700 text-white px-4 py-2 rounded w-full mt-4">
-                    {% trans "Retour à la liste des assureurs" %}
-              </button>
+        <a href="{% if nettoyage_exterieur.voiture_exemplaire %}
+                   {% url 'nettoyage_exterieur:nettoyage_ext_list' nettoyage_exterieur.voiture_exemplaire.id %}
+               {% else %}# {% endif %}"
+           class="text-blue-600 hover:underline">
+            {% trans "Retour à la liste des nettoyages extérieurs" %}
         </a>
     </div>
 

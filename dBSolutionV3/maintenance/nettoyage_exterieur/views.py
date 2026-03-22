@@ -58,17 +58,9 @@ class NettoyageExterieurListView(ListView):
 # Vue détail NettoyageExterieur
 # -----------------------------
 @login_required
-def nettoyage_ext_detail(request, nettoyage_exterieur_id):
-    tenant = request.user.societe
-    with tenant_context(tenant):
-        nettoyage_exterieur = get_object_or_404(NettoyageExterieur, id=nettoyage_exterieur_id)
-
-    return render(
-        request,
-        "nettoyage_ext/nettoyage_ext_detail.html",
-        {"nettoyage_exterieur": nettoyage_exterieur},
-    )
-
+def nettoyage_ext_detail(request, nettoyage_id):
+    nettoyage = get_object_or_404(NettoyageExterieur, id=nettoyage_id)
+    return render(request, "nettoyage_exterieur/nettoyage_ext_detail.html", {"nettoyage": nettoyage})
 
 # -----------------------------
 # Vue simple pour créer ou modifier NettoyageExterieur
