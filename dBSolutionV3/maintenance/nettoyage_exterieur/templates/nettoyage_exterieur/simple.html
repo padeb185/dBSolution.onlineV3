@@ -88,7 +88,7 @@
 
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Remarques" %}</h2>
         {% for field in form %}
-            {% if "remar" in field.name %}
+            {% if "remarques" in field.name %}
             <div class="mb-4">
                 <label class="block font-semibold mb-1">{{ field.label }}</label>
                 {{ field|add_class:"input" }}

@@ -134,6 +134,9 @@ class ControleJeuxPieces(models.Model):
 
     )
 
+    remarques = models.TextField(
+        verbose_name=_("Remarques"), blank=True, null=True)
+
     # Champ pour l’utilisateur affecté (utilisateur courant)
     tech_utilisateurs = models.ForeignKey(
         settings.AUTH_USER_MODEL,

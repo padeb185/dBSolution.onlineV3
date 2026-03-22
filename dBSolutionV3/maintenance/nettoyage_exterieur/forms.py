@@ -13,10 +13,10 @@ from .models import NettoyageExterieur
 @method_decorator([login_required, never_cache], name='dispatch')
 class NettoyageExterieurListView(ListView):
     model = NettoyageExterieur
-    template_name = "nettoyage/assurance_list.html"
-    context_object_name = "assurances"
+    template_name = "nettoyage_exterieur/nettoyage_ext_list.html"
+    context_object_name = "nettoyages exterieur"
     paginate_by = 20
-    ordering = ["nom_compagnie"]
+    ordering = ["date"]
 
     def get_queryset(self):
         societe = self.request.user.societe

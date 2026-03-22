@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.contrib import messages
-from django.db import transaction
+from django.db import transaction, models
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
@@ -19,6 +19,7 @@ from django.utils.translation import gettext_lazy as _
 # -----------------------------
 # Classe ListView pour NettoyageExterieur
 # -----------------------------
+
 class NettoyageExterieurListView(ListView):
     model = NettoyageExterieur
     template_name = "nettoyage_exterieur/nettoyage_ext_list.html"
@@ -27,15 +28,22 @@ class NettoyageExterieurListView(ListView):
     ordering = ["-id"]
 
     def get_queryset(self):
-        societe = self.request.user.societe
         exemplaire_id = self.kwargs.get("exemplaire_id")
         queryset = NettoyageExterieur.objects.select_related(
-            "voiture_exemplaire",
-            "maintenance",
-            "tech_societe"
-        ).filter(tech_societe=societe)
+            "voiture_exemplaire", "maintenance", "tech_societe"
+        )
+
+        # Filtrer par exemplaire si fourni
         if exemplaire_id:
             queryset = queryset.filter(voiture_exemplaire_id=exemplaire_id)
+
+        # Filtrer par société : inclure les objets NULL ou ceux de la société de l'utilisateur
+        societe = getattr(self.request.user, "societe", None)
+        if societe:
+            queryset = queryset.filter(
+                models.Q(tech_societe=societe) | models.Q(tech_societe__isnull=True)
+            )
+
         return queryset.order_by(*self.ordering)
 
     def get_context_data(self, **kwargs):
@@ -43,7 +51,6 @@ class NettoyageExterieurListView(ListView):
         exemplaire_id = self.kwargs.get("exemplaire_id")
         context["exemplaire"] = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
         return context
-
 
 
 
@@ -66,11 +73,14 @@ def nettoyage_ext_detail(request, nettoyage_exterieur_id):
 # -----------------------------
 # Vue simple pour créer ou modifier NettoyageExterieur
 # -----------------------------
+
 @never_cache
 @login_required
 def nettoyage_exterieur_view(request, exemplaire_id):
     tenant = request.user.societe
+
     with tenant_context(tenant):
+        # Récupération de l'exemplaire
         exemplaire = get_object_or_404(
             VoitureExemplaire.objects.filter(
                 Q(client__societe=tenant) | Q(client__isnull=True, societe=tenant)
@@ -78,6 +88,7 @@ def nettoyage_exterieur_view(request, exemplaire_id):
             id=exemplaire_id
         )
 
+        # Vérification des rôles
         roles_autorises = ["mécanicien", "apprenti", "magasinier", "chef mécanicien"]
         if request.user.role not in roles_autorises:
             messages.error(
@@ -86,6 +97,7 @@ def nettoyage_exterieur_view(request, exemplaire_id):
             )
             return redirect("maintenance_liste_all")
 
+        # Récupération ou création de la maintenance
         maintenance = Maintenance.objects.filter(
             voiture_exemplaire=exemplaire,
             type_maintenance="nettoyage_exterieur"
@@ -103,15 +115,16 @@ def nettoyage_exterieur_view(request, exemplaire_id):
                 tag=Maintenance.Tag.JAUNE,
             )
 
-        nettoyage_exterieur, created = NettoyageExterieur.objects.get_or_create(
-            maintenance=maintenance,
-            defaults={"voiture_exemplaire": exemplaire, "tech_utilisateurs": request.user}
-        )
-
+        # Gestion du formulaire
         if request.method == "POST":
+            # Crée un objet NettoyageExterieur lié à l'exemplaire et à la maintenance
+            nettoyage_ext = NettoyageExterieur(
+                voiture_exemplaire=exemplaire,
+                maintenance=maintenance
+            )
             form = NettoyageExterieurForm(
                 request.POST,
-                instance=nettoyage_exterieur,
+                instance=nettoyage_ext,
                 user=request.user,
                 exemplaire=exemplaire
             )
@@ -127,11 +140,13 @@ def nettoyage_exterieur_view(request, exemplaire_id):
                         nettoyage_ext.tech_role_technicien = request.user.role
 
                         km_checkup = form.cleaned_data.get("kilometres_chassis")
-                        if km_checkup is not None and km_checkup < exemplaire.kilometres_chassis:
-                            form.add_error("kilometres_chassis", _("Le kilométrage ne peut pas être inférieur au kilométrage actuel."))
-                            raise ValueError("Kilométrage invalide")
-
                         if km_checkup is not None:
+                            if km_checkup < exemplaire.kilometres_chassis:
+                                form.add_error(
+                                    "kilometres_chassis",
+                                    _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
+                                )
+                                raise ValueError("Kilométrage invalide")
                             nettoyage_ext.kilometres_chassis = km_checkup
                             exemplaire.kilometres_chassis = km_checkup
                             exemplaire.save()
@@ -146,14 +161,14 @@ def nettoyage_exterieur_view(request, exemplaire_id):
                 print(form.errors)
         else:
             form = NettoyageExterieurForm(
-                instance=nettoyage_exterieur,
-                initial={"kilometres_chassis": exemplaire.kilometres_chassis},
                 user=request.user,
-                exemplaire=exemplaire
+                exemplaire=exemplaire,
+                initial={"kilometres_chassis": exemplaire.kilometres_chassis}
             )
 
         return render(request, 'nettoyage_exterieur/simple.html', {
             "exemplaire": exemplaire,
+            "immatriculation": exemplaire.immatriculation,
             "maintenance": maintenance,
             "form": form,
             "now": timezone.now(),
