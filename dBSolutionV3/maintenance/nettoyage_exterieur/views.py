@@ -59,7 +59,10 @@ class NettoyageExterieurListView(ListView):
 # -----------------------------
 @login_required
 def nettoyage_ext_detail(request, nettoyage_id):
-    nettoyage = get_object_or_404(NettoyageExterieur, id=nettoyage_id)
+    nettoyage = get_object_or_404(
+        NettoyageExterieur.objects.select_related("voiture_exemplaire"),
+        id=nettoyage_id
+    )
     return render(request, "nettoyage_exterieur/nettoyage_ext_detail.html", {"nettoyage": nettoyage})
 
 # -----------------------------
