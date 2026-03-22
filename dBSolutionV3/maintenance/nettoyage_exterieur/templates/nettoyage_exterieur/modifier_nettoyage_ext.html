@@ -7,14 +7,18 @@
     <!-- Header -->
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold flex items-center gap-4">
-            {% with image_name=assurance.nom_compagnie|slugify %}
-                <img src="{% static 'nettoyage_exterieur/'|add:image_name|add:'.png' %}"
-                     alt="{{ nettoyage_exterieur.nom_societe }}"
-                     class="w-12 h-12"
-                     onerror="this.onerror=null; this.src='{% static 'icons/nettoyage_ext.png' %}';">
-            {% endwith %}
-            <span>{% trans "Modifier le nettoyage extérieur:" %}</span>
-            <span class="text-black-700">{{ nattoyage_exterieur.nom_societe }}</span>
+            {% if nettoyage_exterieur.tech_societe %}
+                {% with image_name=nettoyage_exterieur.tech_societe.nom|slugify %}
+                    <img src="{% static 'nettoyage_exterieur/'|add:image_name|add:'.png' %}"
+                         alt="{{ nettoyage_exterieur.tech_societe.nom }}"
+                         class="w-12 h-12 rounded"
+                         onerror="this.onerror=null; this.src='{% static 'icons/nettoyage_ext.png' %}';">
+                {% endwith %}
+            {% else %}
+                <img src="{% static 'icons/nettoyage_ext.png' %}" class="w-12 h-12 rounded">
+            {% endif %}
+            <span>{% trans "Modifier le nettoyage extérieur" %}</span>
+            <span class="text-gray-700 font-medium">#{{ nettoyage_exterieur.id }}</span>
         </h1>
     </div>
 
@@ -36,28 +40,30 @@
     <form method="post" class="space-y-4">
         {% csrf_token %}
 
-        <h2 class="text-lg font-semibold mb-2">{% trans "Nettoyage extérieur" %}</h2>
+        <h2 class="text-lg font-semibold mb-2">{% trans "Détails du nettoyage extérieur" %}</h2>
+
         {% for field in form %}
             <div class="mb-4">
                 <label class="block font-semibold mb-1">{{ field.label }}</label>
                 {{ field|add_class:"input" }}
+                {% if field.help_text %}
+                    <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                {% endif %}
                 {% if field.errors %}
                     <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
                 {% endif %}
             </div>
         {% endfor %}
 
-
-
         <div class="flex gap-3 mt-6">
-            <button type="submit" class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-500 font-semibold text-center">
+            <button type="submit"
+                    class="flex-1 bg-blue-700 text-white px-5 py-3 rounded hover:bg-blue-500 font-semibold text-center">
                 {% trans "Enregistrer" %}
             </button>
-            <a href="{% url 'nettoyage_exterieur:nettoyage_ext_detail' nettoyage_exterieur_id=nettoyage_exterieur.id %}"
-               class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
+            <a href="{% url 'nettoyage_exterieur:nettoyage_ext_detail' nettoyage_id=nettoyage_exterieur.id %}"
+               class="flex-1 bg-gray-300 text-black px-5 py-3 rounded hover:bg-gray-400 font-semibold text-center">
                {% trans "Annuler" %}
             </a>
-
         </div>
     </form>
 

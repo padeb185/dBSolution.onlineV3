@@ -1,3 +1,4 @@
+from django.http import HttpResponseNotFound, Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
@@ -28,14 +29,9 @@ class NettoyageExterieurListView(ListView):
     ordering = ["-id"]
 
     def get_queryset(self):
-        exemplaire_id = self.kwargs.get("exemplaire_id")
         queryset = NettoyageExterieur.objects.select_related(
             "voiture_exemplaire", "maintenance", "tech_societe"
         )
-
-        # Filtrer par exemplaire si fourni
-        if exemplaire_id:
-            queryset = queryset.filter(voiture_exemplaire_id=exemplaire_id)
 
         # Filtrer par société : inclure les objets NULL ou ceux de la société de l'utilisateur
         societe = getattr(self.request.user, "societe", None)
@@ -45,7 +41,6 @@ class NettoyageExterieurListView(ListView):
             )
 
         return queryset.order_by(*self.ordering)
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         exemplaire_id = self.kwargs.get("exemplaire_id")
@@ -54,16 +49,6 @@ class NettoyageExterieurListView(ListView):
 
 
 
-# -----------------------------
-# Vue détail NettoyageExterieur
-# -----------------------------
-@login_required
-def nettoyage_ext_detail(request, nettoyage_id):
-    nettoyage = get_object_or_404(
-        NettoyageExterieur.objects.select_related("voiture_exemplaire"),
-        id=nettoyage_id
-    )
-    return render(request, "nettoyage_exterieur/nettoyage_ext_detail.html", {"nettoyage": nettoyage})
 
 # -----------------------------
 # Vue simple pour créer ou modifier NettoyageExterieur
@@ -169,16 +154,34 @@ def nettoyage_exterieur_view(request, exemplaire_id):
             "now": timezone.now(),
         })
 
+#------------
+# Vue détail NettoyageExterieur
+# -----------------------------
+@login_required
+def nettoyage_ext_detail(request, nettoyage_id):
+   
+    nettoyage_ext = get_object_or_404(
+        NettoyageExterieur.objects.select_related("voiture_exemplaire"),
+        id=nettoyage_id
+    )
 
-# -----------------------------
-# Vue pour modifier un NettoyageExterieur existant
-# -----------------------------
+    context = {
+        "nettoyage_ext": nettoyage_ext,  # nom uniforme pour le template
+        "exemplaire": nettoyage_ext.voiture_exemplaire,
+    }
+    return render(request, "nettoyage_exterieur/nettoyage_ext_detail.html", context)
+
+
+
+
 @login_required
 def modifier_nettoyage_ext_view(request, nettoyage_ext_id):
     tenant = request.user.societe
+
     with tenant_context(tenant):
+        # Récupération du nettoyage avec son exemplaire
         nettoyage_ext = get_object_or_404(
-            NettoyageExterieur,
+            NettoyageExterieur.objects.select_related("voiture_exemplaire"),
             id=nettoyage_ext_id,
             tech_utilisateurs__societe=tenant
         )
@@ -188,12 +191,21 @@ def modifier_nettoyage_ext_view(request, nettoyage_ext_id):
             if form.is_valid():
                 form.save()
                 messages.success(request, _("Nettoyage extérieur modifié avec succès !"))
-                return redirect("nettoyage_exterieur:nettoyage_exterieur_view", nettoyage_ext.voiture_exemplaire.id)
+
+                # Redirection vers le détail
+                return redirect(
+                    "nettoyage_exterieur:nettoyage_ext_detail",
+                    nettoyage_id=str(nettoyage_ext.id)  # s'assure que l'UUID est string
+                )
         else:
             form = NettoyageExterieurForm(instance=nettoyage_ext, user=request.user)
 
-        return render(
-            request,
-            "nettoyage_exterieur/modifier_nettoyage_ext.html",
-            {"form": form, "nettoyage_ext": nettoyage_ext}
-        )
+    return render(
+        request,
+        "nettoyage_exterieur/modifier_nettoyage_ext.html",
+        {
+            "form": form,
+            "nettoyage_ext": nettoyage_ext,
+            "exemplaire": nettoyage_ext.voiture_exemplaire,  # utile pour les templates
+        }
+    )
