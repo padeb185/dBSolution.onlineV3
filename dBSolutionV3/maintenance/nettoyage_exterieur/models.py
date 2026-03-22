@@ -85,6 +85,15 @@ class NettoyageExterieur(models.Model):
         blank=True
     )
 
+    tech_societe = models.ForeignKey(
+        "societe.Societe",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name=_("Société"),
+        related_name="nettoyages_exterieur_societe"  # <- unique
+    )
+
 
     date = models.DateTimeField(auto_now_add=True, verbose_name=_("Date"))
 
