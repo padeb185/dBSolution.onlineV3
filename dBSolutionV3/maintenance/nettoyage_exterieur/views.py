@@ -17,20 +17,24 @@ from maintenance import nettoyage_exterieur
 from django.utils.translation import gettext_lazy as _
 
 
-
 @method_decorator([login_required, never_cache], name='dispatch')
 class NettoyageExterieurListView(ListView):
     model = NettoyageExterieur
     template_name = "nettoyage_ext/nettoyage_ext_list.html"
     context_object_name = "nettoyages_exterieurs"
     paginate_by = 20
-    ordering = ["nom_compagnie"]
+    ordering = ["-id"]
 
     def get_queryset(self):
         societe = self.request.user.societe
-        return NettoyageExterieur.objects.filter(societe=societe)
 
-
+        return NettoyageExterieur.objects.select_related(
+            "voiture_exemplaire",
+            "maintenance",
+            "tech_societe"
+        ).filter(
+            tech_societe=societe
+        ).order_by(*self.ordering)
 
 
 @login_required

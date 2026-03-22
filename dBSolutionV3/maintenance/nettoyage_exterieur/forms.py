@@ -1,6 +1,49 @@
 from django import forms
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, render
+from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
+from django.views.decorators.cache import never_cache
+from django.views.generic import ListView
+from django_tenants.utils import tenant_context
+
 from .models import NettoyageExterieur
+
+
+@method_decorator([login_required, never_cache], name='dispatch')
+class NettoyageExterieurListView(ListView):
+    model = NettoyageExterieur
+    template_name = "nettoyage/assurance_list.html"
+    context_object_name = "assurances"
+    paginate_by = 20
+    ordering = ["nom_compagnie"]
+
+    def get_queryset(self):
+        societe = self.request.user.societe
+        return NettoyageExterieur.objects.filter(societe=societe)
+
+
+@login_required
+def assurance_detail(request, nettoyage_id):
+    tenant = request.user.societe
+
+    with tenant_context(tenant):
+        nettoyage_ext = get_object_or_404(NettoyageExterieur, id=nettoyage_id)
+
+
+    return render(
+        request,
+        "nettoyage_exterieur/nettoyage_detail.html",
+        {
+            "nettoyage_ext": nettoyage_ext,
+
+        },
+    )
+
+
+
+
+
 
 
 class NettoyageExterieurForm(forms.ModelForm):

@@ -18,40 +18,6 @@ from maintenance.nettoyage_exterieur.models import NettoyageExterieur
 
 
 
-@method_decorator([login_required, never_cache], name='dispatch')
-class NettoyageExterieurListView(ListView):
-    model = NettoyageExterieur
-    template_name = "nettoyage/assurance_list.html"
-    context_object_name = "assurances"
-    paginate_by = 20
-    ordering = ["nom_compagnie"]
-
-    def get_queryset(self):
-        societe = self.request.user.societe
-        return Assurance.objects.filter(societe=societe)
-
-
-@login_required
-def assurance_detail(request, assurance_id):
-    tenant = request.user.societe
-
-    with tenant_context(tenant):
-        assurance = get_object_or_404(Assurance, id=assurance_id)
-        adresse = assurance.adresse
-
-    return render(
-        request,
-        "assurance/assurance_detail.html",
-        {
-            "assurance": assurance,
-            "adresse": adresse,
-        },
-    )
-
-
-
-
-
 
 
 @never_cache

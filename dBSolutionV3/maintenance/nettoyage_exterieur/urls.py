@@ -2,7 +2,6 @@
 from django.urls import path
 
 from .views import nettoyage_exterieur_view, nettoyage_ext_detail, modifier_nettoyage_ext_view
-from ..check_up.views import NettoyageExterieurListView
 
 app_name = "nettoyage_exterieur"  # correspond au namespace dans le template
 

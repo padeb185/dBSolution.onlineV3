@@ -1,10 +1,10 @@
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
-from utilisateurs.models import Utilisateur
 from maintenance.models import Maintenance
-
+from utilisateurs.models import Utilisateur
 
 
 class NettoyageEtat(models.TextChoices):
@@ -83,15 +83,6 @@ class NettoyageExterieur(models.Model):
         _("Rôle du technicien"),
         max_length=255,
         blank=True
-    )
-
-    tech_societe = models.ForeignKey(
-        "societe.Societe",
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        verbose_name=_("Société"),
-        related_name="nettoyage_exterieur"
     )
 
 
