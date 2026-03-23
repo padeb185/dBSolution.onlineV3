@@ -76,6 +76,10 @@ SHARED_APPS = (
     'theme',
     'widget_tweaks',
 
+
+    'django_browser_reload',
+
+
     # Utils
     'django_filters',
     'crispy_forms',
