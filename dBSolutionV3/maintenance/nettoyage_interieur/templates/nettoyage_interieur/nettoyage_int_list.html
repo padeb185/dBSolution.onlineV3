@@ -38,7 +38,7 @@
     </div>
 </div>
 
-<table id="nettoyage_exterieurs-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+<table id="nettoyage_interieurs-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
     <thead>
         <tr class="bg-gray-100">
             <th class="border px-4 py-2 cursor-pointer">{% trans "Immatriculation" %}</th>
@@ -50,7 +50,7 @@
         </tr>
     </thead>
     <tbody>
-        {% for nettoyage_interieur in nettoyages_exterieurs %}
+        {% for nettoyage_interieur in nettoyages_interieurs %}
         <tr>
              <td class="p-3">
                 {% with exemplaire=nettoyage_interieur.voiture_exemplaire %}
@@ -103,7 +103,12 @@
         </tr>
         {% empty %}
         <tr>
-            <td colspan="6" class="text-center py-4">{% trans "Aucun nettoyage enregistré pour cet exemplaire." %}</td>
+            <td class="text-center py-4">{% trans "Aucun nettoyage enregistré pour cet exemplaire." %}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
         </tr>
         {% endfor %}
     </tbody>
@@ -111,14 +116,14 @@
 
 <script>
 $(document).ready(function() {
-    var table = $('#nettoyage_exterieurs-table').DataTable({
+    var table = $('#nettoyage_interieurs-table').DataTable({
         pageLength: 100,
         language: {
             search: "{% trans 'Recherche globale :' %}",
             lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
-            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ nettoyages extérieurs' %}",
-            infoEmpty: "{% trans 'Aucun nettoyage extérieur trouvé' %}",
-            zeroRecords: "{% trans 'Aucun nettoyage extérieur trouvé' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ nettoyages intérieurs' %}",
+            infoEmpty: "{% trans 'Aucun nettoyage intérieur trouvé' %}",
+            zeroRecords: "{% trans 'Aucun nettoyage intérieur trouvé' %}",
             paginate: {
                 first: "{% trans 'Premier' %}",
                 last: "{% trans 'Dernier' %}",

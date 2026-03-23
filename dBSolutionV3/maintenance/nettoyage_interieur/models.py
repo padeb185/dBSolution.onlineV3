@@ -5,12 +5,22 @@ from maintenance.models import Maintenance
 from utilisateurs.models import Utilisateur
 
 
+
+class NettoyageEtat(models.TextChoices):
+    A_FAIRE = "A_FAIRE", _("A faire")
+    FAIT = "FAIT", _("Fait")
+    REPORTER = "REPORTER", _("Reporter")
+    PROPRE = "PROPRE", _("Propre")
+
+
+
+
 class NettoyageInterieur(models.Model):
     maintenance = models.ForeignKey(
         Maintenance,
         on_delete=models.CASCADE,
         related_name="nettoyages_interieur",
-        verbose_name=_("Check up")
+        verbose_name=_("Nettoyage Interieur"),
     )
 
     voiture_exemplaire = models.ForeignKey(
@@ -20,14 +30,62 @@ class NettoyageInterieur(models.Model):
         verbose_name=_("Véhicule")
     )
 
+    kilometres_chassis = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True,
+    )
 
+    kilometrage_net_int = models.PositiveIntegerField(
+        _("Kilométrage au moment du Nettoyage intérieur"),
+        null=True,
+        blank=True
+    )
 
-    vitres = models.BooleanField(default=False, verbose_name=_("Vitres"))
-    pare_brise = models.BooleanField(default=False, verbose_name=_("Pare-brise"))
-    aspirateur = models.BooleanField(default=False, verbose_name=_("Aspirateur"))
-    interieur_portes = models.BooleanField(default=False, verbose_name=_("Intérieurs de porte"))
-    tableau_de_bord = models.BooleanField(default=False, verbose_name=_("Tableau de bord"))
-    plastiques = models.BooleanField(default=False, verbose_name=_("Plastiques"))
+    nettoyage_interieur_vitres =  models.CharField(
+        max_length=25,
+        choices=NettoyageEtat.choices,
+        default=NettoyageEtat.A_FAIRE,
+        verbose_name=_("Vitres")
+
+    )
+    nettoyage_interieur_pare_brise =  models.CharField(
+        max_length=25,
+        choices=NettoyageEtat.choices,
+        default=NettoyageEtat.A_FAIRE,
+        verbose_name=_("Pare-brise")
+    )
+    nettoyage_interieur_aspirateur =  models.CharField(
+        max_length=25,
+        choices=NettoyageEtat.choices,
+        default=NettoyageEtat.A_FAIRE,
+        verbose_name=_("Aspirateur")
+    )
+    nettoyage_interieur_interieur_portes = models.CharField(
+        max_length=25,
+        choices=NettoyageEtat.choices,
+        default=NettoyageEtat.A_FAIRE,
+        verbose_name=_("Ouvrants de portes")
+    )
+    nettoyage_interieur_tableau_de_bord =models.CharField(
+        max_length=25,
+        choices=NettoyageEtat.choices,
+        default=NettoyageEtat.A_FAIRE,
+        verbose_name=_("Tableau de bord")
+    )
+    nettoyage_interieur_plastiques = models.CharField(
+        max_length=25,
+        choices=NettoyageEtat.choices,
+        default=NettoyageEtat.A_FAIRE,
+        verbose_name=_("Plastiques")
+    )
+
+    nettoyage_interieur_console = models.CharField(
+        max_length=25,
+        choices=NettoyageEtat.choices,
+        default=NettoyageEtat.A_FAIRE,
+        verbose_name=_("Console centrale")
+    )
 
     TAG_CHOICES = [
         ("VERT", _("Vert")),

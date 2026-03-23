@@ -22,7 +22,7 @@ from .models import NettoyageInterieur
 class NettoyageInterieurListView(ListView):
     model = NettoyageInterieur
     template_name = "nettoyage_interieur/nettoyage_int_list.html"
-    context_object_name = "nettoyages_interieurss"
+    context_object_name = "nettoyages_interieurs"
     paginate_by = 20
     ordering = ["-id"]
 
@@ -143,7 +143,7 @@ def nettoyage_interieur_view(request, exemplaire_id):
                 initial={"kilometres_chassis": exemplaire.kilometres_chassis}
             )
 
-        return render(request, 'nettoyage_interieur/simple.html', {
+        return render(request, 'nettoyage_interieur/nettoyage_simple.html', {
             "exemplaire": exemplaire,
             "immatriculation": exemplaire.immatriculation,
             "maintenance": maintenance,
