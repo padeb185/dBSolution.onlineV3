@@ -1,10 +1,150 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% load i18n static widget_tweaks %}
 
-</body>
-</html>
+{% block title %}{% trans "Liste des nettoyages extérieurs" %}{% endblock %}
+
+{% block content %}
+<h1 class="text-2xl font-bold mb-6 flex items-center">
+    <img src="{% static 'icons/nettoyage_int.png' %}" alt="Nettoyage intérieur"
+         style="width:60px; height:60px; margin-right:10px;">
+    {% trans "Liste des Nettoyages intérieurs" %}
+</h1>
+
+<div class="bg-white shadow-md rounded-lg p-4 mb-4">
+    <div class="flex flex-wrap items-end gap-3">
+        <input id="search-immatriculation" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Immatriculation' %}" >
+
+        <input id="search-kilometres" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Kilomètres' %}">
+
+        <input id="search-tag" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Étiquette' %}">
+
+        <input id="search-utilisateur" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[120px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Technicien' %}">
+
+        <input id="search-date" type="date"
+               class="border rounded px-3 py-2 flex-1 min-w-[120px] focus:outline-none focus:ring-2 focus:ring-blue-500">
+
+        <a href="{% url 'nettoyage_interieur:nettoyage_interieur_view' exemplaire.id %}"
+           class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-blue-500">
+            {% trans "Ajouter un nettoyage interieur" %}
+        </a>
+    </div>
+</div>
+
+<table id="nettoyage_exterieurs-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Immatriculation" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Kilomètres" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Tag" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Technicien" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Date" %}</th>
+            <th class="border px-4 py-2 cursor-pointer text-center">{% trans "Actions" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for nettoyage_interieur in nettoyages_exterieurs %}
+        <tr>
+             <td class="p-3">
+                {% with exemplaire=nettoyage_interieur.voiture_exemplaire %}
+                    {% if exemplaire.pays == 'Belgique' %}
+                    <div class="flex items-center w-[180px] h-[36px] bg-white border-2 border-[#8B0000] rounded font-[Arial]">
+                        <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                            <span>🇪🇺</span>
+                            <span>B</span>
+                        </div>
+                        <div class="w-full text-center font-bold text-[#8B0000] text-[18px]">
+                            {{ exemplaire.immatriculation|upper }}
+                        </div>
+                    </div>
+
+                    {% elif exemplaire.pays == 'Luxembourg' %}
+                    <div class="flex items-center w-[180px] h-[36px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial]">
+                        <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                            <span>🇪🇺</span>
+                            <span>L</span>
+                        </div>
+                        <div class="w-full text-center font-bold text-black text-[18px]">
+                            {{ exemplaire.immatriculation|upper }}
+                        </div>
+                    </div>
+
+                    {% elif exemplaire.pays == 'Allemagne' %}
+                    <div class="flex items-center w-[180px] h-[36x] bg-white border-2 border-black rounded font-[Arial]">
+                        <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                            <span>🇪🇺</span>
+                            <span>D</span>
+                        </div>
+                        <div class="w-full text-center font-bold text-black text-[18px]">
+                            {{ exemplaire.immatriculation|upper }}
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endwith %}
+            </td>
+
+            <td class="border px-4 py-2">{{ nettoyage_interieur.kilometres_chassis }}</td>
+            <td class="border px-4 py-2">{{ nettoyage_interieur.tag }}</td>
+            <td class="border px-4 py-2">{{ nettoyage_interieur.tech_nom_technicien }}</td>
+            <td class="border px-4 py-2">{{ nettoyage_interieur.date }}</td>
+            <td class="border px-4 py-2 text-center">
+                <a href="{% url 'nettoyage_interieur:nettoyage_int_detail' nettoyage_interieur.id %}"
+                   class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
+                    {% trans "Infos" %}
+                </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6" class="text-center py-4">{% trans "Aucun nettoyage enregistré pour cet exemplaire." %}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+$(document).ready(function() {
+    var table = $('#nettoyage_exterieurs-table').DataTable({
+        pageLength: 100,
+        language: {
+            search: "{% trans 'Recherche globale :' %}",
+            lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ nettoyages extérieurs' %}",
+            infoEmpty: "{% trans 'Aucun nettoyage extérieur trouvé' %}",
+            zeroRecords: "{% trans 'Aucun nettoyage extérieur trouvé' %}",
+            paginate: {
+                first: "{% trans 'Premier' %}",
+                last: "{% trans 'Dernier' %}",
+                next: "{% trans 'Suivant' %}",
+                previous: "{% trans 'Précédent' %}"
+            }
+        },
+        order: [[0, "asc"]]
+    });
+
+    // Filtres par colonne
+    $('#search-immatriculation').on('keyup', function () {
+        table.column(0).search(this.value).draw();
+    });
+    $('#search-kilometres').on('keyup', function () {
+        table.column(1).search(this.value).draw();
+    });
+    $('#search-tag').on('keyup', function () {
+        table.column(2).search(this.value).draw();
+    });
+    $('#search-utilisateur').on('keyup', function () {
+        table.column(3).search(this.value).draw();
+    });
+    $('#search-date').on('change', function () {
+        table.column(4).search(this.value).draw();
+    });
+});
+</script>
+{% endblock %}

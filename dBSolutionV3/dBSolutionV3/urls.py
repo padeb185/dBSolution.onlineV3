@@ -103,6 +103,8 @@ urlpatterns += i18n_patterns(
 
     path("__reload__/", include("django_browser_reload.urls")),
 
+    path('maintenance/nettoyage-interieur/',include(('maintenance.nettoyage_interieur.urls', 'nettoyage_interieur'), namespace='nettoyage_interieur')),
+
 )
 
 

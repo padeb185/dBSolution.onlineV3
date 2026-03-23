@@ -10,28 +10,6 @@ from django.views.generic import ListView
 from django_tenants.utils import tenant_context
 from .models import NettoyageExterieur
 
-@method_decorator([login_required, never_cache], name='dispatch')
-class NettoyageExterieurListView(ListView):
-    model = NettoyageExterieur
-    template_name = "nettoyage_exterieur/nettoyage_ext_list.html"
-    context_object_name = "nettoyages_exterieur"  # correction : pas d'espace
-    paginate_by = 20
-    ordering = ["-date"]  # du plus récent au plus ancien
-
-    def get_queryset(self):
-        societe = getattr(self.request.user, "societe", None)
-        queryset = NettoyageExterieur.objects.select_related(
-            "voiture_exemplaire", "maintenance", "tech_societe"
-        )
-
-        if societe:
-            queryset = queryset.filter(
-                models.Q(tech_societe=societe) | models.Q(tech_societe__isnull=True)
-            )
-
-        return queryset.order_by(*self.ordering)
-
-
 
 class NettoyageExterieurForm(forms.ModelForm):
     # Déclarer explicitement le champ date

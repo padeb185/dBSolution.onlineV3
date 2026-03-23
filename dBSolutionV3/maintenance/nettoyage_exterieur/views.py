@@ -25,7 +25,7 @@ class NettoyageExterieurListView(ListView):
     model = NettoyageExterieur
     template_name = "nettoyage_exterieur/nettoyage_ext_list.html"
     context_object_name = "nettoyages_exterieurs"
-    paginate_by = 20
+    paginate_by = 100
     ordering = ["-id"]
 
     def get_queryset(self):
