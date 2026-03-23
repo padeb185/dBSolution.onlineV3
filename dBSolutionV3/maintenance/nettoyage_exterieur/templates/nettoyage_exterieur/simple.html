@@ -137,6 +137,25 @@
         {% endfor %}
         <br>
 
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Date" %}</h2>
+
+            <div class="mb-4">
+                <label class="block font-semibold mb-1" for="{{ form.date.id_for_label }}">
+                    {{ form.date.label }}
+                </label>
+
+                {# Champ date readonly avec Tailwind #}
+                {{ form.date|add_class:"w-full border border-gray-300 px-3 py-2 rounded bg-gray-100 cursor-not-allowed" }}
+
+                {% if form.date.help_text %}
+                    <p class="text-gray-500 text-sm mt-1">{{ form.date.help_text }}</p>
+                {% endif %}
+
+                {% if form.date.errors %}
+                    <p class="text-red-600 text-sm mt-1">{{ form.date.errors|striptags }}</p>
+                {% endif %}
+            </div>
+
 
         <!-- Boutons -->
 
@@ -153,10 +172,7 @@
 
           </div>
 
-        <!-- Date -->
-        <p class="text-sm text-gray-500 mt-4">
-            {% trans "Date actuelle" %} : {{ now|date:"Y-m-d H:i" }}
-        </p>
+
 
     </form>
 </div>

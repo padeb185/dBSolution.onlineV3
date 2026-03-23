@@ -20,7 +20,7 @@ from django.utils.translation import gettext_lazy as _
 # -----------------------------
 # Classe ListView pour NettoyageExterieur
 # -----------------------------
-
+@method_decorator([login_required, never_cache], name='dispatch')
 class NettoyageExterieurListView(ListView):
     model = NettoyageExterieur
     template_name = "nettoyage_exterieur/nettoyage_ext_list.html"
@@ -88,7 +88,7 @@ def nettoyage_exterieur_view(request, exemplaire_id):
                 voiture_exemplaire=exemplaire,
                 mecanicien=request.user,
                 immatriculation=exemplaire.immatriculation,
-                date_intervention=timezone.now().date(),
+                date_intervention=timezone.localtime(timezone.now()).date(),
                 kilometres_chassis=exemplaire.kilometres_chassis,
                 kilometres_derniere_intervention=exemplaire.kilometres_derniere_intervention,
                 type_maintenance="nettoyage_exterieur",
@@ -180,14 +180,14 @@ def modifier_nettoyage_ext_view(request, nettoyage_ext_id):
 
     with tenant_context(tenant):
         # Récupération du nettoyage avec son exemplaire
-        nettoyage_ext = get_object_or_404(
+        nettoyage_exterieur = get_object_or_404(
             NettoyageExterieur.objects.select_related("voiture_exemplaire"),
             id=nettoyage_ext_id,
             tech_utilisateurs__societe=tenant
         )
 
         if request.method == "POST":
-            form = NettoyageExterieurForm(request.POST, instance=nettoyage_ext, user=request.user)
+            form = NettoyageExterieurForm(request.POST, instance=nettoyage_exterieur, user=request.user)
             if form.is_valid():
                 form.save()
                 messages.success(request, _("Nettoyage extérieur modifié avec succès !"))
@@ -195,17 +195,17 @@ def modifier_nettoyage_ext_view(request, nettoyage_ext_id):
                 # Redirection vers le détail
                 return redirect(
                     "nettoyage_exterieur:nettoyage_ext_detail",
-                    nettoyage_id=str(nettoyage_ext.id)  # s'assure que l'UUID est string
+                    nettoyage_id=str(nettoyage_exterieur.id)  # s'assure que l'UUID est string
                 )
         else:
-            form = NettoyageExterieurForm(instance=nettoyage_ext, user=request.user)
+            form = NettoyageExterieurForm(instance=nettoyage_exterieur, user=request.user)
 
     return render(
         request,
         "nettoyage_exterieur/modifier_nettoyage_ext.html",
         {
             "form": form,
-            "nettoyage_ext": nettoyage_ext,
-            "exemplaire": nettoyage_ext.voiture_exemplaire,  # utile pour les templates
+            "nettoyage_exterieur": nettoyage_exterieur,
+            "exemplaire": nettoyage_exterieur.voiture_exemplaire,  # utile pour les templates
         }
     )

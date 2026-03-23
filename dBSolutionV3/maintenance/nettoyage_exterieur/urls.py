@@ -1,8 +1,7 @@
 # maintenance/nettoyage_exterieur/urls.py
 from django.urls import path
-
-from .views import nettoyage_ext_detail, modifier_nettoyage_ext_view, NettoyageExterieurListView, \
-    nettoyage_exterieur_view
+from .views import modifier_nettoyage_ext_view, NettoyageExterieurListView, nettoyage_exterieur_view, \
+    nettoyage_ext_detail
 
 urlpatterns = [
     # Liste des nettoyages pour un exemplaire
