@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.contrib import messages
-from django.db import transaction
+from django.db import transaction, models
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
@@ -14,7 +14,40 @@ from maintenance.check_up.forms import ControleGeneralForm
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from maintenance.nettoyage_exterieur.models import NettoyageExterieur
+from django.utils.translation import gettext_lazy as _
 
+
+
+# -----------------------------
+# Classe ListView pour checkup
+# -----------------------------
+@method_decorator([login_required, never_cache], name='dispatch')
+class CheckupListView(ListView):
+    model = ControleGeneral
+    template_name = "check_up/checkup_list.html"
+    context_object_name = "checkups"
+    paginate_by = 100
+    ordering = ["-id"]
+
+    def get_queryset(self):
+        queryset = ControleGeneral.objects.select_related(
+            "voiture_exemplaire", "maintenance", "tech_societe"
+        )
+
+        # Filtrer par société : inclure les objets NULL ou ceux de la société de l'utilisateur
+        societe = getattr(self.request.user, "societe", None)
+        if societe:
+            queryset = queryset.filter(
+                models.Q(tech_societe=societe) | models.Q(tech_societe__isnull=True)
+            )
+
+        return queryset.order_by(*self.ordering)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        exemplaire_id = self.kwargs.get("exemplaire_id")
+        context["exemplaire"] = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
+        return context
 
 
 
@@ -131,3 +164,57 @@ def controle_total_view(request, exemplaire_id):
         }
 
         return render(request, "check_up/controle_total.html", context)
+
+
+# ------------
+# Vue détail checkup
+# -----------------------------
+@login_required
+def checkup_detail_view(request, checkup_id):
+    checkup_detail = get_object_or_404(
+        ControleGeneral.objects.select_related("voiture_exemplaire"),
+        id=checkup_id
+    )
+
+    context = {
+        "nettoyage_ext": checkup_detail,  # nom uniforme pour le template
+        "exemplaire": checkup_detail.voiture_exemplaire,
+    }
+    return render(request, "check_up/checkup_detail.html", context)
+
+
+@login_required
+def modifier_checkup_view(request, checkup_id):
+    tenant = request.user.societe
+
+    with tenant_context(tenant):
+        # Récupération du nettoyage avec son exemplaire
+        checkup = get_object_or_404(
+            ControleGeneral.objects.select_related("voiture_exemplaire"),
+            id=checkup_id,
+            tech_utilisateurs__societe=tenant
+        )
+
+        if request.method == "POST":
+            form = ControleGeneralForm(request.POST, instance=checkup, user=request.user)
+            if form.is_valid():
+                form.save()
+                messages.success(request, _("Nettoyage extérieur modifié avec succès !"))
+
+                # Redirection vers le détail
+                return redirect(
+                    "nettoyage_exterieur:nettoyage_ext_detail",
+                    nettoyage_id=str(checkup.id)  # s'assure que l'UUID est string
+                )
+        else:
+            form = ControleGeneralForm(instance=checkup, user=request.user)
+
+    return render(
+        request,
+        "check_up/modifier_checkup.html",
+        {
+            "form": form,
+            "checkup": checkup,
+            "checkup": checkup.voiture_exemplaire,
+        }
+    )

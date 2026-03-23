@@ -19,7 +19,7 @@ from maintenance.check_up.models import ControleGeneral
 from utilisateurs.models import Mecanicien
 from maintenance.jeux_pieces.models import ControleJeuxPieces
 from maintenance.nettoyage_exterieur.models import NettoyageExterieur
-
+from maintenance.nettoyage_interieur.models import NettoyageInterieur
 
 
 @login_required
@@ -54,7 +54,8 @@ def choisir_type_maintenance(request, exemplaire_id):
     total_checkup = total_entretien = total_freins = total_pneus = \
     total_niveaux = total_nettoyage_exterieur = total_nettoyage_interieur =\
     total_autres = total_jeux_pieces = 0
-    checkup = entretien = nettoyage_exterieur = jeux_pieces= []
+
+    checkup = entretien = nettoyage_exterieur = jeux_pieces = nettoyage_interieur = []
 
     if schema_name:
         with schema_context(schema_name):
@@ -64,7 +65,7 @@ def choisir_type_maintenance(request, exemplaire_id):
             pneus = Maintenance.objects.all()
             niveaux = Maintenance.objects.all()
             nettoyage_exterieur = NettoyageExterieur.objects.all()
-            nettoyage_interieur = Maintenance.objects.all()
+            nettoyage_interieur = NettoyageInterieur.objects.all()
             autres = Maintenance.objects.all()
             jeux_pieces =ControleJeuxPieces.objects.all()
 
