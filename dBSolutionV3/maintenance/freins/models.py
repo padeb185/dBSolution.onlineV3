@@ -125,14 +125,7 @@ class ControleFreins(models.Model):
         related_name="controle_tech_societe_freins"
     )
 
-    piece = models.ForeignKey(
-        Piece,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        verbose_name=_("Pièce remplacée"),
-        help_text=_("La pièce de frein remplacée, ex : plaquettes, disques, étrier…")
-    )
+
 
     date = models.DateTimeField(auto_now_add=True)
 
