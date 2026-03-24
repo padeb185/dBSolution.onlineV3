@@ -86,7 +86,24 @@
             </td>
 
             <td class="border px-4 py-2">{{ checkup.kilometres_chassis }}</td>
-            <td class="border px-4 py-2">{{ checkup.tag }}</td>
+            {% if checkup.tag == 'VERT' %}
+            <td class="border px-4 py-2 text-center font-bold" style="background-color: #28a745; color: white;">
+                {{ checkup.get_tag_display }}
+            </td>
+            {% elif checkup.tag == 'JAUNE' %}
+            <td class="border px-4 py-2 text-center font-bold" style="background-color: #ffc107; color: black;">
+                {{ checkup.get_tag_display }}
+            </td>
+            {% elif checkup.tag == 'ROUGE' %}
+            <td class="border px-4 py-2 text-center font-bold" style="background-color: #dc3545; color: white;">
+                {{ checkup.get_tag_display }}
+            </td>
+            {% else %}
+            <td class="border px-4 py-2 text-center font-bold" style="background-color: transparent; color: black;">
+                {{ checkup.get_tag_display }}
+            </td>
+            {% endif %}
+
             <td class="border px-4 py-2">{{ checkup.tech_nom_technicien }}</td>
             <td class="border px-4 py-2">{{ checkup.date }}</td>
             <td class="border px-4 py-2 text-center">
