@@ -202,6 +202,18 @@ class VoitureExemplaire(models.Model):
         related_name="entretien_voitures"
     )
 
+    TAG_CHOICES = [
+        ("VERT", _("Vert")),
+        ("JAUNE", _("Jaune")),
+        ("ROUGE", _("Rouge")),
+    ]
+
+    tag = models.CharField(
+        max_length=10,
+        choices=TAG_CHOICES,
+        default="JAUNE",
+        verbose_name=_("État visuel / Tag"),
+    )
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

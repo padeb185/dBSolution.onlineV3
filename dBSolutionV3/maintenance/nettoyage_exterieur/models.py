@@ -3,6 +3,8 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from maintenance.models import Maintenance
 from utilisateurs.models import Utilisateur
+from django.conf import settings
+
 
 
 class NettoyageEtat(models.TextChoices):
@@ -71,7 +73,7 @@ class NettoyageExterieur(models.Model):
         ("ROUGE", _("Rouge")),
     ]
 
-    tag = models.CharField(
+    tag_nettoyage_ext = models.CharField(
         max_length=10,
         choices=TAG_CHOICES,
         default="JAUNE",
@@ -86,7 +88,7 @@ class NettoyageExterieur(models.Model):
 
     # Champ pour l’utilisateur affecté (technicien)
     tech_utilisateurs = models.ForeignKey(
-        Utilisateur,
+        settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
