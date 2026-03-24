@@ -32,7 +32,7 @@ class ControleFreins(models.Model):
         blank=True
     )
 
-    kilometrage_freins = models.PositiveIntegerField(
+    kilometrage_controle = models.PositiveIntegerField(
         _("Kilométrage au moment du controle des freins"),
         null=True,
         blank=True

@@ -8,7 +8,7 @@ urlpatterns = [
 
     path('freins/<uuid:exemplaire_id>/liste/', FreinsListView.as_view(),name='freins_list'),
 
-    path('controle-total/<uuid:exemplaire_id>/', controle_freins_view, name='freins_check'),
+    path('controle-freins/<uuid:exemplaire_id>/', controle_freins_view, name='freins_check'),
 
 
     path('<int:checkup_id>/modifier/', modifier_freins_view, name='modifier_freins'),
