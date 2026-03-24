@@ -4,7 +4,7 @@ from .models import ControleFreins
 from django.utils.translation import gettext_lazy as _
 
 
-class ControleGeneralForm(forms.ModelForm):
+class ControleFreinsForm(forms.ModelForm):
     class Meta:
         model = ControleFreins
         fields = "__all__"

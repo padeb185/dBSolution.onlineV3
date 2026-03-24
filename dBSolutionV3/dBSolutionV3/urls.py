@@ -105,6 +105,8 @@ urlpatterns += i18n_patterns(
 
     path('maintenance/nettoyage-interieur/',include(('maintenance.nettoyage_interieur.urls', 'nettoyage_interieur'), namespace='nettoyage_interieur')),
 
+    path('maintenance/freins/',include(('maintenance.freins.urls', 'freins'), namespace='freins')),
+
 )
 
 
