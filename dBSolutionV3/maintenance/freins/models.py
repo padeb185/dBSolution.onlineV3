@@ -1,68 +1,138 @@
+from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from piece.models import Piece
 
-
-class PartieFrein(models.TextChoices):
-    AVANT = "AVANT", _("Avant")
-    ARRIERE = "ARRIERE", _("Arrière")
-    AVANT_AR = "AV_AR", _("Avant et arrière")
+class EtatOKNotOK(models.TextChoices):
+    OK = "OK", _("Non")
+    NOT_OK = "NOT_OK", _("Oui")
+    A_REMPLACER = "A_REMPLACER", _("À remplacer")
+    REMPLACE = "REMPLACE", _("Remplacé")
 
 
 class ControleFreins(models.Model):
     maintenance = models.ForeignKey(
         "maintenance.Maintenance",
         on_delete=models.CASCADE,
-        related_name="controles_freins",
+        related_name="controle_freins",
         verbose_name=_("Maintenance")
     )
 
-    partie = models.CharField(
+    voiture_exemplaire = models.ForeignKey(
+        "voiture_exemplaire.VoitureExemplaire",
+        on_delete=models.CASCADE,
+        related_name="controle_freins_checkup_exemplaire_km",
+        verbose_name="Kilomètres_freins",
+        null=True, blank=True
+    )
+
+    kilometres_chassis = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True
+    )
+
+    kilometrage_freins = models.PositiveIntegerField(
+        _("Kilométrage au moment du controle des freins"),
+        null=True,
+        blank=True
+    )
+
+
+    # --- Freins ---
+
+    freins_usure_plaquettes_av = models.IntegerField(default=0, verbose_name=_("Usure des plaquettes avants (%)"))
+    freins_plaquettes_remplacer_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK,verbose_name=_("Plaquettes avant à remplacer"))
+    freins_epaisseur_disques_av = models.FloatField(default=0.0, verbose_name=_("Épaisseur des disques avants (mm)"))
+    freins_fentes_disques_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Présence de fentes sur les disques avants"))
+    freins_disques_remplacer_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Disques avants à remplacer"))
+
+    freins_usure_plaquettes_ar = models.IntegerField(default=0, verbose_name=_("Usure des plaquettes arrières (%)"))
+    freins_plaquettes_remplacer_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK,verbose_name=_("Plaquettes arrière à remplacer"))
+    freins_epaisseur_disques_ar = models.FloatField(default=0, verbose_name=_("Épaisseur des disques arrières (mm)"))
+    freins_fentes_disques_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Présence de fentes sur les disques arrières"))
+    freins_disques_remplacer_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Disques arrières à remplacer"))
+
+    freins_fuites = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Présence de fuite"))
+
+    # --- Liquide ---
+    frein_liquide_frein_etat = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("État liquide de frein"))
+    freins_remplacement_liquide_frein = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK,verbose_name=_("Remplacement liquide de frein"))
+    freins_specif_liquide_frein = models.CharField(max_length=100, blank=True,verbose_name=_("Spécification liquide de frein"))
+    freins_quantite_liquide_frein = models.FloatField(default=0, null=True, blank=True,verbose_name=_("Quantité liquide de frein (L)"))
+
+    frein_machoire_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("État de la machoire avant gauche"))
+    frein_machoire_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("État de la machoire avant droite"))
+    frein_machoire_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("État de la machoire arrière gauche"))
+    frein_machoire_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("État de la machoire arrière droite"))
+
+
+
+    remarques = models.TextField(
+        verbose_name=_("Remarques"), blank=True, null=True)
+
+    TAG_CHOICES = [
+        ("VERT", _("Vert")),
+        ("JAUNE", _("Jaune")),
+        ("ROUGE", _("Rouge")),
+    ]
+
+    tag_freins = models.CharField(
         max_length=10,
-        choices=PartieFrein.choices,
-        verbose_name=_("Partie contrôlée")
+        choices=TAG_CHOICES,
+        default="JAUNE",
+        verbose_name=_("État visuel / Tag"),
     )
 
-    # Plaquettes
-    usure_plaquettes = models.FloatField(
-        verbose_name=_("Usure des plaquettes (%)")
+    # Champ pour l’utilisateur affecté (utilisateur courant)
+    utilisateurs = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name=_("Utilisateur"),
+        related_name="controle_freins"
     )
 
-    # Disques
-    epaisseur_disques = models.FloatField(
-        verbose_name=_("Épaisseur des disques (mm)")
-    )
-    fentes_disques = models.BooleanField(
-        default=False,
-        verbose_name=_("Présence de fentes sur les disques")
-    )
-
-    # Fuites
-    fuites = models.BooleanField(
-        default=False,
-        verbose_name=_("Présence de fuite")
+    # Technicien qui fait le checkup (toujours l'utilisateur courant)
+    tech_technicien = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name=_("Technicien"),
+        related_name="controle_frein"
     )
 
-    # Remplacement
-    disque_a_remplacer_av = models.BooleanField(
-        default=False,
-        verbose_name=_("Disques avant à remplacer")
-    )
-    disque_a_remplacer_ar = models.BooleanField(
-        default=False,
-        verbose_name=_("Disques arrière à remplacer")
+    tech_nom_technicien = models.CharField(
+        _("Nom du technicien"),
+        max_length=255,
+        blank=True
     )
 
-    plaquettes_a_remplacer_av = models.BooleanField(
-        default=False,
-        verbose_name=_("Plaquettes avant à remplacer")
-    )
-    plaquettes_a_remplacer_ar = models.BooleanField(
-        default=False,
-        verbose_name=_("Plaquettes arrière à  remplacer")
+    tech_role_technicien = models.CharField(
+        _("Rôle du technicien"),
+        max_length=255,
+        blank=True
     )
 
+    tech_societe = models.ForeignKey(
+        "societe.Societe",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name=_("Société"),
+        related_name="controle_tech_societe_freins"
+    )
 
+    piece = models.ForeignKey(
+        Piece,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name=_("Pièce remplacée"),
+        help_text=_("La pièce de frein remplacée, ex : plaquettes, disques, étrier…")
+    )
 
     date = models.DateTimeField(auto_now_add=True)
 
@@ -92,49 +162,3 @@ class ControleFreins(models.Model):
 
 
 
-class RemplacementFreins(models.Model):
-    maintenance = models.ForeignKey(
-        "maintenance.Maintenance",
-        on_delete=models.CASCADE,
-        related_name="remplacements_freins",
-        verbose_name=_("Maintenance")
-    )
-
-    piece = models.ForeignKey(
-        Piece,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        verbose_name=_("Pièce remplacée"),
-        help_text=_("La pièce de frein remplacée, ex : plaquettes, disques, étrier…")
-    )
-
-    # Durée en minutes
-    duree_remplacement = models.PositiveIntegerField(
-        null=True,
-        blank=True,
-        verbose_name=_("Durée de remplacement (minutes)"),
-        help_text=_("Temps estimé ou réel pour effectuer le remplacement")
-    )
-
-    # Description libre
-    description = models.TextField(
-        blank=True,
-        verbose_name=_("Détails"),
-        help_text=_("Notes ou détails supplémentaires sur le remplacement effectué")
-    )
-
-    date_remplacement = models.DateTimeField(auto_now_add=True, verbose_name=_("Date de remplacement"))
-
-    class Meta:
-        verbose_name = _("Remplacement des freins")
-        verbose_name_plural = _("Remplacements des freins")
-        ordering = ["-date_remplacement"]
-
-    def __str__(self):
-        return _(
-            "Remplacement – %(piece)s (%(date)s)"
-        ) % {
-            "piece": self.piece.nom if self.piece else _("Pièce non spécifiée"),
-            "date": self.date_remplacement.strftime("%Y-%m-%d %H:%M")
-        }
