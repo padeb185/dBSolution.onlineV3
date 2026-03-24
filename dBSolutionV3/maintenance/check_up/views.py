@@ -161,14 +161,14 @@ def controle_total_view(request, exemplaire_id):
 # -----------------------------
 @login_required
 def checkup_detail_view(request, checkup_id):
-    checkup_detail = get_object_or_404(
+    checkup = get_object_or_404(
         ControleGeneral.objects.select_related("voiture_exemplaire"),
         id=checkup_id
     )
 
     context = {
-        "checkup": checkup_detail,
-        "exemplaire": checkup_detail.voiture_exemplaire,
+        "checkup": checkup,
+        "exemplaire": checkup.voiture_exemplaire,
     }
     return render(request, "check_up/checkup_detail.html", context)
 
@@ -178,25 +178,25 @@ def modifier_checkup_view(request, checkup_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
-        # Récupération du nettoyage avec son exemplaire
+        # Récupération du checkup avec son exemplaire
         checkup = get_object_or_404(
             ControleGeneral.objects.select_related("voiture_exemplaire"),
             id=checkup_id,
         )
 
         if request.method == "POST":
-            form = ControleGeneralForm(request.POST, instance=checkup, user=request.user)
+            form = ControleGeneralForm(request.POST, instance=checkup)
             if form.is_valid():
                 form.save()
-                messages.success(request, _("Nettoyage extérieur modifié avec succès !"))
+                messages.success(request, _("Checkup modifié avec succès !"))
 
                 # Redirection vers le détail
                 return redirect(
-                    "nettoyage_exterieur:nettoyage_ext_detail",
-                    nettoyage_id=str(checkup.id)  # s'assure que l'UUID est string
+                    "check_up:checkup_detail",
+                    checkup_id=checkup.id
                 )
         else:
-            form = ControleGeneralForm(instance=checkup, user=request.user)
+            form = ControleGeneralForm(instance=checkup)
 
     return render(
         request,
@@ -205,6 +205,5 @@ def modifier_checkup_view(request, checkup_id):
             "form": form,
             "checkup": checkup,
             "exemplaire": checkup.voiture_exemplaire,
-
         }
     )

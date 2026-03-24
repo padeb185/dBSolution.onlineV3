@@ -327,6 +327,19 @@ class ControleGeneral(models.Model):
     remarques = models.TextField(
         verbose_name=_("Remarques"), blank=True, null=True)
 
+    TAG_CHOICES = [
+        ("VERT", _("Vert")),
+        ("JAUNE", _("Jaune")),
+        ("ROUGE", _("Rouge")),
+    ]
+
+    tag = models.CharField(
+        max_length=10,
+        choices=TAG_CHOICES,
+        default="JAUNE",
+        verbose_name=_("État visuel / Tag"),
+    )
+
     # Champ pour l’utilisateur affecté (utilisateur courant)
     utilisateurs = models.ForeignKey(
         settings.AUTH_USER_MODEL,
