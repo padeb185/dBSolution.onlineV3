@@ -1,7 +1,10 @@
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from piece.models import Piece
+from maintenance.models import Maintenance
+
 
 class EtatOKNotOK(models.TextChoices):
     OK = "OK", _("Non")
@@ -12,10 +15,12 @@ class EtatOKNotOK(models.TextChoices):
 
 class ControleFreins(models.Model):
     maintenance = models.ForeignKey(
-        "maintenance.Maintenance",
+        Maintenance,
         on_delete=models.CASCADE,
         related_name="controle_freins",
-        verbose_name=_("Maintenance")
+        verbose_name=_("Maintenance"),
+        null=True,  # autorisé vide à la création
+        blank=True
     )
 
     voiture_exemplaire = models.ForeignKey(
@@ -32,8 +37,8 @@ class ControleFreins(models.Model):
         blank=True
     )
 
-    kilometrage_controle = models.PositiveIntegerField(
-        _("Kilométrage au moment du controle des freins"),
+    kilometrage_controle_brake = models.PositiveIntegerField(
+        _("Kilométrage du controle des freins"),
         null=True,
         blank=True
     )
@@ -84,15 +89,6 @@ class ControleFreins(models.Model):
         verbose_name=_("État visuel / Tag"),
     )
 
-    # Champ pour l’utilisateur affecté (utilisateur courant)
-    utilisateurs = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        verbose_name=_("Utilisateur"),
-        related_name="controle_freins"
-    )
 
     # Technicien qui fait le checkup (toujours l'utilisateur courant)
     tech_technicien = models.ForeignKey(
@@ -125,33 +121,35 @@ class ControleFreins(models.Model):
         related_name="controle_tech_societe_freins"
     )
 
-
-
     date = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        verbose_name = _("Contrôle freins")
+        verbose_name_plural = _("Contrôles freins")
+
     def __str__(self):
-        return _(
-            "Contrôle freins – %(partie)s (%(date)s)"
-        ) % {
-            "partie": self.get_partie_display(),
-            "date": self.date.strftime("%Y-%m-%d %H:%M")
-        }
+        return _("Contrôle freins – Maintenance %(id)s") % {"id": self.maintenance.id}
 
-    def plaque_critique(self, seuil_usure=30):
-        """Retourne True si les plaquettes sont trop usées (critique)."""
-        return self.usure_plaquettes >= seuil_usure
+    def clean(self):
+        super().clean()
+        if self.voiture_exemplaire and self.kilometrage_controle_brake is not None:
+            if self.kilometrage_controle_brake < self.voiture_exemplaire.kilometres_chassis:
+                raise ValidationError({
+                    'kilometrage_checkup': _(
+                        f"Le kilométrage du check-up ({self.kilometrage_controle_brake}) "
+                        f"ne peut pas être inférieur au kilométrage actuel de la voiture ({self.voiture_exemplaire.kilometres_chassis})."
+                    )
+                })
 
-    def disque_critique(self, epaisseur_min=20):
-        """Retourne True si les disques sont trop fins ou fendus."""
-        return self.epaisseur_disques <= epaisseur_min or self.fentes_disques
+    def save(self, *args, **kwargs):
+        # Si checkup > km actuel, mettre à jour la voiture
+        if self.voiture_exemplaire and self.kilometrage_controle_brake:
+            if self.kilometrage_controle_brake > self.voiture_exemplaire.kilometres_chassis:
+                self.voiture_exemplaire.kilometres_chassis = self.kilometrage_controle_brake
+                self.voiture_exemplaire.save(update_fields=["kilometres_chassis"])
 
-    def fuite_critique(self):
-        """Retourne True si une fuite est détectée."""
-        return self.fuites
+        # Toujours garder une copie dans le contrôle
+        if self.voiture_exemplaire:
+            self.kilometres_chassis = self.voiture_exemplaire.kilometres_chassis
 
-    def is_critique(self):
-        """Retourne True si l'une des conditions critiques est remplie."""
-        return self.plaque_critique() or self.disque_critique() or self.fuite_critique()
-
-
-
+        super().save(*args, **kwargs)

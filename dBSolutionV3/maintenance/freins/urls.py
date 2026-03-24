@@ -11,10 +11,10 @@ urlpatterns = [
     path('controle-freins/<uuid:exemplaire_id>/', controle_freins_view, name='freins_check'),
 
 
-    path('<int:checkup_id>/modifier/', modifier_freins_view, name='modifier_freins'),
+    path('<int:freins_id>/modifier/', modifier_freins_view, name='modifier_freins'),
 
 
-    path('<int:checkup_id>/detail/', freins_detail_view, name='freins_detail'),
+    path('<int:freins_id>/detail/', freins_detail_view, name='freins_detail'),
 ]
 
 
