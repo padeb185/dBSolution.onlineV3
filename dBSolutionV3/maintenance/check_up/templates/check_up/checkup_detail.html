@@ -31,7 +31,7 @@
             <p><strong>{% trans "Immatriculation" %} :</strong> {{ checkup.voiture_exemplaire.immatriculation }}</p>
             <p><strong>{% trans "Kilométrage" %} :</strong> {{ checkup.kilometres_chassis }}</p>
             <p><strong>{% trans "Tag" %} :</strong> {{ checkup.tag }}</p>
-            <p><strong>{% trans "Technicien" %} :</strong> {{ checkup.tech_nom_technicien }} ({{ nettoyage_ext.tech_role_technicien }})</p>
+            <p><strong>{% trans "Technicien" %} :</strong> {{ checkup.tech_nom_technicien }} ({{ checkup.tech_role_technicien }})</p>
         </div>
 
         <!-- Maintenance -->
