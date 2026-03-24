@@ -18,7 +18,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        pastelblue: "#e8f0ff"
+        pastelblue: "#DBDFFD"
       },
       keyframes: {
         barAnim: {

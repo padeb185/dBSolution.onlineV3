@@ -14,7 +14,7 @@
         </h1>
 
         <a href="{% if checkup.voiture_exemplaire %}
-                   {% url 'checkup:checkup_list' checkup.voiture_exemplaire.id %}
+                   {% url 'check_up:checkup_list' checkup.voiture_exemplaire.id %}
                {% else %}# {% endif %}"
            class="text-blue-600 hover:underline">
             {% trans "Retour à la liste des checkups" %}
@@ -42,7 +42,7 @@
 
         <!-- Bouton Modifier -->
         <div class="mt-auto w-full">
-            <a href="{% url 'check_up:modifier_checkup_view' checkup.id %}" class="block w-full">
+            <a href="{% url 'check_up:modifier_checkup' checkup.id %}" class="block w-full">
                 <button type="button" class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
                     {% trans "Modifier le checkup" %}
                 </button>
@@ -53,7 +53,7 @@
     <!-- Actions -->
     <div class="bg-white shadow-md rounded-lg p-6 flex gap-4">
         <a href="{% if checkup.voiture_exemplaire %}
-                   {% url 'checkup:checkup_list' checkup.voiture_exemplaire.id %}
+                   {% url 'check_up:checkup_list' checkup.voiture_exemplaire.id %}
                {% else %}# {% endif %}"
            class="text-blue-600 hover:underline">
             {% trans "Retour à la liste des checkups" %}

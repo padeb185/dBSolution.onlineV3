@@ -11,7 +11,7 @@ urlpatterns = [
     path('controle-total/<uuid:exemplaire_id>/', controle_total_view, name='controle_total_view'),
 
 
-    path('<int:checkup_id>/modifier/', modifier_checkup_view, name='modifier_checkup_view'),
+    path('<int:checkup_id>/modifier/', modifier_checkup_view, name='modifier_checkup'),
 
 
     path('<int:checkup_id>/detail/', checkup_detail_view, name='checkup_detail'),

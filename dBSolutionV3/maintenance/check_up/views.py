@@ -52,7 +52,6 @@ class CheckupListView(ListView):
 
 
 
-
 @never_cache
 @login_required
 def controle_total_view(request, exemplaire_id):
@@ -71,99 +70,90 @@ def controle_total_view(request, exemplaire_id):
         if request.user.role not in roles_autorises:
             messages.error(
                 request,
-                -("Seuls les mécaniciens, apprentis, magasiniers et chefs mécaniciens peuvent accéder à cette page."
-            ))
+                "Seuls les mécaniciens, apprentis, magasiniers et chefs mécaniciens peuvent accéder à cette page."
+            )
             return redirect("maintenance_liste_all")
 
-        # 🔧 Récupération ou création de la maintenance
-        maintenance = Maintenance.objects.filter(
-            voiture_exemplaire=exemplaire,
-            type_maintenance="checkup"
-        ).order_by("-date_intervention").first()
-
-        if not maintenance:
-            maintenance = Maintenance.objects.create(
-                voiture_exemplaire=exemplaire,
-                mecanicien=request.user,
-                immatriculation=exemplaire.immatriculation,
-                date_intervention=timezone.now().date(),
-                kilometres_chassis=exemplaire.kilometres_chassis,
-                kilometres_derniere_intervention=exemplaire.kilometres_derniere_intervention,
-                type_maintenance="checkup",
-                tag=Maintenance.Tag.JAUNE,
-            )
-
-        # 🔧 Récupération ou création du ControleGeneral
-        controle_general, _ = ControleGeneral.objects.get_or_create(
-            maintenance=maintenance
-        )
-
-        # POST
+        # =========================
+        # POST → création réelle
+        # =========================
         if request.method == "POST":
             from django.utils.translation import gettext as _
-            # Passer l'exemplaire au formulaire pour validations éventuelles
-            form = ControleGeneralForm(request.POST, instance=controle_general, exemplaire=exemplaire)
+
+            form = ControleGeneralForm(request.POST, exemplaire=exemplaire)
 
             if form.is_valid():
                 try:
                     with transaction.atomic():
-                        controle_general = form.save(commit=False)
 
-                        # Assigner l'utilisateur courant
-                        controle_general.tech_technicien = request.user
-                        controle_general.tech_nom_technicien = f"{request.user.prenom} {request.user.nom}"
-                        controle_general.tech_role_technicien = request.user.role
-                        controle_general.tech_societe = request.user.societe
+                        # ✅ création maintenance ici UNIQUEMENT
+                        maintenance = Maintenance.objects.create(
+                            voiture_exemplaire=exemplaire,
+                            mecanicien=request.user,
+                            immatriculation=exemplaire.immatriculation,
+                            date_intervention=timezone.now().date(),
+                            kilometres_chassis=exemplaire.kilometres_chassis,
+                            kilometres_derniere_intervention=exemplaire.kilometres_derniere_intervention,
+                            type_maintenance="checkup",
+                            tag=Maintenance.Tag.JAUNE,
+                        )
 
-                        # Gestion du kilométrage
+                        checkup = form.save(commit=False)
+
+                        # 🔗 liens
+                        checkup.maintenance = maintenance
+                        checkup.voiture_exemplaire = exemplaire
+
+                        # 👤 infos technicien
+                        checkup.tech_technicien = request.user
+                        checkup.tech_nom_technicien = f"{request.user.prenom} {request.user.nom}"
+                        checkup.tech_role_technicien = request.user.role
+                        checkup.tech_societe = request.user.societe
+
+                        # 🚗 gestion km
                         km_checkup = form.cleaned_data.get("kilometres_chassis")
-                        if km_checkup is not None and km_checkup < exemplaire.kilometres_chassis:
-                            form.add_error(
-                                "kilometres_chassis",
-                                _("Le kilométrage ne peut pas être inférieur au kilométrage actuel."
-                            ))
-                            return render(request, "check_up/controle_total.html", {
-                                "form": form,
-                                "exemplaire": exemplaire,
-                                "maintenance": maintenance,
-                                "now": timezone.now(),
-                            })
 
                         if km_checkup is not None:
-                            controle_general.kilometres_chassis = km_checkup
+                            if km_checkup < exemplaire.kilometres_chassis:
+                                form.add_error(
+                                    "kilometres_chassis",
+                                    _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
+                                )
+                                raise Exception("KM invalide")
+
                             exemplaire.kilometres_chassis = km_checkup
                             exemplaire.save()
 
-                        # Lier l'exemplaire
-                        controle_general.voiture_exemplaire = exemplaire
-                        controle_general.save()
+                            checkup.kilometres_chassis = km_checkup
+
+                        checkup.save()
 
                     messages.success(request, _("Maintenance enregistrée avec succès."))
                     return redirect(reverse("maintenance:controle_total_view", args=[exemplaire.id]))
 
                 except Exception as e:
-                    messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
+                    messages.error(request, str(e))
 
             else:
                 messages.error(request, _("Le formulaire contient des erreurs."))
-                print(form.errors)
 
-        # GET
+        # =========================
+        # GET → affichage uniquement
+        # =========================
         else:
             form = ControleGeneralForm(
-                instance=controle_general,
                 initial={"kilometres_chassis": exemplaire.kilometres_chassis},
                 exemplaire=exemplaire
             )
 
-        context = {
+        return render(request, "check_up/controle_total.html", {
             "exemplaire": exemplaire,
-            "maintenance": maintenance,
             "form": form,
             "now": timezone.now(),
-        }
+        })
 
-        return render(request, "check_up/controle_total.html", context)
+
+
 
 
 # ------------
@@ -177,7 +167,7 @@ def checkup_detail_view(request, checkup_id):
     )
 
     context = {
-        "nettoyage_ext": checkup_detail,  # nom uniforme pour le template
+        "checkup": checkup_detail,
         "exemplaire": checkup_detail.voiture_exemplaire,
     }
     return render(request, "check_up/checkup_detail.html", context)
@@ -192,7 +182,6 @@ def modifier_checkup_view(request, checkup_id):
         checkup = get_object_or_404(
             ControleGeneral.objects.select_related("voiture_exemplaire"),
             id=checkup_id,
-            tech_utilisateurs__societe=tenant
         )
 
         if request.method == "POST":
@@ -215,6 +204,7 @@ def modifier_checkup_view(request, checkup_id):
         {
             "form": form,
             "checkup": checkup,
-            "checkup": checkup.voiture_exemplaire,
+            "exemplaire": checkup.voiture_exemplaire,
+
         }
     )
