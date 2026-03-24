@@ -91,7 +91,22 @@
             </td>
 
             <td class="border px-4 py-2">{{ nettoyage_exterieur.kilometres_chassis }}</td>
-            <td class="border px-4 py-2">{{ nettoyage_exterieur.tag }}</td>
+            <td class="border px-4 py-2 text-center font-bold" style="background-color: #28a745; color: white;">
+                {{ nettoyage_exterieur.get_tag_display }}
+            </td>
+            {% elif nettoyage_exterieur.tag == 'JAUNE' %}
+            <td class="border px-4 py-2 text-center font-bold" style="background-color: #ffc107; color: black;">
+                {{ nettoyage_exterieur.get_tag_display }}
+            </td>
+            {% elif nettoyage_exterieur.tag == 'ROUGE' %}
+            <td class="border px-4 py-2 text-center font-bold" style="background-color: #dc3545; color: white;">
+                {{ nettoyage_exterieur.get_tag_display }}
+            </td>
+            {% else %}
+            <td class="border px-4 py-2 text-center font-bold" style="background-color: transparent; color: black;">
+                {{ nettoyage_exterieur.get_tag_display }}
+            </td>
+            {% endif %}
             <td class="border px-4 py-2">{{ nettoyage_exterieur.tech_nom_technicien }}</td>
             <td class="border px-4 py-2">{{ nettoyage_exterieur.date }}</td>
             <td class="border px-4 py-2 text-center">
