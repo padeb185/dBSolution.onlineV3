@@ -82,7 +82,7 @@ class ControleFreins(models.Model):
         ("ROUGE", _("Rouge")),
     ]
 
-    tag_freins = models.CharField(
+    tag_fff = models.CharField(
         max_length=10,
         choices=TAG_CHOICES,
         default="JAUNE",
