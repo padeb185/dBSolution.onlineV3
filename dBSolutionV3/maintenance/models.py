@@ -131,3 +131,9 @@ class Maintenance(models.Model):
         return [
             e for e in entretiens if e.doit_alerter(km_actuel)
         ]
+
+    def assign_technicien(self, user):
+        self.tech_technicien = user
+        self.tech_nom_technicien = f"{user.prenom} {user.nom}"
+        self.tech_role_technicien = user.role
+        self.tech_societe = user.societe

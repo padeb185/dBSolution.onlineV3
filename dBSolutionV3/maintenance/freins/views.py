@@ -105,10 +105,8 @@ def controle_freins_view(request, exemplaire_id):
                         freins.voiture_exemplaire = exemplaire
 
                         # 👤 infos technicien
-                        freins.tech_technicien = request.user
-                        freins.tech_nom_technicien = f"{request.user.prenom} {request.user.nom}"
-                        freins.tech_role_technicien = request.user.role
-                        freins.tech_societe = request.user.societe
+                        freins.assign_technicien(request.user)
+
 
                         # 🚗 gestion km
                         km_checkup = form.cleaned_data.get("kilometres_chassis")

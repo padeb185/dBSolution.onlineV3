@@ -107,6 +107,8 @@ urlpatterns += i18n_patterns(
 
     path('maintenance/freins/',include(('maintenance.freins.urls', 'freins'), namespace='freins')),
 
+    path('maintenance/niveaux/', include(('maintenance.niveaux.urls', 'niveaux'), namespace='niveaux')),
+
 )
 
 

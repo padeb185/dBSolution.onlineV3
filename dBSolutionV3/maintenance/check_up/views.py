@@ -105,10 +105,7 @@ def controle_total_view(request, exemplaire_id):
                         checkup.voiture_exemplaire = exemplaire
 
                         # 👤 infos technicien
-                        checkup.tech_technicien = request.user
-                        checkup.tech_nom_technicien = f"{request.user.prenom} {request.user.nom}"
-                        checkup.tech_role_technicien = request.user.role
-                        checkup.tech_societe = request.user.societe
+                        checkup.assign_technicien(request.user)
 
                         # 🚗 gestion km
                         km_checkup = form.cleaned_data.get("kilometres_chassis")

@@ -115,9 +115,8 @@ def nettoyage_exterieur_view(request, exemplaire_id):
                         nettoyage_ext = form.save(commit=False)
                         nettoyage_ext.voiture_exemplaire = exemplaire
                         nettoyage_ext.maintenance = maintenance
-                        nettoyage_ext.tech_utilisateurs = request.user
-                        nettoyage_ext.tech_nom_technicien = f"{request.user.prenom} {request.user.nom}"
-                        nettoyage_ext.tech_role_technicien = request.user.role
+                        nettoyage_ext.assign_technicien(request.user)
+
 
                         km_checkup = form.cleaned_data.get("kilometres_chassis")
                         if km_checkup is not None:
