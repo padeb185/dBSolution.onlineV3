@@ -4,7 +4,9 @@
 {% block content %}
 <div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
     <h1 class="text-2xl font-bold mb-4">{% trans "Modifier le véhicule" %} :</h1>
-     {% if messages %}
+
+ <!-- Messages -->
+    {% if messages %}
         {% for message in messages %}
         <div class="mb-3 px-4 py-2 rounded
             {% if message.tags == 'success' %}
@@ -16,6 +18,25 @@
         </div>
         {% endfor %}
     {% endif %}
+
+    {% if form.errors %}
+        <div style="background-color: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; padding: 10px; border-radius: 6px;">
+            <strong>Erreurs :</strong>
+            <ul>
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li>{{ field.label }} : {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+
+
     <!-- Plaque Belgique -->
         {% if exemplaire.pays == 'Belgique' %}
         <div class="flex items-center w-[40%] min-w-[180px] h-[40px] bg-white border-2 border-[#8B0000] rounded font-[Arial] mb-4">

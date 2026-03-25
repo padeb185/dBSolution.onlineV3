@@ -9,7 +9,8 @@
         {% trans "Ajouter un embrayage" %}
     </h1>
 
-     {% if messages %}
+     <!-- Messages -->
+    {% if messages %}
         {% for message in messages %}
         <div class="mb-3 px-4 py-2 rounded
             {% if message.tags == 'success' %}
@@ -20,6 +21,22 @@
             {{ message }}
         </div>
         {% endfor %}
+    {% endif %}
+
+    {% if form.errors %}
+        <div style="background-color: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; padding: 10px; border-radius: 6px;">
+            <strong>Erreurs :</strong>
+            <ul>
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li>{{ field.label }} : {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+            </ul>
+        </div>
     {% endif %}
 
     <form method="post" class="flex flex-col space-y-4">
