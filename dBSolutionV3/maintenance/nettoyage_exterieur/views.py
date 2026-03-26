@@ -326,7 +326,7 @@ def modifier_nettoyage_ext_view(request, nettoyage_ext_id):
 
                 # Redirection vers le détail
                 return redirect(
-                    "nettoyage_exterieur:nettoyage_ext_detail",
+                    "nettoyage_exterieur:modifier_nettoyage_ext",
                     nettoyage_id=str(nettoyage_exterieur.id)  # s'assure que l'UUID est string
                 )
         else:

@@ -280,22 +280,36 @@ def modifier_checkup_view(request, checkup_id):
         # Récupération du checkup avec son exemplaire
         checkup = get_object_or_404(
             ControleGeneral.objects.select_related("voiture_exemplaire"),
-            id=checkup_id,
+            id=checkup_id
         )
 
+        # -------------------------
+        # POST
+        # -------------------------
         if request.method == "POST":
-            form = ControleGeneralForm(request.POST, instance=checkup)
+            form = ControleGeneralForm(
+                request.POST,
+                instance=checkup,
+                user=request.user,       # 🔑 important pour initialiser technicien/societe
+                exemplaire=checkup.voiture_exemplaire
+            )
             if form.is_valid():
                 form.save()
                 messages.success(request, _("Checkup modifié avec succès !"))
+                return redirect("check_up:modifier_checkup", checkup_id=checkup.id)
+            else:
+                messages.error(request, _("Le formulaire contient des erreurs."))
+                print(form.errors)
 
-                # Redirection vers le détail
-                return redirect(
-                    "check_up:checkup_detail",
-                    checkup_id=checkup.id
-                )
+        # -------------------------
+        # GET
+        # -------------------------
         else:
-            form = ControleGeneralForm(instance=checkup)
+            form = ControleGeneralForm(
+                instance=checkup,
+                user=request.user,
+                exemplaire=checkup.voiture_exemplaire
+            )
 
     return render(
         request,

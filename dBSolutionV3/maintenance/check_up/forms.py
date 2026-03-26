@@ -24,8 +24,8 @@ class ControleGeneralForm(forms.ModelForm):
         self.exemplaire = kwargs.pop('exemplaire', None)
         super().__init__(*args, **kwargs)
 
-        # Si la date existe, la formate en heure locale
-        if self.instance and self.instance.pk and getattr(self.instance, "date", None):
+        # ✅ initialisation date seulement si le champ existe
+        if "date" in self.fields and self.instance and self.instance.pk and self.instance.date:
             local_dt = timezone.localtime(self.instance.date)
             self.fields['date'].initial = local_dt.strftime('%Y-%m-%d %H:%M:%S')
 

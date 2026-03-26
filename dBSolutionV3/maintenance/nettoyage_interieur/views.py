@@ -127,7 +127,7 @@ def nettoyage_interieur_view(request, exemplaire_id):
                         nettoyage_int.save()
 
                     messages.success(request, _("Nettoyage intérieur enregistré avec succès."))
-                    return redirect("nettoyage_interieur:nettoyage_interieur_view", exemplaire.id)
+                    return redirect("nettoyage_interieur:modifier_nettoyage_int", exemplaire.id)
                 except Exception as e:
                     messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
             else:
