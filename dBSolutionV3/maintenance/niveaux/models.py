@@ -204,6 +204,7 @@ class Niveau(TechnicienMixin, models.Model):
         related_name="niveaux_tech_societe"
     )
 
+
     def assign_technicien(self, user):
         self.tech_technicien = user
         self.tech_nom_technicien = f"{user.prenom} {user.nom}"
@@ -212,35 +213,42 @@ class Niveau(TechnicienMixin, models.Model):
 
 
     class Meta:
-        verbose_name = _("Contrôle général")
-        verbose_name_plural = _("Contrôles généraux")
+        verbose_name = _("Niveau")
+        verbose_name_plural = _("Niveaux")
+
 
     def __str__(self):
-        return _("Contrôle général – Maintenance %(id)s") % {"id": self.maintenance.id}
+        return f"Niveaux – {self.voiture_exemplaire} ({self.date:%Y-%m-%d})"
+
 
     def clean(self):
         super().clean()
-        if self.voiture_exemplaire and self.kilometrage_checkup is not None:
+        # Vérification que le kilométrage du check-up n'est pas inférieur au kilométrage actuel de la voiture
+        if self.voiture_exemplaire and self.kilometrage_niveaux is not None:
             if self.kilometrage_niveaux < self.voiture_exemplaire.kilometres_chassis:
                 raise ValidationError({
-                    'kilometrage_checkup': _(
+                    'kilometrage_niveaux': _(
                         f"Le kilométrage du check-up ({self.kilometrage_niveaux}) "
                         f"ne peut pas être inférieur au kilométrage actuel de la voiture ({self.voiture_exemplaire.kilometres_chassis})."
                     )
                 })
 
     def save(self, *args, **kwargs):
-        # Si checkup > km actuel, mettre à jour la voiture
-        if self.voiture_exemplaire and self.kilometrage_niveaux:
-            if self.kilometrage_niveaux > self.voiture_exemplaire.kilometres_chassis:
-                self.voiture_exemplaire.kilometres_chassis = self.kilometrage_niveaux
-                self.voiture_exemplaire.save(update_fields=["kilometres_chassis"])
+        self.full_clean()  # valide les km avant sauvegarde
 
-        # Toujours garder une copie dans le contrôle
         if self.voiture_exemplaire:
-            self.kilometres_chassis = self.voiture_exemplaire.kilometres_chassis
+            if self.kilometrage_niveaux is not None:
+                # Si l'utilisateur a saisi un km
+                if self.kilometrage_niveaux > self.voiture_exemplaire.kilometres_chassis:
+                    self.voiture_exemplaire.kilometres_chassis = self.kilometrage_niveaux
+                    self.voiture_exemplaire.save(update_fields=["kilometres_chassis"])
+                # Toujours copier dans le Niveau
+                self.kilometres_chassis = max(self.kilometrage_niveaux, self.voiture_exemplaire.kilometres_chassis)
+            else:
+                # Si non saisi, prendre le km actuel de la voiture
+                self.kilometres_chassis = self.voiture_exemplaire.kilometres_chassis
 
-        if not self.tech_technicien and hasattr(self, '_user'):
+        if not self.tech_technicien and hasattr(self, "_user"):
             self.assign_technicien(self._user)
-        super().save(*args, **kwargs)
 
+        super().save(*args, **kwargs)

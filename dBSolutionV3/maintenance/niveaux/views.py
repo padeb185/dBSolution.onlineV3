@@ -9,13 +9,11 @@ from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
 from django_tenants.utils import tenant_context
 from maintenance.models import Maintenance
-from maintenance.check_up.models import ControleGeneral
-from maintenance.check_up.forms import ControleGeneralForm
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from maintenance.nettoyage_exterieur.models import NettoyageExterieur
 from django.utils.translation import gettext_lazy as _
-from .forms import NiveauxForm
+from .forms import NiveauForm
 from .models import Niveau
 
 
@@ -24,7 +22,7 @@ from .models import Niveau
 # -----------------------------
 @method_decorator([login_required, never_cache], name='dispatch')
 class NiveauxListView(ListView):
-    model = ControleGeneral
+    model = Niveau
     template_name = "niveaux/niveaux_list.html"
     context_object_name = "niveaux"
     paginate_by = 100
@@ -56,6 +54,7 @@ class NiveauxListView(ListView):
 def niveau_form_view(request, exemplaire_id):
     tenant = request.user.societe
 
+    # Contexte multi-tenant
     with tenant_context(tenant):
         exemplaire = get_object_or_404(
             VoitureExemplaire.objects.filter(
@@ -74,63 +73,65 @@ def niveau_form_view(request, exemplaire_id):
             return redirect("maintenance_liste_all")
 
         if request.method == "POST":
-            form = NiveauxForm(request.POST, exemplaire=exemplaire, user=request.user)
+            form = NiveauForm(request.POST, exemplaire=exemplaire, user=request.user)
             if form.is_valid():
                 try:
                     with transaction.atomic():
-                        km_checkup = form.cleaned_data.get("kilometres_chassis")
+                        # Récupération du kilométrage saisi
+                        km_checkup = form.cleaned_data.get("kilometrage_niveaux")
+                        if km_checkup is None:
+                            km_checkup = exemplaire.kilometres_chassis
 
-                        if km_checkup is not None and km_checkup < exemplaire.kilometres_chassis:
+                        # 🔒 Sécurité : ne jamais diminuer le kilométrage
+                        if km_checkup < exemplaire.kilometres_chassis:
                             form.add_error(
-                                "kilometres_chassis",
-                                "Le kilométrage ne peut pas être inférieur au kilométrage actuel."
+                                "kilometrage_niveaux",
+                                f"Le kilométrage ne peut pas être inférieur au kilométrage actuel ({exemplaire.kilometres_chassis})."
                             )
-                            raise ValueError("KM invalide")
+                            raise ValueError("Kilométrage invalide")
 
-                        # Création de la maintenance
+                        # Création de la maintenance associée
                         maintenance = Maintenance(
                             voiture_exemplaire=exemplaire,
                             societe=request.user.societe,
                             immatriculation=exemplaire.immatriculation,
                             date_intervention=timezone.now().date(),
-                            kilometres_chassis=km_checkup or exemplaire.kilometres_chassis,
+                            kilometres_chassis=km_checkup,
                             kilometres_derniere_intervention=exemplaire.kilometres_derniere_intervention,
-                            type_maintenance="checkup",
+                            type_maintenance="niveau",
                             tag=Maintenance.Tag.JAUNE,
                         )
                         maintenance._user = request.user
                         maintenance.save()
 
-                        # Création du niveau lié à cette maintenance
-                        niveaux = form.save(commit=False)
-                        niveaux.maintenance = maintenance
-                        niveaux.voiture_exemplaire = exemplaire
+                        # Création du Niveau
+                        niveau = form.save(commit=False)
+                        niveau.maintenance = maintenance
+                        niveau.voiture_exemplaire = exemplaire
+                        niveau.kilometres_chassis = max(km_checkup, exemplaire.kilometres_chassis)
 
-                        # Préremplissage technicien & société
-                        niveaux.tech_technicien = request.user
-                        niveaux.tech_societe = request.user.societe
-                        niveaux.tech_nom_technicien = f"{request.user.prenom} {request.user.nom}"
-                        niveaux.tech_role_technicien = request.user.role
-                        niveaux.kilometres_chassis = km_checkup or exemplaire.kilometres_chassis
-                        niveaux.save()
+                        # Assignation technicien
+                        niveau.assign_technicien(request.user)
 
-                        # Mise à jour des km de l'exemplaire
-                        if km_checkup:
+                        niveau.save()
+
+                        # Mise à jour des km du véhicule si nécessaire
+                        if km_checkup > exemplaire.kilometres_chassis:
                             exemplaire.kilometres_chassis = km_checkup
-                            exemplaire.save()
+                            exemplaire.save(update_fields=["kilometres_chassis"])
 
                     messages.success(request, "Contrôle des niveaux enregistré avec succès.")
                     return redirect(reverse("niveaux:niveau_form_view", args=[exemplaire.id]))
 
                 except Exception as e:
-                    messages.error(request, str(e))
+                    messages.error(request, f"Erreur lors de l'enregistrement : {str(e)}")
             else:
                 messages.error(request, "Le formulaire contient des erreurs.")
 
         else:
             # GET → formulaire prérempli
-            form = NiveauxForm(
-                initial={"kilometres_chassis": exemplaire.kilometres_chassis},
+            form = NiveauForm(
+                initial={"kilometrage_niveaux": exemplaire.kilometres_chassis},
                 exemplaire=exemplaire,
                 user=request.user
             )
@@ -140,24 +141,29 @@ def niveau_form_view(request, exemplaire_id):
             "form": form,
             "now": timezone.now(),
         })
+"""
 
-
-
-# ------------
-# Vue détail checkup
-# -----------------------------
 @login_required
 def niveaux_detail_view(request, niveaux_id):
+    # Récupération du niveau
     niveaux = get_object_or_404(
         Niveau.objects.select_related("voiture_exemplaire"),
         id=niveaux_id
     )
 
+    exemplaire = niveaux.voiture_exemplaire
+
+    if not exemplaire:
+        messages.error(request, "Cet enregistrement n'a pas de véhicule associé.")
+        # Rediriger vers la liste générale des niveaux (sans UUID)
+        return redirect(reverse("niveaux:niveaux_list"))
+
     context = {
         "niveaux": niveaux,
-        "exemplaire": niveaux.voiture_exemplaire,
+        "exemplaire": exemplaire,
     }
     return render(request, "niveaux/niveaux_detail.html", context)
+
 
 
 @login_required
@@ -192,5 +198,89 @@ def modifier_niveaux_view(request, niveaux_id):
             "form": form,
             "niveaux": niveaux,
             "exemplaire": niveaux.voiture_exemplaire,
+        }
+    )
+
+
+@login_required
+def modifier_niveaux_view(request, niveaux_id, exemplaire_id):
+    # Récupération du niveau
+    niveaux = get_object_or_404(Niveau, id=niveaux_id)
+
+    # Récupération du véhicule associé
+    exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
+
+    if request.method == "POST":
+        # Traiter le formulaire ici
+        form = NiveauxForm(request.POST, instance=niveaux)
+        if form.is_valid():
+            niveau = form.save(commit=False)
+            niveau.voiture_exemplaire = exemplaire
+            niveau.save()
+            messages.success(request, "Niveau modifié avec succès.")
+            return redirect("niveaux:niveaux_detail", niveaux_id=niveau.id)
+    else:
+        form = NiveauxForm(instance=niveaux)
+
+    context = {
+        "form": form,
+        "niveaux": niveaux,
+        "exemplaire": exemplaire,
+    }
+    return render(request, "niveaux/niveaux_form.html", context)
+
+"""
+
+
+# ------------
+# Vue détail NettoyageExterieur
+# -----------------------------
+@login_required
+def niveaux_detail(request, niveau_id):
+    niveau = get_object_or_404(
+        Niveau.objects.select_related("voiture_exemplaire"),
+        id=niveau_id
+    )
+
+    context = {
+        "niveau": niveau,  # nom uniforme pour le template
+        "exemplaire": niveau.voiture_exemplaire,
+    }
+    return render(request, "niveaux/niveaux_detail.html", context)
+
+
+@login_required
+def modifier_niveaux_view(request, niveau_id):
+    tenant = request.user.societe
+
+    with tenant_context(tenant):
+        # Récupération du nettoyage avec son exemplaire
+        niveau = get_object_or_404(
+            Niveau.objects.select_related("voiture_exemplaire"),
+            id=niveau_id,
+            tech_utilisateurs__societe=tenant
+        )
+
+        if request.method == "POST":
+            form = NiveauxForm(request.POST, instance=niveau, user=request.user)
+            if form.is_valid():
+                form.save()
+                messages.success(request, _("Niveaux modifiés avec succès !"))
+
+                # Redirection vers le détail
+                return redirect(
+                    "niveaux:niveaux_detail",
+                    niveau_id=str(niveau.id)  # s'assure que l'UUID est string
+                )
+        else:
+            form = NiveauxForm(instance=niveau, user=request.user)
+
+    return render(
+        request,
+        "niveaux/modifier_niveaux.html",
+        {
+            "form": form,
+            "niveau": niveau,
+            "exemplaire": niveau.voiture_exemplaire,  # utile pour les templates
         }
     )

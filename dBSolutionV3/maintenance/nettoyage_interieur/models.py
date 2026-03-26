@@ -6,6 +6,8 @@ from utilisateurs.models import Utilisateur
 
 from django.conf import settings
 
+from utils.mixin import TechnicienMixin
+
 
 class NettoyageEtat(models.TextChoices):
     A_FAIRE = "A_FAIRE", _("A faire")
@@ -16,7 +18,7 @@ class NettoyageEtat(models.TextChoices):
 
 
 
-class NettoyageInterieur(models.Model):
+class NettoyageInterieur(TechnicienMixin,models.Model):
     maintenance = models.ForeignKey(
         Maintenance,
         on_delete=models.CASCADE,
@@ -108,7 +110,7 @@ class NettoyageInterieur(models.Model):
     )
 
     # Champ pour l’utilisateur affecté (technicien)
-    tech_utilisateurs = models.ForeignKey(
+    tech_technicien = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
         null=True,
@@ -140,6 +142,13 @@ class NettoyageInterieur(models.Model):
 
     date = models.DateTimeField(auto_now_add=True, verbose_name=_("Date"))
 
+    def assign_technicien(self, user):
+        self.tech_technicien = user
+        self.tech_nom_technicien = f"{user.prenom} {user.nom}"
+        self.tech_role_technicien = user.role
+        self.tech_societe = user.societe
+
+
     class Meta:
         verbose_name = _("Nettoyage intérieur")
         verbose_name_plural = _("Nettoyages intérieurs")
@@ -168,6 +177,9 @@ class NettoyageInterieur(models.Model):
         # Toujours garder une copie du kilométrage de la voiture
         if self.voiture_exemplaire:
             self.kilometres_chassis = self.voiture_exemplaire.kilometres_chassis
+
+        if not self.tech_technicien and hasattr(self, "_user"):
+            self.assign_technicien(self._user)
 
         super().save(*args, **kwargs)
 

@@ -16,7 +16,7 @@ from .models import NettoyageInterieur
 
 
 # -----------------------------
-# Classe ListView pour NettoyageExterieur
+# Classe ListView pour NettoyageInterieur
 # -----------------------------
 @method_decorator([login_required, never_cache], name='dispatch')
 class NettoyageInterieurListView(ListView):
@@ -46,10 +46,6 @@ class NettoyageInterieurListView(ListView):
         context["exemplaire"] = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
         return context
 
-
-# -----------------------------
-# Vue simple pour créer ou modifier NettoyageExterieur
-# -----------------------------
 
 @never_cache
 @login_required
@@ -92,13 +88,14 @@ def nettoyage_interieur_view(request, exemplaire_id):
                 tag=Maintenance.Tag.JAUNE,
             )
 
-        # Gestion du formulaire
+        # Créer ou récupérer l'objet NettoyageInterieur
+        nettoyage_int = NettoyageInterieur(
+            voiture_exemplaire=exemplaire,
+            maintenance=maintenance,
+            kilometres_chassis=exemplaire.kilometres_chassis
+        )
+
         if request.method == "POST":
-            # Crée un objet NettoyageExterieur lié à l'exemplaire et à la maintenance
-            nettoyage_int = NettoyageInterieur(
-                voiture_exemplaire=exemplaire,
-                maintenance=maintenance
-            )
             form = NettoyageInterieurForm(
                 request.POST,
                 instance=nettoyage_int,
@@ -110,24 +107,27 @@ def nettoyage_interieur_view(request, exemplaire_id):
                 try:
                     with transaction.atomic():
                         nettoyage_int = form.save(commit=False)
-                        nettoyage_int.voiture_exemplaire = exemplaire
-                        nettoyage_int.maintenance = maintenance
-                        nettoyage_int.assign_technicien(request.user)
 
+                        # 🔒 Assigner technicien et société si manquant
+                        if not nettoyage_int.tech_technicien:
+                            nettoyage_int.assign_technicien(request.user)
+
+                        # Gestion du kilométrage
                         km_checkup = form.cleaned_data.get("kilometres_chassis")
-                        if km_checkup is not None:
-                            if km_checkup < exemplaire.kilometres_chassis:
-                                form.add_error(
-                                    "kilometres_chassis",
-                                    _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
-                                )
-                                raise ValueError("Kilométrage invalide")
+                        if km_checkup is not None and km_checkup >= exemplaire.kilometres_chassis:
                             nettoyage_int.kilometres_chassis = km_checkup
                             exemplaire.kilometres_chassis = km_checkup
                             exemplaire.save()
+                        elif km_checkup is not None and km_checkup < exemplaire.kilometres_chassis:
+                            form.add_error(
+                                "kilometres_chassis",
+                                _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
+                            )
+                            raise ValueError("Kilométrage invalide")
 
                         nettoyage_int.save()
-                    messages.success(request, _("Nettoyage extérieur enregistré avec succès."))
+
+                    messages.success(request, _("Nettoyage intérieur enregistré avec succès."))
                     return redirect("nettoyage_interieur:nettoyage_interieur_view", exemplaire.id)
                 except Exception as e:
                     messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
@@ -136,9 +136,9 @@ def nettoyage_interieur_view(request, exemplaire_id):
                 print(form.errors)
         else:
             form = NettoyageInterieurForm(
+                instance=nettoyage_int,
                 user=request.user,
-                exemplaire=exemplaire,
-                initial={"kilometres_chassis": exemplaire.kilometres_chassis}
+                exemplaire=exemplaire
             )
 
         return render(request, 'nettoyage_interieur/nettoyage_simple.html', {
@@ -149,9 +149,8 @@ def nettoyage_interieur_view(request, exemplaire_id):
             "now": timezone.now(),
         })
 
-
 # ------------
-# Vue détail NettoyageExterieur
+# Vue détail NettoyageInterieur
 # -----------------------------
 @login_required
 def nettoyage_int_detail(request, nettoyage_id):
@@ -172,26 +171,40 @@ def modifier_nettoyage_int_view(request, nettoyage_int_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
-        # Récupération du nettoyage avec son exemplaire
+        # Récupération du nettoyage intérieur avec son exemplaire
         nettoyage_interieur = get_object_or_404(
             NettoyageInterieur.objects.select_related("voiture_exemplaire"),
             id=nettoyage_int_id,
-            tech_utilisateurs__societe=tenant
         )
 
         if request.method == "POST":
-            form = NettoyageInterieurForm(request.POST, instance=nettoyage_interieur, user=request.user)
+            form = NettoyageInterieurForm(
+                request.POST,
+                instance=nettoyage_interieur,
+                user=request.user,
+                exemplaire=nettoyage_interieur.voiture_exemplaire
+            )
             if form.is_valid():
-                form.save()
-                messages.success(request, _("Nettoyage extérieur modifié avec succès !"))
+                nettoyage_interieur = form.save(commit=False)
+
+                # 🔒 Assigner technicien et société si manquant
+                if not nettoyage_interieur.tech_technicien:
+                    nettoyage_interieur.assign_technicien(request.user)
+
+                nettoyage_interieur.save()
+                messages.success(request, _("Nettoyage intérieur modifié avec succès !"))
 
                 # Redirection vers le détail
                 return redirect(
                     "nettoyage_interieur:nettoyage_int_detail",
-                    nettoyage_id=str(nettoyage_interieur.id)  # s'assure que l'UUID est string
+                    nettoyage_id=str(nettoyage_interieur.id)
                 )
         else:
-            form = NettoyageInterieurForm(instance=nettoyage_interieur, user=request.user)
+            form = NettoyageInterieurForm(
+                instance=nettoyage_interieur,
+                user=request.user,
+                exemplaire=nettoyage_interieur.voiture_exemplaire
+            )
 
     return render(
         request,
@@ -199,6 +212,6 @@ def modifier_nettoyage_int_view(request, nettoyage_int_id):
         {
             "form": form,
             "nettoyage_interieur": nettoyage_interieur,
-            "exemplaire": nettoyage_interieur.voiture_exemplaire,  # utile pour les templates
+            "exemplaire": nettoyage_interieur.voiture_exemplaire,
         }
     )

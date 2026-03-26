@@ -4,9 +4,7 @@ from .models import Niveau
 from django.utils.translation import gettext_lazy as _
 
 
-
-
-class NiveauxForm(forms.ModelForm):
+class NiveauForm(forms.ModelForm):
     class Meta:
         model = Niveau
         fields = "__all__"
@@ -20,17 +18,15 @@ class NiveauxForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        # Récupérer user si fourni
-        self.user = kwargs.pop('user', None)
+        self.user = kwargs.pop("user", None)
         self.exemplaire = kwargs.pop('exemplaire', None)
         super().__init__(*args, **kwargs)
 
-        # Préremplir les champs technicien et société en lecture seule
         if self.user:
-            self.fields['tech_technicien'].initial = self.user
-            self.fields['tech_technicien'].disabled = True  # lecture seule
-            self.fields['tech_societe'].initial = self.user.societe
-            self.fields['tech_societe'].disabled = True
+            self.fields["tech_technicien"].initial = self.user
+            self.fields["tech_technicien"].disabled = True
+            self.fields["tech_societe"].initial = self.user.societe
+            self.fields["tech_societe"].disabled = True
 
 
 

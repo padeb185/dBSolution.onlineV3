@@ -21,16 +21,14 @@
             <span class="text-gray-700 font-medium">#{{ niveaux.id }}</span>
         </h1>
     </div>
-
-     <span>
-         {% trans "Modifier le contrôle des niveaux pour :" %}
-         {{ exemplaire.voiture_marque.nom_marque }}
-         {{ exemplaire.voiture_modele.nom_modele }}
-         {{ exemplaire.voiture_modele.nom_variante }}
-
-
-     </span>
-
+    <h2>
+         <span>
+             {% trans "Modifier le contrôle des niveaux pour :" %}
+             {{ exemplaire.voiture_marque.nom_marque }}
+             {{ exemplaire.voiture_modele.nom_modele }}
+             {{ exemplaire.voiture_modele.nom_variante }}
+         </span>
+    </h2>
      <div class="mb-4">
         {% include "maintenance/partials/plaque.html" %}
     </div>
@@ -437,14 +435,17 @@
 
         <div class="flex gap-3 mt-6">
             <button type="submit"
-                    class="flex-1 bg-blue-700 text-white px-5 py-3 rounded hover:bg-blue-500 font-semibold text-center">
+                    class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
                 {% trans "Enregistrer" %}
             </button>
-            <a href="{% url 'niveaux:niveaux_detail' niveaux_id=niveaux.id %}"
-               class="flex-1 bg-gray-300 text-black px-5 py-3 rounded hover:bg-gray-400 font-semibold text-center">
-               {% trans "Annuler" %}
+
+            <a href="{% url 'niveaux:niveaux_detail' niveau_id=niveau.id %}"
+               class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
+                {% trans "Annuler" %}
             </a>
         </div>
+
+
     </form>
 
 </div>

@@ -13,7 +13,7 @@
             <span>{% trans "Détails du contrôle des Niveaux" %}</span>
         </h1>
 
-        <a href="{% url 'niveaux:niveaux_list' niveaux.voiture_exemplaire.id %}"
+        <a href="{% url 'niveaux:niveaux_list' exemplaire.id %}"
            class="text-blue-600 hover:underline">
             {% trans "Retour à la liste des niveaux" %}
         </a>
@@ -26,21 +26,21 @@
         <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
             <h2 class="text-lg font-semibold mb-2">{% trans "Informations générales" %}</h2>
 
-            <p><strong>{% trans "Immatriculation" %} :</strong> {{ niveaux.voiture_exemplaire.immatriculation }}</p>
-            <p><strong>{% trans "Kilométrage" %} :</strong> {{ niveaux.kilometres_chassis }}</p>
-            <p><strong>{% trans "Tag" %} :</strong> {{ niveaux.get_tag_display }}</p>
-            <p><strong>{% trans "Technicien" %} :</strong> {{ niveaux.tech_nom_technicien }} ({{ niveaux.tech_role_technicien }})</p>
+            <p><strong>{% trans "Immatriculation" %} :</strong> {{ niveau.voiture_exemplaire.immatriculation }}</p>
+            <p><strong>{% trans "Kilométrage" %} :</strong> {{ niveau.kilometres_chassis }}</p>
+            <p><strong>{% trans "Tag" %} :</strong> {{ niveau.get_tag_display }}</p>
+            <p><strong>{% trans "Technicien" %} :</strong> {{ niveau.tech_nom_technicien }} ({{ niveaux.tech_role_technicien }})</p>
         </div>
 
         <!-- Maintenance / Niveaux -->
         <div class="bg-white shadow-md rounded-lg p-6">
             <h2 class="text-lg font-semibold mb-4">{% trans "Niveaux" %}</h2>
-            <p><strong>{% trans "Date de l'intervention" %} :</strong> {{ niveaux.maintenance.date_intervention|date:"d/m/Y" }}</p>
+            <p><strong>{% trans "Date de l'intervention" %} :</strong> {{ niveau.maintenance.date_intervention|date:"d/m/Y" }}</p>
         </div>
 
         <!-- Bouton Modifier -->
         <div class="mt-auto w-full">
-            <a href="{% url 'niveaux:modifier_niveau' niveaux.id %}" class="block w-full">
+            <a href="{% url 'niveaux:modifier_niveaux' niveau.id exemplaire.id %}" class="block w-full">
                 <button type="button" class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
                     {% trans "Modifier le contrôle des niveaux" %}
                 </button>
@@ -50,10 +50,10 @@
 
     <!-- Actions -->
     <div class="bg-white shadow-md rounded-lg p-6 flex gap-4">
-        <a href="{% url 'niveaux:niveaux_list' niveaux.voiture_exemplaire.id %}"
+       <a href="{% url 'niveaux:niveaux_list' niveau.voiture_exemplaire.id %}">
            class="text-blue-600 hover:underline">
             {% trans "Retour à la liste des niveaux" %}
-        </a>
+       </a>
     </div>
 
 </div>

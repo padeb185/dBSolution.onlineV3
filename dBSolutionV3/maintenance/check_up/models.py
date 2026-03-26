@@ -425,7 +425,6 @@ class ControleGeneral(models.Model):
         if self.voiture_exemplaire:
             self.kilometres_chassis = self.voiture_exemplaire.kilometres_chassis
 
-
         if not self.tech_technicien and hasattr(self, '_user'):
             self.assign_technicien(self._user)
 
