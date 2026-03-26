@@ -324,11 +324,6 @@ def modifier_nettoyage_ext_view(request, nettoyage_ext_id):
                 form.save()
                 messages.success(request, _("Nettoyage extérieur modifié avec succès !"))
 
-                # Redirection vers le détail
-                return redirect(
-                    "nettoyage_exterieur:modifier_nettoyage_ext",
-                    nettoyage_id=str(nettoyage_exterieur.id)  # s'assure que l'UUID est string
-                )
         else:
             form = NettoyageExterieurForm(instance=nettoyage_exterieur, user=request.user)
 

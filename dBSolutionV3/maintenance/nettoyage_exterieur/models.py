@@ -73,7 +73,7 @@ class NettoyageExterieur(TechnicienMixin, models.Model):
         ("ROUGE", _("Rouge")),
     ]
 
-    tag_nettoyage = models.CharField(
+    tag_nettoyage_ext = models.CharField(
         max_length=10,
         choices=TAG_CHOICES,
         default="JAUNE",

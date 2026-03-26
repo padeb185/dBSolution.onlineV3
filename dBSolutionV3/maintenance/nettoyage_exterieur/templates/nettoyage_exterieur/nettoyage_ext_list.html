@@ -94,19 +94,19 @@
 
             {% if nettoyage_exterieur.tag_nettoyage_ext == 'VERT' %}
             <td class="border px-4 py-2 text-center font-bold" style="background-color: #28a745; color: #28a745;">
-                {{ nettoyage_exterieur.get_tagtag_nettoyage_ext_display }}
+                {{ nettoyage_exterieur.get_tag_nettoyage_ext_display }}
             </td>
             {% elif nettoyage_exterieur.tag_nettoyage_ext == 'JAUNE' %}
             <td class="border px-4 py-2 text-center font-bold" style="background-color: #ffc107; color: #ffc107;">
-                {{ nettoyage_exterieur.get_tagtag_nettoyage_ext_display }}
+                {{ nettoyage_exterieur.get_tag_nettoyage_ext_display }}
             </td>
             {% elif nettoyage_exterieur.tag_nettoyage_ext == 'ROUGE' %}
             <td class="border px-4 py-2 text-center font-bold" style="background-color: #dc3545; color: #dc3545;">
-                {{ nettoyage_exterieur.get_tagtag_nettoyage_ext_display }}
+                {{ nettoyage_exterieur.get_tag_nettoyage_ext_display }}
             </td>
             {% else %}
             <td class="border px-4 py-2 text-center font-bold" style="background-color: transparent; color: black;">
-                {{ nettoyage_exterieur.get_tagtag_nettoyage_ext_display }}
+                {{ nettoyage_exterieur.get_tag_nettoyage_ext_display }}
             </td>
             {% endif %}
             <td class="border px-4 py-2">{{ nettoyage_exterieur.tech_nom_technicien }}</td>

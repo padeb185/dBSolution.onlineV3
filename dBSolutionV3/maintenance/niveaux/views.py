@@ -262,18 +262,13 @@ def modifier_niveaux_view(request, niveau_id):
         )
 
         if request.method == "POST":
-            form = NiveauxForm(request.POST, instance=niveau, user=request.user)
+            form = NiveauForm(request.POST, instance=niveau, user=request.user)
             if form.is_valid():
                 form.save()
                 messages.success(request, _("Niveaux modifiés avec succès !"))
 
-                # Redirection vers le détail
-                return redirect(
-                    "niveaux:niveaux_detail",
-                    niveau_id=str(niveau.id)  # s'assure que l'UUID est string
-                )
         else:
-            form = NiveauxForm(instance=niveau, user=request.user)
+            form = NiveauForm(instance=niveau, user=request.user)
 
     return render(
         request,

@@ -195,11 +195,7 @@ def modifier_nettoyage_int_view(request, nettoyage_int_id):
                 nettoyage_interieur.save()
                 messages.success(request, _("Nettoyage intérieur modifié avec succès !"))
 
-                # Redirection vers le détail
-                return redirect(
-                    "nettoyage_interieur:nettoyage_int_detail",
-                    nettoyage_id=str(nettoyage_interieur.id)
-                )
+
         else:
             form = NettoyageInterieurForm(
                 instance=nettoyage_interieur,
