@@ -86,6 +86,17 @@ class RefroidissementQualiteEtat(models.TextChoices):
     # Hyundai / Kia
     HYUNDAI_KIA_LLC = "HYUNDAI_KIA_LLC", _("Hyundai/Kia Long Life Coolant")
 
+class LiquideFreinsQualite(models.TextChoices):
+        DOT3 = 'DOT 3', _("DOT 3")
+        DOT4 = 'DOT 4', _("DOT 4")
+        DOT5 = 'DOT 5', _("DOT 5")
+        DOT51 = 'DOT 5.1', _("DOT 5.1")
+
+
+class LaveGlaceQualite(models.TextChoices):
+    HIVER = 'HIVER', _("Hiver")
+    ETE = 'ETE', _("Eté")
+
 
 
 class Niveau(TechnicienMixin, models.Model):
@@ -130,11 +141,17 @@ class Niveau(TechnicienMixin, models.Model):
     pont_niveau_huile_quantite = models.FloatField(default=0, verbose_name=_("Quantité d'huile ajoutée en litres"))
     pont_niveau_huile_qualite = models.CharField(max_length=25, choices=HuilePontEtat.choices,default=HuilePontEtat.SEPTANTE_CINQ140,verbose_name=_("Qualité d'huile"))
 
-    refroidissement_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau d'eau"))
+    refroidissement_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de refroidissement"))
     refroidissement_quantite = models.FloatField(default=0, verbose_name=_("Quantité de liquide de refroidissement ajoutée en litres"))
     refroidissement_qualite = models.CharField(max_length=25, choices=RefroidissementQualiteEtat.choices,default=RefroidissementQualiteEtat.G13,verbose_name=_("Qualité de liquide de refroidissement"))
 
+    frein_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de freins"))
+    frein_liquide_quantite = models.FloatField(default=0, verbose_name=_("Quantité de liquide de freins ajoutée en litres"))
+    frein_liquide_qualite = models.CharField(max_length=25, choices=LiquideFreinsQualite.choices,default=LiquideFreinsQualite.DOT4,verbose_name=_("Qualité de liquide de freins"))
 
+    lave_glace_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de lave-glace"))
+    lave_glace_quantite = models.FloatField(default=0,verbose_name=_("Quantité de liquide de lave glace ajoutée en litres"))
+    lave_glace_qualite = models.CharField(max_length=25, choices=LaveGlaceQualite.choices,default=LaveGlaceQualite.HIVER,verbose_name=_("Qualité de liquide de lave glace"))
 
     remarques = models.TextField(
         blank=True,

@@ -75,7 +75,6 @@ def niveau_form_view(request, exemplaire_id):
 
         if request.method == "POST":
             form = NiveauxForm(request.POST, exemplaire=exemplaire, user=request.user)
-
             if form.is_valid():
                 try:
                     with transaction.atomic():
@@ -88,7 +87,7 @@ def niveau_form_view(request, exemplaire_id):
                             )
                             raise ValueError("KM invalide")
 
-                        # Création maintenance
+                        # Création de la maintenance
                         maintenance = Maintenance(
                             voiture_exemplaire=exemplaire,
                             societe=request.user.societe,
@@ -102,7 +101,7 @@ def niveau_form_view(request, exemplaire_id):
                         maintenance._user = request.user
                         maintenance.save()
 
-                        # Création niveaux
+                        # Création du niveau lié à cette maintenance
                         niveaux = form.save(commit=False)
                         niveaux.maintenance = maintenance
                         niveaux.voiture_exemplaire = exemplaire
@@ -112,16 +111,15 @@ def niveau_form_view(request, exemplaire_id):
                         niveaux.tech_societe = request.user.societe
                         niveaux.tech_nom_technicien = f"{request.user.prenom} {request.user.nom}"
                         niveaux.tech_role_technicien = request.user.role
-
                         niveaux.kilometres_chassis = km_checkup or exemplaire.kilometres_chassis
                         niveaux.save()
 
-                        # Mise à jour exemplaire si km modifié
+                        # Mise à jour des km de l'exemplaire
                         if km_checkup:
                             exemplaire.kilometres_chassis = km_checkup
                             exemplaire.save()
 
-                    messages.success(request, "Controle des niveaux enregistré avec succès.")
+                    messages.success(request, "Contrôle des niveaux enregistré avec succès.")
                     return redirect(reverse("niveaux:niveau_form_view", args=[exemplaire.id]))
 
                 except Exception as e:
@@ -142,7 +140,6 @@ def niveau_form_view(request, exemplaire_id):
             "form": form,
             "now": timezone.now(),
         })
-
 
 
 
@@ -186,7 +183,7 @@ def modifier_niveaux_view(request, niveaux_id):
                     niveaux_id=niveaux.id
                 )
         else:
-            form = ControleGeneralForm(instance=niveaux)
+            form = NiveauxForm(instance=niveaux)
 
     return render(
         request,
