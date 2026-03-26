@@ -21,6 +21,16 @@ class ControleJeuxPiecesForm(forms.ModelForm):
         self.exemplaire = kwargs.pop('exemplaire', None)
         super().__init__(*args, **kwargs)
 
+        # Initialiser les champs technicien et société si présents
+        if self.user:
+            if "tech_technicien" in self.fields:
+                self.fields["tech_technicien"].initial = self.user
+                self.fields["tech_technicien"].disabled = True
+
+            if "tech_societe" in self.fields:
+                self.fields["tech_societe"].initial = self.user.societe
+                self.fields["tech_societe"].disabled = True
+
     def save(self, commit=True):
         instance = super().save(commit=False)
         voiture = instance.voiture_exemplaire or self.exemplaire  # fallback si pas encore lié

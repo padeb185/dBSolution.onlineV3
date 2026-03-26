@@ -2,6 +2,8 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from utils.mixin import TechnicienMixin
+
 
 # -------------------- Choices --------------------
 
@@ -43,7 +45,7 @@ class RoleUtilisateur(models.TextChoices):
 
 # -------------------- Modèle --------------------
 
-class ControleJeuxPieces(models.Model):
+class ControleJeuxPieces(TechnicienMixin, models.Model):
     maintenance = models.ForeignKey(
         "maintenance.Maintenance",
         on_delete=models.CASCADE,
@@ -138,7 +140,7 @@ class ControleJeuxPieces(models.Model):
         verbose_name=_("Remarques"), blank=True, null=True)
 
     # Champ pour l’utilisateur affecté (utilisateur courant)
-    tech_utilisateurs = models.ForeignKey(
+    tech_technicien = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
         null=True,
@@ -186,7 +188,7 @@ class ControleJeuxPieces(models.Model):
         verbose_name_plural = _("Contrôles Jeux")
 
     def __str__(self):
-        return _("Contrôle général – Maintenance %(id)s") % {"id": self.maintenance.id}
+        return _("Controle des jeux – Maintenance %(id)s") % {"id": self.maintenance.id}
 
     def clean(self):
         super().clean()
@@ -209,6 +211,9 @@ class ControleJeuxPieces(models.Model):
         # Toujours garder une copie dans le contrôle
         if self.voiture_exemplaire:
             self.kilometres_chassis = self.voiture_exemplaire.kilometres_chassis
+
+        if not self.tech_technicien and hasattr(self, '_user'):
+            self.assign_technicien(self._user)
 
         super().save(*args, **kwargs)
 

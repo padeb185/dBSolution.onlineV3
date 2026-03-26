@@ -50,6 +50,8 @@ class CheckupListView(ListView):
         return context
 
 
+
+
 @never_cache
 @login_required
 def controle_total_view(request, exemplaire_id):
@@ -137,7 +139,7 @@ def controle_total_view(request, exemplaire_id):
                 messages.error(request, _("Le formulaire contient des erreurs."))
                 print(form.errors)
         else:
-            checkup.assign_technicien(request.user)  # 👈 AJOUT IMPORTANT
+            checkup.assign_technicien(request.user)
 
             form = ControleGeneralForm(
                 instance=checkup,

@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% load i18n static widget_tweaks %}
 
-{% block title %}{% trans "Liste des niveaux" %}{% endblock %}
+{% block title %}{% trans "Liste des contrôles des jeux" %}{% endblock %}
 
 {% block content %}
 <h1 class="text-2xl font-bold mb-6 flex items-center">
-    <img src="{% static 'icons/niveaux.png' %}" alt="niveaux"
+    <img src="{% static 'icons/jeu.png' %}" alt="Jeux pièces"
          style="width:60px; height:60px; margin-right:10px;">
-    {% trans "Liste des niveaux" %}
+    {% trans "Liste des contrôles des jeux" %}
 </h1>
 
 <div class="bg-white shadow-md rounded-lg p-4 mb-4">
@@ -31,14 +31,15 @@
         <input id="search-date" type="date"
                class="border rounded px-3 py-2 flex-1 min-w-[120px] focus:outline-none focus:ring-2 focus:ring-blue-500">
 
-        <a href="{% url 'niveaux:niveau_form_view' exemplaire.id %}"
+
+       <a href="{% url 'jeux_pieces:controle_jeux' exemplaire.id %}"
            class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-blue-500">
-            {% trans "Ajouter un contrôle des niveaux" %}
+            {% trans "Ajouter un controle" %}
        </a>
     </div>
 </div>
 
-<table id="niveaux-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+<table id="jeux-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
     <thead>
         <tr class="bg-gray-100">
             <th class="border px-4 py-2 cursor-pointer">{% trans "Immatriculation" %}</th>
@@ -50,45 +51,72 @@
         </tr>
     </thead>
     <tbody>
-        {% for niveau in niveaux %}
+        {% for jeu in jeux_pieces %}
+        {% with exemplaire=jeu.voiture_exemplaire %}
         <tr>
             <td class="p-3">
-                {% with exemplaire=niveau.voiture_exemplaire %}
+                {% if exemplaire.pays == 'Belgique' %}
                 <div class="flex items-center w-[180px] h-[34px] bg-white border-2 border-[#8B0000] rounded font-[Arial]">
                     <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
-                        {% if exemplaire.pays == 'Belgique' %}<span>🇪🇺</span><span>B</span>
-                        {% elif exemplaire.pays == 'Luxembourg' %}<span>🇪🇺</span><span>L</span>
-                        {% elif exemplaire.pays == 'Allemagne' %}<span>🇪🇺</span><span>D</span>{% endif %}
+                        <span>🇪🇺</span><span>B</span>
                     </div>
-                    <div class="w-full text-center font-bold {% if exemplaire.pays == 'Belgique' %}text-[#8B0000]{% else %}text-black{% endif %} text-[18px]">
+                    <div class="w-full text-center font-bold text-[#8B0000] text-[18px]">
                         {{ exemplaire.immatriculation|upper }}
                     </div>
                 </div>
-                {% endwith %}
+                {% elif exemplaire.pays == 'Luxembourg' %}
+                <div class="flex items-center w-[180px] h-[34px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial]">
+                    <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                        <span>🇪🇺</span><span>L</span>
+                    </div>
+                    <div class="w-full text-center font-bold text-black text-[18px]">
+                        {{ exemplaire.immatriculation|upper }}
+                    </div>
+                </div>
+                {% elif exemplaire.pays == 'Allemagne' %}
+                <div class="flex items-center w-[180px] h-[34px] bg-white border-2 border-black rounded font-[Arial]">
+                    <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                        <span>🇪🇺</span><span>D</span>
+                    </div>
+                    <div class="w-full text-center font-bold text-black text-[18px]">
+                        {{ exemplaire.immatriculation|upper }}
+                    </div>
+                </div>
+                {% endif %}
             </td>
 
-            <td class="border px-4 py-2">{{ niveau.kilometres_chassis }}</td>
-
-            <td class="border px-4 py-2 text-center font-bold"
-                {% if niveau.tag == 'VERT' %}style="background-color: #28a745; color: #28a745;"
-                {% elif niveau.tag == 'JAUNE' %}style="background-color: #ffc107; color: #ffc107;"
-                {% elif niveau.tag == 'ROUGE' %}style="background-color: #dc3545; color: #dc3545;"
-                {% else %}style="background-color: transparent; color: black;"{% endif %}>
-                {{ niveau.get_tag_display }}
+            <td class="border px-4 py-2">{{ jeu.kilometres_chassis }}</td>
+            {% if checkup.tag == 'VERT' %}
+            <td class="border px-4 py-2 text-center font-bold" style="background-color: #28a745; color: #28a745;">
+                {{ jeu.get_tag_display }}
             </td>
+            {% elif jeu.tag == 'JAUNE' %}
+            <td class="border px-4 py-2 text-center font-bold" style="background-color: #ffc107; color: #ffc107;">
+                {{ jeu.get_tag_display }}
+            </td>
+            {% elif jeu.tag == 'ROUGE' %}
+            <td class="border px-4 py-2 text-center font-bold" style="background-color: #dc3545; color: #dc3545;">
+                {{ jeu.get_tag_display }}
+            </td>
+            {% else %}
+            <td class="border px-4 py-2 text-center font-bold" style="background-color: transparent; color: black;">
+                {{ jeu.get_tag_display }}
+            </td>
+            {% endif %}
 
-            <td class="border px-4 py-2">{{ niveau.tech_nom_technicien }}</td>
-            <td class="border px-4 py-2">{{ niveau.date|date:"d/m/Y" }}</td>
+            <td class="border px-4 py-2">{{ jeu.tech_nom_technicien }}</td>
+            <td class="border px-4 py-2">{{ jeu.date }}</td>
             <td class="border px-4 py-2 text-center">
-                <a href="{% url 'niveaux:niveaux_detail' niveau_id=niveau.id %}"
+               <a href="{% url 'jeux_pieces:jeux_pieces_detail' jeu.id %}"
                    class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
                     {% trans "Infos" %}
-                </a>
+               </a>
             </td>
         </tr>
+        {% endwith %}
         {% empty %}
         <tr>
-            <td colspan="6" class="text-center py-4">{% trans "Aucun niveau enregistré pour cet exemplaire." %}</td>
+            <td colspan="6" class="text-center py-4">{% trans "Aucun contrôle jeux enregistré pour cet exemplaire." %}</td>
         </tr>
         {% endfor %}
     </tbody>
@@ -96,14 +124,14 @@
 
 <script>
 $(document).ready(function() {
-    var table = $('#niveaux-table').DataTable({
+    var table = $('#jeux-table-table').DataTable({
         pageLength: 100,
         language: {
             search: "{% trans 'Recherche globale :' %}",
             lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
-            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ niveaux' %}",
-            infoEmpty: "{% trans 'Aucun niveau trouvé' %}",
-            zeroRecords: "{% trans 'Aucun niveau trouvé' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ contrôles' %}",
+            infoEmpty: "{% trans 'Aucun contrôle trouvé' %}",
+            zeroRecords: "{% trans 'Aucun contrôle trouvé' %}",
             paginate: {
                 first: "{% trans 'Premier' %}",
                 last: "{% trans 'Dernier' %}",
