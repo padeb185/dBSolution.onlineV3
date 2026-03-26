@@ -50,8 +50,110 @@ class CheckupListView(ListView):
         return context
 
 
+@never_cache
+@login_required
+def controle_total_view(request, exemplaire_id):
+    tenant = request.user.societe
+
+    with tenant_context(tenant):
+        # Récupération de l'exemplaire
+        exemplaire = get_object_or_404(
+            VoitureExemplaire.objects.filter(
+                Q(client__societe=tenant) | Q(client__isnull=True, societe=tenant)
+            ),
+            id=exemplaire_id
+        )
+
+        # Vérification des rôles
+        roles_autorises = ["mécanicien", "apprenti", "magasinier", "chef mécanicien"]
+        if request.user.role not in roles_autorises:
+            messages.error(
+                request,
+                _("Seuls les mécaniciens, apprentis, magasiniers et chefs mécaniciens peuvent accéder à cette page.")
+            )
+            return redirect("maintenance_liste_all")
+
+        # Récupération ou création de la maintenance
+        maintenance = Maintenance.objects.filter(
+            voiture_exemplaire=exemplaire,
+            type_maintenance="checkup"
+        ).order_by("-date_intervention").first()
+
+        if not maintenance:
+            maintenance = Maintenance.objects.create(
+                voiture_exemplaire=exemplaire,
+                mecanicien=request.user,
+                immatriculation=exemplaire.immatriculation,
+                date_intervention=timezone.localtime(timezone.now()).date(),
+                kilometres_chassis=exemplaire.kilometres_chassis,
+                kilometres_derniere_intervention=exemplaire.kilometres_derniere_intervention,
+                type_maintenance="checkup",
+                tag=Maintenance.Tag.JAUNE,
+            )
+
+        # Créer ou récupérer l'objet NettoyageInterieur
+        checkup = ControleGeneral(
+            voiture_exemplaire=exemplaire,
+            maintenance=maintenance,
+            kilometres_chassis=exemplaire.kilometres_chassis
+        )
+
+        if request.method == "POST":
+            form = ControleGeneralForm(
+                request.POST,
+                instance=checkup,
+                user=request.user,
+                exemplaire=exemplaire
+            )
+
+            if form.is_valid():
+                try:
+                    with transaction.atomic():
+                        checkup = form.save(commit=False)
 
 
+                        checkup.assign_technicien(request.user)
+
+                        # Gestion du kilométrage
+                        km_checkup = form.cleaned_data.get("kilometres_chassis")
+                        if km_checkup is not None and km_checkup >= exemplaire.kilometres_chassis:
+                            checkup.kilometres_chassis = km_checkup
+                            exemplaire.kilometres_chassis = km_checkup
+                            exemplaire.save()
+                        elif km_checkup is not None and km_checkup < exemplaire.kilometres_chassis:
+                            form.add_error(
+                                "kilometres_chassis",
+                                _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
+                            )
+                            raise ValueError("Kilométrage invalide")
+
+                        checkup.save()
+
+                    messages.success(request, _("Nettoyage intérieur enregistré avec succès."))
+                    return redirect("nettoyage_interieur:nettoyage_interieur_view", exemplaire.id)
+                except Exception as e:
+                    messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
+            else:
+                messages.error(request, _("Le formulaire contient des erreurs."))
+                print(form.errors)
+        else:
+            checkup.assign_technicien(request.user)  # 👈 AJOUT IMPORTANT
+
+            form = ControleGeneralForm(
+                instance=checkup,
+                user=request.user,
+                exemplaire=exemplaire
+            )
+
+        return render(request, 'check_up/controle_total.html', {
+            "exemplaire": exemplaire,
+            "immatriculation": exemplaire.immatriculation,
+            "maintenance": maintenance,
+            "form": form,
+            "now": timezone.now(),
+        })
+
+"""
 @never_cache
 @login_required
 def controle_total_view(request, exemplaire_id):
@@ -149,7 +251,7 @@ def controle_total_view(request, exemplaire_id):
             "now": timezone.now(),
         })
 
-
+"""
 
 
 

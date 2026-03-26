@@ -1,5 +1,7 @@
 from decimal import Decimal
 from django import forms
+from django.utils import timezone
+
 from .models import ControleGeneral
 from django.utils.translation import gettext_lazy as _
 
@@ -18,10 +20,24 @@ class ControleGeneralForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
         self.exemplaire = kwargs.pop('exemplaire', None)
         super().__init__(*args, **kwargs)
 
+        # Si la date existe, la formate en heure locale
+        if self.instance and self.instance.pk and getattr(self.instance, "date", None):
+            local_dt = timezone.localtime(self.instance.date)
+            self.fields['date'].initial = local_dt.strftime('%Y-%m-%d %H:%M:%S')
 
+        # Initialiser les champs technicien et société si présents
+        if self.user:
+            if "tech_technicien" in self.fields:
+                self.fields["tech_technicien"].initial = self.user
+                self.fields["tech_technicien"].disabled = True
+
+            if "tech_societe" in self.fields:
+                self.fields["tech_societe"].initial = self.user.societe
+                self.fields["tech_societe"].disabled = True
 
     def save(self, commit=True):
         instance = super().save(commit=False)

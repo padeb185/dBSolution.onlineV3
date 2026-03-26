@@ -4,6 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from maintenance.models import Maintenance
 from utilisateurs.models import Utilisateur
 from django.conf import settings
+from utils.mixin import TechnicienMixin
 
 
 # ---------------------------
@@ -123,7 +124,7 @@ class RefroidissementQualiteEtat(models.TextChoices):
 # ---------------------------
 # Modèle fusionné
 # ---------------------------
-class ControleGeneral(models.Model):
+class ControleGeneral(TechnicienMixin, models.Model):
     maintenance = models.ForeignKey(
         Maintenance,
         on_delete=models.CASCADE,
@@ -342,15 +343,7 @@ class ControleGeneral(models.Model):
         verbose_name=_("État visuel / Tag"),
     )
 
-    # Champ pour l’utilisateur affecté (utilisateur courant)
-    utilisateurs = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        verbose_name=_("Utilisateur"),
-        related_name="controle_generals"
-    )
+
 
     # Technicien qui fait le checkup (toujours l'utilisateur courant)
     tech_technicien = models.ForeignKey(
@@ -383,18 +376,14 @@ class ControleGeneral(models.Model):
         related_name="controle_tech_societe"
     )
 
-    # Méthode pour assigner l’utilisateur courant automatiquement
+    # --- Date d'enregistrement ---
+    date = models.DateTimeField(auto_now_add=True, verbose_name=_("Date"))
+
     def assign_technicien(self, user):
-        """Assigne l'utilisateur courant et met à jour les champs dérivés"""
         self.tech_technicien = user
         self.tech_nom_technicien = f"{user.prenom} {user.nom}"
         self.tech_role_technicien = user.role
         self.tech_societe = user.societe
-
-
-
-    # --- Date d'enregistrement ---
-    date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name = _("Contrôle général")
