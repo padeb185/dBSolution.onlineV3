@@ -5,7 +5,6 @@ from maintenance.models import Maintenance
 from utilisateurs.models import Utilisateur
 
 from django.conf import settings
-
 from utils.mixin import TechnicienMixin
 
 
