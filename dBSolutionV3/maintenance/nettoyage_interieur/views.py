@@ -108,9 +108,8 @@ def nettoyage_interieur_view(request, exemplaire_id):
                     with transaction.atomic():
                         nettoyage_int = form.save(commit=False)
 
-                        # 🔒 Assigner technicien et société si manquant
-                        if not nettoyage_int.tech_technicien:
-                            nettoyage_int.assign_technicien(request.user)
+
+                        nettoyage_int.assign_technicien(request.user)
 
                         # Gestion du kilométrage
                         km_checkup = form.cleaned_data.get("kilometres_chassis")
@@ -135,6 +134,8 @@ def nettoyage_interieur_view(request, exemplaire_id):
                 messages.error(request, _("Le formulaire contient des erreurs."))
                 print(form.errors)
         else:
+            nettoyage_int.assign_technicien(request.user)  # 👈 AJOUT IMPORTANT
+
             form = NettoyageInterieurForm(
                 instance=nettoyage_int,
                 user=request.user,

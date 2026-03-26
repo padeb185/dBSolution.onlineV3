@@ -54,6 +54,132 @@ class NettoyageExterieurListView(ListView):
 # Vue simple pour créer ou modifier NettoyageExterieur
 # -----------------------------
 
+# -----------------------------
+# Vue simple pour créer ou modifier NettoyageExterieur
+# -----------------------------
+@never_cache
+@login_required
+def nettoyage_exterieur_view(request, exemplaire_id):
+    tenant = request.user.societe
+
+    with tenant_context(tenant):
+        exemplaire = get_object_or_404(
+            VoitureExemplaire.objects.filter(
+                Q(client__societe=tenant) | Q(client__isnull=True, societe=tenant)
+            ),
+            id=exemplaire_id
+        )
+
+        # Vérification des rôles
+        roles_autorises = ["mécanicien", "apprenti", "magasinier", "chef mécanicien"]
+        if request.user.role not in roles_autorises:
+            messages.error(
+                request,
+                _("Seuls les mécaniciens, apprentis, magasiniers et chefs mécaniciens peuvent accéder à cette page.")
+            )
+            return redirect("maintenance_liste_all")
+
+        # Récupération ou création de la maintenance
+        maintenance = Maintenance.objects.filter(
+            voiture_exemplaire=exemplaire,
+            type_maintenance="nettoyage_exterieur"
+        ).order_by("-date_intervention").first()
+
+        if not maintenance:
+            maintenance = Maintenance.objects.create(
+                voiture_exemplaire=exemplaire,
+                mecanicien=request.user,
+                immatriculation=exemplaire.immatriculation,
+                date_intervention=timezone.localtime(timezone.now()).date(),
+                kilometres_chassis=exemplaire.kilometres_chassis,
+                kilometres_derniere_intervention=exemplaire.kilometres_derniere_intervention,
+                type_maintenance="nettoyage_exterieur",
+                tag=Maintenance.Tag.JAUNE,
+            )
+
+        # Récupérer ou créer le NettoyageExterieur existant
+        nettoyage_ext, created = NettoyageExterieur.objects.get_or_create(
+            voiture_exemplaire=exemplaire,
+            maintenance=maintenance,
+            defaults={"kilometres_chassis": exemplaire.kilometres_chassis}
+        )
+
+        # ⚠️ Toujours assigner le technicien courant
+        nettoyage_ext.assign_technicien(request.user)
+
+        # Gestion du POST
+        if request.method == "POST":
+            form = NettoyageExterieurForm(
+                request.POST,
+                instance=nettoyage_ext,
+                user=request.user,
+                exemplaire=exemplaire
+            )
+
+            if form.is_valid():
+                try:
+                    with transaction.atomic():
+                        nettoyage_ext = form.save(commit=False)
+
+                        # ✅ Assigner la voiture et la maintenance (au cas où)
+                        nettoyage_ext.voiture_exemplaire = exemplaire
+                        nettoyage_ext.maintenance = maintenance
+
+                        # ✅ Technicien sécurisé
+                        nettoyage_ext.assign_technicien(request.user)
+
+                        # ✅ Kilométrage
+                        km_checkup = form.cleaned_data.get("kilometres_chassis")
+                        if km_checkup is not None:
+                            if km_checkup < exemplaire.kilometres_chassis:
+                                form.add_error(
+                                    "kilometres_chassis",
+                                    _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
+                                )
+                                raise ValueError("Kilométrage invalide")
+
+                            nettoyage_ext.kilometres_chassis = km_checkup
+                            if km_checkup > exemplaire.kilometres_chassis:
+                                exemplaire.kilometres_chassis = km_checkup
+                                exemplaire.save(update_fields=["kilometres_chassis"])
+                        else:
+                            nettoyage_ext.kilometres_chassis = exemplaire.kilometres_chassis
+
+                        nettoyage_ext.save()
+
+                    messages.success(request, _("Nettoyage extérieur enregistré avec succès."))
+                    return redirect(
+                        "nettoyage_exterieur:nettoyage_exterieur_view",
+                        exemplaire.id
+                    )
+
+                except Exception as e:
+                    messages.error(
+                        request,
+                        _(f"Erreur lors de l'enregistrement : {str(e)}")
+                    )
+
+            else:
+                messages.error(request, _("Le formulaire contient des erreurs."))
+
+        # Gestion du GET
+        else:
+            form = NettoyageExterieurForm(
+                instance=nettoyage_ext,
+                user=request.user,
+                exemplaire=exemplaire
+            )
+
+        return render(request, 'nettoyage_exterieur/simple.html', {
+            "exemplaire": exemplaire,
+            "immatriculation": exemplaire.immatriculation,
+            "maintenance": maintenance,
+            "form": form,
+            "now": timezone.now(),
+        })
+
+
+
 @never_cache
 @login_required
 def nettoyage_exterieur_view(request, exemplaire_id):
@@ -95,13 +221,14 @@ def nettoyage_exterieur_view(request, exemplaire_id):
                 tag=Maintenance.Tag.JAUNE,
             )
 
-        # Gestion du formulaire
+        # Créer ou récupérer l'objet NettoyageInterieur
+        nettoyage_ext = NettoyageExterieur(
+            voiture_exemplaire=exemplaire,
+            maintenance=maintenance,
+            kilometres_chassis=exemplaire.kilometres_chassis
+        )
+
         if request.method == "POST":
-            # Crée un objet NettoyageExterieur lié à l'exemplaire et à la maintenance
-            nettoyage_ext = NettoyageExterieur(
-                voiture_exemplaire=exemplaire,
-                maintenance=maintenance
-            )
             form = NettoyageExterieurForm(
                 request.POST,
                 instance=nettoyage_ext,
@@ -113,36 +240,39 @@ def nettoyage_exterieur_view(request, exemplaire_id):
                 try:
                     with transaction.atomic():
                         nettoyage_ext = form.save(commit=False)
-                        nettoyage_ext.voiture_exemplaire = exemplaire
-                        nettoyage_ext.maintenance = maintenance
+
+
                         nettoyage_ext.assign_technicien(request.user)
 
-
+                        # Gestion du kilométrage
                         km_checkup = form.cleaned_data.get("kilometres_chassis")
-                        if km_checkup is not None:
-                            if km_checkup < exemplaire.kilometres_chassis:
-                                form.add_error(
-                                    "kilometres_chassis",
-                                    _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
-                                )
-                                raise ValueError("Kilométrage invalide")
+                        if km_checkup is not None and km_checkup >= exemplaire.kilometres_chassis:
                             nettoyage_ext.kilometres_chassis = km_checkup
                             exemplaire.kilometres_chassis = km_checkup
                             exemplaire.save()
+                        elif km_checkup is not None and km_checkup < exemplaire.kilometres_chassis:
+                            form.add_error(
+                                "kilometres_chassis",
+                                _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
+                            )
+                            raise ValueError("Kilométrage invalide")
 
                         nettoyage_ext.save()
-                    messages.success(request, _("Nettoyage extérieur enregistré avec succès."))
-                    return redirect("nettoyage_exterieur:nettoyage_exterieur_view", exemplaire.id)
+
+                    messages.success(request, _("Nettoyage intérieur enregistré avec succès."))
+                    return redirect("nettoyage_interieur:nettoyage_interieur_view", exemplaire.id)
                 except Exception as e:
                     messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
             else:
                 messages.error(request, _("Le formulaire contient des erreurs."))
                 print(form.errors)
         else:
+            nettoyage_ext.assign_technicien(request.user)  # 👈 AJOUT IMPORTANT
+
             form = NettoyageExterieurForm(
+                instance=nettoyage_ext,
                 user=request.user,
-                exemplaire=exemplaire,
-                initial={"kilometres_chassis": exemplaire.kilometres_chassis}
+                exemplaire=exemplaire
             )
 
         return render(request, 'nettoyage_exterieur/simple.html', {
@@ -152,6 +282,9 @@ def nettoyage_exterieur_view(request, exemplaire_id):
             "form": form,
             "now": timezone.now(),
         })
+
+
+
 
 #------------
 # Vue détail NettoyageExterieur
@@ -182,7 +315,7 @@ def modifier_nettoyage_ext_view(request, nettoyage_ext_id):
         nettoyage_exterieur = get_object_or_404(
             NettoyageExterieur.objects.select_related("voiture_exemplaire"),
             id=nettoyage_ext_id,
-            tech_utilisateurs__societe=tenant
+            tech_technicien__societe=tenant
         )
 
         if request.method == "POST":
