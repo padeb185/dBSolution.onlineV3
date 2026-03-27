@@ -1,9 +1,10 @@
-# entretien/urls.py
+# maintenance/entretien/urls.py
+
 from django.urls import path
-from . import views
+from .views import creer_entretien
 
 app_name = "entretien"
 
 urlpatterns = [
-    path("creer/<uuid:exemplaire_id>/", views.creer_entretien, name="creer_entretien"),
+    path("creer/", creer_entretien, name="creer_entretien"),
 ]
