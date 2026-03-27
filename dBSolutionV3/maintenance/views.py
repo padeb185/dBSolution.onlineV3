@@ -21,6 +21,9 @@ from maintenance.jeux_pieces.models import ControleJeuxPieces
 from maintenance.nettoyage_exterieur.models import NettoyageExterieur
 from maintenance.nettoyage_interieur.models import NettoyageInterieur
 
+from maintenance.freins.models import ControleFreins
+from maintenance.niveaux.models import Niveau
+
 
 @login_required
 def liste_maintenance_all(request):
@@ -40,35 +43,41 @@ def liste_maintenance_all(request):
     )
 
 
-
 @never_cache
 @login_required
 def choisir_type_maintenance(request, exemplaire_id):
     user = request.user
     context = {}
 
-    # --- Sécurité : récupère le tenant ---
+    # 🔹 Récupérer l'exemplaire AVANT
+    exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
+
+    # --- Sécurité tenant ---
     tenant_schema = getattr(request, 'tenant', None)
     schema_name = tenant_schema.schema_name if tenant_schema else None
 
     total_checkup = total_entretien = total_freins = total_pneus = \
-    total_niveaux = total_nettoyage_exterieur = total_nettoyage_interieur =\
+    total_niveaux = total_nettoyage_exterieur = total_nettoyage_interieur = \
     total_autres = total_jeux_pieces = 0
 
-    checkup = entretien = nettoyage_exterieur = jeux_pieces = nettoyage_interieur = []
+    checkup = entretien = nettoyage_exterieur = jeux_pieces = nettoyage_interieur = \
+        freins = niveaux = pneus = autres = []
 
     if schema_name:
         with schema_context(schema_name):
-            checkup = ControleGeneral.objects.all()
-            entretien = Maintenance.objects.all()
-            freins = Maintenance.objects.all()
-            pneus = Maintenance.objects.all()
-            niveaux = Maintenance.objects.all()
-            nettoyage_exterieur = NettoyageExterieur.objects.all()
-            nettoyage_interieur = NettoyageInterieur.objects.all()
-            autres = Maintenance.objects.all()
-            jeux_pieces =ControleJeuxPieces.objects.all()
 
+            # ✅ FILTRAGE PAR EXEMPLAIRE
+            checkup = ControleGeneral.objects.filter(voiture_exemplaire=exemplaire)
+            entretien = Maintenance.objects.filter(voiture_exemplaire=exemplaire)
+            freins = ControleFreins.objects.filter(voiture_exemplaire=exemplaire)
+            pneus = Maintenance.objects.filter(voiture_exemplaire=exemplaire)
+            niveaux = Niveau.objects.filter(voiture_exemplaire=exemplaire)
+            nettoyage_exterieur = NettoyageExterieur.objects.filter(voiture_exemplaire=exemplaire)
+            nettoyage_interieur = NettoyageInterieur.objects.filter(voiture_exemplaire=exemplaire)
+            autres = Maintenance.objects.filter(voiture_exemplaire=exemplaire)
+            jeux_pieces = ControleJeuxPieces.objects.filter(voiture_exemplaire=exemplaire)
+
+            # ✅ COUNTS CORRECTS
             total_checkup = checkup.count()
             total_entretien = entretien.count()
             total_freins = freins.count()
@@ -78,12 +87,12 @@ def choisir_type_maintenance(request, exemplaire_id):
             total_nettoyage_interieur = nettoyage_interieur.count()
             total_autres = autres.count()
             total_jeux_pieces = jeux_pieces.count()
+
             modeles = VoitureModele.objects.all()
     else:
         modeles = []
 
-    exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
-
+    # --- POST ---
     if request.method == "POST":
         type_choisi = request.POST.get("type_maintenance")
         date_intervention = request.POST.get("date_intervention")
@@ -97,13 +106,13 @@ def choisir_type_maintenance(request, exemplaire_id):
                 date_intervention=date_intervention,
                 description=description
             )
-            # Redirige vers la liste de maintenance du modèle
             return redirect('maintenance:list', modele_id=exemplaire.voiture_modele.id)
 
-    # --- Construit le contexte final avec toutes les infos ---
+    # --- CONTEXT ---
     context.update({
         "exemplaire": exemplaire,
         "types_maintenance": TYPES_MAINTENANCE,
+
         "total_checkup": total_checkup,
         "total_entretien": total_entretien,
         'total_freins': total_freins,
@@ -127,9 +136,6 @@ def choisir_type_maintenance(request, exemplaire_id):
     })
 
     return render(request, "maintenance/choisir_type.html", context)
-
-
-
 
 
 @login_required
