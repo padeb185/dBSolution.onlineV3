@@ -142,7 +142,9 @@
                 <img src="{% static 'icons/autres.png' %}" alt="Autres interventions" style="width:60px; height:60px;">
             </div>
         </a>
-        <!-- Autres interventions -->
+
+
+        <!-- Jeux Pièces -->
         <a href="{% url 'jeux_pieces:jeux_pieces_list' exemplaire.id %}"
            class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
             <div class="flex justify-between items-center">
@@ -154,6 +156,21 @@
                     </p>
                 </div>
                 <img src="{% static 'icons/jeu.png' %}" alt="Jeux Pièces" style="width:60px; height:60px;">
+            </div>
+        </a>
+
+        <!-- Silent Blocs -->
+        <a href="{% url 'silent_blocs:silent_list' exemplaire.id %}"
+           class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h2 class="text-lg font-semibold mb-2">{% trans "Controle des silent blocs" %}</h2>
+                    <p class="text-gray-600">
+                        {% trans "Nombre total :" %}
+                        <span class="font-bold">{{ total_silent }}</span>
+                    </p>
+                </div>
+                <img src="{% static 'icons/silent.png' %}" alt="Silent Bloc" style="width:60px; height:60px;">
             </div>
         </a>
 

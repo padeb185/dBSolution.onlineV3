@@ -22,8 +22,8 @@ from .models import SilentBloc
 @method_decorator([login_required, never_cache], name='dispatch')
 class SilentListView(ListView):
     model = SilentBloc
-    template_name = "silent/silent_list.html"
-    context_object_name = "silent"
+    template_name = "silent_blocs/silent_list.html"
+    context_object_name = "silents"
     paginate_by = 100
     ordering = ["-id"]
 
