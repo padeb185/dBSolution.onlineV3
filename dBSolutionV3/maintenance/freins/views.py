@@ -166,50 +166,64 @@ def controle_freins_view(request, exemplaire_id):
 # Vue détail checkup
 # -----------------------------
 @login_required
-def freins_detail_view(request, freins_id):
-    freins = get_object_or_404(
+def freins_detail_view(request, frein_id):
+    frein = get_object_or_404(
         ControleFreins.objects.select_related("voiture_exemplaire"),
-        id=freins_id
+        id=frein_id
     )
 
     context = {
-        "freins": freins,
-        "exemplaire": freins.voiture_exemplaire,
+        "frein": frein,
+        "exemplaire": frein.voiture_exemplaire,
     }
     return render(request, "freins/freins_detail.html", context)
 
 
 @login_required
-def modifier_freins_view(request, freins_id):
+def modifier_freins_view(request, frein_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
         # Récupération du checkup avec son exemplaire
-        freins = get_object_or_404(
+        frein = get_object_or_404(
             ControleFreins.objects.select_related("voiture_exemplaire"),
-            id=freins_id,
+            id=frein_id
         )
 
+        # -------------------------
+        # POST
+        # -------------------------
         if request.method == "POST":
-            form = ControleFreinsForm(request.POST, instance=freins)
+            form = ControleFreinsForm(
+                request.POST,
+                instance=frein,
+                user=request.user,
+                exemplaire=frein.voiture_exemplaire
+            )
             if form.is_valid():
                 form.save()
-                messages.success(request, _("Controle frein modifié avec succès !"))
+                messages.success(request, _("Contrôle freins modifié avec succès !"))
+                return redirect("freins:modifier_freins", frein_id=frein.id)
+            else:
+                messages.error(request, _("Le formulaire contient des erreurs."))
+                print(form.errors)
 
-                # Redirection vers le détail
-                return redirect(
-                    "freins:freins_detail",
-                    freins_id=freins.id
-                )
+        # -------------------------
+        # GET
+        # -------------------------
         else:
-            form = ControleFreinsForm(instance=freins)
+            form = ControleFreinsForm(
+                instance=frein,
+                user=request.user,
+                exemplaire=frein.voiture_exemplaire
+            )
 
     return render(
         request,
         "freins/modifier_freins.html",
         {
             "form": form,
-            "freins": freins,
-            "exemplaire": freins.voiture_exemplaire,
+            "frein": frein,
+            "exemplaire": frein.voiture_exemplaire,
         }
     )
