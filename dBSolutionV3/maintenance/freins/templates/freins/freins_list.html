@@ -5,7 +5,7 @@
 
 {% block content %}
 <h1 class="text-2xl font-bold mb-6 flex items-center">
-    <img src="{% static 'icons/freins.png' %}" alt="Freins"
+    <img src="{% static 'icons/freins.png' %}" alt="Checkups"
          style="width:60px; height:60px; margin-right:10px;">
     {% trans "Liste des contrôles freins" %}
 </h1>
@@ -13,109 +13,110 @@
 <div class="bg-white shadow-md rounded-lg p-4 mb-4">
     <div class="flex flex-wrap items-end gap-3">
         <input id="search-immatriculation" type="text"
-               class="border rounded px-3 py-2 flex-1 min-w-[150px]"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Immatriculation' %}" >
 
         <input id="search-kilometres" type="text"
-               class="border rounded px-3 py-2 flex-1 min-w-[150px]"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Kilomètres' %}">
 
         <input id="search-tag" type="text"
-               class="border rounded px-3 py-2 flex-1 min-w-[150px]"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Étiquette' %}">
 
         <input id="search-utilisateur" type="text"
-               class="border rounded px-3 py-2 flex-1 min-w-[120px]"
+               class="border rounded px-3 py-2 flex-1 min-w-[120px] focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Technicien' %}">
 
         <input id="search-date" type="date"
-               class="border rounded px-3 py-2 flex-1 min-w-[120px]">
+               class="border rounded px-3 py-2 flex-1 min-w-[120px] focus:outline-none focus:ring-2 focus:ring-blue-500">
 
-        <a href="{% url 'freins:freins_check' exemplaire.id %}"
-           class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
+
+       <a href="{% url 'freins:freins_check' exemplaire.id %}"
+           class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-blue-500">
             {% trans "Ajouter un contrôle freins" %}
-        </a>
+       </a>
     </div>
 </div>
 
 <table id="freins-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
     <thead>
         <tr class="bg-gray-100">
-            <th class="border px-4 py-2">{% trans "Immatriculation" %}</th>
-            <th class="border px-4 py-2">{% trans "Kilomètres" %}</th>
-            <th class="border px-4 py-2">{% trans "Tag" %}</th>
-            <th class="border px-4 py-2">{% trans "Technicien" %}</th>
-            <th class="border px-4 py-2">{% trans "Date" %}</th>
-            <th class="border px-4 py-2 text-center">{% trans "Actions" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Immatriculation" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Kilomètres" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Tag" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Technicien" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Date" %}</th>
+            <th class="border px-4 py-2 cursor-pointer text-center">{% trans "Actions" %}</th>
         </tr>
     </thead>
-
     <tbody>
         {% for frein in freins %}
+        {% with exemplaire=frein.voiture_exemplaire %}
         <tr>
-            <!-- PLAQUE -->
             <td class="p-3">
-                {% if frein.voiture_exemplaire %}
-                    {% include "maintenance/partials/plaque.html" with exemplaire=frein.voiture_exemplaire %}
-                {% else %}
-                    <span class="text-red-500">Aucun véhicule</span>
+                {% if exemplaire.pays == 'Belgique' %}
+                <div class="flex items-center w-[180px] h-[34px] bg-white border-2 border-[#8B0000] rounded font-[Arial]">
+                    <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                        <span>🇪🇺</span><span>B</span>
+                    </div>
+                    <div class="w-full text-center font-bold text-[#8B0000] text-[18px]">
+                        {{ exemplaire.immatriculation|upper }}
+                    </div>
+                </div>
+                {% elif exemplaire.pays == 'Luxembourg' %}
+                <div class="flex items-center w-[180px] h-[34px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial]">
+                    <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                        <span>🇪🇺</span><span>L</span>
+                    </div>
+                    <div class="w-full text-center font-bold text-black text-[18px]">
+                        {{ exemplaire.immatriculation|upper }}
+                    </div>
+                </div>
+                {% elif exemplaire.pays == 'Allemagne' %}
+                <div class="flex items-center w-[180px] h-[34px] bg-white border-2 border-black rounded font-[Arial]">
+                    <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                        <span>🇪🇺</span><span>D</span>
+                    </div>
+                    <div class="w-full text-center font-bold text-black text-[18px]">
+                        {{ exemplaire.immatriculation|upper }}
+                    </div>
+                </div>
                 {% endif %}
             </td>
 
-            <!-- KM -->
-            <td class="border px-4 py-2">
-                {{ frein.kilometres_chassis }}
+            <td class="border px-4 py-2">{{ frein.kilometres_chassis }}</td>
+            {% if frein.tag == 'VERT' %}
+            <td class="border px-4 py-2 text-center font-bold" style="background-color: #28a745; color: #28a745;">
+                {{ frein.get_tag_display }}
             </td>
-
-            <!-- TAG -->
-            {% if frein.tag_frein == 'VERT' %}
-            <td class="border px-4 py-2 text-center font-bold"
-                style="background-color: #28a745; color: white;">
-                {{ frein.get_tag_frein_display }}
+            {% elif frein.tag == 'JAUNE' %}
+            <td class="border px-4 py-2 text-center font-bold" style="background-color: #ffc107; color: #ffc107;">
+                {{ frein.get_tag_display }}
             </td>
-
-            {% elif frein.tag_frein == 'JAUNE' %}
-            <td class="border px-4 py-2 text-center font-bold"
-                style="background-color: #ffc107; color: black;">
-                {{ frein.get_tag_frein_display }}
+            {% elif frein.tag == 'ROUGE' %}
+            <td class="border px-4 py-2 text-center font-bold" style="background-color: #dc3545; color: #dc3545;">
+                {{ frein.get_tag_display }}
             </td>
-
-            {% elif frein.tag_frein == 'ROUGE' %}
-            <td class="border px-4 py-2 text-center font-bold"
-                style="background-color: #dc3545; color: white;">
-                {{ frein.get_tag_frein_display }}
-            </td>
-
             {% else %}
-            <td class="border px-4 py-2 text-center font-bold">
-                {{ frein.get_tag_frein_display }}
+            <td class="border px-4 py-2 text-center font-bold" style="background-color: transparent; color: black;">
+                {{ frein.get_tag_display }}
             </td>
             {% endif %}
 
-            <!-- TECH -->
-            <td class="border px-4 py-2">
-                {{ frein.tech_nom_technicien }}
-            </td>
-
-            <!-- DATE -->
-            <td class="border px-4 py-2">
-                {{ frein.date }}
-            </td>
-
-            <!-- ACTION -->
+            <td class="border px-4 py-2">{{ frein.tech_nom_technicien }}</td>
+            <td class="border px-4 py-2">{{ frein.date }}</td>
             <td class="border px-4 py-2 text-center">
-                <a href="{% url 'freins:freins_detail' frein.id %}"
+               <a href="{% url 'freins:freins_detail' frein.id %}"
                    class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
                     {% trans "Infos" %}
-                </a>
+               </a>
             </td>
         </tr>
-
+        {% endwith %}
         {% empty %}
         <tr>
-            <td colspan="6" class="text-center py-4">
-                {% trans "Aucun contrôle freins enregistré pour cet exemplaire." %}
-            </td>
+            <td colspan="6" class="text-center py-4">{% trans "Aucun checkup enregistré pour cet exemplaire." %}</td>
         </tr>
         {% endfor %}
     </tbody>
@@ -125,17 +126,20 @@
 $(document).ready(function() {
     var table = $('#freins-table').DataTable({
         pageLength: 100,
-        order: [[4, "desc"]],
         language: {
-            search: "Recherche globale :",
-            lengthMenu: "Afficher _MENU_ éléments",
-            info: "Affichage de _START_ à _END_ sur _TOTAL_ freins",
-            zeroRecords: "Aucun contrôle trouvé",
+            search: "{% trans 'Recherche globale :' %}",
+            lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ freins' %}",
+            infoEmpty: "{% trans 'Aucun contrôle freins trouvé' %}",
+            zeroRecords: "{% trans 'Aucun contrôle freins trouvé' %}",
             paginate: {
-                next: "Suivant",
-                previous: "Précédent"
+                first: "{% trans 'Premier' %}",
+                last: "{% trans 'Dernier' %}",
+                next: "{% trans 'Suivant' %}",
+                previous: "{% trans 'Précédent' %}"
             }
-        }
+        },
+        order: [[4, "desc"]]
     });
 
     $('#search-immatriculation').on('keyup', function () {
@@ -155,5 +159,4 @@ $(document).ready(function() {
     });
 });
 </script>
-
 {% endblock %}

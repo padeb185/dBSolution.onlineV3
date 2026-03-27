@@ -4,6 +4,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from piece.models import Piece
 from maintenance.models import Maintenance
+from utils.mixin import TechnicienMixin
 
 
 class EtatOKNotOK(models.TextChoices):
@@ -13,7 +14,7 @@ class EtatOKNotOK(models.TextChoices):
     REMPLACE = "REMPLACE", _("Remplacé")
 
 
-class ControleFreins(models.Model):
+class ControleFreins(TechnicienMixin, models.Model):
     maintenance = models.ForeignKey(
         Maintenance,
         on_delete=models.CASCADE,
@@ -46,30 +47,33 @@ class ControleFreins(models.Model):
 
     # --- Freins ---
 
-    freins_usure_plaquettes_av = models.IntegerField(default=0, verbose_name=_("Usure des plaquettes avant (%)"))
-    freins_plaquettes_remplacer_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK,verbose_name=_("Plaquettes avant à remplacer"))
-    freins_epaisseur_disques_av = models.FloatField(default=0.0, verbose_name=_("Épaisseur des disques avant (mm)"))
-    freins_fentes_disques_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Présence de fentes sur les disques avant"))
-    freins_disques_remplacer_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Disques avant à remplacer"))
+    avant_freins_usure_plaquettes = models.IntegerField(default=0, verbose_name=_("Usure des plaquettes avant (%)"))
+    avant_freins_plaquettes_remplacer = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK,verbose_name=_("Plaquettes avant à remplacer"))
+    avant_freins_epaisseur_disques = models.FloatField(default=0.0, verbose_name=_("Épaisseur des disques avant (mm)"))
+    avant_freins_fentes_disques = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Présence de fentes sur les disques avant"))
+    avant_freins_disques_remplacer = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Disques avant à remplacer"))
 
-    freins_usure_plaquettes_ar = models.IntegerField(default=0, verbose_name=_("Usure des plaquettes arrière (%)"))
-    freins_plaquettes_remplacer_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK,verbose_name=_("Plaquettes arrière à remplacer"))
-    freins_epaisseur_disques_ar = models.FloatField(default=0, verbose_name=_("Épaisseur des disques arrière (mm)"))
-    freins_fentes_disques_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Présence de fentes sur les disques arrière"))
-    freins_disques_remplacer_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Disques arrière à remplacer"))
+    arriere_freins_usure_plaquettes = models.IntegerField(default=0, verbose_name=_("Usure des plaquettes arrière (%)"))
+    arriere_freins_plaquettes_remplacer = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK,verbose_name=_("Plaquettes arrière à remplacer"))
+    arriere_freins_epaisseur_disques = models.FloatField(default=0, verbose_name=_("Épaisseur des disques arrière (mm)"))
+    arriere_freins_fentes_disques = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Présence de fentes sur les disques arrière"))
+    arriere_freins_disques_remplacer = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Disques arrière à remplacer"))
 
-    freins_fuites = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Présence de fuite"))
+    fuites_freins_fuites = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Présence de fuite"))
+    fuites_freins_machoire = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Présence de fuite machoire"))
+    fuites_freins_flexibles = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Présence de fuite flexibles"))
+    fuites_freins_tuyaux = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Présence de fuite tuyaux rigides"))
 
     # --- Liquide ---
-    frein_liquide_frein_etat = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("État liquide de frein"))
-    freins_remplacement_liquide_frein = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK,verbose_name=_("Remplacement liquide de frein"))
-    freins_specif_liquide_frein = models.CharField(max_length=100, blank=True,verbose_name=_("Spécification liquide de frein"))
-    freins_quantite_liquide_frein = models.FloatField(default=0, null=True, blank=True,verbose_name=_("Quantité liquide de frein (L)"))
+    liquide_frein_etat = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("État liquide de frein"))
+    liquide_remplacement_liquide_frein = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK,verbose_name=_("Remplacement liquide de frein"))
+    liquide_specif_liquide_frein = models.CharField(max_length=100, blank=True,verbose_name=_("Spécification liquide de frein"))
+    liquide_quantite_liquide_frein = models.FloatField(default=0, null=True, blank=True,verbose_name=_("Quantité liquide de frein (L)"))
 
-    frein_machoire_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("État de la machoire avant gauche"))
-    frein_machoire_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("État de la machoire avant droite"))
-    frein_machoire_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("État de la machoire arrière gauche"))
-    frein_machoire_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("État de la machoire arrière droite"))
+    machoire_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("État de la machoire avant gauche"))
+    machoire_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("État de la machoire avant droite"))
+    machoire_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("État de la machoire arrière gauche"))
+    machoire_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("État de la machoire arrière droite"))
 
 
 
@@ -82,7 +86,7 @@ class ControleFreins(models.Model):
         ("ROUGE", _("Rouge")),
     ]
 
-    tag_fff = models.CharField(
+    tag = models.CharField(
         max_length=10,
         choices=TAG_CHOICES,
         default="JAUNE",
@@ -151,5 +155,8 @@ class ControleFreins(models.Model):
         # Toujours garder une copie dans le contrôle
         if self.voiture_exemplaire:
             self.kilometres_chassis = self.voiture_exemplaire.kilometres_chassis
+
+        if not self.tech_technicien and hasattr(self, '_user'):
+            self.assign_technicien(self._user)
 
         super().save(*args, **kwargs)
