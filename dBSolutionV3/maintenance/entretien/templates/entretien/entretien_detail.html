@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="p-6 w-full">
+
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold flex items-center gap-4">
+            <img src="{% static 'icons/entretien.png' %}"
+                 alt="{{ entretien.voiture_exemplaire.immatriculation }}"
+                 class="w-12 h-12">
+            <span>{% trans "Détails de l'entretien" %}</span>
+        </h1>
+
+        <a href="{% if entretien.voiture_exemplaire %}
+                   {% url 'entretien:entretien_list' entretien.voiture_exemplaire.id %}
+               {% else %}# {% endif %}"
+           class="text-blue-600 hover:underline">
+            {% trans "Retour à la liste des entretiens" %}
+        </a>
+    </div>
+
+    <!-- Infos principales -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+
+        <!-- Informations générales -->
+        <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
+            <h2 class="text-lg font-semibold mb-2">{% trans "Informations générales" %}</h2>
+
+            <p><strong>{% trans "Immatriculation" %} :</strong> {{ entretien.voiture_exemplaire.immatriculation }}</p>
+            <p><strong>{% trans "Kilométrage" %} :</strong> {{ entretien.kilometres_chassis }}</p>
+            <p><strong>{% trans "Tag" %} :</strong> {{ entretien.tag }}</p>
+            <p><strong>{% trans "Technicien" %} :</strong> {{ entretien.tech_nom_technicien }} ({{ entretien.tech_role_technicien }})</p>
+        </div>
+
+        <!-- Maintenance -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-lg font-semibold mb-4">{% trans "Entretien" %}</h2>
+            <p><strong>{% trans "Date de l'intervention" %} :</strong> {{ entretien.maintenance.date_intervention|date:"d/m/Y" }}</p>
+        </div>
+
+        <!-- Bouton Modifier -->
+        <div class="mt-auto w-full">
+            <a href="{% url 'entretien:modifier_entretien' entretien.id %}" class="block w-full">
+                <button type="button" class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+                    {% trans "Modifier le entretien" %}
+                </button>
+            </a>
+        </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="bg-white shadow-md rounded-lg p-6 flex gap-4">
+        <a href="{% if entretien.voiture_exemplaire %}
+                   {% url 'entretien:entretien_list' entretien.voiture_exemplaire.id %}
+               {% else %}# {% endif %}"
+           class="text-blue-600 hover:underline">
+            {% trans "Retour à la liste des entretiens" %}
+        </a>
+    </div>
+
+</div>
+{% endblock %}

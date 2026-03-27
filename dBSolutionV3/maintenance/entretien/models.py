@@ -38,6 +38,20 @@ class HuileBoiteEtat(models.TextChoices):
     ATF3 = "ATF_III", _("ATF III")
     ATF_DSG = "ATF DSG", _("ATF DSG")
 
+class LaveGlaceQualite(models.TextChoices):
+    HIVER = 'HIVER', _("Hiver")
+    ETE = 'ETE', _("Eté")
+
+
+class NiveauxEtat(models.TextChoices):
+    BON = "BON", _("Bon")
+    AJOUTER = "AJOUTER", _("Ajouter")
+
+class LiquideFreinsQualite(models.TextChoices):
+    DOT3 = 'DOT 3', _("DOT 3")
+    DOT4 = 'DOT 4', _("DOT 4")
+    DOT5 = 'DOT 5', _("DOT 5")
+    DOT51 = 'DOT 5.1', _("DOT 5.1")
 
 
 class Entretien(TechnicienMixin, models.Model):
@@ -56,7 +70,8 @@ class Entretien(TechnicienMixin, models.Model):
     voiture_exemplaire = models.ForeignKey(
         "voiture_exemplaire.VoitureExemplaire",
         on_delete=models.CASCADE,
-        related_name="entretiens"
+        related_name="entretiens",
+        null = True, blank = True
     )
 
     kilometres_chassis = models.PositiveIntegerField(
@@ -71,13 +86,8 @@ class Entretien(TechnicienMixin, models.Model):
         blank=True
     )
 
-    kilometrage_prevu = models.PositiveIntegerField()
-    kilometrage_realise = models.PositiveIntegerField(null=True, blank=True)
 
-    alerte_avant_km = models.PositiveIntegerField(default=400)
 
-    date_prevue = models.DateField(null=True, blank=True)
-    date_realisation = models.DateField(null=True, blank=True)
 
 
 
@@ -104,6 +114,21 @@ class Entretien(TechnicienMixin, models.Model):
     boite_ajout_huile_qualite = models.CharField(max_length=25, choices=HuileBoiteEtat.choices, default=HuileEtat.ZERO_30,verbose_name=_("Qualité d'huile"))
     boite_ajout_huile_quantite = models.FloatField(default=0, verbose_name=_("Quantité d'huile ajoutée en litres"))
 
+    pont_entretien_vidange = models.CharField(max_length=25, choices=EntretienEtat.choices,default=EntretienEtat.A_FAIRE,verbose_name=_("Vidange de l'huile de boite de vitesses"))
+    pont_filtre_huile = models.CharField(max_length=25, choices=EntretienEtat.choices, default=EntretienEtat.A_FAIRE,verbose_name=_("Remplacement du filtre à huile de boite de vitesses"))
+    pont_bouchon_vidange = models.CharField(max_length=25, choices=EntretienEtat.choices,default=EntretienEtat.A_FAIRE,verbose_name=_("Remplacer le bouchon de vidange"))
+    pont_joint_vidange = models.CharField(max_length=25, choices=EntretienEtat.choices, default=EntretienEtat.A_FAIRE,verbose_name=_("Remplacer le joint du bouchon de vidange"))
+    pont_ajout_huile = models.CharField(max_length=25, choices=EntretienEtat.choices, default=EntretienEtat.A_FAIRE,verbose_name=_("Vidange de l'huile moteur"))
+    pont_ajout_huile_qualite = models.CharField(max_length=25, choices=HuileBoiteEtat.choices,default=HuileEtat.ZERO_30, verbose_name=_("Qualité d'huile"))
+    pont_ajout_huile_quantite = models.FloatField(default=0, verbose_name=_("Quantité d'huile ajoutée en litres"))
+
+    lave_glace_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de lave-glace"))
+    lave_glace_quantite = models.FloatField(default=0,verbose_name=_("Quantité de liquide de lave glace ajoutée en litres"))
+    lave_glace_qualite = models.CharField(max_length=25, choices=LaveGlaceQualite.choices,default=LaveGlaceQualite.HIVER,verbose_name=_("Qualité de liquide de lave glace"))
+
+    frein_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de freins"))
+    frein_liquide_quantite = models.FloatField(default=0,verbose_name=_("Quantité de liquide de freins ajoutée en litres"))
+    frein_liquide_qualite = models.CharField(max_length=25, choices=LiquideFreinsQualite.choices,default=LiquideFreinsQualite.DOT4,verbose_name=_("Qualité de liquide de freins"))
 
 
     piece = models.ForeignKey(
@@ -121,7 +146,7 @@ class Entretien(TechnicienMixin, models.Model):
     piece_fluide = models.ForeignKey(
         "piece_fluides.Fluide",
         on_delete=models.CASCADE,
-        related_name='entretien',
+        related_name='entretien_fluides',
         null=True,
         blank=True
     )
@@ -200,20 +225,20 @@ class Entretien(TechnicienMixin, models.Model):
 
     def clean(self):
         super().clean()
-        if self.voiture_exemplaire and self.kilometrage_checkup is not None:
-            if self.kilometrage_checkup < self.voiture_exemplaire.kilometres_chassis:
+        if self.voiture_exemplaire and self.kilometrage_entretien is not None:
+            if self.kilometrage_entretien < self.voiture_exemplaire.kilometres_chassis:
                 raise ValidationError({
                     'kilometrage_checkup': _(
-                        f"Le kilométrage du check-up ({self.kilometrage_checkup}) "
+                        f"Le kilométrage de l'entretien ({self.kilometrage_entretien}) "
                         f"ne peut pas être inférieur au kilométrage actuel de la voiture ({self.voiture_exemplaire.kilometres_chassis})."
                     )
                 })
 
     def save(self, *args, **kwargs):
         # Si checkup > km actuel, mettre à jour la voiture
-        if self.voiture_exemplaire and self.kilometrage_checkup:
-            if self.kilometrage_checkup > self.voiture_exemplaire.kilometres_chassis:
-                self.voiture_exemplaire.kilometres_chassis = self.kilometrage_checkup
+        if self.voiture_exemplaire and self.kilometrage_entretien:
+            if self.kilometrage_entretien > self.voiture_exemplaire.kilometres_chassis:
+                self.voiture_exemplaire.kilometres_chassis = self.kilometrage_entretien
                 self.voiture_exemplaire.save(update_fields=["kilometres_chassis"])
 
         # Toujours garder une copie dans le contrôle
@@ -225,16 +250,3 @@ class Entretien(TechnicienMixin, models.Model):
 
         super().save(*args, **kwargs)
 
-
-"""
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-        self.fluide.mettre_a_jour_stock(-self.quantite)
-
-
-
-
-    def mettre_a_jour_stock(self, delta):
-        self.stock += delta
-        self.save(update_fields=["stock"])
-"""

@@ -1,7 +1,10 @@
 from django import forms
 from django.utils import timezone
+from .models import Entretien
+from django.utils.translation import gettext_lazy as _
 
-from .models import Entretien, EntretienOperation, EntretienFluide
+
+
 
 class EntretienForm(forms.ModelForm):
     class Meta:
@@ -41,23 +44,23 @@ class EntretienForm(forms.ModelForm):
         voiture = instance.voiture_exemplaire or self.exemplaire  # fallback si pas encore lié
 
         # Récupération du kilométrage check-up depuis le formulaire
-        kilometrage_checkup = self.cleaned_data.get("kilometres_chassis")
+        kilometrage_entretien = self.cleaned_data.get("kilometres_chassis")
 
-        if voiture and kilometrage_checkup is not None:
+        if voiture and kilometrage_entretien is not None:
             # 🔒 Sécurité : ne jamais diminuer le kilométrage
-            if kilometrage_checkup < voiture.kilometres_chassis:
+            if kilometrage_entretien < voiture.kilometres_chassis:
                 raise forms.ValidationError(
-                    f"Le kilométrage du check-up ({kilometrage_checkup}) "
+                    f"Le kilométrage du check-up ({kilometrage_entretien}) "
                     f"ne peut pas être inférieur au kilométrage actuel de la voiture ({voiture.kilometres_chassis})."
                 )
 
             # ✅ Mettre à jour la voiture si le kilométrage a augmenté
-            if kilometrage_checkup > voiture.kilometres_chassis:
-                voiture.kilometres_chassis = kilometrage_checkup
+            if kilometrage_entretien > voiture.kilometres_chassis:
+                voiture.kilometres_chassis = kilometrage_entretien
                 voiture.save(update_fields=["kilometres_chassis"])
 
             # ✅ Mettre à jour le contrôle
-            instance.kilometres_chassis = kilometrage_checkup
+            instance.kilometres_chassis = kilometrage_entretien
 
             # 🔗 Lier la voiture si ce n'était pas déjà fait
             if not instance.voiture_exemplaire:
