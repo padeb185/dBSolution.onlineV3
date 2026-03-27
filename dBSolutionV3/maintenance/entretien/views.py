@@ -50,6 +50,11 @@ class EntretienListView(ListView):
 
 
 
+#----------------------------
+# creation entretien
+#----------------------------
+
+
 @never_cache
 @login_required
 def entretien_check_view(request, exemplaire_id):
@@ -156,7 +161,7 @@ def entretien_check_view(request, exemplaire_id):
 
 
 # ------------
-# Vue détail checkup
+# Vue détail entretien
 # -----------------------------
 @login_required
 def entretien_detail_view(request, entretien_id):
@@ -172,12 +177,18 @@ def entretien_detail_view(request, entretien_id):
     return render(request, "entretien/entretien_detail.html", context)
 
 
+#---------------------
+
+# Modifier entretien
+
+#---------------------
+
 @login_required
 def modifier_entretien_view(request, entretien_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
-        # Récupération du checkup avec son exemplaire
+        # Récupération de l'entretien avec son exemplaire
         entretien = get_object_or_404(
             Entretien.objects.select_related("voiture_exemplaire"),
             id=entretien_id
@@ -190,7 +201,7 @@ def modifier_entretien_view(request, entretien_id):
             form = EntretienForm(
                 request.POST,
                 instance=entretien,
-                user=request.user,       # 🔑 important pour initialiser technicien/societe
+                user=request.user,
                 exemplaire=entretien.voiture_exemplaire
             )
             if form.is_valid():
