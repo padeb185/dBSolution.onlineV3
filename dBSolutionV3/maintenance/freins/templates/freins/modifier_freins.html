@@ -116,11 +116,10 @@
 
         <br>
 
-
-        <!-- Section freins avant -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Freins avant" %}</h2>
+        <!-- Section plaquettes avant -->
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Plaquettes avant" %}</h2>
         {% for field in form %}
-            {% if "avant" in field.name %}
+            {% if "avant_freins_pl" in field.name %}
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -150,10 +149,74 @@
         <br>
 
 
-        <!-- Section freins arriere -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Freins arrière" %}</h2>
+         <!-- Section disques avant -->
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Disques avant" %}</h2>
         {% for field in form %}
-            {% if "arriere" in field.name %}
+            {% if "avant_freins_d" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+
+        <!-- Section plaquettes arriere -->
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Plaquettes arrière" %}</h2>
+        {% for field in form %}
+            {% if "arriere_freins_pl" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+         <!-- Section disques arriere -->
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Disques arrière" %}</h2>
+        {% for field in form %}
+            {% if "arriere_freins_d" in field.name %}
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -281,7 +344,6 @@
 
 
 
-
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Etiquette" %}</h2>
         {% for field in form %}
             {% if "tag" in field.name %}
@@ -394,38 +456,7 @@
 
         <br>
 
-         <!-- Section tag -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Mécanicien" %}</h2>
-        {% for field in form %}
-            {% if "util" in field.name %}
-            <div class="mb-4">
-                {% if field.field.widget.input_type == "checkbox" %}
-                    <label class="inline-flex items-center gap-2">
-                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
-                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
-                    </label>
-                    {% if field.help_text %}
-                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
-                    {% endif %}
-                    {% if field.errors %}
-                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
-                    {% endif %}
-                {% else %}
-                    <label class="block font-semibold mb-1">{{ field.label }}</label>
-                    {{ field|add_class:"input" }}
-                    {% if field.help_text %}
-                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
-                    {% endif %}
-                    {% if field.errors %}
-                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
-                    {% endif %}
-                {% endif %}
-            </div>
-            {% endif %}
-        {% endfor %}
 
-
-        <br>
 
         <!-- Section technicien -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Technicien" %}</h2>

@@ -47,17 +47,19 @@ class ControleFreins(TechnicienMixin, models.Model):
 
     # --- Freins ---
 
-    avant_freins_usure_plaquettes = models.IntegerField(default=0, verbose_name=_("Usure des plaquettes avant (%)"))
-    avant_freins_plaquettes_remplacer = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK,verbose_name=_("Plaquettes avant à remplacer"))
-    avant_freins_epaisseur_disques = models.FloatField(default=0.0, verbose_name=_("Épaisseur des disques avant (mm)"))
-    avant_freins_fentes_disques = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Présence de fentes sur les disques avant"))
-    avant_freins_disques_remplacer = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Disques avant à remplacer"))
+    avant_freins_pl_usure_plaquettes = models.IntegerField(default=0, verbose_name=_("Usure des plaquettes avant (%)"))
+    avant_freins_pl_plaquettes_remplacer = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK,verbose_name=_("Plaquettes avant à remplacer"))
 
-    arriere_freins_usure_plaquettes = models.IntegerField(default=0, verbose_name=_("Usure des plaquettes arrière (%)"))
-    arriere_freins_plaquettes_remplacer = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK,verbose_name=_("Plaquettes arrière à remplacer"))
-    arriere_freins_epaisseur_disques = models.FloatField(default=0, verbose_name=_("Épaisseur des disques arrière (mm)"))
-    arriere_freins_fentes_disques = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Présence de fentes sur les disques arrière"))
-    arriere_freins_disques_remplacer = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Disques arrière à remplacer"))
+    avant_freins_d_epaisseur_disques = models.FloatField(default=0.0, verbose_name=_("Épaisseur des disques avant (mm)"))
+    avant_freins_d_fentes_disques = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Présence de fentes sur les disques avant"))
+    avant_freins_d_disques_remplacer = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Disques avant à remplacer"))
+
+    arriere_freins_pl_usure_plaquettes = models.IntegerField(default=0, verbose_name=_("Usure des plaquettes arrière (%)"))
+    arriere_freins_pl_plaquettes_remplacer = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK,verbose_name=_("Plaquettes arrière à remplacer"))
+
+    arriere_freins_d_epaisseur_disques = models.FloatField(default=0, verbose_name=_("Épaisseur des disques arrière (mm)"))
+    arriere_freins_d_fentes_disques = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Présence de fentes sur les disques arrière"))
+    arriere_freins_d_disques_remplacer = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Disques arrière à remplacer"))
 
     fuites_freins_fuites = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Présence de fuite"))
     fuites_freins_machoire = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Présence de fuite machoire"))
