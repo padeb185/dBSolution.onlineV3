@@ -117,7 +117,11 @@
 
         <br>
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Essuie-glace" %}</h2>
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/essuie-glace.png' %}" alt="Essuie-glace"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Essuie-glace" %}
+        </h2>
         {% for field in form %}
             {% if "essuie" in field.name %}
             <div class="mb-4">
@@ -163,7 +167,11 @@
 
         <br>
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Pare-brise" %}</h2>
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/pare-brise-casse.png' %}" alt="pare brise"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Pare-Brise" %}
+        </h2>
          <!-- Pare-brise avec coups -->
         <div class="mb-4">
             {% with field=form.pare_brise_coups %}
@@ -197,7 +205,11 @@
         <br>
 
         <!-- Section Moteur -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Moteur" %}</h2>
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/engine.png' %}" alt="moteur"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Moteur" %}
+         </h2>
         {% for field in form %}
             {% if "moteur" in field.name %}
             <div class="mb-4">
@@ -229,7 +241,11 @@
         <br>
 
           <!-- Section Refroidissement -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Pont arrière" %}</h2>
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/radiateur.png' %}" alt="pont"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Refroidissement" %}
+         </h2>
         {% for field in form %}
             {% if "refroi" in field.name %}
             <div class="mb-4">
@@ -262,7 +278,11 @@
 
 
         <!-- Section Boite -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Boite de vitesse" %}</h2>
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/boite-de-vitesse.png' %}" alt="Boite de vitesse"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Boite de vitesse" %}
+         </h2>
         {% for field in form %}
             {% if "boite" in field.name %}
             <div class="mb-4">
@@ -295,7 +315,11 @@
 
 
          <!-- Section Pont -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Pont arrière" %}</h2>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/pont.png' %}" alt="Pont"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Pont arrière" %}
+        </h2>
         {% for field in form %}
             {% if "pont" in field.name %}
             <div class="mb-4">
@@ -330,7 +354,9 @@
 
 
         <!-- Section freins -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Freins" %}</h2>
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/disque-de-frein.png' %}" alt="friens"
+                 style="width:60px; height:60px; margin-right:10px;">{% trans "Freins" %}</h2>
         {% for field in form %}
             {% if "frein" in field.name %}
             <div class="mb-4">
@@ -363,7 +389,11 @@
 
 
         <!-- Section Batterie -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Batterie" %}</h2>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/batterie.png' %}" alt="batterie"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Batterie" %}
+        </h2>
         {% for field in form %}
             {% if "batterie" in field.name %}
             <div class="mb-4">
@@ -395,7 +425,10 @@
         <br>
 
         <!-- Section jeux rotules -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Jeux rotules de direction" %}</h2>
+
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/pieces-de-voiture.png' %}" alt="Jeux rotules"
+                 style="width:60px; height:60px; margin-right:10px;">{% trans "Jeux rotules de direction" %}</h2>
         {% for field in form %}
             {% if "jeu_rotule_dir" in field.name %}
             <div class="mb-4">
@@ -556,7 +589,11 @@
 
 
          <!-- Section jeux roulement -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Jeux roulements de roues" %}</h2>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/roulement.png' %}" alt="roulement de roue"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Jeux roulements de roues" %}
+        </h2>
         {% for field in form %}
             {% if "jeu_roule" in field.name %}
             <div class="mb-4">
@@ -589,7 +626,11 @@
 
 
           <!-- Section jeux triangle -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Jeux triangles" %}</h2>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/triangle.png' %}" alt="triangle"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Jeux triangles" %}
+        </h2>
         {% for field in form %}
             {% if "jeu_tri" in field.name %}
             <div class="mb-4">
@@ -620,7 +661,11 @@
         <br>
 
           <!-- Section jeux suspension multi-bras -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Jeux suspension multi-bras" %}</h2>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/suspension-multi.png' %}" alt="suspension multi bras"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Jeux suspension multi-bras" %}
+        </h2>
         {% for field in form %}
             {% if "jeu_multi" in field.name %}
             <div class="mb-4">
@@ -652,7 +697,11 @@
         <br>
 
           <!-- Section jeux barre -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Jeux amortisseurs" %}</h2>
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/amortisseur.png' %}" alt="jeu amortisseur"
+                 style="width:60px; height:60px; margin-right:10px;">
+             {% trans "Jeux amortisseurs" %}
+         </h2>
         {% for field in form %}
             {% if "jeu_am" in field.name %}
             <div class="mb-4">
@@ -684,7 +733,9 @@
         <br>
 
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Epaisseur pneus en mm" %}</h2>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/pneus.png' %}" alt="épaisseur pneus"
+                 style="width:60px; height:60px; margin-right:10px;">{% trans "Epaisseur pneus en mm" %}</h2>
         {% for field in form %}
             {% if "pneu_ep" in field.name %}
             <div class="mb-4">
@@ -746,7 +797,11 @@
 
         <br>
 
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Pression des Pneus" %}</h2>
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/pression-des-pneus.png' %}" alt="triangle"
+                 style="width:60px; height:60px; margin-right:10px;">
+             {% trans "Pression des Pneus" %}
+         </h2>
         {% for field in form %}
             {% if "pneu_pre" in field.name %}
             <div class="mb-4">
@@ -777,7 +832,9 @@
 
         <br>
 
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Remplacer train" %}</h2>
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/pneus-train.png' %}" alt="Remplacer train de pneus"
+                 style="width:60px; height:60px; margin-right:10px;">{% trans "Remplacer train" %}</h2>
         {% for field in form %}
             {% if "pneu_train" in field.name %}
             <div class="mb-4">
@@ -810,7 +867,11 @@
 
 
             <!-- Section Phares -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Phares" %}</h2>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/phares.png' %}" alt="Phares"
+                 style="width:60px; height:60px; margin-right:10px;">
+                 {% trans "Phares" %}
+        </h2>
         {% for field in form %}
             {% if "phare" in field.name %}
             <div class="mb-4">
@@ -844,7 +905,11 @@
 
 
         <!-- Section nettoyage ext -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Nettoyage extérieur" %}</h2>
+       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/nettoyage_ext.png' %}" alt="nettoyage extérieur"
+                 style="width:60px; height:60px; margin-right:10px;">
+           {% trans "Nettoyage extérieur" %}
+       </h2>
         {% for field in form %}
             {% if "nettoyage_ext" in field.name %}
             <div class="mb-4">
@@ -876,7 +941,11 @@
         <br>
 
         <!-- Section nettoyage int -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Nettoyage intérieur" %}</h2>
+       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/nettoyage_int.png' %}" alt="nettoyage intérieur"
+                 style="width:60px; height:60px; margin-right:10px;">
+           {% trans "Nettoyage intérieur" %}
+       </h2>
         {% for field in form %}
             {% if "nettoyage_int" in field.name %}
             <div class="mb-4">
@@ -908,7 +977,9 @@
 
         <br>
 
-                 <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Etiquette" %}</h2>
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/tag.png' %}" alt="étiquette"
+                 style="width:60px; height:60px; margin-right:10px;">{% trans "Etiquette" %}</h2>
         {% for field in form %}
             {% if "tag" in field.name %}
             <div class="mb-4">
@@ -955,7 +1026,11 @@
         <br>
 
         <!-- Section remarques -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Remarques" %}</h2>
+       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/notes.png' %}" alt="triangle"
+                 style="width:60px; height:60px; margin-right:10px;">
+           {% trans "Remarques" %}
+       </h2>
         {% for field in form %}
             {% if "remarques" in field.name %}
             <div class="mb-4">
@@ -988,7 +1063,11 @@
         <br>
 
         <!-- Section technicien -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Technicien" %}</h2>
+       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/mecanicien.png' %}" alt="triangle"
+                 style="width:60px; height:60px; margin-right:10px;">
+           {% trans "Technicien" %}
+       </h2>
         {% for field in form %}
             {% if "tech" in field.name %}
             <div class="mb-4">
@@ -1019,6 +1098,8 @@
 
 
         <br>
+
+
 
         <div class="flex gap-3 mt-6">
             <button type="submit"
