@@ -128,6 +128,7 @@ TENANT_APPS = (
     'maintenance.nettoyage_interieur',
     'maintenance.nettoyage_exterieur',
     'maintenance.autres_interventions',
+    'maintenance.pneus',
 
     'fuel',
 

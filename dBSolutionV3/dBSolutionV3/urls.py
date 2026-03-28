@@ -109,7 +109,11 @@ urlpatterns += i18n_patterns(
 
     path('maintenance/niveaux/', include(('maintenance.niveaux.urls', 'niveaux'), namespace='niveaux')),
 
-path('maintenance/silent/', include(('maintenance.silent_blocs.urls', 'silent_blocs'), namespace='silent_blocs')),
+    path('maintenance/silent/', include(('maintenance.silent_blocs.urls', 'silent_blocs'), namespace='silent_blocs')),
+
+    path('maintenance/pneus/', include(('maintenance.pneus.urls', 'pneus'), namespace='pneus')),
+
+
 
 )
 

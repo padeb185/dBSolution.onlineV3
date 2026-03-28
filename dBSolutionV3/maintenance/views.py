@@ -20,9 +20,10 @@ from utilisateurs.models import Mecanicien
 from maintenance.jeux_pieces.models import ControleJeuxPieces
 from maintenance.nettoyage_exterieur.models import NettoyageExterieur
 from maintenance.nettoyage_interieur.models import NettoyageInterieur
-
 from maintenance.freins.models import ControleFreins
 from maintenance.niveaux.models import Niveau
+from maintenance.entretien.models import Entretien
+from maintenance.silent_blocs.models import SilentBloc
 
 
 @login_required
@@ -58,17 +59,17 @@ def choisir_type_maintenance(request, exemplaire_id):
 
     total_checkup = total_entretien = total_freins = total_pneus = \
     total_niveaux = total_nettoyage_exterieur = total_nettoyage_interieur = \
-    total_autres = total_jeux_pieces = 0
+    total_autres = total_jeux_pieces = total_silent =  0
 
     checkup = entretien = nettoyage_exterieur = jeux_pieces = nettoyage_interieur = \
-        freins = niveaux = pneus = autres = []
+        freins = niveaux = pneus = autres = silent = []
 
     if schema_name:
         with schema_context(schema_name):
 
             # ✅ FILTRAGE PAR EXEMPLAIRE
             checkup = ControleGeneral.objects.filter(voiture_exemplaire=exemplaire)
-            entretien = Maintenance.objects.filter(voiture_exemplaire=exemplaire)
+            entretien = Entretien.objects.filter(voiture_exemplaire=exemplaire)
             freins = ControleFreins.objects.filter(voiture_exemplaire=exemplaire)
             pneus = Maintenance.objects.filter(voiture_exemplaire=exemplaire)
             niveaux = Niveau.objects.filter(voiture_exemplaire=exemplaire)
@@ -76,6 +77,8 @@ def choisir_type_maintenance(request, exemplaire_id):
             nettoyage_interieur = NettoyageInterieur.objects.filter(voiture_exemplaire=exemplaire)
             autres = Maintenance.objects.filter(voiture_exemplaire=exemplaire)
             jeux_pieces = ControleJeuxPieces.objects.filter(voiture_exemplaire=exemplaire)
+            silent = SilentBloc.objects.filter(voiture_exemplaire=exemplaire)
+
 
             # ✅ COUNTS CORRECTS
             total_checkup = checkup.count()
@@ -87,6 +90,7 @@ def choisir_type_maintenance(request, exemplaire_id):
             total_nettoyage_interieur = nettoyage_interieur.count()
             total_autres = autres.count()
             total_jeux_pieces = jeux_pieces.count()
+            total_silent = silent.count()
 
             modeles = VoitureModele.objects.all()
     else:
@@ -122,6 +126,7 @@ def choisir_type_maintenance(request, exemplaire_id):
         'total_nettoyage_exterieur': total_nettoyage_exterieur,
         'total_nettoyage_interieur': total_nettoyage_interieur,
         'total_jeux_pieces': total_jeux_pieces,
+        'total_silent': total_silent,
 
         "checkup": checkup,
         "entretien": entretien,
@@ -132,7 +137,9 @@ def choisir_type_maintenance(request, exemplaire_id):
         'nettoyage_interieur': nettoyage_interieur,
         'autres': autres,
         'jeux_pieces': jeux_pieces,
+        'silent': silent,
         "modeles": modeles,
+
     })
 
     return render(request, "maintenance/choisir_type.html", context)
