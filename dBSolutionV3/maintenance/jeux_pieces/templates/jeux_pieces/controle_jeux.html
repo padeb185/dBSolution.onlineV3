@@ -7,7 +7,7 @@
     <!-- Header -->
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold flex items-center gap-4">
-            <img src="{% static 'icons/jeu.png' %}" alt="Jeux Pièces"
+            <img src="{% static 'icons/pieces-de-voitiure.png' %}" alt="Jeux Pièces"
                  style="width:60px; height:60px; margin-right:10px;">
             <span>
                 {% trans "Contrôle des jeux pour :" %}
@@ -39,8 +39,24 @@
         </div>
         {% endfor %}
     {% endif %}
+        {% if form.errors %}
+        <div style="background-color: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; padding: 10px; border-radius: 6px;">
+            <strong>Erreurs :</strong>
+            <ul>
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li>{{ field.label }} : {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
 
     <br>
+
 
     <!-- Form -->
     <form method="POST" class="space-y-4">
@@ -167,7 +183,11 @@
 
 
          <!-- Section jeux roulement -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Jeux roulements de roues" %}</h2>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/roulement.png' %}" alt="roulement"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Jeux roulements de roues" %}
+        </h2>
         {% for field in form %}
             {% if "jeu_roule" in field.name %}
             <div class="mb-4">
@@ -187,7 +207,9 @@
 
 
           <!-- Section jeux triangle -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Jeux triangles" %}</h2>
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/triangle.png' %}" alt="jeux triangles"
+                 style="width:60px; height:60px; margin-right:10px;">{% trans "Jeux triangles" %}</h2>
         {% for field in form %}
             {% if "jeu_tri" in field.name %}
             <div class="mb-4">
@@ -205,7 +227,11 @@
         <br>
 
           <!-- Section jeux suspension multi-bras -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Jeux suspension multi-bras" %}</h2>
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/suspension-multi.png' %}" alt="Kilometrage"
+                 style="width:60px; height:60px; margin-right:10px;">
+             {% trans "Jeux suspension multi-bras" %}
+         </h2>
         {% for field in form %}
             {% if "jeu_multi" in field.name %}
             <div class="mb-4">
@@ -224,7 +250,11 @@
         <br>
 
           <!-- Section jeux barre -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Jeux amortisseurs" %}</h2>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/amortisseur.png' %}" alt="amortisseur"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Jeux amortisseurs" %}
+        </h2>
         {% for field in form %}
             {% if "jeu_am" in field.name %}
             <div class="mb-4">
@@ -242,7 +272,11 @@
 
         <br>
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Remarques" %}</h2>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/notes.png' %}" alt="remarques"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Remarques" %}
+        </h2>
         {% for field in form %}
             {% if "remar" in field.name %}
             <div class="mb-4">
@@ -259,7 +293,11 @@
 
         <br>
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Étiquette" %}</h2>
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/tag.png' %}" alt="étiquette"
+                 style="width:60px; height:60px; margin-right:10px;">
+             {% trans "Étiquette" %}
+         </h2>
         {% for field in form %}
             {% if "tag" in field.name %}
             <div class="mb-4">
@@ -276,7 +314,11 @@
         {% endfor %}
         <br>
 
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Technicien" %}</h2>
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/mecanicien.png' %}" alt="mecanicien"
+                 style="width:60px; height:60px; margin-right:10px;">
+              {% trans "Technicien" %}
+          </h2>
         {% for field in form %}
             {% if "tech" in field.name %}
             <div class="mb-4">

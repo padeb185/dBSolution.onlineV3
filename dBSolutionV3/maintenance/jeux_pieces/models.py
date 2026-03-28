@@ -51,6 +51,8 @@ class ControleJeuxPieces(TechnicienMixin, models.Model):
         on_delete=models.CASCADE,
         related_name="jeux_pieces",
         verbose_name=_("Maintenance"),
+        null=True,  # autorisé vide à la création
+        blank=True,
         default=1
     )
 
@@ -69,8 +71,8 @@ class ControleJeuxPieces(TechnicienMixin, models.Model):
         blank=True
     )
 
-    kilometrage_checkup = models.PositiveIntegerField(
-        _("Kilométrage au moment du Checkup"),
+    kilometrage_jeu = models.PositiveIntegerField(
+        _("Kilométrage au moment du controle des jeux"),
         null=True,
         blank=True
     )
@@ -192,20 +194,20 @@ class ControleJeuxPieces(TechnicienMixin, models.Model):
 
     def clean(self):
         super().clean()
-        if self.voiture_exemplaire and self.kilometrage_checkup is not None:
-            if self.kilometrage_checkup < self.voiture_exemplaire.kilometres_chassis:
+        if self.voiture_exemplaire and self.kilometrage_jeu is not None:
+            if self.kilometrage_jeu < self.voiture_exemplaire.kilometres_chassis:
                 raise ValidationError({
                     'kilometrage_checkup': _(
-                        f"Le kilométrage du check-up ({self.kilometrage_checkup}) "
+                        f"Le kilométrage du check-up ({self.kilometrage_jeu}) "
                         f"ne peut pas être inférieur au kilométrage actuel de la voiture ({self.voiture_exemplaire.kilometres_chassis})."
                     )
                 })
 
     def save(self, *args, **kwargs):
         # Si checkup > km actuel, mettre à jour la voiture
-        if self.voiture_exemplaire and self.kilometrage_checkup:
-            if self.kilometrage_checkup > self.voiture_exemplaire.kilometres_chassis:
-                self.voiture_exemplaire.kilometres_chassis = self.kilometrage_checkup
+        if self.voiture_exemplaire and self.kilometrage_jeu:
+            if self.kilometrage_jeu > self.voiture_exemplaire.kilometres_chassis:
+                self.voiture_exemplaire.kilometres_chassis = self.kilometrage_jeu
                 self.voiture_exemplaire.save(update_fields=["kilometres_chassis"])
 
         # Toujours garder une copie dans le contrôle

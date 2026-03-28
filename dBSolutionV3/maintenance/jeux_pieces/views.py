@@ -135,7 +135,7 @@ def controle_jeux_pieces_view(request, exemplaire_id):
 
                         controle.save()
 
-                    messages.success(request, _("Checkup enregistré avec succès."))
+                    messages.success(request, _("Controle des jeux enregistré avec succès."))
 
                 except Exception as e:
                     messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
