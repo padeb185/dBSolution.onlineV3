@@ -135,10 +135,10 @@ def niveau_form_view(request, exemplaire_id):
                 messages.error(request, _("Le formulaire contient des erreurs."))
                 print(form.errors)
         else:
-            checkup.assign_technicien(request.user)  # 👈 AJOUT IMPORTANT
+            niveau.assign_technicien(request.user)  # 👈 AJOUT IMPORTANT
 
             form = NiveauForm(
-                instance=checkup,
+                instance=niveau,
                 user=request.user,
                 exemplaire=exemplaire
             )
