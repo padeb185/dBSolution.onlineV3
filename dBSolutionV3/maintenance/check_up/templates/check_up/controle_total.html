@@ -727,7 +727,9 @@
         <br>
 
 
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Epaisseur pneus en mm" %}</h2>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/pneus.png' %}" alt="épaisseur pneus"
+                 style="width:60px; height:60px; margin-right:10px;">{% trans "Epaisseur pneus en mm" %}</h2>
         {% for field in form %}
             {% if "pneu_ep" in field.name %}
             <div class="mb-4">
@@ -789,7 +791,11 @@
 
         <br>
 
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Pression des Pneus" %}</h2>
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/pression-des-pneus.png' %}" alt="triangle"
+                 style="width:60px; height:60px; margin-right:10px;">
+             {% trans "Pression des Pneus" %}
+         </h2>
         {% for field in form %}
             {% if "pneu_pre" in field.name %}
             <div class="mb-4">
@@ -820,7 +826,9 @@
 
         <br>
 
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Remplacer train" %}</h2>
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/pneus-train.png' %}" alt="Remplacer train de pneus"
+                 style="width:60px; height:60px; margin-right:10px;">{% trans "Remplacer train" %}</h2>
         {% for field in form %}
             {% if "pneu_train" in field.name %}
             <div class="mb-4">
@@ -853,7 +861,11 @@
 
 
             <!-- Section Phares -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Phares" %}</h2>
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/phares.png' %}" alt="Phares"
+                 style="width:60px; height:60px; margin-right:10px;">
+                 {% trans "Phares" %}
+        </h2>
         {% for field in form %}
             {% if "phare" in field.name %}
             <div class="mb-4">
@@ -887,7 +899,11 @@
 
 
         <!-- Section nettoyage ext -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Nettoyage extérieur" %}</h2>
+       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/nettoyage_ext.png' %}" alt="nettoyage extérieur"
+                 style="width:60px; height:60px; margin-right:10px;">
+           {% trans "Nettoyage extérieur" %}
+       </h2>
         {% for field in form %}
             {% if "nettoyage_ext" in field.name %}
             <div class="mb-4">
@@ -919,7 +935,11 @@
         <br>
 
         <!-- Section nettoyage int -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Nettoyage intérieur" %}</h2>
+       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/nettoyage_int.png' %}" alt="nettoyage intérieur"
+                 style="width:60px; height:60px; margin-right:10px;">
+           {% trans "Nettoyage intérieur" %}
+       </h2>
         {% for field in form %}
             {% if "nettoyage_int" in field.name %}
             <div class="mb-4">
@@ -951,7 +971,9 @@
 
         <br>
 
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Etiquette" %}</h2>
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/tag.png' %}" alt="étiquette"
+                 style="width:60px; height:60px; margin-right:10px;">{% trans "Etiquette" %}</h2>
         {% for field in form %}
             {% if "tag" in field.name %}
             <div class="mb-4">
@@ -998,7 +1020,11 @@
         <br>
 
         <!-- Section remarques -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Remarques" %}</h2>
+       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/notes.png' %}" alt="triangle"
+                 style="width:60px; height:60px; margin-right:10px;">
+           {% trans "Remarques" %}
+       </h2>
         {% for field in form %}
             {% if "remarques" in field.name %}
             <div class="mb-4">
@@ -1031,7 +1057,11 @@
         <br>
 
         <!-- Section technicien -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Technicien" %}</h2>
+       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/mecanicien.png' %}" alt="triangle"
+                 style="width:60px; height:60px; margin-right:10px;">
+           {% trans "Technicien" %}
+       </h2>
         {% for field in form %}
             {% if "tech" in field.name %}
             <div class="mb-4">
