@@ -24,6 +24,7 @@ from maintenance.freins.models import ControleFreins
 from maintenance.niveaux.models import Niveau
 from maintenance.entretien.models import Entretien
 from maintenance.silent_blocs.models import SilentBloc
+from maintenance.pneus.models import ControlePneus
 
 
 @login_required
@@ -71,7 +72,7 @@ def choisir_type_maintenance(request, exemplaire_id):
             checkup = ControleGeneral.objects.filter(voiture_exemplaire=exemplaire)
             entretien = Entretien.objects.filter(voiture_exemplaire=exemplaire)
             freins = ControleFreins.objects.filter(voiture_exemplaire=exemplaire)
-            pneus = Maintenance.objects.filter(voiture_exemplaire=exemplaire)
+            pneus = ControlePneus.objects.filter(voiture_exemplaire=exemplaire)
             niveaux = Niveau.objects.filter(voiture_exemplaire=exemplaire)
             nettoyage_exterieur = NettoyageExterieur.objects.filter(voiture_exemplaire=exemplaire)
             nettoyage_interieur = NettoyageInterieur.objects.filter(voiture_exemplaire=exemplaire)
