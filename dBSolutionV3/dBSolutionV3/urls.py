@@ -113,7 +113,9 @@ urlpatterns += i18n_patterns(
 
     path('maintenance/pneus/', include(('maintenance.pneus.urls', 'pneus'), namespace='pneus')),
 
+    path('maintenance/autre/', include(('maintenance.autres_interventions.urls', 'autres_interventions'), namespace='autres_interventions')),
 
+    path('maintenance/autre/',include(('maintenance.autres_interventions.boite_de_vitesse.urls', 'boite_de_vitesse'), namespace='boite_de_vitesse')),
 
 )
 

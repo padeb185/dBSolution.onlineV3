@@ -6,9 +6,9 @@
 
     <h1 class="text-2xl font-bold mb-6 flex flex-col md:flex-row md:items-center gap-3">
         <div class="flex items-center gap-3">
-            <img src="{% static 'icons/checkup.png' %}" alt="Maintenance" class="w-12 h-12">
+            <img src="{% static 'icons/autres.png' %}" alt="Maintenance boite de vitesse" class="w-12 h-12">
             <div>
-                {% trans "Choisir le type de maintenance pour :" %}
+                {% trans "Choisir le type d'intrvention pour :" %}
                 <span class="font-semibold">
                     {{ exemplaire.voiture_modele.voiture_marque.nom_marque }}
                     {{ exemplaire.voiture_modele.nom_modele }}
@@ -26,32 +26,32 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
 
         <!-- ✅ CHECK-UP → PAGE DÉDIÉE -->
-        <a href="{% url 'check_up:checkup_list' exemplaire.id %}"
+        <a href="{% url 'boite_de_vitesse:boite_list' exemplaire.id %}"
            class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
             <div class="flex justify-between items-center">
                 <div>
-                    <h2 class="text-lg font-semibold mb-2">{% trans "Checkup" %}</h2>
+                    <h2 class="text-lg font-semibold mb-2">{% trans "Intervention boite de vitesses" %}</h2>
                     <p class="text-gray-600">
                         {% trans "Nombre total :" %}
-                        <span class="font-bold">{{ total_checkup }}</span>
+                        <span class="font-bold">{{ total_boite }}</span>
                     </p>
                 </div>
-                <img src="{% static 'icons/checkup.png' %}" alt="Checkup" style="width:60px; height:60px;">
+                <img src="{% static 'icons/boite-de-vitesse.png' %}" alt="Boite de vitesses" style="width:60px; height:60px;">
             </div>
         </a>
 
         <!-- Entretien -->
-        <a href="{% url 'entretien:entretien_list' exemplaire.id %}"
+        <a href="{% url 'boite_de_vitesse:boite_list' exemplaire.id %}"
            class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
             <div class="flex justify-between items-center">
                 <div>
-                    <h2 class="text-lg font-semibold mb-2">{% trans "Entretien" %}</h2>
+                    <h2 class="text-lg font-semibold mb-2">{% trans "Interventions moteur" %}</h2>
                     <p class="text-gray-600">
                         {% trans "Nombre total :" %}
-                        <span class="font-bold">{{ total_entretien }}</span>
+                        <span class="font-bold">{{ total_moteur_int }}</span>
                     </p>
                 </div>
-                <img src="{% static 'icons/entretien.png' %}" alt="Entretien" style="width:60px; height:60px;">
+                <img src="{% static 'icons/engine.png' %}" alt="Entretien" style="width:60px; height:60px;">
             </div>
         </a>
 
@@ -129,7 +129,7 @@
         </a>
 
         <!-- Autres interventions -->
-      <a href="{% url 'autres_interventions:choisir_autre' exemplaire.id %}"
+      <a href="{% url 'entretien:entretien_list' exemplaire.id %}"
            class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
             <div class="flex justify-between items-center">
                 <div>

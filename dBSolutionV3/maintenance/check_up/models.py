@@ -390,7 +390,11 @@ class ControleGeneral(TechnicienMixin, models.Model):
         verbose_name_plural = _("Contrôles généraux")
 
     def __str__(self):
-        return _("Contrôle général – Maintenance %(id)s") % {"id": self.maintenance.id}
+        # Si l'objet a une maintenance liée, on affiche son id
+        if self.maintenance:
+            return f"Check-up {self.maintenance.id}"
+        # Sinon on affiche un texte par défaut
+        return "Check-up (sans maintenance)"
 
     def clean(self):
         super().clean()
