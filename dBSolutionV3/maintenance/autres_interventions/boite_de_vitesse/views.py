@@ -16,6 +16,8 @@ from django.db.models import Q
 from maintenance.nettoyage_exterieur.models import NettoyageExterieur
 from django.utils.translation import gettext_lazy as _
 
+from dBSolutionV3.maintenance.autres_interventions.boite_de_vitesse.forms import ControleBoiteForm
+from dBSolutionV3.maintenance.autres_interventions.boite_de_vitesse.models import ControleBoite
 
 
 # -----------------------------
@@ -24,8 +26,8 @@ from django.utils.translation import gettext_lazy as _
 @method_decorator([login_required, never_cache], name='dispatch')
 class BoiteListView(ListView):
     model = ControleGeneral
-    template_name = "check_up/checkup_list.html"
-    context_object_name = "checkups"
+    template_name = "boite_de_vitesse/boite_list.html"
+    context_object_name = "boite_de_vitesses"
     paginate_by = 100
     ordering = ["-id"]
 
@@ -78,7 +80,7 @@ def boite_check_view(request, exemplaire_id):
         # Récupération ou création de la maintenance
         maintenance = Maintenance.objects.filter(
             voiture_exemplaire=exemplaire,
-            type_maintenance="checkup"
+            type_maintenance="boite"
         ).order_by("-date_intervention").first()
 
         if not maintenance:
@@ -89,12 +91,12 @@ def boite_check_view(request, exemplaire_id):
                 date_intervention=timezone.localtime(timezone.now()).date(),
                 kilometres_chassis=exemplaire.kilometres_chassis,
                 kilometres_derniere_intervention=exemplaire.kilometres_derniere_intervention,
-                type_maintenance="checkup",
+                type_maintenance="boite",
                 tag=Maintenance.Tag.JAUNE,
             )
 
         # Créer ou récupérer l'objet NettoyageInterieur
-        checkup = ControleGeneral(
+        boite = ControleBoite(
             voiture_exemplaire=exemplaire,
             maintenance=maintenance,
             kilometres_chassis=exemplaire.kilometres_chassis
@@ -103,7 +105,7 @@ def boite_check_view(request, exemplaire_id):
         if request.method == "POST":
             form = ControleGeneralForm(
                 request.POST,
-                instance=checkup,
+                instance=boite,
                 user=request.user,
                 exemplaire=exemplaire
             )
@@ -111,15 +113,15 @@ def boite_check_view(request, exemplaire_id):
             if form.is_valid():
                 try:
                     with transaction.atomic():
-                        checkup = form.save(commit=False)
+                        boite = form.save(commit=False)
 
 
-                        checkup.assign_technicien(request.user)
+                        boite.assign_technicien(request.user)
 
                         # Gestion du kilométrage
                         km_checkup = form.cleaned_data.get("kilometres_chassis")
                         if km_checkup is not None and km_checkup >= exemplaire.kilometres_chassis:
-                            checkup.kilometres_chassis = km_checkup
+                            boite.kilometres_chassis = km_checkup
                             exemplaire.kilometres_chassis = km_checkup
                             exemplaire.save()
                         elif km_checkup is not None and km_checkup < exemplaire.kilometres_chassis:
@@ -129,7 +131,7 @@ def boite_check_view(request, exemplaire_id):
                             )
                             raise ValueError("Kilométrage invalide")
 
-                        checkup.save()
+                        boite.save()
 
                     messages.success(request, _("Checkup enregistré avec succès."))
 
@@ -139,15 +141,15 @@ def boite_check_view(request, exemplaire_id):
                 messages.error(request, _("Le formulaire contient des erreurs."))
                 print(form.errors)
         else:
-            checkup.assign_technicien(request.user)
+            boite.assign_technicien(request.user)
 
             form = ControleGeneralForm(
-                instance=checkup,
+                instance=boite,
                 user=request.user,
                 exemplaire=exemplaire
             )
 
-        return render(request, 'check_up/controle_total.html', {
+        return render(request, 'boite_de_vitesse/boite_check.html', {
             "exemplaire": exemplaire,
             "immatriculation": exemplaire.immatriculation,
             "maintenance": maintenance,
@@ -161,44 +163,44 @@ def boite_check_view(request, exemplaire_id):
 # Vue détail checkup
 # -----------------------------
 @login_required
-def boite_detail_view(request, checkup_id):
-    checkup = get_object_or_404(
+def boite_detail_view(request, boite_id):
+    boite = get_object_or_404(
         ControleGeneral.objects.select_related("voiture_exemplaire"),
-        id=checkup_id
+        id=boite_id
     )
 
     context = {
-        "checkup": checkup,
-        "exemplaire": checkup.voiture_exemplaire,
+        "boite": boite,
+        "exemplaire": boite.voiture_exemplaire,
     }
-    return render(request, "check_up/checkup_detail.html", context)
+    return render(request, "boite_de_vitesse/boite_detail.html", context)
 
 
 @login_required
-def modifier_boite_view(request, checkup_id):
+def modifier_boite_view(request, boite_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
         # Récupération du checkup avec son exemplaire
-        checkup = get_object_or_404(
+        boite = get_object_or_404(
             ControleGeneral.objects.select_related("voiture_exemplaire"),
-            id=checkup_id
+            id=boite_id
         )
 
         # -------------------------
         # POST
         # -------------------------
         if request.method == "POST":
-            form = ControleGeneralForm(
+            form = ControleBoiteForm(
                 request.POST,
-                instance=checkup,
+                instance=boite,
                 user=request.user,       # 🔑 important pour initialiser technicien/societe
-                exemplaire=checkup.voiture_exemplaire
+                exemplaire=boite.voiture_exemplaire
             )
             if form.is_valid():
                 form.save()
                 messages.success(request, _("Checkup modifié avec succès !"))
-                return redirect("check_up:modifier_checkup", checkup_id=checkup.id)
+                return redirect("check_up:modifier_checkup", boite_id=boite.id)
             else:
                 messages.error(request, _("Le formulaire contient des erreurs."))
                 print(form.errors)
@@ -207,18 +209,18 @@ def modifier_boite_view(request, checkup_id):
         # GET
         # -------------------------
         else:
-            form = ControleGeneralForm(
-                instance=checkup,
+            form = ControleBoiteForm(
+                instance=boite,
                 user=request.user,
-                exemplaire=checkup.voiture_exemplaire
+                exemplaire=boite.voiture_exemplaire
             )
 
     return render(
         request,
-        "check_up/modifier_checkup.html",
+        "boite_de_vitesse/modifier_boite.html",
         {
             "form": form,
-            "checkup": checkup,
-            "exemplaire": checkup.voiture_exemplaire,
+            "boite": boite,
+            "exemplaire": boite.voiture_exemplaire,
         }
     )
