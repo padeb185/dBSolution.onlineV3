@@ -26,32 +26,24 @@ from maintenance.autres_interventions.boite_de_vitesse.models import ControleBoi
 # -----------------------------
 @method_decorator([login_required, never_cache], name='dispatch')
 class BoiteListView(ListView):
-    model = ControleGeneral
+    model = ControleBoite   # ✅ ICI
     template_name = "boite_de_vitesse/boite_list.html"
     context_object_name = "boite_de_vitesses"
     paginate_by = 100
     ordering = ["-id"]
 
     def get_queryset(self):
-        queryset = ControleGeneral.objects.select_related(
+        queryset = ControleBoite.objects.select_related(   # ✅ ICI
             "voiture_exemplaire", "maintenance", "tech_societe"
         )
 
-        # Filtrer par société : inclure les objets NULL ou ceux de la société de l'utilisateur
         societe = getattr(self.request.user, "societe", None)
         if societe:
             queryset = queryset.filter(
                 models.Q(tech_societe=societe) | models.Q(tech_societe__isnull=True)
             )
 
-        return queryset.order_by(*self.ordering)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        exemplaire_id = self.kwargs.get("exemplaire_id")
-        context["exemplaire"] = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
-        return context
-
+        return queryset.order_by("-id")
 
 
 
@@ -166,7 +158,7 @@ def boite_check_view(request, exemplaire_id):
 @login_required
 def boite_detail_view(request, boite_id):
     boite = get_object_or_404(
-        ControleGeneral.objects.select_related("voiture_exemplaire"),
+        ControleBoite.objects.select_related("voiture_exemplaire"),
         id=boite_id
     )
 
@@ -184,7 +176,7 @@ def modifier_boite_view(request, boite_id):
     with tenant_context(tenant):
         # Récupération du controle boite avec son exemplaire
         boite = get_object_or_404(
-            ControleGeneral.objects.select_related("voiture_exemplaire"),
+            ControleBoite.objects.select_related("voiture_exemplaire"),
             id=boite_id
         )
 

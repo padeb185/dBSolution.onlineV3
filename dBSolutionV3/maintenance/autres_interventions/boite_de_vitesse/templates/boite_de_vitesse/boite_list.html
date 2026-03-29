@@ -5,13 +5,14 @@
 
 {% block content %}
 <h1 class="text-2xl font-bold mb-6 flex items-center">
-    <img src="{% static 'icons/boite-de-vitesse.png' %}" alt="liste des controles de boites"
+    <img src="{% static 'icons/boite-de-vitesse.png' %}" alt="liste des contrôles de boites"
          style="width:60px; height:60px; margin-right:10px;">
     {% trans "Liste des contrôles de boite de vitesses" %}
 </h1>
 
 <div class="bg-white shadow-md rounded-lg p-4 mb-4">
     <div class="flex flex-wrap items-end gap-3">
+
         <input id="search-immatriculation" type="text"
                class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Immatriculation' %}" >
@@ -31,11 +32,12 @@
         <input id="search-date" type="date"
                class="border rounded px-3 py-2 flex-1 min-w-[120px] focus:outline-none focus:ring-2 focus:ring-blue-500">
 
-
-       <a href="{% url 'boite_de_vitesse:boite_check' exemplaire.id %}"
+        {% if exemplaire %}
+        <a href="{% url 'boite_de_vitesse:boite_check' exemplaire.id %}"
            class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-blue-500">
             {% trans "Ajouter un contrôle" %}
-       </a>
+        </a>
+        {% endif %}
     </div>
 </div>
 
@@ -51,61 +53,81 @@
         </tr>
     </thead>
     <tbody>
-        {% for boite in boites %}
+        {% for boite in boite_de_vitesses %}
         {% with exemplaire=boite.voiture_exemplaire %}
         <tr>
+
+            <!-- Immatriculation -->
             <td class="p-3">
-                {% if exemplaire.pays == 'Belgique' %}
-                <div class="flex items-center w-[180px] h-[34px] bg-white border-2 border-[#8B0000] rounded font-[Arial]">
-                    <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
-                        <span>🇪🇺</span><span>B</span>
-                    </div>
-                    <div class="w-full text-center font-bold text-[#8B0000] text-[18px]">
-                        {{ exemplaire.immatriculation|upper }}
-                    </div>
-                </div>
-                {% elif exemplaire.pays == 'Luxembourg' %}
-                <div class="flex items-center w-[180px] h-[34px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial]">
-                    <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
-                        <span>🇪🇺</span><span>L</span>
-                    </div>
-                    <div class="w-full text-center font-bold text-black text-[18px]">
-                        {{ exemplaire.immatriculation|upper }}
-                    </div>
-                </div>
-                {% elif exemplaire.pays == 'Allemagne' %}
-                <div class="flex items-center w-[180px] h-[34px] bg-white border-2 border-black rounded font-[Arial]">
-                    <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
-                        <span>🇪🇺</span><span>D</span>
-                    </div>
-                    <div class="w-full text-center font-bold text-black text-[18px]">
-                        {{ exemplaire.immatriculation|upper }}
-                    </div>
-                </div>
+                {% if exemplaire %}
+                    {% if exemplaire.pays == 'Belgique' %}
+                        <div class="flex items-center w-[180px] h-[34px] bg-white border-2 border-[#8B0000] rounded font-[Arial]">
+                            <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                                <span>🇪🇺</span><span>B</span>
+                            </div>
+                            <div class="w-full text-center font-bold text-[#8B0000] text-[18px]">
+                                {{ exemplaire.immatriculation|upper }}
+                            </div>
+                        </div>
+                    {% elif exemplaire.pays == 'Luxembourg' %}
+                        <div class="flex items-center w-[180px] h-[34px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial]">
+                            <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                                <span>🇪🇺</span><span>L</span>
+                            </div>
+                            <div class="w-full text-center font-bold text-black text-[18px]">
+                                {{ exemplaire.immatriculation|upper }}
+                            </div>
+                        </div>
+                    {% elif exemplaire.pays == 'Allemagne' %}
+                        <div class="flex items-center w-[180px] h-[34px] bg-white border-2 border-black rounded font-[Arial]">
+                            <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                                <span>🇪🇺</span><span>D</span>
+                            </div>
+                            <div class="w-full text-center font-bold text-black text-[18px]">
+                                {{ exemplaire.immatriculation|upper }}
+                            </div>
+                        </div>
+                    {% endif %}
+                {% else %}
+                    -
                 {% endif %}
             </td>
 
-            <td class="border px-4 py-2">{{ boite.kilometres_chassis }}</td>
+            <!-- Kilométrage -->
+            <td class="border px-4 py-2">
+                {{ boite.kilometrage_controle_boite|default:"-" }}
+            </td>
+
+            <!-- TAG (FIX VISUEL) -->
             {% if boite.tag == 'VERT' %}
-            <td class="border px-4 py-2 text-center font-bold" style="background-color: #28a745; color: #28a745;">
+            <td class="border px-4 py-2 text-center font-bold" style="background-color: #28a745; color: white;">
                 {{ boite.get_tag_display }}
             </td>
             {% elif boite.tag == 'JAUNE' %}
-            <td class="border px-4 py-2 text-center font-bold" style="background-color: #ffc107; color: #ffc107;">
+            <td class="border px-4 py-2 text-center font-bold" style="background-color: #ffc107; color: black;">
                 {{ boite.get_tag_display }}
             </td>
             {% elif boite.tag == 'ROUGE' %}
-            <td class="border px-4 py-2 text-center font-bold" style="background-color: #dc3545; color: #dc3545;">
+            <td class="border px-4 py-2 text-center font-bold" style="background-color: #dc3545; color: white;">
                 {{ boite.get_tag_display }}
             </td>
             {% else %}
-            <td class="border px-4 py-2 text-center font-bold" style="background-color: transparent; color: black;">
+            <td class="border px-4 py-2 text-center font-bold">
                 {{ boite.get_tag_display }}
             </td>
             {% endif %}
 
-            <td class="border px-4 py-2">{{ boite.tech_nom_technicien }}</td>
-            <td class="border px-4 py-2">{{ boite.date }}</td>
+            <!-- Technicien -->
+            <td class="border px-4 py-2">
+                {{ boite.tech_nom_technicien|default:"-" }}
+            </td>
+
+            <!-- Date -->
+            <td class="border px-4 py-2">
+                {{ boite.date|date:"d/m/Y H:i" }}
+            </td>
+
+            <!-- Actions -->
             <td class="border px-4 py-2 text-center">
                <a href="{% url 'boite_de_vitesse:boite_detail' boite.id %}"
                    class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
@@ -116,7 +138,9 @@
         {% endwith %}
         {% empty %}
         <tr>
-            <td colspan="6" class="text-center py-4">{% trans "Aucun checkup enregistré pour cet exemplaire." %}</td>
+            <td colspan="6" class="text-center py-4">
+                {% trans "Aucun checkup enregistré pour cet exemplaire." %}
+            </td>
         </tr>
         {% endfor %}
     </tbody>
@@ -124,7 +148,7 @@
 
 <script>
 $(document).ready(function() {
-    var table = $('#checkups-table').DataTable({
+    var table = $('#boites-table').DataTable({
         pageLength: 100,
         language: {
             search: "{% trans 'Recherche globale :' %}",
