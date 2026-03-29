@@ -50,8 +50,8 @@ class ControleBoite(TechnicienMixin, models.Model):
         blank=True
     )
 
-    kilometrage_checkup_boite = models.PositiveIntegerField(
-        _("Kilométrage au moment du Checkup"),
+    kilometrage_controle_boite = models.PositiveIntegerField(
+        _("Kilométrage au moment du controle"),
         null=True,
         blank=True
     )
@@ -63,8 +63,8 @@ class ControleBoite(TechnicienMixin, models.Model):
     bte_embrayage_plateau = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Plateau d'embrayage"))
 
     # Arbres
-    bte_arbre_primaire = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Arbre primaire"))
-    bte_arbre_secondaire = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Arbre secondaire"))
+    bte_a_primaire = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Arbre primaire"))
+    bte_a_secondaire = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Arbre secondaire"))
 
     # Roulements
     roulement_bte_primaire = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Roulement arbre primaire"))
@@ -86,22 +86,22 @@ class ControleBoite(TechnicienMixin, models.Model):
     fourchettes = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Fourchettes"))
 
     # Huile
-    huile_manuelle_quantite = models.FloatField(default=0, verbose_name=_("Quantité d'huile ajoutée en litres"))
-    huile_manuelle_qualite = models.CharField(max_length=25, choices=HuileBoiteEtat.choices,default=HuileBoiteEtat.SEPTANTE_CINQ, verbose_name=_("Qualité de l'huile"))
+    man_huile_manuelle_quantite = models.FloatField(default=0, verbose_name=_("Quantité d'huile ajoutée en litres"))
+    man_huile_manuelle_qualite = models.CharField(max_length=25, choices=HuileBoiteEtat.choices,default=HuileBoiteEtat.SEPTANTE_CINQ, verbose_name=_("Qualité de l'huile"))
 
     # --- Boîte Automatique ---
-    auto_convertisseur_couple = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices, default=BoiteVitesseEtat.OK, verbose_name=_("Convertisseur de couple"))
-    auto_embrayages_auto = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Embrayages automatiques"))
-    auto_pompes_huile = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Pompes à huile"))
-    auto_valves = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Valves de contrôle"))
+    auto_b_convertisseur_couple = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices, default=BoiteVitesseEtat.OK, verbose_name=_("Convertisseur de couple"))
+    auto_b_embrayages_auto = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Embrayages automatiques"))
+    auto_b_pompes_huile = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Pompes à huile"))
+    auto_b_valves = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Valves de contrôle"))
 
     # Arbres et roulements automatiques
-    auto_arbre_torque = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Arbre de couple"))
-    auto_arbre_secondaire_auto = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Arbre secondaire"))
-    autoroulement_auto = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Roulements internes"))
+    auto_b_arbre_torque = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Arbre de couple"))
+    auto_b_arbre_secondaire_auto = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Arbre secondaire"))
+    auto_b_roulement_auto = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices, default=BoiteVitesseEtat.OK, verbose_name=_("Roulements internes"))
 
-    autohuile_auto_quantite = models.FloatField(default=0, verbose_name=_("Quantité d'huile ajoutée en litres"))
-    autohuile_auto_qualite = models.CharField(max_length=25, choices=HuileBoiteEtat.choices,default=HuileBoiteEtat.ATF3, verbose_name=_("Qualité de l'huile"))
+    auto_huile_auto_quantite = models.FloatField(default=0, verbose_name=_("Quantité d'huile ajoutée en litres"))
+    auto_huile_auto_qualite = models.CharField(max_length=25, choices=HuileBoiteEtat.choices,default=HuileBoiteEtat.ATF3, verbose_name=_("Qualité de l'huile"))
 
 
     remarques = models.TextField(
@@ -175,20 +175,20 @@ class ControleBoite(TechnicienMixin, models.Model):
 
     def clean(self):
         super().clean()
-        if self.voiture_exemplaire and self.kilometrage_checkup_boite is not None:
-            if self.kilometrage_checkup_boite < self.voiture_exemplaire.kilometres_chassis:
+        if self.voiture_exemplaire and self.kilometrage_controle_boite is not None:
+            if self.kilometrage_controle_boite < self.voiture_exemplaire.kilometres_chassis:
                 raise ValidationError({
-                    'kilometrage_checkup': _(
-                        f"Le kilométrage du check-up ({self.kilometrage_checkup_boite}) "
+                    'kilometrage_controle_boite': _(
+                        f"Le kilométrage du check-up ({self.kilometrage_conytrole_boite}) "
                         f"ne peut pas être inférieur au kilométrage actuel de la voiture ({self.voiture_exemplaire.kilometres_chassis})."
                     )
                 })
 
     def save(self, *args, **kwargs):
         # Si checkup > km actuel, mettre à jour la voiture
-        if self.voiture_exemplaire and self.kilometrage_checkup:
-            if self.kilometrage_checkup_boite > self.voiture_exemplaire.kilometres_chassis:
-                self.voiture_exemplaire.kilometres_chassis = self.kilometrage_checkup_boite
+        if self.voiture_exemplaire and self.kilometrage_controle_boite:
+            if self.kilometrage_controle_boite > self.voiture_exemplaire.kilometres_chassis:
+                self.voiture_exemplaire.kilometres_chassis = self.kilometrage_controle_boite
                 self.voiture_exemplaire.save(update_fields=["kilometres_chassis"])
 
         # Toujours garder une copie dans le contrôle
