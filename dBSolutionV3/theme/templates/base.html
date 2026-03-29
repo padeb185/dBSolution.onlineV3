@@ -24,8 +24,11 @@
 {% block header %}<header class="bg-white w-full shadow h-[70px] flex items-center">
   <nav class="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0 w-full px-4">
     <div class="flex gap-4 items-center">
-      <a href="{% url 'home' %}" class="text-gray-600 hover:text-black font-semibold transition duration-300">{% trans "Accueil" %}</a>
       <a href="{% url 'utilisateurs:dashboard' %}" class="text-gray-600 hover:text-black font-semibold transition duration-300">{% trans "Tableau de Bord" %}</a>
+    </div>
+
+    <div>
+     <img src="{% static 'CarsCosts/CarsCostTitre.png' %}" alt="CarsCost Logo" height="17px" width="200px">
     </div>
 
     <form action="{% url 'set_language' %}" method="post" class="flex items-center gap-2 mt-2 md:mt-0">
@@ -61,7 +64,7 @@
     </div>
 
     <!-- Loader Text -->
-    <div class="text-gray-400 text-sm">Chargement des données…</div>
+    <div class="text-gray-400 text-sm">{% trans "Chargement des données…" %}</div>
 
     <!-- Progress Bar -->
     <div class="mt-5 w-56 h-1.5 bg-gray-200 rounded-full overflow-hidden">
@@ -71,35 +74,35 @@
   </div>
 </div>
 
+<br>
 
-<main class="{% block main_class %}container mx-auto p-6 flex-1{% endblock %}">
+<main class="{% block main_class %}max-w-5xl mx-auto px-6 flex-1 w-full{% endblock %}">
   {% block content %}{% endblock %}
 </main>
 </body>
+<br>
+<br>
+<br>
 
-{% block footer %}
-<footer class="bg-white w-full shadow h-[70px] flex items-center justify-between text-gray-500 px-4">
-  <div>
-    <button type="button" onclick="history.back()" class="bg-blue-700 text-white px-3 py-1 rounded hover:bg-blue-400 transition duration-300">{% trans "Retour" %}</button>
-  </div>
 
-  <div class="text-center">
-    &copy; {{ now|date:"Y" }} dBSolution. {% trans "Tous droits réservés." %}
-  </div>
 
-  <div>
-    {% if request.user.is_authenticated %}
-      <form action="{% url 'utilisateurs:logout' %}" method="post">
-        {% csrf_token %}
-        <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition duration-300">{% trans "Déconnexion" %}</button>
-      </form>
-    {% endif %}
-  </div>
-</footer>
-{% endblock %}
+
+
+
+
 
 <!-- DUMMY POUR SAFELIST -->
 <div class="hidden bg-red-500 bg-blue-600 hover:bg-blue-700 text-gray-700 text-gray-500 border border-gray-300 px-4 py-2 rounded shadow-md flex flex-col items-center justify-center min-h-screen w-full"></div>
+
+
+  <footer class="bg-[#DBDFFD] w-full text-black py-4">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+      &copy; {{ now|date:"Y" }} www.CarsCosts.com {% trans "Tous droits réservés." %}
+    </div>
+  </footer>
+
+
+
 
 <!-- Loader JS -->
 <script>

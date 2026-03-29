@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block title %}Connexion{% endblock %}
 
@@ -15,6 +16,8 @@ bg-pastelblue flex items-center justify-center min-h-screen
 {% block main_class %}
 flex flex-col items-center justify-center w-full
 {% endblock %}
+
+
 
 
 {% block content %}
@@ -49,7 +52,10 @@ flex flex-col items-center justify-center w-full
         {% endfor %}
     {% endif %}
 
-    <form method="post" class="flex flex-col gap-4">
+
+
+    <br>
+    <form method="post" class="flex flex-col gap-4 w-full max-w-md mx-auto">
         {% csrf_token %}
 
         <input type="email" name="email" placeholder="Email"
@@ -67,13 +73,23 @@ flex flex-col items-center justify-center w-full
         </button>
     </form>
 
+
     <div class="text-center text-sm text-gray-500 mt-2">
         <a href="{% url 'password_reset' %}" class="hover:underline hover:text-blue-700">
             Mot de passe oublié ?
         </a>
     </div>
-
     <!-- DUMMY POUR SAFELIST DES CLASSES DYNAMIQUES -->
     <div class="hidden bg-blue-700 hover:bg-blue-700 text-gray-700 text-gray-500 border-gray-300 px-4 py-2 rounded shadow-md flex flex-col items-center justify-center"></div>
+
 </div>
+
+    <div>
+        <br>
+        <br>
+    </div>
+
+
+
+
 {% endblock %}
