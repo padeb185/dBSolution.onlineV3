@@ -9,9 +9,10 @@ urlpatterns = [
 
     path('ajouter/', ajouter_pneus_simple, name='ajouter_pneus_simple'),
 
-    path("<uuid:embrayage_id>/", pneus_detail_view, name="detail"),
+    path("<uuid:pneu_id>/", pneus_detail_view, name="detail"),
 
-    path('embrayage<uuid:embrayage_id>/', pneus_detail_view, name='detail'),
-    path('embrayage<uuid:embrayage_id>/lier_pneus/<uuid:boite_id>/', pneus_detail_view, name='lier_pneus'),
+    path('embrayage<uuid:pneu_id>/', pneus_detail_view, name='detail'),
+
+    path('embrayage<uuid:pneu_id>/lier_pneus/<uuid:boite_id>/', pneus_detail_view, name='lier_pneus'),
 
 ]

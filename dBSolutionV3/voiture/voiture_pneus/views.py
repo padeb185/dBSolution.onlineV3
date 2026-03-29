@@ -4,7 +4,7 @@ from django_tenants.utils import tenant_context
 
 from .. import voiture_pneus
 from ..voiture_pneus.admin_forms import RemplacementPneusForm
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import VoiturePneus
 from django.utils.translation import gettext as _
@@ -57,14 +57,22 @@ def liste_pneus(request):
 
 
 
-
 @login_required
 def pneus_detail_view(request, pneu_id):
     from .models import VoiturePneus
-    pneu = VoiturePneus.objects.get(id=pneu_id)
-    context = {'pneus': pneu}
-    return render(request, "voiture_pneus/pneus_detail.html", context)
 
+    # 🔒 Sécurisé (évite crash si ID invalide)
+    pneu = get_object_or_404(VoiturePneus, id=pneu_id)
+
+    # 💡 Optionnel : message info (exemple)
+    if request.GET.get("success"):
+        messages.success(request, "Pneu changé avec succès.")
+
+    context = {
+        'pneus': pneu
+    }
+
+    return render(request, "voiture_pneus/pneus_detail.html", context)
 
 
 
