@@ -15,13 +15,14 @@ from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from maintenance.nettoyage_exterieur.models import NettoyageExterieur
 from django.utils.translation import gettext_lazy as _
+from maintenance.autres_interventions.boite_de_vitesse.forms import ControleBoiteForm
+from maintenance.autres_interventions.boite_de_vitesse.models import ControleBoite
 
-from dBSolutionV3.maintenance.autres_interventions.boite_de_vitesse.forms import ControleBoiteForm
-from dBSolutionV3.maintenance.autres_interventions.boite_de_vitesse.models import ControleBoite
+
 
 
 # -----------------------------
-# Classe ListView pour checkup
+# Classe ListView pour boite
 # -----------------------------
 @method_decorator([login_required, never_cache], name='dispatch')
 class BoiteListView(ListView):
@@ -95,7 +96,7 @@ def boite_check_view(request, exemplaire_id):
                 tag=Maintenance.Tag.JAUNE,
             )
 
-        # Créer ou récupérer l'objet NettoyageInterieur
+        # Créer ou récupérer l'objet Boite
         boite = ControleBoite(
             voiture_exemplaire=exemplaire,
             maintenance=maintenance,
@@ -103,7 +104,7 @@ def boite_check_view(request, exemplaire_id):
         )
 
         if request.method == "POST":
-            form = ControleGeneralForm(
+            form = ControleBoiteForm(
                 request.POST,
                 instance=boite,
                 user=request.user,
@@ -143,7 +144,7 @@ def boite_check_view(request, exemplaire_id):
         else:
             boite.assign_technicien(request.user)
 
-            form = ControleGeneralForm(
+            form = ControleBoiteForm(
                 instance=boite,
                 user=request.user,
                 exemplaire=exemplaire
@@ -160,7 +161,7 @@ def boite_check_view(request, exemplaire_id):
 
 
 # ------------
-# Vue détail checkup
+# Vue détail boite
 # -----------------------------
 @login_required
 def boite_detail_view(request, boite_id):
@@ -181,7 +182,7 @@ def modifier_boite_view(request, boite_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
-        # Récupération du checkup avec son exemplaire
+        # Récupération du controle boite avec son exemplaire
         boite = get_object_or_404(
             ControleGeneral.objects.select_related("voiture_exemplaire"),
             id=boite_id
