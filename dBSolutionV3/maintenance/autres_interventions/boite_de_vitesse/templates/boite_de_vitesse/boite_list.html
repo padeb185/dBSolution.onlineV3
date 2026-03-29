@@ -100,7 +100,7 @@
 
             <!-- TAG (FIX VISUEL) -->
             {% if boite.tag == 'VERT' %}
-            <td class="border px-4 py-2 text-center font-bold" style="background-color: #28a745; color: white;">
+            <td class="border px-4 py-2 text-center font-bold" style="background-color: #28a745; color: black;">
                 {{ boite.get_tag_display }}
             </td>
             {% elif boite.tag == 'JAUNE' %}
@@ -108,7 +108,7 @@
                 {{ boite.get_tag_display }}
             </td>
             {% elif boite.tag == 'ROUGE' %}
-            <td class="border px-4 py-2 text-center font-bold" style="background-color: #dc3545; color: white;">
+            <td class="border px-4 py-2 text-center font-bold" style="background-color: #dc3545; color: black;">
                 {{ boite.get_tag_display }}
             </td>
             {% else %}
@@ -139,7 +139,7 @@
         {% empty %}
         <tr>
             <td colspan="6" class="text-center py-4">
-                {% trans "Aucun checkup enregistré pour cet exemplaire." %}
+                {% trans "Aucun contrôle enregistré pour cet exemplaire." %}
             </td>
         </tr>
         {% endfor %}
