@@ -116,9 +116,19 @@
             <input type="text" id="id_numero_oem" name="numero_oem" class="border rounded px-4 py-2 w-full" required>
         </div>
 
-        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded w-full">
-            {% trans "Ajouter" %}
-        </button>
+
+         <div class="flex gap-3 mt-6">
+                <button type="submit"
+                        class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+                    {% trans "Enregistrer" %}
+                </button>
+
+               <a href="{% url 'voiture_pneus:list' %}"
+                   class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
+                    {% trans "Annuler" %}
+                </a>
+
+          </div>
     </form>
 </div>
 {% endblock %}

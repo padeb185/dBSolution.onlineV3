@@ -59,9 +59,9 @@ def liste_pneus(request):
 
 
 @login_required
-def pneus_detail_view(request, embrayage_id):
+def pneus_detail_view(request, pneu_id):
     from .models import VoiturePneus
-    pneu = VoiturePneus.objects.get(id=embrayage_id)
+    pneu = VoiturePneus.objects.get(id=pneu_id)
     context = {'pneus': pneu}
     return render(request, "voiture_pneus/pneus_detail.html", context)
 
