@@ -21,8 +21,8 @@ from maintenance.niveaux.models import Niveau
 from maintenance.pneus.models import ControlePneus
 from maintenance.silent_blocs.models import SilentBloc
 
-from dBSolutionV3.maintenance.check_up.models import ControleGeneral
-from dBSolutionV3.utilisateurs.models import Mecanicien
+from maintenance.check_up.models import ControleGeneral
+from utilisateurs.models import Mecanicien
 
 
 @login_required
