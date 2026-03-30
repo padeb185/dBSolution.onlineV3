@@ -4,9 +4,30 @@
 __pycache__/
 *.pyc
 
+*.pyo
+*.pyd
+
+
 # PyCharm
 .idea/
 *.iml
 
 # Node.js
 node_modules/
+# Python virtual environments
+.venv/
+dBSolutionV3/.venv/
+
+# Python cache
+
+
+# Django / static
+media/
+staticfiles/
+
+²
+
+# IDE / OS
+.vscode/
+
+.DS_Store
