@@ -1,20 +1,20 @@
 # maintenance/check_up/urls.py
 from django.urls import path
-from .views import BoiteListView, boite_check_view, modifier_boite_view, boite_detail_view
+from .views import BteAutoListView, bte_auto_check_view, modifier_bte_auto_view, bte_auto_detail_view
 
 app_name = "boite_de_vitesse"
 
 urlpatterns = [
 
-    path('boite/<uuid:exemplaire_id>/liste/', BoiteListView.as_view(),name='boite_list'),
+    path('bte_auto/<uuid:exemplaire_id>/liste/', BteAutoListView.as_view(),name='bte_auto_list'),
 
-    path('boite/<uuid:exemplaire_id>/', boite_check_view, name='boite_check'),
-
-
-    path('<int:boite_id>/modifier/', modifier_boite_view, name='modifier_boite'),
+    path('bte_auto/<uuid:exemplaire_id>/', bte_auto_check_view, name='bte_auto_check'),
 
 
-    path('<int:boite_id>/detail/', boite_detail_view, name='boite_detail'),
+    path('<int:bte_auto_id>/modifier/', modifier_bte_auto_view, name='modifier_bte_auto'),
+
+
+    path('<int:bte_auto_id>/detail/', bte_auto_detail_view, name='bte_auto_detail'),
 ]
 
 

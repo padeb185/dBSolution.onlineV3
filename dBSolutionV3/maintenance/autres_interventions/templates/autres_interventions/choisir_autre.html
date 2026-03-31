@@ -26,6 +26,8 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
 
         <!-- ✅ CHECK-UP → PAGE DÉDIÉE -->
+
+        <!-- Boite de vitesses -->
         <a href="{% url 'boite_de_vitesse:boite_list' exemplaire.id %}"
            class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
             <div class="flex justify-between items-center">
@@ -40,139 +42,22 @@
             </div>
         </a>
 
-        <!-- Entretien -->
-        <a href="{% url 'boite_de_vitesse:boite_list' exemplaire.id %}"
+        <!-- Boite automatique -->
+        <a href="{% url 'bte_auto:bte_auto_list' exemplaire.id %}"
            class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
             <div class="flex justify-between items-center">
                 <div>
-                    <h2 class="text-lg font-semibold mb-2">{% trans "Interventions moteur" %}</h2>
+                    <h2 class="text-lg font-semibold mb-2">{% trans "Interventions boite automatique" %}</h2>
                     <p class="text-gray-600">
                         {% trans "Nombre total :" %}
-                        <span class="font-bold">{{ total_moteur_int }}</span>
+                        <span class="font-bold">{{ total_bte_auto }}</span>
                     </p>
                 </div>
-                <img src="{% static 'icons/engine.png' %}" alt="Entretien" style="width:60px; height:60px;">
-            </div>
-        </a>
-
-        <!-- Freins -->
-        <a href="{% url 'freins:freins_list' exemplaire.id %}"
-           class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-            <div class="flex justify-between items-center">
-                <div>
-                    <h2 class="text-lg font-semibold mb-2">{% trans "Freins" %}</h2>
-                    <p class="text-gray-600">
-                        {% trans "Nombre total :" %}
-                        <span class="font-bold">{{ total_freins }}</span>
-                    </p>
-                </div>
-                <img src="{% static 'icons/freins.png' %}" alt="Freins" style="width:60px; height:60px;">
-            </div>
-        </a>
-
-        <!-- Pneus -->
-     <a href="{% url 'pneus:pneus_list' exemplaire.id %}"
-           class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-            <div class="flex justify-between items-center">
-                <div>
-                    <h2 class="text-lg font-semibold mb-2">{% trans "Pneus" %}</h2>
-                    <p class="text-gray-600">
-                        {% trans "Nombre total :" %}
-                        <span class="font-bold">{{ total_pneus }}</span>
-                    </p>
-                </div>
-                <img src="{% static 'icons/pneus.png' %}" alt="Pneus" style="width:60px; height:60px;">
-            </div>
-        </a>
-
-       <a href="{% url 'nettoyage_exterieur:nettoyage_ext_list' exemplaire.id %}"
-           class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-            <div class="flex justify-between items-center">
-                <div>
-                    <h2 class="text-lg font-semibold mb-2">{% trans "Nettoyage extérieur" %}</h2>
-                    <p class="text-gray-600">
-                        {% trans "Nombre total :" %}
-                        <span class="font-bold">{{ total_nettoyage_exterieur }}</span>
-                    </p>
-                </div>
-                <img src="{% static 'icons/nettoyage_ext.png' %}" alt="Nettoyage extérieur" style="width:60px; height:60px;">
-            </div>
-       </a>
-        <!-- Nettoyage intérieur -->
-        <a href="{% url 'nettoyage_interieur:nettoyage_int_list' exemplaire.id %}"
-           class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-            <div class="flex justify-between items-center">
-                <div>
-                    <h2 class="text-lg font-semibold mb-2">{% trans "Nettoyage intérieur" %}</h2>
-                    <p class="text-gray-600">
-                        {% trans "Nombre total :" %}
-                        <span class="font-bold">{{ total_nettoyage_interieur }}</span>
-                    </p>
-                </div>
-                <img src="{% static 'icons/nettoyage_int.png' %}" alt="Nettoyage intérieur" style="width:60px; height:60px;">
-            </div>
-        </a>
-
-        <!-- Niveaux -->
-        <a href="{% url 'niveaux:niveaux_list' exemplaire.id %}"
-           class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-            <div class="flex justify-between items-center">
-                <div>
-                    <h2 class="text-lg font-semibold mb-2">{% trans "Niveaux" %}</h2>
-                    <p class="text-gray-600">
-                        {% trans "Nombre total :" %}
-                        <span class="font-bold">{{ total_niveaux }}</span>
-                    </p>
-                </div>
-                <img src="{% static 'icons/niveaux.png' %}" alt="Niveaux" style="width:60px; height:60px;">
-            </div>
-        </a>
-
-        <!-- Autres interventions -->
-      <a href="{% url 'entretien:entretien_list' exemplaire.id %}"
-           class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-            <div class="flex justify-between items-center">
-                <div>
-                    <h2 class="text-lg font-semibold mb-2">{% trans "Autres interventions" %}</h2>
-                    <p class="text-gray-600">
-                        {% trans "Nombre total :" %}
-                        <span class="font-bold">{{ total_autres }}</span>
-                    </p>
-                </div>
-                <img src="{% static 'icons/autres.png' %}" alt="Autres interventions" style="width:60px; height:60px;">
+                <img src="{% static 'icons/boite-auto.png' %}" alt="Boite automatique" style="width:60px; height:60px;">
             </div>
         </a>
 
 
-        <!-- Jeux Pièces -->
-        <a href="{% url 'jeux_pieces:jeux_pieces_list' exemplaire.id %}"
-           class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-            <div class="flex justify-between items-center">
-                <div>
-                    <h2 class="text-lg font-semibold mb-2">{% trans "Controle des jeux" %}</h2>
-                    <p class="text-gray-600">
-                        {% trans "Nombre total :" %}
-                        <span class="font-bold">{{ total_jeux_pieces }}</span>
-                    </p>
-                </div>
-                <img src="{% static 'icons/jeu.png' %}" alt="Jeux Pièces" style="width:60px; height:60px;">
-            </div>
-        </a>
-
-        <!-- Silent Blocs -->
-        <a href="{% url 'silent_blocs:silent_list' exemplaire.id %}"
-           class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-            <div class="flex justify-between items-center">
-                <div>
-                    <h2 class="text-lg font-semibold mb-2">{% trans "Controle des silent blocs" %}</h2>
-                    <p class="text-gray-600">
-                        {% trans "Nombre total :" %}
-                        <span class="font-bold">{{ total_silent }}</span>
-                    </p>
-                </div>
-                <img src="{% static 'icons/silent.png' %}" alt="Silent Bloc" style="width:60px; height:60px;">
-            </div>
-        </a>
 
     </div>
 </div>

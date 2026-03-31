@@ -1,5 +1,4 @@
 from datetime import timezone
-
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
@@ -10,7 +9,6 @@ from maintenance.models import Maintenance
 from maintenance.types_maintenances import TYPES_MAINTENANCE
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from voiture.voiture_modele.models import VoitureModele
-
 from maintenance.autres_interventions.boite_de_vitesse.models import ControleBoite
 from maintenance.entretien.models import Entretien
 from maintenance.freins.models import ControleFreins
@@ -20,9 +18,12 @@ from maintenance.nettoyage_interieur.models import NettoyageInterieur
 from maintenance.niveaux.models import Niveau
 from maintenance.pneus.models import ControlePneus
 from maintenance.silent_blocs.models import SilentBloc
-
 from maintenance.check_up.models import ControleGeneral
 from utilisateurs.models import Mecanicien
+from maintenance.autres_interventions.bte_auto.models import ControleBteAuto
+
+
+
 
 
 @login_required
@@ -36,7 +37,7 @@ def liste_autre_all(request):
 
     return render(
         request,
-        'maintenance/list.html',
+        'autres_interventions/list.html',
         {
             'exemplaires': exemplaires
         }
@@ -57,40 +58,22 @@ def choisir_autre_maintenance(request, exemplaire_id):
     tenant_schema = getattr(request, 'tenant', None)
     schema_name = tenant_schema.schema_name if tenant_schema else None
 
-    total_boite = total_entretien = total_freins = total_pneus = \
-    total_niveaux = total_nettoyage_exterieur = total_nettoyage_interieur = \
-    total_autres = total_jeux_pieces = total_silent =  0
+    total_boite = total_bte_auto =  0
 
-    boite = entretien = nettoyage_exterieur = jeux_pieces = nettoyage_interieur = \
-        freins = niveaux = pneus = autres = silent = []
+    boite = bte_auto = []
 
     if schema_name:
         with schema_context(schema_name):
 
             # ✅ FILTRAGE PAR EXEMPLAIRE
             boite = ControleBoite.objects.filter(voiture_exemplaire=exemplaire)
-            entretien = Entretien.objects.filter(voiture_exemplaire=exemplaire)
-            freins = ControleFreins.objects.filter(voiture_exemplaire=exemplaire)
-            pneus = ControlePneus.objects.filter(voiture_exemplaire=exemplaire)
-            niveaux = Niveau.objects.filter(voiture_exemplaire=exemplaire)
-            nettoyage_exterieur = NettoyageExterieur.objects.filter(voiture_exemplaire=exemplaire)
-            nettoyage_interieur = NettoyageInterieur.objects.filter(voiture_exemplaire=exemplaire)
-            autres = Maintenance.objects.filter(voiture_exemplaire=exemplaire)
-            jeux_pieces = ControleJeuxPieces.objects.filter(voiture_exemplaire=exemplaire)
-            silent = SilentBloc.objects.filter(voiture_exemplaire=exemplaire)
+            bte_auto = ControleBteAuto.objects.filter(voiture_exemplaire=exemplaire)
 
 
             # ✅ COUNTS CORRECTS
             total_boite = boite.count()
-            total_entretien = entretien.count()
-            total_freins = freins.count()
-            total_pneus = pneus.count()
-            total_niveaux = niveaux.count()
-            total_nettoyage_exterieur = nettoyage_exterieur.count()
-            total_nettoyage_interieur = nettoyage_interieur.count()
-            total_autres = autres.count()
-            total_jeux_pieces = jeux_pieces.count()
-            total_silent = silent.count()
+            total_bte_auto = bte_auto.count()
+
 
             modeles = VoitureModele.objects.all()
     else:
@@ -118,26 +101,12 @@ def choisir_autre_maintenance(request, exemplaire_id):
         "types_maintenance": TYPES_MAINTENANCE,
 
         "total_boite": total_boite,
-        "total_entretien": total_entretien,
-        'total_freins': total_freins,
-        'total_pneus': total_pneus,
-        'total_niveaux': total_niveaux,
-        'total_autres': total_autres,
-        'total_nettoyage_exterieur': total_nettoyage_exterieur,
-        'total_nettoyage_interieur': total_nettoyage_interieur,
-        'total_jeux_pieces': total_jeux_pieces,
-        'total_silent': total_silent,
+        "total_bte_auto": total_bte_auto,
 
         "boite": boite,
-        "entretien": entretien,
-        'freins': freins,
-        'pneus': pneus,
-        'niveaux': niveaux,
-        'nettoyage_exterieur': nettoyage_exterieur,
-        'nettoyage_interieur': nettoyage_interieur,
-        'autres': autres,
-        'jeux_pieces': jeux_pieces,
-        'silent': silent,
+        "bte_auto": bte_auto,
+
+
         "modeles": modeles,
 
     })

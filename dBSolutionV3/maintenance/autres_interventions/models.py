@@ -17,7 +17,7 @@ class TypeAutres(models.TextChoices):
 
 
 
-class Maintenance(models.Model):
+class AutresInterventions(models.Model):
     class Tag(models.TextChoices):
         VERT = "VERT", _("Vert")
         JAUNE = "JAUNE", _("Jaune")
