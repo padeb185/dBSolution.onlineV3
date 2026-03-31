@@ -23,7 +23,7 @@ from maintenance.autres_interventions.bte_auto.models import ControleBteAuto
 # -----------------------------
 @method_decorator([login_required, never_cache], name='dispatch')
 class BteAutoListView(ListView):
-    model = ControleBteAuto   # ✅ ICI
+    model = ControleBteAuto
     template_name = "bte_auto/bte_auto_list.html"
     context_object_name = "bte_autos"
     paginate_by = 100

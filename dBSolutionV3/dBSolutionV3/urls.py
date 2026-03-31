@@ -117,6 +117,8 @@ urlpatterns += i18n_patterns(
 
     path('maintenance/autre/',include(('maintenance.autres_interventions.boite_de_vitesse.urls', 'boite_de_vitesse'), namespace='boite_de_vitesse')),
 
+    path('maintenance/autre/',include(('maintenance.autres_interventions.bte_auto.urls', 'bte_auto'), namespace='bte_auto')),
+
 )
 
 

@@ -213,6 +213,8 @@ TENANT_APPS = (
     'maintenance.autres_interventions.electricite',
     'maintenance.autres_interventions.climatisation',
     'maintenance.autres_interventions.boite_de_vitesse',
+    'maintenance.autres_interventions.bte_auto',
+
 
 
 
