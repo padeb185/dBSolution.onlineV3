@@ -8,7 +8,7 @@ from ..voiture_freins.models import VoitureFreins
 from .forms import VoitureFreinsForm
 from ..voiture_freins_ar.models import VoitureFreinsAR
 from ..voiture_modele.models import VoitureModele
-
+from societe.models import Societe
 
 
 @login_required
@@ -50,7 +50,6 @@ def liste_freins(request, societe_id=None):
     # Si societe_id est passé, on l'utilise ; sinon on prend celle de l'utilisateur
     societe = request.user.societe
     if societe_id:
-        from societe.models import Societe  # ou ton modèle de sociétés
         societe = Societe.objects.get(id=societe_id)
 
     with tenant_context(societe):
