@@ -75,7 +75,11 @@
         <div class="bg-white shadow-md rounded-lg p-6">
 
             <!-- Moteurs -->
-            <h2 class="text-lg font-semibold mb-4">{% trans "Moteurs" %}</h2>
+            <h2 class="text-xl font-semibold mb-2 mt-4 flex items-center">
+                <img src="{% static 'icons/engine.png' %}" alt="moteur"
+                     style="width:60px; height:60px; margin-right:10px;">
+               {% trans "Moteur" %}
+            </h2>
             {% if exemplaire.moteurs.exists %}
             <ul class="space-y-2">
                 {% for moteur in exemplaire.moteurs.all %}
@@ -90,7 +94,11 @@
             {% endif %}
 
             <!-- Boites -->
-            <h2 class="text-lg font-semibold mt-6 mb-4">{% trans "Boite de vitesse" %}</h2>
+            <h2 class="text-xl font-semibold mb-2 mt-4 flex items-center">
+                <img src="{% static 'icons/boite-de-vitesse.png' %}" alt="boite de vitesse"
+                     style="width:60px; height:60px; margin-right:10px;">
+               {% trans "Boite de vitesse" %}
+            </h2>
             {% if exemplaire.boites.exists %}
             <ul class="space-y-2">
                 {% for boite in exemplaire.boites.all %}
@@ -105,7 +113,11 @@
             {% endif %}
 
             <!-- embrayages -->
-            <h2 class="text-lg font-semibold mt-6 mb-4">{% trans "Embrayages" %}</h2>
+             <h2 class="text-xl font-semibold mb-2 mt-4 flex items-center">
+                <img src="{% static 'icons/disque-dembrayage.png' %}" alt="embrayage"
+                     style="width:60px; height:60px; margin-right:10px;">
+                {% trans "Embrayages" %}
+             </h2>
             {% if exemplaire.embrayages.exists %}
             <ul class="space-y-2">
                 {% for embrayage in exemplaire.embrayages.all %}
@@ -119,47 +131,58 @@
             <p class="text-gray-500">{% trans "Aucun embrayage enregistré pour cet exemplaire." %}</p>
             {% endif %}
 
-             <!-- freins -->
-            <h2 class="text-lg font-semibold mt-6 mb-4">{% trans "Freins avant" %}</h2>
 
-                {% if exemplaire.freins.exists %}
-                <ul class="space-y-2">
-                    {% for frein in exemplaire.freins.all %}
-                    <li class="border p-3 rounded-md hover:bg-gray-50 flex justify-between items-center">
-                        <div>
-                            <span class="font-medium">{{ frein.marque_disques_av|default:"N/A" }}</span>
-                            <span> {{ frein.taille_disque_av|default:"?" }} mm</span>
-                        </div>
-                        <div class="flex gap-4">
-                            <span class="text-green-500">
-                                {{ frein.epaisseur_disque_av|default:"?" }} mm
-                            </span>
-                            <span class="text-red-500">
-                                {{ frein.epaisseur_min_disque_av|default:"?" }} mm
-                            </span>
-                        </div>
-                    </li>
-                    {% endfor %}
-                </ul>
-                {% else %}
-                <p class="text-gray-500">{% trans "Aucun frein avant enregistré pour cet exemplaire." %}</p>
-                {% endif %}
+              <!-- freins avant-->
+            <h2 class="text-xl font-semibold mb-2 mt-4 flex items-center">
+                <img src="{% static 'icons/disque-de-frein.png' %}" alt="frein"
+                  style="width:60px; height:60px; margin-right:10px;">
+                {% trans "Freins avant" %}
+            </h2>
+            {% if exemplaire.freins.exists %}
+            <ul class="space-y-2">
+                {% for frein in exemplaire.freins.all %}
+                <li class="border p-3 rounded-md hover:bg-gray-50 flex flex-col gap-2">
+                    <div class="flex justify-between">
+                        <span class="font-medium">{{ frein.marque_disques_av|default:"N/A" }}</span>
+                        <span>{{ frein.taille_disque_av|default:"?" }} mm</span>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="text-green-500">{{ frein.epaisseur_disque_av|default:"?" }} mm</span>
+                        <span class="text-red-500">{{ frein.epaisseur_min_disque_av|default:"?" }} mm</span>
+                    </div>
+                    <span class="text-gray-500">({{ frein.fabricant|default:"N/A" }})</span>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p class="text-gray-500">{% trans "Aucun frein avant enregistré pour cet exemplaire." %}</p>
+            {% endif %}
 
-            <!-- freins arrière-->
-            <h2 class="text-lg font-semibold mt-6 mb-4">{% trans "Freins arrière" %}</h2>
+
+
+           <!-- Freins arrière -->
+            <h2 class="text-xl font-semibold mb-2 mt-6 flex items-center">
+                <img src="{% static 'icons/disque-de-frein.png' %}" alt="frein arrière"
+                  style="width:60px; height:60px; margin-right:10px;">
+                {% trans "Freins arrière" %}
+            </h2>
+
             {% if exemplaire.freins_ar.exists %}
             <ul class="space-y-2">
                 {% for frein in exemplaire.freins_ar.all %}
-                    <li class="border p-3 rounded-md hover:bg-gray-50 flex justify-between items-center">
-                        <div>
-                            <span class="font-medium">{{ frein.marque_disques_ar|default:"N/A" }}</span>
-                            <span> {{ frein.taille_disque_ar|default:"?" }} mm</span>
-                        </div>
-                        <div class="flex gap-4">
-                            <span class="text-green-500">{{ frein.epaisseur_disque_ar|default:"?" }} mm</span>
-                            <span class="text-red-500">{{ frein.epaisseur_min_disque_ar|default:"?" }} mm</span>
-                        </div>
-                    </li>
+                <li class="border p-3 rounded-md hover:bg-gray-50 flex flex-col gap-2">
+                    <div class="flex justify-between">
+                        <span class="font-medium">{{ frein.marque_disques_ar|default:"N/A" }}</span>
+                        <span>{{ frein.taille_disque_ar|default:"?" }} mm</span>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="text-green-500">{{ frein.epaisseur_disque_ar|default:"?" }} mm</span>
+                        <span class="text-red-500">{{ frein.epaisseur_min_disque_ar|default:"?" }} mm</span>
+                    </div>
+                    {% if frein.fabricant %}
+                    <span class="text-gray-500">({{ frein.fabricant }})</span>
+                    {% endif %}
+                </li>
                 {% endfor %}
             </ul>
             {% else %}
@@ -167,7 +190,12 @@
             {% endif %}
 
             <!-- freins arrière-->
-            <h2 class="text-lg font-semibold mt-6 mb-4">{% trans "Pneus" %}</h2>
+            <h2 class="text-xl font-semibold mb-2 mt-6 flex items-center">
+                <img src="{% static 'icons/pneus.png' %}" alt="pneus"
+                  style="width:60px; height:60px; margin-right:10px;">
+                {% trans "Pneus" %}
+            </h2>
+
             {% if exemplaire.pneus.exists %}
             <ul class="space-y-2">
                 {% for pneus in exemplaire.pneus.all %}

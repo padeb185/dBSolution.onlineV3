@@ -45,12 +45,13 @@
   </nav>
 </header>
 {% endblock %}
-
+ <br>
+<br>
 
 <body class="bg-[#DBDFFD] min-h-screen flex flex-col m-0 p-0">
 
 <!-- PAGE LOADER GLOBAL -->
-<div id="page-loader" class="fixed inset-0 bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center z-[9999]">
+<div id="page-loader" class="fixed inset-0  bg-[#DBDFFD] flex items-center justify-center z-[9999]">
   <div class="text-center font-sans text-blue-900">
 
     <!-- KPI ICON -->
@@ -75,9 +76,12 @@
 </div>
 
 <br>
-
+<br>
+<br>
 <main class="{% block main_class %}max-w-5xl mx-auto px-6 flex-1 w-full{% endblock %}">
+ <br>
   {% block content %}{% endblock %}
+ <br>
 </main>
 <br>
 <br>

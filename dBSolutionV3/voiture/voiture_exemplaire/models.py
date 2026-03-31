@@ -19,9 +19,9 @@ class TypeUtilisation(models.TextChoices):
     INTERNE = "interne", _("Interne")
 
 class NomPays(models.TextChoices):
-    BE = "BE", _("Belgique")
-    LU = "LU", _("Luxembourg")
-    DE = "DE", _("Allemagne")
+    BE = "Belgique", _("Belgique")
+    LU = "Luxembourg", _("Luxembourg")
+    DE = "Allemagne", _("Allemagne")
 
 
 

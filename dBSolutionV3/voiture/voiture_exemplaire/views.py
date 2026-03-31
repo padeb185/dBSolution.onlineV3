@@ -195,13 +195,13 @@ def lier_freins(request, exemplaire_id):
                 frein = get_object_or_404(VoitureFreins, id=frein_id)
 
                 if frein_id:
-                    frein_ar = get_object_or_404(VoitureFreinsAR, id=frein_id)
+                    frein = get_object_or_404(VoitureFreins, id=frein_id)
 
                     if marque_disques_av:
-                        frein_ar.marque_disques_av = marque_disques_av
+                        frein.marque_disques_av = marque_disques_av
                     if marque_plaquettes_av:
-                        frein_ar.marque_plaquettes_av = marque_plaquettes_av
-                    frein_ar.save()
+                        frein.marque_plaquettes_av = marque_plaquettes_av
+                    frein.save()
 
                 # Lier le frein à l'exemplaire
                 frein.voitures_exemplaires.add(exemplaire)
@@ -300,17 +300,26 @@ def moteur_autocomplete(request):
 
 @login_required
 def modifier_exemplaire(request, exemplaire_id):
-    # Récupérer le tenant courant depuis request
-    tenant = request.user.societe  # Ajuster selon ton contexte
+    tenant = request.user.societe
+
     with tenant_context(tenant):
         exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
 
         if request.method == "POST":
             form = VoitureExemplaireForm(request.POST, instance=exemplaire)
-            if form.is_valid():
-                form.save()
 
-                messages.success(request, _(f"Véhicule '{exemplaire.voiture_marque} { exemplaire.immatriculation }' mis à jour avec succès."))
+            if form.is_valid():
+                exemplaire = form.save()
+
+                messages.success(
+                    request,
+                    _(f"Véhicule '{exemplaire.voiture_marque} {exemplaire.immatriculation}' mis à jour avec succès.")
+                )
+
+                return redirect(
+                    "voiture_exemplaire:voiture_exemplaire_detail",
+                    exemplaire_id=exemplaire.id
+                )
 
         else:
             form = VoitureExemplaireForm(instance=exemplaire)
@@ -319,7 +328,6 @@ def modifier_exemplaire(request, exemplaire_id):
             'form': form,
             'exemplaire': exemplaire,
         })
-
 
 
 @never_cache

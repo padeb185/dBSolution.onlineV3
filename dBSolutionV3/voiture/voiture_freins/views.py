@@ -5,7 +5,6 @@ from django.views.decorators.cache import never_cache
 from django_tenants.utils import tenant_context, schema_context
 from django.shortcuts import render
 from ..voiture_freins.models import VoitureFreins
-from ..voiture_exemplaire.models import VoitureExemplaire
 from .forms import VoitureFreinsForm
 from ..voiture_freins_ar.models import VoitureFreinsAR
 from ..voiture_modele.models import VoitureModele
@@ -47,13 +46,17 @@ def ajouter_freins_all(request, modele_id):
 
 @never_cache
 @login_required
-def liste_freins(request):
-
+def liste_freins(request, societe_id=None):
+    # Si societe_id est passé, on l'utilise ; sinon on prend celle de l'utilisateur
     societe = request.user.societe
+    if societe_id:
+        from societe.models import Societe  # ou ton modèle de sociétés
+        societe = Societe.objects.get(id=societe_id)
+
     with tenant_context(societe):
         freins = VoitureFreins.objects.filter(societe=societe)
-    return render(request, "voiture_freins/list.html", {"freins": freins})
 
+    return render(request, "voiture_freins/list.html", {"freins": freins, "societe": societe})
 
 
 
@@ -74,24 +77,28 @@ def freins_detail_view(request, frein_id):
 
 @login_required
 def ajouter_freins_simple(request):
-    if request.method == "POST":
+    tenant = request.user.societe
+    with tenant_context(tenant):
 
-        def to_float(value):
-            if not value:  # vide → None
-                return None
-            return float(value.replace(',', '.'))  # transforme 20,4 → 20.4
+        if request.method == "POST":
 
-        VoitureFreins.objects.create(
-            marque_disques_av=request.POST.get("marque_disques_av"),
-            marque_plaquettes_av=request.POST.get("marque_plaquettes_av"),
-            taille_disque_av=to_float(request.POST.get("taille_disque_av")),
-            epaisseur_disque_av=to_float(request.POST.get("epaisseur_disque_av")),
-            epaisseur_min_disque_av=to_float(request.POST.get("epaisseur_min_disque_av")),
-        )
-        messages.success(request, "Freins avant ajoutés avec succès !")
+            def to_float(value):
+                if not value:  # vide → None
+                    return None
+                return float(value.replace(',', '.'))  # transforme 20,4 → 20.4
+
+            VoitureFreins.objects.create(
+                societe=tenant,
+                marque_disques_av=request.POST.get("marque_disques_av"),
+                marque_plaquettes_av=request.POST.get("marque_plaquettes_av"),
+                taille_disque_av=to_float(request.POST.get("taille_disque_av")),
+                epaisseur_disque_av=to_float(request.POST.get("epaisseur_disque_av")),
+                epaisseur_min_disque_av=to_float(request.POST.get("epaisseur_min_disque_av")),
+            )
+            messages.success(request, "Freins avant ajoutés avec succès !")
 
 
-    return render(request, "voiture_freins/ajouter_freins_simple.html")
+        return render(request, "voiture_freins/ajouter_freins_simple.html")
 
 
 
