@@ -89,21 +89,6 @@ class ControleBoite(TechnicienMixin, models.Model):
     man_huile_manuelle_quantite = models.FloatField(default=0, verbose_name=_("Quantité d'huile ajoutée en litres"))
     man_huile_manuelle_qualite = models.CharField(max_length=25, choices=HuileBoiteEtat.choices,default=HuileBoiteEtat.SEPTANTE_CINQ, verbose_name=_("Qualité de l'huile"))
 
-    # --- Boîte Automatique ---
-    auto_b_convertisseur_couple = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices, default=BoiteVitesseEtat.OK, verbose_name=_("Convertisseur de couple"))
-    auto_b_embrayages_auto = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Embrayages automatiques"))
-    auto_b_pompes_huile = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Pompes à huile"))
-    auto_b_valves = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Valves de contrôle"))
-
-    # Arbres et roulements automatiques
-    auto_b_arbre_torque = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Arbre de couple"))
-    auto_b_arbre_secondaire_auto = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Arbre secondaire"))
-    auto_b_roulement_auto = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices, default=BoiteVitesseEtat.OK, verbose_name=_("Roulements internes"))
-
-    auto_huile_auto_quantite = models.FloatField(default=0, verbose_name=_("Quantité d'huile ajoutée en litres"))
-    auto_huile_auto_qualite = models.CharField(max_length=25, choices=HuileBoiteEtat.choices,default=HuileBoiteEtat.ATF3, verbose_name=_("Qualité de l'huile"))
-
-
     remarques = models.TextField(
         verbose_name=_("Remarques"), blank=True, null=True)
 
