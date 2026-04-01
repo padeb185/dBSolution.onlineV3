@@ -81,7 +81,7 @@
             <td class="border px-4 py-2 text-center">
                 {% if adresse.id %}
                     <a href="{% url 'adresse:adresse_detail' adresse.id %}"
-                       class="text-blue-600 hover:text-blue-800 font-semibold">
+                        class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
                         {% trans "Info" %}
                     </a>
                 {% else %}

@@ -80,7 +80,7 @@
             <td class="border px-4 py-2 text-center">
                 {% if client.id %}
                     <a href="{% url 'client_particulier:client_detail' client.id %}"
-                       class="text-blue-600 hover:text-blue-800 font-semibold">
+                        class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
                         {% trans "Info" %}
                     </a>
                 {% else %}

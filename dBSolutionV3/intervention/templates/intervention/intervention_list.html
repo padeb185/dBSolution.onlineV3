@@ -11,6 +11,15 @@
     {% trans "Liste des interventions" %}
 </h1>
 
+<div>
+     <a href="{% url 'intervention:intervention_create' %}"
+        class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-blue-500">
+         {% trans "Ajouter une intervention" %}
+     </a>
+</div>
+
+<br>
+<br>
 
 <div class="bg-white shadow-md rounded-lg p-4 mb-4">
     <div class="flex flex-wrap items-end gap-3">
@@ -29,12 +38,6 @@
                type="text"
                class="border rounded px-3 py-2 flex-1 min-w-[120px] focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Montant du devis' %}">
-
-        <a href="{% url 'intervention:intervention_create' %}"
-           class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-blue-500">
-            {% trans "Ajouter une intervention" %}
-        </a>
-
     </div>
 </div>
 
@@ -81,7 +84,7 @@
 
             <td class="border px-4 py-2 text-center">
                 <a href="{% url 'intervention:intervention_detail' intervention.id %}"
-                   class="text-blue-600 hover:text-blue-800 font-semibold">
+                     class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
                     {% trans "Info" %}
                 </a>
             </td>
