@@ -10,6 +10,15 @@
     {% trans "Liste des Carrosseries" %}
 </h1>
 
+<div>
+    <a href="{% url 'carrosserie:carrosserie_create' %}"
+       class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-blue-500">
+        {% trans "Ajouter une carrosserie" %}
+    </a>
+</div>
+
+<br>
+<br>
 
 <div class="bg-white shadow-md rounded-lg p-4 mb-4">
     <div class="flex flex-wrap items-end gap-3">
@@ -37,11 +46,7 @@
                class="border rounded px-3 py-2 flex-1 min-w-[120px] focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Numéro téléphone' %}">
 
-        <!-- Bouton sur la même ligne -->
-        <a href="{% url 'carrosserie:carrosserie_create' %}"
-           class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-blue-500">
-            {% trans "Ajouter une carrosserie" %}
-        </a>
+
     </div>
 </div>
 
