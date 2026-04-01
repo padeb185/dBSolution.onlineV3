@@ -10,6 +10,14 @@
     {% trans "Liste des recharges électriques" %}
 </h1>
 
+  <div>
+      <a href="{% url 'recharge:ajouter_recharge_all' %}" class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition focus:outline-none focus:ring-2 focus:ring-blue-500 whitespace-nowrap">
+          {% trans "Ajouter une recharge électrique" %}
+      </a>
+  </div>
+<br>
+<br>
+
 <div class="bg-white shadow-md rounded-lg p-4 mb-4">
     <div class="grid grid-cols-1 md:grid-cols-6 gap-3 items-end">
         <input id="search-utilisateur" type="text"
@@ -37,11 +45,7 @@
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Date de la recharge' %}">
 
-        <div>
-            <a href="{% url 'recharge:ajouter_recharge_all' %}" class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition focus:outline-none focus:ring-2 focus:ring-blue-500 whitespace-nowrap">
-                {% trans "Ajouter une recharge électrique" %}
-            </a>
-        </div>
+
     </div>
 </div>
 

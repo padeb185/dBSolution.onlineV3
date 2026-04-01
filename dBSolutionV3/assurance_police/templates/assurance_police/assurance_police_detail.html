@@ -18,10 +18,7 @@
            <span class="text-black-700">{{ assurance_police.assurance.nom_compagnie }}</span>
         </h1>
 
-        <a href="{% url 'assurance_police:assurance_police_list' %}"
-           class="text-blue-600 hover:underline">
-            {% trans "Retour à la liste des assurances" %}
-        </a>
+
     </div>
 
     <!-- Infos principales -->
@@ -105,14 +102,13 @@
         </p>
     </div>
 
-
+    <br>
+    <br>
 
     <!-- Actions -->
-    <div class="bg-white shadow-md rounded-lg p-6 flex gap-4">
-        <a href="{% url 'assurance:assurance_list' %}" class="flex-1">
-              <button type="button" class="bg-blue-700 text-white px-4 py-2 rounded w-full mt-4">
-                    {% trans "Retour à la liste des assureurs" %}
-              </button>
+    <div>
+        <a href="{% url 'assurance_police:assurance_police_list' %}"
+            class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-blue-500">            {% trans "Retour à la liste des assurances" %}
         </a>
     </div>
 

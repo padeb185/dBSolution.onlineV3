@@ -4,7 +4,7 @@ from voiture.voiture_exemplaire.views import ajouter_exemplaire
 
 urlpatterns = [
     # Dashboard principal
-    path("", dashboard_view, name="dashboard"),
+    path("dashboard/", dashboard_view, name="dashboard"),
 
 
 

@@ -10,6 +10,16 @@
     {% trans "Liste des Adresses" %}
 </h1>
 
+  <div>
+      <a href="{% url 'adresse:adresse_form' %}"
+         class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+          {% trans "Ajouter une adresse" %}
+      </a>
+  </div>
+<br>
+<br>
+
+
 <div class="bg-white shadow-md rounded-lg p-4 mb-4">
     <div class="grid grid-cols-1 md:grid-cols-6 gap-3 items-end">
 
@@ -39,12 +49,7 @@
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Pays' %}">
 
-        <div>
-            <a href="{% url 'adresse:adresse_form' %}"
-               class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
-                {% trans "Ajouter une adresse" %}
-            </a>
-        </div>
+
     </div>
 </div>
 
@@ -89,6 +94,17 @@
     </tbody>
 
 </table>
+<br>
+<br>
+
+  <div>
+      <a href="{% url 'utilisateurs:dashboard' %}"
+         class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+          {% trans "Retour au tableau de Bord" %}
+      </a>
+  </div>
+<br>
+<br>
 
 <!-- DataTables JS -->
 <script>
@@ -134,3 +150,5 @@ $(document).ready(function() {
 });
 </script>
 {% endblock %}
+
+
