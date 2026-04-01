@@ -10,8 +10,17 @@
     {% trans "Liste des Fournisseurs" %}
 </h1>
 
+  <div>
+      <a href="{% url 'fournisseur:fournisseur_create' %}"
+         class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+          {% trans "Ajouter un fournisseur" %}
+      </a>
+  </div>
+<br>
+<br>
+
 <div class="bg-white shadow-md rounded-lg p-4 mb-4">
-    <div class="grid grid-cols-1 md:grid-cols-6 gap-3 items-end">
+    <div class="grid grid-cols-5 md:grid-cols- gap-3 items-end">
         <input id="search-nom" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Nom du fournisseur' %}">
@@ -32,14 +41,6 @@
         <input id="search-telephone_fixe" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans '0032' %}">
-
-
-        <div>
-            <a href="{% url 'fournisseur:fournisseur_create' %}"
-               class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
-                {% trans "Ajouter un fournisseur" %}
-            </a>
-        </div>
     </div>
 </div>
 
