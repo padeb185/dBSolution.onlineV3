@@ -24,7 +24,7 @@ from utilisateurs.vendeur.models import Vendeur
 from voiture.voiture_boite.models import VoitureBoite
 from voiture.voiture_embrayage.models import VoitureEmbrayage
 from voiture.voiture_exemplaire.models import VoitureExemplaire
-from voiture.voiture_freins.models import VoitureFreins
+from voiture.voiture_freins_av.models import VoitureFreinsAV
 from voiture.voiture_freins_ar.models import VoitureFreinsAR
 from voiture.voiture_marque.models import VoitureMarque
 from voiture.voiture_modele.models import VoitureModele

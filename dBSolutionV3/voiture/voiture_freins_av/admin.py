@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import VoitureFreins
+from .models import VoitureFreinsAV
 
-@admin.register(VoitureFreins)
-class VoitureFreinsAdmin(admin.ModelAdmin):
+@admin.register(VoitureFreinsAV)
+class VoitureFreinsAVAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'get_voitures',

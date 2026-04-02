@@ -7,6 +7,7 @@ from .forms import VoitureFreinsARForm
 from ..voiture_modele.models import VoitureModele
 from ..voiture_freins_ar.models import VoitureFreinsAR
 from societe.models import Societe
+from django.utils.translation import gettext_lazy as _
 
 
 
@@ -72,10 +73,10 @@ def ajouter_freins_ar_simple(request):
 
 
 @login_required
-def freins_ar_detail_view(request, frein_id):
+def freins_ar_detail_view(request, frein_ar_id):
     tenant = request.user.societe
     with tenant_context(tenant):
-        frein_ar = get_object_or_404(VoitureFreinsAR, id=frein_id)
+        frein_ar = get_object_or_404(VoitureFreinsAR, id=frein_ar_id)
         return render(request, 'voiture_freins_ar/freins_ar_detail.html', {
             'frein_ar': frein_ar,
         })
@@ -90,4 +91,51 @@ def liste_freins_ar(request, societe_id=None):
 
     with tenant_context(societe):
         freins_ar = VoitureFreinsAR.objects.filter(societe=societe)
-        return render(request, "voiture_freins_ar/list_ar.html", {"freins_ar": freins_ar})
+        return render(request, "voiture_freins_ar/freins_ar_list.html", {"freins_ar": freins_ar})
+
+
+
+@login_required
+def modifier_freins_ar_view(request, frein_ar_id):
+    tenant = request.user.societe
+
+    with tenant_context(tenant):
+        # Récupérer l'assureur et son adresse liée
+        freinsAR = get_object_or_404(
+            VoitureFreinsAR.objects.select_related(),
+            id=frein_ar_id
+        )
+
+        if request.method == "POST":
+            # Formulaires pour frein et Adresse
+            form_frein_ar = VoitureFreinsARForm(request.POST, instance=freinsAR)
+
+
+            if form_frein_ar.is_valid():
+
+                frein_ar = form_frein_ar.save(commit=False)
+
+                frein_ar.save()
+
+                messages.success(request, _("Freins arrière mis à jour avec succès."))
+                return redirect(
+                    "voiture_freins_ar:modifier_freins_ar",
+                    frein_ar_id=frein_ar.id
+                )
+            else:
+                messages.error(request, _("Le formulaire contient des erreurs."))
+        else:
+            # Pré-remplissage des formulaires
+            form_frein = VoitureFreinsARForm(instance=freinsAR)
+
+
+    return render(
+        request,
+        "voiture_freins/modifier_freins_ar.html",
+        {
+            "form": form_frein,
+            "frein": freinsAR,
+
+        }
+    )
+

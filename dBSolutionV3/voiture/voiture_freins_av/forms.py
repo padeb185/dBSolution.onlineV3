@@ -1,9 +1,9 @@
 from django import forms
-from ..voiture_freins.models import VoitureFreins
+from ..voiture_freins_av.models import VoitureFreinsAV
 
 
-class VoitureFreinsForm(forms.ModelForm):
+class VoitureFreinsAVForm(forms.ModelForm):
     class Meta:
-        model = VoitureFreins
+        model = VoitureFreinsAV
         # Inclut tous les champs sauf 'voiture_exemplaire'
         exclude = ['voitures_exemplaires', 'societe']

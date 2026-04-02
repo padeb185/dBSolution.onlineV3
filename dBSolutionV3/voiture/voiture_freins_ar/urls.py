@@ -1,26 +1,21 @@
-from django.shortcuts import redirect
+# voiture_freins_ar/urls.py
 from django.urls import path
 from .views import (
     liste_freins_ar,
     ajouter_freins_ar_simple,
-    freins_ar_detail_view,
+    freins_ar_detail_view, 
+    modifier_freins_ar_view,
 )
 
 app_name = "voiture_freins_ar"
 
 urlpatterns = [
-    # Page principale → redirige vers avant par défaut
-    path("", lambda request: redirect('voiture_freins_ar:list_ar'), name="list_ar"),
-
     # Freins arrière
-    path("arriere/", liste_freins_ar, name="list_ar"),
-    path(
-        "arriere/<uuid:frein_id>/",
-        freins_ar_detail_view,
-        name="detail_freins_ar"
-    ),
-
+    path("arriere/", liste_freins_ar, name="freins_ar_list"),
 
     path("arriere/ajouter/", ajouter_freins_ar_simple, name="ajouter_freins_ar_simple"),
 
+    path("_detail_arriere/<uuid:frein_id>/", freins_ar_detail_view, name="detail_freins_ar"),
+
+    path("modifier_arriere/<uuid:frein_id>/", modifier_freins_ar_view , name="modifier_freins_ar"),
 ]

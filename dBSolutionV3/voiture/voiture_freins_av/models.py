@@ -2,7 +2,7 @@ import uuid
 from django.db import models
 
 
-class VoitureFreins(models.Model):
+class VoitureFreinsAV(models.Model):
     id = models.UUIDField(
         primary_key=True,
         default=uuid.uuid4,
@@ -12,7 +12,7 @@ class VoitureFreins(models.Model):
     societe = models.ForeignKey(
         "societe.Societe",
         on_delete=models.CASCADE,
-        related_name="friens",
+        related_name="freins_av",
         null=True,
         blank=True,
     )
@@ -20,7 +20,7 @@ class VoitureFreins(models.Model):
     # 🔗 Relation principale
     voitures_exemplaires = models.ManyToManyField(
         "voiture_exemplaire.VoitureExemplaire",
-        related_name="freins",
+        related_name="freins_av",
         blank=True,
     )
 
@@ -53,9 +53,9 @@ class VoitureFreins(models.Model):
 
 
     class Meta:
-        verbose_name = "Voiture – Freins"
-        verbose_name_plural = "Voitures – Freins"
+        verbose_name = "Voiture – Freins Avant"
+        verbose_name_plural = "Voitures – Freins Avant"
 
     def __str__(self):
         voitures = ", ".join([str(v) for v in self.voitures_exemplaires.all()])
-        return f"{voitures or self.id} – Freins"
+        return f"{voitures or self.id} – Freins Avant"

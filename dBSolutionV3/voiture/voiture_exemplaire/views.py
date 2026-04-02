@@ -13,7 +13,7 @@ from django.utils.translation import gettext as _
 from societe.models import Societe
 from ..voiture_boite.models import VoitureBoite
 from ..voiture_embrayage.models import VoitureEmbrayage
-from ..voiture_freins.models import VoitureFreins
+from ..voiture_freins_av.models import VoitureFreinsAV
 from ..voiture_freins_ar.models import VoitureFreinsAR
 from ..voiture_pneus.models import VoiturePneus
 

@@ -16,7 +16,7 @@ from adresse.models import Adresse
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from voiture.voiture_boite.models import VoitureBoite
 from voiture.voiture_embrayage.models import VoitureEmbrayage
-from voiture.voiture_freins.models import VoitureFreins
+from voiture.voiture_freins_av.models import VoitureFreinsAV
 from voiture.voiture_freins_ar.models import VoitureFreinsAR
 from voiture.voiture_pneus.models import VoiturePneus
 from maintenance.models import Maintenance
@@ -114,7 +114,7 @@ def dashboard_view(request):
             exemplaires = VoitureExemplaire.objects.filter(societe=societe)
             boites = VoitureBoite.objects.all()
             embrayages = VoitureEmbrayage.objects.all()
-            freins = VoitureFreins.objects.filter(societe=societe)
+            freins = VoitureFreinsAV.objects.filter(societe=societe)
             freins_ar = VoitureFreinsAR.objects.filter(societe=societe)
             pneus = VoiturePneus.objects.filter(societe=societe)
             maintenance = Maintenance.objects.filter(societe=societe)
