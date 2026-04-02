@@ -3,14 +3,16 @@ module.exports = {
   content: [
     "./theme/templates/**/*.html",
     "./templates/**/*.html",
-    "./**/*.html"
+    "./**/*.html",
+    './**/*.js',
+    "./theme/static/src/**/*.css",
   ],
   safelist: [
     // Couleurs bg et text utilisées dynamiquement
-    "bg-gray-100", "bg-white", "bg-green-100", "bg-amber-100", "bg-red-100",
-    "text-gray-500", "text-gray-600", "text-gray-700",
-    "text-green-800", "text-amber-800", "text-red-800",
-    "border-green-300", "border-amber-300", "border-red-300",
+    "bg-gray-100", "bg-white", "bg-green-100", "bg-lime-100", "bg-red-100", "bg-yellow-100", "bg-amber-100",
+    "text-gray-500", "text-gray-600", "text-gray-700", "text-yellow-800", "text-ambre-800",
+    "text-green-800", "text-lime-800", "text-red-800",
+    "border-green-300", "border-lime-300", "border-red-300", "border-amber-500", "border-yellow-500",
 
     // Classes utilitaires
     "shadow-md", "shadow-lg", "rounded-lg", "rounded",
@@ -23,24 +25,52 @@ module.exports = {
     "select-all", "gap-2", "gap-4", "gap-6", "container",
     "mx-auto", "mt-auto", "mt-8", "min-h-screen", "grid",
     "grid-cols-1", "md:grid-cols-2", "lg:grid-cols-3",
-    "text-blue-700", "text-blue-600"
+    "text-blue-700", "text-blue-600",
+      "bg-yellow-100", "bg-yellow-500", "bg-yellow-800",
+      "text-yellow-800", "border-amber-500",
   ],
   theme: {
     extend: {
       colors: {
         pastelblue: "#DBDFFD",
-        amber: {
-          50: '#fffbeb',
+
+        yellow: {
           100: '#fef3c7',
-          200: '#fde68a',
-          300: '#fcd34d',
-          400: '#fbbf24',
+          200: '#fde047',
+          300: '#facc15',
+          400: '#eab308',
           500: '#f59e0b',
           600: '#d97706',
           700: '#b45309',
           800: '#92400e',
-          900: '#78350f',
+          900: '#78350f'
         },
+
+        amber: {
+          100: '#fef08a',
+          200: '#fde047',
+          300: '#fbbf24',
+          400: '#f59e0b',
+          500: '#d97706',
+          600: '#b45309',
+          700: '#92400e',
+          800: '#78350f',
+          900: '#6a2c1d'
+        },
+
+
+        lime: {
+          100: '#d9f99d',
+          200: '#bef264',
+          300: '#a3e635',
+          400: '#84cc16',
+          500: '#65a30d',
+          600: '#4d7c0f',
+          700: '#3f6212',
+          800: '#365314',
+          900: '#2d4e13'
+        },
+
         green: {
           50: '#f0fdf4',
           100: '#dcfce7',

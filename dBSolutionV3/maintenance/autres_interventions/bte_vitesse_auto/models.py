@@ -108,6 +108,7 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
     )
 
     TAG_CHOICES = [
+        ("WHITE", _("Blanc")),
         ("VERT", _("Vert")),
         ("JAUNE", _("Jaune")),
         ("ROUGE", _("Rouge")),
@@ -115,7 +116,7 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
     tag = models.CharField(
         max_length=10,
         choices=TAG_CHOICES,
-        default="JAUNE",
+        default="WHITE",
         verbose_name=_("État visuel / Tag"),
     )
 
