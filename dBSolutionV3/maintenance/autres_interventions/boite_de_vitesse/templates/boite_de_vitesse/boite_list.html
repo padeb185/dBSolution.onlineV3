@@ -102,10 +102,14 @@
                 {{ boite.kilometrage_controle_boite|default:"-" }}
             </td>
 
-            <td class="border px-4 py-2 text-center font-bold bg-{{ boite.tag|tag_color }}-100 text-{{ boite.tag|tag_color }}-800 border-{{ boite.tag|tag_color }}-300">
-            {{ boite.get_tag_display }}
-            </td>
 
+            <td class="border px-4 py-2 text-center font-bold
+               {% if boite.tag == 'VERT' %}bg-green-100 text-green-800 border-green-300
+               {% elif boite.tag == 'JAUNE' %}bg-amber-100 text-amber-800 border-amber-300
+               {% elif boite.tag == 'ROUGE' %}bg-red-100 text-red-800 border-red-300
+               {% endif %}">
+              {{ boite.get_tag_display }}
+            </td>
 
             <!-- Technicien -->
             <td class="border px-4 py-2">

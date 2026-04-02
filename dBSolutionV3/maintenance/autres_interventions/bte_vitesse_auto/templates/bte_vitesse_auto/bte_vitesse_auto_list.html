@@ -101,41 +101,13 @@
                 {{ bte.kilometrage_controle_boite|default:"-" }}
             </td>
 
-             <!-- Messages -->
-    {% if messages %}
-        {% for message in messages %}
-        <div class="mb-3 px-4 py-2 rounded
-            {% if message.tags == 'success' %}
-                bg-green-100 text-green-800 border border-green-300
-            {% else %}
-                bg-red-100 text-red-800 border border-red-300
-            {% endif %}">
-            {{ message }}
-        </div>
-        {% endfor %}
-    {% endif %}
-
-    {% if form.errors %}
-        <div style="background-color: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; padding: 10px; border-radius: 6px;">
-            <strong>Erreurs :</strong>
-            <ul>
-            {% for field in form %}
-                {% for error in field.errors %}
-                    <li>{{ field.label }} : {{ error }}</li>
-                {% endfor %}
-            {% endfor %}
-            {% for error in form.non_field_errors %}
-                <li>{{ error }}</li>
-            {% endfor %}
-            </ul>
-        </div>
-    {% endif %}
-
-    <br>
-
-           <td class="border px-4 py-2 text-center font-bold bg-{{ boite.tag|tag_color }}-100 text-{{ boite.tag|tag_color }}-800 border-{{ boite.tag|tag_color }}-300">
-               {{ bte.get_tag_display }}
-           </td>
+            <td class="border px-4 py-2 text-center font-bold
+               {% if bte.tag == 'VERT' %}bg-green-100 text-green-800 border-green-300
+               {% elif bte.tag == 'JAUNE' %}bg-amber-100 text-amber-800 border-amber-300
+               {% elif bte.tag == 'ROUGE' %}bg-red-100 text-red-800 border-red-300
+               {% endif %}">
+              {{ bte.get_tag_display }}
+            </td>
 
 
             <!-- Technicien -->
