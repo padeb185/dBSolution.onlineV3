@@ -11,10 +11,10 @@ urlpatterns = [
     path('boite/<uuid:exemplaire_id>/', boite_check_view, name='boite_check'),
 
 
-    path('<int:boite_id>/modifier/', modifier_boite_view, name='modifier_boite'),
+    path('boite/<int:boite_id>/modifier/', modifier_boite_view, name='modifier_boite'),
 
 
-    path('<int:boite_id>/detail/', boite_detail_view, name='boite_detail'),
+    path('boite/<int:boite_id>/detail/', boite_detail_view, name='boite_detail'),
 ]
 
 
