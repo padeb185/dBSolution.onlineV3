@@ -18,7 +18,7 @@
            <span class="text-black-700">{{ freins.marque_disques_av }}</span>
         </h1>
 
-        <a href="{% url 'voiture_freins:list' %}"
+        <a href="{% url 'voiture_freins:freins_av_list' %}"
            class="text-blue-600 hover:underline">
             {% trans "Retour à la liste des freins avant" %}
         </a>
@@ -127,7 +127,7 @@
 
     <!-- Actions -->
     <div class="bg-white shadow-md rounded-lg p-6 flex gap-4">
-        <a href="{% url 'voiture_freins:list' %}" class="flex-1">
+        <a href="{% url 'voiture_freins:freins_av_list' %}" class="flex-1">
               <button type="button" class="bg-blue-700 text-white px-4 py-2 rounded w-full mt-4">
                     {% trans "Retour à la liste des freisn avant" %}
               </button>
@@ -135,3 +135,4 @@
     </div>
 
 </div>
+{% endblock %}

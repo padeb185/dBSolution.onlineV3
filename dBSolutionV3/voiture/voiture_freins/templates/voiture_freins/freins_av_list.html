@@ -57,7 +57,7 @@
             <td class="border px-4 py-2">{{ frein.epaisseur_disque_av }}</td>
             <td class="border px-4 py-2">{{ frein.epaisseur_min_disque_av }}</td>
             <td class="border px-4 py-2 text-center">
-                <a href="{% url 'voiture_freins:detail' frein.id %}"
+                <a href="{% url 'voiture_freins:freins_detail' frein.id %}"
                    class="text-blue-600 hover:text-blue-800 font-semibold">
                     {% trans "Info" %}
                 </a>

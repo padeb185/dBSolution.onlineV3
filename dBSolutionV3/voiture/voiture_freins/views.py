@@ -9,6 +9,7 @@ from .forms import VoitureFreinsForm
 from ..voiture_freins_ar.models import VoitureFreinsAR
 from ..voiture_modele.models import VoitureModele
 from societe.models import Societe
+from django.utils.translation import gettext_lazy as _
 
 
 @login_required
@@ -55,7 +56,7 @@ def liste_freins(request, societe_id=None):
     with tenant_context(societe):
         freins = VoitureFreins.objects.filter(societe=societe)
 
-    return render(request, "voiture_freins/list.html", {"freins": freins, "societe": societe})
+    return render(request, "voiture_freins/freins_av_list.html", {"freins": freins, "societe": societe})
 
 
 
@@ -106,14 +107,14 @@ def modifier_freins_view(request, frein_id):
 
     with tenant_context(tenant):
         # Récupérer l'assureur et son adresse liée
-        frein = get_object_or_404(
-            VoitureFreins.objects.select_related("adresse"),
+        freins = get_object_or_404(
+            VoitureFreins.objects.select_related(),
             id=frein_id
         )
 
         if request.method == "POST":
             # Formulaires pour frein et Adresse
-            form_frein = VoitureFreinsForm(request.POST, instance=frein)
+            form_frein = VoitureFreinsForm(request.POST, instance=freins)
 
 
             if form_frein.is_valid():
@@ -125,22 +126,22 @@ def modifier_freins_view(request, frein_id):
 
                 messages.success(request, _("Freins avant mis à jour avec succès."))
                 return redirect(
-                    "frein:modifier_frein",
+                    "voiture_freins:modifier_freins",
                     frein_id=frein.id
                 )
             else:
                 messages.error(request, _("Le formulaire contient des erreurs."))
         else:
             # Pré-remplissage des formulaires
-            form_frein = VoitureFreinsForm(instance=frein)
+            form_frein = VoitureFreinsForm(instance=freins)
 
 
     return render(
         request,
-        "frein/modifier_frein.html",
+        "voiture_freins/modifier_freins.html",
         {
             "form": form_frein,
-            "frein": frein,
+            "frein": freins,
 
         }
     )
