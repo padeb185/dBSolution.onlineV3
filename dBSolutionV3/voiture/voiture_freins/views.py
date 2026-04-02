@@ -100,6 +100,51 @@ def ajouter_freins_simple(request):
         return render(request, "voiture_freins/ajouter_freins_simple.html")
 
 
+@login_required
+def modifier_freins_view(request, frein_id):
+    tenant = request.user.societe
+
+    with tenant_context(tenant):
+        # Récupérer l'assureur et son adresse liée
+        frein = get_object_or_404(
+            VoitureFreins.objects.select_related("adresse"),
+            id=frein_id
+        )
+
+        if request.method == "POST":
+            # Formulaires pour frein et Adresse
+            form_frein = VoitureFreinsForm(request.POST, instance=frein)
+
+
+            if form_frein.is_valid():
+                # Sauvegarde adresse puis mise à jour de l'frein
+
+                frein = form_frein.save(commit=False)
+
+                frein.save()
+
+                messages.success(request, _("Freins avant mis à jour avec succès."))
+                return redirect(
+                    "frein:modifier_frein",
+                    frein_id=frein.id
+                )
+            else:
+                messages.error(request, _("Le formulaire contient des erreurs."))
+        else:
+            # Pré-remplissage des formulaires
+            form_frein = VoitureFreinsForm(instance=frein)
+
+
+    return render(
+        request,
+        "frein/modifier_frein.html",
+        {
+            "form": form_frein,
+            "frein": frein,
+
+        }
+    )
+
 
 
 @never_cache
