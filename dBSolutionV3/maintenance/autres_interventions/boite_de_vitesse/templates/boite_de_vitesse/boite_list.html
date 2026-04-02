@@ -10,6 +10,14 @@
     {% trans "Liste des contrôles de boite de vitesses" %}
 </h1>
 
+<div>
+    <a href="{% url 'boite_de_vitesse:boite_check' exemplaire.id %}"
+       class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-blue-500">
+        {% trans "Ajouter un contrôle" %}
+    </a>
+</div>
+<br>
+<br>
 
 
 <div class="bg-white shadow-md rounded-lg p-4 mb-4">
@@ -34,12 +42,6 @@
         <input id="search-date" type="date"
                class="border rounded px-3 py-2 flex-1 min-w-[120px] focus:outline-none focus:ring-2 focus:ring-blue-500">
 
-        {% if exemplaire %}
-        <a href="{% url 'boite_de_vitesse:boite_check' exemplaire.id %}"
-           class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-blue-500">
-            {% trans "Ajouter un contrôle" %}
-        </a>
-        {% endif %}
     </div>
 </div>
 

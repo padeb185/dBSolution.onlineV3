@@ -2,6 +2,7 @@ from datetime import timezone
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.cache import never_cache
 from django_tenants.utils import schema_context, tenant_context
@@ -20,7 +21,7 @@ from maintenance.pneus.models import ControlePneus
 from maintenance.silent_blocs.models import SilentBloc
 from maintenance.check_up.models import ControleGeneral
 from utilisateurs.models import Mecanicien
-from maintenance.autres_interventions.bte_auto.models import ControleBteAuto
+from maintenance.autres_interventions.bte_vitesse_auto.models import ControleBteVitesseAuto
 
 
 
@@ -67,7 +68,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
 
             # ✅ FILTRAGE PAR EXEMPLAIRE
             boite = ControleBoite.objects.filter(voiture_exemplaire=exemplaire)
-            bte_auto = ControleBteAuto.objects.filter(voiture_exemplaire=exemplaire)
+            bte_auto = ControleBteVitesseAuto.objects.filter(voiture_exemplaire=exemplaire)
 
 
             # ✅ COUNTS CORRECTS

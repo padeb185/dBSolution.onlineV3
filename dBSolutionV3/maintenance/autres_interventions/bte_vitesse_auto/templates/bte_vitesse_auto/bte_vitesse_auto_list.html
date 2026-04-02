@@ -10,6 +10,16 @@
     {% trans "Liste des contrôles de boite automatique" %}
 </h1>
 
+<div>
+    <a href="{% url 'bte_vitesse_auto:bte_vitesse_auto_check' exemplaire.id %}"
+       class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-blue-500">
+        {% trans "Ajouter un contrôle" %}
+    </a>
+</div>
+
+<br>
+<br>
+
 <div class="bg-white shadow-md rounded-lg p-4 mb-4">
     <div class="flex flex-wrap items-end gap-3">
 
@@ -31,13 +41,6 @@
 
         <input id="search-date" type="date"
                class="border rounded px-3 py-2 flex-1 min-w-[120px] focus:outline-none focus:ring-2 focus:ring-blue-500">
-
-        {% if exemplaire %}
-        <a href="{% url 'bte_auto:bte_auto_check' exemplaire.id %}"
-           class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-blue-500">
-            {% trans "Ajouter un contrôle" %}
-        </a>
-        {% endif %}
     </div>
 </div>
 
@@ -129,7 +132,7 @@
 
             <!-- Actions -->
             <td class="border px-4 py-2 text-center">
-               <a href="{% url 'bte_auto:bte_auto_detail' bte.id %}"
+               <a href="{% url 'bte_vitesse_auto:bte_vitesse_auto_detail' bte.id %}"
                    class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
                     {% trans "Infos" %}
                </a>

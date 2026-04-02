@@ -33,7 +33,7 @@ class BoiteListView(ListView):
     ordering = ["-id"]
 
     def get_queryset(self):
-        queryset = ControleBoite.objects.select_related(   # ✅ ICI
+        queryset = ControleBoite.objects.select_related(
             "voiture_exemplaire", "maintenance", "tech_societe"
         )
 
@@ -45,7 +45,12 @@ class BoiteListView(ListView):
 
         return queryset.order_by("-id")
 
-
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        exemplaire_id = self.kwargs.get("exemplaire_id")
+        if exemplaire_id:
+            context["exemplaire"] = VoitureExemplaire.objects.get(id=exemplaire_id)
+        return context
 
 @never_cache
 @login_required
