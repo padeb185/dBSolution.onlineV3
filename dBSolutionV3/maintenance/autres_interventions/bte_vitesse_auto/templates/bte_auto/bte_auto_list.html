@@ -11,7 +11,7 @@
 </h1>
 
 <div>
-    <a href="{% url 'bte_vitesse_auto:bte_vitesse_auto_check' exemplaire.id %}"
+    <a href="{% url 'bte_auto:bte_auto_check' exemplaire.id %}"
        class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-blue-500">
         {% trans "Ajouter un contrôle" %}
     </a>
@@ -45,6 +45,7 @@
 </div>
 
 <table id="bte_autos-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+    <div class="hidden bg-customyellow-100 text-customyellow-800 border-customyellow-500"></div>
     <thead>
         <tr class="bg-gray-100">
             <th class="border px-4 py-2 cursor-pointer">{% trans "Immatriculation" %}</th>
@@ -98,16 +99,16 @@
 
             <!-- Kilométrage -->
             <td class="border px-4 py-2">
-                {{ bte.kilometrage_controle_boite|default:"-" }}
+                {{ bte.kilometrage_controle_boite_auto|default:"-" }}
             </td>
 
            <td class="border px-4 py-2 text-center font-bold
-                       {% if bte.tag|upper == 'VERT' %}bg-green-100 text-green-800 border-green-300
-                       {% elif bte.tag|upper == 'JAUNE' %}bg-lime-100 text-lime-800 border-lime-300
-                       {% elif bte.tag|upper == 'ROUGE' %}bg-red-100 text-red-800 border-red-300
-                       {% endif %}">
+                {% if bte.tag|upper == 'VERT' %}bg-green-100 text-green-800 border-green-300
+                {% elif bte.tag|upper == 'JAUNE' %}bg-customyellow-100 text-customyellow-800 border-customyellow-500
+                {% elif bte.tag|upper == 'ROUGE' %}bg-red-100 text-red-800 border-red-300
+                {% endif %}">
               {{ bte.get_tag_display }}
-            </td>
+           </td>
 
 
             <!-- Technicien -->
@@ -122,7 +123,7 @@
 
             <!-- Actions -->
             <td class="border px-4 py-2 text-center">
-               <a href="{% url 'bte_vitesse_auto:bte_vitesse_auto_detail' bte.id %}"
+               <a href="{% url 'bte_auto:bte_auto_detail' bte.id %}"
                    class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
                     {% trans "Infos" %}
                </a>

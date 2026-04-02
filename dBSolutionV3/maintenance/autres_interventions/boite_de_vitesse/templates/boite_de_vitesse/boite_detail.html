@@ -13,7 +13,7 @@
             <span>{% trans "Détails du contrôle" %}</span>
         </h1>
 
-        <a href="{% if boite.voiture_exemplaire %}
+        <a href="{% if boite_de_vitesse.voiture_exemplaire %}
                    {% url 'boite_de_vitesse:boite_list' boite.voiture_exemplaire.id %}
                {% else %}# {% endif %}"
            class="text-blue-600 hover:underline">
@@ -52,8 +52,8 @@
 
     <!-- Actions -->
     <div class="bg-white shadow-md rounded-lg p-6 flex gap-4">
-        <a href="{% if boite.voiture_exemplaire %}
-                   {% url 'boite:boite_list' boite.voiture_exemplaire.id %}
+        <a href="{% if boite_de_vitesse.voiture_exemplaire %}
+                   {% url 'boite_de_vitesse:boite_list' boite.voiture_exemplaire.id %}
                {% else %}# {% endif %}"
            class="text-blue-600 hover:underline">
             {% trans "Retour à la liste des contrôles" %}

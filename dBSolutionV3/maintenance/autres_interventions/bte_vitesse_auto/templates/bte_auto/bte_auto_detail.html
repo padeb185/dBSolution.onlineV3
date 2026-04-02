@@ -13,8 +13,8 @@
             <span>{% trans "Détails du contrôle" %}</span>
         </h1>
 
-        <a href="{% if bte_vitesse_auto.voiture_exemplaire %}
-                   {% url 'bte_vitesse_auto:bte_vitesse_auto_list' bte_vitesse_auto.voiture_exemplaire.id %}
+        <a href="{% if bte_auto.voiture_exemplaire %}
+                   {% url 'bte_vitesse_auto:bte_vitesse_auto_list' bte_auto.voiture_exemplaire.id %}
                {% else %}# {% endif %}"
            class="text-blue-600 hover:underline">
             {% trans "Retour à la liste des contrôles" %}
@@ -31,7 +31,7 @@
             <p><strong>{% trans "Immatriculation" %} :</strong> {{ bte_auto.voiture_exemplaire.immatriculation }}</p>
             <p><strong>{% trans "Kilométrage" %} :</strong> {{ bte_auto.kilometres_chassis }}</p>
             <p><strong>{% trans "Tag" %} :</strong> {{ bte_auto.tag }}</p>
-            <p><strong>{% trans "Technicien" %} :</strong> {{ bte_auto.tech_nom_technicien }} ({{ checkup.tech_role_technicien }})</p>
+            <p><strong>{% trans "Technicien" %} :</strong> {{ bte_auto.tech_nom_technicien }} ({{ bte_auto.tech_role_technicien }})</p>
         </div>
 
         <!-- Maintenance -->
@@ -52,8 +52,8 @@
 
     <!-- Actions -->
     <div class="bg-white shadow-md rounded-lg p-6 flex gap-4">
-        <a href="{% if bte_vitesse_auto.voiture_exemplaire %}
-                   {% url 'bte_vitesse_auto:bte_vitesse_auto_list' bte_vitesse_auto.voiture_exemplaire.id %}
+        <a href="{% if bte_auto.voiture_exemplaire %}
+                   {% url 'bte_vitesse_auto:bte_vitesse_auto_list' bte_auto.voiture_exemplaire.id %}
                {% else %}# {% endif %}"
            class="text-blue-600 hover:underline">
             {% trans "Retour à la liste des contrôles" %}

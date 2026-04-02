@@ -21,7 +21,7 @@ from maintenance.autres_interventions.bte_vitesse_auto.models import ControleBte
 @method_decorator([login_required, never_cache], name='dispatch')
 class BteVitesseAutoListView(ListView):
     model = ControleBteVitesseAuto
-    template_name = "bte_vitesse_auto/bte_vitesse_auto_list.html"
+    template_name = "bte_auto/bte_auto_list.html"
     context_object_name = "bte_autos"
     paginate_by = 100
     ordering = ["-id"]
@@ -49,7 +49,7 @@ class BteVitesseAutoListView(ListView):
 
 @never_cache
 @login_required
-def bte_vitesse_auto_check_view(request, exemplaire_id):
+def bte_auto_check_view(request, exemplaire_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
@@ -142,7 +142,7 @@ def bte_vitesse_auto_check_view(request, exemplaire_id):
                 exemplaire=exemplaire
             )
 
-        return render(request, 'bte_vitesse_auto/bte_vitesse_auto_check.html', {
+        return render(request, 'bte_auto/bte_auto_check.html', {
             "exemplaire": exemplaire,
             "immatriculation": exemplaire.immatriculation,
             "maintenance": maintenance,
@@ -156,28 +156,28 @@ def bte_vitesse_auto_check_view(request, exemplaire_id):
 # Vue détail boite
 # -----------------------------
 @login_required
-def bte_vitesse_auto_detail_view(request, bte_auto_id):
+def bte_auto_detail_view(request, bte_id):
     bte_auto = get_object_or_404(
         ControleBteVitesseAuto.objects.select_related("voiture_exemplaire"),
-        id=bte_auto_id
+        id=bte_id
     )
 
     context = {
         "bte_auto": bte_auto,
         "exemplaire": bte_auto.voiture_exemplaire,
     }
-    return render(request, "bte_vitesse_auto/bte__vitesse_auto_detail.html", context)
+    return render(request, "bte_auto/bte_auto_detail.html", context)
 
 
 @login_required
-def modifier_bte_vitesse_auto_view(request, bte_auto_id):
+def modifier_bte_auto_view(request, bte_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
         # Récupération du controle boite avec son exemplaire
         bte_auto = get_object_or_404(
             ControleBteVitesseAuto.objects.select_related("voiture_exemplaire"),
-            id=bte_auto_id
+            id=bte_id
         )
 
         # -------------------------
@@ -210,7 +210,7 @@ def modifier_bte_vitesse_auto_view(request, bte_auto_id):
 
     return render(
         request,
-        "bte_vitesse_auto/modifier_bte_vitesse_auto.html",
+        "bte_auto/modifier_bte_auto.html",
         {
             "form": form,
             "bte_auto": bte_auto,

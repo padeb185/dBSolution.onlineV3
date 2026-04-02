@@ -1287,3 +1287,20 @@ video {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
+
+
+
+/* Exemple de classe utilisant la couleur jaune clair (yellow-100) */
+.bg-yellow-100 {
+  background-color: var(--color-yellow-100);
+}
+
+.text-yellow-300 {
+  color: var(--color-yellow-800);
+}
+
+.border-yellow-500 {
+  border-color: var(--color-yellow-500);
+}
+
+
