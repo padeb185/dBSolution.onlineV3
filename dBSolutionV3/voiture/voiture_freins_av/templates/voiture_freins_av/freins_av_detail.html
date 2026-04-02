@@ -35,24 +35,28 @@
 
             <p>
                 <strong>{% trans "Marque" %} :</strong>
-                {{ voiture_freins.marque_disques_av }}
-            </p>
-            <p>
-                <strong>{% trans "Téléphone" %} :</strong>
-                {{ carrosserie.telephone }}
-            </p>
-            <p>
-                <strong>{% trans "Email" %} :</strong>
-                {{ carrosserie.email }}
+                {{ frein.marque_disques_av }}
             </p>
 
             <p>
-                <strong>{% trans "Numéro de TVA" %} :</strong>
-                {{ carrosserie.numero_tva }}
+                <strong>{% trans "Diamètre du disque" %} :</strong>
+                {{ frein.taille_disque_av }}
             </p>
 
+            <p>
+                <strong>{% trans "Epaisseur du disque" %} :</strong>
+                {{ frein.epaisseur_disque_av }}
+            </p>
 
+            <p class="font-bold text-red-500">
+                <strong>{% trans "Epaisseur minimum du disque" %} :</strong>
+                {{ frein.epaisseur_min_disque_av }}
+            </p>
 
+             <p>
+                <strong>{% trans "Epaisseur des plaquettes" %} :</strong>
+                {{ frein.plaquettes_av }}
+            </p>
 
 
            <div class="mt-auto w-full">
