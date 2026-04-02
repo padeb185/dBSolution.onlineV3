@@ -102,24 +102,10 @@
                 {{ boite.kilometrage_controle_boite|default:"-" }}
             </td>
 
-            <!-- TAG (FIX VISUEL) -->
-            {% if boite.tag == 'VERT' %}
-            <td class="border px-4 py-2 text-center font-bold" style="background-color: #28a745; color: black;">
-                {{ boite.get_tag_display }}
+            <td class="border px-4 py-2 text-center font-bold bg-{{ boite.tag|tag_color }}-100 text-{{ boite.tag|tag_color }}-800 border-{{ boite.tag|tag_color }}-300">
+            {{ boite.get_tag_display }}
             </td>
-            {% elif boite.tag == 'JAUNE' %}
-            <td class="border px-4 py-2 text-center font-bold" style="background-color: #ffc107; color: black;">
-                {{ boite.get_tag_display }}
-            </td>
-            {% elif boite.tag == 'ROUGE' %}
-            <td class="border px-4 py-2 text-center font-bold" style="background-color: #dc3545; color: black;">
-                {{ boite.get_tag_display }}
-            </td>
-            {% else %}
-            <td class="border px-4 py-2 text-center font-bold">
-                {{ boite.get_tag_display }}
-            </td>
-            {% endif %}
+
 
             <!-- Technicien -->
             <td class="border px-4 py-2">
