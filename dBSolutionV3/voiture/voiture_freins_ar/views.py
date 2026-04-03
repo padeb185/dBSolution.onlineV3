@@ -59,10 +59,13 @@ def ajouter_freins_ar_simple(request):
             VoitureFreinsAR.objects.create(
                 societe=tenant,
                 marque_disques_ar=request.POST.get("marque_disques_ar"),
+                numero_oem_disques_ar=request.POST.get("numero_oem_disques_ar"),
                 marque_plaquettes_ar=request.POST.get("marque_plaquettes_ar"),
+                numero_oem_plaquettes_ar=request.POST.get("numero_oem_plaquettes_ar"),
                 taille_disque_ar=to_float(request.POST.get("taille_disque_ar")),
                 epaisseur_disque_ar=to_float(request.POST.get("epaisseur_disque_ar")),
                 epaisseur_min_disque_ar=to_float(request.POST.get("epaisseur_min_disque_ar")),
+
             )
             messages.success(request, "Freins arrière ajouté avec succès !")
 
@@ -72,14 +75,15 @@ def ajouter_freins_ar_simple(request):
 
 
 
+@never_cache
 @login_required
 def freins_ar_detail_view(request, frein_ar_id):
-    tenant = request.user.societe
-    with tenant_context(tenant):
-        frein_ar = get_object_or_404(VoitureFreinsAR, id=frein_ar_id)
-        return render(request, 'voiture_freins_ar/freins_ar_detail.html', {
-            'frein_ar': frein_ar,
-        })
+    frein = get_object_or_404(VoitureFreinsAR, id=frein_ar_id)
+    return render(request, 'voiture_freins_ar/freins_ar_detail.html', {
+        'frein': frein,
+    })
+
+
 
 
 @never_cache
@@ -101,19 +105,19 @@ def modifier_freins_ar_view(request, frein_ar_id):
 
     with tenant_context(tenant):
         # Récupérer l'assureur et son adresse liée
-        freinsAR = get_object_or_404(
+        freins_ar = get_object_or_404(
             VoitureFreinsAR.objects.select_related(),
             id=frein_ar_id
         )
 
         if request.method == "POST":
             # Formulaires pour frein et Adresse
-            form_frein_ar = VoitureFreinsARForm(request.POST, instance=freinsAR)
+            form_frein = VoitureFreinsARForm(request.POST, instance=freins_ar)
 
 
-            if form_frein_ar.is_valid():
+            if form_frein.is_valid():
 
-                frein_ar = form_frein_ar.save(commit=False)
+                frein_ar = form_frein.save(commit=False)
 
                 frein_ar.save()
 
@@ -126,15 +130,15 @@ def modifier_freins_ar_view(request, frein_ar_id):
                 messages.error(request, _("Le formulaire contient des erreurs."))
         else:
             # Pré-remplissage des formulaires
-            form_frein = VoitureFreinsARForm(instance=freinsAR)
+            form_frein = VoitureFreinsARForm(instance=freins_ar)
 
 
     return render(
         request,
-        "voiture_freins/modifier_freins_ar.html",
+        "voiture_freins_ar/modifier_freins_ar.html",
         {
             "form": form_frein,
-            "frein": freinsAR,
+            "frein": freins_ar,
 
         }
     )

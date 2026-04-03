@@ -1,6 +1,6 @@
 import uuid
 from django.db import models
-
+from django.utils.translation import gettext_lazy as _
 
 class VoitureFreinsAR(models.Model):
     id = models.UUIDField(
@@ -31,6 +31,13 @@ class VoitureFreinsAR(models.Model):
         null=True
     )
 
+    numero_oem_disques_av = models.CharField(
+        _("Numéro OEM disque AR (mm)"),
+        max_length=25,
+        blank=True,
+        null=True
+    )
+
 
     marque_plaquettes_ar = models.CharField(
         max_length=100,
@@ -38,6 +45,12 @@ class VoitureFreinsAR(models.Model):
         null=True
     )
 
+    numero_oem_plaquettes_ar = models.CharField(
+        _("Numéro OEM plaquette AR (mm)"),
+        max_length=25,
+        blank=True,
+        null=True
+    )
     # 📏 Dimensions
 
     taille_disque_ar = models.FloatField("Taille disque AR (mm)", null=True, blank=True)
@@ -50,6 +63,12 @@ class VoitureFreinsAR(models.Model):
 
 
     plaquettes_ar = models.FloatField("Plaquettes AR (mm)", null=True, blank=True)
+
+    remarques = models.TextField(verbose_name=_("Remarques"), blank=True, null=True)
+
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
+
 
     class Meta:
         verbose_name = "Voiture – Freins Arrière"

@@ -7,7 +7,7 @@
     <!-- Header -->
     <div class="flex justify-between items-center mb-6">
        <h1 class="text-2xl font-bold flex items-center gap-4">
-           {% with image_name=carrosserie.nom_societe|slugify %}
+           {% with image_name=freins.marque_disque_av|slugify %}
             <img src="{% static 'freins/'|add:image_name|add:'.png' %}"
                  alt="{{ freins.marque_disques_av }}"
                  class="w-12 h-12"
@@ -17,11 +17,6 @@
 
            <span class="text-black-700">{{ freins.marque_disques_av }}</span>
         </h1>
-
-        <a href="{% url 'voiture_freins_av:freins_av_list' %}"
-           class="text-blue-600 hover:underline">
-            {% trans "Retour à la liste des freins avant" %}
-        </a>
     </div>
 
     <!-- Infos principales -->
@@ -39,18 +34,32 @@
             </p>
 
             <p>
+                <strong>{% trans "Numréro OEM des disques" %} :</strong>
+                {{ frein.numero_oem_disques_av }}
+            </p>
+
+            <p>
                 <strong>{% trans "Diamètre du disque" %} :</strong>
                 {{ frein.taille_disque_av }}
             </p>
 
             <p>
                 <strong>{% trans "Epaisseur du disque" %} :</strong>
+                 <span class="text-green-500">
                 {{ frein.epaisseur_disque_av }}
+                 </span>
             </p>
 
-            <p class="font-bold text-red-500">
+            <p>
                 <strong>{% trans "Epaisseur minimum du disque" %} :</strong>
-                {{ frein.epaisseur_min_disque_av }}
+                <span class="text-red-500">
+                    {{ frein.epaisseur_min_disque_av }}
+                </span>
+            </p>
+
+             <p>
+                <strong>{% trans "Numréro OEM des plaquettes" %} :</strong>
+                {{ frein.numero_oem_plaquettes_av }}
             </p>
 
              <p>
@@ -73,31 +82,18 @@
         <!-- Peppol -->
         <div class="bg-white shadow-md rounded-lg p-6">
             <h2 class="text-lg font-semibold mb-4">
-                {% trans "Informations Peppol" %}
+                {% trans "Remarques" %}
             </h2>
 
             <p>
-                <strong>{% trans "Identifiant Peppol" %} :</strong>
-                {{ carrosserie.peppol_id }}
+                <strong>{% trans "Remarques" %} :</strong>
+                {{ frein.remarques }}
             </p>
 
         </div>
     </div>
 
-    <!-- Adresse -->
-    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
-        <h2 class="text-lg font-semibold mb-4">
-            {% trans "Adresse" %}
-        </h2>
 
-        {% if carrosserie.adresse %}
-            <p>{{ carrosserie.adresse }}</p>
-        {% else %}
-            <p class="text-gray-500">
-                {% trans "Aucune adresse renseignée." %}
-            </p>
-        {% endif %}
-    </div>
 
     <!-- Métadonnées -->
     <div class="bg-white shadow-md rounded-lg p-6 mb-6">
@@ -107,11 +103,11 @@
 
         <p>
             <strong>{% trans "Créé le" %} :</strong>
-            {{ carrosserie.created_at|date:"d/m/Y H:i" }}
+            {{ frein.created_at|date:"d/m/Y H:i" }}
         </p>
         <p>
             <strong>{% trans "Mis à jour le" %} :</strong>
-            {{ carrosserie.updated_at|date:"d/m/Y H:i" }}
+            {{ frein.updated_at|date:"d/m/Y H:i" }}
         </p>
     </div>
 
@@ -129,14 +125,31 @@
         {% endfor %}
     {% endif %}
 
+    {% if form.errors %}
+        <div style="background-color: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; padding: 10px; border-radius: 6px;">
+            <strong>Erreurs :</strong>
+            <ul>
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li>{{ field.label }} : {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+
     <!-- Actions -->
-    <div class="bg-white shadow-md rounded-lg p-6 flex gap-4">
-        <a href="{% url 'voiture_freins_av:freins_av_list' %}" class="flex-1">
-              <button type="button" class="bg-blue-700 text-white px-4 py-2 rounded w-full mt-4">
-                    {% trans "Retour à la liste des freisn avant" %}
-              </button>
-        </a>
-    </div>
+
+
+    <a href="{% url 'voiture_freins_av:freins_av_list' %}" class="flex-1">
+        <button type="button" class="bg-blue-700 text-white px-4 py-2 rounded mt-4">
+            {% trans "Retour à la liste des freisn avant" %}
+        </button>
+    </a>
 
 </div>
 {% endblock %}

@@ -1,5 +1,8 @@
 import uuid
 from django.db import models
+from django.utils.translation import gettext_lazy as _
+
+
 
 
 class VoitureFreinsAV(models.Model):
@@ -31,6 +34,13 @@ class VoitureFreinsAV(models.Model):
         null=True
     )
 
+    numero_oem_disques_av = models.CharField(
+        _("Numéro OEM disque AV (mm)"),
+        max_length=25,
+        blank=True,
+        null=True
+    )
+
 
     marque_plaquettes_av = models.CharField(
         max_length=100,
@@ -38,6 +48,12 @@ class VoitureFreinsAV(models.Model):
         null=True
     )
 
+    numero_oem_plaquettes_av = models.CharField(
+        _("Numéro OEM plaquette AV (mm)"),
+        max_length=25,
+        blank=True,
+        null=True
+    )
 
     # 📏 Dimensions
     taille_disque_av = models.FloatField("Taille disque AV (mm)", null=True, blank=True)
@@ -51,6 +67,10 @@ class VoitureFreinsAV(models.Model):
 
     plaquettes_av = models.FloatField("Plaquettes AV (mm)", null=True, blank=True)
 
+    remarques = models.TextField(verbose_name=_("Remarques"), blank=True, null=True)
+
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
 
     class Meta:
         verbose_name = "Voiture – Freins Avant"

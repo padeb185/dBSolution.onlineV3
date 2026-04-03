@@ -47,7 +47,7 @@ def ajouter_freins_all(request, modele_id):
 
 @never_cache
 @login_required
-def liste_freins(request, societe_id=None):
+def liste_freins_av(request, societe_id=None):
     # Si societe_id est passé, on l'utilise ; sinon on prend celle de l'utilisateur
     societe = request.user.societe
     if societe_id:
@@ -62,10 +62,10 @@ def liste_freins(request, societe_id=None):
 
 
 
-
-@login_required()
-def freins_detail_view(request, frein_id):
-    frein = get_object_or_404(VoitureFreinsAV, id=frein_id)
+@never_cache
+@login_required
+def freins_av_detail_view(request, frein_av_id):
+    frein = get_object_or_404(VoitureFreinsAV, id=frein_av_id)
     return render(request, 'voiture_freins_av/freins_av_detail.html', {
         'frein': frein,
     })
@@ -76,7 +76,7 @@ def freins_detail_view(request, frein_id):
 
 
 @login_required
-def ajouter_freins_simple(request):
+def ajouter_freins_av_simple(request):
     tenant = request.user.societe
     with tenant_context(tenant):
 
@@ -90,7 +90,9 @@ def ajouter_freins_simple(request):
             VoitureFreinsAV.objects.create(
                 societe=tenant,
                 marque_disques_av=request.POST.get("marque_disques_av"),
+                numero_oem_disques_av=request.POST.get("numero_oem_disques_av"),
                 marque_plaquettes_av=request.POST.get("marque_plaquettes_av"),
+                numero_oem_plaquettes_av=request.POST.get("numero_oem_plaquettes_av"),
                 taille_disque_av=to_float(request.POST.get("taille_disque_av")),
                 epaisseur_disque_av=to_float(request.POST.get("epaisseur_disque_av")),
                 epaisseur_min_disque_av=to_float(request.POST.get("epaisseur_min_disque_av")),
@@ -100,52 +102,37 @@ def ajouter_freins_simple(request):
 
         return render(request, "voiture_freins_av/ajouter_freins_simple.html")
 
-
 @login_required
-def modifier_freins_av_view(request, frein_id):
+def modifier_freins_av_view(request, frein_av_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
-        # Récupérer l'assureur et son adresse liée
-        freins = get_object_or_404(
-            VoitureFreinsAV.objects.select_related(),
-            id=frein_id
-        )
+        freins = get_object_or_404(VoitureFreinsAV, id=frein_av_id)
 
         if request.method == "POST":
-            # Formulaires pour frein et Adresse
             form_frein = VoitureFreinsAVForm(request.POST, instance=freins)
 
-
             if form_frein.is_valid():
-                # Sauvegarde adresse puis mise à jour de l'frein
-
-                frein = form_frein.save(commit=False)
-
-                frein.save()
+                frein = form_frein.save()  # commit=False inutile ici
 
                 messages.success(request, _("Freins avant mis à jour avec succès."))
                 return redirect(
                     "voiture_freins_av:modifier_freins_av",
-                    frein_id=frein.id
+                    frein_av_id=frein.id   # ✅ match URL
                 )
             else:
                 messages.error(request, _("Le formulaire contient des erreurs."))
         else:
-            # Pré-remplissage des formulaires
             form_frein = VoitureFreinsAVForm(instance=freins)
-
 
     return render(
         request,
         "voiture_freins_av/modifier_freins_av.html",
         {
             "form": form_frein,
-            "frein": freins,
-
+            "frein": freins,   # ✅ utilisé dans template
         }
     )
-
 
 
 @never_cache
