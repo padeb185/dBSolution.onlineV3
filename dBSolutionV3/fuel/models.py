@@ -2,15 +2,17 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from django.db.models import Sum
-from decimal import Decimal
+from decimal import Decimal, ROUND_HALF_UP
 from utilisateurs.models import Utilisateur
 from societe.models import Societe
 
 
 
 class TypeCarburant(models.TextChoices):
-    ESSENCE = "ESSENCE", _("Essence")
+    ESSENCE98 = "ESSENCE98", _("Essence 98")
+    ESSENCE95 = "ESSENCE95", _("Essence 95")
     DIESEL = "DIESEL", _("Diesel")
+    DIESELPLUS = "DIESELPLUS", _("Diesel +")
     HYDROGENE = "HYDROGENE", _("Hydrogène")
     LPG = "LPG", _("LPG")
     CNG = "CNG", _("CNG")
@@ -73,7 +75,7 @@ class Fuel(models.Model):
     type_carburant = models.CharField(
         max_length=10,
         choices=TypeCarburant.choices,
-        default=TypeCarburant.ESSENCE,
+        default=TypeCarburant.ESSENCE98,
         verbose_name=_("Type de carburant"),
 
     )
@@ -134,6 +136,15 @@ class Fuel(models.Model):
         litres = f"{self.litres} L" if self.litres else "N/A"
         return f"{immat} – {date} – {litres}"
 
+
+
+    def save(self, *args, **kwargs):
+        tva_percent = RechargeCarburant.TVA_CARBURANT.get(self.pays, 0)
+        tva_decimal = Decimal(tva_percent) / Decimal('100')
+        self.montant_ht = (self.prix_refuelling / (Decimal('1') + tva_decimal)).quantize(Decimal('0.01'),                                                   rounding=ROUND_HALF_UP)
+        self.montant_tva = (self.prix_refuelling - self.montant_ht).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+        super().save(*args, **kwargs)
+
     @classmethod
     def total_litres_mois(cls, vehicule, year=None, month=None):
         qs = cls.objects.filter(voiture_exemplaire=vehicule)
@@ -145,7 +156,7 @@ class Fuel(models.Model):
 
     @classmethod
     def total_litres_an(cls, vehicule, year=None):
-        qs = cls.objects.filter(vehicule=vehicule)
+        qs = cls.objects.filter(voiture_exemplaire=vehicule)
         if year:
             qs = qs.filter(date__year=year)
         return qs.aggregate(total=Sum('litres'))['total'] or 0
@@ -179,3 +190,33 @@ class Fuel(models.Model):
     @classmethod
     def total_prix_all(cls, vehicule):
         return cls.objects.filter(vehicule=vehicule).aggregate(total=Sum('prix_refuelling'))['total'] or 0
+
+    @classmethod
+    def total_tva_par_pays(cls, year=None, month=None):
+        """
+        Retourne un dictionnaire {pays: total_tva} pour le mois ou l'année si spécifié.
+        """
+        qs = cls.objects.all()
+        if year and month:
+            qs = qs.filter(date__year=year, date__month=month)
+        elif year:
+            qs = qs.filter(date__year=year)
+
+        result = {}
+        for code, nom in cls.RechargeCarburant.PAYS_CHOICES:
+            total = qs.filter(pays=code).aggregate(total=Sum('montant_tva'))['total'] or Decimal('0.00')
+            result[code] = total
+        return result
+
+    @classmethod
+    def total_tva_global(cls, year=None, month=None):
+        """
+        Retourne le total TVA pour tous les pays combinés.
+        """
+        qs = cls.objects.all()
+        if year and month:
+            qs = qs.filter(date__year=year, date__month=month)
+        elif year:
+            qs = qs.filter(date__year=year)
+
+        return qs.aggregate(total=Sum('montant_tva'))['total'] or Decimal('0.00')

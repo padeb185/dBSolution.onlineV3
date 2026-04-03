@@ -18,7 +18,7 @@ from django.db.models import Sum, Avg, Count, Case, When, Value
 from django.db.models.functions import TruncMonth
 from django.db.models.functions import TruncYear
 from django.db.models import Min, Max, F, FloatField, ExpressionWrapper
-
+from fuel.models import Fuel
 
 
 
@@ -251,6 +251,13 @@ def get_modeles(request):
 
 
 
+
+from django.views.generic import TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Sum, Count, Avg, Min, Max, F, ExpressionWrapper, FloatField, Case, When, Value
+from django.db.models.functions import TruncMonth, TruncYear
+from fuel.models import Fuel  # ✅ import correct
+
 class FuelStatView(LoginRequiredMixin, TemplateView):
     template_name = "fuel/fuel_stat.html"
 
@@ -273,6 +280,21 @@ class FuelStatView(LoginRequiredMixin, TemplateView):
         )
         context["global"] = global_stats
 
+        # 🔹 Totaux TVA par pays
+        PAYS_CHOICES = [
+            ('BE', "Belgique"),
+            ('LU', "Luxembourg"),
+            ('DE', "Allemagne"),
+        ]
+        totaux_par_pays = {}
+        for code, _ in PAYS_CHOICES:
+            totaux_par_pays[code] = fuels.filter(pays=code).aggregate(total=Sum("montant_tva"))["total"] or 0
+        context["totaux_par_pays"] = totaux_par_pays
+
+        # 🔹 Total TVA global
+        total_global = fuels.aggregate(total=Sum("montant_tva"))["total"] or 0
+        context["total_global"] = total_global
+
         # 🚗 Stats par voiture
         par_voiture = (
             fuels.values(
@@ -280,7 +302,7 @@ class FuelStatView(LoginRequiredMixin, TemplateView):
                 "voiture_exemplaire__voiture_modele__nom_modele",
                 "voiture_exemplaire__voiture_modele__voiture_marque__nom_marque",
                 "voiture_exemplaire__immatriculation",
-                "voiture_exemplaire__pays",  # <-- ajoute le pays ici
+                "voiture_exemplaire__pays",
             )
             .annotate(
                 total_litres=Sum("litres"),
