@@ -13,8 +13,8 @@ urlpatterns = [
     path("arriere/ajouter/", ajouter_freins_ar_simple, name="ajouter_freins_ar_simple"),
 
     # ⚡ Détail des freins arrière
-    path("arriere/<uuid:frein_id>/", freins_ar_detail_view, name="freins_ar_detail"),
+    path("arriere/<uuid:frein_ar_id>/", freins_ar_detail_view, name="freins_ar_detail"),
 
     # ⚡ Modification des freins arrière
-    path("modifier_arriere/<uuid:frein_id>/", modifier_freins_ar_view , name="modifier_freins_ar"),
+    path("modifier_arriere/<uuid:frein_ar_id>/", modifier_freins_ar_view , name="modifier_freins_ar"),
 ]

@@ -5,4 +5,5 @@ from ..voiture_freins_ar.models import VoitureFreinsAR
 class VoitureFreinsARForm(forms.ModelForm):
     class Meta:
         model = VoitureFreinsAR
-        fields = '__all__'
+        # Inclut tous les champs sauf 'voiture_exemplaire'
+        exclude = ['voitures_exemplaires', 'societe']

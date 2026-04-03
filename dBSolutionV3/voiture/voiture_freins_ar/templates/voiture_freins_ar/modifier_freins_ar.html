@@ -3,6 +3,14 @@
 
 
 {% block content %}
+
+<div>
+        <a href="{% url 'voiture_freins_ar:freins_ar_list' %}"
+            class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition min-w-[200px]">
+            {% trans "Retour à la liste des freins arrière" %}
+        </a>
+</div>
+
 <div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
 
     <div class="flex justify-between items-center mb-6">
@@ -86,16 +94,18 @@
                     {% trans "Enregistrer" %}
                 </button>
 
-                <a href="{% url 'voiture_freins_ar:freins_ar_detail' frein_ar_id=frein_ar.id %}"
+                <a href="{% url 'voiture_freins_ar:freins_ar_detail' frein_ar_id=frein.id %}"
                    class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
                     {% trans "Annuler" %}
                 </a>
           </div>
-
-
-
     </form>
+
+
+
 </div>
+
+
 
 <style>
 .input {

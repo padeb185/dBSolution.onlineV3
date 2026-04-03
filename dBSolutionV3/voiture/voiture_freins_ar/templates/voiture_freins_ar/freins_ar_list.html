@@ -10,10 +10,15 @@
     {% trans "Liste des freins arrière" %}
 </h1>
 
-<div>
+<div class="flex flex-row gap-4">
     <a href="{% url 'voiture_freins_ar:ajouter_freins_ar_simple' %}"
        class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition min-w-[200px]">
         {% trans "Ajouter un système de freinage arrière" %}
+    </a>
+
+    <a href="{% url 'voiture_freins_av:dashboard_frein' %}"
+       class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition min-w-[200px]">
+        {% trans "Dashboard freins" %}
     </a>
 </div>
 
@@ -27,7 +32,7 @@
 
         <input id="search-numero_oem_disques_ar" type="text"
                class="flex-1 min-w-[150px] border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Numero OEM disques' %}">
+               placeholder="{% trans 'N° OEM disques' %}">
 
         <input id="search-taille_disque_ar" type="text"
                class="flex-1 min-w-[150px] border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -43,7 +48,7 @@
 
         <input id="search-numero_oem_plaquettes_ar" type="text"
                class="flex-1 min-w-[150px] border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Numero OEM plaquettes' %}">
+               placeholder="{% trans 'N° OEM plaquettes' %}">
     </div>
 </div>
 
@@ -52,11 +57,11 @@
     <thead>
         <tr class="bg-gray-100">
             <th class="border px-4 py-2 cursor-pointer">{% trans "Marque des disques arrière" %}</th>
-            <th class="border px-4 py-2 cursor-pointer">{% trans "Numéro OEM disques arrière" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "N° OEM disques arrière" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Diamètre des disques arrière" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Epaisseur des disques arrière" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Epaisseur minimum des disques arrière" %}</th>
-            <th class="border px-4 py-2 cursor-pointer">{% trans "Numero OEM plaquettes arrières" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "N° OEM plaquettes arrières" %}</th>
             <th class="border px-4 py-2 cursor-pointer text-center">{% trans "Info" %}</th>
         </tr>
     </thead>
@@ -70,8 +75,8 @@
             <td class="border px-4 py-2"><span class="text-red-600">{{ frein_ar.epaisseur_min_disque_ar }}</span></td>
             <td class="border px-4 py-2">{{ frein_ar.numero_oem_plaquettes_ar }}</td>
             <td class="border px-4 py-2 text-center">
-               <a href="{% url 'voiture_freins_ar:detail_freins_ar' frein_ar_id=frein_ar.id %}"
-                   class="text-blue-600 hover:text-blue-800 font-semibold">
+               <a href="{% url 'voiture_freins_ar:freins_ar_detail' frein_ar_id=frein_ar.id %}"
+                       class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
                    {% trans "Info" %}
                </a>
             </td>

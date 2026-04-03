@@ -31,8 +31,8 @@ class VoitureFreinsAR(models.Model):
         null=True
     )
 
-    numero_oem_disques_av = models.CharField(
-        _("Numéro OEM disque AR (mm)"),
+    numero_oem_disques_ar = models.CharField(
+        _("N° OEM disque AR"),
         max_length=25,
         blank=True,
         null=True
@@ -46,14 +46,14 @@ class VoitureFreinsAR(models.Model):
     )
 
     numero_oem_plaquettes_ar = models.CharField(
-        _("Numéro OEM plaquette AR (mm)"),
+        _("N° OEM plaquette AR (mm)"),
         max_length=25,
         blank=True,
         null=True
     )
     # 📏 Dimensions
 
-    taille_disque_ar = models.FloatField("Taille disque AR (mm)", null=True, blank=True)
+    taille_disque_ar = models.FloatField("Diamètre disque AR (mm)", null=True, blank=True)
 
 
     epaisseur_disque_ar = models.FloatField("Épaisseur disque AR (mm)", null=True, blank=True)
