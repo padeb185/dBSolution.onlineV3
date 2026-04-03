@@ -14,8 +14,10 @@
                      onerror="this.src='{% static 'icons/voyage.png' %}';">
             {% endwith %}
             <span>{% trans "Détails des recharges électriques :" %}</span>
+           <div class="mb-4">
+                {% include "recharge/partials/plaque.html" %}
+           </div>
 
-           <span class="text-black-700">{{ electricite.nom_station }}</span>
         </h1>
 
         <a href="{% url 'recharge:recharge_list' %}"

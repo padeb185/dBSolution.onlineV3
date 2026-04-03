@@ -14,8 +14,11 @@
                      onerror="this.onerror=null; this.src='{% static 'icons/pompe-a-essence.png' %}';">
             {% endwith %}
             <span>{% trans "Modifier la plein de carburant:" %}</span>
-            <span class="text-black-700">{{ fuel.immatriculation }}</span>
         </h1>
+    </div>
+
+     <div class="mb-4">
+        {% include "fuel/partials/plaque.html" %}
     </div>
 
     <!-- Messages -->

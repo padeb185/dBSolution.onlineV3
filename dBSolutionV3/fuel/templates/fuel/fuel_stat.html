@@ -34,7 +34,7 @@
 
     <!-- TVA par pays -->
     {% for code, tva in totaux_par_pays.items %}
-        <div class="bg-blue-100 p-2 rounded w-28">
+        <div class="bg-red-100 p-2 rounded w-28">
             <div class="text-xs text-gray-500">
                 {% if code == "BE" %}{% trans "Belgique" %}
                 {% elif code == "LU" %}{% trans "Luxembourg" %}
@@ -80,21 +80,21 @@
             <td class="border px-4 py-2">
                 {% with pays=v.voiture_exemplaire__pays imm=v.voiture_exemplaire__immatriculation %}
                     {% if pays == "Belgique" %}
-                        <div class="flex items-center w-[180px] h-[36px] bg-white border-2 border-[#8B0000] rounded font-[Arial]">
+                        <div class="flex items-center w-[180px] h-[34px] bg-white border-2 border-[#8B0000] rounded font-[Arial]">
                             <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
                                 <span>🇪🇺</span><span>B</span>
                             </div>
                             <div class="w-full text-center font-bold text-[#8B0000] text-[18px]">{{ imm|upper }}</div>
                         </div>
                     {% elif pays == "Luxembourg" %}
-                        <div class="flex items-center w-[180px] h-[36x] bg-[#FFEB3B] border-2 border-black rounded font-[Arial]">
+                        <div class="flex items-center w-[180px] h-[34x] bg-[#FFEB3B] border-2 border-black rounded font-[Arial]">
                             <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
                                 <span>🇪🇺</span><span>L</span>
                             </div>
                             <div class="w-full text-center font-bold text-black text-[18px]">{{ imm|upper }}</div>
                         </div>
                     {% elif pays == "Allemagne" %}
-                        <div class="flex items-center w-[180px] h-[36px] bg-white border-2 border-black rounded font-[Arial]">
+                        <div class="flex items-center w-[180px] h-[34px] bg-white border-2 border-black rounded font-[Arial]">
                             <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
                                 <span>🇪🇺</span><span>D</span>
                             </div>

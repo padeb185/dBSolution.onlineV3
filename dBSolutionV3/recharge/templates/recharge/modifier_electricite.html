@@ -14,10 +14,12 @@
                      onerror="this.onerror=null; this.src='{% static 'icons/electricite.png' %}';">
             {% endwith %}
             <span>{% trans "Modifier la recharge électrique:" %}</span>
-            <span class="text-black-700">{{ recharge.immatriculation }}</span>
         </h1>
     </div>
 
+     <div class="mb-4">
+        {% include "recharge/partials/plaque.html" %}
+    </div>
     <!-- Messages -->
     {% if messages %}
         {% for message in messages %}
@@ -50,12 +52,13 @@
 
 
         <div class="flex gap-3 mt-6">
-            <button type="submit" class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-500 font-semibold text-center">
+            <button type="submit"
+                    class="flex-1 bg-blue-700 text-white px-5 py-3 rounded hover:bg-blue-500 font-semibold text-center">
                 {% trans "Enregistrer" %}
             </button>
-            <a href="{% url 'recharge:electricite_detail' electricite_id=electricite.id %}"
-               class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
-                {% trans "Annuler" %}
+             <a href="{% url 'recharge:electricite_detail' electricite_id=electricite.id %}"
+               class="flex-1 bg-gray-300 text-black px-5 py-3 rounded hover:bg-gray-400 font-semibold text-center">
+               {% trans "Annuler" %}
             </a>
         </div>
     </form>

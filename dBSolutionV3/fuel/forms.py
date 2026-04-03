@@ -23,7 +23,6 @@ class FuelForm(forms.ModelForm):
     class Meta:
         model = Fuel
         fields = [
-            "immatriculation",
             "voiture_exemplaire",
             "kilometrage_fuel",
             "type_carburant",

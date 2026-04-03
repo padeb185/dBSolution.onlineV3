@@ -124,7 +124,10 @@ def fuel_detail(request, fuel_id):
     return render(
         request,
         "fuel/fuel_detail.html",
-        {"fuel": fuel},
+        {
+            "fuel": fuel,
+            "exemplaire" : fuel.voiture_exemplaire,
+         },
     )
 
 
@@ -158,6 +161,7 @@ def modifier_fuel(request, fuel_id):
         {
             "form": form,
             "fuel": fuel,
+            "exemplaire": fuel.voiture_exemplaire,
         }
     )
 

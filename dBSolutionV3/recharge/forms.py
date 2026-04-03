@@ -19,7 +19,6 @@ class ElectriciteForm(forms.ModelForm):
     class Meta:
         model = Electricite
         fields = [
-            "immatriculation",
             "voiture_exemplaire",
             "kilometrage_electricite",
             "type_carburant",

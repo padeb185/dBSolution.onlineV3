@@ -1,3 +1,4 @@
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum, Count, FloatField, Value, ExpressionWrapper, F, When, Case, Max, Min, Avg
@@ -99,8 +100,6 @@ def ajouter_recharge_all(request):
                     _("Recharge ajoutée avec succès.")
                 )
 
-                return redirect("recharge:recharge_list")
-
             else:
 
                 print(form.errors)
@@ -130,21 +129,15 @@ def ajouter_recharge_all(request):
 
 @login_required
 def electricite_detail(request, electricite_id):
-
     tenant = request.user.societe
-
     with tenant_context(tenant):
 
-        electricite = get_object_or_404(
-            Electricite,
-            id=electricite_id
-        )
+        electricite = get_object_or_404(Electricite,id=electricite_id)
 
-    return render(
-        request,
-        "recharge/electricite_detail.html",
+    return render(request,"recharge/electricite_detail.html",
         {
-            "electricite": electricite
+            "electricite": electricite,
+            "exemplaire": electricite.voiture_exemplaire
         },
     )
 
@@ -197,6 +190,7 @@ def modifier_electricite(request, electricite_id):
         {
             "form": form,
             "electricite": electricite,
+            "exemplaire" : electricite.voiture_exemplaire
         }
     )
 

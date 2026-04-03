@@ -78,7 +78,7 @@
         <td class="p-3">
             {% with exemplaire=recharge.voiture_exemplaire %}
                 {% if exemplaire.pays == 'Belgique' %}
-                <div class="flex items-center w-[180px] h-[36px] bg-white border-2 border-[#8B0000] rounded font-[Arial]">
+                <div class="flex items-center w-[180px] h-[34px] bg-white border-2 border-[#8B0000] rounded font-[Arial]">
                     <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
                         <span>🇪🇺</span>
                         <span>B</span>
@@ -88,7 +88,7 @@
                     </div>
                 </div>
                 {% elif exemplaire.pays == 'Luxembourg' %}
-                <div class="flex items-center w-[180px] h-[36px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial]">
+                <div class="flex items-center w-[180px] h-[34px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial]">
                     <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
                         <span>🇪🇺</span>
                         <span>L</span>
@@ -98,7 +98,7 @@
                     </div>
                 </div>
                 {% elif exemplaire.pays == 'Allemagne' %}
-                <div class="flex items-center w-[180px] h-[36px] bg-white border-2 border-black rounded font-[Arial]">
+                <div class="flex items-center w-[180px] h-[34px] bg-white border-2 border-black rounded font-[Arial]">
                     <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
                         <span>🇪🇺</span>
                         <span>D</span>
@@ -140,7 +140,8 @@
 
             <!-- Info -->
             <td class="border px-4 py-2 text-center">
-              <a href="{% url 'recharge:electricite_detail' electricite_id=recharge.id %}" class="text-blue-600 hover:text-blue-800 font-semibold">
+              <a href="{% url 'recharge:electricite_detail' electricite_id=recharge.id %}"
+                 class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
                   {% trans "Info" %}
               </a>
             </td>

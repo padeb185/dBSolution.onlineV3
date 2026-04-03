@@ -14,9 +14,13 @@
                      onerror="this.src='{% static 'icons/pompe-a-essence.png' %}';">
             {% endwith %}
             <span>{% trans "Détails du plein de carburant :" %}</span>
+            <div class="mb-4">
+                {% include "fuel/partials/plaque.html" %}
+            </div>
 
-           <span class="text-black-700">{{ fuel.nom_station }}</span>
         </h1>
+
+
 
         <a href="{% url 'fuel:fuel_list' %}"
            class="text-blue-600 hover:underline">
@@ -33,10 +37,6 @@
                 {% trans "Informations générales" %}
             </h2>
 
-            <p>
-                <strong>{% trans "Immatriculation" %} :</strong>
-                {{ fuel.immatriculation }}
-            </p>
             <p>
                 <strong>{% trans "Kilomètres" %} :</strong>
                 {{ fuel.kilometrage_fuel }}
