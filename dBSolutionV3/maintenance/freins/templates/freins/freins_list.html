@@ -91,23 +91,13 @@
             </td>
 
             <td class="border px-4 py-2">{{ frein.kilometres_chassis }}</td>
-            {% if frein.tag == 'VERT' %}
-            <td class="border px-4 py-2 text-center font-bold" style="background-color: #28a745; color: #28a745;">
-                {{ frein.get_tag_display }}
+             <td class="border px-4 py-2 text-center font-bold
+               {% if frein.tag == 'VERT' %}bg-green-100 text-green-800 border-green-300
+               {% elif frein.tag == 'JAUNE' %} bg-[#FFEB3B]
+               {% elif frein.tag == 'ROUGE' %}bg-red-100 text-red-800 border-red-300
+               {% endif %}">
+              {{ frein.get_tag_display }}
             </td>
-            {% elif frein.tag == 'JAUNE' %}
-            <td class="border px-4 py-2 text-center font-bold" style="background-color: #ffc107; color: #ffc107;">
-                {{ frein.get_tag_display }}
-            </td>
-            {% elif frein.tag == 'ROUGE' %}
-            <td class="border px-4 py-2 text-center font-bold" style="background-color: #dc3545; color: #dc3545;">
-                {{ frein.get_tag_display }}
-            </td>
-            {% else %}
-            <td class="border px-4 py-2 text-center font-bold" style="background-color: transparent; color: black;">
-                {{ frein.get_tag_display }}
-            </td>
-            {% endif %}
 
             <td class="border px-4 py-2">{{ frein.tech_nom_technicien }}</td>
             <td class="border px-4 py-2">{{ frein.date }}</td>

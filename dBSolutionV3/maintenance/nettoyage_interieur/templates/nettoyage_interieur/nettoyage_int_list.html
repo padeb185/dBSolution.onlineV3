@@ -60,7 +60,7 @@
              <td class="p-3">
                 {% with exemplaire=nettoyage_interieur.voiture_exemplaire %}
                     {% if exemplaire.pays == 'Belgique' %}
-                    <div class="flex items-center w-[180px] h-[36px] bg-white border-2 border-[#8B0000] rounded font-[Arial]">
+                    <div class="flex items-center w-[180px] h-[34px] bg-white border-2 border-[#8B0000] rounded font-[Arial]">
                         <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
                             <span>🇪🇺</span>
                             <span>B</span>
@@ -71,7 +71,7 @@
                     </div>
 
                     {% elif exemplaire.pays == 'Luxembourg' %}
-                    <div class="flex items-center w-[180px] h-[36px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial]">
+                    <div class="flex items-center w-[180px] h-[34px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial]">
                         <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
                             <span>🇪🇺</span>
                             <span>L</span>
@@ -82,7 +82,7 @@
                     </div>
 
                     {% elif exemplaire.pays == 'Allemagne' %}
-                    <div class="flex items-center w-[180px] h-[36x] bg-white border-2 border-black rounded font-[Arial]">
+                    <div class="flex items-center w-[180px] h-[34x] bg-white border-2 border-black rounded font-[Arial]">
                         <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
                             <span>🇪🇺</span>
                             <span>D</span>
@@ -96,23 +96,15 @@
             </td>
 
             <td class="border px-4 py-2">{{ nettoyage_interieur.kilometres_chassis }}</td>
-            {% if nettoyage_interieur.tag_nettoyage_int == 'VERT' %}
-            <td class="border px-4 py-2 text-center font-bold" style="background-color: #28a745; color: #28a745;">
-                {{ nettoyage_interieur.get_tag_nettoyage_int_display }}
-            </td>
-            {% elif nettoyage_interieur.tag_nettoyage_int == 'JAUNE' %}
-            <td class="border px-4 py-2 text-center font-bold" style="background-color: #ffc107; color: #ffc107;">
-                {{ nettoyage_exterieur.get_tag_nettoyage_int_display }}
-            </td>
-            {% elif nettoyage_interieur.tag_nettoyage_int == 'ROUGE' %}
-            <td class="border px-4 py-2 text-center font-bold" style="background-color: #dc3545; color: #dc3545;">
-                {{ nettoyage_interieur.get_tag_nettoyage_int_display }}
-            </td>
-            {% else %}
-            <td class="border px-4 py-2 text-center font-bold" style="background-color: transparent; color: black;">
-                {{ nettoyage_interieur.get_tag_nettoyage_int_display }}
-            </td>
-            {% endif %}
+             <td class="border px-4 py-2 text-center font-bold
+               {% if nettoyage_interieur.tag == 'VERT' %}bg-green-100 text-green-800 border-green-300
+               {% elif nettoyage_interieur.tag == 'JAUNE' %} bg-[#FFEB3B]
+               {% elif nettoyage_interieur.tag == 'ROUGE' %}bg-red-100 text-red-800 border-red-300
+               {% endif %}">
+              {{ nettoyage_interieur.get_tag_display }}
+             </td>
+
+
             <td class="border px-4 py-2">{{ nettoyage_interieur.tech_nom_technicien }}</td>
             <td class="border px-4 py-2">{{ nettoyage_interieur.date }}</td>
             <td class="border px-4 py-2 text-center">

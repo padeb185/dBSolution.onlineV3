@@ -90,23 +90,14 @@
             </td>
 
             <td class="border px-4 py-2">{{ pneu.kilometres_chassis }}</td>
-            {% if pneu.tag == 'VERT' %}
-            <td class="border px-4 py-2 text-center font-bold" style="background-color: #28a745; color: #28a745;">
-                {{ pneu.get_tag_display }}
-            </td>
-            {% elif pneu.tag == 'JAUNE' %}
-            <td class="border px-4 py-2 text-center font-bold" style="background-color: #ffc107; color: #ffc107;">
-                {{ pneu.get_tag_display }}
-            </td>
-            {% elif pneu.tag == 'ROUGE' %}
-            <td class="border px-4 py-2 text-center font-bold" style="background-color: #dc3545; color: #dc3545;">
-                {{ pneu.get_tag_display }}
-            </td>
-            {% else %}
-            <td class="border px-4 py-2 text-center font-bold" style="background-color: transparent; color: black;">
-                {{ pneu.get_tag_display }}
-            </td>
-            {% endif %}
+
+            <td class="border px-4 py-2 text-center font-bold
+               {% if pneu.tag == 'VERT' %}bg-green-100 text-green-800 border-green-300
+               {% elif pneu.tag == 'JAUNE' %} bg-[#FFEB3B]
+               {% elif pneu.tag == 'ROUGE' %}bg-red-100 text-red-800 border-red-300
+               {% endif %}">
+              {{ pneu.get_tag_display }}
+             </td>
 
             <td class="border px-4 py-2">{{ pneu.tech_nom_technicien }}</td>
             <td class="border px-4 py-2">{{ pneu.date }}</td>

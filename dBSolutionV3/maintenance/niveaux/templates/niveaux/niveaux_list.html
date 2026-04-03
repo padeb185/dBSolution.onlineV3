@@ -74,13 +74,14 @@
 
             <td class="border px-4 py-2">{{ niveau.kilometres_chassis }}</td>
 
-            <td class="border px-4 py-2 text-center font-bold"
-                {% if niveau.tag == 'VERT' %}style="background-color: #28a745; color: #28a745;"
-                {% elif niveau.tag == 'JAUNE' %}style="background-color: #ffc107; color: #ffc107;"
-                {% elif niveau.tag == 'ROUGE' %}style="background-color: #dc3545; color: #dc3545;"
-                {% else %}style="background-color: transparent; color: black;"{% endif %}>
-                {{ niveau.get_tag_display }}
+            <td class="border px-4 py-2 text-center font-bold
+               {% if niveau.tag == 'VERT' %}bg-green-100 text-green-800 border-green-300
+               {% elif niveau.tag == 'JAUNE' %} bg-[#FFEB3B]
+               {% elif niveau.tag == 'ROUGE' %}bg-red-100 text-red-800 border-red-300
+               {% endif %}">
+              {{ niveau.get_tag_display }}
             </td>
+
 
             <td class="border px-4 py-2">{{ niveau.tech_nom_technicien }}</td>
             <td class="border px-4 py-2">{{ niveau.date|date:"d/m/Y" }}</td>

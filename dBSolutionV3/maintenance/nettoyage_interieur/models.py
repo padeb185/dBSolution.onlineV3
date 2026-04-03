@@ -95,7 +95,7 @@ class NettoyageInterieur(TechnicienMixin,models.Model):
         ("ROUGE", _("Rouge")),
     ]
 
-    tag_nettoyage_int = models.CharField(
+    tag = models.CharField(
         max_length=10,
         choices=TAG_CHOICES,
         default="JAUNE",

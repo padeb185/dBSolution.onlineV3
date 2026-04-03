@@ -74,15 +74,13 @@
 
             <td class="border px-4 py-2">{{ silent.kilometres_chassis }}</td>
 
-            <td class="border px-4 py-2 text-center font-bold"
-                {% if silent.tag == 'VERT' %}style="background-color: #28a745; color: #28a745;"
-                {% elif silent.tag == 'JAUNE' %}style="background-color: #ffc107; color: #ffc107;"
-                {% elif silent.tag == 'ROUGE' %}style="background-color: #dc3545; color: #dc3545;"
-                {% else %}style="background-color: transparent; color: black;"{% endif %}>
-
-                {{ silent.get_tag_display }}
-
-            </td>
+            <td class="border px-4 py-2 text-center font-bold
+               {% if silent.tag == 'VERT' %}bg-green-100 text-green-800 border-green-300
+               {% elif silent.tag == 'JAUNE' %} bg-[#FFEB3B]
+               {% elif silent.tag == 'ROUGE' %}bg-red-100 text-red-800 border-red-300
+               {% endif %}">
+              {{ silent.get_tag_display }}
+             </td>
 
             <td class="border px-4 py-2">{{ silent.tech_nom_technicien }}</td>
             <td class="border px-4 py-2">{{ silent.date|date:"d/m/Y" }}</td>

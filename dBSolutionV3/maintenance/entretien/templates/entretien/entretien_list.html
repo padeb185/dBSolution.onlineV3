@@ -88,23 +88,14 @@
             </td>
 
             <td class="border px-4 py-2">{{ entretien.kilometres_chassis }}</td>
-            {% if entretien.tag == 'VERT' %}
-            <td class="border px-4 py-2 text-center font-bold" style="background-color: #28a745; color: #28a745;">
-                {{ entretien.get_tag_display }}
+
+             <td class="border px-4 py-2 text-center font-bold
+               {% if entretien.tag == 'VERT' %}bg-green-100 text-green-800 border-green-300
+               {% elif entretien.tag == 'JAUNE' %} bg-[#FFEB3B]
+               {% elif entretien.tag == 'ROUGE' %}bg-red-100 text-red-800 border-red-300
+               {% endif %}">
+              {{ entretien.get_tag_display }}
             </td>
-            {% elif entretien.tag == 'JAUNE' %}
-            <td class="border px-4 py-2 text-center font-bold" style="background-color: #ffc107; color: #ffc107;">
-                {{ entretien.get_tag_display }}
-            </td>
-            {% elif entretien.tag == 'ROUGE' %}
-            <td class="border px-4 py-2 text-center font-bold" style="background-color: #dc3545; color: #dc3545;">
-                {{ entretien.get_tag_display }}
-            </td>
-            {% else %}
-            <td class="border px-4 py-2 text-center font-bold" style="background-color: transparent; color: black;">
-                {{ entretien.get_tag_display }}
-            </td>
-            {% endif %}
 
             <td class="border px-4 py-2">{{ entretien.tech_nom_technicien }}</td>
             <td class="border px-4 py-2">{{ entretien.date }}</td>
