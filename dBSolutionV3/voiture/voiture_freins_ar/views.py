@@ -100,46 +100,31 @@ def liste_freins_ar(request, societe_id=None):
 
 
 @login_required
-def modifier_freins_ar_view(request, frein_ar_id):
+def modifier_freins_ar_view(request, frein_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
-        # Récupérer l'assureur et son adresse liée
-        freins_ar = get_object_or_404(
-            VoitureFreinsAR.objects.select_related(),
-            id=frein_ar_id
-        )
+        freins_ar = get_object_or_404(VoitureFreinsAR, id=frein_id)
 
         if request.method == "POST":
-            # Formulaires pour frein et Adresse
             form_frein = VoitureFreinsARForm(request.POST, instance=freins_ar)
-
-
             if form_frein.is_valid():
-
-                frein_ar = form_frein.save(commit=False)
-
-                frein_ar.save()
-
+                form_frein.save()
                 messages.success(request, _("Freins arrière mis à jour avec succès."))
                 return redirect(
                     "voiture_freins_ar:modifier_freins_ar",
-                    frein_ar_id=frein_ar.id
+                    frein_id=freins_ar.id
                 )
             else:
                 messages.error(request, _("Le formulaire contient des erreurs."))
         else:
-            # Pré-remplissage des formulaires
             form_frein = VoitureFreinsARForm(instance=freins_ar)
-
 
     return render(
         request,
         "voiture_freins_ar/modifier_freins_ar.html",
         {
             "form": form_frein,
-            "frein": freins_ar,
-
+            "frein": freins_ar,  # utilisé dans le template
         }
     )
-

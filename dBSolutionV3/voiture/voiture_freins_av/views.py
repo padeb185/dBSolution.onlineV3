@@ -102,6 +102,9 @@ def ajouter_freins_av_simple(request):
 
         return render(request, "voiture_freins_av/ajouter_freins_simple.html")
 
+
+
+
 @login_required
 def modifier_freins_av_view(request, frein_av_id):
     tenant = request.user.societe
