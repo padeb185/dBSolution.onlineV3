@@ -128,28 +128,29 @@ class Electricite(models.Model):
         voiture = self.voiture_exemplaire if self.voiture_exemplaire_id else "N/A"
         return f"{voiture} – {self.date} – {self.kW} kW"
 
-
-
     def save(self, *args, **kwargs):
         # type carburant automatique
         self.type_carburant = TypeCarburant.ELECTRICITE
 
-        # Calcul du prix au kW si nécessaire
+        # Calcul du prix au kW
         if self.kW and (not self.prix_watt or self.prix_watt == 0):
             self.prix_watt = (Decimal(self.prix_recharge) / Decimal(self.kW)).quantize(
                 Decimal('0.0001'), rounding=ROUND_HALF_UP
             )
 
-        # Calcul du montant HT et TVA si pays défini et prix_recharge présent
-        if self.prix_recharge and hasattr(RechargeCarburant, "TVA_CARBURANT"):
-            tva_percent = RechargeCarburant.TVA_ELECTRICITE.get(self.pays, 0)
-            tva_decimal = Decimal(tva_percent) / Decimal('100')
+        # Calcul HT et TVA
+        tva_percent = RechargeCarburant.TVA_ELECTRICITE.get(self.pays or 'BE', 0)
+        tva_decimal = Decimal(tva_percent) / Decimal('100')
+        if self.prix_recharge:
             self.montant_ht = (Decimal(self.prix_recharge) / (Decimal('1') + tva_decimal)).quantize(
                 Decimal('0.01'), rounding=ROUND_HALF_UP
             )
             self.montant_tva = (Decimal(self.prix_recharge) - self.montant_ht).quantize(
                 Decimal('0.01'), rounding=ROUND_HALF_UP
             )
+        else:
+            self.montant_ht = Decimal('0.00')
+            self.montant_tva = Decimal('0.00')
 
         super().save(*args, **kwargs)
 
