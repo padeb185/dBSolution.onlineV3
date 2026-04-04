@@ -9,17 +9,25 @@
          style="width:60px; height:60px; margin-right:10px;">
     {% trans "Liste des modèles" %}
 </h1>
+<div>
+    <a href="{% url 'voiture_modele:ajouter_modele' %}"
+       class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-blue-500">
+        {% trans "Ajouter un modèle" %}
+    </a>
+</div>
+<br>
+<br>
 
 
 <div class="bg-white shadow-md rounded-lg p-4 mb-4">
     <div class="flex flex-wrap items-end gap-3">
         <input id="search-voiture_marque" type="text"
                class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Nom de la marque' %}">
+               placeholder="{% trans 'Marque' %}">
 
         <input id="search-nom_modele" type="text"
                class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Nom du modèle' %}">
+               placeholder="{% trans 'Modèle' %}">
 
         <input id="search-nom_variante" type="text"
                class="border rounded px-3 py-2 flex-1 min-w-[120px] focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -35,19 +43,11 @@
 
         <input id="search-taille_reservoir" type="text"
                class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Capacité du réservoir en litres' %}">
+               placeholder="{% trans 'Réservoir en litres' %}">
 
         <input id="search-capacite_batterie" type="text"
                class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Capacité de la batterie en kWh' %}">
-
-
-
-        <!-- Bouton sur la même ligne -->
-        <a href="{% url 'voiture_modele:ajouter_modele' %}"
-           class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-blue-500">
-            {% trans "Ajouter un modèle" %}
-        </a>
+               placeholder="{% trans 'Batterie en kWh' %}">
     </div>
 </div>
 
@@ -57,13 +57,13 @@
 <table id="voiture_modeles-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
     <thead>
         <tr class="bg-gray-100">
-            <th class="border px-4 py-2 cursor-pointer">{% trans "Nom de la marque" %}</th>
-            <th class="border px-4 py-2 cursor-pointer">{% trans "Nom du modèle" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Marque" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Modèle" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Variante" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Nombre de portes" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Nombre de places" %}</th>
-            <th class="border px-4 py-2 cursor-pointer">{% trans "Capacité du réservoir en litres" %}</th>
-            <th class="border px-4 py-2 cursor-pointer">{% trans "Capacité de la batterie en kWh" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Réservoir en L" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Batterie en kWh" %}</th>
             <th class="border px-4 py-2 cursor-pointer text-center">{% trans "Info" %}</th>
         </tr>
     </thead>
@@ -80,7 +80,7 @@
             <td class="border px-4 py-2">{{ voiture_modele.capacite_batterie }}</td>
             <td class="border px-4 py-2 text-center">
                 <a href="{% url 'voiture_modele:voiture_modele_detail' voiture_modele.id %}"
-                   class="text-blue-600 hover:text-blue-800 font-semibold">
+                    class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
                     {% trans "Info" %}
                 </a>
             </td>

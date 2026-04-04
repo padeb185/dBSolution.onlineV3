@@ -9,32 +9,32 @@
     <h1 class="text-2xl font-bold mb-6">{% trans "Marques de voiture" %}</h1>
 
 
-
-     <!-- Conteneur flex pour aligner sur la même ligne -->
+    <!-- Conteneur flex pour aligner sur la même ligne -->
     <div class="flex items-center gap-4 mb-6">
         <!-- Recherche -->
-        <div class="flex-1">
+        <div class="flex-1 gap-4">
             <input
                 type="text"
                 id="search-marque"
-                class="border rounded-lg gap-2 px-4 py-2 w-full"
+                class="border rounded-lg px-4 py-2 w-full"
                 placeholder="{% trans 'Rechercher une marque...' %}"
             >
         </div>
 
-        <!-- Bouton marques favorites -->
-        <div>
+        <!-- Boutons -->
+        <div class="flex-1 flex gap-4">
             <a href="{% url 'voiture_marque:marques_favorites' %}"
-               class="inline-flex items-center gap-2 px-4 py-2 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold rounded-lg transition">
+               class="flex-1 inline-flex justify-center items-center gap-2 px-4 py-2 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold rounded-lg transition">
                 ⭐ {% trans "Mes marques favorites" %}
             </a>
-             <a href="{% url 'voiture_marque:ajouter_marque' %}"
-               class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition">
+        </div>
+        <div class="flex-1 flex gap-4">
+            <a href="{% url 'voiture_marque:ajouter_marque' %}"
+               class="flex-1 bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition">
                 {% trans "Ajouter une marque" %}
             </a>
         </div>
     </div>
-
 
     <!-- Marques -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
