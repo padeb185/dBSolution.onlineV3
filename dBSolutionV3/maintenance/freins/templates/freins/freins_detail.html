@@ -34,6 +34,13 @@
             </div>
 
             <p><strong>{% trans "Kilométrage" %} :</strong> {{ frein.kilometres_chassis }}</p>
+            <p><strong>{% trans "Disques avant" %} :</strong> {{ frein.avant_freins_d_epaisseur_disques }}</p>
+            <p><strong>{% trans "Plaquettes avant" %} :</strong> {{ frein.avant_freins_pl_usure_plaquettes }}</p>
+            <p><strong>{% trans "Disques arrière" %} :</strong> {{ frein.arriere_freins_d_epaisseur_disques }}</p>
+            <p><strong>{% trans "Plaquettes arrière" %} :</strong> {{ frein.arriere_freins_pl_usure_plaquettes }}</p>
+
+
+
             <p><strong>{% trans "Tag" %} :</strong> {{ frein.get_tag_display }}</p>
             <p><strong>{% trans "Technicien" %} :</strong> {{ frein.tech_nom_technicien }} ({{ frein.tech_role_technicien }})</p>
 
