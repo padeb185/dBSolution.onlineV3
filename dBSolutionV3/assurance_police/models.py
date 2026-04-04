@@ -34,6 +34,7 @@ class AssurancePolice(models.Model):
         'assurance.Assurance',
         on_delete=models.PROTECT,
         related_name='polices',
+        null=True,
         blank=True,
     )
 
@@ -115,8 +116,9 @@ class AssurancePolice(models.Model):
 
     remarques = models.TextField(null=True, blank=True)
 
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
+
 
     class Meta:
         ordering = ['-date_debut']
@@ -151,6 +153,9 @@ class AssurancePolice(models.Model):
 
         return total
 
+    @property
+    def adresse_assurance(self):
+        return self.assurance.adresse if self.assurance else None
 
 
 

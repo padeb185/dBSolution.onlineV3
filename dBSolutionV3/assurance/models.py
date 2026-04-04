@@ -38,9 +38,11 @@ class Assurance(models.Model):
         blank=True,
         related_name="assurances"
     )
+    remarques = models.TextField(_("Remarques"), blank=True, null=True)
 
-    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True)
-    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True)
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
+
 
     class Meta:
         verbose_name = _("Assurance")

@@ -44,9 +44,15 @@ class VoitureModele(models.Model):
     mois_debut = models.IntegerField(null=True, blank=True)
     mois_fin = models.IntegerField(null=True, blank=True)
 
+    remarques = models.TextField(
+        verbose_name=_("Remarques"),
+        blank=True,
+        null=True
+    )
 
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
+
 
     class Meta:
         constraints = [
@@ -67,7 +73,7 @@ class VoitureModele(models.Model):
 
             # Année début entre 1850 et année actuelle
             models.CheckConstraint(
-                check=Q(annee_debut__gte=1850, annee_debut__lte=now().year) | Q(annee_debut__isnull=True),
+                check=Q(annee_debut__gte=1940, annee_debut__lte=now().year) | Q(annee_debut__isnull=True),
                 name="annee_debut_valide",
             ),
 

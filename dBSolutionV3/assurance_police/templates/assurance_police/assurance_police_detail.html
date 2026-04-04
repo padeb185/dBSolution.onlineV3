@@ -34,9 +34,50 @@
                 <strong>{% trans "Compagnie" %} :</strong>
                 {{ assurance_police.assurance.nom_compagnie }}
             </p>
+             <p>
+                <strong>{% trans "Téléphone" %} :</strong>
+                {{ assurance_police.assurance.telephone }}
+            </p>
             <p>
                 <strong>{% trans "Immatriculation" %} :</strong>
-                {{ assurance_police.voiture_exemplaire.immatriculation }}
+                 {% with exemplaire=assurance_police.voiture_exemplaire %}
+                    {% if exemplaire.pays == 'Belgique' %}
+                    <div class="flex items-center w-[180px] h-[36px] bg-white border-2 border-[#8B0000] rounded font-[Arial]">
+                        <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                            <span>🇪🇺</span>
+                            <span>B</span>
+                        </div>
+                        <div class="w-full text-center font-bold text-[#8B0000] text-[18px]">
+                            {{ exemplaire.immatriculation|upper }}
+                        </div>
+                    </div>
+
+                    {% elif exemplaire.pays == 'Luxembourg' %}
+                    <div class="flex items-center w-[180px] h-[36px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial]">
+                        <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                            <span>🇪🇺</span>
+                            <span>L</span>
+                        </div>
+                        <div class="w-full text-center font-bold text-black text-[18px]">
+                            {{ exemplaire.immatriculation|upper }}
+                        </div>
+                    </div>
+
+                    {% elif exemplaire.pays == 'Allemagne' %}
+                    <div class="flex items-center w-[180px] h-[36x] bg-white border-2 border-black rounded font-[Arial]">
+                        <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                            <span>🇪🇺</span>
+                            <span>D</span>
+                        </div>
+                        <div class="w-full text-center font-bold text-black text-[18px]">
+                            {{ exemplaire.immatriculation|upper }}
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endwith %}
+
+
+
             </p>
             <p>
                 <strong>{% trans "Numéro de Police" %} :</strong>
@@ -64,25 +105,25 @@
         <!-- Peppol -->
         <div class="bg-white shadow-md rounded-lg p-6">
             <h2 class="text-lg font-semibold mb-4">
-                {% trans "Informations Peppol" %}
+                {% trans "Informations" %}
             </h2>
 
             <p>
-                <strong>{% trans "Identifiant Peppol" %} :</strong><br>
-                {{ assurance.peppol_id }}
+                <strong>{% trans "Remarques" %} :</strong><br>
+                {{ assurance_police.remarques }}
             </p>
 
         </div>
     </div>
 
     <!-- Adresse -->
-    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+   <div class="bg-white shadow-md rounded-lg p-6 mb-6">
         <h2 class="text-lg font-semibold mb-4">
-            {% trans "Adresse" %}
+            {% trans "Adresse de l'assureur" %}
         </h2>
 
-        {% if assurance.adresse %}
-            <p>{{ assurance.adresse }}</p>
+        {% if assurance_police.adresse_assurance %}
+            <p>{{ assurance_police.adresse_assurance }}</p>
         {% else %}
             <p class="text-gray-500">
                 {% trans "Aucune adresse renseignée." %}
@@ -98,7 +139,11 @@
 
         <p>
             <strong>{% trans "Créé le" %} :</strong>
-            {{ assurance.created_at|date:"d/m/Y H:i" }}
+            {{ assurance_police.created_at|date:"d/m/Y H:i" }}
+        </p>
+        <p>
+            <strong>{% trans "Mis à jour le" %} :</strong>
+            {{ assurance_police.updated_at|date:"d/m/Y H:i" }}
         </p>
     </div>
 
