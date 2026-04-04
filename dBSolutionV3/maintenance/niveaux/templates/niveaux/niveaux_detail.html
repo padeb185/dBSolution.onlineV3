@@ -13,10 +13,6 @@
             <span>{% trans "Détails du contrôle des Niveaux" %}</span>
         </h1>
 
-        <a href="{% url 'niveaux:niveaux_list' exemplaire.id %}"
-           class="text-blue-600 hover:underline">
-            {% trans "Retour à la liste des niveaux" %}
-        </a>
     </div>
 
     <!-- Infos principales -->
@@ -26,16 +22,30 @@
         <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
             <h2 class="text-lg font-semibold mb-2">{% trans "Informations générales" %}</h2>
 
-            <p><strong>{% trans "Immatriculation" %} :</strong> {{ niveau.voiture_exemplaire.immatriculation }}</p>
+            <p><strong>{% trans "Immatriculation" %} :</strong>
+                 <div class="mb-4">
+                    {% include "fuel/partials/plaque.html" %}
+                </div>
+            </p>
             <p><strong>{% trans "Kilométrage" %} :</strong> {{ niveau.kilometres_chassis }}</p>
             <p><strong>{% trans "Tag" %} :</strong> {{ niveau.get_tag_display }}</p>
-            <p><strong>{% trans "Technicien" %} :</strong> {{ niveau.tech_nom_technicien }} ({{ niveaux.tech_role_technicien }})</p>
+            <p><strong>{% trans "Technicien" %} :</strong> {{ niveau.tech_nom_technicien }} {{ niveau.tech_role_technicien }}</p>
         </div>
 
         <!-- Maintenance / Niveaux -->
         <div class="bg-white shadow-md rounded-lg p-6">
             <h2 class="text-lg font-semibold mb-4">{% trans "Niveaux" %}</h2>
-            <p><strong>{% trans "Date de l'intervention" %} :</strong> {{ niveau.maintenance.date_intervention|date:"d/m/Y" }}</p>
+             <p><strong>{% trans "Ajout d'huile moteur" %} :</strong> {{ niveau.moteur_niveau_huile_quantite }}</p>
+             <p><strong>{% trans "Ajout d'huile boite" %} :</strong> {{ niveau.boite_niveau_huile_quantite }}</p>
+             <p><strong>{% trans "Ajout d'huile pont" %} :</strong> {{ niveau.pont_niveau_huile_quantite }}</p>
+             <p><strong>{% trans "Ajout de liquide de freins" %} :</strong> {{ niveau.frein_liquide_quantite }}</p>
+             <p><strong>{% trans "Ajout de liquide de refroidissement" %} :</strong> {{ niveau.refroidissement_quantite }}</p>
+             <p><strong>{% trans "Ajout de lave-glace" %} :</strong> {{ niveau.lave_glace_quantite }}</p>
+
+            <br>
+            <br>
+
+            <p><strong>{% trans "Remarques" %} :</strong> {{ niveau.remarques }}</p>
         </div>
 
         <!-- Bouton Modifier -->
@@ -48,10 +58,29 @@
         </div>
     </div>
 
+
+    <!-- Métadonnées -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">
+            {% trans "Métadonnées" %}
+        </h2>
+
+        <p>
+            <strong>{% trans "Créé le" %} :</strong>
+            {{ niveau.created_at|date:"d/m/Y H:i" }}
+        </p>
+        <p>
+            <strong>{% trans "Mis à jour le" %} :</strong>
+            {{ niveau.updated_at|date:"d/m/Y H:i" }}
+        </p>
+    </div>
+
+    <br>
+    <br>
     <!-- Actions -->
-    <div class="bg-white shadow-md rounded-lg p-6 flex gap-4">
-       <a href="{% url 'niveaux:niveaux_list' niveau.voiture_exemplaire.id %}">
-           class="text-blue-600 hover:underline">
+    <div>
+       <a href="{% url 'niveaux:niveaux_list' niveau.voiture_exemplaire.id %}"
+             class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
             {% trans "Retour à la liste des niveaux" %}
        </a>
     </div>

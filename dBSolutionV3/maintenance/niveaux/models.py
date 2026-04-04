@@ -5,7 +5,11 @@ from django.core.exceptions import ValidationError
 from piece.piece_fluides.models import InventaireFluide
 from maintenance.models import Maintenance
 from utils.mixin import TechnicienMixin
+from django.core.exceptions import ValidationError
 
+def validate_step_0_1(value):
+    if round(value * 10) != value * 10:
+        raise ValidationError("La valeur doit être un multiple de 0.1")
 
 class NiveauxEtat(models.TextChoices):
     BON = "BON", _("Bon")
@@ -130,27 +134,27 @@ class Niveau(TechnicienMixin, models.Model):
 
 
     moteur_niveau_huile_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau d'huile"))
-    moteur_niveau_huile_quantite = models.FloatField(default=0, verbose_name=_("Quantité d'huile ajoutée en litres"))
+    moteur_niveau_huile_quantite = models.FloatField(default=0, verbose_name=_("Quantité d'huile ajoutée en litres"), validators=[validate_step_0_1])
     moteur_niveau_huile_qualite = models.CharField(max_length=25, choices=HuileEtat.choices, default=HuileEtat.ZERO_30, verbose_name=_("Qualité d'huile"))
 
     boite_niveau_huile_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau d'huile"))
-    boite_niveau_huile_quantite = models.FloatField(default=0, verbose_name=_("Quantité d'huile ajoutée en litres"))
+    boite_niveau_huile_quantite = models.FloatField(default=0, verbose_name=_("Quantité d'huile ajoutée en litres"), validators=[validate_step_0_1])
     boite_niveau_huile_qualite = models.CharField(max_length=25, choices=HuileBoiteEtat.choices,default=HuileBoiteEtat.SEPTANTE_CINQ,verbose_name=_("Qualité d'huile"))
 
     pont_niveau_huile_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau d'huile"))
-    pont_niveau_huile_quantite = models.FloatField(default=0, verbose_name=_("Quantité d'huile ajoutée en litres"))
+    pont_niveau_huile_quantite = models.FloatField(default=0, verbose_name=_("Quantité d'huile ajoutée en litres"),validators=[validate_step_0_1])
     pont_niveau_huile_qualite = models.CharField(max_length=25, choices=HuilePontEtat.choices,default=HuilePontEtat.SEPTANTE_CINQ140,verbose_name=_("Qualité d'huile"))
 
     refroidissement_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de refroidissement"))
-    refroidissement_quantite = models.FloatField(default=0, verbose_name=_("Quantité de liquide de refroidissement ajoutée en litres"))
+    refroidissement_quantite = models.FloatField(default=0, verbose_name=_("Quantité de liquide de refroidissement ajoutée en litres"),validators=[validate_step_0_1])
     refroidissement_qualite = models.CharField(max_length=25, choices=RefroidissementQualiteEtat.choices,default=RefroidissementQualiteEtat.G13,verbose_name=_("Qualité de liquide de refroidissement"))
 
     frein_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de freins"))
-    frein_liquide_quantite = models.FloatField(default=0, verbose_name=_("Quantité de liquide de freins ajoutée en litres"))
+    frein_liquide_quantite = models.FloatField(default=0, verbose_name=_("Quantité de liquide de freins ajoutée en litres"), validators=[validate_step_0_1] )
     frein_liquide_qualite = models.CharField(max_length=25, choices=LiquideFreinsQualite.choices,default=LiquideFreinsQualite.DOT4,verbose_name=_("Qualité de liquide de freins"))
 
     lave_glace_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de lave-glace"))
-    lave_glace_quantite = models.FloatField(default=0,verbose_name=_("Quantité de liquide de lave glace ajoutée en litres"))
+    lave_glace_quantite = models.FloatField(default=0,verbose_name=_("Quantité de liquide de lave glace ajoutée en litres"), validators=[validate_step_0_1])
     lave_glace_qualite = models.CharField(max_length=25, choices=LaveGlaceQualite.choices,default=LaveGlaceQualite.HIVER,verbose_name=_("Qualité de liquide de lave glace"))
 
     remarques = models.TextField(
@@ -204,6 +208,10 @@ class Niveau(TechnicienMixin, models.Model):
         related_name="niveaux_tech_societe"
     )
 
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
+
+
 
     def assign_technicien(self, user):
         self.tech_technicien = user
@@ -252,3 +260,4 @@ class Niveau(TechnicienMixin, models.Model):
             self.assign_technicien(self._user)
 
         super().save(*args, **kwargs)
+

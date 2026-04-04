@@ -10,6 +10,13 @@ class NiveauForm(forms.ModelForm):
         fields = "__all__"
         widgets = {
             'maintenance': forms.HiddenInput(),
+
+            'lave_glace_quantite': forms.NumberInput(attrs={'step': '0.1'}),
+            'frein_liquide_quantite': forms.NumberInput(attrs={'step': '0.1'}),
+            'refroidissement_quantite': forms.NumberInput(attrs={'step': '0.1'}),
+            'pont_niveau_huile_quantite': forms.NumberInput(attrs={'step': '0.1'}),
+            'boite_niveau_huile_quantite': forms.NumberInput(attrs={'step': '0.1'}),
+            'moteur_niveau_huile_quantite': forms.NumberInput(attrs={'step': '0.1'}),
             'remarques': forms.Textarea(attrs={
                 'rows': 4,
                 'placeholder': _("Ajoutez des remarques ici...")
