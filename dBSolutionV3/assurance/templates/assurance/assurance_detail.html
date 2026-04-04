@@ -18,10 +18,7 @@
            <span class="text-black-700">{{ assurance.nom_compagnie }}</span>
         </h1>
 
-        <a href="{% url 'assurance:assurance_list' %}"
-           class="text-blue-600 hover:underline">
-            {% trans "Retour à la liste des assurances" %}
-        </a>
+
     </div>
 
     <!-- Infos principales -->
@@ -68,13 +65,19 @@
         <!-- Peppol -->
         <div class="bg-white shadow-md rounded-lg p-6">
             <h2 class="text-lg font-semibold mb-4">
-                {% trans "Informations Peppol" %}
+                {% trans "Autres informations" %}
             </h2>
 
             <p>
                 <strong>{% trans "Identifiant Peppol" %} :</strong><br>
                 {{ assurance.peppol_id }}
             </p>
+
+              <p>
+                <strong>{% trans "Remarques" %} :</strong><br>
+                {{ assurance.remarques }}
+            </p>
+
 
         </div>
     </div>
@@ -113,13 +116,12 @@
 
 
     <!-- Actions -->
-    <div class="bg-white shadow-md rounded-lg p-6 flex gap-4">
-        <a href="{% url 'assurance:assurance_list' %}" class="flex-1">
-              <button type="button" class="bg-blue-700 text-white px-4 py-2 rounded w-full mt-4">
-                    {% trans "Retour à la liste des assureurs" %}
-              </button>
-        </a>
-    </div>
+
+    <a href="{% url 'assurance:assurance_list' %}" class="flex-1">
+        <button type="button" class="bg-blue-700 text-white px-4 py-2 rounded mt-4">
+            {% trans "Retour à la liste des assureurs" %}
+        </button>
+    </a>
 
 </div>
 {% endblock %}

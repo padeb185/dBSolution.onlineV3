@@ -10,6 +10,15 @@
     {% trans "Liste des moteurs" %}
 </h1>
 
+<div>
+     <a href="{% url 'voiture_moteur:ajouter_moteur_seul' %}"
+        class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition">
+         {% trans "Ajouter un moteur" %}
+     </a>
+</div>
+<br>
+<br>
+
 <!-- Filtres + bouton Ajouter -->
 <div class="bg-white shadow-md rounded-lg p-4 mb-4">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
@@ -19,11 +28,8 @@
                placeholder="{% trans 'Rechercher par code moteur' %}">
         <input id="search-cylindree_l" type="text" class="border rounded px-3 py-2"
                placeholder="{% trans 'Rechercher par cylindrée' %}">
-
-        <a href="{% url 'voiture_moteur:ajouter_moteur_seul' %}"
-           class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition">
-            {% trans "Ajouter un moteur" %}
-        </a>
+         <input id="search-puissance_ch" type="text" class="border rounded px-3 py-2"
+               placeholder="{% trans 'Rechercher par puissance ch' %}">
     </div>
 </div>
 
@@ -54,7 +60,7 @@
 
             <td class="border px-4 py-2 text-center">
                 <a href="{% url 'voiture_moteur:detail' moteur.id %}"
-                   class="text-blue-600 hover:text-blue-800 font-semibold">
+                    class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
                     {% trans "Info" %}
                 </a>
             </td>
@@ -67,11 +73,22 @@
     </tbody>
 </table>
 
+
+<br>
+<br>
+
+<div>
+    <a href="{% url 'utilisateurs:dashboard' %}"
+       class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-blue-500">
+        {% trans "Retour au tableau de bord" %}
+    </a>
+</div>
+
 <!-- DataTables JS -->
 <script>
 $(document).ready(function() {
     var table = $('#moteurs-table').DataTable({
-        pageLength: 100,
+        pageLength: 50,
         language: {
             search: "{% trans 'Recherche :' %}",
             lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
@@ -93,7 +110,14 @@ $(document).ready(function() {
         if ($input.length) {
             $input.on('keyup change', function() {
                 var val = $.trim(this.value);
-                table.column(columnIndex).search(val, true, false, true).draw();
+
+                if (val) {
+                    table.column(columnIndex)
+                         .search('^' + val + '$', true, false)
+                         .draw();
+                } else {
+                    table.column(columnIndex).search('').draw();
+                }
             });
         }
     }
@@ -102,6 +126,7 @@ $(document).ready(function() {
     bindColumnFilter('#search-motoriste', 0);
     bindColumnFilter('#search-code_moteur', 1);
     bindColumnFilter('#search-cylindree_l', 2);
+    bindColumnFilter('#search-puissance_ch', 6);
 
     // Filtre pour "Motoriste" -> colonne 0
     $('#search-motoriste').on('keyup change', function () {
@@ -117,6 +142,7 @@ $(document).ready(function() {
     $('#search-cylindree_l').on('keyup change', function () {
         table.column(2).search(this.value).draw();
     });
+
 });
 </script>
 {% endblock %}
