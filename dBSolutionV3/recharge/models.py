@@ -18,6 +18,14 @@ class RechargeCarburant(models.Model):
         ('DE', _("Allemagne")),
     ]
 
+    # Mapping pays → TVA carburant
+    TVA_ELECTRICITE = {
+        'BE': 21,
+        'LU': 17,
+        'DE': 19,
+    }
+
+
 class Electricite(models.Model):
     id = models.UUIDField(
         primary_key=True,
@@ -63,9 +71,11 @@ class Electricite(models.Model):
     )
 
     immatriculation = models.CharField(max_length=20, verbose_name=_("Immatriculation"))
+
     type_carburant = models.CharField(
         max_length=15,
         choices=TypeCarburant.choices,
+        default=TypeCarburant.ELECTRICITE,
         verbose_name=_("Type de carburant"),
 
     )
@@ -98,6 +108,11 @@ class Electricite(models.Model):
 
     montant_tva = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_("TVA"), blank=True, null=True)
 
+
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
+
+
     nom_station = models.CharField(
         max_length=100,
         null=True,
@@ -127,7 +142,7 @@ class Electricite(models.Model):
 
         # Calcul du montant HT et TVA si pays défini et prix_recharge présent
         if self.prix_recharge and hasattr(RechargeCarburant, "TVA_CARBURANT"):
-            tva_percent = RechargeCarburant.TVA_CARBURANT.get(self.pays, 0)
+            tva_percent = RechargeCarburant.TVA_ELECTRICITE.get(self.pays, 0)
             tva_decimal = Decimal(tva_percent) / Decimal('100')
             self.montant_ht = (Decimal(self.prix_recharge) / (Decimal('1') + tva_decimal)).quantize(
                 Decimal('0.01'), rounding=ROUND_HALF_UP

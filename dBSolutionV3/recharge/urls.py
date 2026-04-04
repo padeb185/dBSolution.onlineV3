@@ -16,7 +16,6 @@ app_name = "recharge"
 
 urlpatterns = [
 
-    # 📊 STATS (mettre en haut = bonne pratique)
     path("stats/", ElectriciteStatView.as_view(), name="electricite_stat"),
 
     path("recharge/", ElectriciteListView.as_view(), name="recharge_list"),

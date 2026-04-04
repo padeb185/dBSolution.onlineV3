@@ -14,9 +14,7 @@
                      onerror="this.src='{% static 'icons/voyage.png' %}';">
             {% endwith %}
             <span>{% trans "Détails des recharges électriques :" %}</span>
-           <div class="mb-4">
-                {% include "recharge/partials/plaque.html" %}
-           </div>
+
 
         </h1>
 
@@ -37,7 +35,9 @@
 
             <p>
                 <strong>{% trans "Immatriculation" %} :</strong>
-                {{ electricite.immatriculation }}
+                     <div class="mb-4">
+                    {% include "recharge/partials/plaque.html" %}
+                    </div>
             </p>
             <p>
                 <strong>{% trans "Kilomètres" %} :</strong>
