@@ -3,7 +3,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from django.db.models import Sum
-from decimal import Decimal
+from decimal import Decimal, ROUND_HALF_UP
 from utilisateurs.models import Utilisateur
 
 
@@ -113,14 +113,28 @@ class Electricite(models.Model):
         voiture = self.voiture_exemplaire if self.voiture_exemplaire_id else "N/A"
         return f"{voiture} – {self.date} – {self.kW} kW"
 
-    def save(self, *args, **kwargs):
 
+
+    def save(self, *args, **kwargs):
         # type carburant automatique
         self.type_carburant = TypeCarburant.ELECTRICITE
 
-        # calcul du prix au kW si nécessaire
-        if not self.prix_watt and self.kW:
-            self.prix_watt = Decimal(self.prix_recharge) / Decimal(self.kW)
+        # Calcul du prix au kW si nécessaire
+        if self.kW and (not self.prix_watt or self.prix_watt == 0):
+            self.prix_watt = (Decimal(self.prix_recharge) / Decimal(self.kW)).quantize(
+                Decimal('0.0001'), rounding=ROUND_HALF_UP
+            )
+
+        # Calcul du montant HT et TVA si pays défini et prix_recharge présent
+        if self.prix_recharge and hasattr(RechargeCarburant, "TVA_CARBURANT"):
+            tva_percent = RechargeCarburant.TVA_CARBURANT.get(self.pays, 0)
+            tva_decimal = Decimal(tva_percent) / Decimal('100')
+            self.montant_ht = (Decimal(self.prix_recharge) / (Decimal('1') + tva_decimal)).quantize(
+                Decimal('0.01'), rounding=ROUND_HALF_UP
+            )
+            self.montant_tva = (Decimal(self.prix_recharge) - self.montant_ht).quantize(
+                Decimal('0.01'), rounding=ROUND_HALF_UP
+            )
 
         super().save(*args, **kwargs)
 

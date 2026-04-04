@@ -1,7 +1,6 @@
 from django.urls import path
-from .views import ElectriciteListView, ajouter_recharge_all, check_immatriculation, get_marques, get_modeles
-
-app_name = "recharge"
+from .views import ElectriciteListView, ajouter_recharge_all, check_immatriculation, get_marques, get_modeles, \
+    ElectriciteStatView
 from django.urls import path
 from .views import (
     ElectriciteListView,
@@ -16,6 +15,10 @@ from .views import (
 app_name = "recharge"
 
 urlpatterns = [
+
+    # 📊 STATS (mettre en haut = bonne pratique)
+    path("stats/", ElectriciteStatView.as_view(), name="electricite_stat"),
+
     path("recharge/", ElectriciteListView.as_view(), name="recharge_list"),
 
     path("recharge/formulaire/", ajouter_recharge_all, name="ajouter_recharge_all"),
@@ -32,7 +35,6 @@ urlpatterns = [
         name="modifier_electricite",
     ),
 
-    path("stats/", ElectriciteListView.as_view(), name="electricite_stat"),
 
     path("ajax/check-immatriculation/", check_immatriculation, name="check_immatriculation"),
     path("ajax/get-marques/", get_marques, name="get_marques"),

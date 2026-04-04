@@ -2,7 +2,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum, Count, FloatField, Value, ExpressionWrapper, F, When, Case, Max, Min, Avg
-from django.db.models.functions import TruncYear, TruncMonth
+from django.db.models.functions import TruncYear, TruncMonth, Coalesce
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.decorators import method_decorator
@@ -259,7 +259,16 @@ def get_modeles(request):
 
 
 
-class ElectriciteStatView(LoginRequiredMixin, TemplateView):
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.views.generic import TemplateView
+from django.db.models import Count, Sum, Min, Max, F, FloatField, Value, Case, When, ExpressionWrapper
+from django.db.models.functions import Coalesce, TruncMonth, TruncYear
+
+from .models import Electricite
+
+@method_decorator([login_required, never_cache], name="dispatch")
+class ElectriciteStatView(TemplateView):
     template_name = "recharge/electricite_stat.html"
 
     def get_context_data(self, **kwargs):
@@ -271,19 +280,134 @@ class ElectriciteStatView(LoginRequiredMixin, TemplateView):
             "voiture_exemplaire__voiture_modele__voiture_marque",
         )
 
+        # -----------------------------
         # 📊 Statistiques globales
+        # -----------------------------
         global_stats = electricites.aggregate(
-            total_recharges=Count("id"),
-            total_kW=Sum("kW"),  # <-- ancien total_litres
-            total_cout=Sum("prix_recharge"),
+            total_recharges=Coalesce(Count("id"), 0),
+            total_kW=Coalesce(Sum("kW"), 0),
+            total_cout=Coalesce(Sum("prix_recharge"), 0),
+            total_tva=Coalesce(Sum("montant_tva"), 0),
+        )
+
+        # Prix moyen par kW calculé en Python pour éviter les erreurs de type
+        total_kW = float(global_stats["total_kW"])
+        total_cout = float(global_stats["total_cout"])
+        global_stats["prix_moyen_kW"] = total_cout / total_kW if total_kW > 0 else 0.0
+        context["global"] = global_stats
+
+        # -----------------------------
+        # 🚗 Stats par voiture
+        # -----------------------------
+        par_voiture_queryset = electricites.values(
+            "voiture_exemplaire__id",
+            "voiture_exemplaire__voiture_modele__nom_modele",
+            "voiture_exemplaire__voiture_modele__voiture_marque__nom_marque",
+            "voiture_exemplaire__immatriculation",
+            "voiture_exemplaire__pays",
+        ).annotate(
+            nb_recharges=Count("id"),
+            total_kW=Coalesce(Sum("kW"), 0),
+            total_cout=Coalesce(Sum("prix_recharge"), 0),
+            km_min=Min("kilometrage_electricite"),
+            km_max=Max("kilometrage_electricite"),
+        ).annotate(
+            km_parcourus=ExpressionWrapper(F("km_max") - F("km_min"), output_field=FloatField())
+        )
+
+        # Calcul Python pour toutes les métriques dérivées
+        par_voiture = []
+        for v in par_voiture_queryset:
+            total_kW = float(v["total_kW"])
+            total_cout = float(v["total_cout"])
+            km_parcourus = float(v["km_parcourus"])
+            v["conso_moyenne"] = (total_kW * 100 / km_parcourus) if km_parcourus > 0 else 0.0
+            v["cout_km"] = (total_cout / km_parcourus) if km_parcourus > 0 else 0.0
+            v["prix_moyen_kW"] = (total_cout / total_kW) if total_kW > 0 else 0.0
+            par_voiture.append(v)
+
+        context["par_voiture"] = par_voiture
+
+        # -----------------------------
+        # 📅 Stats par mois
+        # -----------------------------
+        par_mois = (
+            electricites.annotate(mois=TruncMonth("date"))
+            .values("mois")
+            .annotate(
+                nb_recharges=Count("id"),
+                total_kW=Coalesce(Sum("kW"), 0),
+                total_cout=Coalesce(Sum("prix_recharge"), 0),
+            )
+            .order_by("mois")
+        )
+        context["par_mois"] = par_mois
+
+        # -----------------------------
+        # 📅 Stats par année
+        # -----------------------------
+        par_an = (
+            electricites.annotate(an=TruncYear("date"))
+            .values("an")
+            .annotate(
+                nb_recharges=Count("id"),
+                total_kW=Coalesce(Sum("kW"), 0),
+                total_cout=Coalesce(Sum("prix_recharge"), 0),
+            )
+            .order_by("an")
+        )
+        context["par_an"] = par_an
+
+        return context
+
+
+
+from django.views.generic import TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Sum, Count, Avg, Min, Max, F, ExpressionWrapper, FloatField, Case, When, Value
+from django.db.models.functions import TruncMonth, TruncYear
+from recharge.models import Electricite
+
+class FuelStatView(LoginRequiredMixin, TemplateView):
+    template_name = "recharge/electricite_stat.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        recharges = Electricite.objects.select_related(
+            "voiture_exemplaire",
+            "voiture_exemplaire__voiture_modele",
+            "voiture_exemplaire__voiture_modele__voiture_marque",
+        )
+
+        # 📊 Statistiques globales
+        global_stats = recharges.aggregate(
+            total_litres=Sum("litres"),
+            total_cout=Sum("prix_refuelling"),
             total_tva=Sum("montant_tva"),
-            prix_moyen_kW=Avg("prix_kW"),  # <-- ancien prix_moyen_litre
+            prix_moyen_litre=Avg("prix_litre"),
+            total_pleins=Count("id"),
         )
         context["global"] = global_stats
 
+        # 🔹 Totaux TVA par pays
+        PAYS_CHOICES = [
+            ('BE', "Belgique"),
+            ('LU', "Luxembourg"),
+            ('DE', "Allemagne"),
+        ]
+        totaux_par_pays = {}
+        for code, _ in PAYS_CHOICES:
+            totaux_par_pays[code] = fuels.filter(pays=code).aggregate(total=Sum("montant_tva"))["total"] or 0
+        context["totaux_par_pays"] = totaux_par_pays
+
+        # 🔹 Total TVA global
+        total_global = fuels.aggregate(total=Sum("montant_tva"))["total"] or 0
+        context["total_global"] = total_global
+
         # 🚗 Stats par voiture
         par_voiture = (
-            electricites.values(
+            fuels.values(
                 "voiture_exemplaire__id",
                 "voiture_exemplaire__voiture_modele__nom_modele",
                 "voiture_exemplaire__voiture_modele__voiture_marque__nom_marque",
@@ -291,12 +415,12 @@ class ElectriciteStatView(LoginRequiredMixin, TemplateView):
                 "voiture_exemplaire__pays",
             )
             .annotate(
-                nb_recharges=Count("id"),
-                total_kW=Sum("kW"),  # <-- ancien total_litres
-                total_cout=Sum("prix_recharge"),
-                prix_moyen_kW=Avg("prix_kW"),  # <-- ancien prix_moyen_litre
-                km_min=Min("kilometrage_electricite"),
-                km_max=Max("kilometrage_electricite"),
+                total_litres=Sum("litres"),
+                total_cout=Sum("prix_refuelling"),
+                prix_moyen_litre=Avg("prix_litre"),
+                nb_pleins=Count("id"),
+                km_min=Min("kilometrage_fuel"),
+                km_max=Max("kilometrage_fuel"),
             )
             .annotate(
                 km_parcourus=F("km_max") - F("km_min"),
@@ -306,7 +430,7 @@ class ElectriciteStatView(LoginRequiredMixin, TemplateView):
                     When(
                         km_parcourus__gt=0,
                         then=ExpressionWrapper(
-                            F("total_kW") * 100.0 / F("km_parcourus"),
+                            F("total_litres") * 100.0 / F("km_parcourus"),
                             output_field=FloatField(),
                         ),
                     ),
@@ -331,12 +455,12 @@ class ElectriciteStatView(LoginRequiredMixin, TemplateView):
 
         # 📅 Stats par mois
         par_mois = (
-            electricites.annotate(mois=TruncMonth("date"))
+            fuels.annotate(mois=TruncMonth("date"))
             .values("mois")
             .annotate(
-                nb_recharges=Count("id"),
-                total_kW=Sum("kW"),
-                total_cout=Sum("prix_recharge"),
+                total_litres=Sum("litres"),
+                total_cout=Sum("prix_refuelling"),
+                nb_pleins=Count("id"),
             )
             .order_by("mois")
         )
@@ -344,12 +468,12 @@ class ElectriciteStatView(LoginRequiredMixin, TemplateView):
 
         # 📅 Stats par année
         par_an = (
-            electricites.annotate(an=TruncYear("date"))
+            fuels.annotate(an=TruncYear("date"))
             .values("an")
             .annotate(
-                nb_recharges=Count("id"),
-                total_kW=Sum("kW"),
-                total_cout=Sum("prix_recharge"),
+                total_litres=Sum("litres"),
+                total_cout=Sum("prix_refuelling"),
+                nb_pleins=Count("id"),
             )
             .order_by("an")
         )
