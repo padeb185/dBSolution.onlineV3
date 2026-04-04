@@ -290,6 +290,21 @@ class ElectriciteStatView(TemplateView):
             total_recharges=Count("id"),
         )
 
+        # 🔹 Totaux TVA par pays
+        PAYS_CHOICES = [
+            ('BE', "Belgique"),
+            ('LU', "Luxembourg"),
+            ('DE', "Allemagne"),
+        ]
+        totaux_par_pays = {}
+        for code, _ in PAYS_CHOICES:
+            totaux_par_pays[code] = electricites.filter(pays=code).aggregate(total=Sum("montant_tva"))["total"] or 0
+        context["totaux_par_pays"] = totaux_par_pays
+
+        # 🔹 Total TVA global
+        total_global = electricites.aggregate(total=Sum("montant_tva"))["total"] or 0
+        context["total_global"] = total_global
+
         # Calcul du prix moyen au kW (en Python pour éviter FieldError)
         total_kW = float(global_stats["total_kW"] or 0)
         total_cout = float(global_stats["total_cout"] or 0)
