@@ -47,6 +47,12 @@
             <input type="text" id="id_fabricant" name="fabricant" class="border rounded px-4 py-2 w-full">
         </div>
 
+        <div>
+            <label for="id_nom_du_type">{% trans "Nom du modèle de la boite" %}</label>
+            <input type="text" id="id_nom_du_type" name="nom_du_type" class="border rounded px-4 py-2 w-full">
+        </div>
+
+
         <div class="mb-4">
             <label for="id_type_de_boite" class="block mb-1">{% trans "Type de boîte" %}</label>
             <select id="id_type_de_boite" name="type_de_boite"
@@ -76,12 +82,25 @@
             <input type="text" id="id_quantite_huile_l" name="quantite_huile_l" class="border rounded px-4 py-2 w-full">
         </div>
 
-        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded w-full">
-            {% trans "Ajouter" %}
-        </button>
+         <div class="flex gap-3 mt-6">
+                <button type="submit"
+                        class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+                    {% trans "Enregistrer" %}
+                </button>
+
+                <a href="{% url 'voiture_boite:list' %}"
+                   class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
+                    {% trans "Annuler" %}
+                </a>
+          </div>
     </form>
 </div>
-
+<div>
+    <a href="{% url 'voiture_boite:list' %}"
+        class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour a la liste des boites" %}
+    </a>
+</div>
 <script>
 function getCookie(name) {
     let cookieValue = null;

@@ -19,7 +19,7 @@
         </div>
 
         <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Nom du type" %}</label>
+            <label class="mb-1 font-medium">{% trans "Nom du modèle" %}</label>
             <input type="text" value="{{ boite.nom_du_type }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
         </div>
 
@@ -93,5 +93,12 @@
         </a>
 
     </form>
+</div>
+
+<div>
+    <a href="{% url 'voiture_boite:list' %}"
+        class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour a la liste des boites" %}
+    </a>
 </div>
 {% endblock %}

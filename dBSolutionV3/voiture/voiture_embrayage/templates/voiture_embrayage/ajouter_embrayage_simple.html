@@ -103,14 +103,25 @@
             <input type="text" id="id_date_creation" name="date_creation" class="border rounded px-4 py-2 w-full">
         </div>
 
+ <div class="flex gap-3 mt-6">
+                <button type="submit"
+                        class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+                    {% trans "Enregistrer" %}
+                </button>
 
-
-        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded w-full">
-            {% trans "Ajouter" %}
-        </button>
+                <a href="{% url 'voiture_embrayage:list' %}"
+                   class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
+                    {% trans "Annuler" %}
+                </a>
+          </div>
     </form>
 </div>
-
+<div>
+    <a href="{% url 'voiture_embrayage:list' %}"
+        class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour a la liste des embrayages" %}
+    </a>
+</div>
 <script>
 function getCookie(name) {
     let cookieValue = null;

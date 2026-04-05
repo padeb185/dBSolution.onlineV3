@@ -9,14 +9,15 @@
          style="width:60px; height:60px; margin-right:10px;">
     {% trans "Liste des moteurs" %}
 </h1>
-
+<br>
 <div class="mb-4">
     <a href="{% url 'voiture_moteur:ajouter_moteur_seul' %}"
-       class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition">
+        class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
         {% trans "Ajouter un moteur" %}
     </a>
 </div>
-
+<br>
+<br>
 <!-- Filtres sur une ligne -->
 <div class="bg-white shadow-md rounded-lg p-4 mb-4 overflow-x-auto">
     <div class="grid grid-cols-5 gap-4 items-end min-w-full">
@@ -71,11 +72,11 @@
         {% endfor %}
     </tbody>
 </table>
-
+<br>
 <br>
 <div>
     <a href="{% url 'utilisateurs:dashboard' %}"
-       class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-blue-500">
+       class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
         {% trans "Retour au tableau de bord" %}
     </a>
 </div>
