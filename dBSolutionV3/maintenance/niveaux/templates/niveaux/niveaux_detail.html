@@ -35,13 +35,45 @@
         <!-- Maintenance / Niveaux -->
         <div class="bg-white shadow-md rounded-lg p-6">
             <h2 class="text-lg font-semibold mb-4">{% trans "Niveaux" %}</h2>
-             <p><strong>{% trans "Ajout d'huile moteur" %} :</strong> {{ niveau.moteur_niveau_huile_quantite }}</p>
-             <p><strong>{% trans "Ajout d'huile boite" %} :</strong> {{ niveau.boite_niveau_huile_quantite }}</p>
-             <p><strong>{% trans "Ajout d'huile pont" %} :</strong> {{ niveau.pont_niveau_huile_quantite }}</p>
-             <p><strong>{% trans "Ajout de liquide de freins" %} :</strong> {{ niveau.frein_liquide_quantite }}</p>
-             <p><strong>{% trans "Ajout de liquide de refroidissement" %} :</strong> {{ niveau.refroidissement_quantite }}</p>
-             <p><strong>{% trans "Ajout de lave-glace" %} :</strong> {{ niveau.lave_glace_quantite }}</p>
+             <p><strong>{% trans "Ajout d'huile moteur" %} :</strong>
+                 <span class="{% if niveau.moteur_niveau_huile_quantite > 0 %}text-green-600{% endif %}">
+                    {{ niveau.moteur_niveau_huile_quantite }}
+                </span>
+             </p>
+            <p>
+                <strong>{% trans "Ajout d'huile boite" %} :</strong>
+                <span class="{% if niveau.boite_niveau_huile_quantite > 0 %}text-green-600{% else %}text-red-600{% endif %}">
+                    {{ niveau.boite_niveau_huile_quantite }}
+                </span>
+            </p>
 
+            <p>
+                <strong>{% trans "Ajout d'huile pont" %} :</strong>
+                <span class="{% if niveau.pont_niveau_huile_quantite > 0 %}text-green-600{% else %}text-red-600{% endif %}">
+                    {{ niveau.pont_niveau_huile_quantite }}
+                </span>
+            </p>
+
+            <p>
+                <strong>{% trans "Ajout de liquide de freins" %} :</strong>
+                <span class="{% if niveau.frein_liquide_quantite > 0 %}text-green-600{% else %}text-red-600{% endif %}">
+                    {{ niveau.frein_liquide_quantite }}
+                </span>
+            </p>
+
+            <p>
+                <strong>{% trans "Ajout de liquide de refroidissement" %} :</strong>
+                <span class="{% if niveau.refroidissement_quantite > 0 %}text-green-600{% else %}text-red-600{% endif %}">
+                    {{ niveau.refroidissement_quantite }}
+                </span>
+            </p>
+
+            <p>
+                <strong>{% trans "Ajout de lave-glace" %} :</strong>
+                <span class="{% if niveau.lave_glace_quantite > 0 %}text-green-600{% else %}text-red-600{% endif %}">
+                    {{ niveau.lave_glace_quantite }}
+                </span>
+            </p>
             <br>
             <br>
 
