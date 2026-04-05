@@ -70,6 +70,15 @@
     </form>
 
 </div>
+<br>
+<br>
+
+<div>
+                <a href="{% url 'voiture_modele:voiture_modele_detail' voiture_modele_id=voiture_modele.id %}"
+        class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+         {% trans "Retour à la liste des modèles" %}
+     </a>
+</div>
 
 <style>
 .input {
