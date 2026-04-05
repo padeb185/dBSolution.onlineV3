@@ -16,7 +16,7 @@
   background-color: var(--color-yellow-100);
 }
 
-.text-yellow-300 {
+.text-yellow-800 {
   color: var(--color-yellow-800);
 }
 
@@ -24,4 +24,14 @@
   border-color: var(--color-yellow-500);
 }
 
+.bg-\[\#FFF9C4\] {
+  background-color: #FFF9C4;
+}
 
+.text-\[\#FFEB3B\] {
+  color: #FFEB3B;
+}
+
+.border-\[\#FFEB3B\] {
+  border-color: #FFEB3B;
+}

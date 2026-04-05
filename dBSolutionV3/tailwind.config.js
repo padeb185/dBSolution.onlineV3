@@ -7,6 +7,10 @@ module.exports = {
   ],
 
   safelist: [
+
+      'bg-[#FFF9C4]',
+    'text-[#FFEB3B]',
+    'border-[#FFEB3B]',
     // Backgrounds
     "bg-gray-100", "bg-white",
     "bg-green-100", "bg-lime-100", "bg-red-100",

@@ -90,9 +90,9 @@
             <td class="border px-4 py-2">{{ entretien.kilometres_chassis }}</td>
 
              <td class="border px-4 py-2 text-center font-bold
-               {% if entretien.tag == 'VERT' %}bg-green-100 text-green-800 border-green-300
-               {% elif entretien.tag == 'JAUNE' %} bg-[#FFEB3B]
-               {% elif entretien.tag == 'ROUGE' %}bg-red-100 text-red-800 border-red-300
+               {% if entretien.tag == 'VERT' %}bg-green-100 text-green-800 border-green-300 border-2
+               {% elif entretien.tag == 'JAUNE' %}bg-yellow-100 text-yellow-800 border-yellow-500 border-2
+               {% elif entretien.tag == 'ROUGE' %}bg-red-100 text-red-800 border-red-300 border-2
                {% endif %}">
               {{ entretien.get_tag_display }}
             </td>

@@ -113,3 +113,38 @@ main {
     font-size: 14px;
     color: #64748b;
 }
+
+
+:root {
+  --color-yellow-100: oklch(97.3% .071 103.193);
+  --color-yellow-300: oklch(90.5% .182 98.111);
+  --color-yellow-400: oklch(85.2% .199 91.936);
+  --color-yellow-500: oklch(79.5% .184 86.047);
+  --color-yellow-800: oklch(47.6% .114 61.907);
+}
+
+/* Exemple de classe utilisant la couleur jaune clair (yellow-100) */
+
+.bg-yellow-100 {
+  background-color: var(--color-yellow-100);
+}
+
+.text-yellow-800 {
+  color: var(--color-yellow-800);
+}
+
+.border-yellow-500 {
+  border-color: var(--color-yellow-500);
+}
+
+.bg-tag-yellow {
+  background-color: #FFF9C4;
+}
+
+.text-tag-yellow {
+  color: #FFEB3B;
+}
+
+.border-tag-yellow {
+  border-color: #FFEB3B;
+}

@@ -104,9 +104,9 @@
 
 
             <td class="border px-4 py-2 text-center font-bold
-               {% if boite.tag == 'VERT' %}bg-green-100 text-green-800 border-green-300
-               {% elif boite.tag == 'JAUNE' %} bg-[#FFEB3B]
-               {% elif boite.tag == 'ROUGE' %}bg-red-100 text-red-800 border-red-300
+               {% if boite.tag == 'VERT' %}bg-green-100 text-green-800 border-green-300 border-2
+               {% elif boite.tag == 'JAUNE' %} bg-yellow-100 text-yellow-800 border-yellow-500 border-2
+               {% elif boite.tag == 'ROUGE' %}bg-red-100 text-red-800 border-red-300 border-2
                {% endif %}">
               {{ boite.get_tag_display }}
             </td>
