@@ -6,43 +6,11 @@ from voiture.voiture_boite.forms import VoitureBoiteForm
 from voiture.voiture_modele.models import VoitureModele
 from voiture.voiture_boite.models import VoitureBoite
 from voiture.voiture_boite.models import TypeBoite
+from django.utils.translation import gettext as _
 
 
 @login_required
-def ajouter_boite(request, modele_id):
-    tenant = request.user.societe
-    with tenant_context(tenant):
-        # Récupère le modèle
-        modele = get_object_or_404(VoitureModele, id=modele_id)
-        marque = modele.voiture_marque  # objet VoitureMarque
-
-        if request.method == "POST":
-            form = VoitureBoiteForm(request.POST)
-            if form.is_valid():
-                exemplaire = form.save(commit=False)
-                exemplaire.voiture_modele = modele
-                exemplaire.voiture_marque = marque
-                exemplaire.save()
-                messages.success(request, "Boite ajoutée avec succès !")
-                return redirect("voiture_exemplaire_liste_exemplaires", modele_id=modele.id)
-            else:
-                # Form invalide → on retourne le formulaire avec erreurs
-                messages.error(request, "Veuillez corriger les erreurs ci-dessous.")
-        else:
-            # GET → formulaire pré-rempli avec la marque et le modèle
-            form = VoitureBoiteForm(initial={
-                "voiture_marque": marque.pk,
-                "voiture_modele": modele.id
-            })
-
-        return render(request, "voiture_boite/ajouter_boite_simple.html", {
-            "form": form,
-            "modele": modele
-        })
-
-
-@login_required
-def liste_boite(request):
+def liste_boite_view(request):
     """
     Affiche tous les exemplaires de véhicules avec recherche sur marque et immatriculation
     """
@@ -56,7 +24,7 @@ def liste_boite(request):
 
 
 @login_required
-def ajouter_boite_simple(request):
+def ajouter_boite_view(request):
     if request.method == "POST":
         VoitureBoite.objects.create(
             fabricant=request.POST.get("fabricant"),
@@ -68,14 +36,14 @@ def ajouter_boite_simple(request):
         )
         messages.success(request, "Boite de vitesse ajoutée avec succès")
 
-        return redirect("voiture_boite:ajouter_boite_simple")
+        return redirect("voiture_boite:ajouter_boite")
 
     # Passer TypeBoite au template pour la liste déroulante
     context = {
         "TypeBoite": TypeBoite,
     }
 
-    return render(request, "voiture_boite/ajouter_boite_simple.html", context)
+    return render(request, "voiture_boite/ajouter_boite.html", context)
 
 
 
@@ -86,4 +54,37 @@ def ajouter_boite_simple(request):
 def boite_detail_view(request, boite_id):
     boite = get_object_or_404(VoitureBoite, id=boite_id)
     return render(request, "voiture_boite/boite_detail.html", {"boite": boite})
+
+
+@login_required
+def modifier_boite_view(request, boite_id):
+    tenant = request.user.societe
+
+    with tenant_context(tenant):
+        boite_instance = get_object_or_404(
+            VoitureBoite.objects.select_related(),
+            id=boite_id
+        )
+
+        if request.method == "POST":
+            form = VoitureBoiteForm(request.POST, instance=boite_instance)
+            if form.is_valid():
+                form.save()
+                messages.success(request, _("Boîte de vitesse mise à jour avec succès."))
+                # Redirection vers la page de détail après sauvegarde
+                return redirect('voiture_boite:boite_detail', boite_id=boite_instance.id)
+            else:
+                messages.error(request, _("Le formulaire contient des erreurs."))
+        else:
+            form = VoitureBoiteForm(instance=boite_instance)
+
+    return render(
+        request,
+        "voiture_boite/modifier_boite.html",
+        {
+            "form": form,          # on passe le formulaire au template
+            "boite": boite_instance # l'objet boîte pour infos complémentaires si nécessaire
+        }
+    )
+
 
