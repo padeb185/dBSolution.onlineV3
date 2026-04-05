@@ -83,6 +83,16 @@ class ClientParticulier(models.Model):
         blank=True
     )
 
+    remarques = models.TextField(
+        verbose_name=_("Remarques"),
+        blank=True,
+        null=True
+    )
+
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
+
+
     def clean(self):
         super().clean()
 

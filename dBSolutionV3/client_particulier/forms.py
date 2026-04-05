@@ -42,7 +42,7 @@ class ClientParticulierForm(forms.ModelForm):
             "date_naissance",
             "niveau",
             "historique",
-            "location",
+            "remarques",
         ]
         widgets = {
             "numero_carte_bancaire": forms.TextInput(attrs={

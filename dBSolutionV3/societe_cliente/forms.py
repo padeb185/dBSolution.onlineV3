@@ -56,10 +56,14 @@ class SocieteClienteForm(forms.ModelForm):
             }),
         }
 
-
-
     def clean_numero_carte_bancaire(self):
-        card_number = self.cleaned_data.get("numero_carte_bancaire", "")
+        card_number = self.cleaned_data.get("numero_carte_bancaire")
+
+        if not card_number:
+            # Champ vide → on le laisse vide (None ou '')
+            return card_number
+
+        # Nettoyage
         card_number_clean = card_number.replace(" ", "").replace("-", "")
 
         if not card_number_clean.isdigit():
@@ -68,5 +72,4 @@ class SocieteClienteForm(forms.ModelForm):
         if not luhn_check(card_number_clean):
             raise forms.ValidationError(_("Numéro de carte bancaire invalide (check digit incorrect)."))
 
-        # Important : on retourne bien le numéro nettoyé
         return card_number_clean

@@ -30,7 +30,7 @@ from fuel.models import Fuel
 from assurance.models import Assurance
 from assurance_police.models import AssurancePolice
 from outillage.models import Outillage
-
+from recharge.models import Electricite
 
 
 def login_view(request):
@@ -93,6 +93,7 @@ def dashboard_view(request):
     schema_name = societe.schema_name  # pour django-tenants
 
 
+
     # --- Stats initialisées à zéro ---
     total_marques = total_moteurs = total_exemplaires = 0
     total_boites = total_embrayages = total_freins = 0
@@ -100,11 +101,12 @@ def dashboard_view(request):
     total_fournisseur = total_client_particulier = 0
     total_carrosserie = total_intervention = total_societe_cliente = 0
     total_adresse = total_assurance = total_modele = total_outils = 0
+    total_recharge = 0
 
     marques = moteurs = exemplaires = boites = embrayages = freins = \
         freins_ar = pneus = maintenance = fournisseurs = client_particulier =\
         carrosseries = interventions = societe_cliente = adresse = assurance = \
-        assurance_police = modele = outils = []
+        assurance_police = modele = outils = recharge = []
 
     if schema_name:
         with schema_context(schema_name):
@@ -128,7 +130,7 @@ def dashboard_view(request):
             assurance = Assurance.objects.filter(societe=societe)
             assurance_police = AssurancePolice.objects.filter(societe=societe)
             outils = Outillage.objects.filter(societe=societe)
-
+            recharge = Electricite.objects.filter(societe=societe)
 
             # Totaux
             total_marques = marques.count()
@@ -151,6 +153,7 @@ def dashboard_view(request):
             total_assurance = assurance.count()
             total_assurance_police = assurance_police.count()
             total_outils = outils.count()
+            total_recharge = recharge.count()
 
             # Récupère les modèles existants pour les liens maintenance
             modeles = VoitureModele.objects.all()
@@ -180,6 +183,7 @@ def dashboard_view(request):
         'total_assurance': total_assurance,
         'total_assurance_police': total_assurance_police,
         'total_outils': total_outils,
+        'total_recharge': total_recharge,
 
         'marques': marques,
         'modele' : modele,
@@ -202,6 +206,7 @@ def dashboard_view(request):
         'assurance': assurance,
         'assurance_police': assurance_police,
         'outils': outils,
+        'recharge': recharge,
     })
 
     # --- Tâches et rôles ---
@@ -236,6 +241,7 @@ def dashboard_view(request):
     context['role_display'] = ROLE_DISPLAY.get(user.role, _("Rôle inconnu"))
 
     return render(request, 'dashboard.html', context)
+
 
 
 

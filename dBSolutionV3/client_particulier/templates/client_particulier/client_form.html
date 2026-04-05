@@ -189,12 +189,26 @@
                    class="border rounded px-4 py-2 w-full">
         </div>
 
-        <button type="submit"
-                class="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded w-full mt-4">
-            {% trans "Enregistrer" %}
-        </button>
+       <div class="flex gap-3 mt-6">
+                <button type="submit"
+                        class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+                    {% trans "Enregistrer" %}
+                </button>
+
+               <a href="{% url 'client_particulier:clientparticulier_list' %}"
+                   class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
+                    {% trans "Annuler" %}
+                </a>
+
+          </div>
 
     </form>
+</div>
+<div>
+     <a href="{% url 'client_particulier:clientparticulier_list' %}"
+      class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour à la liste des clients" %}
+    </a>
 </div>
 
 <script>

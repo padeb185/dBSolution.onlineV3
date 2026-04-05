@@ -9,16 +9,25 @@
          style="width:60px; height:60px; margin-right:10px;">
     {% trans "Liste des sociétés clientes" %}
 </h1>
-
+<br>
+ <!-- Bouton sur une seule ligne, en dessous -->
+<div>
+    <a href="{% url 'societe_cliente:societe_cliente_form' %}"
+        class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Ajouter une société cliente" %}
+    </a>
+</div>
+<br>
+<br>
 <div class="bg-white shadow-md rounded-lg p-4 mb-4">
     <div class="grid grid-cols-1 md:grid-cols-6 gap-3 mb-4">
         <input id="search-nom_societe_cliente" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Nom de la société cliente' %}">
+               placeholder="{% trans 'Nom de la société' %}">
 
         <input id="search-adresse" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Adresse de la societe cliente' %}">
+               placeholder="{% trans 'Adresse de la société' %}">
 
         <input id="search-directeur_nom_prenom" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -26,24 +35,15 @@
 
         <input id="search-numero_telephone" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Numéro de téléphone' %}">
+               placeholder="{% trans 'N° de téléphone' %}">
 
         <input id="search-email" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'nom.prenom@...' %}">
+               placeholder="{% trans 'email' %}">
 
         <input id="search-numero_compte" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'BEXX XXXX XXXX XXXX' %}">
-    </div>
-
-    <!-- Bouton sur une seule ligne, en dessous -->
-    <div class="flex justify-start">
-        <a href="{% url 'societe_cliente:societe_cliente_form' %}"
-           class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition
-                  focus:outline-none focus:ring-2 focus:ring-blue-500">
-            {% trans "Ajouter une societe cliente" %}
-        </a>
+               placeholder="{% trans 'N° de compte' %}">
     </div>
 </div>
 
@@ -73,7 +73,7 @@
             <td class="border px-4 py-2">{{ societe_cliente.email }}</td>
             <td class="border px-4 py-2 text-center">
                <a href="{% url 'societe_cliente:societe_cliente_detail' societe_cliente.id_societe_cliente %}"
-                   class="text-blue-600 hover:text-blue-800 font-semibold">
+                    class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
                     {% trans "Info" %}
                </a>
             </td>
@@ -83,6 +83,16 @@
     </tbody>
 
 </table>
+
+<br>
+<br>
+<div>
+    <a href="{% url 'utilisateurs:dashboard' %}"
+      class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour au tableau de bord" %}
+    </a>
+</div>
+
 
 <!-- DataTables JS -->
 <script>

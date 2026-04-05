@@ -123,22 +123,15 @@ class SocieteCliente(models.Model):
         blank=True
     )
 
-    location = models.CharField(
-        _("Location"),
-        max_length=255,
-        null=True,
-        blank=True
+
+    remarques = models.TextField(
+        verbose_name=_("Remarques"),
+        blank=True,
+        null=True
     )
 
-
-
-    created_at = models.DateTimeField(
-        _("Créé le"),
-        auto_now_add=True,
-        null=True,
-        blank=True
-    )
-
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
 
 
     class Meta:
