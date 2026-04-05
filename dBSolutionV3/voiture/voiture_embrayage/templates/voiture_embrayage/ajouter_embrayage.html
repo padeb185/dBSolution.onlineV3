@@ -1,0 +1,198 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="max-w-xl mx-auto p-6 bg-white rounded shadow mt-16 mb-16">
+
+    <h1 class="text-2xl font-bold mb-6 text-center flex items-center justify-center">
+        <img src="{% static 'icons/disque-dembrayage.png' %}" alt="embrayage"
+             style="width:60px; height:60px; margin-right:10px;">
+        {% trans "Ajouter un embrayage" %}
+    </h1>
+
+    <!-- Messages -->
+    {% if messages %}
+        {% for message in messages %}
+        <div class="mb-3 px-4 py-2 rounded border
+            {% if message.tags == 'success' %}
+                bg-green-100 text-green-800 border-green-300
+            {% else %}
+                bg-red-100 text-red-800 border-red-300
+            {% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Erreurs -->
+    {% if form.errors %}
+        <div class="mb-4 p-3 rounded bg-red-100 text-red-800 border border-red-300">
+            <strong>{% trans "Erreurs :" %}</strong>
+            <ul class="list-disc ml-5">
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li>{{ field.label }} : {{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <form method="post" class="space-y-4">
+        {% csrf_token %}
+
+        <!-- Fabricant -->
+        <div>
+            <label for="id_fabricant" class="font-semibold">{% trans "Fabricant" %}</label>
+            <input type="text" id="id_fabricant" name="fabricant"
+                   required maxlength="100"
+                   class="border rounded px-4 py-2 w-full focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <!-- Type embrayage -->
+        <div>
+            <label for="id_type_embrayage" class="font-semibold">{% trans "Type d'embrayage" %}</label>
+            <select id="id_type_embrayage" name="type_embrayage"
+                    required
+                    class="border rounded px-3 py-2 w-full focus:ring-2 focus:ring-blue-500">
+                <option value="">{% trans "Sélectionner" %}</option>
+                {% for value, label in TypeEmbrayage.choices %}
+                    <option value="{{ value }}">{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Volant moteur -->
+        <div>
+            <label for="id_volant_moteur" class="font-semibold">{% trans "Volant moteur" %}</label>
+            <select id="id_volant_moteur" name="volant_moteur"
+                    class="border rounded px-3 py-2 w-full focus:ring-2 focus:ring-blue-500">
+                <option value="">{% trans "Sélectionner" %}</option>
+                {% for value, label in TypeVolantMoteur.choices %}
+                    <option value="{{ value }}">{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Plateau pression -->
+        <div>
+            <label for="id_plateau_pression" class="font-semibold">{% trans "Plateau de pression" %}</label>
+            <select id="id_plateau_pression" name="plateau_pression"
+                    class="border rounded px-3 py-2 w-full focus:ring-2 focus:ring-blue-500">
+                <option value="">{% trans "Sélectionner" %}</option>
+                {% for value, label in TypePlateauPression.choices %}
+                    <option value="{{ value }}">{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- OEM -->
+        <div>
+            <label for="id_oem" class="font-semibold">{% trans "Numéro OEM" %}</label>
+            <input type="text" id="id_oem" name="oem"
+                   maxlength="100"
+                   class="border rounded px-4 py-2 w-full focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <!-- Kilométrage -->
+        <div>
+            <label for="id_kilometrage_embrayage" class="font-semibold">{% trans "Kilométrage" %}</label>
+            <input type="number" id="id_kilometrage_embrayage"
+                   name="kilometrage_embrayage"
+                   min="0"
+                   class="border rounded px-4 py-2 w-full focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <!-- Numéro -->
+        <div>
+            <label for="id_numero_embrayage" class="font-semibold">{% trans "Numéro" %}</label>
+            <input type="text" id="id_numero_embrayage"
+                   name="numero_embrayage"
+                   maxlength="100"
+                   class="border rounded px-4 py-2 w-full focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <!-- Date -->
+        <div>
+            <label for="id_date_creation" class="font-semibold">{% trans "Date de création" %}</label>
+            <input type="date" id="id_date_creation"
+                   name="date_creation"
+                   class="border rounded px-4 py-2 w-full focus:ring-2 focus:ring-blue-500">
+        </div>
+
+
+         <div>
+            <label for="id_remarques" class="font-semibold">
+                {% trans "Remarques" %}
+            </label>
+
+            <textarea id="id_remarques" name="remarques"
+                      required maxlength="500"
+                      rows="4"
+                      class="border rounded px-4 py-2 w-full focus:ring-2 focus:ring-blue-500"></textarea>
+         </div>
+
+        <!-- Boutons -->
+        <div class="flex gap-3 mt-6">
+            <button type="submit"
+                    class="flex-1 bg-blue-700 text-white px-5 py-3 rounded hover:bg-blue-500 font-semibold">
+                {% trans "Enregistrer" %}
+            </button>
+
+            <a href="{% url 'voiture_embrayage:list' %}"
+               class="flex-1 bg-gray-300 text-black px-5 py-3 rounded hover:bg-gray-400 font-semibold text-center">
+                {% trans "Annuler" %}
+            </a>
+        </div>
+    </form>
+</div>
+
+<!-- Retour -->
+<div class="max-w-xl mx-auto mt-4">
+    <a href="{% url 'voiture_embrayage:list' %}"
+       class="block text-center bg-blue-700 text-white px-5 py-3 rounded hover:bg-blue-500 font-semibold">
+        {% trans "Retour à la liste des embrayages" %}
+    </a>
+</div>
+
+<!-- JS sécurisé -->
+<script>
+function getCookie(name) {
+    return document.cookie
+        .split('; ')
+        .find(row => row.startsWith(name + '='))
+        ?.split('=')[1];
+}
+
+const csrftoken = getCookie('csrftoken');
+
+document.getElementById('id_fabricant').addEventListener('change', function(){
+    const fabricant = this.value.trim();
+    if (!fabricant) return;
+
+    fetch('/api/check_nom', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+        },
+        credentials: 'same-origin',
+        body: JSON.stringify({ fabricant: fabricant })
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.exist) {
+            document.getElementById('id_fabricant').value = data.fabricant || '';
+            document.getElementById('id_type_embrayage').value = data.nom_du_type || '';
+        } else {
+            document.getElementById('id_type_embrayage').value = '';
+        }
+    })
+    .catch(err => console.error("Erreur:", err));
+});
+</script>
+
+{% endblock %}

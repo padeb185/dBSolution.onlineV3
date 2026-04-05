@@ -89,7 +89,10 @@ class VoitureEmbrayage(models.Model):
         blank=True
     )
 
+    remarques = models.TextField(null=True, blank=True)
 
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
 
     date_creation = models.DateTimeField(auto_now_add=True)
 

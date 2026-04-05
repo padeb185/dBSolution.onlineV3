@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import liste_embrayage, ajouter_embrayage_simple, embrayage_detail_view, modifier_embrayage_view
+from .views import liste_embrayage, embrayage_detail_view, modifier_embrayage_view, \
+    ajouter_embrayage_view
 
 app_name = 'voiture_embrayage'
 
@@ -7,7 +8,7 @@ urlpatterns = [
 
     path('', liste_embrayage, name='list'),
 
-    path('ajouter/', ajouter_embrayage_simple, name='ajouter_embrayage_simple'),
+    path('ajouter/', ajouter_embrayage_view, name='ajouter_embrayage'),
 
     path('embrayage<uuid:embrayage_id>/', embrayage_detail_view, name='embrayage_detail'),
 

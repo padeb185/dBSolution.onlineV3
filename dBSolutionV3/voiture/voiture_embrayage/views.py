@@ -32,7 +32,7 @@ def liste_embrayage(request):
 
 
 @login_required
-def ajouter_embrayage_simple(request):
+def ajouter_embrayage_view(request):
     if request.method == "POST":
         # Récupération des valeurs
         fabricant = request.POST.get("fabricant")
@@ -67,7 +67,7 @@ def ajouter_embrayage_simple(request):
         "TypePlateauPression": TypePlateauPression,
     }
 
-    return render(request, "voiture_embrayage/ajouter_embrayage_simple.html", context)
+    return render(request, "voiture_embrayage/ajouter_embrayage.html", context)
 
 
 
