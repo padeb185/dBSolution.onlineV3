@@ -36,51 +36,12 @@
     {% endif %}
 
 
-
-    <!-- Plaque Belgique -->
-        {% if exemplaire.pays == 'Belgique' %}
-        <div class="flex items-center w-[40%] min-w-[180px] h-[40px] bg-white border-2 border-[#8B0000] rounded font-[Arial] mb-4">
-            <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
-                <span>🇪🇺</span>
-                <span>B</span>
-            </div>
-            <input
-                type="text"
-                value="{{ exemplaire.immatriculation }}"
-                oninput="this.value = this.value.toUpperCase();"
-                class="w-full text-center border-none font-bold text-[#8B0000] text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0"
-            />
+     <p>
+         <strong>{% trans "Immatriculation" %} :</strong>
+        <div class="mb-4">
+        {% include "voiture_exemplaire/partials/plaque.html" %}
         </div>
-
-        {% elif exemplaire.pays == 'Luxembourg' %}
-        <div class="flex items-center w-[40%] min-w-[180px] h-[40px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial] mb-4">
-            <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
-                <span>🇪🇺</span>
-                <span>L</span>
-            </div>
-            <input
-                type="text"
-                value="{{ exemplaire.immatriculation }}"
-                oninput="this.value = this.value.toUpperCase();"
-                class="w-full text-center border-none font-bold text-black text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0"
-            >
-        </div>
-        {% elif exemplaire.pays == 'Allemagne' %}
-        <div class="flex items-center w-[40%] min-w-[180px] h-[40px] bg-white border-2 border-black rounded font-[Arial] mb-4">
-            <!-- Bande UE -->
-            <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[18px] leading-none">
-                <span>🇪🇺</span>
-                <span>D</span>
-            </div>
-            <input
-                    type="text"
-                    value="{{ exemplaire.immatriculation }}"
-                    oninput="this.value = this.value.toUpperCase();"
-                    class="w-full text-center border-none font-bold text-black text-[clamp(16px,4vw,24px)] bg-transparent outline-none p-0 m-0"
-                    readonly
-            >
-        </div>
-        {% endif %}
+    </p>
 
     <!-- Formulaire de modification -->
     <form method="post" class="mt-6">
@@ -97,13 +58,19 @@
             {% endif %}
         {% endfor %}
 
-        <button type="submit" class="bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400">
-            {% trans "Enregistrer les modifications" %}
-        </button>
-        <a href="{% url 'voiture_exemplaire:voiture_exemplaire_detail' exemplaire_id=exemplaire.id %}"
-           class="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400 ml-2">
-            {% trans "Annuler" %}
-        </a>
+
+        <div class="flex gap-3 mt-6">
+            <button type="submit"
+                    class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+                {% trans "Enregistrer" %}
+            </button>
+
+            <a href="{% url 'voiture_exemplaire:voiture_exemplaire_detail' exemplaire_id=exemplaire.id %}"
+               class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
+                {% trans "Annuler" %}
+            </a>
+          </div>
+
     </form>
 </div>
 

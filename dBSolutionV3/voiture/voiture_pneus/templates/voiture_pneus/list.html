@@ -10,6 +10,15 @@
     {% trans "Liste des Pneus" %}
 </h1>
 
+ <div>
+     <a href="{% url 'voiture_pneus:ajouter_pneus_simple' %}"
+        class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+         {% trans "Ajouter des pneus" %}
+     </a>
+ </div>
+<br>
+<br>
+
 <div class="bg-white shadow-md rounded-lg p-4 mb-4">
     <div class="grid grid-cols-1 md:grid-cols-6 gap-3 items-end">
         <input id="search-manufacturier" type="text"
@@ -27,15 +36,15 @@
 
         <input id="search-pneus_largeur" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Largeur du pneus' %}">
+               placeholder="{% trans 'Largeur' %}">
 
         <input id="search-pneus_hauteur" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Hauteur du pneus' %}">
+               placeholder="{% trans 'Hauteur' %}">
 
         <input id="search-pneus_jante" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Diamètre de la jante en pouces' %}">
+               placeholder="{% trans 'Diamètre' %}">
 
         <input id="search-indice_vitesse" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -47,14 +56,7 @@
 
         <input id="search-numero_oem" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'Numero OEM' %}">
-
-        <div>
-            <a href="{% url 'voiture_pneus:ajouter_pneus_simple' %}"
-               class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
-                {% trans "Ajouter des pneus" %}
-            </a>
-        </div>
+               placeholder="{% trans 'N° OEM' %}">
     </div>
 </div>
 
@@ -100,6 +102,14 @@
     </tbody>
 
 </table>
+ <br>
+<br>
+<div>
+    <a href="{% url 'utilisateurs:dashboard' %}"
+       class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-blue-500">
+        {% trans "Retour au tableau de bord" %}
+    </a>
+</div>
 
 <!-- DataTables JS -->
 <script>
