@@ -10,6 +10,10 @@ from voiture.voiture_embrayage.models import TypeEmbrayage
 from voiture.voiture_embrayage.models import TypeVolantMoteur
 from voiture.voiture_embrayage.models import TypePlateauPression
 from voiture.voiture_exemplaire.models import VoitureExemplaire
+from django.utils.translation import gettext as _
+
+
+
 
 
 @never_cache
@@ -99,3 +103,39 @@ def embrayage_detail_view(request, embrayage_id):
     return render(request, 'voiture_embrayage/embrayage_detail.html', {
         'embrayage': embrayage,
     })
+
+
+
+
+
+@login_required
+def modifier_embrayage_view(request, embrayage_id):
+    tenant = request.user.societe
+
+    with tenant_context(tenant):
+        embrayage_instance = get_object_or_404(
+            VoitureEmbrayage.objects.select_related(),
+            id=embrayage_id
+        )
+
+        if request.method == "POST":
+            form = VoitureEmbrayageForm(request.POST, instance=embrayage_instance)
+            if form.is_valid():
+                form.save()
+                messages.success(request, _("Embrayage mis à jour avec succès."))
+
+            else:
+                messages.error(request, _("Le formulaire contient des erreurs."))
+        else:
+            form = VoitureEmbrayageForm(instance=embrayage_instance)
+
+    return render(
+        request,
+        "voiture_embrayage/modifier_embrayage.html",
+        {
+            "form": form,
+            "embrayage": embrayage_instance
+        }
+    )
+
+

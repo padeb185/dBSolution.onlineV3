@@ -56,6 +56,8 @@ def boite_detail_view(request, boite_id):
     return render(request, "voiture_boite/boite_detail.html", {"boite": boite})
 
 
+
+
 @login_required
 def modifier_boite_view(request, boite_id):
     tenant = request.user.societe

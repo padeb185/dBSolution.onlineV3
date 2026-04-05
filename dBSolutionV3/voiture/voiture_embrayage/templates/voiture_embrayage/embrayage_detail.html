@@ -1,86 +1,113 @@
 {% extends "base.html" %}
 {% load i18n static widget_tweaks %}
 
-{% block title %}{{ embrayage.type_embrayage }} - {{ embrayage.plateau_pression }}{% endblock %}
+{% block title %}{{ embrayage.fabricant }} - {{ embrayage.type_embrayage }}{% endblock %}
+
 
 {% block content %}
-<div class="max-w-xl mx-auto p-6 bg-white rounded shadow mt-16 mb-16">
-    <h1 class="text-2xl font-bold mb-4 text-center flex items-center">
-        <img src="{% static 'icons/disque-dembrayage.png' %}" alt="Embrayage"
-             style="width:60px; height:60px; margin-right:10px;">
-        {% trans "Détails de l'embrayage" %}: {{ embrayage.fabricant }} {{ embrayage.type_embrayage }}
-    </h1>
+<div class="p-6 w-full ml-[-10px] mr-[10px]">
 
-    <form class="flex flex-col space-y-4">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
+       <h1 class="text-2xl font-bold flex items-center gap-4">
+            {% with image_name=embrayage.fabricant|slugify %}
+                <img src="{% static 'embrayage/'|add:image_name|add:'.png' %}"
+                     alt="{{ embrayage.fabricant }}"
+                     class="w-12 h-12"
+                     onerror="this.src='{% static 'icons/disque-dembrayage.png' %}';">
+            {% endwith %}
+            <span>{% trans "Détails de l'embrayage :" %}</span>
 
-        <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Fabricant" %}</label>
-            <input type="text" value="{{ embrayage.fabricant }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
+           <span class="text-black-700">{{ embrayage.fabricant }} {{ embrayage.type_embrayage }}</span>
+        </h1>
+
+
+    </div>
+
+    <!-- Infos principales -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+
+        <!-- Informations générales -->
+        <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
+            <h2 class="text-lg font-semibold mb-2">
+                {% trans "Informations générales" %}
+            </h2>
+
+            <p>
+                <strong>{% trans "Fabricant" %} :</strong>
+                {{ embrayage.fabricant }}
+            </p>
+            <p>
+                <strong>{% trans "Type d'embrayage" %} :</strong>
+                {{ embrayage.type_embrayage }}
+            </p>
+            <p>
+                <strong>{% trans "Volant Moteur" %} :</strong>
+                {{ embrayage.volant_moteur }}
+            </p>
+              <p>
+                <strong>{% trans "Plateau de pression" %} :</strong>
+                {{ embrayage.plateau_pression }}
+            </p>
+            <p>
+                <strong>{% trans "N° OEM" %} :</strong>
+                {{ embrayage.oem }}
+            </p>
+
+
+
+
+
+           <div class="mt-auto w-full">
+                <a href="{% url 'voiture_embrayage:modifier_embrayage' embrayage.id %}" class="block w-full">
+                    <button type="button"
+                            class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+                        {% trans "Modifier l'embrayage" %}
+                    </button>
+                </a>
+           </div>
+
         </div>
 
-        <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Type d'embrayage" %}</label>
-            <input type="text" value="{{ embrayage.type_embrayage }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
+        <!-- Peppol -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-lg font-semibold mb-4">
+                {% trans "Autres informations" %}
+            </h2>
+
+              <p>
+                <strong>{% trans "Remarques" %} :</strong><br>
+                {{ embrayage.remarques }}
+            </p>
+
+
         </div>
-
-        <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Volant moteur" %}</label>
-            <input type="text" value="{{ embrayage.volant_moteur }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
-        </div>
-
-        <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Plateau de pression" %}</label>
-            <input type="text" value="{{ embrayage.plateau_pression }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
-        </div>
-
-
-        <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Numero OEM" %}</label>
-            <input type="text" value="{{ embrayage.oem }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
-        </div>
+    </div>
 
 
 
-        <!-- Kilométrage & entretien -->
-        <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Kilométrage de l'embrayage" %}</label>
-            <input type="text" value="{{ embrayage.kilometrage_embrayage }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
-        </div>
+    <!-- Métadonnées -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">
+            {% trans "Métadonnées" %}
+        </h2>
 
+        <p>
+            <strong>{% trans "Créé le" %} :</strong>
+            {{ embrayage.created_at|date:"d/m/Y H:i" }}
+        </p>
+        <p>
+            <strong>{% trans "Mis à jour le" %} :</strong>
+            {{ embrayage.updated_at|date:"d/m/Y H:i" }}
+        </p>
+    </div>
 
-        <!-- Gestion remplacement -->
-        <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Numéro d'embrayage" %}</label>
-            <input type="text" value="{{ embrayage.numero_embrayage }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
-        </div>
-
-        <!-- Liens voiture -->
-       {% if embrayage.voitures_modeles.all %}
-            <div class="flex flex-col">
-                <label class="mb-1 font-medium">{% trans "Modèle de voiture" %}</label>
-                <input type="text" value="{{ embrayage.voitures_modeles.all|first }}" class="border px-4 py-2 w-full" readonly>
-            </div>
-        {% endif %}
-
-        {% if embrayage.voitures_exemplaires.all %}
-            <div class="flex flex-col">
-                <label class="mb-1 font-medium">{% trans "Exemplaire de voiture" %}</label>
-                <input type="text" value="{{ embrayage.voitures_exemplaires.all|first }}" class="border px-4 py-2 w-full" readonly>
-            </div>
-        {% endif %}
-
-
-        <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Date de création" %}</label>
-            <input type="text" value="{{ embrayage.date_creation|date:'d/m/Y H:i' }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
-        </div>
-
-        <!-- Bouton retour -->
-        <a href="{% url 'voiture_embrayage:list' %}"
-           class="mt-4 bg-blue-700 text-white px-4 py-2 rounded w-full text-center hover:bg-blue-400 transition">
-            {% trans "Retour" %}
-        </a>
-
-    </form>
+</div>
+<br>
+<div>
+    <a href="{% url 'voiture_embrayage:list' %}"
+        class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour a la liste des embrayages" %}
+    </a>
 </div>
 {% endblock %}

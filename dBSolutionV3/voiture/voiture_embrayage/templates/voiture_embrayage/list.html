@@ -66,7 +66,7 @@
             <td class="border px-4 py-2">{{ embrayage.get_plateau_pression_display }}</td>
             <td class="border px-4 py-2">{{ embrayage.oem }}</td>
             <td class="border px-4 py-2 text-center">
-                <a href="{% url 'voiture_embrayage:detail' embrayage.id %}"
+                <a href="{% url 'voiture_embrayage:embrayage_detail' embrayage.id %}"
                     class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
                     {% trans "Info" %}
                 </a>

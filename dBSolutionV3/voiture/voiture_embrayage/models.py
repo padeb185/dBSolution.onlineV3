@@ -16,6 +16,7 @@ class TypeVolantMoteur(models.TextChoices):
     BIMASSE = "BIMASSE", _("Bimasse")
     ALLEGE = "ALLEGE", _("Allégé / Performance")
     SEGMENTE = "SEGMENTE", _("Segmenté / Compétition")
+    AUTOMATIQUE = "AUTOMATIQUE", _("Automatique / Plaque flexible")
 
 
 class TypePlateauPression(models.TextChoices):
@@ -24,6 +25,7 @@ class TypePlateauPression(models.TextChoices):
     RESSORTS_HELICOIDAUX = "HELICOIDAUX", _("Ressorts hélicoïdaux")
     RENFORCE = "RENFORCE", _("Renforcé / Compétition")
     BIMASSE = "BIMASSE", _("Bimasse (pour volant moteur DMF)")
+    AUTOMATIQUE = "AUTOMATIQUE", _("Automatique / non présent")
 
 
 
