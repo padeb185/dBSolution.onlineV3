@@ -11,14 +11,14 @@
 </h1>
 <br>
 <div class="mb-4">
-    <a href="{% url 'voiture_moteur:ajouter_moteur_seul' %}"
+    <a href="{% url 'voiture_moteur:ajouter_moteur' %}"
         class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
         {% trans "Ajouter un moteur" %}
     </a>
 </div>
 <br>
-<br>
 <!-- Filtres sur une ligne -->
+<br>
 <div class="bg-white shadow-md rounded-lg p-4 mb-4 overflow-x-auto">
     <div class="grid grid-cols-5 gap-4 items-end min-w-full">
         <input id="search-motoriste" type="text" class="border rounded px-3 py-2 w-full"
@@ -59,7 +59,7 @@
             <td class="border px-4 py-2">{{ moteur.nombre_cylindres }}</td>
             <td class="border px-4 py-2">{{ moteur.puissance_ch }}</td>
             <td class="border px-4 py-2 text-center">
-                <a href="{% url 'voiture_moteur:detail' moteur.id %}"
+                <a href="{% url 'voiture_moteur:moteur_detail' moteur.id %}"
                    class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
                     {% trans "Info" %}
                 </a>

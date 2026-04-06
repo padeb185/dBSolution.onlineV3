@@ -1,125 +1,109 @@
 {% extends "base.html" %}
 {% load i18n static widget_tweaks %}
 
-{% block title %}{{ pneus.type_pneus }} - {{ pneus.pneus_avant_largeur }}{% endblock %}
+{% block title %}{{ pneus.manufacturier }} {% endblock %}
+
 
 {% block content %}
-<div class="max-w-xl mx-auto p-6 bg-white rounded shadow mt-16 mb-16">
-    <h1 class="text-2xl font-bold mb-4 text-center flex items-center">
-        <img src="{% static 'icons/pneus.png' %}" alt="Pneus"
-             style="width:60px; height:60px; margin-right:10px;">
-        {% trans "Détails des pneus" %}: {{ pneus.manufacturier }} {{ pneus.type_pneus }}
-    </h1>
+<div class="p-6 w-full ml-[-10px] mr-[10px]">
 
-      <!-- Messages -->
-    {% if messages %}
-        {% for message in messages %}
-        <div class="mb-3 px-4 py-2 rounded
-            {% if message.tags == 'success' %}
-                bg-green-100 text-green-800 border border-green-300
-            {% else %}
-                bg-red-100 text-red-800 border border-red-300
-            {% endif %}">
-            {{ message }}
-        </div>
-        {% endfor %}
-    {% endif %}
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
+       <h1 class="text-2xl font-bold flex items-center gap-4">
+            {% with image_name=pneus.manufacturier|slugify %}
+                <img src="{% static 'pneus/'|add:image_name|add:'.png' %}"
+                     alt="{{ pneus.manufacturier }}"
+                     class="w-12 h-12"
+                     onerror="this.src='{% static 'icons/pneus.png' %}';">
+            {% endwith %}
+            <span>{% trans "Détails du Pneu :" %}</span>
 
-    {% if form.errors %}
-        <div style="background-color: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; padding: 10px; border-radius: 6px;">
-            <strong>Erreurs :</strong>
-            <ul>
-            {% for field in form %}
-                {% for error in field.errors %}
-                    <li>{{ field.label }} : {{ error }}</li>
-                {% endfor %}
-            {% endfor %}
-            {% for error in form.non_field_errors %}
-                <li>{{ error }}</li>
-            {% endfor %}
-            </ul>
-        </div>
-    {% endif %}
+           <span class="text-black-700">{{ pneus.manufacturier }} </span>
+        </h1>
 
 
+    </div>
 
-    <form class="flex flex-col space-y-4">
+    <!-- Infos principales -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
 
-        <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Manufacturier" %}</label>
-            <input type="text" value="{{ pneus.manufacturier }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
-        </div>
+        <!-- Informations générales -->
+        <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
+            <h2 class="text-lg font-semibold mb-2">
+                {% trans "Informations générales" %}
+            </h2>
 
-        <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Type de pneus" %}</label>
-            <input type="text" value="{{ pneus.type_pneus }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
-        </div>
-
-        <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Nom du pneus" %}</label>
-            <input type="text" value="{{ pneus.nom_type }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
-        </div>
-
-        <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Largeur en millimètres" %}</label>
-            <input type="text" value="{{ pneus.pneus_largeur }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
-        </div>
-
-        <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Hauteur en pourcent" %}</label>
-            <input type="text" value="{{ pneus.pneus_hauteur }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
-        </div>
-
-
-        <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Diamètre en pouces" %}</label>
-            <input type="text" value="{{ pneus.pneus_jante }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
-        </div>
-
-        <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Numero OEM" %}</label>
-            <input type="text" value="{{ pneus.numero_oem }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
-        </div>
-
-        <!-- Liens voiture -->
-       {% if pneus.voitures_modeles.all %}
-            <div class="flex flex-col">
-                <label class="mb-1 font-medium">{% trans "Modèle de voiture" %}</label>
-                <input type="text" value="{{ pneus.voitures_modeles.all|first }}" class="border px-4 py-2 w-full" readonly>
-            </div>
-        {% endif %}
-
-        {% if pneus.voitures_exemplaires.all %}
-            <div class="flex flex-col">
-                <label class="mb-1 font-medium">{% trans "Exemplaire de voiture" %}</label>
-                <input type="text" value="{{ pneus.voitures_exemplaires.all|first }}" class="border px-4 py-2 w-full" readonly>
-            </div>
-        {% endif %}
+            <p>
+                <strong>{% trans "Manufacturier" %} :</strong>
+                {{ pneus.manufacturier }}
+            </p>
+            <p>
+                <strong>{% trans "Type" %} :</strong>
+                {{ pneus.get_type_pneus_display }}
+            </p>
+            <p>
+                <strong>{% trans "Nom du pneus" %} :</strong>
+                {{ pneus.nom_type }}
+            </p>
+              <p>
+                <strong>{% trans "N° OEM" %} :</strong>
+                {{ pneus.numero_oem }}
+            </p>
 
 
 
 
-        <!-- Bouton retour -->
-
-         <div class="flex gap-3 mt-6">
-                <button type="submit"
-                        class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
-                    {% trans "Enregistrer" %}
-                </button>
-
-               <a href="{% url 'voiture_pneus:list' %}"
-                   class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
-                    {% trans "Annuler" %}
+           <div class="mt-auto w-full">
+                <a href="{% url 'voiture_pneus:modifier_pneus' pneus.id %}" class="block w-full">
+                    <button type="button"
+                            class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+                        {% trans "Modifier le pneus" %}
+                    </button>
                 </a>
+           </div>
 
-          </div>
+        </div>
 
-    </form>
-</div>
-<div>
-    <a href="{% url 'voiture_pneus:list' %}"
-        class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
-        {% trans "Retour à la liste" %}
-    </a>
+        <!-- Peppol -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-lg font-semibold mb-4">
+                {% trans "Autres informations" %}
+            </h2>
+
+              <p>
+                <strong>{% trans "Remarques" %} :</strong><br>
+                {{ pneus.remarques }}
+            </p>
+
+
+        </div>
+    </div>
+
+
+
+    <!-- Métadonnées -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">
+            {% trans "Métadonnées" %}
+        </h2>
+
+        <p>
+            <strong>{% trans "Créé le" %} :</strong>
+            {{ pneus.created_at|date:"d/m/Y H:i" }}
+        </p>
+        <p>
+            <strong>{% trans "Mis à jour le" %} :</strong>
+            {{ pneus.updated_at|date:"d/m/Y H:i" }}
+        </p>
+    </div>
+
+
+    <br>
+    <div>
+        <a href="{% url 'voiture_pneus:list' %}"
+            class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+            {% trans "Retour a la liste des pneus" %}
+        </a>
+    </div>
 </div>
 {% endblock %}

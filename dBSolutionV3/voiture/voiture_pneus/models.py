@@ -145,7 +145,12 @@ class VoiturePneus(models.Model):
     nombre_trains_av = models.PositiveSmallIntegerField(default=1, null=True, blank=True)
     nombre_trains_ar = models.PositiveSmallIntegerField(default=1, null=True, blank=True)
 
-    created_at = models.DateTimeField(auto_now_add=True)
+
+    remarques = models.TextField(verbose_name=_("Remarques"), blank=True, null=True)
+
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
+
 
     def remplacer_pneus(self, nouveau_type, nouveaux_pneus_avant, nouveaux_pneus_arriere, date=None):
         """

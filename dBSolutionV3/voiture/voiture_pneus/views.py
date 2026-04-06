@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.views.decorators.cache import never_cache
 from django_tenants.utils import tenant_context
-
+from .forms import VoiturePneusForm
 from .. import voiture_pneus
 from ..voiture_pneus.admin_forms import RemplacementPneusForm
 from django.shortcuts import render, redirect, get_object_or_404
@@ -126,3 +126,38 @@ def ajouter_pneus_simple(request):
         }
 
         return render(request, "voiture_pneus/ajouter_pneus_simple.html", context)
+
+
+
+
+@login_required
+def modifier_pneus_view(request, pneu_id):
+    tenant = request.user.societe
+
+    with tenant_context(tenant):
+        pneus_instance = get_object_or_404(
+            VoiturePneus.objects.select_related(),
+            id=pneu_id
+        )
+
+        if request.method == "POST":
+            form = VoiturePneusForm(request.POST, instance=pneus_instance)
+            if form.is_valid():
+                form.save()
+                messages.success(request, _("Pneu mis à jour avec succès."))
+
+            else:
+                messages.error(request, _("Le formulaire contient des erreurs."))
+        else:
+            form = VoiturePneusForm(instance=pneus_instance)
+
+    return render(
+        request,
+        "voiture_pneus/modifier_pneus.html",
+        {
+            "form": form,
+            "pneus": pneus_instance
+        }
+    )
+
+

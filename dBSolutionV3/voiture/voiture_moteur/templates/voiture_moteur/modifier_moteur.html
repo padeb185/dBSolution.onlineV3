@@ -7,14 +7,14 @@
     <!-- Header -->
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold flex items-center gap-4">
-            {% with image_name=boite.fabricant|slugify %}
-                <img src="{% static 'boite/'|add:image_name|add:'.png' %}"
-                     alt="{{ boite.fabricant }}"
+            {% with image_name=voiture_moteur.motoriste|slugify %}
+                <img src="{% static 'engine/'|add:image_name|add:'.png' %}"
+                     alt="{{ voiture_moteur.motoriste }}"
                      class="w-12 h-12"
-                     onerror="this.onerror=null; this.src='{% static 'icons/boite-de-vitesse.png' %}';">
+                     onerror="this.onerror=null; this.src='{% static 'icons/engine.png' %}';">
             {% endwith %}
-            <span>{% trans "Modifier la boite de vitesse:" %}</span>
-            <span class="text-black-700">{{ boite.fabricant }}</span>
+            <span>{% trans "Modifier le moteur:" %}</span>
+            <span class="text-black-700">{{ voiture_moteur.motoriste }}</span>
         </h1>
     </div>
 
@@ -53,7 +53,7 @@
     <form method="post" class="space-y-4">
         {% csrf_token %}
 
-        <h2 class="text-lg font-semibold mb-2">{% trans "Boite de vitesse" %}</h2>
+        <h2 class="text-lg font-semibold mb-2">{% trans "Moteur" %}</h2>
         {% for field in form %}
             <div class="mb-4">
                 <label class="block font-semibold mb-1">{{ field.label }}</label>
@@ -69,7 +69,7 @@
             <button type="submit" class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-500 font-semibold text-center">
                 {% trans "Enregistrer" %}
             </button>
-            <a href="{% url 'voiture_boite:boite_detail' boite_id=boite.id %}"
+            <a href="{% url 'voiture_moteur:moteur_detail' moteur_id=moteur.id %}"
                class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
                 {% trans "Annuler" %}
             </a>
@@ -82,10 +82,12 @@
 <br>
 <br>
 
+
+
 <div class="max-w-xl mx-auto mt-4">
-    <a href="{% url 'voiture_boite:boite_detail' boite_id=boite.id %}"
-         class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
-        {% trans "Retour aux détails de la boite de vitesse" %}
+    <a href="{% url 'voiture_moteur:moteur_detail' moteur_id=moteur.id %}"
+        class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour aux détails du moteur" %}
     </a>
 </div>
 <style>

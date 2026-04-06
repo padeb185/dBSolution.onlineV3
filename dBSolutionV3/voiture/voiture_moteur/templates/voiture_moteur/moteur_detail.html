@@ -1,118 +1,114 @@
 {% extends "base.html" %}
 {% load i18n static widget_tweaks %}
 
-{% block title %}{{ moteur.motoriste }} - {{ moteur.cylindree_l }}L{% endblock %}
+{% block title %}{{ embrayage.fabricant }} - {{ embrayage.type_embrayage }}{% endblock %}
+
 
 {% block content %}
-<div class="max-w-xl mx-auto p-6 bg-white rounded shadow mt-16 mb-16">
-    <h1 class="text-2xl font-bold mb-4 text-center flex items-center" >
-        <img src="{% static 'icons/engine.png' %}" alt="Moteur"
-        style="width:60px; height:60px; margin-right:10px;">
-        {% trans "Détails du moteur" %}: {{ moteur.motoriste }} {{ moteur.code_moteur }} {{ moteur.cylindree_l }}L
-    </h1>
+<div class="p-6 w-full ml-[-10px] mr-[10px]">
 
-    <form class="flex flex-col space-y-4">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
+       <h1 class="text-2xl font-bold flex items-center gap-4">
+            {% with image_name=moteur.motoriste|slugify %}
+                <img src="{% static 'moteur/'|add:image_name|add:'.png' %}"
+                     alt="{{ moteur.motoriste }}"
+                     class="w-12 h-12"
+                     onerror="this.src='{% static 'icons/engine.png' %}';">
+            {% endwith %}
+            <span>{% trans "Détails du moteur :" %}</span>
 
-        <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Motoriste" %}</label>
-            <input type="text" value="{{ moteur.motoriste }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
+           <span class="text-black-700">{{ moteur.motoriste }} </span>
+        </h1>
+
+
+    </div>
+
+    <!-- Infos principales -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+
+        <!-- Informations générales -->
+        <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
+            <h2 class="text-lg font-semibold mb-2">
+                {% trans "Informations générales" %}
+            </h2>
+
+            <p>
+                <strong>{% trans "Motoriste" %} :</strong>
+                {{ moteur.motoriste }}
+            </p>
+            <p>
+                <strong>{% trans "Code Moteur" %} :</strong>
+                {{ moteur.code_moteur }}
+            </p>
+            <p>
+                <strong>{% trans "Type de moteur" %} :</strong>
+                {{ moteur.get_type_moteur_display }}
+            </p>
+              <p>
+                <strong>{% trans "Carburant" %} :</strong>
+                {{ moteur.get_carburant_display }}
+            </p>
+            <p>
+                <strong>{% trans "Cylindrée" %} :</strong>
+                {{ moteur.cylindree_l }}
+            </p>
+
+
+
+
+
+           <div class="mt-auto w-full">
+                <a href="{% url 'voiture_moteur:modifier_moteur' moteur.id %}" class="block w-full">
+                    <button type="button"
+                            class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+                        {% trans "Modifier le moteur" %}
+                    </button>
+                </a>
+           </div>
+
         </div>
 
-        <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Code moteur" %}</label>
-            <input type="text" value="{{ moteur.code_moteur }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
-        </div>
+        <!-- Peppol -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-lg font-semibold mb-4">
+                {% trans "Autres informations" %}
+            </h2>
 
-        <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Type moteur" %}</label>
-            <input type="text" value="{{ moteur.get_type_moteur_display }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
-        </div>
+              <p>
+                <strong>{% trans "Remarques" %} :</strong><br>
+                {{ moteur.remarques }}
+            </p>
 
-        <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Carburant" %}</label>
-            <input type="text" value="{{ moteur.get_carburant_display }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
-        </div>
 
-        <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Cylindrée (L)" %}</label>
-            <input type="text" value="{{ moteur.cylindree_l }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
         </div>
+    </div>
 
-        <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Puissance (CH)" %}</label>
-            <input type="text" value="{{ moteur.puissance_ch }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
-        </div>
 
-        <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Puissance à (tr/min)" %}</label>
-            <input type="text" value="{{ moteur.puissance_tr_min }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
-        </div>
 
-        <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Couple (Nm)" %}</label>
-            <input type="text" value="{{ moteur.couple_nm }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
-        </div>
+    <!-- Métadonnées -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">
+            {% trans "Métadonnées" %}
+        </h2>
 
-        <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Couple à (tr/min)" %}</label>
-            <input type="text" value="{{ moteur.couple_tr_min }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
-        </div>
+        <p>
+            <strong>{% trans "Créé le" %} :</strong>
+            {{ moteur.created_at|date:"d/m/Y H:i" }}
+        </p>
+        <p>
+            <strong>{% trans "Mis à jour le" %} :</strong>
+            {{ moteur.updated_at|date:"d/m/Y H:i" }}
+        </p>
+    </div>
 
-        <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Distribution" %}</label>
-            <input type="text" value="{{ moteur.get_distribution_display }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
-        </div>
 
-        <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Nombre de cylindres" %}</label>
-            <input type="text" value="{{ moteur.nombre_cylindres }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
-        </div>
-
-        <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Qualité d'huile" %}</label>
-            <input type="text" value="{{ moteur.qualite_huile }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
-        </div>
-
-        <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Quantité d'huile (L)" %}</label>
-            <input type="text" value="{{ moteur.quantite_huile_l }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
-        </div>
-
-        <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Kilométrage moteur" %}</label>
-            <input type="text" value="{{ moteur.kilometrage_moteur }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
-        </div>
-
-        <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Numéro moteur" %}</label>
-            <input type="text" value="{{ moteur.numero_moteur }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
-        </div>
-
-        <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Intervalle entretien (km)" %}</label>
-            <input type="text" value="{{ moteur.intervalle_km_entretien }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
-        </div>
-
-        <div class="flex flex-col">
-            <label class="mb-1 font-medium">{% trans "Date de création" %}</label>
-            <input type="text" value="{{ moteur.date_creation|date:'d/m/Y H:i' }}" class="border border-gray-300 rounded px-4 py-2 w-full" readonly>
-        </div>
-
-        <!-- Bouton retour -->
+    <br>
+    <div>
         <a href="{% url 'voiture_moteur:list' %}"
-           class="mt-4 bg-blue-700 text-white px-4 py-2 rounded w-full text-center hover:bg-blue-400 transition">
-            {% trans "Retour" %}
+            class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+            {% trans "Retour a la liste des moteurs" %}
         </a>
-
-    </form>
+    </div>
 </div>
-
-<div>
-    <a href="{% url 'voiture_modele:voituremodele_list' %}"
-        class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
-        {% trans "Retour a la liste des moteurs" %}
-    </a>
-</div>
-
-
 {% endblock %}

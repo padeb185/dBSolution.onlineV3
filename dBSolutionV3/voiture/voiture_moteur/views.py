@@ -8,6 +8,7 @@ from .models import MoteurVoiture, TypeCarburant, TypeMoteur, TypeDistribution
 from django.contrib import messages
 from django.views.decorators.cache import never_cache
 
+
 @login_required
 def ajouter_moteur(request, exemplaire_id=None):
 
@@ -42,6 +43,9 @@ def moteur_detail_view(request, moteur_id):
         'moteur': moteur,
     })
 
+
+
+
 @never_cache
 @login_required
 def liste_moteur(request):
@@ -53,7 +57,7 @@ def liste_moteur(request):
 
 
 @login_required
-def ajouter_moteur_seul(request):
+def ajouter_moteur_view(request):
     if request.method == "POST":
         # Récupérer et nettoyer les valeurs POST
         motoriste = request.POST.get("motoriste", "").strip()
@@ -109,4 +113,39 @@ def ajouter_moteur_seul(request):
         "TypeDistribution": TypeDistribution,
 
     }
-    return render(request, "voiture_moteur/ajouter_moteur_seul.html", context)
+    return render(request, "voiture_moteur/ajouter_moteur.html", context)
+
+
+
+
+@login_required
+def modifier_moteur_view(request, moteur_id):
+    tenant = request.user.societe
+
+    with tenant_context(tenant):
+        moteur_instance = get_object_or_404(
+            MoteurVoiture.objects.select_related(),
+            id=moteur_id
+        )
+
+        if request.method == "POST":
+            form = MoteurVoitureForm(request.POST, instance=moteur_instance)
+            if form.is_valid():
+                form.save()
+                messages.success(request, _("Moteur mis à jour avec succès."))
+
+            else:
+                messages.error(request, _("Le formulaire contient des erreurs."))
+        else:
+            form = MoteurVoitureForm(instance=moteur_instance)
+
+    return render(
+        request,
+        "voiture_moteur/modifier_moteur.html",
+        {
+            "form": form,
+            "moteur": moteur_instance
+        }
+    )
+
+

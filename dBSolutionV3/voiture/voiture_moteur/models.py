@@ -69,6 +69,14 @@ class MoteurVoiture(models.Model):
 
     boite = models.ForeignKey(VoitureBoite, null=True, blank=True, on_delete=models.SET_NULL, related_name="moteurs")
 
+
+    remarques = models.TextField(verbose_name=_("Remarques"), blank=True, null=True)
+
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
+
+
+
     class Meta:
         constraints = [
             models.CheckConstraint(

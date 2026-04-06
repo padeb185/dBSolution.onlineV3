@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import liste_pneus, ajouter_pneus_simple, pneus_detail_view
+from .views import liste_pneus, ajouter_pneus_simple, pneus_detail_view, modifier_pneus_view
 
 app_name = 'voiture_pneus'
 
@@ -9,10 +9,13 @@ urlpatterns = [
 
     path('ajouter/', ajouter_pneus_simple, name='ajouter_pneus_simple'),
 
+    # DETAIL
     path("<uuid:pneu_id>/", pneus_detail_view, name="detail"),
 
-    path('pneus<uuid:pneu_id>/', pneus_detail_view, name='detail'),
+    # MODIFIER ✅ (URL différente)
+    path("<uuid:pneu_id>/modifier/", modifier_pneus_view, name="modifier_pneus"),
 
-    path('pneus<uuid:pneu_id>/lier_pneus/<uuid:boite_id>/', pneus_detail_view, name='lier_pneus'),
+    # LIER
+    path("<uuid:pneu_id>/lier_pneus/<uuid:boite_id>/", pneus_detail_view, name='lier_pneus'),
 
 ]
