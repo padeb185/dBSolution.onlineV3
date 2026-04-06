@@ -75,7 +75,7 @@ urlpatterns += i18n_patterns(
 
     path("carrosserie/", include("carrosserie.urls")),
 
-    path("intervention/", include("intervention.urls")),
+
 
     path("societe_cliente/", include("societe_cliente.urls")),
 
@@ -118,6 +118,8 @@ urlpatterns += i18n_patterns(
     path('maintenance/autre/boite/',include(('maintenance.autres_interventions.boite_de_vitesse.urls', 'boite_de_vitesse'), namespace='boite_de_vitesse')),
 
     path('maintenance/autre/bte_auto/',include(('maintenance.autres_interventions.bte_vitesse_auto.urls', 'bte_vitesse_auto'), namespace='bte_vitesse_auto')),
+
+    path('maintenance/carrosserie/', include(('maintenance.carrosserie_interne.urls', 'carrosserie_interne'), namespace='carrosserie_interne')),
 
 )
 

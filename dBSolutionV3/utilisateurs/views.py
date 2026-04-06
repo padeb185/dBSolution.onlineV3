@@ -24,7 +24,6 @@ from voiture.voiture_modele.models import VoitureModele
 from fournisseur.models import Fournisseur
 from client_particulier.models import ClientParticulier
 from carrosserie.models import Carrosserie
-from intervention.models import Intervention
 from societe_cliente.models import SocieteCliente
 from fuel.models import Fuel
 from assurance.models import Assurance
@@ -99,13 +98,13 @@ def dashboard_view(request):
     total_boites = total_embrayages = total_freins = 0
     total_freins_ar = total_pneus = total_maintenance = 0
     total_fournisseur = total_client_particulier = 0
-    total_carrosserie = total_intervention = total_societe_cliente = 0
+    total_carrosserie = total_societe_cliente = 0
     total_adresse = total_assurance = total_modele = total_outils = 0
-    total_recharge = 0
+    total_recharge =  0
 
     marques = moteurs = exemplaires = boites = embrayages = freins = \
         freins_ar = pneus = maintenance = fournisseurs = client_particulier =\
-        carrosseries = interventions = societe_cliente = adresse = assurance = \
+        carrosseries = societe_cliente = adresse = assurance = \
         assurance_police = modele = outils = recharge = []
 
     if schema_name:
@@ -123,7 +122,7 @@ def dashboard_view(request):
             fournisseurs = Fournisseur.objects.filter(societe=societe)
             client_particulier = ClientParticulier.objects.filter(societe=societe)
             carrosseries = Carrosserie.objects.filter(societe=societe)
-            interventions = Intervention.objects.all()
+
             societe_cliente = SocieteCliente.objects.filter(societe=societe)
             adresse = Adresse.objects.filter(societe=societe)
             carburant = Fuel.objects.filter(societe=societe)
@@ -131,6 +130,7 @@ def dashboard_view(request):
             assurance_police = AssurancePolice.objects.filter(societe=societe)
             outils = Outillage.objects.filter(societe=societe)
             recharge = Electricite.objects.filter(societe=societe)
+
 
             # Totaux
             total_marques = marques.count()
@@ -146,7 +146,6 @@ def dashboard_view(request):
             total_fournisseur = fournisseurs.count()
             total_client_particulier = client_particulier.count()
             total_carrosserie = carrosseries.count()
-            total_intervention = interventions.count()
             total_societe_cliente = societe_cliente.count()
             total_adresse = adresse.count()
             total_carburant = carburant.count()
@@ -176,7 +175,6 @@ def dashboard_view(request):
         'total_fournisseur': total_fournisseur,
         'total_client_particulier': total_client_particulier,
         'total_carrosserie': total_carrosserie,
-        'total_intervention': total_intervention,
         'total_societe_cliente': total_societe_cliente,
         'total_adresse': total_adresse,
         'total_carburant': total_carburant,
@@ -199,7 +197,6 @@ def dashboard_view(request):
         'fournisseur': fournisseurs,
         'client_particulier': client_particulier,
         'carrosserie': carrosseries,
-        'intervention': interventions,
         'societe_cliente': societe_cliente,
         'adresse': adresse,
         'carburant': carburant,

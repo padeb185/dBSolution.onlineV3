@@ -14,7 +14,7 @@ from django.utils.translation import gettext as _
 from adresse.forms import AdresseForm
 from assurance.forms import AssuranceForm
 from assurance.models import Assurance
-from intervention.models import Intervention
+
 
 
 @method_decorator([login_required, never_cache], name='dispatch')
@@ -160,22 +160,22 @@ def dashboard_carrosserie_view(request):
 
     # --- Stats initialisées à zéro ---
 
-    total_carrosserie = total_intervention = 0
+    total_carrosserie = 0
 
 
-    carrosseries = interventions = []
+    carrosseries = []
 
     if schema_name:
         with schema_context(schema_name):
 
             carrosseries = Carrosserie.objects.filter(societe=societe)
-            interventions = Intervention.objects.all()
+
 
 
             # Totaux
 
             total_carrosserie = carrosseries.count()
-            total_intervention = interventions.count()
+
 
 
 
@@ -187,11 +187,11 @@ def dashboard_carrosserie_view(request):
         'societe': societe,
 
         'total_carrosserie': total_carrosserie,
-        'total_intervention': total_intervention,
+
 
 
         'carrosserie': carrosseries,
-        'intervention': interventions,
+
 
     })
 

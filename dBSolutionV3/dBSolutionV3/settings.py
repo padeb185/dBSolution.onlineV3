@@ -112,7 +112,6 @@ TENANT_APPS = (
     'societe_cliente',
     'fournisseur',
     'carrosserie',
-    'intervention',
 
     'outillage',
     'investissements',
@@ -129,6 +128,10 @@ TENANT_APPS = (
     'maintenance.nettoyage_exterieur',
     'maintenance.autres_interventions',
     'maintenance.pneus',
+
+
+
+    'maintenance.carrosserie_interne',
 
     'fuel',
 

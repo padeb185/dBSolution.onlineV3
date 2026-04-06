@@ -1,4 +1,6 @@
 from decimal import Decimal
+
+from django.conf import settings
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -12,16 +14,16 @@ class EtatOKNotOK(models.TextChoices):
 
 
 
-class Intervention(models.Model):
+class CarrosserieInterne(models.Model):
     societe = models.ForeignKey(
         "societe.Societe",
         on_delete=models.CASCADE,
-        related_name="interventions"
+        related_name="carrosserie_interne"
     )
     voiture_exemplaire = models.ForeignKey(
         "voiture_exemplaire.VoitureExemplaire",
         on_delete=models.PROTECT,
-        related_name="interventions"
+        related_name="carrosserie_interne"
     )
 
     kilometres_chassis = models.PositiveIntegerField(
@@ -68,75 +70,28 @@ class Intervention(models.Model):
 
 
 
-        # Pare-brise
-    pare_brise = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.NOT_OK,verbose_name=_("Pare-brise"))
-    pare_brise_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("Pare-brise oem"))
-    pare_brise_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
-    pare_brise_quantite = models.IntegerField(default=0)
+    support_pare_choc_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.NOT_OK,verbose_name=_("Support de pare-chocs avant"))
+    support_pare_choc_av_oem = models.CharField(max_length=25, null=True, blank=True,verbose_name=_("Support de pare-chocs oem"))
+    support_pare_choc_av_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    support_pare_choc_av_quantite = models.IntegerField(default=0)
 
+    support_pare_choc_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.NOT_OK,verbose_name=_("Support de pare-chocs arrière"))
+    support_pare_choc_ar_oem = models.CharField(max_length=25, null=True, blank=True,verbose_name=_("Support de pare-chocs oem"))
+    support_pare_choc_ar_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    support_pare_choc_ar_quantite = models.IntegerField(default=0)
 
-
-
-        # Vitres de portes
-    vitre_porte_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.NOT_OK,verbose_name=_("Vitre de porte avant droite"))
-    vitre_porte_avd_oem = models.CharField(max_length=25, null=True, blank=True,verbose_name=_("Vitre de porte avant droite oem"))
-    vitre_porte_avd_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
-    vitre_porte_avd_quantite = models.IntegerField(default=0)
-
-
-    vitre_porte_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.NOT_OK,verbose_name=_("Vitre de porte avant gauche"))
-    vitre_porte_avg_oem = models.CharField(max_length=25, null=True, blank=True,verbose_name=_("Vitre de porte avant gauche oem"))
-    vitre_porte_avg_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
-    vitre_porte_avg_quantite = models.IntegerField(default=0)
-
-
-    vitre_porte_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.NOT_OK,verbose_name=_("Vitre de porte arrière droite"))
-    vitre_porte_ard_oem = models.CharField(max_length=25, null=True, blank=True,verbose_name=_("Vitre de porte arrière droite oem"))
-    vitre_porte_ard_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
-    vitre_porte_ard_quantite = models.IntegerField(default=0)
-
-
-
-    vitre_porte_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.NOT_OK,verbose_name=_("Vitre de porte arrière gauche"))
-    vitre_porte_arg_oem = models.CharField(max_length=25, null=True, blank=True,verbose_name=_("Vitre de porte arrière gauche oem"))
-    vitre_porte_arg_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
-    vitre_porte_arg_quantite = models.IntegerField(default=0)
+    # Calandre
+    calandre = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.NOT_OK,verbose_name=_("Calandre"))
+    calandre_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("Calandre oem"))
+    calandre_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    calandre_quantite = models.IntegerField(default=0)
 
 
 
 
 
 
-
-
-        # Lunette arrière
-    lunette = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.NOT_OK,verbose_name=_("Lunette / vitre arrière"))
-    lunette_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("Lunette vitre arrière oem"))
-    lunette_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
-    lunette_quantite = models.IntegerField(default=0)
-
-
-
-
-       # Rétroviseurs
-    retroviseur_d = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.NOT_OK,verbose_name=_("Rétroviseur droit"))
-    retroviseur_d_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("Rétroviseur droit oem"))
-    retroviseur_d_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
-    retroviseur_d_quantite = models.IntegerField(default=0)
-
-
-
-    retroviseur_g = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.NOT_OK,
-                                         verbose_name=_("Rétroviseur gauche"))
-    retroviseur_g_oem = models.CharField(max_length=25, null=True, blank=True,
-                                             verbose_name=_("Rétroviseur gauche oem"))
-    retroviseur_g_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
-    retroviseur_g_quantite = models.IntegerField(default=0)
-
-
-
-
-        # Ailes
+      # Ailes
     aile_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.NOT_OK,
                                     verbose_name=_("Aile avant droite"))
     aile_avd_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("Aile avant droite oem"))
@@ -220,21 +175,74 @@ class Intervention(models.Model):
 
 
 
-    support_pare_choc_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.NOT_OK,verbose_name=_("Support de pare-chocs avant"))
-    support_pare_choc_av_oem = models.CharField(max_length=25, null=True, blank=True,verbose_name=_("Support de pare-chocs oem"))
-    support_pare_choc_av_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
-    support_pare_choc_av_quantite = models.IntegerField(default=0)
 
-    support_pare_choc_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.NOT_OK,verbose_name=_("Support de pare-chocs arrière"))
-    support_pare_choc_ar_oem = models.CharField(max_length=25, null=True, blank=True,verbose_name=_("Support de pare-chocs oem"))
-    support_pare_choc_ar_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
-    support_pare_choc_ar_quantite = models.IntegerField(default=0)
 
-    # Calandre
-    calandre = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.NOT_OK,verbose_name=_("Calandre"))
-    calandre_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("Calandre oem"))
-    calandre_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
-    calandre_quantite = models.IntegerField(default=0)
+
+        # Pare-brise
+    pare_brise = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.NOT_OK,verbose_name=_("Pare-brise"))
+    pare_brise_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("Pare-brise oem"))
+    pare_brise_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    pare_brise_quantite = models.IntegerField(default=0)
+
+
+
+
+        # Vitres de portes
+    vitre_porte_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.NOT_OK,verbose_name=_("Vitre de porte avant droite"))
+    vitre_porte_avd_oem = models.CharField(max_length=25, null=True, blank=True,verbose_name=_("Vitre de porte avant droite oem"))
+    vitre_porte_avd_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    vitre_porte_avd_quantite = models.IntegerField(default=0)
+
+
+    vitre_porte_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.NOT_OK,verbose_name=_("Vitre de porte avant gauche"))
+    vitre_porte_avg_oem = models.CharField(max_length=25, null=True, blank=True,verbose_name=_("Vitre de porte avant gauche oem"))
+    vitre_porte_avg_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    vitre_porte_avg_quantite = models.IntegerField(default=0)
+
+
+    vitre_porte_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.NOT_OK,verbose_name=_("Vitre de porte arrière droite"))
+    vitre_porte_ard_oem = models.CharField(max_length=25, null=True, blank=True,verbose_name=_("Vitre de porte arrière droite oem"))
+    vitre_porte_ard_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    vitre_porte_ard_quantite = models.IntegerField(default=0)
+
+
+
+    vitre_porte_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.NOT_OK,verbose_name=_("Vitre de porte arrière gauche"))
+    vitre_porte_arg_oem = models.CharField(max_length=25, null=True, blank=True,verbose_name=_("Vitre de porte arrière gauche oem"))
+    vitre_porte_arg_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    vitre_porte_arg_quantite = models.IntegerField(default=0)
+
+
+
+
+
+
+
+
+        # Lunette arrière
+    lunette = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.NOT_OK,verbose_name=_("Lunette / vitre arrière"))
+    lunette_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("Lunette vitre arrière oem"))
+    lunette_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    lunette_quantite = models.IntegerField(default=0)
+
+
+
+
+       # Rétroviseurs
+    retroviseur_d = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.NOT_OK,verbose_name=_("Rétroviseur droit"))
+    retroviseur_d_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("Rétroviseur droit oem"))
+    retroviseur_d_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    retroviseur_d_quantite = models.IntegerField(default=0)
+
+
+
+    retroviseur_g = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.NOT_OK,
+                                         verbose_name=_("Rétroviseur gauche"))
+    retroviseur_g_oem = models.CharField(max_length=25, null=True, blank=True,
+                                             verbose_name=_("Rétroviseur gauche oem"))
+    retroviseur_g_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    retroviseur_g_quantite = models.IntegerField(default=0)
+
 
 
 
@@ -548,6 +556,37 @@ class Intervention(models.Model):
 
 
 
+    # Technicien qui fait le checkup (toujours l'utilisateur courant)
+    tech_technicien = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name=_("Technicien"),
+        related_name="carrosserie_interne"
+    )
+
+    tech_nom_technicien = models.CharField(
+        _("Nom du technicien"),
+        max_length=255,
+        blank=True
+    )
+
+    tech_role_technicien = models.CharField(
+        _("Rôle du technicien"),
+        max_length=255,
+        blank=True
+    )
+
+    tech_societe = models.ForeignKey(
+        "societe.Societe",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name=_("Société"),
+        related_name="carrosserie_interne_societe"
+    )
+
 
 
     remarques = models.TextField(verbose_name=_("Remarques"), blank=True, null=True)
@@ -609,8 +648,8 @@ class Intervention(models.Model):
 
 
 
-class InterventionItem(models.Model):
-    intervention = models.ForeignKey(
+class CarrosserieItem(models.Model):
+    carrosserie_interne = models.ForeignKey(
         "Intervention",
         on_delete=models.CASCADE,
         related_name="items"
@@ -636,31 +675,31 @@ class InterventionItem(models.Model):
 
 class MainOeuvre(models.Model):
 
-    intervention = models.ForeignKey(
-        Intervention,
+   carrosserie = models.ForeignKey(
+        CarrosserieInterne,
         on_delete=models.CASCADE,
         related_name="main_oeuvre"
-    )
+   )
 
-    description = models.CharField(max_length=200)
+   description = models.CharField(max_length=200)
 
-    heures = models.DecimalField(
+   heures = models.DecimalField(
         max_digits=5,
         decimal_places=2
-    )
+   )
 
-    taux_horaire = models.DecimalField(
+   taux_horaire = models.DecimalField(
         max_digits=10,
         decimal_places=2
-    )
+   )
 
-    montant_htva = models.DecimalField(
+   montant_htva = models.DecimalField(
         max_digits=12,
         decimal_places=2,
         editable=False
     )
 
-    def save(self, *args, **kwargs):
+   def save(self, *args, **kwargs):
 
         self.montant_htva = self.heures * self.taux_horaire
 
@@ -671,8 +710,8 @@ class MainOeuvre(models.Model):
 
 class Peinture(models.Model):
 
-    intervention = models.ForeignKey(
-        Intervention,
+    carrosserie_interne = models.ForeignKey(
+        CarrosserieInterne,
         on_delete=models.CASCADE,
         related_name="peinture"
     )
