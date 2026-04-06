@@ -175,14 +175,14 @@
         </a>
 
          <!-- Carroserie -->
-        <a href="{% url 'intervention:intervention_list' exemplaire.id %}"
+        <a href="{% url 'carrosserie_interne:carrosserie_interne_list' exemplaire.id %}"
            class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
             <div class="flex justify-between items-center">
                 <div>
                     <h2 class="text-lg font-semibold mb-2">{% trans "Carrosserie" %}</h2>
                     <p class="text-gray-600">
                         {% trans "Nombre total :" %}
-                        <span class="font-bold">{{ total_interventions }}</span>
+                        <span class="font-bold">{{ total_carrosserie_interne }}</span>
                     </p>
                 </div>
                 <img src="{% static 'icons/carrosserie.png' %}" alt="Carrosserie" style="width:60px; height:60px;">

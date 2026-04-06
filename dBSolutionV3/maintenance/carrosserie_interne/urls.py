@@ -9,7 +9,7 @@ app_name = "carrosserie_interne"
 
 urlpatterns = [
 
-    path('/<uuid:exemplaire_id>/liste/', CarrosserieInterneListView.as_view(),name='carrosserie_interne_list'),
+    path('<uuid:exemplaire_id>/liste/', CarrosserieInterneListView.as_view(), name='carrosserie_interne_list'),
 
     path('create/<uuid:exemplaire_id>/', carrosserie_interne_create_view, name='carrosserie_interne_create'),
 
