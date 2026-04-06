@@ -21,7 +21,6 @@ from maintenance.models import Maintenance
 
 
 
-
 @method_decorator([login_required, never_cache], name='dispatch')
 class CarrosserieInterneListView(LoginRequiredMixin, ListView):
     model = CarrosserieInterne
@@ -32,9 +31,18 @@ class CarrosserieInterneListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         queryset = CarrosserieInterne.objects.select_related(
-            "voiture_exemplaire", "maintenance", "societe"
+            "voiture_exemplaire",
+            "societe",
+            "tech_technicien",
+            "tech_societe",
         )
 
+        # 🔥 filtre par exemplaire (IMPORTANT)
+        exemplaire_id = self.kwargs.get("exemplaire_id")
+        if exemplaire_id:
+            queryset = queryset.filter(voiture_exemplaire_id=exemplaire_id)
+
+        # 🔥 filtre par société
         societe = getattr(self.request.user, "societe", None)
         if societe:
             queryset = queryset.filter(
@@ -43,20 +51,59 @@ class CarrosserieInterneListView(LoginRequiredMixin, ListView):
 
         return queryset.order_by(*self.ordering)
 
+    from django.shortcuts import get_object_or_404
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
+        # Récupération de l'exemplaire
         exemplaire_id = self.kwargs.get("exemplaire_id")
-
         if exemplaire_id:
             context["exemplaire"] = get_object_or_404(
                 VoitureExemplaire, id=exemplaire_id
             )
         else:
-            context["exemplaire"] = None  # IMPORTANT
+            context["exemplaire"] = None
+
+        # Structuration des champs du formulaire en sections
+        form = context.get("form")
+        if form:
+            context["sections"] = [
+                {
+                    "title": "Kilométrage",
+                    "icon": "icons/compteur.png",
+                    "fields": [f for f in form if "kilo" in f.name],
+                },
+                {
+                    "title": "Pare-chocs",
+                    "icon": "icons/pare-chocs.png",
+                    "fields": [f for f in form if "pare" in f.name],
+                },
+                {
+                    "title": "Traverse",
+                    "icon": "icons/pare-chocs.png",
+                    "fields": [f for f in form if "bouclier" in f.name],
+                },
+                {
+                    "title": "Etiquette",
+                    "icon": "icons/tag.png",
+                    "fields": [f for f in form if "tag" in f.name],
+                },
+                {
+                    "title": "Remarques",
+                    "icon": "icons/notes.png",
+                    "fields": [f for f in form if "remarques" in f.name],
+                },
+                {
+                    "title": "Technicien",
+                    "icon": "icons/mecanicien.png",
+                    "fields": [f for f in form if "tech" in f.name],
+                },
+            ]
+        else:
+            context["sections"] = []
 
         return context
-
 
 
 
@@ -87,16 +134,15 @@ def carrosserie_interne_create_view(request, exemplaire_id):
         maintenance = Maintenance.objects.filter(
             voiture_exemplaire=exemplaire,
             type_maintenance="carrosserie_interne"
-        ).order_by("-date_carrosserie_interne").first()
+        ).order_by("-id").first()
 
         if not maintenance:
             maintenance = Maintenance.objects.create(
                 voiture_exemplaire=exemplaire,
                 mecanicien=request.user,
                 immatriculation=exemplaire.immatriculation,
-                date_carrosserie_interne=timezone.localtime(timezone.now()).date(),
                 kilometres_chassis=exemplaire.kilometres_chassis,
-                kilometres_derniere_carrosserie_interne=exemplaire.kilometres_derniere_carrosserie_interne,
+                kilometres_derniere_carrosserie_interne=exemplaire.kilometres_derniere_intervention,
                 type_maintenance="carrosserie_interne",
                 tag=Maintenance.Tag.JAUNE,
             )

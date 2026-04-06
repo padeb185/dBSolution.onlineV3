@@ -1,9 +1,9 @@
 from decimal import Decimal
-
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+
 
 
 class EtatOKNotOK(models.TextChoices):
@@ -607,6 +607,11 @@ class CarrosserieInterne(models.Model):
     total_htva = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     total_tva = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     total_tvac = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+
+
+    # --- Date d'enregistrement ---
+    date = models.DateTimeField(default=timezone.now, verbose_name=_("Date"))
+
 
 
     def recalcul_totaux(self):
