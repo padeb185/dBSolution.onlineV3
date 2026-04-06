@@ -4,12 +4,6 @@
 
 {% block content %}
 
-<div>
-        <a href="{% url 'voiture_freins_ar:freins_ar_list' %}"
-            class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition min-w-[200px]">
-            {% trans "Retour à la liste des freins arrière" %}
-        </a>
-</div>
 
 <div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
 
@@ -101,9 +95,16 @@
           </div>
     </form>
 
-
-
 </div>
+
+
+    <br>
+    <div class="max-w-xl mx-auto mt-4">
+           <a href="{% url 'voiture_freins_ar:freins_ar_detail' frein_ar_id=frein.id %}"
+            class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+            {% trans "Retour aux détails des freins arrière" %}
+        </a>
+    </div>
 
 
 

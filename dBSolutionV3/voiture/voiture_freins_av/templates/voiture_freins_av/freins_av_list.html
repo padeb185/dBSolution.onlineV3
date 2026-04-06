@@ -9,20 +9,15 @@
          style="width:60px; height:60px; margin-right:10px;">
     {% trans "Liste des freins avant" %}
 </h1>
+<br>
+<br>
 
-
-
-<div class="flex flex-row gap-4">
-    <a href="{% url 'voiture_freins_av:ajouter_freins_simple' %}"
-       class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition min-w-[200px]">
-        {% trans "Ajouter un système de freinage avant" %}
-    </a>
-
-    <a href="{% url 'voiture_freins_av:dashboard_frein' %}"
-       class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition min-w-[200px]">
-        {% trans "Dashboard freins" %}
-    </a>
-</div>
+    <div class="mb-4">
+        <a href="{% url 'voiture_freins_av:ajouter_freins_simple' %}"
+           class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+            {% trans "Ajouter un système de freinage avant" %}
+        </a>
+    </div>
 
 
 <br>
@@ -95,11 +90,12 @@
  <br>
 <br>
 <div>
-    <a href="{% url 'utilisateurs:dashboard' %}"
-       class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-blue-500">
-        {% trans "Retour au tableau de bord" %}
+    <a href="{% url 'voiture_freins_av:dashboard_frein' %}"
+       class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Dashboard freins" %}
     </a>
 </div>
+
 
 <!-- DataTables JS -->
 <script>

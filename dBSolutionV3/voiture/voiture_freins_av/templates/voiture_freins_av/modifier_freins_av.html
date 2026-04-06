@@ -97,6 +97,14 @@
     </form>
 </div>
 
+<br>
+<div class="max-w-xl mx-auto mt-4">
+     <a href="{% url 'voiture_freins_av:freins_av_detail' frein_av_id=frein.id %}"
+        class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour aux détails du moteur" %}
+    </a>
+</div>
+
 <style>
 .input {
     width: 100% !important;
