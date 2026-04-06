@@ -1,6 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db import models, transaction
+from django.db.models import Q
+from django.utils import timezone
+from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
-from .forms import InterventionForm, MainOeuvreFormSet, PeintureFormSet, InterventionItemFormSet
+from .forms import InterventionForm, MainOeuvreFormSet, PeintureFormSet
 from .models import Intervention
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -17,9 +21,10 @@ from .models import Intervention
 from django.shortcuts import render, redirect
 from django.views import View
 from .forms import InterventionForm, MainOeuvreFormSet, PeintureFormSet
+from maintenance.models import Maintenance
 
 
-
+@method_decorator([login_required, never_cache], name='dispatch')
 class InterventionListView(LoginRequiredMixin, ListView):
     model = Intervention
     template_name = "intervention/intervention_list.html"
@@ -28,146 +33,189 @@ class InterventionListView(LoginRequiredMixin, ListView):
     ordering = ["-created_at"]
 
     def get_queryset(self):
-        societe = self.request.user.societe
-        return Intervention.objects.filter(societe=societe)
+        queryset = Intervention.objects.select_related(
+            "voiture_exemplaire", "maintenance", "tech_societe"
+        )
 
+        # Filtrer par société : inclure les objets NULL ou ceux de la société de l'utilisateur
+        societe = getattr(self.request.user, "societe", None)
+        if societe:
+            queryset = queryset.filter(
+                models.Q(tech_societe=societe) | models.Q(tech_societe__isnull=True)
+            )
 
+        return queryset.order_by(*self.ordering)
 
-class InterventionCreateView(View):
-    template_name = "intervention/intervention_create.html"
-
-    def get(self, request, *args, **kwargs):
-        form = InterventionForm()
-        item_formset = InterventionItemFormSet()
-        main_formset = MainOeuvreFormSet()
-        peinture_formset = PeintureFormSet()
-
-        return render(request, self.template_name, {
-            'form': form,
-            'item_formset': item_formset,
-            'main_formset': main_formset,
-            'peinture_formset': peinture_formset,
-        })
-
-    def post(self, request, *args, **kwargs):
-        form = InterventionForm(request.POST)
-        item_formset = InterventionItemFormSet(request.POST)
-        main_formset = MainOeuvreFormSet(request.POST)
-        peinture_formset = PeintureFormSet(request.POST)
-
-        if form.is_valid() and item_formset.is_valid() and main_formset.is_valid() and peinture_formset.is_valid():
-            intervention = form.save()
-
-            # Lier les formsets à l'intervention
-            item_formset.instance = intervention
-            item_formset.save()
-
-            main_formset.instance = intervention
-            main_formset.save()
-
-            peinture_formset.instance = intervention
-            peinture_formset.save()
-
-            return redirect('intervention:intervention_list')
-
-        return render(request, self.template_name, {
-            'form': form,
-            'item_formset': item_formset,
-            'main_formset': main_formset,
-            'peinture_formset': peinture_formset,
-        })
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        exemplaire_id = self.kwargs.get("exemplaire_id")
+        context["exemplaire"] = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
+        return context
 
 
 
 
-
-
-
-"""
+@never_cache
 @login_required
-def ajouter_intervention_all(request):
-    carrosseries = Carrosserie.objects.all()
-    voitures = VoitureExemplaire.objects.all().values_list('immatriculation', flat=True)
-    pieces = ["pare_chocs", "bouclier_av", "pare_brise"]  # Liste des éléments à réparer
-
-    # Préparer un dictionnaire pour stocker les valeurs des pièces
-    pieces_values = {}
-    for piece in pieces:
-        pieces_values[piece] = {"checked": False, "prix": "", "quantite": ""}
-
-    if request.method == "POST":
-        form = InterventionForm(request.POST)
-        if form.is_valid():
-            intervention = form.save(commit=False)
-
-            # Récupérer la voiture via UUID
-            voiture_uuid = request.POST.get("voiture_immatriculation")
-            if voiture_uuid:
-                try:
-                    intervention.voiture_immatriculation = VoitureExemplaire.objects.get(id=UUID(voiture_uuid))
-                except VoitureExemplaire.DoesNotExist:
-                    form.add_error("voiture_immatriculation", "Voiture non trouvée.")
-
-            # Récupérer les informations des pièces depuis POST
-            for piece in pieces:
-                checked = request.POST.get(f"{piece}_checked") == "on"
-                prix = request.POST.get(f"{piece}_prix", "")
-                quantite = request.POST.get(f"{piece}_quantite", "")
-                pieces_values[piece] = {
-                    "checked": checked,
-                    "prix": prix,
-                    "quantite": quantite,
-                }
-
-            # Calcul automatique du total
-            intervention.montant_total = intervention.total_prix  # Assure que total_prix prend en compte les pièces
-            intervention.save()
-            return redirect(reverse("intervention:intervention_list"))
-        else:
-            print(form.errors)
-            # Si le formulaire est invalide, on conserve les valeurs des pièces pour réaffichage
-            for piece in pieces:
-                checked = request.POST.get(f"{piece}_checked") == "on"
-                prix = request.POST.get(f"{piece}_prix", "")
-                quantite = request.POST.get(f"{piece}_quantite", "")
-                pieces_values[piece] = {
-                    "checked": checked,
-                    "prix": prix,
-                    "quantite": quantite,
-                }
-    else:
-        form = InterventionForm()
-
-    return render(request, "intervention/intervention_form.html", {
-        "form": form,
-        "carrosseries": carrosseries,
-        "voitures": voitures,
-        "pieces": pieces,
-        "pieces_values": pieces_values,
-    })
-
-
-
-"""
-
-@login_required
-def modifier_intervention(request, intervention_id):
-    tenant = request.user.societe  # ou autre attribut qui identifie le tenant
+def intervention_create_view(request, exemplaire_id):
+    tenant = request.user.societe
 
     with tenant_context(tenant):
-        intervention = get_object_or_404(Intervention, id=intervention_id)
+        # Récupération de l'exemplaire
+        exemplaire = get_object_or_404(
+            VoitureExemplaire.objects.filter(
+                Q(client__societe=tenant) | Q(client__isnull=True, societe=tenant)
+            ),
+            id=exemplaire_id
+        )
+
+        # Vérification des rôles
+        roles_autorises = ["mécanicien", "apprenti", "magasinier", "chef mécanicien"]
+        if request.user.role not in roles_autorises:
+            messages.error(
+                request,
+                _("Seuls les mécaniciens, apprentis, magasiniers et chefs mécaniciens peuvent accéder à cette page.")
+            )
+            return redirect("maintenance_liste_all")
+
+        # Récupération ou création de la maintenance
+        maintenance = Maintenance.objects.filter(
+            voiture_exemplaire=exemplaire,
+            type_maintenance="intervention"
+        ).order_by("-date_intervention").first()
+
+        if not maintenance:
+            maintenance = Maintenance.objects.create(
+                voiture_exemplaire=exemplaire,
+                mecanicien=request.user,
+                immatriculation=exemplaire.immatriculation,
+                date_intervention=timezone.localtime(timezone.now()).date(),
+                kilometres_chassis=exemplaire.kilometres_chassis,
+                kilometres_derniere_intervention=exemplaire.kilometres_derniere_intervention,
+                type_maintenance="intervention",
+                tag=Maintenance.Tag.JAUNE,
+            )
+
+        # Créer ou récupérer l'objet NettoyageInterieur
+        intervention = Intervention(
+            societe=tenant,
+            voiture_exemplaire=exemplaire,
+            maintenance=maintenance,
+            kilometres_chassis=exemplaire.kilometres_chassis
+        )
 
         if request.method == "POST":
-            form = InterventionForm(request.POST, instance=intervention)
+            form = InterventionForm(
+                request.POST,
+                instance=intervention,
+                user=request.user,
+                exemplaire=exemplaire
+            )
+
+            if form.is_valid():
+                try:
+                    with transaction.atomic():
+                        intervention = form.save(commit=False)
+
+
+                        intervention.assign_technicien(request.user)
+
+                        # Gestion du kilométrage
+                        km_intervention = form.cleaned_data.get("kilometres_chassis")
+                        if km_intervention is not None and km_intervention >= exemplaire.kilometres_chassis:
+                            intervention.kilometres_chassis = km_intervention
+                            exemplaire.kilometres_chassis = km_intervention
+                            exemplaire.save()
+                        elif km_intervention is not None and km_intervention < exemplaire.kilometres_chassis:
+                            form.add_error(
+                                "kilometres_chassis",
+                                _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
+                            )
+                            raise ValueError("Kilométrage invalide")
+
+                        intervention.save()
+
+                    messages.success(request, _("intervention enregistré avec succès."))
+
+                except Exception as e:
+                    messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
+            else:
+                messages.error(request, _("Le formulaire contient des erreurs."))
+                print(form.errors)
+        else:
+            intervention.assign_technicien(request.user)
+
+            form = InterventionForm(
+                instance=intervention,
+                user=request.user,
+                exemplaire=exemplaire
+            )
+
+        return render(request, 'intervention/intervention_create.html', {
+            "exemplaire": exemplaire,
+            "immatriculation": exemplaire.immatriculation,
+            "maintenance": maintenance,
+            "form": form,
+            "now": timezone.now(),
+        })
+
+
+
+# ------------
+# Vue détail intervention
+# -----------------------------
+@login_required
+def intervention_detail_view(request, intervention_id):
+    intervention = get_object_or_404(
+        Intervention.objects.select_related("voiture_exemplaire"),
+        id=intervention_id
+    )
+
+    context = {
+        "intervention": intervention,
+        "exemplaire": intervention.voiture_exemplaire,
+    }
+    return render(request, "inteervention/intervention_detail.html", context)
+
+
+@login_required
+def modifier_intervention_view(request, intervention_id):
+    tenant = request.user.societe
+
+    with tenant_context(tenant):
+        # Récupération du intervention avec son exemplaire
+        intervention = get_object_or_404(
+            Intervention.objects.select_related("voiture_exemplaire"),
+            id=intervention_id
+        )
+
+        # -------------------------
+        # POST
+        # -------------------------
+        if request.method == "POST":
+            form = InterventionForm(
+                request.POST,
+                instance=intervention,
+                user=request.user,       # 🔑 important pour initialiser technicien/societe
+                exemplaire=intervention.voiture_exemplaire
+            )
             if form.is_valid():
                 form.save()
-                messages.success(request, _("Intervention mise à jour avec succès."))
-                return redirect(
-                    'intervention:modifier_intervention',
-                    intervention_id=intervention.id
-                )
+                messages.success(request, _("intervention modifiée avec succès !"))
+                return redirect("intervention:modifier_intervention", intervention_id=intervention.id)
+            else:
+                messages.error(request, _("Le formulaire contient des erreurs."))
+                print(form.errors)
+
+        # -------------------------
+        # GET
+        # -------------------------
         else:
-            form = InterventionForm(instance=intervention)
+            form = InterventionForm(
+                instance=intervention,
+                user=request.user,
+                exemplaire=intervention.voiture_exemplaire
+            )
 
     return render(
         request,
@@ -175,27 +223,6 @@ def modifier_intervention(request, intervention_id):
         {
             "form": form,
             "intervention": intervention,
+            "exemplaire": intervention.voiture_exemplaire,
         }
     )
-
-
-
-@login_required
-def intervention_detail(request, intervention_id):
-    tenant = request.user.societe
-
-    with tenant_context(tenant):
-        intervention = get_object_or_404(Intervention, id=intervention_id)
-        adresse = intervention.carrosserie.adresse
-
-    return render(
-        request,
-        "intervention/intervention_detail.html",
-        {
-            "intervention": intervention,
-            "adresse": adresse,
-        },
-    )
-
-
-

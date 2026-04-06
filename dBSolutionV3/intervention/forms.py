@@ -1,42 +1,38 @@
-from django import forms
 from django.forms import inlineformset_factory
-from .models import Intervention, MainOeuvre, Peinture, InterventionItem
-
-
+from .models import Intervention,MainOeuvre, Peinture
 from django import forms
-from .models import Intervention, InterventionItem, MainOeuvre, Peinture, TypePieceCarrosserie
+
+
+
 
 
 class InterventionForm(forms.ModelForm):
     class Meta:
         model = Intervention
-        fields = [
-            "societe",
-            "voiture_exemplaire",
-        ]
+        fields = "__all__"
+
         widgets = {
             "societe": forms.Select(attrs={"class": "form-select"}),
             "voiture_exemplaire": forms.Select(attrs={"class": "form-select"}),
+
+            "kilometres_chassis": forms.NumberInput(attrs={"class": "form-input"}),
+            "kilometrage_intervention": forms.NumberInput(attrs={"class": "form-input"}),
+
+            "remarques": forms.Textarea(attrs={
+                "class": "form-textarea",
+                "rows": 4
+            }),
         }
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
-class InterventionItemForm(forms.ModelForm):
-    class Meta:
-        model = InterventionItem
-        fields = [
-            "type",
-            "reference",
-            "quantite",
-            "prix_unitaire",
-            "taux_tva",
-        ]
-        widgets = {
-            "type": forms.Select(choices=TypePieceCarrosserie.choices, attrs={"class": "form-select"}),
-            "reference": forms.TextInput(attrs={"class": "form-control"}),
-            "quantite": forms.NumberInput(attrs={"class": "form-control", "min": 1}),
-            "prix_unitaire": forms.NumberInput(attrs={"class": "form-control", "step": "0.01"}),
-            "taux_tva": forms.NumberInput(attrs={"class": "form-control", "step": "0.01"}),
-        }
+        # 🔥 Appliquer un style par défaut à tous les champs
+        for name, field in self.fields.items():
+            if not isinstance(field.widget, forms.CheckboxInput):
+                field.widget.attrs.setdefault("class", "form-input")
+
+
 
 
 class MainOeuvreForm(forms.ModelForm):
@@ -66,14 +62,8 @@ class PeintureForm(forms.ModelForm):
             "prix": forms.NumberInput(attrs={"class": "form-control", "step": "0.01"}),
         }
 
-# Formsets
-InterventionItemFormSet = inlineformset_factory(
-    Intervention,
-    InterventionItem,
-    form=InterventionItemForm,
-    extra=1,
-    can_delete=True
-)
+
+
 
 MainOeuvreFormSet = inlineformset_factory(
     Intervention,
