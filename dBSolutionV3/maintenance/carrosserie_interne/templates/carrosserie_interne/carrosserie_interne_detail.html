@@ -64,21 +64,21 @@
 
         <p>
             <strong>{% trans "Créé le" %} :</strong>
-            {{ frein.created_at|date:"d/m/Y H:i" }}
+            {{ carrosserie_interne.created_at|date:"d/m/Y H:i" }}
         </p>
         <p>
             <strong>{% trans "Mis à jour le" %} :</strong>
-            {{ frein.updated_at|date:"d/m/Y H:i" }}
+            {{ carrosserie_interne.updated_at|date:"d/m/Y H:i" }}
         </p>
     </div>
 
-
+    <br>
     <!-- Actions -->
     <div>
         <a href="{% if carroserie.voiture_exemplaire %}
                    {% url 'carrosserie_interne:carrosserie_interne_list' carrosserie_interne.voiture_exemplaire.id %}
                {% else %}# {% endif %}"
-            class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+             class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
             {% trans "Retour à la liste des interventions" %}
         </a>
     </div>
