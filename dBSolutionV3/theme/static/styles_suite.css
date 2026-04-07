@@ -148,3 +148,8 @@ main {
 .border-tag-yellow {
   border-color: #FFEB3B;
 }
+
+
+.mb-14 {
+    margin-bottom: 3.5rem; /* 56px */
+}

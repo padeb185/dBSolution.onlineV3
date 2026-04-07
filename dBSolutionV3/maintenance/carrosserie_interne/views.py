@@ -215,10 +215,56 @@ def carrosserie_interne_create_view(request, exemplaire_id):
                 "fields": [f for f in form if "kilo" in f.name],
             },
             {
-                "title": "Pare-chocs",
+                "title": "Pare-chocs avant",
                 "icon": "icons/pare-chocs.png",
                 "fields": [f for f in form if "pare_choc_av" in f.name],
             },
+            {
+                "title": "Traverse avant",
+                "icon": "icons/pare-chocs.png",
+                "fields": [f for f in form if "bouclier_av" in f.name],
+            },
+            {
+                "title": "Traverse arrière",
+                "icon": "icons/pare-chocs.png",
+                "fields": [f for f in form if "bouclier_ar" in f.name],
+            },
+
+            {
+                "title": "Support pare-chocs avant",
+                "icon": "icons/pare-chocs.png",
+                "fields": [f for f in form if "support_pa_choc_av" in f.name],
+            },
+            {
+                "title": "Support pare-chocs arrière",
+                "icon": "icons/pare-chocs.png",
+                "fields": [f for f in form if "support_pa_choc_ar" in f.name],
+            },
+
+            {
+                "title": "Calandre",
+                "icon": "icons/calandre.png",
+                "fields": [f for f in form if "calandre" in f.name],
+            },
+            {
+                "title": "Support pare-chocs arrière",
+                "icon": "icons/pare-chocs.png",
+                "fields": [f for f in form if "support_pa_choc_ar" in f.name],
+            },
+
+            {
+                "title": "Support pare-chocs arrière",
+                "icon": "icons/pare-chocs.png",
+                "fields": [f for f in form if "support_pa_choc_ar" in f.name],
+            },
+
+            {
+                "title": "Support pare-chocs arrière",
+                "icon": "icons/pare-chocs.png",
+                "fields": [f for f in form if "support_pa_choc_ar" in f.name],
+            },
+
+
             {
                 "title": "Etiquette",
                 "icon": "icons/tag.png",
