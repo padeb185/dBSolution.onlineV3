@@ -220,6 +220,11 @@ def carrosserie_interne_create_view(request, exemplaire_id):
                 "fields": [f for f in form if "pare_choc_av" in f.name],
             },
             {
+                "title": "Pare-chocs arrière",
+                "icon": "icons/pare-chocs.png",
+                "fields": [f for f in form if "pare_choc_ar" in f.name],
+            },
+            {
                 "title": "Traverse avant",
                 "icon": "icons/pare-chocs.png",
                 "fields": [f for f in form if "bouclier_av" in f.name],
@@ -247,21 +252,47 @@ def carrosserie_interne_create_view(request, exemplaire_id):
                 "fields": [f for f in form if "calandre" in f.name],
             },
             {
-                "title": "Support pare-chocs arrière",
-                "icon": "icons/pare-chocs.png",
-                "fields": [f for f in form if "support_pa_choc_ar" in f.name],
+                "title": "Aile avant droite",
+                "icon": "icons/aile.png",
+                "fields": [f for f in form if "aile_avd" in f.name],
             },
 
             {
-                "title": "Support pare-chocs arrière",
-                "icon": "icons/pare-chocs.png",
-                "fields": [f for f in form if "support_pa_choc_ar" in f.name],
+                "title": "Aile avant gauche",
+                "icon": "icons/aile.png",
+                "fields": [f for f in form if "aile_avg" in f.name],
+            },
+            {
+                "title": "Aile arrière droite",
+                "icon": "icons/aile_ar.png",
+                "fields": [f for f in form if "aile_ard" in f.name],
             },
 
             {
-                "title": "Support pare-chocs arrière",
-                "icon": "icons/pare-chocs.png",
-                "fields": [f for f in form if "support_pa_choc_ar" in f.name],
+                "title": "Aile arrière gauche",
+                "icon": "icons/aile_ar.png",
+                "fields": [f for f in form if "aile_arg" in f.name],
+            },
+
+            {
+                "title": "Élargisseur d'aile avant droite",
+                "icon": "icons/elargisseur.png",
+                "fields": [f for f in form if "elargisseur_ail_avd" in f.name],
+            },
+            {
+                "title": "Élargisseur d'aile avant gauche",
+                "icon": "icons/elargisseur.png",
+                "fields": [f for f in form if "elargisseur_ail_avg" in f.name],
+            },
+            {
+                "title": "Élargisseur d'aile arrière droite",
+                "icon": "icons/elargisseur.png",
+                "fields": [f for f in form if "elargisseur_ail_ard" in f.name],
+            },
+            {
+                "title": "Élargisseur d'aile arrière gauche",
+                "icon": "icons/elargisseur.png",
+                "fields": [f for f in form if "elargisseur_ail_arg" in f.name],
             },
 
 

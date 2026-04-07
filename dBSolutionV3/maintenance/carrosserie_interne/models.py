@@ -128,30 +128,30 @@ class CarrosserieInterne(models.Model):
 
 
     # Élargisseurs d'aile
-    elargisseur_aile_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Élargisseur d'aile avant droite"))
-    elargisseur_aile_avd_oem = models.CharField(max_length=25, null=True, blank=True,verbose_name=_("Numero OEM"))
-    elargisseur_aile_avd_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name="Prix")
-    elargisseur_aile_avd_quantite = models.IntegerField(default=0)
+    elargisseur_ail_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Élargisseur d'aile avant droite"))
+    elargisseur_ail_avd_oem = models.CharField(max_length=25, null=True, blank=True,verbose_name=_("Numero OEM"))
+    elargisseur_ail_avd_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name="Prix")
+    elargisseur_ail_avd_quantite = models.IntegerField(default=0)
 
 
-    elargisseur_aile_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Élargisseur d'aile avant gauche"))
-    elargisseur_aile_avg_oem = models.CharField(max_length=25, null=True, blank=True,verbose_name=_("Numero OEM"))
-    elargisseur_aile_avg_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
-    elargisseur_aile_avg_quantite = models.IntegerField(default=0)
-
-
-
-    elargisseur_aile_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Élargisseur d'aile arrière droite"))
-    elargisseur_aile_ard_oem = models.CharField(max_length=25, null=True, blank=True,verbose_name=_("Numero OEM"))
-    elargisseur_aile_ard_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name="Prix")
-    elargisseur_aile_ard_quantite = models.IntegerField(default=0)
+    elargisseur_ail_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Élargisseur d'aile avant gauche"))
+    elargisseur_ail_avg_oem = models.CharField(max_length=25, null=True, blank=True,verbose_name=_("Numero OEM"))
+    elargisseur_ail_avg_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    elargisseur_ail_avg_quantite = models.IntegerField(default=0)
 
 
 
-    elargisseur_aile_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Élargisseur d'aile arrière gauche"))
-    elargisseur_aile_arg_oem = models.CharField(max_length=25, null=True, blank=True,verbose_name=_("Numero OEM"))
-    elargisseur_aile_arg_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name="Prix")
-    elargisseur_aile_arg_quantite = models.IntegerField(default=0)
+    elargisseur_ail_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Élargisseur d'aile arrière droite"))
+    elargisseur_ail_ard_oem = models.CharField(max_length=25, null=True, blank=True,verbose_name=_("Numero OEM"))
+    elargisseur_ail_ard_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name="Prix")
+    elargisseur_ail_ard_quantite = models.IntegerField(default=0)
+
+
+
+    elargisseur_ail_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Élargisseur d'aile arrière gauche"))
+    elargisseur_ail_arg_oem = models.CharField(max_length=25, null=True, blank=True,verbose_name=_("Numero OEM"))
+    elargisseur_ail_arg_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name="Prix")
+    elargisseur_ail_arg_quantite = models.IntegerField(default=0)
 
 
 
@@ -240,27 +240,25 @@ class CarrosserieInterne(models.Model):
     joint_porte_arg_quantite = models.IntegerField(default=0)
 
     # Coquilles d'aile
-    coquille_aile_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Coquille d'aile avant droite"))
-    coquille_aile_avd_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("Numero OEM"))
-    coquille_aile_avd_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
-    coquille_aile_avd_quantite = models.IntegerField(default=0)
+    coquille_ai_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Coquille d'aile avant droite"))
+    coquille_ai_avd_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("Numero OEM"))
+    coquille_ai_avd_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    coquille_ai_avd_quantite = models.IntegerField(default=0)
 
-    coquille_aile_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
-                                         verbose_name=_("Coquille d'aile avant gauche"))
-    coquille_aile_avg_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("Numero OEM"))
-    coquille_aile_avg_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name="Prix")
-    coquille_aile_avg_quantite = models.IntegerField(default=0)
+    coquille_ai_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,                            verbose_name=_("Coquille d'aile avant gauche"))
+    coquille_ai_avg_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("Numero OEM"))
+    coquille_ai_avg_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name="Prix")
+    coquille_ai_avg_quantite = models.IntegerField(default=0)
 
-    coquille_aile_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
-                                         verbose_name=_("Coquille d'aile arrière droite"))
-    coquille_aile_ard_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("Numero OEM"))
-    coquille_aile_ard_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
-    coquille_aile_ard_quantite = models.IntegerField(default=0)
+    coquille_ai_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Coquille d'aile arrière droite"))
+    coquille_ai_ard_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("Numero OEM"))
+    coquille_ai_ard_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    coquille_ai_ard_quantite = models.IntegerField(default=0)
 
-    coquille_aile_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Coquille d'aile arrière gauche"))
-    coquille_aile_arg_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("Numero OEM"))
-    coquille_aile_arg_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name="Prix")
-    coquille_aile_arg_quantite = models.IntegerField(default=0)
+    coquille_ai_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Coquille d'aile arrière gauche"))
+    coquille_ai_arg_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("Numero OEM"))
+    coquille_ai_arg_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name="Prix")
+    coquille_ai_arg_quantite = models.IntegerField(default=0)
 
     # Supports
     support_radiateur = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Support de radiateur"))
