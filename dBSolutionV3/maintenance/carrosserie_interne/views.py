@@ -113,7 +113,7 @@ def carrosserie_interne_create_view(request, exemplaire_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
-        # Récupération de l'exemplaire
+
         exemplaire = get_object_or_404(
             VoitureExemplaire.objects.filter(
                 Q(client__societe=tenant) | Q(client__isnull=True, societe=tenant)
@@ -121,33 +121,33 @@ def carrosserie_interne_create_view(request, exemplaire_id):
             id=exemplaire_id
         )
 
-        # Vérification des rôles
+        # 🔐 rôles
         roles_autorises = ["mécanicien", "apprenti", "magasinier", "chef mécanicien"]
         if request.user.role not in roles_autorises:
             messages.error(
                 request,
-                _("Seuls les mécaniciens, apprentis, magasiniers et chefs mécaniciens peuvent accéder à cette page.")
+                _("Accès refusé.")
             )
             return redirect("maintenance_liste_all")
 
-        # Récupération ou création de la maintenance
+        # 🔧 maintenance
         maintenance = Maintenance.objects.filter(
             voiture_exemplaire=exemplaire,
             type_maintenance="carrosserie_interne"
-        ).order_by("-id").first()
+        ).order_by("-date_intervention").first()
 
         if not maintenance:
             maintenance = Maintenance.objects.create(
                 voiture_exemplaire=exemplaire,
                 mecanicien=request.user,
                 immatriculation=exemplaire.immatriculation,
+                date_intervention=timezone.localtime(timezone.now()).date(),
                 kilometres_chassis=exemplaire.kilometres_chassis,
-                kilometres_derniere_carrosserie_interne=exemplaire.kilometres_derniere_intervention,
+                kilometres_derniere_intervention=exemplaire.kilometres_derniere_intervention,
                 type_maintenance="carrosserie_interne",
                 tag=Maintenance.Tag.JAUNE,
             )
 
-        # Créer ou récupérer l'objet NettoyageInterieur
         carrosserie_interne = CarrosserieInterne(
             societe=tenant,
             voiture_exemplaire=exemplaire,
@@ -168,31 +168,36 @@ def carrosserie_interne_create_view(request, exemplaire_id):
                     with transaction.atomic():
                         carrosserie_interne = form.save(commit=False)
 
-
                         carrosserie_interne.assign_technicien(request.user)
 
-                        # Gestion du kilométrage
-                        km_carrosserie_interne = form.cleaned_data.get("kilometres_chassis")
-                        if km_carrosserie_interne is not None and km_carrosserie_interne >= exemplaire.kilometres_chassis:
-                            carrosserie_interne.kilometres_chassis = km_carrosserie_interne
-                            exemplaire.kilometres_chassis = km_carrosserie_interne
+                        km = form.cleaned_data.get("kilometres_chassis")
+
+                        if km is not None:
+                            if km < exemplaire.kilometres_chassis:
+                                form.add_error(
+                                    "kilometres_chassis",
+                                    _("Le kilométrage ne peut pas être inférieur.")
+                                )
+                                raise ValueError("Kilométrage invalide")
+
+                            exemplaire.kilometres_chassis = km
                             exemplaire.save()
-                        elif km_carrosserie_interne is not None and km_carrosserie_interne < exemplaire.kilometres_chassis:
-                            form.add_error(
-                                "kilometres_chassis",
-                                _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
-                            )
-                            raise ValueError("Kilométrage invalide")
+                            carrosserie_interne.kilometres_chassis = km
 
                         carrosserie_interne.save()
 
-                    messages.success(request, _("carrosserie_interne enregistré avec succès."))
+                    messages.success(request, _("Intervention enregistrée avec succès."))
+                    return redirect(
+                        "carrosserie_interne:carrosserie_interne_list",
+                        exemplaire_id=exemplaire.id
+                    )
 
                 except Exception as e:
-                    messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
+                    messages.error(request, _(f"Erreur : {str(e)}"))
+
             else:
                 messages.error(request, _("Le formulaire contient des erreurs."))
-                print(form.errors)
+
         else:
             carrosserie_interne.assign_technicien(request.user)
 
@@ -202,13 +207,43 @@ def carrosserie_interne_create_view(request, exemplaire_id):
                 exemplaire=exemplaire
             )
 
+        # 🔥 SECTIONS (remplace ton get_context_data)
+        sections = [
+            {
+                "title": "Kilométrage",
+                "icon": "icons/compteur.png",
+                "fields": [f for f in form if "kilo" in f.name],
+            },
+            {
+                "title": "Pare-chocs",
+                "icon": "icons/pare-chocs.png",
+                "fields": [f for f in form if "pare_choc_av" in f.name],
+            },
+            {
+                "title": "Etiquette",
+                "icon": "icons/tag.png",
+                "fields": [f for f in form if "tag" in f.name],
+            },
+            {
+                "title": "Remarques",
+                "icon": "icons/notes.png",
+                "fields": [f for f in form if "remarques" in f.name],
+            },
+            {
+                "title": "Technicien",
+                "icon": "icons/mecanicien.png",
+                "fields": [f for f in form if "tech" in f.name],
+            },
+        ]
+
         return render(request, 'carrosserie_interne/carrosserie_interne_create.html', {
             "exemplaire": exemplaire,
-            "immatriculation": exemplaire.immatriculation,
             "maintenance": maintenance,
             "form": form,
+            "sections": sections,  # 🔥 IMPORTANT
             "now": timezone.now(),
         })
+
 
 
 

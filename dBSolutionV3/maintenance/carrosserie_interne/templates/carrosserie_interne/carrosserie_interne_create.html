@@ -58,51 +58,50 @@
 
     <br>
     <!-- Form -->
-    <form method="POST" class="space-y-4">
-        {% csrf_token %}
+    <form method="POST">
+    {% csrf_token %}
 
         {% for section in sections %}
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
-            <img src="{% static section.icon %}" style="width:60px; height:60px; margin-right:10px;">
-            {% trans section.title %}
-        </h2>
+        <div class="mb-14">
+            <h2 class="text-xl font-semibold mb-2 flex items-center gap-3">
+                <img src="{% static section.icon %}" class="w-16 h-16">
+                {% trans section.title %}
+            </h2>
 
-        {% for field in section.fields %}
-            <div class="mb-4">
+            {% for field in section.fields %}
+                <div class="mb-4">
+                    {% if field.field.widget.input_type == "checkbox" %}
+                        <label class="inline-flex items-center gap-2">
+                            {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                            <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                        </label>
 
-                {% if field.field.widget.input_type == "checkbox" %}
-                    <label class="inline-flex items-center gap-2">
-                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
-                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
-                    </label>
+                        {% if field.help_text %}
+                            <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
+                        {% endif %}
 
-                    {% if field.help_text %}
-                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
+                        {% if field.errors %}
+                            <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
+                        {% endif %}
+                    {% else %}
+                        <label class="block font-semibold mb-1">{{ field.label }}</label>
+                        {{ field|add_class:"input" }}
+
+                        {% if field.help_text %}
+                            <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                        {% endif %}
+
+                        {% if field.errors %}
+                            <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                        {% endif %}
                     {% endif %}
+                </div>
+            {% endfor %}
 
-                    {% if field.errors %}
-                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
-                    {% endif %}
-
-                {% else %}
-                    <label class="block font-semibold mb-1">{{ field.label }}</label>
-
-                    {{ field|add_class:"input" }}
-
-                    {% if field.help_text %}
-                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
-                    {% endif %}
-
-                    {% if field.errors %}
-                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
-                    {% endif %}
-                {% endif %}
-
-            </div>
+            <!-- Espace comme un <br> entre les sections -->
+            <div class="my-16"></div>
         {% endfor %}
-    {% endfor %}
-
-
+    </form>
 
 
         <!-- Boutons -->
