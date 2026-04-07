@@ -187,9 +187,11 @@ def carrosserie_interne_create_view(request, exemplaire_id):
                         carrosserie_interne.save()
 
                     messages.success(request, _("Intervention enregistrée avec succès."))
+
+
                     return redirect(
-                        "carrosserie_interne:carrosserie_interne_list",
-                        exemplaire_id=exemplaire.id
+                        "carrosserie_interne:rapport",
+                        pk=carrosserie_interne.id
                     )
 
                 except Exception as e:
@@ -459,6 +461,23 @@ def carrosserie_interne_create_view(request, exemplaire_id):
                 "icon": "icons/phares.png",
                 "fields": [f for f in form if "phare_arg" in f.name],
             },
+            # Anti-brouillards
+            {
+                "title": "Anti-brouillard avant droit",
+                "icon": "icons/phares.png",
+                "fields": [f for f in form if "anti_brouillard_avd" in f.name],
+            },
+            {
+                "title": "Anti-brouillard avant gauche",
+                "icon": "icons/phares.png",
+                "fields": [f for f in form if "anti_brouillard_avg" in f.name],
+            },
+            {
+                "title": "Anti-brouillard arrière",
+                "icon": "icons/phares.png",
+                "fields": [f for f in form if "anti_brouillard_ar" in f.name],
+            },
+
             {
                 "title": "Clignotant avant droit",
                 "icon": "icons/clignotant.png",
@@ -490,26 +509,10 @@ def carrosserie_interne_create_view(request, exemplaire_id):
             # Capteur de recul
             {
                 "title": "Capteur de recul",
-                "icon": "icons/capteur.png",
+                "icon": "icons/capteurs.png",
                 "fields": [f for f in form if "capteur_recul" in f.name],
             },
 
-            # Anti-brouillards
-            {
-                "title": "Anti-brouillard avant droit",
-                "icon": "icons/phare.png",
-                "fields": [f for f in form if "anti_brouillard_avd" in f.name],
-            },
-            {
-                "title": "Anti-brouillard avant gauche",
-                "icon": "icons/phares.png",
-                "fields": [f for f in form if "anti_brouillard_avg" in f.name],
-            },
-            {
-                "title": "Anti-brouillard arrière",
-                "icon": "icons/phares.png",
-                "fields": [f for f in form if "anti_brouillard_ar" in f.name],
-            },
 
             # Clips et visserie
             {
@@ -671,3 +674,16 @@ def modifier_carrosserie_interne_view(request, carrosserie_interne_id):
             "exemplaire": carrosserie_interne.voiture_exemplaire,
         }
     )
+
+
+
+@login_required
+def rapport_view(request, pk):
+    obj = get_object_or_404(CarrosserieInterne, pk=pk)
+
+    rapport = obj.generer_rapport_remplacement()
+
+    return render(request, "carrosserie_interne/rapport.html", {
+        "rapport": rapport,
+        "obj": obj
+    })

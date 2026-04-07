@@ -100,13 +100,14 @@
         </div>
         {% endfor %}
 
-    </form>
+
 
 
         <!-- Boutons -->
 
          <div class="flex gap-3 mt-6">
-                <button type="submit"
+
+                <button type="submit" name="submit"
                         class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
                     {% trans "Enregistrer" %}
                 </button>
@@ -125,7 +126,33 @@
 
     </form>
 </div>
+{% if rapport %}
+<div class="mt-10 bg-gray-100 p-4 rounded">
+    <h2 class="text-xl font-bold mb-4">🔧 Pièces à remplacer</h2>
 
+    <table class="w-full border">
+        <tr>
+            <th>Pièce</th>
+            <th>Prix</th>
+            <th>Qté</th>
+            <th>Total</th>
+        </tr>
+
+        {% for item in rapport.lignes %}
+        <tr>
+            <td>{{ item.champ }}</td>
+            <td>{{ item.prix }}</td>
+            <td>{{ item.quantite }}</td>
+            <td>{{ item.total }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <div class="text-right mt-3 font-bold">
+        Total : {{ rapport.total_general }} €
+    </div>
+</div>
+{% endif %}
 <style>
 .input {
     width: 100% !important;

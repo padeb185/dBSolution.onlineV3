@@ -7,14 +7,25 @@ from django.utils.translation import gettext_lazy as _
 class CarrosserieInterneForm(forms.ModelForm):
     class Meta:
         model = CarrosserieInterne
-        fields = "__all__"
+        exclude = [
+            "societe",
+            "maintenance",
+            "voiture_exemplaire",
+            "created_at",
+            "updated_at",
+            "total_pieces",
+            "total_main_oeuvre",
+            "total_peinture",
+            "total_htva",
+            "total_tva",
+            "total_tvac",
+            "date",
+        ]
         widgets = {
-            'maintenance': forms.HiddenInput(),
             'remarques': forms.Textarea(attrs={
                 'rows': 4,
                 'placeholder': _("Ajoutez des remarques ici...")
             }),
-
         }
 
     def __init__(self, *args, **kwargs):
@@ -22,12 +33,17 @@ class CarrosserieInterneForm(forms.ModelForm):
         self.exemplaire = kwargs.pop('exemplaire', None)
         super().__init__(*args, **kwargs)
 
-        # ✅ initialisation date seulement si le champ existe
+        # Rendre tous les select non obligatoires
+        for name, field in self.fields.items():
+            if field.widget.__class__.__name__ == "Select":
+                field.required = False
+
+        # Initialiser date si le champ existe
         if "date" in self.fields and self.instance and self.instance.pk and self.instance.date:
             local_dt = timezone.localtime(self.instance.date)
             self.fields['date'].initial = local_dt.strftime('%Y-%m-%d %H:%M:%S')
 
-        # Initialiser les champs technicien et société si présents
+        # Initialiser technicien et société si présents
         if self.user:
             if "tech_technicien" in self.fields:
                 self.fields["tech_technicien"].initial = self.user
@@ -37,34 +53,43 @@ class CarrosserieInterneForm(forms.ModelForm):
                 self.fields["tech_societe"].initial = self.user.societe
                 self.fields["tech_societe"].disabled = True
 
+        # Initialiser prix et quantite si les champs existent
+        for f in ["prix", "quantite"]:
+            if f in self.fields:
+                self.fields[f].initial = 0
+                self.fields[f].required = False
+
     def save(self, commit=True):
         instance = super().save(commit=False)
-        voiture = instance.voiture_exemplaire or self.exemplaire  # fallback si pas encore lié
 
-        # Récupération du kilométrage check-up depuis le formulaire
+        # Lier societe et voiture_exemplaire automatiquement
+        if self.user:
+            instance.societe = self.user.societe
+        if self.exemplaire:
+            instance.voiture_exemplaire = self.exemplaire
+
+        # Initialiser prix et quantite si vides
+        if hasattr(instance, "prix") and instance.prix in [None, ""]:
+            instance.prix = 0
+        if hasattr(instance, "quantite") and instance.quantite in [None, ""]:
+            instance.quantite = 0
+
+        # Récupération du kilométrage
         kilometrage_intervention = self.cleaned_data.get("kilometres_chassis")
-
-        if voiture and kilometrage_intervention is not None:
-            # 🔒 Sécurité : ne jamais diminuer le kilométrage
-            if kilometrage_intervention < voiture.kilometres_chassis:
+        if self.exemplaire and kilometrage_intervention is not None:
+            if kilometrage_intervention < self.exemplaire.kilometres_chassis:
                 raise forms.ValidationError(
-                    f"Le kilométrage du check-up ({kilometrage_intervention}) "
-                    f"ne peut pas être inférieur au kilométrage actuel de la voiture ({voiture.kilometres_chassis})."
+                    _("Le kilométrage du check-up ({km}) ne peut pas être inférieur au kilométrage actuel de la voiture ({current}).").format(
+                        km=kilometrage_intervention,
+                        current=self.exemplaire.kilometres_chassis
+                    )
                 )
-
-            # ✅ Mettre à jour la voiture si le kilométrage a augmenté
-            if kilometrage_intervention > voiture.kilometres_chassis:
-                voiture.kilometres_chassis = kilometrage_intervention
-                voiture.save(update_fields=["kilometres_chassis"])
-
-            # ✅ Mettre à jour le contrôle
+            # Mise à jour de l'exemplaire si nécessaire
+            if kilometrage_intervention > self.exemplaire.kilometres_chassis:
+                self.exemplaire.kilometres_chassis = kilometrage_intervention
+                self.exemplaire.save(update_fields=["kilometres_chassis"])
             instance.kilometres_chassis = kilometrage_intervention
 
-            # 🔗 Lier la voiture si ce n'était pas déjà fait
-            if not instance.voiture_exemplaire:
-                instance.voiture_exemplaire = voiture
-
-        # Sauvegarde finale
         if commit:
             instance.save()
 
