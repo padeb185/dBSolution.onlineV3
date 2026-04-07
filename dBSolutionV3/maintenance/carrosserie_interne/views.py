@@ -511,16 +511,13 @@ def carrosserie_interne_create_view(request, exemplaire_id):
                 "fields": [f for f in form if "anti_brouillard_ar" in f.name],
             },
 
-
-
-
-
             # Clips et visserie
             {
                 "title": "Clips",
                 "icon": "icons/clips.png",
                 "fields": [f for f in form if "clips" in f.name],
             },
+
             {
                 "title": "Visserie",
                 "icon": "icons/visserie.png",
@@ -528,12 +525,12 @@ def carrosserie_interne_create_view(request, exemplaire_id):
             },
 
             {
-                "title": "Peinture ailes avant droite",
+                "title": "Peinture aile avant droite",
                 "icon": "icons/pistolet-a-peinture.png",
                 "fields": [f for f in form if "peinture_avant_droit" in f.name],
             },
             {
-                "title": "Peinture ailes avant gauche",
+                "title": "Peinture aile avant gauche",
                 "icon": "icons/pistolet-a-peinture.png",
                 "fields": [f for f in form if "peinture_avant_gauche" in f.name],
             },
