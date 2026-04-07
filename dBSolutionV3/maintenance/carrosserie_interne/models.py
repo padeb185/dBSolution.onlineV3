@@ -53,7 +53,7 @@ class CarrosserieInterne(models.Model):
         # Pare-chocs
     pare_choc_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Pare-chocs avant"))
     pare_choc_av_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("Numero OEM"))
-    pare_choc_av_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    pare_choc_av_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0, verbose_name=_("Prix du pare-chocs avant"))
     pare_choc_av_quantite = models.IntegerField(default=0)
 
 

@@ -7,18 +7,11 @@
     <!-- Header -->
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold flex items-center gap-4">
-            <img src="{% static 'icons/checkup.png' %}"
+            <img src="{% static 'icons/carrosserie.png' %}"
                  alt="{{ checkup.voiture_exemplaire.immatriculation }}"
                  class="w-12 h-12">
-            <span>{% trans "Détails du checkup" %}</span>
+            <span>{% trans "Détails de l'intervention" %}</span>
         </h1>
-
-        <a href="{% if checkup.voiture_exemplaire %}
-                   {% url 'check_up:checkup_list' checkup.voiture_exemplaire.id %}
-               {% else %}# {% endif %}"
-           class="text-blue-600 hover:underline">
-            {% trans "Retour à la liste des checkups" %}
-        </a>
     </div>
 
     <!-- Infos principales -->
@@ -28,35 +21,65 @@
         <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
             <h2 class="text-lg font-semibold mb-2">{% trans "Informations générales" %}</h2>
 
-            <p><strong>{% trans "Immatriculation" %} :</strong> {{ checkup.voiture_exemplaire.immatriculation }}</p>
-            <p><strong>{% trans "Kilométrage" %} :</strong> {{ checkup.kilometres_chassis }}</p>
-            <p><strong>{% trans "Tag" %} :</strong> {{ checkup.tag }}</p>
-            <p><strong>{% trans "Technicien" %} :</strong> {{ checkup.tech_nom_technicien }} ({{ checkup.tech_role_technicien }})</p>
+            <p><strong>{% trans "Immatriculation" %} :</strong> {{ carrosserie_interne.voiture_exemplaire.immatriculation }}</p>
+            <p><strong>{% trans "Kilométrage" %} :</strong> {{ carrosserie_interne.kilometres_chassis }}</p>
+            <p><strong>{% trans "Tag" %} :</strong> {{ carrosserie_interne.get_tag_display }}</p>
+            <p><strong>{% trans "Technicien" %} :</strong> {{ carrosserie_interne.tech_nom_technicien }} {{ carrosserie_interne.tech_role_technicien }}</p>
         </div>
+
 
         <!-- Maintenance -->
         <div class="bg-white shadow-md rounded-lg p-6">
-            <h2 class="text-lg font-semibold mb-4">{% trans "Checkup" %}</h2>
-            <p><strong>{% trans "Date de l'intervention" %} :</strong> {{ checkup.maintenance.date_intervention|date:"d/m/Y" }}</p>
+            <h2 class="text-lg font-semibold mb-4">{% trans "Carrosserie interne" %}</h2>
+            <p><strong>{% trans "Date de l'intervention" %} :</strong> {{ carrosserie_interne.maintenance.date_intervention|date:"d/m/Y" }}</p>
         </div>
+
+
+
+
 
         <!-- Bouton Modifier -->
         <div class="mt-auto w-full">
-            <a href="{% url 'check_up:modifier_checkup' checkup.id %}" class="block w-full">
+            <a href="{% url 'carrosserie_interne:modifier_carrosserie_interne' carrosserie_interne.id %}" class="block w-full">
                 <button type="button" class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
-                    {% trans "Modifier le checkup" %}
+                    {% trans "Modifier l'intervention" %}
+                </button>
+            </a>
+        </div>
+        <!-- Bouton Rapport -->
+        <div class="mt-auto w-full">
+            <a href="{% url 'carrosserie_interne:rapport' carrosserie_interne.id %}" class="block w-full">
+                <button type="button" class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+                    {% trans "Rapport" %}
                 </button>
             </a>
         </div>
     </div>
 
+     <!-- Métadonnées -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">
+            {% trans "Métadonnées" %}
+        </h2>
+
+        <p>
+            <strong>{% trans "Créé le" %} :</strong>
+            {{ frein.created_at|date:"d/m/Y H:i" }}
+        </p>
+        <p>
+            <strong>{% trans "Mis à jour le" %} :</strong>
+            {{ frein.updated_at|date:"d/m/Y H:i" }}
+        </p>
+    </div>
+
+
     <!-- Actions -->
-    <div class="bg-white shadow-md rounded-lg p-6 flex gap-4">
-        <a href="{% if checkup.voiture_exemplaire %}
-                   {% url 'check_up:checkup_list' checkup.voiture_exemplaire.id %}
+    <div>
+        <a href="{% if carroserie.voiture_exemplaire %}
+                   {% url 'carrosserie_interne:carrosserie_interne_list' carrosserie_interne.voiture_exemplaire.id %}
                {% else %}# {% endif %}"
-           class="text-blue-600 hover:underline">
-            {% trans "Retour à la liste des checkups" %}
+            class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+            {% trans "Retour à la liste des interventions" %}
         </a>
     </div>
 

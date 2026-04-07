@@ -623,7 +623,11 @@ def carrosserie_interne_detail_view(request, carrosserie_interne_id):
         "carrosserie_interne": carrosserie_interne,
         "exemplaire": carrosserie_interne.voiture_exemplaire,
     }
-    return render(request, "carrosserie/carrosserie_interne_detail.html", context)
+    return render(request, "carrosserie_interne/carrosserie_interne_detail.html", context)
+
+
+
+
 
 
 @login_required
@@ -631,32 +635,35 @@ def modifier_carrosserie_interne_view(request, carrosserie_interne_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
-        # Récupération du carrosserie_interne avec son exemplaire
+        # Récupération de l'objet CarrosserieInterne avec son exemplaire
         carrosserie_interne = get_object_or_404(
             CarrosserieInterne.objects.select_related("voiture_exemplaire"),
             id=carrosserie_interne_id
         )
 
         # -------------------------
-        # POST
+        # Gestion POST
         # -------------------------
         if request.method == "POST":
             form = CarrosserieInterneForm(
                 request.POST,
                 instance=carrosserie_interne,
-                user=request.user,       # 🔑 important pour initialiser technicien/societe
+                user=request.user,
                 exemplaire=carrosserie_interne.voiture_exemplaire
             )
             if form.is_valid():
                 form.save()
-                messages.success(request, _("carrosserie_interne modifiée avec succès !"))
-                return redirect("carrosserie_interne:modifier_carrosserie_interne", carrosserie_interne_id=carrosserie_interne.id)
+                messages.success(request, _("Carrosserie modifiée avec succès !"))
+                return redirect(
+                    "carrosserie_interne:carrosserie_interne_detail",
+                    carrosserie_interne_id=carrosserie_interne.id
+                )
             else:
                 messages.error(request, _("Le formulaire contient des erreurs."))
                 print(form.errors)
 
         # -------------------------
-        # GET
+        # Gestion GET
         # -------------------------
         else:
             form = CarrosserieInterneForm(
@@ -665,6 +672,394 @@ def modifier_carrosserie_interne_view(request, carrosserie_interne_id):
                 exemplaire=carrosserie_interne.voiture_exemplaire
             )
 
+        # -------------------------
+        # Organisation des champs par sections pour le template
+        # -------------------------
+        sections = [
+            {
+                "title": "Kilométrage",
+                "icon": "icons/compteur.png",
+                "fields": [f for f in form if "kilo" in f.name],
+            },
+            {
+                "title": "Pare-chocs avant",
+                "icon": "icons/pare-chocs.png",
+                "fields": [f for f in form if "pare_choc_av" in f.name],
+            },
+            {
+                "title": "Pare-chocs arrière",
+                "icon": "icons/pare-chocs.png",
+                "fields": [f for f in form if "pare_choc_ar" in f.name],
+            },
+            {
+                "title": "Traverse avant",
+                "icon": "icons/pare-chocs.png",
+                "fields": [f for f in form if "bouclier_av" in f.name],
+            },
+            {
+                "title": "Traverse arrière",
+                "icon": "icons/pare-chocs.png",
+                "fields": [f for f in form if "bouclier_ar" in f.name],
+            },
+
+            {
+                "title": "Support pare-chocs avant",
+                "icon": "icons/pare-chocs.png",
+                "fields": [f for f in form if "support_pa_choc_av" in f.name],
+            },
+            {
+                "title": "Support pare-chocs arrière",
+                "icon": "icons/pare-chocs.png",
+                "fields": [f for f in form if "support_pa_choc_ar" in f.name],
+            },
+
+            {
+                "title": "Calandre",
+                "icon": "icons/calandre.png",
+                "fields": [f for f in form if "calandre" in f.name],
+            },
+            {
+                "title": "Aile avant droite",
+                "icon": "icons/aile.png",
+                "fields": [f for f in form if "aile_avd" in f.name],
+            },
+
+            {
+                "title": "Aile avant gauche",
+                "icon": "icons/aile.png",
+                "fields": [f for f in form if "aile_avg" in f.name],
+            },
+            {
+                "title": "Aile arrière droite",
+                "icon": "icons/aile_ar.png",
+                "fields": [f for f in form if "aile_ard" in f.name],
+            },
+
+            {
+                "title": "Aile arrière gauche",
+                "icon": "icons/aile_ar.png",
+                "fields": [f for f in form if "aile_arg" in f.name],
+            },
+
+            {
+                "title": "Élargisseur d'aile avant droite",
+                "icon": "icons/elargisseur.png",
+                "fields": [f for f in form if "elargisseur_ail_avd" in f.name],
+            },
+            {
+                "title": "Élargisseur d'aile avant gauche",
+                "icon": "icons/elargisseur.png",
+                "fields": [f for f in form if "elargisseur_ail_avg" in f.name],
+            },
+            {
+                "title": "Élargisseur d'aile arrière droite",
+                "icon": "icons/elargisseur.png",
+                "fields": [f for f in form if "elargisseur_ail_ard" in f.name],
+            },
+            {
+                "title": "Élargisseur d'aile arrière gauche",
+                "icon": "icons/elargisseur.png",
+                "fields": [f for f in form if "elargisseur_ail_arg" in f.name],
+            },
+
+            {
+                "title": "Bas de caisse droit",
+                "icon": "icons/bas-de-caisse.png",
+                "fields": [f for f in form if "bas_de_caisse_d" in f.name],
+            },
+            {
+                "title": "Bas de caisse gauche",
+                "icon": "icons/bas-de-caisse.png",
+                "fields": [f for f in form if "bas_de_caisse_g" in f.name],
+            },
+            {
+                "title": "Porte avant droite",
+                "icon": "icons/porte-de-voiture.png",
+                "fields": [f for f in form if "porte_avd_po" in f.name],
+            },
+            {
+                "title": "Porte avant gauche",
+                "icon": "icons/porte-de-voiture.png",
+                "fields": [f for f in form if "porte_avg_po" in f.name],
+            },
+            {
+                "title": "Porte arrière droite",
+                "icon": "icons/porte-de-voiture.png",
+                "fields": [f for f in form if "porte_ard_po" in f.name],
+            },
+            {
+                "title": "Porte arrière gauche",
+                "icon": "icons/porte-de-voiture.png",
+                "fields": [f for f in form if "porte_arg_po" in f.name],
+            },
+
+            {
+                "title": "Coffre",
+                "icon": "icons/coffre.png",
+                "fields": [f for f in form if "coffre_hai" in f.name],
+            },
+
+            {
+                "title": "Capot",
+                "icon": "icons/capot.png",
+                "fields": [f for f in form if "capot_pi" in f.name],
+            },
+
+            {
+                "title": "Joint de coffre",
+                "icon": "icons/joint.png",
+                "fields": [f for f in form if "joint_coffre" in f.name],
+            },
+            {
+                "title": "Joint de porte avant droite",
+                "icon": "icons/joint.png",
+                "fields": [f for f in form if "joint_porte_avd" in f.name],
+            },
+            {
+                "title": "Joint de porte avant gauche",
+                "icon": "icons/joint.png",
+                "fields": [f for f in form if "joint_porte_avg" in f.name],
+            },
+            {
+                "title": "Joint de porte arrière droite",
+                "icon": "icons/joint.png",
+                "fields": [f for f in form if "joint_porte_ard" in f.name],
+            },
+            {
+                "title": "Joint de porte arrière gauche",
+                "icon": "icons/joint.png",
+                "fields": [f for f in form if "joint_porte_arg" in f.name],
+            },
+            {
+                "title": "Coquille d'aile avant droite",
+                "icon": "icons/aile.png",
+                "fields": [f for f in form if "coquille_ai_avd" in f.name],
+            },
+            {
+                "title": "Coquille d'aile avant gauche",
+                "icon": "icons/aile.png",
+                "fields": [f for f in form if "coquille_ai_avg" in f.name],
+            },
+            {
+                "title": "Coquille d'aile arrière droite",
+                "icon": "icons/aile.png",
+                "fields": [f for f in form if "coquille_ai_ard" in f.name],
+            },
+            {
+                "title": "Coquille d'aile arrière gauche",
+                "icon": "icons/aile.png",
+                "fields": [f for f in form if "coquille_ai_arg" in f.name],
+            },
+
+            {
+                "title": "Support de radiateur",
+                "icon": "icons/radiateur.png",
+                "fields": [f for f in form if "support_radiateur" in f.name],
+            },
+
+            # Pare-brise
+            {
+                "title": "Pare-brise",
+                "icon": "icons/pare-brise-casse.png",
+                "fields": [f for f in form if "pa_brise" in f.name],
+            },
+
+            # Vitres de portes
+            {
+                "title": "Vitre de porte avant droite",
+                "icon": "icons/vitre.png",
+                "fields": [f for f in form if "vitre_porte_avd" in f.name],
+            },
+            {
+                "title": "Vitre de porte avant gauche",
+                "icon": "icons/vitre.png",
+                "fields": [f for f in form if "vitre_porte_avg" in f.name],
+            },
+            {
+                "title": "Vitre de porte arrière droite",
+                "icon": "icons/vitre.png",
+                "fields": [f for f in form if "vitre_porte_ard" in f.name],
+            },
+            {
+                "title": "Vitre de porte arrière gauche",
+                "icon": "icons/vitre.png",
+                "fields": [f for f in form if "vitre_porte_arg" in f.name],
+            },
+
+            # Lunette arrière
+            {
+                "title": "Lunette / vitre arrière",
+                "icon": "icons/lunette.png",
+                "fields": [f for f in form if "lunette" in f.name],
+            },
+
+            # Rétroviseurs
+            {
+                "title": "Rétroviseur droit",
+                "icon": "icons/retro.png",
+                "fields": [f for f in form if "retroviseur_d" in f.name],
+            },
+            {
+                "title": "Rétroviseur gauche",
+                "icon": "icons/retro.png",
+                "fields": [f for f in form if "retroviseur_g" in f.name],
+            },
+
+            # Phares
+            {
+                "title": "Phare avant droit",
+                "icon": "icons/phares.png",
+                "fields": [f for f in form if "phare_avd" in f.name],
+            },
+            {
+                "title": "Phare avant gauche",
+                "icon": "icons/phares.png",
+                "fields": [f for f in form if "phare_avg" in f.name],
+            },
+            {
+                "title": "Feu arrière droit",
+                "icon": "icons/phares.png",
+                "fields": [f for f in form if "phare_ard" in f.name],
+            },
+            {
+                "title": "Feu arrière gauche",
+                "icon": "icons/phares.png",
+                "fields": [f for f in form if "phare_arg" in f.name],
+            },
+            # Anti-brouillards
+            {
+                "title": "Anti-brouillard avant droit",
+                "icon": "icons/phares.png",
+                "fields": [f for f in form if "anti_brouillard_avd" in f.name],
+            },
+            {
+                "title": "Anti-brouillard avant gauche",
+                "icon": "icons/phares.png",
+                "fields": [f for f in form if "anti_brouillard_avg" in f.name],
+            },
+            {
+                "title": "Anti-brouillard arrière",
+                "icon": "icons/phares.png",
+                "fields": [f for f in form if "anti_brouillard_ar" in f.name],
+            },
+
+            {
+                "title": "Clignotant avant droit",
+                "icon": "icons/clignotant.png",
+                "fields": [f for f in form if "clignotant_avd" in f.name],
+            },
+            {
+                "title": "Clignotant avant gauche",
+                "icon": "icons/clignotant.png",
+                "fields": [f for f in form if "clignotant_avg" in f.name],
+            },
+            {
+                "title": "Clignotant arrière droit",
+                "icon": "icons/clignotant.png",
+                "fields": [f for f in form if "clignotant_ard" in f.name],
+            },
+            {
+                "title": "Clignotant arrière gauche",
+                "icon": "icons/clignotant.png",
+                "fields": [f for f in form if "clignotant_arg" in f.name],
+            },
+
+            # Troisième feu stop
+            {
+                "title": "Troisième feu stop",
+                "icon": "icons/feu-stop.png",
+                "fields": [f for f in form if "troisieme_feu_stop" in f.name],
+            },
+
+            # Capteur de recul
+            {
+                "title": "Capteur de recul",
+                "icon": "icons/capteurs.png",
+                "fields": [f for f in form if "capteur_recul" in f.name],
+            },
+
+            # Clips et visserie
+            {
+                "title": "Clips",
+                "icon": "icons/clips.png",
+                "fields": [f for f in form if "clips" in f.name],
+            },
+
+            {
+                "title": "Visserie",
+                "icon": "icons/visserie.png",
+                "fields": [f for f in form if "visserie" in f.name],
+            },
+
+            {
+                "title": "Peinture aile avant droite",
+                "icon": "icons/pistolet-a-peinture.png",
+                "fields": [f for f in form if "peinture_avant_droit" in f.name],
+            },
+            {
+                "title": "Peinture aile avant gauche",
+                "icon": "icons/pistolet-a-peinture.png",
+                "fields": [f for f in form if "peinture_avant_gauche" in f.name],
+            },
+            # Aile arrière droite
+            {
+                "title": "Peinture aile arrière droite",
+                "icon": "icons/pistolet-a-peinture.png",
+                "fields": [f for f in form if "peinture_arriere_droit" in f.name],
+            },
+
+            # Aile arrière gauche
+            {
+                "title": "Peinture aile arrière gauche",
+                "icon": "icons/pistolet-a-peinture.png",
+                "fields": [f for f in form if "peinture_arriere_gauche" in f.name],
+            },
+
+            # Face avant
+            {
+                "title": "Peinture face avant",
+                "icon": "icons/pistolet-a-peinture.png",
+                "fields": [f for f in form if "peinture_face_avant" in f.name],
+            },
+
+            # Capot
+            {
+                "title": "Peinture capot",
+                "icon": "icons/pistolet-a-peinture.png",
+                "fields": [f for f in form if "peinture_capot" in f.name],
+            },
+
+            # Arrière complet
+            {
+                "title": "Peinture arrière complete",
+                "icon": "icons/pistolet-a-peinture.png",
+                "fields": [f for f in form if "peinture_arriere_complete" in f.name],
+            },
+
+            # Peinture complète
+            {
+                "title": "Peinture complète",
+                "icon": "icons/pistolet-a-peinture.png",
+                "fields": [f for f in form if "peinture_complete" in f.name],
+            },
+
+            {
+                "title": "Etiquette",
+                "icon": "icons/tag.png",
+                "fields": [f for f in form if "tag" in f.name],
+            },
+            {
+                "title": "Remarques",
+                "icon": "icons/notes.png",
+                "fields": [f for f in form if "remarques" in f.name],
+            },
+            {
+                "title": "Technicien",
+                "icon": "icons/mecanicien.png",
+                "fields": [f for f in form if "tech" in f.name],
+            },
+        ]
+
     return render(
         request,
         "carrosserie_interne/modifier_carrosserie_interne.html",
@@ -672,10 +1067,9 @@ def modifier_carrosserie_interne_view(request, carrosserie_interne_id):
             "form": form,
             "carrosserie_interne": carrosserie_interne,
             "exemplaire": carrosserie_interne.voiture_exemplaire,
+            "sections": sections,
         }
     )
-
-
 
 @login_required
 def rapport_view(request, pk):
