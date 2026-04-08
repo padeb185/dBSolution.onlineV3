@@ -35,7 +35,7 @@ class VoitureFreinsAV(models.Model):
     )
 
     numero_oem_disques_av = models.CharField(
-        _("Numéro OEM disque AV (mm)"),
+        _("Numéro OEM disque AV"),
         max_length=25,
         blank=True,
         null=True
@@ -49,7 +49,7 @@ class VoitureFreinsAV(models.Model):
     )
 
     numero_oem_plaquettes_av = models.CharField(
-        _("Numéro OEM plaquette AV (mm)"),
+        _("Numéro OEM plaquette AV"),
         max_length=25,
         blank=True,
         null=True

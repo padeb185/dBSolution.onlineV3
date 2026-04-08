@@ -46,7 +46,7 @@ class VoitureFreinsAR(models.Model):
     )
 
     numero_oem_plaquettes_ar = models.CharField(
-        _("N° OEM plaquette AR (mm)"),
+        _("N° OEM plaquette AR"),
         max_length=25,
         blank=True,
         null=True

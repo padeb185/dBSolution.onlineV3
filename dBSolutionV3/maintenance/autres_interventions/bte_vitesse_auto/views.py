@@ -126,7 +126,7 @@ def bte_auto_check_view(request, exemplaire_id):
 
                         bte_auto.save()
 
-                    messages.success(request, _("Contôle boite automatique enregistré avec succès."))
+                    messages.success(request, _("Contrôle boite automatique enregistré avec succès."))
 
                 except Exception as e:
                     messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
