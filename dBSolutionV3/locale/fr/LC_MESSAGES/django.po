@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-08 16:23+0200\n"
+"POT-Creation-Date: 2026-04-08 16:40+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -3263,10 +3263,7 @@ msgid "Liste des contrôles de l'admission"
 msgstr ""
 
 #: .\maintenance\autres_interventions\moteur\admission\templates\admission\rapport.html:4
-#: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_list.html:4
-#: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_list.html:10
-#: .\maintenance\carrosserie_interne\templates\carrosserie_interne\rapport.html:4
-msgid "Liste des interventions carrosserie"
+msgid "Liste des interventions admission"
 msgstr ""
 
 #: .\maintenance\autres_interventions\moteur\admission\views.py:147
@@ -3796,6 +3793,12 @@ msgstr ""
 
 #: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_detail.html:33
 msgid "Carrosserie interne"
+msgstr ""
+
+#: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_list.html:4
+#: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_list.html:10
+#: .\maintenance\carrosserie_interne\templates\carrosserie_interne\rapport.html:4
+msgid "Liste des interventions carrosserie"
 msgstr ""
 
 #: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_list.html:16
