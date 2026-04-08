@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -214,8 +216,36 @@ class Admission(TechnicienMixin, models.Model):
 
         super().save(*args, **kwargs)
 
+    def generer_rapport_remplacement(self):
+        rapport = []
+        total_general = Decimal("0")
 
+        for field in self._meta.fields:
+            field_name = field.name
 
+            # On ne garde que les champs état
+            if isinstance(field, models.CharField) and field.choices == EtatOKNotOK.choices:
+                valeur = getattr(self, field_name)
+
+                if valeur == EtatOKNotOK.NOT_OK:
+                    prix = getattr(self, f"{field_name}_prix", Decimal("0"))
+                    quantite = getattr(self, f"{field_name}_quantite", 0)
+
+                    total = prix * quantite
+                    total_general += total
+
+                    rapport.append({
+                        "champ": field.verbose_name,
+                        "code": field_name,
+                        "prix": prix,
+                        "quantite": quantite,
+                        "total": total,
+                    })
+
+        return {
+            "lignes": rapport,
+            "total_general": total_general
+        }
 
 
 

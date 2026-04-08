@@ -197,12 +197,13 @@ def admission_detail_view(request, admission_id):
     return render(request, "admission/admission_detail.html", context)
 
 
+
 @login_required
 def modifier_admission_view(request, admission_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
-        # Récupération du controle boite avec son exemplaire
+        # Récupération de l'admission avec son exemplaire
         admission = get_object_or_404(
             Admission.objects.select_related("voiture_exemplaire"),
             id=admission_id
@@ -218,10 +219,11 @@ def modifier_admission_view(request, admission_id):
                 user=request.user,
                 exemplaire=admission.voiture_exemplaire
             )
+
             if form.is_valid():
                 form.save()
-                messages.success(request, _("Checkup modifié avec succès !"))
-                return redirect("check_up:modifier_checkup", admission_id=admission.id)
+                messages.success(request, _("Contrôle de l'admission modifié avec succès !"))
+                return redirect("admission:modifier_admission", admission_id=admission.id)
             else:
                 messages.error(request, _("Le formulaire contient des erreurs."))
                 print(form.errors)
@@ -236,12 +238,111 @@ def modifier_admission_view(request, admission_id):
                 exemplaire=admission.voiture_exemplaire
             )
 
+        # -------------------------
+        # Sections pour le template
+        # -------------------------
+        sections = [
+            {
+                "title": "Kilométrage",
+                "icon": "icons/compteur.png",
+                "fields": [form[f.name] for f in form if "kilo" in f.name],
+            },
+            {
+                "title": "Filtre à air",
+                "icon": "icons/filtre-a-air.png",
+                "fields": [form[f.name] for f in form if "filtre_air_p" in f.name],
+            },
+            {
+                "title": "Boitier de Filtre à air",
+                "icon": "icons/filtre-a-air.png",
+                "fields": [form[f.name] for f in form if "boitier" in f.name],
+            },
+            {
+                "title": "Débitmètre",
+                "icon": "icons/capteurs.png",
+                "fields": [form[f.name] for f in form if "debitmetre" in f.name],
+            },
+            {
+                "title": "Capteur MAP",
+                "icon": "icons/capteurs.png",
+                "fields": [form[f.name] for f in form if "capteur_map" in f.name],
+            },
+            {
+                "title": "Capteur de température d'air",
+                "icon": "icons/capteurs.png",
+                "fields": [form[f.name] for f in form if "capteur_temperature" in f.name],
+            },
+            {
+                "title": "Boitier papillon",
+                "icon": "icons/boitier_papillon.png",
+                "fields": [form[f.name] for f in form if "corps_papillon" in f.name],
+            },
+            {
+                "title": "Collecteur d'admission",
+                "icon": "icons/admission.png",
+                "fields": [form[f.name] for f in form if "collecteur" in f.name],
+            },
+            {
+                "title": "Turbo",
+                "icon": "icons/turbo.png",
+                "fields": [form[f.name] for f in form if "turbo" in f.name],
+            },
+            {
+                "title": "Intercooler",
+                "icon": "icons/intercooler.png",
+                "fields": [form[f.name] for f in form if "intercooler" in f.name],
+            },
+            {
+                "title": "Vanne EGR",
+                "icon": "icons/vanne.png",
+                "fields": [form[f.name] for f in form if "vanne_" in f.name],
+            },
+            {
+                "title": "Durites d'admission",
+                "icon": "icons/durite.png",
+                "fields": [form[f.name] for f in form if "durites_admission" in f.name],
+            },
+            {
+                "title": "Joints",
+                "icon": "icons/joint_admission.png",
+                "fields": [form[f.name] for f in form if "joints_admission" in f.name],
+            },
+            {
+                "title": "Etiquette",
+                "icon": "icons/tag.png",
+                "fields": [form[f.name] for f in form if "tag" in f.name],
+            },
+            {
+                "title": "Remarques",
+                "icon": "icons/notes.png",
+                "fields": [form[f.name] for f in form if "remarques" in f.name],
+            },
+            {
+                "title": "Technicien",
+                "icon": "icons/mecanicien.png",
+                "fields": [form[f.name] for f in form if "tech" in f.name],
+            },
+        ]
+
     return render(
         request,
         "admission/modifier_admission.html",
         {
             "form": form,
             "admission": admission,
+            "sections": sections,
             "exemplaire": admission.voiture_exemplaire,
         }
     )
+
+
+@login_required
+def rapport_view(request, pk):
+    obj = get_object_or_404(Admission, pk=pk)
+
+    rapport = obj.generer_rapport_remplacement()
+
+    return render(request, "admission/rapport.html", {
+        "rapport": rapport,
+        "obj": obj
+    })
