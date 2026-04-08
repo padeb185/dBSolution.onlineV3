@@ -8,7 +8,7 @@
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold flex items-center gap-4">
             <img src="{% static 'icons/carrosserie.png' %}"
-                 alt="{{ carrosserie_interne.voiture_exemplaire.immatriculation }}"
+                 alt="{{ admission.voiture_exemplaire.immatriculation }}"
                  class="w-12 h-12">
             <span>{% trans "Détails de l'intervention" %}</span>
         </h1>
@@ -21,17 +21,17 @@
         <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
             <h2 class="text-lg font-semibold mb-2">{% trans "Informations générales" %}</h2>
 
-            <p><strong>{% trans "Immatriculation" %} :</strong> {{ carrosserie_interne.voiture_exemplaire.immatriculation }}</p>
-            <p><strong>{% trans "Kilométrage" %} :</strong> {{ carrosserie_interne.kilometres_chassis }}</p>
-            <p><strong>{% trans "Tag" %} :</strong> {{ carrosserie_interne.get_tag_display }}</p>
-            <p><strong>{% trans "Technicien" %} :</strong> {{ carrosserie_interne.tech_nom_technicien }} {{ carrosserie_interne.tech_role_technicien }}</p>
+            <p><strong>{% trans "Immatriculation" %} :</strong> {{ admission.voiture_exemplaire.immatriculation }}</p>
+            <p><strong>{% trans "Kilométrage" %} :</strong> {{ admission.kilometres_chassis }}</p>
+            <p><strong>{% trans "Tag" %} :</strong> {{ admission.get_tag_display }}</p>
+            <p><strong>{% trans "Technicien" %} :</strong> {{ admission.tech_nom_technicien }} {{ admission.tech_role_technicien }}</p>
         </div>
 
 
         <!-- Maintenance -->
         <div class="bg-white shadow-md rounded-lg p-6">
             <h2 class="text-lg font-semibold mb-4">{% trans "Carrosserie interne" %}</h2>
-            <p><strong>{% trans "Date de l'intervention" %} :</strong> {{ carrosserie_interne.maintenance.date_intervention|date:"d/m/Y" }}</p>
+            <p><strong>{% trans "Date de l'intervention" %} :</strong> {{ admission.maintenance.date_intervention|date:"d/m/Y" }}</p>
         </div>
 
 
@@ -40,7 +40,7 @@
 
         <!-- Bouton Modifier -->
         <div class="mt-auto w-full">
-            <a href="{% url 'carrosserie_interne:modifier_carrosserie_interne' carrosserie_interne.id %}" class="block w-full">
+            <a href="{% url 'admission:modifier_admission' admission.id %}" class="block w-full">
                 <button type="button" class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
                     {% trans "Modifier l'intervention" %}
                 </button>
@@ -48,7 +48,7 @@
         </div>
         <!-- Bouton Rapport -->
         <div class="mt-auto w-full">
-            <a href="{% url 'carrosserie_interne:rapport' carrosserie_interne.id %}" class="block w-full">
+            <a href="{% url 'admission:rapport' admission.id %}" class="block w-full">
                 <button type="button" class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
                     {% trans "Rapport" %}
                 </button>
@@ -64,11 +64,11 @@
 
         <p>
             <strong>{% trans "Créé le" %} :</strong>
-            {{ carrosserie_interne.created_at|date:"d/m/Y H:i" }}
+            {{ admission.created_at|date:"d/m/Y H:i" }}
         </p>
         <p>
             <strong>{% trans "Mis à jour le" %} :</strong>
-            {{ carrosserie_interne.updated_at|date:"d/m/Y H:i" }}
+            {{ admission.updated_at|date:"d/m/Y H:i" }}
         </p>
     </div>
 
@@ -76,7 +76,7 @@
     <!-- Actions -->
     <div>
         <a href="{% if carroserie.voiture_exemplaire %}
-                   {% url 'carrosserie_interne:carrosserie_interne_list' carrosserie_interne.voiture_exemplaire.id %}
+                   {% url 'admission:admission_list' admission.voiture_exemplaire.id %}
                {% else %}# {% endif %}"
              class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
             {% trans "Retour à la liste des interventions" %}

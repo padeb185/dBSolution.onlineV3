@@ -382,7 +382,6 @@ class ControleGeneral(TechnicienMixin, models.Model):
     created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
 
-
     def assign_technicien(self, user):
         self.tech_technicien = user
         self.tech_nom_technicien = f"{user.prenom} {user.nom}"

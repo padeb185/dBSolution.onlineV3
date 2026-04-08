@@ -10,6 +10,7 @@ from django.conf.urls.static import static
 
 
 
+
 # Handler 404 personnalisé
 def custom_404(request, exception):
     return render(request, "404.html", status=404)
@@ -121,7 +122,9 @@ urlpatterns += i18n_patterns(
 
     path('maintenance/carrosserie/', include(('maintenance.carrosserie_interne.urls', 'carrosserie_interne'), namespace='carrosserie_interne')),
 
+    path('moteur/', include(('maintenance.autres_interventions.moteur.urls', 'moteur'), namespace='moteur')),
+
+     path('admission/', include(('maintenance.autres_interventions.moteur.admission.urls', 'admission'), namespace='admission')),
+
 )
-
-
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -49,70 +49,74 @@ def liste_autre_all(request):
 @never_cache
 @login_required
 def choisir_autre_maintenance(request, exemplaire_id):
-    user = request.user
-    context = {}
+    tenant = request.user.societe
 
-    # 🔹 Récupérer l'exemplaire AVANT
-    exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
+    with tenant_context(tenant):
+        user = request.user
+        context = {}
 
-    # --- Sécurité tenant ---
-    tenant_schema = getattr(request, 'tenant', None)
-    schema_name = tenant_schema.schema_name if tenant_schema else None
+        # 🔹 Récupérer l'exemplaire AVANT
+        exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
 
-    total_boite = total_bte_auto =  0
+        # --- Sécurité tenant ---
+        tenant_schema = getattr(request, 'tenant', None)
+        schema_name = tenant_schema.schema_name if tenant_schema else None
 
-    boite = bte_auto = []
+        total_boite = total_bte_auto =  0
 
-    if schema_name:
-        with schema_context(schema_name):
+        boite = bte_auto = []
 
-            # ✅ FILTRAGE PAR EXEMPLAIRE
-            boite = ControleBoite.objects.filter(voiture_exemplaire=exemplaire)
-            bte_auto = ControleBteVitesseAuto.objects.filter(voiture_exemplaire=exemplaire)
+        if schema_name:
+            with schema_context(schema_name):
 
-
-            # ✅ COUNTS CORRECTS
-            total_boite = boite.count()
-            total_bte_auto = bte_auto.count()
+                # ✅ FILTRAGE PAR EXEMPLAIRE
+                boite = ControleBoite.objects.filter(voiture_exemplaire=exemplaire)
+                bte_auto = ControleBteVitesseAuto.objects.filter(voiture_exemplaire=exemplaire)
 
 
-            modeles = VoitureModele.objects.all()
-    else:
-        modeles = []
-
-    # --- POST ---
-    if request.method == "POST":
-        type_choisi = request.POST.get("type_maintenance")
-        date_intervention = request.POST.get("date_intervention")
-        description = request.POST.get("description", "")
-
-        if type_choisi and date_intervention:
-            Maintenance.objects.create(
-                voiture_exemplaire=exemplaire,
-                type_maintenance=type_choisi,
-                immatriculation=exemplaire.immatriculation,
-                date_intervention=date_intervention,
-                description=description
-            )
-            return redirect('maintenance:list', modele_id=exemplaire.voiture_modele.id)
-
-    # --- CONTEXT ---
-    context.update({
-        "exemplaire": exemplaire,
-        "types_maintenance": TYPES_MAINTENANCE,
-
-        "total_boite": total_boite,
-        "total_bte_auto": total_bte_auto,
-
-        "boite": boite,
-        "bte_auto": bte_auto,
+                # ✅ COUNTS CORRECTS
+                total_boite = boite.count()
+                total_bte_auto = bte_auto.count()
 
 
-        "modeles": modeles,
+                modeles = VoitureModele.objects.all()
+        else:
+            modeles = []
 
-    })
+        # --- POST ---
+        if request.method == "POST":
+            type_choisi = request.POST.get("type_maintenance")
+            date_intervention = request.POST.get("date_intervention")
+            description = request.POST.get("description", "")
 
-    return render(request, "autres_interventions/choisir_autre.html", context)
+            if type_choisi and date_intervention:
+                Maintenance.objects.create(
+                    societe=tenant,
+                    voiture_exemplaire=exemplaire,
+                    type_maintenance=type_choisi,
+                    immatriculation=exemplaire.immatriculation,
+                    date_intervention=date_intervention,
+                    description=description
+                )
+                return redirect('maintenance:list', modele_id=exemplaire.voiture_modele.id)
+
+        # --- CONTEXT ---
+        context.update({
+            "exemplaire": exemplaire,
+            "types_maintenance": TYPES_MAINTENANCE,
+
+            "total_boite": total_boite,
+            "total_bte_auto": total_bte_auto,
+
+            "boite": boite,
+            "bte_auto": bte_auto,
+
+
+            "modeles": modeles,
+
+        })
+
+        return render(request, "autres_interventions/choisir_autre.html", context)
 
 
 
