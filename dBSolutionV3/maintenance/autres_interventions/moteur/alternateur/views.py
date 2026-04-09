@@ -297,7 +297,7 @@ def modifier_alternateur_view(request, alternateur_id):
         "alternateur/modifier_alternateur.html",
         {
             "form": form,
-            "admission": alternateur,
+            "alternateur": alternateur,
             "sections": sections,
             "exemplaire": alternateur.voiture_exemplaire,
         }
@@ -310,7 +310,7 @@ def rapport_alternateur_view(request, pk):
 
     rapport = obj.generer_rapport_remplacement()
 
-    return render(request, "alternateur/rapport.html", {
+    return render(request, "alternateur/rapport_alternateur.html", {
         "rapport": rapport,
         "obj": obj
     })

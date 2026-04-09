@@ -218,7 +218,7 @@ class Alternateur(TechnicienMixin, models.Model):
 
         super().save(*args, **kwargs)
 
-
+    from decimal import Decimal, ROUND_HALF_UP
 
     def generer_rapport_remplacement(self):
         rapport = []
@@ -227,13 +227,20 @@ class Alternateur(TechnicienMixin, models.Model):
         for field in self._meta.fields:
             field_name = field.name
 
-            # On ne garde que les champs état
+            # ❌ ignorer alternateur (traité séparément)
+            if field_name == "alternateur":
+                continue
+
             if isinstance(field, models.CharField) and field.choices == EtatOKNotOK.choices:
                 valeur = getattr(self, field_name)
 
                 if valeur == EtatOKNotOK.NOT_OK:
                     prix = getattr(self, f"{field_name}_prix", Decimal("0"))
                     quantite = getattr(self, f"{field_name}_quantite", 0)
+
+                    # 🔥 ignorer lignes inutiles
+                    if prix == 0 or quantite == 0:
+                        continue
 
                     total = prix * quantite
                     total_general += total
@@ -246,9 +253,43 @@ class Alternateur(TechnicienMixin, models.Model):
                         "total": total,
                     })
 
+        # -------------------------
+        # Alternateur (calcul avec TVA)
+        # -------------------------
+        if self.alternateur == EtatOKNotOK.NOT_OK and self.alternateur_prix_achat and self.pays:
+
+            tva_pourcentage = Decimal(RechargeCarburant.TVA_PIECES.get(self.pays, 0)) / 100
+
+            # Prix HTVA avec marge
+            if self.alternateur_marge:
+                prix_htva = (
+                        self.alternateur_prix_achat * (1 + Decimal(self.alternateur_marge) / 100)
+                )
+            else:
+                prix_htva = self.alternateur_prix_achat
+
+            prix_htva = prix_htva.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+
+            # TVA
+            tva = (prix_htva * tva_pourcentage).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+
+            # TTC
+            prix_ttc = (prix_htva + tva).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+
+            # 🔥 ignorer si quantité = 0
+            if self.alternateur_quantite > 0:
+                total = prix_ttc * self.alternateur_quantite
+                total_general += total
+
+                rapport.append({
+                    "champ": _("Alternateur"),
+                    "code": "alternateur",
+                    "prix": prix_htva,
+                    "quantite": self.alternateur_quantite,
+                    "total": total,
+                })
+
         return {
             "lignes": rapport,
             "total_general": total_general
         }
-
-
