@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-09 15:31+0200\n"
+"POT-Creation-Date: 2026-04-09 16:24+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -4280,16 +4280,16 @@ msgstr ""
 msgid "Épaisseur des disques avant (mm)"
 msgstr ""
 
-#: .\maintenance\check_up\models.py:205
-msgid "Présence de fentes sur les disques avants"
+#: .\maintenance\check_up\models.py:205 .\maintenance\freins\models.py:54
+msgid "Présence de fentes sur les disques avant"
 msgstr ""
 
 #: .\maintenance\check_up\models.py:206 .\maintenance\freins\models.py:55
 msgid "Disques avant à remplacer"
 msgstr ""
 
-#: .\maintenance\check_up\models.py:208
-msgid "Usure des plaquettes arrières (%)"
+#: .\maintenance\check_up\models.py:208 .\maintenance\freins\models.py:57
+msgid "Usure des plaquettes arrière (%)"
 msgstr ""
 
 #: .\maintenance\check_up\models.py:209 .\maintenance\freins\models.py:58
@@ -4990,14 +4990,6 @@ msgstr ""
 
 #: .\maintenance\freins\models.py:42
 msgid "Kilométrage du controle des freins"
-msgstr ""
-
-#: .\maintenance\freins\models.py:54
-msgid "Présence de fentes sur les disques avant"
-msgstr ""
-
-#: .\maintenance\freins\models.py:57
-msgid "Usure des plaquettes arrière (%)"
 msgstr ""
 
 #: .\maintenance\freins\models.py:65

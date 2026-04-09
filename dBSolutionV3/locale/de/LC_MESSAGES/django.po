@@ -4282,6 +4282,7 @@ msgid "Épaisseur des disques avant (mm)"
 msgstr "Dicke der vorderen Bremsscheiben (mm)"
 
 #: .\maintenance\check_up\models.py:205
+#: .\maintenance\freins\models.py:54
 msgid "Présence de fentes sur les disques avant"
 msgstr "Risse in den vorderen Bremsscheiben vorhanden"
 
@@ -4993,9 +4994,6 @@ msgstr "Wartung erfolgreich bearbeitet!"
 msgid "Kilométrage du controle des freins"
 msgstr "Kilometerstand der Bremskontrolle"
 
-#: .\maintenance\freins\models.py:54
-msgid "Présence de fentes sur les disques avant"
-msgstr "Risse in den vorderen Bremsscheiben vorhanden"
 
 #: .\maintenance\freins\models.py:57
 msgid "Usure des plaquettes arrière (%)"
