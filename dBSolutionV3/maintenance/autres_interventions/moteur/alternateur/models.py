@@ -250,6 +250,7 @@ class Alternateur(TechnicienMixin, models.Model):
                     rapport.append({
                         "champ": piece,
                         "prix": getattr(self, f"{piece}_prix_vente_htva"),
+                        "tva": getattr(self, f"{piece}_tva_vente"),
                         "quantite": quantite,
                         "total": total
                     })
