@@ -50,35 +50,35 @@ class SilentBloc(TechnicienMixin, models.Model):
 
 
 
-    silent_blocs_barre_stabilisatrice_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent_blocs barre stabilisatrice avant"))
-    silent_blocs_barre_stabilisatrice_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent_blocs barre stabilisatrice arrière"))
+    silent_blocs_barre_stabilisatrice_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent blocs barre stabilisatrice avant"))
+    silent_blocs_barre_stabilisatrice_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent blocs barre stabilisatrice arrière"))
 
 
-    silent_blocs_amortisseur_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent_blocs amortisseur avant droit"))
-    silent_blocs_amortisseur_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent_blocs amortisseur avant gauche"))
-    silent_blocs_amortisseur_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent_blocs amortisseur arrière droit"))
-    silent_blocs_amortisseur_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent_blocs amortisseur arrière gauche"))
+    silent_blocs_amortisseur_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent bloc amortisseur avant droit"))
+    silent_bloc_amortisseur_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent bloc amortisseur avant gauche"))
+    silent_blocs_amortisseur_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent bloc amortisseur arrière droit"))
+    silent_blocs_amortisseur_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent bloc amortisseur arrière gauche"))
 
 
-    silent_blocs_triangle_inf_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent_blocs de triangle inférieur avant droit"))
-    silent_blocs_triangle_inf_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent_blocs de triangle inférieur avant gauche"))
-    silent_blocs_triangle_inf_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent_blocs de triangle inférieur arrière droit"))
-    silent_blocs_triangle_inf_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent_blocs de triangle inférieur arrière gauche"))
+    silent_blocs_triangle_inf_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent bloc de triangle inférieur avant droit"))
+    silent_blocs_triangle_inf_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent bloc de triangle inférieur avant gauche"))
+    silent_blocs_triangle_inf_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent bloc de triangle inférieur arrière droit"))
+    silent_blocs_triangle_inf_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent bloc de triangle inférieur arrière gauche"))
 
-    silent_blocs_triangle_sup_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent_blocs de triangle supérieur avant droit"))
-    silent_blocs_triangle_sup_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent_blocs de triangle supérieur avant gauche"))
-    silent_blocs_triangle_sup_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent_blocs de triangle supérieur arrière droit"))
-    silent_blocs_triangle_sup_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent_blocs de triangle supérieur arrière gauche"))
+    silent_blocs_triangle_sup_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent bloc de triangle supérieur avant droit"))
+    silent_blocs_triangle_sup_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent bloc de triangle supérieur avant gauche"))
+    silent_blocs_triangle_sup_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent bloc de triangle supérieur arrière droit"))
+    silent_blocs_triangle_sup_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent bloc de triangle supérieur arrière gauche"))
 
-    silent_blocs_multi_bras_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent_blocs de suspension multi-bras avant droit"))
-    silent_blocs_multi_bras_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent_blocs de suspension multi-bras avant gauche"))
-    silent_blocs_multi_bras_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent_blocs de suspension multi-bras arrière droit"))
-    silent_blocs_multi_bras_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent_blocs de suspension multi-bras arrière gauche"))
+    silent_blocs_multi_bras_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent bloc de suspension multi-bras avant droit"))
+    silent_blocs_multi_bras_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent bloc de suspension multi-bras avant gauche"))
+    silent_blocs_multi_bras_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent bloc de suspension multi-bras arrière droit"))
+    silent_blocs_multi_bras_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent bloc de suspension multi-bras arrière gauche"))
 
 
-    silent_blocs_moteur_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent_blocs moteur"))
-    silent_blocs_moteur_boite_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent_blocs de boite de vitesse"))
-    silent_blocs_moteur_inf_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent_blocs moteur pendulaire"))
+    silent_blocs_moteur_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent bloc moteur"))
+    silent_blocs_moteur_boite_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent bloc de boite de vitesse"))
+    silent_blocs_moteur_inf_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent bloc moteur pendulaire"))
 
 
 
