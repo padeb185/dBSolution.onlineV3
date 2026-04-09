@@ -285,6 +285,7 @@ class Alternateur(TechnicienMixin, models.Model):
                     "champ": _("Alternateur"),
                     "code": "alternateur",
                     "prix": prix_htva,
+                    "tva": tva,
                     "quantite": self.alternateur_quantite,
                     "total": total,
                 })
