@@ -8,7 +8,11 @@ from .models import Alternateur
 class AlternateurForm(forms.ModelForm):
     class Meta:
         model = Alternateur
-        fields = "__all__"
+        exclude =('alternateur_tva_achat',
+                  'alternateur_prix_vente_htva',
+                  'alternateur_tva_vente',
+                  'alternateur_prix_ttc',
+                  )
         widgets = {
             'maintenance': forms.HiddenInput(),
             'remarques': forms.Textarea(attrs={
@@ -49,23 +53,23 @@ class AlternateurForm(forms.ModelForm):
         voiture = instance.voiture_exemplaire or self.exemplaire  # fallback si pas encore lié
 
         # Récupération du kilométrage check-up depuis le formulaire
-        kilometrage_alternateur = self.cleaned_data.get("kilometres_chassis")
+        kilometrage_alte = self.cleaned_data.get("kilometres_chassis")
 
-        if voiture and kilometrage_alternateur is not None:
+        if voiture and kilometrage_alte is not None:
             # 🔒 Sécurité : ne jamais diminuer le kilométrage
-            if kilometrage_alternateur < voiture.kilometres_chassis:
+            if kilometrage_alte < voiture.kilometres_chassis:
                 raise forms.ValidationError(
-                    f"Le kilométrage du check-up de la boite ({kilometrage_alternateur}) "
+                    f"Le kilométrage du check-up de la boite ({kilometrage_alte}) "
                     f"ne peut pas être inférieur au kilométrage actuel de la voiture ({voiture.kilometres_chassis})."
                 )
 
             # ✅ Mettre à jour la voiture si le kilométrage a augmenté
-            if kilometrage_alternateur > voiture.kilometres_chassis:
-                voiture.kilometres_chassis = kilometrage_alternateur
+            if kilometrage_alte > voiture.kilometres_chassis:
+                voiture.kilometres_chassis = kilometrage_alte
                 voiture.save(update_fields=["kilometres_chassis"])
 
             # ✅ Mettre à jour le contrôle
-            instance.kilometres_chassis = kilometrage_alternateur
+            instance.kilometres_chassis = kilometrage_alte
 
             # 🔗 Lier la voiture si ce n'était pas déjà fait
             if not instance.voiture_exemplaire:

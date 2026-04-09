@@ -1,4 +1,4 @@
-from decimal import Decimal
+from decimal import Decimal, ROUND_HALF_UP
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -32,7 +32,7 @@ class RechargeCarburant(models.Model):
 # ---------------------------
 # Modèle Admission
 # ---------------------------
-class Admission(TechnicienMixin, models.Model):
+class Alternateur(TechnicienMixin, models.Model):
     maintenance = models.ForeignKey(
         Maintenance,
         on_delete=models.CASCADE,
@@ -55,7 +55,7 @@ class Admission(TechnicienMixin, models.Model):
         blank=True
     )
 
-    kilometrage_admission = models.PositiveIntegerField(
+    kilometrage_alte = models.PositiveIntegerField(
         _("Kilométrage au moment du controle"),
         null=True,
         blank=True
@@ -73,9 +73,9 @@ class Admission(TechnicienMixin, models.Model):
 
     alternateur_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix HTVA"))
 
-    alternateur_tva_achat = models.DecimalField(max_digits=10,decimal_places=2,)
+    alternateur_tva_achat = models.DecimalField(max_digits=10,decimal_places=2,verbose_name=_("TVA à récupérer"))
 
-    alternateur_marge = models.IntegerField(max_digits=3, blank=True, null=True, verbose_name=_("Marge à appliquer"))
+    alternateur_marge = models.IntegerField( blank=True, null=True, verbose_name=_("Marge à appliquer"))
 
     alternateur_prix_vente_htva = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix de vente HTVA"))
 
@@ -116,7 +116,7 @@ class Admission(TechnicienMixin, models.Model):
         null=True,
         blank=True,
         verbose_name=_("Technicien"),
-        related_name="admission"
+        related_name="alternateur"
     )
 
     tech_nom_technicien = models.CharField(
@@ -137,7 +137,7 @@ class Admission(TechnicienMixin, models.Model):
         null=True,
         blank=True,
         verbose_name=_("Société"),
-        related_name="admission"
+        related_name="alternateur"
     )
 
     # --- Date d'enregistrement ---
@@ -160,33 +160,65 @@ class Admission(TechnicienMixin, models.Model):
     def __str__(self):
         return f"Admission moteur - {self.voiture_exemplaire}"
 
+    from decimal import Decimal, ROUND_HALF_UP
+    from django.core.exceptions import ValidationError
 
     def clean(self):
         super().clean()
-        if self.voiture_exemplaire and self.kilometrage_admission is not None:
-            if self.kilometrage_admission < self.voiture_exemplaire.kilometres_chassis:
+        if self.voiture_exemplaire and self.kilometrage_alte is not None:
+            if self.kilometrage_alte < self.voiture_exemplaire.kilometres_chassis:
                 raise ValidationError({
-                    'kilometrage_admission': _(
-                        f"Le kilométrage du check-up ({self.kilometrage_conytrole_boite}) "
+                    'kilometrage_alte': _(
+                        f"Le kilométrage du check-up ({self.kilometrage_alte}) "
                         f"ne peut pas être inférieur au kilométrage actuel de la voiture ({self.voiture_exemplaire.kilometres_chassis})."
                     )
                 })
 
     def save(self, *args, **kwargs):
-        # Si checkup > km actuel, mettre à jour la voiture
-        if self.voiture_exemplaire and self.kilometrage_admission:
-            if self.kilometrage_admission > self.voiture_exemplaire.kilometres_chassis:
-                self.voiture_exemplaire.kilometres_chassis = self.kilometrage_admission
+        # Mettre à jour la voiture si le check-up est supérieur au km actuel
+        if self.voiture_exemplaire and self.kilometrage_alte:
+            if self.kilometrage_alte > self.voiture_exemplaire.kilometres_chassis:
+                self.voiture_exemplaire.kilometres_chassis = self.kilometrage_alte
                 self.voiture_exemplaire.save(update_fields=["kilometres_chassis"])
 
-        # Toujours garder une copie dans le contrôle
-        if self.voiture_exemplaire:
+            # Toujours garder une copie dans le contrôle
             self.kilometres_chassis = self.voiture_exemplaire.kilometres_chassis
 
+        # Assigner le technicien si non défini
         if not self.tech_technicien and hasattr(self, '_user'):
             self.assign_technicien(self._user)
 
+        # --------------------
+        # Calculs financiers selon pays et alternateur_prix_achat
+        if self.alternateur_prix_achat and self.pays:
+            tva_pourcentage = Decimal(RechargeCarburant.TVA_PIECES.get(self.pays, 0)) / 100
+
+            # TVA sur prix d'achat
+            self.alternateur_tva_achat = (self.alternateur_prix_achat * tva_pourcentage).quantize(
+                Decimal('0.01'), rounding=ROUND_HALF_UP
+            )
+
+            # Prix de vente HTVA avec marge
+            if self.alternateur_marge is not None:
+                self.alternateur_prix_vente_htva = (
+                        self.alternateur_prix_achat * (1 + Decimal(self.alternateur_marge) / 100)
+                ).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+            else:
+                self.alternateur_prix_vente_htva = self.alternateur_prix_achat
+
+            # TVA sur prix de vente
+            self.alternateur_tva_vente = (self.alternateur_prix_vente_htva * tva_pourcentage).quantize(
+                Decimal('0.01'), rounding=ROUND_HALF_UP
+            )
+
+            # Prix TTC
+            self.alternateur_prix_ttc = (self.alternateur_prix_vente_htva + self.alternateur_tva_vente).quantize(
+                Decimal('0.01'), rounding=ROUND_HALF_UP
+            )
+
         super().save(*args, **kwargs)
+
+
 
     def generer_rapport_remplacement(self):
         rapport = []
@@ -218,6 +250,5 @@ class Admission(TechnicienMixin, models.Model):
             "lignes": rapport,
             "total_general": total_general
         }
-
 
 

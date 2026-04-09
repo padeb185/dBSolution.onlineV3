@@ -126,5 +126,11 @@ urlpatterns += i18n_patterns(
 
      path('admission/', include(('maintenance.autres_interventions.moteur.admission.urls', 'admission'), namespace='admission')),
 
+    path('alternateur/',include(('maintenance.autres_interventions.moteur.alternateur.urls', 'alternateur'), namespace='alternateur')),
 )
+
+
+
+
+
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

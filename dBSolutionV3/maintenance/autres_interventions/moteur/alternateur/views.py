@@ -12,6 +12,10 @@ from maintenance.models import Maintenance
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
+from .forms import AlternateurForm
+from .models import Alternateur
+
+
 
 
 
@@ -24,7 +28,7 @@ class AlternateurListView(ListView):
     ordering = ["-id"]
 
     def get_queryset(self):
-        queryset = Admission.objects.select_related(
+        queryset = Alternateur.objects.select_related(
             "voiture_exemplaire", "maintenance", "tech_societe"
         )
 
@@ -88,38 +92,25 @@ def alternateur_check_view(request, exemplaire_id):
             )
 
         # Créer ou récupérer l'objet admission
-        admission = Admission(
+        alternateur = Alternateur(
             voiture_exemplaire=exemplaire,
             maintenance=maintenance,
             kilometres_chassis=exemplaire.kilometres_chassis
         )
-        admission.assign_technicien(request.user)
+        alternateur.assign_technicien(request.user)
 
         # --- Définition des sections (toujours disponible) ---
         section_templates = [
             {"title": "Kilométrage", "icon": "icons/compteur.png", "filter": "kilo"},
-            {"title": "Filtre à air", "icon": "icons/filtre-a-air.png", "filter": "filtre_air_pc"},
-            {"title": "Boitier de Filtre à air", "icon": "icons/filtre-a-air.png", "filter": "boitier"},
-            {"title": "Débitmètre", "icon": "icons/capteurs.png", "filter": "debitmetre"},
-            {"title": "Capteur MAP", "icon": "icons/capteurs.png", "filter": "capteur_map"},
-            {"title": "Capteur de temperature d'air", "icon": "icons/capteurs.png", "filter": "capteur_temperature"},
-            {"title": "Boitier papillon", "icon": "icons/boitier_papillon.png", "filter": "corps_papillon"},
-            {"title": "Collecteur d'admission", "icon": "icons/admission.png", "filter": "collecteur"},
-            {"title": "Turbo", "icon": "icons/turbo.png", "filter": "turbo"},
-            {"title": "Intercooler", "icon": "icons/intercooler.png", "filter": "intercooler"},
-            {"title": "Vanne EGR", "icon": "icons/vanne.png", "filter": "vanne_"},
-            {"title": "Durites d'admission", "icon": "icons/durite.png", "filter": "durites_admission"},
-            {"title": "Joints", "icon": "icons/joint_admission.png", "filter": "joints_admission"},
-            {"title": "Etiquette", "icon": "icons/tag.png", "filter": "tag"},
-            {"title": "Remarques", "icon": "icons/notes.png", "filter": "remarques"},
-            {"title": "Technicien", "icon": "icons/mecanicien.png", "filter": "tech"},
+            {"title": "Alternateur", "icon": "icons/alternateur.png", "filter": "alternateur"},
+
         ]
 
         # --- Formulaire ---
         if request.method == "POST":
-            form = AdmissionForm(
+            form = AlternateurForm(
                 request.POST,
-                instance=admission,
+                instance=alternateur,
                 user=request.user,
                 exemplaire=exemplaire
             )
@@ -127,12 +118,12 @@ def alternateur_check_view(request, exemplaire_id):
             if form.is_valid():
                 try:
                     with transaction.atomic():
-                        admission = form.save(commit=False)
+                        alternateur = form.save(commit=False)
 
                         # Gestion du kilométrage
                         km_checkup = form.cleaned_data.get("kilometres_chassis")
                         if km_checkup is not None and km_checkup >= exemplaire.kilometres_chassis:
-                            admission.kilometres_chassis = km_checkup
+                            alternateur.kilometres_chassis = km_checkup
                             exemplaire.kilometres_chassis = km_checkup
                             exemplaire.save()
                         elif km_checkup is not None and km_checkup < exemplaire.kilometres_chassis:
@@ -142,8 +133,8 @@ def alternateur_check_view(request, exemplaire_id):
                             )
                             raise ValueError("Kilométrage invalide")
 
-                        admission.save()
-                    messages.success(request, _("Check admission enregistré avec succès."))
+                        alternateur.save()
+                    messages.success(request, _("Check alternateur admission enregistré avec succès."))
 
                 except Exception as e:
                     messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
@@ -153,8 +144,8 @@ def alternateur_check_view(request, exemplaire_id):
                 print(form.errors)
 
         else:
-            form = AdmissionForm(
-                instance=admission,
+            form = AlternateurForm(
+                instance=alternateur,
                 user=request.user,
                 exemplaire=exemplaire
             )
@@ -162,14 +153,40 @@ def alternateur_check_view(request, exemplaire_id):
         # --- Génération des champs par section ---
         sections = [
             {
-                "title": s["title"],
-                "icon": s["icon"],
-                "fields": [f for f in form if s["filter"] in f.name]
-            }
-            for s in section_templates
+                "title": "Kilométrage",
+                "icon": "icons/compteur.png",
+                "fields": [form[f.name] for f in form if "kilo" in f.name],
+            },
+            {
+                "title": "Alternateur",
+                "icon": "icons/alternateur.png",
+                "fields": [form[f.name] for f in form if "alternateur" in f.name],
+            },
+            {
+                "title": "Etiquette",
+                "icon": "icons/tag.png",
+                "fields": [form[f.name] for f in form if "tag" in f.name],
+            },
+            {
+                "title": "Pays",
+                "icon": "icons/notes.png",
+                "fields": [form[f.name] for f in form if "pays" in f.name],
+            },
+
+            {
+                "title": "Remarques",
+                "icon": "icons/notes.png",
+                "fields": [form[f.name] for f in form if "remarques" in f.name],
+            },
+            {
+                "title": "Technicien",
+                "icon": "icons/mecanicien.png",
+                "fields": [form[f.name] for f in form if "tech" in f.name],
+            },
+
         ]
 
-        return render(request, 'admission/admission_check.html', {
+        return render(request, 'alternateur/alternateur_check.html', {
             "exemplaire": exemplaire,
             "immatriculation": exemplaire.immatriculation,
             "maintenance": maintenance,
@@ -183,46 +200,46 @@ def alternateur_check_view(request, exemplaire_id):
 # Vue détail boite
 # -----------------------------
 @login_required
-def alternateur_detail_view(request, admission_id):
-    admission = get_object_or_404(
-        Admission.objects.select_related("voiture_exemplaire"),
-        id=admission_id
+def alternateur_detail_view(request, alternateur_id):
+    alternateur= get_object_or_404(
+        Alternateur.objects.select_related("voiture_exemplaire"),
+        id=alternateur_id
     )
 
     context = {
-        "admission": admission,
-        "exemplaire": admission.voiture_exemplaire,
+        "alternateur": alternateur,
+        "exemplaire": alternateur.voiture_exemplaire,
     }
-    return render(request, "admission/admission_detail.html", context)
+    return render(request, "alternateur/alternateur_detail.html", context)
 
 
 
 @login_required
-def modifier_alternateur_view(request, admission_id):
+def modifier_alternateur_view(request, alternateur_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
         # Récupération de l'admission avec son exemplaire
-        admission = get_object_or_404(
-            Admission.objects.select_related("voiture_exemplaire"),
-            id=admission_id
+        alternateur = get_object_or_404(
+            Alternateur.objects.select_related("voiture_exemplaire"),
+            id=alternateur_id
         )
 
         # -------------------------
         # POST
         # -------------------------
         if request.method == "POST":
-            form = AdmissionForm(
+            form = AlternateurForm(
                 request.POST,
-                instance=admission,
+                instance=alternateur,
                 user=request.user,
-                exemplaire=admission.voiture_exemplaire
+                exemplaire=alternateur.voiture_exemplaire
             )
 
             if form.is_valid():
                 form.save()
-                messages.success(request, _("Contrôle de l'admission modifié avec succès !"))
-                return redirect("admission:modifier_admission", admission_id=admission.id)
+                messages.success(request, _("Contrôle de l'alternateur modifié avec succès !"))
+                return redirect("alternateur:modifier_alternateur", alternateur_id=alternateur.id)
             else:
                 messages.error(request, _("Le formulaire contient des erreurs."))
                 print(form.errors)
@@ -231,10 +248,10 @@ def modifier_alternateur_view(request, admission_id):
         # GET
         # -------------------------
         else:
-            form = AdmissionForm(
-                instance=admission,
+            form = AlternateurForm(
+                instance=alternateur,
                 user=request.user,
-                exemplaire=admission.voiture_exemplaire
+                exemplaire=alternateur.voiture_exemplaire
             )
 
         # -------------------------
@@ -247,70 +264,21 @@ def modifier_alternateur_view(request, admission_id):
                 "fields": [form[f.name] for f in form if "kilo" in f.name],
             },
             {
-                "title": "Filtre à air",
-                "icon": "icons/filtre-a-air.png",
-                "fields": [form[f.name] for f in form if "filtre_air_p" in f.name],
-            },
-            {
-                "title": "Boitier de Filtre à air",
-                "icon": "icons/filtre-a-air.png",
-                "fields": [form[f.name] for f in form if "boitier" in f.name],
-            },
-            {
-                "title": "Débitmètre",
-                "icon": "icons/capteurs.png",
-                "fields": [form[f.name] for f in form if "debitmetre" in f.name],
-            },
-            {
-                "title": "Capteur MAP",
-                "icon": "icons/capteurs.png",
-                "fields": [form[f.name] for f in form if "capteur_map" in f.name],
-            },
-            {
-                "title": "Capteur de température d'air",
-                "icon": "icons/capteurs.png",
-                "fields": [form[f.name] for f in form if "capteur_temperature" in f.name],
-            },
-            {
-                "title": "Boitier papillon",
-                "icon": "icons/boitier_papillon.png",
-                "fields": [form[f.name] for f in form if "corps_papillon" in f.name],
-            },
-            {
-                "title": "Collecteur d'admission",
-                "icon": "icons/admission.png",
-                "fields": [form[f.name] for f in form if "collecteur" in f.name],
-            },
-            {
-                "title": "Turbo",
-                "icon": "icons/turbo.png",
-                "fields": [form[f.name] for f in form if "turbo" in f.name],
-            },
-            {
-                "title": "Intercooler",
-                "icon": "icons/intercooler.png",
-                "fields": [form[f.name] for f in form if "intercooler" in f.name],
-            },
-            {
-                "title": "Vanne EGR",
-                "icon": "icons/vanne.png",
-                "fields": [form[f.name] for f in form if "vanne_" in f.name],
-            },
-            {
-                "title": "Durites d'admission",
-                "icon": "icons/durite.png",
-                "fields": [form[f.name] for f in form if "durites_admission" in f.name],
-            },
-            {
-                "title": "Joints",
-                "icon": "icons/joint_admission.png",
-                "fields": [form[f.name] for f in form if "joints_admission" in f.name],
+                "title": "Alternateur",
+                "icon": "icons/alternateur.png",
+                "fields": [form[f.name] for f in form if "alternateur" in f.name],
             },
             {
                 "title": "Etiquette",
                 "icon": "icons/tag.png",
                 "fields": [form[f.name] for f in form if "tag" in f.name],
             },
+            {
+                "title": "Pays",
+                "icon": "icons/notes.png",
+                "fields": [form[f.name] for f in form if "pays" in f.name],
+            },
+
             {
                 "title": "Remarques",
                 "icon": "icons/notes.png",
@@ -321,27 +289,28 @@ def modifier_alternateur_view(request, admission_id):
                 "icon": "icons/mecanicien.png",
                 "fields": [form[f.name] for f in form if "tech" in f.name],
             },
+
         ]
 
     return render(
         request,
-        "admission/modifier_admission.html",
+        "alternateur/modifier_alternateur.html",
         {
             "form": form,
-            "admission": admission,
+            "admission": alternateur,
             "sections": sections,
-            "exemplaire": admission.voiture_exemplaire,
+            "exemplaire": alternateur.voiture_exemplaire,
         }
     )
 
 
 @login_required
 def rapport_alternateur_view(request, pk):
-    obj = get_object_or_404(Admission, pk=pk)
+    obj = get_object_or_404(Alternateur, pk=pk)
 
     rapport = obj.generer_rapport_remplacement()
 
-    return render(request, "admission/rapport.html", {
+    return render(request, "alternateur/rapport.html", {
         "rapport": rapport,
         "obj": obj
     })

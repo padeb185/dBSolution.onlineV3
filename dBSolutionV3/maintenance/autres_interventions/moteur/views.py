@@ -22,6 +22,7 @@ from maintenance.silent_blocs.models import SilentBloc
 from maintenance.check_up.models import ControleGeneral
 from utilisateurs.models import Mecanicien
 from maintenance.autres_interventions.moteur.admission.models import Admission
+from maintenance.autres_interventions.moteur.alternateur.models import Alternateur
 
 
 @login_required
@@ -60,9 +61,9 @@ def dashboard_moteur_view(request, exemplaire_id):
         tenant_schema = getattr(request, 'tenant', None)
         schema_name = tenant_schema.schema_name if tenant_schema else None
 
-        total_admission =  0
+        total_admission = total_alternateur =  0
 
-        admission = []
+        admission = alternateur = []
 
         if schema_name:
             with schema_context(schema_name):
@@ -70,9 +71,12 @@ def dashboard_moteur_view(request, exemplaire_id):
                 # ✅ FILTRAGE PAR EXEMPLAIRE
 
                 admission = Admission.objects.filter(voiture_exemplaire=exemplaire)
+                alternateur = Alternateur.objects.filter(voiture_exemplaire=exemplaire)
+
 
                 # ✅ COUNTS CORRECTS
                 total_admission = admission.count()
+                total_alternateur = alternateur.count()
 
 
 
@@ -103,9 +107,11 @@ def dashboard_moteur_view(request, exemplaire_id):
             "types_maintenance": TYPES_MAINTENANCE,
 
             "total_admission": total_admission,
+            "total_alternateur": total_alternateur,
 
 
             "admission": admission,
+            "alternateur": alternateur,
 
 
 
