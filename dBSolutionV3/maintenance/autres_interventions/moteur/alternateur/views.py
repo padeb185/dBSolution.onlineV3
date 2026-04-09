@@ -103,6 +103,8 @@ def alternateur_check_view(request, exemplaire_id):
         section_templates = [
             {"title": "Kilométrage", "icon": "icons/compteur.png", "filter": "kilo"},
             {"title": "Alternateur", "icon": "icons/alternateur.png", "filter": "alternateur"},
+            {"title": "Courroie d'accessoires","icon": "icons/courroie-daccessoires.png", "filter": "courroie"},
+
 
         ]
 
@@ -161,6 +163,11 @@ def alternateur_check_view(request, exemplaire_id):
                 "title": "Alternateur",
                 "icon": "icons/alternateur.png",
                 "fields": [form[f.name] for f in form if "alternateur" in f.name],
+            },
+            {
+                "title": "Courroie d'accessoires",
+                "icon": "icons/courroie-daccessoires.png",
+                "fields": [form[f.name] for f in form if "courroie_accessoires" in f.name],
             },
             {
                 "title": "Etiquette",

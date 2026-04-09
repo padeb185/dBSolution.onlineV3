@@ -12,6 +12,10 @@ class AlternateurForm(forms.ModelForm):
                   'alternateur_prix_vente_htva',
                   'alternateur_tva_vente',
                   'alternateur_prix_ttc',
+                  'courroie_accessoires_tva_achat',
+                  'courroie_accessoires_prix_ttc',
+                  'courroie_accessoires_prix_vente_htva',
+                  'courroie_accessoires_tva_vente'
                   )
         widgets = {
             'maintenance': forms.HiddenInput(),
