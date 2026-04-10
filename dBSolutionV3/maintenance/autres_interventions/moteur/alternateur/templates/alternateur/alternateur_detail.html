@@ -21,7 +21,11 @@
         <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
             <h2 class="text-lg font-semibold mb-2">{% trans "Informations générales" %}</h2>
 
-            <p><strong>{% trans "Immatriculation" %} :</strong> {{ alternateur.voiture_exemplaire.immatriculation }}</p>
+            <p><strong>{% trans "Immatriculation" %} :</strong>
+                 <div class="mb-4">
+                    {% include "maintenance/partials/plaque.html" %}
+                </div>
+            </p>
             <p><strong>{% trans "Kilométrage" %} :</strong> {{ alternateur.kilometres_chassis }}</p>
             <p><strong>{% trans "Tag" %} :</strong> {{ alternateur.get_tag_display }}</p>
             <p><strong>{% trans "Technicien" %} :</strong> {{ alternateur.tech_nom_technicien }} {{ admission.tech_role_technicien }}</p>

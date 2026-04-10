@@ -193,7 +193,7 @@ def modifier_bte_auto_view(request, bte_auto_id):
             if form.is_valid():
                 form.save()
                 messages.success(request, _("Contrôle de la boite automatique modifié avec succès !"))
-                return redirect("bte_vitesse_auto:modifier_bte_vitesse_auto", bte_auto_id=bte_auto.id)
+                return redirect("bte_auto:modifier_bte_auto", bte_auto_id=bte_auto.id)
             else:
                 messages.error(request, _("Le formulaire contient des erreurs."))
                 print(form.errors)
