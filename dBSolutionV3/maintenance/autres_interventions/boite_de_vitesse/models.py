@@ -28,6 +28,8 @@ class BoiteVitesseEtat(models.TextChoices):
 # Modèle fusionné
 # ---------------------------
 class ControleBoite(TechnicienMixin, models.Model):
+    id = models.BigAutoField(primary_key=True)
+
     maintenance = models.ForeignKey(
         Maintenance,
         on_delete=models.CASCADE,
@@ -140,6 +142,10 @@ class ControleBoite(TechnicienMixin, models.Model):
 
     # --- Date d'enregistrement ---
     date = models.DateTimeField(auto_now_add=True, verbose_name=_("Date"))
+
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
+
 
     def assign_technicien(self, user):
         self.tech_technicien = user

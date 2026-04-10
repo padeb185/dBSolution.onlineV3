@@ -198,7 +198,7 @@ def modifier_boite_view(request, boite_id):
             if form.is_valid():
                 form.save()
                 messages.success(request, _("Checkup modifié avec succès !"))
-                return redirect("check_up:modifier_checkup", boite_id=boite.id)
+                return redirect("boite_de_vitesse:modifier_boite", boite_id=boite.id)
             else:
                 messages.error(request, _("Le formulaire contient des erreurs."))
                 print(form.errors)
