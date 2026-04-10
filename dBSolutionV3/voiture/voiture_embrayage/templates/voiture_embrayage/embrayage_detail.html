@@ -39,15 +39,15 @@
             </p>
             <p>
                 <strong>{% trans "Type d'embrayage" %} :</strong>
-                {{ embrayage.type_embrayage }}
+                {{ embrayage.get_type_embrayage_display }}
             </p>
             <p>
                 <strong>{% trans "Volant Moteur" %} :</strong>
-                {{ embrayage.volant_moteur }}
+                {{ embrayage.get_volant_moteur_display }}
             </p>
               <p>
                 <strong>{% trans "Plateau de pression" %} :</strong>
-                {{ embrayage.plateau_pression }}
+                {{ embrayage.get_plateau_pression_display }}
             </p>
             <p>
                 <strong>{% trans "N° OEM" %} :</strong>
