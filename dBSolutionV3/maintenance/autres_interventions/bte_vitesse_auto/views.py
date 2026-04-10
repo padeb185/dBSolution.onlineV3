@@ -156,10 +156,10 @@ def bte_auto_check_view(request, exemplaire_id):
 # Vue détail boite
 # -----------------------------
 @login_required
-def bte_auto_detail_view(request, bte_id):
+def bte_auto_detail_view(request, bte_auto_id):
     bte_auto = get_object_or_404(
         ControleBteVitesseAuto.objects.select_related("voiture_exemplaire"),
-        id=bte_id
+        id=bte_auto_id
     )
 
     context = {
@@ -170,14 +170,14 @@ def bte_auto_detail_view(request, bte_id):
 
 
 @login_required
-def modifier_bte_auto_view(request, bte_id):
+def modifier_bte_auto_view(request, bte_auto_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
         # Récupération du controle boite avec son exemplaire
         bte_auto = get_object_or_404(
             ControleBteVitesseAuto.objects.select_related("voiture_exemplaire"),
-            id=bte_id
+            id=bte_auto_id
         )
 
         # -------------------------

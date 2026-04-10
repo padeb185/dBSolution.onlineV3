@@ -11,10 +11,10 @@ urlpatterns = [
     path('bte_auto/<uuid:exemplaire_id>/', bte_auto_check_view, name='bte_auto_check'),
 
 
-    path('<int:bte_id>/modifier/', modifier_bte_auto_view, name='modifier_bte_auto'),
+    path('<int:bte_auto_id>/modifier/', modifier_bte_auto_view, name='modifier_bte_auto'),
 
 
-    path('<int:bte_id>/detail/', bte_auto_detail_view, name='bte_auto_detail'),
+    path('<int:bte_auto_id>/detail/', bte_auto_detail_view, name='bte_auto_detail'),
 ]
 
 
