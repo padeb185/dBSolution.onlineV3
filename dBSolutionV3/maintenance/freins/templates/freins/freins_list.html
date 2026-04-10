@@ -12,7 +12,7 @@
 <br>
 <div>
       <a href="{% url 'freins:freins_check' exemplaire.id %}"
-             class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+              class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
             {% trans "Ajouter un contrôle freins" %}
       </a>
 </div>
@@ -116,6 +116,15 @@
         {% endfor %}
     </tbody>
 </table>
+
+  <br>
+    <br>
+    <div>
+        <a href="{% url 'maintenance:choisir_type' exemplaire.id %}"
+          class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+             {% trans "Retour à la liste des maintenances" %}
+        </a>
+    </div>
 
 <script>
 $(document).ready(function() {

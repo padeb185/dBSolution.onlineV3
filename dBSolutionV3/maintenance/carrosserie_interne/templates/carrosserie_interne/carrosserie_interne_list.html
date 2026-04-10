@@ -118,7 +118,14 @@
         {% endfor %}
     </tbody>
 </table>
-
+  <br>
+    <br>
+    <div>
+        <a href="{% url 'maintenance:choisir_type' exemplaire.id %}"
+          class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+             {% trans "Retour à la liste des maintenances" %}
+        </a>
+    </div>
 <script>
 $(document).ready(function() {
     var table = $('#carrosseries-table').DataTable({
