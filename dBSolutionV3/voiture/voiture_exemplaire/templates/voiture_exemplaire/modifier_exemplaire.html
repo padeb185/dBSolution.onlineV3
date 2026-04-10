@@ -74,6 +74,16 @@
     </form>
 </div>
 
+<br>
+<br>
+
+<div class="max-w-xl mx-auto mt-4">
+    <a href="{% url 'voiture_exemplaire:voiture_exemplaire_detail' exemplaire_id=exemplaire.id %}"
+         class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+         {% trans "Retour aux détails de l'exemplaire" %}
+    </a>
+</div>
+
 <style>
 .input {
     width: 100%;

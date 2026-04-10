@@ -164,14 +164,19 @@
 
           </div>
     </form>
+
+
 </div>
 
-<div>
-     <a href="{% url 'voiture_modele:voituremodele_list' %}"
-        class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
-         {% trans "Retour à la liste des modèles" %}
-     </a>
+
+<br>
+<div class="max-w-xl mx-auto mt-4">
+    <a href="{% url 'voiture_modele:voituremodele_list' %}"
+             class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour à la liste des modèles" %}
+    </a>
 </div>
+
 
 <script>
     // Fonction pour récupérer le cookie CSRF
