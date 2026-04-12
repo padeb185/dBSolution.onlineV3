@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n widget_tweaks static %}
-{% load slugify %}
+
 
 {% block content %}
 <div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
@@ -52,6 +52,11 @@
             </ul>
         </div>
     {% endif %}
+
+
+     <div class="mb-4">
+        {% include "maintenance/partials/plaque.html" %}
+     </div>
 
 
     <!-- Formulaire -->

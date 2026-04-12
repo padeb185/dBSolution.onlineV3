@@ -13,7 +13,7 @@
             {% with image_name=moteur.motoriste|slugify %}
                 <img src="{% static 'moteur/'|add:image_name|add:'.png' %}"
                      alt="{{ moteur.motoriste }}"
-                     class="w-12 h-12"
+                      class="w-[65px] h-[65px] object-contain"
                      onerror="this.src='{% static 'icons/engine.png' %}';">
             {% endwith %}
             <span>{% trans "Détails du moteur :" %}</span>
@@ -59,7 +59,7 @@
 
 
            <div class="mt-auto w-full">
-                <a href="{% url 'voiture_moteur:modifier_moteur' moteur.id %}" class="block w-full">
+                <a href="{% url 'voiture_moteur:modifier_moteur' moteur_id=moteur.id %}" class="block w-full">
                     <button type="button"
                             class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
                         {% trans "Modifier le moteur" %}

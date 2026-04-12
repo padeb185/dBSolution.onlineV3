@@ -7,14 +7,14 @@
     <!-- Header -->
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold flex items-center gap-4">
-            {% with image_name=voiture_moteur.motoriste|slugify %}
-                <img src="{% static 'engine/'|add:image_name|add:'.png' %}"
-                     alt="{{ voiture_moteur.motoriste }}"
-                     class="w-12 h-12"
-                     onerror="this.onerror=null; this.src='{% static 'icons/engine.png' %}';">
+                  {% with image_name=moteur.motoriste|slugify %}
+                <img src="{% static 'moteur/'|add:image_name|add:'.png' %}"
+                     alt="{{ moteur.motoriste }}"
+                     class="w-[65px] h-[65px] object-contain"
+                     onerror="this.src='{% static 'icons/engine.png' %}';">
             {% endwith %}
             <span>{% trans "Modifier le moteur:" %}</span>
-            <span class="text-black-700">{{ voiture_moteur.motoriste }}</span>
+            <span class="text-black-700">{{ moteur.motoriste }}</span>
         </h1>
     </div>
 

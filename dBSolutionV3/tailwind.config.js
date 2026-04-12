@@ -6,6 +6,7 @@ module.exports = {
     "./theme/static/src/**/*.js",
   ],
 
+
   safelist: [
 
       'bg-[#FFF9C4]',

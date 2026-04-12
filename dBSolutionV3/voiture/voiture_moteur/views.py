@@ -123,13 +123,13 @@ def modifier_moteur_view(request, moteur_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
-        moteur_instance = get_object_or_404(
+        moteur = get_object_or_404(
             MoteurVoiture.objects.select_related(),
             id=moteur_id
         )
 
         if request.method == "POST":
-            form = MoteurVoitureForm(request.POST, instance=moteur_instance)
+            form = MoteurVoitureForm(request.POST, instance=moteur)
             if form.is_valid():
                 form.save()
                 messages.success(request, _("Moteur mis à jour avec succès."))
@@ -137,14 +137,14 @@ def modifier_moteur_view(request, moteur_id):
             else:
                 messages.error(request, _("Le formulaire contient des erreurs."))
         else:
-            form = MoteurVoitureForm(instance=moteur_instance)
+            form = MoteurVoitureForm(instance=moteur)
 
     return render(
         request,
         "voiture_moteur/modifier_moteur.html",
         {
             "form": form,
-            "moteur": moteur_instance
+            "moteur": moteur
         }
     )
 

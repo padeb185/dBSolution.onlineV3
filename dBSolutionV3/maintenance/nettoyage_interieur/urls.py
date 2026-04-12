@@ -12,10 +12,10 @@ urlpatterns = [
 
     # Création / ajout d'un nettoyage
     path(
-        'nettoyage_simple/<uuid:exemplaire_id>/',
+        'nettoyage_interieur/<uuid:exemplaire_id>/',
         nettoyage_interieur_view,
         name='nettoyage_interieur_view'
     ),
-    path('<int:nettoyage_int_id>/modifier/', modifier_nettoyage_int_view, name='modifier_nettoyage_int'),
-    path('<int:nettoyage_id>/detail/', nettoyage_int_detail, name='nettoyage_int_detail'),
+    path('<int:nettoyage_interieur_id>/modifier/', modifier_nettoyage_int_view, name='modifier_nettoyage_int'),
+    path('<int:nettoyage_interieur_id>/detail/', nettoyage_int_detail, name='nettoyage_int_detail'),
 ]
