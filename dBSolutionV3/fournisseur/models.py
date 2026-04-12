@@ -1,7 +1,7 @@
 import uuid
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from adresse.models import Adresse
+
 
 
 class Fournisseur(models.Model):
@@ -22,8 +22,8 @@ class Fournisseur(models.Model):
         unique=True
     )
 
-    adresse = models.OneToOneField(
-        Adresse,
+    adresse = models.ForeignKey(
+        "adresse.Adresse",
         verbose_name=_("Adresse"),
         on_delete=models.CASCADE
     )
@@ -82,9 +82,9 @@ class Fournisseur(models.Model):
 
 
     # --- Métadonnées ---
-    is_active = models.BooleanField(_("Actif"), default=True, null=True, blank=True)
 
     created_at = models.DateTimeField(_("Créé le"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
 
     class Meta:
         verbose_name = _("Fournisseur")

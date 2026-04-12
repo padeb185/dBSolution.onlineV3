@@ -13,7 +13,7 @@
             {% with image_name=boite.fabricant|slugify %}
                 <img src="{% static 'boite/'|add:image_name|add:'.png' %}"
                      alt="{{ boite.fabricant }}"
-                     class="w-12 h-12"
+                      class="w-[65px] h-[65px] object-contain"
                      onerror="this.src='{% static 'icons/boite-de-vitesse.png' %}';">
             {% endwith %}
             <span>{% trans "Détails de la boite de vitesses :" %}</span>

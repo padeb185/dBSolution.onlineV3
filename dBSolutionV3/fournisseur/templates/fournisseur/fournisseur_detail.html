@@ -17,10 +17,6 @@
            <span class="text-black-700">{{ fournisseur.nom }}</span>
         </h1>
 
-        <a href="{% url 'fournisseur:fournisseur_list' %}"
-           class="text-blue-600 hover:underline">
-            ← {% trans "Retour à la liste des fournisseurs" %}
-        </a>
     </div>
 
     <!-- Infos principales -->
@@ -99,6 +95,11 @@
             <strong>{% trans "Créé le" %} :</strong>
             {{ fournisseur.created_at|date:"d/m/Y H:i" }}
         </p>
+
+        <p>
+            <strong>{% trans "Mis à jour le" %} :</strong>
+            {{ fournisseur.updated_at|date:"d/m/Y H:i" }}
+        </p>
     </div>
 
     <!-- Messages -->
@@ -114,13 +115,12 @@
         </div>
         {% endfor %}
     {% endif %}
-
+    <br>
     <!-- Actions -->
-    <div class="bg-white shadow-md rounded-lg p-6 flex gap-4">
-        <a href="{% url 'fournisseur:fournisseur_list' %}" class="flex-1">
-              <button type="button" class="bg-blue-700 text-white px-4 py-2 rounded w-full mt-4">
+    <div>
+        <a href="{% url 'fournisseur:fournisseur_list' %}"
+            class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
                     {% trans "Retour à la liste des fournisseurs" %}
-              </button>
         </a>
     </div>
 
