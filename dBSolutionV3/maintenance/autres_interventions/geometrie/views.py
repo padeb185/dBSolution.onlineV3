@@ -150,47 +150,47 @@ def geometrie_check_view(request, exemplaire_id):
             },
             {
                 "title": _("Pincement"),
-                "icon": "icons/.png",
+                "icon": "icons/pince.png",
                 "fields": [form[f.name] for f in form if "pincement" in f.name],
             },
             {
                 "title": _("Carrossage"),
-                "icon": "icons/.png",
+                "icon": "icons/carrossage.png",
                 "fields": [form[f.name] for f in form if "carrossage" in f.name],
             },
             {
                 "title": _("Chasse"),
-                "icon": "icons/.png",
+                "icon": "icons/chasse.png",
                 "fields": [form[f.name] for f in form if "chasse" in f.name],
             },
             {
                 "title": _("Angle de Poussée"),
-                "icon": "icons/.png",
+                "icon": "icons/poussee.png",
                 "fields": [form[f.name] for f in form if "poussee" in f.name],
             },
             {
                 "title": _("Angle de pivot"),
-                "icon": "icons/.png",
+                "icon": "icons/angle-pivot.png",
                 "fields": [form[f.name] for f in form if "angle_pivot" in f.name],
             },
             {
                 "title": _("Hauteur de caisse"),
-                "icon": "icons/.png",
+                "icon": "icons/hauteur.png",
                 "fields": [form[f.name] for f in form if "hauteur" in f.name],
             },
             {
                 "title": _("Débattement"),
-                "icon": "icons/.png",
+                "icon": "icons/amortisseur.png",
                 "fields": [form[f.name] for f in form if "debattement" in f.name],
             },
             {
                 "title": _("Raideur"),
-                "icon": "icons/.png",
+                "icon": "icons/amortisseur.png",
                 "fields": [form[f.name] for f in form if "raideur" in f.name],
             },
             {
                 "title": _("Amortisseur"),
-                "icon": "icons/intercooler.png",
+                "icon": "icons/amortisseur.png",
                 "fields": [form[f.name] for f in form if "amortissement" in f.name],
             },
 
@@ -290,42 +290,42 @@ def geometrie_modifier_view(request, geometrie_id):
             },
             {
                 "title": _("Pincement"),
-                "icon": "icons/.png",
+                "icon": "icons/pince.png",
                 "fields": [form[f.name] for f in form if "pincement" in f.name],
             },
             {
                 "title": _("Carrossage"),
-                "icon": "icons/filtre-a-air.png",
+                "icon": "icons/carrossage.png",
                 "fields": [form[f.name] for f in form if "carrossage" in f.name],
             },
             {
                 "title": _("Chasse"),
-                "icon": "icons/capteurs.png",
+                "icon": "icons/chasse.png",
                 "fields": [form[f.name] for f in form if "chasse" in f.name],
             },
             {
                 "title": _("Angle de Poussée"),
-                "icon": "icons/capteurs.png",
+                "icon": "icons/poussee.png",
                 "fields": [form[f.name] for f in form if "poussee" in f.name],
             },
             {
                 "title": _("Angle de pivot"),
-                "icon": "icons/.png",
+                "icon": "icons/angle-pivot.png",
                 "fields": [form[f.name] for f in form if "angle_pivot" in f.name],
             },
             {
                 "title": _("Hauteur de caisse"),
-                "icon": "icons/.png",
+                "icon": "icons/hauteur.png",
                 "fields": [form[f.name] for f in form if "hauteur" in f.name],
             },
             {
                 "title": _("Débattement"),
-                "icon": "icons/.png",
+                "icon": "icons/amortisseur.png",
                 "fields": [form[f.name] for f in form if "debattement" in f.name],
             },
             {
                 "title": _("Raideur"),
-                "icon": "icons/.png",
+                "icon": "icons/amortisseur.png",
                 "fields": [form[f.name] for f in form if "raideur" in f.name],
             },
             {

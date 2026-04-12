@@ -53,13 +53,18 @@ class Alternateur(TechnicienMixin, models.Model):
     kilometres_chassis = models.PositiveIntegerField(
         default=0,
         null=True,
-        blank=True
+        blank=True,
+        verbose_name= _("Kilomètres chassis")
     )
 
     # -------------------------
     # INFOS
     # -------------------------
-    kilometrage_alte = models.PositiveIntegerField(null=True, blank=True)
+    kilometrage_alte = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        verbose_name= _("Kilométrage du controle alternateur")
+    )
 
     pays = models.CharField(
         max_length=5,
@@ -83,23 +88,23 @@ class Alternateur(TechnicienMixin, models.Model):
 
     # Alternateur
     alternateur = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK)
-    alternateur_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    alternateur_tva_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    alternateur_marge = models.IntegerField(null=True, blank=True)
-    alternateur_prix_vente_htva = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    alternateur_tva_vente = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    alternateur_prix_ttc = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    alternateur_quantite = models.IntegerField(default=0)
+    alternateur_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat htva"))
+    alternateur_tva_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("TVA à récupérer"))
+    alternateur_marge = models.IntegerField(null=True, blank=True, verbose_name=_("Marge"))
+    alternateur_prix_vente_htva = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix de vente htva"))
+    alternateur_tva_vente = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("TVA à payer"))
+    alternateur_prix_ttc = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix tvac"))
+    alternateur_quantite = models.IntegerField(default=0, verbose_name=_("Quantite"))
 
     # Courroie
-    courroie_accessoires = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK)
-    courroie_accessoires_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    courroie_accessoires_tva_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    courroie_accessoires_marge = models.IntegerField(null=True, blank=True)
-    courroie_accessoires_prix_vente_htva = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    courroie_accessoires_tva_vente = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    courroie_accessoires_prix_ttc = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    courroie_accessoires_quantite = models.IntegerField(default=0)
+    courroie_accessoires = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Courroie d'accessoires"))
+    courroie_accessoires_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat htva"))
+    courroie_accessoires_tva_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("TVA à récupérer"))
+    courroie_accessoires_marge = models.IntegerField(null=True, blank=True, verbose_name=_("Marge"))
+    courroie_accessoires_prix_vente_htva = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix de vente htva"))
+    courroie_accessoires_tva_vente = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("TVA à payer"))
+    courroie_accessoires_prix_ttc = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix TVAC"))
+    courroie_accessoires_quantite = models.IntegerField(default=0, verbose_name=_("Quantite"))
 
     remarques = models.TextField(
         verbose_name=_("Remarques"),

@@ -99,14 +99,6 @@ def alternateur_check_view(request, exemplaire_id):
         )
         alternateur.assign_technicien(request.user)
 
-        # --- Définition des sections (toujours disponible) ---
-        section_templates = [
-            {"title": "Kilométrage", "icon": "icons/compteur.png", "filter": "kilo"},
-            {"title": "Alternateur", "icon": "icons/alternateur.png", "filter": "alternateur"},
-            {"title": "Courroie d'accessoires","icon": "icons/courroie-daccessoires.png", "filter": "courroie"},
-
-
-        ]
 
         # --- Formulaire ---
         if request.method == "POST":
@@ -176,7 +168,7 @@ def alternateur_check_view(request, exemplaire_id):
             },
             {
                 "title": "Pays",
-                "icon": "icons/notes.png",
+                "icon": "icons/pays.png",
                 "fields": [form[f.name] for f in form if "pays" in f.name],
             },
 
@@ -282,7 +274,7 @@ def modifier_alternateur_view(request, alternateur_id):
             },
             {
                 "title": "Pays",
-                "icon": "icons/notes.png",
+                "icon": "icons/pays.png",
                 "fields": [form[f.name] for f in form if "pays" in f.name],
             },
 
