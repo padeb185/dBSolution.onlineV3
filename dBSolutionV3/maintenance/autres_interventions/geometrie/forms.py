@@ -1,8 +1,10 @@
+from django import forms
+from models import GeometrieVoiture
 
 
-class ControleBteVitesseAutoForm(forms.ModelForm):
+class GeometrieVoitureForm(forms.ModelForm):
     class Meta:
-        model = ControleBteVitesseAuto
+        model = GeometrieVoiture
         fields = "__all__"
         widgets = {
             'maintenance': forms.HiddenInput(),
