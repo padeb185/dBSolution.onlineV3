@@ -82,6 +82,8 @@ class ControleBoite(TechnicienMixin, models.Model):
     vitesse_6 = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Pignon 6ème vitesse (si existante)"))
     vitesse_7 = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices, default=BoiteVitesseEtat.OK,verbose_name=_("Pignon 7ème vitesse (si existante)"))
     vitesse_8 = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices, default=BoiteVitesseEtat.OK,verbose_name=_("Pignon 8ème vitesse (si existante)"))
+    vitesse_r = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices, default=BoiteVitesseEtat.OK,verbose_name=_("Pignon de marche arrière"))
+
 
     # Synchros / fourchettes
     synchros = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Synchros"))

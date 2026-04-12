@@ -62,9 +62,9 @@ def choisir_autre_maintenance(request, exemplaire_id):
         tenant_schema = getattr(request, 'tenant', None)
         schema_name = tenant_schema.schema_name if tenant_schema else None
 
-        total_boite = total_bte_auto =  0
+        total_boite = total_bte_auto = total_geometrie =  0
 
-        boite = bte_auto = []
+        boite = bte_auto = geometrie = []
 
         if schema_name:
             with schema_context(schema_name):
@@ -72,11 +72,12 @@ def choisir_autre_maintenance(request, exemplaire_id):
                 # ✅ FILTRAGE PAR EXEMPLAIRE
                 boite = ControleBoite.objects.filter(voiture_exemplaire=exemplaire)
                 bte_auto = ControleBteVitesseAuto.objects.filter(voiture_exemplaire=exemplaire)
-
+                geometrie = Geometrie.objects.filter(voiture_exemplaire=exemplaire)
 
                 # ✅ COUNTS CORRECTS
                 total_boite = boite.count()
                 total_bte_auto = bte_auto.count()
+                total_geometrie = geometrie.count()
 
 
                 modeles = VoitureModele.objects.all()
@@ -107,9 +108,11 @@ def choisir_autre_maintenance(request, exemplaire_id):
 
             "total_boite": total_boite,
             "total_bte_auto": total_bte_auto,
+            "total_geometrie": total_geometrie,
 
             "boite": boite,
             "bte_auto": bte_auto,
+            "geometrie": geometrie,
 
 
             "modeles": modeles,
