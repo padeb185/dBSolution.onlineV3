@@ -69,18 +69,45 @@
             {% endif %}
 
             <!-- Infos voiture -->
-            <div>
-                <p class="font-semibold">{{ ex.voiture_marque.nom_marque }} {{ ex.voiture_modele.nom_modele }}</p>
-                {% if ex.voiture_modele.nom_variante %}
-                    <p class="text-gray-600 text-sm">{{ ex.voiture_modele.nom_variante }}</p>
-                {% endif %}
-                <p class="text-gray-500 text-sm">{% trans "Année" %}: {{ ex.annee_production }}/{{ ex.mois_production }}</p>
-                <p class="text-gray-500 text-sm">{% trans "Kilométrage" %}: {{ ex.kilometres_chassis }} km</p>
-                {% if ex.couleur %}
-                    <p class="text-gray-500 text-sm">{% trans "Couleur" %}: {{ ex.couleur }}</p>
-                {% endif %}
-            </div>
+            <!-- Infos voiture + logo à droite -->
+            <div class="flex items-center justify-between">
 
+                <!-- Texte -->
+                <div>
+                    <p class="font-semibold">
+                        {{ ex.voiture_marque.nom_marque }} {{ ex.voiture_modele.nom_modele }}
+                    </p>
+
+                    {% if ex.voiture_modele.nom_variante %}
+                        <p class="text-gray-600 text-sm">
+                            {{ ex.voiture_modele.nom_variante }}
+                        </p>
+                    {% endif %}
+
+                    <p class="text-gray-500 text-sm">
+                        {% trans "Année" %}: {{ ex.annee_production }}/{{ ex.mois_production }}
+                    </p>
+
+                    <p class="text-gray-500 text-sm">
+                        {% trans "Kilométrage" %}: {{ ex.kilometres_chassis }} km
+                    </p>
+
+                    {% if ex.couleur %}
+                        <p class="text-gray-500 text-sm">
+                            {% trans "Couleur" %}: {{ ex.couleur }}
+                        </p>
+                    {% endif %}
+                </div>
+
+                <!-- Logo marque (droite) -->
+                <img
+                    src="{% static 'images/marques/' %}{{ ex.voiture_marque.nom_marque|lower }}.png"
+                    alt="{{ ex.voiture_marque.nom_marque }}"
+                    class="w-[65px] h-[65px] object-contain"
+                    onerror="this.style.display='none';"
+                >
+
+            </div>
         </a>
         {% endfor %}
 
