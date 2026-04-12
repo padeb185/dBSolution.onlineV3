@@ -23,14 +23,16 @@ def dashboard_assurances(request):
 
     sinistres_ouverts = Sinistre.objects.filter(cloture=False).count()
 
-    cout_total = AssurancePolice.cout_total_annuel()
+    cout_total_annuel = AssurancePolice.cout_total_annuel()
+    cout_total_mensuel = AssurancePolice.cout_total_mensuel()
 
     context = {
         'polices_actives': polices_actives,
         'polices_expirees': polices_expirees,
         'polices_bientot': polices_bientot,
         'sinistres_ouverts': sinistres_ouverts,
-        'cout_total': cout_total,
+        'cout_total_annuel': cout_total_annuel,
+        'cout_total_mensuel': cout_total_mensuel,
     }
 
     return render(request, 'assurance_police/dashboard.html', context)

@@ -153,6 +153,19 @@ class AssurancePolice(models.Model):
 
         return total
 
+    @staticmethod
+    def cout_total_mensuel():
+        polices = AssurancePolice.objects.filter(actif=True)
+
+        total = 0
+        for p in polices:
+            if p.prime_mensuelle:
+                total += p.prime_mensuelle
+            elif p.prime_annuelle:
+                total += p.prime_annuelle / 12
+
+        return total
+
     @property
     def adresse_assurance(self):
         return self.assurance.adresse if self.assurance else None
