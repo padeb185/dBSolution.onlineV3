@@ -1,5 +1,7 @@
+from datetime import timezone
 from django import forms
-from models import GeometrieVoiture
+from .models import GeometrieVoiture
+from django.utils.translation import gettext_lazy as _
 
 
 class GeometrieVoitureForm(forms.ModelForm):
@@ -40,23 +42,23 @@ class GeometrieVoitureForm(forms.ModelForm):
         voiture = instance.voiture_exemplaire or self.exemplaire  # fallback si pas encore lié
 
         # Récupération du kilométrage check-up depuis le formulaire
-        kilometrage_controle_boite_auto = self.cleaned_data.get("kilometres_chassis")
+        kilometrage_geometrie = self.cleaned_data.get("kilometres_chassis")
 
-        if voiture and kilometrage_controle_boite_auto is not None:
+        if voiture and kilometrage_geometrie is not None:
             # 🔒 Sécurité : ne jamais diminuer le kilométrage
-            if kilometrage_controle_boite_auto < voiture.kilometres_chassis:
+            if kilometrage_geometrie < voiture.kilometres_chassis:
                 raise forms.ValidationError(
-                    f"Le kilométrage du check-up de la boite ({kilometrage_controle_boite_auto}) "
+                    f"Le kilométrage de la géométrie ({kilometrage_geometrie}) "
                     f"ne peut pas être inférieur au kilométrage actuel de la voiture ({voiture.kilometres_chassis})."
                 )
 
             # ✅ Mettre à jour la voiture si le kilométrage a augmenté
-            if kilometrage_controle_boite_auto > voiture.kilometres_chassis:
-                voiture.kilometres_chassis = kilometrage_controle_boite_auto
+            if kilometrage_geometrie > voiture.kilometres_chassis:
+                voiture.kilometres_chassis = kilometrage_geometrie
                 voiture.save(update_fields=["kilometres_chassis"])
 
             # ✅ Mettre à jour le contrôle
-            instance.kilometres_chassis = kilometrage_controle_boite_auto
+            instance.kilometres_chassis = kilometrage_geometrie
 
             # 🔗 Lier la voiture si ce n'était pas déjà fait
             if not instance.voiture_exemplaire:

@@ -127,6 +127,8 @@ urlpatterns += i18n_patterns(
      path('admission/', include(('maintenance.autres_interventions.moteur.admission.urls', 'admission'), namespace='admission')),
 
     path('alternateur/',include(('maintenance.autres_interventions.moteur.alternateur.urls', 'alternateur'), namespace='alternateur')),
+
+    path('maintenance/autre/geometrie/',include(('maintenance.autres_interventions.geometrie.urls', 'geometrie'),namespace='geometrie')),
 )
 
 

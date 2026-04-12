@@ -12,8 +12,8 @@ from maintenance.models import Maintenance
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
-from forms import GeometrieVoitureForm
-from models import GeometrieVoiture
+from .forms import GeometrieVoitureForm
+from .models import GeometrieVoiture
 
 
 @method_decorator([login_required, never_cache], name='dispatch')
@@ -240,7 +240,7 @@ def geometrie_detail_view(request, geometrie_id):
 
 
 @login_required
-def modifier_geometrie_view(request, geometrie_id):
+def geometrie_modifier_view(request, geometrie_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):

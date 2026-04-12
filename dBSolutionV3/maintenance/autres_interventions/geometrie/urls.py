@@ -1,21 +1,23 @@
 # maintenance/check_up/urls.py
 from django.urls import path
-from .views import AdmissionListView, \
-    admission_check_view, modifier_admission_view, admission_detail_view, rapport_view
 
-app_name = "admission"
+from .models import GeometrieVoiture
+from .views import  rapport_view, geometrie_detail_view, \
+    geometrie_modifier_view, geometrie_check_view, GeometrieListView
+
+app_name = "geometrie"
 
 urlpatterns = [
 
-    path('admission/<uuid:exemplaire_id>/liste/', AdmissionListView.as_view(),name='admission_list'),
+    path('geometrie/<uuid:exemplaire_id>/liste/', GeometrieListView.as_view(),name='geometrie_list'),
 
-    path('admission/<uuid:exemplaire_id>/', admission_check_view, name='admission_check'),
-
-
-    path('admission/<int:admission_id>/modifier/', modifier_admission_view, name='modifier_admission'),
+    path('geometrie/<uuid:exemplaire_id>/', geometrie_check_view, name='geometrie_check'),
 
 
-    path('admission/<int:admission_id>/detail/', admission_detail_view, name='admission_detail'),
+    path('geometrie/<int:admission_id>/modifier/', geometrie_modifier_view, name='geometrie_modifier'),
+
+
+    path('geometrie/<int:admission_id>/detail/', geometrie_detail_view, name='geometrie_detail'),
 
     path("rapport/<int:pk>/", rapport_view, name="rapport"),
 ]

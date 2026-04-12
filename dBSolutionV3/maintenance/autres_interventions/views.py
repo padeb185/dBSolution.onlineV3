@@ -22,9 +22,7 @@ from maintenance.silent_blocs.models import SilentBloc
 from maintenance.check_up.models import ControleGeneral
 from utilisateurs.models import Mecanicien
 from maintenance.autres_interventions.bte_vitesse_auto.models import ControleBteVitesseAuto
-
-
-
+from maintenance.autres_interventions.geometrie.models import GeometrieVoiture
 
 
 @login_required
@@ -72,7 +70,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
                 # ✅ FILTRAGE PAR EXEMPLAIRE
                 boite = ControleBoite.objects.filter(voiture_exemplaire=exemplaire)
                 bte_auto = ControleBteVitesseAuto.objects.filter(voiture_exemplaire=exemplaire)
-                geometrie = Geometrie.objects.filter(voiture_exemplaire=exemplaire)
+                geometrie = GeometrieVoiture.objects.filter(voiture_exemplaire=exemplaire)
 
                 # ✅ COUNTS CORRECTS
                 total_boite = boite.count()
