@@ -1,10 +1,129 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load i18n widget_tweaks static %}
 
-</body>
-</html>
+{% block content %}
+<div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
+
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold flex items-center gap-4">
+            {% if admission.tech_societe %}
+                {% with image_name=admission.tech_societe.nom|slugify %}
+                    <img src="{% static 'geometrie/'|add:image_name|add:'.png' %}"
+                         alt="{{ geometrie.tech_societe.nom }}"
+                         class="w-12 h-12 rounded"
+                         onerror="this.onerror=null; this.src='{% static 'icons/geometrie.png' %}';">
+                {% endwith %}
+            {% else %}
+                <img src="{% static 'icons/geometrie.png' %}" class="w-12 h-12 rounded">
+            {% endif %}
+            <span>{% trans "Modifier la géométrie" %}</span>
+            <span class="text-gray-700 font-medium">#{{ geometrie.id }}</span>
+        </h1>
+    </div>
+
+     <div class="mb-4">
+        {% include "maintenance/partials/plaque.html" %}
+    </div>
+
+    <!-- Messages -->
+    {% if messages %}
+        {% for message in messages %}
+        <div class="mb-3 px-4 py-2 rounded
+            {% if message.tags == 'success' %}
+                bg-green-100 text-green-800 border border-green-300
+            {% else %}
+                bg-red-100 text-red-800 border border-red-300
+            {% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if form.errors %}
+        <div style="background-color: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; padding: 10px; border-radius: 6px;">
+            <strong>Erreurs :</strong>
+            <ul>
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li>{{ field.label }} : {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <br>
+
+    <!-- Formulaire -->
+    <form method="post" class="space-y-4">
+        {% csrf_token %}
+
+       {% for section in sections %}
+        <div class="mb-16">
+            <h2 class="text-xl font-semibold mb-2 flex items-center gap-3">
+                <img src="{% static section.icon %}" class="w-16 h-16">
+                {% trans section.title %}
+            </h2>
+
+            {% for field in section.fields %}
+                <div class="mb-4">
+                    {% if field.field.widget.input_type == "checkbox" %}
+                        <label class="inline-flex items-center gap-2">
+                            {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                            <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                        </label>
+
+                        {% if field.help_text %}
+                            <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
+                        {% endif %}
+
+                        {% if field.errors %}
+                            <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
+                        {% endif %}
+                    {% else %}
+                        <label class="block font-semibold mb-1">{{ field.label }}</label>
+                        {{ field|add_class:"input" }}
+
+                        {% if field.help_text %}
+                            <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                        {% endif %}
+
+                        {% if field.errors %}
+                            <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+
+
+
+        <div class="flex gap-3 mt-6">
+            <button type="submit"
+                    class="flex-1 bg-blue-700 text-white px-5 py-3 rounded hover:bg-blue-500 font-semibold text-center">
+                {% trans "Enregistrer" %}
+            </button>
+            <a href="{% url 'geometrie:geometrie_detail' geometrie_id=geometrie.id %}"
+               class="flex-1 bg-gray-300 text-black px-5 py-3 rounded hover:bg-gray-400 font-semibold text-center">
+               {% trans "Annuler" %}
+            </a>
+        </div>
+    </form>
+
+</div>
+
+<style>
+.input {
+    width: 100% !important;
+    border: 1px solid #ccc !important;
+    border-radius: 6px !important;
+    padding: 8px !important;
+    box-sizing: border-box !important;
+}
+</style>
+{% endblock %}

@@ -155,17 +155,17 @@ def geometrie_check_view(request, exemplaire_id):
             },
             {
                 "title": _("Carrossage"),
-                "icon": "icons/filtre-a-air.png",
+                "icon": "icons/.png",
                 "fields": [form[f.name] for f in form if "carrossage" in f.name],
             },
             {
                 "title": _("Chasse"),
-                "icon": "icons/capteurs.png",
+                "icon": "icons/.png",
                 "fields": [form[f.name] for f in form if "chasse" in f.name],
             },
             {
                 "title": _("Angle de Poussée"),
-                "icon": "icons/capteurs.png",
+                "icon": "icons/.png",
                 "fields": [form[f.name] for f in form if "poussee" in f.name],
             },
             {
@@ -180,18 +180,18 @@ def geometrie_check_view(request, exemplaire_id):
             },
             {
                 "title": _("Débattement"),
-                "icon": "icons/admission.png",
-                "fields": [form[f.name] for f in form if "collecteur" in f.name],
+                "icon": "icons/.png",
+                "fields": [form[f.name] for f in form if "debattement" in f.name],
             },
             {
                 "title": _("Raideur"),
-                "icon": "icons/turbo.png",
-                "fields": [form[f.name] for f in form if "turbo" in f.name],
+                "icon": "icons/.png",
+                "fields": [form[f.name] for f in form if "raideur" in f.name],
             },
             {
                 "title": _("Amortisseur"),
                 "icon": "icons/intercooler.png",
-                "fields": [form[f.name] for f in form if "intercooler" in f.name],
+                "fields": [form[f.name] for f in form if "amortissement" in f.name],
             },
 
             {
@@ -320,18 +320,18 @@ def geometrie_modifier_view(request, geometrie_id):
             },
             {
                 "title": _("Débattement"),
-                "icon": "icons/admission.png",
-                "fields": [form[f.name] for f in form if "collecteur" in f.name],
+                "icon": "icons/.png",
+                "fields": [form[f.name] for f in form if "debattement" in f.name],
             },
             {
                 "title": _("Raideur"),
-                "icon": "icons/turbo.png",
-                "fields": [form[f.name] for f in form if "turbo" in f.name],
+                "icon": "icons/.png",
+                "fields": [form[f.name] for f in form if "raideur" in f.name],
             },
             {
                 "title": _("Amortisseur"),
-                "icon": "icons/intercooler.png",
-                "fields": [form[f.name] for f in form if "intercooler" in f.name],
+                "icon": "icons/amortisseur.png",
+                "fields": [form[f.name] for f in form if "amorti" in f.name],
             },
 
             {

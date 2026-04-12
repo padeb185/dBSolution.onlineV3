@@ -14,10 +14,10 @@ urlpatterns = [
     path('geometrie/<uuid:exemplaire_id>/', geometrie_check_view, name='geometrie_check'),
 
 
-    path('geometrie/<int:admission_id>/modifier/', geometrie_modifier_view, name='geometrie_modifier'),
+    path('geometrie/<int:geometrie_id>/modifier/', geometrie_modifier_view, name='geometrie_modifier'),
 
 
-    path('geometrie/<int:admission_id>/detail/', geometrie_detail_view, name='geometrie_detail'),
+    path('geometrie/<int:geometrie_id>/detail/', geometrie_detail_view, name='geometrie_detail'),
 
     path("rapport/<int:pk>/", rapport_view, name="rapport"),
 ]

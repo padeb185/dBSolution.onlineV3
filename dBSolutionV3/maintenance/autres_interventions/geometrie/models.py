@@ -119,13 +119,13 @@ class GeometrieVoiture(models.Model):
     )
 
     # Suspension
-    hauteur_caisse = models.FloatField(verbose_name="Hauteur de caisse (mm)")
+    hauteur_caisse = models.FloatField(null=True, blank=True, verbose_name="Hauteur de caisse (mm)")
 
-    debattement_suspension_avant = models.FloatField(verbose_name="Débattement avant (mm)")
-    debattement_suspension_arriere = models.FloatField(verbose_name="Débattement arrière (mm)")
+    debattement_suspension_avant = models.FloatField(null=True, blank=True, verbose_name="Débattement avant (mm)")
+    debattement_suspension_arriere = models.FloatField(null=True, blank=True, verbose_name="Débattement arrière (mm)")
 
-    raideur_ressort_avant = models.FloatField(verbose_name="Raideur ressort avant")
-    raideur_ressort_arriere = models.FloatField(verbose_name="Raideur ressort arrière")
+    raideur_ressort_avant = models.FloatField(null=True, blank=True, verbose_name="Raideur ressort avant")
+    raideur_ressort_arriere = models.FloatField(null=True, blank=True, verbose_name="Raideur ressort arrière")
 
     amortisseur_marque = models.CharField(max_length=255, null=True, blank=True, verbose_name="Marque des amortisseurs")
 
