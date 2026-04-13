@@ -138,14 +138,17 @@ class Fuel(models.Model):
         litres = f"{self.litres} L" if self.litres else "N/A"
         return f"{immat} – {date} – {litres}"
 
-
-
     def save(self, *args, **kwargs):
         tva_percent = RechargeCarburant.TVA_CARBURANT.get(self.pays, 0)
         tva_decimal = Decimal(tva_percent) / Decimal('100')
-        self.montant_ht = (self.prix_refuelling / (Decimal('1') + tva_decimal)).quantize(Decimal('0.01'),                                                   rounding=ROUND_HALF_UP)
-        self.montant_tva = (self.prix_refuelling - self.montant_ht).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+        self.montant_ht = (self.prix_refuelling / (Decimal('1') + tva_decimal)).quantize(
+            Decimal('0.01'), rounding=ROUND_HALF_UP
+        )
+        self.montant_tva = (self.prix_refuelling - self.montant_ht).quantize(
+            Decimal('0.01'), rounding=ROUND_HALF_UP
+        )
         super().save(*args, **kwargs)
+
 
     @classmethod
     def total_litres_mois(cls, vehicule, year=None, month=None):
@@ -178,8 +181,6 @@ class Fuel(models.Model):
         if year and month:
             qs = qs.filter(date__year=year, date__month=month)
         return qs.aggregate(total=Sum('prix_refuelling'))['total'] or 0
-
-
 
 
     @classmethod
@@ -222,3 +223,81 @@ class Fuel(models.Model):
             qs = qs.filter(date__year=year)
 
         return qs.aggregate(total=Sum('montant_tva'))['total'] or Decimal('0.00')
+
+
+
+ # Totaux par exemplaire
+
+    @classmethod
+    def total_litres_mois_exemplaire(cls, exemplaire, year=None, month=None):
+        qs = cls.objects.filter(voiture_exemplaire=exemplaire)
+        if year and month:
+            qs = qs.filter(date__year=year, date__month=month)
+        return qs.aggregate(total=Sum('litres'))['total'] or 0
+
+    @classmethod
+    def total_litres_an_exemplaire(cls, exemplaire, year=None):
+        qs = cls.objects.filter(voiture_exemplaire=exemplaire)
+        if year:
+            qs = qs.filter(date__year=year)
+        return qs.aggregate(total=Sum('litres'))['total'] or 0
+
+    @classmethod
+    def total_litres_all_exemplaire(cls, exemplaire):
+        return cls.objects.filter(voiture_exemplaire=exemplaire).aggregate(total=Sum('litres'))['total'] or 0
+
+    @classmethod
+    def total_prix_mois_exemplaire(cls, exemplaire, year=None, month=None):
+        qs = cls.objects.filter(voiture_exemplaire=exemplaire)
+        if year and month:
+            qs = qs.filter(date__year=year, date__month=month)
+        return qs.aggregate(total=Sum('prix_refuelling'))['total'] or 0
+
+    @classmethod
+    def total_prix_an_exemplaire(cls, exemplaire, year=None):
+        qs = cls.objects.filter(voiture_exemplaire=exemplaire)
+        if year:
+            qs = qs.filter(date__year=year)
+        return qs.aggregate(total=Sum('prix_refuelling'))['total'] or 0
+
+    @classmethod
+    def total_prix_all_exemplaire(cls, exemplaire):
+        return cls.objects.filter(voiture_exemplaire=exemplaire).aggregate(total=Sum('prix_refuelling'))['total'] or 0
+
+    @classmethod
+    def total_tva_mois_exemplaire(cls, exemplaire, year=None, month=None):
+        qs = cls.objects.filter(voiture_exemplaire=exemplaire)
+        if year and month:
+            qs = qs.filter(date__year=year, date__month=month)
+        return qs.aggregate(total=Sum('montant_tva'))['total'] or Decimal('0.00')
+
+    @classmethod
+    def total_tva_an_exemplaire(cls, exemplaire, year=None):
+        qs = cls.objects.filter(voiture_exemplaire=exemplaire)
+        if year:
+            qs = qs.filter(date__year=year)
+        return qs.aggregate(total=Sum('montant_tva'))['total'] or Decimal('0.00')
+
+    @classmethod
+    def total_tva_par_pays_exemplaire(cls, exemplaire, year=None, month=None):
+        """
+        Retourne un dictionnaire {pays: total_tva} pour le mois ou l'année si spécifié,
+        mais uniquement pour un exemplaire spécifique.
+        """
+        qs = cls.objects.filter(voiture_exemplaire=exemplaire)
+
+        if year and month:
+            qs = qs.filter(date__year=year, date__month=month)
+        elif year:
+            qs = qs.filter(date__year=year)
+
+        result = {}
+        for code, nom in RechargeCarburant.PAYS_CHOICES:
+            total = qs.filter(pays=code).aggregate(total=Sum('montant_tva'))['total'] or Decimal('0.00')
+            result[code] = total
+        return result
+
+    @classmethod
+    def total_tva_all_exemplaire(cls, exemplaire):
+        return cls.objects.filter(voiture_exemplaire=exemplaire).aggregate(total=Sum('montant_tva'))['total'] or Decimal('0.00')
+

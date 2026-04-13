@@ -256,11 +256,7 @@ def get_modeles(request):
 
 
 
-from django.views.generic import TemplateView
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Sum, Count, Avg, Min, Max, F, ExpressionWrapper, FloatField, Case, When, Value
-from django.db.models.functions import TruncMonth, TruncYear
-from fuel.models import Fuel  # ✅ import correct
+
 
 class FuelStatView(LoginRequiredMixin, TemplateView):
     template_name = "fuel/fuel_stat.html"
@@ -372,5 +368,47 @@ class FuelStatView(LoginRequiredMixin, TemplateView):
             .order_by("an")
         )
         context["par_an"] = par_an
+
+        return context
+
+
+class FuelExemplaireStatView(LoginRequiredMixin, TemplateView):
+    template_name = "fuel/fuel_exemplaire_stat.html"
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        fuels = Fuel.objects.select_related(
+            "voiture_exemplaire",
+            "voiture_exemplaire__voiture_modele",
+            "voiture_exemplaire__voiture_modele__voiture_marque",
+        )
+
+        # 🔹 Stats globales (inchangées)
+        global_stats = fuels.aggregate(
+            total_litres=Sum("litres"),
+            total_cout=Sum("prix_refuelling"),
+            total_tva=Sum("montant_tva"),
+            prix_moyen_litre=Avg("prix_litre"),
+            total_pleins=Count("id"),
+        )
+        context["global"] = global_stats
+
+        # 🔹 Stats par exemplaire
+        par_exemplaire = []
+        exemplaires = fuels.values_list("voiture_exemplaire", flat=True).distinct()
+        for ex_id in exemplaires:
+            ex = Fuel.objects.filter(voiture_exemplaire_id=ex_id).first().voiture_exemplaire
+            data = {
+                "exemplaire": ex,
+                "total_litres": self.total_litres_all_exemplaire(ex),
+                "total_prix": self.total_prix_all_exemplaire(ex),
+                "total_tva": self.total_tva_all_exemplaire(ex),
+                "tva_par_pays": self.total_tva_par_pays_exemplaire(ex),
+            }
+            par_exemplaire.append(data)
+
+        context["par_exemplaire"] = par_exemplaire
 
         return context
