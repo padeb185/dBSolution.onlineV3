@@ -2,11 +2,13 @@
 {% load i18n static %}
 
 {% block content %}
+
 <h1 class="text-2xl font-bold mb-6">
      <img src="{% static 'icons/pompe-a-essence.png' %}"
              style="width:75px; margin-right:5px;"
              alt="{% trans 'Carburant' %}">
-    {% trans "Statistiques carburant" %}
+    {% trans "Statistiques carburant par véhicule" %}
+
 </h1>
 
 {% if exemplaire %}
@@ -50,6 +52,8 @@
     </div>
 </div>
 {% endif %}
+
+
 
 <!-- 📊 Statistiques globales -->
 <div class="flex flex-wrap justify-start gap-4 mb-8 text-center">
