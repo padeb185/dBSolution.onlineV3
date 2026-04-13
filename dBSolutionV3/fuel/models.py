@@ -117,7 +117,7 @@ class Fuel(models.Model):
     montant_tva = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_("TVA"), blank=True, null=True)
 
 
-
+    remarques = models.TextField(null=True, blank=True, verbose_name=_("Remarques"))
 
     validation = models.BooleanField(default=True, verbose_name=_("Validation"))
 

@@ -9,23 +9,14 @@
        <h1 class="text-2xl font-bold flex items-center gap-4">
             {% with image_name=fuel.nom_station|slugify %}
                 <img src="{% static 'fuel/'|add:image_name|add:'.png' %}"
-                     alt="{{ assurance.nom_station }}"
+                     alt="{{ fuel.nom_station }}"
                      class="w-12 h-12"
                      onerror="this.src='{% static 'icons/pompe-a-essence.png' %}';">
             {% endwith %}
             <span>{% trans "Détails du plein de carburant :" %}</span>
-            <div class="mb-4">
-                {% include "fuel/partials/plaque.html" %}
-            </div>
-
+           <span>{{ fuel.voiture_exemplaire.voiture_marque.nom_marque }} {{ fuel.voiture_exemplaire.voiture_modele.nom_modele }} {{ fuel.voiture_exemplaire.voiture_modele.nom_variante }}</span>
         </h1>
 
-
-
-        <a href="{% url 'fuel:fuel_list' %}"
-           class="text-blue-600 hover:underline">
-            {% trans "Retour à la liste des pleins" %}
-        </a>
     </div>
 
     <!-- Infos principales -->
@@ -38,16 +29,37 @@
             </h2>
 
             <p>
+                <strong>{% trans "Immatriculation" %} :</strong>
+
+                <div>
+                    {% include "fuel/partials/plaque.html" %}
+                </div>
+
+            </p>
+
+            <p>
                 <strong>{% trans "Kilomètres" %} :</strong>
                 {{ fuel.kilometrage_fuel }}
             </p>
             <p>
                 <strong>{% trans "Carburant" %} :</strong>
-                {{ fuel.type_carburant }}
+                {{ fuel.get_type_carburant_display }}
+            </p>
+             <p>
+                <strong>{% trans "Litres" %} :</strong>
+                {{ fuel.litres }}
+            </p>
+             <p>
+                <strong>{% trans "Montant TVAC" %} :</strong>
+                {{ fuel.prix_refuelling }}
+            </p>
+             <p>
+                <strong>{% trans "Montant TVAC" %} :</strong>
+                {{ fuel.prix_litre }}
             </p>
             <p>
                 <strong>{% trans "Pays" %} :</strong>
-                {{ fuel.pays }}
+                {{ fuel.get_pays_display }}
             </p>
 
 
@@ -68,12 +80,12 @@
         <!-- Peppol -->
         <div class="bg-white shadow-md rounded-lg p-6">
             <h2 class="text-lg font-semibold mb-4">
-                {% trans "Informations Peppol" %}
+                {% trans "Remarques" %}
             </h2>
 
             <p>
-                <strong>{% trans "Identifiant Peppol" %} :</strong><br>
-                {{ assurance.peppol_id }}
+                <strong>{% trans "Remarques" %} :</strong><br>
+                {{ fuel.remarques }}
             </p>
 
         </div>
@@ -91,32 +103,29 @@
             <strong>{% trans "Créé le" %} :</strong>
             {{ fuel.created_at|date:"d/m/Y H:i" }}
         </p>
+         <p>
+            <strong>{% trans "Mis à jour le:" %} :</strong>
+            {{ fuel.updated_at|date:"d/m/Y H:i" }}
+        </p>
     </div>
+
 
 
 
     <!-- Actions -->
     <div class="bg-white shadow-md rounded-lg p-6 flex gap-4">
+        <!-- Chaque bouton prend 50% de la largeur du conteneur -->
         <a href="{% url 'fuel:fuel_list' %}" class="flex-1">
-              <button type="button" class="bg-blue-700 text-white px-4 py-2 rounded w-full mt-4">
-                    {% trans "Retour à la liste des pleins" %}
-              </button>
+            <button type="button" class="bg-blue-700 text-white px-4 py-2 rounded w-full mt-4">
+                {% trans "Retour à la liste des pleins" %}
+            </button>
         </a>
 
-         <!-- Bouton statistiques -->
-        <a href="{% url 'fuel:fuel_stat' %}" class="flex-1">
-              <button type="button" class="bg-green-600 text-white px-4 py-2 rounded w-full mt-4 hover:bg-green-500">
-                    {% trans "Voir les statistiques" %}
-              </button>
+        <a href="{% url 'fuel:fuel_exemplaire_stat' exemplaire_id=exemplaire.id %}" class="flex-1">
+            <button type="button" class="bg-green-600 text-white px-4 py-2 rounded w-full mt-4 hover:bg-green-500">
+                {% trans "Voir les statistiques du véhicule" %}
+            </button>
         </a>
-
-          <!-- Bouton statistiques -->
-       <a href="{% url 'fuel:fuel_exemplaire_stat' exemplaire_id=exemplaire.id %}">
-              <button type="button" class="bg-green-600 text-white px-4 py-2 rounded w-full mt-4 hover:bg-green-500">
-                    {% trans "Voir les statistiques du véhicule" %}
-              </button>
-       </a>
-
     </div>
 
 </div>
