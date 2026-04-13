@@ -1515,6 +1515,7 @@ msgid "Plaquettes avant à remplacer"
 msgstr "Εμπρός τακάκια φρένων προς αντικατάσταση"
 
 #: .\maintenance\check_up\models.py:423
+#: .\maintenance\freins\models.py:62
 msgid "Plaquettes arrière à remplacer"
 msgstr "Πίσω τακάκια φρένων προς αντικατάσταση"
 
@@ -1637,9 +1638,7 @@ msgstr "Άλλες επεμβάσεις"
 msgid "Présence de fuite"
 msgstr "Παρουσία διαρροής"
 
-#: .\maintenance\freins\models.py:62
-msgid "Plaquettes arrière à remplacer"
-msgstr "Πίσω τακάκια προς αντικατάσταση"
+
 
 #: .\maintenance\freins\models.py:108
 msgid "Pièce remplacée"

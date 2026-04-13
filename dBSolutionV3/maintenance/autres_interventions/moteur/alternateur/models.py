@@ -94,7 +94,7 @@ class Alternateur(TechnicienMixin, models.Model):
     alternateur_prix_vente_htva = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix de vente htva"))
     alternateur_tva_vente = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("TVA à payer"))
     alternateur_prix_ttc = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix tvac"))
-    alternateur_quantite = models.IntegerField(default=0, verbose_name=_("Quantite"))
+    alternateur_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
     # Courroie
     courroie_accessoires = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Courroie d'accessoires"))
@@ -104,7 +104,7 @@ class Alternateur(TechnicienMixin, models.Model):
     courroie_accessoires_prix_vente_htva = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix de vente htva"))
     courroie_accessoires_tva_vente = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("TVA à payer"))
     courroie_accessoires_prix_ttc = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix TVAC"))
-    courroie_accessoires_quantite = models.IntegerField(default=0, verbose_name=_("Quantite"))
+    courroie_accessoires_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
     remarques = models.TextField(
         verbose_name=_("Remarques"),

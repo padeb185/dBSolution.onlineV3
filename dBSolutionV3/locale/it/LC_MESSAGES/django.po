@@ -1699,6 +1699,7 @@ msgstr "Prezzo unitario"
 #: .\fournisseur\templates\fournisseur\fournisseur_detail.html:41
 #: .\fournisseur\templates\fournisseur\fournisseur_form.html:68
 #: .\outillage\templates\outillage\outillage_list.html:38
+#: .\outillage\templates\outillage\outillage_list.html:63
 msgid "Taux de TVA"
 msgstr "Aliquota IVA"
 
@@ -3658,6 +3659,7 @@ msgstr "Maniglia porta"
 #: .\piece\templates\piece\piece_form.html:45
 #: .\voiture\voiture_embrayage\templates\voiture_embrayage\ajouter_embrayage.html:94
 #: .\voiture\voiture_embrayage\templates\voiture_embrayage\list.html:42
+#: .\maintenance\carrosserie_interne\models.py:306
 msgid "Numéro OEM"
 msgstr "Numero OEM"
 
@@ -3712,9 +3714,7 @@ msgstr "Rivestimento del parafango posteriore sinistro"
 msgid "Support de radiateur"
 msgstr "Supporto radiatore"
 
-#: .\maintenance\carrosserie_interne\models.py:306
-msgid "Numéro OEM"
-msgstr "Numéro OEM"
+
 
 #: .\maintenance\carrosserie_interne\models.py:312
 #: .\maintenance\check_up\models.py:322
@@ -5999,9 +5999,8 @@ msgstr "Codice a barre"
 msgid "Code barres"
 msgstr "Codice a barre"
 
-#: .\outillage\templates\outillage\outillage_list.html:63
-msgid "Taux de TVA"
-msgstr "Aliquota IVA"
+
+
 
 #: .\outillage\templates\outillage\outillage_list.html:96
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ outils"

@@ -5250,8 +5250,8 @@ msgstr "Modificar la limpieza exterior"
 
 #: .\maintenance\nettoyage_exterieur\templates\nettoyage_exterieur\modifier_nettoyage_ext.html:61
 #: .\maintenance\nettoyage_exterieur\templates\nettoyage_exterieur\nettoyage_ext_detail.html:13
-msgid ""
-msgstr "Limpieza exterior"
+msgid "Détails du nettoyage extérieur"
+msgstr "Dettagli della pulizia esterna"
 
 #: .\maintenance\nettoyage_exterieur\templates\nettoyage_exterieur\nettoyage_ext_detail.html:20
 #: .\maintenance\nettoyage_exterieur\templates\nettoyage_exterieur\nettoyage_ext_detail.html:59
@@ -6125,10 +6125,16 @@ msgid "Prix d'achat"
 msgstr "Precio de compra"
 
 #: .\piece\models.py:93
+#: .\piece\templates\piece\piece_detail.html:36
+#: .\piece\templates\piece\piece_form.html:92
+#, python-format
 msgid "Majoration (%)"
 msgstr "Incremento (%)"
 
 #: .\piece\models.py:94
+#: .\piece\templates\piece\piece_detail.html:37
+#: .\piece\templates\piece\piece_form.html:100
+#, python-format
 msgid "TVA (%)"
 msgstr "IVA (%)"
 
@@ -8317,14 +8323,9 @@ msgstr "Ninguno"
 #: .\piece\templates\piece\piece_detail.html:36
 #: .\piece\templates\piece\piece_form.html:92
 #, python-format
-msgid "Majoration (%)"
-msgstr "Incremento (%)"
 
-#: .\piece\templates\piece\piece_detail.html:37
-#: .\piece\templates\piece\piece_form.html:100
-#, python-format
-msgid "TVA (%)"
-msgstr "IVA (%)"
+
+
 
 #: .\piece\templates\piece\piece_detail.html:38
 msgid "Prix de vente calculé"
