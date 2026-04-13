@@ -24,9 +24,8 @@ urlpatterns = [
 
     path("stats/", FuelStatView.as_view(), name="fuel_stat"),
 
-
-    path("stats_exemplaire/", FuelExemplaireStatView.as_view(), name="fuel_exemplaire_stat"),
-
+    # après
+    path("stats_exemplaire/<uuid:exemplaire_id>/", FuelExemplaireStatView.as_view(), name="fuel_exemplaire_stat"),
 
     # Supprimer un fuel (UUID)
     path("delete/<uuid:fuel_id>/", fuel_delete, name="fuel_delete"),
