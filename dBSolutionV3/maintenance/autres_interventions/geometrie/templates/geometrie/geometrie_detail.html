@@ -11,6 +11,9 @@
                  alt="{{ geometrie.voiture_exemplaire.immatriculation }}"
                  class="w-12 h-12">
             <span>{% trans "Détails de la géométrie" %}</span>
+              {{ exemplaire.voiture_marque.nom_marque }}
+                {{ exemplaire.voiture_modele.nom_modele }}
+                {{ exemplaire.voiture_modele.nom_variante }}
         </h1>
     </div>
 

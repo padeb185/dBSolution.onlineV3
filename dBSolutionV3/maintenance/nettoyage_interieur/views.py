@@ -151,18 +151,16 @@ def nettoyage_interieur_view(request, exemplaire_id):
             "now": timezone.now(),
         })
 
-# ------------
-# Vue détail NettoyageInterieur
-# -----------------------------
+
 @login_required
-def nettoyage_int_detail(request, nettoyage_id):
+def nettoyage_int_detail(request, nettoyage_interieur_id):
     nettoyage_int = get_object_or_404(
         NettoyageInterieur.objects.select_related("voiture_exemplaire"),
-        id=nettoyage_id
+        id=nettoyage_interieur_id
     )
 
     context = {
-        "nettoyage_int": nettoyage_int,  # nom uniforme pour le template
+        "nettoyage_int": nettoyage_int,
         "exemplaire": nettoyage_int.voiture_exemplaire,
     }
     return render(request, "nettoyage_interieur/nettoyage_int_detail.html", context)

@@ -14,6 +14,9 @@
                      onerror="this.src='{% static 'icons/disque-de-frein.png' %}';">
             {% endwith %}
             <span>{% trans "Détails du controle des freins :" %}</span>
+             {{ exemplaire.voiture_marque.nom_marque }}
+                {{ exemplaire.voiture_modele.nom_modele }}
+                {{ exemplaire.voiture_modele.nom_variante }}
         </h1>
 
 
@@ -28,10 +31,11 @@
                 {% trans "Informations générales" %}
             </h2>
 
-             <p><strong>{% trans "Immatriculation" %} :</strong></p>
-            <div class="mb-4">
-                {% include "maintenance/partials/plaque.html" %}
-            </div>
+             <p><strong>{% trans "Immatriculation" %} :</strong>
+                <div>
+                    {% include "fuel/partials/plaque.html" %}
+                </div>
+            </p>
 
             <p><strong>{% trans "Kilométrage" %} :</strong> {{ frein.kilometres_chassis }}</p>
             <p><strong>{% trans "Disques avant" %} :</strong> {{ frein.avant_freins_d_epaisseur_disques }}</p>
@@ -49,7 +53,20 @@
 
 
 
-           <div class="mt-auto w-full">
+
+
+
+        </div>
+
+            <div class="bg-white shadow-md rounded-lg p-6">
+                <h2 class="text-lg font-semibold mb-4">{% trans "Jeux pièces" %}</h2>
+                <p><strong>{% trans "Date de l'intervention" %} :</strong> {{ frein.date|date:"d/m/Y" }}</p>
+                 <p><strong>{% trans "Remarques" %} :</strong> {{ frein.remarque }}</p>
+
+            </div>
+
+
+            <div class="mt-auto w-full">
                 <a href="{% url 'freins:modifier_freins' frein.id %}" class="block w-full">
                     <button type="button"
                         class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
@@ -58,22 +75,11 @@
                 </a>
             </div>
 
-
-        </div>
-
-        <!-- Peppol -->
-        <div class="bg-white shadow-md rounded-lg p-6">
-            <h2 class="text-lg font-semibold mb-4">
-                {% trans "Informations" %}
-            </h2>
-
-            <p>
-                <strong>{% trans "Remarques" %} :</strong><br>
-                {{ frein.remarques }}
-            </p>
-
-        </div>
     </div>
+
+
+
+</div>
 
 
     <!-- Métadonnées -->
@@ -98,7 +104,7 @@
     <!-- Actions -->
     <div>
        <a href="{% url 'freins:freins_list' frein.voiture_exemplaire.id %}"
-           class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+             class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
             {% trans "Retour à la liste des contrôles freins" %}
         </a>
     </div>

@@ -10,7 +10,10 @@
             <img src="{% static 'icons/niveaux.png' %}"
                  alt="{{ niveaux.voiture_exemplaire.immatriculation }}"
                  class="w-12 h-12">
-            <span>{% trans "Détails du contrôle des Niveaux" %}</span>
+            <span>{% trans "Détails du contrôle des Niveaux : " %}</span>
+              {{ exemplaire.voiture_marque.nom_marque }}
+                {{ exemplaire.voiture_modele.nom_modele }}
+                {{ exemplaire.voiture_modele.nom_variante }}
         </h1>
 
     </div>
@@ -34,7 +37,9 @@
 
         <!-- Maintenance / Niveaux -->
         <div class="bg-white shadow-md rounded-lg p-6">
-            <h2 class="text-lg font-semibold mb-4">{% trans "Niveaux" %}</h2>
+                <h2 class="text-lg font-semibold mb-4">{% trans "Niveaux" %}</h2>
+            <p><strong>{% trans "Date de l'intervention" %} :</strong> {{ niveau.date|date:"d/m/Y" }}</p>
+            <br>
              <p><strong>{% trans "Ajout d'huile moteur" %} :</strong>
                  <span class="{% if niveau.moteur_niveau_huile_quantite > 0 %}text-green-600{% endif %}">
                     {{ niveau.moteur_niveau_huile_quantite }}
@@ -112,7 +117,7 @@
     <!-- Actions -->
     <div>
        <a href="{% url 'niveaux:niveaux_list' niveau.voiture_exemplaire.id %}"
-             class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+             class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
             {% trans "Retour à la liste des niveaux" %}
        </a>
     </div>
