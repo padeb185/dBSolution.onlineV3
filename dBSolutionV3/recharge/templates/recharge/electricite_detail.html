@@ -13,15 +13,13 @@
                      class="w-12 h-12"
                      onerror="this.src='{% static 'icons/voyage.png' %}';">
             {% endwith %}
-            <span>{% trans "Détails des recharges électriques :" %}</span>
+            <span>{% trans "Détails des recharges électriques : " %}</span>
+                 {{ exemplaire.voiture_marque.nom_marque }}
+                {{ exemplaire.voiture_modele.nom_modele }}
+                {{ exemplaire.voiture_modele.nom_variante }}
 
 
         </h1>
-
-        <a href="{% url 'recharge:recharge_list' %}"
-           class="text-blue-600 hover:underline">
-            {% trans "Retour à la liste des recharges" %}
-        </a>
     </div>
 
     <!-- Infos principales -->
@@ -45,35 +43,38 @@
             </p>
             <p>
                 <strong>{% trans "Energie" %} :</strong>
-                {{ electricite.type_carburant }}
+                {{ electricite.get_type_carburant_display }}
             </p>
-
-
-
-
-
-           <div class="mt-auto w-full">
-                <a href="{% url 'recharge:modifier_electricite' electricite.id %}" class="block w-full">
-                    <button type="button"
-                            class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
-                        {% trans "Modifier la recharge" %}
-                    </button>
-                </a>
-           </div>
-
         </div>
 
         <!-- Peppol -->
         <div class="bg-white shadow-md rounded-lg p-6">
             <h2 class="text-lg font-semibold mb-4">
-                {% trans "Informations Peppol" %}
+                {% trans "Remarques" %}
             </h2>
 
             <p>
-                <strong>{% trans "Identifiant Peppol" %} :</strong><br>
-                {{ assurance.peppol_id }}
+                <strong>{% trans "Remarques" %} :</strong><br>
+                {{ electricite.remarque }}
             </p>
 
+        </div>
+        <!-- Bouton Modifier / Statistiques côte à côte -->
+        <div class="flex gap-4">
+            <!-- Bouton Modifier (bleu) -->
+            <a href="{% url 'recharge:modifier_electricite' electricite.id %}" class="flex-1">
+                <button type="button" class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+                    {% trans "Modifier la recharge" %}
+                </button>
+            </a>
+        </div>
+        <div>
+             <!-- Bouton Statistiques (vert) -->
+            <a href="{% url 'recharge:electricite_stat' %}" class="flex-1">
+                <button type="button" class="w-full bg-green-600 text-white px-4 py-2 rounded hover:bg-green-500 font-semibold">
+                    {% trans "Voir les statistiques" %}
+                </button>
+            </a>
         </div>
     </div>
 
@@ -87,27 +88,29 @@
 
         <p>
             <strong>{% trans "Créé le" %} :</strong>
-            {{ recharge.created_at|date:"d/m/Y H:i" }}
+            {{ electricite.created_at|date:"d/m/Y H:i" }}
         </p>
+          <p>
+            <strong>{% trans "Créé le" %} :</strong>
+            {{ electricite.updated_at|date:"d/m/Y H:i" }}
+        </p>
+
     </div>
 
 
-
+    <br>
     <!-- Actions -->
-    <div class="bg-white shadow-md rounded-lg p-6 flex gap-4">
-        <a href="{% url 'recharge:recharge_list' %}" class="flex-1">
-              <button type="button" class="bg-blue-700 text-white px-4 py-2 rounded w-full mt-4">
-                    {% trans "Retour à la liste des recharges" %}
-              </button>
-        </a>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div>
+            <a href="{% url 'recharge:recharge_list' %}"
+                   class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+                        {% trans "Retour à la liste des recharges" %}
+                  </button>
+            </a>
 
-         <!-- Bouton statistiques -->
-        <a href="{% url 'recharge:electricite_stat' %}" class="flex-1">
-              <button type="button" class="bg-green-600 text-white px-4 py-2 rounded w-full mt-4 hover:bg-green-500">
-                    {% trans "Voir les statistiques" %}
-              </button>
-        </a>
 
+
+        </div>
     </div>
 
 </div>

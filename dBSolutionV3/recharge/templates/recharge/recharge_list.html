@@ -10,11 +10,20 @@
     {% trans "Liste des recharges électriques" %}
 </h1>
 
-  <div>
-      <a href="{% url 'recharge:ajouter_recharge_all' %}" class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition focus:outline-none focus:ring-2 focus:ring-blue-500 whitespace-nowrap">
-          {% trans "Ajouter une recharge électrique" %}
-      </a>
-  </div>
+<div class="flex gap-4">
+    <!-- Bouton bleu -->
+    <a href="{% url 'recharge:ajouter_recharge_all' %}"
+       class="flex-1 bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition focus:outline-none focus:ring-2 focus:ring-blue-500">
+       {% trans "Ajouter une recharge électrique" %}
+    </a>
+
+    <!-- Bouton vert -->
+    <a href="{% url 'recharge:electricite_stat' %}"
+       class="flex-1 bg-green-600 text-white text-center px-4 py-2 rounded hover:bg-green-500 transition focus:outline-none focus:ring-2 focus:ring-green-500">
+       {% trans "Voir les statistiques" %}
+    </a>
+</div>
+
 <br>
 <br>
 
@@ -118,7 +127,7 @@
             </td>
 
             <!-- Kilomètres -->
-            <td class="border px-4 py-2">{{ recharge.kilometrage_recharge }}</td>
+            <td class="border px-4 py-2">{{ recharge.kilometrage_electricite }}</td>
 
             <!-- Type carburant -->
             <td class="border px-4 py-2">{{ recharge.get_type_carburant_display }}</td>
