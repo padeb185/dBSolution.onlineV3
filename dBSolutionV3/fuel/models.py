@@ -301,3 +301,19 @@ class Fuel(models.Model):
     def total_tva_all_exemplaire(cls, exemplaire):
         return cls.objects.filter(voiture_exemplaire=exemplaire).aggregate(total=Sum('montant_tva'))['total'] or Decimal('0.00')
 
+
+
+    @classmethod
+    def total_tva_global_exemplaire(cls, year=None, month=None):
+        """
+        Retourne le total TVA pour tous les pays combinés.
+        """
+        qs = cls.objects.all()
+        if year and month:
+            qs = qs.filter(date__year=year, date__month=month)
+        elif year:
+            qs = qs.filter(date__year=year)
+
+        return qs.aggregate(total=Sum('montant_tva'))['total'] or Decimal('0.00')
+
+

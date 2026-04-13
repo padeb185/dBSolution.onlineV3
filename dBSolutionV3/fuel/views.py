@@ -1,4 +1,4 @@
-from django.http import JsonResponse
+from django.http import JsonResponse, request
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
@@ -264,112 +264,115 @@ class FuelStatView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        fuels = Fuel.objects.select_related(
-            "voiture_exemplaire",
-            "voiture_exemplaire__voiture_modele",
-            "voiture_exemplaire__voiture_modele__voiture_marque",
-        )
+        tenant = self.request.user.societe
+        with tenant_context(tenant):
 
-        # 📊 Statistiques globales
-        global_stats = fuels.aggregate(
-            total_litres=Sum("litres"),
-            total_cout=Sum("prix_refuelling"),
-            total_tva=Sum("montant_tva"),
-            prix_moyen_litre=Avg("prix_litre"),
-            total_pleins=Count("id"),
-        )
-        context["global"] = global_stats
-
-        # 🔹 Totaux TVA par pays
-        PAYS_CHOICES = [
-            ('BE', "Belgique"),
-            ('LU', "Luxembourg"),
-            ('DE', "Allemagne"),
-        ]
-        totaux_par_pays = {}
-        for code, _ in PAYS_CHOICES:
-            totaux_par_pays[code] = fuels.filter(pays=code).aggregate(total=Sum("montant_tva"))["total"] or 0
-        context["totaux_par_pays"] = totaux_par_pays
-
-        # 🔹 Total TVA global
-        total_global = fuels.aggregate(total=Sum("montant_tva"))["total"] or 0
-        context["total_global"] = total_global
-
-        # 🚗 Stats par voiture
-        par_voiture = (
-            fuels.values(
-                "voiture_exemplaire__id",
-                "voiture_exemplaire__voiture_modele__nom_modele",
-                "voiture_exemplaire__voiture_modele__voiture_marque__nom_marque",
-                "voiture_exemplaire__immatriculation",
-                "voiture_exemplaire__pays",
+            fuels = Fuel.objects.select_related(
+                "voiture_exemplaire",
+                "voiture_exemplaire__voiture_modele",
+                "voiture_exemplaire__voiture_modele__voiture_marque",
             )
-            .annotate(
+
+            # 📊 Statistiques globales
+            global_stats = fuels.aggregate(
                 total_litres=Sum("litres"),
                 total_cout=Sum("prix_refuelling"),
+                total_tva=Sum("montant_tva"),
                 prix_moyen_litre=Avg("prix_litre"),
-                nb_pleins=Count("id"),
-                km_min=Min("kilometrage_fuel"),
-                km_max=Max("kilometrage_fuel"),
+                total_pleins=Count("id"),
             )
-            .annotate(
-                km_parcourus=F("km_max") - F("km_min"),
-            )
-            .annotate(
-                conso_moyenne=Case(
-                    When(
-                        km_parcourus__gt=0,
-                        then=ExpressionWrapper(
-                            F("total_litres") * 100.0 / F("km_parcourus"),
-                            output_field=FloatField(),
+            context["global"] = global_stats
+
+            # 🔹 Totaux TVA par pays
+            PAYS_CHOICES = [
+                ('BE', "Belgique"),
+                ('LU', "Luxembourg"),
+                ('DE', "Allemagne"),
+            ]
+            totaux_par_pays = {}
+            for code, _ in PAYS_CHOICES:
+                totaux_par_pays[code] = fuels.filter(pays=code).aggregate(total=Sum("montant_tva"))["total"] or 0
+            context["totaux_par_pays"] = totaux_par_pays
+
+            # 🔹 Total TVA global
+            total_global = fuels.aggregate(total=Sum("montant_tva"))["total"] or 0
+            context["total_global"] = total_global
+
+            # 🚗 Stats par voiture
+            par_voiture = (
+                fuels.values(
+                    "voiture_exemplaire__id",
+                    "voiture_exemplaire__voiture_modele__nom_modele",
+                    "voiture_exemplaire__voiture_modele__voiture_marque__nom_marque",
+                    "voiture_exemplaire__immatriculation",
+                    "voiture_exemplaire__pays",
+                )
+                .annotate(
+                    total_litres=Sum("litres"),
+                    total_cout=Sum("prix_refuelling"),
+                    prix_moyen_litre=Avg("prix_litre"),
+                    nb_pleins=Count("id"),
+                    km_min=Min("kilometrage_fuel"),
+                    km_max=Max("kilometrage_fuel"),
+                )
+                .annotate(
+                    km_parcourus=F("km_max") - F("km_min"),
+                )
+                .annotate(
+                    conso_moyenne=Case(
+                        When(
+                            km_parcourus__gt=0,
+                            then=ExpressionWrapper(
+                                F("total_litres") * 100.0 / F("km_parcourus"),
+                                output_field=FloatField(),
+                            ),
                         ),
+                        default=Value(0.0),
+                        output_field=FloatField(),
                     ),
-                    default=Value(0.0),
-                    output_field=FloatField(),
-                ),
-                cout_km=Case(
-                    When(
-                        km_parcourus__gt=0,
-                        then=ExpressionWrapper(
-                            F("total_cout") / F("km_parcourus"),
-                            output_field=FloatField(),
+                    cout_km=Case(
+                        When(
+                            km_parcourus__gt=0,
+                            then=ExpressionWrapper(
+                                F("total_cout") / F("km_parcourus"),
+                                output_field=FloatField(),
+                            ),
                         ),
+                        default=Value(0.0),
+                        output_field=FloatField(),
                     ),
-                    default=Value(0.0),
-                    output_field=FloatField(),
-                ),
+                )
+                .order_by("-total_cout")
             )
-            .order_by("-total_cout")
-        )
-        context["par_voiture"] = par_voiture
+            context["par_voiture"] = par_voiture
 
-        # 📅 Stats par mois
-        par_mois = (
-            fuels.annotate(mois=TruncMonth("date"))
-            .values("mois")
-            .annotate(
-                total_litres=Sum("litres"),
-                total_cout=Sum("prix_refuelling"),
-                nb_pleins=Count("id"),
+            # 📅 Stats par mois
+            par_mois = (
+                fuels.annotate(mois=TruncMonth("date"))
+                .values("mois")
+                .annotate(
+                    total_litres=Sum("litres"),
+                    total_cout=Sum("prix_refuelling"),
+                    nb_pleins=Count("id"),
+                )
+                .order_by("mois")
             )
-            .order_by("mois")
-        )
-        context["par_mois"] = par_mois
+            context["par_mois"] = par_mois
 
-        # 📅 Stats par année
-        par_an = (
-            fuels.annotate(an=TruncYear("date"))
-            .values("an")
-            .annotate(
-                total_litres=Sum("litres"),
-                total_cout=Sum("prix_refuelling"),
-                nb_pleins=Count("id"),
+            # 📅 Stats par année
+            par_an = (
+                fuels.annotate(an=TruncYear("date"))
+                .values("an")
+                .annotate(
+                    total_litres=Sum("litres"),
+                    total_cout=Sum("prix_refuelling"),
+                    nb_pleins=Count("id"),
+                )
+                .order_by("an")
             )
-            .order_by("an")
-        )
-        context["par_an"] = par_an
+            context["par_an"] = par_an
 
-        return context
+            return context
 
 
 
@@ -378,64 +381,72 @@ class FuelStatView(LoginRequiredMixin, TemplateView):
 class FuelExemplaireStatView(LoginRequiredMixin, TemplateView):
     template_name = "fuel/fuel_exemplaire_stat.html"
 
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        # Récupère l'ID depuis l'URL
         exemplaire_id = self.kwargs.get("exemplaire_id")
-        exemplaire = get_object_or_404(VoitureExemplaire, pk=exemplaire_id)
 
-        # 🔹 Tous les fuels de cet exemplaire
-        fuels = Fuel.objects.filter(voiture_exemplaire=exemplaire)
+        # Récupère l'exemplaire en tenant compte du tenant
+        tenant = self.request.user.societe
+        with tenant_context(tenant):
+            exemplaire = get_object_or_404(VoitureExemplaire, pk=exemplaire_id)
+            fuels = Fuel.objects.filter(voiture_exemplaire=exemplaire)
 
-        # 🔹 Stats globales pour cet exemplaire
-        context["global"] = {
-            "total_pleins": fuels.count(),
-            "total_litres": Fuel.total_litres_all_exemplaire(exemplaire),
-            "total_cout": Fuel.total_prix_all_exemplaire(exemplaire),
-            "total_tva": Fuel.total_tva_all_exemplaire(exemplaire),
-            "prix_moyen_litre": fuels.aggregate(avg=Avg("prix_litre"))["avg"] or 0,
-        }
-
-        # 🔹 Totaux TVA par pays
-        context["totaux_par_pays"] = Fuel.total_tva_par_pays_exemplaire(exemplaire)
-
-        # 🔹 Stats par mois
-        context["par_mois"] = [
-            {
-                "mois": m["mois"],
-                "nb_pleins": m["nb_pleins"],
-                "total_litres": m["total_litres"],
-                "total_cout": m["total_prix"],
-                "total_tva": m["total_tva"],
+            # 🔹 Stats globales pour cet exemplaire
+            context["global"] = {
+                "total_pleins": fuels.count(),
+                "total_litres": Fuel.total_litres_all_exemplaire(exemplaire),
+                "total_cout": Fuel.total_prix_all_exemplaire(exemplaire),
+                "total_tva": Fuel.total_tva_all_exemplaire(exemplaire),
+                "prix_moyen_litre": fuels.aggregate(avg=Avg("prix_litre"))["avg"] or 0,
             }
-            for m in fuels.annotate(mois=TruncMonth("date"))
-                             .values("mois")
-                             .annotate(
-                                total_litres=Sum("litres"),
-                                total_prix=Sum("prix_refuelling"),
-                                total_tva=Sum("montant_tva"),
-                                nb_pleins=Count("id"),
-                             )
-                             .order_by("mois")
-        ]
 
-        # 🔹 Stats par année
-        context["par_an"] = [
-            {
-                "an": a["an"],
-                "nb_pleins": a["nb_pleins"],
-                "total_litres": a["total_litres"],
-                "total_cout": a["total_prix"],
-                "total_tva": a["total_tva"],
-            }
-            for a in fuels.annotate(an=TruncYear("date"))
-                           .values("an")
-                           .annotate(
-                               total_litres=Sum("litres"),
-                               total_prix=Sum("prix_refuelling"),
-                               total_tva=Sum("montant_tva"),
-                               nb_pleins=Count("id"),
-                           )
-                           .order_by("an")
-        ]
+            # 🔹 Totaux TVA par pays
+            context["totaux_par_pays"] = Fuel.total_tva_par_pays_exemplaire(exemplaire)
 
-        return context
+            total_global = fuels.aggregate(total=Sum("montant_tva"))["total"] or 0
+            context["total_global"] = total_global
+
+            # 🔹 Stats par mois
+            context["par_mois"] = [
+                {
+                    "mois": m["mois"],
+                    "nb_pleins": m["nb_pleins"],
+                    "total_litres": m["total_litres"],
+                    "total_cout": m["total_prix"],
+                    "total_tva": m["total_tva"],
+                }
+                for m in fuels.annotate(mois=TruncMonth("date"))
+                                 .values("mois")
+                                 .annotate(
+                                    total_litres=Sum("litres"),
+                                    total_prix=Sum("prix_refuelling"),
+                                    total_tva=Sum("montant_tva"),
+                                    nb_pleins=Count("id"),
+                                 )
+                                 .order_by("mois")
+            ]
+
+            # 🔹 Stats par année
+            context["par_an"] = [
+                {
+                    "an": a["an"],
+                    "nb_pleins": a["nb_pleins"],
+                    "total_litres": a["total_litres"],
+                    "total_cout": a["total_prix"],
+                    "total_tva": a["total_tva"],
+                }
+                for a in fuels.annotate(an=TruncYear("date"))
+                               .values("an")
+                               .annotate(
+                                   total_litres=Sum("litres"),
+                                   total_prix=Sum("prix_refuelling"),
+                                   total_tva=Sum("montant_tva"),
+                                   nb_pleins=Count("id"),
+                               )
+                               .order_by("an")
+            ]
+
+            return context

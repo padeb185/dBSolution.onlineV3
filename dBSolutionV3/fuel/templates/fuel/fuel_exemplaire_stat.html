@@ -17,6 +17,9 @@
         {{ exemplaire.voiture_modele.nom_modele }}
         {{ exemplaire.voiture_modele.nom_variante }}
     </div>
+      <div class="mb-4">
+          {% include "fuel/partials/plaque.html" %}
+      </div>
     <div>
         {% with pays=exemplaire.pays imm=exemplaire.immatriculation %}
             {% if pays == "Belgique" %}
@@ -69,6 +72,27 @@
         <div class="text-xs text-gray-500">{% trans "Prix moyen / L" %}</div>
         <div class="text-lg font-bold">{{ global.prix_moyen_litre|floatformat:3 }} €</div>
     </div>
+
+    <!-- TVA par pays -->
+    {% for code, tva in totaux_par_pays.items %}
+        <div class="bg-red-100 p-2 rounded w-28">
+            <div class="text-xs text-gray-500">
+                {% if code == "BE" %}{% trans "Belgique" %}
+                {% elif code == "LU" %}{% trans "Luxembourg" %}
+                {% elif code == "DE" %}{% trans "Allemagne" %}
+                {% else %}{{ code }}{% endif %}
+            </div>
+            <div class="text-lg font-bold">{{ tva|floatformat:2 }} €</div>
+        </div>
+    {% endfor %}
+
+    <!-- Total global TVA -->
+    <div class="bg-blue-100 p-2 rounded w-32">
+        <div class="text-xs text-gray-500">{% trans "TVA totale globale" %}</div>
+        <div class="text-lg font-bold text-blue-800">{{ total_global|floatformat:2 }} €</div>
+    </div>
+
+
 </div>
 
 <!-- 📅 Par mois -->
