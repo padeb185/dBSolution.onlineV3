@@ -6520,10 +6520,16 @@ msgid "Prix d'achat"
 msgstr "Einkaufspreis"
 
 #: .\piece\models.py:93
+#: .\piece\templates\piece\piece_detail.html:36
+#: .\piece\templates\piece\piece_form.html:92
+#, python-format
 msgid "Majoration (%)"
 msgstr "Aufschlag (%)"
 
 #: .\piece\models.py:94
+#: .\piece\templates\piece\piece_detail.html:37
+#: .\piece\templates\piece\piece_form.html:100
+#, python-format
 msgid "TVA (%)"
 msgstr "MwSt. (%)"
 
@@ -8709,17 +8715,9 @@ msgstr "Fahrzeugmarke"
 msgid "Aucun"
 msgstr "Keine"
 
-#: .\piece\templates\piece\piece_detail.html:36
-#: .\piece\templates\piece\piece_form.html:92
-#, python-format
-msgid "Majoration (%)"
-msgstr "Aufschlag (%)"
 
-#: .\piece\templates\piece\piece_detail.html:37
-#: .\piece\templates\piece\piece_form.html:100
-#, python-format
-msgid "TVA (%)"
-msgstr "MwSt. (%)"
+
+
 
 #: .\piece\templates\piece\piece_detail.html:38
 msgid "Prix de vente calculé"
