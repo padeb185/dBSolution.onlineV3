@@ -19,8 +19,15 @@
             {% endif %}
             <span>{% trans "Modifier l'intervention carrosserie" %}</span>
             <span class="text-gray-700 font-medium">#{{ carrosserie_interne.id }}</span>
+
         </h1>
+
     </div>
+     <h1 class="text-2xl font-bold flex items-center gap-4">
+         {{ carrosserie_interne.voiture_exemplaire.voiture_marque.nom_marque }}
+         {{ carrosserie_interne.voiture_exemplaire.voiture_modele.nom_modele }}
+         {{ carrosserie_interne.voiture_exemplaire.voiture_modele.nom_variante }}
+     </h1><br>
 
      <div class="mb-4">
         {% include "maintenance/partials/plaque.html" %}

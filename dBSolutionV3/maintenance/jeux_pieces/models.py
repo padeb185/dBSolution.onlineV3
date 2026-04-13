@@ -174,6 +174,9 @@ class ControleJeuxPieces(TechnicienMixin, models.Model):
         related_name="controle_jeux_societe"
     )
 
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
+
     # Méthode pour assigner l’utilisateur courant automatiquement
     def assign_technicien(self, user):
         """Assigne l'utilisateur courant et met à jour les champs dérivés"""

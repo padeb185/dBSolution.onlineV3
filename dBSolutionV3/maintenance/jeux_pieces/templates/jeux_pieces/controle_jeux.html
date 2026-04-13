@@ -7,10 +7,10 @@
     <!-- Header -->
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold flex items-center gap-4">
-            <img src="{% static 'icons/pieces-de-voitiure.png' %}" alt="Jeux Pièces"
-                 style="width:60px; height:60px; margin-right:10px;">
+            <img src="{% static 'icons/pieces-de-voiture.png' %}" alt="Jeux Pièces"
+                 style="width:60px; height:60px; margin-right:10px;"><br>
             <span>
-                {% trans "Contrôle des jeux pour :" %}
+                {% trans "Contrôle des jeux pour :" %} <br>
                 {{ exemplaire.voiture_marque.nom_marque }}
                 {{ exemplaire.voiture_modele.nom_modele }}
                 {{ exemplaire.voiture_modele.nom_variante }}
@@ -19,7 +19,7 @@
             </span>
         </h1>
     </div>
-
+    <br>
     <!-- Plaque -->
     <div class="mb-4">
         {% include "maintenance/partials/plaque.html" %}

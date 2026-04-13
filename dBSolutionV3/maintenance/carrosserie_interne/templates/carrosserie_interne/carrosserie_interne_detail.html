@@ -10,7 +10,8 @@
             <img src="{% static 'icons/carrosserie.png' %}"
                  alt="{{ carrosserie_interne.voiture_exemplaire.immatriculation }}"
                  class="w-12 h-12">
-            <span>{% trans "Détails de l'intervention" %}</span>
+            <span>{% trans "Détails de l'intervention :" %}</span>
+            <span>{{ carrosserie_interne.voiture_exemplaire.voiture_marque.nom_marque }} {{ carrosserie_interne.voiture_exemplaire.voiture_modele.nom_modele }} {{ carrosserie_interne.voiture_exemplaire.voiture_modele.nom_variante }}</span>
         </h1>
     </div>
 
@@ -21,7 +22,11 @@
         <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
             <h2 class="text-lg font-semibold mb-2">{% trans "Informations générales" %}</h2>
 
-            <p><strong>{% trans "Immatriculation" %} :</strong> {{ carrosserie_interne.voiture_exemplaire.immatriculation }}</p>
+            <p><strong>{% trans "Immatriculation" %} :</strong>
+                 <div>
+                    {% include "fuel/partials/plaque.html" %}
+                </div>
+            </p>
             <p><strong>{% trans "Kilométrage" %} :</strong> {{ carrosserie_interne.kilometres_chassis }}</p>
             <p><strong>{% trans "Tag" %} :</strong> {{ carrosserie_interne.get_tag_display }}</p>
             <p><strong>{% trans "Technicien" %} :</strong> {{ carrosserie_interne.tech_nom_technicien }} {{ carrosserie_interne.tech_role_technicien }}</p>
@@ -31,7 +36,7 @@
         <!-- Maintenance -->
         <div class="bg-white shadow-md rounded-lg p-6">
             <h2 class="text-lg font-semibold mb-4">{% trans "Carrosserie interne" %}</h2>
-            <p><strong>{% trans "Date de l'intervention" %} :</strong> {{ carrosserie_interne.maintenance.date_intervention|date:"d/m/Y" }}</p>
+            <p><strong>{% trans "Date de l'intervention" %} :</strong> {{ carrosserie_interne.date|date:"d/m/Y" }}</p>
         </div>
 
 
