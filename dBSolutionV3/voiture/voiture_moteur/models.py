@@ -62,7 +62,9 @@ class MoteurVoiture(models.Model):
     qualite_huile = models.CharField(max_length=50, null=True, blank=True)
     quantite_huile_l = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
 
-    kilometrage_moteur = models.PositiveIntegerField(default=0, null=True, blank=True)
+    kilometres_chassis = models.PositiveIntegerField(default=0, null=True, blank=True)
+    kilometres_moteur = models.PositiveIntegerField(default=0, null=True, blank=True)
+    kilometres_remplacement_moteur = models.PositiveIntegerField(default=0, null=True, blank=True)
     numero_moteur = models.PositiveSmallIntegerField(default=1, null=True, blank=True)
     intervalle_km_entretien = models.PositiveIntegerField(default=15000, null=True, blank=True)
     date_creation = models.DateTimeField(auto_now_add=True)
@@ -119,5 +121,13 @@ class MoteurVoiture(models.Model):
 
                 for champ in champs_a_copier:
                     setattr(self, champ, getattr(moteur_existant, champ))
+
+
+
+        if self.kilometres_moteur is None:
+            if self.kilometres_chassis is not None and self.Kilometres_remplacement_moteur is not None:
+                self.kilometres_moteur = max(0, self.kilometres_chassis - self.Kilometres_remplacement_moteur)
+            else:
+                self.kilometres_moteur = 0
 
         super().save(*args, **kwargs)

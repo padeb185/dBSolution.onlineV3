@@ -52,7 +52,9 @@ class VoitureBoite(models.Model):
     quantite_huile_l = models.FloatField(verbose_name="Quantité huile boîte (L)", null=True, blank=True)
 
     # Suivi kilométrique
-    kilometrage_boite = models.PositiveIntegerField(default=0)
+    kilometres_chassis = models.PositiveIntegerField(default=0, null=True, blank=True)
+    kilometres_boite = models.PositiveIntegerField(default=0,null=True, blank=True)
+    kilometres_remplacement_boite = models.PositiveIntegerField(default=0,null=True, blank=True)
     intervalle_entretien_km = models.PositiveIntegerField(default=60000, verbose_name="Intervalle entretien (km)", null=True, blank=True)
 
     # Historique entretien
@@ -79,7 +81,13 @@ class VoitureBoite(models.Model):
     def __str__(self):
         return f"Boîte #{self.nom_du_type} - {self.kilometrage_boite} km"
 
-
+    def save(self, *args, **kwargs):
+        if self.kilometres_boite is None:
+            if self.kilometres_chassis is not None and self.kilometres_remplacement_boite is not None:
+                self.kilometrage_boite = max(0, self.kilometres_chassis - self.kilometres_remplacement_boite)
+            else:
+                self.kilometrage_boite = 0
+        super().save(*args, **kwargs)
 
     # Méthodes utilitaires
     def prochain_entretien_km(self):

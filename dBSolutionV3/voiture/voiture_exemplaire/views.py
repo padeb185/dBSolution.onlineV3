@@ -6,7 +6,6 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
 from django_tenants.utils import tenant_context
 from .models import VoitureExemplaire, TypeUtilisation
-from .forms import VoitureExemplaireForm
 from ..voiture_modele.models import VoitureModele
 from ..voiture_moteur.models import MoteurVoiture
 from django.utils.translation import gettext as _

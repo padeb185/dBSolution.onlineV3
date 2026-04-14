@@ -41,6 +41,30 @@ class VoitureExemplaire(models.Model):
         related_name="voitures"
     )
 
+    voiture_embrayage = models.ForeignKey(
+        "voiture_embrayage.VoitureEmbrayage",
+        on_delete=models.PROTECT,
+        related_name="voitures",
+        null=True,
+        blank=True
+    )
+
+    voiture_boite = models.ForeignKey(
+        "voiture_boite.VoitureBoite",
+        on_delete=models.PROTECT,
+        related_name="voitures",
+        null=True,
+        blank=True
+    )
+
+    voiture_moteur = models.ForeignKey(
+        "voiture_moteur.MoteurVoiture",
+        on_delete=models.PROTECT,
+        related_name="voitures",
+        null=True,
+        blank=True
+    )
+
     societe = models.ForeignKey(Societe, on_delete=models.CASCADE)
 
     # 🚗 Identification
@@ -98,8 +122,14 @@ class VoitureExemplaire(models.Model):
 
     # 📏 Kilométrage châssis
     kilometres_chassis = models.PositiveIntegerField(default=0, null=True, blank=True)
-    kilometres_total = models.PositiveIntegerField(default=0, null=True, blank=True)
-    kilometres_derniere_intervention = models.PositiveIntegerField(default=0, null=True, blank=True)
+
+    kilometres_derniere_entretien = models.PositiveIntegerField(default=0, null=True, blank=True)
+
+    kilometres_embrayage = models.PositiveIntegerField(default=0, null=True, blank=True)
+
+    kilometres_boite_vitesse = models.PositiveIntegerField(default=0, null=True, blank=True)
+
+    kilometres_moteur = models.PositiveIntegerField(default=0, null=True, blank=True)
 
     variation_kilometres = models.PositiveIntegerField(
         default=0,
@@ -242,6 +272,15 @@ class VoitureExemplaire(models.Model):
             )
         else:
             self.variation_kilometres = 0
+
+        if self.kilometres_moteur is None:
+            self.kilometres_moteur = self.kilometre_chassis - self.kilometres_remplacement_moteur
+
+        if self.kilometres_boite is None:
+            self.kilometres_moteur = self.kilometre_chassis - self.kilometres_remplacement_boite
+
+        if self.kilometres_embrayage is None:
+            self.kilometres_moteur = self.kilometre_chassis - self.kilometres_remplacement_embrayage
 
         super().save(*args, **kwargs)
 

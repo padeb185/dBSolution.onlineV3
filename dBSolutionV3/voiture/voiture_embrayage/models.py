@@ -27,6 +27,12 @@ class TypePlateauPression(models.TextChoices):
     BIMASSE = "BIMASSE", _("Bimasse (pour volant moteur DMF)")
     AUTOMATIQUE = "AUTOMATIQUE", _("Automatique / non présent")
 
+class TypeButeeDEmbryage(models.TextChoices):
+    MECANIQUE = "MECANIQUE", _("Mécanique")
+    HYDRAULIQUE = "HYDRAULIQUE", _("Hydraulique")
+    AROULEMENT = "AROULEMENT", _("A roulement")
+    CONCENTRIQUES = "CONCENTRIQUES", _("Concentriques")
+    ACABLE = "ACABLE", _("A cable")
 
 
 class VoitureEmbrayage(models.Model):
@@ -52,6 +58,7 @@ class VoitureEmbrayage(models.Model):
         related_name="embrayages",
         blank=True
     )
+    kilometres_chassis = models.PositiveIntegerField(default=0, null=True, blank=True)
 
     fabricant = models.CharField(max_length=30, null=True, blank=True)
 
@@ -76,7 +83,15 @@ class VoitureEmbrayage(models.Model):
 
     )
 
-    kilometrage_embrayage = models.PositiveIntegerField(
+    butee_embrayage = models.CharField(
+        max_length=30, choices=TypeButeeDEmbryage.choices,
+        default=TypeButeeDEmbryage.AROULEMENT,
+        null=True,
+        blank=True
+
+    )
+
+    kilometres_embrayage = models.PositiveIntegerField(
         default=0,
         null=True,
         blank=True
@@ -85,6 +100,11 @@ class VoitureEmbrayage(models.Model):
     numero_embrayage = models.PositiveSmallIntegerField(
         default=1,
         help_text="1 à 10 (incrémenté à chaque remplacement)",
+        null=True,
+        blank=True
+    )
+    Kilometres_remplacement_embrayage = models.PositiveIntegerField(
+        default=0,
         null=True,
         blank=True
     )
@@ -103,6 +123,13 @@ class VoitureEmbrayage(models.Model):
 
     def __str__(self):
         return f"Boîte #{self.numero_embrayage} - {self.kilometrage_embrayage} km"
+
+    def save(self, *args, **kwargs):
+        if self.kilometres_embrayage is None:
+            if self.kilometres_chassis is not None and self.Kilometres_remplacement_embrayage is not None:
+                self.kilometrage_embrayage = max(0, self.kilometres_chassis - self.Kilometres_remplacement_embrayage)
+            else:
+                self.kilometrage_embrayage = 0
 
     def remplacer_embrayage(self):
         if self.numero_embrayage < 10:
