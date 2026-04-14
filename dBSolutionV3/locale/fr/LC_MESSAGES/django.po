@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-14 07:25+0200\n"
+"POT-Creation-Date: 2026-04-14 07:54+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -3052,6 +3052,7 @@ msgstr ""
 #: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_list.html:16
 #: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_list.html:16
 #: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_list.html:16
+#: .\maintenance\jeux_pieces\templates\jeux_pieces\jeux_pieces_list.html:16
 msgid "Ajouter un contrôle"
 msgstr ""
 
@@ -5649,15 +5650,16 @@ msgid "Contrôle des jeux pour :"
 msgstr ""
 
 #: .\maintenance\jeux_pieces\templates\jeux_pieces\jeux_pieces_detail.html:13
-msgid "Détails du controle des jeux : "
+msgid "Détails du contrôle des jeux : "
 msgstr ""
 
 #: .\maintenance\jeux_pieces\templates\jeux_pieces\jeux_pieces_detail.html:48
-msgid "Modifier le controle des jeux"
+#: .\maintenance\jeux_pieces\templates\jeux_pieces\modifier_jeux_pieces.html:20
+msgid "Modifier le contrôle des jeux"
 msgstr ""
 
 #: .\maintenance\jeux_pieces\templates\jeux_pieces\jeux_pieces_detail.html:79
-msgid "Retour à la liste des controles jeux"
+msgid "Retour à la liste des contrôles jeux"
 msgstr ""
 
 #: .\maintenance\jeux_pieces\templates\jeux_pieces\jeux_pieces_list.html:4
@@ -5665,24 +5667,16 @@ msgstr ""
 msgid "Liste des contrôles des jeux"
 msgstr ""
 
-#: .\maintenance\jeux_pieces\templates\jeux_pieces\jeux_pieces_list.html:16
-msgid "Ajouter un controle"
-msgstr ""
-
 #: .\maintenance\jeux_pieces\templates\jeux_pieces\jeux_pieces_list.html:114
 msgid "Aucun contrôle jeux enregistré pour cet exemplaire."
 msgstr ""
 
-#: .\maintenance\jeux_pieces\templates\jeux_pieces\modifier_jeux_pieces.html:20
-msgid "Modifier le contrôle des jeux"
-msgstr ""
-
 #: .\maintenance\jeux_pieces\views.py:138
-msgid "Controle des jeux enregistré avec succès."
+msgid "Contrôle des jeux enregistré avec succès."
 msgstr ""
 
 #: .\maintenance\jeux_pieces\views.py:205
-msgid "Controle des jeux modifié avec succès !"
+msgid "Contrôle des jeux modifié avec succès !"
 msgstr ""
 
 #: .\maintenance\models.py:8

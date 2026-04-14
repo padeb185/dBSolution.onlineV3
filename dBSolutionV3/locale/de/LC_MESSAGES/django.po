@@ -5643,6 +5643,7 @@ msgid "Détails du contrôle des jeux : "
 msgstr "Details der Spielkontrolle"
 
 #: .\maintenance\jeux_pieces\templates\jeux_pieces\jeux_pieces_detail.html:48
+#: .\maintenance\jeux_pieces\templates\jeux_pieces\modifier_jeux_pieces.html:20
 msgid "Modifier le contrôle des jeux"
 msgstr "Spielkontrolle bearbeiten"
 
@@ -5663,9 +5664,9 @@ msgstr "Kontrolle hinzufügen"
 msgid "Aucun contrôle jeux enregistré pour cet exemplaire."
 msgstr "Keine Spielkontrollen für dieses Fahrzeug erfasst."
 
-#: .\maintenance\jeux_pieces\templates\jeux_pieces\modifier_jeux_pieces.html:20
-msgid "Modifier le contrôle des jeux"
-msgstr "Spielkontrolle bearbeiten"
+
+
+
 
 #: .\maintenance\jeux_pieces\views.py:138
 msgid "Contrôle des jeux enregistré avec succès."
@@ -6555,9 +6556,13 @@ msgid "Prix d'achat"
 msgstr "Einkaufspreis"
 
 #: .\piece\models.py:93
+#: .\piece\templates\piece\piece_detail.html:36
+#: .\piece\templates\piece\piece_form.html:92
 msgid "Majoration (%)"
 msgstr "Aufschlag (%)"
 
+#: .\piece\templates\piece\piece_detail.html:37
+#: .\piece\templates\piece\piece_form.html:100
 #: .\piece\models.py:94
 msgid "TVA (%)"
 msgstr "MwSt. (%)"
@@ -8743,16 +8748,6 @@ msgstr "Fahrzeugmarke"
 #: .\piece\templates\piece\piece_detail.html:24
 msgid "Aucun"
 msgstr "Keine"
-
-#: .\piece\templates\piece\piece_detail.html:36
-#: .\piece\templates\piece\piece_form.html:92
-msgid "Majoration (%)"
-msgstr "Aufschlag (%)"
-
-#: .\piece\templates\piece\piece_detail.html:37
-#: .\piece\templates\piece\piece_form.html:100
-msgid "TVA (%)"
-msgstr "MwSt. (%)"
 
 #: .\piece\templates\piece\piece_detail.html:38
 msgid "Prix de vente calculé"
