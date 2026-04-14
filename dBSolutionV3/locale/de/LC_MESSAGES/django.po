@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-13 08:10+0200\n"
+"POT-Creation-Date: 2026-04-14 07:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -87,7 +87,7 @@ msgstr "Stadt"
 #: .\client_particulier\templates\client_particulier\client_form.html:180
 #: .\fournisseur\templates\fournisseur\fournisseur_detail.html:42
 #: .\fournisseur\templates\fournisseur\fournisseur_form.html:135
-#: .\fuel\templates\fuel\fuel_detail.html:49
+#: .\fuel\templates\fuel\fuel_detail.html:61
 #: .\fuel\templates\fuel\fuel_form.html:154 .\piece\models.py:9
 #: .\piece\models.py:79 .\piece\templates\piece\piece_detail.html:31
 #: .\recharge\templates\recharge\electricite_form.html:138
@@ -118,29 +118,37 @@ msgstr "Ländercode"
 #: .\client_particulier\templates\client_particulier\client_detail.html:119
 #: .\facture\models.py:41 .\fournisseur\models.py:86
 #: .\fournisseur\templates\fournisseur\fournisseur_detail.html:95
-#: .\fuel\models.py:125 .\fuel\templates\fuel\fuel_detail.html:91
+#: .\fuel\models.py:125 .\fuel\templates\fuel\fuel_detail.html:103
 #: .\maintenance\autres_interventions\boite_de_vitesse\models.py:148
-#: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_detail.html:77
+#: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_detail.html:75
 #: .\maintenance\autres_interventions\bte_vitesse_auto\models.py:145
-#: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_detail.html:67
+#: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_detail.html:64
 #: .\maintenance\autres_interventions\geometrie\models.py:193
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:75
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:78
 #: .\maintenance\autres_interventions\moteur\admission\models.py:174
-#: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_detail.html:75
+#: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_detail.html:78
 #: .\maintenance\autres_interventions\moteur\alternateur\models.py:162
-#: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_detail.html:74
+#: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_detail.html:77
 #: .\maintenance\carrosserie_interne\models.py:574
-#: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_detail.html:66
+#: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_detail.html:71
 #: .\maintenance\check_up\models.py:382
-#: .\maintenance\check_up\templates\check_up\checkup_detail.html:60
+#: .\maintenance\check_up\templates\check_up\checkup_detail.html:65
+#: .\maintenance\entretien\templates\entretien\entretien_detail.html:60
 #: .\maintenance\freins\models.py:132
-#: .\maintenance\freins\templates\freins\freins_detail.html:86
+#: .\maintenance\freins\templates\freins\freins_detail.html:92
+#: .\maintenance\jeux_pieces\models.py:177
+#: .\maintenance\jeux_pieces\templates\jeux_pieces\jeux_pieces_detail.html:61
+#: .\maintenance\nettoyage_exterieur\templates\nettoyage_exterieur\nettoyage_ext_detail.html:60
+#: .\maintenance\nettoyage_interieur\templates\nettoyage_interieur\nettoyage_int_detail.html:60
 #: .\maintenance\niveaux\models.py:211
-#: .\maintenance\niveaux\templates\niveaux\niveaux_detail.html:101
+#: .\maintenance\niveaux\templates\niveaux\niveaux_detail.html:106
+#: .\maintenance\pneus\templates\pneus\pneus_detail.html:61
+#: .\maintenance\silent_blocs\templates\silent_blocs\silent_detail.html:66
 #: .\outillage\models.py:71
 #: .\outillage\templates\outillage\outillage_detail.html:92
 #: .\recharge\models.py:112
-#: .\recharge\templates\recharge\electricite_detail.html:89
+#: .\recharge\templates\recharge\electricite_detail.html:90
+#: .\recharge\templates\recharge\electricite_detail.html:94
 #: .\societe_cliente\models.py:133
 #: .\societe_cliente\templates\societe_cliente\societe_cliente_detail.html:116
 #: .\voiture\voiture_boite\models.py:68
@@ -173,23 +181,30 @@ msgstr "Erstellt am"
 #: .\fournisseur\templates\fournisseur\fournisseur_detail.html:100
 #: .\fuel\models.py:126
 #: .\maintenance\autres_interventions\boite_de_vitesse\models.py:149
-#: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_detail.html:81
+#: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_detail.html:79
 #: .\maintenance\autres_interventions\bte_vitesse_auto\models.py:146
-#: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_detail.html:71
+#: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_detail.html:68
 #: .\maintenance\autres_interventions\geometrie\models.py:194
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:79
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:82
 #: .\maintenance\autres_interventions\moteur\admission\models.py:175
-#: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_detail.html:79
+#: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_detail.html:82
 #: .\maintenance\autres_interventions\moteur\alternateur\models.py:163
-#: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_detail.html:78
+#: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_detail.html:81
 #: .\maintenance\carrosserie_interne\models.py:575
-#: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_detail.html:70
+#: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_detail.html:75
 #: .\maintenance\check_up\models.py:383
-#: .\maintenance\check_up\templates\check_up\checkup_detail.html:64
+#: .\maintenance\check_up\templates\check_up\checkup_detail.html:69
+#: .\maintenance\entretien\templates\entretien\entretien_detail.html:64
 #: .\maintenance\freins\models.py:133
-#: .\maintenance\freins\templates\freins\freins_detail.html:90
+#: .\maintenance\freins\templates\freins\freins_detail.html:96
+#: .\maintenance\jeux_pieces\models.py:178
+#: .\maintenance\jeux_pieces\templates\jeux_pieces\jeux_pieces_detail.html:65
+#: .\maintenance\nettoyage_exterieur\templates\nettoyage_exterieur\nettoyage_ext_detail.html:64
+#: .\maintenance\nettoyage_interieur\templates\nettoyage_interieur\nettoyage_int_detail.html:64
 #: .\maintenance\niveaux\models.py:212
-#: .\maintenance\niveaux\templates\niveaux\niveaux_detail.html:105
+#: .\maintenance\niveaux\templates\niveaux\niveaux_detail.html:110
+#: .\maintenance\pneus\templates\pneus\pneus_detail.html:65
+#: .\maintenance\silent_blocs\templates\silent_blocs\silent_detail.html:70
 #: .\outillage\models.py:72 .\recharge\models.py:113
 #: .\societe_cliente\models.py:134
 #: .\societe_cliente\templates\societe_cliente\societe_cliente_detail.html:120
@@ -263,25 +278,25 @@ msgstr "Zur Adressliste zurückkehren"
 #: .\carrosserie\templates\carrosserie\carrosserie_detail.html:33
 #: .\client_particulier\templates\client_particulier\client_detail.html:24
 #: .\fournisseur\templates\fournisseur\fournisseur_detail.html:28
-#: .\fuel\templates\fuel\fuel_detail.html:37
-#: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_detail.html:29
-#: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_detail.html:29
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:22
-#: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_detail.html:22
-#: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_detail.html:22
-#: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_detail.html:22
+#: .\fuel\templates\fuel\fuel_detail.html:28
+#: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_detail.html:27
+#: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_detail.html:26
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:25
+#: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_detail.html:25
+#: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_detail.html:25
+#: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_detail.html:23
 #: .\maintenance\check_up\templates\check_up\checkup_detail.html:29
-#: .\maintenance\entretien\templates\entretien\entretien_detail.html:29
-#: .\maintenance\freins\templates\freins\freins_detail.html:28
-#: .\maintenance\jeux_pieces\templates\jeux_pieces\jeux_pieces_detail.html:29
-#: .\maintenance\nettoyage_exterieur\templates\nettoyage_exterieur\nettoyage_ext_detail.html:29
-#: .\maintenance\nettoyage_interieur\templates\nettoyage_interieur\nettoyage_int_detail.html:29
-#: .\maintenance\niveaux\templates\niveaux\niveaux_detail.html:23
-#: .\maintenance\pneus\templates\pneus\pneus_detail.html:29
-#: .\maintenance\silent_blocs\templates\silent_blocs\silent_detail.html:27
+#: .\maintenance\entretien\templates\entretien\entretien_detail.html:25
+#: .\maintenance\freins\templates\freins\freins_detail.html:31
+#: .\maintenance\jeux_pieces\templates\jeux_pieces\jeux_pieces_detail.html:25
+#: .\maintenance\nettoyage_exterieur\templates\nettoyage_exterieur\nettoyage_ext_detail.html:25
+#: .\maintenance\nettoyage_interieur\templates\nettoyage_interieur\nettoyage_int_detail.html:25
+#: .\maintenance\niveaux\templates\niveaux\niveaux_detail.html:26
+#: .\maintenance\pneus\templates\pneus\pneus_detail.html:25
+#: .\maintenance\silent_blocs\templates\silent_blocs\silent_detail.html:30
 #: .\maintenance\templates\maintenance\detail.html:27
 #: .\outillage\templates\outillage\outillage_detail.html:33
-#: .\recharge\templates\recharge\electricite_detail.html:33
+#: .\recharge\templates\recharge\electricite_detail.html:31
 #: .\societe_cliente\templates\societe_cliente\societe_cliente_detail.html:25
 #: .\voiture\voiture_boite\templates\voiture_boite\boite_detail.html:33
 #: .\voiture\voiture_embrayage\templates\voiture_embrayage\embrayage_detail.html:33
@@ -308,18 +323,24 @@ msgstr "Adresse bearbeiten"
 #: .\carrosserie\templates\carrosserie\carrosserie_detail.html:101
 #: .\client_particulier\templates\client_particulier\client_detail.html:115
 #: .\fournisseur\templates\fournisseur\fournisseur_detail.html:91
-#: .\fuel\templates\fuel\fuel_detail.html:87
-#: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_detail.html:73
-#: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_detail.html:63
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:71
-#: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_detail.html:71
-#: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_detail.html:70
-#: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_detail.html:62
-#: .\maintenance\check_up\templates\check_up\checkup_detail.html:56
-#: .\maintenance\freins\templates\freins\freins_detail.html:82
-#: .\maintenance\niveaux\templates\niveaux\niveaux_detail.html:97
+#: .\fuel\templates\fuel\fuel_detail.html:99
+#: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_detail.html:71
+#: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_detail.html:60
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:74
+#: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_detail.html:74
+#: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_detail.html:73
+#: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_detail.html:67
+#: .\maintenance\check_up\templates\check_up\checkup_detail.html:61
+#: .\maintenance\entretien\templates\entretien\entretien_detail.html:56
+#: .\maintenance\freins\templates\freins\freins_detail.html:88
+#: .\maintenance\jeux_pieces\templates\jeux_pieces\jeux_pieces_detail.html:57
+#: .\maintenance\nettoyage_exterieur\templates\nettoyage_exterieur\nettoyage_ext_detail.html:56
+#: .\maintenance\nettoyage_interieur\templates\nettoyage_interieur\nettoyage_int_detail.html:56
+#: .\maintenance\niveaux\templates\niveaux\niveaux_detail.html:102
+#: .\maintenance\pneus\templates\pneus\pneus_detail.html:57
+#: .\maintenance\silent_blocs\templates\silent_blocs\silent_detail.html:62
 #: .\outillage\templates\outillage\outillage_detail.html:88
-#: .\recharge\templates\recharge\electricite_detail.html:85
+#: .\recharge\templates\recharge\electricite_detail.html:86
 #: .\societe_cliente\templates\societe_cliente\societe_cliente_detail.html:112
 #: .\voiture\voiture_boite\templates\voiture_boite\boite_detail.html:94
 #: .\voiture\voiture_embrayage\templates\voiture_embrayage\embrayage_detail.html:92
@@ -360,7 +381,7 @@ msgstr "Adresse erstellen"
 #: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_check.html:100
 #: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\modifier_alternateur.html:109
 #: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_create.html:112
-#: .\maintenance\carrosserie_interne\templates\carrosserie_interne\modifier_carrosserie_interne.html:109
+#: .\maintenance\carrosserie_interne\templates\carrosserie_interne\modifier_carrosserie_interne.html:116
 #: .\maintenance\check_up\templates\check_up\controle_total.html:1103
 #: .\maintenance\check_up\templates\check_up\modifier_checkup.html:1110
 #: .\maintenance\entretien\templates\entretien\entretien_check.html:538
@@ -436,8 +457,8 @@ msgstr "Nummer"
 #: .\outillage\templates\outillage\outillage_list.html:79
 #: .\piece\templates\piece\piece_list.html:58
 #: .\piece\templates\piece\piece_list.html:72
-#: .\recharge\templates\recharge\recharge_list.html:69
-#: .\recharge\templates\recharge\recharge_list.html:145
+#: .\recharge\templates\recharge\recharge_list.html:78
+#: .\recharge\templates\recharge\recharge_list.html:154
 #: .\societe_cliente\templates\societe_cliente\societe_cliente_list.html:63
 #: .\societe_cliente\templates\societe_cliente\societe_cliente_list.html:77
 #: .\voiture\voiture_boite\templates\voiture_boite\list.html:46
@@ -490,7 +511,7 @@ msgstr "Zurück zum Dashboard"
 #: .\maintenance\silent_blocs\templates\silent_blocs\silent_list.html:112
 #: .\outillage\templates\outillage\outillage_list.html:94
 #: .\piece\templates\piece\piece_list.html:87
-#: .\recharge\templates\recharge\recharge_list.html:162
+#: .\recharge\templates\recharge\recharge_list.html:171
 #: .\societe_cliente\templates\societe_cliente\societe_cliente_list.html:103
 #: .\voiture\voiture_embrayage\templates\voiture_embrayage\list.html:94
 #: .\voiture\voiture_freins_ar\templates\voiture_freins_ar\freins_ar_list.html:100
@@ -524,7 +545,7 @@ msgstr "Globale Suche:"
 #: .\maintenance\silent_blocs\templates\silent_blocs\silent_list.html:113
 #: .\outillage\templates\outillage\outillage_list.html:95
 #: .\piece\templates\piece\piece_list.html:88
-#: .\recharge\templates\recharge\recharge_list.html:163
+#: .\recharge\templates\recharge\recharge_list.html:172
 #: .\societe_cliente\templates\societe_cliente\societe_cliente_list.html:104
 #: .\voiture\voiture_boite\templates\voiture_boite\list.html:90
 #: .\voiture\voiture_embrayage\templates\voiture_embrayage\list.html:95
@@ -569,7 +590,7 @@ msgstr "Keine Adresse gefunden"
 #: .\maintenance\silent_blocs\templates\silent_blocs\silent_list.html:118
 #: .\outillage\templates\outillage\outillage_list.html:100
 #: .\piece\templates\piece\piece_list.html:93
-#: .\recharge\templates\recharge\recharge_list.html:168
+#: .\recharge\templates\recharge\recharge_list.html:177
 #: .\societe_cliente\templates\societe_cliente\societe_cliente_list.html:109
 #: .\voiture\voiture_boite\templates\voiture_boite\list.html:95
 #: .\voiture\voiture_embrayage\templates\voiture_embrayage\list.html:100
@@ -605,7 +626,7 @@ msgstr "Erste"
 #: .\maintenance\silent_blocs\templates\silent_blocs\silent_list.html:119
 #: .\outillage\templates\outillage\outillage_list.html:101
 #: .\piece\templates\piece\piece_list.html:94
-#: .\recharge\templates\recharge\recharge_list.html:169
+#: .\recharge\templates\recharge\recharge_list.html:178
 #: .\societe_cliente\templates\societe_cliente\societe_cliente_list.html:110
 #: .\voiture\voiture_boite\templates\voiture_boite\list.html:96
 #: .\voiture\voiture_embrayage\templates\voiture_embrayage\list.html:101
@@ -641,7 +662,7 @@ msgstr "Letzte"
 #: .\maintenance\silent_blocs\templates\silent_blocs\silent_list.html:120
 #: .\outillage\templates\outillage\outillage_list.html:102
 #: .\piece\templates\piece\piece_list.html:95
-#: .\recharge\templates\recharge\recharge_list.html:170
+#: .\recharge\templates\recharge\recharge_list.html:179
 #: .\societe_cliente\templates\societe_cliente\societe_cliente_list.html:111
 #: .\voiture\voiture_boite\templates\voiture_boite\list.html:97
 #: .\voiture\voiture_embrayage\templates\voiture_embrayage\list.html:102
@@ -677,7 +698,7 @@ msgstr "Nächste"
 #: .\maintenance\silent_blocs\templates\silent_blocs\silent_list.html:121
 #: .\outillage\templates\outillage\outillage_list.html:103
 #: .\piece\templates\piece\piece_list.html:96
-#: .\recharge\templates\recharge\recharge_list.html:171
+#: .\recharge\templates\recharge\recharge_list.html:180
 #: .\societe_cliente\templates\societe_cliente\societe_cliente_list.html:112
 #: .\voiture\voiture_boite\templates\voiture_boite\list.html:98
 #: .\voiture\voiture_embrayage\templates\voiture_embrayage\list.html:103
@@ -714,7 +735,7 @@ msgstr "Adresse bearbeiten:"
 #: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_check.html:105
 #: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\modifier_alternateur.html:113
 #: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_create.html:117
-#: .\maintenance\carrosserie_interne\templates\carrosserie_interne\modifier_carrosserie_interne.html:113
+#: .\maintenance\carrosserie_interne\templates\carrosserie_interne\modifier_carrosserie_interne.html:120
 #: .\maintenance\check_up\templates\check_up\controle_total.html:1108
 #: .\maintenance\check_up\templates\check_up\modifier_checkup.html:1114
 #: .\maintenance\entretien\templates\entretien\entretien_check.html:543
@@ -824,9 +845,7 @@ msgstr "E-Mail"
 #: .\carrosserie\templates\carrosserie\carrosserie_detail.html:76
 #: .\facture\models.py:30 .\fournisseur\models.py:45
 #: .\fournisseur\templates\fournisseur\fournisseur_detail.html:66
-#: .\fuel\templates\fuel\fuel_detail.html:75
 #: .\outillage\templates\outillage\outillage_detail.html:63
-#: .\recharge\templates\recharge\electricite_detail.html:73
 msgid "Identifiant Peppol"
 msgstr "Peppol-ID"
 
@@ -840,26 +859,29 @@ msgstr "Peppol-ID, z.B.: 0208:BE0123456789"
 #: .\assurance_police\templates\assurance_police\assurance_police_detail.html:112
 #: .\client_particulier\models.py:87
 #: .\client_particulier\templates\client_particulier\client_detail.html:90
+#: .\fuel\models.py:120 .\fuel\templates\fuel\fuel_detail.html:83
+#: .\fuel\templates\fuel\fuel_detail.html:87
 #: .\maintenance\autres_interventions\boite_de_vitesse\models.py:97
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_check.html:520
-#: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_detail.html:53
+#: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_detail.html:51
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\modifier_boite.html:522
 #: .\maintenance\autres_interventions\bte_vitesse_auto\models.py:105
 #: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_check.html:387
-#: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_detail.html:46
+#: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_detail.html:43
 #: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\modifier_bte_auto.html:384
 #: .\maintenance\autres_interventions\geometrie\models.py:153
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:41
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:44
 #: .\maintenance\autres_interventions\geometrie\views.py:203
 #: .\maintenance\autres_interventions\geometrie\views.py:343
 #: .\maintenance\autres_interventions\moteur\admission\models.py:123
-#: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_detail.html:41
+#: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_detail.html:44
 #: .\maintenance\autres_interventions\moteur\admission\views.py:115
 #: .\maintenance\autres_interventions\moteur\admission\views.py:316
 #: .\maintenance\autres_interventions\moteur\alternateur\models.py:110
-#: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_detail.html:40
+#: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_detail.html:43
 #: .\maintenance\carrosserie_interne\models.py:572
 #: .\maintenance\check_up\models.py:331
+#: .\maintenance\check_up\templates\check_up\checkup_detail.html:45
 #: .\maintenance\check_up\templates\check_up\controle_total.html:1026
 #: .\maintenance\check_up\templates\check_up\modifier_checkup.html:1035
 #: .\maintenance\entretien\models.py:161
@@ -867,10 +889,11 @@ msgstr "Peppol-ID, z.B.: 0208:BE0123456789"
 #: .\maintenance\entretien\templates\entretien\modifier_entretien.html:465
 #: .\maintenance\freins\models.py:83
 #: .\maintenance\freins\templates\freins\freins_check.html:425
-#: .\maintenance\freins\templates\freins\freins_detail.html:71
+#: .\maintenance\freins\templates\freins\freins_detail.html:64
 #: .\maintenance\freins\templates\freins\modifier_freins.html:429
 #: .\maintenance\jeux_pieces\models.py:142
 #: .\maintenance\jeux_pieces\templates\jeux_pieces\controle_jeux.html:278
+#: .\maintenance\jeux_pieces\templates\jeux_pieces\jeux_pieces_detail.html:41
 #: .\maintenance\jeux_pieces\templates\jeux_pieces\modifier_jeux_pieces.html:374
 #: .\maintenance\nettoyage_exterieur\models.py:84
 #: .\maintenance\nettoyage_exterieur\templates\nettoyage_exterieur\simple.html:110
@@ -878,13 +901,15 @@ msgstr "Peppol-ID, z.B.: 0208:BE0123456789"
 #: .\maintenance\nettoyage_interieur\templates\nettoyage_interieur\nettoyage_simple.html:110
 #: .\maintenance\niveaux\templates\niveaux\modifier_niveaux.html:370
 #: .\maintenance\niveaux\templates\niveaux\niveau_form.html:388
-#: .\maintenance\niveaux\templates\niveaux\niveaux_detail.html:80
+#: .\maintenance\niveaux\templates\niveaux\niveaux_detail.html:85
 #: .\maintenance\pneus\models.py:100
 #: .\maintenance\pneus\templates\pneus\controle_pneus.html:404
 #: .\maintenance\pneus\templates\pneus\modifier_pneus.html:411
 #: .\maintenance\silent_blocs\models.py:89
 #: .\maintenance\silent_blocs\templates\silent_blocs\modifier_silent.html:386
 #: .\maintenance\silent_blocs\templates\silent_blocs\silent_check.html:384
+#: .\recharge\templates\recharge\electricite_detail.html:53
+#: .\recharge\templates\recharge\electricite_detail.html:57
 #: .\societe_cliente\models.py:128
 #: .\societe_cliente\templates\societe_cliente\societe_cliente_detail.html:87
 #: .\voiture\voiture_boite\templates\voiture_boite\boite_detail.html:81
@@ -1187,63 +1212,64 @@ msgstr "Versicherungspolicen-Details:"
 #: .\assurance_police\templates\assurance_police\assurance_police_detail.html:42
 #: .\assurance_police\templates\assurance_police\assurance_police_list.html:37
 #: .\assurance_police\templates\assurance_police\assurance_police_list.html:58
-#: .\fuel\models.py:71 .\fuel\templates\fuel\fuel_form.html:54
+#: .\fuel\models.py:71 .\fuel\templates\fuel\fuel_detail.html:32
+#: .\fuel\templates\fuel\fuel_form.html:54
 #: .\fuel\templates\fuel\fuel_list.html:68
 #: .\fuel\templates\fuel\fuel_stat.html:65
-#: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_detail.html:31
+#: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_detail.html:29
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_list.html:28
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_list.html:51
-#: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_detail.html:31
+#: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_detail.html:28
 #: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_list.html:28
 #: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_list.html:51
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:24
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:27
 #: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_list.html:28
 #: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_list.html:51
 #: .\maintenance\autres_interventions\models.py:46
-#: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_detail.html:24
+#: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_detail.html:27
 #: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_list.html:28
 #: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_list.html:51
-#: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_detail.html:24
+#: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_detail.html:27
 #: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_list.html:28
 #: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_list.html:51
-#: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_detail.html:24
+#: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_detail.html:25
 #: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_list.html:29
 #: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_list.html:51
 #: .\maintenance\check_up\templates\check_up\checkup_detail.html:31
 #: .\maintenance\check_up\templates\check_up\checkup_list.html:29
 #: .\maintenance\check_up\templates\check_up\checkup_list.html:51
-#: .\maintenance\entretien\templates\entretien\entretien_detail.html:31
+#: .\maintenance\entretien\templates\entretien\entretien_detail.html:27
 #: .\maintenance\entretien\templates\entretien\entretien_list.html:25
 #: .\maintenance\entretien\templates\entretien\entretien_list.html:47
-#: .\maintenance\freins\templates\freins\freins_detail.html:31
+#: .\maintenance\freins\templates\freins\freins_detail.html:34
 #: .\maintenance\freins\templates\freins\freins_list.html:28
 #: .\maintenance\freins\templates\freins\freins_list.html:50
-#: .\maintenance\jeux_pieces\templates\jeux_pieces\jeux_pieces_detail.html:31
+#: .\maintenance\jeux_pieces\templates\jeux_pieces\jeux_pieces_detail.html:27
 #: .\maintenance\jeux_pieces\templates\jeux_pieces\jeux_pieces_list.html:27
 #: .\maintenance\jeux_pieces\templates\jeux_pieces\jeux_pieces_list.html:49
 #: .\maintenance\models.py:72
-#: .\maintenance\nettoyage_exterieur\templates\nettoyage_exterieur\nettoyage_ext_detail.html:31
+#: .\maintenance\nettoyage_exterieur\templates\nettoyage_exterieur\nettoyage_ext_detail.html:27
 #: .\maintenance\nettoyage_exterieur\templates\nettoyage_exterieur\nettoyage_ext_list.html:27
 #: .\maintenance\nettoyage_exterieur\templates\nettoyage_exterieur\nettoyage_ext_list.html:49
-#: .\maintenance\nettoyage_interieur\templates\nettoyage_interieur\nettoyage_int_detail.html:31
+#: .\maintenance\nettoyage_interieur\templates\nettoyage_interieur\nettoyage_int_detail.html:27
 #: .\maintenance\nettoyage_interieur\templates\nettoyage_interieur\nettoyage_int_list.html:27
 #: .\maintenance\nettoyage_interieur\templates\nettoyage_interieur\nettoyage_int_list.html:49
-#: .\maintenance\niveaux\templates\niveaux\niveaux_detail.html:25
+#: .\maintenance\niveaux\templates\niveaux\niveaux_detail.html:28
 #: .\maintenance\niveaux\templates\niveaux\niveaux_list.html:27
 #: .\maintenance\niveaux\templates\niveaux\niveaux_list.html:49
-#: .\maintenance\pneus\templates\pneus\pneus_detail.html:31
+#: .\maintenance\pneus\templates\pneus\pneus_detail.html:27
 #: .\maintenance\pneus\templates\pneus\pneus_list.html:27
 #: .\maintenance\pneus\templates\pneus\pneus_list.html:49
-#: .\maintenance\silent_blocs\templates\silent_blocs\silent_detail.html:29
+#: .\maintenance\silent_blocs\templates\silent_blocs\silent_detail.html:32
 #: .\maintenance\silent_blocs\templates\silent_blocs\silent_list.html:27
 #: .\maintenance\silent_blocs\templates\silent_blocs\silent_list.html:49
 #: .\maintenance\templates\maintenance\creer_maintenance.html:18
 #: .\piece\models.py:76 .\piece\templates\piece\piece_detail.html:28
 #: .\recharge\models.py:73
-#: .\recharge\templates\recharge\electricite_detail.html:37
+#: .\recharge\templates\recharge\electricite_detail.html:35
 #: .\recharge\templates\recharge\electricite_form.html:38
 #: .\recharge\templates\recharge\electricite_stat.html:67
-#: .\recharge\templates\recharge\recharge_list.html:60
+#: .\recharge\templates\recharge\recharge_list.html:69
 #: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\modifier_exemplaire.html:40
 msgid "Immatriculation"
 msgstr "Kennzeichen"
@@ -1263,7 +1289,6 @@ msgid "Modifier la police"
 msgstr "Police bearbeiten"
 
 #: .\assurance_police\templates\assurance_police\assurance_police_detail.html:108
-#: .\maintenance\freins\templates\freins\freins_detail.html:67
 msgid "Informations"
 msgstr "Informationen"
 
@@ -1386,9 +1411,7 @@ msgstr "Karosserie bearbeiten"
 
 #: .\carrosserie\templates\carrosserie\carrosserie_detail.html:72
 #: .\fournisseur\templates\fournisseur\fournisseur_detail.html:62
-#: .\fuel\templates\fuel\fuel_detail.html:71
 #: .\outillage\templates\outillage\outillage_detail.html:59
-#: .\recharge\templates\recharge\electricite_detail.html:69
 msgid "Informations Peppol"
 msgstr "PEPPOL-Informationen"
 
@@ -1908,7 +1931,8 @@ msgstr "Erdgas"
 msgid "Ethanol"
 msgstr "Ethanol"
 
-#: .\fuel\models.py:24 .\fuel\templates\fuel\fuel_stat.html:39
+#: .\fuel\models.py:24 .\fuel\templates\fuel\fuel_exemplaire_stat.html:84
+#: .\fuel\templates\fuel\fuel_stat.html:39
 #: .\maintenance\autres_interventions\moteur\alternateur\models.py:23
 #: .\piece\piece_roue_rechange\models.py:8 .\recharge\models.py:16
 #: .\recharge\templates\recharge\electricite_stat.html:41
@@ -1916,7 +1940,8 @@ msgstr "Ethanol"
 msgid "Belgique"
 msgstr "Belgien"
 
-#: .\fuel\models.py:25 .\fuel\templates\fuel\fuel_stat.html:40
+#: .\fuel\models.py:25 .\fuel\templates\fuel\fuel_exemplaire_stat.html:85
+#: .\fuel\templates\fuel\fuel_stat.html:40
 #: .\maintenance\autres_interventions\moteur\alternateur\models.py:24
 #: .\recharge\models.py:17
 #: .\recharge\templates\recharge\electricite_stat.html:42
@@ -1924,7 +1949,8 @@ msgstr "Belgien"
 msgid "Luxembourg"
 msgstr "Luxemburg"
 
-#: .\fuel\models.py:26 .\fuel\templates\fuel\fuel_stat.html:41
+#: .\fuel\models.py:26 .\fuel\templates\fuel\fuel_exemplaire_stat.html:86
+#: .\fuel\templates\fuel\fuel_stat.html:41
 #: .\maintenance\autres_interventions\moteur\alternateur\models.py:25
 #: .\piece\piece_roue_rechange\models.py:9 .\recharge\models.py:18
 #: .\recharge\templates\recharge\electricite_stat.html:43
@@ -1941,8 +1967,8 @@ msgstr "Firma"
 #: .\maintenance\jeux_pieces\models.py:150
 #: .\maintenance\nettoyage_exterieur\models.py:95
 #: .\maintenance\nettoyage_interieur\models.py:117 .\recharge\models.py:49
-#: .\recharge\templates\recharge\recharge_list.html:25
-#: .\recharge\templates\recharge\recharge_list.html:59
+#: .\recharge\templates\recharge\recharge_list.html:34
+#: .\recharge\templates\recharge\recharge_list.html:68
 #: .\theme\templates\dashboard.html:55
 msgid "Utilisateur"
 msgstr "Benutzer"
@@ -1951,14 +1977,14 @@ msgstr "Benutzer"
 #: .\maintenance\nettoyage_exterieur\models.py:29
 #: .\maintenance\nettoyage_interieur\models.py:32 .\piece\models.py:58
 #: .\piece\templates\piece\piece_detail.html:10 .\recharge\models.py:70
-#: .\recharge\templates\recharge\recharge_list.html:61
+#: .\recharge\templates\recharge\recharge_list.html:70
 msgid "Véhicule"
 msgstr "Fahrzeug"
 
 #: .\fuel\models.py:79 .\fuel\templates\fuel\fuel_form.html:76
 #: .\fuel\templates\fuel\fuel_list.html:71 .\recharge\models.py:79
 #: .\recharge\templates\recharge\electricite_form.html:60
-#: .\recharge\templates\recharge\recharge_list.html:63
+#: .\recharge\templates\recharge\recharge_list.html:72
 #: .\voiture\voiture_moteur\templates\voiture_moteur\ajouter_moteur.html:63
 msgid "Type de carburant"
 msgstr "Kraftstoffart"
@@ -1972,7 +1998,10 @@ msgstr "Kilometerstand beim Tanken"
 msgid "Date du plein"
 msgstr "Tankdatum"
 
-#: .\fuel\models.py:102 .\fuel\templates\fuel\fuel_form.html:104
+#: .\fuel\models.py:102 .\fuel\templates\fuel\fuel_detail.html:49
+#: .\fuel\templates\fuel\fuel_exemplaire_stat.html:110
+#: .\fuel\templates\fuel\fuel_exemplaire_stat.html:138
+#: .\fuel\templates\fuel\fuel_form.html:104
 #: .\fuel\templates\fuel\fuel_list.html:72
 #: .\fuel\templates\fuel\fuel_stat.html:67
 #: .\fuel\templates\fuel\fuel_stat.html:129
@@ -2003,6 +2032,7 @@ msgid "Validation"
 msgstr "Bestätigung"
 
 #: .\fuel\models.py:130 .\fuel\templates\fuel\fuel_detail.html:45
+#: .\fuel\templates\fuel\fuel_exemplaire_stat.html:9
 #: .\fuel\templates\fuel\fuel_form.html:11
 #: .\fuel\templates\fuel\fuel_stat.html:8
 #: .\fuel\templates\fuel\modifier_fuel.html:58
@@ -2018,11 +2048,6 @@ msgstr "Kraftstoffe"
 #: .\fuel\templates\fuel\fuel_detail.html:16
 msgid "Détails du plein de carburant :"
 msgstr "Details der Betankung:"
-
-#: .\fuel\templates\fuel\fuel_detail.html:27
-#: .\fuel\templates\fuel\fuel_detail.html:102
-msgid "Retour à la liste des pleins"
-msgstr "Zurück zur Liste der Betankungen"
 
 #: .\fuel\templates\fuel\fuel_detail.html:41
 #: .\fuel\templates\fuel\fuel_form.html:65
@@ -2057,21 +2082,114 @@ msgstr "Zurück zur Liste der Betankungen"
 #: .\maintenance\pneus\templates\pneus\pneus_list.html:50
 #: .\maintenance\silent_blocs\templates\silent_blocs\silent_list.html:31
 #: .\maintenance\silent_blocs\templates\silent_blocs\silent_list.html:50
-#: .\recharge\templates\recharge\electricite_detail.html:43
+#: .\recharge\templates\recharge\electricite_detail.html:41
 #: .\recharge\templates\recharge\electricite_form.html:49
-#: .\recharge\templates\recharge\recharge_list.html:62
+#: .\recharge\templates\recharge\recharge_list.html:71
 msgid "Kilomètres"
 msgstr "Kilometer"
 
-#: .\fuel\templates\fuel\fuel_detail.html:61
+#: .\fuel\templates\fuel\fuel_detail.html:53
+#: .\fuel\templates\fuel\fuel_detail.html:57
+msgid "Montant TVAC"
+msgstr "Betrag inkl. MwSt."
+
+#: .\fuel\templates\fuel\fuel_detail.html:73
 msgid "Modifier le plein"
 msgstr "Betankung bearbeiten"
 
-#: .\fuel\templates\fuel\fuel_detail.html:109
-#: .\fuel\templates\fuel\fuel_list.html:21
-#: .\recharge\templates\recharge\electricite_detail.html:107
-msgid "Voir les statistiques"
-msgstr "Statistiken anzeigen"
+#: .\fuel\templates\fuel\fuel_detail.html:107
+msgid "Mis à jour le:"
+msgstr "Aktualisiert am"
+
+#: .\fuel\templates\fuel\fuel_detail.html:120
+msgid "Retour à la liste des pleins"
+msgstr "Zurück zur Liste der Betankungen"
+
+#: .\fuel\templates\fuel\fuel_detail.html:126
+msgid "Voir les statistiques du véhicule"
+msgstr "Fahrzeugstatistiken ansehen"
+
+#: .\fuel\templates\fuel\fuel_exemplaire_stat.html:10
+msgid "Statistiques carburant par véhicule"
+msgstr "Kraftstoffstatistiken pro Fahrzeug"
+
+#: .\fuel\templates\fuel\fuel_exemplaire_stat.html:61
+#: .\fuel\templates\fuel\fuel_exemplaire_stat.html:109
+#: .\fuel\templates\fuel\fuel_exemplaire_stat.html:137
+#: .\fuel\templates\fuel\fuel_stat.html:16
+#: .\fuel\templates\fuel\fuel_stat.html:66
+#: .\fuel\templates\fuel\fuel_stat.html:128
+#: .\fuel\templates\fuel\fuel_stat.html:155
+msgid "Pleins"
+msgstr "Betankungen"
+
+#: .\fuel\templates\fuel\fuel_exemplaire_stat.html:66
+#: .\fuel\templates\fuel\fuel_stat.html:21
+msgid "Litres totaux"
+msgstr "Gesamtliter"
+
+#: .\fuel\templates\fuel\fuel_exemplaire_stat.html:71
+#: .\fuel\templates\fuel\fuel_exemplaire_stat.html:111
+#: .\fuel\templates\fuel\fuel_exemplaire_stat.html:139
+#: .\fuel\templates\fuel\fuel_stat.html:26
+#: .\fuel\templates\fuel\fuel_stat.html:68
+#: .\fuel\templates\fuel\fuel_stat.html:130
+#: .\fuel\templates\fuel\fuel_stat.html:157
+#: .\recharge\templates\recharge\electricite_stat.html:28
+#: .\recharge\templates\recharge\electricite_stat.html:70
+#: .\recharge\templates\recharge\electricite_stat.html:132
+#: .\recharge\templates\recharge\electricite_stat.html:159
+msgid "Coût total"
+msgstr "Gesamtkosten"
+
+#: .\fuel\templates\fuel\fuel_exemplaire_stat.html:76
+#: .\fuel\templates\fuel\fuel_stat.html:31
+#: .\fuel\templates\fuel\fuel_stat.html:69
+msgid "Prix moyen / L"
+msgstr "Durchschnittspreis / L"
+
+#: .\fuel\templates\fuel\fuel_exemplaire_stat.html:95
+#: .\fuel\templates\fuel\fuel_stat.html:50
+#: .\recharge\templates\recharge\electricite_stat.html:52
+msgid "TVA totale globale"
+msgstr "Gesamte MwSt."
+
+#: .\fuel\templates\fuel\fuel_exemplaire_stat.html:103
+#: .\fuel\templates\fuel\fuel_stat.html:122
+#: .\recharge\templates\recharge\electricite_stat.html:124
+msgid "Par mois"
+msgstr "Pro Monat"
+
+#: .\fuel\templates\fuel\fuel_exemplaire_stat.html:108
+#: .\fuel\templates\fuel\fuel_stat.html:127
+#: .\recharge\templates\recharge\electricite_stat.html:129
+msgid "Mois"
+msgstr "Monat"
+
+#: .\fuel\templates\fuel\fuel_exemplaire_stat.html:124
+#: .\fuel\templates\fuel\fuel_exemplaire_stat.html:152
+#: .\fuel\templates\fuel\fuel_stat.html:115
+#: .\fuel\templates\fuel\fuel_stat.html:143
+#: .\fuel\templates\fuel\fuel_stat.html:170
+#: .\recharge\templates\recharge\electricite_stat.html:117
+#: .\recharge\templates\recharge\electricite_stat.html:145
+#: .\recharge\templates\recharge\electricite_stat.html:172
+msgid "Aucune donnée"
+msgstr "Keine Daten"
+
+#: .\fuel\templates\fuel\fuel_exemplaire_stat.html:131
+#: .\fuel\templates\fuel\fuel_stat.html:149
+#: .\recharge\templates\recharge\electricite_stat.html:151
+msgid "Par année"
+msgstr "Pro Jahr"
+
+#: .\fuel\templates\fuel\fuel_exemplaire_stat.html:136
+#: .\fuel\templates\fuel\fuel_stat.html:154
+#: .\maintenance\templates\maintenance\list.html:89 .\piece\models.py:77
+#: .\piece\templates\piece\piece_detail.html:29
+#: .\recharge\templates\recharge\electricite_stat.html:156
+msgid "Année"
+msgstr "Jahr"
 
 #: .\fuel\templates\fuel\fuel_form.html:12
 msgid "Ajouter du carburant"
@@ -2118,13 +2236,19 @@ msgstr "Liste der Tankvorgänge"
 msgid "Ajouter un plein de carburant"
 msgstr "Einen Tankvorgang hinzufügen"
 
+#: .\fuel\templates\fuel\fuel_list.html:21
+#: .\recharge\templates\recharge\electricite_detail.html:75
+#: .\recharge\templates\recharge\recharge_list.html:23
+msgid "Voir les statistiques"
+msgstr "Statistiken anzeigen"
+
 #: .\fuel\templates\fuel\fuel_list.html:37
-#: .\recharge\templates\recharge\recharge_list.html:29
+#: .\recharge\templates\recharge\recharge_list.html:38
 msgid "immatriculation"
 msgstr "Kennzeichen"
 
 #: .\fuel\templates\fuel\fuel_list.html:41
-#: .\recharge\templates\recharge\recharge_list.html:33
+#: .\recharge\templates\recharge\recharge_list.html:42
 msgid "exemplaire"
 msgstr "Exemplar"
 
@@ -2164,13 +2288,13 @@ msgstr "14,32 Liter"
 #: .\maintenance\pneus\templates\pneus\pneus_list.html:53
 #: .\maintenance\silent_blocs\templates\silent_blocs\silent_list.html:53
 #: .\piece\models.py:135 .\piece\piece_fluides\models.py:66
-#: .\recharge\templates\recharge\recharge_list.html:68
+#: .\recharge\templates\recharge\recharge_list.html:77
 #: .\theme\templates\dashboard.html:54
 msgid "Date"
 msgstr "Datum"
 
 #: .\fuel\templates\fuel\fuel_list.html:73
-#: .\recharge\templates\recharge\recharge_list.html:65
+#: .\recharge\templates\recharge\recharge_list.html:74
 msgid "Prix Total"
 msgstr "Gesamtpreis"
 
@@ -2179,7 +2303,7 @@ msgid "Prix au litre"
 msgstr "Preis pro Liter"
 
 #: .\fuel\templates\fuel\fuel_list.html:75
-#: .\recharge\templates\recharge\recharge_list.html:67
+#: .\recharge\templates\recharge\recharge_list.html:76
 msgid "Montant TVA"
 msgstr "MwSt.-Betrag"
 
@@ -2196,38 +2320,6 @@ msgstr "Keine Tankvorgänge gefunden"
 msgid "Statistiques carburant"
 msgstr "Kraftstoffstatistiken"
 
-#: .\fuel\templates\fuel\fuel_stat.html:16
-#: .\fuel\templates\fuel\fuel_stat.html:66
-#: .\fuel\templates\fuel\fuel_stat.html:128
-#: .\fuel\templates\fuel\fuel_stat.html:155
-msgid "Pleins"
-msgstr "Betankungen"
-
-#: .\fuel\templates\fuel\fuel_stat.html:21
-msgid "Litres totaux"
-msgstr "Gesamtliter"
-
-#: .\fuel\templates\fuel\fuel_stat.html:26
-#: .\fuel\templates\fuel\fuel_stat.html:68
-#: .\fuel\templates\fuel\fuel_stat.html:130
-#: .\fuel\templates\fuel\fuel_stat.html:157
-#: .\recharge\templates\recharge\electricite_stat.html:28
-#: .\recharge\templates\recharge\electricite_stat.html:70
-#: .\recharge\templates\recharge\electricite_stat.html:132
-#: .\recharge\templates\recharge\electricite_stat.html:159
-msgid "Coût total"
-msgstr "Gesamtkosten"
-
-#: .\fuel\templates\fuel\fuel_stat.html:31
-#: .\fuel\templates\fuel\fuel_stat.html:69
-msgid "Prix moyen / L"
-msgstr "Durchschnittspreis / L"
-
-#: .\fuel\templates\fuel\fuel_stat.html:50
-#: .\recharge\templates\recharge\electricite_stat.html:52
-msgid "TVA totale globale"
-msgstr "Gesamte MwSt."
-
 #: .\fuel\templates\fuel\fuel_stat.html:59
 #: .\recharge\templates\recharge\electricite_stat.html:61
 msgid "Par voiture"
@@ -2237,37 +2329,6 @@ msgstr "Pro Fahrzeug"
 #: .\recharge\templates\recharge\electricite_stat.html:66
 msgid "Voiture"
 msgstr "Fahrzeug"
-
-#: .\fuel\templates\fuel\fuel_stat.html:115
-#: .\fuel\templates\fuel\fuel_stat.html:143
-#: .\fuel\templates\fuel\fuel_stat.html:170
-#: .\recharge\templates\recharge\electricite_stat.html:117
-#: .\recharge\templates\recharge\electricite_stat.html:145
-#: .\recharge\templates\recharge\electricite_stat.html:172
-msgid "Aucune donnée"
-msgstr "Keine Daten"
-
-#: .\fuel\templates\fuel\fuel_stat.html:122
-#: .\recharge\templates\recharge\electricite_stat.html:124
-msgid "Par mois"
-msgstr "Pro Monat"
-
-#: .\fuel\templates\fuel\fuel_stat.html:127
-#: .\recharge\templates\recharge\electricite_stat.html:129
-msgid "Mois"
-msgstr "Monat"
-
-#: .\fuel\templates\fuel\fuel_stat.html:149
-#: .\recharge\templates\recharge\electricite_stat.html:151
-msgid "Par année"
-msgstr "Pro Jahr"
-
-#: .\fuel\templates\fuel\fuel_stat.html:154
-#: .\maintenance\templates\maintenance\list.html:89 .\piece\models.py:77
-#: .\piece\templates\piece\piece_detail.html:29
-#: .\recharge\templates\recharge\electricite_stat.html:156
-msgid "Année"
-msgstr "Jahr"
 
 #: .\fuel\templates\fuel\modifier_fuel.html:16
 msgid "Modifier la plein de carburant:"
@@ -2653,38 +2714,38 @@ msgstr "Visueller Zustand / Tag"
 
 #: .\maintenance\autres_interventions\boite_de_vitesse\models.py:120
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_check.html:557
-#: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_detail.html:39
+#: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_detail.html:37
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_list.html:40
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_list.html:54
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\modifier_boite.html:559
 #: .\maintenance\autres_interventions\bte_vitesse_auto\models.py:129
 #: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_check.html:424
-#: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_detail.html:38
+#: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_detail.html:35
 #: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_list.html:40
 #: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_list.html:54
 #: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\modifier_bte_auto.html:421
 #: .\maintenance\autres_interventions\geometrie\models.py:177
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:32
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:35
 #: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_list.html:40
 #: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_list.html:54
 #: .\maintenance\autres_interventions\geometrie\views.py:208
 #: .\maintenance\autres_interventions\geometrie\views.py:348
 #: .\maintenance\autres_interventions\moteur\admission\models.py:146
-#: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_detail.html:32
+#: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_detail.html:35
 #: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_list.html:40
 #: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_list.html:54
 #: .\maintenance\autres_interventions\moteur\admission\views.py:116
 #: .\maintenance\autres_interventions\moteur\admission\views.py:321
 #: .\maintenance\autres_interventions\moteur\alternateur\models.py:134
-#: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_detail.html:31
+#: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_detail.html:34
 #: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_list.html:40
 #: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_list.html:54
 #: .\maintenance\carrosserie_interne\models.py:545
-#: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_detail.html:27
+#: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_detail.html:32
 #: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_list.html:41
 #: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_list.html:54
 #: .\maintenance\check_up\admin.py:66 .\maintenance\check_up\models.py:354
-#: .\maintenance\check_up\templates\check_up\checkup_detail.html:34
+#: .\maintenance\check_up\templates\check_up\checkup_detail.html:38
 #: .\maintenance\check_up\templates\check_up\checkup_list.html:41
 #: .\maintenance\check_up\templates\check_up\checkup_list.html:54
 #: .\maintenance\check_up\templates\check_up\controle_total.html:1063
@@ -2697,7 +2758,7 @@ msgstr "Visueller Zustand / Tag"
 #: .\maintenance\entretien\templates\entretien\modifier_entretien.html:502
 #: .\maintenance\freins\models.py:105
 #: .\maintenance\freins\templates\freins\freins_check.html:501
-#: .\maintenance\freins\templates\freins\freins_detail.html:45
+#: .\maintenance\freins\templates\freins\freins_detail.html:49
 #: .\maintenance\freins\templates\freins\freins_list.html:40
 #: .\maintenance\freins\templates\freins\freins_list.html:53
 #: .\maintenance\freins\templates\freins\modifier_freins.html:505
@@ -2717,7 +2778,7 @@ msgstr "Visueller Zustand / Tag"
 #: .\maintenance\niveaux\models.py:186
 #: .\maintenance\niveaux\templates\niveaux\modifier_niveaux.html:403
 #: .\maintenance\niveaux\templates\niveaux\niveau_form.html:424
-#: .\maintenance\niveaux\templates\niveaux\niveaux_detail.html:32
+#: .\maintenance\niveaux\templates\niveaux\niveaux_detail.html:35
 #: .\maintenance\niveaux\templates\niveaux\niveaux_list.html:39
 #: .\maintenance\niveaux\templates\niveaux\niveaux_list.html:52
 #: .\maintenance\pneus\models.py:123
@@ -2729,7 +2790,7 @@ msgstr "Visueller Zustand / Tag"
 #: .\maintenance\silent_blocs\models.py:114
 #: .\maintenance\silent_blocs\templates\silent_blocs\modifier_silent.html:419
 #: .\maintenance\silent_blocs\templates\silent_blocs\silent_check.html:417
-#: .\maintenance\silent_blocs\templates\silent_blocs\silent_detail.html:32
+#: .\maintenance\silent_blocs\templates\silent_blocs\silent_detail.html:39
 #: .\maintenance\silent_blocs\templates\silent_blocs\silent_list.html:39
 #: .\maintenance\silent_blocs\templates\silent_blocs\silent_list.html:52
 msgid "Technicien"
@@ -2796,25 +2857,25 @@ msgid "Contrôle de la boite de vitesses pour :"
 msgstr "Getriebeprüfung für:"
 
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_check.html:71
-#: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_detail.html:37
+#: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_detail.html:35
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\modifier_boite.html:73
 #: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_check.html:71
-#: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_detail.html:36
+#: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_detail.html:33
 #: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\modifier_bte_auto.html:68
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:30
-#: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_detail.html:30
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:33
+#: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_detail.html:33
 #: .\maintenance\autres_interventions\moteur\admission\views.py:101
 #: .\maintenance\autres_interventions\moteur\admission\views.py:246
-#: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_detail.html:29
-#: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_detail.html:25
-#: .\maintenance\check_up\templates\check_up\checkup_detail.html:32
+#: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_detail.html:32
+#: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_detail.html:30
+#: .\maintenance\check_up\templates\check_up\checkup_detail.html:36
 #: .\maintenance\check_up\templates\check_up\controle_total.html:67
 #: .\maintenance\check_up\templates\check_up\modifier_checkup.html:76
 #: .\maintenance\entretien\templates\entretien\entretien_check.html:67
 #: .\maintenance\entretien\templates\entretien\entretien_detail.html:32
 #: .\maintenance\entretien\templates\entretien\modifier_entretien.html:71
 #: .\maintenance\freins\templates\freins\freins_check.html:68
-#: .\maintenance\freins\templates\freins\freins_detail.html:36
+#: .\maintenance\freins\templates\freins\freins_detail.html:40
 #: .\maintenance\freins\templates\freins\modifier_freins.html:72
 #: .\maintenance\jeux_pieces\templates\jeux_pieces\controle_jeux.html:68
 #: .\maintenance\jeux_pieces\templates\jeux_pieces\jeux_pieces_detail.html:32
@@ -2825,13 +2886,13 @@ msgstr "Getriebeprüfung für:"
 #: .\maintenance\nettoyage_interieur\templates\nettoyage_interieur\nettoyage_simple.html:69
 #: .\maintenance\niveaux\templates\niveaux\modifier_niveaux.html:73
 #: .\maintenance\niveaux\templates\niveaux\niveau_form.html:67
-#: .\maintenance\niveaux\templates\niveaux\niveaux_detail.html:30
+#: .\maintenance\niveaux\templates\niveaux\niveaux_detail.html:33
 #: .\maintenance\pneus\templates\pneus\controle_pneus.html:67
 #: .\maintenance\pneus\templates\pneus\modifier_pneus.html:74
 #: .\maintenance\pneus\templates\pneus\pneus_detail.html:32
 #: .\maintenance\silent_blocs\templates\silent_blocs\modifier_silent.html:71
 #: .\maintenance\silent_blocs\templates\silent_blocs\silent_check.html:69
-#: .\maintenance\silent_blocs\templates\silent_blocs\silent_detail.html:30
+#: .\maintenance\silent_blocs\templates\silent_blocs\silent_detail.html:37
 #: .\maintenance\templates\maintenance\list.html:93
 #: .\voiture\voiture_embrayage\templates\voiture_embrayage\ajouter_embrayage.html:102
 #: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:29
@@ -2881,27 +2942,27 @@ msgid "Huile de boite de vitesses automatique"
 msgstr "Automatikgetriebeöl"
 
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_check.html:483
-#: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_detail.html:38
+#: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_detail.html:36
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_list.html:53
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\modifier_boite.html:485
 #: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_check.html:350
-#: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_detail.html:37
+#: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_detail.html:34
 #: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_list.html:53
 #: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\modifier_bte_auto.html:347
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:31
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:34
 #: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_list.html:53
-#: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_detail.html:31
+#: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_detail.html:34
 #: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_list.html:53
-#: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_detail.html:30
+#: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_detail.html:33
 #: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_list.html:53
 #: .\maintenance\bruits\models.py:60
-#: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_detail.html:26
+#: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_detail.html:31
 #: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_list.html:53
-#: .\maintenance\check_up\templates\check_up\checkup_detail.html:33
+#: .\maintenance\check_up\templates\check_up\checkup_detail.html:37
 #: .\maintenance\check_up\templates\check_up\checkup_list.html:53
 #: .\maintenance\entretien\templates\entretien\entretien_detail.html:33
 #: .\maintenance\entretien\templates\entretien\entretien_list.html:49
-#: .\maintenance\freins\templates\freins\freins_detail.html:44
+#: .\maintenance\freins\templates\freins\freins_detail.html:48
 #: .\maintenance\freins\templates\freins\freins_list.html:52
 #: .\maintenance\jeux_pieces\templates\jeux_pieces\jeux_pieces_detail.html:33
 #: .\maintenance\jeux_pieces\templates\jeux_pieces\jeux_pieces_list.html:51
@@ -2909,11 +2970,11 @@ msgstr "Automatikgetriebeöl"
 #: .\maintenance\nettoyage_exterieur\templates\nettoyage_exterieur\nettoyage_ext_list.html:51
 #: .\maintenance\nettoyage_interieur\templates\nettoyage_interieur\nettoyage_int_detail.html:33
 #: .\maintenance\nettoyage_interieur\templates\nettoyage_interieur\nettoyage_int_list.html:51
-#: .\maintenance\niveaux\templates\niveaux\niveaux_detail.html:31
+#: .\maintenance\niveaux\templates\niveaux\niveaux_detail.html:34
 #: .\maintenance\niveaux\templates\niveaux\niveaux_list.html:51
 #: .\maintenance\pneus\templates\pneus\pneus_detail.html:33
 #: .\maintenance\pneus\templates\pneus\pneus_list.html:51
-#: .\maintenance\silent_blocs\templates\silent_blocs\silent_detail.html:31
+#: .\maintenance\silent_blocs\templates\silent_blocs\silent_detail.html:38
 #: .\maintenance\silent_blocs\templates\silent_blocs\silent_list.html:51
 msgid "Tag"
 msgstr "Tag"
@@ -2941,40 +3002,39 @@ msgstr "Aktuelles Datum"
 msgid "Détails du contrôle"
 msgstr "Details der kontrolle"
 
-#: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_detail.html:20
-#: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_detail.html:92
-#: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_detail.html:20
-#: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_detail.html:82
-#: .\maintenance\pneus\templates\pneus\pneus_detail.html:20
-msgid "Retour à la liste des contrôles"
-msgstr "Zurück zur kpntrolle-Liste"
-
-#: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_detail.html:44
-#: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_detail.html:43
+#: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_detail.html:42
+#: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_detail.html:40
 msgid "Contrôle"
 msgstr "Kontrolle"
 
-#: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_detail.html:46
-#: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_detail.html:44
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:39
-#: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_detail.html:39
-#: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_detail.html:38
-#: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_detail.html:34
-#: .\maintenance\check_up\templates\check_up\checkup_detail.html:40
+#: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_detail.html:44
+#: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_detail.html:41
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:42
+#: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_detail.html:42
+#: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_detail.html:41
+#: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_detail.html:39
+#: .\maintenance\check_up\templates\check_up\checkup_detail.html:44
 #: .\maintenance\entretien\templates\entretien\entretien_detail.html:40
+#: .\maintenance\freins\templates\freins\freins_detail.html:63
 #: .\maintenance\jeux_pieces\templates\jeux_pieces\jeux_pieces_detail.html:40
 #: .\maintenance\nettoyage_exterieur\templates\nettoyage_exterieur\nettoyage_ext_detail.html:40
 #: .\maintenance\nettoyage_interieur\templates\nettoyage_interieur\nettoyage_int_detail.html:40
+#: .\maintenance\niveaux\templates\niveaux\niveaux_detail.html:41
 #: .\maintenance\pneus\templates\pneus\pneus_detail.html:40
-#: .\maintenance\silent_blocs\templates\silent_blocs\silent_detail.html:38
+#: .\maintenance\silent_blocs\templates\silent_blocs\silent_detail.html:45
 msgid "Date de l'intervention"
 msgstr "Interventionsdatum"
 
-#: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_detail.html:65
-#: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_detail.html:54
+#: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_detail.html:63
+#: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_detail.html:51
 #: .\maintenance\pneus\templates\pneus\modifier_pneus.html:20
 msgid "Modifier le contrôle"
 msgstr "Kontrolle bearbeiten"
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_detail.html:91
+#: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_detail.html:80
+msgid "Retour à la liste des contrôles"
+msgstr "Zurück zur kpntrolle-Liste"
 
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_list.html:4
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_list.html:10
@@ -3293,20 +3353,20 @@ msgstr "Fehler:"
 msgid "Détails de la géométrie"
 msgstr "Details der Achsvermessung"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:38
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:41
 msgid "Geometrie"
 msgstr "Achsvermessung"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:54
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:57
 #: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_modifier.html:20
 msgid "Modifier la géométrie"
 msgstr "Achsvermessung bearbeiten"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:62
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:65
 msgid "Rapport Géométrie"
 msgstr "Achsvermessungsbericht"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:91
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:94
 msgid "Retour à la liste des géométries"
 msgstr "Zurück zur Liste der Achsvermessungen"
 
@@ -3320,7 +3380,7 @@ msgid "Aucune géométrie enregistré pour cet exemplaire."
 msgstr "Keine Achsvermessung für dieses Fahrzeug vorhanden."
 
 #: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_list.html:147
-msgid "Retour au interventions"
+msgid "Retour aux interventions"
 msgstr "Zurück zu den Interventionen"
 
 #: .\maintenance\autres_interventions\geometrie\views.py:128
@@ -3449,7 +3509,7 @@ msgstr "Innenreinigung"
 
 #: .\maintenance\autres_interventions\models.py:15 .\maintenance\models.py:14
 #: .\maintenance\niveaux\models.py:111 .\maintenance\niveaux\models.py:225
-#: .\maintenance\niveaux\templates\niveaux\niveaux_detail.html:37
+#: .\maintenance\niveaux\templates\niveaux\niveaux_detail.html:40
 #: .\maintenance\templates\maintenance\choisir_type.html:121
 #: .\maintenance\types_maintenances.py:11
 msgid "Niveaux"
@@ -3514,8 +3574,6 @@ msgstr "Zu ersetzen"
 
 #: .\maintenance\autres_interventions\moteur\admission\models.py:39
 #: .\maintenance\autres_interventions\moteur\alternateur\models.py:57
-#, fuzzy
-#| msgid "Kilomètres du chassis"
 msgid "Kilomètres chassis"
 msgstr "Kilometerstand des Fahrgestells"
 
@@ -3591,7 +3649,7 @@ msgid "Joints admission"
 msgstr "Ansaugdichtungen"
 
 #: .\maintenance\autres_interventions\moteur\admission\models.py:185
-#: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_detail.html:38
+#: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_detail.html:41
 #: .\maintenance\autres_interventions\moteur\alternateur\models.py:173
 #: .\maintenance\autres_interventions\moteur\templates\moteur\dashboard_moteur.html:16
 msgid "Admission"
@@ -3608,27 +3666,26 @@ msgstr "Ansaugungsprüfung für:"
 
 #: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_detail.html:13
 #: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_detail.html:13
-#: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_detail.html:13
 msgid "Détails de l'intervention"
 msgstr "Interventionsdetails"
 
-#: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_detail.html:54
+#: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_detail.html:57
 #: .\maintenance\autres_interventions\moteur\admission\templates\admission\modifier_admission.html:20
-#: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_detail.html:53
+#: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_detail.html:56
 #: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\modifier_alternateur.html:20
-#: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_detail.html:45
+#: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_detail.html:50
 msgid "Modifier l'intervention"
 msgstr "Einsatz bearbeiten"
 
-#: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_detail.html:62
-#: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_detail.html:61
-#: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_detail.html:53
+#: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_detail.html:65
+#: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_detail.html:64
+#: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_detail.html:58
 msgid "Rapport"
 msgstr "Bericht"
 
-#: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_detail.html:91
-#: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_detail.html:90
-#: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_detail.html:82
+#: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_detail.html:94
+#: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_detail.html:93
+#: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_detail.html:87
 msgid "Retour à la liste des interventions"
 msgstr "Zurück zur Einsatzliste"
 
@@ -3648,8 +3705,6 @@ msgstr "Liste der Ansaugungsarbeiten"
 
 #: .\maintenance\autres_interventions\moteur\admission\views.py:103
 #: .\maintenance\autres_interventions\moteur\admission\views.py:256
-#, fuzzy
-#| msgid "Boîtier filtre à air"
 msgid "Boitier de Filtre à air"
 msgstr "Luftfiltergehäuse"
 
@@ -3660,24 +3715,19 @@ msgid "Débitmètre"
 msgstr "Luftmengenmesser"
 
 #: .\maintenance\autres_interventions\moteur\admission\views.py:106
-#, fuzzy
-#| msgid "Capteur température air"
 msgid "Capteur de temperature d'air"
 msgstr "Ansauglufttemperatursensor"
 
 #: .\maintenance\autres_interventions\moteur\admission\views.py:107
 #: .\maintenance\autres_interventions\moteur\admission\views.py:276
-#, fuzzy
-#| msgid "Boîtier papillon"
+
 msgid "Boitier papillon"
 msgstr "Drosselklappensteuergerät"
 
 #: .\maintenance\autres_interventions\moteur\admission\views.py:113
 #: .\maintenance\autres_interventions\moteur\admission\views.py:306
-#, fuzzy
-#| msgid "Joint"
 msgid "Joints"
-msgstr "Dichtung"
+msgstr "Dichtungen"
 
 #: .\maintenance\autres_interventions\moteur\admission\views.py:147
 msgid "Check admission enregistré avec succès."
@@ -3688,23 +3738,17 @@ msgid "Contrôle de l'admission modifié avec succès !"
 msgstr "Ansaugungsprüfung erfolgreich bearbeitet!"
 
 #: .\maintenance\autres_interventions\moteur\admission\views.py:271
-#, fuzzy
-#| msgid "Capteur température air"
 msgid "Capteur de température d'air"
 msgstr "Ansauglufttemperatursensor"
 
 #: .\maintenance\autres_interventions\moteur\alternateur\models.py:66
-#, fuzzy
-#| msgid "Kilométrage du controle des freins"
 msgid "Kilométrage du controle alternateur"
-msgstr "Kilometerstand der Bremskontrolle"
+msgstr "Kilometerstand der Lichtmaschinenkontrolle"
 
 #: .\maintenance\autres_interventions\moteur\alternateur\models.py:91
 #: .\maintenance\autres_interventions\moteur\alternateur\models.py:101
-#, fuzzy
-#| msgid "Prix d'achat"
 msgid "Prix d'achat htva"
-msgstr "Einkaufspreis"
+msgstr "Kaufpreis ohne MwSt."
 
 #: .\maintenance\autres_interventions\moteur\alternateur\models.py:92
 #: .\maintenance\autres_interventions\moteur\alternateur\models.py:102
@@ -3714,46 +3758,36 @@ msgstr "MwSt. zurückzuholen"
 
 #: .\maintenance\autres_interventions\moteur\alternateur\models.py:93
 #: .\maintenance\autres_interventions\moteur\alternateur\models.py:103
-#, fuzzy
-#| msgid "Marge (%)"
 msgid "Marge"
 msgstr "Gewinnspanne (%)"
 
 #: .\maintenance\autres_interventions\moteur\alternateur\models.py:94
 #: .\maintenance\autres_interventions\moteur\alternateur\models.py:104
-#, fuzzy
-#| msgid "Prix de vente"
 msgid "Prix de vente htva"
-msgstr "Verkaufspreis"
+msgstr "Verkaufspreis ohne MwSt."
 
 #: .\maintenance\autres_interventions\moteur\alternateur\models.py:95
 #: .\maintenance\autres_interventions\moteur\alternateur\models.py:105
-#, fuzzy
-#| msgid "TVA à récupérer"
 msgid "TVA à payer"
-msgstr "MwSt. zurückzuholen"
+msgstr "Zu zahlende MwSt."
 
 #: .\maintenance\autres_interventions\moteur\alternateur\models.py:96
-#, fuzzy
-#| msgid "Prix Total"
 msgid "Prix tvac"
-msgstr "Gesamtpreis"
+msgstr "Preis inkl. MwSt."
 
 #: .\maintenance\autres_interventions\moteur\alternateur\models.py:100
 msgid "Courroie d'accessoires"
-msgstr ""
+msgstr "Keilriemen"
 
 #: .\maintenance\autres_interventions\moteur\alternateur\models.py:106
-#, fuzzy
-#| msgid "Prix HTVA"
 msgid "Prix TVAC"
-msgstr "Preis ohne MwSt."
+msgstr "Preis inkl. MwSt."
 
 #: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_check.html:13
 msgid "Intervention sur l'alternateur pour :"
 msgstr "Eingriff am Generator für:"
 
-#: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_detail.html:37
+#: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_detail.html:40
 #: .\maintenance\autres_interventions\moteur\templates\moteur\dashboard_moteur.html:28
 #: .\piece\piece_electricite\models.py:8
 msgid "Alternateur"
@@ -3806,7 +3840,7 @@ msgstr "Motoreingriff"
 
 #: .\maintenance\autres_interventions\templates\autres_interventions\choisir_autre.html:80
 msgid "Géometrie"
-msgstr ""
+msgstr "Geometrie"
 
 #: .\maintenance\autres_interventions\templates\autres_interventions\choisir_autre.html:98
 #: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_list.html:126
@@ -4309,7 +4343,11 @@ msgstr ""
 msgid "Intervention carrosserie pour :"
 msgstr "Karosserieeingriff für:"
 
-#: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_detail.html:33
+#: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_detail.html:13
+msgid "Détails de l'intervention :"
+msgstr "Interventionsdetails"
+
+#: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_detail.html:38
 msgid "Carrosserie interne"
 msgstr "Interne Karosseriearbeiten"
 
@@ -5051,18 +5089,17 @@ msgid "Détails du checkup"
 msgstr "Checkup-Details"
 
 #: .\maintenance\check_up\templates\check_up\checkup_detail.html:20
-#: .\maintenance\check_up\templates\check_up\checkup_detail.html:77
-#: .\maintenance\jeux_pieces\templates\jeux_pieces\jeux_pieces_detail.html:20
+#: .\maintenance\check_up\templates\check_up\checkup_detail.html:82
 msgid "Retour à la liste des checkups"
 msgstr "Zurück zur Checkup-Liste"
 
-#: .\maintenance\check_up\templates\check_up\checkup_detail.html:39
+#: .\maintenance\check_up\templates\check_up\checkup_detail.html:43
 #: .\maintenance\templates\maintenance\choisir_type.html:33
 #: .\maintenance\types_maintenances.py:5
 msgid "Checkup"
 msgstr "Inspektion"
 
-#: .\maintenance\check_up\templates\check_up\checkup_detail.html:47
+#: .\maintenance\check_up\templates\check_up\checkup_detail.html:52
 #: .\maintenance\check_up\templates\check_up\modifier_checkup.html:20
 #: .\maintenance\freins\templates\freins\modifier_freins.html:20
 msgid "Modifier le checkup"
@@ -5357,14 +5394,13 @@ msgstr "Teile"
 msgid "Détails de l'entretien"
 msgstr "Wartungsdetails"
 
-#: .\maintenance\entretien\templates\entretien\entretien_detail.html:20
-#: .\maintenance\entretien\templates\entretien\entretien_detail.html:59
-msgid "Retour à la liste des entretiens"
-msgstr "Zur Wartungsliste zurück"
-
 #: .\maintenance\entretien\templates\entretien\entretien_detail.html:47
 msgid "Modifier le entretien"
 msgstr "Wartung bearbeiten"
+
+#: .\maintenance\entretien\templates\entretien\entretien_detail.html:76
+msgid "Retour à la liste des entretiens"
+msgstr "Zur Wartungsliste zurück"
 
 #: .\maintenance\entretien\templates\entretien\entretien_list.html:4
 #: .\maintenance\entretien\templates\entretien\entretien_list.html:10
@@ -5442,25 +5478,25 @@ msgid "Contrôle freins – Maintenance %(id)s"
 msgstr "Bremskontrolle – Wartung %(id)s"
 
 #: .\maintenance\freins\templates\freins\freins_check.html:119
-#: .\maintenance\freins\templates\freins\freins_detail.html:38
+#: .\maintenance\freins\templates\freins\freins_detail.html:42
 #: .\maintenance\freins\templates\freins\modifier_freins.html:123
 msgid "Plaquettes avant"
 msgstr "Vorderbremsbeläge"
 
 #: .\maintenance\freins\templates\freins\freins_check.html:156
-#: .\maintenance\freins\templates\freins\freins_detail.html:37
+#: .\maintenance\freins\templates\freins\freins_detail.html:41
 #: .\maintenance\freins\templates\freins\modifier_freins.html:160
 msgid "Disques avant"
 msgstr "Vorderscheiben"
 
 #: .\maintenance\freins\templates\freins\freins_check.html:193
-#: .\maintenance\freins\templates\freins\freins_detail.html:40
+#: .\maintenance\freins\templates\freins\freins_detail.html:44
 #: .\maintenance\freins\templates\freins\modifier_freins.html:197
 msgid "Plaquettes arrière"
 msgstr "Hinterbremsbeläge"
 
 #: .\maintenance\freins\templates\freins\freins_check.html:228
-#: .\maintenance\freins\templates\freins\freins_detail.html:39
+#: .\maintenance\freins\templates\freins\freins_detail.html:43
 #: .\maintenance\freins\templates\freins\modifier_freins.html:232
 msgid "Disques arrière"
 msgstr "Hinterradscheiben"
@@ -5479,11 +5515,16 @@ msgstr "Undichtigkeiten"
 msgid "Détails du controle des freins :"
 msgstr "Details der Bremskontrolle"
 
-#: .\maintenance\freins\templates\freins\freins_detail.html:56
+#: .\maintenance\freins\templates\freins\freins_detail.html:62
+#: .\maintenance\jeux_pieces\templates\jeux_pieces\jeux_pieces_detail.html:39
+msgid "Jeux pièces"
+msgstr "Spielmechanik"
+
+#: .\maintenance\freins\templates\freins\freins_detail.html:73
 msgid "Modifier le controle des freins"
 msgstr "Bremskontrolle bearbeiten"
 
-#: .\maintenance\freins\templates\freins\freins_detail.html:102
+#: .\maintenance\freins\templates\freins\freins_detail.html:108
 msgid "Retour à la liste des contrôles freins"
 msgstr "Zurück zur Liste der Bremskontrollen"
 
@@ -5580,15 +5621,15 @@ msgstr "Kilometer Spielteile"
 msgid "Kilométrage au moment du controle des jeux"
 msgstr "Kilometerstand zum Zeitpunkt der Spielkontrolle"
 
-#: .\maintenance\jeux_pieces\models.py:189
+#: .\maintenance\jeux_pieces\models.py:192
 msgid "Contrôle Jeu"
 msgstr "Spielkontrolle"
 
-#: .\maintenance\jeux_pieces\models.py:190
+#: .\maintenance\jeux_pieces\models.py:193
 msgid "Contrôles Jeux"
 msgstr "Spielkontrollen"
 
-#: .\maintenance\jeux_pieces\models.py:193
+#: .\maintenance\jeux_pieces\models.py:196
 #, python-format
 msgid "Controle des jeux – Maintenance %(id)s"
 msgstr "Spielkontrolle – Wartung %(id)s"
@@ -5598,19 +5639,15 @@ msgid "Contrôle des jeux pour :"
 msgstr "Spielkontrolle für:"
 
 #: .\maintenance\jeux_pieces\templates\jeux_pieces\jeux_pieces_detail.html:13
-msgid "Détails du controle des jeux"
+msgid "Détails du contrôle des jeux : "
 msgstr "Details der Spielkontrolle"
 
-#: .\maintenance\jeux_pieces\templates\jeux_pieces\jeux_pieces_detail.html:39
-msgid "Jeux pièces"
-msgstr "Spielmechanik"
-
-#: .\maintenance\jeux_pieces\templates\jeux_pieces\jeux_pieces_detail.html:47
-msgid "Modifier le controle des jeux"
+#: .\maintenance\jeux_pieces\templates\jeux_pieces\jeux_pieces_detail.html:48
+msgid "Modifier le contrôle des jeux"
 msgstr "Spielkontrolle bearbeiten"
 
-#: .\maintenance\jeux_pieces\templates\jeux_pieces\jeux_pieces_detail.html:59
-msgid "Retour à la liste des controles jeux"
+#: .\maintenance\jeux_pieces\templates\jeux_pieces\jeux_pieces_detail.html:79
+msgid "Retour à la liste des contrôles jeux"
 msgstr "Zur Liste der Spielkontrollen zurück"
 
 #: .\maintenance\jeux_pieces\templates\jeux_pieces\jeux_pieces_list.html:4
@@ -5619,7 +5656,7 @@ msgid "Liste des contrôles des jeux"
 msgstr "Liste der Spielkontrollen"
 
 #: .\maintenance\jeux_pieces\templates\jeux_pieces\jeux_pieces_list.html:16
-msgid "Ajouter un controle"
+msgid "Ajouter un contrôle"
 msgstr "Kontrolle hinzufügen"
 
 #: .\maintenance\jeux_pieces\templates\jeux_pieces\jeux_pieces_list.html:114
@@ -5631,11 +5668,11 @@ msgid "Modifier le contrôle des jeux"
 msgstr "Spielkontrolle bearbeiten"
 
 #: .\maintenance\jeux_pieces\views.py:138
-msgid "Controle des jeux enregistré avec succès."
+msgid "Contrôle des jeux enregistré avec succès."
 msgstr "Spielkontrolle erfolgreich gespeichert."
 
 #: .\maintenance\jeux_pieces\views.py:205
-msgid "Controle des jeux modifié avec succès !"
+msgid "Contrôle des jeux modifié avec succès !"
 msgstr "Spielkontrolle erfolgreich bearbeitet!"
 
 #: .\maintenance\models.py:8
@@ -5663,15 +5700,14 @@ msgstr "Außenreinigung bearbeiten"
 msgid "Détails du nettoyage extérieur"
 msgstr "Details der Außenreinigung"
 
-#: .\maintenance\nettoyage_exterieur\templates\nettoyage_exterieur\nettoyage_ext_detail.html:20
-#: .\maintenance\nettoyage_exterieur\templates\nettoyage_exterieur\nettoyage_ext_detail.html:59
-msgid "Retour à la liste des nettoyages extérieurs"
-msgstr "Zurück zur Liste der Außenreinigungen"
-
 #: .\maintenance\nettoyage_exterieur\templates\nettoyage_exterieur\nettoyage_ext_detail.html:47
 #: .\maintenance\nettoyage_interieur\templates\nettoyage_interieur\nettoyage_int_detail.html:47
 msgid "Modifier le nettoyage"
 msgstr "Reinigung bearbeiten"
+
+#: .\maintenance\nettoyage_exterieur\templates\nettoyage_exterieur\nettoyage_ext_detail.html:76
+msgid "Retour à la liste des nettoyages extérieurs"
+msgstr "Zurück zur Liste der Außenreinigungen"
 
 #: .\maintenance\nettoyage_exterieur\templates\nettoyage_exterieur\nettoyage_ext_list.html:4
 #: .\maintenance\nettoyage_interieur\templates\nettoyage_interieur\nettoyage_int_list.html:4
@@ -5746,8 +5782,7 @@ msgstr "Innenreinigung bearbeiten"
 msgid "Détails du nettoyage intérieur"
 msgstr "Details der Innenreinigung"
 
-#: .\maintenance\nettoyage_interieur\templates\nettoyage_interieur\nettoyage_int_detail.html:20
-#: .\maintenance\nettoyage_interieur\templates\nettoyage_interieur\nettoyage_int_detail.html:59
+#: .\maintenance\nettoyage_interieur\templates\nettoyage_interieur\nettoyage_int_detail.html:76
 msgid "Retour à la liste des nettoyages intérieurs"
 msgstr "Zurück zur Liste der Innenreinigungen"
 
@@ -5772,7 +5807,7 @@ msgstr "Keine Innenreinigung gefunden"
 msgid "Nettoyage intérieur pour :"
 msgstr "Innenreinigung für :"
 
-#: .\maintenance\nettoyage_interieur\views.py:197
+#: .\maintenance\nettoyage_interieur\views.py:195
 msgid "Nettoyage intérieur modifié avec succès !"
 msgstr "Innenreinigung erfolgreich bearbeitet!"
 
@@ -5836,38 +5871,38 @@ msgid "Liquide de Freins"
 msgstr "Bremsflüssigkeit"
 
 #: .\maintenance\niveaux\templates\niveaux\niveaux_detail.html:13
-msgid "Détails du contrôle des Niveaux"
+msgid "Détails du contrôle des Niveaux : "
 msgstr "Details der Flüssigkeitskontrolle"
 
-#: .\maintenance\niveaux\templates\niveaux\niveaux_detail.html:38
+#: .\maintenance\niveaux\templates\niveaux\niveaux_detail.html:43
 msgid "Ajout d'huile moteur"
 msgstr "Motoröl nachgefüllt"
 
-#: .\maintenance\niveaux\templates\niveaux\niveaux_detail.html:44
+#: .\maintenance\niveaux\templates\niveaux\niveaux_detail.html:49
 msgid "Ajout d'huile boite"
 msgstr "Getriebeöl nachgefüllt"
 
-#: .\maintenance\niveaux\templates\niveaux\niveaux_detail.html:51
+#: .\maintenance\niveaux\templates\niveaux\niveaux_detail.html:56
 msgid "Ajout d'huile pont"
 msgstr "Hinterachsöl nachgefüllt"
 
-#: .\maintenance\niveaux\templates\niveaux\niveaux_detail.html:58
+#: .\maintenance\niveaux\templates\niveaux\niveaux_detail.html:63
 msgid "Ajout de liquide de freins"
 msgstr "Bremsflüssigkeit nachgefüllt"
 
-#: .\maintenance\niveaux\templates\niveaux\niveaux_detail.html:65
+#: .\maintenance\niveaux\templates\niveaux\niveaux_detail.html:70
 msgid "Ajout de liquide de refroidissement"
 msgstr "Kühlmittel nachgefüllt"
 
-#: .\maintenance\niveaux\templates\niveaux\niveaux_detail.html:72
+#: .\maintenance\niveaux\templates\niveaux\niveaux_detail.html:77
 msgid "Ajout de lave-glace"
 msgstr "Scheibenwaschflüssigkeit nachgefüllt"
 
-#: .\maintenance\niveaux\templates\niveaux\niveaux_detail.html:87
+#: .\maintenance\niveaux\templates\niveaux\niveaux_detail.html:92
 msgid "Modifier le contrôle des niveaux"
 msgstr "Flüssigkeitskontrolle bearbeiten"
 
-#: .\maintenance\niveaux\templates\niveaux\niveaux_detail.html:116
+#: .\maintenance\niveaux\templates\niveaux\niveaux_detail.html:121
 msgid "Retour à la liste des niveaux"
 msgstr "Zurück zur Niveauliste"
 
@@ -5991,7 +6026,7 @@ msgstr "Hinterachsensatz"
 msgid "Modifier le contrôle des pneus"
 msgstr "Reifenprüfung bearbeiten"
 
-#: .\maintenance\pneus\templates\pneus\pneus_detail.html:59
+#: .\maintenance\pneus\templates\pneus\pneus_detail.html:77
 msgid "Retour à la liste des contrôle pneus"
 msgstr "Zur Liste der Reifenprüfungen zurück"
 
@@ -6149,22 +6184,22 @@ msgid "Contrôle des silent blocs pour :"
 msgstr "Silentblock-Kontrolle für:"
 
 #: .\maintenance\silent_blocs\templates\silent_blocs\silent_detail.html:13
-msgid "Détails du contrôle des Silent Blocs"
+msgid "Détails du contrôle des Silent Blocs : "
 msgstr "Details der Silentblock-Kontrolle"
 
-#: .\maintenance\silent_blocs\templates\silent_blocs\silent_detail.html:18
-msgid "Retour à la liste des controles silent blocs"
+#: .\maintenance\silent_blocs\templates\silent_blocs\silent_detail.html:21
+msgid "Retour à la liste des contrôles silent blocs"
 msgstr "Zur Liste der Silentblock-Kontrollen zurück"
 
-#: .\maintenance\silent_blocs\templates\silent_blocs\silent_detail.html:37
+#: .\maintenance\silent_blocs\templates\silent_blocs\silent_detail.html:44
 msgid "Silent Blocs"
 msgstr "Gummilager"
 
-#: .\maintenance\silent_blocs\templates\silent_blocs\silent_detail.html:45
+#: .\maintenance\silent_blocs\templates\silent_blocs\silent_detail.html:52
 msgid "Modifier le contrôle des silent blocs"
 msgstr "Silentblock-Kontrolle bearbeiten"
 
-#: .\maintenance\silent_blocs\templates\silent_blocs\silent_detail.html:55
+#: .\maintenance\silent_blocs\templates\silent_blocs\silent_detail.html:80
 msgid "Retour à la liste des contrôles des silent blocs"
 msgstr "Zur Liste der Silentblock-Kontrollen zurück"
 
@@ -6520,16 +6555,10 @@ msgid "Prix d'achat"
 msgstr "Einkaufspreis"
 
 #: .\piece\models.py:93
-#: .\piece\templates\piece\piece_detail.html:36
-#: .\piece\templates\piece\piece_form.html:92
-#, python-format
 msgid "Majoration (%)"
 msgstr "Aufschlag (%)"
 
 #: .\piece\models.py:94
-#: .\piece\templates\piece\piece_detail.html:37
-#: .\piece\templates\piece\piece_form.html:100
-#, python-format
 msgid "TVA (%)"
 msgstr "MwSt. (%)"
 
@@ -8715,9 +8744,15 @@ msgstr "Fahrzeugmarke"
 msgid "Aucun"
 msgstr "Keine"
 
+#: .\piece\templates\piece\piece_detail.html:36
+#: .\piece\templates\piece\piece_form.html:92
+msgid "Majoration (%)"
+msgstr "Aufschlag (%)"
 
-
-
+#: .\piece\templates\piece\piece_detail.html:37
+#: .\piece\templates\piece\piece_form.html:100
+msgid "TVA (%)"
+msgstr "MwSt. (%)"
 
 #: .\piece\templates\piece\piece_detail.html:38
 msgid "Prix de vente calculé"
@@ -8777,7 +8812,7 @@ msgid "Kilos Watt max"
 msgstr "Maximal-Kilowatt"
 
 #: .\recharge\models.py:83 .\recharge\models.py:87
-#: .\recharge\templates\recharge\recharge_list.html:46
+#: .\recharge\templates\recharge\recharge_list.html:55
 msgid "Date de la recharge"
 msgstr "Ladedatum"
 
@@ -8810,30 +8845,29 @@ msgid "Electricites"
 msgstr "Stromarten"
 
 #: .\recharge\templates\recharge\electricite_detail.html:16
-msgid "Détails des recharges électriques :"
+msgid "Détails des recharges électriques : "
 msgstr "Details zu den Elektroaufladungen:"
 
-#: .\recharge\templates\recharge\electricite_detail.html:23
-#: .\recharge\templates\recharge\electricite_detail.html:100
-msgid "Retour à la liste des recharges"
-msgstr "Zurück zur Liste der Aufladungen"
-
-#: .\recharge\templates\recharge\electricite_detail.html:47
+#: .\recharge\templates\recharge\electricite_detail.html:45
 #: .\recharge\templates\recharge\modifier_electricite.html:45
 msgid "Energie"
 msgstr "Energie"
 
-#: .\recharge\templates\recharge\electricite_detail.html:59
+#: .\recharge\templates\recharge\electricite_detail.html:67
 msgid "Modifier la recharge"
 msgstr "Ladung bearbeiten"
 
+#: .\recharge\templates\recharge\electricite_detail.html:107
+msgid "Retour à la liste des recharges"
+msgstr "Zurück zur Liste der Ladevorgänge"
+
 #: .\recharge\templates\recharge\electricite_form.html:11
-#: .\recharge\templates\recharge\recharge_list.html:38
+#: .\recharge\templates\recharge\recharge_list.html:47
 msgid "Electricité"
 msgstr "Elektrizität"
 
 #: .\recharge\templates\recharge\electricite_form.html:12
-#: .\recharge\templates\recharge\recharge_list.html:15
+#: .\recharge\templates\recharge\recharge_list.html:17
 msgid "Ajouter une recharge électrique"
 msgstr "Elektroaufladung hinzufügen"
 
@@ -8887,24 +8921,24 @@ msgstr "Elektro-Ladung bearbeiten:"
 msgid "Liste des recharges électriques"
 msgstr "Liste der Elektroaufladungen"
 
-#: .\recharge\templates\recharge\recharge_list.html:42
+#: .\recharge\templates\recharge\recharge_list.html:51
 msgid "20 kW"
 msgstr ""
 
-#: .\recharge\templates\recharge\recharge_list.html:64
+#: .\recharge\templates\recharge\recharge_list.html:73
 msgid "Kilo Watts"
 msgstr "Kilowatt"
 
-#: .\recharge\templates\recharge\recharge_list.html:66
+#: .\recharge\templates\recharge\recharge_list.html:75
 msgid "Prix au kW"
 msgstr "Preis pro kW"
 
-#: .\recharge\templates\recharge\recharge_list.html:164
+#: .\recharge\templates\recharge\recharge_list.html:173
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ recharges"
 msgstr "Anzeige von _START_ bis _END_ von insgesamt _TOTAL_ Ladevorgängen"
 
-#: .\recharge\templates\recharge\recharge_list.html:165
-#: .\recharge\templates\recharge\recharge_list.html:166
+#: .\recharge\templates\recharge\recharge_list.html:174
+#: .\recharge\templates\recharge\recharge_list.html:175
 msgid "Aucune recharge electrique trouvée"
 msgstr "Keine Elektroaufladung gefunden"
 

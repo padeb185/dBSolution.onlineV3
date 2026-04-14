@@ -135,7 +135,7 @@ def controle_jeux_pieces_view(request, exemplaire_id):
 
                         controle.save()
 
-                    messages.success(request, _("Controle des jeux enregistré avec succès."))
+                    messages.success(request, _("Contrôle des jeux enregistré avec succès."))
 
                 except Exception as e:
                     messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
@@ -202,7 +202,7 @@ def modifier_jeux_pieces_view(request, jeu_id):
             )
             if form.is_valid():
                 form.save()
-                messages.success(request, _("Controle des jeux modifié avec succès !"))
+                messages.success(request, _("Contrôle des jeux modifié avec succès !"))
 
             else:
                 messages.error(request, _("Le formulaire contient des erreurs."))

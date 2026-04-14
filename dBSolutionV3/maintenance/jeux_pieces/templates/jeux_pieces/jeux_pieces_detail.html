@@ -10,7 +10,7 @@
             <img src="{% static 'icons/pieces-de-voiture.png' %}"
                  alt="{{ jeu.voiture_exemplaire.immatriculation }}"
                  class="w-12 h-12">
-            <span>{% trans "Détails du controle des jeux : " %}</span>
+            <span>{% trans "Détails du contrôle des jeux : " %}</span>
              {{ exemplaire.voiture_marque.nom_marque }}
                 {{ exemplaire.voiture_modele.nom_modele }}
                 {{ exemplaire.voiture_modele.nom_variante }}
@@ -45,7 +45,7 @@
         <div class="mt-auto w-full">
             <a href="{% url 'jeux_pieces:modifier_jeux_pieces' jeu.id %}" class="block w-full">
                 <button type="button" class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
-                    {% trans "Modifier le controle des jeux" %}
+                    {% trans "Modifier le contrôle des jeux" %}
                 </button>
             </a>
         </div>
@@ -76,7 +76,7 @@
                    {% url 'jeux_pieces:jeux_pieces_list' jeu.voiture_exemplaire.id %}
                {% else %}# {% endif %}"
             class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
-            {% trans "Retour à la liste des controles jeux" %}
+            {% trans "Retour à la liste des contrôles jeux" %}
         </a>
     </div>
 
