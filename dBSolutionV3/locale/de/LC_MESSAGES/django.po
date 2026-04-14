@@ -3041,6 +3041,7 @@ msgstr "Zurück zur kpntrolle-Liste"
 msgid "Liste des contrôles de boite de vitesses"
 msgstr "Liste der Getriebeprüfungen"
 
+#: .\maintenance\jeux_pieces\templates\jeux_pieces\jeux_pieces_list.html:16
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_list.html:16
 #: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_list.html:16
 #: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_list.html:16
@@ -5656,9 +5657,9 @@ msgstr "Zur Liste der Spielkontrollen zurück"
 msgid "Liste des contrôles des jeux"
 msgstr "Liste der Spielkontrollen"
 
-#: .\maintenance\jeux_pieces\templates\jeux_pieces\jeux_pieces_list.html:16
-msgid "Ajouter un contrôle"
-msgstr "Kontrolle hinzufügen"
+
+
+
 
 #: .\maintenance\jeux_pieces\templates\jeux_pieces\jeux_pieces_list.html:114
 msgid "Aucun contrôle jeux enregistré pour cet exemplaire."

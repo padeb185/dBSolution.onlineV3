@@ -170,7 +170,7 @@ class CarrosserieInterne(models.Model):
     bas_de_caisse_g_quantite = models.IntegerField(default=0)
 
     # Portes
-    porte_avd_po = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Porte avant droit"))
+    porte_avd_po = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Porte avant droite"))
     porte_avd_po_oem = models.CharField(max_length=25, null=True, blank=True, verbose_name=_("Numero OEM"))
     porte_avd_po_prix = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     porte_avd_po_quantite = models.IntegerField(default=0)
