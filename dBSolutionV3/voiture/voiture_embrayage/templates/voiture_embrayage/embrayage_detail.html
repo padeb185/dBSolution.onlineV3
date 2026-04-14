@@ -18,7 +18,7 @@
             {% endwith %}
             <span>{% trans "Détails de l'embrayage :" %}</span>
 
-           <span class="text-black-700">{{ embrayage.fabricant }} {{ embrayage.type_embrayage }}</span>
+           <span class="text-black-700">{{ embrayage.fabricant }} {{ embrayage.get_type_embrayage_display }}</span>
         </h1>
 
 
@@ -53,20 +53,6 @@
                 <strong>{% trans "N° OEM" %} :</strong>
                 {{ embrayage.oem }}
             </p>
-
-
-
-
-
-           <div class="mt-auto w-full">
-                <a href="{% url 'voiture_embrayage:modifier_embrayage' embrayage.id %}" class="block w-full">
-                    <button type="button"
-                            class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
-                        {% trans "Modifier l'embrayage" %}
-                    </button>
-                </a>
-           </div>
-
         </div>
 
         <!-- Peppol -->
@@ -82,6 +68,15 @@
 
 
         </div>
+
+         <div class="mt-auto w-full">
+                <a href="{% url 'voiture_embrayage:modifier_embrayage' embrayage.id %}" class="block w-full">
+                    <button type="button"
+                            class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+                        {% trans "Modifier l'embrayage" %}
+                    </button>
+                </a>
+         </div>
     </div>
 
 

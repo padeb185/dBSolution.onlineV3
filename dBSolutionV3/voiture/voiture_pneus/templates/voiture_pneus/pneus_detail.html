@@ -49,19 +49,6 @@
                 <strong>{% trans "N° OEM" %} :</strong>
                 {{ pneus.numero_oem }}
             </p>
-
-
-
-
-           <div class="mt-auto w-full">
-                <a href="{% url 'voiture_pneus:modifier_pneus' pneus.id %}" class="block w-full">
-                    <button type="button"
-                            class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
-                        {% trans "Modifier le pneus" %}
-                    </button>
-                </a>
-           </div>
-
         </div>
 
         <!-- Peppol -->
@@ -77,6 +64,14 @@
 
 
         </div>
+         <div class="mt-auto w-full">
+             <a href="{% url 'voiture_pneus:modifier_pneus' pneus.id %}" class="block w-full">
+                 <button type="button"
+                         class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+                     {% trans "Modifier le pneus" %}
+                 </button>
+             </a>
+         </div>
     </div>
 
 

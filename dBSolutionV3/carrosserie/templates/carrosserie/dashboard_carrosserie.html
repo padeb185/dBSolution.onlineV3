@@ -21,20 +21,6 @@
     <img src="{% static 'icons/carrosserie.png' %}" alt="carrosserie" style="width:60px; height:60px;">
   </a>
 
-  <!-- Carte Intervention carrosserie -->
-  <a href="{% url 'intervention:intervention_list' %}"
-     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-    <div>
-      <h2 class="text-lg font-semibold mb-1">{% trans "Intervention carrosserie" %}</h2>
-      <p class="text-gray-600 text-sm">
-        {% trans "Nombre total :" %} <span class="font-bold">{{ total_intervention }}</span>
-      </p>
-    </div>
-    <img src="{% static 'icons/carrosserie.png' %}" alt="intervention" style="width:60px; height:60px;">
-  </a>
-
-
-
 </div>
 
 {% endblock %}

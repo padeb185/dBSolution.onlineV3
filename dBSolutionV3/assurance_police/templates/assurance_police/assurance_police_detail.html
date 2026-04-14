@@ -87,19 +87,6 @@
                 <strong>{% trans "Prime annuelle" %} :</strong>
                 {{ assurance_police.prime_annuelle }}
             </p>
-
-
-
-
-
-           <div class="mt-auto w-full">
-                <a href="{% url 'assurance_police:modifier_assurance_police' assurance_police.id %}"
-                   class="block w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold text-center">
-                    {% trans "Modifier la police" %}
-                </a>
-            </div>
-
-
         </div>
 
         <!-- Peppol -->
@@ -113,6 +100,12 @@
                 {{ assurance_police.remarques }}
             </p>
 
+        </div>
+        <div class="mt-auto w-full">
+            <a href="{% url 'assurance_police:modifier_assurance_police' assurance_police.id %}"
+               class="block w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold text-center">
+                {% trans "Modifier la police" %}
+            </a>
         </div>
     </div>
 

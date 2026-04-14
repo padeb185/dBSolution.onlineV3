@@ -46,20 +46,6 @@
                 <strong>{% trans "Pays" %} :</strong>
                 {{ assurance.adresse.pays }}
             </p>
-
-
-
-
-
-           <div class="mt-auto w-full">
-                <a href="{% url 'assurance:modifier_assurance' assurance.id %}" class="block w-full">
-                    <button type="button"
-                            class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
-                        {% trans "Modifier l'assureur" %}
-                    </button>
-                </a>
-           </div>
-
         </div>
 
         <!-- Peppol -->
@@ -80,6 +66,14 @@
 
 
         </div>
+         <div class="mt-auto w-full">
+                <a href="{% url 'assurance:modifier_assurance' assurance.id %}" class="block w-full">
+                    <button type="button"
+                            class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+                        {% trans "Modifier l'assureur" %}
+                    </button>
+                </a>
+         </div>
     </div>
 
     <!-- Adresse -->

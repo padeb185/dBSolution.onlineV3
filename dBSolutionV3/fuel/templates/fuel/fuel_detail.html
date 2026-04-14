@@ -61,20 +61,6 @@
                 <strong>{% trans "Pays" %} :</strong>
                 {{ fuel.get_pays_display }}
             </p>
-
-
-
-
-
-           <div class="mt-auto w-full">
-                <a href="{% url 'fuel:modifier_fuel' fuel.id %}" class="block w-full">
-                    <button type="button"
-                            class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
-                        {% trans "Modifier le plein" %}
-                    </button>
-                </a>
-           </div>
-
         </div>
 
         <!-- Peppol -->
@@ -89,6 +75,15 @@
             </p>
 
         </div>
+        <div class="mt-auto w-full">
+                <a href="{% url 'fuel:modifier_fuel' fuel.id %}" class="block w-full">
+                    <button type="button"
+                            class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+                        {% trans "Modifier le plein" %}
+                    </button>
+                </a>
+           </div>
+
     </div>
 
 

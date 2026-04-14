@@ -11,14 +11,11 @@
                  alt="{{ checkup.voiture_exemplaire.immatriculation }}"
                  class="w-12 h-12">
             <span>{% trans "Détails du checkup" %}</span>
+                    {{ exemplaire.voiture_marque.nom_marque }}
+                {{ exemplaire.voiture_modele.nom_modele }}
+                {{ exemplaire.voiture_modele.nom_variante }}
         </h1>
 
-        <a href="{% if checkup.voiture_exemplaire %}
-                   {% url 'check_up:checkup_list' checkup.voiture_exemplaire.id %}
-               {% else %}# {% endif %}"
-           class="text-blue-600 hover:underline">
-            {% trans "Retour à la liste des checkups" %}
-        </a>
     </div>
 
     <!-- Infos principales -->

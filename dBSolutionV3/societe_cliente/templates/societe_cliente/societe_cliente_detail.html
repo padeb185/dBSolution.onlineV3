@@ -61,17 +61,6 @@
                 <strong>{% trans "Numéro de carte bancaire" %} :</strong>
                 {{ societe_cliente.numero_carte_bancaire|format_card }}
             </p>
-
-
-           <div class="mt-auto w-full">
-                <a href="{% url 'societe_cliente:modifier_societe_cliente' societe_cliente.id_societe_cliente %}" class="block w-full">
-                    <button type="button"
-                            class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
-                        {% trans "Modifier la société" %}
-                    </button>
-                </a>
-           </div>
-
         </div>
 
         <!-- Peppol -->
@@ -89,6 +78,15 @@
             </p>
 
         </div>
+         <div class="mt-auto w-full">
+             <a href="{% url 'societe_cliente:modifier_societe_cliente' societe_cliente.id_societe_cliente %}" class="block w-full">
+                 <button type="button"
+                         class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+                     {% trans "Modifier la société" %}
+                 </button>
+             </a>
+         </div>
+
     </div>
 
     <!-- Adresse -->

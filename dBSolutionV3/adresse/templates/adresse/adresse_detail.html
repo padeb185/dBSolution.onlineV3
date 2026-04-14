@@ -64,21 +64,29 @@
                 {{ adresse.code_pays }}
             </p>
 
+             <!-- Peppol -->
 
+        </div>
 
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-lg font-semibold mb-4">
+                {% trans "Autres informations" %}
+            </h2>
 
-           <div class="mt-auto w-full">
+            <p>
+                <strong>{% trans "Remarques" %} :</strong><br>
+                {{ adresse.remarques }}
+            </p>
+        </div>
+
+        <div class="mt-auto w-full">
                 <a href="{% url 'adresse:modifier_adresse' adresse.id %}" class="block w-full">
                     <button type="button"
                             class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
                         {% trans "Modifier l'adresse" %}
                     </button>
                 </a>
-           </div>
-
         </div>
-
-
     </div>
 
 
@@ -90,7 +98,11 @@
 
         <p>
             <strong>{% trans "Créé le" %} :</strong>
-            {{ client.created_at|date:"d/m/Y H:i" }}
+            {{ adresse.created_at|date:"d/m/Y H:i" }}
+        </p>
+         <p>
+            <strong>{% trans "Mis à jour le" %} :</strong>
+            {{ adresse.created_at|date:"d/m/Y H:i" }}
         </p>
     </div>
 

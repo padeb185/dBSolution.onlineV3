@@ -37,20 +37,6 @@
                 <strong>{% trans "Société" %} :</strong>
                 {{ outillage.societe.nom }}
             </p>
-
-
-
-
-
-           <div class="mt-auto w-full">
-                <a href="{% url 'outillage:modifier_outillage' outillage.id_outillage %}" class="block w-full">
-                    <button type="button"
-                            class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
-                        {% trans "Modifier l'outil" %}
-                    </button>
-                </a>
-           </div>
-
         </div>
 
         <!-- Peppol -->
@@ -65,6 +51,14 @@
             </p>
 
         </div>
+         <div class="mt-auto w-full">
+             <a href="{% url 'outillage:modifier_outillage' outillage.id_outillage %}" class="block w-full">
+                 <button type="button"
+                            class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+                        {% trans "Modifier l'outil" %}
+                    </button>
+                </a>
+         </div>
     </div>
 
     <!-- Adresse -->

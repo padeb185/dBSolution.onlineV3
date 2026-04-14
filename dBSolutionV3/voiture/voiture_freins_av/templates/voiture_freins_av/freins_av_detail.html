@@ -66,17 +66,6 @@
                 <strong>{% trans "Epaisseur des plaquettes" %} :</strong>
                 {{ frein.plaquettes_av }}
             </p>
-
-
-           <div class="mt-auto w-full">
-                <a href="{% url 'voiture_freins_av:modifier_freins_av' frein.id %}" class="block w-full">
-                    <button type="button"
-                            class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
-                        {% trans "Modifier les freins avant" %}
-                    </button>
-                </a>
-           </div>
-
         </div>
 
         <!-- Peppol -->
@@ -91,6 +80,14 @@
             </p>
 
         </div>
+         <div class="mt-auto w-full">
+                <a href="{% url 'voiture_freins_av:modifier_freins_av' frein.id %}" class="block w-full">
+                    <button type="button"
+                            class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+                        {% trans "Modifier les freins avant" %}
+                    </button>
+                </a>
+         </div>
     </div>
 
 
