@@ -126,15 +126,15 @@ class VoitureExemplaire(models.Model):
     kilometres_dernier_entretien = models.PositiveIntegerField(default=0, null=True, blank=True)
 
     kilometres_embrayage = models.PositiveIntegerField(default=0, null=True, blank=True)
-
+    kilometres_remplacement_embrayage = models.PositiveIntegerField(default=0, null=True, blank=True)
     kilometres_boite = models.PositiveIntegerField(default=0, null=True, blank=True)
-
+    kilometres_remplacement_boite = models.PositiveIntegerField(default=0, null=True, blank=True)
     kilometres_moteur = models.PositiveIntegerField(default=0, null=True, blank=True)
-
+    kilometres_remplacement_moteur = models.PositiveIntegerField(default=0, null=True, blank=True)
     variation_kilometres = models.PositiveIntegerField(
         default=0,
         editable=False,
-        help_text="Calculé automatiquement : total - dernière intervention"
+        help_text="Calculé automatiquement : total - dernièr entretien"
     )
 
     date_derniere_intervention = models.DateField(blank=True, null=True)
@@ -235,44 +235,46 @@ class VoitureExemplaire(models.Model):
         # 🚗 VIN
         if self.numero_vin:
             self.numero_vin = self.numero_vin.upper()
-
-            # VIN simplifié
             self.vin_simplifie = self.numero_vin[-10:]
-
-            # Année via VIN (10e caractère = index 9)
             dixieme = self.numero_vin[9]
             self.annee_production = get_vin_year(dixieme)
         else:
             self.vin_simplifie = None
             self.annee_production = None
 
-            # Met à jour tous les kilométrages
-        self.update_kilometres()
+        # 🔄 Mise à jour automatique des kilométrages si le kilométrage châssis change
+        if self.pk:  # Si l'objet existe déjà
+            ancien = VoitureExemplaire.objects.get(pk=self.pk)
+            if ancien.kilometres_chassis != self.kilometres_chassis:
+                self.update_kilometres()
+        else:  # Nouvel objet
+            self.update_kilometres()
 
+        # ⚠️ Sauvegarde finale de l'exemplaire
         super().save(*args, **kwargs)
-
-    def __str__(self):
-        return f"{self.immatriculation} ({self.voiture_marque} {self.voiture_modele})"
 
     def update_kilometres(self):
         """
-        Met à jour tous les kilométrages dépendants de kilometres_chassis
+        Synchronise tous les kilométrages avec kilometres_chassis.
+        Si un composant a été remplacé, son compteur part de 0.
         """
+        km_chassis = self.kilometres_chassis or 0
+
         # Variation depuis le dernier entretien
-        if self.kilometres_chassis is not None and self.kilometres_dernier_entretien is not None:
-            self.variation_kilometres = max(0, self.kilometres_chassis - self.kilometres_dernier_entretien)
-        else:
-            self.variation_kilometres = 0
+        self.variation_kilometres = max(0, km_chassis - (self.kilometres_dernier_entretien or 0))
 
         # Kilométrages des composants
-        if self.voiture_moteur:
-            self.kilometres_moteur = max(0,
-                                         self.kilometres_chassis - self.voiture_moteur.kilometres_remplacement_moteur)
+        if self.kilometres_remplacement_moteur:
+            self.kilometres_moteur = km_chassis - self.kilometres_remplacement_moteur
+        else:
+            self.kilometres_moteur = km_chassis
 
-        if self.voiture_boite:
-            self.kilometres_boite = max(0, self.kilometres_chassis - self.voiture_boite.kilometres_remplacement_boite)
+        if self.kilometres_remplacement_boite:
+            self.kilometres_boite = km_chassis - self.kilometres_remplacement_boite
+        else:
+            self.kilometres_boite = km_chassis
 
-        if self.voiture_embrayage:
-            self.kilometres_embrayage = max(0,
-                                            self.kilometres_chassis - self.voiture_embrayage.kilometres_remplacement_embrayage)
-
+        if self.kilometres_remplacement_embrayage:
+            self.kilometres_embrayage = km_chassis - self.kilometres_remplacement_embrayage
+        else:
+            self.kilometres_embrayage = km_chassis

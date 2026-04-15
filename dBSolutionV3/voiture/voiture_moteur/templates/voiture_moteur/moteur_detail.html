@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load i18n static widget_tweaks %}
 
-{% block title %}{{ embrayage.fabricant }} - {{ embrayage.type_embrayage }}{% endblock %}
+{% block title %}{{ moteur.motoriste }} - {{ moteur.code_moteur }}{% endblock %}
 
 
 {% block content %}
@@ -18,7 +18,7 @@
             {% endwith %}
             <span>{% trans "Détails du moteur :" %}</span>
 
-           <span class="text-black-700">{{ moteur.motoriste }} </span>
+           <span class="text-black-700">{{ moteur.motoriste }} {{ moteur.code_moteur }}</span>
         </h1>
 
 
@@ -53,6 +53,23 @@
                 <strong>{% trans "Cylindrée" %} :</strong>
                 {{ moteur.cylindree_l }}
             </p>
+            <p>
+                <strong>{% trans "Nombre de cylindres" %} :</strong>
+                {{ moteur.nombre_cylindres }}
+            </p>
+            <p>
+                <strong>{% trans "Puissance" %} :</strong>
+                {{ moteur.puissance_ch  }}
+            </p>
+            <p>
+                <strong>{% trans "Distribution" %} :</strong>
+                {{ moteur.get_distribution_display }}
+            </p>
+            <p>
+                <strong>{% trans "Quantité d'huile" %} :</strong>
+                {{ moteur.quantite_huile_l }}
+            </p>
+
         </div>
 
         <!-- Peppol -->
@@ -99,7 +116,7 @@
     <br>
     <div>
         <a href="{% url 'voiture_moteur:list' %}"
-            class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+             class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
             {% trans "Retour a la liste des moteurs" %}
         </a>
     </div>

@@ -20,7 +20,7 @@ class VoitureExemplaireForm(forms.ModelForm):
             "kilometres_moteur",
             "kilometres_boite",
             "kilometres_embrayage",
-            "kilometres_derniere_intervention",
+            "kilometres_dernier_entretien",
             "mois_production",
             "date_mise_en_circulation",
             "est_apres_2010",

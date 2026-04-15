@@ -9,10 +9,10 @@
          style="width:60px; height:60px; margin-right:10px;">
     {% trans "Liste des Fournisseurs" %}
 </h1>
-
+<br>
   <div>
       <a href="{% url 'fournisseur:fournisseur_create' %}"
-         class="bg-blue-600 text-white text-center px-4 py-2 rounded hover:bg-blue-700 transition w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+             class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
           {% trans "Ajouter un fournisseur" %}
       </a>
   </div>
@@ -78,6 +78,13 @@
     </tbody>
 
 </table>
+<br>
+<div>
+    <a href="{% url 'utilisateurs:dashboard' %}"
+       class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour au tableau de bord" %}
+    </a>
+</div>
 
 <!-- DataTables JS -->
 <script>

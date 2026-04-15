@@ -91,20 +91,10 @@ class VoitureEmbrayage(models.Model):
 
     )
 
-    kilometres_embrayage = models.PositiveIntegerField(
-        default=0,
-        null=True,
-        blank=True
-    )
 
     numero_embrayage = models.PositiveSmallIntegerField(
         default=1,
         help_text="1 à 10 (incrémenté à chaque remplacement)",
-        null=True,
-        blank=True
-    )
-    kilometres_remplacement_embrayage = models.PositiveIntegerField(
-        default=0,
         null=True,
         blank=True
     )

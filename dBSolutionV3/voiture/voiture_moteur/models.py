@@ -63,8 +63,6 @@ class MoteurVoiture(models.Model):
     quantite_huile_l = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
 
     kilometres_chassis = models.PositiveIntegerField(default=0, null=True, blank=True)
-    kilometres_moteur = models.PositiveIntegerField(default=0, null=True, blank=True)
-    kilometres_remplacement_moteur = models.PositiveIntegerField(default=0, null=True, blank=True)
     numero_moteur = models.PositiveSmallIntegerField(default=1, null=True, blank=True)
     intervalle_km_entretien = models.PositiveIntegerField(default=15000, null=True, blank=True)
     date_creation = models.DateTimeField(auto_now_add=True)

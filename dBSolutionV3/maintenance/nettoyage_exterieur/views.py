@@ -53,10 +53,6 @@ class NettoyageExterieurListView(ListView):
 # -----------------------------
 # Vue simple pour créer ou modifier NettoyageExterieur
 # -----------------------------
-
-# -----------------------------
-# Vue simple pour créer ou modifier NettoyageExterieur
-# -----------------------------
 @never_cache
 @login_required
 def nettoyage_exterieur_view(request, exemplaire_id):

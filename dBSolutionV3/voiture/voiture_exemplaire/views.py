@@ -5,6 +5,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
 from django_tenants.utils import tenant_context
+
+from .forms import VoitureExemplaireForm
 from .models import VoitureExemplaire, TypeUtilisation
 from ..voiture_modele.models import VoitureModele
 from ..voiture_moteur.models import MoteurVoiture
@@ -185,7 +187,7 @@ def lier_freins(request, exemplaire_id):
 
     with tenant_context(request.user.societe):
         # Liste de tous les systèmes de freins
-        freins = VoitureFreins.objects.all().order_by('taille_disque_av')
+        freins = VoitureFreinsAV.objects.all().order_by('taille_disque_av')
 
         if request.method == "POST":
             frein_id = request.POST.get("frein_id")
@@ -193,10 +195,10 @@ def lier_freins(request, exemplaire_id):
             marque_plaquettes_av = request.POST.get("marque_plaquettes_av")
 
             if frein_id:
-                frein = get_object_or_404(VoitureFreins, id=frein_id)
+                frein = get_object_or_404(VoitureFreinsAV, id=frein_id)
 
                 if frein_id:
-                    frein = get_object_or_404(VoitureFreins, id=frein_id)
+                    frein = get_object_or_404(VoitureFreinsAV, id=frein_id)
 
                     if marque_disques_av:
                         frein.marque_disques_av = marque_disques_av

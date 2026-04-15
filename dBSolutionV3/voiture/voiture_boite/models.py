@@ -53,8 +53,6 @@ class VoitureBoite(models.Model):
 
     # Suivi kilométrique
     kilometres_chassis = models.PositiveIntegerField(default=0, null=True, blank=True)
-    kilometres_boite = models.PositiveIntegerField(default=0,null=True, blank=True)
-    kilometres_remplacement_boite = models.PositiveIntegerField(default=0,null=True, blank=True)
     intervalle_entretien_km = models.PositiveIntegerField(default=60000, verbose_name="Intervalle entretien (km)", null=True, blank=True)
 
     # Historique entretien
