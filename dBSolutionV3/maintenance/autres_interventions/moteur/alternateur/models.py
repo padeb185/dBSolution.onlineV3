@@ -86,6 +86,24 @@ class Alternateur(TechnicienMixin, models.Model):
             f"{prefix}_quantite": models.IntegerField(default=0),
         }
 
+    #diagnostic
+    diagnostic_charge_volt = models.DecimalField(
+        verbose_name=_("Diagnostic charge volt"),
+        max_digits=5,  # total digits, including before and after decimal
+        decimal_places=2,  # digits after the decimal
+        default=0
+    )
+    diagnostic_charge_ampere = models.DecimalField(
+        verbose_name=_("Diagnostic charge ampere"),
+        max_digits=5,
+        decimal_places=2,
+        default=0
+    )
+
+    diagnostic_rapport = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK)
+
+
+
     # Alternateur
     alternateur = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK)
     alternateur_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat htva"))

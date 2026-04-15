@@ -123,11 +123,11 @@ class VoitureExemplaire(models.Model):
     # 📏 Kilométrage châssis
     kilometres_chassis = models.PositiveIntegerField(default=0, null=True, blank=True)
 
-    kilometres_derniere_entretien = models.PositiveIntegerField(default=0, null=True, blank=True)
+    kilometres_dernier_entretien = models.PositiveIntegerField(default=0, null=True, blank=True)
 
     kilometres_embrayage = models.PositiveIntegerField(default=0, null=True, blank=True)
 
-    kilometres_boite_vitesse = models.PositiveIntegerField(default=0, null=True, blank=True)
+    kilometres_boite = models.PositiveIntegerField(default=0, null=True, blank=True)
 
     kilometres_moteur = models.PositiveIntegerField(default=0, null=True, blank=True)
 
@@ -149,23 +149,6 @@ class VoitureExemplaire(models.Model):
 
     date_mise_en_circulation = models.DateField(null=True, blank=True)
 
-    kilometres_moteur = models.PositiveIntegerField(default=0)
-    nombre_moteurs = models.PositiveSmallIntegerField(
-        default=1,
-        validators=[MinValueValidator(1), MaxValueValidator(10)]
-    )
-
-    kilometres_boite_vitesse = models.PositiveIntegerField(default=0)
-    nombre_boites_vitesse = models.PositiveSmallIntegerField(
-        default=1,
-        validators=[MinValueValidator(1), MaxValueValidator(20)]
-    )
-
-    kilometres_embrayage = models.PositiveIntegerField(default=0)
-    nombre_embrayages = models.PositiveSmallIntegerField(
-        default=1,
-        validators=[MinValueValidator(1), MaxValueValidator(15)]
-    )
 
     couleur = models.CharField(max_length=50, blank=True, null=True)
     code_couleur = models.CharField(max_length=50, blank=True, null=True)
@@ -265,10 +248,10 @@ class VoitureExemplaire(models.Model):
             self.annee_production = None
 
         # 📏 Variation kilomètres
-        if self.kilometres_total is not None and self.kilometres_derniere_intervention is not None:
+        if self.kilometres_chassis is not None and self.kilometres_dernier_entretien is not None:
             self.variation_kilometres = max(
                 0,
-                self.kilometres_total - self.kilometres_derniere_intervention
+                self.kilometres_chassis - self.kilometres_dernier_entretien
             )
         else:
             self.variation_kilometres = 0

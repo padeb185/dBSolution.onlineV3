@@ -128,7 +128,7 @@ def alternateur_check_view(request, exemplaire_id):
                             raise ValueError("Kilométrage invalide")
 
                         alternateur.save()
-                    messages.success(request, _("Check alternateur admission enregistré avec succès."))
+                    messages.success(request, _("Check alternateur enregistré avec succès."))
 
                 except Exception as e:
                     messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
@@ -147,38 +147,43 @@ def alternateur_check_view(request, exemplaire_id):
         # --- Génération des champs par section ---
         sections = [
             {
-                "title": "Kilométrage",
+                "title": _("Kilométrage"),
                 "icon": "icons/compteur.png",
                 "fields": [form[f.name] for f in form if "kilo" in f.name],
             },
             {
-                "title": "Alternateur",
+                "title": _("Diagnostic"),
+                "icon": "icons/diagnostic.png",
+                "fields": [form[f.name] for f in form if "diagnostic" in f.name],
+            },
+            {
+                "title": _("Alternateur"),
                 "icon": "icons/alternateur.png",
                 "fields": [form[f.name] for f in form if "alternateur" in f.name],
             },
             {
-                "title": "Courroie d'accessoires",
+                "title": _("Courroie d'accessoires"),
                 "icon": "icons/courroie-daccessoires.png",
                 "fields": [form[f.name] for f in form if "courroie_accessoires" in f.name],
             },
             {
-                "title": "Etiquette",
+                "title": _("Etiquette"),
                 "icon": "icons/tag.png",
                 "fields": [form[f.name] for f in form if "tag" in f.name],
             },
             {
-                "title": "Pays",
+                "title": _("Pays"),
                 "icon": "icons/pays.png",
                 "fields": [form[f.name] for f in form if "pays" in f.name],
             },
 
             {
-                "title": "Remarques",
+                "title": _("Remarques"),
                 "icon": "icons/notes.png",
                 "fields": [form[f.name] for f in form if "remarques" in f.name],
             },
             {
-                "title": "Technicien",
+                "title": _("Technicien"),
                 "icon": "icons/mecanicien.png",
                 "fields": [form[f.name] for f in form if "tech" in f.name],
             },
@@ -258,33 +263,43 @@ def modifier_alternateur_view(request, alternateur_id):
         # -------------------------
         sections = [
             {
-                "title": "Kilométrage",
+                "title": _("Kilométrage"),
                 "icon": "icons/compteur.png",
                 "fields": [form[f.name] for f in form if "kilo" in f.name],
             },
             {
-                "title": "Alternateur",
+                "title": _("Diagnostic"),
+                "icon": "icons/diagnostic.png",
+                "fields": [form[f.name] for f in form if "diagnostic" in f.name],
+            },
+            {
+                "title": _("Alternateur"),
                 "icon": "icons/alternateur.png",
                 "fields": [form[f.name] for f in form if "alternateur" in f.name],
             },
             {
-                "title": "Etiquette",
+                "title": _("Courroie d'accessoires"),
+                "icon": "icons/courroie-daccessoires.png",
+                "fields": [form[f.name] for f in form if "courroie_accessoires" in f.name],
+            },
+            {
+                "title": _("Etiquette"),
                 "icon": "icons/tag.png",
                 "fields": [form[f.name] for f in form if "tag" in f.name],
             },
             {
-                "title": "Pays",
+                "title": _("Pays"),
                 "icon": "icons/pays.png",
                 "fields": [form[f.name] for f in form if "pays" in f.name],
             },
 
             {
-                "title": "Remarques",
+                "title": _("Remarques"),
                 "icon": "icons/notes.png",
                 "fields": [form[f.name] for f in form if "remarques" in f.name],
             },
             {
-                "title": "Technicien",
+                "title": _("Technicien"),
                 "icon": "icons/mecanicien.png",
                 "fields": [form[f.name] for f in form if "tech" in f.name],
             },
