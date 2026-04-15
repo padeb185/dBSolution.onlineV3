@@ -20,7 +20,7 @@
     </div>
 
      <div class="mb-4">
-        <strong>Technicien :</strong> {{ obj.diagnostic_rapport }}
+        <strong>Diagnostic :</strong> {{ obj.get_diagnostic_rapport_display }}
     </div>
 
 
@@ -46,7 +46,7 @@
             {% empty %}
             <tr>
                 <td colspan="4" class="text-center p-4 text-gray-500">
-                    Aucun remplacement nécessaire 👍
+                    {{ item.diagnostic_rapport }}
                 </td>
             </tr>
             {% endfor %}
