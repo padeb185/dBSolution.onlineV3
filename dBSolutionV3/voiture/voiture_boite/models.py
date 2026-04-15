@@ -81,15 +81,6 @@ class VoitureBoite(models.Model):
     def __str__(self):
         return f"Boîte #{self.nom_du_type} - {self.kilometres_boite} km"
 
-    def save(self, *args, **kwargs):
-        if self.kilometres_boite is None:
-            if self.kilometres_chassis is not None and self.kilometres_remplacement_boite is not None:
-                self.kilometres_boite = max(0, self.kilometres_chassis - self.kilometres_remplacement_boite)
-            else:
-                self.kilometres_boite = 0
-        super().save(*args, **kwargs)
-
-
     # Méthodes utilitaires
     def prochain_entretien_km(self):
         return self.kilometres_boite + self.intervalle_entretien_km

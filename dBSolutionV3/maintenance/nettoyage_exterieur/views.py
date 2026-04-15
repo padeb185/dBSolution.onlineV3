@@ -129,6 +129,7 @@ def nettoyage_exterieur_view(request, exemplaire_id):
                         nettoyage_ext.assign_technicien(request.user)
 
                         # ✅ Kilométrage
+                        # ✅ Kilométrage
                         km_checkup = form.cleaned_data.get("kilometres_chassis")
                         if km_checkup is not None:
                             if km_checkup < exemplaire.kilometres_chassis:
@@ -139,9 +140,11 @@ def nettoyage_exterieur_view(request, exemplaire_id):
                                 raise ValueError("Kilométrage invalide")
 
                             nettoyage_ext.kilometres_chassis = km_checkup
+
                             if km_checkup > exemplaire.kilometres_chassis:
                                 exemplaire.kilometres_chassis = km_checkup
-                                exemplaire.save(update_fields=["kilometres_chassis"])
+                                exemplaire.update_kilometres()  # recalcul automatique de tous les champs
+                                exemplaire.save()  # sauvegarde complète avec tous les champs mis à jour
                         else:
                             nettoyage_ext.kilometres_chassis = exemplaire.kilometres_chassis
 

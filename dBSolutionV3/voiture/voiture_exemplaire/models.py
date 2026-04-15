@@ -231,7 +231,6 @@ class VoitureExemplaire(models.Model):
     created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
 
-
     def save(self, *args, **kwargs):
         # 🚗 VIN
         if self.numero_vin:
@@ -247,15 +246,25 @@ class VoitureExemplaire(models.Model):
             self.vin_simplifie = None
             self.annee_production = None
 
-        # 📏 Variation kilomètres
+            # Met à jour tous les kilométrages
+        self.update_kilometres()
+
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.immatriculation} ({self.voiture_marque} {self.voiture_modele})"
+
+    def update_kilometres(self):
+        """
+        Met à jour tous les kilométrages dépendants de kilometres_chassis
+        """
+        # Variation depuis le dernier entretien
         if self.kilometres_chassis is not None and self.kilometres_dernier_entretien is not None:
-            self.variation_kilometres = max(
-                0,
-                self.kilometres_chassis - self.kilometres_dernier_entretien
-            )
+            self.variation_kilometres = max(0, self.kilometres_chassis - self.kilometres_dernier_entretien)
         else:
             self.variation_kilometres = 0
 
+        # Kilométrages des composants
         if self.voiture_moteur:
             self.kilometres_moteur = max(0,
                                          self.kilometres_chassis - self.voiture_moteur.kilometres_remplacement_moteur)
@@ -264,17 +273,6 @@ class VoitureExemplaire(models.Model):
             self.kilometres_boite = max(0, self.kilometres_chassis - self.voiture_boite.kilometres_remplacement_boite)
 
         if self.voiture_embrayage:
-            self.kilometres_embrayage = max(0,self.kilometres_chassis - self.voiture_embrayage.kilometres_remplacement_embrayage)
-
-        super().save(*args, **kwargs)
-
-    def __str__(self):
-        return f"{self.immatriculation} ({self.voiture_marque} {self.voiture_modele})"
-
-
-
-
-
-
-
+            self.kilometres_embrayage = max(0,
+                                            self.kilometres_chassis - self.voiture_embrayage.kilometres_remplacement_embrayage)
 

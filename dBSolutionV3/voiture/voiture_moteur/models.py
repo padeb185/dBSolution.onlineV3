@@ -122,9 +122,4 @@ class MoteurVoiture(models.Model):
                 for champ in champs_a_copier:
                     setattr(self, champ, getattr(moteur_existant, champ))
 
-        if self.kilometres_chassis is not None and self.kilometres_remplacement_moteur is not None:
-            self.kilometres_moteur = max(0, self.kilometres_chassis - self.kilometres_remplacement_moteur)
-        else:
-            self.kilometres_moteur = 0
-
         super().save(*args, **kwargs)

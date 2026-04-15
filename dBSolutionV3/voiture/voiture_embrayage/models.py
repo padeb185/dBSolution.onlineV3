@@ -124,14 +124,6 @@ class VoitureEmbrayage(models.Model):
     def __str__(self):
         return f"Embrayage #{self.numero_embrayage} - {self.kilometres_embrayage} km"
 
-    def save(self, *args, **kwargs):
-        if self.kilometres_embrayage is None:
-            if self.kilometres_chassis is not None and self.kilometres_remplacement_embrayage is not None:
-                self.kilometres_embrayage = max(0, self.kilometres_chassis - self.kilometres_remplacement_embrayage)
-            else:
-                self.kilometres_embrayage = 0
-        super().save(*args, **kwargs)
-
     def remplacer_embrayage(self):
         if self.numero_embrayage < 10:
             self.numero_embrayage += 1
