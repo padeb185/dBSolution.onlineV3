@@ -15,13 +15,9 @@
             {% endwith %}
             <span>{% trans "Détails de l'outillage :" %}</span>
 
-           <span class="text-black-700">{{ outillage.societe.nom }}</span>
-        </h1>
+           <span class="text-black-700">{{ outillage.libelle }}</span>
 
-        <a href="{% url 'outillage:outillage_list' %}"
-           class="text-blue-600 hover:underline">
-            {% trans "Retour à la liste des outillages" %}
-        </a>
+        </h1>
     </div>
 
     <!-- Infos principales -->
@@ -33,21 +29,33 @@
                 {% trans "Informations générales" %}
             </h2>
 
-            <p>
+             <p>
+                <strong>{% trans "Fournisseur" %} :</strong>
+                {{ outillage.fournisseur }}
+            </p> <p>
+                <strong>{% trans "libellé" %} :</strong>
+                {{ outillage.libelle }}
+            </p>
+             <p>
+                <strong>{% trans "Référence" %} :</strong>
+                {{ outillage.reference }}
+            </p>
+             <p>
                 <strong>{% trans "Société" %} :</strong>
                 {{ outillage.societe.nom }}
             </p>
+
         </div>
 
         <!-- Peppol -->
         <div class="bg-white shadow-md rounded-lg p-6">
             <h2 class="text-lg font-semibold mb-4">
-                {% trans "Informations Peppol" %}
+                {% trans "Autres Informations" %}
             </h2>
 
             <p>
-                <strong>{% trans "Identifiant Peppol" %} :</strong><br>
-                {{ outillage.peppol_id }}
+                <strong>{% trans "Remarques" %} :</strong><br>
+                {{ outillage.remarques }}
             </p>
 
         </div>
@@ -61,20 +69,6 @@
          </div>
     </div>
 
-    <!-- Adresse -->
-    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
-        <h2 class="text-lg font-semibold mb-4">
-            {% trans "Adresse" %}
-        </h2>
-
-        {% if outillage.adresse %}
-            <p>{{ outillage.adresse }}</p>
-        {% else %}
-            <p class="text-gray-500">
-                {% trans "Aucune adresse renseignée." %}
-            </p>
-        {% endif %}
-    </div>
 
     <!-- Métadonnées -->
     <div class="bg-white shadow-md rounded-lg p-6 mb-6">
@@ -86,16 +80,20 @@
             <strong>{% trans "Créé le" %} :</strong>
             {{ outillage.created_at|date:"d/m/Y H:i" }}
         </p>
+
+        <p>
+            <strong>{% trans "Mis à jour le" %} :</strong>
+            {{ outillage.updated_at|date:"d/m/Y H:i" }}
+        </p>
     </div>
 
-
+    <br>
 
     <!-- Actions -->
-    <div class="bg-white shadow-md rounded-lg p-6 flex gap-4">
-        <a href="{% url 'outillage:outillage_list' %}" class="flex-1">
-              <button type="button" class="bg-blue-700 text-white px-4 py-2 rounded w-full mt-4">
+    <div>
+        <a href="{% url 'outillage:outillage_list' %}"
+             class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
                     {% trans "Retour à la liste des outils" %}
-              </button>
         </a>
     </div>
 

@@ -68,6 +68,12 @@ class Outillage(models.Model):
         verbose_name=_("TVA à récupérer")
     )
 
+    remarques = models.TextField(
+        verbose_name=_("Remarques"),
+        blank=True,
+        null=True
+    )
+
     created_at = models.DateTimeField(_("Créé le"), default=timezone.now, editable=False)
     updated_at = models.DateTimeField(_("Mis à jour le"),default=timezone.now, editable=False)
 
