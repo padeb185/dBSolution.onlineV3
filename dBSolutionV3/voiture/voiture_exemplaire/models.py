@@ -256,14 +256,16 @@ class VoitureExemplaire(models.Model):
         else:
             self.variation_kilometres = 0
 
-        if self.voiture_moteur and (self.kilometres_moteur == 0):
-            self.kilometres_moteur = self.kilometres_chassis - self.voiture_moteur.kilometres_remplacement_moteur
+        if self.voiture_moteur:
+            self.kilometres_moteur = max(0,
+                                         self.kilometres_chassis - self.voiture_moteur.kilometres_remplacement_moteur)
 
-        if self.voiture_boite and (self.kilometres_boite == 0):
-            self.kilometres_boite = self.kilometres_chassis - self.voiture_boite.kilometres_remplacement_boite
+        if self.voiture_boite:
+            self.kilometres_boite = max(0, self.kilometres_chassis - self.voiture_boite.kilometres_remplacement_boite)
 
-        if self.voiture_embrayage and (self.kilometres_embrayage == 0):
-            self.kilometres_embrayage = self.kilometres_chassis - self.voiture_embrayage.kilometres_remplacement_embrayage
+        if self.voiture_embrayage:
+            self.kilometres_embrayage = max(0,self.kilometres_chassis - self.voiture_embrayage.kilometres_remplacement_embrayage)
+
         super().save(*args, **kwargs)
 
     def __str__(self):

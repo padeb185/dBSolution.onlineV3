@@ -8,14 +8,9 @@
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold flex items-center gap-4">
             <span>{% trans "Détails du véhicule : " %}</span>
-
-            <p>
-                <div class="mb-4">
-                {% include "voiture_exemplaire/partials/plaque.html" %}
-                </div>
-            </p>
-
-
+                  {{ exemplaire.voiture_marque.nom_marque }}
+                {{ exemplaire.voiture_modele.nom_modele }}
+                {{ exemplaire.voiture_modele.nom_variante }}
         </h1>
     </div>
 
@@ -25,6 +20,11 @@
         <!-- Informations générales -->
         <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
             <h2 class="text-lg font-semibold mb-2">{% trans "Informations générales" %}</h2>
+            <p><strong>{% trans "Immatriculation" %}:</strong>
+                <div class="mb-4">
+                    {% include "voiture_exemplaire/partials/plaque.html" %}
+                </div>
+            </p>
             <p><strong>{% trans "Année de production" %}:</strong> {{ exemplaire.annee_production }}/{{ exemplaire.mois_production }}</p>
             <p><strong>{% trans "Kilométrage châssis" %}:</strong> {{ exemplaire.kilometres_chassis }} km</p>
             <p><strong>{% trans "Kilométrage moteur" %}:</strong> {{ exemplaire.kilometres_moteur }} km</p>
