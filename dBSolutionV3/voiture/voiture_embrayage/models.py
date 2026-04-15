@@ -103,7 +103,7 @@ class VoitureEmbrayage(models.Model):
         null=True,
         blank=True
     )
-    Kilometres_remplacement_embrayage = models.PositiveIntegerField(
+    kilometres_remplacement_embrayage = models.PositiveIntegerField(
         default=0,
         null=True,
         blank=True
@@ -122,17 +122,20 @@ class VoitureEmbrayage(models.Model):
         ]
 
     def __str__(self):
-        return f"Boîte #{self.numero_embrayage} - {self.kilometrage_embrayage} km"
+        return f"Embrayage #{self.numero_embrayage} - {self.kilometres_embrayage} km"
 
     def save(self, *args, **kwargs):
         if self.kilometres_embrayage is None:
-            if self.kilometres_chassis is not None and self.Kilometres_remplacement_embrayage is not None:
-                self.kilometrage_embrayage = max(0, self.kilometres_chassis - self.Kilometres_remplacement_embrayage)
+            if self.kilometres_chassis is not None and self.kilometres_remplacement_embrayage is not None:
+                self.kilometres_embrayage = max(0, self.kilometres_chassis - self.kilometres_remplacement_embrayage)
             else:
-                self.kilometrage_embrayage = 0
+                self.kilometres_embrayage = 0
+        super().save(*args, **kwargs)
 
     def remplacer_embrayage(self):
         if self.numero_embrayage < 10:
             self.numero_embrayage += 1
-            self.kilometrage_boite = 0
+            # On remet à zéro le kilométrage de l’embrayage
+            self.kilometres_remplacement_embrayage = self.kilometres_chassis  # mise à jour du kilométrage de remplacement
+            self.kilometres_embrayage = 0
             self.save()

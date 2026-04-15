@@ -18,6 +18,8 @@ class VoitureExemplaireForm(forms.ModelForm):
             "type_utilisation",
             "kilometres_chassis",
             "kilometres_moteur",
+            "kilometres_boite",
+            "kilometres_embrayage",
             "kilometres_derniere_intervention",
             "mois_production",
             "date_mise_en_circulation",

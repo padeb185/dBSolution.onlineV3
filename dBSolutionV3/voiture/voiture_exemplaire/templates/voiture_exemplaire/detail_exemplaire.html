@@ -26,16 +26,15 @@
         <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
             <h2 class="text-lg font-semibold mb-2">{% trans "Informations générales" %}</h2>
             <p><strong>{% trans "Année de production" %}:</strong> {{ exemplaire.annee_production }}/{{ exemplaire.mois_production }}</p>
-            <p><strong>{% trans "Kilométrage" %}:</strong> {{ exemplaire.kilometres_chassis }} km</p>
+            <p><strong>{% trans "Kilométrage châssis" %}:</strong> {{ exemplaire.kilometres_chassis }} km</p>
+            <p><strong>{% trans "Kilométrage moteur" %}:</strong> {{ exemplaire.kilometres_moteur }} km</p>
+            <p><strong>{% trans "Kilométrage boite" %}:</strong> {{ exemplaire.kilometres_boite }} km</p>
+            <p><strong>{% trans "Kilométrage embrayage" %}:</strong> {{ exemplaire.kilometres_embrayage }} km</p>
+            <p><strong>{% trans "Kilométrage du dernier entretien" %}:</strong> {{ exemplaire.kilometres_dernier_entretien }} km</p>
+            <br>
             <p><strong>{% trans "Couleur" %}:</strong> {{ exemplaire.couleur|default:_("Non renseignée") }}</p>
 
-            <div class="mt-auto w-full">
-                <a href="{% url 'voiture_exemplaire:modifier_exemplaire' exemplaire_id=exemplaire.id %}" class="block w-full">
-                    <button type="button" class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
-                        {% trans "Modifier" %}
-                    </button>
-                </a>
-            </div>
+
         </div>
 
         <!-- Moteurs et boites -->
@@ -183,6 +182,13 @@
             {% endif %}
 
 
+        </div>
+        <div class="mt-auto w-full">
+            <a href="{% url 'voiture_exemplaire:modifier_exemplaire' exemplaire_id=exemplaire.id %}" class="block w-full">
+                <button type="button" class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+                    {% trans "Modifier" %}
+                </button>
+            </a>
         </div>
     </div>
 

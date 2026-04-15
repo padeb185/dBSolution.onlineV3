@@ -227,3 +227,4 @@ def cout_total_annuel():
         elif p.prime_mensuelle:
             total += p.prime_mensuelle * 12
     return total
+

@@ -256,15 +256,14 @@ class VoitureExemplaire(models.Model):
         else:
             self.variation_kilometres = 0
 
-        if self.kilometres_moteur is None:
-            self.kilometres_moteur = self.kilometre_chassis - self.kilometres_remplacement_moteur
+        if self.voiture_moteur and (self.kilometres_moteur == 0):
+            self.kilometres_moteur = self.kilometres_chassis - self.voiture_moteur.kilometres_remplacement_moteur
 
-        if self.kilometres_boite is None:
-            self.kilometres_moteur = self.kilometre_chassis - self.kilometres_remplacement_boite
+        if self.voiture_boite and (self.kilometres_boite == 0):
+            self.kilometres_boite = self.kilometres_chassis - self.voiture_boite.kilometres_remplacement_boite
 
-        if self.kilometres_embrayage is None:
-            self.kilometres_moteur = self.kilometre_chassis - self.kilometres_remplacement_embrayage
-
+        if self.voiture_embrayage and (self.kilometres_embrayage == 0):
+            self.kilometres_embrayage = self.kilometres_chassis - self.voiture_embrayage.kilometres_remplacement_embrayage
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -276,15 +275,4 @@ class VoitureExemplaire(models.Model):
 
 
 
-@property
-def cout_assurance_annuel(self):
-    polices = self.polices_assurance.filter(actif=True)
-
-    total = 0
-    for p in polices:
-        if p.prime_annuelle:
-            total += p.prime_annuelle
-        elif p.prime_mensuelle:
-            total += p.prime_mensuelle * 12
-    return total
 

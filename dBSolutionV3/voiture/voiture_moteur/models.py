@@ -91,12 +91,12 @@ class MoteurVoiture(models.Model):
         return f"Moteur {self.cylindree_l}L - {self.type_moteur}"
 
     def prochain_entretien_km(self):
-        return self.kilometrage_moteur + self.intervalle_km_entretien
+        return self.kilometres_moteur + self.intervalle_km_entretien
 
     def remplacer_moteur(self):
         if self.numero_moteur < 10:
             self.numero_moteur += 1
-            self.kilometrage_moteur = 0
+            self.kilometres_moteur = 0
             self.save()
 
     def save(self, *args, **kwargs):
@@ -122,12 +122,9 @@ class MoteurVoiture(models.Model):
                 for champ in champs_a_copier:
                     setattr(self, champ, getattr(moteur_existant, champ))
 
-
-
-        if self.kilometres_moteur is None:
-            if self.kilometres_chassis is not None and self.Kilometres_remplacement_moteur is not None:
-                self.kilometres_moteur = max(0, self.kilometres_chassis - self.Kilometres_remplacement_moteur)
-            else:
-                self.kilometres_moteur = 0
+        if self.kilometres_chassis is not None and self.kilometres_remplacement_moteur is not None:
+            self.kilometres_moteur = max(0, self.kilometres_chassis - self.kilometres_remplacement_moteur)
+        else:
+            self.kilometres_moteur = 0
 
         super().save(*args, **kwargs)
