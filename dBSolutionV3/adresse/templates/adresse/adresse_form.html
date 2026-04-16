@@ -98,22 +98,20 @@
     </form>
 </div>
 
+
+
 <script>
-
-
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
 
     function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie) {
-            document.cookie.split(';').forEach(c => {
-                c = c.trim();
-                if (c.startsWith(name + '=')) {
-                    cookieValue = decodeURIComponent(c.slice(name.length + 1));
-                }
-            });
+        const cookies = document.cookie ? document.cookie.split(';') : [];
+        for (let cookie of cookies) {
+            cookie = cookie.trim();
+            if (cookie.startsWith(name + '=')) {
+                return decodeURIComponent(cookie.slice(name.length + 1));
+            }
         }
-        return cookieValue;
+        return null;
     }
 
     const csrftoken = getCookie('csrftoken');

@@ -213,11 +213,16 @@
     </a>
 </div>
 <script>
-    // Calcul automatique de l'âge
+document.addEventListener('DOMContentLoaded', () => {
+
+    // ------------------------
+    // 1. Calcul automatique de l'âge
+    // ------------------------
     function updateAge() {
         const dateInput = document.getElementById('id_date_naissance');
         const ageInput = document.getElementById('id_age');
-        if (!dateInput.value) return;
+        if (!dateInput || !ageInput || !dateInput.value) return;
+
         const birthDate = new Date(dateInput.value);
         const today = new Date();
         let age = today.getFullYear() - birthDate.getFullYear();
@@ -225,61 +230,53 @@
         if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) age--;
         ageInput.value = age;
     }
-    document.getElementById('id_date_naissance').addEventListener('change', updateAge);
-    window.addEventListener('DOMContentLoaded', updateAge);
 
-
-
-
-// Si le client existe déjà, remplir l'âge au chargement
-window.addEventListener('DOMContentLoaded', () => {
-    const dateInput = document.getElementById('id_date_naissance');
-    if (dateInput.value) {
-        dateInput.dispatchEvent(new Event('change'));
-    }
-});
-
-
-
-document.addEventListener('DOMContentLoaded', function () {
-
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie) {
-            document.cookie.split(';').forEach(c => {
-                c = c.trim();
-                if (c.startsWith(name + '=')) {
-                    cookieValue = decodeURIComponent(c.slice(name.length + 1));
-                }
-            });
+    const dateNaissanceInput = document.getElementById('id_date_naissance');
+    if (dateNaissanceInput) {
+        dateNaissanceInput.addEventListener('change', updateAge);
+        // Si le client existe déjà, remplir l'âge au chargement
+        if (dateNaissanceInput.value) {
+            updateAge();
         }
-        return cookieValue;
     }
 
+    // ------------------------
+    // 2. Récupération du CSRF token
+    // ------------------------
+    function getCookie(name) {
+        const cookies = document.cookie ? document.cookie.split(';') : [];
+        for (let cookie of cookies) {
+            cookie = cookie.trim();
+            if (cookie.startsWith(name + '=')) {
+                return decodeURIComponent(cookie.slice(name.length + 1));
+            }
+        }
+        return null;
+    }
     const csrftoken = getCookie('csrftoken');
-    const dateNaissanceInput = document.getElementById('id_prenom');
 
-    if (!dateNaissanceInput) return;
+    // ------------------------
+    // 3. Vérification du prénom existant
+    // ------------------------
+    const prenomInput = document.getElementById('id_prenom');
+    if (prenomInput) {
+        prenomInput.addEventListener('blur', () => {
+            const prenom = prenomInput.value.trim();
+            if (!prenom) return;
 
-    // Écoute le champ numéro de permis
-    dateNaissanceInput.addEventListener('blur', function () {
-
-        const numero_permis = this.value.trim();
-        if (!numero_permis) return;
-
-        fetch('/api/check_prenom/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrftoken,
-            },
-            body: JSON.stringify({prenom})
-        })
+            fetch('/api/check_prenom/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                },
+                body: JSON.stringify({ prenom })
+            })
             .then(r => r.json())
             .then(data => {
-
+                // Remplissage des champs si le client existe
                 if (data.exist) {
-                    document.getElementById('id_prenom').value = data.prenom || '';
+                    prenomInput.value = data.prenom || '';
                     document.getElementById('id_nom').value = data.nom || '';
                     document.getElementById('id_email').value = data.email || '';
 
@@ -291,12 +288,11 @@ document.addEventListener('DOMContentLoaded', function () {
                         document.getElementById('id_pays').value = data.adresse.pays || '';
                         document.getElementById('id_code_pays').value = data.adresse.code_pays || '';
                     }
-
                 } else {
-                    document.getElementById('id_prenom').value = '';
+                    // Réinitialisation des champs si inexistant
+                    prenomInput.value = '';
                     document.getElementById('id_nom').value = '';
                     document.getElementById('id_email').value = '';
-
                     document.getElementById('id_rue').value = '';
                     document.getElementById('id_numero').value = '';
                     document.getElementById('id_code_postal').value = '';
@@ -306,47 +302,40 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             })
             .catch(err => console.error("Erreur:", err));
-    });
+        });
+    }
 
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-
+    // ------------------------
+    // 4. Formatage des numéros bancaires
+    // ------------------------
     function formatBankNumber(inputId) {
         const input = document.getElementById(inputId);
         if (!input) return;
 
-        input.addEventListener("input", function () {
+        input.addEventListener('input', () => {
             let val = input.value.toUpperCase();
-
-            // Supprime tout sauf lettres et chiffres
-            val = val.replace(/[^A-Z0-9]/g, "");
+            val = val.replace(/[^A-Z0-9]/g, ""); // supprimer tout sauf lettres et chiffres
 
             let formatted = "";
             let i = 0;
 
             while (i < val.length) {
                 if (i === 0) {
-                    // deux lettres
-                    formatted += val.substr(i, 2);
+                    formatted += val.substr(i, 2); // deux lettres
                     i += 2;
                 } else if (i === 2) {
-                    // deux chiffres + espace
-                    formatted += val.substr(i, 2) + " ";
+                    formatted += val.substr(i, 2) + " "; // deux chiffres + espace
                     i += 2;
                 } else {
-                    // groupes de quatre chiffres + espace
-                    formatted += val.substr(i, 4) + " ";
+                    formatted += val.substr(i, 4) + " "; // groupes de 4 chiffres + espace
                     i += 4;
                 }
             }
 
-            // Supprime l'espace final
             input.value = formatted.trim();
         });
     }
 
-    // Appliquer aux deux champs
     formatBankNumber("id_numero_carte_bancaire");
     formatBankNumber("id_numero_compte");
 

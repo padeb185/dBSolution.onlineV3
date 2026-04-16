@@ -144,7 +144,23 @@
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    function getCookie(name) {
+        const cookies = document.cookie ? document.cookie.split(';') : [];
+        for (let cookie of cookies) {
+            cookie = cookie.trim();
+            if (cookie.startsWith(name + '=')) {
+                return decodeURIComponent(cookie.slice(name.length + 1));
+            }
+        }
+        return null;
+    }
+    const csrftoken = getCookie('csrftoken');
+
+
 
     function formatBankNumber(inputId) {
         const input = document.getElementById(inputId);

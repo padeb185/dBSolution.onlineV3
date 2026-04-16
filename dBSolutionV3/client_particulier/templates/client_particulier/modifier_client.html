@@ -108,57 +108,136 @@
     box-sizing: border-box !important;
 }
 </style>
+
+
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener('DOMContentLoaded', () => {
 
-    // Fonction générique de groupage
-    function formatGroups(value, groups, separator = " ") {
-        if (!value) return "";
-        // Retire tout sauf lettres et chiffres
-        value = value.replace(/[^A-Z0-9]/gi, "").toUpperCase();
+    // ------------------------
+    // 1. Calcul automatique de l'âge
+    // ------------------------
+    function updateAge() {
+        const dateInput = document.getElementById('id_date_naissance');
+        const ageInput = document.getElementById('id_age');
+        if (!dateInput || !ageInput || !dateInput.value) return;
 
-        let result = "";
-        let index = 0;
-
-        for (let size of groups) {
-            if (index >= value.length) break;
-            result += value.substr(index, size) + separator;
-            index += size;
-        }
-
-        if (index < value.length) {
-            result += value.substr(index);
-        }
-
-        return result.trim();
+        const birthDate = new Date(dateInput.value);
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) age--;
+        ageInput.value = age;
     }
 
-    // Applique format sur un input ciblé par name
-    function attachFormatter(inputName, groups, separator = " ") {
-        const input = document.querySelector(`input[name="${inputName}"]`);
+    const dateNaissanceInput = document.getElementById('id_date_naissance');
+    if (dateNaissanceInput) {
+        dateNaissanceInput.addEventListener('change', updateAge);
+        // Si le client existe déjà, remplir l'âge au chargement
+        if (dateNaissanceInput.value) {
+            updateAge();
+        }
+    }
+
+    // ------------------------
+    // 2. Récupération du CSRF token
+    // ------------------------
+    function getCookie(name) {
+        const cookies = document.cookie ? document.cookie.split(';') : [];
+        for (let cookie of cookies) {
+            cookie = cookie.trim();
+            if (cookie.startsWith(name + '=')) {
+                return decodeURIComponent(cookie.slice(name.length + 1));
+            }
+        }
+        return null;
+    }
+    const csrftoken = getCookie('csrftoken');
+
+    // ------------------------
+    // 3. Vérification du prénom existant
+    // ------------------------
+    const prenomInput = document.getElementById('id_prenom');
+    if (prenomInput) {
+        prenomInput.addEventListener('blur', () => {
+            const prenom = prenomInput.value.trim();
+            if (!prenom) return;
+
+            fetch('/api/check_prenom/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                },
+                body: JSON.stringify({ prenom })
+            })
+            .then(r => r.json())
+            .then(data => {
+                // Remplissage des champs si le client existe
+                if (data.exist) {
+                    prenomInput.value = data.prenom || '';
+                    document.getElementById('id_nom').value = data.nom || '';
+                    document.getElementById('id_email').value = data.email || '';
+
+                    if (data.adresse) {
+                        document.getElementById('id_rue').value = data.adresse.rue || '';
+                        document.getElementById('id_numero').value = data.adresse.numero || '';
+                        document.getElementById('id_code_postal').value = data.adresse.code_postal || '';
+                        document.getElementById('id_ville').value = data.adresse.ville || '';
+                        document.getElementById('id_pays').value = data.adresse.pays || '';
+                        document.getElementById('id_code_pays').value = data.adresse.code_pays || '';
+                    }
+                } else {
+                    // Réinitialisation des champs si inexistant
+                    prenomInput.value = '';
+                    document.getElementById('id_nom').value = '';
+                    document.getElementById('id_email').value = '';
+                    document.getElementById('id_rue').value = '';
+                    document.getElementById('id_numero').value = '';
+                    document.getElementById('id_code_postal').value = '';
+                    document.getElementById('id_ville').value = '';
+                    document.getElementById('id_pays').value = 'Belgique';
+                    document.getElementById('id_code_pays').value = 'BE';
+                }
+            })
+            .catch(err => console.error("Erreur:", err));
+        });
+    }
+
+    // ------------------------
+    // 4. Formatage des numéros bancaires
+    // ------------------------
+    function formatBankNumber(inputId) {
+        const input = document.getElementById(inputId);
         if (!input) return;
 
-        const applyFormat = () => {
-            const cursorPos = input.selectionStart; // garde la position du curseur
-            input.value = formatGroups(input.value, groups, separator);
-            // repositionne le curseur à la fin
-            input.setSelectionRange(cursorPos, cursorPos);
-        };
+        input.addEventListener('input', () => {
+            let val = input.value.toUpperCase();
+            val = val.replace(/[^A-Z0-9]/g, ""); // supprimer tout sauf lettres et chiffres
 
-        // Format immédiatement au chargement, même si prérempli
-        applyFormat();
+            let formatted = "";
+            let i = 0;
 
-        // Format en live
-        input.addEventListener("input", applyFormat);
+            while (i < val.length) {
+                if (i === 0) {
+                    formatted += val.substr(i, 2); // deux lettres
+                    i += 2;
+                } else if (i === 2) {
+                    formatted += val.substr(i, 2) + " "; // deux chiffres + espace
+                    i += 2;
+                } else {
+                    formatted += val.substr(i, 4) + " "; // groupes de 4 chiffres + espace
+                    i += 4;
+                }
+            }
+
+            input.value = formatted.trim();
+        });
     }
 
-    // =================
-    // Champs à formater
-    // =================
-    attachFormatter("numero_compte", [4, 4, 4, 4]);           // IBAN
-    attachFormatter("numero_carte_bancaire", [4, 4, 4, 4]);       // Carte bancaire
+    formatBankNumber("id_numero_carte_bancaire");
+    formatBankNumber("id_numero_compte");
+
 });
 </script>
-
 
 {% endblock %}
