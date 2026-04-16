@@ -115,9 +115,7 @@
 }
 </style>
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-
-    function getCookie(name) {
+     function getCookie(name) {
         let cookieValue = null;
         if (document.cookie) {
             document.cookie.split(';').forEach(c => {
@@ -132,6 +130,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const csrftoken = getCookie('csrftoken');
 
+
+document.addEventListener("DOMContentLoaded", function () {
 
     const decimalInputs = [
         "id_taille_disque_av",
