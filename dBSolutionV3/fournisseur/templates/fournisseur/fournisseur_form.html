@@ -154,51 +154,58 @@
 
 
 <script>
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie) {
-        document.cookie.split(';').forEach(c => {
-            c = c.trim();
-            if (c.startsWith(name + '=')) {
-                cookieValue = decodeURIComponent(c.slice(name.length + 1));
-            }
-        });
-    }
-    return cookieValue;
-}
+document.addEventListener('DOMContentLoaded', () => {
 
-const csrftoken = getCookie('csrftoken');
-
-document.getElementById('id_nom').addEventListener('change', function(){
-    const fournisseur = this.value;
-
-    fetch('/api/check_nom', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': csrftoken,
-        },
-        body: JSON.stringify({ fournisseur: fournisseur })
-    })
-    .then(r => r.json())
-    .then(data => {
-        if (data.exist) {
-            document.getElementById('id_nom').value = data.nom;
-            document.getElementById('id_numero_tva').value = data.numero_tva;
-            document.getElementById('id_peppol_id').value = data.peppol_id;
-            document.getElementById('id_country_code').value = data.country_code;
-
-
-        } else {
-            document.getElementById('id_nom').value = '';
-            document.getElementById('id_numero_tva').value = '';
-            document.getElementById('id_peppol_id').value = '';
-            document.getElementById('id_country_code').value = '';
-
-
+    // Fonction pour récupérer le CSRF token
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie) {
+            document.cookie.split(';').forEach(c => {
+                c = c.trim();
+                if (c.startsWith(name + '=')) {
+                    cookieValue = decodeURIComponent(c.slice(name.length + 1));
+                }
+            });
         }
-    })
-    .catch(err => console.error("Erreur:", err));
+        return cookieValue;
+    }
+
+    const csrftoken = getCookie('csrftoken');
+
+    // Sélection du champ fournisseur
+    const nomInput = document.getElementById('id_nom');
+    if (!nomInput) return;
+
+    nomInput.addEventListener('change', function() {
+        const fournisseur = this.value.trim();
+        if (!fournisseur) return;
+
+        fetch('/api/check_nom', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            },
+            body: JSON.stringify({ fournisseur })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.exist) {
+                document.getElementById('id_nom').value = data.nom || '';
+                document.getElementById('id_numero_tva').value = data.numero_tva || '';
+                document.getElementById('id_peppol_id').value = data.peppol_id || '';
+                document.getElementById('id_country_code').value = data.country_code || '';
+            } else {
+                document.getElementById('id_nom').value = '';
+                document.getElementById('id_numero_tva').value = '';
+                document.getElementById('id_peppol_id').value = '';
+                document.getElementById('id_country_code').value = '';
+            }
+        })
+        .catch(err => console.error("Erreur:", err));
+    });
+
 });
 </script>
+
 {% endblock %}

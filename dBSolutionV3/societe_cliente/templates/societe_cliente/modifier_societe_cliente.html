@@ -99,55 +99,119 @@
     box-sizing: border-box !important;
 }
 </style>
+
+
 <script>
+
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie) {
+            document.cookie.split(';').forEach(c => {
+                c = c.trim();
+                if (c.startsWith(name + '=')) {
+                    cookieValue = decodeURIComponent(c.slice(name.length + 1));
+                }
+            });
+        }
+        return cookieValue;
+    }
+
+    const csrftoken = getCookie('csrftoken');
+    const societeClienteInput = document.getElementById('id_nom_societe_cliente');
+
+    if (!societeClienteInput) return;
+
+    // Écoute le champ numéro de permis
+    societeClienteInput.addEventListener('blur', function () {
+
+        const numero_permis = this.value.trim();
+        if (!numero_permis) return;
+
+        fetch('/api/check_nom_societe/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            },
+            body: JSON.stringify({ nom_societe_cliente })
+        })
+        .then(r => r.json())
+        .then(data => {
+
+            if (data.exist) {
+                document.getElementById('id_nom_societe_cliente').value = data.nom_societe_cliente || '';
+                document.getElementById('id_directeur_nom_prenom').value = data.directeur_nom_prenom || '';
+                document.getElementById('id_email').value = data.email || '';
+
+                if (data.adresse) {
+                    document.getElementById('id_rue').value = data.adresse.rue || '';
+                    document.getElementById('id_numero').value = data.adresse.numero || '';
+                    document.getElementById('id_code_postal').value = data.adresse.code_postal || '';
+                    document.getElementById('id_ville').value = data.adresse.ville || '';
+                    document.getElementById('id_pays').value = data.adresse.pays || '';
+                    document.getElementById('id_code_pays').value = data.adresse.code_pays || '';
+                }
+
+            } else {
+                document.getElementById('id_prenom').value = '';
+                document.getElementById('id_nom').value = '';
+                document.getElementById('id_email').value = '';
+
+                document.getElementById('id_rue').value = '';
+                document.getElementById('id_numero').value = '';
+                document.getElementById('id_code_postal').value = '';
+                document.getElementById('id_ville').value = '';
+                document.getElementById('id_pays').value = 'Belgique';
+                document.getElementById('id_code_pays').value = 'BE';
+            }
+        })
+        .catch(err => console.error("Erreur:", err));
+    });
+});
+
 document.addEventListener("DOMContentLoaded", function () {
 
-    // Fonction générique de groupage
-    function formatGroups(value, groups, separator = " ") {
-        if (!value) return "";
-        // Retire tout sauf lettres et chiffres
-        value = value.replace(/[^A-Z0-9]/gi, "").toUpperCase();
-
-        let result = "";
-        let index = 0;
-
-        for (let size of groups) {
-            if (index >= value.length) break;
-            result += value.substr(index, size) + separator;
-            index += size;
-        }
-
-        if (index < value.length) {
-            result += value.substr(index);
-        }
-
-        return result.trim();
-    }
-
-    // Applique format sur un input ciblé par name
-    function attachFormatter(inputName, groups, separator = " ") {
-        const input = document.querySelector(`input[name="${inputName}"]`);
+    function formatBankNumber(inputId) {
+        const input = document.getElementById(inputId);
         if (!input) return;
 
-        const applyFormat = () => {
-            const cursorPos = input.selectionStart; // garde la position du curseur
-            input.value = formatGroups(input.value, groups, separator);
-            // repositionne le curseur à la fin
-            input.setSelectionRange(cursorPos, cursorPos);
-        };
+        input.addEventListener("input", function () {
+            let val = input.value.toUpperCase();
 
-        // Format immédiatement au chargement, même si prérempli
-        applyFormat();
+            // Supprime tout sauf lettres et chiffres
+            val = val.replace(/[^A-Z0-9]/g, "");
 
-        // Format en live
-        input.addEventListener("input", applyFormat);
+            let formatted = "";
+            let i = 0;
+
+            while (i < val.length) {
+                if (i === 0) {
+                    // deux lettres
+                    formatted += val.substr(i, 2);
+                    i += 2;
+                } else if (i === 2) {
+                    // deux chiffres + espace
+                    formatted += val.substr(i, 2) + " ";
+                    i += 2;
+                } else {
+                    // groupes de quatre chiffres + espace
+                    formatted += val.substr(i, 4) + " ";
+                    i += 4;
+                }
+            }
+
+            // Supprime l'espace final
+            input.value = formatted.trim();
+        });
     }
 
-    // =================
-    // Champs à formater
-    // =================
-    attachFormatter("numero_compte", [4, 4, 4, 4]);           // IBAN
-    attachFormatter("numero_carte_bancaire", [4, 4, 4, 4]);       // Carte bancaire
+    // Appliquer aux deux champs
+    formatBankNumber("id_numero_carte_bancaire");
+    formatBankNumber("id_numero_compte");
+
 });
 </script>
 

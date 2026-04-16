@@ -90,5 +90,104 @@
     box-sizing: border-box !important;
 }
 </style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie) {
+            document.cookie.split(';').forEach(c => {
+                c = c.trim();
+                if (c.startsWith(name + '=')) {
+                    cookieValue = decodeURIComponent(c.slice(name.length + 1));
+                }
+            });
+        }
+        return cookieValue;
+    }
+
+    const csrftoken = getCookie('csrftoken');
+
+
+
+    const immatInput = document.getElementById("id_immatriculation");
+    if (immatInput) {
+        immatInput.addEventListener("input", function () {
+            const value = this.value;
+            if (value.length < 2) return; // éviter les requêtes inutiles
+
+            fetch(`/fuel/ajax/check-immatriculation/?immatriculation=${value}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.error) {
+                        // remplir le champ caché obligatoire
+                        document.getElementById("id_voiture_exemplaire").value = data.id;
+
+                        // remplir les champs readonly
+                        document.getElementById("id_voiture_marque").value = data.marque;
+                        document.getElementById("id_voiture_modele").value = data.modele;
+                        document.getElementById("id_taille_reservoir_display").value = data.volume;
+                    } else {
+                        document.getElementById("id_voiture_exemplaire").value = "";
+                        document.getElementById("id_voiture_marque").value = "";
+                        document.getElementById("id_voiture_modele").value = "";
+                        document.getElementById("id_taille_reservoir_display").value = "";
+                    }
+                })
+                .catch(err => console.error("Erreur:", err));
+        });
+    }
+
+    // -----------------------------
+    // Auto-complétion marque et modèle (optionnel)
+    // -----------------------------
+    const marqueInput = document.getElementById("id_voiture_marque");
+    const modeleInput = document.getElementById("id_voiture_modele");
+
+    if (marqueInput && modeleInput) {
+        // Auto-complétion marque
+        marqueInput.addEventListener("input", function () {
+            const query = this.value;
+            fetch(`/fuel/ajax/get-marques/?q=${query}`)
+                .then(r => r.json())
+                .then(data => {
+                    const list = document.getElementById("marque-list");
+                    if (list) {
+                        list.innerHTML = "";
+                        data.forEach(item => {
+                            const option = document.createElement("option");
+                            option.value = item;
+                            list.appendChild(option);
+                        });
+                    }
+                })
+                .catch(err => console.error("Erreur marques:", err));
+        });
+
+        // Auto-complétion modèle
+        modeleInput.addEventListener("input", function () {
+            const query = this.value;
+            fetch(`/fuel/ajax/get-modeles/?q=${query}`)
+                .then(r => r.json())
+                .then(data => {
+                    const list = document.getElementById("modele-list");
+                    if (list) {
+                        list.innerHTML = "";
+                        data.forEach(item => {
+                            const option = document.createElement("option");
+                            option.value = item;
+                            list.appendChild(option);
+                        });
+                    }
+                })
+                .catch(err => console.error("Erreur modèles:", err));
+        });
+    }
+
+});
+
+</script>
+
 {% endblock %}
 
