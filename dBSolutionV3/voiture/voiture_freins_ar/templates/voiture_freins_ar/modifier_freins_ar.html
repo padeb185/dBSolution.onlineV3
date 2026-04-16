@@ -118,5 +118,60 @@
 }
 </style>
 
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie) {
+            document.cookie.split(';').forEach(c => {
+                c = c.trim();
+                if (c.startsWith(name + '=')) {
+                    cookieValue = decodeURIComponent(c.slice(name.length + 1));
+                }
+            });
+        }
+        return cookieValue;
+    }
+
+    const csrftoken = getCookie('csrftoken');
+
+
+    const decimalInputs = [
+        "id_taille_disque_ar",
+        "id_epaisseur_disque_ar",
+        "id_epaisseur_min_disque_ar",
+        "id_plaquettes_ar"
+    ];
+
+    decimalInputs.forEach(id => {
+        const input = document.getElementById(id);
+        if (!input) return;
+
+        input.placeholder = "XXX,X";
+
+        input.addEventListener("input", function () {
+            // Remplace point par virgule
+            this.value = this.value.replace(".", ",");
+
+            // Supprime caractères non valides
+            this.value = this.value.replace(/[^0-9,]/g, "");
+
+            // Une seule virgule autorisée
+            const parts = this.value.split(",");
+            if (parts.length > 2) {
+                this.value = parts[0] + "," + parts[1];
+            }
+
+            // Limite à 2 décimales
+            if (parts[1]?.length > 2) {
+                this.value = parts[0] + "," + parts[1].slice(0, 2);
+            }
+        });
+    });
+});
+</script>
+
 {% endblock %}
 
