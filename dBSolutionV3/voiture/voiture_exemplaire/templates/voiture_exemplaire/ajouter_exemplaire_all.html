@@ -90,9 +90,8 @@
 </style>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
 
-    function getCookie(name) {
+   function getCookie(name) {
         let cookieValue = null;
         if (document.cookie) {
             document.cookie.split(';').forEach(c => {
@@ -107,6 +106,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const csrftoken = getCookie('csrftoken');
 
+
+document.addEventListener("DOMContentLoaded", function () {
 
     const VIN_YEAR_BASE = {
         "A":1980,"B":1981,"C":1982,"D":1983,"E":1984,"F":1985,"G":1986,"H":1987,

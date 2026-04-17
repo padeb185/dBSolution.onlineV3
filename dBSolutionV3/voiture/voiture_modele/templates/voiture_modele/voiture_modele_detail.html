@@ -14,13 +14,8 @@
 
             {% endwith %}
             <span>{% trans "Détails du modèle :" %}</span>
-            <span class="text-black-700">{{ voiture_modele.nom_modele }}</span>
+            <span class="text-black-700">{{ voiture_modele.voiture_marque.nom_marque }} {{ voiture_modele.nom_modele }}</span>
         </h1>
-
-        <a href="{% url 'voiture_modele:voituremodele_list' %}"
-           class="text-blue-600 hover:underline">
-            {% trans "Retour à la liste des modèles" %}
-        </a>
     </div>
 
     <!-- Infos principales -->
@@ -40,6 +35,10 @@
                 <strong>{% trans "Modèle" %} :</strong>
                 {{ voiture_modele.nom_modele }}
             </p>
+             <p>
+                <strong>{% trans "Variante" %} :</strong>
+                {{ voiture_modele.nom_variante }}
+            </p>
             <p>
                 <strong>{% trans "Réservoir" %} :</strong>
                 {{ voiture_modele.taille_reservoir }}
@@ -49,15 +48,9 @@
                 {{ voiture_modele.capacite_batterie }}
             </p>
 
-            <div class="mt-auto w-full">
-                <a href="{% url 'voiture_modele:modifier_voiture_modele' voiture_modele.id %}" class="block w-full">
-                    <button type="button"
-                            class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
-                        {% trans "Modifier le modèle" %}
-                    </button>
-                </a>
-           </div>
+
         </div>
+
 
         <!-- Informations Peppol -->
         <div class="bg-white shadow-md rounded-lg p-6">
@@ -70,6 +63,15 @@
                 {{ voiture_modele.remarques }}
             </p>
         </div>
+    </div>
+
+    <div  class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <a href="{% url 'voiture_modele:modifier_voiture_modele' voiture_modele.id %}" class="block w-full">
+            <button type="button"
+                    class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+                {% trans "Modifier le modèle" %}
+            </button>
+        </a>
     </div>
 
     <!-- Métadonnées -->
@@ -87,7 +89,6 @@
             {{ voiture_modele.updated_at|date:"d/m/Y H:i" }}
         </p>
     </div>
-    <br>
     <br>
     <!-- Actions -->
     <div>
