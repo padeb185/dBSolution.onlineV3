@@ -195,36 +195,28 @@ def modifier_electricite(request, electricite_id):
     )
 
 
-@login_required
-def check_immatriculation(request):
-
-    immat = request.GET.get("immatriculation", "").strip()
-
+def check_immatriculation_elect(request):
+    immat = request.GET.get('immatriculation', '').strip()
     try:
-
-        voiture = VoitureExemplaire.objects.get(
-            immatriculation__iexact=immat
-        )
-
+        voiture = VoitureExemplaire.objects.get(immatriculation__iexact=immat)
         data = {
-            "id": voiture.id,
-            "marque": voiture.voiture_modele.voiture_marque.nom_marque,
-            "modele": voiture.voiture_modele.nom_modele,
-            "volume": voiture.capacite_batterie,
+            'id': voiture.id,
+            'marque': voiture.voiture_modele.voiture_marque.nom_marque,
+            'modele': voiture.voiture_modele.nom_modele,
+            'volume': voiture.voiture_modele.taille_reservoir,
+
         }
-
         return JsonResponse(data)
-
     except VoitureExemplaire.DoesNotExist:
+        return JsonResponse({'error': 'not found'})
 
-        return JsonResponse(
-            {"error": "not found"}
-        )
+
+
+
 
 
 @require_GET
-def get_marques(request):
-
+def get_marques_elect(request):
     query = request.GET.get("q", "").strip()
 
     if not query:
@@ -241,8 +233,7 @@ def get_marques(request):
 
 
 @require_GET
-def get_modeles(request):
-
+def get_modeles_elect(request):
     query = request.GET.get("q", "").strip()
 
     if not query:
@@ -259,13 +250,6 @@ def get_modeles(request):
 
 
 
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
-from django.views.generic import TemplateView
-from django.db.models import Count, Sum, Min, Max, F, FloatField, Value, Case, When, ExpressionWrapper
-from django.db.models.functions import Coalesce, TruncMonth, TruncYear
-
-from .models import Electricite
 
 @method_decorator([login_required, never_cache], name="dispatch")
 class ElectriciteStatView(TemplateView):

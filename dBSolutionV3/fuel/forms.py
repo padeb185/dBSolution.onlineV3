@@ -1,12 +1,8 @@
 from django import forms
 from decimal import Decimal
 from .models import Fuel
-from django.utils.translation import gettext_lazy as _
 
 
-from django import forms
-from decimal import Decimal
-from .models import Fuel
 
 class FuelForm(forms.ModelForm):
     voiture_marque = forms.CharField(label="Marque", required=False, disabled=True)

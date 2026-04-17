@@ -1,7 +1,7 @@
 from django import forms
 from decimal import Decimal, ROUND_HALF_UP
 from .models import Electricite
-from django.utils.translation import gettext_lazy as _
+
 
 
 class ElectriciteForm(forms.ModelForm):

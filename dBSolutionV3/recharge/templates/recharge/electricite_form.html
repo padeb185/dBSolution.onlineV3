@@ -197,7 +197,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const value = this.value;
             if (value.length < 2) return; // éviter les requêtes inutiles
 
-            fetch(`/recharge/ajax/check-immatriculation/?immatriculation=${value}`)
+            fetch(`/recharge/ajax/check-immatriculation_elect/?immatriculation=${value}`)
                 .then(response => response.json())
                 .then(data => {
                     if (!data.error) {
@@ -229,7 +229,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Auto-complétion marque
         marqueInput.addEventListener("input", function () {
             const query = this.value;
-            fetch(`/fuel/ajax/get-marques/?q=${query}`)
+            fetch(`/recharge/ajax/get-marques_elect/?q=${query}`)
                 .then(r => r.json())
                 .then(data => {
                     const list = document.getElementById("marque-list");
@@ -248,7 +248,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Auto-complétion modèle
         modeleInput.addEventListener("input", function () {
             const query = this.value;
-            fetch(`/fuel/ajax/get-modeles/?q=${query}`)
+            fetch(`/recharge/ajax/get-modeles_elect/?q=${query}`)
                 .then(r => r.json())
                 .then(data => {
                     const list = document.getElementById("modele-list");
