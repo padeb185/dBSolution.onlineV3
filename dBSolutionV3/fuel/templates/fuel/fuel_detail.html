@@ -75,14 +75,21 @@
             </p>
 
         </div>
+
         <div class="mt-auto w-full">
-                <a href="{% url 'fuel:modifier_fuel' fuel.id %}" class="block w-full">
-                    <button type="button"
-                            class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
-                        {% trans "Modifier le plein" %}
-                    </button>
-                </a>
-           </div>
+            <a href="{% url 'fuel:modifier_fuel' fuel.id %}" class="block w-full">
+                <button type="button" class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+                    {% trans "Modifier le plein" %}
+                </button>
+            </a>
+        </div>
+       <div class="mt-auto w-full">
+            <a href="{% url 'fuel:fuel_exemplaire_stat' exemplaire_id=exemplaire.id %}" class="block w-full">
+                <button type="button" class="w-full bg-green-600 text-white px-4 py-2 rounded hover:bg-green-500 font-semibold">
+                    {% trans "Voir les statistiques du véhicule" %}
+                </button>
+            </a>
+        </div>
 
     </div>
 
@@ -105,21 +112,14 @@
     </div>
 
 
-
+    <br>
 
     <!-- Actions -->
-    <div class="bg-white shadow-md rounded-lg p-6 flex gap-4">
+    <div>
         <!-- Chaque bouton prend 50% de la largeur du conteneur -->
-        <a href="{% url 'fuel:fuel_list' %}" class="flex-1">
-            <button type="button" class="bg-blue-700 text-white px-4 py-2 rounded w-full mt-4">
+        <a href="{% url 'fuel:fuel_list' %}"
+           class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
                 {% trans "Retour à la liste des pleins" %}
-            </button>
-        </a>
-
-        <a href="{% url 'fuel:fuel_exemplaire_stat' exemplaire_id=exemplaire.id %}" class="flex-1">
-            <button type="button" class="bg-green-600 text-white px-4 py-2 rounded w-full mt-4 hover:bg-green-500">
-                {% trans "Voir les statistiques du véhicule" %}
-            </button>
         </a>
     </div>
 
