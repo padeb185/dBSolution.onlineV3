@@ -1,11 +1,15 @@
 from django.urls import path
-from .views import  ElectriciteListView, ajouter_recharge_all, electricite_detail, modifier_electricite, check_immatriculation_elect, get_marques_elect,get_modeles_elect, ElectriciteStatView
+from .views import ElectriciteListView, ajouter_recharge_all, electricite_detail, modifier_electricite, \
+    check_immatriculation_elect, get_marques_elect, get_modeles_elect, ElectriciteStatView, \
+    ElectriciteExemplaireStatView
 
 app_name = "recharge"
 
 urlpatterns = [
 
     path("stats/", ElectriciteStatView.as_view(), name="electricite_stat"),
+
+    path("stats_exemplaire/<uuid:exemplaire_id>/", ElectriciteExemplaireStatView.as_view(), name="electricite_exemplaire_stat"),
 
     path("recharge/", ElectriciteListView.as_view(), name="recharge_list"),
 

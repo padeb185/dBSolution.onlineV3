@@ -68,11 +68,10 @@
                 </button>
             </a>
         </div>
-        <div>
-             <!-- Bouton Statistiques (vert) -->
-            <a href="{% url 'recharge:electricite_stat' %}" class="flex-1">
+        <div class="mt-auto w-full">
+            <a href="{% url 'recharge:electricite_exemplaire_stat' exemplaire_id=exemplaire.id %}" class="block w-full">
                 <button type="button" class="w-full bg-green-600 text-white px-4 py-2 rounded hover:bg-green-500 font-semibold">
-                    {% trans "Voir les statistiques" %}
+                    {% trans "Voir les statistiques du véhicule" %}
                 </button>
             </a>
         </div>

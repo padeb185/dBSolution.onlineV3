@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+
+<h1 class="text-2xl font-bold mb-6">
+     <img src="{% static 'icons/electricite.png' %}"
+             style="width:75px; margin-right:5px;"
+             alt="{% trans 'Recharge électrique' %}">
+    {% trans "Statistiques des recharges électriques par véhicule" %}
+
+</h1>
+
+{% if exemplaire %}
+<!-- 🚗 Info sur l'exemplaire -->
+<div class="bg-gray-100 p-4 rounded mb-6 flex items-center gap-4">
+    <div class="text-lg font-bold">
+        {{ exemplaire.voiture_modele.voiture_marque.nom_marque }}
+        {{ exemplaire.voiture_modele.nom_modele }}
+        {{ exemplaire.voiture_modele.nom_variante }}
+    </div>
+      <div class="mb-4">
+          {% include "recharge/partials/plaque.html" %}
+      </div>
+    <div>
+        {% with pays=exemplaire.pays imm=exemplaire.immatriculation %}
+            {% if pays == "Belgique" %}
+                <div class="flex items-center w-[180px] h-[34px] bg-white border-2 border-[#8B0000] rounded font-[Arial]">
+                    <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                        <span>🇪🇺</span><span>B</span>
+                    </div>
+                    <div class="w-full text-center font-bold text-[#8B0000] text-[18px]">{{ imm|upper }}</div>
+                </div>
+            {% elif pays == "Luxembourg" %}
+                <div class="flex items-center w-[180px] h-[34px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial]">
+                    <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                        <span>🇪🇺</span><span>L</span>
+                    </div>
+                    <div class="w-full text-center font-bold text-black text-[18px]">{{ imm|upper }}</div>
+                </div>
+            {% elif pays == "Allemagne" %}
+                <div class="flex items-center w-[180px] h-[34px] bg-white border-2 border-black rounded font-[Arial]">
+                    <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                        <span>🇪🇺</span><span>D</span>
+                    </div>
+                    <div class="w-full text-center font-bold text-black text-[18px]">{{ imm|upper }}</div>
+                </div>
+            {% else %}
+                {{ imm|upper }}
+            {% endif %}
+        {% endwith %}
+    </div>
+</div>
+{% endif %}
+
+
+
+<!-- 📊 Statistiques globales -->
+<div class="flex flex-wrap justify-start gap-4 mb-8 text-center">
+    <div class="bg-gray-100 p-2 rounded w-32">
+        <div class="text-xs text-gray-500">{% trans "Recharges" %}</div>
+        <div class="text-lg font-bold">{{ global.total_recharges }}</div>
+    </div>
+
+    <div class="bg-gray-100 p-2 rounded w-32">
+        <div class="text-xs text-gray-500">{% trans "kW totaux" %}</div>
+        <div class="text-lg font-bold">{{ global.total_kW|floatformat:2 }}</div>
+    </div>
+
+    <div class="bg-gray-100 p-2 rounded w-32">
+        <div class="text-xs text-gray-500">{% trans "Coût total" %}</div>
+        <div class="text-lg font-bold">{{ global.total_cout|floatformat:2 }} €</div>
+    </div>
+
+    <div class="bg-gray-100 p-2 rounded w-32">
+        <div class="text-xs text-gray-500">{% trans "Prix moyen / kW" %}</div>
+        <div class="text-lg font-bold">{{ global.prix_moyen_kW|floatformat:3 }} €</div>
+    </div>
+
+    <!-- TVA par pays -->
+    {% for code, tva in totaux_par_pays.items %}
+        <div class="bg-red-100 p-2 rounded w-28">
+            <div class="text-xs text-gray-500">
+                {% if code == "BE" %}{% trans "Belgique" %}
+                {% elif code == "LU" %}{% trans "Luxembourg" %}
+                {% elif code == "DE" %}{% trans "Allemagne" %}
+                {% else %}{{ code }}{% endif %}
+            </div>
+            <div class="text-lg font-bold">{{ tva|floatformat:2 }} €</div>
+        </div>
+    {% endfor %}
+
+    <!-- Total global TVA -->
+    <div class="bg-blue-100 p-2 rounded w-32">
+        <div class="text-xs text-gray-500">{% trans "TVA totale globale" %}</div>
+        <div class="text-lg font-bold text-blue-800">{{ total_global|floatformat:2 }} €</div>
+    </div>
+
+
+</div>
+
+<!-- 📅 Par mois -->
+<h2 class="text-xl font-semibold mb-3">{% trans "Par mois" %}</h2>
+
+<table class="min-w-full table-auto border-collapse border border-gray-200 bg-white mb-8">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2">{% trans "Mois" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Recharges" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "kW" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Coût total" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for m in par_mois %}
+        <tr>
+            <td class="border px-4 py-2">{{ m.mois|date:"F Y" }}</td>
+            <td class="border px-4 py-2 text-center">{{ m.nb_recharges }}</td>
+            <td class="border px-4 py-2 text-center">{{ m.total_kW|floatformat:2 }}</td>
+            <td class="border px-4 py-2 text-center">{{ m.total_cout|floatformat:2 }} €</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4" class="border px-4 py-4 text-center">{% trans "Aucune donnée" %}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- 📅 Par année -->
+<h2 class="text-xl font-semibold mt-8 mb-3">{% trans "Par année" %}</h2>
+
+<table class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2">{% trans "Année" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Recharges" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "kW" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Coût total" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for a in par_an %}
+        <tr>
+            <td class="border px-4 py-2">{{ a.an|date:"Y" }}</td>
+            <td class="border px-4 py-2 text-center">{{ a.nb_recharges }}</td>
+            <td class="border px-4 py-2 text-center">{{ a.totalkW|floatformat:2 }}</td>
+            <td class="border px-4 py-2 text-center">{{ a.total_cout|floatformat:2 }} €</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4" class="border px-4 py-4 text-center">{% trans "Aucune donnée" %}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

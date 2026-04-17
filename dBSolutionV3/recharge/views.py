@@ -378,3 +378,77 @@ class ElectriciteStatView(TemplateView):
         context["par_an"] = par_an
 
         return context
+
+
+class ElectriciteExemplaireStatView(LoginRequiredMixin, TemplateView):
+    template_name = "recharge/electricite_exemplaire_stat.html"
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Récupère l'ID depuis l'URL
+        exemplaire_id = self.kwargs.get("exemplaire_id")
+
+        # Récupère l'exemplaire en tenant compte du tenant
+        tenant = self.request.user.societe
+        with tenant_context(tenant):
+            exemplaire = get_object_or_404(VoitureExemplaire, pk=exemplaire_id)
+            recharges = Electricite.objects.filter(voiture_exemplaire=exemplaire)
+
+            # 🔹 Stats globales pour cet exemplaire
+            context["global"] = {
+                "total_recharges": recharges.count(),
+                "total_kW": Electricite.total_kW_all_exemplaire(exemplaire),
+                "total_cout": Electricite.total_prix_all_exemplaire(exemplaire),
+                "total_tva": Electricite.total_tva_all_exemplaire(exemplaire),
+                "prix_moyen_kW": recharges.aggregate(avg=Avg("prix_watt"))["avg"] or 0,
+            }
+
+            # 🔹 Totaux TVA par pays
+            context["totaux_par_pays"] = Electricite.total_tva_par_pays_exemplaire(exemplaire)
+
+            total_global = recharges.aggregate(total=Sum("montant_tva"))["total"] or 0
+            context["total_global"] = total_global
+
+            # 🔹 Stats par mois
+            context["par_mois"] = [
+                {
+                    "mois": m["mois"],
+                    "nb_recharges": m["nb_recharges"],
+                    "total_kW": m["total_kW"],
+                    "total_cout": m["total_prix"],
+                    "total_tva": m["total_tva"],
+                }
+                for m in recharges.annotate(mois=TruncMonth("date"))
+                                 .values("mois")
+                                 .annotate(
+                                    total_litres=Sum("kW"),
+                                    total_prix=Sum("prix_recharge"),
+                                    total_tva=Sum("montant_tva"),
+                                    nb_pleins=Count("id"),
+                                 )
+                                 .order_by("mois")
+            ]
+
+            # 🔹 Stats par année
+            context["par_an"] = [
+                {
+                    "an": a["an"],
+                    "nb_recharges": a["nb_recharges"],
+                    "total_kW": a["total_kW"],
+                    "total_cout": a["total_prix"],
+                    "total_tva": a["total_tva"],
+                }
+                for a in recharges.annotate(an=TruncYear("date"))
+                               .values("an")
+                               .annotate(
+                                   total_litres=Sum("kW"),
+                                   total_prix=Sum("prix_recharge"),
+                                   total_tva=Sum("montant_tva"),
+                                   nb_pleins=Count("id"),
+                               )
+                               .order_by("an")
+            ]
+
+            return context
