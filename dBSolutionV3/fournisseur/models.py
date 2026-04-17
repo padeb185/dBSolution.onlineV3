@@ -98,14 +98,6 @@ class Fournisseur(models.Model):
     def __str__(self):
         return _("%(nom)s (Fournisseur)") % {"nom": self.nom}
 
-
-    def save(self, *args, **kwargs):
-        self.montant_tva = self.achat_montant_htva * self.achat_tva / 100
-        self.achat_total_tvac = self.achat_montant_htva + self.montant_tva
-        super().save(*args, **kwargs)
-
-
-
     @property
     def peppol_scheme(self):
         return self.peppol_id.split(":")[0]
