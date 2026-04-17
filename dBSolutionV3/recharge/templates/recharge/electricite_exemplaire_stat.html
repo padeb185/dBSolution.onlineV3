@@ -8,10 +8,9 @@
              style="width:75px; margin-right:5px;"
              alt="{% trans 'Recharge électrique' %}">
     {% trans "Statistiques des recharges électriques par véhicule" %}
-
 </h1>
 
-{% if exemplaire %}
+
 <!-- 🚗 Info sur l'exemplaire -->
 <div class="bg-gray-100 p-4 rounded mb-6 flex items-center gap-4">
     <div class="text-lg font-bold">
@@ -19,9 +18,7 @@
         {{ exemplaire.voiture_modele.nom_modele }}
         {{ exemplaire.voiture_modele.nom_variante }}
     </div>
-      <div class="mb-4">
-          {% include "recharge/partials/plaque.html" %}
-      </div>
+
     <div>
         {% with pays=exemplaire.pays imm=exemplaire.immatriculation %}
             {% if pays == "Belgique" %}
@@ -51,7 +48,7 @@
         {% endwith %}
     </div>
 </div>
-{% endif %}
+
 
 
 

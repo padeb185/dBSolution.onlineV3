@@ -19,9 +19,6 @@
         {{ exemplaire.voiture_modele.nom_modele }}
         {{ exemplaire.voiture_modele.nom_variante }}
     </div>
-      <div class="mb-4">
-          {% include "fuel/partials/plaque.html" %}
-      </div>
     <div>
         {% with pays=exemplaire.pays imm=exemplaire.immatriculation %}
             {% if pays == "Belgique" %}

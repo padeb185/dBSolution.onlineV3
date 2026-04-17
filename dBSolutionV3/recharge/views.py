@@ -393,17 +393,21 @@ class ElectriciteExemplaireStatView(LoginRequiredMixin, TemplateView):
         # Récupère l'exemplaire en tenant compte du tenant
         tenant = self.request.user.societe
         with tenant_context(tenant):
+
             exemplaire = get_object_or_404(VoitureExemplaire, pk=exemplaire_id)
             recharges = Electricite.objects.filter(voiture_exemplaire=exemplaire)
+
+            context["exemplaire"] = exemplaire
 
             # 🔹 Stats globales pour cet exemplaire
             context["global"] = {
                 "total_recharges": recharges.count(),
-                "total_kW": Electricite.total_kW_all_exemplaire(exemplaire),
-                "total_cout": Electricite.total_prix_all_exemplaire(exemplaire),
-                "total_tva": Electricite.total_tva_all_exemplaire(exemplaire),
+                "total_kW": recharges.aggregate(total=Sum("kW"))["total"] or 0,
+                "total_cout": recharges.aggregate(total=Sum("prix_watt"))["total"] or 0,
+                "total_tva": recharges.aggregate(total=Sum("montant_tva"))["total"] or 0,
                 "prix_moyen_kW": recharges.aggregate(avg=Avg("prix_watt"))["avg"] or 0,
             }
+
 
             # 🔹 Totaux TVA par pays
             context["totaux_par_pays"] = Electricite.total_tva_par_pays_exemplaire(exemplaire)
@@ -423,10 +427,10 @@ class ElectriciteExemplaireStatView(LoginRequiredMixin, TemplateView):
                 for m in recharges.annotate(mois=TruncMonth("date"))
                                  .values("mois")
                                  .annotate(
-                                    total_litres=Sum("kW"),
+                                    total_kW=Sum("kW"),
                                     total_prix=Sum("prix_recharge"),
                                     total_tva=Sum("montant_tva"),
-                                    nb_pleins=Count("id"),
+                                    nb_recharges=Count("id"),
                                  )
                                  .order_by("mois")
             ]
@@ -443,10 +447,10 @@ class ElectriciteExemplaireStatView(LoginRequiredMixin, TemplateView):
                 for a in recharges.annotate(an=TruncYear("date"))
                                .values("an")
                                .annotate(
-                                   total_litres=Sum("kW"),
+                                   total_kW=Sum("kW"),
                                    total_prix=Sum("prix_recharge"),
                                    total_tva=Sum("montant_tva"),
-                                   nb_pleins=Count("id"),
+                                   nb_recharges=Count("id"),
                                )
                                .order_by("an")
             ]

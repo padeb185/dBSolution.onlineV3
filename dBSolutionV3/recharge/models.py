@@ -195,40 +195,40 @@ class Electricite(models.Model):
 
 
     @classmethod
-    def total_litres_mois_exemplaire(cls, exemplaire, year=None, month=None):
+    def total_kW_mois_exemplaire(cls, exemplaire, year=None, month=None):
         qs = cls.objects.filter(voiture_exemplaire=exemplaire)
         if year and month:
             qs = qs.filter(date__year=year, date__month=month)
-        return qs.aggregate(total=Sum('litres'))['total'] or 0
+        return qs.aggregate(total=Sum('kW'))['total'] or 0
 
     @classmethod
-    def total_litres_an_exemplaire(cls, exemplaire, year=None):
+    def total_kW_an_exemplaire(cls, exemplaire, year=None):
         qs = cls.objects.filter(voiture_exemplaire=exemplaire)
         if year:
             qs = qs.filter(date__year=year)
-        return qs.aggregate(total=Sum('litres'))['total'] or 0
+        return qs.aggregate(total=Sum('kW'))['total'] or 0
 
     @classmethod
-    def total_litres_all_exemplaire(cls, exemplaire):
-        return cls.objects.filter(voiture_exemplaire=exemplaire).aggregate(total=Sum('litres'))['total'] or 0
+    def total_KW_all_exemplaire(cls, exemplaire):
+        return cls.objects.filter(voiture_exemplaire=exemplaire).aggregate(total=Sum('kW'))['total'] or 0
 
     @classmethod
     def total_prix_mois_exemplaire(cls, exemplaire, year=None, month=None):
         qs = cls.objects.filter(voiture_exemplaire=exemplaire)
         if year and month:
             qs = qs.filter(date__year=year, date__month=month)
-        return qs.aggregate(total=Sum('prix_refuelling'))['total'] or 0
+        return qs.aggregate(total=Sum('prix_recharge'))['total'] or 0
 
     @classmethod
     def total_prix_an_exemplaire(cls, exemplaire, year=None):
         qs = cls.objects.filter(voiture_exemplaire=exemplaire)
         if year:
             qs = qs.filter(date__year=year)
-        return qs.aggregate(total=Sum('prix_refuelling'))['total'] or 0
+        return qs.aggregate(total=Sum('prix_recharge'))['total'] or 0
 
     @classmethod
     def total_prix_all_exemplaire(cls, exemplaire):
-        return cls.objects.filter(voiture_exemplaire=exemplaire).aggregate(total=Sum('prix_refuelling'))['total'] or 0
+        return cls.objects.filter(voiture_exemplaire=exemplaire).aggregate(total=Sum('prix_recharge'))['total'] or 0
 
     @classmethod
     def total_tva_mois_exemplaire(cls, exemplaire, year=None, month=None):

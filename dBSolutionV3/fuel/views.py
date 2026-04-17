@@ -394,6 +394,7 @@ class FuelExemplaireStatView(LoginRequiredMixin, TemplateView):
             exemplaire = get_object_or_404(VoitureExemplaire, pk=exemplaire_id)
             fuels = Fuel.objects.filter(voiture_exemplaire=exemplaire)
 
+            context["exemplaire"] = exemplaire
             # 🔹 Stats globales pour cet exemplaire
             context["global"] = {
                 "total_pleins": fuels.count(),
