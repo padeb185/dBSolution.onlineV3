@@ -1,12 +1,12 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import  ListView
-from django_tenants.utils import tenant_context
+from django_tenants.utils import tenant_context, schema_context
 from .models import Fournisseur
-from .forms import FournisseurForm
+from .forms import FournisseurForm, AchatForm
 from adresse.forms import AdresseForm
 from adresse.models import Adresse
 from django.utils.translation import gettext as _
@@ -141,3 +141,59 @@ def modifier_fournisseur(request, fournisseur_id):
             "fournisseur": fournisseur,
         }
     )
+
+
+
+
+
+
+@never_cache
+@login_required
+def fournisseur_dashboard_view(request):
+    tenant = request.user.societe
+    user = request.user
+    societe = user.societe
+
+    with tenant_context(tenant):
+
+
+        fournisseurs = Fournisseur.objects.all()
+
+        total_fournisseur = fournisseurs.count()
+
+        context = {
+            "user": user,
+            "societe": societe,
+            "total_fournisseur": total_fournisseur,
+            "fournisseurs": fournisseurs,
+        }
+
+    return render(request, "fournisseur/fournisseur_dashboard.html", context)
+
+
+
+@login_required
+def fournisseur_achat_view(request):
+    tenant = request.user.societe
+
+    with tenant_context(tenant):
+
+        fournisseurs = Fournisseur.objects.all()
+
+        if request.method == "POST":
+            form = AchatForm(request.POST)
+
+            if form.is_valid():
+                achat = form.save(commit=False)
+                achat.save()
+                messages.success(request, "Achat enregistré avec succès")
+
+
+        else:
+            form = AchatForm()
+
+        return render(request, "fournisseur/fournisseur_achat.html", {
+            "form": form,
+            "fournisseurs": fournisseurs,
+
+        })

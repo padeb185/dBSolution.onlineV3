@@ -1,5 +1,6 @@
+
 from django import forms
-from .models import Fournisseur
+from .models import Fournisseur, Achat
 
 
 class FournisseurForm(forms.ModelForm):
@@ -37,3 +38,19 @@ class FournisseurForm(forms.ModelForm):
                 # Supprimer les placeholders
                 if "placeholder" in field.widget.attrs:
                     field.widget.attrs.pop("placeholder")
+
+
+
+class AchatForm(forms.ModelForm):
+
+    fournisseur = forms.ModelChoiceField(queryset=Fournisseur.objects.all())
+
+    class Meta:
+        model = Achat
+        fields = [
+            "fournisseur",
+            "achat_montant_htva",
+            "achat_tva",
+            "date_facture",
+            "date_paiement",
+        ]

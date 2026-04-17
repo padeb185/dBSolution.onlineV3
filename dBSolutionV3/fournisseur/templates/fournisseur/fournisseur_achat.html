@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="max-w-xl mx-auto p-6 bg-white rounded shadow mt-16 mb-16">
+
+    <h1 class="text-2xl font-bold mb-4 text-center flex items-center justify-center">
+        <img src="{% static 'icons/achatmds.png' %}" style="width:75px; margin-right:5px;" alt="">
+        {% trans "Achat marchandises" %}
+    </h1>
+
+    <!-- Messages -->
+    {% if messages %}
+        {% for message in messages %}
+        <div class="mb-3 px-4 py-2 rounded
+            {% if message.tags == 'success' %}
+                bg-green-100 text-green-800 border border-green-300
+            {% else %}
+                bg-red-100 text-red-800 border border-red-300
+            {% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if form.errors %}
+        <div style="background-color: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; padding: 10px; border-radius: 6px;">
+            <strong>Erreurs :</strong>
+            <ul>
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li>{{ field.label }} : {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+
+    <form method="post" class="flex flex-col space-y-4">
+        {% csrf_token %}
+
+       <div>
+            <label for="id_fournisseur">{% trans "Fournisseur" %}</label>
+
+            <select id="id_fournisseur" name="fournisseur"
+                    class="border rounded px-4 py-2 w-full">
+
+                {% for f in fournisseurs %}
+                    <option value="{{ f.id }}"
+                        {% if request.POST.fournisseur == f.id|stringformat:"s" %}selected{% endif %}>
+                        {{ f.nom }}
+                    </option>
+                {% endfor %}
+
+            </select>
+        </div>
+        <div>
+            <label for="id_achat_mds">{% trans "Libellé" %}</label>
+            <input type="text" id="id_achat_mds" name="achat_mds"
+                   value="{{ request.POST.numero|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+        <div>
+            <label for="id_achat_montant_htva">{% trans "Montant HTVA" %}</label>
+            <input type="text" id="id_achat_montant_htva" name="achat_montant_htva"
+                   value="{{ request.POST.achat_montant_tva|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+        <div>
+            <label for="id_achat_tva">{% trans "Taux de TVA" %}</label>
+            <input type="text" id="id_achat_tva" name="achat_tva"
+                   value="{{ request.POST.achat_tva|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+        <div>
+            <label for="id_date_facture">{% trans "Date de la facturation" %}</label>
+            <input type="date" id="id_date_facture" name="date_facture"
+                   value="{{ request.POST.date_facture|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+        <div>
+            <label for="id_date_paiement">{% trans "date de paiement" %}</label>
+            <input type="date" id="id_date_paiement" name="date_paiement"
+                   value="{{ request.POST.date_paiement|default:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+
+
+        <button type="submit"
+                class="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded w-full mt-4">
+            {% trans "Enregistrer" %}
+        </button>
+
+    </form>
+</div>
+
+
+<script>
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie) {
+            document.cookie.split(';').forEach(c => {
+                c = c.trim();
+                if (c.startsWith(name + '=')) {
+                    cookieValue = decodeURIComponent(c.slice(name.length + 1));
+                }
+            });
+        }
+        return cookieValue;
+    }
+
+    const csrftoken = getCookie('csrftoken');
+
+
+</script>
+
+{% endblock %}
