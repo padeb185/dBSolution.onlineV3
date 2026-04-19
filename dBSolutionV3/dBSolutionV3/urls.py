@@ -129,6 +129,11 @@ urlpatterns += i18n_patterns(
     path('alternateur/',include(('maintenance.autres_interventions.moteur.alternateur.urls', 'alternateur'), namespace='alternateur')),
 
     path('maintenance/autre/geometrie/',include(('maintenance.autres_interventions.geometrie.urls', 'geometrie'),namespace='geometrie')),
+
+    path('achat_mds/',include(('achat_mds.urls', 'achat_mds'),namespace='achat_mds')),
+
+
+
 )
 
 

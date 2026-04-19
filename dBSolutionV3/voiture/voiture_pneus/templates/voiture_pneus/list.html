@@ -82,6 +82,9 @@
         {% for pneu in pneus %}
         <tr>
             <td class="border px-4 py-2 text-center">
+                <span class="hidden">
+                    {{ pneu.manufacturier }}
+                </span>
                 <img
                     src="{% static 'images/'|add:pneu.manufacturier|lower|add:'.png' %}"
                     alt="{{ pneu.manufacturier }}"

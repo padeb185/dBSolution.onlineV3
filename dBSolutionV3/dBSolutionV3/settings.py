@@ -135,6 +135,8 @@ TENANT_APPS = (
 
     'fuel',
 
+    'achat_mds',
+
 
     #'piece.piece_ligne_achat',
     #'piece.piece_ligne_inventaire',

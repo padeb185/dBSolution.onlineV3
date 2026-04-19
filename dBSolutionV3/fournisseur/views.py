@@ -5,8 +5,8 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import  ListView
 from django_tenants.utils import tenant_context, schema_context
-from .models import Fournisseur, Achat
-from .forms import FournisseurForm, AchatForm
+from .models import Fournisseur
+from .forms import FournisseurForm
 from adresse.forms import AdresseForm
 from adresse.models import Adresse
 from django.utils.translation import gettext as _
@@ -170,44 +170,4 @@ def fournisseur_dashboard_view(request):
 
     return render(request, "fournisseur/fournisseur_dashboard.html", context)
 
-
-
-@login_required
-def fournisseur_achat_view(request):
-    tenant = request.user.societe
-
-    with tenant_context(tenant):
-
-        fournisseurs = Fournisseur.objects.all()
-
-        if request.method == "POST":
-            form = AchatForm(request.POST)
-
-            if form.is_valid():
-                achat = form.save(commit=False)
-                achat.save()
-                messages.success(request, "Achat enregistré avec succès")
-
-
-        else:
-            form = AchatForm()
-
-        return render(request, "fournisseur/fournisseur_achat.html", {
-            "form": form,
-            "fournisseurs": fournisseurs,
-
-        })
-
-
-@method_decorator([login_required, never_cache], name='dispatch')
-class AchatMdsListView(ListView):
-    model = Achat
-    template_name = "fournisseur/achat_list.html"
-    context_object_name = "achats"
-    paginate_by = 20
-    ordering = ["nom"]
-
-    def get_queryset(self):
-        tenant = self.request.user.societe
-        return Achat.objects.filter(societe=tenant)
 

@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import FournisseurListView, fournisseur_detail, ajouter_fournisseur_all, modifier_fournisseur, \
-    fournisseur_dashboard_view, fournisseur_achat_view, AchatMdsListView
+    fournisseur_dashboard_view
 
 app_name = "fournisseur"
 
@@ -11,12 +11,6 @@ urlpatterns = [
         "fournisseur/",
         FournisseurListView.as_view(),
         name="fournisseur_list",
-    ),
-
-    path(
-        "fournisseur/",
-        AchatMdsListView.as_view(),
-        name="achat_list",
     ),
 
     path(
@@ -36,10 +30,6 @@ urlpatterns = [
         modifier_fournisseur,
         name='modifier_fournisseur'),
 
-    path(
-        'fournisseurs/achat/',
-        fournisseur_achat_view,
-        name='fournisseur_achat'),
 
 
 
