@@ -85,7 +85,7 @@
                 <img
                     src="{% static 'images/'|add:pneu.manufacturier|lower|add:'.png' %}"
                     alt="{{ pneu.manufacturier }}"
-                    class="h-8 mx-auto"
+                    style="width:120px; height:35px; object-fit:contain;"
                     onerror="this.onerror=null; this.outerHTML='{{ pneu.manufacturier }}';"
                 >
             </td>

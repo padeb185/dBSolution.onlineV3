@@ -10,15 +10,16 @@
     <!-- Header -->
     <div class="flex justify-between items-center mb-6">
        <h1 class="text-2xl font-bold flex items-center gap-4">
-            {% with image_name=pneus.manufacturier|slugify %}
-                <img src="{% static 'pneus/'|add:image_name|add:'.png' %}"
-                     alt="{{ pneus.manufacturier }}"
-                     class="w-12 h-12"
-                     onerror="this.src='{% static 'icons/pneus.png' %}';">
-            {% endwith %}
             <span>{% trans "Détails du Pneu :" %}</span>
 
-           <span class="text-black-700">{{ pneus.manufacturier }} </span>
+            {% with image_name=pneus.manufacturier|slugify %}
+                 <img
+                    src="{% static 'images/'|add:pneus.manufacturier|lower|add:'.png' %}"
+                    alt="{{ pneus.manufacturier }}"
+                    style="width:150px; height:50px; object-fit:contain;"
+                    onerror="this.onerror=null; this.outerHTML='{{ pneus.manufacturier }}';"
+                 >
+            {% endwith %}
         </h1>
 
 
@@ -44,6 +45,10 @@
             <p>
                 <strong>{% trans "Nom du pneus" %} :</strong>
                 {{ pneus.nom_type }}
+            </p>
+             <p>
+                <strong>{% trans "Taille" %} :</strong>
+                {{ pneus.pneus_largeur }} {{ pneus.pneus_hauteur }} {{ pneus.pneus_jante }}
             </p>
               <p>
                 <strong>{% trans "N° OEM" %} :</strong>
