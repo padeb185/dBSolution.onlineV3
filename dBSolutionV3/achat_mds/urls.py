@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import achat_mds_view, AchatMdsListView, achat_detail_view
+from .views import achat_mds_view, AchatMdsListView, achat_detail_view, modifier_achat_view
 
 app_name = "achat_mds"
 
@@ -12,17 +12,14 @@ urlpatterns = [
         name="achat_list",
     ),
 
-    path(
-        "<uuid:achat_mds_id>/",
-        achat_detail_view,
-        name="achat_detail",
-    ),
+    path("<uuid:achat_id>/", achat_detail_view, name="achat_detail"),
+
+    path("achat/", achat_mds_view, name="achat_form"),
 
     path(
-        'achat_mds/',
-        achat_mds_view,
-        name='achat_form'),
-
+        'achat/<uuid:achat_id>/modifier/',
+        modifier_achat_view,
+        name='modifier_achat_mds'),
 
 
 

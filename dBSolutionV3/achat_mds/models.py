@@ -23,6 +23,13 @@ class AchatMds(models.Model):
         verbose_name=_("Fournisseur")
     )
 
+    libelle_facture = models.CharField(
+        _("Libellé"),
+        max_length=100,
+        blank=True,
+        null=True
+    )
+
     reference_facture = models.CharField(
         _("Référence facture"),
         max_length=100,

@@ -13,7 +13,7 @@
   <div>
       <a href="{% url 'achat_mds:achat_form' %}"
              class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
-          {% trans "Encoder une facture" %}
+          {% trans "Encoder un achat" %}
       </a>
   </div>
 <br>
@@ -53,6 +53,7 @@
         <tr class="bg-gray-100">
             <th class="border px-4 py-2 cursor-pointer">{% trans "Nom du Fournisseur" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Libellé" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Référence" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Montant HTVA" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Taux de TVA" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Total TVA" %}</th>
@@ -65,14 +66,15 @@
         {% for achat in achats %}
         <tr>
             <td class="border px-4 py-2">{{ achat.fournisseur }}</td>
-            <td class="border px-4 py-2">{{ achat.achat_mds }}</td>
-            <td class="border px-4 py-2">{{ achat.achat_montant_htva }}</td>
-            <td class="border px-4 py-2">{{ achat.taux_tva }}</td>
-            <td class="border px-4 py-2">{{ achat.total_tvac_calc }}</td>
-            <td class="border px-4 py-2">{{ achat.montant_tva_calc }}</td>
+            <td class="border px-4 py-2">{{ achat.libelle_facture }}</td>
+            <td class="border px-4 py-2">{{ achat.reference_facture }}</td>
+            <td class="border px-4 py-2 text-right">{{ achat.achat_montant_htva|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-right">{{ achat.achat_tva }} %</td>
+            <td class="border px-4 py-2 text-right font-semibold">{{ achat.total_tvac|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-right">{{ achat.montant_tva|floatformat:2 }} €</td>
             <td class="border px-4 py-2">{{ achat.date_facture }}</td>
             <td class="border px-4 py-2 text-center">
-                <a href="{% url 'fournisseur:achat_detail' fournisseur.id %}"
+                <a href="{% url 'achat_mds:achat_detail' achat.id %}"
                      class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
                     {% trans "Info" %}
                 </a>
@@ -82,6 +84,7 @@
     </tbody>
 
 </table>
+<br>
 <br>
 <div>
     <a href="{% url 'utilisateurs:dashboard' %}"

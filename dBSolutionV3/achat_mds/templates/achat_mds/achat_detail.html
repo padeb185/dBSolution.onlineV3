@@ -29,8 +29,12 @@
             </h2>
 
             <p>
-                <strong>{% trans "Numéro de TVA" %} :</strong>
-                {{ fournisseur.numero_tva }}
+                <strong>{% trans "Fournisseur" %} :</strong>
+                {{ achat.fournisseur }}
+            </p>
+            <p>
+                <strong>{% trans "Libellé" %} :</strong>
+                {{ achat. }}
             </p>
 
             <p>
@@ -52,15 +56,15 @@
 
             <p>
                 <strong>{% trans "Identifiant Peppol" %} :</strong><br>
-                {{ fournisseur.peppol_id }}
+                {{ achat.fournisseur.peppol_id }}
             </p>
 
         </div>
         <div class="mt-auto w-full">
-            <a href="{% url 'fournisseur:modifier_fournisseur' fournisseur.id %}" class="block w-full">
+            <a href="{% url 'achat_mds:modifier_achat_mds' achat.id %}" class="block w-full">
                 <button type="button"
                         class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
-                    {% trans "Modifier le fournisseur" %}
+                    {% trans "Modifier l'achat" %}
                 </button>
             </a>
         </div>
@@ -73,7 +77,7 @@
         </h2>
 
         {% if fournisseur.adresse %}
-            <p>{{ fournisseur.adresse }}</p>
+            <p>{{ achat.fournisseur.adresse }}</p>
         {% else %}
             <p class="text-gray-500">
                 {% trans "Aucune adresse renseignée." %}
@@ -114,9 +118,9 @@
     <br>
     <!-- Actions -->
     <div>
-        <a href="{% url 'fournisseur:fournisseur_list' %}"
+        <a href="{% url 'achat_mds:achat_list' %}"
             class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
-                    {% trans "Retour à la liste des fournisseurs" %}
+                    {% trans "Retour à la liste des achats" %}
         </a>
     </div>
 

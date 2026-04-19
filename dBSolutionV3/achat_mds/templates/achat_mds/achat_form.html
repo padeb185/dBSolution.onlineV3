@@ -51,7 +51,9 @@
 
                 {% for f in fournisseurs %}
                     <option value="{{ f.id }}"
-                        {% if request.POST.fournisseur == f.id|stringformat:"s" %}selected{% endif %}>
+                        {% if request.POST.fournisseur|default:'' == f.id|stringformat:"s" %}
+                            selected
+                        {% endif %}>
                         {{ f.nom }}
                     </option>
                 {% endfor %}
@@ -59,9 +61,15 @@
             </select>
         </div>
         <div>
-            <label for="id_achat_mds">{% trans "Libellé" %}</label>
-            <input type="text" id="id_achat_mds" name="achat_mds"
-                   value="{{ request.POST.numero|default_if_none:'' }}"
+            <label for="id_libelle_facture">{% trans "Libellé" %}</label>
+            <input type="text" id="id_libelle_facture" name="libelle_facture"
+                   value="{{ request.POST.libelle_facture|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+        <div>
+            <label for="id_référence_facture">{% trans "Référence" %}</label>
+            <input type="text" id="id_référence_facture" name="reference_facture"
+                   value="{{ request.POST.reference_facture|default_if_none:'' }}"
                    class="border rounded px-4 py-2 w-full">
         </div>
         <div>

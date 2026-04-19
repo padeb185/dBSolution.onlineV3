@@ -15,6 +15,8 @@ class AchatForm(forms.ModelForm):
         model = AchatMds
         fields = [
             "fournisseur",
+            "libelle_facture",
+            "reference_facture",
             "achat_montant_htva",
             "achat_tva",
             "date_facture",

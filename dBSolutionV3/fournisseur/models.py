@@ -94,7 +94,7 @@ class Fournisseur(models.Model):
         ]
 
     def __str__(self):
-        return _("%(nom)s (Fournisseur)") % {"nom": self.nom}
+        return _("%(nom)s") % {"nom": self.nom}
 
     @property
     def peppol_scheme(self):
