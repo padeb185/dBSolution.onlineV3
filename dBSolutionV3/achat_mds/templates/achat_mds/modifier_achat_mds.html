@@ -143,14 +143,14 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             if (data.exist) {
                 document.getElementById('id_fournisseur').value = data.nom || '';
-                document.getElementById('id_numero_tva').value = data.numero_tva || '';
-                document.getElementById('id_peppol_id').value = data.peppol_id || '';
-                document.getElementById('id_country_code').value = data.country_code || '';
+                document.getElementById('id_libelle_facture').value = data.libelle_facture || '';
+                document.getElementById('id_reference_facture').value = data.reference_facture || '';
+                document.getElementById('id_achat_montant_htva').value = data.achat_montant_htva || '';
             } else {
-                document.getElementById('id_nom').value = '';
-                document.getElementById('id_numero_tva').value = '';
-                document.getElementById('id_peppol_id').value = '';
-                document.getElementById('id_country_code').value = '';
+                document.getElementById('id_fournisseur').value = '';
+                document.getElementById('id_libelle_facture').value = '';
+                document.getElementById('id_reference_facture').value = '';
+                document.getElementById('id_achat_montant_htva').value = '';
             }
         })
         .catch(err => console.error("Erreur:", err));
