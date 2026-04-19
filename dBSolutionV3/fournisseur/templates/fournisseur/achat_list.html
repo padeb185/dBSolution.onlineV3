@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% load i18n static widget_tweaks %}
+
+{% block title %}{% trans "Liste des Factures" %}{% endblock %}
+
+{% block content %}
+<h1 class="text-2xl font-bold mb-6 flex items-center">
+    <img src="{% static 'icons/achatmds.png' %}" alt="achat marchandises"
+         style="width:60px; height:60px; margin-right:10px;">
+    {% trans "Liste des Factures" %}
+</h1>
+<br>
+  <div>
+      <a href="{% url 'fournisseur:fournisseur_achat' %}"
+             class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+          {% trans "Encoder une facture" %}
+      </a>
+  </div>
+<br>
+<br>
+
+<div class="bg-white shadow-md rounded-lg p-4 mb-4">
+    <div class="grid grid-cols-5 md:grid-cols- gap-3 items-end">
+        <input id="search-fournisseur" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Nom du fournisseur' %}">
+
+        <input id="search-achat_mds" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Libellé' %}">
+
+        <input id="search-achat_montant_htva" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Montant HTVA' %}">
+
+
+        <input id="search-achat_tva" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Taux de TVA' %}">
+
+        <input id="search-date_facture" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans '0032' %}">
+    </div>
+</div>
+
+
+
+
+<!-- Table -->
+<table id="fournisseurs-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Nom du Fournisseur" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Libellé" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Montant HTVA" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Taux de TVA" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Total TVA" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Montant TVAC" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Date de facturation" %}</th>
+            <th class="border px-4 py-2 cursor-pointer text-center">{% trans "Info" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for achat in achats %}
+        <tr>
+            <td class="border px-4 py-2">{{ achat.fournisseur }}</td>
+            <td class="border px-4 py-2">{{ achat.achat_mds }}</td>
+            <td class="border px-4 py-2">{{ achat.achat_montant_htva }}</td>
+            <td class="border px-4 py-2">{{ achat.taux_tva }}</td>
+            <td class="border px-4 py-2">{{ achat.total_tvac_calc }}</td>
+            <td class="border px-4 py-2">{{ achat.montant_tva_calc }}</td>
+            <td class="border px-4 py-2">{{ achat.date_facture }}</td>
+            <td class="border px-4 py-2 text-center">
+                <a href="{% url 'fournisseur:achat_detail' fournisseur.id %}"
+                     class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
+                    {% trans "Info" %}
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+<br>
+<div>
+    <a href="{% url 'utilisateurs:dashboard' %}"
+       class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour au tableau de bord" %}
+    </a>
+</div>
+
+<!-- DataTables JS -->
+<script>
+$(document).ready(function() {
+    var table = $('#achats-table').DataTable({
+        pageLength: 100,
+        language: {
+            search: "{% trans 'Recherche globale :' %}",
+            lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ achats marchandises' %}",
+            infoEmpty: "{% trans 'Aucune facture trouvée' %}",
+            zeroRecords: "{% trans 'Aucune facture trouvée' %}",
+            paginate: {
+                first: "{% trans 'Premier' %}",
+                last: "{% trans 'Dernier' %}",
+                next: "{% trans 'Suivant' %}",
+                previous: "{% trans 'Précédent' %}"
+            }
+        },
+        order: [[0, "asc"]]
+    });
+
+    // Filtres par colonne
+    $('#search-fournisseur').on('keyup', function () {
+        table.column(0).search(this.value).draw();
+    });
+    $('#search-achat_mds').on('keyup', function () {
+        table.column(1).search(this.value).draw();
+    });
+    $('#search-achat_montant_htva').on('keyup', function () {
+        table.column(2).search(this.value).draw();
+    });
+    $('#search-achat_tva').on('keyup', function () {
+        table.column(3).search(this.value).draw();
+    });
+     $('#search-date_facture').on('keyup', function () {
+        table.column(4).search(this.value).draw();
+    });
+
+});
+</script>
+{% endblock %}
