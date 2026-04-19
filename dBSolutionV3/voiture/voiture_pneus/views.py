@@ -50,7 +50,12 @@ def liste_pneus(request):
     tenant = request.user.societe
     with tenant_context(tenant):
         pneus = VoiturePneus.objects.filter(societe=tenant)
-    return render(request, "voiture_pneus/list.html", {"pneus": pneus})
+
+
+    return render(request, "voiture_pneus/list.html",{
+        "pneus": pneus
+
+})
 
 
 

@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load i18n static widget_tweaks %}
-
 {% block title %}{% trans "Liste des Pneus" %}{% endblock %}
 
 {% block content %}
@@ -82,7 +81,14 @@
     <tbody>
         {% for pneu in pneus %}
         <tr>
-            <td class="border px-4 py-2">{{ pneu.manufacturier }}</td>
+            <td class="border px-4 py-2 text-center">
+                <img
+                    src="{% static 'images/'|add:pneu.manufacturier|lower|add:'.png' %}"
+                    alt="{{ pneu.manufacturier }}"
+                    class="h-8 mx-auto"
+                    onerror="this.onerror=null; this.outerHTML='{{ pneu.manufacturier }}';"
+                >
+            </td>
             <td class="border px-4 py-2">{{ pneu.get_type_pneus_display }}</td>
             <td class="border px-4 py-2">{{ pneu.nom_type }}</td>
             <td class="border px-4 py-2">{{ pneu.pneus_largeur }}</td>
