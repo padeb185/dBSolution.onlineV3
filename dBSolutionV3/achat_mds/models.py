@@ -44,7 +44,7 @@ class AchatMds(models.Model):
     )
 
     achat_tva = models.DecimalField(
-        _("Taux TVA (%)"),
+        _("Taux de TVA (%)"),
         max_digits=5,
         decimal_places=2,
         default=21.00

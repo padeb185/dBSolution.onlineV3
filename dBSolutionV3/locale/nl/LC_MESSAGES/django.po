@@ -10820,6 +10820,7 @@ msgid "Type pneus"
 msgstr "Type band"
 
 #: .\voiture\voiture_pneus\templates\voiture_pneus\list.html:47
+#: .\voiture\voiture_pneus\templates\voiture_pneus\list.html:47
 msgid "Diamètre"
 msgstr "Diameter"
 
@@ -10858,12 +10859,12 @@ msgid "Exemplaire de voiture"
 msgstr "Voertuigexemplaar"
 
 #: .\voiture\voiture_pneus\templates\voiture_pneus\modifier_pneus.html:122
-msgid "Retour aux détails"
-msgstr "Terug naar details"
-
 #: .\voiture\voiture_pneus\templates\voiture_pneus\modifier_pneus.html:122
 msgid "Retour aux détails"
 msgstr "Terug naar details"
+
+
+
 
 #: .\voiture\voiture_pneus\templates\voiture_pneus\pneus_detail.html:19
 msgid "Détails du Pneu :"
@@ -10876,10 +10877,6 @@ msgstr "Band bewerken"
 #: .\voiture\voiture_pneus\templates\voiture_pneus\pneus_detail.html:105
 msgid "Retour a la liste des pneus"
 msgstr "Terug naar de lijst met banden"
-
-#: .\voiture\voiture_pneus\templates\voiture_pneus\list.html:47
-msgid "Diamètre"
-msgstr "Diameter"
 
 #: .\voiture\voiture_pneus\views.py:28
 msgid "Pneus remplacés avec succès."
