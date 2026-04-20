@@ -51,11 +51,11 @@ class AchatMds(models.Model):
     )
 
     date_facture = models.DateField(
-        _("Date facture")
+        _("Date de la facture")
     )
 
     date_paiement = models.DateField(
-        _("Date paiement"),
+        _("Date de paiement"),
         null=True,
         blank=True
     )

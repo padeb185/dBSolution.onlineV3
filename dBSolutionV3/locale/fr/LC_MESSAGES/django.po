@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-20 09:02+0200\n"
+"POT-Creation-Date: 2026-04-20 09:57+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -35,6 +35,7 @@ msgstr ""
 #: .\achat_mds\templates\achat_mds\achat_list.html:30
 #: .\achat_mds\templates\achat_mds\achat_list.html:55
 #: .\investissements\models.py:40 .\outillage\models.py:29
+#: .\outillage\templates\outillage\outillage_detail.html:36
 #: .\outillage\templates\outillage\outillage_list.html:30
 #: .\outillage\templates\outillage\outillage_list.html:60
 msgid "Libellé"
@@ -50,8 +51,8 @@ msgstr ""
 msgid "Montant HTVA"
 msgstr ""
 
-#: .\achat_mds\models.py:47
-msgid "Taux TVA (%)"
+#: .\achat_mds\models.py:47 .\fournisseur\models.py:38 .\outillage\models.py:54
+msgid "Taux de TVA (%)"
 msgstr ""
 
 #: .\achat_mds\models.py:54
@@ -1968,10 +1969,6 @@ msgstr ""
 msgid "%(desc)s (%(facture)s)"
 msgstr ""
 
-#: .\fournisseur\models.py:38 .\outillage\models.py:54
-msgid "Taux de TVA (%)"
-msgstr ""
-
 #: .\fournisseur\models.py:54
 msgid "ISO 3166-1 alpha-2"
 msgstr ""
@@ -3708,12 +3705,10 @@ msgid "Kilométrage à la dernière intervention"
 msgstr ""
 
 #: .\maintenance\autres_interventions\models.py:67 .\maintenance\models.py:93
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:29
 msgid "Kilométrage châssis"
 msgstr ""
 
 #: .\maintenance\autres_interventions\models.py:71 .\maintenance\models.py:97
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:30
 msgid "Kilométrage moteur"
 msgstr ""
 
@@ -6582,10 +6577,6 @@ msgstr ""
 
 #: .\outillage\templates\outillage\outillage_detail.html:16
 msgid "Détails de l'outillage :"
-msgstr ""
-
-#: .\outillage\templates\outillage\outillage_detail.html:36
-msgid "libellé"
 msgstr ""
 
 #: .\outillage\templates\outillage\outillage_detail.html:53
@@ -9920,13 +9911,23 @@ msgstr ""
 msgid "Détails du véhicule : "
 msgstr ""
 
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:29
+msgid "Kilométrage du châssis"
+msgstr ""
+
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:30
+msgid "Kilométrage du moteur"
+msgstr ""
+
 #: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:31
-msgid "Kilométrage boite"
+msgid "Kilométrage de la boite"
 msgstr ""
 
 #: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:32
-msgid "Kilométrage embrayage"
-msgstr ""
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Kilométrage de l'embrayage"
+msgstr "Tableau de Bord"
 
 #: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:33
 msgid "Kilométrage du dernier entretien"
