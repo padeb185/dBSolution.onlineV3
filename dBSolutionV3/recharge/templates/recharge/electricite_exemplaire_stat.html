@@ -141,7 +141,7 @@
         <tr>
             <td class="border px-4 py-2">{{ a.an|date:"Y" }}</td>
             <td class="border px-4 py-2 text-center">{{ a.nb_recharges }}</td>
-            <td class="border px-4 py-2 text-center">{{ a.totalkW|floatformat:2 }}</td>
+            <td class="border px-4 py-2 text-center">{{ a.total_kW|floatformat:2 }}</td>
             <td class="border px-4 py-2 text-center">{{ a.total_cout|floatformat:2 }} €</td>
         </tr>
         {% empty %}
@@ -151,5 +151,73 @@
         {% endfor %}
     </tbody>
 </table>
+<br>
+<br>
+<h2 class="text-xl font-semibold mt-8 mb-3">{% trans "Coût Mensuel" %}</h2>
+<table class="min-w-full table-auto border-collapse border border-gray-200 bg-white mb-8">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2">{% trans "Mois" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Recharges" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "kW" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Coût total" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Conso moyenne kWh/100km" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Coût / km" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for m in par_mois %}
+        <tr>
+            <td class="border px-4 py-2">{{ m.mois|date:"F Y" }}</td>
+            <td class="border px-4 py-2 text-center">{{ m.nb_recharges }}</td>
+            <td class="border px-4 py-2 text-center">{{ m.total_kW|floatformat:2 }}</td>
+            <td class="border px-4 py-2 text-center">{{ m.total_cout|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-center">{{ m.conso_moyenne|floatformat:2 }} kWh/100km</td>
+            <td class="border px-4 py-2 text-center">{{ m.cout_km|floatformat:2 }} €/km</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6" class="border px-4 py-4 text-center">{% trans "Aucune donnée" %}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
+<h2 class="text-xl font-semibold mt-8 mb-3">{% trans "Consommation électrique moyenne" %}</h2>
+
+<div class="flex flex-wrap justify-start gap-4 mb-8 text-center">
+    <!-- Globale -->
+    <div class="bg-green-100 p-2 rounded w-48">
+        <div class="text-xs text-gray-500">{% trans "Globale (kWh/100 km)" %}</div>
+        <div class="text-lg font-bold">{{ global.conso_moyenne|floatformat:2 }}</div>
+        <div class="text-xs text-gray-500">{% trans "Coût / km (€)" %}</div>
+        <div class="text-lg font-bold">{{ global.cout_km|floatformat:2 }}</div>
+        <div class="text-xs text-gray-500">{% trans "Prix moyen kWh (€)" %}</div>
+        <div class="text-lg font-bold">{{ global.prix_moyen_kW|floatformat:3 }}</div>
+    </div>
+
+    <!-- Par mois -->
+    {% for mois, conso in conso_moyenne_mois.items %}
+        <div class="bg-green-50 p-2 rounded w-48">
+            <div class="text-xs text-gray-500">{% trans "Mois" %} {{ mois|date:"F Y" }}</div>
+            <div class="text-lg font-bold">{{ conso|floatformat:2 }}</div>
+            <div class="text-xs text-gray-500">{% trans "Coût / km (€)" %}</div>
+            <div class="text-lg font-bold">{{ conso_cout_km_mois.mois|floatformat:2 }}</div>
+            <div class="text-xs text-gray-500">{% trans "Prix moyen kWh (€)" %}</div>
+            <div class="text-lg font-bold">{{ conso_prix_moyen_kW_mois.mois|floatformat:3 }}</div>
+        </div>
+    {% endfor %}
+
+    <!-- Par année -->
+    {% for an, conso in conso_moyenne_an.items %}
+        <div class="bg-green-200 p-2 rounded w-48">
+            <div class="text-xs text-gray-500">{% trans "Année" %} {{ an }}</div>
+            <div class="text-lg font-bold">{{ conso|floatformat:2 }}</div>
+            <div class="text-xs text-gray-500">{% trans "Coût / km (€)" %}</div>
+            <div class="text-lg font-bold">{{ conso_cout_km_an.an|floatformat:2 }}</div>
+            <div class="text-xs text-gray-500">{% trans "Prix moyen kWh (€)" %}</div>
+            <div class="text-lg font-bold">{{ conso_prix_moyen_kW_an.an|floatformat:3 }}</div>
+        </div>
+    {% endfor %}
+</div>
 {% endblock %}

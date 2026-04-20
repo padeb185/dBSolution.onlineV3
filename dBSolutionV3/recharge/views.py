@@ -17,6 +17,10 @@ from recharge.forms import ElectriciteForm
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from voiture.voiture_marque.models import VoitureMarque
 from voiture.voiture_modele.models import VoitureModele
+from decimal import Decimal
+
+
+
 
 
 @method_decorator([login_required, never_cache], name="dispatch")
@@ -251,6 +255,16 @@ def get_modeles_elect(request):
 
 
 
+from decimal import Decimal
+from django.db.models import Sum, Count, Min, Max
+from django.db.models.functions import TruncMonth, TruncYear
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.views.generic import TemplateView
+from django.views.decorators.cache import never_cache
+
+from .models import Electricite
+
 @method_decorator([login_required, never_cache], name="dispatch")
 class ElectriciteStatView(TemplateView):
     template_name = "recharge/electricite_stat.html"
@@ -267,6 +281,35 @@ class ElectriciteStatView(TemplateView):
         # -----------------------------
         # 📊 Statistiques globales
         # -----------------------------
+        total_kW_global = Decimal("0")
+        total_km_global = Decimal("0")
+
+        voitures = electricites.values("voiture_exemplaire__id").annotate(
+            km_min=Min("kilometrage_electricite"),
+            km_max=Max("kilometrage_electricite"),
+        )
+
+        for v in voitures:
+            km_min = Decimal(v["km_min"] or 0)
+            km_max = Decimal(v["km_max"] or 0)
+            km_total = km_max - km_min
+            if km_total <= 0:
+                continue
+
+            # kW total pour cette voiture en excluant le premier relevé
+            kW = electricites.filter(voiture_exemplaire__id=v["voiture_exemplaire__id"])
+            if km_min != km_max:
+                kW = kW.exclude(kilometrage_electricite=km_min)
+            kW = kW.aggregate(total=Sum("kW"))["total"]
+            kW = Decimal(str(kW or 0))
+
+            total_kW_global += kW
+            total_km_global += km_total
+
+        conso_moyenne_global = (total_kW_global * Decimal("100") / total_km_global) if total_km_global > 0 else Decimal("0.0")
+        context["conso_moyenne"] = conso_moyenne_global
+
+        # Stats globales additionnelles
         global_stats = electricites.aggregate(
             total_kW=Sum("kW"),
             total_cout=Sum("prix_recharge"),
@@ -274,32 +317,31 @@ class ElectriciteStatView(TemplateView):
             total_recharges=Count("id"),
         )
 
-        # 🔹 Totaux TVA par pays
-        PAYS_CHOICES = [
-            ('BE', "Belgique"),
-            ('LU', "Luxembourg"),
-            ('DE', "Allemagne"),
-        ]
-        totaux_par_pays = {}
-        for code, _ in PAYS_CHOICES:
-            totaux_par_pays[code] = electricites.filter(pays=code).aggregate(total=Sum("montant_tva"))["total"] or 0
-        context["totaux_par_pays"] = totaux_par_pays
-
-        # 🔹 Total TVA global
-        total_global = electricites.aggregate(total=Sum("montant_tva"))["total"] or 0
-        context["total_global"] = total_global
-
-        # Calcul du prix moyen au kW (en Python pour éviter FieldError)
-        total_kW = float(global_stats["total_kW"] or 0)
-        total_cout = float(global_stats["total_cout"] or 0)
-        global_stats["prix_moyen_kW"] = (total_cout / total_kW) if total_kW > 0 else 0.0
+        total_kW = Decimal(str(global_stats["total_kW"] or 0))
+        total_cout = Decimal(str(global_stats["total_cout"] or 0))
+        global_stats["prix_moyen_kW"] = (total_cout / total_kW) if total_kW > 0 else Decimal("0.0")
+        global_stats["conso_moyenne"] = conso_moyenne_global
 
         context["global"] = global_stats
 
         # -----------------------------
+        # 🔹 Totaux TVA par pays
+        # -----------------------------
+        PAYS_CHOICES = [('BE', "Belgique"), ('LU', "Luxembourg"), ('DE', "Allemagne")]
+        context["totaux_par_pays"] = {
+            code: Decimal(str(
+                electricites.filter(pays=code).aggregate(total=Sum("montant_tva"))["total"] or 0
+            ))
+            for code, _ in PAYS_CHOICES
+        }
+        context["total_global"] = Decimal(str(
+            electricites.aggregate(total=Sum("montant_tva"))["total"] or 0
+        ))
+
+        # -----------------------------
         # 🚗 Stats par voiture
         # -----------------------------
-        par_voiture_queryset = electricites.values(
+        par_voiture = electricites.values(
             "voiture_exemplaire__id",
             "voiture_exemplaire__voiture_modele__nom_modele",
             "voiture_exemplaire__voiture_modele__voiture_marque__nom_marque",
@@ -311,148 +353,227 @@ class ElectriciteStatView(TemplateView):
             total_cout=Sum("prix_recharge"),
             km_min=Min("kilometrage_electricite"),
             km_max=Max("kilometrage_electricite"),
-        ).annotate(
-            km_parcourus=ExpressionWrapper(F("km_max") - F("km_min"), output_field=FloatField()),
-        ).annotate(
-            conso_moyenne=Case(
-                When(km_parcourus__gt=0,
-                     then=ExpressionWrapper(F("total_kW") * 100.0 / F("km_parcourus"), output_field=FloatField())),
-                default=Value(0.0),
-                output_field=FloatField(),
-            ),
-            cout_km=Case(
-                When(km_parcourus__gt=0,
-                     then=ExpressionWrapper(F("total_cout") / F("km_parcourus"), output_field=FloatField())),
-                default=Value(0.0),
-                output_field=FloatField(),
-            ),
-            prix_moyen_kW=Case(
-                When(total_kW__gt=0,
-                     then=ExpressionWrapper(F("total_cout") / F("total_kW"), output_field=FloatField())),
-                default=Value(0.0),
-                output_field=FloatField(),
-            ),
-        ).order_by("-total_cout")
+        )
 
-        # Calcul en Python pour plus de sécurité
-        par_voiture = []
-        for v in par_voiture_queryset:
-            total_kW = float(v["total_kW"] or 0)
-            total_cout = float(v["total_cout"] or 0)
-            km_parcourus = float(v["km_parcourus"] or 0)
-            v["conso_moyenne"] = (total_kW * 100 / km_parcourus) if km_parcourus > 0 else 0.0
-            v["cout_km"] = (total_cout / km_parcourus) if km_parcourus > 0 else 0.0
-            v["prix_moyen_kW"] = (total_cout / total_kW) if total_kW > 0 else 0.0
-            par_voiture.append(v)
+        for v in par_voiture:
+            km_min = Decimal(v["km_min"] or 0)
+            km_max = Decimal(v["km_max"] or 0)
+            km_total = km_max - km_min
+
+            total_kW_v = Decimal(str(v["total_kW"] or 0))
+            total_cout_v = Decimal(str(v["total_cout"] or 0))
+
+            if km_total > 0:
+                kW_n_1 = electricites.filter(voiture_exemplaire__id=v["voiture_exemplaire__id"])
+                if km_min != km_max:
+                    kW_n_1 = kW_n_1.exclude(kilometrage_electricite=km_min)
+                kW_n_1 = Decimal(str(kW_n_1.aggregate(total=Sum("kW"))["total"] or 0))
+
+                km_total_decimal = Decimal(str(km_total))
+
+                v["conso_moyenne"] = (kW_n_1 * Decimal("100") / km_total_decimal)
+                v["cout_km"] = (total_cout_v / km_total_decimal)
+                v["prix_moyen_kW"] = (total_cout_v / total_kW_v) if total_kW_v > 0 else Decimal("0.0")
+            else:
+                v["conso_moyenne"] = Decimal("0.0")
+                v["cout_km"] = Decimal("0.0")
+                v["prix_moyen_kW"] = Decimal("0.0")
 
         context["par_voiture"] = par_voiture
 
         # -----------------------------
         # 📅 Stats par mois
         # -----------------------------
-        par_mois = (
-            electricites.annotate(mois=TruncMonth("date"))
-            .values("mois")
-            .annotate(
-                nb_recharges=Count("id"),
-                total_kW=Sum("kW"),
-                total_cout=Sum("prix_recharge"),
+        par_mois = electricites.annotate(mois=TruncMonth("date")).values("mois").order_by("mois")
+        context["conso_moyenne_mois"] = {}
+        for m in par_mois:
+            e_mois = electricites.filter(date__month=m["mois"].month, date__year=m["mois"].year)
+            voitures_mois = e_mois.values("voiture_exemplaire__id").annotate(
+                km_min=Min("kilometrage_electricite"),
+                km_max=Max("kilometrage_electricite"),
             )
-            .order_by("mois")
-        )
-        context["par_mois"] = par_mois
+
+            total_kW_mois = Decimal("0")
+            total_km_mois = Decimal("0")
+
+            for v in voitures_mois:
+                km_min = Decimal(v["km_min"] or 0)
+                km_max = Decimal(v["km_max"] or 0)
+                km_total = km_max - km_min
+
+                if km_total <= 0:
+                    continue
+
+                kW = e_mois.filter(voiture_exemplaire__id=v["voiture_exemplaire__id"])
+                if km_min != km_max:
+                    kW = kW.exclude(kilometrage_electricite=km_min)
+                kW = Decimal(str(kW.aggregate(total=Sum("kW"))["total"] or 0))
+
+                total_kW_mois += kW
+                total_km_mois += km_total
+
+            context["conso_moyenne_mois"][m["mois"]] = (
+                total_kW_mois * Decimal("100") / Decimal(str(total_km_mois))
+            ) if total_km_mois > 0 else Decimal("0.0")
 
         # -----------------------------
         # 📅 Stats par année
         # -----------------------------
-        par_an = (
-            electricites.annotate(an=TruncYear("date"))
-            .values("an")
-            .annotate(
-                nb_recharges=Count("id"),
-                total_kW=Sum("kW"),
-                total_cout=Sum("prix_recharge"),
+        par_an = electricites.annotate(an=TruncYear("date")).values("an").order_by("an")
+        context["conso_moyenne_an"] = {}
+        for a in par_an:
+            e_an = electricites.filter(date__year=a["an"].year)
+            voitures_an = e_an.values("voiture_exemplaire__id").annotate(
+                km_min=Min("kilometrage_electricite"),
+                km_max=Max("kilometrage_electricite"),
             )
-            .order_by("an")
-        )
-        context["par_an"] = par_an
+
+            total_kW_an = Decimal("0")
+            total_km_an = Decimal("0")
+
+            for v in voitures_an:
+                km_min = Decimal(v["km_min"] or 0)
+                km_max = Decimal(v["km_max"] or 0)
+                km_total = km_max - km_min
+
+                if km_total <= 0:
+                    continue
+
+                kW = e_an.filter(voiture_exemplaire__id=v["voiture_exemplaire__id"])
+                if km_min != km_max:
+                    kW = kW.exclude(kilometrage_electricite=km_min)
+                kW = Decimal(str(kW.aggregate(total=Sum("kW"))["total"] or 0))
+
+                total_kW_an += kW
+                total_km_an += km_total
+
+            context["conso_moyenne_an"][a["an"]] = (
+                total_kW_an * Decimal("100") / Decimal(str(total_km_an))
+            ) if total_km_an > 0 else Decimal("0.0")
 
         return context
 
 
+
+from decimal import Decimal
+from django.db.models import Sum, Min, Max
+from django.shortcuts import get_object_or_404
+from django.views.generic import TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models.functions import TruncMonth, TruncYear
+
 class ElectriciteExemplaireStatView(LoginRequiredMixin, TemplateView):
     template_name = "recharge/electricite_exemplaire_stat.html"
 
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        # Récupère l'ID depuis l'URL
         exemplaire_id = self.kwargs.get("exemplaire_id")
-
-        # Récupère l'exemplaire en tenant compte du tenant
         tenant = self.request.user.societe
-        with tenant_context(tenant):
 
+        with tenant_context(tenant):
             exemplaire = get_object_or_404(VoitureExemplaire, pk=exemplaire_id)
             recharges = Electricite.objects.filter(voiture_exemplaire=exemplaire)
-
             context["exemplaire"] = exemplaire
 
-            # 🔹 Stats globales pour cet exemplaire
+            # 🔹 Statistiques globales
+            km_min = Decimal(recharges.aggregate(Min("kilometrage_electricite"))["kilometrage_electricite__min"] or 0)
+            km_max = Decimal(recharges.aggregate(Max("kilometrage_electricite"))["kilometrage_electricite__max"] or 0)
+            km_total = km_max - km_min
+
+            total_kW = Decimal(recharges.exclude(kilometrage_electricite=km_min).aggregate(Sum("kW"))["kW__sum"] or 0)
+            total_cout = Decimal(recharges.aggregate(Sum("prix_recharge"))["prix_recharge__sum"] or 0)
+            total_kW_all = Decimal(recharges.aggregate(Sum("kW"))["kW__sum"] or 1)
+
+            conso_moyenne = (total_kW * Decimal("100") / km_total) if km_total > 0 else Decimal("0.0")
+            cout_km = (total_cout / km_total) if km_total > 0 else Decimal("0.0")
+            prix_moyen_kW = (total_cout / total_kW_all) if total_kW_all > 0 else Decimal("0.0")
+
             context["global"] = {
                 "total_recharges": recharges.count(),
-                "total_kW": recharges.aggregate(total=Sum("kW"))["total"] or 0,
-                "total_cout": recharges.aggregate(total=Sum("prix_watt"))["total"] or 0,
-                "total_tva": recharges.aggregate(total=Sum("montant_tva"))["total"] or 0,
-                "prix_moyen_kW": recharges.aggregate(avg=Avg("prix_watt"))["avg"] or 0,
+                "total_kW": total_kW_all,
+                "total_cout": total_cout,
+                "total_tva": Decimal(recharges.aggregate(Sum("montant_tva"))["montant_tva__sum"] or 0),
+                "prix_moyen_kW": prix_moyen_kW,
+                "conso_moyenne": conso_moyenne,
+                "cout_km": cout_km,
             }
-
 
             # 🔹 Totaux TVA par pays
             context["totaux_par_pays"] = Electricite.total_tva_par_pays_exemplaire(exemplaire)
 
-            total_global = recharges.aggregate(total=Sum("montant_tva"))["total"] or 0
-            context["total_global"] = total_global
+            # 🔹 Total TVA global
+            context["total_global"] = Decimal(recharges.aggregate(Sum("montant_tva"))["montant_tva__sum"] or 0)
 
             # 🔹 Stats par mois
-            context["par_mois"] = [
-                {
+            context["par_mois"] = []
+
+            # obtenir un queryset unique par mois
+            mois_groupes = (
+                recharges
+                .annotate(mois=TruncMonth("date"))
+                .values("mois")
+                .distinct()
+                .order_by("mois")
+            )
+
+            for m in mois_groupes:
+                e_mois = recharges.filter(date__month=m["mois"].month, date__year=m["mois"].year)
+                km_min_mois = Decimal(
+                    e_mois.aggregate(Min("kilometrage_electricite"))["kilometrage_electricite__min"] or 0)
+                km_max_mois = Decimal(
+                    e_mois.aggregate(Max("kilometrage_electricite"))["kilometrage_electricite__max"] or 0)
+                km_total_mois = km_max_mois - km_min_mois
+
+                total_kW_mois = Decimal(
+                    e_mois.exclude(kilometrage_electricite=km_min_mois).aggregate(Sum("kW"))["kW__sum"] or 0)
+                total_kW_mois_all = Decimal(e_mois.aggregate(Sum("kW"))["kW__sum"] or 1)
+                total_cout_mois = Decimal(e_mois.aggregate(Sum("prix_recharge"))["prix_recharge__sum"] or 0)
+
+                context["par_mois"].append({
                     "mois": m["mois"],
-                    "nb_recharges": m["nb_recharges"],
-                    "total_kW": m["total_kW"],
-                    "total_cout": m["total_prix"],
-                    "total_tva": m["total_tva"],
-                }
-                for m in recharges.annotate(mois=TruncMonth("date"))
-                                 .values("mois")
-                                 .annotate(
-                                    total_kW=Sum("kW"),
-                                    total_prix=Sum("prix_recharge"),
-                                    total_tva=Sum("montant_tva"),
-                                    nb_recharges=Count("id"),
-                                 )
-                                 .order_by("mois")
-            ]
+                    "nb_recharges": e_mois.count(),
+                    "total_kW": total_kW_mois,
+                    "total_cout": total_cout_mois,
+                    "total_tva": Decimal(e_mois.aggregate(Sum("montant_tva"))["montant_tva__sum"] or 0),
+                    "conso_moyenne": (total_kW_mois * Decimal("100") / km_total_mois) if km_total_mois > 0 else Decimal(
+                        "0.0"),
+                    "cout_km": (total_cout_mois / km_total_mois) if km_total_mois > 0 else Decimal("0.0"),
+                    "prix_moyen_kW": (total_cout_mois / total_kW_mois_all) if total_kW_mois_all > 0 else Decimal("0.0"),
+                })
 
             # 🔹 Stats par année
-            context["par_an"] = [
-                {
-                    "an": a["an"],
-                    "nb_recharges": a["nb_recharges"],
-                    "total_kW": a["total_kW"],
-                    "total_cout": a["total_prix"],
-                    "total_tva": a["total_tva"],
-                }
-                for a in recharges.annotate(an=TruncYear("date"))
-                               .values("an")
-                               .annotate(
-                                   total_kW=Sum("kW"),
-                                   total_prix=Sum("prix_recharge"),
-                                   total_tva=Sum("montant_tva"),
-                                   nb_recharges=Count("id"),
-                               )
-                               .order_by("an")
-            ]
+            context["par_an"] = []
 
-            return context
+            an_groupes = (
+                recharges
+                .annotate(an=TruncYear("date"))
+                .values("an")
+                .distinct()
+                .order_by("an")
+            )
+
+            for a in an_groupes:
+                e_an = recharges.filter(date__year=a["an"].year)
+                km_min_an = Decimal(e_an.aggregate(Min("kilometrage_electricite"))["kilometrage_electricite__min"] or 0)
+                km_max_an = Decimal(e_an.aggregate(Max("kilometrage_electricite"))["kilometrage_electricite__max"] or 0)
+                km_total_an = km_max_an - km_min_an
+
+                total_kW_an = Decimal(
+                    e_an.exclude(kilometrage_electricite=km_min_an).aggregate(Sum("kW"))["kW__sum"] or 0)
+                total_kW_an_all = Decimal(e_an.aggregate(Sum("kW"))["kW__sum"] or 1)
+                total_cout_an = Decimal(e_an.aggregate(Sum("prix_recharge"))["prix_recharge__sum"] or 0)
+
+                context["par_an"].append({
+                    "an": a["an"],
+                    "nb_recharges": e_an.count(),
+                    "total_kW": total_kW_an,
+                    "total_cout": total_cout_an,
+                    "total_tva": Decimal(e_an.aggregate(Sum("montant_tva"))["montant_tva__sum"] or 0),
+                    "conso_moyenne": (total_kW_an * Decimal("100") / km_total_an) if km_total_an > 0 else Decimal(
+                        "0.0"),
+                    "cout_km": (total_cout_an / km_total_an) if km_total_an > 0 else Decimal("0.0"),
+                    "prix_moyen_kW": (total_cout_an / total_kW_an_all) if total_kW_an_all > 0 else Decimal("0.0"),
+                })
+
+
+        return context
