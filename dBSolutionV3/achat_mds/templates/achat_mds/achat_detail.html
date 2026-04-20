@@ -34,17 +34,22 @@
             </p>
             <p>
                 <strong>{% trans "Libellé" %} :</strong>
-                {{ achat. }}
+                {{ achat.libelle_facture }}
+            </p>
+
+              <p>
+                <strong>{% trans "Montant HTVA" %} :</strong>
+                {{ achat.achat_montant_htva }}
             </p>
 
             <p>
                 <strong>{% trans "Taux de TVA" %} :</strong>
-                {{ fournisseur.taux_tva }} %
+                {{ achat.achat_tva }} %
             </p>
 
             <p>
-                <strong>{% trans "Pays" %} :</strong>
-                {{ fournisseur.country_code }}
+                <strong>{% trans "Date de la facture" %} :</strong>
+                {{ achat.date_facture }}
             </p>
         </div>
 
@@ -57,6 +62,11 @@
             <p>
                 <strong>{% trans "Identifiant Peppol" %} :</strong><br>
                 {{ achat.fournisseur.peppol_id }}
+            </p>
+
+            <p>
+                <strong>{% trans "Numéro de compte" %} :</strong><br>
+                {{ achat.fournisseur.numero_compte }}
             </p>
 
         </div>
@@ -76,7 +86,7 @@
             {% trans "Adresse" %}
         </h2>
 
-        {% if fournisseur.adresse %}
+        {% if achat.fournisseur.adresse %}
             <p>{{ achat.fournisseur.adresse }}</p>
         {% else %}
             <p class="text-gray-500">
@@ -93,12 +103,12 @@
 
         <p>
             <strong>{% trans "Créé le" %} :</strong>
-            {{ fournisseur.created_at|date:"d/m/Y H:i" }}
+            {{ achat.created_at|date:"d/m/Y H:i" }}
         </p>
 
         <p>
             <strong>{% trans "Mis à jour le" %} :</strong>
-            {{ fournisseur.updated_at|date:"d/m/Y H:i" }}
+            {{ achat.updated_at|date:"d/m/Y H:i" }}
         </p>
     </div>
 

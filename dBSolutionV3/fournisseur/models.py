@@ -1,7 +1,7 @@
 import uuid
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-
+from societe_cliente.models import validate_iban
 
 
 class Fournisseur(models.Model):
@@ -78,6 +78,14 @@ class Fournisseur(models.Model):
         blank=True,
         null=True,
         help_text=_("Numéro de téléphone mobile")
+    )
+
+    numero_compte = models.CharField(
+        _("Numéro de compte bancaire"),
+        max_length=34,
+        null=True,
+        blank=True,
+        validators=[validate_iban]
     )
 
     # --- Métadonnées ---
