@@ -316,4 +316,46 @@ class Fuel(models.Model):
 
         return qs.aggregate(total=Sum('montant_tva'))['total'] or Decimal('0.00')
 
+    @classmethod
+    def consommation_moyenne_all(cls, exemplaire):
+        qs = cls.objects.filter(voiture_exemplaire=exemplaire).order_by('date')
+        if qs.count() < 2:
+            return Decimal('0.0')
 
+        total_distance = qs.last().kilometrage_fuel - qs.first().kilometrage_fuel
+        total_litres = sum(f.litres for f in qs[:-1])
+
+        if total_distance == 0:
+            return Decimal('0.0')
+
+        consommation = (Decimal(total_litres) / Decimal(total_distance)) * 100
+        return consommation.quantize(Decimal('0.01'))
+
+
+    @classmethod
+    def consommation_moyenne_mois(cls, vehicule, year, month):
+        qs = cls.objects.filter(voiture_exemplaire=vehicule, date__year=year, date__month=month).order_by('date')
+        if qs.count() < 2:
+            return Decimal('0.0')  # pas assez de données
+
+        total_distance = qs.last().kilometrage_fuel - qs.first().kilometrage_fuel
+        total_litres = sum(f.litres for f in qs[:-1])  # on ignore le dernier plein
+        if total_distance == 0:
+            return Decimal('0.0')
+
+        consommation = (Decimal(total_litres) / Decimal(total_distance)) * 100
+        return consommation.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+
+    @classmethod
+    def consommation_moyenne_an(cls, vehicule, year):
+        qs = cls.objects.filter(voiture_exemplaire=vehicule, date__year=year).order_by('date')
+        if qs.count() < 2:
+            return Decimal('0.0')  # pas assez de données
+
+        total_distance = qs.last().kilometrage_fuel - qs.first().kilometrage_fuel
+        total_litres = sum(f.litres for f in qs[:-1])  # on ignore le dernier plein
+        if total_distance == 0:
+            return Decimal('0.0')
+
+        consommation = (Decimal(total_litres) / Decimal(total_distance)) * 100
+        return consommation.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
