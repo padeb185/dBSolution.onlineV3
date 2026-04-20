@@ -10202,6 +10202,7 @@ msgid "Détails des freins arrière :"
 msgstr "Rear brakes details"
 
 #: .\voiture\voiture_freins_ar\templates\voiture_freins_ar\freins_ar_detail.html:37
+#: .\voiture\voiture_freins_av\templates\voiture_freins_av\freins_av_detail.html:37
 msgid "Numéro OEM des disques"
 msgstr "OEM number disc"
 
@@ -10365,8 +10366,6 @@ msgid "Détails des freins avant :"
 msgstr "Front brakes details"
 
 #: .\voiture\voiture_freins_av\templates\voiture_freins_av\freins_av_detail.html:37
-msgid "Numéro OEM des disques"
-msgstr "OEM number disc"
 
 #: .\voiture\voiture_freins_av\templates\voiture_freins_av\freins_av_detail.html:87
 msgid "Modifier les freins avant"
