@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-20 09:57+0200\n"
+"POT-Creation-Date: 2026-04-20 11:37+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -56,11 +56,11 @@ msgid "Taux de TVA (%)"
 msgstr ""
 
 #: .\achat_mds\models.py:54
-msgid "Date facture"
+msgid "Date de la facture"
 msgstr ""
 
 #: .\achat_mds\models.py:58
-msgid "Date paiement"
+msgid "Date de paiement"
 msgstr ""
 
 #: .\achat_mds\models.py:67
