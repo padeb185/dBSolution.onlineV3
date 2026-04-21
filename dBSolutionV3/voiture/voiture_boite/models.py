@@ -77,7 +77,7 @@ class VoitureBoite(models.Model):
         ]
 
     def __str__(self):
-        return f"Boîte #{self.nom_du_type} - {self.kilometres_boite} km"
+        return f"Boîte {self.nom_du_type} {self.fabricant} {self.nombre_rapport}"
 
     # Méthodes utilitaires
     def prochain_entretien_km(self):
