@@ -36,8 +36,6 @@ from voiture.voiture_pneus_historique.models import VoiturePneusHistorique
 
 
 
-
-
 admin.site.register(Utilisateur)
 admin.site.register(Adresse)
 admin.site.register(Facture)
@@ -63,6 +61,11 @@ admin.site.register(Mecanicien)
 admin.site.register(Vendeur)
 admin.site.register(VoitureBoite)
 admin.site.register(VoitureEmbrayage)
+
+
+
+
+
 
 
 

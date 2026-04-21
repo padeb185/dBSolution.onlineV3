@@ -61,9 +61,12 @@ def dashboard_moteur_view(request, exemplaire_id):
         tenant_schema = getattr(request, 'tenant', None)
         schema_name = tenant_schema.schema_name if tenant_schema else None
 
+
         total_admission = total_alternateur =  0
 
         admission = alternateur = []
+
+
 
         if schema_name:
             with schema_context(schema_name):
@@ -78,7 +81,7 @@ def dashboard_moteur_view(request, exemplaire_id):
                 total_admission = admission.count()
                 total_alternateur = alternateur.count()
 
-
+                total_int_moteur = total_admission + total_alternateur
 
                 modeles = VoitureModele.objects.all()
         else:
@@ -113,7 +116,7 @@ def dashboard_moteur_view(request, exemplaire_id):
             "admission": admission,
             "alternateur": alternateur,
 
-
+            "total_int_moteur": total_int_moteur,
 
             "modeles": modeles,
 
