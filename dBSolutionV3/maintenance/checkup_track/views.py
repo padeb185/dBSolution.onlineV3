@@ -24,7 +24,7 @@ from .models import CheckupTrack
 class CheckupTrackListView(ListView):
     model = CheckupTrack
     template_name = "checkup_track/checkup_track_list.html"
-    context_object_name = "track_checks"
+    context_object_name = "checkup_tracks"
     paginate_by = 100
     ordering = ["-id"]
 
