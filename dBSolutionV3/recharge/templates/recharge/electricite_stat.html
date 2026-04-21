@@ -164,7 +164,7 @@
         <tr>
             <td class="border px-4 py-2">{{ a.an|date:"Y" }}</td>
             <td class="border px-4 py-2 text-center">{{ a.nb_recharges}}</td>
-            <td class="border px-4 py-2 text-center">{{ a.total_kW_an|floatformat:2 }}</td>
+            <td class="border px-4 py-2 text-center">{{ a.total_kW|floatformat:2 }}</td>
             <td class="border px-4 py-2 text-center">{{ a.total_cout|floatformat:2 }} €</td>
         </tr>
         {% empty %}

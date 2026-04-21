@@ -183,41 +183,34 @@
     </tbody>
 </table>
 
-<h2 class="text-xl font-semibold mt-8 mb-3">{% trans "Consommation électrique moyenne" %}</h2>
+
+<!-- 📊 Consommation moyenne -->
+<h2 class="text-xl font-semibold mt-8 mb-3">{% trans "Consommation moyenne" %}</h2>
 
 <div class="flex flex-wrap justify-start gap-4 mb-8 text-center">
     <!-- Globale -->
     <div class="bg-green-100 p-2 rounded w-48">
         <div class="text-xs text-gray-500">{% trans "Globale (kWh/100 km)" %}</div>
         <div class="text-lg font-bold">{{ global.conso_moyenne|floatformat:2 }}</div>
-        <div class="text-xs text-gray-500">{% trans "Coût / km (€)" %}</div>
-        <div class="text-lg font-bold">{{ global.cout_km|floatformat:2 }}</div>
-        <div class="text-xs text-gray-500">{% trans "Prix moyen kWh (€)" %}</div>
-        <div class="text-lg font-bold">{{ global.prix_moyen_kW|floatformat:3 }}</div>
     </div>
 
-    <!-- Par mois -->
-    {% for mois, conso in conso_moyenne_mois.items %}
-        <div class="bg-green-50 p-2 rounded w-48">
-            <div class="text-xs text-gray-500">{% trans "Mois" %} {{ mois|date:"F Y" }}</div>
-            <div class="text-lg font-bold">{{ conso|floatformat:2 }}</div>
-            <div class="text-xs text-gray-500">{% trans "Coût / km (€)" %}</div>
-            <div class="text-lg font-bold">{{ conso_cout_km_mois.mois|floatformat:2 }}</div>
-            <div class="text-xs text-gray-500">{% trans "Prix moyen kWh (€)" %}</div>
-            <div class="text-lg font-bold">{{ conso_prix_moyen_kW_mois.mois|floatformat:3 }}</div>
-        </div>
+
+        <!-- Par mois -->
+    {% for m in par_mois %}
+    <div class="bg-green-50 p-2 rounded w-48">
+        <div class="text-xs text-gray-500">{% trans "Mois" %} {{ m.mois|date:"F Y" }}</div>
+        <div class="text-lg font-bold">{{ m.conso_moyenne|floatformat:2 }}</div>
+    </div>
     {% endfor %}
 
     <!-- Par année -->
-    {% for an, conso in conso_moyenne_an.items %}
-        <div class="bg-green-200 p-2 rounded w-48">
-            <div class="text-xs text-gray-500">{% trans "Année" %} {{ an }}</div>
-            <div class="text-lg font-bold">{{ conso|floatformat:2 }}</div>
-            <div class="text-xs text-gray-500">{% trans "Coût / km (€)" %}</div>
-            <div class="text-lg font-bold">{{ conso_cout_km_an.an|floatformat:2 }}</div>
-            <div class="text-xs text-gray-500">{% trans "Prix moyen kWh (€)" %}</div>
-            <div class="text-lg font-bold">{{ conso_prix_moyen_kW_an.an|floatformat:3 }}</div>
-        </div>
+    {% for a in par_an %}
+    <div class="bg-green-200 p-2 rounded w-48">
+        <div class="text-xs text-gray-500">{% trans "Année" %} {{ a.an|date:"Y" }}</div>
+        <div class="text-lg font-bold">{{ a.conso_moyenne|floatformat:2 }}</div>
+    </div>
     {% endfor %}
 </div>
+
+
 {% endblock %}
