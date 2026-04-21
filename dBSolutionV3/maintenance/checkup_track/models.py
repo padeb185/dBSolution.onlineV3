@@ -133,8 +133,16 @@ class ReadyForOK(models.TextChoices):
     NURBURG12 = "NURBURG12", _("Nurburg 12 tours")
     NURBURG15 = "NURBURG15", _("Nurburg 15 tours")
 
+class QualiteLiquideFrein(models.TextChoices):
+    DOT3 = "DOT3", _("Dot 3")
+    DOT4 = "DOT4", _("Dot 4")
+    DOT5 = "DOT5", _("Dot 5")
+    DOT51 = "DOT51", _("Dot 5.1")
 
-
+class LiquideFreinEtat(models.TextChoices):
+    BON = "BON", _("Bon")
+    AREMPLACER = "AREMPLACER", _("A remplacer")
+    REMPLACE = "REMPLACE", _("Remplacé")
 
 # ---------------------------
 # Modèle fusionné
@@ -208,9 +216,15 @@ class CheckupTrack(TechnicienMixin, models.Model):
 
     # --- Freins ---
 
-    freins_usure_plaquettes = models.IntegerField(default=0, verbose_name=_("Usure des plaquettes (%)"))
-    freins_plaquettes_remplacer = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Plaquettes à remplacer"))
-    freins_epaisseur_disques = models.FloatField(default=0.0, verbose_name=_("Épaisseur des disques avant (mm)"))
+    freins_usure_plaquettes_av = models.IntegerField(default=0, verbose_name=_("Usure des plaquettes avant (%)"))
+    freins_plaquettes_remplacer_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Plaquettes avant à remplacer"))
+    freins_epaisseur_disques_av = models.FloatField(default=0.0, verbose_name=_("Épaisseur des disques avant avant (mm)"))
+
+    freins_usure_plaquettes_ar = models.IntegerField(default=0, verbose_name=_("Usure des plaquettes arrière (%)"))
+    freins_plaquettes_remplacer_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                                   verbose_name=_("Plaquettes arrière à remplacer"))
+    freins_epaisseur_disques_ar = models.FloatField(default=0.0, verbose_name=_("Épaisseur des disques avant arrière (mm)"))
+
     freins_fentes_disques = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Présence de fentes sur les disques"))
     freins_disques_remplacer = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Disques à remplacer"))
 
@@ -219,9 +233,9 @@ class CheckupTrack(TechnicienMixin, models.Model):
 
 
     # --- Liquide ---
-    frein_liquide_frein_etat = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("État liquide de frein"))
-    freins_remplacement_liquide_frein = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Remplacement liquide de frein"))
-    freins_specif_liquide_frein = models.CharField(max_length=100, blank=True, verbose_name=_("Spécification liquide de frein"))
+    frein_liquide_frein_etat = models.CharField(max_length=25, choices=LiquideFreinEtat.choices, default=LiquideFreinEtat.BON, verbose_name=_("État liquide de frein"))
+
+    freins_specif_liquide_frein = models.CharField(max_length=100,choices=QualiteLiquideFrein.choices, default=QualiteLiquideFrein.DOT4, blank=True, verbose_name=_("Spécification liquide de frein"))
     freins_quantite_liquide_frein = models.FloatField(default=0, null=True, blank=True, verbose_name=_("Quantité liquide de frein (L)"))
 
     direction_etat = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Etat direction assistée / crémaillère"), null=True, blank=True)

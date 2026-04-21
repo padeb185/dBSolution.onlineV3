@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% load i18n static widget_tweaks %}
 
-{% block title %}{% trans "Liste des checkups" %}{% endblock %}
+{% block title %}{% trans "Liste des checkups piste" %}{% endblock %}
 
 {% block content %}
 <h1 class="text-2xl font-bold mb-6 flex items-center">
-    <img src="{% static 'icons/checkup_track.png' %}" alt="Checkups"
+    <img src="{% static 'icons/checkup_track.png' %}" alt="Checkups piste"
          style="width:60px; height:60px; margin-right:10px;">
-    {% trans "Liste des checkups" %}
+    {% trans "Liste des checkups piste" %}
 </h1>
 <br>
 <div>
@@ -98,10 +98,10 @@
 
             <td class="border px-4 py-2">{{ track_check.kilometres_chassis }}</td>
 
-             <td class="border px-4 py-2 text-center font-bold
-               {% if checkup.tag == 'VERT' %}bg-green-100 text-green-800 border-green-300 border-2
-               {% elif checkup.tag == 'JAUNE' %} bg-yellow-100 text-yellow-800 border-yellow-500 border-2
-               {% elif checkup.tag == 'ROUGE' %}bg-red-100 text-red-800 border-red-300 border-2
+            <td class="border px-4 py-2 text-center font-bold
+               {% if track_check.tag == 'VERT' %}bg-green-100 text-green-800 border-green-300 border-2
+               {% elif track_check.tag == 'JAUNE' %} bg-yellow-100 text-yellow-800 border-yellow-500 border-2
+               {% elif track_check.tag == 'ROUGE' %}bg-red-100 text-red-800 border-red-300 border-2
                {% endif %}">
               {{ track_check.get_tag_display }}
             </td>

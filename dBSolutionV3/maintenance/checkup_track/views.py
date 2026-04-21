@@ -130,7 +130,7 @@ def track_check_form_view(request, exemplaire_id):
 
                         checkup_track.save()
 
-                    messages.success(request, _("Checkup enregistré avec succès."))
+                    messages.success(request, _("Checkup piste enregistré avec succès."))
 
                 except Exception as e:
                     messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
@@ -196,7 +196,7 @@ def modifier_checkup_track_view(request, checkup_track_id):
             )
             if form.is_valid():
                 form.save()
-                messages.success(request, _("checkup_track modifié avec succès !"))
+                messages.success(request, _("checkup piste modifié avec succès !"))
                 return redirect("checkup_track:modifier_checkup_track", checkup_track_id=checkup_track.id)
             else:
                 messages.error(request, _("Le formulaire contient des erreurs."))
