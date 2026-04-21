@@ -28,6 +28,8 @@ from maintenance.pneus.models import ControlePneus
 from maintenance.autres_interventions.models import AutresInterventions
 from maintenance.carrosserie_interne.models import CarrosserieInterne
 
+from maintenance.checkup_track.models import CheckupTrack
+
 
 @login_required
 def liste_maintenance_all(request):
@@ -62,10 +64,10 @@ def choisir_type_maintenance(request, exemplaire_id):
 
     total_checkup = total_entretien = total_freins = total_pneus = \
     total_niveaux = total_nettoyage_exterieur = total_nettoyage_interieur = \
-    total_autres = total_jeux_pieces = total_silent = total_carrosserie_interne =  0
+    total_autres = total_jeux_pieces = total_silent = total_carrosserie_interne = total_checkup_track =  0
 
     checkup = entretien = nettoyage_exterieur = jeux_pieces = nettoyage_interieur = \
-        freins = niveaux = pneus = autres = silent = carrosserie_interne = []
+        freins = niveaux = pneus = autres = silent = carrosserie_interne = checkup_track = []
 
     if schema_name:
         with schema_context(schema_name):
@@ -82,6 +84,7 @@ def choisir_type_maintenance(request, exemplaire_id):
             jeux_pieces = ControleJeuxPieces.objects.filter(voiture_exemplaire=exemplaire)
             silent = SilentBloc.objects.filter(voiture_exemplaire=exemplaire)
             carrosserie_interne = CarrosserieInterne.objects.filter(voiture_exemplaire=exemplaire)
+            checkup_track = CheckupTrack.objects.filter(voiture_exemplaire=exemplaire)
 
             # ✅ COUNTS CORRECTS
             total_checkup = checkup.count()
@@ -95,6 +98,7 @@ def choisir_type_maintenance(request, exemplaire_id):
             total_jeux_pieces = jeux_pieces.count()
             total_silent = silent.count()
             total_carrosserie_interne = carrosserie_interne.count()
+            total_checkup_track = checkup_track.count()
 
             modeles = VoitureModele.objects.all()
     else:
@@ -132,6 +136,7 @@ def choisir_type_maintenance(request, exemplaire_id):
         'total_jeux_pieces': total_jeux_pieces,
         'total_silent': total_silent,
         'total_carrosserie_interne': total_carrosserie_interne,
+        'total_checkup_track': total_checkup_track,
 
         "checkup": checkup,
         "entretien": entretien,
@@ -144,6 +149,7 @@ def choisir_type_maintenance(request, exemplaire_id):
         'jeux_pieces': jeux_pieces,
         'silent': silent,
         'carrosserie_interne': carrosserie_interne,
+        'checkup_track': checkup_track,
         "modeles": modeles,
 
     })

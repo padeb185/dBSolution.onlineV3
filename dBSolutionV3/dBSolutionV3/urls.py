@@ -132,7 +132,7 @@ urlpatterns += i18n_patterns(
 
     path('achat_mds/',include(('achat_mds.urls', 'achat_mds'),namespace='achat_mds')),
 
-
+    path('maintenance/checkup_track/', include('maintenance.checkup_track.urls', namespace='checkup_track')),
 
 )
 
