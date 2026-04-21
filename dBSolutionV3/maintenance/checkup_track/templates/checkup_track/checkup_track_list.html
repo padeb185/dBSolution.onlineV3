@@ -63,7 +63,7 @@
     </thead>
     <tbody>
         {% for track_check in track_checks %}
-        {% with exemplaire=checkup.voiture_exemplaire %}
+        {% with exemplaire=track_check.voiture_exemplaire %}
         <tr>
             <td class="p-3">
                 {% if exemplaire.pays == 'Belgique' %}
@@ -96,7 +96,7 @@
                 {% endif %}
             </td>
 
-            <td class="border px-4 py-2">{{ tack_check.kilometres_chassis }}</td>
+            <td class="border px-4 py-2">{{ track_check.kilometres_chassis }}</td>
 
              <td class="border px-4 py-2 text-center font-bold
                {% if checkup.tag == 'VERT' %}bg-green-100 text-green-800 border-green-300 border-2
@@ -105,11 +105,11 @@
                {% endif %}">
               {{ track_check.get_tag_display }}
             </td>
-            <td class="border px-4 py-2">{{ track_check.ready_for }}</td>
+            <td class="border px-4 py-2">{{ track_check.get_ready_for_display }}</td>
             <td class="border px-4 py-2">{{ track_check.tech_nom_technicien }}</td>
             <td class="border px-4 py-2">{{ track_check.date }}</td>
             <td class="border px-4 py-2 text-center">
-               <a href="{% url 'checkup_track:checkup_track_detail' checkup_track.id %}"
+               <a href="{% url 'checkup_track:checkup_track_detail' track_check.id %}"
                    class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
                     {% trans "Infos" %}
                </a>
