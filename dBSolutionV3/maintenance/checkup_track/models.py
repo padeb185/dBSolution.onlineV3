@@ -122,6 +122,7 @@ class RefroidissementQualiteEtat(models.TextChoices):
     HYUNDAI_KIA_LLC = "HYUNDAI_KIA_LLC", _("Hyundai/Kia Long Life Coolant")
 
 class ReadyForOK(models.TextChoices):
+    VIDE = "", "---------"
     SPA200 = "SPA200", _("Spa-Francorchamps 200 km")
     SPA300 = "SPA300", _("Spa-Francorchamps 300 km")
     SPA400 = "SPA400", _("Spa-Francorchamps 400 km")
@@ -229,7 +230,7 @@ class CheckupTrack(TechnicienMixin, models.Model):
     # --- Bruits ---
     bruit_roulement_roue= models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Bruit de roulement de roue"), blank=True, null=True)
 
-
+    jeu_roulement_roue = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu de roulement de roue"))
 
     # --- Jeux ---
 
@@ -293,7 +294,7 @@ class CheckupTrack(TechnicienMixin, models.Model):
     nettoyage_interieur_sieges = models.CharField(max_length=25, choices=NettoyageEtat.choices, default=NettoyageEtat.A_FAIRE, verbose_name=_("Sièges"))
     nettoyage_interieur_carpettes = models.CharField(max_length=25, choices=NettoyageEtat.choices, default=NettoyageEtat.A_FAIRE, verbose_name=_("Carpettes"))
     nettoyage_interieur_tableau_de_bord = models.CharField(max_length=25, choices=NettoyageEtat.choices, default=NettoyageEtat.A_FAIRE, verbose_name=_("Tableau de bord"))
-    nettoyage_interieur_plastiques = models.CharField(max_length=25, choices=NettoyageEtat.choices, default=NettoyageEtat.A_FAIRE, verbose_name=_("Plastiques"))
+    nettoyage_interieur_plastiques = models.CharField(max_length=25, choices=NettoyageEtat.choices, default=NettoyageEtat.A_FAIRE, verbose_name=_("Plastiques"), null=True,blank=True)
 
     remarques = models.TextField(
         verbose_name=_("Remarques"), blank=True, null=True)
@@ -311,7 +312,7 @@ class CheckupTrack(TechnicienMixin, models.Model):
         verbose_name=_("État visuel / Tag"),
     )
 
-    ready_for = models.CharField(max_length=25, choices=NettoyageEtat.choices, default=NettoyageEtat.A_FAIRE, verbose_name=_("Plastiques"))
+    ready_for = models.CharField(max_length=25, choices=ReadyForOK.choices, verbose_name=_("Prête pour :"), blank=True, default="")
 
     # Technicien qui fait le checkup (toujours l'utilisateur courant)
     tech_technicien = models.ForeignKey(

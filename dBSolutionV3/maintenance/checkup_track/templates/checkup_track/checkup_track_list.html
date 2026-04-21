@@ -11,7 +11,7 @@
 </h1>
 <br>
 <div>
-     <a href="{% url 'checkup_track:checkup_track_form' exemplaire.id %}"
+     <a href="{% url 'checkup_track:track_check_form' exemplaire.id %}"
        class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
          {% trans "Ajouter un checkup piste" %}
      </a>
@@ -36,7 +36,7 @@
                class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Étiquette' %}">
 
-         <input id="search-rady_for" type="text"
+         <input id="search-ready_for" type="text"
                class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Prête pour ' %}">
 
@@ -62,7 +62,7 @@
         </tr>
     </thead>
     <tbody>
-        {% for checkup in checkups %}
+        {% for track_check in track_checks %}
         {% with exemplaire=checkup.voiture_exemplaire %}
         <tr>
             <td class="p-3">
@@ -96,18 +96,18 @@
                 {% endif %}
             </td>
 
-            <td class="border px-4 py-2">{{ checkup_track.kilometres_chassis }}</td>
+            <td class="border px-4 py-2">{{ tack_check.kilometres_chassis }}</td>
 
              <td class="border px-4 py-2 text-center font-bold
                {% if checkup.tag == 'VERT' %}bg-green-100 text-green-800 border-green-300 border-2
                {% elif checkup.tag == 'JAUNE' %} bg-yellow-100 text-yellow-800 border-yellow-500 border-2
                {% elif checkup.tag == 'ROUGE' %}bg-red-100 text-red-800 border-red-300 border-2
                {% endif %}">
-              {{ checkup_track.get_tag_display }}
+              {{ track_check.get_tag_display }}
             </td>
-            <td class="border px-4 py-2">{{ checkup_track.ready_for }}</td>
-            <td class="border px-4 py-2">{{ checkup_track.tech_nom_technicien }}</td>
-            <td class="border px-4 py-2">{{ checkup_track.date }}</td>
+            <td class="border px-4 py-2">{{ track_check.ready_for }}</td>
+            <td class="border px-4 py-2">{{ track_check.tech_nom_technicien }}</td>
+            <td class="border px-4 py-2">{{ track_check.date }}</td>
             <td class="border px-4 py-2 text-center">
                <a href="{% url 'checkup_track:checkup_track_detail' checkup_track.id %}"
                    class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
@@ -135,7 +135,7 @@
 
 <script>
 $(document).ready(function() {
-    var table = $('#checkup_tracks-table').DataTable({
+    var table = $('#track_checks-table').DataTable({
         pageLength: 100,
         language: {
             search: "{% trans 'Recherche globale :' %}",
@@ -162,7 +162,7 @@ $(document).ready(function() {
     $('#search-tag').on('keyup', function () {
         table.column(2).search(this.value).draw();
     });
-      $('#search-ready_for').on('keyup', function () {
+    $('#search-ready_for').on('keyup', function () {
         table.column(3).search(this.value).draw();
     });
     $('#search-utilisateur').on('keyup', function () {

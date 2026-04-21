@@ -9,13 +9,12 @@ from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
 from django_tenants.utils import tenant_context
 from maintenance.models import Maintenance
-from maintenance.check_up.models import ControleGeneral
-from maintenance.check_up.forms import ControleGeneralForm
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from maintenance.nettoyage_exterieur.models import NettoyageExterieur
 from django.utils.translation import gettext_lazy as _
 from .forms import CheckupTrackForm
+from .models import CheckupTrack
 
 
 # -----------------------------
@@ -23,14 +22,14 @@ from .forms import CheckupTrackForm
 # -----------------------------
 @method_decorator([login_required, never_cache], name='dispatch')
 class CheckupTrackListView(ListView):
-    model = ControleGeneral
+    model = CheckupTrack
     template_name = "checkup_track/checkup_track_list.html"
     context_object_name = "checkup_tracks"
     paginate_by = 100
     ordering = ["-id"]
 
     def get_queryset(self):
-        queryset = ControleGeneral.objects.select_related(
+        queryset = CheckupTrack.objects.select_related(
             "voiture_exemplaire", "maintenance", "tech_societe"
         )
 
@@ -54,7 +53,7 @@ class CheckupTrackListView(ListView):
 
 @never_cache
 @login_required
-def checkup_track_form_view(request, exemplaire_id):
+def track_check_form_view(request, exemplaire_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
@@ -94,7 +93,7 @@ def checkup_track_form_view(request, exemplaire_id):
             )
 
         # Créer ou récupérer l'objet NettoyageInterieur
-        checkup_track = ControleGeneral(
+        checkup_track = CheckupTrack(
             voiture_exemplaire=exemplaire,
             maintenance=maintenance,
             kilometres_chassis=exemplaire.kilometres_chassis
@@ -141,13 +140,13 @@ def checkup_track_form_view(request, exemplaire_id):
         else:
             checkup_track.assign_technicien(request.user)
 
-            form = ControleGeneralForm(
+            form = CheckupTrackForm(
                 instance=checkup_track,
                 user=request.user,
                 exemplaire=exemplaire
             )
 
-        return render(request, 'check_up/controle_total.html', {
+        return render(request, 'checkup_track/track_check_form.html', {
             "exemplaire": exemplaire,
             "immatriculation": exemplaire.immatriculation,
             "maintenance": maintenance,
@@ -163,7 +162,7 @@ def checkup_track_form_view(request, exemplaire_id):
 @login_required
 def checkup_track_detail_view(request, checkup_track_id):
     checkup_track = get_object_or_404(
-        ControleGeneral.objects.select_related("voiture_exemplaire"),
+        CheckupTrack.objects.select_related("voiture_exemplaire"),
         id=checkup_track_id
     )
 
@@ -171,7 +170,7 @@ def checkup_track_detail_view(request, checkup_track_id):
         "checkup_track": checkup_track,
         "exemplaire": checkup_track.voiture_exemplaire,
     }
-    return render(request, "check_up/checkup_track_detail.html", context)
+    return render(request, "checkup_track/checkup_track_detail.html", context)
 
 
 @login_required
@@ -181,7 +180,7 @@ def modifier_checkup_track_view(request, checkup_track_id):
     with tenant_context(tenant):
         # Récupération du checkup_track avec son exemplaire
         checkup_track = get_object_or_404(
-            ControleGeneral.objects.select_related("voiture_exemplaire"),
+            CheckupTrack.objects.select_related("voiture_exemplaire"),
             id=checkup_track_id
         )
 
@@ -189,7 +188,7 @@ def modifier_checkup_track_view(request, checkup_track_id):
         # POST
         # -------------------------
         if request.method == "POST":
-            form = ControleGeneralForm(
+            form = CheckupTrackForm(
                 request.POST,
                 instance=checkup_track,
                 user=request.user,       # 🔑 important pour initialiser technicien/societe
@@ -198,7 +197,7 @@ def modifier_checkup_track_view(request, checkup_track_id):
             if form.is_valid():
                 form.save()
                 messages.success(request, _("checkup_track modifié avec succès !"))
-                return redirect("check_up:modifier_checkup_track", checkup_track_id=checkup_track.id)
+                return redirect("checkup_track:modifier_checkup_track", checkup_track_id=checkup_track.id)
             else:
                 messages.error(request, _("Le formulaire contient des erreurs."))
                 print(form.errors)
@@ -207,7 +206,7 @@ def modifier_checkup_track_view(request, checkup_track_id):
         # GET
         # -------------------------
         else:
-            form = ControleGeneralForm(
+            form = CheckupTrackForm(
                 instance=checkup_track,
                 user=request.user,
                 exemplaire=checkup_track.voiture_exemplaire
@@ -215,7 +214,7 @@ def modifier_checkup_track_view(request, checkup_track_id):
 
     return render(
         request,
-        "check_up/modifier_checkup_track.html",
+        "checkup_track/modifier_checkup_track.html",
         {
             "form": form,
             "checkup_track": checkup_track,

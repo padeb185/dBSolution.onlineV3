@@ -37,6 +37,8 @@ class CheckupTrackForm(forms.ModelForm):
                 self.fields["tech_societe"].initial = self.user.societe
                 self.fields["tech_societe"].disabled = True
 
+        self.fields["nettoyage_interieur_plastiques"].required = False
+
     def save(self, commit=True):
         instance = super().save(commit=False)
         voiture = instance.voiture_exemplaire or self.exemplaire  # fallback si pas encore lié
