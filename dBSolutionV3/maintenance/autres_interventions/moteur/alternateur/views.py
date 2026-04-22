@@ -333,6 +333,11 @@ def rapport_alternateur_view(request, pk):
 
 
 
+from django.views.generic import DetailView
+from decimal import Decimal
+
+from .models import Alternateur
+
 
 class AlternateurRapportDetailView(DetailView):
     model = Alternateur
@@ -344,12 +349,16 @@ class AlternateurRapportDetailView(DetailView):
 
         obj = self.object
 
-        # 🔥 utilise ta méthode déjà existante dans le modèle
         rapport = obj.generer_rapport_remplacement()
 
-        # sécurité si None
         if not rapport:
             rapport = {"lignes": [], "total_general": Decimal("0")}
+
+        # 🔥 AJOUT DU TAUX TVA DANS CHAQUE LIGNE
+        taux_tva = obj.TVA_PIECES.get(obj.pays, 0)
+
+        for ligne in rapport["lignes"]:
+            ligne["taux_tva"] = taux_tva
 
         context["rapport"] = rapport
 

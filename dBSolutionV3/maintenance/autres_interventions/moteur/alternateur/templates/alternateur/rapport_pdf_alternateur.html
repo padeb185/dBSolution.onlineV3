@@ -4,6 +4,8 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <br>
+        <br>
         <title>Rapport Alternateur</title>
 
         <style>
@@ -56,6 +58,7 @@
             <tr>
                 <th>Pièce</th>
                 <th>Prix</th>
+                <th>Taux de TVA</th>
                 <th>TVA</th>
                 <th>Qté</th>
                 <th>Total</th>
@@ -67,7 +70,8 @@
             <tr>
                 <td>{{ item.champ }}</td>
                 <td>{{ item.prix }} €</td>
-                <td>{{ item.tva }} %</td>
+                <td>{{ item.taux_tva }} %</td>
+                <td>{{ item.tva }} €</td>
                 <td>{{ item.quantite }}</td>
                 <td><strong>{{ item.total }} €</strong></td>
             </tr>
