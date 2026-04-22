@@ -240,7 +240,7 @@ def modifier_courroie_view(request, courroie_id):
             if form.is_valid():
                 form.save()
                 messages.success(request, _("Remplacement de la courroie de distribution modifié avec succès !"))
-                return redirect("courroie:modifier_courroie", courroie_distribution_id_id=courroie_distribution.id)
+                return redirect("courroie:modifier_courroie", courroie_id=courroie.id)
             else:
                 messages.error(request, _("Le formulaire contient des erreurs."))
                 print(form.errors)
