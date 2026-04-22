@@ -244,7 +244,7 @@ class CheckupTrack(TechnicienMixin, models.Model):
     # --- Bruits ---
     bruit_roulement_roue= models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Bruit de roulement de roue"), blank=True, null=True)
 
-    jeu_roulement_roue = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu de roulement de roue"))
+    jeu_roulement_roue = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu roulement de roue"))
 
     # --- Jeux ---
 

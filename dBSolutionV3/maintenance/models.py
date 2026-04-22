@@ -86,7 +86,7 @@ class Maintenance(models.Model):
     # Kilométrage général
     kilometres_total = models.PositiveIntegerField(_("Kilométrage total"), default=0)
     kilometres_dernier_entretien = models.PositiveIntegerField(
-        _("Kilométrage à la dernier entretien"),
+        _("Kilométrage du dernier entretien"),
         null=True,
         blank=True
     )
