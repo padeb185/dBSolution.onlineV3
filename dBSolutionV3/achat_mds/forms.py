@@ -18,6 +18,7 @@ class AchatForm(forms.ModelForm):
             "libelle_facture",
             "reference_facture",
             "achat_montant_htva",
+            "transport_montant_htva",
             "achat_tva",
             "date_facture",
             "date_paiement",
@@ -29,10 +30,13 @@ class AchatForm(forms.ModelForm):
                 F("achat_montant_htva") * F("achat_tva") / 100,
                 output_field=DecimalField(max_digits=10, decimal_places=2)
             ),
+            montant_tva_transport_calc=ExpressionWrapper(
+                F("transport_montant_htva") * F("achat_tva") / 100,
+                output_field=DecimalField(max_digits=10, decimal_places=2)
+            ),
             total_tvac_calc=ExpressionWrapper(
-                F("achat_montant_htva") + (
-                        F("achat_montant_htva") * F("achat_tva") / 100
-                ),
+                (F("achat_montant_htva") + F("transport_montant_htva")) *
+                (1 + F("achat_tva") / 100),
                 output_field=DecimalField(max_digits=10, decimal_places=2)
             )
         )

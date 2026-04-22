@@ -30,7 +30,12 @@
 
             <p>
                 <strong>{% trans "Fournisseur" %} :</strong>
-                {{ achat.fournisseur }}
+                <img
+                    src="{% static 'images/'|add:achat.fournisseur.nom|lower|add:'.png' %}"
+                    alt="{{ achat.fournisseur }}"
+                    style="width:120px; height:35px; object-fit:contain;"
+                    onerror="this.onerror=null; this.outerHTML='{{ achat.fournisseur }}';"
+                >
             </p>
             <p>
                 <strong>{% trans "Libellé" %} :</strong>

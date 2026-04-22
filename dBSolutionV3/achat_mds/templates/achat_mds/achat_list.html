@@ -55,6 +55,7 @@
             <th class="border px-4 py-2 cursor-pointer">{% trans "Libellé" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Référence" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Montant HTVA" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Transport HTVA" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Taux de TVA" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Total TVA" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Montant TVAC" %}</th>
@@ -65,13 +66,24 @@
     <tbody>
         {% for achat in achats %}
         <tr>
-            <td class="border px-4 py-2">{{ achat.fournisseur }}</td>
+             <td class="border px-4 py-2 text-center">
+                <span class="hidden">
+                    {{ achat.fournisseur }}
+                </span>
+                <img
+                    src="{% static 'images/'|add:achat.fournisseur.nom|lower|add:'.png' %}"
+                    alt="{{ achat.fournisseur }}"
+                    style="width:120px; height:35px; object-fit:contain;"
+                    onerror="this.onerror=null; this.outerHTML='{{ achat.fournisseur }}';"
+                >
+            </td>
             <td class="border px-4 py-2">{{ achat.libelle_facture }}</td>
             <td class="border px-4 py-2">{{ achat.reference_facture }}</td>
             <td class="border px-4 py-2 text-right">{{ achat.achat_montant_htva|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-right">{{ achat.transport_montant_htva|floatformat:2 }} €</td>
             <td class="border px-4 py-2 text-right">{{ achat.achat_tva }} %</td>
-            <td class="border px-4 py-2 text-right font-semibold">{{ achat.total_tvac|floatformat:2 }} €</td>
             <td class="border px-4 py-2 text-right">{{ achat.montant_tva|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-right font-bold">{{ achat.total_tvac|floatformat:2 }} €</td>
             <td class="border px-4 py-2">{{ achat.date_facture }}</td>
             <td class="border px-4 py-2 text-center">
                 <a href="{% url 'achat_mds:achat_detail' achat.id %}"
@@ -124,11 +136,14 @@ $(document).ready(function() {
     $('#search-achat_montant_htva').on('keyup', function () {
         table.column(2).search(this.value).draw();
     });
-    $('#search-achat_tva').on('keyup', function () {
+     $('#search-transport_montant_htva').on('keyup', function () {
         table.column(3).search(this.value).draw();
     });
-     $('#search-date_facture').on('keyup', function () {
+    $('#search-achat_tva').on('keyup', function () {
         table.column(4).search(this.value).draw();
+    });
+     $('#search-date_facture').on('keyup', function () {
+        table.column(5).search(this.value).draw();
     });
 
 });

@@ -43,6 +43,14 @@ class AchatMds(models.Model):
         decimal_places=2
     )
 
+    transport_montant_htva = models.DecimalField(
+        _("Montant HTVA du transport"),
+        max_digits=10,
+        decimal_places=2,
+        null=True,
+        blank=True
+    )
+
     achat_tva = models.DecimalField(
         _("Taux de TVA (%)"),
         max_digits=5,
