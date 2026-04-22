@@ -13,8 +13,9 @@ from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 from .forms import AlternateurForm
+from django.views.generic import DetailView
+from decimal import Decimal
 from .models import Alternateur
-
 
 
 
@@ -328,3 +329,28 @@ def rapport_alternateur_view(request, pk):
         "rapport": rapport,
         "obj": obj
     })
+
+
+
+
+
+class AlternateurRapportDetailView(DetailView):
+    model = Alternateur
+    template_name = "alternateur/rapport_pdf_alternateur.html"
+    context_object_name = "obj"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        obj = self.object
+
+        # 🔥 utilise ta méthode déjà existante dans le modèle
+        rapport = obj.generer_rapport_remplacement()
+
+        # sécurité si None
+        if not rapport:
+            rapport = {"lignes": [], "total_general": Decimal("0")}
+
+        context["rapport"] = rapport
+
+        return context

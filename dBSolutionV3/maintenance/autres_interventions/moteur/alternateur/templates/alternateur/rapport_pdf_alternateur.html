@@ -1,0 +1,83 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Rapport Alternateur</title>
+
+        <style>
+            @page {
+                size: A4;
+                margin: 15mm;
+            }
+
+            body {
+                font-family: Arial, sans-serif;
+                font-size: 12px;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            th, td {
+                border: 1px solid #ccc;
+                padding: 6px;
+            }
+
+            thead {
+                background: #f3f3f3;
+            }
+
+            .header {
+                margin-bottom: 20px;
+            }
+
+            .no-print {
+                display: none;
+            }
+        </style>
+    </head>
+
+    <body>
+
+    <div class="header">
+        <h2>Rapport Alternateur</h2>
+
+        <p><strong>Véhicule :</strong> {{ obj.voiture_exemplaire }}</p>
+        <p><strong>Technicien :</strong> {{ obj.tech_nom_technicien }}</p>
+        <p><strong>Diagnostic :</strong> {{ obj.get_diagnostic_rapport_display }}</p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Pièce</th>
+                <th>Prix</th>
+                <th>TVA</th>
+                <th>Qté</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for item in rapport.lignes %}
+            <tr>
+                <td>{{ item.champ }}</td>
+                <td>{{ item.prix }} €</td>
+                <td>{{ item.tva }} %</td>
+                <td>{{ item.quantite }}</td>
+                <td><strong>{{ item.total }} €</strong></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h3 style="text-align:right; margin-top:20px;">
+        Total : {{ rapport.total_general }} €
+    </h3>
+
+    </body>
+</html>

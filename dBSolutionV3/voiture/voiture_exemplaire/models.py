@@ -231,6 +231,9 @@ class VoitureExemplaire(models.Model):
     created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
 
+    def __str__(self):
+        return f"{self.voiture_marque.nom_marque} {self.voiture_modele.nom_modele} {self.voiture_modele.nom_variante} - {self.immatriculation}"
+
     def save(self, *args, **kwargs):
         # 🚗 VIN
         if self.numero_vin:

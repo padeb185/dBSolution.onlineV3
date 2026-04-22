@@ -1,7 +1,7 @@
 # maintenance/check_up/urls.py
 from django.urls import path
 from .views import alternateur_check_view, modifier_alternateur_view, alternateur_detail_view, rapport_alternateur_view, \
-    AlternateurListView
+    AlternateurListView, AlternateurRapportDetailView
 
 app_name = "alternateur"
 
@@ -19,5 +19,7 @@ urlpatterns = [
     path('alternateur/<int:alternateur_id>/detail/', alternateur_detail_view, name='alternateur_detail'),
 
     path("rapport/<int:pk>/", rapport_alternateur_view, name="rapport_alternateur"),
+
+    path("rapportPDF/<int:pk>/", AlternateurRapportDetailView.as_view(), name="rapport_pdf_alternateur"),
 ]
 

@@ -65,6 +65,13 @@
                 </button>
             </a>
         </div>
+        <div class="mt-auto w-full">
+            <a href="{% url 'alternateur:rapport_pdf_alternateur' alternateur.id %}" class="block w-full">
+                <button type="button" class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+                    {% trans "Rapport PDF" %}
+                </button>
+            </a>
+        </div>
     </div>
 
      <!-- Métadonnées -->

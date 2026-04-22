@@ -4,8 +4,17 @@
 {% block title %}{% trans "Liste des interventions alternateur" %}{% endblock %}
 
 {% block content %}
+ <div class="no-print mb-4">
+        <button onclick="window.print()" class="bg-blue-600 text-white px-4 py-2 rounded">
+           {% trans "Imprimer" %}
+        </button>
+ </div>
+<br>
+<br>
 
-<div class="max-w-5xl mx-auto p-6 bg-white shadow rounded">
+
+<div class="a4-container mx-auto p-6 bg-white">
+
 
     <h1 class="text-2xl font-bold mb-6">
         Rapport Alternateur
@@ -24,7 +33,7 @@
     </div>
 
 
-    <table class="w-full border border-gray-300">
+    <table class="w-full border border-gray-300 text-sm">
         <thead class="bg-gray-100">
             <tr>
                 <th class="p-2 text-left">Pièce</th>
@@ -45,8 +54,8 @@
             </tr>
             {% empty %}
             <tr>
-                <td colspan="4" class="text-center p-4 text-gray-500">
-                    {{ item.diagnostic_rapport }}
+                <td colspan="5" class="text-center p-4 text-gray-500">
+                    Aucun élément
                 </td>
             </tr>
             {% endfor %}

@@ -153,3 +153,54 @@ main {
 .mb-14 {
     margin-bottom: 3.5rem; /* 56px */
 }
+
+
+@media print {
+
+    @page {
+        size: A4;
+        margin: 15mm;
+    }
+
+    body * {
+        display: none !important;
+    }
+
+    .a4-container, .a4-container * {
+        display: block !important;
+    }
+
+    .a4-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 210mm;
+        min-height: 297mm;
+        padding: 10mm;
+        background: white;
+        font-size: 12px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    thead {
+        display: table-header-group;
+    }
+
+    tr {
+        page-break-inside: avoid;
+    }
+
+    th, td {
+        border: 1px solid #ccc;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+}
+
+
