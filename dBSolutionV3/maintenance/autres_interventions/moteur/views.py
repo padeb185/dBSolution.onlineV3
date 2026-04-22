@@ -23,6 +23,7 @@ from maintenance.check_up.models import ControleGeneral
 from utilisateurs.models import Mecanicien
 from maintenance.autres_interventions.moteur.admission.models import Admission
 from maintenance.autres_interventions.moteur.alternateur.models import Alternateur
+from maintenance.autres_interventions.moteur.courroie.models import CourroieDistribution
 
 
 @login_required
@@ -62,9 +63,9 @@ def dashboard_moteur_view(request, exemplaire_id):
         schema_name = tenant_schema.schema_name if tenant_schema else None
 
 
-        total_admission = total_alternateur =  0
+        total_admission = total_alternateur = total_courroie =  0
 
-        admission = alternateur = []
+        admission = alternateur = courroie = []
 
 
 
@@ -75,13 +76,14 @@ def dashboard_moteur_view(request, exemplaire_id):
 
                 admission = Admission.objects.filter(voiture_exemplaire=exemplaire)
                 alternateur = Alternateur.objects.filter(voiture_exemplaire=exemplaire)
-
+                courroie = CourroieDistribution.objects.filter(voiture_exemplaire=exemplaire)
 
                 # ✅ COUNTS CORRECTS
                 total_admission = admission.count()
                 total_alternateur = alternateur.count()
+                total_courroie = courroie.count()
 
-                total_int_moteur = total_admission + total_alternateur
+                total_int_moteur = total_admission + total_alternateur + total_courroie
 
                 modeles = VoitureModele.objects.all()
         else:
@@ -111,10 +113,12 @@ def dashboard_moteur_view(request, exemplaire_id):
 
             "total_admission": total_admission,
             "total_alternateur": total_alternateur,
+            "total_courroie": total_courroie,
 
 
             "admission": admission,
             "alternateur": alternateur,
+            "courroie": courroie,
 
             "total_int_moteur": total_int_moteur,
 

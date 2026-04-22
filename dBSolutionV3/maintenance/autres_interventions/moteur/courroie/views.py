@@ -12,26 +12,25 @@ from maintenance.models import Maintenance
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
-from .forms import AlternateurForm
 from django.views.generic import DetailView
 from decimal import Decimal
-from .models import Alternateur
-
+from maintenance.autres_interventions.moteur.courroie.models import CourroieDistribution
+from maintenance.autres_interventions.moteur.courroie.forms import CourroieDistributionForm
 
 
 
 
 
 @method_decorator([login_required, never_cache], name='dispatch')
-class AlternateurListView(ListView):
-    model = Alternateur
-    template_name = "alternateur/alternateur_list.html"
-    context_object_name = "alternateurs"
+class CourroieDistributionListView(ListView):
+    model = CourroieDistribution
+    template_name = "courroie/courroie_list.html"
+    context_object_name = "courroies"
     paginate_by = 100
     ordering = ["-id"]
 
     def get_queryset(self):
-        queryset = Alternateur.objects.select_related(
+        queryset = CourroieDistribution.objects.select_related(
             "voiture_exemplaire", "maintenance", "tech_societe"
         )
 
@@ -54,7 +53,7 @@ class AlternateurListView(ListView):
 
 @never_cache
 @login_required
-def alternateur_check_view(request, exemplaire_id):
+def courroie_form_view(request, exemplaire_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
@@ -89,25 +88,25 @@ def alternateur_check_view(request, exemplaire_id):
                 immatriculation=exemplaire.immatriculation,
                 date_intervention=timezone.localtime(timezone.now()).date(),
                 kilometres_chassis=exemplaire.kilometres_chassis,
-                kilometres_derniere_intervention=exemplaire.kilometres_derniere_intervention,
+                kilometres_derniere_entretien=exemplaire.kilometres_derniere_entretien,
                 type_maintenance="admission",
                 tag=Maintenance.Tag.JAUNE,
             )
 
         # Créer ou récupérer l'objet admission
-        alternateur = Alternateur(
+        courroie_distribution = CourroieDistribution(
             voiture_exemplaire=exemplaire,
             maintenance=maintenance,
             kilometres_chassis=exemplaire.kilometres_chassis
         )
-        alternateur.assign_technicien(request.user)
+        courroie_distribution.assign_technicien(request.user)
 
 
         # --- Formulaire ---
         if request.method == "POST":
-            form = AlternateurForm(
+            form = CourroieDistributionForm(
                 request.POST,
-                instance=alternateur,
+                instance=courroie_distribution,
                 user=request.user,
                 exemplaire=exemplaire
             )
@@ -115,12 +114,12 @@ def alternateur_check_view(request, exemplaire_id):
             if form.is_valid():
                 try:
                     with transaction.atomic():
-                        alternateur = form.save(commit=False)
+                        courroie_distribution = form.save(commit=False)
 
                         # Gestion du kilométrage
                         km_checkup = form.cleaned_data.get("kilometres_chassis")
                         if km_checkup is not None and km_checkup >= exemplaire.kilometres_chassis:
-                            alternateur.kilometres_chassis = km_checkup
+                            courroie_distribution.kilometres_chassis = km_checkup
                             exemplaire.kilometres_chassis = km_checkup
                             exemplaire.save()
                         elif km_checkup is not None and km_checkup < exemplaire.kilometres_chassis:
@@ -130,8 +129,8 @@ def alternateur_check_view(request, exemplaire_id):
                             )
                             raise ValueError("Kilométrage invalide")
 
-                        alternateur.save()
-                    messages.success(request, _("Check alternateur enregistré avec succès."))
+                        courroie_distribution.save()
+                    messages.success(request, _("Remplacement de la courroie de distribution enregistré avec succès."))
 
                 except Exception as e:
                     messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
@@ -141,8 +140,8 @@ def alternateur_check_view(request, exemplaire_id):
                 print(form.errors)
 
         else:
-            form = AlternateurForm(
-                instance=alternateur,
+            form = CourroieDistributionForm(
+                instance=courroie_distribution,
                 user=request.user,
                 exemplaire=exemplaire
             )
@@ -155,20 +154,16 @@ def alternateur_check_view(request, exemplaire_id):
                 "fields": [form[f.name] for f in form if "kilo" in f.name],
             },
             {
-                "title": _("Diagnostic"),
-                "icon": "icons/diagnostic.png",
-                "fields": [form[f.name] for f in form if "diagnostic" in f.name],
+                "title": _("Courroie de distribution"),
+                "icon": "icons/courroie-de-distribution.png",
+                "fields": [form[f.name] for f in form if "courroie_distribution" in f.name],
             },
             {
-                "title": _("Alternateur"),
-                "icon": "icons/alternateur.png",
-                "fields": [form[f.name] for f in form if "alternateur" in f.name],
+                "title": _("Pompe à eau"),
+                "icon": "icons/pompe-a-eau.png",
+                "fields": [form[f.name] for f in form if "pompe" in f.name],
             },
-            {
-                "title": _("Courroie d'accessoires"),
-                "icon": "icons/courroie-daccessoires.png",
-                "fields": [form[f.name] for f in form if "courroie_accessoires" in f.name],
-            },
+
             {
                 "title": _("Etiquette"),
                 "icon": "icons/tag.png",
@@ -179,7 +174,6 @@ def alternateur_check_view(request, exemplaire_id):
                 "icon": "icons/pays.png",
                 "fields": [form[f.name] for f in form if "pays" in f.name],
             },
-
             {
                 "title": _("Remarques"),
                 "icon": "icons/notes.png",
@@ -193,7 +187,7 @@ def alternateur_check_view(request, exemplaire_id):
 
         ]
 
-        return render(request, 'alternateur/alternateur_check.html', {
+        return render(request, 'courroie/courroie_form.html', {
             "exemplaire": exemplaire,
             "immatriculation": exemplaire.immatriculation,
             "maintenance": maintenance,
@@ -207,46 +201,46 @@ def alternateur_check_view(request, exemplaire_id):
 # Vue détail boite
 # -----------------------------
 @login_required
-def alternateur_detail_view(request, alternateur_id):
-    alternateur= get_object_or_404(
-        Alternateur.objects.select_related("voiture_exemplaire"),
-        id=alternateur_id
+def courroie_detail_view(request, courroie_id):
+    courroie = get_object_or_404(
+        CourroieDistribution.objects.select_related("voiture_exemplaire"),
+        id=courroie_id
     )
 
     context = {
-        "alternateur": alternateur,
-        "exemplaire": alternateur.voiture_exemplaire,
+        "courroie": courroie,
+        "exemplaire": courroie.voiture_exemplaire,
     }
-    return render(request, "alternateur/alternateur_detail.html", context)
+    return render(request, "courroie/courroie_detail.html", context)
 
 
 
 @login_required
-def modifier_alternateur_view(request, alternateur_id):
+def modifier_courroie_view(request, courroie_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
         # Récupération de l'admission avec son exemplaire
-        alternateur = get_object_or_404(
-            Alternateur.objects.select_related("voiture_exemplaire"),
-            id=alternateur_id
+        courroie = get_object_or_404(
+            CourroieDistribution.objects.select_related("voiture_exemplaire"),
+            id=courroie_id
         )
 
         # -------------------------
         # POST
         # -------------------------
         if request.method == "POST":
-            form = AlternateurForm(
+            form = CourroieDistributionForm(
                 request.POST,
-                instance=alternateur,
+                instance=courroie,
                 user=request.user,
-                exemplaire=alternateur.voiture_exemplaire
+                exemplaire=courroie.voiture_exemplaire
             )
 
             if form.is_valid():
                 form.save()
-                messages.success(request, _("Contrôle de l'alternateur modifié avec succès !"))
-                return redirect("alternateur:modifier_alternateur", alternateur_id=alternateur.id)
+                messages.success(request, _("Remplacement de la courroie de distribution modifié avec succès !"))
+                return redirect("courroie:modifier_courroie", courroie_distribution_id_id=courroie_distribution.id)
             else:
                 messages.error(request, _("Le formulaire contient des erreurs."))
                 print(form.errors)
@@ -255,10 +249,10 @@ def modifier_alternateur_view(request, alternateur_id):
         # GET
         # -------------------------
         else:
-            form = AlternateurForm(
-                instance=alternateur,
+            form = CourroieDistributionForm(
+                instance=courroie,
                 user=request.user,
-                exemplaire=alternateur.voiture_exemplaire
+                exemplaire=courroie.voiture_exemplaire
             )
 
         # -------------------------
@@ -271,20 +265,11 @@ def modifier_alternateur_view(request, alternateur_id):
                 "fields": [form[f.name] for f in form if "kilo" in f.name],
             },
             {
-                "title": _("Diagnostic"),
-                "icon": "icons/diagnostic.png",
-                "fields": [form[f.name] for f in form if "diagnostic" in f.name],
+                "title": _("Courroie de distribution"),
+                "icon": "icons/courroie-de-distribution.png",
+                "fields": [form[f.name] for f in form if "courroie" in f.name],
             },
-            {
-                "title": _("Alternateur"),
-                "icon": "icons/alternateur.png",
-                "fields": [form[f.name] for f in form if "alternateur" in f.name],
-            },
-            {
-                "title": _("Courroie d'accessoires"),
-                "icon": "icons/courroie-daccessoires.png",
-                "fields": [form[f.name] for f in form if "courroie_accessoires" in f.name],
-            },
+
             {
                 "title": _("Etiquette"),
                 "icon": "icons/tag.png",
@@ -311,23 +296,23 @@ def modifier_alternateur_view(request, alternateur_id):
 
     return render(
         request,
-        "alternateur/modifier_alternateur.html",
+        "courroie/modifier_courroie.html",
         {
             "form": form,
-            "alternateur": alternateur,
+            "courroie_distribution": courroie,
             "sections": sections,
-            "exemplaire": alternateur.voiture_exemplaire,
+            "exemplaire": courroie.voiture_exemplaire,
         }
     )
 
 
 @login_required
-def rapport_alternateur_view(request, pk):
-    obj = get_object_or_404(Alternateur, pk=pk)
+def rapport_courroie_view(request, pk):
+    obj = get_object_or_404(CourroieDistribution, pk=pk)
 
     rapport = obj.generer_rapport_remplacement()
 
-    return render(request, "alternateur/rapport_alternateur.html", {
+    return render(request, "courroie/rapport_courroie.html", {
         "rapport": rapport,
         "obj": obj
     })
@@ -336,9 +321,9 @@ def rapport_alternateur_view(request, pk):
 
 
 
-class AlternateurRapportDetailView(DetailView):
-    model = Alternateur
-    template_name = "alternateur/rapport_pdf_alternateur.html"
+class CourroieDistributionRapportDetailView(DetailView):
+    model = CourroieDistribution
+    template_name = "courroie/rapport_pdf_courroie.html"
     context_object_name = "obj"
 
     def get_context_data(self, **kwargs):

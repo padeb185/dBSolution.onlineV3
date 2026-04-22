@@ -225,6 +225,10 @@ TENANT_APPS = (
 
     'maintenance.autres_interventions.moteur.admission',
     'maintenance.autres_interventions.moteur.alternateur',
+    'maintenance.autres_interventions.moteur.courroie',
+
+
+
 
 )
 

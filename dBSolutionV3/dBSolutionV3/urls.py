@@ -134,6 +134,8 @@ urlpatterns += i18n_patterns(
 
     path('maintenance/checkup_track/', include('maintenance.checkup_track.urls', namespace='checkup_track')),
 
+    path('courroie/',include(('maintenance.autres_interventions.moteur.courroie.urls', 'courroie'), namespace='courroie')),
+
 )
 
 

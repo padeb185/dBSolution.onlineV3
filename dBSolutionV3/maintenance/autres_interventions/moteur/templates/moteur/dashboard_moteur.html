@@ -33,6 +33,17 @@
     <img src="{% static 'icons/alternateur.png' %}" alt="Admission" style="width:60px; height:60px;">
   </a>
 
+   <a href="{% url 'courroie:courroie_list' exemplaire.id %}"
+     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <div>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Courroie de distribution" %}</h2>
+      <p class="text-gray-600 text-sm">
+        {% trans "Nombre total :" %} <span class="font-bold">{{ total_courroie }}</span>
+      </p>
+    </div>
+    <img src="{% static 'icons/courroie-de-distribution.png' %}" alt="Courroie de distribution" style="width:60px; height:60px;">
+  </a>
+
 
 </div>
 <br>
