@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-22 18:40+0200\n"
+"POT-Creation-Date: 2026-04-23 09:20+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -5988,7 +5988,7 @@ msgid "Bruit de roulement de roue"
 msgstr ""
 
 #: .\maintenance\checkup_track\models.py:247
-msgid "Jeu de roulement de roue"
+msgid "Jeu roulement de roue"
 msgstr ""
 
 #: .\maintenance\checkup_track\models.py:251
@@ -6532,10 +6532,9 @@ msgid "Check-up"
 msgstr ""
 
 #: .\maintenance\models.py:89
-#, fuzzy
-#| msgid "Tableau de bord"
-msgid "Kilométrage à la dernier entretien"
-msgstr "Tableau de Bord"
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:33
+msgid "Kilométrage du dernier entretien"
+msgstr ""
 
 #: .\maintenance\nettoyage_exterieur\models.py:22
 msgid "Check up"
@@ -10623,10 +10622,6 @@ msgstr ""
 msgid "Kilométrage de l'embrayage"
 msgstr "Tableau de Bord"
 
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:33
-msgid "Kilométrage du dernier entretien"
-msgstr ""
-
 #: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:35
 msgid "Non renseignée"
 msgstr ""
@@ -11836,6 +11831,11 @@ msgstr ""
 #: .\voiture\voiture_pneus\views.py:152
 msgid "Pneu mis à jour avec succès."
 msgstr ""
+
+#, fuzzy
+#~| msgid "Tableau de bord"
+#~ msgid "Kilométrage à la dernier entretien"
+#~ msgstr "Tableau de Bord"
 
 #, fuzzy
 #~| msgid "Tableau de bord"

@@ -218,12 +218,12 @@ class CheckupTrack(TechnicienMixin, models.Model):
 
     freins_usure_plaquettes_av = models.IntegerField(default=0, verbose_name=_("Usure des plaquettes avant (%)"))
     freins_plaquettes_remplacer_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Plaquettes avant à remplacer"))
-    freins_epaisseur_disques_av = models.FloatField(default=0.0, verbose_name=_("Épaisseur des disques avant avant (mm)"))
+    freins_epaisseur_disques_av = models.FloatField(default=0.0, verbose_name=_("Épaisseur des disques avant (mm)"))
 
     freins_usure_plaquettes_ar = models.IntegerField(default=0, verbose_name=_("Usure des plaquettes arrière (%)"))
     freins_plaquettes_remplacer_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
                                                    verbose_name=_("Plaquettes arrière à remplacer"))
-    freins_epaisseur_disques_ar = models.FloatField(default=0.0, verbose_name=_("Épaisseur des disques avant arrière (mm)"))
+    freins_epaisseur_disques_ar = models.FloatField(default=0.0, verbose_name=_("Épaisseur des disques arrière (mm)"))
 
     freins_fentes_disques = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Présence de fentes sur les disques"))
     freins_disques_remplacer = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Disques à remplacer"))
@@ -280,7 +280,7 @@ class CheckupTrack(TechnicienMixin, models.Model):
     pneu_epaisseur_ard = models.FloatField(default=0.0, verbose_name=_("Épaisseur du pneu arrière droit (mm)"))
     pneu_epaisseur_arg = models.FloatField(default=0.0, verbose_name=_("Épaisseur du pneu arrière gauche (mm)"))
 
-    pneu_sidewall = models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.OK,verbose_name=_("flanc des pneu"))
+    pneu_sidewall = models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.OK,verbose_name=_("Flanc des pneus"))
 
     pneu_pression_bar_avd = models.FloatField(default=2.4, verbose_name=_("Pression du pneu avant droit en bar"))
     pneu_pression_bar_avg = models.FloatField(default=2.4, verbose_name=_("Pression du pneu avant gauche en bar"))
