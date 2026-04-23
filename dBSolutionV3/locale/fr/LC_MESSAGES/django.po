@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-23 09:20+0200\n"
+"POT-Creation-Date: 2026-04-23 16:37+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -4232,7 +4232,7 @@ msgid "Prix d'achat htva de la pompe à eau"
 msgstr ""
 
 #: .\maintenance\autres_interventions\moteur\courroie\models.py:183
-msgid "Courroie de distributions"
+msgid "Courroies de distributions"
 msgstr ""
 
 #: .\maintenance\autres_interventions\moteur\courroie\templates\courroie\courroie_detail.html:13
@@ -4252,9 +4252,6 @@ msgid "Remplacement de la courroie de distribution pour :"
 msgstr ""
 
 #: .\maintenance\autres_interventions\moteur\courroie\templates\courroie\courroie_list.html:4
-msgid "Liste des remplacement de courroies de distribution"
-msgstr ""
-
 #: .\maintenance\autres_interventions\moteur\courroie\templates\courroie\courroie_list.html:10
 msgid "Liste des remplacements de courroies de distribution"
 msgstr ""
@@ -5274,7 +5271,8 @@ msgstr ""
 msgid "Plaquettes avant à remplacer"
 msgstr ""
 
-#: .\maintenance\check_up\models.py:204 .\maintenance\freins\models.py:53
+#: .\maintenance\check_up\models.py:204
+#: .\maintenance\checkup_track\models.py:221 .\maintenance\freins\models.py:53
 msgid "Épaisseur des disques avant (mm)"
 msgstr ""
 
@@ -5296,7 +5294,8 @@ msgstr ""
 msgid "Plaquettes arrière à remplacer"
 msgstr ""
 
-#: .\maintenance\check_up\models.py:210 .\maintenance\freins\models.py:60
+#: .\maintenance\check_up\models.py:210
+#: .\maintenance\checkup_track\models.py:226 .\maintenance\freins\models.py:60
 msgid "Épaisseur des disques arrière (mm)"
 msgstr ""
 
@@ -5852,6 +5851,7 @@ msgstr ""
 
 #: .\maintenance\check_up\templates\check_up\controle_total.html:872
 #: .\maintenance\check_up\templates\check_up\modifier_checkup.html:772
+#: .\maintenance\checkup_track\models.py:283
 #: .\maintenance\checkup_track\templates\checkup_track\modifier_checkup_track.html:810
 #: .\maintenance\checkup_track\templates\checkup_track\track_check_form.html:806
 msgid "Flanc des pneus"
@@ -5963,14 +5963,6 @@ msgstr ""
 msgid "État de l'embrayage"
 msgstr "Tableau de Bord"
 
-#: .\maintenance\checkup_track\models.py:221
-msgid "Épaisseur des disques avant avant (mm)"
-msgstr ""
-
-#: .\maintenance\checkup_track\models.py:226
-msgid "Épaisseur des disques avant arrière (mm)"
-msgstr ""
-
 #: .\maintenance\checkup_track\models.py:228
 msgid "Présence de fentes sur les disques"
 msgstr ""
@@ -6025,10 +6017,6 @@ msgstr ""
 
 #: .\maintenance\checkup_track\models.py:274
 msgid "Jeu suspension multi-bras"
-msgstr ""
-
-#: .\maintenance\checkup_track\models.py:283
-msgid "flanc des pneu"
 msgstr ""
 
 #: .\maintenance\checkup_track\models.py:295

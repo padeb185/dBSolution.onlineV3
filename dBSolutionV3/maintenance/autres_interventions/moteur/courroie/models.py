@@ -180,7 +180,7 @@ class CourroieDistribution(TechnicienMixin, models.Model):
 
     class Meta:
         verbose_name = _("Courroie de distribution")
-        verbose_name_plural = _("Courroie de distributions")
+        verbose_name_plural = _("Courroies de distributions")
 
     def __str__(self):
         return f"Courroie de distribution moteur - {self.voiture_exemplaire}"

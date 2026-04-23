@@ -6519,6 +6519,7 @@ msgid "Check-up"
 msgstr "Check Up"
 
 #: .\maintenance\models.py:89
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:33
 msgid "Kilométrage du dernier entretien"
 msgstr "Last service mileage"
 
@@ -10608,9 +10609,8 @@ msgstr "Gearbox mileage"
 msgid "Kilométrage de l'embrayage"
 msgstr "Clutch Mileage"
 
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:33
-msgid "Kilométrage du dernier entretien"
-msgstr "Last service mileage"
+
+
 
 #: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:35
 msgid "Non renseignée"
