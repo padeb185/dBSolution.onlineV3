@@ -74,3 +74,8 @@ body {
         display: none !important;
     }
 }
+
+.element {
+  --tw-shadow-color: rgba(0,0,0,0.1);
+  box-shadow: var(--tw-shadow-colored);
+}
