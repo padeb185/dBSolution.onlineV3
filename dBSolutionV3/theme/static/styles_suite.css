@@ -2,11 +2,13 @@
 html, body {
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
 }
 
 body {
-    margin-left: 50px;
-    margin-right: 50px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 header, footer {
