@@ -4,6 +4,8 @@
 {% block title %}{% trans "Liste des niveaux" %}{% endblock %}
 
 {% block content %}
+<br>
+<br>
 <h1 class="text-2xl font-bold mb-6 flex items-center">
     <img src="{% static 'icons/niveaux.png' %}" alt="niveaux"
          style="width:60px; height:60px; margin-right:10px;">
@@ -107,6 +109,8 @@
              {% trans "Retour à la liste des maintenances" %}
         </a>
     </div>
+<br>
+<br>
 <script>
 $(document).ready(function() {
     var table = $('#niveaux-table').DataTable({
