@@ -4,6 +4,8 @@
 {% block title %}{% trans "Liste des contrôles de la geometrie" %}{% endblock %}
 
 {% block content %}
+<br>
+<br>
 <h1 class="text-2xl font-bold mb-6 flex items-center">
     <img src="{% static 'icons/geometrie.png' %}" alt="liste des contrôles de la geometrie"
          style="width:60px; height:60px; margin-right:10px;">
@@ -147,7 +149,8 @@
         {% trans "Retour aux interventions" %}
     </a>
 </div>
-
+<br>
+<br>
 <script>
 $(document).ready(function() {
     var table = $('#geometries-table').DataTable({

@@ -80,10 +80,8 @@
     <br>
     <!-- Actions -->
     <div>
-        <a href="{% if carroserie.voiture_exemplaire %}
-                   {% url 'carrosserie_interne:carrosserie_interne_list' carrosserie_interne.voiture_exemplaire.id %}
-               {% else %}# {% endif %}"
-             class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        <a href="{% url 'carrosserie_interne:carrosserie_interne_list' carrosserie_interne.voiture_exemplaire.id %}"
+           class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
             {% trans "Retour à la liste des interventions" %}
         </a>
     </div>
