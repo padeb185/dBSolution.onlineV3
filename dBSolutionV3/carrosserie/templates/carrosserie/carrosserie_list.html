@@ -4,6 +4,7 @@
 {% block title %}{% trans "Liste des Carrosseries" %}{% endblock %}
 
 {% block content %}
+<br>
 <h1 class="text-2xl font-bold mb-6 flex items-center">
     <img src="{% static 'icons/carrosserie.png' %}" alt="Carrosserie"
          style="width:60px; height:60px; margin-right:10px;">
@@ -91,7 +92,7 @@
         {% trans "Retour au tableau de bord" %}
     </a>
 </div>
-
+<br>
 <!-- DataTables JS -->
 <script>
 $(document).ready(function() {
