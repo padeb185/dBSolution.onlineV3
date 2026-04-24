@@ -2,7 +2,7 @@
 {% get_current_language as LANGUAGE_CODE %}
 
 <!DOCTYPE html>
-<html lang="{{ LANGUAGE_CODE }}">
+<html lang="{{ LANGUAGE_CODE }}" class="m-0 p-0 overflow-x-hidden">
 
 <head>
     <meta charset="UTF-8">
@@ -20,12 +20,34 @@
     <!-- JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <!-- GLOBAL FIX OVERFLOW -->
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            box-sizing: border-box;
+        }
+
+        *, *::before, *::after {
+            box-sizing: inherit;
+        }
+
+        img, video, table {
+            max-width: 100%;
+        }
+
+        body {
+            overflow-x: hidden;
+        }
+    </style>
 </head>
 
-<body class="bg-[#DBDFFD] min-h-screen flex flex-col overflow-x-hidden m-0 p-0">
+<body class="bg-[#DBDFFD] min-h-screen flex flex-col m-0 p-0 overflow-x-hidden">
 
 <!-- HEADER -->
-<header class="bg-white w-full shadow h-[70px] flex items-center">
+<header class="bg-white w-full shadow h-[70px] flex items-center overflow-x-hidden">
     <nav class="w-full px-[20px] flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0">
 
         <a href="{% url 'utilisateurs:dashboard' %}"
@@ -35,10 +57,11 @@
 
         <img src="{% static 'CarsCosts/CarsCostTitre.png' %}"
              alt="CarsCost Logo"
-             width="200">
+             width="200"
+             class="shrink-0">
 
         <form action="{% url 'set_language' %}" method="post"
-              class="flex items-center gap-2">
+              class="flex items-center gap-2 shrink-0">
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ request.path }}">
 
@@ -60,6 +83,7 @@
 
     </nav>
 </header>
+
 <!-- LOADER -->
 <div id="page-loader"
      class="fixed inset-0 bg-[#DBDFFD] flex items-center justify-center z-[9999]">
@@ -87,13 +111,17 @@
 
     </div>
 </div>
-<!-- MAIN -->
-<main class="flex-1 w-full box-border overflow-x-hidden">
-    {% block content %}{% endblock %}
-</main>
-
+<br>
+<br>
+<!-- MAIN (ZONE PROTÉGÉE) -->
+<main class="flex-1 w-full m-0 p-0 overflow-x-hidden box-border px-[10px]">
+    <div class="w-full max-w-full overflow-x-hidden">
+        {% block content %}{% endblock %}
+    </div>
+<br>
+<br>
 <!-- FOOTER -->
-<footer class="bg-[#DBDFFD] w-full text-black py-4 mt-auto">
+<footer class="bg-[#DBDFFD] w-full text-black py-4 mt-auto overflow-x-hidden">
     <div class="text-center text-sm px-[5px]">
         &copy; {{ now|date:"Y" }} www.CarsCosts.com {% trans "Tous droits réservés." %}
     </div>
