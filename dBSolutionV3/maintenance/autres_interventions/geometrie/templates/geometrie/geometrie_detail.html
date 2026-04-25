@@ -60,10 +60,10 @@
         </div>
         <!-- Bouton Rapport -->
         <div class="mt-auto w-full">
-            <a href="{% url 'geometrie:rapport' geometrie.id %}" class="block w-full">
-                <button type="button" class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
-                    {% trans "Rapport Géométrie" %}
-                </button>
+            <a href="{% url 'geometrie_pdf' geometrie.id %}"
+               target="_blank"
+               class="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-lg shadow">
+                📄 Télécharger PDF
             </a>
         </div>
     </div>

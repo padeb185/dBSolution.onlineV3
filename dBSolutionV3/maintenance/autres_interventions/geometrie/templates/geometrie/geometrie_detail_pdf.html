@@ -1,0 +1,98 @@
+<!-- templates/geometrie/geometrie_detail.html -->
+
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+<div class="max-w-5xl mx-auto bg-white shadow rounded-xl p-6 mt-6">
+
+    <h1 class="text-2xl font-bold mb-6">
+        {% trans "Détail Géométrie Véhicule" %}
+    </h1>
+
+    <!-- Infos -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div>
+            <p><strong>{% trans "Date" %} :</strong> {{ geometrie.date|date:"d/m/Y H:i" }}</p>
+            <p><strong>{% trans "Technicien" %} :</strong> {{ geometrie.tech_nom_technicien }}</p>
+            <p><strong>{% trans "Société" %} :</strong> {{ geometrie.tech_societe }}</p>
+            <p><strong>{% trans "Tag" %} :</strong> {{ geometrie.tag }}</p>
+        </div>
+
+        <div>
+            <p><strong>{% trans "Véhicule" %} :</strong> {{ geometrie.voiture_exemplaire }}</p>
+            <p><strong>{% trans "Kilométrage actuel" %} :</strong> {{ geometrie.kilometres_chassis }} km</p>
+            <p><strong>{% trans "Kilométrage géométrie" %} :</strong> {{ geometrie.kilometrage_geometrie }} km</p>
+        </div>
+    </div>
+
+    <!-- Angles -->
+    <h2 class="text-xl font-semibold mb-3 border-b pb-2">
+        {% trans "Angles de suspension" %}
+    </h2>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm mb-6">
+        <div>AVD : {{ geometrie.carrossage_avant_droit }}°</div>
+        <div>AVG : {{ geometrie.carrossage_avant_gauche }}°</div>
+        <div>ARD : {{ geometrie.carrossage_arriere_droit }}°</div>
+        <div>ARG : {{ geometrie.carrossage_arriere_gauche }}°</div>
+
+        <div>{% trans "Chasse droite" %} : {{ geometrie.chasse_droite }}°</div>
+        <div>{% trans "Chasse gauche" %} : {{ geometrie.chasse_gauche }}°</div>
+
+        <div>{% trans "Pincement AVD" %} : {{ geometrie.pincement_avant_droit }}°</div>
+        <div>{% trans "Pincement AVG" %} : {{ geometrie.pincement_avant_gauche }}°</div>
+
+        <div>{% trans "Pincement ARD" %} : {{ geometrie.pincement_arriere_droit }}°</div>
+        <div>{% trans "Pincement ARG" %} : {{ geometrie.pincement_arriere_gauche }}°</div>
+
+        <div>{% trans "Poussée arrière" %} : {{ geometrie.poussee_arriere }}°</div>
+        <div>{% trans "Angle pivot" %} : {{ geometrie.angle_pivot }}°</div>
+    </div>
+
+    <!-- Suspension -->
+    <h2 class="text-xl font-semibold mb-3 border-b pb-2">
+        {% trans "Suspension" %}
+    </h2>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm mb-6">
+        <div>{% trans "Hauteur caisse" %}: {{ geometrie.hauteur_caisse }} mm</div>
+        <div>{% trans "Débattement avant" %}: {{ geometrie.debattement_suspension_avant }} mm</div>
+        <div>{% trans "Débattement arrière" %}: {{ geometrie.debattement_suspension_arriere }} mm</div>
+
+        <div>{% trans "Raideur AV" %}: {{ geometrie.raideur_ressort_avant }}</div>
+        <div>{% trans "Raideur AR" %}: {{ geometrie.raideur_ressort_arriere }}</div>
+        <div>{% trans "Amortisseurs" %}: {{ geometrie.amortisseur_marque }}</div>
+    </div>
+
+    <!-- Remarques -->
+    <h2 class="text-xl font-semibold mb-3 border-b pb-2">
+        {% trans "Remarques" %}
+    </h2>
+
+    <p class="mb-8">
+        {{ geometrie.remarques|default:"Aucune remarque." }}
+    </p>
+
+    <!-- Boutons -->
+    <div class="flex flex-wrap gap-3">
+
+        <a href="{% url 'geometrie_pdf' geometrie.id %}"
+           target="_blank"
+           class="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-lg shadow">
+
+            📄 {% trans "Télécharger PDF" %}
+        </a>
+
+        <a href="{% url 'geometrie_list' %}"
+           class="bg-gray-600 hover:bg-gray-700 text-white px-5 py-2 rounded-lg shadow">
+
+            ← {% trans "Retour" %}
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

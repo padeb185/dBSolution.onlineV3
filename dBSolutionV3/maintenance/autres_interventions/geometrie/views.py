@@ -14,6 +14,7 @@ from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 from .forms import GeometrieVoitureForm
 from .models import GeometrieVoiture
+from .pdf_report import generate_geometrie_pdf
 
 
 @method_decorator([login_required, never_cache], name='dispatch')
@@ -363,13 +364,13 @@ def geometrie_modifier_view(request, geometrie_id):
     )
 
 
-@login_required
-def rapport_view(request, pk):
-    obj = get_object_or_404(GeometrieVoiture, pk=pk)
-
-    rapport = obj.generer_rapport_remplacement()
-
-    return render(request, "géometrie/rapport.html", {
-        "rapport": rapport,
-        "obj": obj
+def geometrie_detail_pdf_view(request, pk):
+    geometrie = get_object_or_404(GeometrieVoiture, pk=pk)
+    return render(request, "geometrie/geometrie_detail_pdf.html", {
+        "geometrie": geometrie
     })
+
+
+def geometrie_pdf_view(request, pk):
+    geometrie = get_object_or_404(GeometrieVoiture, pk=pk)
+    return generate_geometrie_pdf(geometrie)
