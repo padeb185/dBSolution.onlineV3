@@ -127,7 +127,7 @@ def abs_form_view(request, exemplaire_id):
                             raise ValueError("Kilométrage invalide")
 
                         abs.save()
-                    messages.success(request, _("Conrole du système ABS enregistré avec succès."))
+                    messages.success(request, _("Contrôle du système ABS enregistré avec succès."))
 
                 except Exception as e:
                     messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))

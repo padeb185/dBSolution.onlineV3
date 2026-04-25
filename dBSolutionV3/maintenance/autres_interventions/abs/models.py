@@ -107,12 +107,12 @@ class Abs(TechnicienMixin, models.Model):
 
 
 
-    capteur_abs_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("capteur ABS avant droit"))
-    capteur_abs_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("capteur ABS avant gauche"))
-    capteur_abs_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("capteur ABS arrière droit"))
-    capteur_abs_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("capteur ABS arrière gauche"))
+    capteur_abs_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Capteur ABS avant droit"))
+    capteur_abs_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Capteur ABS avant gauche"))
+    capteur_abs_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Capteur ABS arrière droit"))
+    capteur_abs_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Capteur ABS arrière gauche"))
 
-    capteur_abs = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("capteur ABS"))
+    capteur_abs = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Capteur ABS"))
     capteur_abs_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva du capteur"))
     capteur_abs_tva_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("TVA à récupérer"))
     capteur_abs_marge = models.IntegerField(null=True, blank=True, verbose_name=_("Marge"))
