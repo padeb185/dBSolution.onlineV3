@@ -163,6 +163,11 @@ def courroie_form_view(request, exemplaire_id):
                 "icon": "icons/pompe-a-eau.png",
                 "fields": [form[f.name] for f in form if "pompe" in f.name],
             },
+            {
+                "title": _("Liquide de refroidissement"),
+                "icon": "icons/radiateur.png",
+                "fields": [form[f.name] for f in form if "refroidissement" in f.name],
+            },
 
             {
                 "title": _("Etiquette"),
@@ -268,6 +273,16 @@ def modifier_courroie_view(request, courroie_id):
                 "title": _("Courroie de distribution"),
                 "icon": "icons/courroie-de-distribution.png",
                 "fields": [form[f.name] for f in form if "courroie" in f.name],
+            },
+            {
+                "title": _("Pompe à eau"),
+                "icon": "icons/pompe-a-eau.png",
+                "fields": [form[f.name] for f in form if "pompe" in f.name],
+            },
+            {
+                "title": _("Liquide de refroidissement"),
+                "icon": "icons/radiateur.png",
+                "fields": [form[f.name] for f in form if "refroidissement" in f.name],
             },
 
             {

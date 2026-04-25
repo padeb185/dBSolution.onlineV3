@@ -1,7 +1,3 @@
-from django.db import models
-
-# Create your models here.
-
 from decimal import Decimal, ROUND_HALF_UP
 from django.conf import settings
 from django.core.exceptions import ValidationError
@@ -9,12 +5,54 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from utils.mixin import TechnicienMixin
 from maintenance.models import Maintenance
+from maintenance.niveaux.models import validate_step_0_1
 
 
 class EtatOKNotOK(models.TextChoices):
     OK = "OK", _("OK")
     NOT_OK = "NOT_OK", _("A Remplacer")
 
+class RefroidissementQualiteEtat(models.TextChoices):
+    # Volkswagen Group
+    G11 = "G11", _("G 11")
+    G12 = "G12", _("G 12")
+    G12_PLUS = "G12_PLUS", _("G 12+")
+    G12_PLUS_PLUS = "G12_PLUS_PLUS", _("G 12++")
+    G13 = "G13", _("G 13")
+
+    # BMW
+    G48 = "G48", _("G 48")
+
+    # Mercedes-Benz
+    MB_325_0 = "MB_325_0", _("MB 325.0")
+    MB_325_3 = "MB_325_3", _("MB 325.3")
+    MB_325_5 = "MB_325_5", _("MB 325.5")
+
+    # Renault / Dacia
+    TYPE_D = "TYPE_D", _("Type D")
+
+    # PSA (Peugeot / Citroën)
+    PSA_B71_5110 = "PSA_B71_5110", _("PSA B71 5110")
+
+    # Ford
+    WSS_M97B44_D = "WSS_M97B44_D", _("WSS-M97B44-D")
+    WSS_M97B51_A1 = "WSS_M97B51_A1", _("WSS-M97B51-A1")
+
+    # General Motors
+    DEX_COOL = "DEX_COOL", _("Dex-Cool")
+
+    # Toyota / Lexus
+    TOYOTA_SLLC = "TOYOTA_SLLC", _("Toyota SLLC")
+
+    # Honda
+    HONDA_TYPE_2 = "HONDA_TYPE_2", _("Honda Type 2")
+
+    # Nissan
+    NISSAN_L248 = "NISSAN_L248", _("Nissan L248")
+    NISSAN_L250 = "NISSAN_L250", _("Nissan L250")
+
+    # Hyundai / Kia
+    HYUNDAI_KIA_LLC = "HYUNDAI_KIA_LLC", _("Hyundai/Kia Long Life Coolant")
 
 
 class CourroieDistribution(TechnicienMixin, models.Model):
@@ -114,6 +152,12 @@ class CourroieDistribution(TechnicienMixin, models.Model):
     pompe_a_eau_tva_vente = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("TVA à payer"))
     pompe_a_eau_prix_ttc = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix TVAC"))
     pompe_a_eau_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+
+
+
+    refroidissement_quantite = models.FloatField(default=0, verbose_name=_("Quantité de liquide de refroidissement ajoutée en litres"), validators=[validate_step_0_1])
+    refroidissement_qualite = models.CharField(max_length=25, choices=RefroidissementQualiteEtat.choices,default=RefroidissementQualiteEtat.G13,verbose_name=_("Qualité de liquide de refroidissement"))
+
 
     remarques = models.TextField(
         verbose_name=_("Remarques"),
