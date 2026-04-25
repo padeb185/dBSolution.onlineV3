@@ -96,7 +96,7 @@ class Abs(TechnicienMixin, models.Model):
     pompe_abs_prix_ttc = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix TVAC"))
     pompe_abs_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
-    calculateur_abs = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("calculateur d'ABS"))
+    calculateur_abs = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Calculateur d'ABS"))
     calculateur_abs_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva de la pompe à eau"))
     calculateur_abs_tva_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("TVA à récupérer"))
     calculateur_abs_marge = models.IntegerField(null=True, blank=True, verbose_name=_("Marge"))

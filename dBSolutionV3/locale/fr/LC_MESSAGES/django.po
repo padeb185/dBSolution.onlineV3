@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-25 13:20+0200\n"
+"POT-Creation-Date: 2026-04-25 14:03+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -2884,23 +2884,26 @@ msgid "Prix d'achat htva de la pompe à eau"
 msgstr ""
 
 #: .\maintenance\autres_interventions\abs\models.py:110
-msgid "capteur ABS avant droit"
+msgid "Capteur ABS avant droit"
 msgstr ""
 
 #: .\maintenance\autres_interventions\abs\models.py:111
-msgid "capteur ABS avant gauche"
+msgid "Capteur ABS avant gauche"
 msgstr ""
 
 #: .\maintenance\autres_interventions\abs\models.py:112
-msgid "capteur ABS arrière droit"
+msgid "Capteur ABS arrière droit"
 msgstr ""
 
 #: .\maintenance\autres_interventions\abs\models.py:113
-msgid "capteur ABS arrière gauche"
+msgid "Capteur ABS arrière gauche"
 msgstr ""
 
 #: .\maintenance\autres_interventions\abs\models.py:115
-msgid "capteur ABS"
+#: .\maintenance\autres_interventions\abs\views.py:164
+#: .\maintenance\autres_interventions\abs\views.py:280
+#: .\piece\piece_electronique\models.py:21
+msgid "Capteur ABS"
 msgstr ""
 
 #: .\maintenance\autres_interventions\abs\models.py:116
@@ -3512,7 +3515,7 @@ msgid "Le kilométrage ne peut pas être inférieur au kilométrage actuel."
 msgstr ""
 
 #: .\maintenance\autres_interventions\abs\views.py:130
-msgid "Conrole du système ABS enregistré avec succès."
+msgid "Contrôle du système ABS enregistré avec succès."
 msgstr ""
 
 #: .\maintenance\autres_interventions\abs\views.py:154
@@ -3524,12 +3527,6 @@ msgstr ""
 #: .\maintenance\autres_interventions\abs\views.py:275
 #: .\piece\piece_electronique\models.py:24
 msgid "Calculateur ABS"
-msgstr ""
-
-#: .\maintenance\autres_interventions\abs\views.py:164
-#: .\maintenance\autres_interventions\abs\views.py:280
-#: .\piece\piece_electronique\models.py:21
-msgid "Capteur ABS"
 msgstr ""
 
 #: .\maintenance\autres_interventions\abs\views.py:170
