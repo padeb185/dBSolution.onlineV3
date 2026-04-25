@@ -28,12 +28,15 @@ from maintenance.pneus.models import ControlePneus
 from maintenance.autres_interventions.models import AutresInterventions
 from maintenance.carrosserie_interne.models import CarrosserieInterne
 from maintenance.checkup_track.models import CheckupTrack
-
 from maintenance.autres_interventions.boite_de_vitesse.models import ControleBoite
 from maintenance.autres_interventions.bte_vitesse_auto.models import ControleBteVitesseAuto
 from maintenance.autres_interventions.geometrie.models import GeometrieVoiture
 from maintenance.autres_interventions.moteur.admission.models import Admission
 from maintenance.autres_interventions.moteur.alternateur.models import Alternateur
+from maintenance.autres_interventions.abs.models import Abs
+
+
+
 
 
 @login_required
@@ -75,7 +78,7 @@ def choisir_type_maintenance(request, exemplaire_id):
         freins = niveaux = pneus = autres = silent = carrosserie_interne = checkup_track = []
 
     if schema_name:
-        with schema_context(schema_name):
+        with (schema_context(schema_name)):
 
             # ✅ FILTRAGE PAR EXEMPLAIRE
             checkup = ControleGeneral.objects.filter(voiture_exemplaire=exemplaire)
@@ -106,11 +109,12 @@ def choisir_type_maintenance(request, exemplaire_id):
 
             admission = Admission.objects.filter(voiture_exemplaire=exemplaire)
             alternateur = Alternateur.objects.filter(voiture_exemplaire=exemplaire)
+            ABS = Abs.objects.filter(voiture_exemplaire=exemplaire)
 
             total_int_moteur = admission.count() + alternateur.count() + geometrie.count()
 
 
-            total_autres = boite.count() + boite_auto.count() + geometrie.count() + admission.count() + alternateur.count() + geometrie.count()
+            total_autres = boite.count() + boite_auto.count() + geometrie.count() + admission.count() + alternateur.count() + geometrie.count() + ABS.count()
             total_jeux_pieces = jeux_pieces.count()
             total_silent = silent.count()
             total_carrosserie_interne = carrosserie_interne.count()

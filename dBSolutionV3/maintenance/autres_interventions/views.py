@@ -23,9 +23,10 @@ from maintenance.check_up.models import ControleGeneral
 from utilisateurs.models import Mecanicien
 from maintenance.autres_interventions.bte_vitesse_auto.models import ControleBteVitesseAuto
 from maintenance.autres_interventions.geometrie.models import GeometrieVoiture
-
 from maintenance.autres_interventions.moteur.admission.models import Admission
 from maintenance.autres_interventions.moteur.alternateur.models import Alternateur
+from maintenance.autres_interventions.abs.models import Abs
+from maintenance.autres_interventions.moteur.courroie.models import CourroieDistribution
 
 
 @login_required
@@ -63,9 +64,9 @@ def choisir_autre_maintenance(request, exemplaire_id):
         tenant_schema = getattr(request, 'tenant', None)
         schema_name = tenant_schema.schema_name if tenant_schema else None
 
-        total_boite = total_bte_auto = total_geometrie = total_int_moteur =   0
+        total_boite = total_bte_auto = total_geometrie = total_int_moteur = total_abs =   0
 
-        boite = bte_auto = geometrie = moteur = []
+        boite = bte_auto = geometrie = moteur = ABS = []
 
         if schema_name:
             with schema_context(schema_name):
@@ -74,16 +75,19 @@ def choisir_autre_maintenance(request, exemplaire_id):
                 boite = ControleBoite.objects.filter(voiture_exemplaire=exemplaire)
                 bte_auto = ControleBteVitesseAuto.objects.filter(voiture_exemplaire=exemplaire)
                 geometrie = GeometrieVoiture.objects.filter(voiture_exemplaire=exemplaire)
+                ABS = Abs.objects.filter(voiture_exemplaire=exemplaire)
 
                 # ✅ COUNTS CORRECTS
                 total_boite = boite.count()
                 total_bte_auto = bte_auto.count()
                 total_geometrie = geometrie.count()
+                total_abs = ABS.count()
                 admission = Admission.objects.filter(voiture_exemplaire=exemplaire)
                 alternateur = Alternateur.objects.filter(voiture_exemplaire=exemplaire)
+                courroie = CourroieDistribution.objects.filter(voiture_exemplaire=exemplaire)
 
 
-                total_int_moteur = admission.count() + alternateur.count()
+                total_int_moteur = admission.count() + alternateur.count() + courroie.count()
 
 
 
@@ -116,11 +120,13 @@ def choisir_autre_maintenance(request, exemplaire_id):
             "total_boite": total_boite,
             "total_bte_auto": total_bte_auto,
             "total_geometrie": total_geometrie,
+            "total_abs": total_abs,
             "total_int_moteur": total_int_moteur,
 
             "boite": boite,
             "bte_auto": bte_auto,
             "geometrie": geometrie,
+            "abs": abs,
             "moteur": moteur,
 
 
