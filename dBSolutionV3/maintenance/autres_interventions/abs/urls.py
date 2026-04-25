@@ -20,6 +20,6 @@ urlpatterns = [
 
     path("courroie/<int:pk>/", rapport_abs_view, name="rapport_abs"),
 
-    path("courroiePDF/<int:pk>/", AbsRapportDetailView.as_view(), name="rapport_pdf_courroie"),
+    path("courroiePDF/<int:pk>/", AbsRapportDetailView.as_view(), name="rapport_pdf_abs"),
 ]
 

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load i18n static widget_tweaks %}
 
-{% block title %}{% trans "Liste des remplacements de courroies de distribution" %}{% endblock %}
+{% block title %}{% trans "Liste des contrôles ABS" %}{% endblock %}
 
 {% block content %}
 <br>
@@ -47,7 +47,7 @@
     </div>
 </div>
 
-<table id="courroies-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+<table id="abs-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
     <thead>
         <tr class="bg-gray-100">
             <th class="border px-4 py-2 cursor-pointer">{% trans "Immatriculation" %}</th>
@@ -154,12 +154,12 @@
 
 <script>
 $(document).ready(function() {
-    var table = $('#courroies-table').DataTable({
+    var table = $('#abss-table').DataTable({
         pageLength: 100,
         language: {
             search: "{% trans 'Recherche globale :' %}",
             lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
-            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ remplacement' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ contrôle ABS' %}",
             infoEmpty: "{% trans 'Aucun remplacement trouvé' %}",
             zeroRecords: "{% trans 'Aucun remplacement trouvé' %}",
             paginate: {

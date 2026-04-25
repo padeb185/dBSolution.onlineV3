@@ -22,7 +22,7 @@ from .models import Abs
 class AbsListView(ListView):
     model = Abs
     template_name = "abs/abs_list.html"
-    context_object_name = "systèmes_abss"
+    context_object_name = "abss"
     paginate_by = 100
     ordering = ["-id"]
 
@@ -85,7 +85,7 @@ def abs_form_view(request, exemplaire_id):
                 immatriculation=exemplaire.immatriculation,
                 date_intervention=timezone.localtime(timezone.now()).date(),
                 kilometres_chassis=exemplaire.kilometres_chassis,
-                kilometres_derniere_entretien=exemplaire.kilometres_derniere_entretien,
+                kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
                 type_maintenance="abs",
                 tag=Maintenance.Tag.JAUNE,
             )
