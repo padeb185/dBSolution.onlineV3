@@ -136,6 +136,13 @@ urlpatterns += i18n_patterns(
 
     path('courroie/',include(('maintenance.autres_interventions.moteur.courroie.urls', 'courroie'), namespace='courroie')),
 
+    path("abs/", include("maintenance.autres_interventions.abs.urls", namespace="abs")),
+
+
+
+
+
+
 )
 
 

@@ -14,23 +14,20 @@ from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import DetailView
 from decimal import Decimal
-from maintenance.autres_interventions.moteur.courroie.models import CourroieDistribution
-from maintenance.autres_interventions.moteur.courroie.forms import CourroieDistributionForm
-
-
-
+from .forms import AbsForm
+from .models import Abs
 
 
 @method_decorator([login_required, never_cache], name='dispatch')
-class CourroieDistributionListView(ListView):
-    model = CourroieDistribution
-    template_name = "courroie/courroie_list.html"
-    context_object_name = "courroies"
+class AbsListView(ListView):
+    model = Abs
+    template_name = "abs/abs_list.html"
+    context_object_name = "systèmes_abss"
     paginate_by = 100
     ordering = ["-id"]
 
     def get_queryset(self):
-        queryset = CourroieDistribution.objects.select_related(
+        queryset = Abs.objects.select_related(
             "voiture_exemplaire", "maintenance", "tech_societe"
         )
 
@@ -53,7 +50,7 @@ class CourroieDistributionListView(ListView):
 
 @never_cache
 @login_required
-def courroie_form_view(request, exemplaire_id):
+def abs_form_view(request, exemplaire_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
@@ -77,7 +74,7 @@ def courroie_form_view(request, exemplaire_id):
         # Récupération ou création de la maintenance
         maintenance = Maintenance.objects.filter(
             voiture_exemplaire=exemplaire,
-            type_maintenance="courroie"
+            type_maintenance="abs"
         ).order_by("-date_intervention").first()
 
         if not maintenance:
@@ -89,24 +86,24 @@ def courroie_form_view(request, exemplaire_id):
                 date_intervention=timezone.localtime(timezone.now()).date(),
                 kilometres_chassis=exemplaire.kilometres_chassis,
                 kilometres_derniere_entretien=exemplaire.kilometres_derniere_entretien,
-                type_maintenance="admission",
+                type_maintenance="abs",
                 tag=Maintenance.Tag.JAUNE,
             )
 
         # Créer ou récupérer l'objet admission
-        courroie_distribution = CourroieDistribution(
+        abs = Abs(
             voiture_exemplaire=exemplaire,
             maintenance=maintenance,
             kilometres_chassis=exemplaire.kilometres_chassis
         )
-        courroie_distribution.assign_technicien(request.user)
+        abs.assign_technicien(request.user)
 
 
         # --- Formulaire ---
         if request.method == "POST":
-            form = CourroieDistributionForm(
+            form = AbsForm(
                 request.POST,
-                instance=courroie_distribution,
+                instance=abs,
                 user=request.user,
                 exemplaire=exemplaire
             )
@@ -114,12 +111,12 @@ def courroie_form_view(request, exemplaire_id):
             if form.is_valid():
                 try:
                     with transaction.atomic():
-                        courroie_distribution = form.save(commit=False)
+                        abs = form.save(commit=False)
 
                         # Gestion du kilométrage
                         km_checkup = form.cleaned_data.get("kilometres_chassis")
                         if km_checkup is not None and km_checkup >= exemplaire.kilometres_chassis:
-                            courroie_distribution.kilometres_chassis = km_checkup
+                            abs.kilometres_chassis = km_checkup
                             exemplaire.kilometres_chassis = km_checkup
                             exemplaire.save()
                         elif km_checkup is not None and km_checkup < exemplaire.kilometres_chassis:
@@ -129,8 +126,8 @@ def courroie_form_view(request, exemplaire_id):
                             )
                             raise ValueError("Kilométrage invalide")
 
-                        courroie_distribution.save()
-                    messages.success(request, _("Remplacement de la courroie de distribution enregistré avec succès."))
+                        abs.save()
+                    messages.success(request, _("Conrole du système ABS enregistré avec succès."))
 
                 except Exception as e:
                     messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
@@ -140,8 +137,8 @@ def courroie_form_view(request, exemplaire_id):
                 print(form.errors)
 
         else:
-            form = CourroieDistributionForm(
-                instance=courroie_distribution,
+            form = AbsForm(
+                instance=abs,
                 user=request.user,
                 exemplaire=exemplaire
             )
@@ -154,19 +151,19 @@ def courroie_form_view(request, exemplaire_id):
                 "fields": [form[f.name] for f in form if "kilo" in f.name],
             },
             {
-                "title": _("Courroie de distribution"),
-                "icon": "icons/courroie-de-distribution.png",
-                "fields": [form[f.name] for f in form if "courroie_distribution" in f.name],
-            },
-            {
-                "title": _("Pompe à eau"),
-                "icon": "icons/pompe-a-eau.png",
+                "title": _("Pompe du système ABS"),
+                "icon": "icons/abs.png",
                 "fields": [form[f.name] for f in form if "pompe" in f.name],
             },
             {
-                "title": _("Liquide de refroidissement"),
-                "icon": "icons/radiateur.png",
-                "fields": [form[f.name] for f in form if "refroidissement" in f.name],
+                "title": _("Calculateur ABS"),
+                "icon": "icons/calculateur.png",
+                "fields": [form[f.name] for f in form if "calculateur" in f.name],
+            },
+            {
+                "title": _("Capteur ABS"),
+                "icon": "icons/capteurs.png",
+                "fields": [form[f.name] for f in form if "capteur" in f.name],
             },
 
             {
@@ -192,7 +189,7 @@ def courroie_form_view(request, exemplaire_id):
 
         ]
 
-        return render(request, 'courroie/courroie_form.html', {
+        return render(request, 'abs/abs_form.html', {
             "exemplaire": exemplaire,
             "immatriculation": exemplaire.immatriculation,
             "maintenance": maintenance,
@@ -206,46 +203,46 @@ def courroie_form_view(request, exemplaire_id):
 # Vue détail boite
 # -----------------------------
 @login_required
-def courroie_detail_view(request, courroie_id):
-    courroie = get_object_or_404(
-        CourroieDistribution.objects.select_related("voiture_exemplaire"),
-        id=courroie_id
+def abs_detail_view(request, abs_id):
+    abs = get_object_or_404(
+        Abs.objects.select_related("voiture_exemplaire"),
+        id=abs_id
     )
 
     context = {
-        "courroie": courroie,
-        "exemplaire": courroie.voiture_exemplaire,
+        "abs": abs,
+        "exemplaire": abs.voiture_exemplaire,
     }
-    return render(request, "courroie/courroie_detail.html", context)
+    return render(request, "abs/abs_detail.html", context)
 
 
 
 @login_required
-def modifier_courroie_view(request, courroie_id):
+def modifier_abs_view(request, abs_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
-        # Récupération de l'admission avec son exemplaire
-        courroie = get_object_or_404(
-            CourroieDistribution.objects.select_related("voiture_exemplaire"),
-            id=courroie_id
+
+        abs = get_object_or_404(
+            Abs.objects.select_related("voiture_exemplaire"),
+            id=abs_id
         )
 
         # -------------------------
         # POST
         # -------------------------
         if request.method == "POST":
-            form = CourroieDistributionForm(
+            form = AbsForm(
                 request.POST,
-                instance=courroie,
+                instance=abs,
                 user=request.user,
-                exemplaire=courroie.voiture_exemplaire
+                exemplaire=abs.voiture_exemplaire
             )
 
             if form.is_valid():
                 form.save()
-                messages.success(request, _("Remplacement de la courroie de distribution modifié avec succès !"))
-                return redirect("courroie:modifier_courroie", courroie_id=courroie.id)
+                messages.success(request, _("contrôle du système ABS modifié avec succès !"))
+                return redirect("abs:modifier_abs", abs_id=abs.id)
             else:
                 messages.error(request, _("Le formulaire contient des erreurs."))
                 print(form.errors)
@@ -254,10 +251,10 @@ def modifier_courroie_view(request, courroie_id):
         # GET
         # -------------------------
         else:
-            form = CourroieDistributionForm(
-                instance=courroie,
+            form = AbsForm(
+                instance=abs,
                 user=request.user,
-                exemplaire=courroie.voiture_exemplaire
+                exemplaire=abs.voiture_exemplaire
             )
 
         # -------------------------
@@ -270,19 +267,19 @@ def modifier_courroie_view(request, courroie_id):
                 "fields": [form[f.name] for f in form if "kilo" in f.name],
             },
             {
-                "title": _("Courroie de distribution"),
-                "icon": "icons/courroie-de-distribution.png",
-                "fields": [form[f.name] for f in form if "courroie" in f.name],
-            },
-            {
-                "title": _("Pompe à eau"),
-                "icon": "icons/pompe-a-eau.png",
+                "title": _("Pompe du système ABS"),
+                "icon": "icons/abs.png",
                 "fields": [form[f.name] for f in form if "pompe" in f.name],
             },
             {
-                "title": _("Liquide de refroidissement"),
-                "icon": "icons/radiateur.png",
-                "fields": [form[f.name] for f in form if "refroidissement" in f.name],
+                "title": _("Calculateur ABS"),
+                "icon": "icons/calculateur.png",
+                "fields": [form[f.name] for f in form if "calculateur" in f.name],
+            },
+            {
+                "title": _("Capteur ABS"),
+                "icon": "icons/capteurs.png",
+                "fields": [form[f.name] for f in form if "capteur" in f.name],
             },
 
             {
@@ -311,23 +308,23 @@ def modifier_courroie_view(request, courroie_id):
 
     return render(
         request,
-        "courroie/modifier_courroie.html",
+        "abs/modifier_abs.html",
         {
             "form": form,
-            "courroie": courroie,
+            "abs": abs,
             "sections": sections,
-            "exemplaire": courroie.voiture_exemplaire,
+            "exemplaire": abs.voiture_exemplaire,
         }
     )
 
 
 @login_required
-def rapport_courroie_view(request, pk):
-    obj = get_object_or_404(CourroieDistribution, pk=pk)
+def rapport_abs_view(request, pk):
+    obj = get_object_or_404(Abs, pk=pk)
 
     rapport = obj.generer_rapport_remplacement()
 
-    return render(request, "courroie/rapport_courroie.html", {
+    return render(request, "abs/rapport_abs.html", {
         "rapport": rapport,
         "obj": obj
     })
@@ -336,9 +333,9 @@ def rapport_courroie_view(request, pk):
 
 
 
-class CourroieDistributionRapportDetailView(DetailView):
-    model = CourroieDistribution
-    template_name = "courroie/rapport_pdf_courroie.html"
+class AbsRapportDetailView(DetailView):
+    model = Abs
+    template_name = "abs/rapport_pdf_abs.html"
     context_object_name = "obj"
 
     def get_context_data(self, **kwargs):

@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+{% load i18n static widget_tweaks %}
+
+{% block title %}{% trans "Liste des remplacements de courroies de distribution" %}{% endblock %}
+
+{% block content %}
+<br>
+<br>
+<h1 class="text-2xl font-bold mb-6 flex items-center">
+    <img src="{% static 'icons/abs.png' %}" alt="liste des contrôles ABS"
+         style="width:60px; height:60px; margin-right:10px;">
+    {% trans "Liste des contrôles ABS" %}
+</h1>
+<br>
+<div>
+    <a href="{% url 'abs:abs_form' exemplaire.id %}"
+       class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Ajouter un contrôle" %}
+    </a>
+</div>
+<br>
+<br>
+
+
+<div class="bg-white shadow-md rounded-lg p-4 mb-4">
+    <div class="flex flex-wrap items-end gap-3">
+
+        <input id="search-immatriculation" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Immatriculation' %}" >
+
+        <input id="search-kilometres" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Kilomètres' %}">
+
+        <input id="search-tag" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Étiquette' %}">
+
+        <input id="search-utilisateur" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[120px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Technicien' %}">
+
+        <input id="search-date" type="date"
+               class="border rounded px-3 py-2 flex-1 min-w-[120px] focus:outline-none focus:ring-2 focus:ring-blue-500">
+
+    </div>
+</div>
+
+<table id="courroies-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Immatriculation" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Kilomètres" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Tag" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Technicien" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Date" %}</th>
+            <th class="border px-4 py-2 cursor-pointer text-center">{% trans "Actions" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for abs in abss %}
+        {% with exemplaire=abs.voiture_exemplaire %}
+        <tr>
+
+            <!-- Immatriculation -->
+            <td class="p-3">
+                {% if exemplaire %}
+                    {% if exemplaire.pays == 'Belgique' %}
+                        <div class="flex items-center w-[180px] h-[34px] bg-white border-2 border-[#8B0000] rounded font-[Arial]">
+                            <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                                <span>🇪🇺</span><span>B</span>
+                            </div>
+                            <div class="w-full text-center font-bold text-[#8B0000] text-[18px]">
+                                {{ exemplaire.immatriculation|upper }}
+                            </div>
+                        </div>
+                    {% elif exemplaire.pays == 'Luxembourg' %}
+                        <div class="flex items-center w-[180px] h-[34px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial]">
+                            <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                                <span>🇪🇺</span><span>L</span>
+                            </div>
+                            <div class="w-full text-center font-bold text-black text-[18px]">
+                                {{ exemplaire.immatriculation|upper }}
+                            </div>
+                        </div>
+                    {% elif exemplaire.pays == 'Allemagne' %}
+                        <div class="flex items-center w-[180px] h-[34px] bg-white border-2 border-black rounded font-[Arial]">
+                            <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                                <span>🇪🇺</span><span>D</span>
+                            </div>
+                            <div class="w-full text-center font-bold text-black text-[18px]">
+                                {{ exemplaire.immatriculation|upper }}
+                            </div>
+                        </div>
+                    {% endif %}
+                {% else %}
+                    -
+                {% endif %}
+            </td>
+
+            <!-- Kilométrage -->
+            <td class="border px-4 py-2">
+                {{ abs.kilometrage_abs|default:"-" }}
+            </td>
+
+
+            <td class="border px-4 py-2 text-center font-bold
+               {% if abs.tag == 'VERT' %}bg-green-100 text-green-800 border-green-300 border-2
+               {% elif abs.tag == 'JAUNE' %} bg-yellow-100 text-yellow-800 border-yellow-500 border-2
+               {% elif abs.tag == 'ROUGE' %}bg-red-100 text-red-800 border-red-300 border-2
+               {% endif %}">
+              {{ abs.get_tag_display }}
+            </td>
+
+            <!-- Technicien -->
+            <td class="border px-4 py-2">
+                {{ abs.tech_nom_technicien|default:"-" }}
+            </td>
+
+            <!-- Date -->
+            <td class="border px-4 py-2">
+                {{ abs.date|date:"d/m/Y H:i" }}
+            </td>
+
+            <!-- Actions -->
+            <td class="border px-4 py-2 text-center">
+               <a href="{% url 'abs:abs_detail' abs.id %}"
+                   class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
+                    {% trans "Infos" %}
+               </a>
+            </td>
+        </tr>
+        {% endwith %}
+        {% empty %}
+        <tr>
+            <td colspan="6" class="text-center py-4">
+                {% trans "Aucun contrôle enregistré pour cet exemplaire." %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<br>
+<br>
+<div>
+    <a href="{% url 'autres_interventions:choisir_autre' exemplaire.id %}"
+         class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour au dashboard" %}
+    </a>
+</div>
+<br>
+<br>
+
+<script>
+$(document).ready(function() {
+    var table = $('#courroies-table').DataTable({
+        pageLength: 100,
+        language: {
+            search: "{% trans 'Recherche globale :' %}",
+            lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ remplacement' %}",
+            infoEmpty: "{% trans 'Aucun remplacement trouvé' %}",
+            zeroRecords: "{% trans 'Aucun remplacement trouvé' %}",
+            paginate: {
+                first: "{% trans 'Premier' %}",
+                last: "{% trans 'Dernier' %}",
+                next: "{% trans 'Suivant' %}",
+                previous: "{% trans 'Précédent' %}"
+            }
+        },
+        order: [[4, "desc"]]
+    });
+
+    $('#search-immatriculation').on('keyup', function () {
+        table.column(0).search(this.value).draw();
+    });
+    $('#search-kilometres').on('keyup', function () {
+        table.column(1).search(this.value).draw();
+    });
+    $('#search-tag').on('keyup', function () {
+        table.column(2).search(this.value).draw();
+    });
+    $('#search-utilisateur').on('keyup', function () {
+        table.column(3).search(this.value).draw();
+    });
+    $('#search-date').on('change', function () {
+        table.column(4).search(this.value).draw();
+    });
+});
+</script>
+{% endblock %}

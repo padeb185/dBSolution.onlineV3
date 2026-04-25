@@ -72,7 +72,7 @@
             </div>
         </a>
 
-         <!-- Moteur -->
+         <!-- Géométrie -->
         <a href="{% url 'geometrie:geometrie_list' exemplaire.id %}"
            class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
             <div class="flex justify-between items-center">
@@ -84,6 +84,21 @@
                     </p>
                 </div>
                 <img src="{% static 'icons/geometrie.png' %}" alt="géometrie" style="width:60px; height:60px;">
+            </div>
+        </a>
+
+          <!-- ABS -->
+        <a href="{% url 'abs:abs_list' exemplaire.id %}"
+           class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h2 class="text-lg font-semibold mb-2">{% trans "Système ABS" %}</h2>
+                    <p class="text-gray-600">
+                        {% trans "Nombre total :" %}
+                        <span class="font-bold">{{ total_abs }}</span>
+                    </p>
+                </div>
+                <img src="{% static 'icons/abs.png' %}" alt="système abs" style="width:60px; height:60px;">
             </div>
         </a>
 
