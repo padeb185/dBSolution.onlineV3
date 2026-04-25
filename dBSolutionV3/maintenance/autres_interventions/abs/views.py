@@ -241,7 +241,7 @@ def modifier_abs_view(request, abs_id):
 
             if form.is_valid():
                 form.save()
-                messages.success(request, _("contrôle du système ABS modifié avec succès !"))
+                messages.success(request, _("Contrôle du système ABS modifié avec succès !"))
                 return redirect("abs:modifier_abs", abs_id=abs.id)
             else:
                 messages.error(request, _("Le formulaire contient des erreurs."))
