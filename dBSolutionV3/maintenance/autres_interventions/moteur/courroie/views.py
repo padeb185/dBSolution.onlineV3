@@ -299,7 +299,7 @@ def modifier_courroie_view(request, courroie_id):
         "courroie/modifier_courroie.html",
         {
             "form": form,
-            "courroie_distribution": courroie,
+            "courroie": courroie,
             "sections": sections,
             "exemplaire": courroie.voiture_exemplaire,
         }
