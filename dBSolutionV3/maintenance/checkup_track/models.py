@@ -248,7 +248,7 @@ class CheckupTrack(TechnicienMixin, models.Model):
 
     # --- Jeux ---
 
-    jeu_rotule_direction_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Jeu rotules de direction"))
+    jeu_rotule_direction_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Jeux rotules de direction"))
 
 
     jeu_rotule_suspension = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeux rotules de suspension"))
