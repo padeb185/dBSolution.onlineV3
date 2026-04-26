@@ -1,42 +1,88 @@
-<!-- templates/geometrie/geometrie_detail.html -->
-
-{% extends "base.html" %}
 {% load i18n %}
 
-{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
 
-<div class="max-w-5xl mx-auto bg-white shadow rounded-xl p-6 mt-6">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
 
-    <h1 class="text-2xl font-bold mb-6">
-        {% trans "Détail Géométrie Véhicule" %}
-    </h1>
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+        }
 
-    <!-- Infos -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-        <div>
-            <p><strong>{% trans "Date" %} :</strong> {{ geometrie.date|date:"d/m/Y H:i" }}</p>
-            <p><strong>{% trans "Technicien" %} :</strong> {{ geometrie.tech_nom_technicien }}</p>
-            <p><strong>{% trans "Société" %} :</strong> {{ geometrie.tech_societe }}</p>
-            <p><strong>{% trans "Tag" %} :</strong> {{ geometrie.tag }}</p>
-        </div>
+        h2 {
+            font-size: 14px;
+            margin-top: 20px;
+            margin-bottom: 8px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 4px;
+        }
 
-        <div>
-            <p><strong>{% trans "Véhicule" %} :</strong> {{ geometrie.voiture_exemplaire }}</p>
-            <p><strong>{% trans "Kilométrage actuel" %} :</strong> {{ geometrie.kilometres_chassis }} km</p>
-            <p><strong>{% trans "Kilométrage géométrie" %} :</strong> {{ geometrie.kilometrage_geometrie }} km</p>
-        </div>
+        .box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>{% trans "Détail Géométrie Véhicule" %}</h1>
+
+<!-- ================= INFO ================= -->
+<div class="box">
+
+    <div class="grid">
+        <div><span class="label">{% trans "Date" %} :</span> {{ geometrie.date|date:"d/m/Y H:i" }}</div>
+        <div><span class="label">{% trans "Technicien" %} :</span> {{ geometrie.tech_nom_technicien }}</div>
+
+        <div><span class="label">{% trans "Société" %} :</span> {{ geometrie.tech_societe }}</div>
+        <div><span class="label">{% trans "Tag" %} :</span> {{ geometrie.tag }}</div>
+
+        <div><span class="label">{% trans "Véhicule" %} :</span> {{ geometrie.voiture_exemplaire }}</div>
+        <div><span class="label">{% trans "Kilométrage actuel" %} :</span> {{ geometrie.kilometres_chassis }} km</div>
+
+        <div><span class="label">{% trans "Kilométrage géométrie" %} :</span> {{ geometrie.kilometrage_geometrie }} km</div>
     </div>
 
-    <!-- Angles -->
-    <h2 class="text-xl font-semibold mb-3 border-b pb-2">
-        {% trans "Angles de suspension" %}
-    </h2>
+</div>
 
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm mb-6">
-        <div>AVD : {{ geometrie.carrossage_avant_droit }}°</div>
-        <div>AVG : {{ geometrie.carrossage_avant_gauche }}°</div>
-        <div>ARD : {{ geometrie.carrossage_arriere_droit }}°</div>
-        <div>ARG : {{ geometrie.carrossage_arriere_gauche }}°</div>
+<!-- ================= ANGLES ================= -->
+<h2>{% trans "Angles de suspension" %}</h2>
+
+<div class="box">
+    <div class="grid-3">
+
+        <div>{% trans "Carrossage AVD" %} : {{ geometrie.carrossage_avant_droit }}°</div>
+        <div>{% trans "Carrossage AVG" %} : {{ geometrie.carrossage_avant_gauche }}°</div>
+        <div>{% trans "Carrossage ARD" %} : {{ geometrie.carrossage_arriere_droit }}°</div>
+        <div>{% trans "Carrossage ARG" %} : {{ geometrie.carrossage_arriere_gauche }}°</div>
 
         <div>{% trans "Chasse droite" %} : {{ geometrie.chasse_droite }}°</div>
         <div>{% trans "Chasse gauche" %} : {{ geometrie.chasse_gauche }}°</div>
@@ -49,50 +95,46 @@
 
         <div>{% trans "Poussée arrière" %} : {{ geometrie.poussee_arriere }}°</div>
         <div>{% trans "Angle pivot" %} : {{ geometrie.angle_pivot }}°</div>
+
     </div>
+</div>
 
-    <!-- Suspension -->
-    <h2 class="text-xl font-semibold mb-3 border-b pb-2">
-        {% trans "Suspension" %}
-    </h2>
+<!-- ================= SUSPENSION ================= -->
+<h2>{% trans "Suspension" %}</h2>
 
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm mb-6">
+<div class="box">
+
+    <div class="grid">
         <div>{% trans "Hauteur caisse" %}: {{ geometrie.hauteur_caisse }} mm</div>
         <div>{% trans "Débattement avant" %}: {{ geometrie.debattement_suspension_avant }} mm</div>
         <div>{% trans "Débattement arrière" %}: {{ geometrie.debattement_suspension_arriere }} mm</div>
 
         <div>{% trans "Raideur AV" %}: {{ geometrie.raideur_ressort_avant }}</div>
         <div>{% trans "Raideur AR" %}: {{ geometrie.raideur_ressort_arriere }}</div>
-        <div>{% trans "Amortisseurs" %}: {{ geometrie.amortisseur_marque }}</div>
-    </div>
 
-    <!-- Remarques -->
-    <h2 class="text-xl font-semibold mb-3 border-b pb-2">
-        {% trans "Remarques" %}
-    </h2>
-
-    <p class="mb-8">
-        {{ geometrie.remarques|default:"Aucune remarque." }}
-    </p>
-
-    <!-- Boutons -->
-    <div class="flex flex-wrap gap-3">
-
-        <a href="{% url 'geometrie_pdf' geometrie.id %}"
-           target="_blank"
-           class="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-lg shadow">
-
-            📄 {% trans "Télécharger PDF" %}
-        </a>
-
-        <a href="{% url 'geometrie_list' %}"
-           class="bg-gray-600 hover:bg-gray-700 text-white px-5 py-2 rounded-lg shadow">
-
-            ← {% trans "Retour" %}
-        </a>
-
+        <div>{% trans "Marque des Amortisseurs" %}: {{ geometrie.amortisseur_marque }}</div>
     </div>
 
 </div>
 
-{% endblock %}
+<div class="box">
+    <div class="grid">
+
+        <div>{% trans "Amortisseurs avant compression" %} : {{ geometrie.amortissement_avant_compression }}</div>
+        <div>{% trans "Amortisseurs avant rebond" %} : {{ geometrie.amortissement_avant_rebond }}</div>
+
+        <div>{% trans "Amortisseurs arrière compression" %} : {{ geometrie.amortissement_arriere_compression }}</div>
+        <div>{% trans "Amortisseurs arrière rebond" %} : {{ geometrie.amortissement_arriere_rebond }}</div>
+
+    </div>
+</div>
+
+<!-- ================= REMARQUES ================= -->
+<h2>{% trans "Remarques" %}</h2>
+
+<div class="box">
+    {{ geometrie.remarques|default:_("Aucune remarque.") }}
+</div>
+
+</body>
+</html>

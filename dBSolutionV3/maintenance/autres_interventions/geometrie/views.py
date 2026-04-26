@@ -1,5 +1,9 @@
+from datetime import datetime
+
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
+from django.template.loader import render_to_string
 from django.utils import timezone
 from django.contrib import messages
 from django.db import transaction, models
@@ -12,6 +16,8 @@ from maintenance.models import Maintenance
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
+from weasyprint import HTML
+
 from .forms import GeometrieVoitureForm
 from .models import GeometrieVoiture
 from .pdf_report import generate_geometrie_pdf
@@ -364,11 +370,29 @@ def geometrie_modifier_view(request, geometrie_id):
     )
 
 
+
+@login_required
 def geometrie_detail_pdf_view(request, pk):
     geometrie = get_object_or_404(GeometrieVoiture, pk=pk)
-    return render(request, "geometrie/geometrie_detail_pdf.html", {
-        "geometrie": geometrie
-    })
+
+    html_string = render_to_string(
+        "geometrie/geometrie_detail_pdf.html",
+        {
+            "geometrie": geometrie,
+            "date_export": datetime.now(),
+            "societe": request.user.societe
+        }
+    )
+
+    pdf = HTML(string=html_string, base_url=request.build_absolute_uri()).write_pdf()
+
+    response = HttpResponse(pdf, content_type="application/pdf")
+    response["Content-Disposition"] = f'attachment; filename="geometrie_{pk}.pdf"'
+
+    return response
+
+
+
 
 
 def geometrie_pdf_view(request, pk):

@@ -19,9 +19,9 @@ urlpatterns = [
 
     path('geometrie/<int:geometrie_id>/detail/', geometrie_detail_view, name='geometrie_detail'),
 
-    path("<int:pk>/detail/", geometrie_detail_pdf_view, name="geometrie_detail"),
+    path("<int:pk>/detail/", geometrie_detail_pdf_view, name="geometrie_detail_pdf"),
 
-    path("rapport/<int:pk>/", geometrie_pdf_view, name="geometrie_pdf"),
+    path("rapport/<int:pk>/", geometrie_pdf_view, name="rapport"),
 ]
 
 
