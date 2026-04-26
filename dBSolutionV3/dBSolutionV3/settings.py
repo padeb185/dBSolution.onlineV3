@@ -211,7 +211,7 @@ TENANT_APPS = (
 
     'core',     # format iban, carte, ...
 
-
+    'stats_fournisseurs',
     'maintenance.autres_interventions.vitres',
     'maintenance.autres_interventions.systeme_de_refroidissement',
     'maintenance.autres_interventions.moteur',

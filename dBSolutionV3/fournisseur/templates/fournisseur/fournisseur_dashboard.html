@@ -32,6 +32,17 @@
     <img src="{% static 'icons/achatmds.png' %}" alt="Achat marchandises" style="width:60px; height:60px;">
   </a>
 
+   <a href="{% url 'stats_fournisseurs:statistiques' %}"
+     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <div>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Statistiques fournisseurs" %}</h2>
+      <p class="text-gray-600 text-sm">
+        {% trans "Nombre total :" %} <span class="font-bold">{{ total_stats }}</span>
+      </p>
+    </div>
+    <img src="{% static 'icons/stats.png' %}" alt="statistiques fournisseurs" style="width:60px; height:60px;">
+  </a>
+
 
 </div>
 

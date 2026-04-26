@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto p-6">
+
+    <!-- Titre -->
+    <h1 class="text-3xl font-bold mb-6 text-center">
+        {% trans "Statistiques Fournisseur" %}
+    </h1>
+
+    <!-- Formulaire -->
+    <div class="bg-white rounded shadow p-6 mb-8">
+        <form method="get" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+
+            <div>
+                <label class="block mb-1 font-semibold">
+                    {{ form.fournisseur.label }}
+                </label>
+                {{ form.fournisseur }}
+            </div>
+
+            <div>
+                <label class="block mb-1 font-semibold">
+                    {{ form.annee.label }}
+                </label>
+                {{ form.annee }}
+            </div>
+
+            <div>
+                <label class="block mb-1 font-semibold">
+                    {{ form.mois.label }}
+                </label>
+                {{ form.mois }}
+            </div>
+
+            <div class="flex items-end">
+                <button type="submit"
+                        class="w-full bg-blue-700 text-white px-4 py-3 rounded hover:bg-blue-500 font-semibold">
+                    {% trans "Afficher" %}
+                </button>
+            </div>
+
+        </form>
+    </div>
+
+    {% if stats %}
+
+    <!-- Résumé global -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+
+        <div class="bg-white shadow rounded p-5 text-center">
+            <p class="text-gray-500">{% trans "Factures" %}</p>
+            <p class="text-2xl font-bold">{{ nb_factures }}</p>
+        </div>
+
+        <div class="bg-white shadow rounded p-5 text-center">
+            <p class="text-gray-500">{% trans "Total HTVA" %}</p>
+            <p class="text-2xl font-bold">{{ total_htva }} €</p>
+        </div>
+
+        <div class="bg-white shadow rounded p-5 text-center">
+            <p class="text-gray-500">{% trans "Total TVA" %}</p>
+            <p class="text-2xl font-bold">{{ total_tva }} €</p>
+        </div>
+
+        <div class="bg-white shadow rounded p-5 text-center">
+            <p class="text-gray-500">{% trans "Total TVAC" %}</p>
+            <p class="text-2xl font-bold">{{ total_tvac }} €</p>
+        </div>
+
+    </div>
+
+    <!-- Stats mensuelles -->
+    <div class="bg-white shadow rounded p-6 mb-8 overflow-x-auto">
+
+        <h2 class="text-xl font-bold mb-4">
+            {% trans "Statistiques mensuelles" %}
+        </h2>
+
+        <table class="w-full border-collapse">
+
+            <thead>
+                <tr class="bg-gray-100 text-left">
+                    <th class="p-3">{% trans "Mois" %}</th>
+                    <th class="p-3">{% trans "Factures" %}</th>
+                    <th class="p-3">{% trans "HTVA" %}</th>
+                    <th class="p-3">{% trans "TVA" %}</th>
+                    <th class="p-3">{% trans "TVAC" %}</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for row in stats_mois %}
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="p-3">{{ row.mois }}</td>
+                    <td class="p-3">{{ row.nb_factures }}</td>
+                    <td class="p-3">{{ row.total_htva }} €</td>
+                    <td class="p-3">{{ row.total_tva }} €</td>
+                    <td class="p-3">{{ row.total_tvac }} €</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="p-4 text-center text-gray-500">
+                        {% trans "Aucune donnée" %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <!-- Stats annuelles -->
+    <div class="bg-white shadow rounded p-6 overflow-x-auto">
+
+        <h2 class="text-xl font-bold mb-4">
+            {% trans "Statistiques annuelles" %}
+        </h2>
+
+        <table class="w-full border-collapse">
+
+            <thead>
+                <tr class="bg-gray-100 text-left">
+                    <th class="p-3">{% trans "Année" %}</th>
+                    <th class="p-3">{% trans "Factures" %}</th>
+                    <th class="p-3">{% trans "HTVA" %}</th>
+                    <th class="p-3">{% trans "TVA" %}</th>
+                    <th class="p-3">{% trans "TVAC" %}</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for row in stats_annees %}
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="p-3">{{ row.annee }}</td>
+                    <td class="p-3">{{ row.nb_factures }}</td>
+                    <td class="p-3">{{ row.total_htva }} €</td>
+                    <td class="p-3">{{ row.total_tva }} €</td>
+                    <td class="p-3">{{ row.total_tvac }} €</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="p-4 text-center text-gray-500">
+                        {% trans "Aucune donnée" %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% endif %}
+
+</div>
+{% endblock %}

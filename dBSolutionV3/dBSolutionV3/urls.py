@@ -138,6 +138,7 @@ urlpatterns += i18n_patterns(
 
     path("abs/", include("maintenance.autres_interventions.abs.urls", namespace="abs")),
 
+    path('stats_fournisseurs/', include(('stats_fournisseurs.urls', 'stats_fournisseurs'), namespace='stats_fournisseurs')),
 
 
 
