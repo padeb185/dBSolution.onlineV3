@@ -126,12 +126,12 @@ class ReadyForOK(models.TextChoices):
     SPA200 = "SPA200", _("Spa-Francorchamps 200 km")
     SPA300 = "SPA300", _("Spa-Francorchamps 300 km")
     SPA400 = "SPA400", _("Spa-Francorchamps 400 km")
-    NURBURG2 = "NURBURG2", _("Nurburg 2 tours")
-    NURBURG5 = "NURBURG5", _("Nurburg 5 tours")
-    NURBURG7 = "NURBURG7", _("Nurburg 7 tours")
-    NURBURG10 = "NURBURG10", _("Nurburg 10 tours")
-    NURBURG12 = "NURBURG12", _("Nurburg 12 tours")
-    NURBURG15 = "NURBURG15", _("Nurburg 15 tours")
+    NURBURG2 = "NURBURG2", _("Nürburgring 2 tours")
+    NURBURG5 = "NURBURG5", _("Nürburgring 5 tours")
+    NURBURG7 = "NURBURG7", _("Nürburgring 7 tours")
+    NURBURG10 = "NURBURG10", _("Nürburgring 10 tours")
+    NURBURG12 = "NURBURG12", _("Nürburgring 12 tours")
+    NURBURG15 = "NURBURG15", _("Nürburgring 15 tours")
 
 class QualiteLiquideFrein(models.TextChoices):
     DOT3 = "DOT3", _("Dot 3")
@@ -248,20 +248,20 @@ class CheckupTrack(TechnicienMixin, models.Model):
 
     # --- Jeux ---
 
-    jeu_rotule_direction_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Jeu rotule de direction"))
+    jeu_rotule_direction_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Jeu rotules de direction"))
 
 
-    jeu_rotule_suspension = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeux rotule de suspension"))
+    jeu_rotule_suspension = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeux rotules de suspension"))
 
 
-    jeu_Biellette_barre_stabilisatrice = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeu biellette de barre stabilisatrice"))
+    jeu_Biellette_barre_stabilisatrice = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeu biellettes de barre stabilisatrice"))
 
     jeu_barre_stabilisatrice = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeu barre stabilisatrice"))
 
 
     jeu_biellette_direction = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeu biellette de direction"))
 
-    jeu_cardan = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu du cardan"))
+    jeu_cardan = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu des cardan"))
 
     jeu_arbre = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu dans l'arbre de transmission"))
 
