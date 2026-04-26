@@ -11,7 +11,10 @@ from adresse.forms import AdresseForm
 from adresse.models import Adresse
 from django.utils.translation import gettext as _
 from societe.models import Societe
-
+from achat_mds.models import AchatMds
+import json
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
 
 
 @method_decorator([login_required, never_cache], name='dispatch')
@@ -25,6 +28,8 @@ class FournisseurListView(ListView):
     def get_queryset(self):
         tenant = self.request.user.societe
         return Fournisseur.objects.filter(societe=tenant)
+
+
 
 
 @never_cache
@@ -47,6 +52,8 @@ def fournisseur_detail(request, fournisseur_id):
 
 
 
+
+
 @login_required
 def liste_fournisseur_all(request):
     tenant = request.user.societe  # le tenant de l'utilisateur
@@ -60,6 +67,8 @@ def liste_fournisseur_all(request):
         'fournisseur/fournisseur_list.html',
         {'fournisseurs': fournisseurs}
     )
+
+
 
 
 
@@ -116,6 +125,8 @@ def ajouter_fournisseur_all(request):
 
 
 
+
+
 @login_required
 def modifier_fournisseur(request, fournisseur_id):
     tenant = request.user.societe
@@ -158,16 +169,54 @@ def fournisseur_dashboard_view(request):
 
 
         fournisseurs = Fournisseur.objects.all()
+        achat_mds = AchatMds.objects.all()
 
         total_fournisseur = fournisseurs.count()
+        total_achat = achat_mds.count()
 
         context = {
             "user": user,
             "societe": societe,
             "total_fournisseur": total_fournisseur,
+            "total_achat": total_achat,
             "fournisseurs": fournisseurs,
         }
 
     return render(request, "fournisseur/fournisseur_dashboard.html", context)
 
 
+
+
+from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
+from .models import Fournisseur
+
+
+
+@login_required
+@require_POST
+def check_nom_fournisseur_view(request):
+    try:
+        tenant = request.user.societe
+
+        # 👇 valeur envoyée par le JS
+        nom = request.POST.get("nom_marque", "").strip()
+
+        if not nom:
+            return JsonResponse({"exists": False})
+
+        # 👇 contrôle dans TON modèle Fournisseur
+        exists = Fournisseur.objects.filter(
+            societe=tenant,
+            nom__iexact=nom
+        ).exists()
+
+        return JsonResponse({
+            "exists": exists
+        })
+
+    except Exception as e:
+        return JsonResponse({
+            "error": str(e)
+        }, status=500)

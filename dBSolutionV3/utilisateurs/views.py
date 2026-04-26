@@ -100,12 +100,12 @@ def dashboard_view(request):
     total_fournisseur = total_client_particulier = 0
     total_carrosserie = total_societe_cliente = 0
     total_adresse = total_assurance = total_modele = total_outils = 0
-    total_recharge = total_achat =  0
+    total_recharge = 0
 
     marques = moteurs = exemplaires = boites = embrayages = freins = \
         freins_ar = pneus = maintenance = fournisseurs = client_particulier =\
         carrosseries = societe_cliente = adresse = assurance = \
-        assurance_police = modele = outils = recharge = achat  = []
+        assurance_police = modele = outils = recharge = []
 
     if schema_name:
         with schema_context(schema_name):
@@ -120,7 +120,6 @@ def dashboard_view(request):
             pneus = VoiturePneus.objects.filter(societe=societe)
             maintenance = Maintenance.objects.filter(societe=societe)
             fournisseurs = Fournisseur.objects.filter(societe=societe)
-            achat_mds = AchatMds.objects.filter(societe=societe)
             client_particulier = ClientParticulier.objects.filter(societe=societe)
             carrosseries = Carrosserie.objects.filter(societe=societe)
 
@@ -154,7 +153,7 @@ def dashboard_view(request):
             total_assurance_police = assurance_police.count()
             total_outils = outils.count()
             total_recharge = recharge.count()
-            total_achat = achat_mds.count()
+
 
             # Récupère les modèles existants pour les liens maintenance
             modeles = VoitureModele.objects.all()
@@ -184,7 +183,7 @@ def dashboard_view(request):
         'total_assurance_police': total_assurance_police,
         'total_outils': total_outils,
         'total_recharge': total_recharge,
-        'total_achat': total_achat,
+
 
 
         'marques': marques,
@@ -208,7 +207,7 @@ def dashboard_view(request):
         'assurance_police': assurance_police,
         'outils': outils,
         'recharge': recharge,
-        'achat_mds': achat_mds,
+
 
     })
 

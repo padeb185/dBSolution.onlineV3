@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import FournisseurListView, fournisseur_detail, ajouter_fournisseur_all, modifier_fournisseur, \
-    fournisseur_dashboard_view
+    fournisseur_dashboard_view, check_nom_fournisseur_view
 
 app_name = "fournisseur"
 
@@ -32,6 +32,6 @@ urlpatterns = [
 
 
 
-
+    path('check-nom-fournisseur/', check_nom_fournisseur_view, name='check_nom_fournisseur'),
 
 ]

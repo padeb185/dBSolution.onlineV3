@@ -94,6 +94,7 @@ class Fournisseur(models.Model):
     updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
 
     class Meta:
+        unique_together = ("societe", "nom")
         verbose_name = _("Fournisseur")
         verbose_name_plural = _("Fournisseurs")
         indexes = [

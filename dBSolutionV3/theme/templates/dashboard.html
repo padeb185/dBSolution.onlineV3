@@ -171,16 +171,7 @@
     <img src="{% static 'icons/fournisseur.png' %}" alt="Fournisseur" style="width:60px; height:60px;">
   </a>
 
-  <a href="{% url 'achat_mds:achat_list' %}"
-     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-    <div>
-      <h2 class="text-lg font-semibold mb-1">{% trans "Achats marchandises" %}</h2>
-      <p class="text-gray-600 text-sm">
-        {% trans "Nombre total :" %} <span class="font-bold">{{ total_achat }}</span>
-      </p>
-    </div>
-    <img src="{% static 'icons/achatmds.png' %}" alt="Achat marchandises" style="width:60px; height:60px;">
-  </a>
+
 
   <!-- Carte Clients -->
   <a href="{% url 'client_particulier:clientparticulier_list' %}"
