@@ -33,39 +33,41 @@ def liste_embrayage(request):
 
 @login_required
 def ajouter_embrayage_view(request):
-    if request.method == "POST":
-        # Récupération des valeurs
-        fabricant = request.POST.get("fabricant")
-        type_embrayage = request.POST.get("type_embrayage")
-        volant_moteur = request.POST.get("volant_moteur")
-        plateau_pression = request.POST.get("plateau_pression")
-        kilometrage_embrayage = request.POST.get("kilometrage_embrayage")
-        numero_embrayage = request.POST.get("numero_embrayage")
+    tenant = request.user.societe
+    with tenant_context(tenant):
+        if request.method == "POST":
+            # Récupération des valeurs
+            fabricant = request.POST.get("fabricant")
+            type_embrayage = request.POST.get("type_embrayage")
+            volant_moteur = request.POST.get("volant_moteur")
+            plateau_pression = request.POST.get("plateau_pression")
+            kilometrage_embrayage = request.POST.get("kilometrage_embrayage")
+            numero_embrayage = request.POST.get("numero_embrayage")
 
-        # Vérification basique : champs obligatoires
-        if not fabricant or not type_embrayage:
-            messages.error(request,
-                           "Veuillez renseigner au moins le fabricant et le type d'embrayage.")
-        else:
-            try:
-                VoitureEmbrayage.objects.create(
-                    fabricant=fabricant,
-                    type_embrayage=type_embrayage,
-                    volant_moteur=volant_moteur,
-                    plateau_pression=plateau_pression,
-                    kilometrage_embrayage=kilometrage_embrayage,
-                    numero_embrayage=numero_embrayage,
-                )
-                messages.success(request, "Embrayage ajouté avec succès !")
-            except Exception as e:
-                messages.error(request, f"Une erreur est survenue : {str(e)}")
+            # Vérification basique : champs obligatoires
+            if not fabricant or not type_embrayage:
+                messages.error(request,
+                               "Veuillez renseigner au moins le fabricant et le type d'embrayage.")
+            else:
+                try:
+                    VoitureEmbrayage.objects.create(
+                        fabricant=fabricant,
+                        type_embrayage=type_embrayage,
+                        volant_moteur=volant_moteur,
+                        plateau_pression=plateau_pression,
+                        kilometrage_embrayage=kilometrage_embrayage,
+                        numero_embrayage=numero_embrayage,
+                    )
+                    messages.success(request, "Embrayage ajouté avec succès !")
+                except Exception as e:
+                    messages.error(request, f"Une erreur est survenue : {str(e)}")
 
 
-    context = {
-        "TypeEmbrayage": TypeEmbrayage,
-        "TypeVolantMoteur": TypeVolantMoteur,
-        "TypePlateauPression": TypePlateauPression,
-    }
+        context = {
+            "TypeEmbrayage": TypeEmbrayage,
+            "TypeVolantMoteur": TypeVolantMoteur,
+            "TypePlateauPression": TypePlateauPression,
+        }
 
     return render(request, "voiture_embrayage/ajouter_embrayage.html", context)
 
@@ -99,7 +101,11 @@ def lier_embrayage(request, embrayage_id):
 
 @login_required()
 def embrayage_detail_view(request, embrayage_id):
-    embrayage = get_object_or_404(VoitureEmbrayage, id=embrayage_id)
+    tenant = request.user.societe
+    with tenant_context(tenant):
+
+        embrayage = get_object_or_404(VoitureEmbrayage, id=embrayage_id)
+
     return render(request, 'voiture_embrayage/embrayage_detail.html', {
         'embrayage': embrayage,
     })

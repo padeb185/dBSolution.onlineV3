@@ -11,13 +11,13 @@ from django.utils.translation import gettext as _
 
 @login_required
 def liste_boite_view(request):
-    """
-    Affiche tous les exemplaires de véhicules avec recherche sur marque et immatriculation
-    """
+
     tenant = request.user.societe
     with tenant_context(tenant):
+
         boites = VoitureBoite.objects.all()
         context = {"boites": boites}
+
     return render(request, "voiture_boite/list.html", context)
 
 
@@ -25,23 +25,26 @@ def liste_boite_view(request):
 
 @login_required
 def ajouter_boite_view(request):
-    if request.method == "POST":
-        VoitureBoite.objects.create(
-            fabricant=request.POST.get("fabricant"),
-            nom_du_type=request.POST.get("nom_du_type"),
-            type_de_boite=request.POST.get("type_de_boite"),
-            nombre_rapport=request.POST.get("nombre_rapport") or 5,
-            qualite_huile=request.POST.get("qualite_huile"),
-            quantite_huile_l=request.POST.get("quantite_huile_l"),
-        )
-        messages.success(request, "Boite de vitesse ajoutée avec succès")
+    tenant = request.user.societe
+    with tenant_context(tenant):
 
-        return redirect("voiture_boite:ajouter_boite")
+        if request.method == "POST":
+            VoitureBoite.objects.create(
+                fabricant=request.POST.get("fabricant"),
+                nom_du_type=request.POST.get("nom_du_type"),
+                type_de_boite=request.POST.get("type_de_boite"),
+                nombre_rapport=request.POST.get("nombre_rapport") or 5,
+                qualite_huile=request.POST.get("qualite_huile"),
+                quantite_huile_l=request.POST.get("quantite_huile_l"),
+            )
+            messages.success(request, "Boite de vitesse ajoutée avec succès")
 
-    # Passer TypeBoite au template pour la liste déroulante
-    context = {
-        "TypeBoite": TypeBoite,
-    }
+            return redirect("voiture_boite:ajouter_boite")
+
+        # Passer TypeBoite au template pour la liste déroulante
+        context = {
+            "TypeBoite": TypeBoite,
+        }
 
     return render(request, "voiture_boite/ajouter_boite.html", context)
 
@@ -52,7 +55,12 @@ def ajouter_boite_view(request):
 
 @login_required
 def boite_detail_view(request, boite_id):
-    boite = get_object_or_404(VoitureBoite, id=boite_id)
+
+    tenant = request.user.societe
+    with tenant_context(tenant):
+
+        boite = get_object_or_404(VoitureBoite, id=boite_id)
+
     return render(request, "voiture_boite/boite_detail.html", {"boite": boite})
 
 

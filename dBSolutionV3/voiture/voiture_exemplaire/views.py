@@ -39,10 +39,10 @@ def liste_exemplaires(request, modele_id):
                 ex.lettres = ''
                 ex.chiffres = ''
 
-    return render(request, "voiture_exemplaire/liste_exemplaires.html", {
-        "modele": modele,
-        "exemplaires": exemplaires,
-    })
+        return render(request, "voiture_exemplaire/liste_exemplaires.html", {
+            "modele": modele,
+            "exemplaires": exemplaires,
+        })
 
 
 
@@ -65,11 +65,11 @@ def voiture_exemplaire_detail(request, exemplaire_id):
         for moteur in exemplaire.moteurs.all():
             moteur.save()
 
-    return render(request, "voiture_exemplaire/detail_exemplaire.html", {
-        "exemplaire": exemplaire,
-        "modele": modele,
-        "marque": marque,
-    })
+        return render(request, "voiture_exemplaire/detail_exemplaire.html", {
+            "exemplaire": exemplaire,
+            "modele": modele,
+            "marque": marque,
+        })
 
 
 
@@ -77,8 +77,10 @@ def voiture_exemplaire_detail(request, exemplaire_id):
 
 @login_required
 def lier_boite_exemplaire(request, exemplaire_id):
-    exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
-    with tenant_context(request.user.societe):
+
+    tenant = request.user.societe
+    with tenant_context(tenant):
+        exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
         boites = VoitureBoite.objects.all().order_by('fabricant')
 
         if request.method == "POST":
@@ -103,8 +105,10 @@ def lier_boite_exemplaire(request, exemplaire_id):
 
 @login_required
 def lier_pneus(request, exemplaire_id):
-    exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
-    with tenant_context(request.user.societe):
+    tenant = request.user.societe
+    with tenant_context(tenant):
+        exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
+
         pneus = VoiturePneus.objects.all().order_by('manufacturier')
 
         if request.method == "POST":
@@ -118,9 +122,9 @@ def lier_pneus(request, exemplaire_id):
                 messages.error(request, _("Veuillez sélectionner des pneus à lier."))
 
         return render(request, "voiture_exemplaire/lier_pneus.html", {
-            "exemplaire": exemplaire,
-            "pneus": pneus,
-            "title": _("Lier des pneus à un véhicule"),
+                "exemplaire": exemplaire,
+                "pneus": pneus,
+                "title": _("Lier des pneus à un véhicule"),
         })
 
 
@@ -182,11 +186,11 @@ def lier_embrayage_exemplaire(request, exemplaire_id):
 
 @login_required
 def lier_freins(request, exemplaire_id):
-    # Récupération de l'exemplaire
-    exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
-
     with tenant_context(request.user.societe):
-        # Liste de tous les systèmes de freins
+        exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
+
+
+
         freins = VoitureFreinsAV.objects.all().order_by('taille_disque_av')
 
         if request.method == "POST":
@@ -336,9 +340,7 @@ def modifier_exemplaire(request, exemplaire_id):
 @never_cache
 @login_required
 def liste_exemplaires_all(request):
-    """
-    Affiche tous les exemplaires de véhicules avec recherche sur marque et immatriculation
-    """
+
     tenant = request.user.societe
 
     with tenant_context(tenant):
@@ -383,16 +385,17 @@ def ajouter_exemplaire_all(request, modele_id):
 
                 messages.success(request, "Véhicule ajouté avec succès.")
 
-        else:
-            form = VoitureExemplaireForm(
-                user=request.user,
-                initial={
-                    "voiture_marque": marque,
-                    "voiture_modele": modele
-                }
-            )
+            else:
+                form = VoitureExemplaireForm(
+                    user=request.user,
+                    initial={
+                        "voiture_marque": marque,
+                        "voiture_modele": modele
+                    }
+                )
 
-    return render(request, "voiture_exemplaire/ajouter_exemplaire_all.html", {
-        "form": form,
-        "modele": modele
-    })
+        return render(request, "voiture_exemplaire/ajouter_exemplaire_all.html", {
+            "form": form,
+            "modele": modele
+        })
+

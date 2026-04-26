@@ -78,7 +78,9 @@ def ajouter_freins_ar_simple(request):
 @never_cache
 @login_required
 def freins_ar_detail_view(request, frein_ar_id):
-    frein = get_object_or_404(VoitureFreinsAR, id=frein_ar_id)
+    tenant = request.user.societe
+    with tenant_context(tenant):
+        frein = get_object_or_404(VoitureFreinsAR, id=frein_ar_id)
     return render(request, 'voiture_freins_ar/freins_ar_detail.html', {
         'frein': frein,
     })
@@ -90,12 +92,11 @@ def freins_ar_detail_view(request, frein_ar_id):
 @login_required
 def liste_freins_ar(request, societe_id=None):
     societe = request.user.societe
-    if societe_id:
-        societe = Societe.objects.get(id=societe_id)
-
     with tenant_context(societe):
-        freins_ar = VoitureFreinsAR.objects.filter(societe=societe)
-        return render(request, "voiture_freins_ar/freins_ar_list.html", {"freins_ar": freins_ar})
+        if societe_id:
+            societe = Societe.objects.get(id=societe_id)
+            freins_ar = VoitureFreinsAR.objects.filter(societe=societe)
+    return render(request, "voiture_freins_ar/freins_ar_list.html", {"freins_ar": freins_ar})
 
 
 
