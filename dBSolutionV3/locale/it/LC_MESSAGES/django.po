@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-26 09:37+0200\n"
+"POT-Creation-Date: 2026-04-27 08:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,12 +21,13 @@ msgstr ""
 #: .\achat_mds\models.py:23
 #: .\achat_mds\templates\achat_mds\achat_detail.html:32
 #: .\achat_mds\templates\achat_mds\achat_form.html:47
-#: .\fournisseur\models.py:97
-#: .\fournisseur\templates\fournisseur\fournisseur_form.html:53
+#: .\fournisseur\models.py:98
+#: .\fournisseur\templates\fournisseur\fournisseur_form.html:38
 #: .\investissements\models.py:19 .\outillage\models.py:24
 #: .\outillage\templates\outillage\outillage_detail.html:33
 #: .\outillage\templates\outillage\outillage_list.html:26
 #: .\outillage\templates\outillage\outillage_list.html:59
+#: .\stats_fournisseurs\forms.py:58
 msgid "Fournisseur"
 msgstr "Fornitore"
 
@@ -130,7 +131,6 @@ msgstr "Informazioni generali"
 #: .\achat_mds\templates\achat_mds\achat_list.html:40
 #: .\achat_mds\templates\achat_mds\achat_list.html:60 .\facture\models.py:124
 #: .\fournisseur\templates\fournisseur\fournisseur_detail.html:37
-#: .\fournisseur\templates\fournisseur\fournisseur_form.html:69
 #: .\outillage\templates\outillage\outillage_list.html:47
 #: .\outillage\templates\outillage\outillage_list.html:64
 msgid "Taux de TVA"
@@ -180,7 +180,6 @@ msgstr "Modifica l'acquisto"
 #: .\client_particulier\templates\client_particulier\clientparticulier_list.html:65
 #: .\facture\models.py:17 .\fournisseur\models.py:27
 #: .\fournisseur\templates\fournisseur\fournisseur_detail.html:72
-#: .\fournisseur\templates\fournisseur\fournisseur_form.html:105
 #: .\societe_cliente\templates\societe_cliente\societe_cliente_detail.html:95
 #: .\societe_cliente\templates\societe_cliente\societe_cliente_form.html:114
 #: .\societe_cliente\templates\societe_cliente\societe_cliente_list.html:59
@@ -407,7 +406,7 @@ msgstr "Data di pagamento"
 #: .\carrosserie\templates\carrosserie\modifier_carrosserie.html:94
 #: .\client_particulier\templates\client_particulier\client_form.html:195
 #: .\client_particulier\templates\client_particulier\modifier_client.html:82
-#: .\fournisseur\templates\fournisseur\fournisseur_form.html:152
+#: .\fournisseur\templates\fournisseur\fournisseur_form.html:93
 #: .\fournisseur\templates\fournisseur\modifier_fournisseur.html:84
 #: .\fuel\templates\fuel\fuel_form.html:172
 #: .\fuel\templates\fuel\modifier_fuel.html:75
@@ -484,7 +483,7 @@ msgstr "Salva"
 #: .\carrosserie\templates\carrosserie\modifier_carrosserie.html:99
 #: .\client_particulier\templates\client_particulier\client_form.html:200
 #: .\client_particulier\templates\client_particulier\modifier_client.html:87
-#: .\fournisseur\templates\fournisseur\fournisseur_form.html:157
+#: .\fournisseur\templates\fournisseur\fournisseur_form.html:98
 #: .\fournisseur\templates\fournisseur\modifier_fournisseur.html:89
 #: .\fuel\templates\fuel\fuel_form.html:176
 #: .\fuel\templates\fuel\modifier_fuel.html:79
@@ -561,6 +560,7 @@ msgstr "Registrare un acquisto"
 
 #: .\achat_mds\templates\achat_mds\achat_list.html:27
 #: .\fournisseur\models.py:20
+#: .\fournisseur\templates\fournisseur\fournisseur_form.html:46
 #: .\fournisseur\templates\fournisseur\fournisseur_list.html:27
 msgid "Nom du fournisseur"
 msgstr "Nome del fornitore"
@@ -577,6 +577,7 @@ msgid "Nom du Fournisseur"
 msgstr "Nome del fornitore"
 
 #: .\achat_mds\templates\achat_mds\achat_list.html:61
+#: .\stats_fournisseurs\templates\stats_fournisseurs\statistiques.html:63
 msgid "Total TVA"
 msgstr "IVA totale"
 
@@ -918,7 +919,6 @@ msgstr "Acquisto modificato con successo!"
 #: .\assurance\templates\assurance\assurance_form.html:83
 #: .\carrosserie\templates\carrosserie\carrosserie_form.html:104
 #: .\client_particulier\templates\client_particulier\client_form.html:156
-#: .\fournisseur\templates\fournisseur\fournisseur_form.html:108
 #: .\societe_cliente\templates\societe_cliente\societe_cliente_form.html:117
 msgid "Rue"
 msgstr "Via"
@@ -929,7 +929,6 @@ msgstr "Via"
 #: .\assurance\templates\assurance\assurance_form.html:87
 #: .\carrosserie\templates\carrosserie\carrosserie_form.html:110
 #: .\client_particulier\templates\client_particulier\client_form.html:162
-#: .\fournisseur\templates\fournisseur\fournisseur_form.html:115
 #: .\societe_cliente\templates\societe_cliente\societe_cliente_form.html:123
 #: .\voiture\voiture_embrayage\templates\voiture_embrayage\ajouter_embrayage.html:111
 msgid "Numéro"
@@ -951,7 +950,6 @@ msgstr "Casella postale"
 #: .\assurance\templates\assurance\assurance_form.html:91
 #: .\carrosserie\templates\carrosserie\carrosserie_form.html:116
 #: .\client_particulier\templates\client_particulier\client_form.html:168
-#: .\fournisseur\templates\fournisseur\fournisseur_form.html:122
 #: .\societe_cliente\templates\societe_cliente\societe_cliente_form.html:129
 msgid "Code postal"
 msgstr "CAP"
@@ -964,7 +962,6 @@ msgstr "CAP"
 #: .\assurance\templates\assurance\assurance_form.html:95
 #: .\carrosserie\templates\carrosserie\carrosserie_form.html:122
 #: .\client_particulier\templates\client_particulier\client_form.html:174
-#: .\fournisseur\templates\fournisseur\fournisseur_form.html:129
 #: .\societe_cliente\templates\societe_cliente\societe_cliente_form.html:135
 msgid "Ville"
 msgstr "Città"
@@ -980,7 +977,6 @@ msgstr "Città"
 #: .\carrosserie\templates\carrosserie\carrosserie_list.html:36
 #: .\client_particulier\templates\client_particulier\client_form.html:180
 #: .\fournisseur\templates\fournisseur\fournisseur_detail.html:42
-#: .\fournisseur\templates\fournisseur\fournisseur_form.html:136
 #: .\fuel\templates\fuel\fuel_detail.html:61
 #: .\fuel\templates\fuel\fuel_form.html:154
 #: .\maintenance\autres_interventions\abs\views.py:175
@@ -1003,12 +999,11 @@ msgstr "Paese"
 #: .\carrosserie\templates\carrosserie\carrosserie_form.html:134
 #: .\client_particulier\templates\client_particulier\client_form.html:186
 #: .\facture\models.py:36 .\fournisseur\models.py:51
-#: .\fournisseur\templates\fournisseur\fournisseur_form.html:143
 #: .\societe_cliente\templates\societe_cliente\societe_cliente_form.html:147
 msgid "Code pays"
 msgstr "Codice paese"
 
-#: .\adresse\models.py:34 .\theme\templates\dashboard.html:224
+#: .\adresse\models.py:34 .\theme\templates\dashboard.html:215
 msgid "Adresses"
 msgstr "Indirizzi"
 
@@ -1063,9 +1058,9 @@ msgstr "Altre informazioni"
 #: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\modifier_bte_auto.html:386
 #: .\maintenance\autres_interventions\geometrie\models.py:153
 #: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:44
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:71
-#: .\maintenance\autres_interventions\geometrie\views.py:204
-#: .\maintenance\autres_interventions\geometrie\views.py:344
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:133
+#: .\maintenance\autres_interventions\geometrie\views.py:210
+#: .\maintenance\autres_interventions\geometrie\views.py:350
 #: .\maintenance\autres_interventions\moteur\admission\models.py:123
 #: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_detail.html:44
 #: .\maintenance\autres_interventions\moteur\admission\views.py:115
@@ -1210,6 +1205,7 @@ msgstr "Nome del broker"
 #: .\carrosserie\templates\carrosserie\carrosserie_detail.html:41
 #: .\carrosserie\templates\carrosserie\carrosserie_form.html:81
 #: .\carrosserie\templates\carrosserie\carrosserie_list.html:64
+#: .\fournisseur\templates\fournisseur\fournisseur_form.html:81
 #: .\fournisseur\templates\fournisseur\fournisseur_list.html:59
 #: .\utilisateurs\templates\utilisateurs\liste_utilisateurs.html:19
 msgid "Téléphone"
@@ -1228,7 +1224,7 @@ msgstr "Telefono"
 #: .\client_particulier\templates\client_particulier\client_form.html:116
 #: .\client_particulier\templates\client_particulier\clientparticulier_list.html:67
 #: .\fournisseur\models.py:60
-#: .\fournisseur\templates\fournisseur\fournisseur_form.html:84
+#: .\fournisseur\templates\fournisseur\fournisseur_form.html:73
 #: .\fournisseur\templates\fournisseur\fournisseur_list.html:58
 #: .\societe_cliente\models.py:52
 #: .\societe_cliente\templates\societe_cliente\societe_cliente_detail.html:45
@@ -1248,7 +1244,7 @@ msgstr "Identificativo Peppol, es: 0208:BE0123456789"
 msgid "Assurance"
 msgstr "Assicurazione"
 
-#: .\assurance\models.py:49 .\theme\templates\dashboard.html:259
+#: .\assurance\models.py:49 .\theme\templates\dashboard.html:250
 msgid "Assurances"
 msgstr "Assicurazioni"
 
@@ -1285,7 +1281,7 @@ msgstr "Aggiungere una compagnia assicurativa"
 #: .\assurance\templates\assurance\assurance_list.html:38
 #: .\carrosserie\templates\carrosserie\carrosserie_form.html:66
 #: .\carrosserie\templates\carrosserie\carrosserie_list.html:40
-#: .\fournisseur\templates\fournisseur\fournisseur_form.html:76
+#: .\fournisseur\templates\fournisseur\fournisseur_form.html:64
 #: .\fournisseur\templates\fournisseur\fournisseur_list.html:35
 #: .\societe_cliente\templates\societe_cliente\societe_cliente_detail.html:41
 msgid "Numéro Peppol"
@@ -1330,6 +1326,8 @@ msgstr "Assicuratore"
 #: .\assurance\templates\assurance\dashboard_assurance.html:29
 #: .\carrosserie\templates\carrosserie\dashboard_carrosserie.html:18
 #: .\fournisseur\templates\fournisseur\fournisseur_dashboard.html:18
+#: .\fournisseur\templates\fournisseur\fournisseur_dashboard.html:29
+#: .\fournisseur\templates\fournisseur\fournisseur_dashboard.html:40
 #: .\maintenance\autres_interventions\moteur\templates\moteur\dashboard_moteur.html:19
 #: .\maintenance\autres_interventions\moteur\templates\moteur\dashboard_moteur.html:31
 #: .\maintenance\autres_interventions\moteur\templates\moteur\dashboard_moteur.html:42
@@ -1353,11 +1351,10 @@ msgstr "Assicuratore"
 #: .\theme\templates\dashboard.html:17 .\theme\templates\dashboard.html:95
 #: .\theme\templates\dashboard.html:109 .\theme\templates\dashboard.html:121
 #: .\theme\templates\dashboard.html:144 .\theme\templates\dashboard.html:156
-#: .\theme\templates\dashboard.html:168 .\theme\templates\dashboard.html:179
-#: .\theme\templates\dashboard.html:191 .\theme\templates\dashboard.html:214
-#: .\theme\templates\dashboard.html:226 .\theme\templates\dashboard.html:238
-#: .\theme\templates\dashboard.html:249 .\theme\templates\dashboard.html:273
-#: .\theme\templates\dashboard.html:289
+#: .\theme\templates\dashboard.html:168 .\theme\templates\dashboard.html:182
+#: .\theme\templates\dashboard.html:205 .\theme\templates\dashboard.html:217
+#: .\theme\templates\dashboard.html:229 .\theme\templates\dashboard.html:240
+#: .\theme\templates\dashboard.html:264 .\theme\templates\dashboard.html:280
 #: .\voiture\voiture_freins_av\templates\voiture_freins_av\dashboard_frein.html:18
 #: .\voiture\voiture_freins_av\templates\voiture_freins_av\dashboard_frein.html:30
 #: .\voiture\voiture_marque\templates\voiture_marque\dashboard_voiture.html:17
@@ -1388,8 +1385,8 @@ msgstr "I campi dell'indirizzo sono obbligatori."
 #: .\maintenance\autres_interventions\boite_de_vitesse\views.py:203
 #: .\maintenance\autres_interventions\bte_vitesse_auto\views.py:134
 #: .\maintenance\autres_interventions\bte_vitesse_auto\views.py:198
-#: .\maintenance\autres_interventions\geometrie\views.py:135
-#: .\maintenance\autres_interventions\geometrie\views.py:270
+#: .\maintenance\autres_interventions\geometrie\views.py:141
+#: .\maintenance\autres_interventions\geometrie\views.py:276
 #: .\maintenance\autres_interventions\moteur\admission\views.py:153
 #: .\maintenance\autres_interventions\moteur\admission\views.py:228
 #: .\maintenance\autres_interventions\moteur\alternateur\views.py:140
@@ -1412,8 +1409,8 @@ msgstr "I campi dell'indirizzo sono obbligatori."
 #: .\maintenance\pneus\views.py:140 .\maintenance\pneus\views.py:204
 #: .\maintenance\silent_blocs\views.py:134
 #: .\maintenance\silent_blocs\views.py:197 .\recharge\views.py:184
-#: .\voiture\voiture_boite\views.py:79 .\voiture\voiture_embrayage\views.py:128
-#: .\voiture\voiture_freins_ar\views.py:116
+#: .\voiture\voiture_boite\views.py:87 .\voiture\voiture_embrayage\views.py:134
+#: .\voiture\voiture_freins_ar\views.py:117
 #: .\voiture\voiture_freins_av\views.py:127
 #: .\voiture\voiture_moteur\views.py:138 .\voiture\voiture_pneus\views.py:155
 msgid "Le formulaire contient des erreurs."
@@ -1664,7 +1661,7 @@ msgstr "Nome del responsabile"
 #: .\carrosserie\templates\carrosserie\carrosserie_detail.html:50
 #: .\fournisseur\models.py:32
 #: .\fournisseur\templates\fournisseur\fournisseur_detail.html:32
-#: .\fournisseur\templates\fournisseur\fournisseur_form.html:61
+#: .\fournisseur\templates\fournisseur\fournisseur_form.html:55
 #: .\societe_cliente\templates\societe_cliente\societe_cliente_detail.html:37
 msgid "Numéro de TVA"
 msgstr "Partita IVA"
@@ -1678,7 +1675,7 @@ msgstr "Carrozzeria"
 
 #: .\carrosserie\models.py:65
 #: .\carrosserie\templates\carrosserie\dashboard_carrosserie.html:16
-#: .\theme\templates\dashboard.html:201
+#: .\theme\templates\dashboard.html:192
 msgid "Carrosseries"
 msgstr "Carrozzerie"
 
@@ -1895,7 +1892,7 @@ msgstr "Noleggio"
 msgid "Client"
 msgstr "Cliente"
 
-#: .\client_particulier\models.py:159 .\theme\templates\dashboard.html:189
+#: .\client_particulier\models.py:159 .\theme\templates\dashboard.html:180
 msgid "Clients"
 msgstr "Clienti"
 
@@ -2023,6 +2020,9 @@ msgid "Facture"
 msgstr "Fattura"
 
 #: .\facture\models.py:93
+#: .\stats_fournisseurs\templates\stats_fournisseurs\statistiques.html:53
+#: .\stats_fournisseurs\templates\stats_fournisseurs\statistiques.html:86
+#: .\stats_fournisseurs\templates\stats_fournisseurs\statistiques.html:127
 msgid "Factures"
 msgstr "Fatture"
 
@@ -2080,7 +2080,6 @@ msgid "Email du fournisseur"
 msgstr "Email del fornitore"
 
 #: .\fournisseur\models.py:68
-#: .\fournisseur\templates\fournisseur\fournisseur_form.html:91
 msgid "Téléphone fixe"
 msgstr "Telefono fisso"
 
@@ -2089,7 +2088,6 @@ msgid "Numéro de téléphone fixe"
 msgstr "Numero di telefono fisso"
 
 #: .\fournisseur\models.py:76
-#: .\fournisseur\templates\fournisseur\fournisseur_form.html:98
 msgid "GSM"
 msgstr "Cellulare"
 
@@ -2097,13 +2095,13 @@ msgstr "Cellulare"
 msgid "Numéro de téléphone mobile"
 msgstr "Numero di telefono mobile"
 
-#: .\fournisseur\models.py:98
+#: .\fournisseur\models.py:99
 #: .\fournisseur\templates\fournisseur\fournisseur_dashboard.html:16
 #: .\theme\templates\dashboard.html:166
 msgid "Fournisseurs"
 msgstr "Fornitori"
 
-#: .\fournisseur\models.py:105
+#: .\fournisseur\models.py:106
 #, python-format
 msgid "%(nom)s"
 msgstr "%(nom)s"
@@ -2111,6 +2109,15 @@ msgstr "%(nom)s"
 #: .\fournisseur\templates\fournisseur\fournisseur_dashboard.html:7
 msgid "Bienvenue sur le tableau de bord fournisseur"
 msgstr "Benvenuto nel pannello fornitore"
+
+#: .\fournisseur\templates\fournisseur\fournisseur_dashboard.html:27
+msgid "Achats marchandises"
+msgstr "Acquisti di merci"
+
+#: .\fournisseur\templates\fournisseur\fournisseur_dashboard.html:38
+#: .\stats_fournisseurs\models.py:32
+msgid "Statistiques fournisseurs"
+msgstr "Statistiche fornitori"
 
 #: .\fournisseur\templates\fournisseur\fournisseur_detail.html:63
 msgid "Modifier le fournisseur"
@@ -2120,9 +2127,27 @@ msgstr "Modifica il fornitore"
 msgid "Retour à la liste des fournisseurs"
 msgstr "Torna alla lista dei fornitori"
 
-#: .\fournisseur\templates\fournisseur\fournisseur_form.html:13
+#: .\fournisseur\templates\fournisseur\fournisseur_form.html:14
 msgid "Créer un Fournisseur"
 msgstr "Crea un fornitore"
+
+#: .\fournisseur\templates\fournisseur\fournisseur_form.html:149
+#: .\voiture\voiture_marque\templates\voiture_marque\ajouter_marque.html:92
+msgid "Vérification…"
+msgstr "Verifica…"
+
+#: .\fournisseur\templates\fournisseur\fournisseur_form.html:168
+msgid "Ce fournisseur existe déjà !"
+msgstr "Questo fornitore esiste già!"
+
+#: .\fournisseur\templates\fournisseur\fournisseur_form.html:172
+msgid "Fournisseur disponible"
+msgstr "Fornitore disponibile"
+
+#: .\fournisseur\templates\fournisseur\fournisseur_form.html:180
+#: .\voiture\voiture_marque\templates\voiture_marque\ajouter_marque.html:117
+msgid "Erreur lors de la vérification"
+msgstr "Errore durante la verifica"
 
 #: .\fournisseur\templates\fournisseur\fournisseur_list.html:4
 #: .\fournisseur\templates\fournisseur\fournisseur_list.html:11
@@ -2151,7 +2176,7 @@ msgstr "Nessun fornitore trovato"
 msgid "Modifier le fournisseur :"
 msgstr "Modifica il fornitore:"
 
-#: .\fournisseur\views.py:78
+#: .\fournisseur\views.py:87
 msgid "Le nom du fournisseur est obligatoire."
 msgstr "Il nome del fornitore è obbligatorio."
 
@@ -2241,7 +2266,7 @@ msgid "Utilisateur"
 msgstr "Utente"
 
 #: .\fuel\models.py:64 .\fuel\templates\fuel\fuel_list.html:69
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:24
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:68
 #: .\maintenance\nettoyage_exterieur\models.py:29
 #: .\maintenance\nettoyage_interieur\models.py:32 .\piece\models.py:58
 #: .\piece\templates\piece\piece_detail.html:10 .\recharge\models.py:70
@@ -2291,6 +2316,8 @@ msgid "Montant HT"
 msgstr "Importo senza IVA"
 
 #: .\fuel\models.py:117 .\recharge\models.py:109
+#: .\stats_fournisseurs\templates\stats_fournisseurs\statistiques.html:88
+#: .\stats_fournisseurs\templates\stats_fournisseurs\statistiques.html:129
 msgid "TVA"
 msgstr "IVA"
 
@@ -2309,7 +2336,7 @@ msgstr "Conferma"
 msgid "Carburant"
 msgstr "Carburante"
 
-#: .\fuel\models.py:131 .\theme\templates\dashboard.html:236
+#: .\fuel\models.py:131 .\theme\templates\dashboard.html:227
 msgid "Carburants"
 msgstr "Carburanti"
 
@@ -2445,6 +2472,8 @@ msgstr "Per mese"
 #: .\recharge\templates\recharge\electricite_exemplaire_stat.html:201
 #: .\recharge\templates\recharge\electricite_stat.html:129
 #: .\recharge\templates\recharge\electricite_stat.html:195
+#: .\stats_fournisseurs\forms.py:23
+#: .\stats_fournisseurs\templates\stats_fournisseurs\statistiques.html:85
 msgid "Mois"
 msgstr "Mese"
 
@@ -2459,6 +2488,8 @@ msgstr "Mese"
 #: .\recharge\templates\recharge\electricite_stat.html:117
 #: .\recharge\templates\recharge\electricite_stat.html:145
 #: .\recharge\templates\recharge\electricite_stat.html:172
+#: .\stats_fournisseurs\templates\stats_fournisseurs\statistiques.html:105
+#: .\stats_fournisseurs\templates\stats_fournisseurs\statistiques.html:146
 msgid "Aucune donnée"
 msgstr "Nessun dato"
 
@@ -2479,6 +2510,8 @@ msgstr "Per anno"
 #: .\recharge\templates\recharge\electricite_exemplaire_stat.html:209
 #: .\recharge\templates\recharge\electricite_stat.html:156
 #: .\recharge\templates\recharge\electricite_stat.html:203
+#: .\stats_fournisseurs\forms.py:12
+#: .\stats_fournisseurs\templates\stats_fournisseurs\statistiques.html:126
 msgid "Année"
 msgstr "Anno"
 
@@ -2571,7 +2604,7 @@ msgstr "14,32 Litri"
 #: .\maintenance\autres_interventions\bte_vitesse_auto\models.py:143
 #: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_list.html:56
 #: .\maintenance\autres_interventions\geometrie\models.py:191
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:17
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:62
 #: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_list.html:57
 #: .\maintenance\autres_interventions\moteur\admission\models.py:172
 #: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_list.html:56
@@ -2809,17 +2842,14 @@ msgid "Kilomètres chassis"
 msgstr "Chilometraggio telaio"
 
 #: .\maintenance\autres_interventions\abs\models.py:65
-#, fuzzy
-#| msgid "Kilométrage au moment du controle"
 msgid "Kilométrage au moment du controle ABS "
-msgstr "Chilometraggio al momento del controllo"
+msgstr "Chilometraggio al momento del controllo ABS "
 
 #: .\maintenance\autres_interventions\abs\models.py:90
 msgid "Pompe d'ABS"
 msgstr "Pompa ABS"
 
 #: .\maintenance\autres_interventions\abs\models.py:91
-
 msgid "Prix d'achat htva de la pompe ABS"
 msgstr "Prezzo d'acquisto della pompa ABS IVA esclusa"
 
@@ -3010,11 +3040,11 @@ msgstr "Stato visivo / Tag"
 #: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\modifier_bte_auto.html:423
 #: .\maintenance\autres_interventions\geometrie\models.py:177
 #: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:35
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:18
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:63
 #: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_list.html:42
 #: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_list.html:56
-#: .\maintenance\autres_interventions\geometrie\views.py:209
-#: .\maintenance\autres_interventions\geometrie\views.py:349
+#: .\maintenance\autres_interventions\geometrie\views.py:215
+#: .\maintenance\autres_interventions\geometrie\views.py:355
 #: .\maintenance\autres_interventions\moteur\admission\models.py:146
 #: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_detail.html:35
 #: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_list.html:41
@@ -3137,7 +3167,7 @@ msgstr "Ruolo del tecnico"
 #: .\maintenance\autres_interventions\boite_de_vitesse\models.py:141
 #: .\maintenance\autres_interventions\bte_vitesse_auto\models.py:139
 #: .\maintenance\autres_interventions\geometrie\models.py:187
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:19
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:65
 #: .\maintenance\autres_interventions\moteur\admission\models.py:167
 #: .\maintenance\autres_interventions\moteur\alternateur\models.py:173
 #: .\maintenance\autres_interventions\moteur\courroie\models.py:208
@@ -3235,7 +3265,7 @@ msgstr "Chilometraggio"
 #: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_list.html:54
 #: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\modifier_bte_auto.html:349
 #: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:34
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:20
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:66
 #: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_list.html:55
 #: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_detail.html:34
 #: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_list.html:54
@@ -3477,7 +3507,7 @@ msgstr "Modificare il controllo dell'ABS"
 #: .\maintenance\autres_interventions\abs\views.py:70
 #: .\maintenance\autres_interventions\boite_de_vitesse\views.py:74
 #: .\maintenance\autres_interventions\bte_vitesse_auto\views.py:69
-#: .\maintenance\autres_interventions\geometrie\views.py:70
+#: .\maintenance\autres_interventions\geometrie\views.py:76
 #: .\maintenance\autres_interventions\moteur\admission\views.py:68
 #: .\maintenance\autres_interventions\moteur\alternateur\views.py:74
 #: .\maintenance\autres_interventions\moteur\courroie\views.py:73
@@ -3499,7 +3529,7 @@ msgstr ""
 #: .\maintenance\autres_interventions\abs\views.py:125
 #: .\maintenance\autres_interventions\boite_de_vitesse\views.py:128
 #: .\maintenance\autres_interventions\bte_vitesse_auto\views.py:123
-#: .\maintenance\autres_interventions\geometrie\views.py:124
+#: .\maintenance\autres_interventions\geometrie\views.py:130
 #: .\maintenance\autres_interventions\moteur\admission\views.py:142
 #: .\maintenance\autres_interventions\moteur\alternateur\views.py:129
 #: .\maintenance\autres_interventions\moteur\courroie\views.py:128
@@ -3531,8 +3561,8 @@ msgstr "Centralina ABS"
 
 #: .\maintenance\autres_interventions\abs\views.py:170
 #: .\maintenance\autres_interventions\abs\views.py:286
-#: .\maintenance\autres_interventions\geometrie\views.py:199
-#: .\maintenance\autres_interventions\geometrie\views.py:339
+#: .\maintenance\autres_interventions\geometrie\views.py:205
+#: .\maintenance\autres_interventions\geometrie\views.py:345
 #: .\maintenance\autres_interventions\moteur\admission\views.py:114
 #: .\maintenance\autres_interventions\moteur\admission\views.py:311
 #: .\maintenance\autres_interventions\moteur\alternateur\views.py:173
@@ -3995,95 +4025,125 @@ msgstr "Geometria"
 msgid "Modifier la géométrie"
 msgstr "Modifica la geometria"
 
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:65
+msgid "Télécharger PDF"
+msgstr "Scaricare PDF"
+
 #: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:94
 msgid "Retour à la liste des géométries"
 msgstr "Torna all'elenco delle geometrie"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:11
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:56
 msgid "Détail Géométrie Véhicule"
 msgstr "Dettaglio Geometria Veicolo"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:25
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:69
 msgid "Kilométrage actuel"
 msgstr "Chilometraggio attuale"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:26
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:71
 msgid "Kilométrage géométrie"
 msgstr "Chilometraggio geometria"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:32
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:77
 msgid "Angles de suspension"
 msgstr "Angoli di sospensione"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:41
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:82
+msgid "Carrossage AVD"
+msgstr "Campanatura anteriore destra"
+
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:83
+msgid "Carrossage AVG"
+msgstr "Campanatura anteriore sinistra"
+
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:84
+msgid "Carrossage ARD"
+msgstr "Campanatura posteriore destra"
+
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:85
+msgid "Carrossage ARG"
+msgstr "Campanatura posteriore sinistra"
+
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:87
 msgid "Chasse droite"
 msgstr "Incidenza destra"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:42
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:88
 msgid "Chasse gauche"
 msgstr "Incidenza sinistra"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:44
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:90
 msgid "Pincement AVD"
-msgstr "Convergenza AVD"
+msgstr "Convergenza anteriore destra"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:45
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:91
 msgid "Pincement AVG"
-msgstr "Convergenza AVG"
+msgstr "Convergenza anteriore sinistra"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:47
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:93
 msgid "Pincement ARD"
-msgstr "Convergenza ARD"
+msgstr "Convergenza posteriore destra"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:48
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:94
 msgid "Pincement ARG"
-msgstr "Convergenza ARG"
+msgstr "Convergenza posteriore sinistra"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:50
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:96
 msgid "Poussée arrière"
 msgstr "Spinta posteriore"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:51
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:97
 msgid "Angle pivot"
 msgstr "Angolo di pivot"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:56
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:103
 msgid "Suspension"
 msgstr "Sospensione"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:60
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:108
 msgid "Hauteur caisse"
 msgstr "Altezza carrozzeria"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:61
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:109
 msgid "Débattement avant"
 msgstr "Escursione anteriore"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:62
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:110
 msgid "Débattement arrière"
 msgstr "Escursione posteriore"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:64
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:112
 msgid "Raideur AV"
 msgstr "Rigidità AV"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:65
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:113
 msgid "Raideur AR"
 msgstr "Rigidità AR"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:66
-#: .\maintenance\silent_blocs\templates\silent_blocs\modifier_silent.html:175
-#: .\maintenance\silent_blocs\templates\silent_blocs\silent_check.html:171
-msgid "Amortisseurs"
-msgstr "Ammortizzatori"
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:115
+msgid "Marque des Amortisseurs"
+msgstr "Marca degli ammortizzatori"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:85
-msgid "Télécharger PDF"
-msgstr "Scaricare PDF"
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:123
+msgid "Amortisseurs avant compression"
+msgstr "Smorzamento anteriore compressione"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:91
-msgid "Retour"
-msgstr "Indietro"
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:124
+msgid "Amortisseurs avant rebond"
+msgstr "Smorzamento anteriore rimbalzo"
+
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:126
+msgid "Amortisseurs arrière compression"
+msgstr "Smorzamento posteriore compressione"
+
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:127
+msgid "Amortisseurs arrière rebond"
+msgstr "Smorzamento posteriore rimbalzo"
+
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:136
+msgid "Aucune remarque."
+msgstr "Nessuna osservazione."
 
 #: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_list.html:4
 #: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_list.html:12
@@ -4098,57 +4158,57 @@ msgstr "Nessuna geometria registrata per questo esemplare."
 msgid "Retour aux interventions"
 msgstr "Torna alle interventi"
 
-#: .\maintenance\autres_interventions\geometrie\views.py:129
+#: .\maintenance\autres_interventions\geometrie\views.py:135
 msgid "Géometrie enregistrée avec succès."
 msgstr "Geometria salvata con successo."
 
-#: .\maintenance\autres_interventions\geometrie\views.py:153
-#: .\maintenance\autres_interventions\geometrie\views.py:293
+#: .\maintenance\autres_interventions\geometrie\views.py:159
+#: .\maintenance\autres_interventions\geometrie\views.py:299
 msgid "Pincement"
 msgstr "Chiusura (pinch)"
 
-#: .\maintenance\autres_interventions\geometrie\views.py:158
-#: .\maintenance\autres_interventions\geometrie\views.py:298
+#: .\maintenance\autres_interventions\geometrie\views.py:164
+#: .\maintenance\autres_interventions\geometrie\views.py:304
 msgid "Carrossage"
 msgstr "Campanatura"
 
-#: .\maintenance\autres_interventions\geometrie\views.py:163
-#: .\maintenance\autres_interventions\geometrie\views.py:303
+#: .\maintenance\autres_interventions\geometrie\views.py:169
+#: .\maintenance\autres_interventions\geometrie\views.py:309
 msgid "Chasse"
-msgstr "Inclinazione sterzo (caster)"
+msgstr "Incidenza"
 
-#: .\maintenance\autres_interventions\geometrie\views.py:168
-#: .\maintenance\autres_interventions\geometrie\views.py:308
+#: .\maintenance\autres_interventions\geometrie\views.py:174
+#: .\maintenance\autres_interventions\geometrie\views.py:314
 msgid "Angle de Poussée"
 msgstr "Angolo di spinta"
 
-#: .\maintenance\autres_interventions\geometrie\views.py:173
-#: .\maintenance\autres_interventions\geometrie\views.py:313
+#: .\maintenance\autres_interventions\geometrie\views.py:179
+#: .\maintenance\autres_interventions\geometrie\views.py:319
 msgid "Angle de pivot"
 msgstr "Angolo di pivot"
 
-#: .\maintenance\autres_interventions\geometrie\views.py:178
-#: .\maintenance\autres_interventions\geometrie\views.py:318
+#: .\maintenance\autres_interventions\geometrie\views.py:184
+#: .\maintenance\autres_interventions\geometrie\views.py:324
 msgid "Hauteur de caisse"
 msgstr "Altezza carrozzeria"
 
-#: .\maintenance\autres_interventions\geometrie\views.py:183
-#: .\maintenance\autres_interventions\geometrie\views.py:323
+#: .\maintenance\autres_interventions\geometrie\views.py:189
+#: .\maintenance\autres_interventions\geometrie\views.py:329
 msgid "Débattement"
 msgstr "Escursione sospensioni"
 
-#: .\maintenance\autres_interventions\geometrie\views.py:188
-#: .\maintenance\autres_interventions\geometrie\views.py:328
+#: .\maintenance\autres_interventions\geometrie\views.py:194
+#: .\maintenance\autres_interventions\geometrie\views.py:334
 msgid "Raideur"
 msgstr "Rigidità"
 
-#: .\maintenance\autres_interventions\geometrie\views.py:193
-#: .\maintenance\autres_interventions\geometrie\views.py:333
+#: .\maintenance\autres_interventions\geometrie\views.py:199
+#: .\maintenance\autres_interventions\geometrie\views.py:339
 #: .\maintenance\jeux_pieces\models.py:21
 msgid "Amortisseur"
 msgstr "Ammortizzatore"
 
-#: .\maintenance\autres_interventions\geometrie\views.py:267
+#: .\maintenance\autres_interventions\geometrie\views.py:273
 msgid "Contrôle de la géométrie modifié avec succès !"
 msgstr "Controllo della geometria modificato con successo!"
 
@@ -5315,7 +5375,7 @@ msgid "Refroidissement"
 msgstr "Raffreddamento"
 
 #: .\maintenance\check_up\admin.py:137 .\utilisateurs\models.py:82
-#: .\utilisateurs\views.py:242
+#: .\utilisateurs\views.py:241
 msgid "Direction"
 msgstr "Dirección"
 
@@ -6057,6 +6117,7 @@ msgstr "Batteria"
 
 #: .\maintenance\check_up\templates\check_up\controle_total.html:427
 #: .\maintenance\check_up\templates\check_up\modifier_checkup.html:436
+#: .\maintenance\checkup_track\models.py:251
 #: .\maintenance\checkup_track\templates\checkup_track\modifier_checkup_track.html:397
 #: .\maintenance\checkup_track\templates\checkup_track\track_check_form.html:393
 #: .\maintenance\jeux_pieces\templates\jeux_pieces\controle_jeux.html:92
@@ -6213,7 +6274,7 @@ msgid "Nürburgring 7 tours"
 msgstr ""
 
 #: .\maintenance\checkup_track\models.py:132
-msgid "Nürburgring10 tours"
+msgid "Nürburgring 10 tours"
 msgstr ""
 
 #: .\maintenance\checkup_track\models.py:133
@@ -6287,10 +6348,6 @@ msgstr "Rumore del cuscinetto della ruota"
 #: .\maintenance\checkup_track\models.py:247
 msgid "Jeu roulement de roue"
 msgstr "Gioco del cuscinetto della ruota"
-
-#: .\maintenance\checkup_track\models.py:251
-msgid "Jeu rotules de direction"
-msgstr "Gioco del giunto sferico dello sterzo"
 
 #: .\maintenance\checkup_track\models.py:254
 msgid "Jeux rotules de suspension"
@@ -6752,12 +6809,12 @@ msgid "Hors service"
 msgstr "Fuori servizio"
 
 #: .\maintenance\jeux_pieces\models.py:42 .\maintenance\models.py:54
-#: .\utilisateurs\models.py:73 .\utilisateurs\views.py:233
+#: .\utilisateurs\models.py:73 .\utilisateurs\views.py:232
 msgid "Apprenti"
 msgstr "Apprendista"
 
 #: .\maintenance\jeux_pieces\models.py:43 .\maintenance\models.py:45
-#: .\utilisateurs\models.py:74 .\utilisateurs\views.py:234
+#: .\utilisateurs\models.py:74 .\utilisateurs\views.py:233
 msgid "Mécanicien"
 msgstr "Meccanico"
 
@@ -7298,6 +7355,11 @@ msgstr "Silent block"
 msgid "Modifier le Contrôle des silent blocs"
 msgstr "Modificare il controllo dei silent block"
 
+#: .\maintenance\silent_blocs\templates\silent_blocs\modifier_silent.html:175
+#: .\maintenance\silent_blocs\templates\silent_blocs\silent_check.html:171
+msgid "Amortisseurs"
+msgstr "Ammortizzatori"
+
 #: .\maintenance\silent_blocs\templates\silent_blocs\modifier_silent.html:207
 #: .\maintenance\silent_blocs\templates\silent_blocs\silent_check.html:203
 msgid "Triangle inférieur"
@@ -7522,7 +7584,7 @@ msgstr "Importo calcolato"
 msgid "Outillage"
 msgstr "Attrezzatura"
 
-#: .\outillage\models.py:82 .\theme\templates\dashboard.html:287
+#: .\outillage\models.py:82 .\theme\templates\dashboard.html:278
 msgid "Outillages"
 msgstr "Attrezzature"
 
@@ -7723,7 +7785,7 @@ msgstr "Quantità minima"
 msgid "Organe"
 msgstr "Componente"
 
-#: .\piece\models.py:111 .\theme\templates\dashboard.html:271
+#: .\piece\models.py:111 .\theme\templates\dashboard.html:262
 msgid "Pièces"
 msgstr "Pezzi"
 
@@ -9873,14 +9935,14 @@ msgstr "Nessuno"
 #: .\piece\templates\piece\piece_form.html:92
 #, fuzzy, python-format
 #| msgid "Majoration (%)"
-msgid "Majoration (%)"
+msgid "Majoration (%%)"
 msgstr "Maggiorazione (%)"
 
 #: .\piece\templates\piece\piece_detail.html:37
 #: .\piece\templates\piece\piece_form.html:100
 #, fuzzy, python-format
 #| msgid "TVA (%)"
-msgid "TVA (%)"
+msgid "TVA (%%)"
 msgstr "IVA (%)"
 
 #: .\piece\templates\piece\piece_detail.html:38
@@ -10065,7 +10127,7 @@ msgid "Volume max (kW)"
 msgstr "Potenza massima (kW)"
 
 #: .\recharge\templates\recharge\electricite_stat.html:10
-#: .\theme\templates\dashboard.html:247
+#: .\theme\templates\dashboard.html:238
 msgid "Recharges électriques"
 msgstr "Ricarica elettrica"
 
@@ -10211,9 +10273,103 @@ msgstr "Visualizzazione da _START_ a _END_ di _TOTAL_ società clienti"
 msgid "Aucun société cliente trouvé"
 msgstr "Nessuna società cliente trovata"
 
+#: .\stats_fournisseurs\forms.py:18
+msgid "2026"
+msgstr ""
+
+#: .\stats_fournisseurs\forms.py:26
+msgid "Tous les mois"
+msgstr "Tutti i mesi"
+
+#: .\stats_fournisseurs\forms.py:27
+msgid "Janvier"
+msgstr "Gennaio"
+
+#: .\stats_fournisseurs\forms.py:28
+msgid "Février"
+msgstr "Febbraio"
+
+#: .\stats_fournisseurs\forms.py:29
+msgid "Mars"
+msgstr "Marzo"
+
+#: .\stats_fournisseurs\forms.py:30
+msgid "Avril"
+msgstr "Aprile"
+
+#: .\stats_fournisseurs\forms.py:31
+msgid "Mai"
+msgstr "Maggio"
+
+#: .\stats_fournisseurs\forms.py:32
+msgid "Juin"
+msgstr "Giugno"
+
+#: .\stats_fournisseurs\forms.py:33
+msgid "Juillet"
+msgstr "Luglio"
+
+#: .\stats_fournisseurs\forms.py:34
+msgid "Août"
+msgstr "Agosto"
+
+#: .\stats_fournisseurs\forms.py:35
+msgid "Septembre"
+msgstr "Settembre"
+
+#: .\stats_fournisseurs\forms.py:36
+msgid "Octobre"
+msgstr "Ottobre"
+
+#: .\stats_fournisseurs\forms.py:37
+msgid "Novembre"
+msgstr "Novembre"
+
+#: .\stats_fournisseurs\forms.py:38
+msgid "Décembre"
+msgstr "Dicembre"
+
+#: .\stats_fournisseurs\models.py:31
+msgid "Statistique fournisseur"
+msgstr "Statistica fornitore"
+
+#: .\stats_fournisseurs\templates\stats_fournisseurs\statistiques.html:9
+msgid "Statistiques Fournisseur"
+msgstr "Statistiche Fornitore"
+
+#: .\stats_fournisseurs\templates\stats_fournisseurs\statistiques.html:40
+msgid "Afficher"
+msgstr "Mostra"
+
+#: .\stats_fournisseurs\templates\stats_fournisseurs\statistiques.html:58
+msgid "Total HTVA"
+msgstr "Totale IVA esclusa"
+
+#: .\stats_fournisseurs\templates\stats_fournisseurs\statistiques.html:68
+msgid "Total TVAC"
+msgstr "Totale IVA inclusa"
+
+#: .\stats_fournisseurs\templates\stats_fournisseurs\statistiques.html:78
+msgid "Statistiques mensuelles"
+msgstr "Statistiche mensili"
+
+#: .\stats_fournisseurs\templates\stats_fournisseurs\statistiques.html:87
+#: .\stats_fournisseurs\templates\stats_fournisseurs\statistiques.html:128
+msgid "HTVA"
+msgstr "IVA esclusa"
+
+#: .\stats_fournisseurs\templates\stats_fournisseurs\statistiques.html:89
+#: .\stats_fournisseurs\templates\stats_fournisseurs\statistiques.html:130
+msgid "TVAC"
+msgstr "IVA inclusa"
+
+#: .\stats_fournisseurs\templates\stats_fournisseurs\statistiques.html:119
+msgid "Statistiques annuelles"
+msgstr "Statistiche annuali"
+
 #: .\theme\templates\403.html:7
 msgid "Vous n'avez pas les droits pour accéder à cette page."
-msgstr "Non hai i diritti per accedere a questa pagina."
+msgstr "Non hai i permessi per accedere a questa pagina."
 
 #: .\theme\templates\404.html:5 .\theme\templates\404.html:18
 msgid "Page introuvable"
@@ -10350,15 +10506,11 @@ msgstr "Motori"
 msgid "Boites de vitesses"
 msgstr "Cambio"
 
-#: .\theme\templates\dashboard.html:177
-msgid "Achats marchandises"
-msgstr "Acquisti di merci"
-
-#: .\theme\templates\dashboard.html:212
+#: .\theme\templates\dashboard.html:203
 msgid "Sociétés clientes"
 msgstr "Società cliente"
 
-#: .\theme\templates\dashboard.html:305
+#: .\theme\templates\dashboard.html:296
 msgid "Tableau de bord Admin"
 msgstr "Cruscotto Admin"
 
@@ -10438,31 +10590,31 @@ msgstr "Risorse Umane"
 msgid "Operations"
 msgstr "Operaciones"
 
-#: .\utilisateurs\models.py:75 .\utilisateurs\views.py:237
+#: .\utilisateurs\models.py:75 .\utilisateurs\views.py:236
 msgid "Magasinier"
 msgstr "Almacenero"
 
-#: .\utilisateurs\models.py:76 .\utilisateurs\views.py:235
+#: .\utilisateurs\models.py:76 .\utilisateurs\views.py:234
 msgid "Carrossier"
 msgstr "Carrocero"
 
-#: .\utilisateurs\models.py:77 .\utilisateurs\views.py:236
+#: .\utilisateurs\models.py:77 .\utilisateurs\views.py:235
 msgid "Chef Mécanicien"
 msgstr "Capo meccanico"
 
-#: .\utilisateurs\models.py:78 .\utilisateurs\views.py:238
+#: .\utilisateurs\models.py:78 .\utilisateurs\views.py:237
 msgid "Instructeur"
 msgstr "Instructor"
 
-#: .\utilisateurs\models.py:79 .\utilisateurs\views.py:239
+#: .\utilisateurs\models.py:79 .\utilisateurs\views.py:238
 msgid "Instructeur Externe"
 msgstr "Instructor externo"
 
-#: .\utilisateurs\models.py:80 .\utilisateurs\views.py:240
+#: .\utilisateurs\models.py:80 .\utilisateurs\views.py:239
 msgid "Vendeur"
 msgstr "Vendedor"
 
-#: .\utilisateurs\models.py:81 .\utilisateurs\views.py:241
+#: .\utilisateurs\models.py:81 .\utilisateurs\views.py:240
 msgid "Comptable"
 msgstr "Contable"
 
@@ -10523,23 +10675,23 @@ msgstr "Codice TOTP richiesto"
 msgid "Code TOTP invalide"
 msgstr "Codice QR TOTP"
 
-#: .\utilisateurs\views.py:220
+#: .\utilisateurs\views.py:219
 msgid "Révision moteur"
 msgstr "Revisión del motor"
 
-#: .\utilisateurs\views.py:220 .\voiture\voiture_boite\models.py:10
+#: .\utilisateurs\views.py:219 .\voiture\voiture_boite\models.py:10
 msgid "Changement filtre"
 msgstr "Cambio de filtro"
 
-#: .\utilisateurs\views.py:244
+#: .\utilisateurs\views.py:243
 msgid "Rôle inconnu"
 msgstr "Rol desconocido"
 
-#: .\utilisateurs\views.py:284
+#: .\utilisateurs\views.py:283
 msgid "TOTP configuré avec succès. Vous pouvez maintenant vous connecter."
 msgstr "TOTP configurato con successo. Ora puoi accedere."
 
-#: .\utilisateurs\views.py:334
+#: .\utilisateurs\views.py:333
 msgid "Utilisateur créé avec succès."
 msgstr "Utente creato con successo."
 
@@ -10699,7 +10851,7 @@ msgstr "Modificare il cambio:"
 msgid "Retour aux détails de la boite de vitesse"
 msgstr "Ritorna ai dettagli del cambio"
 
-#: .\voiture\voiture_boite\views.py:75
+#: .\voiture\voiture_boite\views.py:83
 msgid "Boîte de vitesse mise à jour avec succès."
 msgstr "Cambio aggiornato con successo."
 
@@ -10847,7 +10999,7 @@ msgstr "Modificare la frizione:"
 msgid "Retour aux détails de l'embrayage"
 msgstr "Torna ai dettagli della frizione"
 
-#: .\voiture\voiture_embrayage\views.py:125
+#: .\voiture\voiture_embrayage\views.py:131
 msgid "Embrayage mis à jour avec succès."
 msgstr "Frizione aggiornata con successo."
 
@@ -11072,56 +11224,56 @@ msgstr "Modifica il veicolo"
 msgid "Retour aux détails de l'exemplaire"
 msgstr "Torna ai dettagli dell'esemplare"
 
-#: .\voiture\voiture_exemplaire\views.py:94
+#: .\voiture\voiture_exemplaire\views.py:96
 msgid "Veuillez sélectionner une boîte à lier."
 msgstr "Seleziona un cambio da collegare."
 
-#: .\voiture\voiture_exemplaire\views.py:99
+#: .\voiture\voiture_exemplaire\views.py:101
 msgid "Lier une boîte de vitesse à un véhicule"
 msgstr "Collega un cambio a un veicolo"
 
-#: .\voiture\voiture_exemplaire\views.py:118
+#: .\voiture\voiture_exemplaire\views.py:122
 msgid "Veuillez sélectionner des pneus à lier."
 msgstr "Seleziona gli pneumatici da collegare."
 
-#: .\voiture\voiture_exemplaire\views.py:123
+#: .\voiture\voiture_exemplaire\views.py:127
 msgid "Lier des pneus à un véhicule"
 msgstr "Collegare gli pneumatici a un veicolo"
 
-#: .\voiture\voiture_exemplaire\views.py:146
+#: .\voiture\voiture_exemplaire\views.py:150
 msgid "Veuillez sélectionner un moteur à lier."
 msgstr "Seleziona un motore da collegare."
 
-#: .\voiture\voiture_exemplaire\views.py:151
+#: .\voiture\voiture_exemplaire\views.py:155
 msgid "Lier un moteur à un véhicule"
 msgstr "Collega un motore a un veicolo"
 
-#: .\voiture\voiture_exemplaire\views.py:172
+#: .\voiture\voiture_exemplaire\views.py:176
 msgid "Veuillez sélectionner un embrayage à lier."
 msgstr "Seleziona una frizione da collegare."
 
-#: .\voiture\voiture_exemplaire\views.py:177
+#: .\voiture\voiture_exemplaire\views.py:181
 msgid "Lier un embrayage à un véhicule"
 msgstr "Collegare una frizione a un veicolo"
 
-#: .\voiture\voiture_exemplaire\views.py:217
-#: .\voiture\voiture_exemplaire\views.py:256
+#: .\voiture\voiture_exemplaire\views.py:221
+#: .\voiture\voiture_exemplaire\views.py:260
 msgid "Veuillez sélectionner un système de freinage à lier."
 msgstr "Seleziona un sistema frenante da collegare."
 
-#: .\voiture\voiture_exemplaire\views.py:222
+#: .\voiture\voiture_exemplaire\views.py:226
 msgid "Lier un système de freinage à un véhicule"
 msgstr "Collegare un sistema frenante a un veicolo"
 
-#: .\voiture\voiture_exemplaire\views.py:261
+#: .\voiture\voiture_exemplaire\views.py:265
 msgid "Lier un système de freinage arrière à un véhicule"
 msgstr "Collegare un sistema frenante posteriore a un veicolo"
 
-#: .\voiture\voiture_exemplaire\views.py:277
+#: .\voiture\voiture_exemplaire\views.py:281
 msgid "Paramètres manquants"
 msgstr "Parametri mancanti"
 
-#: .\voiture\voiture_exemplaire\views.py:282
+#: .\voiture\voiture_exemplaire\views.py:286
 msgid "Moteur non trouvé"
 msgstr "Motore non trovato"
 
@@ -11288,7 +11440,7 @@ msgstr "Modificar los frenos delanteros:"
 msgid "Retour aux détails des freins arrière"
 msgstr "Volver a los detalles de los frenos traseros"
 
-#: .\voiture\voiture_freins_ar\views.py:113
+#: .\voiture\voiture_freins_ar\views.py:114
 msgid "Freins arrière mis à jour avec succès."
 msgstr "Frenos traseros actualizados con éxito."
 
@@ -11411,10 +11563,6 @@ msgstr "Nome del marchio"
 msgid "Retour au dashboard voitures"
 msgstr "Torna al pannello veicoli"
 
-#: .\voiture\voiture_marque\templates\voiture_marque\ajouter_marque.html:92
-msgid "Vérification…"
-msgstr "Verifica…"
-
 #: .\voiture\voiture_marque\templates\voiture_marque\ajouter_marque.html:106
 msgid "Cette marque existe déjà !"
 msgstr "Questo marchio esiste già!"
@@ -11422,10 +11570,6 @@ msgstr "Questo marchio esiste già!"
 #: .\voiture\voiture_marque\templates\voiture_marque\ajouter_marque.html:110
 msgid "Marque disponible"
 msgstr "Marchio disponibile"
-
-#: .\voiture\voiture_marque\templates\voiture_marque\ajouter_marque.html:117
-msgid "Erreur lors de la vérification"
-msgstr "Errore durante la verifica"
 
 #: .\voiture\voiture_marque\templates\voiture_marque\dashboard_voiture.html:7
 msgid "Tableau de bord des voitures"
@@ -12098,6 +12242,12 @@ msgstr "Il nome del produttore è obbligatorio."
 #: .\voiture\voiture_pneus\views.py:152
 msgid "Pneu mis à jour avec succès."
 msgstr "Pneumatico aggiornato con successo."
+
+#~ msgid "Retour"
+#~ msgstr "Indietro"
+
+#~ msgid "Jeu rotules de direction"
+#~ msgstr "Gioco del giunto sferico dello sterzo"
 
 #~ msgid "Rapport Géométrie"
 #~ msgstr "Rapporto geometria"
