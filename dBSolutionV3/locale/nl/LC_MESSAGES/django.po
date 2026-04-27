@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-26 10:13+0200\n"
+"POT-Creation-Date: 2026-04-27 08:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,12 +21,13 @@ msgstr ""
 #: .\achat_mds\models.py:23
 #: .\achat_mds\templates\achat_mds\achat_detail.html:32
 #: .\achat_mds\templates\achat_mds\achat_form.html:47
-#: .\fournisseur\models.py:97
-#: .\fournisseur\templates\fournisseur\fournisseur_form.html:53
+#: .\fournisseur\models.py:98
+#: .\fournisseur\templates\fournisseur\fournisseur_form.html:38
 #: .\investissements\models.py:19 .\outillage\models.py:24
 #: .\outillage\templates\outillage\outillage_detail.html:33
 #: .\outillage\templates\outillage\outillage_list.html:26
 #: .\outillage\templates\outillage\outillage_list.html:59
+#: .\stats_fournisseurs\forms.py:58
 msgid "Fournisseur"
 msgstr "Leverancier"
 
@@ -130,7 +131,6 @@ msgstr "Algemene informatie"
 #: .\achat_mds\templates\achat_mds\achat_list.html:40
 #: .\achat_mds\templates\achat_mds\achat_list.html:60 .\facture\models.py:124
 #: .\fournisseur\templates\fournisseur\fournisseur_detail.html:37
-#: .\fournisseur\templates\fournisseur\fournisseur_form.html:69
 #: .\outillage\templates\outillage\outillage_list.html:47
 #: .\outillage\templates\outillage\outillage_list.html:64
 msgid "Taux de TVA"
@@ -180,7 +180,6 @@ msgstr "Bewerk aankoop"
 #: .\client_particulier\templates\client_particulier\clientparticulier_list.html:65
 #: .\facture\models.py:17 .\fournisseur\models.py:27
 #: .\fournisseur\templates\fournisseur\fournisseur_detail.html:72
-#: .\fournisseur\templates\fournisseur\fournisseur_form.html:105
 #: .\societe_cliente\templates\societe_cliente\societe_cliente_detail.html:95
 #: .\societe_cliente\templates\societe_cliente\societe_cliente_form.html:114
 #: .\societe_cliente\templates\societe_cliente\societe_cliente_list.html:59
@@ -407,7 +406,7 @@ msgstr "Betaaldatum"
 #: .\carrosserie\templates\carrosserie\modifier_carrosserie.html:94
 #: .\client_particulier\templates\client_particulier\client_form.html:195
 #: .\client_particulier\templates\client_particulier\modifier_client.html:82
-#: .\fournisseur\templates\fournisseur\fournisseur_form.html:152
+#: .\fournisseur\templates\fournisseur\fournisseur_form.html:93
 #: .\fournisseur\templates\fournisseur\modifier_fournisseur.html:84
 #: .\fuel\templates\fuel\fuel_form.html:172
 #: .\fuel\templates\fuel\modifier_fuel.html:75
@@ -484,7 +483,7 @@ msgstr "Opslaan"
 #: .\carrosserie\templates\carrosserie\modifier_carrosserie.html:99
 #: .\client_particulier\templates\client_particulier\client_form.html:200
 #: .\client_particulier\templates\client_particulier\modifier_client.html:87
-#: .\fournisseur\templates\fournisseur\fournisseur_form.html:157
+#: .\fournisseur\templates\fournisseur\fournisseur_form.html:98
 #: .\fournisseur\templates\fournisseur\modifier_fournisseur.html:89
 #: .\fuel\templates\fuel\fuel_form.html:176
 #: .\fuel\templates\fuel\modifier_fuel.html:79
@@ -561,6 +560,7 @@ msgstr "Een aankoop invoeren"
 
 #: .\achat_mds\templates\achat_mds\achat_list.html:27
 #: .\fournisseur\models.py:20
+#: .\fournisseur\templates\fournisseur\fournisseur_form.html:46
 #: .\fournisseur\templates\fournisseur\fournisseur_list.html:27
 msgid "Nom du fournisseur"
 msgstr "Naam leverancier"
@@ -577,6 +577,7 @@ msgid "Nom du Fournisseur"
 msgstr "Naam leverancier"
 
 #: .\achat_mds\templates\achat_mds\achat_list.html:61
+#: .\stats_fournisseurs\templates\stats_fournisseurs\statistiques.html:63
 msgid "Total TVA"
 msgstr "Totaal BTW"
 
@@ -918,7 +919,6 @@ msgstr "Aankoop succesvol gewijzigd!"
 #: .\assurance\templates\assurance\assurance_form.html:83
 #: .\carrosserie\templates\carrosserie\carrosserie_form.html:104
 #: .\client_particulier\templates\client_particulier\client_form.html:156
-#: .\fournisseur\templates\fournisseur\fournisseur_form.html:108
 #: .\societe_cliente\templates\societe_cliente\societe_cliente_form.html:117
 msgid "Rue"
 msgstr "Straat"
@@ -929,7 +929,6 @@ msgstr "Straat"
 #: .\assurance\templates\assurance\assurance_form.html:87
 #: .\carrosserie\templates\carrosserie\carrosserie_form.html:110
 #: .\client_particulier\templates\client_particulier\client_form.html:162
-#: .\fournisseur\templates\fournisseur\fournisseur_form.html:115
 #: .\societe_cliente\templates\societe_cliente\societe_cliente_form.html:123
 #: .\voiture\voiture_embrayage\templates\voiture_embrayage\ajouter_embrayage.html:111
 msgid "Numéro"
@@ -951,7 +950,6 @@ msgstr "Postbus"
 #: .\assurance\templates\assurance\assurance_form.html:91
 #: .\carrosserie\templates\carrosserie\carrosserie_form.html:116
 #: .\client_particulier\templates\client_particulier\client_form.html:168
-#: .\fournisseur\templates\fournisseur\fournisseur_form.html:122
 #: .\societe_cliente\templates\societe_cliente\societe_cliente_form.html:129
 msgid "Code postal"
 msgstr "Postcode"
@@ -964,7 +962,6 @@ msgstr "Postcode"
 #: .\assurance\templates\assurance\assurance_form.html:95
 #: .\carrosserie\templates\carrosserie\carrosserie_form.html:122
 #: .\client_particulier\templates\client_particulier\client_form.html:174
-#: .\fournisseur\templates\fournisseur\fournisseur_form.html:129
 #: .\societe_cliente\templates\societe_cliente\societe_cliente_form.html:135
 msgid "Ville"
 msgstr "Stad"
@@ -980,7 +977,6 @@ msgstr "Stad"
 #: .\carrosserie\templates\carrosserie\carrosserie_list.html:36
 #: .\client_particulier\templates\client_particulier\client_form.html:180
 #: .\fournisseur\templates\fournisseur\fournisseur_detail.html:42
-#: .\fournisseur\templates\fournisseur\fournisseur_form.html:136
 #: .\fuel\templates\fuel\fuel_detail.html:61
 #: .\fuel\templates\fuel\fuel_form.html:154
 #: .\maintenance\autres_interventions\abs\views.py:175
@@ -1003,12 +999,11 @@ msgstr "Land"
 #: .\carrosserie\templates\carrosserie\carrosserie_form.html:134
 #: .\client_particulier\templates\client_particulier\client_form.html:186
 #: .\facture\models.py:36 .\fournisseur\models.py:51
-#: .\fournisseur\templates\fournisseur\fournisseur_form.html:143
 #: .\societe_cliente\templates\societe_cliente\societe_cliente_form.html:147
 msgid "Code pays"
 msgstr "Landcode"
 
-#: .\adresse\models.py:34 .\theme\templates\dashboard.html:224
+#: .\adresse\models.py:34 .\theme\templates\dashboard.html:215
 msgid "Adresses"
 msgstr "Adressen"
 
@@ -1063,9 +1058,9 @@ msgstr "Andere informatie"
 #: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\modifier_bte_auto.html:386
 #: .\maintenance\autres_interventions\geometrie\models.py:153
 #: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:44
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:71
-#: .\maintenance\autres_interventions\geometrie\views.py:204
-#: .\maintenance\autres_interventions\geometrie\views.py:344
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:133
+#: .\maintenance\autres_interventions\geometrie\views.py:210
+#: .\maintenance\autres_interventions\geometrie\views.py:350
 #: .\maintenance\autres_interventions\moteur\admission\models.py:123
 #: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_detail.html:44
 #: .\maintenance\autres_interventions\moteur\admission\views.py:115
@@ -1210,6 +1205,7 @@ msgstr "Voornaam van de makelaar"
 #: .\carrosserie\templates\carrosserie\carrosserie_detail.html:41
 #: .\carrosserie\templates\carrosserie\carrosserie_form.html:81
 #: .\carrosserie\templates\carrosserie\carrosserie_list.html:64
+#: .\fournisseur\templates\fournisseur\fournisseur_form.html:81
 #: .\fournisseur\templates\fournisseur\fournisseur_list.html:59
 #: .\utilisateurs\templates\utilisateurs\liste_utilisateurs.html:19
 msgid "Téléphone"
@@ -1228,7 +1224,7 @@ msgstr "Telefoon"
 #: .\client_particulier\templates\client_particulier\client_form.html:116
 #: .\client_particulier\templates\client_particulier\clientparticulier_list.html:67
 #: .\fournisseur\models.py:60
-#: .\fournisseur\templates\fournisseur\fournisseur_form.html:84
+#: .\fournisseur\templates\fournisseur\fournisseur_form.html:73
 #: .\fournisseur\templates\fournisseur\fournisseur_list.html:58
 #: .\societe_cliente\models.py:52
 #: .\societe_cliente\templates\societe_cliente\societe_cliente_detail.html:45
@@ -1248,7 +1244,7 @@ msgstr "Peppol-ID, bv.: 0208:BE0123456789"
 msgid "Assurance"
 msgstr "Verzekering"
 
-#: .\assurance\models.py:49 .\theme\templates\dashboard.html:259
+#: .\assurance\models.py:49 .\theme\templates\dashboard.html:250
 msgid "Assurances"
 msgstr "Verzekeringen"
 
@@ -1285,7 +1281,7 @@ msgstr "Een verzekeringsmaatschappij toevoegen"
 #: .\assurance\templates\assurance\assurance_list.html:38
 #: .\carrosserie\templates\carrosserie\carrosserie_form.html:66
 #: .\carrosserie\templates\carrosserie\carrosserie_list.html:40
-#: .\fournisseur\templates\fournisseur\fournisseur_form.html:76
+#: .\fournisseur\templates\fournisseur\fournisseur_form.html:64
 #: .\fournisseur\templates\fournisseur\fournisseur_list.html:35
 #: .\societe_cliente\templates\societe_cliente\societe_cliente_detail.html:41
 msgid "Numéro Peppol"
@@ -1330,6 +1326,8 @@ msgstr "Verzekeraar"
 #: .\assurance\templates\assurance\dashboard_assurance.html:29
 #: .\carrosserie\templates\carrosserie\dashboard_carrosserie.html:18
 #: .\fournisseur\templates\fournisseur\fournisseur_dashboard.html:18
+#: .\fournisseur\templates\fournisseur\fournisseur_dashboard.html:29
+#: .\fournisseur\templates\fournisseur\fournisseur_dashboard.html:40
 #: .\maintenance\autres_interventions\moteur\templates\moteur\dashboard_moteur.html:19
 #: .\maintenance\autres_interventions\moteur\templates\moteur\dashboard_moteur.html:31
 #: .\maintenance\autres_interventions\moteur\templates\moteur\dashboard_moteur.html:42
@@ -1353,11 +1351,10 @@ msgstr "Verzekeraar"
 #: .\theme\templates\dashboard.html:17 .\theme\templates\dashboard.html:95
 #: .\theme\templates\dashboard.html:109 .\theme\templates\dashboard.html:121
 #: .\theme\templates\dashboard.html:144 .\theme\templates\dashboard.html:156
-#: .\theme\templates\dashboard.html:168 .\theme\templates\dashboard.html:179
-#: .\theme\templates\dashboard.html:191 .\theme\templates\dashboard.html:214
-#: .\theme\templates\dashboard.html:226 .\theme\templates\dashboard.html:238
-#: .\theme\templates\dashboard.html:249 .\theme\templates\dashboard.html:273
-#: .\theme\templates\dashboard.html:289
+#: .\theme\templates\dashboard.html:168 .\theme\templates\dashboard.html:182
+#: .\theme\templates\dashboard.html:205 .\theme\templates\dashboard.html:217
+#: .\theme\templates\dashboard.html:229 .\theme\templates\dashboard.html:240
+#: .\theme\templates\dashboard.html:264 .\theme\templates\dashboard.html:280
 #: .\voiture\voiture_freins_av\templates\voiture_freins_av\dashboard_frein.html:18
 #: .\voiture\voiture_freins_av\templates\voiture_freins_av\dashboard_frein.html:30
 #: .\voiture\voiture_marque\templates\voiture_marque\dashboard_voiture.html:17
@@ -1388,8 +1385,8 @@ msgstr "De adresvelden zijn verplicht."
 #: .\maintenance\autres_interventions\boite_de_vitesse\views.py:203
 #: .\maintenance\autres_interventions\bte_vitesse_auto\views.py:134
 #: .\maintenance\autres_interventions\bte_vitesse_auto\views.py:198
-#: .\maintenance\autres_interventions\geometrie\views.py:135
-#: .\maintenance\autres_interventions\geometrie\views.py:270
+#: .\maintenance\autres_interventions\geometrie\views.py:141
+#: .\maintenance\autres_interventions\geometrie\views.py:276
 #: .\maintenance\autres_interventions\moteur\admission\views.py:153
 #: .\maintenance\autres_interventions\moteur\admission\views.py:228
 #: .\maintenance\autres_interventions\moteur\alternateur\views.py:140
@@ -1412,8 +1409,8 @@ msgstr "De adresvelden zijn verplicht."
 #: .\maintenance\pneus\views.py:140 .\maintenance\pneus\views.py:204
 #: .\maintenance\silent_blocs\views.py:134
 #: .\maintenance\silent_blocs\views.py:197 .\recharge\views.py:184
-#: .\voiture\voiture_boite\views.py:79 .\voiture\voiture_embrayage\views.py:128
-#: .\voiture\voiture_freins_ar\views.py:116
+#: .\voiture\voiture_boite\views.py:87 .\voiture\voiture_embrayage\views.py:134
+#: .\voiture\voiture_freins_ar\views.py:117
 #: .\voiture\voiture_freins_av\views.py:127
 #: .\voiture\voiture_moteur\views.py:138 .\voiture\voiture_pneus\views.py:155
 msgid "Le formulaire contient des erreurs."
@@ -1664,7 +1661,7 @@ msgstr "Voornaam van de verantwoordelijke"
 #: .\carrosserie\templates\carrosserie\carrosserie_detail.html:50
 #: .\fournisseur\models.py:32
 #: .\fournisseur\templates\fournisseur\fournisseur_detail.html:32
-#: .\fournisseur\templates\fournisseur\fournisseur_form.html:61
+#: .\fournisseur\templates\fournisseur\fournisseur_form.html:55
 #: .\societe_cliente\templates\societe_cliente\societe_cliente_detail.html:37
 msgid "Numéro de TVA"
 msgstr "BTW-nummer"
@@ -1678,7 +1675,7 @@ msgstr "Carrosserie"
 
 #: .\carrosserie\models.py:65
 #: .\carrosserie\templates\carrosserie\dashboard_carrosserie.html:16
-#: .\theme\templates\dashboard.html:201
+#: .\theme\templates\dashboard.html:192
 msgid "Carrosseries"
 msgstr "Carrosserieën"
 
@@ -1894,7 +1891,7 @@ msgstr "Verhuur"
 msgid "Client"
 msgstr "Klant"
 
-#: .\client_particulier\models.py:159 .\theme\templates\dashboard.html:189
+#: .\client_particulier\models.py:159 .\theme\templates\dashboard.html:180
 msgid "Clients"
 msgstr "Klanten"
 
@@ -2022,6 +2019,9 @@ msgid "Facture"
 msgstr "Factuur"
 
 #: .\facture\models.py:93
+#: .\stats_fournisseurs\templates\stats_fournisseurs\statistiques.html:53
+#: .\stats_fournisseurs\templates\stats_fournisseurs\statistiques.html:86
+#: .\stats_fournisseurs\templates\stats_fournisseurs\statistiques.html:127
 msgid "Factures"
 msgstr "Facturen"
 
@@ -2079,7 +2079,6 @@ msgid "Email du fournisseur"
 msgstr "E-mail van de leverancier"
 
 #: .\fournisseur\models.py:68
-#: .\fournisseur\templates\fournisseur\fournisseur_form.html:91
 msgid "Téléphone fixe"
 msgstr "Vaste telefoon"
 
@@ -2088,7 +2087,6 @@ msgid "Numéro de téléphone fixe"
 msgstr "Vast telefoonnummer"
 
 #: .\fournisseur\models.py:76
-#: .\fournisseur\templates\fournisseur\fournisseur_form.html:98
 msgid "GSM"
 msgstr "Mobiel"
 
@@ -2096,13 +2094,13 @@ msgstr "Mobiel"
 msgid "Numéro de téléphone mobile"
 msgstr "Mobiel nummer"
 
-#: .\fournisseur\models.py:98
+#: .\fournisseur\models.py:99
 #: .\fournisseur\templates\fournisseur\fournisseur_dashboard.html:16
 #: .\theme\templates\dashboard.html:166
 msgid "Fournisseurs"
 msgstr "Leveranciers"
 
-#: .\fournisseur\models.py:105
+#: .\fournisseur\models.py:106
 #, python-format
 msgid "%(nom)s"
 msgstr "%(nom)s"
@@ -2110,6 +2108,15 @@ msgstr "%(nom)s"
 #: .\fournisseur\templates\fournisseur\fournisseur_dashboard.html:7
 msgid "Bienvenue sur le tableau de bord fournisseur"
 msgstr "Welkom op het leveranciersdashboard"
+
+#: .\fournisseur\templates\fournisseur\fournisseur_dashboard.html:27
+msgid "Achats marchandises"
+msgstr "Goederen aankopen"
+
+#: .\fournisseur\templates\fournisseur\fournisseur_dashboard.html:38
+#: .\stats_fournisseurs\models.py:32
+msgid "Statistiques fournisseurs"
+msgstr "Leveranciersstatistieken"
 
 #: .\fournisseur\templates\fournisseur\fournisseur_detail.html:63
 msgid "Modifier le fournisseur"
@@ -2119,9 +2126,27 @@ msgstr "Leverancier wijzigen"
 msgid "Retour à la liste des fournisseurs"
 msgstr "Terug naar de leverancierslijst"
 
-#: .\fournisseur\templates\fournisseur\fournisseur_form.html:13
+#: .\fournisseur\templates\fournisseur\fournisseur_form.html:14
 msgid "Créer un Fournisseur"
 msgstr "Leverancier aanmaken"
+
+#: .\fournisseur\templates\fournisseur\fournisseur_form.html:149
+#: .\voiture\voiture_marque\templates\voiture_marque\ajouter_marque.html:92
+msgid "Vérification…"
+msgstr "Controleren…"
+
+#: .\fournisseur\templates\fournisseur\fournisseur_form.html:168
+msgid "Ce fournisseur existe déjà !"
+msgstr "Deze leverancier bestaat al!"
+
+#: .\fournisseur\templates\fournisseur\fournisseur_form.html:172
+msgid "Fournisseur disponible"
+msgstr "Leverancier beschikbaar"
+
+#: .\fournisseur\templates\fournisseur\fournisseur_form.html:180
+#: .\voiture\voiture_marque\templates\voiture_marque\ajouter_marque.html:117
+msgid "Erreur lors de la vérification"
+msgstr "Fout bij het controleren"
 
 #: .\fournisseur\templates\fournisseur\fournisseur_list.html:4
 #: .\fournisseur\templates\fournisseur\fournisseur_list.html:11
@@ -2149,7 +2174,7 @@ msgstr "Geen leverancier gevonden"
 msgid "Modifier le fournisseur :"
 msgstr "Leverancier wijzigen:"
 
-#: .\fournisseur\views.py:78
+#: .\fournisseur\views.py:87
 msgid "Le nom du fournisseur est obligatoire."
 msgstr "De naam van de leverancier is verplicht."
 
@@ -2237,7 +2262,7 @@ msgid "Utilisateur"
 msgstr "Gebruiker"
 
 #: .\fuel\models.py:64 .\fuel\templates\fuel\fuel_list.html:69
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:24
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:68
 #: .\maintenance\nettoyage_exterieur\models.py:29
 #: .\maintenance\nettoyage_interieur\models.py:32 .\piece\models.py:58
 #: .\piece\templates\piece\piece_detail.html:10 .\recharge\models.py:70
@@ -2287,6 +2312,8 @@ msgid "Montant HT"
 msgstr "Bedrag exclusief btw"
 
 #: .\fuel\models.py:117 .\recharge\models.py:109
+#: .\stats_fournisseurs\templates\stats_fournisseurs\statistiques.html:88
+#: .\stats_fournisseurs\templates\stats_fournisseurs\statistiques.html:129
 msgid "TVA"
 msgstr "BTW"
 
@@ -2305,7 +2332,7 @@ msgstr "Validatie"
 msgid "Carburant"
 msgstr "Brandstof"
 
-#: .\fuel\models.py:131 .\theme\templates\dashboard.html:236
+#: .\fuel\models.py:131 .\theme\templates\dashboard.html:227
 msgid "Carburants"
 msgstr "Brandstoffen"
 
@@ -2441,6 +2468,8 @@ msgstr "Per maand"
 #: .\recharge\templates\recharge\electricite_exemplaire_stat.html:201
 #: .\recharge\templates\recharge\electricite_stat.html:129
 #: .\recharge\templates\recharge\electricite_stat.html:195
+#: .\stats_fournisseurs\forms.py:23
+#: .\stats_fournisseurs\templates\stats_fournisseurs\statistiques.html:85
 msgid "Mois"
 msgstr "Maand"
 
@@ -2455,6 +2484,8 @@ msgstr "Maand"
 #: .\recharge\templates\recharge\electricite_stat.html:117
 #: .\recharge\templates\recharge\electricite_stat.html:145
 #: .\recharge\templates\recharge\electricite_stat.html:172
+#: .\stats_fournisseurs\templates\stats_fournisseurs\statistiques.html:105
+#: .\stats_fournisseurs\templates\stats_fournisseurs\statistiques.html:146
 msgid "Aucune donnée"
 msgstr "Geen gegevens"
 
@@ -2475,6 +2506,8 @@ msgstr "Per jaar"
 #: .\recharge\templates\recharge\electricite_exemplaire_stat.html:209
 #: .\recharge\templates\recharge\electricite_stat.html:156
 #: .\recharge\templates\recharge\electricite_stat.html:203
+#: .\stats_fournisseurs\forms.py:12
+#: .\stats_fournisseurs\templates\stats_fournisseurs\statistiques.html:126
 msgid "Année"
 msgstr "Jaar"
 
@@ -2567,7 +2600,7 @@ msgstr "14,32 Liters"
 #: .\maintenance\autres_interventions\bte_vitesse_auto\models.py:143
 #: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_list.html:56
 #: .\maintenance\autres_interventions\geometrie\models.py:191
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:17
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:62
 #: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_list.html:57
 #: .\maintenance\autres_interventions\moteur\admission\models.py:172
 #: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_list.html:56
@@ -3003,11 +3036,11 @@ msgstr "Visuele staat / Tag"
 #: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\modifier_bte_auto.html:423
 #: .\maintenance\autres_interventions\geometrie\models.py:177
 #: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:35
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:18
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:63
 #: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_list.html:42
 #: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_list.html:56
-#: .\maintenance\autres_interventions\geometrie\views.py:209
-#: .\maintenance\autres_interventions\geometrie\views.py:349
+#: .\maintenance\autres_interventions\geometrie\views.py:215
+#: .\maintenance\autres_interventions\geometrie\views.py:355
 #: .\maintenance\autres_interventions\moteur\admission\models.py:146
 #: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_detail.html:35
 #: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_list.html:41
@@ -3130,7 +3163,7 @@ msgstr "Rol van de technicus"
 #: .\maintenance\autres_interventions\boite_de_vitesse\models.py:141
 #: .\maintenance\autres_interventions\bte_vitesse_auto\models.py:139
 #: .\maintenance\autres_interventions\geometrie\models.py:187
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:19
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:65
 #: .\maintenance\autres_interventions\moteur\admission\models.py:167
 #: .\maintenance\autres_interventions\moteur\alternateur\models.py:173
 #: .\maintenance\autres_interventions\moteur\courroie\models.py:208
@@ -3155,6 +3188,7 @@ msgstr "abs-systeem"
 #: .\maintenance\autres_interventions\abs\models.py:191
 msgid "Systèmes_abss"
 msgstr "abs-systemen"
+
 #: .\maintenance\autres_interventions\abs\templates\abs\abs_detail.html:13
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_detail.html:13
 #: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_detail.html:13
@@ -3227,7 +3261,7 @@ msgstr "Kilometerstand"
 #: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_list.html:54
 #: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\modifier_bte_auto.html:349
 #: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:34
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:20
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:66
 #: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_list.html:55
 #: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_detail.html:34
 #: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_list.html:54
@@ -3469,7 +3503,7 @@ msgstr "ABS-controle bewerken"
 #: .\maintenance\autres_interventions\abs\views.py:70
 #: .\maintenance\autres_interventions\boite_de_vitesse\views.py:74
 #: .\maintenance\autres_interventions\bte_vitesse_auto\views.py:69
-#: .\maintenance\autres_interventions\geometrie\views.py:70
+#: .\maintenance\autres_interventions\geometrie\views.py:76
 #: .\maintenance\autres_interventions\moteur\admission\views.py:68
 #: .\maintenance\autres_interventions\moteur\alternateur\views.py:74
 #: .\maintenance\autres_interventions\moteur\courroie\views.py:73
@@ -3491,7 +3525,7 @@ msgstr ""
 #: .\maintenance\autres_interventions\abs\views.py:125
 #: .\maintenance\autres_interventions\boite_de_vitesse\views.py:128
 #: .\maintenance\autres_interventions\bte_vitesse_auto\views.py:123
-#: .\maintenance\autres_interventions\geometrie\views.py:124
+#: .\maintenance\autres_interventions\geometrie\views.py:130
 #: .\maintenance\autres_interventions\moteur\admission\views.py:142
 #: .\maintenance\autres_interventions\moteur\alternateur\views.py:129
 #: .\maintenance\autres_interventions\moteur\courroie\views.py:128
@@ -3523,8 +3557,8 @@ msgstr "ABS ECU"
 
 #: .\maintenance\autres_interventions\abs\views.py:170
 #: .\maintenance\autres_interventions\abs\views.py:286
-#: .\maintenance\autres_interventions\geometrie\views.py:199
-#: .\maintenance\autres_interventions\geometrie\views.py:339
+#: .\maintenance\autres_interventions\geometrie\views.py:205
+#: .\maintenance\autres_interventions\geometrie\views.py:345
 #: .\maintenance\autres_interventions\moteur\admission\views.py:114
 #: .\maintenance\autres_interventions\moteur\admission\views.py:311
 #: .\maintenance\autres_interventions\moteur\alternateur\views.py:173
@@ -3987,95 +4021,125 @@ msgstr "Geometrie"
 msgid "Modifier la géométrie"
 msgstr "Geometrie bewerken"
 
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:65
+msgid "Télécharger PDF"
+msgstr "PDF downloaden"
+
 #: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:94
 msgid "Retour à la liste des géométries"
 msgstr "Terug naar de lijst van geometrieën"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:11
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:56
 msgid "Détail Géométrie Véhicule"
 msgstr "Detail voertuiguitlijning"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:25
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:69
 msgid "Kilométrage actuel"
 msgstr "Huidige kilometerstand"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:26
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:71
 msgid "Kilométrage géométrie"
 msgstr "Kilometerstand uitlijning"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:32
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:77
 msgid "Angles de suspension"
 msgstr "Ophangingshoeken"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:41
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:82
+msgid "Carrossage AVD"
+msgstr "Camber voor rechts"
+
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:83
+msgid "Carrossage AVG"
+msgstr "Camber voor links"
+
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:84
+msgid "Carrossage ARD"
+msgstr "Camber achter rechts"
+
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:85
+msgid "Carrossage ARG"
+msgstr "Camber achter links"
+
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:87
 msgid "Chasse droite"
 msgstr "Caster rechts"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:42
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:88
 msgid "Chasse gauche"
 msgstr "Caster links"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:44
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:90
 msgid "Pincement AVD"
-msgstr "Toe-in RV"
+msgstr "Spoor voor rechts"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:45
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:91
 msgid "Pincement AVG"
-msgstr "Toe-in LV"
+msgstr "Spoor voor links"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:47
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:93
 msgid "Pincement ARD"
-msgstr "Toe-in RA"
+msgstr "Spoor achter rechts"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:48
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:94
 msgid "Pincement ARG"
-msgstr "Toe-in LA"
+msgstr "Spoor achter links"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:50
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:96
 msgid "Poussée arrière"
 msgstr "Achterasstoot"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:51
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:97
 msgid "Angle pivot"
 msgstr "Draaipunthoek"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:56
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:103
 msgid "Suspension"
 msgstr "Ophanging"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:60
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:108
 msgid "Hauteur caisse"
 msgstr "Carrosseriehoogte"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:61
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:109
 msgid "Débattement avant"
 msgstr "Veerweg voor"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:62
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:110
 msgid "Débattement arrière"
 msgstr "Veerweg achter"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:64
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:112
 msgid "Raideur AV"
 msgstr "Stijfheid voor"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:65
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:113
 msgid "Raideur AR"
 msgstr "Stijfheid achter"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:66
-#: .\maintenance\silent_blocs\templates\silent_blocs\modifier_silent.html:175
-#: .\maintenance\silent_blocs\templates\silent_blocs\silent_check.html:171
-msgid "Amortisseurs"
-msgstr "Schokdempers"
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:115
+msgid "Marque des Amortisseurs"
+msgstr "Merk van de schokdempers"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:85
-msgid "Télécharger PDF"
-msgstr "PDF downloaden"
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:123
+msgid "Amortisseurs avant compression"
+msgstr "Voorste demping bij inveren"
 
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:91
-msgid "Retour"
-msgstr "Terug"
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:124
+msgid "Amortisseurs avant rebond"
+msgstr "Voorste demping bij uitveren"
+
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:126
+msgid "Amortisseurs arrière compression"
+msgstr "Achterste demping bij inveren"
+
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:127
+msgid "Amortisseurs arrière rebond"
+msgstr "Achterste demping bij uitveren"
+
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:136
+msgid "Aucune remarque."
+msgstr "Geen opmerkingen."
 
 #: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_list.html:4
 #: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_list.html:12
@@ -4090,57 +4154,57 @@ msgstr "Geen geometrie geregistreerd voor dit exemplaar."
 msgid "Retour aux interventions"
 msgstr "Terug naar de interventies"
 
-#: .\maintenance\autres_interventions\geometrie\views.py:129
+#: .\maintenance\autres_interventions\geometrie\views.py:135
 msgid "Géometrie enregistrée avec succès."
 msgstr "Geometrie succesvol geregistreerd."
 
-#: .\maintenance\autres_interventions\geometrie\views.py:153
-#: .\maintenance\autres_interventions\geometrie\views.py:293
+#: .\maintenance\autres_interventions\geometrie\views.py:159
+#: .\maintenance\autres_interventions\geometrie\views.py:299
 msgid "Pincement"
 msgstr "Toespoor"
 
-#: .\maintenance\autres_interventions\geometrie\views.py:158
-#: .\maintenance\autres_interventions\geometrie\views.py:298
+#: .\maintenance\autres_interventions\geometrie\views.py:164
+#: .\maintenance\autres_interventions\geometrie\views.py:304
 msgid "Carrossage"
 msgstr "Camber"
 
-#: .\maintenance\autres_interventions\geometrie\views.py:163
-#: .\maintenance\autres_interventions\geometrie\views.py:303
+#: .\maintenance\autres_interventions\geometrie\views.py:169
+#: .\maintenance\autres_interventions\geometrie\views.py:309
 msgid "Chasse"
 msgstr "Caster"
 
-#: .\maintenance\autres_interventions\geometrie\views.py:168
-#: .\maintenance\autres_interventions\geometrie\views.py:308
+#: .\maintenance\autres_interventions\geometrie\views.py:174
+#: .\maintenance\autres_interventions\geometrie\views.py:314
 msgid "Angle de Poussée"
 msgstr "Drijfhoek"
 
-#: .\maintenance\autres_interventions\geometrie\views.py:173
-#: .\maintenance\autres_interventions\geometrie\views.py:313
+#: .\maintenance\autres_interventions\geometrie\views.py:179
+#: .\maintenance\autres_interventions\geometrie\views.py:319
 msgid "Angle de pivot"
 msgstr "Draaipunthoek"
 
-#: .\maintenance\autres_interventions\geometrie\views.py:178
-#: .\maintenance\autres_interventions\geometrie\views.py:318
+#: .\maintenance\autres_interventions\geometrie\views.py:184
+#: .\maintenance\autres_interventions\geometrie\views.py:324
 msgid "Hauteur de caisse"
 msgstr "Rijomhoogte"
 
-#: .\maintenance\autres_interventions\geometrie\views.py:183
-#: .\maintenance\autres_interventions\geometrie\views.py:323
+#: .\maintenance\autres_interventions\geometrie\views.py:189
+#: .\maintenance\autres_interventions\geometrie\views.py:329
 msgid "Débattement"
 msgstr "Veerweg"
 
-#: .\maintenance\autres_interventions\geometrie\views.py:188
-#: .\maintenance\autres_interventions\geometrie\views.py:328
+#: .\maintenance\autres_interventions\geometrie\views.py:194
+#: .\maintenance\autres_interventions\geometrie\views.py:334
 msgid "Raideur"
 msgstr "Stijfheid"
 
-#: .\maintenance\autres_interventions\geometrie\views.py:193
-#: .\maintenance\autres_interventions\geometrie\views.py:333
+#: .\maintenance\autres_interventions\geometrie\views.py:199
+#: .\maintenance\autres_interventions\geometrie\views.py:339
 #: .\maintenance\jeux_pieces\models.py:21
 msgid "Amortisseur"
 msgstr "Schokdemper"
 
-#: .\maintenance\autres_interventions\geometrie\views.py:267
+#: .\maintenance\autres_interventions\geometrie\views.py:273
 msgid "Contrôle de la géométrie modifié avec succès !"
 msgstr "Geometriecontrole succesvol aangepast!"
 
@@ -5307,7 +5371,7 @@ msgid "Refroidissement"
 msgstr "Koeling"
 
 #: .\maintenance\check_up\admin.py:137 .\utilisateurs\models.py:82
-#: .\utilisateurs\views.py:242
+#: .\utilisateurs\views.py:241
 msgid "Direction"
 msgstr "Directie"
 
@@ -6045,6 +6109,7 @@ msgstr "Accu"
 
 #: .\maintenance\check_up\templates\check_up\controle_total.html:427
 #: .\maintenance\check_up\templates\check_up\modifier_checkup.html:436
+#: .\maintenance\checkup_track\models.py:251
 #: .\maintenance\checkup_track\templates\checkup_track\modifier_checkup_track.html:397
 #: .\maintenance\checkup_track\templates\checkup_track\track_check_form.html:393
 #: .\maintenance\jeux_pieces\templates\jeux_pieces\controle_jeux.html:92
@@ -6275,10 +6340,6 @@ msgstr "Wielager-geluid"
 #: .\maintenance\checkup_track\models.py:247
 msgid "Jeu roulement de roue"
 msgstr "Speling van het wielager"
-
-#: .\maintenance\checkup_track\models.py:251
-msgid "Jeu rotules de direction"
-msgstr "Speling van stuurkogels"
 
 #: .\maintenance\checkup_track\models.py:254
 msgid "Jeux rotules de suspension"
@@ -6740,12 +6801,12 @@ msgid "Hors service"
 msgstr "Buiten gebruik"
 
 #: .\maintenance\jeux_pieces\models.py:42 .\maintenance\models.py:54
-#: .\utilisateurs\models.py:73 .\utilisateurs\views.py:233
+#: .\utilisateurs\models.py:73 .\utilisateurs\views.py:232
 msgid "Apprenti"
 msgstr "Leerling"
 
 #: .\maintenance\jeux_pieces\models.py:43 .\maintenance\models.py:45
-#: .\utilisateurs\models.py:74 .\utilisateurs\views.py:234
+#: .\utilisateurs\models.py:74 .\utilisateurs\views.py:233
 msgid "Mécanicien"
 msgstr "Monteur"
 
@@ -7286,6 +7347,11 @@ msgstr "Silentblocs"
 msgid "Modifier le Contrôle des silent blocs"
 msgstr "Silent blocks controle bewerken"
 
+#: .\maintenance\silent_blocs\templates\silent_blocs\modifier_silent.html:175
+#: .\maintenance\silent_blocs\templates\silent_blocs\silent_check.html:171
+msgid "Amortisseurs"
+msgstr "Schokdempers"
+
 #: .\maintenance\silent_blocs\templates\silent_blocs\modifier_silent.html:207
 #: .\maintenance\silent_blocs\templates\silent_blocs\silent_check.html:203
 msgid "Triangle inférieur"
@@ -7510,7 +7576,7 @@ msgstr "Berekend bedrag"
 msgid "Outillage"
 msgstr "Gereedschap"
 
-#: .\outillage\models.py:82 .\theme\templates\dashboard.html:287
+#: .\outillage\models.py:82 .\theme\templates\dashboard.html:278
 msgid "Outillages"
 msgstr "Gereedschappen"
 
@@ -7711,7 +7777,7 @@ msgstr "Minimale hoeveelheid"
 msgid "Organe"
 msgstr "Onderdeelgroep"
 
-#: .\piece\models.py:111 .\theme\templates\dashboard.html:271
+#: .\piece\models.py:111 .\theme\templates\dashboard.html:262
 msgid "Pièces"
 msgstr "Onderdelen"
 
@@ -9861,13 +9927,14 @@ msgstr "Geen"
 #: .\piece\templates\piece\piece_form.html:92
 #, fuzzy, python-format
 #| msgid "Majoration (%)"
-msgid "Majoration (%)"
+msgid "Majoration (%%)"
 msgstr "Opslag (%)"
 
 #: .\piece\templates\piece\piece_detail.html:37
 #: .\piece\templates\piece\piece_form.html:100
-#, python-format
-msgid "TVA (%)"
+#, fuzzy, python-format
+#| msgid "TVA (%)"
+msgid "TVA (%%)"
 msgstr "BTW-tarief (%)"
 
 #: .\piece\templates\piece\piece_detail.html:38
@@ -10052,7 +10119,7 @@ msgid "Volume max (kW)"
 msgstr "Maximaal volume (kW)"
 
 #: .\recharge\templates\recharge\electricite_stat.html:10
-#: .\theme\templates\dashboard.html:247
+#: .\theme\templates\dashboard.html:238
 msgid "Recharges électriques"
 msgstr "Elektrische lading"
 
@@ -10198,6 +10265,100 @@ msgstr "Weergave van _START_ tot _END_ van in totaal _TOTAL_ klantbedrijven"
 msgid "Aucun société cliente trouvé"
 msgstr "Geen klantbedrijf gevonden"
 
+#: .\stats_fournisseurs\forms.py:18
+msgid "2026"
+msgstr ""
+
+#: .\stats_fournisseurs\forms.py:26
+msgid "Tous les mois"
+msgstr "Alle maanden"
+
+#: .\stats_fournisseurs\forms.py:27
+msgid "Janvier"
+msgstr "Januari"
+
+#: .\stats_fournisseurs\forms.py:28
+msgid "Février"
+msgstr "Februari"
+
+#: .\stats_fournisseurs\forms.py:29
+msgid "Mars"
+msgstr "Maart"
+
+#: .\stats_fournisseurs\forms.py:30
+msgid "Avril"
+msgstr "April"
+
+#: .\stats_fournisseurs\forms.py:31
+msgid "Mai"
+msgstr "Mei"
+
+#: .\stats_fournisseurs\forms.py:32
+msgid "Juin"
+msgstr "Juni"
+
+#: .\stats_fournisseurs\forms.py:33
+msgid "Juillet"
+msgstr "Juli"
+
+#: .\stats_fournisseurs\forms.py:34
+msgid "Août"
+msgstr "Augustus"
+
+#: .\stats_fournisseurs\forms.py:35
+msgid "Septembre"
+msgstr "September"
+
+#: .\stats_fournisseurs\forms.py:36
+msgid "Octobre"
+msgstr "Oktober"
+
+#: .\stats_fournisseurs\forms.py:37
+msgid "Novembre"
+msgstr "November"
+
+#: .\stats_fournisseurs\forms.py:38
+msgid "Décembre"
+msgstr "December"
+
+#: .\stats_fournisseurs\models.py:31
+msgid "Statistique fournisseur"
+msgstr "Leveranciersstatistiek"
+
+#: .\stats_fournisseurs\templates\stats_fournisseurs\statistiques.html:9
+msgid "Statistiques Fournisseur"
+msgstr "Leveranciersstatistieken"
+
+#: .\stats_fournisseurs\templates\stats_fournisseurs\statistiques.html:40
+msgid "Afficher"
+msgstr "Weergeven"
+
+#: .\stats_fournisseurs\templates\stats_fournisseurs\statistiques.html:58
+msgid "Total HTVA"
+msgstr "Totaal excl. btw"
+
+#: .\stats_fournisseurs\templates\stats_fournisseurs\statistiques.html:68
+msgid "Total TVAC"
+msgstr "Totaal incl. btw"
+
+#: .\stats_fournisseurs\templates\stats_fournisseurs\statistiques.html:78
+msgid "Statistiques mensuelles"
+msgstr "Maandelijkse statistieken"
+
+#: .\stats_fournisseurs\templates\stats_fournisseurs\statistiques.html:87
+#: .\stats_fournisseurs\templates\stats_fournisseurs\statistiques.html:128
+msgid "HTVA"
+msgstr "Excl. btw"
+
+#: .\stats_fournisseurs\templates\stats_fournisseurs\statistiques.html:89
+#: .\stats_fournisseurs\templates\stats_fournisseurs\statistiques.html:130
+msgid "TVAC"
+msgstr "Incl. btw"
+
+#: .\stats_fournisseurs\templates\stats_fournisseurs\statistiques.html:119
+msgid "Statistiques annuelles"
+msgstr "Jaarlijkse statistieken"
+
 #: .\theme\templates\403.html:7
 msgid "Vous n'avez pas les droits pour accéder à cette page."
 msgstr "U hebt geen toestemming om deze pagina te bekijken."
@@ -10336,15 +10497,11 @@ msgstr "Motoren"
 msgid "Boites de vitesses"
 msgstr "Versnellingsbak"
 
-#: .\theme\templates\dashboard.html:177
-msgid "Achats marchandises"
-msgstr "Goederen aankopen"
-
-#: .\theme\templates\dashboard.html:212
+#: .\theme\templates\dashboard.html:203
 msgid "Sociétés clientes"
 msgstr "Klantenbedrijven"
 
-#: .\theme\templates\dashboard.html:305
+#: .\theme\templates\dashboard.html:296
 msgid "Tableau de bord Admin"
 msgstr "Admin-dashboard"
 
@@ -10424,31 +10581,31 @@ msgstr "Human Resources"
 msgid "Operations"
 msgstr "Operationele zaken"
 
-#: .\utilisateurs\models.py:75 .\utilisateurs\views.py:237
+#: .\utilisateurs\models.py:75 .\utilisateurs\views.py:236
 msgid "Magasinier"
 msgstr "Magazijnier"
 
-#: .\utilisateurs\models.py:76 .\utilisateurs\views.py:235
+#: .\utilisateurs\models.py:76 .\utilisateurs\views.py:234
 msgid "Carrossier"
 msgstr "Carrosseriehersteller"
 
-#: .\utilisateurs\models.py:77 .\utilisateurs\views.py:236
+#: .\utilisateurs\models.py:77 .\utilisateurs\views.py:235
 msgid "Chef Mécanicien"
 msgstr "Hoofdmonteur"
 
-#: .\utilisateurs\models.py:78 .\utilisateurs\views.py:238
+#: .\utilisateurs\models.py:78 .\utilisateurs\views.py:237
 msgid "Instructeur"
 msgstr "Instructeur"
 
-#: .\utilisateurs\models.py:79 .\utilisateurs\views.py:239
+#: .\utilisateurs\models.py:79 .\utilisateurs\views.py:238
 msgid "Instructeur Externe"
 msgstr "Externe instructeur"
 
-#: .\utilisateurs\models.py:80 .\utilisateurs\views.py:240
+#: .\utilisateurs\models.py:80 .\utilisateurs\views.py:239
 msgid "Vendeur"
 msgstr "Verkoper"
 
-#: .\utilisateurs\models.py:81 .\utilisateurs\views.py:241
+#: .\utilisateurs\models.py:81 .\utilisateurs\views.py:240
 msgid "Comptable"
 msgstr "Boekhouder"
 
@@ -10509,23 +10666,23 @@ msgstr "TOTP-code vereist"
 msgid "Code TOTP invalide"
 msgstr "Ongeldige TOTP-code"
 
-#: .\utilisateurs\views.py:220
+#: .\utilisateurs\views.py:219
 msgid "Révision moteur"
 msgstr "Motorrevisie"
 
-#: .\utilisateurs\views.py:220 .\voiture\voiture_boite\models.py:10
+#: .\utilisateurs\views.py:219 .\voiture\voiture_boite\models.py:10
 msgid "Changement filtre"
 msgstr "Filtervervanging"
 
-#: .\utilisateurs\views.py:244
+#: .\utilisateurs\views.py:243
 msgid "Rôle inconnu"
 msgstr "Onbekende rol"
 
-#: .\utilisateurs\views.py:284
+#: .\utilisateurs\views.py:283
 msgid "TOTP configuré avec succès. Vous pouvez maintenant vous connecter."
 msgstr "TOTP succesvol ingesteld. U kunt nu inloggen."
 
-#: .\utilisateurs\views.py:334
+#: .\utilisateurs\views.py:333
 msgid "Utilisateur créé avec succès."
 msgstr "Gebruiker succesvol aangemaakt."
 
@@ -10685,7 +10842,7 @@ msgstr "Versnellingsbak bewerken:"
 msgid "Retour aux détails de la boite de vitesse"
 msgstr "Terug naar de details van de versnellingsbak"
 
-#: .\voiture\voiture_boite\views.py:75
+#: .\voiture\voiture_boite\views.py:83
 msgid "Boîte de vitesse mise à jour avec succès."
 msgstr "Versnellingsbak succesvol bijgewerkt."
 
@@ -10833,7 +10990,7 @@ msgstr "Bewerk het koppeling"
 msgid "Retour aux détails de l'embrayage"
 msgstr "Terug naar de details van de koppeling"
 
-#: .\voiture\voiture_embrayage\views.py:125
+#: .\voiture\voiture_embrayage\views.py:131
 msgid "Embrayage mis à jour avec succès."
 msgstr "Koppeling succesvol bijgewerkt."
 
@@ -11058,56 +11215,56 @@ msgstr "Voertuig wijzigen"
 msgid "Retour aux détails de l'exemplaire"
 msgstr "Terug naar details van het exemplaar"
 
-#: .\voiture\voiture_exemplaire\views.py:94
+#: .\voiture\voiture_exemplaire\views.py:96
 msgid "Veuillez sélectionner une boîte à lier."
 msgstr "Selecteer een versnellingsbak om te koppelen."
 
-#: .\voiture\voiture_exemplaire\views.py:99
+#: .\voiture\voiture_exemplaire\views.py:101
 msgid "Lier une boîte de vitesse à un véhicule"
 msgstr "Een versnellingsbak aan een voertuig koppelen"
 
-#: .\voiture\voiture_exemplaire\views.py:118
+#: .\voiture\voiture_exemplaire\views.py:122
 msgid "Veuillez sélectionner des pneus à lier."
 msgstr "Selecteer alstublieft banden om te koppelen."
 
-#: .\voiture\voiture_exemplaire\views.py:123
+#: .\voiture\voiture_exemplaire\views.py:127
 msgid "Lier des pneus à un véhicule"
 msgstr "Banden aan een voertuig koppelen"
 
-#: .\voiture\voiture_exemplaire\views.py:146
+#: .\voiture\voiture_exemplaire\views.py:150
 msgid "Veuillez sélectionner un moteur à lier."
 msgstr "Selecteer een motor om te koppelen."
 
-#: .\voiture\voiture_exemplaire\views.py:151
+#: .\voiture\voiture_exemplaire\views.py:155
 msgid "Lier un moteur à un véhicule"
 msgstr "Koppel een motor aan een voertuig"
 
-#: .\voiture\voiture_exemplaire\views.py:172
+#: .\voiture\voiture_exemplaire\views.py:176
 msgid "Veuillez sélectionner un embrayage à lier."
 msgstr "Selecteer een koppeling om te koppelen."
 
-#: .\voiture\voiture_exemplaire\views.py:177
+#: .\voiture\voiture_exemplaire\views.py:181
 msgid "Lier un embrayage à un véhicule"
 msgstr "Een koppeling aan een voertuig koppelen"
 
-#: .\voiture\voiture_exemplaire\views.py:217
-#: .\voiture\voiture_exemplaire\views.py:256
+#: .\voiture\voiture_exemplaire\views.py:221
+#: .\voiture\voiture_exemplaire\views.py:260
 msgid "Veuillez sélectionner un système de freinage à lier."
 msgstr "Selecteer een remsysteem om te koppelen."
 
-#: .\voiture\voiture_exemplaire\views.py:222
+#: .\voiture\voiture_exemplaire\views.py:226
 msgid "Lier un système de freinage à un véhicule"
 msgstr "Een remsysteem aan een voertuig koppelen"
 
-#: .\voiture\voiture_exemplaire\views.py:261
+#: .\voiture\voiture_exemplaire\views.py:265
 msgid "Lier un système de freinage arrière à un véhicule"
 msgstr "Een achterremsysteem aan een voertuig koppelen"
 
-#: .\voiture\voiture_exemplaire\views.py:277
+#: .\voiture\voiture_exemplaire\views.py:281
 msgid "Paramètres manquants"
 msgstr "Ontbrekende parameters"
 
-#: .\voiture\voiture_exemplaire\views.py:282
+#: .\voiture\voiture_exemplaire\views.py:286
 msgid "Moteur non trouvé"
 msgstr "Motor niet gevonden"
 
@@ -11274,7 +11431,7 @@ msgstr "Voorremmen bewerken:"
 msgid "Retour aux détails des freins arrière"
 msgstr "Terug naar de details van de achterremmen"
 
-#: .\voiture\voiture_freins_ar\views.py:113
+#: .\voiture\voiture_freins_ar\views.py:114
 msgid "Freins arrière mis à jour avec succès."
 msgstr "Achterremmen succesvol bijgewerkt."
 
@@ -11397,10 +11554,6 @@ msgstr "Merknaam"
 msgid "Retour au dashboard voitures"
 msgstr "Terug naar het dashboard van de auto's"
 
-#: .\voiture\voiture_marque\templates\voiture_marque\ajouter_marque.html:92
-msgid "Vérification…"
-msgstr "Controleren…"
-
 #: .\voiture\voiture_marque\templates\voiture_marque\ajouter_marque.html:106
 msgid "Cette marque existe déjà !"
 msgstr "Dit merk bestaat al!"
@@ -11408,10 +11561,6 @@ msgstr "Dit merk bestaat al!"
 #: .\voiture\voiture_marque\templates\voiture_marque\ajouter_marque.html:110
 msgid "Marque disponible"
 msgstr "Merk beschikbaar"
-
-#: .\voiture\voiture_marque\templates\voiture_marque\ajouter_marque.html:117
-msgid "Erreur lors de la vérification"
-msgstr "Fout bij het controleren"
 
 #: .\voiture\voiture_marque\templates\voiture_marque\dashboard_voiture.html:7
 msgid "Tableau de bord des voitures"
@@ -12084,6 +12233,12 @@ msgstr "De naam van de fabrikant is verplicht."
 #: .\voiture\voiture_pneus\views.py:152
 msgid "Pneu mis à jour avec succès."
 msgstr "Band succesvol bijgewerkt."
+
+#~ msgid "Retour"
+#~ msgstr "Terug"
+
+#~ msgid "Jeu rotules de direction"
+#~ msgstr "Speling van stuurkogels"
 
 #~ msgid "Rapport Géométrie"
 #~ msgstr "Geometrierapport"
