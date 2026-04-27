@@ -147,16 +147,6 @@ class Entretien(TechnicienMixin, models.Model):
 
 
 
-    piece_fluide = models.ForeignKey(
-        "piece_fluides.Fluide",
-        on_delete=models.CASCADE,
-        related_name='entretien_fluides',
-        null=True,
-        blank=True
-    )
-
-
-
     remarques = models.TextField(
         verbose_name=_("Remarques"), blank=True, null=True)
 
