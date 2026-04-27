@@ -7,6 +7,9 @@ from maintenance.models import Maintenance
 from utils.mixin import TechnicienMixin
 from django.core.exceptions import ValidationError
 
+
+
+
 def validate_step_0_1(value):
     if round(value * 10) != value * 10:
         raise ValidationError("La valeur doit être un multiple de 0.1")
@@ -102,6 +105,42 @@ class LaveGlaceQualite(models.TextChoices):
     ETE = 'ETE', _("Eté")
 
 
+class LiquideDirectionQualite(models.TextChoices):
+
+    # Hydraulique direction assistée (Pentosin / CHF)
+    CHF_7_1 = "CHF_7_1", _("CHF 7.1")
+    CHF_11S = "CHF_11S", _("CHF 11S")
+    CHF_202 = "CHF_202", _("CHF 202")
+    CHF_1_PLUS = "CHF_1_PLUS", _("CHF 1+")
+    CHF_LIFEGUARD = "CHF_LIFEGUARD", _("CHF Lifeguard Fluid")
+
+    # --- Porsche spécifiques (très important : base CHF) ---
+    PORSCHE_CHF_11S = "PORSCHE_CHF_11S", _("Porsche / Pentosin CHF 11S (direction assistée)")
+    PORSCHE_CHF_202 = "PORSCHE_CHF_202", _("Porsche / Pentosin CHF 202 (hydraulique moderne)")
+    PORSCHE_ATF_D3 = "PORSCHE_ATF_D3", _("Porsche ATF Dexron III (anciens modèles)")
+
+    # --- BMW spécifiques (très important) ---
+    BMW_CHF_11S = "BMW_CHF_11S", _("BMW / Pentosin CHF 11S (direction assistée)")
+    BMW_CHF_202 = "BMW_CHF_202", _("BMW / Pentosin CHF 202 (direction assistée moderne)")
+    BMW_CHF_7_1 = "BMW_CHF_7_1", _("BMW CHF 7.1 (anciens systèmes hydrauliques)")
+    BMW_ATF_D3 = "BMW_ATF_D3", _("BMW ATF Dexron III (anciens modèles direction assistée)")
+
+    # Fluides spécifiques Renault / ELF
+    RENAULT_MATIC_D2 = "RENAULT_MATIC_D2", _("Renaultmatic D2 (ELF)")
+    RENAULT_MATIC_D3_SYN = "RENAULT_MATIC_D3_SYN", _("Renaultmatic D3 SYN (ELF)")
+    ELF_MATIC_G3 = "ELF_MATIC_G3", _("ELF Matic G3")
+
+    # --- Renault spécifiques (atelier / OEM) ---
+    RENAULT_PSF_D3 = "RENAULT_PSF_D3", _("Renault PSF Dexron III (direction assistée hydraulique)")
+    RENAULT_ELF_PSF = "RENAULT_ELF_PSF", _("Renault / ELF liquide direction assistée")
+
+    # Autres constructeurs
+    PSF_HYUNDAI_KIA = "PSF_HYUNDAI_KIA", _("PSF Hyundai / Kia")
+    PSF_TOYOTA = "PSF_TOYOTA", _("PSF Toyota")
+    PSF_HONDA = "PSF_HONDA", _("PSF Honda")
+
+    # Universel
+    UNIVERSAL_PSF = "UNIVERSAL_PSF", _("Liquide direction assistée universel")
 
 class Niveau(TechnicienMixin, models.Model):
     maintenance = models.ForeignKey(
@@ -156,6 +195,11 @@ class Niveau(TechnicienMixin, models.Model):
     lave_glace_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de lave-glace"))
     lave_glace_quantite = models.FloatField(default=0,verbose_name=_("Quantité de liquide de lave glace ajoutée en litres"), validators=[validate_step_0_1])
     lave_glace_qualite = models.CharField(max_length=25, choices=LaveGlaceQualite.choices,default=LaveGlaceQualite.HIVER,verbose_name=_("Qualité de liquide de lave glace"))
+
+    direction_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de direction"))
+    direction_liquide_quantite = models.FloatField(default=0,verbose_name=_("Quantité de liquide de direction ajoutée en litres"), validators=[validate_step_0_1])
+    direction_liquide_qualite = models.CharField(max_length=25, choices=LiquideDirectionQualite.choices,default= LiquideDirectionQualite.CHF_7_1 ,verbose_name=_("Qualité de liquide de direction"))
+
 
     remarques = models.TextField(
         blank=True,

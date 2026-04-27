@@ -86,7 +86,9 @@
 
 
             <td class="border px-4 py-2">{{ niveau.tech_nom_technicien }}</td>
-            <td class="border px-4 py-2">{{ niveau.date|date:"d/m/Y" }}</td>
+            <td class="border px-4 py-2" data-order="{{ niveau.date|date:'Y-m-d' }}">
+                {{ niveau.date|date:"d/m/Y" }}
+            </td>
             <td class="border px-4 py-2 text-center">
                 <a href="{% url 'niveaux:niveaux_detail' niveau_id=niveau.id %}"
                    class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
@@ -128,7 +130,7 @@ $(document).ready(function() {
                 previous: "{% trans 'Précédent' %}"
             }
         },
-        order: [[4, "asc"]]
+        order: [[4, "desc"]]
     });
 
     $('#search-immatriculation').on('keyup', function () {

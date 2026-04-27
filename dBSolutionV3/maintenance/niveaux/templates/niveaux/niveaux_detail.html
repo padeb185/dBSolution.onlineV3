@@ -79,6 +79,14 @@
                     {{ niveau.lave_glace_quantite }}
                 </span>
             </p>
+
+             <p>
+                <strong>{% trans "Ajout de liquide de direction" %} :</strong>
+                <span class="{% if niveau.direction_liquide_quantite > 0 %}text-green-600{% else %}text-red-600{% endif %}">
+                    {{ niveau.direction_liquide_quantite }}
+                </span>
+            </p>
+
             <br>
             <br>
 

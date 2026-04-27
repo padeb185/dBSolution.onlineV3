@@ -17,6 +17,7 @@ class NiveauForm(forms.ModelForm):
             'pont_niveau_huile_quantite': forms.NumberInput(attrs={'step': '0.1'}),
             'boite_niveau_huile_quantite': forms.NumberInput(attrs={'step': '0.1'}),
             'moteur_niveau_huile_quantite': forms.NumberInput(attrs={'step': '0.1'}),
+            'liquide_direction_quantite': forms.NumberInput(attrs={'step': '0.1'}),
             'remarques': forms.Textarea(attrs={
                 'rows': 4,
                 'placeholder': _("Ajoutez des remarques ici...")
@@ -48,7 +49,7 @@ class NiveauForm(forms.ModelForm):
             # 🔒 Sécurité : ne jamais diminuer le kilométrage
             if kilometrage_niveaux < voiture.kilometres_chassis:
                 raise forms.ValidationError(
-                    f"Le kilométrage du check-up ({kilometrage_niveaux}) "
+                    f"Le kilométrage des niveaux ({kilometrage_niveaux}) "
                     f"ne peut pas être inférieur au kilométrage actuel de la voiture ({voiture.kilometres_chassis})."
                 )
 
