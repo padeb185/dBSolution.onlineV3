@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+{% load i18n static widget_tweaks %}
+
+{% block title %}{% trans "Liste des fluides" %}{% endblock %}
+
+{% block content %}
+<br>
+<br>
+
+<h1 class="text-2xl font-bold mb-6 flex items-center">
+    <img src="{% static 'icons/fluide.png' %}" alt="fluides"
+         style="width:60px; height:60px; margin-right:10px;">
+    {% trans "Liste des fluides" %}
+</h1>
+
+<br>
+
+<div>
+    <a href="{% url 'piece_fluides:piece_fluide_form' %}"
+       class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Ajouter un fluide" %}
+    </a>
+</div>
+
+<br>
+<br>
+
+<div class="bg-white shadow-md rounded-lg p-4 mb-4">
+    <div class="flex flex-wrap items-end gap-3">
+
+        <input id="search-reference" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Référence' %}">
+
+        <input id="search-designation" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[180px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Désignation' %}">
+
+        <input id="search-type" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Type' %}">
+
+        <input id="search-marque" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Marque' %}">
+    </div>
+</div>
+
+<table id="fluides-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Référence" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Désignation" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Type" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Viscosité / Norme" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Marque" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Conditionnement" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Actif" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Actions" %}</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for fluide in fluides %}
+        <tr>
+            <td class="border px-4 py-2 font-semibold">{{ fluide.reference }}</td>
+            <td class="border px-4 py-2">{{ fluide.designation }}</td>
+            <td class="border px-4 py-2">{{ fluide.get_type_fluide_display }}</td>
+            <td class="border px-4 py-2">{{ fluide.viscosite }}</td>
+            <td class="border px-4 py-2">{{ fluide.marque }}</td>
+            <td class="border px-4 py-2">{{ fluide.conditionnement_litre }} L</td>
+
+            <td class="border px-4 py-2 text-center font-bold
+                {% if fluide.actif %}
+                    bg-green-100 text-green-800 border-green-300 border-2
+                {% else %}
+                    bg-red-100 text-red-800 border-red-300 border-2
+                {% endif %}">
+                {% if fluide.actif %}
+                    {% trans "Oui" %}
+                {% else %}
+                    {% trans "Non" %}
+                {% endif %}
+            </td>
+
+            <td class="border px-4 py-2 text-center">
+                <a href="{% url 'piece_fluides:piece_fluide_detail' fluide.id %}"
+                   class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
+                    {% trans "Infos" %}
+                </a>
+            </td>
+        </tr>
+
+        {% empty %}
+        <tr>
+            <td colspan="8" class="text-center py-4">
+                {% trans "Aucun fluide enregistré." %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<br>
+<br>
+
+<div>
+    <a href="{% url 'dashboard' %}"
+       class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour accueil" %}
+    </a>
+</div>
+
+<br>
+<br>
+
+<script>
+$(document).ready(function() {
+
+    var table = $('#fluides-table').DataTable({
+        pageLength: 100,
+        language: {
+            search: "{% trans 'Recherche globale :' %}",
+            lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ fluides' %}",
+            infoEmpty: "{% trans 'Aucun fluide trouvé' %}",
+            zeroRecords: "{% trans 'Aucun fluide trouvé' %}",
+            paginate: {
+                first: "{% trans 'Premier' %}",
+                last: "{% trans 'Dernier' %}",
+                next: "{% trans 'Suivant' %}",
+                previous: "{% trans 'Précédent' %}"
+            }
+        },
+        order: [[1, "asc"]]
+    });
+
+    $('#search-reference').on('keyup', function () {
+        table.column(0).search(this.value).draw();
+    });
+
+    $('#search-designation').on('keyup', function () {
+        table.column(1).search(this.value).draw();
+    });
+
+    $('#search-type').on('keyup', function () {
+        table.column(2).search(this.value).draw();
+    });
+
+    $('#search-marque').on('keyup', function () {
+        table.column(4).search(this.value).draw();
+    });
+
+});
+</script>
+
+{% endblock %}
