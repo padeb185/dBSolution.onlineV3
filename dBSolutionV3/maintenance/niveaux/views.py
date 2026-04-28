@@ -49,7 +49,7 @@ class NiveauxListView(ListView):
         return context
 
 
-@never_cache
+
 @login_required
 def niveau_form_view(request, exemplaire_id):
     tenant = request.user.societe
@@ -156,6 +156,7 @@ def niveau_form_view(request, exemplaire_id):
 # ------------
 # Vue détail checkup
 # -----------------------------
+@never_cache
 @login_required
 def niveau_detail_view(request, niveau_id):
     niveau = get_object_or_404(
@@ -168,6 +169,7 @@ def niveau_detail_view(request, niveau_id):
         "exemplaire": niveau.voiture_exemplaire,
     }
     return render(request, "niveaux/niveaux_detail.html", context)
+
 
 
 @login_required

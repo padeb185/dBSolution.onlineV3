@@ -112,7 +112,14 @@ class ControlePneus(TechnicienMixin, models.Model):
         verbose_name=_("État visuel / Tag"),
     )
 
-
+    main_oeuvre = models.ForeignKey(
+        "maindoeuvre.MainDoeuvre",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="pneus",
+        verbose_name=_("Main d'oeuvre")
+    )
 
     # Technicien qui fait le checkup (toujours l'utilisateur courant)
     tech_technicien = models.ForeignKey(
@@ -147,6 +154,9 @@ class ControlePneus(TechnicienMixin, models.Model):
 
     # --- Date d'enregistrement ---
     date = models.DateTimeField(auto_now_add=True, verbose_name=_("Date"))
+
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
 
     def assign_technicien(self, user):
         self.tech_technicien = user

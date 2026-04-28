@@ -98,12 +98,22 @@ class SilentBloc(TechnicienMixin, models.Model):
     tag = models.CharField(
         max_length=10,
         choices=TAG_CHOICES,
-        default="VERT",
+        default="JAUNE",
         verbose_name=_("État visuel / Tag")
+    )
+    main_oeuvre = models.ForeignKey(
+        "maindoeuvre.MainDoeuvre",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="silent_blocs",
+        verbose_name=_("Main d'oeuvre")
     )
 
     date = models.DateTimeField(auto_now_add=True)
 
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
 
     # Technicien qui fait le checkup (toujours l'utilisateur courant)
     tech_technicien = models.ForeignKey(

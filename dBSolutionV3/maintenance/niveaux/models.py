@@ -221,6 +221,18 @@ class Niveau(TechnicienMixin, models.Model):
 
     date = models.DateTimeField(auto_now_add=True)
 
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
+
+    main_oeuvre = models.ForeignKey(
+        "maindoeuvre.MainDoeuvre",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="niveaux",
+        verbose_name=_("Main d'oeuvre")
+    )
+
     # Technicien qui fait le checkup (toujours l'utilisateur courant)
     tech_technicien = models.ForeignKey(
         settings.AUTH_USER_MODEL,
