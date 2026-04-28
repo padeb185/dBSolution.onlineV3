@@ -120,6 +120,15 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         verbose_name=_("État visuel / Tag"),
     )
 
+    main_oeuvre = models.ForeignKey(
+        "maindoeuvre.MainDoeuvre",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="controle_bte_vitesse_auto",
+        verbose_name=_("Main d'oeuvre")
+    )
+
     # --- Technicien ---
     tech_technicien = models.ForeignKey(
         settings.AUTH_USER_MODEL,

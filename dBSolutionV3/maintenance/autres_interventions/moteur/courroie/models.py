@@ -208,6 +208,14 @@ class CourroieDistribution(TechnicienMixin, models.Model):
         verbose_name=_("Société"),
         related_name="courroie_distribution"
     )
+    main_oeuvre = models.ForeignKey(
+        "maindoeuvre.MainDoeuvre",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="courroie_distribution",
+        verbose_name=_("Main d'oeuvre")
+    )
 
     # --- Date d'enregistrement ---
     date = models.DateTimeField(auto_now_add=True, verbose_name=_("Date"))
