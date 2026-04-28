@@ -2,11 +2,15 @@ from django import forms
 from django.utils import timezone
 from .models import Entretien
 from django.utils.translation import gettext_lazy as _
-
-
-
+from maindoeuvre.models import MainDoeuvre
 
 class EntretienForm(forms.ModelForm):
+    temps_main_oeuvre = forms.DecimalField(
+        max_digits=6,
+        decimal_places=2,
+        required=False,
+        label="Temps presté (heures)"
+    )
     class Meta:
         model = Entretien
         fields = "__all__"
@@ -24,12 +28,22 @@ class EntretienForm(forms.ModelForm):
         self.exemplaire = kwargs.pop('exemplaire', None)
         super().__init__(*args, **kwargs)
 
-        # ✅ initialisation date seulement si le champ existe
+        if self.instance and self.instance.pk and self.instance.main_oeuvre:
+            self.fields["temps_main_oeuvre"].initial = self.instance.main_oeuvre.temps
+
+        if "main_oeuvre" in self.fields:
+            self.fields["main_oeuvre"].queryset = MainDoeuvre.objects.select_related(
+                "utilisateur"
+            ).filter(utilisateur__is_active=True)
+
+            self.fields["main_oeuvre"].widget.attrs.update({
+                "class": "input"
+            })
+
         if "date" in self.fields and self.instance and self.instance.pk and self.instance.date:
             local_dt = timezone.localtime(self.instance.date)
             self.fields['date'].initial = local_dt.strftime('%Y-%m-%d %H:%M:%S')
 
-        # Initialiser les champs technicien et société si présents
         if self.user:
             if "tech_technicien" in self.fields:
                 self.fields["tech_technicien"].initial = self.user
@@ -41,33 +55,44 @@ class EntretienForm(forms.ModelForm):
 
     def save(self, commit=True):
         instance = super().save(commit=False)
-        voiture = instance.voiture_exemplaire or self.exemplaire  # fallback si pas encore lié
+        voiture = instance.voiture_exemplaire or self.exemplaire
 
-        # Récupération du kilométrage check-up depuis le formulaire
-        kilometrage_entretien = self.cleaned_data.get("kilometres_chassis")
+        # -------- KILOMÉTRAGE --------
+        km = self.cleaned_data.get("kilometres_chassis")
 
-        if voiture and kilometrage_entretien is not None:
-            # 🔒 Sécurité : ne jamais diminuer le kilométrage
-            if kilometrage_entretien < voiture.kilometres_chassis:
-                raise forms.ValidationError(
-                    f"Le kilométrage du check-up ({kilometrage_entretien}) "
-                    f"ne peut pas être inférieur au kilométrage actuel de la voiture ({voiture.kilometres_chassis})."
-                )
+        if voiture and km is not None:
+            if km < voiture.kilometres_chassis:
+                raise forms.ValidationError("Kilométrage invalide.")
 
-            # ✅ Mettre à jour la voiture si le kilométrage a augmenté
-            if kilometrage_entretien > voiture.kilometres_chassis:
-                voiture.kilometres_chassis = kilometrage_entretien
+            if km > voiture.kilometres_chassis:
+                voiture.kilometres_chassis = km
                 voiture.save(update_fields=["kilometres_chassis"])
 
-            # ✅ Mettre à jour le contrôle
-            instance.kilometres_chassis = kilometrage_entretien
+            instance.kilometres_chassis = km
 
-            # 🔗 Lier la voiture si ce n'était pas déjà fait
             if not instance.voiture_exemplaire:
                 instance.voiture_exemplaire = voiture
 
-        # Sauvegarde finale
+        # -------- MAIN D'ŒUVRE --------
+        temps = self.cleaned_data.get("temps_main_oeuvre")
+
+        if temps is not None:
+            main = instance.main_oeuvre
+
+            if main:
+                main.temps = temps
+                main.save(update_fields=["temps"])
+            else:
+                main = MainDoeuvre.objects.create(
+                    utilisateur=self.user,
+                    temps=temps
+                )
+                instance.main_oeuvre = main
+
+        # -------- SAVE FINAL --------
         if commit:
             instance.save()
+            if instance.main_oeuvre:
+                instance.main_oeuvre.save()
 
         return instance

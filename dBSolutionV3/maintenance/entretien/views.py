@@ -165,16 +165,19 @@ def entretien_check_view(request, exemplaire_id):
 # -----------------------------
 @login_required
 def entretien_detail_view(request, entretien_id):
-    entretien = get_object_or_404(
-        Entretien.objects.select_related("voiture_exemplaire"),
-        id=entretien_id
-    )
+    tenant = request.user.societe
 
-    context = {
-        "entretien": entretien,
-        "exemplaire": entretien.voiture_exemplaire,
-    }
-    return render(request, "entretien/entretien_detail.html", context)
+    with tenant_context(tenant):
+        entretien = get_object_or_404(
+            Entretien.objects.select_related("voiture_exemplaire"),
+            id=entretien_id
+        )
+
+        context = {
+            "entretien": entretien,
+            "exemplaire": entretien.voiture_exemplaire,
+        }
+        return render(request, "entretien/entretien_detail.html", context)
 
 
 #---------------------

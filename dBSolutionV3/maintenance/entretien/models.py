@@ -1,9 +1,11 @@
 import uuid
+from decimal import Decimal
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from utils.mixin import TechnicienMixin
+from maindoeuvre.models import MainDoeuvre
 
 
 class EntretienEtat(models.TextChoices):
@@ -289,9 +291,19 @@ class Entretien(TechnicienMixin, models.Model):
     # --- Date d'enregistrement ---
     date = models.DateTimeField(auto_now_add=True, verbose_name=_("Date"))
 
+    main_oeuvre = models.ForeignKey(
+        "maindoeuvre.MainDoeuvre",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="entretiens",
+        verbose_name=_("Main d'oeuvre")
+    )
+
 
     created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
+
 
 
     def doit_alerter(self, km_actuel):
@@ -312,7 +324,7 @@ class Entretien(TechnicienMixin, models.Model):
         verbose_name_plural = _("entretiens")
 
     def __str__(self):
-        return _("Entretien – Maintenance %(id)s") % {"id": self.maintenance.id}
+        return _("Entretien – Maintenance %(id)s") % {"id": self.entretien.id}
 
     def clean(self):
         super().clean()
@@ -339,5 +351,41 @@ class Entretien(TechnicienMixin, models.Model):
         if not self.tech_technicien and hasattr(self, '_user'):
             self.assign_technicien(self._user)
 
+
+
         super().save(*args, **kwargs)
 
+
+    @property
+    def utilisateur_main_oeuvre(self):
+        if self.main_oeuvre:
+            return self.main_oeuvre.utilisateur
+        return None
+
+    @property
+    def temps_main_oeuvre_display(self):
+        if not self.main_oeuvre:
+            return "0 h"
+
+        heures = int(self.main_oeuvre.temps)
+        minutes = int((self.main_oeuvre.temps % 1) * 60)
+
+        return f"{heures}h{minutes:02d}"
+
+    @property
+    def taux_horaire_main_oeuvre(self):
+        if self.main_oeuvre:
+            return self.main_oeuvre.taux_horaire
+        return Decimal("0.00")
+
+    @property
+    def cout_main_oeuvre(self):
+        if self.main_oeuvre:
+            return self.main_oeuvre.cout_total
+        return Decimal("0.00")
+
+    @property
+    def nom_travailleur(self):
+        if self.main_oeuvre:
+            return str(self.main_oeuvre.utilisateur)
+        return ""

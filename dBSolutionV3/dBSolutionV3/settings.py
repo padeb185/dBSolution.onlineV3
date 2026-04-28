@@ -229,7 +229,7 @@ TENANT_APPS = (
     'maintenance.autres_interventions.moteur.courroie',
 
 
-
+    'maindoeuvre',
 
 )
 
