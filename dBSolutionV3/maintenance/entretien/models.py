@@ -55,6 +55,89 @@ class LiquideFreinsQualite(models.TextChoices):
     DOT51 = 'DOT 5.1', _("DOT 5.1")
 
 
+class LiquideDirectionQualite(models.TextChoices):
+
+    # Hydraulique direction assistée (Pentosin / CHF)
+    CHF_7_1 = "CHF_7_1", _("CHF 7.1")
+    CHF_11S = "CHF_11S", _("CHF 11S")
+    CHF_202 = "CHF_202", _("CHF 202")
+    CHF_1_PLUS = "CHF_1_PLUS", _("CHF 1+")
+    CHF_LIFEGUARD = "CHF_LIFEGUARD", _("CHF Lifeguard Fluid")
+
+    # --- Porsche spécifiques (très important : base CHF) ---
+    PORSCHE_CHF_11S = "PORSCHE_CHF_11S", _("Porsche / Pentosin CHF 11S (direction assistée)")
+    PORSCHE_CHF_202 = "PORSCHE_CHF_202", _("Porsche / Pentosin CHF 202 (hydraulique moderne)")
+    PORSCHE_ATF_D3 = "PORSCHE_ATF_D3", _("Porsche ATF Dexron III (anciens modèles)")
+
+    # --- BMW spécifiques (très important) ---
+    BMW_CHF_11S = "BMW_CHF_11S", _("BMW / Pentosin CHF 11S (direction assistée)")
+    BMW_CHF_202 = "BMW_CHF_202", _("BMW / Pentosin CHF 202 (direction assistée moderne)")
+    BMW_CHF_7_1 = "BMW_CHF_7_1", _("BMW CHF 7.1 (anciens systèmes hydrauliques)")
+    BMW_ATF_D3 = "BMW_ATF_D3", _("BMW ATF Dexron III (anciens modèles direction assistée)")
+
+    # Fluides spécifiques Renault / ELF
+    RENAULT_MATIC_D2 = "RENAULT_MATIC_D2", _("Renaultmatic D2 (ELF)")
+    RENAULT_MATIC_D3_SYN = "RENAULT_MATIC_D3_SYN", _("Renaultmatic D3 SYN (ELF)")
+    ELF_MATIC_G3 = "ELF_MATIC_G3", _("ELF Matic G3")
+
+    # --- Renault spécifiques (atelier / OEM) ---
+    RENAULT_PSF_D3 = "RENAULT_PSF_D3", _("Renault PSF Dexron III (direction assistée hydraulique)")
+    RENAULT_ELF_PSF = "RENAULT_ELF_PSF", _("Renault / ELF liquide direction assistée")
+
+    # Autres constructeurs
+    PSF_HYUNDAI_KIA = "PSF_HYUNDAI_KIA", _("PSF Hyundai / Kia")
+    PSF_TOYOTA = "PSF_TOYOTA", _("PSF Toyota")
+    PSF_HONDA = "PSF_HONDA", _("PSF Honda")
+
+    # Universel
+    UNIVERSAL_PSF = "UNIVERSAL_PSF", _("Liquide direction assistée universel")
+
+
+class RefroidissementQualiteEtat(models.TextChoices):
+    # Volkswagen Group
+    G11 = "G11", _("G 11")
+    G12 = "G12", _("G 12")
+    G12_PLUS = "G12_PLUS", _("G 12+")
+    G12_PLUS_PLUS = "G12_PLUS_PLUS", _("G 12++")
+    G13 = "G13", _("G 13")
+
+    # BMW
+    G48 = "G48", _("G 48")
+
+    # Mercedes-Benz
+    MB_325_0 = "MB_325_0", _("MB 325.0")
+    MB_325_3 = "MB_325_3", _("MB 325.3")
+    MB_325_5 = "MB_325_5", _("MB 325.5")
+
+    # Renault / Dacia
+    TYPE_D = "TYPE_D", _("Type D")
+
+    # PSA (Peugeot / Citroën)
+    PSA_B71_5110 = "PSA_B71_5110", _("PSA B71 5110")
+
+    # Ford
+    WSS_M97B44_D = "WSS_M97B44_D", _("WSS-M97B44-D")
+    WSS_M97B51_A1 = "WSS_M97B51_A1", _("WSS-M97B51-A1")
+
+    # General Motors
+    DEX_COOL = "DEX_COOL", _("Dex-Cool")
+
+    # Toyota / Lexus
+    TOYOTA_SLLC = "TOYOTA_SLLC", _("Toyota SLLC")
+
+    # Honda
+    HONDA_TYPE_2 = "HONDA_TYPE_2", _("Honda Type 2")
+
+    # Nissan
+    NISSAN_L248 = "NISSAN_L248", _("Nissan L248")
+    NISSAN_L250 = "NISSAN_L250", _("Nissan L250")
+
+    # Hyundai / Kia
+    HYUNDAI_KIA_LLC = "HYUNDAI_KIA_LLC", _("Hyundai/Kia Long Life Coolant")
+
+
+
+
 class Entretien(TechnicienMixin, models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
@@ -130,10 +213,19 @@ class Entretien(TechnicienMixin, models.Model):
     frein_liquide_quantite = models.FloatField(default=0,verbose_name=_("Quantité de liquide de freins ajoutée en litres"))
     frein_liquide_qualite = models.CharField(max_length=25, choices=LiquideFreinsQualite.choices,default=LiquideFreinsQualite.DOT4,verbose_name=_("Qualité de liquide de freins"))
 
+    refroidissement_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de refroidissement"))
+    refroidissement_liquide_quantite = models.FloatField(default=0,verbose_name=_("Quantité de liquide de refroidissement ajouté en litres"))
+    refroidissement_liquide_qualite = models.CharField(max_length=25, choices=RefroidissementQualiteEtat.choices,default=RefroidissementQualiteEtat.G13,verbose_name=_("Qualité de liquide de refroidissement"))
+
+    liquide_direction_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de direction"))
+    liquide_direction_quantite = models.FloatField(default=0, verbose_name=_("Quantité de liquide de direction ajouté en litres"))
+    liquide_direction_qualite = models.CharField(max_length=25, choices=LiquideDirectionQualite.choices,default=LiquideDirectionQualite.UNIVERSAL_PSF,verbose_name=_("Qualité de liquide de direction"))
+
     pneu_pression_bar_avd = models.FloatField(default=2.4, verbose_name=_("Pression du pneu avant droit en bar"))
     pneu_pression_bar_avg = models.FloatField(default=2.4, verbose_name=_("Pression du pneu avant gauche en bar"))
     pneu_pression_bar_ard = models.FloatField(default=2.4, verbose_name=_("Pression du pneu arrière droit en bar"))
     pneu_pression_bar_arg = models.FloatField(default=2.4, verbose_name=_("Pression du pneu arrière gauche en bar"))
+
 
     piece = models.ForeignKey(
         "piece.Piece",
@@ -196,6 +288,11 @@ class Entretien(TechnicienMixin, models.Model):
 
     # --- Date d'enregistrement ---
     date = models.DateTimeField(auto_now_add=True, verbose_name=_("Date"))
+
+
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
+
 
     def doit_alerter(self, km_actuel):
         return (

@@ -134,7 +134,7 @@ def entretien_check_view(request, exemplaire_id):
 
                         entretien.save()
 
-                    messages.success(request, _("Checkup enregistré avec succès."))
+                    messages.success(request, _("Entretien enregistré avec succès."))
 
                 except Exception as e:
                     messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
