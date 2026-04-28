@@ -86,6 +86,15 @@ class NettoyageExterieur(TechnicienMixin, models.Model):
         null=True
     )
 
+    main_oeuvre = models.ForeignKey(
+        "maindoeuvre.MainDoeuvre",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="nettoyage_exterieur",
+        verbose_name=_("Main d'oeuvre")
+    )
+
     # Champ pour l’utilisateur affecté (technicien)
     tech_technicien = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -118,6 +127,9 @@ class NettoyageExterieur(TechnicienMixin, models.Model):
     )
 
     date = models.DateTimeField(auto_now_add=True, verbose_name=_("Date"))
+
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
 
     def assign_technicien(self, user):
         self.tech_technicien = user

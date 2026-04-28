@@ -108,7 +108,9 @@
             </td>
 
             <td class="border px-4 py-2">{{ nettoyage_exterieur.tech_nom_technicien }}</td>
-            <td class="border px-4 py-2">{{ nettoyage_exterieur.date }}</td>
+                <td data-order="{{ entretien.date|date:'Y-m-d H:i:s' }}">
+                {{ nettoyage_exterieur.date|date:"d/m/Y H:i" }}
+            </td>
             <td class="border px-4 py-2 text-center">
                 <a href="{% url 'nettoyage_exterieur:nettoyage_ext_detail' nettoyage_exterieur.id %}"
                    class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">

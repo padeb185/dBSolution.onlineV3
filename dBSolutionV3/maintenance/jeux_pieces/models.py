@@ -141,6 +141,15 @@ class ControleJeuxPieces(TechnicienMixin, models.Model):
     remarques = models.TextField(
         verbose_name=_("Remarques"), blank=True, null=True)
 
+    main_oeuvre = models.ForeignKey(
+        "maindoeuvre.MainDoeuvre",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="jeux_pieces",
+        verbose_name=_("Main d'oeuvre")
+    )
+
     # Champ pour l’utilisateur affecté (utilisateur courant)
     tech_technicien = models.ForeignKey(
         settings.AUTH_USER_MODEL,

@@ -104,7 +104,9 @@
             </td>
 
             <td class="border px-4 py-2">{{ checkup.tech_nom_technicien }}</td>
-            <td class="border px-4 py-2">{{ checkup.date }}</td>
+                <td data-order="{{ entretien.date|date:'Y-m-d H:i:s' }}">
+                {{ checkup.date|date:"d/m/Y H:i" }}
+            </td>
             <td class="border px-4 py-2 text-center">
                <a href="{% url 'check_up:checkup_detail' checkup.id %}"
                    class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">

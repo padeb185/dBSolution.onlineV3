@@ -100,7 +100,9 @@
             </td>
 
             <td class="border px-4 py-2">{{ entretien.tech_nom_technicien }}</td>
-            <td class="border px-4 py-2">{{ entretien.date }}</td>
+            <td data-order="{{ entretien.date|date:'Y-m-d H:i:s' }}">
+                {{ entretien.date|date:"d/m/Y H:i" }}
+            </td>
             <td class="border px-4 py-2 text-center">
                <a href="{% url 'entretien:entretien_detail' entretien.id %}"
                    class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">

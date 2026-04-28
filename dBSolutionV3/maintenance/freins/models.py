@@ -95,6 +95,14 @@ class ControleFreins(TechnicienMixin, models.Model):
         verbose_name=_("État visuel / Tag"),
     )
 
+    main_oeuvre = models.ForeignKey(
+        "maindoeuvre.MainDoeuvre",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="freins",
+        verbose_name=_("Main d'oeuvre")
+    )
 
     # Technicien qui fait le checkup (toujours l'utilisateur courant)
     tech_technicien = models.ForeignKey(

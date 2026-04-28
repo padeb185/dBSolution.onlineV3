@@ -102,7 +102,9 @@
             </td>
 
             <td class="border px-4 py-2">{{ jeu.tech_nom_technicien }}</td>
-            <td class="border px-4 py-2">{{ jeu.date }}</td>
+            <td data-order="{{ entretien.date|date:'Y-m-d H:i:s' }}">
+                {{ jeu.date|date:"d/m/Y H:i" }}
+            </td>
             <td class="border px-4 py-2 text-center">
                <a href="{% url 'jeux_pieces:jeux_pieces_detail' jeu.id %}"
                    class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
