@@ -13,15 +13,29 @@ class MainDoeuvre(models.Model):
         related_name="main_oeuvres",
     )
 
-    temps = models.DecimalField(max_digits=6, decimal_places=2)
+    temps_minutes = models.PositiveIntegerField(default=0)
 
 
     created_at = models.DateTimeField(auto_now_add=True)
 
     @property
+    def heures(self):
+        return self.temps_minutes // 60
+
+    @property
+    def minutes(self):
+        return self.temps_minutes % 60
+
+    @property
+    def temps_decimal(self):
+        return Decimal(self.temps_minutes) / Decimal(60)
+
+    @property
     def taux_horaire(self):
         return self.utilisateur.salaire_brut_heure or Decimal("0.00")
 
-    @property
     def cout_total(self):
-        return self.temps * self.taux_horaire
+        return (self.temps_minutes / 60) * self.taux_horaire
+
+    def temps_display(self):
+        return f"{self.heures}h{self.minutes:02d}"

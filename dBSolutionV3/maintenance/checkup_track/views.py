@@ -159,6 +159,7 @@ def track_check_form_view(request, exemplaire_id):
 # ------------
 # Vue détail checkup_track
 # -----------------------------
+@never_cache
 @login_required
 def checkup_track_detail_view(request, checkup_track_id):
     checkup_track = get_object_or_404(

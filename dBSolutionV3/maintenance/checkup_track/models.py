@@ -328,6 +328,15 @@ class CheckupTrack(TechnicienMixin, models.Model):
 
     ready_for = models.CharField(max_length=25, choices=ReadyForOK.choices, verbose_name=_("Prête pour :"), blank=True, default="")
 
+    main_oeuvre = models.ForeignKey(
+        "maindoeuvre.MainDoeuvre",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="checkup_track",
+        verbose_name=_("Main d'oeuvre")
+    )
+
     # Technicien qui fait le checkup (toujours l'utilisateur courant)
     tech_technicien = models.ForeignKey(
         settings.AUTH_USER_MODEL,

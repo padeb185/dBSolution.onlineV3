@@ -1,36 +1,39 @@
 from django import forms
 from django.utils import timezone
-from .models import Entretien
 from django.utils.translation import gettext_lazy as _
+from .models import Entretien
 from maindoeuvre.models import MainDoeuvre
 
+
 class EntretienForm(forms.ModelForm):
-    temps_main_oeuvre = forms.DecimalField(
-        max_digits=6,
-        decimal_places=2,
-        required=False,
-        label="Temps presté (heures)"
-    )
+
+    temps_heures = forms.IntegerField(required=False, min_value=0)
+    temps_minutes = forms.IntegerField(required=False, min_value=0, max_value=59)
+
     class Meta:
         model = Entretien
         fields = "__all__"
         widgets = {
-            'maintenance': forms.HiddenInput(),
-            'remarques': forms.Textarea(attrs={
-                'rows': 4,
-                'placeholder': _("Ajoutez des remarques ici...")
+            "maintenance": forms.HiddenInput(),
+            "remarques": forms.Textarea(attrs={
+                "rows": 4,
+                "placeholder": _("Ajoutez des remarques ici...")
             }),
-
         }
 
     def __init__(self, *args, **kwargs):
-        self.user = kwargs.pop('user', None)
-        self.exemplaire = kwargs.pop('exemplaire', None)
+        self.user = kwargs.pop("user", None)
+        self.exemplaire = kwargs.pop("exemplaire", None)
         super().__init__(*args, **kwargs)
 
+        # -------- INITIALISATION TEMPS --------
         if self.instance and self.instance.pk and self.instance.main_oeuvre:
-            self.fields["temps_main_oeuvre"].initial = self.instance.main_oeuvre.temps
+            total = self.instance.main_oeuvre.temps_minutes
 
+            self.fields["temps_heures"].initial = total // 60
+            self.fields["temps_minutes"].initial = total % 60
+
+        # -------- MAIN D'ŒUVRE QUERYSET --------
         if "main_oeuvre" in self.fields:
             self.fields["main_oeuvre"].queryset = MainDoeuvre.objects.select_related(
                 "utilisateur"
@@ -40,10 +43,12 @@ class EntretienForm(forms.ModelForm):
                 "class": "input"
             })
 
+        # -------- DATE --------
         if "date" in self.fields and self.instance and self.instance.pk and self.instance.date:
             local_dt = timezone.localtime(self.instance.date)
-            self.fields['date'].initial = local_dt.strftime('%Y-%m-%d %H:%M:%S')
+            self.fields["date"].initial = local_dt.strftime("%Y-%m-%d %H:%M:%S")
 
+        # -------- TECH --------
         if self.user:
             if "tech_technicien" in self.fields:
                 self.fields["tech_technicien"].initial = self.user
@@ -74,25 +79,25 @@ class EntretienForm(forms.ModelForm):
                 instance.voiture_exemplaire = voiture
 
         # -------- MAIN D'ŒUVRE --------
-        temps = self.cleaned_data.get("temps_main_oeuvre")
+        heures = self.cleaned_data.get("temps_heures") or 0
+        minutes = self.cleaned_data.get("temps_minutes") or 0
 
-        if temps is not None:
-            main = instance.main_oeuvre
+        total_minutes = heures * 60 + minutes
 
-            if main:
-                main.temps = temps
-                main.save(update_fields=["temps"])
-            else:
-                main = MainDoeuvre.objects.create(
-                    utilisateur=self.user,
-                    temps=temps
-                )
-                instance.main_oeuvre = main
+        main = instance.main_oeuvre
+
+        if main:
+            main.temps_minutes = total_minutes
+            main.save(update_fields=["temps_minutes"])
+        else:
+            main = MainDoeuvre.objects.create(
+                utilisateur=self.user,
+                temps_minutes=total_minutes
+            )
+            instance.main_oeuvre = main
 
         # -------- SAVE FINAL --------
         if commit:
             instance.save()
-            if instance.main_oeuvre:
-                instance.main_oeuvre.save()
 
         return instance

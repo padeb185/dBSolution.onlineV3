@@ -1,12 +1,17 @@
-from decimal import Decimal
 from django import forms
 from django.utils import timezone
-
 from .models import ControleGeneral
 from django.utils.translation import gettext_lazy as _
+from maindoeuvre.models import MainDoeuvre
+
+
 
 
 class ControleGeneralForm(forms.ModelForm):
+
+    temps_heures = forms.IntegerField(required=False, min_value=0)
+    temps_minutes = forms.IntegerField(required=False, min_value=0, max_value=59)
+
     class Meta:
         model = ControleGeneral
         fields = "__all__"
@@ -23,6 +28,16 @@ class ControleGeneralForm(forms.ModelForm):
         self.user = kwargs.pop('user', None)
         self.exemplaire = kwargs.pop('exemplaire', None)
         super().__init__(*args, **kwargs)
+
+        # -------- MAIN D'ŒUVRE QUERYSET --------
+        if "main_oeuvre" in self.fields:
+            self.fields["main_oeuvre"].queryset = MainDoeuvre.objects.select_related(
+                "utilisateur"
+            ).filter(utilisateur__is_active=True)
+
+            self.fields["main_oeuvre"].widget.attrs.update({
+                "class": "input"
+            })
 
         # ✅ initialisation date seulement si le champ existe
         if "date" in self.fields and self.instance and self.instance.pk and self.instance.date:
@@ -66,7 +81,24 @@ class ControleGeneralForm(forms.ModelForm):
             if not instance.voiture_exemplaire:
                 instance.voiture_exemplaire = voiture
 
-        # Sauvegarde finale
+            # -------- MAIN D'ŒUVRE --------
+            heures = self.cleaned_data.get("temps_heures") or 0
+            minutes = self.cleaned_data.get("temps_minutes") or 0
+
+            total_minutes = heures * 60 + minutes
+
+            main = instance.main_oeuvre
+
+            if main:
+                main.temps_minutes = total_minutes
+                main.save(update_fields=["temps_minutes"])
+            else:
+                main = MainDoeuvre.objects.create(
+                    utilisateur=self.user,
+                    temps_minutes=total_minutes
+                )
+                instance.main_oeuvre = main
+
         if commit:
             instance.save()
 

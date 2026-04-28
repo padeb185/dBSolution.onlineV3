@@ -39,7 +39,8 @@
         <div class="bg-white shadow-md rounded-lg p-6">
             <h2 class="text-lg font-semibold mb-4">{% trans "Checkup" %}</h2>
             <p><strong>{% trans "Date de l'intervention" %} :</strong> {{ checkup.date|date:"d/m/Y" }}</p>
-             <p><strong>{% trans "Remarques" %} :</strong> {{ checkup.remarque }}</p>
+             <p><strong>{% trans "Temps" %} :</strong> {{ checkup.main_oeuvre.temps_display }}</p>
+            <p><strong>{% trans "Remarques" %} :</strong> {{ checkup.remarque }}</p>
         </div>
 
         <!-- Bouton Modifier -->

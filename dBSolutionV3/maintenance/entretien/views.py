@@ -163,6 +163,7 @@ def entretien_check_view(request, exemplaire_id):
 # ------------
 # Vue détail entretien
 # -----------------------------
+@never_cache
 @login_required
 def entretien_detail_view(request, entretien_id):
     tenant = request.user.societe

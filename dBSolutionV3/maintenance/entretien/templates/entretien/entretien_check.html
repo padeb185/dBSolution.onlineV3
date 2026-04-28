@@ -568,14 +568,12 @@
             {% trans "Temps de main d'œuvre" %}
         </h2>
 
-        <div class="mb-4">
-            <label class="block font-semibold mb-1">
-                {% trans "Temps presté" %}
-            </label>
-
-            {{ form.temps_main_oeuvre }}
-
+        <div class="flex gap-2 items-center">
+            {{ form.temps_heures }}
             <span>h</span>
+
+            {{ form.temps_minutes }}
+            <span>min</span>
         </div>
 
 
