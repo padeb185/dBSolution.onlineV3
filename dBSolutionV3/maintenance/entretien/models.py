@@ -324,7 +324,7 @@ class Entretien(TechnicienMixin, models.Model):
         verbose_name_plural = _("entretiens")
 
     def __str__(self):
-        return _("Entretien – Maintenance %(id)s") % {"id": self.entretien.id}
+        return _("Entretien – Maintenance %(id)s") % {"id": self.entretien.id} % f"{self.utilisateur.prenom} {self.utilisateur.nom} - {self.cout_total} €"
 
     def clean(self):
         super().clean()
