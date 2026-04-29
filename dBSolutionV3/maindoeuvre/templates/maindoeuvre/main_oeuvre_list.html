@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+{% load i18n static widget_tweaks %}
+
+{% block title %}{% trans "Liste des mains d'œuvre" %}{% endblock %}
+
+{% block content %}
+<br>
+<br>
+
+<h1 class="text-2xl font-bold mb-6 flex items-center">
+    <img src="{% static 'icons/main-doeuvre.png' %}" alt="main d'œuvre"
+         style="width:60px; height:60px; margin-right:10px;">
+    {% trans "Liste des mains d'œuvre" %}
+</h1>
+
+<br>
+
+<!-- Bouton ajouter -->
+<div>
+    <a href="{% url 'maindoeuvre:main_oeuvre_form' %}"
+       class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Ajouter une main d'œuvre" %}
+    </a>
+</div>
+
+<br><br>
+
+<!-- Filtres -->
+<div class="bg-white shadow-md rounded-lg p-4 mb-4">
+    <div class="flex flex-wrap items-end gap-3">
+
+        <input id="search-user" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px]"
+               placeholder="{% trans 'Utilisateur' %}">
+
+        <input id="search-time" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px]"
+               placeholder="{% trans 'Temps (min)' %}">
+
+        <input id="search-date" type="date"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px]">
+
+    </div>
+</div>
+
+<!-- TABLE -->
+<table id="main-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2">{% trans "Utilisateur" %}</th>
+            <th class="border px-4 py-2">{% trans "Temps" %}</th>
+            <th class="border px-4 py-2">{% trans "Temps formaté" %}</th>
+            <th class="border px-4 py-2">{% trans "Date" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Coût" %}</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for maindoeuvre in maindoeuvres %}
+        <tr>
+
+            <!-- Utilisateur -->
+            <td class="border px-4 py-2">
+                {{ maindoeuvre.utilisateur }}
+            </td>
+
+            <!-- Temps minutes -->
+            <td class="border px-4 py-2">
+                {{ maindoeuvre.temps_minutes }}
+            </td>
+
+            <!-- Temps formaté -->
+            <td class="border px-4 py-2 font-bold">
+                {{ maindoeuvre.temps_display }}
+            </td>
+
+            <!-- Date -->
+            <td class="border px-4 py-2">
+                {{ maindoeuvre.date|date:"d/m/Y H:i" }}
+            </td>
+
+            <!-- Coût -->
+            <td class="border px-4 py-2 text-center font-semibold">
+                {{ maindoeuvre.cout_total|floatformat:2 }} €
+            </td>
+
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5" class="text-center py-4">
+                {% trans "Aucune main d'œuvre enregistrée." %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<br><br>
+
+<!-- Retour -->
+<div>
+   <a href="{% url 'utilisateurs:dashboard' %}"
+       class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour au tableau de bord" %}
+   </a>
+</div>
+
+<br><br>
+
+<!-- DATATABLE -->
+<script>
+$(document).ready(function() {
+    var table = $('#main-table').DataTable({
+        pageLength: 25,
+        language: {
+            search: "{% trans 'Recherche globale :' %}",
+            lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ mains d’œuvre' %}",
+            infoEmpty: "{% trans 'Aucune main d’œuvre trouvée' %}",
+            zeroRecords: "{% trans 'Aucune main d’œuvre trouvée' %}",
+            paginate: {
+                first: "{% trans 'Premier' %}",
+                last: "{% trans 'Dernier' %}",
+                next: "{% trans 'Suivant' %}",
+                previous: "{% trans 'Précédent' %}"
+            }
+        },
+        order: [[3, "desc"]]
+    });
+
+    $('#search-user').on('keyup', function () {
+        table.column(0).search(this.value).draw();
+    });
+
+    $('#search-time').on('keyup', function () {
+        table.column(1).search(this.value).draw();
+    });
+
+    $('#search-date').on('change', function () {
+        table.column(3).search(this.value).draw();
+    });
+});
+</script>
+
+{% endblock %}

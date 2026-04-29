@@ -140,6 +140,8 @@ urlpatterns += i18n_patterns(
 
     path('stats_fournisseurs/', include(('stats_fournisseurs.urls', 'stats_fournisseurs'), namespace='stats_fournisseurs')),
 
+    path('maindoeuvre/',include(('maindoeuvre.urls', 'maindoeuvre'), namespace='maindoeuvre')),
+
 
 
 

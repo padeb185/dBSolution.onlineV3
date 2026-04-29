@@ -1,12 +1,12 @@
 from django import forms
-from utilisateurs.models import MainDoeuvre
+from maindoeuvre.models import MainDoeuvre
 
 
 class MainDoeuvreForm(forms.ModelForm):
 
     class Meta:
         model = MainDoeuvre
-        fields = ["utilisateur", "temps"]
+        fields = '__all__'
 
         widgets = {
             "utilisateur": forms.Select(attrs={"class": "input"}),
