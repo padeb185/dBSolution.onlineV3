@@ -142,6 +142,9 @@ urlpatterns += i18n_patterns(
 
     path('maindoeuvre/',include(('maindoeuvre.urls', 'maindoeuvre'), namespace='maindoeuvre')),
 
+    path('proprietaire/', include(('proprietaire.urls', 'proprietaire'), namespace='proprietaire')),
+
+
 
 
 

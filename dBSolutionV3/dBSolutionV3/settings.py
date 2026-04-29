@@ -116,6 +116,9 @@ TENANT_APPS = (
     'outillage',
     'investissements',
 
+    'proprietaire',
+
+
     'maintenance',
     'maintenance.entretien',
     'maintenance.niveaux',

@@ -53,6 +53,8 @@ class AssurancePolice(models.Model):
         blank=True,
     )
 
+
+
     numero_contrat = models.CharField(max_length=100, unique=True)
 
     date_debut = models.DateField()

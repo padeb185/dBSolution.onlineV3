@@ -1,0 +1,150 @@
+
+{% extends "base.html" %}
+{% load i18n static widget_tweaks %}
+
+{% block title %}{% trans "Liste des Propriétaires" %}{% endblock %}
+
+{% block content %}
+<br>
+
+<h1 class="text-2xl font-bold mb-6 flex items-center">
+    <img src="{% static 'icons/proprietaire.png' %}" alt="proprietaire"
+         style="width:60px; height:60px; margin-right:10px;">
+    {% trans "Liste des Propriétaires" %}
+</h1>
+
+<br>
+
+<!-- Bouton ajouter -->
+<div>
+    <a href="{% url 'proprietaire:proprietaire_form' %}"
+       class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Ajouter un propriétaire" %}
+    </a>
+</div>
+
+<br><br>
+
+<!-- Filtres -->
+<div class="bg-white shadow-md rounded-lg p-4 mb-4">
+    <div class="flex flex-wrap items-end gap-3">
+
+        <input id="search-nom" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px]"
+               placeholder="{% trans 'Nom' %}">
+
+        <input id="search-prenom" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px]"
+               placeholder="{% trans 'Prénom' %}">
+
+        <input id="search-adresse" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px]"
+               placeholder="{% trans 'Adresse' %}">
+
+        <input id="search-societe" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px]"
+               placeholder="{% trans 'Société' %}">
+
+    </div>
+</div>
+
+<!-- TABLE -->
+<table id="proprietaires-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2">{% trans "Nom" %}</th>
+            <th class="border px-4 py-2">{% trans "Prénom" %}</th>
+            <th class="border px-4 py-2">{% trans "Adresse" %}</th>
+            <th class="border px-4 py-2">{% trans "Société" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Actions" %}</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for proprietaire in proprietaires %}
+        <tr>
+            <td class="border px-4 py-2">
+                {{ proprietaire.nom }}
+            </td>
+
+            <td class="border px-4 py-2">
+                {{ proprietaire.prenom }}
+            </td>
+
+            <td class="border px-4 py-2">
+                {{ proprietaire.adresse|default:"-" }}
+            </td>
+
+            <td class="border px-4 py-2">
+                {{ proprietaire.societe|default:"-" }}
+            </td>
+
+            <td class="border px-4 py-2 text-center">
+                <a href="{% url 'proprietaire:proprietaire_detail' proprietaire.id %}"
+                   class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
+                    {% trans "Info" %}
+                </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5" class="text-center py-4">
+                {% trans "Aucun propriétaire enregistré." %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<br><br>
+
+<!-- Retour -->
+<div>
+    <a href="{% url 'utilisateurs:dashboard' %}"
+       class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour au tableau de bord" %}
+    </a>
+</div>
+
+<br><br>
+
+<!-- DATATABLE -->
+<script>
+$(document).ready(function() {
+    var table = $('#proprietaires-table').DataTable({
+        pageLength: 100,
+        language: {
+            search: "{% trans 'Recherche globale :' %}",
+            lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ propriétaires' %}",
+            infoEmpty: "{% trans 'Aucun propriétaire trouvé' %}",
+            zeroRecords: "{% trans 'Aucun propriétaire trouvé' %}",
+            paginate: {
+                first: "{% trans 'Premier' %}",
+                last: "{% trans 'Dernier' %}",
+                next: "{% trans 'Suivant' %}",
+                previous: "{% trans 'Précédent' %}"
+            }
+        },
+        order: [[0, "asc"]]
+    });
+
+    $('#search-nom').on('keyup', function () {
+        table.column(0).search(this.value).draw();
+    });
+
+    $('#search-prenom').on('keyup', function () {
+        table.column(1).search(this.value).draw();
+    });
+
+    $('#search-adresse').on('keyup', function () {
+        table.column(2).search(this.value).draw();
+    });
+
+    $('#search-societe').on('keyup', function () {
+        table.column(3).search(this.value).draw();
+    });
+});
+</script>
+
+{% endblock %}
