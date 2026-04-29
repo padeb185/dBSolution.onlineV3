@@ -85,7 +85,7 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
     role = models.CharField(
         max_length=30,
         choices=ROLE_CHOICES,
-        default='apprenti',  # <-- valeur par défaut pour les lignes existantes
+        default='apprenti',
         verbose_name=_("Rôle")
     )
 

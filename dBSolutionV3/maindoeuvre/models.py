@@ -18,6 +18,8 @@ class MainDoeuvre(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
 
+
+
     @property
     def heures(self):
         return self.temps_minutes // 60
