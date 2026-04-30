@@ -2,7 +2,8 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from decimal import Decimal
-
+from django.utils.translation import gettext_lazy as _
+from client_particulier.models import validate_iban
 
 
 class Proprietaire(models.Model):
@@ -23,6 +24,63 @@ class Proprietaire(models.Model):
         on_delete=models.CASCADE,
         related_name="proprietaires"
     )
+
+    numero_telephone = models.CharField(
+        _("Numéro de téléphone"),
+        max_length=20,
+        null=True,
+        blank=True
+    )
+
+    numero_permis = models.CharField(
+        _("Numéro de permis de conduire"),
+        max_length=50,
+        null=True,
+        blank=True
+    )
+
+    numero_carte_id = models.CharField(
+        _("Numéro de carte d'identité"),
+        max_length=20,
+        null=True,
+        blank=True
+    )
+
+    numero_compte = models.CharField(
+        _("Numéro de compte bancaire"),
+        max_length=34,
+        null=True,
+        blank=True,
+        validators=[validate_iban]
+    )
+    numero_carte_bancaire = models.CharField(
+        _("Numéro de carte bancaire"),
+        max_length=20,
+        null=True,
+        blank=True
+    )
+
+    email = models.EmailField(
+        _("Email"),
+        max_length=100,
+        null=True,
+        blank=True
+    )
+
+    date_naissance = models.DateField(
+        _("Date de naissance"),
+        null=True,
+        blank=True
+    )
+
+    remarques = models.TextField(
+        verbose_name=_("Remarques"),
+        blank=True,
+        null=True
+    )
+
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
 
 
 class ProprietaireVoiture(models.Model):
@@ -51,3 +109,12 @@ class ProprietaireVoiture(models.Model):
         null=True,
         blank=True,
     )
+
+    remarques = models.TextField(
+        verbose_name=_("Remarques"),
+        blank=True,
+        null=True
+    )
+
+    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)

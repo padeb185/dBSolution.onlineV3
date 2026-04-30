@@ -9,6 +9,12 @@ from adresse.models import Adresse
 from .forms import ClientParticulierForm
 from .models import ClientParticulier
 from django.utils.translation import gettext as _
+import json
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from client_particulier.models import ClientParticulier
+
+
 
 
 
@@ -108,6 +114,7 @@ def ajouter_client_all(request):
 
 
 
+
 @login_required
 def modifier_client(request, client_particulier_id):
     tenant = request.user.societe
@@ -155,3 +162,36 @@ def client_create_view(request):
             form = ClientParticulierForm()
 
         return render(request, "client_form.html", {"form": form})
+
+
+
+
+
+@csrf_exempt  # facultatif si CSRF bien géré côté JS
+def check_prenom(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        prenom = data.get("prenom")
+
+        try:
+            client = ClientParticulier.objects.select_related("adresse").get(prenom__iexact=prenom)
+
+            return JsonResponse({
+                "exist": True,
+                "prenom": client.prenom,
+                "nom": client.nom,
+                "email": client.email,
+                "adresse": {
+                    "rue": client.adresse.rue if client.adresse else "",
+                    "numero": client.adresse.numero if client.adresse else "",
+                    "code_postal": client.adresse.code_postal if client.adresse else "",
+                    "ville": client.adresse.ville if client.adresse else "",
+                    "pays": client.adresse.pays if client.adresse else "",
+                    "code_pays": client.adresse.code_pays if client.adresse else "",
+                } if client.adresse else None
+            })
+
+        except ClientParticulier.DoesNotExist:
+            return JsonResponse({"exist": False})
+
+    return JsonResponse({"error": "Invalid request"}, status=400)

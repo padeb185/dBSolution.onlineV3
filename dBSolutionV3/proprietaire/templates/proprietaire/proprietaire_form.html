@@ -1,10 +1,334 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% load i18n static %}
 
-</body>
-</html>
+{% block content %}
+<div class="max-w-xl mx-auto p-6 bg-white rounded shadow mt-16 mb-16">
+
+    <!-- Header -->
+    <h1 class="text-2xl font-bold mb-4 text-center flex items-center justify-center">
+        <img src="{% static 'icons/proprietaire(1).png' %}"
+             style="width:75px; margin-right:5px;"
+             alt="{% trans 'Propriétaire' %}">
+        {% trans "Créer un propriétaire" %}
+    </h1>
+
+    <!-- Messages -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="mb-3 px-4 py-2 rounded
+                {% if message.tags == 'success' %}
+                    bg-green-100 text-green-800 border border-green-300
+                {% else %}
+                    bg-red-100 text-red-800 border border-red-300
+                {% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+
+    {% if form.errors %}
+        <div style="background-color: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; padding: 10px; border-radius: 6px;">
+            <strong>Erreurs :</strong>
+            <ul>
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li>{{ field.label }} : {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+
+    <form method="post" class="flex flex-col space-y-4">
+        {% csrf_token %}
+
+        <!-- Prénom -->
+        <div>
+            <label for="id_prenom">{% trans "Prénom" %}</label>
+            <input type="text" id="id_prenom" name="prenom"
+                   value="{{ request.POST.prenom|default:proprietaire.prenom|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full"
+                   placeholder="{% trans 'Prénom' %}">
+        </div>
+
+        <!-- Nom -->
+        <div>
+            <label for="id_nom">{% trans "Nom" %}</label>
+            <input type="text" id="id_nom" name="nom"
+                   value="{{ request.POST.nom|default:proprietaire.nom|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full"
+                   placeholder="{% trans 'Nom' %}">
+        </div>
+
+        <!-- Numéro de téléphone -->
+        <div>
+            <label for="id_numero_telephone">{% trans "Numéro de téléphone" %}</label>
+            <input type="text" id="id_numero_telephone" name="numero_telephone"
+                   value="{{ request.POST.numero_telephone|default:proprietaire.numero_telephone|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full"
+                   placeholder="+32 123 45 67 89">
+        </div>
+
+        <!-- Numéro de permis -->
+        <div>
+            <label for="id_numero_permis">{% trans "Numéro de permis" %}</label>
+            <input type="text" id="id_numero_permis" name="numero_permis"
+                   value="{{ request.POST.numero_permis|default:proprietaire.numero_permis|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full"
+                   placeholder="1234567890">
+        </div>
+
+        <!-- Numéro de carte d'identité -->
+        <div>
+            <label for="id_numero_carte_id">{% trans "Numéro de carte d'identité" %}</label>
+            <input type="text" id="id_numero_carte_id" name="numero_carte_id"
+                   value="{{ request.POST.numero_carte_id|default:proprietaire.numero_carte_id|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+
+        <!-- Numéro de compte bancaire -->
+       <div>
+            {{ form.numero_compte.label_tag }}
+            {{ form.numero_compte }}
+            {% if form.numero_compte.errors %}
+                <p class="text-red-600 text-sm mt-1">
+                    {{ form.numero_compte.errors.0 }}
+                </p>
+            {% endif %}
+       </div>
+
+
+        <div>
+            <label for="id_numero_carte_bancaire">{% trans "Numéro de carte bancaire" %}</label>
+            <input type="text" id="id_numero_carte_bancaire" name="numero_carte_bancaire"
+                   value="{{ request.POST.numero_carte_bancaire|default:proprietaire.numero_carte_bancaire|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full"
+                   placeholder="5389 3456 7890 1234">
+        </div>
+
+        <!-- Email -->
+        <div>
+            <label for="id_email">{% trans "Email" %}</label>
+            <input type="email" id="id_email" name="email"
+                   value="{{ request.POST.email|default:proprietaire.email|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full"
+                   placeholder="exemple@domaine.com">
+        </div>
+
+        <!-- Date de naissance -->
+        <div>
+            <label for="id_date_naissance">{% trans "Date de naissance" %}</label>
+            <input type="date" id="id_date_naissance" name="date_naissance"
+                   value="{{ request.POST.date_naissance|default:proprietaire.date_naissance|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+
+        <!-- Âge -->
+        <div>
+            <label for="id_age">{% trans "Âge" %}</label>
+            <input type="text" id="id_age" name="age"
+                   class="border rounded px-4 py-2 w-full bg-gray-100"
+                   readonly>
+        </div>
+
+
+
+        <!-- Adresse -->
+        <h2 class="text-lg font-semibold mt-6 mb-2">{% trans "Adresse" %}</h2>
+
+        <div>
+            <label for="id_rue">{% trans "Rue" %}</label>
+            <input type="text" id="id_rue" name="rue"
+                   value="{{ request.POST.rue|default:proprietaire.adresse.rue|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+        <div>
+            <label for="id_numero">{% trans "Numéro" %}</label>
+            <input type="text" id="id_numero" name="numero"
+                   value="{{ request.POST.numero|default:proprietaire.adresse.numero|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+        <div>
+            <label for="id_code_postal">{% trans "Code postal" %}</label>
+            <input type="text" id="id_code_postal" name="code_postal"
+                   value="{{ request.POST.code_postal|default:proprietaire.adresse.code_postal|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+        <div>
+            <label for="id_ville">{% trans "Ville" %}</label>
+            <input type="text" id="id_ville" name="ville"
+                   value="{{ request.POST.ville|default:proprietaire.adresse.ville|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+        <div>
+            <label for="id_pays">{% trans "Pays" %}</label>
+            <input type="text" id="id_pays" name="pays"
+                   value="{{ request.POST.pays|default:proprietaire.adresse.pays|default:'Belgique' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+        <div>
+            <label for="id_code_pays">{% trans "Code pays" %}</label>
+            <input type="text" id="id_code_pays" name="code_pays"
+                   value="{{ request.POST.code_pays|default:proprietaire.adresse.code_pays|default:'BE' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+
+       <div class="flex gap-3 mt-6">
+                <button type="submit"
+                        class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+                    {% trans "Enregistrer" %}
+                </button>
+
+               <a href="{% url 'proprietaire:proprietaire_list' %}"
+                   class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
+                    {% trans "Annuler" %}
+                </a>
+
+          </div>
+
+    </form>
+</div>
+
+
+<div class="max-w-xl mx-auto mt-4">
+     <a href="{% url 'proprietaire:proprietaire_list' %}"
+        class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+           {% trans "Retour à la liste des proprietaires" %}
+    </a>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    // ------------------------
+    // 1. Calcul automatique de l'âge
+    // ------------------------
+    function updateAge() {
+        const dateInput = document.getElementById('id_date_naissance');
+        const ageInput = document.getElementById('id_age');
+        if (!dateInput || !ageInput || !dateInput.value) return;
+
+        const birthDate = new Date(dateInput.value);
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) age--;
+        ageInput.value = age;
+    }
+
+    const dateNaissanceInput = document.getElementById('id_date_naissance');
+    if (dateNaissanceInput) {
+        dateNaissanceInput.addEventListener('change', updateAge);
+        // Si le client existe déjà, remplir l'âge au chargement
+        if (dateNaissanceInput.value) {
+            updateAge();
+        }
+    }
+
+    // ------------------------
+    // 2. Récupération du CSRF token
+    // ------------------------
+    function getCookie(name) {
+        const cookies = document.cookie ? document.cookie.split(';') : [];
+        for (let cookie of cookies) {
+            cookie = cookie.trim();
+            if (cookie.startsWith(name + '=')) {
+                return decodeURIComponent(cookie.slice(name.length + 1));
+            }
+        }
+        return null;
+    }
+    const csrftoken = getCookie('csrftoken');
+
+    // ------------------------
+    // 3. Vérification du prénom existant
+    // ------------------------
+    const prenomInput = document.getElementById('id_prenom');
+    if (prenomInput) {
+        prenomInput.addEventListener('blur', () => {
+            const prenom = prenomInput.value.trim();
+            if (!prenom) return;
+
+            fetch('/api/check_prenom/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                },
+                body: JSON.stringify({ prenom })
+            })
+            .then(r => r.json())
+            .then(data => {
+                // Remplissage des champs si le client existe
+                if (data.exist) {
+                    prenomInput.value = data.prenom || '';
+                    document.getElementById('id_nom').value = data.nom || '';
+                    document.getElementById('id_email').value = data.email || '';
+
+                    if (data.adresse) {
+                        document.getElementById('id_rue').value = data.adresse.rue || '';
+                        document.getElementById('id_numero').value = data.adresse.numero || '';
+                        document.getElementById('id_code_postal').value = data.adresse.code_postal || '';
+                        document.getElementById('id_ville').value = data.adresse.ville || '';
+                        document.getElementById('id_pays').value = data.adresse.pays || '';
+                        document.getElementById('id_code_pays').value = data.adresse.code_pays || '';
+                    }
+                } else {
+                    // Réinitialisation des champs si inexistant
+                    prenomInput.value = '';
+                    document.getElementById('id_nom').value = '';
+                    document.getElementById('id_email').value = '';
+                    document.getElementById('id_rue').value = '';
+                    document.getElementById('id_numero').value = '';
+                    document.getElementById('id_code_postal').value = '';
+                    document.getElementById('id_ville').value = '';
+                    document.getElementById('id_pays').value = 'Belgique';
+                    document.getElementById('id_code_pays').value = 'BE';
+                }
+            })
+            .catch(err => console.error("Erreur:", err));
+        });
+    }
+
+    // ------------------------
+    // 4. Formatage des numéros bancaires
+    // ------------------------
+    function formatBankNumber(inputId) {
+        const input = document.getElementById(inputId);
+        if (!input) return;
+
+        input.addEventListener('input', () => {
+            let val = input.value.toUpperCase();
+            val = val.replace(/[^A-Z0-9]/g, ""); // supprimer tout sauf lettres et chiffres
+
+            let formatted = "";
+            let i = 0;
+
+            while (i < val.length) {
+                if (i === 0) {
+                    formatted += val.substr(i, 2); // deux lettres
+                    i += 2;
+                } else if (i === 2) {
+                    formatted += val.substr(i, 2) + " "; // deux chiffres + espace
+                    i += 2;
+                } else {
+                    formatted += val.substr(i, 4) + " "; // groupes de 4 chiffres + espace
+                    i += 4;
+                }
+            }
+
+            input.value = formatted.trim();
+        });
+    }
+
+    formatBankNumber("id_numero_carte_bancaire");
+    formatBankNumber("id_numero_compte");
+
+});
+</script>
+
+{% endblock %}

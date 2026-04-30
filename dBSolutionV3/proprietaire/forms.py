@@ -14,6 +14,7 @@ class ProprietaireVoitureForm(forms.ModelForm):
             "proprietaire",
             "part_proprietaire_pourcent",
         ]
+        exclude = ["societe"]
 
         widgets = {
             "voiture_exemplaire": forms.Select(attrs={
@@ -64,7 +65,14 @@ class ProprietaireForm(forms.ModelForm):
             "nom",
             "prenom",
             "adresse",
-            "societe",
+            "numero_telephone",
+            "numero_permis",
+            "numero_carte_id" ,
+            "numero_compte",
+            "numero_carte_bancaire",
+            "email",
+            "date_naissance",
+            "remarques" ,
         ]
 
         widgets = {

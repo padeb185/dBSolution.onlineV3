@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ClientParticulierListView, ajouter_client_all, modifier_client, client_detail
+from .views import ClientParticulierListView, ajouter_client_all, modifier_client, client_detail, check_prenom
 
 app_name = "client_particulier"
 
@@ -30,6 +30,6 @@ urlpatterns = [
         name='modifier_client'),
 
 
-
+    path('api/check_prenom/', check_prenom, name='check_prenom'),
 
 ]

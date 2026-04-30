@@ -32,6 +32,7 @@ from outillage.models import Outillage
 from recharge.models import Electricite
 from achat_mds.models import AchatMds
 from maindoeuvre.models import MainDoeuvre
+from proprietaire.models import Proprietaire
 
 
 
@@ -103,12 +104,12 @@ def dashboard_view(request):
     total_fournisseur = total_client_particulier = 0
     total_carrosserie = total_societe_cliente = 0
     total_adresse = total_assurance = total_modele = total_outils = 0
-    total_recharge = total_main = 0
+    total_recharge = total_main = total_proprietaire = 0
 
     marques = moteurs = exemplaires = boites = embrayages = freins = \
         freins_ar = pneus = maintenance = fournisseurs = client_particulier =\
         carrosseries = societe_cliente = adresse = assurance = \
-        assurance_police = modele = outils = recharge = maindoeuvre = []
+        assurance_police = modele = outils = recharge = maindoeuvre = proprietaire = []
 
     if schema_name:
         with schema_context(schema_name):
@@ -126,6 +127,7 @@ def dashboard_view(request):
             client_particulier = ClientParticulier.objects.filter(societe=societe)
             carrosseries = Carrosserie.objects.filter(societe=societe)
             maindoeuvre = MainDoeuvre.objects.filter( utilisateur__societe=societe)
+            proprietaire = Proprietaire.objects.filter(societe=societe)
 
 
             societe_cliente = SocieteCliente.objects.filter(societe=societe)
@@ -159,6 +161,7 @@ def dashboard_view(request):
             total_outils = outils.count()
             total_recharge = recharge.count()
             total_main = maindoeuvre.count()
+            total_proprietaire = proprietaire.count()
 
 
             # Récupère les modèles existants pour les liens maintenance
@@ -190,6 +193,7 @@ def dashboard_view(request):
         'total_outils': total_outils,
         'total_recharge': total_recharge,
         'total_main': total_main,
+        'total_proprietaire': total_proprietaire,
 
 
 
@@ -215,6 +219,7 @@ def dashboard_view(request):
         'outils': outils,
         'recharge': recharge,
         'maindoeuvre': maindoeuvre,
+        'proprietaire': proprietaire,
 
 
     })

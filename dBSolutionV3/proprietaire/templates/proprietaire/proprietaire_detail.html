@@ -1,10 +1,128 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% load i18n static format_numbers %}
 
-</body>
-</html>
+{% block content %}
+<div class="p-6 w-full ml-[-10px] mr-[10px]">
+
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
+       <h1 class="text-2xl font-bold flex items-center gap-4">
+           <img src="{% static 'icons/proprietaire(1).png' %}" alt="proprietaire"
+         style="width:60px; height:60px; margin-right:10px;">
+            <span>{% trans "Détails du proprietaire :" %}</span>
+            <span class="text-black-700">{{ proprietaire.prenom}} {{ proprietaire.nom }}</span>
+
+        </h1>
+    </div>
+
+    <!-- Infos principales -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+
+        <!-- Informations générales -->
+        <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-6">
+            <h2 class="text-lg font-semibold mb-2">
+                {% trans "Informations générales" %}
+            </h2>
+
+            <p>
+                <strong>{% trans "Email" %} :</strong>
+                {{ proprietaire.email }}
+            </p>
+
+            <p>
+                <strong>{% trans "Numéro de téléphone" %} :</strong>
+                {{ proprietaire.numero_telephone }}
+            </p>
+
+            <p>
+                <strong>{% trans "Date de naissance" %} :</strong>
+                {{ proprietaire.date_naissance }}
+            </p>
+
+
+            <p>
+                <strong>{% trans "Numéro de compte" %} :</strong>
+                {{ proprietaire.numero_compte|format_iban }}
+            </p>
+
+            <p>
+                <strong>{% trans "Numéro de carte bancaire" %} :</strong>
+                {{ proprietaire.numero_carte_bancaire|format_card }}
+            </p>
+
+            <p>
+                <strong>{% trans "Numéro de carte d'identité" %} :</strong>
+                {{ proprietaire.numero_carte_id }}
+            </p>
+
+             <p>
+                <strong>{% trans "Numéro de permis" %} :</strong>
+                {{ proprietaire.numero_permis }}
+            </p>
+        </div>
+
+        <!-- remarques historique  -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+             <p>
+                <strong>{% trans "Remarques" %} :</strong><br>
+                {{ proprietaire.remarques }}
+            </p>
+
+        </div>
+        <div class="mt-auto w-full">
+            <a href="{% url 'proprietaire:modifier_proprietaire' proprietaire.id %}" class="block w-full">
+                <button type="button"
+                        class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+                    {% trans "Modifier le propriétaire" %}
+                </button>
+            </a>
+        </div>
+    </div>
+
+    <!-- Adresse -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">
+            {% trans "Adresse" %}
+        </h2>
+
+        {% if proprietaire.adresse %}
+            <p>{{ proprietaire.adresse }}</p>
+        {% else %}
+            <p class="text-gray-500">
+                {% trans "Aucune adresse renseignée." %}
+            </p>
+        {% endif %}
+    </div>
+
+    <!-- Métadonnées -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">
+            {% trans "Métadonnées" %}
+        </h2>
+
+        <p>
+            <strong>{% trans "Créé le" %} :</strong>
+            {{ proprietaire.created_at|date:"d/m/Y H:i" }}
+        </p>
+        <br>
+         <p>
+            <strong>{% trans "Mis à jour le" %} :</strong>
+            {{ proprietaire.updated_at|date:"d/m/Y H:i" }}
+        </p>
+    </div>
+
+    <br>
+
+
+    <!-- Actions -->
+    <div>
+        <a href="{% url 'proprietaire:proprietaire_list' %}"
+           class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+            {% trans "Retour à la liste des proprietaires" %}
+        </a>
+    </div>
+
+</div>
+
+
+{% endblock %}
