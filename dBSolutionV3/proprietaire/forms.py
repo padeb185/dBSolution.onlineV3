@@ -90,6 +90,8 @@ class ProprietaireForm(forms.ModelForm):
             }),
         }
 
+
+
     def clean_nom(self):
         nom = self.cleaned_data.get("nom")
         if nom and len(nom) < 2:

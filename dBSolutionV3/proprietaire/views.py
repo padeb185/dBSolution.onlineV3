@@ -12,9 +12,15 @@ from adresse.models import Adresse
 import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from .forms import ProprietaireForm
+from .forms import ProprietaireForm, ProprietaireVoitureForm
 from .models import Proprietaire  # adapte au nom réel
 from voiture.voiture_exemplaire.models import VoitureExemplaire
+from django.contrib import messages
+from django.shortcuts import render, redirect, get_object_or_404
+from django.utils.translation import gettext as _
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ValidationError
+
 
 
 @never_cache
@@ -231,15 +237,8 @@ class ProprietaireVoitureListView(ListView):
 
         return ProprietaireVoiture.objects.filter(societe=user.societe)
 
-from django.contrib import messages
-from django.shortcuts import render, get_object_or_404, redirect
-from django.utils.translation import gettext as _
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
-from django.shortcuts import render, redirect, get_object_or_404
-from django.utils.translation import gettext as _
-from django.contrib.auth.decorators import login_required
-from django.core.exceptions import ValidationError
+
+
 
 @login_required
 def proprietaire_voiture_form_view(request):
@@ -318,5 +317,73 @@ def total_part_voiture(request, voiture_id):
 
     return JsonResponse({"total": total})
 
-def proprietaire_voiture_detail_view(request):
-    return render(request, 'proprietaire/proprietaire_voiture_detail.html')
+
+@login_required
+def proprietaire_voiture_detail_view(request, proprietaire_voiture_id):
+    tenant = request.user.societe
+
+    with tenant_context(tenant):
+        proprietaire_voiture = get_object_or_404(ProprietaireVoiture, id=proprietaire_voiture_id)
+        adresse = proprietaire_voiture.proprietaire.adresse
+
+    return render(
+        request,
+        "proprietaire/proprietaire_voiture_detail.html",
+        {
+            "proprietaire_voiture": proprietaire_voiture,
+            "adresse": adresse,
+        },
+    )
+
+
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, render, redirect
+from django.contrib import messages
+from django.utils.translation import gettext as _
+
+@login_required
+def modifier_proprietaire_voiture_view(request, proprietaire_voiture_id):
+    tenant = request.user.societe
+
+    with tenant_context(tenant):
+
+        proprietaire_voiture = get_object_or_404(
+            ProprietaireVoiture,
+            id=proprietaire_voiture_id
+        )
+
+        if request.method == "POST":
+            form_proprietaire_voiture = ProprietaireVoitureForm(
+                request.POST,
+                instance=proprietaire_voiture
+            )
+
+            if form_proprietaire_voiture.is_valid():  # ✅ corrigé
+                proprietaire_voiture = form_proprietaire_voiture.save()
+
+                messages.success(
+                    request,
+                    _("Propriété mise à jour avec succès.")
+                )
+
+                return redirect(
+                    "proprietaire:modifier_proprietaire_voiture",
+                    proprietaire_voiture_id=proprietaire_voiture.id  # ✅ corrigé
+                )
+
+            else:
+                messages.error(request, _("Le formulaire contient des erreurs."))
+
+        else:
+            form_proprietaire_voiture = ProprietaireVoitureForm(
+                instance=proprietaire_voiture
+            )
+
+    return render(
+        request,
+        "proprietaire/modifier_proprietaire_voiture.html",
+        {
+            "form": form_proprietaire_voiture,
+            "proprietaire_voiture": proprietaire_voiture,
+        }
+    )
