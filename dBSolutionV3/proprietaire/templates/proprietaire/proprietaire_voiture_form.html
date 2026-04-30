@@ -51,7 +51,7 @@
                 <option value="">{% trans "Sélectionner une voiture" %}</option>
                 {% for v in voitures %}
                     <option value="{{ v.id }}">
-                        {{ v.immatriculation }} - {{ v.marque }} {{ v.modele }}
+                        {{ v.immatriculation }}  {{ v.nom_marque }} {{ v.nom_modele }}
                     </option>
                 {% endfor %}
             </select>
