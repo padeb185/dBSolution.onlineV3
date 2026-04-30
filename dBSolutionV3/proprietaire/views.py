@@ -13,8 +13,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .forms import ProprietaireForm
 from .models import Proprietaire  # adapte au nom réel
-
-
+from voiture.voiture_exemplaire.models import VoitureExemplaire
 
 
 @never_cache
@@ -60,8 +59,7 @@ class ProprietaireListView(ListView):
     model = Proprietaire
     template_name = "proprietaire/proprietaire_list.html"
     context_object_name = "proprietaires"
-    paginate_by = 20
-    ordering = ["nom_proprietaire"]
+    ordering = ["nom", "prenom"]
 
     def get_queryset(self):
         user = self.request.user
@@ -222,15 +220,59 @@ class ProprietaireVoitureListView(ListView):
     model = Proprietaire
     template_name = "proprietaire/proprietaire_voiture_list.html"
     context_object_name = "proprietaire_voitures"
-    paginate_by = 20
-    ordering = ["nom_proprietaire_voiture"]
+    ordering = ["proprietaire_voitures"]
 
     def get_queryset(self):
         user = self.request.user
 
         if not hasattr(user, "societe") or user.societe is None:
-            return Proprietaire.objects.none()
+            return ProprietaireVoiture.objects.none()
 
-        return Proprietaire.objects.filter(societe=user.societe)
+        return ProprietaireVoiture.objects.filter(societe=user.societe)
+
+@login_required
+def proprietaire_voiture_form_view(request):
+    tenant = request.user.societe
+
+    voitures = VoitureExemplaire.objects.all()
+    proprietaires = Proprietaire.objects.filter(societe=tenant)
+
+    if request.method == "POST":
+
+        proprietaire_id = request.POST.get("proprietaire")
+        exemplaire_id = request.POST.get("exemplaire")
+        part = request.POST.get("part_proprietaire_pourcent")
+
+        if not proprietaire_id or not exemplaire_id:
+            messages.error(request, _("Veuillez sélectionner un propriétaire et une voiture."))
+        else:
+            with tenant_context(tenant):
+
+                proprietaire = get_object_or_404(Proprietaire, id=proprietaire_id)
+                voiture_exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
+
+                ProprietaireVoiture.objects.create(
+                    societe=tenant,
+                    proprietaire=proprietaire,
+                    voiture_exemplaire=voiture_exemplaire,
+                    part_proprietaire_pourcent=part or 100
+                )
+
+                messages.success(
+                    request,
+                    _("Association créée avec succès !")
+                )
+
+    return render(
+        request,
+        "proprietaire/proprietaire_voiture_form.html",
+        {
+            "tenant": tenant,
+            "voitures": voitures,
+            "proprietaires": proprietaires
+        }
+    )
 
 
+def proprietaire_voiture_detail_view(request):
+    return render(request, 'proprietaire/proprietaire_voiture_detail.html')

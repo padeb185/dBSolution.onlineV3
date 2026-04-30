@@ -83,6 +83,10 @@ class Proprietaire(models.Model):
     updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
 
 
+
+
+
+
 class ProprietaireVoiture(models.Model):
     voiture_exemplaire = models.ForeignKey(
         "voiture_exemplaire.VoitureExemplaire",

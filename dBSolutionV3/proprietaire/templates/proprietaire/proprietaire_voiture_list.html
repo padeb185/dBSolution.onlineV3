@@ -1,10 +1,187 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% load i18n static widget_tweaks %}
 
-</body>
-</html>
+{% block title %}{% trans "Liste des Copropriétaires" %}{% endblock %}
+
+{% block content %}
+<br>
+
+<h1 class="text-2xl font-bold mb-6 flex items-center">
+    <img src="{% static 'icons/coproprietaire.png' %}" alt="Copropriétaire"
+         style="width:60px; height:60px; margin-right:10px;">
+    {% trans "Liste des Copropriétaires" %}
+</h1>
+
+<br>
+
+<!-- Bouton ajouter -->
+<div>
+    <a href="{% url 'proprietaire:proprietaire_voiture_form' %}"
+       class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Ajouter un copropriétaire" %}
+    </a>
+</div>
+
+<br><br>
+
+<!-- Filtres -->
+<div class="bg-white shadow-md rounded-lg p-4 mb-4">
+    <div class="flex flex-wrap items-end gap-3">
+
+        <input id="search-nom" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px]"
+               placeholder="{% trans 'Nom' %}">
+
+        <input id="search-prenom" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px]"
+               placeholder="{% trans 'Prénom' %}">
+
+        <input id="search-adresse" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px]"
+               placeholder="{% trans 'Adresse' %}">
+
+        <input id="search-voiture" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px]"
+               placeholder="{% trans 'Voiture' %}">
+
+        <input id="search-part" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px]"
+               placeholder="{% trans 'Part (%)' %}">
+
+    </div>
+</div>
+
+<!-- TABLE -->
+<table id="proprietaire_voitures-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2">{% trans "Nom" %}</th>
+            <th class="border px-4 py-2">{% trans "Prénom" %}</th>
+            <th class="border px-4 py-2">{% trans "Adresse" %}</th>
+            <th class="border px-4 py-2">{% trans "Voiture" %}</th>
+            <th class="border px-4 py-2">{% trans "Part en pourcent" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Actions" %}</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for proprietaire_voiture in proprietaire_voitures %}
+        <tr>
+            <td class="border px-4 py-2">{{ proprietaire_voiture.proprietaire.nom }}</td>
+
+            <td class="border px-4 py-2">{{ proprietaire_voiture.proprietaire.prenom }}</td>
+
+            <td class="border px-4 py-2">{{ proprietaire_voiture.proprietaire.adresse|default:"-" }}</td>
+
+             <td class="p-3">
+            {% with exemplaire=proprietaire_voiture.voiture_exemplaire %}
+                {% if exemplaire.pays == 'Belgique' %}
+                <div class="flex items-center w-[180px] h-[34px] bg-white border-2 border-[#8B0000] rounded font-[Arial]">
+                    <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                        <span>🇪🇺</span>
+                        <span>B</span>
+                    </div>
+                    <div class="w-full text-center font-bold text-[#8B0000] text-[18px]">
+                        {{ exemplaire.immatriculation|upper }}
+                    </div>
+                </div>
+                {% elif exemplaire.pays == 'Luxembourg' %}
+                <div class="flex items-center w-[180px] h-[34px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial]">
+                    <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                        <span>🇪🇺</span>
+                        <span>L</span>
+                    </div>
+                    <div class="w-full text-center font-bold text-black text-[18px]">
+                        {{ exemplaire.immatriculation|upper }}
+                    </div>
+                </div>
+                {% elif exemplaire.pays == 'Allemagne' %}
+                <div class="flex items-center w-[180px] h-[34px] bg-white border-2 border-black rounded font-[Arial]">
+                    <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                        <span>🇪🇺</span>
+                        <span>D</span>
+                    </div>
+                    <div class="w-full text-center font-bold text-black text-[18px]">
+                        {{ exemplaire.immatriculation|upper }}
+                    </div>
+                </div>
+                {% endif %}
+            {% endwith %}
+            </td>
+
+            <td class="border px-4 py-2">
+                {{ proprietaire_voiture.part_proprietaire_pourcent }}
+            </td>
+
+            <td class="border px-4 py-2 text-center">
+                <a href="{% url 'proprietaire:proprietaire_voiture_detail' proprietaire_voiture.id %}"
+                   class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
+                    {% trans "Info" %}
+                </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6" class="text-center py-4">
+                {% trans "Aucun propriétaire enregistré." %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<br><br>
+
+<!-- Retour -->
+<div>
+    <a href="{% url 'proprietaire:proprietaire_dashboard' %}"
+       class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour au tableau de bord des propriétaires" %}
+    </a>
+</div>
+
+<br><br>
+
+<script>
+$(document).ready(function() {
+    var table = $('#proprietaire_voitures-table').DataTable({
+        pageLength: 100,
+        language: {
+            search: "{% trans 'Recherche globale :' %}",
+            lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ copropriétaires' %}",
+            infoEmpty: "{% trans 'Aucun propriétaire trouvé' %}",
+            zeroRecords: "{% trans 'Aucun propriétaire trouvé' %}",
+            paginate: {
+                first: "{% trans 'Premier' %}",
+                last: "{% trans 'Dernier' %}",
+                next: "{% trans 'Suivant' %}",
+                previous: "{% trans 'Précédent' %}"
+            }
+        },
+        order: [[0, "asc"]]
+    });
+
+    $('#search-nom').on('keyup', function () {
+        table.column(0).search(this.value).draw();
+    });
+
+    $('#search-prenom').on('keyup', function () {
+        table.column(1).search(this.value).draw();
+    });
+
+    $('#search-adresse').on('keyup', function () {
+        table.column(2).search(this.value).draw();
+    });
+
+    $('#search-voiture').on('keyup', function () {
+        table.column(3).search(this.value).draw();
+    });
+
+    $('#search-part').on('keyup', function () {
+        table.column(4).search(this.value).draw();
+    });
+});
+</script>
+
+{% endblock %}
