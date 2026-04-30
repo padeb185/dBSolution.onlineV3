@@ -2,8 +2,12 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from decimal import Decimal
+from django.db.models import Sum
 from django.utils.translation import gettext_lazy as _
 from client_particulier.models import validate_iban
+from django.http import JsonResponse
+from django.db.models import Sum
+
 
 
 class Proprietaire(models.Model):
@@ -122,3 +126,22 @@ class ProprietaireVoiture(models.Model):
 
     created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
+
+    def clean(self):
+        total = (
+                self.__class__.objects
+                .filter(voiture_exemplaire=self.voiture_exemplaire)
+                .exclude(pk=self.pk)
+                .aggregate(total=Sum("part_proprietaire_pourcent"))
+                ["total"] or 0
+        )
+
+        if total + self.part_proprietaire_pourcent > 100:
+            raise ValidationError("Total des parts > 100% interdit.")
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
+
+
+

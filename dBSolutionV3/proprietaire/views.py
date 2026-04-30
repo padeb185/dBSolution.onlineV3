@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import Sum
 from django.shortcuts import render, get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
@@ -230,6 +231,16 @@ class ProprietaireVoitureListView(ListView):
 
         return ProprietaireVoiture.objects.filter(societe=user.societe)
 
+from django.contrib import messages
+from django.shortcuts import render, get_object_or_404, redirect
+from django.utils.translation import gettext as _
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.shortcuts import render, redirect, get_object_or_404
+from django.utils.translation import gettext as _
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ValidationError
+
 @login_required
 def proprietaire_voiture_form_view(request):
     tenant = request.user.societe
@@ -243,25 +254,49 @@ def proprietaire_voiture_form_view(request):
         exemplaire_id = request.POST.get("exemplaire")
         part = request.POST.get("part_proprietaire_pourcent")
 
+        # Validation basique
         if not proprietaire_id or not exemplaire_id:
             messages.error(request, _("Veuillez sélectionner un propriétaire et une voiture."))
-        else:
-            with tenant_context(tenant):
+            return redirect("proprietaire:proprietaire_voiture_form")
 
-                proprietaire = get_object_or_404(Proprietaire, id=proprietaire_id)
-                voiture_exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
+        # Conversion safe
+        try:
+            part = float(part) if part else 100
+        except ValueError:
+            messages.error(request, _("La part doit être un nombre valide."))
+            return redirect("proprietaire:proprietaire_voiture_form")
 
-                ProprietaireVoiture.objects.create(
+        with tenant_context(tenant):
+
+            proprietaire = get_object_or_404(
+                Proprietaire,
+                id=proprietaire_id,
+                societe=tenant
+            )
+
+            voiture_exemplaire = get_object_or_404(
+                VoitureExemplaire,
+                id=exemplaire_id
+            )
+
+            try:
+                obj = ProprietaireVoiture(
                     societe=tenant,
                     proprietaire=proprietaire,
                     voiture_exemplaire=voiture_exemplaire,
-                    part_proprietaire_pourcent=part or 100
+                    part_proprietaire_pourcent=part
                 )
 
-                messages.success(
-                    request,
-                    _("Association créée avec succès !")
-                )
+                # 🔥 IMPORTANT : déclenche la validation 100%
+                obj.full_clean()
+                obj.save()
+
+                messages.success(request, _("Association créée avec succès !"))
+                return redirect("proprietaire:proprietaire_voiture_list")
+
+            except ValidationError as e:
+                messages.error(request, e.messages[0])
+                return redirect("proprietaire:proprietaire_voiture_form")
 
     return render(
         request,
@@ -273,6 +308,15 @@ def proprietaire_voiture_form_view(request):
         }
     )
 
+def total_part_voiture(request, voiture_id):
+    total = (
+        ProprietaireVoiture.objects
+        .filter(voiture_exemplaire_id=voiture_id)
+        .aggregate(total=Sum("part_proprietaire_pourcent"))
+        ["total"] or 0
+    )
+
+    return JsonResponse({"total": total})
 
 def proprietaire_voiture_detail_view(request):
     return render(request, 'proprietaire/proprietaire_voiture_detail.html')

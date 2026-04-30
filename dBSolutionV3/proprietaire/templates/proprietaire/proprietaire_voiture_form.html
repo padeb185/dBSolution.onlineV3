@@ -64,7 +64,7 @@
                    class="border rounded px-4 py-2 w-full"
                    min="0" max="100" value="100">
         </div>
-
+        <div id="part-message" class="mt-2 text-sm font-semibold"></div>
         <!-- Buttons -->
         <div class="flex gap-3 mt-6">
             <button type="submit"
@@ -95,5 +95,57 @@
     }
     const csrftoken = getCookie('csrftoken');
 
+
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const voitureEl = document.getElementById("id_exemplaire");
+    const partEl = document.getElementById("id_part");
+    const msgEl = document.getElementById("part-message");
+
+    async function check() {
+        const voiture = voitureEl.value;
+        const part = parseFloat(partEl.value || 0);
+
+        if (!voiture) {
+            msgEl.innerHTML = "";
+            return;
+        }
+
+        const res = await fetch(`/api/voiture/${voiture}/total-part/`);
+        const data = await res.json();
+
+        const total = data.total || 0;
+        const reste = 100 - total;
+        const finalTotal = total + part;
+
+        if (reste <= 0) {
+            msgEl.innerHTML = "❌ Aucun pourcentage disponible (100% atteint)";
+            msgEl.className = "mt-2 text-red-600 font-semibold";
+            return;
+        }
+
+        if (finalTotal > 100) {
+            const depassement = finalTotal - 100;
+
+            msgEl.innerHTML = `
+                ❌ Dépassement de ${depassement.toFixed(2)}%<br>
+                ✔ Disponible : ${reste.toFixed(2)}%
+            `;
+            msgEl.className = "mt-2 text-red-600 font-semibold";
+        } else {
+            const dispoApres = reste - part;
+
+            msgEl.innerHTML = `
+                ✔ Disponible : ${reste.toFixed(2)}%<br>
+                ➜ Après ajout : ${dispoApres.toFixed(2)}%
+            `;
+            msgEl.className = "mt-2 text-green-600 font-semibold";
+        }
+    }
+
+    voitureEl.addEventListener("change", check);
+    partEl.addEventListener("input", check);
+});
 </script>
 {% endblock %}

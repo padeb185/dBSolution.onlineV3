@@ -1,5 +1,7 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from django import forms
+from django.db.models import Sum
 from .models import Proprietaire
 from .models import ProprietaireVoiture
 
@@ -34,23 +36,19 @@ class ProprietaireVoitureForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
-
         voiture = cleaned_data.get("voiture_exemplaire")
         part = cleaned_data.get("part_proprietaire_pourcent")
 
-        if voiture and part:
-            total = ProprietaireVoiture.objects.filter(
+        if voiture and part is not None:
+            total = self.Meta.model.objects.filter(
                 voiture_exemplaire=voiture
-            ).exclude(
-                pk=self.instance.pk
-            ).aggregate(
-                total=models.Sum("part_proprietaire_pourcent")
-            )["total"] or 0
+            ).aggregate(total=Sum('part_proprietaire_pourcent'))['total'] or 0
+
+            if self.instance.pk:
+                total -= self.instance.part_proprietaire_pourcent
 
             if total + part > 100:
-                raise forms.ValidationError(
-                    "Le total des parts des propriétaires ne peut pas dépasser 100%."
-                )
+                raise ValidationError("Total des parts > 100% interdit.")
 
         return cleaned_data
 

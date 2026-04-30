@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import proprietaire_dashboard_view, ProprietaireListView, ProprietaireVoitureListView, check_prenom, \
     proprietaire_form_view, proprietaire_detail_view, modifier_proprietaire_view, proprietaire_voiture_form_view, \
-    proprietaire_voiture_detail_view
+    proprietaire_voiture_detail_view, total_part_voiture
 
 app_name = "proprietaire"
 
@@ -31,4 +31,5 @@ urlpatterns = [
 
     path("<int:proprietaire_voiture_id>/",proprietaire_voiture_detail_view,name="proprietaire_voiture_detail"),
 
+    path("api/voiture/<int:voiture_id>/total-part/", total_part_voiture ,name="total_part_voiture"),
 ]
