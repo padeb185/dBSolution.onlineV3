@@ -231,6 +231,22 @@ class CourroieDistribution(TechnicienMixin, models.Model):
         self.tech_role_technicien = user.role
         self.tech_societe = user.societe
 
+    def clean(self):
+        cleaned_data = super().clean()
+
+        voiture = cleaned_data.get("voiture_exemplaire")
+        km_courroie = cleaned_data.get("kilometrage_courroie_distribution")
+
+        if voiture and km_courroie is not None:
+            if km_courroie > voiture.kilometres_chassis:
+                raise ValidationError({
+                    "kilometrage_courroie_distribution": _(
+                        "Le kilométrage de la courroie ne peut pas être supérieur au kilométrage actuel du véhicule."
+                    )
+                })
+
+        return cleaned_data
+
     class Meta:
         verbose_name = _("Courroie de distribution")
         verbose_name_plural = _("Courroies de distributions")
@@ -238,16 +254,7 @@ class CourroieDistribution(TechnicienMixin, models.Model):
     def __str__(self):
         return f"Courroie de distribution moteur - {self.voiture_exemplaire}"
 
-    def clean(self):
-        super().clean()
-        if self.voiture_exemplaire and self.kilometrage_courroie_distribution is not None:
-            if self.kilometrage_courroie_distribution < self.voiture_exemplaire.kilometres_chassis:
-                raise ValidationError({
-                    'kilometrage_courroie_distribution': _(
-                        f"Le kilométrage de la courroie de distribution ({self.kilometrage_courroie_distribution}) "
-                        f"ne peut pas être inférieur au kilométrage actuel de la voiture ({self.voiture_exemplaire.kilometres_chassis})."
-                    )
-                })
+
 
     # -------------------------
     # CALCUL GENERIQUE

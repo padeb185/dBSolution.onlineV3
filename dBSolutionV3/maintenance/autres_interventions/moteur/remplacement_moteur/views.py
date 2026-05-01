@@ -1,15 +1,11 @@
-from datetime import timezone
-
+from django.utils import timezone
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView
 from django.db import models, transaction
 from django_tenants.utils import tenant_context
 from voiture.voiture_exemplaire.models import VoitureExemplaire
-from django.views.generic import CreateView
-from django.urls import reverse
 from django.contrib import messages
-from django.utils.timezone import now
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
@@ -104,7 +100,7 @@ def remplacement_moteur_form_view(request, exemplaire_id):
                 voiture_exemplaire=exemplaire,
                 mecanicien=request.user,
                 immatriculation=exemplaire.immatriculation,
-                date_intervention=timezone.localtime(timezone.now()).date(),
+                date_intervention=timezone.now().date(),
                 kilometres_chassis=exemplaire.kilometres_chassis,
                 kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
                 type_maintenance="admission",
@@ -123,7 +119,7 @@ def remplacement_moteur_form_view(request, exemplaire_id):
         # --- Formulaire ---
         if request.method == "POST":
             form = RemplacementMoteurForm(
-                request.POST,
+                request.POST or None,
                 instance=remplacement_moteur,
                 user=request.user,
                 exemplaire=exemplaire
@@ -159,13 +155,25 @@ def remplacement_moteur_form_view(request, exemplaire_id):
 
         else:
             form = RemplacementMoteurForm(
+                request.POST or None,
                 instance=remplacement_moteur,
                 user=request.user,
                 exemplaire=exemplaire
             )
 
+
         # --- Génération des champs par section ---
         sections = [
+            {
+                "title": _("Voiture"),
+                "icon": "icons/voiture-de-course.png",
+                "fields": [form[f.name] for f in form if "voiture" in f.name],
+            },
+            {
+                "title": _("Utilisation"),
+                "icon": "icons/.png",
+                "fields": [form[f.name] for f in form if "type_util" in f.name],
+            },
             {
                 "title": _("Kilométrage"),
                 "icon": "icons/compteur.png",
@@ -176,11 +184,7 @@ def remplacement_moteur_form_view(request, exemplaire_id):
                 "icon": "icons/engine.png",
                 "fields": [form[f.name] for f in form if "moteur" in f.name],
             },
-            {
-                "title": _("Huile moteur"),
-                "icon": "icons/fluide.png",
-                "fields": [form[f.name] for f in form if "moteur_niveau" in f.name],
-            },
+
 
             {
                 "title": _("Liquide de refroidissement"),
@@ -219,4 +223,19 @@ def remplacement_moteur_form_view(request, exemplaire_id):
             "sections": sections,
             "now": timezone.now(),
         })
+
+
+
+@login_required
+def remplacement_moteur_detail_view(request, remplacement_moteur_id):
+    remplacement_moteur = get_object_or_404(
+        RemplacementMoteur.objects.select_related("voiture_exemplaire"),
+        id=remplacement_moteur_id
+    )
+
+    context = {
+        "remplacement_moteur": remplacement_moteur,
+        "exemplaire": remplacement_moteur.voiture_exemplaire,
+    }
+    return render(request, "remplacement_moteur/remplacement_moteur_detail.html", context)
 

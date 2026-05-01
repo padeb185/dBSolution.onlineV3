@@ -92,6 +92,11 @@ class ClientParticulier(models.Model):
     created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
 
+    def __str__(self):
+        return _("%(nom)s %(prenom)s (Client)") % {
+            "nom": self.nom,
+            "prenom": self.prenom,
+        }
 
     def clean(self):
         super().clean()
@@ -119,7 +124,12 @@ class ClientParticulier(models.Model):
             (self.date_naissance.month, self.date_naissance.day)
         )
 
-    class Niveau(models.TextChoices):
+
+
+
+class ClientPilotage(models.Model):
+
+    class NiveauPilotage(models.TextChoices):
         DEBUTANT = "DEBUTANT", _("Débutant")
         INTERMEDIAIRE = "INTERMEDIAIRE", _("Intermédiaire")
         EXPERT = "EXPERT", _("Expert")
@@ -130,29 +140,25 @@ class ClientParticulier(models.Model):
     niveau = models.CharField(
         _("Niveau"),
         max_length=20,
-        choices=Niveau.choices,
-        default=Niveau.DEBUTANT
+        choices=NiveauPilotage.choices,
+        default=NiveauPilotage.DEBUTANT,
     )
 
     historique = models.TextField(
         _("Historique"),
         null=True,
-        blank=True
+        blank=True,
     )
 
     location = models.CharField(
         _("Location"),
         max_length=255,
         null=True,
-        blank=True
+        blank=True,
     )
 
-
-
-    created_at = models.DateTimeField(
-        _("Créé le"),
-        auto_now_add=True
-    )
+    nom = models.CharField(max_length=100)
+    prenom = models.CharField(max_length=100)
 
     class Meta:
         verbose_name = _("Client")
@@ -163,6 +169,4 @@ class ClientParticulier(models.Model):
             "nom": self.nom,
             "prenom": self.prenom,
         }
-
-
 

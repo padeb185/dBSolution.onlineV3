@@ -86,7 +86,7 @@ class MoteurVoiture(models.Model):
         ]
 
     def __str__(self):
-        return f"Moteur {self.cylindree_l}L - {self.type_moteur}"
+        return f"Moteur {self.motoriste} - {self.cylindree_l}L - {self.type_moteur} - {self.puissance_ch} ch"
 
     def prochain_entretien_km(self):
         return self.kilometres_moteur + self.intervalle_km_entretien

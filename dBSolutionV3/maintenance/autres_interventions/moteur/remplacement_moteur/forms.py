@@ -1,5 +1,9 @@
 from django import forms
 from django.core.exceptions import ValidationError
+from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
+
+from maindoeuvre.models import MainDoeuvre
 from .models import RemplacementMoteur
 
 
@@ -7,40 +11,151 @@ class RemplacementMoteurForm(forms.ModelForm):
 
     class Meta:
         model = RemplacementMoteur
-        exclude = ["kilometres_remplacement_moteur"]
+
+        # champs calculés / auto-gérés exclus
+        exclude = [
+            "kilometres_remplacement_moteur",
+            "variation_kilometres",
+        ]
+
         widgets = {
             "date_derniere_intervention": forms.DateInput(attrs={"type": "date"}),
         }
 
     def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop("user", None)
+        self.exemplaire = kwargs.pop("exemplaire", None)
+
         super().__init__(*args, **kwargs)
 
-        # 🔒 Champs calculés → non modifiables
-        self.fields["kilometres_moteur"].disabled = True
-        self.fields["variation_kilometres"].disabled = True
+        # -----------------------
+        # MAIN D'ŒUVRE
+        # -----------------------
+        if "main_oeuvre" in self.fields:
+            self.fields["main_oeuvre"].queryset = MainDoeuvre.objects.select_related(
+                "utilisateur"
+            ).filter(utilisateur__is_active=True)
 
-        # 💡 Option UX
-        self.fields["remplacement_effectue"].help_text = (
-            "Cochez pour remplacer le moteur (le kilométrage sera remis à 0 automatiquement)."
-        )
+        # -----------------------
+        # AUTO-REMPLISSAGE VOITURE
+        # -----------------------
+        if self.exemplaire:
+            if "voiture_exemplaire" in self.fields:
+                self.fields["voiture_exemplaire"].initial = self.exemplaire
 
+            if "voiture_marque" in self.fields:
+                self.fields["voiture_marque"].initial = self.exemplaire.voiture_modele.voiture_marque
+
+            if "voiture_modele" in self.fields:
+                self.fields["voiture_modele"].initial = self.exemplaire.voiture_modele
+
+            if "kilometres_chassis" in self.fields:
+                self.fields["kilometres_chassis"].initial = self.exemplaire.kilometres_chassis
+
+            if "immatriculation" in self.fields:
+                self.fields["immatriculation"].initial = self.exemplaire.immatriculation
+
+        # -----------------------
+        # TECHNICIEN AUTO
+        # -----------------------
+        if self.user:
+            if "tech_technicien" in self.fields:
+                self.fields["tech_technicien"].initial = self.user
+                self.fields["tech_technicien"].disabled = True
+
+            if "tech_societe" in self.fields:
+                self.fields["tech_societe"].initial = self.user.societe
+                self.fields["tech_societe"].disabled = True
+
+        # -----------------------
+        # CHAMPS CALCULÉS
+        # -----------------------
+        if "kilometres_moteur" in self.fields:
+            self.fields["kilometres_moteur"].disabled = True
+
+        if "variation_kilometres" in self.fields:
+            self.fields["variation_kilometres"].disabled = True
+
+        # -----------------------
+        # UX
+        # -----------------------
+        if "remplacement_effectue" in self.fields:
+            self.fields["remplacement_effectue"].help_text = _(
+                "Cochez pour remplacer le moteur (remise à zéro automatique du kilométrage)."
+            )
+
+    # =========================================================
+    # VALIDATION PROPRE
+    # =========================================================
     def clean(self):
         cleaned_data = super().clean()
 
-        km_chassis = cleaned_data.get("kilometres_chassis") or 0
-        km_entretien = cleaned_data.get("kilometres_dernier_entretien") or 0
-        remplacement = cleaned_data.get("remplacement_effectue")
+        voiture = cleaned_data.get("voiture_exemplaire")
+        km_moteur = cleaned_data.get("kilometres_moteur")
 
-        # 🚫 incohérence entretien
-        if km_entretien > km_chassis:
-            raise ValidationError(
-                "Le kilométrage du dernier entretien ne peut pas dépasser le kilométrage du châssis."
-            )
-
-        # ⚠️ sécurité remplacement
-        if remplacement and km_chassis == 0:
-            raise ValidationError(
-                "Impossible de remplacer un moteur avec un kilométrage châssis à 0."
-            )
+        if voiture and km_moteur is not None:
+            if km_moteur > voiture.kilometres_chassis:
+                self.add_error(
+                    "kilometres_moteur",
+                    _("Le kilométrage du moteur ne peut pas être supérieur au kilométrage du véhicule.")
+                )
 
         return cleaned_data
+
+    # =========================================================
+    # SAUVEGARDE MÉTIER
+    # =========================================================
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+
+        voiture = instance.voiture_exemplaire or self.exemplaire
+
+        # -----------------------
+        # KM CHÂSSIS
+        # -----------------------
+        km_chassis = self.cleaned_data.get("kilometres_chassis")
+
+        if voiture and km_chassis is not None:
+            # cohérence véhicule
+            if km_chassis >= voiture.kilometres_chassis:
+                voiture.kilometres_chassis = km_chassis
+                voiture.save(update_fields=["kilometres_chassis"])
+
+            instance.kilometres_chassis = km_chassis
+
+            if not instance.voiture_exemplaire:
+                instance.voiture_exemplaire = voiture
+
+        # -----------------------
+        # MAIN D'ŒUVRE
+        # -----------------------
+        heures = self.cleaned_data.get("temps_heures") or 0
+        minutes = self.cleaned_data.get("temps_minutes") or 0
+        total_minutes = heures * 60 + minutes
+
+        main = instance.main_oeuvre
+
+        if main:
+            main.temps_minutes = total_minutes
+            main.save(update_fields=["temps_minutes"])
+        else:
+            if self.user:
+                main = MainDoeuvre.objects.create(
+                    utilisateur=self.user,
+                    temps_minutes=total_minutes
+                )
+                instance.main_oeuvre = main
+
+        # -----------------------
+        # TECHNICIEN AUTO
+        # -----------------------
+        if self.user:
+            instance.assign_technicien(self.user)
+
+        # -----------------------
+        # SAVE FINAL
+        # -----------------------
+        if commit:
+            instance.save()
+
+        return instance

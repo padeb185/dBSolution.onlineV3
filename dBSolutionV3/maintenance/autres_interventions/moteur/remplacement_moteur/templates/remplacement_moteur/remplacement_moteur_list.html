@@ -50,7 +50,7 @@
 </div>
 
 <!-- 📊 TABLE -->
-<table id="moteur-table" class="min-w-full table-auto border border-gray-200 bg-white">
+<table id="remplacement_moteur-table" class="min-w-full table-auto border border-gray-200 bg-white">
     <thead>
         <tr class="bg-gray-100">
             <th class="border px-4 py-2">{% trans "Immatriculation" %}</th>
@@ -64,8 +64,8 @@
     </thead>
 
     <tbody>
-        {% for moteur in remplacements %}
-        {% with exemplaire=moteur.voiture_exemplaire %}
+        {% for remplacement_moteur in remplacement_moteurs %}
+        {% with exemplaire=remplacement_moteur.voiture_exemplaire %}
         <tr>
 
             <!-- 🚗 Immatriculation -->
@@ -81,12 +81,12 @@
 
             <!-- ⚙️ Km moteur -->
             <td class="border px-4 py-2 font-semibold">
-                {{ moteur.kilometres_moteur|default:"-" }}
+                {{ remplacement_moteur.kilometres_moteur|default:"-" }}
             </td>
 
             <!-- 🚗 Km chassis -->
             <td class="border px-4 py-2">
-                {{ moteur.kilometres_chassis|default:"-" }}
+                {{ remplacement_moteur.kilometres_chassis|default:"-" }}
             </td>
 
             <!-- 🟢 Tag -->
@@ -95,22 +95,22 @@
                {% elif moteur.tag == 'JAUNE' %} bg-yellow-100 text-yellow-800 border-yellow-500 border-2
                {% elif moteur.tag == 'ROUGE' %}bg-red-100 text-red-800 border-red-300 border-2
                {% endif %}">
-              {{ moteur.get_tag_display }}
+              {{ remplacement_moteur.get_tag_display }}
             </td>
 
             <!-- 👨‍🔧 Technicien -->
             <td class="border px-4 py-2">
-                {{ moteur.tech_nom_technicien|default:"-" }}
+                {{ remplacement_moteur.tech_nom_technicien|default:"-" }}
             </td>
 
             <!-- 📅 Date -->
             <td class="border px-4 py-2">
-                {{ moteur.date|date:"d/m/Y H:i" }}
+                {{ remplacement_moteur.date|date:"d/m/Y H:i" }}
             </td>
 
             <!-- ⚙️ Actions -->
             <td class="border px-4 py-2 text-center">
-               <a href="{% url 'remplacement_moteur:remplacement_moteur_detail' moteur.id %}"
+               <a href="{% url 'remplacement_moteur:remplacement_moteur_detail' remplacement_moteur.id %}"
                    class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700">
                     {% trans "Infos" %}
                </a>
@@ -142,7 +142,7 @@
 <!-- 📊 DataTable -->
 <script>
 $(document).ready(function() {
-    var table = $('#moteur-table').DataTable({
+    var table = $('#remplacement_moteurs-table').DataTable({
         pageLength: 100,
         order: [[5, "desc"]]
     });

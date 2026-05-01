@@ -40,8 +40,6 @@ class ClientParticulierForm(forms.ModelForm):
             "numero_carte_bancaire",
             "email",
             "date_naissance",
-            "niveau",
-            "historique",
             "remarques",
         ]
         widgets = {

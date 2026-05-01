@@ -203,7 +203,7 @@ def courroie_form_view(request, exemplaire_id):
 
 
 # ------------
-# Vue détail boite
+# Vue détail courroie
 # -----------------------------
 @login_required
 def courroie_detail_view(request, courroie_id):

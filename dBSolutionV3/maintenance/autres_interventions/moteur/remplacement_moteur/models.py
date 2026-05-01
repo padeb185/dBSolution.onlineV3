@@ -1,4 +1,6 @@
 import uuid
+
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator, RegexValidator
 from django.utils.translation import gettext_lazy as _
@@ -55,8 +57,6 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         blank=True
     )
 
-
-
     voiture_marque = models.ForeignKey(
         "voiture_marque.VoitureMarque",
         on_delete=models.PROTECT,
@@ -100,6 +100,12 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         verbose_name=_("Kilomètres chassis")
     )
 
+    kilometres_moteur = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name=_("Kilometres du moteur à remplacer")
+    )
 
     immatriculation = models.CharField(
         max_length=10,
@@ -108,38 +114,6 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         blank=True
     )
 
-
-    vin_validator = RegexValidator(
-        regex=r'^[A-HJ-NPR-Z0-9]{17}$',
-        message=_("Le numéro VIN doit contenir exactement 17 caractères alphanumériques (lettres A-H, J-N, P, R-Z et chiffres).")
-    )
-
-    numero_vin = models.CharField(
-        max_length=17,
-        unique=True,
-        verbose_name=_("Numéro VIN"),
-        validators=[vin_validator],
-        null=True,
-        blank=True,
-    )
-    vin_simplifie = models.CharField(
-        max_length=10,
-        verbose_name=_("VIN simplifié"),
-        editable=False,
-        blank=True,
-        null=True,
-    )
-    est_apres_2010 = models.BooleanField(default=True)
-
-    annee_production = models.PositiveIntegerField(
-        verbose_name=_("Année de production"),
-        editable=False,
-        blank=True,
-        null=True,
-    )
-    mois_production = models.PositiveSmallIntegerField(
-        validators=[MinValueValidator(1), MaxValueValidator(12)]
-    )
 
     type_utilisation = models.CharField(
         max_length=10,
@@ -204,6 +178,8 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         blank=True,
         verbose_name=_("Client"),
     )
+
+
 
     last_maintained_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -282,6 +258,7 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         verbose_name=_("Société"),
         related_name="remplacement_moteur"
     )
+
     main_oeuvre = models.ForeignKey(
         "maindoeuvre.MainDoeuvre",
         on_delete=models.SET_NULL,
@@ -291,7 +268,7 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         verbose_name=_("Main d'oeuvre")
     )
 
-    temps_minutes = models.PositiveIntegerField(default=0)
+
 
 
     # --- Date d'enregistrement ---
@@ -300,12 +277,30 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
     created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
 
+    def assign_technicien(self, user):
+        self.tech_technicien = user
+        self.tech_nom_technicien = f"{user.prenom} {user.nom}"
+        self.tech_role_technicien = user.role
+        self.tech_societe = user.societe
 
 
     def __str__(self):
         return f"{self.voiture_marque.nom_marque} {self.voiture_modele.nom_modele} {self.voiture_modele.nom_variante} - {self.immatriculation}"
 
+    from django.core.exceptions import ValidationError
+    from django.utils.translation import gettext_lazy as _
+
+    def clean(self):
+        if self.voiture_exemplaire and self.kilometres_moteur is not None:
+            if self.kilometres_moteur > self.voiture_exemplaire.kilometres_chassis:
+                raise ValidationError({
+                    "kilometres_moteur": _(
+                        "Le kilométrage du moteur ne peut pas être supérieur au kilométrage du véhicule."
+                    )
+                })
+
     def save(self, *args, **kwargs):
+
         ancien_remplacement = False
 
         if self.pk:
@@ -313,33 +308,16 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
                 .values_list("remplacement_effectue", flat=True) \
                 .first()
 
-        # 🚗 VIN
-        if self.numero_vin:
-            self.numero_vin = self.numero_vin.upper()
-
-            if len(self.numero_vin) == 17:
-                self.vin_simplifie = self.numero_vin[-10:]
-
-                try:
-                    dixieme = self.numero_vin[9]
-                    self.annee_production = get_vin_year(dixieme)
-                except Exception:
-                    self.annee_production = None
-            else:
-                self.vin_simplifie = None
-                self.annee_production = None
-        else:
-            self.vin_simplifie = None
-            self.annee_production = None
-
-        # 🔁 Détection réelle du remplacement moteur
+        # 🔁 détection remplacement
         if self.remplacement_effectue and not ancien_remplacement:
             self.kilometres_remplacement_moteur = self.kilometres_chassis or 0
 
-        # 🔄 Mise à jour km
+        # 🔄 calcul km
         self.update_kilometres()
 
         super().save(*args, **kwargs)
+
+        return self
 
     def update_kilometres(self):
         km_chassis = self.kilometres_chassis or 0
