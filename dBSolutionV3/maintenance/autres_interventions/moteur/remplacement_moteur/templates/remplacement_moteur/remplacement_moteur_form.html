@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% load i18n widget_tweaks static %}
+
+{% block content %}
+<br><br>
+
+<div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
+
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold flex items-center gap-4">
+            <img src="{% static 'icons/moteur.png' %}" style="width:60px;">
+            <span>
+                {% trans "Remplacement moteur pour :" %}
+                {{ exemplaire.voiture_marque.nom_marque }}
+                {{ exemplaire.voiture_modele.nom_modele }}
+                {{ exemplaire.voiture_modele.nom_variante }}
+            </span>
+        </h1>
+    </div>
+
+    <!-- Plaque -->
+    <div class="mb-4">
+        {% include "maintenance/partials/plaque.html" %}
+    </div>
+
+    <!-- Messages -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="mb-3 px-4 py-2 rounded
+                {% if message.tags == 'success' %}
+                    bg-green-100 text-green-800
+                {% else %}
+                    bg-red-100 text-red-800
+                {% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Errors -->
+    {% if form.errors %}
+        <div class="bg-red-100 text-red-800 p-4 rounded mb-6">
+            <strong>{% trans "Erreurs :" %}</strong>
+            <ul>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li>{{ field.label }} : {{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        {% for section in sections %}
+            <div class="mb-12">
+                <h2 class="text-xl font-semibold mb-2 flex items-center gap-3">
+                    <img src="{% static section.icon %}" class="w-12">
+                    {{ section.title }}
+                </h2>
+
+                {% for field in section.fields %}
+                    <div class="mb-4">
+
+                        {% if field.field.widget.input_type == "checkbox" %}
+                            <label class="inline-flex items-center gap-2">
+                                {{ field }}
+                                {{ field.label }}
+                            </label>
+                        {% else %}
+                            <label class="block font-semibold mb-1">{{ field.label }}</label>
+                            {{ field|add_class:"input" }}
+                        {% endif %}
+
+                        {% if field.errors %}
+                            <p class="text-red-600 text-sm">{{ field.errors }}</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+        <!-- Temps -->
+        <h2 class="text-xl font-semibold mt-6 mb-2">
+            {% trans "Temps de main d'œuvre" %}
+        </h2>
+
+        <div class="flex gap-2">
+            {{ form.temps_minutes }}
+            <span>min</span>
+        </div>
+
+        <!-- Boutons -->
+        <div class="flex gap-3 mt-6">
+            <button type="submit"
+                    class="flex-1 bg-blue-700 text-white px-5 py-4 rounded">
+                {% trans "Enregistrer" %}
+            </button>
+
+            <a href="{% url 'moteur:dashboard_moteur' exemplaire.id %}"
+               class="flex-1 bg-gray-300 px-5 py-4 rounded text-center">
+                {% trans "Annuler" %}
+            </a>
+        </div>
+
+        <p class="text-sm text-gray-500 mt-4">
+            {% trans "Date actuelle" %} : {{ now|date:"Y-m-d H:i" }}
+        </p>
+    </form>
+
+</div>
+
+<style>
+.input {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 8px;
+}
+</style>
+
+{% endblock %}

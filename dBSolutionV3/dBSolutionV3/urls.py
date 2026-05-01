@@ -144,8 +144,7 @@ urlpatterns += i18n_patterns(
 
     path('proprietaire/', include(('proprietaire.urls', 'proprietaire'), namespace='proprietaire')),
 
-
-
+    path("remplacement_moteur/",include(("maintenance.autres_interventions.moteur.remplacement_moteur.urls", "remplacement_moteur"), namespace="remplacement_moteur")),
 
 
 

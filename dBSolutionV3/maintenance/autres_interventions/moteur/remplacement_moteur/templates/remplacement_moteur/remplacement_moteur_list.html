@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+{% load i18n static widget_tweaks %}
+
+{% block title %}{% trans "Liste des remplacements moteurs" %}{% endblock %}
+
+{% block content %}
+<br><br>
+
+<h1 class="text-2xl font-bold mb-6 flex items-center">
+    <img src="{% static 'icons/engine.png' %}" alt="liste des remplacements moteur"
+         style="width:60px; height:60px; margin-right:10px;">
+    {% trans "Liste des remplacements moteurs" %}
+</h1>
+
+<br>
+
+<div>
+    <a href="{% url 'remplacement_moteur:remplacement_moteur_form' exemplaire.id %}"
+       class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Ajouter un remplacement moteur" %}
+    </a>
+</div>
+
+<br><br>
+
+<!-- 🔍 Filtres -->
+<div class="bg-white shadow-md rounded-lg p-4 mb-4">
+    <div class="flex flex-wrap items-end gap-3">
+
+        <input id="search-immatriculation" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px]"
+               placeholder="{% trans 'Immatriculation' %}" >
+
+        <input id="search-km" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px]"
+               placeholder="{% trans 'Km moteur' %}">
+
+        <input id="search-tag" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px]"
+               placeholder="{% trans 'Tag' %}">
+
+        <input id="search-tech" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[120px]"
+               placeholder="{% trans 'Technicien' %}">
+
+        <input id="search-date" type="date"
+               class="border rounded px-3 py-2 flex-1 min-w-[120px]">
+
+    </div>
+</div>
+
+<!-- 📊 TABLE -->
+<table id="moteur-table" class="min-w-full table-auto border border-gray-200 bg-white">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2">{% trans "Immatriculation" %}</th>
+            <th class="border px-4 py-2">{% trans "Km moteur" %}</th>
+            <th class="border px-4 py-2">{% trans "Km châssis" %}</th>
+            <th class="border px-4 py-2">{% trans "Tag" %}</th>
+            <th class="border px-4 py-2">{% trans "Technicien" %}</th>
+            <th class="border px-4 py-2">{% trans "Date" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Actions" %}</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for moteur in remplacements %}
+        {% with exemplaire=moteur.voiture_exemplaire %}
+        <tr>
+
+            <!-- 🚗 Immatriculation -->
+            <td class="p-3">
+                {% if exemplaire %}
+                    <div class="font-bold">
+                        {{ exemplaire.immatriculation|upper }}
+                    </div>
+                {% else %}
+                    -
+                {% endif %}
+            </td>
+
+            <!-- ⚙️ Km moteur -->
+            <td class="border px-4 py-2 font-semibold">
+                {{ moteur.kilometres_moteur|default:"-" }}
+            </td>
+
+            <!-- 🚗 Km chassis -->
+            <td class="border px-4 py-2">
+                {{ moteur.kilometres_chassis|default:"-" }}
+            </td>
+
+            <!-- 🟢 Tag -->
+            <td class="border px-4 py-2 text-center font-bold
+               {% if moteur.tag == 'VERT' %}bg-green-100 text-green-800 border-green-300 border-2
+               {% elif moteur.tag == 'JAUNE' %} bg-yellow-100 text-yellow-800 border-yellow-500 border-2
+               {% elif moteur.tag == 'ROUGE' %}bg-red-100 text-red-800 border-red-300 border-2
+               {% endif %}">
+              {{ moteur.get_tag_display }}
+            </td>
+
+            <!-- 👨‍🔧 Technicien -->
+            <td class="border px-4 py-2">
+                {{ moteur.tech_nom_technicien|default:"-" }}
+            </td>
+
+            <!-- 📅 Date -->
+            <td class="border px-4 py-2">
+                {{ moteur.date|date:"d/m/Y H:i" }}
+            </td>
+
+            <!-- ⚙️ Actions -->
+            <td class="border px-4 py-2 text-center">
+               <a href="{% url 'remplacement_moteur:remplacement_moteur_detail' moteur.id %}"
+                   class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700">
+                    {% trans "Infos" %}
+               </a>
+            </td>
+
+        </tr>
+        {% endwith %}
+        {% empty %}
+        <tr>
+            <td colspan="7" class="text-center py-4">
+                {% trans "Aucun remplacement moteur enregistré." %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<br><br>
+
+<div>
+    <a href="{% url 'moteur:dashboard_moteur' exemplaire.id %}"
+       class="bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour au dashboard moteur" %}
+    </a>
+</div>
+
+<br><br>
+
+<!-- 📊 DataTable -->
+<script>
+$(document).ready(function() {
+    var table = $('#moteur-table').DataTable({
+        pageLength: 100,
+        order: [[5, "desc"]]
+    });
+
+    $('#search-immatriculation').on('keyup', function () {
+        table.column(0).search(this.value).draw();
+    });
+    $('#search-km').on('keyup', function () {
+        table.column(1).search(this.value).draw();
+    });
+    $('#search-tag').on('keyup', function () {
+        table.column(3).search(this.value).draw();
+    });
+    $('#search-tech').on('keyup', function () {
+        table.column(4).search(this.value).draw();
+    });
+    $('#search-date').on('change', function () {
+        table.column(5).search(this.value).draw();
+    });
+});
+</script>
+
+{% endblock %}
