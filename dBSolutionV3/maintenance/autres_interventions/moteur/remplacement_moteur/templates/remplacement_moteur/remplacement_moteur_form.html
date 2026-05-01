@@ -21,21 +21,19 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
             <div>
-                <label>{{ form.voiture_marque.label }}</label>
-                {{ form.voiture_marque }}
-            </div>
-
-            <div>
-                <label>{{ form.voiture_modele.label }}</label>
-                {{ form.voiture_modele }}
-            </div>
-
-            <div>
                 <label>{{ form.type_utilisation.label }}</label>
                 {{ form.type_utilisation }}
             </div>
 
             <div>
+                <label class="block font-semibold">
+                    {{ form.voiture_exemplaire.label }}
+                </label>
+                {{ form.voiture_exemplaire }}
+                {{ form.voiture_exemplaire.errors }}
+            </div>
+
+             <div>
                 <label class="block font-semibold">
                     {{ form.voiture_exemplaire.label }}
                 </label>
@@ -70,24 +68,6 @@
                 {{ form.kilometres_chassis.errors }}
             </div>
 
-            <!-- KM ENTRETIEN -->
-            <div>
-                <label class="block font-semibold">
-                    {{ form.kilometres_dernier_entretien.label }}
-                </label>
-                {{ form.kilometres_dernier_entretien }}
-                {{ form.kilometres_dernier_entretien.errors }}
-            </div>
-
-            <!-- DATE -->
-            <div>
-                <label class="block font-semibold">
-                    {{ form.date_derniere_entretien.label }}
-                </label>
-                {{ form.date_derniere_entretien }}
-                {{ form.date_derniere_entretien.errors }}
-            </div>
-
             <!-- REMPLACEMENT -->
             <div class="col-span-2 flex items-center gap-2">
                 {{ form.remplacement_effectue }}
@@ -96,20 +76,33 @@
                 </label>
             </div>
 
-            <!-- KM MOTEUR (disabled) -->
+            <!-- VARIATION -->
             <div>
+                <label class="block font-semibold">
+                    {{ form.kilometres_remplacement_moteur.label }}
+                </label>
+                {{ form.kilometres_remplacement_moteur }}
+            </div>
+
+             <div>
                 <label class="block font-semibold">
                     {{ form.kilometres_moteur.label }}
                 </label>
                 {{ form.kilometres_moteur }}
             </div>
 
-            <!-- VARIATION -->
-            <div>
+             <div>
                 <label class="block font-semibold">
-                    {{ form.variation_kilometres.label }}
+                    {{ form.kilometres_moteur.label }}
                 </label>
-                {{ form.variation_kilometres }}
+                {{ form.kilometres_moteur }}
+            </div>
+
+             <div>
+                <label class="block font-semibold">
+                    {{ form.kilometres_moteur.label }}
+                </label>
+                {{ form.kilometres_moteur }}
             </div>
 
         </div>

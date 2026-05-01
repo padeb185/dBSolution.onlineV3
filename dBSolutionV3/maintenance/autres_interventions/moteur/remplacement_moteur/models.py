@@ -57,25 +57,7 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         blank=True
     )
 
-    voiture_marque = models.ForeignKey(
-        "voiture_marque.VoitureMarque",
-        on_delete=models.PROTECT,
-        related_name="remplacement_moteur"
-    )
 
-    voiture_modele = models.ForeignKey(
-        "voiture_modele.VoitureModele",
-        on_delete=models.PROTECT,
-        related_name="remplacement_moteur"
-    )
-
-    voiture_moteur = models.ForeignKey(
-        "voiture_moteur.MoteurVoiture",
-        on_delete=models.PROTECT,
-        related_name="remplacement_moteur",
-        null=True,
-        blank=True
-    )
 
     voiture_exemplaire = models.ForeignKey(
         "voiture_exemplaire.VoitureExemplaire",
@@ -107,12 +89,6 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         verbose_name=_("Kilometres du moteur à remplacer")
     )
 
-    immatriculation = models.CharField(
-        max_length=10,
-        unique=True,
-        null=True,
-        blank=True
-    )
 
 
     type_utilisation = models.CharField(
@@ -120,11 +96,6 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         choices=TypeUtilisation.choices,
         default=TypeUtilisation.CLIENT
     )
-
-
-    kilometres_dernier_entretien = models.PositiveIntegerField(default=0, null=True, blank=True)
-
-    kilometres_moteur = models.PositiveIntegerField(default=0, null=True, blank=True)
 
     kilometres_remplacement_moteur = models.PositiveIntegerField(
         default=0,
@@ -136,15 +107,10 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
     variation_kilometres = models.PositiveIntegerField(
         default=0,
         editable=False,
-        verbose_name=_("Variationde kilomètres depuis le dernier entretien"),
+        verbose_name=_("Variation de kilomètres depuis le dernier entretien"),
         help_text=_("Calculé automatiquement : total - dernièr entretien")
     )
 
-    date_derniere_intervention = models.DateField(
-        blank=True,
-        null=True,
-        verbose_name=_("Date de derniere entretien"),
-    )
 
     remplacement_numero_moteur = models.CharField(
         max_length=50,
@@ -179,18 +145,6 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         verbose_name=_("Client"),
     )
 
-
-
-    last_maintained_by = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="remplacement_moteur_maintained",
-        verbose_name=_("Dernière maintenance effectuée par")
-    )
-
-
     TAG_CHOICES = [
         ("VERT", _("Vert")),
         ("JAUNE", _("Jaune")),
@@ -204,14 +158,6 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         verbose_name=_("État visuel / Tag"),
     )
 
-    niveaux = models.ForeignKey(
-        Niveau,
-        on_delete=models.PROTECT,
-        related_name="remplacement_moteur",
-        verbose_name=_("Niveaux"),
-        null=True,
-        blank=True
-    )
 
     moteur_niveau_huile_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau d'huile"))
     moteur_niveau_huile_quantite = models.FloatField(default=0, verbose_name=_("Quantité d'huile ajoutée en litres"),validators=[validate_step_0_1])
@@ -227,6 +173,15 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
     remplacement_effectue = models.BooleanField(
         default=False,
         verbose_name=_("Remplacement effectué"),
+    )
+
+    tech_last_maintained_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="remplacement_moteur_maintained",
+        verbose_name=_("Dernière maintenance effectuée par")
     )
 
     tech_technicien = models.ForeignKey(
@@ -300,24 +255,19 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
                 })
 
     def save(self, *args, **kwargs):
+        km = self.kilometres_chassis or 0
 
-        ancien_remplacement = False
+        self.variation_kilometres = max(
+            0,
+            km - (self.kilometres_dernier_entretien or 0)
+        )
 
-        if self.pk:
-            ancien_remplacement = type(self).objects.filter(pk=self.pk) \
-                .values_list("remplacement_effectue", flat=True) \
-                .first()
-
-        # 🔁 détection remplacement
-        if self.remplacement_effectue and not ancien_remplacement:
-            self.kilometres_remplacement_moteur = self.kilometres_chassis or 0
-
-        # 🔄 calcul km
-        self.update_kilometres()
+        if self.remplacement_effectue:
+            self.kilometres_moteur = km
 
         super().save(*args, **kwargs)
 
-        return self
+
 
     def update_kilometres(self):
         km_chassis = self.kilometres_chassis or 0

@@ -1,13 +1,9 @@
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
-from decimal import Decimal
-from django.db.models import Sum
 from django.utils.translation import gettext_lazy as _
-from client_particulier.models import validate_iban
-from django.http import JsonResponse
 from django.db.models import Sum
-
+from carrosserie.models import validate_iban
 
 
 class Proprietaire(models.Model):

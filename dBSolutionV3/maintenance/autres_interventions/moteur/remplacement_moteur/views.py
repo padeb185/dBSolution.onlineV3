@@ -17,8 +17,17 @@ from django.utils.translation import gettext_lazy as _
 
 
 
+from django.views.generic import ListView
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.cache import never_cache
+from django.db.models import Q
 
-@method_decorator([login_required, never_cache], name='dispatch')
+from .models import RemplacementMoteur
+from voiture.voiture_exemplaire.models import VoitureExemplaire
+
+
+@method_decorator([login_required, never_cache], name="dispatch")
 class RemplacementMoteurListView(ListView):
     model = RemplacementMoteur
     template_name = "remplacement_moteur/remplacement_moteur_list.html"
@@ -27,22 +36,17 @@ class RemplacementMoteurListView(ListView):
     def get_queryset(self):
         queryset = RemplacementMoteur.objects.select_related(
             "voiture_exemplaire",
-            "voiture_marque",
-            "voiture_modele",
             "tech_societe",
             "client",
         )
 
-        # 🔒 Filtrage par société
         societe = getattr(self.request.user, "societe", None)
-        if societe:
-            queryset = queryset.filter(
-                models.Q(tech_societe=societe) |
-                models.Q(tech_societe__isnull=True)
-            )
 
-        # 🎯 Filtrage par exemplaire (IMPORTANT)
+        if societe:
+            queryset = queryset.filter(tech_societe=societe)
+
         exemplaire_id = self.kwargs.get("exemplaire_id")
+
         if exemplaire_id:
             queryset = queryset.filter(voiture_exemplaire_id=exemplaire_id)
 
@@ -53,15 +57,14 @@ class RemplacementMoteurListView(ListView):
 
         exemplaire_id = self.kwargs.get("exemplaire_id")
 
+        context["exemplaire"] = None
+
         if exemplaire_id:
-            try:
-                context["exemplaire"] = VoitureExemplaire.objects.get(id=exemplaire_id)
-            except VoitureExemplaire.DoesNotExist:
-                context["exemplaire"] = None
+            context["exemplaire"] = VoitureExemplaire.objects.filter(
+                id=exemplaire_id
+            ).first()
 
         return context
-
-
 
 
 
@@ -215,13 +218,9 @@ def remplacement_moteur_form_view(request, exemplaire_id):
 
         ]
 
-        return render(request, 'courroie/courroie_form.html', {
+        return render(request, "remplacement_moteur/remplacement_moteur_form.html", {
+            "remplacement_moteur": remplacement_moteur,
             "exemplaire": exemplaire,
-            "immatriculation": exemplaire.immatriculation,
-            "maintenance": maintenance,
-            "form": form,
-            "sections": sections,
-            "now": timezone.now(),
         })
 
 
@@ -239,3 +238,107 @@ def remplacement_moteur_detail_view(request, remplacement_moteur_id):
     }
     return render(request, "remplacement_moteur/remplacement_moteur_detail.html", context)
 
+
+
+
+
+@login_required
+def modifier_remplacement_moteur_view(request, remplacement_moteur_id):
+    tenant = request.user.societe
+
+    with tenant_context(tenant):
+
+        remplacement_moteur = get_object_or_404(
+            RemplacementMoteur.objects.select_related("voiture_exemplaire"),
+            id=remplacement_moteur_id
+        )
+
+        # -------------------------
+        # POST
+        # -------------------------
+        if request.method == "POST":
+            form = RemplacementMoteurForm(
+                request.POST,
+                instance=remplacement_moteur,
+                user=request.user,
+                exemplaire=remplacement_moteur.voiture_exemplaire
+            )
+
+            if form.is_valid():
+                form.save()
+                messages.success(request, _("Remplacement du moteur modifié avec succès !"))
+                return redirect(
+                    "remplacement_moteur:modifier_remplacement_moteur",
+                    remplacement_moteur_id=remplacement_moteur.id
+                )
+            else:
+                messages.error(request, _("Le formulaire contient des erreurs."))
+                print(form.errors)
+
+        # -------------------------
+        # GET
+        # -------------------------
+        else:
+            form = RemplacementMoteurForm(
+                instance=remplacement_moteur,
+                user=request.user,
+                exemplaire=remplacement_moteur.voiture_exemplaire
+            )
+
+        # -------------------------
+        # SECTIONS
+        # -------------------------
+        sections = [
+            {
+                "title": _("Voiture"),
+                "icon": "icons/voiture-de-course.png",
+                "fields": [form[f.name] for f in form if "voiture" in f.name],
+            },
+            {
+                "title": _("Utilisation"),
+                "icon": "icons/utilisation.png",
+                "fields": [form[f.name] for f in form if "type_util" in f.name],
+            },
+            {
+                "title": _("Kilométrage"),
+                "icon": "icons/compteur.png",
+                "fields": [form[f.name] for f in form if "kilo" in f.name],
+            },
+            {
+                "title": _("Remplacement du moteur"),
+                "icon": "icons/engine.png",
+                "fields": [form[f.name] for f in form if "moteur" in f.name],
+            },
+            {
+                "title": _("Liquide de refroidissement"),
+                "icon": "icons/radiateur.png",
+                "fields": [form[f.name] for f in form if "refroidissement" in f.name],
+            },
+            {
+                "title": _("Etiquette"),
+                "icon": "icons/tag.png",
+                "fields": [form[f.name] for f in form if "tag" in f.name],
+            },
+            {
+                "title": _("Pays"),
+                "icon": "icons/pays.png",
+                "fields": [form[f.name] for f in form if "pays" in f.name],
+            },
+            {
+                "title": _("Remarques"),
+                "icon": "icons/notes.png",
+                "fields": [form[f.name] for f in form if "remarques" in f.name],
+            },
+            {
+                "title": _("Technicien"),
+                "icon": "icons/mecanicien.png",
+                "fields": [form[f.name] for f in form if "tech" in f.name],
+            },
+        ]
+
+        return render(request, "remplacement_moteur/modifier_remplacement_moteur.html", {
+            "remplacement_moteur": remplacement_moteur,
+            "form": form,
+            "sections": sections,
+            "exemplaire": remplacement_moteur.voiture_exemplaire,
+        })

@@ -59,21 +59,6 @@
                 </button>
             </a>
         </div>
-        <!-- Bouton Rapport -->
-        <div class="mt-auto w-full">
-            <a href="{% url 'remplacement_moteur:rapport_remplacement_moteur' remplacement_moteur.id %}" class="block w-full">
-                <button type="button" class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
-                    {% trans "Rapport" %}
-                </button>
-            </a>
-        </div>
-        <div class="mt-auto w-full">
-            <a href="{% url 'remplacement_moteur:rapport_pdf_remplacement_moteur' remplacement_moteur.id %}" class="block w-full">
-                <button type="button" class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
-                    {% trans "Rapport PDF" %}
-                </button>
-            </a>
-        </div>
     </div>
 
      <!-- Métadonnées -->
