@@ -72,6 +72,7 @@ class CourroieDistribution(TechnicienMixin, models.Model):
         'DE': 19,
     }
 
+
     # -------------------------
     # RELATIONS
     # -------------------------

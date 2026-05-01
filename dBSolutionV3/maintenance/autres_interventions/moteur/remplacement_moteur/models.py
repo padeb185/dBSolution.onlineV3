@@ -7,8 +7,9 @@ from django.conf import settings
 from societe.models import Societe
 from voiture.voiture_exemplaire.utils_vin import get_vin_year
 from voiture.voiture_exemplaire.models import VoitureExemplaire
-from maintenance.niveaux.models import Niveau, NiveauxEtat, validate_step_0_1, HuileEtat, \
-    RefroidissementQualiteEtat
+from maintenance.niveaux.models import Niveau, NiveauxEtat, validate_step_0_1, HuileEtat, RefroidissementQualiteEtat
+from maintenance.models import Maintenance
+from utils.mixin import TechnicienMixin
 
 
 class TypeUtilisation(models.TextChoices):
@@ -25,8 +26,35 @@ class NomPays(models.TextChoices):
 
 
 
-class RemplacementMoteur(models.Model):
+class RemplacementMoteur(TechnicienMixin, models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
+    # -------------------------
+    # CONFIG TVA
+    # -------------------------
+    PAYS_CHOICES = [
+        ('BE', _("Belgique")),
+        ('LU', _("Luxembourg")),
+        ('DE', _("Allemagne")),
+    ]
+
+    TVA_PIECES = {
+        'BE': 21,
+        'LU': 16,
+        'DE': 19,
+    }
+
+    # -------------------------
+    # RELATIONS
+    # -------------------------
+    maintenance = models.ForeignKey(
+        Maintenance,
+        on_delete=models.CASCADE,
+        related_name="remplacement_moteur",
+        null=True,
+        blank=True
+    )
+
 
 
     voiture_marque = models.ForeignKey(
@@ -71,10 +99,6 @@ class RemplacementMoteur(models.Model):
         blank=True,
         verbose_name=_("Kilomètres chassis")
     )
-
-    societe = models.ForeignKey(Societe, on_delete=models.CASCADE)
-
-
 
 
     immatriculation = models.CharField(
@@ -148,14 +172,14 @@ class RemplacementMoteur(models.Model):
         verbose_name=_("Date de derniere entretien"),
     )
 
-    numero_moteur = models.CharField(
+    remplacement_numero_moteur = models.CharField(
         max_length=50,
         null=True,
         blank=True,
         verbose_name=_("Numéro de série du moteur")
     )
 
-    nombre_moteur = models.PositiveIntegerField(
+    remplacement_nombre_moteur = models.PositiveIntegerField(
         default=1,
         null=True,
         blank=True,
@@ -189,9 +213,6 @@ class RemplacementMoteur(models.Model):
         related_name="remplacement_moteur_maintained",
         verbose_name=_("Dernière maintenance effectuée par")
     )
-
-
-
 
 
     TAG_CHOICES = [
