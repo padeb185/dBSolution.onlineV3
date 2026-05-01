@@ -31,6 +31,8 @@ class NomPays(models.TextChoices):
 class RemplacementMoteur(TechnicienMixin, models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
+
+
     # -------------------------
     # CONFIG TVA
     # -------------------------
@@ -169,10 +171,22 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
     refroidissement_qualite = models.CharField(max_length=25, choices=RefroidissementQualiteEtat.choices,default=RefroidissementQualiteEtat.G13,verbose_name=_("Qualité de liquide de refroidissement"))
 
 
+    nombre_remplacements = models.PositiveIntegerField(default=0, editable=False)
 
     remplacement_effectue = models.BooleanField(
         default=False,
         verbose_name=_("Remplacement effectué"),
+    )
+
+    pays = models.CharField(
+        max_length=5,
+        choices=PAYS_CHOICES
+    )
+
+    remarques = models.TextField(
+        verbose_name=_("Remarques"),
+        blank=True,
+        null=True
     )
 
     tech_last_maintained_by = models.ForeignKey(
@@ -257,30 +271,26 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
     def save(self, *args, **kwargs):
         km = self.kilometres_chassis or 0
 
-        self.variation_kilometres = max(
-            0,
-            km - (self.kilometres_dernier_entretien or 0)
-        )
-
+        # -------------------------
+        # REMISE À ZÉRO MOTEUR
+        # -------------------------
         if self.remplacement_effectue:
+            # on stocke le km de référence
+            if not self.kilometres_remplacement_moteur:
+                self.kilometres_remplacement_moteur = km
+
+            # moteur remis à 0
+            self.kilometres_moteur = km - (self.kilometres_remplacement_moteur or km)
+
+            # sécurité
+            if self.kilometres_moteur < 0:
+                self.kilometres_moteur = 0
+
+        # -------------------------
+        # CAS NORMAL (pas de remplacement)
+        # -------------------------
+        else:
             self.kilometres_moteur = km
 
         super().save(*args, **kwargs)
 
-
-
-    def update_kilometres(self):
-        km_chassis = self.kilometres_chassis or 0
-
-        self.variation_kilometres = max(
-            0,
-            km_chassis - (self.kilometres_dernier_entretien or 0)
-        )
-
-        if self.kilometres_remplacement_moteur is not None:
-            self.kilometres_moteur = max(
-                0,
-                km_chassis - self.kilometres_remplacement_moteur
-            )
-        else:
-            self.kilometres_moteur = km_chassis

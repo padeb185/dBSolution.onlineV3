@@ -67,14 +67,13 @@ class RemplacementMoteurListView(ListView):
         return context
 
 
-
 @never_cache
 @login_required
 def remplacement_moteur_form_view(request, exemplaire_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
-        # Récupération de l'exemplaire
+
         exemplaire = get_object_or_404(
             VoitureExemplaire.objects.filter(
                 Q(client__societe=tenant) | Q(client__isnull=True, societe=tenant)
@@ -82,16 +81,11 @@ def remplacement_moteur_form_view(request, exemplaire_id):
             id=exemplaire_id
         )
 
-        # Vérification des rôles
         roles_autorises = ["mécanicien", "apprenti", "magasinier", "chef mécanicien"]
         if request.user.role not in roles_autorises:
-            messages.error(
-                request,
-                _("Seuls les mécaniciens, apprentis, magasiniers et chefs mécaniciens peuvent accéder à cette page.")
-            )
+            messages.error(request, _("Accès refusé"))
             return redirect("maintenance_liste_all")
 
-        # Récupération ou création de la maintenance
         maintenance = Maintenance.objects.filter(
             voiture_exemplaire=exemplaire,
             type_maintenance="courroie"
@@ -110,7 +104,6 @@ def remplacement_moteur_form_view(request, exemplaire_id):
                 tag=Maintenance.Tag.JAUNE,
             )
 
-        # Créer ou récupérer l'objet admission
         remplacement_moteur = RemplacementMoteur(
             voiture_exemplaire=exemplaire,
             maintenance=maintenance,
@@ -118,11 +111,9 @@ def remplacement_moteur_form_view(request, exemplaire_id):
         )
         remplacement_moteur.assign_technicien(request.user)
 
-
-        # --- Formulaire ---
         if request.method == "POST":
             form = RemplacementMoteurForm(
-                request.POST or None,
+                request.POST,
                 instance=remplacement_moteur,
                 user=request.user,
                 exemplaire=exemplaire
@@ -133,39 +124,37 @@ def remplacement_moteur_form_view(request, exemplaire_id):
                     with transaction.atomic():
                         remplacement_moteur = form.save(commit=False)
 
-                        # Gestion du kilométrage
                         km_checkup = form.cleaned_data.get("kilometres_chassis")
+
                         if km_checkup is not None and km_checkup >= exemplaire.kilometres_chassis:
                             remplacement_moteur.kilometres_chassis = km_checkup
                             exemplaire.kilometres_chassis = km_checkup
                             exemplaire.save()
-                        elif km_checkup is not None and km_checkup < exemplaire.kilometres_chassis:
+
+                        elif km_checkup is not None:
                             form.add_error(
                                 "kilometres_chassis",
-                                _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
+                                _("Le kilométrage ne peut pas être inférieur.")
                             )
-                            raise ValueError("Kilométrage invalide")
+                            raise ValueError("invalid km")
 
                         remplacement_moteur.save()
-                    messages.success(request, _("Remplacement du moteur enregistré avec succès."))
+
+                    messages.success(request, _("Enregistré avec succès"))
 
                 except Exception as e:
-                    messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
+                    messages.error(request, str(e))
 
             else:
-                messages.error(request, _("Le formulaire contient des erreurs."))
-                print(form.errors)
+                messages.error(request, _("Formulaire invalide"))
 
         else:
             form = RemplacementMoteurForm(
-                request.POST or None,
                 instance=remplacement_moteur,
                 user=request.user,
                 exemplaire=exemplaire
             )
 
-
-        # --- Génération des champs par section ---
         sections = [
             {
                 "title": _("Voiture"),
@@ -174,9 +163,15 @@ def remplacement_moteur_form_view(request, exemplaire_id):
             },
             {
                 "title": _("Utilisation"),
-                "icon": "icons/.png",
+                "icon": "icons/utilisation.png",
                 "fields": [form[f.name] for f in form if "type_util" in f.name],
             },
+            {
+                "title": _("Propriétaire"),
+                "icon": "icons/proprietaire.png",
+                "fields": [form[f.name] for f in form if "proprietaire" in f.name],
+            },
+
             {
                 "title": _("Kilométrage"),
                 "icon": "icons/compteur.png",
@@ -187,14 +182,16 @@ def remplacement_moteur_form_view(request, exemplaire_id):
                 "icon": "icons/engine.png",
                 "fields": [form[f.name] for f in form if "moteur" in f.name],
             },
-
-
             {
                 "title": _("Liquide de refroidissement"),
                 "icon": "icons/radiateur.png",
                 "fields": [form[f.name] for f in form if "refroidissement" in f.name],
             },
-
+            {
+                "title": _("Remise à Zéro des kilomètres moteurs"),
+                "icon": "icons/km.png",
+                "fields": [form[f.name] for f in form if "remplacement_effectue" in f.name],
+            },
             {
                 "title": _("Etiquette"),
                 "icon": "icons/tag.png",
@@ -205,6 +202,7 @@ def remplacement_moteur_form_view(request, exemplaire_id):
                 "icon": "icons/pays.png",
                 "fields": [form[f.name] for f in form if "pays" in f.name],
             },
+
             {
                 "title": _("Remarques"),
                 "icon": "icons/notes.png",
@@ -215,13 +213,18 @@ def remplacement_moteur_form_view(request, exemplaire_id):
                 "icon": "icons/mecanicien.png",
                 "fields": [form[f.name] for f in form if "tech" in f.name],
             },
-
         ]
 
         return render(request, "remplacement_moteur/remplacement_moteur_form.html", {
             "remplacement_moteur": remplacement_moteur,
             "exemplaire": exemplaire,
+            "form": form,
+            "sections": sections,
+            "now": timezone.now(),
         })
+
+
+
 
 
 
@@ -300,6 +303,12 @@ def modifier_remplacement_moteur_view(request, remplacement_moteur_id):
                 "fields": [form[f.name] for f in form if "type_util" in f.name],
             },
             {
+                "title": _("Propriétaire"),
+                "icon": "icons/proprietaire.png",
+                "fields": [form[f.name] for f in form if "proprietaire" in f.name],
+            },
+
+            {
                 "title": _("Kilométrage"),
                 "icon": "icons/compteur.png",
                 "fields": [form[f.name] for f in form if "kilo" in f.name],
@@ -315,6 +324,11 @@ def modifier_remplacement_moteur_view(request, remplacement_moteur_id):
                 "fields": [form[f.name] for f in form if "refroidissement" in f.name],
             },
             {
+                "title": _("Remise à Zéro des kilomètres moteurs"),
+                "icon": "icons/km.png",
+                "fields": [form[f.name] for f in form if "remplacement_effectue" in f.name],
+            },
+            {
                 "title": _("Etiquette"),
                 "icon": "icons/tag.png",
                 "fields": [form[f.name] for f in form if "tag" in f.name],
@@ -324,6 +338,7 @@ def modifier_remplacement_moteur_view(request, remplacement_moteur_id):
                 "icon": "icons/pays.png",
                 "fields": [form[f.name] for f in form if "pays" in f.name],
             },
+
             {
                 "title": _("Remarques"),
                 "icon": "icons/notes.png",

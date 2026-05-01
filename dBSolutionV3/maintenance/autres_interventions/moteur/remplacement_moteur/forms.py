@@ -1,13 +1,15 @@
 from django import forms
-from django.core.exceptions import ValidationError
-from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-
 from maindoeuvre.models import MainDoeuvre
 from .models import RemplacementMoteur
 
 
+
+
+
 class RemplacementMoteurForm(forms.ModelForm):
+    temps_heures = forms.IntegerField(required=False, min_value=0)
+    temps_minutes = forms.IntegerField(required=False, min_value=0, max_value=59)
 
     class Meta:
         model = RemplacementMoteur
@@ -16,6 +18,7 @@ class RemplacementMoteurForm(forms.ModelForm):
         exclude = [
             "kilometres_remplacement_moteur",
             "variation_kilometres",
+            "kilometres_dernier_entretien",
         ]
 
         widgets = {
@@ -55,6 +58,10 @@ class RemplacementMoteurForm(forms.ModelForm):
             if "immatriculation" in self.fields:
                 self.fields["immatriculation"].initial = self.exemplaire.immatriculation
 
+
+
+
+
         # -----------------------
         # TECHNICIEN AUTO
         # -----------------------
@@ -67,14 +74,34 @@ class RemplacementMoteurForm(forms.ModelForm):
                 self.fields["tech_societe"].initial = self.user.societe
                 self.fields["tech_societe"].disabled = True
 
+
+
+
+        # -------- MAIN D'ŒUVRE QUERYSET --------
+        if "main_oeuvre" in self.fields:
+            self.fields["main_oeuvre"].queryset = MainDoeuvre.objects.select_related(
+                "utilisateur"
+            ).filter(utilisateur__is_active=True)
+
+            self.fields["main_oeuvre"].widget.attrs.update({
+                "class": "input"
+            })
+
+        if "tech_last_maintained_by" in self.fields:
+            self.fields["tech_last_maintained_by"].disabled = True
+
+
+
+
         # -----------------------
         # CHAMPS CALCULÉS
         # -----------------------
         if "kilometres_moteur" in self.fields:
             self.fields["kilometres_moteur"].disabled = True
 
-        if "variation_kilometres" in self.fields:
-            self.fields["variation_kilometres"].disabled = True
+
+
+
 
         # -----------------------
         # UX
@@ -83,6 +110,9 @@ class RemplacementMoteurForm(forms.ModelForm):
             self.fields["remplacement_effectue"].help_text = _(
                 "Cochez pour remplacer le moteur (remise à zéro automatique du kilométrage)."
             )
+
+
+
 
     # =========================================================
     # VALIDATION PROPRE
@@ -110,13 +140,15 @@ class RemplacementMoteurForm(forms.ModelForm):
 
         voiture = instance.voiture_exemplaire or self.exemplaire
 
+
+
         # -----------------------
         # KM CHÂSSIS
         # -----------------------
         km_chassis = self.cleaned_data.get("kilometres_chassis")
 
         if voiture and km_chassis is not None:
-            # cohérence véhicule
+
             if km_chassis >= voiture.kilometres_chassis:
                 voiture.kilometres_chassis = km_chassis
                 voiture.save(update_fields=["kilometres_chassis"])
@@ -125,6 +157,21 @@ class RemplacementMoteurForm(forms.ModelForm):
 
             if not instance.voiture_exemplaire:
                 instance.voiture_exemplaire = voiture
+
+
+
+
+
+        remplacement_effectue = self.cleaned_data.get("remplacement_effectue")
+
+        km_chassis = self.cleaned_data.get("kilometres_chassis")
+
+        if remplacement_effectue:
+            instance.kilometres_moteur = 0
+            instance.kilometres_remplacement_moteur = km_chassis
+            instance.nombre_remplacements = (instance.nombre_remplacements or 0) + 1
+        else:
+            instance.kilometres_moteur = km_chassis
 
         # -----------------------
         # MAIN D'ŒUVRE
@@ -146,11 +193,36 @@ class RemplacementMoteurForm(forms.ModelForm):
                 )
                 instance.main_oeuvre = main
 
+
+
+
         # -----------------------
         # TECHNICIEN AUTO
         # -----------------------
         if self.user:
             instance.assign_technicien(self.user)
+
+
+
+        ancien = None
+
+        if instance.pk:
+            ancien = type(instance).objects.filter(pk=instance.pk).values_list(
+                "remplacement_effectue", flat=True
+            ).first()
+
+        # 🔥 reset moteur si nouveau remplacement
+        if instance.remplacement_effectue and not ancien:
+            instance.kilometres_remplacement_moteur = instance.kilometres_chassis or 0
+            instance.kilometres_moteur = 0
+
+        # km voiture
+        km_chassis = self.cleaned_data.get("kilometres_chassis")
+
+        if km_chassis is not None:
+            instance.kilometres_chassis = km_chassis
+
+
 
         # -----------------------
         # SAVE FINAL
