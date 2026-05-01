@@ -13,8 +13,7 @@ from django.utils.timezone import now
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
-
-from dBSolutionV3.maintenance.models import Maintenance
+from maintenance.models import Maintenance
 from .models import RemplacementMoteur
 from .forms import RemplacementMoteurForm
 from voiture.voiture_exemplaire.models import VoitureExemplaire
@@ -72,7 +71,7 @@ class RemplacementMoteurListView(ListView):
 
 @never_cache
 @login_required
-def courroie_form_view(request, exemplaire_id):
+def remplacement_moteur_form_view(request, exemplaire_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
