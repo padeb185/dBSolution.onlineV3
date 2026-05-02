@@ -2,9 +2,11 @@ from decimal import Decimal
 from django import forms
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-
 from maindoeuvre.models import MainDoeuvre
 from .models import Admission
+
+
+
 
 
 class AdmissionForm(forms.ModelForm):

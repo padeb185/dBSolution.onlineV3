@@ -24,6 +24,10 @@ from utilisateurs.models import Mecanicien
 from maintenance.autres_interventions.moteur.admission.models import Admission
 from maintenance.autres_interventions.moteur.alternateur.models import Alternateur
 from maintenance.autres_interventions.moteur.courroie.models import CourroieDistribution
+from maintenance.autres_interventions.moteur.remplacement_moteur.models import RemplacementMoteur
+
+
+
 
 
 @login_required
@@ -63,9 +67,9 @@ def dashboard_moteur_view(request, exemplaire_id):
         schema_name = tenant_schema.schema_name if tenant_schema else None
 
 
-        total_admission = total_alternateur = total_courroie =  0
+        total_admission = total_alternateur = total_courroie = total_remplacement_moteur =  0
 
-        admission = alternateur = courroie = []
+        admission = alternateur = courroie = moteur_remplacement =[]
 
 
 
@@ -77,13 +81,15 @@ def dashboard_moteur_view(request, exemplaire_id):
                 admission = Admission.objects.filter(voiture_exemplaire=exemplaire)
                 alternateur = Alternateur.objects.filter(voiture_exemplaire=exemplaire)
                 courroie = CourroieDistribution.objects.filter(voiture_exemplaire=exemplaire)
+                moteur_remplacement = RemplacementMoteur.objects.filter(voiture_exemplaire=exemplaire)
 
                 # ✅ COUNTS CORRECTS
                 total_admission = admission.count()
                 total_alternateur = alternateur.count()
                 total_courroie = courroie.count()
+                total_remplacement_moteur = moteur_remplacement.count()
 
-                total_int_moteur = total_admission + total_alternateur + total_courroie
+                total_int_moteur = total_admission + total_alternateur + total_courroie + total_remplacement_moteur
 
                 modeles = VoitureModele.objects.all()
         else:
@@ -114,11 +120,13 @@ def dashboard_moteur_view(request, exemplaire_id):
             "total_admission": total_admission,
             "total_alternateur": total_alternateur,
             "total_courroie": total_courroie,
+            "total_remplacement_moteur": total_remplacement_moteur,
 
 
             "admission": admission,
             "alternateur": alternateur,
             "courroie": courroie,
+            "moteur_remplacement": moteur_remplacement,
 
             "total_int_moteur": total_int_moteur,
 

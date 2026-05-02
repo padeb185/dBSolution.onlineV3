@@ -36,6 +36,7 @@
             <th>{% trans "Immatriculation" %}</th>
             <th>{% trans "Km moteur" %}</th>
             <th>{% trans "Km châssis" %}</th>
+            <th>{% trans "Nombre de remplacements" %}</th>
             <th>{% trans "Tag" %}</th>
             <th>{% trans "Technicien" %}</th>
             <th>{% trans "Date" %}</th>
@@ -93,6 +94,11 @@
             <!-- KM CHASSIS -->
             <td class="border px-4 py-2">
                 {{ remplacement.kilometres_chassis|default:"-" }}
+            </td>
+
+            <!-- nombre de remplacment -->
+            <td class="border px-4 py-2">
+                {{ remplacement.nombre_remplacements|default:"-" }}
             </td>
 
             <!-- TAG -->

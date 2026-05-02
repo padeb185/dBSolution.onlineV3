@@ -25,38 +25,30 @@ class RemplacementMoteurListView(ListView):
     template_name = "remplacement_moteur/remplacement_moteur_list.html"
     context_object_name = "remplacements"
 
+
+
     def get_queryset(self):
         queryset = RemplacementMoteur.objects.select_related(
-            "voiture_exemplaire",
-            "tech_societe",
-            "client",
+            "voiture_exemplaire", "maintenance", "tech_societe"
         )
 
         societe = getattr(self.request.user, "societe", None)
-
         if societe:
-            queryset = queryset.filter(tech_societe=societe)
+            queryset = queryset.filter(
+                models.Q(tech_societe=societe) | models.Q(tech_societe__isnull=True)
+            )
 
-        exemplaire_id = self.kwargs.get("exemplaire_id")
-
-        if exemplaire_id:
-            queryset = queryset.filter(voiture_exemplaire_id=exemplaire_id)
-
-        return queryset.order_by("-date")
+        return queryset.order_by("-id")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
         exemplaire_id = self.kwargs.get("exemplaire_id")
-
-        context["exemplaire"] = None
-
         if exemplaire_id:
-            context["exemplaire"] = VoitureExemplaire.objects.filter(
-                id=exemplaire_id
-            ).first()
-
+            context["exemplaire"] = VoitureExemplaire.objects.get(id=exemplaire_id)
         return context
+
+
+
 
 
 
