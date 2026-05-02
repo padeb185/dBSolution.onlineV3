@@ -140,7 +140,7 @@ def remplacement_moteur_form_view(request, exemplaire_id):
 
                         remplacement_moteur.save()
 
-                    messages.success(request, _("Enregistré avec succès"))
+                    messages.success(request, _("Remplacement moteur enregistré avec succès"))
 
                 except Exception as e:
                     messages.error(request, str(e))
