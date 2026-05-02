@@ -133,6 +133,7 @@ TENANT_APPS = (
     'maintenance.pneus',
     'maintenance.checkup_track',
     'maintenance.autres_interventions.moteur.remplacement_moteur',
+    'maintenance.autres_interventions.moteur.turbo',
 
 
     'maintenance.carrosserie_interne',

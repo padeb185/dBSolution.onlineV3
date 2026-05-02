@@ -72,7 +72,7 @@ class AdmissionForm(forms.ModelForm):
             # 🔒 Sécurité : ne jamais diminuer le kilométrage
             if kilometrage_admission < voiture.kilometres_chassis:
                 raise forms.ValidationError(
-                    f"Le kilométrage du check-up de la boite ({kilometrage_admission}) "
+                    f"Le kilométrage du check-up de l'admission ({kilometrage_admission}) "
                     f"ne peut pas être inférieur au kilométrage actuel de la voiture ({voiture.kilometres_chassis})."
                 )
 
