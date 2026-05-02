@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-02 16:08+0200\n"
+"POT-Creation-Date: 2026-05-02 16:24+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -4891,7 +4891,6 @@ msgstr ""
 
 #: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_list.html:4
 #: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_list.html:11
-#: .\maintenance\autres_interventions\moteur\turbo\templates\turbo\turbo_list.html:4
 msgid "Liste des contrôles de l'admission"
 msgstr ""
 
@@ -5498,6 +5497,7 @@ msgstr ""
 msgid "Détails du contrôle du turbo"
 msgstr ""
 
+#: .\maintenance\autres_interventions\moteur\turbo\templates\turbo\turbo_list.html:4
 #: .\maintenance\autres_interventions\moteur\turbo\templates\turbo\turbo_list.html:11
 msgid "Liste des contrôles du turbo"
 msgstr ""
