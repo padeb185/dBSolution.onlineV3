@@ -106,7 +106,6 @@ def turbo_check_view(request, exemplaire_id):
             {"title": _("Turbo"), "icon": "icons/turbo.png", "filter": "turbos"},
             {"title": _("Intercooler"), "icon": "icons/intercooler.png", "filter": "intercooler"},
             {"title": _("Electro-vanne"), "icon": "icons/electrovanne.png", "filter": "electrovanne"},
-            {"title": _("Intercooler"), "icon": "icons/intercooler.png", "filter": "intercooler"},
             {"title": _("joints"), "icon": "icons/joint.png", "filter": "joints"},
             {"title": _("Etiquette"), "icon": "icons/tag.png", "filter": "tag"},
             {"title": _("Remarques"), "icon": "icons/notes.png", "filter": "remarques"},
@@ -248,12 +247,20 @@ def modifier_turbo_view(request, turbo_id):
             {"title": _("Turbo"), "icon": "icons/turbo.png", "filter": "turbos"},
             {"title": _("Intercooler"), "icon": "icons/intercooler.png", "filter": "intercooler"},
             {"title": _("Electro-vanne"), "icon": "icons/electrovanne.png", "filter": "electrovanne"},
-            {"title": _("Intercooler"), "icon": "icons/intercooler.png", "filter": "intercooler"},
             {"title": _("joints"), "icon": "icons/joint.png", "filter": "joints"},
             {"title": _("Etiquette"), "icon": "icons/tag.png", "filter": "tag"},
             {"title": _("Remarques"), "icon": "icons/notes.png", "filter": "remarques"},
             {"title": _("Technicien"), "icon": "icons/mecanicien.png", "filter": "tech"},
 
+        ]
+
+        sections = [
+            {
+                "title": s["title"],
+                "icon": s["icon"],
+                "fields": [f for f in form if s["filter"] in f.name]
+            }
+            for s in section_templates
         ]
 
     return render(
@@ -262,7 +269,7 @@ def modifier_turbo_view(request, turbo_id):
         {
             "form": form,
             "turbo": turbo,
-            "section_templates": section_templates,
+            "sections": sections,
             "exemplaire": turbo.voiture_exemplaire,
         }
     )
