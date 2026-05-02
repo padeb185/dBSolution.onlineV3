@@ -1,30 +1,22 @@
 from django.utils import timezone
-from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import ListView
 from django.db import models, transaction
 from django_tenants.utils import tenant_context
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.contrib import messages
-from django.utils.decorators import method_decorator
-from django.contrib.auth.decorators import login_required
-from django.views.decorators.cache import never_cache
 from maintenance.models import Maintenance
-from .models import RemplacementMoteur
 from .forms import RemplacementMoteurForm
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.utils.translation import gettext_lazy as _
-
-
-
 from django.views.generic import ListView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
 from django.db.models import Q
-
 from .models import RemplacementMoteur
 from voiture.voiture_exemplaire.models import VoitureExemplaire
+
+
 
 
 @method_decorator([login_required, never_cache], name="dispatch")
@@ -67,6 +59,7 @@ class RemplacementMoteurListView(ListView):
         return context
 
 
+
 @never_cache
 @login_required
 def remplacement_moteur_form_view(request, exemplaire_id):
@@ -99,6 +92,7 @@ def remplacement_moteur_form_view(request, exemplaire_id):
                 immatriculation=exemplaire.immatriculation,
                 date_intervention=timezone.now().date(),
                 kilometres_chassis=exemplaire.kilometres_chassis,
+                kilometres_moteur=exemplaire.kilometres_moteur,
                 kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
                 type_maintenance="admission",
                 tag=Maintenance.Tag.JAUNE,
@@ -107,7 +101,9 @@ def remplacement_moteur_form_view(request, exemplaire_id):
         remplacement_moteur = RemplacementMoteur(
             voiture_exemplaire=exemplaire,
             maintenance=maintenance,
-            kilometres_chassis=exemplaire.kilometres_chassis
+            kilometres_chassis=exemplaire.kilometres_chassis,
+            kilometres_moteur=exemplaire.kilometres_moteur,
+            kilometres_remplacement_moteur=exemplaire.kilometres_remplacement_moteur,
         )
         remplacement_moteur.assign_technicien(request.user)
 
@@ -126,9 +122,13 @@ def remplacement_moteur_form_view(request, exemplaire_id):
 
                         km_checkup = form.cleaned_data.get("kilometres_chassis")
 
+                        # ✅ Mise à jour du kilométrage chassis
                         if km_checkup is not None and km_checkup >= exemplaire.kilometres_chassis:
-                            remplacement_moteur.kilometres_chassis = km_checkup
                             exemplaire.kilometres_chassis = km_checkup
+
+                            # 🚗 RESET MOTEUR PROPRE (OFFSET)
+                            exemplaire.kilometres_remplacement_moteur = km_checkup
+
                             exemplaire.save()
 
                         elif km_checkup is not None:
@@ -171,7 +171,6 @@ def remplacement_moteur_form_view(request, exemplaire_id):
                 "icon": "icons/proprietaire.png",
                 "fields": [form[f.name] for f in form if "proprietaire" in f.name],
             },
-
             {
                 "title": _("Kilométrage"),
                 "icon": "icons/compteur.png",
@@ -202,7 +201,6 @@ def remplacement_moteur_form_view(request, exemplaire_id):
                 "icon": "icons/pays.png",
                 "fields": [form[f.name] for f in form if "pays" in f.name],
             },
-
             {
                 "title": _("Remarques"),
                 "icon": "icons/notes.png",
@@ -222,9 +220,6 @@ def remplacement_moteur_form_view(request, exemplaire_id):
             "sections": sections,
             "now": timezone.now(),
         })
-
-
-
 
 
 

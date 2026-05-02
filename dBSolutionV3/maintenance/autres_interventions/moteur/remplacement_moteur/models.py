@@ -253,20 +253,24 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         self.tech_societe = user.societe
 
 
+
+
     def __str__(self):
         return f"{self.voiture_marque.nom_marque} {self.voiture_modele.nom_modele} {self.voiture_modele.nom_variante} - {self.immatriculation}"
 
-    from django.core.exceptions import ValidationError
-    from django.utils.translation import gettext_lazy as _
+
+
 
     def clean(self):
-        if self.voiture_exemplaire and self.kilometres_moteur is not None:
-            if self.kilometres_moteur > self.voiture_exemplaire.kilometres_chassis:
+        if self.voiture_exemplaire and self.voiture_exemplaire.kilometres_moteur is not None:
+            if self.voiture_exemplaire.kilometres_moteur > self.voiture_exemplaire.kilometres_chassis:
                 raise ValidationError({
                     "kilometres_moteur": _(
                         "Le kilométrage du moteur ne peut pas être supérieur au kilométrage du véhicule."
                     )
                 })
+
+
 
     def save(self, *args, **kwargs):
         km = self.kilometres_chassis or 0
@@ -280,17 +284,17 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
                 self.kilometres_remplacement_moteur = km
 
             # moteur remis à 0
-            self.kilometres_moteur = km - (self.kilometres_remplacement_moteur or km)
+            self.voiture_exemplaire.kilometres_moteur = km - (self.kilometres_remplacement_moteur or km)
 
             # sécurité
-            if self.kilometres_moteur < 0:
-                self.kilometres_moteur = 0
+            if self.voiture_exemplaire.kilometres_moteur < 0:
+                self.voiture_exemplaire.kilometres_moteur = 0
 
         # -------------------------
         # CAS NORMAL (pas de remplacement)
         # -------------------------
         else:
-            self.kilometres_moteur = km
+            self.voiture_exemplaire.kilometres_moteur = km
 
         super().save(*args, **kwargs)
 

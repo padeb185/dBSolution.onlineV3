@@ -267,10 +267,16 @@ class VoitureExemplaire(models.Model):
         self.variation_kilometres = max(0, km_chassis - (self.kilometres_dernier_entretien or 0))
 
         # Kilométrages des composants
+        # 🚗 MOTEUR : ne pas écraser si remplacement effectué
         if self.kilometres_remplacement_moteur:
-            self.kilometres_moteur = km_chassis - self.kilometres_remplacement_moteur
+            self.kilometres_moteur = max(
+                0,
+                km_chassis - self.kilometres_remplacement_moteur
+            )
         else:
-            self.kilometres_moteur = km_chassis
+            # seulement tant qu’il n’a jamais été remplacé
+            if not self.pk or self.kilometres_moteur == 0:
+                self.kilometres_moteur = km_chassis
 
         if self.kilometres_remplacement_boite:
             self.kilometres_boite = km_chassis - self.kilometres_remplacement_boite
