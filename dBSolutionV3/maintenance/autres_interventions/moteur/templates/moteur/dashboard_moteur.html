@@ -58,6 +58,18 @@
   </a>
 
 
+     <a href="{% url 'turbo:turbo_list' exemplaire.id %}"
+     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <div>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Turbo" %}</h2>
+      <p class="text-gray-600 text-sm">
+        {% trans "Nombre total :" %} <span class="font-bold">{{ total_turbo }}</span>
+      </p>
+    </div>
+    <img src="{% static 'icons/turbo.png' %}" alt="Turbo" style="width:60px; height:60px;">
+  </a>
+
+
 </div>
 <br>
 <br>

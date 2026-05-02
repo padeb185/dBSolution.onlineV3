@@ -25,6 +25,7 @@ from maintenance.autres_interventions.moteur.admission.models import Admission
 from maintenance.autres_interventions.moteur.alternateur.models import Alternateur
 from maintenance.autres_interventions.moteur.courroie.models import CourroieDistribution
 from maintenance.autres_interventions.moteur.remplacement_moteur.models import RemplacementMoteur
+from maintenance.autres_interventions.moteur.turbo.models import Turbo
 
 
 
@@ -82,14 +83,17 @@ def dashboard_moteur_view(request, exemplaire_id):
                 alternateur = Alternateur.objects.filter(voiture_exemplaire=exemplaire)
                 courroie = CourroieDistribution.objects.filter(voiture_exemplaire=exemplaire)
                 moteur_remplacement = RemplacementMoteur.objects.filter(voiture_exemplaire=exemplaire)
+                turbo = Turbo.objects.filter(voiture_exemplaire=exemplaire)
+
 
                 # ✅ COUNTS CORRECTS
                 total_admission = admission.count()
                 total_alternateur = alternateur.count()
                 total_courroie = courroie.count()
                 total_remplacement_moteur = moteur_remplacement.count()
+                total_turbo = turbo.count()
 
-                total_int_moteur = total_admission + total_alternateur + total_courroie + total_remplacement_moteur
+                total_int_moteur = total_admission + total_alternateur + total_courroie + total_remplacement_moteur + total_turbo
 
                 modeles = VoitureModele.objects.all()
         else:
@@ -121,12 +125,13 @@ def dashboard_moteur_view(request, exemplaire_id):
             "total_alternateur": total_alternateur,
             "total_courroie": total_courroie,
             "total_remplacement_moteur": total_remplacement_moteur,
-
+            "total_turbo": total_turbo,
 
             "admission": admission,
             "alternateur": alternateur,
             "courroie": courroie,
             "moteur_remplacement": moteur_remplacement,
+            "turbo": turbo,
 
             "total_int_moteur": total_int_moteur,
 

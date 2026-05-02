@@ -146,7 +146,7 @@ urlpatterns += i18n_patterns(
 
     path("remplacement_moteur/",include(("maintenance.autres_interventions.moteur.remplacement_moteur.urls", "remplacement_moteur"), namespace="remplacement_moteur")),
 
-
+    path("turbo/",include(("maintenance.autres_interventions.moteur.turbo.urls", "turbo"),namespace="turbo")),
 
 )
 

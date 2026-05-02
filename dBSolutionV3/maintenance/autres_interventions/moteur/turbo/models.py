@@ -57,20 +57,20 @@ class Turbo(TechnicienMixin, models.Model):
 
     fonctionnement_geometrie_variable = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Fonctionnement de la géometrie variable"))
 
-    fonctionnement_electrovalve= models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK,verbose_name=_("Fonctionnement de l'électro-valve"))
 
 
 
-    turbo = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Turbo à remplacer"))
-    turbo_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    turbo_quantite = models.IntegerField(default=0)
+
+    turbos = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Turbo à remplacer"))
+    turbos_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    turbos_quantite = models.IntegerField(default=0)
 
 
     intercooler = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Intercooler"))
     intercooler_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     intercooler_quantite = models.IntegerField(default=0)
 
-    electrovanne = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Electro-valve"))
+    electrovanne = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Electro-vanne"))
     electrovanne_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     electrovanne_quantite = models.IntegerField(default=0)
 
@@ -160,7 +160,7 @@ class Turbo(TechnicienMixin, models.Model):
 
     def save(self, *args, **kwargs):
         # Si checkup > km actuel, mettre à jour la voiture
-        if self.voiture_exemplaire and self.kilometrage_admission:
+        if self.voiture_exemplaire and self.kilometres_turbo:
             if self.kilometres_turbo > self.voiture_exemplaire.kilometres_chassis:
                 self.voiture_exemplaire.kilometres_chassis = self.kilometres_turbo
                 self.voiture_exemplaire.save(update_fields=["kilometres_chassis"])

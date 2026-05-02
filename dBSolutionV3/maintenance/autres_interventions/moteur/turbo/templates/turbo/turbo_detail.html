@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="p-6 w-full">
+
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold flex items-center gap-4">
+            <img src="{% static 'icons/turbo.png' %}"
+                 alt="{{ turbo.voiture_exemplaire.immatriculation }}"
+                 class="w-12 h-12">
+            <span>{% trans "Détails du contrôle du turbo" %}</span>
+                {{ exemplaire.voiture_marque.nom_marque }}
+                {{ exemplaire.voiture_modele.nom_modele }}
+                {{ exemplaire.voiture_modele.nom_variante }}
+        </h1>
+    </div>
+
+    <!-- Infos principales -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+
+        <!-- Informations générales -->
+        <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
+            <h2 class="text-lg font-semibold mb-2">{% trans "Informations générales" %}</h2>
+
+            <p><strong>{% trans "Immatriculation" %} :</strong>
+
+               <div class="mb-4">
+                    {% include "maintenance/partials/plaque.html" %}
+                </div>
+            </p>
+            <p><strong>{% trans "Kilométrage" %} :</strong> {{ turbo.kilometres_chassis }}</p>
+            <p><strong>{% trans "Tag" %} :</strong> {{ turbo.get_tag_display }}</p>
+            <p><strong>{% trans "Technicien" %} :</strong> {{ turbo.tech_nom_technicien }} {{ turbo.tech_role_technicien }}</p>
+        </div>
+
+
+        <!-- Maintenance -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-lg font-semibold mb-4">{% trans "Admission" %}</h2>
+            <p><strong>{% trans "Date de l'intervention" %} :</strong> {{ turbo.date|date:"d/m/Y" }}</p>
+            <p><strong>{% trans "Temps" %} :</strong> {{ turbo.main_oeuvre.temps_display }}</p>
+            <p>
+                <strong>{% trans "Remarques" %} :</strong>
+                {{ turbo.remarques }}
+            </p>
+        </div>
+
+
+
+
+
+        <!-- Bouton Modifier -->
+        <div class="mt-auto w-full">
+            <a href="{% url 'turbo:modifier_turbo' turbo.id %}" class="block w-full">
+                <button type="button" class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+                    {% trans "Modifier l'intervention" %}
+                </button>
+            </a>
+        </div>
+    </div>
+
+     <!-- Métadonnées -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">
+            {% trans "Métadonnées" %}
+        </h2>
+
+        <p>
+            <strong>{% trans "Créé le" %} :</strong>
+            {{ turbo.created_at|date:"d/m/Y H:i" }}
+        </p>
+        <p>
+            <strong>{% trans "Mis à jour le" %} :</strong>
+            {{ turbo.updated_at|date:"d/m/Y H:i" }}
+        </p>
+    </div>
+
+    <br>
+    <!-- Actions -->
+    <div>
+        <a href="{% if turbo.voiture_exemplaire %}
+                   {% url 'turbo:turbo_list' turbo.voiture_exemplaire.id %}
+               {% else %}# {% endif %}"
+             class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+            {% trans "Retour à la liste des interventions" %}
+        </a>
+    </div>
+
+</div>
+{% endblock %}
