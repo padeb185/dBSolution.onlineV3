@@ -9,10 +9,10 @@
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
      <!-- Carte Assurance -->
-  <a href="{% url 'client_particulier:clientparticlier_list' %}"
+  <a href="{% url 'client_particulier:clientparticulier_list' %}"
      class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
     <div>
-      <h2 class="text-lg font-semibold mb-1">{% trans "Assureur" %}</h2>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Client Particulier" %}</h2>
       <p class="text-gray-600 text-sm">
         {% trans "Nombre total :" %} <span class="font-bold">{{ total_client_particulier }}</span>
       </p>
@@ -24,7 +24,7 @@
   <a href="{% url 'client_atelier:client_atelier_list' %}"
      class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
     <div>
-      <h2 class="text-lg font-semibold mb-1">{% trans "Police d'assurance" %}</h2>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Client Atelier" %}</h2>
       <p class="text-gray-600 text-sm">
         {% trans "Nombre total :" %} <span class="font-bold">{{ total_client_atelier }}</span>
       </p>

@@ -77,7 +77,7 @@
             <td class="border px-4 py-2">{{ client_atelier.numero_telephone }}</td>
             <td class="border px-4 py-2">{{ client_atelier.email }}</td>
             <td class="border px-4 py-2 text-center">
-                {% if client.id %}
+                {% if client_atelier.id %}
                     <a href="{% url 'client_atelier:client_atelier_detail' client_atelier.id %}"
                         class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
                         {% trans "Info" %}

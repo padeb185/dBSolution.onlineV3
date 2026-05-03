@@ -9,7 +9,7 @@
         <img src="{% static 'icons/client_atelier.png' %}"
              style="width:75px; margin-right:5px;"
              alt="{% trans 'Client Atelier' %}">
-        {% trans "Créer un client atelier %}
+        {% trans "Créer un client atelier" %}
     </h1>
 
     <!-- Messages -->
@@ -73,14 +73,13 @@
             <select name="societe_cliente" id="id_societe_cliente"
                     class="border rounded px-4 py-2 w-full">
 
-                <option value="">
-                    ---------
-                </option>
+                <option value="">---------</option>
 
                 {% for societe in societes %}
                     <option value="{{ societe.id }}"
-                        {% if request.POST.societe_cliente == societe.id|stringformat:"s"
-                              or client_atelier.societe_cliente.id == societe.id %}
+                        {% if request.POST.societe_cliente == societe.id|stringformat:'s' %}
+                            selected
+                        {% elif client_atelier.societe_cliente and client_atelier.societe_cliente.id == societe.id %}
                             selected
                         {% endif %}
                     >
@@ -88,9 +87,7 @@
                     </option>
                 {% endfor %}
             </select>
-      </div>
-
-
+        </div>
         <!-- Numéro de téléphone -->
         <div>
             <label for="id_numero_telephone">{% trans "Numéro de téléphone" %}</label>
@@ -182,13 +179,28 @@
                    class="border rounded px-4 py-2 w-full">
         </div>
 
+        <div>
+            <label for="id_remarques">
+                {% trans "Remarques" %}
+            </label>
+
+            <textarea id="id_remarques"
+                      name="remarques"
+                      class="border rounded px-4 py-2 w-full"
+                      placeholder="remarques">{% spaceless %}
+        {{ request.POST.remarques|default:client_atelier.remarques|default_if_none:'' }}
+        {% endspaceless %}</textarea>
+        </div>
+
+
+
        <div class="flex gap-3 mt-6">
                 <button type="submit"
                         class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
                     {% trans "Enregistrer" %}
                 </button>
 
-               <a href="{% url 'client_atelier:client_atelier_list_list' %}"
+               <a href="{% url 'client_atelier:client_atelier_list' %}"
                    class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
                     {% trans "Annuler" %}
                 </a>

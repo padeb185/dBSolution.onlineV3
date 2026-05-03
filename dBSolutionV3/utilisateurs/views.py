@@ -34,7 +34,7 @@ from achat_mds.models import AchatMds
 from maindoeuvre.models import MainDoeuvre
 from proprietaire.models import Proprietaire
 
-from ..client_atelier.models import ClientAtelier
+from client_atelier.models import ClientAtelier
 
 
 def login_view(request):

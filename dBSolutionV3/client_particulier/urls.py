@@ -1,10 +1,12 @@
 from django.urls import path
 from .views import ClientParticulierListView, ajouter_client_all, modifier_client, client_detail, check_prenom
 
+
 app_name = "client_particulier"
 
 
 urlpatterns = [
+
     path(
         "client_particulier",
         ClientParticulierListView.as_view(),

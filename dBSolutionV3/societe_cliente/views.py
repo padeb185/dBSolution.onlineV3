@@ -105,7 +105,6 @@ def ajouter_societe_cliente_all(request):
                     site_internet=request.POST.get("site_internet"),
                     email=request.POST.get("email"),
                     historique=request.POST.get("historique"),
-                    location=request.POST.get("location"),
                     adresse=adresse  # ✅ l'adresse contient code_pays
                 )
 

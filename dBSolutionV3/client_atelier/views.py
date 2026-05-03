@@ -13,8 +13,7 @@ from django.views.decorators.csrf import csrf_exempt
 from client_atelier.forms import ClientAtelierForm
 from client_atelier.models import ClientAtelier
 from societe_cliente.models import SocieteCliente
-
-from dBSolutionV3.client_particulier.models import ClientParticulier
+from client_particulier.models import ClientParticulier
 
 
 @method_decorator([login_required, never_cache], name='dispatch')

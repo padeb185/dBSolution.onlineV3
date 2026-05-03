@@ -1,25 +1,27 @@
 from django.urls import path
 from .views import check_prenom, ClientAtelierListView, client_atelier_form_view, client_atelier_detail_view, \
-    modifier_client_atelier_view
+    modifier_client_atelier_view, dashboard_client_view
 
 app_name = "client_atelier"
 
 
 urlpatterns = [
+    path("tenant/", dashboard_client_view, name="dashboard_client"),
+
     path(
-        "client_atelierr",
+        "client_atelier",
         ClientAtelierListView.as_view(),
         name="client_atelier_list",
     ),
     path(
-        "client_particulier/creer/",
+        "client_atelier/creer/",
         client_atelier_form_view,
         name="client_atelier_form",
     ),
 
 
     path(
-        "<int:client_particulier_id>/",
+        "<int:client_atelier_id>/",
         client_atelier_detail_view,
         name="client_atelier_detail"
     ),

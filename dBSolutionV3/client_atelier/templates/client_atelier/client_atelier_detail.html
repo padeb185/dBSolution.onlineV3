@@ -34,11 +34,6 @@
                 {{ client_atelier.numero_telephone }}
             </p>
 
-            <p>
-                <strong>{% trans "Date de naissance" %} :</strong>
-                {{ client_atelier.date_naissance }}
-            </p>
-
 
             <p>
                 <strong>{% trans "Numéro de compte" %} :</strong>
@@ -68,7 +63,7 @@
 
         </div>
         <div class="mt-auto w-full">
-            <a href="{% url 'client_atelier:modifier_client' client_atelier.id %}" class="block w-full">
+            <a href="{% url 'client_atelier:modifier_client_atelier' client_atelier.id %}" class="block w-full">
                 <button type="button"
                         class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
                     {% trans "Modifier le client" %}
@@ -77,14 +72,18 @@
         </div>
     </div>
 
-    <!-- Adresse -->
+        <!-- Adresse -->
     <div class="bg-white shadow-md rounded-lg p-6 mb-6">
         <h2 class="text-lg font-semibold mb-4">
             {% trans "Adresse" %}
         </h2>
 
-        {% if client_atelier.adresse %}
-            <p>{{ client_atelier.adresse }}</p>
+       {% if client_atelier.adresse %}
+        <p>
+            {{ client_atelier.adresse.rue|default_if_none:"" }} {{ client_atelier.adresse.numero|default_if_none:"" }}<br>
+            {{ client_atelier.adresse.code_postal|default_if_none:"" }} {{ client_atelier.adresse.ville|default_if_none:"" }}<br>
+            {{ client_atelier.adresse.pays|default_if_none:"" }}
+        </p>
         {% else %}
             <p class="text-gray-500">
                 {% trans "Aucune adresse renseignée." %}

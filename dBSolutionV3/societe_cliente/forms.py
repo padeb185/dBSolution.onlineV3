@@ -1,22 +1,13 @@
 from django import forms
 from .models import SocieteCliente
 from django.utils.translation import gettext_lazy as _
-
+from stdnum import iban as iban_lib
 
 EU_VAT_PREFIXES = [
     "AT", "BE", "BG", "CY", "CZ", "DE", "DK", "EE", "EL", "ES",
     "FI", "FR", "HR", "HU", "IE", "IT", "LT", "LU", "LV", "MT",
     "NL", "PL", "PT", "RO", "SE", "SI", "SK"
 ]
-
-
-def clean_numero_tva(self):
-    tva = self.cleaned_data.get('numero_tva', '').upper().replace(' ', '')
-    if len(tva) < 2 or tva[:2] not in EU_VAT_PREFIXES:
-        raise forms.ValidationError(
-            _("Le numéro de TVA doit commencer par un code pays européen valide (ex: BE, FR, DE...)."))
-
-    return tva
 
 
 def luhn_check(card_number: str) -> bool:
@@ -42,34 +33,73 @@ def luhn_check(card_number: str) -> bool:
 
 
 class SocieteClienteForm(forms.ModelForm):
+
     class Meta:
         model = SocieteCliente
-        fields = '__all__'
+        fields = [
+            "nom_societe_cliente",
+            "directeur_nom_prenom",
+            "numero_telephone",
+            "email",
+            "numero_tva",
+            "numero_compte",
+            "numero_carte_bancaire",
+            "adresse",
+        ]
         widgets = {
             "numero_carte_bancaire": forms.TextInput(attrs={
-            "class": "border rounded px-4 py-2 w-full",
-            "placeholder": "5389 3456 7890 1234"
+                "class": "border rounded px-4 py-2 w-full",
+                "placeholder": "5389 3456 7890 1234"
             }),
             "numero_compte": forms.TextInput(attrs={
                 "class": "border rounded px-4 py-2 w-full",
-                "placeholder": "BE12 3456 7890 1234 56"  # exemple format belge
+                "placeholder": "BE12 3456 7890 1234 56"
             }),
         }
 
+
+
+
+    def clean_numero_tva(self):
+        tva = (self.cleaned_data.get('numero_tva') or '').upper().replace(' ', '')
+
+        if len(tva) < 2 or tva[:2] not in EU_VAT_PREFIXES:
+            raise forms.ValidationError(
+                _("Le numéro de TVA doit commencer par un code pays européen valide (ex: BE, FR, DE...).")
+            )
+
+        return tva
+
+
+
+
     def clean_numero_carte_bancaire(self):
-        card_number = self.cleaned_data.get("numero_carte_bancaire")
+        value = self.cleaned_data.get("numero_carte_bancaire")
 
-        if not card_number:
-            # Champ vide → on le laisse vide (None ou '')
-            return card_number
+        if not value:
+            return None
 
-        # Nettoyage
-        card_number_clean = card_number.replace(" ", "").replace("-", "")
+        value = str(value).replace(" ", "").replace("-", "")
 
-        if not card_number_clean.isdigit():
-            raise forms.ValidationError(_("Le numéro de carte bancaire doit contenir uniquement des chiffres."))
+        if not value.isdigit():
+            raise forms.ValidationError("Numéro de carte invalide")
 
-        if not luhn_check(card_number_clean):
-            raise forms.ValidationError(_("Numéro de carte bancaire invalide (check digit incorrect)."))
+        if not luhn_check(value):
+            raise forms.ValidationError("Numéro de carte invalide (Luhn)")
 
-        return card_number_clean
+        return value
+
+
+
+    def clean_numero_compte(self):
+        value = self.cleaned_data.get("numero_compte")
+
+        if not value:
+            return None
+
+        value = value.replace(" ", "")
+
+        if not iban_lib.is_valid(value):
+            raise forms.ValidationError("IBAN invalide")
+
+        return value

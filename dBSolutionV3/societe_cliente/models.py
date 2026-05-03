@@ -139,3 +139,11 @@ class SocieteCliente(models.Model):
         verbose_name_plural = "Sociétés clientes"
         ordering = ['nom_societe_cliente']
 
+    def __str__(self):
+        name = self.nom_societe_cliente or "Sans nom"
+        vat = self.numero_tva or ""
+
+        if vat:
+            return f"{name} ({vat})"
+
+        return name

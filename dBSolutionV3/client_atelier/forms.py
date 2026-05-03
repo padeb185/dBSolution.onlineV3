@@ -1,5 +1,5 @@
 from django import forms
-from .models import ClientParticulier, ClientAtelier
+from .models import ClientAtelier
 from django.utils.translation import gettext_lazy as _
 
 
@@ -52,14 +52,17 @@ class ClientAtelierForm(forms.ModelForm):
         }
 
     def clean_numero_carte_bancaire(self):
-        card_number = self.cleaned_data.get("numero_carte_bancaire")
-        card_number_clean = card_number.replace(" ", "").replace("-", "")
+        value = self.cleaned_data.get("numero_carte_bancaire")
 
-        if not card_number_clean.isdigit():
-            raise forms.ValidationError(_("Le numéro de carte bancaire doit contenir uniquement des chiffres."))
+        if not value:
+            return None
 
-        if not luhn_check(card_number_clean):
-            raise forms.ValidationError(_("Numéro de carte bancaire invalide (check digit incorrect)."))
+        value = str(value).replace(" ", "").replace("-", "")
 
-        # Important : on retourne bien le numéro nettoyé
-        return card_number_clean
+        if not value.isdigit():
+            raise forms.ValidationError("Numéro de carte invalide")
+
+        if not luhn_check(value):
+            raise forms.ValidationError("Numéro de carte invalide (Luhn)")
+
+        return value

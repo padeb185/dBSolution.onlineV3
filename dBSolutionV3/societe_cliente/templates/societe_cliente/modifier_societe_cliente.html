@@ -47,47 +47,124 @@
     {% endif %}
 
 
-    <form method="post" class="space-y-4">
+    <form method="post" class="flex flex-col space-y-4">
         {% csrf_token %}
 
-        {% for field in form %}
-            <div>
-                <label class="block font-semibold mb-1">
-                    {{ field.label }}
-                </label>
+        <!-- Prénom -->
+        <div>
+            <label for="id_nom_societe_cliente">{% trans "Nom de la société" %}</label>
+            <input type="text" id="id_nom_societe_cliente" name="nom_societe_cliente"
+                   value="{{ request.POST.nom_societe_cliente|default:societe_cliente.nom_societe_cliente|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full"
+                   placeholder="{% trans 'Nom de la sociéte' %}">
+        </div>
 
-                {{ field|add_class:"input" }}
+        <!-- Nom -->
+        <div>
+            <label for="id_directeur_nom_prenom">{% trans "Nom du Directeur" %}</label>
+            <input type="text" id="id_directeur_nom_prenom" name="directeur_nom_prenom"
+                   value="{{ request.POST.directeur_nom_prenom|default:societe_cliente.directeur_nom_prenom|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full"
+                   placeholder="{% trans 'Nom du directeur' %}">
+        </div>
 
-                {% if field.help_text %}
-                    <p class="text-gray-500 text-sm mt-1">
-                        {{ field.help_text }}
-                    </p>
-                {% endif %}
-
-                {% if field.errors %}
-                    <p class="text-red-600 text-sm mt-1">
-                        {{ field.errors|striptags }}
-                    </p>
-                {% endif %}
-            </div>
-        {% endfor %}
+        <!-- Numéro de téléphone -->
+        <div>
+            <label for="id_numero_telephone">{% trans "Numéro de téléphone" %}</label>
+            <input type="text" id="id_numero_telephone" name="numero_telephone"
+                   value="{{ request.POST.numero_telephone|default:societe_cliente.numero_telephone|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full"
+                   placeholder="+32 123 45 67 89">
+        </div>
 
 
-          <div class="flex gap-3 mt-6">
+        <!-- Numéro de compte bancaire -->
+        <div>
+            <label for="id_numero_compte">{% trans "Numéro de compte bancaire" %}</label>
+            <input type="text"
+                   id="id_numero_compte"
+                   name="numero_compte"
+                   value="{{ request.POST.numero_compte|default:societe_cliente.numero_compte|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+
+        <div>
+            <label for="id_numero_carte_bancaire">{% trans "Numéro de carte bancaire" %}</label>
+            <input type="text"
+                   id="id_numero_carte_bancaire"
+                   name="numero_carte_bancaire"
+                   value="{{ request.POST.numero_carte_bancaire|default:societe_cliente.numero_carte_bancaire|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+
+
+        <!-- Email -->
+        <div>
+            <label for="id_email">{% trans "Email" %}</label>
+            <input type="email" id="id_email" name="email"
+                   value="{{ request.POST.email|default:societe_cliente.email|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full"
+                   placeholder="exemple@domaine.com">
+        </div>
+
+
+
+        <!-- Adresse -->
+        <h2 class="text-lg font-semibold mt-6 mb-2">{% trans "Adresse" %}</h2>
+
+        <div>
+            <label for="id_rue">{% trans "Rue" %}</label>
+            <input type="text" id="id_rue" name="rue"
+                   value="{{ request.POST.rue|default:societe_cliente.adresse.rue|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+        <div>
+            <label for="id_numero">{% trans "Numéro" %}</label>
+            <input type="text" id="id_numero" name="numero"
+                   value="{{ request.POST.numero|default:societe_cliente.adresse.numero|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+        <div>
+            <label for="id_code_postal">{% trans "Code postal" %}</label>
+            <input type="text" id="id_code_postal" name="code_postal"
+                   value="{{ request.POST.code_postal|default:societe_cliente.adresse.code_postal|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+        <div>
+            <label for="id_ville">{% trans "Ville" %}</label>
+            <input type="text" id="id_ville" name="ville"
+                   value="{{ request.POST.ville|default:societe_cliente.adresse.ville|default_if_none:'' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+        <div>
+            <label for="id_pays">{% trans "Pays" %}</label>
+            <input type="text" id="id_pays" name="pays"
+                   value="{{ request.POST.pays|default:societe_cliente.adresse.pays|default:'Belgique' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+        <div>
+            <label for="id_code_pays">{% trans "Code pays" %}</label>
+            <input type="text" id="id_code_pays" name="code_pays"
+                   value="{{ request.POST.code_pays|default:societe_cliente.adresse.code_pays|default:'BE' }}"
+                   class="border rounded px-4 py-2 w-full">
+        </div>
+
+        <div class="flex gap-3 mt-6">
                 <button type="submit"
                         class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
                     {% trans "Enregistrer" %}
                 </button>
 
-                <a href="{% url 'societe_cliente:societe_cliente_detail' societe_cliente.id_societe_cliente %}"
+               <a href="{% url 'societe_cliente:societe_cliente_detail' %}"
                    class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
                     {% trans "Annuler" %}
                 </a>
-            </div>
 
-
+        </div>
 
     </form>
+
+
 </div>
 
 <style>
@@ -102,7 +179,6 @@
 
 
 <script>
-
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -120,15 +196,14 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const csrftoken = getCookie('csrftoken');
-    const societeClienteInput = document.getElementById('id_nom_societe_cliente');
 
-    if (!societeClienteInput) return;
+    const input = document.getElementById('id_nom_societe_cliente');
+    if (!input) return;
 
-    // Écoute le champ numéro de permis
-    societeClienteInput.addEventListener('blur', function () {
+    input.addEventListener('blur', function () {
 
-        const numero_permis = this.value.trim();
-        if (!numero_permis) return;
+        const nom_societe_cliente = this.value.trim();
+        if (!nom_societe_cliente) return;
 
         fetch('/api/check_nom_societe/', {
             method: 'POST',
@@ -136,7 +211,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 'Content-Type': 'application/json',
                 'X-CSRFToken': csrftoken,
             },
-            body: JSON.stringify({ nom_societe_cliente })
+            body: JSON.stringify({ nom_societe_cliente: nom_societe_cliente })
         })
         .then(r => r.json())
         .then(data => {
@@ -156,63 +231,23 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
 
             } else {
-                document.getElementById('id_prenom').value = '';
-                document.getElementById('id_nom').value = '';
-                document.getElementById('id_email').value = '';
+                ['id_prenom','id_nom','id_email','id_rue','id_numero','id_code_postal','id_ville']
+                .forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.value = '';
+                });
 
-                document.getElementById('id_rue').value = '';
-                document.getElementById('id_numero').value = '';
-                document.getElementById('id_code_postal').value = '';
-                document.getElementById('id_ville').value = '';
-                document.getElementById('id_pays').value = 'Belgique';
-                document.getElementById('id_code_pays').value = 'BE';
+                const pays = document.getElementById('id_pays');
+                const code = document.getElementById('id_code_pays');
+
+                if (pays) pays.value = 'Belgique';
+                if (code) code.value = 'BE';
             }
         })
         .catch(err => console.error("Erreur:", err));
     });
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-
-    function formatBankNumber(inputId) {
-        const input = document.getElementById(inputId);
-        if (!input) return;
-
-        input.addEventListener("input", function () {
-            let val = input.value.toUpperCase();
-
-            // Supprime tout sauf lettres et chiffres
-            val = val.replace(/[^A-Z0-9]/g, "");
-
-            let formatted = "";
-            let i = 0;
-
-            while (i < val.length) {
-                if (i === 0) {
-                    // deux lettres
-                    formatted += val.substr(i, 2);
-                    i += 2;
-                } else if (i === 2) {
-                    // deux chiffres + espace
-                    formatted += val.substr(i, 2) + " ";
-                    i += 2;
-                } else {
-                    // groupes de quatre chiffres + espace
-                    formatted += val.substr(i, 4) + " ";
-                    i += 4;
-                }
-            }
-
-            // Supprime l'espace final
-            input.value = formatted.trim();
-        });
-    }
-
-    // Appliquer aux deux champs
-    formatBankNumber("id_numero_carte_bancaire");
-    formatBankNumber("id_numero_compte");
-
-});
 </script>
 
 {% endblock %}
