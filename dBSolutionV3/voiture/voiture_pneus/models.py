@@ -84,6 +84,7 @@ class VoiturePneus(models.Model):
         blank=True
     )
 
+
     manufacturier = models.CharField(max_length=100)
 
     emplacement = models.CharField(

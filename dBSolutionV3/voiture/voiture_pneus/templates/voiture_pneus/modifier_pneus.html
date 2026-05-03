@@ -8,7 +8,15 @@
     <h1 class="text-2xl font-bold mb-4 text-center flex items-center">
         <img src="{% static 'icons/pneus.png' %}" alt="Pneus"
              style="width:60px; height:60px; margin-right:10px;">
-        {% trans "Détails des pneus" %}: {{ pneus.manufacturier }} {{ pneus.type_pneus }}
+        <span>{% trans "Détails du Pneu :  " %} </span>
+
+        <img
+            src="{% static 'images/' %}{{ pneus.manufacturier|lower|slugify }}.png"
+            alt="{{ pneus.manufacturier }}"
+            style="width:150px; height:50px; object-fit:contain;"
+            onerror="this.style.display='none';"
+        >
+
     </h1>
 
       <!-- Messages -->

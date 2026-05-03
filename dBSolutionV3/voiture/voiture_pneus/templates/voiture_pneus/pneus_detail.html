@@ -7,22 +7,17 @@
 {% block content %}
 <div class="p-6 w-full ml-[-10px] mr-[10px]">
 
-    <!-- Header -->
     <div class="flex justify-between items-center mb-6">
-       <h1 class="text-2xl font-bold flex items-center gap-4">
+        <h1 class="text-2xl font-bold flex items-center gap-4">
             <span>{% trans "Détails du Pneu :" %}</span>
 
-            {% with image_name=pneus.manufacturier|slugify %}
-                 <img
-                    src="{% static 'images/'|add:pneus.manufacturier|lower|add:'.png' %}"
-                    alt="{{ pneus.manufacturier }}"
-                    style="width:150px; height:50px; object-fit:contain;"
-                    onerror="this.onerror=null; this.outerHTML='{{ pneus.manufacturier }}';"
-                 >
-            {% endwith %}
+            <img
+                src="{% static 'images/' %}{{ pneus.manufacturier|lower|slugify }}.png"
+                alt="{{ pneus.manufacturier }}"
+                style="width:150px; height:50px; object-fit:contain;"
+                onerror="this.style.display='none';"
+            >
         </h1>
-
-
     </div>
 
     <!-- Infos principales -->
