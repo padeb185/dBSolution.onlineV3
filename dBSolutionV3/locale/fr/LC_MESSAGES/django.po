@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-02 16:24+0200\n"
+"POT-Creation-Date: 2026-05-03 08:54+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -3240,8 +3240,7 @@ msgid "Calculateur d'ABS"
 msgstr ""
 
 #: .\maintenance\autres_interventions\abs\models.py:100
-#: .\maintenance\autres_interventions\moteur\courroie\models.py:149
-msgid "Prix d'achat htva de la pompe à eau"
+msgid "Prix d'achat htva du calculateur d'ABS"
 msgstr ""
 
 #: .\maintenance\autres_interventions\abs\models.py:110
@@ -5170,6 +5169,10 @@ msgstr ""
 #: .\maintenance\autres_interventions\moteur\courroie\views.py:278
 #: .\piece\piece_distribution\models.py:16
 msgid "Pompe à eau"
+msgstr ""
+
+#: .\maintenance\autres_interventions\moteur\courroie\models.py:149
+msgid "Prix d'achat htva de la pompe à eau"
 msgstr ""
 
 #: .\maintenance\autres_interventions\moteur\courroie\models.py:159
