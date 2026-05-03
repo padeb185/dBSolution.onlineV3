@@ -27,6 +27,8 @@ class ClientParticulier(models.Model):
         blank=True,
     )
 
+
+
     adresse = models.OneToOneField(
         "adresse.Adresse",
         verbose_name=_("Adresse"),

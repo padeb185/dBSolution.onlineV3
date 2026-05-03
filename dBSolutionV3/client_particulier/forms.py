@@ -51,6 +51,8 @@ class ClientParticulierForm(forms.ModelForm):
                 "class": "border rounded px-4 py-2 w-full",
                 "placeholder": "BE12 3456 7890 1234 56"  # exemple format belge
             }),
+
+
         }
        
 

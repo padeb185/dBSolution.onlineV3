@@ -1,5 +1,4 @@
 from datetime import datetime
-
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
@@ -7,7 +6,6 @@ from django.template.loader import render_to_string
 from django.utils import timezone
 from django.contrib import messages
 from django.db import transaction, models
-from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
@@ -17,10 +15,12 @@ from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 from weasyprint import HTML
-
 from .forms import GeometrieVoitureForm
 from .models import GeometrieVoiture
 from .pdf_report import generate_geometrie_pdf
+
+
+
 
 
 @method_decorator([login_required, never_cache], name='dispatch')
