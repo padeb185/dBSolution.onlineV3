@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load i18n static widget_tweaks %}
+{% get_current_language as LANGUAGE_CODE %}
+{% block title %}{% trans "Tableau de bord assurance" %}{% endblock %}
+{% block content %}
+<br>
+<h1 class="text-2xl font-bold mb-6">{% trans "Bienvenue sur le tableau de bord client" %}</h1>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+     <!-- Carte Assurance -->
+  <a href="{% url 'client_particulier:clientparticlier_list' %}"
+     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <div>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Assureur" %}</h2>
+      <p class="text-gray-600 text-sm">
+        {% trans "Nombre total :" %} <span class="font-bold">{{ total_client_particulier }}</span>
+      </p>
+    </div>
+    <img src="{% static 'icons/client.png' %}" alt="client particulier" style="width:60px; height:60px;">
+  </a>
+
+  <!-- Carte Police d'assurance -->
+  <a href="{% url 'client_atelier:client_atelier_list' %}"
+     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <div>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Police d'assurance" %}</h2>
+      <p class="text-gray-600 text-sm">
+        {% trans "Nombre total :" %} <span class="font-bold">{{ total_client_atelier }}</span>
+      </p>
+    </div>
+    <img src="{% static 'icons/client_atelier.png' %}" alt="client atelier" style="width:60px; height:60px;">
+  </a>
+
+
+
+</div>
+{% endblock %}

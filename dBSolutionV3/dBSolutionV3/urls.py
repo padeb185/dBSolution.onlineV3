@@ -53,15 +53,15 @@ urlpatterns += i18n_patterns(
     path('voiture/exemplaires/<uuid:exemplaire_id>/', voiture_exemplaire_detail, name='detail'),
 
     path(
-        "fr/voiture/freins/",
+        "voiture/freins/",
         include(("voiture.voiture_freins_av.urls", "voiture_freins_av"), namespace="voiture_freins_av"),
     ),
     path(
-        "fr/voiture/freins_ar/",
+        "voiture/freins_ar/",
         include(("voiture.voiture_freins_ar.urls", "voiture_freins_ar"), namespace="voiture_freins_ar"),
     ),
     path(
-        "fr/voiture/pneus/",
+        "voiture/pneus/",
         include(("voiture.voiture_pneus.urls", "voiture_pneus"), namespace="voiture_pneus"),
     ),
 
@@ -73,6 +73,8 @@ urlpatterns += i18n_patterns(
     path("fournisseurs/", include("fournisseur.urls")),
 
     path("client_particulier/", include("client_particulier.urls")),
+
+    path("client_atelier/", include("client_atelier.urls")),
 
     path("carrosserie/", include("carrosserie.urls")),
 

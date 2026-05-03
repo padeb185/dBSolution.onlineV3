@@ -34,7 +34,7 @@ from achat_mds.models import AchatMds
 from maindoeuvre.models import MainDoeuvre
 from proprietaire.models import Proprietaire
 
-
+from ..client_atelier.models import ClientAtelier
 
 
 def login_view(request):
@@ -104,12 +104,12 @@ def dashboard_view(request):
     total_fournisseur = total_client_particulier = 0
     total_carrosserie = total_societe_cliente = 0
     total_adresse = total_assurance = total_modele = total_outils = 0
-    total_recharge = total_main = total_proprietaire = 0
+    total_recharge = total_main = total_proprietaire = total_client = 0
 
     marques = moteurs = exemplaires = boites = embrayages = freins = \
-        freins_ar = pneus = maintenance = fournisseurs = client_particulier =\
+        freins_ar = pneus = maintenance = fournisseurs = client_particulier = client_atelier =\
         carrosseries = societe_cliente = adresse = assurance = \
-        assurance_police = modele = outils = recharge = maindoeuvre = proprietaire = []
+        assurance_police = modele = outils = recharge = maindoeuvre = proprietaire = client = []
 
     if schema_name:
         with schema_context(schema_name):
@@ -125,6 +125,7 @@ def dashboard_view(request):
             maintenance = Maintenance.objects.filter(societe=societe)
             fournisseurs = Fournisseur.objects.filter(societe=societe)
             client_particulier = ClientParticulier.objects.filter(societe=societe)
+            client_atelier = ClientAtelier.objects.filter(societe=societe)
             carrosseries = Carrosserie.objects.filter(societe=societe)
             maindoeuvre = MainDoeuvre.objects.filter( utilisateur__societe=societe)
             proprietaire = Proprietaire.objects.filter(societe=societe)
@@ -152,6 +153,7 @@ def dashboard_view(request):
             total_maintenance = maintenance.count()
             total_fournisseur = fournisseurs.count()
             total_client_particulier = client_particulier.count()
+            total_client_atelier = client_atelier.count()
             total_carrosserie = carrosseries.count()
             total_societe_cliente = societe_cliente.count()
             total_adresse = adresse.count()
@@ -163,6 +165,7 @@ def dashboard_view(request):
             total_main = maindoeuvre.count()
             total_proprietaire = proprietaire.count()
 
+            total_client = client_particulier.count() + client_atelier.count()
 
             # Récupère les modèles existants pour les liens maintenance
             modeles = VoitureModele.objects.all()
@@ -184,6 +187,7 @@ def dashboard_view(request):
         'total_maintenance': total_maintenance,
         'total_fournisseur': total_fournisseur,
         'total_client_particulier': total_client_particulier,
+        'total_client_atelier': total_client_atelier,
         'total_carrosserie': total_carrosserie,
         'total_societe_cliente': total_societe_cliente,
         'total_adresse': total_adresse,
@@ -194,6 +198,7 @@ def dashboard_view(request):
         'total_recharge': total_recharge,
         'total_main': total_main,
         'total_proprietaire': total_proprietaire,
+        'total_client': total_client,
 
 
 
@@ -210,6 +215,7 @@ def dashboard_view(request):
         'modeles': modeles,
         'fournisseur': fournisseurs,
         'client_particulier': client_particulier,
+        'client_atelier': client_atelier,
         'carrosserie': carrosseries,
         'societe_cliente': societe_cliente,
         'adresse': adresse,
@@ -220,6 +226,7 @@ def dashboard_view(request):
         'recharge': recharge,
         'maindoeuvre': maindoeuvre,
         'proprietaire': proprietaire,
+        'client': client,
 
 
     })

@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% load i18n static format_numbers %}
+
+{% block content %}
+<div class="p-6 w-full ml-[-10px] mr-[10px]">
+
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
+       <h1 class="text-2xl font-bold flex items-center gap-4">
+           <img src="{% static 'icons/client_atelier.png' %}" alt="client"
+         style="width:60px; height:60px; margin-right:10px;">
+            <span>{% trans "Détails du client :" %}</span>
+            <span class="text-black-700">{{ client_atelier.prenom}} {{ client_atelier.nom }}</span>
+
+        </h1>
+    </div>
+
+    <!-- Infos principales -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+
+        <!-- Informations générales -->
+        <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-6">
+            <h2 class="text-lg font-semibold mb-2">
+                {% trans "Informations générales" %}
+            </h2>
+
+            <p>
+                <strong>{% trans "Email" %} :</strong>
+                {{ client_atelier.email }}
+            </p>
+
+            <p>
+                <strong>{% trans "Numéro de téléphone" %} :</strong>
+                {{ client_atelier.numero_telephone }}
+            </p>
+
+            <p>
+                <strong>{% trans "Date de naissance" %} :</strong>
+                {{ client_atelier.date_naissance }}
+            </p>
+
+
+            <p>
+                <strong>{% trans "Numéro de compte" %} :</strong>
+                {{ client_atelier.numero_compte|format_iban }}
+            </p>
+
+            <p>
+                <strong>{% trans "Numéro de carte bancaire" %} :</strong>
+                {{ client_atelier.numero_carte_bancaire|format_card }}
+            </p>
+
+            <p>
+                <strong>{% trans "Numéro de carte d'identité" %} :</strong>
+                {{ client_atelier.numero_carte_id }}
+            </p>
+
+
+        </div>
+
+        <!-- remarques historique  -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+
+             <p>
+                <strong>{% trans "Remarques" %} :</strong><br>
+                {{ client_atelier.remarques }}
+            </p>
+
+        </div>
+        <div class="mt-auto w-full">
+            <a href="{% url 'client_atelier:modifier_client' client_atelier.id %}" class="block w-full">
+                <button type="button"
+                        class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+                    {% trans "Modifier le client" %}
+                </button>
+            </a>
+        </div>
+    </div>
+
+    <!-- Adresse -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">
+            {% trans "Adresse" %}
+        </h2>
+
+        {% if client_atelier.adresse %}
+            <p>{{ client_atelier.adresse }}</p>
+        {% else %}
+            <p class="text-gray-500">
+                {% trans "Aucune adresse renseignée." %}
+            </p>
+        {% endif %}
+    </div>
+
+    <!-- Métadonnées -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">
+            {% trans "Métadonnées" %}
+        </h2>
+
+        <p>
+            <strong>{% trans "Créé le" %} :</strong>
+            {{ client_atelier.created_at|date:"d/m/Y H:i" }}
+        </p>
+        <br>
+         <p>
+            <strong>{% trans "Mis à jour le" %} :</strong>
+            {{ client_atelier.updated_at|date:"d/m/Y H:i" }}
+        </p>
+    </div>
+
+    <br>
+
+
+    <!-- Actions -->
+    <div>
+        <a href="{% url 'client_atelier:client_atelier_list' %}"
+           class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+            {% trans "Retour à la liste des clients atelier" %}
+        </a>
+    </div>
+
+</div>
+
+
+{% endblock %}

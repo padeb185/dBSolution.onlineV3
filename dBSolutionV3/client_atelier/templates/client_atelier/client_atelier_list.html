@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+{% load i18n static widget_tweaks %}
+
+{% block title %}{% trans "Liste des Clients" %}{% endblock %}
+
+{% block content %}
+<br>
+<h1 class="text-2xl font-bold mb-6 flex items-center">
+    <img src="{% static 'icons/client.png' %}" alt="client"
+         style="width:60px; height:60px; margin-right:10px;">
+    {% trans "Liste des Clients Atelier" %}
+</h1>
+<br>
+<div>
+    <a href="{% url 'client_atelier:client_atelier_form' %}"
+        class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Ajouter un client atelier" %}
+    </a>
+</div>
+
+<br>
+<br>
+
+<div class="bg-white shadow-md rounded-lg p-4 mb-4">
+    <div class="grid grid-cols-1 md:grid-cols-6 gap-3 items-end">
+
+        <input id="search-prenom" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Prenom du client' %}">
+
+        <input id="search-nom" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Nom du client' %}">
+
+
+        <input id="search-adresse" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Adresse' %}">
+
+        <input id="search-numero_telephone" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Numéro de téléphone' %}">
+
+
+        <input id="search-email" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'email' %}">
+
+
+        <input id="search-numero_compte" type="text"
+               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'N° de compte' %}">
+    </div>
+</div>
+
+
+
+
+<!-- Table -->
+<table id="client_atelier-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Prénom" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Nom" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Adresse" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Numéro de téléphone" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Email" %}</th>
+            <th class="border px-4 py-2 cursor-pointer text-center">{% trans "Info" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for client_atelier in client_ateliers %}
+        <tr>
+            <td class="border px-4 py-2">{{ client_atelier.prenom }}</td>
+            <td class="border px-4 py-2">{{ client_atelier.nom }}</td>
+            <td class="border px-4 py-2">{{ client_atelier.adresse }}</td>
+            <td class="border px-4 py-2">{{ client_atelier.numero_telephone }}</td>
+            <td class="border px-4 py-2">{{ client_atelier.email }}</td>
+            <td class="border px-4 py-2 text-center">
+                {% if client.id %}
+                    <a href="{% url 'client_atelier:client_atelier_detail' client_atelier.id %}"
+                        class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
+                        {% trans "Info" %}
+                    </a>
+                {% else %}
+                    <span class="text-gray-400">{% trans "Info indisponible" %}</span>
+                {% endif %}
+            </td>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
+<br>
+<br>
+<div>
+    <a href="{% url 'utilisateurs:dashboard' %}"
+      class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour au tableau de bord" %}
+    </a>
+</div>
+<br>
+
+<!-- DataTables JS -->
+<script>
+$(document).ready(function() {
+    var table = $('#client_atelier-table').DataTable({
+        pageLength: 30,
+        language: {
+            search: "{% trans 'Recherche globale :' %}",
+            lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ client atelier' %}",
+            infoEmpty: "{% trans 'Aucun client trouvé' %}",
+            zeroRecords: "{% trans 'Aucun client trouvé' %}",
+            paginate: {
+                first: "{% trans 'Premier' %}",
+                last: "{% trans 'Dernier' %}",
+                next: "{% trans 'Suivant' %}",
+                previous: "{% trans 'Précédent' %}"
+            }
+        },
+        order: [[0, "asc"]]
+    });
+
+    // Filtres par colonne
+    $('#search-prenom').on('keyup', function () {
+        table.column(0).search(this.value).draw();
+    });
+    $('#search-nom').on('keyup', function () {
+        table.column(1).search(this.value).draw();
+    });
+    $('#search-adresse').on('keyup', function () {
+        table.column(2).search(this.value).draw();
+    });
+    $('#search-numero_telephone').on('keyup', function () {
+        table.column(3).search(this.value).draw();
+    });
+     $('#search-email').on('keyup', function () {
+        table.column(4).search(this.value).draw();
+    });
+
+});
+document.addEventListener("DOMContentLoaded", function () {
+
+    function formatBankNumber(inputId) {
+        const input = document.getElementById(inputId);
+        if (!input) return;
+
+        input.addEventListener("input", function () {
+            let val = input.value.toUpperCase();
+
+            // Supprime tout sauf lettres et chiffres
+            val = val.replace(/[^A-Z0-9]/g, "");
+
+            let formatted = "";
+            let i = 0;
+
+            while (i < val.length) {
+                if (i === 0) {
+                    // deux lettres
+                    formatted += val.substr(i, 2);
+                    i += 2;
+                } else if (i === 2) {
+                    // deux chiffres + espace
+                    formatted += val.substr(i, 2) + " ";
+                    i += 2;
+                } else {
+                    // groupes de quatre chiffres + espace
+                    formatted += val.substr(i, 4) + " ";
+                    i += 4;
+                }
+            }
+
+            // Supprime l'espace final
+            input.value = formatted.trim();
+        });
+    }
+
+    // Appliquer aux deux champs
+    formatBankNumber("id_numero_carte_bancaire");
+    formatBankNumber("id_numero_compte");
+
+});
+</script>
+
+{% endblock %}

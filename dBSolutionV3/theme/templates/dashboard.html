@@ -174,12 +174,12 @@
 
 
   <!-- Carte Clients -->
-  <a href="{% url 'client_particulier:clientparticulier_list' %}"
+  <a href="{% url 'client_atelier:dashboard_client' %}"
      class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
     <div>
       <h2 class="text-lg font-semibold mb-1">{% trans "Clients" %}</h2>
       <p class="text-gray-600 text-sm">
-        {% trans "Nombre total :" %} <span class="font-bold">{{ total_client_particulier }}</span>
+        {% trans "Nombre total :" %} <span class="font-bold">{{ total_client }}</span>
       </p>
     </div>
     <img src="{% static 'icons/client.png' %}" alt="client" style="width:60px; height:60px;">
