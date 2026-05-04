@@ -27,6 +27,12 @@ from maintenance.autres_interventions.moteur.admission.models import Admission
 from maintenance.autres_interventions.moteur.alternateur.models import Alternateur
 from maintenance.autres_interventions.abs.models import Abs
 from maintenance.autres_interventions.moteur.courroie.models import CourroieDistribution
+from maintenance.autres_interventions.moteur.remplacement_moteur.models import RemplacementMoteur
+from maintenance.autres_interventions.boite_de_vitesse.remplacement_boite.models import RemplacementBoite
+from maintenance.autres_interventions.moteur.turbo.models import Turbo
+
+
+
 
 
 @login_required
@@ -64,9 +70,11 @@ def choisir_autre_maintenance(request, exemplaire_id):
         tenant_schema = getattr(request, 'tenant', None)
         schema_name = tenant_schema.schema_name if tenant_schema else None
 
-        total_boite = total_bte_auto = total_geometrie = total_int_moteur = total_abs =   0
+        total_boite = total_bte_auto = total_geometrie = total_int_moteur = total_abs = total_int_boite = total_turbo =  0
 
-        boite = bte_auto = geometrie = moteur = ABS = []
+
+
+        boite = bte_auto = geometrie = moteur = abs = remplacement_boite = turbo = []
 
         if schema_name:
             with schema_context(schema_name):
@@ -75,20 +83,29 @@ def choisir_autre_maintenance(request, exemplaire_id):
                 boite = ControleBoite.objects.filter(voiture_exemplaire=exemplaire)
                 bte_auto = ControleBteVitesseAuto.objects.filter(voiture_exemplaire=exemplaire)
                 geometrie = GeometrieVoiture.objects.filter(voiture_exemplaire=exemplaire)
-                ABS = Abs.objects.filter(voiture_exemplaire=exemplaire)
+                abs = Abs.objects.filter(voiture_exemplaire=exemplaire)
+                remplacement_boite = RemplacementBoite.objects.filter(voiture_exemplaire=exemplaire)
+
 
                 # ✅ COUNTS CORRECTS
                 total_boite = boite.count()
                 total_bte_auto = bte_auto.count()
                 total_geometrie = geometrie.count()
-                total_abs = ABS.count()
+                total_abs = abs.count()
+                total_remplacement_boite = remplacement_boite.count()
+
+
                 admission = Admission.objects.filter(voiture_exemplaire=exemplaire)
                 alternateur = Alternateur.objects.filter(voiture_exemplaire=exemplaire)
                 courroie = CourroieDistribution.objects.filter(voiture_exemplaire=exemplaire)
+                remplacement_moteur = RemplacementMoteur.objects.filter(voiture_exemplaire=exemplaire)
+                remplacement_boite = RemplacementBoite.objects.filter(voiture_exemplaire=exemplaire)
+                turbo = Turbo.objects.filter(voiture_exemplaire=exemplaire)
 
 
-                total_int_moteur = admission.count() + alternateur.count() + courroie.count()
+                total_int_moteur = admission.count() + alternateur.count() + courroie.count() + turbo.count() + remplacement_moteur.count()
 
+                total_int_boite = boite.count() + remplacement_boite.count()
 
 
                 modeles = VoitureModele.objects.all()
@@ -121,14 +138,18 @@ def choisir_autre_maintenance(request, exemplaire_id):
             "total_bte_auto": total_bte_auto,
             "total_geometrie": total_geometrie,
             "total_abs": total_abs,
+            "total_remplacement_boite": total_remplacement_boite,
             "total_int_moteur": total_int_moteur,
+            "total_int_boite": total_int_boite,
+            "total_turbo": total_turbo,
 
             "boite": boite,
             "bte_auto": bte_auto,
             "geometrie": geometrie,
             "abs": abs,
             "moteur": moteur,
-
+            "remplacement_boite": remplacement_boite,
+            "turbo": turbo,
 
             "modeles": modeles,
 

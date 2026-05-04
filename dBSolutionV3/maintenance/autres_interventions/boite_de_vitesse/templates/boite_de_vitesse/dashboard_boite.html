@@ -11,62 +11,27 @@
 
 
 <!-- Carte admission -->
-  <a href="{% url 'admission:admission_list' exemplaire.id %}"
+  <a href="{% url 'boite_de_vitesse:boite_list' exemplaire.id %}"
      class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
     <div>
-      <h2 class="text-lg font-semibold mb-1">{% trans "Admission" %}</h2>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Boite de vitesse" %}</h2>
       <p class="text-gray-600 text-sm">
-        {% trans "Nombre total :" %} <span class="font-bold">{{ total_admission }}</span>
+        {% trans "Nombre total :" %} <span class="font-bold">{{ total_boite }}</span>
       </p>
     </div>
-    <img src="{% static 'icons/admission.png' %}" alt="Admission" style="width:60px; height:60px;">
+    <img src="{% static 'icons/boite-de-vitesse.png' %}" alt="Boite de vitesse" style="width:60px; height:60px;">
   </a>
 
 <!-- Carte admission -->
-  <a href="{% url 'alternateur:alternateur_list' exemplaire.id %}"
+  <a href="{% url 'remplacement_boite:remplacement_boite_list' exemplaire.id %}"
      class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
     <div>
-      <h2 class="text-lg font-semibold mb-1">{% trans "Alternateur" %}</h2>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Remplacement Boite de Vitesse" %}</h2>
       <p class="text-gray-600 text-sm">
-        {% trans "Nombre total :" %} <span class="font-bold">{{ total_alternateur }}</span>
+        {% trans "Nombre total :" %} <span class="font-bold">{{ total_remplacement_boite }}</span>
       </p>
     </div>
-    <img src="{% static 'icons/alternateur.png' %}" alt="Admission" style="width:60px; height:60px;">
-  </a>
-
-   <a href="{% url 'courroie:courroie_list' exemplaire.id %}"
-     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-    <div>
-      <h2 class="text-lg font-semibold mb-1">{% trans "Courroie de distribution" %}</h2>
-      <p class="text-gray-600 text-sm">
-        {% trans "Nombre total :" %} <span class="font-bold">{{ total_courroie }}</span>
-      </p>
-    </div>
-    <img src="{% static 'icons/courroie-de-distribution.png' %}" alt="Courroie de distribution" style="width:60px; height:60px;">
-  </a>
-
-
-     <a href="{% url 'remplacement_moteur:remplacement_moteur_list' exemplaire.id %}"
-     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-    <div>
-      <h2 class="text-lg font-semibold mb-1">{% trans "Remplacement moteur" %}</h2>
-      <p class="text-gray-600 text-sm">
-        {% trans "Nombre total :" %} <span class="font-bold">{{ total_remplacement_moteur }}</span>
-      </p>
-    </div>
-    <img src="{% static 'icons/engine.png' %}" alt="Remplacement moteur" style="width:60px; height:60px;">
-  </a>
-
-
-     <a href="{% url 'turbo:turbo_list' exemplaire.id %}"
-     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-    <div>
-      <h2 class="text-lg font-semibold mb-1">{% trans "Turbo" %}</h2>
-      <p class="text-gray-600 text-sm">
-        {% trans "Nombre total :" %} <span class="font-bold">{{ total_turbo }}</span>
-      </p>
-    </div>
-    <img src="{% static 'icons/turbo.png' %}" alt="Turbo" style="width:60px; height:60px;">
+    <img src="{% static 'icons/boite-de-vitesse.png' %}" alt="Boite de vitesse" style="width:60px; height:60px;">
   </a>
 
 

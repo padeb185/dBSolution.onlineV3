@@ -174,6 +174,11 @@ def remplacement_boite_form_view(request, exemplaire_id):
                 "icon": "icons/boite-de-vitesse.png",
                 "fields": [form[f.name] for f in form if "boite_de_vitesse" in f.name],
             },
+            {
+                "title": _("Niveau de la boite de vitesse"),
+                "icon": "icons/niveau.png",
+                "fields": [form[f.name] for f in form if "boite_niveau" in f.name],
+            },
 
             {
                 "title": _("Remise à Zéro des kilomètres moteurs"),
@@ -301,6 +306,11 @@ def modifier_remplacement_boite_view(request, remplacement_boite_id):
                 "title": _("Remplacement de la boite de vitesse"),
                 "icon": "icons/boite-de-vitesse.png",
                 "fields": [form[f.name] for f in form if "boite_de_vitesse" in f.name],
+            },
+            {
+                "title": _("Niveau de la boite de vitesse"),
+                "icon": "icons/niveau.png",
+                "fields": [form[f.name] for f in form if "boite_niveau" in f.name],
             },
 
             {

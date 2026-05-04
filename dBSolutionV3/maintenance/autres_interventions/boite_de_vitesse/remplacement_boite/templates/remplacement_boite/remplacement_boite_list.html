@@ -158,7 +158,7 @@
 <!-- DASHBOARD -->
 {% if exemplaire %}
 <div>
-    <a href="{% url 'moteur:dashboard_boite' exemplaire.id %}"
+    <a href="{% url 'boite_de_vitesse:dashboard_boite' exemplaire.id %}"
        class="bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold">
         {% trans "Retour au dashboard moteur" %}
     </a>
