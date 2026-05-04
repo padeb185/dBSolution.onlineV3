@@ -1,6 +1,5 @@
 from django import forms
 from .models import ClientAtelier
-from django.utils.translation import gettext_lazy as _
 
 
 def luhn_check(card_number: str) -> bool:
@@ -24,19 +23,22 @@ def luhn_check(card_number: str) -> bool:
     return total % 10 == 0
 
 
+
+
 class ClientAtelierForm(forms.ModelForm):
     class Meta:
         model = ClientAtelier
         fields = [
             "prenom",
             "nom",
-            "adresse",
             "societe_cliente",
+            "adresse",
             "numero_telephone",
             "numero_carte_id",
             "numero_compte",
             "numero_carte_bancaire",
             "email",
+            "voitures",
             "remarques",
         ]
         widgets = {
@@ -48,6 +50,7 @@ class ClientAtelierForm(forms.ModelForm):
                 "class": "border rounded px-4 py-2 w-full",
                 "placeholder": "BE12 3456 7890 1234 56"  # exemple format belge
             }),
+
 
         }
 

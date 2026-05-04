@@ -82,7 +82,7 @@ class ClientAtelier(models.Model):
     voitures = models.ManyToManyField(
         "voiture_exemplaire.VoitureExemplaire",
         verbose_name=_("Voitures"),
-        related_name="client_particulier",
+        related_name="client_atelier",
         blank=True,
     )
 

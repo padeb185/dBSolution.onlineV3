@@ -50,6 +50,10 @@
         <input id="search-numero_compte" type="text"
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'N° de compte' %}">
+
+        <input id="search-voitures" type="text"
+                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Voitures' %}">
     </div>
 </div>
 
@@ -65,6 +69,7 @@
             <th class="border px-4 py-2 cursor-pointer">{% trans "Adresse" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Numéro de téléphone" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Email" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Voitures" %}</th>
             <th class="border px-4 py-2 cursor-pointer text-center">{% trans "Info" %}</th>
         </tr>
     </thead>
@@ -76,6 +81,13 @@
             <td class="border px-4 py-2">{{ client_atelier.adresse }}</td>
             <td class="border px-4 py-2">{{ client_atelier.numero_telephone }}</td>
             <td class="border px-4 py-2">{{ client_atelier.email }}</td>
+            <td class="border px-4 py-2">
+                {% for voiture in client_atelier.voitures.all %}
+                    {{ voiture }}{% if not forloop.last %}, {% endif %}
+                {% empty %}
+                    <span class="text-gray-400">{% trans "Aucune voiture" %}</span>
+                {% endfor %}
+            </td>
             <td class="border px-4 py-2 text-center">
                 {% if client_atelier.id %}
                     <a href="{% url 'client_atelier:client_atelier_detail' client_atelier.id %}"
@@ -140,6 +152,9 @@ $(document).ready(function() {
      $('#search-email').on('keyup', function () {
         table.column(4).search(this.value).draw();
     });
+    $('#search-voitures').on('keyup', function () {
+    table.column(5).search(this.value).draw();
+
 
 });
 document.addEventListener("DOMContentLoaded", function () {

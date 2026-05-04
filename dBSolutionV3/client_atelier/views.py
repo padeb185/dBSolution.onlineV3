@@ -14,6 +14,7 @@ from client_atelier.forms import ClientAtelierForm
 from client_atelier.models import ClientAtelier
 from societe_cliente.models import SocieteCliente
 from client_particulier.models import ClientParticulier
+from voiture.voiture_exemplaire.models import VoitureExemplaire
 
 
 @method_decorator([login_required, never_cache], name='dispatch')
@@ -51,13 +52,12 @@ def client_atelier_detail_view(request, client_atelier_id):
 
 @login_required
 def client_atelier_form_view(request):
-    tenant = request.user.societe  # le tenant courant
+    tenant = request.user.societe
 
-    # Crée un objet client vide pour le formulaire
     client_atelier = ClientAtelier()
     client_atelier.adresse = Adresse()
     societes = SocieteCliente.objects.filter(societe=tenant)
-
+    voitures = VoitureExemplaire.objects.filter(societe=tenant)
 
     if request.method == "POST":
         nom = request.POST.get("nom")
@@ -67,7 +67,6 @@ def client_atelier_form_view(request):
         if not nom or not prenom:
             messages.error(request, _("Le prénom et le nom du client sont obligatoires."))
         else:
-            # Crée l'adresse en tenant compte du tenant
             with tenant_context(tenant):
                 adresse = Adresse.objects.create(
                     societe=tenant,
@@ -83,7 +82,6 @@ def client_atelier_form_view(request):
                 if societe_id:
                     societe = SocieteCliente.objects.filter(id=societe_id).first()
 
-                # Crée le client en associant le tenant et l'adresse
                 client_atelier = ClientAtelier.objects.create(
                     societe=tenant,
                     prenom=prenom,
@@ -95,12 +93,16 @@ def client_atelier_form_view(request):
                     adresse=adresse
                 )
 
+                # ✅ 🔥 AJOUT DES VOITURES
+                voiture_ids = request.POST.getlist("voitures")
+                if voiture_ids:
+                    client_atelier.voitures.set(voiture_ids)
+
                 messages.success(
                     request,
                     _(f"Client '{client_atelier.prenom} {client_atelier.nom}' ajouté avec succès !")
                 )
 
-    # S'assurer que client.adresse existe pour le formulaire
     if not hasattr(client_atelier, "adresse") or client_atelier.adresse is None:
         client_atelier.adresse = Adresse()
 
@@ -111,10 +113,9 @@ def client_atelier_form_view(request):
             "client_atelier": client_atelier,
             "tenant": tenant,
             "societes": societes,
+            "voitures": voitures,
         }
     )
-
-
 
 
 

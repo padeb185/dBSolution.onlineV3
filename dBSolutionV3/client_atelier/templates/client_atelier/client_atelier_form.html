@@ -136,6 +136,26 @@
                    placeholder="exemple@domaine.com">
         </div>
 
+        <div>
+            <label for="id_voitures">{% trans "Voitures" %}</label>
+
+            <select id="id_voitures" name="voitures" multiple
+                    class="border rounded px-4 py-2 w-full">
+
+                {% for voiture in voitures %}
+                    <option value="{{ voiture.id }}"
+                        {% if voiture.id|stringformat:"s" in request.POST.getlist.voitures %}
+                            selected
+                        {% elif voiture in client_atelier.voitures.all %}
+                            selected
+                        {% endif %}
+                    >
+                        {{ voiture }}
+                    </option>
+                {% endfor %}
+
+            </select>
+        </div>
 
 
 

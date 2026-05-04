@@ -61,6 +61,18 @@
                 {{ client_atelier.remarques }}
             </p>
 
+           <p>
+                <strong>{% trans "Voiture(s)" %} :</strong>
+           </p>
+
+            <ul>
+                {% for voiture in client_atelier.voitures.all %}
+                    <li>{{ voiture }}</li>
+                {% empty %}
+                    <li>{% trans "Aucune voiture" %}</li>
+                {% endfor %}
+            </ul>
+
         </div>
         <div class="mt-auto w-full">
             <a href="{% url 'client_atelier:modifier_client_atelier' client_atelier.id %}" class="block w-full">
