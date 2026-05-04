@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-03 16:11+0200\n"
+"POT-Creation-Date: 2026-05-04 08:45+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -1499,7 +1499,6 @@ msgid "Aucun compagnie trouvé"
 msgstr ""
 
 #: .\assurance\templates\assurance\dashboard_assurance.html:4
-#: .\client_atelier\templates\client_atelier\dashboard_client.html:4
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Tableau de bord assurance"
@@ -2170,6 +2169,12 @@ msgstr ""
 #: .\client_particulier\templates\client_particulier\clientparticulier_list.html:116
 msgid "Aucun client trouvé"
 msgstr ""
+
+#: .\client_atelier\templates\client_atelier\dashboard_client.html:4
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Tableau de bord client"
+msgstr "Tableau de Bord"
 
 #: .\client_atelier\templates\client_atelier\dashboard_client.html:7
 #, fuzzy
