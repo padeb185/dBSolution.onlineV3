@@ -150,6 +150,7 @@ urlpatterns += i18n_patterns(
 
     path("turbo/",include(("maintenance.autres_interventions.moteur.turbo.urls", "turbo"),namespace="turbo")),
 
+    path("remplacement_boite/",include(("maintenance.autres_interventions.boite_de_vitesse.remplacement_boite.urls", "remplacement_boite"),namespace="remplacement_boite")),
 )
 
 
