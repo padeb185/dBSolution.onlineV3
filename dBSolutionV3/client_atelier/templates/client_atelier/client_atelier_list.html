@@ -83,7 +83,9 @@
             <td class="border px-4 py-2">{{ client_atelier.email }}</td>
             <td class="border px-4 py-2">
                 {% for voiture in client_atelier.voitures.all %}
-                    {{ voiture }}{% if not forloop.last %}, {% endif %}
+                    <div class="py-1">
+                        {{ voiture }}
+                    </div>
                 {% empty %}
                     <span class="text-gray-400">{% trans "Aucune voiture" %}</span>
                 {% endfor %}
