@@ -1,5 +1,4 @@
 from decimal import Decimal
-
 from django.http import JsonResponse, request
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
@@ -16,11 +15,12 @@ from voiture.voiture_marque.models import VoitureMarque
 from voiture.voiture_modele.models import VoitureModele
 from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Sum, Avg, Count, Case, When, Value, DecimalField
-from django.db.models.functions import TruncMonth
-from django.db.models.functions import TruncYear
-from django.db.models import Min, Max, F, FloatField, ExpressionWrapper
 from fuel.models import Fuel
+from decimal import Decimal
+from django.db.models import Sum, Min, Max, Avg, Count
+from django.db.models.functions import TruncMonth, TruncYear
+
+
 
 
 
@@ -259,9 +259,12 @@ def get_modeles(request):
 
 
 
+
 from decimal import Decimal
-from django.db.models import Sum, Min, Max, Avg, Count
+from django.db.models import Sum, Count, Avg, Min, Max
 from django.db.models.functions import TruncMonth, TruncYear
+from django.views.generic import TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 class FuelStatView(LoginRequiredMixin, TemplateView):
     template_name = "fuel/fuel_stat.html"
@@ -277,55 +280,35 @@ class FuelStatView(LoginRequiredMixin, TemplateView):
                 "voiture_exemplaire__voiture_modele__voiture_marque",
             )
 
-            # 🔹 Statistiques globales
-            total_litres_global = Decimal('0')
-            total_km_global = Decimal('0')
-
-            voitures = fuels.values("voiture_exemplaire__id").annotate(
-                km_min=Min("kilometrage_fuel"),
-                km_max=Max("kilometrage_fuel"),
-            )
-
-            for v in voitures:
-                km_min = v["km_min"] or 0
-                km_max = v["km_max"] or 0
-                km_total = km_max - km_min
-                if km_total <= 0:
-                    continue
-
-                # litres N-1 : exclure le premier plein
-                litres = fuels.filter(voiture_exemplaire__id=v["voiture_exemplaire__id"]) \
-                              .exclude(kilometrage_fuel=km_min) \
-                              .aggregate(total=Sum("litres"))["total"] or Decimal('0')
-
-                total_litres_global += litres
-                total_km_global += km_total
-
-            conso_moyenne = (total_litres_global * 100 / total_km_global) if total_km_global > 0 else Decimal('0.0')
-            context["conso_moyenne"] = conso_moyenne
-
-            # 🔹 Statistiques globales additionnelles
+            # =========================
+            # 🔹 GLOBAL
+            # =========================
             context["global"] = fuels.aggregate(
                 total_litres=Sum("litres"),
                 total_cout=Sum("prix_refuelling"),
                 total_tva=Sum("montant_tva"),
                 prix_moyen_litre=Avg("prix_litre"),
                 total_pleins=Count("id"),
-                km_min=Min("kilometrage_fuel"),
-                km_max=Max("kilometrage_fuel"),
             )
-            context["global"]["conso_moyenne"] = conso_moyenne
 
-            # 🔹 Totaux TVA par pays
+            # =========================
+            # 🔹 TVA PAR PAYS
+            # =========================
             PAYS_CHOICES = [('BE', "Belgique"), ('LU', "Luxembourg"), ('DE', "Allemagne")]
+
             context["totaux_par_pays"] = {
                 code: fuels.filter(pays=code).aggregate(total=Sum("montant_tva"))["total"] or Decimal("0.0")
                 for code, _ in PAYS_CHOICES
             }
-            context["total_global"] = fuels.aggregate(total=Sum("montant_tva"))["total"] or Decimal("0.0")
 
-            # 🔹 Stats par voiture
-            par_voiture = (
+            context["total_global"] = fuels.aggregate(
+                total=Sum("montant_tva")
+            )["total"] or Decimal("0.0")
+
+            # =========================
+            # 🔹 PAR VOITURE
+            # =========================
+            context["par_voiture"] = (
                 fuels.values(
                     "voiture_exemplaire__id",
                     "voiture_exemplaire__voiture_modele__nom_modele",
@@ -339,81 +322,73 @@ class FuelStatView(LoginRequiredMixin, TemplateView):
                     total_cout=Sum("prix_refuelling"),
                     prix_moyen_litre=Avg("prix_litre"),
                     nb_pleins=Count("id"),
-                    km_min=Min("kilometrage_fuel"),
-                    km_max=Max("kilometrage_fuel"),
                 )
+                .order_by("-total_cout")
             )
 
-            for v in par_voiture:
-                km = (v["km_max"] or 0) - (v["km_min"] or 0)
-                if km > 0:
-                    # litres N-1 pour cette voiture
-                    litres_n_1 = fuels.filter(voiture_exemplaire__id=v["voiture_exemplaire__id"]) \
-                                      .exclude(kilometrage_fuel=v["km_min"]) \
-                                      .aggregate(total=Sum("litres"))["total"] or Decimal("0.0")
-                    v["conso_moyenne"] = (litres_n_1 * 100 / Decimal(km))
-                    v["cout_km"] = (Decimal(v["total_cout"]) / Decimal(km))
-                else:
-                    v["conso_moyenne"] = Decimal("0.0")
-                    v["cout_km"] = Decimal("0.0")
-
-            context["par_voiture"] = par_voiture
-
-            # 🔹 Stats par mois
-            par_mois = fuels.annotate(mois=TruncMonth("date")).values("mois").order_by("mois")
-            context["conso_moyenne_mois"] = {}
-            for m in par_mois:
-                fuels_mois = fuels.filter(date__month=m["mois"].month, date__year=m["mois"].year)
-                voitures_mois = fuels_mois.values("voiture_exemplaire__id").annotate(
-                    km_min=Min("kilometrage_fuel"),
-                    km_max=Max("kilometrage_fuel"),
+            # =========================
+            # 🔹 PAR MOIS
+            # =========================
+            par_mois = (
+                fuels
+                .annotate(mois=TruncMonth("date"))
+                .values("mois")
+                .annotate(
+                    nb_pleins=Count("id"),
+                    total_litres=Sum("litres"),
+                    total_cout=Sum("prix_refuelling"),
                 )
+                .order_by("mois")
+            )
 
-                total_litres_mois = Decimal("0")
-                total_km_mois = Decimal("0")
-                for v in voitures_mois:
-                    km_min = v["km_min"] or 0
-                    km_max = v["km_max"] or 0
-                    km_total = km_max - km_min
-                    if km_total <= 0:
-                        continue
-                    litres = fuels_mois.filter(voiture_exemplaire__id=v["voiture_exemplaire__id"]) \
-                                       .exclude(kilometrage_fuel=km_min) \
-                                       .aggregate(total=Sum("litres"))["total"] or Decimal("0.0")
-                    total_litres_mois += litres
-                    total_km_mois += km_total
+            context["par_mois"] = par_mois
 
-                context["conso_moyenne_mois"][m["mois"]] = (total_litres_mois * 100 / total_km_mois) if total_km_mois > 0 else Decimal("0.0")
-
-            # 🔹 Stats par année
-            par_an = fuels.annotate(an=TruncYear("date")).values("an").order_by("an")
-            context["conso_moyenne_an"] = {}
-            for a in par_an:
-                fuels_an = fuels.filter(date__year=a["an"].year)
-                voitures_an = fuels_an.values("voiture_exemplaire__id").annotate(
-                    km_min=Min("kilometrage_fuel"),
-                    km_max=Max("kilometrage_fuel"),
+            # =========================
+            # 🔹 PAR ANNÉE
+            # =========================
+            par_an = (
+                fuels
+                .annotate(an=TruncYear("date"))
+                .values("an")
+                .annotate(
+                    nb_pleins=Count("id"),
+                    total_litres=Sum("litres"),
+                    total_cout=Sum("prix_refuelling"),
                 )
+                .order_by("an")
+            )
 
-                total_litres_an = Decimal("0")
-                total_km_an = Decimal("0")
-                for v in voitures_an:
-                    km_min = v["km_min"] or 0
-                    km_max = v["km_max"] or 0
-                    km_total = km_max - km_min
-                    if km_total <= 0:
-                        continue
-                    litres = fuels_an.filter(voiture_exemplaire__id=v["voiture_exemplaire__id"]) \
-                                     .exclude(kilometrage_fuel=km_min) \
-                                     .aggregate(total=Sum("litres"))["total"] or Decimal("0.0")
-                    total_litres_an += litres
-                    total_km_an += km_total
+            context["par_an"] = par_an
 
-                context["conso_moyenne_an"][a["an"]] = (total_litres_an * 100 / total_km_an) if total_km_an > 0 else Decimal("0.0")
+            # =========================
+            # 🔹 CONSO MOYENNE (GLOBAL)
+            # =========================
+            total_litres = fuels.aggregate(total=Sum("litres"))["total"] or Decimal("0")
+            km_min = fuels.aggregate(min=Min("kilometrage_fuel"))["min"] or 0
+            km_max = fuels.aggregate(max=Max("kilometrage_fuel"))["max"] or 0
+
+            km_total = km_max - km_min
+            context["conso_moyenne"] = (
+                (total_litres * 100 / km_total) if km_total > 0 else Decimal("0.0")
+            )
+
+            # =========================
+            # 🔹 CONSO PAR MOIS
+            # =========================
+            context["conso_moyenne_mois"] = {
+                m["mois"]: (m["total_litres"] * 100 / km_total if km_total > 0 else Decimal("0.0"))
+                for m in par_mois
+            }
+
+            # =========================
+            # 🔹 CONSO PAR ANNÉE
+            # =========================
+            context["conso_moyenne_an"] = {
+                a["an"]: (a["total_litres"] * 100 / km_total if km_total > 0 else Decimal("0.0"))
+                for a in par_an
+            }
 
         return context
-
-
 
 
 class FuelExemplaireStatView(LoginRequiredMixin, TemplateView):

@@ -356,7 +356,6 @@ def liste_exemplaires_all(request):
     )
 
 
-
 @login_required
 def ajouter_exemplaire_all(request, modele_id):
 
@@ -383,18 +382,18 @@ def ajouter_exemplaire_all(request, modele_id):
                 instance.save()
 
                 messages.success(request, "Véhicule ajouté avec succès.")
+                return redirect("nom_de_ta_vue")  # 🔥 IMPORTANT
 
-            else:
-                form = VoitureExemplaireForm(
-                    user=request.user,
-                    initial={
-                        "voiture_marque": marque,
-                        "voiture_modele": modele
-                    }
-                )
+        else:
+            form = VoitureExemplaireForm(
+                user=request.user,
+                initial={
+                    "voiture_marque": marque,
+                    "voiture_modele": modele
+                }
+            )
 
         return render(request, "voiture_exemplaire/ajouter_exemplaire_all.html", {
             "form": form,
             "modele": modele
         })
-

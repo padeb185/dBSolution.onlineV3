@@ -87,18 +87,21 @@ def freins_ar_detail_view(request, frein_ar_id):
 
 
 
-
 @never_cache
 @login_required
 def liste_freins_ar(request, societe_id=None):
     societe = request.user.societe
+
     with tenant_context(societe):
+
         if societe_id:
             societe = Societe.objects.get(id=societe_id)
-            freins_ar = VoitureFreinsAR.objects.filter(societe=societe)
-    return render(request, "voiture_freins_ar/freins_ar_list.html", {"freins_ar": freins_ar})
 
+        freins_ar = VoitureFreinsAR.objects.filter(societe=societe)
 
+    return render(request, "voiture_freins_ar/freins_ar_list.html", {
+        "freins_ar": freins_ar
+    })
 
 @login_required
 def modifier_freins_ar_view(request, frein_ar_id):
