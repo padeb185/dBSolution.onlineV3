@@ -141,8 +141,7 @@ class VoitureExemplaire(models.Model):
 
     # 🏭 Production
 
-
-
+    nombre_remplacements_moteurs = models.PositiveIntegerField(default=0)
 
     # ⚙️ Moteur / transmission
     numero_moteur = models.CharField(max_length=50, null=True, blank=True)

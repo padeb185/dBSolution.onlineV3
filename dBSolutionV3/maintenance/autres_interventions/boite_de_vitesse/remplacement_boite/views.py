@@ -342,7 +342,7 @@ def modifier_remplacement_boite_view(request, remplacement_boite_id):
         ]
 
         return render(request, "remplacement_boite/modifier_remplacement_boite.html", {
-            "remplacement_moteur": remplacement_boite,
+            "remplacement_boite": remplacement_boite,
             "form": form,
             "sections": sections,
             "exemplaire": remplacement_boite.voiture_exemplaire,

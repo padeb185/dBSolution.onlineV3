@@ -26,7 +26,34 @@
 {% endif %}
 
 <br><br>
+<div class="bg-white shadow-md rounded-lg p-4 mb-4">
+    <div class="flex flex-wrap items-end gap-3">
 
+        <input id="search-immatriculation" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Immatriculation' %}" >
+
+        <input id="search-kilometres_moteur" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Kilomètres moteur' %}">
+
+        <input id="search-kilometres_chassis" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Kilomètres châssis' %}">
+
+        <input id="search-tag" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Étiquette' %}">
+
+        <input id="search-utilisateur" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[120px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Technicien' %}">
+
+        <input id="search-date" type="date"
+               class="border rounded px-3 py-2 flex-1 min-w-[120px] focus:outline-none focus:ring-2 focus:ring-blue-500">
+
+    </div>
+</div>
 <!-- 📊 TABLE -->
 <table id="remplacement_moteur-table"
        class="min-w-full table-auto border border-gray-200 bg-white">
@@ -98,7 +125,7 @@
 
             <!-- nombre de remplacment -->
             <td class="border px-4 py-2">
-                {{ remplacement.nombre_remplacements|default:"-" }}
+                {{ exemplaire.remplacement_moteur.count }}
             </td>
 
             <!-- TAG -->
@@ -168,5 +195,46 @@
 <br>
 
 {% endif %}
+
+<script>
+$(document).ready(function() {
+    var table = $('#remplacement_moteur-table').DataTable({
+        pageLength: 100,
+        language: {
+            search: "{% trans 'Recherche globale :' %}",
+            lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ remplacement moteur' %}",
+            infoEmpty: "{% trans 'Aucun remplacement trouvé' %}",
+            zeroRecords: "{% trans 'Aucun remplacement trouvé' %}",
+            paginate: {
+                first: "{% trans 'Premier' %}",
+                last: "{% trans 'Dernier' %}",
+                next: "{% trans 'Suivant' %}",
+                previous: "{% trans 'Précédent' %}"
+            }
+        },
+        order: [[4, "desc"]]
+    });
+
+    $('#search-immatriculation').on('keyup', function () {
+        table.column(0).search(this.value).draw();
+    });
+    $('#search-kilometres_moteur').on('keyup', function () {
+        table.column(1).search(this.value).draw();
+    });
+      $('#search-kilometres_chassis').on('keyup', function () {
+        table.column(2).search(this.value).draw();
+    });
+    $('#search-tag').on('keyup', function () {
+        table.column(3).search(this.value).draw();
+    });
+    $('#search-utilisateur').on('keyup', function () {
+        table.column(4).search(this.value).draw();
+    });
+    $('#search-date').on('change', function () {
+        table.column(5).search(this.value).draw();
+    });
+});
+</script>
 
 {% endblock %}
