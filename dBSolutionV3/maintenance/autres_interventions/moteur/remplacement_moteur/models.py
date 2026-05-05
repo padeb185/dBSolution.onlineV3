@@ -69,13 +69,6 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         blank=True
     )
 
-    proprietaire = models.ForeignKey(
-        "proprietaire.ProprietaireVoiture",
-        on_delete=models.PROTECT,
-        related_name="remplacement_moteur",
-        null=True,
-        blank=True
-    )
 
     kilometres_chassis = models.PositiveIntegerField(
         default=0,
@@ -92,13 +85,6 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
     )
 
 
-
-    type_utilisation = models.CharField(
-        max_length=10,
-        choices=TypeUtilisation.choices,
-        default=TypeUtilisation.CLIENT
-    )
-
     kilometres_remplacement_moteur = models.PositiveIntegerField(
         default=0,
         null=True,
@@ -114,22 +100,19 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
     )
 
 
-    remplacement_numero_moteur = models.CharField(
+    remplacement_numero_moteurs= models.CharField(
         max_length=50,
         null=True,
         blank=True,
         verbose_name=_("Numéro de série du moteur")
     )
 
-    remplacement_nombre_moteur = models.PositiveIntegerField(
-        default=1,
-        null=True,
-        blank=True,
-        verbose_name=_("Nombre de moteur")
+    nombre_remplacements_moteurs = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Nombre de remplacements"),
     )
 
-
-    prix_moteur = models.DecimalField(
+    prix_moteurs = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         blank=True,
@@ -170,8 +153,6 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
     refroidissement_quantite = models.FloatField(default=0, verbose_name=_("Quantité de liquide de refroidissement ajoutée en litres"), validators=[validate_step_0_1])
     refroidissement_qualite = models.CharField(max_length=25, choices=RefroidissementQualiteEtat.choices,default=RefroidissementQualiteEtat.G13,verbose_name=_("Qualité de liquide de refroidissement"))
 
-
-    nombre_remplacements = models.PositiveIntegerField(default=0, editable=False)
 
     remplacement_effectue = models.BooleanField(
         default=False,

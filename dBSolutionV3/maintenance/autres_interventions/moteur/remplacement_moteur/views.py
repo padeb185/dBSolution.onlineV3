@@ -12,7 +12,7 @@ from django.views.generic import ListView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
-from django.db.models import Q
+from django.db.models import Q, F
 from .models import RemplacementMoteur
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 
@@ -66,7 +66,7 @@ def remplacement_moteur_form_view(request, exemplaire_id):
             id=exemplaire_id
         )
 
-        roles_autorises = ["mécanicien", "apprenti", "magasinier", "chef mécanicien"]
+        roles_autorises = ["mécanicien", "apprenti", "magasinier", "chef mécanicien", "direction"]
         if request.user.role not in roles_autorises:
             messages.error(request, _("Accès refusé"))
             return redirect("maintenance_liste_all")
@@ -132,6 +132,12 @@ def remplacement_moteur_form_view(request, exemplaire_id):
 
                         remplacement_moteur.save()
 
+                        exemplaire.nombre_remplacements_moteurs = F("nombre_remplacements_moteurs") + 1
+                        exemplaire.save(update_fields=["nombre_remplacements_moteurs"])
+
+                        exemplaire.refresh_from_db()
+
+
                     messages.success(request, _("Remplacement moteur enregistré avec succès"))
 
                 except Exception as e:
@@ -149,33 +155,28 @@ def remplacement_moteur_form_view(request, exemplaire_id):
 
         sections = [
             {
-                "title": _("Voiture"),
-                "icon": "icons/voiture-de-course.png",
-                "fields": [form[f.name] for f in form if "voiture" in f.name],
-            },
-            {
-                "title": _("Utilisation"),
-                "icon": "icons/utilisation.png",
-                "fields": [form[f.name] for f in form if "type_util" in f.name],
-            },
-            {
-                "title": _("Propriétaire"),
-                "icon": "icons/proprietaire.png",
-                "fields": [form[f.name] for f in form if "proprietaire" in f.name],
+                "title": _("Client"),
+                "icon": "icons/client.png",
+                "fields": [form[f.name] for f in form if "client" in f.name],
             },
             {
                 "title": _("Kilométrage"),
                 "icon": "icons/compteur.png",
-                "fields": [form[f.name] for f in form if "kilo" in f.name],
+                "fields": [form[f.name] for f in form if "kilometres" in f.name],
             },
             {
                 "title": _("Remplacement du moteur"),
                 "icon": "icons/engine.png",
-                "fields": [form[f.name] for f in form if "moteur" in f.name],
+                "fields": [form[f.name] for f in form if "moteurs" in f.name],
+            },
+            {
+                "title": _("Huile moteur"),
+                "icon": "icons/huile-moteur.png",
+                "fields": [form[f.name] for f in form if "huile" in f.name],
             },
             {
                 "title": _("Liquide de refroidissement"),
-                "icon": "icons/radiateur.png",
+                "icon": "icons/anti-gel.png",
                 "fields": [form[f.name] for f in form if "refroidissement" in f.name],
             },
             {

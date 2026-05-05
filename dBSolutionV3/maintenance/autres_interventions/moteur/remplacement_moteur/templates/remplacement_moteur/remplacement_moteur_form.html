@@ -9,7 +9,7 @@
     <!-- Header -->
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold flex items-center gap-4">
-            <img src="{% static 'icons/courroie-de-distribution.png' %}" alt="courroie de distribution"
+            <img src="{% static 'icons/engine.png' %}" alt="Remplacement moteur"
                  style="width:60px; height:60px;">
             <span>
                 {% trans "Remplacement du moteur pour :" %}
@@ -19,12 +19,12 @@
             </span>
         </h1>
     </div>
-
+    <br>
     <!-- Plaque -->
     <div class="mb-4">
         {% include "maintenance/partials/plaque.html" %}
     </div>
-
+    <br>
     <!-- Messages -->
     {% if messages %}
         {% for message in messages %}
@@ -61,6 +61,7 @@
         {% csrf_token %}
 
         {% for section in sections %}
+        <br>
             <div class="mb-16">
                 <h2 class="text-xl font-semibold mb-2 flex items-center gap-3">
                     <img src="{% static section.icon %}" class="w-16 h-16">

@@ -112,8 +112,6 @@ class RemplacementMoteurForm(forms.ModelForm):
             )
 
 
-
-
     # =========================================================
     # VALIDATION PROPRE
     # =========================================================
@@ -169,7 +167,9 @@ class RemplacementMoteurForm(forms.ModelForm):
         if remplacement_effectue:
             instance.kilometres_moteur = 0
             instance.kilometres_remplacement_moteur = km_chassis
-            instance.nombre_remplacements = (instance.nombre_remplacements or 0) + 1
+            instance.nombre_remplacements_moteurs = (
+                    (instance.nombre_remplacements_moteurs or 0) + 1
+            )
         else:
             instance.kilometres_moteur = km_chassis
 
