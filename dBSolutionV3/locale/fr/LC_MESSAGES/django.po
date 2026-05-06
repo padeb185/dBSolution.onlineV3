@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-06 09:12+0200\n"
+"POT-Creation-Date: 2026-05-06 11:01+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -4475,8 +4475,7 @@ msgid "Calculé automatiquement : total - dernièr entretien"
 msgstr ""
 
 #: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:119
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:107
-msgid "Numéro de série du moteur"
+msgid "Numéro de série de la boite"
 msgstr ""
 
 #: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:126
@@ -4741,17 +4740,15 @@ msgid "Aucun contrôle trouvé"
 msgstr ""
 
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\dashboard_boite.html:3
-#: .\maintenance\autres_interventions\moteur\templates\moteur\dashboard_moteur.html:3
 #, fuzzy
 #| msgid "Tableau de bord"
-msgid "Tableau de bord Moteur"
+msgid "Tableau de bord Boite"
 msgstr "Tableau de Bord"
 
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\dashboard_boite.html:8
-#: .\maintenance\autres_interventions\moteur\templates\moteur\dashboard_moteur.html:8
 #, fuzzy
 #| msgid "Tableau de bord"
-msgid "Bienvenue sur le tableau de bord moteur"
+msgid "Bienvenue sur le tableau de bord boite"
 msgstr "Tableau de Bord"
 
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\dashboard_boite.html:17
@@ -5750,6 +5747,10 @@ msgstr ""
 msgid "Kilomètres au remplacement moteur"
 msgstr ""
 
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:107
+msgid "Numéro de série du moteur"
+msgstr ""
+
 #: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:120
 msgid "Prix moteur"
 msgstr ""
@@ -5833,6 +5834,18 @@ msgstr ""
 #: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:260
 msgid "Remplacement du moteur modifié avec succès !"
 msgstr ""
+
+#: .\maintenance\autres_interventions\moteur\templates\moteur\dashboard_moteur.html:3
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Tableau de bord Moteur"
+msgstr "Tableau de Bord"
+
+#: .\maintenance\autres_interventions\moteur\templates\moteur\dashboard_moteur.html:8
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Bienvenue sur le tableau de bord moteur"
+msgstr "Tableau de Bord"
 
 #: .\maintenance\autres_interventions\moteur\templates\moteur\dashboard_moteur.html:52
 msgid "Remplacement moteur"

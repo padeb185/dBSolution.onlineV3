@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-06 09:12+0200\n"
+"POT-Creation-Date: 2026-05-06 11:01+0200\n"
 "PO-Revision-Date: 2025-12-13 12:10+0100\n"
 "Last-Translator: Pierre de Bournonville [EMAIL@ADDRESS]"
 "(mailto:EMAIL@ADDRESS)\n"
@@ -4462,9 +4462,8 @@ msgid "Calculé automatiquement : total - dernièr entretien"
 msgstr "Automatically calculated: total - last maintenance"
 
 #: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:119
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:107
-msgid "Numéro de série du moteur"
-msgstr "Engine serial number"
+msgid "Numéro de série de la boite"
+msgstr "Gearbox serial number"
 
 #: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:126
 msgid "Nombre de boite"
@@ -4722,14 +4721,12 @@ msgid "Aucun contrôle trouvé"
 msgstr "No checks found"
 
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\dashboard_boite.html:3
-#: .\maintenance\autres_interventions\moteur\templates\moteur\dashboard_moteur.html:3
-msgid "Tableau de bord Moteur"
-msgstr "Engine Dashboard"
+msgid "Tableau de bord Boite"
+msgstr "Gearbox Dashboard"
 
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\dashboard_boite.html:8
-#: .\maintenance\autres_interventions\moteur\templates\moteur\dashboard_moteur.html:8
-msgid "Bienvenue sur le tableau de bord moteur"
-msgstr "Welcome to the engine dashboard"
+msgid "Bienvenue sur le tableau de bord boite"
+msgstr "Welcome to the gearbox dashboard"
 
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\dashboard_boite.html:17
 #: .\maintenance\check_up\templates\check_up\controle_total.html:280
@@ -5721,6 +5718,10 @@ msgstr "Mileage of the engine to be replaced"
 msgid "Kilomètres au remplacement moteur"
 msgstr "Mileage at engine replacement"
 
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:107
+msgid "Numéro de série du moteur"
+msgstr "Engine serial number"
+
 #: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:120
 msgid "Prix moteur"
 msgstr "Engine price"
@@ -5800,6 +5801,14 @@ msgstr "Engine oil"
 #: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:260
 msgid "Remplacement du moteur modifié avec succès !"
 msgstr "Engine replacement successfully updated!"
+
+#: .\maintenance\autres_interventions\moteur\templates\moteur\dashboard_moteur.html:3
+msgid "Tableau de bord Moteur"
+msgstr "Engine Dashboard"
+
+#: .\maintenance\autres_interventions\moteur\templates\moteur\dashboard_moteur.html:8
+msgid "Bienvenue sur le tableau de bord moteur"
+msgstr "Welcome to the engine dashboard"
 
 #: .\maintenance\autres_interventions\moteur\templates\moteur\dashboard_moteur.html:52
 msgid "Remplacement moteur"
