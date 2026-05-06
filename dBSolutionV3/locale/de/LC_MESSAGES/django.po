@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-06 09:17+0200\n"
+"POT-Creation-Date: 2026-05-06 11:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2198,7 +2198,6 @@ msgid "Tableau de bord client"
 msgstr "Kunden-Dashboard"
 
 #: .\client_atelier\templates\client_atelier\dashboard_client.html:7
-
 msgid "Bienvenue sur le tableau de bord client"
 msgstr "Willkommen im Kunden-Dashboard"
 
@@ -4467,8 +4466,9 @@ msgid "Calculé automatiquement : total - dernièr entretien"
 msgstr "Automatisch berechnet: Gesamt - letzte Wartung"
 
 #: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:119
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:107
-msgid "Numéro de série du moteur"
+#, fuzzy
+#| msgid "Numéro de série du moteur"
+msgid "Numéro de série de la boite"
 msgstr "Seriennummer des Motors"
 
 #: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:126
@@ -4533,7 +4533,7 @@ msgstr "Getriebe-Kilometerstand"
 
 #: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_detail.html:41
 msgid "Nouvelle boite de vitesse"
-msgstr ""
+msgstr "Neues Getriebe"
 
 #: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_form.html:15
 msgid "Remplacement de la boite de vitesse pour :"
@@ -4727,14 +4727,12 @@ msgid "Aucun contrôle trouvé"
 msgstr "Kein kontrolle gefunden"
 
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\dashboard_boite.html:3
-#: .\maintenance\autres_interventions\moteur\templates\moteur\dashboard_moteur.html:3
-msgid "Tableau de bord Moteur"
-msgstr "Motor-Dashboard"
+msgid "Tableau de bord Boite"
+msgstr "Getriebe-Dashboard"
 
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\dashboard_boite.html:8
-#: .\maintenance\autres_interventions\moteur\templates\moteur\dashboard_moteur.html:8
-msgid "Bienvenue sur le tableau de bord moteur"
-msgstr "Willkommen im Motor-Dashboard"
+msgid "Bienvenue sur le tableau de bord boite"
+msgstr "Willkommen im Getriebe-Dashboard"
 
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\dashboard_boite.html:17
 #: .\maintenance\check_up\templates\check_up\controle_total.html:280
@@ -5730,6 +5728,10 @@ msgstr "Kilometerstand des zu ersetzenden Motors"
 msgid "Kilomètres au remplacement moteur"
 msgstr "Kilometerstand beim Motortausch"
 
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:107
+msgid "Numéro de série du moteur"
+msgstr "Seriennummer des Motors"
+
 #: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:120
 msgid "Prix moteur"
 msgstr "Motorpreis"
@@ -5809,6 +5811,14 @@ msgstr "Motoröl"
 #: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:260
 msgid "Remplacement du moteur modifié avec succès !"
 msgstr "Motorwechsel erfolgreich geändert!"
+
+#: .\maintenance\autres_interventions\moteur\templates\moteur\dashboard_moteur.html:3
+msgid "Tableau de bord Moteur"
+msgstr "Motor-Dashboard"
+
+#: .\maintenance\autres_interventions\moteur\templates\moteur\dashboard_moteur.html:8
+msgid "Bienvenue sur le tableau de bord moteur"
+msgstr "Willkommen im Motor-Dashboard"
 
 #: .\maintenance\autres_interventions\moteur\templates\moteur\dashboard_moteur.html:52
 msgid "Remplacement moteur"
