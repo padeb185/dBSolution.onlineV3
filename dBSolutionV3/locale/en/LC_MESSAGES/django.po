@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-06 08:42+0200\n"
+"POT-Creation-Date: 2026-05-06 09:12+0200\n"
 "PO-Revision-Date: 2025-12-13 12:10+0100\n"
 "Last-Translator: Pierre de Bournonville [EMAIL@ADDRESS]"
 "(mailto:EMAIL@ADDRESS)\n"
@@ -4425,12 +4425,11 @@ msgid ""
 msgstr "Check to replace the engine (automatic reset of the mileage)."
 
 #: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\forms.py:127
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\forms.py:128
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:250
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:262
 msgid ""
-"Le kilométrage du moteur ne peut pas être supérieur au kilométrage du "
+"Le kilométrage de la boite ne peut pas être supérieur au kilométrage du "
 "véhicule."
-msgstr "The engine mileage cannot be greater than the vehicle mileage."
+msgstr "The gearbox mileage cannot be greater than the vehicle mileage."
 
 #: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:20
 #: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:20
@@ -4449,7 +4448,6 @@ msgid "Kilometres de la boite à remplacer"
 msgstr "Mileage of the gearbox to be replaced"
 
 #: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:104
-
 msgid "Kilomètres au remplacement de la boite"
 msgstr "Mileage at gearbox replacement"
 
@@ -4514,13 +4512,11 @@ msgstr "Replacement completed"
 msgid "Dernière maintenance effectuée par"
 msgstr "Last maintenance performed by"
 
-#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:262
-msgid ""
-"Le kilométrage de la boite ne peut pas être supérieur au kilométrage du "
-"véhicule."
-msgstr "The gearbox mileage cannot be greater than the vehicle mileage."
-
 #: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\modifier_remplacement_boite.html:25
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_detail.html:58
+msgid "Modifier le remplacement de la boite de vitesse"
+msgstr "Edit gearbox replacement"
+
 #: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_detail.html:13
 msgid "Détails du remplacement de la boite de vitesse"
 msgstr "Gearbox replacement details"
@@ -4531,13 +4527,8 @@ msgid "Kilométrage de la boite"
 msgstr "Gearbox mileage"
 
 #: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_detail.html:41
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_detail.html:41
-msgid "Nouveau Moteur"
-msgstr "New engine"
-
-#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_detail.html:58
-msgid "Modifier le remplacement de la boite de vitesse"
-msgstr "Edit gearbox replacement"
+msgid "Nouvelle boite de vitesse"
+msgstr "New gearbox"
 
 #: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_form.html:15
 msgid "Remplacement de la boite de vitesse pour :"
@@ -4568,9 +4559,8 @@ msgid "Nombre de remplacements"
 msgstr "Number of replacements"
 
 #: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_list.html:147
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_list.html:174
-msgid "Aucun remplacement moteur enregistré."
-msgstr "No engine replacement recorded."
+msgid "Aucun remplacement de boite enregistré."
+msgstr "No gearbox replacement recorded."
 
 #: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_list.html:163
 #: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_list.html:148
@@ -5716,6 +5706,13 @@ msgid ""
 "Cochez pour remplacer le moteur (remise à zéro automatique du kilométrage)."
 msgstr "Check to replace the engine (automatic reset of the mileage)."
 
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\forms.py:128
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:250
+msgid ""
+"Le kilométrage du moteur ne peut pas être supérieur au kilométrage du "
+"véhicule."
+msgstr "The engine mileage cannot be greater than the vehicle mileage."
+
 #: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:84
 msgid "Kilometres du moteur à remplacer"
 msgstr "Mileage of the engine to be replaced"
@@ -5746,6 +5743,10 @@ msgstr "Engine replacement details"
 msgid "Kilométrage Moteur"
 msgstr "Engine mileage"
 
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_detail.html:41
+msgid "Nouveau Moteur"
+msgstr "New engine"
+
 #: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_form.html:15
 msgid "Remplacement du moteur pour :"
 msgstr "Engine replacement for:"
@@ -5770,6 +5771,10 @@ msgstr "Chassis mileage"
 #: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_list.html:64
 msgid "Km moteur"
 msgstr "Engine mileage"
+
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_list.html:174
+msgid "Aucun remplacement moteur enregistré."
+msgstr "No engine replacement recorded."
 
 #: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_list.html:206
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ remplacement moteur"
