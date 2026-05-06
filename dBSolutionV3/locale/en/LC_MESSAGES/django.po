@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-04 08:45+0200\n"
+"POT-Creation-Date: 2026-05-06 08:42+0200\n"
 "PO-Revision-Date: 2025-12-13 12:10+0100\n"
 "Last-Translator: Pierre de Bournonville [EMAIL@ADDRESS]"
 "(mailto:EMAIL@ADDRESS)\n"
@@ -95,6 +95,7 @@ msgstr "Supplier details:"
 #: .\fournisseur\templates\fournisseur\fournisseur_detail.html:28
 #: .\fuel\templates\fuel\fuel_detail.html:28
 #: .\maintenance\autres_interventions\abs\templates\abs\abs_detail.html:25
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_detail.html:25
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_detail.html:27
 #: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_detail.html:26
 #: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:25
@@ -181,11 +182,10 @@ msgstr "Edit purchase"
 #: .\carrosserie\templates\carrosserie\carrosserie_list.html:32
 #: .\carrosserie\templates\carrosserie\modifier_carrosserie.html:80
 #: .\client_atelier\models.py:40
-#: .\client_atelier\templates\client_atelier\client_atelier_detail.html:78
-#: .\client_atelier\templates\client_atelier\client_atelier_form.html:143
+#: .\client_atelier\templates\client_atelier\client_atelier_detail.html:90
+#: .\client_atelier\templates\client_atelier\client_atelier_form.html:163
 #: .\client_atelier\templates\client_atelier\client_atelier_list.html:38
-#: .\client_atelier\templates\client_atelier\client_atelier_list.html:65
-#: .\client_atelier\templates\client_atelier\modifier_client_atelier.html:122
+#: .\client_atelier\templates\client_atelier\client_atelier_list.html:69
 #: .\client_particulier\models.py:34
 #: .\client_particulier\templates\client_particulier\client_detail.html:96
 #: .\client_particulier\templates\client_particulier\client_form.html:154
@@ -212,7 +212,7 @@ msgstr "Address"
 #: .\assurance\templates\assurance\assurance_detail.html:89
 #: .\assurance_police\templates\assurance_police\assurance_police_detail.html:122
 #: .\carrosserie\templates\carrosserie\carrosserie_detail.html:94
-#: .\client_atelier\templates\client_atelier\client_atelier_detail.html:89
+#: .\client_atelier\templates\client_atelier\client_atelier_detail.html:101
 #: .\client_particulier\templates\client_particulier\client_detail.html:103
 #: .\fournisseur\templates\fournisseur\fournisseur_detail.html:79
 #: .\proprietaire\templates\proprietaire\proprietaire_detail.html:92
@@ -226,11 +226,12 @@ msgstr "No address provided."
 #: .\assurance\templates\assurance\assurance_detail.html:97
 #: .\assurance_police\templates\assurance_police\assurance_police_detail.html:130
 #: .\carrosserie\templates\carrosserie\carrosserie_detail.html:102
-#: .\client_atelier\templates\client_atelier\client_atelier_detail.html:97
+#: .\client_atelier\templates\client_atelier\client_atelier_detail.html:109
 #: .\client_particulier\templates\client_particulier\client_detail.html:111
 #: .\fournisseur\templates\fournisseur\fournisseur_detail.html:87
 #: .\fuel\templates\fuel\fuel_detail.html:101
 #: .\maintenance\autres_interventions\abs\templates\abs\abs_detail.html:81
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_detail.html:67
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_detail.html:72
 #: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_detail.html:61
 #: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:74
@@ -273,7 +274,7 @@ msgstr "Metadata"
 #: .\carrosserie\models.py:60
 #: .\carrosserie\templates\carrosserie\carrosserie_detail.html:106
 #: .\client_atelier\models.py:96
-#: .\client_atelier\templates\client_atelier\client_atelier_detail.html:101
+#: .\client_atelier\templates\client_atelier\client_atelier_detail.html:113
 #: .\client_particulier\models.py:94
 #: .\client_particulier\templates\client_particulier\client_detail.html:115
 #: .\facture\models.py:41 .\fournisseur\models.py:93
@@ -283,6 +284,8 @@ msgstr "Metadata"
 #: .\maintenance\autres_interventions\abs\models.py:188
 #: .\maintenance\autres_interventions\abs\templates\abs\abs_detail.html:85
 #: .\maintenance\autres_interventions\boite_de_vitesse\models.py:155
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:239
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_detail.html:71
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_detail.html:76
 #: .\maintenance\autres_interventions\bte_vitesse_auto\models.py:154
 #: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_detail.html:65
@@ -294,7 +297,7 @@ msgstr "Metadata"
 #: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_detail.html:85
 #: .\maintenance\autres_interventions\moteur\courroie\models.py:224
 #: .\maintenance\autres_interventions\moteur\courroie\templates\courroie\courroie_detail.html:85
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:246
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:227
 #: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_detail.html:71
 #: .\maintenance\autres_interventions\moteur\turbo\models.py:143
 #: .\maintenance\autres_interventions\moteur\turbo\templates\turbo\turbo_detail.html:71
@@ -334,7 +337,7 @@ msgstr "Metadata"
 #: .\voiture\voiture_boite\templates\voiture_boite\boite_detail.html:96
 #: .\voiture\voiture_embrayage\models.py:104
 #: .\voiture\voiture_embrayage\templates\voiture_embrayage\embrayage_detail.html:91
-#: .\voiture\voiture_exemplaire\models.py:231
+#: .\voiture\voiture_exemplaire\models.py:230
 #: .\voiture\voiture_freins_ar\models.py:69
 #: .\voiture\voiture_freins_ar\templates\voiture_freins_ar\freins_ar_detail.html:103
 #: .\voiture\voiture_freins_av\models.py:72
@@ -356,7 +359,7 @@ msgstr "Created at"
 #: .\carrosserie\models.py:61
 #: .\carrosserie\templates\carrosserie\carrosserie_detail.html:110
 #: .\client_atelier\models.py:97
-#: .\client_atelier\templates\client_atelier\client_atelier_detail.html:106
+#: .\client_atelier\templates\client_atelier\client_atelier_detail.html:118
 #: .\client_particulier\models.py:95
 #: .\client_particulier\templates\client_particulier\client_detail.html:120
 #: .\facture\models.py:42 .\fournisseur\models.py:94
@@ -365,6 +368,8 @@ msgstr "Created at"
 #: .\maintenance\autres_interventions\abs\models.py:189
 #: .\maintenance\autres_interventions\abs\templates\abs\abs_detail.html:89
 #: .\maintenance\autres_interventions\boite_de_vitesse\models.py:156
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:240
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_detail.html:75
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_detail.html:80
 #: .\maintenance\autres_interventions\bte_vitesse_auto\models.py:155
 #: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_detail.html:69
@@ -376,7 +381,7 @@ msgstr "Created at"
 #: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_detail.html:89
 #: .\maintenance\autres_interventions\moteur\courroie\models.py:225
 #: .\maintenance\autres_interventions\moteur\courroie\templates\courroie\courroie_detail.html:89
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:247
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:228
 #: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_detail.html:75
 #: .\maintenance\autres_interventions\moteur\turbo\models.py:144
 #: .\maintenance\autres_interventions\moteur\turbo\templates\turbo\turbo_detail.html:75
@@ -413,7 +418,7 @@ msgstr "Created at"
 #: .\voiture\voiture_boite\templates\voiture_boite\boite_detail.html:100
 #: .\voiture\voiture_embrayage\models.py:105
 #: .\voiture\voiture_embrayage\templates\voiture_embrayage\embrayage_detail.html:95
-#: .\voiture\voiture_exemplaire\models.py:232
+#: .\voiture\voiture_exemplaire\models.py:231
 #: .\voiture\voiture_freins_ar\models.py:70
 #: .\voiture\voiture_freins_ar\templates\voiture_freins_ar\freins_ar_detail.html:107
 #: .\voiture\voiture_freins_av\models.py:73
@@ -467,8 +472,8 @@ msgstr "Payment date"
 #: .\assurance_police\templates\assurance_police\modifier_assurance_police.html:73
 #: .\carrosserie\templates\carrosserie\carrosserie_form.html:141
 #: .\carrosserie\templates\carrosserie\modifier_carrosserie.html:94
-#: .\client_atelier\templates\client_atelier\client_atelier_form.html:200
-#: .\client_atelier\templates\client_atelier\modifier_client_atelier.html:174
+#: .\client_atelier\templates\client_atelier\client_atelier_form.html:220
+#: .\client_atelier\templates\client_atelier\modifier_client_atelier.html:82
 #: .\client_particulier\templates\client_particulier\client_form.html:196
 #: .\client_particulier\templates\client_particulier\modifier_client.html:82
 #: .\fournisseur\templates\fournisseur\fournisseur_form.html:93
@@ -478,6 +483,8 @@ msgstr "Payment date"
 #: .\maindoeuvre\templates\maindoeuvre\main_oeuvre_form.html:80
 #: .\maintenance\autres_interventions\abs\templates\abs\abs_form.html:117
 #: .\maintenance\autres_interventions\abs\templates\abs\modifier_abs.html:119
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\modifier_remplacement_boite.html:120
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_form.html:116
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_check.html:611
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\modifier_boite.html:613
 #: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_check.html:478
@@ -491,7 +498,7 @@ msgstr "Payment date"
 #: .\maintenance\autres_interventions\moteur\courroie\templates\courroie\courroie_form.html:116
 #: .\maintenance\autres_interventions\moteur\courroie\templates\courroie\modifier_courroie.html:120
 #: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\modifier_remplacement_moteur.html:120
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_form.html:116
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_form.html:117
 #: .\maintenance\autres_interventions\moteur\turbo\templates\turbo\modifier_turbo.html:126
 #: .\maintenance\autres_interventions\moteur\turbo\templates\turbo\turbo_check.html:120
 #: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_create.html:128
@@ -556,8 +563,8 @@ msgstr "Save"
 #: .\assurance_police\templates\assurance_police\assurance_police_form.html:66
 #: .\assurance_police\templates\assurance_police\modifier_assurance_police.html:77
 #: .\carrosserie\templates\carrosserie\modifier_carrosserie.html:99
-#: .\client_atelier\templates\client_atelier\client_atelier_form.html:205
-#: .\client_atelier\templates\client_atelier\modifier_client_atelier.html:179
+#: .\client_atelier\templates\client_atelier\client_atelier_form.html:225
+#: .\client_atelier\templates\client_atelier\modifier_client_atelier.html:87
 #: .\client_particulier\templates\client_particulier\client_form.html:201
 #: .\client_particulier\templates\client_particulier\modifier_client.html:87
 #: .\fournisseur\templates\fournisseur\fournisseur_form.html:98
@@ -567,6 +574,8 @@ msgstr "Save"
 #: .\maindoeuvre\templates\maindoeuvre\main_oeuvre_form.html:85
 #: .\maintenance\autres_interventions\abs\templates\abs\abs_form.html:122
 #: .\maintenance\autres_interventions\abs\templates\abs\modifier_abs.html:125
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\modifier_remplacement_boite.html:126
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_form.html:121
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_check.html:616
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\modifier_boite.html:617
 #: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_check.html:483
@@ -580,7 +589,7 @@ msgstr "Save"
 #: .\maintenance\autres_interventions\moteur\courroie\templates\courroie\courroie_form.html:121
 #: .\maintenance\autres_interventions\moteur\courroie\templates\courroie\modifier_courroie.html:126
 #: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\modifier_remplacement_moteur.html:126
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_form.html:121
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_form.html:122
 #: .\maintenance\autres_interventions\moteur\turbo\templates\turbo\modifier_turbo.html:130
 #: .\maintenance\autres_interventions\moteur\turbo\templates\turbo\turbo_check.html:125
 #: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_create.html:133
@@ -688,8 +697,8 @@ msgstr "Invoice date"
 #: .\assurance_police\templates\assurance_police\assurance_police_list.html:116
 #: .\carrosserie\templates\carrosserie\carrosserie_list.html:65
 #: .\carrosserie\templates\carrosserie\carrosserie_list.html:79
-#: .\client_atelier\templates\client_atelier\client_atelier_list.html:68
-#: .\client_atelier\templates\client_atelier\client_atelier_list.html:83
+#: .\client_atelier\templates\client_atelier\client_atelier_list.html:73
+#: .\client_atelier\templates\client_atelier\client_atelier_list.html:97
 #: .\client_particulier\templates\client_particulier\clientparticulier_list.html:68
 #: .\client_particulier\templates\client_particulier\clientparticulier_list.html:83
 #: .\fournisseur\templates\fournisseur\fournisseur_list.html:60
@@ -728,7 +737,7 @@ msgstr "Info"
 #: .\assurance\templates\assurance\assurance_list.html:92
 #: .\assurance_police\templates\assurance_police\assurance_police_list.html:129
 #: .\carrosserie\templates\carrosserie\carrosserie_list.html:92
-#: .\client_atelier\templates\client_atelier\client_atelier_list.html:101
+#: .\client_atelier\templates\client_atelier\client_atelier_list.html:115
 #: .\client_particulier\templates\client_particulier\clientparticulier_list.html:101
 #: .\fournisseur\templates\fournisseur\fournisseur_list.html:86
 #: .\fuel\templates\fuel\fuel_list.html:168
@@ -739,7 +748,7 @@ msgstr "Info"
 #: .\societe_cliente\templates\societe_cliente\societe_cliente_list.html:93
 #: .\voiture\voiture_boite\templates\voiture_boite\list.html:77
 #: .\voiture\voiture_embrayage\templates\voiture_embrayage\list.html:84
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\list.html:111
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\list.html:110
 #: .\voiture\voiture_freins_ar\templates\voiture_freins_ar\freins_ar_list.html:91
 #: .\voiture\voiture_freins_av\templates\voiture_freins_av\dashboard_frein.html:44
 #: .\voiture\voiture_marque\templates\voiture_marque\dashboard_voiture.html:63
@@ -755,7 +764,7 @@ msgstr "Back to dashboard"
 #: .\assurance\templates\assurance\assurance_list.html:104
 #: .\assurance_police\templates\assurance_police\assurance_police_list.html:139
 #: .\carrosserie\templates\carrosserie\carrosserie_list.html:102
-#: .\client_atelier\templates\client_atelier\client_atelier_list.html:112
+#: .\client_atelier\templates\client_atelier\client_atelier_list.html:126
 #: .\client_particulier\templates\client_particulier\clientparticulier_list.html:112
 #: .\fournisseur\templates\fournisseur\fournisseur_list.html:96
 #: .\fuel\templates\fuel\fuel_list.html:179
@@ -767,6 +776,7 @@ msgstr "Back to dashboard"
 #: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_list.html:157
 #: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_list.html:160
 #: .\maintenance\autres_interventions\moteur\courroie\templates\courroie\courroie_list.html:160
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_list.html:204
 #: .\maintenance\autres_interventions\moteur\turbo\templates\turbo\turbo_list.html:157
 #: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_list.html:136
 #: .\maintenance\check_up\templates\check_up\checkup_list.html:141
@@ -799,7 +809,7 @@ msgstr "Global search:"
 #: .\assurance\templates\assurance\assurance_list.html:105
 #: .\assurance_police\templates\assurance_police\assurance_police_list.html:140
 #: .\carrosserie\templates\carrosserie\carrosserie_list.html:103
-#: .\client_atelier\templates\client_atelier\client_atelier_list.html:113
+#: .\client_atelier\templates\client_atelier\client_atelier_list.html:127
 #: .\client_particulier\templates\client_particulier\clientparticulier_list.html:113
 #: .\fournisseur\templates\fournisseur\fournisseur_list.html:97
 #: .\fuel\templates\fuel\fuel_list.html:180
@@ -811,6 +821,7 @@ msgstr "Global search:"
 #: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_list.html:158
 #: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_list.html:161
 #: .\maintenance\autres_interventions\moteur\courroie\templates\courroie\courroie_list.html:161
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_list.html:205
 #: .\maintenance\autres_interventions\moteur\turbo\templates\turbo\turbo_list.html:158
 #: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_list.html:137
 #: .\maintenance\check_up\templates\check_up\checkup_list.html:142
@@ -854,7 +865,7 @@ msgstr "No invoices found"
 #: .\assurance\templates\assurance\assurance_list.html:110
 #: .\assurance_police\templates\assurance_police\assurance_police_list.html:145
 #: .\carrosserie\templates\carrosserie\carrosserie_list.html:108
-#: .\client_atelier\templates\client_atelier\client_atelier_list.html:118
+#: .\client_atelier\templates\client_atelier\client_atelier_list.html:132
 #: .\client_particulier\templates\client_particulier\clientparticulier_list.html:118
 #: .\fournisseur\templates\fournisseur\fournisseur_list.html:102
 #: .\fuel\templates\fuel\fuel_list.html:185
@@ -866,6 +877,7 @@ msgstr "No invoices found"
 #: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_list.html:163
 #: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_list.html:166
 #: .\maintenance\autres_interventions\moteur\courroie\templates\courroie\courroie_list.html:166
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_list.html:210
 #: .\maintenance\autres_interventions\moteur\turbo\templates\turbo\turbo_list.html:163
 #: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_list.html:142
 #: .\maintenance\check_up\templates\check_up\checkup_list.html:147
@@ -900,7 +912,7 @@ msgstr "First"
 #: .\assurance\templates\assurance\assurance_list.html:111
 #: .\assurance_police\templates\assurance_police\assurance_police_list.html:146
 #: .\carrosserie\templates\carrosserie\carrosserie_list.html:109
-#: .\client_atelier\templates\client_atelier\client_atelier_list.html:119
+#: .\client_atelier\templates\client_atelier\client_atelier_list.html:133
 #: .\client_particulier\templates\client_particulier\clientparticulier_list.html:119
 #: .\fournisseur\templates\fournisseur\fournisseur_list.html:103
 #: .\fuel\templates\fuel\fuel_list.html:186
@@ -912,6 +924,7 @@ msgstr "First"
 #: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_list.html:164
 #: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_list.html:167
 #: .\maintenance\autres_interventions\moteur\courroie\templates\courroie\courroie_list.html:167
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_list.html:211
 #: .\maintenance\autres_interventions\moteur\turbo\templates\turbo\turbo_list.html:164
 #: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_list.html:143
 #: .\maintenance\check_up\templates\check_up\checkup_list.html:148
@@ -946,7 +959,7 @@ msgstr "Last"
 #: .\assurance\templates\assurance\assurance_list.html:112
 #: .\assurance_police\templates\assurance_police\assurance_police_list.html:147
 #: .\carrosserie\templates\carrosserie\carrosserie_list.html:110
-#: .\client_atelier\templates\client_atelier\client_atelier_list.html:120
+#: .\client_atelier\templates\client_atelier\client_atelier_list.html:134
 #: .\client_particulier\templates\client_particulier\clientparticulier_list.html:120
 #: .\fournisseur\templates\fournisseur\fournisseur_list.html:104
 #: .\fuel\templates\fuel\fuel_list.html:187
@@ -958,6 +971,7 @@ msgstr "Last"
 #: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_list.html:165
 #: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_list.html:168
 #: .\maintenance\autres_interventions\moteur\courroie\templates\courroie\courroie_list.html:168
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_list.html:212
 #: .\maintenance\autres_interventions\moteur\turbo\templates\turbo\turbo_list.html:165
 #: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_list.html:144
 #: .\maintenance\check_up\templates\check_up\checkup_list.html:149
@@ -992,7 +1006,7 @@ msgstr "Next"
 #: .\assurance\templates\assurance\assurance_list.html:113
 #: .\assurance_police\templates\assurance_police\assurance_police_list.html:148
 #: .\carrosserie\templates\carrosserie\carrosserie_list.html:111
-#: .\client_atelier\templates\client_atelier\client_atelier_list.html:121
+#: .\client_atelier\templates\client_atelier\client_atelier_list.html:135
 #: .\client_particulier\templates\client_particulier\clientparticulier_list.html:121
 #: .\fournisseur\templates\fournisseur\fournisseur_list.html:105
 #: .\fuel\templates\fuel\fuel_list.html:188
@@ -1004,6 +1018,7 @@ msgstr "Next"
 #: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_list.html:166
 #: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_list.html:169
 #: .\maintenance\autres_interventions\moteur\courroie\templates\courroie\courroie_list.html:169
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_list.html:213
 #: .\maintenance\autres_interventions\moteur\turbo\templates\turbo\turbo_list.html:166
 #: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_list.html:145
 #: .\maintenance\check_up\templates\check_up\checkup_list.html:150
@@ -1048,8 +1063,7 @@ msgstr "Purchase successfully updated!"
 #: .\adresse\templates\adresse\adresse_list.html:64
 #: .\assurance\templates\assurance\assurance_form.html:83
 #: .\carrosserie\templates\carrosserie\carrosserie_form.html:104
-#: .\client_atelier\templates\client_atelier\client_atelier_form.html:146
-#: .\client_atelier\templates\client_atelier\modifier_client_atelier.html:127
+#: .\client_atelier\templates\client_atelier\client_atelier_form.html:166
 #: .\client_particulier\templates\client_particulier\client_form.html:157
 #: .\proprietaire\templates\proprietaire\proprietaire_form.html:145
 #: .\societe_cliente\templates\societe_cliente\modifier_societe_cliente.html:116
@@ -1062,8 +1076,7 @@ msgstr "Street"
 #: .\adresse\templates\adresse\adresse_form.html:57
 #: .\assurance\templates\assurance\assurance_form.html:87
 #: .\carrosserie\templates\carrosserie\carrosserie_form.html:110
-#: .\client_atelier\templates\client_atelier\client_atelier_form.html:152
-#: .\client_atelier\templates\client_atelier\modifier_client_atelier.html:133
+#: .\client_atelier\templates\client_atelier\client_atelier_form.html:172
 #: .\client_particulier\templates\client_particulier\client_form.html:163
 #: .\proprietaire\templates\proprietaire\proprietaire_form.html:151
 #: .\societe_cliente\templates\societe_cliente\modifier_societe_cliente.html:122
@@ -1087,8 +1100,7 @@ msgstr "Mail box"
 #: .\adresse\templates\adresse\adresse_list.html:67
 #: .\assurance\templates\assurance\assurance_form.html:91
 #: .\carrosserie\templates\carrosserie\carrosserie_form.html:116
-#: .\client_atelier\templates\client_atelier\client_atelier_form.html:158
-#: .\client_atelier\templates\client_atelier\modifier_client_atelier.html:139
+#: .\client_atelier\templates\client_atelier\client_atelier_form.html:178
 #: .\client_particulier\templates\client_particulier\client_form.html:169
 #: .\proprietaire\templates\proprietaire\proprietaire_form.html:157
 #: .\societe_cliente\templates\societe_cliente\modifier_societe_cliente.html:128
@@ -1103,8 +1115,7 @@ msgstr "Postal code"
 #: .\adresse\templates\adresse\adresse_list.html:68
 #: .\assurance\templates\assurance\assurance_form.html:95
 #: .\carrosserie\templates\carrosserie\carrosserie_form.html:122
-#: .\client_atelier\templates\client_atelier\client_atelier_form.html:164
-#: .\client_atelier\templates\client_atelier\modifier_client_atelier.html:145
+#: .\client_atelier\templates\client_atelier\client_atelier_form.html:184
 #: .\client_particulier\templates\client_particulier\client_form.html:175
 #: .\proprietaire\templates\proprietaire\proprietaire_form.html:163
 #: .\societe_cliente\templates\societe_cliente\modifier_societe_cliente.html:134
@@ -1121,20 +1132,21 @@ msgstr "City"
 #: .\assurance\templates\assurance\assurance_form.html:99
 #: .\carrosserie\templates\carrosserie\carrosserie_form.html:128
 #: .\carrosserie\templates\carrosserie\carrosserie_list.html:36
-#: .\client_atelier\templates\client_atelier\client_atelier_form.html:170
-#: .\client_atelier\templates\client_atelier\modifier_client_atelier.html:151
+#: .\client_atelier\templates\client_atelier\client_atelier_form.html:190
 #: .\client_particulier\templates\client_particulier\client_form.html:181
 #: .\fournisseur\templates\fournisseur\fournisseur_detail.html:42
 #: .\fuel\templates\fuel\fuel_detail.html:61
 #: .\fuel\templates\fuel\fuel_form.html:154
 #: .\maintenance\autres_interventions\abs\views.py:175
 #: .\maintenance\autres_interventions\abs\views.py:291
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\views.py:194
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\views.py:327
 #: .\maintenance\autres_interventions\moteur\alternateur\views.py:178
 #: .\maintenance\autres_interventions\moteur\alternateur\views.py:294
 #: .\maintenance\autres_interventions\moteur\courroie\views.py:178
 #: .\maintenance\autres_interventions\moteur\courroie\views.py:294
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:192
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:324
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:193
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:319
 #: .\piece\models.py:9 .\piece\models.py:79
 #: .\piece\templates\piece\piece_detail.html:31
 #: .\proprietaire\templates\proprietaire\proprietaire_form.html:169
@@ -1149,8 +1161,7 @@ msgstr "Country"
 #: .\adresse\templates\adresse\adresse_form.html:87
 #: .\assurance\templates\assurance\assurance_form.html:103
 #: .\carrosserie\templates\carrosserie\carrosserie_form.html:134
-#: .\client_atelier\templates\client_atelier\client_atelier_form.html:176
-#: .\client_atelier\templates\client_atelier\modifier_client_atelier.html:157
+#: .\client_atelier\templates\client_atelier\client_atelier_form.html:196
 #: .\client_particulier\templates\client_particulier\client_form.html:187
 #: .\facture\models.py:36 .\fournisseur\models.py:51
 #: .\proprietaire\templates\proprietaire\proprietaire_form.html:175
@@ -1200,8 +1211,7 @@ msgstr "Other interventions"
 #: .\assurance_police\templates\assurance_police\assurance_police_detail.html:99
 #: .\client_atelier\models.py:91
 #: .\client_atelier\templates\client_atelier\client_atelier_detail.html:60
-#: .\client_atelier\templates\client_atelier\client_atelier_form.html:184
-#: .\client_atelier\templates\client_atelier\modifier_client_atelier.html:166
+#: .\client_atelier\templates\client_atelier\client_atelier_form.html:204
 #: .\client_particulier\models.py:89
 #: .\client_particulier\templates\client_particulier\client_detail.html:78
 #: .\fuel\models.py:120 .\fuel\templates\fuel\fuel_detail.html:69
@@ -1211,6 +1221,10 @@ msgstr "Other interventions"
 #: .\maintenance\autres_interventions\abs\views.py:180
 #: .\maintenance\autres_interventions\abs\views.py:297
 #: .\maintenance\autres_interventions\boite_de_vitesse\models.py:97
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:180
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_detail.html:45
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\views.py:199
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\views.py:333
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_check.html:520
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_detail.html:51
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\modifier_boite.html:524
@@ -1235,10 +1249,10 @@ msgstr "Other interventions"
 #: .\maintenance\autres_interventions\moteur\courroie\templates\courroie\courroie_detail.html:44
 #: .\maintenance\autres_interventions\moteur\courroie\views.py:183
 #: .\maintenance\autres_interventions\moteur\courroie\views.py:300
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:187
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:168
 #: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_detail.html:45
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:197
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:330
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:198
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:324
 #: .\maintenance\autres_interventions\moteur\turbo\models.py:85
 #: .\maintenance\autres_interventions\moteur\turbo\templates\turbo\turbo_detail.html:45
 #: .\maintenance\autres_interventions\moteur\turbo\views.py:111
@@ -1333,7 +1347,7 @@ msgid "Numero"
 msgstr "Number"
 
 #: .\adresse\templates\adresse\adresse_list.html:89
-#: .\client_atelier\templates\client_atelier\client_atelier_list.html:86
+#: .\client_atelier\templates\client_atelier\client_atelier_list.html:100
 #: .\client_particulier\templates\client_particulier\clientparticulier_list.html:86
 msgid "Info indisponible"
 msgstr "Information unavailable"
@@ -1401,7 +1415,7 @@ msgstr "Phone"
 #: .\client_atelier\models.py:76
 #: .\client_atelier\templates\client_atelier\client_atelier_detail.html:28
 #: .\client_atelier\templates\client_atelier\client_atelier_form.html:132
-#: .\client_atelier\templates\client_atelier\client_atelier_list.html:67
+#: .\client_atelier\templates\client_atelier\client_atelier_list.html:71
 #: .\client_particulier\models.py:76
 #: .\client_particulier\templates\client_particulier\client_detail.html:28
 #: .\client_particulier\templates\client_particulier\client_form.html:117
@@ -1517,16 +1531,18 @@ msgstr "Insurance"
 #: .\fournisseur\templates\fournisseur\fournisseur_dashboard.html:18
 #: .\fournisseur\templates\fournisseur\fournisseur_dashboard.html:29
 #: .\fournisseur\templates\fournisseur\fournisseur_dashboard.html:40
+#: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\dashboard_boite.html:19
+#: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\dashboard_boite.html:31
 #: .\maintenance\autres_interventions\moteur\templates\moteur\dashboard_moteur.html:19
 #: .\maintenance\autres_interventions\moteur\templates\moteur\dashboard_moteur.html:31
 #: .\maintenance\autres_interventions\moteur\templates\moteur\dashboard_moteur.html:42
 #: .\maintenance\autres_interventions\moteur\templates\moteur\dashboard_moteur.html:54
 #: .\maintenance\autres_interventions\moteur\templates\moteur\dashboard_moteur.html:66
 #: .\maintenance\autres_interventions\templates\autres_interventions\choisir_autre.html:37
-#: .\maintenance\autres_interventions\templates\autres_interventions\choisir_autre.html:52
-#: .\maintenance\autres_interventions\templates\autres_interventions\choisir_autre.html:67
-#: .\maintenance\autres_interventions\templates\autres_interventions\choisir_autre.html:82
-#: .\maintenance\autres_interventions\templates\autres_interventions\choisir_autre.html:97
+#: .\maintenance\autres_interventions\templates\autres_interventions\choisir_autre.html:51
+#: .\maintenance\autres_interventions\templates\autres_interventions\choisir_autre.html:66
+#: .\maintenance\autres_interventions\templates\autres_interventions\choisir_autre.html:81
+#: .\maintenance\autres_interventions\templates\autres_interventions\choisir_autre.html:96
 #: .\maintenance\templates\maintenance\choisir_type.html:35
 #: .\maintenance\templates\maintenance\choisir_type.html:50
 #: .\maintenance\templates\maintenance\choisir_type.html:65
@@ -1576,8 +1592,9 @@ msgstr "Address fields are required."
 #: .\maindoeuvre\views.py:81
 #: .\maintenance\autres_interventions\abs\views.py:136
 #: .\maintenance\autres_interventions\abs\views.py:247
-#: .\maintenance\autres_interventions\boite_de_vitesse\views.py:139
-#: .\maintenance\autres_interventions\boite_de_vitesse\views.py:203
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\views.py:267
+#: .\maintenance\autres_interventions\boite_de_vitesse\views.py:146
+#: .\maintenance\autres_interventions\boite_de_vitesse\views.py:213
 #: .\maintenance\autres_interventions\bte_vitesse_auto\views.py:134
 #: .\maintenance\autres_interventions\bte_vitesse_auto\views.py:198
 #: .\maintenance\autres_interventions\geometrie\views.py:141
@@ -1588,7 +1605,7 @@ msgstr "Address fields are required."
 #: .\maintenance\autres_interventions\moteur\alternateur\views.py:251
 #: .\maintenance\autres_interventions\moteur\courroie\views.py:139
 #: .\maintenance\autres_interventions\moteur\courroie\views.py:250
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:265
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:266
 #: .\maintenance\autres_interventions\moteur\turbo\views.py:150
 #: .\maintenance\autres_interventions\moteur\turbo\views.py:225
 #: .\maintenance\carrosserie_interne\views.py:201
@@ -1609,7 +1626,7 @@ msgstr "Address fields are required."
 #: .\maintenance\silent_blocs\views.py:197 .\proprietaire\views.py:375
 #: .\recharge\views.py:184 .\voiture\voiture_boite\views.py:87
 #: .\voiture\voiture_embrayage\views.py:134
-#: .\voiture\voiture_freins_ar\views.py:117
+#: .\voiture\voiture_freins_ar\views.py:120
 #: .\voiture\voiture_freins_av\views.py:127
 #: .\voiture\voiture_moteur\views.py:138 .\voiture\voiture_pneus\views.py:155
 msgid "Le formulaire contient des erreurs."
@@ -1640,7 +1657,6 @@ msgid "Cash"
 msgstr "Cash"
 
 #: .\assurance_police\models.py:19
-#: .\client_atelier\templates\client_atelier\modifier_client_atelier.html:109
 msgid "Carte bancaire"
 msgstr "Bank card"
 
@@ -1702,6 +1718,8 @@ msgstr "Insurance policy details:"
 #: .\maintenance\autres_interventions\abs\templates\abs\abs_detail.html:27
 #: .\maintenance\autres_interventions\abs\templates\abs\abs_list.html:30
 #: .\maintenance\autres_interventions\abs\templates\abs\abs_list.html:53
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_detail.html:27
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_list.html:36
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_detail.html:29
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_list.html:29
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_list.html:52
@@ -1722,7 +1740,8 @@ msgstr "Insurance policy details:"
 #: .\maintenance\autres_interventions\moteur\courroie\templates\courroie\courroie_list.html:30
 #: .\maintenance\autres_interventions\moteur\courroie\templates\courroie\courroie_list.html:53
 #: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_detail.html:27
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_list.html:36
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_list.html:34
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_list.html:63
 #: .\maintenance\autres_interventions\moteur\turbo\templates\turbo\turbo_detail.html:27
 #: .\maintenance\autres_interventions\moteur\turbo\templates\turbo\turbo_list.html:29
 #: .\maintenance\autres_interventions\moteur\turbo\templates\turbo\turbo_list.html:52
@@ -1898,8 +1917,7 @@ msgstr "Back to bodyshop list"
 #: .\carrosserie\templates\carrosserie\carrosserie_detail.html:37
 #: .\client_atelier\templates\client_atelier\client_atelier_form.html:61
 #: .\client_atelier\templates\client_atelier\client_atelier_form.html:65
-#: .\client_atelier\templates\client_atelier\client_atelier_list.html:64
-#: .\client_atelier\templates\client_atelier\modifier_client_atelier.html:63
+#: .\client_atelier\templates\client_atelier\client_atelier_list.html:68
 #: .\client_particulier\models.py:20
 #: .\client_particulier\templates\client_particulier\client_form.html:61
 #: .\client_particulier\templates\client_particulier\client_form.html:65
@@ -2009,8 +2027,7 @@ msgstr "Client last name"
 #: .\client_atelier\templates\client_atelier\client_atelier_detail.html:33
 #: .\client_atelier\templates\client_atelier\client_atelier_form.html:93
 #: .\client_atelier\templates\client_atelier\client_atelier_list.html:42
-#: .\client_atelier\templates\client_atelier\client_atelier_list.html:66
-#: .\client_atelier\templates\client_atelier\modifier_client_atelier.html:89
+#: .\client_atelier\templates\client_atelier\client_atelier_list.html:70
 #: .\client_particulier\models.py:41
 #: .\client_particulier\templates\client_particulier\client_detail.html:33
 #: .\client_particulier\templates\client_particulier\client_form.html:71
@@ -2063,7 +2080,11 @@ msgstr "Bank account number"
 msgid "Numéro de carte bancaire"
 msgstr "Credit card number"
 
-#: .\client_atelier\models.py:84 .\theme\templates\dashboard.html:82
+#: .\client_atelier\models.py:84
+#: .\client_atelier\templates\client_atelier\client_atelier_form.html:140
+#: .\client_atelier\templates\client_atelier\client_atelier_list.html:56
+#: .\client_atelier\templates\client_atelier\client_atelier_list.html:72
+#: .\theme\templates\dashboard.html:82
 msgid "Voitures"
 msgstr "Cars"
 
@@ -2077,12 +2098,21 @@ msgstr "Customer : %(nom)s %(prenom)s"
 msgid "Détails du client :"
 msgstr "Customer details:"
 
-#: .\client_atelier\templates\client_atelier\client_atelier_detail.html:69
+#: .\client_atelier\templates\client_atelier\client_atelier_detail.html:65
+msgid "Voiture(s)"
+msgstr "Car(s)"
+
+#: .\client_atelier\templates\client_atelier\client_atelier_detail.html:72
+#: .\client_atelier\templates\client_atelier\client_atelier_list.html:90
+msgid "Aucune voiture"
+msgstr "No car found"
+
+#: .\client_atelier\templates\client_atelier\client_atelier_detail.html:81
 #: .\client_particulier\templates\client_particulier\client_detail.html:87
 msgid "Modifier le client"
 msgstr "Edit customer"
 
-#: .\client_atelier\templates\client_atelier\client_atelier_detail.html:118
+#: .\client_atelier\templates\client_atelier\client_atelier_detail.html:130
 msgid "Retour à la liste des clients atelier"
 msgstr "Back to the workshop customers list"
 
@@ -2097,8 +2127,7 @@ msgstr "Create a workshop customer"
 
 #: .\client_atelier\templates\client_atelier\client_atelier_form.html:52
 #: .\client_atelier\templates\client_atelier\client_atelier_form.html:56
-#: .\client_atelier\templates\client_atelier\client_atelier_list.html:63
-#: .\client_atelier\templates\client_atelier\modifier_client_atelier.html:56
+#: .\client_atelier\templates\client_atelier\client_atelier_list.html:67
 #: .\client_particulier\models.py:18
 #: .\client_particulier\templates\client_particulier\client_form.html:52
 #: .\client_particulier\templates\client_particulier\client_form.html:56
@@ -2117,7 +2146,7 @@ msgstr "First name"
 msgid "Societe cliente"
 msgstr "Customer company"
 
-#: .\client_atelier\templates\client_atelier\client_atelier_form.html:217
+#: .\client_atelier\templates\client_atelier\client_atelier_form.html:237
 #: .\client_particulier\templates\client_particulier\client_detail.html:132
 #: .\client_particulier\templates\client_particulier\client_form.html:213
 msgid "Retour à la liste des clients"
@@ -2154,13 +2183,12 @@ msgstr "Email"
 msgid "N° de compte"
 msgstr "Account number"
 
-#: .\client_atelier\templates\client_atelier\client_atelier_list.html:114
-
+#: .\client_atelier\templates\client_atelier\client_atelier_list.html:128
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ client atelier"
 msgstr "Showing _START_ to _END_ of _TOTAL_ workshop customer"
 
-#: .\client_atelier\templates\client_atelier\client_atelier_list.html:115
-#: .\client_atelier\templates\client_atelier\client_atelier_list.html:116
+#: .\client_atelier\templates\client_atelier\client_atelier_list.html:129
+#: .\client_atelier\templates\client_atelier\client_atelier_list.html:130
 #: .\client_particulier\templates\client_particulier\clientparticulier_list.html:115
 #: .\client_particulier\templates\client_particulier\clientparticulier_list.html:116
 msgid "Aucun client trouvé"
@@ -2171,7 +2199,6 @@ msgid "Tableau de bord client"
 msgstr "Customer Dashboard"
 
 #: .\client_atelier\templates\client_atelier\dashboard_client.html:7
-
 msgid "Bienvenue sur le tableau de bord client"
 msgstr "Welcome to the customer dashboard"
 
@@ -2183,44 +2210,22 @@ msgstr "Individual Client"
 msgid "Modifier le client atelier :"
 msgstr "Edit workshop customer:"
 
-#: .\client_atelier\templates\client_atelier\modifier_client_atelier.html:37
-#: .\maindoeuvre\templates\maindoeuvre\main_oeuvre_form.html:38
-#: .\maintenance\autres_interventions\abs\templates\abs\abs_form.html:45
-#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_check.html:45
-#: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_check.html:45
-#: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_check.html:45
-#: .\maintenance\autres_interventions\moteur\courroie\templates\courroie\courroie_form.html:45
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_form.html:45
-#: .\maintenance\autres_interventions\moteur\turbo\templates\turbo\turbo_check.html:45
-#: .\piece\piece_fluides\templates\piece_fluides\piece_fluide_form.html:42
-#: .\voiture\voiture_embrayage\templates\voiture_embrayage\ajouter_embrayage.html:30
-msgid "Erreurs :"
-msgstr "Errors :"
-
-#: .\client_atelier\templates\client_atelier\modifier_client_atelier.html:70
-#: .\panier\models.py:42
-msgid "Société cliente"
-msgstr "Customer company"
-
-#: .\client_atelier\templates\client_atelier\modifier_client_atelier.html:96
-msgid "Carte d'identité"
-msgstr "ID card"
-
-#: .\client_atelier\templates\client_atelier\modifier_client_atelier.html:103
-msgid "Compte bancaire"
-msgstr "Bank account"
+#: .\client_atelier\templates\client_atelier\modifier_client_atelier.html:100
+#: .\client_particulier\templates\client_particulier\modifier_client.html:100
+msgid "Retour aux détails du client"
+msgstr "Back to client details"
 
 #: .\client_atelier\views.py:68 .\client_particulier\views.py:66
 msgid "Le prénom et le nom du client sont obligatoires."
 msgstr "The client's first and last name are required."
 
-#: .\client_atelier\views.py:139 .\client_atelier\views.py:167
+#: .\client_atelier\views.py:140 .\client_atelier\views.py:168
 #: .\client_particulier\views.py:133 .\client_particulier\views.py:160
 #: .\proprietaire\views.py:172
 msgid "Veuillez corriger les erreurs dans le formulaire."
 msgstr "Please correct the errors in the form."
 
-#: .\client_atelier\views.py:164 .\client_particulier\views.py:157
+#: .\client_atelier\views.py:165 .\client_particulier\views.py:157
 msgid "Client créé avec succès !"
 msgstr "Customer created successfully!"
 
@@ -2285,6 +2290,7 @@ msgid "Historique"
 msgstr "History"
 
 #: .\client_particulier\models.py:156
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:21
 #: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:21
 #: .\voiture\voiture_exemplaire\models.py:18
 msgid "Location"
@@ -2293,8 +2299,12 @@ msgstr "Rental"
 #: .\client_particulier\models.py:166
 #: .\client_particulier\templates\client_particulier\client_form.html:11
 #: .\facture\models.py:76
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:19
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:145
 #: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:19
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:147
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:130
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:158
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:284
 #: .\panier\models.py:33
 #: .\societe_cliente\templates\societe_cliente\societe_cliente_form.html:11
 #: .\voiture\voiture_exemplaire\models.py:16
@@ -2314,7 +2324,7 @@ msgstr "Driver's license number"
 
 #: .\client_particulier\templates\client_particulier\client_form.html:12
 msgid "Créer un client"
-msgstr "Create client"
+msgstr "Create customer"
 
 #: .\client_particulier\templates\client_particulier\client_form.html:134
 #: .\proprietaire\templates\proprietaire\proprietaire_form.html:133
@@ -2323,19 +2333,15 @@ msgstr "Age"
 
 #: .\client_particulier\templates\client_particulier\clientparticulier_list.html:17
 msgid "Ajouter un client"
-msgstr "Add client"
+msgstr "Add customer"
 
 #: .\client_particulier\templates\client_particulier\clientparticulier_list.html:114
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ client"
-msgstr "Showing _START_ to _END_ of _TOTAL_ clients"
+msgstr "Showing _START_ to _END_ of _TOTAL_ customers"
 
 #: .\client_particulier\templates\client_particulier\modifier_client.html:15
 msgid "Modifier le client :"
-msgstr "Edit client:"
-
-#: .\client_particulier\templates\client_particulier\modifier_client.html:100
-msgid "Retour aux détails du client"
-msgstr "Back to client details"
+msgstr "Edit customer:"
 
 #: .\facture\models.py:32
 msgid "Ex : 0208:BE0123456789"
@@ -2486,7 +2492,7 @@ msgid "Créer un Fournisseur"
 msgstr "Create supplier"
 
 #: .\fournisseur\templates\fournisseur\fournisseur_form.html:149
-#: .\voiture\voiture_marque\templates\voiture_marque\ajouter_marque.html:92
+#: .\voiture\voiture_marque\templates\voiture_marque\ajouter_marque.html:93
 msgid "Vérification…"
 msgstr "Checking…"
 
@@ -2499,7 +2505,7 @@ msgid "Fournisseur disponible"
 msgstr "Supplier available"
 
 #: .\fournisseur\templates\fournisseur\fournisseur_form.html:180
-#: .\voiture\voiture_marque\templates\voiture_marque\ajouter_marque.html:117
+#: .\voiture\voiture_marque\templates\voiture_marque\ajouter_marque.html:132
 msgid "Erreur lors de la vérification"
 msgstr "Error during verification"
 
@@ -2568,6 +2574,8 @@ msgstr "Ethanol"
 #: .\fuel\models.py:24 .\fuel\templates\fuel\fuel_exemplaire_stat.html:81
 #: .\fuel\templates\fuel\fuel_stat.html:39
 #: .\maintenance\autres_interventions\abs\models.py:22
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:25
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:40
 #: .\maintenance\autres_interventions\moteur\alternateur\models.py:23
 #: .\maintenance\autres_interventions\moteur\courroie\models.py:64
 #: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:25
@@ -2582,6 +2590,8 @@ msgstr "Belgium"
 #: .\fuel\models.py:25 .\fuel\templates\fuel\fuel_exemplaire_stat.html:82
 #: .\fuel\templates\fuel\fuel_stat.html:40
 #: .\maintenance\autres_interventions\abs\models.py:23
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:26
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:41
 #: .\maintenance\autres_interventions\moteur\alternateur\models.py:24
 #: .\maintenance\autres_interventions\moteur\courroie\models.py:65
 #: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:26
@@ -2596,6 +2606,8 @@ msgstr "Luxembourg"
 #: .\fuel\models.py:26 .\fuel\templates\fuel\fuel_exemplaire_stat.html:83
 #: .\fuel\templates\fuel\fuel_stat.html:41
 #: .\maintenance\autres_interventions\abs\models.py:24
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:27
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:42
 #: .\maintenance\autres_interventions\moteur\alternateur\models.py:25
 #: .\maintenance\autres_interventions\moteur\courroie\models.py:66
 #: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:27
@@ -2966,6 +2978,8 @@ msgstr "14,32 Liters"
 #: .\maintenance\autres_interventions\abs\models.py:186
 #: .\maintenance\autres_interventions\abs\templates\abs\abs_list.html:57
 #: .\maintenance\autres_interventions\boite_de_vitesse\models.py:153
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:237
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_list.html:42
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_list.html:56
 #: .\maintenance\autres_interventions\bte_vitesse_auto\models.py:152
 #: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_list.html:56
@@ -2978,8 +2992,8 @@ msgstr "14,32 Liters"
 #: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_list.html:57
 #: .\maintenance\autres_interventions\moteur\courroie\models.py:222
 #: .\maintenance\autres_interventions\moteur\courroie\templates\courroie\courroie_list.html:57
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:244
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_list.html:42
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:225
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_list.html:69
 #: .\maintenance\autres_interventions\moteur\turbo\models.py:141
 #: .\maintenance\autres_interventions\moteur\turbo\templates\turbo\turbo_list.html:56
 #: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_list.html:56
@@ -3038,8 +3052,8 @@ msgid "Par voiture"
 msgstr "Per car"
 
 #: .\fuel\templates\fuel\fuel_stat.html:64
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:152
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:283
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\views.py:153
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\views.py:285
 #: .\proprietaire\templates\proprietaire\proprietaire_voiture_form.html:48
 #: .\proprietaire\templates\proprietaire\proprietaire_voiture_list.html:45
 #: .\proprietaire\templates\proprietaire\proprietaire_voiture_list.html:61
@@ -3174,6 +3188,20 @@ msgstr "%(libelle)s - Supplier: %(fournisseur)s"
 msgid "Main d'œuvre"
 msgstr "Labor"
 
+#: .\maindoeuvre\templates\maindoeuvre\main_oeuvre_form.html:38
+#: .\maintenance\autres_interventions\abs\templates\abs\abs_form.html:45
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_form.html:45
+#: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_check.html:45
+#: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_check.html:45
+#: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_check.html:45
+#: .\maintenance\autres_interventions\moteur\courroie\templates\courroie\courroie_form.html:45
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_form.html:45
+#: .\maintenance\autres_interventions\moteur\turbo\templates\turbo\turbo_check.html:45
+#: .\piece\piece_fluides\templates\piece_fluides\piece_fluide_form.html:42
+#: .\voiture\voiture_embrayage\templates\voiture_embrayage\ajouter_embrayage.html:30
+msgid "Erreurs :"
+msgstr "Errors :"
+
 #: .\maindoeuvre\templates\maindoeuvre\main_oeuvre_form.html:66
 #: .\maindoeuvre\views.py:89
 msgid "Temps de travail"
@@ -3185,13 +3213,14 @@ msgstr ""
 
 #: .\maindoeuvre\templates\maindoeuvre\main_oeuvre_form.html:91
 #: .\maintenance\autres_interventions\abs\templates\abs\abs_form.html:128
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_form.html:127
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_check.html:623
 #: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_check.html:490
 #: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_check.html:128
 #: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_check.html:128
 #: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_check.html:127
 #: .\maintenance\autres_interventions\moteur\courroie\templates\courroie\courroie_form.html:127
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_form.html:127
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_form.html:128
 #: .\maintenance\autres_interventions\moteur\turbo\templates\turbo\turbo_check.html:131
 #: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_create.html:140
 #: .\maintenance\check_up\templates\check_up\controle_total.html:1241
@@ -3221,6 +3250,7 @@ msgstr "Time (min)"
 
 #: .\maindoeuvre\templates\maindoeuvre\main_oeuvre_list.html:51
 #: .\maintenance\autres_interventions\abs\templates\abs\abs_detail.html:42
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_detail.html:43
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_detail.html:54
 #: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_detail.html:44
 #: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_detail.html:43
@@ -3319,10 +3349,11 @@ msgid "A Remplacer"
 msgstr "To Replace"
 
 #: .\maintenance\autres_interventions\abs\models.py:56
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:82
 #: .\maintenance\autres_interventions\moteur\admission\models.py:39
 #: .\maintenance\autres_interventions\moteur\alternateur\models.py:57
 #: .\maintenance\autres_interventions\moteur\courroie\models.py:99
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:84
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:77
 #: .\maintenance\autres_interventions\moteur\turbo\models.py:39
 msgid "Kilomètres chassis"
 msgstr "Chassis mileage"
@@ -3427,13 +3458,14 @@ msgstr "Purchase price excluding VAT of the sensor"
 
 #: .\maintenance\autres_interventions\abs\models.py:133
 #: .\maintenance\autres_interventions\boite_de_vitesse\models.py:100
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:149
 #: .\maintenance\autres_interventions\bte_vitesse_auto\models.py:112
 #: .\maintenance\autres_interventions\geometrie\models.py:160
 #: .\maintenance\autres_interventions\models.py:22
 #: .\maintenance\autres_interventions\moteur\admission\models.py:126
 #: .\maintenance\autres_interventions\moteur\alternateur\models.py:134
 #: .\maintenance\autres_interventions\moteur\courroie\models.py:170
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:151
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:134
 #: .\maintenance\autres_interventions\moteur\turbo\models.py:88
 #: .\maintenance\carrosserie_interne\models.py:525
 #: .\maintenance\check_up\models.py:345
@@ -3443,19 +3475,20 @@ msgstr "Purchase price excluding VAT of the sensor"
 #: .\maintenance\nettoyage_exterieur\models.py:71
 #: .\maintenance\nettoyage_interieur\models.py:93
 #: .\maintenance\niveaux\models.py:210 .\maintenance\pneus\models.py:103
-#: .\voiture\voiture_exemplaire\models.py:219
+#: .\voiture\voiture_exemplaire\models.py:218
 msgid "Vert"
 msgstr "Green"
 
 #: .\maintenance\autres_interventions\abs\models.py:134
 #: .\maintenance\autres_interventions\boite_de_vitesse\models.py:101
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:150
 #: .\maintenance\autres_interventions\bte_vitesse_auto\models.py:113
 #: .\maintenance\autres_interventions\geometrie\models.py:161
 #: .\maintenance\autres_interventions\models.py:23
 #: .\maintenance\autres_interventions\moteur\admission\models.py:127
 #: .\maintenance\autres_interventions\moteur\alternateur\models.py:135
 #: .\maintenance\autres_interventions\moteur\courroie\models.py:171
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:152
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:135
 #: .\maintenance\autres_interventions\moteur\turbo\models.py:89
 #: .\maintenance\carrosserie_interne\models.py:526
 #: .\maintenance\check_up\models.py:346
@@ -3465,19 +3498,20 @@ msgstr "Green"
 #: .\maintenance\nettoyage_exterieur\models.py:72
 #: .\maintenance\nettoyage_interieur\models.py:94
 #: .\maintenance\niveaux\models.py:211 .\maintenance\pneus\models.py:104
-#: .\voiture\voiture_exemplaire\models.py:220
+#: .\voiture\voiture_exemplaire\models.py:219
 msgid "Jaune"
 msgstr "Yellow"
 
 #: .\maintenance\autres_interventions\abs\models.py:135
 #: .\maintenance\autres_interventions\boite_de_vitesse\models.py:102
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:151
 #: .\maintenance\autres_interventions\bte_vitesse_auto\models.py:114
 #: .\maintenance\autres_interventions\geometrie\models.py:162
 #: .\maintenance\autres_interventions\models.py:24
 #: .\maintenance\autres_interventions\moteur\admission\models.py:128
 #: .\maintenance\autres_interventions\moteur\alternateur\models.py:136
 #: .\maintenance\autres_interventions\moteur\courroie\models.py:172
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:153
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:136
 #: .\maintenance\autres_interventions\moteur\turbo\models.py:90
 #: .\maintenance\carrosserie_interne\models.py:527
 #: .\maintenance\check_up\models.py:347
@@ -3487,18 +3521,19 @@ msgstr "Yellow"
 #: .\maintenance\nettoyage_exterieur\models.py:73
 #: .\maintenance\nettoyage_interieur\models.py:95
 #: .\maintenance\niveaux\models.py:212 .\maintenance\pneus\models.py:105
-#: .\voiture\voiture_exemplaire\models.py:221
+#: .\voiture\voiture_exemplaire\models.py:220
 msgid "Rouge"
 msgstr "Red"
 
 #: .\maintenance\autres_interventions\abs\models.py:142
 #: .\maintenance\autres_interventions\boite_de_vitesse\models.py:109
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:158
 #: .\maintenance\autres_interventions\bte_vitesse_auto\models.py:120
 #: .\maintenance\autres_interventions\geometrie\models.py:168
 #: .\maintenance\autres_interventions\moteur\admission\models.py:135
 #: .\maintenance\autres_interventions\moteur\alternateur\models.py:143
 #: .\maintenance\autres_interventions\moteur\courroie\models.py:179
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:160
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:143
 #: .\maintenance\autres_interventions\moteur\turbo\models.py:97
 #: .\maintenance\carrosserie_interne\models.py:534
 #: .\maintenance\check_up\models.py:354
@@ -3509,18 +3544,19 @@ msgstr "Red"
 #: .\maintenance\nettoyage_interieur\models.py:102
 #: .\maintenance\niveaux\models.py:219 .\maintenance\pneus\models.py:112
 #: .\maintenance\silent_blocs\models.py:102
-#: .\voiture\voiture_exemplaire\models.py:228
+#: .\voiture\voiture_exemplaire\models.py:227
 msgid "État visuel / Tag"
 msgstr "Visual state / Tag"
 
 #: .\maintenance\autres_interventions\abs\models.py:151
 #: .\maintenance\autres_interventions\boite_de_vitesse\models.py:118
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:230
 #: .\maintenance\autres_interventions\bte_vitesse_auto\models.py:129
 #: .\maintenance\autres_interventions\geometrie\models.py:177
 #: .\maintenance\autres_interventions\moteur\admission\models.py:144
 #: .\maintenance\autres_interventions\moteur\alternateur\models.py:152
 #: .\maintenance\autres_interventions\moteur\courroie\models.py:218
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:237
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:218
 #: .\maintenance\autres_interventions\moteur\turbo\models.py:106
 #: .\maintenance\carrosserie_interne\models.py:543
 #: .\maintenance\check_up\models.py:363
@@ -3542,6 +3578,11 @@ msgstr "Labor"
 #: .\maintenance\autres_interventions\abs\views.py:185
 #: .\maintenance\autres_interventions\abs\views.py:302
 #: .\maintenance\autres_interventions\boite_de_vitesse\models.py:127
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:199
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_detail.html:35
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_list.html:41
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\views.py:204
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\views.py:338
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_check.html:556
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_detail.html:37
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_list.html:41
@@ -3578,11 +3619,12 @@ msgstr "Labor"
 #: .\maintenance\autres_interventions\moteur\courroie\templates\courroie\courroie_list.html:56
 #: .\maintenance\autres_interventions\moteur\courroie\views.py:188
 #: .\maintenance\autres_interventions\moteur\courroie\views.py:305
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:206
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:187
 #: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_detail.html:35
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_list.html:41
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:202
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:335
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_list.html:50
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_list.html:68
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:203
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:329
 #: .\maintenance\autres_interventions\moteur\turbo\models.py:115
 #: .\maintenance\autres_interventions\moteur\turbo\templates\turbo\turbo_detail.html:35
 #: .\maintenance\autres_interventions\moteur\turbo\templates\turbo\turbo_list.html:41
@@ -3653,12 +3695,13 @@ msgstr "Technician"
 
 #: .\maintenance\autres_interventions\abs\models.py:165
 #: .\maintenance\autres_interventions\boite_de_vitesse\models.py:132
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:204
 #: .\maintenance\autres_interventions\bte_vitesse_auto\models.py:141
 #: .\maintenance\autres_interventions\geometrie\models.py:189
 #: .\maintenance\autres_interventions\moteur\admission\models.py:158
 #: .\maintenance\autres_interventions\moteur\alternateur\models.py:167
 #: .\maintenance\autres_interventions\moteur\courroie\models.py:193
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:211
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:192
 #: .\maintenance\autres_interventions\moteur\turbo\models.py:120
 #: .\maintenance\carrosserie_interne\models.py:557
 #: .\maintenance\check_up\models.py:377
@@ -3674,12 +3717,13 @@ msgstr "Technician name"
 
 #: .\maintenance\autres_interventions\abs\models.py:171
 #: .\maintenance\autres_interventions\boite_de_vitesse\models.py:138
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:210
 #: .\maintenance\autres_interventions\bte_vitesse_auto\models.py:142
 #: .\maintenance\autres_interventions\geometrie\models.py:190
 #: .\maintenance\autres_interventions\moteur\admission\models.py:164
 #: .\maintenance\autres_interventions\moteur\alternateur\models.py:173
 #: .\maintenance\autres_interventions\moteur\courroie\models.py:199
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:217
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:198
 #: .\maintenance\autres_interventions\moteur\turbo\models.py:126
 #: .\maintenance\carrosserie_interne\models.py:563
 #: .\maintenance\check_up\models.py:383
@@ -3695,6 +3739,8 @@ msgstr "Technician role"
 
 #: .\maintenance\autres_interventions\abs\models.py:181
 #: .\maintenance\autres_interventions\boite_de_vitesse\models.py:148
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:18
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:220
 #: .\maintenance\autres_interventions\bte_vitesse_auto\models.py:148
 #: .\maintenance\autres_interventions\geometrie\models.py:196
 #: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail_pdf.html:65
@@ -3702,7 +3748,7 @@ msgstr "Technician role"
 #: .\maintenance\autres_interventions\moteur\alternateur\models.py:183
 #: .\maintenance\autres_interventions\moteur\courroie\models.py:209
 #: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:18
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:227
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:208
 #: .\maintenance\autres_interventions\moteur\turbo\models.py:136
 #: .\maintenance\carrosserie_interne\models.py:573
 #: .\maintenance\check_up\models.py:393
@@ -3738,6 +3784,9 @@ msgstr "Check details"
 #: .\maintenance\autres_interventions\abs\templates\abs\abs_detail.html:32
 #: .\maintenance\autres_interventions\abs\views.py:149
 #: .\maintenance\autres_interventions\abs\views.py:265
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_detail.html:32
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\views.py:168
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\views.py:301
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_check.html:71
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_detail.html:35
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\modifier_boite.html:75
@@ -3755,8 +3804,8 @@ msgstr "Check details"
 #: .\maintenance\autres_interventions\moteur\courroie\views.py:152
 #: .\maintenance\autres_interventions\moteur\courroie\views.py:268
 #: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_detail.html:32
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:167
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:299
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:163
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:289
 #: .\maintenance\autres_interventions\moteur\turbo\templates\turbo\turbo_detail.html:33
 #: .\maintenance\autres_interventions\moteur\turbo\views.py:101
 #: .\maintenance\autres_interventions\moteur\turbo\views.py:242
@@ -3797,6 +3846,8 @@ msgstr "Mileage"
 
 #: .\maintenance\autres_interventions\abs\templates\abs\abs_detail.html:33
 #: .\maintenance\autres_interventions\abs\templates\abs\abs_list.html:55
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_detail.html:34
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_list.html:40
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_check.html:483
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_detail.html:36
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_list.html:54
@@ -3815,7 +3866,7 @@ msgstr "Mileage"
 #: .\maintenance\autres_interventions\moteur\courroie\templates\courroie\courroie_detail.html:33
 #: .\maintenance\autres_interventions\moteur\courroie\templates\courroie\courroie_list.html:55
 #: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_detail.html:34
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_list.html:40
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_list.html:67
 #: .\maintenance\autres_interventions\moteur\turbo\templates\turbo\turbo_detail.html:34
 #: .\maintenance\autres_interventions\moteur\turbo\templates\turbo\turbo_list.html:54
 #: .\maintenance\bruits\models.py:60
@@ -3856,6 +3907,7 @@ msgid "Courroie de distribution"
 msgstr "Timing belt"
 
 #: .\maintenance\autres_interventions\abs\templates\abs\abs_detail.html:41
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_detail.html:42
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_detail.html:44
 #: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_detail.html:41
 #: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_detail.html:42
@@ -3900,6 +3952,7 @@ msgid "Rapport PDF"
 msgstr "PDF report"
 
 #: .\maintenance\autres_interventions\abs\templates\abs\abs_detail.html:101
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_detail.html:87
 #: .\maintenance\autres_interventions\moteur\courroie\templates\courroie\courroie_detail.html:101
 #: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_detail.html:87
 msgid "Retour à la liste des remplacements"
@@ -3911,6 +3964,8 @@ msgstr "ABS check-up for:"
 
 #: .\maintenance\autres_interventions\abs\templates\abs\abs_form.html:102
 #: .\maintenance\autres_interventions\abs\templates\abs\modifier_abs.html:104
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\modifier_remplacement_boite.html:104
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_form.html:101
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_check.html:593
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\modifier_boite.html:598
 #: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_check.html:461
@@ -3924,7 +3979,7 @@ msgstr "ABS check-up for:"
 #: .\maintenance\autres_interventions\moteur\courroie\templates\courroie\courroie_form.html:101
 #: .\maintenance\autres_interventions\moteur\courroie\templates\courroie\modifier_courroie.html:104
 #: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\modifier_remplacement_moteur.html:104
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_form.html:101
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_form.html:102
 #: .\maintenance\autres_interventions\moteur\turbo\templates\turbo\modifier_turbo.html:110
 #: .\maintenance\autres_interventions\moteur\turbo\templates\turbo\turbo_check.html:103
 #: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_create.html:110
@@ -3976,6 +4031,7 @@ msgstr "Add a check"
 #: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_list.html:37
 #: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_list.html:38
 #: .\maintenance\autres_interventions\moteur\courroie\templates\courroie\courroie_list.html:38
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_list.html:46
 #: .\maintenance\autres_interventions\moteur\turbo\templates\turbo\turbo_list.html:37
 #: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_list.html:38
 #: .\maintenance\check_up\templates\check_up\checkup_list.html:39
@@ -3997,13 +4053,14 @@ msgid "Étiquette"
 msgstr "Tag"
 
 #: .\maintenance\autres_interventions\abs\templates\abs\abs_list.html:58
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_list.html:43
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_list.html:57
 #: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_list.html:57
 #: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_list.html:58
 #: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_list.html:57
 #: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_list.html:58
 #: .\maintenance\autres_interventions\moteur\courroie\templates\courroie\courroie_list.html:58
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_list.html:43
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_list.html:70
 #: .\maintenance\autres_interventions\moteur\turbo\templates\turbo\turbo_list.html:57
 #: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_list.html:57
 #: .\maintenance\check_up\templates\check_up\checkup_list.html:58
@@ -4023,13 +4080,14 @@ msgid "Actions"
 msgstr "Action"
 
 #: .\maintenance\autres_interventions\abs\templates\abs\abs_list.html:130
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_list.html:132
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_list.html:129
 #: .\maintenance\autres_interventions\bte_vitesse_auto\templates\bte_auto\bte_auto_list.html:129
 #: .\maintenance\autres_interventions\geometrie\templates\geometrie\geometrie_list.html:130
 #: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_list.html:129
 #: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_list.html:130
 #: .\maintenance\autres_interventions\moteur\courroie\templates\courroie\courroie_list.html:130
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_list.html:132
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_list.html:159
 #: .\maintenance\autres_interventions\moteur\turbo\templates\turbo\turbo_list.html:129
 #: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_list.html:110
 #: .\maintenance\check_up\templates\check_up\checkup_list.html:113
@@ -4070,6 +4128,8 @@ msgstr "Displaying _START_ to _END_ of _TOTAL_ ABS checks"
 #: .\maintenance\autres_interventions\abs\templates\abs\abs_list.html:164
 #: .\maintenance\autres_interventions\moteur\courroie\templates\courroie\courroie_list.html:163
 #: .\maintenance\autres_interventions\moteur\courroie\templates\courroie\courroie_list.html:164
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_list.html:207
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_list.html:208
 msgid "Aucun remplacement trouvé"
 msgstr "No replacements found"
 
@@ -4078,7 +4138,7 @@ msgid "Modifier le controle de l'ABS"
 msgstr "Edit ABS check"
 
 #: .\maintenance\autres_interventions\abs\views.py:70
-#: .\maintenance\autres_interventions\boite_de_vitesse\views.py:74
+#: .\maintenance\autres_interventions\boite_de_vitesse\views.py:81
 #: .\maintenance\autres_interventions\bte_vitesse_auto\views.py:69
 #: .\maintenance\autres_interventions\geometrie\views.py:76
 #: .\maintenance\autres_interventions\moteur\admission\views.py:68
@@ -4101,7 +4161,7 @@ msgstr ""
 "this page."
 
 #: .\maintenance\autres_interventions\abs\views.py:125
-#: .\maintenance\autres_interventions\boite_de_vitesse\views.py:128
+#: .\maintenance\autres_interventions\boite_de_vitesse\views.py:135
 #: .\maintenance\autres_interventions\bte_vitesse_auto\views.py:123
 #: .\maintenance\autres_interventions\geometrie\views.py:130
 #: .\maintenance\autres_interventions\moteur\admission\views.py:142
@@ -4136,6 +4196,8 @@ msgstr "ABS control unit"
 
 #: .\maintenance\autres_interventions\abs\views.py:170
 #: .\maintenance\autres_interventions\abs\views.py:286
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\views.py:189
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\views.py:322
 #: .\maintenance\autres_interventions\geometrie\views.py:205
 #: .\maintenance\autres_interventions\geometrie\views.py:345
 #: .\maintenance\autres_interventions\moteur\admission\views.py:114
@@ -4144,8 +4206,8 @@ msgstr "ABS control unit"
 #: .\maintenance\autres_interventions\moteur\alternateur\views.py:289
 #: .\maintenance\autres_interventions\moteur\courroie\views.py:173
 #: .\maintenance\autres_interventions\moteur\courroie\views.py:289
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:187
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:319
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:188
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:314
 #: .\maintenance\autres_interventions\moteur\turbo\views.py:110
 #: .\maintenance\autres_interventions\moteur\turbo\views.py:251
 #: .\maintenance\check_up\templates\check_up\controle_total.html:1087
@@ -4329,8 +4391,9 @@ msgid "Fourchettes"
 msgstr "Shift fork"
 
 #: .\maintenance\autres_interventions\boite_de_vitesse\models.py:93
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:163
 #: .\maintenance\autres_interventions\bte_vitesse_auto\models.py:95
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:165
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:148
 #: .\maintenance\check_up\models.py:173 .\maintenance\check_up\models.py:180
 #: .\maintenance\check_up\models.py:189
 #: .\maintenance\checkup_track\models.py:193
@@ -4354,6 +4417,228 @@ msgstr "Gearbox inspection"
 #: .\maintenance\autres_interventions\boite_de_vitesse\models.py:167
 msgid "Contrôles boites"
 msgstr "Gearbox inspections"
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\forms.py:108
+msgid ""
+"Cochez pour remplacer la boite de vitesse (remise à zéro automatique du "
+"kilométrage)."
+msgstr "Check to replace the engine (automatic reset of the mileage)."
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\forms.py:127
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\forms.py:128
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:250
+msgid ""
+"Le kilométrage du moteur ne peut pas être supérieur au kilométrage du "
+"véhicule."
+msgstr "The engine mileage cannot be greater than the vehicle mileage."
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:20
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:20
+#: .\voiture\voiture_exemplaire\models.py:17
+msgid "Privé"
+msgstr "Private"
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:22
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:22
+#: .\voiture\voiture_exemplaire\models.py:19
+msgid "Interne"
+msgstr "Internal"
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:89
+msgid "Kilometres de la boite à remplacer"
+msgstr "Mileage of the gearbox to be replaced"
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:104
+
+msgid "Kilomètres au remplacement de la boite"
+msgstr "Mileage at gearbox replacement"
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:110
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:98
+msgid "Variation de kilomètres depuis le dernier entretien"
+msgstr "Mileage variation since the last maintenance"
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:111
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:99
+msgid "Calculé automatiquement : total - dernièr entretien"
+msgstr "Automatically calculated: total - last maintenance"
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:119
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:107
+msgid "Numéro de série du moteur"
+msgstr "Engine serial number"
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:126
+msgid "Nombre de boite"
+msgstr "Number of gearboxes"
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:135
+msgid "Prix de la boite"
+msgstr "Gearbox price"
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:162
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:147
+#: .\maintenance\check_up\models.py:172 .\maintenance\check_up\models.py:179
+#: .\maintenance\check_up\models.py:188
+#: .\maintenance\checkup_track\models.py:192
+#: .\maintenance\checkup_track\models.py:198
+#: .\maintenance\checkup_track\models.py:205
+#: .\maintenance\niveaux\models.py:175 .\maintenance\niveaux\models.py:179
+#: .\maintenance\niveaux\models.py:183
+msgid "Niveau d'huile"
+msgstr "Oil level"
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:164
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:149
+#: .\maintenance\check_up\models.py:174 .\maintenance\check_up\models.py:181
+#: .\maintenance\check_up\models.py:190
+#: .\maintenance\checkup_track\models.py:194
+#: .\maintenance\checkup_track\models.py:200
+#: .\maintenance\checkup_track\models.py:207
+#: .\maintenance\entretien\models.py:185 .\maintenance\entretien\models.py:200
+#: .\maintenance\entretien\models.py:207 .\maintenance\niveaux\models.py:177
+#: .\maintenance\niveaux\models.py:181 .\maintenance\niveaux\models.py:185
+#: .\voiture\voiture_boite\templates\voiture_boite\ajouter_boite.html:76
+#: .\voiture\voiture_boite\templates\voiture_boite\list.html:45
+#: .\voiture\voiture_moteur\templates\voiture_moteur\ajouter_moteur.html:148
+msgid "Qualité d'huile"
+msgstr "Oil quality"
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:171
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:159
+msgid "Remplacement effectué"
+msgstr "Replacement completed"
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:191
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:179
+msgid "Dernière maintenance effectuée par"
+msgstr "Last maintenance performed by"
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\models.py:262
+msgid ""
+"Le kilométrage de la boite ne peut pas être supérieur au kilométrage du "
+"véhicule."
+msgstr "The gearbox mileage cannot be greater than the vehicle mileage."
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\modifier_remplacement_boite.html:25
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_detail.html:13
+msgid "Détails du remplacement de la boite de vitesse"
+msgstr "Gearbox replacement details"
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_detail.html:33
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:31
+msgid "Kilométrage de la boite"
+msgstr "Gearbox mileage"
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_detail.html:41
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_detail.html:41
+msgid "Nouveau Moteur"
+msgstr "New engine"
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_detail.html:58
+msgid "Modifier le remplacement de la boite de vitesse"
+msgstr "Edit gearbox replacement"
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_form.html:15
+msgid "Remplacement de la boite de vitesse pour :"
+msgstr "Gearbox replacement for:"
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_list.html:4
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_list.html:13
+msgid "Liste des remplacements de la boite de vitesse"
+msgstr "Gearbox replacement list"
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_list.html:23
+msgid "Ajouter un remplacement boite"
+msgstr "Add gearbox replacement"
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_list.html:37
+msgid "Km boite"
+msgstr "Gearbox mileage (km)"
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_list.html:38
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_list.html:65
+msgid "Km châssis"
+msgstr "Chassis mileage (km)"
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_list.html:39
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:112
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_list.html:66
+msgid "Nombre de remplacements"
+msgstr "Number of replacements"
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_list.html:147
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_list.html:174
+msgid "Aucun remplacement moteur enregistré."
+msgstr "No engine replacement recorded."
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\templates\remplacement_boite\remplacement_boite_list.html:163
+#: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_list.html:148
+#: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_list.html:149
+#: .\maintenance\autres_interventions\moteur\courroie\templates\courroie\courroie_list.html:149
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_list.html:190
+#: .\maintenance\autres_interventions\moteur\turbo\templates\turbo\turbo_list.html:148
+msgid "Retour au dashboard moteur"
+msgstr "Back to Engine Dashboard"
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\views.py:72
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:71
+msgid "Accès refusé"
+msgstr "Access denied."
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\views.py:130
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:129
+#: .\maintenance\carrosserie_interne\views.py:179
+msgid "Le kilométrage ne peut pas être inférieur."
+msgstr "Mileage cannot be lower."
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\views.py:136
+msgid "Remplacement de la boite enregistré avec succès"
+msgstr "Gearbox replacement successfully recorded"
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\views.py:142
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:147
+msgid "Formulaire invalide"
+msgstr "Invalid form"
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\views.py:158
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\views.py:290
+msgid "Utilisation"
+msgstr "Usage"
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\views.py:163
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\views.py:295
+#: .\proprietaire\templates\proprietaire\proprietaire_form.html:11
+#: .\proprietaire\templates\proprietaire\proprietaire_voiture_form.html:34
+msgid "Propriétaire"
+msgstr "Owner"
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\views.py:173
+msgid "Remplacement de la boite"
+msgstr "Gearbox replacement"
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\views.py:178
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\views.py:311
+msgid "Niveau de la boite de vitesse"
+msgstr "Gearbox level"
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\views.py:184
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:183
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:309
+msgid "Remise à Zéro des kilomètres moteurs"
+msgstr "Engine mileage reset"
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\views.py:261
+msgid "Remplacement de la boite modifié avec succès !"
+msgstr "Gearbox replacement successfully updated!"
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\views.py:306
+msgid "Remplacement de la boite de vitesse"
+msgstr "Gearbox replacement"
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\views.py:317
+msgid "Remise à Zéro des kilomètres de la boite de vitesse"
+msgstr "Gearbox mileage reset"
 
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\boite_check.html:17
 msgid "Contrôle de la boite de vitesses pour :"
@@ -4446,6 +4731,37 @@ msgstr "Displaying _START_ to _END_ of _TOTAL_ checks"
 msgid "Aucun contrôle trouvé"
 msgstr "No checks found"
 
+#: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\dashboard_boite.html:3
+#: .\maintenance\autres_interventions\moteur\templates\moteur\dashboard_moteur.html:3
+msgid "Tableau de bord Moteur"
+msgstr "Engine Dashboard"
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\dashboard_boite.html:8
+#: .\maintenance\autres_interventions\moteur\templates\moteur\dashboard_moteur.html:8
+msgid "Bienvenue sur le tableau de bord moteur"
+msgstr "Welcome to the engine dashboard"
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\dashboard_boite.html:17
+#: .\maintenance\check_up\templates\check_up\controle_total.html:280
+#: .\maintenance\check_up\templates\check_up\modifier_checkup.html:289
+#: .\maintenance\checkup_track\templates\checkup_track\modifier_checkup_track.html:284
+#: .\maintenance\checkup_track\templates\checkup_track\track_check_form.html:280
+#: .\maintenance\entretien\templates\entretien\entretien_check.html:195
+#: .\maintenance\entretien\templates\entretien\modifier_entretien.html:199
+#: .\voiture\voiture_boite\templates\voiture_boite\modifier_boite.html:56
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:66
+msgid "Boite de vitesse"
+msgstr "Gearbox"
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\dashboard_boite.html:29
+msgid "Remplacement Boite de Vitesse"
+msgstr "Gearbox replacement"
+
+#: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\dashboard_boite.html:46
+#: .\maintenance\autres_interventions\moteur\templates\moteur\dashboard_moteur.html:81
+msgid "Retour au tableau Interventions"
+msgstr "Back to the interventions dashboard"
+
 #: .\maintenance\autres_interventions\boite_de_vitesse\templates\boite_de_vitesse\modifier_boite.html:22
 msgid "Modifier le checkup de la boite de vitesses"
 msgstr "Edit Gearbox checkup"
@@ -4454,12 +4770,12 @@ msgstr "Edit Gearbox checkup"
 msgid "Détails de la boite de vitesses"
 msgstr "Gearbox details"
 
-#: .\maintenance\autres_interventions\boite_de_vitesse\views.py:134
+#: .\maintenance\autres_interventions\boite_de_vitesse\views.py:141
 #: .\maintenance\check_up\views.py:137
 msgid "Checkup enregistré avec succès."
 msgstr "Checkup saved successfully."
 
-#: .\maintenance\autres_interventions\boite_de_vitesse\views.py:200
+#: .\maintenance\autres_interventions\boite_de_vitesse\views.py:210
 #: .\maintenance\check_up\views.py:203
 msgid "Checkup modifié avec succès !"
 msgstr "Checkup updated successfully."
@@ -5042,14 +5358,6 @@ msgstr "Back to the interventions list"
 msgid "Liste des contrôles de l'admission"
 msgstr "Intake inspections list"
 
-#: .\maintenance\autres_interventions\moteur\admission\templates\admission\admission_list.html:148
-#: .\maintenance\autres_interventions\moteur\alternateur\templates\alternateur\alternateur_list.html:149
-#: .\maintenance\autres_interventions\moteur\courroie\templates\courroie\courroie_list.html:149
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_list.html:163
-#: .\maintenance\autres_interventions\moteur\turbo\templates\turbo\turbo_list.html:148
-msgid "Retour au dashboard moteur"
-msgstr "Back to Engine Dashboard"
-
 #: .\maintenance\autres_interventions\moteur\admission\templates\admission\rapport.html:4
 msgid "Liste des interventions admission"
 msgstr "List of intake interventions"
@@ -5323,7 +5631,7 @@ msgid "Prix d'achat htva de la pompe à eau"
 msgstr "Purchase price excl. VAT of the water pump"
 
 #: .\maintenance\autres_interventions\moteur\courroie\models.py:159
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:170
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:153
 #: .\maintenance\check_up\models.py:196
 #: .\maintenance\checkup_track\models.py:213
 #: .\maintenance\niveaux\models.py:188
@@ -5331,7 +5639,7 @@ msgid "Quantité de liquide de refroidissement ajoutée en litres"
 msgstr "Amount of coolant added in liters"
 
 #: .\maintenance\autres_interventions\moteur\courroie\models.py:160
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:171
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:154
 #: .\maintenance\check_up\models.py:197
 #: .\maintenance\checkup_track\models.py:214
 #: .\maintenance\entretien\models.py:220 .\maintenance\niveaux\models.py:189
@@ -5389,8 +5697,8 @@ msgstr "Timing belt replacement successfully saved."
 
 #: .\maintenance\autres_interventions\moteur\courroie\views.py:167
 #: .\maintenance\autres_interventions\moteur\courroie\views.py:283
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:177
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:309
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:178
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:304
 #: .\maintenance\entretien\templates\entretien\entretien_check.html:337
 #: .\maintenance\entretien\templates\entretien\modifier_entretien.html:341
 #: .\maintenance\niveaux\templates\niveaux\modifier_niveaux.html:157
@@ -5408,89 +5716,22 @@ msgid ""
 "Cochez pour remplacer le moteur (remise à zéro automatique du kilométrage)."
 msgstr "Check to replace the engine (automatic reset of the mileage)."
 
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\forms.py:130
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:269
-msgid ""
-"Le kilométrage du moteur ne peut pas être supérieur au kilométrage du "
-"véhicule."
-msgstr "The engine mileage cannot be greater than the vehicle mileage."
-
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:20
-#: .\voiture\voiture_exemplaire\models.py:17
-msgid "Privé"
-msgstr "Private"
-
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:22
-#: .\voiture\voiture_exemplaire\models.py:19
-msgid "Interne"
-msgstr "Internal"
-
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:91
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:84
 msgid "Kilometres du moteur à remplacer"
 msgstr "Mileage of the engine to be replaced"
 
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:106
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:92
 msgid "Kilomètres au remplacement moteur"
 msgstr "Mileage at engine replacement"
 
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:112
-msgid "Variation de kilomètres depuis le dernier entretien"
-msgstr "Mileage variation since the last maintenance"
-
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:113
-msgid "Calculé automatiquement : total - dernièr entretien"
-msgstr "Automatically calculated: total - last maintenance"
-
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:121
-msgid "Numéro de série du moteur"
-msgstr "Engine serial number"
-
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:128
-msgid "Nombre de moteur"
-msgstr "Number of engines"
-
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:137
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:120
 msgid "Prix moteur"
 msgstr "Engine price"
 
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:164
-#: .\maintenance\check_up\models.py:172 .\maintenance\check_up\models.py:179
-#: .\maintenance\check_up\models.py:188
-#: .\maintenance\checkup_track\models.py:192
-#: .\maintenance\checkup_track\models.py:198
-#: .\maintenance\checkup_track\models.py:205
-#: .\maintenance\niveaux\models.py:175 .\maintenance\niveaux\models.py:179
-#: .\maintenance\niveaux\models.py:183
-msgid "Niveau d'huile"
-msgstr "Oil level"
-
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:166
-#: .\maintenance\check_up\models.py:174 .\maintenance\check_up\models.py:181
-#: .\maintenance\check_up\models.py:190
-#: .\maintenance\checkup_track\models.py:194
-#: .\maintenance\checkup_track\models.py:200
-#: .\maintenance\checkup_track\models.py:207
-#: .\maintenance\entretien\models.py:185 .\maintenance\entretien\models.py:200
-#: .\maintenance\entretien\models.py:207 .\maintenance\niveaux\models.py:177
-#: .\maintenance\niveaux\models.py:181 .\maintenance\niveaux\models.py:185
-#: .\voiture\voiture_boite\templates\voiture_boite\ajouter_boite.html:76
-#: .\voiture\voiture_boite\templates\voiture_boite\list.html:45
-#: .\voiture\voiture_moteur\templates\voiture_moteur\ajouter_moteur.html:148
-msgid "Qualité d'huile"
-msgstr "Oil quality"
-
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:169
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:152
 #: .\maintenance\entretien\models.py:218 .\maintenance\niveaux\models.py:187
 msgid "Niveau de liquide de refroidissement"
 msgstr "Coolant level"
-
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:178
-msgid "Remplacement effectué"
-msgstr "Replacement completed"
-
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\models.py:198
-msgid "Dernière maintenance effectuée par"
-msgstr "Last maintenance performed by"
 
 #: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\modifier_remplacement_moteur.html:25
 #: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_detail.html:58
@@ -5505,10 +5746,6 @@ msgstr "Engine replacement details"
 msgid "Kilométrage Moteur"
 msgstr "Engine mileage"
 
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_detail.html:41
-msgid "Nouveau Moteur"
-msgstr "New engine"
-
 #: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_form.html:15
 msgid "Remplacement du moteur pour :"
 msgstr "Engine replacement for:"
@@ -5522,80 +5759,46 @@ msgstr "List of engine replacements"
 msgid "Ajouter un remplacement moteur"
 msgstr "Add an engine replacement"
 
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_list.html:37
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_list.html:38
+msgid "Kilomètres moteur"
+msgstr "Engine mileage"
+
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_list.html:42
+msgid "Kilomètres châssis"
+msgstr "Chassis mileage"
+
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_list.html:64
 msgid "Km moteur"
 msgstr "Engine mileage"
 
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_list.html:38
-msgid "Km châssis"
-msgstr "Chassis mileage"
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_list.html:206
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ remplacement moteur"
+msgstr "Showing _START_ to _END_ of _TOTAL_ replacements"
 
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_list.html:39
-msgid "Nombre de remplacements"
-msgstr "Number of replacements"
-
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\templates\remplacement_moteur\remplacement_moteur_list.html:147
-msgid "Aucun remplacement moteur enregistré."
-msgstr "No engine replacement recorded."
-
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:71
-msgid "Accès refusé"
-msgstr "Access denied."
-
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:129
-#: .\maintenance\carrosserie_interne\views.py:179
-msgid "Le kilométrage ne peut pas être inférieur."
-msgstr "Mileage cannot be lower."
-
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:135
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:141
 msgid "Remplacement moteur enregistré avec succès"
 msgstr "Engine replacement successfully recorded"
 
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:141
-msgid "Formulaire invalide"
-msgstr "Invalid form"
-
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:157
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:288
-msgid "Utilisation"
-msgstr "Usage"
-
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:162
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:293
-#: .\proprietaire\templates\proprietaire\proprietaire_form.html:11
-#: .\proprietaire\templates\proprietaire\proprietaire_voiture_form.html:34
-msgid "Propriétaire"
-msgstr "Owner"
-
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:172
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:304
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:168
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:294
 msgid "Remplacement du moteur"
 msgstr "Engine replacement"
 
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:182
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:314
-msgid "Remise à Zéro des kilomètres moteurs"
-msgstr "Engine mileage reset"
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:173
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:299
+#: .\maintenance\niveaux\templates\niveaux\modifier_niveaux.html:125
+#: .\maintenance\niveaux\templates\niveaux\niveau_form.html:121
+#: .\piece\piece_fluides\models.py:8
+msgid "Huile moteur"
+msgstr "Engine oil"
 
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:259
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:260
 msgid "Remplacement du moteur modifié avec succès !"
 msgstr "Engine replacement successfully updated!"
-
-#: .\maintenance\autres_interventions\moteur\templates\moteur\dashboard_moteur.html:3
-msgid "Tableau de bord Moteur"
-msgstr "Engine Dashboard"
-
-#: .\maintenance\autres_interventions\moteur\templates\moteur\dashboard_moteur.html:8
-msgid "Bienvenue sur le tableau de bord moteur"
-msgstr "Welcome to the engine dashboard"
 
 #: .\maintenance\autres_interventions\moteur\templates\moteur\dashboard_moteur.html:52
 msgid "Remplacement moteur"
 msgstr "Engine replacement"
-
-#: .\maintenance\autres_interventions\moteur\templates\moteur\dashboard_moteur.html:81
-msgid "Retour au tableau Interventions"
-msgstr "Back to the interventions dashboard"
 
 #: .\maintenance\autres_interventions\moteur\turbo\models.py:50
 msgid "Jeu dans l'axe de turbo"
@@ -5682,26 +5885,26 @@ msgid "Choisir le type d'intervention pour :"
 msgstr "Choose the type of service for:"
 
 #: .\maintenance\autres_interventions\templates\autres_interventions\choisir_autre.html:35
-msgid "Intervention boite de vitesses"
-msgstr "Manual gearbox service"
+msgid "Dashboard boite de vitesses"
+msgstr "Gearbox dashboard"
 
-#: .\maintenance\autres_interventions\templates\autres_interventions\choisir_autre.html:50
+#: .\maintenance\autres_interventions\templates\autres_interventions\choisir_autre.html:49
 msgid "Interventions boite automatique"
 msgstr "Automatic gearbox services"
 
-#: .\maintenance\autres_interventions\templates\autres_interventions\choisir_autre.html:65
+#: .\maintenance\autres_interventions\templates\autres_interventions\choisir_autre.html:64
 msgid "Intervention moteur"
 msgstr "Engine intervention"
 
-#: .\maintenance\autres_interventions\templates\autres_interventions\choisir_autre.html:80
+#: .\maintenance\autres_interventions\templates\autres_interventions\choisir_autre.html:79
 msgid "Géometrie"
 msgstr "Alignment"
 
-#: .\maintenance\autres_interventions\templates\autres_interventions\choisir_autre.html:95
+#: .\maintenance\autres_interventions\templates\autres_interventions\choisir_autre.html:94
 msgid "Système ABS"
 msgstr "ABS system"
 
-#: .\maintenance\autres_interventions\templates\autres_interventions\choisir_autre.html:113
+#: .\maintenance\autres_interventions\templates\autres_interventions\choisir_autre.html:112
 #: .\maintenance\carrosserie_interne\templates\carrosserie_interne\carrosserie_interne_list.html:127
 #: .\maintenance\check_up\templates\check_up\checkup_list.html:131
 #: .\maintenance\checkup_track\templates\checkup_track\checkup_track_list.html:136
@@ -6980,17 +7183,6 @@ msgstr "Windshield wiper"
 msgid "Pare-Brise"
 msgstr "Windscreen"
 
-#: .\maintenance\check_up\templates\check_up\controle_total.html:280
-#: .\maintenance\check_up\templates\check_up\modifier_checkup.html:289
-#: .\maintenance\checkup_track\templates\checkup_track\modifier_checkup_track.html:284
-#: .\maintenance\checkup_track\templates\checkup_track\track_check_form.html:280
-#: .\maintenance\entretien\templates\entretien\entretien_check.html:195
-#: .\maintenance\entretien\templates\entretien\modifier_entretien.html:199
-#: .\voiture\voiture_boite\templates\voiture_boite\modifier_boite.html:56
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:66
-msgid "Boite de vitesse"
-msgstr "Gearbox"
-
 #: .\maintenance\check_up\templates\check_up\controle_total.html:317
 #: .\maintenance\check_up\templates\check_up\modifier_checkup.html:326
 #: .\maintenance\checkup_track\templates\checkup_track\modifier_checkup_track.html:321
@@ -8070,12 +8262,6 @@ msgstr "Edit level check"
 msgid "Détails du Contrôle"
 msgstr "Check details"
 
-#: .\maintenance\niveaux\templates\niveaux\modifier_niveaux.html:125
-#: .\maintenance\niveaux\templates\niveaux\niveau_form.html:121
-#: .\piece\piece_fluides\models.py:8
-msgid "Huile moteur"
-msgstr "Engine oil"
-
 #: .\maintenance\niveaux\templates\niveaux\modifier_niveaux.html:189
 #: .\maintenance\niveaux\templates\niveaux\niveau_form.html:194
 msgid "Liquide de lave-glace"
@@ -8690,6 +8876,10 @@ msgstr "Showing _START_ to _END_ of _TOTAL_ tools"
 #: .\outillage\templates\outillage\outillage_list.html:106
 msgid "Aucun outil trouvé"
 msgstr "No tool found"
+
+#: .\panier\models.py:42
+msgid "Société cliente"
+msgstr "Customer company"
 
 #: .\panier\models.py:52
 msgid "Date de modification"
@@ -12310,10 +12500,6 @@ msgstr "Chassis mileage"
 msgid "Kilométrage du moteur"
 msgstr "Engine mileage"
 
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:31
-msgid "Kilométrage de la boite"
-msgstr "Gearbox mileage"
-
 #: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:32
 msgid "Kilométrage de l'embrayage"
 msgstr "Clutch Mileage"
@@ -12709,7 +12895,7 @@ msgstr "Edit front brakes"
 msgid "Retour aux détails des freins arrière"
 msgstr "Back to rear brake details"
 
-#: .\voiture\voiture_freins_ar\views.py:114
+#: .\voiture\voiture_freins_ar\views.py:117
 msgid "Freins arrière mis à jour avec succès."
 msgstr "Rear brakes updated successfully."
 
@@ -12831,14 +13017,6 @@ msgstr "Brand name"
 #: .\voiture\voiture_marque\templates\voiture_marque\ajouter_marque.html:57
 msgid "Retour au dashboard voitures"
 msgstr "Back to Vehicle Dashboard"
-
-#: .\voiture\voiture_marque\templates\voiture_marque\ajouter_marque.html:106
-msgid "Cette marque existe déjà !"
-msgstr "This brand already exists!"
-
-#: .\voiture\voiture_marque\templates\voiture_marque\ajouter_marque.html:110
-msgid "Marque disponible"
-msgstr "Brand available"
 
 #: .\voiture\voiture_marque\templates\voiture_marque\dashboard_voiture.html:7
 msgid "Tableau de bord des voitures"
@@ -13507,6 +13685,21 @@ msgstr "The manufacturer name is required."
 msgid "Pneu mis à jour avec succès."
 msgstr "Tire updated successfully."
 
+#~ msgid "Carte d'identité"
+#~ msgstr "ID card"
+
+#~ msgid "Compte bancaire"
+#~ msgstr "Bank account"
+
+#~ msgid "Intervention boite de vitesses"
+#~ msgstr "Manual gearbox service"
+
+#~ msgid "Cette marque existe déjà !"
+#~ msgstr "This brand already exists!"
+
+#~ msgid "Marque disponible"
+#~ msgstr "Brand available"
+
 #~ msgid "Le numéro de carte bancaire doit contenir uniquement des chiffres."
 #~ msgstr "The credit card number must contain only digits."
 
@@ -13551,9 +13744,6 @@ msgstr "Tire updated successfully."
 
 #~ msgid "libellé"
 #~ msgstr "Label"
-
-#~ msgid "Kilométrage boite"
-#~ msgstr "Gearbox mileage"
 
 #~ msgid "Retour au tableau de Bord"
 #~ msgstr "Back to Dashboard"

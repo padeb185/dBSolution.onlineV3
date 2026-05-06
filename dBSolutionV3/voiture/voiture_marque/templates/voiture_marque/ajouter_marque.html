@@ -57,7 +57,6 @@
         {% trans "Retour au dashboard voitures" %}
     </a>
 </div>
-
 <script>
 const inputMarque = document.getElementById('id_marque');
 const btnAjouter = document.getElementById('btn-ajouter-marque');
@@ -79,10 +78,12 @@ function getCookie(name) {
 const csrftoken = getCookie('csrftoken');
 let debounceTimer;
 
-inputMarque.addEventListener('input', function() {
+inputMarque.addEventListener('input', function () {
     clearTimeout(debounceTimer);
+
     debounceTimer = setTimeout(() => {
         const marque = this.value.trim();
+
         if (!marque) {
             feedback.classList.add('hidden');
             btnAjouter.disabled = false;
@@ -96,29 +97,45 @@ inputMarque.addEventListener('input', function() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
-                'X-CSRFToken': csrftoken
+                'X-CSRFToken': csrftoken,
+                'Accept': 'application/json'
             },
-            body: new URLSearchParams({ nom_marque: marque })
+            body: new URLSearchParams({
+                nom_marque: marque
+            })
         })
-        .then(res => res.json())
+        .then(async res => {
+            const text = await res.text();
+            console.log("RAW RESPONSE:", text);
+
+            try {
+                return JSON.parse(text);
+            } catch (e) {
+                throw new Error("Réponse backend non JSON : " + text);
+            }
+        })
         .then(data => {
-            if (data.exists) {
-                feedback.textContent = "❌ {% trans 'Cette marque existe déjà !' %}";
+            if (data.exists === true) {
+                feedback.textContent = "❌ Cette marque existe déjà !";
                 feedback.classList.add('text-red-600');
+                feedback.classList.remove('text-green-600');
                 btnAjouter.disabled = true;
             } else {
-                feedback.textContent = "✅ {% trans 'Marque disponible' %}";
+                feedback.textContent = "✅ Marque disponible";
                 feedback.classList.add('text-green-600');
+                feedback.classList.remove('text-red-600');
                 btnAjouter.disabled = false;
             }
         })
         .catch(err => {
-            console.error(err);
+            console.error("Erreur fetch :", err);
             feedback.textContent = "{% trans 'Erreur lors de la vérification' %}";
             feedback.classList.add('text-red-600');
             btnAjouter.disabled = false;
         });
-    }, 400); // Debounce 400ms
+
+    }, 400);
 });
 </script>
+
 {% endblock %}

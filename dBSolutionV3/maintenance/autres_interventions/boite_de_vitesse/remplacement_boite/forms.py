@@ -123,8 +123,8 @@ class RemplacementBoiteForm(forms.ModelForm):
         if voiture and km_boite is not None:
             if km_boite > voiture.kilometres_chassis:
                 self.add_error(
-                    "kilometres_moteur",
-                    _("Le kilométrage du moteur ne peut pas être supérieur au kilométrage du véhicule.")
+                    "kilometres_boite",
+                    _("Le kilométrage de la boite ne peut pas être supérieur au kilométrage du véhicule.")
                 )
 
         return cleaned_data

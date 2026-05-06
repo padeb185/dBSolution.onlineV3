@@ -23,9 +23,12 @@ class VoitureMarque(models.Model):
     )
 
     class Meta:
-        ordering = ['nom_marque']
-        verbose_name = "Marque de voiture"
-        verbose_name_plural = "Marques de voitures"
+        constraints = [
+            models.UniqueConstraint(
+                fields=["societe", "nom_marque"],
+                name="unique_marque_par_societe"
+            )
+        ]
 
     def __str__(self):
         return self.nom_marque

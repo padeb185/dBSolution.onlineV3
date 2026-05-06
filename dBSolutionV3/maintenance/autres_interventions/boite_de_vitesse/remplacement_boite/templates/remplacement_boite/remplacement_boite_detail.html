@@ -38,7 +38,7 @@
 
         <!-- Maintenance -->
         <div class="bg-white shadow-md rounded-lg p-6">
-            <h2 class="text-lg font-semibold mb-4">{% trans "Nouveau Moteur" %}</h2>
+            <h2 class="text-lg font-semibold mb-4">{% trans "Nouvelle boite de vitesse" %}</h2>
             <p><strong>{% trans "Date de l'intervention" %} :</strong> {{ remplacement_boite.date|date:"d/m/Y" }}</p>
             <p><strong>{% trans "Temps" %} :</strong> {{ remplacement_boite.main_oeuvre.temps_display }}</p>
             <p>
@@ -55,7 +55,7 @@
         <div class="mt-auto w-full">
             <a href="{% url 'remplacement_boite:modifier_remplacement_boite' remplacement_boite.id %}" class="block w-full">
                 <button type="button" class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
-                    {% trans "Modifier le remplacement de la boite de vietsse" %}
+                    {% trans "Modifier le remplacement de la boite de vitesse" %}
                 </button>
             </a>
         </div>

@@ -109,15 +109,20 @@ def ajouter_marque(request):
 
 @require_POST
 def check_marque(request):
-    tenant = request.user.societe  # ton tenant
+    tenant = request.user.societe
+
     with tenant_context(tenant):
         nom_marque = request.POST.get("nom_marque", "").strip()
+
         exists = False
         if nom_marque:
-            exists = VoitureMarque.objects.filter(nom_marque__iexact=nom_marque).exists()
-        return JsonResponse({"exists": exists})
+            exists = VoitureMarque.objects.filter(
+                nom_marque__iexact=nom_marque
+            ).exists()
 
-
+        return JsonResponse({
+            "exists": bool(exists)
+        })
 
 @never_cache
 @login_required
