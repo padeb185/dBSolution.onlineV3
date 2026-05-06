@@ -116,7 +116,7 @@ class RemplacementBoite(TechnicienMixin, models.Model):
         max_length=50,
         null=True,
         blank=True,
-        verbose_name=_("Numéro de série du moteur")
+        verbose_name=_("Numéro de série de la boite")
     )
 
     remplacement_nombre_boite = models.PositiveIntegerField(
