@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n static %}
+{% load i18n widget_tweaks static %}
 
 {% block content %}
 <br>
@@ -28,61 +28,31 @@
         {% endfor %}
     {% endif %}
 
-    <!-- FORM -->
-    <form method="post" class="flex flex-col space-y-4">
+
+    <form method="post" class="space-y-4">
         {% csrf_token %}
+ {% for field in form %}
+            <div>
+                <label class="block font-semibold mb-1">
+                    {{ field.label }}
+                </label>
 
-        <!-- FOURNISSEUR -->
-        <div class="flex flex-col relative">
-            <label for="id_fournisseur" class="mb-1 font-medium">
-                {% trans "Fournisseur" %}
-            </label>
+                {{ field|add_class:"input" }}
 
-            <input type="text"
-                   id="id_fournisseur"
-                   name="fournisseur"
-                   value="{{ request.POST.fournisseur|default:'' }}"
-                   class="border rounded px-4 py-2 w-full"
-                   placeholder="{% trans 'Nom du fournisseur' %}"
-                   autocomplete="off">
+                {% if field.help_text %}
+                    <p class="text-gray-500 text-sm mt-1">
+                        {{ field.help_text }}
+                    </p>
+                {% endif %}
 
-            <!-- FEEDBACK -->
-            <p id="feedback" class="text-sm mt-1 hidden"></p>
-        </div>
+                {% if field.errors %}
+                    <p class="text-red-600 text-sm mt-1">
+                        {{ field.errors|striptags }}
+                    </p>
+                {% endif %}
+            </div>
+        {% endfor %}
 
-        <!-- TVA -->
-        <div>
-            <label>{% trans "Numéro de TVA" %}</label>
-            <input type="text" name="numero_tva"
-                   value="{{ request.POST.numero_tva|default:'' }}"
-                   class="border rounded px-4 py-2 w-full"
-                   placeholder="BE1234567891">
-        </div>
-
-        <!-- PEPPOL -->
-        <div>
-            <label>{% trans "Numéro Peppol" %}</label>
-            <input type="text" name="peppol_id"
-                   value="{{ request.POST.peppol_id|default:'' }}"
-                   class="border rounded px-4 py-2 w-full"
-                   placeholder="0208:0630675588">
-        </div>
-
-        <!-- EMAIL -->
-        <div>
-            <label>{% trans "Email" %}</label>
-            <input type="email" name="email"
-                   value="{{ request.POST.email|default:'' }}"
-                   class="border rounded px-4 py-2 w-full">
-        </div>
-
-        <!-- TELEPHONE -->
-        <div>
-            <label>{% trans "Téléphone" %}</label>
-            <input type="text" name="gsm"
-                   value="{{ request.POST.gsm|default:'' }}"
-                   class="border rounded px-4 py-2 w-full">
-        </div>
 
         <!-- BOUTONS -->
         <div class="flex gap-3 mt-6">
@@ -102,6 +72,16 @@
 
     </form>
 </div>
+
+<style>
+.input {
+    width: 100% !important;
+    border: 1px solid #ccc !important;
+    border-radius: 6px !important;
+    padding: 8px !important;
+    box-sizing: border-box !important;
+}
+</style>
 
 <!-- ========================= -->
 <!-- JS VALIDATION FOURNISSEUR -->

@@ -10,22 +10,54 @@ class FournisseurForm(forms.ModelForm):
         fields = "__all__"
         exclude = ("is_active", "societe",)
         widgets = {
+
+            # -------------------------
+            # FOURNISSEUR
+            # -------------------------
+            "fournisseur": forms.TextInput(attrs={
+                "class": "border rounded px-4 py-2 w-full",
+                "placeholder": "Nom du fournisseur"
+            }),
+
+            # -------------------------
+            # TVA
+            # -------------------------
+            "numero_tva": forms.TextInput(attrs={
+                "class": "border rounded px-4 py-2 w-full",
+                "placeholder": "BE0123456789"
+            }),
+
+            # -------------------------
+            # PEPPOL
+            # -------------------------
             "peppol_id": forms.TextInput(attrs={
-                "placeholder": "0208:BE0123456789"
+                "class": "border rounded px-4 py-2 w-full",
+                "placeholder": "0208:0630675588"
             }),
-            "country_code": forms.TextInput(attrs={
-                "placeholder": "BE"
-            }),
+
+            # -------------------------
+            # EMAIL
+            # -------------------------
             "email": forms.EmailInput(attrs={
+                "class": "border rounded px-4 py-2 w-full",
                 "placeholder": "contact@fournisseur.be"
             }),
-            "telephone_fixe": forms.TextInput(attrs={
-                "placeholder": "+32 2 123 45 67"
-            }),
+
+            # -------------------------
+            # TELEPHONE / GSM
+            # -------------------------
             "gsm": forms.TextInput(attrs={
+                "class": "border rounded px-4 py-2 w-full",
                 "placeholder": "+32 4 123 45 67"
             }),
+
+            "telephone_fixe": forms.TextInput(attrs={
+                "class": "border rounded px-4 py-2 w-full",
+                "placeholder": "+32 2 123 45 67"
+            }),
         }
+
+
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

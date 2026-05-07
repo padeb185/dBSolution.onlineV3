@@ -77,52 +77,31 @@ def ajouter_fournisseur_all(request):
     tenant = request.user.societe
 
     with tenant_context(tenant):
-        fournisseur = Fournisseur()
-        fournisseur.adresse = Adresse()
 
         if request.method == "POST":
-            nom = request.POST.get("fournisseur")
+            form = FournisseurForm(request.POST)
 
-            if not nom:
-                messages.error(request, _("Le nom du fournisseur est obligatoire."))
-            else:
-                # Crée l'adresse avec le tenant
-                adresse = Adresse.objects.create(
-                    societe=tenant,  # <-- ici
-                    rue=request.POST.get("rue"),
-                    numero=request.POST.get("numero"),
-                    boite=request.POST.get("boite"),
-                    code_postal=request.POST.get("code_postal"),
-                    ville=request.POST.get("ville"),
-                    pays=request.POST.get("pays"),
-                    code_pays=request.POST.get("code_pays")
+            if form.is_valid():
+                fournisseur = form.save(commit=False)
+                fournisseur.societe = tenant
+                fournisseur.save()
+
+                form.save_m2m()
+
+                messages.success(
+                    request,
+                    _(f"Fournisseur '{fournisseur.nom}' ajouté avec succès !")
                 )
+        else:
+            form = FournisseurForm()
 
-                # Crée le fournisseur avec le tenant
-                fournisseur = Fournisseur.objects.create(
-                    societe=tenant,  # <-- ici aussi
-                    nom=nom,
-                    numero_tva=request.POST.get("numero_tva"),
-                    taux_tva=request.POST.get("taux_tva") or 0,
-                    peppol_id=request.POST.get("peppol_id"),
-                    email=request.POST.get("email"),
-                    telephone_fixe=request.POST.get("telephone_fixe"),
-                    gsm=request.POST.get("gsm"),
-                    adresse=adresse
-                )
-
-                messages.success(request, _(f"Fournisseur '{fournisseur.nom}' ajouté avec succès !"))
-
-        # S'assurer que fournisseur.adresse existe
-        if not hasattr(fournisseur, "adresse") or fournisseur.adresse is None:
-            fournisseur.adresse = Adresse()
-
-        return render(
-            request,
-            "fournisseur/fournisseur_form.html",
-            {"fournisseur": fournisseur}
-        )
-
+    return render(
+        request,
+        "fournisseur/fournisseur_form.html",
+        {
+            "form": form,   # ✅ IMPORTANT
+        }
+    )
 
 
 
