@@ -20,6 +20,7 @@ class FuelForm(forms.ModelForm):
         model = Fuel
         fields = [
             "voiture_exemplaire",
+            "immatriculation",
             "kilometrage_fuel",
             "type_carburant",
             "date",
@@ -29,9 +30,28 @@ class FuelForm(forms.ModelForm):
             "validation",
         ]
         widgets = {
+
+            "type_carburant": forms.Select(attrs={
+                "class": "border rounded px-3 py-2 w-full text-sm"
+            }),
+            "quantite": forms.NumberInput(attrs={
+                "class": "border rounded px-3 py-2 w-full text-sm",
+                "placeholder": "Ex: 50"
+            }),
+            "prix": forms.NumberInput(attrs={
+                "class": "border rounded px-3 py-2 w-full text-sm",
+                "placeholder": "Ex: 1.85"
+            }),
+            "immatriculation": forms.TextInput(attrs={
+                "class": "border rounded px-3 py-2 w-full text-sm",
+                "placeholder": "Ex: 1-ABC-123"
+            }),
+
             "date": forms.DateInput(attrs={"type": "date"}),
             "voiture_exemplaire": forms.HiddenInput(),
         }
+
+
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

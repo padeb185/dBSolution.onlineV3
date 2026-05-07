@@ -13,12 +13,13 @@ from .models import Fuel
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from voiture.voiture_marque.models import VoitureMarque
 from voiture.voiture_modele.models import VoitureModele
-from django.views.generic import TemplateView
-from django.contrib.auth.mixins import LoginRequiredMixin
 from fuel.models import Fuel
 from decimal import Decimal
-from django.db.models import Sum, Min, Max, Avg, Count
+from django.db.models import Sum, Count, Avg, Min, Max
 from django.db.models.functions import TruncMonth, TruncYear
+from django.views.generic import TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 
 
@@ -48,51 +49,36 @@ class FuelListView(ListView):
         )
 
 
-
 @login_required
 def ajouter_fuel_all(request):
-    tenant = request.user.societe  # récupère le tenant de l'utilisateur
+    tenant = request.user.societe
 
     with tenant_context(tenant):
+
         if request.method == "POST":
             form = FuelForm(request.POST)
-
-            # --- Auto-remplissage de voiture_exemplaire via immatriculation si absent ---
-            immatriculation = request.POST.get("immatriculation")
-            if not request.POST.get("voiture_exemplaire") and immatriculation:
-                try:
-                    voiture = VoitureExemplaire.objects.get(immatriculation=immatriculation)
-                    form.data = form.data.copy()
-                    form.data["voiture_exemplaire"] = str(voiture.id)
-                except VoitureExemplaire.DoesNotExist:
-                    form.add_error("voiture_exemplaire", _("Voiture introuvable."))
 
             if form.is_valid():
                 fuel = form.save(commit=False)
 
-
                 fuel.utilisateur = request.user
-                fuel.societe = request.user.societe
+                fuel.societe = tenant
 
                 fuel.save()
+                form.save_m2m()
+
                 messages.success(request, _("Carburant ajouté avec succès."))
             else:
-                print(form.errors)  # utile pour debug
                 messages.error(request, _("Veuillez corriger les erreurs ci-dessous."))
+
         else:
             form = FuelForm()
 
-        type_carburant_choices = Fuel._meta.get_field("type_carburant").choices
+        return render(request, "fuel/fuel_form.html", {
+            "form": form,
+        })
 
-        return render(
-            request,
-            "fuel/fuel_form.html",
-            {
-                "form": form,
-                "fuel": form.instance,
-                "type_carburant_choices": type_carburant_choices,
-            },
-        )
+
 
 
 
@@ -260,11 +246,6 @@ def get_modeles(request):
 
 
 
-from decimal import Decimal
-from django.db.models import Sum, Count, Avg, Min, Max
-from django.db.models.functions import TruncMonth, TruncYear
-from django.views.generic import TemplateView
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 class FuelStatView(LoginRequiredMixin, TemplateView):
     template_name = "fuel/fuel_stat.html"

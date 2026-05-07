@@ -1,5 +1,6 @@
-{% extends "base.html" %}
-{% load i18n static %}
+{% extends 'base.html' %}
+{% load i18n widget_tweaks static %}
+
 
 {% block content %}
 <div class="max-w-xl mx-auto p-6 bg-white rounded shadow mt-16 mb-16">
@@ -41,129 +42,31 @@
         </div>
     {% endif %}
 
-    <form method="post" class="flex flex-col space-y-4">
+     <form method="post" class="flex flex-col space-y-4">
         {% csrf_token %}
 
-        <!-- Masqué : voiture_exemplaire -->
-        <input type="hidden" id="id_voiture_exemplaire" name="voiture_exemplaire"
-               value="{{ request.POST.voiture_exemplaire|default:fuel.voiture_exemplaire.id|default:'' }}">
 
+        {% for field in form %}
+            <div>
+                <label class="block font-semibold mb-1">
+                    {{ field.label }}
+                </label>
 
-       <!-- Immatriculation -->
-        <div>
-            <label for="id_immatriculation">{% trans "Immatriculation" %}</label>
-            <input type="text" id="id_immatriculation" name="immatriculation"
-                   value="{{ request.POST.immatriculation|default:fuel.immatriculation|default:'' }}"
-                   class="border rounded px-4 py-2 w-full">
-            {% for error in form.immatriculation.errors %}
-                <p class="text-red-600 text-sm">{{ error }}</p>
-            {% endfor %}
-        </div>
+                {{ field|add_class:"input" }}
 
-        <!-- Kilométrage -->
-        <div>
-            <label for="id_kilometrage_fuel">{% trans "Kilomètres" %}</label>
-            <input type="text" id="id_kilometrage_fuel" name="kilometrage_fuel"
-                   value="{{ request.POST.kilometrage_fuel|default:fuel.kilometrage_fuel|default:'' }}"
-                   class="border rounded px-4 py-2 w-full">
-            {% for error in form.kilometrage_fuel.errors %}
-                <p class="text-red-600 text-sm">{{ error }}</p>
-            {% endfor %}
-        </div>
+                {% if field.help_text %}
+                    <p class="text-gray-500 text-sm mt-1">
+                        {{ field.help_text }}
+                    </p>
+                {% endif %}
 
-        <!-- Type de carburant -->
-        <div>
-            <label for="id_type_carburant">{% trans "Type de carburant" %}</label>
-            <select id="id_type_carburant" name="type_carburant"
-                    class="border rounded px-4 py-2 w-full">
-                {% for key, label in type_carburant_choices %}
-                    <option value="{{ key }}"
-                        {% if request.POST.type_carburant == key or fuel.type_carburant == key %}selected{% endif %}>
-                        {{ label }}
-                    </option>
-                {% endfor %}
-            </select>
-            {% for error in form.type_carburant.errors %}
-                <p class="text-red-600 text-sm">{{ error }}</p>
-            {% endfor %}
-        </div>
-
-        <!-- Date -->
-        <div>
-            <label for="id_date">{% trans "Date du plein" %}</label>
-            <input type="date" id="id_date" name="date"
-                   value="{{ request.POST.date|default:fuel.date|default:'' }}"
-                   class="border rounded px-4 py-2 w-full">
-            {% for error in form.date.errors %}
-                <p class="text-red-600 text-sm">{{ error }}</p>
-            {% endfor %}
-        </div>
-
-        <!-- Litres -->
-        <div>
-            <label for="id_litres">{% trans "Litres" %}</label>
-            <input type="number" step="0.01" id="id_litres" name="litres"
-                   value="{{ request.POST.litres|default:fuel.litres|default:'' }}"
-                   class="border rounded px-4 py-2 w-full">
-            {% for error in form.litres.errors %}
-                <p class="text-red-600 text-sm">{{ error }}</p>
-            {% endfor %}
-        </div>
-
-        <!-- Prix du plein -->
-        <div>
-            <label for="id_prix_refuelling">{% trans "Prix du plein (€)" %}</label>
-            <input type="number" step="0.01" id="id_prix_refuelling" name="prix_refuelling"
-                   value="{{ request.POST.prix_refuelling|default:fuel.prix_refuelling|default:'' }}"
-                   class="border rounded px-4 py-2 w-full">
-            {% for error in form.prix_refuelling.errors %}
-                <p class="text-red-600 text-sm">{{ error }}</p>
-            {% endfor %}
-        </div>
-
-        <!-- Champs readonly voiture -->
-        <!-- Marque -->
-        <div>
-            <label for="id_voiture_marque">{% trans "Marque" %}</label>
-            <input type="text"
-                   id="id_voiture_marque"
-                   class="border rounded px-4 py-2 w-full bg-gray-100"
-                   readonly>
-        </div>
-
-        <!-- Modèle -->
-        <div>
-            <label for="id_voiture_modele">{% trans "Modèle" %}</label>
-            <input type="text"
-                   id="id_voiture_modele"
-                   class="border rounded px-4 py-2 w-full bg-gray-100"
-                   readonly>
-        </div>
-
-        <!-- Volume -->
-        <div>
-            <label for="id_taille_reservoir_display">{% trans "Volume max (L)" %}</label>
-            <input type="number"
-                   id="id_taille_reservoir_display"
-                   class="border rounded px-4 py-2 w-full bg-gray-100"
-                   readonly>
-        </div>
-
-        <!-- Pays -->
-        <div>
-            <label for="id_pays">{% trans "Pays" %}</label>
-            <select id="id_pays" name="pays"
-                    class="border rounded px-4 py-2 w-full">
-                <option value="" {% if not fuel.pays %}selected{% endif %}>-- Choisir un pays --</option>
-                <option value="BE" {% if fuel.pays == "BE" %}selected{% endif %}>Belgique</option>
-                <option value="LU" {% if fuel.pays == "LU" %}selected{% endif %}>Luxembourg</option>
-                <option value="DE" {% if fuel.pays == "DE" %}selected{% endif %}>Allemagne</option>
-            </select>
-            {% for error in form.pays.errors %}
-                <p class="text-red-600 text-sm">{{ error }}</p>
-            {% endfor %}
-        </div>
-
+                {% if field.errors %}
+                    <p class="text-red-600 text-sm mt-1">
+                        {{ field.errors|striptags }}
+                    </p>
+                {% endif %}
+            </div>
+        {% endfor %}
 
         <br>
         <div class="flex gap-3 mt-6">
@@ -180,6 +83,19 @@
 
     </form>
 </div>
+
+
+
+<style>
+.input {
+    width: 100% !important;
+    border: 1px solid #ccc !important;
+    border-radius: 6px !important;
+    padding: 8px !important;
+    box-sizing: border-box !important;
+}
+</style>
+
 
 <script>
 function getCookie(name) {

@@ -57,78 +57,60 @@ def ajouter_recharge_all(request):
 
             form = ElectriciteForm(request.POST)
 
-            # 🔎 Auto-détection du véhicule via immatriculation
+            # 🔎 auto-détection véhicule AVANT validation
             immatriculation = request.POST.get("immatriculation")
 
-            if not request.POST.get("voiture_exemplaire") and immatriculation:
-
+            if immatriculation and not request.POST.get("voiture_exemplaire"):
                 try:
                     voiture = VoitureExemplaire.objects.get(
                         immatriculation__iexact=immatriculation
                     )
 
-                    form.data = form.data.copy()
-                    form.data["voiture_exemplaire"] = str(voiture.id)
+                    # injecter proprement dans POST (safe)
+                    data = form.data.copy()
+                    data["voiture_exemplaire"] = str(voiture.id)
+                    form = ElectriciteForm(data)
 
                 except VoitureExemplaire.DoesNotExist:
-                    form.add_error("voiture_exemplaire", _("Voiture introuvable."))
+                    form.add_error("immatriculation", _("Voiture introuvable."))
 
             if form.is_valid():
 
                 recharge = form.save(commit=False)
 
                 recharge.utilisateur = request.user
-                recharge.societe = request.user.societe
+                recharge.societe = tenant
 
-                # ⚡ récupération automatique capacité batterie
-                if recharge.voiture_exemplaire:
-                    recharge.volume_max = (
-                        recharge.voiture_exemplaire.voiture_modele.capacite_batterie
-                    )
+                # ⚡ capacité batterie
+                voiture = recharge.voiture_exemplaire
+                if voiture:
+                    recharge.volume_max = voiture.voiture_modele.capacite_batterie
                 else:
-                    form.add_error(
-                        "voiture_exemplaire",
-                        _("Véhicule obligatoire."),
-                    )
-
-                    return render(
-                        request,
-                        "recharge/electricite_form.html",
-                        {"form": form},
-                    )
+                    form.add_error("voiture_exemplaire", _("Véhicule obligatoire."))
+                    return render(request, "recharge/electricite_form.html", {"form": form})
 
                 recharge.save()
 
-                messages.success(
-                    request,
-                    _("Recharge ajoutée avec succès.")
-                )
+                messages.success(request, _("Recharge ajoutée avec succès."))
+
+                return redirect("recharge:list")
 
             else:
-
-                print(form.errors)
-                messages.error(
-                    request,
-                    _("Veuillez corriger les erreurs ci-dessous.")
-                )
+                messages.error(request, _("Veuillez corriger les erreurs ci-dessous."))
 
         else:
-
             form = ElectriciteForm()
-
-        type_carburant_choices = (
-            Electricite._meta.get_field("type_carburant").choices
-        )
 
         return render(
             request,
             "recharge/electricite_form.html",
             {
                 "form": form,
-                "recharge": form.instance,
-                "type_carburant_choices": type_carburant_choices,
             },
         )
+
+
+
 
 
 @login_required
