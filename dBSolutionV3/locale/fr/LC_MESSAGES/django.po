@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-06 16:40+0200\n"
+"POT-Creation-Date: 2026-05-07 08:46+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -4631,9 +4631,7 @@ msgid "Niveau de la boite de vitesse"
 msgstr "Tableau de Bord"
 
 #: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\views.py:184
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:183
-#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:309
-msgid "Remise à Zéro des kilomètres moteurs"
+msgid "Remise à Zéro des kilomètres de la boite"
 msgstr ""
 
 #: .\maintenance\autres_interventions\boite_de_vitesse\remplacement_boite\views.py:261
@@ -5829,6 +5827,11 @@ msgstr ""
 #: .\maintenance\niveaux\templates\niveaux\niveau_form.html:121
 #: .\piece\piece_fluides\models.py:8
 msgid "Huile moteur"
+msgstr ""
+
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:183
+#: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:309
+msgid "Remise à Zéro des kilomètres moteurs"
 msgstr ""
 
 #: .\maintenance\autres_interventions\moteur\remplacement_moteur\views.py:260
