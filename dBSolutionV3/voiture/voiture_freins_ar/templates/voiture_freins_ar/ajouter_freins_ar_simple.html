@@ -1,5 +1,6 @@
-{% extends "base.html" %}
-{% load i18n static %}
+{% extends 'base.html' %}
+{% load i18n widget_tweaks static %}
+
 
 {% block content %}
 
@@ -46,64 +47,28 @@
     <form method="post" class="flex flex-col space-y-4">
         {% csrf_token %}
 
-        <div>
-            <label for="id_marque_disques_ar">{% trans "Marque disques arrière" %}</label>
-            <input type="text" id="id_marque_disques_ar" name="marque_disques_ar" class="border rounded px-4 py-2 w-full">
-        </div>
+         {% for field in form %}
+            <div>
+                <label class="block font-semibold mb-1">
+                    {{ field.label }}
+                </label>
 
-        <div>
-            <label for="id_numero_oem_disques_ar">{% trans "Numero OEM disques arrière" %}</label>
-            <input type="text" id="id_numero_oem_disques_ar" name="numero_oem_disques_ar" class="border rounded px-4 py-2 w-full">
-        </div>
-         <div>
-            <label for="id_frein_ar_matiere">{% trans "Matière des disques arrière" %}</label>
-            <input type="text" id="id_frein_ar_matiere" name="frein_ar_matiere" class="border rounded px-4 py-2 w-full">
-        </div>
-         <div>
-            <label for="id_type_disques_ar">{% trans "Type des disques arrière" %}</label>
-            <input type="text" id="id_type_disques_ar" name="type_disques_ar" class="border rounded px-4 py-2 w-full">
-        </div>
+                {{ field|add_class:"input" }}
 
-        <div>
-            <label for="id_taille_disque_ar">{% trans "Diamètre disques arrière (mm)" %}</label>
-            <input type="text" id="id_taille_disque_ar" name="taille_disque_ar" class="border rounded px-4 py-2 w-full">
-        </div>
+                {% if field.help_text %}
+                    <p class="text-gray-500 text-sm mt-1">
+                        {{ field.help_text }}
+                    </p>
+                {% endif %}
 
-        <div>
-            <label for="id_epaisseur_disque_ar">{% trans "Épaisseur disques arrière (mm)" %}</label>
-            <input type="text" id="id_epaisseur_disque_ar" name="epaisseur_disque_ar" class="border rounded px-4 py-2 w-full">
-        </div>
+                {% if field.errors %}
+                    <p class="text-red-600 text-sm mt-1">
+                        {{ field.errors|striptags }}
+                    </p>
+                {% endif %}
+            </div>
+        {% endfor %}
 
-        <div>
-            <label for="id_epaisseur_min_disque_ar">{% trans "Épaisseur minimum disques arrière (mm)" %}</label>
-            <input type="text" id="id_epaisseur_min_disque_ar" name="epaisseur_min_disque_ar" class="border rounded px-4 py-2 w-full">
-        </div>
-
-        <div>
-            <label for="id_marque_plaquettes_ar">{% trans "Marque plaquettes arrière" %}</label>
-            <input type="text" id="id_marque_plaquettes_ar" name="marque_plaquettes_ar" class="border rounded px-4 py-2 w-full">
-        </div>
-
-          <div>
-            <label for="id_numero_oem_plaquettes_ar">{% trans "Numero OEM des plaquettes arrière" %}</label>
-            <input type="text" id="id_numero_oem_plaquettes_ar" name="numero_oem_plaquettes_ar" class="border rounded px-4 py-2 w-full">
-        </div>
-
-        <div>
-            <label for="id_plaquettes_ar">{% trans "Épaisseur plaquettes arrière (mm)" %}</label>
-            <input type="text" id="id_plaquettes_ar" name="plaquettes_ar" class="border rounded px-4 py-2 w-full">
-        </div>
-
-         <div>
-            <label for="id_plaquettes_ar_matiere">{% trans "Type de plaquettes arrière" %}</label>
-            <input type="text" id="id_plaquettes_ar_matiere" name="plaquettes_ar_matiere" class="border rounded px-4 py-2 w-full">
-        </div>
-
-
-         <div>
-            <label for="id_remarques">{% trans "Remarques" %}</label>
-            <input type="text" id="id_remarques" name="remarques" class="border rounded px-4 py-2 w-full">
-        </div>
 
 
         <div class="flex gap-3 mt-6">
@@ -127,6 +92,16 @@
     </a>
 </div>
 
+
+<style>
+.input {
+    width: 100% !important;
+    border: 1px solid #ccc !important;
+    border-radius: 6px !important;
+    padding: 8px !important;
+    box-sizing: border-box !important;
+}
+</style>
 
 <script>
     function getCookie(name) {

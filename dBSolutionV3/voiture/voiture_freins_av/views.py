@@ -12,37 +12,6 @@ from societe.models import Societe
 from django.utils.translation import gettext_lazy as _
 
 
-@login_required
-def ajouter_freins_all(request, modele_id):
-    tenant = request.user.societe
-    with tenant_context(tenant):
-        # Récupère le modèle
-        modele = get_object_or_404(VoitureModele, id=modele_id)
-        marque = modele.voiture_marque  # objet VoitureMarque
-
-        if request.method == "POST":
-            form = VoitureFreinsAVForm(request.POST)
-            if form.is_valid():
-                exemplaire = form.save(commit=False)
-                exemplaire.voiture_modele = modele
-                exemplaire.voiture_marque = marque
-                exemplaire.save()
-                messages.success(request, "Freins avant ajoutés avec succès !")
-
-            else:
-                messages.error(request, "Veuillez corriger les erreurs ci-dessous.")
-        else:
-            # GET → formulaire pré-rempli avec la marque et le modèle
-            form = VoitureFreinsAVForm(initial={
-                "voiture_marque": marque.pk,
-                "voiture_modele": modele.id
-            })
-
-        return render(request, "voiture_freins_av/ajouter_freins_simple.html", {
-            "form": form,
-            "modele": modele
-        })
-
 
 
 @never_cache
@@ -74,38 +43,34 @@ def freins_av_detail_view(request, frein_av_id):
 
 
 
-
 @login_required
 def ajouter_freins_av_simple(request):
     tenant = request.user.societe
+
     with tenant_context(tenant):
 
+        def to_float(value):
+            if not value:
+                return None
+            return float(value.replace(',', '.'))
+
         if request.method == "POST":
+            form = VoitureFreinsAVForm(request.POST)
 
-            def to_float(value):
-                if not value:  # vide → None
-                    return None
-                return float(value.replace(',', '.'))  # transforme 20,4 → 20.4
+            if form.is_valid():
+                obj = form.save(commit=False)
+                obj.societe = tenant
+                obj.save()
 
-            VoitureFreinsAV.objects.create(
-                societe=tenant,
-                marque_disques_av=request.POST.get("marque_disques_av"),
-                freins_av_matiere=request.POST.get('frein_av_matiere'),
-                type_disques_av=request.POST.get('type_disques_av'),
-                numero_oem_disques_av=request.POST.get("numero_oem_disques_av"),
-                marque_plaquettes_av=request.POST.get("marque_plaquettes_av"),
-                plaquettes_av_matiere=request.POST.get("plaquettes_av_matiere"),
-                numero_oem_plaquettes_av=request.POST.get("numero_oem_plaquettes_av"),
-                taille_disque_av=to_float(request.POST.get("taille_disque_av")),
-                epaisseur_disque_av=to_float(request.POST.get("epaisseur_disque_av")),
-                epaisseur_min_disque_av=to_float(request.POST.get("epaisseur_min_disque_av")),
-            )
-            messages.success(request, "Freins avant ajoutés avec succès !")
+                messages.success(request, "Freins avant ajoutés avec succès !")
+                return redirect("voiture_freins_av:freins_av_list")
 
+        else:
+            form = VoitureFreinsAVForm()
 
-        return render(request, "voiture_freins_av/ajouter_freins_simple.html")
-
-
+        return render(request, "voiture_freins_av/ajouter_freins_simple.html", {
+            "form": form
+        })
 
 
 @login_required

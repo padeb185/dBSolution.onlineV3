@@ -1,5 +1,5 @@
-{% extends "base.html" %}
-{% load i18n static %}
+{% extends 'base.html' %}
+{% load i18n widget_tweaks static %}
 
 {% block content %}
 
@@ -46,59 +46,29 @@
     <form method="post" class="flex flex-col space-y-4">
         {% csrf_token %}
 
-        <div>
-            <label for="id_marque_disques_av">{% trans "Marque disques avant" %}</label>
-            <input type="text" id="id_marque_disques_av" name="marque_disques_av" class="border rounded px-4 py-2 w-full">
-        </div>
-         <div>
-            <label for="id_frein_av_matiere">{% trans "Matière des disques avant" %}</label>
-            <input type="text" id="id_frein_av_matiere" name="frein_av_matiere" class="border rounded px-4 py-2 w-full">
-        </div>
-         <div>
-            <label for="id_type_disques_av">{% trans "Type des disques avant" %}</label>
-            <input type="text" id="id_type_disques_av" name="type_disques_av" class="border rounded px-4 py-2 w-full">
-        </div>
 
-         <div>
-            <label for="id_numero_oem_disques_av">{% trans "Numero OEM des disques avant" %}</label>
-            <input type="text" id="id_numero_oem_disques_av" name="numero_oem_disques_av" class="border rounded px-4 py-2 w-full">
-        </div>
+        {% for field in form %}
+            <div>
+                <label class="block font-semibold mb-1">
+                    {{ field.label }}
+                </label>
 
-        <div>
-            <label for="id_taille_disque_av">{% trans "Diamètre disques avant (mm)" %}</label>
-            <input type="text" id="id_taille_disque_av" name="taille_disque_av" class="border rounded px-4 py-2 w-full">
-        </div>
+                {{ field|add_class:"input" }}
 
-        <div>
-            <label for="id_epaisseur_disque_av">{% trans "Épaisseur disques avant (mm)" %}</label>
-            <input type="text" id="id_epaisseur_disque_av" name="epaisseur_disque_av" class="border rounded px-4 py-2 w-full">
-        </div>
+                {% if field.help_text %}
+                    <p class="text-gray-500 text-sm mt-1">
+                        {{ field.help_text }}
+                    </p>
+                {% endif %}
 
-        <div>
-            <label for="id_epaisseur_min_disque_av">{% trans "Épaisseur minimum disques avant (mm)" %}</label>
-            <input type="text" id="id_epaisseur_min_disque_av" name="epaisseur_min_disque_av" class="border rounded px-4 py-2 w-full">
-        </div>
+                {% if field.errors %}
+                    <p class="text-red-600 text-sm mt-1">
+                        {{ field.errors|striptags }}
+                    </p>
+                {% endif %}
+            </div>
+        {% endfor %}
 
-        <div>
-            <label for="id_marque_plaquettes_av">{% trans "Marque plaquettes avant" %}</label>
-            <input type="text" id="id_marque_plaquettes_av" name="marque_plaquettes_av" class="border rounded px-4 py-2 w-full">
-        </div>
-
-         <div>
-            <label for="id_numero_oem_plaquettes_av">{% trans "Numéro OEM des plaquettes avant" %}</label>
-            <input type="text" id="id_numero_oem_plaquettes_av" name="numero_oem_plaquettes_av" class="border rounded px-4 py-2 w-full">
-        </div>
-
-
-        <div>
-            <label for="id_plaquettes_av">{% trans "Épaisseur plaquettes avant (mm)" %}</label>
-            <input type="text" id="id_plaquettes_av" name="plaquettes_av" class="border rounded px-4 py-2 w-full">
-        </div>
-
-         <div>
-            <label for="id_plaquettes_av_matiere">{% trans "Type de plaquettes avant" %}</label>
-            <input type="text" id="id_plaquettes_av_matiere" name="plaquettes_av_matiere" class="border rounded px-4 py-2 w-full">
-        </div>
 
 
         <div class="flex gap-3 mt-6">
@@ -120,7 +90,15 @@
           {% trans "Retour à la liste des freins arrière" %}
     </a>
 </div>
-
+<style>
+.input {
+    width: 100% !important;
+    border: 1px solid #ccc !important;
+    border-radius: 6px !important;
+    padding: 8px !important;
+    box-sizing: border-box !important;
+}
+</style>
 <script>
      function getCookie(name) {
         let cookieValue = null;

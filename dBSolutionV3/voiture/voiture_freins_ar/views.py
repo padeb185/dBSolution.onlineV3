@@ -4,6 +4,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.cache import never_cache
 from django_tenants.utils import tenant_context
 from .forms import VoitureFreinsARForm
+from ..voiture_freins_av.models import MatiereFrein, TypeDisqueFrein
 from ..voiture_modele.models import VoitureModele
 from ..voiture_freins_ar.models import VoitureFreinsAR
 from societe.models import Societe
@@ -42,38 +43,31 @@ def ajouter_freins_ar(request, modele_id):
             "form": form,
             "modele": modele
         })
-
-
 @login_required
 def ajouter_freins_ar_simple(request):
     tenant = request.user.societe
+
     with tenant_context(tenant):
+
         if request.method == "POST":
+            form = VoitureFreinsARForm(request.POST)
 
-            # Fonction utilitaire pour convertir en float ou None
-            def to_float(value):
-                if not value:  # vide → None
-                    return None
-                return float(value.replace(',', '.'))  # transforme 20,4 → 20.4
+            if form.is_valid():
+                obj = form.save(commit=False)
+                obj.societe = tenant
+                obj.save()
 
-            VoitureFreinsAR.objects.create(
-                societe=tenant,
-                marque_disques_ar=request.POST.get("marque_disques_ar"),
-                numero_oem_disques_ar=request.POST.get("numero_oem_disques_ar"),
-                freins_ar_matiere=request.POST.get('frein_ar_matiere'),
-                type_disques_ar=request.POST.get('type_disques_ar'),
-                marque_plaquettes_ar=request.POST.get("marque_plaquettes_ar"),
-                plaquettes_ar_matiere=request.POST.get('plaquettes_ar_matiere'),
-                numero_oem_plaquettes_ar=request.POST.get("numero_oem_plaquettes_ar"),
-                taille_disque_ar=to_float(request.POST.get("taille_disque_ar")),
-                epaisseur_disque_ar=to_float(request.POST.get("epaisseur_disque_ar")),
-                epaisseur_min_disque_ar=to_float(request.POST.get("epaisseur_min_disque_ar")),
+                messages.success(request, "Freins arrière ajoutés avec succès !")
+                return redirect("voiture_freins_ar:freins_ar_list")
 
-            )
-            messages.success(request, "Freins arrière ajoutés avec succès !")
+        else:
+            form = VoitureFreinsARForm()
+
+        return render(request, "voiture_freins_ar/ajouter_freins_ar_simple.html", {
+            "form": form
+        })
 
 
-        return render(request, "voiture_freins_ar/ajouter_freins_ar_simple.html")
 
 
 

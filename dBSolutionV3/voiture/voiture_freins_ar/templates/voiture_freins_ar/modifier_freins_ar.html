@@ -4,10 +4,11 @@
 
 {% block content %}
 
-
+<br>
 <div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
 
     <div class="flex justify-between items-center mb-6">
+
        <h1 class="text-2xl font-bold flex items-center gap-4">
            {% with image_name=carrosserie.nom_societe|slugify %}
                 <img src="{% static 'disque-de-frein/'|add:image_name|add:'.png' %}"
@@ -15,7 +16,7 @@
                      class="w-12 h-12"
                      onerror="this.src='{% static 'icons/disque-de-frein.png' %}';">
             {% endwith %}
-            <span>{% trans "Modifier les freins avant :" %}</span>
+            <span>{% trans "Modifier les freins arrière :" %}</span>
 
            <span class="text-black-700">{{ voiture_freins.marque_disques_av }}</span>
         </h1>
