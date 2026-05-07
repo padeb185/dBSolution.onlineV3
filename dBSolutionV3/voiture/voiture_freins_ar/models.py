@@ -1,6 +1,8 @@
 import uuid
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from voiture.voiture_freins_av.models import MatiereFrein, TypeDisqueFrein, MatierePlaquetteFrein
+
 
 class VoitureFreinsAR(models.Model):
     id = models.UUIDField(
@@ -51,6 +53,13 @@ class VoitureFreinsAR(models.Model):
         blank=True,
         null=True
     )
+
+    frein_ar_matiere = models.CharField(max_length=25, choices=MatiereFrein.choices, default=MatiereFrein.ACIER,
+                                        verbose_name=_("Matière des disques arrière"))
+
+    type_disques_ar = models.CharField(max_length=25, choices=TypeDisqueFrein.choices,
+                                       default=TypeDisqueFrein.MONOBLOC_PLEIN, verbose_name=_("Type disque arrière"))
+
     # 📏 Dimensions
 
     taille_disque_ar = models.FloatField("Diamètre disque AR (mm)", null=True, blank=True)
@@ -61,6 +70,9 @@ class VoitureFreinsAR(models.Model):
 
     epaisseur_min_disque_ar = models.FloatField("Épaisseur minimum disque AR (mm)", null=True, blank=True)
 
+    plaquette_ar_matiere = models.CharField(max_length=25, choices=MatierePlaquetteFrein.choices,
+                                            default=MatierePlaquetteFrein.ORGANIC,
+                                            verbose_name=_("Matière des plaquettes avant"))
 
     plaquettes_ar = models.FloatField("Plaquettes AR (mm)", null=True, blank=True)
 

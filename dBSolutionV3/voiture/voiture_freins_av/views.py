@@ -90,8 +90,11 @@ def ajouter_freins_av_simple(request):
             VoitureFreinsAV.objects.create(
                 societe=tenant,
                 marque_disques_av=request.POST.get("marque_disques_av"),
+                freins_av_matiere=request.POST.get('frein_av_matiere'),
+                type_disques_av=request.POST.get('type_disques_av'),
                 numero_oem_disques_av=request.POST.get("numero_oem_disques_av"),
                 marque_plaquettes_av=request.POST.get("marque_plaquettes_av"),
+                plaquettes_av_matiere=request.POST.get("plaquettes_av_matiere"),
                 numero_oem_plaquettes_av=request.POST.get("numero_oem_plaquettes_av"),
                 taille_disque_av=to_float(request.POST.get("taille_disque_av")),
                 epaisseur_disque_av=to_float(request.POST.get("epaisseur_disque_av")),

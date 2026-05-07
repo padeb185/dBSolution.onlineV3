@@ -4,6 +4,28 @@ from django.utils.translation import gettext_lazy as _
 
 
 
+class MatiereFrein(models.TextChoices):
+    ACIER = 'ACIER', _("Acier")
+    CARBONE = 'CARBONE', _("Carbone")
+    CERAMIQUE = 'CERAMIQUE', _("Céramique")
+    COMPOSITE = 'COMPOSITE', _("Composite")
+
+
+class MatierePlaquetteFrein(models.TextChoices):
+    ORGANIC = 'ORGANIC', _("Organique (NAO)")
+    LOW_METALLIC = 'LOW_METALLIC', _("Semi-métallique")
+    METALLIC = 'METALLIC', _("Métallique")
+    CERAMIC = 'CERAMIC', _("Céramique haute performance")
+
+
+class TypeDisqueFrein(models.TextChoices):
+    MONOBLOC_PLEIN = 'MONOBLOC_PLEIN', _("Plein (monobloc)")
+    VENTILE = 'VENTILE', _("Ventilé")
+    RAINURE = 'RAINURE', _("Rainuré")
+    PERCE = 'PERCE', _("Percé")
+    RAINURE_PERCE = 'RAINURE_PERCE', _("Rainuré et percé")
+
+
 
 class VoitureFreinsAV(models.Model):
     id = models.UUIDField(
@@ -55,19 +77,27 @@ class VoitureFreinsAV(models.Model):
         null=True
     )
 
+    frein_av_matiere = models.CharField(max_length=25, choices=MatiereFrein.choices, default=MatiereFrein.ACIER,verbose_name=_("Matière des disques avant"))
+
+    type_disques_av = models.CharField(max_length=25, choices=TypeDisqueFrein.choices, default=TypeDisqueFrein.MONOBLOC_PLEIN, verbose_name=_("Type disque avant"))
+
+
     # 📏 Dimensions
     taille_disque_av = models.FloatField("Taille disque AV (mm)", null=True, blank=True)
 
-
     epaisseur_disque_av = models.FloatField("Épaisseur disque AV (mm)", null=True, blank=True)
-
 
     epaisseur_min_disque_av = models.FloatField("Épaisseur minimum disque AV (mm)", null=True, blank=True)
 
 
+
+    plaquette_av_matiere = models.CharField(max_length=25, choices=MatierePlaquetteFrein.choices, default=MatierePlaquetteFrein.ORGANIC,verbose_name=_("Matière des plaquettes avant"))
+
     plaquettes_av = models.FloatField("Plaquettes AV (mm)", null=True, blank=True)
 
+
     remarques = models.TextField(verbose_name=_("Remarques"), blank=True, null=True)
+
 
     created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)

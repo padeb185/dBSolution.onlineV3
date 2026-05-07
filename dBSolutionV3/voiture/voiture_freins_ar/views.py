@@ -60,14 +60,17 @@ def ajouter_freins_ar_simple(request):
                 societe=tenant,
                 marque_disques_ar=request.POST.get("marque_disques_ar"),
                 numero_oem_disques_ar=request.POST.get("numero_oem_disques_ar"),
+                freins_ar_matiere=request.POST.get('frein_ar_matiere'),
+                type_disques_ar=request.POST.get('type_disques_ar'),
                 marque_plaquettes_ar=request.POST.get("marque_plaquettes_ar"),
+                plaquettes_ar_matiere=request.POST.get('plaquettes_ar_matiere'),
                 numero_oem_plaquettes_ar=request.POST.get("numero_oem_plaquettes_ar"),
                 taille_disque_ar=to_float(request.POST.get("taille_disque_ar")),
                 epaisseur_disque_ar=to_float(request.POST.get("epaisseur_disque_ar")),
                 epaisseur_min_disque_ar=to_float(request.POST.get("epaisseur_min_disque_ar")),
 
             )
-            messages.success(request, "Freins arrière ajouté avec succès !")
+            messages.success(request, "Freins arrière ajoutés avec succès !")
 
 
         return render(request, "voiture_freins_ar/ajouter_freins_ar_simple.html")
