@@ -1,8 +1,6 @@
 import uuid
-
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.core.validators import MinValueValidator, MaxValueValidator, RegexValidator
 from django.utils.translation import gettext_lazy as _
 from client_particulier.models import ClientParticulier
 from django.conf import settings
@@ -12,6 +10,9 @@ from voiture.voiture_exemplaire.models import VoitureExemplaire
 from maintenance.niveaux.models import Niveau, NiveauxEtat, validate_step_0_1, HuileEtat, RefroidissementQualiteEtat
 from maintenance.models import Maintenance
 from utils.mixin import TechnicienMixin
+from maintenance.niveaux.models import HuileBoiteEtat
+
+
 
 
 class TypeUtilisation(models.TextChoices):
@@ -159,7 +160,7 @@ class RemplacementBoite(TechnicienMixin, models.Model):
     )
 
 
-    boite_niveau_huile_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau d'huile"))
+    boite_niveau_huile_etat = models.CharField(max_length=25, choices=HuileBoiteEtat.choices, default=HuileBoiteEtat.BON,verbose_name=_("Niveau d'huile"))
     boite_niveau_huile_quantite = models.FloatField(default=0, verbose_name=_("Quantité d'huile ajoutée en litres"),validators=[validate_step_0_1])
     boite_niveau_huile_qualite = models.CharField(max_length=25, choices=HuileEtat.choices, default=HuileEtat.ZERO_30,verbose_name=_("Qualité d'huile"))
 
