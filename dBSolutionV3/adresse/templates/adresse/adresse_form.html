@@ -1,5 +1,7 @@
-{% extends "base.html" %}
-{% load i18n static %}
+{% extends 'base.html' %}
+{% load i18n widget_tweaks static %}
+
+
 
 {% block content %}
 <div class="max-w-xl mx-auto p-6 bg-white rounded shadow mt-16 mb-16">
@@ -47,48 +49,27 @@
         {% csrf_token %}
 
 
-        <div>
-            <label for="id_rue">{% trans "Rue" %}</label>
-            <input type="text" id="id_rue" name="rue"
-                   value="{{ request.POST.rue|default_if_none:'' }}"
-                   class="border rounded px-4 py-2 w-full">
-        </div>
-        <div>
-            <label for="id_numero">{% trans "Numéro" %}</label>
-            <input type="text" id="id_numero" name="numero"
-                   value="{{ request.POST.numero|default_if_none:'' }}"
-                   class="border rounded px-4 py-2 w-full">
-        </div>
-        <div>
-            <label for="id_boite">{% trans "Boite" %}</label>
-            <input type="text" id="id_boite" name="boite"
-                   value="{{ request.POST.boite|default_if_none:'' }}"
-                   class="border rounded px-4 py-2 w-full">
-        </div>
-        <div>
-            <label for="id_code_postal">{% trans "Code postal" %}</label>
-            <input type="text" id="id_code_postal" name="code_postal"
-                   value="{{ request.POST.code_postal|default_if_none:'' }}"
-                   class="border rounded px-4 py-2 w-full">
-        </div>
-        <div>
-            <label for="id_ville">{% trans "Ville" %}</label>
-            <input type="text" id="id_ville" name="ville"
-                   value="{{ request.POST.ville|default_if_none:'' }}"
-                   class="border rounded px-4 py-2 w-full">
-        </div>
-        <div>
-            <label for="id_pays">{% trans "Pays" %}</label>
-            <input type="text" id="id_pays" name="pays"
-                   value="{{ request.POST.pays|default:'Belgique' }}"
-                   class="border rounded px-4 py-2 w-full">
-        </div>
-        <div>
-            <label for="id_code_pays">{% trans "Code pays" %}</label>
-            <input type="text" id="id_code_pays" name="code_pays"
-                   value="{{ request.POST.code_pays|default:'BE' }}"
-                   class="border rounded px-4 py-2 w-full">
-        </div>
+        {% for field in form %}
+            <div>
+                <label class="block font-semibold mb-1">
+                    {{ field.label }}
+                </label>
+
+                {{ field|add_class:"input" }}
+
+                {% if field.help_text %}
+                    <p class="text-gray-500 text-sm mt-1">
+                        {{ field.help_text }}
+                    </p>
+                {% endif %}
+
+                {% if field.errors %}
+                    <p class="text-red-600 text-sm mt-1">
+                        {{ field.errors|striptags }}
+                    </p>
+                {% endif %}
+            </div>
+        {% endfor %}
 
         <div class="flex gap-3 mt-6">
                 <button type="submit"
@@ -106,7 +87,15 @@
 
     </form>
 </div>
-
+<style>
+.input {
+    width: 100% !important;
+    border: 1px solid #ccc !important;
+    border-radius: 6px !important;
+    padding: 8px !important;
+    box-sizing: border-box !important;
+}
+</style>
 
 
 <script>
