@@ -26,29 +26,31 @@ def liste_boite_view(request):
 @login_required
 def ajouter_boite_view(request):
     tenant = request.user.societe
+
     with tenant_context(tenant):
 
         if request.method == "POST":
-            VoitureBoite.objects.create(
-                fabricant=request.POST.get("fabricant"),
-                nom_du_type=request.POST.get("nom_du_type"),
-                type_de_boite=request.POST.get("type_de_boite"),
-                nombre_rapport=request.POST.get("nombre_rapport") or 5,
-                qualite_huile=request.POST.get("qualite_huile"),
-                quantite_huile_l=request.POST.get("quantite_huile_l"),
-            )
-            messages.success(request, "Boite de vitesse ajoutée avec succès")
+            form = VoitureBoiteForm(request.POST)
 
-            return redirect("voiture_boite:ajouter_boite")
+            if form.is_valid():
+                boite = form.save(commit=False)
+                boite.societe = tenant
+                boite.save()
+                form.save_m2m()
 
-        # Passer TypeBoite au template pour la liste déroulante
-        context = {
-            "TypeBoite": TypeBoite,
-        }
+                messages.success(
+                    request,
+                    "Boite de vitesse ajoutée avec succès"
+                )
 
-    return render(request, "voiture_boite/ajouter_boite.html", context)
+                return redirect("voiture_boite:ajouter_boite")
 
+        else:
+            form = VoitureBoiteForm()
 
+    return render(request, "voiture_boite/ajouter_boite.html", {
+        "form": form,
+    })
 
 
 

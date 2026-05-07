@@ -49,51 +49,46 @@ def carrosserie_detail(request, carrosserie_id):
         },
     )
 
-
 @login_required
 def ajouter_carrosserie_all(request):
-    tenant = request.user.societe  # Société liée à l'utilisateur
+    tenant = request.user.societe
 
-    # Pré-remplissage en cas d'erreur
-    adresse_data = {}
+    with tenant_context(tenant):
 
-    if request.method == "POST":
-        form_carrosserie = CarrosserieForm(request.POST)
+        if request.method == "POST":
 
-        # Récupération des données adresse
-        adresse_data = {
-            "rue": request.POST.get("rue", "").strip(),
-            "numero": request.POST.get("numero", "").strip(),
-            "code_postal": request.POST.get("code_postal", "").strip(),
-            "ville": request.POST.get("ville", "").strip(),
-            "pays": request.POST.get("pays", "Belgique").strip(),
-            "code_pays": request.POST.get("code_pays", "BE").strip(),
-            "societe": tenant
-        }
+            form_carrosserie = CarrosserieForm(request.POST)
+            form_adresse = AdresseForm(request.POST)
 
-        # Vérification des champs obligatoires
-        if not adresse_data["rue"] or not adresse_data["numero"] or not adresse_data["code_postal"] or not adresse_data["ville"]:
-            messages.error(request, _("Les champs d'adresse (rue, numéro, code postal, ville) sont obligatoires."))
-        elif form_carrosserie.is_valid():
-            # Crée l'adresse
-            adresse = Adresse.objects.create(**adresse_data)
+            if form_carrosserie.is_valid() and form_adresse.is_valid():
 
-            # Crée la carrosserie et lie l'adresse
-            carrosserie = form_carrosserie.save(commit=False)
-            carrosserie.adresse = adresse
-            carrosserie.save()
+                # 1. créer adresse
+                adresse = form_adresse.save(commit=False)
+                adresse.societe = tenant
+                adresse.save()
 
-            messages.success(request, _(f"Carrosserie '{carrosserie.nom_societe}' créée avec succès !"))
+                # 2. créer carrosserie
+                carrosserie = form_carrosserie.save(commit=False)
+                carrosserie.societe = tenant
+                carrosserie.adresse = adresse
+                carrosserie.save()
+
+                messages.success(
+                    request,
+                    _(f"Carrosserie '{carrosserie.nom_societe}' créée avec succès !")
+                )
+
+                return redirect("carrosserie:list")
 
         else:
-            messages.error(request, _("Le formulaire contient des erreurs."))
-    else:
-        form_carrosserie = CarrosserieForm()
+            form_carrosserie = CarrosserieForm()
+            form_adresse = AdresseForm()
 
     return render(request, "carrosserie/carrosserie_form.html", {
         "form": form_carrosserie,
-        "adresse": adresse_data  # permet de pré-remplir le template
+        "form_adresse": form_adresse,
     })
+
 
 
 
