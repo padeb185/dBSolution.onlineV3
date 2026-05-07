@@ -181,7 +181,7 @@ def remplacement_boite_form_view(request, exemplaire_id):
             },
 
             {
-                "title": _("Remise à Zéro des kilomètres moteurs"),
+                "title": _("Remise à Zéro des kilomètres de la boite"),
                 "icon": "icons/km.png",
                 "fields": [form[f.name] for f in form if "remplacement_effectue" in f.name],
             },
