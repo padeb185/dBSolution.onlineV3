@@ -150,21 +150,6 @@ def remplacement_boite_form_view(request, exemplaire_id):
 
         sections = [
             {
-                "title": _("Voiture"),
-                "icon": "icons/voiture-de-course.png",
-                "fields": [form[f.name] for f in form if "voiture" in f.name],
-            },
-            {
-                "title": _("Utilisation"),
-                "icon": "icons/utilisation.png",
-                "fields": [form[f.name] for f in form if "type_util" in f.name],
-            },
-            {
-                "title": _("Propriétaire"),
-                "icon": "icons/proprietaire.png",
-                "fields": [form[f.name] for f in form if "proprietaire" in f.name],
-            },
-            {
                 "title": _("Kilométrage"),
                 "icon": "icons/compteur.png",
                 "fields": [form[f.name] for f in form if "kilo" in f.name],
@@ -172,11 +157,11 @@ def remplacement_boite_form_view(request, exemplaire_id):
             {
                 "title": _("Remplacement de la boite"),
                 "icon": "icons/boite-de-vitesse.png",
-                "fields": [form[f.name] for f in form if "boite_de_vitesse" in f.name],
+                "fields": [form[f.name] for f in form if "remplacement_boite" in f.name],
             },
             {
                 "title": _("Niveau de la boite de vitesse"),
-                "icon": "icons/niveau.png",
+                "icon": "icons/niveaux.png",
                 "fields": [form[f.name] for f in form if "boite_niveau" in f.name],
             },
 
@@ -282,22 +267,6 @@ def modifier_remplacement_boite_view(request, remplacement_boite_id):
         # -------------------------
         sections = [
             {
-                "title": _("Voiture"),
-                "icon": "icons/voiture-de-course.png",
-                "fields": [form[f.name] for f in form if "voiture" in f.name],
-            },
-            {
-                "title": _("Utilisation"),
-                "icon": "icons/utilisation.png",
-                "fields": [form[f.name] for f in form if "type_util" in f.name],
-            },
-            {
-                "title": _("Propriétaire"),
-                "icon": "icons/proprietaire.png",
-                "fields": [form[f.name] for f in form if "proprietaire" in f.name],
-            },
-
-            {
                 "title": _("Kilométrage"),
                 "icon": "icons/compteur.png",
                 "fields": [form[f.name] for f in form if "kilo" in f.name],
@@ -305,11 +274,11 @@ def modifier_remplacement_boite_view(request, remplacement_boite_id):
             {
                 "title": _("Remplacement de la boite de vitesse"),
                 "icon": "icons/boite-de-vitesse.png",
-                "fields": [form[f.name] for f in form if "boite_de_vitesse" in f.name],
+                "fields": [form[f.name] for f in form if "remplacement_boite" in f.name],
             },
             {
                 "title": _("Niveau de la boite de vitesse"),
-                "icon": "icons/niveau.png",
+                "icon": "icons/niveaux.png",
                 "fields": [form[f.name] for f in form if "boite_niveau" in f.name],
             },
 

@@ -91,13 +91,6 @@ class RemplacementBoite(TechnicienMixin, models.Model):
     )
 
 
-
-    type_utilisation = models.CharField(
-        max_length=10,
-        choices=TypeUtilisation.choices,
-        default=TypeUtilisation.CLIENT
-    )
-
     kilometres_remplacement_boite = models.PositiveIntegerField(
         default=0,
         null=True,
@@ -113,14 +106,14 @@ class RemplacementBoite(TechnicienMixin, models.Model):
     )
 
 
-    remplacement_numero_boite = models.CharField(
+    remplacement_boite_serie = models.CharField(
         max_length=50,
         null=True,
         blank=True,
         verbose_name=_("Numéro de série de la boite")
     )
 
-    remplacement_nombre_boite = models.PositiveIntegerField(
+    remplacement_boite_nombre = models.PositiveIntegerField(
         default=1,
         null=True,
         blank=True,
@@ -128,7 +121,7 @@ class RemplacementBoite(TechnicienMixin, models.Model):
     )
 
 
-    prix_boite = models.DecimalField(
+    remplacement_boite_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         blank=True,
@@ -160,9 +153,9 @@ class RemplacementBoite(TechnicienMixin, models.Model):
     )
 
 
-    boite_niveau_huile_etat = models.CharField(max_length=25, choices=HuileBoiteEtat.choices, default=HuileBoiteEtat.BON,verbose_name=_("Niveau d'huile"))
+    boite_niveau_huile_etat =  models.CharField(max_length=25, choices=HuileBoiteEtat.choices,default=HuileBoiteEtat.SEPTANTE_CINQ, verbose_name=_("Qualité de l'huile"))
     boite_niveau_huile_quantite = models.FloatField(default=0, verbose_name=_("Quantité d'huile ajoutée en litres"),validators=[validate_step_0_1])
-    boite_niveau_huile_qualite = models.CharField(max_length=25, choices=HuileEtat.choices, default=HuileEtat.ZERO_30,verbose_name=_("Qualité d'huile"))
+
 
 
     nombre_remplacements = models.PositiveIntegerField(default=0, editable=False)
