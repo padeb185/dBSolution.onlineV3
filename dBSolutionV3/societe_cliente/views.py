@@ -68,83 +68,120 @@ def societe_cliente_detail(request, societe_cliente_id):
 
 
 
-
-
 @login_required
 def ajouter_societe_cliente_all(request):
+
     tenant = request.user.societe
+
     with tenant_context(tenant):
 
-        societe_cliente = SocieteCliente()
-        societe_cliente.adresse = Adresse()
-
         if request.method == "POST":
-            nom_societe_cliente = request.POST.get("nom_societe_cliente")
 
-            if not nom_societe_cliente:
-                messages.error(request, "Le nom de la société cliente est obligatoire.")
-            else:
-                # Créer d'abord l'adresse
+            form = SocieteClienteForm(request.POST)
+
+            if form.is_valid():
+
+                # Création adresse
                 adresse = Adresse.objects.create(
-                    rue=request.POST.get("rue"),
-                    numero=request.POST.get("numero"),
-                    code_postal=request.POST.get("code_postal"),
-                    ville=request.POST.get("ville"),
-                    pays=request.POST.get("pays"),
-                    code_pays=request.POST.get("code_pays")  # ✅ ici ok
+                    rue=form.cleaned_data.get("rue"),
+                    numero=form.cleaned_data.get("numero"),
+                    code_postal=form.cleaned_data.get("code_postal"),
+                    ville=form.cleaned_data.get("ville"),
+                    pays=form.cleaned_data.get("pays"),
+                    code_pays=form.cleaned_data.get("code_pays"),
                 )
 
-                # Créer ensuite la société cliente
-                societe_cliente = SocieteCliente.objects.create(
-                    societe=tenant,
-                    nom_societe_cliente=nom_societe_cliente,
-                    directeur_nom_prenom=request.POST.get("directeur_nom_prenom"),
-                    numero_telephone=request.POST.get("numero_telephone"),
-                    numero_compte=request.POST.get("numero_compte"),
-                    numero_tva=request.POST.get("numero_tva"),
-                    site_internet=request.POST.get("site_internet"),
-                    email=request.POST.get("email"),
-                    historique=request.POST.get("historique"),
-                    adresse=adresse  # ✅ l'adresse contient code_pays
-                )
+                # Création société
+                societe_cliente = form.save(commit=False)
+                societe_cliente.societe = tenant
+                societe_cliente.adresse = adresse
+                societe_cliente.save()
 
                 messages.success(
                     request,
-                    _(f"SocieteCliente '{societe_cliente.nom_societe_cliente}' ajoutée avec succès !")
+                    _("Société cliente ajoutée avec succès !")
                 )
 
-        # S'assurer que societe_cliente.adresse existe
-        if not hasattr(societe_cliente, "adresse") or societe_cliente.adresse is None:
-            societe_cliente.adresse = Adresse()
+        else:
+            form = SocieteClienteForm()
 
         return render(
             request,
             "societe_cliente/societe_cliente_form.html",
-            {"societe_cliente": societe_cliente}
+            {
+                "form": form
+            }
         )
-
 
 
 
 
 @login_required
 def modifier_societe_cliente(request, societe_cliente_id):
+
     tenant = request.user.societe
 
     with tenant_context(tenant):
+
         societe_cliente = get_object_or_404(
             SocieteCliente,
             id_societe_cliente=societe_cliente_id
         )
 
         if request.method == "POST":
-            form = SocieteClienteForm(request.POST, instance=societe_cliente)
+
+            form = SocieteClienteForm(
+                request.POST,
+                instance=societe_cliente
+            )
+
             if form.is_valid():
+
+                # -------------------------
+                # MAJ ADRESSE
+                # -------------------------
+                adresse = societe_cliente.adresse
+
+                adresse.rue = form.cleaned_data.get("rue")
+                adresse.numero = form.cleaned_data.get("numero")
+                adresse.code_postal = form.cleaned_data.get("code_postal")
+                adresse.ville = form.cleaned_data.get("ville")
+                adresse.pays = form.cleaned_data.get("pays")
+                adresse.code_pays = form.cleaned_data.get("code_pays")
+
+                adresse.save()
+
+                # -------------------------
+                # MAJ SOCIETE
+                # -------------------------
                 form.save()
-                messages.success(request,  _(f"SocieteCliente '{societe_cliente.nom_societe_cliente}' modifiée avec succès !"))
+
+                messages.success(
+                    request,
+                    _(
+                        f"SocieteCliente '{societe_cliente.nom_societe_cliente}' modifiée avec succès !"
+                    )
+                )
 
         else:
-            form = SocieteClienteForm(instance=societe_cliente)
+
+            initial = {}
+
+            if societe_cliente.adresse:
+
+                initial = {
+                    "rue": societe_cliente.adresse.rue,
+                    "numero": societe_cliente.adresse.numero,
+                    "code_postal": societe_cliente.adresse.code_postal,
+                    "ville": societe_cliente.adresse.ville,
+                    "pays": societe_cliente.adresse.pays,
+                    "code_pays": societe_cliente.adresse.code_pays,
+                }
+
+            form = SocieteClienteForm(
+                instance=societe_cliente,
+                initial=initial
+            )
 
     return render(
         request,

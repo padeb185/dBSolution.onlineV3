@@ -47,107 +47,31 @@
     {% endif %}
 
 
-    <form method="post" class="flex flex-col space-y-4">
+    <form method="post" class="space-y-4">
         {% csrf_token %}
 
-        <!-- Prénom -->
-        <div>
-            <label for="id_nom_societe_cliente">{% trans "Nom de la société" %}</label>
-            <input type="text" id="id_nom_societe_cliente" name="nom_societe_cliente"
-                   value="{{ request.POST.nom_societe_cliente|default:societe_cliente.nom_societe_cliente|default_if_none:'' }}"
-                   class="border rounded px-4 py-2 w-full"
-                   placeholder="{% trans 'Nom de la sociéte' %}">
-        </div>
+        {% for field in form %}
+            <div>
+                <label class="block font-semibold mb-1">
+                    {{ field.label }}
+                </label>
 
-        <!-- Nom -->
-        <div>
-            <label for="id_directeur_nom_prenom">{% trans "Nom du Directeur" %}</label>
-            <input type="text" id="id_directeur_nom_prenom" name="directeur_nom_prenom"
-                   value="{{ request.POST.directeur_nom_prenom|default:societe_cliente.directeur_nom_prenom|default_if_none:'' }}"
-                   class="border rounded px-4 py-2 w-full"
-                   placeholder="{% trans 'Nom du directeur' %}">
-        </div>
+                {{ field|add_class:"input" }}
 
-        <!-- Numéro de téléphone -->
-        <div>
-            <label for="id_numero_telephone">{% trans "Numéro de téléphone" %}</label>
-            <input type="text" id="id_numero_telephone" name="numero_telephone"
-                   value="{{ request.POST.numero_telephone|default:societe_cliente.numero_telephone|default_if_none:'' }}"
-                   class="border rounded px-4 py-2 w-full"
-                   placeholder="+32 123 45 67 89">
-        </div>
+                {% if field.help_text %}
+                    <p class="text-gray-500 text-sm mt-1">
+                        {{ field.help_text }}
+                    </p>
+                {% endif %}
 
+                {% if field.errors %}
+                    <p class="text-red-600 text-sm mt-1">
+                        {{ field.errors|striptags }}
+                    </p>
+                {% endif %}
+            </div>
+        {% endfor %}
 
-        <!-- Numéro de compte bancaire -->
-        <div>
-            <label for="id_numero_compte">{% trans "Numéro de compte bancaire" %}</label>
-            <input type="text"
-                   id="id_numero_compte"
-                   name="numero_compte"
-                   value="{{ request.POST.numero_compte|default:societe_cliente.numero_compte|default_if_none:'' }}"
-                   class="border rounded px-4 py-2 w-full">
-        </div>
-
-        <div>
-            <label for="id_numero_carte_bancaire">{% trans "Numéro de carte bancaire" %}</label>
-            <input type="text"
-                   id="id_numero_carte_bancaire"
-                   name="numero_carte_bancaire"
-                   value="{{ request.POST.numero_carte_bancaire|default:societe_cliente.numero_carte_bancaire|default_if_none:'' }}"
-                   class="border rounded px-4 py-2 w-full">
-        </div>
-
-
-        <!-- Email -->
-        <div>
-            <label for="id_email">{% trans "Email" %}</label>
-            <input type="email" id="id_email" name="email"
-                   value="{{ request.POST.email|default:societe_cliente.email|default_if_none:'' }}"
-                   class="border rounded px-4 py-2 w-full"
-                   placeholder="exemple@domaine.com">
-        </div>
-
-
-
-        <!-- Adresse -->
-        <h2 class="text-lg font-semibold mt-6 mb-2">{% trans "Adresse" %}</h2>
-
-        <div>
-            <label for="id_rue">{% trans "Rue" %}</label>
-            <input type="text" id="id_rue" name="rue"
-                   value="{{ request.POST.rue|default:societe_cliente.adresse.rue|default_if_none:'' }}"
-                   class="border rounded px-4 py-2 w-full">
-        </div>
-        <div>
-            <label for="id_numero">{% trans "Numéro" %}</label>
-            <input type="text" id="id_numero" name="numero"
-                   value="{{ request.POST.numero|default:societe_cliente.adresse.numero|default_if_none:'' }}"
-                   class="border rounded px-4 py-2 w-full">
-        </div>
-        <div>
-            <label for="id_code_postal">{% trans "Code postal" %}</label>
-            <input type="text" id="id_code_postal" name="code_postal"
-                   value="{{ request.POST.code_postal|default:societe_cliente.adresse.code_postal|default_if_none:'' }}"
-                   class="border rounded px-4 py-2 w-full">
-        </div>
-        <div>
-            <label for="id_ville">{% trans "Ville" %}</label>
-            <input type="text" id="id_ville" name="ville"
-                   value="{{ request.POST.ville|default:societe_cliente.adresse.ville|default_if_none:'' }}"
-                   class="border rounded px-4 py-2 w-full">
-        </div>
-        <div>
-            <label for="id_pays">{% trans "Pays" %}</label>
-            <input type="text" id="id_pays" name="pays"
-                   value="{{ request.POST.pays|default:societe_cliente.adresse.pays|default:'Belgique' }}"
-                   class="border rounded px-4 py-2 w-full">
-        </div>
-        <div>
-            <label for="id_code_pays">{% trans "Code pays" %}</label>
-            <input type="text" id="id_code_pays" name="code_pays"
-                   value="{{ request.POST.code_pays|default:societe_cliente.adresse.code_pays|default:'BE' }}"
-                   class="border rounded px-4 py-2 w-full">
-        </div>
 
         <div class="flex gap-3 mt-6">
                 <button type="submit"

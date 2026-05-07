@@ -33,9 +33,56 @@ def luhn_check(card_number: str) -> bool:
 
 
 class SocieteClienteForm(forms.ModelForm):
+    # -------------------------
+    # CHAMPS ADRESSE
+    # -------------------------
+    rue = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={
+            "class": "border rounded px-4 py-2 w-full"
+        })
+    )
+
+    numero = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={
+            "class": "border rounded px-4 py-2 w-full"
+        })
+    )
+
+    code_postal = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={
+            "class": "border rounded px-4 py-2 w-full"
+        })
+    )
+
+    ville = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={
+            "class": "border rounded px-4 py-2 w-full"
+        })
+    )
+
+    pays = forms.CharField(
+        required=False,
+        initial="Belgique",
+        widget=forms.TextInput(attrs={
+            "class": "border rounded px-4 py-2 w-full"
+        })
+    )
+
+    code_pays = forms.CharField(
+        required=False,
+        initial="BE",
+        widget=forms.TextInput(attrs={
+            "class": "border rounded px-4 py-2 w-full"
+        })
+    )
 
     class Meta:
         model = SocieteCliente
+
         fields = [
             "nom_societe_cliente",
             "directeur_nom_prenom",
@@ -44,19 +91,37 @@ class SocieteClienteForm(forms.ModelForm):
             "numero_tva",
             "numero_compte",
             "numero_carte_bancaire",
-            "adresse",
         ]
+
         widgets = {
-            "numero_carte_bancaire": forms.TextInput(attrs={
-                "class": "border rounded px-4 py-2 w-full",
-                "placeholder": "5389 3456 7890 1234"
+            "nom_societe_cliente": forms.TextInput(attrs={
+                "class": "border rounded px-4 py-2 w-full"
             }),
+
+            "directeur_nom_prenom": forms.TextInput(attrs={
+                "class": "border rounded px-4 py-2 w-full"
+            }),
+
+            "numero_telephone": forms.TextInput(attrs={
+                "class": "border rounded px-4 py-2 w-full"
+            }),
+
+            "email": forms.EmailInput(attrs={
+                "class": "border rounded px-4 py-2 w-full"
+            }),
+
+            "numero_tva": forms.TextInput(attrs={
+                "class": "border rounded px-4 py-2 w-full"
+            }),
+
             "numero_compte": forms.TextInput(attrs={
-                "class": "border rounded px-4 py-2 w-full",
-                "placeholder": "BE12 3456 7890 1234 56"
+                "class": "border rounded px-4 py-2 w-full"
+            }),
+
+            "numero_carte_bancaire": forms.TextInput(attrs={
+                "class": "border rounded px-4 py-2 w-full"
             }),
         }
-
 
 
 
