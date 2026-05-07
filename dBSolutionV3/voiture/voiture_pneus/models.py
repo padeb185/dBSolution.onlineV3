@@ -5,8 +5,6 @@ from django.utils.translation import gettext_lazy as _
 
 
 
-
-
 class VoiturePneus(models.Model):
 
 
@@ -106,9 +104,9 @@ class VoiturePneus(models.Model):
     numero_oem = models.CharField(max_length=50, blank=True, null=True)
 
 
-    pneus_largeur = models.CharField(max_length=15, help_text="175 mm", default="175")
-    pneus_hauteur = models.CharField(max_length=15, help_text="65 %", default="65")
-    pneus_jante = models.CharField(max_length=15, help_text="15 pouces", default="15")
+    pneus_largeur = models.CharField(max_length=15, default="175", verbose_name=_("Largeur du pneu"))
+    pneus_hauteur = models.CharField(max_length=15, default="65", verbose_name=_("Hauteur du pneu"))
+    pneus_jante = models.CharField(max_length=15,  default="15", verbose_name=_("Diamètre de la jante en pouces"))
 
 
     kilometre_pneus_av = models.PositiveIntegerField(

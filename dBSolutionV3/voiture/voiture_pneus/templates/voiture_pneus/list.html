@@ -3,12 +3,13 @@
 {% block title %}{% trans "Liste des Pneus" %}{% endblock %}
 
 {% block content %}
+<br>
 <h1 class="text-2xl font-bold mb-6 flex items-center">
     <img src="{% static 'icons/pneus.png' %}" alt="Pneus"
          style="width:60px; height:60px; margin-right:10px;">
     {% trans "Liste des Pneus" %}
 </h1>
-
+<br>
  <div>
      <a href="{% url 'voiture_pneus:ajouter_pneus_simple' %}"
          class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
