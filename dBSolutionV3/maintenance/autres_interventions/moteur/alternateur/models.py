@@ -2,10 +2,10 @@ from decimal import Decimal, ROUND_HALF_UP
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.db.models import DecimalField
 from django.utils.translation import gettext_lazy as _
 from utils.mixin import TechnicienMixin
 from maintenance.models import Maintenance
+from decimal import Decimal
 
 
 class EtatOKNotOK(models.TextChoices):
@@ -293,3 +293,8 @@ class Alternateur(TechnicienMixin, models.Model):
             "lignes": rapport,
             "total_general": total_general
         }
+
+
+
+    def total_general(self):
+        return (self.alternateur_prix_ttc or Decimal("0")) + (self.courroie_accessoires_prix_ttc or Decimal("0"))

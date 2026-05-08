@@ -1,9 +1,11 @@
+from datetime import datetime
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
+from django.template.loader import render_to_string
 from django.utils import timezone
 from django.contrib import messages
 from django.db import transaction, models
-from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
@@ -12,10 +14,12 @@ from maintenance.models import Maintenance
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
+from weasyprint import HTML
 from .forms import AlternateurForm
 from django.views.generic import DetailView
 from decimal import Decimal
 from .models import Alternateur
+
 
 
 
@@ -360,3 +364,25 @@ class AlternateurRapportDetailView(DetailView):
         context["rapport"] = rapport
 
         return context
+
+
+
+@login_required
+def alternateur_detail_pdf_view(request, pk):
+    alternateur = get_object_or_404(Alternateur, pk=pk)
+
+    html_string = render_to_string(
+        "alternateur/alternateur_detail_pdf.html",
+        {
+            "alternateur": alternateur,
+            "date_export": datetime.now(),
+            "societe": request.user.societe
+        }
+    )
+    pdf = HTML(string=html_string, base_url=request.build_absolute_uri()).write_pdf()
+
+    response = HttpResponse(pdf, content_type="application/pdf")
+    response["Content-Disposition"] = f'attachment; filename="geometrie_{pk}.pdf"'
+
+    return response
+

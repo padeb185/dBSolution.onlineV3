@@ -60,16 +60,9 @@
         </div>
         <!-- Bouton Rapport -->
         <div class="mt-auto w-full">
-            <a href="{% url 'alternateur:rapport_alternateur' alternateur.id %}" class="block w-full">
+            <a href="{% url 'alternateur:alternateur_detail_pdf' alternateur.id %}"class="block w-full">
                 <button type="button" class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
-                    {% trans "Rapport" %}
-                </button>
-            </a>
-        </div>
-        <div class="mt-auto w-full">
-            <a href="{% url 'alternateur:rapport_pdf_alternateur' alternateur.id %}" class="block w-full">
-                <button type="button" class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
-                    {% trans "Rapport PDF" %}
+                    {% trans "Télécharger le PDF" %}
                 </button>
             </a>
         </div>
@@ -83,11 +76,11 @@
 
         <p>
             <strong>{% trans "Créé le" %} :</strong>
-            {{ aletrnateur.created_at|date:"d/m/Y H:i" }}
+            {{ alternateur.created_at|date:"d/m/Y H:i" }}
         </p>
         <p>
             <strong>{% trans "Mis à jour le" %} :</strong>
-            {{ adlternateur.updated_at|date:"d/m/Y H:i" }}
+            {{ alternateur.updated_at|date:"d/m/Y H:i" }}
         </p>
     </div>
 
