@@ -81,9 +81,10 @@
             </td>
 
             <!-- Date -->
-            <td class="border px-4 py-2">
+           <td class="border px-4 py-2"
+                data-order="{{ maindoeuvre.date|date:'Y-m-d H:i:s' }}">
                 {{ maindoeuvre.date|date:"d/m/Y H:i" }}
-            </td>
+           </td>
 
             <td class="border px-4 py-2">
                 {{ maindoeuvre.descriptif }}
@@ -123,7 +124,6 @@
 <script>
 $(document).ready(function() {
     var table = $('#main-table').DataTable({
-        pageLength: 25,
         language: {
             search: "{% trans 'Recherche globale :' %}",
             lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
@@ -137,7 +137,7 @@ $(document).ready(function() {
                 previous: "{% trans 'Précédent' %}"
             }
         },
-        order: [[3, "desc"]]
+        order: [[3, "Desc"]]
     });
 
     $('#search-user').on('keyup', function () {
