@@ -1,4 +1,5 @@
 from django import forms
+from django.utils.translation import gettext_lazy as _
 from .models import (
     MoteurVoiture,
     TypeMoteur,
@@ -10,23 +11,31 @@ class MoteurVoitureForm(forms.ModelForm):
 
     class Meta:
         model = MoteurVoiture
+        exclude = ("voitures_modeles",
+                   "voitures_exemplaires",
+                   "boite",
+                   "kilometres_chassis",
+                   "numero_moteurs",
+                   )
 
-        fields = [
-            "motoriste",
-            "code_moteur",
-            "type_moteur",
-            "carburant",
-            "cylindree_l",
-            "distribution",
-            "nombre_cylindres",
-            "puissance_ch",
-            "puissance_tr_min",
-            "couple_nm",
-            "couple_tr_min",
-            "qualite_huile",
-            "quantite_huile_l",
-            "intervalle_km_entretien",
-        ]
+        labels = {
+            "motoriste": _("Motoriste"),
+            "code_moteur": _("Code moteur"),
+            "distribution": _("Distribution"),
+            "qualite_huile": _("Qualité huile"),
+
+            "type_moteur": _("Type moteur"),
+            "carburant": _("Carburant"),
+
+            "cylindree_l": _("Cylindrée (L)"),
+            "nombre_cylindres": _("Nombre de cylindres"),
+            "puissance_ch": _("Puissance (ch)"),
+            "puissance_tr_min": _("Régime puissance (tr/min)"),
+            "couple_nm": _("Couple (Nm)"),
+            "couple_tr_min": _("Régime couple (tr/min)"),
+            "quantite_huile_l": _("Quantité huile (L)"),
+            "intervalle_km_entretien": _("Intervalle entretien (km)"),
+        }
 
         widgets = {
 
@@ -35,24 +44,23 @@ class MoteurVoitureForm(forms.ModelForm):
             # -------------------------
             "motoriste": forms.TextInput(attrs={
                 "class": "border rounded px-3 py-2 w-full text-sm",
-                "placeholder": "Nom du motoriste"
+                "placeholder": _("Nom du motoriste")
             }),
 
             "code_moteur": forms.TextInput(attrs={
                 "class": "border rounded px-3 py-2 w-full text-sm",
-                "placeholder": "Ex: S14B23"
+                "placeholder": _("Ex: S14B23")
             }),
 
             "distribution": forms.TextInput(attrs={
                 "class": "border rounded px-3 py-2 w-full text-sm",
-                "placeholder": "Chaîne ou courroie"
+                "placeholder": _("Chaîne ou courroie")
             }),
 
             "qualite_huile": forms.TextInput(attrs={
                 "class": "border rounded px-3 py-2 w-full text-sm",
-                "placeholder": "0W30"
+                "placeholder": _("0W30")
             }),
-
             # -------------------------
             # SELECT
             # -------------------------
@@ -69,47 +77,53 @@ class MoteurVoitureForm(forms.ModelForm):
             # -------------------------
             "cylindree_l": forms.NumberInput(attrs={
                 "class": "border rounded px-3 py-2 w-full text-sm",
-                "placeholder": "Ex: 2.3",
+                "placeholder": _("Ex: 2.3"),
                 "step": "0.01"
             }),
 
             "nombre_cylindres": forms.NumberInput(attrs={
                 "class": "border rounded px-3 py-2 w-full text-sm",
-                "placeholder": "Ex: 4",
+                "placeholder": _("Ex: 4"),
                 "min": "1"
             }),
 
             "puissance_ch": forms.NumberInput(attrs={
                 "class": "border rounded px-3 py-2 w-full text-sm",
-                "placeholder": "120"
+                "placeholder": _("120")
             }),
 
             "puissance_tr_min": forms.NumberInput(attrs={
                 "class": "border rounded px-3 py-2 w-full text-sm",
-                "placeholder": "3000"
+                "placeholder": _("3000")
             }),
 
             "couple_nm": forms.NumberInput(attrs={
                 "class": "border rounded px-3 py-2 w-full text-sm",
-                "placeholder": "300"
+                "placeholder": _("300")
             }),
 
             "couple_tr_min": forms.NumberInput(attrs={
                 "class": "border rounded px-3 py-2 w-full text-sm",
-                "placeholder": "4000"
+                "placeholder": _("4000")
             }),
 
             "quantite_huile_l": forms.NumberInput(attrs={
                 "class": "border rounded px-3 py-2 w-full text-sm",
-                "placeholder": "6.50",
+                "placeholder": _("6.50"),
                 "step": "0.01",
                 "min": "0"
             }),
 
             "intervalle_km_entretien": forms.NumberInput(attrs={
                 "class": "border rounded px-3 py-2 w-full text-sm",
-                "placeholder": "10000"
+                "placeholder": _("10000")
             }),
+            'remarques': forms.Textarea(attrs={
+                "class": "border rounded px-3 py-2 w-full text-sm",
+                'rows': 4,
+                'placeholder': _("Ajoutez des remarques ici...")
+            }),
+
         }
 
     def __init__(self, *args, **kwargs):

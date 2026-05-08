@@ -1,6 +1,6 @@
 from django import forms
 from voiture.voiture_boite.models import VoitureBoite
-
+from django.utils.translation import gettext_lazy as _
 
 class VoitureBoiteForm(forms.ModelForm):
 
@@ -8,6 +8,35 @@ class VoitureBoiteForm(forms.ModelForm):
         model = VoitureBoite
 
         exclude = ['voitures_modeles', 'voitures_exemplaires']
+
+        labels = {
+            "fabricant": _("Fabricant"),
+            "nom_du_type": _("Nom du type"),
+            "type_de_boite": _("Type de boîte"),
+            "oem": _("OEM"),
+
+            "nombre_rapport": _("Nombre de rapports"),
+
+            # Lubrification
+            "qualite_huile": _("Qualité huile boîte"),
+            "quantite_huile_l": _("Quantité huile boîte (L)"),
+
+            # Suivi kilométrique
+            "kilometres_chassis": _("Kilométrage châssis"),
+            "intervalle_entretien_km": _("Intervalle entretien (km)"),
+
+            # Historique entretien
+            "dernier_entretien": _("Dernier entretien"),
+
+            # Gestion remplacement
+            "numero_boite": _("Numéro de boîte"),
+
+            # Dates
+            "date_creation": _("Date de création"),
+
+            # Divers
+            "remarques": _("Remarques"),
+        }
 
         widgets = {
 
