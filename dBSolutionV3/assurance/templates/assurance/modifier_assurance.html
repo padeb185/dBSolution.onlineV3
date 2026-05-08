@@ -14,8 +14,13 @@
                      class="w-12 h-12"
                      onerror="this.onerror=null; this.src='{% static 'icons/assurance-voiture.png' %}';">
             {% endwith %}
-            <span>{% trans "Modifier la Compagnie d'assurance:" %}</span>
-            <span class="text-black-700">{{ assurance.nom_compagnie }}</span>
+           <div class="flex flex-col">
+                <span>{% trans "Modifier la Compagnie d'assurance:" %}</span>
+
+                <span class="text-black-700">
+                    {{ assurance.nom_compagnie }}
+                </span>
+            </div>
         </h1>
     </div>
 
@@ -65,16 +70,7 @@
             </div>
         {% endfor %}
 
-        <h2 class="text-lg font-semibold mt-6 mb-2">{% trans "Adresse" %}</h2>
-        {% for field in form_adresse %}
-            <div class="mb-4">
-                <label class="block font-semibold mb-1">{{ field.label }}</label>
-                {{ field|add_class:"input" }}
-                {% if field.errors %}
-                    <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
-                {% endif %}
-            </div>
-        {% endfor %}
+
 
         <div class="flex gap-3 mt-6">
             <button type="submit" class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-500 font-semibold text-center">

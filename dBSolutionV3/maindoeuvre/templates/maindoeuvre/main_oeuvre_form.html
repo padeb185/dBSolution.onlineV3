@@ -50,28 +50,30 @@
     {% endif %}
 
     <!-- FORM -->
-    <form method="POST">
+    <form method="post" class="space-y-4">
         {% csrf_token %}
 
-        <!-- UTILISATEUR -->
-        <div class="mb-6">
-            <label class="block font-semibold mb-1">
-                {% trans "Utilisateur" %}
-            </label>
-            {{ form.utilisateur|add_class:"input" }}
-        </div>
+        {% for field in form %}
+            <div>
+                <label class="block font-semibold mb-1">
+                    {{ field.label }}
+                </label>
 
-        <!-- TEMPS -->
-        <h2 class="text-xl font-semibold mb-2 border-b pb-1 flex items-center">
-            {% trans "Temps de travail" %}
-        </h2>
+                {{ field|add_class:"input" }}
 
-        <div class="flex gap-2 items-center mb-6">
-            {{ form.temps_minutes|add_class:"input" }}
-            <span>{% trans "minutes" %}</span>
-        </div>
+                {% if field.help_text %}
+                    <p class="text-gray-500 text-sm mt-1">
+                        {{ field.help_text }}
+                    </p>
+                {% endif %}
 
-
+                {% if field.errors %}
+                    <p class="text-red-600 text-sm mt-1">
+                        {{ field.errors|striptags }}
+                    </p>
+                {% endif %}
+            </div>
+        {% endfor %}
 
         <!-- BOUTONS -->
         <div class="flex gap-3 mt-6">
@@ -104,4 +106,22 @@
 }
 </style>
 
+<script>
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie) {
+        document.cookie.split(';').forEach(c => {
+            c = c.trim();
+            if (c.startsWith(name + '=')) {
+                cookieValue = decodeURIComponent(c.slice(name.length + 1));
+            }
+        });
+    }
+    return cookieValue;
+}
+
+const csrftoken = getCookie('csrftoken');
+
+
+</script>
 {% endblock %}

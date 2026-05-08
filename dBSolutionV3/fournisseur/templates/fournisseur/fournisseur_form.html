@@ -31,7 +31,8 @@
 
     <form method="post" class="space-y-4">
         {% csrf_token %}
- {% for field in form %}
+
+        {% for field in form %}
             <div>
                 <label class="block font-semibold mb-1">
                     {{ field.label }}

@@ -10,7 +10,6 @@ from django.db import transaction
 from django.views.decorators.cache import never_cache
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import gettext_lazy as _
-from django.db.models import Q
 from .models import MainDoeuvre
 from .forms import MainDoeuvreForm
 
@@ -36,69 +35,99 @@ def main_oeuvre_form_view(request):
 
     with tenant_context(tenant):
 
-        # Vérification rôles (même logique que ABS)
-        roles_autorises = ["mécanicien", "apprenti", "magasinier", "chef mécanicien"]
+        roles_autorises = [
+            "mécanicien",
+            "apprenti",
+            "magasinier",
+            "chef mécanicien",
+            "direction"
+        ]
 
         if request.user.role not in roles_autorises:
             messages.error(
                 request,
                 _("Accès refusé.")
             )
-            return redirect("main_oeuvre_list")
+            return redirect("maindoeuvre:main_oeuvre_list")
 
-        # Instance vide (création)
-        main_oeuvre = MainDoeuvre(
-            utilisateur=request.user,
-            temps_minutes=0,
-        )
-
-        # --- FORM ---
         if request.method == "POST":
-            form = MainDoeuvreForm(request.POST, instance=main_oeuvre)
+
+            form = MainDoeuvreForm(request.POST)
 
             if form.is_valid():
+
                 try:
                     with transaction.atomic():
+
                         main_oeuvre = form.save(commit=False)
 
-                        # sécurité utilisateur (toujours forcé)
+                        # Société
+                        main_oeuvre.societe = tenant
+
+                        # Utilisateur connecté
                         main_oeuvre.utilisateur = request.user
 
                         main_oeuvre.save()
 
-                    messages.success(
-                        request,
-                        _("Main d'œuvre enregistrée avec succès.")
-                    )
+                        messages.success(
+                            request,
+                            _("Main d'œuvre enregistrée avec succès.")
+                        )
 
+                        return redirect(
+                            "maindoeuvre:main_oeuvre_form"
+                        )
 
                 except Exception as e:
+
                     messages.error(
                         request,
-                        _("Erreur lors de l'enregistrement : %(error)s") % {"error": str(e)}
+                        _("Erreur lors de l'enregistrement : %(error)s") % {
+                            "error": str(e)
+                        }
                     )
+
             else:
-                messages.error(request, _("Le formulaire contient des erreurs."))
+
+                print(form.errors)
+
+                messages.error(
+                    request,
+                    _("Veuillez corriger les erreurs ci-dessous.")
+                )
 
         else:
-            form = MainDoeuvreForm(instance=main_oeuvre)
 
-        # --- SECTIONS (style identique ABS) ---
+            form = MainDoeuvreForm(
+                initial={
+                    "utilisateur": request.user,
+                    "temps_minutes": 0,
+                }
+            )
+
         sections = [
             {
                 "title": _("Temps de travail"),
                 "icon": "icons/main-doeuvre.png",
-                "fields": [form["temps_minutes"]],
+                "fields": [
+                    form["temps_minutes"],
+                ],
             },
             {
                 "title": _("Utilisateur"),
                 "icon": "icons/user.png",
-                "fields": [form["utilisateur"]] if "utilisateur" in form.fields else [],
+                "fields": [
+                    form["utilisateur"],
+                ] if "utilisateur" in form.fields else [],
             },
         ]
 
-        return render(request, "maindoeuvre/main_oeuvre_form.html", {
-            "form": form,
-            "sections": sections,
-            "now": timezone.now(),
-        })
+        return render(
+            request,
+            "maindoeuvre/main_oeuvre_form.html",
+            {
+                "form": form,
+                "sections": sections,
+                "now": timezone.now(),
+            },
+        )

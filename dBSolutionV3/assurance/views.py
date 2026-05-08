@@ -48,58 +48,91 @@ def assurance_detail(request, assurance_id):
 
 
 
-
 @login_required
 def ajouter_assurance_all(request):
     tenant = request.user.societe
 
     if request.method == "POST":
+
         form_assurance = AssuranceForm(request.POST)
 
+        # -------------------------
+        # DONNÉES ADRESSE
+        # -------------------------
         adresse_data = {
-            "rue": request.POST.get("rue"),
-            "numero": request.POST.get("numero"),
-            "code_postal": request.POST.get("code_postal"),
-            "ville": request.POST.get("ville"),
-            "pays": request.POST.get("pays"),
-            "code_pays": request.POST.get("code_pays"),
-            "societe": tenant
+            "rue": request.POST.get("rue", "").strip(),
+            "numero": request.POST.get("numero", "").strip(),
+            "code_postal": request.POST.get("code_postal", "").strip(),
+            "ville": request.POST.get("ville", "").strip(),
+            "pays": request.POST.get("pays", "Belgique").strip(),
+            "code_pays": request.POST.get("code_pays", "BE").strip(),
+            "societe": tenant,
         }
 
-        # Vérification champs obligatoires
+        # -------------------------
+        # VALIDATION ADRESSE
+        # -------------------------
         if not all([
             adresse_data["rue"],
             adresse_data["numero"],
             adresse_data["code_postal"],
-            adresse_data["ville"]
+            adresse_data["ville"],
         ]):
-            messages.error(request, _("Les champs d'adresse sont obligatoires."))
+
+            messages.error(
+                request,
+                _("Les champs d'adresse (rue, numéro, code postal, ville) sont obligatoires.")
+            )
 
         elif form_assurance.is_valid():
-            with transaction.atomic():     # évite la création d'adresse orpheline
 
+            with transaction.atomic():
+
+                # -------------------------
+                # CRÉATION ADRESSE
+                # -------------------------
                 adresse = Adresse.objects.create(**adresse_data)
 
-                # Création assurance
+                # -------------------------
+                # CRÉATION ASSURANCE
+                # -------------------------
                 assurance = form_assurance.save(commit=False)
+
                 assurance.adresse = adresse
                 assurance.societe = tenant
+
                 assurance.save()
 
                 messages.success(
                     request,
-                    _(f"Assurance '{assurance.nom_compagnie}' créée avec succès !"
-                ))
+                    _(
+                        f"Assurance '{assurance.nom_compagnie}' créée avec succès !"
+                    )
+                )
+
+                return redirect("assurance:assurance_list")
 
         else:
-            messages.error(request, _("Le formulaire contient des erreurs."))
+
+            print(form_assurance.errors)
+
+            messages.error(
+                request,
+                _("Le formulaire contient des erreurs.")
+            )
 
     else:
+
         form_assurance = AssuranceForm()
 
-    return render(request, "assurance/assurance_form.html", {
-                "form": form_assurance
-    })
+    return render(
+        request,
+        "assurance/assurance_form.html",
+        {
+            "form": form_assurance,
+        },
+    )
+
 
 
 

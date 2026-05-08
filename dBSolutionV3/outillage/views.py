@@ -7,7 +7,7 @@ from django.views.generic import ListView
 from django_tenants.utils import tenant_context
 from outillage.models import Outillage
 from outillage.forms import OutillageForm
-
+from django.utils.translation import gettext_lazy as _
 
 
 @method_decorator([login_required, never_cache], name='dispatch')
@@ -43,36 +43,55 @@ def outillage_detail(request, outillage_id):
 
 
 
-
 @login_required
 def ajouter_outillage_all(request):
+
     tenant = request.user.societe
 
     if request.method == "POST":
+
         form_outillage = OutillageForm(request.POST)
 
         if form_outillage.is_valid():
-                # Création outillage
-                outillage = form_outillage.save(commit=False)
-                outillage.societe = tenant
-                outillage.save()
 
-                messages.success(
-                    request,
-                    f"Outillage '{outillage.libelle}' créée avec succès !"
+            # -------------------------
+            # CRÉATION OUTILLAGE
+            # -------------------------
+            outillage = form_outillage.save(commit=False)
+
+            outillage.societe = tenant
+
+            outillage.save()
+
+            messages.success(
+                request,
+                _(
+                    f"Outillage '{outillage.libelle}' créé avec succès !"
                 )
+            )
+
+            return redirect("outillage:outillage_list")
 
         else:
-            messages.error(request, "Le formulaire contient des erreurs.")
+
+            print(form_outillage.errors)
+
+            messages.error(
+                request,
+                _("Le formulaire contient des erreurs.")
+            )
 
     else:
+
         form_outillage = OutillageForm()
 
-    return render(request, "outillage/outillage_form.html", {
-                "form": form_outillage
-    })
-
-
+    return render(
+        request,
+        "outillage/outillage_form.html",
+        {
+            "form": form_outillage,
+        },
+    )
 
 @login_required
 def modifier_outillage(request, outillage_id):

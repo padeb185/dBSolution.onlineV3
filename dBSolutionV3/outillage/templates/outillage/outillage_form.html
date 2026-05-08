@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n static %}
+{% load i18n widget_tweaks static %}
 
 {% block content %}
 <div class="max-w-xl mx-auto p-6 bg-white rounded shadow mt-16 mb-16">
@@ -39,77 +39,55 @@
         </div>
     {% endif %}
 
-    <form method="post" class="flex flex-col space-y-4">
+    <form method="post" class="space-y-4">
         {% csrf_token %}
 
-        <!-- Societe -->
-        <div>
-            {{ form.societe.label_tag }}
-            {{ form.societe }}
-            {% if form.societe.errors %}
-                <p class="text-red-600">{{ form.societe.errors }}</p>
-            {% endif %}
-        </div>
+        {% for field in form %}
+            <div>
+                <label class="block font-semibold mb-1">
+                    {{ field.label }}
+                </label>
 
-        <!-- Fournisseur -->
-        <div>
-            {{ form.fournisseur.label_tag }}
-            {{ form.fournisseur }}
-            {% if form.fournisseur.errors %}
-                <p class="text-red-600">{{ form.fournisseur.errors }}</p>
-            {% endif %}
-        </div>
+                {{ field|add_class:"input" }}
 
-        <!-- Libellé -->
-        <div>
-            {{ form.libelle.label_tag }}
-            {{ form.libelle }}
-            {% if form.libelle.errors %}
-                <p class="text-red-600">{{ form.libelle.errors }}</p>
-            {% endif %}
-        </div>
+                {% if field.help_text %}
+                    <p class="text-gray-500 text-sm mt-1">
+                        {{ field.help_text }}
+                    </p>
+                {% endif %}
 
-        <!-- Référence -->
-        <div>
-            {{ form.reference.label_tag }}
-            {{ form.reference }}
-            {% if form.reference.errors %}
-                <p class="text-red-600">{{ form.reference.errors }}</p>
-            {% endif %}
-        </div>
+                {% if field.errors %}
+                    <p class="text-red-600 text-sm mt-1">
+                        {{ field.errors|striptags }}
+                    </p>
+                {% endif %}
+            </div>
+        {% endfor %}
 
-        <!-- Quantité -->
-        <div>
-            {{ form.quantite.label_tag }}
-            {{ form.quantite }}
-            {% if form.quantite.errors %}
-                <p class="text-red-600">{{ form.quantite.errors }}</p>
-            {% endif %}
-        </div>
+        <div class="flex gap-3 mt-6">
+                <button type="submit"
+                        class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+                    {% trans "Enregistrer" %}
+                </button>
 
-        <!-- Prix HTVA -->
-        <div>
-            {{ form.prix_htva.label_tag }}
-            {{ form.prix_htva }}
-            {% if form.prix_htva.errors %}
-                <p class="text-red-600">{{ form.prix_htva.errors }}</p>
-            {% endif %}
-        </div>
+               <a href="{% url 'outillage:outillage_list' %}"
+                   class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
+                    {% trans "Annuler" %}
+                </a>
 
-        <!-- Taux TVA -->
-        <div>
-            {{ form.taux_tva.label_tag }}
-            {{ form.taux_tva }}
-            {% if form.taux_tva.errors %}
-                <p class="text-red-600">{{ form.taux_tva.errors }}</p>
-            {% endif %}
         </div>
-
-        <button type="submit" class="bg-blue-700 text-white px-4 py-2 rounded w-full mt-4">
-            {% trans "Enregistrer" %}
-        </button>
     </form>
 </div>
+
+<style>
+.input {
+    width: 100% !important;
+    border: 1px solid #ccc !important;
+    border-radius: 6px !important;
+    padding: 8px !important;
+    box-sizing: border-box !important;
+}
+</style>
 
 <script>
 function getCookie(name) {
