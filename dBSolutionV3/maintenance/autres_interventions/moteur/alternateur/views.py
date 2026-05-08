@@ -31,12 +31,14 @@ class AlternateurListView(ListView):
     model = Alternateur
     template_name = "alternateur/alternateur_list.html"
     context_object_name = "alternateurs"
-    paginate_by = 100
-    ordering = ["-id"]
+    ordering = ["-date"]
 
     def get_queryset(self):
         queryset = Alternateur.objects.select_related(
-            "voiture_exemplaire", "maintenance", "tech_societe"
+            "voiture_exemplaire",
+            "maintenance",
+            "tech_societe",
+            "main_oeuvre"
         )
 
         societe = getattr(self.request.user, "societe", None)
@@ -45,7 +47,7 @@ class AlternateurListView(ListView):
                 models.Q(tech_societe=societe) | models.Q(tech_societe__isnull=True)
             )
 
-        return queryset.order_by("-id")
+        return queryset.order_by("-date")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

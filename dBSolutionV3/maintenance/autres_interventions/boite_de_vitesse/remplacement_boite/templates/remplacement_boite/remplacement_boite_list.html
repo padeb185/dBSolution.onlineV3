@@ -51,6 +51,10 @@
         <input id="search-date" type="date"
                class="border rounded px-3 py-2 flex-1 min-w-[120px] focus:outline-none focus:ring-2 focus:ring-blue-500">
 
+        <input id="search-temps" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[120px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Temps' %}">
+
     </div>
 </div>
 
@@ -70,6 +74,7 @@
             <th>{% trans "Tag" %}</th>
             <th>{% trans "Technicien" %}</th>
             <th>{% trans "Date" %}</th>
+            <th>{% trans "Temps" %}</th>
             <th class="text-center">{% trans "Actions" %}</th>
         </tr>
     </thead>
@@ -153,6 +158,10 @@
                 {{ remplacement.date|date:"d/m/Y H:i" }}
             </td>
 
+             <td class="border px-4 py-2">
+                {{ remplacement.main_oeuvre.temps_display|default:"-" }}
+            </td>
+
             <!-- ACTIONS -->
             <td class="border px-4 py-2 text-center">
 
@@ -205,7 +214,7 @@ $(document).ready(function() {
         language: {
             search: "{% trans 'Recherche globale :' %}",
             lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
-            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ contrôles' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ remplacement de boite de vitesse' %}",
             infoEmpty: "{% trans 'Aucun contrôle trouvé' %}",
             zeroRecords: "{% trans 'Aucun contrôle trouvé' %}",
             paginate: {
@@ -235,6 +244,9 @@ $(document).ready(function() {
     });
     $('#search-date').on('change', function () {
         table.column(5).search(this.value).draw();
+    });
+     $('#search-temps').on('keyup', function () {
+        table.column(6).search(this.value).draw();
     });
 });
 </script>

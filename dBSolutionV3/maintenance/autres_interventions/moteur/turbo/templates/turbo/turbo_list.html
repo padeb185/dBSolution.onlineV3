@@ -43,6 +43,10 @@
         <input id="search-date" type="date"
                class="border rounded px-3 py-2 flex-1 min-w-[120px] focus:outline-none focus:ring-2 focus:ring-blue-500">
 
+        <input id="search-temps" type="text"
+               class="border rounded px-3 py-2 flex-1 min-w-[120px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+               placeholder="{% trans 'Temps' %}">
+
     </div>
 </div>
 
@@ -54,6 +58,7 @@
             <th class="border px-4 py-2 cursor-pointer">{% trans "Tag" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Technicien" %}</th>
             <th class="border px-4 py-2 cursor-pointer">{% trans "Date" %}</th>
+            <th class="border px-4 py-2 cursor-pointer">{% trans "Temps" %}</th>
             <th class="border px-4 py-2 cursor-pointer text-center">{% trans "Actions" %}</th>
         </tr>
     </thead>
@@ -122,6 +127,10 @@
                 {{ turbo.date|date:"d/m/Y H:i" }}
             </td>
 
+             <td class="border px-4 py-2">
+                {{ turbo.main_oeuvre.temps_display|default:"-" }}
+            </td>
+
             <!-- Actions -->
             <td class="border px-4 py-2 text-center">
                <a href="{% url 'turbo:turbo_detail' turbo.id %}"
@@ -156,7 +165,7 @@ $(document).ready(function() {
         language: {
             search: "{% trans 'Recherche globale :' %}",
             lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
-            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ contrôles' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ contrôles du Turbo' %}",
             infoEmpty: "{% trans 'Aucun contrôle trouvé' %}",
             zeroRecords: "{% trans 'Aucun contrôle trouvé' %}",
             paginate: {
@@ -183,6 +192,9 @@ $(document).ready(function() {
     });
     $('#search-date').on('change', function () {
         table.column(4).search(this.value).draw();
+    });
+    $('#search-temps').on('keyup', function () {
+        table.column(5).search(this.value).draw();
     });
 });
 </script>
