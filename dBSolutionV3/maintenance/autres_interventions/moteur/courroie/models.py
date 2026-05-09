@@ -119,12 +119,7 @@ class CourroieDistribution(TechnicienMixin, models.Model):
     def piece_fields(prefix):
         return {
             f"{prefix}": models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK),
-            f"{prefix}_prix_achat": models.DecimalField(max_digits=10, decimal_places=2, default=0),
-            f"{prefix}_tva_achat": models.DecimalField(max_digits=10, decimal_places=2, default=0),
-            f"{prefix}_marge": models.IntegerField(null=True, blank=True),
-            f"{prefix}_prix_vente_htva": models.DecimalField(max_digits=10, decimal_places=2, default=0),
-            f"{prefix}_tva_vente": models.DecimalField(max_digits=10, decimal_places=2, default=0),
-            f"{prefix}_prix_ttc": models.DecimalField(max_digits=10, decimal_places=2, default=0),
+            f"{prefix}_prix": models.DecimalField(max_digits=10, decimal_places=2, default=0),
             f"{prefix}_quantite": models.IntegerField(default=0),
         }
 
@@ -135,27 +130,17 @@ class CourroieDistribution(TechnicienMixin, models.Model):
     courroie_distribution = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Courroie de distribution"))
 
     courroie_distribution_kit = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Nouveau kit distribution"))
-    courroie_distribution_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat htva de la courroie"))
-    courroie_distribution_tva_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("TVA à récupérer"))
-    courroie_distribution_marge = models.IntegerField(null=True, blank=True, verbose_name=_("Marge"))
-    courroie_distribution_prix_vente_htva = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix de vente htva"))
-    courroie_distribution_tva_vente = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("TVA à payer"))
-    courroie_distribution_prix_ttc = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix TVAC"))
+    courroie_distribution_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat htva de la courroie"))
     courroie_distribution_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
 
 
     pompe_a_eau = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Pompe à eau"))
-    pompe_a_eau_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva de la pompe à eau"))
-    pompe_a_eau_tva_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("TVA à récupérer"))
-    pompe_a_eau_marge = models.IntegerField(null=True, blank=True, verbose_name=_("Marge"))
-    pompe_a_eau_prix_vente_htva = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix de vente htva"))
-    pompe_a_eau_tva_vente = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("TVA à payer"))
-    pompe_a_eau_prix_ttc = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix TVAC"))
+    pompe_a_eau_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva de la pompe à eau"))
     pompe_a_eau_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
 
-
+    refroidissement = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Liquide de refroidissement"))
     refroidissement_quantite = models.FloatField(default=0, verbose_name=_("Quantité de liquide de refroidissement ajoutée en litres"), validators=[validate_step_0_1])
     refroidissement_qualite = models.CharField(max_length=25, choices=RefroidissementQualiteEtat.choices,default=RefroidissementQualiteEtat.G13,verbose_name=_("Qualité de liquide de refroidissement"))
 
@@ -232,20 +217,15 @@ class CourroieDistribution(TechnicienMixin, models.Model):
         self.tech_societe = user.societe
 
     def clean(self):
-        cleaned_data = super().clean()
+        super().clean()
 
-        voiture = cleaned_data.get("voiture_exemplaire")
-        km_courroie = cleaned_data.get("kilometrage_courroie_distribution")
-
-        if voiture and km_courroie is not None:
-            if km_courroie > voiture.kilometres_chassis:
+        if self.voiture_exemplaire and self.kilometrage_cour is not None:
+            if self.kilometrage_cour > self.voiture_exemplaire.kilometres_chassis:
                 raise ValidationError({
-                    "kilometrage_courroie_distribution": _(
-                        "Le kilométrage de la courroie ne peut pas être supérieur au kilométrage actuel du véhicule."
+                    "kilometrage_cour": _(
+                        "Le kilométrage de la courroie ne peut pas être supérieur au kilométrage du véhicule."
                     )
                 })
-
-        return cleaned_data
 
     class Meta:
         verbose_name = _("Courroie de distribution")
@@ -260,36 +240,25 @@ class CourroieDistribution(TechnicienMixin, models.Model):
     # CALCUL GENERIQUE
     # -------------------------
     def calcul_piece(self, prefix):
-        prix_achat = getattr(self, f"{prefix}_prix_achat")
-        marge = getattr(self, f"{prefix}_marge")
-        quantite = getattr(self, f"{prefix}_quantite")
+        prix = getattr(self, f"{prefix}_prix", 0)
+        quantite = getattr(self, f"{prefix}_quantite", 0)
 
-        if not prix_achat or not self.pays:
+        if not prix or not self.pays:
             return
 
         tva_rate = Decimal(self.TVA_PIECES.get(self.pays, 0)) / 100
 
-        # TVA achat
-        setattr(self, f"{prefix}_tva_achat",
-                (prix_achat * tva_rate).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP))
-
-        # HTVA
-        if marge:
-            prix_htva = prix_achat * (1 + Decimal(marge) / 100)
-        else:
-            prix_htva = prix_achat
+        prix_htva = prix  # pas de marge dans ton modèle
 
         prix_htva = prix_htva.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
 
-        setattr(self, f"{prefix}_prix_vente_htva", prix_htva)
-
-        # TVA vente
         tva = (prix_htva * tva_rate).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
-        setattr(self, f"{prefix}_tva_vente", tva)
-
-        # TTC
         prix_ttc = prix_htva + tva
+
+        setattr(self, f"{prefix}_prix_vente_htva", prix_htva)
+        setattr(self, f"{prefix}_tva_vente", tva)
         setattr(self, f"{prefix}_prix_ttc", prix_ttc)
+
 
     # -------------------------
     # SAVE
@@ -302,34 +271,39 @@ class CourroieDistribution(TechnicienMixin, models.Model):
 
         super().save(*args, **kwargs)
 
-    # -------------------------
-    # RAPPORT
-    # -------------------------
     def generer_rapport_remplacement(self):
         rapport = []
         total_general = Decimal("0")
 
-        pieces = ["courroie_distribution", "pompe_a_eau"]
+        pieces = [
+            ("courroie_distribution", "Courroie de distribution"),
+            ("pompe_a_eau", "Pompe à eau"),
+        ]
 
-        for piece in pieces:
-            if getattr(self, piece) == EtatOKNotOK.NOT_OK:
+        for prefix, label in pieces:
+            etat = getattr(self, prefix)
 
-                quantite = getattr(self, f"{piece}_quantite")
-                prix_ttc = getattr(self, f"{piece}_prix_ttc")
+            if etat == EtatOKNotOK.NOT_OK:
+                prix = getattr(self, f"{prefix}_prix", Decimal("0"))
+                quantite = getattr(self, f"{prefix}_quantite", 0)
 
-                if quantite > 0 and prix_ttc > 0:
-                    total = prix_ttc * quantite
-                    total_general += total
+                total = prix * quantite
+                total_general += total
 
-                    rapport.append({
-                        "champ": piece,
-                        "prix": getattr(self, f"{piece}_prix_vente_htva"),
-                        "tva": getattr(self, f"{piece}_tva_vente"),
-                        "quantite": quantite,
-                        "total": total
-                    })
+                rapport.append({
+                    "champ": label,
+                    "quantite": quantite,
+                    "prix": prix,
+                    "total": total,
+                })
 
         return {
             "lignes": rapport,
             "total_general": total_general
         }
+
+    @property
+    def temps_main_oeuvre_display(self):
+        if not self.main_oeuvre:
+            return "0h00"
+        return self.main_oeuvre.temps_display

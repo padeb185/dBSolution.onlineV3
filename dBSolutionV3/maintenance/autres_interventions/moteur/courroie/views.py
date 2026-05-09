@@ -1,5 +1,9 @@
+from datetime import datetime
+
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
+from django.template.loader import render_to_string
 from django.utils import timezone
 from django.contrib import messages
 from django.db import transaction, models
@@ -16,9 +20,7 @@ from django.views.generic import DetailView
 from decimal import Decimal
 from maintenance.autres_interventions.moteur.courroie.models import CourroieDistribution
 from maintenance.autres_interventions.moteur.courroie.forms import CourroieDistributionForm
-
-
-
+from weasyprint import HTML
 
 
 @method_decorator([login_required, never_cache], name='dispatch')
@@ -360,3 +362,33 @@ class CourroieDistributionRapportDetailView(DetailView):
         context["rapport"] = rapport
 
         return context
+
+
+
+
+
+@login_required
+def courroie_detail_pdf_view(request, pk):
+    courroie = get_object_or_404(CourroieDistribution, pk=pk)
+
+    rapport = courroie.generer_rapport_remplacement()
+
+    html_string = render_to_string(
+        "courroie/courroie_detail_pdf.html",
+        {
+            "courroie": courroie,
+            "rapport": rapport,
+            "date_export": datetime.now(),
+            "societe": request.user.societe
+        }
+    )
+
+    pdf = HTML(
+        string=html_string,
+        base_url=request.build_absolute_uri()
+    ).write_pdf()
+
+    response = HttpResponse(pdf, content_type="application/pdf")
+    response["Content-Disposition"] = f'attachment; filename="rapport_alternateur_{pk}.pdf"'
+
+    return response

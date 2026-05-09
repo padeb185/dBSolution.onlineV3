@@ -1,5 +1,6 @@
 from decimal import Decimal
 from django import forms
+from django.core.exceptions import ValidationError
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from maindoeuvre.models import MainDoeuvre
@@ -45,6 +46,12 @@ class AlternateurForm(forms.ModelForm):
                 "class": "input"
             })
 
+        if self.instance and self.instance.main_oeuvre:
+            mo = self.instance.main_oeuvre
+
+            self.fields["temps_heures"].initial = mo.heures
+            self.fields["temps_minutes"].initial = mo.minutes
+
         # ✅ initialisation date seulement si le champ existe
         if "date" in self.fields and self.instance and self.instance.pk and self.instance.date:
             local_dt = timezone.localtime(self.instance.date)
@@ -65,6 +72,21 @@ class AlternateurForm(forms.ModelForm):
             if f in self.fields:
                 self.fields[f].initial = 0
                 self.fields[f].required = False
+
+
+    def clean(self):
+        cleaned = super().clean()
+
+        h = cleaned.get("temps_heures") or 0
+        m = cleaned.get("temps_minutes") or 0
+
+        if m >= 60:
+            raise ValidationError("Les minutes ne peuvent pas dépasser 59.")
+
+        return cleaned
+
+
+
 
     def save(self, commit=True):
         instance = super().save(commit=False)
