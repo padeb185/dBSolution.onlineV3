@@ -328,23 +328,28 @@ def modifier_alternateur_view(request, alternateur_id):
 
 
 
-
 @login_required
 def alternateur_detail_pdf_view(request, pk):
     alternateur = get_object_or_404(Alternateur, pk=pk)
+
+    rapport = alternateur.generer_rapport_remplacement()
 
     html_string = render_to_string(
         "alternateur/alternateur_detail_pdf.html",
         {
             "alternateur": alternateur,
+            "rapport": rapport,
             "date_export": datetime.now(),
             "societe": request.user.societe
         }
     )
-    pdf = HTML(string=html_string, base_url=request.build_absolute_uri()).write_pdf()
+
+    pdf = HTML(
+        string=html_string,
+        base_url=request.build_absolute_uri()
+    ).write_pdf()
 
     response = HttpResponse(pdf, content_type="application/pdf")
     response["Content-Disposition"] = f'attachment; filename="rapport_alternateur_{pk}.pdf"'
 
     return response
-

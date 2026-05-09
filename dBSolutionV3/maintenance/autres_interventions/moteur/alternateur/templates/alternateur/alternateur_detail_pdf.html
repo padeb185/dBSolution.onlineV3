@@ -172,42 +172,6 @@
             {% trans "État" %} :
             {{ alternateur.get_alternateur_display }}
         </div>
-
-        <div>
-            {% trans "Prix achat HTVA" %} :
-            {{ alternateur.alternateur_prix_achat }} €
-        </div>
-
-        <div>
-            {% trans "TVA achat" %} :
-            {{ alternateur.alternateur_tva_achat }} €
-        </div>
-
-        <div>
-            {% trans "Marge" %} :
-            {{ alternateur.alternateur_marge }} %
-        </div>
-
-        <div>
-            {% trans "Prix vente HTVA" %} :
-            {{ alternateur.alternateur_prix_vente_htva }} €
-        </div>
-
-        <div>
-            {% trans "TVA vente" %} :
-            {{ alternateur.alternateur_tva_vente }} €
-        </div>
-
-        <div>
-            {% trans "Prix TTC" %} :
-            {{ alternateur.alternateur_prix_ttc }} €
-        </div>
-
-        <div>
-            {% trans "Quantité" %} :
-            {{ alternateur.alternateur_quantite }}
-        </div>
-
     </div>
 </div>
 <h2>{% trans "Courroie accessoires" %}</h2>
@@ -220,48 +184,16 @@
             {{ alternateur.get_courroie_accessoires_display }}
         </div>
 
-        <div>
-            {% trans "Prix achat HTVA" %} :
-            {{ alternateur.courroie_accessoires_prix_achat }} €
-        </div>
-
-        <div>
-            {% trans "TVA achat" %} :
-            {{ alternateur.courroie_accessoires_tva_achat }} €
-        </div>
-
-        <div>
-            {% trans "Marge" %} :
-            {{ alternateur.courroie_accessoires_marge }} %
-        </div>
-
-        <div>
-            {% trans "Prix vente HTVA" %} :
-            {{ alternateur.courroie_accessoires_prix_vente_htva }} €
-        </div>
-
-        <div>
-            {% trans "TVA vente" %} :
-            {{ alternateur.courroie_accessoires_tva_vente }} €
-        </div>
-
-        <div>
-            {% trans "Prix TTC" %} :
-            {{ alternateur.courroie_accessoires_prix_ttc }} €
-        </div>
-
-        <div>
-            {% trans "Quantité" %} :
-            {{ alternateur.courroie_accessoires_quantite }}
-        </div>
-
     </div>
 </div>
 
-<h2>{% trans "Remarques" %}</h2>
 
+
+<h2>{% trans "Main d'oeuvre" %}</h2>
 <div class="box">
-    {{ alternateur.remarques|default:_("Aucune remarque.") }}
+    <div class="grid">
+        {{ alternateur.main_oeuvre.temps_display|default:"-" }}
+    </div>
 </div>
 
 
