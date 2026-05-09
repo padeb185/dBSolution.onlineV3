@@ -106,8 +106,6 @@
 
 <body>
 
-<!-- ================= TITRE ================= -->
-
 <h1>
     {% trans "Rapport de contrôle turbo" %}
 </h1>
@@ -202,10 +200,12 @@
 
         <tbody>
 
+            <!-- Jeu axe turbo -->
+
             <tr>
 
                 <td>
-                    {{ turbo._meta.get_field('jeu_axe_tur').verbose_name }}
+                    {% trans "Jeu dans l'axe du turbo" %}
                 </td>
 
                 <td>
@@ -228,10 +228,12 @@
 
             </tr>
 
+            <!-- Turbine admission -->
+
             <tr>
 
                 <td>
-                    {{ turbo._meta.get_field('etat_turbine_admission').verbose_name }}
+                    {% trans "État de la turbine côté admission" %}
                 </td>
 
                 <td>
@@ -254,10 +256,12 @@
 
             </tr>
 
+            <!-- Turbine échappement -->
+
             <tr>
 
                 <td>
-                    {{ turbo._meta.get_field('etat_turbine_echappement').verbose_name }}
+                    {% trans "État de la turbine côté échappement" %}
                 </td>
 
                 <td>
@@ -280,10 +284,12 @@
 
             </tr>
 
+            <!-- Fuites huile -->
+
             <tr>
 
                 <td>
-                    {{ turbo._meta.get_field('fuites_huile_tur').verbose_name }}
+                    {% trans "Fuites d'huile au niveau de la turbine" %}
                 </td>
 
                 <td>
@@ -306,10 +312,12 @@
 
             </tr>
 
+            <!-- Géométrie variable -->
+
             <tr>
 
                 <td>
-                    {{ turbo._meta.get_field('fonctionnement_geometrie_variable').verbose_name }}
+                    {% trans "Fonctionnement de la géométrie variable" %}
                 </td>
 
                 <td>
@@ -375,11 +383,8 @@
                     <tr>
 
                         <th>{% trans "Pièce" %}</th>
-
                         <th>{% trans "Quantité" %}</th>
-
                         <th>{% trans "Prix unitaire" %}</th>
-
                         <th>{% trans "Total" %}</th>
 
                     </tr>
@@ -390,36 +395,40 @@
 
                     {% for ligne in rapport.lignes %}
 
-                    <tr>
+                        <tr>
 
-                        <td>
-                            {{ ligne.champ }}
-                        </td>
+                            <td>
+                                {{ ligne.champ }}
+                            </td>
 
-                        <td>
-                            {{ ligne.quantite }}
-                        </td>
+                            <td>
+                                {{ ligne.quantite }}
+                            </td>
 
-                        <td>
-                            {{ ligne.prix|floatformat:2 }} €
-                        </td>
+                            <td>
+                                {{ ligne.prix|floatformat:2 }} €
+                            </td>
 
-                        <td>
-                            {{ ligne.total|floatformat:2 }} €
-                        </td>
+                            <td>
+                                {{ ligne.total|floatformat:2 }} €
+                            </td>
 
-                    </tr>
+                        </tr>
 
                     {% endfor %}
 
                     <tr class="total">
 
                         <td colspan="3" class="text-right">
+
                             {% trans "Total général" %}
+
                         </td>
 
                         <td>
+
                             {{ rapport.total_general|floatformat:2 }} €
+
                         </td>
 
                     </tr>

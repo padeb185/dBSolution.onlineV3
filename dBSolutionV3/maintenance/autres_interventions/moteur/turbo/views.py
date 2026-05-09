@@ -289,7 +289,7 @@ def turbo_detail_pdf_view(request, pk):
     rapport = turbo.generer_rapport_remplacement()
 
     html_string = render_to_string(
-        "alternateur/alternateur_detail_pdf.html",
+        "turbo/turbo_detail_pdf.html",
         {
             "turbo": turbo,
             "rapport": rapport,

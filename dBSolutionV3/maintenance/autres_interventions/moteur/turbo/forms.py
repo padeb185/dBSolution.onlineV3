@@ -1,6 +1,4 @@
-from decimal import Decimal
 from django import forms
-from django.core.exceptions import ValidationError
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from maindoeuvre.models import MainDoeuvre
@@ -66,8 +64,7 @@ class TurboForm(forms.ModelForm):
                 self.fields[f].initial = 0
                 self.fields[f].required = False
 
-    from django.core.exceptions import ValidationError
-    from django.utils.translation import gettext_lazy as _
+
 
     def clean(self):
 
