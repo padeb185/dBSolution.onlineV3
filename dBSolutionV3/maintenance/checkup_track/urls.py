@@ -1,7 +1,7 @@
 # maintenance/checkup_track/urls.py
 from django.urls import path
 from .views import CheckupTrackListView, modifier_checkup_track_view, \
-    checkup_track_detail_view, track_check_form_view
+    checkup_track_detail_view, track_check_form_view, checkup_track_detail_pdf_view
 
 app_name = "check_up"
 
@@ -16,4 +16,7 @@ urlpatterns = [
 
 
     path('<int:checkup_track_id>/detail/', checkup_track_detail_view, name='checkup_track_detail'),
+
+    path("rapport/<int:pk>/", checkup_track_detail_pdf_view, name="checkup_track_detail_pdf"),
+
 ]

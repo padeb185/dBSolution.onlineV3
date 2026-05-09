@@ -327,46 +327,6 @@ def modifier_alternateur_view(request, alternateur_id):
     )
 
 
-@login_required
-def rapport_alternateur_view(request, pk):
-    obj = get_object_or_404(Alternateur, pk=pk)
-
-    rapport = obj.generer_rapport_remplacement()
-
-    return render(request, "alternateur/rapport_alternateur.html", {
-        "rapport": rapport,
-        "obj": obj
-    })
-
-
-
-
-
-class AlternateurRapportDetailView(DetailView):
-    model = Alternateur
-    template_name = "alternateur/rapport_pdf_alternateur.html"
-    context_object_name = "obj"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        obj = self.object
-
-        rapport = obj.generer_rapport_remplacement()
-
-        if not rapport:
-            rapport = {"lignes": [], "total_general": Decimal("0")}
-
-        # 🔥 AJOUT DU TAUX TVA DANS CHAQUE LIGNE
-        taux_tva = obj.TVA_PIECES.get(obj.pays, 0)
-
-        for ligne in rapport["lignes"]:
-            ligne["taux_tva"] = taux_tva
-
-        context["rapport"] = rapport
-
-        return context
-
 
 
 @login_required
@@ -384,7 +344,7 @@ def alternateur_detail_pdf_view(request, pk):
     pdf = HTML(string=html_string, base_url=request.build_absolute_uri()).write_pdf()
 
     response = HttpResponse(pdf, content_type="application/pdf")
-    response["Content-Disposition"] = f'attachment; filename="geometrie_{pk}.pdf"'
+    response["Content-Disposition"] = f'attachment; filename="rapport_alternateur_{pk}.pdf"'
 
     return response
 

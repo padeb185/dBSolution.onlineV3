@@ -1,9 +1,12 @@
+from datetime import datetime
+
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
+from django.template.loader import render_to_string
 from django.utils import timezone
 from django.contrib import messages
 from django.db import transaction, models
-from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
@@ -13,8 +16,12 @@ from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from maintenance.nettoyage_exterieur.models import NettoyageExterieur
 from django.utils.translation import gettext_lazy as _
+from weasyprint import HTML
+
 from .forms import CheckupTrackForm
 from .models import CheckupTrack
+
+
 
 
 # -----------------------------
@@ -222,3 +229,28 @@ def modifier_checkup_track_view(request, checkup_track_id):
             "exemplaire": checkup_track.voiture_exemplaire,
         }
     )
+
+
+@login_required
+def checkup_track_detail_pdf_view(request, pk):
+    checkup_track = get_object_or_404(CheckupTrack, pk=pk)
+
+    html_string = render_to_string(
+        "checkup_track/checkup_track_detail_pdf.html",
+        {
+            "checkup_track": checkup_track,
+            "date_export": datetime.now(),
+            "societe": request.user.societe
+        }
+    )
+
+    pdf = HTML(string=html_string, base_url=request.build_absolute_uri()).write_pdf()
+
+    response = HttpResponse(pdf, content_type="application/pdf")
+    response["Content-Disposition"] = f'attachment; filename="checkup_track_{pk}.pdf"'
+
+    return response
+
+
+
+

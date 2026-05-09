@@ -269,24 +269,26 @@ class Alternateur(TechnicienMixin, models.Model):
         rapport = []
         total_general = Decimal("0")
 
-        pieces = ["alternateur", "courroie_accessoires"]
+        for field in self._meta.fields:
+            field_name = field.name
 
-        for piece in pieces:
-            if getattr(self, piece) == EtatOKNotOK.NOT_OK:
+            # On ne garde que les champs état
+            if isinstance(field, models.CharField) and field.choices == EtatOKNotOK.choices:
+                valeur = getattr(self, field_name)
 
-                quantite = getattr(self, f"{piece}_quantite")
-                prix_ttc = getattr(self, f"{piece}_prix_ttc")
+                if valeur == EtatOKNotOK.NOT_OK:
+                    prix = getattr(self, f"{field_name}_prix", Decimal("0"))
+                    quantite = getattr(self, f"{field_name}_quantite", 0)
 
-                if quantite > 0 and prix_ttc > 0:
-                    total = prix_ttc * quantite
+                    total = prix * quantite
                     total_general += total
 
                     rapport.append({
-                        "champ": piece,
-                        "prix": getattr(self, f"{piece}_prix_vente_htva"),
-                        "tva": getattr(self, f"{piece}_tva_vente"),
+                        "champ": field.verbose_name,
+                        "code": field_name,
+                        "prix": prix,
                         "quantite": quantite,
-                        "total": total
+                        "total": total,
                     })
 
         return {
@@ -294,7 +296,3 @@ class Alternateur(TechnicienMixin, models.Model):
             "total_general": total_general
         }
 
-
-
-    def total_general(self):
-        return (self.alternateur_prix_ttc or Decimal("0")) + (self.courroie_accessoires_prix_ttc or Decimal("0"))

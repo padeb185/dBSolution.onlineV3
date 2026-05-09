@@ -1,4 +1,4 @@
-from decimal import Decimal
+from decimal import Decimal, ROUND_HALF_UP
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -223,22 +223,87 @@ class Admission(TechnicienMixin, models.Model):
 
         super().save(*args, **kwargs)
 
+        # -------------------------
+        # RAPPORT
+        # -------------------------
+
+    def calcul_piece(self, prefix):
+        prix_achat = getattr(self, f"{prefix}_prix_achat")
+        marge = getattr(self, f"{prefix}_marge")
+        quantite = getattr(self, f"{prefix}_quantite")
+
+        if not prix_achat or not self.pays:
+            return
+
+        tva_rate = Decimal(self.TVA_PIECES.get(self.pays, 0)) / 100
+
+        # TVA achat
+        setattr(self, f"{prefix}_tva_achat",
+                (prix_achat * tva_rate).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP))
+
+        # HTVA
+        if marge:
+            prix_htva = prix_achat * (1 + Decimal(marge) / 100)
+        else:
+            prix_htva = prix_achat
+
+        prix_htva = prix_htva.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+
+        setattr(self, f"{prefix}_prix_vente_htva", prix_htva)
+
+        # TVA vente
+        tva = (prix_htva * tva_rate).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+        setattr(self, f"{prefix}_tva_vente", tva)
+
+        # TTC
+        prix_ttc = prix_htva + tva
+        setattr(self, f"{prefix}_prix_ttc", prix_ttc)
+
+
+
     def generer_rapport_remplacement(self):
         rapport = []
-        total_general = Decimal("0")
+        total_general = Decimal("0.00")
 
         for field in self._meta.fields:
+
             field_name = field.name
 
-            # On ne garde que les champs état
-            if isinstance(field, models.CharField) and field.choices == EtatOKNotOK.choices:
+            # uniquement les champs OK / NOT_OK
+            if (
+                    isinstance(field, models.CharField)
+                    and field.choices == EtatOKNotOK.choices
+            ):
+
                 valeur = getattr(self, field_name)
 
+                # seulement les pièces à remplacer
                 if valeur == EtatOKNotOK.NOT_OK:
-                    prix = getattr(self, f"{field_name}_prix", Decimal("0"))
-                    quantite = getattr(self, f"{field_name}_quantite", 0)
 
-                    total = prix * quantite
+                    # récupération sécurisée du prix
+                    prix = getattr(
+                        self,
+                        f"{field_name}_prix",
+                        Decimal("0.00")
+                    )
+
+                    if prix is None:
+                        prix = Decimal("0.00")
+
+                    prix = Decimal(prix)
+
+                    # récupération quantité
+                    quantite = getattr(
+                        self,
+                        f"{field_name}_quantite",
+                        0
+                    )
+
+                    if quantite is None:
+                        quantite = 0
+
+                    total = prix * Decimal(str(quantite))
+
                     total_general += total
 
                     rapport.append({
@@ -251,8 +316,5 @@ class Admission(TechnicienMixin, models.Model):
 
         return {
             "lignes": rapport,
-            "total_general": total_general
+            "total_general": total_general,
         }
-
-
-

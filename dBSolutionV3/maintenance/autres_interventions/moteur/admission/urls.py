@@ -1,7 +1,7 @@
 # maintenance/check_up/urls.py
 from django.urls import path
 from .views import AdmissionListView, \
-    admission_check_view, modifier_admission_view, admission_detail_view, rapport_view
+    admission_check_view, modifier_admission_view, admission_detail_view, admission_detail_pdf_view
 
 app_name = "admission"
 
@@ -17,7 +17,7 @@ urlpatterns = [
 
     path('admission/<int:admission_id>/detail/', admission_detail_view, name='admission_detail'),
 
-    path("rapport/<int:pk>/", rapport_view, name="rapport"),
+    path("rapport/<int:pk>/", admission_detail_pdf_view, name="admission_detail_pdf"),
 ]
 
 

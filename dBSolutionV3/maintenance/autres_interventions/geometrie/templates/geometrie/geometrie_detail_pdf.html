@@ -48,6 +48,24 @@
         .label {
             font-weight: bold;
         }
+         .tag {
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tag-vert {
+            background: #16a34a;
+        }
+
+        .tag-jaune {
+            background: #ca8a04;
+        }
+
+        .tag-rouge {
+            background: #dc2626;
+        }
     </style>
 </head>
 
@@ -63,7 +81,20 @@
         <div><span class="label">{% trans "Technicien" %} :</span> {{ geometrie.tech_nom_technicien }}</div>
 
         <div><span class="label">{% trans "Société" %} :</span> {{ geometrie.tech_societe }}</div>
-        <div><span class="label">{% trans "Tag" %} :</span> {{ geometrie.tag }}</div>
+
+        <div>
+            <span class="label">{% trans "Tag" %} :</span>
+
+            {% if geometrie.tag == "VERT" %}
+                <span class="tag tag-vert">{{ geometrie.get_tag_display }}</span>
+
+            {% elif geometrie.tag == "JAUNE" %}
+                <span class="tag tag-jaune">{{ geometrie.get_tag_display }}</span>
+
+            {% else %}
+                <span class="tag tag-rouge">{{ geometrie.get_tag_display }}</span>
+            {% endif %}
+        </div>
 
         <div><span class="label">{% trans "Véhicule" %} :</span> {{ geometrie.voiture_exemplaire }}</div>
         <div><span class="label">{% trans "Kilométrage actuel" %} :</span> {{ geometrie.kilometres_chassis }} km</div>

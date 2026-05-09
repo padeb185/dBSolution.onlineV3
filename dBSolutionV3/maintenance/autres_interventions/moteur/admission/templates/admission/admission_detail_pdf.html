@@ -39,12 +39,6 @@
             gap: 6px;
         }
 
-        .grid-3 {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 6px;
-        }
-
         .label {
             font-weight: bold;
         }
@@ -97,174 +91,179 @@
 </head>
 
 <body>
-<h1>{% trans "Détail de la maintenance alternateur" %}</h1>
 
+<h1>{% trans "Contrôle de l'admission moteur" %}</h1>
+
+<!-- ================= INFO ================= -->
 <div class="box">
 
     <div class="grid">
-        <div><span class="label">{% trans "Date" %} :</span> {{ alternateur.date|date:"d/m/Y H:i" }}</div>
-        <div><span class="label">{% trans "Technicien" %} :</span> {{ alternateur.tech_nom_technicien }}</div>
+        <div>
+            <span class="label">{% trans "Date" %} :</span>
+            {{ admission.date|date:"d/m/Y H:i" }}
+        </div>
 
-        <div><span class="label">{% trans "Société" %} :</span> {{ alternateur.tech_societe }}</div>
-         <div>
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+            {{ admission.tech_nom_technicien }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Société" %} :</span>
+            {{ admission.tech_societe }}
+        </div>
+
+        <div>
             <span class="label">{% trans "Tag" %} :</span>
 
-            {% if alternateur.tag == "VERT" %}
+            {% if admission.tag == "VERT" %}
                 <span class="tag tag-vert">
-                    {{ alternateur.get_tag_display }}
+                    {{ admission.get_tag_display }}
                 </span>
 
-            {% elif alternateur.tag == "JAUNE" %}
+            {% elif admission.tag == "JAUNE" %}
                 <span class="tag tag-jaune">
-                    {{ alternateur.get_tag_display }}
+                    {{ admission.get_tag_display }}
                 </span>
 
             {% else %}
                 <span class="tag tag-rouge">
-                    {{ alternateur.get_tag_display }}
+                    {{ admission.get_tag_display }}
                 </span>
             {% endif %}
         </div>
 
-        <div><span class="label">{% trans "Véhicule" %} :</span> {{ alternateur.voiture_exemplaire }}</div>
-
-        <div><span class="label">{% trans "Kilométrage chassis" %} :</span>
-            {{ alternateur.kilometres_chassis }} km
+        <div>
+            <span class="label">{% trans "Véhicule" %} :</span>
+            {{ admission.voiture_exemplaire }}
         </div>
 
-        <div><span class="label">{% trans "Kilométrage alternateur" %} :</span>
-            {{ alternateur.kilometrage_alte }} km
+        <div>
+            <span class="label">{% trans "Kilométrage actuel" %} :</span>
+            {{ admission.kilometres_chassis }} km
         </div>
 
+        <div>
+            <span class="label">{% trans "Kilométrage admission" %} :</span>
+            {{ admission.kilometrage_admission }} km
+        </div>
     </div>
+
 </div>
 
-<h2>{% trans "Diagnostic alternateur" %}</h2>
+<!-- ================= FILTRATION ================= -->
+<h2>{% trans "Filtration" %}</h2>
 
 <div class="box">
     <div class="grid">
 
         <div>
-            {% trans "Tension charge" %} :
-            {{ alternateur.diagnostic_charge_volt }} V
+            <span class="label">{% trans "Filtre à air" %} :</span>
+            {{ admission.get_filtre_air_pc_display }}
         </div>
 
         <div>
-            {% trans "Courant charge" %} :
-            {{ alternateur.diagnostic_charge_ampere }} A
-        </div>
-
-        <div>
-            {% trans "État alternateur" %} :
-            {{ alternateur.get_diagnostic_rapport_display }}
+            <span class="label">{% trans "Boîtier filtre à air" %} :</span>
+            {{ admission.get_boitier_filtre_air_display }}
         </div>
 
     </div>
 </div>
 
-
-<h2>{% trans "Alternateur" %}</h2>
+<!-- ================= MESURE AIR ================= -->
+<h2>{% trans "Mesure d'air" %}</h2>
 
 <div class="box">
     <div class="grid">
 
         <div>
-            {% trans "État" %} :
-            {{ alternateur.get_alternateur_display }}
+            <span class="label">{% trans "Débitmètre d'air" %} :</span>
+            {{ admission.get_debitmetre_display }}
         </div>
 
         <div>
-            {% trans "Prix achat HTVA" %} :
-            {{ alternateur.alternateur_prix_achat }} €
+            <span class="label">{% trans "Capteur MAP" %} :</span>
+            {{ admission.get_capteur_map_display }}
         </div>
 
         <div>
-            {% trans "TVA achat" %} :
-            {{ alternateur.alternateur_tva_achat }} €
-        </div>
-
-        <div>
-            {% trans "Marge" %} :
-            {{ alternateur.alternateur_marge }} %
-        </div>
-
-        <div>
-            {% trans "Prix vente HTVA" %} :
-            {{ alternateur.alternateur_prix_vente_htva }} €
-        </div>
-
-        <div>
-            {% trans "TVA vente" %} :
-            {{ alternateur.alternateur_tva_vente }} €
-        </div>
-
-        <div>
-            {% trans "Prix TTC" %} :
-            {{ alternateur.alternateur_prix_ttc }} €
-        </div>
-
-        <div>
-            {% trans "Quantité" %} :
-            {{ alternateur.alternateur_quantite }}
+            <span class="label">{% trans "Capteur température air" %} :</span>
+            {{ admission.get_capteur_temperature_air_display }}
         </div>
 
     </div>
 </div>
-<h2>{% trans "Courroie accessoires" %}</h2>
+
+<!-- ================= ADMISSION ================= -->
+<h2>{% trans "Admission principale" %}</h2>
 
 <div class="box">
     <div class="grid">
 
         <div>
-            {% trans "État" %} :
-            {{ alternateur.get_courroie_accessoires_display }}
+            <span class="label">{% trans "Corps de papillon" %} :</span>
+            {{ admission.get_corps_papillon_display }}
         </div>
 
         <div>
-            {% trans "Prix achat HTVA" %} :
-            {{ alternateur.courroie_accessoires_prix_achat }} €
-        </div>
-
-        <div>
-            {% trans "TVA achat" %} :
-            {{ alternateur.courroie_accessoires_tva_achat }} €
-        </div>
-
-        <div>
-            {% trans "Marge" %} :
-            {{ alternateur.courroie_accessoires_marge }} %
-        </div>
-
-        <div>
-            {% trans "Prix vente HTVA" %} :
-            {{ alternateur.courroie_accessoires_prix_vente_htva }} €
-        </div>
-
-        <div>
-            {% trans "TVA vente" %} :
-            {{ alternateur.courroie_accessoires_tva_vente }} €
-        </div>
-
-        <div>
-            {% trans "Prix TTC" %} :
-            {{ alternateur.courroie_accessoires_prix_ttc }} €
-        </div>
-
-        <div>
-            {% trans "Quantité" %} :
-            {{ alternateur.courroie_accessoires_quantite }}
+            <span class="label">{% trans "Collecteur d'admission" %} :</span>
+            {{ admission.get_collecteur_admission_display }}
         </div>
 
     </div>
 </div>
 
-<h2>{% trans "Remarques" %}</h2>
+<!-- ================= SURALIMENTATION ================= -->
+<h2>{% trans "Suralimentation" %}</h2>
 
 <div class="box">
-    {{ alternateur.remarques|default:_("Aucune remarque.") }}
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Turbo" %} :</span>
+            {{ admission.get_turbo_display }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Intercooler" %} :</span>
+            {{ admission.get_intercooler_display }}
+        </div>
+
+    </div>
 </div>
 
+<!-- ================= EGR ================= -->
+<h2>{% trans "Système EGR" %}</h2>
 
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Vanne EGR" %} :</span>
+            {{ admission.get_vanne_egr_display }}
+        </div>
+
+    </div>
+</div>
+
+<!-- ================= DIVERS ================= -->
+<h2>{% trans "Divers" %}</h2>
+
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Durites d'admission" %} :</span>
+            {{ admission.get_durites_admission_display }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Joints admission" %} :</span>
+            {{ admission.get_joints_admission_display }}
+        </div>
+
+    </div>
+</div>
 
 <!-- ================= PIÈCES À REMPLACER ================= -->
 <h2>{% trans "Pièces à remplacer" %}</h2>
