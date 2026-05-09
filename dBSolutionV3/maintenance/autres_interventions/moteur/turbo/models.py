@@ -157,6 +157,19 @@ class Turbo(TechnicienMixin, models.Model):
     def __str__(self):
         return f"Turbo - {self.voiture_exemplaire}"
 
+    def calcul_piece(self, prefix):
+
+        prix = getattr(self, f"{prefix}_prix", Decimal("0"))
+        quantite = getattr(self, f"{prefix}_quantite", 0)
+
+        total = prix * quantite
+
+        return {
+            "prix": prix,
+            "quantite": quantite,
+            "total": total,
+        }
+
 
     def save(self, *args, **kwargs):
         # Si checkup > km actuel, mettre à jour la voiture
@@ -172,4 +185,53 @@ class Turbo(TechnicienMixin, models.Model):
         if not self.tech_technicien and hasattr(self, '_user'):
             self.assign_technicien(self._user)
 
+            # Calculs
+            self.calcul_piece("turbos")
+            self.calcul_piece("intercooler")
+            self.calcul_piece("electrovanne")
+            self.calcul_piece("joints")
+
         super().save(*args, **kwargs)
+
+
+
+
+    # -------------------------
+    # RAPPORT
+    # -------------------------
+    def generer_rapport_remplacement(self):
+        rapport = []
+        total_general = Decimal("0")
+
+        for field in self._meta.fields:
+            field_name = field.name
+
+            # On ne garde que les champs état
+            if isinstance(field, models.CharField) and field.choices == EtatOKNotOK.choices:
+                valeur = getattr(self, field_name)
+
+                if valeur == EtatOKNotOK.NOT_OK:
+                    prix = getattr(self, f"{field_name}_prix", Decimal("0"))
+                    quantite = getattr(self, f"{field_name}_quantite", 0)
+
+                    total = prix * quantite
+                    total_general += total
+
+                    rapport.append({
+                        "champ": field.verbose_name,
+                        "code": field_name,
+                        "prix": prix,
+                        "quantite": quantite,
+                        "total": total,
+                    })
+
+        return {
+            "lignes": rapport,
+            "total_general": total_general
+        }
+
+    @property
+    def temps_main_oeuvre_display(self):
+        if not self.main_oeuvre:
+            return "0h00"
+        return self.main_oeuvre.temps_display

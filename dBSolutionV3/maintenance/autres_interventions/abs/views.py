@@ -1,5 +1,9 @@
+from datetime import datetime
+
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
+from django.template.loader import render_to_string
 from django.utils import timezone
 from django.contrib import messages
 from django.db import transaction, models
@@ -14,6 +18,9 @@ from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import DetailView
 from decimal import Decimal
+
+from weasyprint import HTML
+
 from .forms import AbsForm
 from .models import Abs
 
@@ -318,42 +325,29 @@ def modifier_abs_view(request, abs_id):
     )
 
 
+
 @login_required
-def rapport_abs_view(request, pk):
-    obj = get_object_or_404(Abs, pk=pk)
+def abs_detail_pdf_view(request, pk):
+    abs = get_object_or_404(Abs, pk=pk)
 
-    rapport = obj.generer_rapport_remplacement()
+    rapport = abs.generer_rapport_remplacement()
 
-    return render(request, "abs/rapport_abs.html", {
-        "rapport": rapport,
-        "obj": obj
-    })
+    html_string = render_to_string(
+        "abs/abs_detail_pdf.html",
+        {
+            "abs": abs,
+            "rapport": rapport,
+            "date_export": datetime.now(),
+            "societe": request.user.societe
+        }
+    )
 
+    pdf = HTML(
+        string=html_string,
+        base_url=request.build_absolute_uri()
+    ).write_pdf()
 
+    response = HttpResponse(pdf, content_type="application/pdf")
+    response["Content-Disposition"] = f'attachment; filename="rapport ABS {pk}.pdf"'
 
-
-
-class AbsRapportDetailView(DetailView):
-    model = Abs
-    template_name = "abs/rapport_pdf_abs.html"
-    context_object_name = "obj"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        obj = self.object
-
-        rapport = obj.generer_rapport_remplacement()
-
-        if not rapport:
-            rapport = {"lignes": [], "total_general": Decimal("0")}
-
-        # 🔥 AJOUT DU TAUX TVA DANS CHAQUE LIGNE
-        taux_tva = obj.TVA_PIECES.get(obj.pays, 0)
-
-        for ligne in rapport["lignes"]:
-            ligne["taux_tva"] = taux_tva
-
-        context["rapport"] = rapport
-
-        return context
+    return response

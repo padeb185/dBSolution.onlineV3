@@ -59,6 +59,16 @@
                 </button>
             </a>
         </div>
+
+          <!-- Bouton Rapport -->
+        <div class="mt-auto w-full">
+            <a href="{% url 'turbo:turbo_detail_pdf' turbo.id %}"class="block w-full">
+                <button type="button" class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+                    {% trans "Télécharger le PDF" %}
+                </button>
+            </a>
+        </div>
+
     </div>
 
      <!-- Métadonnées -->

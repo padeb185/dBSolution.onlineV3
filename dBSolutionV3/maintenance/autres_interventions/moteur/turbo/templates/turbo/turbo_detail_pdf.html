@@ -1,0 +1,454 @@
+{% load i18n %}
+
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+        }
+
+        h2 {
+            font-size: 15px;
+            margin-top: 22px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 4px;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 14px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        .tag {
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tag-vert {
+            background: #16a34a;
+        }
+
+        .tag-jaune {
+            background: #ca8a04;
+        }
+
+        .tag-rouge {
+            background: #dc2626;
+        }
+
+        .ok {
+            color: #16a34a;
+            font-weight: bold;
+        }
+
+        .not-ok {
+            color: #dc2626;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        table th,
+        table td {
+            border: 1px solid #ccc;
+            padding: 7px;
+            text-align: left;
+        }
+
+        table th {
+            background: #f3f3f3;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .total {
+            font-weight: bold;
+            background: #f8f8f8;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<!-- ================= TITRE ================= -->
+
+<h1>
+    {% trans "Rapport de contrôle turbo" %}
+</h1>
+
+<!-- ================= INFORMATIONS GÉNÉRALES ================= -->
+
+<div class="box">
+
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Date" %} :</span>
+            {{ turbo.date|date:"d/m/Y H:i" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+            {{ turbo.tech_nom_technicien }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Rôle" %} :</span>
+            {{ turbo.tech_role_technicien }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Société" %} :</span>
+            {{ turbo.tech_societe }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Véhicule" %} :</span>
+            {{ turbo.voiture_exemplaire }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage chassis" %} :</span>
+            {{ turbo.kilometres_chassis }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage contrôle turbo" %} :</span>
+            {{ turbo.kilometres_turbo }} km
+        </div>
+
+        <div>
+
+            <span class="label">{% trans "Tag" %} :</span>
+
+            {% if turbo.tag == "VERT" %}
+
+                <span class="tag tag-vert">
+                    {{ turbo.get_tag_display }}
+                </span>
+
+            {% elif turbo.tag == "JAUNE" %}
+
+                <span class="tag tag-jaune">
+                    {{ turbo.get_tag_display }}
+                </span>
+
+            {% else %}
+
+                <span class="tag tag-rouge">
+                    {{ turbo.get_tag_display }}
+                </span>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ================= CONTRÔLE TURBO ================= -->
+
+<h2>{% trans "Contrôle turbo" %}</h2>
+
+<div class="box">
+
+    <table>
+
+        <thead>
+
+            <tr>
+                <th>{% trans "Élément contrôlé" %}</th>
+                <th>{% trans "Résultat" %}</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <tr>
+
+                <td>
+                    {{ turbo._meta.get_field('jeu_axe_tur').verbose_name }}
+                </td>
+
+                <td>
+
+                    {% if turbo.jeu_axe_tur == "OK" %}
+
+                        <span class="ok">
+                            {{ turbo.get_jeu_axe_tur_display }}
+                        </span>
+
+                    {% else %}
+
+                        <span class="not-ok">
+                            {{ turbo.get_jeu_axe_tur_display }}
+                        </span>
+
+                    {% endif %}
+
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td>
+                    {{ turbo._meta.get_field('etat_turbine_admission').verbose_name }}
+                </td>
+
+                <td>
+
+                    {% if turbo.etat_turbine_admission == "OK" %}
+
+                        <span class="ok">
+                            {{ turbo.get_etat_turbine_admission_display }}
+                        </span>
+
+                    {% else %}
+
+                        <span class="not-ok">
+                            {{ turbo.get_etat_turbine_admission_display }}
+                        </span>
+
+                    {% endif %}
+
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td>
+                    {{ turbo._meta.get_field('etat_turbine_echappement').verbose_name }}
+                </td>
+
+                <td>
+
+                    {% if turbo.etat_turbine_echappement == "OK" %}
+
+                        <span class="ok">
+                            {{ turbo.get_etat_turbine_echappement_display }}
+                        </span>
+
+                    {% else %}
+
+                        <span class="not-ok">
+                            {{ turbo.get_etat_turbine_echappement_display }}
+                        </span>
+
+                    {% endif %}
+
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td>
+                    {{ turbo._meta.get_field('fuites_huile_tur').verbose_name }}
+                </td>
+
+                <td>
+
+                    {% if turbo.fuites_huile_tur == "OK" %}
+
+                        <span class="ok">
+                            {{ turbo.get_fuites_huile_tur_display }}
+                        </span>
+
+                    {% else %}
+
+                        <span class="not-ok">
+                            {{ turbo.get_fuites_huile_tur_display }}
+                        </span>
+
+                    {% endif %}
+
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td>
+                    {{ turbo._meta.get_field('fonctionnement_geometrie_variable').verbose_name }}
+                </td>
+
+                <td>
+
+                    {% if turbo.fonctionnement_geometrie_variable == "OK" %}
+
+                        <span class="ok">
+                            {{ turbo.get_fonctionnement_geometrie_variable_display }}
+                        </span>
+
+                    {% else %}
+
+                        <span class="not-ok">
+                            {{ turbo.get_fonctionnement_geometrie_variable_display }}
+                        </span>
+
+                    {% endif %}
+
+                </td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<!-- ================= MAIN D'OEUVRE ================= -->
+
+<h2>{% trans "Main d'oeuvre" %}</h2>
+
+<div class="box">
+
+    <div class="grid">
+
+        <div>
+
+            <span class="label">{% trans "Temps de travail" %} :</span>
+
+            {{ turbo.temps_main_oeuvre_display }}
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ================= PIÈCES À REMPLACER ================= -->
+
+<h2>{% trans "Pièces à remplacer" %}</h2>
+
+<div class="box">
+
+    {% with rapport=turbo.generer_rapport_remplacement %}
+
+        {% if rapport.lignes %}
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>{% trans "Pièce" %}</th>
+
+                        <th>{% trans "Quantité" %}</th>
+
+                        <th>{% trans "Prix unitaire" %}</th>
+
+                        <th>{% trans "Total" %}</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for ligne in rapport.lignes %}
+
+                    <tr>
+
+                        <td>
+                            {{ ligne.champ }}
+                        </td>
+
+                        <td>
+                            {{ ligne.quantite }}
+                        </td>
+
+                        <td>
+                            {{ ligne.prix|floatformat:2 }} €
+                        </td>
+
+                        <td>
+                            {{ ligne.total|floatformat:2 }} €
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                    <tr class="total">
+
+                        <td colspan="3" class="text-right">
+                            {% trans "Total général" %}
+                        </td>
+
+                        <td>
+                            {{ rapport.total_general|floatformat:2 }} €
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        {% else %}
+
+            <p>
+                {% trans "Aucune pièce à remplacer." %}
+            </p>
+
+        {% endif %}
+
+    {% endwith %}
+
+</div>
+
+<!-- ================= REMARQUES ================= -->
+
+<h2>{% trans "Remarques" %}</h2>
+
+<div class="box">
+
+    {{ turbo.remarques|default:_("Aucune remarque.")|linebreaks }}
+
+</div>
+
+</body>
+</html>

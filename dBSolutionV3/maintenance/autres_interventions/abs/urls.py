@@ -1,7 +1,6 @@
 # maintenance/check_up/urls.py
 from django.urls import path
-from .views import AbsListView, abs_form_view, modifier_abs_view, abs_detail_view, rapport_abs_view, \
-    AbsRapportDetailView
+from .views import AbsListView, abs_form_view, modifier_abs_view, abs_detail_view, abs_detail_pdf_view
 
 app_name = "abs"
 
@@ -18,8 +17,8 @@ urlpatterns = [
 
     path('abs/<int:abs_id>/detail/', abs_detail_view, name='abs_detail'),
 
-    path("courroie/<int:pk>/", rapport_abs_view, name="rapport_abs"),
+    path("<int:pk>/", abs_detail_pdf_view, name="abs_detail_pdf"),
 
-    path("courroiePDF/<int:pk>/", AbsRapportDetailView.as_view(), name="rapport_pdf_abs"),
+
 ]
 

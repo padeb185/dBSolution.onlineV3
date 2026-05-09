@@ -1,0 +1,315 @@
+{% load i18n %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+        }
+
+        h2 {
+            font-size: 14px;
+            margin-top: 20px;
+            margin-bottom: 8px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 4px;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        .tag {
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tag-vert {
+            background: #16a34a;
+        }
+
+        .tag-jaune {
+            background: #ca8a04;
+        }
+
+        .tag-rouge {
+            background: #dc2626;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        table th,
+        table td {
+            border: 1px solid #ccc;
+            padding: 6px;
+            text-align: left;
+        }
+
+        table th {
+            background: #f3f3f3;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .total {
+            font-weight: bold;
+            background: #f8f8f8;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>{% trans "Détail du checkup ABS" %}</h1>
+
+<!-- ================= INFOS GÉNÉRALES ================= -->
+
+<div class="box">
+
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Date" %} :</span>
+            {{ abs.date|date:"d/m/Y H:i" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+            {{ abs.tech_nom_technicien }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Société" %} :</span>
+            {{ abs.tech_societe }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Tag" %} :</span>
+
+            {% if abs.tag == "VERT" %}
+                <span class="tag tag-vert">
+                    {{ abs.get_tag_display }}
+                </span>
+
+            {% elif abs.tag == "JAUNE" %}
+                <span class="tag tag-jaune">
+                    {{ abs.get_tag_display }}
+                </span>
+
+            {% else %}
+                <span class="tag tag-rouge">
+                    {{ abs.get_tag_display }}
+                </span>
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Véhicule" %} :</span>
+            {{ abs.voiture_exemplaire }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage chassis" %} :</span>
+            {{ abs.kilometres_chassis }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage ABS" %} :</span>
+            {{ abs.kilometrage_abs }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Pays TVA" %} :</span>
+            {{ abs.get_pays_display }}
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ================= ETAT DES PIÈCES ================= -->
+
+<h2>{% trans "État des composants ABS" %}</h2>
+
+<div class="box">
+
+    <table>
+        <thead>
+            <tr>
+                <th>{% trans "Composant" %}</th>
+                <th>{% trans "État" %}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td>{% trans "Pompe ABS" %}</td>
+                <td>{{ abs.get_pompe_abs_display }}</td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Calculateur ABS" %}</td>
+                <td>{{ abs.get_calculateur_abs_display }}</td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Capteur ABS avant droit" %}</td>
+                <td>{{ abs.get_capteur_abs_avd_display }}</td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Capteur ABS avant gauche" %}</td>
+                <td>{{ abs.get_capteur_abs_avg_display }}</td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Capteur ABS arrière droit" %}</td>
+                <td>{{ abs.get_capteur_abs_ard_display }}</td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Capteur ABS arrière gauche" %}</td>
+                <td>{{ abs.get_capteur_abs_arg_display }}</td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Capteur ABS" %}</td>
+                <td>{{ abs.get_capteur_abs_display }}</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+</div>
+
+<!-- ================= MAIN D'OEUVRE ================= -->
+
+<h2>{% trans "Main d'oeuvre" %}</h2>
+
+<div class="box">
+
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Temps" %} :</span>
+            {{ abs.temps_main_oeuvre_display|default:"0h00" }}
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ================= PIÈCES À REMPLACER ================= -->
+
+<h2>{% trans "Pièces à remplacer" %}</h2>
+
+<div class="box">
+
+    {% if rapport.lignes %}
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>{% trans "Pièce" %}</th>
+                    <th>{% trans "Quantité" %}</th>
+                    <th>{% trans "Prix unitaire" %}</th>
+                    <th>{% trans "Total" %}</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for ligne in rapport.lignes %}
+                <tr>
+
+                    <td>
+                        {{ ligne.champ }}
+                    </td>
+
+                    <td>
+                        {{ ligne.quantite }}
+                    </td>
+
+                    <td>
+                        {{ ligne.prix|floatformat:2 }} €
+                    </td>
+
+                    <td>
+                        {{ ligne.total|floatformat:2 }} €
+                    </td>
+
+                </tr>
+                {% endfor %}
+
+                <tr class="total">
+
+                    <td colspan="3" class="text-right">
+                        {% trans "Total général" %}
+                    </td>
+
+                    <td>
+                        {{ rapport.total_general|floatformat:2 }} €
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    {% else %}
+
+        <p>
+            {% trans "Aucune pièce à remplacer." %}
+        </p>
+
+    {% endif %}
+
+</div>
+
+<!-- ================= REMARQUES ================= -->
+
+<h2>{% trans "Remarques" %}</h2>
+
+<div class="box">
+
+    {{ abs.remarques|default:_("Aucune remarque.") }}
+
+</div>
+
+</body>
+</html>

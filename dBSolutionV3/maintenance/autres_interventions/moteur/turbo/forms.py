@@ -1,5 +1,6 @@
 from decimal import Decimal
 from django import forms
+from django.core.exceptions import ValidationError
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from maindoeuvre.models import MainDoeuvre
@@ -36,6 +37,14 @@ class TurboForm(forms.ModelForm):
                 "class": "input"
             })
 
+
+        if self.instance and self.instance.main_oeuvre:
+            mo = self.instance.main_oeuvre
+
+            self.fields["temps_heures"].initial = mo.heures
+            self.fields["temps_minutes"].initial = mo.minutes
+
+
         # -------- DATE --------
         if "date" in self.fields and self.instance and self.instance.pk and self.instance.date:
             local_dt = timezone.localtime(self.instance.date)
@@ -57,21 +66,35 @@ class TurboForm(forms.ModelForm):
                 self.fields[f].initial = 0
                 self.fields[f].required = False
 
-    # 🔴 VALIDATION PROPRE (AU LIEU DE save)
+    from django.core.exceptions import ValidationError
+    from django.utils.translation import gettext_lazy as _
+
     def clean(self):
+
         cleaned_data = super().clean()
 
+        # Temps
+        h = cleaned_data.get("temps_heures") or 0
+        m = cleaned_data.get("temps_minutes") or 0
+
+        if m >= 60:
+            self.add_error(
+                "temps_minutes",
+                _("Les minutes ne peuvent pas dépasser 59.")
+            )
+
+        # Véhicule / kilométrage
         voiture = self.exemplaire or self.instance.voiture_exemplaire
         km = cleaned_data.get("kilometres_chassis")
 
         if voiture and km is not None:
-            # sécurité logique
             if km < voiture.kilometres_chassis:
                 self.add_error(
                     "kilometres_chassis",
                     _(
                         f"Le kilométrage du turbo ({km}) "
-                        f"ne peut pas être inférieur au kilométrage du véhicule ({voiture.kilometres_chassis})."
+                        f"ne peut pas être inférieur au kilométrage du véhicule "
+                        f"({voiture.kilometres_chassis})."
                     )
                 )
 

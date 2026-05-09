@@ -58,18 +58,12 @@
                 </button>
             </a>
         </div>
-        <!-- Bouton Rapport -->
+
+         <!-- Bouton Rapport -->
         <div class="mt-auto w-full">
-            <a href="{% url 'abs:rapport_abs' abs.id %}" class="block w-full">
+            <a href="{% url 'abs:abs_detail_pdf' abs.id %}"class="block w-full">
                 <button type="button" class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
-                    {% trans "Rapport" %}
-                </button>
-            </a>
-        </div>
-        <div class="mt-auto w-full">
-            <a href="{% url 'abs:rapport_pdf_abs' abs.id %}" class="block w-full">
-                <button type="button" class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
-                    {% trans "Rapport PDF" %}
+                    {% trans "Télécharger le PDF" %}
                 </button>
             </a>
         </div>

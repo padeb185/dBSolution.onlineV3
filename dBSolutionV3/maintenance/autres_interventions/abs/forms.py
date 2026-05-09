@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from maindoeuvre.models import MainDoeuvre
@@ -11,19 +12,7 @@ class AbsForm(forms.ModelForm):
 
     class Meta:
         model = Abs
-        exclude =('pompe_abs_tva_achat',
-                  'pompe_abs_prix_ttc',
-                  'pompe_abs_prix_vente_htva',
-                  'pompe_abs_tva_vente',
-                  'calculateur_abs_tva_achat',
-                  'calculateur_abs_prix_ttc',
-                  'calculateur_abs_prix_vente_htva',
-                  'calculateur_abs_tva_vente'
-                  'capteur_abs_tva_achat',
-                  'capteur_abs_prix_ttc',
-                  'capteur_abs_prix_vente_htva',
-                  'capteur_abs_tva_vente'
-                  )
+        fields = "__all__"
         widgets = {
             'maintenance': forms.HiddenInput(),
             'remarques': forms.Textarea(attrs={
@@ -48,6 +37,14 @@ class AbsForm(forms.ModelForm):
                 "class": "input"
             })
 
+        if self.instance and self.instance.main_oeuvre:
+            mo = self.instance.main_oeuvre
+
+            self.fields["temps_heures"].initial = mo.heures
+            self.fields["temps_minutes"].initial = mo.minutes
+
+
+
         # ✅ initialisation date seulement si le champ existe
         if "date" in self.fields and self.instance and self.instance.pk and self.instance.date:
             local_dt = timezone.localtime(self.instance.date)
@@ -68,6 +65,18 @@ class AbsForm(forms.ModelForm):
             if f in self.fields:
                 self.fields[f].initial = 0
                 self.fields[f].required = False
+
+    def clean(self):
+        cleaned = super().clean()
+
+        h = cleaned.get("temps_heures") or 0
+        m = cleaned.get("temps_minutes") or 0
+
+        if m >= 60:
+            raise ValidationError("Les minutes ne peuvent pas dépasser 59.")
+
+        return cleaned
+
 
     def save(self, commit=True):
         instance = super().save(commit=False)
