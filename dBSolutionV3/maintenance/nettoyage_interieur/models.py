@@ -3,7 +3,6 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from maintenance.models import Maintenance
 from utilisateurs.models import Utilisateur
-
 from django.conf import settings
 from utils.mixin import TechnicienMixin
 
@@ -195,4 +194,9 @@ class NettoyageInterieur(TechnicienMixin,models.Model):
         super().save(*args, **kwargs)
 
 
+    @property
+    def temps_main_oeuvre_display(self):
+        if not self.main_oeuvre:
+            return "0h00"
+        return self.main_oeuvre.temps_display
 

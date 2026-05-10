@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
@@ -49,6 +50,12 @@ class NettoyageExterieurForm(forms.ModelForm):
                 "class": "input"
             })
 
+        if self.instance and self.instance.main_oeuvre:
+            mo = self.instance.main_oeuvre
+
+            self.fields["temps_heures"].initial = mo.heures
+            self.fields["temps_minutes"].initial = mo.minutes
+
         if self.instance and self.instance.pk and self.instance.date:
             # ✅ convertir en heure locale et formatter comme string
             local_dt = timezone.localtime(self.instance.date)
@@ -63,6 +70,17 @@ class NettoyageExterieurForm(forms.ModelForm):
             if "tech_societe" in self.fields:
                 self.fields["tech_societe"].initial = self.user.societe
                 self.fields["tech_societe"].disabled = True
+
+    def clean(self):
+        cleaned = super().clean()
+
+        h = cleaned.get("temps_heures") or 0
+        m = cleaned.get("temps_minutes") or 0
+
+        if m >= 60:
+            raise ValidationError("Les minutes ne peuvent pas dépasser 59.")
+
+        return cleaned
 
     def save(self, commit=True):
         instance = super().save(commit=False)

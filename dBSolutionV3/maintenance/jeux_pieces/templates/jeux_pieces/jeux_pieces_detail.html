@@ -30,7 +30,7 @@
                 </div>
             </p>
             <p><strong>{% trans "Kilométrage" %} :</strong> {{ jeu.kilometres_chassis }}</p>
-            <p><strong>{% trans "Tag" %} :</strong> {{ jeu.tag }}</p>
+            <p><strong>{% trans "Tag" %} :</strong> {{ jeu.get_tag_display }}</p>
             <p><strong>{% trans "Technicien" %} :</strong> {{ jeu.tech_nom_technicien }} {{ checkup.tech_role_technicien }}</p>
         </div>
 
