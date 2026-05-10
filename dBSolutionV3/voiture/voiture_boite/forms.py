@@ -19,7 +19,7 @@ class VoitureBoiteForm(forms.ModelForm):
 
             # Lubrification
             "qualite_huile": _("Qualité huile boîte"),
-            "quantite_huile_l": _("Quantité huile boîte (L)"),
+            "quantite_huile_l": _("Quantité d'huile boîte (L)"),
 
             # Suivi kilométrique
             "kilometres_chassis": _("Kilométrage châssis"),

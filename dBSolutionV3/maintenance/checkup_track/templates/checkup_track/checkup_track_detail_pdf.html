@@ -174,17 +174,17 @@
         </div>
 
         <div>
-            {% trans "Niveau huile" %} :
+            {% trans "Niveau d'huile" %} :
             {{ checkup_track.get_moteur_niveau_huile_etat_display }}
         </div>
 
         <div>
-            {% trans "Quantité huile ajoutée" %} :
+            {% trans "Quantité d'huile ajoutée" %} :
             {{ checkup_track.moteur_niveau_huile_quantite }} L
         </div>
 
         <div>
-            {% trans "Qualité huile" %} :
+            {% trans "Qualité d'huile" %} :
             {{ checkup_track.get_moteur_niveau_huile_qualite_display }}
         </div>
 
@@ -200,27 +200,27 @@
     <div class="grid">
 
         <div>
-            {% trans "État boîte" %} :
+            {% trans "État de la boîte" %} :
             {{ checkup_track.get_boite_etat_display }}
         </div>
 
         <div>
-            {% trans "État embrayage" %} :
+            {% trans "État de l'embrayage" %} :
             {{ checkup_track.get_boite_embrayage_display }}
         </div>
 
         <div>
-            {% trans "Niveau huile boîte" %} :
+            {% trans "Niveau d'huile de la boîte" %} :
             {{ checkup_track.get_boite_niveau_huile_etat_display }}
         </div>
 
         <div>
-            {% trans "Huile ajoutée" %} :
+            {% trans "Huile de boite ajoutée" %} :
             {{ checkup_track.boite_niveau_huile_quantite }} L
         </div>
 
         <div>
-            {% trans "Qualité huile boîte" %} :
+            {% trans "Qualité d'huile de boîte" %} :
             {{ checkup_track.get_boite_niveau_huile_qualite_display }}
         </div>
 
@@ -236,12 +236,12 @@
     <div class="grid">
 
         <div>
-            {% trans "État pont" %} :
+            {% trans "État du pont" %} :
             {{ checkup_track.get_pont_etat_display }}
         </div>
 
         <div>
-            {% trans "Niveau huile pont" %} :
+            {% trans "Niveau d'huile pont" %} :
             {{ checkup_track.get_pont_niveau_huile_etat_display }}
         </div>
 
@@ -251,7 +251,7 @@
         </div>
 
         <div>
-            {% trans "Qualité huile pont" %} :
+            {% trans "Qualité d'huile de pont" %} :
             {{ checkup_track.get_pont_niveau_huile_qualite_display }}
         </div>
 
@@ -272,12 +272,12 @@
         </div>
 
         <div>
-            {% trans "Liquide ajouté" %} :
+            {% trans "Liquide de refroidissement ajouté" %} :
             {{ checkup_track.refroidissement_quantite }} L
         </div>
 
         <div>
-            {% trans "Qualité liquide" %} :
+            {% trans "Qualité du liquide" %} :
             {{ checkup_track.get_refroidissement_qualite_display }}
         </div>
 
@@ -333,7 +333,7 @@
         </div>
 
         <div>
-            {% trans "Fuites" %} :
+            {% trans "Fuites du système de freinage" %} :
             {{ checkup_track.get_freins_fuites_display }}
         </div>
 
@@ -380,7 +380,7 @@
         </div>
 
         <div>
-            {% trans "Niveau direction" %} :
+            {% trans "Niveau de direction assistée" %} :
             {{ checkup_track.niveau_direction }}
         </div>
 
@@ -405,7 +405,7 @@
         </div>
 
         <div>
-            {% trans "Biellettes barre stabilisatrice" %} :
+            {% trans "Biellettes de barre stabilisatrice" %} :
             {{ checkup_track.get_jeu_Biellette_barre_stabilisatrice_display }}
         </div>
 
@@ -415,7 +415,7 @@
         </div>
 
         <div>
-            {% trans "Biellettes direction" %} :
+            {% trans "Biellettes de direction" %} :
             {{ checkup_track.get_jeu_biellette_direction_display }}
         </div>
 
@@ -461,7 +461,7 @@
         <div>ARG : {{ checkup_track.pneu_epaisseur_arg }} mm</div>
 
         <div>
-            {% trans "Flanc pneus" %} :
+            {% trans "Flanc des pneus" %} :
             {{ checkup_track.get_pneu_sidewall_display }}
         </div>
 
@@ -500,7 +500,7 @@
     <div class="grid">
 
         <div>
-            {% trans "Traces gomme" %} :
+            {% trans "Traces de gomme" %} :
             {{ checkup_track.get_nettoyage_exterieur_traces_gomme_display }}
         </div>
 
@@ -529,14 +529,39 @@
 
     <div class="grid">
 
-        <div>{{ checkup_track.get_nettoyage_interieur_vitres_display }}</div>
-        <div>{{ checkup_track.get_nettoyage_interieur_pare_brise_display }}</div>
-        <div>{{ checkup_track.get_nettoyage_interieur_aspirateur_display }}</div>
-        <div>{{ checkup_track.get_nettoyage_interieur_portes_display }}</div>
-        <div>{{ checkup_track.get_nettoyage_interieur_sieges_display }}</div>
-        <div>{{ checkup_track.get_nettoyage_interieur_carpettes_display }}</div>
-        <div>{{ checkup_track.get_nettoyage_interieur_tableau_de_bord_display }}</div>
-        <div>{{ checkup_track.get_nettoyage_interieur_plastiques_display }}</div>
+        <div>
+            {% trans "Vitres" %} :
+            {{ checkup_track.get_nettoyage_interieur_vitres_display }}
+        </div>
+        <div>
+              {% trans "Pare-Brise" %} :
+            {{ checkup_track.get_nettoyage_interieur_pare_brise_display }}
+        </div>
+        <div>
+              {% trans "Aspirateur" %} :
+            {{ checkup_track.get_nettoyage_interieur_aspirateur_display }}
+        </div>
+        <div>
+            {% trans "Intérieurs de portes" %} :
+            {{ checkup_track.get_nettoyage_interieur_portes_display }}
+        </div>
+        <div>
+              {% trans "Sièges" %} :
+            {{ checkup_track.get_nettoyage_interieur_sieges_display }}
+        </div>
+        <div>
+            {% trans "Tapis" %} :
+            {{ checkup_track.get_nettoyage_interieur_carpettes_display }}
+        </div>
+        <div>
+            {% trans "Tableau de bord" %} :
+            {{ checkup_track.get_nettoyage_interieur_tableau_de_bord_display }}
+        </div>
+
+        <div>
+            {% trans "Plastiques" %} :
+            {{ checkup_track.get_nettoyage_interieur_plastiques_display }}
+        </div>
 
     </div>
 

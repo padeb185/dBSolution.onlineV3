@@ -63,7 +63,7 @@
         <form action="{% url 'set_language' %}" method="post"
               class="flex items-center gap-2 shrink-0">
             {% csrf_token %}
-            <input type="hidden" name="next" value="{{ request.path }}">
+            <input type="hidden" name="next" value="/">
 
             <select name="language"
                     class="border rounded p-1 focus:ring-2 focus:ring-blue-500 focus:outline-none">

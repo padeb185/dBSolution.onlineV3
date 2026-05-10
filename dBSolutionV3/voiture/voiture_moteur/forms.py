@@ -33,7 +33,7 @@ class MoteurVoitureForm(forms.ModelForm):
             "puissance_tr_min": _("Régime puissance (tr/min)"),
             "couple_nm": _("Couple (Nm)"),
             "couple_tr_min": _("Régime couple (tr/min)"),
-            "quantite_huile_l": _("Quantité huile (L)"),
+            "quantite_huile_l": _("Quantité d'huile (L)"),
             "intervalle_km_entretien": _("Intervalle entretien (km)"),
         }
 

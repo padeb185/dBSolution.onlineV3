@@ -22,6 +22,7 @@ urlpatterns = [
 ]
 
 urlpatterns += i18n_patterns(
+
     path("", home_view, name="home"),  # page d'accueil accessible à tous
 
     # Utilisateurs : login, logout, dashboard, totp
