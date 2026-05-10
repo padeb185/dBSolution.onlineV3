@@ -55,6 +55,7 @@ class ClientParticulierForm(forms.ModelForm):
 
         }
 
+
     def clean_numero_carte_bancaire(self):
         value = self.cleaned_data.get("numero_carte_bancaire")
 

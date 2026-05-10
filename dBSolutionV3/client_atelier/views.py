@@ -16,6 +16,8 @@ from societe_cliente.models import SocieteCliente
 from client_particulier.models import ClientParticulier
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 
+from client_pilotage.models import ClientPilotage
+
 
 @method_decorator([login_required, never_cache], name='dispatch')
 class ClientAtelierListView(ListView):
@@ -217,8 +219,10 @@ def dashboard_client_view(request):
     # Valeurs par défaut
     total_client = 0
     total_client_atelier = 0
+    total_client_pilotage = 0
     client_particulier = []
     client_atelier = []
+    client_pilotage = []
 
     if societe:
         schema_name = societe.schema_name
@@ -227,17 +231,21 @@ def dashboard_client_view(request):
 
             client_particulier = ClientParticulier.objects.filter(societe=societe)
             client_atelier = ClientAtelier.objects.filter(societe=societe)
+            client_pilotage = ClientPilotage.objects.filter(societe=societe)
 
             total_client_particulier = client_particulier.count()
             total_client_atelier = client_atelier.count()
+            total_client_pilotage = client_pilotage.count()
 
     context = {
         "user": user,
         "societe": societe,
         "total_client_particulier": total_client_particulier,
         "total_client_atelier": total_client_atelier,
+        "total_client_pilotage": total_client_pilotage,
         "client_particulier": client_particulier,
         "client_atelier": client_atelier,
+        "client_pilotage": client_pilotage,
     }
 
     return render(request, "client_atelier/dashboard_client.html", context)

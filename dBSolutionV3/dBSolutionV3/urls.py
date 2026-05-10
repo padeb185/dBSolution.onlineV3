@@ -77,9 +77,9 @@ urlpatterns += i18n_patterns(
 
     path("client_atelier/", include("client_atelier.urls")),
 
+    path("client_pilotage/", include("client_pilotage.urls")),
+
     path("carrosserie/", include("carrosserie.urls")),
-
-
 
     path("societe_cliente/", include("societe_cliente.urls")),
 

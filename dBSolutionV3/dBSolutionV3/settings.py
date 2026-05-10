@@ -110,6 +110,7 @@ TENANT_APPS = (
 
     'client_particulier',
     'client_atelier',
+    'client_pilotage',
     'societe_cliente',
     'fournisseur',
     'carrosserie',

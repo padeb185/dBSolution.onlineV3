@@ -33,8 +33,10 @@ from recharge.models import Electricite
 from achat_mds.models import AchatMds
 from maindoeuvre.models import MainDoeuvre
 from proprietaire.models import Proprietaire
-
 from client_atelier.models import ClientAtelier
+from client_pilotage.models import ClientPilotage
+
+
 
 
 def login_view(request):
@@ -54,6 +56,7 @@ def login_view(request):
         # 🔐 TOTP non configuré → enrôlement
         if not user.totp_enabled:
             if not user.totp_secret:
+                user.generate_totp_secret()
                 user.generate_totp_secret()
 
             request.session["totp_setup_user"] = str(user.id)
@@ -83,6 +86,9 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect("utilisateurs:login")
+
+
+
 
 
 @never_cache
@@ -126,6 +132,7 @@ def dashboard_view(request):
             fournisseurs = Fournisseur.objects.filter(societe=societe)
             client_particulier = ClientParticulier.objects.filter(societe=societe)
             client_atelier = ClientAtelier.objects.filter(societe=societe)
+            client_pilotage = ClientPilotage.objects.filter(societe=societe)
             carrosseries = Carrosserie.objects.filter(societe=societe)
             maindoeuvre = MainDoeuvre.objects.filter( utilisateur__societe=societe)
             proprietaire = Proprietaire.objects.filter(societe=societe)
@@ -165,7 +172,8 @@ def dashboard_view(request):
             total_main = maindoeuvre.count()
             total_proprietaire = proprietaire.count()
 
-            total_client = client_particulier.count() + client_atelier.count()
+
+            total_client = client_particulier.count() + client_atelier.count() + client_pilotage.count()
 
             # Récupère les modèles existants pour les liens maintenance
             modeles = VoitureModele.objects.all()

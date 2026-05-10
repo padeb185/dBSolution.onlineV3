@@ -20,7 +20,7 @@
     <img src="{% static 'icons/client.png' %}" alt="client particulier" style="width:60px; height:60px;">
   </a>
 
-  <!-- Carte Police d'assurance -->
+  <!--client atelier -->
   <a href="{% url 'client_atelier:client_atelier_list' %}"
      class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
     <div>
@@ -30,6 +30,18 @@
       </p>
     </div>
     <img src="{% static 'icons/client_atelier.png' %}" alt="client atelier" style="width:60px; height:60px;">
+  </a>
+
+   <!--client pilote -->
+  <a href="{% url 'client_pilotage:client_pilotage_list' %}"
+     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <div>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Client Pilote" %}</h2>
+      <p class="text-gray-600 text-sm">
+        {% trans "Nombre total :" %} <span class="font-bold">{{ total_client_pilotage }}</span>
+      </p>
+    </div>
+    <img src="{% static 'icons/pilote.png' %}" alt="client piloter" style="width:60px; height:60px;">
   </a>
 
 
