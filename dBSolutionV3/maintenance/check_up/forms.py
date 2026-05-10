@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from django.utils import timezone
 from .models import ControleGeneral
 from django.utils.translation import gettext_lazy as _
@@ -53,6 +54,35 @@ class ControleGeneralForm(forms.ModelForm):
             if "tech_societe" in self.fields:
                 self.fields["tech_societe"].initial = self.user.societe
                 self.fields["tech_societe"].disabled = True
+
+        # -------- MAIN D'ŒUVRE QUERYSET --------
+        if "main_oeuvre" in self.fields:
+            self.fields["main_oeuvre"].queryset = MainDoeuvre.objects.select_related(
+                "utilisateur"
+            ).filter(utilisateur__is_active=True)
+
+            self.fields["main_oeuvre"].widget.attrs.update({
+                "class": "input"
+            })
+        # ------- Récupération du temps de main d'oeuvre ------#
+        if self.instance and self.instance.main_oeuvre:
+            mo = self.instance.main_oeuvre
+
+            self.fields["temps_heures"].initial = mo.heures
+            self.fields["temps_minutes"].initial = mo.minutes
+
+    def clean(self):
+        cleaned = super().clean()
+
+        h = cleaned.get("temps_heures") or 0
+        m = cleaned.get("temps_minutes") or 0
+
+        if m >= 60:
+            raise ValidationError("Les minutes ne peuvent pas dépasser 59.")
+
+        return cleaned
+
+
 
     def save(self, commit=True):
         instance = super().save(commit=False)

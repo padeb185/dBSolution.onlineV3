@@ -38,10 +38,10 @@
             </p>
 
             <p><strong>{% trans "Kilométrage" %} :</strong> {{ frein.kilometres_chassis }}</p>
-            <p><strong>{% trans "Disques avant" %} :</strong> {{ frein.avant_freins_d_epaisseur_disques }}</p>
-            <p><strong>{% trans "Plaquettes avant" %} :</strong> {{ frein.avant_freins_pl_usure_plaquettes }}</p>
-            <p><strong>{% trans "Disques arrière" %} :</strong> {{ frein.arriere_freins_d_epaisseur_disques }}</p>
-            <p><strong>{% trans "Plaquettes arrière" %} :</strong> {{ frein.arriere_freins_pl_usure_plaquettes }}</p>
+            <p><strong>{% trans "Disques avant" %} :</strong> {{ frein.avant_freins_d_epaisseur_disques }} mm</p>
+            <p><strong>{% trans "Plaquettes avant" %} :</strong> {{ frein.avant_freins_pl_usure_plaquettes }} %</p>
+            <p><strong>{% trans "Disques arrière" %} :</strong> {{ frein.arriere_freins_d_epaisseur_disques }} mm</p>
+            <p><strong>{% trans "Plaquettes arrière" %} :</strong> {{ frein.arriere_freins_pl_usure_plaquettes }} %</p>
 
 
 
@@ -59,7 +59,7 @@
         </div>
 
             <div class="bg-white shadow-md rounded-lg p-6">
-                <h2 class="text-lg font-semibold mb-4">{% trans "Jeux pièces" %}</h2>
+                <h2 class="text-lg font-semibold mb-4">{% trans "Autres informations" %}</h2>
                 <p><strong>{% trans "Date de l'intervention" %} :</strong> {{ frein.date|date:"d/m/Y" }}</p>
                             <p><strong>{% trans "Temps" %} :</strong> {{ frein.main_oeuvre.temps_display }}</p>
                 <p><strong>{% trans "Remarques" %} :</strong> {{ frein.remarque }}</p>

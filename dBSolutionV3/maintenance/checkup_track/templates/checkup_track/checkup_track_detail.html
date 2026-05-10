@@ -32,7 +32,7 @@
                 </div>
             </p>
             <p><strong>{% trans "Kilométrage" %} :</strong> {{ checkup_track.kilometres_chassis }}</p>
-            <p><strong>{% trans "Tag" %} :</strong> {{ checkup_track.tag }}</p>
+            <p><strong>{% trans "Tag" %} :</strong> {{ checkup_track.get_tag_display }}</p>
             <p><strong>{% trans "Technicien" %} :</strong> {{ checkup_track.tech_nom_technicien }} {{ track_check.tech_role_technicien }}</p>
         </div>
 

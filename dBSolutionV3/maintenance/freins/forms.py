@@ -1,5 +1,6 @@
 from decimal import Decimal
 from django import forms
+from django.core.exceptions import ValidationError
 from django.utils import timezone
 
 from .models import ControleFreins
@@ -54,8 +55,28 @@ class ControleFreinsForm(forms.ModelForm):
                 self.fields["tech_societe"].initial = self.user.societe
                 self.fields["tech_societe"].disabled = True
 
+        if self.instance and self.instance.main_oeuvre:
+            mo = self.instance.main_oeuvre
+
+            self.fields["temps_heures"].initial = mo.heures
+            self.fields["temps_minutes"].initial = mo.minutes
+
+    def clean(self):
+        cleaned = super().clean()
+
+        h = cleaned.get("temps_heures") or 0
+        m = cleaned.get("temps_minutes") or 0
+
+        if m >= 60:
+            raise ValidationError("Les minutes ne peuvent pas dépasser 59.")
+
+        return cleaned
+
+
+
 
     def save(self, commit=True):
+
         instance = super().save(commit=False)
         voiture = instance.voiture_exemplaire or self.exemplaire  # fallback si pas encore lié
 

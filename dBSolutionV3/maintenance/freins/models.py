@@ -173,3 +173,10 @@ class ControleFreins(TechnicienMixin, models.Model):
             self.assign_technicien(self._user)
 
         super().save(*args, **kwargs)
+
+    @property
+    def temps_main_oeuvre_display(self):
+        if not self.main_oeuvre:
+            return "0h00"
+        return self.main_oeuvre.temps_display
+

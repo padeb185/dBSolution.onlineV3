@@ -7,6 +7,7 @@ from .models import (
 )
 
 
+
 class MoteurVoitureForm(forms.ModelForm):
 
     class Meta:
@@ -132,3 +133,4 @@ class MoteurVoitureForm(forms.ModelForm):
 
         self.fields["type_moteur"].choices = TypeMoteur.choices
         self.fields["carburant"].choices = TypeCarburant.choices
+

@@ -2,6 +2,8 @@ from django import forms
 from voiture.voiture_boite.models import VoitureBoite
 from django.utils.translation import gettext_lazy as _
 
+
+
 class VoitureBoiteForm(forms.ModelForm):
 
     class Meta:

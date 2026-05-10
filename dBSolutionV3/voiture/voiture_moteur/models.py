@@ -43,6 +43,8 @@ class MoteurVoiture(models.Model):
         blank=True
     )
 
+
+
     # Spécifications moteur
     motoriste = models.CharField(max_length=40)
     code_moteur = models.CharField(max_length=50)
