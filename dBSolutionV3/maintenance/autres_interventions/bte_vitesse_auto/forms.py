@@ -39,6 +39,14 @@ class ControleBteVitesseAutoForm(forms.ModelForm):
                 "class": "input"
             })
 
+        if self.instance and self.instance.main_oeuvre:
+            mo = self.instance.main_oeuvre
+
+            self.fields["temps_heures"].initial = mo.heures
+            self.fields["temps_minutes"].initial = mo.minutes
+
+
+
         # ✅ initialisation date seulement si le champ existe
         if "date" in self.fields and self.instance and self.instance.pk and self.instance.date:
             local_dt = timezone.localtime(self.instance.date)

@@ -722,3 +722,9 @@ class CarrosserieInterne(models.Model):
             "lignes": rapport,
             "total_general": total_general
         }
+
+    @property
+    def temps_main_oeuvre_display(self):
+        if not self.main_oeuvre:
+            return "0h00"
+        return self.main_oeuvre.temps_display

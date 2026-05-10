@@ -164,7 +164,7 @@ $(document).ready(function() {
                 previous: "{% trans 'Précédent' %}"
             }
         },
-        order: [[0, "asc"]]
+        order: [[0, "desc"]]
     });
 
     // Filtres par colonne
@@ -181,6 +181,9 @@ $(document).ready(function() {
         table.column(3).search(this.value).draw();
     });
     $('#search-date').on('change', function () {
+        table.column(4).search(this.value).draw();
+    });
+      $('#search-temps').on('keyup', function () {
         table.column(4).search(this.value).draw();
     });
 });

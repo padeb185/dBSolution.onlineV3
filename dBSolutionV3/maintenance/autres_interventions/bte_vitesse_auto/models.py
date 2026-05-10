@@ -35,7 +35,10 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         blank=True
     )
 
-    kilometres_chassis = models.PositiveIntegerField(default=0)
+    kilometres_chassis = models.PositiveIntegerField(
+        _("Kilomètres chassis"),
+        default=0
+    )
 
     kilometrage_controle_boite_auto = models.PositiveIntegerField(
         _("Kilométrage au moment du contrôle"),
@@ -108,7 +111,6 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
     )
 
     TAG_CHOICES = [
-        ("WHITE", _("Blanc")),
         ("VERT", _("Vert")),
         ("JAUNE", _("Jaune")),
         ("ROUGE", _("Rouge")),
@@ -172,6 +174,8 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
                     )
                 })
 
+
+
     def save(self, *args, **kwargs):
         # Mise à jour du kilométrage de la voiture si nécessaire
         if self.voiture_exemplaire and self.kilometrage_controle_boite_auto:
@@ -195,3 +199,9 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
     class Meta:
         verbose_name = _("Contrôle boîte automatique")
         verbose_name_plural = _("Contrôles boîtes automatiques")
+
+    @property
+    def temps_main_oeuvre_display(self):
+        if not self.main_oeuvre:
+            return "0h00"
+        return self.main_oeuvre.temps_display

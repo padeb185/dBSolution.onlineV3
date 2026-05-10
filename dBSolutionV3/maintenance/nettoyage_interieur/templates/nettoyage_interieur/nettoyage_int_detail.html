@@ -30,7 +30,7 @@
                 </div>
             </p>
             <p><strong>{% trans "Kilométrage" %} :</strong> {{ nettoyage_int.kilometres_chassis }}</p>
-            <p><strong>{% trans "Tag" %} :</strong> {{ nettoyage_int.tag }}</p>
+            <p><strong>{% trans "Tag" %} :</strong> {{ nettoyage_int.get_tag_display }}</p>
             <p><strong>{% trans "Technicien" %} :</strong> {{ nettoyage_int.tech_nom_technicien }} ({{ nettoyage_int.tech_role_technicien }})</p>
         </div>
 
