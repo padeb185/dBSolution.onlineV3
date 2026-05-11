@@ -72,39 +72,42 @@
     <tbody>
         {% for v in par_voiture %}
         <tr>
-            <td class="border px-4 py-2">
-                {{ v.voiture_marque }} {{ v.voiture_modele }} {{ v.voiture_variante }}
-            </td>
-            <td class="border px-4 py-2">
-                {{ v.pays }} {{ v.immatriculation|upper }}
-            </td>
-            <td class="border px-4 py-2">
-                {% with pays=v.voiture_exemplaire__pays imm=v.voiture_exemplaire__immatriculation %}
-                    {% if pays == "Belgique" %}
-                        <div class="flex items-center w-[180px] h-[34px] bg-white border-2 border-[#8B0000] rounded font-[Arial]">
-                            <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
-                                <span>🇪🇺</span><span>B</span>
-                            </div>
-                            <div class="w-full text-center font-bold text-[#8B0000] text-[18px]">{{ imm|upper }}</div>
+         <td class="border px-4 py-2">
+            {{ v.voiture_exemplaire__voiture_modele__voiture_marque__nom_marque }}
+            {{ v.voiture_exemplaire__voiture_modele__nom_modele }}
+            {{ v.voiture_exemplaire__voiture_modele__nom_variante }}
+        </td>
+
+        <td class="border px-4 py-2">
+            {% with pays=v.voiture_exemplaire__pays imm=v.voiture_exemplaire__immatriculation %}
+                {% if pays == "Belgique" %}
+                    <div class="flex items-center w-[180px] h-[34px] bg-white border-2 border-[#8B0000] rounded font-[Arial]">
+                        <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                            <span>🇪🇺</span><span>B</span>
                         </div>
-                    {% elif pays == "Luxembourg" %}
-                        <div class="flex items-center w-[180px] h-[34x] bg-[#FFEB3B] border-2 border-black rounded font-[Arial]">
-                            <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
-                                <span>🇪🇺</span><span>L</span>
-                            </div>
-                            <div class="w-full text-center font-bold text-black text-[18px]">{{ imm|upper }}</div>
+                        <div class="w-full text-center font-bold text-[#8B0000] text-[18px]">{{ imm|upper }}</div>
+                    </div>
+
+                {% elif pays == "Luxembourg" %}
+                    <div class="flex items-center w-[180px] h-[34px] bg-[#FFEB3B] border-2 border-black rounded font-[Arial]">
+                        <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                            <span>🇪🇺</span><span>L</span>
                         </div>
-                    {% elif pays == "Allemagne" %}
-                        <div class="flex items-center w-[180px] h-[34px] bg-white border-2 border-black rounded font-[Arial]">
-                            <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
-                                <span>🇪🇺</span><span>D</span>
-                            </div>
-                            <div class="w-full text-center font-bold text-black text-[18px]">{{ imm|upper }}</div>
+                        <div class="w-full text-center font-bold text-black text-[18px]">{{ imm|upper }}</div>
+                    </div>
+
+                {% elif pays == "Allemagne" %}
+                    <div class="flex items-center w-[180px] h-[34px] bg-white border-2 border-black rounded font-[Arial]">
+                        <div class="flex flex-col items-center justify-center bg-[#003399] text-white font-bold px-[6px] rounded-l text-[14px] leading-none">
+                            <span>🇪🇺</span><span>D</span>
                         </div>
-                    {% else %}
-                        {{ imm|upper }}
-                    {% endif %}
-                {% endwith %}
+                        <div class="w-full text-center font-bold text-black text-[18px]">{{ imm|upper }}</div>
+                    </div>
+
+                {% else %}
+                    {{ imm|upper }}
+                {% endif %}
+            {% endwith %}
             </td>
             <td class="border px-4 py-2 text-center">{{ v.nb_pleins }}</td>
             <td class="border px-4 py-2 text-center">{{ v.total_litres|floatformat:2 }}</td>
