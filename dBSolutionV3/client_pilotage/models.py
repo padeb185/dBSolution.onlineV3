@@ -20,6 +20,13 @@ class ClientPilotage(models.Model):
         blank=True,
     )
 
+    adresse = models.OneToOneField(
+        "adresse.Adresse",
+        verbose_name=_("Adresse"),
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+    )
 
     class NiveauPilotage(models.TextChoices):
         DEBUTANT = "DEBUTANT", _("Débutant")

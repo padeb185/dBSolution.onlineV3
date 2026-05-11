@@ -45,39 +45,60 @@ def client_pilotage_detail_view(request, client_pilotage_id):
         "client_pilotage": client_pilotage,
         "adresse": adresse,
     })
-
-
-
-
 @login_required
 def modifier_client_pilotage_view(request, client_pilotage_id):
+
     tenant = request.user.societe
 
     with tenant_context(tenant):
-        client_pilotage = get_object_or_404(ClientPilotage, id=client_pilotage_id)
+
+        client_pilotage = get_object_or_404(
+            ClientPilotage,
+            id=client_pilotage_id,
+            societe=tenant
+        )
 
         if request.method == "POST":
-            form = ClientPilotageForm(request.POST, instance=client_pilotage)
-            if form.is_valid():
-                form.save()
-                messages.success(request, _(f"Client '{client_pilotage.prenom} {client_pilotage.nom}' modifié avec succès !"))
 
-            else:
-                # Ici, si la carte bancaire est invalide, Django affichera automatiquement l'erreur
-                messages.error(request, _("Veuillez corriger les erreurs dans le formulaire."))
+            form = ClientPilotageForm(
+                request.POST,
+                instance=client_pilotage
+            )
+
+            if form.is_valid():
+                obj = form.save(commit=False)
+
+                # update ClientParticulier lié
+                cp = obj.client_particulier
+                cp.prenom = form.cleaned_data.get("prenom")
+                cp.nom = form.cleaned_data.get("nom")
+                cp.email = form.cleaned_data.get("email")
+                cp.numero_telephone = form.cleaned_data.get("numero_telephone")
+                cp.numero_carte_id = form.cleaned_data.get("numero_carte_id")
+                cp.numero_compte = form.cleaned_data.get("numero_compte")
+                cp.numero_carte_bancaire = form.cleaned_data.get("numero_carte_bancaire")
+                cp.save()
+
+                obj.save()
+
+                messages.success(
+                    request,
+                    _(f"Client '{cp.nom} {cp.prenom}' modifié avec succès !")
+                )
+
+                return redirect("client_pilotage:client_pilotage_list")
+
         else:
             form = ClientPilotageForm(instance=client_pilotage)
 
-    return render(
-        request,
-        "client_pilotage/modifier_client_pilotage.html",
-        {
-            "form": form,
-            "client_pilotage": client_pilotage,
-        }
-    )
-
-
+        return render(
+            request,
+            "client_pilotage/modifier_client_pilotage.html",
+            {
+                "form": form,
+                "client_pilotage": client_pilotage,
+            }
+        )
 
 
 
@@ -104,11 +125,20 @@ def client_pilotage_form_view(request):
                         numero_compte=request.POST.get("numero_compte"),
                         numero_carte_bancaire=request.POST.get("numero_carte_bancaire"),
                     )
+                    adresse = Adresse.objects.create(
+                        rue=form.cleaned_data.get("rue"),
+                        numero=form.cleaned_data.get("numero"),
+                        code_postal=form.cleaned_data.get("code_postal"),
+                        ville=form.cleaned_data.get("ville"),
+                        pays=form.cleaned_data.get("pays"),
+                        code_pays=form.cleaned_data.get("code_pays"),
+                    )
 
                     # 2. créer client pilotage
                     client_pilotage = form.save(commit=False)
                     client_pilotage.client_particulier = client_particulier
                     client_pilotage.societe = tenant
+                    client_pilotage.adresse = adresse
                     client_pilotage.save()
 
                     form.save_m2m()

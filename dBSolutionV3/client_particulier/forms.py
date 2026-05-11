@@ -27,12 +27,56 @@ def luhn_check(card_number: str) -> bool:
 
 
 class ClientParticulierForm(forms.ModelForm):
+
+    rue = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={
+            "class": "border rounded px-4 py-2 w-full"
+        })
+    )
+
+    numero = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={
+            "class": "border rounded px-4 py-2 w-full"
+        })
+    )
+
+    code_postal = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={
+            "class": "border rounded px-4 py-2 w-full"
+        })
+    )
+
+    ville = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={
+            "class": "border rounded px-4 py-2 w-full"
+        })
+    )
+
+    pays = forms.CharField(
+        required=False,
+        initial="Belgique",
+        widget=forms.TextInput(attrs={
+            "class": "border rounded px-4 py-2 w-full"
+        })
+    )
+
+    code_pays = forms.CharField(
+        required=False,
+        initial="BE",
+        widget=forms.TextInput(attrs={
+            "class": "border rounded px-4 py-2 w-full"
+        })
+    )
+
     class Meta:
         model = ClientParticulier
         fields = [
             "prenom",
             "nom",
-            "adresse",
             "numero_telephone",
             "numero_permis",
             "numero_carte_id",
@@ -40,7 +84,15 @@ class ClientParticulierForm(forms.ModelForm):
             "numero_carte_bancaire",
             "email",
             "date_naissance",
+            "rue",
+            "numero",
+            "code_postal",
+            "ville",
+            "pays",
+            "code_pays",
+
             "remarques",
+
         ]
         widgets = {
             "numero_carte_bancaire": forms.TextInput(attrs={
