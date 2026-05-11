@@ -53,7 +53,7 @@
 
 
 <!-- Table -->
-<table id="client-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+<table id="client_pilotage-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
     <thead>
         <tr class="bg-gray-100">
             <th class="border px-4 py-2 cursor-pointer">{% trans "Prénom" %}</th>
@@ -64,29 +64,40 @@
             <th class="border px-4 py-2 cursor-pointer text-center">{% trans "Info" %}</th>
         </tr>
     </thead>
-    <tbody>
-        {% for pilote in pilotes %}
+   <tbody>
+        {% for client in clients_pilotages %}
         <tr>
-            <td class="border px-4 py-2">{{ pilote.prenom }}</td>
-            <td class="border px-4 py-2">{{ pilote.nom }}</td>
-            <td class="border px-4 py-2">{{ pilote.adresse }}</td>
-            <td class="border px-4 py-2">{{ pilote.numero_telephone }}</td>
-            <td class="border px-4 py-2">{{ pilote.email }}</td>
+
+            <td class="border px-4 py-2">
+                {{ client.client_particulier.prenom }}
+            </td>
+
+            <td class="border px-4 py-2">
+                {{ client.client_particulier.nom }}
+            </td>
+
+            <td class="border px-4 py-2">
+                {{ client.client_particulier.adresse }}
+            </td>
+
+            <td class="border px-4 py-2">
+                {{ client.client_particulier.numero_telephone }}
+            </td>
+
+            <td class="border px-4 py-2">
+                {{ client.client_particulier.email }}
+            </td>
+
             <td class="border px-4 py-2 text-center">
-                {% if client_pilotage.id %}
-                    <a href="{% url 'client_pilotage:client_pilotage_detail' client_pilotage.id %}"
-                        class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
-                        {% trans "Info" %}
-                    </a>
-                {% else %}
-                    <span class="text-gray-400">{% trans "Info indisponible" %}</span>
-                {% endif %}
+                <a href="{% url 'client_pilotage:client_pilotage_detail' client.id %}"
+                   class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700">
+                    {% trans "Info" %}
+                </a>
             </td>
 
         </tr>
         {% endfor %}
     </tbody>
-
 </table>
 
 <br>
@@ -102,7 +113,7 @@
 <!-- DataTables JS -->
 <script>
 $(document).ready(function() {
-    var table = $('#client-table').DataTable({
+    var table = $('#client_pilotage-table').DataTable({
         pageLength: 30,
         language: {
             search: "{% trans 'Recherche globale :' %}",

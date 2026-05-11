@@ -1,7 +1,8 @@
 from django import forms
-from django.db.models import ExpressionWrapper, DecimalField, F
 from .models import Fournisseur
 from achat_mds.models import AchatMds
+
+
 
 
 class FournisseurForm(forms.ModelForm):

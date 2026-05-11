@@ -20,6 +20,7 @@ class ClientPilotage(models.Model):
         blank=True,
     )
 
+
     class NiveauPilotage(models.TextChoices):
         DEBUTANT = "DEBUTANT", _("Débutant")
         INTERMEDIAIRE = "INTERMEDIAIRE", _("Intermédiaire")
@@ -50,11 +51,11 @@ class ClientPilotage(models.Model):
     class Meta:
         verbose_name = _("Client pilotage")
         verbose_name_plural = _("Clients pilotages")
+        indexes = [
+            models.Index(fields=["societe"]),
+            models.Index(fields=["niveau"]),
+        ]
 
     def __str__(self):
-        return _("%(nom)s %(prenom)s %(niveau)s (Client pilotage)") % {
-            "nom": self.client_particulier.nom,
-            "prenom": self.client_particulier.prenom,
-            "niveau": self.niveau,
-        }
-
+        cp = self.client_particulier
+        return f"{cp.prenom} {cp.nom} ({self.niveau})"

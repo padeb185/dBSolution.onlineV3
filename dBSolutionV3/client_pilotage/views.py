@@ -4,28 +4,30 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
-from django_tenants.utils import tenant_context
+from django_tenants.utils import tenant_context, schema_context
 from adresse.models import Adresse
 from .forms import ClientPilotageForm
 from .models import  ClientPilotage
 from django.utils.translation import gettext as _
 from societe_cliente.models import SocieteCliente
 from voiture.voiture_exemplaire.models import VoitureExemplaire
-
-
-
-
+from client_particulier.models import ClientParticulier
+from django.db import transaction
 
 @method_decorator([login_required, never_cache], name='dispatch')
 class ClientPilotageListView(ListView):
     model = ClientPilotage
     template_name = "client_pilotage/client_pilotage_list.html"
-    context_object_name = "clients pilotages"
-    ordering = ["nom", "prenom"]
+    context_object_name = "clients_pilotages"
+    paginate_by = 20
 
     def get_queryset(self):
         societe = self.request.user.societe
-        return ClientPilotage.objects.filter(societe=societe)
+        return (
+            ClientPilotage.objects
+            .select_related("client_particulier")
+            .filter(societe=societe)
+        )
 
 
 
@@ -76,70 +78,50 @@ def modifier_client_pilotage_view(request, client_pilotage_id):
     )
 
 
+
+
+
 @login_required
 def client_pilotage_form_view(request):
     tenant = request.user.societe
 
-    client_pilotage = ClientPilotage()
-    client_pilotage.adresse = Adresse()
-    societes = SocieteCliente.objects.filter(societe=tenant)
-    voitures = VoitureExemplaire.objects.filter(societe=tenant)
+    with tenant_context(tenant):
 
-    if request.method == "POST":
-        nom = request.POST.get("nom")
-        prenom = request.POST.get("prenom")
-        societe_id = request.POST.get("societe_cliente")
+        if request.method == "POST":
+            form = ClientPilotageForm(request.POST)
 
-        if not nom or not prenom:
-            messages.error(request, _("Le prénom et le nom du client sont obligatoires."))
-        else:
-            with tenant_context(tenant):
-                adresse = Adresse.objects.create(
-                    societe=tenant,
-                    rue=request.POST.get("rue"),
-                    numero=request.POST.get("numero"),
-                    code_postal=request.POST.get("code_postal"),
-                    ville=request.POST.get("ville"),
-                    pays=request.POST.get("pays"),
-                    code_pays=request.POST.get("code_pays")
-                )
+            if form.is_valid():
 
-                societes = None
-                if societe_id:
-                    societes = SocieteCliente.objects.filter(id=societe_id).first()
+                with transaction.atomic():
 
-                client_pilotage = ClientPilotage.objects.create(
-                    societe=tenant,
-                    prenom=prenom,
-                    nom=nom,
-                    numero_carte_id=request.POST.get("numero_carte_id"),
-                    numero_compte=request.POST.get("numero_compte"),
-                    email=request.POST.get("email"),
-                    numero_telephone=request.POST.get("numero_telephone"),
-                    adresse=adresse
-                )
+                    # 1. créer client particulier d'abord
+                    client_particulier = ClientParticulier.objects.create(
+                        nom=request.POST.get("nom"),
+                        prenom=request.POST.get("prenom"),
+                        email=request.POST.get("email"),
+                        numero_telephone=request.POST.get("numero_telephone"),
+                        numero_carte_id=request.POST.get("numero_carte_id"),
+                        numero_compte=request.POST.get("numero_compte"),
+                        numero_carte_bancaire=request.POST.get("numero_carte_bancaire"),
+                    )
 
-                # ✅ 🔥 AJOUT DES VOITURES
-                voiture_ids = request.POST.getlist("voitures")
-                if voiture_ids:
-                    client_pilotage.voitures.set(voiture_ids)
+                    # 2. créer client pilotage
+                    client_pilotage = form.save(commit=False)
+                    client_pilotage.client_particulier = client_particulier
+                    client_pilotage.societe = tenant
+                    client_pilotage.save()
+
+                    form.save_m2m()
 
                 messages.success(
                     request,
-                    _(f"Client '{client_pilotage.prenom} {client_pilotage.nom}' ajouté avec succès !")
+                    f"Client {client_particulier.nom} {client_particulier.prenom} créé avec succès"
                 )
 
-    if not hasattr(client_pilotage, "adresse") or client_pilotage.adresse is None:
-        client_pilotage.adresse = Adresse()
+        else:
+            form = ClientPilotageForm()
 
-    return render(
-        request,
-        "client_atelier/client_atelier_form.html",
-        {
-            "client_atelier": client_pilotage,
-            "tenant": tenant,
-            "societes": societes,
-            "voitures": voitures,
-        }
-    )
+    return render(request, "client_pilotage/client_pilotage_form.html", {
+        "form": form,
+    })
 

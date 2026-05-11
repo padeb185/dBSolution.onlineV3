@@ -1,25 +1,55 @@
 from django import forms
-from .models import ClientPilotage
 from django.utils.translation import gettext_lazy as _
+from .models import ClientPilotage
+from societe_cliente.models import SocieteCliente
 
 
 class ClientPilotageForm(forms.ModelForm):
+
+    # champs ClientParticulier (manuel)
+    prenom = forms.CharField(
+        label=_("Prénom"),
+        widget=forms.TextInput(attrs={"class": "border rounded px-4 py-2 w-full"})
+    )
+
+    nom = forms.CharField(
+        label=_("Nom"),
+        widget=forms.TextInput(attrs={"class": "border rounded px-4 py-2 w-full"})
+    )
+
+    societe_cliente = forms.ModelChoiceField(
+        queryset=SocieteCliente.objects.all(),
+        label=_("Société cliente"),
+        widget=forms.Select(attrs={"class": "border rounded px-4 py-2 w-full"})
+    )
+
+    email = forms.EmailField(required=False)
+
+    numero_telephone = forms.CharField(required=False)
+    numero_carte_id = forms.CharField(required=False)
+    numero_compte = forms.CharField(required=False)
+    numero_carte_bancaire = forms.CharField(required=False)
+
     class Meta:
         model = ClientPilotage
+
         fields = [
-            "client_particulier",
-            "niveau",
             "historique",
-
+            "niveau",
         ]
+
         widgets = {
-            "numero_carte_bancaire": forms.TextInput(attrs={
+            "voitures": forms.SelectMultiple(attrs={
                 "class": "border rounded px-4 py-2 w-full",
-                "placeholder": "5389 3456 7890 1234"
-            }),
-            "numero_compte": forms.TextInput(attrs={
-                "class": "border rounded px-4 py-2 w-full",
-                "placeholder": "BE12 3456 7890 1234 56"  # exemple format belge
             }),
 
+            "historique": forms.Textarea(attrs={
+                "class": "border rounded px-4 py-2 w-full",
+                "rows": 4,
+            }),
+
+            "remarques": forms.Textarea(attrs={
+                "class": "border rounded px-4 py-2 w-full",
+                "rows": 4,
+            }),
         }

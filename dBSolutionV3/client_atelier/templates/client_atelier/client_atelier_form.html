@@ -51,7 +51,7 @@
         <div>
             <label for="id_prenom">{% trans "Prénom" %}</label>
             <input type="text" id="id_prenom" name="prenom"
-                   value="{{ request.POST.prenom|default:client_atelier.prenom|default_if_none:'' }}"
+                   value="{{ request.POST.prenom|default:client_atelier.client_particulier.prenom|default_if_none:'' }}"
                    class="border rounded px-4 py-2 w-full"
                    placeholder="{% trans 'Prénom' %}">
         </div>
@@ -60,7 +60,7 @@
         <div>
             <label for="id_nom">{% trans "Nom" %}</label>
             <input type="text" id="id_nom" name="nom"
-                   value="{{ request.POST.nom|default:client_atelier.nom|default_if_none:'' }}"
+                   value="{{ request.POST.nom|default:client_atelier.client_particulier.nom|default_if_none:'' }}"
                    class="border rounded px-4 py-2 w-full"
                    placeholder="{% trans 'Nom' %}">
         </div>
@@ -92,7 +92,7 @@
         <div>
             <label for="id_numero_telephone">{% trans "Numéro de téléphone" %}</label>
             <input type="text" id="id_numero_telephone" name="numero_telephone"
-                   value="{{ request.POST.numero_telephone|default:client_atelier.numero_telephone|default_if_none:'' }}"
+                   value="{{ request.POST.numero_telephone|default:client_atelier.client_particulier.client_atelier.numero_telephone|default_if_none:'' }}"
                    class="border rounded px-4 py-2 w-full"
                    placeholder="+32 123 45 67 89">
         </div>
@@ -103,7 +103,7 @@
         <div>
             <label for="id_numero_carte_id">{% trans "Numéro de carte d'identité" %}</label>
             <input type="text" id="id_numero_carte_id" name="numero_carte_id"
-                   value="{{ request.POST.numero_carte_id|default:client_atelier.numero_carte_id|default_if_none:'' }}"
+                   value="{{ request.POST.numero_carte_id|default:client_atelier.client_particulier.numero_carte_id|default_if_none:'' }}"
                    class="border rounded px-4 py-2 w-full">
         </div>
 
@@ -122,7 +122,7 @@
         <div>
             <label for="id_numero_carte_bancaire">{% trans "Numéro de carte bancaire" %}</label>
             <input type="text" id="id_numero_carte_bancaire" name="numero_carte_bancaire"
-                   value="{{ request.POST.numero_carte_bancaire|default:client_atelier.numero_carte_bancaire|default_if_none:'' }}"
+                   value="{{ request.POST.numero_carte_bancaire|default:client_atelier.client_particulier.numero_carte_bancaire|default_if_none:'' }}"
                    class="border rounded px-4 py-2 w-full"
                    placeholder="5389 3456 7890 1234">
         </div>
@@ -131,7 +131,7 @@
         <div>
             <label for="id_email">{% trans "Email" %}</label>
             <input type="email" id="id_email" name="email"
-                   value="{{ request.POST.email|default:client_atelier.email|default_if_none:'' }}"
+                   value="{{ request.POST.email|default:client_atelier.client_particulier.email|default_if_none:'' }}"
                    class="border rounded px-4 py-2 w-full"
                    placeholder="exemple@domaine.com">
         </div>
@@ -165,37 +165,37 @@
         <div>
             <label for="id_rue">{% trans "Rue" %}</label>
             <input type="text" id="id_rue" name="rue"
-                   value="{{ request.POST.rue|default:client_atelier.adresse.rue|default_if_none:'' }}"
+                   value="{{ request.POST.rue|default:client_atelier.client_particulier.adresse.rue|default_if_none:'' }}"
                    class="border rounded px-4 py-2 w-full">
         </div>
         <div>
             <label for="id_numero">{% trans "Numéro" %}</label>
             <input type="text" id="id_numero" name="numero"
-                   value="{{ request.POST.numero|default:client_atelier.adresse.numero|default_if_none:'' }}"
+                   value="{{ request.POST.numero|default:client_atelier.client_particulier.adresse.numero|default_if_none:'' }}"
                    class="border rounded px-4 py-2 w-full">
         </div>
         <div>
             <label for="id_code_postal">{% trans "Code postal" %}</label>
             <input type="text" id="id_code_postal" name="code_postal"
-                   value="{{ request.POST.code_postal|default:client_atelier.adresse.code_postal|default_if_none:'' }}"
+                   value="{{ request.POST.code_postal|default:client_atelier.client_particulier.adresse.code_postal|default_if_none:'' }}"
                    class="border rounded px-4 py-2 w-full">
         </div>
         <div>
             <label for="id_ville">{% trans "Ville" %}</label>
             <input type="text" id="id_ville" name="ville"
-                   value="{{ request.POST.ville|default:client_atelier.adresse.ville|default_if_none:'' }}"
+                   value="{{ request.POST.ville|default:client_atelier.client_particulier.adresse.ville|default_if_none:'' }}"
                    class="border rounded px-4 py-2 w-full">
         </div>
         <div>
             <label for="id_pays">{% trans "Pays" %}</label>
             <input type="text" id="id_pays" name="pays"
-                   value="{{ request.POST.pays|default:client_atelier.adresse.pays|default:'Belgique' }}"
+                   value="{{ request.POST.pays|default:client_atelier.client_particulier.adresse.pays|default:'Belgique' }}"
                    class="border rounded px-4 py-2 w-full">
         </div>
         <div>
             <label for="id_code_pays">{% trans "Code pays" %}</label>
             <input type="text" id="id_code_pays" name="code_pays"
-                   value="{{ request.POST.code_pays|default:client_atelier.adresse.code_pays|default:'BE' }}"
+                   value="{{ request.POST.code_pays|default:client_atelier.client_particulier.adresse.code_pays|default:'BE' }}"
                    class="border rounded px-4 py-2 w-full">
         </div>
 
@@ -208,7 +208,7 @@
                       name="remarques"
                       class="border rounded px-4 py-2 w-full"
                       placeholder="remarques">{% spaceless %}
-        {{ request.POST.remarques|default:client_atelier.remarques|default_if_none:'' }}
+        {{ request.POST.remarques|default:client_atelier.client_particulier.remarques|default_if_none:'' }}
         {% endspaceless %}</textarea>
         </div>
 
