@@ -213,7 +213,9 @@ def dashboard_view(request):
         'total_freins': total_freins,
         'total_freins_ar': total_freins_ar,
         'total_pneus': total_pneus,
+
         'total_maintenance': total_maintenance,
+
         'total_fournisseur': total_fournisseur,
         'total_client_particulier': total_client_particulier,
         'total_client_atelier': total_client_atelier,
