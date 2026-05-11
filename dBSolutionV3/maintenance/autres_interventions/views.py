@@ -53,111 +53,190 @@ def liste_autre_all(request):
     )
 
 
-
 @never_cache
 @login_required
 def choisir_autre_maintenance(request, exemplaire_id):
-    tenant = request.user.societe
 
-    with tenant_context(tenant):
-        user = request.user
-        context = {}
+    user = request.user
+    tenant = user.societe
 
-        # 🔹 Récupérer l'exemplaire AVANT
-        exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
+    # ✅ EXEMPLAIRE SÉCURISÉ TENANT
+    exemplaire = get_object_or_404(
+        VoitureExemplaire.objects.filter(societe=tenant),
+        id=exemplaire_id
+    )
 
-        # --- Sécurité tenant ---
-        tenant_schema = getattr(request, 'tenant', None)
-        schema_name = tenant_schema.schema_name if tenant_schema else None
+    schema_name = getattr(
+        getattr(request, "tenant", None),
+        "schema_name",
+        None
+    )
 
-        total_boite = total_bte_auto = total_geometrie = total_int_moteur = total_abs = total_int_boite = total_turbo =  0
+    # -----------------------------
+    # QUERYSETS VIDES PAR DÉFAUT
+    # -----------------------------
+    boite = ControleBoite.objects.none()
+    bte_auto = ControleBteVitesseAuto.objects.none()
+    geometrie = GeometrieVoiture.objects.none()
+    abs_qs = Abs.objects.none()
+    remplacement_boite = RemplacementBoite.objects.none()
 
+    admission = Admission.objects.none()
+    alternateur = Alternateur.objects.none()
+    courroie = CourroieDistribution.objects.none()
+    turbo = Turbo.objects.none()
+    remplacement_moteur = RemplacementMoteur.objects.none()
 
+    # -----------------------------
+    # TOTALS
+    # -----------------------------
+    total_boite = 0
+    total_bte_auto = 0
+    total_geometrie = 0
+    total_abs = 0
+    total_remplacement_boite = 0
 
-        boite = bte_auto = geometrie = moteur = abs = remplacement_boite = turbo = []
+    total_int_moteur = 0
+    total_int_boite = 0
+    total_turbo = 0
 
-        if schema_name:
-            with schema_context(schema_name):
+    modeles = VoitureModele.objects.none()
 
-                # ✅ FILTRAGE PAR EXEMPLAIRE
-                boite = ControleBoite.objects.filter(voiture_exemplaire=exemplaire)
-                bte_auto = ControleBteVitesseAuto.objects.filter(voiture_exemplaire=exemplaire)
-                geometrie = GeometrieVoiture.objects.filter(voiture_exemplaire=exemplaire)
-                abs = Abs.objects.filter(voiture_exemplaire=exemplaire)
-                remplacement_boite = RemplacementBoite.objects.filter(voiture_exemplaire=exemplaire)
+    # -----------------------------
+    # TENANT SCHEMA
+    # -----------------------------
+    if schema_name:
 
+        with schema_context(schema_name):
 
-                # ✅ COUNTS CORRECTS
-                total_boite = boite.count()
-                total_bte_auto = bte_auto.count()
-                total_geometrie = geometrie.count()
-                total_abs = abs.count()
-                total_remplacement_boite = remplacement_boite.count()
+            # ---------------- BOITE / CHASSIS ----------------
+            boite = ControleBoite.objects.filter(
+                voiture_exemplaire=exemplaire
+            )
 
+            bte_auto = ControleBteVitesseAuto.objects.filter(
+                voiture_exemplaire=exemplaire
+            )
 
-                admission = Admission.objects.filter(voiture_exemplaire=exemplaire)
-                alternateur = Alternateur.objects.filter(voiture_exemplaire=exemplaire)
-                courroie = CourroieDistribution.objects.filter(voiture_exemplaire=exemplaire)
-                remplacement_moteur = RemplacementMoteur.objects.filter(voiture_exemplaire=exemplaire)
-                remplacement_boite = RemplacementBoite.objects.filter(voiture_exemplaire=exemplaire)
-                turbo = Turbo.objects.filter(voiture_exemplaire=exemplaire)
+            geometrie = GeometrieVoiture.objects.filter(
+                voiture_exemplaire=exemplaire
+            )
 
+            abs_qs = Abs.objects.filter(
+                voiture_exemplaire=exemplaire
+            )
 
-                total_int_moteur = admission.count() + alternateur.count() + courroie.count() + turbo.count() + remplacement_moteur.count()
+            remplacement_boite = RemplacementBoite.objects.filter(
+                voiture_exemplaire=exemplaire
+            )
 
-                total_int_boite = boite.count() + remplacement_boite.count()
+            total_boite = boite.count()
+            total_bte_auto = bte_auto.count()
+            total_geometrie = geometrie.count()
+            total_abs = abs_qs.count()
+            total_remplacement_boite = remplacement_boite.count()
 
+            # ---------------- MOTEUR ----------------
+            admission = Admission.objects.filter(
+                voiture_exemplaire=exemplaire
+            )
 
-                modeles = VoitureModele.objects.all()
-        else:
-            modeles = []
+            alternateur = Alternateur.objects.filter(
+                voiture_exemplaire=exemplaire
+            )
 
-        # --- POST ---
-        if request.method == "POST":
-            type_choisi = request.POST.get("type_maintenance")
-            date_intervention = request.POST.get("date_intervention")
-            description = request.POST.get("description", "")
+            courroie = CourroieDistribution.objects.filter(
+                voiture_exemplaire=exemplaire
+            )
 
-            if type_choisi and date_intervention:
-                Maintenance.objects.create(
-                    societe=tenant,
-                    voiture_exemplaire=exemplaire,
-                    type_maintenance=type_choisi,
-                    immatriculation=exemplaire.immatriculation,
-                    date_intervention=date_intervention,
-                    description=description
-                )
-                return redirect('maintenance:list', modele_id=exemplaire.voiture_modele.id)
+            turbo = Turbo.objects.filter(
+                voiture_exemplaire=exemplaire
+            )
 
-        # --- CONTEXT ---
-        context.update({
-            "exemplaire": exemplaire,
-            "types_maintenance": TYPES_MAINTENANCE,
+            remplacement_moteur = RemplacementMoteur.objects.filter(
+                voiture_exemplaire=exemplaire
+            )
 
-            "total_boite": total_boite,
-            "total_bte_auto": total_bte_auto,
-            "total_geometrie": total_geometrie,
-            "total_abs": total_abs,
-            "total_remplacement_boite": total_remplacement_boite,
-            "total_int_moteur": total_int_moteur,
-            "total_int_boite": total_int_boite,
-            "total_turbo": total_turbo,
+            total_turbo = turbo.count()
 
-            "boite": boite,
-            "bte_auto": bte_auto,
-            "geometrie": geometrie,
-            "abs": abs,
-            "moteur": moteur,
-            "remplacement_boite": remplacement_boite,
-            "turbo": turbo,
+            total_int_moteur = (
+                admission.count()
+                + alternateur.count()
+                + courroie.count()
+                + turbo.count()
+                + remplacement_moteur.count()
+            )
 
-            "modeles": modeles,
+            total_int_boite = (
+                total_boite
+                + total_remplacement_boite
+            )
 
-        })
+            modeles = VoitureModele.objects.all()
 
-        return render(request, "autres_interventions/choisir_autre.html", context)
+    # -----------------------------
+    # POST
+    # -----------------------------
+    if request.method == "POST":
 
+        type_choisi = request.POST.get("type_maintenance")
+        date_intervention = request.POST.get("date_intervention")
+        description = request.POST.get("description", "")
 
+        if type_choisi and date_intervention:
+
+            Maintenance.objects.create(
+                societe=tenant,
+                voiture_exemplaire=exemplaire,
+                type_maintenance=type_choisi,
+                immatriculation=exemplaire.immatriculation,
+                date_intervention=date_intervention,
+                description=description,
+            )
+
+            return redirect(
+                "maintenance:list",
+                modele_id=exemplaire.voiture_modele.id
+            )
+
+    # -----------------------------
+    # CONTEXT
+    # -----------------------------
+    context = {
+        "exemplaire": exemplaire,
+        "types_maintenance": TYPES_MAINTENANCE,
+
+        "total_boite": total_boite,
+        "total_bte_auto": total_bte_auto,
+        "total_geometrie": total_geometrie,
+        "total_abs": total_abs,
+        "total_remplacement_boite": total_remplacement_boite,
+
+        "total_int_moteur": total_int_moteur,
+        "total_int_boite": total_int_boite,
+        "total_turbo": total_turbo,
+
+        "boite": boite,
+        "bte_auto": bte_auto,
+        "geometrie": geometrie,
+        "abs_qs": abs_qs,
+
+        "remplacement_boite": remplacement_boite,
+
+        "turbo": turbo,
+        "alternateur": alternateur,
+        "courroie": courroie,
+        "remplacement_moteur": remplacement_moteur,
+        "admission": admission,
+
+        "modeles": modeles,
+    }
+
+    return render(
+        request,
+        "autres_interventions/choisir_autre.html",
+        context
+    )
 
 
 

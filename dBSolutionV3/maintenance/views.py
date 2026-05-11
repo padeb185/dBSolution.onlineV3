@@ -34,7 +34,9 @@ from maintenance.autres_interventions.geometrie.models import GeometrieVoiture
 from maintenance.autres_interventions.moteur.admission.models import Admission
 from maintenance.autres_interventions.moteur.alternateur.models import Alternateur
 from maintenance.autres_interventions.abs.models import Abs
-
+from maintenance.autres_interventions.moteur.courroie.models import CourroieDistribution
+from maintenance.autres_interventions.moteur.remplacement_moteur.models import RemplacementMoteur
+from maintenance.autres_interventions.moteur.turbo.models import Turbo
 
 
 
@@ -93,6 +95,10 @@ def choisir_type_maintenance(request, exemplaire_id):
             silent = SilentBloc.objects.filter(voiture_exemplaire=exemplaire)
             carrosserie_interne = CarrosserieInterne.objects.filter(voiture_exemplaire=exemplaire)
             checkup_track = CheckupTrack.objects.filter(voiture_exemplaire=exemplaire)
+            courroie = CourroieDistribution.objects.filter(voiture_exemplaire=exemplaire)
+            turbo = Turbo.objects.filter(voiture_exemplaire=exemplaire)
+            remplacement_moteur = RemplacementMoteur.objects.filter(voiture_exemplaire=exemplaire)
+
 
             # ✅ COUNTS CORRECTS
             total_checkup = checkup.count()
@@ -109,12 +115,12 @@ def choisir_type_maintenance(request, exemplaire_id):
 
             admission = Admission.objects.filter(voiture_exemplaire=exemplaire)
             alternateur = Alternateur.objects.filter(voiture_exemplaire=exemplaire)
-            ABS = Abs.objects.filter(voiture_exemplaire=exemplaire)
-
-            total_int_moteur = admission.count() + alternateur.count() + geometrie.count()
+            abs_qs = Abs.objects.filter(voiture_exemplaire=exemplaire)
 
 
-            total_autres = boite.count() + boite_auto.count() + geometrie.count() + admission.count() + alternateur.count() + geometrie.count() + ABS.count()
+
+
+            total_autres = boite.count() + boite_auto.count() + geometrie.count() + admission.count() + alternateur.count() + courroie.count() + turbo.count() + remplacement_moteur.count() + abs_qs.count()
             total_jeux_pieces = jeux_pieces.count()
             total_silent = silent.count()
             total_carrosserie_interne = carrosserie_interne.count()

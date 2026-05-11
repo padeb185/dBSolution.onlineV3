@@ -1,6 +1,8 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.db import models
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from io import BytesIO
 import base64
@@ -97,6 +99,7 @@ def dashboard_view(request):
     user = request.user
     context = {}
 
+
     # --- Sécurité : récupère le tenant (la société de l'utilisateur) ---
     societe = request.user.societe
     schema_name = societe.schema_name  # pour django-tenants
@@ -128,7 +131,9 @@ def dashboard_view(request):
             freins = VoitureFreinsAV.objects.filter(societe=societe)
             freins_ar = VoitureFreinsAR.objects.filter(societe=societe)
             pneus = VoiturePneus.objects.filter(societe=societe)
+
             maintenance = Maintenance.objects.filter(societe=societe)
+
             fournisseurs = Fournisseur.objects.filter(societe=societe)
             client_particulier = ClientParticulier.objects.filter(societe=societe)
             client_atelier = ClientAtelier.objects.filter(societe=societe)
@@ -172,6 +177,18 @@ def dashboard_view(request):
             total_main = maindoeuvre.count()
             total_proprietaire = proprietaire.count()
 
+            query = Maintenance.objects.filter(societe=societe)
+
+            if user.role == "mecanicien":
+                query = query.filter(mecanicien=user)
+
+            elif user.role == "chef_mecanicien":
+                query = query.filter(chef_mecanicien=user)
+
+            elif user.role == "apprenti":
+                query = query.filter(apprentis=user)
+
+            total_maintenances_user = query.count()
 
             total_client = client_particulier.count() + client_atelier.count() + client_pilotage.count()
 
@@ -182,6 +199,10 @@ def dashboard_view(request):
 
     context.update({
         'user': user,
+        'user_nom': user.nom,
+        'user_prenom': user.prenom,
+        "user_full_name": f"{user.prenom} {user.nom}",
+        'user_role': user.role,
         'societe': societe,
         'total_marques': total_marques,
         'total_modele': total_modele,
@@ -207,7 +228,7 @@ def dashboard_view(request):
         'total_main': total_main,
         'total_proprietaire': total_proprietaire,
         'total_client': total_client,
-
+        "total_maintenances_user": total_maintenances_user,
 
 
         'marques': marques,

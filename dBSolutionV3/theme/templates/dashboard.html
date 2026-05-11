@@ -14,7 +14,8 @@
     <div class="flex justify-between items-center">
       <div>
         <h2 class="text-lg font-semibold mb-2">{% trans "Utilisateurs" %}</h2>
-        <p class="text-gray-600">{% trans "Nombre total :" %} <span class="font-bold">128</span></p>
+         <p class="text-lg font-bold">{{ user_full_name }}</p>
+    <p class="text-gray-500">{{ user_role }}</p>
       </div>
       <img src="{% static 'icons/equipe.png' %}" alt="Utilisateurs" style="width:60px; height:60px;">
     </div>
@@ -24,8 +25,14 @@
   <div class="bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
     <div class="flex justify-between items-center">
       <div>
-        <h2 class="text-lg font-semibold mb-2">{% trans "Projets" %}</h2>
-        <p class="text-gray-600">{% trans "Projets actifs :" %} <span class="font-bold">24</span></p>
+         <h2 class="text-lg font-semibold mb-2">
+          {% trans "Maintenance" %}
+        </h2>
+
+        <p class="text-gray-600">
+          {% trans "Effectuées :" %}
+          <span class="font-bold">{{ total_maintenances_user }}</span>
+        </p>
       </div>
       <img src="{% static 'icons/gestion-de-projet.png' %}" alt="Projets" style="width:60px; height:60px;">
     </div>

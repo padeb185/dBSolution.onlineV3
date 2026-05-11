@@ -298,7 +298,10 @@ def dashboard_boite_view(request, exemplaire_id):
                     date_intervention=date_intervention,
                     description=description
                 )
-                return redirect('maintenance:list', modele_id=exemplaire.voiture_modele.id)
+                return redirect(
+                    'maintenance:dashboard_boite',
+                    exemplaire_id=exemplaire.id
+                )
 
         # --- CONTEXT ---
         context.update({

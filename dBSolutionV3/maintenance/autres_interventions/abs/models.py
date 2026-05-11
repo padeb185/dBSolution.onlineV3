@@ -5,7 +5,8 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from utils.mixin import TechnicienMixin
 from maintenance.models import Maintenance
-from maintenance.niveaux.models import validate_step_0_1
+from maintenance.services import sync_maintenance
+
 
 
 class EtatOKNotOK(models.TextChoices):
@@ -235,7 +236,11 @@ class Abs(TechnicienMixin, models.Model):
                 self.main_oeuvre.descriptif = task_name
                 self.main_oeuvre.save(update_fields=["descriptif"])
 
+
+
         super().save(*args, **kwargs)
+
+        sync_maintenance(self, Maintenance.TypeMaintenance.ABS)
 
     # -------------------------
     # RAPPORT

@@ -5,6 +5,7 @@ from maintenance.models import Maintenance
 from utilisateurs.models import Utilisateur
 from django.conf import settings
 from utils.mixin import TechnicienMixin
+from maintenance.models import Maintenance, TypeMaintenance
 
 
 class NettoyageEtat(models.TextChoices):
@@ -19,7 +20,7 @@ class NettoyageExterieur(TechnicienMixin, models.Model):
         Maintenance,
         on_delete=models.CASCADE,
         related_name="nettoyages_exterieur",
-        verbose_name=_("Check up")
+        verbose_name=_("nettoyage_ext")
     )
 
     voiture_exemplaire = models.ForeignKey(
@@ -156,34 +157,30 @@ class NettoyageExterieur(TechnicienMixin, models.Model):
                 })
 
     def save(self, *args, **kwargs):
-        # Mettre à jour le kilométrage de la voiture si nécessaire
+
         if self.voiture_exemplaire and self.kilometrage_net_ext:
             if self.kilometrage_net_ext > self.voiture_exemplaire.kilometres_chassis:
                 self.voiture_exemplaire.kilometres_chassis = self.kilometrage_net_ext
                 self.voiture_exemplaire.save(update_fields=["kilometres_chassis"])
 
-        # Toujours garder une copie du kilométrage de la voiture
         if self.voiture_exemplaire:
             self.kilometres_chassis = self.voiture_exemplaire.kilometres_chassis
 
+        # technicien
         if not self.tech_technicien and hasattr(self, "_user"):
             self.assign_technicien(self._user)
 
-            # ----------------------------
-            # MAIN D'OEUVRE AUTO DESCRIPTIF
-            # ----------------------------
-            if self.main_oeuvre:
-                task_name = ""
+        # main d'œuvre
+        if self.main_oeuvre:
+            task_name = _("Nettoyage extérieur") + " " + str(self.voiture_exemplaire)
+            self.main_oeuvre.descriptif = task_name
+            self.main_oeuvre.save(update_fields=["descriptif"])
 
-                if self.maintenance:
-                    task_name = str(self.maintenance)
-                elif self.voiture_exemplaire:
-                    task_name = _("Nettoyage extérieur") + " " + str(self.voiture_exemplaire)
-
-                # update descriptif automatiquement
-                if hasattr(self.main_oeuvre, "descriptif"):
-                    self.main_oeuvre.descriptif = task_name
-                    self.main_oeuvre.save(update_fields=["descriptif"])
+        # maintenance update (TOUJOURS)
+        if self.maintenance:
+            self.maintenance.type_maintenance = TypeMaintenance.NETTOYAGE_EXTERIEUR
+            self.maintenance.voiture_exemplaire = self.voiture_exemplaire
+            self.maintenance.save(update_fields=["type_maintenance", "voiture_exemplaire"])
 
         super().save(*args, **kwargs)
 

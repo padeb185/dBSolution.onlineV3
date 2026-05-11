@@ -413,12 +413,12 @@ class CheckupTrack(TechnicienMixin, models.Model):
         if self.voiture_exemplaire:
             self.kilometres_chassis = self.voiture_exemplaire.kilometres_chassis
 
-        if not self.tech_technicien and hasattr(self, '_user'):
+        if not self.tech_technicien and hasattr(self, "_user"):
             self.assign_technicien(self._user)
 
-            # ----------------------------
-            # MAIN D'OEUVRE AUTO DESCRIPTIF
-            # ----------------------------
+        # ----------------------------
+        # MAIN D'OEUVRE AUTO DESCRIPTIF
+        # ----------------------------
         if self.main_oeuvre:
             task_name = ""
 
@@ -427,9 +427,16 @@ class CheckupTrack(TechnicienMixin, models.Model):
             elif self.voiture_exemplaire:
                 task_name = f"Checkup Track {self.voiture_exemplaire}"
 
+            self.main_oeuvre.descriptif = task_name
+            self.main_oeuvre.save(update_fields=["descriptif"])
             # update descriptif automatiquement
             if hasattr(self.main_oeuvre, "descriptif"):
                 self.main_oeuvre.descriptif = task_name
                 self.main_oeuvre.save(update_fields=["descriptif"])
+
+        if self.maintenance:
+            self.maintenance.type_maintenance = Maintenance.TypeMaintenance.CHECKUP_TRACK
+            self.maintenance.voiture_exemplaire = self.voiture_exemplaire
+            self.maintenance.save(update_fields=["type_maintenance", "voiture_exemplaire"])
 
         super().save(*args, **kwargs)

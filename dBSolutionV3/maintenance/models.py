@@ -13,6 +13,10 @@ class TypeMaintenance(models.TextChoices):
     NETTOYAGE_INTERIEUR = "nettoyage_interieur", _("Nettoyage intérieur")
     NIVEAUX = "niveaux", _("Niveaux")
     AUTRES = "autres", _("Autres interventions")
+    CHECKUP_TRACK = "checkup_track", _("Check-up piste")
+    ABS = "ABS", _("ABS")
+
+
 
 
 class Maintenance(models.Model):
@@ -67,7 +71,24 @@ class Maintenance(models.Model):
         related_name="maintenances_chef"
     )
 
+    tech_technicien = models.ForeignKey(
+        "utilisateurs.Utilisateur",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="maintenances"
+    )
 
+    tech_nom_technicien = models.CharField(max_length=255, blank=True)
+    tech_role_technicien = models.CharField(max_length=255, blank=True)
+
+    tech_societe = models.ForeignKey(
+        "societe.Societe",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="maintenances_technicien"
+    )
 
     immatriculation = models.CharField(_("Immatriculation"), max_length=20)
     date_intervention = models.DateField(_("Date d'intervention"))
