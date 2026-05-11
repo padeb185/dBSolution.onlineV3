@@ -599,9 +599,6 @@ class CarrosserieInterne(models.Model):
     # --- Date d'enregistrement ---
     date = models.DateTimeField(auto_now_add=True)
 
-    class Meta:
-        verbose_name = _("Contrôle général")
-        verbose_name_plural = _("Contrôles généraux")
 
 
     def assign_technicien(self, user):
@@ -611,45 +608,61 @@ class CarrosserieInterne(models.Model):
         self.tech_societe = user.societe
 
 
-        class Meta:
-            verbose_name = _("Carrosserie Interne")
-            verbose_name_plural = _("Carrosseries Internes")
+    class Meta:
+        verbose_name = _("Carrosserie Interne")
+        verbose_name_plural = _("Carrosseries Internes")
 
-        def __str__(self):
-            return f"{self.voiture_exemplaire} - {self.date.strftime('%Y-%m-%d')}"
+    def __str__(self):
+        return f"{self.voiture_exemplaire} - {self.date.strftime('%Y-%m-%d')}"
 
-        def clean(self):
-            """Validation du kilométrage."""
-            if self.voiture_exemplaire and self.kilometrage_intervention:
-                if self.kilometrage_intervention < self.voiture_exemplaire.kilometres_chassis:
-                    raise ValidationError(
-                        _("Le kilométrage de l'intervention (%(intervention)s) ne peut pas être inférieur au kilométrage actuel (%(current)s)."),
-                        params={'intervention': self.kilometrage_intervention,
-                                'current': self.voiture_exemplaire.kilometres_chassis}
-                    )
+    def clean(self):
 
-        def save(self, *args, **kwargs):
-            """Mettre à jour les totaux et le kilométrage."""
+        if self.voiture_exemplaire and self.kilometrage_intervention:
+            if self.kilometrage_intervention < self.voiture_exemplaire.kilometres_chassis:
+                raise ValidationError(
+                    _("Le kilométrage de l'intervention (%(intervention)s) ne peut pas être inférieur au kilométrage actuel (%(current)s)."),
+                    params={'intervention': self.kilometrage_intervention,
+                            'current': self.voiture_exemplaire.kilometres_chassis}
+        )
+
+    def save(self, *args, **kwargs):
+
             # 🔹 Mettre à jour le kilométrage de l'exemplaire
-            if self.voiture_exemplaire and self.kilometrage_intervention:
-                if self.kilometrage_intervention > self.voiture_exemplaire.kilometres_chassis:
-                    self.voiture_exemplaire.kilometres_chassis = self.kilometrage_intervention
-                    self.voiture_exemplaire.save(update_fields=["kilometres_chassis"])
+        if self.voiture_exemplaire and self.kilometrage_intervention:
+            if self.kilometrage_intervention > self.voiture_exemplaire.kilometres_chassis:
+                self.voiture_exemplaire.kilometres_chassis = self.kilometrage_intervention
+                self.voiture_exemplaire.save(update_fields=["kilometres_chassis"])
 
             # 🔹 Calculer les totaux pièces
             self.total_pieces = self._calculate_total_pieces()
-            super().save(*args, **kwargs)
+            # ----------------------------
+            # MAIN D'OEUVRE AUTO DESCRIPTIF
+            # ----------------------------
+            if self.main_oeuvre:
+                task_name = ""
 
-        def _calculate_total_pieces(self):
-            """Somme des prix multipliés par les quantités pour chaque pièce."""
-            total = Decimal(0)
-            for field in self._meta.fields:
-                if field.name.endswith("_prix"):
-                    quant_field_name = f"{field.name[:-5]}_quantite"
-                    quant = getattr(self, quant_field_name, 0)
-                    prix = getattr(self, field.name, Decimal(0))
-                    total += (prix or Decimal(0)) * (quant or 0)
-            return total
+                if self.maintenance:
+                    task_name = str(self.maintenance)
+                elif self.voiture_exemplaire:
+                    task_name = _("Carrosserie") + " " + str(self.voiture_exemplaire)
+
+                # update descriptif automatiquement
+                if hasattr(self.main_oeuvre, "descriptif"):
+                    self.main_oeuvre.descriptif = task_name
+                    self.main_oeuvre.save(update_fields=["descriptif"])
+
+        super().save(*args, **kwargs)
+
+    def _calculate_total_pieces(self):
+
+        total = Decimal(0)
+        for field in self._meta.fields:
+            if field.name.endswith("_prix"):
+                quant_field_name = f"{field.name[:-5]}_quantite"
+                quant = getattr(self, quant_field_name, 0)
+                prix = getattr(self, field.name, Decimal(0))
+                total += (prix or Decimal(0)) * (quant or 0)
+        return total
 
 
 

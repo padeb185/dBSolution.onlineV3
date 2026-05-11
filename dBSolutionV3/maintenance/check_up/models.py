@@ -442,6 +442,22 @@ class ControleGeneral(TechnicienMixin, models.Model):
         if not self.tech_technicien and hasattr(self, '_user'):
             self.assign_technicien(self._user)
 
+            # ----------------------------
+            # MAIN D'OEUVRE AUTO DESCRIPTIF
+            # ----------------------------
+            if self.main_oeuvre:
+                task_name = ""
+
+                if self.maintenance:
+                    task_name = str(self.maintenance)
+                elif self.voiture_exemplaire:
+                    task_name = f"Checkup  {self.voiture_exemplaire}"
+
+                # update descriptif automatiquement
+                if hasattr(self.main_oeuvre, "descriptif"):
+                    self.main_oeuvre.descriptif = task_name
+                    self.main_oeuvre.save(update_fields=["descriptif"])
+
         super().save(*args, **kwargs)
 
     @property
