@@ -4,22 +4,23 @@ from django.utils.translation import gettext_lazy as _
 from maintenance.entretien.models import Entretien
 
 
-class TypeMaintenance(models.TextChoices):
-    CHECKUP = "checkup", _("Check-up")
-    ENTRETIEN = "entretien", _("Entretien")
-    FREINS = "freins", _("Freins")
-    PNEUS = "pneus", _("Pneus")
-    NETTOYAGE_EXTERIEUR = "nettoyage_exterieur", _("Nettoyage extérieur")
-    NETTOYAGE_INTERIEUR = "nettoyage_interieur", _("Nettoyage intérieur")
-    NIVEAUX = "niveaux", _("Niveaux")
-    AUTRES = "autres", _("Autres interventions")
-    CHECKUP_TRACK = "checkup_track", _("Check-up piste")
-    ABS = "ABS", _("ABS")
-
 
 
 
 class Maintenance(models.Model):
+
+    class TypeMaintenance(models.TextChoices):
+        CHECKUP = "checkup", _("Check-up")
+        ENTRETIEN = "entretien", _("Entretien")
+        FREINS = "freins", _("Freins")
+        PNEUS = "pneus", _("Pneus")
+        NETTOYAGE_EXTERIEUR = "nettoyage_exterieur", _("Nettoyage extérieur")
+        NETTOYAGE_INTERIEUR = "nettoyage_interieur", _("Nettoyage intérieur")
+        NIVEAUX = "niveaux", _("Niveaux")
+        AUTRES = "autres", _("Autres interventions")
+        CHECKUP_TRACK = "checkup_track", _("Check-up piste")
+        ABS = "ABS", _("ABS")
+
     class Tag(models.TextChoices):
         VERT = "VERT", _("Vert")
         JAUNE = "JAUNE", _("Jaune")
@@ -126,6 +127,7 @@ class Maintenance(models.Model):
         null=True,
         blank=True
     )
+
 
     class Meta:
         verbose_name = _("Maintenance")

@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 from utils.mixin import TechnicienMixin
 from maintenance.models import Maintenance
 from maintenance.services import sync_maintenance
-
+from maintenance.models import Maintenance
 
 
 class EtatOKNotOK(models.TextChoices):
@@ -215,10 +215,18 @@ class Abs(TechnicienMixin, models.Model):
     # -------------------------
     def save(self, *args, **kwargs):
 
-        # Calculs
+        # ----------------------------
+        # CALCUL DES PIÈCES
+        # ----------------------------
         self.calcul_piece("pompe_abs")
         self.calcul_piece("calculateur_abs")
         self.calcul_piece("capteur_abs")
+
+        # ----------------------------
+        # TECHNICIEN AUTO
+        # ----------------------------
+        if not self.tech_technicien and hasattr(self, "_user"):
+            self.assign_technicien(self._user)
 
         # ----------------------------
         # MAIN D'OEUVRE AUTO DESCRIPTIF
@@ -228,6 +236,7 @@ class Abs(TechnicienMixin, models.Model):
 
             if self.maintenance:
                 task_name = str(self.maintenance)
+
             elif self.voiture_exemplaire:
                 task_name = _("ABS") + " " + str(self.voiture_exemplaire)
 
@@ -236,12 +245,30 @@ class Abs(TechnicienMixin, models.Model):
                 self.main_oeuvre.descriptif = task_name
                 self.main_oeuvre.save(update_fields=["descriptif"])
 
+        # ----------------------------
+        # MAJ KILOMÉTRAGE
+        # ----------------------------
+        if self.voiture_exemplaire and self.kilometrage_abs:
+            if self.kilometrage_abs > self.voiture_exemplaire.kilometres_chassis:
+                self.voiture_exemplaire.kilometres_chassis = self.kilometrage_abs
+                self.voiture_exemplaire.save(update_fields=["kilometres_chassis"])
 
+        # copie locale
+        if self.voiture_exemplaire:
+            self.kilometres_chassis = self.voiture_exemplaire.kilometres_chassis
 
+        # ----------------------------
+        # SAVE ABS
+        # ----------------------------
         super().save(*args, **kwargs)
 
-        sync_maintenance(self, Maintenance.TypeMaintenance.ABS)
-
+        # ----------------------------
+        # SYNC MAINTENANCE
+        # ----------------------------
+        sync_maintenance(
+            self,
+            Maintenance.TypeMaintenance.ABS
+        )
     # -------------------------
     # RAPPORT
     # -------------------------

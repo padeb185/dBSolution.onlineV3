@@ -8,7 +8,6 @@ from django_tenants.utils import tenant_context, schema_context
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from voiture.voiture_modele.models import VoitureModele
 from maintenance.models import Maintenance
-from maintenance.models import TypeMaintenance
 from django.utils.translation import gettext as _
 from maintenance.utils import creer_maintenance_complete
 from voiture.voiture_marque.models import VoitureMarque
