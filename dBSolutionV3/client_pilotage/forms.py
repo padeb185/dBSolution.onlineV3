@@ -6,7 +6,6 @@ from societe_cliente.models import SocieteCliente
 
 class ClientPilotageForm(forms.ModelForm):
 
-    # champs ClientParticulier (manuel)
     prenom = forms.CharField(
         label=_("Prénom"),
         widget=forms.TextInput(attrs={"class": "border rounded px-4 py-2 w-full"})
@@ -20,7 +19,8 @@ class ClientPilotageForm(forms.ModelForm):
     societe_cliente = forms.ModelChoiceField(
         queryset=SocieteCliente.objects.all(),
         label=_("Société cliente"),
-        widget=forms.Select(attrs={"class": "border rounded px-4 py-2 w-full"})
+        widget=forms.Select(attrs={"class": "border rounded px-4 py-2 w-full"}),
+        required=False,
     )
 
     email = forms.EmailField(required=False)
@@ -29,6 +29,26 @@ class ClientPilotageForm(forms.ModelForm):
     numero_carte_id = forms.CharField(required=False)
     numero_compte = forms.CharField(required=False)
     numero_carte_bancaire = forms.CharField(required=False)
+
+    date_naissance = forms.DateField(
+        required=True,
+        widget=forms.DateInput(
+            attrs={
+                "type": "date",
+                "class": "border rounded px-4 py-2 w-full",
+            }
+        )
+    )
+
+    age = forms.IntegerField(
+        label=_("Âge"),
+        required=False,
+        disabled=True,
+        widget=forms.NumberInput(attrs={
+            "class": "border rounded px-4 py-2 w-full bg-gray-100"
+        })
+    )
+
 
     rue = forms.CharField(
         required=False,
@@ -92,11 +112,12 @@ class ClientPilotageForm(forms.ModelForm):
             }),
         }
 
-    def __init__(self, *args, instance=None, **kwargs):
-        super().__init__(*args, instance=instance, **kwargs)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
-        if instance and instance.client_particulier:
-            cp = instance.client_particulier
+        if self.instance and self.instance.pk:
+
+            cp = self.instance.client_particulier
 
             self.fields["prenom"].initial = cp.prenom
             self.fields["nom"].initial = cp.nom
@@ -105,18 +126,27 @@ class ClientPilotageForm(forms.ModelForm):
             self.fields["numero_carte_id"].initial = cp.numero_carte_id
             self.fields["numero_compte"].initial = cp.numero_compte
             self.fields["numero_carte_bancaire"].initial = cp.numero_carte_bancaire
-            self.fields["rue"].initial = getattr(cp, "rue", "")
-            self.fields["numero"].initial = getattr(cp, "numero", "")
-            self.fields["boite"].initial = getattr(cp, "boite", "")
-            self.fields["code_postal"].initial = getattr(cp, "code_postal", "")
-            self.fields["ville"].initial = getattr(cp, "ville", "")
-            self.fields["pays"].initial = getattr(cp, "pays", "Belgique")
-            self.fields["code_pays"].initial = getattr(cp, "code_pays", "BE")
+            self.fields["date_naissance"].initial = cp.date_naissance
+            self.fields["age"].initial = cp.age
+
+            if self.instance.adresse:
+                adresse = self.instance.adresse
+
+                self.fields["rue"].initial = adresse.rue
+                self.fields["numero"].initial = adresse.numero
+                self.fields["boite"].initial = adresse.boite
+                self.fields["code_postal"].initial = adresse.code_postal
+                self.fields["ville"].initial = adresse.ville
+                self.fields["pays"].initial = adresse.pays
+                self.fields["code_pays"].initial = adresse.code_pays
 
             # 👉 ordre FINAL du formulaire
-            self.order_fields([
+
+            ordered_fields = [
                 "prenom",
                 "nom",
+                "date_naissance",
+                "age",
                 "societe_cliente",
                 "email",
                 "numero_telephone",
@@ -131,7 +161,13 @@ class ClientPilotageForm(forms.ModelForm):
                 "pays",
                 "code_pays",
 
-                # 👇 FORCER EN BAS
+                # EN BAS
                 "niveau",
                 "historique",
-            ])
+            ]
+
+            self.fields = {
+                field: self.fields[field]
+                for field in ordered_fields
+                if field in self.fields
+            }

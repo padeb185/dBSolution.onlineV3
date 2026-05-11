@@ -239,6 +239,40 @@ document.addEventListener('DOMContentLoaded', () => {
     formatBankNumber("id_numero_carte_bancaire");
     formatBankNumber("id_numero_compte");
 
+
+    const dateInput = document.getElementById("id_date_naissance");
+    const ageInput = document.getElementById("id_age");
+
+    if (!dateInput || !ageInput) return;
+
+    function calculateAge() {
+
+        if (!dateInput.value) {
+            ageInput.value = "";
+            return;
+        }
+
+        const birthDate = new Date(dateInput.value);
+        const today = new Date();
+
+        let age = today.getFullYear() - birthDate.getFullYear();
+
+        const m = today.getMonth() - birthDate.getMonth();
+
+        if (
+            m < 0 ||
+            (m === 0 && today.getDate() < birthDate.getDate())
+        ) {
+            age--;
+        }
+
+        ageInput.value = age;
+    }
+
+    dateInput.addEventListener("change", calculateAge);
+
+    calculateAge();
+
 });
 </script>
 

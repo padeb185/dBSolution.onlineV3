@@ -13,6 +13,10 @@ from societe_cliente.models import SocieteCliente
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from client_particulier.models import ClientParticulier
 from django.db import transaction
+from adresse.models import Adresse
+
+
+
 
 @method_decorator([login_required, never_cache], name='dispatch')
 class ClientPilotageListView(ListView):
@@ -45,6 +49,10 @@ def client_pilotage_detail_view(request, client_pilotage_id):
         "client_pilotage": client_pilotage,
         "adresse": adresse,
     })
+
+
+
+
 @login_required
 def modifier_client_pilotage_view(request, client_pilotage_id):
 
@@ -58,6 +66,9 @@ def modifier_client_pilotage_view(request, client_pilotage_id):
             societe=tenant
         )
 
+        cp = client_pilotage.client_particulier
+        adresse = client_pilotage.adresse
+
         if request.method == "POST":
 
             form = ClientPilotageForm(
@@ -66,30 +77,82 @@ def modifier_client_pilotage_view(request, client_pilotage_id):
             )
 
             if form.is_valid():
-                obj = form.save(commit=False)
 
-                # update ClientParticulier lié
-                cp = obj.client_particulier
-                cp.prenom = form.cleaned_data.get("prenom")
-                cp.nom = form.cleaned_data.get("nom")
-                cp.email = form.cleaned_data.get("email")
-                cp.numero_telephone = form.cleaned_data.get("numero_telephone")
-                cp.numero_carte_id = form.cleaned_data.get("numero_carte_id")
-                cp.numero_compte = form.cleaned_data.get("numero_compte")
-                cp.numero_carte_bancaire = form.cleaned_data.get("numero_carte_bancaire")
-                cp.save()
+                with transaction.atomic():
 
-                obj.save()
+                    obj = form.save(commit=False)
+
+                    # -----------------------
+                    # CLIENT PARTICULIER
+                    # -----------------------
+                    cp.prenom = form.cleaned_data.get("prenom")
+                    cp.nom = form.cleaned_data.get("nom")
+                    cp.email = form.cleaned_data.get("email")
+                    cp.numero_telephone = form.cleaned_data.get("numero_telephone")
+                    cp.numero_carte_id = form.cleaned_data.get("numero_carte_id")
+                    cp.numero_compte = form.cleaned_data.get("numero_compte")
+                    cp.numero_carte_bancaire = form.cleaned_data.get("numero_carte_bancaire")
+                    cp.date_naissance = form.cleaned_data.get("date_naissance")
+
+                    cp.save()
+
+                    # -----------------------
+                    # ADRESSE
+                    # -----------------------
+                    if adresse is None:
+
+                        adresse = Adresse.objects.create(
+                            societe=tenant
+                        )
+
+                    adresse.rue = form.cleaned_data.get("rue")
+                    adresse.numero = form.cleaned_data.get("numero")
+                    adresse.boite = form.cleaned_data.get("boite")
+                    adresse.code_postal = form.cleaned_data.get("code_postal")
+                    adresse.ville = form.cleaned_data.get("ville")
+                    adresse.pays = form.cleaned_data.get("pays")
+                    adresse.code_pays = form.cleaned_data.get("code_pays")
+
+                    adresse.save()
+
+                    # -----------------------
+                    # CLIENT PILOTAGE
+                    # -----------------------
+                    obj.client_particulier = cp
+                    obj.adresse = adresse
+                    obj.societe = tenant
+                    obj.save()
 
                 messages.success(
                     request,
-                    _(f"Client '{cp.nom} {cp.prenom}' modifié avec succès !")
+                    _(f"Client '{cp.prenom} {cp.nom}' modifié avec succès !")
                 )
 
-                return redirect("client_pilotage:client_pilotage_list")
+            else:
+                messages.error(
+                    request,
+                    _("Veuillez corriger les erreurs du formulaire.")
+                )
 
         else:
-            form = ClientPilotageForm(instance=client_pilotage)
+
+            initial = {}
+
+            if adresse:
+                initial = {
+                    "rue": adresse.rue,
+                    "numero": adresse.numero,
+                    "boite": adresse.boite,
+                    "code_postal": adresse.code_postal,
+                    "ville": adresse.ville,
+                    "pays": adresse.pays,
+                    "code_pays": adresse.code_pays,
+                }
+
+            form = ClientPilotageForm(
+                instance=client_pilotage,
+                initial=initial
+            )
 
         return render(
             request,
@@ -97,44 +160,58 @@ def modifier_client_pilotage_view(request, client_pilotage_id):
             {
                 "form": form,
                 "client_pilotage": client_pilotage,
+                "adresse": adresse,
             }
         )
 
 
-
 @login_required
 def client_pilotage_form_view(request):
+
     tenant = request.user.societe
 
     with tenant_context(tenant):
 
         if request.method == "POST":
+
             form = ClientPilotageForm(request.POST)
 
             if form.is_valid():
 
                 with transaction.atomic():
 
-                    # 1. créer client particulier d'abord
+                    # -----------------------
+                    # CLIENT PARTICULIER
+                    # -----------------------
                     client_particulier = ClientParticulier.objects.create(
-                        nom=request.POST.get("nom"),
-                        prenom=request.POST.get("prenom"),
-                        email=request.POST.get("email"),
-                        numero_telephone=request.POST.get("numero_telephone"),
-                        numero_carte_id=request.POST.get("numero_carte_id"),
-                        numero_compte=request.POST.get("numero_compte"),
-                        numero_carte_bancaire=request.POST.get("numero_carte_bancaire"),
+                        societe=tenant,
+                        nom=form.cleaned_data.get("nom"),
+                        prenom=form.cleaned_data.get("prenom"),
+                        email=form.cleaned_data.get("email"),
+                        numero_telephone=form.cleaned_data.get("numero_telephone"),
+                        numero_carte_id=form.cleaned_data.get("numero_carte_id"),
+                        numero_compte=form.cleaned_data.get("numero_compte"),
+                        numero_carte_bancaire=form.cleaned_data.get("numero_carte_bancaire"),
+                        date_naissance=form.cleaned_data.get("date_naissance")
                     )
+
+                    # -----------------------
+                    # ADRESSE
+                    # -----------------------
                     adresse = Adresse.objects.create(
+                        societe=tenant,
                         rue=form.cleaned_data.get("rue"),
                         numero=form.cleaned_data.get("numero"),
+                        boite=form.cleaned_data.get("boite"),
                         code_postal=form.cleaned_data.get("code_postal"),
                         ville=form.cleaned_data.get("ville"),
                         pays=form.cleaned_data.get("pays"),
                         code_pays=form.cleaned_data.get("code_pays"),
                     )
 
-                    # 2. créer client pilotage
+                    # -----------------------
+                    # CLIENT PILOTAGE
+                    # -----------------------
                     client_pilotage = form.save(commit=False)
                     client_pilotage.client_particulier = client_particulier
                     client_pilotage.societe = tenant
@@ -145,13 +222,30 @@ def client_pilotage_form_view(request):
 
                 messages.success(
                     request,
-                    f"Client {client_particulier.nom} {client_particulier.prenom} créé avec succès"
+                    _(
+                        f"Client '{client_particulier.prenom} "
+                        f"{client_particulier.nom}' créé avec succès !"
+                    )
+                )
+
+                return redirect(
+                    "client_pilotage:client_pilotage_list"
+                )
+
+            else:
+                messages.error(
+                    request,
+                    _("Veuillez corriger les erreurs du formulaire.")
                 )
 
         else:
+
             form = ClientPilotageForm()
 
-    return render(request, "client_pilotage/client_pilotage_form.html", {
-        "form": form,
-    })
-
+        return render(
+            request,
+            "client_pilotage/client_pilotage_form.html",
+            {
+                "form": form,
+            }
+        )

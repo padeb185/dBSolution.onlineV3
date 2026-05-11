@@ -59,5 +59,5 @@ class Adresse(models.Model):
             )
 
     def __str__(self):
-        return f"{self.rue} {self.numero}, {self.code_postal} {self.ville} {self.pays} {self.code_pays}"
+        return f"{self.rue} {self.numero}, {self.boite},  {self.code_postal} {self.ville} {self.pays} {self.code_pays}"
 

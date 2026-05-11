@@ -1,3 +1,6 @@
+from datetime import date
+
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -31,7 +34,7 @@ class ClientPilotage(models.Model):
     class NiveauPilotage(models.TextChoices):
         DEBUTANT = "DEBUTANT", _("Débutant")
         INTERMEDIAIRE = "INTERMEDIAIRE", _("Intermédiaire")
-        EXPERT = "EXPERT", _("Expert")
+        EXPERT = "PRO", _("Pro")
         BRONZE = "BRONZE", _("Bronze")
         SILVER = "SILVER", _("Silver")
         GOLD = "GOLD", _("Gold")
@@ -66,3 +69,4 @@ class ClientPilotage(models.Model):
     def __str__(self):
         cp = self.client_particulier
         return f"{cp.prenom} {cp.nom} ({self.niveau})"
+
