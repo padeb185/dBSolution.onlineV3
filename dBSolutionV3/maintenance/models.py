@@ -24,6 +24,7 @@ class Maintenance(models.Model):
         JEUX_PIECES = "jeux_pieces", _("Jeux pieces")
         SILENT_BLOC = "silent_bloc", _("Silent bloc")
         BOITE = "BOITE", _("Boite")
+        BOITE_AUTO = "BOITE_AUTO", _("Boite automatique")
 
 
     class Tag(models.TextChoices):
