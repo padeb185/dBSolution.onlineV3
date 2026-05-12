@@ -56,61 +56,86 @@ class RemplacementBoiteListView(ListView):
 @never_cache
 @login_required
 def remplacement_boite_form_view(request, exemplaire_id):
+
     tenant = request.user.societe
+    role = request.user.role
 
-    with tenant_context(tenant):
+    maintenance = None  # 👈 important pour éviter UnboundLocalError
 
+    with (tenant_context(tenant)):
+
+        # 🔎 Récupération exemplaire
         exemplaire = get_object_or_404(
             VoitureExemplaire.objects.filter(
-                Q(client__societe=tenant) | Q(client__isnull=True, societe=tenant)
+                Q(client__societe=tenant) |
+                Q(client__isnull=True, societe=tenant)
             ),
             id=exemplaire_id
         )
 
-        roles_autorises = ["mécanicien", "apprenti", "magasinier", "chef mécanicien", "direction"]
-        if request.user.role not in roles_autorises:
+        # 🔐 rôles autorisés
+        roles_autorises = [
+            "mecanicien",
+            "apprenti",
+            "magasinier",
+            "chef_mecanicien",
+            "direction"
+        ]
+
+        if role not in roles_autorises:
             messages.error(request, _("Accès refusé"))
-            return redirect("maintenance_liste_all")
+            return redirect("utilisateurs:dashboard")
 
-        maintenance = Maintenance.objects.filter(
-            voiture_exemplaire=exemplaire,
-            type_maintenance="remplacement_boite"
-        ).order_by("-date_intervention").first()
+        # =========================
+        # POST
+        # =========================
+        if request.method == "POST":
 
-        if not maintenance:
-            maintenance = Maintenance.objects.create(
-                societe=tenant,
+            remplacement_boite = RemplacementBoite(
                 voiture_exemplaire=exemplaire,
-                mecanicien=request.user,
-                immatriculation=exemplaire.immatriculation,
-                date_intervention=timezone.now().date(),
-                kilometres_chassis=exemplaire.kilometres_chassis,
-                kilometres_boite=exemplaire.kilometres_boite,
-                kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
-                type_maintenance="remplacement_boite",
-                tag=Maintenance.Tag.JAUNE,
+                kilometres_chassis=exemplaire.kilometres_chassis
             )
 
-        remplacement_boite = RemplacementBoite(
-            voiture_exemplaire=exemplaire,
-            maintenance=maintenance,
-            kilometres_chassis=exemplaire.kilometres_chassis,
-            kilometres_boite=exemplaire.kilometres_boite,
-            kilometres_remplacement_boite=exemplaire.kilometres_remplacement_boite,
-        )
-        remplacement_boite.assign_technicien(request.user)
-
-        if request.method == "POST":
             form = RemplacementBoiteForm(
-                request.POST,
                 instance=remplacement_boite,
                 user=request.user,
                 exemplaire=exemplaire
             )
 
             if form.is_valid():
+
                 try:
                     with transaction.atomic():
+
+                        # 🔴 maintenance unique
+                        maintenance = Maintenance.objects.create(
+                            societe=request.user.societe,
+                            voiture_exemplaire=exemplaire,
+                            immatriculation=exemplaire.immatriculation,
+                            date_intervention=timezone.now().date(),
+                            kilometres_chassis=exemplaire.kilometres_chassis,
+                            kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
+                            type_maintenance=Maintenance.TypeMaintenance.CHECKUP_TRACK,
+                            tag=Maintenance.Tag.JAUNE,
+                        )
+
+                        # 🔧 affectation rôle
+                        if role == "mecanicien":
+                            maintenance.mecanicien = request.user
+
+                        elif role == "chef_mecanicien":
+                            maintenance.chef_mecanicien = request.user
+
+                        elif role == "apprenti":
+                            maintenance.apprentis.add(request.user)
+
+                        elif role == "magasinier":
+                            maintenance.magasinier = request.user
+
+                        elif role == "direction":
+                            maintenance.direction = request.user
+
+                        maintenance.save()
 
                         remplacement_boite = form.save(commit=False)
 
@@ -165,6 +190,12 @@ def remplacement_boite_form_view(request, exemplaire_id):
                 messages.error(request, _("Formulaire invalide"))
 
         else:
+            remplacement_boite = RemplacementBoite(
+                voiture_exemplaire=exemplaire,
+                kilometres_chassis=exemplaire.kilometres_chassis
+            )
+            remplacement_boite.assign_technicien(request.user)
+
             form = RemplacementBoiteForm(
                 instance=remplacement_boite,
                 user=request.user,

@@ -21,6 +21,7 @@ class Maintenance(models.Model):
         CHECKUP_TRACK = "checkup_track", _("Check-up piste")
         ABS = "ABS", _("ABS")
         REMPLACEMENT_BOITE = "remplacement_boite", _("Remplacement boîte")
+        JEUX_PIECES = "jeux_pieces", _("Jeux pieces")
 
     class Tag(models.TextChoices):
         VERT = "VERT", _("Vert")

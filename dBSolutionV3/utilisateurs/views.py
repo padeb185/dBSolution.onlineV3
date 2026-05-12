@@ -1,7 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
-from django.db import models
 from django.db.models import Q, Count
 from django.shortcuts import render, redirect
 from io import BytesIO

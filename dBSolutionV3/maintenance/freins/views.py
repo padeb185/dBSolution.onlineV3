@@ -120,7 +120,7 @@ def controle_freins_view(request, exemplaire_id):
                             date_intervention=timezone.now().date(),
                             kilometres_chassis=exemplaire.kilometres_chassis,
                             kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
-                            type_maintenance=Maintenance.TypeMaintenance.CHECKUP_TRACK,
+                            type_maintenance=Maintenance.TypeMaintenance.FREINS,
                             tag=Maintenance.Tag.JAUNE,
                         )
 
