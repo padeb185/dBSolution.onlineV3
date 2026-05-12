@@ -2,14 +2,15 @@
 from django.contrib import admin
 from django import forms
 from django.utils.translation import gettext_lazy as _
-from .models import ControleGeneral
+from .models import Checkup
+
 
 # ---------------------------
 # Formulaire Admin
 # ---------------------------
-class ControleGeneralForm(forms.ModelForm):
+class CheckupForm(forms.ModelForm):
     class Meta:
-        model = ControleGeneral
+        model = Checkup
         fields = "__all__"
         widgets = {
             "remarques": forms.Textarea(attrs={"rows": 4, "cols": 40}),
@@ -28,9 +29,9 @@ class ControleGeneralForm(forms.ModelForm):
 # ---------------------------
 # Admin
 # ---------------------------
-@admin.register(ControleGeneral)
+@admin.register(Checkup)
 class ControleGeneralAdmin(admin.ModelAdmin):
-    form = ControleGeneralForm
+    form = CheckupForm
 
     list_display = (
         "maintenance",

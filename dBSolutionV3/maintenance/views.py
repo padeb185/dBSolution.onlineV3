@@ -9,12 +9,10 @@ from voiture.voiture_exemplaire.models import VoitureExemplaire
 from voiture.voiture_modele.models import VoitureModele
 from maintenance.models import Maintenance
 from django.utils.translation import gettext as _
-from maintenance.utils import creer_maintenance_complete
 from voiture.voiture_marque.models import VoitureMarque
 from voiture.voiture_exemplaire.models import TypeUtilisation
 from django.utils import timezone
 from maintenance.types_maintenances import TYPES_MAINTENANCE
-from maintenance.check_up.models import ControleGeneral
 from utilisateurs.models import Mecanicien
 from maintenance.jeux_pieces.models import ControleJeuxPieces
 from maintenance.nettoyage_exterieur.models import NettoyageExterieur
@@ -36,7 +34,7 @@ from maintenance.autres_interventions.abs.models import Abs
 from maintenance.autres_interventions.moteur.courroie.models import CourroieDistribution
 from maintenance.autres_interventions.moteur.remplacement_moteur.models import RemplacementMoteur
 from maintenance.autres_interventions.moteur.turbo.models import Turbo
-
+from maintenance.check_up.models import Checkup
 
 
 
@@ -82,7 +80,7 @@ def choisir_type_maintenance(request, exemplaire_id):
         with (schema_context(schema_name)):
 
             # ✅ FILTRAGE PAR EXEMPLAIRE
-            checkup = ControleGeneral.objects.filter(voiture_exemplaire=exemplaire)
+            checkup = Checkup.objects.filter(voiture_exemplaire=exemplaire)
             entretien = Entretien.objects.filter(voiture_exemplaire=exemplaire)
             freins = ControleFreins.objects.filter(voiture_exemplaire=exemplaire)
             pneus = ControlePneus.objects.filter(voiture_exemplaire=exemplaire)
@@ -181,13 +179,12 @@ def choisir_type_maintenance(request, exemplaire_id):
 
     return render(request, "maintenance/choisir_type.html", context)
 
-
 @login_required
 def maintenance_tenant_view(request, exemplaire_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
-        # 🔎 Vérifie que l'exemplaire appartient au tenant
+
         exemplaire = get_object_or_404(
             VoitureExemplaire.objects.filter(
                 Q(client__societe=tenant) | Q(client__isnull=True, societe=tenant)
@@ -195,9 +192,9 @@ def maintenance_tenant_view(request, exemplaire_id):
             id=exemplaire_id
         )
 
-        # Vérifie que l'utilisateur est mécanicien
-        if request.user.role != "mécanicien":
-            messages.error(request, "Seuls les mécaniciens peuvent effectuer un check-up.")
+        # 🔴 AUTORISATION CORRIGÉE
+        if request.user.role not in ["mecanicien", "chef_mecanicien", "apprenti"]:
+            messages.error(request, "Vous n'êtes pas autorisé à effectuer un check-up.")
             return redirect("maintenance:choisir_type", exemplaire.id)
 
         mecanicien = get_object_or_404(Mecanicien, id=request.user.id)
@@ -206,30 +203,40 @@ def maintenance_tenant_view(request, exemplaire_id):
             try:
                 with transaction.atomic():
 
-                    # 🧰 Création de la maintenance
                     maintenance = Maintenance.objects.create(
                         voiture_exemplaire=exemplaire,
-                        mecanicien=mecanicien,
                         immatriculation=exemplaire.immatriculation,
                         date_intervention=timezone.now().date(),
                         kilometres_total=exemplaire.kilometres_total,
-                        kilometres_derniere_intervention=exemplaire.kilometres_derniere_intervention,
+                        kilometres_derniere_entretien=exemplaire.kilometres_derniere_entretien,
                         type_maintenance="checkup",
                         tag=Maintenance.Tag.JAUNE,
                     )
 
-                    # 🔧 Création du contrôle général
-                    ControleGeneral.objects.create(
+                    # 🔴 ASSIGNATION SELON RÔLE
+                    if request.user.role == "mecanicien":
+                        maintenance.mecanicien = request.user
+
+                    elif request.user.role == "chef_mecanicien":
+                        maintenance.chef_mecanicien = request.user
+
+                    maintenance.save()
+
+                    # 🔴 M2M APPRENTI
+                    if request.user.role == "apprenti":
+                        maintenance.apprentis.add(request.user)
+
+                    # 🔧 contrôle général
+                    Checkup.objects.create(
                         maintenance=maintenance
                     )
 
-                    # 👤 Dernier mécanicien ayant fait la maintenance
+                    # 👤 tracking
                     exemplaire.last_maintained_by = request.user
                     exemplaire.save(update_fields=["last_maintained_by"])
 
                 messages.success(request, "Check-up créé avec succès.")
 
-                # 🚀 Redirection vers le contrôle complet
                 return redirect(
                     "maintenance:controle_total_view",
                     exemplaire_id=exemplaire.id
@@ -238,7 +245,6 @@ def maintenance_tenant_view(request, exemplaire_id):
             except Exception as e:
                 messages.error(request, f"Erreur lors de la création : {e}")
 
-        # GET → affiche la page de confirmation
         return render(
             request,
             "maintenance/creer_maintenance.html",
@@ -247,8 +253,6 @@ def maintenance_tenant_view(request, exemplaire_id):
                 "now": timezone.now(),
             },
         )
-
-
 
 
 

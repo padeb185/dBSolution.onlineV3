@@ -124,12 +124,12 @@ class RefroidissementQualiteEtat(models.TextChoices):
 # ---------------------------
 # Modèle fusionné
 # ---------------------------
-class ControleGeneral(TechnicienMixin, models.Model):
+class Checkup(TechnicienMixin, models.Model):
     maintenance = models.ForeignKey(
         Maintenance,
         on_delete=models.CASCADE,
-        related_name="controle_general_checkup",
-        verbose_name=_("Maintenance"),
+        related_name="checkup",
+        verbose_name=_("Checkup"),
         null=True,  # autorisé vide à la création
         blank=True
     )

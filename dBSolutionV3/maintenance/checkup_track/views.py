@@ -11,12 +11,17 @@ from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
 from django_tenants.utils import tenant_context
 from maintenance.models import Maintenance
-from voiture_exemplaire.models import VoitureExemplaire
+from maintenance.checkup_track.models import CheckupTrack
+from maintenance.checkup_track.forms import CheckupTrack
+from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 from weasyprint import HTML
 from .forms import CheckupTrackForm
 from .models import CheckupTrack
+from utilisateurs.mecanicien.models import Mecanicien
+from utilisateurs.chef_mecanicien.models import ChefMecanicien
+from utilisateurs.apprentis.models import Apprenti
 
 
 
@@ -58,47 +63,48 @@ class CheckupTrackListView(ListView):
 @never_cache
 @login_required
 def track_check_form_view(request, exemplaire_id):
+
     tenant = request.user.societe
+    role = request.user.role
 
     with tenant_context(tenant):
-        # Récupération de l'exemplaire
+
+        # 🔎 Récupération exemplaire
         exemplaire = get_object_or_404(
             VoitureExemplaire.objects.filter(
-                Q(client__societe=tenant) | Q(client__isnull=True, societe=tenant)
+                Q(client__societe=tenant) |
+                Q(client__isnull=True, societe=tenant)
             ),
             id=exemplaire_id
         )
 
-        # Vérification des rôles
-        roles_autorises = ["mécanicien", "apprenti", "magasinier", "chef mécanicien", "direction"]
-        if request.user.role not in roles_autorises:
+        # 🔐 Vérification rôles
+        roles_autorises = [
+            "mecanicien",
+            "apprenti",
+            "magasinier",
+            "chef_mecanicien",
+            "direction"
+        ]
+
+        if role not in roles_autorises:
             messages.error(
                 request,
                 _("Seuls les mécaniciens, apprentis, magasiniers et chefs mécaniciens peuvent accéder à cette page.")
             )
-            return redirect("maintenance_liste_all")
+            return redirect("utilisateurs:dashboard")
 
-        # Récupération ou création de la maintenance
-        maintenance = Maintenance.objects.create(
-            voiture_exemplaire=exemplaire,
-            mecanicien=request.user,
-            immatriculation=exemplaire.immatriculation,
-            date_intervention=timezone.localtime(timezone.now()).date(),
-            kilometres_chassis=exemplaire.kilometres_chassis,
-            kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
-            type_maintenance=Maintenance.TypeMaintenance.CHECKUP_TRACK,
-            tag=Maintenance.Tag.JAUNE,
-        )
-
-
-        # Créer ou récupérer l'objet NettoyageInterieur
+        # 🔧 Objet checkup NON sauvegardé
         checkup_track = CheckupTrack(
             voiture_exemplaire=exemplaire,
-            maintenance=maintenance,
             kilometres_chassis=exemplaire.kilometres_chassis
         )
 
+        # =========================
+        # POST
+        # =========================
         if request.method == "POST":
+
             form = CheckupTrackForm(
                 request.POST,
                 instance=checkup_track,
@@ -107,36 +113,108 @@ def track_check_form_view(request, exemplaire_id):
             )
 
             if form.is_valid():
+
                 try:
                     with transaction.atomic():
+
+                        # 🔴 Création UNIQUE maintenance
+                        maintenance = Maintenance.objects.create(
+                            societe=request.user.societe,
+                            voiture_exemplaire=exemplaire,
+                            immatriculation=exemplaire.immatriculation,
+                            date_intervention=timezone.localtime(
+                                timezone.now()
+                            ).date(),
+                            kilometres_chassis=exemplaire.kilometres_chassis,
+                            kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
+                            type_maintenance=Maintenance.TypeMaintenance.CHECKUP_TRACK,
+                            tag=Maintenance.Tag.JAUNE,
+                        )
+
+                        if role == "mecanicien":
+
+                            maintenance.mecanicien = Mecanicien.objects.get(
+                                id=request.user.id
+                            )
+
+                        elif role == "chef_mecanicien":
+
+                            maintenance.chef_mecanicien = ChefMecanicien.objects.get(
+                                id=request.user.id
+                            )
+                        elif role == "apprenti":
+                            maintenance.apprentis = Apprenti.objects.get(
+                                id=request.user.id
+                            )
+
+                        maintenance.save()
+
+
+                        # 🔗 Liaison maintenance
                         checkup_track = form.save(commit=False)
 
+                        checkup_track.maintenance = maintenance
 
                         checkup_track.assign_technicien(request.user)
 
-                        # Gestion du kilométrage
-                        km_checkup_track = form.cleaned_data.get("kilometres_chassis")
-                        if km_checkup_track is not None and km_checkup_track >= exemplaire.kilometres_chassis:
-                            checkup_track.kilometres_chassis = km_checkup_track
-                            exemplaire.kilometres_chassis = km_checkup_track
-                            exemplaire.save()
-                        elif km_checkup_track is not None and km_checkup_track < exemplaire.kilometres_chassis:
+                        # 🔧 Gestion kilométrage
+                        km_checkup_track = form.cleaned_data.get(
+                            "kilometres_chassis"
+                        )
+
+                        if (
+                            km_checkup_track is not None
+                            and km_checkup_track < exemplaire.kilometres_chassis
+                        ):
+
                             form.add_error(
                                 "kilometres_chassis",
-                                _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
+                                _(
+                                    "Le kilométrage ne peut pas être inférieur au kilométrage actuel."
+                                )
                             )
+
                             raise ValueError("Kilométrage invalide")
 
+                        if km_checkup_track is not None:
+
+                            checkup_track.kilometres_chassis = km_checkup_track
+
+                            exemplaire.kilometres_chassis = km_checkup_track
+
+                            exemplaire.save(
+                                update_fields=["kilometres_chassis"]
+                            )
+
+                        # 💾 Sauvegarde finale
                         checkup_track.save()
 
-                    messages.success(request, _("Checkup piste enregistré avec succès."))
+                    messages.success(
+                        request,
+                        _("Checkup piste enregistré avec succès.")
+                    )
 
                 except Exception as e:
-                    messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
+
+                    messages.error(
+                        request,
+                        _(f"Erreur lors de l'enregistrement : {str(e)}")
+                    )
+
             else:
-                messages.error(request, _("Le formulaire contient des erreurs."))
+
+                messages.error(
+                    request,
+                    _("Le formulaire contient des erreurs.")
+                )
+
                 print(form.errors)
+
+        # =========================
+        # GET
+        # =========================
         else:
+
             checkup_track.assign_technicien(request.user)
 
             form = CheckupTrackForm(
@@ -145,14 +223,16 @@ def track_check_form_view(request, exemplaire_id):
                 exemplaire=exemplaire
             )
 
-        return render(request, 'checkup_track/track_check_form.html', {
-            "exemplaire": exemplaire,
-            "immatriculation": exemplaire.immatriculation,
-            "maintenance": maintenance,
-            "form": form,
-            "now": timezone.now(),
-        })
-
+        return render(
+            request,
+            "checkup_track/track_check_form.html",
+            {
+                "exemplaire": exemplaire,
+                "immatriculation": exemplaire.immatriculation,
+                "form": form,
+                "now": timezone.now(),
+            }
+        )
 
 
 # ------------

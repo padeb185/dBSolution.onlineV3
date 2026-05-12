@@ -8,16 +8,15 @@ from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
 from django_tenants.utils import tenant_context
 from maintenance.models import Maintenance
-from maintenance.check_up.models import ControleGeneral
-from maintenance.check_up.forms import ControleGeneralForm
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from maintenance.nettoyage_exterieur.models import NettoyageExterieur
 from django.utils.translation import gettext_lazy as _
-
-
-
-
+from maintenance.check_up.forms import CheckupForm
+from maintenance.check_up.models import Checkup
+from utilisateurs.apprentis.models import Apprenti
+from utilisateurs.chef_mecanicien.models import ChefMecanicien
+from utilisateurs.models import Mecanicien
 
 
 # -----------------------------
@@ -25,14 +24,14 @@ from django.utils.translation import gettext_lazy as _
 # -----------------------------
 @method_decorator([login_required, never_cache], name='dispatch')
 class CheckupListView(ListView):
-    model = ControleGeneral
+    model = Checkup
     template_name = "check_up/checkup_list.html"
     context_object_name = "checkups"
     paginate_by = 100
     ordering = ["-id"]
 
     def get_queryset(self):
-        queryset = ControleGeneral.objects.select_related(
+        queryset = Checkup.objects.select_related(
             "voiture_exemplaire", "maintenance", "tech_societe"
         )
 
@@ -53,63 +52,48 @@ class CheckupListView(ListView):
 
 
 
-
 @never_cache
 @login_required
 def controle_total_view(request, exemplaire_id):
+
     tenant = request.user.societe
+    role = request.user.role
 
     with tenant_context(tenant):
-        # Récupération de l'exemplaire
+
+        # 🔎 Récupération exemplaire
         exemplaire = get_object_or_404(
             VoitureExemplaire.objects.filter(
-                Q(client__societe=tenant) | Q(client__isnull=True, societe=tenant)
+                Q(client__societe=tenant) |
+                Q(client__isnull=True, societe=tenant)
             ),
             id=exemplaire_id
         )
 
-        # Vérification des rôles
-        roles_autorises = ["mécanicien", "apprenti", "magasinier", "chef mécanicien", "direction"]
-        if request.user.role not in roles_autorises:
-            messages.error(
-                request,
-                _("Seuls les mécaniciens, apprentis, magasiniers et chefs mécaniciens peuvent accéder à cette page.")
-            )
-            return redirect("maintenance_liste_all")
+        # 🔐 Vérification rôles
+        roles_autorises = [
+            "mecanicien",
+            "apprenti",
+            "magasinier",
+            "chef_mecanicien",
+            "direction"
+        ]
 
-        # Récupération ou création de la maintenance
-        maintenance = Maintenance.objects.create(
-            voiture_exemplaire=exemplaire,
-            mecanicien=request.user,
-            immatriculation=exemplaire.immatriculation,
-            date_intervention=timezone.localtime(timezone.now()).date(),
-            kilometres_chassis=exemplaire.kilometres_chassis,
-            kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
-            type_maintenance="checkup",
-            tag=Maintenance.Tag.JAUNE,
-        )
+        if role not in roles_autorises:
+            messages.error(request, _("Accès refusé"))
+            return redirect("utilisateurs:dashboard")
 
-        if not maintenance:
-            maintenance = Maintenance.objects.create(
-                voiture_exemplaire=exemplaire,
-                mecanicien=request.user,
-                immatriculation=exemplaire.immatriculation,
-                date_intervention=timezone.localtime(timezone.now()).date(),
-                kilometres_chassis=exemplaire.kilometres_chassis,
-                kilometres_derniere_entretien=exemplaire.kilometres_derniere_entretien,
-                type_maintenance="checkup",
-                tag=Maintenance.Tag.JAUNE,
-            )
-
-        # Créer ou récupérer l'objet NettoyageInterieur
-        checkup = ControleGeneral(
-            voiture_exemplaire=exemplaire,
-            maintenance=maintenance,
-            kilometres_chassis=exemplaire.kilometres_chassis
-        )
-
+        # =========================
+        # POST
+        # =========================
         if request.method == "POST":
-            form = ControleGeneralForm(
+
+            checkup = Checkup(
+                voiture_exemplaire=exemplaire,
+                kilometres_chassis=exemplaire.kilometres_chassis
+            )
+
+            form = CheckupForm(
                 request.POST,
                 instance=checkup,
                 user=request.user,
@@ -117,48 +101,81 @@ def controle_total_view(request, exemplaire_id):
             )
 
             if form.is_valid():
+
                 try:
                     with transaction.atomic():
+
+                        # 🔴 Création maintenance UNIQUE
+                        maintenance = Maintenance.objects.create(
+                            societe=request.user.societe,
+                            voiture_exemplaire=exemplaire,
+                            immatriculation=exemplaire.immatriculation,
+                            date_intervention=timezone.now().date(),
+                            kilometres_chassis=exemplaire.kilometres_chassis,
+                            kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
+                            type_maintenance=Maintenance.TypeMaintenance.CHECKUP_TRACK,
+                            tag=Maintenance.Tag.JAUNE,
+                        )
+
+                        # 🔧 Affectation rôle
+                        if role == "mecanicien":
+                            maintenance.mecanicien = Mecanicien.objects.get(id=request.user.id)
+
+                        elif role == "chef_mecanicien":
+                            maintenance.chef_mecanicien = ChefMecanicien.objects.get(id=request.user.id)
+
+                        elif role == "apprenti":
+                            maintenance.apprentis = Apprenti.objects.get(id=request.user.id)
+
+
+                        maintenance.save()
+
+                        # 🔗 liaison checkup
                         checkup = form.save(commit=False)
 
+                        checkup.maintenance = maintenance
 
                         checkup.assign_technicien(request.user)
 
-                        # Gestion du kilométrage
-                        km_checkup = form.cleaned_data.get("kilometres_chassis")
-                        if km_checkup is not None and km_checkup >= exemplaire.kilometres_chassis:
-                            checkup.kilometres_chassis = km_checkup
-                            exemplaire.kilometres_chassis = km_checkup
-                            exemplaire.save()
-                        elif km_checkup is not None and km_checkup < exemplaire.kilometres_chassis:
-                            form.add_error(
-                                "kilometres_chassis",
-                                _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
-                            )
-                            raise ValueError("Kilométrage invalide")
+                        km = form.cleaned_data.get("kilometres_chassis")
+
+                        if km is not None and km < exemplaire.kilometres_chassis:
+                            form.add_error("kilometres_chassis", _("Kilométrage invalide"))
+                            raise ValueError("KM invalide")
+
+                        if km is not None:
+                            exemplaire.kilometres_chassis = km
+                            exemplaire.save(update_fields=["kilometres_chassis"])
+                            checkup.kilometres_chassis = km
 
                         checkup.save()
 
                     messages.success(request, _("Checkup enregistré avec succès."))
 
-                except Exception as e:
-                    messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
-            else:
-                messages.error(request, _("Le formulaire contient des erreurs."))
-                print(form.errors)
-        else:
-            checkup.assign_technicien(request.user)
+                    return redirect("utilisateurs:dashboard")
 
-            form = ControleGeneralForm(
+                except Exception as e:
+                    messages.error(request, f"Erreur : {e}")
+
+        # =========================
+        # GET
+        # =========================
+        else:
+
+            checkup = Checkup(
+                voiture_exemplaire=exemplaire,
+                kilometres_chassis=exemplaire.kilometres_chassis
+            )
+
+            form = CheckupForm(
                 instance=checkup,
                 user=request.user,
                 exemplaire=exemplaire
             )
 
-        return render(request, 'check_up/controle_total.html', {
+        return render(request, "check_up/controle_total.html", {
             "exemplaire": exemplaire,
             "immatriculation": exemplaire.immatriculation,
-            "maintenance": maintenance,
             "form": form,
             "now": timezone.now(),
         })
@@ -171,7 +188,7 @@ def controle_total_view(request, exemplaire_id):
 @login_required
 def checkup_detail_view(request, checkup_id):
     checkup = get_object_or_404(
-        ControleGeneral.objects.select_related("voiture_exemplaire"),
+        Checkup.objects.select_related("voiture_exemplaire"),
         id=checkup_id
     )
 
@@ -189,7 +206,7 @@ def modifier_checkup_view(request, checkup_id):
     with tenant_context(tenant):
         # Récupération du checkup avec son exemplaire
         checkup = get_object_or_404(
-            ControleGeneral.objects.select_related("voiture_exemplaire"),
+            Checkup.objects.select_related("voiture_exemplaire"),
             id=checkup_id
         )
 
@@ -197,7 +214,7 @@ def modifier_checkup_view(request, checkup_id):
         # POST
         # -------------------------
         if request.method == "POST":
-            form = ControleGeneralForm(
+            form = CheckupForm(
                 request.POST,
                 instance=checkup,
                 user=request.user,       # 🔑 important pour initialiser technicien/societe
@@ -215,7 +232,7 @@ def modifier_checkup_view(request, checkup_id):
         # GET
         # -------------------------
         else:
-            form = ControleGeneralForm(
+            form = CheckupForm(
                 instance=checkup,
                 user=request.user,
                 exemplaire=checkup.voiture_exemplaire

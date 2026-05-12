@@ -70,11 +70,11 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
 
 
     ROLE_CHOICES = [
-        ('apprenti', _('Apprenti')),
-        ('mécanicien', _('Mécanicien')),
+        ('apprentis', _('Apprenti')),
+        ('mecanicien', _('Mécanicien')),
         ('magasinier', _('Magasinier')),
         ('carrossier', _('Carrossier')),
-        ('chef mécanicien', _('Chef Mécanicien')),
+        ('chef_mecanicien', _('Chef Mécanicien')),
         ('instructeur', _('Instructeur')),
         ('instructeur externe', _('Instructeur Externe')),
         ('vendeur', _('Vendeur')),
@@ -85,7 +85,7 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
     role = models.CharField(
         max_length=30,
         choices=ROLE_CHOICES,
-        default='apprenti',
+        default='apprentis',
         verbose_name=_("Rôle")
     )
 

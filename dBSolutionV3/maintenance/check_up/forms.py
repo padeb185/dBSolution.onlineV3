@@ -1,20 +1,18 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.utils import timezone
-from .models import ControleGeneral
 from django.utils.translation import gettext_lazy as _
 from maindoeuvre.models import MainDoeuvre
+from maintenance.check_up.models import Checkup
 
 
-
-
-class ControleGeneralForm(forms.ModelForm):
+class CheckupForm(forms.ModelForm):
 
     temps_heures = forms.IntegerField(required=False, min_value=0)
     temps_minutes = forms.IntegerField(required=False, min_value=0, max_value=59)
 
     class Meta:
-        model = ControleGeneral
+        model = Checkup
         fields = "__all__"
         widgets = {
             'maintenance': forms.HiddenInput(),
@@ -40,6 +38,7 @@ class ControleGeneralForm(forms.ModelForm):
                 "class": "input"
             })
 
+
         # ✅ initialisation date seulement si le champ existe
         if "date" in self.fields and self.instance and self.instance.pk and self.instance.date:
             local_dt = timezone.localtime(self.instance.date)
@@ -55,15 +54,7 @@ class ControleGeneralForm(forms.ModelForm):
                 self.fields["tech_societe"].initial = self.user.societe
                 self.fields["tech_societe"].disabled = True
 
-        # -------- MAIN D'ŒUVRE QUERYSET --------
-        if "main_oeuvre" in self.fields:
-            self.fields["main_oeuvre"].queryset = MainDoeuvre.objects.select_related(
-                "utilisateur"
-            ).filter(utilisateur__is_active=True)
 
-            self.fields["main_oeuvre"].widget.attrs.update({
-                "class": "input"
-            })
         # ------- Récupération du temps de main d'oeuvre ------#
         if self.instance and self.instance.main_oeuvre:
             mo = self.instance.main_oeuvre
@@ -82,52 +73,45 @@ class ControleGeneralForm(forms.ModelForm):
 
         return cleaned
 
-
-
     def save(self, commit=True):
         instance = super().save(commit=False)
-        voiture = instance.voiture_exemplaire or self.exemplaire  # fallback si pas encore lié
 
-        # Récupération du kilométrage check-up depuis le formulaire
-        kilometrage_checkup = self.cleaned_data.get("kilometres_chassis")
+        voiture = instance.voiture_exemplaire or self.exemplaire
 
-        if voiture and kilometrage_checkup is not None:
-            # 🔒 Sécurité : ne jamais diminuer le kilométrage
-            if kilometrage_checkup < voiture.kilometres_chassis:
+        km = self.cleaned_data.get("kilometres_chassis")
+
+        if voiture and km is not None:
+            if km < voiture.kilometres_chassis:
                 raise forms.ValidationError(
-                    f"Le kilométrage du check-up ({kilometrage_checkup}) "
-                    f"ne peut pas être inférieur au kilométrage actuel de la voiture ({voiture.kilometres_chassis})."
+                    "Le kilométrage ne peut pas diminuer."
                 )
 
-            # ✅ Mettre à jour la voiture si le kilométrage a augmenté
-            if kilometrage_checkup > voiture.kilometres_chassis:
-                voiture.kilometres_chassis = kilometrage_checkup
+            if km > voiture.kilometres_chassis:
+                voiture.kilometres_chassis = km
                 voiture.save(update_fields=["kilometres_chassis"])
 
-            # ✅ Mettre à jour le contrôle
-            instance.kilometres_chassis = kilometrage_checkup
+            instance.kilometres_chassis = km
 
-            # 🔗 Lier la voiture si ce n'était pas déjà fait
             if not instance.voiture_exemplaire:
                 instance.voiture_exemplaire = voiture
 
-            # -------- MAIN D'ŒUVRE --------
-            heures = self.cleaned_data.get("temps_heures") or 0
-            minutes = self.cleaned_data.get("temps_minutes") or 0
+        heures = self.cleaned_data.get("temps_heures") or 0
+        minutes = self.cleaned_data.get("temps_minutes") or 0
+        total_minutes = heures * 60 + minutes
 
-            total_minutes = heures * 60 + minutes
+        main = instance.main_oeuvre
 
-            main = instance.main_oeuvre
-
-            if main:
-                main.temps_minutes = total_minutes
-                main.save(update_fields=["temps_minutes"])
-            else:
-                main = MainDoeuvre.objects.create(
-                    utilisateur=self.user,
-                    temps_minutes=total_minutes
-                )
-                instance.main_oeuvre = main
+        if main:
+            # ✔ update propre
+            MainDoeuvre.objects.filter(id=main.id).update(
+                temps_minutes=total_minutes
+            )
+        else:
+            main = MainDoeuvre.objects.create(
+                utilisateur=self.user,
+                temps_minutes=total_minutes
+            )
+            instance.main_oeuvre = main
 
         if commit:
             instance.save()

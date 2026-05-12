@@ -4,6 +4,10 @@ from maintenance.models import Maintenance
 from maintenance.check_up.models import ControleGeneral
 from utilisateurs.models import Utilisateur
 from voiture.voiture_exemplaire.models import VoitureExemplaire
+from maintenance.check_up.models import Checkup
+from maintenance.freins.models import ControleFreins
+from maintenance.nettoyage_exterieur.models import NettoyageExterieur
+from maintenance.nettoyage_interieur.models import NettoyageInterieur
 
 
 def generate_maintenance_report(maintenance: Maintenance):
@@ -67,8 +71,6 @@ def generate_maintenance_report(maintenance: Maintenance):
 
 
 
-
-
 def creer_maintenance_complete(exemplaire: VoitureExemplaire, mecanicien: Utilisateur, tenant):
 
     # 1. Créer l'objet Maintenance lié au tenant
@@ -79,7 +81,7 @@ def creer_maintenance_complete(exemplaire: VoitureExemplaire, mecanicien: Utilis
     )
 
     # 2. Contrôle général
-    controle_general = ControleGeneral.objects.create(
+    controle_general = Checkup.objects.create(
         maintenance=maintenance
     )
 

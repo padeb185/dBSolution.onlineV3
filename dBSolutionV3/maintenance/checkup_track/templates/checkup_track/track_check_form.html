@@ -458,7 +458,7 @@
          <!-- Section jeux biellettes -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Jeux biellettes de barre stabilisatrice" %}</h2>
         {% for field in form %}
-            {% if "jeu_Biellette_barre" in field.name %}
+            {% if "jeu_biellette_bar" in field.name %}
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">

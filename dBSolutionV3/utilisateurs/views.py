@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.db import models
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.shortcuts import render, redirect
 from io import BytesIO
 import base64
@@ -104,7 +104,13 @@ def dashboard_view(request):
     societe = request.user.societe
     schema_name = societe.schema_name  # pour django-tenants
 
+    societe = request.user.societe
 
+    print("SOCIETE USER:", request.user.societe)
+    print("SOCIETE FILTER:", societe)
+
+    print("TOTAL BASE:", Maintenance.objects.count())
+    print("TOTAL FILTER SOCIETE:", Maintenance.objects.filter(societe=societe).count())
 
     # --- Stats initialisées à zéro ---
     total_marques = total_moteurs = total_exemplaires = 0
@@ -139,7 +145,7 @@ def dashboard_view(request):
             client_atelier = ClientAtelier.objects.filter(societe=societe)
             client_pilotage = ClientPilotage.objects.filter(societe=societe)
             carrosseries = Carrosserie.objects.filter(societe=societe)
-            maindoeuvre = MainDoeuvre.objects.filter( utilisateur__societe=societe)
+            maindoeuvre = MainDoeuvre.objects.filter(utilisateur__societe=societe)
             proprietaire = Proprietaire.objects.filter(societe=societe)
 
 
@@ -177,18 +183,16 @@ def dashboard_view(request):
             total_main = maindoeuvre.count()
             total_proprietaire = proprietaire.count()
 
-            query = Maintenance.objects.filter(societe=societe)
-
-            if user.role == "mecanicien":
-                query = query.filter(mecanicien=user)
-
-            elif user.role == "chef_mecanicien":
-                query = query.filter(chef_mecanicien=user)
-
-            elif user.role == "apprenti":
-                query = query.filter(apprentis=user)
-
-            total_maintenances_user = query.count()
+            total_maintenances_user = Maintenance.objects.filter(
+                societe=societe
+            ).filter(
+                Q(mecanicien_id=user.id) |
+                Q(chef_mecanicien_id=user.id) |
+                Q(apprentis__id=user.id)
+            ).distinct().count()
+            print("MEC:", Maintenance.objects.filter(mecanicien=user).count())
+            print("CHEF:", Maintenance.objects.filter(chef_mecanicien=user).count())
+            print("APP:", Maintenance.objects.filter(apprentis=user).count())
 
             total_client = client_particulier.count() + client_atelier.count() + client_pilotage.count()
 
@@ -280,7 +284,7 @@ def dashboard_view(request):
         context['utilisateurs'] = 128
 
     ROLE_DISPLAY = {
-        'apprenti': _("Apprenti"),
+        'apprentis': _("Apprenti"),
         'mecanicien': _("Mécanicien"),
         'carrossier': _("Carrossier"),
         'chef_mecanicien': _("Chef Mécanicien"),
@@ -296,7 +300,19 @@ def dashboard_view(request):
     return render(request, 'dashboard.html', context)
 
 
+def get_user_maintenance_count(user, societe):
+    query = Maintenance.objects.filter(societe=societe)
 
+    role_filters = {
+        "mecanicien": {"mecanicien": user},
+        "chef_mecanicien": {"chef_mecanicien": user},
+        "apprentis": {"apprentis": user},
+    }
+
+    if user.role in role_filters:
+        query = query.filter(**role_filters[user.role])
+
+    return query.count()
 
 
 

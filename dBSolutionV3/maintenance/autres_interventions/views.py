@@ -19,7 +19,6 @@ from maintenance.nettoyage_interieur.models import NettoyageInterieur
 from maintenance.niveaux.models import Niveau
 from maintenance.pneus.models import ControlePneus
 from maintenance.silent_blocs.models import SilentBloc
-from maintenance.check_up.models import ControleGeneral
 from utilisateurs.models import Mecanicien
 from maintenance.autres_interventions.bte_vitesse_auto.models import ControleBteVitesseAuto
 from maintenance.autres_interventions.geometrie.models import GeometrieVoiture

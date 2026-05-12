@@ -19,7 +19,6 @@ from maintenance.nettoyage_interieur.models import NettoyageInterieur
 from maintenance.niveaux.models import Niveau
 from maintenance.pneus.models import ControlePneus
 from maintenance.silent_blocs.models import SilentBloc
-from maintenance.check_up.models import ControleGeneral
 from utilisateurs.models import Mecanicien
 from maintenance.autres_interventions.moteur.admission.models import Admission
 from maintenance.autres_interventions.moteur.alternateur.models import Alternateur
