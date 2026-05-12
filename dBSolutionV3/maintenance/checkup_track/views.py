@@ -73,7 +73,7 @@ def track_check_form_view(request, exemplaire_id):
         )
 
         # Vérification des rôles
-        roles_autorises = ["mécanicien", "apprenti", "magasinier", "chef mécanicien"]
+        roles_autorises = ["mécanicien", "apprenti", "magasinier", "chef mécanicien", "direction"]
         if request.user.role not in roles_autorises:
             messages.error(
                 request,
