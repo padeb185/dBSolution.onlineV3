@@ -58,7 +58,7 @@ class HuileBoiteEtat(models.TextChoices):
     SEPTANTE_CINQ = "75W", _("75W")
     SEPTANTE_5_80 = "75W80", _("75W80")
     SEPTANTE_CINQ90  = "75W90", _("75W90")
-    QUATRE_20 = "80W", "80W"
+    QUATRE_20 = "80W", _("80W")
     QUATRE_20_90 = "80W90", _("80W90")
     QUATRE_25_90 = "85W90", _("85W90")
     ATF3 = "ATF_III", _("ATF III")
@@ -254,7 +254,7 @@ class CheckupTrack(TechnicienMixin, models.Model):
     jeu_rotule_suspension = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeux rotules de suspension"))
 
 
-    jeu_Biellette_barre_stabilisatrice = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeu biellettes de barre stabilisatrice"))
+    jeu_biellette_barre_stabilisatrice = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeu biellettes de barre stabilisatrice"))
 
     jeu_barre_stabilisatrice = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeu barre stabilisatrice"))
 
@@ -393,8 +393,8 @@ class CheckupTrack(TechnicienMixin, models.Model):
 
     def clean(self):
         super().clean()
-        if self.voiture_exemplaire and self.kilometrage_checkup is not None:
-            if self.kilometrage_checkup_track < self.voiture_exemplaire.kilometres_chassis:
+        if self.voiture_exemplaire and self.kilometrage_checkup_track is not None:
+            if self.kilometrage_checkup_track is not None and self.voiture_exemplaire:
                 raise ValidationError({
                     'kilometrage_checkup_track': _(
                         f"Le kilométrage du check-up ({self.kilometrage_checkup_track}) "
@@ -403,40 +403,46 @@ class CheckupTrack(TechnicienMixin, models.Model):
                 })
 
     def save(self, *args, **kwargs):
-        # Si checkup > km actuel, mettre à jour la voiture
-        if self.voiture_exemplaire and self.kilometrage_checkup_track:
-            if self.kilometrage_checkup_track > self.voiture_exemplaire.kilometres_chassis:
-                self.voiture_exemplaire.kilometres_chassis = self.kilometrage_checkup_track
-                self.voiture_exemplaire.save(update_fields=["kilometres_chassis"])
 
-        # Toujours garder une copie dans le contrôle
-        if self.voiture_exemplaire:
-            self.kilometres_chassis = self.voiture_exemplaire.kilometres_chassis
-
+        # ----------------------------
+        # TECHNICIEN
+        # ----------------------------
         if not self.tech_technicien and hasattr(self, "_user"):
             self.assign_technicien(self._user)
 
         # ----------------------------
-        # MAIN D'OEUVRE AUTO DESCRIPTIF
+        # KILOMÉTRAGE CHECKUP
+        # ----------------------------
+        if self.voiture_exemplaire and self.kilometrage_checkup_track is not None:
+
+            if self.kilometrage_checkup_track > self.voiture_exemplaire.kilometres_chassis:
+                self.voiture_exemplaire.kilometres_chassis = self.kilometrage_checkup_track
+                self.voiture_exemplaire.save(update_fields=["kilometres_chassis"])
+
+            self.kilometres_chassis = self.voiture_exemplaire.kilometres_chassis
+
+        # ----------------------------
+        # MAIN D'OEUVRE (FIX UNIQUE SAVE)
         # ----------------------------
         if self.main_oeuvre:
-            task_name = ""
-
             if self.maintenance:
                 task_name = str(self.maintenance)
-            elif self.voiture_exemplaire:
+            else:
                 task_name = f"Checkup Track {self.voiture_exemplaire}"
 
-            self.main_oeuvre.descriptif = task_name
-            self.main_oeuvre.save(update_fields=["descriptif"])
-            # update descriptif automatiquement
-            if hasattr(self.main_oeuvre, "descriptif"):
+            if self.main_oeuvre.descriptif != task_name:
                 self.main_oeuvre.descriptif = task_name
                 self.main_oeuvre.save(update_fields=["descriptif"])
 
+        # ----------------------------
+        # MAINTENANCE UPDATE (SAFE)
+        # ----------------------------
         if self.maintenance:
             self.maintenance.type_maintenance = Maintenance.TypeMaintenance.CHECKUP_TRACK
             self.maintenance.voiture_exemplaire = self.voiture_exemplaire
-            self.maintenance.save(update_fields=["type_maintenance", "voiture_exemplaire"])
+            self.maintenance.save(update_fields=[
+                "type_maintenance",
+                "voiture_exemplaire"
+            ])
 
         super().save(*args, **kwargs)

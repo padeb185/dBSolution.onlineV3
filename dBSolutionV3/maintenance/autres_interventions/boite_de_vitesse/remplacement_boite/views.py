@@ -11,7 +11,7 @@ from django.views.generic import ListView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
-from django.db.models import Q
+from django.db.models import Q, F
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from .forms import RemplacementBoiteForm
 from .models import RemplacementBoite
@@ -87,7 +87,7 @@ def remplacement_boite_form_view(request, exemplaire_id):
                 kilometres_chassis=exemplaire.kilometres_chassis,
                 kilometres_boite=exemplaire.kilometres_boite,
                 kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
-                type_maintenance="admission",
+                type_maintenance="remplacement_boite",
                 tag=Maintenance.Tag.JAUNE,
             )
 
@@ -111,33 +111,56 @@ def remplacement_boite_form_view(request, exemplaire_id):
             if form.is_valid():
                 try:
                     with transaction.atomic():
-                        remplacement_moteur = form.save(commit=False)
+
+                        remplacement_boite = form.save(commit=False)
+
+                        is_new = remplacement_boite.pk is None
 
                         km_checkup = form.cleaned_data.get("kilometres_chassis")
 
                         # ✅ Mise à jour du kilométrage chassis
-                        if km_checkup is not None and km_checkup >= exemplaire.kilometres_chassis:
+                        if (
+                                km_checkup is not None
+                                and km_checkup >= exemplaire.kilometres_chassis
+                        ):
+
                             exemplaire.kilometres_chassis = km_checkup
 
-                            # 🚗 RESET MOTEUR PROPRE (OFFSET)
+                            # RESET BOITE
                             exemplaire.kilometres_remplacement_boite = km_checkup
 
                             exemplaire.save()
 
                         elif km_checkup is not None:
+
                             form.add_error(
                                 "kilometres_chassis",
                                 _("Le kilométrage ne peut pas être inférieur.")
                             )
+
                             raise ValueError("invalid km")
 
                         remplacement_boite.save()
 
-                    messages.success(request, _("Remplacement de la boite enregistré avec succès"))
+                        # ✅ incrément uniquement à la création
+                        if is_new:
+                            exemplaire.nombre_remplacements_boites = (
+                                    F("nombre_remplacements_boites") + 1
+                            )
+
+                            exemplaire.save(
+                                update_fields=["nombre_remplacements_boites"]
+                            )
+
+                            exemplaire.refresh_from_db()
+
+                    messages.success(
+                        request,
+                        _("Remplacement de la boite enregistré avec succès")
+                    )
 
                 except Exception as e:
                     messages.error(request, str(e))
-
             else:
                 messages.error(request, _("Formulaire invalide"))
 

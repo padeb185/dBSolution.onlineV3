@@ -73,7 +73,7 @@ def remplacement_moteur_form_view(request, exemplaire_id):
 
         maintenance = Maintenance.objects.filter(
             voiture_exemplaire=exemplaire,
-            type_maintenance="courroie"
+            type_maintenance="remplacement_moteur",
         ).order_by("-date_intervention").first()
 
         if not maintenance:
@@ -86,7 +86,7 @@ def remplacement_moteur_form_view(request, exemplaire_id):
                 kilometres_chassis=exemplaire.kilometres_chassis,
                 kilometres_moteur=exemplaire.kilometres_moteur,
                 kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
-                type_maintenance="admission",
+                type_maintenance="remplacement_moteur",
                 tag=Maintenance.Tag.JAUNE,
             )
 
@@ -130,12 +130,16 @@ def remplacement_moteur_form_view(request, exemplaire_id):
                             )
                             raise ValueError("invalid km")
 
+                        is_new = remplacement_moteur.pk is None
+
                         remplacement_moteur.save()
 
-                        exemplaire.nombre_remplacements_moteurs = F("nombre_remplacements_moteurs") + 1
-                        exemplaire.save(update_fields=["nombre_remplacements_moteurs"])
-
-                        exemplaire.refresh_from_db()
+                        if is_new:
+                            exemplaire.nombre_remplacements_moteurs = (
+                                    F("nombre_remplacements_moteurs") + 1
+                            )
+                            exemplaire.save(update_fields=["nombre_remplacements_moteurs"])
+                            exemplaire.refresh_from_db()
 
 
                     messages.success(request, _("Remplacement moteur enregistré avec succès"))

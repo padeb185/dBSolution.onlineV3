@@ -82,22 +82,17 @@ def track_check_form_view(request, exemplaire_id):
             return redirect("maintenance_liste_all")
 
         # Récupération ou création de la maintenance
-        maintenance = Maintenance.objects.filter(
+        maintenance = Maintenance.objects.create(
             voiture_exemplaire=exemplaire,
-            type_maintenance="checkup_track"
-        ).order_by("-date_intervention").first()
+            mecanicien=request.user,
+            immatriculation=exemplaire.immatriculation,
+            date_intervention=timezone.localtime(timezone.now()).date(),
+            kilometres_chassis=exemplaire.kilometres_chassis,
+            kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
+            type_maintenance=Maintenance.TypeMaintenance.CHECKUP_TRACK,
+            tag=Maintenance.Tag.JAUNE,
+        )
 
-        if not maintenance:
-            maintenance = Maintenance.objects.create(
-                voiture_exemplaire=exemplaire,
-                mecanicien=request.user,
-                immatriculation=exemplaire.immatriculation,
-                date_intervention=timezone.localtime(timezone.now()).date(),
-                kilometres_chassis=exemplaire.kilometres_chassis,
-                kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
-                type_maintenance="checkup_track",
-                tag=Maintenance.Tag.JAUNE,
-            )
 
         # Créer ou récupérer l'objet NettoyageInterieur
         checkup_track = CheckupTrack(

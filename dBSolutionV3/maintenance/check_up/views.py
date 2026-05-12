@@ -3,7 +3,6 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.contrib import messages
 from django.db import transaction, models
-from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
@@ -70,7 +69,7 @@ def controle_total_view(request, exemplaire_id):
         )
 
         # Vérification des rôles
-        roles_autorises = ["mécanicien", "apprenti", "magasinier", "chef mécanicien"]
+        roles_autorises = ["mécanicien", "apprenti", "magasinier", "chef mécanicien", "direction"]
         if request.user.role not in roles_autorises:
             messages.error(
                 request,
@@ -79,10 +78,16 @@ def controle_total_view(request, exemplaire_id):
             return redirect("maintenance_liste_all")
 
         # Récupération ou création de la maintenance
-        maintenance = Maintenance.objects.filter(
+        maintenance = Maintenance.objects.create(
             voiture_exemplaire=exemplaire,
-            type_maintenance="checkup"
-        ).order_by("-date_intervention").first()
+            mecanicien=request.user,
+            immatriculation=exemplaire.immatriculation,
+            date_intervention=timezone.localtime(timezone.now()).date(),
+            kilometres_chassis=exemplaire.kilometres_chassis,
+            kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
+            type_maintenance="checkup",
+            tag=Maintenance.Tag.JAUNE,
+        )
 
         if not maintenance:
             maintenance = Maintenance.objects.create(
@@ -91,7 +96,7 @@ def controle_total_view(request, exemplaire_id):
                 immatriculation=exemplaire.immatriculation,
                 date_intervention=timezone.localtime(timezone.now()).date(),
                 kilometres_chassis=exemplaire.kilometres_chassis,
-                kilometres_derniere_intervention=exemplaire.kilometres_derniere_intervention,
+                kilometres_derniere_entretien=exemplaire.kilometres_derniere_entretien,
                 type_maintenance="checkup",
                 tag=Maintenance.Tag.JAUNE,
             )

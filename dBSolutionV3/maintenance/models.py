@@ -20,6 +20,7 @@ class Maintenance(models.Model):
         AUTRES = "autres", _("Autres interventions")
         CHECKUP_TRACK = "checkup_track", _("Check-up piste")
         ABS = "ABS", _("ABS")
+        REMPLACEMENT_BOITE = "remplacement_boite", _("Remplacement boîte")
 
     class Tag(models.TextChoices):
         VERT = "VERT", _("Vert")
@@ -135,9 +136,11 @@ class Maintenance(models.Model):
 
     @property
     def kilometres_calcules(self):
-        """Kilomètres depuis la dernière intervention"""
-        if self.kilometres_derniere_intervention is not None:
-            return self.kilometres_total - self.kilometres_derniere_intervention
+        if self.kilometres_dernier_entretien is not None:
+            return (
+                    self.kilometres_chassis
+                    - self.kilometres_dernier_entretien
+            )
         return None
 
 
