@@ -5,6 +5,9 @@ from django.utils.translation import gettext_lazy as _
 from piece.models import Piece
 from maintenance.models import Maintenance
 from utils.mixin import TechnicienMixin
+from societe.models import Societe
+
+
 
 
 class EtatOKNotOK(models.TextChoices):
@@ -44,6 +47,12 @@ class ControleFreins(TechnicienMixin, models.Model):
         blank=True
     )
 
+    societe = models.ForeignKey(
+        Societe,
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True
+    )
 
     # --- Freins ---
 

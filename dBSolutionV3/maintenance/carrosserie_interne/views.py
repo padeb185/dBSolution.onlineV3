@@ -4,20 +4,24 @@ from django.contrib import messages
 from django.db import models, transaction
 from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView, CreateView
-
 from django_tenants.utils import tenant_context
-
 from .forms import CarrosserieInterneForm
 from .models import CarrosserieInterne
 from carrosserie.models import Carrosserie
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from maintenance.models import Maintenance
+from utilisateurs.apprentis.models import Apprenti
+from utilisateurs.chef_mecanicien.models import ChefMecanicien
+from utilisateurs.direction.models import Direction
+from utilisateurs.magasinier.models import Magasinier
+from utilisateurs.mecanicien.models import Mecanicien
+
+
 
 
 
@@ -110,52 +114,48 @@ class CarrosserieInterneListView(LoginRequiredMixin, ListView):
 @never_cache
 @login_required
 def carrosserie_interne_create_view(request, exemplaire_id):
+
     tenant = request.user.societe
+    role = request.user.role
 
     with tenant_context(tenant):
 
+        # 🔎 Récupération exemplaire
         exemplaire = get_object_or_404(
             VoitureExemplaire.objects.filter(
-                Q(client__societe=tenant) | Q(client__isnull=True, societe=tenant)
+                Q(client__societe=tenant) |
+                Q(client__isnull=True, societe=tenant)
             ),
             id=exemplaire_id
         )
 
-        # 🔐 rôles
-        roles_autorises = ["mécanicien", "apprenti", "magasinier", "chef mécanicien"]
-        if request.user.role not in roles_autorises:
-            messages.error(
-                request,
-                _("Accès refusé.")
-            )
-            return redirect("maintenance_liste_all")
+        # 🔐 Vérification rôles
+        roles_autorises = [
+            "mecanicien",
+            "apprenti",
+            "magasinier",
+            "chef_mecanicien",
+            "direction"
+        ]
 
-        # 🔧 maintenance
-        maintenance = Maintenance.objects.filter(
-            voiture_exemplaire=exemplaire,
-            type_maintenance="carrosserie_interne"
-        ).order_by("-date_intervention").first()
+        if role not in roles_autorises:
+            messages.error(request, _("Accès refusé"))
+            return redirect("utilisateurs:dashboard")
 
-        if not maintenance:
-            maintenance = Maintenance.objects.create(
-                voiture_exemplaire=exemplaire,
-                mecanicien=request.user,
-                immatriculation=exemplaire.immatriculation,
-                date_intervention=timezone.localtime(timezone.now()).date(),
-                kilometres_chassis=exemplaire.kilometres_chassis,
-                kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
-                type_maintenance="carrosserie_interne",
-                tag=Maintenance.Tag.JAUNE,
-            )
+        # =========================
+        # POST
+        # =========================
 
-        carrosserie_interne = CarrosserieInterne(
-            societe=tenant,
-            voiture_exemplaire=exemplaire,
-            maintenance=maintenance,
-            kilometres_chassis=exemplaire.kilometres_chassis
-        )
+        maintenance = None
 
         if request.method == "POST":
+
+            carrosserie_interne = CarrosserieInterne(
+                societe=tenant,
+                voiture_exemplaire=exemplaire,
+                kilometres_chassis=exemplaire.kilometres_chassis
+            )
+
             form = CarrosserieInterneForm(
                 request.POST,
                 instance=carrosserie_interne,
@@ -164,8 +164,41 @@ def carrosserie_interne_create_view(request, exemplaire_id):
             )
 
             if form.is_valid():
+
                 try:
                     with transaction.atomic():
+
+                        # 🔴 Création maintenance UNIQUE
+                        maintenance = Maintenance.objects.create(
+                            societe=request.user.societe,
+                            voiture_exemplaire=exemplaire,
+                            immatriculation=exemplaire.immatriculation,
+                            date_intervention=timezone.now().date(),
+                            kilometres_chassis=exemplaire.kilometres_chassis,
+                            kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
+                            type_maintenance=Maintenance.TypeMaintenance.CHECKUP_TRACK,
+                            tag=Maintenance.Tag.JAUNE,
+                        )
+
+                        # 🔧 Affectation rôle
+                        if role == "mecanicien":
+                            maintenance.mecanicien = Mecanicien.objects.get(id=request.user.id)
+
+                        elif role == "chef_mecanicien":
+                            maintenance.chef_mecanicien = ChefMecanicien.objects.get(id=request.user.id)
+
+                        elif role == "apprenti":
+                            maintenance.apprentis = Apprenti.objects.get(id=request.user.id)
+
+                        elif role == "magasinier":
+                            maintenance.magasinier = Magasinier.objects.get(id=request.user.id)
+
+                        elif role == 'direction':
+                            maintenance.direction = Direction.objects.get(id=request.user.id)
+
+                        maintenance.save()
+
+
                         carrosserie_interne = form.save(commit=False)
 
                         carrosserie_interne.assign_technicien(request.user)
@@ -201,12 +234,21 @@ def carrosserie_interne_create_view(request, exemplaire_id):
                 messages.error(request, _("Le formulaire contient des erreurs."))
 
         else:
+
+            carrosserie_interne = CarrosserieInterne(
+                societe=tenant,
+                voiture_exemplaire=exemplaire,
+                kilometres_chassis=exemplaire.kilometres_chassis
+
+            )
+
             carrosserie_interne.assign_technicien(request.user)
 
             form = CarrosserieInterneForm(
                 instance=carrosserie_interne,
                 user=request.user,
                 exemplaire=exemplaire
+
             )
 
         # 🔥 SECTIONS (remplace ton get_context_data)

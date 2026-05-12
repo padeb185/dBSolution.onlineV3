@@ -14,6 +14,11 @@ from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 from maintenance.entretien.models import Entretien
 from maintenance.entretien.forms import EntretienForm
+from utilisateurs.apprentis.models import Apprenti
+from utilisateurs.chef_mecanicien.models import ChefMecanicien
+from utilisateurs.direction.models import Direction
+from utilisateurs.magasinier.models import Magasinier
+from utilisateurs.mecanicien.models import Mecanicien
 
 
 # -----------------------------
@@ -58,52 +63,48 @@ class EntretienListView(ListView):
 @never_cache
 @login_required
 def entretien_check_view(request, exemplaire_id):
+
     tenant = request.user.societe
+    role = request.user.role
 
     with tenant_context(tenant):
-        # Récupération de l'exemplaire
+
+        # 🔎 Récupération exemplaire
         exemplaire = get_object_or_404(
             VoitureExemplaire.objects.filter(
-                Q(client__societe=tenant) | Q(client__isnull=True, societe=tenant)
+                Q(client__societe=tenant) |
+                Q(client__isnull=True, societe=tenant)
             ),
             id=exemplaire_id
         )
 
-        # Vérification des rôles
-        roles_autorises = ["mécanicien", "apprenti", "magasinier", "chef mécanicien"]
-        if request.user.role not in roles_autorises:
-            messages.error(
-                request,
-                _("Seuls les mécaniciens, apprentis, magasiniers et chefs mécaniciens peuvent accéder à cette page.")
-            )
-            return redirect("maintenance_liste_all")
+        # 🔐 Vérification rôles
+        roles_autorises = [
+            "mecanicien",
+            "apprenti",
+            "magasinier",
+            "chef_mecanicien",
+            "direction"
+        ]
 
-        # Récupération ou création de la maintenance
-        maintenance = Maintenance.objects.filter(
-            voiture_exemplaire=exemplaire,
-            type_maintenance="entretien"
-        ).order_by("-date_intervention").first()
+        if role not in roles_autorises:
+            messages.error(request, _("Accès refusé"))
+            return redirect("utilisateurs:dashboard")
 
-        if not maintenance:
-            maintenance = Maintenance.objects.create(
-                voiture_exemplaire=exemplaire,
-                mecanicien=request.user,
-                immatriculation=exemplaire.immatriculation,
-                date_intervention=timezone.localtime(timezone.now()).date(),
-                kilometres_chassis=exemplaire.kilometres_chassis,
-                kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
-                type_maintenance="entretien",
-                tag=Maintenance.Tag.JAUNE,
-            )
+        # =========================
+        # POST
+        # =========================
 
-        # Créer ou récupérer l'objet entretien
-        entretien = Entretien(
-            voiture_exemplaire=exemplaire,
-            maintenance=maintenance,
-            kilometres_chassis=exemplaire.kilometres_chassis
-        )
+        maintenance = None
 
         if request.method == "POST":
+
+            entretien = Entretien(
+                voiture_exemplaire=exemplaire,
+                maintenance=maintenance,
+                kilometres_chassis=exemplaire.kilometres_chassis
+            )
+
             form = EntretienForm(
                 request.POST,
                 instance=entretien,
@@ -112,8 +113,40 @@ def entretien_check_view(request, exemplaire_id):
             )
 
             if form.is_valid():
+
                 try:
                     with transaction.atomic():
+
+                        # 🔴 Création maintenance UNIQUE
+                        maintenance = Maintenance.objects.create(
+                            societe=request.user.societe,
+                            voiture_exemplaire=exemplaire,
+                            immatriculation=exemplaire.immatriculation,
+                            date_intervention=timezone.now().date(),
+                            kilometres_chassis=exemplaire.kilometres_chassis,
+                            kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
+                            type_maintenance=Maintenance.TypeMaintenance.CHECKUP_TRACK,
+                            tag=Maintenance.Tag.JAUNE,
+                        )
+
+                        # 🔧 Affectation rôle
+                        if role == "mecanicien":
+                            maintenance.mecanicien = Mecanicien.objects.get(id=request.user.id)
+
+                        elif role == "chef_mecanicien":
+                            maintenance.chef_mecanicien = ChefMecanicien.objects.get(id=request.user.id)
+
+                        elif role == "apprenti":
+                            maintenance.apprentis = Apprenti.objects.get(id=request.user.id)
+
+                        elif role == "magasinier":
+                            maintenance.magasinier = Magasinier.objects.get(id=request.user.id)
+
+                        elif role == 'direction':
+                            maintenance.direction = Direction.objects.get(id=request.user.id)
+
+                        maintenance.save()
+
                         entretien = form.save(commit=False)
 
 
@@ -141,14 +174,25 @@ def entretien_check_view(request, exemplaire_id):
             else:
                 messages.error(request, _("Le formulaire contient des erreurs."))
                 print(form.errors)
+
+
         else:
+            entretien = Entretien(
+                societe=tenant,
+                voiture_exemplaire=exemplaire,
+                kilometres_chassis=exemplaire.kilometres_chassis
+
+            )
+
             entretien.assign_technicien(request.user)
 
             form = EntretienForm(
                 instance=entretien,
                 user=request.user,
                 exemplaire=exemplaire
+
             )
+
 
         return render(request, 'entretien/entretien_check.html', {
             "exemplaire": exemplaire,

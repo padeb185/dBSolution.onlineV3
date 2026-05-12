@@ -30,6 +30,9 @@ class UtilisateurManager(BaseUserManager):
         if not email_google:
             raise ValueError("L'email est obligatoire")
 
+        if password:
+            self.validate_password(password)
+
         email_google = self.normalize_email(email_google)
         user = self.model(email_google=email_google, **extra_fields)
         if password:
@@ -48,6 +51,10 @@ class UtilisateurManager(BaseUserManager):
             raise ValueError("L'adresse est obligatoire pour un superutilisateur.")
         if not extra_fields.get('date_naissance'):
             raise ValueError("La date de naissance est obligatoire.")
+
+        if password:
+            self.validate_password(password)
+
 
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
@@ -114,6 +121,7 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
     email_entreprise = models.EmailField(unique=True, blank=True, null=True)
     telephone = models.CharField(max_length=20, blank=True, null=True)
 
+
     schema_name = models.CharField(max_length=100, blank=True, null=True)
 
     salaire_brut_heure = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
@@ -133,7 +141,7 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
     updated_at = models.DateTimeField(auto_now=True)
 
     is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=True)
 
     # TOTP
     totp_secret = models.CharField(max_length=50, blank=True, null=True, editable=False)
@@ -169,7 +177,7 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
     def get_totp_uri(self):
         return pyotp.totp.TOTP(self.totp_secret).provisioning_uri(
             name=self.email_google,
-            issuer_name="dBSolution"
+            issuer_name=self.societe.name
         )
 
     def verify_totp(self, token):
@@ -181,7 +189,7 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
     def generate_qr_code(self):
         totp_uri = pyotp.TOTP(self.totp_secret).provisioning_uri(
             name=self.email_google,
-            issuer_name="dBSolution"
+            issuer_name=self.societe.name
         )
         qr = qrcode.make(totp_uri)
         buffer = BytesIO()

@@ -7,6 +7,8 @@ from django.utils.translation import gettext_lazy as _
 from utils.mixin import TechnicienMixin
 from maindoeuvre.models import MainDoeuvre
 
+from societe.models import Societe
+
 
 class EntretienEtat(models.TextChoices):
     A_FAIRE = "A_FAIRE", _("A faire")
@@ -172,7 +174,12 @@ class Entretien(TechnicienMixin, models.Model):
         blank=True
     )
 
-
+    societe = models.ForeignKey(
+        Societe,
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True
+    )
 
 
 

@@ -17,6 +17,10 @@ from maintenance.check_up.models import Checkup
 from utilisateurs.apprentis.models import Apprenti
 from utilisateurs.chef_mecanicien.models import ChefMecanicien
 from utilisateurs.models import Mecanicien
+from utilisateurs.magasinier.models import Magasinier
+from utilisateurs.direction.models import Direction
+
+
 
 
 # -----------------------------
@@ -127,6 +131,11 @@ def controle_total_view(request, exemplaire_id):
                         elif role == "apprenti":
                             maintenance.apprentis = Apprenti.objects.get(id=request.user.id)
 
+                        elif role == "magasinier":
+                            maintenance.magasinier = Magasinier.objects.get(id=request.user.id)
+
+                        elif role == 'direction':
+                            maintenance.direction = Direction.objects.get(id=request.user.id)
 
                         maintenance.save()
 
@@ -152,7 +161,6 @@ def controle_total_view(request, exemplaire_id):
 
                     messages.success(request, _("Checkup enregistré avec succès."))
 
-                    return redirect("utilisateurs:dashboard")
 
                 except Exception as e:
                     messages.error(request, f"Erreur : {e}")
@@ -166,6 +174,7 @@ def controle_total_view(request, exemplaire_id):
                 voiture_exemplaire=exemplaire,
                 kilometres_chassis=exemplaire.kilometres_chassis
             )
+            checkup.assign_technicien(request.user)
 
             form = CheckupForm(
                 instance=checkup,

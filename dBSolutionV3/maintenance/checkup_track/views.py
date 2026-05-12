@@ -22,6 +22,8 @@ from .models import CheckupTrack
 from utilisateurs.mecanicien.models import Mecanicien
 from utilisateurs.chef_mecanicien.models import ChefMecanicien
 from utilisateurs.apprentis.models import Apprenti
+from utilisateurs.direction.models import Direction
+from utilisateurs.magasinier.models import Magasinier
 
 
 
@@ -144,6 +146,14 @@ def track_check_form_view(request, exemplaire_id):
                             )
                         elif role == "apprenti":
                             maintenance.apprentis = Apprenti.objects.get(
+                                id=request.user.id
+                            )
+                        elif role == 'magasinier':
+                            maintenance.magasiniers = Magasinier.objects.get(
+                                id=request.user.id
+                            )
+                        elif role == 'direction':
+                            maintenance.direction = Direction.objects.get(
                                 id=request.user.id
                             )
 

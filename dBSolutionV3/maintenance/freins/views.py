@@ -14,8 +14,11 @@ from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 from maintenance.freins.models import ControleFreins
 from maintenance.freins.forms import ControleFreinsForm
-
-
+from utilisateurs.apprentis.models import Apprenti
+from utilisateurs.chef_mecanicien.models import ChefMecanicien
+from utilisateurs.direction.models import Direction
+from utilisateurs.magasinier.models import Magasinier
+from utilisateurs.models import Mecanicien
 
 
 # -----------------------------
@@ -54,110 +57,142 @@ class FreinsListView(ListView):
 
 
 
-
 @never_cache
 @login_required
 def controle_freins_view(request, exemplaire_id):
+
     tenant = request.user.societe
+    role = request.user.role
+
+    maintenance = None  # 👈 important pour éviter UnboundLocalError
 
     with tenant_context(tenant):
-        # Récupération de l'exemplaire
+
+        # 🔎 Récupération exemplaire
         exemplaire = get_object_or_404(
             VoitureExemplaire.objects.filter(
-                Q(client__societe=tenant) | Q(client__isnull=True, societe=tenant)
+                Q(client__societe=tenant) |
+                Q(client__isnull=True, societe=tenant)
             ),
             id=exemplaire_id
         )
 
-        # Vérification des rôles
-        roles_autorises = ["mécanicien", "apprenti", "magasinier", "chef mécanicien"]
-        if request.user.role not in roles_autorises:
-            messages.error(
-                request,
-                _("Seuls les mécaniciens, apprentis, magasiniers et chefs mécaniciens peuvent accéder à cette page.")
-            )
-            return redirect("maintenance_liste_all")
+        # 🔐 rôles autorisés
+        roles_autorises = [
+            "mecanicien",
+            "apprenti",
+            "magasinier",
+            "chef_mecanicien",
+            "direction"
+        ]
 
-        # Récupération ou création de la maintenance
-        maintenance = Maintenance.objects.filter(
-            voiture_exemplaire=exemplaire,
-            type_maintenance="frein"
-        ).order_by("-date_intervention").first()
+        if role not in roles_autorises:
+            messages.error(request, _("Accès refusé"))
+            return redirect("utilisateurs:dashboard")
 
-        if not maintenance:
-            maintenance = Maintenance.objects.create(
-                voiture_exemplaire=exemplaire,
-                mecanicien=request.user,
-                immatriculation=exemplaire.immatriculation,
-                date_intervention=timezone.localtime(timezone.now()).date(),
-                kilometres_chassis=exemplaire.kilometres_chassis,
-                kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
-                type_maintenance="frein",
-                tag=Maintenance.Tag.JAUNE,
-            )
-
-        # Créer ou récupérer l'objet NettoyageInterieur
-        checkup = ControleFreins(
-            voiture_exemplaire=exemplaire,
-            maintenance=maintenance,
-            kilometres_chassis=exemplaire.kilometres_chassis
-        )
-
+        # =========================
+        # POST
+        # =========================
         if request.method == "POST":
+
+            controle_frein = ControleFreins(
+                voiture_exemplaire=exemplaire,
+                kilometres_chassis=exemplaire.kilometres_chassis
+            )
+
             form = ControleFreinsForm(
                 request.POST,
-                instance=checkup,
+                instance=controle_frein,
                 user=request.user,
                 exemplaire=exemplaire
             )
 
             if form.is_valid():
+
                 try:
                     with transaction.atomic():
-                        frein = form.save(commit=False)
 
+                        # 🔴 maintenance unique
+                        maintenance = Maintenance.objects.create(
+                            societe=request.user.societe,
+                            voiture_exemplaire=exemplaire,
+                            immatriculation=exemplaire.immatriculation,
+                            date_intervention=timezone.now().date(),
+                            kilometres_chassis=exemplaire.kilometres_chassis,
+                            kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
+                            type_maintenance=Maintenance.TypeMaintenance.CHECKUP_TRACK,
+                            tag=Maintenance.Tag.JAUNE,
+                        )
 
-                        frein.assign_technicien(request.user)
+                        # 🔧 affectation rôle
+                        if role == "mecanicien":
+                            maintenance.mecanicien = request.user
 
-                        # Gestion du kilométrage
-                        km_checkup = form.cleaned_data.get("kilometres_chassis")
-                        if km_checkup is not None and km_checkup >= exemplaire.kilometres_chassis:
-                            frein.kilometres_chassis = km_checkup
-                            exemplaire.kilometres_chassis = km_checkup
-                            exemplaire.save()
-                        elif km_checkup is not None and km_checkup < exemplaire.kilometres_chassis:
-                            form.add_error(
-                                "kilometres_chassis",
-                                _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
-                            )
-                            raise ValueError("Kilométrage invalide")
+                        elif role == "chef_mecanicien":
+                            maintenance.chef_mecanicien = request.user
 
-                        checkup.save()
+                        elif role == "apprenti":
+                            maintenance.apprentis.add(request.user)
+
+                        elif role == "magasinier":
+                            maintenance.magasinier = request.user
+
+                        elif role == "direction":
+                            maintenance.direction = request.user
+
+                        maintenance.save()
+
+                        # 🔧 check frein
+                        controle_frein = form.save(commit=False)
+                        controle_frein.maintenance = maintenance
+
+                        controle_frein.assign_technicien(request.user)
+
+                        km = form.cleaned_data.get("kilometres_chassis")
+
+                        if km is not None and km < exemplaire.kilometres_chassis:
+                            form.add_error("kilometres_chassis", _("Kilométrage invalide"))
+                            raise ValueError("KM invalide")
+
+                        if km is not None:
+                            exemplaire.kilometres_chassis = km
+                            exemplaire.save(update_fields=["kilometres_chassis"])
+                            controle_frein.kilometres_chassis = km
+
+                        controle_frein.save()
 
                     messages.success(request, _("Contrôle freins enregistré avec succès."))
 
+
                 except Exception as e:
-                    messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
-            else:
-                messages.error(request, _("Le formulaire contient des erreurs."))
-                print(form.errors)
+                    messages.error(request, f"Erreur : {e}")
+
+        # =========================
+        # GET
+        # =========================
         else:
-            checkup.assign_technicien(request.user)
+
+            controle_frein = ControleFreins(
+                societe=tenant,
+                voiture_exemplaire=exemplaire,
+                kilometres_chassis=exemplaire.kilometres_chassis
+            )
+
+            controle_frein.assign_technicien(request.user)
 
             form = ControleFreinsForm(
-                instance=checkup,
+                instance=controle_frein,
                 user=request.user,
                 exemplaire=exemplaire
             )
 
-        return render(request, 'freins/freins_check.html', {
+        return render(request, "freins/freins_check.html", {
             "exemplaire": exemplaire,
             "immatriculation": exemplaire.immatriculation,
             "maintenance": maintenance,
             "form": form,
             "now": timezone.now(),
         })
-
 
 
 

@@ -106,11 +106,6 @@ def dashboard_view(request):
 
     societe = request.user.societe
 
-    print("SOCIETE USER:", request.user.societe)
-    print("SOCIETE FILTER:", societe)
-
-    print("TOTAL BASE:", Maintenance.objects.count())
-    print("TOTAL FILTER SOCIETE:", Maintenance.objects.filter(societe=societe).count())
 
     # --- Stats initialisées à zéro ---
     total_marques = total_moteurs = total_exemplaires = 0
@@ -190,9 +185,6 @@ def dashboard_view(request):
                 Q(chef_mecanicien_id=user.id) |
                 Q(apprentis__id=user.id)
             ).distinct().count()
-            print("MEC:", Maintenance.objects.filter(mecanicien=user).count())
-            print("CHEF:", Maintenance.objects.filter(chef_mecanicien=user).count())
-            print("APP:", Maintenance.objects.filter(apprentis=user).count())
 
             total_client = client_particulier.count() + client_atelier.count() + client_pilotage.count()
 
