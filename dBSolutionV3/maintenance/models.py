@@ -22,6 +22,9 @@ class Maintenance(models.Model):
         ABS = "ABS", _("ABS")
         REMPLACEMENT_BOITE = "remplacement_boite", _("Remplacement boîte")
         JEUX_PIECES = "jeux_pieces", _("Jeux pieces")
+        SILENT_BLOC = "silent_bloc", _("Silent bloc")
+        BOITE = "BOITE", _("Boite")
+
 
     class Tag(models.TextChoices):
         VERT = "VERT", _("Vert")
