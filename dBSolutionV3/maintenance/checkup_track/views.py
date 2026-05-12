@@ -1,5 +1,4 @@
 from datetime import datetime
-
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
@@ -12,12 +11,10 @@ from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
 from django_tenants.utils import tenant_context
 from maintenance.models import Maintenance
-from voiture.voiture_exemplaire.models import VoitureExemplaire
+from voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
-from maintenance.nettoyage_exterieur.models import NettoyageExterieur
 from django.utils.translation import gettext_lazy as _
 from weasyprint import HTML
-
 from .forms import CheckupTrackForm
 from .models import CheckupTrack
 
