@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n static %}
+{% load widget_tweaks %}
 
 {% block content %}
 <div class="max-w-xl mx-auto p-6 bg-white rounded shadow mt-16 mb-16">
@@ -26,45 +27,28 @@
         {% endfor %}
     {% endif %}
 
-    <form method="post" class="flex flex-col space-y-4">
-        {% csrf_token %}
 
-        <!-- Propriétaire (SELECT OBLIGATOIRE) -->
-        <div>
-            <label for="id_proprietaire">{% trans "Propriétaire" %}</label>
-            <select id="id_proprietaire" name="proprietaire"
-                    class="border rounded px-4 py-2 w-full">
-                <option value="">{% trans "Sélectionner un propriétaire" %}</option>
-                {% for p in proprietaires %}
-                    <option value="{{ p.id }}">
-                        {{ p.prenom }} {{ p.nom }}
-                    </option>
-                {% endfor %}
-            </select>
-        </div>
+      <form method="post" class="flex flex-col space-y-4">
+            {% csrf_token %}
 
-        <!-- Voiture -->
-        <div>
-            <label for="id_exemplaire">{% trans "Voiture" %}</label>
-            <select id="id_exemplaire" name="exemplaire"
-                    class="border rounded px-4 py-2 w-full">
-                <option value="">{% trans "Sélectionner une voiture" %}</option>
-                {% for v in voitures %}
-                    <option value="{{ v.id }}">
-                        {{ v.immatriculation }}  {{ v.nom_marque }} {{ v.nom_modele }}
-                    </option>
-                {% endfor %}
-            </select>
-        </div>
+            {% for field in form %}
+                <div>
+                    <label class="block font-semibold mb-1">
+                        {{ field.label }}
+                    </label>
 
-        <!-- Part (%) -->
-        <div>
-            <label for="id_part">{% trans "Part (%)" %}</label>
-            <input type="number" id="id_part" name="part_proprietaire_pourcent"
-                   class="border rounded px-4 py-2 w-full"
-                   min="0" max="100" value="100">
-        </div>
-        <div id="part-message" class="mt-2 text-sm font-semibold"></div>
+                    {{ field|add_class:"input" }}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">
+                            {{ field.errors|striptags }}
+                        </p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+
+
         <!-- Buttons -->
         <div class="flex gap-3 mt-6">
             <button type="submit"
@@ -80,6 +64,18 @@
 
     </form>
 </div>
+
+
+<style>
+.input {
+    width: 100% !important;
+    border: 1px solid #ccc !important;
+    border-radius: 6px !important;
+    padding: 8px !important;
+    box-sizing: border-box !important;
+}
+</style>
+
 
 
 <script>

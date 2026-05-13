@@ -13,13 +13,13 @@ import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .forms import ProprietaireForm, ProprietaireVoitureForm
-from .models import Proprietaire  # adapte au nom réel
+from .models import Proprietaire
 from voiture.voiture_exemplaire.models import VoitureExemplaire
-from django.contrib import messages
-from django.shortcuts import render, redirect, get_object_or_404
-from django.utils.translation import gettext as _
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
+from adresse.forms import AdresseForm
+
+
 
 
 
@@ -81,60 +81,53 @@ class ProprietaireListView(ListView):
 def proprietaire_form_view(request):
     tenant = request.user.societe
 
-    proprietaire = Proprietaire()
-    proprietaire.adresse = Adresse()
-
     if request.method == "POST":
-        nom = request.POST.get("nom")
-        prenom = request.POST.get("prenom")
 
-        if not nom or not prenom:
-            messages.error(request, _("Le prénom et le nom du propriétaire sont obligatoires."))
-        else:
+        form = ProprietaireForm(request.POST)
+        adresse_form = AdresseForm(request.POST)
+
+        if form.is_valid() and adresse_form.is_valid():
+
             with tenant_context(tenant):
-                adresse = Adresse.objects.create(
-                    societe=tenant,
-                    rue=request.POST.get("rue"),
-                    numero=request.POST.get("numero"),
-                    code_postal=request.POST.get("code_postal"),
-                    ville=request.POST.get("ville"),
-                    pays=request.POST.get("pays"),
-                    code_pays=request.POST.get("code_pays")
-                )
 
-                proprietaire = Proprietaire.objects.create(
-                    societe=tenant,
-                    prenom=prenom,
-                    nom=nom,
-                    date_naissance=request.POST.get("date_naissance"),
-                    numero_permis=request.POST.get("numero_permis"),
-                    numero_carte_id=request.POST.get("numero_carte_id"),
-                    numero_compte=request.POST.get("numero_compte"),
-                    email=request.POST.get("email"),
-                    numero_telephone=request.POST.get("numero_telephone"),
-                    adresse=adresse
-                )
+                # Sauvegarde adresse
+                adresse = adresse_form.save(commit=False)
+                adresse.societe = tenant
+                adresse.save()
+
+                # Sauvegarde propriétaire
+                proprietaire = form.save(commit=False)
+                proprietaire.societe = tenant
+                proprietaire.adresse = adresse
+                proprietaire.save()
 
                 messages.success(
                     request,
-                    _(f"Propriétaire '{proprietaire.prenom} {proprietaire.nom}' ajouté avec succès !")
+                    _(
+                        f"Propriétaire '{proprietaire.prenom} {proprietaire.nom}' ajouté avec succès !"
+                    )
                 )
 
-        if not hasattr(proprietaire, "adresse") or proprietaire.adresse is None:
-            proprietaire.adresse = Adresse()
+        else:
+            messages.error(
+                request,
+                _("Veuillez corriger les erreurs du formulaire.")
+            )
 
-        return render(
-            request,
-            "proprietaire/proprietaire_form.html",
-            {"proprietaire": proprietaire, "tenant": tenant}
-        )
-
+    else:
+        form = ProprietaireForm()
+        adresse_form = AdresseForm()
 
     return render(
         request,
         "proprietaire/proprietaire_form.html",
-        {"proprietaire": proprietaire, "tenant": tenant}
+        {
+            "form": form,
+            "adresse_form": adresse_form,
+            "tenant": tenant,
+        }
     )
+
 
 
 
@@ -246,66 +239,48 @@ def proprietaire_voiture_form_view(request):
 
     voitures = VoitureExemplaire.objects.all()
     proprietaires = Proprietaire.objects.filter(societe=tenant)
+    tenant = request.user.societe
 
     if request.method == "POST":
 
-        proprietaire_id = request.POST.get("proprietaire")
-        exemplaire_id = request.POST.get("exemplaire")
-        part = request.POST.get("part_proprietaire_pourcent")
+        form = ProprietaireVoitureForm(request.POST)
 
-        # Validation basique
-        if not proprietaire_id or not exemplaire_id:
-            messages.error(request, _("Veuillez sélectionner un propriétaire et une voiture."))
-            return redirect("proprietaire:proprietaire_voiture_form")
 
-        # Conversion safe
-        try:
-            part = float(part) if part else 100
-        except ValueError:
-            messages.error(request, _("La part doit être un nombre valide."))
-            return redirect("proprietaire:proprietaire_voiture_form")
+        if form.is_valid():
 
-        with tenant_context(tenant):
+            with tenant_context(tenant):
 
-            proprietaire = get_object_or_404(
-                Proprietaire,
-                id=proprietaire_id,
-                societe=tenant
-            )
+                # Sauvegarde propriétaire
+                proprietaire_voiture = form.save(commit=False)
+                proprietaire_voiture.societe = tenant
 
-            voiture_exemplaire = get_object_or_404(
-                VoitureExemplaire,
-                id=exemplaire_id
-            )
+                proprietaire_voiture.save()
 
-            try:
-                obj = ProprietaireVoiture(
-                    societe=tenant,
-                    proprietaire=proprietaire,
-                    voiture_exemplaire=voiture_exemplaire,
-                    part_proprietaire_pourcent=part
+                messages.success(
+                    request,
+                    _(
+                        f"Propriétaire '{proprietaire.prenom} {proprietaire.nom}' ajouté avec succès !"
+                    )
                 )
 
-                # 🔥 IMPORTANT : déclenche la validation 100%
-                obj.full_clean()
-                obj.save()
+        else:
+            messages.error(
+                request,
+                _("Veuillez corriger les erreurs du formulaire.")
+            )
 
-                messages.success(request, _("Association créée avec succès !"))
-                return redirect("proprietaire:proprietaire_voiture_list")
-
-            except ValidationError as e:
-                messages.error(request, e.messages[0])
-                return redirect("proprietaire:proprietaire_voiture_form")
+    else:
+        form = ProprietaireVoitureForm()
 
     return render(
         request,
         "proprietaire/proprietaire_voiture_form.html",
         {
+            "form": form,
             "tenant": tenant,
-            "voitures": voitures,
-            "proprietaires": proprietaires
         }
     )
+
 
 def total_part_voiture(request, voiture_id):
     total = (

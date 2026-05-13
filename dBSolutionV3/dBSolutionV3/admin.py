@@ -31,9 +31,7 @@ from voiture.voiture_modele.models import VoitureModele
 from voiture.voiture_moteur.models import MoteurVoiture
 from voiture.voiture_pneus.models import VoiturePneus
 from voiture.voiture_pneus_historique.models import VoiturePneusHistorique
-
-
-
+from client_pilotage.models import ClientPilotage
 
 
 admin.site.register(Utilisateur)
@@ -61,6 +59,9 @@ admin.site.register(Mecanicien)
 admin.site.register(Vendeur)
 admin.site.register(VoitureBoite)
 admin.site.register(VoitureEmbrayage)
+admin.site.register(ClientPilotage)
+
+
 
 
 
