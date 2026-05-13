@@ -40,68 +40,32 @@
     {% endif %}
 
 
-    <form method="post" class="flex flex-col space-y-4">
+     <form method="post" class="space-y-4">
         {% csrf_token %}
 
-       <div>
-            <label for="id_fournisseur">{% trans "Fournisseur" %}</label>
+        {% for field in form %}
+            <div>
+                <label class="block font-semibold mb-1">
+                    {{ field.label }}
+                </label>
 
-            <select id="id_fournisseur" name="fournisseur"
-                    class="border rounded px-4 py-2 w-full">
+                {{ field }}
 
-                {% for f in fournisseurs %}
-                    <option value="{{ f.id }}"
-                        {% if request.POST.fournisseur|default:'' == f.id|stringformat:"s" %}
-                            selected
-                        {% endif %}>
-                        {{ f.nom }}
-                    </option>
-                {% endfor %}
+                {% if field.help_text %}
+                    <p class="text-gray-500 text-sm mt-1">
+                        {{ field.help_text }}
+                    </p>
+                {% endif %}
 
-            </select>
-        </div>
-        <div>
-            <label for="id_libelle_facture">{% trans "Libellé" %}</label>
-            <input type="text" id="id_libelle_facture" name="libelle_facture"
-                   value="{{ request.POST.libelle_facture|default_if_none:'' }}"
-                   class="border rounded px-4 py-2 w-full">
-        </div>
-        <div>
-            <label for="id_référence_facture">{% trans "Référence" %}</label>
-            <input type="text" id="id_référence_facture" name="reference_facture"
-                   value="{{ request.POST.reference_facture|default_if_none:'' }}"
-                   class="border rounded px-4 py-2 w-full">
-        </div>
-        <div>
-            <label for="id_achat_montant_htva">{% trans "Montant HTVA" %}</label>
-            <input type="text" id="id_achat_montant_htva" name="achat_montant_htva"
-                   value="{{ request.POST.achat_montant_htva|default_if_none:'' }}"
-                   class="border rounded px-4 py-2 w-full">
-        </div>
-        <div>
-            <label for="id_transport_montant_htva">{% trans "Transport HTVA" %}</label>
-            <input type="text" id="id_transport_montant_htva" name="transport_montant_htva"
-                   value="{{ request.POST.transport_montant_htva|default_if_none:'' }}"
-                   class="border rounded px-4 py-2 w-full">
-        </div>
-        <div>
-            <label for="id_achat_tva">{% trans "Taux de TVA" %}</label>
-            <input type="text" id="id_achat_tva" name="achat_tva"
-                   value="{{ request.POST.achat_tva|default_if_none:'' }}"
-                   class="border rounded px-4 py-2 w-full">
-        </div>
-        <div>
-            <label for="id_date_facture">{% trans "Date de la facturation" %}</label>
-            <input type="date" id="id_date_facture" name="date_facture"
-                   value="{{ request.POST.date_facture|default_if_none:'' }}"
-                   class="border rounded px-4 py-2 w-full">
-        </div>
-        <div>
-            <label for="id_date_paiement">{% trans "date de paiement" %}</label>
-            <input type="date" id="id_date_paiement" name="date_paiement"
-                   value="{{ request.POST.date_paiement|default:'' }}"
-                   class="border rounded px-4 py-2 w-full">
-        </div>
+                {% if field.errors %}
+                    <p class="text-red-600 text-sm mt-1">
+                        {{ field.errors|striptags }}
+                    </p>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+
          <div class="flex gap-3 mt-6">
                 <button type="submit"
                         class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
@@ -115,7 +79,15 @@
         </div>
     </form>
 </div>
-
+<style>
+.input {
+    width: 100% !important;
+    border: 1px solid #ccc !important;
+    border-radius: 6px !important;
+    padding: 8px !important;
+    box-sizing: border-box !important;
+}
+</style>
 
 <script>
     function getCookie(name) {

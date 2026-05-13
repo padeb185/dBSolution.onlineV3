@@ -15,7 +15,6 @@ from client_atelier.models import ClientAtelier
 from societe_cliente.models import SocieteCliente
 from client_particulier.models import ClientParticulier
 from voiture.voiture_exemplaire.models import VoitureExemplaire
-
 from client_pilotage.models import ClientPilotage
 
 
@@ -49,16 +48,11 @@ def client_atelier_detail_view(request, client_atelier_id):
 
 
 
-
-
-
 @login_required
 def client_atelier_form_view(request):
     tenant = request.user.societe
 
-    client_atelier = ClientAtelier()
-    client_atelier.adresse = Adresse()
-    societes = SocieteCliente.objects.filter(societe=tenant)
+    societe = SocieteCliente.objects.filter(societe=tenant)
     voitures = VoitureExemplaire.objects.filter(societe=tenant)
 
     if request.method == "POST":
@@ -70,6 +64,7 @@ def client_atelier_form_view(request):
             messages.error(request, _("Le prénom et le nom du client sont obligatoires."))
         else:
             with tenant_context(tenant):
+
                 adresse = Adresse.objects.create(
                     societe=tenant,
                     rue=request.POST.get("rue"),
@@ -80,9 +75,9 @@ def client_atelier_form_view(request):
                     code_pays=request.POST.get("code_pays")
                 )
 
-                societe = None
+                societe_obj = None
                 if societe_id:
-                    societe = SocieteCliente.objects.filter(id=societe_id).first()
+                    societe_obj = SocieteCliente.objects.filter(id=societe_id).first()
 
                 client_atelier = ClientAtelier.objects.create(
                     societe=tenant,
@@ -95,7 +90,6 @@ def client_atelier_form_view(request):
                     adresse=adresse
                 )
 
-                # ✅ 🔥 AJOUT DES VOITURES
                 voiture_ids = request.POST.getlist("voitures")
                 if voiture_ids:
                     client_atelier.voitures.set(voiture_ids)
@@ -105,21 +99,17 @@ def client_atelier_form_view(request):
                     _(f"Client '{client_atelier.prenom} {client_atelier.nom}' ajouté avec succès !")
                 )
 
-    if not hasattr(client_atelier, "adresse") or client_atelier.adresse is None:
-        client_atelier.adresse = Adresse()
-
-    return render(
-        request,
-        "client_atelier/client_atelier_form.html",
-        {
-            "client_atelier": client_atelier,
-            "tenant": tenant,
-            "societes": societes,
-            "voitures": voitures,
-        }
-    )
+                return redirect("client_atelier:client_atelier_list")
 
 
+    form = ClientAtelierForm()
+
+    return render(request, "client_atelier/client_atelier_form.html", {
+        "form": form,
+        "societe": societe,
+        "voitures": voitures,
+        "tenant": tenant,
+    })
 
 
 
