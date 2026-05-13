@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import ClientParticulierListView, ajouter_client_all, modifier_client, client_detail, check_prenom
-
+from .views import ClientParticulierListView, client_detail, check_prenom, \
+    client_particulier_form_view, modifier_client_particulier_view
 
 app_name = "client_particulier"
 
@@ -14,7 +14,7 @@ urlpatterns = [
     ),
     path(
         "client_particulier/creer/",
-        ajouter_client_all,
+        client_particulier_form_view,
         name="client_create",
     ),
 
@@ -28,8 +28,8 @@ urlpatterns = [
 
     path(
         'client_particulier/<int:client_particulier_id>/modifier/',
-        modifier_client,
-        name='modifier_client'),
+        modifier_client_particulier_view,
+        name='modifier_client_particulier'),
 
 
     path('api/check_prenom/', check_prenom, name='check_prenom'),

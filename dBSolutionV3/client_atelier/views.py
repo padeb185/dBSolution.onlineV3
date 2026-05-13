@@ -99,8 +99,6 @@ def client_atelier_form_view(request):
                     _(f"Client '{client_atelier.prenom} {client_atelier.nom}' ajouté avec succès !")
                 )
 
-                return redirect("client_atelier:client_atelier_list")
-
 
     form = ClientAtelierForm()
 

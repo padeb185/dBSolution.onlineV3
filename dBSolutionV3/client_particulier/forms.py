@@ -1,6 +1,7 @@
 from django import forms
 from .models import ClientParticulier
 from django.utils.translation import gettext_lazy as _
+from adresse.models import Adresse
 
 
 def luhn_check(card_number: str) -> bool:
@@ -24,9 +25,44 @@ def luhn_check(card_number: str) -> bool:
     return total % 10 == 0
 
 
-
-
 class ClientParticulierForm(forms.ModelForm):
+
+    prenom = forms.CharField(
+        label=_("Prénom"),
+        widget=forms.TextInput(attrs={"class": "border rounded px-4 py-2 w-full"})
+    )
+
+    nom = forms.CharField(
+        label=_("Nom"),
+        widget=forms.TextInput(attrs={"class": "border rounded px-4 py-2 w-full"})
+    )
+
+
+    email = forms.EmailField(required=False)
+
+    numero_telephone = forms.CharField(required=False)
+    numero_carte_id = forms.CharField(required=False)
+    numero_compte = forms.CharField(required=False)
+    numero_carte_bancaire = forms.CharField(required=False)
+
+    date_naissance = forms.DateField(
+        required=True,
+        widget=forms.DateInput(
+            attrs={
+                "type": "date",
+                "class": "border rounded px-4 py-2 w-full",
+            }
+        )
+    )
+
+    age = forms.IntegerField(
+        label=_("Âge"),
+        required=False,
+        disabled=True,
+        widget=forms.NumberInput(attrs={
+            "class": "border rounded px-4 py-2 w-full bg-gray-100"
+        })
+    )
 
     rue = forms.CharField(
         required=False,
@@ -36,6 +72,13 @@ class ClientParticulierForm(forms.ModelForm):
     )
 
     numero = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={
+            "class": "border rounded px-4 py-2 w-full"
+        })
+    )
+
+    boite = forms.CharField(
         required=False,
         widget=forms.TextInput(attrs={
             "class": "border rounded px-4 py-2 w-full"
@@ -84,28 +127,82 @@ class ClientParticulierForm(forms.ModelForm):
             "numero_carte_bancaire",
             "email",
             "date_naissance",
+            "age",
             "rue",
             "numero",
+            "boite",
             "code_postal",
             "ville",
             "pays",
             "code_pays",
-
             "remarques",
-
         ]
+
         widgets = {
+            "prenom": forms.TextInput(attrs={"class": "border rounded px-4 py-2 w-full"}),
+            "nom": forms.TextInput(attrs={"class": "border rounded px-4 py-2 w-full"}),
+            "numero_telephone": forms.TextInput(attrs={"class": "border rounded px-4 py-2 w-full"}),
+            "numero_permis": forms.TextInput(attrs={"class": "border rounded px-4 py-2 w-full"}),
+            "numero_carte_id": forms.TextInput(attrs={"class": "border rounded px-4 py-2 w-full"}),
+
+            "numero_compte": forms.TextInput(attrs={
+                "class": "border rounded px-4 py-2 w-full",
+                "placeholder": "BE12 3456 7890 1234 56"
+            }),
+
             "numero_carte_bancaire": forms.TextInput(attrs={
                 "class": "border rounded px-4 py-2 w-full",
                 "placeholder": "5389 3456 7890 1234"
             }),
-            "numero_compte": forms.TextInput(attrs={
+
+            "email": forms.EmailInput(attrs={"class": "border rounded px-4 py-2 w-full"}),
+
+            "date_naissance": forms.DateInput(
+                attrs={"type": "date", "class": "border rounded px-4 py-2 w-full"}
+            ),
+
+            "rue": forms.TextInput(attrs={"class": "border rounded px-4 py-2 w-full"}),
+            "numero": forms.TextInput(attrs={"class": "border rounded px-4 py-2 w-full"}),
+            "code_postal": forms.TextInput(attrs={"class": "border rounded px-4 py-2 w-full"}),
+            "ville": forms.TextInput(attrs={"class": "border rounded px-4 py-2 w-full"}),
+
+            "pays": forms.TextInput(attrs={"class": "border rounded px-4 py-2 w-full"}),
+            "code_pays": forms.TextInput(attrs={"class": "border rounded px-4 py-2 w-full"}),
+
+            "remarques": forms.Textarea(attrs={
                 "class": "border rounded px-4 py-2 w-full",
-                "placeholder": "BE12 3456 7890 1234 56"  # exemple format belge
+                "rows": 3
             }),
-
-
         }
+
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+
+            if self.instance and self.instance.pk:
+
+                cp = self.instance.client_particulier
+
+                self.fields["prenom"].initial = cp.prenom
+                self.fields["nom"].initial = cp.nom
+                self.fields["email"].initial = cp.email
+                self.fields["numero_telephone"].initial = cp.numero_telephone
+                self.fields["numero_carte_id"].initial = cp.numero_carte_id
+                self.fields["numero_compte"].initial = cp.numero_compte
+                self.fields["numero_carte_bancaire"].initial = cp.numero_carte_bancaire
+                self.fields["date_naissance"].initial = cp.date_naissance
+                self.fields["age"].initial = cp.age
+
+                if self.instance.adresse:
+                    adresse = self.instance.adresse
+
+                    self.fields["rue"].initial = adresse.rue
+                    self.fields["numero"].initial = adresse.numero
+                    self.fields["boite"].initial = adresse.boite
+                    self.fields["code_postal"].initial = adresse.code_postal
+                    self.fields["ville"].initial = adresse.ville
+                    self.fields["pays"].initial = adresse.pays
+                    self.fields["code_pays"].initial = adresse.code_pays
+
 
 
     def clean_numero_carte_bancaire(self):

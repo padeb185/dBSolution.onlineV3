@@ -52,7 +52,6 @@ def client_pilotage_detail_view(request, client_pilotage_id):
 
 
 
-
 @login_required
 def modifier_client_pilotage_view(request, client_pilotage_id):
 
@@ -80,7 +79,11 @@ def modifier_client_pilotage_view(request, client_pilotage_id):
 
                 with transaction.atomic():
 
+                    # -----------------------
+                    # CLIENT PILOTAGE (base)
+                    # -----------------------
                     obj = form.save(commit=False)
+                    obj.societe = tenant
 
                     # -----------------------
                     # CLIENT PARTICULIER
@@ -93,17 +96,13 @@ def modifier_client_pilotage_view(request, client_pilotage_id):
                     cp.numero_compte = form.cleaned_data.get("numero_compte")
                     cp.numero_carte_bancaire = form.cleaned_data.get("numero_carte_bancaire")
                     cp.date_naissance = form.cleaned_data.get("date_naissance")
-
                     cp.save()
 
                     # -----------------------
                     # ADRESSE
                     # -----------------------
                     if adresse is None:
-
-                        adresse = Adresse.objects.create(
-                            societe=tenant
-                        )
+                        adresse = Adresse.objects.create(societe=tenant)
 
                     adresse.rue = form.cleaned_data.get("rue")
                     adresse.numero = form.cleaned_data.get("numero")
@@ -112,21 +111,21 @@ def modifier_client_pilotage_view(request, client_pilotage_id):
                     adresse.ville = form.cleaned_data.get("ville")
                     adresse.pays = form.cleaned_data.get("pays")
                     adresse.code_pays = form.cleaned_data.get("code_pays")
-
                     adresse.save()
 
                     # -----------------------
-                    # CLIENT PILOTAGE
+                    # RELATIONS FINAL
                     # -----------------------
                     obj.client_particulier = cp
                     obj.adresse = adresse
-                    obj.societe = tenant
                     obj.save()
 
                 messages.success(
                     request,
                     _(f"Client '{cp.prenom} {cp.nom}' modifié avec succès !")
                 )
+
+                return redirect("client_pilotage_detail")
 
             else:
                 messages.error(
@@ -139,7 +138,7 @@ def modifier_client_pilotage_view(request, client_pilotage_id):
             initial = {}
 
             if adresse:
-                initial = {
+                initial.update({
                     "rue": adresse.rue,
                     "numero": adresse.numero,
                     "boite": adresse.boite,
@@ -147,7 +146,7 @@ def modifier_client_pilotage_view(request, client_pilotage_id):
                     "ville": adresse.ville,
                     "pays": adresse.pays,
                     "code_pays": adresse.code_pays,
-                }
+                })
 
             form = ClientPilotageForm(
                 instance=client_pilotage,
@@ -227,11 +226,6 @@ def client_pilotage_form_view(request):
                         f"{client_particulier.nom}' créé avec succès !"
                     )
                 )
-
-                return redirect(
-                    "client_pilotage:client_pilotage_list"
-                )
-
             else:
                 messages.error(
                     request,
