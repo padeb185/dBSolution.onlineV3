@@ -140,3 +140,14 @@ class AlternateurForm(forms.ModelForm):
             instance.save()
 
         return instance
+
+    def clean_kilometres_chassis(self):
+        km = self.cleaned_data.get("kilometres_chassis")
+        exemplaire = self.exemplaire
+
+        if km is not None and km < exemplaire.kilometres_chassis:
+            raise forms.ValidationError(
+                f"Le kilométrage ne peut pas être inférieur à {exemplaire.kilometres_chassis} km."
+            )
+
+        return km

@@ -80,7 +80,7 @@
             <button type="submit" class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-500 font-semibold text-center">
                 {% trans "Enregistrer" %}
             </button>
-            <a href="{% url 'proprietaire_voiture:proprietaire_voiture_detail' proprietaire_id=proprietaire.id %}"
+            <a href="{% url 'proprietaire:proprietaire_voiture_detail' proprietaire_voiture_id=proprietaire_voiture.id %}"
                class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
                 {% trans "Annuler" %}
             </a>

@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
@@ -311,10 +311,6 @@ def proprietaire_voiture_detail_view(request, proprietaire_voiture_id):
     )
 
 
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, render, redirect
-from django.contrib import messages
-from django.utils.translation import gettext as _
 
 @login_required
 def modifier_proprietaire_voiture_view(request, proprietaire_voiture_id):
@@ -340,12 +336,6 @@ def modifier_proprietaire_voiture_view(request, proprietaire_voiture_id):
                     request,
                     _("Propriété mise à jour avec succès.")
                 )
-
-                return redirect(
-                    "proprietaire:modifier_proprietaire_voiture",
-                    proprietaire_voiture_id=proprietaire_voiture.id  # ✅ corrigé
-                )
-
             else:
                 messages.error(request, _("Le formulaire contient des erreurs."))
 
