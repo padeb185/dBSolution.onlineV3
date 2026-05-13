@@ -20,7 +20,7 @@ class NettoyageExterieur(TechnicienMixin, models.Model):
         Maintenance,
         on_delete=models.CASCADE,
         related_name="nettoyages_exterieur",
-        verbose_name=_("nettoyage_ext")
+        verbose_name=_("Nettoyage extérieur")
     )
 
     voiture_exemplaire = models.ForeignKey(
