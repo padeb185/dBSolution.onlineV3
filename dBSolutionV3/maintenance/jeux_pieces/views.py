@@ -146,18 +146,26 @@ def controle_jeux_pieces_view(request, exemplaire_id):
 
                         # Gestion du kilométrage
                         km_checkup = form.cleaned_data.get("kilometres_chassis")
-                        if km_checkup is not None and km_checkup >= exemplaire.kilometres_chassis:
+
+                        if (
+                                km_checkup is not None and
+                                km_checkup >= exemplaire.kilometres_chassis
+                        ):
                             controle.kilometres_chassis = km_checkup
                             exemplaire.kilometres_chassis = km_checkup
                             exemplaire.save()
-                        elif km_checkup is not None and km_checkup < exemplaire.kilometres_chassis:
+
+                        elif (
+                                km_checkup is not None and
+                                km_checkup < exemplaire.kilometres_chassis
+                        ):
                             form.add_error(
                                 "kilometres_chassis",
                                 _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
                             )
                             raise ValueError("Kilométrage invalide")
 
-                        controle.save()
+                    controle.save()
 
                     messages.success(request, _("Contrôle des jeux enregistré avec succès."))
 

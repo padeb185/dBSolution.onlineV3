@@ -96,6 +96,7 @@ def courroie_form_view(request, exemplaire_id):
             )
 
             form = CourroieDistributionForm(
+                request.POST,
                 instance=courroie_distribution,
                 user=request.user,
                 exemplaire=exemplaire
@@ -138,29 +139,52 @@ def courroie_form_view(request, exemplaire_id):
 
                         courroie_distribution = form.save(commit=False)
 
+                        # 🔧 affectation technicien + société
+                        courroie_distribution.assign_technicien(request.user)
+
                         # Gestion du kilométrage
                         km_checkup = form.cleaned_data.get("kilometres_chassis")
-                        if km_checkup is not None and km_checkup >= exemplaire.kilometres_chassis:
-                            courroie_distribution.kilometres_chassis = km_checkup
-                            exemplaire.kilometres_chassis = km_checkup
-                            exemplaire.save()
-                        elif km_checkup is not None and km_checkup < exemplaire.kilometres_chassis:
-                            form.add_error(
-                                "kilometres_chassis",
-                                _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
-                            )
-                            raise ValueError("Kilométrage invalide")
+
+                        if km_checkup is not None:
+
+                            km_checkup = int(km_checkup)
+
+                            if km_checkup >= exemplaire.kilometres_chassis:
+
+                                # mise à jour intervention
+                                courroie_distribution.kilometres_chassis = km_checkup
+
+                                # mise à jour véhicule
+                                exemplaire.kilometres_chassis = km_checkup
+                                exemplaire.save(update_fields=["kilometres_chassis"])
+
+                            else:
+                                form.add_error(
+                                    "kilometres_chassis",
+                                    _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
+                                )
+
+                                raise ValueError("Kilométrage invalide")
 
                         courroie_distribution.save()
-                    messages.success(request, _("Remplacement de la courroie de distribution enregistré avec succès."))
+
+                    messages.success(
+                        request,
+                        _("Remplacement de la courroie de distribution enregistré avec succès.")
+                    )
 
                 except Exception as e:
-                    messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
+                    messages.error(
+                        request,
+                        _(f"Erreur lors de l'enregistrement : {str(e)}")
+                    )
 
             else:
-                messages.error(request, _("Le formulaire contient des erreurs."))
+                messages.error(
+                    request,
+                    _("Le formulaire contient des erreurs.")
+                )
                 print(form.errors)
-
         else:
             courroie_distribution = CourroieDistribution(
                 voiture_exemplaire=exemplaire,
@@ -271,12 +295,22 @@ def modifier_courroie_view(request, courroie_id):
             )
 
             if form.is_valid():
-                form.save()
-                messages.success(request, _("Remplacement de la courroie de distribution modifié avec succès !"))
-                return redirect("courroie:modifier_courroie", courroie_id=courroie.id)
-            else:
-                messages.error(request, _("Le formulaire contient des erreurs."))
-                print(form.errors)
+                courroie = form.save(commit=False)
+
+                # 🔧 Réaffectation technicien + société
+                courroie.assign_technicien(request.user)
+
+                courroie.save()
+
+                messages.success(
+                    request,
+                    _("Remplacement de la courroie de distribution modifié avec succès !")
+                )
+
+                return redirect(
+                    "courroie:modifier_courroie",
+                    courroie_id=courroie.id
+                )
 
         # -------------------------
         # GET

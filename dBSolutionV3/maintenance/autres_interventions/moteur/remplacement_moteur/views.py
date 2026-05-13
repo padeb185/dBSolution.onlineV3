@@ -137,23 +137,30 @@ def remplacement_moteur_form_view(request, exemplaire_id):
 
                         remplacement_moteur = form.save(commit=False)
 
+                        remplacement_moteur.assign_technicien(request.user)
+
                         km_checkup = form.cleaned_data.get("kilometres_chassis")
 
-                        # ✅ Mise à jour du kilométrage chassis
-                        if km_checkup is not None and km_checkup >= exemplaire.kilometres_chassis:
-                            exemplaire.kilometres_chassis = km_checkup
+                        if km_checkup is not None:
 
-                            # 🚗 RESET MOTEUR PROPRE (OFFSET)
-                            exemplaire.kilometres_remplacement_moteur = km_checkup
+                            km_checkup = int(km_checkup)
 
-                            exemplaire.save()
+                            if km_checkup >= exemplaire.kilometres_chassis:
 
-                        elif km_checkup is not None:
-                            form.add_error(
-                                "kilometres_chassis",
-                                _("Le kilométrage ne peut pas être inférieur.")
-                            )
-                            raise ValueError("invalid km")
+                                # mise à jour intervention
+                                remplacement_moteur = km_checkup
+
+                                # mise à jour véhicule
+                                exemplaire.kilometres_chassis = km_checkup
+                                exemplaire.save(update_fields=["kilometres_chassis"])
+
+                            else:
+                                form.add_error(
+                                    "kilometres_chassis",
+                                    _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
+                                )
+
+                                raise ValueError("Kilométrage invalide")
 
                         is_new = remplacement_moteur.pk is None
 

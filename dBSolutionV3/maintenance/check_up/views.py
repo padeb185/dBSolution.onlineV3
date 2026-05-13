@@ -146,16 +146,28 @@ def controle_total_view(request, exemplaire_id):
 
                         checkup.assign_technicien(request.user)
 
-                        km = form.cleaned_data.get("kilometres_chassis")
+                        km_checkup = form.cleaned_data.get("kilometres_chassis")
 
-                        if km is not None and km < exemplaire.kilometres_chassis:
-                            form.add_error("kilometres_chassis", _("Kilométrage invalide"))
-                            raise ValueError("KM invalide")
+                        if km_checkup is not None:
 
-                        if km is not None:
-                            exemplaire.kilometres_chassis = km
-                            exemplaire.save(update_fields=["kilometres_chassis"])
-                            checkup.kilometres_chassis = km
+                            km_checkup = int(km_checkup)
+
+                            if km_checkup >= exemplaire.kilometres_chassis:
+
+                                # mise à jour intervention
+                                checkup.kilometres_chassis = km_checkup
+
+                                # mise à jour véhicule
+                                exemplaire.kilometres_chassis = km_checkup
+                                exemplaire.save(update_fields=["kilometres_chassis"])
+
+                            else:
+                                form.add_error(
+                                    "kilometres_chassis",
+                                    _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
+                                )
+
+                                raise ValueError("Kilométrage invalide")
 
                         checkup.save()
 

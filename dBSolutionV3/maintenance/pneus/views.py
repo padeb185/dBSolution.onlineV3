@@ -142,18 +142,26 @@ def controle_pneus_view(request, exemplaire_id):
 
                         # Gestion du kilométrage
                         km_checkup = form.cleaned_data.get("kilometres_chassis")
-                        if km_checkup is not None and km_checkup >= exemplaire.kilometres_chassis:
+
+                        if (
+                                km_checkup is not None and
+                                km_checkup >= exemplaire.kilometres_chassis
+                        ):
                             pneus.kilometres_chassis = km_checkup
                             exemplaire.kilometres_chassis = km_checkup
                             exemplaire.save()
-                        elif km_checkup is not None and km_checkup < exemplaire.kilometres_chassis:
+
+                        elif (
+                                km_checkup is not None and
+                                km_checkup < exemplaire.kilometres_chassis
+                        ):
                             form.add_error(
                                 "kilometres_chassis",
                                 _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
                             )
                             raise ValueError("Kilométrage invalide")
 
-                        pneus.save()
+                    pneus.save()
 
                     messages.success(request, _("Contrôle pneus enregistré avec succès."))
 

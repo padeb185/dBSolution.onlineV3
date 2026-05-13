@@ -139,31 +139,34 @@ def remplacement_boite_form_view(request, exemplaire_id):
 
                         remplacement_boite = form.save(commit=False)
 
+                        remplacement_boite.assign_technicien(request.user)
+
                         is_new = remplacement_boite.pk is None
 
                         km_checkup = form.cleaned_data.get("kilometres_chassis")
 
-                        # ✅ Mise à jour du kilométrage chassis
-                        if (
-                                km_checkup is not None
-                                and km_checkup >= exemplaire.kilometres_chassis
-                        ):
+                        km_checkup = form.cleaned_data.get("kilometres_chassis")
 
-                            exemplaire.kilometres_chassis = km_checkup
+                        if km_checkup is not None:
 
-                            # RESET BOITE
-                            exemplaire.kilometres_remplacement_boite = km_checkup
+                            km_checkup = int(km_checkup)
 
-                            exemplaire.save()
+                            if km_checkup >= exemplaire.kilometres_chassis:
 
-                        elif km_checkup is not None:
+                                # mise à jour intervention
+                                remplacement_boite.kilometres_chassis = km_checkup
 
-                            form.add_error(
-                                "kilometres_chassis",
-                                _("Le kilométrage ne peut pas être inférieur.")
-                            )
+                                # mise à jour véhicule
+                                exemplaire.kilometres_chassis = km_checkup
+                                exemplaire.save(update_fields=["kilometres_chassis"])
 
-                            raise ValueError("invalid km")
+                            else:
+                                form.add_error(
+                                    "kilometres_chassis",
+                                    _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
+                                )
+
+                                raise ValueError("Kilométrage invalide")
 
                         remplacement_boite.save()
 

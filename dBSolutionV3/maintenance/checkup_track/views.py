@@ -168,35 +168,30 @@ def track_check_form_view(request, exemplaire_id):
                         checkup_track.assign_technicien(request.user)
 
                         # 🔧 Gestion kilométrage
-                        km_checkup_track = form.cleaned_data.get(
-                            "kilometres_chassis"
-                        )
+                        km_checkup = form.cleaned_data.get("kilometres_chassis")
 
-                        if (
-                            km_checkup_track is not None
-                            and km_checkup_track < exemplaire.kilometres_chassis
-                        ):
+                        if km_checkup is not None:
 
-                            form.add_error(
-                                "kilometres_chassis",
-                                _(
-                                    "Le kilométrage ne peut pas être inférieur au kilométrage actuel."
+                            km_checkup = int(km_checkup)
+
+                            if km_checkup >= exemplaire.kilometres_chassis:
+
+                                # mise à jour intervention
+                                checkup_track.kilometres_chassis = km_checkup
+
+                                # mise à jour véhicule
+                                exemplaire.kilometres_chassis = km_checkup
+                                exemplaire.save(update_fields=["kilometres_chassis"])
+
+                            else:
+                                form.add_error(
+                                    "kilometres_chassis",
+                                    _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
                                 )
-                            )
 
-                            raise ValueError("Kilométrage invalide")
+                                raise ValueError("Kilométrage invalide")
 
-                        if km_checkup_track is not None:
 
-                            checkup_track.kilometres_chassis = km_checkup_track
-
-                            exemplaire.kilometres_chassis = km_checkup_track
-
-                            exemplaire.save(
-                                update_fields=["kilometres_chassis"]
-                            )
-
-                        # 💾 Sauvegarde finale
                         checkup_track.save()
 
                     messages.success(

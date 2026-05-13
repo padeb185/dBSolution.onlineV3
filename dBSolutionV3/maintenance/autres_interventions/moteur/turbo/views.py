@@ -51,7 +51,6 @@ class TurboListView(ListView):
         return context
 
 
-
 @never_cache
 @login_required
 def turbo_check_view(request, exemplaire_id):
@@ -85,6 +84,24 @@ def turbo_check_view(request, exemplaire_id):
             return redirect("utilisateurs:dashboard")
 
         # =========================
+        # Sections disponibles TOUJOURS
+        # =========================
+        section_templates = [
+            {"title": _("Kilométrage"), "icon": "icons/compteur.png", "filter": "kilo"},
+            {"title": _("Jeu dans l'axe"), "icon": "icons/turbo.png", "filter": "jeu_axe"},
+            {"title": _("État des turbines"), "icon": "icons/turbine.png", "filter": "turbine"},
+            {"title": _("Fuites d'huile"), "icon": "icons/fuite-deau.png", "filter": "fuites"},
+            {"title": _("Géométrie Variable"), "icon": "icons/turbine.png", "filter": "geometrie"},
+            {"title": _("Turbo"), "icon": "icons/turbo.png", "filter": "turbos"},
+            {"title": _("Intercooler"), "icon": "icons/intercooler.png", "filter": "intercooler"},
+            {"title": _("Electro-vanne"), "icon": "icons/electrovanne.png", "filter": "electrovanne"},
+            {"title": _("Joints"), "icon": "icons/joint.png", "filter": "joints"},
+            {"title": _("Etiquette"), "icon": "icons/tag.png", "filter": "tag"},
+            {"title": _("Remarques"), "icon": "icons/notes.png", "filter": "remarques"},
+            {"title": _("Technicien"), "icon": "icons/mecanicien.png", "filter": "tech"},
+        ]
+
+        # =========================
         # POST
         # =========================
         if request.method == "POST":
@@ -95,6 +112,7 @@ def turbo_check_view(request, exemplaire_id):
             )
 
             form = TurboForm(
+                request.POST,
                 instance=turbo,
                 user=request.user,
                 exemplaire=exemplaire
@@ -105,7 +123,6 @@ def turbo_check_view(request, exemplaire_id):
                 try:
                     with transaction.atomic():
 
-                        # 🔴 maintenance unique
                         maintenance = Maintenance.objects.create(
                             societe=request.user.societe,
                             voiture_exemplaire=exemplaire,
@@ -135,38 +152,60 @@ def turbo_check_view(request, exemplaire_id):
 
                         maintenance.save()
 
-
-
                         turbo = form.save(commit=False)
 
-                        # Gestion du kilométrage
+                        turbo.assign_technicien(request.user)
+
                         km_checkup = form.cleaned_data.get("kilometres_chassis")
-                        if km_checkup is not None and km_checkup >= exemplaire.kilometres_chassis:
-                            turbo.kilometres_chassis = km_checkup
-                            exemplaire.kilometres_chassis = km_checkup
-                            exemplaire.save()
-                        elif km_checkup is not None and km_checkup < exemplaire.kilometres_chassis:
-                            form.add_error(
-                                "kilometres_chassis",
-                                _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
-                            )
-                            raise ValueError("Kilométrage invalide")
+
+                        if km_checkup is not None:
+
+                            km_checkup = int(km_checkup)
+
+                            if km_checkup >= exemplaire.kilometres_chassis:
+
+                                # mise à jour intervention
+                                turbo.kilometres_chassis = km_checkup
+
+                                # mise à jour véhicule
+                                exemplaire.kilometres_chassis = km_checkup
+                                exemplaire.save(update_fields=["kilometres_chassis"])
+
+                            else:
+                                form.add_error(
+                                    "kilometres_chassis",
+                                    _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
+                                )
+
+                                raise ValueError("Kilométrage invalide")
 
                         turbo.save()
-                    messages.success(request, _("Check turbo enregistré avec succès."))
+
+                    messages.success(
+                        request,
+                        _("Check turbo enregistré avec succès.")
+                    )
 
                 except Exception as e:
-                    messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
+                    messages.error(
+                        request,
+                        _(f"Erreur lors de l'enregistrement : {str(e)}")
+                    )
 
             else:
-                messages.error(request, _("Le formulaire contient des erreurs."))
+                messages.error(
+                    request,
+                    _("Le formulaire contient des erreurs.")
+                )
                 print(form.errors)
 
         else:
+
             turbo = Turbo(
                 voiture_exemplaire=exemplaire,
                 kilometres_chassis=exemplaire.kilometres_chassis
             )
+
             turbo.assign_technicien(request.user)
 
             form = TurboForm(
@@ -174,24 +213,10 @@ def turbo_check_view(request, exemplaire_id):
                 user=request.user,
                 exemplaire=exemplaire
             )
-            # --- Définition des sections (toujours disponible) ---
-            section_templates = [
-                {"title": _("Kilométrage"), "icon": "icons/compteur.png", "filter": "kilo"},
-                {"title": _("Jeu dans l'axe"), "icon": "icons/turbo.png", "filter": "jeu_axe"},
-                {"title": _("État des turbines"), "icon": "icons/turbine.png", "filter": "turbine"},
-                {"title": _("Fuites d'huile"), "icon": "icons/fuite-deau.png", "filter": "fuites"},
-                {"title": _("Géométrie Variable"), "icon": "icons/turbine.png", "filter": "geometrie"},
-                {"title": _("Turbo"), "icon": "icons/turbo.png", "filter": "turbos"},
-                {"title": _("Intercooler"), "icon": "icons/intercooler.png", "filter": "intercooler"},
-                {"title": _("Electro-vanne"), "icon": "icons/electrovanne.png", "filter": "electrovanne"},
-                {"title": _("joints"), "icon": "icons/joint.png", "filter": "joints"},
-                {"title": _("Etiquette"), "icon": "icons/tag.png", "filter": "tag"},
-                {"title": _("Remarques"), "icon": "icons/notes.png", "filter": "remarques"},
-                {"title": _("Technicien"), "icon": "icons/mecanicien.png", "filter": "tech"},
 
-            ]
-
-        # --- Génération des champs par section ---
+        # =========================
+        # Génération sections
+        # =========================
         sections = [
             {
                 "title": s["title"],
@@ -209,8 +234,6 @@ def turbo_check_view(request, exemplaire_id):
             "sections": sections,
             "now": timezone.now(),
         })
-
-
 # ------------
 # Vue détail boite
 # -----------------------------

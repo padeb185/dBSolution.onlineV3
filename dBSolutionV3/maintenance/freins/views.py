@@ -148,18 +148,46 @@ def controle_freins_view(request, exemplaire_id):
 
                         controle_frein.assign_technicien(request.user)
 
-                        km = form.cleaned_data.get("kilometres_chassis")
+                        km_checkup = form.cleaned_data.get("kilometres_chassis")
 
-                        if km is not None and km < exemplaire.kilometres_chassis:
-                            form.add_error("kilometres_chassis", _("Kilométrage invalide"))
-                            raise ValueError("KM invalide")
+                        if (
+                                km_checkup is not None and
+                                km_checkup >= exemplaire.kilometres_chassis
+                        ):
+                            turbo.kilometres_chassis = km_checkup
+                            exemplaire.kilometres_chassis = km_checkup
+                            exemplaire.save()
 
-                        if km is not None:
-                            exemplaire.kilometres_chassis = km
-                            exemplaire.save(update_fields=["kilometres_chassis"])
-                            controle_frein.kilometres_chassis = km
+                        elif (
+                                km_checkup is not None and
+                                km_checkup < exemplaire.kilometres_chassis
+                        ):
+                            form.add_error(
+                                "kilometres_chassis",
+                                _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
+                            )
+                            raise ValueError("Kilométrage invalide")
+                    km_checkup = form.cleaned_data.get("kilometres_chassis")
 
-                        controle_frein.save()
+                    if (
+                            km_checkup is not None and
+                            km_checkup >= exemplaire.kilometres_chassis
+                    ):
+                        controle_frein.kilometres_chassis = km_checkup
+                        exemplaire.kilometres_chassis = km_checkup
+                        exemplaire.save()
+
+                    elif (
+                            km_checkup is not None and
+                            km_checkup < exemplaire.kilometres_chassis
+                    ):
+                        form.add_error(
+                            "kilometres_chassis",
+                            _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
+                        )
+                        raise ValueError("Kilométrage invalide")
+
+                    controle_frein.save()
 
                     messages.success(request, _("Contrôle freins enregistré avec succès."))
 

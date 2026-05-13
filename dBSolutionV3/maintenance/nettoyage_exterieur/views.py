@@ -299,18 +299,26 @@ def nettoyage_exterieur_view(request, exemplaire_id):
 
                         # Gestion du kilométrage
                         km_checkup = form.cleaned_data.get("kilometres_chassis")
-                        if km_checkup is not None and km_checkup >= exemplaire.kilometres_chassis:
+
+                        if (
+                                km_checkup is not None and
+                                km_checkup >= exemplaire.kilometres_chassis
+                        ):
                             nettoyage_ext.kilometres_chassis = km_checkup
                             exemplaire.kilometres_chassis = km_checkup
                             exemplaire.save()
-                        elif km_checkup is not None and km_checkup < exemplaire.kilometres_chassis:
+
+                        elif (
+                                km_checkup is not None and
+                                km_checkup < exemplaire.kilometres_chassis
+                        ):
                             form.add_error(
                                 "kilometres_chassis",
                                 _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
                             )
                             raise ValueError("Kilométrage invalide")
 
-                        nettoyage_ext.save()
+                    nettoyage_ext.save()
 
                     messages.success(request, _("Nettoyage intérieur enregistré avec succès."))
                     return redirect("nettoyage_interieur:nettoyage_interieur_view", exemplaire.id)
