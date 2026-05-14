@@ -23,6 +23,7 @@ from weasyprint import HTML
 
 from .forms import AbsForm
 from .models import Abs
+from ...checkup_track.models import EtatOKNotOK
 
 
 @method_decorator([login_required, never_cache], name='dispatch')
@@ -92,14 +93,8 @@ def abs_form_view(request, exemplaire_id):
         # POST
         # =========================
         if request.method == "POST":
-
-            Abs_qs = Abs(
-                voiture_exemplaire=exemplaire,
-                kilometres_chassis=exemplaire.kilometres_chassis
-            )
-
             form = AbsForm(
-                instance=Abs_qs,
+                request.POST,
                 user=request.user,
                 exemplaire=exemplaire
             )
@@ -174,9 +169,8 @@ def abs_form_view(request, exemplaire_id):
                     messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
 
             else:
+                print("FORM INVALID:", form.errors)
                 messages.error(request, _("Le formulaire contient des erreurs."))
-                print(form.errors)
-
         else:
             Abs_qs = Abs(
                 voiture_exemplaire=exemplaire,
@@ -392,3 +386,39 @@ def abs_detail_pdf_view(request, pk):
     response["Content-Disposition"] = f'attachment; filename="rapport ABS {pk}.pdf"'
 
     return response
+
+
+
+
+    # -------------------------
+    # RAPPORT
+    # -------------------------
+def generer_rapport_remplacement(self):
+    rapport = []
+    total_general = Decimal("0")
+
+    for field in self._meta.fields:
+        field_name = field.name
+
+            # On ne garde que les champs état
+        if isinstance(field, models.CharField) and field.choices == EtatOKNotOK.choices:
+            valeur = getattr(self, field_name)
+            if valeur == EtatOKNotOK.NOT_OK:
+                prix = getattr(self, f"{field_name}_prix", Decimal("0"))
+                quantite = getattr(self, f"{field_name}_quantite", 0)
+
+                total = prix * quantite
+                total_general += total
+
+                rapport.append({
+                    "champ": field.verbose_name,
+                    "code": field_name,
+                    "prix": prix,
+                    "quantite": quantite,
+                    "total": total,
+                })
+
+    return {
+        "lignes": rapport,
+        "total_general": total_general
+    }

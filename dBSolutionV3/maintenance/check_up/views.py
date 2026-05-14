@@ -92,14 +92,8 @@ def controle_total_view(request, exemplaire_id):
         # =========================
         if request.method == "POST":
 
-            checkup = Checkup(
-                voiture_exemplaire=exemplaire,
-                kilometres_chassis=exemplaire.kilometres_chassis
-            )
-
             form = CheckupForm(
                 request.POST,
-                instance=checkup,
                 user=request.user,
                 exemplaire=exemplaire
             )
@@ -176,7 +170,9 @@ def controle_total_view(request, exemplaire_id):
 
                 except Exception as e:
                     messages.error(request, f"Erreur : {e}")
-
+            else:
+                print("FORM INVALID:", form.errors)
+                messages.error(request, _("Le formulaire contient des erreurs."))
         # =========================
         # GET
         # =========================

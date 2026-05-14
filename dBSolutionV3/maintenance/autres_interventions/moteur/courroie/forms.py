@@ -77,37 +77,59 @@ class CourroieDistributionForm(forms.ModelForm):
         if m >= 60:
             raise ValidationError("Les minutes ne peuvent pas dépasser 59.")
 
+        km_courroie = cleaned.get("kilometrage_cour")
+        voiture = self.exemplaire or (self.instance.voiture_exemplaire if self.instance else None)
+
+        if not voiture or km_courroie in [None, ""]:
+            return cleaned
+
+        try:
+            km_courroie = Decimal(str(km_courroie))
+        except:
+            raise ValidationError({
+                "kilometrage_admission": _("Kilométrage invalide")
+            })
+
+        km_voiture = voiture.kilometres_chassis or Decimal("0")
+
+        if km_courroie < km_voiture:
+            raise ValidationError({
+                "kilometrage_cour": _(
+                    "Le kilométrage doit être ≥ %(km)s"
+                ) % {"km": km_voiture}
+            })
+
         return cleaned
 
 
-
-    def save(self, commit=True):
+def save(self, commit=True):
         instance = super().save(commit=False)
-        voiture = instance.voiture_exemplaire or self.exemplaire  # fallback si pas encore lié
 
-        # Récupération du kilométrage check-up depuis le formulaire
-        kilometrage_courroie_distribution = self.cleaned_data.get("kilometres_chassis")
+        km_cour = self.cleaned_data.get("kilometrage_cour")
 
-        if voiture and kilometrage_courroie_distribution is not None:
-            # 🔒 Sécurité : ne jamais diminuer le kilométrage
-            if kilometrage_courroie_distribution < voiture.kilometres_chassis:
-                raise forms.ValidationError(
-                    f"Le kilométrage de la courroie de distribution ({kilometrage_courroie_distribution}) n'est pas ici) "
-                    f"ne peut pas être inférieur au kilométrage actuel de la voiture ({voiture.kilometres_chassis})."
-                )
+        if km_cour not in [None, ""]:
+            km_cour = Decimal(str(km_cour))
 
-            # ✅ Mettre à jour la voiture si le kilométrage a augmenté
-            if kilometrage_courroie_distribution > voiture.kilometres_chassis:
-                voiture.kilometres_chassis = kilometrage_courroie_distribution
+            voiture = instance.voiture_exemplaire
+
+            if voiture:
+                voiture.refresh_from_db(fields=["kilometres_chassis"])
+
+                km_voiture = voiture.kilometres_chassis or Decimal("0")
+
+                # 🔒 validation métier
+                if km_cour < km_voiture:
+                    raise ValidationError(
+                        "Le kilométrage ne peut pas être inférieur au véhicule"
+                    )
+
+                # 🔥 SOURCE UNIQUE
+                voiture.kilometres_chassis = km_cour
                 voiture.save(update_fields=["kilometres_chassis"])
 
-            # ✅ Mettre à jour le contrôle
-            instance.kilometres_chassis = kilometrage_courroie_distribution
-
-            # 🔗 Lier la voiture si ce n'était pas déjà fait
-            if not instance.voiture_exemplaire:
-                instance.voiture_exemplaire = voiture
-
+            # 🔁 sync alternateur
+            instance.kilometres_chassis = km_cour
+            instance.kilometrage_cour = km_cour
 
             # -------- MAIN D'ŒUVRE --------
             heures = self.cleaned_data.get("temps_heures") or 0

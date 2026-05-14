@@ -265,6 +265,10 @@ class CourroieDistribution(TechnicienMixin, models.Model):
     # -------------------------
     def save(self, *args, **kwargs):
 
+        # 🔥 synchro kilométrage AVANT save
+        if hasattr(self, "sync_kilometrage"):
+            self.sync_kilometrage()
+
         # Calculs
         self.calcul_piece("courroie_distribution")
         self.calcul_piece("pompe_a_eau")
@@ -323,3 +327,28 @@ class CourroieDistribution(TechnicienMixin, models.Model):
         if not self.main_oeuvre:
             return "0h00"
         return self.main_oeuvre.temps_display
+
+
+
+
+    def sync_kilometrage(self):
+        if not self.voiture_exemplaire:
+            return
+
+        if self.kilometrage_cour is None:
+            return
+
+        km = Decimal(str(self.kilometrage_cour))
+
+        voiture = self.voiture_exemplaire
+        voiture.refresh_from_db(fields=["kilometres_chassis"])
+
+        if km < voiture.kilometres_chassis:
+            raise ValidationError("Kilométrage invalide")
+
+        # 🔥 SOURCE UNIQUE
+        voiture.kilometres_chassis = km
+        voiture.save(update_fields=["kilometres_chassis"])
+
+        # 🔁 copie locale
+        self.kilometres_chassis = km

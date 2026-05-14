@@ -57,7 +57,6 @@ class AlternateurListView(ListView):
         return context
 
 
-
 @never_cache
 @login_required
 def alternateur_check_view(request, exemplaire_id):
@@ -90,11 +89,6 @@ def alternateur_check_view(request, exemplaire_id):
             messages.error(request, _("Accès refusé"))
             return redirect("utilisateurs:dashboard")
 
-        # 🔧 récupération ou création alternateur
-        alternateur = Alternateur(
-            voiture_exemplaire=exemplaire
-        )
-
         # =========================
         # POST
         # =========================
@@ -102,17 +96,14 @@ def alternateur_check_view(request, exemplaire_id):
 
             form = AlternateurForm(
                 request.POST,
-                instance=alternateur,
                 user=request.user,
                 exemplaire=exemplaire
             )
 
             if form.is_valid():
-
                 try:
                     with transaction.atomic():
 
-                        # 🔴 maintenance unique
                         maintenance = Maintenance.objects.create(
                             societe=request.user.societe,
                             voiture_exemplaire=exemplaire,
@@ -124,7 +115,7 @@ def alternateur_check_view(request, exemplaire_id):
                             tag=Maintenance.Tag.JAUNE,
                         )
 
-                        # 🔧 affectation rôle
+                        # assign rôle
                         if role == "mecanicien":
                             maintenance.mecanicien = request.user
                         elif role == "chef_mecanicien":
@@ -138,35 +129,12 @@ def alternateur_check_view(request, exemplaire_id):
 
                         maintenance.save()
 
-                        # 💾 alternateur
                         alternateur = form.save(commit=False)
+
                         alternateur.assign_technicien(request.user)
+                        alternateur.voiture_exemplaire = exemplaire
+                        alternateur.maintenance = maintenance
 
-                        # 🔢 kilométrage
-                        km_checkup = form.cleaned_data.get("kilometres_chassis")
-
-                        km_checkup = form.cleaned_data.get("kilometres_chassis")
-
-                        if km_checkup is not None:
-
-                            km_checkup = int(km_checkup)
-
-                            if km_checkup >= exemplaire.kilometres_chassis:
-
-                                # mise à jour intervention
-                                alternateur.kilometres_chassis = km_checkup
-
-                                # mise à jour véhicule
-                                exemplaire.kilometres_chassis = km_checkup
-                                exemplaire.save(update_fields=["kilometres_chassis"])
-
-                            else:
-                                form.add_error(
-                                    "kilometres_chassis",
-                                    _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
-                                )
-
-                            raise ValueError("Kilométrage invalide")
                         alternateur.save()
 
                     messages.success(request, _("Check alternateur enregistré avec succès."))
@@ -177,8 +145,15 @@ def alternateur_check_view(request, exemplaire_id):
             else:
                 messages.error(request, _("Le formulaire contient des erreurs."))
                 print(form.errors)
-
         else:
+
+            alternateur = Alternateur(
+                voiture_exemplaire=exemplaire,
+                kilometres_chassis=exemplaire.kilometres_chassis
+            )
+
+            alternateur.assign_technicien(request.user)
+
             form = AlternateurForm(
                 instance=alternateur,
                 user=request.user,
@@ -237,6 +212,8 @@ def alternateur_check_view(request, exemplaire_id):
             "sections": sections,
             "now": timezone.now(),
         })
+
+
 
 # ------------
 # Vue détail boite

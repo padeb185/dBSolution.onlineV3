@@ -104,12 +104,12 @@ class Alternateur(TechnicienMixin, models.Model):
 
     # Alternateur
     alternateur = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK)
-    alternateur_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat htva"))
+    alternateur_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat htva"))
     alternateur_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
     # Courroie
     courroie_accessoires = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Courroie d'accessoires"))
-    courroie_accessoires_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat htva"))
+    courroie_accessoires_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat htva"))
     courroie_accessoires_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
     remarques = models.TextField(
@@ -209,7 +209,6 @@ class Alternateur(TechnicienMixin, models.Model):
     # -------------------------
     def calcul_piece(self, prefix):
         prix_achat = getattr(self, f"{prefix}_prix_achat")
-        marge = getattr(self, f"{prefix}_marge")
         quantite = getattr(self, f"{prefix}_quantite")
 
         if not prix_achat or not self.pays:
@@ -221,13 +220,9 @@ class Alternateur(TechnicienMixin, models.Model):
         setattr(self, f"{prefix}_tva_achat",
                 (prix_achat * tva_rate).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP))
 
-        # HTVA
-        if marge:
-            prix_htva = prix_achat * (1 + Decimal(marge) / 100)
-        else:
-            prix_htva = prix_achat
 
-        prix_htva = prix_htva.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+
+        prix_htva = prix_achat.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
 
         setattr(self, f"{prefix}_prix_vente_htva", prix_htva)
 
@@ -244,27 +239,27 @@ class Alternateur(TechnicienMixin, models.Model):
     # -------------------------
     def save(self, *args, **kwargs):
 
-        # Calculs
+        # 🔥 synchro kilométrage AVANT save
+        if hasattr(self, "sync_kilometrage"):
+            self.sync_kilometrage()
+
+        # calcul pièces
         self.calcul_piece("alternateur")
         self.calcul_piece("courroie_accessoires")
-        # ----------------------------
-        # MAIN D'OEUVRE AUTO DESCRIPTIF
-        # ----------------------------
-        if self.main_oeuvre:
-            task_name = ""
 
+        # main d'oeuvre
+        if self.main_oeuvre:
             if self.maintenance:
                 task_name = str(self.maintenance)
             elif self.voiture_exemplaire:
                 task_name = _("Alternateur") + " " + str(self.voiture_exemplaire)
+            else:
+                task_name = ""
 
-            # update descriptif automatiquement
-            if hasattr(self.main_oeuvre, "descriptif"):
-                self.main_oeuvre.descriptif = task_name
-                self.main_oeuvre.save(update_fields=["descriptif"])
+            self.main_oeuvre.descriptif = task_name
+            self.main_oeuvre.save(update_fields=["descriptif"])
 
         super().save(*args, **kwargs)
-
     # -------------------------
     # RAPPORT
     # -------------------------
@@ -304,3 +299,25 @@ class Alternateur(TechnicienMixin, models.Model):
         if not self.main_oeuvre:
             return "0h00"
         return self.main_oeuvre.temps_display
+
+    def sync_kilometrage(self):
+        if not self.voiture_exemplaire:
+            return
+
+        if self.kilometrage_alte is None:
+            return
+
+        km = Decimal(str(self.kilometrage_alte))
+
+        voiture = self.voiture_exemplaire
+        voiture.refresh_from_db(fields=["kilometres_chassis"])
+
+        if km < voiture.kilometres_chassis:
+            raise ValidationError("Kilométrage invalide")
+
+        # 🔥 SOURCE UNIQUE
+        voiture.kilometres_chassis = km
+        voiture.save(update_fields=["kilometres_chassis"])
+
+        # 🔁 copie locale
+        self.kilometres_chassis = km

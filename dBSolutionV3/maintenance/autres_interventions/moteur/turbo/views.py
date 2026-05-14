@@ -106,14 +106,8 @@ def turbo_check_view(request, exemplaire_id):
         # =========================
         if request.method == "POST":
 
-            turbo = Turbo(
-                voiture_exemplaire=exemplaire,
-                kilometres_chassis=exemplaire.kilometres_chassis
-            )
-
             form = TurboForm(
                 request.POST,
-                instance=turbo,
                 user=request.user,
                 exemplaire=exemplaire
             )
@@ -185,19 +179,12 @@ def turbo_check_view(request, exemplaire_id):
                         request,
                         _("Check turbo enregistré avec succès.")
                     )
-
                 except Exception as e:
-                    messages.error(
-                        request,
-                        _(f"Erreur lors de l'enregistrement : {str(e)}")
+                    messages.error(request,_(f"Erreur lors de l'enregistrement : {str(e)}")
                     )
-
             else:
-                messages.error(
-                    request,
-                    _("Le formulaire contient des erreurs.")
-                )
-                print(form.errors)
+                print("FORM INVALID:", form.errors)
+                messages.error(request, _("Formulaire invalide"))
 
         else:
 
@@ -234,6 +221,10 @@ def turbo_check_view(request, exemplaire_id):
             "sections": sections,
             "now": timezone.now(),
         })
+
+
+
+
 # ------------
 # Vue détail boite
 # -----------------------------
@@ -355,6 +346,6 @@ def turbo_detail_pdf_view(request, pk):
     ).write_pdf()
 
     response = HttpResponse(pdf, content_type="application/pdf")
-    response["Content-Disposition"] = f'attachment; filename="rapport_alternateur_{pk}.pdf"'
+    response["Content-Disposition"] = f'attachment; filename="rapport_turbo_{pk}.pdf"'
 
     return response

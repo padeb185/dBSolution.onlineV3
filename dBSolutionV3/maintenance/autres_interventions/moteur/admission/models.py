@@ -208,6 +208,7 @@ class Admission(TechnicienMixin, models.Model):
                 })
 
     def save(self, *args, **kwargs):
+
         # Si checkup > km actuel, mettre à jour la voiture
         if self.voiture_exemplaire and self.kilometrage_admission:
             if self.kilometrage_admission > self.voiture_exemplaire.kilometres_chassis:

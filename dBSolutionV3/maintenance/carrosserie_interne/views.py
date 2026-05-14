@@ -150,15 +150,8 @@ def carrosserie_interne_create_view(request, exemplaire_id):
 
         if request.method == "POST":
 
-            carrosserie_interne = CarrosserieInterne(
-                societe=tenant,
-                voiture_exemplaire=exemplaire,
-                kilometres_chassis=exemplaire.kilometres_chassis
-            )
-
             form = CarrosserieInterneForm(
                 request.POST,
-                instance=carrosserie_interne,
                 user=request.user,
                 exemplaire=exemplaire
             )
@@ -240,6 +233,7 @@ def carrosserie_interne_create_view(request, exemplaire_id):
                     messages.error(request, _(f"Erreur : {str(e)}"))
 
             else:
+                print("FORM INVALID:", form.errors)
                 messages.error(request, _("Le formulaire contient des erreurs."))
 
         else:

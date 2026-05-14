@@ -92,13 +92,8 @@ def geometrie_check_view(request, exemplaire_id):
         # =========================
         if request.method == "POST":
 
-            geometrie = GeometrieVoiture(
-                voiture_exemplaire=exemplaire,
-                kilometres_chassis=exemplaire.kilometres_chassis
-            )
-
             form = GeometrieVoitureForm(
-                instance=geometrie,
+                request.POST,
                 user=request.user,
                 exemplaire=exemplaire
             )
@@ -172,8 +167,9 @@ def geometrie_check_view(request, exemplaire_id):
                     messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
 
             else:
+                print("FORM INVALID:", form.errors)
                 messages.error(request, _("Le formulaire contient des erreurs."))
-                print(form.errors)
+
 
         else:
             geometrie = GeometrieVoiture(

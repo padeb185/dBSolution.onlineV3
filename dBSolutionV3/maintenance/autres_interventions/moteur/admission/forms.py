@@ -70,64 +70,94 @@ class AdmissionForm(forms.ModelForm):
                 self.fields[f].initial = 0
                 self.fields[f].required = False
 
+
+
+
+
     def clean(self):
         cleaned = super().clean()
 
-        h = cleaned.get("temps_heures") or 0
-        m = cleaned.get("temps_minutes") or 0
+        # -------- Temps --------
+        heures = cleaned.get("temps_heures") or 0
+        minutes = cleaned.get("temps_minutes") or 0
 
-        if m >= 60:
-            raise ValidationError("Les minutes ne peuvent pas dépasser 59.")
+        if minutes >= 60:
+            self.add_error(
+                "temps_minutes",
+                _("Les minutes ne peuvent pas dépasser 59.")
+            )
+
+        km_admission = cleaned.get("kilometrage_admission")
+        voiture = self.exemplaire or (self.instance.voiture_exemplaire if self.instance else None)
+
+        if not voiture or km_admission in [None, ""]:
+            return cleaned
+
+        try:
+            km_admission = Decimal(str(km_admission))
+        except:
+            raise ValidationError({
+                "kilometrage_admission": _("Kilométrage invalide")
+            })
+
+        km_voiture = voiture.kilometres_chassis or Decimal("0")
+
+        if km_admission < km_voiture:
+            raise ValidationError({
+                "kilometrage_admission": _(
+                    "Le kilométrage doit être ≥ %(km)s"
+                ) % {"km": km_voiture}
+            })
 
         return cleaned
 
     def save(self, commit=True):
         instance = super().save(commit=False)
-        voiture = instance.voiture_exemplaire or self.exemplaire  # fallback si pas encore lié
 
-        # Récupération du kilométrage check-up depuis le formulaire
-        kilometrage_admission = self.cleaned_data.get("kilometres_chassis")
+        km_admission = self.cleaned_data.get("kilometrage_admission")
 
-        if voiture and kilometrage_admission is not None:
-            # 🔒 Sécurité : ne jamais diminuer le kilométrage
-            if kilometrage_admission < voiture.kilometres_chassis:
-                raise forms.ValidationError(
-                    f"Le kilométrage du check-up de l'admission ({kilometrage_admission}) "
-                    f"ne peut pas être inférieur au kilométrage actuel de la voiture ({voiture.kilometres_chassis})."
-                )
+        if km_admission not in [None, ""]:
+            km_admission = Decimal(str(km_admission))
 
-            # ✅ Mettre à jour la voiture si le kilométrage a augmenté
-            if kilometrage_admission > voiture.kilometres_chassis:
-                voiture.kilometres_chassis = kilometrage_admission
+            voiture = instance.voiture_exemplaire
+
+            if voiture:
+                voiture.refresh_from_db(fields=["kilometres_chassis"])
+
+                km_voiture = voiture.kilometres_chassis or Decimal("0")
+
+                # 🔒 validation métier
+                if km_admission < km_voiture:
+                    raise ValidationError(
+                        "Le kilométrage ne peut pas être inférieur au véhicule"
+                    )
+
+                # 🔥 SOURCE UNIQUE
+                voiture.kilometres_chassis = km_admission
                 voiture.save(update_fields=["kilometres_chassis"])
 
-            # ✅ Mettre à jour le contrôle
-            instance.kilometres_chassis = kilometrage_admission
+            # 🔁 sync alternateur
+            instance.kilometres_chassis = km_admission
+            instance.kilometrage_admission = km_admission
 
-            # 🔗 Lier la voiture si ce n'était pas déjà fait
-            if not instance.voiture_exemplaire:
-                instance.voiture_exemplaire = voiture
+        # ---------------- MAIN D’ŒUVRE ----------------
+        heures = self.cleaned_data.get("temps_heures") or 0
+        minutes = self.cleaned_data.get("temps_minutes") or 0
 
+        total_minutes = heures * 60 + minutes
 
-            # -------- MAIN D'ŒUVRE --------
-            heures = self.cleaned_data.get("temps_heures") or 0
-            minutes = self.cleaned_data.get("temps_minutes") or 0
+        main = instance.main_oeuvre
 
-            total_minutes = heures * 60 + minutes
+        if main:
+            main.temps_minutes = total_minutes
+            main.save(update_fields=["temps_minutes"])
+        else:
+            main = MainDoeuvre.objects.create(
+                utilisateur=self.user,
+                temps_minutes=total_minutes
+            )
+            instance.main_oeuvre = main
 
-            main = instance.main_oeuvre
-
-            if main:
-                main.temps_minutes = total_minutes
-                main.save(update_fields=["temps_minutes"])
-            else:
-                main = MainDoeuvre.objects.create(
-                    utilisateur=self.user,
-                    temps_minutes=total_minutes
-                )
-                instance.main_oeuvre = main
-
-        # Sauvegarde finale
         if commit:
             instance.save()
 

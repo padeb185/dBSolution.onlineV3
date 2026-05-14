@@ -90,14 +90,8 @@ def courroie_form_view(request, exemplaire_id):
         # =========================
         if request.method == "POST":
 
-            courroie_distribution = CourroieDistribution(
-                voiture_exemplaire=exemplaire,
-                kilometres_chassis=exemplaire.kilometres_chassis
-            )
-
             form = CourroieDistributionForm(
                 request.POST,
-                instance=courroie_distribution,
                 user=request.user,
                 exemplaire=exemplaire
             )
@@ -139,51 +133,19 @@ def courroie_form_view(request, exemplaire_id):
 
                         courroie_distribution = form.save(commit=False)
 
-                        # 🔧 affectation technicien + société
                         courroie_distribution.assign_technicien(request.user)
-
-                        # Gestion du kilométrage
-                        km_checkup = form.cleaned_data.get("kilometres_chassis")
-
-                        if km_checkup is not None:
-
-                            km_checkup = int(km_checkup)
-
-                            if km_checkup >= exemplaire.kilometres_chassis:
-
-                                # mise à jour intervention
-                                courroie_distribution.kilometres_chassis = km_checkup
-
-                                # mise à jour véhicule
-                                exemplaire.kilometres_chassis = km_checkup
-                                exemplaire.save(update_fields=["kilometres_chassis"])
-
-                            else:
-                                form.add_error(
-                                    "kilometres_chassis",
-                                    _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
-                                )
-
-                                raise ValueError("Kilométrage invalide")
+                        courroie_distribution.voiture_exemplaire = exemplaire
+                        courroie_distribution.maintenance = maintenance
 
                         courroie_distribution.save()
 
-                    messages.success(
-                        request,
-                        _("Remplacement de la courroie de distribution enregistré avec succès.")
-                    )
+                        messages.success(request, _("Check courroie_distribution enregistré avec succès."))
 
                 except Exception as e:
-                    messages.error(
-                        request,
-                        _(f"Erreur lors de l'enregistrement : {str(e)}")
-                    )
+                    messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
 
             else:
-                messages.error(
-                    request,
-                    _("Le formulaire contient des erreurs.")
-                )
+                messages.error(request, _("Le formulaire contient des erreurs."))
                 print(form.errors)
         else:
             courroie_distribution = CourroieDistribution(
@@ -449,6 +411,6 @@ def courroie_detail_pdf_view(request, pk):
     ).write_pdf()
 
     response = HttpResponse(pdf, content_type="application/pdf")
-    response["Content-Disposition"] = f'attachment; filename="rapport_alternateur_{pk}.pdf"'
+    response["Content-Disposition"] = f'attachment; filename="rapport_courroie_de_distribution_{pk}.pdf"'
 
     return response

@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404, redirect
 from django.db import models, transaction
@@ -51,18 +52,17 @@ class RemplacementMoteurListView(ListView):
 
 
 
-
 @never_cache
 @login_required
 def remplacement_moteur_form_view(request, exemplaire_id):
+
     tenant = request.user.societe
     role = request.user.role
 
-    maintenance = None
+    remplacement_moteur = None
 
     with tenant_context(tenant):
 
-        # 🔎 Récupération exemplaire
         exemplaire = get_object_or_404(
             VoitureExemplaire.objects.filter(
                 Q(client__societe=tenant) |
@@ -71,7 +71,6 @@ def remplacement_moteur_form_view(request, exemplaire_id):
             id=exemplaire_id
         )
 
-        # 🔐 rôles autorisés
         roles_autorises = [
             "mecanicien",
             "apprenti",
@@ -89,13 +88,8 @@ def remplacement_moteur_form_view(request, exemplaire_id):
         # =========================
         if request.method == "POST":
 
-            remplacement_moteur = RemplacementMoteur(
-                voiture_exemplaire=exemplaire,
-                kilometres_chassis=exemplaire.kilometres_chassis
-            )
-
             form = RemplacementMoteurForm(
-                instance=remplacement_moteur,
+                request.POST,
                 user=request.user,
                 exemplaire=exemplaire
             )
@@ -105,7 +99,13 @@ def remplacement_moteur_form_view(request, exemplaire_id):
                 try:
                     with transaction.atomic():
 
-                        # 🔴 maintenance unique
+                        # 🔴 SAVE FORM
+                        remplacement_moteur = form.save(commit=False)
+
+                        # 🔧 TECH
+                        remplacement_moteur.assign_technicien(request.user)
+
+                        # 🔧 MAINTENANCE
                         maintenance = Maintenance.objects.create(
                             societe=request.user.societe,
                             voiture_exemplaire=exemplaire,
@@ -117,69 +117,54 @@ def remplacement_moteur_form_view(request, exemplaire_id):
                             tag=Maintenance.Tag.JAUNE,
                         )
 
-                        # 🔧 affectation rôle
+                        # 🔧 assign rôle
                         if role == "mecanicien":
                             maintenance.mecanicien = request.user
-
                         elif role == "chef_mecanicien":
                             maintenance.chef_mecanicien = request.user
-
                         elif role == "apprenti":
                             maintenance.apprentis.add(request.user)
-
                         elif role == "magasinier":
                             maintenance.magasinier = request.user
-
                         elif role == "direction":
                             maintenance.direction = request.user
 
                         maintenance.save()
 
-                        remplacement_moteur = form.save(commit=False)
+                        remplacement_moteur.maintenance = maintenance
 
-                        remplacement_moteur.assign_technicien(request.user)
+                        # 🔥 KM CHECK SAFE
+                        km = form.cleaned_data.get("kilometres_chassis")
 
-                        km_checkup = form.cleaned_data.get("kilometres_chassis")
+                        if km is not None:
+                            km = int(km)
 
-                        if km_checkup is not None:
-
-                            km_checkup = int(km_checkup)
-
-                            if km_checkup >= exemplaire.kilometres_chassis:
-
-                                # mise à jour intervention
-                                remplacement_moteur = km_checkup
-
-                                # mise à jour véhicule
-                                exemplaire.kilometres_chassis = km_checkup
-                                exemplaire.save(update_fields=["kilometres_chassis"])
-
-                            else:
+                            if km < exemplaire.kilometres_chassis:
                                 form.add_error(
                                     "kilometres_chassis",
-                                    _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
+                                    _("Kilométrage invalide")
                                 )
+                                raise ValidationError("KM invalide")
 
-                                raise ValueError("Kilométrage invalide")
+                            exemplaire.kilometres_chassis = km
+                            exemplaire.save(update_fields=["kilometres_chassis"])
 
-                        is_new = remplacement_moteur.pk is None
+                            remplacement_moteur.kilometres_chassis = km
 
+                        # 🔥 FINAL SAVE
                         remplacement_moteur.save()
 
-                        if is_new:
-                            exemplaire.nombre_remplacements_moteurs = (
-                                    F("nombre_remplacements_moteurs") + 1
-                            )
-                            exemplaire.save(update_fields=["nombre_remplacements_moteurs"])
-                            exemplaire.refresh_from_db()
-
-
-                    messages.success(request, _("Remplacement moteur enregistré avec succès"))
+                        messages.success(
+                            request,
+                            _("Remplacement moteur enregistré avec succès")
+                        )
 
                 except Exception as e:
                     messages.error(request, str(e))
 
             else:
+                # DEBUG propre
+                print("FORM INVALID:", form.errors)
                 messages.error(request, _("Formulaire invalide"))
 
         else:
@@ -196,6 +181,9 @@ def remplacement_moteur_form_view(request, exemplaire_id):
                 exemplaire=exemplaire
             )
 
+        # =========================
+        # RENDER
+        # =========================
         sections = [
             {
                 "title": _("Client"),

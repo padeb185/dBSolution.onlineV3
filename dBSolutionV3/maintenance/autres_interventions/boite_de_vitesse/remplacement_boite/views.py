@@ -91,13 +91,8 @@ def remplacement_boite_form_view(request, exemplaire_id):
         # =========================
         if request.method == "POST":
 
-            remplacement_boite = RemplacementBoite(
-                voiture_exemplaire=exemplaire,
-                kilometres_chassis=exemplaire.kilometres_chassis
-            )
-
             form = RemplacementBoiteForm(
-                instance=remplacement_boite,
+                request.POST,
                 user=request.user,
                 exemplaire=exemplaire
             )
@@ -190,6 +185,7 @@ def remplacement_boite_form_view(request, exemplaire_id):
                 except Exception as e:
                     messages.error(request, str(e))
             else:
+                print("FORM INVALID:", form.errors)
                 messages.error(request, _("Formulaire invalide"))
 
         else:
