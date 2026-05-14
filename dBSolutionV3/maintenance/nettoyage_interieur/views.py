@@ -23,7 +23,6 @@ class NettoyageInterieurListView(ListView):
     model = NettoyageInterieur
     template_name = "nettoyage_interieur/nettoyage_int_list.html"
     context_object_name = "nettoyages_interieurs"
-    paginate_by = 20
     ordering = ["-id"]
 
     def get_queryset(self):
@@ -85,13 +84,8 @@ def nettoyage_interieur_view(request, exemplaire_id, nettoyage_int=None):
         # =========================
         if request.method == "POST":
 
-            nettoyage_int = NettoyageInterieur(
-                voiture_exemplaire=exemplaire,
-                kilometres_chassis=exemplaire.kilometres_chassis
-            )
-
             form = NettoyageInterieurForm(
-                instance=nettoyage_int,
+                request.POST,
                 user=request.user,
                 exemplaire=exemplaire
             )
@@ -101,7 +95,7 @@ def nettoyage_interieur_view(request, exemplaire_id, nettoyage_int=None):
                 try:
                     with transaction.atomic():
 
-                        # 🔴 maintenance unique
+
                         maintenance = Maintenance.objects.create(
                             societe=request.user.societe,
                             voiture_exemplaire=exemplaire,
@@ -165,8 +159,9 @@ def nettoyage_interieur_view(request, exemplaire_id, nettoyage_int=None):
                 except Exception as e:
                     messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
             else:
+                print("FORM INVALID:", form.errors)
                 messages.error(request, _("Le formulaire contient des erreurs."))
-                print(form.errors)
+
         else:
             nettoyage_int = NettoyageInterieur(
                 voiture_exemplaire=exemplaire,

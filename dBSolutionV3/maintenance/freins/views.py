@@ -29,7 +29,6 @@ class FreinsListView(ListView):
     model = ControleFreins
     template_name = "freins/freins_list.html"
     context_object_name = "freins"
-    paginate_by = 100
     ordering = ["-id"]
 
     def get_queryset(self):
@@ -95,14 +94,8 @@ def controle_freins_view(request, exemplaire_id):
         # =========================
         if request.method == "POST":
 
-            controle_frein = ControleFreins(
-                voiture_exemplaire=exemplaire,
-                kilometres_chassis=exemplaire.kilometres_chassis
-            )
-
             form = ControleFreinsForm(
                 request.POST,
-                instance=controle_frein,
                 user=request.user,
                 exemplaire=exemplaire
             )
@@ -112,7 +105,7 @@ def controle_freins_view(request, exemplaire_id):
                 try:
                     with transaction.atomic():
 
-                        # 🔴 maintenance unique
+
                         maintenance = Maintenance.objects.create(
                             societe=request.user.societe,
                             voiture_exemplaire=exemplaire,
@@ -154,7 +147,7 @@ def controle_freins_view(request, exemplaire_id):
                                 km_checkup is not None and
                                 km_checkup >= exemplaire.kilometres_chassis
                         ):
-                            turbo.kilometres_chassis = km_checkup
+                            controle_frein.kilometres_chassis = km_checkup
                             exemplaire.kilometres_chassis = km_checkup
                             exemplaire.save()
 
@@ -194,6 +187,9 @@ def controle_freins_view(request, exemplaire_id):
 
                 except Exception as e:
                     messages.error(request, f"Erreur : {e}")
+            else:
+                print("FORM INVALID:", form.errors)
+                messages.error(request, _("Le formulaire contient des erreurs."))
 
         # =========================
         # GET

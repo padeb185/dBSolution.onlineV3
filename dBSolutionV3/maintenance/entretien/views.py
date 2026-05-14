@@ -99,15 +99,8 @@ def entretien_check_view(request, exemplaire_id):
 
         if request.method == "POST":
 
-            entretien = Entretien(
-                voiture_exemplaire=exemplaire,
-                maintenance=maintenance,
-                kilometres_chassis=exemplaire.kilometres_chassis
-            )
-
             form = EntretienForm(
                 request.POST,
-                instance=entretien,
                 user=request.user,
                 exemplaire=exemplaire
             )
@@ -159,7 +152,7 @@ def entretien_check_view(request, exemplaire_id):
                                 km_checkup is not None and
                                 km_checkup >= exemplaire.kilometres_chassis
                         ):
-                            turbo.kilometres_chassis = km_checkup
+                            entretien.kilometres_chassis = km_checkup
                             exemplaire.kilometres_chassis = km_checkup
                             exemplaire.save()
 
@@ -199,8 +192,9 @@ def entretien_check_view(request, exemplaire_id):
                 except Exception as e:
                     messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
             else:
+                print("FORM INVALID:", form.errors)
                 messages.error(request, _("Le formulaire contient des erreurs."))
-                print(form.errors)
+
 
 
         else:

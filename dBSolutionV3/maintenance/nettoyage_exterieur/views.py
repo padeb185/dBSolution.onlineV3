@@ -25,7 +25,6 @@ class NettoyageExterieurListView(ListView):
     model = NettoyageExterieur
     template_name = "nettoyage_exterieur/nettoyage_ext_list.html"
     context_object_name = "nettoyages_exterieurs"
-    paginate_by = 100
     ordering = ["-id"]
 
     def get_queryset(self):
@@ -91,13 +90,8 @@ def nettoyage_exterieur_view(request, exemplaire_id):
         # =========================
         if request.method == "POST":
 
-            nettoyage_ext = NettoyageExterieur(
-                voiture_exemplaire=exemplaire,
-                kilometres_chassis=exemplaire.kilometres_chassis
-            )
-
             form = NettoyageExterieurForm(
-                instance=nettoyage_ext,
+                request.POST,
                 user=request.user,
                 exemplaire=exemplaire
             )
@@ -107,7 +101,6 @@ def nettoyage_exterieur_view(request, exemplaire_id):
                 try:
                     with transaction.atomic():
 
-                        # 🔴 maintenance unique
                         maintenance = Maintenance.objects.create(
                             societe=request.user.societe,
                             voiture_exemplaire=exemplaire,
@@ -139,15 +132,12 @@ def nettoyage_exterieur_view(request, exemplaire_id):
 
                         nettoyage_ext = form.save(commit=False)
 
-                        # ✅ Assigner la voiture et la maintenance (au cas où)
+
                         nettoyage_ext.voiture_exemplaire = exemplaire
                         nettoyage_ext.maintenance = maintenance
 
-                        # ✅ Technicien sécurisé
                         nettoyage_ext.assign_technicien(request.user)
 
-
-                        # ✅ Kilométrage
                         km_checkup = form.cleaned_data.get("kilometres_chassis")
                         if km_checkup is not None:
                             if km_checkup < exemplaire.kilometres_chassis:
@@ -179,8 +169,8 @@ def nettoyage_exterieur_view(request, exemplaire_id):
                         request,
                         _(f"Erreur lors de l'enregistrement : {str(e)}")
                     )
-
             else:
+                print("FORM INVALID:", form.errors)
                 messages.error(request, _("Le formulaire contient des erreurs."))
 
         # Gestion du GET

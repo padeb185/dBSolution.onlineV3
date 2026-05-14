@@ -26,7 +26,6 @@ class JeuListView(ListView):
     model = ControleJeuxPieces
     template_name = "jeux_pieces/jeux_pieces_list.html"
     context_object_name = "jeux_pieces"
-    paginate_by = 100
     ordering = ["-id"]
 
     def get_queryset(self):
@@ -94,13 +93,8 @@ def controle_jeux_pieces_view(request, exemplaire_id):
         # =========================
         if request.method == "POST":
 
-            controle = ControleJeuxPieces(
-                voiture_exemplaire=exemplaire,
-                kilometres_chassis=exemplaire.kilometres_chassis
-            )
-
             form = ControleJeuxPiecesForm(
-                instance=controle,
+                request.POST,
                 user=request.user,
                 exemplaire=exemplaire
             )
@@ -172,8 +166,9 @@ def controle_jeux_pieces_view(request, exemplaire_id):
                 except Exception as e:
                     messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
             else:
+                print("FORM INVALID:", form.errors)
                 messages.error(request, _("Le formulaire contient des erreurs."))
-                print(form.errors)
+
         else:
             controle = ControleJeuxPieces(
                 voiture_exemplaire=exemplaire,

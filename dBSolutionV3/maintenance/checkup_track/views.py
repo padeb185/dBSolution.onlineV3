@@ -36,7 +36,6 @@ class CheckupTrackListView(ListView):
     model = CheckupTrack
     template_name = "checkup_track/checkup_track_list.html"
     context_object_name = "checkup_tracks"
-    paginate_by = 100
     ordering = ["-id"]
 
     def get_queryset(self):
@@ -96,12 +95,6 @@ def track_check_form_view(request, exemplaire_id):
             )
             return redirect("utilisateurs:dashboard")
 
-        # 🔧 Objet checkup NON sauvegardé
-        checkup_track = CheckupTrack(
-            voiture_exemplaire=exemplaire,
-            kilometres_chassis=exemplaire.kilometres_chassis
-        )
-
         # =========================
         # POST
         # =========================
@@ -109,7 +102,6 @@ def track_check_form_view(request, exemplaire_id):
 
             form = CheckupTrackForm(
                 request.POST,
-                instance=checkup_track,
                 user=request.user,
                 exemplaire=exemplaire
             )
@@ -207,18 +199,17 @@ def track_check_form_view(request, exemplaire_id):
                     )
 
             else:
-
-                messages.error(
-                    request,
-                    _("Le formulaire contient des erreurs.")
-                )
-
-                print(form.errors)
+                print("FORM INVALID:", form.errors)
+                messages.error(request, _("Le formulaire contient des erreurs."))
 
         # =========================
         # GET
         # =========================
         else:
+            checkup_track = CheckupTrack(
+                voiture_exemplaire=exemplaire,
+                kilometres_chassis=exemplaire.kilometres_chassis
+            )
 
             checkup_track.assign_technicien(request.user)
 

@@ -25,7 +25,6 @@ class NiveauxListView(ListView):
     model = Niveau
     template_name = "niveaux/niveaux_list.html"
     context_object_name = "niveaux"
-    paginate_by = 100
     ordering = ["-id"]
 
     def get_queryset(self):
@@ -87,13 +86,8 @@ def niveau_form_view(request, exemplaire_id):
         # =========================
         if request.method == "POST":
 
-            niveau = Niveau(
-                voiture_exemplaire=exemplaire,
-                kilometres_chassis=exemplaire.kilometres_chassis
-            )
-
             form = NiveauForm(
-                instance=niveau,
+                request.POST,
                 user=request.user,
                 exemplaire=exemplaire
             )
@@ -103,7 +97,6 @@ def niveau_form_view(request, exemplaire_id):
                 try:
                     with transaction.atomic():
 
-                        # 🔴 maintenance unique
                         maintenance = Maintenance.objects.create(
                             societe=request.user.societe,
                             voiture_exemplaire=exemplaire,
@@ -137,7 +130,7 @@ def niveau_form_view(request, exemplaire_id):
 
                         niveau.assign_technicien(request.user)
 
-                        # Gestion du kilométrage
+
                         km_checkup = form.cleaned_data.get("kilometres_chassis")
 
                         if (
@@ -165,8 +158,9 @@ def niveau_form_view(request, exemplaire_id):
                 except Exception as e:
                     messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
             else:
+                print("FORM INVALID:", form.errors)
                 messages.error(request, _("Le formulaire contient des erreurs."))
-                print(form.errors)
+
         else:
             niveau = Niveau(
                 voiture_exemplaire=exemplaire,

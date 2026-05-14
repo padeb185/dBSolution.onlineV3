@@ -24,7 +24,6 @@ class SilentListView(ListView):
     model = SilentBloc
     template_name = "silent_blocs/silent_list.html"
     context_object_name = "silents"
-    paginate_by = 100
     ordering = ["-id"]
 
     def get_queryset(self):
@@ -86,13 +85,8 @@ def silent_check_view(request, exemplaire_id):
         # =========================
         if request.method == "POST":
 
-            silent = SilentBloc(
-                voiture_exemplaire=exemplaire,
-                kilometres_chassis=exemplaire.kilometres_chassis
-            )
-
             form = SilentBlocForm(
-                instance=silent,
+                request.POST,
                 user=request.user,
                 exemplaire=exemplaire
             )
@@ -102,7 +96,6 @@ def silent_check_view(request, exemplaire_id):
                 try:
                     with transaction.atomic():
 
-                        # 🔴 maintenance unique
                         maintenance = Maintenance.objects.create(
                             societe=request.user.societe,
                             voiture_exemplaire=exemplaire,

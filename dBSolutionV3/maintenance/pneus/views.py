@@ -25,7 +25,6 @@ class PneusListView(ListView):
     model = ControlePneus
     template_name = "pneus/pneus_list.html"
     context_object_name = "pneus"
-    paginate_by = 100
     ordering = ["-id"]
 
     def get_queryset(self):
@@ -89,13 +88,8 @@ def controle_pneus_view(request, exemplaire_id):
         # =========================
         if request.method == "POST":
 
-            pneus = ControlePneus(
-                voiture_exemplaire=exemplaire,
-                kilometres_chassis=exemplaire.kilometres_chassis
-            )
-
             form = ControlePneusForm(
-                instance=pneus,
+                request.POST,
                 user=request.user,
                 exemplaire=exemplaire
             )
@@ -105,7 +99,6 @@ def controle_pneus_view(request, exemplaire_id):
                 try:
                     with transaction.atomic():
 
-                        # 🔴 maintenance unique
                         maintenance = Maintenance.objects.create(
                             societe=request.user.societe,
                             voiture_exemplaire=exemplaire,
@@ -168,8 +161,9 @@ def controle_pneus_view(request, exemplaire_id):
                 except Exception as e:
                     messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
             else:
+                print("FORM INVALID:", form.errors)
                 messages.error(request, _("Le formulaire contient des erreurs."))
-                print(form.errors)
+
         else:
             pneus = ControlePneus(
                 voiture_exemplaire=exemplaire,
