@@ -29,9 +29,15 @@ class Admission(TechnicienMixin, models.Model):
         "voiture_exemplaire.VoitureExemplaire",
         on_delete=models.CASCADE,
         related_name="admission",
-        verbose_name="Kilomètres_checkup",
-        null=True, blank=True
+        verbose_name="Kilomètres_checkup"
     )
+
+    immatriculation = models.CharField(
+        max_length=20,
+        verbose_name=_("Immatriculation"),
+        blank=True,
+    )
+
     kilometres_chassis = models.PositiveIntegerField(
         default=0,
         null=True,

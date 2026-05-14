@@ -163,6 +163,7 @@ def turbo_check_view(request, exemplaire_id):
 
                                 # mise à jour véhicule
                                 exemplaire.kilometres_chassis = km_checkup
+                                turbo.immatriculation = exemplaire.immatriculation
                                 exemplaire.save(update_fields=["kilometres_chassis"])
 
                             else:

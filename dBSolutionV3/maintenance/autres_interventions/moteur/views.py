@@ -25,9 +25,7 @@ from maintenance.autres_interventions.moteur.alternateur.models import Alternate
 from maintenance.autres_interventions.moteur.courroie.models import CourroieDistribution
 from maintenance.autres_interventions.moteur.remplacement_moteur.models import RemplacementMoteur
 from maintenance.autres_interventions.moteur.turbo.models import Turbo
-
-
-
+from maintenance.check_up.models import Checkup
 
 
 @login_required
@@ -182,7 +180,7 @@ def maintenance_tenant_view(request, exemplaire_id):
                     )
 
                     # 🔧 Création du contrôle général
-                    ControleGeneral.objects.create(
+                    Checkup.objects.create(
                         maintenance=maintenance
                     )
 

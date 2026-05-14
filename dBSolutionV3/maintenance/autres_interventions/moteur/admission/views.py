@@ -133,6 +133,7 @@ def admission_check_view(request, exemplaire_id):
 
                         admission.assign_technicien(request.user)
                         admission.voiture_exemplaire = exemplaire
+                        admission.immatriculation = exemplaire.immatriculation
                         admission.maintenance = maintenance
 
 
@@ -356,14 +357,6 @@ def modifier_admission_view(request, admission_id):
     )
 
 
-from datetime import datetime
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
-from django.template.loader import render_to_string
-from weasyprint import HTML
-
-from .models import Admission
 
 
 @login_required

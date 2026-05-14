@@ -135,6 +135,7 @@ def courroie_form_view(request, exemplaire_id):
 
                         courroie_distribution.assign_technicien(request.user)
                         courroie_distribution.voiture_exemplaire = exemplaire
+                        courroie_distribution.immatriculation = exemplaire.immatriculation
                         courroie_distribution.maintenance = maintenance
 
                         courroie_distribution.save()

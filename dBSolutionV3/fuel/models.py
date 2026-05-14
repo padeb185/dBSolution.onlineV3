@@ -65,7 +65,6 @@ class Fuel(models.Model):
     )
 
 
-
     immatriculation = models.CharField(
         max_length=20,
         verbose_name=_("Immatriculation"),
@@ -280,10 +279,7 @@ class Fuel(models.Model):
 
     @classmethod
     def total_tva_par_pays_exemplaire(cls, exemplaire, year=None, month=None):
-        """
-        Retourne un dictionnaire {pays: total_tva} pour le mois ou l'année si spécifié,
-        mais uniquement pour un exemplaire spécifique.
-        """
+
         qs = cls.objects.filter(voiture_exemplaire=exemplaire)
 
         if year and month:
@@ -305,9 +301,7 @@ class Fuel(models.Model):
 
     @classmethod
     def total_tva_global_exemplaire(cls, year=None, month=None):
-        """
-        Retourne le total TVA pour tous les pays combinés.
-        """
+
         qs = cls.objects.all()
         if year and month:
             qs = qs.filter(date__year=year, date__month=month)
@@ -315,6 +309,7 @@ class Fuel(models.Model):
             qs = qs.filter(date__year=year)
 
         return qs.aggregate(total=Sum('montant_tva'))['total'] or Decimal('0.00')
+
 
     @classmethod
     def consommation_moyenne_all(cls, exemplaire):
@@ -332,6 +327,7 @@ class Fuel(models.Model):
         return consommation.quantize(Decimal('0.01'))
 
 
+
     @classmethod
     def consommation_moyenne_mois(cls, vehicule, year, month):
         qs = cls.objects.filter(voiture_exemplaire=vehicule, date__year=year, date__month=month).order_by('date')
@@ -345,6 +341,7 @@ class Fuel(models.Model):
 
         consommation = (Decimal(total_litres) / Decimal(total_distance)) * 100
         return consommation.quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+
 
     @classmethod
     def consommation_moyenne_an(cls, vehicule, year):

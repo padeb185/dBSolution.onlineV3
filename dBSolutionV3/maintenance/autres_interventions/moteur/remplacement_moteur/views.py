@@ -133,6 +133,8 @@ def remplacement_moteur_form_view(request, exemplaire_id):
 
                         remplacement_moteur.maintenance = maintenance
 
+                        remplacement_moteur.immatriculation = exemplaire.immatriculation
+
                         # 🔥 KM CHECK SAFE
                         km = form.cleaned_data.get("kilometres_chassis")
 

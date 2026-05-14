@@ -263,22 +263,53 @@ class Alternateur(TechnicienMixin, models.Model):
     # -------------------------
     # RAPPORT
     # -------------------------
+
     def generer_rapport_remplacement(self):
         rapport = []
-        total_general = Decimal("0")
+        total_general = Decimal("0.00")
 
         for field in self._meta.fields:
+
             field_name = field.name
 
-            # On ne garde que les champs état
-            if isinstance(field, models.CharField) and field.choices == EtatOKNotOK.choices:
+            # uniquement les champs état OK / NOT_OK
+            if (
+                    isinstance(field, models.CharField)
+                    and field.choices == EtatOKNotOK.choices
+            ):
+
                 valeur = getattr(self, field_name)
 
+                # uniquement les pièces à remplacer
                 if valeur == EtatOKNotOK.NOT_OK:
-                    prix = getattr(self, f"{field_name}_prix", Decimal("0"))
-                    quantite = getattr(self, f"{field_name}_quantite", 0)
 
+                    # 🔥 prix achat correct
+                    prix = getattr(
+                        self,
+                        f"{field_name}_prix_achat",
+                        Decimal("0.00")
+                    )
+
+                    if prix is None:
+                        prix = Decimal("0.00")
+
+                    prix = Decimal(prix)
+
+                    # quantité
+                    quantite = getattr(
+                        self,
+                        f"{field_name}_quantite",
+                        0
+                    )
+
+                    if quantite is None:
+                        quantite = 0
+
+                    quantite = Decimal(str(quantite))
+
+                    # total
                     total = prix * quantite
+
                     total_general += total
 
                     rapport.append({
@@ -291,7 +322,7 @@ class Alternateur(TechnicienMixin, models.Model):
 
         return {
             "lignes": rapport,
-            "total_general": total_general
+            "total_general": total_general,
         }
 
     @property

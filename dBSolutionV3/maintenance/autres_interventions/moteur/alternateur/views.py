@@ -133,6 +133,7 @@ def alternateur_check_view(request, exemplaire_id):
 
                         alternateur.assign_technicien(request.user)
                         alternateur.voiture_exemplaire = exemplaire
+                        alternateur.immatriculation = exemplaire.immatriculation
                         alternateur.maintenance = maintenance
 
                         alternateur.save()
