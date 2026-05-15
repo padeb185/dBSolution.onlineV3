@@ -161,6 +161,34 @@ def carrosserie_interne_create_view(request, exemplaire_id):
                 try:
                     with transaction.atomic():
 
+                        km = form.cleaned_data.get("kilometrage_intervention")
+
+                        if km is not None:
+                            km = int(km)
+
+                            ancien_km = exemplaire.kilometres_chassis
+
+                            if km < ancien_km:
+                                form.add_error(
+                                    "kilometrage_intervention",
+                                    _("Le kilométrage ne peut pas diminuer.")
+                                )
+                                raise ValueError("Kilométrage invalide")
+
+                            # 🚗 update voiture (source unique)
+                            exemplaire.kilometres_chassis = km
+                            exemplaire.date_derniere_intervention = timezone.now().date()
+
+                            exemplaire.update_kilometres()
+                            exemplaire.save()
+
+                            # 🔗 checkup UNIQUE
+                            carrosserie_interne = form.save(commit=False)
+                            carrosserie_interne.assign_technicien(request.user)
+
+                            carrosserie_interne.kilometres_chassis = exemplaire.kilometres_chassis
+                            carrosserie_interne.kilometrage_checkup_track = km
+
                         # 🔴 Création maintenance UNIQUE
                         maintenance = Maintenance.objects.create(
                             societe=request.user.societe,
@@ -191,43 +219,13 @@ def carrosserie_interne_create_view(request, exemplaire_id):
 
                         maintenance.save()
 
-
-                        carrosserie_interne = form.save(commit=False)
-
                         carrosserie_interne.assign_technicien(request.user)
 
-                        km_checkup = form.cleaned_data.get("kilometres_chassis")
-
-                        if km_checkup is not None:
-
-                            km_checkup = int(km_checkup)
-
-                            if km_checkup >= exemplaire.kilometres_chassis:
-
-                                # mise à jour intervention
-                                carrosserie_interne.kilometres_chassis = km_checkup
-
-                                # mise à jour véhicule
-                                exemplaire.kilometres_chassis = km_checkup
-                                exemplaire.save(update_fields=["kilometres_chassis"])
-
-                            else:
-                                form.add_error(
-                                    "kilometres_chassis",
-                                    _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
-                                )
-
-                                raise ValueError("Kilométrage invalide")
-
+                        # 🔗 lien final
+                        carrosserie_interne.maintenance = maintenance
                         carrosserie_interne.save()
 
-                    messages.success(request, _("Intervention enregistrée avec succès."))
-
-
-                    return redirect(
-                        "carrosserie_interne:rapport",
-                        pk=carrosserie_interne.id
-                    )
+                    messages.success(request, _("Intervention carrosserie enregistrée avec succès."))
 
                 except Exception as e:
                     messages.error(request, _(f"Erreur : {str(e)}"))

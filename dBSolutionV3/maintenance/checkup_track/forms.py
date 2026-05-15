@@ -55,48 +55,37 @@ class CheckupTrackForm(forms.ModelForm):
 
     def save(self, commit=True):
         instance = super().save(commit=False)
-        voiture = instance.voiture_exemplaire or self.exemplaire  # fallback si pas encore lié
 
-        # Récupération du kilométrage check-up depuis le formulaire
-        kilometrage_checkup_track = self.cleaned_data.get("kilometres_chassis")
+        km = self.cleaned_data.get("kilometrage_checkup_track")
+        voiture = self.exemplaire
 
-        if voiture and kilometrage_checkup_track is not None:
-            # 🔒 Sécurité : ne jamais diminuer le kilométrage
-            if kilometrage_checkup_track < voiture.kilometres_chassis:
+        if km is not None and voiture:
+
+            if km < voiture.kilometres_chassis:
                 raise forms.ValidationError(
-                    f"Le kilométrage du check-up ({kilometrage_checkup_track}) "
-                    f"ne peut pas être inférieur au kilométrage actuel de la voiture ({voiture.kilometres_chassis})."
+                    "Le kilométrage ne peut pas diminuer."
                 )
 
-            # ✅ Mettre à jour la voiture si le kilométrage a augmenté
-            if kilometrage_checkup_track > voiture.kilometres_chassis:
-                voiture.kilometres_chassis = kilometrage_checkup_track
-                voiture.save(update_fields=["kilometres_chassis"])
+            instance.kilometrage_checkup_track = km
+            instance.voiture_exemplaire = voiture
 
-            # ✅ Mettre à jour le contrôle
-            instance.kilometres_chassis = kilometrage_checkup_track
+            # -------- MAIN D'ŒUVRE --------
+        heures = self.cleaned_data.get("temps_heures") or 0
+        minutes = self.cleaned_data.get("temps_minutes") or 0
 
-            # 🔗 Lier la voiture si ce n'était pas déjà fait
-            if not instance.voiture_exemplaire:
-                instance.voiture_exemplaire = voiture
+        total_minutes = heures * 60 + minutes
 
-                # -------- MAIN D'ŒUVRE --------
-            heures = self.cleaned_data.get("temps_heures") or 0
-            minutes = self.cleaned_data.get("temps_minutes") or 0
+        main = instance.main_oeuvre
 
-            total_minutes = heures * 60 + minutes
-
-            main = instance.main_oeuvre
-
-            if main:
-                main.temps_minutes = total_minutes
-                main.save(update_fields=["temps_minutes"])
-            else:
-                main = MainDoeuvre.objects.create(
-                    utilisateur=self.user,
-                    temps_minutes=total_minutes
-                )
-                instance.main_oeuvre = main
+        if main:
+            main.temps_minutes = total_minutes
+            main.save(update_fields=["temps_minutes"])
+        else:
+            main = MainDoeuvre.objects.create(
+                utilisateur=self.user,
+                temps_minutes=total_minutes
+            )
+            instance.main_oeuvre = main
 
         # Sauvegarde finale
         if commit:

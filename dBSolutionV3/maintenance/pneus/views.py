@@ -99,6 +99,34 @@ def controle_pneus_view(request, exemplaire_id):
                 try:
                     with transaction.atomic():
 
+                        km = form.cleaned_data.get("kilometrage_pneus")
+
+                        if km is not None:
+                            km = int(km)
+
+                            ancien_km = exemplaire.kilometres_chassis
+
+                            if km < ancien_km:
+                                form.add_error(
+                                    "kilometrage_pneus",
+                                    _("Le kilométrage ne peut pas diminuer.")
+                                )
+                                raise ValueError("Kilométrage invalide")
+
+                            # 🚗 update voiture (source unique)
+                            exemplaire.kilometres_chassis = km
+                            exemplaire.date_derniere_intervention = timezone.now().date()
+
+                            exemplaire.update_kilometres()
+                            exemplaire.save()
+
+                            # 🔗 checkup UNIQUE
+                            pneus = form.save(commit=False)
+                            pneus.assign_technicien(request.user)
+
+                            pneus.kilometres_chassis = exemplaire.kilometres_chassis
+                            pneus.kilometrage_checkup_track = km
+
                         maintenance = Maintenance.objects.create(
                             societe=request.user.societe,
                             voiture_exemplaire=exemplaire,
@@ -126,37 +154,14 @@ def controle_pneus_view(request, exemplaire_id):
                         elif role == "direction":
                             maintenance.direction = request.user
 
-                        maintenance.save()
+                            maintenance.save()
+                            pneus.assign_technicien(request.user)
 
-                        pneus = form.save(commit=False)
+                            # 🔗 lien final
+                            pneus.maintenance = maintenance
+                            pneus.save()
 
-
-                        pneus.assign_technicien(request.user)
-
-                        # Gestion du kilométrage
-                        km_checkup = form.cleaned_data.get("kilometres_chassis")
-
-                        if (
-                                km_checkup is not None and
-                                km_checkup >= exemplaire.kilometres_chassis
-                        ):
-                            pneus.kilometres_chassis = km_checkup
-                            exemplaire.kilometres_chassis = km_checkup
-                            exemplaire.save()
-
-                        elif (
-                                km_checkup is not None and
-                                km_checkup < exemplaire.kilometres_chassis
-                        ):
-                            form.add_error(
-                                "kilometres_chassis",
-                                _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
-                            )
-                            raise ValueError("Kilométrage invalide")
-
-                    pneus.save()
-
-                    messages.success(request, _("Contrôle pneus enregistré avec succès."))
+                        messages.success(request, _("Contrôle pneus enregistré avec succès."))
 
                 except Exception as e:
                     messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))

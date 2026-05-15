@@ -21,6 +21,7 @@ from utilisateurs.magasinier.models import Magasinier
 from utilisateurs.models import Mecanicien
 
 
+
 # -----------------------------
 # Classe ListView pour freins
 # -----------------------------
@@ -104,7 +105,33 @@ def controle_freins_view(request, exemplaire_id):
 
                 try:
                     with transaction.atomic():
+                        km = form.cleaned_data.get("kilometrage_controle_brake")
 
+                        if km is not None:
+                            km = int(km)
+
+                            ancien_km = exemplaire.kilometres_chassis
+
+                            if km < ancien_km:
+                                form.add_error(
+                                    "kilometrage_controle_brake",
+                                    _("Le kilométrage ne peut pas diminuer.")
+                                )
+                                raise ValueError("Kilométrage invalide")
+
+                            # 🚗 update voiture (source unique)
+                            exemplaire.kilometres_chassis = km
+                            exemplaire.date_derniere_intervention = timezone.now().date()
+
+                            exemplaire.update_kilometres()
+                            exemplaire.save()
+
+                            # 🔗 checkup UNIQUE
+                            controle_freins = form.save(commit=False)
+                            controle_freins.assign_technicien(request.user)
+
+                            controle_freins.kilometres_chassis = exemplaire.kilometres_chassis
+                            controle_freins.kilometrage_checkup_track = km
 
                         maintenance = Maintenance.objects.create(
                             societe=request.user.societe,
@@ -134,53 +161,11 @@ def controle_freins_view(request, exemplaire_id):
                             maintenance.direction = request.user
 
                         maintenance.save()
+                        controle_freins.assign_technicien(request.user)
 
-                        # 🔧 check frein
-                        controle_frein = form.save(commit=False)
-                        controle_frein.maintenance = maintenance
-
-                        controle_frein.assign_technicien(request.user)
-
-                        km_checkup = form.cleaned_data.get("kilometres_chassis")
-
-                        if (
-                                km_checkup is not None and
-                                km_checkup >= exemplaire.kilometres_chassis
-                        ):
-                            controle_frein.kilometres_chassis = km_checkup
-                            exemplaire.kilometres_chassis = km_checkup
-                            exemplaire.save()
-
-                        elif (
-                                km_checkup is not None and
-                                km_checkup < exemplaire.kilometres_chassis
-                        ):
-                            form.add_error(
-                                "kilometres_chassis",
-                                _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
-                            )
-                            raise ValueError("Kilométrage invalide")
-                    km_checkup = form.cleaned_data.get("kilometres_chassis")
-
-                    if (
-                            km_checkup is not None and
-                            km_checkup >= exemplaire.kilometres_chassis
-                    ):
-                        controle_frein.kilometres_chassis = km_checkup
-                        exemplaire.kilometres_chassis = km_checkup
-                        exemplaire.save()
-
-                    elif (
-                            km_checkup is not None and
-                            km_checkup < exemplaire.kilometres_chassis
-                    ):
-                        form.add_error(
-                            "kilometres_chassis",
-                            _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
-                        )
-                        raise ValueError("Kilométrage invalide")
-
-                    controle_frein.save()
+                        # 🔗 lien final
+                    controle_freins.maintenance = maintenance
+                    controle_freins.save()
 
                     messages.success(request, _("Contrôle freins enregistré avec succès."))
 

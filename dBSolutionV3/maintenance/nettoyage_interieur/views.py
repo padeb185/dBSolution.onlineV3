@@ -95,6 +95,33 @@ def nettoyage_interieur_view(request, exemplaire_id, nettoyage_int=None):
                 try:
                     with transaction.atomic():
 
+                        km = form.cleaned_data.get("kilometrage_net_int")
+
+                        if km is not None:
+                            km = int(km)
+
+                            ancien_km = exemplaire.kilometres_chassis
+
+                            if km < ancien_km:
+                                form.add_error(
+                                    "kilometrage_net_int",
+                                    _("Le kilométrage ne peut pas diminuer.")
+                                )
+                                raise ValueError("Kilométrage invalide")
+
+                            # 🚗 update voiture (source unique)
+                            exemplaire.kilometres_chassis = km
+                            exemplaire.date_derniere_intervention = timezone.now().date()
+
+                            exemplaire.update_kilometres()
+                            exemplaire.save()
+
+                            # 🔗 checkup UNIQUE
+                            controle_freins = form.save(commit=False)
+                            controle_freins.assign_technicien(request.user)
+
+                            nettoyage_int.kilometres_chassis = exemplaire.kilometres_chassis
+                            nettoyage_int.kilometrage_net_int = km
 
                         maintenance = Maintenance.objects.create(
                             societe=request.user.societe,
@@ -125,33 +152,11 @@ def nettoyage_interieur_view(request, exemplaire_id, nettoyage_int=None):
 
                         maintenance.save()
 
-                        nettoyage_int = form.save(commit=False)
-
-
                         nettoyage_int.assign_technicien(request.user)
 
-                        # Gestion du kilométrage
-                        km_checkup = form.cleaned_data.get("kilometres_chassis")
-
-                        if (
-                                km_checkup is not None and
-                                km_checkup >= exemplaire.kilometres_chassis
-                        ):
-                            nettoyage_int.kilometres_chassis = km_checkup
-                            exemplaire.kilometres_chassis = km_checkup
-                            exemplaire.save()
-
-                        elif (
-                                km_checkup is not None and
-                                km_checkup < exemplaire.kilometres_chassis
-                        ):
-                            form.add_error(
-                                "kilometres_chassis",
-                                _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
-                            )
-                            raise ValueError("Kilométrage invalide")
-
-                    nettoyage_int.save()
+                        # 🔗 lien final
+                        nettoyage_int.maintenance = maintenance
+                        nettoyage_int.save()
 
                     messages.success(request, _("Nettoyage intérieur enregistré avec succès."))
 

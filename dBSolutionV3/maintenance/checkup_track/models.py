@@ -1,3 +1,5 @@
+from datetime import timezone
+
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -415,11 +417,13 @@ class CheckupTrack(TechnicienMixin, models.Model):
         # ----------------------------
         if self.voiture_exemplaire and self.kilometrage_checkup_track is not None:
 
-            if self.kilometrage_checkup_track > self.voiture_exemplaire.kilometres_chassis:
+            if self.kilometrage_checkup > self.voiture_exemplaire.kilometres_chassis:
                 self.voiture_exemplaire.kilometres_chassis = self.kilometrage_checkup_track
-                self.voiture_exemplaire.save(update_fields=["kilometres_chassis"])
+                self.voiture_exemplaire.kilometres_dernier_entretien = self.kilometrage_checkup_track
+                self.voiture_exemplaire.date_derniere_intervention = timezone.now().date()
 
-            self.kilometres_chassis = self.voiture_exemplaire.kilometres_chassis
+                self.voiture_exemplaire.update_kilometres()
+                self.voiture_exemplaire.save()
 
         # ----------------------------
         # MAIN D'OEUVRE (FIX UNIQUE SAVE)

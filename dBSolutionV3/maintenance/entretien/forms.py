@@ -60,23 +60,19 @@ class EntretienForm(forms.ModelForm):
 
     def save(self, commit=True):
         instance = super().save(commit=False)
-        voiture = instance.voiture_exemplaire or self.exemplaire
 
-        # -------- KILOMÉTRAGE --------
-        km = self.cleaned_data.get("kilometres_chassis")
+        km = self.cleaned_data.get("kilometrage_entretien")
+        voiture = self.exemplaire
 
-        if voiture and km is not None:
+        if km is not None and voiture:
+
             if km < voiture.kilometres_chassis:
-                raise forms.ValidationError("Kilométrage invalide.")
+                raise forms.ValidationError(
+                    "Le kilométrage ne peut pas diminuer."
+                )
 
-            if km > voiture.kilometres_chassis:
-                voiture.kilometres_chassis = km
-                voiture.save(update_fields=["kilometres_chassis"])
-
-            instance.kilometres_chassis = km
-
-            if not instance.voiture_exemplaire:
-                instance.voiture_exemplaire = voiture
+            instance.kilometrage_entretien = km
+            instance.voiture_exemplaire = voiture
 
         # -------- MAIN D'ŒUVRE --------
         heures = self.cleaned_data.get("temps_heures") or 0

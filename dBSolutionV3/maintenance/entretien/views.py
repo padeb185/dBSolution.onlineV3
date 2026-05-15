@@ -67,7 +67,7 @@ def entretien_check_view(request, exemplaire_id):
     tenant = request.user.societe
     role = request.user.role
 
-    with tenant_context(tenant):
+    with (tenant_context(tenant)):
 
         # 🔎 Récupération exemplaire
         exemplaire = get_object_or_404(
@@ -109,6 +109,43 @@ def entretien_check_view(request, exemplaire_id):
 
                 try:
                     with transaction.atomic():
+                        km = form.cleaned_data.get("kilometrage_entretien")
+
+                        if km is not None:
+                            km = int(km)
+
+                            ancien_km = exemplaire.kilometres_chassis or 0
+
+                            if km < ancien_km:
+                                form.add_error(
+                                    "kilometrage_entretien",
+                                    _("Le kilométrage ne peut pas diminuer.")
+                                )
+                                raise ValueError("Kilométrage invalide")
+
+                            # 🚗 source unique = voiture
+                            exemplaire.kilometres_chassis = km
+                            exemplaire.kilometres_dernier_entretien = km
+                            exemplaire.date_derniere_intervention = timezone.now().date()
+
+                            exemplaire.update_kilometres()
+
+                            exemplaire.save(
+                                update_fields=[
+                                    "kilometres_chassis",
+                                    "kilometres_dernier_entretien",
+                                    "date_derniere_intervention",
+                                ]
+                            )
+
+                        # 🔗 entretien
+                        entretien = form.save(commit=False)
+
+                        entretien.assign_technicien(request.user)
+
+                        entretien.kilometres_chassis = exemplaire.kilometres_chassis
+                        entretien.kilometrage_checkup_track = km
+
 
                         # 🔴 Création maintenance UNIQUE
                         maintenance = Maintenance.objects.create(
@@ -140,51 +177,7 @@ def entretien_check_view(request, exemplaire_id):
 
                         maintenance.save()
 
-                        entretien = form.save(commit=False)
-
-
-                        entretien.assign_technicien(request.user)
-
-                        # Gestion du kilométrage
-                        km_checkup = form.cleaned_data.get("kilometres_chassis")
-
-                        if (
-                                km_checkup is not None and
-                                km_checkup >= exemplaire.kilometres_chassis
-                        ):
-                            entretien.kilometres_chassis = km_checkup
-                            exemplaire.kilometres_chassis = km_checkup
-                            exemplaire.save()
-
-                        elif (
-                                km_checkup is not None and
-                                km_checkup < exemplaire.kilometres_chassis
-                        ):
-                            form.add_error(
-                                "kilometres_chassis",
-                                _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
-                            )
-                            raise ValueError("Kilométrage invalide")
-                    km_checkup = form.cleaned_data.get("kilometres_chassis")
-
-                    if (
-                            km_checkup is not None and
-                            km_checkup >= exemplaire.kilometres_chassis
-                    ):
-                        entretien.kilometres_chassis = km_checkup
-                        exemplaire.kilometres_chassis = km_checkup
-                        exemplaire.save()
-
-                    elif (
-                            km_checkup is not None and
-                            km_checkup < exemplaire.kilometres_chassis
-                    ):
-                        form.add_error(
-                            "kilometres_chassis",
-                            _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
-                        )
-                        raise ValueError("Kilométrage invalide")
-
+                    entretien.maintenance = maintenance
                     entretien.save()
 
                     messages.success(request, _("Entretien enregistré avec succès."))

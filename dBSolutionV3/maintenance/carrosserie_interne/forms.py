@@ -95,34 +95,18 @@ class CarrosserieInterneForm(forms.ModelForm):
     def save(self, commit=True):
         instance = super().save(commit=False)
 
-        # Lier societe et voiture_exemplaire automatiquement
-        if self.user:
-            instance.societe = self.user.societe
-        if self.exemplaire:
-            instance.voiture_exemplaire = self.exemplaire
+        km = self.cleaned_data.get("kilometrage_intervention")
+        voiture = self.exemplaire
 
-        # Initialiser prix et quantite si vides
-        if hasattr(instance, "prix") and instance.prix in [None, ""]:
-            instance.prix = 0
-        if hasattr(instance, "quantite") and instance.quantite in [None, ""]:
-            instance.quantite = 0
+        if km is not None and voiture:
 
-        # Récupération du kilométrage
-        kilometrage_intervention = self.cleaned_data.get("kilometres_chassis")
-        if self.exemplaire and kilometrage_intervention is not None:
-            if kilometrage_intervention < self.exemplaire.kilometres_chassis:
+            if km < voiture.kilometres_chassis:
                 raise forms.ValidationError(
-                    _("Le kilométrage du check-up ({km}) ne peut pas être inférieur au kilométrage actuel de la voiture ({current}).").format(
-                        km=kilometrage_intervention,
-                        current=self.exemplaire.kilometres_chassis
-                    )
+                    "Le kilométrage ne peut pas diminuer."
                 )
-            # Mise à jour de l'exemplaire si nécessaire
-            if kilometrage_intervention > self.exemplaire.kilometres_chassis:
-                self.exemplaire.kilometres_chassis = kilometrage_intervention
-                self.exemplaire.save(update_fields=["kilometres_chassis"])
-            instance.kilometres_chassis = kilometrage_intervention
 
+            instance.kilometrage_intervention = km
+            instance.voiture_exemplaire = voiture
 
             # -------- MAIN D'ŒUVRE --------
             heures = self.cleaned_data.get("temps_heures") or 0

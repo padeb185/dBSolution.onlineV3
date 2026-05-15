@@ -19,8 +19,7 @@ from utilisateurs.chef_mecanicien.models import ChefMecanicien
 from utilisateurs.models import Mecanicien
 from utilisateurs.magasinier.models import Magasinier
 from utilisateurs.direction.models import Direction
-
-
+from voiture.voiture_moteur.models import MoteurVoiture
 
 
 # -----------------------------
@@ -103,7 +102,35 @@ def controle_total_view(request, exemplaire_id):
                 try:
                     with transaction.atomic():
 
-                        # 🔴 Création maintenance UNIQUE
+                        km = form.cleaned_data.get("kilometrage_checkup")
+
+                        if km is not None:
+                            km = int(km)
+
+                            ancien_km = exemplaire.kilometres_chassis
+
+                            if km < ancien_km:
+                                form.add_error(
+                                    "kilometrage_checkup",
+                                    _("Le kilométrage ne peut pas diminuer.")
+                                )
+                                raise ValueError("Kilométrage invalide")
+
+                            # 🚗 update voiture (source unique)
+                            exemplaire.kilometres_chassis = km
+                            exemplaire.date_derniere_intervention = timezone.now().date()
+
+                            exemplaire.update_kilometres()
+                            exemplaire.save()
+
+                        # 🔗 checkup UNIQUE
+                        checkup = form.save(commit=False)
+                        checkup.assign_technicien(request.user)
+
+                        checkup.kilometres_chassis = exemplaire.kilometres_chassis
+                        checkup.kilometrage_checkup = km
+
+                        # 🔴 maintenance AVANT save checkup
                         maintenance = Maintenance.objects.create(
                             societe=request.user.societe,
                             voiture_exemplaire=exemplaire,
@@ -115,58 +142,25 @@ def controle_total_view(request, exemplaire_id):
                             tag=Maintenance.Tag.JAUNE,
                         )
 
-                        # 🔧 Affectation rôle
+                        # rôle
                         if role == "mecanicien":
                             maintenance.mecanicien = Mecanicien.objects.get(id=request.user.id)
-
                         elif role == "chef_mecanicien":
                             maintenance.chef_mecanicien = ChefMecanicien.objects.get(id=request.user.id)
-
                         elif role == "apprenti":
                             maintenance.apprentis = Apprenti.objects.get(id=request.user.id)
-
                         elif role == "magasinier":
                             maintenance.magasinier = Magasinier.objects.get(id=request.user.id)
-
-                        elif role == 'direction':
+                        elif role == "direction":
                             maintenance.direction = Direction.objects.get(id=request.user.id)
 
                         maintenance.save()
 
-                        # 🔗 liaison checkup
-                        checkup = form.save(commit=False)
-
+                        # 🔗 lien final
                         checkup.maintenance = maintenance
-
-                        checkup.assign_technicien(request.user)
-
-                        km_checkup = form.cleaned_data.get("kilometres_chassis")
-
-                        if km_checkup is not None:
-
-                            km_checkup = int(km_checkup)
-
-                            if km_checkup >= exemplaire.kilometres_chassis:
-
-                                # mise à jour intervention
-                                checkup.kilometres_chassis = km_checkup
-
-                                # mise à jour véhicule
-                                exemplaire.kilometres_chassis = km_checkup
-                                exemplaire.save(update_fields=["kilometres_chassis"])
-
-                            else:
-                                form.add_error(
-                                    "kilometres_chassis",
-                                    _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
-                                )
-
-                                raise ValueError("Kilométrage invalide")
-
                         checkup.save()
 
                     messages.success(request, _("Checkup enregistré avec succès."))
-
 
                 except Exception as e:
                     messages.error(request, f"Erreur : {e}")

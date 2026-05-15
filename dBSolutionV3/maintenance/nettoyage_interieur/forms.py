@@ -77,13 +77,18 @@ class NettoyageInterieurForm(forms.ModelForm):
     def save(self, commit=True):
         instance = super().save(commit=False)
 
-        # Assignation automatique du technicien
-        if self.user and not instance.tech_technicien:
-            instance.assign_technicien(self.user)
+        km = self.cleaned_data.get("kilometrage_net_int")
+        voiture = self.exemplaire
 
-        # Associer l'exemplaire si fourni
-        if self.exemplaire and not instance.voiture_exemplaire:
-            instance.voiture_exemplaire = self.exemplaire
+        if km is not None and voiture:
+
+            if km < voiture.kilometres_chassis:
+                raise forms.ValidationError(
+                    "Le kilométrage ne peut pas diminuer."
+                )
+
+            instance.kilometrage_net_int = km
+            instance.voiture_exemplaire = voiture
 
         # -------- MAIN D'ŒUVRE --------
         heures = self.cleaned_data.get("temps_heures") or 0

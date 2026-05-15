@@ -1,11 +1,9 @@
-from decimal import Decimal
 from django import forms
 from django.core.exceptions import ValidationError
-
 from .models import Niveau
 from django.utils.translation import gettext_lazy as _
-
 from maindoeuvre.models import MainDoeuvre
+
 
 
 class NiveauForm(forms.ModelForm):
@@ -72,31 +70,19 @@ class NiveauForm(forms.ModelForm):
 
     def save(self, commit=True):
         instance = super().save(commit=False)
-        voiture = instance.voiture_exemplaire or self.exemplaire  # fallback si pas encore lié
 
-        # Récupération du kilométrage check-up depuis le formulaire
-        kilometrage_niveaux = self.cleaned_data.get("kilometres_chassis")
+        km = self.cleaned_data.get("kilometrage_niveaux")
+        voiture = self.exemplaire
 
-        if voiture and kilometrage_niveaux is not None:
-            # 🔒 Sécurité : ne jamais diminuer le kilométrage
-            if kilometrage_niveaux < voiture.kilometres_chassis:
+        if km is not None and voiture:
+
+            if km < voiture.kilometres_chassis:
                 raise forms.ValidationError(
-                    f"Le kilométrage des niveaux ({kilometrage_niveaux}) "
-                    f"ne peut pas être inférieur au kilométrage actuel de la voiture ({voiture.kilometres_chassis})."
+                    "Le kilométrage ne peut pas diminuer."
                 )
 
-            # ✅ Mettre à jour la voiture si le kilométrage a augmenté
-            if kilometrage_niveaux > voiture.kilometres_chassis:
-                voiture.kilometres_chassis = kilometrage_niveaux
-                voiture.save(update_fields=["kilometres_chassis"])
-
-            # ✅ Mettre à jour le contrôle
-            instance.kilometres_chassis = kilometrage_niveaux
-
-            # 🔗 Lier la voiture si ce n'était pas déjà fait
-            if not instance.voiture_exemplaire:
-                instance.voiture_exemplaire = voiture
-
+            instance.kilometrage_niveaux = km
+            instance.voiture_exemplaire = voiture
 
             # -------- MAIN D'ŒUVRE --------
             heures = self.cleaned_data.get("temps_heures") or 0

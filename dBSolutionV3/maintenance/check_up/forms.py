@@ -4,6 +4,9 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from maindoeuvre.models import MainDoeuvre
 from maintenance.check_up.models import Checkup
+from voiture.voiture_exemplaire.models import VoitureExemplaire
+
+
 
 
 class CheckupForm(forms.ModelForm):
@@ -76,24 +79,19 @@ class CheckupForm(forms.ModelForm):
     def save(self, commit=True):
         instance = super().save(commit=False)
 
-        voiture = instance.voiture_exemplaire or self.exemplaire
+        km = self.cleaned_data.get("kilometrage_checkup")
+        voiture = self.exemplaire
 
-        km = self.cleaned_data.get("kilometres_chassis")
+        if km is not None and voiture:
 
-        if voiture and km is not None:
             if km < voiture.kilometres_chassis:
                 raise forms.ValidationError(
                     "Le kilométrage ne peut pas diminuer."
                 )
 
-            if km > voiture.kilometres_chassis:
-                voiture.kilometres_chassis = km
-                voiture.save(update_fields=["kilometres_chassis"])
+            instance.kilometrage_checkup = km
+            instance.voiture_exemplaire = voiture
 
-            instance.kilometres_chassis = km
-
-            if not instance.voiture_exemplaire:
-                instance.voiture_exemplaire = voiture
 
         heures = self.cleaned_data.get("temps_heures") or 0
         minutes = self.cleaned_data.get("temps_minutes") or 0
@@ -117,3 +115,6 @@ class CheckupForm(forms.ModelForm):
             instance.save()
 
         return instance
+
+
+

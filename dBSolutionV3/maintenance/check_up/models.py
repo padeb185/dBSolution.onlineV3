@@ -429,36 +429,54 @@ class Checkup(TechnicienMixin, models.Model):
                 })
 
     def save(self, *args, **kwargs):
-        # Si checkup > km actuel, mettre à jour la voiture
+
+        # =========================
+        # 1. SYNC KM VOITURE
+        # =========================
         if self.voiture_exemplaire and self.kilometrage_checkup:
+
+            if self.kilometrage_checkup < self.voiture_exemplaire.kilometres_chassis:
+                raise ValidationError("Le kilométrage ne peut pas diminuer.")
+
             if self.kilometrage_checkup > self.voiture_exemplaire.kilometres_chassis:
                 self.voiture_exemplaire.kilometres_chassis = self.kilometrage_checkup
-                self.voiture_exemplaire.save(update_fields=["kilometres_chassis"])
+                self.voiture_exemplaire.kilometres_dernier_entretien = self.kilometrage_checkup
+                self.voiture_exemplaire.date_derniere_intervention = timezone.now().date()
 
-        # Toujours garder une copie dans le contrôle
+                self.voiture_exemplaire.update_kilometres()
+                self.voiture_exemplaire.save()
+
+        # =========================
+        # 2. COPIE SNAPSHOT
+        # =========================
         if self.voiture_exemplaire:
             self.kilometres_chassis = self.voiture_exemplaire.kilometres_chassis
 
+        # =========================
+        # 3. TECHNICIEN
+        # =========================
         if not self.tech_technicien and hasattr(self, '_user'):
             self.assign_technicien(self._user)
 
-            # ----------------------------
-            # MAIN D'OEUVRE AUTO DESCRIPTIF
-            # ----------------------------
-            if self.main_oeuvre:
-                task_name = ""
+        # =========================
+        # 4. MAIN D'OEUVRE
+        # =========================
+        if self.main_oeuvre:
 
-                if self.maintenance:
-                    task_name = str(self.maintenance)
-                elif self.voiture_exemplaire:
-                    task_name = f"Checkup  {self.voiture_exemplaire}"
+            task_name = ""
 
-                # update descriptif automatiquement
-                if hasattr(self.main_oeuvre, "descriptif"):
-                    self.main_oeuvre.descriptif = task_name
-                    self.main_oeuvre.save(update_fields=["descriptif"])
+            if self.maintenance:
+                task_name = str(self.maintenance)
+            elif self.voiture_exemplaire:
+                task_name = f"Checkup {self.voiture_exemplaire}"
+
+            if hasattr(self.main_oeuvre, "descriptif"):
+                self.main_oeuvre.descriptif = task_name
+                self.main_oeuvre.save(update_fields=["descriptif"])
 
         super().save(*args, **kwargs)
+
+
 
     @property
     def temps_main_oeuvre_display(self):

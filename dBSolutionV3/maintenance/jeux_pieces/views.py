@@ -104,6 +104,34 @@ def controle_jeux_pieces_view(request, exemplaire_id):
                 try:
                     with transaction.atomic():
 
+                        km = form.cleaned_data.get("kilometrage_jeu")
+
+                        if km is not None:
+                            km = int(km)
+
+                            ancien_km = exemplaire.kilometres_chassis
+
+                            if km < ancien_km:
+                                form.add_error(
+                                    "kilometrage_jeu",
+                                    _("Le kilométrage ne peut pas diminuer.")
+                                )
+                                raise ValueError("Kilométrage invalide")
+
+                            # 🚗 update voiture (source unique)
+                            exemplaire.kilometres_chassis = km
+                            exemplaire.date_derniere_intervention = timezone.now().date()
+
+                            exemplaire.update_kilometres()
+                            exemplaire.save()
+
+                            # 🔗 checkup UNIQUE
+                            controle = form.save(commit=False)
+                            controle.assign_technicien(request.user)
+
+                            controle.kilometres_chassis = exemplaire.kilometres_chassis
+                            controle.kilometrage_jeu = km
+
                         # 🔴 maintenance unique
                         maintenance = Maintenance.objects.create(
                             societe=request.user.societe,
@@ -133,33 +161,12 @@ def controle_jeux_pieces_view(request, exemplaire_id):
                             maintenance.direction = request.user
 
                         maintenance.save()
-                        controle = form.save(commit=False)
-
-
                         controle.assign_technicien(request.user)
 
-                        # Gestion du kilométrage
-                        km_checkup = form.cleaned_data.get("kilometres_chassis")
+                        # 🔗 lien final
+                        controle.maintenance = maintenance
+                        controle.save()
 
-                        if (
-                                km_checkup is not None and
-                                km_checkup >= exemplaire.kilometres_chassis
-                        ):
-                            controle.kilometres_chassis = km_checkup
-                            exemplaire.kilometres_chassis = km_checkup
-                            exemplaire.save()
-
-                        elif (
-                                km_checkup is not None and
-                                km_checkup < exemplaire.kilometres_chassis
-                        ):
-                            form.add_error(
-                                "kilometres_chassis",
-                                _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
-                            )
-                            raise ValueError("Kilométrage invalide")
-
-                    controle.save()
 
                     messages.success(request, _("Contrôle des jeux enregistré avec succès."))
 
