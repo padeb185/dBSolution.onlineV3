@@ -80,30 +80,13 @@ class AbsForm(forms.ModelForm):
 
     def save(self, commit=True):
         instance = super().save(commit=False)
-        voiture = instance.voiture_exemplaire or self.exemplaire  # fallback si pas encore lié
+        voiture = instance.voiture_exemplaire
 
+        instance.kilometrage_abs = self.cleaned_data.get("kilometrage_abs", 0)
         # Récupération du kilométrage check-up depuis le formulaire
-        kilometrage_abs= self.cleaned_data.get("kilometres_chassis")
-
-        if voiture and kilometrage_abs is not None:
-            # 🔒 Sécurité : ne jamais diminuer le kilométrage
-            if kilometrage_abs < voiture.kilometres_chassis:
-                raise forms.ValidationError(
-                    f"Le kilométrage de la courroie de distribution ({kilometrage_abs}) n'est pas ici) "
-                    f"ne peut pas être inférieur au kilométrage actuel de la voiture ({voiture.kilometres_chassis})."
-                )
-
-            # ✅ Mettre à jour la voiture si le kilométrage a augmenté
-            if kilometrage_abs > voiture.kilometres_chassis:
-                voiture.kilometres_chassis = kilometrage_abs
-                voiture.save(update_fields=["kilometres_chassis"])
-
-            # ✅ Mettre à jour le contrôle
-            instance.kilometres_chassis = kilometrage_abs
-
-            # 🔗 Lier la voiture si ce n'était pas déjà fait
-            if not instance.voiture_exemplaire:
-                instance.voiture_exemplaire = voiture
+        if voiture and instance.kilometrage_abs >= voiture.kilometres_chassis:
+            voiture.kilometres_chassis = instance.kilometrage_abs
+            voiture.save()
 
 
             # -------- MAIN D'ŒUVRE --------

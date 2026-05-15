@@ -138,6 +138,10 @@ def abs_form_view(request, exemplaire_id):
 
                         abs.assign_technicien(request.user)
 
+                        abs.voiture_exemplaire = exemplaire
+                        abs.immatriculation = exemplaire.immatriculation
+                        abs.maintenance = maintenance
+
                         # Gestion du kilométrage
                         km_checkup = form.cleaned_data.get("kilometres_chassis")
 

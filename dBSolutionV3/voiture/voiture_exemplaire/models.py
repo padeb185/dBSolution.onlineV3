@@ -1,9 +1,6 @@
-
 import uuid
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator, RegexValidator
-from django.db.models import Sum
-from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from client_particulier.models import ClientParticulier
 from django.conf import settings
@@ -244,45 +241,39 @@ class VoitureExemplaire(models.Model):
             self.vin_simplifie = None
             self.annee_production = None
 
-        # 🔄 Mise à jour automatique des kilométrages si le kilométrage châssis change
-        if self.pk:  # Si l'objet existe déjà
-            ancien = VoitureExemplaire.objects.get(pk=self.pk)
-            if ancien.kilometres_chassis != self.kilometres_chassis:
-                self.update_kilometres()
-        else:  # Nouvel objet
-            self.update_kilometres()
+        # 🔄 TOUJOURS recalculer
+        self.update_kilometres()
 
-        # ⚠️ Sauvegarde finale de l'exemplaire
         super().save(*args, **kwargs)
 
     def update_kilometres(self):
-        """
-        Synchronise tous les kilométrages avec kilometres_chassis.
-        Si un composant a été remplacé, son compteur part de 0.
-        """
         km_chassis = self.kilometres_chassis or 0
 
-        # Variation depuis le dernier entretien
-        self.variation_kilometres = max(0, km_chassis - (self.kilometres_dernier_entretien or 0))
+        self.variation_kilometres = max(
+            0,
+            km_chassis - (self.kilometres_dernier_entretien or 0)
+        )
 
-        # Kilométrages des composants
-        # 🚗 MOTEUR : ne pas écraser si remplacement effectué
         if self.kilometres_remplacement_moteur:
             self.kilometres_moteur = max(
                 0,
                 km_chassis - self.kilometres_remplacement_moteur
             )
         else:
-            # seulement tant qu’il n’a jamais été remplacé
-            if not self.pk or self.kilometres_moteur == 0:
-                self.kilometres_moteur = km_chassis
+            self.kilometres_moteur = km_chassis
 
         if self.kilometres_remplacement_boite:
-            self.kilometres_boite = km_chassis - self.kilometres_remplacement_boite
+            self.kilometres_boite = max(
+                0,
+                km_chassis - self.kilometres_remplacement_boite
+            )
         else:
             self.kilometres_boite = km_chassis
 
         if self.kilometres_remplacement_embrayage:
-            self.kilometres_embrayage = km_chassis - self.kilometres_remplacement_embrayage
+            self.kilometres_embrayage = max(
+                0,
+                km_chassis - self.kilometres_remplacement_embrayage
+            )
         else:
             self.kilometres_embrayage = km_chassis

@@ -251,32 +251,28 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
                     )
                 })
 
-    def save(self, *args, **kwargs):
-        print("SAVE REMPLACEMENT MOTEUR")
+    def activer_remplacement(self):
+        self.kilometres_remplacement_moteur = self.kilometres_chassis
+        self.remplacement_effectue = True
+        self.save()
 
+    def save(self, *args, **kwargs):
         km = self.kilometres_chassis or 0
 
-        # -------------------------
-        # REMISE À ZÉRO MOTEUR
-        # -------------------------
-        if self.remplacement_effectue:
+        if not self.voiture_exemplaire:
+            super().save(*args, **kwargs)
+            return
 
-            if not self.kilometres_remplacement_moteur:
-                self.kilometres_remplacement_moteur = km
-
-            self.voiture_exemplaire.kilometres_moteur = (
-                    km - (self.kilometres_remplacement_moteur or km)
+        if self.remplacement_effectue and self.kilometres_remplacement_moteur:
+            self.voiture_exemplaire.kilometres_moteur = max(
+                0,
+                km - self.kilometres_remplacement_moteur
             )
-
-            if self.voiture_exemplaire.kilometres_moteur < 0:
-                self.voiture_exemplaire.kilometres_moteur = 0
-
         else:
             self.voiture_exemplaire.kilometres_moteur = km
 
-        # sauvegarde du véhicule UNE seule fois
-        if self.voiture_exemplaire:
-            self.voiture_exemplaire.save(update_fields=["kilometres_moteur"])
+        self.voiture_exemplaire.save(update_fields=["kilometres_moteur"])
+
 
         # ----------------------------
         # MAIN D'OEUVRE AUTO DESCRIPTIF

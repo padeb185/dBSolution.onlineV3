@@ -142,18 +142,20 @@ def remplacement_moteur_form_view(request, exemplaire_id):
                             km = int(km)
 
                             if km < exemplaire.kilometres_chassis:
-                                form.add_error(
-                                    "kilometres_chassis",
-                                    _("Kilométrage invalide")
-                                )
+                                form.add_error("kilometres_chassis", _("Kilométrage invalide"))
                                 raise ValidationError("KM invalide")
 
+                            # 🔥 update voiture
                             exemplaire.kilometres_chassis = km
-                            exemplaire.save(update_fields=["kilometres_chassis"])
 
+                            # 🔥 IMPORTANT: sync remplacement moteur -> voiture
+                            exemplaire.kilometres_remplacement_moteur = km
+
+                            exemplaire.save(update_fields=["kilometres_chassis", "kilometres_remplacement_moteur"])
+
+                            # 🔥 update objet remplacement
                             remplacement_moteur.kilometres_chassis = km
 
-                        # 🔥 FINAL SAVE
                         remplacement_moteur.save()
 
                         messages.success(

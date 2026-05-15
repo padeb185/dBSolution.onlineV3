@@ -257,47 +257,40 @@ class RemplacementBoite(TechnicienMixin, models.Model):
                     )
                 })
 
-
-
     def save(self, *args, **kwargs):
         km = self.kilometres_chassis or 0
 
-        # -------------------------
-        # REMISE À ZÉRO MOTEUR
-        # -------------------------
         if self.remplacement_effectue:
-            # on stocke le km de référence
+
             if not self.kilometres_remplacement_boite:
-                self.kilometres_remplacement_moteur = km
+                self.kilometres_remplacement_boite = km  # ✅ FIX
 
-            # moteur remis à 0
-            self.voiture_exemplaire.kilometres_boite = km - (self.kilometres_remplacement_boite or km)
+            self.voiture_exemplaire.kilometres_boite = max(
+                0,
+                km - (self.kilometres_remplacement_boite or km)
+            )
 
-            # sécurité
-            if self.voiture_exemplaire.kilometres_boite < 0:
-                self.voiture_exemplaire.kilometres_boite = 0
-
-        # -------------------------
-        # CAS NORMAL (pas de remplacement)
-        # -------------------------
         else:
             self.voiture_exemplaire.kilometres_boite = km
 
-            # ----------------------------
-            # MAIN D'OEUVRE AUTO DESCRIPTIF
-            # ----------------------------
-            if self.main_oeuvre:
-                task_name = ""
+        self.voiture_exemplaire.save(update_fields=["kilometres_boite"])
 
-                if self.maintenance:
-                    task_name = str(self.maintenance)
-                elif self.voiture_exemplaire:
-                    task_name = ("Remplacement de la boite ") + " " + str(self.voiture_exemplaire)
+
+        # ----------------------------
+        # MAIN D'OEUVRE AUTO DESCRIPTIF
+        # ----------------------------
+        if self.main_oeuvre:
+            task_name = ""
+
+            if self.maintenance:
+                task_name = str(self.maintenance)
+            elif self.voiture_exemplaire:
+                task_name = ("Remplacement de la boite ") + " " + str(self.voiture_exemplaire)
 
                 # update descriptif automatiquement
-                if hasattr(self.main_oeuvre, "descriptif"):
-                    self.main_oeuvre.descriptif = task_name
-                    self.main_oeuvre.save(update_fields=["descriptif"])
+            if hasattr(self.main_oeuvre, "descriptif"):
+                self.main_oeuvre.descriptif = task_name
+                self.main_oeuvre.save(update_fields=["descriptif"])
 
         super().save(*args, **kwargs)
 

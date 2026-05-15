@@ -94,16 +94,12 @@ class MoteurVoiture(models.Model):
         return self.kilometres_moteur + self.intervalle_km_entretien
 
     def remplacer_moteur(self):
-        if self.numero_moteur < 10:
+        if self.numero_moteur < 20:
             self.numero_moteur += 1
-            self.kilometres_moteur = 0
             self.save()
 
     def save(self, *args, **kwargs):
-        """
-        Remplissage automatique des champs si un moteur avec le même
-        code_moteur et motoriste existe déjà.
-        """
+
         # On ne copie que si on crée un nouveau moteur
         if not self.pk and self.code_moteur and self.motoriste:
             moteur_existant = MoteurVoiture.objects.filter(

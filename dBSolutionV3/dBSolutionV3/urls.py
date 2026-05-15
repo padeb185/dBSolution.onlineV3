@@ -3,12 +3,9 @@ from django.urls import path, include
 from django.conf.urls.i18n import i18n_patterns
 from django.shortcuts import render
 from .views import home_view
-from voiture.voiture_exemplaire.views import voiture_exemplaire_detail
 from django.conf import settings
 from django.conf.urls.static import static
-
-
-
+from voiture.voiture_exemplaire.views import voiture_exemplaire_detail
 
 
 # Handler 404 personnalisé

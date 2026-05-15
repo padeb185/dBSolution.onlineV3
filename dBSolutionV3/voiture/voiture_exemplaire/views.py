@@ -57,21 +57,20 @@ def voiture_exemplaire_detail(request, exemplaire_id):
             VoitureExemplaire.objects.filter(voiture_modele__societe=tenant),
             id=exemplaire_id
         )
+
         modele = exemplaire.voiture_modele
         marque = modele.voiture_marque
 
-        # 🔹 Provoquer le save pour recalculer le kilométrage de chaque moteur
         for moteur in exemplaire.moteurs.all():
             moteur.save()
+
+        exemplaire.refresh_from_db()
 
         return render(request, "voiture_exemplaire/detail_exemplaire.html", {
             "exemplaire": exemplaire,
             "modele": modele,
             "marque": marque,
         })
-
-
-
 
 
 @login_required
