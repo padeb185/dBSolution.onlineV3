@@ -144,7 +144,7 @@ def entretien_check_view(request, exemplaire_id):
                         entretien.assign_technicien(request.user)
 
                         entretien.kilometres_chassis = exemplaire.kilometres_chassis
-                        entretien.kilometrage_checkup_track = km
+                        entretien.kilometrage_entretien = km
 
 
                         # 🔴 Création maintenance UNIQUE

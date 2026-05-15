@@ -80,14 +80,19 @@ class AbsForm(forms.ModelForm):
 
     def save(self, commit=True):
         instance = super().save(commit=False)
-        voiture = instance.voiture_exemplaire
 
-        instance.kilometrage_abs = self.cleaned_data.get("kilometrage_abs", 0)
-        # Récupération du kilométrage check-up depuis le formulaire
-        if voiture and instance.kilometrage_abs >= voiture.kilometres_chassis:
-            voiture.kilometres_chassis = instance.kilometrage_abs
-            voiture.save()
+        km = self.cleaned_data.get("kilometrage_abs")
+        voiture = self.exemplaire
 
+        if km is not None and voiture:
+
+            if km < voiture.kilometres_chassis:
+                raise forms.ValidationError(
+                    "Le kilométrage ne peut pas diminuer."
+                )
+
+            instance.kilometrage_controle_brake = km
+            instance.voiture_exemplaire = voiture
 
             # -------- MAIN D'ŒUVRE --------
             heures = self.cleaned_data.get("temps_heures") or 0

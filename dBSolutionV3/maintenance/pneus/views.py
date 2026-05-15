@@ -125,7 +125,7 @@ def controle_pneus_view(request, exemplaire_id):
                             pneus.assign_technicien(request.user)
 
                             pneus.kilometres_chassis = exemplaire.kilometres_chassis
-                            pneus.kilometrage_checkup_track = km
+                            pneus.kilometrage_pneus = km
 
                         maintenance = Maintenance.objects.create(
                             societe=request.user.societe,

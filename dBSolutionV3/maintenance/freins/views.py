@@ -131,7 +131,7 @@ def controle_freins_view(request, exemplaire_id):
                             controle_freins.assign_technicien(request.user)
 
                             controle_freins.kilometres_chassis = exemplaire.kilometres_chassis
-                            controle_freins.kilometrage_checkup_track = km
+                            controle_freins.kilometrage_controle_brake = km
 
                         maintenance = Maintenance.objects.create(
                             societe=request.user.societe,

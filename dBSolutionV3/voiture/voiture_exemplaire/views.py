@@ -381,7 +381,6 @@ def ajouter_exemplaire_all(request, modele_id):
                 instance.save()
 
                 messages.success(request, "Véhicule ajouté avec succès.")
-                return redirect("nom_de_ta_vue")  # 🔥 IMPORTANT
 
         else:
             form = VoitureExemplaireForm(

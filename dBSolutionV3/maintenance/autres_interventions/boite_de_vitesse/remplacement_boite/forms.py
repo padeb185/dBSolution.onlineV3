@@ -135,29 +135,32 @@ class RemplacementBoiteForm(forms.ModelForm):
     def save(self, commit=True):
         instance = super().save(commit=False)
 
-        voiture = instance.voiture_exemplaire or self.exemplaire
+        km = self.cleaned_data.get("kilometrage_controle_brake")
+        voiture = self.exemplaire
 
+        if km is not None and voiture:
 
+            if km < voiture.kilometres_chassis:
+                raise forms.ValidationError(
+                    "Le kilométrage ne peut pas diminuer."
+                )
 
-        # -----------------------
-        # KM CHÂSSIS
-        # -----------------------
-        km_chassis = self.cleaned_data.get("kilometres_chassis")
+            instance.kilometrage_controle_brake = km
+            instance.voiture_exemplaire = voiture
+        instance = super().save(commit=False)
 
-        if voiture and km_chassis is not None:
+        km = self.cleaned_data.get("kilometrage_controle_brake")
+        voiture = self.exemplaire
 
-            if km_chassis >= voiture.kilometres_chassis:
-                voiture.kilometres_chassis = km_chassis
-                voiture.save(update_fields=["kilometres_chassis"])
+        if km is not None and voiture:
 
-            instance.kilometres_chassis = km_chassis
+            if km < voiture.kilometres_chassis:
+                raise forms.ValidationError(
+                    "Le kilométrage ne peut pas diminuer."
+                )
 
-            if not instance.voiture_exemplaire:
-                instance.voiture_exemplaire = voiture
-
-
-
-
+            instance.kilometrage_controle_brake = km
+            instance.voiture_exemplaire = voiture
 
         remplacement_effectue = self.cleaned_data.get("remplacement_effectue")
 

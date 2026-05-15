@@ -102,6 +102,34 @@ def remplacement_boite_form_view(request, exemplaire_id):
                 try:
                     with transaction.atomic():
 
+                        km = form.cleaned_data.get("kilometres_remplacement_boite")
+
+                        if km is not None:
+                            km = int(km)
+
+                            ancien_km = exemplaire.kilometres_chassis
+
+                            if km < ancien_km:
+                                form.add_error(
+                                    "kilometres_remplacement_boite",
+                                    _("Le kilométrage ne peut pas diminuer.")
+                                )
+                                raise ValueError("Kilométrage invalide")
+
+                            # 🚗 update voiture (source unique)
+                            exemplaire.kilometres_chassis = km
+                            exemplaire.date_derniere_intervention = timezone.now().date()
+
+                            exemplaire.update_kilometres()
+                            exemplaire.save()
+
+                            # 🔗 checkup UNIQUE
+                            remplacement_boite = form.save(commit=False)
+                            remplacement_boite.assign_technicien(request.user)
+
+                            remplacement_boite.kilometres_chassis = exemplaire.kilometres_chassis
+                            remplacement_boite.kilometres_remplacement_boite = km
+
                         # 🔴 maintenance unique
                         maintenance = Maintenance.objects.create(
                             societe=request.user.societe,
@@ -131,37 +159,17 @@ def remplacement_boite_form_view(request, exemplaire_id):
                             maintenance.direction = request.user
 
                         maintenance.save()
+                        remplacement_boite.assign_technicien(request.user)
+
+                        # 🔗 lien final
+                        remplacement_boite.maintenance = maintenance
+                        remplacement_boite.save()
+
+                        is_new = remplacement_boite.pk is None
 
                         remplacement_boite = form.save(commit=False)
 
                         remplacement_boite.assign_technicien(request.user)
-
-                        is_new = remplacement_boite.pk is None
-
-                        km_checkup = form.cleaned_data.get("kilometres_chassis")
-
-                        km_checkup = form.cleaned_data.get("kilometres_chassis")
-
-                        if km_checkup is not None:
-
-                            km_checkup = int(km_checkup)
-
-                            if km_checkup >= exemplaire.kilometres_chassis:
-
-                                # mise à jour intervention
-                                remplacement_boite.kilometres_chassis = km_checkup
-
-                                # mise à jour véhicule
-                                exemplaire.kilometres_chassis = km_checkup
-                                exemplaire.save(update_fields=["kilometres_chassis"])
-
-                            else:
-                                form.add_error(
-                                    "kilometres_chassis",
-                                    _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
-                                )
-
-                                raise ValueError("Kilométrage invalide")
 
                         remplacement_boite.save()
 
