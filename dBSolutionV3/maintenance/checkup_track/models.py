@@ -256,7 +256,8 @@ class CheckupTrack(TechnicienMixin, models.Model):
     jeu_rotule_suspension = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeux rotules de suspension"))
 
 
-    jeu_biellette_bar_stab = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeu biellettes de barre stabilisatrice"))
+    jeu_biellette_bar_stab = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK,    blank=True,
+    null=True ,verbose_name=_("Jeu biellettes de barre stabilisatrice"))
 
     jeu_barre_stabilisatrice = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeu barre stabilisatrice"))
 

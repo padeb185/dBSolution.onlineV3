@@ -52,6 +52,18 @@ class GeometrieVoitureForm(forms.ModelForm):
                 self.fields["tech_societe"].initial = self.user.societe
                 self.fields["tech_societe"].disabled = True
 
+    def clean_kilometrage_geometrie(self):
+        km = self.cleaned_data.get("kilometrage_geometrie")
+        exemplaire = self.exemplaire
+
+        if km is not None and exemplaire:
+            if km < exemplaire.kilometres_chassis:
+                raise ValidationError(
+                    "Le kilométrage ne peut pas diminuer."
+                )
+
+        return km
+
     def clean(self):
         cleaned = super().clean()
 
@@ -70,14 +82,9 @@ class GeometrieVoitureForm(forms.ModelForm):
         voiture = self.exemplaire
 
         if km is not None and voiture:
-
-            if km < voiture.kilometres_chassis:
-                raise forms.ValidationError(
-                    "Le kilométrage ne peut pas diminuer."
-                )
-
             instance.kilometrage_geometrie = km
             instance.voiture_exemplaire = voiture
+
 
             # -------- MAIN D'ŒUVRE --------
             heures = self.cleaned_data.get("temps_heures") or 0

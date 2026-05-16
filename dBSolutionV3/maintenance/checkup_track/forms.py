@@ -1,8 +1,12 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from django.utils import timezone
 from .models import CheckupTrack
 from django.utils.translation import gettext_lazy as _
 from maindoeuvre.models import MainDoeuvre
+
+
+
 
 class CheckupTrackForm(forms.ModelForm):
 
@@ -53,6 +57,21 @@ class CheckupTrackForm(forms.ModelForm):
 
         self.fields["nettoyage_interieur_plastiques"].required = False
 
+
+
+    def clean_kilometrage_checkup_track(self):
+        km = self.cleaned_data.get("kilometrage_checkup_track")
+        exemplaire = self.exemplaire
+
+        if km is not None and exemplaire:
+            if km < exemplaire.kilometres_chassis:
+                raise ValidationError(
+                    "Le kilométrage ne peut pas diminuer."
+                )
+
+        return km
+
+
     def save(self, commit=True):
         instance = super().save(commit=False)
 
@@ -60,13 +79,7 @@ class CheckupTrackForm(forms.ModelForm):
         voiture = self.exemplaire
 
         if km is not None and voiture:
-
-            if km < voiture.kilometres_chassis:
-                raise forms.ValidationError(
-                    "Le kilométrage ne peut pas diminuer."
-                )
-
-            instance.kilometrage_checkup_track = km
+            instance.kilometrage_checkup = km
             instance.voiture_exemplaire = voiture
 
             # -------- MAIN D'ŒUVRE --------

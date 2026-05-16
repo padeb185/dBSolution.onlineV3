@@ -70,9 +70,17 @@ class AdmissionForm(forms.ModelForm):
                 self.fields[f].initial = 0
                 self.fields[f].required = False
 
+    def clean_kilometrage_admission(self):
+        km = self.cleaned_data.get("kilometrage_admission")
+        exemplaire = self.exemplaire
 
+        if km is not None and exemplaire:
+            if km < exemplaire.kilometres_chassis:
+                raise ValidationError(
+                    "Le kilométrage ne peut pas diminuer."
+                )
 
-
+        return km
 
     def clean(self):
         def clean(self):
@@ -86,7 +94,6 @@ class AdmissionForm(forms.ModelForm):
 
             return cleaned
 
-
     def save(self, commit=True):
         instance = super().save(commit=False)
 
@@ -94,12 +101,6 @@ class AdmissionForm(forms.ModelForm):
         voiture = self.exemplaire
 
         if km is not None and voiture:
-
-            if km < voiture.kilometres_chassis:
-                raise forms.ValidationError(
-                    "Le kilométrage ne peut pas diminuer."
-                )
-
             instance.kilometrage_admission = km
             instance.voiture_exemplaire = voiture
 

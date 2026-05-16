@@ -61,7 +61,17 @@ class ControlePneusForm(forms.ModelForm):
                 self.fields["tech_societe"].initial = self.user.societe
                 self.fields["tech_societe"].disabled = True
 
+    def clean_kilometrage_pneus(self):
+        km = self.cleaned_data.get("kilometrage_pneus")
+        exemplaire = self.exemplaire
 
+        if km is not None and exemplaire:
+            if km < exemplaire.kilometres_chassis:
+                raise ValidationError(
+                    "Le kilométrage ne peut pas diminuer."
+                )
+
+        return km
 
     def clean(self):
         cleaned = super().clean()
@@ -81,34 +91,67 @@ class ControlePneusForm(forms.ModelForm):
         voiture = self.exemplaire
 
         if km is not None and voiture:
-
-            if km < voiture.kilometres_chassis:
-                raise forms.ValidationError(
-                    "Le kilométrage ne peut pas diminuer."
-                )
-
             instance.kilometrage_pneus = km
             instance.voiture_exemplaire = voiture
 
-            # -------- MAIN D'ŒUVRE --------
-            heures = self.cleaned_data.get("temps_heures") or 0
-            minutes = self.cleaned_data.get("temps_minutes") or 0
+        remplacement_effectue = self.cleaned_data.get("remplacement_effectue")
 
-            total_minutes = heures * 60 + minutes
+        km_chassis = self.cleaned_data.get("kilometres_chassis")
 
-            main = instance.main_oeuvre
+        if remplacement_effectue:
+            instance.kilometres_pneus = 0
+            instance.kilometres_remplacement_pneus = km_chassis
+            instance.nombre_remplacements = (instance.nombre_remplacements or 0) + 1
+        else:
+            instance.kilometres_pneus = km_chassis
 
-            if main:
-                main.temps_minutes = total_minutes
-                main.save(update_fields=["temps_minutes"])
-            else:
+        # -----------------------
+        # MAIN D'ŒUVRE
+        # -----------------------
+        heures = self.cleaned_data.get("temps_heures") or 0
+        minutes = self.cleaned_data.get("temps_minutes") or 0
+        total_minutes = heures * 60 + minutes
+
+        main = instance.main_oeuvre
+
+        if main:
+            main.temps_minutes = total_minutes
+            main.save(update_fields=["temps_minutes"])
+        else:
+            if self.user:
                 main = MainDoeuvre.objects.create(
                     utilisateur=self.user,
                     temps_minutes=total_minutes
                 )
                 instance.main_oeuvre = main
 
-        # Sauvegarde finale
+        # -----------------------
+        # TECHNICIEN AUTO
+        # -----------------------
+        if self.user:
+            instance.assign_technicien(self.user)
+
+        ancien = None
+
+        if instance.pk:
+            ancien = type(instance).objects.filter(pk=instance.pk).values_list(
+                "remplacement_effectue", flat=True
+            ).first()
+
+        # 🔥 reset moteur si nouveau remplacement
+        if instance.remplacement_effectue and not ancien:
+            instance.kilometres_remplacement_boite = instance.kilometres_chassis or 0
+            instance.kilometres_boite = 0
+
+        # km voiture
+        km_chassis = self.cleaned_data.get("kilometres_chassis")
+
+        if km_chassis is not None:
+            instance.kilometres_chassis = km_chassis
+
+        # -----------------------
+        # SAVE FINAL
+        # -----------------------
         if commit:
             instance.save()
 

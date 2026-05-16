@@ -9,16 +9,40 @@ VIN_YEAR_BASE = {
     "6": 2006, "7": 2007, "8": 2008, "9": 2009,
 }
 
-def get_vin_year(code: str) -> int | None:
-    code = code.upper()
-    base_year = VIN_YEAR_BASE.get(code)
-    if base_year is None:
+
+VIN_SEQUENCE = "ABCDEFGHJKLMNPRSTVWXY123456789"
+
+# corrections constructeur (BMW / MINI)
+BMW_VIN_FIXES = {
+    "0": 2006,  # ton cas réel MINI R56
+}
+
+def get_vin_year(code: str, brand: str | None = None) -> int | None:
+    if not code:
         return None
 
+    code = code.upper()
+
+    # ------------------------
+    # 1. FIX constructeur (BMW/MINI)
+    # ------------------------
+    if brand == "BMW" or brand == "MINI":
+        if code in BMW_VIN_FIXES:
+            return BMW_VIN_FIXES[code]
+
+    # ------------------------
+    # 2. ISO STANDARD EU
+    # ------------------------
+    if code not in VIN_SEQUENCE:
+        return None
+
+    index = VIN_SEQUENCE.index(code)
+
+    base_year = 1980 + index
     current_year = datetime.now().year
 
-    # Générer les cycles possibles
-    possible_years = [base_year + 30 * i for i in range(3)]
+    # cycle 30 ans
+    while base_year + 30 <= current_year + 1:
+        base_year += 30
 
-    # Choisir l'année la plus proche mais <= année actuelle + 1
-    return max(y for y in possible_years if y <= current_year + 1)
+    return base_year

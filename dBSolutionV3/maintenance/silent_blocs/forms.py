@@ -53,6 +53,18 @@ class SilentBlocForm(forms.ModelForm):
             self.fields["tech_societe"].initial = self.user.societe
             self.fields["tech_societe"].disabled = True
 
+    def clean_kilometrage_silent(self):
+        km = self.cleaned_data.get("kilometrage_silent")
+        exemplaire = self.exemplaire
+
+        if km is not None and exemplaire:
+            if km < exemplaire.kilometres_chassis:
+                raise ValidationError(
+                    "Le kilométrage ne peut pas diminuer."
+                )
+
+        return km
+
     def clean(self):
         cleaned = super().clean()
 
@@ -64,6 +76,9 @@ class SilentBlocForm(forms.ModelForm):
 
         return cleaned
 
+
+
+
     def save(self, commit=True):
         instance = super().save(commit=False)
 
@@ -71,12 +86,6 @@ class SilentBlocForm(forms.ModelForm):
         voiture = self.exemplaire
 
         if km is not None and voiture:
-
-            if km < voiture.kilometres_chassis:
-                raise forms.ValidationError(
-                    "Le kilométrage ne peut pas diminuer."
-                )
-
             instance.kilometrage_silent = km
             instance.voiture_exemplaire = voiture
 

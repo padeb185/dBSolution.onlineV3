@@ -63,6 +63,18 @@ class NettoyageInterieurForm(forms.ModelForm):
             self.fields["temps_heures"].initial = mo.heures
             self.fields["temps_minutes"].initial = mo.minutes
 
+    def clean_kilometrage_net_int(self):
+        km = self.cleaned_data.get("kilometrage_net_int")
+        exemplaire = self.exemplaire
+
+        if km is not None and exemplaire:
+            if km < exemplaire.kilometres_chassis:
+                raise ValidationError(
+                    "Le kilométrage ne peut pas diminuer."
+                )
+
+        return km
+
     def clean(self):
         cleaned = super().clean()
 
@@ -81,14 +93,9 @@ class NettoyageInterieurForm(forms.ModelForm):
         voiture = self.exemplaire
 
         if km is not None and voiture:
-
-            if km < voiture.kilometres_chassis:
-                raise forms.ValidationError(
-                    "Le kilométrage ne peut pas diminuer."
-                )
-
             instance.kilometrage_net_int = km
             instance.voiture_exemplaire = voiture
+
 
         # -------- MAIN D'ŒUVRE --------
         heures = self.cleaned_data.get("temps_heures") or 0

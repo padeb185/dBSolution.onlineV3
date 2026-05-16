@@ -76,6 +76,19 @@ class CheckupForm(forms.ModelForm):
 
         return cleaned
 
+    def clean_kilometrage_checkup(self):
+        km = self.cleaned_data.get("kilometrage_checkup")
+        exemplaire = self.exemplaire
+
+        if km is not None and exemplaire:
+            if km < exemplaire.kilometres_chassis:
+                raise ValidationError(
+                    "Le kilométrage ne peut pas diminuer."
+                )
+
+        return km
+
+
     def save(self, commit=True):
         instance = super().save(commit=False)
 
@@ -83,15 +96,8 @@ class CheckupForm(forms.ModelForm):
         voiture = self.exemplaire
 
         if km is not None and voiture:
-
-            if km < voiture.kilometres_chassis:
-                raise forms.ValidationError(
-                    "Le kilométrage ne peut pas diminuer."
-                )
-
             instance.kilometrage_checkup = km
             instance.voiture_exemplaire = voiture
-
 
         heures = self.cleaned_data.get("temps_heures") or 0
         minutes = self.cleaned_data.get("temps_minutes") or 0
@@ -100,7 +106,6 @@ class CheckupForm(forms.ModelForm):
         main = instance.main_oeuvre
 
         if main:
-            # ✔ update propre
             MainDoeuvre.objects.filter(id=main.id).update(
                 temps_minutes=total_minutes
             )
@@ -115,6 +120,3 @@ class CheckupForm(forms.ModelForm):
             instance.save()
 
         return instance
-
-
-

@@ -73,22 +73,26 @@ class ControleFreinsForm(forms.ModelForm):
         return cleaned
 
 
+    def clean_kilometrage_freins(self):
+        km = self.cleaned_data.get("kilometrage_controle_brake")
+        exemplaire = self.exemplaire
 
+        if km is not None and exemplaire:
+            if km < exemplaire.kilometres_chassis:
+                raise ValidationError(
+                    "Le kilométrage ne peut pas diminuer."
+                )
+
+        return km
 
     def save(self, commit=True):
         instance = super().save(commit=False)
 
-        km = self.cleaned_data.get("kilometrage_controle_brake")
+        km = self.cleaned_data.get("kilometrage_checkup")
         voiture = self.exemplaire
 
         if km is not None and voiture:
-
-            if km < voiture.kilometres_chassis:
-                raise forms.ValidationError(
-                    "Le kilométrage ne peut pas diminuer."
-                )
-
-            instance.kilometrage_controle_brake = km
+            instance.kilometrage_checkup = km
             instance.voiture_exemplaire = voiture
 
             # -------- MAIN D'ŒUVRE --------

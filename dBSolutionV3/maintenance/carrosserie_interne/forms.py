@@ -81,6 +81,20 @@ class CarrosserieInterneForm(forms.ModelForm):
                 self.fields[f].initial = 0
                 self.fields[f].required = False
 
+    def clean_kilometrage_intervention(self):
+        km = self.cleaned_data.get("kilometrage_intervention")
+        exemplaire = self.exemplaire
+
+        if km is not None and exemplaire:
+            if km < exemplaire.kilometres_chassis:
+                raise ValidationError(
+                    "Le kilométrage ne peut pas diminuer."
+                )
+
+        return km
+
+
+
     def clean(self):
         cleaned = super().clean()
 
@@ -99,12 +113,6 @@ class CarrosserieInterneForm(forms.ModelForm):
         voiture = self.exemplaire
 
         if km is not None and voiture:
-
-            if km < voiture.kilometres_chassis:
-                raise forms.ValidationError(
-                    "Le kilométrage ne peut pas diminuer."
-                )
-
             instance.kilometrage_intervention = km
             instance.voiture_exemplaire = voiture
 

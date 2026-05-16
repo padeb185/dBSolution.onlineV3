@@ -6,6 +6,7 @@ from client_particulier.models import ClientParticulier
 from django.conf import settings
 from societe.models import Societe
 from voiture.voiture_exemplaire.utils_vin import get_vin_year
+from voiture.voiture_exemplaire.utils.vin_decoder import VinDecoderService
 
 
 class TypeUtilisation(models.TextChoices):
@@ -231,17 +232,19 @@ class VoitureExemplaire(models.Model):
         return f"{self.voiture_marque.nom_marque} {self.voiture_modele.nom_modele} {self.voiture_modele.nom_variante} - {self.immatriculation}"
 
     def save(self, *args, **kwargs):
-        # 🚗 VIN
+
         if self.numero_vin:
-            self.numero_vin = self.numero_vin.upper()
+            self.numero_vin = self.numero_vin.upper().strip()
             self.vin_simplifie = self.numero_vin[-10:]
-            dixieme = self.numero_vin[9]
-            self.annee_production = get_vin_year(dixieme)
+
+            decoder = VinDecoderService(self.numero_vin)
+            data = decoder.decode()
+            self.annee_production = data.get("model_year")
         else:
             self.vin_simplifie = None
             self.annee_production = None
 
-        # 🔄 TOUJOURS recalculer
+        # 🔥 recalcul des km
         self.update_kilometres()
 
         super().save(*args, **kwargs)

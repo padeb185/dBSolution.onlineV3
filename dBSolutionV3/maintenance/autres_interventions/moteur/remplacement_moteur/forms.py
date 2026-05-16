@@ -112,6 +112,17 @@ class RemplacementMoteurForm(forms.ModelForm):
                 "Cochez pour remplacer le moteur (remise à zéro automatique du kilométrage)."
             )
 
+    def clean_kilometrage_remplacement_moteur(self):
+        km = self.cleaned_data.get("kilometrage_remplacement_moteur")
+        exemplaire = self.exemplaire
+
+        if km is not None and exemplaire:
+            if km < exemplaire.kilometres_chassis:
+                raise ValidationError(
+                    "Le kilométrage ne peut pas diminuer."
+                )
+
+        return km
 
     # =========================================================
     # VALIDATION PROPRE

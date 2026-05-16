@@ -1,6 +1,9 @@
 from django import forms
 from .models import VoitureExemplaire
+from .utils.vin_decoder import VinDecoderService
 from .utils_vin import get_vin_year
+
+
 
 # Lettres interdites dans un VIN
 INVALID_VIN_CHARS = set("IOQ")
@@ -47,21 +50,37 @@ class VoitureExemplaireForm(forms.ModelForm):
 
     def clean_numero_vin(self):
         vin = self.cleaned_data.get("numero_vin")
+
         if vin:
-            vin = vin.upper()
+            vin = vin.upper().strip()
+
             if len(vin) != 17:
                 raise forms.ValidationError("Le VIN doit contenir 17 caractères.")
+
             if any(c in INVALID_VIN_CHARS for c in vin):
                 raise forms.ValidationError("Le VIN contient des caractères interdits (I, O, Q).")
+
         return vin
+
+
 
     def clean(self):
         cleaned_data = super().clean()
         vin = cleaned_data.get("numero_vin")
 
-        annee = get_vin_year(vin) if vin else None
+        annee = None
+        est_avant_2010 = False
+
+        if vin:
+            decoder = VinDecoderService(vin)
+            data = decoder.decode()
+
+            annee = data.get("model_year")
+
+            est_avant_2010 = bool(annee and annee < 2010)
+
         cleaned_data["annee_production"] = annee
-        cleaned_data["est_avant_2010"] = bool(annee and annee < 2010)
+        cleaned_data["est_avant_2010"] = est_avant_2010
 
         return cleaned_data
 

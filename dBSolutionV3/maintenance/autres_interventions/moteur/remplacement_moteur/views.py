@@ -190,11 +190,7 @@ def remplacement_moteur_form_view(request, exemplaire_id):
         # RENDER
         # =========================
         sections = [
-            {
-                "title": _("Client"),
-                "icon": "icons/client.png",
-                "fields": [form[f.name] for f in form if "client" in f.name],
-            },
+
             {
                 "title": _("Kilométrage"),
                 "icon": "icons/compteur.png",
@@ -316,11 +312,7 @@ def modifier_remplacement_moteur_view(request, remplacement_moteur_id):
         # SECTIONS
         # -------------------------
         sections = [
-            {
-                "title": _("Client"),
-                "icon": "icons/client.png",
-                "fields": [form[f.name] for f in form if "client" in f.name],
-            },
+
             {
                 "title": _("Kilométrage"),
                 "icon": "icons/compteur.png",

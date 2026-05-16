@@ -64,6 +64,18 @@ class ControleBoiteForm(forms.ModelForm):
                 self.fields["tech_societe"].initial = self.user.societe
                 self.fields["tech_societe"].disabled = True
 
+    def clean_kilometrage_controle_boite(self):
+        km = self.cleaned_data.get("kilometrage_controle_boite")
+        exemplaire = self.exemplaire
+
+        if km is not None and exemplaire:
+            if km < exemplaire.kilometres_chassis:
+                raise ValidationError(
+                    "Le kilométrage ne peut pas diminuer."
+                )
+
+        return km
+
     def clean(self):
         cleaned = super().clean()
 
@@ -82,12 +94,6 @@ class ControleBoiteForm(forms.ModelForm):
         voiture = self.exemplaire
 
         if km is not None and voiture:
-
-            if km < voiture.kilometres_chassis:
-                raise forms.ValidationError(
-                    "Le kilométrage ne peut pas diminuer."
-                )
-
             instance.kilometrage_controle_boite = km
             instance.voiture_exemplaire = voiture
 

@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from .models import Entretien
@@ -58,6 +59,19 @@ class EntretienForm(forms.ModelForm):
                 self.fields["tech_societe"].initial = self.user.societe
                 self.fields["tech_societe"].disabled = True
 
+    def clean_kilometrage_entretien(self):
+        km = self.cleaned_data.get("kilometrage_entretien")
+        exemplaire = self.exemplaire
+
+        if km is not None and exemplaire:
+            if km < exemplaire.kilometres_chassis:
+                raise ValidationError(
+                    "Le kilométrage ne peut pas diminuer."
+                )
+
+        return km
+
+
     def save(self, commit=True):
         instance = super().save(commit=False)
 
@@ -65,13 +79,7 @@ class EntretienForm(forms.ModelForm):
         voiture = self.exemplaire
 
         if km is not None and voiture:
-
-            if km < voiture.kilometres_chassis:
-                raise forms.ValidationError(
-                    "Le kilométrage ne peut pas diminuer."
-                )
-
-            instance.kilometrage_entretien = km
+            instance.kilometrage_checkup = km
             instance.voiture_exemplaire = voiture
 
         # -------- MAIN D'ŒUVRE --------

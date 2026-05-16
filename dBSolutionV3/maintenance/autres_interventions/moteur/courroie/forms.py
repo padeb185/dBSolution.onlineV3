@@ -4,9 +4,9 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-
 from maindoeuvre.models import MainDoeuvre
 from .models import CourroieDistribution
+
 
 
 class CourroieDistributionForm(forms.ModelForm):
@@ -68,6 +68,18 @@ class CourroieDistributionForm(forms.ModelForm):
                 self.fields[f].initial = 0
                 self.fields[f].required = False
 
+    def clean_kilometrage_cour(self):
+        km = self.cleaned_data.get("kilometrage_cour")
+        exemplaire = self.exemplaire
+
+        if km is not None and exemplaire:
+            if km < exemplaire.kilometres_chassis:
+                raise ValidationError(
+                    "Le kilométrage ne peut pas diminuer."
+                )
+
+        return km
+
     def clean(self):
         cleaned = super().clean()
 
@@ -101,7 +113,6 @@ class CourroieDistributionForm(forms.ModelForm):
 
         return cleaned
 
-
     def save(self, commit=True):
         instance = super().save(commit=False)
 
@@ -109,17 +120,11 @@ class CourroieDistributionForm(forms.ModelForm):
         voiture = self.exemplaire
 
         if km is not None and voiture:
-
-            if km < voiture.kilometres_chassis:
-                raise forms.ValidationError(
-                    "Le kilométrage ne peut pas diminuer."
-                )
-
             instance.kilometrage_cour = km
             instance.voiture_exemplaire = voiture
 
 
-        # -------- MAIN D'ŒUVRE --------
+            # -------- MAIN D'ŒUVRE --------
             heures = self.cleaned_data.get("temps_heures") or 0
             minutes = self.cleaned_data.get("temps_minutes") or 0
 

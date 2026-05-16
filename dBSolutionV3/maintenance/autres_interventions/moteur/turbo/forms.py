@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from maindoeuvre.models import MainDoeuvre
@@ -64,7 +65,17 @@ class TurboForm(forms.ModelForm):
                 self.fields[f].initial = 0
                 self.fields[f].required = False
 
+    def clean_kilometres_turbo(self):
+        km = self.cleaned_data.get("kilometres_turbo")
+        exemplaire = self.exemplaire
 
+        if km is not None and exemplaire:
+            if km < exemplaire.kilometres_chassis:
+                raise ValidationError(
+                    "Le kilométrage ne peut pas diminuer."
+                )
+
+        return km
 
     def clean(self):
 
@@ -89,12 +100,6 @@ class TurboForm(forms.ModelForm):
         voiture = self.exemplaire
 
         if km is not None and voiture:
-
-            if km < voiture.kilometres_chassis:
-                raise forms.ValidationError(
-                    "Le kilométrage ne peut pas diminuer."
-                )
-
             instance.kilometres_turbo = km
             instance.voiture_exemplaire = voiture
 
