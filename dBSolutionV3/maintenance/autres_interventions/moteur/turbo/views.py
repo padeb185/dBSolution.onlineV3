@@ -117,6 +117,34 @@ def turbo_check_view(request, exemplaire_id):
                 try:
                     with transaction.atomic():
 
+                        km = form.cleaned_data.get("kilometres_turbo")
+
+                        if km is not None:
+                            km = int(km)
+
+                            ancien_km = exemplaire.kilometres_chassis
+
+                            if km < ancien_km:
+                                form.add_error(
+                                    "kilometres_turbo",
+                                    _("Le kilométrage ne peut pas diminuer.")
+                                )
+                                raise ValueError("Kilométrage invalide")
+
+                            # 🚗 update voiture (source unique)
+                            exemplaire.kilometres_chassis = km
+                            exemplaire.date_derniere_intervention = timezone.now().date()
+
+                            exemplaire.update_kilometres()
+                            exemplaire.save()
+
+                            # 🔗 checkup UNIQUE
+                            turbo = form.save(commit=False)
+                            turbo.assign_technicien(request.user)
+
+                            turbo.kilometres_chassis = exemplaire.kilometres_chassis
+                            turbo.kilometres_turbo = km
+
                         maintenance = Maintenance.objects.create(
                             societe=request.user.societe,
                             voiture_exemplaire=exemplaire,
@@ -124,7 +152,7 @@ def turbo_check_view(request, exemplaire_id):
                             date_intervention=timezone.now().date(),
                             kilometres_chassis=exemplaire.kilometres_chassis,
                             kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
-                            type_maintenance=Maintenance.TypeMaintenance.CHECKUP_TRACK,
+                            type_maintenance=Maintenance.TypeMaintenance.TURBO,
                             tag=Maintenance.Tag.JAUNE,
                         )
 
@@ -146,34 +174,10 @@ def turbo_check_view(request, exemplaire_id):
 
                         maintenance.save()
 
-                        turbo = form.save(commit=False)
-
                         turbo.assign_technicien(request.user)
 
-                        km_checkup = form.cleaned_data.get("kilometres_chassis")
-
-                        if km_checkup is not None:
-
-                            km_checkup = int(km_checkup)
-
-                            if km_checkup >= exemplaire.kilometres_chassis:
-
-                                # mise à jour intervention
-                                turbo.kilometres_chassis = km_checkup
-
-                                # mise à jour véhicule
-                                exemplaire.kilometres_chassis = km_checkup
-                                turbo.immatriculation = exemplaire.immatriculation
-                                exemplaire.save(update_fields=["kilometres_chassis"])
-
-                            else:
-                                form.add_error(
-                                    "kilometres_chassis",
-                                    _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
-                                )
-
-                                raise ValueError("Kilométrage invalide")
-
+                        # 🔗 lien final
+                        turbo.maintenance = maintenance
                         turbo.save()
 
                     messages.success(

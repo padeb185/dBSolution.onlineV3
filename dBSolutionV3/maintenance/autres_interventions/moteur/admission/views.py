@@ -54,10 +54,11 @@ class AdmissionListView(ListView):
 @never_cache
 @login_required
 def admission_check_view(request, exemplaire_id):
+
     tenant = request.user.societe
     role = request.user.role
-
     maintenance = None
+    admission = None
 
     with tenant_context(tenant):
 
@@ -99,7 +100,34 @@ def admission_check_view(request, exemplaire_id):
                 try:
                     with transaction.atomic():
 
-                        # 🔴 maintenance unique
+                        km = form.cleaned_data.get("kilometrage_admission")
+
+                        if km is not None:
+                            km = int(km)
+
+                            ancien_km = exemplaire.kilometres_chassis
+
+                            if km < ancien_km:
+                                form.add_error(
+                                    "kilometrage_admission",
+                                    _("Le kilométrage ne peut pas diminuer.")
+                                )
+                                raise ValueError("Kilométrage invalide")
+
+                            exemplaire.kilometres_chassis = km
+                            exemplaire.date_derniere_intervention = timezone.now().date()
+                            exemplaire.update_kilometres()
+                            exemplaire.save()
+
+                        admission = form.save(commit=False)
+
+                        admission.voiture_exemplaire = exemplaire
+                        admission.kilometres_chassis = exemplaire.kilometres_chassis
+                        admission.kilometrage_admission = km
+
+                        admission.assign_technicien(request.user)
+                        admission.save()
+
                         maintenance = Maintenance.objects.create(
                             societe=request.user.societe,
                             voiture_exemplaire=exemplaire,
@@ -107,11 +135,10 @@ def admission_check_view(request, exemplaire_id):
                             date_intervention=timezone.now().date(),
                             kilometres_chassis=exemplaire.kilometres_chassis,
                             kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
-                            type_maintenance=Maintenance.TypeMaintenance.CHECKUP_TRACK,
+                            type_maintenance=Maintenance.TypeMaintenance.ADMISSION,
                             tag=Maintenance.Tag.JAUNE,
                         )
 
-                        # 🔧 affectation rôle
                         if role == "mecanicien":
                             maintenance.mecanicien = request.user
 
@@ -129,32 +156,28 @@ def admission_check_view(request, exemplaire_id):
 
                         maintenance.save()
 
-                        admission = form.save(commit=False)
-
-                        admission.assign_technicien(request.user)
-                        admission.voiture_exemplaire = exemplaire
-                        admission.immatriculation = exemplaire.immatriculation
                         admission.maintenance = maintenance
-
-
-
                         admission.save()
-                    messages.success(request, _("Check admission enregistré avec succès."))
+
+                    messages.success(request, _("Admission enregistrée avec succès."))
 
                 except Exception as e:
-                    messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
+                    messages.error(request, _("Erreur lors de l'enregistrement : %s") % str(e))
 
             else:
                 messages.error(request, _("Le formulaire contient des erreurs."))
                 print(form.errors)
 
+        # =========================
+        # GET
+        # =========================
         else:
             admission = Admission(
                 voiture_exemplaire=exemplaire,
                 kilometres_chassis=exemplaire.kilometres_chassis
             )
-            admission.assign_technicien(request.user)
 
+            admission.assign_technicien(request.user)
 
             form = AdmissionForm(
                 instance=admission,
@@ -162,6 +185,7 @@ def admission_check_view(request, exemplaire_id):
                 exemplaire=exemplaire
             )
 
+        # --- Sections ---
         section_templates = [
             {"title": _("Kilométrage"), "icon": "icons/compteur.png", "filter": "kilo"},
             {"title": _("Filtre à air"), "icon": "icons/filtre-a-air.png", "filter": "filtre_air_pc"},
@@ -181,7 +205,6 @@ def admission_check_view(request, exemplaire_id):
             {"title": _("Technicien"), "icon": "icons/mecanicien.png", "filter": "tech"},
         ]
 
-        # --- Génération des champs par section ---
         sections = [
             {
                 "title": s["title"],
@@ -191,14 +214,15 @@ def admission_check_view(request, exemplaire_id):
             for s in section_templates
         ]
 
-        return render(request, 'admission/admission_check.html', {
-            "exemplaire": exemplaire,
-            "immatriculation": exemplaire.immatriculation,
-            "maintenance": maintenance,
-            "form": form,
-            "sections": sections,
-            "now": timezone.now(),
-        })
+    return render(request, 'admission/admission_check.html', {
+        "exemplaire": exemplaire,
+        "immatriculation": exemplaire.immatriculation,
+        "maintenance": maintenance,
+        "form": form,
+        "sections": sections,
+        "now": timezone.now(),
+    })
+
 
 
 # ------------

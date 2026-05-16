@@ -17,6 +17,7 @@ class TypeAutres(models.TextChoices):
 
 
 
+
 class AutresInterventions(models.Model):
     class Tag(models.TextChoices):
         VERT = "VERT", _("Vert")

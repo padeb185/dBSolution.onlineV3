@@ -389,7 +389,6 @@ def creer_utilisateur(request):
             )
 
             messages.success(request, _("Utilisateur créé avec succès."))
-            return redirect("liste_utilisateurs")
 
         except Exception as e:
             messages.error(request, f"Erreur: {e}")
@@ -405,7 +404,7 @@ def is_admin(user):
     return user.is_staff and user.is_superuser
 
 
-
+@never_cache
 @login_required
 @user_passes_test(is_admin)
 def dashboard_admin(request):

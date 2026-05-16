@@ -102,36 +102,24 @@ class CourroieDistributionForm(forms.ModelForm):
         return cleaned
 
 
-def save(self, commit=True):
+    def save(self, commit=True):
         instance = super().save(commit=False)
 
-        km_cour = self.cleaned_data.get("kilometrage_cour")
+        km = self.cleaned_data.get("kilometrage_cour")
+        voiture = self.exemplaire
 
-        if km_cour not in [None, ""]:
-            km_cour = Decimal(str(km_cour))
+        if km is not None and voiture:
 
-            voiture = instance.voiture_exemplaire
+            if km < voiture.kilometres_chassis:
+                raise forms.ValidationError(
+                    "Le kilométrage ne peut pas diminuer."
+                )
 
-            if voiture:
-                voiture.refresh_from_db(fields=["kilometres_chassis"])
+            instance.kilometrage_cour = km
+            instance.voiture_exemplaire = voiture
 
-                km_voiture = voiture.kilometres_chassis or Decimal("0")
 
-                # 🔒 validation métier
-                if km_cour < km_voiture:
-                    raise ValidationError(
-                        "Le kilométrage ne peut pas être inférieur au véhicule"
-                    )
-
-                # 🔥 SOURCE UNIQUE
-                voiture.kilometres_chassis = km_cour
-                voiture.save(update_fields=["kilometres_chassis"])
-
-            # 🔁 sync alternateur
-            instance.kilometres_chassis = km_cour
-            instance.kilometrage_cour = km_cour
-
-            # -------- MAIN D'ŒUVRE --------
+        # -------- MAIN D'ŒUVRE --------
             heures = self.cleaned_data.get("temps_heures") or 0
             minutes = self.cleaned_data.get("temps_minutes") or 0
 

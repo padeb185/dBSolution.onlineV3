@@ -101,6 +101,34 @@ def courroie_form_view(request, exemplaire_id):
                 try:
                     with transaction.atomic():
 
+                        km = form.cleaned_data.get("kilometrage_cour")
+
+                        if km is not None:
+                            km = int(km)
+
+                            ancien_km = exemplaire.kilometres_chassis
+
+                            if km < ancien_km:
+                                form.add_error(
+                                    "kilometrage_cour",
+                                    _("Le kilométrage ne peut pas diminuer.")
+                                )
+                                raise ValueError("Kilométrage invalide")
+
+                            # 🚗 update voiture (source unique)
+                            exemplaire.kilometres_chassis = km
+                            exemplaire.date_derniere_intervention = timezone.now().date()
+
+                            exemplaire.update_kilometres()
+                            exemplaire.save()
+
+                            # 🔗 checkup UNIQUE
+                            courroie_distribution = form.save(commit=False)
+                            courroie_distribution.assign_technicien(request.user)
+
+                            courroie_distribution.kilometres_chassis = exemplaire.kilometres_chassis
+                            courroie_distribution.kilometrage_cour = km
+
                         # 🔴 maintenance unique
                         maintenance = Maintenance.objects.create(
                             societe=request.user.societe,
@@ -109,7 +137,7 @@ def courroie_form_view(request, exemplaire_id):
                             date_intervention=timezone.now().date(),
                             kilometres_chassis=exemplaire.kilometres_chassis,
                             kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
-                            type_maintenance=Maintenance.TypeMaintenance.CHECKUP_TRACK,
+                            type_maintenance=Maintenance.TypeMaintenance.COURROIE_DISTRI,
                             tag=Maintenance.Tag.JAUNE,
                         )
 
@@ -131,16 +159,13 @@ def courroie_form_view(request, exemplaire_id):
 
                         maintenance.save()
 
-                        courroie_distribution = form.save(commit=False)
-
                         courroie_distribution.assign_technicien(request.user)
-                        courroie_distribution.voiture_exemplaire = exemplaire
-                        courroie_distribution.immatriculation = exemplaire.immatriculation
-                        courroie_distribution.maintenance = maintenance
 
+                        # 🔗 lien final
+                        courroie_distribution.maintenance = maintenance
                         courroie_distribution.save()
 
-                        messages.success(request, _("Check courroie_distribution enregistré avec succès."))
+                        messages.success(request, _("Check de la  courroie de distribution enregistré avec succès."))
 
                 except Exception as e:
                     messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))

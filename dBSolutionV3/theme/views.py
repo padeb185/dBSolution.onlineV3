@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.utils.translation import gettext as _
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
+from django.views.decorators.cache import never_cache
 from utilisateurs.forms import LoginForm
 
 
@@ -72,6 +73,8 @@ def login_totp(request):
     return render(request, "login_totp.html", {"form": form, "message": message})
 
 
+
+@never_cache
 @login_required
 def dashboard(request):
     """Tableau de bord utilisateur"""
@@ -80,6 +83,8 @@ def dashboard(request):
 
     message = _("Bienvenue sur ton tableau de bord")
     return render(request, 'dashboard.html', {'message': message})
+
+
 
 
 @login_required

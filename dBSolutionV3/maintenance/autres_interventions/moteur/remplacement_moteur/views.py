@@ -99,11 +99,33 @@ def remplacement_moteur_form_view(request, exemplaire_id):
                 try:
                     with transaction.atomic():
 
-                        # 🔴 SAVE FORM
-                        remplacement_moteur = form.save(commit=False)
+                        km = form.cleaned_data.get("kilometres_remplacement_moteur")
 
-                        # 🔧 TECH
-                        remplacement_moteur.assign_technicien(request.user)
+                        if km is not None:
+                            km = int(km)
+
+                            ancien_km = exemplaire.kilometres_chassis
+
+                            if km < ancien_km:
+                                form.add_error(
+                                    "kilometres_remplacement_moteur",
+                                    _("Le kilométrage ne peut pas diminuer.")
+                                )
+                                raise ValueError("Kilométrage invalide")
+
+                            # 🚗 update voiture (source unique)
+                            exemplaire.kilometres_chassis = km
+                            exemplaire.date_derniere_intervention = timezone.now().date()
+
+                            exemplaire.update_kilometres()
+                            exemplaire.save()
+
+                            # 🔗 checkup UNIQUE
+                            remplacement_moteur = form.save(commit=False)
+                            remplacement_moteur.assign_technicien(request.user)
+
+                            remplacement_moteur.kilometres_chassis = exemplaire.kilometres_chassis
+                            remplacement_moteur.kilometres_remplacement_moteur = km
 
                         # 🔧 MAINTENANCE
                         maintenance = Maintenance.objects.create(
@@ -113,7 +135,7 @@ def remplacement_moteur_form_view(request, exemplaire_id):
                             date_intervention=timezone.now().date(),
                             kilometres_chassis=exemplaire.kilometres_chassis,
                             kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
-                            type_maintenance=Maintenance.TypeMaintenance.CHECKUP_TRACK,
+                            type_maintenance=Maintenance.TypeMaintenance.REMPLACEMENT_MOTEUR,
                             tag=Maintenance.Tag.JAUNE,
                         )
 
@@ -131,31 +153,10 @@ def remplacement_moteur_form_view(request, exemplaire_id):
 
                         maintenance.save()
 
+                        remplacement_moteur.assign_technicien(request.user)
+
+                        # 🔗 lien final
                         remplacement_moteur.maintenance = maintenance
-
-                        remplacement_moteur.immatriculation = exemplaire.immatriculation
-
-                        # 🔥 KM CHECK SAFE
-                        km = form.cleaned_data.get("kilometres_chassis")
-
-                        if km is not None:
-                            km = int(km)
-
-                            if km < exemplaire.kilometres_chassis:
-                                form.add_error("kilometres_chassis", _("Kilométrage invalide"))
-                                raise ValidationError("KM invalide")
-
-                            # 🔥 update voiture
-                            exemplaire.kilometres_chassis = km
-
-                            # 🔥 IMPORTANT: sync remplacement moteur -> voiture
-                            exemplaire.kilometres_remplacement_moteur = km
-
-                            exemplaire.save(update_fields=["kilometres_chassis", "kilometres_remplacement_moteur"])
-
-                            # 🔥 update objet remplacement
-                            remplacement_moteur.kilometres_chassis = km
-
                         remplacement_moteur.save()
 
                         messages.success(

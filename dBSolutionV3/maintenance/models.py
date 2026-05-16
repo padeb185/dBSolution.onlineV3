@@ -25,6 +25,12 @@ class Maintenance(models.Model):
         SILENT_BLOC = "silent_bloc", _("Silent bloc")
         BOITE = "BOITE", _("Boite")
         BOITE_AUTO = "BOITE_AUTO", _("Boite automatique")
+        ADMISSION = "ADMISSION", _("Admission")
+        TURBO = "TURBO", _("Turbo")
+        CARROSSERIE_INTERNE = "CARROSSERIE_INTERNE", _("Carrosserie interne")
+        REMPLACEMENT_MOTEUR = "REMPLACEMENT_MOTEUR", _("Remplacement moteur")
+        COURROIE_DISTRI = "COURROIE_DISTRI", _("Courroie de distribution")
+
 
 
     class Tag(models.TextChoices):

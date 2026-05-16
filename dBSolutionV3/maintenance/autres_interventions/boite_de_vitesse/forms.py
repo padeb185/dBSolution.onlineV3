@@ -77,31 +77,19 @@ class ControleBoiteForm(forms.ModelForm):
 
     def save(self, commit=True):
         instance = super().save(commit=False)
-        voiture = instance.voiture_exemplaire or self.exemplaire  # fallback si pas encore lié
 
-        # Récupération du kilométrage check-up depuis le formulaire
-        kilometrage_controle_boite = self.cleaned_data.get("kilometres_chassis")
+        km = self.cleaned_data.get("kilometrage_controle_boite")
+        voiture = self.exemplaire
 
-        if voiture and kilometrage_controle_boite is not None:
-            # 🔒 Sécurité : ne jamais diminuer le kilométrage
-            if kilometrage_controle_boite < voiture.kilometres_chassis:
+        if km is not None and voiture:
+
+            if km < voiture.kilometres_chassis:
                 raise forms.ValidationError(
-                    f"Le kilométrage du check-up de la boite ({kilometrage_controle_boite}) "
-                    f"ne peut pas être inférieur au kilométrage actuel de la voiture ({voiture.kilometres_chassis})."
+                    "Le kilométrage ne peut pas diminuer."
                 )
 
-            # ✅ Mettre à jour la voiture si le kilométrage a augmenté
-            if kilometrage_controle_boite > voiture.kilometres_chassis:
-                voiture.kilometres_chassis = kilometrage_controle_boite
-                voiture.save(update_fields=["kilometres_chassis"])
-
-            # ✅ Mettre à jour le contrôle
-            instance.kilometres_chassis = kilometrage_controle_boite
-
-            # 🔗 Lier la voiture si ce n'était pas déjà fait
-            if not instance.voiture_exemplaire:
-                instance.voiture_exemplaire = voiture
-
+            instance.kilometrage_controle_boite = km
+            instance.voiture_exemplaire = voiture
 
             # -------- MAIN D'ŒUVRE --------
             heures = self.cleaned_data.get("temps_heures") or 0

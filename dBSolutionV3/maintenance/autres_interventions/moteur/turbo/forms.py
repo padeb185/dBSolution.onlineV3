@@ -80,39 +80,23 @@ class TurboForm(forms.ModelForm):
                 _("Les minutes ne peuvent pas dépasser 59.")
             )
 
-        # Véhicule / kilométrage
-        voiture = self.exemplaire or self.instance.voiture_exemplaire
-        km = cleaned_data.get("kilometres_chassis")
-
-        if voiture and km is not None:
-            if km < voiture.kilometres_chassis:
-                self.add_error(
-                    "kilometres_chassis",
-                    _(
-                        f"Le kilométrage du turbo ({km}) "
-                        f"ne peut pas être inférieur au kilométrage du véhicule "
-                        f"({voiture.kilometres_chassis})."
-                    )
-                )
-
         return cleaned_data
 
     def save(self, commit=True):
         instance = super().save(commit=False)
 
-        voiture = self.exemplaire or instance.voiture_exemplaire
-        km = self.cleaned_data.get("kilometres_chassis")
+        km = self.cleaned_data.get("kilometres_turbo")
+        voiture = self.exemplaire
 
-        if voiture and km is not None:
-            # mise à jour voiture uniquement si augmentation
-            if km > voiture.kilometres_chassis:
-                voiture.kilometres_chassis = km
-                voiture.save(update_fields=["kilometres_chassis"])
+        if km is not None and voiture:
 
-            instance.kilometres_chassis = km
+            if km < voiture.kilometres_chassis:
+                raise forms.ValidationError(
+                    "Le kilométrage ne peut pas diminuer."
+                )
 
-            if not instance.voiture_exemplaire:
-                instance.voiture_exemplaire = voiture
+            instance.kilometres_turbo = km
+            instance.voiture_exemplaire = voiture
 
         # -------- MAIN D'ŒUVRE --------
         heures = self.cleaned_data.get("temps_heures") or 0

@@ -96,6 +96,34 @@ def bte_auto_check_view(request, exemplaire_id):
                 try:
                     with transaction.atomic():
 
+                        km = form.cleaned_data.get("kilometrage_controle_brake")
+
+                        if km is not None:
+                            km = int(km)
+
+                            ancien_km = exemplaire.kilometres_chassis
+
+                            if km < ancien_km:
+                                form.add_error(
+                                    "kilometrage_controle_boite_auto",
+                                    _("Le kilométrage ne peut pas diminuer.")
+                                )
+                                raise ValueError("Kilométrage invalide")
+
+                            # 🚗 update voiture (source unique)
+                            exemplaire.kilometres_chassis = km
+                            exemplaire.date_derniere_intervention = timezone.now().date()
+
+                            exemplaire.update_kilometres()
+                            exemplaire.save()
+
+                            # 🔗 checkup UNIQUE
+                            bte_auto = form.save(commit=False)
+                            bte_auto.assign_technicien(request.user)
+
+                            bte_auto.kilometres_chassis = exemplaire.kilometres_chassis
+                            bte_auto.kilometrage_controle_boite_auto = km
+
                         # 🔴 maintenance unique
                         maintenance = Maintenance.objects.create(
                             societe=request.user.societe,
@@ -125,35 +153,10 @@ def bte_auto_check_view(request, exemplaire_id):
                             maintenance.direction = request.user
 
                         maintenance.save()
-                        bte_auto = form.save(commit=False)
-
-
                         bte_auto.assign_technicien(request.user)
 
-                        # Gestion du kilométrage
-                        km_checkup = form.cleaned_data.get("kilometres_chassis")
-
-                        if km_checkup is not None:
-
-                            km_checkup = int(km_checkup)
-
-                            if km_checkup >= exemplaire.kilometres_chassis:
-
-                                # mise à jour intervention
-                                bte_auto.kilometres_chassis = km_checkup
-
-                                # mise à jour véhicule
-                                exemplaire.kilometres_chassis = km_checkup
-                                exemplaire.save(update_fields=["kilometres_chassis"])
-
-                            else:
-                                form.add_error(
-                                    "kilometres_chassis",
-                                    _("Le kilométrage ne peut pas être inférieur au kilométrage actuel.")
-                                )
-
-                                raise ValueError("Kilométrage invalide")
-
+                        # 🔗 lien final
+                        bte_auto.maintenance = maintenance
                         bte_auto.save()
 
                     messages.success(request, _("Contrôle boite automatique enregistré avec succès."))

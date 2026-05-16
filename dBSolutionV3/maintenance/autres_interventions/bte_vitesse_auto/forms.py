@@ -1,5 +1,6 @@
 from decimal import Decimal
 from django import forms
+from django.core.exceptions import ValidationError
 from django.utils import timezone
 from maindoeuvre.models import MainDoeuvre
 from .models import ControleBteVitesseAuto
@@ -62,32 +63,32 @@ class ControleBteVitesseAutoForm(forms.ModelForm):
                 self.fields["tech_societe"].initial = self.user.societe
                 self.fields["tech_societe"].disabled = True
 
+    def clean(self):
+        cleaned = super().clean()
+
+        h = cleaned.get("temps_heures") or 0
+        m = cleaned.get("temps_minutes") or 0
+
+        if m >= 60:
+            raise ValidationError("Les minutes ne peuvent pas dépasser 59.")
+
+        return cleaned
+
     def save(self, commit=True):
         instance = super().save(commit=False)
-        voiture = instance.voiture_exemplaire or self.exemplaire  # fallback si pas encore lié
 
-        # Récupération du kilométrage check-up depuis le formulaire
-        kilometrage_controle_boite_auto = self.cleaned_data.get("kilometres_chassis")
+        km = self.cleaned_data.get("kilometrage_controle_boite_auto")
+        voiture = self.exemplaire
 
-        if voiture and kilometrage_controle_boite_auto is not None:
-            # 🔒 Sécurité : ne jamais diminuer le kilométrage
-            if kilometrage_controle_boite_auto < voiture.kilometres_chassis:
+        if km is not None and voiture:
+
+            if km < voiture.kilometres_chassis:
                 raise forms.ValidationError(
-                    f"Le kilométrage du check-up de la boite ({kilometrage_controle_boite_auto}) "
-                    f"ne peut pas être inférieur au kilométrage actuel de la voiture ({voiture.kilometres_chassis})."
+                    "Le kilométrage ne peut pas diminuer."
                 )
 
-            # ✅ Mettre à jour la voiture si le kilométrage a augmenté
-            if kilometrage_controle_boite_auto > voiture.kilometres_chassis:
-                voiture.kilometres_chassis = kilometrage_controle_boite_auto
-                voiture.save(update_fields=["kilometres_chassis"])
-
-            # ✅ Mettre à jour le contrôle
-            instance.kilometres_chassis = kilometrage_controle_boite_auto
-
-            # 🔗 Lier la voiture si ce n'était pas déjà fait
-            if not instance.voiture_exemplaire:
-                instance.voiture_exemplaire = voiture
+            instance.kilometrage_controle_boite_auto = km
+            instance.voiture_exemplaire = voiture
 
 
             # -------- MAIN D'ŒUVRE --------

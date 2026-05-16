@@ -75,70 +75,33 @@ class AdmissionForm(forms.ModelForm):
 
 
     def clean(self):
-        cleaned = super().clean()
+        def clean(self):
+            cleaned = super().clean()
 
-        # -------- Temps --------
-        heures = cleaned.get("temps_heures") or 0
-        minutes = cleaned.get("temps_minutes") or 0
+            h = cleaned.get("temps_heures") or 0
+            m = cleaned.get("temps_minutes") or 0
 
-        if minutes >= 60:
-            self.add_error(
-                "temps_minutes",
-                _("Les minutes ne peuvent pas dépasser 59.")
-            )
+            if m >= 60:
+                raise ValidationError("Les minutes ne peuvent pas dépasser 59.")
 
-        km_admission = cleaned.get("kilometrage_admission")
-        voiture = self.exemplaire or (self.instance.voiture_exemplaire if self.instance else None)
-
-        if not voiture or km_admission in [None, ""]:
             return cleaned
 
-        try:
-            km_admission = Decimal(str(km_admission))
-        except:
-            raise ValidationError({
-                "kilometrage_admission": _("Kilométrage invalide")
-            })
-
-        km_voiture = voiture.kilometres_chassis or Decimal("0")
-
-        if km_admission < km_voiture:
-            raise ValidationError({
-                "kilometrage_admission": _(
-                    "Le kilométrage doit être ≥ %(km)s"
-                ) % {"km": km_voiture}
-            })
-
-        return cleaned
 
     def save(self, commit=True):
         instance = super().save(commit=False)
 
-        km_admission = self.cleaned_data.get("kilometrage_admission")
+        km = self.cleaned_data.get("kilometrage_admission")
+        voiture = self.exemplaire
 
-        if km_admission not in [None, ""]:
-            km_admission = Decimal(str(km_admission))
+        if km is not None and voiture:
 
-            voiture = instance.voiture_exemplaire
+            if km < voiture.kilometres_chassis:
+                raise forms.ValidationError(
+                    "Le kilométrage ne peut pas diminuer."
+                )
 
-            if voiture:
-                voiture.refresh_from_db(fields=["kilometres_chassis"])
-
-                km_voiture = voiture.kilometres_chassis or Decimal("0")
-
-                # 🔒 validation métier
-                if km_admission < km_voiture:
-                    raise ValidationError(
-                        "Le kilométrage ne peut pas être inférieur au véhicule"
-                    )
-
-                # 🔥 SOURCE UNIQUE
-                voiture.kilometres_chassis = km_admission
-                voiture.save(update_fields=["kilometres_chassis"])
-
-            # 🔁 sync alternateur
-            instance.kilometres_chassis = km_admission
-            instance.kilometrage_admission = km_admission
+            instance.kilometrage_admission = km
+            instance.voiture_exemplaire = voiture
 
         # ---------------- MAIN D’ŒUVRE ----------------
         heures = self.cleaned_data.get("temps_heures") or 0

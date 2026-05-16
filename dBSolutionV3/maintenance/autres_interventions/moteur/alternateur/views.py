@@ -16,8 +16,6 @@ from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 from weasyprint import HTML
 from .forms import AlternateurForm
-from django.views.generic import DetailView
-from decimal import Decimal
 from .models import Alternateur
 
 
@@ -104,6 +102,34 @@ def alternateur_check_view(request, exemplaire_id):
                 try:
                     with transaction.atomic():
 
+                        km = form.cleaned_data.get("kilometrage_alte")
+
+                        if km is not None:
+                            km = int(km)
+
+                            ancien_km = exemplaire.kilometres_chassis
+
+                            if km < ancien_km:
+                                form.add_error(
+                                    "kilometrage_alte",
+                                    _("Le kilométrage ne peut pas diminuer.")
+                                )
+                                raise ValueError("Kilométrage invalide")
+
+                            # 🚗 update voiture (source unique)
+                            exemplaire.kilometres_chassis = km
+                            exemplaire.date_derniere_intervention = timezone.now().date()
+
+                            exemplaire.update_kilometres()
+                            exemplaire.save()
+
+                            # 🔗 checkup UNIQUE
+                            alternateur = form.save(commit=False)
+                            alternateur.assign_technicien(request.user)
+
+                            alternateur.kilometres_chassis = exemplaire.kilometres_chassis
+                            alternateur.kilometrage_checkup_track = km
+
                         maintenance = Maintenance.objects.create(
                             societe=request.user.societe,
                             voiture_exemplaire=exemplaire,
@@ -129,13 +155,10 @@ def alternateur_check_view(request, exemplaire_id):
 
                         maintenance.save()
 
-                        alternateur = form.save(commit=False)
-
                         alternateur.assign_technicien(request.user)
-                        alternateur.voiture_exemplaire = exemplaire
-                        alternateur.immatriculation = exemplaire.immatriculation
-                        alternateur.maintenance = maintenance
 
+                        # 🔗 lien final
+                        alternateur.maintenance = maintenance
                         alternateur.save()
 
                     messages.success(request, _("Check alternateur enregistré avec succès."))

@@ -1,5 +1,6 @@
 from datetime import timezone
 from django import forms
+from django.core.exceptions import ValidationError
 from maindoeuvre.models import MainDoeuvre
 from .models import GeometrieVoiture
 from django.utils.translation import gettext_lazy as _
@@ -51,33 +52,32 @@ class GeometrieVoitureForm(forms.ModelForm):
                 self.fields["tech_societe"].initial = self.user.societe
                 self.fields["tech_societe"].disabled = True
 
+    def clean(self):
+        cleaned = super().clean()
+
+        h = cleaned.get("temps_heures") or 0
+        m = cleaned.get("temps_minutes") or 0
+
+        if m >= 60:
+            raise ValidationError("Les minutes ne peuvent pas dépasser 59.")
+
+        return cleaned
+
     def save(self, commit=True):
         instance = super().save(commit=False)
-        voiture = instance.voiture_exemplaire or self.exemplaire  # fallback si pas encore lié
 
-        # Récupération du kilométrage check-up depuis le formulaire
-        kilometrage_geometrie = self.cleaned_data.get("kilometres_chassis")
+        km = self.cleaned_data.get("kilometrage_geometrie")
+        voiture = self.exemplaire
 
-        if voiture and kilometrage_geometrie is not None:
-            # 🔒 Sécurité : ne jamais diminuer le kilométrage
-            if kilometrage_geometrie < voiture.kilometres_chassis:
+        if km is not None and voiture:
+
+            if km < voiture.kilometres_chassis:
                 raise forms.ValidationError(
-                    f"Le kilométrage de la géométrie ({kilometrage_geometrie}) "
-                    f"ne peut pas être inférieur au kilométrage actuel de la voiture ({voiture.kilometres_chassis})."
+                    "Le kilométrage ne peut pas diminuer."
                 )
 
-            # ✅ Mettre à jour la voiture si le kilométrage a augmenté
-            if kilometrage_geometrie > voiture.kilometres_chassis:
-                voiture.kilometres_chassis = kilometrage_geometrie
-                voiture.save(update_fields=["kilometres_chassis"])
-
-            # ✅ Mettre à jour le contrôle
-            instance.kilometres_chassis = kilometrage_geometrie
-
-            # 🔗 Lier la voiture si ce n'était pas déjà fait
-            if not instance.voiture_exemplaire:
-                instance.voiture_exemplaire = voiture
-
+            instance.kilometrage_geometrie = km
+            instance.voiture_exemplaire = voiture
 
             # -------- MAIN D'ŒUVRE --------
             heures = self.cleaned_data.get("temps_heures") or 0

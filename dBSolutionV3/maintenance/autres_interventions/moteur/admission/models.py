@@ -29,7 +29,9 @@ class Admission(TechnicienMixin, models.Model):
         "voiture_exemplaire.VoitureExemplaire",
         on_delete=models.CASCADE,
         related_name="admission",
-        verbose_name="Kilomètres_checkup"
+        verbose_name="Kilomètres_admission",
+        null=True,
+        blank=True
     )
 
     immatriculation = models.CharField(
@@ -199,17 +201,19 @@ class Admission(TechnicienMixin, models.Model):
         verbose_name_plural = _("Admissions")
 
     def __str__(self):
-        return f"Admission moteur - {self.voiture_exemplaire}"
-
+        voiture = getattr(self, "voiture_exemplaire", None)
+        return f"Admission moteur - {voiture or 'Sans véhicule'}"
 
     def clean(self):
         super().clean()
-        if self.voiture_exemplaire and self.kilometrage_admission is not None:
-            if self.kilometrage_admission < self.voiture_exemplaire.kilometres_chassis:
+
+        voiture = getattr(self, "voiture_exemplaire", None)
+
+        if voiture and self.kilometrage_admission is not None:
+            if self.kilometrage_admission < voiture.kilometres_chassis:
                 raise ValidationError({
                     'kilometrage_admission': _(
-                        f"Le kilométrage du check-up ({self.kilometrage_conytrole_boite}) "
-                        f"ne peut pas être inférieur au kilométrage actuel de la voiture ({self.voiture_exemplaire.kilometres_chassis})."
+                        "Le kilométrage ne peut pas être inférieur au kilométrage actuel."
                     )
                 })
 

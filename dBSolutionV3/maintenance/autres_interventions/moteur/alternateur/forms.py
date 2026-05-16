@@ -119,31 +119,18 @@ class AlternateurForm(forms.ModelForm):
     def save(self, commit=True):
         instance = super().save(commit=False)
 
-        km_alte = self.cleaned_data.get("kilometrage_alte")
+        km = self.cleaned_data.get("kilometrage_alte")
+        voiture = self.exemplaire
 
-        if km_alte not in [None, ""]:
-            km_alte = Decimal(str(km_alte))
+        if km is not None and voiture:
 
-            voiture = instance.voiture_exemplaire
+            if km < voiture.kilometres_chassis:
+                raise forms.ValidationError(
+                    "Le kilométrage ne peut pas diminuer."
+                )
 
-            if voiture:
-                voiture.refresh_from_db(fields=["kilometres_chassis"])
-
-                km_voiture = voiture.kilometres_chassis or Decimal("0")
-
-                # 🔒 validation métier
-                if km_alte < km_voiture:
-                    raise ValidationError(
-                        "Le kilométrage ne peut pas être inférieur au véhicule"
-                    )
-
-                # 🔥 SOURCE UNIQUE
-                voiture.kilometres_chassis = km_alte
-                voiture.save(update_fields=["kilometres_chassis"])
-
-            # 🔁 sync alternateur
-            instance.kilometres_chassis = km_alte
-            instance.kilometrage_alte = km_alte
+            instance.kilometrage_alte = km
+            instance.voiture_exemplaire = voiture
 
         # ---------------- MAIN D’ŒUVRE ----------------
         heures = self.cleaned_data.get("temps_heures") or 0
