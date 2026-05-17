@@ -102,9 +102,10 @@ def controle_total_view(request, exemplaire_id):
                 try:
                     with transaction.atomic():
 
-                        km = form.cleaned_data.get("kilometrage_net_int")
+                        km = form.cleaned_data.get("kilometrage_checkup")
 
                         if km is not None:
+
                             # validation
                             if km < exemplaire.kilometres_chassis:
                                 raise ValueError("KM invalide")
@@ -112,23 +113,7 @@ def controle_total_view(request, exemplaire_id):
                             exemplaire.kilometres_chassis = km
                             exemplaire.save()
 
-                        maintenance = Maintenance.objects.create(...)
-
-                        nettoyage_int = form.save(commit=False)
-
-                        nettoyage_int.voiture_exemplaire = exemplaire
-                        nettoyage_int.maintenance = maintenance
-
-                        km = form.cleaned_data.get("kilometrage_net_int")
-
-                        nettoyage_int.kilometrage_net_int = km
-                        nettoyage_int.kilometres_chassis = exemplaire.kilometres_chassis
-
-                        nettoyage_int.assign_technicien(request.user)
-
-                        nettoyage_int.save()
-
-                        # 🔴 maintenance AVANT save checkup
+                        # 🔴 création maintenance
                         maintenance = Maintenance.objects.create(
                             societe=request.user.societe,
                             voiture_exemplaire=exemplaire,
@@ -140,31 +125,55 @@ def controle_total_view(request, exemplaire_id):
                             tag=Maintenance.Tag.JAUNE,
                         )
 
-                        # rôle
+                        # 🔴 rôle
                         if role == "mecanicien":
                             maintenance.mecanicien = Mecanicien.objects.get(id=request.user.id)
+
                         elif role == "chef_mecanicien":
                             maintenance.chef_mecanicien = ChefMecanicien.objects.get(id=request.user.id)
+
                         elif role == "apprenti":
                             maintenance.apprentis = Apprenti.objects.get(id=request.user.id)
+
                         elif role == "magasinier":
                             maintenance.magasinier = Magasinier.objects.get(id=request.user.id)
+
                         elif role == "direction":
                             maintenance.direction = Direction.objects.get(id=request.user.id)
 
                         maintenance.save()
 
-                        # 🔗 lien final
+                        # 🔴 checkup
+                        checkup = form.save(commit=False)
+
+                        checkup.voiture_exemplaire = exemplaire
                         checkup.maintenance = maintenance
+
+                        checkup.kilometrage_checkup = km
+                        checkup.kilometres_chassis = exemplaire.kilometres_chassis
+
+                        # 👨‍🔧 technicien
+                        checkup.assign_technicien(request.user)
+
+                        # 👨‍🔧 dernier technicien maintenance
+                        checkup.tech_last_maintained_by = request.user
+
                         checkup.save()
 
-                    messages.success(request, _("Checkup enregistré avec succès."))
+                    messages.success(
+                        request,
+                        _("Checkup enregistré avec succès.")
+                    )
 
                 except Exception as e:
                     messages.error(request, f"Erreur : {e}")
+
             else:
                 print("FORM INVALID:", form.errors)
-                messages.error(request, _("Le formulaire contient des erreurs."))
+                messages.error(
+                    request,
+                    _("Le formulaire contient des erreurs.")
+                )
         # =========================
         # GET
         # =========================

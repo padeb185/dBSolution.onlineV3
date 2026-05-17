@@ -187,7 +187,8 @@ def carrosserie_interne_create_view(request, exemplaire_id):
                             carrosserie_interne.assign_technicien(request.user)
 
                             carrosserie_interne.kilometres_chassis = exemplaire.kilometres_chassis
-                            carrosserie_interne.kilometrage_interventionk = km
+                            carrosserie_interne.kilometrage_intervention = km
+                            carrosserie_interne.tech_last_maintained_by = request.user
 
                         # 🔴 Création maintenance UNIQUE
                         maintenance = Maintenance.objects.create(

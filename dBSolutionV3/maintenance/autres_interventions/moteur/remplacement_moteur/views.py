@@ -145,15 +145,14 @@ def remplacement_moteur_form_view(request, exemplaire_id):
                                 form.add_error("kilometres_chassis", _("Kilométrage invalide"))
                                 raise ValidationError("KM invalide")
 
-                            # 🔥 update voiture
                             exemplaire.kilometres_chassis = km
 
-                            # 🔥 IMPORTANT: sync remplacement moteur -> voiture
+
                             exemplaire.kilometres_remplacement_moteur = km
 
                             exemplaire.save(update_fields=["kilometres_chassis", "kilometres_remplacement_moteur"])
 
-                            # 🔥 update objet remplacement
+                            remplacement_moteur.tech_last_maintained_by = request.user
                             remplacement_moteur.kilometres_chassis = km
 
                         remplacement_moteur.save()

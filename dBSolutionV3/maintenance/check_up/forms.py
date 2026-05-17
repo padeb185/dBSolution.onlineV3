@@ -23,6 +23,7 @@ class CheckupForm(forms.ModelForm):
                 'rows': 4,
                 'placeholder': _("Ajoutez des remarques ici...")
             }),
+            "tech_last_maintained_by": forms.Select(attrs={"disabled": "disabled"}),
 
         }
 
