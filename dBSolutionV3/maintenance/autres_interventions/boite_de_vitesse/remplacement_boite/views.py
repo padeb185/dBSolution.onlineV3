@@ -52,7 +52,6 @@ class RemplacementBoiteListView(ListView):
 
 
 
-
 @never_cache
 @login_required
 def remplacement_boite_form_view(request, exemplaire_id):
@@ -60,9 +59,9 @@ def remplacement_boite_form_view(request, exemplaire_id):
     tenant = request.user.societe
     role = request.user.role
 
-    maintenance = None  # 👈 important pour éviter UnboundLocalError
+    remplacement_boite = None
 
-    with (tenant_context(tenant)):
+    with tenant_context(tenant):
 
         # 🔎 Récupération exemplaire
         exemplaire = get_object_or_404(
@@ -104,6 +103,7 @@ def remplacement_boite_form_view(request, exemplaire_id):
 
                         km = form.cleaned_data.get("kilometres_remplacement_boite")
 
+                        # 🚗 update voiture (source unique)
                         if km is not None:
                             km = int(km)
 
@@ -116,19 +116,11 @@ def remplacement_boite_form_view(request, exemplaire_id):
                                 )
                                 raise ValueError("Kilométrage invalide")
 
-                            # 🚗 update voiture (source unique)
                             exemplaire.kilometres_chassis = km
                             exemplaire.date_derniere_intervention = timezone.now().date()
 
                             exemplaire.update_kilometres()
                             exemplaire.save()
-
-                            # 🔗 checkup UNIQUE
-                            remplacement_boite = form.save(commit=False)
-                            remplacement_boite.assign_technicien(request.user)
-
-                            remplacement_boite.kilometres_chassis = exemplaire.kilometres_chassis
-                            remplacement_boite.kilometres_remplacement_boite = km
 
                         # 🔴 maintenance unique
                         maintenance = Maintenance.objects.create(
@@ -159,30 +151,26 @@ def remplacement_boite_form_view(request, exemplaire_id):
                             maintenance.direction = request.user
 
                         maintenance.save()
+
+                        # 🔗 checkup UNIQUE (UNE SEULE FOIS)
+                        remplacement_boite = form.save(commit=False)
                         remplacement_boite.assign_technicien(request.user)
 
-                        # 🔗 lien final
+                        remplacement_boite.kilometres_chassis = exemplaire.kilometres_chassis
+                        remplacement_boite.kilometres_remplacement_boite = km
                         remplacement_boite.maintenance = maintenance
-                        remplacement_boite.save()
+                        remplacement_boite.voiture_exemplaire = exemplaire
 
                         is_new = remplacement_boite.pk is None
-
-                        remplacement_boite = form.save(commit=False)
-
-                        remplacement_boite.assign_technicien(request.user)
 
                         remplacement_boite.save()
 
                         # ✅ incrément uniquement à la création
                         if is_new:
                             exemplaire.nombre_remplacements_boites = (
-                                    F("nombre_remplacements_boites") + 1
+                                F("nombre_remplacements_boites") + 1
                             )
-
-                            exemplaire.save(
-                                update_fields=["nombre_remplacements_boites"]
-                            )
-
+                            exemplaire.save(update_fields=["nombre_remplacements_boites"])
                             exemplaire.refresh_from_db()
 
                     messages.success(
@@ -190,12 +178,18 @@ def remplacement_boite_form_view(request, exemplaire_id):
                         _("Remplacement de la boite enregistré avec succès")
                     )
 
+                    return redirect(request.path)
+
                 except Exception as e:
                     messages.error(request, str(e))
+
             else:
                 print("FORM INVALID:", form.errors)
                 messages.error(request, _("Formulaire invalide"))
 
+        # =========================
+        # GET
+        # =========================
         else:
             remplacement_boite = RemplacementBoite(
                 voiture_exemplaire=exemplaire,
@@ -225,7 +219,6 @@ def remplacement_boite_form_view(request, exemplaire_id):
                 "icon": "icons/niveaux.png",
                 "fields": [form[f.name] for f in form if "boite_niveau" in f.name],
             },
-
             {
                 "title": _("Remise à Zéro des kilomètres de la boite"),
                 "icon": "icons/km.png",

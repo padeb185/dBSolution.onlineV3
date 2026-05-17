@@ -51,9 +51,8 @@ class ControleJeuxPieces(TechnicienMixin, models.Model):
         on_delete=models.CASCADE,
         related_name="jeux_pieces",
         verbose_name=_("Maintenance"),
-        null=True,  # autorisé vide à la création
-        blank=True,
-        default=1
+        null=True,
+        blank=True
     )
 
     voiture_exemplaire = models.ForeignKey(
@@ -216,7 +215,7 @@ class ControleJeuxPieces(TechnicienMixin, models.Model):
                 })
 
     def save(self, *args, **kwargs):
-        # Si checkup > km actuel, mettre à jour la voiture
+
         if self.voiture_exemplaire and self.kilometrage_jeu:
             if self.kilometrage_jeu > self.voiture_exemplaire.kilometres_chassis:
                 self.voiture_exemplaire.kilometres_chassis = self.kilometrage_jeu

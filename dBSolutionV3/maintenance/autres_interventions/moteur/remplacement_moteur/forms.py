@@ -112,15 +112,13 @@ class RemplacementMoteurForm(forms.ModelForm):
                 "Cochez pour remplacer le moteur (remise à zéro automatique du kilométrage)."
             )
 
-    def clean_kilometrage_remplacement_moteur(self):
-        km = self.cleaned_data.get("kilometrage_remplacement_moteur")
+    def clean_kilometres_remplacement_moteur(self):
+        km = self.cleaned_data.get("kilometres_remplacement_moteur")
         exemplaire = self.exemplaire
 
         if km is not None and exemplaire:
             if km < exemplaire.kilometres_chassis:
-                raise ValidationError(
-                    "Le kilométrage ne peut pas diminuer."
-                )
+                raise ValidationError("Le kilométrage ne peut pas diminuer.")
 
         return km
 
@@ -131,19 +129,20 @@ class RemplacementMoteurForm(forms.ModelForm):
         cleaned_data = super().clean()
 
         voiture = cleaned_data.get("voiture_exemplaire") or self.exemplaire
-        km_moteur = cleaned_data.get("kilometres_moteur")
+        km_moteur = cleaned_data.get("kilometres_remplacement_moteur")
 
         if voiture and km_moteur is not None:
-
             km_voiture = voiture.kilometres_chassis or 0
 
             if km_moteur > km_voiture:
                 self.add_error(
-                    "kilometres_moteur",
+                    "kilometres_remplacement_moteur",
                     _("Le kilométrage moteur ne peut pas dépasser celui du véhicule.")
                 )
 
         return cleaned_data
+
+
     # =========================================================
     # SAUVEGARDE MÉTIER
     # =========================================================
@@ -156,17 +155,21 @@ class RemplacementMoteurForm(forms.ModelForm):
         if km is not None and voiture:
 
             if km < voiture.kilometres_chassis:
-                raise forms.ValidationError(
-                    "Le kilométrage ne peut pas diminuer."
-                )
+                raise ValidationError("Le kilométrage ne peut pas diminuer.")
 
             instance.kilometres_remplacement_moteur = km
             instance.voiture_exemplaire = voiture
 
+            # 🔥 IMPORTANT : synchronisation moteur
+            voiture.kilometres_remplacement_moteur = km
+            voiture.kilometres_moteur = max(0, voiture.kilometres_chassis - km)
+
+            voiture.update_kilometres()
+            voiture.save(update_fields=["kilometres_moteur", "kilometres_remplacement_moteur", "kilometres_chassis"])
+
         # MAIN D’ŒUVRE
         heures = self.cleaned_data.get("temps_heures") or 0
         minutes = self.cleaned_data.get("temps_minutes") or 0
-
         total_minutes = heures * 60 + minutes
 
         main = instance.main_oeuvre

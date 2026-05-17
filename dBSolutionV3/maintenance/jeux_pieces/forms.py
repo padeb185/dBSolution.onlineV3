@@ -62,6 +62,8 @@ class ControleJeuxPiecesForm(forms.ModelForm):
                 self.fields["tech_societe"].initial = self.user.societe
                 self.fields["tech_societe"].disabled = True
 
+
+
     def clean_kilometrage_jeu(self):
         km = self.cleaned_data.get("kilometrage_jeu")
         exemplaire = self.exemplaire
@@ -85,15 +87,18 @@ class ControleJeuxPiecesForm(forms.ModelForm):
 
         return cleaned
 
+
     def save(self, commit=True):
         instance = super().save(commit=False)
 
-        km = self.cleaned_data.get("kilometrage_jeu")
-        voiture = self.exemplaire
-
-        if km is not None and voiture:
-            instance.kilometrage_jeu = km
+        voiture = getattr(self, "exemplaire", None)
+        if voiture:
             instance.voiture_exemplaire = voiture
+
+        km = self.cleaned_data.get("kilometrage_jeu")
+
+        if km is not None:
+            instance.kilometrage_jeu = km
 
             # -------- MAIN D'ŒUVRE --------
             heures = self.cleaned_data.get("temps_heures") or 0

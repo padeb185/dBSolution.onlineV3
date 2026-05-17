@@ -46,7 +46,6 @@ class BteVitesseAutoListView(ListView):
             context["exemplaire"] = VoitureExemplaire.objects.get(id=exemplaire_id)
         return context
 
-
 @never_cache
 @login_required
 def bte_auto_check_view(request, exemplaire_id):
@@ -54,7 +53,8 @@ def bte_auto_check_view(request, exemplaire_id):
     tenant = request.user.societe
     role = request.user.role
 
-    maintenance = None  # 👈 important pour éviter UnboundLocalError
+    maintenance = None
+    bte_auto = None
 
     with tenant_context(tenant):
 
@@ -96,8 +96,9 @@ def bte_auto_check_view(request, exemplaire_id):
                 try:
                     with transaction.atomic():
 
-                        km = form.cleaned_data.get("kilometrage_controle_brake")
+                        km = form.cleaned_data.get("kilometrage_controle_boite_auto")
 
+                        # 🚗 SYNC KM VOITURE
                         if km is not None:
                             km = int(km)
 
@@ -110,21 +111,13 @@ def bte_auto_check_view(request, exemplaire_id):
                                 )
                                 raise ValueError("Kilométrage invalide")
 
-                            # 🚗 update voiture (source unique)
                             exemplaire.kilometres_chassis = km
                             exemplaire.date_derniere_intervention = timezone.now().date()
 
                             exemplaire.update_kilometres()
                             exemplaire.save()
 
-                            # 🔗 checkup UNIQUE
-                            bte_auto = form.save(commit=False)
-                            bte_auto.assign_technicien(request.user)
-
-                            bte_auto.kilometres_chassis = exemplaire.kilometres_chassis
-                            bte_auto.kilometrage_controle_boite_auto = km
-
-                        # 🔴 maintenance unique
+                        # 🔴 MAINTENANCE UNIQUE
                         maintenance = Maintenance.objects.create(
                             societe=request.user.societe,
                             voiture_exemplaire=exemplaire,
@@ -153,20 +146,39 @@ def bte_auto_check_view(request, exemplaire_id):
                             maintenance.direction = request.user
 
                         maintenance.save()
+
+                        # 🔗 OBJET FORM UNIQUE
+                        bte_auto = form.save(commit=False)
+
+                        if bte_auto is None:
+                            raise ValueError("Objet bte_auto non créé")
+
                         bte_auto.assign_technicien(request.user)
 
-                        # 🔗 lien final
+                        bte_auto.kilometres_chassis = exemplaire.kilometres_chassis
+                        bte_auto.kilometrage_controle_boite_auto = km
+                        bte_auto.voiture_exemplaire = exemplaire
                         bte_auto.maintenance = maintenance
+
                         bte_auto.save()
 
-                    messages.success(request, _("Contrôle boite automatique enregistré avec succès."))
+                    messages.success(
+                        request,
+                        _("Contrôle boite automatique enregistré avec succès.")
+                    )
+
+                    return redirect(request.path)
 
                 except Exception as e:
                     messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
+
             else:
                 print("FORM INVALID:", form.errors)
                 messages.error(request, _("Le formulaire contient des erreurs."))
 
+        # =========================
+        # GET
+        # =========================
         else:
             bte_auto = ControleBteVitesseAuto(
                 voiture_exemplaire=exemplaire,
@@ -188,8 +200,6 @@ def bte_auto_check_view(request, exemplaire_id):
             "form": form,
             "now": timezone.now(),
         })
-
-
 
 # ------------
 # Vue détail boite

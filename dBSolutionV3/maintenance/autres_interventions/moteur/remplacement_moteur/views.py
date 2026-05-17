@@ -51,7 +51,6 @@ class RemplacementMoteurListView(ListView):
 
 
 
-
 @never_cache
 @login_required
 def remplacement_moteur_form_view(request, exemplaire_id):
@@ -116,48 +115,23 @@ def remplacement_moteur_form_view(request, exemplaire_id):
                             # 🚗 update voiture (source unique)
                             exemplaire.kilometres_chassis = km
                             exemplaire.date_derniere_intervention = timezone.now().date()
+                            exemplaire.kilometres_remplacement_moteur = km
 
+                            # 🔁 recalcul AVANT save
                             exemplaire.update_kilometres()
+
+                            # 💾 sauvegarde voiture
                             exemplaire.save()
 
-                            # 🔗 checkup UNIQUE
+                            # 🔗 instance form
                             remplacement_moteur = form.save(commit=False)
                             remplacement_moteur.assign_technicien(request.user)
 
                             remplacement_moteur.kilometres_chassis = exemplaire.kilometres_chassis
                             remplacement_moteur.kilometres_remplacement_moteur = km
 
-                        # 🔧 MAINTENANCE
-                        maintenance = Maintenance.objects.create(
-                            societe=request.user.societe,
-                            voiture_exemplaire=exemplaire,
-                            immatriculation=exemplaire.immatriculation,
-                            date_intervention=timezone.now().date(),
-                            kilometres_chassis=exemplaire.kilometres_chassis,
-                            kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
-                            type_maintenance=Maintenance.TypeMaintenance.REMPLACEMENT_MOTEUR,
-                            tag=Maintenance.Tag.JAUNE,
-                        )
-
-                        # 🔧 assign rôle
-                        if role == "mecanicien":
-                            maintenance.mecanicien = request.user
-                        elif role == "chef_mecanicien":
-                            maintenance.chef_mecanicien = request.user
-                        elif role == "apprenti":
-                            maintenance.apprentis.add(request.user)
-                        elif role == "magasinier":
-                            maintenance.magasinier = request.user
-                        elif role == "direction":
-                            maintenance.direction = request.user
-
-                        maintenance.save()
-
-                        remplacement_moteur.assign_technicien(request.user)
-
-                        # 🔗 lien final
-                        remplacement_moteur.maintenance = maintenance
-                        remplacement_moteur.save()
+                            # ⚠️ IMPORTANT : ne pas recalculer voiture ici
+                            remplacement_moteur.save()
 
                         messages.success(
                             request,
@@ -168,7 +142,6 @@ def remplacement_moteur_form_view(request, exemplaire_id):
                     messages.error(request, str(e))
 
             else:
-                # DEBUG propre
                 print("FORM INVALID:", form.errors)
                 messages.error(request, _("Formulaire invalide"))
 
@@ -190,11 +163,10 @@ def remplacement_moteur_form_view(request, exemplaire_id):
         # RENDER
         # =========================
         sections = [
-
             {
                 "title": _("Kilométrage"),
                 "icon": "icons/compteur.png",
-                "fields": [form[f.name] for f in form if "kilometres" in f.name],
+                "fields": [form[f.name] for f in form if "kilometr" in f.name],
             },
             {
                 "title": _("Remplacement du moteur"),
@@ -245,6 +217,7 @@ def remplacement_moteur_form_view(request, exemplaire_id):
             "sections": sections,
             "now": timezone.now(),
         })
+
 
 
 

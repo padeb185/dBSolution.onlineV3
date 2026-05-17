@@ -257,26 +257,26 @@ class VoitureExemplaire(models.Model):
             km_chassis - (self.kilometres_dernier_entretien or 0)
         )
 
+        # -------------------------
+        # MOTEUR
+        # -------------------------
         if self.kilometres_remplacement_moteur:
-            self.kilometres_moteur = max(
-                0,
-                km_chassis - self.kilometres_remplacement_moteur
-            )
+            self.kilometres_moteur = km_chassis - self.kilometres_remplacement_moteur
         else:
             self.kilometres_moteur = km_chassis
 
+        # -------------------------
+        # BOÎTE
+        # -------------------------
         if self.kilometres_remplacement_boite:
-            self.kilometres_boite = max(
-                0,
-                km_chassis - self.kilometres_remplacement_boite
-            )
+            self.kilometres_boite = km_chassis - self.kilometres_remplacement_boite
         else:
             self.kilometres_boite = km_chassis
 
+        # -------------------------
+        # EMBRAYAGE
+        # -------------------------
         if self.kilometres_remplacement_embrayage:
-            self.kilometres_embrayage = max(
-                0,
-                km_chassis - self.kilometres_remplacement_embrayage
-            )
+            self.kilometres_embrayage = km_chassis - self.kilometres_remplacement_embrayage
         else:
             self.kilometres_embrayage = km_chassis

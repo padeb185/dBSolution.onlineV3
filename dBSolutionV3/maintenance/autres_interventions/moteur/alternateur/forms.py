@@ -100,27 +100,6 @@ class AlternateurForm(forms.ModelForm):
                 _("Les minutes ne peuvent pas dépasser 59.")
             )
 
-        km_alternateur = cleaned.get("kilometrage_alte")
-        voiture = self.exemplaire or (self.instance.voiture_exemplaire if self.instance else None)
-
-        if not voiture or km_alternateur in [None, ""]:
-            return cleaned
-
-        try:
-            km_alternateur = Decimal(str(km_alternateur))
-        except:
-            raise ValidationError({
-                "kilometrage_admission": _("Kilométrage invalide")
-            })
-
-        km_voiture = voiture.kilometres_chassis or Decimal("0")
-
-        if km_alternateur < km_voiture:
-            raise ValidationError({
-                "kilometrage_alte": _(
-                    "Le kilométrage doit être ≥ %(km)s"
-                ) % {"km": km_voiture}
-            })
 
         return cleaned
 
