@@ -51,6 +51,7 @@ class RemplacementMoteurListView(ListView):
 
 
 
+
 @never_cache
 @login_required
 def remplacement_moteur_form_view(request, exemplaire_id):
@@ -98,40 +99,64 @@ def remplacement_moteur_form_view(request, exemplaire_id):
                 try:
                     with transaction.atomic():
 
-                        km = form.cleaned_data.get("kilometres_remplacement_moteur")
+                        # 🔴 SAVE FORM
+                        remplacement_moteur = form.save(commit=False)
+
+                        # 🔧 TECH
+                        remplacement_moteur.assign_technicien(request.user)
+
+                        # 🔧 MAINTENANCE
+                        maintenance = Maintenance.objects.create(
+                            societe=request.user.societe,
+                            voiture_exemplaire=exemplaire,
+                            immatriculation=exemplaire.immatriculation,
+                            date_intervention=timezone.now().date(),
+                            kilometres_chassis=exemplaire.kilometres_chassis,
+                            kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
+                            type_maintenance=Maintenance.TypeMaintenance.CHECKUP_TRACK,
+                            tag=Maintenance.Tag.JAUNE,
+                        )
+
+                        # 🔧 assign rôle
+                        if role == "mecanicien":
+                            maintenance.mecanicien = request.user
+                        elif role == "chef_mecanicien":
+                            maintenance.chef_mecanicien = request.user
+                        elif role == "apprenti":
+                            maintenance.apprentis.add(request.user)
+                        elif role == "magasinier":
+                            maintenance.magasinier = request.user
+                        elif role == "direction":
+                            maintenance.direction = request.user
+
+                        maintenance.save()
+
+                        remplacement_moteur.maintenance = maintenance
+
+                        remplacement_moteur.immatriculation = exemplaire.immatriculation
+
+                        # 🔥 KM CHECK SAFE
+                        km = form.cleaned_data.get("kilometres_chassis")
 
                         if km is not None:
                             km = int(km)
 
-                            ancien_km = exemplaire.kilometres_chassis
+                            if km < exemplaire.kilometres_chassis:
+                                form.add_error("kilometres_chassis", _("Kilométrage invalide"))
+                                raise ValidationError("KM invalide")
 
-                            if km < ancien_km:
-                                form.add_error(
-                                    "kilometres_remplacement_moteur",
-                                    _("Le kilométrage ne peut pas diminuer.")
-                                )
-                                raise ValueError("Kilométrage invalide")
-
-                            # 🚗 update voiture (source unique)
+                            # 🔥 update voiture
                             exemplaire.kilometres_chassis = km
-                            exemplaire.date_derniere_intervention = timezone.now().date()
+
+                            # 🔥 IMPORTANT: sync remplacement moteur -> voiture
                             exemplaire.kilometres_remplacement_moteur = km
 
-                            # 🔁 recalcul AVANT save
-                            exemplaire.update_kilometres()
+                            exemplaire.save(update_fields=["kilometres_chassis", "kilometres_remplacement_moteur"])
 
-                            # 💾 sauvegarde voiture
-                            exemplaire.save()
+                            # 🔥 update objet remplacement
+                            remplacement_moteur.kilometres_chassis = km
 
-                            # 🔗 instance form
-                            remplacement_moteur = form.save(commit=False)
-                            remplacement_moteur.assign_technicien(request.user)
-
-                            remplacement_moteur.kilometres_chassis = exemplaire.kilometres_chassis
-                            remplacement_moteur.kilometres_remplacement_moteur = km
-
-                            # ⚠️ IMPORTANT : ne pas recalculer voiture ici
-                            remplacement_moteur.save()
+                        remplacement_moteur.save()
 
                         messages.success(
                             request,
@@ -142,6 +167,7 @@ def remplacement_moteur_form_view(request, exemplaire_id):
                     messages.error(request, str(e))
 
             else:
+                # DEBUG propre
                 print("FORM INVALID:", form.errors)
                 messages.error(request, _("Formulaire invalide"))
 
@@ -164,9 +190,14 @@ def remplacement_moteur_form_view(request, exemplaire_id):
         # =========================
         sections = [
             {
+                "title": _("Client"),
+                "icon": "icons/client.png",
+                "fields": [form[f.name] for f in form if "client" in f.name],
+            },
+            {
                 "title": _("Kilométrage"),
                 "icon": "icons/compteur.png",
-                "fields": [form[f.name] for f in form if "kilometr" in f.name],
+                "fields": [form[f.name] for f in form if "kilometres" in f.name],
             },
             {
                 "title": _("Remplacement du moteur"),
@@ -217,7 +248,6 @@ def remplacement_moteur_form_view(request, exemplaire_id):
             "sections": sections,
             "now": timezone.now(),
         })
-
 
 
 
@@ -285,7 +315,11 @@ def modifier_remplacement_moteur_view(request, remplacement_moteur_id):
         # SECTIONS
         # -------------------------
         sections = [
-
+            {
+                "title": _("Client"),
+                "icon": "icons/client.png",
+                "fields": [form[f.name] for f in form if "client" in f.name],
+            },
             {
                 "title": _("Kilométrage"),
                 "icon": "icons/compteur.png",

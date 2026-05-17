@@ -269,7 +269,7 @@ class VoitureExemplaire(models.Model):
         # BOÎTE
         # -------------------------
         if self.kilometres_remplacement_boite:
-            self.kilometres_boite = km_chassis - self.kilometres_remplacement_boite
+           self.kilometres_boite = km_chassis - self.kilometres_remplacement_boite
         else:
             self.kilometres_boite = km_chassis
 
@@ -280,3 +280,11 @@ class VoitureExemplaire(models.Model):
             self.kilometres_embrayage = km_chassis - self.kilometres_remplacement_embrayage
         else:
             self.kilometres_embrayage = km_chassis
+
+
+
+    def update_from_last_boite(self):
+        last = self.remplacement_boite.order_by("-id").first()
+        if last:
+            self.kilometres_boite = last.kilometres_boite
+            self.kilometres_remplacement_boite = last.kilometres_remplacement_boite
