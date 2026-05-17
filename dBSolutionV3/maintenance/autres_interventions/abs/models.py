@@ -178,10 +178,10 @@ class Abs(TechnicienMixin, models.Model):
 
     class Meta:
         verbose_name = _("système_abs")
-        verbose_name_plural = _("Systèmes_abss")
+        verbose_name_plural = _("Systèmes_abs")
 
     def __str__(self):
-        return f"Courroie de distribution moteur - {self.voiture_exemplaire}"
+        return f"Controle abs - {self.voiture_exemplaire} {self.date}"
 
     def clean(self):
         super().clean()

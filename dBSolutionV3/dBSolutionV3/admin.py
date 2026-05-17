@@ -32,6 +32,27 @@ from voiture.voiture_moteur.models import MoteurVoiture
 from voiture.voiture_pneus.models import VoiturePneus
 from voiture.voiture_pneus_historique.models import VoiturePneusHistorique
 from client_pilotage.models import ClientPilotage
+from maintenance.autres_interventions import boite_de_vitesse
+from maintenance.autres_interventions.boite_de_vitesse import remplacement_boite
+from maintenance.autres_interventions.moteur.admission.models import Admission
+from maintenance.autres_interventions.moteur.alternateur.models import Alternateur
+from maintenance.autres_interventions.moteur.turbo.models import Turbo
+from maintenance.autres_interventions.abs.models import Abs
+from maintenance.autres_interventions.boite_de_vitesse.models import ControleBoite
+from maintenance.autres_interventions.boite_de_vitesse.remplacement_boite.models import RemplacementBoite
+from maintenance.autres_interventions.geometrie.models import GeometrieVoiture
+from maintenance.autres_interventions.bte_vitesse_auto.models import ControleBteVitesseAuto
+from maintenance.autres_interventions.moteur.courroie.models import CourroieDistribution
+from maintenance.autres_interventions.moteur.remplacement_moteur.models import RemplacementMoteur
+from maintenance.carrosserie_interne.models import CarrosserieInterne
+
+from maintenance.checkup_track.models import CheckupTrack
+from maintenance.entretien.models import Entretien
+from maintenance.freins.models import ControleFreins
+from maintenance.jeux_pieces.models import ControleJeuxPieces
+
+
+
 
 
 admin.site.register(Utilisateur)
@@ -60,6 +81,27 @@ admin.site.register(Vendeur)
 admin.site.register(VoitureBoite)
 admin.site.register(VoitureEmbrayage)
 admin.site.register(ClientPilotage)
+admin.site.register(Turbo)
+admin.site.register(Admission)
+admin.site.register(Alternateur)
+admin.site.register(RemplacementBoite)
+admin.site.register(Abs)
+admin.site.register(GeometrieVoiture)
+admin.site.register(ControleBoite)
+admin.site.register(ControleBteVitesseAuto)
+admin.site.register(CourroieDistribution)
+admin.site.register(RemplacementMoteur)
+admin.site.register(CarrosserieInterne)
+
+admin.site.register(CheckupTrack)
+admin.site.register(Entretien)
+admin.site.register(ControleFreins)
+admin.site.register(ControleJeuxPieces)
+
+
+
+
+
 
 
 

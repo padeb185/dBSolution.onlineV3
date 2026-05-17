@@ -15,6 +15,9 @@ class NettoyageEtat(models.TextChoices):
     PROPRE = "PROPRE", _("Propre")
 
 
+
+
+
 class NettoyageExterieur(TechnicienMixin, models.Model):
     maintenance = models.ForeignKey(
         Maintenance,

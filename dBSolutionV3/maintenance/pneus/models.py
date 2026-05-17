@@ -112,6 +112,11 @@ class ControlePneus(TechnicienMixin, models.Model):
         verbose_name=_("État visuel / Tag"),
     )
 
+    remplacement_effectue = models.BooleanField(
+        default=False,
+        verbose_name=_("Remplacement effectué"),
+    )
+
     main_oeuvre = models.ForeignKey(
         "maindoeuvre.MainDoeuvre",
         on_delete=models.SET_NULL,

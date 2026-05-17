@@ -102,33 +102,31 @@ def controle_total_view(request, exemplaire_id):
                 try:
                     with transaction.atomic():
 
-                        km = form.cleaned_data.get("kilometrage_checkup")
+                        km = form.cleaned_data.get("kilometrage_net_int")
 
                         if km is not None:
-                            km = int(km)
+                            # validation
+                            if km < exemplaire.kilometres_chassis:
+                                raise ValueError("KM invalide")
 
-                            ancien_km = exemplaire.kilometres_chassis
-
-                            if km < ancien_km:
-                                form.add_error(
-                                    "kilometrage_checkup",
-                                    _("Le kilométrage ne peut pas diminuer.")
-                                )
-                                raise ValueError("Kilométrage invalide")
-
-                            # 🚗 update voiture (source unique)
                             exemplaire.kilometres_chassis = km
-                            exemplaire.date_derniere_intervention = timezone.now().date()
-
-                            exemplaire.update_kilometres()
                             exemplaire.save()
 
-                        # 🔗 checkup UNIQUE
-                        checkup = form.save(commit=False)
-                        checkup.assign_technicien(request.user)
+                        maintenance = Maintenance.objects.create(...)
 
-                        checkup.kilometres_chassis = exemplaire.kilometres_chassis
-                        checkup.kilometrage_checkup = km
+                        nettoyage_int = form.save(commit=False)
+
+                        nettoyage_int.voiture_exemplaire = exemplaire
+                        nettoyage_int.maintenance = maintenance
+
+                        km = form.cleaned_data.get("kilometrage_net_int")
+
+                        nettoyage_int.kilometrage_net_int = km
+                        nettoyage_int.kilometres_chassis = exemplaire.kilometres_chassis
+
+                        nettoyage_int.assign_technicien(request.user)
+
+                        nettoyage_int.save()
 
                         # 🔴 maintenance AVANT save checkup
                         maintenance = Maintenance.objects.create(

@@ -123,10 +123,15 @@ def nettoyage_exterieur_view(request, exemplaire_id):
                             exemplaire.save()
 
                             # 🔗 checkup UNIQUE
+                            # 🔗 nettoyage extérieur
                             nettoyage_ext = form.save(commit=False)
+
                             nettoyage_ext.assign_technicien(request.user)
 
-                            nettoyage_ext.kilometres_chassis = exemplaire.kilometres_chassis
+                            nettoyage_ext.voiture_exemplaire = exemplaire
+                            nettoyage_ext.tech_societe = tenant
+
+                            nettoyage_ext.kilometres_chassis = km
                             nettoyage_ext.kilometrage_net_ext = km
 
                         maintenance = Maintenance.objects.create(
@@ -136,7 +141,7 @@ def nettoyage_exterieur_view(request, exemplaire_id):
                             date_intervention=timezone.now().date(),
                             kilometres_chassis=exemplaire.kilometres_chassis,
                             kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
-                            type_maintenance=Maintenance.TypeMaintenance.CHECKUP_TRACK,
+                            type_maintenance=Maintenance.TypeMaintenance.NETTOYAGE_EXTERIEUR,
                             tag=Maintenance.Tag.JAUNE,
                         )
 

@@ -1,3 +1,5 @@
+from datetime import timezone
+
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -164,7 +166,19 @@ class NettoyageInterieur(TechnicienMixin,models.Model):
         verbose_name_plural = _("Nettoyages intérieurs")
 
     def __str__(self):
-        return f"Nettoyage intérieur – {self.voiture_exemplaire} ({self.date:%Y-%m-%d})"
+        voiture = getattr(self, "voiture_exemplaire", None)
+        date = getattr(self, "date", None)
+
+        if not voiture:
+            return "Nettoyage intérieur (incomplet)"
+
+        if not date:
+            return f"Nettoyage intérieur – {voiture}"
+
+        return f"Nettoyage intérieur – {voiture} ({date:%Y-%m-%d})"
+
+
+
 
     def clean(self):
         super().clean()
@@ -178,37 +192,52 @@ class NettoyageInterieur(TechnicienMixin,models.Model):
                 })
 
     def save(self, *args, **kwargs):
-        # Mettre à jour le kilométrage de la voiture si nécessaire
+
+        # =========================
+        # 1. SYNC KM VOITURE
+        # =========================
         if self.voiture_exemplaire and self.kilometrage_net_int:
+
+            if self.kilometrage_net_int < self.voiture_exemplaire.kilometres_chassis:
+                raise ValidationError("Le kilométrage ne peut pas diminuer.")
+
             if self.kilometrage_net_int > self.voiture_exemplaire.kilometres_chassis:
                 self.voiture_exemplaire.kilometres_chassis = self.kilometrage_net_int
-                self.voiture_exemplaire.save(update_fields=["kilometres_chassis"])
+                self.voiture_exemplaire.kilometres_dernier_entretien = self.kilometrage_net_int
+                self.voiture_exemplaire.date_derniere_intervention = timezone.now().date()
 
-        # Toujours garder une copie du kilométrage de la voiture
+                self.voiture_exemplaire.update_kilometres()
+                self.voiture_exemplaire.save()
+
+        # =========================
+        # 2. COPIE SNAPSHOT
+        # =========================
         if self.voiture_exemplaire:
             self.kilometres_chassis = self.voiture_exemplaire.kilometres_chassis
 
-        if not self.tech_technicien and hasattr(self, "_user"):
+        # =========================
+        # 3. TECHNICIEN
+        # =========================
+        if not self.tech_technicien and hasattr(self, '_user'):
             self.assign_technicien(self._user)
 
-            # ----------------------------
-            # MAIN D'OEUVRE AUTO DESCRIPTIF
-            # ----------------------------
-            if self.main_oeuvre:
-                task_name = ""
+        # =========================
+        # 4. MAIN D'OEUVRE
+        # =========================
+        if self.main_oeuvre:
 
-                if self.maintenance:
-                    task_name = str(self.maintenance)
-                elif self.voiture_exemplaire:
-                    task_name = _("Nettoyage intérieur") + " " + str(self.voiture_exemplaire)
+            task_name = ""
 
-                # update descriptif automatiquement
-                if hasattr(self.main_oeuvre, "descriptif"):
-                    self.main_oeuvre.descriptif = task_name
-                    self.main_oeuvre.save(update_fields=["descriptif"])
+            if self.maintenance:
+                task_name = str(self.maintenance)
+            elif self.voiture_exemplaire:
+                task_name = f"Nettoyage intérieur {self.voiture_exemplaire}"
+
+            if hasattr(self.main_oeuvre, "descriptif"):
+                self.main_oeuvre.descriptif = task_name
+                self.main_oeuvre.save(update_fields=["descriptif"])
 
         super().save(*args, **kwargs)
-
 
     @property
     def temps_main_oeuvre_display(self):
