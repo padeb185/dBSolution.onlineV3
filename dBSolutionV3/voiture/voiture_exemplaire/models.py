@@ -140,7 +140,7 @@ class VoitureExemplaire(models.Model):
     # 🏭 Production
 
     nombre_remplacements_moteurs = models.PositiveIntegerField(default=0)
-
+    nombre_remplacements_boites = models.PositiveIntegerField(default=0)
     # ⚙️ Moteur / transmission
     numero_moteur = models.CharField(max_length=50, null=True, blank=True)
 
@@ -244,7 +244,7 @@ class VoitureExemplaire(models.Model):
             self.vin_simplifie = None
             self.annee_production = None
 
-        # 🔥 recalcul des km
+
         self.update_kilometres()
 
         super().save(*args, **kwargs)
@@ -283,8 +283,3 @@ class VoitureExemplaire(models.Model):
 
 
 
-    def update_from_last_boite(self):
-        last = self.remplacement_boite.order_by("-id").first()
-        if last:
-            self.kilometres_boite = last.kilometres_boite
-            self.kilometres_remplacement_boite = last.kilometres_remplacement_boite

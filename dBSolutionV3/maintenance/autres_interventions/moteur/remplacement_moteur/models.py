@@ -121,14 +121,7 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
     )
 
 
-    client = models.ForeignKey(
-        ClientParticulier,
-        on_delete=models.CASCADE,
-        related_name="remplacement_moteur",
-        null=True,
-        blank=True,
-        verbose_name=_("Client"),
-    )
+
 
     TAG_CHOICES = [
         ("VERT", _("Vert")),

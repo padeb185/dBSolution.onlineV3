@@ -55,7 +55,10 @@ class RemplacementBoiteForm(forms.ModelForm):
             if "immatriculation" in self.fields:
                 self.fields["immatriculation"].initial = self.exemplaire.immatriculation
 
-
+            if "kilometres_boite" in self.fields:
+                self.fields["kilometres_boite"].disabled = True
+                self.fields["kilometres_boite"].widget.attrs["readonly"] = True
+                self.initial["kilometres_boite"] = self.exemplaire.kilometres_boite
 
 
 
@@ -86,18 +89,6 @@ class RemplacementBoiteForm(forms.ModelForm):
 
         if "tech_last_maintained_by" in self.fields:
             self.fields["tech_last_maintained_by"].disabled = True
-
-
-
-
-        # -----------------------
-        # CHAMPS CALCULÉS
-        # -----------------------
-        if "kilometres_boiter" in self.fields:
-            self.fields["kilometres_boite"].disabled = True
-
-
-
 
 
         # -----------------------
@@ -143,26 +134,23 @@ class RemplacementBoiteForm(forms.ModelForm):
         # KM CHÂSSIS
         # -----------------------
         km_chassis = self.cleaned_data.get("kilometres_chassis")
+        remplacement_effectue = self.cleaned_data.get("remplacement_effectue")
 
         if voiture and km_chassis is not None:
 
-            if km_chassis >= voiture.kilometres_chassis:
-                voiture.kilometres_chassis = km_chassis
-                voiture.save(update_fields=["kilometres_chassis"])
+            # 🔒 validation stricte
+            if km_chassis < voiture.kilometres_chassis:
+                raise ValueError("Le kilométrage ne peut pas diminuer.")
 
+            # 🚗 update voiture (source unique)
+            voiture.kilometres_chassis = km_chassis
+            voiture.save(update_fields=["kilometres_chassis"])
+
+            # 🧾 instance
             instance.kilometres_chassis = km_chassis
+            instance.voiture_exemplaire = instance.voiture_exemplaire or voiture
 
-            if not instance.voiture_exemplaire:
-                instance.voiture_exemplaire = voiture
-
-
-
-
-
-        remplacement_effectue = self.cleaned_data.get("remplacement_effectue")
-
-        km_chassis = self.cleaned_data.get("kilometres_chassis")
-
+        # 🔧 logique boîte
         if remplacement_effectue:
             instance.kilometres_boite = 0
             instance.kilometres_remplacement_boite = km_chassis

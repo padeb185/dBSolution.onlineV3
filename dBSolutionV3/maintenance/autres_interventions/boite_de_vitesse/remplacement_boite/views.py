@@ -52,7 +52,6 @@ class RemplacementBoiteListView(ListView):
 
 
 
-
 @never_cache
 @login_required
 def remplacement_boite_form_view(request, exemplaire_id):
@@ -60,11 +59,9 @@ def remplacement_boite_form_view(request, exemplaire_id):
     tenant = request.user.societe
     role = request.user.role
 
-    maintenance = None  # 👈 important pour éviter UnboundLocalError
+    with tenant_context(tenant):
 
-    with (tenant_context(tenant)):
-
-        # 🔎 Récupération exemplaire
+        # 🔎 récupération exemplaire
         exemplaire = get_object_or_404(
             VoitureExemplaire.objects.filter(
                 Q(client__societe=tenant) |
@@ -91,13 +88,8 @@ def remplacement_boite_form_view(request, exemplaire_id):
         # =========================
         if request.method == "POST":
 
-            remplacement_boite = RemplacementBoite(
-                voiture_exemplaire=exemplaire,
-                kilometres_chassis=exemplaire.kilometres_chassis
-            )
-
             form = RemplacementBoiteForm(
-                instance=remplacement_boite,
+                request.POST,
                 user=request.user,
                 exemplaire=exemplaire
             )
@@ -106,6 +98,16 @@ def remplacement_boite_form_view(request, exemplaire_id):
 
                 try:
                     with transaction.atomic():
+
+                        km_checkup = form.cleaned_data.get("kilometres_chassis")
+
+                        # 🔴 validation métier
+                        if km_checkup is not None and km_checkup < exemplaire.kilometres_chassis:
+                            form.add_error(
+                                "kilometres_chassis",
+                                _("Le kilométrage ne peut pas être inférieur.")
+                            )
+                            raise ValueError("invalid km")
 
                         # 🔴 maintenance unique
                         maintenance = Maintenance.objects.create(
@@ -119,81 +121,59 @@ def remplacement_boite_form_view(request, exemplaire_id):
                             tag=Maintenance.Tag.JAUNE,
                         )
 
-                        # 🔧 affectation rôle
+                        # 🔧 rôle
                         if role == "mecanicien":
                             maintenance.mecanicien = request.user
-
                         elif role == "chef_mecanicien":
                             maintenance.chef_mecanicien = request.user
-
                         elif role == "apprenti":
                             maintenance.apprentis.add(request.user)
-
                         elif role == "magasinier":
                             maintenance.magasinier = request.user
-
                         elif role == "direction":
                             maintenance.direction = request.user
 
                         maintenance.save()
 
+                        # 🧾 remplacement boîte
                         remplacement_boite = form.save(commit=False)
+                        remplacement_boite.voiture_exemplaire = exemplaire
 
-                        is_new = remplacement_boite.pk is None
-
-                        km_checkup = form.cleaned_data.get("kilometres_chassis")
-
-                        # ✅ Mise à jour du kilométrage chassis
-                        if (
-                                km_checkup is not None
-                                and km_checkup >= exemplaire.kilometres_chassis
-                        ):
-
+                        # 🚗 km update (CORRIGÉ)
+                        if km_checkup is not None:
                             exemplaire.kilometres_chassis = km_checkup
-
-                            # RESET BOITE
-                            exemplaire.kilometres_remplacement_boite = km_checkup
-
+                            exemplaire.kilometres_remplacement_boite = km_checkup  # ✔ CORRECT
                             exemplaire.save()
-
-                        elif km_checkup is not None:
-
-                            form.add_error(
-                                "kilometres_chassis",
-                                _("Le kilométrage ne peut pas être inférieur.")
-                            )
-
-                            raise ValueError("invalid km")
 
                         remplacement_boite.save()
 
-                        # ✅ incrément uniquement à la création
-                        if is_new:
-                            exemplaire.nombre_remplacements_boites = (
-                                    F("nombre_remplacements_boites") + 1
-                            )
-
-                            exemplaire.save(
-                                update_fields=["nombre_remplacements_boites"]
-                            )
-
+                        # ➕ compteur (si champ existe)
+                        if remplacement_boite.pk:
+                            exemplaire.nombre_remplacements_boites = F("nombre_remplacements_boites")
+                            exemplaire.save(update_fields=["nombre_remplacements_boites"])
                             exemplaire.refresh_from_db()
 
                     messages.success(
                         request,
-                        _("Remplacement de la boite enregistré avec succès")
+                        _("Remplacement de la boîte enregistré avec succès")
                     )
 
                 except Exception as e:
                     messages.error(request, str(e))
-            else:
-                messages.error(request, _("Formulaire invalide"))
 
+            else:
+                messages.error(request, _("Veuillez corriger les erreurs du formulaire"))
+                print(form.errors)  # 🔥 DEBUG IMPORTANT
+
+        # =========================
+        # GET
+        # =========================
         else:
             remplacement_boite = RemplacementBoite(
                 voiture_exemplaire=exemplaire,
                 kilometres_chassis=exemplaire.kilometres_chassis
             )
+
             remplacement_boite.assign_technicien(request.user)
 
             form = RemplacementBoiteForm(
@@ -202,6 +182,9 @@ def remplacement_boite_form_view(request, exemplaire_id):
                 exemplaire=exemplaire
             )
 
+        # =========================
+        # SECTIONS UI
+        # =========================
         sections = [
             {
                 "title": _("Kilométrage"),
@@ -218,14 +201,13 @@ def remplacement_boite_form_view(request, exemplaire_id):
                 "icon": "icons/niveaux.png",
                 "fields": [form[f.name] for f in form if "boite_niveau" in f.name],
             },
-
             {
-                "title": _("Remise à Zéro des kilomètres de la boite"),
+                "title": _("Remise à zéro"),
                 "icon": "icons/km.png",
                 "fields": [form[f.name] for f in form if "remplacement_effectue" in f.name],
             },
             {
-                "title": _("Etiquette"),
+                "title": _("Étiquette"),
                 "icon": "icons/tag.png",
                 "fields": [form[f.name] for f in form if "tag" in f.name],
             },
@@ -248,12 +230,11 @@ def remplacement_boite_form_view(request, exemplaire_id):
 
         return render(request, "remplacement_boite/remplacement_boite_form.html", {
             "remplacement_boite": remplacement_boite,
-            "exemplaire": exemplaire,
             "form": form,
+            "exemplaire": exemplaire,
             "sections": sections,
             "now": timezone.now(),
         })
-
 
 
 @login_required

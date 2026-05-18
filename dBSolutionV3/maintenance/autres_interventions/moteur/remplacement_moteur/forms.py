@@ -56,11 +56,11 @@ class RemplacementMoteurForm(forms.ModelForm):
             if "kilometres_chassis" in self.fields:
                 self.fields["kilometres_chassis"].initial = self.exemplaire.kilometres_chassis
 
-            if "immatriculation" in self.fields:
-                self.fields["immatriculation"].initial = self.exemplaire.immatriculation
 
-
-
+            if "kilometres_moteur" in self.fields:
+                self.fields["kilometres_moteur"].disabled = True
+                self.fields["kilometres_moteur"].widget.attrs["readonly"] = True
+                self.initial["kilometres_moteur"] = self.exemplaire.kilometres_moteur
 
 
         # -----------------------
@@ -91,14 +91,9 @@ class RemplacementMoteurForm(forms.ModelForm):
         if "tech_last_maintained_by" in self.fields:
             self.fields["tech_last_maintained_by"].disabled = True
 
-
-
-
         # -----------------------
         # CHAMPS CALCULÉS
         # -----------------------
-        if "kilometres_moteur" in self.fields:
-            self.fields["kilometres_moteur"].disabled = True
 
 
 

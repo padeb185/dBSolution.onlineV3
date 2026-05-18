@@ -32,8 +32,6 @@ class NomPays(models.TextChoices):
 class RemplacementBoite(TechnicienMixin, models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
-
-
     # -------------------------
     # CONFIG TVA
     # -------------------------

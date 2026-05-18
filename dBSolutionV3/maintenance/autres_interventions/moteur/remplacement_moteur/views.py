@@ -99,13 +99,17 @@ def remplacement_moteur_form_view(request, exemplaire_id):
                 try:
                     with transaction.atomic():
 
-                        # 🔴 SAVE FORM
-                        remplacement_moteur = form.save(commit=False)
+                        km_checkup = form.cleaned_data.get("kilometres_chassis")
 
-                        # 🔧 TECH
-                        remplacement_moteur.assign_technicien(request.user)
+                        # 🔴 validation métier
+                        if km_checkup is not None and km_checkup < exemplaire.kilometres_chassis:
+                            form.add_error(
+                                "kilometres_chassis",
+                                _("Le kilométrage ne peut pas être inférieur.")
+                            )
+                            raise ValueError("invalid km")
 
-                        # 🔧 MAINTENANCE
+                        # 🔴 maintenance unique
                         maintenance = Maintenance.objects.create(
                             societe=request.user.societe,
                             voiture_exemplaire=exemplaire,
@@ -113,11 +117,11 @@ def remplacement_moteur_form_view(request, exemplaire_id):
                             date_intervention=timezone.now().date(),
                             kilometres_chassis=exemplaire.kilometres_chassis,
                             kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
-                            type_maintenance=Maintenance.TypeMaintenance.CHECKUP_TRACK,
+                            type_maintenance=Maintenance.TypeMaintenance.REMPLACEMENT_BOITE,
                             tag=Maintenance.Tag.JAUNE,
                         )
 
-                        # 🔧 assign rôle
+                        # 🔧 rôle
                         if role == "mecanicien":
                             maintenance.mecanicien = request.user
                         elif role == "chef_mecanicien":
@@ -131,44 +135,35 @@ def remplacement_moteur_form_view(request, exemplaire_id):
 
                         maintenance.save()
 
-                        remplacement_moteur.maintenance = maintenance
+                        # 🧾 remplacement boîte
+                        remplacement_moteur = form.save(commit=False)
+                        remplacement_moteur.voiture_exemplaire = exemplaire
 
-                        remplacement_moteur.immatriculation = exemplaire.immatriculation
-
-                        # 🔥 KM CHECK SAFE
-                        km = form.cleaned_data.get("kilometres_chassis")
-
-                        if km is not None:
-                            km = int(km)
-
-                            if km < exemplaire.kilometres_chassis:
-                                form.add_error("kilometres_chassis", _("Kilométrage invalide"))
-                                raise ValidationError("KM invalide")
-
-                            exemplaire.kilometres_chassis = km
-
-
-                            exemplaire.kilometres_remplacement_moteur = km
-
-                            exemplaire.save(update_fields=["kilometres_chassis", "kilometres_remplacement_moteur"])
-
-                            remplacement_moteur.tech_last_maintained_by = request.user
-                            remplacement_moteur.kilometres_chassis = km
+                        # 🚗 km update (CORRIGÉ)
+                        if km_checkup is not None:
+                            exemplaire.kilometres_chassis = km_checkup
+                            exemplaire.kilometres_remplacement_moteur = km_checkup  # ✔ CORRECT
+                            exemplaire.save()
 
                         remplacement_moteur.save()
 
-                        messages.success(
-                            request,
-                            _("Remplacement moteur enregistré avec succès")
-                        )
+                        # ➕ compteur (si champ existe)
+                        if remplacement_moteur.pk:
+                            exemplaire.nombre_remplacements_moteurs = F("nombre_remplacements_moteurs")
+                            exemplaire.save(update_fields=["nombre_remplacements_moteurs"])
+                            exemplaire.refresh_from_db()
+
+                    messages.success(
+                        request,
+                        _("Remplacement du moteur enregistré avec succès")
+                    )
 
                 except Exception as e:
                     messages.error(request, str(e))
 
             else:
-                # DEBUG propre
-                print("FORM INVALID:", form.errors)
-                messages.error(request, _("Formulaire invalide"))
+                messages.error(request, _("Veuillez corriger les erreurs du formulaire"))
+                print(form.errors)  # 🔥 DEBUG IMPORTANT
 
         else:
             remplacement_moteur = RemplacementMoteur(
@@ -188,11 +183,6 @@ def remplacement_moteur_form_view(request, exemplaire_id):
         # RENDER
         # =========================
         sections = [
-            {
-                "title": _("Client"),
-                "icon": "icons/client.png",
-                "fields": [form[f.name] for f in form if "client" in f.name],
-            },
             {
                 "title": _("Kilométrage"),
                 "icon": "icons/compteur.png",

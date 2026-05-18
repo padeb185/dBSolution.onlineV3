@@ -65,6 +65,8 @@ class VoitureBoite(models.Model):
 
     remarques = models.TextField(null=True, blank=True)
 
+    nombre_remplacements_boites = models.PositiveIntegerField(default=0)
+
     created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
 
@@ -72,7 +74,7 @@ class VoitureBoite(models.Model):
         constraints = [
             models.CheckConstraint(
                 condition=Q(numero_boite__gte=1) & Q(numero_boite__lte=10),
-                name="numero_boite_1_10"
+                name="numero_boite_1_20"
             ),
         ]
 
@@ -84,7 +86,7 @@ class VoitureBoite(models.Model):
         return self.kilometres_boite + self.intervalle_entretien_km
 
     def remplacer_boite(self):
-        if self.numero_boite < 10:
+        if self.numero_boite < 100:
             self.numero_boite += 1
             self.kilometres_remplacement_boite = self.kilometres_chassis  # met à jour le kilométrage de remplacement
             self.kilometres_boite = 0
