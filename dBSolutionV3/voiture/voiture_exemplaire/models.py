@@ -47,7 +47,7 @@ class VoitureExemplaire(models.Model):
         blank=True
     )
 
-    voiture_boite = models.ForeignKey(
+    voiture_boite = models.OneToOneField(
         "voiture_boite.VoitureBoite",
         on_delete=models.PROTECT,
         related_name="voitures",
@@ -55,7 +55,7 @@ class VoitureExemplaire(models.Model):
         blank=True
     )
 
-    voiture_moteur = models.ForeignKey(
+    voiture_moteur = models.OneToOneField(
         "voiture_moteur.MoteurVoiture",
         on_delete=models.PROTECT,
         related_name="voitures",

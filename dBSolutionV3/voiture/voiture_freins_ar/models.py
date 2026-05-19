@@ -70,6 +70,7 @@ class VoitureFreinsAR(models.Model):
 
     epaisseur_min_disque_ar = models.FloatField("Épaisseur minimum disque AR (mm)", null=True, blank=True)
 
+
     plaquette_ar_matiere = models.CharField(max_length=25, choices=MatierePlaquetteFrein.choices,
                                             default=MatierePlaquetteFrein.ORGANIC,
                                             verbose_name=_("Matière des plaquettes avant"))

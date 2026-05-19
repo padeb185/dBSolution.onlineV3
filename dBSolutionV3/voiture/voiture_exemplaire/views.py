@@ -181,48 +181,68 @@ def lier_embrayage_exemplaire(request, exemplaire_id):
 
 
 
-
 @login_required
 def lier_freins(request, exemplaire_id):
+
     with tenant_context(request.user.societe):
-        exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
 
+        exemplaire = get_object_or_404(
+            VoitureExemplaire,
+            id=exemplaire_id
+        )
 
-
-        freins = VoitureFreinsAV.objects.all().order_by('taille_disque_av')
+        freins = VoitureFreinsAV.objects.all().order_by("taille_disque_av")
 
         if request.method == "POST":
             frein_id = request.POST.get("frein_id")
             marque_disques_av = request.POST.get("marque_disques_av")
             marque_plaquettes_av = request.POST.get("marque_plaquettes_av")
 
-            if frein_id:
-                frein = get_object_or_404(VoitureFreinsAV, id=frein_id)
+            if not frein_id:
+                messages.error(
+                    request,
+                    _("Veuillez sélectionner un système de freinage à lier.")
+                )
+                return redirect(
+                    "voiture_exemplaire:lier_frein",
+                    exemplaire_id=exemplaire.id
+                )
 
-                if frein_id:
-                    frein = get_object_or_404(VoitureFreinsAV, id=frein_id)
+            frein = get_object_or_404(
+                VoitureFreinsAV,
+                id=frein_id
+            )
 
-                    if marque_disques_av:
-                        frein.marque_disques_av = marque_disques_av
-                    if marque_plaquettes_av:
-                        frein.marque_plaquettes_av = marque_plaquettes_av
-                    frein.save()
+            if marque_disques_av:
+                frein.marque_disques_av = marque_disques_av
 
-                # Lier le frein à l'exemplaire
-                frein.voitures_exemplaires.add(exemplaire)
+            if marque_plaquettes_av:
+                frein.marque_plaquettes_av = marque_plaquettes_av
 
-                messages.success(request, _(f"Le système de freinage avant a été lié au véhicule '{exemplaire.voiture_marque} {exemplaire.immatriculation}' avec succès."))
+            frein.save()
 
-                # Redirection vers la page de liaison
-                return redirect("voiture_exemplaire:lier_frein", exemplaire_id=exemplaire.id)
-            else:
-                messages.error(request, _("Veuillez sélectionner un système de freinage à lier."))
+            frein.voitures_exemplaires.add(exemplaire)
+
+            messages.success(
+                request,
+                _(
+                    f"Le système de freinage avant a été lié au véhicule "
+                    f"'{exemplaire.voiture_marque} {exemplaire.immatriculation}' avec succès."
+                )
+            )
+
+            return redirect(
+                "voiture_exemplaire:lier_frein",
+                exemplaire_id=exemplaire.id
+            )
 
         return render(request, "voiture_exemplaire/lier_frein.html", {
             "exemplaire": exemplaire,
             "freins": freins,
-            "title": _("Lier un système de freinage à un véhicule"),
+            "title": _("Lier un système de freinage avant à un véhicule"),
         })
+
+
 
 
 @login_required

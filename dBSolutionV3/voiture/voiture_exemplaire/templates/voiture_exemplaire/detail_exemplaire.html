@@ -100,28 +100,37 @@
 
               <!-- freins avant-->
             <h2 class="text-xl font-semibold mb-2 mt-4 flex items-center">
-                <img src="{% static 'icons/disque-de-frein.png' %}" alt="frein"
-                  style="width:60px; height:60px; margin-right:10px;">
-                {% trans "Freins avant" %}
-            </h2>
-            {% if exemplaire.freins.exists %}
+                <img src="{% static 'icons/disque-de-frein.png' %}"
+                     alt="frein" style="width:60px; height:60px; margin-right:10px;">
+                {% trans "Freins avant" %} </h2>
+          {% if exemplaire.freins_av.exists %}
             <ul class="space-y-2">
-                {% for frein in exemplaire.freins.all %}
+                {% for frein in exemplaire.freins_av.all %}
                 <li class="border p-3 rounded-md hover:bg-gray-50 flex flex-col gap-2">
                     <div class="flex justify-between">
                         <span class="font-medium">{{ frein.marque_disques_av|default:"N/A" }}</span>
                         <span>{{ frein.taille_disque_av|default:"?" }} mm</span>
                     </div>
+
                     <div class="flex gap-4">
-                        <span class="text-green-500">{{ frein.epaisseur_disque_av|default:"?" }} mm</span>
-                        <span class="text-red-500">{{ frein.epaisseur_min_disque_av|default:"?" }} mm</span>
+                        <span class="text-green-500">
+                            Épaisseur : {{ frein.epaisseur_disque_av|default:"?" }} mm
+                        </span>
+                        <span class="text-red-500">
+                            Min : {{ frein.epaisseur_min_disque_av|default:"?" }} mm
+                        </span>
                     </div>
-                    <span class="text-gray-500">({{ frein.fabricant|default:"N/A" }})</span>
+
+                    <span class="text-gray-500">
+                        {{ frein.get_type_disques_av_display|default:"N/A" }}
+                    </span>
                 </li>
                 {% endfor %}
             </ul>
             {% else %}
-            <p class="text-gray-500">{% trans "Aucun frein avant enregistré pour cet exemplaire." %}</p>
+            <p class="text-gray-500">
+                {% trans "Aucun frein avant enregistré pour cet exemplaire." %}
+            </p>
             {% endif %}
 
 
