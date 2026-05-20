@@ -169,7 +169,7 @@ def boite_check_view(request, exemplaire_id):
                         boite.maintenance = maintenance
                         boite.save()
 
-                    messages.success(request, _("Checkup enregistré avec succès."))
+                    messages.success(request, _("Checkup de la boite de vitesse enregistré avec succès."))
 
                 except Exception as e:
                     messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
@@ -244,7 +244,7 @@ def modifier_boite_view(request, boite_id):
             )
             if form.is_valid():
                 form.save()
-                messages.success(request, _("Checkup modifié avec succès !"))
+                messages.success(request, _("Checkup de la boite de vitesse modifié avec succès !"))
                 return redirect("boite_de_vitesse:modifier_boite", boite_id=boite.id)
             else:
                 messages.error(request, _("Le formulaire contient des erreurs."))
