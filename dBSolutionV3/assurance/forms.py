@@ -145,7 +145,7 @@ class AssuranceForm(forms.ModelForm):
         self.fields["nom_compagnie"].label = _("Compagnie")
         self.fields["peppol_id"].label = _("Peppol ID")
         self.fields["telephone"].label = _("Téléphone")
-        self.fields["courtier_nom"].label = _("Nom du courier")
+        self.fields["courtier_nom"].label = _("Nom du courtier")
         self.fields["courtier_prenom"].label = _("Prénom du courtier")
 
         # -------------------------

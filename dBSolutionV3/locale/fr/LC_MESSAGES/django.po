@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-19 08:10+0200\n"
+"POT-Creation-Date: 2026-05-19 17:25+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -375,7 +375,7 @@ msgstr ""
 #: .\voiture\voiture_embrayage\models.py:104
 #: .\voiture\voiture_embrayage\templates\voiture_embrayage\embrayage_detail.html:91
 #: .\voiture\voiture_exemplaire\models.py:228
-#: .\voiture\voiture_freins_ar\models.py:81
+#: .\voiture\voiture_freins_ar\models.py:82
 #: .\voiture\voiture_freins_ar\templates\voiture_freins_ar\freins_ar_detail.html:103
 #: .\voiture\voiture_freins_av\models.py:102
 #: .\voiture\voiture_freins_av\templates\voiture_freins_av\freins_av_detail.html:102
@@ -457,7 +457,7 @@ msgstr ""
 #: .\voiture\voiture_embrayage\models.py:105
 #: .\voiture\voiture_embrayage\templates\voiture_embrayage\embrayage_detail.html:95
 #: .\voiture\voiture_exemplaire\models.py:229
-#: .\voiture\voiture_freins_ar\models.py:82
+#: .\voiture\voiture_freins_ar\models.py:83
 #: .\voiture\voiture_freins_ar\templates\voiture_freins_ar\freins_ar_detail.html:107
 #: .\voiture\voiture_freins_av\models.py:103
 #: .\voiture\voiture_freins_av\templates\voiture_freins_av\freins_av_detail.html:106
@@ -1322,7 +1322,7 @@ msgstr ""
 #: .\voiture\voiture_boite\templates\voiture_boite\boite_detail.html:70
 #: .\voiture\voiture_embrayage\templates\voiture_embrayage\ajouter_embrayage.html:129
 #: .\voiture\voiture_embrayage\templates\voiture_embrayage\embrayage_detail.html:65
-#: .\voiture\voiture_freins_ar\models.py:79
+#: .\voiture\voiture_freins_ar\models.py:80
 #: .\voiture\voiture_freins_ar\templates\voiture_freins_ar\freins_ar_detail.html:74
 #: .\voiture\voiture_freins_ar\templates\voiture_freins_ar\freins_ar_detail.html:78
 #: .\voiture\voiture_freins_av\models.py:99
@@ -5339,8 +5339,8 @@ msgstr ""
 #: .\maintenance\templates\maintenance\choisir_type.html:93
 #: .\maintenance\types_maintenances.py:8 .\piece\piece_pneus\models.py:55
 #: .\theme\templates\dashboard.html:149
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:162
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_pneus.html:35
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:171
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_pneus.html:36
 msgid "Pneus"
 msgstr ""
 
@@ -11945,7 +11945,7 @@ msgid "Prix de vente calculé"
 msgstr ""
 
 #: .\piece\templates\piece\piece_detail.html:45
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:189
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:198
 msgid "Modifier"
 msgstr ""
 
@@ -13189,124 +13189,124 @@ msgstr ""
 msgid "Freins avant"
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:124
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:132
 msgid "Aucun frein avant enregistré pour cet exemplaire."
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:133
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:142
 #: .\voiture\voiture_freins_av\templates\voiture_freins_av\dashboard_frein.html:29
 msgid "Freins arrière"
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:155
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:164
 msgid "Aucun frein arrière enregistré pour cet exemplaire."
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:181
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:190
 msgid "Aucun pneus enregistré pour cet exemplaire."
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:213
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:222
 msgid "Lier une boîte"
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:219
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:228
 msgid "Lier un moteur"
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:224
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_embrayage.html:66
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:233
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_embrayage.html:67
 msgid "Lier un embrayage"
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:230
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_frein.html:66
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:239
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_frein.html:67
 msgid "Lier les freins avant"
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:236
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_frein_ar.html:66
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:245
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_frein_ar.html:67
 msgid "Lier les freins arrière"
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:242
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_pneus.html:59
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\detail_exemplaire.html:251
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_pneus.html:60
 msgid "Lier les pneus"
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_boite.html:10
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_boite.html:11
 msgid "Boite de vitesse du véhicule : "
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_boite.html:55
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_boite.html:56
 msgid "Choisir une boîte"
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_boite.html:57
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_boite.html:58
 msgid "Sélectionner une boîte"
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_boite.html:67
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_boite.html:68
 msgid "Lier la boîte"
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_embrayage.html:9
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_embrayage.html:10
 msgid "Embrayage du véhicule : "
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_embrayage.html:54
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_embrayage.html:55
 msgid "Choisir un embrayage"
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_embrayage.html:56
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_embrayage.html:57
 msgid "Sélectionner un embrayage"
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_frein.html:9
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_frein.html:10
 msgid "Freins avant du véhicule: "
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_frein.html:54
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_frein.html:55
 msgid "Choisir le système de Freinage avant"
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_frein.html:56
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_frein.html:57
 msgid "Sélectionner un système de freinage avant"
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_frein_ar.html:9
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_frein_ar.html:10
 msgid "Freins arrière du véhicule: "
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_frein_ar.html:54
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_frein_ar.html:55
 msgid "Choisir le système de freinage arrière"
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_frein_ar.html:56
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_frein_ar.html:57
 msgid "Sélectionner un système de freinage arrière"
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_moteur.html:9
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_moteur.html:10
 msgid "Moteur du véhicule: "
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_moteur.html:54
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_moteur.html:55
 msgid "Choisir un moteur"
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_moteur.html:56
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_moteur.html:57
 msgid "Sélectionner un moteur"
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_moteur.html:66
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_moteur.html:67
 msgid "Lier le moteur"
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_pneus.html:12
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_pneus.html:13
 msgid "Pneus du véhicule"
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_pneus.html:40
+#: .\voiture\voiture_exemplaire\templates\voiture_exemplaire\lier_pneus.html:41
 msgid "Sélectionner les pneus"
 msgstr ""
 
@@ -13377,24 +13377,28 @@ msgstr ""
 msgid "Lier un embrayage à un véhicule"
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\views.py:219
-#: .\voiture\voiture_exemplaire\views.py:258
+#: .\voiture\voiture_exemplaire\views.py:204
+#: .\voiture\voiture_exemplaire\views.py:278
 msgid "Veuillez sélectionner un système de freinage à lier."
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\views.py:224
-msgid "Lier un système de freinage à un véhicule"
+#: .\voiture\voiture_exemplaire\views.py:229
+msgid "Le système de freinage avant a été lié au véhicule "
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\views.py:263
+#: .\voiture\voiture_exemplaire\views.py:242
+msgid "Lier un système de freinage avant à un véhicule"
+msgstr ""
+
+#: .\voiture\voiture_exemplaire\views.py:283
 msgid "Lier un système de freinage arrière à un véhicule"
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\views.py:279
+#: .\voiture\voiture_exemplaire\views.py:299
 msgid "Paramètres manquants"
 msgstr ""
 
-#: .\voiture\voiture_exemplaire\views.py:284
+#: .\voiture\voiture_exemplaire\views.py:304
 msgid "Moteur non trouvé"
 msgstr ""
 
@@ -13414,7 +13418,7 @@ msgstr ""
 msgid "Type disque arrière"
 msgstr ""
 
-#: .\voiture\voiture_freins_ar\models.py:75
+#: .\voiture\voiture_freins_ar\models.py:76
 #: .\voiture\voiture_freins_av\models.py:94
 msgid "Matière des plaquettes avant"
 msgstr ""
