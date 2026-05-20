@@ -100,9 +100,6 @@ def ajouter_pneus_simple(request):
                     request,
                     _(f"Le pneu '{pneu.manufacturier} {pneu.pneus_largeur}/{pneu.pneus_hauteur} R{pneu.pneus_jante}' ajouté avec succès !")
                 )
-
-                return redirect("voiture_pneus:list")
-
         else:
             form = VoiturePneusForm()
 
