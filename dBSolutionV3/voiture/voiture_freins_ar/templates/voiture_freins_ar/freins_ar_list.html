@@ -4,6 +4,7 @@
 {% block title %}{% trans "Liste des pièces de frein arrière" %}{% endblock %}
 
 {% block content %}
+<br>
 <h1 class="text-2xl font-bold mb-6 flex items-center">
     <img src="{% static 'icons/disque-de-frein.png' %}" alt="Frein"
          style="width:60px; height:60px; margin-right:10px;">
@@ -85,10 +86,10 @@
 <br>
 
 
-<div class="mb-4">
-    <a href="{% url 'utilisateurs:dashboard' %}"
-        class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
-        {% trans "Retour au tableau de bord" %}
+<div>
+    <a href="{% url 'voiture_freins_av:dashboard_frein' %}"
+       class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Dashboard freins" %}
     </a>
 </div>
 <!-- DataTables JS -->

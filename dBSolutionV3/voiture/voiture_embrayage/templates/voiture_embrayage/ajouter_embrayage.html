@@ -1,5 +1,7 @@
 {% extends "base.html" %}
-{% load i18n static %}
+{% load i18n widget_tweaks static %}
+
+
 
 {% block content %}
 <div class="max-w-xl mx-auto p-6 bg-white rounded shadow mt-16 mb-16">
@@ -41,99 +43,30 @@
         </div>
     {% endif %}
 
-    <form method="post" class="space-y-4">
+     <form method="post" class="space-y-4">
         {% csrf_token %}
 
-        <!-- Fabricant -->
-        <div>
-            <label for="id_fabricant" class="font-semibold">{% trans "Fabricant" %}</label>
-            <input type="text" id="id_fabricant" name="fabricant"
-                   required maxlength="100"
-                   class="border rounded px-4 py-2 w-full focus:ring-2 focus:ring-blue-500">
-        </div>
+        {% for field in form %}
+            <div>
+                <label class="block font-semibold mb-1">
+                    {{ field.label }}
+                </label>
 
-        <!-- Type embrayage -->
-        <div>
-            <label for="id_type_embrayage" class="font-semibold">{% trans "Type d'embrayage" %}</label>
-            <select id="id_type_embrayage" name="type_embrayage"
-                    required
-                    class="border rounded px-3 py-2 w-full focus:ring-2 focus:ring-blue-500">
-                <option value="">{% trans "Sélectionner" %}</option>
-                {% for value, label in TypeEmbrayage.choices %}
-                    <option value="{{ value }}">{{ label }}</option>
-                {% endfor %}
-            </select>
-        </div>
+                {{ field|add_class:"input" }}
 
-        <!-- Volant moteur -->
-        <div>
-            <label for="id_volant_moteur" class="font-semibold">{% trans "Volant moteur" %}</label>
-            <select id="id_volant_moteur" name="volant_moteur"
-                    class="border rounded px-3 py-2 w-full focus:ring-2 focus:ring-blue-500">
-                <option value="">{% trans "Sélectionner" %}</option>
-                {% for value, label in TypeVolantMoteur.choices %}
-                    <option value="{{ value }}">{{ label }}</option>
-                {% endfor %}
-            </select>
-        </div>
+                {% if field.help_text %}
+                    <p class="text-gray-500 text-sm mt-1">
+                        {{ field.help_text }}
+                    </p>
+                {% endif %}
 
-        <!-- Plateau pression -->
-        <div>
-            <label for="id_plateau_pression" class="font-semibold">{% trans "Plateau de pression" %}</label>
-            <select id="id_plateau_pression" name="plateau_pression"
-                    class="border rounded px-3 py-2 w-full focus:ring-2 focus:ring-blue-500">
-                <option value="">{% trans "Sélectionner" %}</option>
-                {% for value, label in TypePlateauPression.choices %}
-                    <option value="{{ value }}">{{ label }}</option>
-                {% endfor %}
-            </select>
-        </div>
-
-        <!-- OEM -->
-        <div>
-            <label for="id_oem" class="font-semibold">{% trans "Numéro OEM" %}</label>
-            <input type="text" id="id_oem" name="oem"
-                   maxlength="100"
-                   class="border rounded px-4 py-2 w-full focus:ring-2 focus:ring-blue-500">
-        </div>
-
-        <!-- Kilométrage -->
-        <div>
-            <label for="id_kilometrage_embrayage" class="font-semibold">{% trans "Kilométrage" %}</label>
-            <input type="number" id="id_kilometrage_embrayage"
-                   name="kilometrage_embrayage"
-                   min="0"
-                   class="border rounded px-4 py-2 w-full focus:ring-2 focus:ring-blue-500">
-        </div>
-
-        <!-- Numéro -->
-        <div>
-            <label for="id_numero_embrayage" class="font-semibold">{% trans "Numéro" %}</label>
-            <input type="text" id="id_numero_embrayage"
-                   name="numero_embrayage"
-                   maxlength="100"
-                   class="border rounded px-4 py-2 w-full focus:ring-2 focus:ring-blue-500">
-        </div>
-
-        <!-- Date -->
-        <div>
-            <label for="id_date_creation" class="font-semibold">{% trans "Date de création" %}</label>
-            <input type="date" id="id_date_creation"
-                   name="date_creation"
-                   class="border rounded px-4 py-2 w-full focus:ring-2 focus:ring-blue-500">
-        </div>
-
-
-         <div>
-            <label for="id_remarques" class="font-semibold">
-                {% trans "Remarques" %}
-            </label>
-
-            <textarea id="id_remarques" name="remarques"
-                      required maxlength="500"
-                      rows="4"
-                      class="border rounded px-4 py-2 w-full focus:ring-2 focus:ring-blue-500"></textarea>
-         </div>
+                {% if field.errors %}
+                    <p class="text-red-600 text-sm mt-1">
+                        {{ field.errors|striptags }}
+                    </p>
+                {% endif %}
+            </div>
+        {% endfor %}
 
         <!-- Boutons -->
         <div class="flex gap-3 mt-6">

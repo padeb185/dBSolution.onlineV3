@@ -27,12 +27,13 @@ class TypePlateauPression(models.TextChoices):
     BIMASSE = "BIMASSE", _("Bimasse (pour volant moteur DMF)")
     AUTOMATIQUE = "AUTOMATIQUE", _("Automatique / non présent")
 
-class TypeButeeDEmbryage(models.TextChoices):
+class TypeButeeDEmbrayage(models.TextChoices):
     MECANIQUE = "MECANIQUE", _("Mécanique")
     HYDRAULIQUE = "HYDRAULIQUE", _("Hydraulique")
     AROULEMENT = "AROULEMENT", _("A roulement")
     CONCENTRIQUES = "CONCENTRIQUES", _("Concentriques")
     ACABLE = "ACABLE", _("A cable")
+    AUTOMATIQUE = "AUTOMATIQUE", _("Automatique, sans butée")
 
 
 class VoitureEmbrayage(models.Model):
@@ -84,8 +85,8 @@ class VoitureEmbrayage(models.Model):
     )
 
     butee_embrayage = models.CharField(
-        max_length=30, choices=TypeButeeDEmbryage.choices,
-        default=TypeButeeDEmbryage.AROULEMENT,
+        max_length=30, choices=TypeButeeDEmbrayage.choices,
+        default=TypeButeeDEmbrayage.AROULEMENT,
         null=True,
         blank=True
 
@@ -115,7 +116,7 @@ class VoitureEmbrayage(models.Model):
         return f"Embrayage #{self.numero_embrayage} - {self.kilometres_embrayage} km"
 
     def remplacer_embrayage(self):
-        if self.numero_embrayage < 10:
+        if self.numero_embrayage < 20:
             self.numero_embrayage += 1
             # On remet à zéro le kilométrage de l’embrayage
             self.kilometres_remplacement_embrayage = self.kilometres_chassis  # mise à jour du kilométrage de remplacement

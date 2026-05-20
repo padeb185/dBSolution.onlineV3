@@ -9,7 +9,8 @@ class VoitureBoiteForm(forms.ModelForm):
     class Meta:
         model = VoitureBoite
 
-        exclude = ['voitures_modeles', 'voitures_exemplaires']
+        exclude = ['voitures_modeles', 'voitures_exemplaires', 'kilometres_chassis',
+                   'dernier_entretien', 'numero_boite']
 
         labels = {
             "fabricant": _("Fabricant"),

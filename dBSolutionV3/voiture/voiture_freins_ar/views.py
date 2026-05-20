@@ -15,34 +15,51 @@ from django.utils.translation import gettext_lazy as _
 @login_required
 def ajouter_freins_ar(request, modele_id):
     tenant = request.user.societe
+
     with tenant_context(tenant):
-        # Récupère le modèle
         modele = get_object_or_404(VoitureModele, id=modele_id)
-        marque = modele.voiture_marque  # objet VoitureMarque
 
         if request.method == "POST":
-            form = VoitureFreinsARForm(request.POST)
+            post_data = request.POST.copy()
+
+            champs_float = [
+                "taille_disque_ar",
+                "epaisseur_disque_ar",
+                "epaisseur_min_disque_ar",
+                "plaquettes_ar",
+            ]
+
+            for champ in champs_float:
+                valeur = post_data.get(champ)
+                if valeur:
+                    post_data[champ] = valeur.replace(",", ".")
+
+            form = VoitureFreinsARForm(post_data)
+
             if form.is_valid():
-                exemplaire = form.save(commit=False)
-                exemplaire.voiture_modele = modele
-                exemplaire.voiture_marque = marque
-                exemplaire.save()
-                messages.success(request, "Freins arrière ajouté avec succès !")
+                freins_ar = form.save(commit=False)
+                freins_ar.societe = tenant
+                freins_ar.save()
+
+                messages.success(request, "Freins arrière ajoutés avec succès !")
+
 
             else:
-                # Form invalide → on retourne le formulaire avec erreurs
-                messages.error(request, "Veuillez corriger les erreurs ci-dessous.")
+                messages.error(
+                    request,
+                    "Veuillez corriger les erreurs ci-dessous."
+                )
+
         else:
-            # GET → formulaire pré-rempli avec la marque et le modèle
-            form = VoitureFreinsARForm(initial={
-                "voiture_marque": marque.pk,
-                "voiture_modele": modele.id
-            })
+            form = VoitureFreinsARForm()
 
         return render(request, "voiture_freins_ar/ajouter_freins_ar_simple.html", {
             "form": form,
-            "modele": modele
+            "modele": modele,
         })
+
+
+
 @login_required
 def ajouter_freins_ar_simple(request):
     tenant = request.user.societe

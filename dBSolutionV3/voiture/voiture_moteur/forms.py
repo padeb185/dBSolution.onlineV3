@@ -53,9 +53,8 @@ class MoteurVoitureForm(forms.ModelForm):
                 "placeholder": _("Ex: S14B23")
             }),
 
-            "distribution": forms.TextInput(attrs={
-                "class": "border rounded px-3 py-2 w-full text-sm",
-                "placeholder": _("Chaîne ou courroie")
+            "distribution": forms.Select(attrs={
+                "class": "border rounded px-3 py-2 w-full text-sm"
             }),
 
             "qualite_huile": forms.TextInput(attrs={

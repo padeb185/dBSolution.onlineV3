@@ -42,20 +42,28 @@ def freins_av_detail_view(request, frein_av_id):
 
 
 
-
 @login_required
 def ajouter_freins_av_simple(request):
     tenant = request.user.societe
 
     with tenant_context(tenant):
 
-        def to_float(value):
-            if not value:
-                return None
-            return float(value.replace(',', '.'))
-
         if request.method == "POST":
-            form = VoitureFreinsAVForm(request.POST)
+            post_data = request.POST.copy()
+
+            champs_float = [
+                "taille_disque_av",
+                "epaisseur_disque_av",
+                "epaisseur_min_disque_av",
+                "plaquettes_av",
+            ]
+
+            for champ in champs_float:
+                valeur = post_data.get(champ)
+                if valeur:
+                    post_data[champ] = valeur.replace(",", ".")
+
+            form = VoitureFreinsAVForm(post_data)
 
             if form.is_valid():
                 obj = form.save(commit=False)
@@ -63,7 +71,9 @@ def ajouter_freins_av_simple(request):
                 obj.save()
 
                 messages.success(request, "Freins avant ajoutés avec succès !")
-                return redirect("voiture_freins_av:freins_av_list")
+
+            else:
+                messages.error(request, "Veuillez corriger les erreurs du formulaire.")
 
         else:
             form = VoitureFreinsAVForm()
@@ -71,6 +81,8 @@ def ajouter_freins_av_simple(request):
         return render(request, "voiture_freins_av/ajouter_freins_simple.html", {
             "form": form
         })
+
+
 
 
 @login_required

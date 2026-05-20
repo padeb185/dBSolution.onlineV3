@@ -11,8 +11,7 @@ from voiture.voiture_embrayage.models import TypeVolantMoteur
 from voiture.voiture_embrayage.models import TypePlateauPression
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.utils.translation import gettext as _
-
-
+from voiture.voiture_embrayage.models import TypeButeeDEmbrayage
 
 
 
@@ -34,43 +33,31 @@ def liste_embrayage(request):
 @login_required
 def ajouter_embrayage_view(request):
     tenant = request.user.societe
+
     with tenant_context(tenant):
+
         if request.method == "POST":
-            # Récupération des valeurs
-            fabricant = request.POST.get("fabricant")
-            type_embrayage = request.POST.get("type_embrayage")
-            volant_moteur = request.POST.get("volant_moteur")
-            plateau_pression = request.POST.get("plateau_pression")
-            kilometrage_embrayage = request.POST.get("kilometrage_embrayage")
-            numero_embrayage = request.POST.get("numero_embrayage")
+            form = VoitureEmbrayageForm(request.POST)
 
-            # Vérification basique : champs obligatoires
-            if not fabricant or not type_embrayage:
-                messages.error(request,
-                               "Veuillez renseigner au moins le fabricant et le type d'embrayage.")
+            if form.is_valid():
+                embrayage = form.save(commit=False)
+                embrayage.societe = tenant
+                embrayage.save()
+
+                messages.success(request, _("Embrayage ajouté avec succès !"))
+                return redirect("voiture_embrayage:list")
+
             else:
-                try:
-                    VoitureEmbrayage.objects.create(
-                        fabricant=fabricant,
-                        type_embrayage=type_embrayage,
-                        volant_moteur=volant_moteur,
-                        plateau_pression=plateau_pression,
-                        kilometrage_embrayage=kilometrage_embrayage,
-                        numero_embrayage=numero_embrayage,
-                    )
-                    messages.success(request, "Embrayage ajouté avec succès !")
-                except Exception as e:
-                    messages.error(request, f"Une erreur est survenue : {str(e)}")
+                messages.error(request, _("Veuillez corriger les erreurs du formulaire."))
 
+        else:
+            form = VoitureEmbrayageForm()
 
         context = {
-            "TypeEmbrayage": TypeEmbrayage,
-            "TypeVolantMoteur": TypeVolantMoteur,
-            "TypePlateauPression": TypePlateauPression,
+            "form": form,
         }
 
     return render(request, "voiture_embrayage/ajouter_embrayage.html", context)
-
 
 
 
