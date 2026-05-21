@@ -23,7 +23,7 @@ class ClientPilotageListView(ListView):
     model = ClientPilotage
     template_name = "client_pilotage/client_pilotage_list.html"
     context_object_name = "clients_pilotages"
-    paginate_by = 20
+
 
     def get_queryset(self):
         societe = self.request.user.societe

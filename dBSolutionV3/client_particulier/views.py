@@ -44,7 +44,6 @@ def client_detail(request, client_particulier_id):
     })
 
 
-
 @login_required
 def client_particulier_form_view(request):
 
@@ -52,17 +51,14 @@ def client_particulier_form_view(request):
 
     with tenant_context(tenant):
 
-        if request.method == "POST":
+        client_particulier = None
 
+        if request.method == "POST":
             form = ClientParticulierForm(request.POST)
 
             if form.is_valid():
-
                 with transaction.atomic():
 
-                    # -----------------------
-                    # ADRESSE
-                    # -----------------------
                     adresse = Adresse.objects.create(
                         societe=tenant,
                         rue=form.cleaned_data.get("rue"),
@@ -74,9 +70,6 @@ def client_particulier_form_view(request):
                         code_pays=form.cleaned_data.get("code_pays"),
                     )
 
-                    # -----------------------
-                    # CLIENT PARTICULIER
-                    # -----------------------
                     client_particulier = form.save(commit=False)
                     client_particulier.societe = tenant
                     client_particulier.adresse = adresse
@@ -88,11 +81,12 @@ def client_particulier_form_view(request):
                     request,
                     _(
                         f"Client '{client_particulier.prenom} "
-                        f"{client_particulier.nom}' créé avec succès !"
+                        f"{client_particulier.nom}' créé avec succès ! "
+                        f"Âge : {client_particulier.age} ans"
                     )
                 )
 
-                return redirect("client_particulier_list")
+                return redirect("client_particulier_form")
 
             else:
                 messages.error(
@@ -108,11 +102,9 @@ def client_particulier_form_view(request):
             "client_particulier/client_form.html",
             {
                 "form": form,
+                "client_particulier": client_particulier,
             }
         )
-
-
-
 
 
 @login_required

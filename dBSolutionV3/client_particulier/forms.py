@@ -1,7 +1,9 @@
 from django import forms
-from .models import ClientParticulier
 from django.utils.translation import gettext_lazy as _
-from adresse.models import Adresse
+from stdnum import iban
+
+from .models import ClientParticulier
+
 
 
 def luhn_check(card_number: str) -> bool:
@@ -27,6 +29,7 @@ def luhn_check(card_number: str) -> bool:
 
 class ClientParticulierForm(forms.ModelForm):
 
+
     prenom = forms.CharField(
         label=_("Prénom"),
         widget=forms.TextInput(attrs={"class": "border rounded px-4 py-2 w-full"})
@@ -42,8 +45,24 @@ class ClientParticulierForm(forms.ModelForm):
 
     numero_telephone = forms.CharField(required=False)
     numero_carte_id = forms.CharField(required=False)
-    numero_compte = forms.CharField(required=False)
-    numero_carte_bancaire = forms.CharField(required=False)
+
+    numero_compte = forms.CharField(
+        required=False,
+        label=_("Numéro de compte bancaire"),
+        widget=forms.TextInput(attrs={
+            "class": "border rounded px-4 py-2 w-full",
+            "placeholder": "BE12 3456 7890 1234 56"
+        })
+    )
+
+    numero_carte_bancaire = forms.CharField(
+        required=False,
+        label=_("Numéro de carte bancaire"),
+        widget=forms.TextInput(attrs={
+            "class": "border rounded px-4 py-2 w-full",
+            "placeholder": "5389 3456 7890 1234"
+        })
+    )
 
     date_naissance = forms.DateField(
         required=True,
@@ -56,7 +75,7 @@ class ClientParticulierForm(forms.ModelForm):
     )
 
     age = forms.IntegerField(
-        label=_("Âge"),
+        label="Âge",
         required=False,
         disabled=True,
         widget=forms.NumberInput(attrs={
@@ -175,33 +194,33 @@ class ClientParticulierForm(forms.ModelForm):
             }),
         }
 
-        def __init__(self, *args, **kwargs):
-            super().__init__(*args, **kwargs)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
-            if self.instance and self.instance.pk:
+        if self.instance and self.instance.pk:
 
-                cp = self.instance.client_particulier
+            cp = self.instance.client_particulier
 
-                self.fields["prenom"].initial = cp.prenom
-                self.fields["nom"].initial = cp.nom
-                self.fields["email"].initial = cp.email
-                self.fields["numero_telephone"].initial = cp.numero_telephone
-                self.fields["numero_carte_id"].initial = cp.numero_carte_id
-                self.fields["numero_compte"].initial = cp.numero_compte
-                self.fields["numero_carte_bancaire"].initial = cp.numero_carte_bancaire
-                self.fields["date_naissance"].initial = cp.date_naissance
-                self.fields["age"].initial = cp.age
+            self.fields["prenom"].initial = cp.prenom
+            self.fields["nom"].initial = cp.nom
+            self.fields["email"].initial = cp.email
+            self.fields["numero_telephone"].initial = cp.numero_telephone
+            self.fields["numero_carte_id"].initial = cp.numero_carte_id
+            self.fields["numero_compte"].initial = cp.numero_compte
+            self.fields["numero_carte_bancaire"].initial = cp.numero_carte_bancaire
+            self.fields["date_naissance"].initial = cp.date_naissance
+            self.fields["age"].initial = cp.age
 
-                if self.instance.adresse:
-                    adresse = self.instance.adresse
+            if self.instance.adresse:
+                adresse = self.instance.adresse
 
-                    self.fields["rue"].initial = adresse.rue
-                    self.fields["numero"].initial = adresse.numero
-                    self.fields["boite"].initial = adresse.boite
-                    self.fields["code_postal"].initial = adresse.code_postal
-                    self.fields["ville"].initial = adresse.ville
-                    self.fields["pays"].initial = adresse.pays
-                    self.fields["code_pays"].initial = adresse.code_pays
+                self.fields["rue"].initial = adresse.rue
+                self.fields["numero"].initial = adresse.numero
+                self.fields["boite"].initial = adresse.boite
+                self.fields["code_postal"].initial = adresse.code_postal
+                self.fields["ville"].initial = adresse.ville
+                self.fields["pays"].initial = adresse.pays
+                self.fields["code_pays"].initial = adresse.code_pays
 
 
 
@@ -218,5 +237,22 @@ class ClientParticulierForm(forms.ModelForm):
 
         if not luhn_check(value):
             raise forms.ValidationError("Numéro de carte invalide (Luhn)")
+
+        return value
+
+    def clean_numero_compte(self):
+        value = self.cleaned_data.get("numero_compte")
+
+        if not value:
+            return None
+
+        # nettoyage
+        value = value.replace(" ", "").upper()
+
+        # validation IBAN
+        if not iban.is_valid(value):
+            raise forms.ValidationError(
+                _("Numéro de compte IBAN invalide")
+            )
 
         return value

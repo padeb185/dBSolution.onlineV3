@@ -2,6 +2,18 @@ from datetime import date
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from stdnum.be import iban
+
+
+def validate_iban(value):
+    if not value:
+        return
+
+    value = value.replace(" ", "").upper()
+
+    if not iban.is_valid(value):
+        raise ValidationError(_("IBAN invalide"))
+
 
 
 
@@ -68,30 +80,4 @@ class ClientPilotage(models.Model):
     def __str__(self):
         cp = self.client_particulier
         return f"{cp.prenom} {cp.nom} ({self.niveau})"
-
-    def clean(self):
-        super().clean()
-
-        if self.date_naissance:
-            today = date.today()
-            age = today.year - self.date_naissance.year - (
-                    (today.month, today.day) <
-                    (self.date_naissance.month, self.date_naissance.day)
-            )
-
-            if age < 18:
-                raise ValidationError({
-                    'date_naissance': _("La personne doit avoir au moins 18 ans.")
-                })
-
-    @property
-    def age(self):
-        if not self.date_naissance:
-            return None
-
-        today = date.today()
-        return today.year - self.date_naissance.year - (
-                (today.month, today.day) <
-                (self.date_naissance.month, self.date_naissance.day)
-        )
 

@@ -7,8 +7,13 @@ from stdnum import iban
 
 
 def validate_iban(value):
+    if not value:
+        return
+
+    value = value.replace(" ", "").upper()
+
     if not iban.is_valid(value):
-        raise ValidationError("IBAN invalide")
+        raise ValidationError(_("IBAN invalide"))
 
 
 
@@ -106,8 +111,8 @@ class ClientParticulier(models.Model):
         if self.date_naissance:
             today = date.today()
             age = today.year - self.date_naissance.year - (
-                (today.month, today.day) <
-                (self.date_naissance.month, self.date_naissance.day)
+                    (today.month, today.day) <
+                    (self.date_naissance.month, self.date_naissance.day)
             )
 
             if age < 18:
@@ -122,8 +127,6 @@ class ClientParticulier(models.Model):
 
         today = date.today()
         return today.year - self.date_naissance.year - (
-            (today.month, today.day) <
-            (self.date_naissance.month, self.date_naissance.day)
+                (today.month, today.day) <
+                (self.date_naissance.month, self.date_naissance.day)
         )
-
-

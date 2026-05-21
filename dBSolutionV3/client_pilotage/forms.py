@@ -1,5 +1,8 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
+from stdnum.be import iban
+
+from client_particulier.forms import luhn_check
 from .models import ClientPilotage
 from societe_cliente.models import SocieteCliente
 
@@ -117,7 +120,7 @@ class ClientPilotageForm(forms.ModelForm):
 
         if self.instance and self.instance.pk:
 
-            cp = self.instance.client_particulier
+            cp = self.instance.client_pilotage
 
             self.fields["prenom"].initial = cp.prenom
             self.fields["nom"].initial = cp.nom
@@ -171,3 +174,36 @@ class ClientPilotageForm(forms.ModelForm):
                 for field in ordered_fields
                 if field in self.fields
             }
+
+    def clean_numero_carte_bancaire(self):
+        value = self.cleaned_data.get("numero_carte_bancaire")
+
+        if not value:
+            return None
+
+        value = str(value).replace(" ", "").replace("-", "")
+
+        if not value.isdigit():
+            raise forms.ValidationError("Numéro de carte invalide")
+
+        if not luhn_check(value):
+            raise forms.ValidationError("Numéro de carte invalide (Luhn)")
+
+        return value
+
+    def clean_numero_compte(self):
+        value = self.cleaned_data.get("numero_compte")
+
+        if not value:
+            return None
+
+        # nettoyage
+        value = value.replace(" ", "").upper()
+
+        # validation IBAN
+        if not iban.is_valid(value):
+            raise forms.ValidationError(
+                _("Numéro de compte IBAN invalide")
+            )
+
+        return value

@@ -1,3 +1,5 @@
+from stdnum import iban
+
 from adresse.models import Adresse
 from django import forms
 from django.utils.translation import gettext_lazy as _
@@ -214,5 +216,22 @@ class ClientAtelierForm(forms.ModelForm):
 
         if not luhn_check(value):
             raise forms.ValidationError("Numéro de carte invalide (Luhn)")
+
+        return value
+
+    def clean_numero_compte(self):
+        value = self.cleaned_data.get("numero_compte")
+
+        if not value:
+            return None
+
+        # nettoyage
+        value = value.replace(" ", "").upper()
+
+        # validation IBAN
+        if not iban.is_valid(value):
+            raise forms.ValidationError(
+                _("Numéro de compte IBAN invalide")
+            )
 
         return value
