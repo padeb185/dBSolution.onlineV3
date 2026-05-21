@@ -1,8 +1,8 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from stdnum import iban
-
 from .models import ClientParticulier
+
 
 
 
@@ -199,7 +199,7 @@ class ClientParticulierForm(forms.ModelForm):
 
         if self.instance and self.instance.pk:
 
-            cp = self.instance.client_particulier
+            cp = self.instance
 
             self.fields["prenom"].initial = cp.prenom
             self.fields["nom"].initial = cp.nom

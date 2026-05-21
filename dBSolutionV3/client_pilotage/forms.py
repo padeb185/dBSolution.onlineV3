@@ -1,10 +1,12 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from stdnum.be import iban
-
 from client_particulier.forms import luhn_check
 from .models import ClientPilotage
 from societe_cliente.models import SocieteCliente
+
+
+
 
 
 class ClientPilotageForm(forms.ModelForm):
@@ -30,8 +32,24 @@ class ClientPilotageForm(forms.ModelForm):
 
     numero_telephone = forms.CharField(required=False)
     numero_carte_id = forms.CharField(required=False)
-    numero_compte = forms.CharField(required=False)
-    numero_carte_bancaire = forms.CharField(required=False)
+    numero_compte = forms.CharField(
+        required=False,
+        label=_("Numéro de compte bancaire"),
+        widget=forms.TextInput(attrs={
+            "class": "border rounded px-4 py-2 w-full",
+            "placeholder": "BE12 3456 7890 1234 56"
+        })
+    )
+
+    numero_carte_bancaire = forms.CharField(
+        required=False,
+        label=_("Numéro de carte bancaire"),
+        widget=forms.TextInput(attrs={
+            "class": "border rounded px-4 py-2 w-full",
+            "placeholder": "5389 3456 7890 1234"
+        })
+    )
+
 
     date_naissance = forms.DateField(
         required=True,
@@ -120,7 +138,7 @@ class ClientPilotageForm(forms.ModelForm):
 
         if self.instance and self.instance.pk:
 
-            cp = self.instance.client_pilotage
+            cp = self.instance.client_particulier
 
             self.fields["prenom"].initial = cp.prenom
             self.fields["nom"].initial = cp.nom

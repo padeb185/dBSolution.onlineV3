@@ -1,35 +1,58 @@
 from stdnum import iban
-
-from adresse.models import Adresse
 from django import forms
 from django.utils.translation import gettext_lazy as _
+from client_particulier.forms import luhn_check
 from .models import ClientAtelier
-from adresse.models import Adresse
 
 
 
-def luhn_check(card_number: str) -> bool:
-    """Vérifie si un numéro de carte est valide selon Luhn"""
-    # Nettoyage
-    card_number = card_number.replace(" ", "").replace("-", "")
-    if not card_number.isdigit() or len(card_number) < 12:
-        return False
 
-    digits = [int(d) for d in card_number]
-    check_digit = digits.pop()
-    digits.reverse()
-
-    for i in range(len(digits)):
-        if i % 2 == 0:
-            digits[i] *= 2
-            if digits[i] > 9:
-                digits[i] -= 9
-
-    total = sum(digits) + check_digit
-    return total % 10 == 0
 
 
 class ClientAtelierForm(forms.ModelForm):
+    prenom = forms.CharField(
+        label=_("Prénom"),
+        widget=forms.TextInput(attrs={"class": "border rounded px-4 py-2 w-full"})
+    )
+
+    nom = forms.CharField(
+        label=_("Nom"),
+        widget=forms.TextInput(attrs={"class": "border rounded px-4 py-2 w-full"})
+    )
+
+    email = forms.EmailField(required=False)
+
+    numero_telephone = forms.CharField(required=False)
+    numero_carte_id = forms.CharField(required=False)
+
+    numero_compte = forms.CharField(
+        required=False,
+        label=_("Numéro de compte bancaire"),
+        widget=forms.TextInput(attrs={
+            "class": "border rounded px-4 py-2 w-full",
+            "placeholder": "BE12 3456 7890 1234 56"
+        })
+    )
+
+    numero_carte_bancaire = forms.CharField(
+        required=False,
+        label=_("Numéro de carte bancaire"),
+        widget=forms.TextInput(attrs={
+            "class": "border rounded px-4 py-2 w-full",
+            "placeholder": "5389 3456 7890 1234"
+        })
+    )
+
+    date_naissance = forms.DateField(
+        required=True,
+        widget=forms.DateInput(
+            attrs={
+                "type": "date",
+                "class": "border rounded px-4 py-2 w-full",
+            }
+        )
+    )
+
 
     # -------------------------
     # 🔹 CHAMPS ADRESSE (hors modèle)
@@ -136,13 +159,13 @@ class ClientAtelierForm(forms.ModelForm):
             }),
 
             "numero_compte": forms.TextInput(attrs={
-                "class": "border rounded px-3 py-2 w-full text-sm",
-                "placeholder": "BE12 3456 7890 1234"
+                "class": "border rounded px-4 py-2 w-full",
+                "placeholder": "BE12 3456 7890 1234 56"
             }),
 
             "numero_carte_bancaire": forms.TextInput(attrs={
-                "class": "border rounded px-3 py-2 w-full text-sm",
-                "placeholder": "1234 5678 9012 3456"
+                "class": "border rounded px-4 py-2 w-full",
+                "placeholder": "5389 3456 7890 1234"
             }),
 
             "email": forms.EmailInput(attrs={
@@ -166,42 +189,30 @@ class ClientAtelierForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        if self.instance and self.instance.adresse:
-            a = self.instance.adresse
-            self.fields["rue"].initial = a.rue
-            self.fields["numero"].initial = a.numero
-            self.fields["code_postal"].initial = a.code_postal
-            self.fields["ville"].initial = a.ville
-            self.fields["pays"].initial = a.pays
-            self.fields["code_pays"].initial = a.code_pays
+        if self.instance and self.instance.pk:
 
-    # -------------------------
-    # SAVE (gestion adresse propre)
-    # -------------------------
-    def save(self, commit=True):
-        instance = super().save(commit=False)
+            cp = self.instance
 
-        adresse = instance.adresse or Adresse()
+            self.fields["prenom"].initial = cp.prenom
+            self.fields["nom"].initial = cp.nom
+            self.fields["email"].initial = cp.email
+            self.fields["numero_telephone"].initial = cp.numero_telephone
+            self.fields["numero_carte_id"].initial = cp.numero_carte_id
+            self.fields["numero_compte"].initial = cp.numero_compte
+            self.fields["numero_carte_bancaire"].initial = cp.numero_carte_bancaire
+            self.fields["date_naissance"].initial = cp.date_naissance
+            self.fields["age"].initial = cp.age
 
-        adresse.rue = self.cleaned_data.get("rue")
-        adresse.numero = self.cleaned_data.get("numero")
-        adresse.code_postal = self.cleaned_data.get("code_postal")
-        adresse.ville = self.cleaned_data.get("ville")
-        adresse.pays = self.cleaned_data.get("pays") or "Belgique"
-        adresse.code_pays = self.cleaned_data.get("code_pays") or "BE"
+            if self.instance.adresse:
+                adresse = self.instance.adresse
 
-        if commit:
-            adresse.save()
-            instance.adresse = adresse
-            instance.save()
-            self.save_m2m()
-
-        return instance
-
-
-    # -------------------------
-    # VALIDATION CARTE
-    # ------------------------
+                self.fields["rue"].initial = adresse.rue
+                self.fields["numero"].initial = adresse.numero
+                self.fields["boite"].initial = adresse.boite
+                self.fields["code_postal"].initial = adresse.code_postal
+                self.fields["ville"].initial = adresse.ville
+                self.fields["pays"].initial = adresse.pays
+                self.fields["code_pays"].initial = adresse.code_pays
 
     def clean_numero_carte_bancaire(self):
         value = self.cleaned_data.get("numero_carte_bancaire")
