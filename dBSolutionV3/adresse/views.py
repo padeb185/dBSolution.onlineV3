@@ -20,7 +20,6 @@ class AdresseListView(ListView):
     model = Adresse
     template_name = "adresse/adresse_list.html"
     context_object_name = "adresses"
-    paginate_by = 100
     ordering = ["rue"]
 
     def get_queryset(self):

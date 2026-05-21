@@ -6,7 +6,8 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('check_up', '0041_remove_controlegeneral_phares_anti_brouillard_arrière_and_more'),
+        ('check_up',
+         '0040_rename_jeu_rotule_suspension_inferieure_ard_controlegeneral_jeu_rotule_suspension_inferieure_ard_and'),
     ]
 
     operations = [

@@ -42,6 +42,22 @@
         </div>
     {% endif %}
 
+    {% if form_adresse.errors %}
+        <div class="bg-red-100 text-red-800 border border-red-300 p-3 rounded mb-4">
+            <strong>Erreurs adresse :</strong>
+            <ul>
+                {% for field in form_adresse %}
+                    {% for error in field.errors %}
+                        <li>{{ field.label }} : {{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form_adresse.non_field_errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
 
         <!-- Carrosserie -->
     <form method="post" class="space-y-4">
@@ -69,7 +85,9 @@
             </div>
         {% endfor %}
 
-          <h2 class="text-lg font-semibold mt-6 mb-2">{% trans "Adresse" %}</h2>
+
+
+        <h2 class="text-lg font-semibold mt-6 mb-2">{% trans "Adresse" %}</h2>
         {% for field in form_adresse %}
             <div class="mb-4">
                 <label class="block font-semibold mb-1">{{ field.label }}</label>
@@ -86,7 +104,7 @@
                     {% trans "Enregistrer" %}
                 </button>
 
-                <a href="{% url 'voiture_boite:list' %}"
+                <a href="{% url 'carrosserie:carrosserie_list' %}"
                    class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
                     {% trans "Annuler" %}
                 </a>

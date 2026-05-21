@@ -82,22 +82,143 @@
 
 
 <script>
+document.addEventListener('DOMContentLoaded', () => {
+    // ------------------------
+    // 2. Récupération du CSRF token
+    // ------------------------
     function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie) {
-            document.cookie.split(';').forEach(c => {
-                c = c.trim();
-                if (c.startsWith(name + '=')) {
-                    cookieValue = decodeURIComponent(c.slice(name.length + 1));
-                }
-            });
+        const cookies = document.cookie ? document.cookie.split(';') : [];
+        for (let cookie of cookies) {
+            cookie = cookie.trim();
+            if (cookie.startsWith(name + '=')) {
+                return decodeURIComponent(cookie.slice(name.length + 1));
+            }
         }
-        return cookieValue;
+        return null;
     }
-
     const csrftoken = getCookie('csrftoken');
 
+    // ------------------------
+    // 3. Vérification du prénom existant
+    // ------------------------
+    const prenomInput = document.getElementById('id_prenom');
+    if (prenomInput) {
+        prenomInput.addEventListener('blur', () => {
+            const prenom = prenomInput.value.trim();
+            if (!prenom) return;
 
+            fetch('/api/check_prenom/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                },
+                body: JSON.stringify({ prenom })
+            })
+            .then(r => r.json())
+            .then(data => {
+                // Remplissage des champs si le client existe
+                if (data.exist) {
+                    prenomInput.value = data.prenom || '';
+                    document.getElementById('id_nom').value = data.nom || '';
+                    document.getElementById('id_email').value = data.email || '';
+
+                    if (data.adresse) {
+                        document.getElementById('id_rue').value = data.adresse.rue || '';
+                        document.getElementById('id_numero').value = data.adresse.numero || '';
+                        document.getElementById('id_code_postal').value = data.adresse.code_postal || '';
+                        document.getElementById('id_ville').value = data.adresse.ville || '';
+                        document.getElementById('id_pays').value = data.adresse.pays || '';
+                        document.getElementById('id_code_pays').value = data.adresse.code_pays || '';
+                    }
+                } else {
+                    // Réinitialisation des champs si inexistant
+                    prenomInput.value = '';
+                    document.getElementById('id_nom').value = '';
+                    document.getElementById('id_email').value = '';
+                    document.getElementById('id_rue').value = '';
+                    document.getElementById('id_numero').value = '';
+                    document.getElementById('id_code_postal').value = '';
+                    document.getElementById('id_ville').value = '';
+                    document.getElementById('id_pays').value = 'Belgique';
+                    document.getElementById('id_code_pays').value = 'BE';
+                }
+            })
+            .catch(err => console.error("Erreur:", err));
+        });
+    }
+
+    // ------------------------
+    // 4. Formatage des numéros bancaires
+    // ------------------------
+    function formatBankNumber(inputId) {
+        const input = document.getElementById(inputId);
+        if (!input) return;
+
+        input.addEventListener('input', () => {
+            let val = input.value.toUpperCase();
+            val = val.replace(/[^A-Z0-9]/g, ""); // supprimer tout sauf lettres et chiffres
+
+            let formatted = "";
+            let i = 0;
+
+            while (i < val.length) {
+                if (i === 0) {
+                    formatted += val.substr(i, 2); // deux lettres
+                    i += 2;
+                } else if (i === 2) {
+                    formatted += val.substr(i, 2) + " "; // deux chiffres + espace
+                    i += 2;
+                } else {
+                    formatted += val.substr(i, 4) + " "; // groupes de 4 chiffres + espace
+                    i += 4;
+                }
+            }
+
+            input.value = formatted.trim();
+        });
+    }
+
+    formatBankNumber("id_numero_carte_bancaire");
+    formatBankNumber("id_numero_compte");
+
+
+
+    const dateInput = document.getElementById("id_date_naissance");
+    const ageInput = document.getElementById("id_age");
+
+    if (!dateInput || !ageInput) return;
+
+    function calculateAge() {
+
+        if (!dateInput.value) {
+            ageInput.value = "";
+            return;
+        }
+
+        const birthDate = new Date(dateInput.value);
+        const today = new Date();
+
+        let age = today.getFullYear() - birthDate.getFullYear();
+
+        const m = today.getMonth() - birthDate.getMonth();
+
+        if (
+            m < 0 ||
+            (m === 0 && today.getDate() < birthDate.getDate())
+        ) {
+            age--;
+        }
+
+        ageInput.value = age;
+    }
+
+    dateInput.addEventListener("change", calculateAge);
+
+    calculateAge();
+
+});
 </script>
+
 
 {% endblock %}

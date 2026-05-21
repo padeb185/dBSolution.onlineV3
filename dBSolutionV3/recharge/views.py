@@ -92,9 +92,6 @@ def ajouter_recharge_all(request):
                 recharge.save()
 
                 messages.success(request, _("Recharge ajoutée avec succès."))
-
-                return redirect("recharge:list")
-
             else:
                 messages.error(request, _("Veuillez corriger les erreurs ci-dessous."))
 

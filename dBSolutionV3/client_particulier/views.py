@@ -85,9 +85,6 @@ def client_particulier_form_view(request):
                         f"Âge : {client_particulier.age} ans"
                     )
                 )
-
-                return redirect("client_particulier_form")
-
             else:
                 messages.error(
                     request,
@@ -189,8 +186,10 @@ def modifier_client_particulier_view(request, client_particulier_id):
                 )
 
         else:
-
             initial = {}
+
+            if client_particulier.date_naissance:
+                initial["date_naissance"] = client_particulier.date_naissance.strftime("%Y-%m-%d")
 
             if adresse:
                 initial = {

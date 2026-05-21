@@ -27,7 +27,8 @@ class ClientAtelier(models.Model):
         "client_particulier.ClientParticulier",
         verbose_name=_("Client atelier"),
         on_delete=models.CASCADE,
-
+        null=True,
+        blank=True,
     )
 
 

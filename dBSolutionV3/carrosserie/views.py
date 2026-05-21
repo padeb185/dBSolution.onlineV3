@@ -1,19 +1,18 @@
 # carrosserie/views.py
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
 from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
 from django_tenants.utils import tenant_context, schema_context
 from .forms import CarrosserieForm
 from .models import Carrosserie
-from adresse.models import Adresse
 from django.utils.translation import gettext as _
 from adresse.forms import AdresseForm
-from assurance.forms import AssuranceForm
-from assurance.models import Assurance
+
+
 
 
 
@@ -22,7 +21,6 @@ class CarrosserieListView(ListView):
     model = Carrosserie
     template_name = "carrosserie/carrosserie_list.html"
     context_object_name = "carrosseries"
-    paginate_by = 100
     ordering = ["nom_societe"]
 
     def get_queryset(self):
@@ -32,6 +30,8 @@ class CarrosserieListView(ListView):
             return Carrosserie.objects.all().order_by("nom_societe")
 
 
+
+@never_cache
 @login_required
 def carrosserie_detail(request, carrosserie_id):
     tenant = request.user.societe
@@ -49,6 +49,8 @@ def carrosserie_detail(request, carrosserie_id):
         },
     )
 
+
+
 @login_required
 def ajouter_carrosserie_all(request):
     tenant = request.user.societe
@@ -56,39 +58,43 @@ def ajouter_carrosserie_all(request):
     with tenant_context(tenant):
 
         if request.method == "POST":
-
             form_carrosserie = CarrosserieForm(request.POST)
             form_adresse = AdresseForm(request.POST)
 
+            form_adresse.instance.societe = tenant
+
             if form_carrosserie.is_valid() and form_adresse.is_valid():
 
-                # 1. créer adresse
-                adresse = form_adresse.save(commit=False)
-                adresse.societe = tenant
-                adresse.save()
+                with transaction.atomic():
 
-                # 2. créer carrosserie
-                carrosserie = form_carrosserie.save(commit=False)
-                carrosserie.societe = tenant
-                carrosserie.adresse = adresse
-                carrosserie.save()
+                    adresse = form_adresse.save(commit=False)
+                    adresse.societe = tenant
+                    adresse.save()
+
+
+                    carrosserie = form_carrosserie.save(commit=False)
+                    carrosserie.societe = tenant
+                    carrosserie.adresse = adresse
+                    carrosserie.save()
 
                 messages.success(
                     request,
                     _(f"Carrosserie '{carrosserie.nom_societe}' créée avec succès !")
                 )
-
-                return redirect("carrosserie:list")
+            else:
+                messages.error(
+                    request,
+                    _("Veuillez corriger les erreurs du formulaire.")
+                )
 
         else:
             form_carrosserie = CarrosserieForm()
             form_adresse = AdresseForm()
 
-    return render(request, "carrosserie/carrosserie_form.html", {
-        "form": form_carrosserie,
-        "form_adresse": form_adresse,
-    })
-
+        return render(request, "carrosserie/carrosserie_form.html", {
+            "form": form_carrosserie,
+            "form_adresse": form_adresse,
+        })
 
 
 
@@ -117,10 +123,7 @@ def modifier_carrosserie(request, carrosserie_id):
                 carrosserie.save()
 
                 messages.success(request, _("Carrosserie et adresse mises à jour avec succès."))
-                return redirect(
-                    "carrosserie:modifier_carrosserie",
-                    carrosserie_id=carrosserie.id
-                )
+
             else:
                 messages.error(request, _("Le formulaire contient des erreurs."))
         else:
@@ -148,12 +151,8 @@ def dashboard_carrosserie_view(request):
     societe = user.societe
     context = {}
 
-    # --- Sécurité : récupère le tenant (la société de l'utilisateur) ---
     societe = request.user.societe
-    schema_name = societe.schema_name  # pour django-tenants
-
-
-    # --- Stats initialisées à zéro ---
+    schema_name = societe.schema_name
 
     total_carrosserie = 0
 
@@ -164,32 +163,15 @@ def dashboard_carrosserie_view(request):
         with schema_context(schema_name):
 
             carrosseries = Carrosserie.objects.filter(societe=societe)
-
-
-
-            # Totaux
-
             total_carrosserie = carrosseries.count()
-
-
-
-
     else:
         modeles = []
 
     context.update({
         'user': user,
         'societe': societe,
-
         'total_carrosserie': total_carrosserie,
-
-
-
         'carrosserie': carrosseries,
-
-
     })
-
-
     return render(request, "carrosserie/dashboard_carrosserie.html", context)
 

@@ -25,3 +25,16 @@ class AdresseForm(forms.ModelForm):
             "code_pays": _("Code pays"),
         }
 
+        def __init__(self, *args, **kwargs):
+            self.societe = kwargs.pop("societe", None)
+            super().__init__(*args, **kwargs)
+
+        def clean(self):
+            cleaned_data = super().clean()
+
+            if not self.societe:
+                raise forms.ValidationError(
+                    _("Une adresse est nécessaire")
+                )
+
+            return cleaned_data

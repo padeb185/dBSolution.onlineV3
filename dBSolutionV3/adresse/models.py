@@ -44,7 +44,7 @@ class Adresse(models.Model):
 
     def clean(self):
         if not self.societe:
-            raise ValidationError(_("Une société est obligatoire pour une adresse."))
+            raise ValidationError(_("Une adresse est obligatoire pour une société."))
 
         if Adresse.objects.filter(
                 societe=self.societe,

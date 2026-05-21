@@ -124,9 +124,6 @@ def modifier_client_pilotage_view(request, client_pilotage_id):
                     request,
                     _(f"Client '{cp.prenom} {cp.nom}' modifié avec succès !")
                 )
-
-                return redirect("client_pilotage_detail")
-
             else:
                 messages.error(
                     request,
@@ -136,6 +133,12 @@ def modifier_client_pilotage_view(request, client_pilotage_id):
         else:
 
             initial = {}
+
+
+            if client_pilotage.client_particulier.date_naissance:
+                initial["date_naissance"] = client_pilotage.client_particulier.date_naissance.strftime("%Y-%m-%d")
+
+
 
             if adresse:
                 initial.update({

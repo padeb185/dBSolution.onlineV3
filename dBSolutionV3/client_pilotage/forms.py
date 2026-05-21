@@ -50,15 +50,12 @@ class ClientPilotageForm(forms.ModelForm):
         })
     )
 
-
     date_naissance = forms.DateField(
-        required=True,
-        widget=forms.DateInput(
-            attrs={
-                "type": "date",
-                "class": "border rounded px-4 py-2 w-full",
-            }
-        )
+        required=False,
+        widget=forms.DateInput(attrs={"type": "date",
+                                      "class": "border rounded px-4 py-2 w-full", },
+                               format="%Y-%m-%d"),
+        input_formats=["%Y-%m-%d"]
     )
 
     age = forms.IntegerField(

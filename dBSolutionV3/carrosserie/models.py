@@ -7,10 +7,13 @@ from stdnum import iban
 
 
 def validate_iban(value):
+    if not value:
+        return
+
+    value = value.replace(" ", "").upper()
+
     if not iban.is_valid(value):
-        raise ValidationError("IBAN invalide")
-
-
+        raise ValidationError(_("IBAN invalide"))
 
 
 
