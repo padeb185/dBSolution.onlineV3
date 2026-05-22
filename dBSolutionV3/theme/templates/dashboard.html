@@ -97,9 +97,11 @@
 
 <br>
 
-<!-- Section Mécanicien -->
-<div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto">
-    <h2 class="text-lg font-semibold mb-4">
+<div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto flex items-center">
+    <img src="{% static 'icons/mecanicien.png' %}"
+         alt="Mecanicien"
+         class="w-[60px] h-[60px] mr-4">
+    <h2 class="text-lg font-semibold">
         {% trans "Mécanicien" %}
     </h2>
 </div>
@@ -141,15 +143,17 @@
         </div>
         <img src="{% static 'icons/voyage.png' %}" alt="Recharge électrique" style="width:60px; height:60px;">
     </a>
-
 </div>
 
 <br>
 <br>
 
 <!-- Section Chef Mécanicien -->
-<div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto">
-    <h2 class="text-lg font-semibold mb-4">
+<div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto flex items-center">
+    <img src="{% static 'icons/chef-mecanicien.png' %}"
+         alt="Chef Mecanicien"
+         class="w-[60px] h-[60px] mr-4">
+    <h2 class="text-lg font-semibold">
         {% trans "Chef Mécanicien" %}
     </h2>
 </div>
@@ -236,8 +240,11 @@
 <br>
 
 <!-- Section Magasinier -->
-<div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto">
-    <h2 class="text-lg font-semibold mb-4">
+<div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto flex items-center">
+    <img src="{% static 'icons/magasinier.png' %}"
+         alt="Chef Mecanicien"
+         class="w-[60px] h-[60px] mr-4">
+    <h2 class="text-lg font-semibold">
         {% trans "Magasinier" %}
     </h2>
 </div>
@@ -286,12 +293,14 @@
 <br>
 
 <!-- Section Vente -->
-<div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto">
-    <h2 class="text-lg font-semibold mb-4">
-        {% trans "Vente" %}
+<div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto flex items-center">
+    <img src="{% static 'icons/vendeur.png' %}"
+         alt="Chef Mecanicien"
+         class="w-[60px] h-[60px] mr-4">
+    <h2 class="text-lg font-semibold">
+        {% trans "Vendeur" %}
     </h2>
 </div>
-
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
 
     <a href="{% url 'client_atelier:dashboard_client' %}"
@@ -336,8 +345,11 @@
 <br>
 
 <!-- Section Direction -->
-<div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto">
-    <h2 class="text-lg font-semibold mb-4">
+<div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto flex items-center">
+    <img src="{% static 'icons/directeur.png' %}"
+         alt="Chef Mecanicien"
+         class="w-[60px] h-[60px] mr-4">
+    <h2 class="text-lg font-semibold">
         {% trans "Direction" %}
     </h2>
 </div>
