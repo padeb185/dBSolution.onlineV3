@@ -78,7 +78,54 @@
   </table>
 </div>
 
-<!-- Deuxième grille -->
+<br>
+<!-- Tableau activités -->
+<div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto">
+  <h2 class="text-lg font-semibold mb-4">{% trans "Mécanicien" %}</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+   <!-- Carte Maintenance -->
+  <a href="{% url 'maintenance:liste_maintenance_all' %}"
+     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <div>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Maintenances" %}</h2>
+      <p class="text-gray-600 text-sm">
+        {% trans "Nombre total :" %} <span class="font-bold">{{ total_maintenance }}</span>
+      </p>
+    </div>
+    <img src="{% static 'icons/mecanique.png' %}" alt="Maintenance" style="width:60px; height:60px;">
+  </a>
+
+   <!-- Carte Carburant -->
+  <a href="{% url 'fuel:fuel_list' %}"
+     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <div>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Carburants" %}</h2>
+      <p class="text-gray-600 text-sm">
+        {% trans "Nombre total :" %} <span class="font-bold">{{ total_carburant }}</span>
+      </p>
+    </div>
+    <img src="{% static 'icons/pompe-a-essence.png' %}" alt="carburant" style="width:60px; height:60px;">
+  </a>
+  <!-- Carte Recharge electrique -->
+  <a href="{% url 'recharge:recharge_list' %}"
+     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <div>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Recharges électriques" %}</h2>
+      <p class="text-gray-600 text-sm">
+        {% trans "Nombre total :" %} <span class="font-bold">{{ total_recharge }}</span>
+      </p>
+    </div>
+    <img src="{% static 'icons/voyage.png' %}" alt="recharge electrique" style="width:60px; height:60px;">
+  </a>
+
+</div>
+<br>
+<br>
+<!-- Tableau activités -->
+<div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto">
+  <h2 class="text-lg font-semibold mb-4">{% trans "Chef Mécanicien" %}</h2>
+</div>
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
 
   <!-- Carte Marques de Voiture -->
@@ -154,17 +201,24 @@
     <img src="{% static 'icons/pneus.png' %}" alt="Pneus" style="width:60px; height:60px;">
   </a>
 
-  <!-- Carte Maintenance -->
-  <a href="{% url 'maintenance:liste_maintenance_all' %}"
+   <!-- Carte Carrosseries -->
+  <a href="{% url 'carrosserie:dashboard_carrosserie' %}"
      class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
     <div>
-      <h2 class="text-lg font-semibold mb-1">{% trans "Maintenances" %}</h2>
-      <p class="text-gray-600 text-sm">
-        {% trans "Nombre total :" %} <span class="font-bold">{{ total_maintenance }}</span>
-      </p>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Carrosseries" %}</h2>
+
     </div>
-    <img src="{% static 'icons/mecanique.png' %}" alt="Maintenance" style="width:60px; height:60px;">
+    <img src="{% static 'icons/carrosserie.png' %}" alt="carrosserie" style="width:60px; height:60px;">
   </a>
+
+</div>
+<br>
+<br>
+<!-- Tableau activités -->
+<div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto">
+  <h2 class="text-lg font-semibold mb-4">{% trans "Magasinier" %}</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
 
   <!-- Carte Fournisseurs -->
   <a href="{% url 'fournisseur:fournisseur_dashboard' %}"
@@ -176,88 +230,6 @@
       </p>
     </div>
     <img src="{% static 'icons/fournisseur.png' %}" alt="Fournisseur" style="width:60px; height:60px;">
-  </a>
-
-
-
-  <!-- Carte Clients -->
-  <a href="{% url 'client_atelier:dashboard_client' %}"
-     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-    <div>
-      <h2 class="text-lg font-semibold mb-1">{% trans "Clients" %}</h2>
-      <p class="text-gray-600 text-sm">
-        {% trans "Nombre total :" %} <span class="font-bold">{{ total_client }}</span>
-      </p>
-    </div>
-    <img src="{% static 'icons/client.png' %}" alt="client" style="width:60px; height:60px;">
-  </a>
-
-  <!-- Carte Carrosseries -->
-  <a href="{% url 'carrosserie:dashboard_carrosserie' %}"
-     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-    <div>
-      <h2 class="text-lg font-semibold mb-1">{% trans "Carrosseries" %}</h2>
-
-    </div>
-    <img src="{% static 'icons/carrosserie.png' %}" alt="carrosserie" style="width:60px; height:60px;">
-  </a>
-
-
-  <!-- Carte Société cliente -->
-  <a href="{% url 'societe_cliente:societe_cliente_list' %}"
-     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-    <div>
-      <h2 class="text-lg font-semibold mb-1">{% trans "Sociétés clientes" %}</h2>
-      <p class="text-gray-600 text-sm">
-        {% trans "Nombre total :" %} <span class="font-bold">{{ total_societe_cliente }}</span>
-      </p>
-    </div>
-    <img src="{% static 'icons/societe_cliente.png' %}" alt="societe cliente" style="width:60px; height:60px;">
-  </a>
-
-  <!-- Carte Adresses -->
-  <a href="{% url 'adresse:adresse_list' %}"
-     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-    <div>
-      <h2 class="text-lg font-semibold mb-1">{% trans "Adresses" %}</h2>
-      <p class="text-gray-600 text-sm">
-        {% trans "Nombre total :" %} <span class="font-bold">{{ total_adresse }}</span>
-      </p>
-    </div>
-    <img src="{% static 'icons/adresse.png' %}" alt="adresses" style="width:60px; height:60px;">
-  </a>
-
-  <!-- Carte Carburant -->
-  <a href="{% url 'fuel:fuel_list' %}"
-     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-    <div>
-      <h2 class="text-lg font-semibold mb-1">{% trans "Carburants" %}</h2>
-      <p class="text-gray-600 text-sm">
-        {% trans "Nombre total :" %} <span class="font-bold">{{ total_carburant }}</span>
-      </p>
-    </div>
-    <img src="{% static 'icons/pompe-a-essence.png' %}" alt="carburant" style="width:60px; height:60px;">
-  </a>
-  <!-- Carte Recharge electrique -->
-  <a href="{% url 'recharge:recharge_list' %}"
-     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-    <div>
-      <h2 class="text-lg font-semibold mb-1">{% trans "Recharges électriques" %}</h2>
-      <p class="text-gray-600 text-sm">
-        {% trans "Nombre total :" %} <span class="font-bold">{{ total_recharge }}</span>
-      </p>
-    </div>
-    <img src="{% static 'icons/voyage.png' %}" alt="recharge electrique" style="width:60px; height:60px;">
-  </a>
-
-  <!-- Carte Assurance -->
-  <a href="{% url 'assurance:dashboard_assurance' %}"
-     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-    <div>
-      <h2 class="text-lg font-semibold mb-1">{% trans "Assurances" %}</h2>
-
-    </div>
-    <img src="{% static 'icons/assurance-voiture.png' %}" alt="assurance" style="width:60px; height:60px;">
   </a>
 
 
@@ -278,7 +250,7 @@
          style="width:60px; height:60px;">
   </a>
 
-  <a href="{% url 'outillage:outillage_list' %}"
+   <a href="{% url 'outillage:outillage_list' %}"
      class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
 
     <div>
@@ -293,6 +265,79 @@
          alt="outils"
          style="width:60px; height:60px;">
   </a>
+
+
+</div>
+<br>
+<br>
+
+  <!-- Tableau activités -->
+<div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto">
+  <h2 class="text-lg font-semibold mb-4">{% trans "Vente" %}</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+
+
+
+  <!-- Carte Clients -->
+  <a href="{% url 'client_atelier:dashboard_client' %}"
+     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <div>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Clients" %}</h2>
+      <p class="text-gray-600 text-sm">
+        {% trans "Nombre total :" %} <span class="font-bold">{{ total_client }}</span>
+      </p>
+    </div>
+    <img src="{% static 'icons/client.png' %}" alt="client" style="width:60px; height:60px;">
+  </a>
+
+   <!-- Carte Société cliente -->
+  <a href="{% url 'societe_cliente:societe_cliente_list' %}"
+     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <div>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Sociétés clientes" %}</h2>
+      <p class="text-gray-600 text-sm">
+        {% trans "Nombre total :" %} <span class="font-bold">{{ total_societe_cliente }}</span>
+      </p>
+    </div>
+    <img src="{% static 'icons/societe_cliente.png' %}" alt="societe cliente" style="width:60px; height:60px;">
+  </a>
+
+   <!-- Carte Adresses -->
+  <a href="{% url 'adresse:adresse_list' %}"
+     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <div>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Adresses" %}</h2>
+      <p class="text-gray-600 text-sm">
+        {% trans "Nombre total :" %} <span class="font-bold">{{ total_adresse }}</span>
+      </p>
+    </div>
+    <img src="{% static 'icons/adresse.png' %}" alt="adresses" style="width:60px; height:60px;">
+  </a>
+
+</div>
+
+<br>
+<br>
+
+<!-- Tableau activités -->
+<div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto">
+  <h2 class="text-lg font-semibold mb-4">{% trans "Direction" %}</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+
+  <!-- Carte Assurance -->
+  <a href="{% url 'assurance:dashboard_assurance' %}"
+     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+    <div>
+      <h2 class="text-lg font-semibold mb-1">{% trans "Assurances" %}</h2>
+
+    </div>
+    <img src="{% static 'icons/assurance-voiture.png' %}" alt="assurance" style="width:60px; height:60px;">
+  </a>
+
+
+
 
    <a href="{% url 'maindoeuvre:main_oeuvre_list' %}"
      class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
@@ -328,15 +373,23 @@
 
 
 </div>
-
-{% if user.is_staff and user.is_superuser %}
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-  <a href="{% url 'utilisateurs:dashboard_admin' %}"
-     class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-    <h2 class="text-lg font-semibold mb-2">{% trans "Tableau de bord Admin" %}</h2>
-    <img src="{% static 'icons/ingenieur-logiciel.png' %}" alt="Admin" style="width:60px; height:60px;">
-  </a>
+<br>
+<br>
+<!-- Tableau activités -->
+<div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto">
+  <h2 class="text-lg font-semibold mb-4">{% trans "Administrateur" %}</h2>
 </div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+
+  {% if user.is_staff and user.is_superuser %}
+    <a href="{% url 'utilisateurs:dashboard_admin' %}"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+      <h2 class="text-lg font-semibold mb-2">{% trans "Tableau de bord Admin" %}</h2>
+      <img src="{% static 'icons/ingenieur-logiciel.png' %}" alt="Admin" style="width:60px; height:60px;">
+    </a>
+  </div>
+<br>
+<br>
 {% endif %}
 
 {% endblock %}
