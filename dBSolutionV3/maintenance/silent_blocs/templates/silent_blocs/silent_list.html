@@ -111,7 +111,9 @@
 
             <td class="border px-4 py-2">{{ silent.tech_nom_technicien }}</td>
 
-            <td class="border px-4 py-2">
+           <td class="border px-4 py-2"
+                data-order="{{ silent.date|date:'Y-m-d' }}"
+                data-search="{{ silent.date|date:'Y-m-d' }}">
                 {{ silent.date|date:"d/m/Y" }}
             </td>
 
@@ -184,7 +186,7 @@ $(document).ready(function() {
         table.column(4).search(this.value).draw();
     });
      $('#search-temps').on('keyup', function () {
-        table.column(4).search(this.value).draw();
+        table.column(5).search(this.value).draw();
     });
 });
 </script>

@@ -16,7 +16,7 @@ urlpatterns = [
     path(
         "fournisseur/creer/",
         ajouter_fournisseur_all,
-        name="fournisseur_create",
+        name="fournisseur_form",
     ),
 
     path(

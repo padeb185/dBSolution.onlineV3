@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
@@ -69,39 +70,56 @@ def liste_fournisseur_all(request):
     )
 
 
-
-
-
 @login_required
 def ajouter_fournisseur_all(request):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
+    if request.method == "POST":
+        form_fournisseur = FournisseurForm(request.POST)
 
-        if request.method == "POST":
-            form = FournisseurForm(request.POST)
+        if form_fournisseur.is_valid():
+            rue = form_fournisseur.cleaned_data.get("rue")
+            numero = form_fournisseur.cleaned_data.get("numero")
+            boite = form_fournisseur.cleaned_data.get("boite")
+            code_postal = form_fournisseur.cleaned_data.get("code_postal")
+            ville = form_fournisseur.cleaned_data.get("ville")
+            pays = form_fournisseur.cleaned_data.get("pays") or "Belgique"
+            code_pays = form_fournisseur.cleaned_data.get("code_pays") or "BE"
 
-            if form.is_valid():
-                fournisseur = form.save(commit=False)
-                fournisseur.societe = tenant
-                fournisseur.save()
-
-                form.save_m2m()
-
-                messages.success(
+            if not all([rue, numero, code_postal, ville]):
+                messages.error(
                     request,
-                    _(f"Fournisseur '{fournisseur.nom}' ajouté avec succès !")
+                    _("Les champs d'adresse sont obligatoires.")
                 )
-        else:
-            form = FournisseurForm()
+            else:
+                with transaction.atomic():
+                    adresse = Adresse.objects.create(
+                        rue=rue,
+                        numero=numero,
+                        boite=boite,
+                        code_postal=code_postal,
+                        ville=ville,
+                        pays=pays,
+                        code_pays=code_pays,
+                        societe=tenant,
+                    )
 
-    return render(
-        request,
-        "fournisseur/fournisseur_form.html",
-        {
-            "form": form,   # ✅ IMPORTANT
-        }
-    )
+                    fournisseur = form_fournisseur.save(commit=False)
+                    fournisseur.adresse_id = adresse.id
+                    fournisseur.societe = tenant
+                    fournisseur.save()
+
+                    messages.success(
+                        request,
+                        _(f"Fournisseur '{fournisseur.nom}' créé avec succès !"))
+        else:
+            messages.error(request, _("Le formulaire contient des erreurs."))
+    else:
+        form_fournisseur = FournisseurForm()
+
+    return render(request, "fournisseur/fournisseur_form.html", {
+        "form": form_fournisseur,
+    })
 
 
 
@@ -131,10 +149,6 @@ def modifier_fournisseur(request, fournisseur_id):
             "fournisseur": fournisseur,
         }
     )
-
-
-
-
 
 
 @never_cache

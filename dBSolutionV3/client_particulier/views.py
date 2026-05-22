@@ -167,7 +167,7 @@ def modifier_client_particulier_view(request, client_particulier_id):
                     adresse.save()
 
                     # -----------------------
-                    # CLIENT PILOTAGE
+                    # CLIENT PARTICULIER
                     # -----------------------
                     obj.client_particulier = cp
                     obj.adresse = adresse

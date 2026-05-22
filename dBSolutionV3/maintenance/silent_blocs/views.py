@@ -159,7 +159,7 @@ def silent_check_view(request, exemplaire_id):
                         silent.maintenance = maintenance
                         silent.save()
 
-                    messages.success(request, _("Controle des niveaux enregistré avec succès."))
+                    messages.success(request, _("Controle des silent blocs enregistré avec succès."))
 
                 except Exception as e:
                     messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
