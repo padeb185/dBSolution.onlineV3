@@ -163,6 +163,14 @@ def carrosserie_interne_create_view(request, exemplaire_id):
 
                         km = form.cleaned_data.get("kilometrage_intervention")
 
+                        # 🔗 Création objet AVANT tout traitement
+                        carrosserie_interne = form.save(commit=False)
+
+                        # ✅ Relations obligatoires AVANT assign_technicien/save
+                        carrosserie_interne.societe = tenant
+                        carrosserie_interne.voiture_exemplaire = exemplaire
+                        carrosserie_interne.tech_last_maintained_by = request.user
+
                         if km is not None:
                             km = int(km)
 
@@ -175,24 +183,20 @@ def carrosserie_interne_create_view(request, exemplaire_id):
                                 )
                                 raise ValueError("Kilométrage invalide")
 
-                            # 🚗 update voiture (source unique)
                             exemplaire.kilometres_chassis = km
                             exemplaire.date_derniere_intervention = timezone.now().date()
-
                             exemplaire.update_kilometres()
                             exemplaire.save()
 
-                            # 🔗 checkup UNIQUE
-                            carrosserie_interne = form.save(commit=False)
-                            carrosserie_interne.assign_technicien(request.user)
-
                             carrosserie_interne.kilometres_chassis = exemplaire.kilometres_chassis
                             carrosserie_interne.kilometrage_intervention = km
-                            carrosserie_interne.tech_last_maintained_by = request.user
+                        else:
+                            carrosserie_interne.kilometres_chassis = exemplaire.kilometres_chassis
 
-                        # 🔴 Création maintenance UNIQUE
+                        carrosserie_interne.assign_technicien(request.user)
+
                         maintenance = Maintenance.objects.create(
-                            societe=request.user.societe,
+                            societe=tenant,
                             voiture_exemplaire=exemplaire,
                             immatriculation=exemplaire.immatriculation,
                             date_intervention=timezone.now().date(),
@@ -202,27 +206,19 @@ def carrosserie_interne_create_view(request, exemplaire_id):
                             tag=Maintenance.Tag.JAUNE,
                         )
 
-                        # 🔧 Affectation rôle
                         if role == "mecanicien":
                             maintenance.mecanicien = Mecanicien.objects.get(id=request.user.id)
-
                         elif role == "chef_mecanicien":
                             maintenance.chef_mecanicien = ChefMecanicien.objects.get(id=request.user.id)
-
                         elif role == "apprenti":
                             maintenance.apprentis = Apprenti.objects.get(id=request.user.id)
-
                         elif role == "magasinier":
                             maintenance.magasinier = Magasinier.objects.get(id=request.user.id)
-
-                        elif role == 'direction':
+                        elif role == "direction":
                             maintenance.direction = Direction.objects.get(id=request.user.id)
 
                         maintenance.save()
 
-                        carrosserie_interne.assign_technicien(request.user)
-
-                        # 🔗 lien final
                         carrosserie_interne.maintenance = maintenance
                         carrosserie_interne.save()
 
@@ -230,28 +226,25 @@ def carrosserie_interne_create_view(request, exemplaire_id):
 
                 except Exception as e:
                     messages.error(request, _(f"Erreur : {str(e)}"))
-
             else:
                 print("FORM INVALID:", form.errors)
                 messages.error(request, _("Le formulaire contient des erreurs."))
 
-        else:
+        carrosserie_interne = CarrosserieInterne(
+            societe=tenant,
+            voiture_exemplaire=exemplaire,
+            kilometres_chassis=exemplaire.kilometres_chassis
 
-            carrosserie_interne = CarrosserieInterne(
-                societe=tenant,
-                voiture_exemplaire=exemplaire,
-                kilometres_chassis=exemplaire.kilometres_chassis
+        )
 
-            )
+        carrosserie_interne.assign_technicien(request.user)
 
-            carrosserie_interne.assign_technicien(request.user)
+        form = CarrosserieInterneForm(
+            instance=carrosserie_interne,
+            user=request.user,
+            exemplaire=exemplaire
 
-            form = CarrosserieInterneForm(
-                instance=carrosserie_interne,
-                user=request.user,
-                exemplaire=exemplaire
-
-            )
+        )
 
         # 🔥 SECTIONS (remplace ton get_context_data)
         sections = [

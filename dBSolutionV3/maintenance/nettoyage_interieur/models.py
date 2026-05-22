@@ -177,26 +177,22 @@ class NettoyageInterieur(TechnicienMixin,models.Model):
 
         return f"Nettoyage intérieur – {voiture} ({date:%Y-%m-%d})"
 
-
-
-
     def clean(self):
         super().clean()
-        if self.voiture_exemplaire and self.kilometrage_net_int is not None:
+
+        if self.voiture_exemplaire_id and self.kilometrage_net_int is not None:
             if self.kilometrage_net_int < self.voiture_exemplaire.kilometres_chassis:
                 raise ValidationError({
-                    'kilometrage_net_int': _(
+                    "kilometrage_net_int": _(
                         f"Le kilométrage du check-up ({self.kilometrage_net_int}) "
-                        f"ne peut pas être inférieur au kilométrage actuel de la voiture ({self.voiture_exemplaire.kilometres_chassis})."
+                        f"ne peut pas être inférieur au kilométrage actuel de la voiture "
+                        f"({self.voiture_exemplaire.kilometres_chassis})."
                     )
                 })
 
     def save(self, *args, **kwargs):
 
-        # =========================
-        # 1. SYNC KM VOITURE
-        # =========================
-        if self.voiture_exemplaire and self.kilometrage_net_int:
+        if self.voiture_exemplaire_id and self.kilometrage_net_int:
 
             if self.kilometrage_net_int < self.voiture_exemplaire.kilometres_chassis:
                 raise ValidationError("Le kilométrage ne peut pas diminuer.")
@@ -209,28 +205,19 @@ class NettoyageInterieur(TechnicienMixin,models.Model):
                 self.voiture_exemplaire.update_kilometres()
                 self.voiture_exemplaire.save()
 
-        # =========================
-        # 2. COPIE SNAPSHOT
-        # =========================
-        if self.voiture_exemplaire:
+        if self.voiture_exemplaire_id:
             self.kilometres_chassis = self.voiture_exemplaire.kilometres_chassis
 
-        # =========================
-        # 3. TECHNICIEN
-        # =========================
-        if not self.tech_technicien and hasattr(self, '_user'):
+        if not self.tech_technicien and hasattr(self, "_user"):
             self.assign_technicien(self._user)
 
-        # =========================
-        # 4. MAIN D'OEUVRE
-        # =========================
         if self.main_oeuvre:
 
             task_name = ""
 
-            if self.maintenance:
+            if self.maintenance_id:
                 task_name = str(self.maintenance)
-            elif self.voiture_exemplaire:
+            elif self.voiture_exemplaire_id:
                 task_name = f"Nettoyage intérieur {self.voiture_exemplaire}"
 
             if hasattr(self.main_oeuvre, "descriptif"):
@@ -238,6 +225,8 @@ class NettoyageInterieur(TechnicienMixin,models.Model):
                 self.main_oeuvre.save(update_fields=["descriptif"])
 
         super().save(*args, **kwargs)
+
+
 
     @property
     def temps_main_oeuvre_display(self):

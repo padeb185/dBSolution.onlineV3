@@ -1,8 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from maintenance.models import Maintenance
-from utilisateurs.models import Utilisateur
 from django.conf import settings
 from utils.mixin import TechnicienMixin
 from maintenance.models import Maintenance
@@ -148,40 +146,44 @@ class NettoyageExterieur(TechnicienMixin, models.Model):
     def __str__(self):
         return f"Nettoyage extérieur – {self.voiture_exemplaire} ({self.date:%Y-%m-%d})"
 
+    def __str__(self):
+        if self.voiture_exemplaire_id:
+            return f"Nettoyage extérieur – {self.voiture_exemplaire} ({self.date:%Y-%m-%d})"
+        return "Nettoyage extérieur incomplet"
+
     def clean(self):
         super().clean()
-        if self.voiture_exemplaire and self.kilometrage_net_ext is not None:
+
+        if self.voiture_exemplaire_id and self.kilometrage_net_ext is not None:
             if self.kilometrage_net_ext < self.voiture_exemplaire.kilometres_chassis:
                 raise ValidationError({
-                    'kilometrage_net_ext': _(
+                    "kilometrage_net_ext": _(
                         f"Le kilométrage du check-up ({self.kilometrage_net_ext}) "
-                        f"ne peut pas être inférieur au kilométrage actuel de la voiture ({self.voiture_exemplaire.kilometres_chassis})."
+                        f"ne peut pas être inférieur au kilométrage actuel de la voiture "
+                        f"({self.voiture_exemplaire.kilometres_chassis})."
                     )
                 })
 
     def save(self, *args, **kwargs):
 
-        if self.voiture_exemplaire and self.kilometrage_net_ext:
+        if self.voiture_exemplaire_id and self.kilometrage_net_ext:
             if self.kilometrage_net_ext > self.voiture_exemplaire.kilometres_chassis:
                 self.voiture_exemplaire.kilometres_chassis = self.kilometrage_net_ext
                 self.voiture_exemplaire.save(update_fields=["kilometres_chassis"])
 
-        if self.voiture_exemplaire:
+        if self.voiture_exemplaire_id:
             self.kilometres_chassis = self.voiture_exemplaire.kilometres_chassis
 
-        # technicien
-        if not self.tech_technicien and hasattr(self, "_user"):
+        if not self.tech_technicien_id and hasattr(self, "_user"):
             self.assign_technicien(self._user)
 
-        # main d'œuvre
-        if self.main_oeuvre:
+        if self.main_oeuvre_id and self.voiture_exemplaire_id:
             task_name = _("Nettoyage extérieur") + " " + str(self.voiture_exemplaire)
             self.main_oeuvre.descriptif = task_name
             self.main_oeuvre.save(update_fields=["descriptif"])
 
-        # maintenance update (TOUJOURS)
-        if self.maintenance:
-            self.maintenance.type_maintenance = TypeMaintenance.NETTOYAGE_EXTERIEUR
+        if self.maintenance_id and self.voiture_exemplaire_id:
+            self.maintenance.type_maintenance = Maintenance.TypeMaintenance.NETTOYAGE_EXTERIEUR
             self.maintenance.voiture_exemplaire = self.voiture_exemplaire
             self.maintenance.save(update_fields=["type_maintenance", "voiture_exemplaire"])
 

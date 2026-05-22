@@ -2,7 +2,6 @@ from decimal import Decimal
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from maintenance.models import Maintenance
 
@@ -613,45 +612,45 @@ class CarrosserieInterne(models.Model):
         verbose_name_plural = _("Carrosseries Internes")
 
     def __str__(self):
-        return f"{self.voiture_exemplaire} - {self.date.strftime('%Y-%m-%d')}"
+        if self.voiture_exemplaire_id:
+            return f"{self.voiture_exemplaire} - {self.date.strftime('%Y-%m-%d')}"
+        return f"Carrosserie interne - {self.date.strftime('%Y-%m-%d')}"
 
     def clean(self):
-
-        if self.voiture_exemplaire and self.kilometrage_intervention:
+        if self.voiture_exemplaire_id and self.kilometrage_intervention:
             if self.kilometrage_intervention < self.voiture_exemplaire.kilometres_chassis:
                 raise ValidationError(
                     _("Le kilométrage de l'intervention (%(intervention)s) ne peut pas être inférieur au kilométrage actuel (%(current)s)."),
-                    params={'intervention': self.kilometrage_intervention,
-                            'current': self.voiture_exemplaire.kilometres_chassis}
-        )
+                    params={
+                        "intervention": self.kilometrage_intervention,
+                        "current": self.voiture_exemplaire.kilometres_chassis,
+                    }
+                )
 
     def save(self, *args, **kwargs):
 
-            # 🔹 Mettre à jour le kilométrage de l'exemplaire
-        if self.voiture_exemplaire and self.kilometrage_intervention:
+        if self.voiture_exemplaire_id and self.kilometrage_intervention:
             if self.kilometrage_intervention > self.voiture_exemplaire.kilometres_chassis:
                 self.voiture_exemplaire.kilometres_chassis = self.kilometrage_intervention
                 self.voiture_exemplaire.save(update_fields=["kilometres_chassis"])
 
-            # 🔹 Calculer les totaux pièces
-            self.total_pieces = self._calculate_total_pieces()
-            # ----------------------------
-            # MAIN D'OEUVRE AUTO DESCRIPTIF
-            # ----------------------------
-            if self.main_oeuvre:
-                task_name = ""
+        self.total_pieces = self._calculate_total_pieces()
 
-                if self.maintenance:
-                    task_name = str(self.maintenance)
-                elif self.voiture_exemplaire:
-                    task_name = _("Carrosserie") + " " + str(self.voiture_exemplaire)
+        if self.main_oeuvre:
+            task_name = ""
 
-                # update descriptif automatiquement
-                if hasattr(self.main_oeuvre, "descriptif"):
-                    self.main_oeuvre.descriptif = task_name
-                    self.main_oeuvre.save(update_fields=["descriptif"])
+            if self.maintenance_id:
+                task_name = str(self.maintenance)
+            elif self.voiture_exemplaire_id:
+                task_name = _("Carrosserie") + " " + str(self.voiture_exemplaire)
+
+            if hasattr(self.main_oeuvre, "descriptif"):
+                self.main_oeuvre.descriptif = task_name
+                self.main_oeuvre.save(update_fields=["descriptif"])
 
         super().save(*args, **kwargs)
+
+
 
     def _calculate_total_pieces(self):
 

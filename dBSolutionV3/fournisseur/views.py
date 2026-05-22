@@ -8,14 +8,14 @@ from django.views.generic import  ListView
 from django_tenants.utils import tenant_context, schema_context
 from .models import Fournisseur
 from .forms import FournisseurForm
-from adresse.forms import AdresseForm
 from adresse.models import Adresse
 from django.utils.translation import gettext as _
-from societe.models import Societe
 from achat_mds.models import AchatMds
-import json
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
+
+
+
 
 
 @method_decorator([login_required, never_cache], name='dispatch')
@@ -23,7 +23,6 @@ class FournisseurListView(ListView):
     model = Fournisseur
     template_name = "fournisseur/fournisseur_list.html"
     context_object_name = "fournisseurs"
-    paginate_by = 20
     ordering = ["nom"]
 
     def get_queryset(self):
@@ -179,11 +178,6 @@ def fournisseur_dashboard_view(request):
 
 
 
-
-from django.http import JsonResponse
-from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_POST
-from .models import Fournisseur
 
 
 

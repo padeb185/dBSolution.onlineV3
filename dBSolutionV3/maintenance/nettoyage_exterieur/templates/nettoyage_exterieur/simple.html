@@ -88,18 +88,23 @@
 
         <br>
 
-        <!-- Section jeux rotules -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Nettoyage extérieur" %}</h2>
+        <!-- Section nettoyage exterieur -->
+       <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">
+            {% trans "Nettoyage extérieur" %}
+       </h2>
+
         {% for field in form %}
-            {% if "nettoyage_ext" in field.name %}
+            {% if "nettoyage_exterieur" in field.name %}
             <div class="mb-4">
                 <label class="block font-semibold mb-1">{{ field.label }}</label>
                 {{ field|add_class:"input" }}
+
                 {% if field.help_text %}
-                <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
                 {% endif %}
+
                 {% if field.errors %}
-                <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
                 {% endif %}
             </div>
             {% endif %}
