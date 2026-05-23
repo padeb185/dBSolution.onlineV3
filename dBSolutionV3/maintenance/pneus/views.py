@@ -3,7 +3,6 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.contrib import messages
 from django.db import transaction, models
-from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
@@ -25,21 +24,22 @@ class PneusListView(ListView):
     model = ControlePneus
     template_name = "pneus/pneus_list.html"
     context_object_name = "pneus"
-    ordering = ["-id"]
+    ordering = ["-date"]
 
     def get_queryset(self):
+        exemplaire_id = self.kwargs.get("exemplaire_id")
+
         queryset = ControlePneus.objects.select_related(
             "voiture_exemplaire", "maintenance", "tech_societe"
         )
 
-        # Filtrer par société : inclure les objets NULL ou ceux de la société de l'utilisateur
         societe = getattr(self.request.user, "societe", None)
         if societe:
             queryset = queryset.filter(
                 models.Q(tech_societe=societe) | models.Q(tech_societe__isnull=True)
             )
 
-        return queryset.order_by(*self.ordering)
+        return queryset.order_by("date", "created_at")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -154,12 +154,14 @@ def controle_pneus_view(request, exemplaire_id):
                         elif role == "direction":
                             maintenance.direction = request.user
 
-                            maintenance.save()
-                            pneus.assign_technicien(request.user)
 
-                            # 🔗 lien final
-                            pneus.maintenance = maintenance
-                            pneus.save()
+                        maintenance.save()
+
+                        pneus.assign_technicien(request.user)
+
+
+                        pneus.maintenance = maintenance
+                        pneus.save()
 
                         messages.success(request, _("Contrôle pneus enregistré avec succès."))
 

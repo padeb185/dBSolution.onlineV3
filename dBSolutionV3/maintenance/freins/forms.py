@@ -88,21 +88,29 @@ class ControleFreinsForm(forms.ModelForm):
     def save(self, commit=True):
         instance = super().save(commit=False)
 
-        km = self.cleaned_data.get("kilometrage_checkup")
-        voiture = self.exemplaire
+        if self.exemplaire:
+            instance.voiture_exemplaire = self.exemplaire
+            instance.immatriculation = self.exemplaire.immatriculation
+            instance.kilometres_chassis = self.exemplaire.kilometres_chassis
 
-        if km is not None and voiture:
-            instance.kilometrage_checkup = km
-            instance.voiture_exemplaire = voiture
+        if self.user:
+            instance.assign_technicien(self.user)
+            instance._user = self.user
 
-            # -------- MAIN D'ŒUVRE --------
-            heures = self.cleaned_data.get("temps_heures") or 0
-            minutes = self.cleaned_data.get("temps_minutes") or 0
+        km = self.cleaned_data.get("kilometrage_controle_brake")
 
-            total_minutes = heures * 60 + minutes
+        if km is not None:
+            instance.kilometrage_controle_brake = km
+            instance.kilometres_chassis = km
 
-            main = instance.main_oeuvre
+        # Main d'oeuvre ...
+        heures = self.cleaned_data.get("temps_heures") or 0
+        minutes = self.cleaned_data.get("temps_minutes") or 0
+        total_minutes = heures * 60 + minutes
 
+        main = instance.main_oeuvre
+
+        if total_minutes > 0:
             if main:
                 main.temps_minutes = total_minutes
                 main.save(update_fields=["temps_minutes"])
@@ -113,7 +121,6 @@ class ControleFreinsForm(forms.ModelForm):
                 )
                 instance.main_oeuvre = main
 
-        # Sauvegarde finale
         if commit:
             instance.save()
 
