@@ -471,18 +471,11 @@ class Checkup(TechnicienMixin, models.Model):
         # =========================
         # 4. MAIN D'OEUVRE
         # =========================
-        if self.main_oeuvre:
+        if self.main_oeuvre_id and self.voiture_exemplaire_id:
+            task_name = _("Checkup complet") + " " + str(self.voiture_exemplaire)
+            self.main_oeuvre.descriptif = task_name
+            self.main_oeuvre.save(update_fields=["descriptif"])
 
-            task_name = ""
-
-            if self.maintenance:
-                task_name = str(self.maintenance)
-            elif self.voiture_exemplaire:
-                task_name = f"Checkup {self.voiture_exemplaire}"
-
-            if hasattr(self.main_oeuvre, "descriptif"):
-                self.main_oeuvre.descriptif = task_name
-                self.main_oeuvre.save(update_fields=["descriptif"])
 
         super().save(*args, **kwargs)
 

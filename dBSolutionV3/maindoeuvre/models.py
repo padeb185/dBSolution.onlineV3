@@ -76,14 +76,18 @@ class MainDoeuvre(models.Model):
     def cout_total(self):
         return self.temps_decimal * self.taux_horaire
 
+    from decimal import Decimal
+
     @property
     def cout_interne(self):
         salaire = self.utilisateur.salaire_brut_heure or Decimal("0.00")
+
         return self.temps_decimal * salaire
 
     @property
     def cout_interne_display(self):
-        return f"{self.cout_interne:.2f} €"
+        cout = self.cout_interne or Decimal("0.00")
+        return f"{cout.quantize(Decimal('0.01'))} €"
 
     @property
     def prix_facture(self):

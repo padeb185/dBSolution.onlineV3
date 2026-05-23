@@ -281,21 +281,14 @@ class RemplacementBoite(TechnicienMixin, models.Model):
         else:
             self.voiture_exemplaire.kilometres_boite = km
 
-            # ----------------------------
-            # MAIN D'OEUVRE AUTO DESCRIPTIF
-            # ----------------------------
-            if self.main_oeuvre:
-                task_name = ""
-
-                if self.maintenance:
-                    task_name = str(self.maintenance)
-                elif self.voiture_exemplaire:
-                    task_name = ("Remplacement de la boite ") + " " + str(self.voiture_exemplaire)
-
-                # update descriptif automatiquement
-                if hasattr(self.main_oeuvre, "descriptif"):
-                    self.main_oeuvre.descriptif = task_name
-                    self.main_oeuvre.save(update_fields=["descriptif"])
 
         super().save(*args, **kwargs)
+
+        if self.main_oeuvre_id and self.voiture_exemplaire_id:
+            task_name = f"{_('Remplacement boite')} {self.voiture_exemplaire} "
+
+            if self.main_oeuvre.descriptif != task_name:
+                self.main_oeuvre.descriptif = task_name
+                self.main_oeuvre.save(update_fields=["descriptif"])
+
 

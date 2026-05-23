@@ -276,18 +276,11 @@ class CourroieDistribution(TechnicienMixin, models.Model):
         # ----------------------------
         # MAIN D'OEUVRE AUTO DESCRIPTIF
         # ----------------------------
-        if self.main_oeuvre:
-            task_name = ""
+        if self.main_oeuvre_id and self.voiture_exemplaire_id:
+            task_name = _("Courroie de distribution") + " " + str(self.voiture_exemplaire)
+            self.main_oeuvre.descriptif = task_name
+            self.main_oeuvre.save(update_fields=["descriptif"])
 
-            if self.maintenance:
-                task_name = str(self.maintenance)
-            elif self.voiture_exemplaire:
-                task_name = _("Courroie de distribution") + " " + str(self.voiture_exemplaire)
-
-            # update descriptif automatiquement
-            if hasattr(self.main_oeuvre, "descriptif"):
-                self.main_oeuvre.descriptif = task_name
-                self.main_oeuvre.save(update_fields=["descriptif"])
 
         super().save(*args, **kwargs)
 

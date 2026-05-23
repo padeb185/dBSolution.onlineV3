@@ -429,15 +429,10 @@ class CheckupTrack(TechnicienMixin, models.Model):
         # ----------------------------
         # MAIN D'OEUVRE (FIX UNIQUE SAVE)
         # ----------------------------
-        if self.main_oeuvre:
-            if self.maintenance:
-                task_name = str(self.maintenance)
-            else:
-                task_name = f"Checkup Track {self.voiture_exemplaire}"
-
-            if self.main_oeuvre.descriptif != task_name:
-                self.main_oeuvre.descriptif = task_name
-                self.main_oeuvre.save(update_fields=["descriptif"])
+        if self.main_oeuvre_id and self.voiture_exemplaire_id:
+            task_name = _("Checkup piste") + " " + str(self.voiture_exemplaire)
+            self.main_oeuvre.descriptif = task_name
+            self.main_oeuvre.save(update_fields=["descriptif"])
 
         # ----------------------------
         # MAINTENANCE UPDATE (SAFE)
