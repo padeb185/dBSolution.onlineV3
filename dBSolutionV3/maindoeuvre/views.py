@@ -23,13 +23,6 @@ class MainDoeuvreListView(LoginRequiredMixin, ListView):
     context_object_name = "maindoeuvres"
     ordering = ["-date"]
 
-    def get_queryset(self):
-        return MainDoeuvre.objects.select_related(
-            "utilisateur",
-            "societe"
-        ).filter(
-            societe=self.request.user.societe
-        ).order_by("-date")
 
 
 
