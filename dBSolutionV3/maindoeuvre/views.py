@@ -16,7 +16,6 @@ from .forms import MainDoeuvreForm
 
 
 
-
 @method_decorator(never_cache, name="dispatch")
 class MainDoeuvreListView(LoginRequiredMixin, ListView):
     model = MainDoeuvre
@@ -24,6 +23,13 @@ class MainDoeuvreListView(LoginRequiredMixin, ListView):
     context_object_name = "maindoeuvres"
     ordering = ["-date"]
 
+    def get_queryset(self):
+        return MainDoeuvre.objects.select_related(
+            "utilisateur",
+            "societe"
+        ).filter(
+            societe=self.request.user.societe
+        ).order_by("-date")
 
 
 
@@ -72,10 +78,6 @@ def main_oeuvre_form_view(request):
                         messages.success(
                             request,
                             _("Main d'œuvre enregistrée avec succès.")
-                        )
-
-                        return redirect(
-                            "maindoeuvre:main_oeuvre_form"
                         )
 
                 except Exception as e:

@@ -146,10 +146,6 @@ class NettoyageExterieur(TechnicienMixin, models.Model):
     def __str__(self):
         return f"Nettoyage extérieur – {self.voiture_exemplaire} ({self.date:%Y-%m-%d})"
 
-    def __str__(self):
-        if self.voiture_exemplaire_id:
-            return f"Nettoyage extérieur – {self.voiture_exemplaire} ({self.date:%Y-%m-%d})"
-        return "Nettoyage extérieur incomplet"
 
     def clean(self):
         super().clean()

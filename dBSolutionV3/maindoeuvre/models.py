@@ -31,7 +31,7 @@ class MainDoeuvre(models.Model):
         max_digits=10,
         decimal_places=2,
         default=0,
-        verbose_name=_("Taux horaire client")
+        verbose_name=_("Taux horaire travailleur")
     )
 
     # ⏱ Temps total en minutes
@@ -78,13 +78,12 @@ class MainDoeuvre(models.Model):
 
     @property
     def cout_interne(self):
-        salaire = getattr(
-            self.utilisateur,
-            "salaire_brut_heure",
-            0
-        ) or 0
+        salaire = self.utilisateur.salaire_brut_heure or Decimal("0.00")
+        return self.temps_decimal * salaire
 
-        return self.temps_decimal * Decimal(salaire)
+    @property
+    def cout_interne_display(self):
+        return f"{self.cout_interne:.2f} €"
 
     @property
     def prix_facture(self):

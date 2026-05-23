@@ -232,6 +232,6 @@ def modifier_nettoyage_ext_view(request, nettoyage_ext_id):
         {
             "form": form,
             "nettoyage_exterieur": nettoyage_exterieur,
-            "exemplaire": nettoyage_exterieur.voiture_exemplaire,  # utile pour les templates
+            "exemplaire": nettoyage_exterieur.voiture_exemplaire,
         }
     )
