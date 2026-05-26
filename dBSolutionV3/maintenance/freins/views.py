@@ -64,7 +64,8 @@ def controle_freins_view(request, exemplaire_id):
     tenant = request.user.societe
     role = request.user.role
 
-    maintenance = None  # 👈 important pour éviter UnboundLocalError
+    maintenance = None
+    controle_freins = None
 
     with tenant_context(tenant):
 
@@ -105,6 +106,14 @@ def controle_freins_view(request, exemplaire_id):
 
                 try:
                     with transaction.atomic():
+                        controle_freins = form.save(commit=False)
+
+                        controle_freins.assign_technicien(request.user)
+                        controle_freins.voiture_exemplaire = exemplaire
+                        controle_freins.immatriculation = exemplaire.immatriculation
+                        controle_freins.societe = tenant
+                        controle_freins.kilometres_chassis = exemplaire.kilometres_chassis
+
                         km = form.cleaned_data.get("kilometrage_controle_brake")
 
                         if km is not None:
@@ -125,16 +134,6 @@ def controle_freins_view(request, exemplaire_id):
 
                             exemplaire.update_kilometres()
                             exemplaire.save()
-
-                            # 🔗 checkup UNIQUE
-                            # 🔗 checkup UNIQUE
-                            controle_freins = form.save(commit=False)
-
-                            controle_freins.assign_technicien(request.user)
-
-                            controle_freins.voiture_exemplaire = exemplaire
-                            controle_freins.immatriculation = exemplaire.immatriculation
-                            controle_freins.societe = tenant
 
                             controle_freins.kilometres_chassis = exemplaire.kilometres_chassis
                             controle_freins.kilometrage_controle_brake = km

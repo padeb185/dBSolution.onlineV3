@@ -78,7 +78,14 @@ class ControleFreins(TechnicienMixin, models.Model):
     liquide_frein_etat = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("État liquide de frein"))
     liquide_remplacement_liquide_frein = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK,verbose_name=_("Remplacement liquide de frein"))
     liquide_specif_liquide_frein = models.CharField(max_length=100, choices=LiquideFreinsQualite.choices, default=LiquideFreinsQualite.DOT4,  blank=True,verbose_name=_("Spécification liquide de frein"))
-    liquide_quantite_liquide_frein = models.FloatField(default=0, null=True, blank=True,verbose_name=_("Quantité liquide de frein (L)"), validators=[validate_step_0_1] )
+    liquide_quantite_liquide_frein = models.DecimalField(
+        max_digits=4,
+        decimal_places=2,
+        default=0.0,
+        null=True,
+        blank=True,
+        verbose_name=_("Quantité liquide de frein (L)"),
+        validators=[validate_step_0_1] )
 
     machoire_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("État de la machoire avant gauche"))
     machoire_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("État de la machoire avant droite"))

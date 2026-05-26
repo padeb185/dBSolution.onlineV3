@@ -21,7 +21,14 @@ class ControleFreinsForm(forms.ModelForm):
             'remarques': forms.Textarea(attrs={
                 'rows': 4,
                 'placeholder': _("Ajoutez des remarques ici...")
+
             }),
+            "liquide_quantite_liquide_frein": forms.NumberInput(
+                attrs={
+                    "step": "0.1",
+                    "min": "0"
+                }
+            )
 
         }
 
