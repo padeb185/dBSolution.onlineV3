@@ -35,9 +35,7 @@ def main_oeuvre_form_view(request):
     with tenant_context(tenant):
 
         roles_autorises = [
-            "mécanicien",
-            "apprenti",
-            "magasinier",
+            "mécanicien"
             "chef mécanicien",
             "direction"
         ]

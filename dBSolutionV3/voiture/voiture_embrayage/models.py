@@ -5,15 +5,15 @@ from django.utils.translation import gettext_lazy as _
 
 
 class TypeEmbrayage(models.TextChoices):
-    MONDISQUE = "MONDISQUE", _("Monodisque")
-    MULTIDISQUE = "MULTIDISQUE", _("Multidisque")
+    MONDISQUE = "MONDISQUE", _("Mono-disque")
+    MULTIDISQUE = "MULTIDISQUE", _("Multi-disque")
     AUTOMATIQUE = "AUTOMATIQUE", _("Automatique")
     HYDRAULIQUE = "HYDRAULIQUE", _("Hydraulique")
     MECANIQUE = "MECANIQUE", _("Mécanique")
 
 class TypeVolantMoteur(models.TextChoices):
-    MONOMASSE = "MONOMASSE", _("Monomasse")
-    BIMASSE = "BIMASSE", _("Bimasse")
+    MONOMASSE = "MONOMASSE", _("Mono-masse")
+    BIMASSE = "BIMASSE", _("Bi-masse")
     ALLEGE = "ALLEGE", _("Allégé / Performance")
     SEGMENTE = "SEGMENTE", _("Segmenté / Compétition")
     AUTOMATIQUE = "AUTOMATIQUE", _("Automatique / Plaque flexible")
@@ -24,7 +24,7 @@ class TypePlateauPression(models.TextChoices):
     RESSORTS_CONCENTRIQUES = "CONCENTRIQUES", _("Ressorts concentriques")
     RESSORTS_HELICOIDAUX = "HELICOIDAUX", _("Ressorts hélicoïdaux")
     RENFORCE = "RENFORCE", _("Renforcé / Compétition")
-    BIMASSE = "BIMASSE", _("Bimasse (pour volant moteur DMF)")
+    BIMASSE = "BIMASSE", _("Bi-masse (pour volant moteur DMF)")
     AUTOMATIQUE = "AUTOMATIQUE", _("Automatique / non présent")
 
 class TypeButeeDEmbrayage(models.TextChoices):

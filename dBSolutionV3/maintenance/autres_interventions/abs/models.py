@@ -177,8 +177,8 @@ class Abs(TechnicienMixin, models.Model):
         self.tech_societe = user.societe
 
     class Meta:
-        verbose_name = _("système_abs")
-        verbose_name_plural = _("Systèmes_abs")
+        verbose_name = _("Système ABS")
+        verbose_name_plural = _("Systèmes ABS")
 
     def __str__(self):
         return f"Controle abs - {self.voiture_exemplaire} {self.date}"

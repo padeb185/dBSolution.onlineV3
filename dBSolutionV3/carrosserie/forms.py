@@ -32,7 +32,7 @@ class CarrosserieForm(forms.ModelForm):
 
             "numero_tva": forms.TextInput(attrs={
                 "class": "border rounded px-3 py-2 w-full text-sm",
-                "placeholder": _("BE0123456789")
+                "placeholder": _("BE01 2345 6789 1234")
             }),
 
             "peppol_id": forms.TextInput(attrs={

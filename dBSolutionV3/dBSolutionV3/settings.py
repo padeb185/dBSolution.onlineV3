@@ -339,17 +339,28 @@ if db_password:
     db_password = db_password.encode('latin1').decode('utf-8')
 
 
+import environ
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+env = environ.Env()
+environ.Env.read_env(BASE_DIR / ".env")
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django_tenants.postgresql_backend',
-        'NAME': os.environ.get('DB_NAME'),
-        'USER': os.environ.get('DB_USER'),
-        'PASSWORD': os.environ.get('DB_PASSWORD'),
-        'HOST': os.environ.get('DB_HOST'),
-        'PORT': os.environ.get('DB_PORT'),
+    "default": {
+        "ENGINE": "django_tenants.postgresql_backend",
+        "NAME": env("DB_NAME"),
+        "USER": env("DB_USER"),
+        "PASSWORD": env("DB_PASSWORD"),
+        "HOST": env("DB_HOST"),
+        "PORT": env("DB_PORT"),
     }
 }
 
+SECRET_KEY = env("SECRET_KEY")
+
+#DEBUG = env.bool("DEBUG", default=False)
 # ------------------------------------------------------------------------------
 # PASSWORDS
 # ------------------------------------------------------------------------------
@@ -392,10 +403,18 @@ LANGUAGE_COOKIE_AGE = 60 * 60 * 24 * 365
 # ------------------------------------------------------------------------------
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "theme" / "static"]
+STATICFILES_DIRS = [
+    BASE_DIR / "theme" / "static",
+    BASE_DIR / "static",
+]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 TAILWIND_APP_NAME = 'theme'
+
+
+# settings.py
+DEBUG = True
+
 
 # ------------------------------------------------------------------------------
 # LOGGING

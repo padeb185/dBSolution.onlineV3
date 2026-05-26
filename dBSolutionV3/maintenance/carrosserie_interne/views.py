@@ -691,10 +691,7 @@ def modifier_carrosserie_interne_view(request, carrosserie_interne_id):
             if form.is_valid():
                 form.save()
                 messages.success(request, _("Carrosserie modifiée avec succès !"))
-                return redirect(
-                    "carrosserie_interne:carrosserie_interne_detail",
-                    carrosserie_interne_id=carrosserie_interne.id
-                )
+   
             else:
                 messages.error(request, _("Le formulaire contient des erreurs."))
                 print(form.errors)

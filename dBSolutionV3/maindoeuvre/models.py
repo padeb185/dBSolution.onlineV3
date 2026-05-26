@@ -76,7 +76,6 @@ class MainDoeuvre(models.Model):
     def cout_total(self):
         return self.temps_decimal * self.taux_horaire
 
-    from decimal import Decimal
 
     @property
     def cout_interne(self):

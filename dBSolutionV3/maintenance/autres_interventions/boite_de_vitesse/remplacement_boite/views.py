@@ -39,7 +39,7 @@ class RemplacementBoiteListView(ListView):
                 models.Q(tech_societe=societe) | models.Q(tech_societe__isnull=True)
             )
 
-        return queryset.order_by("-id")
+        return queryset.order_by("-date")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

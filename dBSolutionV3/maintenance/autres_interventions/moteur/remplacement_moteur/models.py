@@ -7,7 +7,6 @@ from django.utils.translation import gettext_lazy as _
 from client_particulier.models import ClientParticulier
 from django.conf import settings
 from societe.models import Societe
-from voiture.voiture_exemplaire.utils_vin import get_vin_year
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from maintenance.niveaux.models import Niveau, NiveauxEtat, validate_step_0_1, HuileEtat, RefroidissementQualiteEtat
 from maintenance.models import Maintenance
