@@ -2,6 +2,7 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from maintenance.niveaux.models import LiquideFreinsQualite, validate_step_0_1
 from piece.models import Piece
 from maintenance.models import Maintenance
 from utils.mixin import TechnicienMixin
@@ -11,8 +12,7 @@ from societe.models import Societe
 
 
 class EtatOKNotOK(models.TextChoices):
-    OK = "OK", _("Non")
-    NOT_OK = "NOT_OK", _("Oui")
+    OK = "OK", _("OK")
     A_REMPLACER = "A_REMPLACER", _("À remplacer")
     REMPLACE = "REMPLACE", _("Remplacé")
 
@@ -78,8 +78,8 @@ class ControleFreins(TechnicienMixin, models.Model):
     # --- Liquide ---
     liquide_frein_etat = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("État liquide de frein"))
     liquide_remplacement_liquide_frein = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK,verbose_name=_("Remplacement liquide de frein"))
-    liquide_specif_liquide_frein = models.CharField(max_length=100, blank=True,verbose_name=_("Spécification liquide de frein"))
-    liquide_quantite_liquide_frein = models.FloatField(default=0, null=True, blank=True,verbose_name=_("Quantité liquide de frein (L)"))
+    liquide_specif_liquide_frein = models.CharField(max_length=100, choices=LiquideFreinsQualite.choices, default=LiquideFreinsQualite.DOT4,  blank=True,verbose_name=_("Spécification liquide de frein"))
+    liquide_quantite_liquide_frein = models.FloatField(default=0, null=True, blank=True,verbose_name=_("Quantité liquide de frein (L)"), validators=[validate_step_0_1] )
 
     machoire_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("État de la machoire avant gauche"))
     machoire_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("État de la machoire avant droite"))

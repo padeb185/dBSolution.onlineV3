@@ -1,3 +1,4 @@
+from decimal import Decimal
 from django.db import models
 from django.conf import settings
 from django.core.exceptions import ValidationError
@@ -112,12 +113,15 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         verbose_name=_("Roulements internes")
     )
 
-    huile_auto_quantite = models.FloatField(
-        default=0,
+    huile_auto_niveau_quantite = models.DecimalField(
+        max_digits=4,
+        decimal_places=1,
+        default=Decimal("0.0"),
         verbose_name=_("Quantité d'huile ajoutée en litres"),
         validators=[validate_step_0_1]
     )
-    huile_auto_qualite = models.CharField(
+
+    huile_auto_niveau_qualite = models.CharField(
         max_length=25,
         choices=HuileBoiteAutoEtat.choices,
         default=HuileBoiteAutoEtat.ATF3,

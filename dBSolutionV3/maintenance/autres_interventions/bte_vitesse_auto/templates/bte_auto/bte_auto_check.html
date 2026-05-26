@@ -312,7 +312,7 @@
              {% trans "Huile de boite automatique" %}
          </h2>
         {% for field in form %}
-            {% if "huile" in field.name %}
+            {% if "huile_auto_niveau" in field.name %}
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">

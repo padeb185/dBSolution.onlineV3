@@ -121,6 +121,7 @@ class LiquideFreinsQualite(models.TextChoices):
         DOT51 = 'DOT 5.1', _("DOT 5.1")
 
 
+
 class LaveGlaceQualite(models.TextChoices):
     HIVER = 'HIVER', _("Hiver")
     ETE = 'ETE', _("Eté")
