@@ -159,7 +159,7 @@ def admission_check_view(request, exemplaire_id):
                         admission.maintenance = maintenance
                         admission.save()
 
-                    messages.success(request, _("Admission enregistrée avec succès."))
+                    messages.success(request, _("Contrôle de l'admission enregistrée avec succès."))
 
                 except Exception as e:
                     messages.error(request, _("Erreur lors de l'enregistrement : %s") % str(e))
