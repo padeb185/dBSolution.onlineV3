@@ -3,7 +3,6 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from maintenance.niveaux.models import LiquideFreinsQualite, validate_step_0_1
-from piece.models import Piece
 from maintenance.models import Maintenance
 from utils.mixin import TechnicienMixin
 from societe.models import Societe
