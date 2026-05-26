@@ -56,6 +56,7 @@ class RemplacementBoiteListView(ListView):
 @login_required
 def remplacement_boite_form_view(request, exemplaire_id):
 
+    remplacement_boite = None
     tenant = request.user.societe
     role = request.user.role
 
@@ -92,6 +93,9 @@ def remplacement_boite_form_view(request, exemplaire_id):
                 request.POST,
                 user=request.user,
                 exemplaire=exemplaire
+            )
+            remplacement_boite = RemplacementBoite(
+                voiture_exemplaire=exemplaire
             )
 
             if form.is_valid():

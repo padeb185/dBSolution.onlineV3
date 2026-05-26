@@ -6,7 +6,7 @@ from utils.mixin import TechnicienMixin
 from maintenance.models import Maintenance
 
 
-class HuileBoiteEtat(models.TextChoices):
+class HuileBoiteAutoEtat(models.TextChoices):
     ATF3 = "ATF_III", _("ATF III")
     ATF_DSG = "ATF_DSG", _("ATF DSG")
     ATF_DCT = "ATF_DCT", _("ATF DCT")
@@ -117,8 +117,8 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
     )
     huile_auto_qualite = models.CharField(
         max_length=25,
-        choices=HuileBoiteEtat.choices,
-        default=HuileBoiteEtat.ATF3,
+        choices=HuileBoiteAutoEtat.choices,
+        default=HuileBoiteAutoEtat.ATF3,
         verbose_name=_("Qualité de l'huile")
     )
 
