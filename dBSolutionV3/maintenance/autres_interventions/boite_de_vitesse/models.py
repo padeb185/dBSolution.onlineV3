@@ -14,15 +14,15 @@ class HuileBoiteEtat(models.TextChoices):
     QUATRE_20 = "80W", "80W"
     QUATRE_20_90 = "80W90", _("80W90")
     QUATRE_25_90 = "85W90", _("85W90")
-    ATF3 = "ATF_III", _("ATF III")
-    ATF_DSG = "ATF DSG", _("ATF DSG")
+
 
 
 
 
 class BoiteVitesseEtat(models.TextChoices):
     OK = "OK", _("OK")
-    NOT_OK = "NOT_OK", _("À vérifier / remplacer")
+    NOT_OK = "NOT_OK", _("À remplacer")
+    REMPLACE = "REMPLACE", _("Remplacé")
 
 # ---------------------------
 # Modèle fusionné

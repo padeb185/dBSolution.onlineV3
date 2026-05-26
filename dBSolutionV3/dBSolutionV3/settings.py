@@ -257,9 +257,10 @@ AUTHENTICATION_BACKENDS = [
     'guardian.backends.ObjectPermissionBackend',
 ]
 
-LOGIN_URL = '/fr/login/'
-LOGIN_REDIRECT_URL = '/fr/'
-LOGOUT_REDIRECT_URL = '/fr/login/'
+LOGIN_URL = 'utilisateurs:login'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'utilisateurs:login'
+
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SECURE_SSL_REDIRECT = False  # True seulement si tu passes par Nginx
