@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
+from maintenance.niveaux.models import validate_step_0_1
 from utils.mixin import TechnicienMixin
 from maintenance.models import Maintenance
 
@@ -113,7 +114,8 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
 
     huile_auto_quantite = models.FloatField(
         default=0,
-        verbose_name=_("Quantité d'huile ajoutée en litres")
+        verbose_name=_("Quantité d'huile ajoutée en litres"),
+        validators=[validate_step_0_1]
     )
     huile_auto_qualite = models.CharField(
         max_length=25,

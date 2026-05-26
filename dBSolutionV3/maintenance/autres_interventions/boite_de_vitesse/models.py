@@ -1,7 +1,10 @@
+from decimal import Decimal
+
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from maintenance.niveaux.models import validate_step_0_1
 from utils.mixin import TechnicienMixin
 from maintenance.models import Maintenance
 
@@ -90,7 +93,13 @@ class ControleBoite(TechnicienMixin, models.Model):
     fourchettes = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Fourchettes"))
 
     # Huile
-    man_huile_manuelle_quantite = models.FloatField(default=0, verbose_name=_("Quantité d'huile ajoutée en litres"))
+    man_huile_manuelle_quantite = models.DecimalField(
+        max_digits=4,
+        decimal_places=1,
+        default=Decimal("0.0"),
+        verbose_name=_("Quantité d'huile ajoutée en litres"),
+        validators=[validate_step_0_1]
+    )
     man_huile_manuelle_qualite = models.CharField(max_length=25, choices=HuileBoiteEtat.choices,default=HuileBoiteEtat.SEPTANTE_CINQ, verbose_name=_("Qualité de l'huile"))
 
     remarques = models.TextField(

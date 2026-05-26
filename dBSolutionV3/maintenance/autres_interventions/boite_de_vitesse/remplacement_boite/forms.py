@@ -20,6 +20,12 @@ class RemplacementBoiteForm(forms.ModelForm):
 
         widgets = {
             "date_derniere_intervention": forms.DateInput(attrs={"type": "date"}),
+            "boite_niveau_huile_quantite": forms.NumberInput(
+                attrs={
+                    "step": "0.1",
+                    "min": "0"
+                }
+            )
         }
 
     def __init__(self, *args, **kwargs):

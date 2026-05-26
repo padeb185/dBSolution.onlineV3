@@ -23,8 +23,17 @@ class ControleBoiteForm(forms.ModelForm):
                 'rows': 4,
                 'placeholder': _("Ajoutez des remarques ici...")
             }),
+            "man_huile_manuelle_quantite": forms.NumberInput(
+                attrs={
+                    "step": "0.1",
+                    "min": "0"
+                }
+            )
 
         }
+
+
+
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)

@@ -1,4 +1,6 @@
 import uuid
+from decimal import Decimal
+
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -150,7 +152,12 @@ class RemplacementBoite(TechnicienMixin, models.Model):
 
 
     boite_niveau_huile_etat =  models.CharField(max_length=25, choices=HuileBoiteEtat.choices,default=HuileBoiteEtat.SEPTANTE_CINQ, verbose_name=_("Qualité de l'huile"))
-    boite_niveau_huile_quantite = models.FloatField(default=0, verbose_name=_("Quantité d'huile ajoutée en litres"),validators=[validate_step_0_1])
+    boite_niveau_huile_quantite = (models.DecimalField(
+                                   max_digits=4,
+                                   decimal_places=1,
+                                   default=Decimal("0.0"),
+                                   verbose_name = _("Quantité d'huile ajoutée en litres"),
+                                   validators = [validate_step_0_1]))
 
 
 
