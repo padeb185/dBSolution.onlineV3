@@ -170,9 +170,12 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         choices=PAYS_CHOICES
     )
 
-    tva = models.CharField(
-        max_length=5,
-        choices=TVA_PIECES
+    tva = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        default=21.00,
+        choices=TVA_PIECES,
+        verbose_name=_("TVA")
     )
 
     remarques = models.TextField(
