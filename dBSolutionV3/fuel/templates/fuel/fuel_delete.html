@@ -28,7 +28,7 @@
         {% csrf_token %}
 
         <div class="flex gap-3">
-           <button type="submit"
+            <button type="submit"
                     class="flex-1 px-5 py-4 rounded font-semibold"
                     style="background-color:#b91c1c; color:white;">
                 {% trans "Confirmer la suppression" %}
@@ -41,12 +41,6 @@
         </div>
     </form>
 
-</div>
- <div class="max-w-xl mx-auto mt-4">
-    <a href="{% url 'fuel:fuel_list' %}"
-        class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
-        {% trans "Retour à la liste des pleins" %}
-    </a>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -63,18 +57,6 @@
     {% endfor %}
 {% endif %}
 
-
-<style>
-.swal2-confirm {
-    background-color: #b91c1c !important;
-    color: white !important;
-}
-
-.swal2-cancel {
-    background-color: #6b7280 !important;
-    color: white !important;
-}
-</style>
 <script>
 document.getElementById("delete-form").addEventListener("submit", function(event) {
     event.preventDefault();
@@ -86,10 +68,10 @@ document.getElementById("delete-form").addEventListener("submit", function(event
         showCancelButton: true,
         confirmButtonText: "{% trans 'Oui, supprimer' %}",
         cancelButtonText: "{% trans 'Annuler' %}",
-        reverseButtons: true
+        confirmButtonColor: "#b91c1c"
     }).then((result) => {
         if (result.isConfirmed) {
-            document.getElementById("delete-form").submit();
+            event.target.submit();
         }
     });
 });

@@ -402,15 +402,15 @@ LANGUAGE_COOKIE_AGE = 60 * 60 * 24 * 365
 # ------------------------------------------------------------------------------
 # STATIC FILES
 # ------------------------------------------------------------------------------
+STATIC_URL = "/static/"
 
-STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "theme" / "static",
-    BASE_DIR / "static",
 ]
+
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-TAILWIND_APP_NAME = 'theme'
+TAILWIND_APP_NAME = "theme"
 
 
 # settings.py
