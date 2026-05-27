@@ -10,10 +10,11 @@
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold flex items-center gap-4">
             {% with image_name=fuel.nom_station|slugify %}
+                {% static 'icons/pompe-a-essence.png' as default_icon %}
                 <img src="{% static 'fuel/'|add:image_name|add:'.png' %}"
                      alt="{{ fuel.nom_station }}"
                      class="w-12 h-12"
-                     onerror="this.onerror=null; this.src='{% static 'icons/pompe-a-essence.png' %}';">
+                     onerror="this.onerror=null; this.src='{{ default_icon }}';">
             {% endwith %}
             <span>{% trans "Modifier la plein de carburant:" %}</span>
         </h1>
@@ -109,23 +110,6 @@ function getCookie(name) {
 const csrftoken = getCookie('csrftoken');
 
 document.addEventListener("DOMContentLoaded", function () {
-
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie) {
-            document.cookie.split(';').forEach(c => {
-                c = c.trim();
-                if (c.startsWith(name + '=')) {
-                    cookieValue = decodeURIComponent(c.slice(name.length + 1));
-                }
-            });
-        }
-        return cookieValue;
-    }
-
-    const csrftoken = getCookie('csrftoken');
-
-
 
     const immatInput = document.getElementById("id_immatriculation");
     if (immatInput) {

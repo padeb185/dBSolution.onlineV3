@@ -20,6 +20,8 @@ module.exports = {
     "bg-green-100", "bg-lime-100", "bg-red-100",
     "bg-yellow-100", "bg-amber-100",
     "bg-blue-500", "bg-blue-600", "hover:bg-blue-700",
+    'bg-red-700',
+    'hover:bg-red-500',
 
     // Custom yellow
     "bg-customyellow-100",

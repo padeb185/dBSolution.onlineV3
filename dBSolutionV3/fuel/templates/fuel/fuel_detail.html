@@ -8,10 +8,11 @@
     <div class="flex justify-between items-center mb-6">
        <h1 class="text-2xl font-bold flex items-center gap-4">
             {% with image_name=fuel.nom_station|slugify %}
+                {% static 'icons/pompe-a-essence.png' as default_icon %}
                 <img src="{% static 'fuel/'|add:image_name|add:'.png' %}"
                      alt="{{ fuel.nom_station }}"
                      class="w-12 h-12"
-                     onerror="this.src='{% static 'icons/pompe-a-essence.png' %}';">
+                     onerror="this.onerror=null; this.src='{{ default_icon }}';">
             {% endwith %}
             <span>{% trans "Détails du plein de carburant :" %}</span>
            <span>{{ fuel.voiture_exemplaire.voiture_marque.nom_marque }} {{ fuel.voiture_exemplaire.voiture_modele.nom_modele }} {{ fuel.voiture_exemplaire.voiture_modele.nom_variante }}</span>
@@ -90,6 +91,18 @@
                 </button>
             </a>
         </div>
+        <div class="mt-auto w-full">
+            <a href="{% url 'fuel:fuel_delete' fuel_id=fuel.id %}"
+               class="block w-full text-center px-4 py-2 rounded font-semibold"
+               style="background-color:#b91c1c; color:white;">
+
+                {% trans "Supprimer le plein de carburant" %}
+
+            </a>
+        </div>
+
+
+
 
     </div>
 

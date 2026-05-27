@@ -27,8 +27,11 @@ urlpatterns = [
     # après
     path("stats_exemplaire/<uuid:exemplaire_id>/", FuelExemplaireStatView.as_view(), name="fuel_exemplaire_stat"),
 
-    # Supprimer un fuel (UUID)
-    path("delete/<uuid:fuel_id>/", fuel_delete, name="fuel_delete"),
+    path(
+        "delete/<int:fuel_id>/",
+        views.fuel_delete,
+        name="fuel_delete"
+     ),
 
 
     # Routes AJAX

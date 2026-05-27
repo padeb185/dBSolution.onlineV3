@@ -7,6 +7,7 @@ from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_GET
 from django.views.generic import ListView
 from django_tenants.utils import tenant_context
+from utilisateurs import mecanicien
 from .forms import FuelForm
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from voiture.voiture_marque.models import VoitureMarque
@@ -169,15 +170,25 @@ def fuel_edit(request, pk):
 
 
 
-def fuel_delete(request, pk):
-    fuel = get_object_or_404(Fuel, pk=pk)
+def fuel_delete(request, fuel_id):
+
+    if request.user.role not in ["direction", "chef_mecanicien"]:
+        messages.error(
+            request,
+            _("Vous n'avez pas l'autorisation de supprimer ce plein.")
+        )
+        return redirect("fuel:fuel_list")
+
+    fuel = get_object_or_404(Fuel, id=fuel_id)
+
     if request.method == "POST":
         fuel.delete()
         messages.success(request, _("Carburant supprimé avec succès."))
-        return redirect("fuel_list")
-    return render(request, "fuel/fuel_confirm_delete.html", {"fuel": fuel})
+        messages.error(request, _("Impossible de supprimer le carburant."))
+        messages.warning(request, _("Attention : cette action est irréversible."))
+        messages.info(request, _("Information enregistrée."))
 
-
+    return render(request, "fuel/fuel_delete.html", {"fuel": fuel})
 
 
 

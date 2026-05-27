@@ -1,14 +1,10 @@
 import uuid
-
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.core.validators import MinValueValidator, MaxValueValidator, RegexValidator
 from django.utils.translation import gettext_lazy as _
-from client_particulier.models import ClientParticulier
 from django.conf import settings
-from societe.models import Societe
-from voiture.voiture_exemplaire.models import VoitureExemplaire
-from maintenance.niveaux.models import Niveau, NiveauxEtat, validate_step_0_1, HuileEtat, RefroidissementQualiteEtat
+from maintenance.niveaux.models import  (NiveauxEtat, validate_step_0_1,
+                                         HuileEtat, RefroidissementQualiteEtat)
 from maintenance.models import Maintenance
 from utils.mixin import TechnicienMixin
 
@@ -19,11 +15,6 @@ class TypeUtilisation(models.TextChoices):
     PRIVE = "prive", _("Privé")
     LOCATION = "location", _("Location")
     INTERNE = "interne", _("Interne")
-
-class NomPays(models.TextChoices):
-    BE = "Belgique", _("Belgique")
-    LU = "Luxembourg", _("Luxembourg")
-    DE = "Allemagne", _("Allemagne")
 
 
 
@@ -57,8 +48,6 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         null=True,
         blank=True
     )
-
-
 
     voiture_exemplaire = models.ForeignKey(
         "voiture_exemplaire.VoitureExemplaire",
@@ -98,7 +87,6 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         help_text=_("Calculé automatiquement : total - dernièr entretien")
     )
 
-
     remplacement_numero_moteurs= models.CharField(
         max_length=50,
         null=True,
@@ -119,9 +107,6 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         verbose_name=_("Prix moteur"),
     )
 
-
-
-
     TAG_CHOICES = [
         ("VERT", _("Vert")),
         ("JAUNE", _("Jaune")),
@@ -135,16 +120,45 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         verbose_name=_("État visuel / Tag"),
     )
 
+    moteur_niveau_huile_etat = models.CharField(
+        max_length=25,
+        choices=NiveauxEtat.choices,
+        default=NiveauxEtat.BON,
+        verbose_name=_("Niveau d'huile")
+    )
 
-    moteur_niveau_huile_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau d'huile"))
-    moteur_niveau_huile_quantite = models.FloatField(default=0, verbose_name=_("Quantité d'huile ajoutée en litres"),validators=[validate_step_0_1])
-    moteur_niveau_huile_qualite = models.CharField(max_length=25, choices=HuileEtat.choices, default=HuileEtat.ZERO_30,verbose_name=_("Qualité d'huile"))
+    moteur_niveau_huile_quantite = models.FloatField(
+        default=0,
+        verbose_name=_("Quantité d'huile ajoutée en litres"),
+        validators=[validate_step_0_1]
+    )
 
+    moteur_niveau_huile_qualite = models.CharField(
+        max_length=25,
+        choices=HuileEtat.choices,
+        default=HuileEtat.ZERO_30,
+        verbose_name=_("Qualité d'huile")
+    )
 
-    refroidissement_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de refroidissement"))
-    refroidissement_quantite = models.FloatField(default=0, verbose_name=_("Quantité de liquide de refroidissement ajoutée en litres"), validators=[validate_step_0_1])
-    refroidissement_qualite = models.CharField(max_length=25, choices=RefroidissementQualiteEtat.choices,default=RefroidissementQualiteEtat.G13,verbose_name=_("Qualité de liquide de refroidissement"))
+    refroidissement_etat = models.CharField(
+        max_length=25,
+        choices=NiveauxEtat.choices,
+        default=NiveauxEtat.BON,
+        verbose_name=_("Niveau de liquide de refroidissement")
+    )
 
+    refroidissement_quantite = models.FloatField(
+        default=0,
+        verbose_name=_("Quantité de liquide de refroidissement ajoutée en litres"),
+        validators=[validate_step_0_1]
+    )
+
+    refroidissement_qualite = models.CharField(
+        max_length=25,
+        choices=RefroidissementQualiteEtat.choices,
+        default=RefroidissementQualiteEtat.G13,
+        verbose_name=_("Qualité de liquide de refroidissement")
+    )
 
     remplacement_effectue = models.BooleanField(
         default=False,
@@ -154,6 +168,11 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
     pays = models.CharField(
         max_length=5,
         choices=PAYS_CHOICES
+    )
+
+    tva = models.CharField(
+        max_length=5,
+        choices=TVA_PIECES
     )
 
     remarques = models.TextField(
