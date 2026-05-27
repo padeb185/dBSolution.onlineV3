@@ -145,23 +145,28 @@
     box-sizing: border-box !important;
 }
 </style>
-
 <script>
 function getCookie(name) {
     let cookieValue = null;
-    if (document.cookie) {
-        document.cookie.split(';').forEach(c => {
-            c = c.trim();
-            if (c.startsWith(name + '=')) {
-                cookieValue = decodeURIComponent(c.slice(name.length + 1));
+
+    if (document.cookie && document.cookie !== "") {
+        const cookies = document.cookie.split(";");
+
+        for (let cookie of cookies) {
+            cookie = cookie.trim();
+
+            if (cookie.startsWith(name + "=")) {
+                cookieValue = decodeURIComponent(
+                    cookie.substring(name.length + 1)
+                );
+                break;
             }
-        });
+        }
     }
+
     return cookieValue;
 }
 
-const csrftoken = getCookie('csrftoken');
-
-
+const csrftoken = getCookie("csrftoken");
 </script>
 {% endblock %}
