@@ -63,6 +63,17 @@
     {% endfor %}
 {% endif %}
 
+<style>
+.swal2-confirm {
+    background-color: #b91c1c !important;
+    color: white !important;
+}
+
+.swal2-cancel {
+    background-color: #6b7280 !important;
+    color: white !important;
+}
+</style>
 <script>
 document.getElementById("delete-form").addEventListener("submit", function(event) {
     event.preventDefault();
@@ -74,13 +85,12 @@ document.getElementById("delete-form").addEventListener("submit", function(event
         showCancelButton: true,
         confirmButtonText: "{% trans 'Oui, supprimer' %}",
         cancelButtonText: "{% trans 'Annuler' %}",
-        confirmButtonColor: "#b91c1c"
+        reverseButtons: true
     }).then((result) => {
         if (result.isConfirmed) {
-            event.target.submit();
+            document.getElementById("delete-form").submit();
         }
     });
 });
 </script>
-
 {% endblock %}
