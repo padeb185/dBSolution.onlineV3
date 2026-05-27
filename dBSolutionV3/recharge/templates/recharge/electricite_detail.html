@@ -7,11 +7,13 @@
     <!-- Header -->
     <div class="flex justify-between items-center mb-6">
        <h1 class="text-2xl font-bold flex items-center gap-4">
+          {% static 'icons/voyage.png' as default_icon %}
+
             {% with image_name=electricite.nom_station|slugify %}
-                <img src="{% static 'recharge'|add:image_name|add:'.png' %}"
+                <img src="{% static 'recharge/'|add:image_name|add:'.png' %}"
                      alt="{{ electricite.nom_station }}"
                      class="w-12 h-12"
-                     onerror="this.src='{% static 'icons/voyage.png' %}';">
+                     onerror="this.onerror=null; this.src='{{ default_icon }}';">
             {% endwith %}
             <span>{% trans "Détails des recharges électriques : " %}</span>
                  {{ exemplaire.voiture_marque.nom_marque }}
@@ -73,6 +75,15 @@
                 <button type="button" class="w-full bg-green-600 text-white px-4 py-2 rounded hover:bg-green-500 font-semibold">
                     {% trans "Voir les statistiques du véhicule" %}
                 </button>
+            </a>
+        </div>
+
+        <div class="mt-auto w-full">
+            <a href="{% url 'recharge:electricite_delete' electricite_id=electricite.id %}"
+               class="block w-full text-center px-4 py-2 rounded font-semibold"
+               style="background-color:#b91c1c; color:white;">
+
+                {% trans "Supprimer la recharge électrique" %}
             </a>
         </div>
     </div>

@@ -74,3 +74,38 @@ body {
         display: none !important;
     }
 }
+
+
+.btn-red,
+button.btn-red,
+a.btn-red,
+input[type="submit"].btn-red {
+    background-color: #dc2626 !important;
+    color: #ffffff !important;
+    padding: 10px 18px !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    text-align: center !important;
+    border: none !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.15) !important;
+}
+
+.btn-red:hover,
+button.btn-red:hover,
+a.btn-red:hover,
+input[type="submit"].btn-red:hover {
+    background-color: #b91c1c !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 12px rgba(0,0,0,0.20) !important;
+}
+
+.btn-red:active {
+    transform: scale(0.98) !important;
+}
+
+.btn-red:disabled {
+    opacity: 0.5 !important;
+    cursor: not-allowed !important;
+}

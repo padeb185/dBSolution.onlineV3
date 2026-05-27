@@ -27,7 +27,7 @@ class FuelForm(forms.ModelForm):
             "litres",
             "prix_refuelling",
             "pays",
-            "validation",
+
         ]
         widgets = {
 

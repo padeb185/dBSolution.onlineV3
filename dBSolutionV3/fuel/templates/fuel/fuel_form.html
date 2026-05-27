@@ -79,11 +79,14 @@
                {% trans "Annuler" %}
             </a>
         </div>
-
-
     </form>
 </div>
-
+<div class="max-w-xl mx-auto mt-4">
+    <a href="{% url 'fuel:fuel_list' %}"
+        class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour à la liste des pleins" %}
+    </a>
+</div>
 
 
 <style>

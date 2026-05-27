@@ -154,6 +154,9 @@ class Electricite(models.Model):
 
         super().save(*args, **kwargs)
 
+
+
+
     @classmethod
     def total_kW_mois(cls, vehicule, year=None, month=None):
         qs = cls.objects.filter(voiture_exemplaire=vehicule)
