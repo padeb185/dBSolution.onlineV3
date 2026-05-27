@@ -234,6 +234,25 @@ def get_modeles_elect(request):
 
 
 
+@login_required
+def electricite_delete(request, electricite_id):
+    if request.user.role not in ["direction", "chef_mecanicien"]:
+        messages.error(
+            request,
+            _("Vous n'avez pas l'autorisation de supprimer cette recharge.")
+        )
+        return redirect("recharge:electricite_list")
+
+    electricite = get_object_or_404(Electricite, id=electricite_id)
+
+    if request.method == "POST":
+        electricite.delete()
+        messages.success(request, _("Recharge électrique supprimée avec succès."))
+
+
+    return render(request, "recharge/electricite_delete.html", {"electricite": electricite})
+
+
 
 
 @method_decorator([login_required, never_cache], name="dispatch")

@@ -169,7 +169,7 @@ def fuel_edit(request, pk):
 
 
 
-
+@login_required
 def fuel_delete(request, fuel_id):
 
     if request.user.role not in ["direction", "chef_mecanicien"]:
@@ -184,9 +184,8 @@ def fuel_delete(request, fuel_id):
     if request.method == "POST":
         fuel.delete()
         messages.success(request, _("Carburant supprimé avec succès."))
-        messages.error(request, _("Impossible de supprimer le carburant."))
-        messages.warning(request, _("Attention : cette action est irréversible."))
-        messages.info(request, _("Information enregistrée."))
+
+
 
     return render(request, "fuel/fuel_delete.html", {"fuel": fuel})
 
