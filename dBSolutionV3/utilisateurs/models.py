@@ -175,9 +175,12 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
         self.save()
 
     def get_totp_uri(self):
+        issuer = self.societe.name if self.societe else "CarsCosts"
+        email = self.email_google or self.email
+
         return pyotp.totp.TOTP(self.totp_secret).provisioning_uri(
-            name=self.email_google,
-            issuer_name=self.societe.name
+            name=email,
+            issuer_name=issuer
         )
 
     def verify_totp(self, token):

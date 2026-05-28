@@ -81,6 +81,21 @@
                 {% trans "Changer" %}
             </button>
         </form>
+         <a href="{% url 'utilisateurs:logout' %}"
+           style="
+               background-color:#dc2626;
+               color:white;
+               padding:8px 14px;
+               border-radius:6px;
+               text-decoration:none;
+               font-weight:600;
+               display:inline-block;
+               transition:0.3s;
+           "
+           onmouseover="this.style.backgroundColor='#b91c1c'"
+           onmouseout="this.style.backgroundColor='#dc2626'">
+            {% trans "Déconnexion" %}
+        </a>
 
     </nav>
 </header>

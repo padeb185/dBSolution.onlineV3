@@ -261,11 +261,12 @@ LOGIN_URL = 'utilisateurs:login'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'utilisateurs:login'
 
-
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-SECURE_SSL_REDIRECT = False  # True seulement si tu passes par Nginx
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
+SESSION_SAVE_EVERY_REQUEST = True
+
+SECURE_SSL_REDIRECT = False
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
 
 #pour les uploads pdf
 
