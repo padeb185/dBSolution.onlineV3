@@ -196,7 +196,12 @@
 
     </form>
 </div>
-
+<div class="max-w-xl mx-auto mt-4">
+    <a href="{% url 'nettoyage_interieur:nettoyage_int_list' exemplaire.id %}"
+        class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+        {% trans "Retour à la liste des nettoyages intérieur" %}
+    </a>
+</div>
 <style>
 .input {
     width: 100% !important;
@@ -211,19 +216,26 @@
 <script>
 function getCookie(name) {
     let cookieValue = null;
-    if (document.cookie) {
-        document.cookie.split(';').forEach(c => {
-            c = c.trim();
-            if (c.startsWith(name + '=')) {
-                cookieValue = decodeURIComponent(c.slice(name.length + 1));
+
+    if (document.cookie && document.cookie !== "") {
+        const cookies = document.cookie.split(";");
+
+        for (let cookie of cookies) {
+            cookie = cookie.trim();
+
+            if (cookie.startsWith(name + "=")) {
+                cookieValue = decodeURIComponent(
+                    cookie.substring(name.length + 1)
+                );
+                break;
             }
-        });
+        }
     }
+
     return cookieValue;
 }
 
-const csrftoken = getCookie('csrftoken');
-
+const csrftoken = getCookie("csrftoken");
 
 </script>
 
