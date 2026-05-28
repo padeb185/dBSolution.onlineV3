@@ -6,7 +6,6 @@ from .models import Electricite
 class ElectriciteForm(forms.ModelForm):
     voiture_marque = forms.CharField(label="Marque", required=False, disabled=True)
     voiture_modele = forms.CharField(label="Modèle", required=False, disabled=True)
-    capacite_batterie_display = forms.FloatField(label="Volume max (kW)", required=False, disabled=True)
 
     TVA_PAYS = {
         'BE': Decimal('21.0'),
@@ -25,7 +24,6 @@ class ElectriciteForm(forms.ModelForm):
             "kW",
             "prix_recharge",
             "pays",
-            "validation",
         ]
 
         widgets = {
@@ -33,9 +31,6 @@ class ElectriciteForm(forms.ModelForm):
             "date": forms.DateInput(attrs={"type": "date"}),
         }
 
-    # =========================
-    # INIT
-    # =========================
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -60,16 +55,12 @@ class ElectriciteForm(forms.ModelForm):
         if voiture:
             self.fields["voiture_marque"].initial = voiture.voiture_modele.voiture_marque.nom_marque
             self.fields["voiture_modele"].initial = voiture.voiture_modele.nom_modele
-            self.fields["capacite_batterie_display"].initial = voiture.voiture_modele.capacite_batterie
 
             if not self.data.get("kilometrage_electricite"):
                 self.fields["kilometrage_electricite"].initial = voiture.kilometres_chassis
 
             self.fields["voiture_exemplaire"].initial = voiture.id
 
-    # =========================
-    # CLEAN
-    # =========================
     def clean(self):
         cleaned = super().clean()
 
@@ -79,15 +70,11 @@ class ElectriciteForm(forms.ModelForm):
             try:
                 cleaned["voiture_marque"] = voiture.voiture_modele.voiture_marque.nom_marque
                 cleaned["voiture_modele"] = voiture.voiture_modele.nom_modele
-                cleaned["capacite_batterie_display"] = voiture.voiture_modele.capacite_batterie
             except Exception:
                 pass
 
         return cleaned
 
-    # =========================
-    # SAVE
-    # =========================
     def save(self, commit=True):
         instance = super().save(commit=False)
 
@@ -102,7 +89,6 @@ class ElectriciteForm(forms.ModelForm):
         if voiture:
             instance.voiture_marque = voiture.voiture_marque
             instance.voiture_modele = voiture.voiture_modele
-            instance.capacite_batterie = voiture.voiture_modele.capacite_batterie
 
         if instance.kW and instance.kW > 0 and instance.prix_recharge:
             instance.prix_watt = (

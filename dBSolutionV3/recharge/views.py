@@ -81,14 +81,6 @@ def ajouter_recharge_all(request):
                 recharge.utilisateur = request.user
                 recharge.societe = tenant
 
-                # ⚡ capacité batterie
-                voiture = recharge.voiture_exemplaire
-                if voiture:
-                    recharge.volume_max = voiture.voiture_modele.capacite_batterie
-                else:
-                    form.add_error("voiture_exemplaire", _("Véhicule obligatoire."))
-                    return render(request, "recharge/electricite_form.html", {"form": form})
-
                 recharge.save()
 
                 messages.success(request, _("Recharge ajoutée avec succès."))

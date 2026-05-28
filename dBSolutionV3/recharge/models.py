@@ -79,7 +79,7 @@ class Electricite(models.Model):
         verbose_name=_("Type de carburant"),
 
     )
-    volume_max = models.FloatField(verbose_name=_("Kilos Watt max"))
+
     date = models.DateField(default=timezone.now, verbose_name=_("Date de la recharge"))
     kW = models.FloatField(verbose_name=_("Kilos Watt"))
     prix_recharge = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_("Prix de la recharge (€)"))

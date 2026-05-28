@@ -77,7 +77,7 @@
                 </button>
             </a>
         </div>
-
+        {% if request.user.role == "direction" %}
         <div class="mt-auto w-full">
             <a href="{% url 'recharge:electricite_delete' electricite_id=electricite.id %}"
                class="block w-full text-center px-4 py-2 rounded font-semibold"
@@ -86,6 +86,7 @@
                 {% trans "Supprimer la recharge électrique" %}
             </a>
         </div>
+        {% endif %}
     </div>
 
 
