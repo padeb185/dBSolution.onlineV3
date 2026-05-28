@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-28 11:36+0200\n"
+"POT-Creation-Date: 2026-05-28 15:28+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -4939,6 +4939,7 @@ msgid "Huile de boite de vitesses"
 msgstr ""
 
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check.html:561
+#: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/modifier_boite.html:627
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Retour à la liste des contrôles de boite"
@@ -5018,12 +5019,6 @@ msgstr ""
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/modifier_boite.html:451
 msgid "Huile de boite de vitesses automatique"
 msgstr ""
-
-#: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/modifier_boite.html:627
-#, fuzzy
-#| msgid "Tableau de bord"
-msgid "Retour à la liste des contôles de boite"
-msgstr "Tableau de Bord"
 
 #: maintenance/autres_interventions/boite_de_vitesse/views.py:172
 msgid "Checkup de la boite de vitesse enregistré avec succès."
@@ -7764,6 +7759,8 @@ msgid "Modifier le checkup"
 msgstr ""
 
 #: maintenance/check_up/templates/check_up/checkup_detail.html:80
+#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1231
+#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1236
 msgid "Retour à la liste des checkups"
 msgstr ""
 
@@ -8387,13 +8384,6 @@ msgstr ""
 #: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1070
 msgid "Voiture prête pour :"
 msgstr ""
-
-#: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:1231
-#: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1236
-#, fuzzy
-#| msgid "Tableau de bord"
-msgid "Retour à la liste des checkup"
-msgstr "Tableau de Bord"
 
 #: maintenance/checkup_track/templates/checkup_track/track_check_form.html:15
 msgid "Controle piste pour :"
@@ -9385,7 +9375,7 @@ msgstr ""
 #: maintenance/pneus/templates/pneus/modifier_pneus.html:517
 #, fuzzy
 #| msgid "Tableau de bord"
-msgid "Retour à la liste des contrôles des pneus"
+msgid "Retour à la liste des contrôles pneus"
 msgstr "Tableau de Bord"
 
 #: maintenance/pneus/templates/pneus/pneus_detail.html:49
@@ -12849,11 +12839,15 @@ msgstr ""
 msgid "Changer"
 msgstr ""
 
-#: theme/templates/base.html:106
+#: theme/templates/base.html:97
+msgid "Déconnexion"
+msgstr ""
+
+#: theme/templates/base.html:121
 msgid "Chargement des données…"
 msgstr ""
 
-#: theme/templates/base.html:128
+#: theme/templates/base.html:143
 msgid "Tous droits réservés."
 msgstr ""
 
@@ -12962,26 +12956,26 @@ msgid "Scanner le QR code"
 msgstr ""
 
 #: theme/templates/totp/setup.html:15
-msgid "Ouvre Google Authenticator et scanne le code ci-dessous."
+msgid "Ouvre Authy et scanne le code ci-dessous."
 msgstr ""
 
-#: theme/templates/totp/setup.html:19
+#: theme/templates/totp/setup.html:20
 msgid "QR Code TOTP"
 msgstr ""
 
-#: theme/templates/totp/setup.html:23
+#: theme/templates/totp/setup.html:25
 msgid "Si tu ne peux pas scanner le QR code, utilise ce code secret :"
 msgstr ""
 
-#: theme/templates/totp/setup.html:27 theme/views.py:55
+#: theme/templates/totp/setup.html:29 theme/views.py:55
 msgid "Aucun secret TOTP configuré pour ce compte."
 msgstr ""
 
-#: theme/templates/totp/setup.html:33
-msgid "Code généré par Google Authenticator"
+#: theme/templates/totp/setup.html:35
+msgid "Code généré pour Authy"
 msgstr ""
 
-#: theme/templates/totp/setup.html:39
+#: theme/templates/totp/setup.html:41
 msgid "Valider"
 msgstr ""
 
@@ -14775,6 +14769,16 @@ msgstr ""
 #: voiture/voiture_pneus/views.py:129
 msgid "Pneu mis à jour avec succès."
 msgstr ""
+
+#, fuzzy
+#~| msgid "Tableau de bord"
+#~ msgid "Retour à la liste des contôles de boite"
+#~ msgstr "Tableau de Bord"
+
+#, fuzzy
+#~| msgid "Tableau de bord"
+#~ msgid "Retour à la liste des checkup"
+#~ msgstr "Tableau de Bord"
 
 #, fuzzy
 #~| msgid "Tableau de bord"

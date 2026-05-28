@@ -32,7 +32,7 @@
         <!-- Formulaire pour saisir le code TOTP -->
         <form method="post" class="space-y-4">
             {% csrf_token %}
-            <label for="token" class="block text-left font-medium">{% trans "Code généré par Google Authenticator" %}</label>
+            <label for="token" class="block text-left font-medium">{% trans "Code généré pour Authy" %}</label>
             <input type="text" name="token" id="token" required
                    class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
 
