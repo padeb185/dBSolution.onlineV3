@@ -1,3 +1,5 @@
+from django.core.exceptions import ValidationError
+
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from maindoeuvre.models import MainDoeuvre
@@ -129,46 +131,54 @@ class RemplacementBoiteForm(forms.ModelForm):
     # =========================================================
     # SAUVEGARDE MÉTIER
     # =========================================================
+
+    # =========================================================
+    # VALIDATION PROPRE
+    # =========================================================
+    def clean(self):
+        cleaned_data = super().clean()
+
+        voiture = cleaned_data.get("voiture_exemplaire") or self.exemplaire
+        km_moteur = cleaned_data.get("kilometres_moteur")
+
+        if voiture and km_moteur is not None:
+
+            km_voiture = voiture.kilometres_chassis or 0
+
+            if km_moteur > km_voiture:
+                self.add_error(
+                    "kilometres_moteur",
+                    _("Le kilométrage moteur ne peut pas dépasser celui du véhicule.")
+                )
+
+        return cleaned_data
+    # =========================================================
+    # SAUVEGARDE MÉTIER
+    # =========================================================
     def save(self, commit=True):
         instance = super().save(commit=False)
 
         voiture = instance.voiture_exemplaire or self.exemplaire
 
-
-
-        # -----------------------
-        # KM CHÂSSIS
-        # -----------------------
         km_chassis = self.cleaned_data.get("kilometres_chassis")
-        remplacement_effectue = self.cleaned_data.get("remplacement_effectue")
 
         if voiture and km_chassis is not None:
 
-            # 🔒 validation stricte
-            if km_chassis < voiture.kilometres_chassis:
-                raise ValueError("Le kilométrage ne peut pas diminuer.")
+            km_voiture = voiture.kilometres_chassis or 0
 
-            # 🚗 update voiture (source unique)
+            if km_chassis < km_voiture:
+                raise ValidationError("Kilométrage invalide")
+
             voiture.kilometres_chassis = km_chassis
             voiture.save(update_fields=["kilometres_chassis"])
 
-            # 🧾 instance
             instance.kilometres_chassis = km_chassis
-            instance.voiture_exemplaire = instance.voiture_exemplaire or voiture
+            instance.voiture_exemplaire = voiture
 
-        # 🔧 logique boîte
-        if remplacement_effectue:
-            instance.kilometres_boite = 0
-            instance.kilometres_remplacement_boite = km_chassis
-            instance.nombre_remplacements = (instance.nombre_remplacements or 0) + 1
-        else:
-            instance.kilometres_boite = km_chassis
-
-        # -----------------------
-        # MAIN D'ŒUVRE
-        # -----------------------
+        # MAIN D’ŒUVRE
         heures = self.cleaned_data.get("temps_heures") or 0
         minutes = self.cleaned_data.get("temps_minutes") or 0
+
         total_minutes = heures * 60 + minutes
 
         main = instance.main_oeuvre
@@ -176,48 +186,16 @@ class RemplacementBoiteForm(forms.ModelForm):
         if main:
             main.temps_minutes = total_minutes
             main.save(update_fields=["temps_minutes"])
-        else:
-            if self.user:
-                main = MainDoeuvre.objects.create(
-                    utilisateur=self.user,
-                    temps_minutes=total_minutes
-                )
-                instance.main_oeuvre = main
+        elif self.user:
+            main = MainDoeuvre.objects.create(
+                utilisateur=self.user,
+                temps_minutes=total_minutes
+            )
+            instance.main_oeuvre = main
 
-
-
-
-        # -----------------------
-        # TECHNICIEN AUTO
-        # -----------------------
         if self.user:
             instance.assign_technicien(self.user)
 
-
-
-        ancien = None
-
-        if instance.pk:
-            ancien = type(instance).objects.filter(pk=instance.pk).values_list(
-                "remplacement_effectue", flat=True
-            ).first()
-
-        # 🔥 reset moteur si nouveau remplacement
-        if instance.remplacement_effectue and not ancien:
-            instance.kilometres_remplacement_boite = instance.kilometres_chassis or 0
-            instance.kilometres_boite = 0
-
-        # km voiture
-        km_chassis = self.cleaned_data.get("kilometres_chassis")
-
-        if km_chassis is not None:
-            instance.kilometres_chassis = km_chassis
-
-
-
-        # -----------------------
-        # SAVE FINAL
-        # -----------------------
         if commit:
             instance.save()
 
