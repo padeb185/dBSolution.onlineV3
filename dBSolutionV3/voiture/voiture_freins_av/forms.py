@@ -37,7 +37,7 @@ class VoitureFreinsAVForm(forms.ModelForm):
             "frein_av_matiere": _("Matière des disques avant"),
             "type_disques_av": _("Type de disque avant"),
             "taille_disque_av": _("Taille des disques avant (mm)"),
-            "epaisseur_disque_av": _("Épaisseur du disques avant (mm)"),
+            "epaisseur_disque_av": _("Épaisseur des disques avant (mm)"),
             "epaisseur_min_disque_av": _("Épaisseur minimum des disques avant (mm)"),
             "plaquette_av_matiere": _("Matière des plaquettes avant"),
             "plaquettes_av": _("Épaisseur des plaquettes avant (mm)"),
