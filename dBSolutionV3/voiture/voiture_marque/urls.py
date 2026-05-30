@@ -32,6 +32,6 @@ urlpatterns = [
 
     path("ajouter/", ajouter_marque, name="ajouter_marque"),
 
-    path('api/check_marque', check_marque, name='check_marque'),
+    path("check-marque/", check_marque, name="check_marque"),
 ]
 

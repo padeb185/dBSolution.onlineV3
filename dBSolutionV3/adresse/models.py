@@ -9,9 +9,9 @@ class Adresse(models.Model):
     societe = models.ForeignKey(
         "societe.Societe",
         on_delete=models.CASCADE,
-        related_name="adresse_clients",
+        related_name="adresses",
         null=True,
-        blank=True,
+        blank=True
     )
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

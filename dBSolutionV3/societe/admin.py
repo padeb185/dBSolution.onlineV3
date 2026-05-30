@@ -7,11 +7,11 @@ from .admin_forms import SocieteAdminForm
 @admin.register(Societe)
 class SocieteAdmin(admin.ModelAdmin):
     form = SocieteAdminForm
-    list_display = ("nom", "directeur", "numero_tva", "site", "adresse")
-    search_fields = ("nom", "directeur", "numero_tva", "adresse__ville")
+    list_display = ("nom", "directeur", "numero_tva", "site")
+    search_fields = ("nom", "directeur", "numero_tva")
     ordering = ("nom",)
     readonly_fields = ("id_societe",)
-    list_filter = ("adresse__ville",)
+
 
     def has_module_permission(self, request):
         return connection.schema_name == "public"

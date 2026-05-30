@@ -38,7 +38,8 @@
 
         <br>
          <div class="flex gap-3 mt-6">
-                <button type="submit"
+               <button type="submit"
+                        id="btn-ajouter-marque"
                         class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
                     {% trans "Enregistrer" %}
                 </button>
@@ -63,79 +64,59 @@ const btnAjouter = document.getElementById('btn-ajouter-marque');
 const feedback = document.getElementById('marque-feedback');
 const checkMarqueUrl = "{% url 'voiture_marque:check_marque' %}";
 
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== "") {
-        document.cookie.split(';').forEach(c => {
-            if (c.trim().startsWith(name + '=')) {
-                cookieValue = decodeURIComponent(c.trim().substring(name.length + 1));
-            }
-        });
-    }
-    return cookieValue;
-}
+if (inputMarque && btnAjouter && feedback) {
+    let debounceTimer;
 
-const csrftoken = getCookie('csrftoken');
-let debounceTimer;
+    inputMarque.addEventListener('input', function () {
+        clearTimeout(debounceTimer);
 
-inputMarque.addEventListener('input', function () {
-    clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+            const marque = this.value.trim();
 
-    debounceTimer = setTimeout(() => {
-        const marque = this.value.trim();
-
-        if (!marque) {
-            feedback.classList.add('hidden');
-            btnAjouter.disabled = false;
-            return;
-        }
-
-        feedback.textContent = "{% trans 'Vérification…' %}";
-        feedback.classList.remove('hidden', 'text-red-600', 'text-green-600');
-
-        fetch(checkMarqueUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'X-CSRFToken': csrftoken,
-                'Accept': 'application/json'
-            },
-            body: new URLSearchParams({
-                nom_marque: marque
-            })
-        })
-        .then(async res => {
-            const text = await res.text();
-            console.log("RAW RESPONSE:", text);
-
-            try {
-                return JSON.parse(text);
-            } catch (e) {
-                throw new Error("Réponse backend non JSON : " + text);
-            }
-        })
-        .then(data => {
-            if (data.exists === true) {
-                feedback.textContent = "❌ Cette marque existe déjà !";
-                feedback.classList.add('text-red-600');
-                feedback.classList.remove('text-green-600');
-                btnAjouter.disabled = true;
-            } else {
-                feedback.textContent = "✅ Marque disponible";
-                feedback.classList.add('text-green-600');
-                feedback.classList.remove('text-red-600');
+            if (!marque) {
+                feedback.classList.add('hidden');
                 btnAjouter.disabled = false;
+                return;
             }
-        })
-        .catch(err => {
-            console.error("Erreur fetch :", err);
-            feedback.textContent = "{% trans 'Erreur lors de la vérification' %}";
-            feedback.classList.add('text-red-600');
-            btnAjouter.disabled = false;
-        });
 
-    }, 400);
-});
+            feedback.textContent = "{% trans 'Vérification…' %}";
+            feedback.classList.remove('hidden', 'text-red-600', 'text-green-600');
+
+            fetch(checkMarqueUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRFToken': csrftoken,
+                    'Accept': 'application/json'
+                },
+                body: new URLSearchParams({
+                    marque: marque
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.exists === true) {
+                    feedback.textContent = "❌ Cette marque existe déjà !";
+                    feedback.classList.add('text-red-600');
+                    feedback.classList.remove('text-green-600');
+                    btnAjouter.disabled = true;
+                } else {
+                    feedback.textContent = "✅ Marque disponible";
+                    feedback.classList.add('text-green-600');
+                    feedback.classList.remove('text-red-600');
+                    btnAjouter.disabled = false;
+                }
+            })
+            .catch(err => {
+                console.error("Erreur fetch :", err);
+                feedback.textContent = "{% trans 'Erreur lors de la vérification' %}";
+                feedback.classList.add('text-red-600');
+                btnAjouter.disabled = false;
+            });
+
+        }, 400);
+    });
+}
 </script>
 
 {% endblock %}

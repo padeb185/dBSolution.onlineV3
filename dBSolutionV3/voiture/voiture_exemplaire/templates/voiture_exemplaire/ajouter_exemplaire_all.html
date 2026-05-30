@@ -63,17 +63,23 @@
         {% endfor %}
 
         <!-- Année auto -->
-        <label class="font-semibold">{% trans "Année de production" %}</label>
-        <input type="number" id="id_annee_production" class="input" readonly>
+       <label class="font-semibold">{% trans "Année de production" %}</label>
+        <input
+            type="number"
+            id="id_annee_production"
+            name="annee_production"
+            class="input"
+            readonly
+        >
 
-        <div class="flex gap-2 mt-4">
-            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded w-full">
-                {% trans "Ajouter" %}
+        <div class="flex gap-3 mt-6">
+            <button type="submit"
+                    class="flex-1 bg-blue-700 text-white px-5 py-3 rounded hover:bg-blue-500 font-semibold text-center">
+                {% trans "Enregistrer" %}
             </button>
-
-            <a href="{% url 'voiture_exemplaire:voiture_exemplaire' modele_id=modele.id %}"
-               class="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400">
-                {% trans "Annuler" %}
+               <a href="{% url 'voiture_exemplaire:voiture_exemplaire' modele_id=modele.id %}"
+               class="flex-1 bg-gray-300 text-black px-5 py-3 rounded hover:bg-gray-400 font-semibold text-center">
+               {% trans "Annuler" %}
             </a>
         </div>
     </form>
@@ -138,12 +144,14 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             const code = vin[9];
-            const year = VIN_YEAR_BASE[code] || "";
+            let year = VIN_YEAR_BASE[code] || "";
 
-            if (anneeInput) anneeInput.value = year;
+            if (year && estApres2010Checkbox?.checked) {
+                year += 30;
+            }
 
-            if (avant2010Checkbox && year) {
-                avant2010Checkbox.checked = year < 2010;
+            if (anneeInput) {
+                anneeInput.value = year;
             }
 
             // VIN simplifié = 10 derniers caractères

@@ -89,22 +89,33 @@ def marques_favorites(request):
 
 
 def ajouter_marque(request):
-    tenant = request.user.societe  # ton tenant
+    tenant = request.user.societe
+
     with tenant_context(tenant):
         if request.method == "POST":
             nom_marque = request.POST.get("marque", "").strip()
-            if nom_marque:
-                # Vérifie si la marque existe déjà
-                if VoitureMarque.objects.filter(nom_marque__iexact=nom_marque).exists():
-                    messages.error(request, "Cette marque existe déjà !")
-                else:
-                    marque = VoitureMarque.objects.create(nom_marque=nom_marque)
-                    messages.success(request, f"Marque '{marque.nom_marque}' ajoutée avec succès !")
-                    return redirect("voiture_marque:ajouter_marque")
-            else:
-                messages.error(request, "Veuillez entrer un nom de marque.")
+
+            if not nom_marque:
+                messages.error(request, _("Veuillez entrer un nom de marque."))
+                return redirect("voiture_marque:ajouter_marque")
+
+            if VoitureMarque.objects.filter(
+                societe=tenant,
+                nom_marque__iexact=nom_marque
+            ).exists():
+                messages.error(request, _("Cette marque existe déjà !"))
+                return redirect("voiture_marque:ajouter_marque")
+
+            VoitureMarque.objects.create(
+                societe=tenant,
+                nom_marque=nom_marque
+            )
+
+            messages.success(request, _("Marque ajoutée avec succès !"))
+            return redirect("voiture_marque:ajouter_marque")
 
         return render(request, "voiture_marque/ajouter_marque.html")
+
 
 
 @require_POST
@@ -112,16 +123,14 @@ def check_marque(request):
     tenant = request.user.societe
 
     with tenant_context(tenant):
-        nom_marque = request.POST.get("nom_marque", "").strip()
+        nom_marque = request.POST.get("marque", "").strip()
 
-        exists = False
-        if nom_marque:
-            exists = VoitureMarque.objects.filter(
-                nom_marque__iexact=nom_marque
-            ).exists()
+        exists = VoitureMarque.objects.filter(
+            nom_marque__iexact=nom_marque
+        ).exists()
 
         return JsonResponse({
-            "exists": bool(exists)
+            "exists": exists
         })
 
 @never_cache

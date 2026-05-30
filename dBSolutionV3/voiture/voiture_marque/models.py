@@ -15,7 +15,6 @@ class VoitureMarque(models.Model):
 
     nom_marque = models.CharField(
         max_length=50,
-        unique=True,
         validators=[
             MinLengthValidator(2, message="Le nom de la marque doit contenir au moins 2 caractères"),
             MaxLengthValidator(50, message="Le nom de la marque ne peut pas dépasser 50 caractères")

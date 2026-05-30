@@ -1,4 +1,5 @@
 from django import forms
+from .forms import EU_VAT_PREFIXES
 from .models import SocieteCliente
 
 

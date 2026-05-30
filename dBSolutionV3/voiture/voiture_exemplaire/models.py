@@ -239,11 +239,14 @@ class VoitureExemplaire(models.Model):
 
             decoder = VinDecoderService(self.numero_vin)
             data = decoder.decode()
-            self.annee_production = data.get("model_year")
+
+            model_year = data.get("model_year")
+
+            if model_year:
+                self.annee_production = model_year
+
         else:
             self.vin_simplifie = None
-            self.annee_production = None
-
 
         self.update_kilometres()
 
