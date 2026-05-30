@@ -1,11 +1,14 @@
 from decimal import Decimal, ROUND_HALF_UP
+
+from django.core.validators import StepValueValidator
+
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from utils.mixin import TechnicienMixin
 from maintenance.models import Maintenance
-from maintenance.niveaux.models import validate_step_0_1
+
 
 
 class EtatOKNotOK(models.TextChoices):
@@ -141,7 +144,7 @@ class CourroieDistribution(TechnicienMixin, models.Model):
 
 
     refroidissement = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Liquide de refroidissement"))
-    refroidissement_quantite = models.FloatField(default=0, verbose_name=_("Quantité de liquide de refroidissement ajoutée en litres"), validators=[validate_step_0_1])
+    refroidissement_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=1, verbose_name=_("Quantité de liquide de refroidissement ajoutée en litres"), validators=[StepValueValidator(0.1)])
     refroidissement_qualite = models.CharField(max_length=25, choices=RefroidissementQualiteEtat.choices,default=RefroidissementQualiteEtat.G13,verbose_name=_("Qualité de liquide de refroidissement"))
 
 

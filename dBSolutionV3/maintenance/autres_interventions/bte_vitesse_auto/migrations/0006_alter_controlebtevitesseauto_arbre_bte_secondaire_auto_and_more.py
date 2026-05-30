@@ -39,7 +39,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='controlebtevitesseauto',
             name='huile_auto_quantite',
-            field=models.FloatField(default=0, validators=[maintenance.niveaux.models.validate_step_0_1], verbose_name="Quantité d'huile ajoutée en litres"),
+            field=models.FloatField(default=0, validators=[maintenance.niveaux.models.StepValueValidator(0.1)],verbose_name="Quantité d'huile ajoutée en litres"),
         ),
         migrations.AlterField(
             model_name='controlebtevitesseauto',

@@ -11,7 +11,7 @@ from outillage.models import Outillage
 from panier.models import Panier
 from piece.models import Piece
 from facture.models import Company, FactureLine
-from societe.models import Societe
+
 from utilisateurs.apprentis.models import Apprenti
 from utilisateurs.carrossier.models import Carrossier
 from utilisateurs.chef_mecanicien.models import ChefMecanicien
@@ -68,7 +68,7 @@ admin.site.register(Panier)
 admin.site.register(Piece)
 admin.site.register(Company)
 admin.site.register(FactureLine)
-admin.site.register(Societe)
+
 admin.site.register(Apprenti)
 admin.site.register(Carrossier)
 admin.site.register(ChefMecanicien)

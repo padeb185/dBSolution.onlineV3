@@ -23,6 +23,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='courroiedistribution',
             name='refroidissement_quantite',
-            field=models.FloatField(default=0, validators=[maintenance.niveaux.models.validate_step_0_1], verbose_name='Quantité de liquide de refroidissement ajoutée en litres'),
+            field=models.FloatField(default=0, validators=[maintenance.niveaux.models.StepValueValidator(0.1)], verbose_name='Quantité de liquide de refroidissement ajoutée en litres'),
         ),
     ]

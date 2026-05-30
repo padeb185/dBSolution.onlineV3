@@ -1,9 +1,12 @@
 import uuid
+
+from django.core.validators import StepValueValidator
+
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
-from maintenance.niveaux.models import  (NiveauxEtat, validate_step_0_1,
+from maintenance.niveaux.models import  (NiveauxEtat,
                                          HuileEtat, RefroidissementQualiteEtat)
 from maintenance.models import Maintenance
 from utils.mixin import TechnicienMixin
@@ -130,7 +133,7 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
     moteur_niveau_huile_quantite = models.FloatField(
         default=0,
         verbose_name=_("Quantité d'huile ajoutée en litres"),
-        validators=[validate_step_0_1]
+        validators=[StepValueValidator(0.1)]
     )
 
     moteur_niveau_huile_qualite = models.CharField(
@@ -150,7 +153,7 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
     refroidissement_quantite = models.FloatField(
         default=0,
         verbose_name=_("Quantité de liquide de refroidissement ajoutée en litres"),
-        validators=[validate_step_0_1]
+        validators=[StepValueValidator(0.1)]
     )
 
     refroidissement_qualite = models.CharField(

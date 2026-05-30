@@ -1,8 +1,10 @@
+from django.core.validators import StepValueValidator
+
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from maintenance.niveaux.models import LiquideFreinsQualite, validate_step_0_1
+from maintenance.niveaux.models import LiquideFreinsQualite
 from maintenance.models import Maintenance
 from utils.mixin import TechnicienMixin
 from societe.models import Societe
@@ -85,7 +87,7 @@ class ControleFreins(TechnicienMixin, models.Model):
         null=True,
         blank=True,
         verbose_name=_("Quantité liquide de frein (L)"),
-        validators=[validate_step_0_1] )
+        validators=[StepValueValidator(0.1)])
 
     machoire_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("État de la machoire avant gauche"))
     machoire_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("État de la machoire avant droite"))

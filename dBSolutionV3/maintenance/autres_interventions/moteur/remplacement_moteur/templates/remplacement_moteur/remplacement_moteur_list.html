@@ -151,9 +151,10 @@
             </td>
 
             <!-- DATE -->
-            <td class="border px-4 py-2">
+           <td class="border px-4 py-2"
+                data-order="{{ remplacement.date|date:'Y-m-d H:i:s' }}">
                 {{ remplacement.date|date:"d/m/Y H:i" }}
-            </td>
+           </td>
 
             <td class="border px-4 py-2">
                 {{ remplacement.main_oeuvre.temps_display|default:"-" }}
@@ -208,7 +209,6 @@
 <script>
 $(document).ready(function() {
     var table = $('#remplacement_moteur-table').DataTable({
-        pageLength: 100,
         language: {
             search: "{% trans 'Recherche globale :' %}",
             lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
@@ -222,7 +222,7 @@ $(document).ready(function() {
                 previous: "{% trans 'Précédent' %}"
             }
         },
-        order: [[4, "desc"]]
+        order: [[6, "desc"]]
     });
 
     $('#search-immatriculation').on('keyup', function () {

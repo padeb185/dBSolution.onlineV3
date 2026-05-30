@@ -1,13 +1,14 @@
 import uuid
 from decimal import Decimal
 
+from django.core.validators import StepValueValidator
+
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from client_particulier.models import ClientParticulier
 from django.conf import settings
 from maintenance.autres_interventions.boite_de_vitesse.models import HuileBoiteEtat
-from maintenance.niveaux.models import validate_step_0_1
 from maintenance.models import Maintenance
 from utils.mixin import TechnicienMixin
 
@@ -157,7 +158,7 @@ class RemplacementBoite(TechnicienMixin, models.Model):
                                    decimal_places=1,
                                    default=Decimal("0.0"),
                                    verbose_name = _("Quantité d'huile ajoutée en litres"),
-                                   validators = [validate_step_0_1]))
+                                   validators=[StepValueValidator(0.1)]))
 
 
 

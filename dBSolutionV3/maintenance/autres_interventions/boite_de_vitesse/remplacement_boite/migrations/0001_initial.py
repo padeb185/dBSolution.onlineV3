@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
                 ('prix_boite', models.DecimalField(blank=True, decimal_places=2, max_digits=10, null=True, verbose_name='Prix de la boite')),
                 ('tag', models.CharField(choices=[('VERT', 'Vert'), ('JAUNE', 'Jaune'), ('ROUGE', 'Rouge')], default='JAUNE', max_length=10, verbose_name='État visuel / Tag')),
                 ('boite_niveau_huile_etat', models.CharField(choices=[('BON', 'Bon'), ('AJOUTER', 'Ajouter')], default='BON', max_length=25, verbose_name="Niveau d'huile")),
-                ('boite_niveau_huile_quantite', models.FloatField(default=0, validators=[maintenance.niveaux.models.validate_step_0_1], verbose_name="Quantité d'huile ajoutée en litres")),
+                ('boite_niveau_huile_quantite', models.FloatField(default=0, validators=[maintenance.niveaux.models.StepValueValidator(0.1)], verbose_name="Quantité d'huile ajoutée en litres")),
                 ('boite_niveau_huile_qualite', models.CharField(choices=[('0W16', '0W16'), ('0W20', '0W20'), ('0W30', '0W30'), ('0W40', '0W40'), ('5W20', '5W20'), ('5W30', '5W30'), ('5W40', '5W40'), ('10W40', '10W40'), ('10W50', '10W50'), ('10W60', '10W60'), ('15W40', '15W40'), ('15W50', '15W50'), ('20W50', '20W50')], default='0W30', max_length=25, verbose_name="Qualité d'huile")),
                 ('nombre_remplacements', models.PositiveIntegerField(default=0, editable=False)),
                 ('remplacement_effectue', models.BooleanField(default=False, verbose_name='Remplacement effectué')),

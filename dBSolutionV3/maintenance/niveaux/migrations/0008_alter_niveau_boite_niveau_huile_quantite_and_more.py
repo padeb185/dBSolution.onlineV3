@@ -14,31 +14,31 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='niveau',
             name='boite_niveau_huile_quantite',
-            field=models.FloatField(default=0, validators=[maintenance.niveaux.models.validate_step_0_1], verbose_name="Quantité d'huile ajoutée en litres"),
+            field=models.FloatField(default=0, validators=[maintenance.niveaux.models.StepValueValidator(0.1)], verbose_name="Quantité d'huile ajoutée en litres"),
         ),
         migrations.AlterField(
             model_name='niveau',
             name='frein_liquide_quantite',
-            field=models.FloatField(default=0, validators=[maintenance.niveaux.models.validate_step_0_1], verbose_name='Quantité de liquide de freins ajoutée en litres'),
+            field=models.FloatField(default=0, validators=[maintenance.niveaux.models.StepValueValidator(0.1)], verbose_name='Quantité de liquide de freins ajoutée en litres'),
         ),
         migrations.AlterField(
             model_name='niveau',
             name='lave_glace_quantite',
-            field=models.FloatField(default=0, validators=[maintenance.niveaux.models.validate_step_0_1], verbose_name='Quantité de liquide de lave glace ajoutée en litres'),
+            field=models.FloatField(default=0, validators=[maintenance.niveaux.models.StepValueValidator(0.1)], verbose_name='Quantité de liquide de lave glace ajoutée en litres'),
         ),
         migrations.AlterField(
             model_name='niveau',
             name='moteur_niveau_huile_quantite',
-            field=models.FloatField(default=0, validators=[maintenance.niveaux.models.validate_step_0_1], verbose_name="Quantité d'huile ajoutée en litres"),
+            field=models.FloatField(default=0, validators=[maintenance.niveaux.models.StepValueValidator(0.1)], verbose_name="Quantité d'huile ajoutée en litres"),
         ),
         migrations.AlterField(
             model_name='niveau',
             name='pont_niveau_huile_quantite',
-            field=models.FloatField(default=0, validators=[maintenance.niveaux.models.validate_step_0_1], verbose_name="Quantité d'huile ajoutée en litres"),
+            field=models.FloatField(default=0, validators=[maintenance.niveaux.models.StepValueValidator(0.1)], verbose_name="Quantité d'huile ajoutée en litres"),
         ),
         migrations.AlterField(
             model_name='niveau',
             name='refroidissement_quantite',
-            field=models.FloatField(default=0, validators=[maintenance.niveaux.models.validate_step_0_1], verbose_name='Quantité de liquide de refroidissement ajoutée en litres'),
+            field=models.FloatField(default=0, validators=[maintenance.niveaux.models.StepValueValidator(0.1)], verbose_name='Quantité de liquide de refroidissement ajoutée en litres'),
         ),
     ]

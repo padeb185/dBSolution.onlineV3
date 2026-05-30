@@ -13,7 +13,8 @@ class EntretienForm(forms.ModelForm):
 
     class Meta:
         model = Entretien
-        fields = "__all__"
+    
+        exclude = ["pieces"]
         widgets = {
             "maintenance": forms.HiddenInput(),
             "remarques": forms.Textarea(attrs={

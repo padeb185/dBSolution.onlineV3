@@ -363,12 +363,15 @@ class ElectriciteStatView(TemplateView):
 
         context["par_voiture"] = par_voiture
 
+
+
+
         # -----------------------------
         # 📅 Stats par mois
         # -----------------------------
-        # -----------------------------
-        # 📅 Stats par mois
-        # -----------------------------
+
+
+
         par_mois = []
         for m in electricites.annotate(mois=TruncMonth("date")).values("mois").distinct().order_by("mois"):
             e_mois = electricites.filter(date__month=m["mois"].month, date__year=m["mois"].year)

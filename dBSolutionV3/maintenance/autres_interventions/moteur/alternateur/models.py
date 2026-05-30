@@ -100,10 +100,14 @@ class Alternateur(TechnicienMixin, models.Model):
         default=0
     )
 
-    diagnostic_rapport = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK)
 
     # Alternateur
-    alternateur = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK)
+
+    alternateur = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK
+    )
     alternateur_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat htva"))
     alternateur_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 

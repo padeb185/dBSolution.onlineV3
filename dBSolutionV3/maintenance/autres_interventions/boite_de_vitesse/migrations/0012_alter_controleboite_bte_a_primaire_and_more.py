@@ -45,7 +45,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='controleboite',
             name='man_huile_manuelle_quantite',
-            field=models.DecimalField(decimal_places=1, default=Decimal('0.0'), max_digits=4, validators=[maintenance.niveaux.models.validate_step_0_1], verbose_name="Quantité d'huile ajoutée en litres"),
+            field=models.DecimalField(decimal_places=1, default=Decimal('0.0'), max_digits=4, validators=[maintenance.niveaux.models.StepValueValidator(0.1)], verbose_name="Quantité d'huile ajoutée en litres"),
         ),
         migrations.AlterField(
             model_name='controleboite',

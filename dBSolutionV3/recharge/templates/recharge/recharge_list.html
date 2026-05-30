@@ -142,11 +142,13 @@
 
             <!-- Montant TVA -->
             <td class="border px-4 py-2">{{ recharge.montant_tva|floatformat:2 }} €</td>
-
-            <!-- Date -->
-            <td class="border px-4 py-2">{{ recharge.date_recharge }}</td>
-
-            <!-- Info -->
+    
+                      <!-- Date -->
+            <td class="border px-4 py-2"
+                data-order="{{ recharge.date_recharge|date:'Ymd' }}">
+                {{ recharge.date_recharge|date:"d/m/Y" }}
+            </td>
+                        <!-- Info -->
             <td class="border px-4 py-2 text-center">
               <a href="{% url 'recharge:electricite_detail' electricite_id=recharge.id %}"
                  class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
@@ -172,8 +174,7 @@
 <!-- DataTables JS -->
 <script>
 $(document).ready(function() {
-    var table = $('#recharges-table').DataTable({
-        pageLength: 100,
+    var table = $('#electricite-table').DataTable({
         language: {
             search: "{% trans 'Recherche globale :' %}",
             lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
@@ -187,7 +188,7 @@ $(document).ready(function() {
                 previous: "{% trans 'Précédent' %}"
             }
         },
-        order: [[0, "asc"]]
+        order: [[4, "desc"]]
     });
 
     // Filtres par colonne
@@ -207,7 +208,7 @@ $(document).ready(function() {
         table.column(4).search(this.value).draw();
     });
      $('#search-date_recharge').on('keyup', function () {
-        table.column(4).search(this.value).draw();
+        table.column(9).search(this.value).draw();
     });
 
 });

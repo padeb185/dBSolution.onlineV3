@@ -75,3 +75,8 @@ if __name__ == "__main__":
 #python Scripts\script_tenant.py RSRSpa "RSR Spa" dbsolution.rsrspa.localhost "Jean Dupont" BE0123456789
 
 #python Scripts\script_tenant.py dBSolution "dBSolution.online" localhost/dbsolution "Pierre-André de Bournonville" BE0123456789
+
+#python Scripts\script_tenant.py rsrspa_test "dbsolution.localhost/8000/rsrspa_test" localhost/rsrspa_test "Pierre-André de Bournonville" BE0123456789
+
+#sur mac :
+#python Scripts/script_tenant.py rsrspa_test "dbsolution.localhost:8000/rsrspa_test" localhost/rsrspa_test "Pierre-André de Bournonville" BE0123456789
