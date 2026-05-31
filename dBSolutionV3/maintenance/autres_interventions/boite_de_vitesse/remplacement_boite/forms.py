@@ -139,7 +139,7 @@ class RemplacementBoiteForm(forms.ModelForm):
         cleaned_data = super().clean()
 
         voiture = cleaned_data.get("voiture_exemplaire") or self.exemplaire
-        km_moteur = cleaned_data.get("kilometres_moteur")
+        km_moteur = cleaned_data.get("kilometres_boite")
 
         if voiture and km_moteur is not None:
 
@@ -148,7 +148,7 @@ class RemplacementBoiteForm(forms.ModelForm):
             if km_moteur > km_voiture:
                 self.add_error(
                     "kilometres_moteur",
-                    _("Le kilométrage moteur ne peut pas dépasser celui du véhicule.")
+                    _("Le kilométrage de la boite ne peut pas dépasser celui du véhicule.")
                 )
 
         return cleaned_data
