@@ -8,60 +8,42 @@
 
 {% block content %}
 
-<br>
-
 <h1 class="text-2xl font-bold mb-6">
     {% trans "Bienvenue sur le tableau de bord" %}
 </h1>
 
-<br>
-
+<!-- Cartes principales -->
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-    <!-- Carte Utilisateurs -->
-    <div class="bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-        <div class="flex justify-between items-center">
-            <div>
-                <h2 class="text-lg font-semibold mb-2">
-                    {% trans "Utilisateurs" %}
-                </h2>
-                <p class="text-lg font-bold">{{ user_full_name }}</p>
-                <p class="text-gray-500">{{ user_role }}</p>
-            </div>
-            <img src="{% static 'icons/equipe.png' %}" alt="Utilisateurs" style="width:60px; height:60px;">
+    <div class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <div>
+            <h2 class="text-lg font-semibold mb-1">{% trans "Utilisateurs" %}</h2>
+            <p class="text-lg font-bold">{{ user_full_name }}</p>
+            <p class="text-gray-500 text-sm">{{ user_role }}</p>
         </div>
+        <img src="{% static 'icons/equipe.png' %}" alt="Utilisateurs" class="w-[60px] h-[60px]">
     </div>
 
-    <!-- Carte Maintenance -->
-    <div class="bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-        <div class="flex justify-between items-center">
-            <div>
-                <h2 class="text-lg font-semibold mb-2">
-                    {% trans "Maintenance" %}
-                </h2>
-                <p class="text-gray-600">
-                    {% trans "Effectuées :" %}
-                    <span class="font-bold">{{ total_maintenances_user }}</span>
-                </p>
-            </div>
-            <img src="{% static 'icons/gestion-de-projet.png' %}" alt="Projets" style="width:60px; height:60px;">
+    <div class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <div>
+            <h2 class="text-lg font-semibold mb-1">{% trans "Maintenance" %}</h2>
+            <p class="text-gray-600 text-sm">
+                {% trans "Effectuées :" %}
+                <span class="font-bold">{{ total_maintenances_user }}</span>
+            </p>
         </div>
+        <img src="{% static 'icons/gestion-de-projet.png' %}" alt="Maintenance" class="w-[60px] h-[60px]">
     </div>
 
-    <!-- Carte Notifications -->
-    <div class="bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-        <div class="flex justify-between items-center">
-            <div>
-                <h2 class="text-lg font-semibold mb-2">
-                    {% trans "Notifications" %}
-                </h2>
-                <p class="text-gray-600">
-                    {% trans "Messages non lus :" %}
-                    <span class="font-bold">5</span>
-                </p>
-            </div>
-            <img src="{% static 'icons/cloche.png' %}" alt="Notifications" style="width:60px; height:60px;">
+    <div class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <div>
+            <h2 class="text-lg font-semibold mb-1">{% trans "Notifications" %}</h2>
+            <p class="text-gray-600 text-sm">
+                {% trans "Messages non lus :" %}
+                <span class="font-bold">5</span>
+            </p>
         </div>
+        <img src="{% static 'icons/cloche.png' %}" alt="Notifications" class="w-[60px] h-[60px]">
     </div>
 
 </div>
@@ -95,15 +77,11 @@
     </table>
 </div>
 
-<br>
-
+{% if request.user.role == "mecanicien" or request.user.role == "chef_mecanicien" or request.user.role == "direction" or request.user.role == "magasinier" %}
+<!-- Section Mécanicien -->
 <div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto flex items-center gap-4">
-    <img src="{% static 'icons/mecanicien.png' %}"
-         alt="Mecanicien"
-         class="w-[60px] h-[60px] mr-4">
-    <h2 class="text-lg font-semibold">
-        {% trans "Mécanicien" %}
-    </h2>
+    <img src="{% static 'icons/mecanicien.png' %}" alt="Mecanicien" class="w-[60px] h-[60px] mr-4">
+    <h2 class="text-lg font-semibold">{% trans "Mécanicien" %}</h2>
 </div>
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
@@ -117,7 +95,7 @@
                 <span class="font-bold">{{ total_maintenance }}</span>
             </p>
         </div>
-        <img src="{% static 'icons/mecanique.png' %}" alt="Maintenance" style="width:60px; height:60px;">
+        <img src="{% static 'icons/mecanique.png' %}" alt="Maintenance" class="w-[60px] h-[60px]">
     </a>
 
     <a href="{% url 'fuel:fuel_list' %}"
@@ -129,7 +107,7 @@
                 <span class="font-bold">{{ total_carburant }}</span>
             </p>
         </div>
-        <img src="{% static 'icons/pompe-a-essence.png' %}" alt="Carburant" style="width:60px; height:60px;">
+        <img src="{% static 'icons/pompe-a-essence.png' %}" alt="Carburant" class="w-[60px] h-[60px]">
     </a>
 
     <a href="{% url 'recharge:recharge_list' %}"
@@ -141,33 +119,27 @@
                 <span class="font-bold">{{ total_recharge }}</span>
             </p>
         </div>
-        <img src="{% static 'icons/voyage.png' %}" alt="Recharge électrique" style="width:60px; height:60px;">
+        <img src="{% static 'icons/voyage.png' %}" alt="Recharge électrique" class="w-[60px] h-[60px]">
     </a>
+
 </div>
+{% endif %}
 
-<br>
-<br>
-
+{% if request.user.role == "chef_mecanicien" or request.user.role == "direction" %}
 <!-- Section Chef Mécanicien -->
 <div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto flex items-center gap-4">
-    <img src="{% static 'icons/chef-mecanicien.png' %}"
-         alt="Chef Mecanicien"
-         class="w-[60px] h-[60px] mr-4">
-    <h2 class="text-lg font-semibold">
-        {% trans "Chef Mécanicien" %}
-    </h2>
+    <img src="{% static 'icons/chef-mecanicien.png' %}" alt="Chef Mecanicien" class="w-[60px] h-[60px] mr-4">
+    <h2 class="text-lg font-semibold">{% trans "Chef Mécanicien" %}</h2>
 </div>
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
 
     <a href="{% url 'voiture_marque:dashboard_voiture' %}"
-       class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-        <div class="flex justify-between items-center">
-            <div>
-                <h2 class="text-lg font-semibold mb-2">{% trans "Voitures" %}</h2>
-            </div>
-            <img src="{% static 'icons/voiture-de-course.png' %}" alt="Voiture" style="width:60px; height:60px;">
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <div>
+            <h2 class="text-lg font-semibold mb-1">{% trans "Voitures" %}</h2>
         </div>
+        <img src="{% static 'icons/voiture-de-course.png' %}" alt="Voiture" class="w-[60px] h-[60px]">
     </a>
 
     <a href="{% url 'voiture_moteur:list' %}"
@@ -179,7 +151,7 @@
                 <span class="font-bold">{{ total_moteurs }}</span>
             </p>
         </div>
-        <img src="{% static 'icons/engine.png' %}" alt="Moteur" style="width:60px; height:60px;">
+        <img src="{% static 'icons/engine.png' %}" alt="Moteur" class="w-[60px] h-[60px]">
     </a>
 
     <a href="{% url 'voiture_boite:list' %}"
@@ -191,7 +163,7 @@
                 <span class="font-bold">{{ total_boites }}</span>
             </p>
         </div>
-        <img src="{% static 'icons/boite-de-vitesse.png' %}" alt="Boite de vitesse" style="width:60px; height:60px;">
+        <img src="{% static 'icons/boite-de-vitesse.png' %}" alt="Boite de vitesse" class="w-[60px] h-[60px]">
     </a>
 
     <a href="{% url 'voiture_embrayage:list' %}"
@@ -203,7 +175,7 @@
                 <span class="font-bold">{{ total_embrayages }}</span>
             </p>
         </div>
-        <img src="{% static 'icons/disque-dembrayage.png' %}" alt="Embrayage" style="width:60px; height:60px;">
+        <img src="{% static 'icons/disque-dembrayage.png' %}" alt="Embrayage" class="w-[60px] h-[60px]">
     </a>
 
     <a href="{% url 'voiture_freins_av:dashboard_frein' %}"
@@ -211,7 +183,7 @@
         <div>
             <h2 class="text-lg font-semibold mb-1">{% trans "Freins" %}</h2>
         </div>
-        <img src="{% static 'icons/disque-de-frein.png' %}" alt="Freins" style="width:60px; height:60px;">
+        <img src="{% static 'icons/disque-de-frein.png' %}" alt="Freins" class="w-[60px] h-[60px]">
     </a>
 
     <a href="{% url 'voiture_pneus:list' %}"
@@ -223,7 +195,7 @@
                 <span class="font-bold">{{ total_pneus }}</span>
             </p>
         </div>
-        <img src="{% static 'icons/pneus.png' %}" alt="Pneus" style="width:60px; height:60px;">
+        <img src="{% static 'icons/pneus.png' %}" alt="Pneus" class="w-[60px] h-[60px]">
     </a>
 
     <a href="{% url 'carrosserie:dashboard_carrosserie' %}"
@@ -231,22 +203,17 @@
         <div>
             <h2 class="text-lg font-semibold mb-1">{% trans "Carrosseries" %}</h2>
         </div>
-        <img src="{% static 'icons/carrosserie.png' %}" alt="Carrosserie" style="width:60px; height:60px;">
+        <img src="{% static 'icons/carrosserie.png' %}" alt="Carrosserie" class="w-[60px] h-[60px]">
     </a>
 
 </div>
+{% endif %}
 
-<br>
-<br>
-
+{% if request.user.role == "chef_mecanicien" or request.user.role == "direction" or request.user.role == "magasinier" %}
 <!-- Section Magasinier -->
 <div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto flex items-center gap-4">
-    <img src="{% static 'icons/magasinier.png' %}"
-         alt="Chef Mecanicien"
-         class="w-[60px] h-[60px] mr-4">
-    <h2 class="text-lg font-semibold">
-        {% trans "Magasinier" %}
-    </h2>
+    <img src="{% static 'icons/magasinier.png' %}" alt="Magasinier" class="w-[60px] h-[60px] mr-4">
+    <h2 class="text-lg font-semibold">{% trans "Magasinier" %}</h2>
 </div>
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
@@ -260,19 +227,7 @@
                 <span class="font-bold">{{ total_fournisseur }}</span>
             </p>
         </div>
-        <img src="{% static 'icons/fournisseur.png' %}" alt="Fournisseur" style="width:60px; height:60px;">
-    </a>
-
-    <a href="{% url 'piece:list' %}"
-       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-        <div>
-            <h2 class="text-lg font-semibold mb-1">{% trans "Pièces" %}</h2>
-            <p class="text-gray-600 text-sm">
-                {% trans "Nombre total :" %}
-                <span class="font-bold">{{ total_pieces }}</span>
-            </p>
-        </div>
-        <img src="{% static 'icons/piece.png' %}" alt="Pièce" style="width:60px; height:60px;">
+        <img src="{% static 'icons/fournisseur.png' %}" alt="Fournisseur" class="w-[60px] h-[60px]">
     </a>
 
     <a href="{% url 'outillage:outillage_list' %}"
@@ -284,23 +239,19 @@
                 <span class="font-bold">{{ total_outils }}</span>
             </p>
         </div>
-        <img src="{% static 'icons/outils.png' %}" alt="Outils" style="width:60px; height:60px;">
+        <img src="{% static 'icons/outils.png' %}" alt="Outils" class="w-[60px] h-[60px]">
     </a>
 
 </div>
+{% endif %}
 
-<br>
-<br>
-
+{% if request.user.role == "chef_mecanicien" or request.user.role == "direction" or request.user.role == "vendeur" %}
 <!-- Section Vente -->
 <div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto flex items-center gap-4">
-    <img src="{% static 'icons/vendeur.png' %}"
-         alt="Chef Mecanicien"
-         class="w-[60px] h-[60px] mr-4">
-    <h2 class="text-lg font-semibold">
-        {% trans "Vendeur" %}
-    </h2>
+    <img src="{% static 'icons/vendeur.png' %}" alt="Vendeur" class="w-[60px] h-[60px] mr-4">
+    <h2 class="text-lg font-semibold">{% trans "Vendeur" %}</h2>
 </div>
+
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
 
     <a href="{% url 'client_atelier:dashboard_client' %}"
@@ -312,7 +263,7 @@
                 <span class="font-bold">{{ total_client }}</span>
             </p>
         </div>
-        <img src="{% static 'icons/client.png' %}" alt="Client" style="width:60px; height:60px;">
+        <img src="{% static 'icons/client.png' %}" alt="Client" class="w-[60px] h-[60px]">
     </a>
 
     <a href="{% url 'societe_cliente:societe_cliente_list' %}"
@@ -324,7 +275,7 @@
                 <span class="font-bold">{{ total_societe_cliente }}</span>
             </p>
         </div>
-        <img src="{% static 'icons/societe_cliente.png' %}" alt="Société cliente" style="width:60px; height:60px;">
+        <img src="{% static 'icons/societe_cliente.png' %}" alt="Société cliente" class="w-[60px] h-[60px]">
     </a>
 
     <a href="{% url 'adresse:adresse_list' %}"
@@ -336,22 +287,17 @@
                 <span class="font-bold">{{ total_adresse }}</span>
             </p>
         </div>
-        <img src="{% static 'icons/adresse.png' %}" alt="Adresses" style="width:60px; height:60px;">
+        <img src="{% static 'icons/adresse.png' %}" alt="Adresses" class="w-[60px] h-[60px]">
     </a>
 
 </div>
+{% endif %}
 
-<br>
-<br>
-
+{% if request.user.role == "direction" %}
 <!-- Section Direction -->
 <div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto flex items-center gap-4">
-    <img src="{% static 'icons/directeur.png' %}"
-         alt="Chef Mecanicien"
-         class="w-[60px] h-[60px] mr-4">
-    <h2 class="text-lg font-semibold">
-        {% trans "Direction" %}
-    </h2>
+    <img src="{% static 'icons/directeur.png' %}" alt="Direction" class="w-[60px] h-[60px] mr-4">
+    <h2 class="text-lg font-semibold">{% trans "Direction" %}</h2>
 </div>
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
@@ -361,7 +307,7 @@
         <div>
             <h2 class="text-lg font-semibold mb-1">{% trans "Assurances" %}</h2>
         </div>
-        <img src="{% static 'icons/assurance-voiture.png' %}" alt="Assurance" style="width:60px; height:60px;">
+        <img src="{% static 'icons/assurance-voiture.png' %}" alt="Assurance" class="w-[60px] h-[60px]">
     </a>
 
     <a href="{% url 'maindoeuvre:main_oeuvre_list' %}"
@@ -373,7 +319,7 @@
                 <span class="font-bold">{{ total_main }}</span>
             </p>
         </div>
-        <img src="{% static 'icons/main-doeuvre.png' %}" alt="Main d'oeuvre" style="width:60px; height:60px;">
+        <img src="{% static 'icons/main-doeuvre.png' %}" alt="Main d'oeuvre" class="w-[60px] h-[60px]">
     </a>
 
     <a href="{% url 'proprietaire:proprietaire_dashboard' %}"
@@ -385,42 +331,30 @@
                 <span class="font-bold">{{ total_proprietaire }}</span>
             </p>
         </div>
-        <img src="{% static 'icons/proprietaire.png' %}" alt="Propriétaire" style="width:60px; height:60px;">
+        <img src="{% static 'icons/proprietaire.png' %}" alt="Propriétaire" class="w-[60px] h-[60px]">
     </a>
 
 </div>
+{% endif %}
 
-<br>
-<br>
-
+{% if user.is_staff and user.is_superuser %}
 <!-- Section Administrateur -->
 <div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto flex items-center gap-4">
-    <img src="{% static 'icons/admin.png' %}"
-         alt="Chef Mecanicien"
-         class="w-[60px] h-[60px] mr-[15px]">
-    <h2 class="text-lg font-semibold">
-        {% trans "Administrateur" %}
-    </h2>
+    <img src="{% static 'icons/admin.png' %}" alt="Administrateur" class="w-[60px] h-[60px] mr-[15px]">
+    <h2 class="text-lg font-semibold">{% trans "Administrateur" %}</h2>
 </div>
 
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 mb-8">
 
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-
-    {% if user.is_staff and user.is_superuser %}
-        <a href="{% url 'utilisateurs:dashboard_admin' %}"
-           class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
-            <div>
-                <h2 class="text-lg font-semibold mb-2">
-                    {% trans "Tableau de bord Admin" %}
-                </h2>
-            </div>
-            <img src="{% static 'icons/ingenieur-logiciel.png' %}" alt="Admin" style="width:60px; height:60px;">
-        </a>
-    {% endif %}
+    <a href="{% url 'utilisateurs:dashboard_admin' %}"
+       class="flex items-center justify-between bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+        <div>
+            <h2 class="text-lg font-semibold mb-1">{% trans "Tableau de bord Admin" %}</h2>
+        </div>
+        <img src="{% static 'icons/ingenieur-logiciel.png' %}" alt="Admin" class="w-[60px] h-[60px]">
+    </a>
 
 </div>
-
-<br>
-<br>
+{% endif %}
 
 {% endblock %}
