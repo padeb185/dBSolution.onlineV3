@@ -92,11 +92,12 @@
         {% trans "Dashboard freins" %}
     </a>
 </div>
+    <br>
+    <br>
 <!-- DataTables JS -->
 <script>
 $(document).ready(function() {
     var table = $('#frein_ar-table').DataTable({
-        pageLength: 100,
         language: {
             search: "{% trans 'Recherche globale :' %}",
             lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
