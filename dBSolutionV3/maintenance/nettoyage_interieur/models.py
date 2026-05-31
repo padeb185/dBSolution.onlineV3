@@ -37,6 +37,7 @@ class NettoyageInterieur(TechnicienMixin,models.Model):
         default=0,
         null=True,
         blank=True,
+        verbose_name=_("Kilomètres chassis")
     )
 
     kilometrage_net_int = models.PositiveIntegerField(

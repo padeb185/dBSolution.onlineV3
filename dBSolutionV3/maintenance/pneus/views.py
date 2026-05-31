@@ -43,10 +43,21 @@ class PneusListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        exemplaire_id = self.kwargs.get("exemplaire_id")
-        context["exemplaire"] = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
-        return context
 
+        exemplaire_id = self.kwargs.get("exemplaire_id")
+        context["exemplaire"] = get_object_or_404(
+            VoitureExemplaire,
+            id=exemplaire_id
+        )
+
+        context["is_checkup_allowed"] = self.request.user.role in [
+            "direction",
+            "mecanicien",
+            "chef_mecanicien",
+            "magasinier",
+        ]
+
+        return context
 
 
 

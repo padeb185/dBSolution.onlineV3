@@ -24,7 +24,12 @@ class GeometrieVoiture(models.Model):
         blank=True
     )
 
-    kilometres_chassis = models.PositiveIntegerField(default=0)
+    kilometres_chassis = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name=_("Kilomètres chassis")
+    )
 
     kilometrage_geometrie = models.PositiveIntegerField(
         _("Kilométrage au moment de la géometrie"),

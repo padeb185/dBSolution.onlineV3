@@ -99,7 +99,7 @@ class CourroieDistribution(TechnicienMixin, models.Model):
         default=0,
         null=True,
         blank=True,
-        verbose_name= _("Kilomètres chassis")
+        verbose_name=_("Kilomètres chassis")
     )
 
     # -------------------------

@@ -49,9 +49,21 @@ class AlternateurListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
         exemplaire_id = self.kwargs.get("exemplaire_id")
         if exemplaire_id:
             context["exemplaire"] = VoitureExemplaire.objects.get(id=exemplaire_id)
+
+        roles_autorises = [
+            "mecanicien",
+            "apprenti",
+            "magasinier",
+            "chef_mecanicien",
+            "direction",
+        ]
+
+        context["is_checkup_allowed"] = self.request.user.role in roles_autorises
+
         return context
 
 

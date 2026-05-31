@@ -15,8 +15,6 @@
 
 <br>
 
-<!-- 🔘 ADD BUTTON -->
-{% if exemplaire %}
 {% if is_checkup_allowed %}
 <div>
     <a href="{% url 'remplacement_boite:remplacement_boite_form' exemplaire.id %}"

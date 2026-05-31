@@ -17,6 +17,7 @@ class RemplacementMoteurForm(forms.ModelForm):
 
         # champs calculés / auto-gérés exclus
         exclude = [
+            "nombre_remplacement_moteur",
             "kilometres_remplacement_moteur",
             "variation_kilometres",
             "kilometres_dernier_entretien",

@@ -59,64 +59,91 @@
     </a>
 </div>
 <script>
-const inputMarque = document.getElementById('id_marque');
-const btnAjouter = document.getElementById('btn-ajouter-marque');
-const feedback = document.getElementById('marque-feedback');
-const checkMarqueUrl = "{% url 'voiture_marque:check_marque' %}";
+document.addEventListener("DOMContentLoaded", function () {
 
-if (inputMarque && btnAjouter && feedback) {
+    const inputMarque = document.getElementById("id_marque");
+    const btnAjouter = document.getElementById("btn-ajouter-marque");
+    const feedback = document.getElementById("marque-feedback");
+    const checkMarqueUrl = "{% url 'voiture_marque:check_marque' %}";
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+            const cookies = document.cookie.split(";");
+            for (let cookie of cookies) {
+                cookie = cookie.trim();
+                if (cookie.startsWith(name + "=")) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    const csrftoken = getCookie("csrftoken");
+
+    if (!inputMarque || !btnAjouter || !feedback) return;
+
     let debounceTimer;
 
-    inputMarque.addEventListener('input', function () {
+    inputMarque.addEventListener("input", function () {
         clearTimeout(debounceTimer);
 
         debounceTimer = setTimeout(() => {
-            const marque = this.value.trim();
+            const marque = inputMarque.value.trim();
 
-            if (!marque) {
-                feedback.classList.add('hidden');
+            if (marque.length === 0) {
+                feedback.classList.add("hidden");
+                feedback.textContent = "";
                 btnAjouter.disabled = false;
                 return;
             }
 
-            feedback.textContent = "{% trans 'Vérification…' %}";
-            feedback.classList.remove('hidden', 'text-red-600', 'text-green-600');
+            feedback.textContent = "Vérification…";
+            feedback.classList.remove("hidden", "text-red-600", "text-green-600");
 
             fetch(checkMarqueUrl, {
-                method: 'POST',
+                method: "POST",
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'X-CSRFToken': csrftoken,
-                    'Accept': 'application/json'
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "X-CSRFToken": csrftoken,
+                    "Accept": "application/json"
                 },
                 body: new URLSearchParams({
                     marque: marque
                 })
             })
-            .then(res => res.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Erreur HTTP " + response.status);
+                }
+                return response.json();
+            })
             .then(data => {
                 if (data.exists === true) {
                     feedback.textContent = "❌ Cette marque existe déjà !";
-                    feedback.classList.add('text-red-600');
-                    feedback.classList.remove('text-green-600');
+                    feedback.classList.add("text-red-600");
+                    feedback.classList.remove("text-green-600");
                     btnAjouter.disabled = true;
                 } else {
                     feedback.textContent = "✅ Marque disponible";
-                    feedback.classList.add('text-green-600');
-                    feedback.classList.remove('text-red-600');
+                    feedback.classList.add("text-green-600");
+                    feedback.classList.remove("text-red-600");
                     btnAjouter.disabled = false;
                 }
             })
-            .catch(err => {
-                console.error("Erreur fetch :", err);
-                feedback.textContent = "{% trans 'Erreur lors de la vérification' %}";
-                feedback.classList.add('text-red-600');
+            .catch(error => {
+                console.error("Erreur fetch :", error);
+                feedback.textContent = "Erreur lors de la vérification";
+                feedback.classList.add("text-red-600");
+                feedback.classList.remove("text-green-600");
                 btnAjouter.disabled = false;
             });
 
-        }, 400);
+        }, 300);
     });
-}
+});
 </script>
 
 {% endblock %}

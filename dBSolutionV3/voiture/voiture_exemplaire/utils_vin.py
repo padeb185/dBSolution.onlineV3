@@ -1,5 +1,7 @@
 # your_app/utils_vin.py
 from datetime import datetime
+from typing import Optional
+
 
 VIN_YEAR_BASE = {
     "A": 1980, "B": 1981, "C": 1982, "D": 1983, "E": 1984, "F": 1985, "G": 1986, "H": 1987,
@@ -17,7 +19,9 @@ BMW_VIN_FIXES = {
     "0": 2006,  # ton cas réel MINI R56
 }
 
-def get_vin_year(code: str, brand: str | None = None) -> int | None:
+
+
+def get_vin_year(code: str, brand: Optional[str] = None) -> Optional[int]:
     if not code:
         return None
 

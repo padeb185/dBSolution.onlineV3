@@ -58,8 +58,10 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
     )
 
     kilometres_chassis = models.PositiveIntegerField(
-        _("Kilomètres chassis"),
-        default=0
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name=_("Kilomètres chassis")
     )
 
     kilometrage_controle_boite_auto = models.PositiveIntegerField(

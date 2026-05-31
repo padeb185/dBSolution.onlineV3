@@ -119,7 +119,7 @@ class VoitureExemplaire(models.Model):
     )
 
     # 📏 Kilométrage châssis
-    kilometres_chassis = models.PositiveIntegerField(default=0, null=True, blank=True)
+    kilometres_chassis = models.PositiveIntegerField(default=0, null=True, blank=True, verbose_name="Kilomètres châssis")
 
     kilometres_dernier_entretien = models.PositiveIntegerField(default=0, null=True, blank=True)
 

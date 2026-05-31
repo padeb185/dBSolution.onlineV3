@@ -60,7 +60,6 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         blank=True
     )
 
-
     kilometres_chassis = models.PositiveIntegerField(
         default=0,
         null=True,

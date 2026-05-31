@@ -117,6 +117,12 @@ def dashboard_moteur_view(request, exemplaire_id):
         # --- CONTEXT ---
         context.update({
             "exemplaire": exemplaire,
+            "is_checkup_allowed": request.user.role in [
+                "direction",
+                "mecanicien",
+                "chef_mecanicien",
+                "magasinier",
+            ],
             "types_maintenance": TYPES_MAINTENANCE,
 
             "total_admission": total_admission,
