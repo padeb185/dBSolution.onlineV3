@@ -118,8 +118,10 @@
 <br>
 
 <!-- DataTables JS -->
+<!-- DataTables JS -->
 <script>
 $(document).ready(function() {
+
     var table = $('#client_atelier-table').DataTable({
         pageLength: 30,
         language: {
@@ -142,25 +144,28 @@ $(document).ready(function() {
     $('#search-prenom').on('keyup', function () {
         table.column(0).search(this.value).draw();
     });
+
     $('#search-nom').on('keyup', function () {
         table.column(1).search(this.value).draw();
     });
+
     $('#search-adresse').on('keyup', function () {
         table.column(2).search(this.value).draw();
     });
+
     $('#search-numero_telephone').on('keyup', function () {
         table.column(3).search(this.value).draw();
     });
-     $('#search-email').on('keyup', function () {
+
+    $('#search-email').on('keyup', function () {
         table.column(4).search(this.value).draw();
     });
+
     $('#search-voitures').on('keyup', function () {
-    table.column(5).search(this.value).draw();
+        table.column(5).search(this.value).draw();
+    });
 
-
-});
-document.addEventListener("DOMContentLoaded", function () {
-
+    // Formatage IBAN / carte bancaire
     function formatBankNumber(inputId) {
         const input = document.getElementById(inputId);
         if (!input) return;
@@ -176,30 +181,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
             while (i < val.length) {
                 if (i === 0) {
-                    // deux lettres
                     formatted += val.substr(i, 2);
                     i += 2;
                 } else if (i === 2) {
-                    // deux chiffres + espace
                     formatted += val.substr(i, 2) + " ";
                     i += 2;
                 } else {
-                    // groupes de quatre chiffres + espace
                     formatted += val.substr(i, 4) + " ";
                     i += 4;
                 }
             }
 
-            // Supprime l'espace final
             input.value = formatted.trim();
         });
     }
 
-    // Appliquer aux deux champs
     formatBankNumber("id_numero_carte_bancaire");
     formatBankNumber("id_numero_compte");
 
 });
 </script>
-
 {% endblock %}
