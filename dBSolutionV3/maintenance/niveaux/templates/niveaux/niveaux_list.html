@@ -12,6 +12,7 @@
     {% trans "Liste des niveaux" %}
 </h1>
 <br>
+{% if is_checkup_allowed %}
 <div>
      <a href="{% url 'niveaux:niveau_form_view' exemplaire.id %}"
         class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">

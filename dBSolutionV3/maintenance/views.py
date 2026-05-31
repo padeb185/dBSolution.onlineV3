@@ -146,6 +146,13 @@ def choisir_type_maintenance(request, exemplaire_id):
     # --- CONTEXT ---
     context.update({
         "exemplaire": exemplaire,
+        "is_checkup_allowed": request.user.role in [
+            "direction",
+            "mecanicien",
+            "chef_mecanicien",
+            "magasinier",
+        ],
+
         "types_maintenance": TYPES_MAINTENANCE,
 
         "total_checkup": total_checkup,
@@ -174,6 +181,7 @@ def choisir_type_maintenance(request, exemplaire_id):
         'carrosserie_interne': carrosserie_interne,
         'checkup_track': checkup_track,
         "modeles": modeles,
+
 
     })
 
@@ -280,10 +288,14 @@ def maintenance_detail_view(request, maintenance_id):
 def maintenance_liste_view(request):
     maintenances = Maintenance.objects.all().order_by("-date_intervention")
 
-    return render(
-        request,
-        "maintenance/liste.html",
-        {
-            "maintenances": maintenances
-        }
-    )
+    context = {
+        "maintenances": maintenances,
+        "is_mecanicien": request.user.role in [
+            "mecanicien",
+            "chef_mecanicien",
+            "direction",
+            "magasinier",
+        ],
+    }
+
+    return render(request, "maintenance/liste.html", context)

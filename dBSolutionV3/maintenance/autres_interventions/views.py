@@ -11,14 +11,6 @@ from maintenance.types_maintenances import TYPES_MAINTENANCE
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from voiture.voiture_modele.models import VoitureModele
 from maintenance.autres_interventions.boite_de_vitesse.models import ControleBoite
-from maintenance.entretien.models import Entretien
-from maintenance.freins.models import ControleFreins
-from maintenance.jeux_pieces.models import ControleJeuxPieces
-from maintenance.nettoyage_exterieur.models import NettoyageExterieur
-from maintenance.nettoyage_interieur.models import NettoyageInterieur
-from maintenance.niveaux.models import Niveau
-from maintenance.pneus.models import ControlePneus
-from maintenance.silent_blocs.models import SilentBloc
 from utilisateurs.models import Mecanicien
 from maintenance.autres_interventions.bte_vitesse_auto.models import ControleBteVitesseAuto
 from maintenance.autres_interventions.geometrie.models import GeometrieVoiture
@@ -337,6 +329,14 @@ def maintenance_liste_view(request):
         request,
         "maintenance/liste.html",
         {
-            "maintenances": maintenances
+            "maintenances": maintenances,
+            "is_mecanicien": request.user.role in [
+                "mecanicien",
+                "chef_mecanicien",
+                "direction",
+                "magasinier",
+            ],
         }
     )
+
+

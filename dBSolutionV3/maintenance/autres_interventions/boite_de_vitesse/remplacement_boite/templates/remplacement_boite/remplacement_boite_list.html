@@ -17,6 +17,7 @@
 
 <!-- 🔘 ADD BUTTON -->
 {% if exemplaire %}
+{% if is_checkup_allowed %}
 <div>
     <a href="{% url 'remplacement_boite:remplacement_boite_form' exemplaire.id %}"
        class="bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center inline-block">

@@ -22,9 +22,6 @@ from utilisateurs.direction.models import Direction
 from voiture.voiture_moteur.models import MoteurVoiture
 
 
-# -----------------------------
-# Classe ListView pour checkup
-# -----------------------------
 @method_decorator([login_required, never_cache], name='dispatch')
 class CheckupListView(ListView):
     model = Checkup
@@ -38,21 +35,32 @@ class CheckupListView(ListView):
             "voiture_exemplaire", "maintenance", "tech_societe"
         )
 
-        # Filtrer par société : inclure les objets NULL ou ceux de la société de l'utilisateur
         societe = getattr(self.request.user, "societe", None)
         if societe:
             queryset = queryset.filter(
-                models.Q(tech_societe=societe) | models.Q(tech_societe__isnull=True)
+                models.Q(tech_societe=societe) |
+                models.Q(tech_societe__isnull=True)
             )
 
         return queryset.order_by(*self.ordering)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        exemplaire_id = self.kwargs.get("exemplaire_id")
-        context["exemplaire"] = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
-        return context
 
+        exemplaire_id = self.kwargs.get("exemplaire_id")
+        context["exemplaire"] = get_object_or_404(
+            VoitureExemplaire,
+            id=exemplaire_id
+        )
+
+        context["is_checkup_allowed"] = self.request.user.role in [
+            "direction",
+            "mecanicien",
+            "chef_mecanicien",
+            "magasinier",
+        ]
+
+        return context
 
 
 @never_cache
