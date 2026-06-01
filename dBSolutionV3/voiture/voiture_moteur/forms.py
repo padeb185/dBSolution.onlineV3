@@ -23,7 +23,7 @@ class MoteurVoitureForm(forms.ModelForm):
             "motoriste": _("Motoriste"),
             "code_moteur": _("Code moteur"),
             "distribution": _("Distribution"),
-            "qualite_huile": _("Qualité huile"),
+            "qualite_huile": _("Qualité d'huile"),
 
             "type_moteur": _("Type moteur"),
             "carburant": _("Carburant"),
@@ -31,9 +31,9 @@ class MoteurVoitureForm(forms.ModelForm):
             "cylindree_l": _("Cylindrée (L)"),
             "nombre_cylindres": _("Nombre de cylindres"),
             "puissance_ch": _("Puissance (ch)"),
-            "puissance_tr_min": _("Régime puissance (tr/min)"),
+            "puissance_tr_min": _("Puissance (tr/min)"),
             "couple_nm": _("Couple (Nm)"),
-            "couple_tr_min": _("Régime couple (tr/min)"),
+            "couple_tr_min": _("Couple (tr/min)"),
             "quantite_huile_l": _("Quantité d'huile (L)"),
             "intervalle_km_entretien": _("Intervalle entretien (km)"),
         }

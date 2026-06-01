@@ -76,15 +76,15 @@ class ProprietaireForm(forms.ModelForm):
     )
 
     numero_telephone = forms.CharField(
-        label=_("Numero de téléphone"),
+        label=_("Numéro de téléphone"),
         widget=forms.TextInput(attrs={"class": "border rounded px-4 py-2 w-full"})
     )
     numero_carte_id = forms.CharField(
-        label=_("Numero de carte d'identité"),
+        label=_("Numéro de carte d'identité"),
         widget=forms.TextInput(attrs={"class": "border rounded px-4 py-2 w-full"})
     )
     numero_compte = forms.CharField(
-        label=_("Numero de compte"),
+        label=_("Numéro de compte"),
         widget=forms.TextInput(attrs={"class": "border rounded px-4 py-2 w-full"})
     )
     numero_carte_bancaire = forms.CharField(
