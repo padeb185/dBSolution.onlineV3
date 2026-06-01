@@ -7,11 +7,11 @@
 {% endblock %}
 
 {% block content %}
-
+<br>
 <h1 class="text-2xl font-bold mb-6">
     {% trans "Bienvenue sur le tableau de bord" %}
 </h1>
-
+<br>
 <!-- Cartes principales -->
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
@@ -47,7 +47,7 @@
     </div>
 
 </div>
-
+<br>
 <!-- Tableau activités -->
 <div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto">
     <h2 class="text-lg font-semibold mb-4">
@@ -62,21 +62,38 @@
                 <th class="border border-gray-200 px-4 py-2 text-left">{% trans "Action" %}</th>
             </tr>
         </thead>
-        <tbody>
-            <tr>
-                <td class="border border-gray-200 px-4 py-2">11/12/2025</td>
-                <td class="border border-gray-200 px-4 py-2">Pierre</td>
-                <td class="border border-gray-200 px-4 py-2">{% trans "Connexion" %}</td>
-            </tr>
-            <tr>
-                <td class="border border-gray-200 px-4 py-2">10/12/2025</td>
-                <td class="border border-gray-200 px-4 py-2">Alice</td>
-                <td class="border border-gray-200 px-4 py-2">{% trans "Modification de projet" %}</td>
-            </tr>
-        </tbody>
+       <tbody>
+    {% for log in dernieres_activites %}
+    <tr>
+        <td class="border border-gray-200 px-4 py-2">
+            {{ log.date_action|date:"d/m/Y H:i:s" }}
+        </td>
+
+        <td class="border border-gray-200 px-4 py-2">
+            {{ log.utilisateur.prenom }}
+            {{ log.utilisateur.nom }}
+            <span class="text-gray-500">
+                ({{ log.utilisateur.get_role_display|default:log.utilisateur.role }})
+            </span>
+        </td>
+
+        <td class="border border-gray-200 px-4 py-2">
+            {{ log.action }}
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="3" class="border border-gray-200 px-4 py-2 text-center text-gray-500">
+            {% trans "Aucune activité enregistrée" %}
+        </td>
+    </tr>
+    {% endfor %}
+</tbody>
+Exemple de modèle Log
     </table>
 </div>
-
+<br>
+<br>
 {% if request.user.role == "mecanicien" or request.user.role == "chef_mecanicien" or request.user.role == "direction" or request.user.role == "magasinier" %}
 <!-- Section Mécanicien -->
 <div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto flex items-center gap-4">
@@ -124,8 +141,9 @@
 
 </div>
 {% endif %}
-
-{% if request.user.role == "chef_mecanicien" or request.user.role == "direction" %}
+<br>
+<br>
+    {% if request.user.role == "chef_mecanicien" or request.user.role == "direction" %}
 <!-- Section Chef Mécanicien -->
 <div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto flex items-center gap-4">
     <img src="{% static 'icons/chef-mecanicien.png' %}" alt="Chef Mecanicien" class="w-[60px] h-[60px] mr-4">
@@ -208,7 +226,8 @@
 
 </div>
 {% endif %}
-
+<br>
+    <br>
 {% if request.user.role == "chef_mecanicien" or request.user.role == "direction" or request.user.role == "magasinier" %}
 <!-- Section Magasinier -->
 <div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto flex items-center gap-4">
@@ -244,7 +263,8 @@
 
 </div>
 {% endif %}
-
+<br>
+<br>
 {% if request.user.role == "chef_mecanicien" or request.user.role == "direction" or request.user.role == "vendeur" %}
 <!-- Section Vente -->
 <div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto flex items-center gap-4">
@@ -292,7 +312,8 @@
 
 </div>
 {% endif %}
-
+<br>
+    <br>
 {% if request.user.role == "direction" %}
 <!-- Section Direction -->
 <div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto flex items-center gap-4">
@@ -336,7 +357,8 @@
 
 </div>
 {% endif %}
-
+<br>
+<br>
 {% if user.is_staff and user.is_superuser %}
 <!-- Section Administrateur -->
 <div class="mt-8 bg-white shadow-md rounded-lg p-6 overflow-x-auto flex items-center gap-4">

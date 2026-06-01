@@ -214,3 +214,22 @@ class Mecanicien(Utilisateur):
     def __str__(self):
         return f"{self.prenom} {self.nom} - {self.get_role_display()}"
 
+
+
+
+
+class UserLog(models.Model):
+    utilisateur = models.ForeignKey(
+        Utilisateur,
+        on_delete=models.CASCADE,
+        related_name="logs"
+    )
+
+    action = models.CharField(max_length=255)
+
+    date_action = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    class Meta:
+        ordering = ["-date_action"]

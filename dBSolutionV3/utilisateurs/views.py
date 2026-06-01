@@ -6,10 +6,11 @@ from django.shortcuts import render, redirect
 from io import BytesIO
 import base64
 import qrcode
+from django.utils import timezone
 from django.views.decorators.cache import never_cache
 from django_tenants.utils import schema_context
 from .forms import LoginForm
-from .models import Utilisateur
+from .models import Utilisateur, UserLog
 from django.utils.translation import gettext as _
 from voiture.voiture_marque.models import VoitureMarque
 from voiture.voiture_moteur.models import MoteurVoiture
@@ -196,8 +197,12 @@ def dashboard_view(request):
         'user': user,
         'user_nom': user.nom,
         'user_prenom': user.prenom,
-        "user_full_name": f"{user.prenom} {user.nom}",
         'user_role': user.role,
+
+        # Logs dynamiques
+        'date_connexion': timezone.localtime(),
+        'derniere_connexion': user.last_login,
+        "user_full_name": f"{user.prenom} {user.nom}",
         'societe': societe,
         'total_marques': total_marques,
         'total_modele': total_modele,
@@ -287,6 +292,13 @@ def dashboard_view(request):
         'direction': _("Direction"),
     }
     context['role_display'] = ROLE_DISPLAY.get(user.role, _("Rôle inconnu"))
+
+
+    context["dernieres_activites"] = UserLog.objects.filter(
+        utilisateur__societe=societe
+    ).select_related(
+        "utilisateur"
+    ).order_by("-date_action")[:20]
 
     return render(request, 'dashboard.html', context)
 
@@ -428,3 +440,14 @@ def liste_utilisateurs(request):
     return render(request, "utilisateurs/liste_utilisateurs.html", {
         "utilisateurs": utilisateurs
     })
+
+
+from django.contrib.auth.signals import user_logged_in
+from django.dispatch import receiver
+
+@receiver(user_logged_in)
+def log_connexion(sender, request, user, **kwargs):
+    UserLog.objects.create(
+        utilisateur=user,
+        action="Connexion"
+    )

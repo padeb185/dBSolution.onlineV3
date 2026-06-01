@@ -414,8 +414,7 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 TAILWIND_APP_NAME = "theme"
 
 
-# settings.py
-DEBUG = True
+
 
 
 # ------------------------------------------------------------------------------

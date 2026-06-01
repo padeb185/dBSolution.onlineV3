@@ -87,6 +87,9 @@ def dashboard(request):
 
 
 
+
+
+
 @login_required
 def logout_view(request):
     """Déconnexion de l'utilisateur"""
