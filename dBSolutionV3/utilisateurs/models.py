@@ -175,7 +175,7 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
         self.save()
 
     def get_totp_uri(self):
-        issuer = self.societe.name if self.societe else "CarsCosts"
+        issuer = self.societe.nom if self.societe else "CarsCosts"
         email = self.email_google or self.email
 
         return pyotp.totp.TOTP(self.totp_secret).provisioning_uri(

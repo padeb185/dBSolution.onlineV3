@@ -9,6 +9,7 @@ import qrcode
 from django.utils import timezone
 from django.views.decorators.cache import never_cache
 from django_tenants.utils import schema_context
+from societe.models import Societe
 from .forms import LoginForm
 from .models import Utilisateur, UserLog
 from django.utils.translation import gettext as _
@@ -92,22 +93,30 @@ def logout_view(request):
 
 
 
-
 @never_cache
 @login_required
 def dashboard_view(request):
     user = request.user
     context = {}
 
+    societe = getattr(request.user, "societe", None)
 
-    # --- Sécurité : récupère le tenant (la société de l'utilisateur) ---
-    societe = request.user.societe
-    schema_name = societe.schema_name  # pour django-tenants
+    if not societe:
+        messages.error(
+            request,
+            _("Aucune société n'est liée à cet utilisateur.")
+        )
+        return redirect("home")
 
-    societe = request.user.societe
-
+    schema_name = getattr(societe, "schema_name", None)
 
     # --- Stats initialisées à zéro ---
+    total_carburant = 0
+    total_assurance_police = 0
+    total_client_atelier = 0
+    total_maintenances_user = 0
+
+
     total_marques = total_moteurs = total_exemplaires = 0
     total_boites = total_embrayages = total_freins = 0
     total_freins_ar = total_pneus = total_maintenance = 0
@@ -116,10 +125,12 @@ def dashboard_view(request):
     total_adresse = total_assurance = total_modele = total_outils = 0
     total_recharge = total_main = total_proprietaire = total_client = 0
 
+
     marques = moteurs = exemplaires = boites = embrayages = freins = \
         freins_ar = pneus = maintenance = fournisseurs = client_particulier = client_atelier =\
         carrosseries = societe_cliente = adresse = assurance = \
-        assurance_police = modele = outils = recharge = maindoeuvre = proprietaire = client = []
+        assurance_police = modele = outils = recharge = maindoeuvre = proprietaire = client =\
+        carburant = assurance_police = client_atelier = client_pilotage =  modeles = []
 
     if schema_name:
         with schema_context(schema_name):
@@ -177,6 +188,10 @@ def dashboard_view(request):
             total_recharge = recharge.count()
             total_main = maindoeuvre.count()
             total_proprietaire = proprietaire.count()
+            total_carburant = carburant.count()
+            total_assurance_police = assurance_police.count()
+            total_client_atelier = client_atelier.count()
+            total_maintenances_user = maintenance.count()
 
             total_maintenances_user = Maintenance.objects.filter(
                 societe=societe
@@ -231,7 +246,10 @@ def dashboard_view(request):
         'total_proprietaire': total_proprietaire,
         'total_client': total_client,
         "total_maintenances_user": total_maintenances_user,
-
+        "total_carburant" : total_carburant,
+        "total_assurance_police" : total_assurance_police,
+        "total_client_atelier" : total_client_atelier,
+        "total_maintenances_user" : total_maintenances_user,
 
         'marques': marques,
         'modele' : modele,
@@ -258,6 +276,11 @@ def dashboard_view(request):
         'maindoeuvre': maindoeuvre,
         'proprietaire': proprietaire,
         'client': client,
+        'carburant' : carburant,
+        'assurance_police' : assurance_police,
+        'client_atelier' : client_atelier,
+        'client_pilotage' : client_pilotage,
+        'modeles': modeles,
 
 
     })
@@ -292,13 +315,17 @@ def dashboard_view(request):
         'direction': _("Direction"),
     }
     context['role_display'] = ROLE_DISPLAY.get(user.role, _("Rôle inconnu"))
+    context["societe"] = societe
+    context["schema_name"] = schema_name
 
-
-    context["dernieres_activites"] = UserLog.objects.filter(
-        utilisateur__societe=societe
-    ).select_related(
-        "utilisateur"
-    ).order_by("-date_action")[:20]
+    try:
+        context["dernieres_activites"] = UserLog.objects.filter(
+            utilisateur__societe=societe
+        ).select_related(
+            "utilisateur"
+        ).order_by("-date_action")[:20]
+    except Exception:
+        context["dernieres_activites"] = []
 
     return render(request, 'dashboard.html', context)
 
@@ -377,7 +404,12 @@ def creer_utilisateur(request):
         data = request.POST
 
         try:
-            # 1. Création de l’adresse
+            # 1. Récupérer la société par son nom
+            nom_societe = data.get("societe")
+
+            societe = Societe.objects.get(nom=nom_societe)
+
+            # 2. Création de l’adresse
             adresse = Adresse.objects.create(
                 rue=data.get("rue"),
                 numero=data.get("numero"),
@@ -386,7 +418,7 @@ def creer_utilisateur(request):
                 pays=data.get("pays"),
             )
 
-            # 2. Création de l’utilisateur avec l’adresse créée
+            # 3. Création de l’utilisateur
             user = Utilisateur.objects.create_user(
                 email_google=data.get("email_google"),
                 password=data.get("password"),
@@ -396,11 +428,21 @@ def creer_utilisateur(request):
                 telephone=data.get("telephone") or None,
                 email_entreprise=data.get("email_entreprise") or None,
                 date_naissance=data.get("date_naissance") or None,
-                schema_name=data.get("societe") or None,
-                adresse=adresse,   # <-- objet directement
+
+                # Si ton champ est ForeignKey vers Societe :
+                societe=societe,
+
+                # Si ton champ stocke seulement le schema_name :
+                schema_name=societe.schema_name,
+
+                adresse=adresse,
             )
 
             messages.success(request, _("Utilisateur créé avec succès."))
+        
+
+        except Societe.DoesNotExist:
+            messages.error(request, _("Cette société n'existe pas."))
 
         except Exception as e:
             messages.error(request, f"Erreur: {e}")
@@ -408,8 +450,6 @@ def creer_utilisateur(request):
     return render(request, "utilisateurs/creer_utilisateur.html", {
         "roles": Utilisateur.ROLE_CHOICES
     })
-
-
 
 
 def is_admin(user):
