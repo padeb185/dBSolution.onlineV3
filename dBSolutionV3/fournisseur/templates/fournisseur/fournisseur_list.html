@@ -63,7 +63,17 @@
     <tbody>
         {% for fournisseur in fournisseurs %}
         <tr>
-            <td class="border px-4 py-2">{{ fournisseur.nom }}</td>
+            <td class="border px-4 py-2">
+                <span class="hidden">
+                    {{ fournisseur.nom }}
+                </span>
+                <img
+                    src="{% static 'images/'|add:fournisseur.nom|lower|add:'.png' %}"
+                    alt="{{ fournisseur.nom }}"
+                    style="width:120px; height:35px; object-fit:contain;"
+                    onerror="this.onerror=null; this.outerHTML='{{ fournisseur.nom }}';"
+                >
+            </td>
             <td class="border px-4 py-2">{{ fournisseur.numero_tva }}</td>
             <td class="border px-4 py-2">{{ fournisseur.peppol_id }}</td>
             <td class="border px-4 py-2">{{ fournisseur.email }}</td>
