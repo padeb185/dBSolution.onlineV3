@@ -87,8 +87,6 @@ class Fuel(models.Model):
 
     kilometrage_fuel = models.IntegerField(
         _("Kilométrage au plein"),
-        null=True,
-        blank=True
     )
 
     nom_station = models.CharField(

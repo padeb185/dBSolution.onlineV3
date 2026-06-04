@@ -83,17 +83,11 @@ class RemplacementBoite(TechnicienMixin, models.Model):
     )
 
     kilometres_boite = models.PositiveIntegerField(
-        default=0,
-        null=True,
-        blank=True,
         verbose_name=_("Kilometres de la boite à remplacer")
     )
 
 
     kilometres_remplacement_boite = models.PositiveIntegerField(
-        default=0,
-        null=True,
-        blank=True,
         verbose_name=_("Kilomètres au remplacement de la boite")
     )
 

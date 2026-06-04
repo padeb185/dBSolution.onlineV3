@@ -61,8 +61,6 @@ class Abs(TechnicienMixin, models.Model):
     # INFOS
     # -------------------------
     kilometrage_abs = models.PositiveIntegerField(
-        null=True,
-        blank=True,
         verbose_name= _("Kilométrage au moment du controle ABS ")
     )
 

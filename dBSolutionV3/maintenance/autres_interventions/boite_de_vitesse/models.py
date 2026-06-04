@@ -59,8 +59,6 @@ class ControleBoite(TechnicienMixin, models.Model):
 
     kilometrage_controle_boite = models.PositiveIntegerField(
         _("Kilométrage au moment du controle"),
-        null=True,
-        blank=True
     )
 
 
