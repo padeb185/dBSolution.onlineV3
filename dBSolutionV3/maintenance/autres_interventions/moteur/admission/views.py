@@ -11,6 +11,7 @@ from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
 from django_tenants.utils import tenant_context
 from maintenance.models import Maintenance
+from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
@@ -140,6 +141,8 @@ def admission_check_view(request, exemplaire_id):
                         admission.assign_technicien(request.user)
                         admission.save()
 
+
+
                         maintenance = Maintenance.objects.create(
                             societe=request.user.societe,
                             voiture_exemplaire=exemplaire,
@@ -170,6 +173,13 @@ def admission_check_view(request, exemplaire_id):
 
                         admission.maintenance = maintenance
                         admission.save()
+
+                        UserLog.objects.create(
+                            utilisateur=request.user,
+                            action=_("Admission - %(immatriculation)s") % {
+                                "immatriculation": exemplaire.immatriculation
+                            }
+                        )
 
                     messages.success(request, _("Contrôle de l'admission enregistrée avec succès."))
 
@@ -265,7 +275,7 @@ def modifier_admission_view(request, admission_id):
             Admission.objects.select_related("voiture_exemplaire"),
             id=admission_id
         )
-
+        exemplaire = admission.voiture_exemplaire
         # -------------------------
         # POST
         # -------------------------
@@ -279,6 +289,14 @@ def modifier_admission_view(request, admission_id):
 
             if form.is_valid():
                 form.save()
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=_("Modification admission - %(immatriculation)s") % {
+                        "immatriculation": exemplaire.immatriculation
+                    }
+                )
+
                 messages.success(request, _("Contrôle de l'admission modifié avec succès !"))
                 return redirect("admission:modifier_admission", admission_id=admission.id)
             else:

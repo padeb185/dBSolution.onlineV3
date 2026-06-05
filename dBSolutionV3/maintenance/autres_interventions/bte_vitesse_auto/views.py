@@ -8,6 +8,7 @@ from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
 from django_tenants.utils import tenant_context
 from maintenance.models import Maintenance
+from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
@@ -173,6 +174,13 @@ def bte_auto_check_view(request, exemplaire_id):
 
                         bte_auto.save()
 
+                        UserLog.objects.create(
+                            utilisateur=request.user,
+                            action=_("Contrôle boite automatique - %(immatriculation)s") % {
+                                "immatriculation": exemplaire.immatriculation
+                            }
+                        )
+
                     messages.success(
                         request,
                         _("Contrôle boite automatique enregistré avec succès.")
@@ -239,7 +247,7 @@ def modifier_bte_auto_view(request, bte_auto_id):
             ControleBteVitesseAuto.objects.select_related("voiture_exemplaire"),
             id=bte_auto_id
         )
-
+        exemplaire = bte_auto.voiture_exemplaire
         # -------------------------
         # POST
         # -------------------------
@@ -252,6 +260,14 @@ def modifier_bte_auto_view(request, bte_auto_id):
             )
             if form.is_valid():
                 form.save()
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=_("Modification boite automatique - %(immatriculation)s") % {
+                        "immatriculation": exemplaire.immatriculation
+                    }
+                )
+
                 messages.success(request, _("Contrôle de la boite automatique modifié avec succès !"))
                 return redirect("bte_auto:modifier_bte_auto", bte_auto_id=bte_auto.id)
             else:

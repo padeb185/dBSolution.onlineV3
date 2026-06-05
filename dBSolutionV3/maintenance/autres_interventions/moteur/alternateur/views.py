@@ -11,6 +11,7 @@ from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
 from django_tenants.utils import tenant_context
 from maintenance.models import Maintenance
+from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
@@ -173,6 +174,13 @@ def alternateur_check_view(request, exemplaire_id):
                         alternateur.maintenance = maintenance
                         alternateur.save()
 
+                        UserLog.objects.create(
+                            utilisateur=request.user,
+                            action=_("Alternateur - %(immatriculation)s") % {
+                                "immatriculation": exemplaire.immatriculation
+                            }
+                        )
+
                     messages.success(request, _("Check alternateur enregistré avec succès."))
 
                 except Exception as e:
@@ -279,7 +287,7 @@ def modifier_alternateur_view(request, alternateur_id):
             Alternateur.objects.select_related("voiture_exemplaire"),
             id=alternateur_id
         )
-
+        exemplaire = alternateur.voiture_exemplaire
         # -------------------------
         # POST
         # -------------------------
@@ -293,6 +301,14 @@ def modifier_alternateur_view(request, alternateur_id):
 
             if form.is_valid():
                 form.save()
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=_("Modification alternateur - %(immatriculation)s") % {
+                        "immatriculation": exemplaire.immatriculation
+                    }
+                )
+
                 messages.success(request, _("Contrôle de l'alternateur modifié avec succès !"))
                 return redirect("alternateur:modifier_alternateur", alternateur_id=alternateur.id)
             else:

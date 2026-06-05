@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.shortcuts import render, get_object_or_404, redirect
 from django.db import models, transaction
 from django_tenants.utils import tenant_context
+from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.contrib import messages
 from maintenance.models import Maintenance
@@ -158,6 +159,13 @@ def remplacement_moteur_form_view(request, exemplaire_id):
 
                         remplacement_moteur.save()
 
+                        UserLog.objects.create(
+                            utilisateur=request.user,
+                            action=_("Remplacement moteur - %(immatriculation)s") % {
+                                "immatriculation": exemplaire.immatriculation
+                            }
+                        )
+
                         # ➕ compteur (si champ existe)
                         if remplacement_moteur.pk:
                             exemplaire.nombre_remplacements_moteurs = F("nombre_remplacements_moteurs")
@@ -278,7 +286,7 @@ def modifier_remplacement_moteur_view(request, remplacement_moteur_id):
             RemplacementMoteur.objects.select_related("voiture_exemplaire"),
             id=remplacement_moteur_id
         )
-
+        exemplaire = remplacement_moteur.voiture_exemplaire
         # -------------------------
         # POST
         # -------------------------
@@ -292,6 +300,14 @@ def modifier_remplacement_moteur_view(request, remplacement_moteur_id):
 
             if form.is_valid():
                 form.save()
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=_("Modification remplacement moteur - %(immatriculation)s") % {
+                        "immatriculation": exemplaire.immatriculation
+                    }
+                )
+
                 messages.success(request, _("Remplacement du moteur modifié avec succès !"))
                 return redirect(
                     "remplacement_moteur:modifier_remplacement_moteur",

@@ -2,6 +2,7 @@ from django.utils import timezone
 from django.shortcuts import render, get_object_or_404, redirect
 from django.db import models, transaction
 from django_tenants.utils import tenant_context
+from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.contrib import messages
 from maintenance.models import Maintenance
@@ -163,6 +164,13 @@ def remplacement_boite_form_view(request, exemplaire_id):
 
                         remplacement_boite.save()
 
+                        UserLog.objects.create(
+                            utilisateur=request.user,
+                            action=_("Remplacement boite de vitesse - %(immatriculation)s") % {
+                                "immatriculation": exemplaire.immatriculation
+                            }
+                        )
+
                         # ➕ compteur (si champ existe)
                         if remplacement_boite.pk:
                             exemplaire.nombre_remplacements_boites = F("nombre_remplacements_boites")
@@ -280,7 +288,7 @@ def modifier_remplacement_boite_view(request, remplacement_boite_id):
             RemplacementBoite.objects.select_related("voiture_exemplaire"),
             id=remplacement_boite_id
         )
-
+        exemplaire = remplacement_boite.exemplaire
         # -------------------------
         # POST
         # -------------------------
@@ -294,6 +302,14 @@ def modifier_remplacement_boite_view(request, remplacement_boite_id):
 
             if form.is_valid():
                 form.save()
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=_("Modification remplacement boite de vitesse - %(immatriculation)s") % {
+                        "immatriculation": exemplaire.immatriculation
+                    }
+                )
+
                 messages.success(request, _("Remplacement de la boite modifié avec succès !"))
                 return redirect(
                     "remplacement_boite:modifier_remplacement_boite",

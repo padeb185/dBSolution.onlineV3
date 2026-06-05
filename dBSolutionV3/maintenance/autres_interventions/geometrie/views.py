@@ -11,6 +11,7 @@ from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
 from django_tenants.utils import tenant_context
 from maintenance.models import Maintenance
+from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
@@ -178,6 +179,13 @@ def geometrie_check_view(request, exemplaire_id):
                         geometrie.maintenance = maintenance
                         geometrie.save()
 
+                        UserLog.objects.create(
+                            utilisateur=request.user,
+                            action=_("Géométrie - %(immatriculation)s") % {
+                                "immatriculation": exemplaire.immatriculation
+                            }
+                        )
+
                     messages.success(request, _("Géometrie enregistrée avec succès."))
 
                 except Exception as e:
@@ -310,7 +318,7 @@ def geometrie_modifier_view(request, geometrie_id):
             GeometrieVoiture.objects.select_related("voiture_exemplaire"),
             id=geometrie_id
         )
-
+        exemplaire = geometrie.voiture_exemplaire
         # -------------------------
         # POST
         # -------------------------
@@ -324,6 +332,14 @@ def geometrie_modifier_view(request, geometrie_id):
 
             if form.is_valid():
                 form.save()
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=_("Modification géométrie - %(immatriculation)s") % {
+                        "immatriculation": exemplaire.immatriculation
+                    }
+                )
+
                 messages.success(request, _("Contrôle de la géométrie modifié avec succès !"))
                 return redirect("geometrie:geometrie_modifier", geometrie_id=geometrie.id)
             else:

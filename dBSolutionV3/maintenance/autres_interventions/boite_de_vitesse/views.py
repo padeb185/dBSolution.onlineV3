@@ -8,6 +8,7 @@ from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
 from django_tenants.utils import tenant_context, schema_context
 from maintenance.models import Maintenance
+from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from maintenance.nettoyage_exterieur.models import NettoyageExterieur
@@ -180,6 +181,13 @@ def boite_check_view(request, exemplaire_id):
                         boite.maintenance = maintenance
                         boite.save()
 
+                        UserLog.objects.create(
+                            utilisateur=request.user,
+                            action=_("Contrôle Boite de vitesse - %(immatriculation)s") % {
+                                "immatriculation": exemplaire.immatriculation
+                            }
+                        )
+
                     messages.success(request, _("Checkup de la boite de vitesse enregistré avec succès."))
 
                 except Exception as e:
@@ -242,7 +250,7 @@ def modifier_boite_view(request, boite_id):
             ControleBoite.objects.select_related("voiture_exemplaire"),
             id=boite_id
         )
-
+        exemplaire = boite.voiture_exemplaire
         # -------------------------
         # POST
         # -------------------------
@@ -255,6 +263,13 @@ def modifier_boite_view(request, boite_id):
             )
             if form.is_valid():
                 form.save()
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=_("Modification contrôle Boite de vitesse - %(immatriculation)s") % {
+                        "immatriculation": exemplaire.immatriculation
+                    }
+                )
                 messages.success(request, _("Checkup de la boite de vitesse modifié avec succès !"))
                 return redirect("boite_de_vitesse:modifier_boite", boite_id=boite.id)
             else:

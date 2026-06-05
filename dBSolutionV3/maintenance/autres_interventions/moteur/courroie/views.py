@@ -13,6 +13,7 @@ from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
 from django_tenants.utils import tenant_context
 from maintenance.models import Maintenance
+from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
@@ -177,6 +178,13 @@ def courroie_form_view(request, exemplaire_id):
                         courroie_distribution.maintenance = maintenance
                         courroie_distribution.save()
 
+                        UserLog.objects.create(
+                            utilisateur=request.user,
+                            action=_("Courroie de distribution - %(immatriculation)s") % {
+                                "immatriculation": exemplaire.immatriculation
+                            }
+                        )
+
                         messages.success(request, _("Check de la  courroie de distribution enregistré avec succès."))
 
                 except Exception as e:
@@ -282,7 +290,7 @@ def modifier_courroie_view(request, courroie_id):
             CourroieDistribution.objects.select_related("voiture_exemplaire"),
             id=courroie_id
         )
-
+        exemplaire = courroie.voiture_exemplaire
         # -------------------------
         # POST
         # -------------------------
@@ -301,6 +309,13 @@ def modifier_courroie_view(request, courroie_id):
                 courroie.assign_technicien(request.user)
 
                 courroie.save()
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=_("Modification courroie de distribution - %(immatriculation)s") % {
+                        "immatriculation": exemplaire.immatriculation
+                    }
+                )
 
                 messages.success(
                     request,

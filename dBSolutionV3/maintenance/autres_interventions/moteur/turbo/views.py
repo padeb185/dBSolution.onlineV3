@@ -12,6 +12,7 @@ from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
 from django_tenants.utils import tenant_context
 from maintenance.models import Maintenance
+from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
@@ -192,6 +193,13 @@ def turbo_check_view(request, exemplaire_id):
                         turbo.maintenance = maintenance
                         turbo.save()
 
+                        UserLog.objects.create(
+                            utilisateur=request.user,
+                            action=_("Turbo - %(immatriculation)s") % {
+                                "immatriculation": exemplaire.immatriculation
+                            }
+                        )
+
                     messages.success(
                         request,
                         _("Check turbo enregistré avec succès.")
@@ -270,7 +278,7 @@ def modifier_turbo_view(request, turbo_id):
             Turbo.objects.select_related("voiture_exemplaire"),
             id=turbo_id
         )
-
+        exemplaire = turbo.voiture_exemplaire
         # -------------------------
         # POST
         # -------------------------
@@ -284,6 +292,14 @@ def modifier_turbo_view(request, turbo_id):
 
             if form.is_valid():
                 form.save()
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=_("Modification turbo - %(immatriculation)s") % {
+                        "immatriculation": exemplaire.immatriculation
+                    }
+                )
+
                 messages.success(request, _("Contrôle du turbo modifié avec succès !"))
                 return redirect("turbo:modifier_turbo", turbo_id=turbo.id)
             else:
