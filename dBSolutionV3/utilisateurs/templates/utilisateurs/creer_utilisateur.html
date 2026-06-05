@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load widget_tweaks %}
 
 {% block content %}
 <br>
@@ -38,39 +39,103 @@
 
 
     <form method="post">
-        {% csrf_token %}
+    {% csrf_token %}
 
-        <input class="input" type="text" name="nom" placeholder="Nom" required>
-        <input class="input" type="text" name="prenom" placeholder="Prénom" required>
-        <input class="input" type="email" name="email_google" placeholder="Email Google" required>
-        <input class="input" type="email" name="email_entreprise" placeholder="Email entreprise">
-        <input class="input" type="tel" name="telephone" placeholder="Téléphone">
-        <input class="input" type="date" name="date_naissance">
+        <div class="mb-4">
+            {{ form.nom.label_tag }}
+            {% render_field form.nom class="input" placeholder='Nom de l’utilisateur' %}
+        </div>
 
-        <select class="input" name="role">
-            {% for value,label in roles %}
-                <option value="{{ value }}">{{ label }}</option>
-            {% endfor %}
-        </select>
+        <div class="mb-4">
+            {{ form.prenom.label_tag }}
+            {% render_field form.prenom class="input" placeholder="Prénom" %}
+        </div>
 
-        <input class="input" type="password" name="password" placeholder="Mot de passe" required>
+        <div class="mb-4">
+            {{ form.email_google.label_tag }}
+            {% render_field form.email_google class="input" placeholder="Email Google" %}
+        </div>
 
-        <!-- facultatif : société/adresse via id -->
+        <div class="mb-4">
+            {{ form.email_entreprise.label_tag }}
+            {% render_field form.email_entreprise class="input" placeholder="Email entreprise" %}
+        </div>
 
-        <input class="input" type="text" name="schema_name" placeholder="nom du schema" >
-        <input class="input" type="text" name="societe" placeholder="nom de la societe" >
-        <h3 class="font-bold mt-6">Adresse</h3>
-        <input class="input" name="rue" placeholder="Rue" required>
-        <input class="input" name="numero" placeholder="Numéro" required>
-        <input class="input" name="code_postal" placeholder="Code postal" required>
-        <input class="input" name="ville" placeholder="Ville" required>
-        <input class="input" name="pays" placeholder="Pays" required>
+        <div class="mb-4">
+            {{ form.telephone.label_tag }}
+            {% render_field form.telephone class="input" placeholder="Téléphone" %}
+        </div>
+
+        <div class="mb-4">
+            {{ form.date_naissance.label_tag }}
+            {% render_field form.date_naissance class="input" %}
+        </div>
+
+        <div class="mb-4">
+            {{ form.role.label_tag }}
+            {% render_field form.role class="input" %}
+        </div>
+
+        <div class="mb-4">
+            {{ form.password.label_tag }}
+            {% render_field form.password class="input" placeholder="Mot de passe" %}
+        </div>
+
+        <div class="mb-4">
+            {{ form.schema_name.label_tag }}
+            {% render_field form.schema_name class="input" placeholder="Nom du schéma (societe)" %}
+        </div>
+
+        <div class="mb-4">
+            {{ form.societe.label_tag }}
+            {% render_field form.societe class="input" placeholder="Nom de la société" %}
+        </div>
+
+        <h3 class="font-bold mt-6 mb-4">Adresse</h3>
+
+        <div class="mb-4">
+            {{ form.rue.label_tag }}
+            {% render_field form.rue class="input" placeholder="Rue" %}
+        </div>
+
+        <div class="mb-4">
+            {{ form.numero.label_tag }}
+            {% render_field form.numero class="input" placeholder="Numéro" %}
+        </div>
+
+        <div class="mb-4">
+            {{ form.code_postal.label_tag }}
+            {% render_field form.code_postal class="input" placeholder="Code postal" %}
+        </div>
+
+        <div class="mb-4">
+            {{ form.ville.label_tag }}
+            {% render_field form.ville class="input" placeholder="Ville" %}
+        </div>
+
+        <div class="mb-4">
+            {{ form.pays.label_tag }}
+            {% render_field form.pays class="input" placeholder="Pays" %}
+        </div>
 
 
-        <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded w-full">
-            Créer
-        </button>
+         <div class="flex gap-3 mt-6">
+                <button type="submit"
+                        class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+                    {% trans "Enregistrer" %}
+                </button>
 
+               <a href="{% url 'utilisateurs:dashboard' %}"
+                   class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
+                    {% trans "Annuler" %}
+                </a>
+
+          </div>
+
+        <!-- Date -->
+        <p class="text-sm text-gray-500 mt-4">
+            {% trans "Date actuelle" %} : {{ now|date:"Y-m-d H:i" }}
+        </p>
     </form>
 </div>
 

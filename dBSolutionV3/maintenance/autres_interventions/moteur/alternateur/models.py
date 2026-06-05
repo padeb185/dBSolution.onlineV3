@@ -61,8 +61,6 @@ class Alternateur(TechnicienMixin, models.Model):
     # INFOS
     # -------------------------
     kilometrage_alte = models.PositiveIntegerField(
-        null=True,
-        blank=True,
         verbose_name= _("Kilométrage du controle alternateur")
     )
 

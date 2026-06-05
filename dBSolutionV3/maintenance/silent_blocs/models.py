@@ -42,14 +42,11 @@ class SilentBloc(TechnicienMixin, models.Model):
     )
 
     kilometrage_silent = models.PositiveIntegerField(
-        _("Kilométrage au moment du contrôle des silent blocs"),
-        null=True,
-        blank=True
+        verbose_name=_("Kilométrage au moment du contrôle des silent blocs"),
+
     )
 
     # --- Silent Bloc ---
-
-
 
     silent_blocs_barre_stabilisatrice_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent blocs barre stabilisatrice avant"))
     silent_blocs_barre_stabilisatrice_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent blocs barre stabilisatrice arrière"))

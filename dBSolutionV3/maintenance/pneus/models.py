@@ -59,14 +59,9 @@ class ControlePneus(TechnicienMixin, models.Model):
         verbose_name=_("Kilomètres chassis")
     )
 
-
-
     kilometrage_pneus = models.PositiveIntegerField(
-        _("Kilométrage au moment du contrôle des pneus"),
-        null=True,
-        blank=True
+        verbose_name=_("Kilométrage au moment du contrôle des pneus"),
     )
-
 
     # --- Pneus et Pression
     pneu_bande_avd = models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.OK, verbose_name=_("Bande de roulement du pneu avant droit"))

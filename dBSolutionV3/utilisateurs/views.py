@@ -10,7 +10,7 @@ from django.utils import timezone
 from django.views.decorators.cache import never_cache
 from django_tenants.utils import schema_context
 from societe.models import Societe
-from .forms import LoginForm
+from .forms import LoginForm, UtilisateurCreationForm
 from .models import Utilisateur, UserLog
 from django.utils.translation import gettext as _
 from voiture.voiture_marque.models import VoitureMarque
@@ -397,59 +397,60 @@ def is_admin(user):
     return user.is_staff and user.is_superuser
 
 
+
+
 @login_required
 @user_passes_test(is_admin)
 def creer_utilisateur(request):
+    societe_courante = request.user.societe
+
+    initial_data = {
+        "societe": societe_courante.nom if societe_courante else "",
+        "schema_name": societe_courante.schema_name if societe_courante else "",
+    }
+
     if request.method == "POST":
-        data = request.POST
+        form = UtilisateurCreationForm(request.POST, initial=initial_data)
 
-        try:
-            # 1. Récupérer la société par son nom
-            nom_societe = data.get("societe")
+        if form.is_valid():
+            data = form.cleaned_data
 
-            societe = Societe.objects.get(nom=nom_societe)
+            try:
+                adresse = Adresse.objects.create(
+                    rue=data["rue"],
+                    numero=data["numero"],
+                    code_postal=data["code_postal"],
+                    ville=data["ville"],
+                    pays=data["pays"],
+                )
 
-            # 2. Création de l’adresse
-            adresse = Adresse.objects.create(
-                rue=data.get("rue"),
-                numero=data.get("numero"),
-                code_postal=data.get("code_postal"),
-                ville=data.get("ville"),
-                pays=data.get("pays"),
-            )
+                Utilisateur.objects.create_user(
+                    email_google=data["email_google"],
+                    password=data["password"],
+                    nom=data["nom"],
+                    prenom=data["prenom"],
+                    role=data["role"],
+                    telephone=data["telephone"] or None,
+                    email_entreprise=data["email_entreprise"] or None,
+                    date_naissance=data["date_naissance"] or None,
+                    societe=societe_courante,
+                    schema_name=societe_courante.schema_name,
+                    adresse=adresse,
+                )
 
-            # 3. Création de l’utilisateur
-            user = Utilisateur.objects.create_user(
-                email_google=data.get("email_google"),
-                password=data.get("password"),
-                nom=data.get("nom"),
-                prenom=data.get("prenom"),
-                role=data.get("role"),
-                telephone=data.get("telephone") or None,
-                email_entreprise=data.get("email_entreprise") or None,
-                date_naissance=data.get("date_naissance") or None,
+                messages.success(request, _("Utilisateur créé avec succès."))
+                return redirect("utilisateurs:creer_utilisateur")
 
-                # Si ton champ est ForeignKey vers Societe :
-                societe=societe,
+            except Exception as e:
+                messages.error(request, f"Erreur: {e}")
 
-                # Si ton champ stocke seulement le schema_name :
-                schema_name=societe.schema_name,
-
-                adresse=adresse,
-            )
-
-            messages.success(request, _("Utilisateur créé avec succès."))
-        
-
-        except Societe.DoesNotExist:
-            messages.error(request, _("Cette société n'existe pas."))
-
-        except Exception as e:
-            messages.error(request, f"Erreur: {e}")
+    else:
+        form = UtilisateurCreationForm(initial=initial_data)
 
     return render(request, "utilisateurs/creer_utilisateur.html", {
-        "roles": Utilisateur.ROLE_CHOICES
+        "form": form
     })
+
 
 
 def is_admin(user):

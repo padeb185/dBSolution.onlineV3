@@ -44,9 +44,7 @@ class CarrosserieInterne(models.Model):
     )
 
     kilometrage_intervention = models.PositiveIntegerField(
-        _("Kilométrage au moment de l'intervention"),
-        null=True,
-        blank=True
+        verbose_name=_("Kilométrage au moment de l'intervention"),
     )
 
 

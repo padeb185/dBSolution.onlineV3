@@ -176,9 +176,7 @@ class Entretien(TechnicienMixin, models.Model):
     )
 
     kilometrage_entretien = models.PositiveIntegerField(
-        _("Kilométrage au moment de l'entretien"),
-        null=True,
-        blank=True
+        verbose_name=_("Kilométrage au moment de l'entretien"),
     )
 
     societe = models.ForeignKey(

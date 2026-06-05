@@ -40,9 +40,8 @@ class Turbo(TechnicienMixin, models.Model):
     )
 
     kilometres_turbo = models.PositiveIntegerField(
-        _("Kilométrage au moment du controle"),
-        null=True,
-        blank=True
+        verbose_name=_("Kilométrage au moment du controle"),
+        
     )
 
     # -------------------------

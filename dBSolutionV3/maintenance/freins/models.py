@@ -44,9 +44,8 @@ class ControleFreins(TechnicienMixin, models.Model):
     )
 
     kilometrage_controle_brake = models.PositiveIntegerField(
-        _("Kilométrage du controle des freins"),
-        null=True,
-        blank=True
+        verbose_name=_("Kilométrage du controle des freins"),
+
     )
 
     societe = models.ForeignKey(

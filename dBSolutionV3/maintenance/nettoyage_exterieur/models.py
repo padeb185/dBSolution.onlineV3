@@ -39,9 +39,8 @@ class NettoyageExterieur(TechnicienMixin, models.Model):
     )
 
     kilometrage_net_ext = models.PositiveIntegerField(
-        _("Kilométrage au moment du Nettoyage extérieur"),
-        null=True,
-        blank=True
+        verbose_name=_("Kilométrage au moment du Nettoyage extérieur"),
+
     )
 
     # --- Nettoyage extérieur ---

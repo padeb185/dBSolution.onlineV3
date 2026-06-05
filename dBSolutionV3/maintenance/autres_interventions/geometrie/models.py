@@ -32,9 +32,8 @@ class GeometrieVoiture(models.Model):
     )
 
     kilometrage_geometrie = models.PositiveIntegerField(
-        _("Kilométrage au moment de la géometrie"),
-        null=True,
-        blank=True
+        verbose_name=_("Kilométrage au moment de la géometrie"),
+
     )
 
     # Angles de suspension

@@ -49,9 +49,8 @@ class Admission(TechnicienMixin, models.Model):
     )
 
     kilometrage_admission = models.PositiveIntegerField(
-        _("Kilométrage au moment du controle"),
-        null=True,
-        blank=True
+        verbose_name=_("Kilométrage au moment du controle"),
+
     )
 
     # -------------------------

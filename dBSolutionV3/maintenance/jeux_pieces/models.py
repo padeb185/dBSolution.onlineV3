@@ -72,9 +72,7 @@ class ControleJeuxPieces(TechnicienMixin, models.Model):
     )
 
     kilometrage_jeu = models.PositiveIntegerField(
-        _("Kilométrage au moment du controle des jeux"),
-        null=True,
-        blank=True
+        verbose_name=_("Kilométrage au moment du controle des jeux"),
     )
 
     # --- Jeux ---

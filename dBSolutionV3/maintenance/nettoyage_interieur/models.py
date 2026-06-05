@@ -41,9 +41,7 @@ class NettoyageInterieur(TechnicienMixin,models.Model):
     )
 
     kilometrage_net_int = models.PositiveIntegerField(
-        _("Kilométrage au moment du Nettoyage intérieur"),
-        null=True,
-        blank=True
+        verbose_name=_("Kilométrage au moment du Nettoyage intérieur"),
     )
 
     nettoyage_interieur_vitres =  models.CharField(

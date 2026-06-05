@@ -106,8 +106,6 @@ class CourroieDistribution(TechnicienMixin, models.Model):
     # INFOS
     # -------------------------
     kilometrage_cour = models.PositiveIntegerField(
-        null=True,
-        blank=True,
         verbose_name= _("Kilométrage de la courroie de distribution")
     )
 

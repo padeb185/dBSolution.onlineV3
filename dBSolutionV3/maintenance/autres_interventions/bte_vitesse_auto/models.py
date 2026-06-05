@@ -65,9 +65,7 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
     )
 
     kilometrage_controle_boite_auto = models.PositiveIntegerField(
-        _("Kilométrage au moment du contrôle"),
-        null=True,
-        blank=True
+        verbose_name=_("Kilométrage au moment du contrôle"),
     )
 
     # --- Boîte automatique ---

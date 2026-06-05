@@ -187,9 +187,8 @@ class Niveau(TechnicienMixin, models.Model):
     )
 
     kilometrage_niveaux = models.PositiveIntegerField(
-        _("Kilométrage au moment des niveaux"),
-        null=True,
-        blank=True
+        verbose_name=_("Kilométrage au moment des niveaux"),
+
     )
 
 

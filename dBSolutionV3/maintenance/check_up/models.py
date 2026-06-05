@@ -150,9 +150,8 @@ class Checkup(TechnicienMixin, models.Model):
     )
 
     kilometrage_checkup = models.PositiveIntegerField(
-        _("Kilométrage au moment du Checkup"),
-        null=True,
-        blank=True
+        verbose_name=_("Kilométrage au moment du Checkup"),
+
     )
 
 

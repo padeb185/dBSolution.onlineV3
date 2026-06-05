@@ -174,9 +174,7 @@ class CheckupTrack(TechnicienMixin, models.Model):
     )
 
     kilometrage_checkup_track = models.PositiveIntegerField(
-        _("Kilométrage au moment du checkup piste"),
-        null=True,
-        blank=True
+        verbose_name=_("Kilométrage au moment du checkup piste"),
     )
 
 
