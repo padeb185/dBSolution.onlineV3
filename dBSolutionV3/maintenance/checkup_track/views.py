@@ -13,6 +13,7 @@ from django_tenants.utils import tenant_context
 from maintenance.models import Maintenance
 from maintenance.checkup_track.models import CheckupTrack
 from maintenance.checkup_track.forms import CheckupTrack
+from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
@@ -196,6 +197,13 @@ def track_check_form_view(request, exemplaire_id):
                         checkup_track.maintenance = maintenance
                         checkup_track.save()
 
+                        UserLog.objects.create(
+                            utilisateur=request.user,
+                            action=_("Check-up piste - %(immatriculation)s") % {
+                                "immatriculation": exemplaire.immatriculation
+                            }
+                        )
+
                     messages.success(
                         request,
                         _("Checkup piste enregistré avec succès.")
@@ -264,38 +272,46 @@ def modifier_checkup_track_view(request, checkup_track_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
-        # Récupération du checkup_track avec son exemplaire
         checkup_track = get_object_or_404(
             CheckupTrack.objects.select_related("voiture_exemplaire"),
             id=checkup_track_id
         )
 
-        # -------------------------
-        # POST
-        # -------------------------
+        exemplaire = checkup_track.voiture_exemplaire
+
         if request.method == "POST":
             form = CheckupTrackForm(
                 request.POST,
                 instance=checkup_track,
-                user=request.user,       # 🔑 important pour initialiser technicien/societe
-                exemplaire=checkup_track.voiture_exemplaire
+                user=request.user,
+                exemplaire=exemplaire
             )
+
             if form.is_valid():
                 form.save()
-                messages.success(request, _("checkup piste modifié avec succès !"))
-                return redirect("checkup_track:modifier_checkup_track", checkup_track_id=checkup_track.id)
-            else:
-                messages.error(request, _("Le formulaire contient des erreurs."))
-                print(form.errors)
 
-        # -------------------------
-        # GET
-        # -------------------------
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=_("Modification checkup piste - %(immatriculation)s") % {
+                        "immatriculation": exemplaire.immatriculation
+                    }
+                )
+
+                messages.success(request, _("Checkup piste modifié avec succès !"))
+
+                return redirect(
+                    "checkup_track:modifier_checkup_track",
+                    checkup_track_id=checkup_track.id
+                )
+
+            messages.error(request, _("Le formulaire contient des erreurs."))
+            print(form.errors)
+
         else:
             form = CheckupTrackForm(
                 instance=checkup_track,
                 user=request.user,
-                exemplaire=checkup_track.voiture_exemplaire
+                exemplaire=exemplaire
             )
 
     return render(
@@ -304,9 +320,10 @@ def modifier_checkup_track_view(request, checkup_track_id):
         {
             "form": form,
             "checkup_track": checkup_track,
-            "exemplaire": checkup_track.voiture_exemplaire,
+            "exemplaire": exemplaire,
         }
     )
+
 
 
 @login_required

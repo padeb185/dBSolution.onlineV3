@@ -5,6 +5,7 @@ from django.utils.translation import gettext as _
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.views.decorators.cache import never_cache
 from utilisateurs.forms import LoginForm
+from utilisateurs.models import UserLog
 
 
 def home(request):
@@ -88,10 +89,7 @@ def dashboard(request):
 
 
 
-
-
 @login_required
 def logout_view(request):
-    """Déconnexion de l'utilisateur"""
     auth_logout(request)
     return redirect("login")

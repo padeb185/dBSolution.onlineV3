@@ -38,6 +38,9 @@ from maindoeuvre.models import MainDoeuvre
 from proprietaire.models import Proprietaire
 from client_atelier.models import ClientAtelier
 from client_pilotage.models import ClientPilotage
+from django.contrib.auth.signals import user_logged_in, user_logged_out
+from django.dispatch import receiver
+
 
 
 
@@ -483,8 +486,7 @@ def liste_utilisateurs(request):
     })
 
 
-from django.contrib.auth.signals import user_logged_in
-from django.dispatch import receiver
+
 
 @receiver(user_logged_in)
 def log_connexion(sender, request, user, **kwargs):
@@ -492,3 +494,12 @@ def log_connexion(sender, request, user, **kwargs):
         utilisateur=user,
         action="Connexion"
     )
+
+
+@receiver(user_logged_out)
+def log_deconnexion(sender, request, user, **kwargs):
+    if user:
+        UserLog.objects.create(
+            utilisateur=user,
+            action="Déconnexion"
+        )
