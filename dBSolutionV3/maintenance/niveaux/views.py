@@ -9,6 +9,7 @@ from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
 from django_tenants.utils import tenant_context
 from maintenance.models import Maintenance
+from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from maintenance.nettoyage_exterieur.models import NettoyageExterieur
@@ -171,6 +172,13 @@ def niveau_form_view(request, exemplaire_id):
                         niveau.maintenance = maintenance
                         niveau.save()
 
+                        UserLog.objects.create(
+                            utilisateur=request.user,
+                            action=_("Niveaux - %(immatriculation)s") % {
+                                "immatriculation": exemplaire.immatriculation
+                            }
+                        )
+
                     messages.success(request, _("Controle des niveaux enregistré avec succès."))
 
                 except Exception as e:
@@ -232,7 +240,7 @@ def modifier_niveau_view(request, niveau_id):
             Niveau.objects.select_related("voiture_exemplaire"),
             id=niveau_id
         )
-
+        exemplaire = niveau.voiture_exemplaire
         # -------------------------
         # POST
         # -------------------------
@@ -245,6 +253,14 @@ def modifier_niveau_view(request, niveau_id):
             )
             if form.is_valid():
                 form.save()
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=_("Modification niveaux - %(immatriculation)s") % {
+                        "immatriculation": exemplaire.immatriculation
+                    }
+                )
+
                 messages.success(request, _("Contrôle des niveaux modifié avec succès !"))
 
             else:

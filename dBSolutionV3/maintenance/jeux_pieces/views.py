@@ -11,6 +11,7 @@ from django_tenants.utils import tenant_context
 from maintenance.models import Maintenance
 from maintenance.jeux_pieces.models import ControleJeuxPieces
 from maintenance.jeux_pieces.forms import ControleJeuxPiecesForm
+from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
@@ -178,6 +179,13 @@ def controle_jeux_pieces_view(request, exemplaire_id):
                         controle.maintenance = maintenance
                         controle.save()
 
+                        UserLog.objects.create(
+                            utilisateur=request.user,
+                            action=_("Modification jeux - %(immatriculation)s") % {
+                                "immatriculation": exemplaire.immatriculation
+                            }
+                        )
+
 
                     messages.success(request, _("Contrôle des jeux enregistré avec succès."))
 
@@ -239,7 +247,7 @@ def modifier_jeux_pieces_view(request, jeu_id):
             ControleJeuxPieces.objects.select_related("voiture_exemplaire"),
             id=jeu_id
         )
-
+        exemplaire = jeu.voiture_exemplaire
         # -------------------------
         # POST
         # -------------------------
@@ -252,6 +260,14 @@ def modifier_jeux_pieces_view(request, jeu_id):
             )
             if form.is_valid():
                 form.save()
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=_("Modification checkup - %(immatriculation)s") % {
+                        "immatriculation": exemplaire.immatriculation
+                    }
+                )
+
                 messages.success(request, _("Contrôle des jeux modifié avec succès !"))
 
             else:

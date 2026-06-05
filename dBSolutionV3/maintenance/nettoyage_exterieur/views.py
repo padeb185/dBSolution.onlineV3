@@ -9,6 +9,7 @@ from django.views.generic import ListView
 from django_tenants.utils import tenant_context
 from django.db.models import Q
 from maintenance.models import Maintenance
+from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from maintenance.nettoyage_exterieur.models import NettoyageExterieur
 from maintenance.nettoyage_exterieur.forms import NettoyageExterieurForm
@@ -150,6 +151,13 @@ def nettoyage_exterieur_view(request, exemplaire_id):
 
                         nettoyage_ext.save()
 
+                        UserLog.objects.create(
+                            utilisateur=request.user,
+                            action=_("Nettoyage extérieur - %(immatriculation)s") % {
+                                "immatriculation": exemplaire.immatriculation
+                            }
+                        )
+
                     messages.success(
                         request,
                         _("Nettoyage extérieur enregistré avec succès.")
@@ -228,10 +236,20 @@ def modifier_nettoyage_ext_view(request, nettoyage_ext_id):
             tech_technicien__societe=tenant
         )
 
+        exemplaire = nettoyage_exterieur.voiture_exemplaire
+
         if request.method == "POST":
             form = NettoyageExterieurForm(request.POST, instance=nettoyage_exterieur, user=request.user)
             if form.is_valid():
                 form.save()
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=_("Modification nettoyage extérieur - %(immatriculation)s") % {
+                        "immatriculation": exemplaire.immatriculation
+                    }
+                )
+
                 messages.success(request, _("Nettoyage extérieur modifié avec succès !"))
 
         else:

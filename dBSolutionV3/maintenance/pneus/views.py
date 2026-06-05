@@ -8,6 +8,7 @@ from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
 from django_tenants.utils import tenant_context
 from maintenance.models import Maintenance
+from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from maintenance.nettoyage_exterieur.models import NettoyageExterieur
@@ -174,6 +175,13 @@ def controle_pneus_view(request, exemplaire_id):
                         pneus.maintenance = maintenance
                         pneus.save()
 
+                        UserLog.objects.create(
+                            utilisateur=request.user,
+                            action=_("Pneus - %(immatriculation)s") % {
+                                "immatriculation": exemplaire.immatriculation
+                            }
+                        )
+
                         messages.success(request, _("Contrôle pneus enregistré avec succès."))
 
                 except Exception as e:
@@ -232,7 +240,7 @@ def modifier_pneus_view(request, pneu_id):
             ControlePneus.objects.select_related("voiture_exemplaire"),
             id=pneu_id
         )
-
+        exemplaire = pneus.voiture_exemplaire
         # -------------------------
         # POST
         # -------------------------
@@ -245,6 +253,14 @@ def modifier_pneus_view(request, pneu_id):
             )
             if form.is_valid():
                 form.save()
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=_("Modification checkup - %(immatriculation)s") % {
+                        "immatriculation": exemplaire.immatriculation
+                    }
+                )
+
                 messages.success(request, _("Contrôle des pneus modifié avec succès !"))
                 return redirect("pneus:modifier_pneus", pneu_id=pneus.id)
             else:

@@ -18,8 +18,7 @@ from utilisateurs.apprentis.models import Apprenti
 from utilisateurs.chef_mecanicien.models import ChefMecanicien
 from utilisateurs.direction.models import Direction
 from utilisateurs.magasinier.models import Magasinier
-from utilisateurs.models import Mecanicien
-
+from utilisateurs.models import Mecanicien, UserLog
 
 
 # -----------------------------
@@ -184,6 +183,14 @@ def controle_freins_view(request, exemplaire_id):
                     controle_freins.maintenance = maintenance
                     controle_freins.save()
 
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=_("Freins - %(immatriculation)s") % {
+                            "immatriculation": exemplaire.immatriculation
+                        }
+                    )
+
+
                     messages.success(request, _("Contrôle freins enregistré avec succès."))
 
 
@@ -250,7 +257,7 @@ def modifier_freins_view(request, frein_id):
             ControleFreins.objects.select_related("voiture_exemplaire"),
             id=frein_id
         )
-
+        exemplaire = frein.voiture_exemplaire
         # -------------------------
         # POST
         # -------------------------
@@ -263,6 +270,14 @@ def modifier_freins_view(request, frein_id):
             )
             if form.is_valid():
                 form.save()
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=_("Modification freins - %(immatriculation)s") % {
+                        "immatriculation": exemplaire.immatriculation
+                    }
+                )
+
                 messages.success(request, _("Contrôle freins modifié avec succès !"))
                 return redirect("freins:modifier_freins", frein_id=frein.id)
             else:

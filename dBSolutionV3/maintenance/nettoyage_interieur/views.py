@@ -9,6 +9,7 @@ from django.views.generic import ListView
 from django_tenants.utils import tenant_context
 from django.db.models import Q
 from maintenance.models import Maintenance
+from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.utils.translation import gettext_lazy as _
 from .forms import NettoyageInterieurForm
@@ -181,6 +182,13 @@ def nettoyage_interieur_view(request, exemplaire_id, nettoyage_int=None):
 
                         nettoyage_int.save()
 
+                        UserLog.objects.create(
+                            utilisateur=request.user,
+                            action=_("Nettoyage intérieur - %(immatriculation)s") % {
+                                "immatriculation": exemplaire.immatriculation
+                            }
+                        )
+
                     messages.success(request, _("Nettoyage intérieur enregistré avec succès."))
 
 
@@ -237,6 +245,7 @@ def modifier_nettoyage_int_view(request, nettoyage_int_id):
             NettoyageInterieur.objects.select_related("voiture_exemplaire"),
             id=nettoyage_int_id,
         )
+        exemplaire = nettoyage_interieur.exemplaire
 
         if request.method == "POST":
             form = NettoyageInterieurForm(
@@ -253,6 +262,14 @@ def modifier_nettoyage_int_view(request, nettoyage_int_id):
                     nettoyage_interieur.assign_technicien(request.user)
 
                 nettoyage_interieur.save()
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=_("Modification checkup - %(immatriculation)s") % {
+                        "immatriculation": exemplaire.immatriculation
+                    }
+                )
+
                 messages.success(request, _("Nettoyage intérieur modifié avec succès !"))
 
 

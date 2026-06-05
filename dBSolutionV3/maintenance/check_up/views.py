@@ -16,7 +16,7 @@ from maintenance.check_up.forms import CheckupForm
 from maintenance.check_up.models import Checkup
 from utilisateurs.apprentis.models import Apprenti
 from utilisateurs.chef_mecanicien.models import ChefMecanicien
-from utilisateurs.models import Mecanicien
+from utilisateurs.models import Mecanicien, UserLog
 from utilisateurs.magasinier.models import Magasinier
 from utilisateurs.direction.models import Direction
 from voiture.voiture_moteur.models import MoteurVoiture
@@ -168,6 +168,13 @@ def controle_total_view(request, exemplaire_id):
 
                         checkup.save()
 
+                        UserLog.objects.create(
+                            utilisateur=request.user,
+                            action=_("Checkup - %(immatriculation)s") % {
+                                "immatriculation": exemplaire.immatriculation
+                            }
+                        )
+
                     messages.success(
                         request,
                         _("Checkup enregistré avec succès.")
@@ -236,6 +243,7 @@ def modifier_checkup_view(request, checkup_id):
             id=checkup_id
         )
 
+        exemplaire = checkup.voiture_exemplaire
         # -------------------------
         # POST
         # -------------------------
@@ -248,6 +256,14 @@ def modifier_checkup_view(request, checkup_id):
             )
             if form.is_valid():
                 form.save()
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=_("Modification checkup - %(immatriculation)s") % {
+                        "immatriculation": exemplaire.immatriculation
+                    }
+                )
+
                 messages.success(request, _("Checkup modifié avec succès !"))
                 return redirect("check_up:modifier_checkup", checkup_id=checkup.id)
             else:

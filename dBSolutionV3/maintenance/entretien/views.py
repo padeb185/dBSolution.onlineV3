@@ -9,6 +9,7 @@ from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
 from django_tenants.utils import tenant_context
 from maintenance.models import Maintenance
+from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
@@ -190,6 +191,13 @@ def entretien_check_view(request, exemplaire_id):
                     entretien.maintenance = maintenance
                     entretien.save()
 
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=_("Entretien - %(immatriculation)s") % {
+                            "immatriculation": exemplaire.immatriculation
+                        }
+                    )
+
                     messages.success(request, _("Entretien enregistré avec succès."))
 
                 except Exception as e:
@@ -266,6 +274,8 @@ def modifier_entretien_view(request, entretien_id):
             id=entretien_id
         )
 
+        exemplaire = entretien.voiture_exemplaire
+
         # -------------------------
         # POST
         # -------------------------
@@ -278,6 +288,14 @@ def modifier_entretien_view(request, entretien_id):
             )
             if form.is_valid():
                 form.save()
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=_("Modification entretien - %(immatriculation)s") % {
+                        "immatriculation": exemplaire.immatriculation
+                    }
+                )
+
                 messages.success(request, _("Entretien modifié avec succès !"))
                 return redirect("entretien:modifier_entretien", entretien_id=entretien.id)
             else:

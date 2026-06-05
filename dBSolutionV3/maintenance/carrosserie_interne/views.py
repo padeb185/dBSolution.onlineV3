@@ -10,6 +10,7 @@ from django.utils.translation import gettext as _
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView, CreateView
 from django_tenants.utils import tenant_context
+from utilisateurs.models import UserLog
 from .forms import CarrosserieInterneForm
 from .models import CarrosserieInterne
 from carrosserie.models import Carrosserie
@@ -227,6 +228,13 @@ def carrosserie_interne_create_view(request, exemplaire_id):
 
                         carrosserie_interne.maintenance = maintenance
                         carrosserie_interne.save()
+
+                        UserLog.objects.create(
+                            utilisateur=request.user,
+                            action=_("Carrosserie  - %(immatriculation)s") % {
+                                "immatriculation": exemplaire.immatriculation
+                            }
+                        )
 
                     messages.success(request, _("Intervention carrosserie enregistrée avec succès."))
 
@@ -684,6 +692,8 @@ def modifier_carrosserie_interne_view(request, carrosserie_interne_id):
             id=carrosserie_interne_id
         )
 
+        exemplaire = carrosserie_interne.voiture_exemplaire
+
         # -------------------------
         # Gestion POST
         # -------------------------
@@ -696,6 +706,14 @@ def modifier_carrosserie_interne_view(request, carrosserie_interne_id):
             )
             if form.is_valid():
                 form.save()
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=_("Modification carrosserie - %(immatriculation)s") % {
+                        "immatriculation": exemplaire.immatriculation
+                    }
+                )
+
                 messages.success(request, _("Carrosserie modifiée avec succès !"))
    
             else:
