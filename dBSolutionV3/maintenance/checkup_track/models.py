@@ -396,11 +396,16 @@ class CheckupTrack(TechnicienMixin, models.Model):
     def clean(self):
         super().clean()
         if self.voiture_exemplaire and self.kilometrage_checkup_track is not None:
-            if self.kilometrage_checkup_track is not None and self.voiture_exemplaire:
+            if (
+                    self.kilometrage_checkup_track is not None
+                    and self.voiture_exemplaire
+                    and self.kilometrage_checkup_track < self.voiture_exemplaire.kilometres_chassis
+            ):
                 raise ValidationError({
                     'kilometrage_checkup_track': _(
                         f"Le kilométrage du check-up ({self.kilometrage_checkup_track}) "
-                        f"ne peut pas être inférieur au kilométrage actuel de la voiture ({self.voiture_exemplaire.kilometres_chassis})."
+                        f"ne peut pas être inférieur au kilométrage actuel de la voiture "
+                        f"({self.voiture_exemplaire.kilometres_chassis})."
                     )
                 })
 
@@ -415,15 +420,13 @@ class CheckupTrack(TechnicienMixin, models.Model):
         # ----------------------------
         # KILOMÉTRAGE CHECKUP
         # ----------------------------
-        if self.voiture_exemplaire and self.kilometrage_checkup_track is not None:
+        if self.kilometrage_checkup_track > self.voiture_exemplaire.kilometres_chassis:
+            self.voiture_exemplaire.kilometres_chassis = self.kilometrage_checkup_track
+            self.voiture_exemplaire.kilometres_dernier_entretien = self.kilometrage_checkup_track
+            self.voiture_exemplaire.date_derniere_intervention = timezone.now().date()
 
-            if self.kilometrage_checkup > self.voiture_exemplaire.kilometres_chassis:
-                self.voiture_exemplaire.kilometres_chassis = self.kilometrage_checkup_track
-                self.voiture_exemplaire.kilometres_dernier_entretien = self.kilometrage_checkup_track
-                self.voiture_exemplaire.date_derniere_intervention = timezone.now().date()
-
-                self.voiture_exemplaire.update_kilometres()
-                self.voiture_exemplaire.save()
+            self.voiture_exemplaire.update_kilometres()
+            self.voiture_exemplaire.save()
 
         # ----------------------------
         # MAIN D'OEUVRE (FIX UNIQUE SAVE)

@@ -368,7 +368,32 @@
         <img src="{% static 'icons/proprietaire.png' %}" alt="Propriétaire" class="w-[60px] h-[60px]">
     </a>
 
-</div>
+     <a href="{% url 'utilisateurs:creer_utilisateur' %}"
+            class="flex justify-between items-center bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+            <div>
+
+                <h2 class="text-lg font-semibold mb-2">{% trans "Créer un utilisateur" %}</h2>
+                <p>{% trans "Ajouter un nouvel employé" %}</p>
+            </div>
+                <img src="{% static 'icons/mecanicien.png' %}" alt="Utilisateur" style="width:60px; height:60px; margin-right:10px;">
+        </a>
+
+
+        <a href="{% url 'utilisateurs:liste_utilisateurs' %}"
+                   class="flex justify-between items-center bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+                    <!-- Texte à gauche -->
+            <div>
+                <h2 class="text-lg font-semibold mb-2">{% trans "Liste des utilisateurs" %}</h2>
+
+
+            </div>
+
+            <!-- Icône à droite -->
+            <img src="{% static 'icons/equipe.png' %}" alt="Utilisateur" style="width:60px; height:60px; margin-right:10px;">
+        </a>
+
+    </div>
+
 {% endif %}
 <br>
 <br>

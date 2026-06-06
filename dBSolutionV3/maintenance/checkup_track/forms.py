@@ -71,7 +71,6 @@ class CheckupTrackForm(forms.ModelForm):
 
         return km
 
-
     def save(self, commit=True):
         instance = super().save(commit=False)
 
@@ -79,13 +78,18 @@ class CheckupTrackForm(forms.ModelForm):
         voiture = self.exemplaire
 
         if km is not None and voiture:
-            instance.kilometrage_checkup = km
+            instance.kilometrage_checkup_track = km
             instance.voiture_exemplaire = voiture
 
-            # -------- MAIN D'ŒUVRE --------
+            if km > voiture.kilometres_chassis:
+                voiture.kilometres_chassis = km
+                voiture.kilometres_dernier_entretien = km
+                voiture.date_derniere_intervention = timezone.now().date()
+                voiture.update_kilometres()
+                voiture.save()
+
         heures = self.cleaned_data.get("temps_heures") or 0
         minutes = self.cleaned_data.get("temps_minutes") or 0
-
         total_minutes = heures * 60 + minutes
 
         main = instance.main_oeuvre
@@ -100,7 +104,6 @@ class CheckupTrackForm(forms.ModelForm):
             )
             instance.main_oeuvre = main
 
-        # Sauvegarde finale
         if commit:
             instance.save()
 
