@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-06 11:52+0200\n"
+"POT-Creation-Date: 2026-06-06 14:10+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4670,7 +4670,9 @@ msgstr ""
 
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/forms.py:151
 msgid "Le kilométrage de la boite ne peut pas dépasser celui du véhicule."
-msgstr "Der Kilometerstand des Getriebes darf den Kilometerstand des Fahrzeugs nicht überschreiten."
+msgstr ""
+"Der Kilometerstand des Getriebes darf den Kilometerstand des Fahrzeugs nicht "
+"überschreiten."
 
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/models.py:22
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:18
@@ -8009,11 +8011,10 @@ msgstr "Inspektion - %(immatriculation)s"
 msgid "Checkup enregistré avec succès."
 msgstr "Check erfolgreich gespeichert."
 
-#: maintenance/check_up/views.py:262 maintenance/jeux_pieces/views.py:266
-#: maintenance/nettoyage_interieur/views.py:268 maintenance/pneus/views.py:259
+#: maintenance/check_up/views.py:262
 #, python-format
 msgid "Modification checkup - %(immatriculation)s"
-msgstr "Inspektion geändert - %(immatriculation)s"
+msgstr "Checkup geändert - %(immatriculation)s"
 
 #: maintenance/check_up/views.py:267
 msgid "Checkup modifié avec succès !"
@@ -9053,12 +9054,17 @@ msgstr "Keine Spielkontrollen für dieses Fahrzeug erfasst."
 
 #: maintenance/jeux_pieces/views.py:184
 #, python-format
-msgid "Modification jeux - %(immatriculation)s"
-msgstr "Kontrolle des Lagerspiels geändert - %(immatriculation)s"
+msgid "Jeux - %(immatriculation)s"
+msgstr "Lagerspiels - %(immatriculation)s"
 
 #: maintenance/jeux_pieces/views.py:190
 msgid "Contrôle des jeux enregistré avec succès."
 msgstr "Spielkontrolle erfolgreich gespeichert."
+
+#: maintenance/jeux_pieces/views.py:266
+#, python-format
+msgid "Modification jeux - %(immatriculation)s"
+msgstr "Kontrolle des Lagerspiels geändert - %(immatriculation)s"
 
 #: maintenance/jeux_pieces/views.py:271
 msgid "Contrôle des jeux modifié avec succès !"
@@ -9246,6 +9252,11 @@ msgstr "Innenreinigung - %(immatriculation)s"
 #: maintenance/nettoyage_interieur/views.py:192
 msgid "Nettoyage intérieur enregistré avec succès."
 msgstr "Innenreinigung erfolgreich gespeichert."
+
+#: maintenance/nettoyage_interieur/views.py:268
+#, python-format
+msgid "Modification nettoyage intérieur - %(immatriculation)s"
+msgstr "Änderung der Innenreinigung - %(immatriculation)s"
 
 #: maintenance/nettoyage_interieur/views.py:273
 msgid "Nettoyage intérieur modifié avec succès !"
@@ -9508,6 +9519,11 @@ msgstr "Reifen - %(immatriculation)s"
 #: maintenance/pneus/views.py:185
 msgid "Contrôle pneus enregistré avec succès."
 msgstr "Reifenprüfung erfolgreich gespeichert."
+
+#: maintenance/pneus/views.py:259
+#, python-format
+msgid "Modification pneus - %(immatriculation)s"
+msgstr "Änderung der Reifen - %(immatriculation)s"
 
 #: maintenance/pneus/views.py:264
 msgid "Contrôle des pneus modifié avec succès !"
