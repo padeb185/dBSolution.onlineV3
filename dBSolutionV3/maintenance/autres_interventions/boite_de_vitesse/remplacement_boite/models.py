@@ -156,7 +156,7 @@ class RemplacementBoite(TechnicienMixin, models.Model):
 
 
 
-    nombre_remplacements = models.PositiveIntegerField(default=0, editable=False)
+    nombre_remplacements = models.PositiveIntegerField(default=1, editable=False)
 
     remplacement_effectue = models.BooleanField(
         default=False,
@@ -258,6 +258,17 @@ class RemplacementBoite(TechnicienMixin, models.Model):
 
 
     def save(self, *args, **kwargs):
+
+        is_new = not RemplacementBoite.objects.filter(pk=self.pk).exists()
+
+        if is_new and self.voiture_exemplaire_id:
+            self.nombre_remplacements = (
+                    RemplacementBoite.objects.filter(
+                        voiture_exemplaire_id=self.voiture_exemplaire_id,
+                        remplacement_effectue=True
+                    ).count() + 1
+            )
+
         km = self.kilometres_chassis or 0
 
         # -------------------------
@@ -266,7 +277,7 @@ class RemplacementBoite(TechnicienMixin, models.Model):
         if self.remplacement_effectue:
             # on stocke le km de référence
             if not self.kilometres_remplacement_boite:
-                self.kilometres_remplacement_moteur = km
+                self.kilometres_remplacement_boite = km
 
             # moteur remis à 0
             self.voiture_exemplaire.kilometres_boite = km - (self.kilometres_remplacement_boite or km)

@@ -68,6 +68,7 @@
                 </h2>
 
                 {% for field in section.fields %}
+                    {% if field.name != "nombre_remplacements" %}
                     <div class="mb-4">
                         {% if field.field.widget.input_type == "checkbox" %}
                             <label class="inline-flex items-center gap-2">
@@ -91,9 +92,17 @@
                             {% endif %}
                         {% endif %}
                     </div>
+                    {% endif %}
                 {% endfor %}
             </div>
         {% endfor %}
+
+        <div class="mb-4">
+            <label class="block font-semibold mb-1">
+                {{ form.nombre_remplacements.label }}
+            </label>
+            {% render_field form.nombre_remplacements class="input" %}
+        </div>
 
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/main-doeuvre.png' %}" alt="Temps"
@@ -116,7 +125,7 @@
                 {% trans "Enregistrer" %}
             </button>
 
-            <a href="{% url 'moteur:dashboard_moteur' exemplaire.id %}"
+            <a href="{% url 'boite_de_vitesse:dashboard_boite' exemplaire.id %}"
                class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
                 {% trans "Annuler" %}
             </a>
