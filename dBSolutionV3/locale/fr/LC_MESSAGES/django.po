@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-06 08:43+0200\n"
+"POT-Creation-Date: 2026-06-06 11:52+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -8254,7 +8254,13 @@ msgstr ""
 msgid "Prête pour :"
 msgstr ""
 
-#: maintenance/checkup_track/models.py:432
+#: maintenance/checkup_track/models.py:407
+#: maintenance/nettoyage_exterieur/models.py:158
+#: maintenance/nettoyage_interieur/models.py:187
+msgid "ne peut pas être inférieur au kilométrage actuel de la voiture "
+msgstr ""
+
+#: maintenance/checkup_track/models.py:435
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Checkup piste"
@@ -9199,11 +9205,6 @@ msgstr ""
 
 #: maintenance/nettoyage_exterieur/models.py:144
 msgid "Nettoyages extérieurs"
-msgstr ""
-
-#: maintenance/nettoyage_exterieur/models.py:158
-#: maintenance/nettoyage_interieur/models.py:187
-msgid "ne peut pas être inférieur au kilométrage actuel de la voiture "
 msgstr ""
 
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/modifier_nettoyage_ext.html:22
@@ -13001,6 +13002,7 @@ msgid "Administrateurs"
 msgstr ""
 
 #: theme/templates/admin/dashboard_admin.html:50
+#: theme/templates/dashboard.html:375
 #: utilisateurs/templates/utilisateurs/creer_utilisateur.html:8
 msgid "Créer un utilisateur"
 msgstr ""
@@ -13113,13 +13115,22 @@ msgstr ""
 msgid "Sociétés clientes"
 msgstr ""
 
-#: theme/templates/dashboard.html:379
+#: theme/templates/dashboard.html:376
+msgid "Ajouter un nouvel employé"
+msgstr ""
+
+#: theme/templates/dashboard.html:386
+#: utilisateurs/templates/utilisateurs/liste_utilisateurs.html:8
+msgid "Liste des utilisateurs"
+msgstr ""
+
+#: theme/templates/dashboard.html:403
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Administrateur"
 msgstr "Tableau de Bord"
 
-#: theme/templates/dashboard.html:387
+#: theme/templates/dashboard.html:411
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Tableau de bord Admin"
@@ -13199,10 +13210,6 @@ msgstr ""
 
 #: utilisateurs/models.py:88 utilisateurs/views.py:317
 msgid "Comptable"
-msgstr ""
-
-#: utilisateurs/templates/utilisateurs/liste_utilisateurs.html:8
-msgid "Liste des utilisateurs"
 msgstr ""
 
 #: utilisateurs/templates/utilisateurs/liste_utilisateurs.html:17
