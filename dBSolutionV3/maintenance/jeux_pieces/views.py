@@ -181,7 +181,7 @@ def controle_jeux_pieces_view(request, exemplaire_id):
 
                         UserLog.objects.create(
                             utilisateur=request.user,
-                            action=_("Modification jeux - %(immatriculation)s") % {
+                            action=_("Jeux - %(immatriculation)s") % {
                                 "immatriculation": exemplaire.immatriculation
                             }
                         )
@@ -263,7 +263,7 @@ def modifier_jeux_pieces_view(request, jeu_id):
 
                 UserLog.objects.create(
                     utilisateur=request.user,
-                    action=_("Modification checkup - %(immatriculation)s") % {
+                    action=_("Modification jeux - %(immatriculation)s") % {
                         "immatriculation": exemplaire.immatriculation
                     }
                 )

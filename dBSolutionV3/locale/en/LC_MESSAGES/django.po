@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-06 08:43+0200\n"
+"POT-Creation-Date: 2026-06-06 14:07+0200\n"
 "PO-Revision-Date: 2025-12-13 12:10+0100\n"
 "Last-Translator: Pierre de Bournonville [EMAIL@ADDRESS]"
 "(mailto:EMAIL@ADDRESS)\n"
@@ -7999,8 +7999,7 @@ msgstr "Checkup - %(immatriculation)s"
 msgid "Checkup enregistré avec succès."
 msgstr "Checkup saved successfully."
 
-#: maintenance/check_up/views.py:262 maintenance/jeux_pieces/views.py:266
-#: maintenance/nettoyage_interieur/views.py:268 maintenance/pneus/views.py:259
+#: maintenance/check_up/views.py:262
 #, python-format
 msgid "Modification checkup - %(immatriculation)s"
 msgstr "Checkup Updated - %(immatriculation)s"
@@ -8156,7 +8155,13 @@ msgstr "Tow hook installed"
 msgid "Prête pour :"
 msgstr "Ready for:"
 
-#: maintenance/checkup_track/models.py:432
+#: maintenance/checkup_track/models.py:407
+#: maintenance/nettoyage_exterieur/models.py:158
+#: maintenance/nettoyage_interieur/models.py:187
+msgid "ne peut pas être inférieur au kilométrage actuel de la voiture "
+msgstr "Cannot be lower than the vehicle's current mileage"
+
+#: maintenance/checkup_track/models.py:435
 msgid "Checkup piste"
 msgstr "Track checkup"
 
@@ -9037,12 +9042,17 @@ msgstr "No play check recorded for this unit."
 
 #: maintenance/jeux_pieces/views.py:184
 #, python-format
-msgid "Modification jeux - %(immatriculation)s"
-msgstr "Play Check Updated - %(immatriculation)s"
+msgid "Jeux - %(immatriculation)s"
+msgstr "Play Check - %(immatriculation)s"
 
 #: maintenance/jeux_pieces/views.py:190
 msgid "Contrôle des jeux enregistré avec succès."
 msgstr "Play clearance check saved successfully."
+
+#: maintenance/jeux_pieces/views.py:266
+#, python-format
+msgid "Modification jeux - %(immatriculation)s"
+msgstr "Play Check Updated - %(immatriculation)s"
 
 #: maintenance/jeux_pieces/views.py:271
 msgid "Contrôle des jeux modifié avec succès !"
@@ -9086,11 +9096,6 @@ msgstr "Mileage at the time of exterior cleaning"
 #: maintenance/nettoyage_exterieur/models.py:144
 msgid "Nettoyages extérieurs"
 msgstr "Exterior cleanings"
-
-#: maintenance/nettoyage_exterieur/models.py:158
-#: maintenance/nettoyage_interieur/models.py:187
-msgid "ne peut pas être inférieur au kilométrage actuel de la voiture "
-msgstr "Cannot be lower than the vehicle's current mileage"
 
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/modifier_nettoyage_ext.html:22
 msgid "Modifier le nettoyage extérieur"
@@ -9228,12 +9233,18 @@ msgid "Nettoyage intérieur pour :"
 msgstr "Interior cleaning for :"
 
 #: maintenance/nettoyage_interieur/views.py:187
+#, python-format
 msgid "Nettoyage intérieur - %(immatriculation)s"
 msgstr "Interior cleanings - %(immatriculation)s"
 
 #: maintenance/nettoyage_interieur/views.py:192
 msgid "Nettoyage intérieur enregistré avec succès."
 msgstr "Interior cleaning successfully recorded."
+
+#: maintenance/nettoyage_interieur/views.py:268
+#, python-format
+msgid "Modification nettoyage intérieur - %(immatriculation)s"
+msgstr "Interior cleaning updated - %(immatriculation)s"
 
 #: maintenance/nettoyage_interieur/views.py:273
 msgid "Nettoyage intérieur modifié avec succès !"
@@ -9496,6 +9507,11 @@ msgstr "Tire Check - %(immatriculation)s"
 #: maintenance/pneus/views.py:185
 msgid "Contrôle pneus enregistré avec succès."
 msgstr "Tire inspection saved successfully."
+
+#: maintenance/pneus/views.py:259
+#, python-format
+msgid "Modification pneus - %(immatriculation)s"
+msgstr "Tires Check Updated - %(immatriculation)s"
 
 #: maintenance/pneus/views.py:264
 msgid "Contrôle des pneus modifié avec succès !"
@@ -12877,6 +12893,7 @@ msgid "Administrateurs"
 msgstr "Administrator"
 
 #: theme/templates/admin/dashboard_admin.html:50
+#: theme/templates/dashboard.html:375
 #: utilisateurs/templates/utilisateurs/creer_utilisateur.html:8
 msgid "Créer un utilisateur"
 msgstr "Create user"
@@ -12989,11 +13006,20 @@ msgstr "Customers"
 msgid "Sociétés clientes"
 msgstr "Customers companies"
 
-#: theme/templates/dashboard.html:379
+#: theme/templates/dashboard.html:376
+msgid "Ajouter un nouvel employé"
+msgstr "Add a new employee"
+
+#: theme/templates/dashboard.html:386
+#: utilisateurs/templates/utilisateurs/liste_utilisateurs.html:8
+msgid "Liste des utilisateurs"
+msgstr "Users List"
+
+#: theme/templates/dashboard.html:403
 msgid "Administrateur"
 msgstr "Administrator"
 
-#: theme/templates/dashboard.html:387
+#: theme/templates/dashboard.html:411
 msgid "Tableau de bord Admin"
 msgstr "Admin Dashboard"
 
@@ -13072,10 +13098,6 @@ msgstr "External Instructor"
 #: utilisateurs/models.py:88 utilisateurs/views.py:317
 msgid "Comptable"
 msgstr "Accountant"
-
-#: utilisateurs/templates/utilisateurs/liste_utilisateurs.html:8
-msgid "Liste des utilisateurs"
-msgstr "Users List"
 
 #: utilisateurs/templates/utilisateurs/liste_utilisateurs.html:17
 msgid "Email Google"

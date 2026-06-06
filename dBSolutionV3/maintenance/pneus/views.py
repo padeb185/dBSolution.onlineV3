@@ -256,7 +256,7 @@ def modifier_pneus_view(request, pneu_id):
 
                 UserLog.objects.create(
                     utilisateur=request.user,
-                    action=_("Modification checkup - %(immatriculation)s") % {
+                    action=_("Modification pneus - %(immatriculation)s") % {
                         "immatriculation": exemplaire.immatriculation
                     }
                 )

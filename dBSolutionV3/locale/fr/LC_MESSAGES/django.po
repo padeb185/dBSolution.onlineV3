@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-06 11:52+0200\n"
+"POT-Creation-Date: 2026-06-06 14:07+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -8095,8 +8095,7 @@ msgstr ""
 msgid "Checkup enregistré avec succès."
 msgstr ""
 
-#: maintenance/check_up/views.py:262 maintenance/jeux_pieces/views.py:266
-#: maintenance/nettoyage_interieur/views.py:268 maintenance/pneus/views.py:259
+#: maintenance/check_up/views.py:262
 #, python-format
 msgid "Modification checkup - %(immatriculation)s"
 msgstr ""
@@ -9154,12 +9153,18 @@ msgid "Aucun contrôle jeux enregistré pour cet exemplaire."
 msgstr ""
 
 #: maintenance/jeux_pieces/views.py:184
-#, python-format
-msgid "Modification jeux - %(immatriculation)s"
-msgstr ""
+#, fuzzy, python-format
+#| msgid "Tableau de bord"
+msgid "Jeux - %(immatriculation)s"
+msgstr "Tableau de Bord"
 
 #: maintenance/jeux_pieces/views.py:190
 msgid "Contrôle des jeux enregistré avec succès."
+msgstr ""
+
+#: maintenance/jeux_pieces/views.py:266
+#, python-format
+msgid "Modification jeux - %(immatriculation)s"
 msgstr ""
 
 #: maintenance/jeux_pieces/views.py:271
@@ -9354,6 +9359,12 @@ msgstr ""
 #: maintenance/nettoyage_interieur/views.py:192
 msgid "Nettoyage intérieur enregistré avec succès."
 msgstr ""
+
+#: maintenance/nettoyage_interieur/views.py:268
+#, fuzzy, python-format
+#| msgid "Tableau de bord"
+msgid "Modification nettoyage intérieur - %(immatriculation)s"
+msgstr "Tableau de Bord"
 
 #: maintenance/nettoyage_interieur/views.py:273
 msgid "Nettoyage intérieur modifié avec succès !"
@@ -9620,6 +9631,12 @@ msgstr ""
 #: maintenance/pneus/views.py:185
 msgid "Contrôle pneus enregistré avec succès."
 msgstr ""
+
+#: maintenance/pneus/views.py:259
+#, fuzzy, python-format
+#| msgid "Tableau de bord"
+msgid "Modification pneus - %(immatriculation)s"
+msgstr "Tableau de Bord"
 
 #: maintenance/pneus/views.py:264
 msgid "Contrôle des pneus modifié avec succès !"

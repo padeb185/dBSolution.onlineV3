@@ -265,7 +265,7 @@ def modifier_nettoyage_int_view(request, nettoyage_int_id):
 
                 UserLog.objects.create(
                     utilisateur=request.user,
-                    action=_("Modification checkup - %(immatriculation)s") % {
+                    action=_("Modification nettoyage intérieur - %(immatriculation)s") % {
                         "immatriculation": exemplaire.immatriculation
                     }
                 )
