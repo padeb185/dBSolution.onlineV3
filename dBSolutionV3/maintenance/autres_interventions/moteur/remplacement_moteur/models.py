@@ -97,7 +97,8 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
     )
 
     nombre_remplacements_moteurs = models.PositiveIntegerField(
-        default=0,
+        default=1,
+        editable=False,
         verbose_name=_("Nombre de remplacements"),
     )
 
@@ -274,6 +275,42 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
 
     def save(self, *args, **kwargs):
         km = self.kilometres_chassis or 0
+
+        is_new = not RemplacementMoteur.objects.filter(pk=self.pk).exists()
+
+        if is_new and self.voiture_exemplaire_id:
+            self.nombre_remplacements_moteurs = (
+                    RemplacementMoteur.objects.filter(
+                        voiture_exemplaire_id=self.voiture_exemplaire_id,
+                        remplacement_effectue=True
+                    ).count() + 1
+            )
+
+        if not self.voiture_exemplaire:
+            super().save(*args, **kwargs)
+            return
+
+        if self.remplacement_effectue:
+            if not self.kilometres_remplacement_moteur:
+                self.kilometres_remplacement_moteur = km
+
+            self.voiture_exemplaire.kilometres_moteur = max(
+                0,
+                km - self.kilometres_remplacement_moteur
+            )
+        else:
+            self.voiture_exemplaire.kilometres_moteur = km
+
+        self.voiture_exemplaire.save(update_fields=["kilometres_moteur"])
+
+        super().save(*args, **kwargs)
+
+        if self.main_oeuvre_id and self.voiture_exemplaire_id:
+            task_name = _("Remplacement moteur") + " " + str(self.voiture_exemplaire)
+
+            if self.main_oeuvre.descriptif != task_name:
+                self.main_oeuvre.descriptif = task_name
+                self.main_oeuvre.save(update_fields=["descriptif"])
 
         if not self.voiture_exemplaire:
             super().save(*args, **kwargs)
