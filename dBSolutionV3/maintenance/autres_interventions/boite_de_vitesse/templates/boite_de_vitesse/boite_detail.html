@@ -64,6 +64,14 @@
                 {% trans "Modifier le contrôle" %}
             </a>
         </div>
+
+        <div class="mb-6">
+            <a href="{% url 'boite_de_vitesse:boite_check_pdf' boite.id %}"
+                 class="block w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold text-center">
+                    {% trans "Télécharger le PDF" %}
+            </a>
+        </div>
+
     </div>
 
        <!-- Métadonnées -->

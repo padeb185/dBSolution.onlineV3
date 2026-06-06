@@ -1,3 +1,9 @@
+from datetime import datetime
+from decimal import Decimal
+
+from django.http import request, HttpResponse
+from django.template.loader import render_to_string
+
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
@@ -14,13 +20,11 @@ from django.db.models import Q
 from maintenance.nettoyage_exterieur.models import NettoyageExterieur
 from django.utils.translation import gettext_lazy as _
 from maintenance.autres_interventions.boite_de_vitesse.forms import ControleBoiteForm
-from maintenance.autres_interventions.boite_de_vitesse.models import ControleBoite
+from maintenance.autres_interventions.boite_de_vitesse.models import ControleBoite, BoiteVitesseEtat
 from maintenance.autres_interventions.boite_de_vitesse.remplacement_boite.models import RemplacementBoite
 from maintenance.types_maintenances import TYPES_MAINTENANCE
 from voiture.voiture_modele.models import VoitureModele
-
-
-
+from weasyprint import HTML
 
 
 # -----------------------------
@@ -386,5 +390,33 @@ def dashboard_boite_view(request, exemplaire_id):
         return render(request, "boite_de_vitesse/dashboard_boite.html", context)
 
 
+
+@login_required
+def boite_check_pdf_view(request, pk):
+    boite = get_object_or_404(ControleBoite, pk=pk)
+
+    rapport = boite.generer_rapport_remplacement()
+
+    html_string = render_to_string(
+        "boite_de_vitesse/boite_check_pdf.html",
+        {
+            "boite": boite,
+            "rapport": rapport,
+            "date_export": datetime.now(),
+            "societe": request.user.societe,
+        }
+    )
+
+    pdf = HTML(
+        string=html_string,
+        base_url=request.build_absolute_uri()
+    ).write_pdf()
+
+    response = HttpResponse(pdf, content_type="application/pdf")
+    response["Content-Disposition"] = (
+        f'attachment; filename="rapport_boite_de_vitesse_{pk}.pdf"'
+    )
+
+    return response
 
 

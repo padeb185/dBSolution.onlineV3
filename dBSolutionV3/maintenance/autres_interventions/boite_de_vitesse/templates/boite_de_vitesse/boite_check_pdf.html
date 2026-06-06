@@ -1,0 +1,386 @@
+{% load i18n %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+        }
+
+        h2 {
+            font-size: 14px;
+            margin-top: 20px;
+            margin-bottom: 8px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 4px;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        .tag {
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tag-vert {
+            background: #16a34a;
+        }
+
+        .tag-jaune {
+            background: #ca8a04;
+        }
+
+        .tag-rouge {
+            background: #dc2626;
+        }
+         .ok {
+            color: #16a34a;
+            font-weight: bold;
+        }
+
+        .not-ok {
+            color: #dc2626;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        table th,
+        table td {
+            border: 1px solid #ccc;
+            padding: 6px;
+            text-align: left;
+        }
+
+        table th {
+            background: #f3f3f3;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .total {
+            font-weight: bold;
+            background: #f8f8f8;
+        }
+    </style>
+</head>
+<body>
+
+<h1>{% trans "Détail du checkup boîte de vitesses" %}</h1>
+
+<!-- ================= INFOS GÉNÉRALES ================= -->
+
+<div class="box">
+
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Date" %} :</span>
+            {{ boite.date|date:"d/m/Y H:i" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+            {{ boite.tech_nom_technicien }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Société" %} :</span>
+            {{ boite.tech_societe }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Tag" %} :</span>
+
+            {% if boite.tag == "VERT" %}
+                <span class="tag tag-vert">
+                    {{ boite.get_tag_display }}
+                </span>
+
+            {% elif boite.tag == "JAUNE" %}
+                <span class="tag tag-jaune">
+                    {{ boite.get_tag_display }}
+                </span>
+
+            {% else %}
+                <span class="tag tag-rouge">
+                    {{ boite.get_tag_display }}
+                </span>
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Véhicule" %} :</span>
+            {{ boite.voiture_exemplaire }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage chassis" %} :</span>
+            {{ boite.kilometres_chassis }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage boîte" %} :</span>
+            {{ boite.kilometrage_controle_boite }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Qualité de l'huile" %} :</span>
+            {{ boite.get_man_huile_manuelle_qualite_display }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Quantité d'huile ajoutée" %} :</span>
+            {{ boite.man_huile_manuelle_quantite }} L
+        </div>
+
+    </div>
+
+</div>
+
+<h2>{% trans "État des composants de la boîte de vitesses" %}</h2>
+
+<div class="box">
+    <table>
+        <thead>
+            <tr>
+                <th>{% trans "Composant" %}</th>
+                <th>{% trans "État" %}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>{% trans "Disque d'embrayage" %}</td>
+                <td>
+                    {% if boite.bte_embrayage_disque == "OK" %}
+                        <span class="ok">{{ boite.get_bte_embrayage_disque_display }}</span>
+                    {% else %}
+                        <span class="not-ok">{{ boite.get_bte_embrayage_disque_display }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Plateau d'embrayage" %}</td>
+                <td>
+                    {% if boite.bte_embrayage_plateau == "OK" %}
+                        <span class="ok">{{ boite.get_bte_embrayage_plateau_display }}</span>
+                    {% else %}
+                        <span class="not-ok">{{ boite.get_bte_embrayage_plateau_display }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Arbre primaire" %}</td>
+                <td>
+                    {% if boite.bte_a_primaire == "OK" %}
+                        <span class="ok">{{ boite.get_bte_a_primaire_display }}</span>
+                    {% else %}
+                        <span class="not-ok">{{ boite.get_bte_a_primaire_display }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Arbre secondaire" %}</td>
+                <td>
+                    {% if boite.bte_a_secondaire == "OK" %}
+                        <span class="ok">{{ boite.get_bte_a_secondaire_display }}</span>
+                    {% else %}
+                        <span class="not-ok">{{ boite.get_bte_a_secondaire_display }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Roulement arbre primaire" %}</td>
+                <td>
+                    {% if boite.roulement_bte_primaire == "OK" %}
+                        <span class="ok">{{ boite.get_roulement_bte_primaire_display }}</span>
+                    {% else %}
+                        <span class="not-ok">{{ boite.get_roulement_bte_primaire_display }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Roulement arbre secondaire" %}</td>
+                <td>
+                    {% if boite.roulement_bte_secondaire == "OK" %}
+                        <span class="ok">{{ boite.get_roulement_bte_secondaire_display }}</span>
+                    {% else %}
+                        <span class="not-ok">{{ boite.get_roulement_bte_secondaire_display }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Roulement différentiel" %}</td>
+                <td>
+                    {% if boite.roulement_bte_differentiel == "OK" %}
+                        <span class="ok">{{ boite.get_roulement_bte_differentiel_display }}</span>
+                    {% else %}
+                        <span class="not-ok">{{ boite.get_roulement_bte_differentiel_display }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Pignon 1ère vitesse" %}</td>
+                <td>
+                    {% if boite.vitesse_1 == "OK" %}
+                        <span class="ok">{{ boite.get_vitesse_1_display }}</span>
+                    {% else %}
+                        <span class="not-ok">{{ boite.get_vitesse_1_display }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Pignon 2ème vitesse" %}</td>
+                <td>
+                    {% if boite.vitesse_2 == "OK" %}
+                        <span class="ok">{{ boite.get_vitesse_2_display }}</span>
+                    {% else %}
+                        <span class="not-ok">{{ boite.get_vitesse_2_display }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Pignon 3ème vitesse" %}</td>
+                <td>
+                    {% if boite.vitesse_3 == "OK" %}
+                        <span class="ok">{{ boite.get_vitesse_3_display }}</span>
+                    {% else %}
+                        <span class="not-ok">{{ boite.get_vitesse_3_display }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Pignon 4ème vitesse" %}</td>
+                <td>
+                    {% if boite.vitesse_4 == "OK" %}
+                        <span class="ok">{{ boite.get_vitesse_4_display }}</span>
+                    {% else %}
+                        <span class="not-ok">{{ boite.get_vitesse_4_display }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Pignon 5ème vitesse" %}</td>
+                <td>
+                    {% if boite.vitesse_5 == "OK" %}
+                        <span class="ok">{{ boite.get_vitesse_5_display }}</span>
+                    {% else %}
+                        <span class="not-ok">{{ boite.get_vitesse_5_display }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Pignon 6ème vitesse" %}</td>
+                <td>
+                    {% if boite.vitesse_6 == "OK" %}
+                        <span class="ok">{{ boite.get_vitesse_6_display }}</span>
+                    {% else %}
+                        <span class="not-ok">{{ boite.get_vitesse_6_display }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Pignon 7ème vitesse" %}</td>
+                <td>
+                    {% if boite.vitesse_7 == "OK" %}
+                        <span class="ok">{{ boite.get_vitesse_7_display }}</span>
+                    {% else %}
+                        <span class="not-ok">{{ boite.get_vitesse_7_display }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Pignon 8ème vitesse" %}</td>
+                <td>
+                    {% if boite.vitesse_8 == "OK" %}
+                        <span class="ok">{{ boite.get_vitesse_8_display }}</span>
+                    {% else %}
+                        <span class="not-ok">{{ boite.get_vitesse_8_display }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Pignon de marche arrière" %}</td>
+                <td>
+                    {% if boite.vitesse_r == "OK" %}
+                        <span class="ok">{{ boite.get_vitesse_r_display }}</span>
+                    {% else %}
+                        <span class="not-ok">{{ boite.get_vitesse_r_display }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Synchros" %}</td>
+                <td>
+                    {% if boite.synchros == "OK" %}
+                        <span class="ok">{{ boite.get_synchros_display }}</span>
+                    {% else %}
+                        <span class="not-ok">{{ boite.get_synchros_display }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Fourchettes" %}</td>
+                <td>
+                    {% if boite.fourchettes == "OK" %}
+                        <span class="ok">{{ boite.get_fourchettes_display }}</span>
+                    {% else %}
+                        <span class="not-ok">{{ boite.get_fourchettes_display }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

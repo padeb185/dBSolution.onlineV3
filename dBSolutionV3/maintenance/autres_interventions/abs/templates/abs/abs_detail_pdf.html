@@ -61,6 +61,15 @@
         .tag-rouge {
             background: #dc2626;
         }
+         .ok {
+            color: #16a34a;
+            font-weight: bold;
+        }
+
+        .not-ok {
+            color: #dc2626;
+            font-weight: bold;
+        }
 
         table {
             width: 100%;
@@ -174,42 +183,82 @@
         </thead>
 
         <tbody>
-
             <tr>
                 <td>{% trans "Pompe ABS" %}</td>
-                <td>{{ abs.get_pompe_abs_display }}</td>
+                <td>
+                    {% if abs.pompe_abs == "OK" %}
+                        <span class="ok">{{ abs.get_pompe_abs_display }}</span>
+                    {% else %}
+                        <span class="not-ok">{{ abs.get_pompe_abs_display }}</span>
+                    {% endif %}
+                </td>
             </tr>
 
             <tr>
                 <td>{% trans "Calculateur ABS" %}</td>
-                <td>{{ abs.get_calculateur_abs_display }}</td>
+                <td>
+                    {% if abs.calculateur_abs == "OK" %}
+                        <span class="ok">{{ abs.get_calculateur_abs_display }}</span>
+                    {% else %}
+                        <span class="not-ok">{{ abs.get_calculateur_abs_display }}</span>
+                    {% endif %}
+                </td>
             </tr>
 
             <tr>
                 <td>{% trans "Capteur ABS avant droit" %}</td>
-                <td>{{ abs.get_capteur_abs_avd_display }}</td>
+                <td>
+                    {% if abs.capteur_abs_avd == "OK" %}
+                        <span class="ok">{{ abs.get_capteur_abs_avd_display }}</span>
+                    {% else %}
+                        <span class="not-ok">{{ abs.get_capteur_abs_avd_display }}</span>
+                    {% endif %}
+                </td>
             </tr>
 
             <tr>
                 <td>{% trans "Capteur ABS avant gauche" %}</td>
-                <td>{{ abs.get_capteur_abs_avg_display }}</td>
+                <td>
+                    {% if abs.capteur_abs_avg == "OK" %}
+                        <span class="ok">{{ abs.get_capteur_abs_avg_display }}</span>
+                    {% else %}
+                        <span class="not-ok">{{ abs.get_capteur_abs_avg_display }}</span>
+                    {% endif %}
+                </td>
             </tr>
 
             <tr>
                 <td>{% trans "Capteur ABS arrière droit" %}</td>
-                <td>{{ abs.get_capteur_abs_ard_display }}</td>
+                <td>
+                    {% if abs.capteur_abs_ard == "OK" %}
+                        <span class="ok">{{ abs.get_capteur_abs_ard_display }}</span>
+                    {% else %}
+                        <span class="not-ok">{{ abs.get_capteur_abs_ard_display }}</span>
+                    {% endif %}
+                </td>
             </tr>
 
             <tr>
                 <td>{% trans "Capteur ABS arrière gauche" %}</td>
-                <td>{{ abs.get_capteur_abs_arg_display }}</td>
+                <td>
+                    {% if abs.capteur_abs_arg == "OK" %}
+                        <span class="ok">{{ abs.get_capteur_abs_arg_display }}</span>
+                    {% else %}
+                        <span class="not-ok">{{ abs.get_capteur_abs_arg_display }}</span>
+                    {% endif %}
+                </td>
             </tr>
 
             <tr>
                 <td>{% trans "Capteur ABS" %}</td>
-                <td>{{ abs.get_capteur_abs_display }}</td>
+                <td>
+                    {% if abs.capteur_abs == "OK" %}
+                        <span class="ok">{{ abs.get_capteur_abs_display }}</span>
+                    {% else %}
+                        <span class="not-ok">{{ abs.get_capteur_abs_display }}</span>
+                    {% endif %}
+                </td>
             </tr>
-
         </tbody>
     </table>
 

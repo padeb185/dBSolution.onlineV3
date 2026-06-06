@@ -217,6 +217,46 @@ class ControleBoite(TechnicienMixin, models.Model):
 
         super().save(*args, **kwargs)
 
+    def generer_rapport_remplacement(self):
+        rapport = []
+        total_general = Decimal("0")
+
+        for field in self._meta.fields:
+            field_name = field.name
+
+            if (
+                    isinstance(field, models.CharField)
+                    and field.choices == BoiteVitesseEtat.choices
+            ):
+                valeur = getattr(self, field_name)
+
+                if valeur == BoiteVitesseEtat.NOT_OK:
+                    prix = Decimal("0")
+                    quantite = Decimal("1")
+
+                    total = prix * quantite
+                    total_general += total
+
+                    rapport.append({
+                        "champ": field.verbose_name,
+                        "code": field_name,
+                        "prix": prix,
+                        "quantite": quantite,
+                        "total": total,
+                    })
+
+        return {
+            "lignes": rapport,
+            "total_general": total_general,
+        }
+
+    @property
+    def temps_main_oeuvre_display(self):
+        if not self.main_oeuvre:
+            return "0h00"
+        return self.main_oeuvre.temps_display
+
+
     @property
     def temps_main_oeuvre_display(self):
         if not self.main_oeuvre:
