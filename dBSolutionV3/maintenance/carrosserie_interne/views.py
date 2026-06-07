@@ -1,8 +1,11 @@
+from django.template.loader import render_to_string
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db import models, transaction
 from django.db.models import Q
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.utils.decorators import method_decorator
@@ -11,6 +14,7 @@ from django.views.decorators.cache import never_cache
 from django.views.generic import ListView, CreateView
 from django_tenants.utils import tenant_context
 from utilisateurs.models import UserLog
+from weasyprint import HTML
 from .forms import CarrosserieInterneForm
 from .models import CarrosserieInterne
 from carrosserie.models import Carrosserie
@@ -1129,6 +1133,8 @@ def modifier_carrosserie_interne_view(request, carrosserie_interne_id):
         }
     )
 
+
+
 @login_required
 def rapport_view(request, pk):
     obj = get_object_or_404(CarrosserieInterne, pk=pk)
@@ -1139,3 +1145,37 @@ def rapport_view(request, pk):
         "rapport": rapport,
         "obj": obj
     })
+
+
+
+
+@login_required
+def carrosserie_interne_pdf_view(request, carrosserie_id):
+    tenant = request.user.societe
+
+    with tenant_context(tenant):
+        carrosserie = get_object_or_404(
+            CarrosserieInterne.objects.select_related(
+                "voiture_exemplaire",
+                "tech_technicien",
+                "tech_societe",
+                "main_oeuvre",
+            ),
+            id=carrosserie_id
+        )
+
+        html_string = render_to_string(
+            "carrosserie_interne/carrosserie_interne_pdf.html",
+            {
+                "carrosserie": carrosserie,
+                "societe": tenant,
+            }
+        )
+
+        pdf = HTML(string=html_string, base_url=request.build_absolute_uri()).write_pdf()
+
+        response = HttpResponse(pdf, content_type="application/pdf")
+        response["Content-Disposition"] = (
+            f'inline; filename="carrosserie_interne_{carrosserie.id}.pdf"'
+        )
+        return response

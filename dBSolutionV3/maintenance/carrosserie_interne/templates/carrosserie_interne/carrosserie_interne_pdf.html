@@ -1,0 +1,215 @@
+{% load i18n %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+        }
+
+        h2 {
+            font-size: 15px;
+            margin-top: 22px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 4px;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 14px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        .tag {
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tag-vert { background: #16a34a; }
+        .tag-jaune { background: #ca8a04; }
+        .tag-rouge { background: #dc2626; }
+
+        .ok {
+            color: #16a34a;
+            font-weight: bold;
+        }
+
+        .not-ok {
+            color: #dc2626;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        table th,
+        table td {
+            border: 1px solid #ccc;
+            padding: 7px;
+            text-align: left;
+        }
+
+        table th {
+            background: #f3f3f3;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .total {
+            font-weight: bold;
+            background: #f8f8f8;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>{% trans "Rapport carrosserie interne" %}</h1>
+
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Date" %} :</span>
+            {{ carrosserie.date|date:"d/m/Y H:i" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+            {{ carrosserie.tech_nom_technicien }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Rôle" %} :</span>
+            {{ carrosserie.tech_role_technicien }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Société" %} :</span>
+            {{ carrosserie.tech_societe }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Véhicule" %} :</span>
+            {{ carrosserie.voiture_exemplaire }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage chassis" %} :</span>
+            {{ carrosserie.kilometres_chassis }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage intervention" %} :</span>
+            {{ carrosserie.kilometrage_intervention }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Tag" %} :</span>
+
+            {% if carrosserie.tag == "VERT" %}
+                <span class="tag tag-vert">{{ carrosserie.get_tag_display }}</span>
+            {% elif carrosserie.tag == "JAUNE" %}
+                <span class="tag tag-jaune">{{ carrosserie.get_tag_display }}</span>
+            {% else %}
+                <span class="tag tag-rouge">{{ carrosserie.get_tag_display }}</span>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<h2>{% trans "Main d'oeuvre" %}</h2>
+
+<div class="box">
+    <span class="label">{% trans "Temps de travail" %} :</span>
+    {{ carrosserie.temps_main_oeuvre_display }}
+</div>
+
+<h2>{% trans "Pièces à remplacer" %}</h2>
+
+<div class="box">
+
+    {% with rapport=carrosserie.generer_rapport_remplacement %}
+
+        {% if rapport.lignes %}
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>{% trans "Pièce" %}</th>
+                        <th>{% trans "Quantité" %}</th>
+                        <th>{% trans "Prix unitaire" %}</th>
+                        <th>{% trans "Total" %}</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for ligne in rapport.lignes %}
+                        <tr>
+                            <td>{{ ligne.champ }}</td>
+                            <td>{{ ligne.quantite }}</td>
+                            <td>{{ ligne.prix|floatformat:2 }} €</td>
+                            <td>{{ ligne.total|floatformat:2 }} €</td>
+                        </tr>
+                    {% endfor %}
+
+                    <tr class="total">
+                        <td colspan="3" class="text-right">
+                            {% trans "Total général" %}
+                        </td>
+                        <td>
+                            {{ rapport.total_general|floatformat:2 }} €
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        {% else %}
+
+            <p>{% trans "Aucune pièce à remplacer." %}</p>
+
+        {% endif %}
+
+    {% endwith %}
+
+</div>
+
+<h2>{% trans "Remarques" %}</h2>
+
+<div class="box">
+    {{ carrosserie.remarques|default:_("Aucune remarque.")|linebreaks }}
+</div>
+
+</body>
+</html>

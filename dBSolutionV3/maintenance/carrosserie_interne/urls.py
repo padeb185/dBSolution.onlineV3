@@ -1,8 +1,6 @@
 from django.urls import path
-
-from .models import CarrosserieInterne
 from .views import carrosserie_interne_create_view, carrosserie_interne_detail_view, modifier_carrosserie_interne_view, \
-    CarrosserieInterneListView, rapport_view
+    CarrosserieInterneListView, rapport_view, carrosserie_interne_pdf_view
 
 app_name = "carrosserie_interne"
 
@@ -22,6 +20,11 @@ urlpatterns = [
 
     path("rapport/<int:pk>/", rapport_view, name="rapport"),
 
+    path(
+        "<int:carrosserie_id>/pdf/",
+        carrosserie_interne_pdf_view,
+        name="carrosserie_interne_pdf"
+    ),
 ]
 
 
