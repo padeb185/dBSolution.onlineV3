@@ -1,0 +1,295 @@
+{% load i18n %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+        }
+
+        h2 {
+            font-size: 15px;
+            margin-top: 22px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 4px;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 14px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        .tag {
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tag-vert { background: #16a34a; }
+        .tag-jaune { background: #ca8a04; }
+        .tag-rouge { background: #dc2626; }
+
+        .ok {
+            color: #16a34a;
+            font-weight: bold;
+        }
+
+        .not-ok {
+            color: #dc2626;
+            font-weight: bold;
+        }
+
+        .remplace {
+            color: #2563eb;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        table th,
+        table td {
+            border: 1px solid #ccc;
+            padding: 7px;
+            text-align: left;
+        }
+
+        table th {
+            background: #f3f3f3;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>{% trans "Rapport de contrôle boîte automatique" %}</h1>
+
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Date" %} :</span>
+            {{ bte_auto.date|date:"d/m/Y H:i" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+            {{ bte_auto.tech_nom_technicien }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Rôle" %} :</span>
+            {{ bte_auto.tech_role_technicien }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Société" %} :</span>
+            {{ bte_auto.tech_societe }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Véhicule" %} :</span>
+            {{ bte_auto.voiture_exemplaire }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage chassis" %} :</span>
+            {{ bte_auto.kilometres_chassis }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage contrôle" %} :</span>
+            {{ bte_auto.kilometrage_controle_boite_auto }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Tag" %} :</span>
+
+            {% if bte_auto.tag == "VERT" %}
+                <span class="tag tag-vert">{{ bte_auto.get_tag_display }}</span>
+            {% elif bte_auto.tag == "JAUNE" %}
+                <span class="tag tag-jaune">{{ bte_auto.get_tag_display }}</span>
+            {% elif bte_auto.tag == "ROUGE" %}
+                <span class="tag tag-rouge">{{ bte_auto.get_tag_display }}</span>
+            {% else %}
+                {{ bte_auto.get_tag_display }}
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<h2>{% trans "Contrôle boîte automatique" %}</h2>
+
+<div class="box">
+    <table>
+        <thead>
+            <tr>
+                <th>{% trans "Élément contrôlé" %}</th>
+                <th>{% trans "Résultat" %}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td>{% trans "Convertisseur de couple" %}</td>
+                <td>
+                    {% if bte_auto.auto_emb_convertisseur_couple == "OK" %}
+                        <span class="ok">{{ bte_auto.get_auto_emb_convertisseur_couple_display }}</span>
+                    {% elif bte_auto.auto_emb_convertisseur_couple == "REMPLACE" %}
+                        <span class="remplace">{{ bte_auto.get_auto_emb_convertisseur_couple_display }}</span>
+                    {% else %}
+                        <span class="not-ok">{{ bte_auto.get_auto_emb_convertisseur_couple_display }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Embrayages automatiques" %}</td>
+                <td>
+                    {% if bte_auto.auto_emb_embrayages_auto == "OK" %}
+                        <span class="ok">{{ bte_auto.get_auto_emb_embrayages_auto_display }}</span>
+                    {% elif bte_auto.auto_emb_embrayages_auto == "REMPLACE" %}
+                        <span class="remplace">{{ bte_auto.get_auto_emb_embrayages_auto_display }}</span>
+                    {% else %}
+                        <span class="not-ok">{{ bte_auto.get_auto_emb_embrayages_auto_display }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Pompes à huile" %}</td>
+                <td>
+                    {% if bte_auto.pompes_huile == "OK" %}
+                        <span class="ok">{{ bte_auto.get_pompes_huile_display }}</span>
+                    {% elif bte_auto.pompes_huile == "REMPLACE" %}
+                        <span class="remplace">{{ bte_auto.get_pompes_huile_display }}</span>
+                    {% else %}
+                        <span class="not-ok">{{ bte_auto.get_pompes_huile_display }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Valves de contrôle" %}</td>
+                <td>
+                    {% if bte_auto.pompes_valves == "OK" %}
+                        <span class="ok">{{ bte_auto.get_pompes_valves_display }}</span>
+                    {% elif bte_auto.pompes_valves == "REMPLACE" %}
+                        <span class="remplace">{{ bte_auto.get_pompes_valves_display }}</span>
+                    {% else %}
+                        <span class="not-ok">{{ bte_auto.get_pompes_valves_display }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Arbre de couple" %}</td>
+                <td>
+                    {% if bte_auto.arbre_bte_torque == "OK" %}
+                        <span class="ok">{{ bte_auto.get_arbre_bte_torque_display }}</span>
+                    {% elif bte_auto.arbre_bte_torque == "REMPLACE" %}
+                        <span class="remplace">{{ bte_auto.get_arbre_bte_torque_display }}</span>
+                    {% else %}
+                        <span class="not-ok">{{ bte_auto.get_arbre_bte_torque_display }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Arbre secondaire" %}</td>
+                <td>
+                    {% if bte_auto.arbre_bte_secondaire_auto == "OK" %}
+                        <span class="ok">{{ bte_auto.get_arbre_bte_secondaire_auto_display }}</span>
+                    {% elif bte_auto.arbre_bte_secondaire_auto == "REMPLACE" %}
+                        <span class="remplace">{{ bte_auto.get_arbre_bte_secondaire_auto_display }}</span>
+                    {% else %}
+                        <span class="not-ok">{{ bte_auto.get_arbre_bte_secondaire_auto_display }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Roulements internes" %}</td>
+                <td>
+                    {% if bte_auto.roulement_auto == "OK" %}
+                        <span class="ok">{{ bte_auto.get_roulement_auto_display }}</span>
+                    {% elif bte_auto.roulement_auto == "REMPLACE" %}
+                        <span class="remplace">{{ bte_auto.get_roulement_auto_display }}</span>
+                    {% else %}
+                        <span class="not-ok">{{ bte_auto.get_roulement_auto_display }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+
+<h2>{% trans "Huile de boîte automatique" %}</h2>
+
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Qualité de l'huile" %} :</span>
+            {{ bte_auto.get_huile_auto_niveau_qualite_display }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Quantité d'huile ajoutée" %} :</span>
+            {{ bte_auto.huile_auto_niveau_quantite }} L
+        </div>
+
+    </div>
+</div>
+
+<h2>{% trans "Main d'oeuvre" %}</h2>
+
+<div class="box">
+    <span class="label">{% trans "Temps de travail" %} :</span>
+
+    {% if bte_auto.main_oeuvre %}
+        {{ bte_auto.main_oeuvre.temps_display }}
+    {% else %}
+        0h00
+    {% endif %}
+</div>
+
+<h2>{% trans "Remarques" %}</h2>
+
+<div class="box">
+    {{ bte_auto.remarques|default:_("Aucune remarque.")|linebreaks }}
+</div>
+
+</body>
+</html>

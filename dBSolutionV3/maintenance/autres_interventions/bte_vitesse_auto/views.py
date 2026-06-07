@@ -14,6 +14,9 @@ from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 from maintenance.autres_interventions.bte_vitesse_auto.forms import ControleBteVitesseAutoForm
 from maintenance.autres_interventions.bte_vitesse_auto.models import ControleBteVitesseAuto
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+from weasyprint import HTML
 
 
 # -----------------------------
@@ -293,3 +296,40 @@ def modifier_bte_auto_view(request, bte_auto_id):
             "exemplaire": bte_auto.voiture_exemplaire,
         }
     )
+
+
+
+@login_required
+def bte_auto_pdf_view(request, bte_auto_id):
+    tenant = request.user.societe
+
+    with tenant_context(tenant):
+        bte_auto = get_object_or_404(
+            ControleBteVitesseAuto.objects.select_related(
+                "voiture_exemplaire",
+                "tech_technicien",
+                "tech_societe",
+                "main_oeuvre",
+            ),
+            id=bte_auto_id
+        )
+
+        html_string = render_to_string(
+            "bte_auto/bte_auto_detail_pdf.html",
+            {
+                "bte_auto": bte_auto,
+                "societe": tenant,
+            }
+        )
+
+        pdf = HTML(
+            string=html_string,
+            base_url=request.build_absolute_uri()
+        ).write_pdf()
+
+        response = HttpResponse(pdf, content_type="application/pdf")
+        response["Content-Disposition"] = (
+            f'inline; filename="bte_auto_{bte_auto.id}.pdf"'
+        )
+
+        return response
