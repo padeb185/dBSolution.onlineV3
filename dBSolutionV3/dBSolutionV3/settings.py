@@ -261,6 +261,7 @@ LOGIN_URL = 'utilisateurs:login'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'utilisateurs:login'
 
+SESSION_COOKIE_AGE = 60 * 60 * 8  # 8 heures
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_SAVE_EVERY_REQUEST = True
 
