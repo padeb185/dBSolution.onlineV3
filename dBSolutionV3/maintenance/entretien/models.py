@@ -382,10 +382,12 @@ class Entretien(TechnicienMixin, models.Model):
     @property
     def temps_main_oeuvre_display(self):
         if not self.main_oeuvre:
-            return "0 h"
+            return "0h00"
 
-        heures = int(self.main_oeuvre.temps)
-        minutes = int((self.main_oeuvre.temps % 1) * 60)
+        temps_minutes = self.main_oeuvre.temps_minutes or 0
+
+        heures = temps_minutes // 60
+        minutes = temps_minutes % 60
 
         return f"{heures}h{minutes:02d}"
 

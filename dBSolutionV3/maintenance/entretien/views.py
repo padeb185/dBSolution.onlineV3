@@ -20,6 +20,10 @@ from utilisateurs.chef_mecanicien.models import ChefMecanicien
 from utilisateurs.direction.models import Direction
 from utilisateurs.magasinier.models import Magasinier
 from utilisateurs.mecanicien.models import Mecanicien
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+from weasyprint import HTML
+
 
 
 # -----------------------------
@@ -321,3 +325,44 @@ def modifier_entretien_view(request, entretien_id):
             "exemplaire": entretien.voiture_exemplaire,
         }
     )
+
+
+
+
+@login_required
+def entretien_pdf_view(request, entretien_id):
+    tenant = request.user.societe
+
+    with tenant_context(tenant):
+        entretien = get_object_or_404(
+            Entretien.objects.select_related(
+                "voiture_exemplaire",
+                "tech_technicien",
+                "tech_societe",
+                "main_oeuvre",
+                "piece",
+            ),
+            id=entretien_id
+        )
+
+        html_string = render_to_string(
+            "entretien/entretien_detail_pdf.html",
+            {
+                "entretien": entretien,
+                "date_export": timezone.now(),
+                "societe": tenant,
+            }
+        )
+
+        pdf = HTML(
+            string=html_string,
+            base_url=request.build_absolute_uri("/")
+        ).write_pdf()
+
+        response = HttpResponse(pdf, content_type="application/pdf")
+
+        response["Content-Disposition"] = (
+            f'inline; filename="entretien_{entretien.id}.pdf"'
+        )
+
+        return response

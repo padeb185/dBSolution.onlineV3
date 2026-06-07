@@ -1,6 +1,7 @@
 # maintenance/check_up/urls.py
 from django.urls import path
-from .views import EntretienListView, entretien_check_view, modifier_entretien_view, entretien_detail_view
+from .views import EntretienListView, entretien_check_view, modifier_entretien_view, entretien_detail_view, \
+    entretien_pdf_view
 
 app_name = "entretien"
 
@@ -17,6 +18,9 @@ urlpatterns = [
 
 
     path('<uuid:entretien_id>/detail/', entretien_detail_view, name='entretien_detail'),
+
+    path(
+        "entretien/<uuid:entretien_id>/pdf/", entretien_pdf_view, name="entretien_detail_pdf"),
 ]
 
 
