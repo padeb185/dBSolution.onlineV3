@@ -67,6 +67,15 @@
         .tag-rouge {
             background: #dc2626;
         }
+        .ok {
+            color: #16a34a;
+            font-weight: bold;
+        }
+
+        .not-ok {
+            color: #dc2626;
+            font-weight: bold;
+        }
 
         table {
             width: 100%;
@@ -156,7 +165,16 @@
 
         <div>
             {% trans "État alternateur" %} :
-            {{ alternateur.get_diagnostic_rapport_display }}
+
+            {% if alternateur.alternateur == "OK" %}
+                <span class="ok">
+                    {{ alternateur.get_alternateur_display }}
+                </span>
+            {% else %}
+                <span class="not-ok">
+                    {{ alternateur.get_alternateur_display }}
+                </span>
+            {% endif %}
         </div>
 
     </div>
@@ -170,9 +188,17 @@
 
         <div>
             {% trans "État" %} :
-            {{ alternateur.get_courroie_accessoires_display }}
-        </div>
 
+            {% if alternateur.courroie_accessoires == "OK" %}
+                <span class="ok">
+                    {{ alternateur.get_courroie_accessoires_display }}
+                </span>
+            {% else %}
+                <span class="not-ok">
+                    {{ alternateur.get_courroie_accessoires_display }}
+                </span>
+            {% endif %}
+        </div>
     </div>
 </div>
 
