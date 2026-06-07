@@ -1,16 +1,12 @@
-from django.shortcuts import get_object_or_404, redirect, render
-from django.contrib.auth.decorators import login_required
-from django.utils import timezone
+from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.db import transaction, models
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
-from django_tenants.utils import tenant_context
 from maintenance.models import Maintenance
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
-from maintenance.nettoyage_exterieur.models import NettoyageExterieur
 from django.utils.translation import gettext_lazy as _
 from maintenance.check_up.forms import CheckupForm
 from maintenance.check_up.models import Checkup
@@ -19,7 +15,13 @@ from utilisateurs.chef_mecanicien.models import ChefMecanicien
 from utilisateurs.models import Mecanicien, UserLog
 from utilisateurs.magasinier.models import Magasinier
 from utilisateurs.direction.models import Direction
-from voiture.voiture_moteur.models import MoteurVoiture
+from django.shortcuts import get_object_or_404
+from django.template.loader import render_to_string
+from django.http import HttpResponse
+from django.utils import timezone
+from django.contrib.auth.decorators import login_required
+from django_tenants.utils import tenant_context
+from weasyprint import HTML
 
 
 @method_decorator([login_required, never_cache], name='dispatch')
@@ -289,3 +291,39 @@ def modifier_checkup_view(request, checkup_id):
             "exemplaire": checkup.voiture_exemplaire,
         }
     )
+
+
+
+
+
+@login_required
+def checkup_pdf_view(request, checkup_id):
+    tenant = request.user.societe
+
+    with tenant_context(tenant):
+        checkup = get_object_or_404(
+            Checkup.objects.select_related(
+                "voiture_exemplaire",
+                "tech_technicien",
+                "tech_societe",
+                "main_oeuvre",
+            ),
+            id=checkup_id
+        )
+
+        html_string = render_to_string(
+            "check_up/checkup_detail_pdf.html",
+            {
+                "checkup": checkup,
+                "date_export": timezone.now(),
+                "societe": tenant,
+            }
+        )
+
+        pdf_file = HTML(string=html_string, base_url=request.build_absolute_uri()).write_pdf()
+
+        response = HttpResponse(pdf_file, content_type="application/pdf")
+        response["Content-Disposition"] = (
+            f'inline; filename="checkup_{checkup.voiture_exemplaire}_{checkup.id}.pdf"'
+        )
+        return response

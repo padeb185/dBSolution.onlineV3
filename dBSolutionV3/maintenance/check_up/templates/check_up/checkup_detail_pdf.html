@@ -1,0 +1,311 @@
+{% load i18n %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+        }
+
+        h2 {
+            font-size: 15px;
+            margin-top: 22px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 4px;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 14px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        .tag {
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tag-vert { background: #16a34a; }
+        .tag-jaune { background: #ca8a04; }
+        .tag-rouge { background: #dc2626; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        table th,
+        table td {
+            border: 1px solid #ccc;
+            padding: 7px;
+            text-align: left;
+        }
+
+        table th {
+            background: #f3f3f3;
+        }
+
+        .small {
+            font-size: 11px;
+            color: #555;
+            margin-top: 25px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>{% trans "Rapport de check-up général" %}</h1>
+
+<div class="box">
+    <div class="grid">
+
+        <div><span class="label">{% trans "Date" %} :</span> {{ checkup.date|date:"d/m/Y H:i" }}</div>
+        <div><span class="label">{% trans "Technicien" %} :</span> {{ checkup.tech_nom_technicien }}</div>
+        <div><span class="label">{% trans "Rôle" %} :</span> {{ checkup.tech_role_technicien }}</div>
+        <div><span class="label">{% trans "Société" %} :</span> {{ checkup.tech_societe }}</div>
+        <div><span class="label">{% trans "Véhicule" %} :</span> {{ checkup.voiture_exemplaire }}</div>
+        <div><span class="label">{% trans "Kilométrage chassis" %} :</span> {{ checkup.kilometres_chassis }} km</div>
+        <div><span class="label">{% trans "Kilométrage check-up" %} :</span> {{ checkup.kilometrage_checkup }} km</div>
+
+        <div>
+            <span class="label">{% trans "Tag" %} :</span>
+            {% if checkup.tag == "VERT" %}
+                <span class="tag tag-vert">{{ checkup.get_tag_display }}</span>
+            {% elif checkup.tag == "JAUNE" %}
+                <span class="tag tag-jaune">{{ checkup.get_tag_display }}</span>
+            {% else %}
+                <span class="tag tag-rouge">{{ checkup.get_tag_display }}</span>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<h2>{% trans "Essuie-glaces et pare-brise" %}</h2>
+<table>
+    <tr><th>{% trans "Élément" %}</th><th>{% trans "État" %}</th></tr>
+    <tr><td>{% trans "Essuie-glace avant" %}</td><td>{{ checkup.get_essuie_glace_av_display }}</td></tr>
+    <tr><td>{% trans "Essuie-glace arrière" %}</td><td>{{ checkup.get_essuie_glace_ar_display }}</td></tr>
+    <tr><td>{% trans "Balais avant à remplacer" %}</td><td>{{ checkup.get_balais_essuie_av_display }}</td></tr>
+    <tr><td>{% trans "Balai arrière à remplacer" %}</td><td>{{ checkup.get_balais_essuie_ar_display }}</td></tr>
+    <tr><td>{% trans "Pare-brise avec coups" %}</td><td>{{ checkup.get_pare_brise_coups_display }}</td></tr>
+    <tr><td>{% trans "Pare-brise à remplacer" %}</td><td>{{ checkup.get_pare_brise_remplacer_display }}</td></tr>
+</table>
+
+<h2>{% trans "Moteur" %}</h2>
+<table>
+    <tr><th>{% trans "Élément" %}</th><th>{% trans "Valeur" %}</th></tr>
+    <tr><td>{% trans "Fuite moteur" %}</td><td>{{ checkup.get_moteur_fuite_display }}</td></tr>
+    <tr><td>{% trans "Bruit moteur" %}</td><td>{{ checkup.get_moteur_bruit_display }}</td></tr>
+    <tr><td>{% trans "Perte de puissance" %}</td><td>{{ checkup.get_moteur_perte_display }}</td></tr>
+    <tr><td>{% trans "Moteur à remplacer" %}</td><td>{{ checkup.get_moteur_casse_display }}</td></tr>
+    <tr><td>{% trans "Niveau d'huile" %}</td><td>{{ checkup.get_moteur_niveau_huile_etat_display }}</td></tr>
+    <tr><td>{% trans "Quantité huile ajoutée" %}</td><td>{{ checkup.moteur_niveau_huile_quantite }} L</td></tr>
+    <tr><td>{% trans "Qualité huile" %}</td><td>{{ checkup.get_moteur_niveau_huile_qualite_display }}</td></tr>
+</table>
+
+<h2>{% trans "Boîte de vitesse" %}</h2>
+<table>
+    <tr><th>{% trans "Élément" %}</th><th>{% trans "Valeur" %}</th></tr>
+    <tr><td>{% trans "Fuite boîte" %}</td><td>{{ checkup.get_boite_fuite_display }}</td></tr>
+    <tr><td>{% trans "Bruit boîte" %}</td><td>{{ checkup.get_boite_bruit_display }}</td></tr>
+    <tr><td>{% trans "Problème d'embrayage" %}</td><td>{{ checkup.get_boite_embrayage_display }}</td></tr>
+    <tr><td>{% trans "Niveau d'huile" %}</td><td>{{ checkup.get_boite_niveau_huile_etat_display }}</td></tr>
+    <tr><td>{% trans "Quantité huile ajoutée" %}</td><td>{{ checkup.boite_niveau_huile_quantite }} L</td></tr>
+    <tr><td>{% trans "Qualité huile" %}</td><td>{{ checkup.get_boite_niveau_huile_qualite_display }}</td></tr>
+</table>
+
+<h2>{% trans "Pont arrière" %}</h2>
+<table>
+    <tr><th>{% trans "Élément" %}</th><th>{% trans "Valeur" %}</th></tr>
+    <tr><td>{% trans "Fuite pont arrière" %}</td><td>{{ checkup.get_pont_fuite_display }}</td></tr>
+    <tr><td>{% trans "Bruit pont arrière" %}</td><td>{{ checkup.get_pont_bruit_display }}</td></tr>
+    <tr><td>{% trans "Jeu pont arrière" %}</td><td>{{ checkup.get_pont_jeu_display }}</td></tr>
+    <tr><td>{% trans "Niveau d'huile" %}</td><td>{{ checkup.get_pont_niveau_huile_etat_display }}</td></tr>
+    <tr><td>{% trans "Quantité huile ajoutée" %}</td><td>{{ checkup.pont_niveau_huile_quantite }} L</td></tr>
+    <tr><td>{% trans "Qualité huile" %}</td><td>{{ checkup.get_pont_niveau_huile_qualite_display }}</td></tr>
+</table>
+
+<h2>{% trans "Refroidissement" %}</h2>
+<table>
+    <tr><th>{% trans "Élément" %}</th><th>{% trans "Valeur" %}</th></tr>
+    <tr><td>{% trans "Radiateur" %}</td><td>{{ checkup.get_refroidissement_radiateur_display }}</td></tr>
+    <tr><td>{% trans "Quantité ajoutée" %}</td><td>{{ checkup.refroidissement_quantite }} L</td></tr>
+    <tr><td>{% trans "Qualité liquide" %}</td><td>{{ checkup.get_refroidissement_qualite_display }}</td></tr>
+</table>
+
+<h2>{% trans "Freins" %}</h2>
+<table>
+    <tr><th>{% trans "Élément" %}</th><th>{% trans "Valeur" %}</th></tr>
+    <tr><td>{% trans "Usure plaquettes avant" %}</td><td>{{ checkup.freins_usure_plaquettes_av }} %</td></tr>
+    <tr><td>{% trans "Plaquettes avant à remplacer" %}</td><td>{{ checkup.get_freins_plaquettes_remplacer_av_display }}</td></tr>
+    <tr><td>{% trans "Épaisseur disques avant" %}</td><td>{{ checkup.freins_epaisseur_disques_av }} mm</td></tr>
+    <tr><td>{% trans "Fentes disques avant" %}</td><td>{{ checkup.get_freins_fentes_disques_av_display }}</td></tr>
+    <tr><td>{% trans "Disques avant à remplacer" %}</td><td>{{ checkup.get_freins_disques_remplacer_av_display }}</td></tr>
+
+    <tr><td>{% trans "Usure plaquettes arrière" %}</td><td>{{ checkup.freins_usure_plaquettes_ar }} %</td></tr>
+    <tr><td>{% trans "Plaquettes arrière à remplacer" %}</td><td>{{ checkup.get_freins_plaquettes_remplacer_ar_display }}</td></tr>
+    <tr><td>{% trans "Épaisseur disques arrière" %}</td><td>{{ checkup.freins_epaisseur_disques_ar }} mm</td></tr>
+    <tr><td>{% trans "Fentes disques arrière" %}</td><td>{{ checkup.get_freins_fentes_disques_ar_display }}</td></tr>
+    <tr><td>{% trans "Disques arrière à remplacer" %}</td><td>{{ checkup.get_freins_disques_remplacer_ar_display }}</td></tr>
+
+    <tr><td>{% trans "Présence de fuite" %}</td><td>{{ checkup.get_freins_fuites_display }}</td></tr>
+    <tr><td>{% trans "État liquide de frein" %}</td><td>{{ checkup.get_frein_liquide_frein_etat_display }}</td></tr>
+    <tr><td>{% trans "Remplacement liquide de frein" %}</td><td>{{ checkup.get_freins_remplacement_liquide_frein_display }}</td></tr>
+    <tr><td>{% trans "Spécification liquide de frein" %}</td><td>{{ checkup.freins_specif_liquide_frein|default:"-" }}</td></tr>
+    <tr><td>{% trans "Quantité liquide de frein" %}</td><td>{{ checkup.freins_quantite_liquide_frein }} L</td></tr>
+</table>
+
+<h2>{% trans "Direction et roulements" %}</h2>
+<table>
+    <tr><th>{% trans "Élément" %}</th><th>{% trans "État" %}</th></tr>
+    <tr><td>{% trans "Fuite direction assistée / crémaillère" %}</td><td>{{ checkup.get_direction_fuite_display }}</td></tr>
+    <tr><td>{% trans "Niveau liquide direction" %}</td><td>{{ checkup.niveau_direction }}</td></tr>
+    <tr><td>{% trans "Roulement avant droit" %}</td><td>{{ checkup.get_bruit_roulement_avd_display }}</td></tr>
+    <tr><td>{% trans "Roulement avant gauche" %}</td><td>{{ checkup.get_bruit_roulement_avg_display }}</td></tr>
+    <tr><td>{% trans "Roulement arrière droit" %}</td><td>{{ checkup.get_bruit_roulement_ard_display }}</td></tr>
+    <tr><td>{% trans "Roulement arrière gauche" %}</td><td>{{ checkup.get_bruit_roulement_arg_display }}</td></tr>
+</table>
+
+<h2>{% trans "Batterie" %}</h2>
+<table>
+    <tr><th>{% trans "Élément" %}</th><th>{% trans "État" %}</th></tr>
+    <tr><td>{% trans "État batterie" %}</td><td>{{ checkup.get_batterie_etat_display }}</td></tr>
+</table>
+
+<h2>{% trans "Jeux direction et suspension" %}</h2>
+<table>
+    <tr><th>{% trans "Élément" %}</th><th>{% trans "État" %}</th></tr>
+    <tr><td>{% trans "Rotule direction AVD" %}</td><td>{{ checkup.get_jeu_rotule_direction_avd_display }}</td></tr>
+    <tr><td>{% trans "Rotule direction AVG" %}</td><td>{{ checkup.get_jeu_rotule_direction_avg_display }}</td></tr>
+    <tr><td>{% trans "Rotule direction ARD" %}</td><td>{{ checkup.get_jeu_rotule_direction_ard_display }}</td></tr>
+    <tr><td>{% trans "Rotule direction ARG" %}</td><td>{{ checkup.get_jeu_rotule_direction_arg_display }}</td></tr>
+
+    <tr><td>{% trans "Biellette barre stabilisatrice AVD" %}</td><td>{{ checkup.get_jeu_Biellette_barre_stabilisatrice_avd_display }}</td></tr>
+    <tr><td>{% trans "Biellette barre stabilisatrice AVG" %}</td><td>{{ checkup.get_jeu_Biellette_barre_stabilisatrice_avg_display }}</td></tr>
+    <tr><td>{% trans "Biellette barre stabilisatrice ARD" %}</td><td>{{ checkup.get_jeu_Biellette_barre_stabilisatrice_ard_display }}</td></tr>
+    <tr><td>{% trans "Biellette barre stabilisatrice ARG" %}</td><td>{{ checkup.get_jeu_Biellette_barre_stabilisatrice_arg_display }}</td></tr>
+
+    <tr><td>{% trans "Barre stabilisatrice avant" %}</td><td>{{ checkup.get_jeu_barre_stabilisatrice_av_display }}</td></tr>
+    <tr><td>{% trans "Barre stabilisatrice arrière" %}</td><td>{{ checkup.get_jeu_barre_stabilisatrice_ar_display }}</td></tr>
+
+    <tr><td>{% trans "Biellette direction droite" %}</td><td>{{ checkup.get_jeu_biellette_direction_avd_display }}</td></tr>
+    <tr><td>{% trans "Biellette direction gauche" %}</td><td>{{ checkup.get_jeu_biellette_direction_avg_display }}</td></tr>
+
+    <tr><td>{% trans "Arbre de transmission" %}</td><td>{{ checkup.get_jeu_arbre_display }}</td></tr>
+</table>
+
+<h2>{% trans "Pneus et pression" %}</h2>
+<table>
+    <tr>
+        <th>{% trans "Position" %}</th>
+        <th>{% trans "Épaisseur" %}</th>
+        <th>{% trans "Pression" %}</th>
+        <th>{% trans "Flanc" %}</th>
+    </tr>
+    <tr>
+        <td>{% trans "Avant droit" %}</td>
+        <td>{{ checkup.pneu_epaisseur_avd }} mm</td>
+        <td>{{ checkup.pneu_pression_bar_avd }} bar</td>
+        <td>{{ checkup.get_pneu_sidewall_avd_display }}</td>
+    </tr>
+    <tr>
+        <td>{% trans "Avant gauche" %}</td>
+        <td>{{ checkup.pneu_epaisseur_avg }} mm</td>
+        <td>{{ checkup.pneu_pression_bar_avg }} bar</td>
+        <td>{{ checkup.get_pneu_sidewall_avg_display }}</td>
+    </tr>
+    <tr>
+        <td>{% trans "Arrière droit" %}</td>
+        <td>{{ checkup.pneu_epaisseur_ard }} mm</td>
+        <td>{{ checkup.pneu_pression_bar_ard }} bar</td>
+        <td>{{ checkup.get_pneu_sidewall_ard_display }}</td>
+    </tr>
+    <tr>
+        <td>{% trans "Arrière gauche" %}</td>
+        <td>{{ checkup.pneu_epaisseur_arg }} mm</td>
+        <td>{{ checkup.pneu_pression_bar_arg }} bar</td>
+        <td>{{ checkup.get_pneu_sidewall_arg_display }}</td>
+    </tr>
+    <tr><td>{% trans "Train avant à remplacer" %}</td><td colspan="3">{{ checkup.get_pneu_train_av_display }}</td></tr>
+    <tr><td>{% trans "Train arrière à remplacer" %}</td><td colspan="3">{{ checkup.get_pneu_train_ar_display }}</td></tr>
+</table>
+
+<h2>{% trans "Phares" %}</h2>
+<table>
+    <tr><th>{% trans "Élément" %}</th><th>{% trans "État" %}</th></tr>
+    <tr><td>{% trans "Réglage phares" %}</td><td>{{ checkup.get_phares_reglages_display }}</td></tr>
+    <tr><td>{% trans "Feux de route" %}</td><td>{{ checkup.get_phares_avant_display }}</td></tr>
+    <tr><td>{% trans "Grands phares" %}</td><td>{{ checkup.get_phares_gros_phares_display }}</td></tr>
+    <tr><td>{% trans "Clignotants" %}</td><td>{{ checkup.get_phares_clignotants_display }}</td></tr>
+    <tr><td>{% trans "Feux de recul" %}</td><td>{{ checkup.get_phares_recul_display }}</td></tr>
+    <tr><td>{% trans "Anti-brouillard avant" %}</td><td>{{ checkup.get_phares_anti_brouillard_avant_display }}</td></tr>
+    <tr><td>{% trans "Anti-brouillard arrière" %}</td><td>{{ checkup.get_phares_anti_brouillard_arriere_display }}</td></tr>
+</table>
+
+<h2>{% trans "Nettoyage extérieur" %}</h2>
+<table>
+    <tr><th>{% trans "Élément" %}</th><th>{% trans "État" %}</th></tr>
+    <tr><td>{% trans "Traces de gomme" %}</td><td>{{ checkup.get_nettoyage_exterieur_traces_gomme_display }}</td></tr>
+    <tr><td>{% trans "Carrosserie" %}</td><td>{{ checkup.get_nettoyage_exterieur_carrosserie_display }}</td></tr>
+    <tr><td>{% trans "Jantes" %}</td><td>{{ checkup.get_nettoyage_exterieur_jantes_display }}</td></tr>
+    <tr><td>{% trans "Séchage" %}</td><td>{{ checkup.get_nettoyage_exterieur_sechage_display }}</td></tr>
+</table>
+
+<h2>{% trans "Nettoyage intérieur" %}</h2>
+<table>
+    <tr><th>{% trans "Élément" %}</th><th>{% trans "État" %}</th></tr>
+    <tr><td>{% trans "Vitres" %}</td><td>{{ checkup.get_nettoyage_interieur_vitres_display }}</td></tr>
+    <tr><td>{% trans "Pare-brise" %}</td><td>{{ checkup.get_nettoyage_interieur_pare_brise_display }}</td></tr>
+    <tr><td>{% trans "Aspirateur" %}</td><td>{{ checkup.get_nettoyage_interieur_aspirateur_display }}</td></tr>
+    <tr><td>{% trans "Intérieurs de porte" %}</td><td>{{ checkup.get_nettoyage_interieur_portes_display }}</td></tr>
+    <tr><td>{% trans "Sièges" %}</td><td>{{ checkup.get_nettoyage_interieur_sieges_display }}</td></tr>
+    <tr><td>{% trans "Carpettes" %}</td><td>{{ checkup.get_nettoyage_interieur_carpettes_display }}</td></tr>
+    <tr><td>{% trans "Tableau de bord" %}</td><td>{{ checkup.get_nettoyage_interieur_tableau_de_bord_display }}</td></tr>
+    <tr><td>{% trans "Plastiques" %}</td><td>{{ checkup.get_nettoyage_interieur_plastiques_display }}</td></tr>
+</table>
+
+<h2>{% trans "Main d’œuvre" %}</h2>
+<div class="box">
+    <span class="label">{% trans "Temps de travail" %} :</span>
+    {{ checkup.temps_main_oeuvre_display }}
+</div>
+
+<h2>{% trans "Remarques" %}</h2>
+<div class="box">
+    {{ checkup.remarques|default:_("Aucune remarque.")|linebreaks }}
+</div>
+
+<p class="small">
+    {% trans "Document généré automatiquement par CarsCosts.com." %}
+</p>
+
+</body>
+</html>
