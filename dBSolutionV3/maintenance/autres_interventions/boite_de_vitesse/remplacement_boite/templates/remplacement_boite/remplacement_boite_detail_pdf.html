@@ -1,0 +1,263 @@
+{% load i18n %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+        }
+
+        h2 {
+            font-size: 15px;
+            margin-top: 22px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 4px;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 14px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        .tag {
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tag-vert { background: #16a34a; }
+        .tag-jaune { background: #ca8a04; }
+        .tag-rouge { background: #dc2626; }
+
+        .ok {
+            color: #16a34a;
+            font-weight: bold;
+        }
+
+        .not-ok {
+            color: #dc2626;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        table th,
+        table td {
+            border: 1px solid #ccc;
+            padding: 7px;
+            text-align: left;
+        }
+
+        table th {
+            background: #f3f3f3;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .total {
+            font-weight: bold;
+            background: #f8f8f8;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>{% trans "Rapport de remplacement de boite" %}</h1>
+
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Date" %} :</span>
+            {{ remplacement.date|date:"d/m/Y H:i" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+            {{ remplacement.tech_nom_technicien }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Rôle" %} :</span>
+            {{ remplacement.tech_role_technicien }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Société" %} :</span>
+            {{ remplacement.tech_societe }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Véhicule" %} :</span>
+            {{ remplacement.voiture_exemplaire }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Client" %} :</span>
+            {{ remplacement.client|default:_("Aucun client") }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage chassis" %} :</span>
+            {{ remplacement.kilometres_chassis }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilomètres de la boite à remplacer" %} :</span>
+            {{ remplacement.kilometres_boite }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage au remplacement de la boite" %} :</span>
+            {{ remplacement.kilometres_remplacement_boite }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Nombre de remplacements" %} :</span>
+            {{ remplacement.nombre_remplacements }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Numéro de série de la boite" %} :</span>
+            {{ remplacement.remplacement_boite_serie|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Prix de la boite" %} :</span>
+            {{ remplacement.remplacement_boite_prix|default:"0.00" }} €
+        </div>
+
+        <div>
+            <span class="label">{% trans "Pays" %} :</span>
+            {{ remplacement.get_pays_display }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Remplacement effectué" %} :</span>
+
+            {% if remplacement.remplacement_effectue %}
+                <span class="ok">{% trans "Oui" %}</span>
+            {% else %}
+                <span class="not-ok">{% trans "Non" %}</span>
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Tag" %} :</span>
+
+            {% if remplacement.tag == "VERT" %}
+                <span class="tag tag-vert">{{ remplacement.get_tag_display }}</span>
+            {% elif remplacement.tag == "JAUNE" %}
+                <span class="tag tag-jaune">{{ remplacement.get_tag_display }}</span>
+            {% else %}
+                <span class="tag tag-rouge">{{ remplacement.get_tag_display }}</span>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<h2>{% trans "Huile de boite" %}</h2>
+
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Qualité de l'huile" %} :</span>
+            {{ remplacement.get_boite_niveau_huile_etat_display }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Quantité d'huile ajoutée" %} :</span>
+            {{ remplacement.boite_niveau_huile_quantite }} L
+        </div>
+
+    </div>
+</div>
+
+<h2>{% trans "Main d'oeuvre" %}</h2>
+
+<div class="box">
+    <span class="label">{% trans "Temps de travail" %} :</span>
+    {{ remplacement.main_oeuvre.temps_display }}
+</div>
+
+<h2>{% trans "Résumé financier" %}</h2>
+
+<div class="box">
+    <table>
+        <thead>
+            <tr>
+                <th>{% trans "Élément" %}</th>
+                <th>{% trans "Montant" %}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>{% trans "Prix de la boite" %}</td>
+                <td>{{ remplacement.remplacement_boite_prix|default:"0.00" }} €</td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Main d'oeuvre" %}</td>
+                <td>
+
+                    {% if remplacement.main_oeuvre %}
+                        {{ remplacement.main_oeuvre.temps_display }}
+                    {% else %}
+                        0h00
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr class="total">
+                <td>{% trans "Total estimé" %}</td>
+                <td>
+                    {{ remplacement.remplacement_boite_prix|default:"0.00" }} €
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2>{% trans "Remarques" %}</h2>
+
+<div class="box">
+    {{ remplacement.remarques|default:_("Aucune remarque.")|linebreaks }}
+</div>
+
+</body>
+</html>

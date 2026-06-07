@@ -1,9 +1,7 @@
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404, redirect
 from django.db import models, transaction
-from django_tenants.utils import tenant_context
 from utilisateurs.models import UserLog
-from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.contrib import messages
 from maintenance.models import Maintenance
 from voiture.voiture_exemplaire.models import VoitureExemplaire
@@ -13,9 +11,14 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
 from django.db.models import Q, F
-from voiture.voiture_exemplaire.models import VoitureExemplaire
 from .forms import RemplacementBoiteForm
 from .models import RemplacementBoite
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
+from django.template.loader import render_to_string
+from django_tenants.utils import tenant_context
+from weasyprint import HTML
+
 
 
 
@@ -288,7 +291,7 @@ def modifier_remplacement_boite_view(request, remplacement_boite_id):
             RemplacementBoite.objects.select_related("voiture_exemplaire"),
             id=remplacement_boite_id
         )
-        exemplaire = remplacement_boite.exemplaire
+        exemplaire = remplacement_boite.voiture_exemplaire
         # -------------------------
         # POST
         # -------------------------
@@ -383,3 +386,42 @@ def modifier_remplacement_boite_view(request, remplacement_boite_id):
             "sections": sections,
             "exemplaire": remplacement_boite.voiture_exemplaire,
         })
+
+
+
+
+@login_required
+def remplacement_boite_pdf_view(request, remplacement_boite_id):
+    tenant = request.user.societe
+
+    with tenant_context(tenant):
+        remplacement = get_object_or_404(
+            RemplacementBoite.objects.select_related(
+                "voiture_exemplaire",
+                "client",
+                "tech_technicien",
+                "tech_societe",
+                "main_oeuvre",
+            ),
+            id=remplacement_boite_id
+        )
+
+        html_string = render_to_string(
+            "remplacement_boite/remplacement_boite_detail_pdf.html",
+            {
+                "remplacement": remplacement,
+                "societe": tenant,
+            }
+        )
+
+        pdf = HTML(
+            string=html_string,
+            base_url=request.build_absolute_uri()
+        ).write_pdf()
+
+        response = HttpResponse(pdf, content_type="application/pdf")
+        response["Content-Disposition"] = (
+            f'inline; filename="remplacement_boite_{remplacement.id}.pdf"'
+        )
+
+        return response
