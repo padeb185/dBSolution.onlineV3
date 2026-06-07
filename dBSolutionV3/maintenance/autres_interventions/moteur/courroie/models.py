@@ -291,17 +291,18 @@ class CourroieDistribution(TechnicienMixin, models.Model):
 
         pieces = [
             ("courroie_distribution", "Courroie de distribution"),
+            ("courroie_distribution_kit", "Kit distribution"),
             ("pompe_a_eau", "Pompe à eau"),
         ]
 
         for prefix, label in pieces:
-            etat = getattr(self, prefix)
+            etat = getattr(self, prefix, None)
 
             if etat == EtatOKNotOK.NOT_OK:
-                prix = getattr(self, f"{prefix}_prix", Decimal("0"))
-                quantite = getattr(self, f"{prefix}_quantite", 0)
+                prix = getattr(self, f"{prefix}_prix", Decimal("0")) or Decimal("0")
+                quantite = getattr(self, f"{prefix}_quantite", 0) or 0
 
-                total = prix * quantite
+                total = prix * Decimal(str(quantite))
                 total_general += total
 
                 rapport.append({
@@ -315,6 +316,9 @@ class CourroieDistribution(TechnicienMixin, models.Model):
             "lignes": rapport,
             "total_general": total_general
         }
+
+
+
 
     @property
     def temps_main_oeuvre_display(self):

@@ -48,6 +48,16 @@
         .label {
             font-weight: bold;
         }
+        .ok {
+            color: #16a34a;
+            font-weight: bold;
+        }
+
+        .not-ok {
+            color: #dc2626;
+            font-weight: bold;
+        }
+
 
         .tag {
             padding: 3px 8px;
@@ -159,47 +169,86 @@
     </div>
 </div>
 <!-- ================= COURROIE ================= -->
-<h2>{% trans "Courroie de distribution" %}</h2>
+<h2>{% trans "Contrôle courroie" %}</h2>
 
 <div class="box">
-    <div class="grid">
 
-        <div>
-            <span class="label">{% trans "État" %} :</span>
-            {{ courroie.get_courroie_distribution_display }}
-        </div>
+    <table>
 
-    </div>
+        <thead>
+            <tr>
+                <th>{% trans "Élément contrôlé" %}</th>
+                <th>{% trans "Résultat" %}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <!-- Courroie de distribution -->
+
+            <tr>
+                <td>
+                    {% trans "Courroie de distribution" %}
+                </td>
+
+                <td>
+                    {% if courroie.courroie_distribution == "OK" %}
+                        <span class="ok">
+                            {{ courroie.get_courroie_distribution_display }}
+                        </span>
+                    {% else %}
+                        <span class="not-ok">
+                            {{ courroie.get_courroie_distribution_display }}
+                        </span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <!-- Kit distribution -->
+
+            <tr>
+                <td>
+                    {% trans "Kit distribution" %}
+                </td>
+
+                <td>
+                    {% if courroie.courroie_distribution_kit == "OK" %}
+                        <span class="ok">
+                            {{ courroie.get_courroie_distribution_kit_display }}
+                        </span>
+                    {% else %}
+                        <span class="not-ok">
+                            {{ courroie.get_courroie_distribution_kit_display }}
+                        </span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <!-- Pompe à eau -->
+
+            <tr>
+                <td>
+                    {% trans "Pompe à eau" %}
+                </td>
+
+                <td>
+                    {% if courroie.pompe_a_eau == "OK" %}
+                        <span class="ok">
+                            {{ courroie.get_pompe_a_eau_display }}
+                        </span>
+                    {% else %}
+                        <span class="not-ok">
+                            {{ courroie.get_pompe_a_eau_display }}
+                        </span>
+                    {% endif %}
+                </td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
 </div>
-
-<!-- ================= KIT ================= -->
-<h2>{% trans "Kit distribution" %}</h2>
-
-<div class="box">
-    <div class="grid">
-
-        <div>
-            <span class="label">{% trans "État kit" %} :</span>
-            {{ courroie.get_courroie_distribution_kit_display }}
-        </div>
-
-    </div>
-</div>
-
-<!-- ================= POMPE A EAU ================= -->
-<h2>{% trans "Pompe à eau" %}</h2>
-
-<div class="box">
-    <div class="grid">
-
-        <div>
-            <span class="label">{% trans "État" %} :</span>
-            {{ courroie.get_pompe_a_eau_display }}
-        </div>
-
-    </div>
-</div>
-
 <!-- ================= REFROIDISSEMENT ================= -->
 <h2>{% trans "Liquide de refroidissement" %}</h2>
 
