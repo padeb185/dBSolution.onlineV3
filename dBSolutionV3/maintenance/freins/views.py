@@ -1,24 +1,27 @@
-from django.shortcuts import get_object_or_404, redirect, render
-from django.contrib.auth.decorators import login_required
-from django.utils import timezone
+from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.db import transaction, models
-from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
-from django_tenants.utils import tenant_context
 from maintenance.models import Maintenance
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 from maintenance.freins.models import ControleFreins
 from maintenance.freins.forms import ControleFreinsForm
-from utilisateurs.apprentis.models import Apprenti
-from utilisateurs.chef_mecanicien.models import ChefMecanicien
-from utilisateurs.direction.models import Direction
-from utilisateurs.magasinier.models import Magasinier
-from utilisateurs.models import Mecanicien, UserLog
+from utilisateurs.models import UserLog
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+from django.utils import timezone
+from django_tenants.utils import tenant_context
+from weasyprint import HTML
+
+
+
+
 
 
 # -----------------------------
@@ -303,3 +306,45 @@ def modifier_freins_view(request, frein_id):
             "exemplaire": frein.voiture_exemplaire,
         }
     )
+
+
+
+
+
+
+@login_required
+def controle_freins_pdf_view(request, controle_freins_id):
+    tenant = request.user.societe
+
+    with tenant_context(tenant):
+        controle_freins = get_object_or_404(
+            ControleFreins.objects.select_related(
+                "voiture_exemplaire",
+                "societe",
+                "tech_technicien",
+                "tech_societe",
+                "main_oeuvre",
+            ),
+            id=controle_freins_id
+        )
+
+        html_string = render_to_string(
+            "freins/controle_freins_detail_pdf.html",
+            {
+                "controle_freins": controle_freins,
+                "date_export": timezone.now(),
+                "societe": tenant,
+            }
+        )
+
+        pdf = HTML(
+            string=html_string,
+            base_url=request.build_absolute_uri("/")
+        ).write_pdf()
+
+        response = HttpResponse(pdf, content_type="application/pdf")
+        response["Content-Disposition"] = (
+            f'inline; filename="controle_freins_{controle_freins.id}.pdf"'
+        )
+
+        return response

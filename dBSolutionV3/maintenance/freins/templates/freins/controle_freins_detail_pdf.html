@@ -1,0 +1,427 @@
+{% load i18n %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+        }
+
+        h2 {
+            font-size: 15px;
+            margin-top: 22px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 4px;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 14px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        .tag {
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tag-vert { background: #16a34a; }
+        .tag-jaune { background: #ca8a04; }
+        .tag-rouge { background: #dc2626; }
+
+        .etat-ok {
+            color: #6b7280;
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-remplacer {
+            color: #dc2626;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-remplace {
+            color: #16a34a;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        table th,
+        table td {
+            border: 1px solid #ccc;
+            padding: 7px;
+            text-align: left;
+        }
+
+        table th {
+            background: #f3f3f3;
+        }
+
+        .small {
+            font-size: 11px;
+            color: #555;
+            margin-top: 25px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>{% trans "Rapport contrôle freins" %}</h1>
+
+<div class="box">
+    <div class="grid">
+        <div><span class="label">{% trans "Date" %} :</span> {{ controle_freins.date|date:"d/m/Y H:i" }}</div>
+        <div><span class="label">{% trans "Technicien" %} :</span> {{ controle_freins.tech_nom_technicien }}</div>
+        <div><span class="label">{% trans "Rôle" %} :</span> {{ controle_freins.tech_role_technicien }}</div>
+        <div><span class="label">{% trans "Société" %} :</span> {{ controle_freins.tech_societe }}</div>
+        <div><span class="label">{% trans "Véhicule" %} :</span> {{ controle_freins.voiture_exemplaire }}</div>
+        <div><span class="label">{% trans "Kilométrage chassis" %} :</span> {{ controle_freins.kilometres_chassis }} km</div>
+        <div><span class="label">{% trans "Kilométrage contrôle freins" %} :</span> {{ controle_freins.kilometrage_controle_brake }} km</div>
+
+        <div>
+            <span class="label">{% trans "Tag" %} :</span>
+            {% if controle_freins.tag == "VERT" %}
+                <span class="tag tag-vert">{{ controle_freins.get_tag_display }}</span>
+            {% elif controle_freins.tag == "JAUNE" %}
+                <span class="tag tag-jaune">{{ controle_freins.get_tag_display }}</span>
+            {% else %}
+                <span class="tag tag-rouge">{{ controle_freins.get_tag_display }}</span>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<h2>{% trans "Freins avant" %}</h2>
+
+<table>
+    <tr>
+        <th>{% trans "Élément" %}</th>
+        <th>{% trans "Valeur" %}</th>
+    </tr>
+
+    <tr>
+        <td>{% trans "Usure des plaquettes avant" %}</td>
+        <td>{{ controle_freins.avant_freins_pl_usure_plaquettes }} %</td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Plaquettes avant état" %}</td>
+        <td>
+            {% if controle_freins.avant_freins_pl_plaquettes_remplacer == "A_REMPLACER" %}
+                <span class="etat-remplacer">{{ controle_freins.get_avant_freins_pl_plaquettes_remplacer_display }}</span>
+            {% elif controle_freins.avant_freins_pl_plaquettes_remplacer == "REMPLACE" %}
+                <span class="etat-remplace">{{ controle_freins.get_avant_freins_pl_plaquettes_remplacer_display }}</span>
+            {% else %}
+                <span class="etat-ok">{{ controle_freins.get_avant_freins_pl_plaquettes_remplacer_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Épaisseur des disques avant" %}</td>
+        <td>{{ controle_freins.avant_freins_d_epaisseur_disques }} mm</td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Fentes sur les disques avant" %}</td>
+        <td>
+            {% if controle_freins.avant_freins_d_fentes_disques == "A_REMPLACER" %}
+                <span class="etat-remplacer">{{ controle_freins.get_avant_freins_d_fentes_disques_display }}</span>
+            {% elif controle_freins.avant_freins_d_fentes_disques == "REMPLACE" %}
+                <span class="etat-remplace">{{ controle_freins.get_avant_freins_d_fentes_disques_display }}</span>
+            {% else %}
+                <span class="etat-ok">{{ controle_freins.get_avant_freins_d_fentes_disques_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "État des disques avant" %}</td>
+        <td>
+            {% if controle_freins.avant_freins_d_disques_remplacer == "A_REMPLACER" %}
+                <span class="etat-remplacer">{{ controle_freins.get_avant_freins_d_disques_remplacer_display }}</span>
+            {% elif controle_freins.avant_freins_d_disques_remplacer == "REMPLACE" %}
+                <span class="etat-remplace">{{ controle_freins.get_avant_freins_d_disques_remplacer_display }}</span>
+            {% else %}
+                <span class="etat-ok">{{ controle_freins.get_avant_freins_d_disques_remplacer_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+</table>
+
+<h2>{% trans "Freins arrière" %}</h2>
+
+<table>
+    <tr>
+        <th>{% trans "Élément" %}</th>
+        <th>{% trans "Valeur" %}</th>
+    </tr>
+
+    <tr>
+        <td>{% trans "Usure des plaquettes arrière" %}</td>
+        <td>{{ controle_freins.arriere_freins_pl_usure_plaquettes }} %</td>
+    </tr>
+
+    <tr>
+        <td>{% trans "État des plaquettes arrière" %}</td>
+        <td>
+            {% if controle_freins.arriere_freins_pl_plaquettes_remplacer == "A_REMPLACER" %}
+                <span class="etat-remplacer">{{ controle_freins.get_arriere_freins_pl_plaquettes_remplacer_display }}</span>
+            {% elif controle_freins.arriere_freins_pl_plaquettes_remplacer == "REMPLACE" %}
+                <span class="etat-remplace">{{ controle_freins.get_arriere_freins_pl_plaquettes_remplacer_display }}</span>
+            {% else %}
+                <span class="etat-ok">{{ controle_freins.get_arriere_freins_pl_plaquettes_remplacer_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Épaisseur des disques arrière" %}</td>
+        <td>{{ controle_freins.arriere_freins_d_epaisseur_disques }} mm</td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Fentes sur les disques arrière" %}</td>
+        <td>
+            {% if controle_freins.arriere_freins_d_fentes_disques == "A_REMPLACER" %}
+                <span class="etat-remplacer">{{ controle_freins.get_arriere_freins_d_fentes_disques_display }}</span>
+            {% elif controle_freins.arriere_freins_d_fentes_disques == "REMPLACE" %}
+                <span class="etat-remplace">{{ controle_freins.get_arriere_freins_d_fentes_disques_display }}</span>
+            {% else %}
+                <span class="etat-ok">{{ controle_freins.get_arriere_freins_d_fentes_disques_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "État des disques arrière" %}</td>
+        <td>
+            {% if controle_freins.arriere_freins_d_disques_remplacer == "A_REMPLACER" %}
+                <span class="etat-remplacer">{{ controle_freins.get_arriere_freins_d_disques_remplacer_display }}</span>
+            {% elif controle_freins.arriere_freins_d_disques_remplacer == "REMPLACE" %}
+                <span class="etat-remplace">{{ controle_freins.get_arriere_freins_d_disques_remplacer_display }}</span>
+            {% else %}
+                <span class="etat-ok">{{ controle_freins.get_arriere_freins_d_disques_remplacer_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+</table>
+
+<h2>{% trans "Fuites" %}</h2>
+
+<table>
+    <tr>
+        <th>{% trans "Élément" %}</th>
+        <th>{% trans "État" %}</th>
+    </tr>
+
+    <tr>
+        <td>{% trans "Fuite générale" %}</td>
+        <td>
+            {% if controle_freins.fuites_freins_fuites == "A_REMPLACER" %}
+                <span class="etat-remplacer">{{ controle_freins.get_fuites_freins_fuites_display }}</span>
+            {% elif controle_freins.fuites_freins_fuites == "REMPLACE" %}
+                <span class="etat-remplace">{{ controle_freins.get_fuites_freins_fuites_display }}</span>
+            {% else %}
+                <span class="etat-ok">{{ controle_freins.get_fuites_freins_fuites_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Fuite mâchoire" %}</td>
+        <td>
+            {% if controle_freins.fuites_freins_machoire == "A_REMPLACER" %}
+                <span class="etat-remplacer">{{ controle_freins.get_fuites_freins_machoire_display }}</span>
+            {% elif controle_freins.fuites_freins_machoire == "REMPLACE" %}
+                <span class="etat-remplace">{{ controle_freins.get_fuites_freins_machoire_display }}</span>
+            {% else %}
+                <span class="etat-ok">{{ controle_freins.get_fuites_freins_machoire_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Fuite flexibles" %}</td>
+        <td>
+            {% if controle_freins.fuites_freins_flexibles == "A_REMPLACER" %}
+                <span class="etat-remplacer">{{ controle_freins.get_fuites_freins_flexibles_display }}</span>
+            {% elif controle_freins.fuites_freins_flexibles == "REMPLACE" %}
+                <span class="etat-remplace">{{ controle_freins.get_fuites_freins_flexibles_display }}</span>
+            {% else %}
+                <span class="etat-ok">{{ controle_freins.get_fuites_freins_flexibles_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Fuite tuyaux rigides" %}</td>
+        <td>
+            {% if controle_freins.fuites_freins_tuyaux == "A_REMPLACER" %}
+                <span class="etat-remplacer">{{ controle_freins.get_fuites_freins_tuyaux_display }}</span>
+            {% elif controle_freins.fuites_freins_tuyaux == "REMPLACE" %}
+                <span class="etat-remplace">{{ controle_freins.get_fuites_freins_tuyaux_display }}</span>
+            {% else %}
+                <span class="etat-ok">{{ controle_freins.get_fuites_freins_tuyaux_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+</table>
+
+<h2>{% trans "Liquide de frein" %}</h2>
+
+<table>
+    <tr>
+        <th>{% trans "Élément" %}</th>
+        <th>{% trans "Valeur" %}</th>
+    </tr>
+
+    <tr>
+        <td>{% trans "État liquide de frein" %}</td>
+        <td>
+            {% if controle_freins.liquide_frein_etat == "A_REMPLACER" %}
+                <span class="etat-remplacer">{{ controle_freins.get_liquide_frein_etat_display }}</span>
+            {% elif controle_freins.liquide_frein_etat == "REMPLACE" %}
+                <span class="etat-remplace">{{ controle_freins.get_liquide_frein_etat_display }}</span>
+            {% else %}
+                <span class="etat-ok">{{ controle_freins.get_liquide_frein_etat_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Remplacement liquide de frein" %}</td>
+        <td>
+            {% if controle_freins.liquide_remplacement_liquide_frein == "A_REMPLACER" %}
+                <span class="etat-remplacer">{{ controle_freins.get_liquide_remplacement_liquide_frein_display }}</span>
+            {% elif controle_freins.liquide_remplacement_liquide_frein == "REMPLACE" %}
+                <span class="etat-remplace">{{ controle_freins.get_liquide_remplacement_liquide_frein_display }}</span>
+            {% else %}
+                <span class="etat-ok">{{ controle_freins.get_liquide_remplacement_liquide_frein_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr><td>{% trans "Spécification liquide de frein" %}</td><td>{{ controle_freins.get_liquide_specif_liquide_frein_display }}</td></tr>
+    <tr><td>{% trans "Quantité liquide de frein" %}</td><td>{{ controle_freins.liquide_quantite_liquide_frein }} L</td></tr>
+</table>
+
+<h2>{% trans "Mâchoires" %}</h2>
+
+<table>
+    <tr>
+        <th>{% trans "Position" %}</th>
+        <th>{% trans "État" %}</th>
+    </tr>
+
+    <tr>
+        <td>{% trans "Avant gauche" %}</td>
+        <td>
+            {% if controle_freins.machoire_avg == "A_REMPLACER" %}
+                <span class="etat-remplacer">{{ controle_freins.get_machoire_avg_display }}</span>
+            {% elif controle_freins.machoire_avg == "REMPLACE" %}
+                <span class="etat-remplace">{{ controle_freins.get_machoire_avg_display }}</span>
+            {% else %}
+                <span class="etat-ok">{{ controle_freins.get_machoire_avg_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Avant droite" %}</td>
+        <td>
+            {% if controle_freins.machoire_avd == "A_REMPLACER" %}
+                <span class="etat-remplacer">{{ controle_freins.get_machoire_avd_display }}</span>
+            {% elif controle_freins.machoire_avd == "REMPLACE" %}
+                <span class="etat-remplace">{{ controle_freins.get_machoire_avd_display }}</span>
+            {% else %}
+                <span class="etat-ok">{{ controle_freins.get_machoire_avd_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Arrière gauche" %}</td>
+        <td>
+            {% if controle_freins.machoire_arg == "A_REMPLACER" %}
+                <span class="etat-remplacer">{{ controle_freins.get_machoire_arg_display }}</span>
+            {% elif controle_freins.machoire_arg == "REMPLACE" %}
+                <span class="etat-remplace">{{ controle_freins.get_machoire_arg_display }}</span>
+            {% else %}
+                <span class="etat-ok">{{ controle_freins.get_machoire_arg_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Arrière droite" %}</td>
+        <td>
+            {% if controle_freins.machoire_ard == "A_REMPLACER" %}
+                <span class="etat-remplacer">{{ controle_freins.get_machoire_ard_display }}</span>
+            {% elif controle_freins.machoire_ard == "REMPLACE" %}
+                <span class="etat-remplace">{{ controle_freins.get_machoire_ard_display }}</span>
+            {% else %}
+                <span class="etat-ok">{{ controle_freins.get_machoire_ard_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+</table>
+
+<h2>{% trans "Main d'œuvre" %}</h2>
+
+<div class="box">
+    <span class="label">{% trans "Temps de travail" %} :</span>
+    {{ controle_freins.temps_main_oeuvre_display }}
+</div>
+
+<h2>{% trans "Remarques" %}</h2>
+
+<div class="box">
+    {{ controle_freins.remarques|default:_("Aucune remarque.")|linebreaks }}
+</div>
+
+<p class="small">
+    {% trans "Document généré automatiquement par CarsCosts.com." %}
+</p>
+
+</body>
+</html>
