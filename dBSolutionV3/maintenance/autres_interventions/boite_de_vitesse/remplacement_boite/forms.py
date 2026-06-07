@@ -77,10 +77,15 @@ class RemplacementBoiteForm(forms.ModelForm):
                     self.exemplaire.immatriculation
                 )
 
-            if "kilometres_boite" in self.fields:
-                self.fields["kilometres_boite"].initial = (
-                    self.exemplaire.kilometres_boite
-                )
+            if self.exemplaire and "kilometres_boite" in self.fields:
+                km_boite = self.exemplaire.kilometres_boite or 0
+
+                self.instance.kilometres_boite = km_boite
+
+                self.fields["kilometres_boite"].initial = km_boite
+                self.initial["kilometres_boite"] = km_boite
+                self.fields["kilometres_boite"].widget.attrs["value"] = km_boite
+
                 self.fields["kilometres_boite"].disabled = True
                 self.fields["kilometres_boite"].widget.attrs["readonly"] = True
 
