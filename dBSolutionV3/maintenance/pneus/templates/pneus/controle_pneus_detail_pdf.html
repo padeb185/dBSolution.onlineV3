@@ -1,0 +1,245 @@
+{% load i18n %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+        }
+
+        h2 {
+            font-size: 14px;
+            margin-top: 20px;
+            margin-bottom: 8px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 4px;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        .tag {
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .tag-vert {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .tag-jaune {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .tag-rouge {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 7px;
+            text-align: left;
+        }
+
+        th {
+            background: #f3f4f6;
+        }
+
+        .footer {
+            margin-top: 25px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>{% trans "Rapport contrôle pneus" %}</h1>
+
+<div class="box">
+    <div class="grid">
+        <div><span class="label">{% trans "Date" %} :</span> {{ controle_pneus.date|date:"d/m/Y H:i" }}</div>
+        <div><span class="label">{% trans "Technicien" %} :</span> {{ controle_pneus.tech_nom_technicien }}</div>
+        <div><span class="label">{% trans "Rôle" %} :</span> {{ controle_pneus.tech_role_technicien }}</div>
+        <div><span class="label">{% trans "Société" %} :</span> {{ controle_pneus.tech_societe }}</div>
+        <div><span class="label">{% trans "Véhicule" %} :</span> {{ controle_pneus.voiture_exemplaire }}</div>
+        <div><span class="label">{% trans "Kilométrage chassis" %} :</span> {{ controle_pneus.kilometres_chassis }} km</div>
+        <div><span class="label">{% trans "Kilométrage contrôle pneus" %} :</span> {{ controle_pneus.kilometrage_pneus }} km</div>
+
+        <div>
+            <span class="label">{% trans "Tag" %} :</span>
+            {% if controle_pneus.tag == "VERT" %}
+                <span class="tag tag-vert">{{ controle_pneus.get_tag_display }}</span>
+            {% elif controle_pneus.tag == "JAUNE" %}
+                <span class="tag tag-jaune">{{ controle_pneus.get_tag_display }}</span>
+            {% else %}
+                <span class="tag tag-rouge">{{ controle_pneus.get_tag_display }}</span>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<h2>{% trans "Bandes de roulement" %}</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>{% trans "Position" %}</th>
+            <th>{% trans "État" %}</th>
+            <th>{% trans "Épaisseur" %}</th>
+            <th>{% trans "Pression" %}</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>{% trans "Avant droit" %}</td>
+            <td>{{ controle_pneus.get_pneu_bande_avd_display }}</td>
+            <td>{{ controle_pneus.pneu_epaisseur_avd }} mm</td>
+            <td>{{ controle_pneus.pneu_pression_bar_avd }} bar</td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Avant gauche" %}</td>
+            <td>{{ controle_pneus.get_pneu_bande_avg_display }}</td>
+            <td>{{ controle_pneus.pneu_epaisseur_avg }} mm</td>
+            <td>{{ controle_pneus.pneu_pression_bar_avg }} bar</td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Arrière droit" %}</td>
+            <td>{{ controle_pneus.get_pneu_bande_ard_display }}</td>
+            <td>{{ controle_pneus.pneu_epaisseur_ard }} mm</td>
+            <td>{{ controle_pneus.pneu_pression_bar_ard }} bar</td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Arrière gauche" %}</td>
+            <td>{{ controle_pneus.get_pneu_bande_arg_display }}</td>
+            <td>{{ controle_pneus.pneu_epaisseur_arg }} mm</td>
+            <td>{{ controle_pneus.pneu_pression_bar_arg }} bar</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>{% trans "Flancs des pneus" %}</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>{% trans "Position" %}</th>
+            <th>{% trans "État flanc" %}</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>{% trans "Avant droit" %}</td>
+            <td>{{ controle_pneus.get_pneu_sidewall_avd_display }}</td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Avant gauche" %}</td>
+            <td>{{ controle_pneus.get_pneu_sidewall_avg_display }}</td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Arrière droit" %}</td>
+            <td>{{ controle_pneus.get_pneu_sidewall_ard_display }}</td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Arrière gauche" %}</td>
+            <td>{{ controle_pneus.get_pneu_sidewall_arg_display }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>{% trans "Trains de pneus" %}</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>{% trans "Train" %}</th>
+            <th>{% trans "État" %}</th>
+            <th>{% trans "Nombre monté" %}</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>{% trans "Train avant" %}</td>
+            <td>{{ controle_pneus.get_pneu_train_av_display }}</td>
+            <td>{{ controle_pneus.pneu_train_av_nombre }}</td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Train arrière" %}</td>
+            <td>{{ controle_pneus.get_pneu_train_ar_display }}</td>
+            <td>{{ controle_pneus.pneu_train_ar_nombre }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>{% trans "Main d'œuvre" %}</h2>
+
+<div class="box">
+    {% if controle_pneus.main_oeuvre %}
+        <div><span class="label">{% trans "Temps" %} :</span> {{ controle_pneus.temps_main_oeuvre_display }}</div>
+        <div><span class="label">{% trans "Descriptif" %} :</span> {{ controle_pneus.main_oeuvre.descriptif }}</div>
+    {% else %}
+        {% trans "Aucune main d'œuvre enregistrée." %}
+    {% endif %}
+</div>
+
+<h2>{% trans "Remarques" %}</h2>
+
+<div class="box">
+    {{ controle_pneus.remarques|default:_("Aucune remarque.") }}
+</div>
+
+<div class="footer">
+    {% trans "Document généré automatiquement par CarsCosts.com." %}
+    <br>
+    {% trans "Date export" %} : {{ date_export|date:"d/m/Y H:i" }}
+</div>
+
+</body>
+</html>

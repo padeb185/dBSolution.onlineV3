@@ -2,7 +2,6 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from maintenance.models import Maintenance
-from utilisateurs.models import Utilisateur
 from django.conf import settings
 from utils.mixin import TechnicienMixin
 
@@ -10,12 +9,6 @@ from utils.mixin import TechnicienMixin
 # ---------------------------
 # TextChoices
 # ---------------------------
-
-class EtatOKNotOK(models.TextChoices):
-    OK = "OK", _("Non")
-    NOT_OK = "NOT_OK", _("Oui")
-    A_REMPLACER = "A_REMPLACER", _("À remplacer")
-    REMPLACE = "REMPLACE", _("Remplacé")
 
 class PneuEtat(models.TextChoices):
     OK = "OK", _("OK")

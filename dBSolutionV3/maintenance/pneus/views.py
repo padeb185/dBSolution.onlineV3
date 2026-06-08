@@ -286,3 +286,53 @@ def modifier_pneus_view(request, pneu_id):
             "exemplaire": pneus.voiture_exemplaire,
         }
     )
+
+
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
+from django.template.loader import render_to_string
+from django.http import HttpResponse
+from django.utils import timezone
+from django_tenants.utils import tenant_context
+from weasyprint import HTML
+
+from .models import ControlePneus
+
+
+@login_required
+def controle_pneus_pdf_view(request, controle_pneus_id):
+    tenant = request.user.societe
+
+    with tenant_context(tenant):
+        controle_pneus = get_object_or_404(
+            ControlePneus.objects.select_related(
+                "maintenance",
+                "voiture_exemplaire",
+                "voiture_pneus",
+                "main_oeuvre",
+                "tech_technicien",
+                "tech_societe",
+            ),
+            id=controle_pneus_id
+        )
+
+        html_string = render_to_string(
+            "pneus/controle_pneus_detail_pdf.html",
+            {
+                "controle_pneus": controle_pneus,
+                "date_export": timezone.now(),
+                "societe": tenant,
+            },
+            request=request
+        )
+
+        pdf_file = HTML(
+            string=html_string,
+            base_url=request.build_absolute_uri("/")
+        ).write_pdf()
+
+        response = HttpResponse(pdf_file, content_type="application/pdf")
+        response["Content-Disposition"] = (
+            f'inline; filename="controle_pneus_{controle_pneus.id}.pdf"'
+        )
+        return response
