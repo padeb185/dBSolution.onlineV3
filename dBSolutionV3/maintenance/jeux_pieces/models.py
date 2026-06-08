@@ -8,8 +8,7 @@ from utils.mixin import TechnicienMixin
 # -------------------- Choices --------------------
 
 class EtatOKNotOK(models.TextChoices):
-    OK = "OK", _("Non")
-    NOT_OK = "NOT_OK", _("Oui")
+    OK = "OK", _("OK")
     A_REMPLACER = "A_REMPLACER", _("À remplacer")
     REMPLACE = "REMPLACE", _("Remplacé")
 

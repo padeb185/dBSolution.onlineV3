@@ -1,13 +1,10 @@
-from django.shortcuts import get_object_or_404, redirect, render
-from django.contrib.auth.decorators import login_required
-from django.utils import timezone
+from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.db import transaction, models
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
-from django_tenants.utils import tenant_context
 from maintenance.models import Maintenance
 from maintenance.jeux_pieces.models import ControleJeuxPieces
 from maintenance.jeux_pieces.forms import ControleJeuxPiecesForm
@@ -15,7 +12,13 @@ from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
-
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
+from django.template.loader import render_to_string
+from django.http import HttpResponse
+from django_tenants.utils import tenant_context
+from django.utils import timezone
+from weasyprint import HTML
 
 
 
@@ -293,3 +296,45 @@ def modifier_jeux_pieces_view(request, jeu_id):
             "exemplaire": jeu.voiture_exemplaire,
         }
     )
+
+
+
+
+
+@login_required
+def controle_jeux_pdf_view(request, controle_id):
+    tenant = request.user.societe
+
+    with tenant_context(tenant):
+        controle = get_object_or_404(
+            ControleJeuxPieces.objects.select_related(
+                "voiture_exemplaire",
+                "maintenance",
+                "main_oeuvre",
+                "tech_technicien",
+                "tech_societe",
+            ),
+            id=controle_id
+        )
+
+        html_string = render_to_string(
+            "jeux_pieces/controle_jeux_pdf.html",
+            {
+                "controle": controle,
+                "objet": controle,
+                "date_export": timezone.now(),
+                "societe": tenant,
+            },
+            request=request
+        )
+
+        pdf_file = HTML(
+            string=html_string,
+            base_url=request.build_absolute_uri("/")
+        ).write_pdf()
+
+        response = HttpResponse(pdf_file, content_type="application/pdf")
+        response["Content-Disposition"] = (
+            f'inline; filename="controle_jeux_{controle.id}.pdf"'
+        )
+        return response

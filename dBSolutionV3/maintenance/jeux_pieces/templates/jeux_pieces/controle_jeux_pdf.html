@@ -1,0 +1,275 @@
+{% load i18n %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 20px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 6px;
+            margin-bottom: 15px;
+        }
+
+        h2 {
+            font-size: 15px;
+            margin-top: 18px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 6px;
+            text-align: left;
+        }
+
+        th {
+            background: #eee;
+        }
+
+        .ok {
+            color: green;
+            font-weight: bold;
+        }
+
+        .replace {
+            color: red;
+            font-weight: bold;
+        }
+
+        .warning {
+            color: orange;
+            font-weight: bold;
+        }
+
+        .box {
+            border: 1px solid #ccc;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        .tag {
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .tag-vert {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .tag-jaune {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .tag-rouge {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .small {
+            font-size: 10px;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>{% trans "Rapport contrôle des jeux" %}</h1>
+
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Date" %} :</span>
+            {{ controle.date|date:"d/m/Y H:i" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+            {{ controle.tech_nom_technicien }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Rôle" %} :</span>
+            {{ controle.tech_role_technicien }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Société" %} :</span>
+            {{ controle.tech_societe }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Véhicule" %} :</span>
+            {{ controle.voiture_exemplaire }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage chassis" %} :</span>
+            {{ controle.kilometres_chassis }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage contrôle des jeux" %} :</span>
+            {{ controle.kilometrage_jeu }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Tag" %} :</span>
+
+            {% if controle.tag == "VERT" %}
+                <span class="tag tag-vert">
+                    {{ controle.get_tag_display }}
+                </span>
+
+            {% elif controle.tag == "JAUNE" %}
+                <span class="tag tag-jaune">
+                    {{ controle.get_tag_display }}
+                </span>
+
+            {% else %}
+                <span class="tag tag-rouge">
+                    {{ controle.get_tag_display }}
+                </span>
+
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<h2>{% trans "Rotules de direction" %}</h2>
+
+<table>
+    <tr>
+        <th>{% trans "Pièce" %}</th>
+        <th>{% trans "État" %}</th>
+    </tr>
+    <tr><td>{% trans "Avant droite" %}</td><td>{{ controle.get_jeu_rotule_direction_avd_display }}</td></tr>
+    <tr><td>{% trans "Avant gauche" %}</td><td>{{ controle.get_jeu_rotule_direction_avg_display }}</td></tr>
+    <tr><td>{% trans "Arrière droite" %}</td><td>{{ controle.get_jeu_rotule_direction_ard_display }}</td></tr>
+    <tr><td>{% trans "Arrière gauche" %}</td><td>{{ controle.get_jeu_rotule_direction_arg_display }}</td></tr>
+</table>
+
+<h2>{% trans "Rotules de suspension inférieures" %}</h2>
+
+<table>
+    <tr><th>{% trans "Pièce" %}</th><th>{% trans "État" %}</th></tr>
+    <tr><td>{% trans "Avant droite" %}</td><td>{{ controle.get_jeu_rotule_suspension_inferieure_avd_display }}</td></tr>
+    <tr><td>{% trans "Avant gauche" %}</td><td>{{ controle.get_jeu_rotule_suspension_inferieure_avg_display }}</td></tr>
+    <tr><td>{% trans "Arrière droite" %}</td><td>{{ controle.get_jeu_rotule_suspension_inferieure_ard_display }}</td></tr>
+    <tr><td>{% trans "Arrière gauche" %}</td><td>{{ controle.get_jeu_rotule_suspension_inferieure_arg_display }}</td></tr>
+</table>
+
+<h2>{% trans "Rotules de suspension supérieures" %}</h2>
+
+<table>
+    <tr><th>{% trans "Pièce" %}</th><th>{% trans "État" %}</th></tr>
+    <tr><td>{% trans "Avant droite" %}</td><td>{{ controle.get_jeu_rotule_suspension_superieure_avd_display }}</td></tr>
+    <tr><td>{% trans "Avant gauche" %}</td><td>{{ controle.get_jeu_rotule_suspension_superieure_avg_display }}</td></tr>
+    <tr><td>{% trans "Arrière droite" %}</td><td>{{ controle.get_jeu_rotule_suspension_superieure_ard_display }}</td></tr>
+    <tr><td>{% trans "Arrière gauche" %}</td><td>{{ controle.get_jeu_rotule_suspension_superieure_arg_display }}</td></tr>
+</table>
+
+<h2>{% trans "Barres stabilisatrices et biellettes" %}</h2>
+
+<table>
+    <tr><th>{% trans "Pièce" %}</th><th>{% trans "État" %}</th></tr>
+    <tr><td>{% trans "Biellette avant droite" %}</td><td>{{ controle.get_jeu_Biellette_barre_stabilisatrice_avd_display }}</td></tr>
+    <tr><td>{% trans "Biellette avant gauche" %}</td><td>{{ controle.get_jeu_Biellette_barre_stabilisatrice_avg_display }}</td></tr>
+    <tr><td>{% trans "Biellette arrière droite" %}</td><td>{{ controle.get_jeu_Biellette_barre_stabilisatrice_ard_display }}</td></tr>
+    <tr><td>{% trans "Biellette arrière gauche" %}</td><td>{{ controle.get_jeu_Biellette_barre_stabilisatrice_arg_display }}</td></tr>
+    <tr><td>{% trans "Barre stabilisatrice avant" %}</td><td>{{ controle.get_jeu_barre_stabilisatrice_av_display }}</td></tr>
+    <tr><td>{% trans "Barre stabilisatrice arrière" %}</td><td>{{ controle.get_jeu_barre_stabilisatrice_ar_display }}</td></tr>
+</table>
+
+<h2>{% trans "Amortisseurs" %}</h2>
+
+<table>
+    <tr><th>{% trans "Pièce" %}</th><th>{% trans "État" %}</th></tr>
+    <tr><td>{% trans "Avant droit" %}</td><td>{{ controle.get_jeu_amortisseur_avd_display }}</td></tr>
+    <tr><td>{% trans "Avant gauche" %}</td><td>{{ controle.get_jeu_amortisseur_avg_display }}</td></tr>
+    <tr><td>{% trans "Arrière droit" %}</td><td>{{ controle.get_jeu_amortisseur_ard_display }}</td></tr>
+    <tr><td>{% trans "Arrière gauche" %}</td><td>{{ controle.get_jeu_amortisseur_arg_display }}</td></tr>
+</table>
+
+<h2>{% trans "Roulements" %}</h2>
+
+<table>
+    <tr><th>{% trans "Pièce" %}</th><th>{% trans "État" %}</th></tr>
+    <tr><td>{% trans "Avant droit" %}</td><td>{{ controle.get_jeu_roulement_avd_display }}</td></tr>
+    <tr><td>{% trans "Avant gauche" %}</td><td>{{ controle.get_jeu_roulement_avg_display }}</td></tr>
+    <tr><td>{% trans "Arrière droit" %}</td><td>{{ controle.get_jeu_roulement_ard_display }}</td></tr>
+    <tr><td>{% trans "Arrière gauche" %}</td><td>{{ controle.get_jeu_roulement_arg_display }}</td></tr>
+</table>
+
+<h2>{% trans "Triangles" %}</h2>
+
+<table>
+    <tr><th>{% trans "Pièce" %}</th><th>{% trans "État" %}</th></tr>
+    <tr><td>{% trans "Avant droit" %}</td><td>{{ controle.get_jeu_triangle_avd_display }}</td></tr>
+    <tr><td>{% trans "Avant gauche" %}</td><td>{{ controle.get_jeu_triangle_avg_display }}</td></tr>
+    <tr><td>{% trans "Arrière droit" %}</td><td>{{ controle.get_jeu_triangle_ard_display }}</td></tr>
+    <tr><td>{% trans "Arrière gauche" %}</td><td>{{ controle.get_jeu_triangle_arg_display }}</td></tr>
+</table>
+
+<h2>{% trans "Suspension multi-bras" %}</h2>
+
+<table>
+    <tr><th>{% trans "Pièce" %}</th><th>{% trans "État" %}</th></tr>
+    <tr><td>{% trans "Avant droit" %}</td><td>{{ controle.get_jeu_multi_bras_avd_display }}</td></tr>
+    <tr><td>{% trans "Avant gauche" %}</td><td>{{ controle.get_jeu_multi_bras_avg_display }}</td></tr>
+    <tr><td>{% trans "Arrière droit" %}</td><td>{{ controle.get_jeu_multi_bras_ard_display }}</td></tr>
+    <tr><td>{% trans "Arrière gauche" %}</td><td>{{ controle.get_jeu_multi_bras_arg_display }}</td></tr>
+</table>
+
+<h2>{% trans "Main d'œuvre" %}</h2>
+
+<div class="box">
+    {% if controle.main_oeuvre %}
+        <p><strong>{% trans "Temps" %} :</strong> {{ controle.temps_main_oeuvre_display }}</p>
+        <p><strong>{% trans "Descriptif" %} :</strong> {{ controle.main_oeuvre.descriptif }}</p>
+    {% else %}
+        <p>{% trans "Aucune main d'œuvre enregistrée." %}</p>
+    {% endif %}
+</div>
+
+<h2>{% trans "Remarques" %}</h2>
+
+<div class="box">
+    {{ controle.remarques|default:_("Aucune remarque.") }}
+</div>
+
+<p class="small">
+    {% trans "Document généré automatiquement par CarsCosts.com." %}
+</p>
+
+</body>
+</html>
