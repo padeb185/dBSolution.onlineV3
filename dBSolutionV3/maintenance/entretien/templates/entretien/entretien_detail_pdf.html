@@ -130,7 +130,7 @@
     <tr><th>{% trans "Élément" %}</th><th>{% trans "État / Valeur" %}</th></tr>
 
     <tr>
-        <td>{% trans "Vidange huile moteur" %}</td>
+        <td>{% trans "Vidange de l'huile moteur" %}</td>
         <td>
             {% if entretien.moteur_entretien_vidange == "A_FAIRE" %}
                 <span class="etat etat-rouge">{{ entretien.get_moteur_entretien_vidange_display }}</span>
@@ -182,7 +182,7 @@
     </tr>
 
     <tr>
-        <td>{% trans "Ajout huile moteur" %}</td>
+        <td>{% trans "Ajout d'huile moteur" %}</td>
         <td>
             {% if entretien.moteur_ajout_huile == "A_FAIRE" %}
                 <span class="etat etat-rouge">{{ entretien.get_moteur_ajout_huile_display }}</span>
@@ -194,8 +194,8 @@
         </td>
     </tr>
 
-    <tr><td>{% trans "Qualité huile moteur" %}</td><td>{{ entretien.get_moteur_ajout_huile_qualite_display }}</td></tr>
-    <tr><td>{% trans "Quantité huile moteur" %}</td><td>{{ entretien.moteur_ajout_huile_quantite }} L</td></tr>
+    <tr><td>{% trans "Qualité d'huile moteur" %}</td><td>{{ entretien.get_moteur_ajout_huile_qualite_display }}</td></tr>
+    <tr><td>{% trans "Quantité d'huile moteur" %}</td><td>{{ entretien.moteur_ajout_huile_quantite }} L</td></tr>
 
     <tr>
         <td>{% trans "Bougies" %}</td>
@@ -242,7 +242,7 @@
     </tr>
 
     <tr>
-        <td>{% trans "Filtre habitacle" %}</td>
+        <td>{% trans "Filtre d'habitacle" %}</td>
         <td>
             {% if entretien.filtre_habitacle == "A_FAIRE" %}
                 <span class="etat etat-rouge">{{ entretien.get_filtre_habitacle_display }}</span>
@@ -259,13 +259,13 @@
 <table>
     <tr><th>{% trans "Élément" %}</th><th>{% trans "État / Valeur" %}</th></tr>
 
-    <tr><td>{% trans "Vidange huile boîte" %}</td><td>{{ entretien.get_boite_entretien_vidange_display }}</td></tr>
-    <tr><td>{% trans "Filtre huile boîte" %}</td><td>{{ entretien.get_filtre_huile_bte_display }}</td></tr>
-    <tr><td>{% trans "Bouchon de vidange boîte" %}</td><td>{{ entretien.get_boite_bouchon_vidange_display }}</td></tr>
-    <tr><td>{% trans "Joint bouchon boîte" %}</td><td>{{ entretien.get_boite_joint_vidange_display }}</td></tr>
-    <tr><td>{% trans "Ajout huile boîte" %}</td><td>{{ entretien.get_boite_ajout_huile_display }}</td></tr>
-    <tr><td>{% trans "Qualité huile boîte" %}</td><td>{{ entretien.get_boite_ajout_huile_qualite_display }}</td></tr>
-    <tr><td>{% trans "Quantité huile boîte" %}</td><td>{{ entretien.boite_ajout_huile_quantite }} L</td></tr>
+    <tr><td>{% trans "Vidange d'huile boîte" %}</td><td>{{ entretien.get_boite_entretien_vidange_display }}</td></tr>
+    <tr><td>{% trans "Filtre à huile de boîte" %}</td><td>{{ entretien.get_filtre_huile_bte_display }}</td></tr>
+    <tr><td>{% trans "Bouchon de vidange de boîte" %}</td><td>{{ entretien.get_boite_bouchon_vidange_display }}</td></tr>
+    <tr><td>{% trans "Joint de bouchon de boîte" %}</td><td>{{ entretien.get_boite_joint_vidange_display }}</td></tr>
+    <tr><td>{% trans "Ajout d'huile de boîte" %}</td><td>{{ entretien.get_boite_ajout_huile_display }}</td></tr>
+    <tr><td>{% trans "Qualité d'huile de boîte" %}</td><td>{{ entretien.get_boite_ajout_huile_qualite_display }}</td></tr>
+    <tr><td>{% trans "Quantité d'huile de boîte" %}</td><td>{{ entretien.boite_ajout_huile_quantite }} L</td></tr>
 </table>
 
 <h2>{% trans "Pont" %}</h2>
