@@ -1,0 +1,228 @@
+{% load i18n %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+        }
+
+        h2 {
+            font-size: 14px;
+            margin-top: 20px;
+            margin-bottom: 8px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 4px;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        .tag {
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .tag-vert {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .tag-jaune {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .tag-rouge {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 7px;
+            text-align: left;
+        }
+
+        th {
+            background: #f3f4f6;
+        }
+
+        .footer {
+            margin-top: 25px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>{% trans "Rapport nettoyage intérieur" %}</h1>
+
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Date" %} :</span>
+            {{ nettoyage.date|date:"d/m/Y H:i" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+            {{ nettoyage.tech_nom_technicien }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Rôle" %} :</span>
+            {{ nettoyage.tech_role_technicien }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Société" %} :</span>
+            {{ nettoyage.tech_societe }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Véhicule" %} :</span>
+            {{ nettoyage.voiture_exemplaire }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage chassis" %} :</span>
+            {{ nettoyage.kilometres_chassis }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage nettoyage intérieur" %} :</span>
+            {{ nettoyage.kilometrage_net_int }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Tag" %} :</span>
+
+            {% if nettoyage.tag == "VERT" %}
+                <span class="tag tag-vert">{{ nettoyage.get_tag_display }}</span>
+            {% elif nettoyage.tag == "JAUNE" %}
+                <span class="tag tag-jaune">{{ nettoyage.get_tag_display }}</span>
+            {% else %}
+                <span class="tag tag-rouge">{{ nettoyage.get_tag_display }}</span>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<h2>{% trans "Contrôle nettoyage intérieur" %}</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>{% trans "Élément" %}</th>
+            <th>{% trans "État" %}</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>{% trans "Vitres" %}</td>
+            <td>{{ nettoyage.get_nettoyage_interieur_vitres_display }}</td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Pare-brise" %}</td>
+            <td>{{ nettoyage.get_nettoyage_interieur_pare_brise_display }}</td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Aspirateur" %}</td>
+            <td>{{ nettoyage.get_nettoyage_interieur_aspirateur_display }}</td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Ouvrants de portes" %}</td>
+            <td>{{ nettoyage.get_nettoyage_interieur_interieur_portes_display }}</td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Tableau de bord" %}</td>
+            <td>{{ nettoyage.get_nettoyage_interieur_tableau_de_bord_display }}</td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Plastiques" %}</td>
+            <td>{{ nettoyage.get_nettoyage_interieur_plastiques_display }}</td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Console centrale" %}</td>
+            <td>{{ nettoyage.get_nettoyage_interieur_console_display }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>{% trans "Main d'œuvre" %}</h2>
+
+<div class="box">
+    {% if nettoyage.main_oeuvre %}
+        <div>
+            <span class="label">{% trans "Temps" %} :</span>
+            {{ nettoyage.temps_main_oeuvre_display }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Descriptif" %} :</span>
+            {{ nettoyage.main_oeuvre.descriptif }}
+        </div>
+    {% else %}
+        {% trans "Aucune main d'œuvre enregistrée." %}
+    {% endif %}
+</div>
+
+<h2>{% trans "Remarques" %}</h2>
+
+<div class="box">
+    {{ nettoyage.remarques|default:_("Aucune remarque.") }}
+</div>
+
+<div class="footer">
+    {% trans "Document généré automatiquement par CarsCosts.com." %}
+    <br>
+    {% trans "Date export" %} : {{ date_export|date:"d/m/Y H:i" }}
+</div>
+
+</body>
+</html>

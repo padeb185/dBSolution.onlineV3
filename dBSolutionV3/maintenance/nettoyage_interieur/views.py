@@ -1,12 +1,9 @@
-from django.shortcuts import get_object_or_404, redirect, render
-from django.contrib.auth.decorators import login_required
-from django.utils import timezone
+from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.db import transaction, models
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
-from django_tenants.utils import tenant_context
 from django.db.models import Q
 from maintenance.models import Maintenance
 from utilisateurs.models import UserLog
@@ -14,6 +11,14 @@ from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.utils.translation import gettext_lazy as _
 from .forms import NettoyageInterieurForm
 from .models import NettoyageInterieur
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
+from django.template.loader import render_to_string
+from django.http import HttpResponse
+from django.utils import timezone
+from django_tenants.utils import tenant_context
+from weasyprint import HTML
+
 
 
 # -----------------------------
@@ -289,3 +294,46 @@ def modifier_nettoyage_int_view(request, nettoyage_int_id):
             "exemplaire": nettoyage_interieur.voiture_exemplaire,
         }
     )
+
+
+
+
+
+
+
+@login_required
+def nettoyage_interieur_pdf_view(request, nettoyage_id):
+    tenant = request.user.societe
+
+    with tenant_context(tenant):
+        nettoyage = get_object_or_404(
+            NettoyageInterieur.objects.select_related(
+                "maintenance",
+                "voiture_exemplaire",
+                "main_oeuvre",
+                "tech_technicien",
+                "tech_societe",
+            ),
+            id=nettoyage_id
+        )
+
+        html_string = render_to_string(
+            "nettoyage_interieur/nettoyage_interieur_detail_pdf.html",
+            {
+                "nettoyage": nettoyage,
+                "date_export": timezone.now(),
+                "societe": tenant,
+            },
+            request=request
+        )
+
+        pdf_file = HTML(
+            string=html_string,
+            base_url=request.build_absolute_uri("/")
+        ).write_pdf()
+
+        response = HttpResponse(pdf_file, content_type="application/pdf")
+        response["Content-Disposition"] = (
+            f'inline; filename="nettoyage_interieur_{nettoyage.id}.pdf"'
+        )
+        return response

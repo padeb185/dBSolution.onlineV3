@@ -13,7 +13,7 @@ from django.core.exceptions import ValidationError
 
 
 class NiveauxEtat(models.TextChoices):
-    BON = "BON", _("Bon")
+    BON = "BON", _("OK")
     AJOUTER = "AJOUTER", _("Ajouter")
 
 

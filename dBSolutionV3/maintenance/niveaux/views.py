@@ -1,21 +1,24 @@
-from django.shortcuts import get_object_or_404, redirect, render
-from django.contrib.auth.decorators import login_required
-from django.utils import timezone
+from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.db import transaction, models
-from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
-from django_tenants.utils import tenant_context
 from maintenance.models import Maintenance
 from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
-from maintenance.nettoyage_exterieur.models import NettoyageExterieur
 from django.utils.translation import gettext_lazy as _
 from .forms import NiveauForm
 from .models import Niveau
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
+from django.template.loader import render_to_string
+from django.http import HttpResponse
+from django.utils import timezone
+from django_tenants.utils import tenant_context
+from weasyprint import HTML
+
 
 
 # -----------------------------
@@ -286,3 +289,44 @@ def modifier_niveau_view(request, niveau_id):
             "exemplaire": niveau.voiture_exemplaire,
         }
     )
+
+
+
+
+
+@login_required
+def niveau_pdf_view(request, niveau_id):
+    tenant = request.user.societe
+
+    with tenant_context(tenant):
+        niveau = get_object_or_404(
+            Niveau.objects.select_related(
+                "maintenance",
+                "voiture_exemplaire",
+                "main_oeuvre",
+                "tech_technicien",
+                "tech_societe",
+            ),
+            id=niveau_id
+        )
+
+        html_string = render_to_string(
+            "niveaux/niveau_detail_pdf.html",
+            {
+                "niveau": niveau,
+                "date_export": timezone.now(),
+                "societe": tenant,
+            },
+            request=request
+        )
+
+        pdf_file = HTML(
+            string=html_string,
+            base_url=request.build_absolute_uri("/")
+        ).write_pdf()
+
+        response = HttpResponse(pdf_file, content_type="application/pdf")
+        response["Content-Disposition"] = (
+            f'inline; filename="niveau_{niveau.id}.pdf"'
+        )
+        return response

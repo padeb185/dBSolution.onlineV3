@@ -1,0 +1,207 @@
+{% load i18n %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+        }
+
+        h2 {
+            font-size: 14px;
+            margin-top: 20px;
+            margin-bottom: 8px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 4px;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        .tag {
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .tag-vert {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .tag-jaune {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .tag-rouge {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 7px;
+            text-align: left;
+        }
+
+        th {
+            background: #f3f4f6;
+        }
+
+        .footer {
+            margin-top: 25px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>{% trans "Rapport contrôle des niveaux" %}</h1>
+
+<div class="box">
+    <div class="grid">
+        <div><span class="label">{% trans "Date" %} :</span> {{ niveau.date|date:"d/m/Y H:i" }}</div>
+        <div><span class="label">{% trans "Technicien" %} :</span> {{ niveau.tech_nom_technicien }}</div>
+        <div><span class="label">{% trans "Rôle" %} :</span> {{ niveau.tech_role_technicien }}</div>
+        <div><span class="label">{% trans "Société" %} :</span> {{ niveau.tech_societe }}</div>
+        <div><span class="label">{% trans "Véhicule" %} :</span> {{ niveau.voiture_exemplaire }}</div>
+        <div><span class="label">{% trans "Kilométrage chassis" %} :</span> {{ niveau.kilometres_chassis }} km</div>
+        <div><span class="label">{% trans "Kilométrage contrôle niveaux" %} :</span> {{ niveau.kilometrage_niveaux }} km</div>
+
+        <div>
+            <span class="label">{% trans "Tag" %} :</span>
+            {% if niveau.tag == "VERT" %}
+                <span class="tag tag-vert">{{ niveau.get_tag_display }}</span>
+            {% elif niveau.tag == "JAUNE" %}
+                <span class="tag tag-jaune">{{ niveau.get_tag_display }}</span>
+            {% else %}
+                <span class="tag tag-rouge">{{ niveau.get_tag_display }}</span>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<h2>{% trans "Contrôle des niveaux" %}</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>{% trans "Circuit" %}</th>
+            <th>{% trans "État" %}</th>
+            <th>{% trans "Quantité ajoutée" %}</th>
+            <th>{% trans "Qualité" %}</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>{% trans "Huile moteur" %}</td>
+            <td>{{ niveau.get_moteur_niveau_huile_etat_display }}</td>
+            <td>{{ niveau.moteur_niveau_huile_quantite }} L</td>
+            <td>{{ niveau.get_moteur_niveau_huile_qualite_display }}</td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Huile boîte" %}</td>
+            <td>{{ niveau.get_boite_niveau_huile_etat_display }}</td>
+            <td>{{ niveau.boite_niveau_huile_quantite }} L</td>
+            <td>{{ niveau.get_boite_niveau_huile_qualite_display }}</td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Huile pont" %}</td>
+            <td>{{ niveau.get_pont_niveau_huile_etat_display }}</td>
+            <td>{{ niveau.pont_niveau_huile_quantite }} L</td>
+            <td>{{ niveau.get_pont_niveau_huile_qualite_display }}</td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Liquide de refroidissement" %}</td>
+            <td>{{ niveau.get_refroidissement_etat_display }}</td>
+            <td>{{ niveau.refroidissement_quantite }} L</td>
+            <td>{{ niveau.get_refroidissement_qualite_display }}</td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Liquide de freins" %}</td>
+            <td>{{ niveau.get_frein_liquide_etat_display }}</td>
+            <td>{{ niveau.frein_liquide_quantite }} L</td>
+            <td>{{ niveau.get_frein_liquide_qualite_display }}</td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Liquide lave-glace" %}</td>
+            <td>{{ niveau.get_lave_glace_liquide_etat_display }}</td>
+            <td>{{ niveau.lave_glace_quantite }} L</td>
+            <td>{{ niveau.get_lave_glace_qualite_display }}</td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Liquide direction assistée" %}</td>
+            <td>{{ niveau.get_direction_liquide_etat_display }}</td>
+            <td>{{ niveau.direction_liquide_quantite }} L</td>
+            <td>{{ niveau.get_direction_liquide_qualite_display }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>{% trans "Main d'œuvre" %}</h2>
+
+<div class="box">
+    {% if niveau.main_oeuvre %}
+        <div><span class="label">{% trans "Temps" %} :</span> {{ niveau.temps_main_oeuvre_display }}</div>
+        <div><span class="label">{% trans "Descriptif" %} :</span> {{ niveau.main_oeuvre.descriptif }}</div>
+    {% else %}
+        {% trans "Aucune main d'œuvre enregistrée." %}
+    {% endif %}
+</div>
+
+<h2>{% trans "Remarques" %}</h2>
+
+<div class="box">
+    {{ niveau.remarques|default:_("Aucune remarque.") }}
+</div>
+
+<div class="footer">
+    {% trans "Document généré automatiquement par CarsCosts.com." %}
+    <br>
+    {% trans "Date export" %} : {{ date_export|date:"d/m/Y H:i" }}
+</div>
+
+</body>
+</html>
