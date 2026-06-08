@@ -1,0 +1,269 @@
+{% load i18n %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 22px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 6px;
+            margin-bottom: 15px;
+        }
+
+        h2 {
+            font-size: 15px;
+            margin-top: 18px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 4px;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 6px;
+            text-align: left;
+        }
+
+        th {
+            background: #f1f1f1;
+        }
+
+        .badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .OK {
+            background: #6b7280;
+        }
+
+        .A_REMPLACER {
+            background: #dc2626;
+        }
+
+        .REMPLACE {
+            background: #16a34a;
+        }
+
+        .tag-VERT {
+            background: #16a34a;
+        }
+
+        .tag-JAUNE {
+            background: #ca8a04;
+        }
+
+        .tag-ROUGE {
+            background: #dc2626;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>{% trans "Rapport contrôle silent blocs" %}</h1>
+
+<div class="box">
+    <div class="grid">
+        <div><span class="label">{% trans "Société" %} :</span> {{ societe.nom }}</div>
+        <div><span class="label">{% trans "Date export" %} :</span> {{ date_export|date:"d/m/Y H:i" }}</div>
+
+        <div><span class="label">{% trans "Véhicule" %} :</span> {{ objet.voiture_exemplaire }}</div>
+        <div><span class="label">{% trans "Kilométrage contrôle" %} :</span> {{ objet.kilometrage_silent }} km</div>
+
+        <div><span class="label">{% trans "Kilométrage chassis" %} :</span> {{ objet.kilometres_chassis }} km</div>
+        <div>
+            <span class="label">{% trans "Tag" %} :</span>
+            <span class="badge tag-{{ objet.tag }}">{{ objet.get_tag_display }}</span>
+        </div>
+    </div>
+</div>
+
+<h2>{% trans "Technicien" %}</h2>
+
+<div class="box">
+    <div class="grid">
+        <div><span class="label">{% trans "Nom" %} :</span> {{ objet.tech_nom_technicien }}</div>
+        <div><span class="label">{% trans "Rôle" %} :</span> {{ objet.tech_role_technicien }}</div>
+    </div>
+</div>
+
+<h2>{% trans "Silent blocs" %}</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>{% trans "Élément contrôlé" %}</th>
+            <th>{% trans "État" %}</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>{% trans "Silent blocs barre stabilisatrice avant" %}</td>
+            <td><span class="badge {{ objet.silent_blocs_barre_stabilisatrice_av }}">{{ objet.get_silent_blocs_barre_stabilisatrice_av_display }}</span></td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Silent blocs barre stabilisatrice arrière" %}</td>
+            <td><span class="badge {{ objet.silent_blocs_barre_stabilisatrice_ar }}">{{ objet.get_silent_blocs_barre_stabilisatrice_ar_display }}</span></td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Silent bloc amortisseur avant droit" %}</td>
+            <td><span class="badge {{ objet.silent_blocs_amortisseur_avd }}">{{ objet.get_silent_blocs_amortisseur_avd_display }}</span></td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Silent bloc amortisseur avant gauche" %}</td>
+            <td><span class="badge {{ objet.silent_bloc_amortisseur_avg }}">{{ objet.get_silent_bloc_amortisseur_avg_display }}</span></td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Silent bloc amortisseur arrière droit" %}</td>
+            <td><span class="badge {{ objet.silent_blocs_amortisseur_ard }}">{{ objet.get_silent_blocs_amortisseur_ard_display }}</span></td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Silent bloc amortisseur arrière gauche" %}</td>
+            <td><span class="badge {{ objet.silent_blocs_amortisseur_arg }}">{{ objet.get_silent_blocs_amortisseur_arg_display }}</span></td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Triangle inférieur avant droit" %}</td>
+            <td><span class="badge {{ objet.silent_blocs_triangle_inf_avd }}">{{ objet.get_silent_blocs_triangle_inf_avd_display }}</span></td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Triangle inférieur avant gauche" %}</td>
+            <td><span class="badge {{ objet.silent_blocs_triangle_inf_avg }}">{{ objet.get_silent_blocs_triangle_inf_avg_display }}</span></td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Triangle inférieur arrière droit" %}</td>
+            <td><span class="badge {{ objet.silent_blocs_triangle_inf_ard }}">{{ objet.get_silent_blocs_triangle_inf_ard_display }}</span></td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Triangle inférieur arrière gauche" %}</td>
+            <td><span class="badge {{ objet.silent_blocs_triangle_inf_arg }}">{{ objet.get_silent_blocs_triangle_inf_arg_display }}</span></td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Triangle supérieur avant droit" %}</td>
+            <td><span class="badge {{ objet.silent_blocs_triangle_sup_avd }}">{{ objet.get_silent_blocs_triangle_sup_avd_display }}</span></td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Triangle supérieur avant gauche" %}</td>
+            <td><span class="badge {{ objet.silent_blocs_triangle_sup_avg }}">{{ objet.get_silent_blocs_triangle_sup_avg_display }}</span></td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Triangle supérieur arrière droit" %}</td>
+            <td><span class="badge {{ objet.silent_blocs_triangle_sup_ard }}">{{ objet.get_silent_blocs_triangle_sup_ard_display }}</span></td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Triangle supérieur arrière gauche" %}</td>
+            <td><span class="badge {{ objet.silent_blocs_triangle_sup_arg }}">{{ objet.get_silent_blocs_triangle_sup_arg_display }}</span></td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Suspension multi-bras avant droit" %}</td>
+            <td><span class="badge {{ objet.silent_blocs_multi_bras_avd }}">{{ objet.get_silent_blocs_multi_bras_avd_display }}</span></td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Suspension multi-bras avant gauche" %}</td>
+            <td><span class="badge {{ objet.silent_blocs_multi_bras_avg }}">{{ objet.get_silent_blocs_multi_bras_avg_display }}</span></td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Suspension multi-bras arrière droit" %}</td>
+            <td><span class="badge {{ objet.silent_blocs_multi_bras_ard }}">{{ objet.get_silent_blocs_multi_bras_ard_display }}</span></td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Suspension multi-bras arrière gauche" %}</td>
+            <td><span class="badge {{ objet.silent_blocs_multi_bras_arg }}">{{ objet.get_silent_blocs_multi_bras_arg_display }}</span></td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Silent bloc moteur" %}</td>
+            <td><span class="badge {{ objet.silent_blocs_moteur_avg }}">{{ objet.get_silent_blocs_moteur_avg_display }}</span></td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Silent bloc boîte de vitesse" %}</td>
+            <td><span class="badge {{ objet.silent_blocs_moteur_boite_ard }}">{{ objet.get_silent_blocs_moteur_boite_ard_display }}</span></td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Silent bloc moteur pendulaire" %}</td>
+            <td><span class="badge {{ objet.silent_blocs_moteur_inf_arg }}">{{ objet.get_silent_blocs_moteur_inf_arg_display }}</span></td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>{% trans "Main d'œuvre" %}</h2>
+
+<div class="box">
+    <div class="grid">
+        <div><span class="label">{% trans "Temps" %} :</span> {{ objet.temps_main_oeuvre_display }}</div>
+
+        {% if objet.main_oeuvre %}
+            <div><span class="label">{% trans "Taux horaire" %} :</span> {{ objet.main_oeuvre.taux_horaire }} €</div>
+            <div><span class="label">{% trans "Prix facturé" %} :</span> {{ objet.main_oeuvre.prix_facture }} €</div>
+            <div><span class="label">{% trans "Descriptif" %} :</span> {{ objet.main_oeuvre.descriptif }}</div>
+        {% else %}
+            <div>{% trans "Aucune main d'œuvre liée" %}</div>
+        {% endif %}
+    </div>
+</div>
+
+<h2>{% trans "Remarques" %}</h2>
+
+<div class="box">
+    {% if objet.remarques %}
+        {{ objet.remarques|linebreaks }}
+    {% else %}
+        {% trans "Aucune remarque" %}
+    {% endif %}
+</div>
+
+</body>
+</html>

@@ -1,19 +1,24 @@
-from django.shortcuts import get_object_or_404, redirect, render
-from django.contrib.auth.decorators import login_required
-from django.utils import timezone
+from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.db import transaction, models
-from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
-from django_tenants.utils import tenant_context
 from maintenance.models import Maintenance
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 from .forms import SilentBlocForm
 from .models import SilentBloc
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
+from django.template.loader import render_to_string
+from django.utils import timezone
+from django_tenants.utils import tenant_context
+from weasyprint import HTML
+
+
 
 
 # -----------------------------
@@ -265,3 +270,40 @@ def modifier_silent_view(request, silent_id):
             "exemplaire": silent.voiture_exemplaire,
         }
     )
+
+
+
+@login_required
+def silent_bloc_pdf_view(request, silent_id):
+    tenant = request.user.societe
+
+    with tenant_context(tenant):
+        silent_bloc = get_object_or_404(
+            SilentBloc.objects.select_related(
+                "voiture_exemplaire",
+                "main_oeuvre",
+                "tech_technicien",
+                "tech_societe",
+            ),
+            id=silent_id
+        )
+
+        html_string = render_to_string(
+            "silent_blocs/silent_bloc_detail_pdf.html",
+            {
+                "objet": silent_bloc,
+                "societe": tenant,
+                "date_export": timezone.now(),
+            }
+        )
+
+        pdf = HTML(
+            string=html_string,
+            base_url=request.build_absolute_uri("/")
+        ).write_pdf()
+
+        response = HttpResponse(pdf, content_type="application/pdf")
+        response["Content-Disposition"] = (
+            f'inline; filename="silent_blocs_{silent_bloc.id}.pdf"'
+        )
+        return response
