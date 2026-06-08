@@ -1,14 +1,15 @@
 import uuid
 from decimal import Decimal
-
 from django.core.validators import StepValueValidator
-
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from maintenance.choices import RouesSerrageEtat
 from utils.mixin import TechnicienMixin
 from societe.models import Societe
+
+
 
 
 def validate_step_0_1(value):
@@ -239,6 +240,8 @@ class Entretien(TechnicienMixin, models.Model):
     pneu_pression_bar_avg = models.FloatField(default=2.4, verbose_name=_("Pression du pneu avant gauche en bar"), validators=[StepValueValidator(0.1)])
     pneu_pression_bar_ard = models.FloatField(default=2.4, verbose_name=_("Pression du pneu arrière droit en bar"), validators=[StepValueValidator(0.1)])
     pneu_pression_bar_arg = models.FloatField(default=2.4, verbose_name=_("Pression du pneu arrière gauche en bar"), validators=[StepValueValidator(0.1)])
+
+    serrage_roues = models.CharField(max_length=25, choices=RouesSerrageEtat.choices, default=RouesSerrageEtat.A_FAIRE, verbose_name=_("Serrage des roues"))
 
     piece = models.ForeignKey(
         "piece.Piece",

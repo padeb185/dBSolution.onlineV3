@@ -3,6 +3,7 @@ from datetime import timezone
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from maintenance.choices import RouesSerrageEtat
 from maintenance.models import Maintenance
 from utilisateurs.models import Utilisateur
 from django.conf import settings
@@ -81,6 +82,7 @@ class PneuEtat(models.TextChoices):
     NON = "NON", _("Non")
     A_REMPLACER = "A_REMPLACER", _("À remplacer")
 
+
 class RefroidissementQualiteEtat(models.TextChoices):
     # Volkswagen Group
     G11 = "G11", _("G 11")
@@ -154,7 +156,7 @@ class CheckupTrack(TechnicienMixin, models.Model):
         Maintenance,
         on_delete=models.CASCADE,
         related_name="checkup_track",
-        verbose_name=_("Maintenance"),
+        verbose_name=_("Checkup Track"),
         null=True,
         blank=True
     )
@@ -293,6 +295,7 @@ class CheckupTrack(TechnicienMixin, models.Model):
     pneu_train_av =  models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.NON, verbose_name=_("Train avant à remplacer"))
     pneu_train_ar =  models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.NON, verbose_name=_("Train arrière à remplacer"))
 
+    serrage_roues = models.CharField(max_length=25, choices=RouesSerrageEtat.choices, default=RouesSerrageEtat.A_FAIRE, verbose_name=_("Serrage des roues"))
 
     crochet_de_remorquage = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Crochet de remorquage installé"))
 

@@ -2,6 +2,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+from maintenance.choices import RouesSerrageEtat
 from maintenance.models import Maintenance
 from utilisateurs.models import Utilisateur
 from django.conf import settings
@@ -311,7 +312,7 @@ class Checkup(TechnicienMixin, models.Model):
     pneu_train_av =  models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.NON, verbose_name=_("Train avant à remplacer"))
     pneu_train_ar =  models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.NON, verbose_name=_("Train arrière à remplacer"))
 
-
+    serrage_roues = models.CharField(max_length=25, choices=RouesSerrageEtat.choices, default=RouesSerrageEtat.A_FAIRE, verbose_name=_("Serrage des roues"))
 
     # --- Réglage phares ---
     phares_reglages = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,verbose_name=_("Réglage phares"))
