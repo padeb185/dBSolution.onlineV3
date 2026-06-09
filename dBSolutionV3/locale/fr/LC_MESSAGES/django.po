@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-08 16:41+0200\n"
+"POT-Creation-Date: 2026-06-09 12:34+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -5639,7 +5639,6 @@ msgid "Rapport de contrôle boîte automatique"
 msgstr ""
 
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:129
-#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:105
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Kilométrage contrôle"
@@ -8009,7 +8008,6 @@ msgstr ""
 
 #: maintenance/check_up/models.py:222 maintenance/checkup_track/models.py:241
 #: maintenance/freins/models.py:82
-#: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:344
 msgid "Spécification liquide de frein"
 msgstr ""
 
@@ -8531,10 +8529,12 @@ msgid "Remplacement du liquide de frein"
 msgstr ""
 
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:182
+#: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:344
 msgid "Spécification du liquide de frein"
 msgstr ""
 
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:183
+#: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:345
 msgid "Quantité de liquide de frein"
 msgstr ""
 
@@ -9111,6 +9111,7 @@ msgid "Huile de boite ajoutée"
 msgstr ""
 
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:223
+#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:267
 msgid "Qualité d'huile de boîte"
 msgstr ""
 
@@ -9480,6 +9481,7 @@ msgstr ""
 
 #: maintenance/entretien/models.py:193 maintenance/entretien/models.py:212
 #: maintenance/entretien/models.py:219
+#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:133
 msgid "Vidange de l'huile moteur"
 msgstr ""
 
@@ -9652,10 +9654,6 @@ msgstr "Tableau de Bord"
 msgid "État / Valeur"
 msgstr "Tableau de Bord"
 
-#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:133
-msgid "Vidange huile moteur"
-msgstr ""
-
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:146
 #, fuzzy
 #| msgid "Tableau de bord"
@@ -9672,16 +9670,21 @@ msgid "Joint du bouchon de vidange"
 msgstr ""
 
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:185
-msgid "Ajout huile moteur"
+#: maintenance/niveaux/templates/niveaux/niveaux_detail.html:43
+msgid "Ajout d'huile moteur"
 msgstr ""
 
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:197
-msgid "Qualité huile moteur"
-msgstr ""
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Qualité d'huile moteur"
+msgstr "Tableau de Bord"
 
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:198
-msgid "Quantité huile moteur"
-msgstr ""
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Quantité d'huile moteur"
+msgstr "Tableau de Bord"
 
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:201
 msgid "Bougies"
@@ -9693,43 +9696,42 @@ msgid "Filtre à carburant"
 msgstr ""
 
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:245
-msgid "Filtre habitacle"
+msgid "Filtre d'habitacle"
 msgstr ""
 
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:262
 #, fuzzy
 #| msgid "Tableau de bord"
-msgid "Vidange huile boîte"
+msgid "Vidange d'huile boîte"
 msgstr "Tableau de Bord"
 
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:263
 #, fuzzy
 #| msgid "Tableau de bord"
-msgid "Filtre huile boîte"
+msgid "Filtre à huile de boîte"
 msgstr "Tableau de Bord"
 
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:264
-msgid "Bouchon de vidange boîte"
-msgstr ""
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Bouchon de vidange de boîte"
+msgstr "Tableau de Bord"
 
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:265
-msgid "Joint bouchon boîte"
+msgid "Joint de bouchon de boîte"
 msgstr ""
 
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:266
 #, fuzzy
 #| msgid "Tableau de bord"
-msgid "Ajout huile boîte"
+msgid "Ajout d'huile de boîte"
 msgstr "Tableau de Bord"
 
-#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:267
-#: voiture/voiture_boite/forms.py:24
-msgid "Qualité huile boîte"
-msgstr ""
-
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:268
-msgid "Quantité huile boîte"
-msgstr ""
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Quantité d'huile de boîte"
+msgstr "Tableau de Bord"
 
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:274
 msgid "Vidange huile pont"
@@ -9767,7 +9769,7 @@ msgid "Taux horaire"
 msgstr "Tableau de Bord"
 
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:359
-msgid "Coût main d’œuvre"
+msgid "Coût de la main d’œuvre"
 msgstr ""
 
 #: maintenance/entretien/templates/entretien/entretien_list.html:4
@@ -9898,8 +9900,10 @@ msgid "Controle des freins"
 msgstr ""
 
 #: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:108
-msgid "Rapport contrôle freins"
-msgstr ""
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Rapport du contrôle des freins"
+msgstr "Tableau de Bord"
 
 #: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:118
 #, fuzzy
@@ -9944,7 +9948,7 @@ msgid "Fuites"
 msgstr ""
 
 #: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:258
-msgid "Fuite générale"
+msgid "Fuite du système de frein"
 msgstr ""
 
 #: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:271
@@ -9959,12 +9963,8 @@ msgstr ""
 msgid "Fuite tuyaux rigides"
 msgstr ""
 
-#: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:345
-msgid "Quantité liquide de frein"
-msgstr ""
-
 #: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:348
-msgid "Mâchoires"
+msgid "Mâchoires de frein"
 msgstr ""
 
 #: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:370
@@ -10031,9 +10031,10 @@ msgid "Contrôle freins enregistré avec succès."
 msgstr ""
 
 #: maintenance/freins/views.py:279
-#, python-format
-msgid "Modification freins - %(immatriculation)s"
-msgstr ""
+#, fuzzy, python-format
+#| msgid "Tableau de bord"
+msgid "Modification du controle des freins - %(immatriculation)s"
+msgstr "Tableau de Bord"
 
 #: maintenance/freins/views.py:284
 msgid "Contrôle freins modifié avec succès !"
@@ -10131,13 +10132,13 @@ msgstr "Tableau de Bord"
 #: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:104
 #, fuzzy
 #| msgid "Tableau de bord"
-msgid "Rapport contrôle des jeux"
+msgid "Rapport du contrôle des jeux"
 msgstr "Tableau de Bord"
 
 #: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:140
 #, fuzzy
 #| msgid "Tableau de bord"
-msgid "Kilométrage contrôle des jeux"
+msgid "Kilométrage du contrôle des jeux"
 msgstr "Tableau de Bord"
 
 #: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:181
@@ -10315,19 +10316,19 @@ msgstr ""
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:94
 #, fuzzy
 #| msgid "Tableau de bord"
-msgid "Rapport nettoyage extérieur"
+msgid "Rapport du nettoyage extérieur"
 msgstr "Tableau de Bord"
 
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:129
 #, fuzzy
 #| msgid "Tableau de bord"
-msgid "Kilométrage nettoyage extérieur"
+msgid "Kilométrage du nettoyage extérieur"
 msgstr "Tableau de Bord"
 
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:147
 #, fuzzy
 #| msgid "Tableau de bord"
-msgid "Contrôle nettoyage extérieur"
+msgid "Contrôle du nettoyage extérieur"
 msgstr "Tableau de Bord"
 
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:206
@@ -10426,19 +10427,19 @@ msgstr ""
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:94
 #, fuzzy
 #| msgid "Tableau de bord"
-msgid "Rapport nettoyage intérieur"
+msgid "Rapport du nettoyage intérieur"
 msgstr "Tableau de Bord"
 
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:130
 #, fuzzy
 #| msgid "Tableau de bord"
-msgid "Kilométrage nettoyage intérieur"
+msgid "Kilométrage du nettoyage intérieur"
 msgstr "Tableau de Bord"
 
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:149
 #, fuzzy
 #| msgid "Tableau de bord"
-msgid "Contrôle nettoyage intérieur"
+msgid "Contrôle du nettoyage intérieur"
 msgstr "Tableau de Bord"
 
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_simple.html:15
@@ -10514,13 +10515,13 @@ msgstr "Tableau de Bord"
 #: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:94
 #, fuzzy
 #| msgid "Tableau de bord"
-msgid "Rapport contrôle des niveaux"
+msgid "Rapport du contrôle des niveaux"
 msgstr "Tableau de Bord"
 
 #: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:104
 #, fuzzy
 #| msgid "Tableau de bord"
-msgid "Kilométrage contrôle niveaux"
+msgid "Kilométrage du contrôle niveaux"
 msgstr "Tableau de Bord"
 
 #: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:119
@@ -10534,23 +10535,21 @@ msgid "Circuit"
 msgstr ""
 
 #: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:140
-#, fuzzy
-#| msgid "Tableau de bord"
-msgid "Huile boîte"
-msgstr "Tableau de Bord"
+#: piece/piece_boite/models.py:66 piece/piece_fluides/models.py:9
+msgid "Huile de boîte"
+msgstr ""
 
 #: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:147
-#, fuzzy
-#| msgid "Tableau de bord"
-msgid "Huile pont"
-msgstr "Tableau de Bord"
+#: piece/piece_fluides/models.py:10
+msgid "Huile de pont"
+msgstr ""
 
 #: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:168
 msgid "Liquide lave-glace"
 msgstr ""
 
 #: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:175
-msgid "Liquide direction assistée"
+msgid "Liquide de direction assistée"
 msgstr ""
 
 #: maintenance/niveaux/templates/niveaux/niveau_form.html:15
@@ -10567,10 +10566,6 @@ msgstr ""
 
 #: maintenance/niveaux/templates/niveaux/niveaux_detail.html:13
 msgid "Détails du contrôle des Niveaux : "
-msgstr ""
-
-#: maintenance/niveaux/templates/niveaux/niveaux_detail.html:43
-msgid "Ajout d'huile moteur"
 msgstr ""
 
 #: maintenance/niveaux/templates/niveaux/niveaux_detail.html:49
@@ -10637,9 +10632,10 @@ msgid "Controle des niveaux enregistré avec succès."
 msgstr ""
 
 #: maintenance/niveaux/views.py:262
-#, python-format
-msgid "Modification niveaux - %(immatriculation)s"
-msgstr ""
+#, fuzzy, python-format
+#| msgid "Tableau de bord"
+msgid "Modification des niveaux - %(immatriculation)s"
+msgstr "Tableau de Bord"
 
 #: maintenance/niveaux/views.py:267
 msgid "Contrôle des niveaux modifié avec succès !"
@@ -10741,13 +10737,13 @@ msgstr "Tableau de Bord"
 #: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:94
 #, fuzzy
 #| msgid "Tableau de bord"
-msgid "Rapport contrôle pneus"
+msgid "Rapport du contrôle des pneus"
 msgstr "Tableau de Bord"
 
 #: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:104
 #, fuzzy
 #| msgid "Tableau de bord"
-msgid "Kilométrage contrôle pneus"
+msgid "Kilométrage du contrôle des pneus"
 msgstr "Tableau de Bord"
 
 #: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:119
@@ -10759,8 +10755,10 @@ msgid "Flancs des pneus"
 msgstr ""
 
 #: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:168
-msgid "État flanc"
-msgstr ""
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "État du flanc"
+msgstr "Tableau de Bord"
 
 #: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:195
 msgid "Trains de pneus"
@@ -10772,7 +10770,7 @@ msgid "Train"
 msgstr ""
 
 #: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:202
-msgid "Nombre monté"
+msgid "Nombre montés"
 msgstr ""
 
 #: maintenance/pneus/templates/pneus/pneus_detail.html:49
@@ -10808,7 +10806,7 @@ msgstr ""
 #: maintenance/pneus/views.py:259
 #, fuzzy, python-format
 #| msgid "Tableau de bord"
-msgid "Modification pneus - %(immatriculation)s"
+msgid "Modification du contrôle pneus - %(immatriculation)s"
 msgstr "Tableau de Bord"
 
 #: maintenance/pneus/views.py:264
@@ -10940,8 +10938,16 @@ msgid "Retour à la liste des contrôles des silent blocs"
 msgstr ""
 
 #: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:97
-msgid "Rapport contrôle silent blocs"
-msgstr ""
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Rapport du contrôle des silent blocs"
+msgstr "Tableau de Bord"
+
+#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:105
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Kilométrage du contrôle"
+msgstr "Tableau de Bord"
 
 #: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:136
 msgid "Silent blocs barre stabilisatrice avant"
@@ -11024,7 +11030,7 @@ msgstr "Tableau de Bord"
 #: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:231
 #, fuzzy
 #| msgid "Tableau de bord"
-msgid "Silent bloc boîte de vitesse"
+msgid "Silent bloc de boîte de vitesse"
 msgstr "Tableau de Bord"
 
 #: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:236
@@ -11777,10 +11783,6 @@ msgstr ""
 msgid "Tringlerie"
 msgstr ""
 
-#: piece/piece_boite/models.py:66 piece/piece_fluides/models.py:9
-msgid "Huile de boîte"
-msgstr ""
-
 #: piece/piece_boite/models.py:70
 msgid "Boîte mécanique"
 msgstr ""
@@ -12499,10 +12501,6 @@ msgstr ""
 
 #: piece/piece_fluides/forms.py:81
 msgid "Le conditionnement doit être supérieur à 0."
-msgstr ""
-
-#: piece/piece_fluides/models.py:10
-msgid "Huile de pont"
 msgstr ""
 
 #: piece/piece_fluides/models.py:14
@@ -14584,6 +14582,10 @@ msgstr ""
 msgid "Nombre de rapports"
 msgstr ""
 
+#: voiture/voiture_boite/forms.py:24
+msgid "Qualité huile boîte"
+msgstr ""
+
 #: voiture/voiture_boite/forms.py:25
 msgid "Quantité d'huile boîte (L)"
 msgstr ""
@@ -16242,6 +16244,16 @@ msgstr ""
 #: voiture/voiture_pneus/views.py:129
 msgid "Pneu mis à jour avec succès."
 msgstr ""
+
+#, fuzzy
+#~| msgid "Tableau de bord"
+#~ msgid "Huile boîte"
+#~ msgstr "Tableau de Bord"
+
+#, fuzzy
+#~| msgid "Tableau de bord"
+#~ msgid "Huile pont"
+#~ msgstr "Tableau de Bord"
 
 #, fuzzy
 #~| msgid "Téléphone"

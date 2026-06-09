@@ -308,7 +308,7 @@ def modifier_remplacement_boite_view(request, remplacement_boite_id):
 
                 UserLog.objects.create(
                     utilisateur=request.user,
-                    action=_("Modification remplacement boite de vitesse - %(immatriculation)s") % {
+                    action=_("Modification du remplacement de la boite de vitesse - %(immatriculation)s") % {
                         "immatriculation": exemplaire.immatriculation
                     }
                 )

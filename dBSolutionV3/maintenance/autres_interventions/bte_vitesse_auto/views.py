@@ -266,7 +266,7 @@ def modifier_bte_auto_view(request, bte_auto_id):
 
                 UserLog.objects.create(
                     utilisateur=request.user,
-                    action=_("Modification boite automatique - %(immatriculation)s") % {
+                    action=_("Modification du contrôle de la boite automatique - %(immatriculation)s") % {
                         "immatriculation": exemplaire.immatriculation
                     }
                 )

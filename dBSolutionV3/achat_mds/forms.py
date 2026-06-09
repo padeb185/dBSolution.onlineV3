@@ -35,8 +35,8 @@ class AchatForm(forms.ModelForm):
             "achat_montant_htva": _("Montant achat HTVA"),
             "transport_montant_htva": _("Montant transport HTVA"),
             "achat_tva": _("TVA (%)"),
-            "date_facture": _("Date facture"),
-            "date_paiement": _("Date paiement"),
+            "date_facture": _("Date de la facture"),
+            "date_paiement": _("Date de paiement"),
         }
 
         widgets = {
