@@ -91,7 +91,7 @@
 
 <body>
 
-<h1>{% trans "Rapport contrôle des niveaux" %}</h1>
+<h1>{% trans "Rapport du contrôle des niveaux" %}</h1>
 
 <div class="box">
     <div class="grid">
@@ -101,7 +101,7 @@
         <div><span class="label">{% trans "Société" %} :</span> {{ niveau.tech_societe }}</div>
         <div><span class="label">{% trans "Véhicule" %} :</span> {{ niveau.voiture_exemplaire }}</div>
         <div><span class="label">{% trans "Kilométrage chassis" %} :</span> {{ niveau.kilometres_chassis }} km</div>
-        <div><span class="label">{% trans "Kilométrage contrôle niveaux" %} :</span> {{ niveau.kilometrage_niveaux }} km</div>
+        <div><span class="label">{% trans "Kilométrage du contrôle niveaux" %} :</span> {{ niveau.kilometrage_niveaux }} km</div>
 
         <div>
             <span class="label">{% trans "Tag" %} :</span>
@@ -137,14 +137,14 @@
         </tr>
 
         <tr>
-            <td>{% trans "Huile boîte" %}</td>
+            <td>{% trans "Huile de boîte" %}</td>
             <td>{{ niveau.get_boite_niveau_huile_etat_display }}</td>
             <td>{{ niveau.boite_niveau_huile_quantite }} L</td>
             <td>{{ niveau.get_boite_niveau_huile_qualite_display }}</td>
         </tr>
 
         <tr>
-            <td>{% trans "Huile pont" %}</td>
+            <td>{% trans "Huile de pont" %}</td>
             <td>{{ niveau.get_pont_niveau_huile_etat_display }}</td>
             <td>{{ niveau.pont_niveau_huile_quantite }} L</td>
             <td>{{ niveau.get_pont_niveau_huile_qualite_display }}</td>
@@ -172,7 +172,7 @@
         </tr>
 
         <tr>
-            <td>{% trans "Liquide direction assistée" %}</td>
+            <td>{% trans "Liquide de direction assistée" %}</td>
             <td>{{ niveau.get_direction_liquide_etat_display }}</td>
             <td>{{ niveau.direction_liquide_quantite }} L</td>
             <td>{{ niveau.get_direction_liquide_qualite_display }}</td>

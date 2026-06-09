@@ -259,7 +259,7 @@ def modifier_niveau_view(request, niveau_id):
 
                 UserLog.objects.create(
                     utilisateur=request.user,
-                    action=_("Modification niveaux - %(immatriculation)s") % {
+                    action=_("Modification des niveaux - %(immatriculation)s") % {
                         "immatriculation": exemplaire.immatriculation
                     }
                 )

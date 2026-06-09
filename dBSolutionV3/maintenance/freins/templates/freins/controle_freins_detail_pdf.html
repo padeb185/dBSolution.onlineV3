@@ -105,7 +105,7 @@
 
 <body>
 
-<h1>{% trans "Rapport contrôle freins" %}</h1>
+<h1>{% trans "Rapport du contrôle des freins" %}</h1>
 
 <div class="box">
     <div class="grid">
@@ -255,7 +255,7 @@
     </tr>
 
     <tr>
-        <td>{% trans "Fuite générale" %}</td>
+        <td>{% trans "Fuite du système de frein" %}</td>
         <td>
             {% if controle_freins.fuites_freins_fuites == "A_REMPLACER" %}
                 <span class="etat-remplacer">{{ controle_freins.get_fuites_freins_fuites_display }}</span>
@@ -341,11 +341,11 @@
         </td>
     </tr>
 
-    <tr><td>{% trans "Spécification liquide de frein" %}</td><td>{{ controle_freins.get_liquide_specif_liquide_frein_display }}</td></tr>
-    <tr><td>{% trans "Quantité liquide de frein" %}</td><td>{{ controle_freins.liquide_quantite_liquide_frein }} L</td></tr>
+    <tr><td>{% trans "Spécification du liquide de frein" %}</td><td>{{ controle_freins.get_liquide_specif_liquide_frein_display }}</td></tr>
+    <tr><td>{% trans "Quantité de liquide de frein" %}</td><td>{{ controle_freins.liquide_quantite_liquide_frein }} L</td></tr>
 </table>
 
-<h2>{% trans "Mâchoires" %}</h2>
+<h2>{% trans "Mâchoires de frein" %}</h2>
 
 <table>
     <tr>

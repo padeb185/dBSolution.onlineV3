@@ -94,7 +94,7 @@
 
 <body>
 
-<h1>{% trans "Rapport contrôle silent blocs" %}</h1>
+<h1>{% trans "Rapport du contrôle des silent blocs" %}</h1>
 
 <div class="box">
     <div class="grid">
@@ -102,7 +102,7 @@
         <div><span class="label">{% trans "Date export" %} :</span> {{ date_export|date:"d/m/Y H:i" }}</div>
 
         <div><span class="label">{% trans "Véhicule" %} :</span> {{ objet.voiture_exemplaire }}</div>
-        <div><span class="label">{% trans "Kilométrage contrôle" %} :</span> {{ objet.kilometrage_silent }} km</div>
+        <div><span class="label">{% trans "Kilométrage du contrôle" %} :</span> {{ objet.kilometrage_silent }} km</div>
 
         <div><span class="label">{% trans "Kilométrage chassis" %} :</span> {{ objet.kilometres_chassis }} km</div>
         <div>
@@ -228,7 +228,7 @@
         </tr>
 
         <tr>
-            <td>{% trans "Silent bloc boîte de vitesse" %}</td>
+            <td>{% trans "Silent bloc de boîte de vitesse" %}</td>
             <td><span class="badge {{ objet.silent_blocs_moteur_boite_ard }}">{{ objet.get_silent_blocs_moteur_boite_ard_display }}</span></td>
         </tr>
 

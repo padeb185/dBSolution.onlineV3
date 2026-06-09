@@ -276,7 +276,7 @@ def modifier_freins_view(request, frein_id):
 
                 UserLog.objects.create(
                     utilisateur=request.user,
-                    action=_("Modification freins - %(immatriculation)s") % {
+                    action=_("Modification du controle des freins - %(immatriculation)s") % {
                         "immatriculation": exemplaire.immatriculation
                     }
                 )
