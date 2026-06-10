@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-09 12:34+0200\n"
+"POT-Creation-Date: 2026-06-10 07:27+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -47,12 +47,13 @@ msgstr ""
 msgid "TVA (%)"
 msgstr ""
 
-#: achat_mds/forms.py:38
-msgid "Date facture"
+#: achat_mds/forms.py:38 achat_mds/models.py:62
+#: achat_mds/templates/achat_mds/achat_detail.html:56
+msgid "Date de la facture"
 msgstr ""
 
-#: achat_mds/forms.py:39
-msgid "Date paiement"
+#: achat_mds/forms.py:39 achat_mds/models.py:66
+msgid "Date de paiement"
 msgstr ""
 
 #: achat_mds/forms.py:49
@@ -93,14 +94,6 @@ msgstr ""
 
 #: achat_mds/models.py:55 fournisseur/models.py:39 outillage/models.py:54
 msgid "Taux de TVA (%)"
-msgstr ""
-
-#: achat_mds/models.py:62 achat_mds/templates/achat_mds/achat_detail.html:56
-msgid "Date de la facture"
-msgstr ""
-
-#: achat_mds/models.py:66
-msgid "Date de paiement"
 msgstr ""
 
 #: achat_mds/models.py:75
@@ -5267,9 +5260,11 @@ msgid "Remise à zéro"
 msgstr ""
 
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/views.py:311
-#, python-format
-msgid "Modification remplacement boite de vitesse - %(immatriculation)s"
-msgstr ""
+#, fuzzy, python-format
+#| msgid "Tableau de bord"
+msgid ""
+"Modification du remplacement de la boite de vitesse - %(immatriculation)s"
+msgstr "Tableau de Bord"
 
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/views.py:316
 msgid "Remplacement de la boite modifié avec succès !"
@@ -5682,9 +5677,10 @@ msgid "Contrôle boite automatique enregistré avec succès."
 msgstr ""
 
 #: maintenance/autres_interventions/bte_vitesse_auto/views.py:269
-#, python-format
-msgid "Modification boite automatique - %(immatriculation)s"
-msgstr ""
+#, fuzzy, python-format
+#| msgid "Tableau de bord"
+msgid "Modification du contrôle de la boite automatique - %(immatriculation)s"
+msgstr "Tableau de Bord"
 
 #: maintenance/autres_interventions/bte_vitesse_auto/views.py:274
 msgid "Contrôle de la boite automatique modifié avec succès !"
@@ -6982,8 +6978,10 @@ msgid "Détails du contrôle du turbo"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:110
-msgid "Rapport de contrôle turbo"
-msgstr ""
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Rapport du contrôle turbo"
+msgstr "Tableau de Bord"
 
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:150
 #, fuzzy
