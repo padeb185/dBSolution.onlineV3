@@ -270,7 +270,7 @@ def modifier_nettoyage_int_view(request, nettoyage_int_id):
 
                 UserLog.objects.create(
                     utilisateur=request.user,
-                    action=_("Modification nettoyage intérieur - %(immatriculation)s") % {
+                    action=_("Modification du nettoyage intérieur - %(immatriculation)s") % {
                         "immatriculation": exemplaire.immatriculation
                     }
                 )

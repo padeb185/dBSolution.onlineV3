@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-08 16:48+0200\n"
+"POT-Creation-Date: 2026-06-12 09:34+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,12 +48,13 @@ msgstr "Importo trasporto IVA esclusa"
 msgid "TVA (%)"
 msgstr "IVA (%)"
 
-#: achat_mds/forms.py:38
-msgid "Date facture"
+#: achat_mds/forms.py:38 achat_mds/models.py:62
+#: achat_mds/templates/achat_mds/achat_detail.html:56
+msgid "Date de la facture"
 msgstr "Data della fattura"
 
-#: achat_mds/forms.py:39
-msgid "Date paiement"
+#: achat_mds/forms.py:39 achat_mds/models.py:66
+msgid "Date de paiement"
 msgstr "Data di pagamento"
 
 #: achat_mds/forms.py:49
@@ -95,14 +96,6 @@ msgstr "Importo del trasporto al netto dell’IVA"
 #: achat_mds/models.py:55 fournisseur/models.py:39 outillage/models.py:54
 msgid "Taux de TVA (%)"
 msgstr "Aliquota IVA (%)"
-
-#: achat_mds/models.py:62 achat_mds/templates/achat_mds/achat_detail.html:56
-msgid "Date de la facture"
-msgstr "Data della fattura"
-
-#: achat_mds/models.py:66
-msgid "Date de paiement"
-msgstr "Data di pagamento"
 
 #: achat_mds/models.py:75
 msgid "Achat"
@@ -5222,7 +5215,8 @@ msgstr "Azzeramento"
 
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/views.py:311
 #, python-format
-msgid "Modification remplacement boite de vitesse - %(immatriculation)s"
+msgid ""
+"Modification du remplacement de la boite de vitesse - %(immatriculation)s"
 msgstr "Modifica della sostituzione del cambio - %(immatriculation)s"
 
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/views.py:316
@@ -5574,7 +5568,6 @@ msgid "Rapport de contrôle boîte automatique"
 msgstr "Rapporto di controllo del cambio automatico"
 
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail_pdf.html:129
-#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:105
 msgid "Kilométrage contrôle"
 msgstr "Chilometraggio controllo"
 
@@ -5615,8 +5608,8 @@ msgstr "Controllo cambio automatico registrato con successo."
 
 #: maintenance/autres_interventions/bte_vitesse_auto/views.py:269
 #, python-format
-msgid "Modification boite automatique - %(immatriculation)s"
-msgstr "Modifica del cambio automatico - %(immatriculation)s"
+msgid "Modification du contrôle de la boite automatique - %(immatriculation)s"
+msgstr "Modifica del controllo del cambio automatico - %(immatriculation)s"
 
 #: maintenance/autres_interventions/bte_vitesse_auto/views.py:274
 msgid "Contrôle de la boite automatique modifié avec succès !"
@@ -6884,7 +6877,7 @@ msgid "Détails du contrôle du turbo"
 msgstr "Dettagli del controllo del turbo"
 
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:110
-msgid "Rapport de contrôle turbo"
+msgid "Rapport du contrôle turbo"
 msgstr "Rapporto di controllo del turbo"
 
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:150
@@ -7906,7 +7899,6 @@ msgstr "Sostituzione liquido freni"
 
 #: maintenance/check_up/models.py:222 maintenance/checkup_track/models.py:241
 #: maintenance/freins/models.py:82
-#: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:344
 msgid "Spécification liquide de frein"
 msgstr "Specifiche liquido freni"
 
@@ -8430,6 +8422,7 @@ msgid "Remplacement du liquide de frein"
 msgstr "Sostituzione liquido freni"
 
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:182
+#: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:344
 #, fuzzy
 #| msgid "Spécification liquide de frein"
 msgid "Spécification du liquide de frein"
@@ -9369,6 +9362,7 @@ msgstr "Chilometraggio al momento della manutenzione"
 
 #: maintenance/entretien/models.py:193 maintenance/entretien/models.py:212
 #: maintenance/entretien/models.py:219
+#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:133
 msgid "Vidange de l'huile moteur"
 msgstr "Cambio olio motore"
 
@@ -9537,10 +9531,6 @@ msgstr "Chilometraggio della manutenzione"
 msgid "État / Valeur"
 msgstr "Stato / Valore"
 
-#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:133
-msgid "Vidange de  l'huile moteur"
-msgstr "Cambio dell'olio motore"
-
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:146
 msgid "Filtre à huile moteur"
 msgstr "Filtro dell'olio motore"
@@ -9555,7 +9545,7 @@ msgid "Joint du bouchon de vidange"
 msgstr "Guarnizione del tappo di scarico"
 
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:185
-
+#: maintenance/niveaux/templates/niveaux/niveaux_detail.html:43
 msgid "Ajout d'huile moteur"
 msgstr "Aggiunta di olio motore"
 
@@ -9597,14 +9587,8 @@ msgid "Joint de bouchon de boîte"
 msgstr "Guarnizione del tappo del cambio"
 
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:266
-msgid "Ajout d'huile boîte"
+msgid "Ajout d'huile de boîte"
 msgstr "Aggiunta di olio del cambio"
-
-
-
-
-
-
 
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:268
 msgid "Quantité d'huile de boîte"
@@ -9624,7 +9608,11 @@ msgstr "Guarnizione del tappo del differenziale"
 
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:277
 msgid "Ajout d'huile de pont"
-msgstr "Aggiunta di olio del differenziale"
+msgstr "Aggiunta olio ponte"
+
+
+
+
 
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:279
 msgid "Quantité d'huile de pont"
@@ -9813,7 +9801,7 @@ msgid "Fuites"
 msgstr "Perdita"
 
 #: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:258
-msgid "Fuite du système de freins"
+msgid "Fuite du système de frein"
 msgstr "Perdita del sistema frenante"
 
 #: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:271
@@ -9827,12 +9815,6 @@ msgstr "Perdita dei tubi flessibili"
 #: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:297
 msgid "Fuite tuyaux rigides"
 msgstr "Perdita dei tubi rigidi"
-
-
-
-
-
-
 
 #: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:348
 msgid "Mâchoires de frein"
@@ -9901,7 +9883,7 @@ msgstr "Controllo freni registrato con successo."
 
 #: maintenance/freins/views.py:279
 #, python-format
-msgid "Modification du contrôle des freins - %(immatriculation)s"
+msgid "Modification du controle des freins - %(immatriculation)s"
 msgstr "Modifica del controllo dei freni - %(immatriculation)s"
 
 #: maintenance/freins/views.py:284
@@ -10072,8 +10054,8 @@ msgstr "Controllo dei giochi registrato con successo."
 
 #: maintenance/jeux_pieces/views.py:269
 #, python-format
-msgid "Modification du contrôle des jeux - %(immatriculation)s"
-msgstr "Modifica del controllo dei giochi - %(immatriculation)s"
+msgid "Modification jeux - %(immatriculation)s"
+msgstr "Modifica controllo giochi meccanici - %(immatriculation)s"
 
 #: maintenance/jeux_pieces/views.py:274
 msgid "Contrôle des jeux modifié avec succès !"
@@ -10184,6 +10166,7 @@ msgstr "Controllo della pulizia esterna"
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:224
 #: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:203
 #: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:241
+#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:102
 msgid "Date export"
 msgstr "Data di esportazione"
 
@@ -10201,8 +10184,9 @@ msgid "Nettoyage extérieur enregistré avec succès."
 msgstr "Pulizia esterna registrata con successo."
 
 #: maintenance/nettoyage_exterieur/views.py:252
+#, python-format
 msgid "Modification du nettoyage extérieur - %(immatriculation)s"
-msgstr "Modificare la pulizia esterna"
+msgstr "Modificare la pulizia esterna - %(immatriculation)s"
 
 #: maintenance/nettoyage_exterieur/views.py:257
 msgid "Nettoyage extérieur modifié avec succès !"
@@ -10398,7 +10382,6 @@ msgstr "Liquido freni"
 msgid "Détails du contrôle des Niveaux : "
 msgstr "Dettagli del controllo dei livelli"
 
-
 #: maintenance/niveaux/templates/niveaux/niveaux_detail.html:49
 msgid "Ajout d'huile boite"
 msgstr "Aggiunta olio cambio"
@@ -10567,7 +10550,7 @@ msgid "Rapport du contrôle des pneus"
 msgstr "Rapporto del controllo degli pneumatici"
 
 #: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:104
-msgid "Kilométrage du contrôle pneus"
+msgid "Kilométrage du contrôle des pneus"
 msgstr "Chilometraggio del controllo degli pneumatici"
 
 #: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:119
@@ -10579,7 +10562,7 @@ msgid "Flancs des pneus"
 msgstr "Fianchi degli pneumatici"
 
 #: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:168
-msgid "État des flanc"
+msgid "État du flanc"
 msgstr "Stato dei fianchi"
 
 #: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:195
@@ -10627,7 +10610,7 @@ msgstr "Controllo pneumatici registrato con successo."
 
 #: maintenance/pneus/views.py:259
 #, python-format
-msgid "Modification du controle pneus - %(immatriculation)s"
+msgid "Modification du contrôle pneus - %(immatriculation)s"
 msgstr "Modifica del controllo degli pneumatici - %(immatriculation)s"
 
 #: maintenance/pneus/views.py:264
@@ -10762,6 +10745,10 @@ msgstr "Ritorna alla lista dei controlli dei silent block"
 msgid "Rapport du contrôle des silent blocs"
 msgstr "Rapporto del controllo dei silent block"
 
+#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:105
+msgid "Kilométrage du contrôle"
+msgstr "Chilometraggio controllo"
+
 #: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:136
 msgid "Silent blocs barre stabilisatrice avant"
 msgstr "Silent block barra stabilizzatrice anteriore"
@@ -10850,7 +10837,7 @@ msgstr "Silent block motore pendolare"
 msgid "Prix facturé"
 msgstr "Prezzo fatturato"
 
-#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:25
+#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:253
 msgid "Aucune main d'œuvre liée"
 msgstr "Nessuna manodopera associata"
 
@@ -11592,9 +11579,6 @@ msgstr "Forchetta del cambio"
 msgid "Tringlerie"
 msgstr "Cavi e leve"
 
-
-
-
 #: piece/piece_boite/models.py:70
 msgid "Boîte mécanique"
 msgstr "Cambio manuale"
@@ -12314,8 +12298,6 @@ msgstr "La denominazione deve contenere almeno 3 caratteri."
 #: piece/piece_fluides/forms.py:81
 msgid "Le conditionnement doit être supérieur à 0."
 msgstr "Il confezionamento deve essere maggiore di 0."
-
-
 
 #: piece/piece_fluides/models.py:14
 msgid "Huile de direction"
@@ -15007,8 +14989,7 @@ msgstr ""
 msgid "Référence OEM disque arrière"
 msgstr "Riferimento OEM del disco posteriore"
 
-#: voiture/voiture_freins_ar/forms.py:60
-#: voiture/voiture_freins_av/forms.py:60
+#: voiture/voiture_freins_ar/forms.py:60 voiture/voiture_freins_av/forms.py:60
 msgid "Ex : Bosch"
 msgstr "Es.: Bosch"
 
@@ -16039,6 +16020,19 @@ msgstr "Pneumatici sostituiti con successo."
 #: voiture/voiture_pneus/views.py:129
 msgid "Pneu mis à jour avec succès."
 msgstr "Pneumatico aggiornato con successo."
+
+#~ msgid "Date facture"
+#~ msgstr "Data della fattura"
+
+#~ msgid "Date paiement"
+#~ msgstr "Data di pagamento"
+
+#~ msgid "Vidange de  l'huile moteur"
+#~ msgstr "Cambio dell'olio motore"
+
+#, python-format
+#~ msgid "Modification du contrôle des jeux - %(immatriculation)s"
+#~ msgstr "Modifica del controllo dei giochi - %(immatriculation)s"
 
 #, fuzzy
 #~| msgid "Biellette de direction gauche"

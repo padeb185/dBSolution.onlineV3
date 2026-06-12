@@ -249,7 +249,7 @@ def modifier_nettoyage_ext_view(request, nettoyage_ext_id):
 
                 UserLog.objects.create(
                     utilisateur=request.user,
-                    action=_("Modification nettoyage extérieur - %(immatriculation)s") % {
+                    action=_("Modification du nettoyage extérieur - %(immatriculation)s") % {
                         "immatriculation": exemplaire.immatriculation
                     }
                 )
