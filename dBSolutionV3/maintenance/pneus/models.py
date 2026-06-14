@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -205,4 +207,16 @@ class ControlePneus(TechnicienMixin, models.Model):
         if not self.main_oeuvre:
             return "0h00"
         return self.main_oeuvre.temps_display
+
+    @property
+    def taux_horaire_main_oeuvre(self):
+        if self.main_oeuvre:
+            return self.main_oeuvre.taux_horaire
+        return Decimal("0.00")
+
+    @property
+    def cout_main_oeuvre(self):
+        if self.main_oeuvre:
+            return self.main_oeuvre.cout_total
+        return Decimal("0.00")
 

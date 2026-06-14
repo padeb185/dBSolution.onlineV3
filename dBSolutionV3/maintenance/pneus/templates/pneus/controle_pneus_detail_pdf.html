@@ -218,15 +218,20 @@
     </tbody>
 </table>
 
-<h2>{% trans "Main d'œuvre" %}</h2>
-
+<h2>{% trans "Main d’œuvre" %}</h2>
 <div class="box">
-    {% if controle_pneus.main_oeuvre %}
-        <div><span class="label">{% trans "Temps" %} :</span> {{ controle_pneus.temps_main_oeuvre_display }}</div>
-        <div><span class="label">{% trans "Descriptif" %} :</span> {{ controle_pneus.main_oeuvre.descriptif }}</div>
-    {% else %}
-        {% trans "Aucune main d'œuvre enregistrée." %}
-    {% endif %}
+    <p>
+        <span class="label">{% trans "Temps de travail" %} :</span>
+        {{ controle_pneus.temps_main_oeuvre_display }}
+    </p>
+    <p>
+        <span class="label">{% trans "Taux horaire" %} :</span>
+        {{ controle_pneus.taux_horaire_main_oeuvre }} €
+    </p>
+    <p>
+        <span class="label">{% trans "Coût de la main d’œuvre" %} :</span>
+        {{ controle_pneus.cout_main_oeuvre|floatformat:2 }} €
+    </p>
 </div>
 
 <h2>{% trans "Remarques" %}</h2>
