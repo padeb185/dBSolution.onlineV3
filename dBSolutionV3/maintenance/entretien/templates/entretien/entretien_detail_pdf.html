@@ -345,6 +345,23 @@
     <tr><td>{% trans "Arrière gauche" %}</td><td>{{ entretien.pneu_pression_bar_arg }} bar</td></tr>
 </table>
 
+<h2>{% trans "Serrages des roues" %}</h2>
+<table>
+    <tr>
+        <td>
+            {% if entretien.serrage_roues == "Fait" %}
+                <span class="etat etat-vert">
+                    {{ entretien.get_serrage_roues_display }}
+                </span>
+            {% else %}
+                <span class="etat etat-rouge">
+                    {{ entretien.get_serrage_roues_display }}
+                </span>
+            {% endif %}
+        </td>
+    </tr>
+</table>
+
 <h2>{% trans "Main d’œuvre" %}</h2>
 <div class="box">
     <p>
@@ -357,7 +374,7 @@
     </p>
     <p>
         <span class="label">{% trans "Coût de la main d’œuvre" %} :</span>
-        {{ entretien.cout_main_oeuvre }} €
+        {{ entretien.cout_main_oeuvre|floatformat:2 }} €
     </p>
 </div>
 
