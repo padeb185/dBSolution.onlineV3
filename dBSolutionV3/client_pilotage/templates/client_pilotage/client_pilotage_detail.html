@@ -66,17 +66,17 @@
 
             <p>
                 <strong>{% trans "Niveau" %} :</strong><br>
-                {{ client_pilotage.client_particulier.get_niveau_display }}
+                {{ client_pilotage.get_niveau_display }}
             </p>
             <br>
              <p>
                 <strong>{% trans "Historique" %} :</strong><br>
-                {{ client_pilotage..historique }}
+                {{ client_pilotage.historique }}
             </p>
             <br>
              <p>
                 <strong>{% trans "Remarques" %} :</strong><br>
-                {{ client_pilotage.client_particulier.remarques }}
+                {{ client_pilotage.remarques }}
             </p>
 
         </div>
