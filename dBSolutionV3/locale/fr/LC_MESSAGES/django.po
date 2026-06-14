@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-11 14:46+0200\n"
+"POT-Creation-Date: 2026-06-12 11:24+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -9129,6 +9129,7 @@ msgid "Huile ajoutée"
 msgstr ""
 
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:254
+#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:278
 msgid "Qualité d'huile de pont"
 msgstr ""
 
@@ -9733,28 +9734,32 @@ msgid "Quantité d'huile de boîte"
 msgstr "Tableau de Bord"
 
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:274
-msgid "Vidange huile pont"
-msgstr ""
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Vidange d'huile pont"
+msgstr "Tableau de Bord"
 
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:275
-msgid "Bouchon de vidange pont"
-msgstr ""
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Bouchon de vidange de pont"
+msgstr "Tableau de Bord"
 
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:276
-msgid "Joint bouchon pont"
+msgid "Joint de bouchon de pont"
 msgstr ""
 
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:277
-msgid "Ajout huile pont"
-msgstr ""
-
-#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:278
-msgid "Qualité huile pont"
-msgstr ""
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Ajout d'huile de pont"
+msgstr "Tableau de Bord"
 
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:279
-msgid "Quantité huile pont"
-msgstr ""
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Quantité d'huile de pont"
+msgstr "Tableau de Bord"
 
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:339
 msgid "Pression des pneus"
@@ -10352,9 +10357,10 @@ msgid "Nettoyage extérieur enregistré avec succès."
 msgstr ""
 
 #: maintenance/nettoyage_exterieur/views.py:252
-#, python-format
-msgid "Modification nettoyage extérieur - %(immatriculation)s"
-msgstr ""
+#, fuzzy, python-format
+#| msgid "Tableau de bord"
+msgid "Modification du nettoyage extérieur - %(immatriculation)s"
+msgstr "Tableau de Bord"
 
 #: maintenance/nettoyage_exterieur/views.py:257
 msgid "Nettoyage extérieur modifié avec succès !"
@@ -10457,7 +10463,7 @@ msgstr ""
 #: maintenance/nettoyage_interieur/views.py:273
 #, fuzzy, python-format
 #| msgid "Tableau de bord"
-msgid "Modification nettoyage intérieur - %(immatriculation)s"
+msgid "Modification du nettoyage intérieur - %(immatriculation)s"
 msgstr "Tableau de Bord"
 
 #: maintenance/nettoyage_interieur/views.py:278
