@@ -1,136 +1,114 @@
 {% extends "base.html" %}
-{% load i18n %}
-{% load widget_tweaks %}
+{% load i18n widget_tweaks static %}
 
 {% block content %}
 <br>
-<div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
-    <h1 class="text-2xl font-bold mb-4">{% trans "Créer un utilisateur" %}</h1>
+<br>
 
-     <!-- Messages -->
+<div class="max-w-xl mx-auto p-6 bg-white rounded shadow">
+
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold flex items-center gap-4">
+            <span>{% trans "Créer un utilisateur" %}</span>
+        </h1>
+    </div>
+
+    <!-- Messages -->
     {% if messages %}
         {% for message in messages %}
-        <div class="mb-3 px-4 py-2 rounded
-            {% if message.tags == 'success' %}
-                bg-green-100 text-green-800 border border-green-300
-            {% else %}
-                bg-red-100 text-red-800 border border-red-300
-            {% endif %}">
-            {{ message }}
-        </div>
+            <div class="mb-3 px-4 py-2 rounded
+                {% if message.tags == 'success' %}
+                    bg-green-100 text-green-800 border border-green-300
+                {% else %}
+                    bg-red-100 text-red-800 border border-red-300
+                {% endif %}">
+                {{ message }}
+            </div>
         {% endfor %}
     {% endif %}
 
+    <!-- Erreurs -->
     {% if form.errors %}
-        <div style="background-color: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; padding: 10px; border-radius: 6px;">
-            <strong>Erreurs :</strong>
+        <div class="bg-red-100 text-red-800 border border-red-300 p-4 rounded mb-6">
+            <strong>{% trans "Erreurs :" %}</strong>
             <ul>
-            {% for field in form %}
-                {% for error in field.errors %}
-                    <li>{{ field.label }} : {{ error }}</li>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li>{{ field.label }} : {{ error }}</li>
+                    {% endfor %}
                 {% endfor %}
-            {% endfor %}
-            {% for error in form.non_field_errors %}
-                <li>{{ error }}</li>
-            {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
             </ul>
         </div>
     {% endif %}
 
-
     <form method="post">
-    {% csrf_token %}
+        {% csrf_token %}
 
-        <div class="mb-4">
-            {{ form.nom.label_tag }}
-            {% render_field form.nom class="input" placeholder='Nom de l’utilisateur' %}
+        <h2 class="text-xl font-semibold mb-4 mt-4 border-b pb-1">
+            {% trans "Informations utilisateur" %}
+        </h2>
+
+        {% for field in form %}
+            {% if field.name != "rue" and field.name != "numero" and field.name != "code_postal" and field.name != "ville" and field.name != "pays" %}
+                <div class="mb-4">
+                    {% if field.field.widget.input_type == "checkbox" %}
+                        <label class="inline-flex items-center gap-2">
+                            {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                            <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                        </label>
+                    {% else %}
+                        <label class="block font-semibold mb-1">{{ field.label }}</label>
+                        {{ field|add_class:"input" }}
+                    {% endif %}
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <h2 class="text-xl font-semibold mb-4 mt-8 border-b pb-1">
+            {% trans "Adresse" %}
+        </h2>
+
+        {% for field in form %}
+            {% if field.name == "rue" or field.name == "numero" or field.name == "code_postal" or field.name == "ville" or field.name == "pays" %}
+                <div class="mb-4">
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <!-- Boutons -->
+        <div class="flex gap-3 mt-6">
+            <button type="submit"
+                    class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+                {% trans "Enregistrer" %}
+            </button>
+
+            <a href="{% url 'utilisateurs:dashboard' %}"
+               class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
+                {% trans "Annuler" %}
+            </a>
         </div>
-
-        <div class="mb-4">
-            {{ form.prenom.label_tag }}
-            {% render_field form.prenom class="input" placeholder="Prénom" %}
-        </div>
-
-        <div class="mb-4">
-            {{ form.email_google.label_tag }}
-            {% render_field form.email_google class="input" placeholder="Email Google" %}
-        </div>
-
-        <div class="mb-4">
-            {{ form.email_entreprise.label_tag }}
-            {% render_field form.email_entreprise class="input" placeholder="Email entreprise" %}
-        </div>
-
-        <div class="mb-4">
-            {{ form.telephone.label_tag }}
-            {% render_field form.telephone class="input" placeholder="Téléphone" %}
-        </div>
-
-        <div class="mb-4">
-            {{ form.date_naissance.label_tag }}
-            {% render_field form.date_naissance class="input" %}
-        </div>
-
-        <div class="mb-4">
-            {{ form.role.label_tag }}
-            {% render_field form.role class="input" %}
-        </div>
-
-        <div class="mb-4">
-            {{ form.password.label_tag }}
-            {% render_field form.password class="input" placeholder="Mot de passe" %}
-        </div>
-
-        <div class="mb-4">
-            {{ form.schema_name.label_tag }}
-            {% render_field form.schema_name class="input" placeholder="Nom du schéma (societe)" %}
-        </div>
-
-        <div class="mb-4">
-            {{ form.societe.label_tag }}
-            {% render_field form.societe class="input" placeholder="Nom de la société" %}
-        </div>
-
-        <h3 class="font-bold mt-6 mb-4">Adresse</h3>
-
-        <div class="mb-4">
-            {{ form.rue.label_tag }}
-            {% render_field form.rue class="input" placeholder="Rue" %}
-        </div>
-
-        <div class="mb-4">
-            {{ form.numero.label_tag }}
-            {% render_field form.numero class="input" placeholder="Numéro" %}
-        </div>
-
-        <div class="mb-4">
-            {{ form.code_postal.label_tag }}
-            {% render_field form.code_postal class="input" placeholder="Code postal" %}
-        </div>
-
-        <div class="mb-4">
-            {{ form.ville.label_tag }}
-            {% render_field form.ville class="input" placeholder="Ville" %}
-        </div>
-
-        <div class="mb-4">
-            {{ form.pays.label_tag }}
-            {% render_field form.pays class="input" placeholder="Pays" %}
-        </div>
-
-
-         <div class="flex gap-3 mt-6">
-                <button type="submit"
-                        class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
-                    {% trans "Enregistrer" %}
-                </button>
-
-               <a href="{% url 'utilisateurs:dashboard' %}"
-                   class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
-                    {% trans "Annuler" %}
-                </a>
-
-          </div>
 
         <!-- Date -->
         <p class="text-sm text-gray-500 mt-4">
@@ -140,14 +118,15 @@
 </div>
 
 <style>
-.input{
-    width:100%;
-    border:1px solid #ccc;
-    border-radius:6px;
-    padding:8px;
-    margin-bottom:10px;
+.input {
+    width: 100% !important;
+    border: 1px solid #ccc !important;
+    border-radius: 6px !important;
+    padding: 8px !important;
+    box-sizing: border-box !important;
 }
 </style>
+
 
 <script>
     function getCookie(name) {

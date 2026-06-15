@@ -62,5 +62,25 @@ class UtilisateurCreationForm(forms.ModelForm):
         ]
 
         widgets = {
-            "date_naissance": forms.DateInput(attrs={"type": "date"}),
+            "nom": forms.TextInput(attrs={
+                "placeholder": "Nom de l’utilisateur"
+            }),
+            "prenom": forms.TextInput(attrs={
+                "placeholder": "Prénom"
+            }),
+            "email_google": forms.EmailInput(attrs={
+                "placeholder": "Email Google"
+            }),
+            "email_entreprise": forms.EmailInput(attrs={
+                "placeholder": "Email entreprise"
+            }),
+            "telephone": forms.TextInput(attrs={
+                "placeholder": "Téléphone"
+            }),
+            "date_naissance": forms.DateInput(attrs={
+                "type": "date"
+            }),
+            "password": forms.PasswordInput(attrs={
+                "placeholder": "Mot de passe"
+            }),
         }
