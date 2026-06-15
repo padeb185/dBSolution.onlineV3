@@ -95,7 +95,7 @@ class Fuel(models.Model):
         blank=True
     )
 
-    date = models.DateField(default=timezone.now, verbose_name=_("Date du plein"))
+    date = models.DateTimeField(default=timezone.now, verbose_name=_("Date du plein"))
     litres = models.DecimalField(max_digits = 10 , decimal_places = 2, verbose_name=_("Litres"))
 
     prix_refuelling = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_("Prix du plein (€)"))

@@ -125,7 +125,8 @@
             </td>
 
             <!-- Date -->
-            <td class="border px-4 py-2">
+           <td class="border px-4 py-2"
+                data-order="{{ admission.date|date:'Y-m-d H:i:s' }}">
                 {{ admission.date|date:"d/m/Y H:i" }}
             </td>
 

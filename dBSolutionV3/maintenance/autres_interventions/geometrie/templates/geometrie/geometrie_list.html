@@ -126,9 +126,10 @@
             </td>
 
             <!-- Date -->
-            <td class="border px-4 py-2">
+             <td class="border px-4 py-2"
+                data-order="{{ geometrie.date|date:'Y-m-d H:i:s' }}">
                 {{ geometrie.date|date:"d/m/Y H:i" }}
-            </td>
+             </td>
 
              <td class="border px-4 py-2">
                 {{ geometrie.main_oeuvre.temps_display|default:"-" }}

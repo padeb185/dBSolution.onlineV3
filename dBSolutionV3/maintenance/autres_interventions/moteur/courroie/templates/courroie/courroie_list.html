@@ -125,10 +125,12 @@
                 {{ courroie.tech_nom_technicien|default:"-" }}
             </td>
 
-            <!-- Date -->
-            <td class="border px-4 py-2">
+
+             <td class="border px-4 py-2"
+                data-order="{{ courroie.date|date:'Y-m-d H:i:s' }}">
                 {{ courroie.date|date:"d/m/Y H:i" }}
-            </td>
+             </td>
+
 
              <td class="border px-4 py-2">
                 {{ courroie.main_oeuvre.temps_display|default:"-" }}

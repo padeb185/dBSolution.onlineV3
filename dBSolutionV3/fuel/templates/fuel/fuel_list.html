@@ -144,11 +144,10 @@
             <td class="border px-4 py-2">{{ fuel.montant_tva|floatformat:2 }} €</td>
 
             <!-- Date -->
-
-            <td class="border px-4 py-2"
-                data-order="{{ fuel.date|date:'Ymd' }}">
-                {{ fuel.date|date:"d/m/Y" }}
-            </td>
+             <td class="border px-4 py-2"
+                data-order="{{ fuel.date|date:'Y-m-d H:i:s' }}">
+                {{ fuel.date|date:"d/m/Y H:i" }}
+             </td>
 
             <!-- Info -->
             <td class="border px-4 py-2 text-center">
