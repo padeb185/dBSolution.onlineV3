@@ -1,5 +1,7 @@
 from datetime import datetime
 
+from django.core.exceptions import ValidationError
+
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
@@ -303,29 +305,38 @@ def modifier_courroie_view(request, courroie_id):
             )
 
             if form.is_valid():
-                courroie = form.save(commit=False)
+                try:
+                    courroie = form.save(commit=False)
 
-                # 🔧 Réaffectation technicien + société
-                courroie.assign_technicien(request.user)
+                    # 🔧 Réaffectation technicien + société
+                    courroie.assign_technicien(request.user)
 
-                courroie.save()
+                    courroie.save()
 
-                UserLog.objects.create(
-                    utilisateur=request.user,
-                    action=_("Modification courroie de distribution - %(immatriculation)s") % {
-                        "immatriculation": exemplaire.immatriculation
-                    }
-                )
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=_("Modification courroie de distribution - %(immatriculation)s") % {
+                            "immatriculation": exemplaire.immatriculation
+                        }
+                    )
 
-                messages.success(
-                    request,
-                    _("Remplacement de la courroie de distribution modifié avec succès !")
-                )
+                    messages.success(
+                        request,
+                        _("Remplacement de la courroie de distribution modifié avec succès !")
+                    )
 
-                return redirect(
-                    "courroie:modifier_courroie",
-                    courroie_id=courroie.id
-                )
+                    return redirect(
+                        "courroie:modifier_courroie",
+                        courroie_id=courroie.id
+                    )
+
+                except ValidationError as e:
+                    form.add_error(None, e)
+                    messages.error(request, _("Kilométrage invalide"))
+
+            else:
+                messages.error(request, _("Le formulaire contient des erreurs."))
+                print(form.errors)
 
         # -------------------------
         # GET

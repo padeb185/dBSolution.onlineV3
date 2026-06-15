@@ -299,24 +299,29 @@ def modifier_remplacement_moteur_view(request, remplacement_moteur_id):
             )
 
             if form.is_valid():
-                form.save()
+                try:
+                    form.save()
 
-                UserLog.objects.create(
-                    utilisateur=request.user,
-                    action=_("Modification remplacement moteur - %(immatriculation)s") % {
-                        "immatriculation": exemplaire.immatriculation
-                    }
-                )
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=_("Modification remplacement moteur - %(immatriculation)s") % {
+                            "immatriculation": exemplaire.immatriculation
+                        }
+                    )
 
-                messages.success(request, _("Remplacement du moteur modifié avec succès !"))
-                return redirect(
-                    "remplacement_moteur:modifier_remplacement_moteur",
-                    remplacement_moteur_id=remplacement_moteur.id
-                )
+                    messages.success(request, _("Remplacement du moteur modifié avec succès !"))
+                    return redirect(
+                        "remplacement_moteur:modifier_remplacement_moteur",
+                        remplacement_moteur_id=remplacement_moteur.id
+                    )
+
+                except ValidationError as e:
+                    form.add_error(None, e)
+                    messages.error(request, _("Kilométrage invalide"))
+
             else:
                 messages.error(request, _("Le formulaire contient des erreurs."))
                 print(form.errors)
-
         # -------------------------
         # GET
         # -------------------------
@@ -331,11 +336,6 @@ def modifier_remplacement_moteur_view(request, remplacement_moteur_id):
         # SECTIONS
         # -------------------------
         sections = [
-            {
-                "title": _("Client"),
-                "icon": "icons/client.png",
-                "fields": [form[f.name] for f in form if "client" in f.name],
-            },
             {
                 "title": _("Kilométrage"),
                 "icon": "icons/compteur.png",
