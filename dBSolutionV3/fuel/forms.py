@@ -1,3 +1,5 @@
+from django.core.exceptions import ValidationError
+
 from django import forms
 from decimal import Decimal
 from .models import Fuel
@@ -51,20 +53,36 @@ class FuelForm(forms.ModelForm):
             "voiture_exemplaire": forms.HiddenInput(),
         }
 
-
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
         voiture = getattr(self.instance, "voiture_exemplaire", None)
+        self.exemplaire = voiture
+
         if voiture:
             self.fields["voiture_marque"].initial = voiture.voiture_modele.voiture_marque.nom_marque
             self.fields["voiture_modele"].initial = voiture.voiture_modele.nom_modele
             self.fields["taille_reservoir_display"].initial = voiture.voiture_modele.taille_reservoir
-            self.fields["kilometrage_fuel"].initial = getattr(self.instance, "kilometrage_fuel", voiture.kilometres_chassis)
-
-
-            # Initialiser le champ caché voiture_exemplaire
+            self.fields["kilometrage_fuel"].initial = getattr(
+                self.instance,
+                "kilometrage_fuel",
+                voiture.kilometres_chassis
+            )
             self.fields["voiture_exemplaire"].initial = voiture.id
+
+
+            
+    def clean_kilometrage_fuel(self):
+        km = self.cleaned_data.get("kilometrage_fuel")
+        voiture = self.cleaned_data.get("voiture_exemplaire") or getattr(self.instance, "voiture_exemplaire", None)
+
+        if km is not None and voiture:
+            if km < voiture.kilometres_chassis:
+                raise ValidationError(
+                    f"Le kilométrage ne peut pas être inférieur au kilométrage actuel du véhicule ({voiture.kilometres_chassis} km)."
+                )
+
+        return km
 
     def save(self, commit=True):
         instance = super().save(commit=False)
