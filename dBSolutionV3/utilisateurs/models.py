@@ -26,21 +26,21 @@ class UtilisateurManager(BaseUserManager):
         if not re.search(r"\d", password):
             raise ValidationError("Le mot de passe doit contenir au moins un chiffre.")
 
-    def create_user(self, email_google, password=None, **extra_fields):
-        if not email_google:
+    def create_user(self, email, password=None, **extra_fields):
+        if not email:
             raise ValueError("L'email est obligatoire")
 
         if password:
             self.validate_password(password)
 
-        email_google = self.normalize_email(email_google)
-        user = self.model(email_google=email_google, **extra_fields)
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
         if password:
             user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email_google, password=None, **extra_fields):
+    def create_superuser(self, email, password=None, **extra_fields):
         # Récupère et supprime les FK pour éviter les erreurs d'initialisation
         societe = extra_fields.pop('societe', None)
         adresse = extra_fields.pop('adresse', None)
@@ -61,7 +61,7 @@ class UtilisateurManager(BaseUserManager):
         extra_fields.setdefault('is_active', True)
 
         user = self.model(
-            email_google=self.normalize_email(email_google),
+            email=self.normalize_email(email),
             societe=societe,
             adresse=adresse,
             **extra_fields
@@ -117,7 +117,7 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
     prenom = models.CharField(max_length=100)
     date_naissance = models.DateField(null=True, blank=True)
 
-    email_google = models.EmailField(unique=True, blank=True, null=True)
+    email = models.EmailField(unique=True, blank=True, null=True)
     email_entreprise = models.EmailField(unique=True, blank=True, null=True)
     telephone = models.CharField(max_length=20, blank=True, null=True)
 
@@ -149,7 +149,7 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
 
     objects = UtilisateurManager()
 
-    USERNAME_FIELD = 'email_google'
+    USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['nom', 'prenom']
 
     groups = models.ManyToManyField(
@@ -176,7 +176,7 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
 
     def get_totp_uri(self):
         issuer = self.societe.nom if self.societe else "CarsCosts"
-        email = self.email_google or self.email
+        email = self.email or self.email
 
         return pyotp.totp.TOTP(self.totp_secret).provisioning_uri(
             name=email,
@@ -191,7 +191,7 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
 
     def generate_qr_code(self):
         totp_uri = pyotp.TOTP(self.totp_secret).provisioning_uri(
-            name=self.email_google,
+            name=self.email,
             issuer_name=self.societe.name
         )
         qr = qrcode.make(totp_uri)

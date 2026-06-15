@@ -51,7 +51,7 @@ def login_view(request):
         password = form.cleaned_data["password"]
         totp_code = form.cleaned_data.get("totp_code")
 
-        user = authenticate(request, email_google=email, password=password)
+        user = authenticate(request, email=email, password=password)
 
         if not user:
             messages.error(request, _("Email ou mot de passe incorrect"))
@@ -420,7 +420,7 @@ def creer_utilisateur(request):
                 )
 
                 Utilisateur.objects.create_user(
-                    email_google=data["email_google"],
+                    email=data["email"],
                     password=data["password"],
                     nom=data["nom"],
                     prenom=data["prenom"],

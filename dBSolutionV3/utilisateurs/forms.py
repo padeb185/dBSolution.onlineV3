@@ -1,20 +1,11 @@
-from utilisateurs.apprentis.models import Apprenti
-from utilisateurs.carrossier.models import Carrossier
-from utilisateurs.chef_mecanicien.models import ChefMecanicien
-from utilisateurs.comptabilite.models import Comptable
-from utilisateurs.direction.models import Direction
-from utilisateurs.instructeur.models import Instructeur
-from utilisateurs.magasinier.models import Magasinier
-from utilisateurs.mecanicien.models import Mecanicien
 from utilisateurs.models import Utilisateur
-from utilisateurs.vendeur.models import Vendeur
 from django import forms
 
 
 
 
 class LoginForm(forms.Form):
-    email = forms.EmailField(label="Email Google")
+    email = forms.EmailField(label="Email")
     password = forms.CharField(widget=forms.PasswordInput)
     totp_code = forms.CharField(
         label="Code TOTP",
@@ -53,7 +44,7 @@ class UtilisateurCreationForm(forms.ModelForm):
         fields = [
             "nom",
             "prenom",
-            "email_google",
+            "email",
             "email_entreprise",
             "telephone",
             "date_naissance",
@@ -68,8 +59,8 @@ class UtilisateurCreationForm(forms.ModelForm):
             "prenom": forms.TextInput(attrs={
                 "placeholder": "Prénom"
             }),
-            "email_google": forms.EmailInput(attrs={
-                "placeholder": "Email Google"
+            "email": forms.EmailInput(attrs={
+                "placeholder": "Email utilisateur"
             }),
             "email_entreprise": forms.EmailInput(attrs={
                 "placeholder": "Email entreprise"
