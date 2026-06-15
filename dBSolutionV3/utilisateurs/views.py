@@ -9,7 +9,6 @@ import qrcode
 from django.utils import timezone
 from django.views.decorators.cache import never_cache
 from django_tenants.utils import schema_context
-from societe.models import Societe
 from .forms import LoginForm, UtilisateurCreationForm
 from .models import Utilisateur, UserLog
 from django.utils.translation import gettext as _
@@ -33,7 +32,6 @@ from assurance.models import Assurance
 from assurance_police.models import AssurancePolice
 from outillage.models import Outillage
 from recharge.models import Electricite
-from achat_mds.models import AchatMds
 from maindoeuvre.models import MainDoeuvre
 from proprietaire.models import Proprietaire
 from client_atelier.models import ClientAtelier
@@ -242,17 +240,14 @@ def dashboard_view(request):
         'total_adresse': total_adresse,
         'total_carburant': total_carburant,
         'total_assurance': total_assurance,
-        'total_assurance_police': total_assurance_police,
         'total_outils': total_outils,
         'total_recharge': total_recharge,
         'total_main': total_main,
         'total_proprietaire': total_proprietaire,
         'total_client': total_client,
         "total_maintenances_user": total_maintenances_user,
-        "total_carburant" : total_carburant,
         "total_assurance_police" : total_assurance_police,
-        "total_client_atelier" : total_client_atelier,
-        "total_maintenances_user" : total_maintenances_user,
+
 
         'marques': marques,
         'modele' : modele,
@@ -279,11 +274,8 @@ def dashboard_view(request):
         'maindoeuvre': maindoeuvre,
         'proprietaire': proprietaire,
         'client': client,
-        'carburant' : carburant,
-        'assurance_police' : assurance_police,
-        'client_atelier' : client_atelier,
         'client_pilotage' : client_pilotage,
-        'modeles': modeles,
+
 
 
     })

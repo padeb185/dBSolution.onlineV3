@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% load i18n static widget_tweaks %}
+{% load i18n_extras %}
 {% get_current_language as LANGUAGE_CODE %}
+
+
 
 {% block title %}
     {% trans "Tableau de bord" %}
@@ -91,7 +94,7 @@
                     </td>
 
                     <td class="border border-gray-200 px-4 py-2">
-                        {{ log.action }}
+                        {{ log.action|db_trans }}
                     </td>
                 </tr>
                 {% empty %}
