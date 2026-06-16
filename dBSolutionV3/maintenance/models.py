@@ -178,43 +178,15 @@ class Maintenance(models.Model):
         self.tech_role_technicien = user.role
         self.tech_societe = user.societe
 
-    def clean(self):
-        super().clean()
-
-        if (
-                self.voiture_exemplaire
-                and self.kilometrage_pneus is not None
-                and self.voiture_exemplaire.kilometres_chassis is not None
-                and self.kilometrage_pneus < self.voiture_exemplaire.kilometres_chassis
-        ):
-            raise ValidationError({
-                "kilometrage_pneus": _(
-                    "Le kilométrage du contrôle pneus (%(km_controle)s) "
-                    "ne peut pas être inférieur au kilométrage actuel de la voiture (%(km_voiture)s)."
-                ) % {
-                                         "km_controle": self.kilometrage_pneus,
-                                         "km_voiture": self.voiture_exemplaire.kilometres_chassis,
-                                     }
-            })
-
-
     def save(self, *args, **kwargs):
-        # Validation avant toute mise à jour
+        # Validation avant sauvegarde
         self.full_clean()
 
         if not self.tech_technicien and hasattr(self, "_user"):
             self.assign_technicien(self._user)
 
+        # Garder une copie du kilométrage châssis actuel
+        if self.voiture_exemplaire:
+            self.kilometres_chassis = self.voiture_exemplaire.kilometres_chassis
+
         super().save(*args, **kwargs)
-
-        if self.voiture_exemplaire and self.kilometrage_pneus:
-            if self.kilometrage_pneus > self.voiture_exemplaire.kilometres_chassis:
-                self.voiture_exemplaire.kilometres_chassis = self.kilometrage_pneus
-                self.voiture_exemplaire.save(
-                    update_fields=["kilometres_chassis"]
-                )
-
-            # garder une copie
-            if self.kilometres_chassis != self.voiture_exemplaire.kilometres_chassis:
-                self.kilometres_chassis = self.voiture_exemplaire.kilometres_chassis
-                super().save(update_fields=["kilometres_chassis"])
