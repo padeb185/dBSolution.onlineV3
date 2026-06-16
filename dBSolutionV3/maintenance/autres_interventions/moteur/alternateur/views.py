@@ -380,7 +380,7 @@ def modifier_alternateur_view(request, alternateur_id):
             "form": form,
             "alternateur": alternateur,
             "sections": sections,
-            "exemplaire": alternateur.voiture_exemplaire,
+            "exemplaire": exemplaire,
         }
     )
 

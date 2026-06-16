@@ -293,7 +293,7 @@ def modifier_bte_auto_view(request, bte_auto_id):
         {
             "form": form,
             "bte_auto": bte_auto,
-            "exemplaire": bte_auto.voiture_exemplaire,
+            "exemplaire": exemplaire,
         }
     )
 

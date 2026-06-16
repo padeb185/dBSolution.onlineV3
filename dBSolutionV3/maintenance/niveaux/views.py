@@ -1,3 +1,5 @@
+from django.core.exceptions import ValidationError
+
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.db import transaction, models
@@ -254,21 +256,51 @@ def modifier_niveau_view(request, niveau_id):
                 user=request.user,       # 🔑 important pour initialiser technicien/societe
                 exemplaire=niveau.voiture_exemplaire
             )
-            if form.is_valid():
-                form.save()
-
-                UserLog.objects.create(
-                    utilisateur=request.user,
-                    action=_("Modification des niveaux - %(immatriculation)s") % {
-                        "immatriculation": exemplaire.immatriculation
-                    }
+            if request.method == "POST":
+                form = NiveauForm(
+                    request.POST,
+                    instance=niveau,
+                    user=request.user,
+                    exemplaire=exemplaire
                 )
 
-                messages.success(request, _("Contrôle des niveaux modifié avec succès !"))
+                if form.is_valid():
+                    try:
+                        niveau = form.save(commit=False)
 
-            else:
-                messages.error(request, _("Le formulaire contient des erreurs."))
-                print(form.errors)
+                        niveau.assign_technicien(request.user)
+                        niveau.save()
+
+                        UserLog.objects.create(
+                            utilisateur=request.user,
+                            action=_("Modification des niveaux - %(immatriculation)s") % {
+                                "immatriculation": exemplaire.immatriculation
+                            }
+                        )
+
+                        messages.success(
+                            request,
+                            _("Contrôle des niveaux modifié avec succès !")
+                        )
+
+                        return redirect(
+                            "niveaux:modifier_niveau",
+                            niveau_id=niveau.id
+                        )
+
+                    except ValidationError as e:
+                        form.add_error(None, e)
+                        messages.error(
+                            request,
+                            _("Le kilométrage du contrôle ne peut pas être inférieur au kilométrage actuel du véhicule.")
+                        )
+
+                else:
+                    messages.error(
+                        request,
+                        _("Le kilométrage du contrôle ne peut pas être inférieur au kilométrage actuel du véhicule.")
+                    )
+                    print(form.errors)
 
         # -------------------------
         # GET
@@ -277,19 +309,18 @@ def modifier_niveau_view(request, niveau_id):
             form = NiveauForm(
                 instance=niveau,
                 user=request.user,
-                exemplaire=niveau.voiture_exemplaire
+                exemplaire=exemplaire
             )
 
-    return render(
-        request,
-        "niveaux/modifier_niveaux.html",
-        {
-            "form": form,
-            "niveau": niveau,
-            "exemplaire": niveau.voiture_exemplaire,
-        }
-    )
-
+        return render(
+            request,
+            "niveaux/modifier_niveaux.html",
+            {
+                "form": form,
+                "niveau": niveau,
+                "exemplaire": exemplaire,
+            }
+        )
 
 
 

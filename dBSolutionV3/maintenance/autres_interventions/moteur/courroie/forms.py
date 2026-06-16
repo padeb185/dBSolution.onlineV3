@@ -68,15 +68,13 @@ class CourroieDistributionForm(forms.ModelForm):
                 self.fields[f].initial = 0
                 self.fields[f].required = False
 
-    def clean_kilometrage_cour(self):
-        km = self.cleaned_data.get("kilometrage_cour")
-        exemplaire = self.exemplaire
+    def clean_kilometres_courroie(self):
+        km = self.cleaned_data["kilometres_courroie"]
 
-        if km is not None and exemplaire:
-            if km < exemplaire.kilometres_chassis:
-                raise ValidationError(
-                    "Le kilométrage ne peut pas diminuer."
-                )
+        if km < self.exemplaire.kilometres_chassis:
+            raise ValidationError(
+                _("Le kilométrage ne peut pas être inférieur au kilométrage actuel du véhicule.")
+            )
 
         return km
 

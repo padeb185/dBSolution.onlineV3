@@ -250,7 +250,7 @@ def modifier_nettoyage_int_view(request, nettoyage_int_id):
             NettoyageInterieur.objects.select_related("voiture_exemplaire"),
             id=nettoyage_int_id,
         )
-        exemplaire = nettoyage_interieur.exemplaire
+        exemplaire = nettoyage_interieur.voiture_exemplaire
 
         if request.method == "POST":
             form = NettoyageInterieurForm(

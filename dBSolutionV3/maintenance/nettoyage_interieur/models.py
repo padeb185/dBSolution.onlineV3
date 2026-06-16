@@ -184,7 +184,6 @@ class NettoyageInterieur(TechnicienMixin,models.Model):
             if self.kilometrage_net_int < self.voiture_exemplaire.kilometres_chassis:
                 raise ValidationError({
                     "kilometrage_net_int": _(
-                        f"Le kilométrage du check-up ({self.kilometrage_net_int}) "
                         f"ne peut pas être inférieur au kilométrage actuel de la voiture "
                         f"({self.voiture_exemplaire.kilometres_chassis})."
                     )

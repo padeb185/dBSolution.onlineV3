@@ -324,7 +324,6 @@ def modifier_courroie_view(request, courroie_id):
                         request,
                         _("Remplacement de la courroie de distribution modifié avec succès !")
                     )
-
                     return redirect(
                         "courroie:modifier_courroie",
                         courroie_id=courroie.id
@@ -404,7 +403,7 @@ def modifier_courroie_view(request, courroie_id):
             "form": form,
             "courroie": courroie,
             "sections": sections,
-            "exemplaire": courroie.voiture_exemplaire,
+            "exemplaire": exemplaire,
         }
     )
 

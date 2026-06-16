@@ -352,7 +352,7 @@ def modifier_turbo_view(request, turbo_id):
             "form": form,
             "turbo": turbo,
             "sections": sections,
-            "exemplaire": turbo.voiture_exemplaire,
+            "exemplaire": exemplaire,
         }
     )
 

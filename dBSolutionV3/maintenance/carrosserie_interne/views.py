@@ -11,13 +11,12 @@ from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.decorators.cache import never_cache
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView
 from django_tenants.utils import tenant_context
 from utilisateurs.models import UserLog
 from weasyprint import HTML
 from .forms import CarrosserieInterneForm
 from .models import CarrosserieInterne
-from carrosserie.models import Carrosserie
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from maintenance.models import Maintenance
 from utilisateurs.apprentis.models import Apprenti
@@ -1128,7 +1127,7 @@ def modifier_carrosserie_interne_view(request, carrosserie_interne_id):
         {
             "form": form,
             "carrosserie_interne": carrosserie_interne,
-            "exemplaire": carrosserie_interne.voiture_exemplaire,
+            "exemplaire": exemplaire,
             "sections": sections,
         }
     )

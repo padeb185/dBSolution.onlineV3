@@ -18,7 +18,7 @@ from django.template.loader import render_to_string
 from django.utils import timezone
 from django_tenants.utils import tenant_context
 from weasyprint import HTML
-
+from django.core.exceptions import ValidationError
 
 
 
@@ -250,63 +250,72 @@ def freins_detail_view(request, frein_id):
     return render(request, "freins/freins_detail.html", context)
 
 
+
+
 @login_required
 def modifier_freins_view(request, frein_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
-        # Récupération du checkup avec son exemplaire
         frein = get_object_or_404(
             ControleFreins.objects.select_related("voiture_exemplaire"),
             id=frein_id
         )
+
         exemplaire = frein.voiture_exemplaire
-        # -------------------------
-        # POST
-        # -------------------------
+
         if request.method == "POST":
             form = ControleFreinsForm(
                 request.POST,
                 instance=frein,
                 user=request.user,
-                exemplaire=frein.voiture_exemplaire
+                exemplaire=exemplaire
             )
+
             if form.is_valid():
-                form.save()
+                try:
+                    frein = form.save(commit=False)
+                    frein.assign_technicien(request.user)
+                    frein.save()
 
-                UserLog.objects.create(
-                    utilisateur=request.user,
-                    action=_("Modification du controle des freins - %(immatriculation)s") % {
-                        "immatriculation": exemplaire.immatriculation
-                    }
-                )
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=_("Modification du contrôle des freins - %(immatriculation)s") % {
+                            "immatriculation": exemplaire.immatriculation
+                        }
+                    )
 
-                messages.success(request, _("Contrôle freins modifié avec succès !"))
-                return redirect("freins:modifier_freins", frein_id=frein.id)
+                    messages.success(request, _("Contrôle freins modifié avec succès !"))
+
+                    return redirect(
+                        "freins:modifier_freins",
+                        frein_id=frein.id
+                    )
+
+                except ValidationError as e:
+                    form.add_error(None, e)
+                    messages.error(request, _("Kilométrage invalide"))
+
             else:
-                messages.error(request, _("Le formulaire contient des erreurs."))
+                messages.error(request, _("Kilométrage invalide"))
                 print(form.errors)
 
-        # -------------------------
-        # GET
-        # -------------------------
         else:
             form = ControleFreinsForm(
                 instance=frein,
                 user=request.user,
-                exemplaire=frein.voiture_exemplaire
+                exemplaire=exemplaire
             )
 
-    return render(
-        request,
-        "freins/modifier_freins.html",
-        {
-            "form": form,
-            "frein": frein,
-            "exemplaire": frein.voiture_exemplaire,
-        }
-    )
-
+        return render(
+            request,
+            "freins/modifier_freins.html",
+            {
+                "form": form,
+                "frein": frein,
+                "exemplaire": exemplaire,
+            }
+        )
 
 
 

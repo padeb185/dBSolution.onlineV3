@@ -293,7 +293,7 @@ def modifier_jeux_pieces_view(request, jeu_id):
         {
             "form": form,
             "jeu": jeu,
-            "exemplaire": jeu.voiture_exemplaire,
+            "exemplaire": exemplaire,
         }
     )
 

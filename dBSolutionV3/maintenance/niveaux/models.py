@@ -304,46 +304,60 @@ class Niveau(TechnicienMixin, models.Model):
     def __str__(self):
         return f"Niveaux – {self.voiture_exemplaire} ({self.date:%Y-%m-%d})"
 
-
     def clean(self):
         super().clean()
-        # Vérification que le kilométrage du check-up n'est pas inférieur au kilométrage actuel de la voiture
-        if self.voiture_exemplaire and self.kilometrage_niveaux is not None:
-            if self.kilometrage_niveaux < self.voiture_exemplaire.kilometres_chassis:
-                raise ValidationError({
-                    'kilometrage_niveaux': _(
-                        f"Le kilométrage du check-up ({self.kilometrage_niveaux}) "
-                        f"ne peut pas être inférieur au kilométrage actuel de la voiture ({self.voiture_exemplaire.kilometres_chassis})."
-                    )
-                })
+
+        if not self.voiture_exemplaire_id or self.kilometrage_niveaux is None:
+            return
+
+        voiture = type(self.voiture_exemplaire).objects.get(
+            pk=self.voiture_exemplaire_id
+        )
+
+        km_actuel = voiture.kilometres_chassis or 0
+
+        if self.kilometrage_niveaux < km_actuel:
+            raise ValidationError({
+                "kilometrage_niveaux": _(
+                    "Le kilométrage du contrôle niveaux (%(km_controle)s) "
+                    "ne peut pas être inférieur au kilométrage actuel de la voiture (%(km_voiture)s)."
+                ) % {
+                                           "km_controle": self.kilometrage_niveaux,
+                                           "km_voiture": km_actuel,
+                                       }
+            })
 
     def save(self, *args, **kwargs):
-        self.full_clean()  # valide les km avant sauvegarde
-
-        if self.voiture_exemplaire:
-            if self.kilometrage_niveaux is not None:
-                # Si l'utilisateur a saisi un km
-                if self.kilometrage_niveaux > self.voiture_exemplaire.kilometres_chassis:
-                    self.voiture_exemplaire.kilometres_chassis = self.kilometrage_niveaux
-                    self.voiture_exemplaire.save(update_fields=["kilometres_chassis"])
-                # Toujours copier dans le Niveau
-                self.kilometres_chassis = max(self.kilometrage_niveaux, self.voiture_exemplaire.kilometres_chassis)
-            else:
-                # Si non saisi, prendre le km actuel de la voiture
-                self.kilometres_chassis = self.voiture_exemplaire.kilometres_chassis
+        # Validation AVANT modification du kilométrage voiture
+        self.full_clean()
 
         if not self.tech_technicien and hasattr(self, "_user"):
             self.assign_technicien(self._user)
 
-            # ----------------------------
-            # MAIN D'OEUVRE AUTO DESCRIPTIF
-            # ----------------------------
         if self.main_oeuvre_id and self.voiture_exemplaire_id:
             task_name = _("Niveaux") + " " + str(self.voiture_exemplaire)
             self.main_oeuvre.descriptif = task_name
             self.main_oeuvre.save(update_fields=["descriptif"])
 
+        # Sauvegarde du contrôle
         super().save(*args, **kwargs)
+
+        # Mise à jour voiture APRÈS validation
+        if self.voiture_exemplaire_id:
+            voiture = type(self.voiture_exemplaire).objects.get(
+                pk=self.voiture_exemplaire_id
+            )
+
+            if self.kilometrage_niveaux is not None:
+                if self.kilometrage_niveaux > (voiture.kilometres_chassis or 0):
+                    voiture.kilometres_chassis = self.kilometrage_niveaux
+                    voiture.save(update_fields=["kilometres_chassis"])
+
+            if self.kilometres_chassis != voiture.kilometres_chassis:
+                self.kilometres_chassis = voiture.kilometres_chassis
+                super().save(update_fields=["kilometres_chassis"])
+
+
 
     @property
     def temps_main_oeuvre_display(self):

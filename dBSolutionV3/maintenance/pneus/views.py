@@ -1,20 +1,25 @@
-from django.shortcuts import get_object_or_404, redirect, render
-from django.contrib.auth.decorators import login_required
-from django.utils import timezone
+from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.db import transaction, models
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
-from django_tenants.utils import tenant_context
 from maintenance.models import Maintenance
 from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
-from maintenance.nettoyage_exterieur.models import NettoyageExterieur
 from django.utils.translation import gettext_lazy as _
 from maintenance.pneus.forms import ControlePneusForm
-from maintenance.pneus.models import ControlePneus
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
+from django.template.loader import render_to_string
+from django.http import HttpResponse
+from django.utils import timezone
+from django_tenants.utils import tenant_context
+from weasyprint import HTML
+
+from .models import ControlePneus
+
 
 
 # -----------------------------
@@ -230,73 +235,74 @@ def pneus_detail_view(request, pneu_id):
     return render(request, "pneus/pneus_detail.html", context)
 
 
+from django.core.exceptions import ValidationError
+
 @login_required
 def modifier_pneus_view(request, pneu_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
-        # Récupération du checkup avec son exemplaire
         pneus = get_object_or_404(
             ControlePneus.objects.select_related("voiture_exemplaire"),
             id=pneu_id
         )
+
         exemplaire = pneus.voiture_exemplaire
-        # -------------------------
-        # POST
-        # -------------------------
+
         if request.method == "POST":
             form = ControlePneusForm(
                 request.POST,
                 instance=pneus,
                 user=request.user,
-                exemplaire=pneus.voiture_exemplaire
+                exemplaire=exemplaire
             )
+
             if form.is_valid():
-                form.save()
+                try:
+                    pneus = form.save(commit=False)
+                    pneus.assign_technicien(request.user)
+                    pneus.save()
 
-                UserLog.objects.create(
-                    utilisateur=request.user,
-                    action=_("Modification du contrôle pneus - %(immatriculation)s") % {
-                        "immatriculation": exemplaire.immatriculation
-                    }
-                )
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=_("Modification du contrôle pneus - %(immatriculation)s") % {
+                            "immatriculation": exemplaire.immatriculation
+                        }
+                    )
 
-                messages.success(request, _("Contrôle des pneus modifié avec succès !"))
-                return redirect("pneus:modifier_pneus", pneu_id=pneus.id)
+                    messages.success(request, _("Contrôle des pneus modifié avec succès !"))
+
+                    return redirect(
+                        "pneus:modifier_pneus",
+                        pneu_id=pneus.id
+                    )
+
+                except ValidationError as e:
+                    form.add_error(None, e)
+                    messages.error(request, _("Kilométrage invalide"))
+
             else:
-                messages.error(request, _("Le formulaire contient des erreurs."))
+                messages.error(request, _("Kilométrage invalide"))
                 print(form.errors)
 
-        # -------------------------
-        # GET
-        # -------------------------
         else:
             form = ControlePneusForm(
                 instance=pneus,
                 user=request.user,
-                exemplaire=pneus.voiture_exemplaire
+                exemplaire=exemplaire
             )
 
-    return render(
-        request,
-        "pneus/modifier_pneus.html",
-        {
-            "form": form,
-            "pneus": pneus,
-            "exemplaire": pneus.voiture_exemplaire,
-        }
-    )
+        return render(
+            request,
+            "pneus/modifier_pneus.html",
+            {
+                "form": form,
+                "pneus": pneus,
+                "exemplaire": exemplaire,
+            }
+        )
 
 
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404
-from django.template.loader import render_to_string
-from django.http import HttpResponse
-from django.utils import timezone
-from django_tenants.utils import tenant_context
-from weasyprint import HTML
-
-from .models import ControlePneus
 
 
 @login_required

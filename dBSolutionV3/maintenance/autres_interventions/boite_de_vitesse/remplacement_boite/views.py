@@ -281,56 +281,62 @@ def remplacement_boite_detail_view(request, remplacement_boite_id):
 
 
 
+from django.core.exceptions import ValidationError
+
 @login_required
 def modifier_remplacement_boite_view(request, remplacement_boite_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
-
         remplacement_boite = get_object_or_404(
             RemplacementBoite.objects.select_related("voiture_exemplaire"),
             id=remplacement_boite_id
         )
+
         exemplaire = remplacement_boite.voiture_exemplaire
-        # -------------------------
-        # POST
-        # -------------------------
+
         if request.method == "POST":
             form = RemplacementBoiteForm(
                 request.POST,
                 instance=remplacement_boite,
                 user=request.user,
-                exemplaire=remplacement_boite.voiture_exemplaire
+                exemplaire=exemplaire
             )
 
             if form.is_valid():
-                form.save()
+                try:
+                    remplacement_boite = form.save()
 
-                UserLog.objects.create(
-                    utilisateur=request.user,
-                    action=_("Modification du remplacement de la boite de vitesse - %(immatriculation)s") % {
-                        "immatriculation": exemplaire.immatriculation
-                    }
-                )
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=_("Modification du remplacement de la boite de vitesse - %(immatriculation)s") % {
+                            "immatriculation": exemplaire.immatriculation
+                        }
+                    )
 
-                messages.success(request, _("Remplacement de la boite modifié avec succès !"))
-                return redirect(
-                    "remplacement_boite:modifier_remplacement_boite",
-                    remplacement_boite_id=remplacement_boite.id
-                )
+                    messages.success(request, _("Remplacement de la boite modifié avec succès !"))
+
+                    return redirect(
+                        "remplacement_boite:modifier_remplacement_boite",
+                        remplacement_boite_id=remplacement_boite.id
+                    )
+
+                except ValidationError as e:
+                    form.add_error(None, e)
+                    messages.error(request, _("Kilométrage invalide"))
+
             else:
                 messages.error(request, _("Le formulaire contient des erreurs."))
                 print(form.errors)
 
-        # -------------------------
-        # GET
-        # -------------------------
         else:
             form = RemplacementBoiteForm(
                 instance=remplacement_boite,
                 user=request.user,
-                exemplaire=remplacement_boite.voiture_exemplaire
+                exemplaire=exemplaire
             )
+
+
 
         # -------------------------
         # SECTIONS
@@ -384,9 +390,8 @@ def modifier_remplacement_boite_view(request, remplacement_boite_id):
             "remplacement_boite": remplacement_boite,
             "form": form,
             "sections": sections,
-            "exemplaire": remplacement_boite.voiture_exemplaire,
+            "exemplaire": exemplaire,
         })
-
 
 
 

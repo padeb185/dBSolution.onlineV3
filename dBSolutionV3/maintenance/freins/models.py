@@ -166,38 +166,59 @@ class ControleFreins(TechnicienMixin, models.Model):
 
     def clean(self):
         super().clean()
-        if self.voiture_exemplaire and self.kilometrage_controle_brake is not None:
-            if self.kilometrage_controle_brake < self.voiture_exemplaire.kilometres_chassis:
-                raise ValidationError({
-                    'kilometrage_checkup': _(
-                        f"Le kilométrage du check-up ({self.kilometrage_controle_brake}) "
-                        f"ne peut pas être inférieur au kilométrage actuel de la voiture ({self.voiture_exemplaire.kilometres_chassis})."
-                    )
-                })
+
+        if not self.voiture_exemplaire_id or self.kilometrage_controle_brake is None:
+            return
+
+        voiture = type(self.voiture_exemplaire).objects.get(
+            pk=self.voiture_exemplaire_id
+        )
+
+        km_actuel = voiture.kilometres_chassis or 0
+
+        if self.kilometrage_controle_brake < km_actuel:
+            raise ValidationError({
+                "kilometrage_controle_brake": _(
+                    "Le kilométrage du contrôle freins (%(km_controle)s) ne peut pas être inférieur au kilométrage actuel de la voiture (%(km_voiture)s)."
+                ) % {
+                                                  "km_controle": self.kilometrage_controle_brake,
+                                                  "km_voiture": km_actuel,
+                                              }
+            })
+
+
 
     def save(self, *args, **kwargs):
-        # Si checkup > km actuel, mettre à jour la voiture
-        if self.voiture_exemplaire and self.kilometrage_controle_brake:
-            if self.kilometrage_controle_brake > self.voiture_exemplaire.kilometres_chassis:
-                self.voiture_exemplaire.kilometres_chassis = self.kilometrage_controle_brake
-                self.voiture_exemplaire.save(update_fields=["kilometres_chassis"])
+        # Validation AVANT de modifier voiture_exemplaire.kilometres_chassis
+        self.full_clean()
 
-        # Toujours garder une copie dans le contrôle
-        if self.voiture_exemplaire:
-            self.kilometres_chassis = self.voiture_exemplaire.kilometres_chassis
-
-        if not self.tech_technicien and hasattr(self, '_user'):
+        if not self.tech_technicien and hasattr(self, "_user"):
             self.assign_technicien(self._user)
 
-            # ----------------------------
-            # MAIN D'OEUVRE AUTO DESCRIPTIF
-            # ----------------------------
         if self.main_oeuvre_id and self.voiture_exemplaire_id:
-            task_name = _("Controle des freins") + " " + str(self.voiture_exemplaire)
+            task_name = _("Contrôle des freins") + " " + str(self.voiture_exemplaire)
             self.main_oeuvre.descriptif = task_name
             self.main_oeuvre.save(update_fields=["descriptif"])
 
+        # Sauver d'abord le contrôle
         super().save(*args, **kwargs)
+
+        # Ensuite seulement, mettre à jour la voiture si le km contrôle est supérieur
+        if self.voiture_exemplaire_id and self.kilometrage_controle_brake is not None:
+            voiture = type(self.voiture_exemplaire).objects.get(
+                pk=self.voiture_exemplaire_id
+            )
+
+            if self.kilometrage_controle_brake > (voiture.kilometres_chassis or 0):
+                voiture.kilometres_chassis = self.kilometrage_controle_brake
+                voiture.save(update_fields=["kilometres_chassis"])
+
+            # Garder une copie du kilométrage châssis dans le contrôle
+            if self.kilometres_chassis != voiture.kilometres_chassis:
+                self.kilometres_chassis = voiture.kilometres_chassis
+                super().save(update_fields=["kilometres_chassis"])
+
+
 
     @property
     def temps_main_oeuvre_display(self):

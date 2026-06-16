@@ -406,7 +406,7 @@ def modifier_admission_view(request, admission_id):
             "form": form,
             "admission": admission,
             "sections": sections,
-            "exemplaire": admission.voiture_exemplaire,
+            "exemplaire": exemplaire,
         }
     )
 

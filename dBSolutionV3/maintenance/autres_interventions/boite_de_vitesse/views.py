@@ -17,10 +17,9 @@ from maintenance.models import Maintenance
 from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
-from maintenance.nettoyage_exterieur.models import NettoyageExterieur
 from django.utils.translation import gettext_lazy as _
 from maintenance.autres_interventions.boite_de_vitesse.forms import ControleBoiteForm
-from maintenance.autres_interventions.boite_de_vitesse.models import ControleBoite, BoiteVitesseEtat
+from maintenance.autres_interventions.boite_de_vitesse.models import ControleBoite
 from maintenance.autres_interventions.boite_de_vitesse.remplacement_boite.models import RemplacementBoite
 from maintenance.types_maintenances import TYPES_MAINTENANCE
 from voiture.voiture_modele.models import VoitureModele
@@ -296,7 +295,7 @@ def modifier_boite_view(request, boite_id):
         {
             "form": form,
             "boite": boite,
-            "exemplaire": boite.voiture_exemplaire,
+            "exemplaire": exemplaire,
         }
     )
 

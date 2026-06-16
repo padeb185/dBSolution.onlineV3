@@ -253,45 +253,54 @@ def modifier_checkup_view(request, checkup_id):
             form = CheckupForm(
                 request.POST,
                 instance=checkup,
-                user=request.user,       # 🔑 important pour initialiser technicien/societe
-                exemplaire=checkup.voiture_exemplaire
+                user=request.user,
+                exemplaire=exemplaire
             )
+
             if form.is_valid():
-                form.save()
+                try:
+                    checkup = form.save(commit=False)
+                    checkup.assign_technicien(request.user)
+                    checkup.save()
 
-                UserLog.objects.create(
-                    utilisateur=request.user,
-                    action=_("Modification checkup - %(immatriculation)s") % {
-                        "immatriculation": exemplaire.immatriculation
-                    }
-                )
+                    UserLog.objects.create(
+                        utilisateur=request.user,
+                        action=_("Modification checkup - %(immatriculation)s") % {
+                            "immatriculation": exemplaire.immatriculation
+                        }
+                    )
 
-                messages.success(request, _("Checkup modifié avec succès !"))
-                return redirect("check_up:modifier_checkup", checkup_id=checkup.id)
+                    messages.success(request, _("Checkup modifié avec succès !"))
+
+                    return redirect(
+                        "check_up:modifier_checkup",
+                        checkup_id=checkup.id
+                    )
+
+                except ValidationError as e:
+                    form.add_error(None, e)
+                    messages.error(request, _("Kilométrage invalide"))
+
             else:
-                messages.error(request, _("Le formulaire contient des erreurs."))
+                messages.error(request, _("Kilométrage invalide"))
                 print(form.errors)
 
-        # -------------------------
-        # GET
-        # -------------------------
         else:
             form = CheckupForm(
                 instance=checkup,
                 user=request.user,
-                exemplaire=checkup.voiture_exemplaire
+                exemplaire=exemplaire
             )
 
-    return render(
-        request,
-        "check_up/modifier_checkup.html",
-        {
-            "form": form,
-            "checkup": checkup,
-            "exemplaire": checkup.voiture_exemplaire,
-        }
-    )
-
+        return render(
+            request,
+            "check_up/modifier_checkup.html",
+            {
+                "form": form,
+                "checkup": checkup,
+                "exemplaire": exemplaire,
+            }
+        )
 
 
 

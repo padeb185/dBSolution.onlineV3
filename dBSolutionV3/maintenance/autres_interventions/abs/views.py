@@ -7,7 +7,6 @@ from django.template.loader import render_to_string
 from django.utils import timezone
 from django.contrib import messages
 from django.db import transaction, models
-from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.generic import ListView
@@ -17,7 +16,6 @@ from utilisateurs.models import UserLog
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import DetailView
 from decimal import Decimal
 
 from weasyprint import HTML
@@ -387,7 +385,7 @@ def modifier_abs_view(request, abs_id):
             "form": form,
             "abs": abs,
             "sections": sections,
-            "exemplaire": abs.voiture_exemplaire,
+            "exemplaire": exemplaire,
         }
     )
 

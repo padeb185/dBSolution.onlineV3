@@ -4,11 +4,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.db import models, transaction
 from django_tenants.utils import tenant_context
 from utilisateurs.models import UserLog
-from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.contrib import messages
 from maintenance.models import Maintenance
 from .forms import RemplacementMoteurForm
-from voiture.voiture_exemplaire.models import VoitureExemplaire
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import ListView
 from django.utils.decorators import method_decorator
@@ -387,5 +385,5 @@ def modifier_remplacement_moteur_view(request, remplacement_moteur_id):
             "remplacement_moteur": remplacement_moteur,
             "form": form,
             "sections": sections,
-            "exemplaire": remplacement_moteur.voiture_exemplaire,
+            "exemplaire": exemplaire,
         })

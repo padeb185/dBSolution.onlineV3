@@ -233,6 +233,7 @@ def modifier_silent_view(request, silent_id):
             id=silent_id
         )
 
+        exemplaire = silent.voiture_exemplaire
         # -------------------------
         # POST
         # -------------------------
@@ -241,7 +242,7 @@ def modifier_silent_view(request, silent_id):
                 request.POST,
                 instance=silent,
                 user=request.user,       # 🔑 important pour initialiser technicien/societe
-                exemplaire=silent.voiture_exemplaire
+                exemplaire=exemplaire
             )
             if form.is_valid():
                 form.save()
@@ -258,7 +259,7 @@ def modifier_silent_view(request, silent_id):
             form = SilentBlocForm(
                 instance=silent,
                 user=request.user,
-                exemplaire=silent.voiture_exemplaire
+                exemplaire=exemplaire
             )
 
     return render(
@@ -267,7 +268,7 @@ def modifier_silent_view(request, silent_id):
         {
             "form": form,
             "silent": silent,
-            "exemplaire": silent.voiture_exemplaire,
+            "exemplaire": exemplaire,
         }
     )
 

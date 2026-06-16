@@ -435,7 +435,7 @@ def geometrie_modifier_view(request, geometrie_id):
             "form": form,
             "geometrie": geometrie,
             "sections": sections,
-            "exemplaire": geometrie.voiture_exemplaire,
+            "exemplaire": exemplaire,
         }
     )
 

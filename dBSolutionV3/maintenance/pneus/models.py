@@ -169,38 +169,58 @@ class ControlePneus(TechnicienMixin, models.Model):
 
     def clean(self):
         super().clean()
-        if self.voiture_exemplaire and self.kilometrage_pneus is not None:
-            if self.kilometrage_pneus < self.voiture_exemplaire.kilometres_chassis:
-                raise ValidationError({
-                    'kilometrage_pneus': _(
-                        f"Le kilométrage du controle des pneus ({self.kilometrage_pneus}) "
-                        f"ne peut pas être inférieur au kilométrage actuel de la voiture ({self.voiture_exemplaire.kilometres_chassis})."
-                    )
-                })
+
+        if not self.voiture_exemplaire_id or self.kilometrage_pneus is None:
+            return
+
+        voiture = type(self.voiture_exemplaire).objects.get(
+            pk=self.voiture_exemplaire_id
+        )
+
+        km_actuel = voiture.kilometres_chassis or 0
+
+        if self.kilometrage_pneus < km_actuel:
+            raise ValidationError({
+                "kilometrage_pneus": _(
+                    "Le kilométrage du contrôle pneus (%(km_controle)s) "
+                    "ne peut pas être inférieur au kilométrage actuel de la voiture (%(km_voiture)s)."
+                ) % {
+                                         "km_controle": self.kilometrage_pneus,
+                                         "km_voiture": km_actuel,
+                                     }
+            })
 
     def save(self, *args, **kwargs):
-        # Si checkup > km actuel, mettre à jour la voiture
-        if self.voiture_exemplaire and self.kilometrage_pneus:
-            if self.kilometrage_pneus > self.voiture_exemplaire.kilometres_chassis:
-                self.voiture_exemplaire.kilometres_chassis = self.kilometrage_pneus
-                self.voiture_exemplaire.save(update_fields=["kilometres_chassis"])
+        # Validation AVANT modification du kilométrage voiture
+        self.full_clean()
 
-        # Toujours garder une copie dans le contrôle
-        if self.voiture_exemplaire:
-            self.kilometres_chassis = self.voiture_exemplaire.kilometres_chassis
-
-        if not self.tech_technicien and hasattr(self, '_user'):
+        if not self.tech_technicien and hasattr(self, "_user"):
             self.assign_technicien(self._user)
 
-            # ----------------------------
-            # MAIN D'OEUVRE AUTO DESCRIPTIF
-            # ----------------------------
         if self.main_oeuvre_id and self.voiture_exemplaire_id:
             task_name = _("Pneus") + " " + str(self.voiture_exemplaire)
             self.main_oeuvre.descriptif = task_name
             self.main_oeuvre.save(update_fields=["descriptif"])
 
+        # Sauvegarde du contrôle
         super().save(*args, **kwargs)
+
+        # Mise à jour voiture APRÈS validation
+        if self.voiture_exemplaire_id and self.kilometrage_pneus is not None:
+            voiture = type(self.voiture_exemplaire).objects.get(
+                pk=self.voiture_exemplaire_id
+            )
+
+            if self.kilometrage_pneus > (voiture.kilometres_chassis or 0):
+                voiture.kilometres_chassis = self.kilometrage_pneus
+                voiture.save(update_fields=["kilometres_chassis"])
+
+            if self.kilometres_chassis != voiture.kilometres_chassis:
+                self.kilometres_chassis = voiture.kilometres_chassis
+                super().save(update_fields=["kilometres_chassis"])
+
+
+
 
     @property
     def temps_main_oeuvre_display(self):
