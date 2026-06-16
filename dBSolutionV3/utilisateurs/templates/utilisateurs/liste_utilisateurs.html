@@ -14,7 +14,7 @@
                     <tr class="bg-gray-100">
                         <th class="px-4 py-2 border text-left">{% trans "Nom" %}</th>
                         <th class="px-4 py-2 border text-left">{% trans "Prénom" %}</th>
-                        <th class="px-4 py-2 border text-left">{% trans "Email Google" %}</th>
+                        <th class="px-4 py-2 border text-left">{% trans "Email" %}</th>
                         <th class="px-4 py-2 border text-left">{% trans "Rôle" %}</th>
                         <th class="px-4 py-2 border text-left">{% trans "Téléphone" %}</th>
                     </tr>
@@ -24,7 +24,7 @@
                     <tr class="hover:bg-gray-50">
                         <td class="px-4 py-2 border text-left">{{ u.nom }}</td>
                         <td class="px-4 py-2 border text-left">{{ u.prenom }}</td>
-                        <td class="px-4 py-2 border text-left">{{ u.email_google }}</td>
+                        <td class="px-4 py-2 border text-left">{{ u.email }}</td>
                         <td class="px-4 py-2 border text-left">{{ u.get_role_display }}</td>
                         <td class="px-4 py-2 border text-left">{{ u.telephone }}</td>
                     </tr>
