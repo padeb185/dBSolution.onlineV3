@@ -64,8 +64,24 @@ class HuileBoiteEtat(models.TextChoices):
     QUATRE_20_90 = "80W90", _("80W90")
     QUATRE_25_90 = "85W90", _("85W90")
     ATF3 = "ATF_III", _("ATF III")
-    ATF_DSG = "ATF DSG", _("ATF DSG")
-
+    ATF_DSG = "ATF_DSG", _("ATF DSG")
+    ATF_DCT = "ATF_DCT", _("ATF DCT")
+    ATF_CVT = "ATF_CVT", _("ATF CVT")
+    ATF_DEXRON_II = "ATF_DEXRON_II", _("ATF Dexron II")
+    ATF_DEXRON_III = "ATF_DEXRON_III", _("ATF Dexron III")
+    ATF_DEXRON_VI = "ATF_DEXRON_VI", _("ATF Dexron VI")
+    ATF_MERCON = "ATF_MERCON", _("ATF Mercon")
+    ATF_MERCON_V = "ATF_MERCON_V", _("ATF Mercon V")
+    ATF_MERCON_LV = "ATF_MERCON_LV", _("ATF Mercon LV")
+    ATF_MULTI = "ATF_MULTI", _("ATF Multi Vehicle")
+    ATF_WS = "ATF_WS", _("ATF Toyota WS")
+    ATF_ZF_LIFEGUARD = "ATF_ZF_LIFEGUARD", _("ZF Lifeguard")
+    ATF_MOPAR = "ATF_MOPAR", _("Mopar ATF+4")
+    ATF_AISIN = "ATF_AISIN", _("Aisin ATF")
+    ATF_MBV236 = "ATF_MBV236", _("Mercedes MB 236.x")
+    ATF_VOLVO = "ATF_VOLVO", _("Volvo ATF")
+    ATF_HONDA = "ATF_HONDA", _("Honda ATF DW-1")
+    ATF_NISSAN = "ATF_NISSAN", _("Nissan Matic")
 
 class HuilePontEtat(models.TextChoices):
     SEPTANTE_CINQ140 = "75W140", _("75W140")
@@ -122,6 +138,12 @@ class RefroidissementQualiteEtat(models.TextChoices):
 
     # Hyundai / Kia
     HYUNDAI_KIA_LLC = "HYUNDAI_KIA_LLC", _("Hyundai/Kia Long Life Coolant")
+
+class QualiteLiquideFrein(models.TextChoices):
+    DOT3 = "DOT3", _("DOT 3")
+    DOT4 = "DOT4", _("DOT 4")
+    DOT5 = "DOT5", _("DOT 5")
+    DOT51 = "DOT51", _("DOT 5.1")
 
 # ---------------------------
 # Modèle fusionné
@@ -219,7 +241,7 @@ class Checkup(TechnicienMixin, models.Model):
     # --- Liquide ---
     frein_liquide_frein_etat = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("État liquide de frein"))
     freins_remplacement_liquide_frein = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Remplacement liquide de frein"))
-    freins_specif_liquide_frein = models.CharField(max_length=100, blank=True, verbose_name=_("Spécification liquide de frein"))
+    freins_specif_liquide_frein = models.CharField(max_length=100, choices=QualiteLiquideFrein.choices, default=QualiteLiquideFrein.DOT4, blank=True, verbose_name=_("Spécification liquide de frein"))
     freins_quantite_liquide_frein = models.FloatField(default=0, null=True, blank=True, verbose_name=_("Quantité liquide de frein (L)"))
 
     direction_fuite = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Fuite direction assistée / crémaillère"), null=True, blank=True)

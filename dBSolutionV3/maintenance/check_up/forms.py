@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from maindoeuvre.models import MainDoeuvre
 from maintenance.check_up.models import Checkup
-from voiture.voiture_exemplaire.models import VoitureExemplaire
+
 
 
 
