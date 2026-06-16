@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-16 12:53+0200\n"
+"POT-Creation-Date: 2026-06-16 13:58+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -9762,7 +9762,7 @@ msgstr "Tableau de Bord"
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:274
 #, fuzzy
 #| msgid "Tableau de bord"
-msgid "Vidange d'huile pont"
+msgid "Vidange d'huile de pont"
 msgstr "Tableau de Bord"
 
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:275
@@ -16470,6 +16470,11 @@ msgstr ""
 #: voiture/voiture_pneus/views.py:129
 msgid "Pneu mis à jour avec succès."
 msgstr ""
+
+#, fuzzy
+#~| msgid "Tableau de bord"
+#~ msgid "Vidange d'huile pont"
+#~ msgstr "Tableau de Bord"
 
 #, fuzzy
 #~| msgid "Tableau de bord"
