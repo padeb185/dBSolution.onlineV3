@@ -8,9 +8,6 @@ from django_tenants.utils import tenant_context, schema_context
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from voiture.voiture_modele.models import VoitureModele
 from maintenance.models import Maintenance
-from django.utils.translation import gettext as _
-from voiture.voiture_marque.models import VoitureMarque
-from voiture.voiture_exemplaire.models import TypeUtilisation
 from django.utils import timezone
 from maintenance.types_maintenances import TYPES_MAINTENANCE
 from utilisateurs.models import Mecanicien
