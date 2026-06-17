@@ -45,11 +45,6 @@ class CarrosserieInterneListView(LoginRequiredMixin, ListView):
             "tech_societe",
         )
 
-        # 🔥 filtre par exemplaire (IMPORTANT)
-        exemplaire_id = self.kwargs.get("exemplaire_id")
-        if exemplaire_id:
-            queryset = queryset.filter(voiture_exemplaire_id=exemplaire_id)
-
         # 🔥 filtre par société
         societe = getattr(self.request.user, "societe", None)
         if societe:
@@ -59,16 +54,18 @@ class CarrosserieInterneListView(LoginRequiredMixin, ListView):
 
         return queryset.order_by(*self.ordering)
 
-    from django.shortcuts import get_object_or_404
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         exemplaire_id = self.kwargs.get("exemplaire_id")
-        context["exemplaire"] = get_object_or_404(
-            VoitureExemplaire,
-            id=exemplaire_id
-        )
+
+        if exemplaire_id:
+            context["exemplaire"] = get_object_or_404(
+                VoitureExemplaire,
+                id=exemplaire_id
+            )
+        else:
+            context["exemplaire"] = None
 
         context["is_checkup_allowed"] = self.request.user.role in [
             "direction",
@@ -77,48 +74,9 @@ class CarrosserieInterneListView(LoginRequiredMixin, ListView):
             "magasinier",
         ]
 
-
-
-        # Structuration des champs du formulaire en sections
-        form = context.get("form")
-        if form:
-            context["sections"] = [
-                {
-                    "title": "Kilométrage",
-                    "icon": "icons/compteur.png",
-                    "fields": [f for f in form if "kilo" in f.name],
-                },
-                {
-                    "title": "Pare-chocs",
-                    "icon": "icons/pare-chocs.png",
-                    "fields": [f for f in form if "pare" in f.name],
-                },
-                {
-                    "title": "Traverse",
-                    "icon": "icons/pare-chocs.png",
-                    "fields": [f for f in form if "bouclier" in f.name],
-                },
-                {
-                    "title": "Etiquette",
-                    "icon": "icons/tag.png",
-                    "fields": [f for f in form if "tag" in f.name],
-                },
-                {
-                    "title": "Remarques",
-                    "icon": "icons/notes.png",
-                    "fields": [f for f in form if "remarques" in f.name],
-                },
-                {
-                    "title": "Technicien",
-                    "icon": "icons/mecanicien.png",
-                    "fields": [f for f in form if "tech" in f.name],
-                },
-            ]
-        else:
-            context["sections"] = []
+        context["sections"] = []
 
         return context
-
 
 
 @never_cache

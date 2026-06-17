@@ -126,9 +126,10 @@
             </td>
 
             <!-- Date -->
-            <td class="border px-4 py-2">
+             <td class="border px-4 py-2"
+                data-order="{{ abs.date|date:'Y-m-d H:i:s' }}">
                 {{ abs.date|date:"d/m/Y H:i" }}
-            </td>
+             </td>
 
             <td class="border px-4 py-2">
                 {{ abs.main_oeuvre.temps_display|default:"-" }}
@@ -165,7 +166,7 @@
 
 <script>
 $(document).ready(function() {
-    var table = $('#abss-table').DataTable({
+    var table = $('#abs-table').DataTable({
         pageLength: 100,
         language: {
             search: "{% trans 'Recherche globale :' %}",
