@@ -125,8 +125,8 @@
             </td>
 
             <!-- Date -->
-            <td class="border px-4 py-2">
-                {{ turbo.date|date:"d/m/Y H:i" }}
+              <td class="border px-4 py-2" data-order="{{ turbo.date|date:'Y-m-d' }}">
+                {{ turbo.date|date:"d/m/Y" }}
             </td>
 
              <td class="border px-4 py-2">

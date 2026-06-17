@@ -117,7 +117,9 @@
 
 
             <td class="border px-4 py-2">{{ nettoyage_interieur.tech_nom_technicien }}</td>
-            <td class="border px-4 py-2">{{ nettoyage_interieur.date }}</td>
+             <td data-order="{{ nettoyage_interieur.date|date:'Y-m-d H:i:s' }}">
+                {{ nettoyage_interieur.date|date:"d/m/Y H:i" }}
+            </td>
             <td class="border px-4 py-2">{{ nettoyage_interieur.main_oeuvre.temps_display }}</td>
             <td class="border px-4 py-2 text-center">
                 <a href="{% url 'nettoyage_interieur:nettoyage_int_detail' nettoyage_interieur.id %}"

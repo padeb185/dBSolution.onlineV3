@@ -315,10 +315,9 @@ def dashboard_view(request):
 
     try:
         context["dernieres_activites"] = UserLog.objects.filter(
-            utilisateur__societe=societe
-        ).select_related(
-            "utilisateur"
-        ).order_by("-date_action")[:20]
+            utilisateur=request.user,
+            utilisateur__societe=request.user.societe
+        ).order_by("-date_action")[:100]
     except Exception:
         context["dernieres_activites"] = []
 

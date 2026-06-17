@@ -110,7 +110,7 @@
             </td>
 
             <td class="border px-4 py-2">{{ frein.tech_nom_technicien }}</td>
-                <td data-order="{{ entretien.date|date:'Y-m-d H:i:s' }}">
+                <td data-order="{{ frein.date|date:'Y-m-d H:i:s' }}">
                 {{ frein.date|date:"d/m/Y H:i" }}
             </td>
              <td class="border px-4 py-2">{{ frein.main_oeuvre.temps_display }}</td>

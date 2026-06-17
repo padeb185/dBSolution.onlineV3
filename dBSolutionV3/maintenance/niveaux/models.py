@@ -284,9 +284,6 @@ class Niveau(TechnicienMixin, models.Model):
         related_name="niveaux_tech_societe"
     )
 
-    created_at = models.DateTimeField(_("Créé le"), auto_now_add=True, blank=True, null=True)
-    updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
-
 
 
     def assign_technicien(self, user):

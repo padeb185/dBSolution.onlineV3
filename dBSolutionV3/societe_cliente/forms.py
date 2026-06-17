@@ -56,6 +56,12 @@ class SocieteClienteForm(forms.ModelForm):
             "class": "border rounded px-4 py-2 w-full"
         })
     )
+    boite = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={
+            "class": "border rounded px-4 py-2 w-full"
+        })
+    )
 
     ville = forms.CharField(
         required=False,

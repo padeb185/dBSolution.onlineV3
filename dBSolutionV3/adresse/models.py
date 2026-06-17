@@ -50,7 +50,7 @@ class Adresse(models.Model):
                 societe=self.societe,
                 rue__iexact=self.rue,
                 numero__iexact=self.numero,
-                boite__iexact=self.boite or "",
+                boite__iexact=self.boite or " ",
                 code_postal__iexact=self.code_postal,
                 ville__iexact=self.ville
         ).exclude(id=self.id).exists():

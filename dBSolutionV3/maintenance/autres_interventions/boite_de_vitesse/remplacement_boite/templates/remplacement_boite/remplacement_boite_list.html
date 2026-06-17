@@ -153,8 +153,8 @@
             </td>
 
             <!-- DATE -->
-            <td class="border px-4 py-2">
-                {{ remplacement.date|date:"d/m/Y H:i" }}
+            <td class="border px-4 py-2" data-order="{{ remplacement.date|date:'Y-m-d' }}">
+                {{ remplacement.date|date:"d/m/Y" }}
             </td>
 
              <td class="border px-4 py-2">

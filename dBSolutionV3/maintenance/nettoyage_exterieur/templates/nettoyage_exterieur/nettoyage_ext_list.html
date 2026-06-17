@@ -115,7 +115,7 @@
             </td>
 
             <td class="border px-4 py-2">{{ nettoyage_exterieur.tech_nom_technicien }}</td>
-                <td data-order="{{ entretien.date|date:'Y-m-d H:i:s' }}">
+                <td data-order="{{ nettoyage_exterieur.date|date:'Y-m-d H:i:s' }}">
                 {{ nettoyage_exterieur.date|date:"d/m/Y H:i" }}
             </td>
              <td class="border px-4 py-2">{{ nettoyage_exterieur.main_oeuvre.temps_display }}</td>

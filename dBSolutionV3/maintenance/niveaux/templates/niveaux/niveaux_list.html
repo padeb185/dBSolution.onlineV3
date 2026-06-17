@@ -117,8 +117,8 @@
 
 
             <td class="border px-4 py-2">{{ niveau.tech_nom_technicien }}</td>
-            <td class="border px-4 py-2" data-order="{{ niveau.date|date:'Y-m-d' }}">
-                {{ niveau.date|date:"d/m/Y" }}
+            <td data-order="{{ niveau.date|date:'Y-m-d H:i:s' }}">
+                {{ niveau.date|date:"d/m/Y H:i" }}
             </td>
             <td class="border px-4 py-2">{{ niveau.main_oeuvre.temps_display }}</td>
             <td class="border px-4 py-2 text-center">

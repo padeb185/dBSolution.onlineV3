@@ -109,8 +109,8 @@
              </td>
 
             <td class="border px-4 py-2">{{ pneu.tech_nom_technicien }}</td>
-            <td data-order="{{ pneu.date|date:'Y-m-d' }}">
-                {{ pneu.date|date:"d/m/Y" }}
+             <td data-order="{{ pneu.date|date:'Y-m-d H:i:s' }}">
+                {{ pneu.date|date:"d/m/Y H:i" }}
             </td>
             <td class="border px-4 py-2">{{ pneu.main_oeuvre.temps_display }}</td>
             <td class="border px-4 py-2 text-center">

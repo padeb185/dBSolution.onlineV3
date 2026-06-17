@@ -112,10 +112,8 @@
 
             <td class="border px-4 py-2">{{ silent.tech_nom_technicien }}</td>
 
-           <td class="border px-4 py-2"
-                data-order="{{ silent.date|date:'Y-m-d' }}"
-                data-search="{{ silent.date|date:'Y-m-d' }}">
-                {{ silent.date|date:"d/m/Y" }}
+            <td data-order="{{ silent.date|date:'Y-m-d H:i:s' }}">
+                {{ silent.date|date:"d/m/Y H:i" }}
             </td>
 
             <td class="border px-4 py-2">

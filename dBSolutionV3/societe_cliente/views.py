@@ -86,6 +86,7 @@ def ajouter_societe_cliente_all(request):
                     rue=form.cleaned_data.get("rue"),
                     numero=form.cleaned_data.get("numero"),
                     code_postal=form.cleaned_data.get("code_postal"),
+                    boite=form.cleaned_data.get("boite"),
                     ville=form.cleaned_data.get("ville"),
                     pays=form.cleaned_data.get("pays"),
                     code_pays=form.cleaned_data.get("code_pays"),
