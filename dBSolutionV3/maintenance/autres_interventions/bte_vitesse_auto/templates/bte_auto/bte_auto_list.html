@@ -126,9 +126,10 @@
             </td>
 
             <!-- Date -->
-            <td class="border px-4 py-2">
+             <td class="border px-4 py-2"
+                data-order="{{ bte_auto.date|date:'Y-m-d H:i:s' }}">
                 {{ bte_auto.date|date:"d/m/Y H:i" }}
-            </td>
+             </td>
 
              <td class="border px-4 py-2">
                 {{ bte_auto.main_oeuvre.temps_display|default:"-" }}
