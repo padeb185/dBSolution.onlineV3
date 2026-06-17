@@ -427,26 +427,29 @@ def generer_rapport_remplacement(self):
     rapport = []
     total_general = Decimal("0")
 
-    for field in self._meta.fields:
-        field_name = field.name
+    pieces = [
+        "pompe_abs",
+        "calculateur_abs",
+        "capteur_abs",
+    ]
 
-            # On ne garde que les champs état
-        if isinstance(field, models.CharField) and field.choices == EtatOKNotOK.choices:
-            valeur = getattr(self, field_name)
-            if valeur == EtatOKNotOK.NOT_OK:
-                prix = getattr(self, f"{field_name}_prix", Decimal("0"))
-                quantite = getattr(self, f"{field_name}_quantite", 0)
+    for field_name in pieces:
+        valeur = getattr(self, field_name)
 
-                total = prix * quantite
-                total_general += total
+        if valeur == EtatOKNotOK.NOT_OK:
+            prix = getattr(self, f"{field_name}_prix", Decimal("0"))
+            quantite = getattr(self, f"{field_name}_quantite", 0)
 
-                rapport.append({
-                    "champ": field.verbose_name,
-                    "code": field_name,
-                    "prix": prix,
-                    "quantite": quantite,
-                    "total": total,
-                })
+            total = prix * quantite
+            total_general += total
+
+            rapport.append({
+                "champ": self._meta.get_field(field_name).verbose_name,
+                "code": field_name,
+                "prix": prix,
+                "quantite": quantite,
+                "total": total,
+            })
 
     return {
         "lignes": rapport,

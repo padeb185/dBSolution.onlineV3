@@ -89,16 +89,21 @@ class Abs(TechnicienMixin, models.Model):
     calculateur_abs_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva du calculateur d'ABS"))
     calculateur_abs_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
-
-
     capteur_abs_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Capteur ABS avant droit"))
-    capteur_abs_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Capteur ABS avant gauche"))
-    capteur_abs_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Capteur ABS arrière droit"))
-    capteur_abs_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Capteur ABS arrière gauche"))
+    capteur_abs_avd_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix capteur ABS avant droit"))
+    capteur_abs_avd_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
-    capteur_abs = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Capteur ABS"))
-    capteur_abs_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva du capteur"))
-    capteur_abs_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    capteur_abs_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Capteur ABS avant gauche"))
+    capteur_abs_avg_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix capteur ABS avant gauche"))
+    capteur_abs_avg_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+
+    capteur_abs_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Capteur ABS arrière droit"))
+    capteur_abs_ard_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix capteur ABS arrière droit"))
+    capteur_abs_ard_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+
+    capteur_abs_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Capteur ABS arrière gauche"))
+    capteur_abs_arg_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix capteur ABS arrière gauche"))
+    capteur_abs_arg_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
 
 
@@ -218,8 +223,10 @@ class Abs(TechnicienMixin, models.Model):
         # ----------------------------
         self.calcul_piece("pompe_abs")
         self.calcul_piece("calculateur_abs")
-        self.calcul_piece("capteur_abs")
-
+        self.calcul_piece("capteur_abs_avd")
+        self.calcul_piece("capteur_abs_avg")
+        self.calcul_piece("capteur_abs_ard")
+        self.calcul_piece("capteur_abs_arg")
         # ----------------------------
         # TECHNICIEN AUTO
         # ----------------------------
