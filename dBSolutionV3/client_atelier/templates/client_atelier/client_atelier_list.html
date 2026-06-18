@@ -46,11 +46,6 @@
                class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'email' %}">
 
-
-        <input id="search-numero_compte" type="text"
-               class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-               placeholder="{% trans 'N° de compte' %}">
-
         <input id="search-voitures" type="text"
                 class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                placeholder="{% trans 'Voitures' %}">
@@ -76,11 +71,11 @@
     <tbody>
         {% for client_atelier in client_ateliers %}
         <tr>
-            <td class="border px-4 py-2">{{ client_atelier.prenom }}</td>
-            <td class="border px-4 py-2">{{ client_atelier.nom }}</td>
+            <td class="border px-4 py-2">{{ client_atelier.client_particulier.prenom }}</td>
+            <td class="border px-4 py-2">{{ client_atelier.client_particulier.nom }}</td>
             <td class="border px-4 py-2">{{ client_atelier.adresse }}</td>
-            <td class="border px-4 py-2">{{ client_atelier.numero_telephone }}</td>
-            <td class="border px-4 py-2">{{ client_atelier.email }}</td>
+            <td class="border px-4 py-2">{{ client_atelier.client_particulier.numero_telephone }}</td>
+            <td class="border px-4 py-2">{{ client_atelier.client_particulier.email }}</td>
             <td class="border px-4 py-2">
                 {% for voiture in client_atelier.voitures.all %}
                     <div class="py-1">

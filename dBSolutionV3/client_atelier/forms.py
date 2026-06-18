@@ -72,6 +72,14 @@ class ClientAtelierForm(forms.ModelForm):
             "class": "border rounded px-3 py-2 w-full text-sm"
         })
     )
+    boite = forms.CharField(
+        required=False,
+        label=_("Boîte"),
+        widget=forms.TextInput(attrs={
+            "class": "border rounded px-3 py-2 w-full text-sm"
+        })
+    )
+
 
     code_postal = forms.CharField(
         required=False,
@@ -191,17 +199,22 @@ class ClientAtelierForm(forms.ModelForm):
 
         if self.instance and self.instance.pk:
 
-            cp = self.instance
+            cp = self.instance.client_particulier
 
-            self.fields["prenom"].initial = cp.prenom
-            self.fields["nom"].initial = cp.nom
-            self.fields["email"].initial = cp.email
-            self.fields["numero_telephone"].initial = cp.numero_telephone
-            self.fields["numero_carte_id"].initial = cp.numero_carte_id
-            self.fields["numero_compte"].initial = cp.numero_compte
-            self.fields["numero_carte_bancaire"].initial = cp.numero_carte_bancaire
-            self.fields["date_naissance"].initial = cp.date_naissance
-            self.fields["age"].initial = cp.age
+            if cp:
+                self.fields["prenom"].initial = cp.prenom
+                self.fields["nom"].initial = cp.nom
+                self.fields["email"].initial = cp.email
+                self.fields["numero_telephone"].initial = cp.numero_telephone
+                self.fields["numero_carte_id"].initial = cp.numero_carte_id
+                self.fields["numero_compte"].initial = cp.numero_compte
+                self.fields["numero_carte_bancaire"].initial = cp.numero_carte_bancaire
+
+                if cp.date_naissance:
+                    self.fields["date_naissance"].initial = cp.date_naissance.strftime("%Y-%m-%d")
+
+                if "age" in self.fields:
+                    self.fields["age"].initial = cp.age
 
             if self.instance.adresse:
                 adresse = self.instance.adresse

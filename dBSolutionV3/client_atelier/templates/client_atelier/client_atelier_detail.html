@@ -10,7 +10,7 @@
            <img src="{% static 'icons/client_atelier.png' %}" alt="client"
          style="width:60px; height:60px; margin-right:10px;">
             <span>{% trans "Détails du client :" %}</span>
-            <span class="text-black-700">{{ client_atelier.prenom}} {{ client_atelier.nom }}</span>
+            <span class="text-black-700">{{ client_atelier.client_particulier.prenom}} {{ client_atelier.client_particulier.nom }}</span>
 
         </h1>
     </div>
@@ -26,28 +26,28 @@
 
             <p>
                 <strong>{% trans "Email" %} :</strong>
-                {{ client_atelier.email }}
+                {{ client_atelier.client_particulier.email }}
             </p>
 
             <p>
                 <strong>{% trans "Numéro de téléphone" %} :</strong>
-                {{ client_atelier.numero_telephone }}
+                {{ client_atelier.client_particulier.numero_telephone }}
             </p>
 
 
             <p>
                 <strong>{% trans "Numéro de compte" %} :</strong>
-                {{ client_atelier.numero_compte|format_iban }}
+                {{ client_atelier.client_particulier.numero_compte|format_iban }}
             </p>
 
             <p>
                 <strong>{% trans "Numéro de carte bancaire" %} :</strong>
-                {{ client_atelier.numero_carte_bancaire|format_card }}
+                {{ client_atelier.client_particulier.numero_carte_bancaire|format_card }}
             </p>
 
             <p>
                 <strong>{% trans "Numéro de carte d'identité" %} :</strong>
-                {{ client_atelier.numero_carte_id }}
+                {{ client_atelier.client_particulier.numero_carte_id }}
             </p>
 
 
@@ -58,7 +58,7 @@
 
              <p>
                 <strong>{% trans "Remarques" %} :</strong><br>
-                {{ client_atelier.remarques }}
+                {{ client_atelier.client_particulier.remarques }}
             </p>
 
            <p>

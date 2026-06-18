@@ -75,9 +75,10 @@ class ClientAtelier(models.Model):
     updated_at = models.DateTimeField(_("Mis à jour le"), auto_now=True, blank=True, null=True)
 
     def __str__(self):
-        return _("Client : %(nom)s %(prenom)s") % {
-            "nom": self.nom,
-            "prenom": self.prenom,
-        }
+        cp = self.client_particulier
 
+        return _("Client : %(nom)s %(prenom)s") % {
+            "nom": cp.nom,
+            "prenom": cp.prenom,
+        }
 
