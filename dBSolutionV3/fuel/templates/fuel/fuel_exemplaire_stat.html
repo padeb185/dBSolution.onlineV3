@@ -106,6 +106,7 @@
             <th class="border px-4 py-2 text-center">{% trans "Pleins" %}</th>
             <th class="border px-4 py-2 text-center">{% trans "Litres" %}</th>
             <th class="border px-4 py-2 text-center">{% trans "Coût total" %}</th>
+            <th class="border px-4 py-2 text-center">{% trans "Coût Km" %}</th>
         </tr>
     </thead>
     <tbody>
@@ -115,6 +116,8 @@
             <td class="border px-4 py-2 text-center">{{ m.nb_pleins }}</td>
             <td class="border px-4 py-2 text-center">{{ m.total_litres|floatformat:2 }}</td>
             <td class="border px-4 py-2 text-center">{{ m.total_cout|floatformat:2 }} €</td>
+            <td class="border px-4 py-2 text-center">{{ m.cout_km|floatformat:2 }} €</td>
+
         </tr>
         {% empty %}
         <tr>

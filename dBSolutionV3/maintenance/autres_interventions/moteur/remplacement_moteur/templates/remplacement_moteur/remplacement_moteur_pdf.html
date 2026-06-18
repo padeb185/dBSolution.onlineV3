@@ -265,7 +265,11 @@
     <div class="grid">
         <div>
             <span class="label">{% trans "Temps de travail" %} :</span>
-            {{ remplacement.temps_main_oeuvre_display }}
+            {% if remplacement.main_oeuvre %}
+                {{ remplacement.main_oeuvre.temps_display }}
+            {% else %}
+                -
+            {% endif %}
         </div>
     </div>
 </div>
@@ -289,7 +293,7 @@
             <tr>
                 <th>{% trans "Coût de la main d'oeuvre" %}</th>
                 <td>
-                    {% if remplacement.main_oeuvre and remplacement.main_oeuvre.prix_facture %}
+                    {% if remplacement.main_oeuvre %}
                         {{ remplacement.main_oeuvre.prix_facture|floatformat:2 }} €
                     {% else %}
                         -
@@ -302,11 +306,7 @@
                     {% trans "Total général" %}
                 </td>
                 <td>
-                    {% if remplacement.prix_moteurs and remplacement.main_oeuvre and remplacement.main_oeuvre.prix_facture %}
-                        {{ remplacement.prix_moteurs|add:remplacement.main_oeuvre.prix_facture|floatformat:2 }} €
-                    {% else %}
-                        -
-                    {% endif %}
+                     {{ remplacement.cout_total|floatformat:2 }} €
                 </td>
             </tr>
         </tbody>

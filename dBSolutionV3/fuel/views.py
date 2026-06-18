@@ -446,7 +446,13 @@ class FuelExemplaireStatView(LoginRequiredMixin, TemplateView):
                         total_km += km_diff
                 prev_km = f.kilometrage_fuel
 
+            km_min = Decimal(fuels.aggregate(Min("kilometrage_fuel"))["kilometrage_fuel__min"] or 0)
+            km_max = Decimal(fuels.aggregate(Max("kilometrage_fuel"))["kilometrage_fuel__max"] or 0)
+            km_total = km_max - km_min
+
+            total_cout = Decimal(fuels.aggregate(Sum("prix_refuelling"))["prix_refuelling__sum"] or 0)
             conso_moyenne = (total_litres * Decimal('100') / total_km) if total_km > 0 else Decimal('0.0')
+            cout_km = (total_cout / km_total) if km_total > 0 else Decimal("0.0")
 
             context["global"] = {
                 "total_pleins": fuels.count(),
@@ -455,6 +461,7 @@ class FuelExemplaireStatView(LoginRequiredMixin, TemplateView):
                 "total_tva": Fuel.total_tva_all_exemplaire(exemplaire) or Decimal('0.0'),
                 "prix_moyen_litre": fuels.aggregate(avg=Avg("prix_litre"))["avg"] or Decimal('0.0'),
                 "conso_moyenne": conso_moyenne,
+                "cout_km": cout_km,
             }
             context["conso_moyenne"] = conso_moyenne
 
@@ -487,13 +494,19 @@ class FuelExemplaireStatView(LoginRequiredMixin, TemplateView):
                             total_km_mois += km_diff
                     prev_km = f.kilometrage_fuel
                 conso = (total_litres_mois * Decimal('100') / total_km_mois) if total_km_mois > 0 else Decimal('0.0')
+
+                km_mois = (m["km_max"] or Decimal("0.0")) - (m["km_min"] or Decimal("0.0"))
+                total_cout_mois = m["total_prix"] or Decimal("0.0")
+                cout_km_mois = (total_cout_mois / km_mois) if km_mois > 0 else Decimal("0.0")
+
                 par_mois.append({
                     "mois": m["mois"],
                     "nb_pleins": m["nb_pleins"],
-                    "total_litres": m["total_litres"] or Decimal('0.0'),
-                    "total_cout": m["total_prix"] or Decimal('0.0'),
-                    "total_tva": m["total_tva"] or Decimal('0.0'),
+                    "total_litres": m["total_litres"] or Decimal("0.0"),
+                    "total_cout": total_cout_mois,
+                    "total_tva": m["total_tva"] or Decimal("0.0"),
                     "conso_moyenne": conso,
+                    "cout_km": cout_km_mois,
                 })
                 conso_moyenne_mois[m["mois"]] = conso
 

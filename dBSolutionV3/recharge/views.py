@@ -490,6 +490,7 @@ class ElectriciteExemplaireStatView(LoginRequiredMixin, TemplateView):
             total_cout = Decimal(recharges.aggregate(Sum("prix_recharge"))["prix_recharge__sum"] or 0)
             total_kW_all = Decimal(recharges.aggregate(Sum("kW"))["kW__sum"] or 1)
 
+
             conso_moyenne = (total_kW * Decimal("100") / km_total) if km_total > 0 else Decimal("0.0")
             cout_km = (total_cout / km_total) if km_total > 0 else Decimal("0.0")
             prix_moyen_kW = (total_cout / total_kW_all) if total_kW_all > 0 else Decimal("0.0")

@@ -1,4 +1,5 @@
 import uuid
+from decimal import Decimal
 
 from django.core.validators import StepValueValidator
 
@@ -342,5 +343,14 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
 
 
 
+    @property
+    def cout_total(self):
+        prix_moteur = self.prix_moteurs or Decimal("0.00")
 
+        prix_main_oeuvre = Decimal("0.00")
+
+        if self.main_oeuvre:
+            prix_main_oeuvre = self.main_oeuvre.prix_facture or Decimal("0.00")
+
+        return prix_moteur + prix_main_oeuvre
 
