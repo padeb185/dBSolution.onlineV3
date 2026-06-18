@@ -10,15 +10,7 @@ from maintenance.models import Maintenance
 from maintenance.types_maintenances import TYPES_MAINTENANCE
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from voiture.voiture_modele.models import VoitureModele
-from maintenance.autres_interventions.boite_de_vitesse.models import ControleBoite
-from maintenance.entretien.models import Entretien
-from maintenance.freins.models import ControleFreins
-from maintenance.jeux_pieces.models import ControleJeuxPieces
-from maintenance.nettoyage_exterieur.models import NettoyageExterieur
-from maintenance.nettoyage_interieur.models import NettoyageInterieur
-from maintenance.niveaux.models import Niveau
-from maintenance.pneus.models import ControlePneus
-from maintenance.silent_blocs.models import SilentBloc
+from django.shortcuts import get_object_or_404
 from utilisateurs.models import Mecanicien
 from maintenance.autres_interventions.moteur.admission.models import Admission
 from maintenance.autres_interventions.moteur.alternateur.models import Alternateur
@@ -214,6 +206,5 @@ def maintenance_tenant_view(request, exemplaire_id):
                 "now": timezone.now(),
             },
         )
-
 
 

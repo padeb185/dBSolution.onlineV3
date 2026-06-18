@@ -12,6 +12,8 @@ from maintenance.models import Maintenance
 from utils.mixin import TechnicienMixin
 
 
+
+
 class TypeUtilisation(models.TextChoices):
     SOCIETE = "societe", _("Société")
     CLIENT = "client", _("Client")
@@ -337,3 +339,8 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
 
 
         super().save(*args, **kwargs)
+
+
+
+
+

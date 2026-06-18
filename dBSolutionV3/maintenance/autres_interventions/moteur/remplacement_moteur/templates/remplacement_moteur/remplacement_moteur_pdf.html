@@ -1,0 +1,323 @@
+{% load i18n %}
+
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+        }
+
+        h2 {
+            font-size: 15px;
+            margin-top: 22px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 4px;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 14px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        .tag {
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tag-vert {
+            background: #16a34a;
+        }
+
+        .tag-jaune {
+            background: #ca8a04;
+        }
+
+        .tag-rouge {
+            background: #dc2626;
+        }
+
+        .ok {
+            color: #16a34a;
+            font-weight: bold;
+        }
+
+        .not-ok {
+            color: #dc2626;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        table th,
+        table td {
+            border: 1px solid #ccc;
+            padding: 7px;
+            text-align: left;
+        }
+
+        table th {
+            background: #f3f3f3;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .total {
+            font-weight: bold;
+            background: #f8f8f8;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>{% trans "Rapport du remplacement moteur" %}</h1>
+
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Date" %} :</span>
+            {{ remplacement.date|date:"d/m/Y H:i" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+            {{ remplacement.tech_nom_technicien }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Rôle" %} :</span>
+            {{ remplacement.tech_role_technicien }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Société" %} :</span>
+            {{ remplacement.tech_societe }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Véhicule" %} :</span>
+            {{ remplacement.voiture_exemplaire }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage chassis" %} :</span>
+            {{ remplacement.kilometres_chassis }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilomètres du moteur à remplacer" %} :</span>
+            {{ remplacement.kilometres_moteur }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilomètres au remplacement moteur" %} :</span>
+            {{ remplacement.kilometres_remplacement_moteur }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Nombre de remplacements" %} :</span>
+            {{ remplacement.nombre_remplacements_moteurs }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Tag" %} :</span>
+
+            {% if remplacement.tag == "VERT" %}
+                <span class="tag tag-vert">{{ remplacement.get_tag_display }}</span>
+            {% elif remplacement.tag == "JAUNE" %}
+                <span class="tag tag-jaune">{{ remplacement.get_tag_display }}</span>
+            {% else %}
+                <span class="tag tag-rouge">{{ remplacement.get_tag_display }}</span>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<h2>{% trans "Remplacement moteur" %}</h2>
+
+<div class="box">
+    <table>
+        <tbody>
+            <tr>
+                <th>{% trans "Numéro de série du moteur" %}</th>
+                <td>{{ remplacement.remplacement_numero_moteurs|default:"-" }}</td>
+            </tr>
+
+            <tr>
+                <th>{% trans "Prix moteur" %}</th>
+                <td>
+                    {% if remplacement.prix_moteurs %}
+                        {{ remplacement.prix_moteurs|floatformat:2 }} €
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <th>{% trans "Pays" %}</th>
+                <td>{{ remplacement.get_pays_display }}</td>
+            </tr>
+
+            <tr>
+                <th>{% trans "TVA" %}</th>
+                <td>{{ remplacement.tva|floatformat:2 }} %</td>
+            </tr>
+
+            <tr>
+                <th>{% trans "Remplacement effectué" %}</th>
+                <td>
+                    {% if remplacement.remplacement_effectue %}
+                        <span class="ok">{% trans "Oui" %}</span>
+                    {% else %}
+                        <span class="not-ok">{% trans "Non" %}</span>
+                    {% endif %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2>{% trans "Niveaux moteur" %}</h2>
+
+<div class="box">
+    <table>
+        <tbody>
+            <tr>
+                <th>{% trans "Niveau d'huile" %}</th>
+                <td>{{ remplacement.get_moteur_niveau_huile_etat_display }}</td>
+            </tr>
+
+            <tr>
+                <th>{% trans "Quantité d'huile ajoutée en litres" %}</th>
+                <td>{{ remplacement.moteur_niveau_huile_quantite|floatformat:1 }} L</td>
+            </tr>
+
+            <tr>
+                <th>{% trans "Qualité d'huile" %}</th>
+                <td>{{ remplacement.get_moteur_niveau_huile_qualite_display }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2>{% trans "Refroidissement" %}</h2>
+
+<div class="box">
+    <table>
+        <tbody>
+            <tr>
+                <th>{% trans "Niveau de liquide de refroidissement" %}</th>
+                <td>{{ remplacement.get_refroidissement_etat_display }}</td>
+            </tr>
+
+            <tr>
+                <th>{% trans "Quantité de liquide de refroidissement ajoutée en litres" %}</th>
+                <td>{{ remplacement.refroidissement_quantite|floatformat:1 }} L</td>
+            </tr>
+
+            <tr>
+                <th>{% trans "Qualité de liquide de refroidissement" %}</th>
+                <td>{{ remplacement.get_refroidissement_qualite_display }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2>{% trans "Main d'oeuvre" %}</h2>
+
+<div class="box">
+    <div class="grid">
+        <div>
+            <span class="label">{% trans "Temps de travail" %} :</span>
+            {{ remplacement.temps_main_oeuvre_display }}
+        </div>
+    </div>
+</div>
+
+<h2>{% trans "Coûts" %}</h2>
+
+<div class="box">
+    <table>
+        <tbody>
+            <tr>
+                <th>{% trans "Prix moteur" %}</th>
+                <td>
+                    {% if remplacement.prix_moteurs %}
+                        {{ remplacement.prix_moteurs|floatformat:2 }} €
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <th>{% trans "Coût de la main d'oeuvre" %}</th>
+                <td>
+                    {% if remplacement.main_oeuvre and remplacement.main_oeuvre.prix_facture %}
+                        {{ remplacement.main_oeuvre.prix_facture|floatformat:2 }} €
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr class="total">
+                <td class="text-right">
+                    {% trans "Total général" %}
+                </td>
+                <td>
+                    {% if remplacement.prix_moteurs and remplacement.main_oeuvre and remplacement.main_oeuvre.prix_facture %}
+                        {{ remplacement.prix_moteurs|add:remplacement.main_oeuvre.prix_facture|floatformat:2 }} €
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2>{% trans "Remarques" %}</h2>
+
+<div class="box">
+    {{ remplacement.remarques|default:_("Aucune remarque.")|linebreaks }}
+</div>
+
+</body>
+</html>

@@ -15,6 +15,11 @@ from django.views.decorators.cache import never_cache
 from django.db.models import Q, F
 from .models import RemplacementMoteur
 from voiture.voiture_exemplaire.models import VoitureExemplaire
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+from django.utils.translation import gettext as _
+from weasyprint import HTML
+
 
 
 
@@ -387,3 +392,34 @@ def modifier_remplacement_moteur_view(request, remplacement_moteur_id):
             "sections": sections,
             "exemplaire": exemplaire,
         })
+
+
+
+
+def remplacement_moteur_pdf_view(request, remplacement_moteur_id):
+    remplacement = get_object_or_404(
+        RemplacementMoteur.objects.select_related(
+            "voiture_exemplaire",
+            "main_oeuvre",
+            "tech_technicien",
+            "tech_societe",
+        ),
+        id=remplacement_moteur_id
+    )
+
+    html_string = render_to_string(
+        "remplacement_moteur/remplacement_moteur_pdf.html",
+        {
+            "remplacement": remplacement,
+            "exemplaire": remplacement.voiture_exemplaire,
+        }
+    )
+
+    html = HTML(string=html_string, base_url=request.build_absolute_uri("/"))
+    pdf = html.write_pdf()
+
+    filename = _("Remplacement moteur") + f" - {remplacement.voiture_exemplaire}.pdf"
+
+    response = HttpResponse(pdf, content_type="application/pdf")
+    response["Content-Disposition"] = f'inline; filename="{filename}"'
+    return response
