@@ -77,25 +77,24 @@ class ProprietaireListView(ListView):
         return Proprietaire.objects.filter(societe=user.societe)
 
 
+
+
 @login_required
 def proprietaire_form_view(request):
     tenant = request.user.societe
 
     if request.method == "POST":
-
         form = ProprietaireForm(request.POST)
-        adresse_form = AdresseForm(request.POST)
+
+        adresse_instance = Adresse(societe=tenant)
+        adresse_form = AdresseForm(request.POST, instance=adresse_instance)
 
         if form.is_valid() and adresse_form.is_valid():
-
             with tenant_context(tenant):
-
-                # Sauvegarde adresse
                 adresse = adresse_form.save(commit=False)
                 adresse.societe = tenant
                 adresse.save()
 
-                # Sauvegarde propriétaire
                 proprietaire = form.save(commit=False)
                 proprietaire.societe = tenant
                 proprietaire.adresse = adresse
@@ -103,16 +102,17 @@ def proprietaire_form_view(request):
 
                 messages.success(
                     request,
-                    _(
-                        f"Propriétaire '{proprietaire.prenom} {proprietaire.nom}' ajouté avec succès !"
-                    )
+                    _("Propriétaire '%(prenom)s %(nom)s' ajouté avec succès !") % {
+                        "prenom": proprietaire.prenom,
+                        "nom": proprietaire.nom
+                    }
                 )
 
+                return redirect("proprietaire:proprietaire_list")
         else:
-            messages.error(
-                request,
-                _("Veuillez corriger les erreurs du formulaire.")
-            )
+            print("FORM ERRORS:", form.errors)
+            print("ADRESSE FORM ERRORS:", adresse_form.errors)
+            messages.error(request, _("Veuillez corriger les erreurs du formulaire."))
 
     else:
         form = ProprietaireForm()
@@ -174,42 +174,6 @@ def modifier_proprietaire_view(request, proprietaire_id):
             "proprietaire": proprietaire,
         }
     )
-
-
-
-
-
-@csrf_exempt  # facultatif si CSRF bien géré côté JS
-def check_prenom(request):
-    if request.method == "POST":
-        data = json.loads(request.body)
-        prenom = data.get("prenom")
-
-        try:
-            proprietaire = Proprietaire.objects.select_related("adresse").get(prenom__iexact=prenom)
-
-            return JsonResponse({
-                "exist": True,
-                "prenom": proprietaire.prenom,
-                "nom": proprietaire.nom,
-                "email": proprietaire.email,
-                "adresse": {
-                    "rue": proprietaire.adresse.rue if proprietaire.adresse else "",
-                    "numero": proprietaire.adresse.numero if proprietaire.adresse else "",
-                    "code_postal": proprietaire.adresse.code_postal if proprietaire.adresse else "",
-                    "ville": proprietaire.adresse.ville if proprietaire.adresse else "",
-                    "pays": proprietaire.adresse.pays if proprietaire.adresse else "",
-                    "code_pays": proprietaire.adresse.code_pays if proprietaire.adresse else "",
-                } if proprietaire.adresse else None
-            })
-
-        except Proprietaire.DoesNotExist:
-            return JsonResponse({"exist": False})
-
-    return JsonResponse({"error": "Invalid request"}, status=400)
-
-
-
 
 
 

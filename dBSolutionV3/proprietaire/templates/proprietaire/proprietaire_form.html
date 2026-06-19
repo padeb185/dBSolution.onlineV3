@@ -90,7 +90,7 @@
     </a>
 </div>
 <script>
-document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', () => {
 
     // ------------------------
     // 1. Calcul automatique de l'âge
@@ -132,57 +132,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     const csrftoken = getCookie('csrftoken');
 
-    // ------------------------
-    // 3. Vérification du prénom existant
-    // ------------------------
-    const prenomInput = document.getElementById('id_prenom');
-    if (prenomInput) {
-        prenomInput.addEventListener('blur', () => {
-            const prenom = prenomInput.value.trim();
-            if (!prenom) return;
 
-            fetch('/api/check_prenom/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': csrftoken,
-                },
-                body: JSON.stringify({ prenom })
-            })
-            .then(r => r.json())
-            .then(data => {
-                // Remplissage des champs si le client existe
-                if (data.exist) {
-                    prenomInput.value = data.prenom || '';
-                    document.getElementById('id_nom').value = data.nom || '';
-                    document.getElementById('id_email').value = data.email || '';
 
-                    if (data.adresse) {
-                        document.getElementById('id_rue').value = data.adresse.rue || '';
-                        document.getElementById('id_numero').value = data.adresse.numero || '';
-                        document.getElementById('id_code_postal').value = data.adresse.code_postal || '';
-                        document.getElementById('id_ville').value = data.adresse.ville || '';
-                        document.getElementById('id_pays').value = data.adresse.pays || '';
-                        document.getElementById('id_code_pays').value = data.adresse.code_pays || '';
-                    }
-                } else {
-                    // Réinitialisation des champs si inexistant
-                    prenomInput.value = '';
-                    document.getElementById('id_nom').value = '';
-                    document.getElementById('id_email').value = '';
-                    document.getElementById('id_rue').value = '';
-                    document.getElementById('id_numero').value = '';
-                    document.getElementById('id_code_postal').value = '';
-                    document.getElementById('id_ville').value = '';
-                    document.getElementById('id_pays').value = 'Belgique';
-                    document.getElementById('id_code_pays').value = 'BE';
-                }
-            })
-            .catch(err => console.error("Erreur:", err));
-        });
-    }
 
-    // ------------------------
+        // ------------------------
     // 4. Formatage des numéros bancaires
     // ------------------------
     function formatBankNumber(inputId) {

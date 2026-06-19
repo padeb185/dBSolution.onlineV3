@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import proprietaire_dashboard_view, ProprietaireListView, ProprietaireVoitureListView, check_prenom, \
+from .views import proprietaire_dashboard_view, ProprietaireListView, ProprietaireVoitureListView, \
     proprietaire_form_view, proprietaire_detail_view, proprietaire_voiture_form_view, \
     proprietaire_voiture_detail_view, total_part_voiture, modifier_proprietaire_view, modifier_proprietaire_voiture_view
 
@@ -12,17 +12,9 @@ urlpatterns = [
 
     path("creer/",proprietaire_form_view, name="proprietaire_form",),
 
-    path('api/check_prenom/', check_prenom, name='check_prenom'),
-
     path("<int:proprietaire_id>/", proprietaire_detail_view, name="proprietaire_detail"),
 
     path("<int:proprietaire_id>/modifier/",modifier_proprietaire_view,name="modifier_proprietaire"),
-
-
-
-
-
-
 
     path('proprietaire/', ProprietaireVoitureListView.as_view(), name='proprietaire_voiture_list'),
 

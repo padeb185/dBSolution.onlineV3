@@ -8,6 +8,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 
+
 class ProprietaireVoitureForm(forms.ModelForm):
     class Meta:
         model = ProprietaireVoiture
@@ -154,7 +155,7 @@ class ProprietaireForm(forms.ModelForm):
     )
     class Meta:
         model = Proprietaire
-
+        exclude = ["societe"]
         fields = [
             "prenom",
             "nom",

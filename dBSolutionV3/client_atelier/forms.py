@@ -22,8 +22,16 @@ class ClientAtelierForm(forms.ModelForm):
 
     email = forms.EmailField(required=False)
 
-    numero_telephone = forms.CharField(required=False)
-    numero_carte_id = forms.CharField(required=False)
+    numero_telephone = forms.CharField(
+        required=False,
+        label = _("Numéro de telephone"),
+        widget = forms.TextInput(attrs={"class": "border rounded px-4 py-2 w-full"})
+                                       )
+    numero_carte_id = forms.CharField(
+        required=False,
+        label = _("Numero de carte bancaire"),
+        widget = forms.TextInput(attrs={"class": "border rounded px-4 py-2 w-full"})
+        )
 
     numero_compte = forms.CharField(
         required=False,
