@@ -91,6 +91,12 @@
                     <p class="text-gray-500 text-sm">
                         {% trans "Kilométrage" %}: {{ ex.kilometres_chassis }} km
                     </p>
+                     <p class="text-gray-500 text-sm">
+                        {% trans "Kilométrage du moteur" %}: {{ ex.kilometres_moteur }} km
+                    </p>
+                     <p class="text-gray-500 text-sm">
+                        {% trans "Kilométrage de la boite de vitesse" %}: {{ ex.kilometres_boite }} km
+                    </p>
 
                     {% if ex.couleur %}
                         <p class="text-gray-500 text-sm">
