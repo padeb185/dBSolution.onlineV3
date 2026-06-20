@@ -201,33 +201,24 @@ class ProprietaireVoitureListView(ListView):
 def proprietaire_voiture_form_view(request):
     tenant = request.user.societe
 
-    voitures = VoitureExemplaire.objects.all()
-    proprietaires = Proprietaire.objects.filter(societe=tenant)
-    tenant = request.user.societe
-
     if request.method == "POST":
-
         form = ProprietaireVoitureForm(request.POST)
 
-
         if form.is_valid():
-
             with tenant_context(tenant):
-
-                # Sauvegarde propriétaire
                 proprietaire_voiture = form.save(commit=False)
                 proprietaire_voiture.societe = tenant
-
                 proprietaire_voiture.save()
 
                 messages.success(
                     request,
-                    _(
-                        f"Propriétaire '{proprietaire.prenom} {proprietaire.nom}' ajouté avec succès !"
-                    )
+                    _("Lien propriétaire / voiture ajouté avec succès !")
                 )
 
+
         else:
+            print("FORM ERRORS:", form.errors)
+
             messages.error(
                 request,
                 _("Veuillez corriger les erreurs du formulaire.")
@@ -244,6 +235,8 @@ def proprietaire_voiture_form_view(request):
             "tenant": tenant,
         }
     )
+
+
 
 
 def total_part_voiture(request, voiture_id):
