@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-18 14:58+0200\n"
+"POT-Creation-Date: 2026-06-20 15:24+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -185,7 +185,7 @@ msgstr ""
 #: client_atelier/templates/client_atelier/client_atelier_detail.html:39
 #: client_particulier/templates/client_particulier/client_detail.html:44
 #: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:44
-#: proprietaire/forms.py:87
+#: proprietaire/forms.py:88
 #: proprietaire/templates/proprietaire/proprietaire_detail.html:44
 #: societe_cliente/templates/societe_cliente/societe_cliente_detail.html:56
 msgid "Numéro de compte"
@@ -207,7 +207,7 @@ msgstr ""
 #: client_atelier/models.py:53
 #: client_atelier/templates/client_atelier/client_atelier_detail.html:90
 #: client_atelier/templates/client_atelier/client_atelier_list.html:38
-#: client_atelier/templates/client_atelier/client_atelier_list.html:69
+#: client_atelier/templates/client_atelier/client_atelier_list.html:64
 #: client_particulier/models.py:39
 #: client_particulier/templates/client_particulier/client_detail.html:92
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:38
@@ -725,8 +725,8 @@ msgstr ""
 #: assurance_police/templates/assurance_police/assurance_police_list.html:116
 #: carrosserie/templates/carrosserie/carrosserie_list.html:65
 #: carrosserie/templates/carrosserie/carrosserie_list.html:79
-#: client_atelier/templates/client_atelier/client_atelier_list.html:73
-#: client_atelier/templates/client_atelier/client_atelier_list.html:97
+#: client_atelier/templates/client_atelier/client_atelier_list.html:68
+#: client_atelier/templates/client_atelier/client_atelier_list.html:92
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:68
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:83
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:64
@@ -766,7 +766,7 @@ msgstr ""
 #: assurance/templates/assurance/assurance_list.html:92
 #: assurance_police/templates/assurance_police/assurance_police_list.html:129
 #: carrosserie/templates/carrosserie/carrosserie_list.html:92
-#: client_atelier/templates/client_atelier/client_atelier_list.html:115
+#: client_atelier/templates/client_atelier/client_atelier_list.html:110
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:101
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:108
 #: fournisseur/templates/fournisseur/fournisseur_list.html:96
@@ -795,7 +795,7 @@ msgstr "Tableau de Bord"
 #: assurance/templates/assurance/assurance_list.html:104
 #: assurance_police/templates/assurance_police/assurance_police_list.html:139
 #: carrosserie/templates/carrosserie/carrosserie_list.html:102
-#: client_atelier/templates/client_atelier/client_atelier_list.html:128
+#: client_atelier/templates/client_atelier/client_atelier_list.html:123
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:112
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:119
 #: fournisseur/templates/fournisseur/fournisseur_list.html:106
@@ -842,7 +842,7 @@ msgstr ""
 #: assurance/templates/assurance/assurance_list.html:105
 #: assurance_police/templates/assurance_police/assurance_police_list.html:140
 #: carrosserie/templates/carrosserie/carrosserie_list.html:103
-#: client_atelier/templates/client_atelier/client_atelier_list.html:129
+#: client_atelier/templates/client_atelier/client_atelier_list.html:124
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:113
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:120
 #: fournisseur/templates/fournisseur/fournisseur_list.html:107
@@ -900,7 +900,7 @@ msgstr ""
 #: assurance/templates/assurance/assurance_list.html:110
 #: assurance_police/templates/assurance_police/assurance_police_list.html:145
 #: carrosserie/templates/carrosserie/carrosserie_list.html:108
-#: client_atelier/templates/client_atelier/client_atelier_list.html:134
+#: client_atelier/templates/client_atelier/client_atelier_list.html:129
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:118
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:125
 #: fournisseur/templates/fournisseur/fournisseur_list.html:112
@@ -949,7 +949,7 @@ msgstr ""
 #: assurance/templates/assurance/assurance_list.html:111
 #: assurance_police/templates/assurance_police/assurance_police_list.html:146
 #: carrosserie/templates/carrosserie/carrosserie_list.html:109
-#: client_atelier/templates/client_atelier/client_atelier_list.html:135
+#: client_atelier/templates/client_atelier/client_atelier_list.html:130
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:119
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:126
 #: fournisseur/templates/fournisseur/fournisseur_list.html:113
@@ -998,7 +998,7 @@ msgstr ""
 #: assurance/templates/assurance/assurance_list.html:112
 #: assurance_police/templates/assurance_police/assurance_police_list.html:147
 #: carrosserie/templates/carrosserie/carrosserie_list.html:110
-#: client_atelier/templates/client_atelier/client_atelier_list.html:136
+#: client_atelier/templates/client_atelier/client_atelier_list.html:131
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:120
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:127
 #: fournisseur/templates/fournisseur/fournisseur_list.html:114
@@ -1047,7 +1047,7 @@ msgstr ""
 #: assurance/templates/assurance/assurance_list.html:113
 #: assurance_police/templates/assurance_police/assurance_police_list.html:148
 #: carrosserie/templates/carrosserie/carrosserie_list.html:111
-#: client_atelier/templates/client_atelier/client_atelier_list.html:137
+#: client_atelier/templates/client_atelier/client_atelier_list.html:132
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:121
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:128
 #: fournisseur/templates/fournisseur/fournisseur_list.html:115
@@ -1103,13 +1103,13 @@ msgstr ""
 #: adresse/templates/adresse/adresse_detail.html:33
 #: adresse/templates/adresse/adresse_list.html:29
 #: adresse/templates/adresse/adresse_list.html:64 assurance/forms.py:16
-#: client_atelier/forms.py:62 fournisseur/forms.py:15
+#: client_atelier/forms.py:70 fournisseur/forms.py:15
 msgid "Rue"
 msgstr ""
 
 #: adresse/forms.py:20 adresse/models.py:21
 #: adresse/templates/adresse/adresse_detail.html:38 assurance/forms.py:24
-#: client_atelier/forms.py:70 fournisseur/forms.py:23
+#: client_atelier/forms.py:78 fournisseur/forms.py:23
 msgid "Numéro"
 msgstr ""
 
@@ -1125,7 +1125,7 @@ msgstr ""
 #: adresse/forms.py:22 adresse/models.py:23
 #: adresse/templates/adresse/adresse_list.html:42
 #: adresse/templates/adresse/adresse_list.html:67 assurance/forms.py:39
-#: client_atelier/forms.py:78 fournisseur/forms.py:38
+#: client_atelier/forms.py:94 fournisseur/forms.py:38
 msgid "Code postal"
 msgstr ""
 
@@ -1133,7 +1133,7 @@ msgstr ""
 #: adresse/templates/adresse/adresse_detail.html:53
 #: adresse/templates/adresse/adresse_list.html:46
 #: adresse/templates/adresse/adresse_list.html:68 assurance/forms.py:47
-#: client_atelier/forms.py:86 fournisseur/forms.py:46
+#: client_atelier/forms.py:102 fournisseur/forms.py:46
 msgid "Ville"
 msgstr ""
 
@@ -1143,7 +1143,7 @@ msgstr ""
 #: adresse/templates/adresse/adresse_list.html:69 assurance/forms.py:56
 #: assurance/templates/assurance/assurance_detail.html:46
 #: carrosserie/templates/carrosserie/carrosserie_list.html:36
-#: client_atelier/forms.py:94 fournisseur/forms.py:55
+#: client_atelier/forms.py:110 fournisseur/forms.py:55
 #: fournisseur/templates/fournisseur/fournisseur_detail.html:42
 #: fuel/templates/fuel/fuel_detail.html:66
 #: maintenance/autres_interventions/abs/views.py:239
@@ -1165,7 +1165,7 @@ msgstr ""
 
 #: adresse/forms.py:25 adresse/models.py:27
 #: adresse/templates/adresse/adresse_detail.html:63 assurance/forms.py:65
-#: client_atelier/forms.py:102 facture/models.py:36 fournisseur/forms.py:64
+#: client_atelier/forms.py:118 facture/models.py:36 fournisseur/forms.py:64
 #: fournisseur/models.py:52
 msgid "Code pays"
 msgstr ""
@@ -1214,7 +1214,7 @@ msgstr ""
 #: adresse/templates/adresse/adresse_detail.html:76 assurance/models.py:41
 #: assurance/templates/assurance/assurance_detail.html:63
 #: assurance_police/templates/assurance_police/assurance_police_detail.html:99
-#: client_atelier/forms.py:134 client_atelier/models.py:69
+#: client_atelier/forms.py:150 client_atelier/models.py:69
 #: client_atelier/templates/client_atelier/client_atelier_detail.html:60
 #: client_particulier/models.py:94
 #: client_particulier/templates/client_particulier/client_detail.html:74
@@ -1372,7 +1372,7 @@ msgid "Numero"
 msgstr ""
 
 #: adresse/templates/adresse/adresse_list.html:89
-#: client_atelier/templates/client_atelier/client_atelier_list.html:100
+#: client_atelier/templates/client_atelier/client_atelier_list.html:95
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:86
 msgid "Info indisponible"
 msgstr ""
@@ -1450,7 +1450,7 @@ msgstr ""
 #: carrosserie/models.py:44
 #: carrosserie/templates/carrosserie/carrosserie_detail.html:41
 #: carrosserie/templates/carrosserie/carrosserie_list.html:64
-#: client_atelier/forms.py:128
+#: client_atelier/forms.py:144
 #: fournisseur/templates/fournisseur/fournisseur_list.html:59
 #: utilisateurs/templates/utilisateurs/liste_utilisateurs.html:19
 msgid "Téléphone"
@@ -1470,9 +1470,9 @@ msgstr ""
 #: carrosserie/models.py:45
 #: carrosserie/templates/carrosserie/carrosserie_detail.html:45
 #: carrosserie/templates/carrosserie/carrosserie_list.html:63
-#: client_atelier/forms.py:132
+#: client_atelier/forms.py:148
 #: client_atelier/templates/client_atelier/client_atelier_detail.html:28
-#: client_atelier/templates/client_atelier/client_atelier_list.html:71
+#: client_atelier/templates/client_atelier/client_atelier_list.html:66
 #: client_particulier/models.py:81
 #: client_particulier/templates/client_particulier/client_detail.html:28
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:67
@@ -1480,7 +1480,7 @@ msgstr ""
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:63
 #: fournisseur/models.py:61
 #: fournisseur/templates/fournisseur/fournisseur_list.html:58
-#: proprietaire/forms.py:74 proprietaire/models.py:64
+#: proprietaire/forms.py:75 proprietaire/models.py:64
 #: proprietaire/templates/proprietaire/proprietaire_detail.html:28
 #: societe_cliente/models.py:52
 #: societe_cliente/templates/societe_cliente/societe_cliente_detail.html:45
@@ -1665,7 +1665,7 @@ msgstr ""
 #: maintenance/nettoyage_interieur/views.py:204
 #: maintenance/niveaux/views.py:193 maintenance/pneus/views.py:196
 #: maintenance/silent_blocs/views.py:183 maintenance/silent_blocs/views.py:252
-#: outillage/views.py:81 proprietaire/views.py:340 recharge/views.py:155
+#: outillage/views.py:81 proprietaire/views.py:297 recharge/views.py:155
 #: voiture/voiture_boite/views.py:89 voiture/voiture_embrayage/views.py:121
 #: voiture/voiture_freins_ar/views.py:134
 #: voiture/voiture_freins_av/views.py:107 voiture/voiture_moteur/views.py:75
@@ -1697,7 +1697,7 @@ msgstr ""
 msgid "Cash"
 msgstr ""
 
-#: assurance_police/models.py:19 client_atelier/forms.py:131
+#: assurance_police/models.py:19 client_atelier/forms.py:147
 msgid "Carte bancaire"
 msgstr ""
 
@@ -1981,15 +1981,15 @@ msgid "Retour à la liste des carrosseries"
 msgstr ""
 
 #: carrosserie/templates/carrosserie/carrosserie_detail.html:37
-#: client_atelier/forms.py:19 client_atelier/forms.py:126
-#: client_atelier/forms.py:145
-#: client_atelier/templates/client_atelier/client_atelier_list.html:68
+#: client_atelier/forms.py:19 client_atelier/forms.py:142
+#: client_atelier/forms.py:161
+#: client_atelier/templates/client_atelier/client_atelier_list.html:63
 #: client_particulier/forms.py:39 client_particulier/models.py:25
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:64
 #: client_pilotage/forms.py:20
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:60
 #: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:119
-#: piece/models.py:8 proprietaire/forms.py:69
+#: piece/models.py:8 proprietaire/forms.py:70
 #: proprietaire/templates/proprietaire/proprietaire_list.html:34
 #: proprietaire/templates/proprietaire/proprietaire_list.html:55
 #: proprietaire/templates/proprietaire/proprietaire_voiture_list.html:33
@@ -2063,10 +2063,11 @@ msgstr "Tableau de Bord"
 msgid "Modifier le carrosserie :"
 msgstr ""
 
-#: carrosserie/views.py:87 client_particulier/views.py:91
-#: client_particulier/views.py:185 client_pilotage/views.py:130
-#: client_pilotage/views.py:235 proprietaire/views.py:114
-#: proprietaire/views.py:269 voiture/voiture_embrayage/views.py:51
+#: carrosserie/views.py:87 client_atelier/views.py:120
+#: client_particulier/views.py:91 client_particulier/views.py:185
+#: client_pilotage/views.py:130 client_pilotage/views.py:235
+#: proprietaire/views.py:115 proprietaire/views.py:224
+#: voiture/voiture_embrayage/views.py:51
 msgid "Veuillez corriger les erreurs du formulaire."
 msgstr ""
 
@@ -2074,14 +2075,14 @@ msgstr ""
 msgid "Carrosserie et adresse mises à jour avec succès."
 msgstr ""
 
-#: client_atelier/forms.py:14 client_atelier/forms.py:125
-#: client_atelier/forms.py:140
-#: client_atelier/templates/client_atelier/client_atelier_list.html:67
+#: client_atelier/forms.py:14 client_atelier/forms.py:141
+#: client_atelier/forms.py:156
+#: client_atelier/templates/client_atelier/client_atelier_list.html:62
 #: client_particulier/forms.py:34 client_particulier/models.py:23
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:63
 #: client_pilotage/forms.py:15
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:59
-#: proprietaire/forms.py:64
+#: proprietaire/forms.py:65
 #: proprietaire/templates/proprietaire/proprietaire_list.html:38
 #: proprietaire/templates/proprietaire/proprietaire_list.html:56
 #: proprietaire/templates/proprietaire/proprietaire_voiture_list.html:37
@@ -2090,50 +2091,64 @@ msgstr ""
 msgid "Prénom"
 msgstr ""
 
-#: client_atelier/forms.py:30 client_particulier/forms.py:51
+#: client_atelier/forms.py:27
+#, fuzzy
+#| msgid "Téléphone"
+msgid "Numéro de telephone"
+msgstr "Phone"
+
+#: client_atelier/forms.py:32
+msgid "Numero de carte bancaire"
+msgstr ""
+
+#: client_atelier/forms.py:38 client_particulier/forms.py:51
 #: client_particulier/models.py:67 client_pilotage/forms.py:37
 #: fournisseur/models.py:85 proprietaire/models.py:50
 #: societe_cliente/models.py:82
 msgid "Numéro de compte bancaire"
 msgstr ""
 
-#: client_atelier/forms.py:39
+#: client_atelier/forms.py:47
 #: client_atelier/templates/client_atelier/client_atelier_detail.html:44
 #: client_particulier/forms.py:60 client_particulier/models.py:74
 #: client_particulier/templates/client_particulier/client_detail.html:49
 #: client_pilotage/forms.py:46
 #: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:49
-#: proprietaire/forms.py:91 proprietaire/models.py:57
+#: proprietaire/forms.py:92 proprietaire/models.py:57
 #: proprietaire/templates/proprietaire/proprietaire_detail.html:49
 #: societe_cliente/models.py:90
 #: societe_cliente/templates/societe_cliente/societe_cliente_detail.html:61
 msgid "Numéro de carte bancaire"
 msgstr ""
 
-#: client_atelier/forms.py:127 client_pilotage/forms.py:26 panier/models.py:42
+#: client_atelier/forms.py:85
+msgid "Boîte"
+msgstr ""
+
+#: client_atelier/forms.py:143 client_pilotage/forms.py:26 panier/models.py:42
 msgid "Société cliente"
 msgstr ""
 
-#: client_atelier/forms.py:129
+#: client_atelier/forms.py:145
 msgid "Carte d'identité"
 msgstr ""
 
-#: client_atelier/forms.py:130
+#: client_atelier/forms.py:146
 msgid "Compte bancaire"
 msgstr ""
 
-#: client_atelier/forms.py:133 client_atelier/models.py:62
-#: client_atelier/templates/client_atelier/client_atelier_list.html:56
-#: client_atelier/templates/client_atelier/client_atelier_list.html:72
+#: client_atelier/forms.py:149 client_atelier/models.py:62
+#: client_atelier/templates/client_atelier/client_atelier_list.html:51
+#: client_atelier/templates/client_atelier/client_atelier_list.html:67
 #: theme/templates/dashboard.html:174
 msgid "Voitures"
 msgstr ""
 
-#: client_atelier/forms.py:154
+#: client_atelier/forms.py:170
 msgid "+32 ..."
 msgstr ""
 
-#: client_atelier/forms.py:245 client_particulier/forms.py:255
+#: client_atelier/forms.py:266 client_particulier/forms.py:255
 #: client_pilotage/forms.py:221 fournisseur/forms.py:193
 msgid "Numéro de compte IBAN invalide"
 msgstr ""
@@ -2142,7 +2157,7 @@ msgstr ""
 msgid "Client atelier"
 msgstr ""
 
-#: client_atelier/models.py:78
+#: client_atelier/models.py:80
 #, python-format
 msgid "Client : %(nom)s %(prenom)s"
 msgstr ""
@@ -2154,7 +2169,7 @@ msgstr ""
 
 #: client_atelier/templates/client_atelier/client_atelier_detail.html:33
 #: client_atelier/templates/client_atelier/client_atelier_list.html:42
-#: client_atelier/templates/client_atelier/client_atelier_list.html:70
+#: client_atelier/templates/client_atelier/client_atelier_list.html:65
 #: client_particulier/models.py:46
 #: client_particulier/templates/client_particulier/client_detail.html:33
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:42
@@ -2162,7 +2177,7 @@ msgstr ""
 #: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:33
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:42
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:62
-#: proprietaire/forms.py:79 proprietaire/models.py:29
+#: proprietaire/forms.py:80 proprietaire/models.py:29
 #: proprietaire/templates/proprietaire/proprietaire_detail.html:33
 #: societe_cliente/models.py:45
 #: societe_cliente/templates/societe_cliente/societe_cliente_detail.html:50
@@ -2174,7 +2189,7 @@ msgstr ""
 #: client_particulier/models.py:60
 #: client_particulier/templates/client_particulier/client_detail.html:54
 #: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:54
-#: proprietaire/forms.py:83 proprietaire/models.py:43
+#: proprietaire/forms.py:84 proprietaire/models.py:43
 #: proprietaire/templates/proprietaire/proprietaire_detail.html:54
 msgid "Numéro de carte d'identité"
 msgstr ""
@@ -2184,7 +2199,7 @@ msgid "Voiture(s)"
 msgstr ""
 
 #: client_atelier/templates/client_atelier/client_atelier_detail.html:72
-#: client_atelier/templates/client_atelier/client_atelier_list.html:90
+#: client_atelier/templates/client_atelier/client_atelier_list.html:85
 msgid "Aucune voiture"
 msgstr ""
 
@@ -2239,18 +2254,12 @@ msgstr ""
 msgid "email"
 msgstr ""
 
-#: client_atelier/templates/client_atelier/client_atelier_list.html:52
-#: client_particulier/templates/client_particulier/clientparticulier_list.html:52
-#: societe_cliente/templates/societe_cliente/societe_cliente_list.html:47
-msgid "N° de compte"
-msgstr ""
-
-#: client_atelier/templates/client_atelier/client_atelier_list.html:130
+#: client_atelier/templates/client_atelier/client_atelier_list.html:125
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ client atelier"
 msgstr ""
 
-#: client_atelier/templates/client_atelier/client_atelier_list.html:131
-#: client_atelier/templates/client_atelier/client_atelier_list.html:132
+#: client_atelier/templates/client_atelier/client_atelier_list.html:126
+#: client_atelier/templates/client_atelier/client_atelier_list.html:127
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:115
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:116
 #: client_pilotage/templates/client_pilotage/client_pilotage_list.html:122
@@ -2289,16 +2298,23 @@ msgstr ""
 msgid "Retour aux détails du client"
 msgstr ""
 
-#: client_atelier/views.py:64
-msgid "Le prénom et le nom du client sont obligatoires."
+#: client_atelier/views.py:110
+#, python-format
+msgid "Client '%(prenom)s %(nom)s' créé avec succès !"
 msgstr ""
 
-#: client_atelier/views.py:130 client_atelier/views.py:158
+#: client_atelier/views.py:202
+#, fuzzy, python-format
+#| msgid "Tableau de bord"
+msgid "Client '%(prenom)s %(nom)s' modifié avec succès !"
+msgstr "Tableau de Bord"
+
+#: client_atelier/views.py:211 client_atelier/views.py:271
 #: proprietaire/views.py:165
 msgid "Veuillez corriger les erreurs dans le formulaire."
 msgstr ""
 
-#: client_atelier/views.py:155
+#: client_atelier/views.py:268
 msgid "Client créé avec succès !"
 msgstr ""
 
@@ -2346,6 +2362,11 @@ msgstr ""
 
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:17
 msgid "Ajouter un client"
+msgstr ""
+
+#: client_particulier/templates/client_particulier/clientparticulier_list.html:52
+#: societe_cliente/templates/societe_cliente/societe_cliente_list.html:47
+msgid "N° de compte"
 msgstr ""
 
 #: client_particulier/templates/client_particulier/clientparticulier_list.html:114
@@ -3579,7 +3600,7 @@ msgstr ""
 #: maintenance/carrosserie_interne/forms.py:33 maintenance/check_up/forms.py:24
 #: maintenance/checkup_track/forms.py:23 maintenance/entretien/forms.py:22
 #: maintenance/freins/forms.py:23 maintenance/jeux_pieces/forms.py:22
-#: maintenance/niveaux/forms.py:28 maintenance/pneus/forms.py:21
+#: maintenance/niveaux/forms.py:28 maintenance/pneus/forms.py:22
 #: maintenance/silent_blocs/forms.py:24 voiture/voiture_moteur/forms.py:124
 msgid "Ajoutez des remarques ici..."
 msgstr ""
@@ -11389,14 +11410,25 @@ msgstr ""
 msgid "Rechercher une immatriculation..."
 msgstr ""
 
-#: maintenance/templates/maintenance/list.html:98
+#: maintenance/templates/maintenance/list.html:96
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:30
+msgid "Kilométrage du moteur"
+msgstr ""
+
+#: maintenance/templates/maintenance/list.html:99
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Kilométrage de la boite de vitesse"
+msgstr "Tableau de Bord"
+
+#: maintenance/templates/maintenance/list.html:104
 #: piece/piece_ampoules/models.py:60 piece/piece_feux/models.py:29
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:35
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/liste_exemplaires.html:90
 msgid "Couleur"
 msgstr ""
 
-#: maintenance/templates/maintenance/list.html:120
+#: maintenance/templates/maintenance/list.html:126
 msgid "Aucun exemplaire disponible pour la maintenance."
 msgstr ""
 
@@ -13990,7 +14022,16 @@ msgstr ""
 msgid "Affichage de _START_ à _END_ sur _TOTAL_ copropriétaires"
 msgstr ""
 
-#: proprietaire/views.py:337
+#: proprietaire/views.py:105
+#, python-format
+msgid "Propriétaire '%(prenom)s %(nom)s' ajouté avec succès !"
+msgstr ""
+
+#: proprietaire/views.py:215
+msgid "Lien propriétaire / voiture ajouté avec succès !"
+msgstr ""
+
+#: proprietaire/views.py:294
 msgid "Propriété mise à jour avec succès."
 msgstr ""
 
@@ -15053,10 +15094,6 @@ msgstr ""
 
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:29
 msgid "Kilométrage du châssis"
-msgstr ""
-
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:30
-msgid "Kilométrage du moteur"
 msgstr ""
 
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:32
@@ -16562,11 +16599,6 @@ msgstr ""
 #~| msgid "Tableau de bord"
 #~ msgid "Huile pont"
 #~ msgstr "Tableau de Bord"
-
-#, fuzzy
-#~| msgid "Téléphone"
-#~ msgid "Numero de téléphone"
-#~ msgstr "Phone"
 
 #, fuzzy
 #~| msgid "Tableau de bord"
