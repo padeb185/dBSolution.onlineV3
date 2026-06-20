@@ -15,12 +15,29 @@ class ControlePneusForm(forms.ModelForm):
         model = ControlePneus
         fields = "__all__"
         widgets = {
-            'maintenance': forms.HiddenInput(),
-            'remarques': forms.Textarea(attrs={
-                'rows': 4,
-                'placeholder': _("Ajoutez des remarques ici...")
+            "maintenance": forms.HiddenInput(),
+
+            "remarques": forms.Textarea(attrs={
+                "rows": 4,
+                "placeholder": _("Ajoutez des remarques ici..."),
             }),
 
+            "pneu_epaisseur_avd": forms.NumberInput(attrs={
+                "step": "0.5",
+                "min": "0",
+            }),
+            "pneu_epaisseur_avg": forms.NumberInput(attrs={
+                "step": "0.5",
+                "min": "0",
+            }),
+            "pneu_epaisseur_ard": forms.NumberInput(attrs={
+                "step": "0.5",
+                "min": "0",
+            }),
+            "pneu_epaisseur_arg": forms.NumberInput(attrs={
+                "step": "0.5",
+                "min": "0",
+            }),
         }
 
     def __init__(self, *args, **kwargs):

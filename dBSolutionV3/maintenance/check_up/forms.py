@@ -25,7 +25,24 @@ class CheckupForm(forms.ModelForm):
             }),
             "tech_last_maintained_by": forms.Select(attrs={"disabled": "disabled"}),
 
+            "pneu_epaisseur_avd": forms.NumberInput(attrs={
+                "step": "0.5",
+                "min": "0",
+            }),
+            "pneu_epaisseur_avg": forms.NumberInput(attrs={
+                "step": "0.5",
+                "min": "0",
+            }),
+            "pneu_epaisseur_ard": forms.NumberInput(attrs={
+                "step": "0.5",
+                "min": "0",
+            }),
+            "pneu_epaisseur_arg": forms.NumberInput(attrs={
+                "step": "0.5",
+                "min": "0",
+            }),
         }
+
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)

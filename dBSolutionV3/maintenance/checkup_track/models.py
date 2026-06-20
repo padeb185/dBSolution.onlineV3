@@ -296,10 +296,10 @@ class CheckupTrack(TechnicienMixin, models.Model):
 
     # --- Pneus et Pression
 
-    pneu_epaisseur_avd = models.FloatField(default=0.0, verbose_name=_("Épaisseur du pneu avant droit (mm)"))
-    pneu_epaisseur_avg = models.FloatField(default=0.0, verbose_name=_("Épaisseur du pneu avant gauche (mm)"))
-    pneu_epaisseur_ard = models.FloatField(default=0.0, verbose_name=_("Épaisseur du pneu arrière droit (mm)"))
-    pneu_epaisseur_arg = models.FloatField(default=0.0, verbose_name=_("Épaisseur du pneu arrière gauche (mm)"))
+    pneu_epaisseur_avd = models.FloatField(default=8.0, verbose_name=_("Épaisseur du pneu avant droit (mm)"))
+    pneu_epaisseur_avg = models.FloatField(default=8.0, verbose_name=_("Épaisseur du pneu avant gauche (mm)"))
+    pneu_epaisseur_ard = models.FloatField(default=8.0, verbose_name=_("Épaisseur du pneu arrière droit (mm)"))
+    pneu_epaisseur_arg = models.FloatField(default=8.0, verbose_name=_("Épaisseur du pneu arrière gauche (mm)"))
 
     pneu_sidewall = models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.OK,verbose_name=_("Flanc des pneus"))
 

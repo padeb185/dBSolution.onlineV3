@@ -23,6 +23,22 @@ class CheckupTrackForm(forms.ModelForm):
                 'placeholder': _("Ajoutez des remarques ici...")
             }),
 
+            "pneu_epaisseur_avd": forms.NumberInput(attrs={
+                "step": "0.5",
+                "min": "0",
+            }),
+            "pneu_epaisseur_avg": forms.NumberInput(attrs={
+                "step": "0.5",
+                "min": "0",
+            }),
+            "pneu_epaisseur_ard": forms.NumberInput(attrs={
+                "step": "0.5",
+                "min": "0",
+            }),
+            "pneu_epaisseur_arg": forms.NumberInput(attrs={
+                "step": "0.5",
+                "min": "0",
+            }),
         }
 
     def __init__(self, *args, **kwargs):
