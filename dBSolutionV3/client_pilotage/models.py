@@ -51,7 +51,7 @@ class ClientPilotage(models.Model):
         GOLD = "GOLD", _("Gold")
 
     niveau = models.CharField(
-        _("Niveau"),
+        _("Niveau de pilotage"),
         max_length=20,
         choices=NiveauPilotage.choices,
         default=NiveauPilotage.DEBUTANT,
