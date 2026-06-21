@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-20 17:26+0200\n"
+"POT-Creation-Date: 2026-06-21 10:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2392,9 +2392,10 @@ msgstr "Oro"
 
 #: client_pilotage/models.py:54
 #: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:68
-#: maintenance/niveaux/models.py:297
-msgid "Niveau"
-msgstr "Livello"
+#, fuzzy
+#| msgid "Niveau de bruit"
+msgid "Niveau de pilotage"
+msgstr "Livello di rumore"
 
 #: client_pilotage/models.py:61
 msgid "Historique pilotage"
@@ -10407,6 +10408,10 @@ msgstr "Quantità di liquido servosterzo aggiunto in litri"
 #: maintenance/niveaux/models.py:226
 msgid "Commentaire niveaux"
 msgstr "Commento sui livelli"
+
+#: maintenance/niveaux/models.py:297
+msgid "Niveau"
+msgstr "Livello"
 
 #: maintenance/niveaux/models.py:319
 #, python-format
