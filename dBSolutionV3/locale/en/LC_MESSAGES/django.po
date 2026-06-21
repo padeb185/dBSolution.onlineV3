@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-20 15:24+0200\n"
+"POT-Creation-Date: 2026-06-21 09:50+0200\n"
 "PO-Revision-Date: 2025-12-13 12:10+0100\n"
 "Last-Translator: Pierre de Bournonville [EMAIL@ADDRESS]"
 "(mailto:EMAIL@ADDRESS)\n"
@@ -2085,21 +2085,25 @@ msgid "Prénom"
 msgstr "First name"
 
 #: client_atelier/forms.py:27
-msgid "Numéro de telephone"
+#: client_atelier/templates/client_atelier/client_atelier_detail.html:33
+#: client_atelier/templates/client_atelier/client_atelier_list.html:42
+#: client_atelier/templates/client_atelier/client_atelier_list.html:65
+#: client_particulier/models.py:46
+#: client_particulier/templates/client_particulier/client_detail.html:33
+#: client_particulier/templates/client_particulier/clientparticulier_list.html:42
+#: client_particulier/templates/client_particulier/clientparticulier_list.html:66
+#: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:33
+#: client_pilotage/templates/client_pilotage/client_pilotage_list.html:42
+#: client_pilotage/templates/client_pilotage/client_pilotage_list.html:62
+#: proprietaire/forms.py:80 proprietaire/models.py:29
+#: proprietaire/templates/proprietaire/proprietaire_detail.html:33
+#: societe_cliente/models.py:45
+#: societe_cliente/templates/societe_cliente/societe_cliente_detail.html:50
+#: societe_cliente/templates/societe_cliente/societe_cliente_list.html:62
+msgid "Numéro de téléphone"
 msgstr "Phone number"
 
-#: client_atelier/forms.py:32
-msgid "Numero de carte bancaire"
-msgstr "Credit card number"
-
-#: client_atelier/forms.py:38 client_particulier/forms.py:51
-#: client_particulier/models.py:67 client_pilotage/forms.py:37
-#: fournisseur/models.py:85 proprietaire/models.py:50
-#: societe_cliente/models.py:82
-msgid "Numéro de compte bancaire"
-msgstr "Bank account number"
-
-#: client_atelier/forms.py:47
+#: client_atelier/forms.py:32 client_atelier/forms.py:47
 #: client_atelier/templates/client_atelier/client_atelier_detail.html:44
 #: client_particulier/forms.py:60 client_particulier/models.py:74
 #: client_particulier/templates/client_particulier/client_detail.html:49
@@ -2111,6 +2115,13 @@ msgstr "Bank account number"
 #: societe_cliente/templates/societe_cliente/societe_cliente_detail.html:61
 msgid "Numéro de carte bancaire"
 msgstr "Credit card number"
+
+#: client_atelier/forms.py:38 client_particulier/forms.py:51
+#: client_particulier/models.py:67 client_pilotage/forms.py:37
+#: fournisseur/models.py:85 proprietaire/models.py:50
+#: societe_cliente/models.py:82
+msgid "Numéro de compte bancaire"
+msgstr "Bank account number"
 
 #: client_atelier/forms.py:85
 msgid "Boîte"
@@ -2157,24 +2168,6 @@ msgstr "Customer : %(nom)s %(prenom)s"
 #: client_particulier/templates/client_particulier/client_detail.html:12
 msgid "Détails du client :"
 msgstr "Customer details:"
-
-#: client_atelier/templates/client_atelier/client_atelier_detail.html:33
-#: client_atelier/templates/client_atelier/client_atelier_list.html:42
-#: client_atelier/templates/client_atelier/client_atelier_list.html:65
-#: client_particulier/models.py:46
-#: client_particulier/templates/client_particulier/client_detail.html:33
-#: client_particulier/templates/client_particulier/clientparticulier_list.html:42
-#: client_particulier/templates/client_particulier/clientparticulier_list.html:66
-#: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:33
-#: client_pilotage/templates/client_pilotage/client_pilotage_list.html:42
-#: client_pilotage/templates/client_pilotage/client_pilotage_list.html:62
-#: proprietaire/forms.py:80 proprietaire/models.py:29
-#: proprietaire/templates/proprietaire/proprietaire_detail.html:33
-#: societe_cliente/models.py:45
-#: societe_cliente/templates/societe_cliente/societe_cliente_detail.html:50
-#: societe_cliente/templates/societe_cliente/societe_cliente_list.html:62
-msgid "Numéro de téléphone"
-msgstr "Phone number"
 
 #: client_atelier/templates/client_atelier/client_atelier_detail.html:49
 #: client_particulier/models.py:60
@@ -2286,10 +2279,12 @@ msgid "Retour aux détails du client"
 msgstr "Back to client details"
 
 #: client_atelier/views.py:110
+#, python-format
 msgid "Client '%(prenom)s %(nom)s' créé avec succès !"
 msgstr "Customer '%(prenom)s %(nom)s' created successfully!"
 
 #: client_atelier/views.py:202
+#, python-format
 msgid "Client '%(prenom)s %(nom)s' modifié avec succès !"
 msgstr "Customer '%(prenom)s %(nom)s' updated successfully!"
 
@@ -2396,9 +2391,8 @@ msgstr "Gold"
 
 #: client_pilotage/models.py:54
 #: client_pilotage/templates/client_pilotage/client_pilotage_detail.html:68
-#: maintenance/niveaux/models.py:297
-msgid "Niveau"
-msgstr "Level"
+msgid "Niveau de pilotage"
+msgstr "Driver Skill Level"
 
 #: client_pilotage/models.py:61
 msgid "Historique pilotage"
@@ -3063,7 +3057,7 @@ msgid "Mois"
 msgstr "Month"
 
 #: fuel/templates/fuel/fuel_exemplaire_stat.html:109
-msgid "Coût Km"
+msgid "Coût/Km"
 msgstr "Cost / km"
 
 #: fuel/templates/fuel/fuel_exemplaire_stat.html:124
@@ -10396,6 +10390,10 @@ msgstr "Amount of steering fluid added (liters)"
 msgid "Commentaire niveaux"
 msgstr "Level comment"
 
+#: maintenance/niveaux/models.py:297
+msgid "Niveau"
+msgstr "Level"
+
 #: maintenance/niveaux/models.py:319
 #, python-format
 msgid ""
@@ -16321,6 +16319,12 @@ msgstr "Tires replaced successfully."
 #: voiture/voiture_pneus/views.py:129
 msgid "Pneu mis à jour avec succès."
 msgstr "Tire updated successfully."
+
+#~ msgid "Numéro de telephone"
+#~ msgstr "Phone number"
+
+#~ msgid "Numero de carte bancaire"
+#~ msgstr "Credit card number"
 
 #~ msgid "Le prénom et le nom du client sont obligatoires."
 #~ msgstr "The client's first and last name are required."
