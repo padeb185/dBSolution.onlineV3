@@ -42,7 +42,6 @@ from django.dispatch import receiver
 
 
 
-
 def login_view(request):
     form = LoginForm(request.POST or None)
 
@@ -62,28 +61,24 @@ def login_view(request):
             if not user.totp_secret:
                 user.generate_totp_secret()
 
-
             request.session["totp_setup_user"] = str(user.id)
             return redirect("utilisateurs:totp_setup")
 
         # 🔐 TOTP activé → validation
-        if user.totp_enabled:
-            if not totp_code:
-                messages.error(request, _("Code TOTP requis"))
-                return render(request, "login.html", {"form": form})
+        if not totp_code:
+            messages.error(request, _("Code TOTP requis"))
+            return render(request, "login.html", {"form": form})
 
-            if not user.verify_totp(totp_code):
-                messages.error(request, _("Code TOTP invalide"))
-                return render(request, "login.html", {"form": form})
+        if not user.verify_totp(totp_code):
+            messages.error(request, _("Code TOTP invalide"))
+            return render(request, "login.html", {"form": form})
 
-
+        # ✅ Login final
         login(request, user)
         request.session["totp_verified"] = True
+        request.session["tenant_id"] = str(user.societe.id)
 
-        tenant = user.societe
-        lang = get_language() or "fr"
-
-        return redirect(f"/{tenant.slug}/{lang}/utilisateurs/dashboard/")
+        return redirect("utilisateurs:dashboard")
 
     return render(request, "login.html", {"form": form})
 

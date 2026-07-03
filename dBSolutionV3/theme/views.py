@@ -12,6 +12,8 @@ def home(request):
     return render(request, 'home.html')
 
 
+
+
 def login_view(request):
     """Vue pour la connexion classique"""
     if request.method == "POST":
