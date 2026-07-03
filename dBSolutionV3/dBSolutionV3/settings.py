@@ -15,12 +15,17 @@ import logging
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+import environ
+
+
+env = environ.Env()
+environ.Env.read_env(BASE_DIR / ".env")
 # ------------------------------------------------------------------------------
 # SECURITY
 # ------------------------------------------------------------------------------
 
-SECRET_KEY = 'django-insecure-CHANGE-ME-IN-PROD'
-DEBUG = True
+SECRET_KEY = env("SECRET_KEY")
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'dbsolution.localhost']
 
