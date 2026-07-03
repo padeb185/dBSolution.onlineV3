@@ -1,10 +1,7 @@
 from django.core.validators import StepValueValidator
-
 from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from django.core.exceptions import ValidationError
-from piece.piece_fluides.models import InventaireFluide
 from maintenance.models import Maintenance
 from utils.mixin import TechnicienMixin
 from django.core.exceptions import ValidationError

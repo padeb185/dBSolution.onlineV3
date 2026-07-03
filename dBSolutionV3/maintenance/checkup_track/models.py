@@ -1,5 +1,7 @@
 from datetime import timezone
 
+from django.core.validators import StepValueValidator
+
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -210,27 +212,27 @@ class CheckupTrack(TechnicienMixin, models.Model):
     # --- Moteur & transmission ---
     moteur_etat =  models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("État du moteur"))
     moteur_niveau_huile_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON, verbose_name=_("Niveau d'huile"))
-    moteur_niveau_huile_quantite = models.FloatField(default=0, verbose_name=_("Quantité d'huile ajoutée en litres"))
+    moteur_niveau_huile_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=1,  verbose_name=_("Quantité d'huile ajoutée en litres"), validators=[StepValueValidator(0.1)])
     moteur_niveau_huile_qualite = models.CharField(max_length=25, choices=HuileEtat.choices, default=HuileEtat.ZERO_30, verbose_name=_("Qualité d'huile"))
 
     boite_etat = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("État de la boîte de vitesse"))
     boite_embrayage = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("État de l'embrayage"))
     boite_niveau_huile_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau d'huile"))
-    boite_niveau_huile_quantite = models.FloatField(default=0, verbose_name=_("Quantité d'huile ajoutée en litres"))
+    boite_niveau_huile_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=1,  verbose_name=_("Quantité d'huile ajoutée en litres"), validators=[StepValueValidator(0.1)])
     boite_niveau_huile_qualite = models.CharField(max_length=25, choices=HuileBoiteEtat.choices, default=HuileBoiteEtat.SEPTANTE_CINQ, verbose_name=_("Qualité d'huile"))
 
     # --- Pont ----
 
     pont_etat = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Fuite pont arrière"))
     pont_niveau_huile_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau d'huile"))
-    pont_niveau_huile_quantite = models.FloatField(default=0, verbose_name=_("Quantité d'huile ajoutée en litres"))
+    pont_niveau_huile_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=1, verbose_name=_("Quantité d'huile ajoutée en litres"), validators=[StepValueValidator(0.1)])
     pont_niveau_huile_qualite = models.CharField(max_length=25, choices=HuilePontEtat.choices,default=HuilePontEtat.SEPTANTE_CINQ140,verbose_name=_("Qualité d'huile"))
 
 
     # --- Refroidissement ---
 
     refroidissement_radiateur = models.CharField(max_length=25, choices=RefroidissementEtat.choices, default=RefroidissementEtat.OK, verbose_name=_("Radiateur"))
-    refroidissement_quantite = models.FloatField(default=0, verbose_name=_("Quantité de liquide de refroidissement ajoutée en litres"))
+    refroidissement_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=1, verbose_name=_("Quantité de liquide de refroidissement ajoutée en litres"), validators=[StepValueValidator(0.1)])
     refroidissement_qualite = models.CharField(max_length=25, choices=RefroidissementQualiteEtat.choices,default=RefroidissementQualiteEtat.G13, verbose_name=_("Qualité de liquide de refroidissement"))
 
 
