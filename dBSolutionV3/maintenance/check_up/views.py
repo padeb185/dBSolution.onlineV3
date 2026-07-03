@@ -1,3 +1,5 @@
+from django.core.exceptions import ValidationError
+
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.db import transaction, models
@@ -232,6 +234,9 @@ def checkup_detail_view(request, checkup_id):
         "exemplaire": checkup.voiture_exemplaire,
     }
     return render(request, "check_up/checkup_detail.html", context)
+
+
+
 
 
 @login_required

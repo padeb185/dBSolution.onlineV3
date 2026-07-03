@@ -346,7 +346,7 @@ class Checkup(TechnicienMixin, models.Model):
     phares_recul = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,verbose_name=_("Feux de recul"))
     phares_anti_brouillard_avant = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,verbose_name=_("Phares anti-brouillard avant"))
     phares_anti_brouillard_arriere = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK, verbose_name=_("Phares anti-brouillard arrière"))
-
+    feux_stops = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK, verbose_name=_("Feux stop"))
 
     # --- Nettoyage extérieur ---
     nettoyage_exterieur_traces_gomme = models.CharField(max_length=25, choices=NettoyageEtat.choices, default=NettoyageEtat.A_FAIRE, verbose_name=_("Traces de gomme"))

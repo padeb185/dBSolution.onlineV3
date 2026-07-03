@@ -17,8 +17,7 @@ from utils.mixin import TechnicienMixin
 # ---------------------------
 
 class EtatOKNotOK(models.TextChoices):
-    OK = "OK", _("Non")
-    NOT_OK = "NOT_OK", _("Oui")
+    OK = "OK", _("OK")
     A_REMPLACER = "A_REMPLACER", _("À remplacer")
     REMPLACE = "REMPLACE", _("Remplacé")
 
@@ -111,7 +110,7 @@ class RefroidissementQualiteEtat(models.TextChoices):
     G13 = "G13", _("G 13")
 
     # BMW
-    G48 = "G48", _("G 48")
+    G48 = "G48", _("G 48 BMW")
 
     # Mercedes-Benz
     MB_325_0 = "MB_325_0", _("MB 325.0")
@@ -125,8 +124,8 @@ class RefroidissementQualiteEtat(models.TextChoices):
     PSA_B71_5110 = "PSA_B71_5110", _("PSA B71 5110")
 
     # Ford
-    WSS_M97B44_D = "WSS_M97B44_D", _("WSS-M97B44-D")
-    WSS_M97B51_A1 = "WSS_M97B51_A1", _("WSS-M97B51-A1")
+    WSS_M97B44_D = "WSS_M97B44_D", _("Ford WSS-M97B44-D")
+    WSS_M97B51_A1 = "WSS_M97B51_A1", _("Ford WSS-M97B51-A1")
 
     # General Motors
     DEX_COOL = "DEX_COOL", _("Dex-Cool")
@@ -201,9 +200,9 @@ class CheckupTrack(TechnicienMixin, models.Model):
 
 
     # --- Essuie-glaces & Pare-brise ---
-    essuie_glace = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.NOT_OK, verbose_name=_("Essuies-glace fonctionnel"))
+    essuie_glace = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Essuies-glace fonctionnel"))
 
-    balais_essuie = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Balais a remplacer"))
+    balais_essuie = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Etat des balais"))
 
 
     pare_brise_coups = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Pare-brise avec coups"))

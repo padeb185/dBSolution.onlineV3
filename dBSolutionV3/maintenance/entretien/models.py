@@ -147,6 +147,9 @@ class RefroidissementQualiteEtat(models.TextChoices):
     HYUNDAI_KIA_LLC = "HYUNDAI_KIA_LLC", _("Hyundai/Kia Long Life Coolant")
 
 
+class HuilePontEtat(models.TextChoices):
+    SEPTANTE_CINQ140 = "75W140", _("75W140")
+
 
 
 class Entretien(TechnicienMixin, models.Model):
@@ -217,7 +220,7 @@ class Entretien(TechnicienMixin, models.Model):
     pont_bouchon_vidange = models.CharField(max_length=25, choices=EntretienEtat.choices,default=EntretienEtat.A_FAIRE,verbose_name=_("Remplacer le bouchon de vidange"))
     pont_joint_vidange = models.CharField(max_length=25, choices=EntretienEtat.choices, default=EntretienEtat.A_FAIRE,verbose_name=_("Remplacer le joint du bouchon de vidange"))
     pont_ajout_huile = models.CharField(max_length=25, choices=EntretienEtat.choices, default=EntretienEtat.A_FAIRE,verbose_name=_("Ajout de la nouvelle huile de pont"))
-    pont_ajout_huile_qualite = models.CharField(max_length=25, choices=HuileBoiteEtat.choices,default=HuileEtat.ZERO_30, verbose_name=_("Qualité d'huile de pont"))
+    pont_ajout_huile_qualite = models.CharField(max_length=25, choices=HuilePontEtat.choices,default=HuilePontEtat.SEPTANTE_CINQ140, verbose_name=_("Qualité d'huile de pont"))
     pont_ajout_huile_quantite =  models.DecimalField(default=0.0, max_digits=4,  decimal_places=2, verbose_name=_("Quantité d'huile de pont ajoutée en litres"), validators=[StepValueValidator(0.1)])
 
     lave_glace_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de lave-glace"))
