@@ -11,7 +11,7 @@ from django.views.decorators.cache import never_cache
 from django_tenants.utils import schema_context
 from .forms import LoginForm, UtilisateurCreationForm
 from .models import Utilisateur, UserLog
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext as _, get_language
 from voiture.voiture_marque.models import VoitureMarque
 from voiture.voiture_moteur.models import MoteurVoiture
 from adresse.models import Adresse
@@ -61,7 +61,7 @@ def login_view(request):
         if not user.totp_enabled:
             if not user.totp_secret:
                 user.generate_totp_secret()
-                user.generate_totp_secret()
+
 
             request.session["totp_setup_user"] = str(user.id)
             return redirect("utilisateurs:totp_setup")
@@ -76,12 +76,18 @@ def login_view(request):
                 messages.error(request, _("Code TOTP invalide"))
                 return render(request, "login.html", {"form": form})
 
-        # ✅ Login final
+
         login(request, user)
         request.session["totp_verified"] = True
-        return redirect("utilisateurs:dashboard")
+
+        tenant = user.societe
+        lang = get_language() or "fr"
+
+        return redirect(f"/{tenant.slug}/{lang}/utilisateurs/dashboard/")
 
     return render(request, "login.html", {"form": form})
+
+
 
 
 
