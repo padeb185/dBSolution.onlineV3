@@ -47,7 +47,25 @@ class HuileBoiteEtat(models.TextChoices):
     QUATRE_20_90 = "80W90", _("80W90")
     QUATRE_25_90 = "85W90", _("85W90")
     ATF3 = "ATF_III", _("ATF III")
-    ATF_DSG = "ATF DSG", _("ATF DSG")
+    ATF_DSG = "ATF_DSG", _("ATF DSG")
+    ATF_DCT = "ATF_DCT", _("ATF DCT")
+    ATF_CVT = "ATF_CVT", _("ATF CVT")
+    ATF_DEXRON_II = "ATF_DEXRON_II", _("ATF Dexron II")
+    ATF_DEXRON_III = "ATF_DEXRON_III", _("ATF Dexron III")
+    ATF_DEXRON_VI = "ATF_DEXRON_VI", _("ATF Dexron VI")
+    ATF_MERCON = "ATF_MERCON", _("ATF Mercon")
+    ATF_MERCON_V = "ATF_MERCON_V", _("ATF Mercon V")
+    ATF_MERCON_LV = "ATF_MERCON_LV", _("ATF Mercon LV")
+    ATF_MULTI = "ATF_MULTI", _("ATF Multi Vehicle")
+    ATF_WS = "ATF_WS", _("ATF Toyota WS")
+    ATF_ZF_LIFEGUARD = "ATF_ZF_LIFEGUARD", _("ZF Lifeguard")
+    ATF_MOPAR = "ATF_MOPAR", _("Mopar ATF+4")
+    ATF_AISIN = "ATF_AISIN", _("Aisin ATF")
+    ATF_MBV236 = "ATF_MBV236", _("Mercedes MB 236.x")
+    ATF_VOLVO = "ATF_VOLVO", _("Volvo ATF")
+    ATF_HONDA = "ATF_HONDA", _("Honda ATF DW-1")
+    ATF_NISSAN = "ATF_NISSAN", _("Nissan Matic")
+    Huile_PDK_FFL_3 = "PDK_FFL-3", _("PDK FFL 3")
 
 class LaveGlaceQualite(models.TextChoices):
     HIVER = 'HIVER', _("Hiver")
@@ -148,6 +166,7 @@ class RefroidissementQualiteEtat(models.TextChoices):
 
 
 class HuilePontEtat(models.TextChoices):
+    PORSCHE_75W90 = "75W90", _("Porsche 75W90")
     SEPTANTE_CINQ140 = "75W140", _("75W140")
 
 

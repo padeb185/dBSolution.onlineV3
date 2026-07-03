@@ -84,6 +84,7 @@ class HuileBoiteEtat(models.TextChoices):
     ATF_VOLVO = "ATF_VOLVO", _("Volvo ATF")
     ATF_HONDA = "ATF_HONDA", _("Honda ATF DW-1")
     ATF_NISSAN = "ATF_NISSAN", _("Nissan Matic")
+    Huile_PDK_FFL_3 = "PDK_FFL-3", _("PDK FFL 3")
 
 
 class HuilePontEtat(models.TextChoices):
