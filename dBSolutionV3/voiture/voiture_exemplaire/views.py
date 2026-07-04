@@ -331,14 +331,22 @@ def modifier_exemplaire(request, exemplaire_id):
         exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
 
         if request.method == "POST":
-            form = VoitureExemplaireForm(request.POST, instance=exemplaire)
+            form = VoitureExemplaireForm(
+                request.POST,
+                instance=exemplaire,
+                user=request.user
+            )
 
             if form.is_valid():
-                exemplaire = form.save()
+                exemplaire = form.save(commit=False)
+                exemplaire.societe = tenant
+                exemplaire.save()
 
                 messages.success(
                     request,
-                    _(f"Véhicule '{exemplaire.voiture_marque} {exemplaire.immatriculation}' mis à jour avec succès.")
+                    _("Véhicule '%(vehicule)s' mis à jour avec succès.") % {
+                        "vehicule": f"{exemplaire.voiture_marque} {exemplaire.immatriculation}"
+                    }
                 )
 
                 return redirect(
@@ -347,14 +355,18 @@ def modifier_exemplaire(request, exemplaire_id):
                 )
 
         else:
-            form = VoitureExemplaireForm(instance=exemplaire)
+            form = VoitureExemplaireForm(
+                instance=exemplaire,
+                user=request.user
+            )
 
-        return render(request, 'voiture_exemplaire/modifier_exemplaire.html', {
-            'form': form,
-            'exemplaire': exemplaire,
+        return render(request, "voiture_exemplaire/modifier_exemplaire.html", {
+            "form": form,
+            "exemplaire": exemplaire,
         })
 
 
+    
 @never_cache
 @login_required
 def liste_exemplaires_all(request):

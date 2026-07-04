@@ -5,7 +5,6 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from maintenance.choices import RouesSerrageEtat
-from maintenance.models import Maintenance
 from utilisateurs.models import Utilisateur
 from django.conf import settings
 from utils.mixin import TechnicienMixin
@@ -29,6 +28,7 @@ class BatterieEtat(models.TextChoices):
 class PhareEtat(models.TextChoices):
     OK = "OK", _("OK")
     A_REMPLACER = "A_REMPLACER", _("À remplacer")
+    REMPLACE = "REMPLACE", _("Remplacé")
 
 class NettoyageEtat(models.TextChoices):
     A_FAIRE = "A_FAIRE", _("A faire")
@@ -88,6 +88,7 @@ class HuileBoiteEtat(models.TextChoices):
 
 class HuilePontEtat(models.TextChoices):
     SEPTANTE_CINQ140 = "75W140", _("75W140")
+    SEPTANTE_CINQ90 = "75W90", _("Porsche 75W90")
 
 
 class RefroidissementEtat(models.TextChoices):
@@ -153,7 +154,7 @@ class QualiteLiquideFrein(models.TextChoices):
 # ---------------------------
 class Checkup(TechnicienMixin, models.Model):
     maintenance = models.ForeignKey(
-        Maintenance,
+        "maintenance.Maintenance",
         on_delete=models.CASCADE,
         related_name="checkup",
         verbose_name=_("Checkup"),
@@ -348,6 +349,11 @@ class Checkup(TechnicienMixin, models.Model):
     phares_anti_brouillard_avant = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,verbose_name=_("Phares anti-brouillard avant"))
     phares_anti_brouillard_arriere = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK, verbose_name=_("Phares anti-brouillard arrière"))
     feux_stops = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK, verbose_name=_("Feux stop"))
+    troisieme_feux_stop = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,verbose_name=_("Troisième feux stop"))
+    feux_position_av = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,verbose_name=_("Feux de position avant"))
+    feux_position_ar = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,verbose_name=_("Feux de position arrière"))
+
+
 
     # --- Nettoyage extérieur ---
     nettoyage_exterieur_traces_gomme = models.CharField(max_length=25, choices=NettoyageEtat.choices, default=NettoyageEtat.A_FAIRE, verbose_name=_("Traces de gomme"))

@@ -5,6 +5,7 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from maintenance.check_up.models import PhareEtat
 from maintenance.choices import RouesSerrageEtat
 from utils.mixin import TechnicienMixin
 from societe.models import Societe
@@ -257,6 +258,30 @@ class Entretien(TechnicienMixin, models.Model):
     liquide_direction_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de direction"))
     liquide_direction_quantite =  models.DecimalField(default=0.0,  max_digits=4, decimal_places=2,  validators=[StepValueValidator(0.1)], verbose_name=_("Quantité de liquide de direction ajouté en litres"))
     liquide_direction_qualite = models.CharField(max_length=25, choices=LiquideDirectionQualite.choices,default=LiquideDirectionQualite.UNIVERSAL_PSF,verbose_name=_("Qualité de liquide de direction"))
+
+    # phares#
+
+    phares_avant = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
+                                    verbose_name=_("Feux de route"))
+    phares_gros_phares = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
+                                          verbose_name=_("Grand phares"))
+    phares_clignotants = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
+                                          verbose_name=_("Clignotants"))
+    phares_recul = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
+                                    verbose_name=_("Feux de recul"))
+    phares_anti_brouillard_avant = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
+                                                    verbose_name=_("Phares anti-brouillard avant"))
+    phares_anti_brouillard_arriere = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
+                                                      verbose_name=_("Phares anti-brouillard arrière"))
+    feux_stops = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
+                                  verbose_name=_("Feux stop"))
+    troisieme_feux_stop = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
+                                           verbose_name=_("Troisième feux stop"))
+    feux_position_av = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
+                                        verbose_name=_("Feux de position avant"))
+    feux_position_ar = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
+                                        verbose_name=_("Feux de position arrière"))
+
 
     pneu_pression_bar_avd = models.FloatField(default=2.4, verbose_name=_("Pression du pneu avant droit en bar"), validators=[StepValueValidator(0.1)])
     pneu_pression_bar_avg = models.FloatField(default=2.4, verbose_name=_("Pression du pneu avant gauche en bar"), validators=[StepValueValidator(0.1)])

@@ -67,10 +67,8 @@ class VoitureExemplaire(models.Model):
 
     # 🚗 Identification
     immatriculation = models.CharField(
-        max_length=10,
+        max_length=12,
         unique=True,
-        null=True,
-        blank=True
     )
 
     pays = models.CharField(
@@ -90,15 +88,13 @@ class VoitureExemplaire(models.Model):
         unique=True,
         verbose_name="Numéro VIN",
         validators=[vin_validator],
-        null=True,
-        blank=True,
+
     )
     vin_simplifie = models.CharField(
         max_length=10,
         verbose_name="VIN simplifié",
         editable=False,
-        blank=True,
-        null=True,
+
     )
     est_apres_2010 = models.BooleanField(default=True)
 
@@ -230,6 +226,8 @@ class VoitureExemplaire(models.Model):
 
     def __str__(self):
         return f"{self.voiture_marque.nom_marque} {self.voiture_modele.nom_modele} {self.voiture_modele.nom_variante} - {self.immatriculation}"
+
+
 
     def save(self, *args, **kwargs):
 

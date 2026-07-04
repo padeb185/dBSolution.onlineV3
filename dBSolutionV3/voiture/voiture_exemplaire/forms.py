@@ -1,15 +1,25 @@
 from django import forms
+from django.utils.translation import gettext_lazy as _
 from .models import VoitureExemplaire
 from .utils.vin_decoder import VinDecoderService
-from .utils_vin import get_vin_year
 
-
-
-# Lettres interdites dans un VIN
 INVALID_VIN_CHARS = set("IOQ")
 
 
 class VoitureExemplaireForm(forms.ModelForm):
+    date_mise_en_circulation = forms.DateField(
+        required=False,
+        input_formats=["%Y-%m-%d", "%d/%m/%Y"],
+        widget=forms.DateInput(
+            format="%Y-%m-%d",
+            attrs={
+                "type": "date",
+                "class": "input",
+            }
+        ),
+        label=_("Date de mise en circulation")
+    )
+
     class Meta:
         model = VoitureExemplaire
         fields = (
@@ -40,13 +50,14 @@ class VoitureExemplaireForm(forms.ModelForm):
                 "type": "date",
                 "class": "input"
             }),
-            "est_avant_2010": forms.CheckboxInput(attrs={"class": "mt-2"}),
+            "est_apres_2010": forms.CheckboxInput(attrs={"class": "mt-2"}),
         }
 
     def __init__(self, *args, **kwargs):
-        # Récupère l'utilisateur depuis la vue
-        self.user = kwargs.pop('user', None)
+        self.user = kwargs.pop("user", None)
         super().__init__(*args, **kwargs)
+
+        self.fields["date_mise_en_circulation"].widget.format = "%Y-%m-%d"
 
     def clean_numero_vin(self):
         vin = self.cleaned_data.get("numero_vin")
@@ -55,40 +66,40 @@ class VoitureExemplaireForm(forms.ModelForm):
             vin = vin.upper().strip()
 
             if len(vin) != 17:
-                raise forms.ValidationError("Le VIN doit contenir 17 caractères.")
+                raise forms.ValidationError(_("Le VIN doit contenir 17 caractères."))
 
             if any(c in INVALID_VIN_CHARS for c in vin):
-                raise forms.ValidationError("Le VIN contient des caractères interdits (I, O, Q).")
+                raise forms.ValidationError(_("Le VIN contient des caractères interdits (I, O, Q)."))
 
         return vin
-
-
 
     def clean(self):
         cleaned_data = super().clean()
         vin = cleaned_data.get("numero_vin")
 
-        annee = None
-        est_avant_2010 = False
-
         if vin:
             decoder = VinDecoderService(vin)
             data = decoder.decode()
-
             annee = data.get("model_year")
 
-            est_avant_2010 = bool(annee and annee < 2010)
+            cleaned_data["annee_production"] = annee
 
-        cleaned_data["annee_production"] = annee
-        cleaned_data["est_avant_2010"] = est_avant_2010
+            if annee:
+                cleaned_data["est_apres_2010"] = annee >= 2010
 
         return cleaned_data
 
     def save(self, commit=True):
         instance = super().save(commit=False)
-        # Assigne automatiquement la société depuis l'utilisateur
+
         if self.user:
-            instance.societe = getattr(self.user, 'societe', None)
+            instance.societe = getattr(self.user, "societe", None)
+
+        # Important : applique les valeurs calculées
+        instance.annee_production = self.cleaned_data.get("annee_production")
+        instance.est_apres_2010 = self.cleaned_data.get("est_apres_2010", instance.est_apres_2010)
+
         if commit:
             instance.save()
+
         return instance

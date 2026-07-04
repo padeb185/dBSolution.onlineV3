@@ -21,6 +21,9 @@ class EtatOKNotOK(models.TextChoices):
     A_REMPLACER = "A_REMPLACER", _("À remplacer")
     REMPLACE = "REMPLACE", _("Remplacé")
 
+class CrochetPresent(models.TextChoices):
+    OK = "OK", _("Monté")
+    NOT_OK = "NOT_OK", _("Démonté")
 
 class BatterieEtat(models.TextChoices):
     OK = "OK", _("OK")
@@ -29,6 +32,7 @@ class BatterieEtat(models.TextChoices):
 class PhareEtat(models.TextChoices):
     OK = "OK", _("OK")
     A_REMPLACER = "A_REMPLACER", _("À remplacer")
+    REMPLACE = "REMPLACE", _("Remplacé")
 
 class NettoyageEtat(models.TextChoices):
     A_FAIRE = "A_FAIRE", _("A faire")
@@ -296,7 +300,33 @@ class CheckupTrack(TechnicienMixin, models.Model):
 
     jeu_multi_bras = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu suspension multi-bras"))
 
+
+    #phares#
+
+
+    phares_avant = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
+                                    verbose_name=_("Feux de route"))
+    phares_gros_phares = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
+                                          verbose_name=_("Grand phares"))
+    phares_clignotants = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
+                                          verbose_name=_("Clignotants"))
+    phares_recul = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
+                                    verbose_name=_("Feux de recul"))
+    phares_anti_brouillard_avant = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
+                                                    verbose_name=_("Phares anti-brouillard avant"))
+    phares_anti_brouillard_arriere = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
+                                                      verbose_name=_("Phares anti-brouillard arrière"))
+    feux_stops = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
+                                  verbose_name=_("Feux stop"))
+    troisieme_feux_stop = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
+                                           verbose_name=_("Troisième feux stop"))
+    feux_position_av = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
+                                        verbose_name=_("Feux de position avant"))
+    feux_position_ar = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
+                                        verbose_name=_("Feux de position arrière"))
+
     # --- Pneus et Pression
+
 
     pneu_epaisseur_avd = models.FloatField(default=8.0, verbose_name=_("Épaisseur du pneu avant droit (mm)"))
     pneu_epaisseur_avg = models.FloatField(default=8.0, verbose_name=_("Épaisseur du pneu avant gauche (mm)"))
@@ -316,7 +346,7 @@ class CheckupTrack(TechnicienMixin, models.Model):
 
     serrage_roues = models.CharField(max_length=25, choices=RouesSerrageEtat.choices, default=RouesSerrageEtat.A_FAIRE, verbose_name=_("Serrage des roues"))
 
-    crochet_de_remorquage = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Crochet de remorquage installé"))
+    crochet_de_remorquage = models.CharField(max_length=25, choices=CrochetPresent.choices, default=CrochetPresent.NOT_OK,verbose_name=_("Crochet de remorquage"))
 
     # --- Nettoyage extérieur ---
     nettoyage_exterieur_traces_gomme = models.CharField(max_length=25, choices=NettoyageEtat.choices, default=NettoyageEtat.A_FAIRE, verbose_name=_("Traces de gomme"))
