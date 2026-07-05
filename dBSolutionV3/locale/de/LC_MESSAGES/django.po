@@ -15266,10 +15266,8 @@ msgstr ""
 "H, J-N, P, R-Z und Ziffern)."
 
 #: voiture/voiture_exemplaire/models.py:129
-#, fuzzy
-#| msgid "Kilométrage de l'embrayage"
 msgid "Kilométrage de rodage"
-msgstr "Kilometerstand der Kupplung"
+msgstr "Einfahrkilometerstand"
 
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/ajouter_exemplaire_all.html:9
 msgid "Ajouter un véhicule"
