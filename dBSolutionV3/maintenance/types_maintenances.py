@@ -10,4 +10,6 @@ TYPES_MAINTENANCE = [
     {"code": "nettoyage_int", "nom": _("Nettoyage intérieur")},
     {"code": "niveaux", "nom": _("Niveaux")},
     {"code": "autres", "nom": _("Autres interventions")},
+    {"code": "autres", "nom": _("RODAGE")},
+
 ]

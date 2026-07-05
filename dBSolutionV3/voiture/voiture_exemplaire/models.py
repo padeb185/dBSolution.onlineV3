@@ -22,6 +22,12 @@ class NomPays(models.TextChoices):
     DE = "Allemagne", _("Allemagne")
 
 
+class KilometresRodage(models.IntegerChoices):
+    KM_1000 = 1000, _("1000 km")
+    KM_2000 = 2000, _("2000 km")
+    KM_3000 = 3000, _("3000 km")
+    KM_4000 = 4000, _("4000 km")
+    KM_5000 = 5000, _("5000 km")
 
 class VoitureExemplaire(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -116,6 +122,12 @@ class VoitureExemplaire(models.Model):
 
     # 📏 Kilométrage châssis
     kilometres_chassis = models.PositiveIntegerField(default=0, null=True, blank=True, verbose_name="Kilomètres châssis")
+
+    kilometres_rodage = models.PositiveIntegerField(
+        choices=KilometresRodage.choices,
+        default=KilometresRodage.KM_1000,
+        verbose_name=_("Kilométrage de rodage"),
+    )
 
     kilometres_dernier_entretien = models.PositiveIntegerField(default=0, null=True, blank=True)
 

@@ -1,0 +1,117 @@
+from django import forms
+from django.core.exceptions import ValidationError
+from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
+from .models import Entretien, Rodage
+from maindoeuvre.models import MainDoeuvre
+from ..choices import RouesSerrageEtat
+
+
+class RodageForm(forms.ModelForm):
+    temps_heures = forms.IntegerField(required=False, min_value=0)
+    temps_minutes = forms.IntegerField(required=False, min_value=0, max_value=59)
+
+    class Meta:
+        model = Rodage
+
+        exclude = ["pieces"]
+        widgets = {
+            "maintenance": forms.HiddenInput(),
+            "remarques": forms.Textarea(attrs={
+                "rows": 4,
+                "placeholder": _("Ajoutez des remarques ici...")
+            }),
+        }
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop("user", None)
+        self.exemplaire = kwargs.pop("exemplaire", None)
+        super().__init__(*args, **kwargs)
+
+        # -------- INITIALISATION TEMPS --------
+        if self.instance and self.instance.pk and self.instance.main_oeuvre:
+            total = self.instance.main_oeuvre.temps_minutes
+
+            self.fields["temps_heures"].initial = total // 60
+            self.fields["temps_minutes"].initial = total % 60
+
+        # -------- MAIN D'ŒUVRE QUERYSET --------
+        if "main_oeuvre" in self.fields:
+            self.fields["main_oeuvre"].queryset = MainDoeuvre.objects.select_related(
+                "utilisateur"
+            ).filter(utilisateur__is_active=True)
+
+            self.fields["main_oeuvre"].widget.attrs.update({
+                "class": "input"
+            })
+
+        # -------- DATE --------
+        if "date" in self.fields and self.instance and self.instance.pk and self.instance.date:
+            local_dt = timezone.localtime(self.instance.date)
+            self.fields["date"].initial = local_dt.strftime("%Y-%m-%d %H:%M:%S")
+
+        # -------- TECH --------
+        if self.user:
+            if "tech_technicien" in self.fields:
+                self.fields["tech_technicien"].initial = self.user
+                self.fields["tech_technicien"].disabled = True
+
+            if "tech_societe" in self.fields:
+                self.fields["tech_societe"].initial = self.user.societe
+                self.fields["tech_societe"].disabled = True
+
+    def clean_kilometrage_entretien(self):
+        km = self.cleaned_data.get("kilometres_rodage")
+        exemplaire = self.exemplaire
+
+        if km is not None and exemplaire:
+            if km < exemplaire.kilometres_chassis:
+                raise ValidationError(
+                    "Le kilométrage ne peut pas diminuer."
+                )
+
+        return km
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+
+        km = self.cleaned_data.get("kilometres_rodage")
+        voiture = self.exemplaire
+
+        if km is not None and voiture:
+            instance.kilometrage_checkup = km
+            instance.voiture_exemplaire = voiture
+
+        # -------- MAIN D'ŒUVRE --------
+        heures = self.cleaned_data.get("temps_heures") or 0
+        minutes = self.cleaned_data.get("temps_minutes") or 0
+
+        total_minutes = heures * 60 + minutes
+
+        main = instance.main_oeuvre
+
+        if main:
+            main.temps_minutes = total_minutes
+            main.save(update_fields=["temps_minutes"])
+        else:
+            main = MainDoeuvre.objects.create(
+                utilisateur=self.user,
+                temps_minutes=total_minutes
+            )
+            instance.main_oeuvre = main
+
+        # -------- SAVE FINAL --------
+        if commit:
+            instance.save()
+
+        return instance
+
+    def clean_serrage_roues(self):
+        serrage_roues = self.cleaned_data.get("serrage_roues")
+
+        if serrage_roues != RouesSerrageEtat.FAIT:
+            raise forms.ValidationError(
+                _("Vous devez confirmer que le serrage des roues est FAIT avant de valider.")
+            )
+
+        return serrage_roues

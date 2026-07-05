@@ -1,4 +1,6 @@
 from datetime import timezone
+
+import voiture_exemplaire
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
@@ -6,6 +8,7 @@ from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.cache import never_cache
 from django_tenants.utils import schema_context, tenant_context
+from maintenance.autres_interventions.moteur.rodage.models import Rodage
 from maintenance.models import Maintenance
 from maintenance.types_maintenances import TYPES_MAINTENANCE
 from voiture.voiture_exemplaire.models import VoitureExemplaire
@@ -73,6 +76,7 @@ def dashboard_moteur_view(request, exemplaire_id):
                 courroie = CourroieDistribution.objects.filter(voiture_exemplaire=exemplaire)
                 moteur_remplacement = RemplacementMoteur.objects.filter(voiture_exemplaire=exemplaire)
                 turbo = Turbo.objects.filter(voiture_exemplaire=exemplaire)
+                rodage = Rodage.objects.filter(voiture_exemplaire=exemplaire)
 
 
                 # ✅ COUNTS CORRECTS
@@ -81,8 +85,9 @@ def dashboard_moteur_view(request, exemplaire_id):
                 total_courroie = courroie.count()
                 total_remplacement_moteur = moteur_remplacement.count()
                 total_turbo = turbo.count()
+                total_rodage = rodage.count()
 
-                total_int_moteur = total_admission + total_alternateur + total_courroie + total_remplacement_moteur + total_turbo
+                total_int_moteur = total_admission + total_alternateur + total_courroie + total_remplacement_moteur + total_turbo + total_rodage
 
 
                 modeles = VoitureModele.objects.all()
@@ -122,12 +127,14 @@ def dashboard_moteur_view(request, exemplaire_id):
             "total_courroie": total_courroie,
             "total_remplacement_moteur": total_remplacement_moteur,
             "total_turbo": total_turbo,
+            "total_rodage": total_rodage,
 
             "admission": admission,
             "alternateur": alternateur,
             "courroie": courroie,
             "moteur_remplacement": moteur_remplacement,
             "turbo": turbo,
+            "rodage": rodage,
 
             "total_int_moteur": total_int_moteur,
 
