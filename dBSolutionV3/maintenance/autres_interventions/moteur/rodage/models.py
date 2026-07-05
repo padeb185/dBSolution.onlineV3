@@ -186,7 +186,7 @@ class Rodage(TechnicienMixin, models.Model):
 
 
     moteur_rodage_vidange = models.CharField(max_length=25, choices=RodageEtat.choices, default=RodageEtat.A_FAIRE, verbose_name=_("Vidange de l'huile moteur"))
-    filtre_huile =  models.CharField(max_length=25, choices=RodageEtat.choices, default=RodageEtat.A_FAIRE, verbose_name=_("Remplacement du filtre à huile moteur"))
+    moteur_filtre_huile =  models.CharField(max_length=25, choices=RodageEtat.choices, default=RodageEtat.A_FAIRE, verbose_name=_("Remplacement du filtre à huile moteur"))
     moteur_bouchon_vidange =  models.CharField(max_length=25, choices=RodageEtat.choices, default=RodageEtat.A_FAIRE, verbose_name=_("Remplacer le bouchon de vidange"))
     moteur_joint_vidange =  models.CharField(max_length=25, choices=RodageEtat.choices, default=RodageEtat.A_FAIRE, verbose_name=_("Remplacer le joint du bouchon de vidange"))
     moteur_ajout_huile =  models.CharField(max_length=25, choices=RodageEtat.choices, default=RodageEtat.A_FAIRE, verbose_name=_("Ajout de la nouvelle huile moteur"))
@@ -225,13 +225,13 @@ class Rodage(TechnicienMixin, models.Model):
                                                     verbose_name=_("Phares anti-brouillard avant"))
     phares_anti_brouillard_arriere = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
                                                       verbose_name=_("Phares anti-brouillard arrière"))
-    feux_stops = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
+    phares_feux_stops = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
                                   verbose_name=_("Feux stop"))
-    troisieme_feux_stop = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
+    phares_troisieme_feux_stop = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
                                            verbose_name=_("Troisième feux stop"))
-    feux_position_av = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
+    phares_feux_position_av = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
                                         verbose_name=_("Feux de position avant"))
-    feux_position_ar = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
+    phares_feux_position_ar = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
                                         verbose_name=_("Feux de position arrière"))
 
 
@@ -277,7 +277,7 @@ class Rodage(TechnicienMixin, models.Model):
         null=True,
         blank=True,
         verbose_name=_("Technicien"),
-        related_name="controle_techs_entretien"
+        related_name="rodage"
     )
 
     tech_nom_technicien = models.CharField(
@@ -298,7 +298,7 @@ class Rodage(TechnicienMixin, models.Model):
         null=True,
         blank=True,
         verbose_name=_("Société"),
-        related_name="rodage"
+        related_name="rodage_societe"
     )
 
     # --- Date d'enregistrement ---

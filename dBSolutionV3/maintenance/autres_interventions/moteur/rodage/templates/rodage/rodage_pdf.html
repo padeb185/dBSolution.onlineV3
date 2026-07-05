@@ -1,10 +1,301 @@
+{% load i18n %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+        }
+
+        h2 {
+            font-size: 15px;
+            margin-top: 22px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 4px;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin-bottom: 14px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        .tag {
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tag-vert { background: #16a34a; }
+        .tag-jaune { background: #ca8a04; }
+        .tag-rouge { background: #dc2626; }
+
+        .etat {
+            font-weight: bold;
+        }
+
+        .etat-rouge {
+            color: #dc2626;
+        }
+
+        .etat-vert {
+            color: #16a34a;
+        }
+
+        .etat-normal {
+            color: #111;
+            font-weight: normal;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        table th,
+        table td {
+            border: 1px solid #ccc;
+            padding: 7px;
+            text-align: left;
+        }
+
+        table th {
+            background: #f3f3f3;
+        }
+
+        .small {
+            font-size: 11px;
+            color: #555;
+            margin-top: 25px;
+        }
+    </style>
 </head>
+
 <body>
+
+<h1>{% trans "Rapport du rodage" %}</h1>
+
+<div class="box">
+    <div class="grid">
+
+        <div><span class="label">{% trans "Date" %} :</span> {{ rodage.date|date:"d/m/Y H:i" }}</div>
+        <div><span class="label">{% trans "Technicien" %} :</span> {{ rodage.tech_nom_technicien }}</div>
+        <div><span class="label">{% trans "Rôle" %} :</span> {{ rodage.tech_role_technicien }}</div>
+        <div><span class="label">{% trans "Société" %} :</span> {{ rodage.tech_societe }}</div>
+        <div><span class="label">{% trans "Véhicule" %} :</span> {{ rodage.voiture_exemplaire }}</div>
+        <div><span class="label">{% trans "Kilométrage chassis" %} :</span> {{ rodage.kilometres_chassis }} km</div>
+        <div><span class="label">{% trans "Kilométrage rodage" %} :</span> {{ rodage.kilometrage_rodage }} km</div>
+
+        <div>
+            <span class="label">{% trans "Tag" %} :</span>
+            {% if rodage.tag == "VERT" %}
+                <span class="tag tag-vert">{{ rodage.get_tag_display }}</span>
+            {% elif rodage.tag == "JAUNE" %}
+                <span class="tag tag-jaune">{{ rodage.get_tag_display }}</span>
+            {% else %}
+                <span class="tag tag-rouge">{{ rodage.get_tag_display }}</span>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<h2>{% trans "Moteur" %}</h2>
+<table>
+    <tr><th>{% trans "Élément" %}</th><th>{% trans "État / Valeur" %}</th></tr>
+
+    <tr>
+        <td>{% trans "Vidange de l'huile moteur" %}</td>
+        <td>
+            {% if rodage.moteur_rodage_vidange == "A_FAIRE" %}
+                <span class="etat etat-rouge">{{ rodage.get_moteur_rodage_vidange_display }}</span>
+            {% elif rodage.moteur_rodage_vidange == "FAIT" %}
+                <span class="etat etat-vert">{{ rodage.get_moteur_rodage_vidange_display }}</span>
+            {% else %}
+                <span class="etat-normal">{{ rodage.get_moteur_rodage_vidange_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Filtre à huile moteur" %}</td>
+        <td>
+            {% if rodage.filtre_huile == "A_FAIRE" %}
+                <span class="etat etat-rouge">{{ rodage.get_filtre_huile_display }}</span>
+            {% elif rodage.filtre_huile == "FAIT" %}
+                <span class="etat etat-vert">{{ rodage.get_filtre_huile_display }}</span>
+            {% else %}
+                <span class="etat-normal">{{ rodage.get_filtre_huile_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Bouchon de vidange" %}</td>
+        <td>
+            {% if rodage.moteur_bouchon_vidange == "A_FAIRE" %}
+                <span class="etat etat-rouge">{{ rodage.get_moteur_bouchon_vidange_display }}</span>
+            {% elif rodage.moteur_bouchon_vidange == "FAIT" %}
+                <span class="etat etat-vert">{{ rodage.get_moteur_bouchon_vidange_display }}</span>
+            {% else %}
+                <span class="etat-normal">{{ rodage.get_moteur_bouchon_vidange_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Joint du bouchon de vidange" %}</td>
+        <td>
+            {% if rodage.moteur_joint_vidange == "A_FAIRE" %}
+                <span class="etat etat-rouge">{{ rodage.get_moteur_joint_vidange_display }}</span>
+            {% elif rodage.moteur_joint_vidange == "FAIT" %}
+                <span class="etat etat-vert">{{ rodage.get_moteur_joint_vidange_display }}</span>
+            {% else %}
+                <span class="etat-normal">{{ rodage.get_moteur_joint_vidange_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Ajout d'huile moteur" %}</td>
+        <td>
+            {% if rodage.moteur_ajout_huile == "A_FAIRE" %}
+                <span class="etat etat-rouge">{{ rodage.get_moteur_ajout_huile_display }}</span>
+            {% elif rodage.moteur_ajout_huile == "FAIT" %}
+                <span class="etat etat-vert">{{ rodage.get_moteur_ajout_huile_display }}</span>
+            {% else %}
+                <span class="etat-normal">{{ rodage.get_moteur_ajout_huile_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr><td>{% trans "Qualité d'huile moteur" %}</td><td>{{ rodage.get_moteur_ajout_huile_qualite_display }}</td></tr>
+    <tr><td>{% trans "Quantité d'huile moteur" %}</td><td>{{ rodage.moteur_ajout_huile_quantite }} L</td></tr>
+
+
+</table>
+
+<h2>{% trans "Niveaux" %}</h2>
+<table>
+    <tr><th>{% trans "Élément" %}</th><th>{% trans "État" %}</th><th>{% trans "Quantité" %}</th><th>{% trans "Qualité" %}</th></tr>
+
+    <tr>
+        <td>{% trans "Lave-glace" %}</td>
+        <td>
+            {% if rodage.lave_glace_liquide_etat == "AJOUTER" or rodage.lave_glace_liquide_etat == "REMPLACER" %}
+                <span class="etat etat-vert">{{ rodage.get_lave_glace_liquide_etat_display }}</span>
+            {% else %}
+                <span class="etat-normal">{{ rodage.get_lave_glace_liquide_etat_display }}</span>
+            {% endif %}
+        </td>
+        <td>{{ rodage.lave_glace_quantite }} L</td>
+        <td>{{ rodage.get_lave_glace_qualite_display }}</td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Liquide de freins" %}</td>
+        <td>
+            {% if rodage.frein_liquide_etat == "AJOUTER" or rodage.frein_liquide_etat == "REMPLACER" %}
+                <span class="etat etat-vert">{{ rodage.get_frein_liquide_etat_display }}</span>
+            {% else %}
+                <span class="etat-normal">{{ rodage.get_frein_liquide_etat_display }}</span>
+            {% endif %}
+        </td>
+        <td>{{ rodage.frein_liquide_quantite }} L</td>
+        <td>{{ rodage.get_frein_liquide_qualite_display }}</td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Liquide de refroidissement" %}</td>
+        <td>
+            {% if rodage.refroidissement_liquide_etat == "AJOUTER" or rodage.refroidissement_liquide_etat == "REMPLACER" %}
+                <span class="etat etat-vert">{{ rodage.get_refroidissement_liquide_etat_display }}</span>
+            {% else %}
+                <span class="etat-normal">{{ rodage.get_refroidissement_liquide_etat_display }}</span>
+            {% endif %}
+        </td>
+        <td>{{ rodage.refroidissement_liquide_quantite }} L</td>
+        <td>{{ rodage.get_refroidissement_liquide_qualite_display }}</td>
+    </tr>
+
+
+</table>
+
+<h2>{% trans "Pression des pneus" %}</h2>
+<table>
+    <tr><th>{% trans "Position" %}</th><th>{% trans "Pression" %}</th></tr>
+    <tr><td>{% trans "Avant droit" %}</td><td>{{ rodage.pneu_pression_bar_avd }} bar</td></tr>
+    <tr><td>{% trans "Avant gauche" %}</td><td>{{ rodage.pneu_pression_bar_avg }} bar</td></tr>
+    <tr><td>{% trans "Arrière droit" %}</td><td>{{ rodage.pneu_pression_bar_ard }} bar</td></tr>
+    <tr><td>{% trans "Arrière gauche" %}</td><td>{{ rodage.pneu_pression_bar_arg }} bar</td></tr>
+</table>
+
+<h2>{% trans "Serrages des roues" %}</h2>
+<table>
+    <tr>
+        <td>
+            {% if rodage.serrage_roues == "Fait" %}
+                <span class="etat etat-vert">
+                    {{ rodage.get_serrage_roues_display }}
+                </span>
+            {% else %}
+                <span class="etat etat-rouge">
+                    {{ rodage.get_serrage_roues_display }}
+                </span>
+            {% endif %}
+        </td>
+    </tr>
+</table>
+
+<h2>{% trans "Main d’œuvre" %}</h2>
+<div class="box">
+    <p>
+        <span class="label">{% trans "Temps de travail" %} :</span>
+        {{ rodage.temps_main_oeuvre_display }}
+    </p>
+    <p>
+        <span class="label">{% trans "Taux horaire" %} :</span>
+        {{ rodage.taux_horaire_main_oeuvre }} €
+    </p>
+    <p>
+        <span class="label">{% trans "Coût de la main d’œuvre" %} :</span>
+        {{ rodage.cout_main_oeuvre|floatformat:2 }} €
+    </p>
+</div>
+
+<h2>{% trans "Remarques" %}</h2>
+<div class="box">
+    {{ rodage.remarques|default:_("Aucune remarque.")|linebreaks }}
+</div>
+
+<p class="small">
+    {% trans "Document généré automatiquement par CarsCosts.com." %}
+</p>
 
 </body>
 </html>

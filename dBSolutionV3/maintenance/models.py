@@ -33,7 +33,7 @@ class Maintenance(models.Model):
         CARROSSERIE_INTERNE = "CARROSSERIE_INTERNE", _("Carrosserie interne")
         REMPLACEMENT_MOTEUR = "REMPLACEMENT_MOTEUR", _("Remplacement moteur")
         COURROIE_DISTRI = "COURROIE_DISTRI", _("Courroie de distribution")
-
+        RODAGE = "RODAGE", _("Rodage")
 
 
     class Tag(models.TextChoices):

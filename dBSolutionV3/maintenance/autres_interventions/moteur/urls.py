@@ -1,7 +1,7 @@
 from django.urls import path, include
 from .views import dashboard_moteur_view
 
-app_name = "moteur"  # <- indispensable pour le namespace
+app_name = "moteur"
 
 urlpatterns = [
     path('<uuid:exemplaire_id>/dashboard', dashboard_moteur_view, name='dashboard_moteur'),

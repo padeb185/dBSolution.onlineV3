@@ -2,9 +2,9 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from .models import Entretien, Rodage
+from .models import Rodage
 from maindoeuvre.models import MainDoeuvre
-from ..choices import RouesSerrageEtat
+from maintenance.choices import RouesSerrageEtat
 
 
 class RodageForm(forms.ModelForm):
@@ -21,12 +21,37 @@ class RodageForm(forms.ModelForm):
                 "rows": 4,
                 "placeholder": _("Ajoutez des remarques ici...")
             }),
+            "moteur_ajout_huile_quantite": forms.NumberInput(attrs={
+                "step": "0.1",
+                "min": "0",
+            }),
         }
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user", None)
         self.exemplaire = kwargs.pop("exemplaire", None)
         super().__init__(*args, **kwargs)
+        champs_facultatifs = [
+            "moteur_filtre_huile",
+            "liquide_direction_etat",
+            "liquide_direction_quantite",
+            "liquide_direction_qualite",
+            "phares_avant",
+            "phares_gros_phares",
+            "phares_clignotants",
+            "phares_recul",
+            "phares_anti_brouillard_avant",
+            "phares_anti_brouillard_arriere",
+            "phares_feux_stops",
+            "phares_troisieme_feux_stop",
+            "phares_feux_position_av",
+            "phares_feux_position_ar",
+        ]
+
+        for champ in champs_facultatifs:
+            if champ in self.fields:
+                self.fields[champ].required = False
+
 
         # -------- INITIALISATION TEMPS --------
         if self.instance and self.instance.pk and self.instance.main_oeuvre:
@@ -60,14 +85,13 @@ class RodageForm(forms.ModelForm):
                 self.fields["tech_societe"].initial = self.user.societe
                 self.fields["tech_societe"].disabled = True
 
-    def clean_kilometrage_entretien(self):
+    def clean_kilometres_rodage(self):
         km = self.cleaned_data.get("kilometres_rodage")
-        exemplaire = self.exemplaire
 
-        if km is not None and exemplaire:
-            if km < exemplaire.kilometres_chassis:
+        if km is not None and self.exemplaire:
+            if km < self.exemplaire.kilometres_chassis:
                 raise ValidationError(
-                    "Le kilométrage ne peut pas diminuer."
+                    _("Le kilométrage ne peut pas être inférieur au kilométrage actuel de la voiture.")
                 )
 
         return km
@@ -79,7 +103,7 @@ class RodageForm(forms.ModelForm):
         voiture = self.exemplaire
 
         if km is not None and voiture:
-            instance.kilometrage_checkup = km
+            instance.kilometres_rodage = km
             instance.voiture_exemplaire = voiture
 
         # -------- MAIN D'ŒUVRE --------
