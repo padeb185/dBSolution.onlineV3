@@ -7552,31 +7552,26 @@ msgstr "Wheel Torque Check"
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_detail.html:39
 #: maintenance/models.py:36
 msgid "Rodage"
-msgstr ""
+msgstr "Break-in"
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:327
 #: maintenance/autres_interventions/moteur/templates/moteur/dashboard_moteur.html:75
 msgid "Rodages"
-msgstr ""
+msgstr "Break-ins"
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:330
-#, fuzzy, python-format
-#| msgid "Entretien – Maintenance %(id)s"
+#, python-format
 msgid "rodage – Maintenance %(id)s"
-msgstr "Service – Maintenance %(id)s"
+msgstr "Break-in – Maintenance %(id)s"
 
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:22
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_detail.html:49
-#, fuzzy
-#| msgid "Modifier le nettoyage"
 msgid "Modifier le rodage"
-msgstr "Edit the cleaning"
+msgstr "Edit break-in"
 
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:66
-#, fuzzy
-#| msgid "Détails du modèle :"
 msgid "Détails du rodage"
-msgstr "Model details:"
+msgstr "Break-in details"
 
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:127
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:123

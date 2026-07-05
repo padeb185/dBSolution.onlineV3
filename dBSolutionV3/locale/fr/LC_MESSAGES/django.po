@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-05 16:02+0200\n"
+"POT-Creation-Date: 2026-07-05 17:49+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -8015,9 +8015,10 @@ msgid "Rodage - %(immatriculation)s"
 msgstr "Tableau de Bord"
 
 #: maintenance/autres_interventions/moteur/rodage/views.py:206
-#: maintenance/entretien/views.py:205
-msgid "Entretien enregistré avec succès."
-msgstr ""
+#, fuzzy
+#| msgid "Tableau de bord"
+msgid "Rodage enregistré avec succès."
+msgstr "Tableau de Bord"
 
 #: maintenance/autres_interventions/moteur/rodage/views.py:299
 #, fuzzy, python-format
@@ -10336,6 +10337,10 @@ msgstr ""
 #: maintenance/entretien/views.py:200
 #, python-format
 msgid "Entretien - %(immatriculation)s"
+msgstr ""
+
+#: maintenance/entretien/views.py:205
+msgid "Entretien enregistré avec succès."
 msgstr ""
 
 #: maintenance/entretien/views.py:298
