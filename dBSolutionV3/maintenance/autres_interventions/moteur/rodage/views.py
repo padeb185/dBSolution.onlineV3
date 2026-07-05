@@ -285,7 +285,7 @@ def modifier_rodage_view(request, rodage_id):
         # POST
         # -------------------------
         if request.method == "POST":
-            form = EntretienForm(
+            form = RodageForm(
                 request.POST,
                 instance=rodage,
                 user=request.user,

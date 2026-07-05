@@ -196,43 +196,33 @@ class Rodage(TechnicienMixin, models.Model):
 
 
     lave_glace_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de lave-glace"))
-    lave_glace_quantite =  models.DecimalField(default=0.0, max_digits=4,  decimal_places=2,  validators=[StepValueValidator(0.1)], verbose_name=_("Quantité de liquide de lave glace ajoutée en litres"))
+    lave_glace_quantite =  models.DecimalField(default=0.0, max_digits=4,  decimal_places=2, verbose_name=_("Quantité de liquide de lave glace ajoutée en litres"),validators=[StepValueValidator(0.1)])
     lave_glace_qualite = models.CharField(max_length=25, choices=LaveGlaceQualite.choices,default=LaveGlaceQualite.HIVER,verbose_name=_("Qualité de liquide de lave glace"))
 
     frein_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de freins"))
-    frein_liquide_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=2,  validators=[StepValueValidator(0.1)], verbose_name=_("Quantité de liquide de freins ajoutée en litres"))
+    frein_liquide_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=2, verbose_name=_("Quantité de liquide de freins ajoutée en litres"), validators=[StepValueValidator(0.1)])
     frein_liquide_qualite = models.CharField(max_length=25, choices=LiquideFreinsQualite.choices,default=LiquideFreinsQualite.DOT4,verbose_name=_("Qualité de liquide de freins"))
 
     refroidissement_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de refroidissement"))
-    refroidissement_liquide_quantite =  models.DecimalField(default=0.0, max_digits=4,  decimal_places=2,  validators=[StepValueValidator(0.1)], verbose_name=_("Quantité de liquide de refroidissement ajouté en litres"))
+    refroidissement_liquide_quantite =  models.DecimalField(default=0.0, max_digits=4,  decimal_places=2, verbose_name=_("Quantité de liquide de refroidissement ajouté en litres"), validators=[StepValueValidator(0.1)])
     refroidissement_liquide_qualite = models.CharField(max_length=25, choices=RefroidissementQualiteEtat.choices,default=RefroidissementQualiteEtat.G13,verbose_name=_("Qualité de liquide de refroidissement"))
 
     liquide_direction_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de direction"))
-    liquide_direction_quantite =  models.DecimalField(default=0.0,  max_digits=4, decimal_places=2,  validators=[StepValueValidator(0.1)], verbose_name=_("Quantité de liquide de direction ajouté en litres"))
+    liquide_direction_quantite =  models.DecimalField(default=0.0,  max_digits=4, decimal_places=2, verbose_name=_("Quantité de liquide de direction ajouté en litres"), validators=[StepValueValidator(0.1)])
     liquide_direction_qualite = models.CharField(max_length=25, choices=LiquideDirectionQualite.choices,default=LiquideDirectionQualite.UNIVERSAL_PSF,verbose_name=_("Qualité de liquide de direction"))
 
     # phares#
 
-    phares_avant = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
-                                    verbose_name=_("Feux de route"))
-    phares_gros_phares = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
-                                          verbose_name=_("Grand phares"))
-    phares_clignotants = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
-                                          verbose_name=_("Clignotants"))
-    phares_recul = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
-                                    verbose_name=_("Feux de recul"))
-    phares_anti_brouillard_avant = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
-                                                    verbose_name=_("Phares anti-brouillard avant"))
-    phares_anti_brouillard_arriere = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
-                                                      verbose_name=_("Phares anti-brouillard arrière"))
-    phares_feux_stops = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
-                                  verbose_name=_("Feux stop"))
-    phares_troisieme_feux_stop = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
-                                           verbose_name=_("Troisième feux stop"))
-    phares_feux_position_av = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
-                                        verbose_name=_("Feux de position avant"))
-    phares_feux_position_ar = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
-                                        verbose_name=_("Feux de position arrière"))
+    phares_avant = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,verbose_name=_("Feux de route"))
+    phares_gros_phares = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,verbose_name=_("Grand phares"))
+    phares_clignotants = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,verbose_name=_("Clignotants"))
+    phares_recul = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,verbose_name=_("Feux de recul"))
+    phares_anti_brouillard_avant = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,verbose_name=_("Phares anti-brouillard avant"))
+    phares_anti_brouillard_arriere = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,verbose_name=_("Phares anti-brouillard arrière"))
+    phares_feux_stops = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,verbose_name=_("Feux stop"))
+    phares_troisieme_feux_stop = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,verbose_name=_("Troisième feux stop"))
+    phares_feux_position_av = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,verbose_name=_("Feux de position avant"))
+    phares_feux_position_ar = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,verbose_name=_("Feux de position arrière"))
 
 
     pneu_pression_bar_avd = models.FloatField(default=2.4, verbose_name=_("Pression du pneu avant droit en bar"), validators=[StepValueValidator(0.1)])

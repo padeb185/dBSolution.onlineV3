@@ -25,6 +25,24 @@ class RodageForm(forms.ModelForm):
                 "step": "0.1",
                 "min": "0",
             }),
+            "liquide_direction_quantite": forms.NumberInput(attrs={
+                "step": "0.1",
+                "min": "0",
+            }),
+
+            "lave_glace_quantite": forms.NumberInput(attrs={
+                "step": "0.1",
+                "min": "0",
+            }),
+            "frein_liquide_quantite": forms.NumberInput(attrs={
+                "step": "0.1",
+                "min": "0",
+            }),
+            "refroidissement_liquide_quantite": forms.NumberInput(attrs={
+                "step": "0.1",
+                "min": "0",
+            }),
+
         }
 
     def __init__(self, *args, **kwargs):
@@ -36,16 +54,7 @@ class RodageForm(forms.ModelForm):
             "liquide_direction_etat",
             "liquide_direction_quantite",
             "liquide_direction_qualite",
-            "phares_avant",
-            "phares_gros_phares",
-            "phares_clignotants",
-            "phares_recul",
-            "phares_anti_brouillard_avant",
-            "phares_anti_brouillard_arriere",
-            "phares_feux_stops",
-            "phares_troisieme_feux_stop",
-            "phares_feux_position_av",
-            "phares_feux_position_ar",
+           
         ]
 
         for champ in champs_facultatifs:

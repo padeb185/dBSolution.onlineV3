@@ -8,7 +8,7 @@
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold flex items-center gap-4">
             <img src="{% static 'icons/rodage.png' %}"
-                 alt="{{ entretien.voiture_exemplaire.immatriculation }}"
+                 alt="{{ rodage.voiture_exemplaire.immatriculation }}"
                  class="w-12 h-12">
             <span>{% trans "Détails de l'inspection après rodage" %}</span>
               {{ exemplaire.voiture_marque.nom_marque }}
@@ -36,22 +36,22 @@
 
         <!-- Maintenance -->
         <div class="bg-white shadow-md rounded-lg p-6">
-            <h2 class="text-lg font-semibold mb-4">{% trans "Entretien" %}</h2>
-            <p><strong>{% trans "Date de l'intervention" %} :</strong> {{ rodagedate|date:"d/m/Y" }}</p>
-            <p><strong>{% trans "Temps" %} :</strong> {{ rodagemain_oeuvre.temps_display }}</p>
-               <p><strong>{% trans "Remarques" %} :</strong> {{ rodageremarque }}</p>
+            <h2 class="text-lg font-semibold mb-4">{% trans "Rodage" %}</h2>
+            <p><strong>{% trans "Date de l'intervention" %} :</strong> {{ rodage.date|date:"d/m/Y" }}</p>
+            <p><strong>{% trans "Temps" %} :</strong> {{ rodage.temps_main_oeuvre_display }}</p>
+               <p><strong>{% trans "Remarques" %} :</strong> {{ rodage.remarques }}</p>
         </div>
 
         <!-- Bouton Modifier -->
         <div class="mt-auto w-full">
-            <a href="{% url 'entretien:modifier_entretien' rodageid %}" class="block w-full">
+            <a href="{% url 'rodage:modifier_rodage' rodage.id %}" class="block w-full">
                 <button type="button" class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
-                    {% trans "Modifier le entretien" %}
+                    {% trans "Modifier le rodage" %}
                 </button>
             </a>
         </div>
         <div class="mt-auto w-full">
-               <a href="{% url 'entretien:entretien_pdf' rodageid %}" class="block w-full" target="_blank">
+               <a href="{% url 'rodage:rodage_pdf' rodage.id %}" class="block w-full" target="_blank">
                 <button type="button" class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
                     {% trans "Télécharger le PDF" %}
                 </button>
@@ -67,22 +67,22 @@
 
         <p>
             <strong>{% trans "Créé le" %} :</strong>
-            {{ rodagecreated_at|date:"d/m/Y H:i" }}
+            {{ rodage.created_at|date:"d/m/Y H:i" }}
         </p>
         <p>
             <strong>{% trans "Mis à jour le" %} :</strong>
-            {{ rodageupdated_at|date:"d/m/Y H:i" }}
+            {{ rodage.updated_at|date:"d/m/Y H:i" }}
         </p>
     </div>
 
     <br>
     <!-- Actions -->
     <div>
-        <a href="{% if rodagevoiture_exemplaire %}
-                   {% url 'entretien:entretien_list' rodagevoiture_exemplaire.id %}
+        <a href="{% if rodage.voiture_exemplaire %}
+                   {% url 'rodage:rodage_list' rodage.voiture_exemplaire.id %}
                {% else %}# {% endif %}"
             class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
-            {% trans "Retour à la liste des entretiens" %}
+            {% trans "Retour à la liste des rodages" %}
         </a>
     </div>
 
