@@ -203,7 +203,7 @@ def rodage_check_view(request, exemplaire_id):
                         }
                     )
 
-                    messages.success(request, _("Entretien enregistré avec succès."))
+                    messages.success(request, _("Rodage enregistré avec succès."))
 
                 except Exception as e:
                     messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
