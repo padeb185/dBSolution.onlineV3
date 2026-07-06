@@ -220,27 +220,23 @@ def modifier_maindoeuvre_view(request, main_oeuvre_id):
     )
 
 @login_required
-def maindoeuvre_detail_pdf_view(request, pk):
-    maindoeuvre = get_object_or_404(MainDoeuvre, pk=pk)
+def maindoeuvre_detail_pdf_view(request, main_oeuvre_id):
+    maindoeuvre = get_object_or_404(MainDoeuvre, id=main_oeuvre_id)
 
-    rapport = abs.generer_rapport_remplacement()
+    context = {
+        "maindoeuvre": maindoeuvre,
+    }
 
-    html_string = render_to_string(
-        "maindoeuvre/maind'ouvre_detail_pdf.html",
-        {
-            "abs": abs,
-            "rapport": rapport,
-            "date_export": datetime.now(),
-            "societe": request.user.societe
-        }
+    html = render_to_string(
+        "maindoeuvre/main_oeuvre_detail_pdf.html",
+        context,
+        request=request
     )
 
-    pdf = HTML(
-        string=html_string,
-        base_url=request.build_absolute_uri()
-    ).write_pdf()
+    response = HttpResponse(content_type="application/pdf")
+    response["Content-Disposition"] = (
+        f'inline; filename="main_oeuvre_{maindoeuvre.id}.pdf"'
+    )
 
-    response = HttpResponse(pdf, content_type="application/pdf")
-    response["Content-Disposition"] = f'attachment; filename="rapport main d oeuvre {pk}.pdf"'
-
+    HTML(string=html, base_url=request.build_absolute_uri()).write_pdf(response)
     return response

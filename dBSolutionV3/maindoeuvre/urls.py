@@ -23,6 +23,6 @@ urlpatterns = [
     path(
         "<uuid:main_oeuvre_id>/pdf/",
         maindoeuvre_detail_pdf_view,
-        name="main_oeuvre_detail_pdf",
+        name="main_oeuvre_detail_pdf"
     ),
 ]

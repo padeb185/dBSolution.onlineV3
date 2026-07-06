@@ -1,10 +1,191 @@
+{% load i18n %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+        }
+
+        h2 {
+            font-size: 14px;
+            margin-top: 20px;
+            margin-bottom: 8px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 4px;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        .tag {
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tag-vert {
+            background: #16a34a;
+        }
+
+        .tag-jaune {
+            background: #ca8a04;
+        }
+
+        .tag-rouge {
+            background: #dc2626;
+        }
+         .ok {
+            color: #16a34a;
+            font-weight: bold;
+        }
+
+        .not-ok {
+            color: #dc2626;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        table th,
+        table td {
+            border: 1px solid #ccc;
+            padding: 6px;
+            text-align: left;
+        }
+
+        table th {
+            background: #f3f3f3;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .total {
+            font-weight: bold;
+            background: #f8f8f8;
+        }
+    </style>
 </head>
+
 <body>
+
+<h1>{% trans "Détail de la main d'oeuvre" %}</h1>
+
+<!-- ================= INFOS GÉNÉRALES ================= -->
+
+<div class="box">
+
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Date" %} :</span>
+            {{ maindoeuvre.date|date:"d/m/Y H:i" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+            {{ maindoeuvre.tech_nom_technicien }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Société" %} :</span>
+            {{ maindoeuvre.tech_societe }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Véhicule" %} :</span>
+            {{ maindoeuvre.voiture_exemplaire }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage chassis" %} :</span>
+            {{ maindoeuvre.kilometres_chassis }} km
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ================= ETAT DES PIÈCES ================= -->
+
+
+<!-- ================= MAIN D'OEUVRE ================= -->
+
+<h2>{% trans "Main d'oeuvre" %}</h2>
+
+<div class="box">
+
+    <div class="grid">
+
+        <p>
+                <strong>{% trans "Date de l'intervention" %} :</strong>
+                {{ maindoeuvre.date|date:"d/m/Y" }}
+            </p>
+
+            <p>
+                <strong>{% trans "Temps" %} :</strong>
+                {{ maindoeuvre.temps_display }}
+            </p>
+
+            <p>
+                <strong>{% trans "Coût interne" %} :</strong>
+                {{ maindoeuvre.cout_interne_display }}
+            </p>
+
+            <p>
+                <strong>{% trans "Remarques" %} :</strong>
+                {{ maindoeuvre.remarques|default:"-" }}
+            </p>
+        </div>
+
+
+    </div>
+
+</div>
+
+<!-- ================= PIÈCES À REMPLACER ================= -->
+
+<!-- ================= REMARQUES ================= -->
+
+<h2>{% trans "Remarques" %}</h2>
+
+<div class="box">
+
+    {{ maindoeuvre.remarques|default:_("Aucune remarque.") }}
+
+</div>
 
 </body>
 </html>
