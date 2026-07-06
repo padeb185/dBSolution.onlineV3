@@ -9,7 +9,7 @@ from .models import CourroieDistribution
 
 
 
-class CourroieDistributionForm(forms.ModelForm):
+class CourroieAccessoiresForm(forms.ModelForm):
     temps_heures = forms.IntegerField(required=False, min_value=0)
     temps_minutes = forms.IntegerField(required=False, min_value=0, max_value=59)
 
@@ -68,8 +68,8 @@ class CourroieDistributionForm(forms.ModelForm):
                 self.fields[f].initial = 0
                 self.fields[f].required = False
 
-    def clean_kilometres_courroie(self):
-        km = self.cleaned_data["kilometres_courroie"]
+    def clean_kilometres_courroie_access(self):
+        km = self.cleaned_data["kilometres_courroie_access"]
 
         if km < self.exemplaire.kilometres_chassis:
             raise ValidationError(
@@ -87,7 +87,7 @@ class CourroieDistributionForm(forms.ModelForm):
         if m >= 60:
             raise ValidationError("Les minutes ne peuvent pas dépasser 59.")
 
-        km_courroie = cleaned.get("kilometrage_cour")
+        km_courroie = cleaned.get("kilometrage_courroie_access")
         voiture = self.exemplaire or (self.instance.voiture_exemplaire if self.instance else None)
 
         if not voiture or km_courroie in [None, ""]:
@@ -97,14 +97,14 @@ class CourroieDistributionForm(forms.ModelForm):
             km_courroie = Decimal(str(km_courroie))
         except:
             raise ValidationError({
-                "kilometrage_cour": _("Kilométrage invalide")
+                "kilometrage_courroie_access": _("Kilométrage invalide")
             })
 
         km_voiture = voiture.kilometres_chassis or Decimal("0")
 
         if km_courroie < km_voiture:
             raise ValidationError({
-                "kilometrage_cour": _(
+                "kilometrage_courroie_access": _(
                     "Le kilométrage doit être ≥ %(km)s"
                 ) % {"km": km_voiture}
             })
@@ -114,11 +114,11 @@ class CourroieDistributionForm(forms.ModelForm):
     def save(self, commit=True):
         instance = super().save(commit=False)
 
-        km = self.cleaned_data.get("kilometrage_cour")
+        km = self.cleaned_data.get("kilometrage_courroie_access")
         voiture = self.exemplaire
 
         if km is not None and voiture:
-            instance.kilometrage_cour = km
+            instance.kilometrage_courroie_access = km
             instance.voiture_exemplaire = voiture
 
 
