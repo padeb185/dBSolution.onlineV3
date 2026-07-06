@@ -6,6 +6,7 @@ from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.cache import never_cache
 from django_tenants.utils import schema_context, tenant_context
+from maintenance.autres_interventions.courroie_accessoires.models import CourroieAccessoires
 from maintenance.models import Maintenance
 from maintenance.types_maintenances import TYPES_MAINTENANCE
 from voiture.voiture_exemplaire.models import VoitureExemplaire
@@ -71,7 +72,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
     geometrie = GeometrieVoiture.objects.none()
     abs_qs = Abs.objects.none()
     remplacement_boite = RemplacementBoite.objects.none()
-
+    courroie_access = CourroieAccessoires.objects.none()
     admission = Admission.objects.none()
     alternateur = Alternateur.objects.none()
     courroie = CourroieDistribution.objects.none()
@@ -86,6 +87,8 @@ def choisir_autre_maintenance(request, exemplaire_id):
     total_geometrie = 0
     total_abs = 0
     total_remplacement_boite = 0
+    total_access = 0
+
 
     total_int_moteur = 0
     total_int_boite = 0
@@ -120,12 +123,16 @@ def choisir_autre_maintenance(request, exemplaire_id):
             remplacement_boite = RemplacementBoite.objects.filter(
                 voiture_exemplaire=exemplaire
             )
+            courroie_access = CourroieAccessoires.objects.filter(
+                voiture_exemplaire=exemplaire
+            )
 
             total_boite = boite.count()
             total_bte_auto = bte_auto.count()
             total_geometrie = geometrie.count()
             total_abs = abs_qs.count()
             total_remplacement_boite = remplacement_boite.count()
+            total_access = courroie_access.count()
 
             # ---------------- MOTEUR ----------------
             admission = Admission.objects.filter(
@@ -156,6 +163,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
                 + courroie.count()
                 + turbo.count()
                 + remplacement_moteur.count()
+
             )
 
             total_int_boite = (
@@ -202,6 +210,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
         "total_geometrie": total_geometrie,
         "total_abs": total_abs,
         "total_remplacement_boite": total_remplacement_boite,
+        "Total_access": total_access,
 
         "total_int_moteur": total_int_moteur,
         "total_int_boite": total_int_boite,
@@ -212,6 +221,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
         "geometrie": geometrie,
         "abs_qs": abs_qs,
 
+
         "remplacement_boite": remplacement_boite,
 
         "turbo": turbo,
@@ -219,7 +229,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
         "courroie": courroie,
         "remplacement_moteur": remplacement_moteur,
         "admission": admission,
-
+        "courroie_accessoires": courroie_accessoires,
         "modeles": modeles,
     }
 
@@ -228,6 +238,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
         "autres_interventions/choisir_autre.html",
         context
     )
+
 
 
 

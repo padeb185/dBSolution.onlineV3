@@ -1,20 +1,20 @@
 {% extends "base.html" %}
 {% load i18n static widget_tweaks %}
 
-{% block title %}{% trans "Liste des remplacements de courroies de distribution" %}{% endblock %}
+{% block title %}{% trans "Liste des remplacements de courroies d'accessoires" %}{% endblock %}
 
 {% block content %}
 <br>
 <br>
 <h1 class="text-2xl font-bold mb-6 flex items-center">
-    <img src="{% static 'icons/courroie-de-distribution.png' %}" alt="liste des remplacements courroie distribution"
+    <img src="{% static 'icons/courroie-daccess.png' %}" alt="liste des remplacements courroie d'accessoires"
          style="width:60px; height:60px; margin-right:10px;">
-    {% trans "Liste des remplacements de courroies de distribution" %}
+    {% trans "Liste des remplacements de courroies d'accessoires" %}
 </h1>
 <br>
 {% if is_checkup_allowed %}
 <div>
-    <a href="{% url 'courroie:courroie_form' exemplaire.id %}"
+    <a href="{% url 'courroie_accessoires:courroie_access_form' exemplaire.id %}"
        class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
         {% trans "Ajouter un remplacement" %}
     </a>
@@ -66,8 +66,8 @@
         </tr>
     </thead>
     <tbody>
-        {% for courroie in courroies %}
-        {% with exemplaire=courroie.voiture_exemplaire %}
+        {% for courroie_accessoire in courroies_accessoires %}
+        {% with exemplaire=courroie_accessoire.voiture_exemplaire %}
         <tr>
 
             <!-- Immatriculation -->
@@ -108,38 +108,38 @@
 
             <!-- Kilométrage -->
             <td class="border px-4 py-2">
-                {{ courroie.kilometrage_cour|default:"-" }}
+                {{ courroie_accessoire.kilometrage_cour|default:"-" }}
             </td>
 
 
             <td class="border px-4 py-2 text-center font-bold
-               {% if courroie.tag == 'VERT' %}bg-green-100 text-green-800 border-green-300 border-2
-               {% elif courroie.tag == 'JAUNE' %} bg-yellow-100 text-yellow-800 border-yellow-500 border-2
-               {% elif courroie.tag == 'ROUGE' %}bg-red-100 text-red-800 border-red-300 border-2
+               {% if courroie_accessoire.tag == 'VERT' %}bg-green-100 text-green-800 border-green-300 border-2
+               {% elif courroie_accessoire.tag == 'JAUNE' %} bg-yellow-100 text-yellow-800 border-yellow-500 border-2
+               {% elif courroie_accessoire.tag == 'ROUGE' %}bg-red-100 text-red-800 border-red-300 border-2
                {% endif %}">
-              {{ courroie.get_tag_display }}
+              {{ courroie_accessoire.get_tag_display }}
             </td>
 
             <!-- Technicien -->
             <td class="border px-4 py-2">
-                {{ courroie.tech_nom_technicien|default:"-" }}
+                {{ courroie_accessoire.tech_nom_technicien|default:"-" }}
             </td>
 
 
              <td class="border px-4 py-2"
-                data-order="{{ courroie.date|date:'Y-m-d H:i:s' }}">
-                {{ courroie.date|date:"d/m/Y H:i" }}
+                data-order="{{ courroie_accessoire.date|date:'Y-m-d H:i:s' }}">
+                {{ courroie_accessoire.date|date:"d/m/Y H:i" }}
              </td>
 
 
              <td class="border px-4 py-2">
-                {{ courroie.main_oeuvre.temps_display|default:"-" }}
+                {{ courroie_accessoire.main_oeuvre.temps_display|default:"-" }}
             </td>
 
 
             <!-- Actions -->
             <td class="border px-4 py-2 text-center">
-               <a href="{% url 'courroie:courroie_detail' courroie.id %}"
+               <a href="{% url 'courroie_accessoires:courroie_access_detail' courroie.id %}"
                    class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
                     {% trans "Infos" %}
                </a>
@@ -158,9 +158,9 @@
 <br>
 <br>
 <div>
-    <a href="{% url 'moteur:dashboard_moteur' exemplaire.id %}"
+    <a href="{% url 'autres_interventions:list' exemplaire.id %}"
          class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
-        {% trans "Retour au dashboard moteur" %}
+        {% trans "Retour à la liste des autres interventions" %}
     </a>
 </div>
 <br>
