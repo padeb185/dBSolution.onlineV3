@@ -1,3 +1,8 @@
+from datetime import datetime
+
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView
@@ -10,6 +15,8 @@ from django.db import transaction
 from django.views.decorators.cache import never_cache
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import gettext_lazy as _
+from utilisateurs.models import UserLog
+from weasyprint import HTML
 from .models import MainDoeuvre
 from .forms import MainDoeuvreForm
 
@@ -124,3 +131,116 @@ def main_oeuvre_form_view(request):
                 "now": timezone.now(),
             },
         )
+
+
+
+
+# ------------
+# Vue détail boite
+# -----------------------------
+@login_required
+def maindoeuvre_detail_view(request, main_oeuvre_id):
+    maindoeuvre = get_object_or_404(
+        MainDoeuvre.objects.select_related("societe", "utilisateur"),
+        id=main_oeuvre_id
+    )
+
+    context = {
+        "maindoeuvre": maindoeuvre,
+
+    }
+    return render(request, "maindoeuvre/main_oeuvre_detail.html", context)
+
+
+@login_required
+def modifier_maindoeuvre_view(request, main_oeuvre_id):
+    tenant = request.user.societe
+
+    with tenant_context(tenant):
+        maindoeuvre = get_object_or_404(
+            MainDoeuvre.objects.select_related("societe", "utilisateur"),
+            id=main_oeuvre_id
+        )
+
+        if request.method == "POST":
+            form = MainDoeuvreForm(
+                request.POST,
+                instance=maindoeuvre,
+                user=request.user
+            )
+
+            if form.is_valid():
+                form.save()
+
+                UserLog.objects.create(
+                    utilisateur=request.user,
+                    action=_("Modification de la main d'œuvre")
+                )
+
+                messages.success(request, _("Main d'œuvre modifiée avec succès !"))
+                return redirect(
+                    "maindoeuvre:main_oeuvre_detail",
+                    main_oeuvre_id=maindoeuvre.id
+                )
+            else:
+                messages.error(request, _("Le formulaire contient des erreurs."))
+                print(form.errors)
+
+        else:
+            form = MainDoeuvreForm(
+                instance=maindoeuvre,
+                user=request.user
+            )
+
+        sections = [
+            {
+                "title": _("Temps de travail"),
+                "icon": "icons/main_doeuvre.png",
+                "fields": [
+                    form["temps_minutes"],
+                ],
+            },
+            {
+                "title": _("Utilisateur"),
+                "icon": "icons/user.png",
+                "fields": [
+                    form["utilisateur"],
+                ] if "utilisateur" in form.fields else [],
+            },
+        ]
+
+    return render(
+        request,
+        "maindoeuvre/modifier_maindoeuvre.html",
+        {
+            "form": form,
+            "maindoeuvre": maindoeuvre,
+            "sections": sections,
+        }
+    )
+
+@login_required
+def maindoeuvre_detail_pdf_view(request, pk):
+    maindoeuvre = get_object_or_404(MainDoeuvre, pk=pk)
+
+    rapport = abs.generer_rapport_remplacement()
+
+    html_string = render_to_string(
+        "maindoeuvre/maind'ouvre_detail_pdf.html",
+        {
+            "abs": abs,
+            "rapport": rapport,
+            "date_export": datetime.now(),
+            "societe": request.user.societe
+        }
+    )
+
+    pdf = HTML(
+        string=html_string,
+        base_url=request.build_absolute_uri()
+    ).write_pdf()
+
+    response = HttpResponse(pdf, content_type="application/pdf")
+    response["Content-Disposition"] = f'attachment; filename="rapport main d oeuvre {pk}.pdf"'
+
+    return response

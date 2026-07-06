@@ -61,6 +61,7 @@
             <th class="border px-4 py-2">{% trans "Date" %}</th>
             <th class="border px-4 py-2">{% trans "Descriptif" %}</th>
             <th class="border px-4 py-2 text-center">{% trans "Coût" %}</th>
+            <th class="border px-4 py-2 cursor-pointer text-center">{% trans "Actions" %}</th>
         </tr>
     </thead>
 
@@ -96,6 +97,14 @@
             <!-- Coût -->
             <td class="border px-4 py-2 text-center font-semibold">
                 {{ maindoeuvre.cout_interne_display }}
+            </td>
+
+             <!-- Actions -->
+            <td class="border px-4 py-2 text-center">
+               <a href="{% url 'maindoeuvre:main_oeuvre_detail' maindoeuvre.id %}"
+                   class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
+                    {% trans "Infos" %}
+               </a>
             </td>
 
 

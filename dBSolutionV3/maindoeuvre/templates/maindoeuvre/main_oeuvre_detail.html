@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="p-6 w-full">
+
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold flex items-center gap-4">
+            <img src="{% static 'icons/main-doeuvre.png' %}"
+                 alt="{{ maindoeuvre.voiture_exemplaire.immatriculation }}"
+                 class="w-12 h-12">
+
+            <span>{% trans "Détails de la main d'œuvre" %}</span>
+
+            {% if maindoeuvre.voiture_exemplaire %}
+                {{ maindoeuvre.voiture_exemplaire.voiture_marque.nom_marque }}
+                {{ maindoeuvre.voiture_exemplaire.voiture_modele.nom_modele }}
+                {{ maindoeuvre.voiture_exemplaire.voiture_modele.nom_variante }}
+            {% endif %}
+        </h1>
+    </div>
+
+    <!-- Infos principales -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+
+        <!-- Informations générales -->
+        <div class="bg-white shadow-md rounded-lg p-6 flex flex-col gap-4">
+            <h2 class="text-lg font-semibold mb-2">
+                {% trans "Informations générales" %}
+            </h2>
+
+            <div>
+                <strong>{% trans "Immatriculation" %} :</strong>
+                <div class="mt-2">
+                    {% include "maintenance/partials/plaque.html" with exemplaire=maindoeuvre.voiture_exemplaire %}
+                </div>
+            </div>
+
+            <p>
+                <strong>{% trans "Kilométrage" %} :</strong>
+                {{ maindoeuvre.kilometres_chassis }}
+            </p>
+
+            <p>
+                <strong>{% trans "Tag" %} :</strong>
+                {{ maindoeuvre.get_tag_display }}
+            </p>
+
+            <p>
+                <strong>{% trans "Technicien" %} :</strong>
+                {{ maindoeuvre.tech_nom_technicien }} {{ maindoeuvre.tech_role_technicien }}
+            </p>
+        </div>
+
+        <!-- Main d'œuvre -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-lg font-semibold mb-4">
+                {% trans "Main d'œuvre" %}
+            </h2>
+
+            <p>
+                <strong>{% trans "Date de l'intervention" %} :</strong>
+                {{ maindoeuvre.date|date:"d/m/Y" }}
+            </p>
+
+            <p>
+                <strong>{% trans "Temps" %} :</strong>
+                {{ maindoeuvre.temps_display }}
+            </p>
+
+            <p>
+                <strong>{% trans "Coût interne" %} :</strong>
+                {{ maindoeuvre.cout_interne_display }}
+            </p>
+
+            <p>
+                <strong>{% trans "Remarques" %} :</strong>
+                {{ maindoeuvre.remarques|default:"-" }}
+            </p>
+        </div>
+
+        <!-- Bouton Modifier -->
+        <div class="mt-auto w-full">
+            <a href="{% url 'maindoeuvre:modifier_maindoeuvre' maindoeuvre.id %}" class="block w-full">
+                <button type="button"
+                        class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+                    {% trans "Modifier la main d'œuvre" %}
+                </button>
+            </a>
+        </div>
+
+        <!-- Bouton Rapport -->
+        <div class="mt-auto w-full">
+            <a href="{% url 'maindoeuvre:main_oeuvre_detail_pdf' maindoeuvre.id %}" class="block w-full">
+                <button type="button"
+                        class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
+                    {% trans "Télécharger le PDF" %}
+                </button>
+            </a>
+        </div>
+    </div>
+
+    <!-- Métadonnées -->
+    <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-lg font-semibold mb-4">
+            {% trans "Métadonnées" %}
+        </h2>
+
+        <p>
+            <strong>{% trans "Créé le" %} :</strong>
+            {{ maindoeuvre.created_at|date:"d/m/Y H:i" }}
+        </p>
+
+        <p>
+            <strong>{% trans "Mis à jour le" %} :</strong>
+            {{ maindoeuvre.updated_at|date:"d/m/Y H:i" }}
+        </p>
+    </div>
+
+    <!-- Actions -->
+    <div>
+        <a href="{% url 'maindoeuvre:main_oeuvre_list' %}"
+           class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center block">
+            {% trans "Retour à la liste des mains d'œuvre" %}
+        </a>
+    </div>
+
+</div>
+{% endblock %}
