@@ -328,7 +328,6 @@ def modifier_entretien_view(request, entretien_id):
 
 
 
-
 @login_required
 def entretien_pdf_view(request, entretien_id):
     tenant = request.user.societe
@@ -359,10 +358,17 @@ def entretien_pdf_view(request, entretien_id):
             base_url=request.build_absolute_uri("/")
         ).write_pdf()
 
-        response = HttpResponse(pdf, content_type="application/pdf")
+        immatriculation = (
+            entretien.voiture_exemplaire.immatriculation
+            if entretien.voiture_exemplaire
+            else "sans_immatriculation"
+        )
 
+        technicien = entretien.tech_nom_technicien or "technicien_inconnu"
+
+        response = HttpResponse(pdf, content_type="application/pdf")
         response["Content-Disposition"] = (
-            f'inline; filename="entretien_{entretien.id}.pdf"'
+            f'inline; filename="entretien_{immatriculation}_{technicien}.pdf"'
         )
 
         return response

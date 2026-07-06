@@ -273,7 +273,6 @@ def modifier_nettoyage_ext_view(request, nettoyage_ext_id):
 
 
 
-
 @login_required
 def nettoyage_exterieur_pdf_view(request, nettoyage_id):
     tenant = request.user.societe
@@ -305,8 +304,20 @@ def nettoyage_exterieur_pdf_view(request, nettoyage_id):
             base_url=request.build_absolute_uri("/")
         ).write_pdf()
 
+        immatriculation = (
+            nettoyage.voiture_exemplaire.immatriculation
+            if nettoyage.voiture_exemplaire
+            else "sans_immatriculation"
+        )
+
+        technicien = (
+            nettoyage.tech_nom_technicien
+            or "technicien_inconnu"
+        )
+
         response = HttpResponse(pdf_file, content_type="application/pdf")
         response["Content-Disposition"] = (
-            f'inline; filename="nettoyage_exterieur_{nettoyage.id}.pdf"'
+            f'inline; filename="nettoyage_exterieur_{immatriculation}_{technicien}.pdf"'
         )
+
         return response

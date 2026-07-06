@@ -394,7 +394,6 @@ def modifier_remplacement_boite_view(request, remplacement_boite_id):
         })
 
 
-
 @login_required
 def remplacement_boite_pdf_view(request, remplacement_boite_id):
     tenant = request.user.societe
@@ -407,15 +406,25 @@ def remplacement_boite_pdf_view(request, remplacement_boite_id):
                 "tech_technicien",
                 "tech_societe",
                 "main_oeuvre",
+                "maintenance",
             ),
             id=remplacement_boite_id
         )
+
+        maintenance = remplacement.maintenance
+        vehicule = remplacement.voiture_exemplaire
+        immatriculation = vehicule.immatriculation if vehicule else "sans_immatriculation"
+        technicien = remplacement.tech_nom_technicien or "technicien_inconnu"
 
         html_string = render_to_string(
             "remplacement_boite/remplacement_boite_detail_pdf.html",
             {
                 "remplacement": remplacement,
                 "societe": tenant,
+                "maintenance": maintenance,
+                "vehicule": vehicule,
+                "immatriculation": immatriculation,
+                "technicien": technicien,
             }
         )
 
@@ -426,7 +435,7 @@ def remplacement_boite_pdf_view(request, remplacement_boite_id):
 
         response = HttpResponse(pdf, content_type="application/pdf")
         response["Content-Disposition"] = (
-            f'inline; filename="remplacement_boite_{remplacement.id}.pdf"'
+            f'inline; filename="remplacement_boite_{immatriculation}_{technicien}.pdf"'
         )
 
         return response

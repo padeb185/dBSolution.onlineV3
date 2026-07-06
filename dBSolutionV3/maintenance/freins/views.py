@@ -320,7 +320,6 @@ def modifier_freins_view(request, frein_id):
 
 
 
-
 @login_required
 def controle_freins_pdf_view(request, controle_freins_id):
     tenant = request.user.societe
@@ -351,9 +350,20 @@ def controle_freins_pdf_view(request, controle_freins_id):
             base_url=request.build_absolute_uri("/")
         ).write_pdf()
 
+        immatriculation = (
+            controle_freins.voiture_exemplaire.immatriculation
+            if controle_freins.voiture_exemplaire
+            else "sans_immatriculation"
+        )
+
+        technicien = (
+            controle_freins.tech_nom_technicien
+            or "technicien_inconnu"
+        )
+
         response = HttpResponse(pdf, content_type="application/pdf")
         response["Content-Disposition"] = (
-            f'inline; filename="controle_freins_{controle_freins.id}.pdf"'
+            f'inline; filename="controle_freins_{immatriculation}_{technicien}.pdf"'
         )
 
         return response

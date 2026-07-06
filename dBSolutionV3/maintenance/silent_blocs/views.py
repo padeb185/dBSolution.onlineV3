@@ -303,8 +303,20 @@ def silent_bloc_pdf_view(request, silent_id):
             base_url=request.build_absolute_uri("/")
         ).write_pdf()
 
+        immatriculation = (
+            silent_bloc.voiture_exemplaire.immatriculation
+            if silent_bloc.voiture_exemplaire
+            else "sans_immatriculation"
+        )
+
+        technicien = (
+            silent_bloc.tech_nom_technicien
+            or "technicien_inconnu"
+        )
+
         response = HttpResponse(pdf, content_type="application/pdf")
         response["Content-Disposition"] = (
-            f'inline; filename="silent_blocs_{silent_bloc.id}.pdf"'
+            f'inline; filename="silent_blocs_{immatriculation}_{technicien}.pdf"'
         )
+
         return response

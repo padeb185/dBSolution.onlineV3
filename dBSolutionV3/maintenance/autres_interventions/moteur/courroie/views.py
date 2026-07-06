@@ -451,7 +451,6 @@ class CourroieDistributionRapportDetailView(DetailView):
 
 
 
-
 @login_required
 def courroie_detail_pdf_view(request, pk):
     courroie = get_object_or_404(CourroieDistribution, pk=pk)
@@ -464,7 +463,7 @@ def courroie_detail_pdf_view(request, pk):
             "courroie": courroie,
             "rapport": rapport,
             "date_export": datetime.now(),
-            "societe": request.user.societe
+            "societe": request.user.societe,
         }
     )
 
@@ -473,7 +472,17 @@ def courroie_detail_pdf_view(request, pk):
         base_url=request.build_absolute_uri()
     ).write_pdf()
 
+    immatriculation = (
+        courroie.voiture_exemplaire.immatriculation
+        if courroie.voiture_exemplaire
+        else "sans_immatriculation"
+    )
+
+    technicien = courroie.tech_nom_technicien or "technicien_inconnu"
+
     response = HttpResponse(pdf, content_type="application/pdf")
-    response["Content-Disposition"] = f'attachment; filename="rapport_courroie_de_distribution_{pk}.pdf"'
+    response["Content-Disposition"] = (
+        f'attachment; filename="rapport_courroie_de_distribution_{immatriculation}_{technicien}.pdf"'
+    )
 
     return response

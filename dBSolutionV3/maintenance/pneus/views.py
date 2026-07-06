@@ -304,7 +304,6 @@ def modifier_pneus_view(request, pneu_id):
 
 
 
-
 @login_required
 def controle_pneus_pdf_view(request, controle_pneus_id):
     tenant = request.user.societe
@@ -337,8 +336,20 @@ def controle_pneus_pdf_view(request, controle_pneus_id):
             base_url=request.build_absolute_uri("/")
         ).write_pdf()
 
+        immatriculation = (
+            controle_pneus.voiture_exemplaire.immatriculation
+            if controle_pneus.voiture_exemplaire
+            else "sans_immatriculation"
+        )
+
+        technicien = (
+            controle_pneus.tech_nom_technicien
+            or "technicien_inconnu"
+        )
+
         response = HttpResponse(pdf_file, content_type="application/pdf")
         response["Content-Disposition"] = (
-            f'inline; filename="controle_pneus_{controle_pneus.id}.pdf"'
+            f'inline; filename="controle_pneus_{immatriculation}_{technicien}.pdf"'
         )
+
         return response

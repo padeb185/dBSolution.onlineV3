@@ -332,8 +332,20 @@ def nettoyage_interieur_pdf_view(request, nettoyage_id):
             base_url=request.build_absolute_uri("/")
         ).write_pdf()
 
+        immatriculation = (
+            nettoyage.voiture_exemplaire.immatriculation
+            if nettoyage.voiture_exemplaire
+            else "sans_immatriculation"
+        )
+
+        technicien = (
+            nettoyage.tech_nom_technicien
+            or "technicien_inconnu"
+        )
+
         response = HttpResponse(pdf_file, content_type="application/pdf")
         response["Content-Disposition"] = (
-            f'inline; filename="nettoyage_interieur_{nettoyage.id}.pdf"'
+            f'inline; filename="nettoyage_interieur_{immatriculation}_{technicien}.pdf"'
         )
+
         return response

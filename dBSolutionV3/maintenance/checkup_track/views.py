@@ -325,7 +325,6 @@ def modifier_checkup_track_view(request, checkup_track_id):
     )
 
 
-
 @login_required
 def checkup_track_detail_pdf_view(request, pk):
     checkup_track = get_object_or_404(CheckupTrack, pk=pk)
@@ -335,17 +334,26 @@ def checkup_track_detail_pdf_view(request, pk):
         {
             "checkup_track": checkup_track,
             "date_export": datetime.now(),
-            "societe": request.user.societe
+            "societe": request.user.societe,
         }
     )
 
-    pdf = HTML(string=html_string, base_url=request.build_absolute_uri()).write_pdf()
+    pdf = HTML(
+        string=html_string,
+        base_url=request.build_absolute_uri()
+    ).write_pdf()
+
+    immatriculation = (
+        checkup_track.voiture_exemplaire.immatriculation
+        if checkup_track.voiture_exemplaire
+        else "sans_immatriculation"
+    )
+
+    technicien = checkup_track.tech_nom_technicien or "technicien_inconnu"
 
     response = HttpResponse(pdf, content_type="application/pdf")
-    response["Content-Disposition"] = f'attachment; filename="checkup_track_{pk}.pdf"'
+    response["Content-Disposition"] = (
+        f'attachment; filename="checkup_track_{immatriculation}_{technicien}.pdf"'
+    )
 
     return response
-
-
-
-

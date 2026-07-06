@@ -436,13 +436,21 @@ def admission_detail_pdf_view(request, pk):
         base_url=request.build_absolute_uri()
     ).write_pdf()
 
+    immatriculation = (
+        admission.voiture_exemplaire.immatriculation
+        if admission.voiture_exemplaire
+        else "sans_immatriculation"
+    )
+
+    technicien = admission.tech_nom_technicien or "technicien_inconnu"
+
     response = HttpResponse(
         pdf,
         content_type="application/pdf"
     )
 
     response["Content-Disposition"] = (
-        f'attachment; filename="admission_{pk}.pdf"'
+        f'attachment; filename="admission_{immatriculation}_{technicien}.pdf"'
     )
 
     return response

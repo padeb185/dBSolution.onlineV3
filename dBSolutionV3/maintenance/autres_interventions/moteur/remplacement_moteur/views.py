@@ -394,8 +394,7 @@ def modifier_remplacement_moteur_view(request, remplacement_moteur_id):
         })
 
 
-
-
+@login_required
 def remplacement_moteur_pdf_view(request, remplacement_moteur_id):
     remplacement = get_object_or_404(
         RemplacementMoteur.objects.select_related(
@@ -415,11 +414,25 @@ def remplacement_moteur_pdf_view(request, remplacement_moteur_id):
         }
     )
 
-    html = HTML(string=html_string, base_url=request.build_absolute_uri("/"))
+    html = HTML(
+        string=html_string,
+        base_url=request.build_absolute_uri("/")
+    )
     pdf = html.write_pdf()
 
-    filename = _("Remplacement moteur") + f" - {remplacement.voiture_exemplaire}.pdf"
+    immatriculation = (
+        remplacement.voiture_exemplaire.immatriculation
+        if remplacement.voiture_exemplaire
+        else "sans_immatriculation"
+    )
+
+    technicien = remplacement.tech_nom_technicien or "technicien_inconnu"
+
+    filename = (
+        f"{_('Remplacement moteur')}_{immatriculation}_{technicien}.pdf"
+    )
 
     response = HttpResponse(pdf, content_type="application/pdf")
     response["Content-Disposition"] = f'inline; filename="{filename}"'
+
     return response

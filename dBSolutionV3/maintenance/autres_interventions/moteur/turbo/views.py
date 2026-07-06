@@ -356,8 +356,6 @@ def modifier_turbo_view(request, turbo_id):
         }
     )
 
-
-
 @login_required
 def turbo_detail_pdf_view(request, pk):
     turbo = get_object_or_404(Turbo, pk=pk)
@@ -370,7 +368,7 @@ def turbo_detail_pdf_view(request, pk):
             "turbo": turbo,
             "rapport": rapport,
             "date_export": datetime.now(),
-            "societe": request.user.societe
+            "societe": request.user.societe,
         }
     )
 
@@ -379,7 +377,17 @@ def turbo_detail_pdf_view(request, pk):
         base_url=request.build_absolute_uri()
     ).write_pdf()
 
+    immatriculation = (
+        turbo.voiture_exemplaire.immatriculation
+        if turbo.voiture_exemplaire
+        else "sans_immatriculation"
+    )
+
+    technicien = turbo.tech_nom_technicien or "technicien_inconnu"
+
     response = HttpResponse(pdf, content_type="application/pdf")
-    response["Content-Disposition"] = f'attachment; filename="rapport_turbo_{pk}.pdf"'
+    response["Content-Disposition"] = (
+        f'attachment; filename="rapport_turbo_{immatriculation}_{technicien}.pdf"'
+    )
 
     return response

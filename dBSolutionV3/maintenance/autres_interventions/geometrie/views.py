@@ -440,7 +440,6 @@ def geometrie_modifier_view(request, geometrie_id):
     )
 
 
-
 @login_required
 def geometrie_detail_pdf_view(request, pk):
     geometrie = get_object_or_404(GeometrieVoiture, pk=pk)
@@ -450,18 +449,29 @@ def geometrie_detail_pdf_view(request, pk):
         {
             "geometrie": geometrie,
             "date_export": datetime.now(),
-            "societe": request.user.societe
+            "societe": request.user.societe,
         }
     )
 
-    pdf = HTML(string=html_string, base_url=request.build_absolute_uri()).write_pdf()
+    pdf = HTML(
+        string=html_string,
+        base_url=request.build_absolute_uri()
+    ).write_pdf()
+
+    immatriculation = (
+        geometrie.voiture_exemplaire.immatriculation
+        if geometrie.voiture_exemplaire
+        else "sans_immatriculation"
+    )
+
+    technicien = geometrie.tech_nom_technicien or "technicien_inconnu"
 
     response = HttpResponse(pdf, content_type="application/pdf")
-    response["Content-Disposition"] = f'attachment; filename="geometrie_{pk}.pdf"'
+    response["Content-Disposition"] = (
+        f'attachment; filename="geometrie_{immatriculation}_{technicien}.pdf"'
+    )
 
     return response
-
-
 
 
 

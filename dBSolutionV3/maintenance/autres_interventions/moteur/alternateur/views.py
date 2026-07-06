@@ -385,7 +385,6 @@ def modifier_alternateur_view(request, alternateur_id):
     )
 
 
-
 @login_required
 def alternateur_detail_pdf_view(request, pk):
     alternateur = get_object_or_404(Alternateur, pk=pk)
@@ -398,7 +397,7 @@ def alternateur_detail_pdf_view(request, pk):
             "alternateur": alternateur,
             "rapport": rapport,
             "date_export": datetime.now(),
-            "societe": request.user.societe
+            "societe": request.user.societe,
         }
     )
 
@@ -407,7 +406,17 @@ def alternateur_detail_pdf_view(request, pk):
         base_url=request.build_absolute_uri()
     ).write_pdf()
 
+    immatriculation = (
+        alternateur.voiture_exemplaire.immatriculation
+        if alternateur.voiture_exemplaire
+        else "sans_immatriculation"
+    )
+
+    technicien = alternateur.tech_nom_technicien or "technicien_inconnu"
+
     response = HttpResponse(pdf, content_type="application/pdf")
-    response["Content-Disposition"] = f'attachment; filename="rapport_alternateur_{pk}.pdf"'
+    response["Content-Disposition"] = (
+        f'attachment; filename="rapport_alternateur_{immatriculation}_{technicien}.pdf"'
+    )
 
     return response

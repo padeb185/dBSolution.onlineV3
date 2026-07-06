@@ -229,7 +229,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
         "courroie": courroie,
         "remplacement_moteur": remplacement_moteur,
         "admission": admission,
-        "courroie_accessoires": courroie_accessoires,
+        "courroie_access": courroie_access,
         "modeles": modeles,
     }
 

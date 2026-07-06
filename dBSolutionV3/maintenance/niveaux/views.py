@@ -356,8 +356,20 @@ def niveau_pdf_view(request, niveau_id):
             base_url=request.build_absolute_uri("/")
         ).write_pdf()
 
+        immatriculation = (
+            niveau.voiture_exemplaire.immatriculation
+            if niveau.voiture_exemplaire
+            else "sans_immatriculation"
+        )
+
+        technicien = (
+            niveau.tech_nom_technicien
+            or "technicien_inconnu"
+        )
+
         response = HttpResponse(pdf_file, content_type="application/pdf")
         response["Content-Disposition"] = (
-            f'inline; filename="niveau_{niveau.id}.pdf"'
+            f'inline; filename="niveau_{immatriculation}_{technicien}.pdf"'
         )
+
         return response

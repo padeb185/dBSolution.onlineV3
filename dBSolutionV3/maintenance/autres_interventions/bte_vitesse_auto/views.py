@@ -298,7 +298,6 @@ def modifier_bte_auto_view(request, bte_auto_id):
     )
 
 
-
 @login_required
 def bte_auto_pdf_view(request, bte_auto_id):
     tenant = request.user.societe
@@ -327,9 +326,17 @@ def bte_auto_pdf_view(request, bte_auto_id):
             base_url=request.build_absolute_uri()
         ).write_pdf()
 
+        immatriculation = (
+            bte_auto.voiture_exemplaire.immatriculation
+            if bte_auto.voiture_exemplaire
+            else "sans_immatriculation"
+        )
+
+        technicien = bte_auto.tech_nom_technicien or "technicien_inconnu"
+
         response = HttpResponse(pdf, content_type="application/pdf")
         response["Content-Disposition"] = (
-            f'inline; filename="bte_auto_{bte_auto.id}.pdf"'
+            f'inline; filename="bte_auto_{immatriculation}_{technicien}.pdf"'
         )
 
         return response

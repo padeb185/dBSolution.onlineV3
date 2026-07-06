@@ -9,17 +9,17 @@ app_name = "courroie_accessoires"
 
 urlpatterns = [
 
-    path('courroie/<uuid:exemplaire_id>/liste/', CourroieAccessoiresListView.as_view(),name='courroie_list'),
+    path('courroie_accessoires/<uuid:exemplaire_id>/liste/', CourroieAccessoiresListView.as_view(),name='courroie_list'),
 
-    path('courroie/<uuid:exemplaire_id>/', courroie_access_form_view, name='courroie_access_form'),
-
-
-    path('courroie/<int:courroie_id>/modifier/', modifier_courroie_access_view, name='modifier_courroie'),
+    path('courroie_acccessoires/<uuid:exemplaire_id>/', courroie_access_form_view, name='courroie_access_form'),
 
 
-    path('courroie/<int:courroie_id>/detail/', courroie_access_detail_view, name='courroie_access_detail'),
+    path('courroie_acccessoires/<int:courroie_id>/modifier/', modifier_courroie_access_view, name='modifier_courroie'),
 
-    path("courroie/<int:pk>/", rapport_courroie_access_view, name="rapport_courroie"),
+
+    path('courroie_acccessoires/<int:courroie_id>/detail/', courroie_access_detail_view, name='courroie_access_detail'),
+
+    path("courroie_acccessoires/<int:pk>/", rapport_courroie_access_view, name="rapport_courroie"),
 
     path("courroiePDF/<int:pk>/", CourroieAccessoiresRapportDetailView.as_view(), name="rapport_pdf_courroie"),
 

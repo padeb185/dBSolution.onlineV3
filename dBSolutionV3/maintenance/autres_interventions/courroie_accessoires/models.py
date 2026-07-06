@@ -61,7 +61,7 @@ class CourroieAccessoires(TechnicienMixin, models.Model):
     # -------------------------
     # INFOS
     # -------------------------
-    kilometrage_courroie_access = models.PositiveIntegerField(
+    kilometrage_access = models.PositiveIntegerField(
         verbose_name= _("Kilométrage de la courroie d'accessoires")
     )
 
@@ -172,8 +172,8 @@ class CourroieAccessoires(TechnicienMixin, models.Model):
     def clean(self):
         super().clean()
 
-        if self.voiture_exemplaire and self.kilometrage_cour is not None:
-            if self.kilometrage_cour > self.voiture_exemplaire.kilometres_chassis:
+        if self.voiture_exemplaire and self.kilometrage_access is not None:
+            if self.kilometrage_access > self.voiture_exemplaire.kilometres_chassis:
                 raise ValidationError({
                     "kilometrage_courroie d' accessoires": _(
                         "Le kilométrage de la courroie d'accessoires ne peut pas être supérieur au kilométrage du véhicule."
@@ -285,10 +285,10 @@ class CourroieAccessoires(TechnicienMixin, models.Model):
         if not self.voiture_exemplaire:
             return
 
-        if self.kilometrage_cour is None:
+        if self.kilometrage_access is None:
             return
 
-        km = Decimal(str(self.kilometrage_cour))
+        km = Decimal(str(self.kilometrage_access))
 
         voiture = self.voiture_exemplaire
         voiture.refresh_from_db(fields=["kilometres_chassis"])

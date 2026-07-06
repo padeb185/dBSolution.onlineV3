@@ -390,20 +390,26 @@ def modifier_abs_view(request, abs_id):
     )
 
 
-
 @login_required
 def abs_detail_pdf_view(request, pk):
     abs = get_object_or_404(Abs, pk=pk)
 
     rapport = abs.generer_rapport_remplacement()
 
+    maintenance = abs.maintenance  # adapter si le nom du champ est différent
+
     html_string = render_to_string(
         "abs/abs_detail_pdf.html",
         {
             "abs": abs,
             "rapport": rapport,
+            "maintenance": maintenance,
+            "technicien": maintenance.tech_nom_technicien,
+            "date_intervention": maintenance.date_intervention,
+            "vehicule": maintenance.voiture_exemplaire,
+            "immatriculation": maintenance.voiture_exemplaire.immatriculation,
             "date_export": datetime.now(),
-            "societe": request.user.societe
+            "societe": request.user.societe,
         }
     )
 
@@ -413,7 +419,9 @@ def abs_detail_pdf_view(request, pk):
     ).write_pdf()
 
     response = HttpResponse(pdf, content_type="application/pdf")
-    response["Content-Disposition"] = f'attachment; filename="rapport ABS {pk}.pdf"'
+    response["Content-Disposition"] = (
+        f'attachment; filename="rapport ABS {maintenance.voiture_exemplaire.immatriculation},{abs.tech_nom_technicien} .pdf"'
+    )
 
     return response
 

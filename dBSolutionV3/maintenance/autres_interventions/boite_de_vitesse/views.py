@@ -411,9 +411,17 @@ def boite_check_pdf_view(request, pk):
         base_url=request.build_absolute_uri()
     ).write_pdf()
 
+    immatriculation = (
+        boite.voiture_exemplaire.immatriculation
+        if boite.voiture_exemplaire
+        else "sans_immatriculation"
+    )
+
+    technicien = boite.tech_nom_technicien or "technicien_inconnu"
+
     response = HttpResponse(pdf, content_type="application/pdf")
     response["Content-Disposition"] = (
-        f'attachment; filename="rapport_boite_de_vitesse_{pk}.pdf"'
+        f'attachment; filename="rapport_boite_de_vitesse_{immatriculation}_{technicien}.pdf"'
     )
 
     return response

@@ -152,6 +152,8 @@ urlpatterns += i18n_patterns(
 
     path("rodage/",include(("maintenance.autres_interventions.moteur.rodage.urls", "rodage"),namespace="rodage")),
 
+    path("courroie_accessoires/", include(("maintenance.autres_interventions.courroie_accessoires.urls", "courroie_accessoires"), namespace="courroie_accessoires")),
+
 
 )
 

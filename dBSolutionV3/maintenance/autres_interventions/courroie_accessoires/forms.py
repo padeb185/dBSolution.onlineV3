@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from maindoeuvre.models import MainDoeuvre
-from .models import CourroieDistribution
+from .models import CourroieAccessoires
 
 
 
@@ -14,7 +14,7 @@ class CourroieAccessoiresForm(forms.ModelForm):
     temps_minutes = forms.IntegerField(required=False, min_value=0, max_value=59)
 
     class Meta:
-        model = CourroieDistribution
+        model = CourroieAccessoires
         fields = "__all__"
         widgets = {
             'maintenance': forms.HiddenInput(),

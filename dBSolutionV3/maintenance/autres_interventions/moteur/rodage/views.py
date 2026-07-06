@@ -329,7 +329,6 @@ def modifier_rodage_view(request, rodage_id):
 
 
 
-
 @login_required
 def rodage_pdf_view(request, rodage_id):
     tenant = request.user.societe
@@ -360,10 +359,17 @@ def rodage_pdf_view(request, rodage_id):
             base_url=request.build_absolute_uri("/")
         ).write_pdf()
 
-        response = HttpResponse(pdf, content_type="application/pdf")
+        immatriculation = (
+            rodage.voiture_exemplaire.immatriculation
+            if rodage.voiture_exemplaire
+            else "sans_immatriculation"
+        )
 
+        technicien = rodage.tech_nom_technicien or "technicien_inconnu"
+
+        response = HttpResponse(pdf, content_type="application/pdf")
         response["Content-Disposition"] = (
-            f'inline; filename="rodage_{rodage.id}.pdf"'
+            f'inline; filename="rodage_{immatriculation}_{technicien}.pdf"'
         )
 
         return response

@@ -27,7 +27,7 @@ from weasyprint import HTML
 class CourroieAccessoiresListView(ListView):
     model = CourroieAccessoires
     template_name = "courroie_accessoires/courroie_list.html"
-    context_object_name = "courroie_accessoires"
+    context_object_name = "courroies"
     ordering = ["-id"]
 
     def get_queryset(self):
@@ -69,12 +69,10 @@ class CourroieAccessoiresListView(ListView):
 def courroie_access_form_view(request, exemplaire_id):
     tenant = request.user.societe
     role = request.user.role
-
     maintenance = None
 
     with tenant_context(tenant):
 
-        # 🔎 Récupération exemplaire
         exemplaire = get_object_or_404(
             VoitureExemplaire.objects.filter(
                 Q(client__societe=tenant) |
@@ -83,24 +81,19 @@ def courroie_access_form_view(request, exemplaire_id):
             id=exemplaire_id
         )
 
-        # 🔐 rôles autorisés
         roles_autorises = [
             "mecanicien",
             "apprenti",
             "magasinier",
             "chef_mecanicien",
-            "direction"
+            "direction",
         ]
 
         if role not in roles_autorises:
             messages.error(request, _("Accès refusé"))
             return redirect("utilisateurs:dashboard")
 
-        # =========================
-        # POST
-        # =========================
         if request.method == "POST":
-
             form = CourroieAccessoiresForm(
                 request.POST,
                 user=request.user,
@@ -108,39 +101,36 @@ def courroie_access_form_view(request, exemplaire_id):
             )
 
             if form.is_valid():
-
                 try:
                     with transaction.atomic():
 
-                        km = form.cleaned_data.get("kilometrage_courroie_access")
+                        # ✅ Création immédiate de l'objet
+                        courroie_accessoires = form.save(commit=False)
+
+                        courroie_accessoires.voiture_exemplaire = exemplaire
+                        courroie_accessoires.assign_technicien(request.user)
+
+                        km = form.cleaned_data.get("kilometrage_access")
 
                         if km is not None:
                             km = int(km)
-
                             ancien_km = exemplaire.kilometres_chassis
 
                             if km < ancien_km:
                                 form.add_error(
-                                    "kilometrage_cour",
+                                    "kilometrage_courroie_access",
                                     _("Le kilométrage ne peut pas diminuer.")
                                 )
                                 raise ValueError("Kilométrage invalide")
 
-                            # 🚗 update voiture (source unique)
                             exemplaire.kilometres_chassis = km
                             exemplaire.date_derniere_intervention = timezone.now().date()
-
                             exemplaire.update_kilometres()
                             exemplaire.save()
 
-                            # 🔗 checkup UNIQUE
-                            courroie_accessoires = form.save(commit=False)
-                            courroie_accessoires.assign_technicien(request.user)
-
                             courroie_accessoires.kilometres_chassis = exemplaire.kilometres_chassis
-                            courroie_accessoires.kilometrage_cour = km
+                            courroie_accessoires.kilometrage_courroie_access = km
 
-                        # 🔴 maintenance unique
                         maintenance = Maintenance.objects.create(
                             societe=request.user.societe,
                             voiture_exemplaire=exemplaire,
@@ -152,45 +142,51 @@ def courroie_access_form_view(request, exemplaire_id):
                             tag=Maintenance.Tag.JAUNE,
                         )
 
-                        # 🔧 affectation rôle
                         if role == "mecanicien":
                             maintenance.mecanicien = request.user
-
                         elif role == "chef_mecanicien":
                             maintenance.chef_mecanicien = request.user
-
                         elif role == "apprenti":
                             maintenance.apprentis.add(request.user)
-
                         elif role == "magasinier":
                             maintenance.magasinier = request.user
-
                         elif role == "direction":
                             maintenance.direction = request.user
 
                         maintenance.save()
 
-                        courroie_accessoires.assign_technicien(request.user)
-
-                        # 🔗 lien final
                         courroie_accessoires.maintenance = maintenance
                         courroie_accessoires.save()
+                        form.save_m2m()
 
                         UserLog.objects.create(
                             utilisateur=request.user,
-                            action=_("Courroie d' accessoires - %(immatriculation)s") % {
+                            action=_("Courroie d'accessoires - %(immatriculation)s") % {
                                 "immatriculation": exemplaire.immatriculation
                             }
                         )
 
-                        messages.success(request, _("Check de la  courroie d'accessoires enregistré avec succès."))
+                        messages.success(
+                            request,
+                            _("Check de la courroie d'accessoires enregistré avec succès.")
+                        )
+
+                        return redirect(
+                            "courroie_accessoires:courroie_list",
+                            exemplaire_id=exemplaire.id
+                        )
 
                 except Exception as e:
-                    messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
-
+                    messages.error(
+                        request,
+                        _("Erreur lors de l'enregistrement : %(error)s") % {
+                            "error": str(e)
+                        }
+                    )
             else:
                 messages.error(request, _("Le formulaire contient des erreurs."))
                 print(form.errors)
+
         else:
             courroie_accessoires = CourroieAccessoires(
                 voiture_exemplaire=exemplaire,
@@ -204,7 +200,6 @@ def courroie_access_form_view(request, exemplaire_id):
                 exemplaire=exemplaire
             )
 
-        # --- Génération des champs par section ---
         sections = [
             {
                 "title": _("Kilométrage"),
@@ -214,7 +209,7 @@ def courroie_access_form_view(request, exemplaire_id):
             {
                 "title": _("Courroie d'accessoires"),
                 "icon": "icons/courroie-daccess.png",
-                "fields": [form[f.name] for f in form if "courroie_accessoires" in f.name],
+                "fields": [form[f.name] for f in form if "courroie" in f.name],
             },
             {
                 "title": _("Galet Tendeur"),
@@ -226,7 +221,6 @@ def courroie_access_form_view(request, exemplaire_id):
                 "icon": "icons/poulie.png",
                 "fields": [form[f.name] for f in form if "poulie" in f.name],
             },
-
             {
                 "title": _("Etiquette"),
                 "icon": "icons/tag.png",
@@ -247,10 +241,9 @@ def courroie_access_form_view(request, exemplaire_id):
                 "icon": "icons/mecanicien.png",
                 "fields": [form[f.name] for f in form if "tech" in f.name],
             },
-
         ]
 
-        return render(request, 'courroie_accessoires/courroie_access_form.html', {
+        return render(request, "courroie_accessoires/courroie_access_form.html", {
             "exemplaire": exemplaire,
             "immatriculation": exemplaire.immatriculation,
             "maintenance": maintenance,
@@ -258,6 +251,8 @@ def courroie_access_form_view(request, exemplaire_id):
             "sections": sections,
             "now": timezone.now(),
         })
+
+
 
 
 # ------------

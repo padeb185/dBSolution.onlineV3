@@ -300,7 +300,6 @@ def modifier_jeux_pieces_view(request, jeu_id):
 
 
 
-
 @login_required
 def controle_jeux_pdf_view(request, controle_id):
     tenant = request.user.societe
@@ -333,8 +332,20 @@ def controle_jeux_pdf_view(request, controle_id):
             base_url=request.build_absolute_uri("/")
         ).write_pdf()
 
+        immatriculation = (
+            controle.voiture_exemplaire.immatriculation
+            if controle.voiture_exemplaire
+            else "sans_immatriculation"
+        )
+
+        technicien = (
+            controle.tech_nom_technicien
+            or "technicien_inconnu"
+        )
+
         response = HttpResponse(pdf_file, content_type="application/pdf")
         response["Content-Disposition"] = (
-            f'inline; filename="controle_jeux_{controle.id}.pdf"'
+            f'inline; filename="controle_jeux_{immatriculation}_{technicien}.pdf"'
         )
+
         return response

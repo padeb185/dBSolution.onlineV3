@@ -309,7 +309,6 @@ def modifier_checkup_view(request, checkup_id):
 
 
 
-
 @login_required
 def checkup_pdf_view(request, checkup_id):
     tenant = request.user.societe
@@ -334,10 +333,22 @@ def checkup_pdf_view(request, checkup_id):
             }
         )
 
-        pdf_file = HTML(string=html_string, base_url=request.build_absolute_uri()).write_pdf()
+        pdf_file = HTML(
+            string=html_string,
+            base_url=request.build_absolute_uri()
+        ).write_pdf()
+
+        immatriculation = (
+            checkup.voiture_exemplaire.immatriculation
+            if checkup.voiture_exemplaire
+            else "sans_immatriculation"
+        )
+
+        technicien = checkup.tech_nom_technicien or "technicien_inconnu"
 
         response = HttpResponse(pdf_file, content_type="application/pdf")
         response["Content-Disposition"] = (
-            f'inline; filename="checkup_{checkup.voiture_exemplaire}_{checkup.id}.pdf"'
+            f'inline; filename="checkup_{immatriculation}_{technicien}.pdf"'
         )
+
         return response
