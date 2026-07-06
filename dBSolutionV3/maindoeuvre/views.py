@@ -220,16 +220,12 @@ def modifier_maindoeuvre_view(request, main_oeuvre_id):
     )
 
 @login_required
-def maindoeuvre_detail_pdf_view(request, main_oeuvre_id):
-    maindoeuvre = get_object_or_404(MainDoeuvre, id=main_oeuvre_id)
+def maindoeuvre_detail_pdf_view(request, id):
+    maindoeuvre = get_object_or_404(MainDoeuvre, id=id)
 
-    context = {
-        "maindoeuvre": maindoeuvre,
-    }
-
-    html = render_to_string(
+    html_string = render_to_string(
         "maindoeuvre/main_oeuvre_detail_pdf.html",
-        context,
+        {"maindoeuvre": maindoeuvre},
         request=request
     )
 
@@ -238,5 +234,5 @@ def maindoeuvre_detail_pdf_view(request, main_oeuvre_id):
         f'inline; filename="main_oeuvre_{maindoeuvre.id}.pdf"'
     )
 
-    HTML(string=html, base_url=request.build_absolute_uri()).write_pdf(response)
+    HTML(string=html_string, base_url=request.build_absolute_uri()).write_pdf(response)
     return response

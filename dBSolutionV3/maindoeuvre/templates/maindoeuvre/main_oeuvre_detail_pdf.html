@@ -116,12 +116,12 @@
 
         <div>
             <span class="label">{% trans "Technicien" %} :</span>
-            {{ maindoeuvre.tech_nom_technicien }}
+            {{ maindoeuvre.utilisateur }}
         </div>
 
         <div>
             <span class="label">{% trans "Société" %} :</span>
-            {{ maindoeuvre.tech_societe }}
+            {{ maindoeuvre.societe }}
         </div>
 
         <div>
@@ -133,6 +133,7 @@
             <span class="label">{% trans "Kilométrage chassis" %} :</span>
             {{ maindoeuvre.kilometres_chassis }} km
         </div>
+
 
     </div>
 
@@ -164,11 +165,6 @@
                 {{ maindoeuvre.cout_interne_display }}
             </p>
 
-            <p>
-                <strong>{% trans "Remarques" %} :</strong>
-                {{ maindoeuvre.remarques|default:"-" }}
-            </p>
-        </div>
 
 
     </div>
@@ -183,7 +179,7 @@
 
 <div class="box">
 
-    {{ maindoeuvre.remarques|default:_("Aucune remarque.") }}
+    {{ maindoeuvre.remarques|default:_("Immatriculation, ....") }}
 
 </div>
 

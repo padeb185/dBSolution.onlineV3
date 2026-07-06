@@ -26,6 +26,22 @@ class MainDoeuvre(models.Model):
         related_name="main_oeuvres",
     )
 
+    voiture_exemplaire = models.ForeignKey(
+        "voiture_exemplaire.VoitureExemplaire",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="main_oeuvres",
+        verbose_name=_("Véhicule"),
+    )
+
+    kilometres_chassis = models.PositiveIntegerField(
+        default=0,
+        null=True,
+        blank=True,
+        verbose_name=_("Kilomètres chassis")
+    )
+
     # 💰 Prix facturé au client
     taux_horaire = models.DecimalField(
         max_digits=10,
