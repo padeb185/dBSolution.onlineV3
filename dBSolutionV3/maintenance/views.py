@@ -1,3 +1,4 @@
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
@@ -5,6 +6,7 @@ from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.cache import never_cache
 from django_tenants.utils import tenant_context, schema_context
+from maintenance.autres_interventions.courroie_accessoires.models import CourroieAccessoires
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from voiture.voiture_modele.models import VoitureModele
 from maintenance.models import Maintenance
@@ -110,11 +112,11 @@ def choisir_type_maintenance(request, exemplaire_id):
             admission = Admission.objects.filter(voiture_exemplaire=exemplaire)
             alternateur = Alternateur.objects.filter(voiture_exemplaire=exemplaire)
             abs_qs = Abs.objects.filter(voiture_exemplaire=exemplaire)
+            courroie_access = CourroieAccessoires.objects.filter(voiture_exemplaire=exemplaire)
 
 
 
-
-            total_autres = boite.count() + boite_auto.count() + geometrie.count() + admission.count() + alternateur.count() + courroie.count() + turbo.count() + remplacement_moteur.count() + abs_qs.count()
+            total_autres = boite.count() + boite_auto.count() + geometrie.count() + admission.count() + alternateur.count() + courroie.count() + turbo.count() + remplacement_moteur.count() + abs_qs.count() + courroie_access.count()
             total_jeux_pieces = jeux_pieces.count()
             total_silent = silent.count()
             total_carrosserie_interne = carrosserie_interne.count()
@@ -164,6 +166,7 @@ def choisir_type_maintenance(request, exemplaire_id):
         'total_silent': total_silent,
         'total_carrosserie_interne': total_carrosserie_interne,
         'total_checkup_track': total_checkup_track,
+
 
         "checkup": checkup,
         "entretien": entretien,

@@ -68,7 +68,7 @@ class CourroieAccessoiresForm(forms.ModelForm):
                 self.fields[f].required = False
 
     def clean_kilometres_courroie_access(self):
-        km = self.cleaned_data["kilometres_courroie_access"]
+        km = self.cleaned_data["kilometres_access"]
 
         if km < self.exemplaire.kilometres_chassis:
             raise ValidationError(
@@ -86,7 +86,7 @@ class CourroieAccessoiresForm(forms.ModelForm):
         if m >= 60:
             raise ValidationError("Les minutes ne peuvent pas dépasser 59.")
 
-        km_courroie = cleaned.get("kilometrage_courroie_access")
+        km_courroie = cleaned.get("kilometrage_access")
         voiture = self.exemplaire or (self.instance.voiture_exemplaire if self.instance else None)
 
         if not voiture or km_courroie in [None, ""]:
@@ -96,14 +96,14 @@ class CourroieAccessoiresForm(forms.ModelForm):
             km_courroie = Decimal(str(km_courroie))
         except:
             raise ValidationError({
-                "kilometrage_courroie_access": _("Kilométrage invalide")
+                "kilometrage_access": _("Kilométrage invalide")
             })
 
         km_voiture = voiture.kilometres_chassis or Decimal("0")
 
         if km_courroie < km_voiture:
             raise ValidationError({
-                "kilometrage_courroie_access": _(
+                "kilometrage_access": _(
                     "Le kilométrage doit être ≥ %(km)s"
                 ) % {"km": km_voiture}
             })
@@ -117,7 +117,7 @@ class CourroieAccessoiresForm(forms.ModelForm):
         if voiture:
             instance.voiture_exemplaire = voiture
 
-        km = self.cleaned_data.get("kilometrage_courroie_access")
+        km = self.cleaned_data.get("kilometrage_access")
         if km is not None:
             instance.kilometrage_courroie_access = km
 

@@ -31,7 +31,7 @@
             </p>
             <p><strong>{% trans "Kilométrage" %} :</strong> {{ courroie_accessoires.kilometres_chassis }}</p>
             <p><strong>{% trans "Tag" %} :</strong> {{ courroie_accessoires.get_tag_display }}</p>
-            <p><strong>{% trans "Technicien" %} :</strong> {{ courroie_accessoirestech_nom_technicien }} {{ courroie_accessoires.tech_role_technicien }}</p>
+            <p><strong>{% trans "Technicien" %} :</strong> {{ courroie_accessoires.tech_nom_technicien }} {{ courroie_accessoires.tech_role_technicien }}</p>
         </div>
 
 
@@ -52,7 +52,7 @@
 
         <!-- Bouton Modifier -->
         <div class="mt-auto w-full">
-            <a href="{% url 'courroie_accessoires:modifier_courroie' courroie.id %}" class="block w-full">
+            <a href="{% url 'courroie_accessoires:modifier_courroie_access' courroie_accessoires.id %}" class="block w-full">
                 <button type="button" class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
                     {% trans "Modifier le remplacement" %}
                 </button>
@@ -60,7 +60,7 @@
         </div>
         <!-- Bouton Rapport -->
         <div class="mt-auto w-full">
-            <a href="{% url 'courroie_accessoires:courroie_detail_pdf' courroie.id %}"class="block w-full">
+            <a href="{% url 'courroie_accessoires:courroie_detail_pdf' courroie_accessoires.id %}"class="block w-full">
                 <button type="button" class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
                     {% trans "Télécharger le PDF" %}
                 </button>

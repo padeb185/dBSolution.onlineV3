@@ -17,13 +17,13 @@ urlpatterns = [
     ),
 
     path(
-        "courroie_accessoires/<int:courroie_id>/modifier/",
+        "courroie_accessoires/<int:courroie_accessoires_id>/modifier/",
         modifier_courroie_access_view,
-        name="modifier_courroie",
+        name="modifier_courroie_access",
     ),
 
     path(
-        "courroie_accessoires/<int:courroie_id>/detail/",
+        "courroie_accessoires/<int:courroie_accessoires_id>/detail/",
         courroie_access_detail_view,
         name="courroie_access_detail",
     ),

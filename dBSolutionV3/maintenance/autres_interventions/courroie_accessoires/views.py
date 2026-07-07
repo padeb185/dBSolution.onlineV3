@@ -258,50 +258,50 @@ def courroie_access_form_view(request, exemplaire_id):
 # Vue détail courroie
 # -----------------------------
 @login_required
-def courroie_access_detail_view(request, courroie_id):
-    courroie = get_object_or_404(
+def courroie_access_detail_view(request, courroie_accessoires_id):
+    courroie_accessoires = get_object_or_404(
         CourroieAccessoires.objects.select_related("voiture_exemplaire"),
-        id=courroie_id
+        id=courroie_accessoires_id
     )
 
     context = {
-        "courroie": courroie,
-        "exemplaire": courroie.voiture_exemplaire,
+        "courroie_accessoires": courroie_accessoires,
+        "exemplaire": courroie_accessoires.voiture_exemplaire,
     }
-    return render(request, "courroie_accessoires/courroie_detail.html", context)
+    return render(request, "courroie_accessoires/courroie_access_detail.html", context)
 
 
 
 @login_required
-def modifier_courroie_access_view(request, courroie_id):
+def modifier_courroie_access_view(request, courroie_accessoires_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
         # Récupération de l'admission avec son exemplaire
-        courroie = get_object_or_404(
+        courroie_accessoires = get_object_or_404(
         CourroieAccessoires.objects.select_related("voiture_exemplaire"),
-            id=courroie_id
+            id=courroie_accessoires_id
         )
-        exemplaire = courroie.voiture_exemplaire
+        exemplaire = courroie_accessoires.voiture_exemplaire
         # -------------------------
         # POST
         # -------------------------
         if request.method == "POST":
             form = CourroieAccessoiresForm(
                 request.POST,
-                instance=courroie,
+                instance=courroie_accessoires,
                 user=request.user,
-                exemplaire=courroie.voiture_exemplaire
+                exemplaire=courroie_accessoires.voiture_exemplaire
             )
 
             if form.is_valid():
                 try:
-                    courroie = form.save(commit=False)
+                    courroie_accessoires = form.save(commit=False)
 
                     # 🔧 Réaffectation technicien + société
-                    courroie.assign_technicien(request.user)
+                    courroie_accessoires.assign_technicien(request.user)
 
-                    courroie.save()
+                    courroie_accessoires.save()
 
                     UserLog.objects.create(
                         utilisateur=request.user,
@@ -316,7 +316,7 @@ def modifier_courroie_access_view(request, courroie_id):
                     )
                     return redirect(
                         "courroie_accessoires:modifier_courroie",
-                        courroie_id=courroie.id
+                        courroie_accessoires_id=courroie_accessoires.id
                     )
 
                 except ValidationError as e:
@@ -332,9 +332,9 @@ def modifier_courroie_access_view(request, courroie_id):
         # -------------------------
         else:
             form = CourroieAccessoiresForm(
-                instance=courroie,
+                instance=courroie_accessoires,
                 user=request.user,
-                exemplaire=courroie.voiture_exemplaire
+                exemplaire=courroie_accessoires.voiture_exemplaire
             )
 
         # -------------------------
@@ -388,10 +388,10 @@ def modifier_courroie_access_view(request, courroie_id):
 
     return render(
         request,
-        "courroie/modifier_courroie.html",
+        "courroie_accessoires/modifier_courroie.html",
         {
             "form": form,
-            "courroie": courroie,
+            "courroie_accessoires": courroie_accessoires,
             "sections": sections,
             "exemplaire": exemplaire,
         }
