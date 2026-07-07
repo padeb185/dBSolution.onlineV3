@@ -216,7 +216,7 @@ def courroie_access_form_view(request, exemplaire_id):
                 "fields": [form[f.name] for f in form if "galet" in f.name],
             },
             {
-                "title": _("Poulie Dumper"),
+                "title": _("Poulie Damper"),
                 "icon": "icons/poulie.png",
                 "fields": [form[f.name] for f in form if "poulie" in f.name],
             },
@@ -357,7 +357,7 @@ def modifier_courroie_access_view(request, courroie_accessoires_id):
                 "fields": [form[f.name] for f in form if "galet" in f.name],
             },
             {
-                "title": _("Poulie Dumper"),
+                "title": _("Poulie Damper"),
                 "icon": "icons/poulie.png",
                 "fields": [form[f.name] for f in form if "poulie" in f.name],
             },

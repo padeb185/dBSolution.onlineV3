@@ -94,7 +94,7 @@ class CourroieAccessoires(TechnicienMixin, models.Model):
     galet_tendeur_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
     # Courroie
-    poulie_dumper = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Poulie Dumper"))
+    poulie_dumper = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Poulie Damper"))
     poulie_dumper_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva de la poulie"))
     poulie_dumper_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
