@@ -1,10 +1,285 @@
+{% load i18n %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+        }
+
+        h2 {
+            font-size: 14px;
+            margin-top: 20px;
+            margin-bottom: 8px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 4px;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        .ok {
+            color: #16a34a;
+            font-weight: bold;
+        }
+
+        .not-ok {
+            color: #dc2626;
+            font-weight: bold;
+        }
+
+        .tag {
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tag-vert {
+            background: #16a34a;
+        }
+
+        .tag-jaune {
+            background: #ca8a04;
+        }
+
+        .tag-rouge {
+            background: #dc2626;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        table th,
+        table td {
+            border: 1px solid #ccc;
+            padding: 6px;
+            text-align: left;
+        }
+
+        table th {
+            background: #f3f3f3;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .total {
+            font-weight: bold;
+            background: #f8f8f8;
+        }
+    </style>
 </head>
+
 <body>
+
+<h1>{% trans "Détail courroie d'accessoires" %}</h1>
+
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Date" %} :</span>
+            {{ courroie_accessoires.date|date:"d/m/Y H:i" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+            {{ courroie_accessoires.tech_nom_technicien|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Société" %} :</span>
+            {{ courroie_accessoires.tech_societe|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Véhicule" %} :</span>
+            {{ courroie_accessoires.voiture_exemplaire|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage véhicule" %} :</span>
+            {{ courroie_accessoires.kilometres_chassis|default:"-" }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage courroie" %} :</span>
+            {{ courroie_accessoires.kilometrage_cour|default:"-" }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Tag" %} :</span>
+
+            {% if courroie_accessoires.tag == "VERT" %}
+                <span class="tag tag-vert">
+                    {{ courroie_accessoires.get_tag_display }}
+                </span>
+            {% elif courroie_accessoires.tag == "JAUNE" %}
+                <span class="tag tag-jaune">
+                    {{ courroie_accessoires.get_tag_display }}
+                </span>
+            {% else %}
+                <span class="tag tag-rouge">
+                    {{ courroie_accessoires.get_tag_display }}
+                </span>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<h2>{% trans "Contrôle courroie d'accessoires" %}</h2>
+
+<div class="box">
+    <table>
+        <thead>
+            <tr>
+                <th>{% trans "Élément contrôlé" %}</th>
+                <th>{% trans "Résultat" %}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td>{% trans "Courroie d'accessoires" %}</td>
+                <td>
+                    {% if courroie_accessoires.courroie_accessoires == "OK" %}
+                        <span class="ok">
+                            {{ courroie_accessoires.get_courroie_accessoires_display }}
+                        </span>
+                    {% else %}
+                        <span class="not-ok">
+                            {{ courroie_accessoires.get_courroie_accessoires_display }}
+                        </span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Galet tendeur" %}</td>
+                <td>
+                    {% if courroie_accessoires.galet_tendeur == "OK" %}
+                        <span class="ok">
+                            {{ courroie_accessoires.get_galet_tendeur_display }}
+                        </span>
+                    {% else %}
+                        <span class="not-ok">
+                            {{ courroie_accessoires.get_galet_tendeur_display }}
+                        </span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Poulie damper" %}</td>
+                <td>
+                    {% if courroie_accessoires.poulie == "OK" %}
+                        <span class="ok">
+                            {{ courroie_accessoires.get_poulie_display }}
+                        </span>
+                    {% else %}
+                        <span class="not-ok">
+                            {{ courroie_accessoires.get_poulie_display }}
+                        </span>
+                    {% endif %}
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+
+<h2>{% trans "Main d'oeuvre" %}</h2>
+
+<div class="box">
+    {% if courroie_accessoires.main_oeuvre %}
+        {{ courroie_accessoires.main_oeuvre.temps_display|default:"-" }}
+    {% else %}
+        -
+    {% endif %}
+</div>
+
+<h2>{% trans "Pièces à remplacer" %}</h2>
+
+<div class="box">
+
+    {% if rapport.lignes %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>{% trans "Pièce" %}</th>
+                    <th>{% trans "Quantité" %}</th>
+                    <th>{% trans "Prix unitaire" %}</th>
+                    <th>{% trans "Total" %}</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for ligne in rapport.lignes %}
+                    <tr>
+                        <td>{{ ligne.champ }}</td>
+                        <td>{{ ligne.quantite }}</td>
+                        <td>{{ ligne.prix|floatformat:2 }} €</td>
+                        <td>{{ ligne.total|floatformat:2 }} €</td>
+                    </tr>
+                {% endfor %}
+
+                <tr class="total">
+                    <td colspan="3" class="text-right">
+                        {% trans "Total général" %}
+                    </td>
+                    <td>
+                        {{ rapport.total_general|floatformat:2 }} €
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    {% else %}
+
+        <p>{% trans "Aucune pièce à remplacer." %}</p>
+
+    {% endif %}
+
+</div>
+
+<h2>{% trans "Remarques" %}</h2>
+
+<div class="box">
+    {{ courroie_accessoires.remarques|default:_("Aucune remarque.") }}
+</div>
 
 </body>
 </html>

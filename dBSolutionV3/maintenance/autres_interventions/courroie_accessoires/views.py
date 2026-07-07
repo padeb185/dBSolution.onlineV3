@@ -444,26 +444,36 @@ class CourroieAccessoiresRapportDetailView(DetailView):
 
 @login_required
 def courroie_access_detail_pdf_view(request, pk):
-    courroie = get_object_or_404(CourroieAccessoires, pk=pk)
+    courroie_accessoires = get_object_or_404(CourroieAccessoires, pk=pk)
 
-    rapport = courroie.generer_rapport_remplacement()
+    rapport = courroie_accessoires.generer_rapport_remplacement()
 
     html_string = render_to_string(
-        "courroie_access/courroie_detail_pdf.html",
+        "courroie_accessoires/courroie_detail_pdf.html",
         {
-            "courroie": courroie,
+            "courroie_accessoires": courroie_accessoires,
             "rapport": rapport,
             "date_export": datetime.now(),
-            "societe": request.user.societe
+            "societe": request.user.societe,
         }
     )
 
     pdf = HTML(
         string=html_string,
-        base_url=request.build_absolute_uri()
+        base_url=request.build_absolute_uri("/")
     ).write_pdf()
 
+    immatriculation = (
+        courroie_accessoires.voiture_exemplaire.immatriculation
+        if courroie_accessoires.voiture_exemplaire
+        else "sans_immatriculation"
+    )
+
+    technicien = courroie_accessoires.tech_nom_technicien or "technicien_inconnu"
+
     response = HttpResponse(pdf, content_type="application/pdf")
-    response["Content-Disposition"] = f'attachment; filename="rapport_courroie_de_distribution_{pk}.pdf"'
+    response["Content-Disposition"] = (
+        f'attachment; filename="rapport_courroie_accessoires_{pk}_{immatriculation}_{technicien}.pdf"'
+    )
 
     return response
