@@ -146,6 +146,7 @@ TENANT_APPS = (
     'maintenance.autres_interventions.moteur.rodage',
 
 
+
     'maintenance.carrosserie_interne',
 
     'fuel',
@@ -235,14 +236,14 @@ TENANT_APPS = (
     'maintenance.autres_interventions.boite_de_vitesse',
     'maintenance.autres_interventions.bte_vitesse_auto',
     'maintenance.autres_interventions.abs',
-    'maintenance.autres_interventions.courroie_accessoires',
+
 
 
 
     'maintenance.autres_interventions.moteur.admission',
     'maintenance.autres_interventions.moteur.alternateur',
-    'maintenance.autres_interventions.moteur.courroie',
-
+    "maintenance.autres_interventions.moteur.courroie.apps.CourroieConfig",
+    "maintenance.autres_interventions.courroie_accessoires.apps.CourroieAccessoiresConfig",
 
     'maindoeuvre',
 

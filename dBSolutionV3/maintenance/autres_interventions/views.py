@@ -210,7 +210,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
         "total_geometrie": total_geometrie,
         "total_abs": total_abs,
         "total_remplacement_boite": total_remplacement_boite,
-        "Total_access": total_access,
+        "total_access": total_access,
 
         "total_int_moteur": total_int_moteur,
         "total_int_boite": total_int_boite,

@@ -46,7 +46,6 @@ class CourroieAccessoiresForm(forms.ModelForm):
             self.fields["temps_heures"].initial = mo.heures
             self.fields["temps_minutes"].initial = mo.minutes
 
-
         # ✅ initialisation date seulement si le champ existe
         if "date" in self.fields and self.instance and self.instance.pk and self.instance.date:
             local_dt = timezone.localtime(self.instance.date)
@@ -114,34 +113,30 @@ class CourroieAccessoiresForm(forms.ModelForm):
     def save(self, commit=True):
         instance = super().save(commit=False)
 
-        km = self.cleaned_data.get("kilometrage_courroie_access")
         voiture = self.exemplaire
-
-        if km is not None and voiture:
-            instance.kilometrage_courroie_access = km
+        if voiture:
             instance.voiture_exemplaire = voiture
 
+        km = self.cleaned_data.get("kilometrage_courroie_access")
+        if km is not None:
+            instance.kilometrage_courroie_access = km
 
-            # -------- MAIN D'ŒUVRE --------
-            heures = self.cleaned_data.get("temps_heures") or 0
-            minutes = self.cleaned_data.get("temps_minutes") or 0
+        heures = self.cleaned_data.get("temps_heures") or 0
+        minutes = self.cleaned_data.get("temps_minutes") or 0
+        total_minutes = heures * 60 + minutes
 
-            total_minutes = heures * 60 + minutes
+        main = instance.main_oeuvre
 
-            main = instance.main_oeuvre
+        if main:
+            main.temps_minutes = total_minutes
+            main.save(update_fields=["temps_minutes"])
+        else:
+            main = MainDoeuvre.objects.create(
+                utilisateur=self.user,
+                temps_minutes=total_minutes
+            )
+            instance.main_oeuvre = main
 
-            if main:
-                main.temps_minutes = total_minutes
-                main.save(update_fields=["temps_minutes"])
-            else:
-                main = MainDoeuvre.objects.create(
-                    utilisateur=self.user,
-                    temps_minutes=total_minutes
-                )
-                instance.main_oeuvre = main
-
-
-        # Sauvegarde finale
         if commit:
             instance.save()
 

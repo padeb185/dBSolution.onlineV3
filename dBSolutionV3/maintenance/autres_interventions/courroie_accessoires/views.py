@@ -22,24 +22,23 @@ from django.views.generic import DetailView
 from decimal import Decimal
 from weasyprint import HTML
 
-
-@method_decorator([login_required, never_cache], name='dispatch')
+@method_decorator([login_required, never_cache], name="dispatch")
 class CourroieAccessoiresListView(ListView):
     model = CourroieAccessoires
     template_name = "courroie_accessoires/courroie_list.html"
-    context_object_name = "courroies"
-    ordering = ["-id"]
+    context_object_name = "courroies_accessoires"
 
     def get_queryset(self):
         queryset = CourroieAccessoires.objects.select_related(
-            "voiture_exemplaire", "maintenance", "tech_societe"
+            "voiture_exemplaire",
+            "maintenance",
+            "tech_societe",
+            "main_oeuvre",
         )
 
-        societe = getattr(self.request.user, "societe", None)
-        if societe:
-            queryset = queryset.filter(
-                models.Q(tech_societe=societe) | models.Q(tech_societe__isnull=True)
-            )
+        exemplaire_id = self.kwargs.get("exemplaire_id")
+        if exemplaire_id:
+            queryset = queryset.filter(voiture_exemplaire_id=exemplaire_id)
 
         return queryset.order_by("-id")
 
@@ -48,9 +47,12 @@ class CourroieAccessoiresListView(ListView):
 
         exemplaire_id = self.kwargs.get("exemplaire_id")
         if exemplaire_id:
-            context["exemplaire"] = VoitureExemplaire.objects.get(id=exemplaire_id)
+            context["exemplaire"] = get_object_or_404(
+                VoitureExemplaire,
+                id=exemplaire_id
+            )
 
-        roles_autorises = [
+        context["is_checkup_allowed"] = self.request.user.role in [
             "mecanicien",
             "apprenti",
             "magasinier",
@@ -58,10 +60,7 @@ class CourroieAccessoiresListView(ListView):
             "direction",
         ]
 
-        context["is_checkup_allowed"] = self.request.user.role in roles_autorises
-
         return context
-
 
 
 @never_cache
@@ -269,7 +268,7 @@ def courroie_access_detail_view(request, courroie_id):
         "courroie": courroie,
         "exemplaire": courroie.voiture_exemplaire,
     }
-    return render(request, "courroie/courroie_detail.html", context)
+    return render(request, "courroie_accessoires/courroie_detail.html", context)
 
 
 

@@ -108,7 +108,7 @@
 
             <!-- Kilométrage -->
             <td class="border px-4 py-2">
-                {{ courroie_accessoire.kilometrage_cour|default:"-" }}
+                {{ courroie_accessoire.kilometrage_access|default:"-" }}
             </td>
 
 
@@ -133,25 +133,24 @@
 
 
              <td class="border px-4 py-2">
-                {{ courroie_accessoire.main_oeuvre.temps_display|default:"-" }}
+                {% if courroie_accessoire.main_oeuvre %}
+                    {{ courroie_accessoire.main_oeuvre.heures }} h {{ courroie_accessoire.main_oeuvre.minutes }} min
+                {% else %}
+                    -
+                {% endif %}
             </td>
 
 
             <!-- Actions -->
             <td class="border px-4 py-2 text-center">
-               <a href="{% url 'courroie_accessoires:courroie_access_detail' courroie.id %}"
-                   class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
+               <a href="{% url 'courroie_accessoires:courroie_access_detail' courroie_accessoire.id %}"
+                  class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
                     {% trans "Infos" %}
                </a>
             </td>
         </tr>
         {% endwith %}
         {% empty %}
-        <tr>
-            <td colspan="6" class="text-center py-4">
-                {% trans "Aucun remplacement enregistré pour cet exemplaire." %}
-            </td>
-        </tr>
         {% endfor %}
     </tbody>
 </table>
