@@ -650,13 +650,13 @@
         <th>{% trans "État" %}</th>
     </tr>
 
-   <p>DEBUG serrage_roues = "{{ entretien.serrage_roues }}"</p>
-   <tr>
+
+  <tr>
     <td>{% trans "Serrage des roues" %}</td>
     <td>
-        {% if entretien.serrage_roues == "A_FAIRE" %}
+        {% if entretien.serrage_roues|upper == "A_FAIRE" %}
             <span class="etat-rouge">{{ entretien.get_serrage_roues_display }}</span>
-        {% elif entretien.serrage_roues == "FAIT" %}
+        {% elif entretien.serrage_roues|upper == "FAIT" %}
             <span class="etat-vert">{{ entretien.get_serrage_roues_display }}</span>
         {% else %}
             <span class="etat-gris">
