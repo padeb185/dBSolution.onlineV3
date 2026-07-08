@@ -14,7 +14,7 @@ class EntretienForm(forms.ModelForm):
 
     class Meta:
         model = Entretien
-    
+
         exclude = ["pieces"]
         widgets = {
             "maintenance": forms.HiddenInput(),
@@ -81,7 +81,7 @@ class EntretienForm(forms.ModelForm):
         voiture = self.exemplaire
 
         if km is not None and voiture:
-            instance.kilometrage_checkup = km
+            instance.kilometrage_entretien = km
             instance.voiture_exemplaire = voiture
 
         # -------- MAIN D'ŒUVRE --------

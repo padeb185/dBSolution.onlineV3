@@ -273,13 +273,13 @@ class Entretien(TechnicienMixin, models.Model):
                                                     verbose_name=_("Phares anti-brouillard avant"))
     phares_anti_brouillard_arriere = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
                                                       verbose_name=_("Phares anti-brouillard arrière"))
-    feux_stops = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
+    phares_feux_stops = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
                                   verbose_name=_("Feux stop"))
-    troisieme_feux_stop = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
+    phares_troisieme_feux_stop = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
                                            verbose_name=_("Troisième feux stop"))
-    feux_position_av = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
+    phares_feux_position_av = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
                                         verbose_name=_("Feux de position avant"))
-    feux_position_ar = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
+    phares_feux_position_ar = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
                                         verbose_name=_("Feux de position arrière"))
 
 

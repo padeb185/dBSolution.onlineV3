@@ -60,15 +60,27 @@
 
         .etat-rouge {
             color: #dc2626;
+            font-weight: bold;
         }
 
         .etat-vert {
             color: #16a34a;
+            font-weight: bold;
         }
 
-        .etat-normal {
-            color: #111;
-            font-weight: normal;
+        .etat-jaune {
+            color: #ca8a04;
+            font-weight: bold;
+        }
+
+        .etat-bleu {
+            color: #2563eb;
+            font-weight: bold;
+        }
+
+        .etat-gris {
+            color: #6b7280;
+            font-weight: bold;
         }
 
         table {
@@ -126,18 +138,22 @@
 </div>
 
 <h2>{% trans "Moteur" %}</h2>
+
 <table>
-    <tr><th>{% trans "Élément" %}</th><th>{% trans "État / Valeur" %}</th></tr>
+    <tr>
+        <th>{% trans "Élément" %}</th>
+        <th>{% trans "État / Valeur" %}</th>
+    </tr>
 
     <tr>
         <td>{% trans "Vidange de l'huile moteur" %}</td>
         <td>
             {% if entretien.moteur_entretien_vidange == "A_FAIRE" %}
-                <span class="etat etat-rouge">{{ entretien.get_moteur_entretien_vidange_display }}</span>
+                <span class="etat-rouge">{{ entretien.get_moteur_entretien_vidange_display }}</span>
             {% elif entretien.moteur_entretien_vidange == "FAIT" %}
-                <span class="etat etat-vert">{{ entretien.get_moteur_entretien_vidange_display }}</span>
-            {% else %}
-                <span class="etat-normal">{{ entretien.get_moteur_entretien_vidange_display }}</span>
+                <span class="etat-vert">{{ entretien.get_moteur_entretien_vidange_display }}</span>
+            {% elif entretien.moteur_entretien_vidange == "REPORTER" %}
+                <span class="etat-jaune">{{ entretien.get_moteur_entretien_vidange_display }}</span>
             {% endif %}
         </td>
     </tr>
@@ -146,11 +162,11 @@
         <td>{% trans "Filtre à huile moteur" %}</td>
         <td>
             {% if entretien.filtre_huile == "A_FAIRE" %}
-                <span class="etat etat-rouge">{{ entretien.get_filtre_huile_display }}</span>
+                <span class="etat-rouge">{{ entretien.get_filtre_huile_display }}</span>
             {% elif entretien.filtre_huile == "FAIT" %}
-                <span class="etat etat-vert">{{ entretien.get_filtre_huile_display }}</span>
-            {% else %}
-                <span class="etat-normal">{{ entretien.get_filtre_huile_display }}</span>
+                <span class="etat-vert">{{ entretien.get_filtre_huile_display }}</span>
+            {% elif entretien.filtre_huile == "REPORTER" %}
+                <span class="etat-jaune">{{ entretien.get_filtre_huile_display }}</span>
             {% endif %}
         </td>
     </tr>
@@ -159,11 +175,11 @@
         <td>{% trans "Bouchon de vidange" %}</td>
         <td>
             {% if entretien.moteur_bouchon_vidange == "A_FAIRE" %}
-                <span class="etat etat-rouge">{{ entretien.get_moteur_bouchon_vidange_display }}</span>
+                <span class="etat-rouge">{{ entretien.get_moteur_bouchon_vidange_display }}</span>
             {% elif entretien.moteur_bouchon_vidange == "FAIT" %}
-                <span class="etat etat-vert">{{ entretien.get_moteur_bouchon_vidange_display }}</span>
-            {% else %}
-                <span class="etat-normal">{{ entretien.get_moteur_bouchon_vidange_display }}</span>
+                <span class="etat-vert">{{ entretien.get_moteur_bouchon_vidange_display }}</span>
+            {% elif entretien.moteur_bouchon_vidange == "REPORTER" %}
+                <span class="etat-jaune">{{ entretien.get_moteur_bouchon_vidange_display }}</span>
             {% endif %}
         </td>
     </tr>
@@ -172,11 +188,11 @@
         <td>{% trans "Joint du bouchon de vidange" %}</td>
         <td>
             {% if entretien.moteur_joint_vidange == "A_FAIRE" %}
-                <span class="etat etat-rouge">{{ entretien.get_moteur_joint_vidange_display }}</span>
+                <span class="etat-rouge">{{ entretien.get_moteur_joint_vidange_display }}</span>
             {% elif entretien.moteur_joint_vidange == "FAIT" %}
-                <span class="etat etat-vert">{{ entretien.get_moteur_joint_vidange_display }}</span>
-            {% else %}
-                <span class="etat-normal">{{ entretien.get_moteur_joint_vidange_display }}</span>
+                <span class="etat-vert">{{ entretien.get_moteur_joint_vidange_display }}</span>
+            {% elif entretien.moteur_joint_vidange == "REPORTER" %}
+                <span class="etat-jaune">{{ entretien.get_moteur_joint_vidange_display }}</span>
             {% endif %}
         </td>
     </tr>
@@ -185,45 +201,56 @@
         <td>{% trans "Ajout d'huile moteur" %}</td>
         <td>
             {% if entretien.moteur_ajout_huile == "A_FAIRE" %}
-                <span class="etat etat-rouge">{{ entretien.get_moteur_ajout_huile_display }}</span>
+                <span class="etat-rouge">{{ entretien.get_moteur_ajout_huile_display }}</span>
             {% elif entretien.moteur_ajout_huile == "FAIT" %}
-                <span class="etat etat-vert">{{ entretien.get_moteur_ajout_huile_display }}</span>
-            {% else %}
-                <span class="etat-normal">{{ entretien.get_moteur_ajout_huile_display }}</span>
+                <span class="etat-vert">{{ entretien.get_moteur_ajout_huile_display }}</span>
+            {% elif entretien.moteur_ajout_huile == "REPORTER" %}
+                <span class="etat-jaune">{{ entretien.get_moteur_ajout_huile_display }}</span>
             {% endif %}
         </td>
     </tr>
 
-    <tr><td>{% trans "Qualité d'huile moteur" %}</td><td>{{ entretien.get_moteur_ajout_huile_qualite_display }}</td></tr>
-    <tr><td>{% trans "Quantité d'huile moteur" %}</td><td>{{ entretien.moteur_ajout_huile_quantite }} L</td></tr>
+    <tr>
+        <td>{% trans "Qualité d'huile moteur" %}</td>
+        <td>{{ entretien.get_moteur_ajout_huile_qualite_display }}</td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Quantité d'huile moteur" %}</td>
+        <td>{{ entretien.moteur_ajout_huile_quantite }} L</td>
+    </tr>
 
     <tr>
         <td>{% trans "Bougies" %}</td>
         <td>
             {% if entretien.moteur_bougies == "A_FAIRE" %}
-                <span class="etat etat-rouge">{{ entretien.get_moteur_bougies_display }}</span>
+                <span class="etat-rouge">{{ entretien.get_moteur_bougies_display }}</span>
             {% elif entretien.moteur_bougies == "FAIT" %}
-                <span class="etat etat-vert">{{ entretien.get_moteur_bougies_display }}</span>
-            {% else %}
-                <span class="etat-normal">{{ entretien.get_moteur_bougies_display }}</span>
+                <span class="etat-vert">{{ entretien.get_moteur_bougies_display }}</span>
+            {% elif entretien.moteur_bougies == "REPORTER" %}
+                <span class="etat-jaune">{{ entretien.get_moteur_bougies_display }}</span>
             {% endif %}
         </td>
     </tr>
 </table>
 
 <h2>{% trans "Filtres" %}</h2>
+
 <table>
-    <tr><th>{% trans "Élément" %}</th><th>{% trans "État" %}</th></tr>
+    <tr>
+        <th>{% trans "Élément" %}</th>
+        <th>{% trans "État" %}</th>
+    </tr>
 
     <tr>
         <td>{% trans "Filtre à air" %}</td>
         <td>
             {% if entretien.filtre_a_air == "A_FAIRE" %}
-                <span class="etat etat-rouge">{{ entretien.get_filtre_a_air_display }}</span>
+                <span class="etat-rouge">{{ entretien.get_filtre_a_air_display }}</span>
             {% elif entretien.filtre_a_air == "FAIT" %}
-                <span class="etat etat-vert">{{ entretien.get_filtre_a_air_display }}</span>
-            {% else %}
-                <span class="etat-normal">{{ entretien.get_filtre_a_air_display }}</span>
+                <span class="etat-vert">{{ entretien.get_filtre_a_air_display }}</span>
+            {% elif entretien.filtre_a_air == "REPORTER" %}
+                <span class="etat-jaune">{{ entretien.get_filtre_a_air_display }}</span>
             {% endif %}
         </td>
     </tr>
@@ -232,11 +259,11 @@
         <td>{% trans "Filtre à carburant" %}</td>
         <td>
             {% if entretien.filtre_a_carburant == "A_FAIRE" %}
-                <span class="etat etat-rouge">{{ entretien.get_filtre_a_carburant_display }}</span>
+                <span class="etat-rouge">{{ entretien.get_filtre_a_carburant_display }}</span>
             {% elif entretien.filtre_a_carburant == "FAIT" %}
-                <span class="etat etat-vert">{{ entretien.get_filtre_a_carburant_display }}</span>
-            {% else %}
-                <span class="etat-normal">{{ entretien.get_filtre_a_carburant_display }}</span>
+                <span class="etat-vert">{{ entretien.get_filtre_a_carburant_display }}</span>
+            {% elif entretien.filtre_a_carburant == "REPORTER" %}
+                <span class="etat-jaune">{{ entretien.get_filtre_a_carburant_display }}</span>
             {% endif %}
         </td>
     </tr>
@@ -245,51 +272,176 @@
         <td>{% trans "Filtre d'habitacle" %}</td>
         <td>
             {% if entretien.filtre_habitacle == "A_FAIRE" %}
-                <span class="etat etat-rouge">{{ entretien.get_filtre_habitacle_display }}</span>
+                <span class="etat-rouge">{{ entretien.get_filtre_habitacle_display }}</span>
             {% elif entretien.filtre_habitacle == "FAIT" %}
-                <span class="etat etat-vert">{{ entretien.get_filtre_habitacle_display }}</span>
-            {% else %}
-                <span class="etat-normal">{{ entretien.get_filtre_habitacle_display }}</span>
+                <span class="etat-vert">{{ entretien.get_filtre_habitacle_display }}</span>
+            {% elif entretien.filtre_habitacle == "REPORTER" %}
+                <span class="etat-jaune">{{ entretien.get_filtre_habitacle_display }}</span>
             {% endif %}
         </td>
     </tr>
 </table>
 
 <h2>{% trans "Boîte de vitesse" %}</h2>
-<table>
-    <tr><th>{% trans "Élément" %}</th><th>{% trans "État / Valeur" %}</th></tr>
 
-    <tr><td>{% trans "Vidange d'huile boîte" %}</td><td>{{ entretien.get_boite_entretien_vidange_display }}</td></tr>
-    <tr><td>{% trans "Filtre à huile de boîte" %}</td><td>{{ entretien.get_filtre_huile_bte_display }}</td></tr>
-    <tr><td>{% trans "Bouchon de vidange de boîte" %}</td><td>{{ entretien.get_boite_bouchon_vidange_display }}</td></tr>
-    <tr><td>{% trans "Joint de bouchon de boîte" %}</td><td>{{ entretien.get_boite_joint_vidange_display }}</td></tr>
-    <tr><td>{% trans "Ajout d'huile de boîte" %}</td><td>{{ entretien.get_boite_ajout_huile_display }}</td></tr>
+<table>
+    <tr>
+        <th>{% trans "Élément" %}</th>
+        <th>{% trans "État / Valeur" %}</th>
+    </tr>
+
+    <tr>
+        <td>{% trans "Vidange d'huile boîte" %}</td>
+        <td>
+            {% if entretien.boite_entretien_vidange == "A_FAIRE" %}
+                <span class="etat-rouge">{{ entretien.get_boite_entretien_vidange_display }}</span>
+            {% elif entretien.boite_entretien_vidange == "FAIT" %}
+                <span class="etat-vert">{{ entretien.get_boite_entretien_vidange_display }}</span>
+            {% elif entretien.boite_entretien_vidange == "REPORTER" %}
+                <span class="etat-jaune">{{ entretien.get_boite_entretien_vidange_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Filtre à huile de boîte" %}</td>
+        <td>
+            {% if entretien.filtre_huile_bte == "A_FAIRE" %}
+                <span class="etat-rouge">{{ entretien.get_filtre_huile_bte_display }}</span>
+            {% elif entretien.filtre_huile_bte == "FAIT" %}
+                <span class="etat-vert">{{ entretien.get_filtre_huile_bte_display }}</span>
+            {% elif entretien.filtre_huile_bte == "REPORTER" %}
+                <span class="etat-jaune">{{ entretien.get_filtre_huile_bte_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Bouchon de vidange de boîte" %}</td>
+        <td>
+            {% if entretien.boite_bouchon_vidange == "A_FAIRE" %}
+                <span class="etat-rouge">{{ entretien.get_boite_bouchon_vidange_display }}</span>
+            {% elif entretien.boite_bouchon_vidange == "FAIT" %}
+                <span class="etat-vert">{{ entretien.get_boite_bouchon_vidange_display }}</span>
+            {% elif entretien.boite_bouchon_vidange == "REPORTER" %}
+                <span class="etat-jaune">{{ entretien.get_boite_bouchon_vidange_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Joint de bouchon de boîte" %}</td>
+        <td>
+            {% if entretien.boite_joint_vidange == "A_FAIRE" %}
+                <span class="etat-rouge">{{ entretien.get_boite_joint_vidange_display }}</span>
+            {% elif entretien.boite_joint_vidange == "FAIT" %}
+                <span class="etat-vert">{{ entretien.get_boite_joint_vidange_display }}</span>
+            {% elif entretien.boite_joint_vidange == "REPORTER" %}
+                <span class="etat-jaune">{{ entretien.get_boite_joint_vidange_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Ajout d'huile de boîte" %}</td>
+        <td>
+            {% if entretien.boite_ajout_huile == "A_FAIRE" %}
+                <span class="etat-rouge">{{ entretien.get_boite_ajout_huile_display }}</span>
+            {% elif entretien.boite_ajout_huile == "FAIT" %}
+                <span class="etat-vert">{{ entretien.get_boite_ajout_huile_display }}</span>
+            {% elif entretien.boite_ajout_huile == "REPORTER" %}
+                <span class="etat-jaune">{{ entretien.get_boite_ajout_huile_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
     <tr><td>{% trans "Qualité d'huile de boîte" %}</td><td>{{ entretien.get_boite_ajout_huile_qualite_display }}</td></tr>
     <tr><td>{% trans "Quantité d'huile de boîte" %}</td><td>{{ entretien.boite_ajout_huile_quantite }} L</td></tr>
 </table>
 
 <h2>{% trans "Pont" %}</h2>
+
 <table>
-    <tr><th>{% trans "Élément" %}</th><th>{% trans "État / Valeur" %}</th></tr>
-    <tr><td>{% trans "Vidange d'huile de pont" %}</td><td>{{ entretien.get_pont_entretien_vidange_display }}</td></tr>
-    <tr><td>{% trans "Bouchon de vidange de pont" %}</td><td>{{ entretien.get_pont_bouchon_vidange_display }}</td></tr>
-    <tr><td>{% trans "Joint de bouchon de pont" %}</td><td>{{ entretien.get_pont_joint_vidange_display }}</td></tr>
-    <tr><td>{% trans "Ajout d'huile de pont" %}</td><td>{{ entretien.get_pont_ajout_huile_display }}</td></tr>
+    <tr>
+        <th>{% trans "Élément" %}</th>
+        <th>{% trans "État / Valeur" %}</th>
+    </tr>
+
+    <tr>
+        <td>{% trans "Vidange d'huile de pont" %}</td>
+        <td>
+            {% if entretien.pont_entretien_vidange == "A_FAIRE" %}
+                <span class="etat-rouge">{{ entretien.get_pont_entretien_vidange_display }}</span>
+            {% elif entretien.pont_entretien_vidange == "FAIT" %}
+                <span class="etat-vert">{{ entretien.get_pont_entretien_vidange_display }}</span>
+            {% elif entretien.pont_entretien_vidange == "REPORTER" %}
+                <span class="etat-jaune">{{ entretien.get_pont_entretien_vidange_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Bouchon de vidange de pont" %}</td>
+        <td>
+            {% if entretien.pont_bouchon_vidange == "A_FAIRE" %}
+                <span class="etat-rouge">{{ entretien.get_pont_bouchon_vidange_display }}</span>
+            {% elif entretien.pont_bouchon_vidange == "FAIT" %}
+                <span class="etat-vert">{{ entretien.get_pont_bouchon_vidange_display }}</span>
+            {% elif entretien.pont_bouchon_vidange == "REPORTER" %}
+                <span class="etat-jaune">{{ entretien.get_pont_bouchon_vidange_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Joint de bouchon de pont" %}</td>
+        <td>
+            {% if entretien.pont_joint_vidange == "A_FAIRE" %}
+                <span class="etat-rouge">{{ entretien.get_pont_joint_vidange_display }}</span>
+            {% elif entretien.pont_joint_vidange == "FAIT" %}
+                <span class="etat-vert">{{ entretien.get_pont_joint_vidange_display }}</span>
+            {% elif entretien.pont_joint_vidange == "REPORTER" %}
+                <span class="etat-jaune">{{ entretien.get_pont_joint_vidange_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Ajout d'huile de pont" %}</td>
+        <td>
+            {% if entretien.pont_ajout_huile == "A_FAIRE" %}
+                <span class="etat-rouge">{{ entretien.get_pont_ajout_huile_display }}</span>
+            {% elif entretien.pont_ajout_huile == "FAIT" %}
+                <span class="etat-vert">{{ entretien.get_pont_ajout_huile_display }}</span>
+            {% elif entretien.pont_ajout_huile == "REPORTER" %}
+                <span class="etat-jaune">{{ entretien.get_pont_ajout_huile_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
     <tr><td>{% trans "Qualité d'huile de pont" %}</td><td>{{ entretien.get_pont_ajout_huile_qualite_display }}</td></tr>
     <tr><td>{% trans "Quantité d'huile de pont" %}</td><td>{{ entretien.pont_ajout_huile_quantite }} L</td></tr>
 </table>
 
 <h2>{% trans "Niveaux" %}</h2>
+
 <table>
-    <tr><th>{% trans "Élément" %}</th><th>{% trans "État" %}</th><th>{% trans "Quantité" %}</th><th>{% trans "Qualité" %}</th></tr>
+    <tr>
+        <th>{% trans "Élément" %}</th>
+        <th>{% trans "État" %}</th>
+        <th>{% trans "Quantité" %}</th>
+        <th>{% trans "Qualité" %}</th>
+    </tr>
 
     <tr>
         <td>{% trans "Lave-glace" %}</td>
         <td>
-            {% if entretien.lave_glace_liquide_etat == "AJOUTER" or entretien.lave_glace_liquide_etat == "REMPLACER" %}
-                <span class="etat etat-vert">{{ entretien.get_lave_glace_liquide_etat_display }}</span>
-            {% else %}
-                <span class="etat-normal">{{ entretien.get_lave_glace_liquide_etat_display }}</span>
+            {% if entretien.lave_glace_liquide_etat == "BON" %}
+                <span class="etat-gris">{{ entretien.get_lave_glace_liquide_etat_display }}</span>
+            {% elif entretien.lave_glace_liquide_etat == "AJOUTER" %}
+                <span class="etat-vert">{{ entretien.get_lave_glace_liquide_etat_display }}</span>
+            {% elif entretien.lave_glace_liquide_etat == "REMPLACER" %}
+                <span class="etat-bleu">{{ entretien.get_lave_glace_liquide_etat_display }}</span>
             {% endif %}
         </td>
         <td>{{ entretien.lave_glace_quantite }} L</td>
@@ -299,10 +451,12 @@
     <tr>
         <td>{% trans "Liquide de freins" %}</td>
         <td>
-            {% if entretien.frein_liquide_etat == "AJOUTER" or entretien.frein_liquide_etat == "REMPLACER" %}
-                <span class="etat etat-vert">{{ entretien.get_frein_liquide_etat_display }}</span>
-            {% else %}
-                <span class="etat-normal">{{ entretien.get_frein_liquide_etat_display }}</span>
+            {% if entretien.frein_liquide_etat == "BON" %}
+                <span class="etat-gris">{{ entretien.get_frein_liquide_etat_display }}</span>
+            {% elif entretien.frein_liquide_etat == "AJOUTER" %}
+                <span class="etat-vert">{{ entretien.get_frein_liquide_etat_display }}</span>
+            {% elif entretien.frein_liquide_etat == "REMPLACER" %}
+                <span class="etat-bleu">{{ entretien.get_frein_liquide_etat_display }}</span>
             {% endif %}
         </td>
         <td>{{ entretien.frein_liquide_quantite }} L</td>
@@ -312,10 +466,12 @@
     <tr>
         <td>{% trans "Liquide de refroidissement" %}</td>
         <td>
-            {% if entretien.refroidissement_liquide_etat == "AJOUTER" or entretien.refroidissement_liquide_etat == "REMPLACER" %}
-                <span class="etat etat-vert">{{ entretien.get_refroidissement_liquide_etat_display }}</span>
-            {% else %}
-                <span class="etat-normal">{{ entretien.get_refroidissement_liquide_etat_display }}</span>
+            {% if entretien.refroidissement_liquide_etat == "BON" %}
+                <span class="etat-gris">{{ entretien.get_refroidissement_liquide_etat_display }}</span>
+            {% elif entretien.refroidissement_liquide_etat == "AJOUTER" %}
+                <span class="etat-vert">{{ entretien.get_refroidissement_liquide_etat_display }}</span>
+            {% elif entretien.refroidissement_liquide_etat == "REMPLACER" %}
+                <span class="etat-bleu">{{ entretien.get_refroidissement_liquide_etat_display }}</span>
             {% endif %}
         </td>
         <td>{{ entretien.refroidissement_liquide_quantite }} L</td>
@@ -325,10 +481,12 @@
     <tr>
         <td>{% trans "Liquide de direction" %}</td>
         <td>
-            {% if entretien.liquide_direction_etat == "AJOUTER" or entretien.liquide_direction_etat == "REMPLACER" %}
-                <span class="etat etat-vert">{{ entretien.get_liquide_direction_etat_display }}</span>
-            {% else %}
-                <span class="etat-normal">{{ entretien.get_liquide_direction_etat_display }}</span>
+            {% if entretien.liquide_direction_etat == "BON" %}
+                <span class="etat-gris">{{ entretien.get_liquide_direction_etat_display }}</span>
+            {% elif entretien.liquide_direction_etat == "AJOUTER" %}
+                <span class="etat-vert">{{ entretien.get_liquide_direction_etat_display }}</span>
+            {% elif entretien.liquide_direction_etat == "REMPLACER" %}
+                <span class="etat-bleu">{{ entretien.get_liquide_direction_etat_display }}</span>
             {% endif %}
         </td>
         <td>{{ entretien.liquide_direction_quantite }} L</td>
@@ -336,7 +494,146 @@
     </tr>
 </table>
 
+<h2>{% trans "Phares" %}</h2>
+
+<table>
+    <tr>
+        <th>{% trans "Élément" %}</th>
+        <th>{% trans "État" %}</th>
+    </tr>
+
+    <tr>
+        <td>{% trans "Feux de route" %}</td>
+        <td>
+            {% if entretien.phares_avant == "OK" %}
+                <span class="etat-vert">{{ entretien.get_phares_avant_display }}</span>
+            {% elif entretien.phares_avant == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ entretien.get_phares_avant_display }}</span>
+            {% elif entretien.phares_avant == "REMPLACE" %}
+                <span class="etat-bleu">{{ entretien.get_phares_avant_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Grand phares" %}</td>
+        <td>
+            {% if entretien.phares_gros_phares == "OK" %}
+                <span class="etat-vert">{{ entretien.get_phares_gros_phares_display }}</span>
+            {% elif entretien.phares_gros_phares == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ entretien.get_phares_gros_phares_display }}</span>
+            {% elif entretien.phares_gros_phares == "REMPLACE" %}
+                <span class="etat-bleu">{{ entretien.get_phares_gros_phares_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Clignotants" %}</td>
+        <td>
+            {% if entretien.phares_clignotants == "OK" %}
+                <span class="etat-vert">{{ entretien.get_phares_clignotants_display }}</span>
+            {% elif entretien.phares_clignotants == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ entretien.get_phares_clignotants_display }}</span>
+            {% elif entretien.phares_clignotants == "REMPLACE" %}
+                <span class="etat-bleu">{{ entretien.get_phares_clignotants_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Feux de recul" %}</td>
+        <td>
+            {% if entretien.phares_recul == "OK" %}
+                <span class="etat-vert">{{ entretien.get_phares_recul_display }}</span>
+            {% elif entretien.phares_recul == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ entretien.get_phares_recul_display }}</span>
+            {% elif entretien.phares_recul == "REMPLACE" %}
+                <span class="etat-bleu">{{ entretien.get_phares_recul_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Phares anti-brouillard avant" %}</td>
+        <td>
+            {% if entretien.phares_anti_brouillard_avant == "OK" %}
+                <span class="etat-vert">{{ entretien.get_phares_anti_brouillard_avant_display }}</span>
+            {% elif entretien.phares_anti_brouillard_avant == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ entretien.get_phares_anti_brouillard_avant_display }}</span>
+            {% elif entretien.phares_anti_brouillard_avant == "REMPLACE" %}
+                <span class="etat-bleu">{{ entretien.get_phares_anti_brouillard_avant_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Phares anti-brouillard arrière" %}</td>
+        <td>
+            {% if entretien.phares_anti_brouillard_arriere == "OK" %}
+                <span class="etat-vert">{{ entretien.get_phares_anti_brouillard_arriere_display }}</span>
+            {% elif entretien.phares_anti_brouillard_arriere == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ entretien.get_phares_anti_brouillard_arriere_display }}</span>
+            {% elif entretien.phares_anti_brouillard_arriere == "REMPLACE" %}
+                <span class="etat-bleu">{{ entretien.get_phares_anti_brouillard_arriere_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Feux stop" %}</td>
+        <td>
+            {% if entretien.phares_feux_stops == "OK" %}
+                <span class="etat-vert">{{ entretien.get_phares_feux_stops_display }}</span>
+            {% elif entretien.phares_feux_stops == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ entretien.get_phares_feux_stops_display }}</span>
+            {% elif entretien.phares_feux_stops == "REMPLACE" %}
+                <span class="etat-bleu">{{ entretien.get_phares_feux_stops_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Troisième feux stop" %}</td>
+        <td>
+            {% if entretien.phares_troisieme_feux_stop == "OK" %}
+                <span class="etat-vert">{{ entretien.get_phares_troisieme_feux_stop_display }}</span>
+            {% elif entretien.phares_troisieme_feux_stop == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ entretien.get_phares_troisieme_feux_stop_display }}</span>
+            {% elif entretien.phares_troisieme_feux_stop == "REMPLACE" %}
+                <span class="etat-bleu">{{ entretien.get_phares_troisieme_feux_stop_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td>{% trans "Feux de position avant" %}</td>
+        <td>
+            {% if entretien.phares_feux_position_av == "OK" %}
+                <span class="etat-vert">{{ entretien.get_phares_feux_position_av_display }}</span>
+            {% elif entretien.phares_feux_position_av == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ entretien.get_phares_feux_position_av_display }}</span>
+            {% elif entretien.phares_feux_position_av == "REMPLACE" %}
+                <span class="etat-bleu">{{ entretien.get_phares_feux_position_av_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Feux de position arrière" %}</td>
+        <td>
+            {% if entretien.phares_feux_position_ar == "OK" %}
+                <span class="etat-vert">{{ entretien.get_phares_feux_position_ar_display }}</span>
+            {% elif entretien.phares_feux_position_ar == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ entretien.get_phares_feux_position_ar_display }}</span>
+            {% elif entretien.phares_feux_position_ar == "REMPLACE" %}
+                <span class="etat-bleu">{{ entretien.get_phares_feux_position_ar_display }}</span>
+            {% endif %}
+        </td>
+    </tr>
+</table>
+
 <h2>{% trans "Pression des pneus" %}</h2>
+
 <table>
     <tr><th>{% trans "Position" %}</th><th>{% trans "Pression" %}</th></tr>
     <tr><td>{% trans "Avant droit" %}</td><td>{{ entretien.pneu_pression_bar_avd }} bar</td></tr>
@@ -345,24 +642,33 @@
     <tr><td>{% trans "Arrière gauche" %}</td><td>{{ entretien.pneu_pression_bar_arg }} bar</td></tr>
 </table>
 
-<h2>{% trans "Serrages des roues" %}</h2>
+<h2>{% trans "Serrage des roues" %}</h2>
+
 <table>
     <tr>
-        <td>
-            {% if entretien.serrage_roues == "Fait" %}
-                <span class="etat etat-vert">
-                    {{ entretien.get_serrage_roues_display }}
-                </span>
-            {% else %}
-                <span class="etat etat-rouge">
-                    {{ entretien.get_serrage_roues_display }}
-                </span>
-            {% endif %}
-        </td>
+        <th>{% trans "Élément" %}</th>
+        <th>{% trans "État" %}</th>
     </tr>
+
+   <p>DEBUG serrage_roues = "{{ entretien.serrage_roues }}"</p>
+   <tr>
+    <td>{% trans "Serrage des roues" %}</td>
+    <td>
+        {% if entretien.serrage_roues == "A_FAIRE" %}
+            <span class="etat-rouge">{{ entretien.get_serrage_roues_display }}</span>
+        {% elif entretien.serrage_roues == "FAIT" %}
+            <span class="etat-vert">{{ entretien.get_serrage_roues_display }}</span>
+        {% else %}
+            <span class="etat-gris">
+                {{ entretien.get_serrage_roues_display|default:entretien.serrage_roues|default:"-" }}
+            </span>
+        {% endif %}
+    </td>
+</tr>
 </table>
 
 <h2>{% trans "Main d’œuvre" %}</h2>
+
 <div class="box">
     <p>
         <span class="label">{% trans "Temps de travail" %} :</span>
@@ -379,6 +685,7 @@
 </div>
 
 <h2>{% trans "Remarques" %}</h2>
+
 <div class="box">
     {{ entretien.remarques|default:_("Aucune remarque.")|linebreaks }}
 </div>
