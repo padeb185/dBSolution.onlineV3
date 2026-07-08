@@ -1,7 +1,7 @@
 from django.urls import path
 from maintenance.autres_interventions.courroie_accessoires.views import CourroieAccessoiresListView, \
     courroie_access_form_view, modifier_courroie_access_view, courroie_access_detail_view, rapport_courroie_access_view, \
-    CourroieAccessoiresRapportDetailView, courroie_access_detail_pdf_view
+  courroie_access_detail_pdf_view
 
 urlpatterns = [
     path(
@@ -34,11 +34,6 @@ urlpatterns = [
         name="rapport_courroie",
     ),
 
-    path(
-        "courroie_accessoires/<int:pk>/rapport/pdf/",
-        CourroieAccessoiresRapportDetailView.as_view(),
-        name="rapport_pdf_courroie",
-    ),
 
     path(
         "courroie_accessoires/<int:pk>/detail/pdf/",

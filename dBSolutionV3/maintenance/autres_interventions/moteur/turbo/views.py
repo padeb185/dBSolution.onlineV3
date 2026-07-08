@@ -356,6 +356,9 @@ def modifier_turbo_view(request, turbo_id):
         }
     )
 
+
+
+
 @login_required
 def turbo_detail_pdf_view(request, pk):
     turbo = get_object_or_404(Turbo, pk=pk)

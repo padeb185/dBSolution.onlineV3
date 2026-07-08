@@ -139,7 +139,7 @@
 
         <div>
             <span class="label">{% trans "Kilométrage contrôle courroie" %} :</span>
-            {{ courroie_accessoires.kilometrage_cour|default:"-" }} km
+            {{ courroie_accessoires.kilometrage_access|default:"-" }} km
         </div>
 
         <div>
@@ -209,13 +209,13 @@
             <tr>
                 <td>{% trans "Poulie damper" %}</td>
                 <td>
-                    {% if courroie_accessoires.poulie_dumper == "OK" %}
+                    {% if courroie_accessoires.poulie_damper == "OK" %}
                         <span class="ok">
-                            {{ courroie_accessoires.get_poulie_dumper_display }}
+                            {{ courroie_accessoires.get_poulie_damper_display }}
                         </span>
                     {% else %}
                         <span class="not-ok">
-                            {{ courroie_accessoires.get_poulie_dumper_display }}
+                            {{ courroie_accessoires.get_poulie_damper_display }}
                         </span>
                     {% endif %}
                 </td>
@@ -258,7 +258,6 @@
             </thead>
 
             <tbody>
-
                 {% for ligne in rapport.lignes %}
                     <tr>
                         <td>{{ ligne.champ }}</td>
@@ -272,11 +271,8 @@
                     <td colspan="3" class="text-right">
                         {% trans "Total général" %}
                     </td>
-                    <td>
-                        {{ rapport.total_general|floatformat:2 }} €
-                    </td>
+                    <td>{{ rapport.total_general|floatformat:2 }} €</td>
                 </tr>
-
             </tbody>
         </table>
 
@@ -288,10 +284,15 @@
 
 </div>
 
+
+<!-- ================= REMARQUES ================= -->
+
 <h2>{% trans "Remarques" %}</h2>
 
 <div class="box">
+
     {{ courroie_accessoires.remarques|default:_("Aucune remarque.")|linebreaks }}
+
 </div>
 
 </body>

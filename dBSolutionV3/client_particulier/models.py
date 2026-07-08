@@ -63,6 +63,13 @@ class ClientParticulier(models.Model):
         blank=True
     )
 
+    numero_registre_national = models.CharField(
+        _("Numéro de registre national"),
+        max_length=50,
+        null=True,
+        blank=True
+    )
+
     numero_compte = models.CharField(
         _("Numéro de compte bancaire"),
         max_length=34,

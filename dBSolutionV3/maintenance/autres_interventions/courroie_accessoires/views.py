@@ -413,31 +413,6 @@ def rapport_courroie_access_view(request, pk):
 
 
 
-class CourroieAccessoiresRapportDetailView(DetailView):
-    model = CourroieAccessoires
-    template_name = "courroie_access/rapport_pdf_courroie.html"
-    context_object_name = "obj"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        obj = self.object
-
-        rapport = obj.generer_rapport_remplacement()
-
-        if not rapport:
-            rapport = {"lignes": [], "total_general": Decimal("0")}
-
-        # 🔥 AJOUT DU TAUX TVA DANS CHAQUE LIGNE
-        taux_tva = obj.TVA_PIECES.get(obj.pays, 0)
-
-        for ligne in rapport["lignes"]:
-            ligne["taux_tva"] = taux_tva
-
-        context["rapport"] = rapport
-
-        return context
-
 
 
 

@@ -45,6 +45,7 @@ class ClientParticulierForm(forms.ModelForm):
 
     numero_telephone = forms.CharField(required=False)
     numero_carte_id = forms.CharField(required=False)
+    numero_registre_national = forms.CharField(required=False)
 
     numero_compte = forms.CharField(
         required=False,
@@ -142,6 +143,7 @@ class ClientParticulierForm(forms.ModelForm):
             "numero_telephone",
             "numero_permis",
             "numero_carte_id",
+            "numero_registre_national",
             "numero_compte",
             "numero_carte_bancaire",
             "email",

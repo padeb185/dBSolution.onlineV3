@@ -94,9 +94,9 @@ class CourroieAccessoires(TechnicienMixin, models.Model):
     galet_tendeur_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
     # Courroie
-    poulie_dumper = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Poulie Damper"))
-    poulie_dumper_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva de la poulie"))
-    poulie_dumper_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    poulie_damper = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Poulie Damper"))
+    poulie_damper_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva de la poulie"))
+    poulie_damper_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
     remarques = models.TextField(
         verbose_name=_("Remarques"),
@@ -241,28 +241,27 @@ class CourroieAccessoires(TechnicienMixin, models.Model):
         rapport = []
         total_general = Decimal("0")
 
-        pieces = [
-            ("courroie_d'acessoires", "Courroie d'accessoires"),
-            ("Galet tendeur", "Galet tendeur"),
-            ("Poulie dumper", "Poulie Dumper"),
-        ]
+        for field in self._meta.fields:
+            field_name = field.name
 
-        for prefix, label in pieces:
-            etat = getattr(self, prefix, None)
+            # On ne garde que les champs état
+            if isinstance(field, models.CharField) and field.choices == EtatOKNotOK.choices:
+                valeur = getattr(self, field_name)
 
-            if etat == EtatOKNotOK.NOT_OK:
-                prix = getattr(self, f"{prefix}_prix", Decimal("0")) or Decimal("0")
-                quantite = getattr(self, f"{prefix}_quantite", 0) or 0
+                if valeur == EtatOKNotOK.NOT_OK:
+                    prix = getattr(self, f"{field_name}_prix", Decimal("0"))
+                    quantite = getattr(self, f"{field_name}_quantite", 0)
 
-                total = prix * Decimal(str(quantite))
-                total_general += total
+                    total = prix * quantite
+                    total_general += total
 
-                rapport.append({
-                    "champ": label,
-                    "quantite": quantite,
-                    "prix": prix,
-                    "total": total,
-                })
+                    rapport.append({
+                        "champ": field.verbose_name,
+                        "code": field_name,
+                        "prix": prix,
+                        "quantite": quantite,
+                        "total": total,
+                    })
 
         return {
             "lignes": rapport,
@@ -302,3 +301,7 @@ class CourroieAccessoires(TechnicienMixin, models.Model):
 
         # 🔁 copie locale
         self.kilometres_chassis = km
+
+
+
+   

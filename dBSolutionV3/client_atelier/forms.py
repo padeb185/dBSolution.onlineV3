@@ -20,7 +20,10 @@ class ClientAtelierForm(forms.ModelForm):
         widget=forms.TextInput(attrs={"class": "border rounded px-4 py-2 w-full"})
     )
 
-    email = forms.EmailField(required=False)
+    email = forms.EmailField(required=False,
+                             label=_("Email"),
+                             widget=forms.TextInput(attrs={"class": "border rounded px-4 py-2 w-full"})
+                             )
 
     numero_telephone = forms.CharField(
         required=False,
@@ -30,6 +33,11 @@ class ClientAtelierForm(forms.ModelForm):
     numero_carte_id = forms.CharField(
         required=False,
         label = _("Numéro de carte bancaire"),
+        widget = forms.TextInput(attrs={"class": "border rounded px-4 py-2 w-full"})
+        )
+
+    numero_registre_national = forms.CharField(required=False,
+        label = _("Numéro de registre national"),
         widget = forms.TextInput(attrs={"class": "border rounded px-4 py-2 w-full"})
         )
 
@@ -130,6 +138,7 @@ class ClientAtelierForm(forms.ModelForm):
             "societe_cliente",
             "numero_telephone",
             "numero_carte_id",
+            "numero_registre_national",
             "numero_compte",
             "numero_carte_bancaire",
             "email",
@@ -143,6 +152,7 @@ class ClientAtelierForm(forms.ModelForm):
             "societe_cliente": _("Société cliente"),
             "numero_telephone": _("Téléphone"),
             "numero_carte_id": _("Carte d'identité"),
+            "numero_registre_national": _("Numéro de registre national"),
             "numero_compte": _("Compte bancaire"),
             "numero_carte_bancaire": _("Carte bancaire"),
             "email": _("Email"),
