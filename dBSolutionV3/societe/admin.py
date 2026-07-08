@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.db import connection
+
 from .models import Societe
 from .admin_forms import SocieteAdminForm
 
@@ -7,11 +8,64 @@ from .admin_forms import SocieteAdminForm
 @admin.register(Societe)
 class SocieteAdmin(admin.ModelAdmin):
     form = SocieteAdminForm
-    list_display = ("nom", "directeur", "numero_tva", "site")
-    search_fields = ("nom", "directeur", "numero_tva")
-    ordering = ("nom",)
-    readonly_fields = ("id_societe",)
 
+    list_display = (
+        "nom",
+        "directeur",
+        "numero_tva",
+        "site",
+        "schema_name",
+        "max_utilisateurs",
+        "nombre_utilisateurs",
+        "paid_until",
+        "on_trial",
+    )
+
+    list_editable = (
+        "max_utilisateurs",
+    )
+
+    search_fields = (
+        "nom",
+        "directeur",
+        "numero_tva",
+        "schema_name",
+    )
+
+    ordering = ("nom",)
+
+    readonly_fields = (
+        "id_societe",
+        "nombre_utilisateurs",
+    )
+
+    fieldsets = (
+        ("Informations société", {
+            "fields": (
+                "id_societe",
+                "nom",
+                "directeur",
+                "numero_tva",
+                "site",
+            )
+        }),
+        ("Tenant", {
+            "fields": (
+                "schema_name",
+                "max_utilisateurs",
+                "nombre_utilisateurs",
+                "paid_until",
+                "on_trial",
+            )
+        }),
+    )
+
+    def nombre_utilisateurs(self, obj):
+        if not obj.pk:
+            return 0
+        return obj.utilisateurs.count()
+
+    nombre_utilisateurs.short_description = "Utilisateurs"
 
     def has_module_permission(self, request):
         return connection.schema_name == "public"

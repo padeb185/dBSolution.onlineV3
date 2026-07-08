@@ -75,3 +75,29 @@ class UtilisateurCreationForm(forms.ModelForm):
                 "placeholder": "Mot de passe"
             }),
         }
+
+
+
+from django import forms
+
+from .models import PaieUtilisateur, Utilisateur
+
+
+class PaieUtilisateurForm(forms.ModelForm):
+
+    class Meta:
+        model = PaieUtilisateur
+        fields = "__all__"
+
+    def __init__(self, *args, **kwargs):
+        societe = kwargs.pop("societe", None)
+
+        super().__init__(*args, **kwargs)
+
+        if societe:
+            self.fields["utilisateur"].queryset = (
+                Utilisateur.objects.filter(
+                    societe=societe,
+                    is_active=True
+                ).order_by("nom", "prenom")
+            )

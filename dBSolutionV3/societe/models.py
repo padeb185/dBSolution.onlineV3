@@ -2,11 +2,7 @@ from django.db import models
 import uuid
 from django.utils.text import slugify
 from django_tenants.models import TenantMixin, DomainMixin
-
-from django.db import models
-import uuid
-from django.utils.text import slugify
-from django_tenants.models import TenantMixin, DomainMixin
+from django.utils.translation import gettext_lazy as _
 
 
 class Societe(TenantMixin):
@@ -37,6 +33,12 @@ class Societe(TenantMixin):
     nom = models.CharField(max_length=100, unique=True)
     directeur = models.CharField(max_length=100)
     numero_tva = models.CharField(max_length=20, unique=True)
+
+    max_utilisateurs = models.PositiveIntegerField(
+        default=3,
+        verbose_name=_("Nombre maximum d'utilisateurs")
+    )
+
     site = models.URLField(max_length=200, blank=True, null=True)
 
     class Meta:

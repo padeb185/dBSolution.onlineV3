@@ -4,6 +4,7 @@ import uuid
 from io import BytesIO
 import pyotp
 import qrcode
+from client_atelier.models import validate_iban
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
@@ -11,6 +12,9 @@ from rest_framework.exceptions import ValidationError
 from adresse.models import Adresse
 from societe.models import Societe
 from django.utils.translation import gettext_lazy as _
+from django.core.exceptions import ValidationError as DjangoValidationError
+
+
 
 
 class UtilisateurManager(BaseUserManager):
@@ -116,6 +120,8 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
     nom = models.CharField(max_length=100)
     prenom = models.CharField(max_length=100)
     date_naissance = models.DateField(null=True, blank=True)
+    numero_registre_national = models.CharField(max_length=100, blank=True, null=True)
+    numero_compte_bancaire = models.CharField(max_length=100, blank=True, null=True, validators=[validate_iban])
 
     email = models.EmailField(unique=True, blank=True, null=True)
     email_entreprise = models.EmailField(unique=True, blank=True, null=True)
@@ -124,17 +130,6 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
 
     schema_name = models.CharField(max_length=100, blank=True, null=True)
 
-    salaire_brut_heure = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    salaire_brut_employeur = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    nombre_jours_preste = models.PositiveIntegerField(default=0, blank=True, null=True)
-    nombre_heures_preste = models.PositiveIntegerField(default=0, blank=True, null=True)
-    taux_charges_patronales = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
-    salaire_majore = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    taux_precompte_professionnel = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
-    taux_onss = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
-    salaire_net_mois = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    conges_payes = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    salaire_total = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
 
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -200,8 +195,39 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
         qr_base64 = base64.b64encode(buffer.getvalue()).decode()
         return qr_base64
 
+    def clean(self):
+        super().clean()
+
+        if not self.societe:
+            return
+
+        max_users = self.societe.max_utilisateurs
+
+        if max_users is None:
+            return
+
+        utilisateurs_existants = Utilisateur.objects.filter(
+            societe=self.societe
+        )
+
+        if self.pk:
+            utilisateurs_existants = utilisateurs_existants.exclude(pk=self.pk)
+
+        if utilisateurs_existants.count() >= max_users:
+            raise DjangoValidationError({
+                "societe": _(
+                    "La limite maximale d'utilisateurs pour cette société est atteinte."
+                )
+            })
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
+
+
     def __str__(self):
         return f"{self.prenom} {self.nom}"
+
 
 
 
@@ -233,3 +259,107 @@ class UserLog(models.Model):
 
     class Meta:
         ordering = ["-date_action"]
+
+
+
+
+class PaieUtilisateur(models.Model):
+    utilisateur = models.ForeignKey(
+        Utilisateur,
+        on_delete=models.CASCADE,
+        related_name="paies",
+        verbose_name=_("Utilisateur")
+    )
+
+    mois = models.PositiveSmallIntegerField(
+        verbose_name=_("Mois")
+    )
+
+    annee = models.PositiveIntegerField(
+        verbose_name=_("Année")
+    )
+
+    salaire_brut_heure = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        blank=True,
+        null=True,
+        verbose_name=_("Salaire brut / heure")
+    )
+
+    salaire_brut_employeur = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        blank=True,
+        null=True,
+        verbose_name=_("Salaire brut employeur")
+    )
+
+    nombre_jours_preste = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Nombre de jours prestés")
+    )
+
+    nombre_heures_preste = models.DecimalField(
+        max_digits=8,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Nombre d'heures prestées")
+    )
+
+    taux_charges_patronales = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        blank=True,
+        null=True,
+        verbose_name=_("Taux charges patronales")
+    )
+
+    taux_precompte_professionnel = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        blank=True,
+        null=True,
+        verbose_name=_("Taux précompte professionnel")
+    )
+
+    taux_onss = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        blank=True,
+        null=True,
+        verbose_name=_("Taux ONSS")
+    )
+
+    salaire_net_mois = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        blank=True,
+        null=True,
+        verbose_name=_("Salaire net du mois")
+    )
+
+    conges_payes = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        blank=True,
+        null=True,
+        verbose_name=_("Congés payés")
+    )
+
+    salaire_total = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        blank=True,
+        null=True,
+        verbose_name=_("Salaire total")
+    )
+
+    class Meta:
+        unique_together = ("utilisateur", "mois", "annee")
+        ordering = ["-annee", "-mois"]
+        verbose_name = _("Paie utilisateur")
+        verbose_name_plural = _("Paies utilisateurs")
+
+    def __str__(self):
+        return f"{self.utilisateur} - {self.mois}/{self.annee}"

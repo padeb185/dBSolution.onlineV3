@@ -495,3 +495,64 @@ def log_deconnexion(sender, request, user, **kwargs):
             utilisateur=user,
             action="Déconnexion"
         )
+
+
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, redirect, render
+from django.contrib import messages
+from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
+
+from .models import Utilisateur, PaieUtilisateur
+from .forms import PaieUtilisateurForm
+
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
+
+from .forms import PaieUtilisateurForm
+
+
+@login_required
+def creer_paie_utilisateur(request):
+    if request.method == "POST":
+        form = PaieUtilisateurForm(
+            request.POST,
+            societe=request.user.societe
+        )
+
+        if form.is_valid():
+            form.save()
+
+            messages.success(
+                request,
+                _("La paie mensuelle a été enregistrée avec succès.")
+            )
+
+            return redirect("utilisateurs:dashboard")
+
+    else:
+        form = PaieUtilisateurForm(
+            societe=request.user.societe,
+            initial={
+                "mois": timezone.now().month,
+                "annee": timezone.now().year,
+            }
+        )
+
+    return render(
+        request,
+        "utilisateurs/creer_paie_utilisateur.html",
+        {
+            "form": form,
+            "now": timezone.now(),
+        }
+    )
+
+    return render(request, "utilisateurs/creer_paie.html", {
+        "form": form,
+        "utilisateur": utilisateur,
+        "now": timezone.now(),
+    })

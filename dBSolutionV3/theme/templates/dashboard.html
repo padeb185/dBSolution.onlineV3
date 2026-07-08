@@ -394,6 +394,19 @@
             <img src="{% static 'icons/equipe.png' %}" alt="Utilisateur" style="width:60px; height:60px; margin-right:10px;">
         </a>
 
+
+         <a href="{% url 'utilisateurs:creer_paie_utilisateur' %}"
+                   class="flex justify-between items-center bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+                    <!-- Texte à gauche -->
+            <div>
+                <h2 class="text-lg font-semibold mb-2">{% trans "Créer une paie mensuelle" %}</h2>
+
+            </div>
+
+            <!-- Icône à droite -->
+            <img src="{% static 'icons/equipe.png' %}" alt="Completer Utilisateur" style="width:60px; height:60px; margin-right:10px;">
+        </a>
+
     </div>
 
 {% endif %}
