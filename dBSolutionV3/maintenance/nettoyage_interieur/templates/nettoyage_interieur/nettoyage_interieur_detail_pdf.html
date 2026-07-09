@@ -43,13 +43,17 @@
             font-weight: bold;
         }
 
-        .tag {
+        .tag,
+        .etat-vert,
+        .etat-rouge,
+        .etat-bleu {
             padding: 2px 8px;
             border-radius: 4px;
             font-weight: bold;
         }
 
-        .tag-vert {
+        .tag-vert,
+        .etat-vert {
             background: #d1fae5;
             color: #065f46;
         }
@@ -59,9 +63,15 @@
             color: #92400e;
         }
 
-        .tag-rouge {
+        .tag-rouge,
+        .etat-rouge {
             background: #fee2e2;
             color: #991b1b;
+        }
+
+        .etat-bleu {
+            background: #dbeafe;
+            color: #1e40af;
         }
 
         table {
@@ -133,7 +143,6 @@
 
         <div>
             <span class="label">{% trans "Tag" %} :</span>
-
             {% if nettoyage.tag == "VERT" %}
                 <span class="tag tag-vert">{{ nettoyage.get_tag_display }}</span>
             {% elif nettoyage.tag == "JAUNE" %}
@@ -159,37 +168,121 @@
     <tbody>
         <tr>
             <td>{% trans "Vitres" %}</td>
-            <td>{{ nettoyage.get_nettoyage_interieur_vitres_display }}</td>
+            <td>
+                {% if nettoyage.nettoyage_interieur_vitres == "A_FAIRE" %}
+                    <span class="etat-rouge">{{ nettoyage.get_nettoyage_interieur_vitres_display }}</span>
+                {% elif nettoyage.nettoyage_interieur_vitres == "FAIT" %}
+                    <span class="etat-vert">{{ nettoyage.get_nettoyage_interieur_vitres_display }}</span>
+                {% elif nettoyage.nettoyage_interieur_vitres == "REPORTER" %}
+                    <span class="etat-bleu">{{ nettoyage.get_nettoyage_interieur_vitres_display }}</span>
+                {% elif nettoyage.nettoyage_interieur_vitres == "PROPRE" %}
+                    <span class="etat-vert">{{ nettoyage.get_nettoyage_interieur_vitres_display }}</span>
+                {% else %}
+                    {{ nettoyage.get_nettoyage_interieur_vitres_display|default:"-" }}
+                {% endif %}
+            </td>
         </tr>
 
         <tr>
             <td>{% trans "Pare-brise" %}</td>
-            <td>{{ nettoyage.get_nettoyage_interieur_pare_brise_display }}</td>
+            <td>
+                {% if nettoyage.nettoyage_interieur_pare_brise == "A_FAIRE" %}
+                    <span class="etat-rouge">{{ nettoyage.get_nettoyage_interieur_pare_brise_display }}</span>
+                {% elif nettoyage.nettoyage_interieur_pare_brise == "FAIT" %}
+                    <span class="etat-vert">{{ nettoyage.get_nettoyage_interieur_pare_brise_display }}</span>
+                {% elif nettoyage.nettoyage_interieur_pare_brise == "REPORTER" %}
+                    <span class="etat-bleu">{{ nettoyage.get_nettoyage_interieur_pare_brise_display }}</span>
+                {% elif nettoyage.nettoyage_interieur_pare_brise == "PROPRE" %}
+                    <span class="etat-vert">{{ nettoyage.get_nettoyage_interieur_pare_brise_display }}</span>
+                {% else %}
+                    {{ nettoyage.get_nettoyage_interieur_pare_brise_display|default:"-" }}
+                {% endif %}
+            </td>
         </tr>
 
         <tr>
             <td>{% trans "Aspirateur" %}</td>
-            <td>{{ nettoyage.get_nettoyage_interieur_aspirateur_display }}</td>
+            <td>
+                {% if nettoyage.nettoyage_interieur_aspirateur == "A_FAIRE" %}
+                    <span class="etat-rouge">{{ nettoyage.get_nettoyage_interieur_aspirateur_display }}</span>
+                {% elif nettoyage.nettoyage_interieur_aspirateur == "FAIT" %}
+                    <span class="etat-vert">{{ nettoyage.get_nettoyage_interieur_aspirateur_display }}</span>
+                {% elif nettoyage.nettoyage_interieur_aspirateur == "REPORTER" %}
+                    <span class="etat-bleu">{{ nettoyage.get_nettoyage_interieur_aspirateur_display }}</span>
+                {% elif nettoyage.nettoyage_interieur_aspirateur == "PROPRE" %}
+                    <span class="etat-vert">{{ nettoyage.get_nettoyage_interieur_aspirateur_display }}</span>
+                {% else %}
+                    {{ nettoyage.get_nettoyage_interieur_aspirateur_display|default:"-" }}
+                {% endif %}
+            </td>
         </tr>
 
         <tr>
             <td>{% trans "Ouvrants de portes" %}</td>
-            <td>{{ nettoyage.get_nettoyage_interieur_interieur_portes_display }}</td>
+            <td>
+                {% if nettoyage.nettoyage_interieur_interieur_portes == "A_FAIRE" %}
+                    <span class="etat-rouge">{{ nettoyage.get_nettoyage_interieur_interieur_portes_display }}</span>
+                {% elif nettoyage.nettoyage_interieur_interieur_portes == "FAIT" %}
+                    <span class="etat-vert">{{ nettoyage.get_nettoyage_interieur_interieur_portes_display }}</span>
+                {% elif nettoyage.nettoyage_interieur_interieur_portes == "REPORTER" %}
+                    <span class="etat-bleu">{{ nettoyage.get_nettoyage_interieur_interieur_portes_display }}</span>
+                {% elif nettoyage.nettoyage_interieur_interieur_portes == "PROPRE" %}
+                    <span class="etat-vert">{{ nettoyage.get_nettoyage_interieur_interieur_portes_display }}</span>
+                {% else %}
+                    {{ nettoyage.get_nettoyage_interieur_interieur_portes_display|default:"-" }}
+                {% endif %}
+            </td>
         </tr>
 
         <tr>
             <td>{% trans "Tableau de bord" %}</td>
-            <td>{{ nettoyage.get_nettoyage_interieur_tableau_de_bord_display }}</td>
+            <td>
+                {% if nettoyage.nettoyage_interieur_tableau_de_bord == "A_FAIRE" %}
+                    <span class="etat-rouge">{{ nettoyage.get_nettoyage_interieur_tableau_de_bord_display }}</span>
+                {% elif nettoyage.nettoyage_interieur_tableau_de_bord == "FAIT" %}
+                    <span class="etat-vert">{{ nettoyage.get_nettoyage_interieur_tableau_de_bord_display }}</span>
+                {% elif nettoyage.nettoyage_interieur_tableau_de_bord == "REPORTER" %}
+                    <span class="etat-bleu">{{ nettoyage.get_nettoyage_interieur_tableau_de_bord_display }}</span>
+                {% elif nettoyage.nettoyage_interieur_tableau_de_bord == "PROPRE" %}
+                    <span class="etat-vert">{{ nettoyage.get_nettoyage_interieur_tableau_de_bord_display }}</span>
+                {% else %}
+                    {{ nettoyage.get_nettoyage_interieur_tableau_de_bord_display|default:"-" }}
+                {% endif %}
+            </td>
         </tr>
 
         <tr>
             <td>{% trans "Plastiques" %}</td>
-            <td>{{ nettoyage.get_nettoyage_interieur_plastiques_display }}</td>
+            <td>
+                {% if nettoyage.nettoyage_interieur_plastiques == "A_FAIRE" %}
+                    <span class="etat-rouge">{{ nettoyage.get_nettoyage_interieur_plastiques_display }}</span>
+                {% elif nettoyage.nettoyage_interieur_plastiques == "FAIT" %}
+                    <span class="etat-vert">{{ nettoyage.get_nettoyage_interieur_plastiques_display }}</span>
+                {% elif nettoyage.nettoyage_interieur_plastiques == "REPORTER" %}
+                    <span class="etat-bleu">{{ nettoyage.get_nettoyage_interieur_plastiques_display }}</span>
+                {% elif nettoyage.nettoyage_interieur_plastiques == "PROPRE" %}
+                    <span class="etat-vert">{{ nettoyage.get_nettoyage_interieur_plastiques_display }}</span>
+                {% else %}
+                    {{ nettoyage.get_nettoyage_interieur_plastiques_display|default:"-" }}
+                {% endif %}
+            </td>
         </tr>
 
         <tr>
             <td>{% trans "Console centrale" %}</td>
-            <td>{{ nettoyage.get_nettoyage_interieur_console_display }}</td>
+            <td>
+                {% if nettoyage.nettoyage_interieur_console == "A_FAIRE" %}
+                    <span class="etat-rouge">{{ nettoyage.get_nettoyage_interieur_console_display }}</span>
+                {% elif nettoyage.nettoyage_interieur_console == "FAIT" %}
+                    <span class="etat-vert">{{ nettoyage.get_nettoyage_interieur_console_display }}</span>
+                {% elif nettoyage.nettoyage_interieur_console == "REPORTER" %}
+                    <span class="etat-bleu">{{ nettoyage.get_nettoyage_interieur_console_display }}</span>
+                {% elif nettoyage.nettoyage_interieur_console == "PROPRE" %}
+                    <span class="etat-vert">{{ nettoyage.get_nettoyage_interieur_console_display }}</span>
+                {% else %}
+                    {{ nettoyage.get_nettoyage_interieur_console_display|default:"-" }}
+                {% endif %}
+            </td>
         </tr>
     </tbody>
 </table>

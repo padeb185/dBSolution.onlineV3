@@ -43,13 +43,17 @@
             font-weight: bold;
         }
 
-        .tag {
+        .tag,
+        .etat-vert,
+        .etat-rouge,
+        .etat-bleu {
             padding: 2px 8px;
             border-radius: 4px;
             font-weight: bold;
         }
 
-        .tag-vert {
+        .tag-vert,
+        .etat-vert {
             background: #d1fae5;
             color: #065f46;
         }
@@ -59,9 +63,15 @@
             color: #92400e;
         }
 
-        .tag-rouge {
+        .tag-rouge,
+        .etat-rouge {
             background: #fee2e2;
             color: #991b1b;
+        }
+
+        .etat-bleu {
+            background: #dbeafe;
+            color: #1e40af;
         }
 
         table {
@@ -132,7 +142,6 @@
 
         <div>
             <span class="label">{% trans "Tag" %} :</span>
-
             {% if nettoyage.tag == "VERT" %}
                 <span class="tag tag-vert">{{ nettoyage.get_tag_display }}</span>
             {% elif nettoyage.tag == "JAUNE" %}
@@ -153,25 +162,74 @@
             <th>{% trans "État" %}</th>
         </tr>
     </thead>
+
     <tbody>
         <tr>
             <td>{% trans "Traces de gomme" %}</td>
-            <td>{{ nettoyage.get_nettoyage_exterieur_traces_gomme_display }}</td>
+            <td>
+                {% if nettoyage.nettoyage_exterieur_traces_gomme == "A_FAIRE" %}
+                    <span class="etat-rouge">{{ nettoyage.get_nettoyage_exterieur_traces_gomme_display }}</span>
+                {% elif nettoyage.nettoyage_exterieur_traces_gomme == "FAIT" %}
+                    <span class="etat-vert">{{ nettoyage.get_nettoyage_exterieur_traces_gomme_display }}</span>
+                {% elif nettoyage.nettoyage_exterieur_traces_gomme == "REPORTER" %}
+                    <span class="etat-bleu">{{ nettoyage.get_nettoyage_exterieur_traces_gomme_display }}</span>
+                {% elif nettoyage.nettoyage_exterieur_traces_gomme == "PROPRE" %}
+                    <span class="etat-vert">{{ nettoyage.get_nettoyage_exterieur_traces_gomme_display }}</span>
+                {% else %}
+                    {{ nettoyage.get_nettoyage_exterieur_traces_gomme_display|default:"-" }}
+                {% endif %}
+            </td>
         </tr>
 
         <tr>
             <td>{% trans "Carrosserie" %}</td>
-            <td>{{ nettoyage.get_nettoyage_exterieur_carrosserie_display }}</td>
+            <td>
+                {% if nettoyage.nettoyage_exterieur_carrosserie == "A_FAIRE" %}
+                    <span class="etat-rouge">{{ nettoyage.get_nettoyage_exterieur_carrosserie_display }}</span>
+                {% elif nettoyage.nettoyage_exterieur_carrosserie == "FAIT" %}
+                    <span class="etat-vert">{{ nettoyage.get_nettoyage_exterieur_carrosserie_display }}</span>
+                {% elif nettoyage.nettoyage_exterieur_carrosserie == "REPORTER" %}
+                    <span class="etat-bleu">{{ nettoyage.get_nettoyage_exterieur_carrosserie_display }}</span>
+                {% elif nettoyage.nettoyage_exterieur_carrosserie == "PROPRE" %}
+                    <span class="etat-vert">{{ nettoyage.get_nettoyage_exterieur_carrosserie_display }}</span>
+                {% else %}
+                    {{ nettoyage.get_nettoyage_exterieur_carrosserie_display|default:"-" }}
+                {% endif %}
+            </td>
         </tr>
 
         <tr>
             <td>{% trans "Jantes" %}</td>
-            <td>{{ nettoyage.get_nettoyage_exterieur_jantes_display }}</td>
+            <td>
+                {% if nettoyage.nettoyage_exterieur_jantes == "A_FAIRE" %}
+                    <span class="etat-rouge">{{ nettoyage.get_nettoyage_exterieur_jantes_display }}</span>
+                {% elif nettoyage.nettoyage_exterieur_jantes == "FAIT" %}
+                    <span class="etat-vert">{{ nettoyage.get_nettoyage_exterieur_jantes_display }}</span>
+                {% elif nettoyage.nettoyage_exterieur_jantes == "REPORTER" %}
+                    <span class="etat-bleu">{{ nettoyage.get_nettoyage_exterieur_jantes_display }}</span>
+                {% elif nettoyage.nettoyage_exterieur_jantes == "PROPRE" %}
+                    <span class="etat-vert">{{ nettoyage.get_nettoyage_exterieur_jantes_display }}</span>
+                {% else %}
+                    {{ nettoyage.get_nettoyage_exterieur_jantes_display|default:"-" }}
+                {% endif %}
+            </td>
         </tr>
 
         <tr>
             <td>{% trans "Séchage" %}</td>
-            <td>{{ nettoyage.get_nettoyage_exterieur_sechage_display }}</td>
+            <td>
+                {% if nettoyage.nettoyage_exterieur_sechage == "A_FAIRE" %}
+                    <span class="etat-rouge">{{ nettoyage.get_nettoyage_exterieur_sechage_display }}</span>
+                {% elif nettoyage.nettoyage_exterieur_sechage == "FAIT" %}
+                    <span class="etat-vert">{{ nettoyage.get_nettoyage_exterieur_sechage_display }}</span>
+                {% elif nettoyage.nettoyage_exterieur_sechage == "REPORTER" %}
+                    <span class="etat-bleu">{{ nettoyage.get_nettoyage_exterieur_sechage_display }}</span>
+                {% elif nettoyage.nettoyage_exterieur_sechage == "PROPRE" %}
+                    <span class="etat-vert">{{ nettoyage.get_nettoyage_exterieur_sechage_display }}</span>
+                {% else %}
+                    {{ nettoyage.get_nettoyage_exterieur_sechage_display|default:"-" }}
+                {% endif %}
+            </td>
         </tr>
     </tbody>
 </table>

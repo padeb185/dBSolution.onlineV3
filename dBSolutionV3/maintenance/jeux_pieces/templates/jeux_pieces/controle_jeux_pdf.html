@@ -41,26 +41,12 @@
             background: #eee;
         }
 
-        .ok {
-            color: green;
-            font-weight: bold;
-        }
-
-        .replace {
-            color: red;
-            font-weight: bold;
-        }
-
-        .warning {
-            color: orange;
-            font-weight: bold;
-        }
-
         .box {
             border: 1px solid #ccc;
             padding: 8px;
             margin-bottom: 10px;
         }
+
         .grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -90,6 +76,30 @@
         .tag-rouge {
             background: #fee2e2;
             color: #991b1b;
+        }
+
+        .etat-vert {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-rouge {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-bleu {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
         }
 
         .small {
@@ -143,22 +153,12 @@
 
         <div>
             <span class="label">{% trans "Tag" %} :</span>
-
             {% if controle.tag == "VERT" %}
-                <span class="tag tag-vert">
-                    {{ controle.get_tag_display }}
-                </span>
-
+                <span class="tag tag-vert">{{ controle.get_tag_display }}</span>
             {% elif controle.tag == "JAUNE" %}
-                <span class="tag tag-jaune">
-                    {{ controle.get_tag_display }}
-                </span>
-
+                <span class="tag tag-jaune">{{ controle.get_tag_display }}</span>
             {% else %}
-                <span class="tag tag-rouge">
-                    {{ controle.get_tag_display }}
-                </span>
-
+                <span class="tag tag-rouge">{{ controle.get_tag_display }}</span>
             {% endif %}
         </div>
 
@@ -172,82 +172,579 @@
         <th>{% trans "Pièce" %}</th>
         <th>{% trans "État" %}</th>
     </tr>
-    <tr><td>{% trans "Avant droite" %}</td><td>{{ controle.get_jeu_rotule_direction_avd_display }}</td></tr>
-    <tr><td>{% trans "Avant gauche" %}</td><td>{{ controle.get_jeu_rotule_direction_avg_display }}</td></tr>
-    <tr><td>{% trans "Arrière droite" %}</td><td>{{ controle.get_jeu_rotule_direction_ard_display }}</td></tr>
-    <tr><td>{% trans "Arrière gauche" %}</td><td>{{ controle.get_jeu_rotule_direction_arg_display }}</td></tr>
+
+    <tr>
+        <td>{% trans "Avant droite" %}</td>
+        <td>
+            {% if controle.jeu_rotule_direction_avd == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_rotule_direction_avd_display }}</span>
+            {% elif controle.jeu_rotule_direction_avd == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_rotule_direction_avd_display }}</span>
+            {% elif controle.jeu_rotule_direction_avd == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_rotule_direction_avd_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_rotule_direction_avd_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Avant gauche" %}</td>
+        <td>
+            {% if controle.jeu_rotule_direction_avg == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_rotule_direction_avg_display }}</span>
+            {% elif controle.jeu_rotule_direction_avg == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_rotule_direction_avg_display }}</span>
+            {% elif controle.jeu_rotule_direction_avg == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_rotule_direction_avg_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_rotule_direction_avg_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Arrière droite" %}</td>
+        <td>
+            {% if controle.jeu_rotule_direction_ard == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_rotule_direction_ard_display }}</span>
+            {% elif controle.jeu_rotule_direction_ard == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_rotule_direction_ard_display }}</span>
+            {% elif controle.jeu_rotule_direction_ard == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_rotule_direction_ard_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_rotule_direction_ard_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Arrière gauche" %}</td>
+        <td>
+            {% if controle.jeu_rotule_direction_arg == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_rotule_direction_arg_display }}</span>
+            {% elif controle.jeu_rotule_direction_arg == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_rotule_direction_arg_display }}</span>
+            {% elif controle.jeu_rotule_direction_arg == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_rotule_direction_arg_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_rotule_direction_arg_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
 </table>
 
 <h2>{% trans "Rotules de suspension inférieures" %}</h2>
 
 <table>
-    <tr><th>{% trans "Pièce" %}</th><th>{% trans "État" %}</th></tr>
-    <tr><td>{% trans "Avant droite" %}</td><td>{{ controle.get_jeu_rotule_suspension_inferieure_avd_display }}</td></tr>
-    <tr><td>{% trans "Avant gauche" %}</td><td>{{ controle.get_jeu_rotule_suspension_inferieure_avg_display }}</td></tr>
-    <tr><td>{% trans "Arrière droite" %}</td><td>{{ controle.get_jeu_rotule_suspension_inferieure_ard_display }}</td></tr>
-    <tr><td>{% trans "Arrière gauche" %}</td><td>{{ controle.get_jeu_rotule_suspension_inferieure_arg_display }}</td></tr>
+    <tr>
+        <th>{% trans "Pièce" %}</th>
+        <th>{% trans "État" %}</th>
+    </tr>
+
+    <tr>
+        <td>{% trans "Avant droite" %}</td>
+        <td>
+            {% if controle.jeu_rotule_suspension_inferieure_avd == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_rotule_suspension_inferieure_avd_display }}</span>
+            {% elif controle.jeu_rotule_suspension_inferieure_avd == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_rotule_suspension_inferieure_avd_display }}</span>
+            {% elif controle.jeu_rotule_suspension_inferieure_avd == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_rotule_suspension_inferieure_avd_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_rotule_suspension_inferieure_avd_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Avant gauche" %}</td>
+        <td>
+            {% if controle.jeu_rotule_suspension_inferieure_avg == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_rotule_suspension_inferieure_avg_display }}</span>
+            {% elif controle.jeu_rotule_suspension_inferieure_avg == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_rotule_suspension_inferieure_avg_display }}</span>
+            {% elif controle.jeu_rotule_suspension_inferieure_avg == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_rotule_suspension_inferieure_avg_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_rotule_suspension_inferieure_avg_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Arrière droite" %}</td>
+        <td>
+            {% if controle.jeu_rotule_suspension_inferieure_ard == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_rotule_suspension_inferieure_ard_display }}</span>
+            {% elif controle.jeu_rotule_suspension_inferieure_ard == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_rotule_suspension_inferieure_ard_display }}</span>
+            {% elif controle.jeu_rotule_suspension_inferieure_ard == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_rotule_suspension_inferieure_ard_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_rotule_suspension_inferieure_ard_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Arrière gauche" %}</td>
+        <td>
+            {% if controle.jeu_rotule_suspension_inferieure_arg == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_rotule_suspension_inferieure_arg_display }}</span>
+            {% elif controle.jeu_rotule_suspension_inferieure_arg == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_rotule_suspension_inferieure_arg_display }}</span>
+            {% elif controle.jeu_rotule_suspension_inferieure_arg == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_rotule_suspension_inferieure_arg_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_rotule_suspension_inferieure_arg_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
 </table>
 
 <h2>{% trans "Rotules de suspension supérieures" %}</h2>
 
 <table>
-    <tr><th>{% trans "Pièce" %}</th><th>{% trans "État" %}</th></tr>
-    <tr><td>{% trans "Avant droite" %}</td><td>{{ controle.get_jeu_rotule_suspension_superieure_avd_display }}</td></tr>
-    <tr><td>{% trans "Avant gauche" %}</td><td>{{ controle.get_jeu_rotule_suspension_superieure_avg_display }}</td></tr>
-    <tr><td>{% trans "Arrière droite" %}</td><td>{{ controle.get_jeu_rotule_suspension_superieure_ard_display }}</td></tr>
-    <tr><td>{% trans "Arrière gauche" %}</td><td>{{ controle.get_jeu_rotule_suspension_superieure_arg_display }}</td></tr>
+    <tr>
+        <th>{% trans "Pièce" %}</th>
+        <th>{% trans "État" %}</th>
+    </tr>
+
+    <tr>
+        <td>{% trans "Avant droite" %}</td>
+        <td>
+            {% if controle.jeu_rotule_suspension_superieure_avd == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_rotule_suspension_superieure_avd_display }}</span>
+            {% elif controle.jeu_rotule_suspension_superieure_avd == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_rotule_suspension_superieure_avd_display }}</span>
+            {% elif controle.jeu_rotule_suspension_superieure_avd == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_rotule_suspension_superieure_avd_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_rotule_suspension_superieure_avd_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Avant gauche" %}</td>
+        <td>
+            {% if controle.jeu_rotule_suspension_superieure_avg == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_rotule_suspension_superieure_avg_display }}</span>
+            {% elif controle.jeu_rotule_suspension_superieure_avg == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_rotule_suspension_superieure_avg_display }}</span>
+            {% elif controle.jeu_rotule_suspension_superieure_avg == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_rotule_suspension_superieure_avg_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_rotule_suspension_superieure_avg_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Arrière droite" %}</td>
+        <td>
+            {% if controle.jeu_rotule_suspension_superieure_ard == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_rotule_suspension_superieure_ard_display }}</span>
+            {% elif controle.jeu_rotule_suspension_superieure_ard == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_rotule_suspension_superieure_ard_display }}</span>
+            {% elif controle.jeu_rotule_suspension_superieure_ard == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_rotule_suspension_superieure_ard_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_rotule_suspension_superieure_ard_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Arrière gauche" %}</td>
+        <td>
+            {% if controle.jeu_rotule_suspension_superieure_arg == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_rotule_suspension_superieure_arg_display }}</span>
+            {% elif controle.jeu_rotule_suspension_superieure_arg == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_rotule_suspension_superieure_arg_display }}</span>
+            {% elif controle.jeu_rotule_suspension_superieure_arg == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_rotule_suspension_superieure_arg_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_rotule_suspension_superieure_arg_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
 </table>
 
 <h2>{% trans "Barres stabilisatrices et biellettes" %}</h2>
 
 <table>
-    <tr><th>{% trans "Pièce" %}</th><th>{% trans "État" %}</th></tr>
-    <tr><td>{% trans "Biellette avant droite" %}</td><td>{{ controle.get_jeu_Biellette_barre_stabilisatrice_avd_display }}</td></tr>
-    <tr><td>{% trans "Biellette avant gauche" %}</td><td>{{ controle.get_jeu_Biellette_barre_stabilisatrice_avg_display }}</td></tr>
-    <tr><td>{% trans "Biellette arrière droite" %}</td><td>{{ controle.get_jeu_Biellette_barre_stabilisatrice_ard_display }}</td></tr>
-    <tr><td>{% trans "Biellette arrière gauche" %}</td><td>{{ controle.get_jeu_Biellette_barre_stabilisatrice_arg_display }}</td></tr>
-    <tr><td>{% trans "Barre stabilisatrice avant" %}</td><td>{{ controle.get_jeu_barre_stabilisatrice_av_display }}</td></tr>
-    <tr><td>{% trans "Barre stabilisatrice arrière" %}</td><td>{{ controle.get_jeu_barre_stabilisatrice_ar_display }}</td></tr>
+    <tr>
+        <th>{% trans "Pièce" %}</th>
+        <th>{% trans "État" %}</th>
+    </tr>
+
+    <tr>
+        <td>{% trans "Biellette avant droite" %}</td>
+        <td>
+            {% if controle.jeu_Biellette_barre_stabilisatrice_avd == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_Biellette_barre_stabilisatrice_avd_display }}</span>
+            {% elif controle.jeu_Biellette_barre_stabilisatrice_avd == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_Biellette_barre_stabilisatrice_avd_display }}</span>
+            {% elif controle.jeu_Biellette_barre_stabilisatrice_avd == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_Biellette_barre_stabilisatrice_avd_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_Biellette_barre_stabilisatrice_avd_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Biellette avant gauche" %}</td>
+        <td>
+            {% if controle.jeu_Biellette_barre_stabilisatrice_avg == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_Biellette_barre_stabilisatrice_avg_display }}</span>
+            {% elif controle.jeu_Biellette_barre_stabilisatrice_avg == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_Biellette_barre_stabilisatrice_avg_display }}</span>
+            {% elif controle.jeu_Biellette_barre_stabilisatrice_avg == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_Biellette_barre_stabilisatrice_avg_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_Biellette_barre_stabilisatrice_avg_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Biellette arrière droite" %}</td>
+        <td>
+            {% if controle.jeu_Biellette_barre_stabilisatrice_ard == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_Biellette_barre_stabilisatrice_ard_display }}</span>
+            {% elif controle.jeu_Biellette_barre_stabilisatrice_ard == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_Biellette_barre_stabilisatrice_ard_display }}</span>
+            {% elif controle.jeu_Biellette_barre_stabilisatrice_ard == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_Biellette_barre_stabilisatrice_ard_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_Biellette_barre_stabilisatrice_ard_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Biellette arrière gauche" %}</td>
+        <td>
+            {% if controle.jeu_Biellette_barre_stabilisatrice_arg == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_Biellette_barre_stabilisatrice_arg_display }}</span>
+            {% elif controle.jeu_Biellette_barre_stabilisatrice_arg == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_Biellette_barre_stabilisatrice_arg_display }}</span>
+            {% elif controle.jeu_Biellette_barre_stabilisatrice_arg == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_Biellette_barre_stabilisatrice_arg_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_Biellette_barre_stabilisatrice_arg_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Barre stabilisatrice avant" %}</td>
+        <td>
+            {% if controle.jeu_barre_stabilisatrice_av == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_barre_stabilisatrice_av_display }}</span>
+            {% elif controle.jeu_barre_stabilisatrice_av == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_barre_stabilisatrice_av_display }}</span>
+            {% elif controle.jeu_barre_stabilisatrice_av == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_barre_stabilisatrice_av_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_barre_stabilisatrice_av_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Barre stabilisatrice arrière" %}</td>
+        <td>
+            {% if controle.jeu_barre_stabilisatrice_ar == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_barre_stabilisatrice_ar_display }}</span>
+            {% elif controle.jeu_barre_stabilisatrice_ar == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_barre_stabilisatrice_ar_display }}</span>
+            {% elif controle.jeu_barre_stabilisatrice_ar == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_barre_stabilisatrice_ar_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_barre_stabilisatrice_ar_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
 </table>
 
 <h2>{% trans "Amortisseurs" %}</h2>
 
 <table>
-    <tr><th>{% trans "Pièce" %}</th><th>{% trans "État" %}</th></tr>
-    <tr><td>{% trans "Avant droit" %}</td><td>{{ controle.get_jeu_amortisseur_avd_display }}</td></tr>
-    <tr><td>{% trans "Avant gauche" %}</td><td>{{ controle.get_jeu_amortisseur_avg_display }}</td></tr>
-    <tr><td>{% trans "Arrière droit" %}</td><td>{{ controle.get_jeu_amortisseur_ard_display }}</td></tr>
-    <tr><td>{% trans "Arrière gauche" %}</td><td>{{ controle.get_jeu_amortisseur_arg_display }}</td></tr>
+    <tr>
+        <th>{% trans "Pièce" %}</th>
+        <th>{% trans "État" %}</th>
+    </tr>
+
+    <tr>
+        <td>{% trans "Avant droit" %}</td>
+        <td>
+            {% if controle.jeu_amortisseur_avd == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_amortisseur_avd_display }}</span>
+            {% elif controle.jeu_amortisseur_avd == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_amortisseur_avd_display }}</span>
+            {% elif controle.jeu_amortisseur_avd == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_amortisseur_avd_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_amortisseur_avd_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Avant gauche" %}</td>
+        <td>
+            {% if controle.jeu_amortisseur_avg == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_amortisseur_avg_display }}</span>
+            {% elif controle.jeu_amortisseur_avg == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_amortisseur_avg_display }}</span>
+            {% elif controle.jeu_amortisseur_avg == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_amortisseur_avg_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_amortisseur_avg_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Arrière droit" %}</td>
+        <td>
+            {% if controle.jeu_amortisseur_ard == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_amortisseur_ard_display }}</span>
+            {% elif controle.jeu_amortisseur_ard == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_amortisseur_ard_display }}</span>
+            {% elif controle.jeu_amortisseur_ard == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_amortisseur_ard_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_amortisseur_ard_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Arrière gauche" %}</td>
+        <td>
+            {% if controle.jeu_amortisseur_arg == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_amortisseur_arg_display }}</span>
+            {% elif controle.jeu_amortisseur_arg == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_amortisseur_arg_display }}</span>
+            {% elif controle.jeu_amortisseur_arg == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_amortisseur_arg_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_amortisseur_arg_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
 </table>
 
 <h2>{% trans "Roulements" %}</h2>
 
 <table>
-    <tr><th>{% trans "Pièce" %}</th><th>{% trans "État" %}</th></tr>
-    <tr><td>{% trans "Avant droit" %}</td><td>{{ controle.get_jeu_roulement_avd_display }}</td></tr>
-    <tr><td>{% trans "Avant gauche" %}</td><td>{{ controle.get_jeu_roulement_avg_display }}</td></tr>
-    <tr><td>{% trans "Arrière droit" %}</td><td>{{ controle.get_jeu_roulement_ard_display }}</td></tr>
-    <tr><td>{% trans "Arrière gauche" %}</td><td>{{ controle.get_jeu_roulement_arg_display }}</td></tr>
+    <tr>
+        <th>{% trans "Pièce" %}</th>
+        <th>{% trans "État" %}</th>
+    </tr>
+
+    <tr>
+        <td>{% trans "Avant droit" %}</td>
+        <td>
+            {% if controle.jeu_roulement_avd == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_roulement_avd_display }}</span>
+            {% elif controle.jeu_roulement_avd == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_roulement_avd_display }}</span>
+            {% elif controle.jeu_roulement_avd == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_roulement_avd_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_roulement_avd_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Avant gauche" %}</td>
+        <td>
+            {% if controle.jeu_roulement_avg == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_roulement_avg_display }}</span>
+            {% elif controle.jeu_roulement_avg == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_roulement_avg_display }}</span>
+            {% elif controle.jeu_roulement_avg == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_roulement_avg_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_roulement_avg_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Arrière droit" %}</td>
+        <td>
+            {% if controle.jeu_roulement_ard == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_roulement_ard_display }}</span>
+            {% elif controle.jeu_roulement_ard == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_roulement_ard_display }}</span>
+            {% elif controle.jeu_roulement_ard == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_roulement_ard_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_roulement_ard_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Arrière gauche" %}</td>
+        <td>
+            {% if controle.jeu_roulement_arg == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_roulement_arg_display }}</span>
+            {% elif controle.jeu_roulement_arg == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_roulement_arg_display }}</span>
+            {% elif controle.jeu_roulement_arg == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_roulement_arg_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_roulement_arg_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
 </table>
 
 <h2>{% trans "Triangles" %}</h2>
 
 <table>
-    <tr><th>{% trans "Pièce" %}</th><th>{% trans "État" %}</th></tr>
-    <tr><td>{% trans "Avant droit" %}</td><td>{{ controle.get_jeu_triangle_avd_display }}</td></tr>
-    <tr><td>{% trans "Avant gauche" %}</td><td>{{ controle.get_jeu_triangle_avg_display }}</td></tr>
-    <tr><td>{% trans "Arrière droit" %}</td><td>{{ controle.get_jeu_triangle_ard_display }}</td></tr>
-    <tr><td>{% trans "Arrière gauche" %}</td><td>{{ controle.get_jeu_triangle_arg_display }}</td></tr>
+    <tr>
+        <th>{% trans "Pièce" %}</th>
+        <th>{% trans "État" %}</th>
+    </tr>
+
+    <tr>
+        <td>{% trans "Avant droit" %}</td>
+        <td>
+            {% if controle.jeu_triangle_avd == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_triangle_avd_display }}</span>
+            {% elif controle.jeu_triangle_avd == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_triangle_avd_display }}</span>
+            {% elif controle.jeu_triangle_avd == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_triangle_avd_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_triangle_avd_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Avant gauche" %}</td>
+        <td>
+            {% if controle.jeu_triangle_avg == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_triangle_avg_display }}</span>
+            {% elif controle.jeu_triangle_avg == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_triangle_avg_display }}</span>
+            {% elif controle.jeu_triangle_avg == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_triangle_avg_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_triangle_avg_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Arrière droit" %}</td>
+        <td>
+            {% if controle.jeu_triangle_ard == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_triangle_ard_display }}</span>
+            {% elif controle.jeu_triangle_ard == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_triangle_ard_display }}</span>
+            {% elif controle.jeu_triangle_ard == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_triangle_ard_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_triangle_ard_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Arrière gauche" %}</td>
+        <td>
+            {% if controle.jeu_triangle_arg == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_triangle_arg_display }}</span>
+            {% elif controle.jeu_triangle_arg == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_triangle_arg_display }}</span>
+            {% elif controle.jeu_triangle_arg == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_triangle_arg_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_triangle_arg_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
 </table>
 
 <h2>{% trans "Suspension multi-bras" %}</h2>
 
 <table>
-    <tr><th>{% trans "Pièce" %}</th><th>{% trans "État" %}</th></tr>
-    <tr><td>{% trans "Avant droit" %}</td><td>{{ controle.get_jeu_multi_bras_avd_display }}</td></tr>
-    <tr><td>{% trans "Avant gauche" %}</td><td>{{ controle.get_jeu_multi_bras_avg_display }}</td></tr>
-    <tr><td>{% trans "Arrière droit" %}</td><td>{{ controle.get_jeu_multi_bras_ard_display }}</td></tr>
-    <tr><td>{% trans "Arrière gauche" %}</td><td>{{ controle.get_jeu_multi_bras_arg_display }}</td></tr>
+    <tr>
+        <th>{% trans "Pièce" %}</th>
+        <th>{% trans "État" %}</th>
+    </tr>
+
+    <tr>
+        <td>{% trans "Avant droit" %}</td>
+        <td>
+            {% if controle.jeu_multi_bras_avd == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_multi_bras_avd_display }}</span>
+            {% elif controle.jeu_multi_bras_avd == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_multi_bras_avd_display }}</span>
+            {% elif controle.jeu_multi_bras_avd == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_multi_bras_avd_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_multi_bras_avd_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Avant gauche" %}</td>
+        <td>
+            {% if controle.jeu_multi_bras_avg == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_multi_bras_avg_display }}</span>
+            {% elif controle.jeu_multi_bras_avg == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_multi_bras_avg_display }}</span>
+            {% elif controle.jeu_multi_bras_avg == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_multi_bras_avg_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_multi_bras_avg_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Arrière droit" %}</td>
+        <td>
+            {% if controle.jeu_multi_bras_ard == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_multi_bras_ard_display }}</span>
+            {% elif controle.jeu_multi_bras_ard == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_multi_bras_ard_display }}</span>
+            {% elif controle.jeu_multi_bras_ard == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_multi_bras_ard_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_multi_bras_ard_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Arrière gauche" %}</td>
+        <td>
+            {% if controle.jeu_multi_bras_arg == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_multi_bras_arg_display }}</span>
+            {% elif controle.jeu_multi_bras_arg == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_multi_bras_arg_display }}</span>
+            {% elif controle.jeu_multi_bras_arg == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_multi_bras_arg_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_multi_bras_arg_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
 </table>
 
 <h2>{% trans "Main d'œuvre" %}</h2>
