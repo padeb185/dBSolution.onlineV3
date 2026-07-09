@@ -4,6 +4,7 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from maintenance.choices import RouesSerrageEtat
 from maintenance.niveaux.models import LiquideFreinsQualite
 from maintenance.models import Maintenance
 from utils.mixin import TechnicienMixin
@@ -94,7 +95,7 @@ class ControleFreins(TechnicienMixin, models.Model):
     machoire_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("État de la machoire arrière gauche"))
     machoire_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("État de la machoire arrière droite"))
 
-
+    serrage_roues = models.CharField(max_length=25, choices=RouesSerrageEtat.choices, default=RouesSerrageEtat.A_FAIRE,verbose_name=_("Serrage des roues"))
 
     remarques = models.TextField(
         verbose_name=_("Remarques"), blank=True, null=True)

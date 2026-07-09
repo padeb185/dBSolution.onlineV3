@@ -42,6 +42,30 @@
         .label {
             font-weight: bold;
         }
+         .etat-rouge {
+            color: #dc2626;
+            font-weight: bold;
+        }
+
+        .etat-vert {
+            color: #16a34a;
+            font-weight: bold;
+        }
+
+        .etat-jaune {
+            color: #ca8a04;
+            font-weight: bold;
+        }
+
+        .etat-bleu {
+            color: #2563eb;
+            font-weight: bold;
+        }
+
+        .etat-gris {
+            color: #6b7280;
+            font-weight: bold;
+        }
 
         .tag {
             padding: 4px 8px;
@@ -54,13 +78,13 @@
         .tag-jaune { background: #ca8a04; }
         .tag-rouge { background: #dc2626; }
 
-        .etat-ok {
-            color: #6b7280;
-            background: #f3f4f6;
+       .etat-ok {
+            color: #166534;
+            background: #dcfce7;
             padding: 2px 6px;
             border-radius: 4px;
             font-weight: bold;
-        }
+       }
 
         .etat-remplacer {
             color: #dc2626;
@@ -404,6 +428,32 @@
             {% endif %}
         </td>
     </tr>
+</table>
+
+
+<h2>{% trans "Serrage des roues" %}</h2>
+
+<table>
+    <tr>
+        <th>{% trans "Élément" %}</th>
+        <th>{% trans "État" %}</th>
+    </tr>
+
+
+  <tr>
+    <td>{% trans "Serrage des roues" %}</td>
+    <td>
+        {% if controle_freins.serrage_roues|upper == "A_FAIRE" %}
+            <span class="etat-rouge">{{ controle_freins.get_serrage_roues_display }}</span>
+        {% elif controle_freins.serrage_roues|upper == "FAIT" %}
+            <span class="etat-vert">{{ controle_freins.get_serrage_roues_display }}</span>
+        {% else %}
+            <span class="etat-gris">
+                {{ controle_freins.get_serrage_roues_display|default:controle_freins.serrage_roues|default:"-" }}
+            </span>
+        {% endif %}
+    </td>
+</tr>
 </table>
 
 <h2>{% trans "Main d'œuvre" %}</h2>
