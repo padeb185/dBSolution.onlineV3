@@ -14,7 +14,6 @@ from utils.mixin import TechnicienMixin
 
 class PneuEtat(models.TextChoices):
     OK = "OK", _("OK")
-    NON = "NON", _("Non")
     A_REMPLACER = "A_REMPLACER", _("À remplacer")
     REMPLACE = "REMPLACE", _("Remplacé")
 
@@ -81,9 +80,9 @@ class ControlePneus(TechnicienMixin, models.Model):
 
 
 
-    pneu_train_av =  models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.NON, verbose_name=_("Train avant à remplacer"))
+    pneu_train_av =  models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.OK, verbose_name=_("Train avant à remplacer"))
     pneu_train_av_nombre = models.PositiveIntegerField(default=1, null=True, blank=True, verbose_name=_("Nombre de trains avant montés"))
-    pneu_train_ar =  models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.NON, verbose_name=_("Train arrière à remplacer"))
+    pneu_train_ar =  models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.OK, verbose_name=_("Train arrière à remplacer"))
     pneu_train_ar_nombre = models.PositiveIntegerField(default=1, null=True, blank=True, verbose_name=_("Nombre de trains arrières montés"))
 
 

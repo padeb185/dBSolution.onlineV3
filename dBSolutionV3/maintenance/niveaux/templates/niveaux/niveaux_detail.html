@@ -103,7 +103,7 @@
             </a>
         </div>
          <div class="mt-auto w-full">
-            <a href="{% url 'niveaux:niveau_pdf' niveau.id %}" class="block w-full">
+            <a href="{% url 'niveaux:niveau_pdf' niveau.id %}" target="_blank" rel="noopener noreferrer" class="block w-full">
                 <button type="button" class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
                     {% trans "Télécharger le PDF" %}
                 </button>

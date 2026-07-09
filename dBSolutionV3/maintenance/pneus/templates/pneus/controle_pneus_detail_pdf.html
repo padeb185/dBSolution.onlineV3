@@ -64,6 +64,39 @@
             color: #991b1b;
         }
 
+        .etat-vert {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-rouge {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-bleu {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-gris {
+            color: #6b7280;
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -129,34 +162,74 @@
     </thead>
 
     <tbody>
-        <tr>
-            <td>{% trans "Avant droit" %}</td>
-            <td>{{ controle_pneus.get_pneu_bande_avd_display }}</td>
-            <td>{{ controle_pneus.pneu_epaisseur_avd }} mm</td>
-            <td>{{ controle_pneus.pneu_pression_bar_avd }} bar</td>
-        </tr>
+    <tr>
+        <td>{% trans "Avant droit" %}</td>
+        <td>
+            {% if controle_pneus.pneu_bande_avd == "OK" %}
+                <span class="etat-vert">{{ controle_pneus.get_pneu_bande_avd_display }}</span>
+            {% elif controle_pneus.pneu_bande_avd == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle_pneus.get_pneu_bande_avd_display }}</span>
+            {% elif controle_pneus.pneu_bande_avd == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle_pneus.get_pneu_bande_avd_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ controle_pneus.get_pneu_bande_avd_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+        <td>{{ controle_pneus.pneu_epaisseur_avd }} mm</td>
+        <td>{{ controle_pneus.pneu_pression_bar_avd }} bar</td>
+    </tr>
 
-        <tr>
-            <td>{% trans "Avant gauche" %}</td>
-            <td>{{ controle_pneus.get_pneu_bande_avg_display }}</td>
-            <td>{{ controle_pneus.pneu_epaisseur_avg }} mm</td>
-            <td>{{ controle_pneus.pneu_pression_bar_avg }} bar</td>
-        </tr>
+    <tr>
+        <td>{% trans "Avant gauche" %}</td>
+        <td>
+            {% if controle_pneus.pneu_bande_avg == "OK" %}
+                <span class="etat-vert">{{ controle_pneus.get_pneu_bande_avg_display }}</span>
+            {% elif controle_pneus.pneu_bande_avg == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle_pneus.get_pneu_bande_avg_display }}</span>
+            {% elif controle_pneus.pneu_bande_avg == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle_pneus.get_pneu_bande_avg_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ controle_pneus.get_pneu_bande_avg_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+        <td>{{ controle_pneus.pneu_epaisseur_avg }} mm</td>
+        <td>{{ controle_pneus.pneu_pression_bar_avg }} bar</td>
+    </tr>
 
-        <tr>
-            <td>{% trans "Arrière droit" %}</td>
-            <td>{{ controle_pneus.get_pneu_bande_ard_display }}</td>
-            <td>{{ controle_pneus.pneu_epaisseur_ard }} mm</td>
-            <td>{{ controle_pneus.pneu_pression_bar_ard }} bar</td>
-        </tr>
+    <tr>
+        <td>{% trans "Arrière droit" %}</td>
+        <td>
+            {% if controle_pneus.pneu_bande_ard == "OK" %}
+                <span class="etat-vert">{{ controle_pneus.get_pneu_bande_ard_display }}</span>
+            {% elif controle_pneus.pneu_bande_ard == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle_pneus.get_pneu_bande_ard_display }}</span>
+            {% elif controle_pneus.pneu_bande_ard == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle_pneus.get_pneu_bande_ard_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ controle_pneus.get_pneu_bande_ard_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+        <td>{{ controle_pneus.pneu_epaisseur_ard }} mm</td>
+        <td>{{ controle_pneus.pneu_pression_bar_ard }} bar</td>
+    </tr>
 
-        <tr>
-            <td>{% trans "Arrière gauche" %}</td>
-            <td>{{ controle_pneus.get_pneu_bande_arg_display }}</td>
-            <td>{{ controle_pneus.pneu_epaisseur_arg }} mm</td>
-            <td>{{ controle_pneus.pneu_pression_bar_arg }} bar</td>
-        </tr>
-    </tbody>
+    <tr>
+        <td>{% trans "Arrière gauche" %}</td>
+        <td>
+            {% if controle_pneus.pneu_bande_arg == "OK" %}
+                <span class="etat-vert">{{ controle_pneus.get_pneu_bande_arg_display }}</span>
+            {% elif controle_pneus.pneu_bande_arg == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle_pneus.get_pneu_bande_arg_display }}</span>
+            {% elif controle_pneus.pneu_bande_arg == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle_pneus.get_pneu_bande_arg_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ controle_pneus.get_pneu_bande_arg_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+        <td>{{ controle_pneus.pneu_epaisseur_arg }} mm</td>
+        <td>{{ controle_pneus.pneu_pression_bar_arg }} bar</td>
+    </tr>
+</tbody>
 </table>
 
 <h2>{% trans "Flancs des pneus" %}</h2>
@@ -170,26 +243,66 @@
     </thead>
 
     <tbody>
-        <tr>
-            <td>{% trans "Avant droit" %}</td>
-            <td>{{ controle_pneus.get_pneu_sidewall_avd_display }}</td>
-        </tr>
+    <tr>
+        <td>{% trans "Avant droit" %}</td>
+        <td>
+            {% if controle_pneus.pneu_sidewall_avd == "OK" %}
+                <span class="etat-vert">{{ controle_pneus.get_pneu_sidewall_avd_display }}</span>
+            {% elif controle_pneus.pneu_sidewall_avd == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle_pneus.get_pneu_sidewall_avd_display }}</span>
+            {% elif controle_pneus.pneu_sidewall_avd == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle_pneus.get_pneu_sidewall_avd_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ controle_pneus.get_pneu_sidewall_avd_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
 
-        <tr>
-            <td>{% trans "Avant gauche" %}</td>
-            <td>{{ controle_pneus.get_pneu_sidewall_avg_display }}</td>
-        </tr>
+    <tr>
+        <td>{% trans "Avant gauche" %}</td>
+        <td>
+            {% if controle_pneus.pneu_sidewall_avg == "OK" %}
+                <span class="etat-vert">{{ controle_pneus.get_pneu_sidewall_avg_display }}</span>
+            {% elif controle_pneus.pneu_sidewall_avg == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle_pneus.get_pneu_sidewall_avg_display }}</span>
+            {% elif controle_pneus.pneu_sidewall_avg == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle_pneus.get_pneu_sidewall_avg_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ controle_pneus.get_pneu_sidewall_avg_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
 
-        <tr>
-            <td>{% trans "Arrière droit" %}</td>
-            <td>{{ controle_pneus.get_pneu_sidewall_ard_display }}</td>
-        </tr>
+    <tr>
+        <td>{% trans "Arrière droit" %}</td>
+        <td>
+            {% if controle_pneus.pneu_sidewall_ard == "OK" %}
+                <span class="etat-vert">{{ controle_pneus.get_pneu_sidewall_ard_display }}</span>
+            {% elif controle_pneus.pneu_sidewall_ard == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle_pneus.get_pneu_sidewall_ard_display }}</span>
+            {% elif controle_pneus.pneu_sidewall_ard == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle_pneus.get_pneu_sidewall_ard_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ controle_pneus.get_pneu_sidewall_ard_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
 
-        <tr>
-            <td>{% trans "Arrière gauche" %}</td>
-            <td>{{ controle_pneus.get_pneu_sidewall_arg_display }}</td>
-        </tr>
-    </tbody>
+    <tr>
+        <td>{% trans "Arrière gauche" %}</td>
+        <td>
+            {% if controle_pneus.pneu_sidewall_arg == "OK" %}
+                <span class="etat-vert">{{ controle_pneus.get_pneu_sidewall_arg_display }}</span>
+            {% elif controle_pneus.pneu_sidewall_arg == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle_pneus.get_pneu_sidewall_arg_display }}</span>
+            {% elif controle_pneus.pneu_sidewall_arg == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle_pneus.get_pneu_sidewall_arg_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ controle_pneus.get_pneu_sidewall_arg_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+</tbody>
 </table>
 
 <h2>{% trans "Trains de pneus" %}</h2>
@@ -204,18 +317,38 @@
     </thead>
 
     <tbody>
-        <tr>
-            <td>{% trans "Train avant" %}</td>
-            <td>{{ controle_pneus.get_pneu_train_av_display }}</td>
-            <td>{{ controle_pneus.pneu_train_av_nombre }}</td>
-        </tr>
+    <tr>
+        <td>{% trans "Train avant" %}</td>
+        <td>
+            {% if controle_pneus.pneu_train_av == "OK" %}
+                <span class="etat-vert">{{ controle_pneus.get_pneu_train_av_display }}</span>
+            {% elif controle_pneus.pneu_train_av == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle_pneus.get_pneu_train_av_display }}</span>
+            {% elif controle_pneus.pneu_train_av == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle_pneus.get_pneu_train_av_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ controle_pneus.get_pneu_train_av_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+        <td>{{ controle_pneus.pneu_train_av_nombre }}</td>
+    </tr>
 
-        <tr>
-            <td>{% trans "Train arrière" %}</td>
-            <td>{{ controle_pneus.get_pneu_train_ar_display }}</td>
-            <td>{{ controle_pneus.pneu_train_ar_nombre }}</td>
-        </tr>
-    </tbody>
+    <tr>
+        <td>{% trans "Train arrière" %}</td>
+        <td>
+            {% if controle_pneus.pneu_train_ar == "OK" %}
+                <span class="etat-vert">{{ controle_pneus.get_pneu_train_ar_display }}</span>
+            {% elif controle_pneus.pneu_train_ar == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle_pneus.get_pneu_train_ar_display }}</span>
+            {% elif controle_pneus.pneu_train_ar == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle_pneus.get_pneu_train_ar_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ controle_pneus.get_pneu_train_ar_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+        <td>{{ controle_pneus.pneu_train_ar_nombre }}</td>
+    </tr>
+</tbody>
 </table>
 
 <h2>{% trans "Main d’œuvre" %}</h2>

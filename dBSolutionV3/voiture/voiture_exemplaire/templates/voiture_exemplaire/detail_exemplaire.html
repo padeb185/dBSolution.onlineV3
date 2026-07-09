@@ -26,13 +26,17 @@
                 </div>
             </p>
             <p><strong>{% trans "Année de production" %}:</strong> {{ exemplaire.annee_production }}/{{ exemplaire.mois_production }}</p>
-            <p><strong>{% trans "Kilométrage du châssis" %}:</strong> {{ exemplaire.kilometres_chassis }} km</p>
-            <p><strong>{% trans "Kilométrage du moteur" %}:</strong> {{ exemplaire.kilometres_moteur }} km</p>
-            <p><strong>{% trans "Kilométrage de la boite" %}:</strong> {{ exemplaire.kilometres_boite }} km</p>
-            <p><strong>{% trans "Kilométrage de l'embrayage" %}:</strong> {{ exemplaire.kilometres_embrayage }} km</p>
+            <br>
+            <p><strong>{% trans "Numéro Vin" %}:</strong> {{ exemplaire.numero_vin }} </p>
+            <p><strong>{% trans "Vin simplifié" %}:</strong> {{ exemplaire.vin_simplifie }}</p>
+            <br>
+            <p><strong>{% trans "Kilométrage du châssis" %}          :</strong> {{ exemplaire.kilometres_chassis }} km</p>
+            <p><strong>{% trans "Kilométrage du moteur" %}           :</strong> {{ exemplaire.kilometres_moteur }} km</p>
+            <p><strong>{% trans "Kilométrage de la boite" %}         :</strong> {{ exemplaire.kilometres_boite }} km</p>
+            <p><strong>{% trans "Kilométrage de l'embrayage" %}      :</strong> {{ exemplaire.kilometres_embrayage }} km</p>
             <p><strong>{% trans "Kilométrage du dernier entretien" %}:</strong> {{ exemplaire.kilometres_dernier_entretien }} km</p>
             <br>
-            <p><strong>{% trans "Couleur" %}:</strong> {{ exemplaire.couleur|default:_("Non renseignée") }}</p>
+
 
 
         </div>

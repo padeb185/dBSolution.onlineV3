@@ -42,6 +42,7 @@
                 </div>
                 {% endif %}
             </li>
+            <li><strong>{% trans "Vin simplifié" %}:</strong> {{ exemplaire.vin_simplifie}}</li>
             <li><strong>{% trans "Kilomètres total" %}:</strong> {{ exemplaire.kilometres_total }}</li>
             <li><strong>{% trans "Kilomètres depuis dernière intervention" %}:</strong> {{ exemplaire.kilometres_derniere_intervention }}</li>
             <li><strong>{% trans "Marque" %}:</strong> {{ exemplaire.voiture_marque.nom_marque }}</li>
