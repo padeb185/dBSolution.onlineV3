@@ -87,6 +87,21 @@
             color: #6b7280;
             font-weight: bold;
         }
+
+        .etat-rouge {
+            color: #dc2626;
+            font-weight: bold;
+        }
+
+        .etat-vert {
+            color: #16a34a;
+            font-weight: bold;
+        }
+
+        .etat-gris {
+            color: #6b7280;
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -749,6 +764,30 @@
         <div>ARG : {{ checkup_track.pneu_pression_bar_arg }} bar</div>
     </div>
 </div>
+
+<h2>{% trans "Serrage des roues" %}</h2>
+
+<div class="box">
+    <div style="display:grid; grid-template-columns:250px 1fr; gap:8px 20px; align-items:center;">
+
+        <div><strong>{% trans "Serrage des roues" %}</strong></div>
+
+        <div>
+            {% if checkup_track.serrage_roues|upper == "A_FAIRE" %}
+                <span class="etat-rouge">{{ checkup_track.get_serrage_roues_display }}</span>
+            {% elif checkup_track.serrage_roues|upper == "FAIT" %}
+                <span class="etat-vert">{{ checkup_track.get_serrage_roues_display }}</span>
+            {% else %}
+                <span class="etat-gris">
+                    {{ checkup_track.get_serrage_roues_display|default:checkup_track.serrage_roues|default:"-" }}
+                </span>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+
 
 <h2>{% trans "Nettoyage extérieur" %}</h2>
 

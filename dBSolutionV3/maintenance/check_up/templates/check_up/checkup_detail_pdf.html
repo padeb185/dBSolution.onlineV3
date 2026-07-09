@@ -76,6 +76,21 @@
             color: #555;
             margin-top: 25px;
         }
+         .etat-rouge {
+            color: #dc2626;
+            font-weight: bold;
+        }
+
+        .etat-vert {
+            color: #16a34a;
+            font-weight: bold;
+        }
+
+        .etat-gris {
+            color: #6b7280;
+            font-weight: bold;
+        }
+
     </style>
 </head>
 
@@ -268,6 +283,24 @@
     <tr><td>{% trans "Feux de recul" %}</td><td>{{ checkup.get_phares_recul_display }}</td></tr>
     <tr><td>{% trans "Anti-brouillard avant" %}</td><td>{{ checkup.get_phares_anti_brouillard_avant_display }}</td></tr>
     <tr><td>{% trans "Anti-brouillard arrière" %}</td><td>{{ checkup.get_phares_anti_brouillard_arriere_display }}</td></tr>
+</table>
+
+<h2>{% trans "Serrage des roues" %}</h2>
+<table>
+    <tr>
+    <td>{% trans "Serrage des roues" %}</td>
+    <td>
+        {% if checkup.serrage_roues|upper == "A_FAIRE" %}
+            <span class="etat-rouge">{{ checkup.get_serrage_roues_display }}</span>
+        {% elif checkup.serrage_roues|upper == "FAIT" %}
+            <span class="etat-vert">{{ checkup.get_serrage_roues_display }}</span>
+        {% else %}
+            <span class="etat-gris">
+                {{ checkup.get_serrage_roues_display|default:checkup.serrage_roues|default:"-" }}
+            </span>
+        {% endif %}
+    </td>
+</tr>
 </table>
 
 <h2>{% trans "Nettoyage extérieur" %}</h2>
