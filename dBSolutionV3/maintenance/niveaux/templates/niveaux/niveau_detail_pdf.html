@@ -43,6 +43,30 @@
             font-weight: bold;
         }
 
+        .etat-vert {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-bleu {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-gris {
+            color: #6b7280;
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
         .tag {
             padding: 2px 8px;
             border-radius: 4px;
@@ -129,55 +153,111 @@
     </thead>
 
     <tbody>
-        <tr>
-            <td>{% trans "Huile moteur" %}</td>
-            <td>{{ niveau.get_moteur_niveau_huile_etat_display }}</td>
-            <td>{{ niveau.moteur_niveau_huile_quantite }} L</td>
-            <td>{{ niveau.get_moteur_niveau_huile_qualite_display }}</td>
-        </tr>
+    <tr>
+        <td>{% trans "Huile moteur" %}</td>
+        <td>
+            {% if niveau.moteur_niveau_huile_etat == "BON" %}
+                <span class="etat-vert">{{ niveau.get_moteur_niveau_huile_etat_display }}</span>
+            {% elif niveau.moteur_niveau_huile_etat == "AJOUTER" %}
+                <span class="etat-bleu">{{ niveau.get_moteur_niveau_huile_etat_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ niveau.get_moteur_niveau_huile_etat_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+        <td>{{ niveau.moteur_niveau_huile_quantite }} L</td>
+        <td>{{ niveau.get_moteur_niveau_huile_qualite_display }}</td>
+    </tr>
 
-        <tr>
-            <td>{% trans "Huile de boîte" %}</td>
-            <td>{{ niveau.get_boite_niveau_huile_etat_display }}</td>
-            <td>{{ niveau.boite_niveau_huile_quantite }} L</td>
-            <td>{{ niveau.get_boite_niveau_huile_qualite_display }}</td>
-        </tr>
+    <tr>
+        <td>{% trans "Huile de boîte" %}</td>
+        <td>
+            {% if niveau.boite_niveau_huile_etat == "BON" %}
+                <span class="etat-vert">{{ niveau.get_boite_niveau_huile_etat_display }}</span>
+            {% elif niveau.boite_niveau_huile_etat == "AJOUTER" %}
+                <span class="etat-bleu">{{ niveau.get_boite_niveau_huile_etat_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ niveau.get_boite_niveau_huile_etat_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+        <td>{{ niveau.boite_niveau_huile_quantite }} L</td>
+        <td>{{ niveau.get_boite_niveau_huile_qualite_display }}</td>
+    </tr>
 
-        <tr>
-            <td>{% trans "Huile de pont" %}</td>
-            <td>{{ niveau.get_pont_niveau_huile_etat_display }}</td>
-            <td>{{ niveau.pont_niveau_huile_quantite }} L</td>
-            <td>{{ niveau.get_pont_niveau_huile_qualite_display }}</td>
-        </tr>
+    <tr>
+        <td>{% trans "Huile de pont" %}</td>
+        <td>
+            {% if niveau.pont_niveau_huile_etat == "BON" %}
+                <span class="etat-vert">{{ niveau.get_pont_niveau_huile_etat_display }}</span>
+            {% elif niveau.pont_niveau_huile_etat == "AJOUTER" %}
+                <span class="etat-bleu">{{ niveau.get_pont_niveau_huile_etat_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ niveau.get_pont_niveau_huile_etat_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+        <td>{{ niveau.pont_niveau_huile_quantite }} L</td>
+        <td>{{ niveau.get_pont_niveau_huile_qualite_display }}</td>
+    </tr>
 
-        <tr>
-            <td>{% trans "Liquide de refroidissement" %}</td>
-            <td>{{ niveau.get_refroidissement_etat_display }}</td>
-            <td>{{ niveau.refroidissement_quantite }} L</td>
-            <td>{{ niveau.get_refroidissement_qualite_display }}</td>
-        </tr>
+    <tr>
+        <td>{% trans "Liquide de refroidissement" %}</td>
+        <td>
+            {% if niveau.refroidissement_etat == "BON" %}
+                <span class="etat-vert">{{ niveau.get_refroidissement_etat_display }}</span>
+            {% elif niveau.refroidissement_etat == "AJOUTER" %}
+                <span class="etat-bleu">{{ niveau.get_refroidissement_etat_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ niveau.get_refroidissement_etat_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+        <td>{{ niveau.refroidissement_quantite }} L</td>
+        <td>{{ niveau.get_refroidissement_qualite_display }}</td>
+    </tr>
 
-        <tr>
-            <td>{% trans "Liquide de freins" %}</td>
-            <td>{{ niveau.get_frein_liquide_etat_display }}</td>
-            <td>{{ niveau.frein_liquide_quantite }} L</td>
-            <td>{{ niveau.get_frein_liquide_qualite_display }}</td>
-        </tr>
+    <tr>
+        <td>{% trans "Liquide de freins" %}</td>
+        <td>
+            {% if niveau.frein_liquide_etat == "BON" %}
+                <span class="etat-vert">{{ niveau.get_frein_liquide_etat_display }}</span>
+            {% elif niveau.frein_liquide_etat == "AJOUTER" %}
+                <span class="etat-bleu">{{ niveau.get_frein_liquide_etat_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ niveau.get_frein_liquide_etat_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+        <td>{{ niveau.frein_liquide_quantite }} L</td>
+        <td>{{ niveau.get_frein_liquide_qualite_display }}</td>
+    </tr>
 
-        <tr>
-            <td>{% trans "Liquide lave-glace" %}</td>
-            <td>{{ niveau.get_lave_glace_liquide_etat_display }}</td>
-            <td>{{ niveau.lave_glace_quantite }} L</td>
-            <td>{{ niveau.get_lave_glace_qualite_display }}</td>
-        </tr>
+    <tr>
+        <td>{% trans "Liquide lave-glace" %}</td>
+        <td>
+            {% if niveau.lave_glace_liquide_etat == "BON" %}
+                <span class="etat-vert">{{ niveau.get_lave_glace_liquide_etat_display }}</span>
+            {% elif niveau.lave_glace_liquide_etat == "AJOUTER" %}
+                <span class="etat-bleu">{{ niveau.get_lave_glace_liquide_etat_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ niveau.get_lave_glace_liquide_etat_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+        <td>{{ niveau.lave_glace_quantite }} L</td>
+        <td>{{ niveau.get_lave_glace_qualite_display }}</td>
+    </tr>
 
-        <tr>
-            <td>{% trans "Liquide de direction assistée" %}</td>
-            <td>{{ niveau.get_direction_liquide_etat_display }}</td>
-            <td>{{ niveau.direction_liquide_quantite }} L</td>
-            <td>{{ niveau.get_direction_liquide_qualite_display }}</td>
-        </tr>
-    </tbody>
+    <tr>
+        <td>{% trans "Liquide de direction assistée" %}</td>
+        <td>
+            {% if niveau.direction_liquide_etat == "BON" %}
+                <span class="etat-vert">{{ niveau.get_direction_liquide_etat_display }}</span>
+            {% elif niveau.direction_liquide_etat == "AJOUTER" %}
+                <span class="etat-bleu">{{ niveau.get_direction_liquide_etat_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ niveau.get_direction_liquide_etat_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+        <td>{{ niveau.direction_liquide_quantite }} L</td>
+        <td>{{ niveau.get_direction_liquide_qualite_display }}</td>
+    </tr>
+</tbody>
 </table>
 
 <h2>{% trans "Main d'œuvre" %}</h2>

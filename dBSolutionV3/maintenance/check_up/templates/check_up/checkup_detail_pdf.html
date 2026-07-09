@@ -43,16 +43,42 @@
             font-weight: bold;
         }
 
-        .tag {
-            padding: 4px 8px;
+        .tag,
+        .etat-vert,
+        .etat-rouge,
+        .etat-bleu,
+        .etat-gris {
+            padding: 2px 6px;
             border-radius: 4px;
-            color: white;
             font-weight: bold;
         }
 
-        .tag-vert { background: #16a34a; }
-        .tag-jaune { background: #ca8a04; }
-        .tag-rouge { background: #dc2626; }
+        .tag-vert,
+        .etat-vert {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .tag-jaune {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .tag-rouge,
+        .etat-rouge {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .etat-bleu {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .etat-gris {
+            background: #f3f4f6;
+            color: #6b7280;
+        }
 
         table {
             width: 100%;
@@ -76,27 +102,6 @@
             color: #555;
             margin-top: 25px;
         }
-         .etat-rouge {
-             color: #991b1b;
-            background: #fee2e2;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: bold;
-        }
-
-        .etat-vert {
-             color: #166534;
-            background: #dcfce7;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: bold;
-        }
-
-        .etat-gris {
-            color: #6b7280;
-            font-weight: bold;
-        }
-
     </style>
 </head>
 
@@ -106,7 +111,6 @@
 
 <div class="box">
     <div class="grid">
-
         <div><span class="label">{% trans "Date" %} :</span> {{ checkup.date|date:"d/m/Y H:i" }}</div>
         <div><span class="label">{% trans "Technicien" %} :</span> {{ checkup.tech_nom_technicien }}</div>
         <div><span class="label">{% trans "Rôle" %} :</span> {{ checkup.tech_role_technicien }}</div>
@@ -125,125 +129,519 @@
                 <span class="tag tag-rouge">{{ checkup.get_tag_display }}</span>
             {% endif %}
         </div>
-
     </div>
 </div>
 
 <h2>{% trans "Essuie-glaces et pare-brise" %}</h2>
+
 <table>
     <tr><th>{% trans "Élément" %}</th><th>{% trans "État" %}</th></tr>
-    <tr><td>{% trans "Essuie-glace avant" %}</td><td>{{ checkup.get_essuie_glace_av_display }}</td></tr>
-    <tr><td>{% trans "Essuie-glace arrière" %}</td><td>{{ checkup.get_essuie_glace_ar_display }}</td></tr>
-    <tr><td>{% trans "Balais avant à remplacer" %}</td><td>{{ checkup.get_balais_essuie_av_display }}</td></tr>
-    <tr><td>{% trans "Balai arrière à remplacer" %}</td><td>{{ checkup.get_balais_essuie_ar_display }}</td></tr>
-    <tr><td>{% trans "Pare-brise avec coups" %}</td><td>{{ checkup.get_pare_brise_coups_display }}</td></tr>
-    <tr><td>{% trans "Pare-brise à remplacer" %}</td><td>{{ checkup.get_pare_brise_remplacer_display }}</td></tr>
+
+    <tr>
+        <td>{% trans "Essuie-glace avant" %}</td>
+        <td>
+            {% if checkup.essuie_glace_av == "OK" %}
+                <span class="etat-vert">{{ checkup.get_essuie_glace_av_display }}</span>
+            {% elif checkup.essuie_glace_av == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_essuie_glace_av_display }}</span>
+            {% elif checkup.essuie_glace_av == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_essuie_glace_av_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_essuie_glace_av_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Essuie-glace arrière" %}</td>
+        <td>
+            {% if checkup.essuie_glace_ar == "OK" %}
+                <span class="etat-vert">{{ checkup.get_essuie_glace_ar_display }}</span>
+            {% elif checkup.essuie_glace_ar == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_essuie_glace_ar_display }}</span>
+            {% elif checkup.essuie_glace_ar == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_essuie_glace_ar_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_essuie_glace_ar_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Balais avant à remplacer" %}</td>
+        <td>
+            {% if checkup.balais_essuie_av == "OK" %}
+                <span class="etat-vert">{{ checkup.get_balais_essuie_av_display }}</span>
+            {% elif checkup.balais_essuie_av == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_balais_essuie_av_display }}</span>
+            {% elif checkup.balais_essuie_av == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_balais_essuie_av_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_balais_essuie_av_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Balai arrière à remplacer" %}</td>
+        <td>
+            {% if checkup.balais_essuie_ar == "OK" %}
+                <span class="etat-vert">{{ checkup.get_balais_essuie_ar_display }}</span>
+            {% elif checkup.balais_essuie_ar == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_balais_essuie_ar_display }}</span>
+            {% elif checkup.balais_essuie_ar == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_balais_essuie_ar_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_balais_essuie_ar_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Pare-brise avec coups" %}</td>
+        <td>
+            {% if checkup.pare_brise_coups == "OK" %}
+                <span class="etat-vert">{{ checkup.get_pare_brise_coups_display }}</span>
+            {% elif checkup.pare_brise_coups == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_pare_brise_coups_display }}</span>
+            {% elif checkup.pare_brise_coups == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_pare_brise_coups_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_pare_brise_coups_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Pare-brise à remplacer" %}</td>
+        <td>
+            {% if checkup.pare_brise_remplacer == "OK" %}
+                <span class="etat-vert">{{ checkup.get_pare_brise_remplacer_display }}</span>
+            {% elif checkup.pare_brise_remplacer == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_pare_brise_remplacer_display }}</span>
+            {% elif checkup.pare_brise_remplacer == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_pare_brise_remplacer_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_pare_brise_remplacer_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
 </table>
 
 <h2>{% trans "Moteur" %}</h2>
+
 <table>
     <tr><th>{% trans "Élément" %}</th><th>{% trans "Valeur" %}</th></tr>
-    <tr><td>{% trans "Fuite moteur" %}</td><td>{{ checkup.get_moteur_fuite_display }}</td></tr>
-    <tr><td>{% trans "Bruit moteur" %}</td><td>{{ checkup.get_moteur_bruit_display }}</td></tr>
-    <tr><td>{% trans "Perte de puissance" %}</td><td>{{ checkup.get_moteur_perte_display }}</td></tr>
-    <tr><td>{% trans "Moteur à remplacer" %}</td><td>{{ checkup.get_moteur_casse_display }}</td></tr>
+
+    <tr>
+        <td>{% trans "Fuite moteur" %}</td>
+        <td>
+            {% if checkup.moteur_fuite == "OK" %}
+                <span class="etat-vert">{{ checkup.get_moteur_fuite_display }}</span>
+            {% elif checkup.moteur_fuite == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_moteur_fuite_display }}</span>
+            {% elif checkup.moteur_fuite == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_moteur_fuite_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_moteur_fuite_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Bruit moteur" %}</td>
+        <td>
+            {% if checkup.moteur_bruit == "OK" %}
+                <span class="etat-vert">{{ checkup.get_moteur_bruit_display }}</span>
+            {% elif checkup.moteur_bruit == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_moteur_bruit_display }}</span>
+            {% elif checkup.moteur_bruit == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_moteur_bruit_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_moteur_bruit_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Perte de puissance" %}</td>
+        <td>
+            {% if checkup.moteur_perte == "OK" %}
+                <span class="etat-vert">{{ checkup.get_moteur_perte_display }}</span>
+            {% elif checkup.moteur_perte == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_moteur_perte_display }}</span>
+            {% elif checkup.moteur_perte == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_moteur_perte_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_moteur_perte_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Moteur à remplacer" %}</td>
+        <td>
+            {% if checkup.moteur_casse == "OK" %}
+                <span class="etat-vert">{{ checkup.get_moteur_casse_display }}</span>
+            {% elif checkup.moteur_casse == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_moteur_casse_display }}</span>
+            {% elif checkup.moteur_casse == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_moteur_casse_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_moteur_casse_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
     <tr><td>{% trans "Niveau d'huile" %}</td><td>{{ checkup.get_moteur_niveau_huile_etat_display }}</td></tr>
     <tr><td>{% trans "Quantité d'huile ajoutée" %}</td><td>{{ checkup.moteur_niveau_huile_quantite }} L</td></tr>
     <tr><td>{% trans "Qualité d'huile" %}</td><td>{{ checkup.get_moteur_niveau_huile_qualite_display }}</td></tr>
 </table>
 
 <h2>{% trans "Boîte de vitesse" %}</h2>
+
 <table>
     <tr><th>{% trans "Élément" %}</th><th>{% trans "Valeur" %}</th></tr>
-    <tr><td>{% trans "Fuite boîte" %}</td><td>{{ checkup.get_boite_fuite_display }}</td></tr>
-    <tr><td>{% trans "Bruit boîte" %}</td><td>{{ checkup.get_boite_bruit_display }}</td></tr>
-    <tr><td>{% trans "Problème d'embrayage" %}</td><td>{{ checkup.get_boite_embrayage_display }}</td></tr>
+
+    <tr>
+        <td>{% trans "Fuite boîte" %}</td>
+        <td>
+            {% if checkup.boite_fuite == "OK" %}
+                <span class="etat-vert">{{ checkup.get_boite_fuite_display }}</span>
+            {% elif checkup.boite_fuite == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_boite_fuite_display }}</span>
+            {% elif checkup.boite_fuite == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_boite_fuite_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_boite_fuite_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Bruit boîte" %}</td>
+        <td>
+            {% if checkup.boite_bruit == "OK" %}
+                <span class="etat-vert">{{ checkup.get_boite_bruit_display }}</span>
+            {% elif checkup.boite_bruit == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_boite_bruit_display }}</span>
+            {% elif checkup.boite_bruit == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_boite_bruit_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_boite_bruit_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Problème d'embrayage" %}</td>
+        <td>
+            {% if checkup.boite_embrayage == "OK" %}
+                <span class="etat-vert">{{ checkup.get_boite_embrayage_display }}</span>
+            {% elif checkup.boite_embrayage == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_boite_embrayage_display }}</span>
+            {% elif checkup.boite_embrayage == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_boite_embrayage_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_boite_embrayage_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
     <tr><td>{% trans "Niveau d'huile" %}</td><td>{{ checkup.get_boite_niveau_huile_etat_display }}</td></tr>
     <tr><td>{% trans "Quantité d'huile ajoutée" %}</td><td>{{ checkup.boite_niveau_huile_quantite }} L</td></tr>
     <tr><td>{% trans "Qualité d'huile" %}</td><td>{{ checkup.get_boite_niveau_huile_qualite_display }}</td></tr>
 </table>
 
 <h2>{% trans "Pont arrière" %}</h2>
+
 <table>
     <tr><th>{% trans "Élément" %}</th><th>{% trans "Valeur" %}</th></tr>
-    <tr><td>{% trans "Fuite pont arrière" %}</td><td>{{ checkup.get_pont_fuite_display }}</td></tr>
-    <tr><td>{% trans "Bruit pont arrière" %}</td><td>{{ checkup.get_pont_bruit_display }}</td></tr>
-    <tr><td>{% trans "Jeu pont arrière" %}</td><td>{{ checkup.get_pont_jeu_display }}</td></tr>
+
+    <tr>
+        <td>{% trans "Fuite pont arrière" %}</td>
+        <td>
+            {% if checkup.pont_fuite == "OK" %}
+                <span class="etat-vert">{{ checkup.get_pont_fuite_display }}</span>
+            {% elif checkup.pont_fuite == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_pont_fuite_display }}</span>
+            {% elif checkup.pont_fuite == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_pont_fuite_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_pont_fuite_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Bruit pont arrière" %}</td>
+        <td>
+            {% if checkup.pont_bruit == "OK" %}
+                <span class="etat-vert">{{ checkup.get_pont_bruit_display }}</span>
+            {% elif checkup.pont_bruit == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_pont_bruit_display }}</span>
+            {% elif checkup.pont_bruit == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_pont_bruit_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_pont_bruit_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Jeu pont arrière" %}</td>
+        <td>
+            {% if checkup.pont_jeu == "OK" %}
+                <span class="etat-vert">{{ checkup.get_pont_jeu_display }}</span>
+            {% elif checkup.pont_jeu == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_pont_jeu_display }}</span>
+            {% elif checkup.pont_jeu == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_pont_jeu_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_pont_jeu_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
     <tr><td>{% trans "Niveau d'huile" %}</td><td>{{ checkup.get_pont_niveau_huile_etat_display }}</td></tr>
     <tr><td>{% trans "Quantité d'huile ajoutée" %}</td><td>{{ checkup.pont_niveau_huile_quantite }} L</td></tr>
     <tr><td>{% trans "Qualité d'huile" %}</td><td>{{ checkup.get_pont_niveau_huile_qualite_display }}</td></tr>
 </table>
 
 <h2>{% trans "Refroidissement" %}</h2>
+
 <table>
     <tr><th>{% trans "Élément" %}</th><th>{% trans "Valeur" %}</th></tr>
-    <tr><td>{% trans "Radiateur" %}</td><td>{{ checkup.get_refroidissement_radiateur_display }}</td></tr>
+
+    <tr>
+        <td>{% trans "Radiateur" %}</td>
+        <td>
+            {% if checkup.refroidissement_radiateur == "OK" %}
+                <span class="etat-vert">{{ checkup.get_refroidissement_radiateur_display }}</span>
+            {% elif checkup.refroidissement_radiateur == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_refroidissement_radiateur_display }}</span>
+            {% elif checkup.refroidissement_radiateur == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_refroidissement_radiateur_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_refroidissement_radiateur_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
     <tr><td>{% trans "Quantité ajoutée" %}</td><td>{{ checkup.refroidissement_quantite }} L</td></tr>
     <tr><td>{% trans "Qualité du liquide" %}</td><td>{{ checkup.get_refroidissement_qualite_display }}</td></tr>
 </table>
 
 <h2>{% trans "Freins" %}</h2>
+
 <table>
     <tr><th>{% trans "Élément" %}</th><th>{% trans "Valeur" %}</th></tr>
+
     <tr><td>{% trans "Usure des plaquettes avant" %}</td><td>{{ checkup.freins_usure_plaquettes_av }} %</td></tr>
-    <tr><td>{% trans "Plaquettes avant à remplacer" %}</td><td>{{ checkup.get_freins_plaquettes_remplacer_av_display }}</td></tr>
+
+    <tr>
+        <td>{% trans "Plaquettes avant à remplacer" %}</td>
+        <td>
+            {% if checkup.freins_plaquettes_remplacer_av == "OK" %}
+                <span class="etat-vert">{{ checkup.get_freins_plaquettes_remplacer_av_display }}</span>
+            {% elif checkup.freins_plaquettes_remplacer_av == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_freins_plaquettes_remplacer_av_display }}</span>
+            {% elif checkup.freins_plaquettes_remplacer_av == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_freins_plaquettes_remplacer_av_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_freins_plaquettes_remplacer_av_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
     <tr><td>{% trans "Épaisseur des disques avant" %}</td><td>{{ checkup.freins_epaisseur_disques_av }} mm</td></tr>
-    <tr><td>{% trans "Fentes sur les disques avant" %}</td><td>{{ checkup.get_freins_fentes_disques_av_display }}</td></tr>
-    <tr><td>{% trans "Disques avant à remplacer" %}</td><td>{{ checkup.get_freins_disques_remplacer_av_display }}</td></tr>
+
+    <tr>
+        <td>{% trans "Fentes sur les disques avant" %}</td>
+        <td>
+            {% if checkup.freins_fentes_disques_av == "OK" %}
+                <span class="etat-vert">{{ checkup.get_freins_fentes_disques_av_display }}</span>
+            {% elif checkup.freins_fentes_disques_av == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_freins_fentes_disques_av_display }}</span>
+            {% elif checkup.freins_fentes_disques_av == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_freins_fentes_disques_av_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_freins_fentes_disques_av_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Disques avant à remplacer" %}</td>
+        <td>
+            {% if checkup.freins_disques_remplacer_av == "OK" %}
+                <span class="etat-vert">{{ checkup.get_freins_disques_remplacer_av_display }}</span>
+            {% elif checkup.freins_disques_remplacer_av == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_freins_disques_remplacer_av_display }}</span>
+            {% elif checkup.freins_disques_remplacer_av == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_freins_disques_remplacer_av_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_freins_disques_remplacer_av_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
 
     <tr><td>{% trans "Usure des plaquettes arrière" %}</td><td>{{ checkup.freins_usure_plaquettes_ar }} %</td></tr>
-    <tr><td>{% trans "Plaquettes arrière à remplacer" %}</td><td>{{ checkup.get_freins_plaquettes_remplacer_ar_display }}</td></tr>
-    <tr><td>{% trans "Épaisseur des disques arrière" %}</td><td>{{ checkup.freins_epaisseur_disques_ar }} mm</td></tr>
-    <tr><td>{% trans "Fentes sur les disques arrière" %}</td><td>{{ checkup.get_freins_fentes_disques_ar_display }}</td></tr>
-    <tr><td>{% trans "Disques arrière à remplacer" %}</td><td>{{ checkup.get_freins_disques_remplacer_ar_display }}</td></tr>
 
-    <tr><td>{% trans "Présence de fuite" %}</td><td>{{ checkup.get_freins_fuites_display }}</td></tr>
-    <tr><td>{% trans "État du liquide de frein" %}</td><td>{{ checkup.get_frein_liquide_frein_etat_display }}</td></tr>
-    <tr><td>{% trans "Remplacement du liquide de frein" %}</td><td>{{ checkup.get_freins_remplacement_liquide_frein_display }}</td></tr>
+    <tr>
+        <td>{% trans "Plaquettes arrière à remplacer" %}</td>
+        <td>
+            {% if checkup.freins_plaquettes_remplacer_ar == "OK" %}
+                <span class="etat-vert">{{ checkup.get_freins_plaquettes_remplacer_ar_display }}</span>
+            {% elif checkup.freins_plaquettes_remplacer_ar == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_freins_plaquettes_remplacer_ar_display }}</span>
+            {% elif checkup.freins_plaquettes_remplacer_ar == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_freins_plaquettes_remplacer_ar_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_freins_plaquettes_remplacer_ar_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr><td>{% trans "Épaisseur des disques arrière" %}</td><td>{{ checkup.freins_epaisseur_disques_ar }} mm</td></tr>
+
+    <tr>
+        <td>{% trans "Fentes sur les disques arrière" %}</td>
+        <td>
+            {% if checkup.freins_fentes_disques_ar == "OK" %}
+                <span class="etat-vert">{{ checkup.get_freins_fentes_disques_ar_display }}</span>
+            {% elif checkup.freins_fentes_disques_ar == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_freins_fentes_disques_ar_display }}</span>
+            {% elif checkup.freins_fentes_disques_ar == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_freins_fentes_disques_ar_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_freins_fentes_disques_ar_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Disques arrière à remplacer" %}</td>
+        <td>
+            {% if checkup.freins_disques_remplacer_ar == "OK" %}
+                <span class="etat-vert">{{ checkup.get_freins_disques_remplacer_ar_display }}</span>
+            {% elif checkup.freins_disques_remplacer_ar == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_freins_disques_remplacer_ar_display }}</span>
+            {% elif checkup.freins_disques_remplacer_ar == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_freins_disques_remplacer_ar_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_freins_disques_remplacer_ar_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Présence de fuite" %}</td>
+        <td>
+            {% if checkup.freins_fuites == "OK" %}
+                <span class="etat-vert">{{ checkup.get_freins_fuites_display }}</span>
+            {% elif checkup.freins_fuites == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_freins_fuites_display }}</span>
+            {% elif checkup.freins_fuites == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_freins_fuites_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_freins_fuites_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "État du liquide de frein" %}</td>
+        <td>
+            {% if checkup.frein_liquide_frein_etat == "OK" %}
+                <span class="etat-vert">{{ checkup.get_frein_liquide_frein_etat_display }}</span>
+            {% elif checkup.frein_liquide_frein_etat == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_frein_liquide_frein_etat_display }}</span>
+            {% elif checkup.frein_liquide_frein_etat == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_frein_liquide_frein_etat_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_frein_liquide_frein_etat_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Remplacement du liquide de frein" %}</td>
+        <td>
+            {% if checkup.freins_remplacement_liquide_frein == "OK" %}
+                <span class="etat-vert">{{ checkup.get_freins_remplacement_liquide_frein_display }}</span>
+            {% elif checkup.freins_remplacement_liquide_frein == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_freins_remplacement_liquide_frein_display }}</span>
+            {% elif checkup.freins_remplacement_liquide_frein == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_freins_remplacement_liquide_frein_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_freins_remplacement_liquide_frein_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
     <tr><td>{% trans "Spécification du liquide de frein" %}</td><td>{{ checkup.freins_specif_liquide_frein|default:"-" }}</td></tr>
     <tr><td>{% trans "Quantité de liquide de frein" %}</td><td>{{ checkup.freins_quantite_liquide_frein }} L</td></tr>
 </table>
 
 <h2>{% trans "Direction et roulements" %}</h2>
+
 <table>
     <tr><th>{% trans "Élément" %}</th><th>{% trans "État" %}</th></tr>
-    <tr><td>{% trans "Fuite direction assistée / crémaillère" %}</td><td>{{ checkup.get_direction_fuite_display }}</td></tr>
+
+    <tr>
+        <td>{% trans "Fuite direction assistée / crémaillère" %}</td>
+        <td>
+            {% if checkup.direction_fuite == "OK" %}
+                <span class="etat-vert">{{ checkup.get_direction_fuite_display }}</span>
+            {% elif checkup.direction_fuite == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_direction_fuite_display }}</span>
+            {% elif checkup.direction_fuite == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_direction_fuite_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_direction_fuite_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
+
     <tr><td>{% trans "Niveau liquide direction" %}</td><td>{{ checkup.niveau_direction }}</td></tr>
-    <tr><td>{% trans "Roulement avant droit" %}</td><td>{{ checkup.get_bruit_roulement_avd_display }}</td></tr>
-    <tr><td>{% trans "Roulement avant gauche" %}</td><td>{{ checkup.get_bruit_roulement_avg_display }}</td></tr>
-    <tr><td>{% trans "Roulement arrière droit" %}</td><td>{{ checkup.get_bruit_roulement_ard_display }}</td></tr>
-    <tr><td>{% trans "Roulement arrière gauche" %}</td><td>{{ checkup.get_bruit_roulement_arg_display }}</td></tr>
+
+    <tr><td>{% trans "Roulement avant droit" %}</td>
+        <td>{% if checkup.bruit_roulement_avd == "OK" %}<span class="etat-vert">{{ checkup.get_bruit_roulement_avd_display }}</span>{% elif checkup.bruit_roulement_avd == "A_REMPLACER" %}<span class="etat-rouge">{{ checkup.get_bruit_roulement_avd_display }}</span>{% elif checkup.bruit_roulement_avd == "REMPLACE" %}<span class="etat-bleu">{{ checkup.get_bruit_roulement_avd_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_bruit_roulement_avd_display|default:"-" }}</span>{% endif %}</td>
+    </tr>
+    <tr><td>{% trans "Roulement avant gauche" %}</td>
+        <td>{% if checkup.bruit_roulement_avg == "OK" %}<span class="etat-vert">{{ checkup.get_bruit_roulement_avg_display }}</span>{% elif checkup.bruit_roulement_avg == "A_REMPLACER" %}<span class="etat-rouge">{{ checkup.get_bruit_roulement_avg_display }}</span>{% elif checkup.bruit_roulement_avg == "REMPLACE" %}<span class="etat-bleu">{{ checkup.get_bruit_roulement_avg_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_bruit_roulement_avg_display|default:"-" }}</span>{% endif %}</td>
+    </tr>
+    <tr><td>{% trans "Roulement arrière droit" %}</td>
+        <td>{% if checkup.bruit_roulement_ard == "OK" %}<span class="etat-vert">{{ checkup.get_bruit_roulement_ard_display }}</span>{% elif checkup.bruit_roulement_ard == "A_REMPLACER" %}<span class="etat-rouge">{{ checkup.get_bruit_roulement_ard_display }}</span>{% elif checkup.bruit_roulement_ard == "REMPLACE" %}<span class="etat-bleu">{{ checkup.get_bruit_roulement_ard_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_bruit_roulement_ard_display|default:"-" }}</span>{% endif %}</td>
+    </tr>
+    <tr><td>{% trans "Roulement arrière gauche" %}</td>
+        <td>{% if checkup.bruit_roulement_arg == "OK" %}<span class="etat-vert">{{ checkup.get_bruit_roulement_arg_display }}</span>{% elif checkup.bruit_roulement_arg == "A_REMPLACER" %}<span class="etat-rouge">{{ checkup.get_bruit_roulement_arg_display }}</span>{% elif checkup.bruit_roulement_arg == "REMPLACE" %}<span class="etat-bleu">{{ checkup.get_bruit_roulement_arg_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_bruit_roulement_arg_display|default:"-" }}</span>{% endif %}</td>
+    </tr>
 </table>
 
 <h2>{% trans "Batterie" %}</h2>
+
 <table>
     <tr><th>{% trans "Élément" %}</th><th>{% trans "État" %}</th></tr>
-    <tr><td>{% trans "État batterie" %}</td><td>{{ checkup.get_batterie_etat_display }}</td></tr>
-</table>
-
-<h2>{% trans "Jeux direction et suspension" %}</h2>
-<table>
-    <tr><th>{% trans "Élément" %}</th><th>{% trans "État" %}</th></tr>
-    <tr><td>{% trans "Rotule de direction AVD" %}</td><td>{{ checkup.get_jeu_rotule_direction_avd_display }}</td></tr>
-    <tr><td>{% trans "Rotule de direction AVG" %}</td><td>{{ checkup.get_jeu_rotule_direction_avg_display }}</td></tr>
-    <tr><td>{% trans "Rotule de direction ARD" %}</td><td>{{ checkup.get_jeu_rotule_direction_ard_display }}</td></tr>
-    <tr><td>{% trans "Rotule de direction ARG" %}</td><td>{{ checkup.get_jeu_rotule_direction_arg_display }}</td></tr>
-
-    <tr><td>{% trans "Biellette de barre stabilisatrice AVD" %}</td><td>{{ checkup.get_jeu_Biellette_barre_stabilisatrice_avd_display }}</td></tr>
-    <tr><td>{% trans "Biellette de barre stabilisatrice AVG" %}</td><td>{{ checkup.get_jeu_Biellette_barre_stabilisatrice_avg_display }}</td></tr>
-    <tr><td>{% trans "Biellette de barre stabilisatrice ARD" %}</td><td>{{ checkup.get_jeu_Biellette_barre_stabilisatrice_ard_display }}</td></tr>
-    <tr><td>{% trans "Biellette de barre stabilisatrice ARG" %}</td><td>{{ checkup.get_jeu_Biellette_barre_stabilisatrice_arg_display }}</td></tr>
-
-    <tr><td>{% trans "Barre stabilisatrice avant" %}</td><td>{{ checkup.get_jeu_barre_stabilisatrice_av_display }}</td></tr>
-    <tr><td>{% trans "Barre stabilisatrice arrière" %}</td><td>{{ checkup.get_jeu_barre_stabilisatrice_ar_display }}</td></tr>
-
-    <tr><td>{% trans "Biellette de direction droite" %}</td><td>{{ checkup.get_jeu_biellette_direction_avd_display }}</td></tr>
-    <tr><td>{% trans "Biellette de direction gauche" %}</td><td>{{ checkup.get_jeu_biellette_direction_avg_display }}</td></tr>
-
-    <tr><td>{% trans "Arbre de transmission" %}</td><td>{{ checkup.get_jeu_arbre_display }}</td></tr>
+    <tr>
+        <td>{% trans "État batterie" %}</td>
+        <td>
+            {% if checkup.batterie_etat == "OK" %}
+                <span class="etat-vert">{{ checkup.get_batterie_etat_display }}</span>
+            {% elif checkup.batterie_etat == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_batterie_etat_display }}</span>
+            {% elif checkup.batterie_etat == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_batterie_etat_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_batterie_etat_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
 </table>
 
 <h2>{% trans "Pneus et pression" %}</h2>
+
 <table>
     <tr>
         <th>{% trans "Position" %}</th>
@@ -251,93 +649,109 @@
         <th>{% trans "Pression" %}</th>
         <th>{% trans "Flanc" %}</th>
     </tr>
+
     <tr>
         <td>{% trans "Avant droit" %}</td>
         <td>{{ checkup.pneu_epaisseur_avd }} mm</td>
         <td>{{ checkup.pneu_pression_bar_avd }} bar</td>
-        <td>{{ checkup.get_pneu_sidewall_avd_display }}</td>
+        <td>{% if checkup.pneu_sidewall_avd == "OK" %}<span class="etat-vert">{{ checkup.get_pneu_sidewall_avd_display }}</span>{% elif checkup.pneu_sidewall_avd == "A_REMPLACER" %}<span class="etat-rouge">{{ checkup.get_pneu_sidewall_avd_display }}</span>{% elif checkup.pneu_sidewall_avd == "REMPLACE" %}<span class="etat-bleu">{{ checkup.get_pneu_sidewall_avd_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_pneu_sidewall_avd_display|default:"-" }}</span>{% endif %}</td>
     </tr>
+
     <tr>
         <td>{% trans "Avant gauche" %}</td>
         <td>{{ checkup.pneu_epaisseur_avg }} mm</td>
         <td>{{ checkup.pneu_pression_bar_avg }} bar</td>
-        <td>{{ checkup.get_pneu_sidewall_avg_display }}</td>
+        <td>{% if checkup.pneu_sidewall_avg == "OK" %}<span class="etat-vert">{{ checkup.get_pneu_sidewall_avg_display }}</span>{% elif checkup.pneu_sidewall_avg == "A_REMPLACER" %}<span class="etat-rouge">{{ checkup.get_pneu_sidewall_avg_display }}</span>{% elif checkup.pneu_sidewall_avg == "REMPLACE" %}<span class="etat-bleu">{{ checkup.get_pneu_sidewall_avg_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_pneu_sidewall_avg_display|default:"-" }}</span>{% endif %}</td>
     </tr>
+
     <tr>
         <td>{% trans "Arrière droit" %}</td>
         <td>{{ checkup.pneu_epaisseur_ard }} mm</td>
         <td>{{ checkup.pneu_pression_bar_ard }} bar</td>
-        <td>{{ checkup.get_pneu_sidewall_ard_display }}</td>
+        <td>{% if checkup.pneu_sidewall_ard == "OK" %}<span class="etat-vert">{{ checkup.get_pneu_sidewall_ard_display }}</span>{% elif checkup.pneu_sidewall_ard == "A_REMPLACER" %}<span class="etat-rouge">{{ checkup.get_pneu_sidewall_ard_display }}</span>{% elif checkup.pneu_sidewall_ard == "REMPLACE" %}<span class="etat-bleu">{{ checkup.get_pneu_sidewall_ard_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_pneu_sidewall_ard_display|default:"-" }}</span>{% endif %}</td>
     </tr>
+
     <tr>
         <td>{% trans "Arrière gauche" %}</td>
         <td>{{ checkup.pneu_epaisseur_arg }} mm</td>
         <td>{{ checkup.pneu_pression_bar_arg }} bar</td>
-        <td>{{ checkup.get_pneu_sidewall_arg_display }}</td>
+        <td>{% if checkup.pneu_sidewall_arg == "OK" %}<span class="etat-vert">{{ checkup.get_pneu_sidewall_arg_display }}</span>{% elif checkup.pneu_sidewall_arg == "A_REMPLACER" %}<span class="etat-rouge">{{ checkup.get_pneu_sidewall_arg_display }}</span>{% elif checkup.pneu_sidewall_arg == "REMPLACE" %}<span class="etat-bleu">{{ checkup.get_pneu_sidewall_arg_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_pneu_sidewall_arg_display|default:"-" }}</span>{% endif %}</td>
     </tr>
-    <tr><td>{% trans "Train avant à remplacer" %}</td><td colspan="3">{{ checkup.get_pneu_train_av_display }}</td></tr>
-    <tr><td>{% trans "Train arrière à remplacer" %}</td><td colspan="3">{{ checkup.get_pneu_train_ar_display }}</td></tr>
 </table>
 
 <h2>{% trans "Phares" %}</h2>
+
 <table>
     <tr><th>{% trans "Élément" %}</th><th>{% trans "État" %}</th></tr>
-    <tr><td>{% trans "Réglage phares" %}</td><td>{{ checkup.get_phares_reglages_display }}</td></tr>
-    <tr><td>{% trans "Feux de route" %}</td><td>{{ checkup.get_phares_avant_display }}</td></tr>
-    <tr><td>{% trans "Grands phares" %}</td><td>{{ checkup.get_phares_gros_phares_display }}</td></tr>
-    <tr><td>{% trans "Clignotants" %}</td><td>{{ checkup.get_phares_clignotants_display }}</td></tr>
-    <tr><td>{% trans "Feux de recul" %}</td><td>{{ checkup.get_phares_recul_display }}</td></tr>
-    <tr><td>{% trans "Anti-brouillard avant" %}</td><td>{{ checkup.get_phares_anti_brouillard_avant_display }}</td></tr>
-    <tr><td>{% trans "Anti-brouillard arrière" %}</td><td>{{ checkup.get_phares_anti_brouillard_arriere_display }}</td></tr>
+
+    <tr><td>{% trans "Réglage phares" %}</td><td>{% if checkup.phares_reglages == "OK" %}<span class="etat-vert">{{ checkup.get_phares_reglages_display }}</span>{% elif checkup.phares_reglages == "A_REMPLACER" %}<span class="etat-rouge">{{ checkup.get_phares_reglages_display }}</span>{% elif checkup.phares_reglages == "REMPLACE" %}<span class="etat-bleu">{{ checkup.get_phares_reglages_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_phares_reglages_display|default:"-" }}</span>{% endif %}</td></tr>
+    <tr><td>{% trans "Feux de route" %}</td><td>{% if checkup.phares_avant == "OK" %}<span class="etat-vert">{{ checkup.get_phares_avant_display }}</span>{% elif checkup.phares_avant == "A_REMPLACER" %}<span class="etat-rouge">{{ checkup.get_phares_avant_display }}</span>{% elif checkup.phares_avant == "REMPLACE" %}<span class="etat-bleu">{{ checkup.get_phares_avant_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_phares_avant_display|default:"-" }}</span>{% endif %}</td></tr>
+    <tr><td>{% trans "Grands phares" %}</td><td>{% if checkup.phares_gros_phares == "OK" %}<span class="etat-vert">{{ checkup.get_phares_gros_phares_display }}</span>{% elif checkup.phares_gros_phares == "A_REMPLACER" %}<span class="etat-rouge">{{ checkup.get_phares_gros_phares_display }}</span>{% elif checkup.phares_gros_phares == "REMPLACE" %}<span class="etat-bleu">{{ checkup.get_phares_gros_phares_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_phares_gros_phares_display|default:"-" }}</span>{% endif %}</td></tr>
+    <tr><td>{% trans "Clignotants" %}</td><td>{% if checkup.phares_clignotants == "OK" %}<span class="etat-vert">{{ checkup.get_phares_clignotants_display }}</span>{% elif checkup.phares_clignotants == "A_REMPLACER" %}<span class="etat-rouge">{{ checkup.get_phares_clignotants_display }}</span>{% elif checkup.phares_clignotants == "REMPLACE" %}<span class="etat-bleu">{{ checkup.get_phares_clignotants_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_phares_clignotants_display|default:"-" }}</span>{% endif %}</td></tr>
 </table>
 
 <h2>{% trans "Serrage des roues" %}</h2>
+
 <table>
     <tr>
-    <td>{% trans "Serrage des roues" %}</td>
-    <td>
-        {% if checkup.serrage_roues|upper == "A_FAIRE" %}
-            <span class="etat-rouge">{{ checkup.get_serrage_roues_display }}</span>
-        {% elif checkup.serrage_roues|upper == "FAIT" %}
-            <span class="etat-vert">{{ checkup.get_serrage_roues_display }}</span>
-        {% else %}
-            <span class="etat-gris">
-                {{ checkup.get_serrage_roues_display|default:checkup.serrage_roues|default:"-" }}
-            </span>
-        {% endif %}
-    </td>
-</tr>
+        <td>{% trans "Serrage des roues" %}</td>
+        <td>
+            {% if checkup.serrage_roues|upper == "A_FAIRE" %}
+                <span class="etat-rouge">{{ checkup.get_serrage_roues_display }}</span>
+            {% elif checkup.serrage_roues|upper == "FAIT" %}
+                <span class="etat-vert">{{ checkup.get_serrage_roues_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_serrage_roues_display|default:checkup.serrage_roues|default:"-" }}</span>
+            {% endif %}
+        </td>
+    </tr>
 </table>
 
 <h2>{% trans "Nettoyage extérieur" %}</h2>
+
 <table>
     <tr><th>{% trans "Élément" %}</th><th>{% trans "État" %}</th></tr>
-    <tr><td>{% trans "Traces de gomme" %}</td><td>{{ checkup.get_nettoyage_exterieur_traces_gomme_display }}</td></tr>
-    <tr><td>{% trans "Carrosserie" %}</td><td>{{ checkup.get_nettoyage_exterieur_carrosserie_display }}</td></tr>
-    <tr><td>{% trans "Jantes" %}</td><td>{{ checkup.get_nettoyage_exterieur_jantes_display }}</td></tr>
-    <tr><td>{% trans "Séchage" %}</td><td>{{ checkup.get_nettoyage_exterieur_sechage_display }}</td></tr>
+
+    <tr><td>{% trans "Traces de gomme" %}</td><td>{% if checkup.nettoyage_exterieur_traces_gomme == "A_FAIRE" %}<span class="etat-rouge">{{ checkup.get_nettoyage_exterieur_traces_gomme_display }}</span>{% elif checkup.nettoyage_exterieur_traces_gomme == "FAIT" or checkup.nettoyage_exterieur_traces_gomme == "PROPRE" %}<span class="etat-vert">{{ checkup.get_nettoyage_exterieur_traces_gomme_display }}</span>{% elif checkup.nettoyage_exterieur_traces_gomme == "REPORTER" %}<span class="etat-bleu">{{ checkup.get_nettoyage_exterieur_traces_gomme_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_nettoyage_exterieur_traces_gomme_display|default:"-" }}</span>{% endif %}</td></tr>
+
+    <tr><td>{% trans "Carrosserie" %}</td><td>{% if checkup.nettoyage_exterieur_carrosserie == "A_FAIRE" %}<span class="etat-rouge">{{ checkup.get_nettoyage_exterieur_carrosserie_display }}</span>{% elif checkup.nettoyage_exterieur_carrosserie == "FAIT" or checkup.nettoyage_exterieur_carrosserie == "PROPRE" %}<span class="etat-vert">{{ checkup.get_nettoyage_exterieur_carrosserie_display }}</span>{% elif checkup.nettoyage_exterieur_carrosserie == "REPORTER" %}<span class="etat-bleu">{{ checkup.get_nettoyage_exterieur_carrosserie_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_nettoyage_exterieur_carrosserie_display|default:"-" }}</span>{% endif %}</td></tr>
+
+    <tr><td>{% trans "Jantes" %}</td><td>{% if checkup.nettoyage_exterieur_jantes == "A_FAIRE" %}<span class="etat-rouge">{{ checkup.get_nettoyage_exterieur_jantes_display }}</span>{% elif checkup.nettoyage_exterieur_jantes == "FAIT" or checkup.nettoyage_exterieur_jantes == "PROPRE" %}<span class="etat-vert">{{ checkup.get_nettoyage_exterieur_jantes_display }}</span>{% elif checkup.nettoyage_exterieur_jantes == "REPORTER" %}<span class="etat-bleu">{{ checkup.get_nettoyage_exterieur_jantes_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_nettoyage_exterieur_jantes_display|default:"-" }}</span>{% endif %}</td></tr>
+
+    <tr><td>{% trans "Séchage" %}</td><td>{% if checkup.nettoyage_exterieur_sechage == "A_FAIRE" %}<span class="etat-rouge">{{ checkup.get_nettoyage_exterieur_sechage_display }}</span>{% elif checkup.nettoyage_exterieur_sechage == "FAIT" or checkup.nettoyage_exterieur_sechage == "PROPRE" %}<span class="etat-vert">{{ checkup.get_nettoyage_exterieur_sechage_display }}</span>{% elif checkup.nettoyage_exterieur_sechage == "REPORTER" %}<span class="etat-bleu">{{ checkup.get_nettoyage_exterieur_sechage_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_nettoyage_exterieur_sechage_display|default:"-" }}</span>{% endif %}</td></tr>
 </table>
 
 <h2>{% trans "Nettoyage intérieur" %}</h2>
+
 <table>
     <tr><th>{% trans "Élément" %}</th><th>{% trans "État" %}</th></tr>
-    <tr><td>{% trans "Vitres" %}</td><td>{{ checkup.get_nettoyage_interieur_vitres_display }}</td></tr>
-    <tr><td>{% trans "Pare-brise" %}</td><td>{{ checkup.get_nettoyage_interieur_pare_brise_display }}</td></tr>
-    <tr><td>{% trans "Aspirateur" %}</td><td>{{ checkup.get_nettoyage_interieur_aspirateur_display }}</td></tr>
-    <tr><td>{% trans "Intérieurs de porte" %}</td><td>{{ checkup.get_nettoyage_interieur_portes_display }}</td></tr>
-    <tr><td>{% trans "Sièges" %}</td><td>{{ checkup.get_nettoyage_interieur_sieges_display }}</td></tr>
-    <tr><td>{% trans "Carpettes" %}</td><td>{{ checkup.get_nettoyage_interieur_carpettes_display }}</td></tr>
-    <tr><td>{% trans "Tableau de bord" %}</td><td>{{ checkup.get_nettoyage_interieur_tableau_de_bord_display }}</td></tr>
-    <tr><td>{% trans "Plastiques" %}</td><td>{{ checkup.get_nettoyage_interieur_plastiques_display }}</td></tr>
+
+    <tr><td>{% trans "Vitres" %}</td><td>{% if checkup.nettoyage_interieur_vitres == "A_FAIRE" %}<span class="etat-rouge">{{ checkup.get_nettoyage_interieur_vitres_display }}</span>{% elif checkup.nettoyage_interieur_vitres == "FAIT" or checkup.nettoyage_interieur_vitres == "PROPRE" %}<span class="etat-vert">{{ checkup.get_nettoyage_interieur_vitres_display }}</span>{% elif checkup.nettoyage_interieur_vitres == "REPORTER" %}<span class="etat-bleu">{{ checkup.get_nettoyage_interieur_vitres_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_nettoyage_interieur_vitres_display|default:"-" }}</span>{% endif %}</td></tr>
+
+    <tr><td>{% trans "Pare-brise" %}</td><td>{% if checkup.nettoyage_interieur_pare_brise == "A_FAIRE" %}<span class="etat-rouge">{{ checkup.get_nettoyage_interieur_pare_brise_display }}</span>{% elif checkup.nettoyage_interieur_pare_brise == "FAIT" or checkup.nettoyage_interieur_pare_brise == "PROPRE" %}<span class="etat-vert">{{ checkup.get_nettoyage_interieur_pare_brise_display }}</span>{% elif checkup.nettoyage_interieur_pare_brise == "REPORTER" %}<span class="etat-bleu">{{ checkup.get_nettoyage_interieur_pare_brise_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_nettoyage_interieur_pare_brise_display|default:"-" }}</span>{% endif %}</td></tr>
+
+    <tr><td>{% trans "Aspirateur" %}</td><td>{% if checkup.nettoyage_interieur_aspirateur == "A_FAIRE" %}<span class="etat-rouge">{{ checkup.get_nettoyage_interieur_aspirateur_display }}</span>{% elif checkup.nettoyage_interieur_aspirateur == "FAIT" or checkup.nettoyage_interieur_aspirateur == "PROPRE" %}<span class="etat-vert">{{ checkup.get_nettoyage_interieur_aspirateur_display }}</span>{% elif checkup.nettoyage_interieur_aspirateur == "REPORTER" %}<span class="etat-bleu">{{ checkup.get_nettoyage_interieur_aspirateur_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_nettoyage_interieur_aspirateur_display|default:"-" }}</span>{% endif %}</td></tr>
+
+    <tr><td>{% trans "Intérieurs de porte" %}</td><td>{% if checkup.nettoyage_interieur_portes == "A_FAIRE" %}<span class="etat-rouge">{{ checkup.get_nettoyage_interieur_portes_display }}</span>{% elif checkup.nettoyage_interieur_portes == "FAIT" or checkup.nettoyage_interieur_portes == "PROPRE" %}<span class="etat-vert">{{ checkup.get_nettoyage_interieur_portes_display }}</span>{% elif checkup.nettoyage_interieur_portes == "REPORTER" %}<span class="etat-bleu">{{ checkup.get_nettoyage_interieur_portes_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_nettoyage_interieur_portes_display|default:"-" }}</span>{% endif %}</td></tr>
+
+    <tr><td>{% trans "Sièges" %}</td><td>{% if checkup.nettoyage_interieur_sieges == "A_FAIRE" %}<span class="etat-rouge">{{ checkup.get_nettoyage_interieur_sieges_display }}</span>{% elif checkup.nettoyage_interieur_sieges == "FAIT" or checkup.nettoyage_interieur_sieges == "PROPRE" %}<span class="etat-vert">{{ checkup.get_nettoyage_interieur_sieges_display }}</span>{% elif checkup.nettoyage_interieur_sieges == "REPORTER" %}<span class="etat-bleu">{{ checkup.get_nettoyage_interieur_sieges_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_nettoyage_interieur_sieges_display|default:"-" }}</span>{% endif %}</td></tr>
+
+    <tr><td>{% trans "Carpettes" %}</td><td>{% if checkup.nettoyage_interieur_carpettes == "A_FAIRE" %}<span class="etat-rouge">{{ checkup.get_nettoyage_interieur_carpettes_display }}</span>{% elif checkup.nettoyage_interieur_carpettes == "FAIT" or checkup.nettoyage_interieur_carpettes == "PROPRE" %}<span class="etat-vert">{{ checkup.get_nettoyage_interieur_carpettes_display }}</span>{% elif checkup.nettoyage_interieur_carpettes == "REPORTER" %}<span class="etat-bleu">{{ checkup.get_nettoyage_interieur_carpettes_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_nettoyage_interieur_carpettes_display|default:"-" }}</span>{% endif %}</td></tr>
+
+    <tr><td>{% trans "Tableau de bord" %}</td><td>{% if checkup.nettoyage_interieur_tableau_de_bord == "A_FAIRE" %}<span class="etat-rouge">{{ checkup.get_nettoyage_interieur_tableau_de_bord_display }}</span>{% elif checkup.nettoyage_interieur_tableau_de_bord == "FAIT" or checkup.nettoyage_interieur_tableau_de_bord == "PROPRE" %}<span class="etat-vert">{{ checkup.get_nettoyage_interieur_tableau_de_bord_display }}</span>{% elif checkup.nettoyage_interieur_tableau_de_bord == "REPORTER" %}<span class="etat-bleu">{{ checkup.get_nettoyage_interieur_tableau_de_bord_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_nettoyage_interieur_tableau_de_bord_display|default:"-" }}</span>{% endif %}</td></tr>
+
+    <tr><td>{% trans "Plastiques" %}</td><td>{% if checkup.nettoyage_interieur_plastiques == "A_FAIRE" %}<span class="etat-rouge">{{ checkup.get_nettoyage_interieur_plastiques_display }}</span>{% elif checkup.nettoyage_interieur_plastiques == "FAIT" or checkup.nettoyage_interieur_plastiques == "PROPRE" %}<span class="etat-vert">{{ checkup.get_nettoyage_interieur_plastiques_display }}</span>{% elif checkup.nettoyage_interieur_plastiques == "REPORTER" %}<span class="etat-bleu">{{ checkup.get_nettoyage_interieur_plastiques_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_nettoyage_interieur_plastiques_display|default:"-" }}</span>{% endif %}</td></tr>
 </table>
 
 <h2>{% trans "Main d’œuvre" %}</h2>
+
 <div class="box">
     <span class="label">{% trans "Temps de travail" %} :</span>
     {{ checkup.temps_main_oeuvre_display }}
 </div>
 
 <h2>{% trans "Remarques" %}</h2>
+
 <div class="box">
     {{ checkup.remarques|default:_("Aucune remarque.")|linebreaks }}
 </div>
@@ -348,3 +762,5 @@
 
 </body>
 </html>
+
+
