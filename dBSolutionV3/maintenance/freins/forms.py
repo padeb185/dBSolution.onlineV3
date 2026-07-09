@@ -102,12 +102,6 @@ class ControleFreinsForm(forms.ModelForm):
             instance.immatriculation = self.exemplaire.immatriculation
             instance.kilometres_chassis = self.exemplaire.kilometres_chassis
 
-            freins_ar = self.exemplaire.freins_ar.first()
-            if freins_ar:
-                instance.arriere_freins_d_epaisseur_disque_ar_origine = (
-                    freins_ar.epaisseur_disque_ar
-                )
-
         if self.user:
             instance.assign_technicien(self.user)
             instance._user = self.user
