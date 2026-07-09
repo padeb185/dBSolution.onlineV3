@@ -68,6 +68,8 @@ class ControleFreinsForm(forms.ModelForm):
             self.fields["temps_heures"].initial = mo.heures
             self.fields["temps_minutes"].initial = mo.minutes
 
+
+
     def clean(self):
         cleaned = super().clean()
 
@@ -99,6 +101,12 @@ class ControleFreinsForm(forms.ModelForm):
             instance.voiture_exemplaire = self.exemplaire
             instance.immatriculation = self.exemplaire.immatriculation
             instance.kilometres_chassis = self.exemplaire.kilometres_chassis
+
+            freins_ar = self.exemplaire.freins_ar.first()
+            if freins_ar:
+                instance.arriere_freins_d_epaisseur_disque_ar_origine = (
+                    freins_ar.epaisseur_disque_ar
+                )
 
         if self.user:
             instance.assign_technicien(self.user)

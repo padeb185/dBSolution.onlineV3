@@ -183,6 +183,7 @@ def controle_freins_view(request, exemplaire_id):
                         controle_freins.assign_technicien(request.user)
 
                         # 🔗 lien final
+
                     controle_freins.maintenance = maintenance
                     controle_freins.save()
 

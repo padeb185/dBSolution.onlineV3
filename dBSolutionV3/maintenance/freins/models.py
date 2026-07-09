@@ -9,7 +9,7 @@ from maintenance.niveaux.models import LiquideFreinsQualite
 from maintenance.models import Maintenance
 from utils.mixin import TechnicienMixin
 from societe.models import Societe
-
+from voiture.voiture_freins_ar.models import VoitureFreinsAR
 
 
 
@@ -226,4 +226,5 @@ class ControleFreins(TechnicienMixin, models.Model):
         if not self.main_oeuvre:
             return "0h00"
         return self.main_oeuvre.temps_display
+
 

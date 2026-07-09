@@ -157,6 +157,18 @@
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Disques avant" %}
         </h2>
+        <div class="mb-4">
+            <label class="block font-semibold mb-1">
+                {% trans "Épaisseur disque avant constructeur (mm)" %}
+            </label>
+
+            <input
+                type="text"
+                class="input bg-gray-100"
+                value="{{ exemplaire.freins_av.first.epaisseur_disque_av|default:'-' }}"
+                readonly
+            >
+        </div>
         {% for field in form %}
             {% if "avant_freins_d" in field.name %}
             <div class="mb-4">
@@ -229,6 +241,18 @@
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Disques arrière" %}
         </h2>
+        <div class="mb-4">
+            <label class="block font-semibold mb-1">
+                {% trans "Épaisseur disque arrière constructeur (mm)" %}
+            </label>
+
+            <input
+                type="text"
+                class="input bg-gray-100"
+                value="{{ exemplaire.freins_ar.first.epaisseur_disque_ar|default:'-' }}"
+                readonly
+            >
+        </div>
         {% for field in form %}
             {% if "arriere_freins_d" in field.name %}
             <div class="mb-4">
