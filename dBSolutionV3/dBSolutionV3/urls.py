@@ -154,6 +154,8 @@ urlpatterns += i18n_patterns(
 
     path("courroie_accessoires/", include(("maintenance.autres_interventions.courroie_accessoires.urls", "courroie_accessoires"), namespace="courroie_accessoires")),
 
+    path("echappement/",include(("maintenance.autres_interventions.echappement.urls", "dashboard_echappement"),namespace="dashboard_echappement")),
+
 
 )
 

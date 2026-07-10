@@ -161,6 +161,13 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
         help_text='Specific permissions for this user.',
         verbose_name='user permissions'
     )
+    salaire_brut_heure = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        blank=True,
+        null=True,
+        verbose_name=_("Salaire brut / heure")
+    )
 
     class Meta:
         app_label = 'utilisateurs'

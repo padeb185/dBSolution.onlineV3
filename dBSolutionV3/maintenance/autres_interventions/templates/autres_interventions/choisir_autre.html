@@ -101,7 +101,7 @@
             </div>
         </a>
 
-            <!-- ABS -->
+            <!-- courroie accessoires-->
         <a href="{% url 'courroie_accessoires:courroie_list' exemplaire.id %}"
            class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
             <div class="flex justify-between items-center">
@@ -113,6 +113,20 @@
                     </p>
                 </div>
                 <img src="{% static 'icons/courroie-daccess.png' %}" alt="Courroie d'accessoires" style="width:60px; height:60px;">
+            </div>
+        </a>
+
+         <a href="{% url 'echappement:dashboard_echappement' exemplaire.id %}"
+           class="block bg-white shadow-md rounded-lg p-6 transition duration-300 hover:shadow-lg hover:bg-blue-50">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h2 class="text-lg font-semibold mb-2">{% trans "Dashboard Echappement" %}</h2>
+                    <p class="text-gray-600">
+                        {% trans "Nombre total :" %}
+                        <span class="font-bold">{{ total_echappement }}</span>
+                    </p>
+                </div>
+                <img src="{% static 'icons/echappement.png' %}" alt="Dashboard echappement" style="width:60px; height:60px;">
             </div>
         </a>
 
