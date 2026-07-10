@@ -49,14 +49,29 @@
             font-weight: bold;
         }
         .ok {
-            color: #16a34a;
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
             font-weight: bold;
         }
 
         .not-ok {
-            color: #dc2626;
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
             font-weight: bold;
         }
+
+        .remplace {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
 
 
         .tag {
@@ -187,7 +202,7 @@
             <!-- Courroie de distribution -->
 
             <tr>
-                <td>
+                 <td>
                     {% trans "Courroie de distribution" %}
                 </td>
 
@@ -196,10 +211,17 @@
                         <span class="ok">
                             {{ courroie.get_courroie_distribution_display }}
                         </span>
-                    {% else %}
+
+                    {% elif courroie.courroie_distribution == "NOT_OK" %}
                         <span class="not-ok">
                             {{ courroie.get_courroie_distribution_display }}
                         </span>
+
+                    {% elif courroie.courroie_distribution == "REMPLACE" %}
+                        <span class="remplace">
+                            {{ courroie.get_courroie_distribution_display }}
+                        </span>
+
                     {% endif %}
                 </td>
             </tr>
@@ -216,10 +238,17 @@
                         <span class="ok">
                             {{ courroie.get_courroie_distribution_kit_display }}
                         </span>
-                    {% else %}
+
+                    {% elif courroie.courroie_distribution_kit == "NOT_OK" %}
                         <span class="not-ok">
                             {{ courroie.get_courroie_distribution_kit_display }}
                         </span>
+
+                    {% elif courroie.courroie_distribution_kit == "REMPLACE" %}
+                        <span class="remplace">
+                            {{ courroie.get_courroie_distribution_kit_display }}
+                        </span>
+
                     {% endif %}
                 </td>
             </tr>
@@ -231,15 +260,47 @@
                     {% trans "Pompe à eau" %}
                 </td>
 
-                <td>
+               <td>
                     {% if courroie.pompe_a_eau == "OK" %}
                         <span class="ok">
                             {{ courroie.get_pompe_a_eau_display }}
                         </span>
-                    {% else %}
+
+                    {% elif courroie.pompe_a_eau == "NOT_OK" %}
                         <span class="not-ok">
                             {{ courroie.get_pompe_a_eau_display }}
                         </span>
+
+                    {% elif courroie.pompe_a_eau == "REMPLACE" %}
+                        <span class="remplace">
+                            {{ courroie.get_pompe_a_eau_display }}
+                        </span>
+
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                 <td>
+                    {% trans "Etat du liquide de refroidissement" %}
+                </td>
+               <td>
+
+                    {% if courroie.refroidissement == "OK" %}
+                        <span class="ok">
+                            {{ courroie.get_refroidissement_display }}
+                        </span>
+
+                    {% elif courroie.refroidissement == "NOT_OK" %}
+                        <span class="not-ok">
+                            {{ courroie.get_refroidissement_display }}
+                        </span>
+
+                    {% elif courroie.refroidissement == "REMPLACE" %}
+                        <span class="remplace">
+                            {{ courroie.get_refroidissement_display }}
+                        </span>
+
                     {% endif %}
                 </td>
             </tr>

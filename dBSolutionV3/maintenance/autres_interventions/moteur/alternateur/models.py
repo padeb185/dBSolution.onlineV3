@@ -11,6 +11,7 @@ from decimal import Decimal
 class EtatOKNotOK(models.TextChoices):
     OK = "OK", _("OK")
     NOT_OK = "NOT_OK", _("A Remplacer")
+    REMPLACE = "REMPLACE", _("Remplacé")
 
 
 

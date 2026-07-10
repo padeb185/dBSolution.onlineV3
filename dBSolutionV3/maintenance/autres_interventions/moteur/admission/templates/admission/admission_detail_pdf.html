@@ -62,6 +62,30 @@
             background: #dc2626;
         }
 
+         .etat-vert {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-rouge {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-bleu {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -159,12 +183,24 @@
 
         <div>
             <span class="label">{% trans "Filtre à air" %} :</span>
-            {{ admission.get_filtre_air_pc_display }}
+            {% if admission.filtre_air_pc == "OK" %}
+                <span class="etat-vert">{{ admission.get_filtre_air_pc_display }}</span>
+            {% elif admission.filtre_air_pc == "NOT_OK" %}
+                <span class="etat-rouge">{{ admission.get_filtre_air_pc_display }}</span>
+            {% elif admission.filtre_air_pc == "REMPLACER" %}
+                <span class="etat-bleu">{{ admission.get_filtre_air_pc_display }}</span>
+            {% endif %}
         </div>
 
         <div>
             <span class="label">{% trans "Boîtier filtre à air" %} :</span>
-            {{ admission.get_boitier_filtre_air_display }}
+            {% if admission.boitier_filtre_air == "OK" %}
+                <span class="etat-vert">{{ admission.get_boitier_filtre_air_display }}</span>
+            {% elif admission.boitier_filtre_air == "NOT_OK" %}
+                <span class="etat-rouge">{{ admission.get_boitier_filtre_air_display }}</span>
+            {% elif admission.boitier_filtre_air == "REMPLACER" %}
+                <span class="etat-bleu">{{ admission.get_boitier_filtre_air_display }}</span>
+            {% endif %}
         </div>
 
     </div>
@@ -178,19 +214,39 @@
 
         <div>
             <span class="label">{% trans "Débitmètre d'air" %} :</span>
-            {{ admission.get_debitmetre_display }}
+
+            {% if admission.debitmetre == "OK" %}
+                <span class="etat-vert">{{ admission.get_debitmetre_display }}</span>
+            {% elif admission.debitmetre == "NOT_OK" %}
+                <span class="etat-rouge">{{ admission.get_debitmetre_display }}</span>
+            {% elif admission.debitmetre == "REMPLACER" %}
+                <span class="etat-bleu">{{ admission.get_debitmetre_display }}</span>
+            {% endif %}
         </div>
 
         <div>
             <span class="label">{% trans "Capteur MAP" %} :</span>
-            {{ admission.get_capteur_map_display }}
+
+            {% if admission.capteur_map == "OK" %}
+                <span class="etat-vert">{{ admission.get_capteur_map_display }}</span>
+            {% elif admission.capteur_map == "NOT_OK" %}
+                <span class="etat-rouge">{{ admission.get_capteur_map_display }}</span>
+            {% elif admission.capteur_map == "REMPLACER" %}
+                <span class="etat-bleu">{{ admission.get_capteur_map_display }}</span>
+            {% endif %}
         </div>
 
         <div>
             <span class="label">{% trans "Capteur température air" %} :</span>
-            {{ admission.get_capteur_temperature_air_display }}
-        </div>
 
+            {% if admission.capteur_temperature_air == "OK" %}
+                <span class="etat-vert">{{ admission.get_capteur_temperature_air_display }}</span>
+            {% elif admission.capteur_temperature_air == "NOT_OK" %}
+                <span class="etat-rouge">{{ admission.get_capteur_temperature_air_display }}</span>
+            {% elif admission.capteur_temperature_air == "REMPLACER" %}
+                <span class="etat-bleu">{{ admission.get_capteur_temperature_air_display }}</span>
+            {% endif %}
+        </div>
     </div>
 </div>
 
@@ -200,16 +256,29 @@
 <div class="box">
     <div class="grid">
 
-        <div>
+       <div>
             <span class="label">{% trans "Corps de papillon" %} :</span>
-            {{ admission.get_corps_papillon_display }}
+
+            {% if admission.corps_papillon == "OK" %}
+                <span class="etat-vert">{{ admission.get_corps_papillon_display }}</span>
+            {% elif admission.corps_papillon == "NOT_OK" %}
+                <span class="etat-rouge">{{ admission.get_corps_papillon_display }}</span>
+            {% elif admission.corps_papillon == "REMPLACER" %}
+                <span class="etat-bleu">{{ admission.get_corps_papillon_display }}</span>
+            {% endif %}
         </div>
 
         <div>
             <span class="label">{% trans "Collecteur d'admission" %} :</span>
-            {{ admission.get_collecteur_admission_display }}
-        </div>
 
+            {% if admission.collecteur_admission == "OK" %}
+                <span class="etat-vert">{{ admission.get_collecteur_admission_display }}</span>
+            {% elif admission.collecteur_admission == "NOT_OK" %}
+                <span class="etat-rouge">{{ admission.get_collecteur_admission_display }}</span>
+            {% elif admission.collecteur_admission == "REMPLACER" %}
+                <span class="etat-bleu">{{ admission.get_collecteur_admission_display }}</span>
+            {% endif %}
+        </div>
     </div>
 </div>
 
@@ -221,12 +290,26 @@
 
         <div>
             <span class="label">{% trans "Turbo" %} :</span>
-            {{ admission.get_turbo_display }}
+
+            {% if admission.turbo == "OK" %}
+                <span class="etat-vert">{{ admission.get_turbo_display }}</span>
+            {% elif admission.turbo == "NOT_OK" %}
+                <span class="etat-rouge">{{ admission.get_turbo_display }}</span>
+            {% elif admission.turbo == "REMPLACER" %}
+                <span class="etat-bleu">{{ admission.get_turbo_display }}</span>
+            {% endif %}
         </div>
 
         <div>
             <span class="label">{% trans "Intercooler" %} :</span>
-            {{ admission.get_intercooler_display }}
+
+            {% if admission.intercooler == "OK" %}
+                <span class="etat-vert">{{ admission.get_intercooler_display }}</span>
+            {% elif admission.intercooler == "NOT_OK" %}
+                <span class="etat-rouge">{{ admission.get_intercooler_display }}</span>
+            {% elif admission.intercooler == "REMPLACER" %}
+                <span class="etat-bleu">{{ admission.get_intercooler_display }}</span>
+            {% endif %}
         </div>
 
     </div>
@@ -238,11 +321,17 @@
 <div class="box">
     <div class="grid">
 
-        <div>
+       <div>
             <span class="label">{% trans "Vanne EGR" %} :</span>
-            {{ admission.get_vanne_egr_display }}
-        </div>
 
+            {% if admission.vanne_egr == "OK" %}
+                <span class="etat-vert">{{ admission.get_vanne_egr_display }}</span>
+            {% elif admission.vanne_egr == "NOT_OK" %}
+                <span class="etat-rouge">{{ admission.get_vanne_egr_display }}</span>
+            {% elif admission.vanne_egr == "REMPLACER" %}
+                <span class="etat-bleu">{{ admission.get_vanne_egr_display }}</span>
+            {% endif %}
+        </div>
     </div>
 </div>
 
@@ -252,14 +341,28 @@
 <div class="box">
     <div class="grid">
 
-        <div>
+       <div>
             <span class="label">{% trans "Durites d'admission" %} :</span>
-            {{ admission.get_durites_admission_display }}
+
+            {% if admission.durites_admission == "OK" %}
+                <span class="etat-vert">{{ admission.get_durites_admission_display }}</span>
+            {% elif admission.durites_admission == "NOT_OK" %}
+                <span class="etat-rouge">{{ admission.get_durites_admission_display }}</span>
+            {% elif admission.durites_admission == "REMPLACER" %}
+                <span class="etat-bleu">{{ admission.get_durites_admission_display }}</span>
+            {% endif %}
         </div>
 
         <div>
             <span class="label">{% trans "Joints admission" %} :</span>
-            {{ admission.get_joints_admission_display }}
+
+            {% if admission.joints_admission == "OK" %}
+                <span class="etat-vert">{{ admission.get_joints_admission_display }}</span>
+            {% elif admission.joints_admission == "NOT_OK" %}
+                <span class="etat-rouge">{{ admission.get_joints_admission_display }}</span>
+            {% elif admission.joints_admission == "REMPLACER" %}
+                <span class="etat-bleu">{{ admission.get_joints_admission_display }}</span>
+            {% endif %}
         </div>
 
     </div>

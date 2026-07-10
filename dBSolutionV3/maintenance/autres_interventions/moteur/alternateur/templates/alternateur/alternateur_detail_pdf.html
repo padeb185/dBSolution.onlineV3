@@ -48,6 +48,38 @@
         .label {
             font-weight: bold;
         }
+        .ok {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .not-ok {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .remplace {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-gris {
+            color: #6b7280;
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
 
         .tag {
             padding: 3px 8px;
@@ -164,17 +196,28 @@
         </div>
 
         <div>
-            {% trans "État alternateur" %} :
+           <div>
+                {% trans "État alternateur" %} :
 
-            {% if alternateur.alternateur == "OK" %}
-                <span class="ok">
-                    {{ alternateur.get_alternateur_display }}
-                </span>
-            {% else %}
-                <span class="not-ok">
-                    {{ alternateur.get_alternateur_display }}
-                </span>
-            {% endif %}
+                {% if alternateur.alternateur == "OK" %}
+                    <span class="ok">
+                        {{ alternateur.get_alternateur_display }}
+                    </span>
+
+                {% elif alternateur.alternateur == "NOT_OK" %}
+                    <span class="not-ok">
+                        {{ alternateur.get_alternateur_display }}
+                    </span>
+
+                {% elif alternateur.alternateur == "REMPLACE" %}
+                    <span class="remplace">
+                        {{ alternateur.get_alternateur_display }}
+                    </span>
+
+                {% else %}
+                    {{ alternateur.get_alternateur_display|default:"-" }}
+                {% endif %}
+            </div>
         </div>
 
     </div>
@@ -187,16 +230,26 @@
     <div class="grid">
 
         <div>
+            <div>
             {% trans "État" %} :
 
             {% if alternateur.courroie_accessoires == "OK" %}
                 <span class="ok">
                     {{ alternateur.get_courroie_accessoires_display }}
                 </span>
-            {% else %}
+
+            {% elif alternateur.courroie_accessoires == "NOT_OK" %}
                 <span class="not-ok">
                     {{ alternateur.get_courroie_accessoires_display }}
                 </span>
+
+            {% elif alternateur.courroie_accessoires == "REMPLACE" %}
+                <span class="remplace">
+                    {{ alternateur.get_courroie_accessoires_display }}
+                </span>
+
+            {% else %}
+                {{ alternateur.get_courroie_accessoires_display|default:"-" }}
             {% endif %}
         </div>
     </div>
