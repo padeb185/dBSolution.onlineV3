@@ -185,6 +185,19 @@ class Echappement(models.Model):
     injecteur_ad_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
 
+    collier = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Collier de serrage"))
+    collier_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix achat htva"))
+    collier_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+
+
+    joint = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Joints"))
+    joint_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix achat htva"))
+    joint_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+
+
+    silent_bloc = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Silent Bloc"))
+    joint_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix achat htva"))
+    joint_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
 
 
