@@ -64,15 +64,30 @@
             background: #dc2626;
         }
 
-        .ok {
-            color: #16a34a;
+         .ok {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
             font-weight: bold;
         }
 
         .not-ok {
-            color: #dc2626;
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
             font-weight: bold;
         }
+
+        .remplace {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
 
         table {
             width: 100%;
@@ -200,150 +215,178 @@
 
         <tbody>
 
-            <!-- Jeu axe turbo -->
-
             <tr>
-
+                <td>{% trans "Jeu dans l'axe du turbo" %}</td>
                 <td>
-                    {% trans "Jeu dans l'axe du turbo" %}
-                </td>
-
-                <td>
-
                     {% if turbo.jeu_axe_tur == "OK" %}
-
-                        <span class="ok">
-                            {{ turbo.get_jeu_axe_tur_display }}
-                        </span>
-
+                        <span class="ok">{{ turbo.get_jeu_axe_tur_display }}</span>
+                    {% elif turbo.jeu_axe_tur == "NOT_OK" %}
+                        <span class="not-ok">{{ turbo.get_jeu_axe_tur_display }}</span>
+                    {% elif turbo.jeu_axe_tur == "REMPLACE" %}
+                        <span class="remplace">{{ turbo.get_jeu_axe_tur_display }}</span>
                     {% else %}
-
-                        <span class="not-ok">
-                            {{ turbo.get_jeu_axe_tur_display }}
-                        </span>
-
+                        {{ turbo.get_jeu_axe_tur_display|default:"-" }}
                     {% endif %}
-
                 </td>
-
             </tr>
 
-            <!-- Turbine admission -->
-
             <tr>
-
+                <td>{% trans "État de la turbine côté admission" %}</td>
                 <td>
-                    {% trans "État de la turbine côté admission" %}
-                </td>
-
-                <td>
-
                     {% if turbo.etat_turbine_admission == "OK" %}
-
                         <span class="ok">
                             {{ turbo.get_etat_turbine_admission_display }}
                         </span>
-
-                    {% else %}
-
+                    {% elif turbo.etat_turbine_admission == "NOT_OK" %}
                         <span class="not-ok">
                             {{ turbo.get_etat_turbine_admission_display }}
                         </span>
-
+                    {% elif turbo.etat_turbine_admission == "REMPLACE" %}
+                        <span class="remplace">
+                            {{ turbo.get_etat_turbine_admission_display }}
+                        </span>
+                    {% else %}
+                        {{ turbo.get_etat_turbine_admission_display|default:"-" }}
                     {% endif %}
-
                 </td>
-
             </tr>
 
-            <!-- Turbine échappement -->
-
             <tr>
-
+                <td>{% trans "État de la turbine côté échappement" %}</td>
                 <td>
-                    {% trans "État de la turbine côté échappement" %}
-                </td>
-
-                <td>
-
                     {% if turbo.etat_turbine_echappement == "OK" %}
-
                         <span class="ok">
                             {{ turbo.get_etat_turbine_echappement_display }}
                         </span>
-
-                    {% else %}
-
+                    {% elif turbo.etat_turbine_echappement == "NOT_OK" %}
                         <span class="not-ok">
                             {{ turbo.get_etat_turbine_echappement_display }}
                         </span>
-
+                    {% elif turbo.etat_turbine_echappement == "REMPLACE" %}
+                        <span class="remplace">
+                            {{ turbo.get_etat_turbine_echappement_display }}
+                        </span>
+                    {% else %}
+                        {{ turbo.get_etat_turbine_echappement_display|default:"-" }}
                     {% endif %}
-
                 </td>
-
             </tr>
 
-            <!-- Fuites huile -->
-
             <tr>
-
+                <td>{% trans "Fuites d'huile au niveau de la turbine" %}</td>
                 <td>
-                    {% trans "Fuites d'huile au niveau de la turbine" %}
-                </td>
-
-                <td>
-
                     {% if turbo.fuites_huile_tur == "OK" %}
-
                         <span class="ok">
                             {{ turbo.get_fuites_huile_tur_display }}
                         </span>
-
-                    {% else %}
-
+                    {% elif turbo.fuites_huile_tur == "NOT_OK" %}
                         <span class="not-ok">
                             {{ turbo.get_fuites_huile_tur_display }}
                         </span>
-
+                    {% elif turbo.fuites_huile_tur == "REMPLACE" %}
+                        <span class="remplace">
+                            {{ turbo.get_fuites_huile_tur_display }}
+                        </span>
+                    {% else %}
+                        {{ turbo.get_fuites_huile_tur_display|default:"-" }}
                     {% endif %}
-
                 </td>
-
             </tr>
-
-            <!-- Géométrie variable -->
 
             <tr>
-
+                <td>{% trans "Fonctionnement de la géométrie variable" %}</td>
                 <td>
-                    {% trans "Fonctionnement de la géométrie variable" %}
-                </td>
-
-                <td>
-
                     {% if turbo.fonctionnement_geometrie_variable == "OK" %}
-
                         <span class="ok">
                             {{ turbo.get_fonctionnement_geometrie_variable_display }}
                         </span>
-
-                    {% else %}
-
+                    {% elif turbo.fonctionnement_geometrie_variable == "NOT_OK" %}
                         <span class="not-ok">
                             {{ turbo.get_fonctionnement_geometrie_variable_display }}
                         </span>
-
+                    {% elif turbo.fonctionnement_geometrie_variable == "REMPLACE" %}
+                        <span class="remplace">
+                            {{ turbo.get_fonctionnement_geometrie_variable_display }}
+                        </span>
+                    {% else %}
+                        {{ turbo.get_fonctionnement_geometrie_variable_display|default:"-" }}
                     {% endif %}
-
                 </td>
-
             </tr>
+
+
 
         </tbody>
 
     </table>
 
+</div>
+
+<h2>{% trans "État des pièces" %}</h2>
+
+<div class="box">
+    <table>
+        <thead>
+            <tr>
+                <th>{% trans "Pièce" %}</th>
+                <th>{% trans "État" %}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>{% trans "Turbo" %}</td>
+                <td>
+                    {% if turbo.turbos == "OK" %}
+                        <span class="ok">{{ turbo.get_turbos_display }}</span>
+                    {% elif turbo.turbos == "NOT_OK" %}
+                        <span class="not-ok">{{ turbo.get_turbos_display }}</span>
+                    {% elif turbo.turbos == "REMPLACE" %}
+                        <span class="remplace">{{ turbo.get_turbos_display }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Intercooler" %}</td>
+                <td>
+                    {% if turbo.intercooler == "OK" %}
+                        <span class="ok">{{ turbo.get_intercooler_display }}</span>
+                    {% elif turbo.intercooler == "NOT_OK" %}
+                        <span class="not-ok">{{ turbo.get_intercooler_display }}</span>
+                    {% elif turbo.intercooler == "REMPLACE" %}
+                        <span class="remplace">{{ turbo.get_intercooler_display }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Électrovanne" %}</td>
+                <td>
+                    {% if turbo.electrovanne == "OK" %}
+                        <span class="ok">{{ turbo.get_electrovanne_display }}</span>
+                    {% elif turbo.electrovanne == "NOT_OK" %}
+                        <span class="not-ok">{{ turbo.get_electrovanne_display }}</span>
+                    {% elif turbo.electrovanne == "REMPLACE" %}
+                        <span class="remplace">{{ turbo.get_electrovanne_display }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Joints" %}</td>
+                <td>
+                    {% if turbo.joints == "OK" %}
+                        <span class="ok">{{ turbo.get_joints_display }}</span>
+                    {% elif turbo.joints == "NOT_OK" %}
+                        <span class="not-ok">{{ turbo.get_joints_display }}</span>
+                    {% elif turbo.joints == "REMPLACE" %}
+                        <span class="remplace">{{ turbo.get_joints_display }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
 <!-- ================= MAIN D'OEUVRE ================= -->

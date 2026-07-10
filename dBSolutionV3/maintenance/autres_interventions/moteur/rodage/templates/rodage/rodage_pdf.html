@@ -58,17 +58,37 @@
             font-weight: bold;
         }
 
-        .etat-rouge {
-            color: #dc2626;
+       .etat-rouge {
+             color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
         }
 
         .etat-vert {
-            color: #16a34a;
+             color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-jaune {
+            color: #ca8a04;
+            font-weight: bold;
+        }
+
+        .etat-bleu {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
         }
 
         .etat-normal {
             color: #111;
-            font-weight: normal;
         }
 
         table {
@@ -109,7 +129,7 @@
         <div><span class="label">{% trans "Société" %} :</span> {{ rodage.tech_societe }}</div>
         <div><span class="label">{% trans "Véhicule" %} :</span> {{ rodage.voiture_exemplaire }}</div>
         <div><span class="label">{% trans "Kilométrage chassis" %} :</span> {{ rodage.kilometres_chassis }} km</div>
-        <div><span class="label">{% trans "Kilométrage rodage" %} :</span> {{ rodage.kilometrage_rodage }} km</div>
+        <div><span class="label">{% trans "Kilométrage rodage" %} :</span> {{ rodage.kilometres_rodage }} km</div>
 
         <div>
             <span class="label">{% trans "Tag" %} :</span>
@@ -133,11 +153,22 @@
         <td>{% trans "Vidange de l'huile moteur" %}</td>
         <td>
             {% if rodage.moteur_rodage_vidange == "A_FAIRE" %}
-                <span class="etat etat-rouge">{{ rodage.get_moteur_rodage_vidange_display }}</span>
+                <span class="etat etat-rouge">
+                    {{ rodage.get_moteur_rodage_vidange_display }}
+                </span>
+
             {% elif rodage.moteur_rodage_vidange == "FAIT" %}
-                <span class="etat etat-vert">{{ rodage.get_moteur_rodage_vidange_display }}</span>
+                <span class="etat etat-vert">
+                    {{ rodage.get_moteur_rodage_vidange_display }}
+                </span>
+
+            {% elif rodage.moteur_rodage_vidange == "REPORTER" %}
+                <span class="etat etat-bleu">
+                    {{ rodage.get_moteur_rodage_vidange_display }}
+                </span>
+
             {% else %}
-                <span class="etat-normal">{{ rodage.get_moteur_rodage_vidange_display }}</span>
+                <span class="etat-normal">-</span>
             {% endif %}
         </td>
     </tr>
@@ -145,12 +176,12 @@
     <tr>
         <td>{% trans "Filtre à huile moteur" %}</td>
         <td>
-            {% if rodage.filtre_huile == "A_FAIRE" %}
-                <span class="etat etat-rouge">{{ rodage.get_filtre_huile_display }}</span>
-            {% elif rodage.filtre_huile == "FAIT" %}
-                <span class="etat etat-vert">{{ rodage.get_filtre_huile_display }}</span>
-            {% else %}
-                <span class="etat-normal">{{ rodage.get_filtre_huile_display }}</span>
+            {% if rodage.moteur_filtre_huile == "A_FAIRE" %}
+                <span class="etat etat-rouge">{{ rodage.get_moteur_filtre_huile_display }}</span>
+            {% elif rodage.moteur_filtre_huile == "FAIT" %}
+                <span class="etat etat-vert">{{ rodage.get_moteur_filtre_huile_display }}</span>
+            {% elif rodage.moteur_filtre_huile == "REPORTER" %}
+                <span class="etat etat-bleu">{{ rodage.get_moteur_filtre_huile_display }}</span>
             {% endif %}
         </td>
     </tr>
@@ -158,12 +189,23 @@
     <tr>
         <td>{% trans "Bouchon de vidange" %}</td>
         <td>
-            {% if rodage.moteur_bouchon_vidange == "A_FAIRE" %}
-                <span class="etat etat-rouge">{{ rodage.get_moteur_bouchon_vidange_display }}</span>
+           {% if rodage.moteur_bouchon_vidange == "A_FAIRE" %}
+                <span class="etat etat-rouge">
+                    {{ rodage.get_moteur_bouchon_vidange_display }}
+                </span>
+
             {% elif rodage.moteur_bouchon_vidange == "FAIT" %}
-                <span class="etat etat-vert">{{ rodage.get_moteur_bouchon_vidange_display }}</span>
+                <span class="etat etat-vert">
+                    {{ rodage.get_moteur_bouchon_vidange_display }}
+                </span>
+
+            {% elif rodage.moteur_bouchon_vidange == "REPORTER" %}
+                <span class="etat etat-bleu">
+                    {{ rodage.get_moteur_bouchon_vidange_display }}
+                </span>
+
             {% else %}
-                <span class="etat-normal">{{ rodage.get_moteur_bouchon_vidange_display }}</span>
+                <span class="etat-normal">-</span>
             {% endif %}
         </td>
     </tr>
@@ -171,25 +213,47 @@
     <tr>
         <td>{% trans "Joint du bouchon de vidange" %}</td>
         <td>
-            {% if rodage.moteur_joint_vidange == "A_FAIRE" %}
-                <span class="etat etat-rouge">{{ rodage.get_moteur_joint_vidange_display }}</span>
+           {% if rodage.moteur_joint_vidange == "A_FAIRE" %}
+                <span class="etat etat-rouge">
+                    {{ rodage.get_moteur_joint_vidange_display }}
+                </span>
+
             {% elif rodage.moteur_joint_vidange == "FAIT" %}
-                <span class="etat etat-vert">{{ rodage.get_moteur_joint_vidange_display }}</span>
+                <span class="etat etat-vert">
+                    {{ rodage.get_moteur_joint_vidange_display }}
+                </span>
+
+            {% elif rodage.moteur_joint_vidange == "REPORTER" %}
+                <span class="etat etat-bleu">
+                    {{ rodage.get_moteur_joint_vidange_display }}
+                </span>
+
             {% else %}
-                <span class="etat-normal">{{ rodage.get_moteur_joint_vidange_display }}</span>
-            {% endif %}
+    <span class="etat-normal">-</span>
+{% endif %}
         </td>
     </tr>
 
     <tr>
         <td>{% trans "Ajout d'huile moteur" %}</td>
         <td>
-            {% if rodage.moteur_ajout_huile == "A_FAIRE" %}
-                <span class="etat etat-rouge">{{ rodage.get_moteur_ajout_huile_display }}</span>
+           {% if rodage.moteur_ajout_huile == "A_FAIRE" %}
+                <span class="etat etat-rouge">
+                    {{ rodage.get_moteur_ajout_huile_display }}
+                </span>
+
             {% elif rodage.moteur_ajout_huile == "FAIT" %}
-                <span class="etat etat-vert">{{ rodage.get_moteur_ajout_huile_display }}</span>
+                <span class="etat etat-vert">
+                    {{ rodage.get_moteur_ajout_huile_display }}
+                </span>
+
+            {% elif rodage.moteur_ajout_huile == "REPORTER" %}
+                <span class="etat etat-bleu">
+                    {{ rodage.get_moteur_ajout_huile_display }}
+                </span>
+
             {% else %}
-                <span class="etat-normal">{{ rodage.get_moteur_ajout_huile_display }}</span>
+                <span class="etat-normal">-</span>
             {% endif %}
         </td>
     </tr>
