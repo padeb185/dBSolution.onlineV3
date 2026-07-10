@@ -54,20 +54,38 @@
         .tag-jaune { background: #ca8a04; }
         .tag-rouge { background: #dc2626; }
 
-        .ok {
-            color: #16a34a;
+        .etat-vert {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
             font-weight: bold;
         }
 
-        .not-ok {
-            color: #dc2626;
+        .etat-rouge {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
             font-weight: bold;
         }
 
-        .remplace {
-            color: #2563eb;
+        .etat-bleu {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
             font-weight: bold;
         }
+
+        .etat-gris {
+            color: #6b7280;
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
 
         table {
             width: 100%;
@@ -158,17 +176,28 @@
             </tr>
         </thead>
 
+
         <tbody>
 
             <tr>
                 <td>{% trans "Convertisseur de couple" %}</td>
                 <td>
                     {% if bte_auto.auto_emb_convertisseur_couple == "OK" %}
-                        <span class="ok">{{ bte_auto.get_auto_emb_convertisseur_couple_display }}</span>
+                        <span class="etat-vert">
+                            {{ bte_auto.get_auto_emb_convertisseur_couple_display }}
+                        </span>
+                    {% elif bte_auto.auto_emb_convertisseur_couple == "NOT_OK" %}
+                        <span class="etat-rouge">
+                            {{ bte_auto.get_auto_emb_convertisseur_couple_display }}
+                        </span>
                     {% elif bte_auto.auto_emb_convertisseur_couple == "REMPLACE" %}
-                        <span class="remplace">{{ bte_auto.get_auto_emb_convertisseur_couple_display }}</span>
+                        <span class="etat-bleu">
+                            {{ bte_auto.get_auto_emb_convertisseur_couple_display }}
+                        </span>
                     {% else %}
-                        <span class="not-ok">{{ bte_auto.get_auto_emb_convertisseur_couple_display }}</span>
+                        <span class="etat-gris">
+                            {{ bte_auto.get_auto_emb_convertisseur_couple_display|default:"-" }}
+                        </span>
                     {% endif %}
                 </td>
             </tr>
@@ -177,11 +206,21 @@
                 <td>{% trans "Embrayages automatiques" %}</td>
                 <td>
                     {% if bte_auto.auto_emb_embrayages_auto == "OK" %}
-                        <span class="ok">{{ bte_auto.get_auto_emb_embrayages_auto_display }}</span>
+                        <span class="etat-vert">
+                            {{ bte_auto.get_auto_emb_embrayages_auto_display }}
+                        </span>
+                    {% elif bte_auto.auto_emb_embrayages_auto == "NOT_OK" %}
+                        <span class="etat-rouge">
+                            {{ bte_auto.get_auto_emb_embrayages_auto_display }}
+                        </span>
                     {% elif bte_auto.auto_emb_embrayages_auto == "REMPLACE" %}
-                        <span class="remplace">{{ bte_auto.get_auto_emb_embrayages_auto_display }}</span>
+                        <span class="etat-bleu">
+                            {{ bte_auto.get_auto_emb_embrayages_auto_display }}
+                        </span>
                     {% else %}
-                        <span class="not-ok">{{ bte_auto.get_auto_emb_embrayages_auto_display }}</span>
+                        <span class="etat-gris">
+                            {{ bte_auto.get_auto_emb_embrayages_auto_display|default:"-" }}
+                        </span>
                     {% endif %}
                 </td>
             </tr>
@@ -190,11 +229,21 @@
                 <td>{% trans "Pompes à huile" %}</td>
                 <td>
                     {% if bte_auto.pompes_huile == "OK" %}
-                        <span class="ok">{{ bte_auto.get_pompes_huile_display }}</span>
+                        <span class="etat-vert">
+                            {{ bte_auto.get_pompes_huile_display }}
+                        </span>
+                    {% elif bte_auto.pompes_huile == "NOT_OK" %}
+                        <span class="etat-rouge">
+                            {{ bte_auto.get_pompes_huile_display }}
+                        </span>
                     {% elif bte_auto.pompes_huile == "REMPLACE" %}
-                        <span class="remplace">{{ bte_auto.get_pompes_huile_display }}</span>
+                        <span class="etat-bleu">
+                            {{ bte_auto.get_pompes_huile_display }}
+                        </span>
                     {% else %}
-                        <span class="not-ok">{{ bte_auto.get_pompes_huile_display }}</span>
+                        <span class="etat-gris">
+                            {{ bte_auto.get_pompes_huile_display|default:"-" }}
+                        </span>
                     {% endif %}
                 </td>
             </tr>
@@ -203,11 +252,21 @@
                 <td>{% trans "Valves de contrôle" %}</td>
                 <td>
                     {% if bte_auto.pompes_valves == "OK" %}
-                        <span class="ok">{{ bte_auto.get_pompes_valves_display }}</span>
+                        <span class="etat-vert">
+                            {{ bte_auto.get_pompes_valves_display }}
+                        </span>
+                    {% elif bte_auto.pompes_valves == "NOT_OK" %}
+                        <span class="etat-rouge">
+                            {{ bte_auto.get_pompes_valves_display }}
+                        </span>
                     {% elif bte_auto.pompes_valves == "REMPLACE" %}
-                        <span class="remplace">{{ bte_auto.get_pompes_valves_display }}</span>
+                        <span class="etat-bleu">
+                            {{ bte_auto.get_pompes_valves_display }}
+                        </span>
                     {% else %}
-                        <span class="not-ok">{{ bte_auto.get_pompes_valves_display }}</span>
+                        <span class="etat-gris">
+                            {{ bte_auto.get_pompes_valves_display|default:"-" }}
+                        </span>
                     {% endif %}
                 </td>
             </tr>
@@ -216,11 +275,21 @@
                 <td>{% trans "Arbre de couple" %}</td>
                 <td>
                     {% if bte_auto.arbre_bte_torque == "OK" %}
-                        <span class="ok">{{ bte_auto.get_arbre_bte_torque_display }}</span>
+                        <span class="etat-vert">
+                            {{ bte_auto.get_arbre_bte_torque_display }}
+                        </span>
+                    {% elif bte_auto.arbre_bte_torque == "NOT_OK" %}
+                        <span class="etat-rouge">
+                            {{ bte_auto.get_arbre_bte_torque_display }}
+                        </span>
                     {% elif bte_auto.arbre_bte_torque == "REMPLACE" %}
-                        <span class="remplace">{{ bte_auto.get_arbre_bte_torque_display }}</span>
+                        <span class="etat-bleu">
+                            {{ bte_auto.get_arbre_bte_torque_display }}
+                        </span>
                     {% else %}
-                        <span class="not-ok">{{ bte_auto.get_arbre_bte_torque_display }}</span>
+                        <span class="etat-gris">
+                            {{ bte_auto.get_arbre_bte_torque_display|default:"-" }}
+                        </span>
                     {% endif %}
                 </td>
             </tr>
@@ -229,11 +298,21 @@
                 <td>{% trans "Arbre secondaire" %}</td>
                 <td>
                     {% if bte_auto.arbre_bte_secondaire_auto == "OK" %}
-                        <span class="ok">{{ bte_auto.get_arbre_bte_secondaire_auto_display }}</span>
+                        <span class="etat-vert">
+                            {{ bte_auto.get_arbre_bte_secondaire_auto_display }}
+                        </span>
+                    {% elif bte_auto.arbre_bte_secondaire_auto == "NOT_OK" %}
+                        <span class="etat-rouge">
+                            {{ bte_auto.get_arbre_bte_secondaire_auto_display }}
+                        </span>
                     {% elif bte_auto.arbre_bte_secondaire_auto == "REMPLACE" %}
-                        <span class="remplace">{{ bte_auto.get_arbre_bte_secondaire_auto_display }}</span>
+                        <span class="etat-bleu">
+                            {{ bte_auto.get_arbre_bte_secondaire_auto_display }}
+                        </span>
                     {% else %}
-                        <span class="not-ok">{{ bte_auto.get_arbre_bte_secondaire_auto_display }}</span>
+                        <span class="etat-gris">
+                            {{ bte_auto.get_arbre_bte_secondaire_auto_display|default:"-" }}
+                        </span>
                     {% endif %}
                 </td>
             </tr>
@@ -242,11 +321,21 @@
                 <td>{% trans "Roulements internes" %}</td>
                 <td>
                     {% if bte_auto.roulement_auto == "OK" %}
-                        <span class="ok">{{ bte_auto.get_roulement_auto_display }}</span>
+                        <span class="etat-vert">
+                            {{ bte_auto.get_roulement_auto_display }}
+                        </span>
+                    {% elif bte_auto.roulement_auto == "NOT_OK" %}
+                        <span class="etat-rouge">
+                            {{ bte_auto.get_roulement_auto_display }}
+                        </span>
                     {% elif bte_auto.roulement_auto == "REMPLACE" %}
-                        <span class="remplace">{{ bte_auto.get_roulement_auto_display }}</span>
+                        <span class="etat-bleu">
+                            {{ bte_auto.get_roulement_auto_display }}
+                        </span>
                     {% else %}
-                        <span class="not-ok">{{ bte_auto.get_roulement_auto_display }}</span>
+                        <span class="etat-gris">
+                            {{ bte_auto.get_roulement_auto_display|default:"-" }}
+                        </span>
                     {% endif %}
                 </td>
             </tr>

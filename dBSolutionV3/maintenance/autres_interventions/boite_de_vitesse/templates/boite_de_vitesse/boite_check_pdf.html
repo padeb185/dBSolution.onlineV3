@@ -61,6 +61,39 @@
         .tag-rouge {
             background: #dc2626;
         }
+
+        .etat-vert {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-rouge {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-bleu {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-gris {
+            color: #6b7280;
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
          .ok {
             color: #16a34a;
             font-weight: bold;
@@ -183,14 +216,19 @@
             </tr>
         </thead>
 
+        ```django
         <tbody>
             <tr>
                 <td>{% trans "Disque d'embrayage" %}</td>
                 <td>
                     {% if boite.bte_embrayage_disque == "OK" %}
-                        <span class="ok">{{ boite.get_bte_embrayage_disque_display }}</span>
+                        <span class="etat-vert">{{ boite.get_bte_embrayage_disque_display }}</span>
+                    {% elif boite.bte_embrayage_disque == "NOT_OK" %}
+                        <span class="etat-rouge">{{ boite.get_bte_embrayage_disque_display }}</span>
+                    {% elif boite.bte_embrayage_disque == "REMPLACE" %}
+                        <span class="etat-bleu">{{ boite.get_bte_embrayage_disque_display }}</span>
                     {% else %}
-                        <span class="not-ok">{{ boite.get_bte_embrayage_disque_display }}</span>
+                        <span class="etat-gris">{{ boite.get_bte_embrayage_disque_display|default:"-" }}</span>
                     {% endif %}
                 </td>
             </tr>
@@ -199,9 +237,13 @@
                 <td>{% trans "Plateau d'embrayage" %}</td>
                 <td>
                     {% if boite.bte_embrayage_plateau == "OK" %}
-                        <span class="ok">{{ boite.get_bte_embrayage_plateau_display }}</span>
+                        <span class="etat-vert">{{ boite.get_bte_embrayage_plateau_display }}</span>
+                    {% elif boite.bte_embrayage_plateau == "NOT_OK" %}
+                        <span class="etat-rouge">{{ boite.get_bte_embrayage_plateau_display }}</span>
+                    {% elif boite.bte_embrayage_plateau == "REMPLACE" %}
+                        <span class="etat-bleu">{{ boite.get_bte_embrayage_plateau_display }}</span>
                     {% else %}
-                        <span class="not-ok">{{ boite.get_bte_embrayage_plateau_display }}</span>
+                        <span class="etat-gris">{{ boite.get_bte_embrayage_plateau_display|default:"-" }}</span>
                     {% endif %}
                 </td>
             </tr>
@@ -210,9 +252,13 @@
                 <td>{% trans "Arbre primaire" %}</td>
                 <td>
                     {% if boite.bte_a_primaire == "OK" %}
-                        <span class="ok">{{ boite.get_bte_a_primaire_display }}</span>
+                        <span class="etat-vert">{{ boite.get_bte_a_primaire_display }}</span>
+                    {% elif boite.bte_a_primaire == "NOT_OK" %}
+                        <span class="etat-rouge">{{ boite.get_bte_a_primaire_display }}</span>
+                    {% elif boite.bte_a_primaire == "REMPLACE" %}
+                        <span class="etat-bleu">{{ boite.get_bte_a_primaire_display }}</span>
                     {% else %}
-                        <span class="not-ok">{{ boite.get_bte_a_primaire_display }}</span>
+                        <span class="etat-gris">{{ boite.get_bte_a_primaire_display|default:"-" }}</span>
                     {% endif %}
                 </td>
             </tr>
@@ -221,9 +267,13 @@
                 <td>{% trans "Arbre secondaire" %}</td>
                 <td>
                     {% if boite.bte_a_secondaire == "OK" %}
-                        <span class="ok">{{ boite.get_bte_a_secondaire_display }}</span>
+                        <span class="etat-vert">{{ boite.get_bte_a_secondaire_display }}</span>
+                    {% elif boite.bte_a_secondaire == "NOT_OK" %}
+                        <span class="etat-rouge">{{ boite.get_bte_a_secondaire_display }}</span>
+                    {% elif boite.bte_a_secondaire == "REMPLACE" %}
+                        <span class="etat-bleu">{{ boite.get_bte_a_secondaire_display }}</span>
                     {% else %}
-                        <span class="not-ok">{{ boite.get_bte_a_secondaire_display }}</span>
+                        <span class="etat-gris">{{ boite.get_bte_a_secondaire_display|default:"-" }}</span>
                     {% endif %}
                 </td>
             </tr>
@@ -232,9 +282,13 @@
                 <td>{% trans "Roulement arbre primaire" %}</td>
                 <td>
                     {% if boite.roulement_bte_primaire == "OK" %}
-                        <span class="ok">{{ boite.get_roulement_bte_primaire_display }}</span>
+                        <span class="etat-vert">{{ boite.get_roulement_bte_primaire_display }}</span>
+                    {% elif boite.roulement_bte_primaire == "NOT_OK" %}
+                        <span class="etat-rouge">{{ boite.get_roulement_bte_primaire_display }}</span>
+                    {% elif boite.roulement_bte_primaire == "REMPLACE" %}
+                        <span class="etat-bleu">{{ boite.get_roulement_bte_primaire_display }}</span>
                     {% else %}
-                        <span class="not-ok">{{ boite.get_roulement_bte_primaire_display }}</span>
+                        <span class="etat-gris">{{ boite.get_roulement_bte_primaire_display|default:"-" }}</span>
                     {% endif %}
                 </td>
             </tr>
@@ -243,9 +297,13 @@
                 <td>{% trans "Roulement arbre secondaire" %}</td>
                 <td>
                     {% if boite.roulement_bte_secondaire == "OK" %}
-                        <span class="ok">{{ boite.get_roulement_bte_secondaire_display }}</span>
+                        <span class="etat-vert">{{ boite.get_roulement_bte_secondaire_display }}</span>
+                    {% elif boite.roulement_bte_secondaire == "NOT_OK" %}
+                        <span class="etat-rouge">{{ boite.get_roulement_bte_secondaire_display }}</span>
+                    {% elif boite.roulement_bte_secondaire == "REMPLACE" %}
+                        <span class="etat-bleu">{{ boite.get_roulement_bte_secondaire_display }}</span>
                     {% else %}
-                        <span class="not-ok">{{ boite.get_roulement_bte_secondaire_display }}</span>
+                        <span class="etat-gris">{{ boite.get_roulement_bte_secondaire_display|default:"-" }}</span>
                     {% endif %}
                 </td>
             </tr>
@@ -254,9 +312,13 @@
                 <td>{% trans "Roulement différentiel" %}</td>
                 <td>
                     {% if boite.roulement_bte_differentiel == "OK" %}
-                        <span class="ok">{{ boite.get_roulement_bte_differentiel_display }}</span>
+                        <span class="etat-vert">{{ boite.get_roulement_bte_differentiel_display }}</span>
+                    {% elif boite.roulement_bte_differentiel == "NOT_OK" %}
+                        <span class="etat-rouge">{{ boite.get_roulement_bte_differentiel_display }}</span>
+                    {% elif boite.roulement_bte_differentiel == "REMPLACE" %}
+                        <span class="etat-bleu">{{ boite.get_roulement_bte_differentiel_display }}</span>
                     {% else %}
-                        <span class="not-ok">{{ boite.get_roulement_bte_differentiel_display }}</span>
+                        <span class="etat-gris">{{ boite.get_roulement_bte_differentiel_display|default:"-" }}</span>
                     {% endif %}
                 </td>
             </tr>
@@ -265,9 +327,13 @@
                 <td>{% trans "Pignon 1ère vitesse" %}</td>
                 <td>
                     {% if boite.vitesse_1 == "OK" %}
-                        <span class="ok">{{ boite.get_vitesse_1_display }}</span>
+                        <span class="etat-vert">{{ boite.get_vitesse_1_display }}</span>
+                    {% elif boite.vitesse_1 == "NOT_OK" %}
+                        <span class="etat-rouge">{{ boite.get_vitesse_1_display }}</span>
+                    {% elif boite.vitesse_1 == "REMPLACE" %}
+                        <span class="etat-bleu">{{ boite.get_vitesse_1_display }}</span>
                     {% else %}
-                        <span class="not-ok">{{ boite.get_vitesse_1_display }}</span>
+                        <span class="etat-gris">{{ boite.get_vitesse_1_display|default:"-" }}</span>
                     {% endif %}
                 </td>
             </tr>
@@ -276,9 +342,13 @@
                 <td>{% trans "Pignon 2ème vitesse" %}</td>
                 <td>
                     {% if boite.vitesse_2 == "OK" %}
-                        <span class="ok">{{ boite.get_vitesse_2_display }}</span>
+                        <span class="etat-vert">{{ boite.get_vitesse_2_display }}</span>
+                    {% elif boite.vitesse_2 == "NOT_OK" %}
+                        <span class="etat-rouge">{{ boite.get_vitesse_2_display }}</span>
+                    {% elif boite.vitesse_2 == "REMPLACE" %}
+                        <span class="etat-bleu">{{ boite.get_vitesse_2_display }}</span>
                     {% else %}
-                        <span class="not-ok">{{ boite.get_vitesse_2_display }}</span>
+                        <span class="etat-gris">{{ boite.get_vitesse_2_display|default:"-" }}</span>
                     {% endif %}
                 </td>
             </tr>
@@ -287,9 +357,13 @@
                 <td>{% trans "Pignon 3ème vitesse" %}</td>
                 <td>
                     {% if boite.vitesse_3 == "OK" %}
-                        <span class="ok">{{ boite.get_vitesse_3_display }}</span>
+                        <span class="etat-vert">{{ boite.get_vitesse_3_display }}</span>
+                    {% elif boite.vitesse_3 == "NOT_OK" %}
+                        <span class="etat-rouge">{{ boite.get_vitesse_3_display }}</span>
+                    {% elif boite.vitesse_3 == "REMPLACE" %}
+                        <span class="etat-bleu">{{ boite.get_vitesse_3_display }}</span>
                     {% else %}
-                        <span class="not-ok">{{ boite.get_vitesse_3_display }}</span>
+                        <span class="etat-gris">{{ boite.get_vitesse_3_display|default:"-" }}</span>
                     {% endif %}
                 </td>
             </tr>
@@ -298,9 +372,13 @@
                 <td>{% trans "Pignon 4ème vitesse" %}</td>
                 <td>
                     {% if boite.vitesse_4 == "OK" %}
-                        <span class="ok">{{ boite.get_vitesse_4_display }}</span>
+                        <span class="etat-vert">{{ boite.get_vitesse_4_display }}</span>
+                    {% elif boite.vitesse_4 == "NOT_OK" %}
+                        <span class="etat-rouge">{{ boite.get_vitesse_4_display }}</span>
+                    {% elif boite.vitesse_4 == "REMPLACE" %}
+                        <span class="etat-bleu">{{ boite.get_vitesse_4_display }}</span>
                     {% else %}
-                        <span class="not-ok">{{ boite.get_vitesse_4_display }}</span>
+                        <span class="etat-gris">{{ boite.get_vitesse_4_display|default:"-" }}</span>
                     {% endif %}
                 </td>
             </tr>
@@ -309,9 +387,13 @@
                 <td>{% trans "Pignon 5ème vitesse" %}</td>
                 <td>
                     {% if boite.vitesse_5 == "OK" %}
-                        <span class="ok">{{ boite.get_vitesse_5_display }}</span>
+                        <span class="etat-vert">{{ boite.get_vitesse_5_display }}</span>
+                    {% elif boite.vitesse_5 == "NOT_OK" %}
+                        <span class="etat-rouge">{{ boite.get_vitesse_5_display }}</span>
+                    {% elif boite.vitesse_5 == "REMPLACE" %}
+                        <span class="etat-bleu">{{ boite.get_vitesse_5_display }}</span>
                     {% else %}
-                        <span class="not-ok">{{ boite.get_vitesse_5_display }}</span>
+                        <span class="etat-gris">{{ boite.get_vitesse_5_display|default:"-" }}</span>
                     {% endif %}
                 </td>
             </tr>
@@ -320,9 +402,13 @@
                 <td>{% trans "Pignon 6ème vitesse" %}</td>
                 <td>
                     {% if boite.vitesse_6 == "OK" %}
-                        <span class="ok">{{ boite.get_vitesse_6_display }}</span>
+                        <span class="etat-vert">{{ boite.get_vitesse_6_display }}</span>
+                    {% elif boite.vitesse_6 == "NOT_OK" %}
+                        <span class="etat-rouge">{{ boite.get_vitesse_6_display }}</span>
+                    {% elif boite.vitesse_6 == "REMPLACE" %}
+                        <span class="etat-bleu">{{ boite.get_vitesse_6_display }}</span>
                     {% else %}
-                        <span class="not-ok">{{ boite.get_vitesse_6_display }}</span>
+                        <span class="etat-gris">{{ boite.get_vitesse_6_display|default:"-" }}</span>
                     {% endif %}
                 </td>
             </tr>
@@ -331,9 +417,13 @@
                 <td>{% trans "Pignon 7ème vitesse" %}</td>
                 <td>
                     {% if boite.vitesse_7 == "OK" %}
-                        <span class="ok">{{ boite.get_vitesse_7_display }}</span>
+                        <span class="etat-vert">{{ boite.get_vitesse_7_display }}</span>
+                    {% elif boite.vitesse_7 == "NOT_OK" %}
+                        <span class="etat-rouge">{{ boite.get_vitesse_7_display }}</span>
+                    {% elif boite.vitesse_7 == "REMPLACE" %}
+                        <span class="etat-bleu">{{ boite.get_vitesse_7_display }}</span>
                     {% else %}
-                        <span class="not-ok">{{ boite.get_vitesse_7_display }}</span>
+                        <span class="etat-gris">{{ boite.get_vitesse_7_display|default:"-" }}</span>
                     {% endif %}
                 </td>
             </tr>
@@ -342,9 +432,13 @@
                 <td>{% trans "Pignon 8ème vitesse" %}</td>
                 <td>
                     {% if boite.vitesse_8 == "OK" %}
-                        <span class="ok">{{ boite.get_vitesse_8_display }}</span>
+                        <span class="etat-vert">{{ boite.get_vitesse_8_display }}</span>
+                    {% elif boite.vitesse_8 == "NOT_OK" %}
+                        <span class="etat-rouge">{{ boite.get_vitesse_8_display }}</span>
+                    {% elif boite.vitesse_8 == "REMPLACE" %}
+                        <span class="etat-bleu">{{ boite.get_vitesse_8_display }}</span>
                     {% else %}
-                        <span class="not-ok">{{ boite.get_vitesse_8_display }}</span>
+                        <span class="etat-gris">{{ boite.get_vitesse_8_display|default:"-" }}</span>
                     {% endif %}
                 </td>
             </tr>
@@ -353,9 +447,13 @@
                 <td>{% trans "Pignon de marche arrière" %}</td>
                 <td>
                     {% if boite.vitesse_r == "OK" %}
-                        <span class="ok">{{ boite.get_vitesse_r_display }}</span>
+                        <span class="etat-vert">{{ boite.get_vitesse_r_display }}</span>
+                    {% elif boite.vitesse_r == "NOT_OK" %}
+                        <span class="etat-rouge">{{ boite.get_vitesse_r_display }}</span>
+                    {% elif boite.vitesse_r == "REMPLACE" %}
+                        <span class="etat-bleu">{{ boite.get_vitesse_r_display }}</span>
                     {% else %}
-                        <span class="not-ok">{{ boite.get_vitesse_r_display }}</span>
+                        <span class="etat-gris">{{ boite.get_vitesse_r_display|default:"-" }}</span>
                     {% endif %}
                 </td>
             </tr>
@@ -364,9 +462,13 @@
                 <td>{% trans "Synchros" %}</td>
                 <td>
                     {% if boite.synchros == "OK" %}
-                        <span class="ok">{{ boite.get_synchros_display }}</span>
+                        <span class="etat-vert">{{ boite.get_synchros_display }}</span>
+                    {% elif boite.synchros == "NOT_OK" %}
+                        <span class="etat-rouge">{{ boite.get_synchros_display }}</span>
+                    {% elif boite.synchros == "REMPLACE" %}
+                        <span class="etat-bleu">{{ boite.get_synchros_display }}</span>
                     {% else %}
-                        <span class="not-ok">{{ boite.get_synchros_display }}</span>
+                        <span class="etat-gris">{{ boite.get_synchros_display|default:"-" }}</span>
                     {% endif %}
                 </td>
             </tr>
@@ -375,9 +477,13 @@
                 <td>{% trans "Fourchettes" %}</td>
                 <td>
                     {% if boite.fourchettes == "OK" %}
-                        <span class="ok">{{ boite.get_fourchettes_display }}</span>
+                        <span class="etat-vert">{{ boite.get_fourchettes_display }}</span>
+                    {% elif boite.fourchettes == "NOT_OK" %}
+                        <span class="etat-rouge">{{ boite.get_fourchettes_display }}</span>
+                    {% elif boite.fourchettes == "REMPLACE" %}
+                        <span class="etat-bleu">{{ boite.get_fourchettes_display }}</span>
                     {% else %}
-                        <span class="not-ok">{{ boite.get_fourchettes_display }}</span>
+                        <span class="etat-gris">{{ boite.get_fourchettes_display|default:"-" }}</span>
                     {% endif %}
                 </td>
             </tr>

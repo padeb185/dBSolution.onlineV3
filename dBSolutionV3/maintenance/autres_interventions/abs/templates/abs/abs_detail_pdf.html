@@ -61,15 +61,62 @@
         .tag-rouge {
             background: #dc2626;
         }
-         .ok {
-            color: #16a34a;
+
+
+        .etat-vert {
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
             font-weight: bold;
         }
 
-        .not-ok {
-            color: #dc2626;
+        .etat-rouge {
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
             font-weight: bold;
         }
+
+        .etat-bleu {
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-gris {
+            color: #6b7280;
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .tag {
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-weight: bold;
+        }
+
+        .tag-vert {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .tag-jaune {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .tag-rouge {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+
 
         table {
             width: 100%;
@@ -169,7 +216,7 @@
 </div>
 
 <!-- ================= ETAT DES PIÈCES ================= -->
-
+```django
 <h2>{% trans "État des composants ABS" %}</h2>
 
 <div class="box">
@@ -187,9 +234,21 @@
                 <td>{% trans "Pompe ABS" %}</td>
                 <td>
                     {% if abs.pompe_abs == "OK" %}
-                        <span class="ok">{{ abs.get_pompe_abs_display }}</span>
+                        <span class="etat-vert">
+                            {{ abs.get_pompe_abs_display }}
+                        </span>
+                    {% elif abs.pompe_abs == "NOT_OK" %}
+                        <span class="etat-rouge">
+                            {{ abs.get_pompe_abs_display }}
+                        </span>
+                    {% elif abs.pompe_abs == "REMPLACE" %}
+                        <span class="etat-bleu">
+                            {{ abs.get_pompe_abs_display }}
+                        </span>
                     {% else %}
-                        <span class="not-ok">{{ abs.get_pompe_abs_display }}</span>
+                        <span class="etat-gris">
+                            {{ abs.get_pompe_abs_display|default:"-" }}
+                        </span>
                     {% endif %}
                 </td>
             </tr>
@@ -198,9 +257,21 @@
                 <td>{% trans "Calculateur ABS" %}</td>
                 <td>
                     {% if abs.calculateur_abs == "OK" %}
-                        <span class="ok">{{ abs.get_calculateur_abs_display }}</span>
+                        <span class="etat-vert">
+                            {{ abs.get_calculateur_abs_display }}
+                        </span>
+                    {% elif abs.calculateur_abs == "NOT_OK" %}
+                        <span class="etat-rouge">
+                            {{ abs.get_calculateur_abs_display }}
+                        </span>
+                    {% elif abs.calculateur_abs == "REMPLACE" %}
+                        <span class="etat-bleu">
+                            {{ abs.get_calculateur_abs_display }}
+                        </span>
                     {% else %}
-                        <span class="not-ok">{{ abs.get_calculateur_abs_display }}</span>
+                        <span class="etat-gris">
+                            {{ abs.get_calculateur_abs_display|default:"-" }}
+                        </span>
                     {% endif %}
                 </td>
             </tr>
@@ -209,9 +280,21 @@
                 <td>{% trans "Capteur ABS avant droit" %}</td>
                 <td>
                     {% if abs.capteur_abs_avd == "OK" %}
-                        <span class="ok">{{ abs.get_capteur_abs_avd_display }}</span>
+                        <span class="etat-vert">
+                            {{ abs.get_capteur_abs_avd_display }}
+                        </span>
+                    {% elif abs.capteur_abs_avd == "NOT_OK" %}
+                        <span class="etat-rouge">
+                            {{ abs.get_capteur_abs_avd_display }}
+                        </span>
+                    {% elif abs.capteur_abs_avd == "REMPLACE" %}
+                        <span class="etat-bleu">
+                            {{ abs.get_capteur_abs_avd_display }}
+                        </span>
                     {% else %}
-                        <span class="not-ok">{{ abs.get_capteur_abs_avd_display }}</span>
+                        <span class="etat-gris">
+                            {{ abs.get_capteur_abs_avd_display|default:"-" }}
+                        </span>
                     {% endif %}
                 </td>
             </tr>
@@ -220,9 +303,21 @@
                 <td>{% trans "Capteur ABS avant gauche" %}</td>
                 <td>
                     {% if abs.capteur_abs_avg == "OK" %}
-                        <span class="ok">{{ abs.get_capteur_abs_avg_display }}</span>
+                        <span class="etat-vert">
+                            {{ abs.get_capteur_abs_avg_display }}
+                        </span>
+                    {% elif abs.capteur_abs_avg == "NOT_OK" %}
+                        <span class="etat-rouge">
+                            {{ abs.get_capteur_abs_avg_display }}
+                        </span>
+                    {% elif abs.capteur_abs_avg == "REMPLACE" %}
+                        <span class="etat-bleu">
+                            {{ abs.get_capteur_abs_avg_display }}
+                        </span>
                     {% else %}
-                        <span class="not-ok">{{ abs.get_capteur_abs_avg_display }}</span>
+                        <span class="etat-gris">
+                            {{ abs.get_capteur_abs_avg_display|default:"-" }}
+                        </span>
                     {% endif %}
                 </td>
             </tr>
@@ -231,9 +326,21 @@
                 <td>{% trans "Capteur ABS arrière droit" %}</td>
                 <td>
                     {% if abs.capteur_abs_ard == "OK" %}
-                        <span class="ok">{{ abs.get_capteur_abs_ard_display }}</span>
+                        <span class="etat-vert">
+                            {{ abs.get_capteur_abs_ard_display }}
+                        </span>
+                    {% elif abs.capteur_abs_ard == "NOT_OK" %}
+                        <span class="etat-rouge">
+                            {{ abs.get_capteur_abs_ard_display }}
+                        </span>
+                    {% elif abs.capteur_abs_ard == "REMPLACE" %}
+                        <span class="etat-bleu">
+                            {{ abs.get_capteur_abs_ard_display }}
+                        </span>
                     {% else %}
-                        <span class="not-ok">{{ abs.get_capteur_abs_ard_display }}</span>
+                        <span class="etat-gris">
+                            {{ abs.get_capteur_abs_ard_display|default:"-" }}
+                        </span>
                     {% endif %}
                 </td>
             </tr>
@@ -242,9 +349,21 @@
                 <td>{% trans "Capteur ABS arrière gauche" %}</td>
                 <td>
                     {% if abs.capteur_abs_arg == "OK" %}
-                        <span class="ok">{{ abs.get_capteur_abs_arg_display }}</span>
+                        <span class="etat-vert">
+                            {{ abs.get_capteur_abs_arg_display }}
+                        </span>
+                    {% elif abs.capteur_abs_arg == "NOT_OK" %}
+                        <span class="etat-rouge">
+                            {{ abs.get_capteur_abs_arg_display }}
+                        </span>
+                    {% elif abs.capteur_abs_arg == "REMPLACE" %}
+                        <span class="etat-bleu">
+                            {{ abs.get_capteur_abs_arg_display }}
+                        </span>
                     {% else %}
-                        <span class="not-ok">{{ abs.get_capteur_abs_arg_display }}</span>
+                        <span class="etat-gris">
+                            {{ abs.get_capteur_abs_arg_display|default:"-" }}
+                        </span>
                     {% endif %}
                 </td>
             </tr>
@@ -253,21 +372,36 @@
 
 </div>
 
-<!-- ================= MAIN D'OEUVRE ================= -->
+<!-- ================= MAIN D'ŒUVRE ================= -->
 
-<h2>{% trans "Main d'oeuvre" %}</h2>
+<h2>{% trans "Main d'œuvre" %}</h2>
 
 <div class="box">
-
     <div class="grid">
-
         <div>
             <span class="label">{% trans "Temps" %} :</span>
             {{ abs.temps_main_oeuvre_display|default:"0h00" }}
         </div>
 
-    </div>
+        {% if abs.main_oeuvre %}
+            <div>
+                <span class="label">{% trans "Taux horaire" %} :</span>
+                {{ abs.main_oeuvre.taux_horaire|floatformat:2 }} €
+            </div>
 
+            <div>
+                <span class="label">{% trans "Prix facturé" %} :</span>
+                {{ abs.main_oeuvre.prix_facture|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Descriptif" %} :</span>
+                {{ abs.main_oeuvre.descriptif|default:"-" }}
+            </div>
+        {% else %}
+            <div>{% trans "Aucune main d'œuvre liée" %}</div>
+        {% endif %}
+    </div>
 </div>
 
 <!-- ================= PIÈCES À REMPLACER ================= -->
@@ -277,64 +411,38 @@
 <div class="box">
 
     {% if rapport.lignes %}
-
         <table>
-
             <thead>
                 <tr>
                     <th>{% trans "Pièce" %}</th>
                     <th>{% trans "Quantité" %}</th>
-                    <th>{% trans "Prix unitaire" %}</th>
-                    <th>{% trans "Total" %}</th>
+                    <th>{% trans "Prix unitaire HTVA" %}</th>
+                    <th>{% trans "Total HTVA" %}</th>
                 </tr>
             </thead>
 
             <tbody>
-
                 {% for ligne in rapport.lignes %}
-                <tr>
-
-                    <td>
-                        {{ ligne.champ }}
-                    </td>
-
-                    <td>
-                        {{ ligne.quantite }}
-                    </td>
-
-                    <td>
-                        {{ ligne.prix|floatformat:2 }} €
-                    </td>
-
-                    <td>
-                        {{ ligne.total|floatformat:2 }} €
-                    </td>
-
-                </tr>
+                    <tr>
+                        <td>{{ ligne.champ }}</td>
+                        <td>{{ ligne.quantite }}</td>
+                        <td>{{ ligne.prix|floatformat:2 }} €</td>
+                        <td>{{ ligne.total|floatformat:2 }} €</td>
+                    </tr>
                 {% endfor %}
 
                 <tr class="total">
-
                     <td colspan="3" class="text-right">
-                        {% trans "Total général" %}
+                        {% trans "Total général HTVA" %}
                     </td>
-
                     <td>
                         {{ rapport.total_general|floatformat:2 }} €
                     </td>
-
                 </tr>
-
             </tbody>
-
         </table>
-
     {% else %}
-
-        <p>
-            {% trans "Aucune pièce à remplacer." %}
-        </p>
-
+        <p>{% trans "Aucune pièce à remplacer." %}</p>
     {% endif %}
 
 </div>
@@ -344,10 +452,13 @@
 <h2>{% trans "Remarques" %}</h2>
 
 <div class="box">
-
-    {{ abs.remarques|default:_("Aucune remarque.") }}
-
+    {% if abs.remarques %}
+        {{ abs.remarques|linebreaks }}
+    {% else %}
+        {% trans "Aucune remarque." %}
+    {% endif %}
 </div>
 
 </body>
+
 </html>
