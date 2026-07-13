@@ -345,45 +345,40 @@ class Echappement(models.Model):
         total_general = Decimal("0.00")
 
         for field in self._meta.fields:
-
             field_name = field.name
 
-            # uniquement les champs état OK / NOT_OK
             if (
                     isinstance(field, models.CharField)
                     and field.choices == EtatOKNotOK.choices
             ):
-
                 valeur = getattr(self, field_name)
 
-                # uniquement les pièces à remplacer
-                if valeur == EtatOKNotOK.NOT_OK:
-
-                    # 🔥 prix achat correct
+                # Prendre les pièces à remplacer ET déjà remplacées
+                if valeur in [
+                    EtatOKNotOK.NOT_OK,
+                    EtatOKNotOK.REMPLACE,
+                ]:
                     prix = getattr(
                         self,
                         f"{field_name}_prix_achat",
-                        Decimal("0.00")
+                        Decimal("0.00"),
                     )
 
                     if prix is None:
                         prix = Decimal("0.00")
 
-                    prix = Decimal(prix)
+                    prix = Decimal(str(prix))
 
-                    # quantité
                     quantite = getattr(
                         self,
                         f"{field_name}_quantite",
-                        0
+                        0,
                     )
 
                     if quantite is None:
                         quantite = 0
 
                     quantite = Decimal(str(quantite))
-
-                    # total
                     total = prix * quantite
 
                     total_general += total
@@ -391,6 +386,10 @@ class Echappement(models.Model):
                     rapport.append({
                         "champ": field.verbose_name,
                         "code": field_name,
+                        "etat": valeur,
+                        "etat_label": dict(
+                            EtatOKNotOK.choices
+                        ).get(valeur, valeur),
                         "prix": prix,
                         "quantite": quantite,
                         "total": total,

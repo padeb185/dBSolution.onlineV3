@@ -1,4 +1,5 @@
 from datetime import datetime
+from decimal import Decimal
 
 from django.http import HttpResponse
 from django.template.loader import render_to_string
@@ -17,7 +18,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView
 from django_tenants.utils import tenant_context, schema_context
 from maintenance.autres_interventions.echappement.forms import ControleEchappementForm
-from maintenance.autres_interventions.echappement.models import Echappement
+from maintenance.autres_interventions.echappement.models import Echappement, EtatOKNotOK
 from maintenance.models import Maintenance
 from maintenance.types_maintenances import TYPES_MAINTENANCE
 from utilisateurs.models import UserLog
