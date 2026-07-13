@@ -158,37 +158,37 @@ class EchappementListView(ListView):
 
 
 
+
+
 @never_cache
 @login_required
 def echappement_check_view(request, exemplaire_id):
-
     tenant = request.user.societe
     role = request.user.role
 
-    maintenance = None  # 👈 important pour éviter UnboundLocalError
+    maintenance = None
 
     with tenant_context(tenant):
 
-        # 🔎 Récupération exemplaire
+        # Récupération sécurisée de l'exemplaire
         exemplaire = get_object_or_404(
             VoitureExemplaire.objects.filter(
-                Q(client__societe=tenant) |
-                Q(client__isnull=True, societe=tenant)
+                Q(client__societe=tenant)
+                | Q(client__isnull=True, societe=tenant)
             ),
             id=exemplaire_id
         )
 
-        # 🔐 rôles autorisés
         roles_autorises = [
             "mecanicien",
             "apprenti",
             "magasinier",
             "chef_mecanicien",
-            "direction"
+            "direction",
         ]
 
         if role not in roles_autorises:
-            messages.error(request, _("Accès refusé"))
+            messages.error(request, _("Accès refusé."))
             return redirect("utilisateurs:dashboard")
 
         # =========================
@@ -196,118 +196,196 @@ def echappement_check_view(request, exemplaire_id):
         # =========================
         if request.method == "POST":
 
+            # On crée une instance déjà liée au véhicule
+            instance_echappement = Echappement(
+                voiture_exemplaire=exemplaire,
+                kilometres_chassis=exemplaire.kilometres_chassis,
+            )
+
+            instance_echappement.assign_technicien(request.user)
+
             form = ControleEchappementForm(
                 request.POST,
+                instance=instance_echappement,
                 user=request.user,
-                exemplaire=exemplaire
+                exemplaire=exemplaire,
             )
 
             if form.is_valid():
+                km = form.cleaned_data.get("kilometrage_echappement")
 
-                try:
-                    with transaction.atomic():
+                # Sécurité supplémentaire
+                if km is None:
+                    form.add_error(
+                        "kilometrage_echappement",
+                        _("Le kilométrage est obligatoire.")
+                    )
+                else:
+                    km = int(km)
+                    ancien_km = exemplaire.kilometres_chassis or 0
 
-                        km = form.cleaned_data.get("kilometrage_echappement")
+                    if km < ancien_km:
+                        form.add_error(
+                            "kilometrage_echappement",
+                            _(
+                                "Le kilométrage ne peut pas être inférieur "
+                                "au kilométrage actuel du véhicule."
+                            )
+                        )
 
-                        if km is not None:
-                            km = int(km)
+                # On vérifie qu'aucune erreur n'a été ajoutée
+                if not form.errors:
+                    try:
+                        with transaction.atomic():
 
-                            ancien_km = exemplaire.kilometres_chassis
+                            # =========================
+                            # Mise à jour du véhicule
+                            # =========================
+                            if km > (exemplaire.kilometres_chassis or 0):
+                                exemplaire.kilometres_chassis = km
 
-                            if km < ancien_km:
-                                form.add_error(
-                                    "kilometrage_echappement",
-                                    _("Le kilométrage ne peut pas diminuer.")
-                                )
-                                raise ValueError("Kilométrage invalide")
-
-                            # 🚗 update voiture (source unique)
-                            exemplaire.kilometres_chassis = km
-                            exemplaire.date_derniere_intervention = timezone.now().date()
+                            exemplaire.date_derniere_intervention = (
+                                timezone.localdate()
+                            )
 
                             exemplaire.update_kilometres()
                             exemplaire.save()
 
-                            # 🔗 checkup UNIQUE
-                            echappement = form.save(commit=False)
-                            echappement.assign_technicien(request.user)
+                            # =========================
+                            # Création maintenance
+                            # =========================
+                            maintenance = Maintenance.objects.create(
+                                societe=tenant,
+                                voiture_exemplaire=exemplaire,
+                                immatriculation=exemplaire.immatriculation,
+                                date_intervention=timezone.localdate(),
+                                kilometres_chassis=(
+                                    exemplaire.kilometres_chassis
+                                ),
+                                kilometres_dernier_entretien=(
+                                    exemplaire.kilometres_dernier_entretien
+                                ),
 
-                            echappement.kilometres_chassis = exemplaire.kilometres_chassis
+                                # Remplacer par la valeur exacte de ton enum
+                                type_maintenance=(
+                                    Maintenance.TypeMaintenance.ECHAPPEMENT
+                                ),
+
+                                tag=Maintenance.Tag.JAUNE,
+                            )
+
+                            # =========================
+                            # Attribution du personnel
+                            # =========================
+                            if role == "mecanicien":
+                                maintenance.mecanicien = request.user
+
+                            elif role == "chef_mecanicien":
+                                maintenance.chef_mecanicien = request.user
+
+                            elif role == "magasinier":
+                                maintenance.magasinier = request.user
+
+                            elif role == "direction":
+                                maintenance.direction = request.user
+
+                            maintenance.save()
+
+                            # ManyToMany après le premier save
+                            if role == "apprenti":
+                                maintenance.apprentis.add(request.user)
+
+                            # =========================
+                            # Création échappement
+                            # =========================
+                            echappement = form.save(commit=False)
+
+                            # Affectations obligatoires
+                            echappement.voiture_exemplaire = exemplaire
+                            echappement.maintenance = maintenance
+                            echappement.kilometres_chassis = (
+                                exemplaire.kilometres_chassis
+                            )
                             echappement.kilometrage_echappement = km
 
-                        # 🔴 maintenance unique
-                        maintenance = Maintenance.objects.create(
-                            societe=request.user.societe,
-                            voiture_exemplaire=exemplaire,
-                            immatriculation=exemplaire.immatriculation,
-                            date_intervention=timezone.now().date(),
-                            kilometres_chassis=exemplaire.kilometres_chassis,
-                            kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
-                            type_maintenance=Maintenance.TypeMaintenance.BOITE,
-                            tag=Maintenance.Tag.JAUNE,
+                            echappement.assign_technicien(request.user)
+                            echappement.save()
+
+                            # Nécessaire si le formulaire contient des M2M
+                            form.save_m2m()
+
+                            UserLog.objects.create(
+                                utilisateur=request.user,
+                                action=_(
+                                    "Contrôle échappement - "
+                                    "%(immatriculation)s"
+                                ) % {
+                                    "immatriculation": (
+                                        exemplaire.immatriculation
+                                    )
+                                }
+                            )
+
+                        messages.success(
+                            request,
+                            _(
+                                "Le contrôle de l'échappement "
+                                "a été enregistré avec succès."
+                            )
                         )
 
-                        # 🔧 affectation rôle
-                        if role == "mecanicien":
-                            maintenance.mecanicien = request.user
+                        # Redirection indispensable pour éviter un double POST
+                        return redirect(
+                            "echappement:echappement_detail",
+                            echappement_id=echappement.id,
+                        )
 
-                        elif role == "chef_mecanicien":
-                            maintenance.chef_mecanicien = request.user
-
-                        elif role == "apprenti":
-                            maintenance.apprentis.add(request.user)
-
-                        elif role == "magasinier":
-                            maintenance.magasinier = request.user
-
-                        elif role == "direction":
-                            maintenance.direction = request.user
-
-                        maintenance.save()
-                        echappement.assign_technicien(request.user)
-
-                        # 🔗 lien final
-                        echappement.maintenance = maintenance
-                        echappement.save()
-
-                        UserLog.objects.create(
-                            utilisateur=request.user,
-                            action=_("Contrôle Echappement - %(immatriculation)s") % {
-                                "immatriculation": exemplaire.immatriculation
+                    except Exception as e:
+                        messages.error(
+                            request,
+                            _("Erreur lors de l'enregistrement : %(erreur)s")
+                            % {
+                                "erreur": str(e)
                             }
                         )
 
-                    messages.success(request, _("Checkup de l'échappement enregistré avec succès."))
-
-                except Exception as e:
-                    messages.error(request, _(f"Erreur lors de l'enregistrement : {str(e)}"))
             else:
                 print("FORM INVALID:", form.errors)
-                messages.error(request, _("Le formulaire contient des erreurs."))
 
+                messages.error(
+                    request,
+                    _("Le formulaire contient des erreurs.")
+                )
+
+        # =========================
+        # GET
+        # =========================
         else:
-           echappement = Echappement(
+            instance_echappement = Echappement(
                 voiture_exemplaire=exemplaire,
-                kilometres_chassis=exemplaire.kilometres_chassis
+                kilometres_chassis=exemplaire.kilometres_chassis,
+                kilometrage_echappement=exemplaire.kilometres_chassis,
             )
 
-           echappement.assign_technicien(request.user)
+            instance_echappement.assign_technicien(request.user)
 
-           form = ControleEchappementForm(
-                instance=echappement,
+            form = ControleEchappementForm(
+                instance=instance_echappement,
                 user=request.user,
-                exemplaire=exemplaire
-           )
+                exemplaire=exemplaire,
+            )
 
-        return render(request, 'echappement/echappement_check.html', {
-            "exemplaire": exemplaire,
-            "immatriculation": exemplaire.immatriculation,
-            "maintenance": maintenance,
-            "form": form,
-            "now": timezone.now(),
-        })
-
-
+        return render(
+            request,
+            "echappement/echappement_check.html",
+            {
+                "exemplaire": exemplaire,
+                "immatriculation": exemplaire.immatriculation,
+                "maintenance": maintenance,
+                "form": form,
+                "now": timezone.now(),
+            }
+        )
 
 # ------------
 # Vue détail echappement
@@ -404,38 +482,63 @@ def modifier_echappement_view(request, echappement_id):
 
 @login_required
 def echappement_check_pdf_view(request, pk):
-   echappement = get_object_or_404(Echappement, pk=pk)
-
-   rapport =echappement.generer_rapport_remplacement()
-
-   html_string = render_to_string(
-        "echapement/echappement_check_pdf.html",
-        {
-            "echappement":echappement,
-            "rapport": rapport,
-            "date_export": datetime.now(),
-            "societe": request.user.societe,
-        }
+    echappement = get_object_or_404(
+        Echappement.objects.select_related(
+            "voiture_exemplaire",
+            "tech_technicien",
+            "tech_societe",
+            "societe",
+            "main_oeuvre",
+        ),
+        pk=pk,
     )
 
-   pdf = HTML(
+    rapport = echappement.generer_rapport_remplacement()
+
+    html_string = render_to_string(
+        "echappement/echappement_check_pdf.html",
+        {
+            "echappement": echappement,
+            "rapport": rapport,
+            "date_export": timezone.now(),
+            "societe": request.user.societe,
+        },
+        request=request,
+    )
+
+    pdf = HTML(
         string=html_string,
-        base_url=request.build_absolute_uri()
+        base_url=request.build_absolute_uri("/"),
     ).write_pdf()
 
-   immatriculation = (
-       echappement.voiture_exemplaire.immatriculation
-        if echappement.voiture_exemplaire
-        else "sans_immatriculation"
+    voiture = echappement.voiture_exemplaire
+
+    if voiture and voiture.immatriculation:
+        immatriculation = voiture.immatriculation
+    elif echappement.immatriculation:
+        immatriculation = echappement.immatriculation
+    else:
+        immatriculation = "sans_immatriculation"
+
+    technicien = (
+        echappement.tech_nom_technicien
+        or "technicien_inconnu"
     )
 
-   technicien =echappement.tech_nom_technicien or "technicien_inconnu"
+    filename = (
+        f"rapport_echappement_"
+        f"{immatriculation}_"
+        f"{technicien}.pdf"
+    )
 
-   response = HttpResponse(pdf, content_type="application/pdf")
-   response["Content-Disposition"] = (
-        f'attachment; filename="rapport_echappemnent_{immatriculation}_{technicien}.pdf"'
-   )
+    response = HttpResponse(
+        pdf,
+        content_type="application/pdf",
+    )
 
-   return response
+    response["Content-Disposition"] = (
+        f'attachment; filename="{filename}"'
+    )
 
+    return response
 

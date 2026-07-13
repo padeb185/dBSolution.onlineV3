@@ -35,6 +35,7 @@ class Maintenance(models.Model):
         COURROIE_DISTRI = "COURROIE_DISTRI", _("Courroie de distribution")
         RODAGE = "RODAGE", _("Rodage")
         COURROIE_ACCESS = "COURROIE_ACCESS", _("Courroie d'accessoires")
+        ECHAPPEMENT = "ECHAPPEMENT", _("Echappement")
 
 
     class Tag(models.TextChoices):

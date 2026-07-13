@@ -179,9 +179,9 @@ class Echappement(models.Model):
 
     colmatage_fap = models.PositiveIntegerField(default=0, verbose_name=_("Taux de colmatage du FAP en pourcent"))
 
-    suie_fap = models.PositiveIntegerField(default=0, verbose_name=_("Taux de suies du FAP en pourcent"))
+    suie_fap = models.PositiveIntegerField(default=0, verbose_name=_("Poids des suies du FAP"))
 
-    cendre_fap = models.PositiveIntegerField(default=0, verbose_name=_("Taux de cendres du FAP en pourcent"))
+    cendre_fap = models.PositiveIntegerField(default=0, verbose_name=_("Poids des cendres du FAP"))
 
 
     injecteur_ad = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Injecteur d'AdBlue"))

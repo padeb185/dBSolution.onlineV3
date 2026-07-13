@@ -1,10 +1,747 @@
+{% load i18n %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ LANGUAGE_CODE|default:'fr' }}">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+
+    <style>
+        @page {
+            size: A4;
+            margin: 15mm;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 11px;
+            color: #111;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+        }
+
+        h2 {
+            font-size: 14px;
+            margin-top: 20px;
+            margin-bottom: 8px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 4px;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tag-vert {
+            background: #16a34a;
+        }
+
+        .tag-jaune {
+            background: #ca8a04;
+        }
+
+        .tag-rouge {
+            background: #dc2626;
+        }
+
+        .etat-vert {
+            display: inline-block;
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-rouge {
+            display: inline-block;
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-bleu {
+            display: inline-block;
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-gris {
+            display: inline-block;
+            color: #6b7280;
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        table th,
+        table td {
+            border: 1px solid #ccc;
+            padding: 6px;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        table th {
+            background: #f3f3f3;
+        }
+
+        tr {
+            page-break-inside: avoid;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .total {
+            font-weight: bold;
+            background: #f8f8f8;
+        }
+
+        .remarques {
+            white-space: pre-wrap;
+            min-height: 50px;
+        }
+
+        .small {
+            font-size: 10px;
+            color: #555;
+        }
+
+        .page-break {
+            page-break-before: always;
+        }
+    </style>
 </head>
+
 <body>
+
+<h1>{% trans "Rapport du contrôle de l'échappement" %}</h1>
+
+<!-- ================================================== -->
+<!-- INFORMATIONS GÉNÉRALES -->
+<!-- ================================================== -->
+
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Date" %} :</span>
+            {{ echappement.date|date:"d/m/Y H:i"|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+            {{ echappement.tech_nom_technicien|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Rôle" %} :</span>
+            {{ echappement.tech_role_technicien|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Société" %} :</span>
+            {{ echappement.tech_societe|default:echappement.societe|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Véhicule" %} :</span>
+            {{ echappement.voiture_exemplaire|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Immatriculation" %} :</span>
+            {{ echappement.immatriculation|default:echappement.voiture_exemplaire.immatriculation|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage chassis" %} :</span>
+            {{ echappement.kilometres_chassis|default:0 }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage du contrôle échappement" %} :</span>
+            {{ echappement.kilometrage_echappement|default:0 }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Pays" %} :</span>
+            {{ echappement.get_pays_display|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Tag" %} :</span>
+
+            {% if echappement.tag == "VERT" %}
+                <span class="tag tag-vert">
+                    {{ echappement.get_tag_display }}
+                </span>
+
+            {% elif echappement.tag == "JAUNE" %}
+                <span class="tag tag-jaune">
+                    {{ echappement.get_tag_display }}
+                </span>
+
+            {% elif echappement.tag == "ROUGE" %}
+                <span class="tag tag-rouge">
+                    {{ echappement.get_tag_display }}
+                </span>
+
+            {% else %}
+                <span class="etat-gris">
+                    {{ echappement.get_tag_display|default:"-" }}
+                </span>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- ÉTAT DES COMPOSANTS -->
+<!-- ================================================== -->
+
+<h2>{% trans "État des composants de l'échappement" %}</h2>
+
+<div class="box">
+    <table>
+        <thead>
+            <tr>
+                <th>{% trans "Composant" %}</th>
+                <th>{% trans "État" %}</th>
+                <th class="text-right">{% trans "Quantité" %}</th>
+                <th class="text-right">{% trans "Prix d'achat HTVA" %}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <!-- COLLECTEUR -->
+            <tr>
+                <td>{% trans "Collecteur" %}</td>
+                <td>
+                    {% if echappement.collecteur == "OK" %}
+                        <span class="etat-vert">{{ echappement.get_collecteur_display }}</span>
+                    {% elif echappement.collecteur == "NOT_OK" %}
+                        <span class="etat-rouge">{{ echappement.get_collecteur_display }}</span>
+                    {% elif echappement.collecteur == "REMPLACE" %}
+                        <span class="etat-bleu">{{ echappement.get_collecteur_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ echappement.get_collecteur_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+                <td class="text-right">{{ echappement.collecteur_quantite|default:0 }}</td>
+                <td class="text-right">{{ echappement.collecteur_prix_achat|floatformat:2 }} €</td>
+            </tr>
+
+            <!-- CATALYSEUR -->
+            <tr>
+                <td>{% trans "Catalyseur" %}</td>
+                <td>
+                    {% if echappement.catalyseur == "OK" %}
+                        <span class="etat-vert">{{ echappement.get_catalyseur_display }}</span>
+                    {% elif echappement.catalyseur == "NOT_OK" %}
+                        <span class="etat-rouge">{{ echappement.get_catalyseur_display }}</span>
+                    {% elif echappement.catalyseur == "REMPLACE" %}
+                        <span class="etat-bleu">{{ echappement.get_catalyseur_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ echappement.get_catalyseur_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+                <td class="text-right">{{ echappement.catalyseur_quantite|default:0 }}</td>
+                <td class="text-right">{{ echappement.catalyseur_prix_achat|floatformat:2 }} €</td>
+            </tr>
+
+            <!-- LIGNE COMPLÈTE -->
+            <tr>
+                <td>{% trans "Ligne complète" %}</td>
+                <td>
+                    {% if echappement.ligne_complete == "OK" %}
+                        <span class="etat-vert">{{ echappement.get_ligne_complete_display }}</span>
+                    {% elif echappement.ligne_complete == "NOT_OK" %}
+                        <span class="etat-rouge">{{ echappement.get_ligne_complete_display }}</span>
+                    {% elif echappement.ligne_complete == "REMPLACE" %}
+                        <span class="etat-bleu">{{ echappement.get_ligne_complete_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ echappement.get_ligne_complete_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+                <td class="text-right">{{ echappement.ligne_complete_quantite|default:0 }}</td>
+                <td class="text-right">{{ echappement.ligne_complete_prix_achat|floatformat:2 }} €</td>
+            </tr>
+
+            <!-- FILTRE À PARTICULES -->
+            <tr>
+                <td>{% trans "Filtre à particules" %}</td>
+                <td>
+                    {% if echappement.filtre_particules == "OK" %}
+                        <span class="etat-vert">{{ echappement.get_filtre_particules_display }}</span>
+                    {% elif echappement.filtre_particules == "NOT_OK" %}
+                        <span class="etat-rouge">{{ echappement.get_filtre_particules_display }}</span>
+                    {% elif echappement.filtre_particules == "REMPLACE" %}
+                        <span class="etat-bleu">{{ echappement.get_filtre_particules_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ echappement.get_filtre_particules_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+                <td class="text-right">{{ echappement.filtre_particules_quantite|default:0 }}</td>
+                <td class="text-right">{{ echappement.filtre_particules_prix_achat|floatformat:2 }} €</td>
+            </tr>
+
+            <!-- POT DENOX -->
+            <tr>
+                <td>{% trans "Pot DeNOx" %}</td>
+                <td>
+                    {% if echappement.pot_denox == "OK" %}
+                        <span class="etat-vert">{{ echappement.get_pot_denox_display }}</span>
+                    {% elif echappement.pot_denox == "NOT_OK" %}
+                        <span class="etat-rouge">{{ echappement.get_pot_denox_display }}</span>
+                    {% elif echappement.pot_denox == "REMPLACE" %}
+                        <span class="etat-bleu">{{ echappement.get_pot_denox_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ echappement.get_pot_denox_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+                <td class="text-right">{{ echappement.pot_denox_quantite|default:0 }}</td>
+                <td class="text-right">{{ echappement.pot_denox_prix_achat|floatformat:2 }} €</td>
+            </tr>
+
+            <!-- SILENCIEUX -->
+            <tr>
+                <td>{% trans "Silencieux" %}</td>
+                <td>
+                    {% if echappement.silencieux == "OK" %}
+                        <span class="etat-vert">{{ echappement.get_silencieux_display }}</span>
+                    {% elif echappement.silencieux == "NOT_OK" %}
+                        <span class="etat-rouge">{{ echappement.get_silencieux_display }}</span>
+                    {% elif echappement.silencieux == "REMPLACE" %}
+                        <span class="etat-bleu">{{ echappement.get_silencieux_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ echappement.get_silencieux_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+                <td class="text-right">{{ echappement.silencieux_quantite|default:0 }}</td>
+                <td class="text-right">{{ echappement.silencieux_prix_achat|floatformat:2 }} €</td>
+            </tr>
+
+            <!-- SONDE LAMBDA AMONT -->
+            <tr>
+                <td>{% trans "Sonde Lambda amont" %}</td>
+                <td>
+                    {% if echappement.sonde_lambda_amont == "OK" %}
+                        <span class="etat-vert">{{ echappement.get_sonde_lambda_amont_display }}</span>
+                    {% elif echappement.sonde_lambda_amont == "NOT_OK" %}
+                        <span class="etat-rouge">{{ echappement.get_sonde_lambda_amont_display }}</span>
+                    {% elif echappement.sonde_lambda_amont == "REMPLACE" %}
+                        <span class="etat-bleu">{{ echappement.get_sonde_lambda_amont_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ echappement.get_sonde_lambda_amont_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+                <td class="text-right">{{ echappement.sonde_lambda_amont_quantite|default:0 }}</td>
+                <td class="text-right">{{ echappement.sonde_lambda_amont_prix_achat|floatformat:2 }} €</td>
+            </tr>
+
+            <!-- SONDE LAMBDA AVAL -->
+            <tr>
+                <td>{% trans "Sonde Lambda aval" %}</td>
+                <td>
+                    {% if echappement.sonde_lambda_aval == "OK" %}
+                        <span class="etat-vert">{{ echappement.get_sonde_lambda_aval_display }}</span>
+                    {% elif echappement.sonde_lambda_aval == "NOT_OK" %}
+                        <span class="etat-rouge">{{ echappement.get_sonde_lambda_aval_display }}</span>
+                    {% elif echappement.sonde_lambda_aval == "REMPLACE" %}
+                        <span class="etat-bleu">{{ echappement.get_sonde_lambda_aval_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ echappement.get_sonde_lambda_aval_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+                <td class="text-right">{{ echappement.sonde_lambda_aval_quantite|default:0 }}</td>
+                <td class="text-right">{{ echappement.sonde_lambda_aval_prix_achat|floatformat:2 }} €</td>
+            </tr>
+
+            <!-- SONDE FAP AMONT -->
+            <tr>
+                <td>{% trans "Sonde de température avant le filtre à particules" %}</td>
+                <td>
+                    {% if echappement.sonde_fap_amont == "OK" %}
+                        <span class="etat-vert">{{ echappement.get_sonde_fap_amont_display }}</span>
+                    {% elif echappement.sonde_fap_amont == "NOT_OK" %}
+                        <span class="etat-rouge">{{ echappement.get_sonde_fap_amont_display }}</span>
+                    {% elif echappement.sonde_fap_amont == "REMPLACE" %}
+                        <span class="etat-bleu">{{ echappement.get_sonde_fap_amont_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ echappement.get_sonde_fap_amont_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+                <td class="text-right">{{ echappement.sonde_fap_amont_quantite|default:0 }}</td>
+                <td class="text-right">{{ echappement.sonde_fap_amont_prix_achat|floatformat:2 }} €</td>
+            </tr>
+
+            <!-- SONDE FAP AVAL -->
+            <tr>
+                <td>{% trans "Sonde de température après le filtre à particules" %}</td>
+                <td>
+                    {% if echappement.sonde_fap_aval == "OK" %}
+                        <span class="etat-vert">{{ echappement.get_sonde_fap_aval_display }}</span>
+                    {% elif echappement.sonde_fap_aval == "NOT_OK" %}
+                        <span class="etat-rouge">{{ echappement.get_sonde_fap_aval_display }}</span>
+                    {% elif echappement.sonde_fap_aval == "REMPLACE" %}
+                        <span class="etat-bleu">{{ echappement.get_sonde_fap_aval_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ echappement.get_sonde_fap_aval_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+                <td class="text-right">{{ echappement.sonde_fap_aval_quantite|default:0 }}</td>
+                <td class="text-right">{{ echappement.sonde_fap_aval_prix_achat|floatformat:2 }} €</td>
+            </tr>
+
+            <!-- CAPTEUR PRESSION FAP -->
+            <tr>
+                <td>{% trans "Capteur de pression différentielle du filtre à particules" %}</td>
+                <td>
+                    {% if echappement.capteur_fap == "OK" %}
+                        <span class="etat-vert">{{ echappement.get_capteur_fap_display }}</span>
+                    {% elif echappement.capteur_fap == "NOT_OK" %}
+                        <span class="etat-rouge">{{ echappement.get_capteur_fap_display }}</span>
+                    {% elif echappement.capteur_fap == "REMPLACE" %}
+                        <span class="etat-bleu">{{ echappement.get_capteur_fap_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ echappement.get_capteur_fap_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+                <td class="text-right">{{ echappement.capteur_fap_quantite|default:0 }}</td>
+                <td class="text-right">{{ echappement.capteur_fap_prix_achat|floatformat:2 }} €</td>
+            </tr>
+
+            <!-- TUYAUX FAP -->
+            <tr>
+                <td>{% trans "Tuyaux du capteur de pression différentielle" %}</td>
+                <td>
+                    {% if echappement.tuyau_fap == "OK" %}
+                        <span class="etat-vert">{{ echappement.get_tuyau_fap_display }}</span>
+                    {% elif echappement.tuyau_fap == "NOT_OK" %}
+                        <span class="etat-rouge">{{ echappement.get_tuyau_fap_display }}</span>
+                    {% elif echappement.tuyau_fap == "REMPLACE" %}
+                        <span class="etat-bleu">{{ echappement.get_tuyau_fap_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ echappement.get_tuyau_fap_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+                <td class="text-right">{{ echappement.tuyau_fap_quantite|default:0 }}</td>
+                <td class="text-right">{{ echappement.tuyau_fap_prix_achat|floatformat:2 }} €</td>
+            </tr>
+
+            <!-- RÉGÉNÉRATION FAP -->
+            <tr>
+                <td>{% trans "Régénération du FAP" %}</td>
+                <td>
+                    {% if echappement.regeneration_fap == "OK" %}
+                        <span class="etat-vert">{{ echappement.get_regeneration_fap_display }}</span>
+                    {% elif echappement.regeneration_fap == "NOT_OK" %}
+                        <span class="etat-rouge">{{ echappement.get_regeneration_fap_display }}</span>
+                    {% elif echappement.regeneration_fap == "REMPLACE" %}
+                        <span class="etat-bleu">{{ echappement.get_regeneration_fap_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ echappement.get_regeneration_fap_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+                <td class="text-right">{{ echappement.regeneration_fap_quantite|default:0 }}</td>
+                <td class="text-right">{{ echappement.regeneration_fap_prix_achat|floatformat:2 }} €</td>
+            </tr>
+
+            <!-- INJECTEUR ADBLUE -->
+            <tr>
+                <td>{% trans "Injecteur d'AdBlue" %}</td>
+                <td>
+                    {% if echappement.injecteur_ad == "OK" %}
+                        <span class="etat-vert">{{ echappement.get_injecteur_ad_display }}</span>
+                    {% elif echappement.injecteur_ad == "NOT_OK" %}
+                        <span class="etat-rouge">{{ echappement.get_injecteur_ad_display }}</span>
+                    {% elif echappement.injecteur_ad == "REMPLACE" %}
+                        <span class="etat-bleu">{{ echappement.get_injecteur_ad_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ echappement.get_injecteur_ad_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+                <td class="text-right">{{ echappement.injecteur_ad_quantite|default:0 }}</td>
+                <td class="text-right">{{ echappement.injecteur_ad_prix_achat|floatformat:2 }} €</td>
+            </tr>
+
+            <!-- COLLIER -->
+            <tr>
+                <td>{% trans "Collier de serrage" %}</td>
+                <td>
+                    {% if echappement.collier == "OK" %}
+                        <span class="etat-vert">{{ echappement.get_collier_display }}</span>
+                    {% elif echappement.collier == "NOT_OK" %}
+                        <span class="etat-rouge">{{ echappement.get_collier_display }}</span>
+                    {% elif echappement.collier == "REMPLACE" %}
+                        <span class="etat-bleu">{{ echappement.get_collier_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ echappement.get_collier_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+                <td class="text-right">{{ echappement.collier_quantite|default:0 }}</td>
+                <td class="text-right">{{ echappement.collier_prix_achat|floatformat:2 }} €</td>
+            </tr>
+
+            <!-- MANCHON -->
+            <tr>
+                <td>{% trans "Manchon" %}</td>
+                <td>
+                    {% if echappement.manchon == "OK" %}
+                        <span class="etat-vert">{{ echappement.get_manchon_display }}</span>
+                    {% elif echappement.manchon == "NOT_OK" %}
+                        <span class="etat-rouge">{{ echappement.get_manchon_display }}</span>
+                    {% elif echappement.manchon == "REMPLACE" %}
+                        <span class="etat-bleu">{{ echappement.get_manchon_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ echappement.get_manchon_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+                <td class="text-right">{{ echappement.manchon_quantite|default:0 }}</td>
+                <td class="text-right">{{ echappement.manchon_prix_achat|floatformat:2 }} €</td>
+            </tr>
+
+            <!-- JOINTS -->
+            <tr>
+                <td>{% trans "Joints" %}</td>
+                <td>
+                    {% if echappement.joint == "OK" %}
+                        <span class="etat-vert">{{ echappement.get_joint_display }}</span>
+                    {% elif echappement.joint == "NOT_OK" %}
+                        <span class="etat-rouge">{{ echappement.get_joint_display }}</span>
+                    {% elif echappement.joint == "REMPLACE" %}
+                        <span class="etat-bleu">{{ echappement.get_joint_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ echappement.get_joint_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+                <td class="text-right">{{ echappement.joint_quantite|default:0 }}</td>
+                <td class="text-right">{{ echappement.joint_prix_achat|floatformat:2 }} €</td>
+            </tr>
+
+            <!-- SILENT BLOC -->
+            <tr>
+                <td>{% trans "Silent Bloc" %}</td>
+                <td>
+                    {% if echappement.silent_bloc == "OK" %}
+                        <span class="etat-vert">{{ echappement.get_silent_bloc_display }}</span>
+                    {% elif echappement.silent_bloc == "NOT_OK" %}
+                        <span class="etat-rouge">{{ echappement.get_silent_bloc_display }}</span>
+                    {% elif echappement.silent_bloc == "REMPLACE" %}
+                        <span class="etat-bleu">{{ echappement.get_silent_bloc_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">{{ echappement.get_silent_bloc_display|default:"-" }}</span>
+                    {% endif %}
+                </td>
+                <td class="text-right">{{ echappement.silent_bloc_quantite|default:0 }}</td>
+                <td class="text-right">{{ echappement.silent_bloc_prix_achat|floatformat:2 }} €</td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+
+<!-- ================================================== -->
+<!-- DONNÉES FILTRE À PARTICULES -->
+<!-- ================================================== -->
+
+<h2>{% trans "Mesures du filtre à particules" %}</h2>
+
+<div class="box">
+    <table>
+        <thead>
+            <tr>
+                <th>{% trans "Mesure" %}</th>
+                <th class="text-right">{% trans "Valeur" %}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>{% trans "Taux de colmatage du FAP" %}</td>
+                <td class="text-right">
+                    {{ echappement.colmatage_fap|default:0 }} %
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Poids des suies du FAP" %}</td>
+                <td class="text-right">
+                    {{ echappement.suie_fap|default:0 }} g
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Poids des cendres du FAP" %}</td>
+                <td class="text-right">
+                    {{ echappement.cendre_fap|default:0 }} g
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ================================================== -->
+<!-- MAIN-D'ŒUVRE -->
+<!-- ================================================== -->
+
+<h2>{% trans "Main d'œuvre" %}</h2>
+
+<div class="box">
+    <div class="grid">
+        <div>
+            <span class="label">{% trans "Temps de travail" %} :</span>
+            {{ echappement.temps_main_oeuvre_display|default:"0h00" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+
+            {% if echappement.main_oeuvre and echappement.main_oeuvre.utilisateur %}
+                {{ echappement.main_oeuvre.utilisateur }}
+            {% else %}
+                {{ echappement.tech_nom_technicien|default:"-" }}
+            {% endif %}
+        </div>
+
+        {% if echappement.main_oeuvre.descriptif %}
+            <div>
+                <span class="label">{% trans "Descriptif" %} :</span>
+                {{ echappement.main_oeuvre.descriptif }}
+            </div>
+        {% endif %}
+
+        {% if echappement.main_oeuvre.cout_total %}
+            <div>
+                <span class="label">{% trans "Coût de la main d'œuvre" %} :</span>
+                {{ echappement.main_oeuvre.cout_total|floatformat:2 }} €
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- PIÈCES À REMPLACER -->
+<!-- ================================================== -->
+
+<h2>{% trans "Pièces à remplacer" %}</h2>
+
+<div class="box">
+
+    {% if rapport.lignes %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>{% trans "Pièce" %}</th>
+                    <th class="text-right">{% trans "Prix unitaire HTVA" %}</th>
+                    <th class="text-right">{% trans "Quantité" %}</th>
+                    <th class="text-right">{% trans "Total HTVA" %}</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for ligne in rapport.lignes %}
+                    <tr>
+                        <td>{{ ligne.champ }}</td>
+
+                        <td class="text-right">
+                            {{ ligne.prix|floatformat:2 }} €
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.quantite|floatformat:0 }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.total|floatformat:2 }} €
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                <tr class="total">
+                    <td colspan="3" class="text-right">
+                        {% trans "Total général HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ rapport.total_general|floatformat:2 }} €
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    {% else %}
+
+        <p>{% trans "Aucune pièce à remplacer." %}</p>
+
+    {% endif %}
+
+</div>
+
+<!-- ================================================== -->
+<!-- REMARQUES -->
+<!-- ================================================== -->
+
+<h2>{% trans "Remarques" %}</h2>
+
+<div class="box remarques">
+    {% if echappement.remarques %}
+        {{ echappement.remarques|linebreaksbr }}
+    {% else %}
+        {% trans "Aucune remarque." %}
+    {% endif %}
+</div>
+
+<div class="small">
+    {% trans "Rapport généré le" %} :
+    {% now "d/m/Y H:i" %}
+</div>
 
 </body>
 </html>

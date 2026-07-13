@@ -16,7 +16,7 @@ class ControleEchappementForm(forms.ModelForm):
     class Meta:
         model = Echappement
         fields = "__all__"
-        exclude = ["",]
+        exclude = ["voiture_exemplaire",]
         widgets = {
             'maintenance': forms.HiddenInput(),
             'remarques': forms.Textarea(attrs={
@@ -65,6 +65,15 @@ class ControleEchappementForm(forms.ModelForm):
             if "tech_societe" in self.fields:
                 self.fields["tech_societe"].initial = self.user.societe
                 self.fields["tech_societe"].disabled = True
+
+                # Véhicule transmis par la vue
+                if self.exemplaire:
+                    self.instance.voiture_exemplaire = self.exemplaire
+
+                    if hasattr(self.instance, "kilometres_chassis"):
+                        self.instance.kilometres_chassis = (
+                                self.exemplaire.kilometres_chassis or 0
+                        )
 
     def clean_kilometrage_controle_echappement(self):
         km = self.cleaned_data.get("kilometrage_echappement")
