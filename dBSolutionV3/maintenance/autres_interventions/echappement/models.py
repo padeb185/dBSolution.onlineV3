@@ -158,52 +158,58 @@ class Echappement(models.Model):
 
 
     sonde_fap_aval = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Sonde de température après le filtre à particules"))
-    sonde_fap_aval_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva"))
+    sonde_fap_aval_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva"))
     sonde_fap_aval_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
 
     capteur_fap = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Capteur de pression différentielle du filtre à particules"))
-    capteur_fap_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva"))
+    capteur_fap_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva"))
     capteur_fap_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
 
     tuyau_fap = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Tuyaux du capteur de pression différentielle"))
-    tuyau_fap_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva"))
+    tuyau_fap_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva"))
     tuyau_fap_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
 
     regeneration_fap = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Régénération du FAP"))
-    regeneration_fap_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix htva"))
+    regeneration_fap_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix htva"))
     regeneration_fap_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
 
     colmatage_fap = models.PositiveIntegerField(default=0, verbose_name=_("Taux de colmatage du FAP en pourcent"))
 
+    suie_fap = models.PositiveIntegerField(default=0, verbose_name=_("Taux de suies du FAP en pourcent"))
+
+    cendre_fap = models.PositiveIntegerField(default=0, verbose_name=_("Taux de cendres du FAP en pourcent"))
+
 
     injecteur_ad = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Injecteur d'AdBlue"))
-    injecteur_ad_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix achat htva"))
+    injecteur_ad_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix achat htva"))
     injecteur_ad_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
 
     collier = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Collier de serrage"))
-    collier_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix achat htva"))
+    collier_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix achat htva"))
     collier_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+
+    manchon = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Manchon"))
+    manchon_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix achat htva"))
+    manchon_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
 
     joint = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Joints"))
-    joint_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix achat htva"))
+    joint_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix achat htva"))
     joint_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
 
     silent_bloc = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Silent Bloc"))
-    joint_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix achat htva"))
-    joint_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+    silent_bloc_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix achat htva"))
+    silent_bloc_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
 
 
     remarques = models.TextField(null=True, blank=True, verbose_name=_("Remarques"))
-
-
 
 
     TAG_CHOICES = [
@@ -211,6 +217,7 @@ class Echappement(models.Model):
         ("JAUNE", _("Jaune")),
         ("ROUGE", _("Rouge")),
     ]
+
     tag = models.CharField(
         max_length=10,
         choices=TAG_CHOICES,
