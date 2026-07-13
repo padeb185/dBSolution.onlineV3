@@ -116,12 +116,12 @@
         <br>
 
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
-            <img src="{% static 'icons/disque-dembrayage.png' %}" alt="Embrayage"
+            <img src="{% static 'icons/collecteur.png' %}" alt="Collecteur"
                  style="width:60px; height:60px; margin-right:10px;">
-            {% trans "Embrayage" %}
+            {% trans "Collecteur" %}
         </h2>
         {% for field in form %}
-            {% if "bte_embrayage" in field.name %}
+            {% if "collecteur" in field.name %}
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -166,12 +166,12 @@
         <br>
 
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
-            <img src="{% static 'icons/arbre-boite.png' %}" alt="Arbres de boite de vitesses"
+            <img src="{% static 'icons/catalyseur.png' %}" alt="catalyseur"
                  style="width:60px; height:60px; margin-right:10px;">
-            {% trans "Arbre primaire / secondaire" %}
+            {% trans "Catalyseur" %}
         </h2>
          {% for field in form %}
-            {% if "bte_a" in field.name %}
+            {% if "catalyseur" in field.name %}
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -217,14 +217,14 @@
 
 
 
-        <!-- Section Moteur -->
+        <!-- Section ligne complete -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
-            <img src="{% static 'icons/roulement.png' %}" alt="roulement de boite"
+            <img src="{% static 'icons/ligne.png' %}" alt="Ligne complète"
                  style="width:60px; height:60px; margin-right:10px;">
-            {% trans "Roulement de boite de vitesses" %}
+            {% trans "Ligne complete" %}
          </h2>
         {% for field in form %}
-            {% if "roulem" in field.name %}
+            {% if "ligne" in field.name %}
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -253,51 +253,14 @@
 
         <br>
 
-          <!-- Section Refroidissement -->
+          <!-- Section FAP -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
-            <img src="{% static 'icons/pignon.png' %}" alt="pont"
+            <img src="{% static 'icons/fap.png' %}" alt="Filtre à particules"
                  style="width:60px; height:60px; margin-right:10px;">
-            {% trans "Pignons" %}
+            {% trans "Filtre à particules" %}
          </h2>
         {% for field in form %}
-            {% if "vitesse" in field.name %}
-            <div class="mb-4">
-                {% if field.field.widget.input_type == "checkbox" %}
-                    <label class="inline-flex items-center gap-2">
-                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
-                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
-                    </label>
-                    {% if field.help_text %}
-                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
-                    {% endif %}
-                    {% if field.errors %}
-                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
-                    {% endif %}
-                {% else %}
-                    <label class="block font-semibold mb-1">{{ field.label }}</label>
-                    {{ field|add_class:"input" }}
-                    {% if field.help_text %}
-                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
-                    {% endif %}
-                    {% if field.errors %}
-                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
-                    {% endif %}
-                {% endif %}
-            </div>
-            {% endif %}
-        {% endfor %}
-
-        <br>
-
-
-        <!-- Section Boite -->
-         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
-            <img src="{% static 'icons/boite-de-vitesse.png' %}" alt="Synchro"
-                 style="width:60px; height:60px; margin-right:10px;">
-            {% trans "Synchros" %}
-         </h2>
-        {% for field in form %}
-            {% if "synchro" in field.name %}
+            {% if "filtre" in field.name %}
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -327,14 +290,51 @@
         <br>
 
 
-         <!-- Section Pont -->
+        <!-- Section Pot DeNOx -->
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/pot-denox.png' %}" alt="Pot DeNOx"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Pot DeNOx" %}
+         </h2>
+        {% for field in form %}
+            {% if "pot_denox" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+
+         <!-- Section silencieux -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
-            <img src="{% static 'icons/arbre-boite.png' %}" alt="Fourchettes"
+            <img src="{% static 'icons/silencieux.png' %}" alt="Silencieux"
                  style="width:60px; height:60px; margin-right:10px;">
-            {% trans "Fourchettes" %}
+            {% trans "Silencieux" %}
         </h2>
         {% for field in form %}
-            {% if "fourchettes" in field.name %}
+            {% if "silencieux" in field.name %}
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -366,14 +366,14 @@
 
 
 
-        <!-- Section freins -->
+        <!-- Section sonde lambda aval -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
-            <img src="{% static 'icons/huile-moteur.png' %}" alt="Huile de boite"
+            <img src="{% static 'icons/sonde-lambda.png' %}" alt="Sonde Lambda amont"
                  style="width:60px; height:60px; margin-right:10px;">
-             {% trans "Huile de boite de vitesses" %}
+             {% trans "Sonde Lambda amont" %}
          </h2>
         {% for field in form %}
-            {% if "man_h" in field.name %}
+            {% if "sonde_lambda_amont" in field.name %}
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -406,14 +406,14 @@
 
 
 
-         <!-- Section Boite auto -->
+         <!-- Section sonde lambda aval-->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
-            <img src="{% static 'icons/tag.png' %}" alt="Etiquette"
+            <img src="{% static 'icons/sonde-lambda.png' %}" alt="Sonde Lambda aval"
                  style="width:60px; height:60px; margin-right:10px;">
-            {% trans "Tag" %}
+            {% trans "Sonde Lambda aval" %}
         </h2>
         {% for field in form %}
-            {% if "tag" in field.name %}
+            {% if "sonde_lambda_aval" in field.name %}
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -541,7 +541,7 @@
                     {% trans "Enregistrer" %}
                 </button>
 
-               <a href="{% url 'maintenance:choisir_type' exemplaire.id %}"
+               <a href="{% url 'echappement:dashboard_echappement' exemplaire.id %}"
                    class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
                     {% trans "Annuler" %}
                 </a>
@@ -556,7 +556,7 @@
     </form>
 </div>
 <div class="max-w-xl mx-auto mt-4">
-    <a href="{% url 'boite_de_vitesse:boite_list' exemplaire.id %}"
+    <a href="{% url 'echappement:echappement_list' exemplaire.id %}"
         class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
         {% trans "Retour à la liste des contrôles de boite" %}
     </a>
