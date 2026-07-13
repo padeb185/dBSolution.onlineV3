@@ -4825,10 +4825,8 @@ msgid "Pièce"
 msgstr "Pieza"
 
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:419
-#, fuzzy
-#| msgid "Prix unitaire"
 msgid "Prix unitaire HTVA"
-msgstr "Precio unitario"
+msgstr "Precio unitario sin IVA"
 
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:420
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:58
@@ -6294,10 +6292,8 @@ msgstr "Kilometraje del escape"
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check.html:121
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:256
 #: maintenance/autres_interventions/echappement/templates/echappement/modifier_echappement.html:125
-#, fuzzy
-#| msgid "Connecteurs"
 msgid "Collecteur"
-msgstr "Conectores"
+msgstr "Colector de escape"
 
 #: maintenance/autres_interventions/echappement/models.py:117
 #: maintenance/autres_interventions/echappement/models.py:122
@@ -6321,15 +6317,13 @@ msgstr "Precio de compra sin IVA"
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:292
 #: maintenance/autres_interventions/echappement/templates/echappement/modifier_echappement.html:175
 msgid "Catalyseur"
-msgstr ""
+msgstr "Catalizador"
 
 #: maintenance/autres_interventions/echappement/models.py:126
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check.html:224
 #: maintenance/autres_interventions/echappement/templates/echappement/modifier_echappement.html:228
-#, fuzzy
-#| msgid "Peinture complète"
 msgid "Ligne complete"
-msgstr "Pintura completa"
+msgstr "Línea de escape completa"
 
 #: maintenance/autres_interventions/echappement/models.py:131
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check.html:260
@@ -6343,8 +6337,6 @@ msgstr "Filtro de partículas"
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check.html:297
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:400
 #: maintenance/autres_interventions/echappement/templates/echappement/modifier_echappement.html:301
-#, fuzzy
-#| msgid "Pot de déNOx"
 msgid "Pot DeNOx"
 msgstr "Catalizador de NOx"
 
@@ -6360,89 +6352,69 @@ msgstr "Silenciador"
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check.html:373
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:472
 #: maintenance/autres_interventions/echappement/templates/echappement/modifier_echappement.html:377
-#, fuzzy
-#| msgid "Sonde lambda"
 msgid "Sonde Lambda amont"
-msgstr "Sonda lambda"
+msgstr "Sonda lambda anterior"
 
 #: maintenance/autres_interventions/echappement/models.py:150
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check.html:413
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:508
 #: maintenance/autres_interventions/echappement/templates/echappement/modifier_echappement.html:417
-#, fuzzy
-#| msgid "Sonde lambda"
 msgid "Sonde Lambda aval"
-msgstr "Sonda lambda"
+msgstr "Sonda lambda posterior"
 
 #: maintenance/autres_interventions/echappement/models.py:155
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:544
-#, fuzzy
-#| msgid "Sonde de pression filtre à particules"
 msgid "Sonde de température avant le filtre à particules"
-msgstr "Sensor de presión del filtro de partículas"
+msgstr "Sensor de temperatura antes del filtro de partículas"
 
 #: maintenance/autres_interventions/echappement/models.py:160
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:580
-#, fuzzy
-#| msgid "Sonde de pression filtre à particules"
 msgid "Sonde de température après le filtre à particules"
-msgstr "Sensor de presión del filtro de partículas"
+msgstr "Sensor de temperatura después del filtro de partículas"
 
 #: maintenance/autres_interventions/echappement/models.py:165
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:616
-#, fuzzy
-#| msgid "Sonde de pression filtre à particules"
 msgid "Capteur de pression différentielle du filtre à particules"
-msgstr "Sensor de presión del filtro de partículas"
+msgstr "Sensor de presión diferencial del filtro de partículas"
 
 #: maintenance/autres_interventions/echappement/models.py:170
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:652
-#, fuzzy
-#| msgid "Type de pièce de différentiel"
 msgid "Tuyaux du capteur de pression différentielle"
-msgstr "Tipo de pieza del diferencial"
+msgstr "Tubos del sensor de presión diferencial"
 
 #: maintenance/autres_interventions/echappement/models.py:175
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:688
 msgid "Régénération du FAP"
-msgstr ""
+msgstr "Regeneración del filtro de partículas"
 
 #: maintenance/autres_interventions/echappement/models.py:176
-#, fuzzy
-#| msgid "Prix Total"
 msgid "Prix htva"
-msgstr "Precio total"
+msgstr "Precio sin IVA"
 
 #: maintenance/autres_interventions/echappement/models.py:180
 msgid "Taux de colmatage du FAP en pourcent"
-msgstr ""
+msgstr "Porcentaje de obstrucción del filtro de partículas"
 
 #: maintenance/autres_interventions/echappement/models.py:182
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:921
 msgid "Poids des suies du FAP"
-msgstr ""
+msgstr "Peso del hollín del filtro de partículas"
 
 #: maintenance/autres_interventions/echappement/models.py:184
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:926
-#, fuzzy
-#| msgid "Liste des contrôles du turbo"
 msgid "Poids des cendres du FAP"
-msgstr "Lista de controles del turbo"
+msgstr "Peso de las cenizas del filtro de partículas"
 
 #: maintenance/autres_interventions/echappement/models.py:187
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:724
-#, fuzzy
-#| msgid "Injecteurs"
 msgid "Injecteur d'AdBlue"
-msgstr "Inyectores"
+msgstr "Inyector de AdBlue"
 
 #: maintenance/autres_interventions/echappement/models.py:188
 #: maintenance/autres_interventions/echappement/models.py:193
 #: maintenance/autres_interventions/echappement/models.py:197
 #: maintenance/autres_interventions/echappement/models.py:202
 #: maintenance/autres_interventions/echappement/models.py:207
-#, fuzzy
-#| msgid "Prix d'achat htva"
 msgid "Prix achat htva"
 msgstr "Precio de compra sin IVA"
 
@@ -6455,7 +6427,7 @@ msgstr "Abrazadera"
 #: maintenance/autres_interventions/echappement/models.py:196
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:796
 msgid "Manchon"
-msgstr ""
+msgstr "Manguito"
 
 #: maintenance/autres_interventions/echappement/models.py:201
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:832
@@ -6469,8 +6441,6 @@ msgstr "Junta"
 
 #: maintenance/autres_interventions/echappement/models.py:206
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:868
-#, fuzzy
-#| msgid "Silent Blocs"
 msgid "Silent Bloc"
 msgstr "Silentblocks"
 
@@ -6486,231 +6456,169 @@ msgid "Échappements"
 msgstr "Escapes"
 
 #: maintenance/autres_interventions/echappement/templates/echappement/dashboard_echappement.html:3
-#, fuzzy
-#| msgid "Tableau de bord client"
 msgid "Tableau de bord Echappement"
-msgstr "Panel de control del cliente"
+msgstr "Panel de control del escape"
 
 #: maintenance/autres_interventions/echappement/templates/echappement/dashboard_echappement.html:8
-#, fuzzy
-#| msgid "Bienvenue sur le tableau de bord client"
 msgid "Bienvenue sur le tableau de bord Echappement"
-msgstr "Bienvenido al panel de control del cliente"
+msgstr "Bienvenido al panel de control del escape"
 
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check.html:17
-#, fuzzy
-#| msgid "Contrôle des pneus pour :"
 msgid "Contrôle de l'échappement pour :"
-msgstr "Control de neumáticos para:"
+msgstr "Control del sistema de escape para:"
 
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check.html:449
 #: maintenance/autres_interventions/echappement/templates/echappement/modifier_echappement.html:453
 msgid "Sonde FAP amont"
-msgstr ""
+msgstr "Sensor de temperatura antes del filtro de partículas"
 
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check.html:485
 #: maintenance/autres_interventions/echappement/templates/echappement/modifier_echappement.html:489
-#, fuzzy
-#| msgid "Sonde lambda"
 msgid "Sonde FAP aval"
-msgstr "Sonda lambda"
+msgstr "Sensor de temperatura después del filtro de partículas"
 
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check.html:521
 #: maintenance/autres_interventions/echappement/templates/echappement/modifier_echappement.html:525
-#, fuzzy
-#| msgid "Plateau de pression"
 msgid "Capteur de pression FAP"
-msgstr "Plato de presión"
+msgstr "Sensor de presión diferencial del filtro de partículas"
 
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check.html:557
 #: maintenance/autres_interventions/echappement/templates/echappement/modifier_echappement.html:561
-#, fuzzy
-#| msgid "Tuyau"
 msgid "Tuyaux FAP"
-msgstr "Tubería"
+msgstr "Tubos del filtro de partículas"
 
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check.html:593
 #: maintenance/autres_interventions/echappement/templates/echappement/modifier_echappement.html:597
 msgid "Régénération FAP"
-msgstr ""
+msgstr "Regeneración del filtro de partículas"
 
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check.html:629
 #: maintenance/autres_interventions/echappement/templates/echappement/modifier_echappement.html:633
 msgid "Colmatage FAP"
-msgstr ""
+msgstr "Obstrucción del filtro de partículas"
 
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check.html:665
 #: maintenance/autres_interventions/echappement/templates/echappement/modifier_echappement.html:669
 msgid "Suies FAP"
-msgstr ""
+msgstr "Hollín del filtro de partículas"
 
-# #: .\theme\templates\voiture_moteur\list.html:36
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check.html:701
 #: maintenance/autres_interventions/echappement/templates/echappement/modifier_echappement.html:705
-#, fuzzy
-#| msgid "Cylindres"
 msgid "Cendres FAP"
-msgstr "Cilindros"
+msgstr "Cenizas del filtro de partículas"
 
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check.html:737
 #: maintenance/autres_interventions/echappement/templates/echappement/modifier_echappement.html:741
-#, fuzzy
-#| msgid "Injecteurs"
 msgid "Injecteur AdBlue"
-msgstr "Inyectores"
+msgstr "Inyector de AdBlue"
 
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check.html:773
 #: maintenance/autres_interventions/echappement/templates/echappement/modifier_echappement.html:777
-#, fuzzy
-#| msgid "Collecteur d'échappement"
 msgid "Collier d'échappement"
-msgstr "Colector de escape"
+msgstr "Abrazadera del escape"
 
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check.html:809
 #: maintenance/autres_interventions/echappement/templates/echappement/modifier_echappement.html:813
-#, fuzzy
-#| msgid "Ligne d’échappement"
 msgid "Manchon d'échappement"
-msgstr "Línea de escape"
+msgstr "Manguito del escape"
 
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check.html:845
 #: maintenance/autres_interventions/echappement/templates/echappement/modifier_echappement.html:849
-#, fuzzy
-#| msgid "Ligne d’échappement"
 msgid "Joint d'échappement"
-msgstr "Línea de escape"
+msgstr "Junta del escape"
 
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check.html:881
 #: maintenance/autres_interventions/echappement/templates/echappement/modifier_echappement.html:885
-#, fuzzy
-#| msgid "Silent-bloc d’échappement"
 msgid "Silent bloc d'échappement"
 msgstr "Silentblock del escape"
 
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:153
-#, fuzzy
-#| msgid "Rapport du contrôle des pneus"
 msgid "Rapport du contrôle de l'échappement"
-msgstr "Informe de la inspección de neumáticos"
+msgstr "Informe del control del sistema de escape"
 
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:198
-#, fuzzy
-#| msgid "Kilométrage du contrôle"
 msgid "Kilométrage du contrôle échappement"
-msgstr "Kilometraje del control"
+msgstr "Kilometraje del control del escape"
 
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:239
-#, fuzzy
-#| msgid "État des composants de la boîte de vitesses"
 msgid "État des composants de l'échappement"
-msgstr "Estado de los componentes de la caja de cambios"
+msgstr "Estado de los componentes del sistema de escape"
 
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:248
-#, fuzzy
-#| msgid "Prix d'achat HT"
 msgid "Prix d'achat HTVA"
 msgstr "Precio de compra sin IVA"
 
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:328
-#, fuzzy
-#| msgid "Peinture complète"
 msgid "Ligne complète"
-msgstr "Pintura completa"
+msgstr "Línea de escape completa"
 
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:910
-#, fuzzy
-#| msgid "Filtre à particules"
 msgid "Mesures du filtre à particules"
-msgstr "Filtro de partículas"
+msgstr "Mediciones del filtro de partículas"
 
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:916
 msgid "Taux de colmatage du FAP"
-msgstr ""
+msgstr "Porcentaje de obstrucción del filtro de partículas"
 
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:971
-#, fuzzy
-#| msgid "Coût de la main d’œuvre"
 msgid "Coût de la main d'œuvre"
 msgstr "Coste de la mano de obra"
 
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:984
-#, fuzzy
-#| msgid "Pièces à remplacer"
 msgid "Pièces à remplacer et pièces remplacées"
-msgstr "Piezas a sustituir"
+msgstr "Piezas para sustituir y piezas sustituidas"
 
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1057
-#, fuzzy
-#| msgid "Aucune pièce à remplacer."
 msgid "Aucune pièce à remplacer ou remplacée."
-msgstr "Ninguna pieza para sustituir."
+msgstr "No hay piezas para sustituir ni sustituidas."
 
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1080
-#, fuzzy
-#| msgid "Rapport de check-up général"
 msgid "Rapport généré le"
-msgstr "Informe de checkup general"
+msgstr "Informe generado el"
 
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_list.html:4
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_list.html:11
-#, fuzzy
-#| msgid "Liste des contrôles de la geometrie"
 msgid "Liste des contrôles de l'échappement"
-msgstr "Lista de controles de alineación"
+msgstr "Lista de controles del sistema de escape"
 
 #: maintenance/autres_interventions/echappement/templates/echappement/modifier_echappement.html:22
-#, fuzzy
-#| msgid "Modifier le checkup piste"
 msgid "Modifier le checkup de l'échappement"
-msgstr "Modificar el checkup de pista"
+msgstr "Modificar el control del sistema de escape"
 
 #: maintenance/autres_interventions/echappement/templates/echappement/modifier_echappement.html:67
-#, fuzzy
-#| msgid "Détails du controle des freins :"
 msgid "Détails du controle de l'échappement"
-msgstr "Detalles del control de frenos:"
+msgstr "Detalles del control del sistema de escape"
 
 #: maintenance/autres_interventions/echappement/templates/echappement/modifier_echappement.html:1099
-#, fuzzy
-#| msgid "Retour à la liste des contrôles de boite"
 msgid "Retour à la liste des contrôles de l'échappement"
-msgstr "Volver a la lista de controles de la caja de cambios"
+msgstr "Volver a la lista de controles del sistema de escape"
 
 #: maintenance/autres_interventions/echappement/views.py:222
-#, fuzzy
-#| msgid "Kilométrage de la boite"
 msgid "Le kilométrage est obligatoire."
-msgstr "Kilometraje de la caja de cambios"
+msgstr "El kilometraje es obligatorio."
 
 #: maintenance/autres_interventions/echappement/views.py:321
-#, fuzzy, python-format
-#| msgid "Contrôle ABS - %(immatriculation)s"
+#, python-format
 msgid "Contrôle échappement - %(immatriculation)s"
-msgstr "Control ABS - %(immatriculation)s"
+msgstr "Control del sistema de escape - %(immatriculation)s"
 
 #: maintenance/autres_interventions/echappement/views.py:333
-#, fuzzy
-#| msgid "Contrôle de l'admission enregistrée avec succès."
 msgid "Le contrôle de l'échappement a été enregistré avec succès."
-msgstr "Control de admisión registrado correctamente."
+msgstr "El control del sistema de escape se ha registrado correctamente."
 
 #: maintenance/autres_interventions/echappement/views.py:347
-#, fuzzy, python-format
-#| msgid "Erreur lors de l'enregistrement : %(error)s"
+#, python-format
 msgid "Erreur lors de l'enregistrement : %(erreur)s"
-msgstr "Error durante el registro: %(error)s"
+msgstr "Error durante el registro: %(erreur)s"
 
 #: maintenance/autres_interventions/echappement/views.py:439
-#, fuzzy, python-format
-#| msgid "Modification du contrôle des freins - %(immatriculation)s"
+#, python-format
 msgid "Modification contrôle de l'échappement - %(immatriculation)s"
-msgstr "Modificación del control de frenos - %(immatriculation)s"
+msgstr "Modificación del control del sistema de escape - %(immatriculation)s"
 
 #: maintenance/autres_interventions/echappement/views.py:448
-#, fuzzy
-#| msgid "Checkup piste modifié avec succès !"
 msgid "Checkup de l'échappement modifié avec succès !"
-msgstr "¡Checkup de pista modificado con éxito!"
+msgstr "¡El control del sistema de escape se ha modificado correctamente!"
 
 #: maintenance/autres_interventions/geometrie/models.py:35
 msgid "Kilométrage au moment de la géometrie"
@@ -7663,10 +7571,8 @@ msgid "Kit distribution"
 msgstr "Kit de distribución"
 
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:285
-#, fuzzy
-#| msgid "Ajout de liquide de refroidissement"
 msgid "Etat du liquide de refroidissement"
-msgstr "Añadir líquido refrigerante"
+msgstr "Estado del líquido refrigerante"
 
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:320
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:269
@@ -8884,16 +8790,12 @@ msgid "Fonctionnement de la géométrie variable"
 msgstr "Funcionamiento de la geometría variable"
 
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:325
-#, fuzzy
-#| msgid "État des turbines"
 msgid "État des pièces"
-msgstr "Estado de las turbinas"
+msgstr "Estado de las piezas"
 
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:364
-#, fuzzy
-#| msgid "Electro-vanne"
 msgid "Électrovanne"
-msgstr "Electroválvula del turbo"
+msgstr "Electroválvula"
 
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_list.html:4
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_list.html:11
