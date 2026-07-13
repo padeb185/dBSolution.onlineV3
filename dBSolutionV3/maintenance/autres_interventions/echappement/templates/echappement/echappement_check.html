@@ -442,6 +442,186 @@
 
         <br>
 
+           <!-- Section sonde fap aval-->
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/sonde-fap.png' %}" alt="Sonde FAP amont"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Sonde FAP amont" %}
+        </h2>
+        {% for field in form %}
+            {% if "sonde_fap_amont" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+           <!-- Section sonde fap aval-->
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/sonde-fap.png' %}" alt="Sonde FAP aval"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Sonde FAP aval" %}
+        </h2>
+        {% for field in form %}
+            {% if "sonde_fap_aval" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+       <!-- Section capteur fap-->
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/capteur-fap.png' %}" alt="Capteur de pression FAP"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Capteur de pression FAP" %}
+        </h2>
+        {% for field in form %}
+            {% if "capteur_fap" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+       <!-- Section tuyaux fap -->
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/tuyau-fap.png' %}" alt="Tuyaux FAP"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Tuyaux FAP" %}
+        </h2>
+        {% for field in form %}
+            {% if "tuyau_fap" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+       <!-- Section sonde lambda aval-->
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/regeneration-fap.png' %}" alt="Régénération FAP"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Régénération FAP" %}
+        </h2>
+        {% for field in form %}
+            {% if "regeneration_fap" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
 
         <!-- Section remarques -->
        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
