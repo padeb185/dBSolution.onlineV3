@@ -186,7 +186,7 @@ def choisir_type_maintenance(request, exemplaire_id):
         total_carrosserie_interne = carrosserie_interne.count()
         total_checkup_track = checkup_track.count()
         total_echappement = echappement.count()
-        total_boite = remplacement_boite.count()
+        total_remplacement_boite = remplacement_boite.count()
 
         total_autres = (
             autres.count()
@@ -259,6 +259,7 @@ def choisir_type_maintenance(request, exemplaire_id):
             "total_carrosserie_interne": total_carrosserie_interne,
             "total_checkup_track": total_checkup_track,
             "total_echappement": total_echappement,
+            "total_remplacement_boite": total_remplacement_boite,
 
             "checkup": checkup,
             "entretien": entretien,
@@ -273,6 +274,7 @@ def choisir_type_maintenance(request, exemplaire_id):
             "carrosserie_interne": carrosserie_interne,
             "checkup_track": checkup_track,
             "echappement": echappement,
+            "remplacement_boite": remplacement_boite,
 
             "modeles": modeles,
         }
