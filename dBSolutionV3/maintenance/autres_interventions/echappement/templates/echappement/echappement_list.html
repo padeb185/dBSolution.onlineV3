@@ -112,11 +112,11 @@
 
 
             <td class="border px-4 py-2 text-center font-bold
-               {% if echappement.tag == 'VERT' %}bg-green-100 text-green-800 border-green-300 border-2
-               {% elif echappement.tag == 'JAUNE' %} bg-yellow-100 text-yellow-800 border-yellow-500 border-2
-               {% elif echappement.tag == 'ROUGE' %}bg-red-100 text-red-800 border-red-300 border-2
+               {% if echappement.tag_echappement == 'VERT' %}bg-green-100 text-green-800 border-green-300 border-2
+               {% elif echappement.tag_echappement == 'JAUNE' %} bg-yellow-100 text-yellow-800 border-yellow-500 border-2
+               {% elif echappement.tag_echappement == 'ROUGE' %}bg-red-100 text-red-800 border-red-300 border-2
                {% endif %}">
-              {{ echappement.get_tag_display }}
+              {{ echappement.get_tag_echappement_display }}
             </td>
 
             <!-- Technicien -->

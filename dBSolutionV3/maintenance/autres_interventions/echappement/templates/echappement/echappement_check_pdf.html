@@ -207,24 +207,24 @@
         <div>
             <span class="label">{% trans "Tag" %} :</span>
 
-            {% if echappement.tag == "VERT" %}
+            {% if echappement.tag_echappement == "VERT" %}
                 <span class="tag tag-vert">
-                    {{ echappement.get_tag_display }}
+                    {{ echappement.get_tag_echappement_display }}
                 </span>
 
-            {% elif echappement.tag == "JAUNE" %}
+            {% elif echappement.tag_echappement == "JAUNE" %}
                 <span class="tag tag-jaune">
-                    {{ echappement.get_tag_display }}
+                    {{ echappement.get_tag_echappement_display }}
                 </span>
 
-            {% elif echappement.tag == "ROUGE" %}
+            {% elif echappement.tag_echappement == "ROUGE" %}
                 <span class="tag tag-rouge">
-                    {{ echappement.get_tag_display }}
+                    {{ echappement.get_tag_echappement_display }}
                 </span>
 
             {% else %}
                 <span class="etat-gris">
-                    {{ echappement.get_tag_display|default:"-" }}
+                    {{ echappement.get_tag_echappement_display|default:"-" }}
                 </span>
             {% endif %}
         </div>

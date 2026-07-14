@@ -46,9 +46,9 @@ def dashboard_echappement_view(request, exemplaire_id):
         schema_name = tenant_schema.schema_name if tenant_schema else None
 
 
-        total_echappement = total_echappement_check = 0
+        total_echappement = 0
 
-        echappement = echappement_check  = []
+        echappement = []
 
 
 
@@ -64,9 +64,6 @@ def dashboard_echappement_view(request, exemplaire_id):
                 # ✅ COUNTS CORRECTS
                 total_echappement = echappement.count()
 
-
-
-                total_echappement = total_echappement_check
 
                 modeles = VoitureModele.objects.all()
         else:
@@ -97,12 +94,11 @@ def dashboard_echappement_view(request, exemplaire_id):
             "exemplaire": exemplaire,
             "types_maintenance": TYPES_MAINTENANCE,
 
-            "total_boite": total_echappement,
-            "total_echappement_check": total_echappement_check,
+
+            "total_echappement": total_echappement,
 
 
             "echappement": echappement,
-            "echeppement_check": echappement_check,
 
 
             "modeles": modeles,

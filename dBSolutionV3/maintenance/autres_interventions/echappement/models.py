@@ -188,6 +188,9 @@ class Echappement(models.Model):
     injecteur_ad_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix achat htva"))
     injecteur_ad_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
+    valve = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Valve d'échappement"))
+    valve_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix achat htva"))
+    valve_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
     collier = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Collier de serrage"))
     collier_prix_achat = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix achat htva"))
@@ -218,7 +221,7 @@ class Echappement(models.Model):
         ("ROUGE", _("Rouge")),
     ]
 
-    tag = models.CharField(
+    tag_echappement = models.CharField(
         max_length=10,
         choices=TAG_CHOICES,
         default="JAUNE",
@@ -310,6 +313,8 @@ class Echappement(models.Model):
         verbose_name = _("Echappement")
         verbose_name_plural = _("Échappements")
         ordering = ['-date']
+
+
 
     def calcul_piece(self, prefix):
         prix_achat = getattr(self, f"{prefix}_prix_achat")

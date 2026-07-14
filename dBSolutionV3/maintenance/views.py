@@ -6,6 +6,7 @@ from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.cache import never_cache
 from django_tenants.utils import tenant_context, schema_context
+from maintenance.autres_interventions.boite_de_vitesse.remplacement_boite.models import RemplacementBoite
 from maintenance.autres_interventions.courroie_accessoires.models import CourroieAccessoires
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from voiture.voiture_modele.models import VoitureModele
@@ -34,7 +35,7 @@ from maintenance.autres_interventions.moteur.courroie.models import CourroieDist
 from maintenance.autres_interventions.moteur.remplacement_moteur.models import RemplacementMoteur
 from maintenance.autres_interventions.moteur.turbo.models import Turbo
 from maintenance.check_up.models import Checkup
-
+from maintenance.autres_interventions.echappement.models import Echappement
 
 
 @login_required
@@ -54,138 +55,233 @@ def liste_maintenance_all(request):
         }
     )
 
-
 @never_cache
 @login_required
 def choisir_type_maintenance(request, exemplaire_id):
-    user = request.user
-    context = {}
+    tenant = getattr(request, "tenant", None) or request.user.societe
 
-    # 🔹 Récupérer l'exemplaire AVANT
-    exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
+    with tenant_context(tenant):
+        exemplaire = get_object_or_404(
+            VoitureExemplaire,
+            id=exemplaire_id
+        )
 
-    # --- Sécurité tenant ---
-    tenant_schema = getattr(request, 'tenant', None)
-    schema_name = tenant_schema.schema_name if tenant_schema else None
+        # --------------------------------------------------
+        # QuerySets liés au véhicule
+        # --------------------------------------------------
 
-    total_checkup = total_entretien = total_freins = total_pneus = \
-    total_niveaux = total_nettoyage_exterieur = total_nettoyage_interieur = \
-    total_autres = total_jeux_pieces = total_silent = total_carrosserie_interne = total_checkup_track =  0
+        checkup = Checkup.objects.filter(
+            voiture_exemplaire=exemplaire
+        )
 
-    checkup = entretien = nettoyage_exterieur = jeux_pieces = nettoyage_interieur = \
-        freins = niveaux = pneus = autres = silent = carrosserie_interne = checkup_track = []
+        entretien = Entretien.objects.filter(
+            voiture_exemplaire=exemplaire
+        )
 
-    if schema_name:
-        with (schema_context(schema_name)):
+        freins = ControleFreins.objects.filter(
+            voiture_exemplaire=exemplaire
+        )
 
-            # ✅ FILTRAGE PAR EXEMPLAIRE
-            checkup = Checkup.objects.filter(voiture_exemplaire=exemplaire)
-            entretien = Entretien.objects.filter(voiture_exemplaire=exemplaire)
-            freins = ControleFreins.objects.filter(voiture_exemplaire=exemplaire)
-            pneus = ControlePneus.objects.filter(voiture_exemplaire=exemplaire)
-            niveaux = Niveau.objects.filter(voiture_exemplaire=exemplaire)
-            nettoyage_exterieur = NettoyageExterieur.objects.filter(voiture_exemplaire=exemplaire)
-            nettoyage_interieur = NettoyageInterieur.objects.filter(voiture_exemplaire=exemplaire)
-            autres = AutresInterventions.objects.filter(voiture_exemplaire=exemplaire)
-            jeux_pieces = ControleJeuxPieces.objects.filter(voiture_exemplaire=exemplaire)
-            silent = SilentBloc.objects.filter(voiture_exemplaire=exemplaire)
-            carrosserie_interne = CarrosserieInterne.objects.filter(voiture_exemplaire=exemplaire)
-            checkup_track = CheckupTrack.objects.filter(voiture_exemplaire=exemplaire)
-            courroie = CourroieDistribution.objects.filter(voiture_exemplaire=exemplaire)
-            turbo = Turbo.objects.filter(voiture_exemplaire=exemplaire)
-            remplacement_moteur = RemplacementMoteur.objects.filter(voiture_exemplaire=exemplaire)
+        pneus = ControlePneus.objects.filter(
+            voiture_exemplaire=exemplaire
+        )
 
+        niveaux = Niveau.objects.filter(
+            voiture_exemplaire=exemplaire
+        )
 
-            # ✅ COUNTS CORRECTS
-            total_checkup = checkup.count()
-            total_entretien = entretien.count()
-            total_freins = freins.count()
-            total_pneus = pneus.count()
-            total_niveaux = niveaux.count()
-            total_nettoyage_exterieur = nettoyage_exterieur.count()
-            total_nettoyage_interieur = nettoyage_interieur.count()
+        nettoyage_exterieur = NettoyageExterieur.objects.filter(
+            voiture_exemplaire=exemplaire
+        )
 
-            boite = ControleBoite.objects.filter(voiture_exemplaire=exemplaire)
-            boite_auto = ControleBteVitesseAuto.objects.filter(voiture_exemplaire=exemplaire)
-            geometrie = GeometrieVoiture.objects.filter(voiture_exemplaire=exemplaire)
+        nettoyage_interieur = NettoyageInterieur.objects.filter(
+            voiture_exemplaire=exemplaire
+        )
 
-            admission = Admission.objects.filter(voiture_exemplaire=exemplaire)
-            alternateur = Alternateur.objects.filter(voiture_exemplaire=exemplaire)
-            abs_qs = Abs.objects.filter(voiture_exemplaire=exemplaire)
-            courroie_access = CourroieAccessoires.objects.filter(voiture_exemplaire=exemplaire)
+        autres = AutresInterventions.objects.filter(
+            voiture_exemplaire=exemplaire
+        )
 
+        jeux_pieces = ControleJeuxPieces.objects.filter(
+            voiture_exemplaire=exemplaire
+        )
 
+        silent = SilentBloc.objects.filter(
+            voiture_exemplaire=exemplaire
+        )
 
-            total_autres = boite.count() + boite_auto.count() + geometrie.count() + admission.count() + alternateur.count() + courroie.count() + turbo.count() + remplacement_moteur.count() + abs_qs.count() + courroie_access.count()
-            total_jeux_pieces = jeux_pieces.count()
-            total_silent = silent.count()
-            total_carrosserie_interne = carrosserie_interne.count()
-            total_checkup_track = checkup_track.count()
+        carrosserie_interne = CarrosserieInterne.objects.filter(
+            voiture_exemplaire=exemplaire
+        )
 
-            modeles = VoitureModele.objects.all()
-    else:
-        modeles = []
+        checkup_track = CheckupTrack.objects.filter(
+            voiture_exemplaire=exemplaire
+        )
 
-    # --- POST ---
-    if request.method == "POST":
-        type_choisi = request.POST.get("type_maintenance")
-        date_intervention = request.POST.get("date_intervention")
-        description = request.POST.get("description", "")
+        # --------------------------------------------------
+        # Autres interventions
+        # --------------------------------------------------
 
-        if type_choisi and date_intervention:
-            Maintenance.objects.create(
-                voiture_exemplaire=exemplaire,
-                type_maintenance=type_choisi,
-                immatriculation=exemplaire.immatriculation,
-                date_intervention=date_intervention,
-                description=description
-            )
-            return redirect('maintenance:list', modele_id=exemplaire.voiture_modele.id)
+        boite = ControleBoite.objects.filter(
+            voiture_exemplaire=exemplaire
+        )
 
-    # --- CONTEXT ---
-    context.update({
-        "exemplaire": exemplaire,
-        "is_checkup_allowed": request.user.role in [
-            "direction",
-            "mecanicien",
-            "chef_mecanicien",
-            "magasinier",
-        ],
+        boite_auto = ControleBteVitesseAuto.objects.filter(
+            voiture_exemplaire=exemplaire
+        )
 
-        "types_maintenance": TYPES_MAINTENANCE,
+        geometrie = GeometrieVoiture.objects.filter(
+            voiture_exemplaire=exemplaire
+        )
 
-        "total_checkup": total_checkup,
-        "total_entretien": total_entretien,
-        'total_freins': total_freins,
-        'total_pneus': total_pneus,
-        'total_niveaux': total_niveaux,
-        'total_autres': total_autres,
-        'total_nettoyage_exterieur': total_nettoyage_exterieur,
-        'total_nettoyage_interieur': total_nettoyage_interieur,
-        'total_jeux_pieces': total_jeux_pieces,
-        'total_silent': total_silent,
-        'total_carrosserie_interne': total_carrosserie_interne,
-        'total_checkup_track': total_checkup_track,
+        admission = Admission.objects.filter(
+            voiture_exemplaire=exemplaire
+        )
+
+        alternateur = Alternateur.objects.filter(
+            voiture_exemplaire=exemplaire
+        )
+
+        courroie = CourroieDistribution.objects.filter(
+            voiture_exemplaire=exemplaire
+        )
+
+        turbo = Turbo.objects.filter(
+            voiture_exemplaire=exemplaire
+        )
+
+        remplacement_moteur = RemplacementMoteur.objects.filter(
+            voiture_exemplaire=exemplaire
+        )
+        remplacement_boite = RemplacementBoite.objects.filter(
+            voiture_exemplaire=exemplaire
+        )
 
 
-        "checkup": checkup,
-        "entretien": entretien,
-        'freins': freins,
-        'pneus': pneus,
-        'niveaux': niveaux,
-        'nettoyage_exterieur': nettoyage_exterieur,
-        'nettoyage_interieur': nettoyage_interieur,
-        'autres': autres,
-        'jeux_pieces': jeux_pieces,
-        'silent': silent,
-        'carrosserie_interne': carrosserie_interne,
-        'checkup_track': checkup_track,
-        "modeles": modeles,
+        abs_qs = Abs.objects.filter(
+            voiture_exemplaire=exemplaire
+        )
 
+        courroie_access = CourroieAccessoires.objects.filter(
+            voiture_exemplaire=exemplaire
+        )
 
-    })
+        echappement = Echappement.objects.filter(
+            voiture_exemplaire=exemplaire
+        )
 
-    return render(request, "maintenance/choisir_type.html", context)
+        # --------------------------------------------------
+        # Totaux
+        # --------------------------------------------------
+
+        total_checkup = checkup.count()
+        total_entretien = entretien.count()
+        total_freins = freins.count()
+        total_pneus = pneus.count()
+        total_niveaux = niveaux.count()
+        total_nettoyage_exterieur = nettoyage_exterieur.count()
+        total_nettoyage_interieur = nettoyage_interieur.count()
+        total_jeux_pieces = jeux_pieces.count()
+        total_silent = silent.count()
+        total_carrosserie_interne = carrosserie_interne.count()
+        total_checkup_track = checkup_track.count()
+        total_echappement = echappement.count()
+        total_boite = remplacement_boite.count()
+
+        total_autres = (
+            autres.count()
+            + boite.count()
+            + boite_auto.count()
+            + geometrie.count()
+            + admission.count()
+            + alternateur.count()
+            + courroie.count()
+            + turbo.count()
+            + remplacement_moteur.count()
+            + abs_qs.count()
+            + courroie_access.count()
+            + echappement.count()
+            + remplacement_boite.count()
+        )
+
+        modeles = VoitureModele.objects.all()
+
+        # --------------------------------------------------
+        # Création d'une maintenance
+        # --------------------------------------------------
+
+        if request.method == "POST":
+            type_choisi = request.POST.get("type_maintenance")
+            date_intervention = request.POST.get("date_intervention")
+            description = request.POST.get("description", "")
+
+            if type_choisi and date_intervention:
+                Maintenance.objects.create(
+                    societe=tenant,
+                    voiture_exemplaire=exemplaire,
+                    type_maintenance=type_choisi,
+                    immatriculation=exemplaire.immatriculation,
+                    date_intervention=date_intervention,
+                    description=description,
+                )
+
+                return redirect(
+                    "maintenance:list",
+                    modele_id=exemplaire.voiture_modele_id
+                )
+
+        # --------------------------------------------------
+        # Contexte
+        # --------------------------------------------------
+
+        context = {
+            "exemplaire": exemplaire,
+
+            "is_checkup_allowed": request.user.role in [
+                "direction",
+                "mecanicien",
+                "chef_mecanicien",
+                "magasinier",
+            ],
+
+            "types_maintenance": TYPES_MAINTENANCE,
+
+            "total_checkup": total_checkup,
+            "total_entretien": total_entretien,
+            "total_freins": total_freins,
+            "total_pneus": total_pneus,
+            "total_niveaux": total_niveaux,
+            "total_autres": total_autres,
+            "total_nettoyage_exterieur": total_nettoyage_exterieur,
+            "total_nettoyage_interieur": total_nettoyage_interieur,
+            "total_jeux_pieces": total_jeux_pieces,
+            "total_silent": total_silent,
+            "total_carrosserie_interne": total_carrosserie_interne,
+            "total_checkup_track": total_checkup_track,
+            "total_echappement": total_echappement,
+
+            "checkup": checkup,
+            "entretien": entretien,
+            "freins": freins,
+            "pneus": pneus,
+            "niveaux": niveaux,
+            "nettoyage_exterieur": nettoyage_exterieur,
+            "nettoyage_interieur": nettoyage_interieur,
+            "autres": autres,
+            "jeux_pieces": jeux_pieces,
+            "silent": silent,
+            "carrosserie_interne": carrosserie_interne,
+            "checkup_track": checkup_track,
+            "echappement": echappement,
+
+            "modeles": modeles,
+        }
+
+        return render(
+            request,
+            "maintenance/choisir_type.html",
+            context
+        )
 
 @login_required
 def maintenance_tenant_view(request, exemplaire_id):

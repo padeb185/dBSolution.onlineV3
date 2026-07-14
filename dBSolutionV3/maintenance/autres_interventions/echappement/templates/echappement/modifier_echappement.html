@@ -770,7 +770,44 @@
 
         <br>
 
-    <!-- Section -->
+         <!-- Section valve-->
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/valve-echappement.png' %}" alt="Valve d'échappement"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Valve d'échappement" %}
+        </h2>
+        {% for field in form %}
+            {% if "valve" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+
+    <!-- Section collier-->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/collier.png' %}" alt="Collier d'échappement"
                  style="width:60px; height:60px; margin-right:10px;">
@@ -806,7 +843,7 @@
 
         <br>
 
-    <!-- Section -->
+    <!-- Section Manchon -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/manchon.png' %}" alt="Manchon d'échappement"
                  style="width:60px; height:60px; margin-right:10px;">
@@ -842,7 +879,7 @@
 
         <br>
 
-    <!-- Section -->
+    <!-- Section joints -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/joint.png' %}" alt="Joint d'échappement"
                  style="width:60px; height:60px; margin-right:10px;">
@@ -878,7 +915,7 @@
 
         <br>
 
-    <!-- Section -->
+    <!-- Section silent bloc -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/silent.png' %}" alt="Silent bloc d'échappement"
                  style="width:60px; height:60px; margin-right:10px;">
@@ -960,7 +997,7 @@
            {% trans "Tag" %}
        </h2>
         {% for field in form %}
-            {% if "tag" in field.name %}
+            {% if "tag_echappement" in field.name %}
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">

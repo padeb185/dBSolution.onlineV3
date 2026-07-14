@@ -6,7 +6,9 @@ from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.cache import never_cache
 from django_tenants.utils import schema_context, tenant_context
+from maintenance.autres_interventions import echappement
 from maintenance.autres_interventions.courroie_accessoires.models import CourroieAccessoires
+from maintenance.autres_interventions.echappement.models import Echappement
 from maintenance.models import Maintenance
 from maintenance.types_maintenances import TYPES_MAINTENANCE
 from voiture.voiture_exemplaire.models import VoitureExemplaire
@@ -78,6 +80,8 @@ def choisir_autre_maintenance(request, exemplaire_id):
     courroie = CourroieDistribution.objects.none()
     turbo = Turbo.objects.none()
     remplacement_moteur = RemplacementMoteur.objects.none()
+    echappement = Echappement.objects.none()
+
 
     # -----------------------------
     # TOTALS
@@ -88,6 +92,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
     total_abs = 0
     total_remplacement_boite = 0
     total_access = 0
+    total_echappement = 0
 
 
     total_int_moteur = 0
@@ -127,12 +132,17 @@ def choisir_autre_maintenance(request, exemplaire_id):
                 voiture_exemplaire=exemplaire
             )
 
+            echappement = Echappement.objects.filter(
+                voiture_exemplaire=exemplaire
+            )
+
             total_boite = boite.count()
             total_bte_auto = bte_auto.count()
             total_geometrie = geometrie.count()
             total_abs = abs_qs.count()
             total_remplacement_boite = remplacement_boite.count()
             total_access = courroie_access.count()
+            total_echappement = echappement.count()
 
             # ---------------- MOTEUR ----------------
             admission = Admission.objects.filter(
@@ -211,6 +221,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
         "total_abs": total_abs,
         "total_remplacement_boite": total_remplacement_boite,
         "total_access": total_access,
+        "total_echappement": total_echappement,
 
         "total_int_moteur": total_int_moteur,
         "total_int_boite": total_int_boite,
@@ -223,6 +234,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
 
 
         "remplacement_boite": remplacement_boite,
+        "echappement": echappement,
 
         "turbo": turbo,
         "alternateur": alternateur,
