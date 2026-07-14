@@ -307,7 +307,7 @@ def clim_form_view(request, exemplaire_id):
             },
             {
                 "title": _("Gaz"),
-                "icon": "icons/climatisation.png",
+                "icon": "icons/bouteille-de-gaz.png",
                 "fields": [
                     field
                     for field in form
@@ -317,7 +317,7 @@ def clim_form_view(request, exemplaire_id):
             },
             {
                 "title": _("Poids du gaz"),
-                "icon": "icons/climatisation.png",
+                "icon": "icons/poids-gaz.png",
                 "fields": [
                     field
                     for field in form
@@ -326,7 +326,7 @@ def clim_form_view(request, exemplaire_id):
             },
             {
                 "title": _("Qualité du gaz"),
-                "icon": "icons/calculateur.png",
+                "icon": "icons/qualite-gaz.png",
                 "fields": [
                     field
                     for field in form
@@ -336,7 +336,7 @@ def clim_form_view(request, exemplaire_id):
             },
             {
                 "title": _("Huile"),
-                "icon": "icons/capteurs.png",
+                "icon": "icons/huile-clim.png",
                 "fields": [
                     field
                     for field in form
@@ -345,7 +345,7 @@ def clim_form_view(request, exemplaire_id):
             },
             {
                 "title": _("Traceur"),
-                "icon": "icons/tag.png",
+                "icon": "icons/traceur.png",
                 "fields": [
                     field
                     for field in form
@@ -354,7 +354,7 @@ def clim_form_view(request, exemplaire_id):
             },
             {
                 "title": _("Mise sous vide"),
-                "icon": "icons/tag.png",
+                "icon": "icons/mise-vide.png",
                 "fields": [
                     field
                     for field in form
@@ -368,7 +368,7 @@ def clim_form_view(request, exemplaire_id):
             },
             {
                 "title": _("Contrôle des fuites"),
-                "icon": "icons/tag.png",
+                "icon": "icons/fuites.png",
                 "fields": [
                     field
                     for field in form
@@ -377,7 +377,7 @@ def clim_form_view(request, exemplaire_id):
             },
             {
                 "title": _("Tuyaux"),
-                "icon": "icons/tag.png",
+                "icon": "icons/tuyaux-clim.png",
                 "fields": [
                     field
                     for field in form
@@ -386,7 +386,7 @@ def clim_form_view(request, exemplaire_id):
             },
             {
                 "title": _("Valves"),
-                "icon": "icons/tag.png",
+                "icon": "icons/valves-clim.png",
                 "fields": [
                     field
                     for field in form
@@ -395,7 +395,7 @@ def clim_form_view(request, exemplaire_id):
             },
             {
                 "title": _("Déshydrateur"),
-                "icon": "icons/tag.png",
+                "icon": "icons/deshydrateur.png",
                 "fields": [
                     field
                     for field in form
@@ -404,7 +404,7 @@ def clim_form_view(request, exemplaire_id):
             },
             {
                 "title": _("Condenseur"),
-                "icon": "icons/tag.png",
+                "icon": "icons/condenseur.png",
                 "fields": [
                     field
                     for field in form
@@ -413,7 +413,7 @@ def clim_form_view(request, exemplaire_id):
             },
             {
                 "title": _("Compresseur"),
-                "icon": "icons/tag.png",
+                "icon": "icons/compresseur.png",
                 "fields": [
                     field
                     for field in form
@@ -422,7 +422,7 @@ def clim_form_view(request, exemplaire_id):
             },
             {
                 "title": _("Évaporateur"),
-                "icon": "icons/tag.png",
+                "icon": "icons/evaporateur.png",
                 "fields": [
                     field
                     for field in form
@@ -431,7 +431,7 @@ def clim_form_view(request, exemplaire_id):
             },
             {
                 "title": _("Pressions de fonctionnement"),
-                "icon": "icons/tag.png",
+                "icon": "icons/pression-clim.png",
                 "fields": [
                     field
                     for field in form
@@ -443,7 +443,7 @@ def clim_form_view(request, exemplaire_id):
             },
             {
                 "title": _("Température d'air"),
-                "icon": "icons/tag.png",
+                "icon": "icons/mesure-clim.png",
                 "fields": [
                     field
                     for field in form
@@ -561,6 +561,7 @@ def modifier_clim_view(request, climatisation_id):
         # -------------------------
         # Sections pour le template
         # -------------------------
+
         sections = [
             {
                 "title": _("Kilométrage"),
@@ -569,22 +570,22 @@ def modifier_clim_view(request, climatisation_id):
                     field
                     for field in form
                     if "kilometrage" in field.name
-                       or "kilometres" in field.name
+                    or "kilometres" in field.name
                 ],
             },
             {
                 "title": _("Gaz"),
-                "icon": "icons/climatisation.png",
+                "icon": "icons/bouteille-de-gaz.png",
                 "fields": [
                     field
                     for field in form
                     if "type_gaz" in field.name
-                       or "autre_type_gaz" in field.name
+                    or "autre_type_gaz" in field.name
                 ],
             },
             {
                 "title": _("Poids du gaz"),
-                "icon": "icons/climatisation.png",
+                "icon": "icons/poids-gaz.png",
                 "fields": [
                     field
                     for field in form
@@ -593,17 +594,17 @@ def modifier_clim_view(request, climatisation_id):
             },
             {
                 "title": _("Qualité du gaz"),
-                "icon": "icons/calculateur.png",
+                "icon": "icons/qualite-gaz.png",
                 "fields": [
                     field
                     for field in form
                     if "qualite_gaz" in field.name
-                       or "purete_gaz" in field.name
+                    or "purete_gaz" in field.name
                 ],
             },
             {
                 "title": _("Huile"),
-                "icon": "icons/capteurs.png",
+                "icon": "icons/huile-clim.png",
                 "fields": [
                     field
                     for field in form
@@ -612,7 +613,7 @@ def modifier_clim_view(request, climatisation_id):
             },
             {
                 "title": _("Traceur"),
-                "icon": "icons/tag.png",
+                "icon": "icons/traceur.png",
                 "fields": [
                     field
                     for field in form
@@ -621,7 +622,7 @@ def modifier_clim_view(request, climatisation_id):
             },
             {
                 "title": _("Mise sous vide"),
-                "icon": "icons/tag.png",
+                "icon": "icons/mise-vide.png",
                 "fields": [
                     field
                     for field in form
@@ -635,7 +636,7 @@ def modifier_clim_view(request, climatisation_id):
             },
             {
                 "title": _("Contrôle des fuites"),
-                "icon": "icons/tag.png",
+                "icon": "icons/fuites.png",
                 "fields": [
                     field
                     for field in form
@@ -644,7 +645,7 @@ def modifier_clim_view(request, climatisation_id):
             },
             {
                 "title": _("Tuyaux"),
-                "icon": "icons/tag.png",
+                "icon": "icons/tuyaux-clim.png",
                 "fields": [
                     field
                     for field in form
@@ -653,7 +654,7 @@ def modifier_clim_view(request, climatisation_id):
             },
             {
                 "title": _("Valves"),
-                "icon": "icons/tag.png",
+                "icon": "icons/valves-clim.png",
                 "fields": [
                     field
                     for field in form
@@ -662,7 +663,7 @@ def modifier_clim_view(request, climatisation_id):
             },
             {
                 "title": _("Déshydrateur"),
-                "icon": "icons/tag.png",
+                "icon": "icons/deshydrateur.png",
                 "fields": [
                     field
                     for field in form
@@ -671,7 +672,7 @@ def modifier_clim_view(request, climatisation_id):
             },
             {
                 "title": _("Condenseur"),
-                "icon": "icons/tag.png",
+                "icon": "icons/condenseur.png",
                 "fields": [
                     field
                     for field in form
@@ -680,7 +681,7 @@ def modifier_clim_view(request, climatisation_id):
             },
             {
                 "title": _("Compresseur"),
-                "icon": "icons/tag.png",
+                "icon": "icons/compresseur.png",
                 "fields": [
                     field
                     for field in form
@@ -689,7 +690,7 @@ def modifier_clim_view(request, climatisation_id):
             },
             {
                 "title": _("Évaporateur"),
-                "icon": "icons/tag.png",
+                "icon": "icons/evaporateur.png",
                 "fields": [
                     field
                     for field in form
@@ -698,7 +699,7 @@ def modifier_clim_view(request, climatisation_id):
             },
             {
                 "title": _("Pressions de fonctionnement"),
-                "icon": "icons/tag.png",
+                "icon": "icons/pression-clim.png",
                 "fields": [
                     field
                     for field in form
@@ -710,7 +711,7 @@ def modifier_clim_view(request, climatisation_id):
             },
             {
                 "title": _("Température d'air"),
-                "icon": "icons/tag.png",
+                "icon": "icons/mesure-clim.png",
                 "fields": [
                     field
                     for field in form
