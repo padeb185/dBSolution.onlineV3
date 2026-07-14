@@ -3,7 +3,7 @@ from django.utils.translation import gettext_lazy as _
 from piece.models import Piece
 
 
-class Climatisation(Piece):
+class ClimatisationPieces(Piece):
 
     TYPE_PIECE_CLIM = (
         ("qualite_gaz", _("Qualité de gaz")),

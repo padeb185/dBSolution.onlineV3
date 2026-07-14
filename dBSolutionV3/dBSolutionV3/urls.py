@@ -156,6 +156,8 @@ urlpatterns += i18n_patterns(
 
     path("echappement/",include(("maintenance.autres_interventions.echappement.urls", "dashboard_echappement"),namespace="dashboard_echappement")),
 
+    path("climatisation/",include(("maintenance.autres_interventions.climatisation.urls", "climatisation"),namespace="climatisation")),
+
 
 )
 
