@@ -1,4 +1,4 @@
-l>{% extends 'base.html' %}
+{% extends 'base.html' %}
 {% load i18n widget_tweaks static %}
 
 {% block content %}
@@ -120,7 +120,7 @@ l>{% extends 'base.html' %}
             </button>
 
 
-            <a href="{% url 'climatisation:clim_detail' climatisation_id=climatisation.id %}"
+            <a href="{% url 'climatisation:clim_detail' climatisation_id=clim.id %}"
                class="flex-1 bg-gray-300 text-black px-5 py-3 rounded hover:bg-gray-400 font-semibold text-center">
                 {% trans "Annuler" %}
             </a>

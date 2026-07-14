@@ -543,7 +543,7 @@ def modifier_clim_view(request, climatisation_id):
                 )
 
                 messages.success(request, _("Contrôle du système de climatisation modifié avec succès !"))
-                return redirect("climatisation:modifier_clim", climatisation_id=climatisation.id)
+                return redirect("climatisation:modifier_clim", climatisation_id=clim.id)
             else:
                 messages.error(request, _("Le formulaire contient des erreurs."))
                 print(form.errors)
@@ -565,116 +565,185 @@ def modifier_clim_view(request, climatisation_id):
             {
                 "title": _("Kilométrage"),
                 "icon": "icons/compteur.png",
-                "fields": [form[f.name] for f in form if "kilo" in f.name],
+                "fields": [
+                    field
+                    for field in form
+                    if "kilometrage" in field.name
+                       or "kilometres" in field.name
+                ],
             },
             {
-                "title": _("Poids du Gaz"),
-                "icon": "icons/abs.png",
-                "fields": [form[f.name] for f in form if "poids_gaz" in f.name],
+                "title": _("Gaz"),
+                "icon": "icons/climatisation.png",
+                "fields": [
+                    field
+                    for field in form
+                    if "type_gaz" in field.name
+                       or "autre_type_gaz" in field.name
+                ],
             },
             {
-                "title": _("Qualité du Gaz"),
+                "title": _("Poids du gaz"),
+                "icon": "icons/climatisation.png",
+                "fields": [
+                    field
+                    for field in form
+                    if "poids_gaz" in field.name
+                ],
+            },
+            {
+                "title": _("Qualité du gaz"),
                 "icon": "icons/calculateur.png",
-                "fields": [form[f.name] for f in form if "qualite_gaz" in f.name],
+                "fields": [
+                    field
+                    for field in form
+                    if "qualite_gaz" in field.name
+                       or "purete_gaz" in field.name
+                ],
             },
             {
                 "title": _("Huile"),
                 "icon": "icons/capteurs.png",
-                "fields": [form[f.name] for f in form if "huile" in f.name],
+                "fields": [
+                    field
+                    for field in form
+                    if "huile" in field.name
+                ],
             },
-
             {
                 "title": _("Traceur"),
                 "icon": "icons/tag.png",
-                "fields": [form[f.name] for f in form if "traceur" in f.name],
+                "fields": [
+                    field
+                    for field in form
+                    if "traceur" in field.name
+                ],
             },
             {
                 "title": _("Mise sous vide"),
                 "icon": "icons/tag.png",
-                "fields": [form[f.name] for f in form if "mise_sous_vide" in f.name],
+                "fields": [
+                    field
+                    for field in form
+                    if field.name in [
+                        "mise_sous_vide",
+                        "duree_mise_sous_vide_minutes",
+                        "pression_vide_atteinte",
+                        "tenue_du_vide",
+                    ]
+                ],
             },
-            {
-                "title": _("Pression du vide"),
-                "icon": "icons/tag.png",
-                "fields": [form[f.name] for f in form if "pression_vide" in f.name],
-            },
-
-            {
-                "title": _("Contrôle de la tenue du vide"),
-                "icon": "icons/tag.png",
-                "fields": [form[f.name] for f in form if "tenue_du_vide" in f.name],
-            },
-
             {
                 "title": _("Contrôle des fuites"),
                 "icon": "icons/tag.png",
-                "fields": [form[f.name] for f in form if "fuites" in f.name],
+                "fields": [
+                    field
+                    for field in form
+                    if "fuite" in field.name
+                ],
             },
-
             {
                 "title": _("Tuyaux"),
                 "icon": "icons/tag.png",
-                "fields": [form[f.name] for f in form if "tuyaux" in f.name],
+                "fields": [
+                    field
+                    for field in form
+                    if "tuyaux" in field.name
+                ],
             },
-
             {
                 "title": _("Valves"),
                 "icon": "icons/tag.png",
-                "fields": [form[f.name] for f in form if "valves" in f.name],
+                "fields": [
+                    field
+                    for field in form
+                    if "valves" in field.name
+                ],
             },
-
             {
                 "title": _("Déshydrateur"),
                 "icon": "icons/tag.png",
-                "fields": [form[f.name] for f in form if "deshydrateur" in f.name],
+                "fields": [
+                    field
+                    for field in form
+                    if "deshydrateur" in field.name
+                ],
             },
             {
                 "title": _("Condenseur"),
                 "icon": "icons/tag.png",
-                "fields": [form[f.name] for f in form if "condenseur" in f.name],
+                "fields": [
+                    field
+                    for field in form
+                    if "condenseur" in field.name
+                ],
             },
             {
                 "title": _("Compresseur"),
                 "icon": "icons/tag.png",
-                "fields": [form[f.name] for f in form if "compresseur" in f.name],
+                "fields": [
+                    field
+                    for field in form
+                    if "compresseur" in field.name
+                ],
             },
             {
                 "title": _("Évaporateur"),
                 "icon": "icons/tag.png",
-                "fields": [form[f.name] for f in form if "evaporateur" in f.name],
+                "fields": [
+                    field
+                    for field in form
+                    if "evaporateur" in field.name
+                ],
             },
             {
-                "title": _("Pression"),
+                "title": _("Pressions de fonctionnement"),
                 "icon": "icons/tag.png",
-                "fields": [form[f.name] for f in form if "pression" in f.name],
+                "fields": [
+                    field
+                    for field in form
+                    if field.name in [
+                        "pression_basse",
+                        "pression_haute",
+                    ]
+                ],
             },
             {
                 "title": _("Température d'air"),
                 "icon": "icons/tag.png",
-                "fields": [form[f.name] for f in form if "temperature_air" in f.name],
+                "fields": [
+                    field
+                    for field in form
+                    if "temperature_air" in field.name
+                ],
             },
             {
-                "title": _("Etiquette"),
+                "title": _("Étiquette"),
                 "icon": "icons/tag.png",
-                "fields": [form[f.name] for f in form if "tag" in f.name],
+                "fields": [
+                    field
+                    for field in form
+                    if field.name == "tag"
+                ],
             },
-
             {
                 "title": _("Pays"),
                 "icon": "icons/pays.png",
-                "fields": [form[f.name] for f in form if "pays" in f.name],
+                "fields": [
+                    field
+                    for field in form
+                    if field.name == "pays"
+                ],
             },
             {
                 "title": _("Remarques"),
                 "icon": "icons/notes.png",
-                "fields": [form[f.name] for f in form if "remarques" in f.name],
+                "fields": [
+                    field
+                    for field in form
+                    if field.name == "remarques"
+                ],
             },
-            {
-                "title": _("Technicien"),
-                "icon": "icons/mecanicien.png",
-                "fields": [form[f.name] for f in form if "tech" in f.name],
-            },
-
         ]
 
     return render(

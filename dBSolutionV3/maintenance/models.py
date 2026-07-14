@@ -36,6 +36,7 @@ class Maintenance(models.Model):
         RODAGE = "RODAGE", _("Rodage")
         COURROIE_ACCESS = "COURROIE_ACCESS", _("Courroie d'accessoires")
         ECHAPPEMENT = "ECHAPPEMENT", _("Echappement")
+        CLIMATISATION = "CLIMATISATION", _("Climatisation")
 
 
     class Tag(models.TextChoices):

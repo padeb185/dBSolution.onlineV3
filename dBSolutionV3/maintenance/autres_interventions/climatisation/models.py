@@ -601,12 +601,12 @@ class Climatisation(TechnicienMixin, models.Model):
 
         if (
             self.voiture_exemplaire
-            and self.kilometrage_climatisation is not None
-            and self.kilometrage_climatisation
+            and self.kilometrage_clim is not None
+            and self.kilometrage_clim
             > self.voiture_exemplaire.kilometres_chassis
         ):
             self.voiture_exemplaire.kilometres_chassis = (
-                self.kilometrage_climatisation
+                self.kilometrage_clim
             )
 
             self.voiture_exemplaire.save(
