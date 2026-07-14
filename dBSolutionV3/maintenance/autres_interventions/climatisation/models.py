@@ -717,3 +717,26 @@ class Climatisation(TechnicienMixin, models.Model):
         sortie = self.temperature_air_sortie or Decimal("0")
 
         return entree - sortie
+
+
+    def sync_kilometrage(self):
+        if not self.voiture_exemplaire:
+            return
+
+        if self.kilometrage_clim is None:
+            return
+
+        km = Decimal(str(self.kilometrage_clim))
+
+        voiture = self.voiture_exemplaire
+        voiture.refresh_from_db(fields=["kilometres_chassis"])
+
+        if km < voiture.kilometres_chassis:
+            raise ValidationError("Kilométrage invalide")
+
+        # 🔥 SOURCE UNIQUE
+        voiture.kilometres_chassis = km
+        voiture.save(update_fields=["kilometres_chassis"])
+
+        # 🔁 copie locale
+        self.kilometres_chassis = km

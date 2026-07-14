@@ -415,10 +415,10 @@ class Echappement(models.Model):
         if not self.voiture_exemplaire:
             return
 
-        if self.kilometrage_alte is None:
+        if self.kilometrage_echappement is None:
             return
 
-        km = Decimal(str(self.kilometrage_alte))
+        km = Decimal(str(self.kilometrage_echappement))
 
         voiture = self.voiture_exemplaire
         voiture.refresh_from_db(fields=["kilometres_chassis"])

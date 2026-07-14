@@ -1,10 +1,749 @@
+{% load i18n %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ LANGUAGE_CODE|default:'fr' }}">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+
+    <style>
+        @page {
+            size: A4;
+            margin: 14mm;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 11px;
+            color: #111827;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 6px;
+            color: #1e3a8a;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        h2 {
+            font-size: 14px;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            color: #1e40af;
+            border-bottom: 1px solid #93c5fd;
+        }
+
+        .box {
+            border: 1px solid #d1d5db;
+            padding: 10px;
+            margin-bottom: 12px;
+            border-radius: 4px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 7px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px;
+        }
+
+        th,
+        td {
+            border: 1px solid #d1d5db;
+            padding: 6px;
+            vertical-align: middle;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+            text-align: left;
+        }
+
+        tr {
+            page-break-inside: avoid;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .etat {
+            display: inline-block;
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-ok {
+            color: #166534;
+            background: #dcfce7;
+        }
+
+        .etat-not-ok {
+            color: #991b1b;
+            background: #fee2e2;
+        }
+
+        .etat-remplace {
+            color: #1e40af;
+            background: #dbeafe;
+        }
+
+        .etat-operation {
+            color: #374151;
+            background: #f3f4f6;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tag-vert {
+            background: #16a34a;
+        }
+
+        .tag-jaune {
+            background: #ca8a04;
+        }
+
+        .tag-rouge {
+            background: #dc2626;
+        }
+
+        .total {
+            font-weight: bold;
+            background: #f8fafc;
+        }
+
+        .remarques {
+            white-space: pre-wrap;
+            min-height: 45px;
+        }
+
+        .small {
+            margin-top: 15px;
+            font-size: 9px;
+            color: #6b7280;
+        }
+    </style>
 </head>
+
 <body>
+
+<h1>
+    {% trans "Rapport du contrôle de la climatisation" %}
+</h1>
+
+<!-- ================================================== -->
+<!-- INFORMATIONS GÉNÉRALES -->
+<!-- ================================================== -->
+
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Date" %} :</span>
+            {{ climatisation.date|date:"d/m/Y H:i"|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+            {{ climatisation.tech_nom_technicien|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Rôle" %} :</span>
+            {{ climatisation.tech_role_technicien|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Société" %} :</span>
+            {{ climatisation.tech_societe|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Véhicule" %} :</span>
+            {{ climatisation.voiture_exemplaire|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Immatriculation" %} :</span>
+            {{ climatisation.voiture_exemplaire.immatriculation|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage châssis" %} :</span>
+            {{ climatisation.kilometres_chassis|default:0 }} km
+        </div>
+
+        <div>
+            <span class="label">
+                {% trans "Kilométrage du contrôle climatisation" %} :
+            </span>
+
+            {{ climatisation.kilometrage_climatisation|default:0 }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Pays" %} :</span>
+            {{ climatisation.get_pays_display|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Tag" %} :</span>
+
+            {% if climatisation.tag == "VERT" %}
+                <span class="tag tag-vert">
+                    {{ climatisation.get_tag_display }}
+                </span>
+
+            {% elif climatisation.tag == "JAUNE" %}
+                <span class="tag tag-jaune">
+                    {{ climatisation.get_tag_display }}
+                </span>
+
+            {% elif climatisation.tag == "ROUGE" %}
+                <span class="tag tag-rouge">
+                    {{ climatisation.get_tag_display }}
+                </span>
+
+            {% else %}
+                {{ climatisation.get_tag_display|default:"-" }}
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- GAZ -->
+<!-- ================================================== -->
+
+<h2>{% trans "Gaz de climatisation" %}</h2>
+
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Type de gaz" %} :</span>
+            {{ climatisation.get_type_gaz_display|default:"-" }}
+        </div>
+
+        {% if climatisation.autre_type_gaz %}
+            <div>
+                <span class="label">{% trans "Autre type de gaz" %} :</span>
+                {{ climatisation.autre_type_gaz }}
+            </div>
+        {% endif %}
+
+        <div>
+            <span class="label">{% trans "Poids constructeur" %} :</span>
+            {{ climatisation.poids_gaz_constructeur|default:0|floatformat:2 }} g
+        </div>
+
+        <div>
+            <span class="label">{% trans "Poids récupéré" %} :</span>
+            {{ climatisation.poids_gaz_recupere|default:0|floatformat:2 }} g
+        </div>
+
+        <div>
+            <span class="label">{% trans "Poids injecté" %} :</span>
+            {{ climatisation.poids_gaz_injecte|default:0|floatformat:2 }} g
+        </div>
+
+        <div>
+            <span class="label">{% trans "Différence de poids" %} :</span>
+            {{ climatisation.difference_poids_gaz|default:0|floatformat:2 }} g
+        </div>
+
+        <div>
+            <span class="label">{% trans "Qualité du gaz" %} :</span>
+            {{ climatisation.get_qualite_gaz_display|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Pureté du gaz" %} :</span>
+            {{ climatisation.pourcentage_purete_gaz|default:0|floatformat:2 }} %
+        </div>
+
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- HUILE ET TRACEUR -->
+<!-- ================================================== -->
+
+<h2>{% trans "Huile et traceur" %}</h2>
+
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Ajout d'huile" %} :</span>
+            {{ climatisation.get_ajout_huile_display|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Type d'huile" %} :</span>
+            {{ climatisation.type_huile|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Huile récupérée" %} :</span>
+            {{ climatisation.quantite_huile_recuperee|default:0|floatformat:2 }} ml
+        </div>
+
+        <div>
+            <span class="label">{% trans "Huile injectée" %} :</span>
+            {{ climatisation.quantite_huile_injectee|default:0|floatformat:2 }} ml
+        </div>
+
+        <div>
+            <span class="label">{% trans "Ajout de traceur" %} :</span>
+            {{ climatisation.get_ajout_traceur_display|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Quantité de traceur" %} :</span>
+            {{ climatisation.quantite_traceur|default:0|floatformat:2 }} ml
+        </div>
+
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- VIDE ET FUITES -->
+<!-- ================================================== -->
+
+<h2>{% trans "Mise sous vide et contrôle des fuites" %}</h2>
+
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Mise sous vide" %} :</span>
+            {{ climatisation.get_mise_sous_vide_display|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Durée de mise sous vide" %} :</span>
+            {{ climatisation.duree_mise_sous_vide_minutes|default:0 }}
+            {% trans "minutes" %}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Pression de vide atteinte" %} :</span>
+            {{ climatisation.pression_vide_atteinte|default:0|floatformat:2 }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Tenue du vide" %} :</span>
+            {{ climatisation.get_tenue_du_vide_display|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Contrôle des fuites" %} :</span>
+            {{ climatisation.get_controle_fuites_display|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Résultat des fuites" %} :</span>
+            {{ climatisation.get_resultat_fuites_display|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Méthode de contrôle" %} :</span>
+            {{ climatisation.methode_controle_fuites|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Emplacement de la fuite" %} :</span>
+            {{ climatisation.emplacement_fuite|default:"-" }}
+        </div>
+
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- COMPOSANTS -->
+<!-- ================================================== -->
+
+<h2>{% trans "État des composants" %}</h2>
+
+<div class="box">
+
+    <table>
+        <thead>
+            <tr>
+                <th>{% trans "Composant" %}</th>
+                <th>{% trans "État" %}</th>
+                <th class="text-right">{% trans "Quantité" %}</th>
+                <th class="text-right">{% trans "Prix d'achat HTVA" %}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <!-- TUYAUX -->
+            <tr>
+                <td>{% trans "Tuyaux de climatisation" %}</td>
+
+                <td>
+                    {% if climatisation.tuyaux == "OK" %}
+                        <span class="etat etat-ok">
+                            {{ climatisation.get_tuyaux_display }}
+                        </span>
+                    {% elif climatisation.tuyaux == "NOT_OK" %}
+                        <span class="etat etat-not-ok">
+                            {{ climatisation.get_tuyaux_display }}
+                        </span>
+                    {% elif climatisation.tuyaux == "REMPLACE" %}
+                        <span class="etat etat-remplace">
+                            {{ climatisation.get_tuyaux_display }}
+                        </span>
+                    {% endif %}
+                </td>
+
+                <td class="text-right">
+                    {{ climatisation.tuyaux_quantite|default:0 }}
+                </td>
+
+                <td class="text-right">
+                    {{ climatisation.tuyaux_prix|default:0|floatformat:2 }} €
+                </td>
+            </tr>
+
+            <!-- VALVES -->
+            <tr>
+                <td>{% trans "Valves de climatisation" %}</td>
+
+                <td>
+                    {% if climatisation.valves == "OK" %}
+                        <span class="etat etat-ok">
+                            {{ climatisation.get_valves_display }}
+                        </span>
+                    {% elif climatisation.valves == "NOT_OK" %}
+                        <span class="etat etat-not-ok">
+                            {{ climatisation.get_valves_display }}
+                        </span>
+                    {% elif climatisation.valves == "REMPLACE" %}
+                        <span class="etat etat-remplace">
+                            {{ climatisation.get_valves_display }}
+                        </span>
+                    {% endif %}
+                </td>
+
+                <td class="text-right">
+                    {{ climatisation.valves_quantite|default:0 }}
+                </td>
+
+                <td class="text-right">
+                    {{ climatisation.valves_prix|default:0|floatformat:2 }} €
+                </td>
+            </tr>
+
+            <!-- DÉSHYDRATEUR -->
+            <tr>
+                <td>{% trans "Déshydrateur" %}</td>
+
+                <td>
+                    {% if climatisation.deshydrateur == "OK" %}
+                        <span class="etat etat-ok">
+                            {{ climatisation.get_deshydrateur_display }}
+                        </span>
+                    {% elif climatisation.deshydrateur == "NOT_OK" %}
+                        <span class="etat etat-not-ok">
+                            {{ climatisation.get_deshydrateur_display }}
+                        </span>
+                    {% elif climatisation.deshydrateur == "REMPLACE" %}
+                        <span class="etat etat-remplace">
+                            {{ climatisation.get_deshydrateur_display }}
+                        </span>
+                    {% endif %}
+                </td>
+
+                <td class="text-right">
+                    {{ climatisation.deshydrateur_quantite|default:0 }}
+                </td>
+
+                <td class="text-right">
+                    {{ climatisation.deshydrateur_prix|default:0|floatformat:2 }} €
+                </td>
+            </tr>
+
+            <!-- CONDENSEUR -->
+            <tr>
+                <td>{% trans "Condenseur" %}</td>
+
+                <td>
+                    {% if climatisation.condenseur == "OK" %}
+                        <span class="etat etat-ok">
+                            {{ climatisation.get_condenseur_display }}
+                        </span>
+                    {% elif climatisation.condenseur == "NOT_OK" %}
+                        <span class="etat etat-not-ok">
+                            {{ climatisation.get_condenseur_display }}
+                        </span>
+                    {% elif climatisation.condenseur == "REMPLACE" %}
+                        <span class="etat etat-remplace">
+                            {{ climatisation.get_condenseur_display }}
+                        </span>
+                    {% endif %}
+                </td>
+
+                <td class="text-right">
+                    {{ climatisation.condenseur_quantite|default:0 }}
+                </td>
+
+                <td class="text-right">
+                    {{ climatisation.condenseur_prix|default:0|floatformat:2 }} €
+                </td>
+            </tr>
+
+            <!-- COMPRESSEUR -->
+            <tr>
+                <td>{% trans "Compresseur" %}</td>
+
+                <td>
+                    {% if climatisation.compresseur == "OK" %}
+                        <span class="etat etat-ok">
+                            {{ climatisation.get_compresseur_display }}
+                        </span>
+                    {% elif climatisation.compresseur == "NOT_OK" %}
+                        <span class="etat etat-not-ok">
+                            {{ climatisation.get_compresseur_display }}
+                        </span>
+                    {% elif climatisation.compresseur == "REMPLACE" %}
+                        <span class="etat etat-remplace">
+                            {{ climatisation.get_compresseur_display }}
+                        </span>
+                    {% endif %}
+                </td>
+
+                <td class="text-right">
+                    {{ climatisation.compresseur_quantite|default:0 }}
+                </td>
+
+                <td class="text-right">
+                    {{ climatisation.compresseur_prix|default:0|floatformat:2 }} €
+                </td>
+            </tr>
+
+            <!-- ÉVAPORATEUR -->
+            <tr>
+                <td>{% trans "Évaporateur" %}</td>
+
+                <td>
+                    {% if climatisation.evaporateur == "OK" %}
+                        <span class="etat etat-ok">
+                            {{ climatisation.get_evaporateur_display }}
+                        </span>
+                    {% elif climatisation.evaporateur == "NOT_OK" %}
+                        <span class="etat etat-not-ok">
+                            {{ climatisation.get_evaporateur_display }}
+                        </span>
+                    {% elif climatisation.evaporateur == "REMPLACE" %}
+                        <span class="etat etat-remplace">
+                            {{ climatisation.get_evaporateur_display }}
+                        </span>
+                    {% endif %}
+                </td>
+
+                <td class="text-right">
+                    {{ climatisation.evaporateur_quantite|default:0 }}
+                </td>
+
+                <td class="text-right">
+                    {{ climatisation.evaporateur_prix|default:0|floatformat:2 }} €
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+</div>
+
+<!-- ================================================== -->
+<!-- PRESSIONS ET TEMPÉRATURES -->
+<!-- ================================================== -->
+
+<h2>{% trans "Pressions et températures" %}</h2>
+
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Pression basse" %} :</span>
+            {{ climatisation.pression_basse|default:0|floatformat:2 }} bar
+        </div>
+
+        <div>
+            <span class="label">{% trans "Pression haute" %} :</span>
+            {{ climatisation.pression_haute|default:0|floatformat:2 }} bar
+        </div>
+
+        <div>
+            <span class="label">{% trans "Température d'entrée" %} :</span>
+            {{ climatisation.temperature_air_entree|default:0|floatformat:2 }} °C
+        </div>
+
+        <div>
+            <span class="label">{% trans "Température de sortie" %} :</span>
+            {{ climatisation.temperature_air_sortie|default:0|floatformat:2 }} °C
+        </div>
+
+        <div>
+            <span class="label">{% trans "Écart de température" %} :</span>
+            {{ climatisation.ecart_temperature|default:0|floatformat:2 }} °C
+        </div>
+
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- MAIN-D'ŒUVRE -->
+<!-- ================================================== -->
+
+<h2>{% trans "Main d'œuvre" %}</h2>
+
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Temps de travail" %} :</span>
+            {{ climatisation.temps_main_oeuvre_display|default:"0h00" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+
+            {% if climatisation.main_oeuvre.utilisateur %}
+                {{ climatisation.main_oeuvre.utilisateur }}
+            {% else %}
+                {{ climatisation.tech_nom_technicien|default:"-" }}
+            {% endif %}
+        </div>
+
+        {% if climatisation.main_oeuvre.descriptif %}
+            <div>
+                <span class="label">{% trans "Descriptif" %} :</span>
+                {{ climatisation.main_oeuvre.descriptif }}
+            </div>
+        {% endif %}
+
+        {% if climatisation.main_oeuvre.cout_total %}
+            <div>
+                <span class="label">{% trans "Coût de la main d'œuvre" %} :</span>
+                {{ climatisation.main_oeuvre.cout_total|floatformat:2 }} €
+            </div>
+        {% endif %}
+
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- PIÈCES À REMPLACER -->
+<!-- ================================================== -->
+
+<h2>{% trans "Pièces à remplacer" %}</h2>
+
+<div class="box">
+
+    {% if rapport.lignes %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>{% trans "Pièce" %}</th>
+                    <th>{% trans "Quantité" %}</th>
+                    <th>{% trans "Prix unitaire HTVA" %}</th>
+                    <th>{% trans "Total HTVA" %}</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for ligne in rapport.lignes %}
+                    <tr>
+                        <td>
+                            {{ ligne.champ }}
+                        </td>
+
+                        <td>
+                            {{ ligne.quantite|default:0 }}
+                        </td>
+
+                        <td>
+                            {{ ligne.prix|default:0|floatformat:2 }} €
+                        </td>
+
+                        <td>
+                            {{ ligne.total|default:0|floatformat:2 }} €
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                <tr class="total">
+                    <td colspan="3" class="text-right">
+                        {% trans "Total général HTVA" %}
+                    </td>
+
+                    <td>
+                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    {% else %}
+
+        <p>
+            {% trans "Aucune pièce à remplacer." %}
+        </p>
+
+    {% endif %}
+
+</div>
+
+<!-- ================================================== -->
+<!-- REMARQUES -->
+<!-- ================================================== -->
+
+<h2>{% trans "Remarques" %}</h2>
+
+<div class="box remarques">
+    {% if climatisation.remarques %}
+        {{ climatisation.remarques|linebreaksbr }}
+    {% else %}
+        {% trans "Aucune remarque." %}
+    {% endif %}
+</div>
+
+<div class="small">
+    {% trans "Rapport généré le" %} :
+    {{ date_export|date:"d/m/Y H:i" }}
+</div>
 
 </body>
 </html>

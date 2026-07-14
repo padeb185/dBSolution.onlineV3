@@ -18,7 +18,11 @@ urlpatterns = [
 
     path('climatisation/<int:climatisation_id>/detail/', clim_detail_view, name='clim_detail'),
 
-    path("<int:pk>/", clim_detail_pdf_view, name="clim_detail_pdf"),
+    path(
+        "<int:pk>/",
+        clim_detail_pdf_view,
+        name="clim_detail_pdf",
+    ),
 
 
 ]

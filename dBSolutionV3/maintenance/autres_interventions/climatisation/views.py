@@ -1,5 +1,7 @@
 from datetime import datetime
 
+from django.utils.text import slugify
+
 from django.core.exceptions import ValidationError
 
 from django.http import HttpResponse
@@ -759,76 +761,69 @@ def modifier_clim_view(request, climatisation_id):
     )
 
 
+@never_cache
 @login_required
 def clim_detail_pdf_view(request, pk):
-    clim = get_object_or_404(Climatisation, pk=pk)
+    tenant = request.user.societe
 
-    rapport = clim.generer_rapport_remplacement()
+    with tenant_context(tenant):
 
-    maintenance = clim.maintenance  # adapter si le nom du champ est différent
+        climatisation = get_object_or_404(
+            Climatisation.objects.select_related(
+                "voiture_exemplaire",
+                "maintenance",
+                "tech_technicien",
+                "tech_societe",
+                "main_oeuvre",
+                "main_oeuvre__utilisateur",
+            ),
+            pk=pk,
+        )
 
-    html_string = render_to_string(
-        "climatisation/clim_detail_pdf.html",
-        {
-            "clim": clim,
-            "rapport": rapport,
-            "maintenance": maintenance,
-            "technicien": maintenance.tech_nom_technicien,
-            "date_intervention": maintenance.date_intervention,
-            "vehicule": maintenance.voiture_exemplaire,
-            "immatriculation": maintenance.voiture_exemplaire.immatriculation,
-            "date_export": datetime.now(),
-            "societe": request.user.societe,
+        rapport = climatisation.generer_rapport_remplacement() or {
+            "lignes": [],
+            "total_general": 0,
         }
-    )
 
-    pdf = HTML(
-        string=html_string,
-        base_url=request.build_absolute_uri()
-    ).write_pdf()
+        html_string = render_to_string(
+            "climatisation/clim_detail_pdf.html",
+            {
+                "climatisation": climatisation,
+                "rapport": rapport,
+                "date_export": timezone.now(),
+            },
+            request=request,
+        )
 
-    response = HttpResponse(pdf, content_type="application/pdf")
-    response["Content-Disposition"] = (
-        f'attachment; filename="rapport climatisation {maintenance.voiture_exemplaire.immatriculation},{clim.tech_nom_technicien} .pdf"'
-    )
+        pdf = HTML(
+            string=html_string,
+            base_url=request.build_absolute_uri("/"),
+        ).write_pdf()
 
-    return response
+        immatriculation = "vehicule"
 
+        if climatisation.voiture_exemplaire_id:
+            immatriculation = (
+                climatisation.voiture_exemplaire.immatriculation
+                or "vehicule"
+            )
 
+        technicien = (
+            climatisation.tech_nom_technicien
+            or "technicien"
+        )
 
+        filename = slugify(
+            f"climatisation-{immatriculation}-{technicien}"
+        )
 
-    # -------------------------
-    # RAPPORT
-    # -------------------------
-def generer_rapport_remplacement(self):
-    rapport = []
-    total_general = Decimal("0")
+        response = HttpResponse(
+            pdf,
+            content_type="application/pdf",
+        )
 
-    pieces = [
-        "pompe_abs",
-        "calculateur_abs",
-        "capteur_abs",
-    ]
+        response["Content-Disposition"] = (
+            f'inline; filename="{filename}.pdf"'
+        )
 
-    for field_name in pieces:
-        valeur = getattr(self, field_name)
-
-        if valeur == EtatOKNotOK.NOT_OK:
-            prix = getattr(self, f"{field_name}_prix", Decimal("0"))
-            quantite = getattr(self, f"{field_name}_quantite", 0)
-
-            total = prix * quantite
-            total_general += total
-
-            rapport.append({
-                "champ": self._meta.get_field(field_name).verbose_name,
-                "code": field_name,
-                "prix": prix,
-                "quantite": quantite,
-                "total": total,
-            })
-
-    return {
-        "lignes": rapport,
-        "total_general": total_general
-    }
+        return response
