@@ -61,6 +61,11 @@ class BteVitesseAutoListView(ListView):
         context["is_checkup_allowed"] = self.request.user.role in roles_autorises
 
         return context
+
+
+
+
+
 @never_cache
 @login_required
 def bte_auto_check_view(request, exemplaire_id):

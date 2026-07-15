@@ -1,11 +1,16 @@
 {% load i18n %}
 
 <!DOCTYPE html>
-<html>
+<html lang="{{ LANGUAGE_CODE|default:'fr' }}">
 <head>
     <meta charset="utf-8">
 
     <style>
+        @page {
+            size: A4;
+            margin: 15mm;
+        }
+
         body {
             font-family: Arial, sans-serif;
             font-size: 12px;
@@ -45,7 +50,44 @@
             font-weight: bold;
         }
 
+        .etat-vert {
+            display: inline-block;
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-rouge {
+            display: inline-block;
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-bleu {
+            display: inline-block;
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-gris {
+            display: inline-block;
+            color: #6b7280;
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
         .tag {
+            display: inline-block;
             padding: 3px 8px;
             border-radius: 4px;
             color: white;
@@ -62,48 +104,6 @@
 
         .tag-rouge {
             background: #dc2626;
-        }
-
-        .etat-vert {
-            color: #166534;
-            background: #dcfce7;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: bold;
-        }
-
-        .etat-rouge {
-            color: #991b1b;
-            background: #fee2e2;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: bold;
-        }
-
-        .etat-bleu {
-            color: #1e40af;
-            background: #dbeafe;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: bold;
-        }
-
-        .etat-gris {
-            color: #6b7280;
-            background: #f3f4f6;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: bold;
-        }
-
-         .ok {
-            color: #16a34a;
-            font-weight: bold;
-        }
-
-        .not-ok {
-            color: #dc2626;
-            font-weight: bold;
         }
 
         table {
@@ -125,6 +125,10 @@
             text-align: left;
         }
 
+        tr {
+            page-break-inside: avoid;
+        }
+
         .text-right {
             text-align: right;
         }
@@ -134,34 +138,79 @@
             background: #f8fafc;
         }
 
-        .text-right {
-            text-align: right;
+        .remarques {
+            white-space: pre-wrap;
+            min-height: 50px;
+        }
+
+        .small {
+            margin-top: 15px;
+            font-size: 10px;
+            color: #555;
         }
     </style>
 </head>
+
 <body>
 
-<h1>{% trans "Détail du checkup boîte de vitesses" %}</h1>
-
-<!-- ================= INFOS GÉNÉRALES ================= -->
+<h1>{% trans "Rapport du contrôle de la boîte de vitesses" %}</h1>
 
 <div class="box">
-
     <div class="grid">
 
         <div>
             <span class="label">{% trans "Date" %} :</span>
-            {{ boite.date|date:"d/m/Y H:i" }}
+            {{ boite.date|date:"d/m/Y H:i"|default:"-" }}
         </div>
 
         <div>
             <span class="label">{% trans "Technicien" %} :</span>
-            {{ boite.tech_nom_technicien }}
+            {{ boite.tech_nom_technicien|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Rôle" %} :</span>
+            {{ boite.tech_role_technicien|default:"-" }}
         </div>
 
         <div>
             <span class="label">{% trans "Société" %} :</span>
-            {{ boite.tech_societe }}
+            {{ boite.tech_societe|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Véhicule" %} :</span>
+            {{ boite.voiture_exemplaire|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Immatriculation" %} :</span>
+            {{ boite.voiture_exemplaire.immatriculation|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage chassis" %} :</span>
+            {{ boite.kilometres_chassis|default:0 }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage boîte" %} :</span>
+            {{ boite.kilometrage_controle_boite|default:0 }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Qualité de l'huile" %} :</span>
+            {{ boite.get_man_huile_manuelle_qualite_display|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Quantité d'huile ajoutée" %} :</span>
+            {{ boite.man_huile_manuelle_quantite|default:0|floatformat:1 }} L
+        </div>
+
+        <div>
+            <span class="label">{% trans "Prix d'achat HTVA de l'huile" %} :</span>
+            {{ boite.man_huile_manuelle_prix|default:0|floatformat:2 }} €
         </div>
 
         <div>
@@ -171,46 +220,20 @@
                 <span class="tag tag-vert">
                     {{ boite.get_tag_display }}
                 </span>
-
             {% elif boite.tag == "JAUNE" %}
                 <span class="tag tag-jaune">
                     {{ boite.get_tag_display }}
                 </span>
-
-            {% else %}
+            {% elif boite.tag == "ROUGE" %}
                 <span class="tag tag-rouge">
                     {{ boite.get_tag_display }}
                 </span>
+            {% else %}
+                <span class="etat-gris">-</span>
             {% endif %}
         </div>
 
-        <div>
-            <span class="label">{% trans "Véhicule" %} :</span>
-            {{ boite.voiture_exemplaire }}
-        </div>
-
-        <div>
-            <span class="label">{% trans "Kilométrage chassis" %} :</span>
-            {{ boite.kilometres_chassis }} km
-        </div>
-
-        <div>
-            <span class="label">{% trans "Kilométrage boîte" %} :</span>
-            {{ boite.kilometrage_controle_boite }} km
-        </div>
-
-        <div>
-            <span class="label">{% trans "Qualité de l'huile" %} :</span>
-            {{ boite.get_man_huile_manuelle_qualite_display }}
-        </div>
-
-        <div>
-            <span class="label">{% trans "Quantité d'huile ajoutée" %} :</span>
-            {{ boite.man_huile_manuelle_quantite }} L
-        </div>
-
     </div>
-
 </div>
 
 <h2>{% trans "État des composants de la boîte de vitesses" %}</h2>
@@ -221,11 +244,13 @@
             <tr>
                 <th>{% trans "Composant" %}</th>
                 <th>{% trans "État" %}</th>
+                <th class="text-right">{% trans "Quantité" %}</th>
+                <th class="text-right">{% trans "Prix d'achat HTVA" %}</th>
             </tr>
         </thead>
 
-    
         <tbody>
+
             <tr>
                 <td>{% trans "Disque d'embrayage" %}</td>
                 <td>
@@ -236,9 +261,11 @@
                     {% elif boite.bte_embrayage_disque == "REMPLACE" %}
                         <span class="etat-bleu">{{ boite.get_bte_embrayage_disque_display }}</span>
                     {% else %}
-                        <span class="etat-gris">{{ boite.get_bte_embrayage_disque_display|default:"-" }}</span>
+                        <span class="etat-gris">-</span>
                     {% endif %}
                 </td>
+                <td class="text-right">{{ boite.bte_embrayage_disque_quantite|default:0 }}</td>
+                <td class="text-right">{{ boite.bte_embrayage_disque_prix|default:0|floatformat:2 }} €</td>
             </tr>
 
             <tr>
@@ -251,9 +278,11 @@
                     {% elif boite.bte_embrayage_plateau == "REMPLACE" %}
                         <span class="etat-bleu">{{ boite.get_bte_embrayage_plateau_display }}</span>
                     {% else %}
-                        <span class="etat-gris">{{ boite.get_bte_embrayage_plateau_display|default:"-" }}</span>
+                        <span class="etat-gris">-</span>
                     {% endif %}
                 </td>
+                <td class="text-right">{{ boite.bte_embrayage_plateau_quantite|default:0 }}</td>
+                <td class="text-right">{{ boite.bte_embrayage_plateau_prix|default:0|floatformat:2 }} €</td>
             </tr>
 
             <tr>
@@ -266,9 +295,11 @@
                     {% elif boite.bte_a_primaire == "REMPLACE" %}
                         <span class="etat-bleu">{{ boite.get_bte_a_primaire_display }}</span>
                     {% else %}
-                        <span class="etat-gris">{{ boite.get_bte_a_primaire_display|default:"-" }}</span>
+                        <span class="etat-gris">-</span>
                     {% endif %}
                 </td>
+                <td class="text-right">{{ boite.bte_a_primaire_quantite|default:0 }}</td>
+                <td class="text-right">{{ boite.bte_a_primaire_prix|default:0|floatformat:2 }} €</td>
             </tr>
 
             <tr>
@@ -281,9 +312,11 @@
                     {% elif boite.bte_a_secondaire == "REMPLACE" %}
                         <span class="etat-bleu">{{ boite.get_bte_a_secondaire_display }}</span>
                     {% else %}
-                        <span class="etat-gris">{{ boite.get_bte_a_secondaire_display|default:"-" }}</span>
+                        <span class="etat-gris">-</span>
                     {% endif %}
                 </td>
+                <td class="text-right">{{ boite.bte_a_secondaire_quantite|default:0 }}</td>
+                <td class="text-right">{{ boite.bte_a_secondaire_prix|default:0|floatformat:2 }} €</td>
             </tr>
 
             <tr>
@@ -296,9 +329,11 @@
                     {% elif boite.roulement_bte_primaire == "REMPLACE" %}
                         <span class="etat-bleu">{{ boite.get_roulement_bte_primaire_display }}</span>
                     {% else %}
-                        <span class="etat-gris">{{ boite.get_roulement_bte_primaire_display|default:"-" }}</span>
+                        <span class="etat-gris">-</span>
                     {% endif %}
                 </td>
+                <td class="text-right">{{ boite.roulement_bte_primaire_quantite|default:0 }}</td>
+                <td class="text-right">{{ boite.roulement_bte_primaire_prix|default:0|floatformat:2 }} €</td>
             </tr>
 
             <tr>
@@ -311,9 +346,11 @@
                     {% elif boite.roulement_bte_secondaire == "REMPLACE" %}
                         <span class="etat-bleu">{{ boite.get_roulement_bte_secondaire_display }}</span>
                     {% else %}
-                        <span class="etat-gris">{{ boite.get_roulement_bte_secondaire_display|default:"-" }}</span>
+                        <span class="etat-gris">-</span>
                     {% endif %}
                 </td>
+                <td class="text-right">{{ boite.roulement_bte_secondaire_quantite|default:0 }}</td>
+                <td class="text-right">{{ boite.roulement_bte_secondaire_prix|default:0|floatformat:2 }} €</td>
             </tr>
 
             <tr>
@@ -326,10 +363,15 @@
                     {% elif boite.roulement_bte_differentiel == "REMPLACE" %}
                         <span class="etat-bleu">{{ boite.get_roulement_bte_differentiel_display }}</span>
                     {% else %}
-                        <span class="etat-gris">{{ boite.get_roulement_bte_differentiel_display|default:"-" }}</span>
+                        <span class="etat-gris">-</span>
                     {% endif %}
                 </td>
+                <td class="text-right">{{ boite.roulement_bte_differentiel_quantite|default:0 }}</td>
+                <td class="text-right">{{ boite.roulement_bte_differentiel_prix|default:0|floatformat:2 }} €</td>
             </tr>
+
+            {% for numero in "12345678" %}
+            {% endfor %}
 
             <tr>
                 <td>{% trans "Pignon 1ère vitesse" %}</td>
@@ -341,9 +383,11 @@
                     {% elif boite.vitesse_1 == "REMPLACE" %}
                         <span class="etat-bleu">{{ boite.get_vitesse_1_display }}</span>
                     {% else %}
-                        <span class="etat-gris">{{ boite.get_vitesse_1_display|default:"-" }}</span>
+                        <span class="etat-gris">-</span>
                     {% endif %}
                 </td>
+                <td class="text-right">{{ boite.vitesse_1_quantite|default:0 }}</td>
+                <td class="text-right">{{ boite.vitesse_1_prix|default:0|floatformat:2 }} €</td>
             </tr>
 
             <tr>
@@ -356,9 +400,11 @@
                     {% elif boite.vitesse_2 == "REMPLACE" %}
                         <span class="etat-bleu">{{ boite.get_vitesse_2_display }}</span>
                     {% else %}
-                        <span class="etat-gris">{{ boite.get_vitesse_2_display|default:"-" }}</span>
+                        <span class="etat-gris">-</span>
                     {% endif %}
                 </td>
+                <td class="text-right">{{ boite.vitesse_2_quantite|default:0 }}</td>
+                <td class="text-right">{{ boite.vitesse_2_prix|default:0|floatformat:2 }} €</td>
             </tr>
 
             <tr>
@@ -371,9 +417,11 @@
                     {% elif boite.vitesse_3 == "REMPLACE" %}
                         <span class="etat-bleu">{{ boite.get_vitesse_3_display }}</span>
                     {% else %}
-                        <span class="etat-gris">{{ boite.get_vitesse_3_display|default:"-" }}</span>
+                        <span class="etat-gris">-</span>
                     {% endif %}
                 </td>
+                <td class="text-right">{{ boite.vitesse_3_quantite|default:0 }}</td>
+                <td class="text-right">{{ boite.vitesse_3_prix|default:0|floatformat:2 }} €</td>
             </tr>
 
             <tr>
@@ -386,9 +434,11 @@
                     {% elif boite.vitesse_4 == "REMPLACE" %}
                         <span class="etat-bleu">{{ boite.get_vitesse_4_display }}</span>
                     {% else %}
-                        <span class="etat-gris">{{ boite.get_vitesse_4_display|default:"-" }}</span>
+                        <span class="etat-gris">-</span>
                     {% endif %}
                 </td>
+                <td class="text-right">{{ boite.vitesse_4_quantite|default:0 }}</td>
+                <td class="text-right">{{ boite.vitesse_4_prix|default:0|floatformat:2 }} €</td>
             </tr>
 
             <tr>
@@ -401,9 +451,11 @@
                     {% elif boite.vitesse_5 == "REMPLACE" %}
                         <span class="etat-bleu">{{ boite.get_vitesse_5_display }}</span>
                     {% else %}
-                        <span class="etat-gris">{{ boite.get_vitesse_5_display|default:"-" }}</span>
+                        <span class="etat-gris">-</span>
                     {% endif %}
                 </td>
+                <td class="text-right">{{ boite.vitesse_5_quantite|default:0 }}</td>
+                <td class="text-right">{{ boite.vitesse_5_prix|default:0|floatformat:2 }} €</td>
             </tr>
 
             <tr>
@@ -416,9 +468,11 @@
                     {% elif boite.vitesse_6 == "REMPLACE" %}
                         <span class="etat-bleu">{{ boite.get_vitesse_6_display }}</span>
                     {% else %}
-                        <span class="etat-gris">{{ boite.get_vitesse_6_display|default:"-" }}</span>
+                        <span class="etat-gris">-</span>
                     {% endif %}
                 </td>
+                <td class="text-right">{{ boite.vitesse_6_quantite|default:0 }}</td>
+                <td class="text-right">{{ boite.vitesse_6_prix|default:0|floatformat:2 }} €</td>
             </tr>
 
             <tr>
@@ -431,9 +485,11 @@
                     {% elif boite.vitesse_7 == "REMPLACE" %}
                         <span class="etat-bleu">{{ boite.get_vitesse_7_display }}</span>
                     {% else %}
-                        <span class="etat-gris">{{ boite.get_vitesse_7_display|default:"-" }}</span>
+                        <span class="etat-gris">-</span>
                     {% endif %}
                 </td>
+                <td class="text-right">{{ boite.vitesse_7_quantite|default:0 }}</td>
+                <td class="text-right">{{ boite.vitesse_7_prix|default:0|floatformat:2 }} €</td>
             </tr>
 
             <tr>
@@ -446,9 +502,11 @@
                     {% elif boite.vitesse_8 == "REMPLACE" %}
                         <span class="etat-bleu">{{ boite.get_vitesse_8_display }}</span>
                     {% else %}
-                        <span class="etat-gris">{{ boite.get_vitesse_8_display|default:"-" }}</span>
+                        <span class="etat-gris">-</span>
                     {% endif %}
                 </td>
+                <td class="text-right">{{ boite.vitesse_8_quantite|default:0 }}</td>
+                <td class="text-right">{{ boite.vitesse_8_prix|default:0|floatformat:2 }} €</td>
             </tr>
 
             <tr>
@@ -461,9 +519,11 @@
                     {% elif boite.vitesse_r == "REMPLACE" %}
                         <span class="etat-bleu">{{ boite.get_vitesse_r_display }}</span>
                     {% else %}
-                        <span class="etat-gris">{{ boite.get_vitesse_r_display|default:"-" }}</span>
+                        <span class="etat-gris">-</span>
                     {% endif %}
                 </td>
+                <td class="text-right">{{ boite.vitesse_r_quantite|default:0 }}</td>
+                <td class="text-right">{{ boite.vitesse_r_prix|default:0|floatformat:2 }} €</td>
             </tr>
 
             <tr>
@@ -476,9 +536,11 @@
                     {% elif boite.synchros == "REMPLACE" %}
                         <span class="etat-bleu">{{ boite.get_synchros_display }}</span>
                     {% else %}
-                        <span class="etat-gris">{{ boite.get_synchros_display|default:"-" }}</span>
+                        <span class="etat-gris">-</span>
                     {% endif %}
                 </td>
+                <td class="text-right">{{ boite.synchros_quantite|default:0 }}</td>
+                <td class="text-right">{{ boite.synchros_prix|default:0|floatformat:2 }} €</td>
             </tr>
 
             <tr>
@@ -491,10 +553,117 @@
                     {% elif boite.fourchettes == "REMPLACE" %}
                         <span class="etat-bleu">{{ boite.get_fourchettes_display }}</span>
                     {% else %}
-                        <span class="etat-gris">{{ boite.get_fourchettes_display|default:"-" }}</span>
+                        <span class="etat-gris">-</span>
                     {% endif %}
                 </td>
+                <td class="text-right">{{ boite.fourchettes_quantite|default:0 }}</td>
+                <td class="text-right">{{ boite.fourchettes_prix|default:0|floatformat:2 }} €</td>
             </tr>
+
         </tbody>
     </table>
 </div>
+
+<h2>{% trans "Main d'oeuvre" %}</h2>
+
+<div class="box">
+    <div class="grid">
+        <div>
+            <span class="label">{% trans "Temps de travail" %} :</span>
+            {% if boite.main_oeuvre %}
+                {{ boite.main_oeuvre.temps_display|default:"0h00" }}
+            {% else %}
+                0h00
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Coût de la main d'œuvre" %} :</span>
+            {{ boite.main_oeuvre.cout_total|default:0|floatformat:2 }} €
+        </div>
+    </div>
+</div>
+
+<h2>{% trans "Pièces à remplacer et pièces remplacées" %}</h2>
+
+<div class="box">
+    {% if rapport.lignes %}
+        <table>
+            <thead>
+                <tr>
+                    <th>{% trans "Pièce" %}</th>
+                    <th>{% trans "État" %}</th>
+                    <th class="text-right">{% trans "Quantité" %}</th>
+                    <th class="text-right">{% trans "Prix unitaire" %}</th>
+                    <th class="text-right">{% trans "Total" %}</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for ligne in rapport.lignes %}
+                    <tr>
+                        <td>{{ ligne.champ }}</td>
+
+                        <td>
+                            {% if ligne.etat == "NOT_OK" %}
+                                <span class="etat-rouge">
+                                    {{ ligne.etat_label }}
+                                </span>
+                            {% elif ligne.etat == "REMPLACE" %}
+                                <span class="etat-bleu">
+                                    {{ ligne.etat_label }}
+                                </span>
+                            {% else %}
+                                <span class="etat-gris">
+                                    {{ ligne.etat_label|default:"-" }}
+                                </span>
+                            {% endif %}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.quantite|default:0 }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.prix|default:0|floatformat:2 }} €
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.total|default:0|floatformat:2 }} €
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                <tr class="total">
+                    <td colspan="4" class="text-right">
+                        {% trans "Total général HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    {% else %}
+        <p>{% trans "Aucune pièce à remplacer ou remplacée." %}</p>
+    {% endif %}
+</div>
+
+<h2>{% trans "Remarques" %}</h2>
+
+<div class="box remarques">
+    {% if boite.remarques %}
+        {{ boite.remarques|linebreaksbr }}
+    {% else %}
+        {% trans "Aucune remarque." %}
+    {% endif %}
+</div>
+
+<div class="small">
+    {% trans "Rapport généré le" %} :
+    {% now "d/m/Y H:i" %}
+</div>
+
+</body>
+</html>

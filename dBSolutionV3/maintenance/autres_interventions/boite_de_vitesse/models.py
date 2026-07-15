@@ -1,4 +1,4 @@
-from decimal import Decimal
+from decimal import Decimal, ROUND_HALF_UP
 from django.core.validators import StepValueValidator
 from django.conf import settings
 from django.core.exceptions import ValidationError
@@ -63,32 +63,104 @@ class ControleBoite(TechnicienMixin, models.Model):
     # --- Boîte Manuelle ---
     # Embrayage
     bte_embrayage_disque = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Disque d'embrayage"))
+    bte_embrayage_disque_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+    bte_embrayage_disque_quantite = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("Quantité")
+    )
+
     bte_embrayage_plateau = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Plateau d'embrayage"))
+    bte_embrayage_plateau_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+    bte_embrayage_plateau_quantite = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("Quantité")
+    )
+
 
     # Arbres
     bte_a_primaire = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Arbre primaire"))
+    bte_a_primaire_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
+    bte_a_primaire_quantite = models.PositiveIntegerField(default=1, verbose_name=_("Quantité"))
+
     bte_a_secondaire = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Arbre secondaire"))
+    bte_a_secondaire_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
+    bte_a_secondaire_quantite = models.PositiveIntegerField(default=1, verbose_name=_("Quantité"))
+
 
     # Roulements
     roulement_bte_primaire = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Roulement arbre primaire"))
+    roulement_bte_primaire_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
+    roulement_bte_primaire_quantite = models.PositiveIntegerField(default=1, verbose_name=_("Quantité"))
+
     roulement_bte_secondaire = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Roulement arbre secondaire"))
+    roulement_bte_secondaire_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
+    roulement_bte_secondaire_quantite = models.PositiveIntegerField(default=1, verbose_name=_("Quantité"))
+
+
     roulement_bte_differentiel = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Roulement différentiel"))
+    roulement_bte_differentiel_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
+    roulement_bte_differentiel_quantite = models.PositiveIntegerField(default=1, verbose_name=_("Quantité"))
+
 
     # Vitesses / pignons
     vitesse_1 = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Pignon 1ère vitesse"))
-    vitesse_2 = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Pignon 2ème vitesse"))
-    vitesse_3 = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Pignon 3ème vitesse"))
-    vitesse_4 = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Pignon 4ème vitesse"))
-    vitesse_5 = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Pignon 5ème vitesse"))
-    vitesse_6 = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Pignon 6ème vitesse (si existante)"))
-    vitesse_7 = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices, default=BoiteVitesseEtat.OK,verbose_name=_("Pignon 7ème vitesse (si existante)"))
-    vitesse_8 = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices, default=BoiteVitesseEtat.OK,verbose_name=_("Pignon 8ème vitesse (si existante)"))
-    vitesse_r = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices, default=BoiteVitesseEtat.OK,verbose_name=_("Pignon de marche arrière"))
+    vitesse_1_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
+    vitesse_1_quantite = models.PositiveIntegerField(default=1, verbose_name=_("Quantité"))
 
+    vitesse_2 = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Pignon 2ème vitesse"))
+    vitesse_2_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
+    vitesse_2_quantite = models.PositiveIntegerField(default=1, verbose_name=_("Quantité"))
+
+    vitesse_3 = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Pignon 3ème vitesse"))
+    vitesse_3_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
+    vitesse_3_quantite = models.PositiveIntegerField(default=1, verbose_name=_("Quantité"))
+
+    vitesse_4 = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Pignon 4ème vitesse"))
+    vitesse_4_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
+    vitesse_4_quantite = models.PositiveIntegerField(default=1, verbose_name=_("Quantité"))
+
+    vitesse_5 = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Pignon 5ème vitesse"))
+    vitesse_5_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
+    vitesse_5_quantite = models.PositiveIntegerField(default=1, verbose_name=_("Quantité"))
+
+    vitesse_6 = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Pignon 6ème vitesse (si existante)"))
+    vitesse_6_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
+    vitesse_6_quantite = models.PositiveIntegerField(default=1, verbose_name=_("Quantité"))
+
+
+    vitesse_7 = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices, default=BoiteVitesseEtat.OK,verbose_name=_("Pignon 7ème vitesse (si existante)"))
+    vitesse_7_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
+    vitesse_7_quantite = models.PositiveIntegerField(default=1, verbose_name=_("Quantité"))
+
+
+    vitesse_8 = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices, default=BoiteVitesseEtat.OK,verbose_name=_("Pignon 8ème vitesse (si existante)"))
+    vitesse_8_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
+    vitesse_8_quantite = models.PositiveIntegerField(default=1, verbose_name=_("Quantité"))
+
+
+    vitesse_r = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices, default=BoiteVitesseEtat.OK,verbose_name=_("Pignon de marche arrière"))
+    vitesse_r_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
+    vitesse_r_quantite = models.PositiveIntegerField(default=1, verbose_name=_("Quantité"))
 
     # Synchros / fourchettes
     synchros = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Synchros"))
+    synchros_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat HTVA"))
+    synchros_quantite = models.PositiveIntegerField(default=1, verbose_name=_("Quantité"))
+
     fourchettes = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Fourchettes"))
+    fourchettes_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
+    fourchettes_quantite = models.PositiveIntegerField(default=1, verbose_name=_("Quantité"))
+
 
     # Huile
     man_huile_manuelle_quantite = models.DecimalField(
@@ -98,6 +170,13 @@ class ControleBoite(TechnicienMixin, models.Model):
         verbose_name=_("Quantité d'huile ajoutée en litres"),
         validators=[StepValueValidator(0.1)],
     )
+    man_huile_manuelle_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=Decimal("0.00"),
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+
     man_huile_manuelle_qualite = models.CharField(max_length=25, choices=HuileBoiteEtat.choices,default=HuileBoiteEtat.SEPTANTE_CINQ, verbose_name=_("Qualité de l'huile"))
 
     remarques = models.TextField(
@@ -215,9 +294,35 @@ class ControleBoite(TechnicienMixin, models.Model):
 
         super().save(*args, **kwargs)
 
+
+    def calcul_piece(self, prefix):
+        prix_achat = getattr(self, f"{prefix}_prix")
+        quantite = getattr(self, f"{prefix}_quantite")
+
+        if not prix_achat or not self.pays:
+            return
+
+        tva_rate = Decimal(self.TVA_PIECES.get(self.pays, 0)) / 100
+
+        # TVA achat
+        setattr(self, f"{prefix}_tva_achat",
+                (prix_achat * tva_rate).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP))
+
+        prix_htva = prix_achat.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+
+        setattr(self, f"{prefix}_prix_vente_htva", prix_htva)
+
+        # TVA vente
+        tva = (prix_htva * tva_rate).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+        setattr(self, f"{prefix}_tva_vente", tva)
+
+        # TTC
+        prix_ttc = prix_htva + tva
+        setattr(self, f"{prefix}_prix_ttc", prix_ttc)
+
     def generer_rapport_remplacement(self):
         rapport = []
-        total_general = Decimal("0")
+        total_general = Decimal("0.00")
 
         for field in self._meta.fields:
             field_name = field.name
@@ -228,9 +333,32 @@ class ControleBoite(TechnicienMixin, models.Model):
             ):
                 valeur = getattr(self, field_name)
 
-                if valeur == BoiteVitesseEtat.NOT_OK:
-                    prix = Decimal("0")
-                    quantite = Decimal("1")
+                # Pièces à remplacer ou déjà remplacées
+                if valeur in (
+                        BoiteVitesseEtat.NOT_OK,
+                        BoiteVitesseEtat.REMPLACE,
+                ):
+                    prix = getattr(
+                        self,
+                        f"{field_name}_prix",
+                        Decimal("0.00"),
+                    )
+
+                    if prix is None:
+                        prix = Decimal("0.00")
+
+                    prix = Decimal(str(prix))
+
+                    quantite = getattr(
+                        self,
+                        f"{field_name}_quantite",
+                        0,
+                    )
+
+                    if quantite is None:
+                        quantite = 0
+
+                    quantite = Decimal(str(quantite))
 
                     total = prix * quantite
                     total_general += total
@@ -238,6 +366,10 @@ class ControleBoite(TechnicienMixin, models.Model):
                     rapport.append({
                         "champ": field.verbose_name,
                         "code": field_name,
+                        "etat": valeur,
+                        "etat_label": dict(
+                            BoiteVitesseEtat.choices
+                        ).get(valeur, valeur),
                         "prix": prix,
                         "quantite": quantite,
                         "total": total,

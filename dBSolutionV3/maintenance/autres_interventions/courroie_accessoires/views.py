@@ -36,9 +36,11 @@ class CourroieAccessoiresListView(ListView):
             "main_oeuvre",
         )
 
-        exemplaire_id = self.kwargs.get("exemplaire_id")
-        if exemplaire_id:
-            queryset = queryset.filter(voiture_exemplaire_id=exemplaire_id)
+        societe = getattr(self.request.user, "societe", None)
+        if societe:
+            queryset = queryset.filter(
+                models.Q(tech_societe=societe) | models.Q(tech_societe__isnull=True)
+            )
 
         return queryset.order_by("-id")
 
