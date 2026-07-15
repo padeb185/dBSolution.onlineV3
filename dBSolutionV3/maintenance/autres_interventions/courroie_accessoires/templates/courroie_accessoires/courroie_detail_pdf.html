@@ -64,15 +64,34 @@
             background: #dc2626;
         }
 
-        .ok {
-            color: #16a34a;
+       .ok {
+            display: inline-block;
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
             font-weight: bold;
         }
 
         .not-ok {
-            color: #dc2626;
+            display: inline-block;
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
             font-weight: bold;
         }
+
+        .remplace {
+            display: inline-block;
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+
 
         table {
             width: 100%;
@@ -80,24 +99,26 @@
             margin-top: 10px;
         }
 
-        table th,
-        table td {
-            border: 1px solid #ccc;
-            padding: 7px;
-            text-align: left;
+        th,
+        td {
+            border: 1px solid #d1d5db;
+            padding: 6px;
+            vertical-align: middle;
         }
 
-        table th {
-            background: #f3f3f3;
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+            text-align: left;
         }
 
         .text-right {
             text-align: right;
         }
 
-        .total {
+          .total {
             font-weight: bold;
-            background: #f8f8f8;
+            background: #f8fafc;
         }
     </style>
 </head>
@@ -176,13 +197,17 @@
             </tr>
         </thead>
 
-        <tbody>
+       <tbody>
 
             <tr>
                 <td>{% trans "Courroie d'accessoires" %}</td>
                 <td>
                     {% if courroie_accessoires.courroie_daccessoires == "OK" %}
                         <span class="ok">
+                            {{ courroie_accessoires.get_courroie_daccessoires_display }}
+                        </span>
+                    {% elif courroie_accessoires.courroie_daccessoires == "REMPLACE" %}
+                        <span class="remplace">
                             {{ courroie_accessoires.get_courroie_daccessoires_display }}
                         </span>
                     {% else %}
@@ -200,6 +225,10 @@
                         <span class="ok">
                             {{ courroie_accessoires.get_galet_tendeur_display }}
                         </span>
+                    {% elif courroie_accessoires.galet_tendeur == "REMPLACE" %}
+                        <span class="remplace">
+                            {{ courroie_accessoires.get_galet_tendeur_display }}
+                        </span>
                     {% else %}
                         <span class="not-ok">
                             {{ courroie_accessoires.get_galet_tendeur_display }}
@@ -213,6 +242,10 @@
                 <td>
                     {% if courroie_accessoires.poulie_damper == "OK" %}
                         <span class="ok">
+                            {{ courroie_accessoires.get_poulie_damper_display }}
+                        </span>
+                    {% elif courroie_accessoires.poulie_damper == "REMPLACE" %}
+                        <span class="remplace">
                             {{ courroie_accessoires.get_poulie_damper_display }}
                         </span>
                     {% else %}

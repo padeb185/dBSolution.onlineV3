@@ -568,7 +568,6 @@
                         </span>
                     {% endif %}
                 </td>
-
                 <td class="text-right">
                     {{ climatisation.evaporateur_quantite|default:0 }}
                 </td>
@@ -577,6 +576,38 @@
                     {{ climatisation.evaporateur_prix|default:0|floatformat:2 }} €
                 </td>
             </tr>
+
+
+             <tr>
+                <td>{% trans "Recharge de gaz" %}</td>
+
+                 <td>
+                    {% if climatisation.recharge == "OK" %}
+                        <span class="etat etat-ok">
+                            {{ climatisation.get_recharge_display }}
+                        </span>
+                    {% elif climatisation.recharge == "NOT_OK" %}
+                        <span class="etat etat-not-ok">
+                            {{ climatisation.get_recharge_display }}
+                        </span>
+                    {% elif climatisation.recharge == "REMPLACE" %}
+                        <span class="etat etat-remplace">
+                            {{ climatisation.get_recharge_display }}
+                        </span>
+                    {% endif %}
+                </td>
+
+                 <td class="text-right">
+                    {{ climatisation.recharge_quantite|default:0 }}
+                </td>
+
+                <td class="text-right">
+                    {{ climatisation.recharge_prix|default:0|floatformat:2 }} €
+                </td>
+
+             </tr>
+
+
 
         </tbody>
     </table>

@@ -12,6 +12,7 @@ from maintenance.models import Maintenance
 class EtatOKNotOK(models.TextChoices):
     OK = "OK", _("OK")
     NOT_OK = "NOT_OK", _("A Remplacer")
+    REMPLACE = "REMPLACE", _("Remplacé")
 
 
 class CourroieAccessoires(TechnicienMixin, models.Model):
@@ -237,20 +238,38 @@ class CourroieAccessoires(TechnicienMixin, models.Model):
 
         super().save(*args, **kwargs)
 
+    from decimal import Decimal
+
     def generer_rapport_remplacement(self):
         rapport = []
-        total_general = Decimal("0")
+        total_general = Decimal("0.00")
 
         for field in self._meta.fields:
             field_name = field.name
 
-            # On ne garde que les champs état
-            if isinstance(field, models.CharField) and field.choices == EtatOKNotOK.choices:
+            # On ne garde que les champs avec les états
+            if (
+                    isinstance(field, models.CharField)
+                    and field.choices == EtatOKNotOK.choices
+            ):
                 valeur = getattr(self, field_name)
 
-                if valeur == EtatOKNotOK.NOT_OK:
-                    prix = getattr(self, f"{field_name}_prix", Decimal("0"))
-                    quantite = getattr(self, f"{field_name}_quantite", 0)
+                # À remplacer OU déjà remplacé
+                if valeur in (
+                        EtatOKNotOK.NOT_OK,
+                        EtatOKNotOK.REMPLACE,
+                ):
+                    prix = (
+                            getattr(self, f"{field_name}_prix", Decimal("0.00"))
+                            or Decimal("0.00")
+                    )
+                    prix = Decimal(str(prix))
+
+                    quantite = (
+                            getattr(self, f"{field_name}_quantite", 0)
+                            or 0
+                    )
+                    quantite = Decimal(str(quantite))
 
                     total = prix * quantite
                     total_general += total
@@ -258,6 +277,10 @@ class CourroieAccessoires(TechnicienMixin, models.Model):
                     rapport.append({
                         "champ": field.verbose_name,
                         "code": field_name,
+                        "etat": valeur,
+                        "etat_label": dict(
+                            EtatOKNotOK.choices
+                        ).get(valeur, valeur),
                         "prix": prix,
                         "quantite": quantite,
                         "total": total,
@@ -265,7 +288,7 @@ class CourroieAccessoires(TechnicienMixin, models.Model):
 
         return {
             "lignes": rapport,
-            "total_general": total_general
+            "total_general": total_general,
         }
 
 

@@ -432,6 +432,15 @@ def clim_form_view(request, exemplaire_id):
                 ],
             },
             {
+                "title": _("Recharge de gaz"),
+                "icon": "icons/bouteille-de-gaz.png",
+                "fields": [
+                    field
+                    for field in form
+                    if "recharge" in field.name
+                ],
+            },
+            {
                 "title": _("Pressions de fonctionnement"),
                 "icon": "icons/pression-clim.png",
                 "fields": [
@@ -699,6 +708,17 @@ def modifier_clim_view(request, climatisation_id):
                     if "evaporateur" in field.name
                 ],
             },
+
+            {
+                "title": _("Recharge de gaz"),
+                "icon": "icons/bouteille-de-gaz.png",
+                "fields": [
+                    field
+                    for field in form
+                    if "recharge" in field.name
+                ],
+            },
+
             {
                 "title": _("Pressions de fonctionnement"),
                 "icon": "icons/pression-clim.png",

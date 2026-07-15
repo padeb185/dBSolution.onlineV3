@@ -385,6 +385,24 @@ class Climatisation(TechnicienMixin, models.Model):
         default=0,
         verbose_name=_("Quantité"),
     )
+    recharge = models.CharField(
+        max_length=25,
+        choices=EtatClimatisation.choices,
+        default=EtatClimatisation.OK,
+        verbose_name=_("Recharge de gaz"),
+    )
+
+    recharge_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+
+    recharge_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité en grammes"),
+    )
 
     # ------------------------------------------------------
     # MESURES DE FONCTIONNEMENT
@@ -640,9 +658,11 @@ class Climatisation(TechnicienMixin, models.Model):
     # RAPPORT DES PIÈCES À REMPLACER
     # ------------------------------------------------------
 
+    from decimal import Decimal
+
     def generer_rapport_remplacement(self):
         rapport = []
-        total_general = Decimal("0")
+        total_general = Decimal("0.00")
 
         prefixes_pieces = [
             "tuyaux",
@@ -651,23 +671,30 @@ class Climatisation(TechnicienMixin, models.Model):
             "condenseur",
             "compresseur",
             "evaporateur",
+            "recharge",
         ]
 
         for prefix in prefixes_pieces:
             valeur = getattr(self, prefix)
 
-            if valeur == EtatClimatisation.NOT_OK:
+            # Pièces à remplacer ET déjà remplacées
+            if valeur in (
+                    EtatClimatisation.NOT_OK,
+                    EtatClimatisation.REMPLACE,
+            ):
                 field = self._meta.get_field(prefix)
 
                 prix = (
-                    getattr(self, f"{prefix}_prix", Decimal("0"))
-                    or Decimal("0")
+                        getattr(self, f"{prefix}_prix", Decimal("0.00"))
+                        or Decimal("0.00")
                 )
+                prix = Decimal(str(prix))
 
                 quantite = (
-                    getattr(self, f"{prefix}_quantite", 0)
-                    or 0
+                        getattr(self, f"{prefix}_quantite", 0)
+                        or 0
                 )
+                quantite = Decimal(str(quantite))
 
                 total = prix * quantite
                 total_general += total
@@ -675,6 +702,10 @@ class Climatisation(TechnicienMixin, models.Model):
                 rapport.append({
                     "champ": field.verbose_name,
                     "code": prefix,
+                    "etat": valeur,
+                    "etat_label": dict(
+                        EtatClimatisation.choices
+                    ).get(valeur, valeur),
                     "prix": prix,
                     "quantite": quantite,
                     "total": total,
@@ -684,7 +715,6 @@ class Climatisation(TechnicienMixin, models.Model):
             "lignes": rapport,
             "total_general": total_general,
         }
-
     # ------------------------------------------------------
     # PROPRIÉTÉS
     # ------------------------------------------------------
