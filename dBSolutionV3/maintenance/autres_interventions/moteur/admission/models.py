@@ -13,6 +13,18 @@ class EtatOKNotOK(models.TextChoices):
     REMPLACER = "REMPLACER", _("Remplacé")
 
 
+TAUX_HORAIRE_CHOICES = [
+    (Decimal("50.00"), _("50 €/h")),
+    (Decimal("60.00"), _("60 €/h")),
+    (Decimal("70.00"), _("70 €/h")),
+    (Decimal("80.00"), _("80 €/h")),
+    (Decimal("90.00"), _("90 €/h")),
+    (Decimal("100.00"), _("100 €/h")),
+    (Decimal("110.00"), _("110 €/h")),
+]
+
+
+
 # ---------------------------
 # Modèle fusionné
 # ---------------------------
@@ -182,6 +194,13 @@ class Admission(TechnicienMixin, models.Model):
         verbose_name=_("Société"),
         related_name="admission"
     )
+    taux_horaire = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        choices=TAUX_HORAIRE_CHOICES,
+        default=Decimal("50.00"),
+        verbose_name=_("Taux horaire"),
+    )
 
     # --- Date d'enregistrement ---
     date = models.DateTimeField(auto_now_add=True, verbose_name=_("Date"))
@@ -338,8 +357,33 @@ class Admission(TechnicienMixin, models.Model):
             "total_general": total_general,
         }
 
+
+
     @property
     def temps_main_oeuvre_display(self):
         if not self.main_oeuvre:
             return "0h00"
-        return self.main_oeuvre.temps_display
+
+        temps_minutes = self.main_oeuvre.temps_minutes or 0
+        heures, minutes = divmod(temps_minutes, 60)
+
+        return f"{heures}h{minutes:02d}"
+
+    @property
+    def taux_horaire_main_oeuvre(self):
+        if self.main_oeuvre and self.main_oeuvre.taux_horaire is not None:
+            return self.main_oeuvre.taux_horaire
+
+        return Decimal("0.00")
+
+    @property
+    def cout_main_oeuvre(self):
+        if not self.main_oeuvre:
+            return Decimal("0.00")
+
+        minutes = self.main_oeuvre.temps_minutes or 0
+        taux = self.taux_horaire or Decimal("0.00")
+
+        cout = Decimal(minutes) / Decimal("60") * taux
+
+        return cout.quantize(Decimal("0.01"))

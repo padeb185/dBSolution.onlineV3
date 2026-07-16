@@ -46,9 +46,11 @@ class MainDoeuvre(models.Model):
     taux_horaire = models.DecimalField(
         max_digits=10,
         decimal_places=2,
-        default=0,
-        verbose_name=_("Taux horaire travailleur")
+        default=Decimal("50.00"),
+        verbose_name="Taux horaire",
     )
+
+
 
     # ⏱ Temps total en minutes
     temps_minutes = models.PositiveIntegerField(default=0)
@@ -93,7 +95,10 @@ class MainDoeuvre(models.Model):
     # -------------------------
     @property
     def cout_total(self):
-        return self.temps_decimal * self.taux_horaire
+        heures = Decimal(self.temps_minutes or 0) / Decimal("60")
+        return (heures * self.taux_horaire).quantize(Decimal("0.01"))
+
+    
 
 
     @property

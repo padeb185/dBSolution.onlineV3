@@ -143,6 +143,12 @@ def alternateur_check_view(request, exemplaire_id):
                             alternateur.kilometres_chassis = exemplaire.kilometres_chassis
                             alternateur.kilometrage_checkup_track = km
 
+                            main_oeuvre = form.cleaned_data.get("main_oeuvre")
+
+                            if main_oeuvre:
+                                alternateur.main_oeuvre = main_oeuvre
+                                alternateur.taux_horaire = main_oeuvre.taux_horaire
+
                         maintenance = Maintenance.objects.create(
                             societe=request.user.societe,
                             voiture_exemplaire=exemplaire,
@@ -245,6 +251,11 @@ def alternateur_check_view(request, exemplaire_id):
                 "title": _("Technicien"),
                 "icon": "icons/mecanicien.png",
                 "fields": [form[f.name] for f in form if "tech" in f.name],
+            },
+            {
+                "title": _("Taux Horaire"),
+                "icon": "icons/mecanicien.png",
+                "fields": [form[f.name] for f in form if "taux_" in f.name],
             },
         ]
 

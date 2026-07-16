@@ -3,6 +3,7 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
 from utils.mixin import TechnicienMixin
 from maintenance.models import Maintenance
 from decimal import Decimal
@@ -174,6 +175,13 @@ class Alternateur(TechnicienMixin, models.Model):
         verbose_name=_("Société"),
         related_name="alternateur"
     )
+    taux_horaire = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        choices=TAUX_HORAIRE_CHOICES,
+        default=Decimal("50.00"),
+        verbose_name=_("Taux horaire"),
+    )
 
 
     # --- Date d'enregistrement ---
@@ -327,7 +335,36 @@ class Alternateur(TechnicienMixin, models.Model):
     def temps_main_oeuvre_display(self):
         if not self.main_oeuvre:
             return "0h00"
-        return self.main_oeuvre.temps_display
+
+        temps_minutes = self.main_oeuvre.temps_minutes or 0
+        heures, minutes = divmod(temps_minutes, 60)
+
+        return f"{heures}h{minutes:02d}"
+
+    @property
+    def taux_horaire_main_oeuvre(self):
+        if self.main_oeuvre and self.main_oeuvre.taux_horaire is not None:
+            return self.main_oeuvre.taux_horaire
+
+        return Decimal("0.00")
+
+    @property
+    def cout_main_oeuvre(self):
+        if not self.main_oeuvre:
+            return Decimal("0.00")
+
+        temps_minutes = self.main_oeuvre.temps_minutes or 0
+        taux_horaire = self.main_oeuvre.taux_horaire or Decimal("0.00")
+
+        cout = (
+                Decimal(temps_minutes)
+                / Decimal("60")
+                * Decimal(taux_horaire)
+        )
+
+        return cout.quantize(Decimal("0.01"))
+
+
 
     def sync_kilometrage(self):
         if not self.voiture_exemplaire:

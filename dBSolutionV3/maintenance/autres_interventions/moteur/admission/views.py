@@ -109,39 +109,44 @@ def admission_check_view(request, exemplaire_id):
             )
 
             if form.is_valid():
-
                 try:
                     with transaction.atomic():
+
+                        admission = form.save(commit=False)
+
+                        # Taux choisi dans le formulaire
+                        taux_horaire = form.cleaned_data.get("taux_horaire")
+
+                        print("Taux POST :", request.POST.getlist("taux_horaire"))
+                        print("Taux nettoyé :", taux_horaire)
+
+                        if taux_horaire is not None:
+                            admission.taux_horaire = taux_horaire
 
                         km = form.cleaned_data.get("kilometrage_admission")
 
                         if km is not None:
                             km = int(km)
-
-                            ancien_km = exemplaire.kilometres_chassis
+                            ancien_km = exemplaire.kilometres_chassis or 0
 
                             if km < ancien_km:
                                 form.add_error(
                                     "kilometrage_admission",
                                     _("Le kilométrage ne peut pas diminuer.")
                                 )
-                                raise ValueError("Kilométrage invalide")
+                                raise ValueError(_("Kilométrage invalide."))
 
                             exemplaire.kilometres_chassis = km
                             exemplaire.date_derniere_intervention = timezone.now().date()
                             exemplaire.update_kilometres()
                             exemplaire.save()
-
-                        admission = form.save(commit=False)
+                        else:
+                            km = exemplaire.kilometres_chassis or 0
 
                         admission.voiture_exemplaire = exemplaire
                         admission.kilometres_chassis = exemplaire.kilometres_chassis
                         admission.kilometrage_admission = km
-
                         admission.assign_technicien(request.user)
-                        admission.save()
-
-
 
                         maintenance = Maintenance.objects.create(
                             societe=request.user.societe,
@@ -149,23 +154,21 @@ def admission_check_view(request, exemplaire_id):
                             immatriculation=exemplaire.immatriculation,
                             date_intervention=timezone.now().date(),
                             kilometres_chassis=exemplaire.kilometres_chassis,
-                            kilometres_dernier_entretien=exemplaire.kilometres_dernier_entretien,
+                            kilometres_dernier_entretien=(
+                                    exemplaire.kilometres_dernier_entretien or 0
+                            ),
                             type_maintenance=Maintenance.TypeMaintenance.ADMISSION,
                             tag=Maintenance.Tag.JAUNE,
                         )
 
                         if role == "mecanicien":
                             maintenance.mecanicien = request.user
-
                         elif role == "chef_mecanicien":
                             maintenance.chef_mecanicien = request.user
-
                         elif role == "apprenti":
                             maintenance.apprentis.add(request.user)
-
                         elif role == "magasinier":
                             maintenance.magasinier = request.user
-
                         elif role == "direction":
                             maintenance.direction = request.user
 
@@ -174,6 +177,12 @@ def admission_check_view(request, exemplaire_id):
                         admission.maintenance = maintenance
                         admission.save()
 
+                        form.save_m2m()
+
+                        # Vérification après enregistrement
+                        admission.refresh_from_db()
+                        print("Taux réellement enregistré :", admission.taux_horaire)
+
                         UserLog.objects.create(
                             utilisateur=request.user,
                             action=_("Admission - %(immatriculation)s") % {
@@ -181,11 +190,23 @@ def admission_check_view(request, exemplaire_id):
                             }
                         )
 
-                    messages.success(request, _("Contrôle de l'admission enregistrée avec succès."))
+                    messages.success(
+                        request,
+                        _("Contrôle de l'admission enregistré avec succès.")
+                    )
+
+                    return redirect(
+                        "admission:admission_detail",
+                        admission_id=admission.id
+                    )
 
                 except Exception as e:
-                    messages.error(request, _("Erreur lors de l'enregistrement : %s") % str(e))
-
+                    messages.error(
+                        request,
+                        _("Erreur lors de l'enregistrement : %(erreur)s") % {
+                            "erreur": str(e)
+                        }
+                    )
             else:
                 messages.error(request, _("Le formulaire contient des erreurs."))
                 print(form.errors)
@@ -225,6 +246,7 @@ def admission_check_view(request, exemplaire_id):
             {"title": _("Etiquette"), "icon": "icons/tag.png", "filter": "tag"},
             {"title": _("Remarques"), "icon": "icons/notes.png", "filter": "remarques"},
             {"title": _("Technicien"), "icon": "icons/mecanicien.png", "filter": "tech"},
+            {"title": _("Main d'oeuvre"), "icon": "icons/mecanicien.png", "filter": "taux_"},
         ]
 
         sections = [
