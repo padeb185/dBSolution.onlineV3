@@ -4302,8 +4302,6 @@ msgid "Main d'oeuvre"
 msgstr "Arbeidsloon"
 
 #: maindoeuvre/templates/maindoeuvre/main_oeuvre_detail_pdf.html:182
-#, fuzzy
-#| msgid "Immatriculation :"
 msgid "Immatriculation, ...."
 msgstr "Kenteken"
 
@@ -8460,7 +8458,7 @@ msgid "Coût de la main d'oeuvre"
 msgstr "Arbeidskosten"
 
 #: maintenance/autres_interventions/moteur/remplacement_moteur/views.py:167
-#, fuzzy, python-format
+#, python-format
 msgid "Remplacement moteur - %(immatriculation)s"
 msgstr "Motorvervanging - %(immatriculation)s"
 
@@ -10806,18 +10804,14 @@ msgstr "Voorruit"
 #: maintenance/check_up/templates/check_up/controle_total.html:359
 #: maintenance/checkup_track/templates/checkup_track/track_check_form.html:358
 #: maintenance/freins/templates/freins/freins_check.html:162
-#, fuzzy
-#| msgid "Épaisseur des disques avant (mm)"
 msgid "Épaisseur disque avant constructeur (mm)"
-msgstr "Dikte voorste remschijven (mm)"
+msgstr "Voorgeschreven dikte van de voorremschijven (mm)"
 
 #: maintenance/check_up/templates/check_up/controle_total.html:371
 #: maintenance/checkup_track/templates/checkup_track/track_check_form.html:370
 #: maintenance/freins/templates/freins/freins_check.html:246
-#, fuzzy
-#| msgid "Épaisseur des disques arrière (mm)"
 msgid "Épaisseur disque arrière constructeur (mm)"
-msgstr "Dikte van de achterremschijven (mm)"
+msgstr "Voorgeschreven dikte van de achterremschijven (mm)"
 
 #: maintenance/check_up/templates/check_up/controle_total.html:453
 #: maintenance/check_up/templates/check_up/modifier_checkup.html:436
