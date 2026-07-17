@@ -328,7 +328,6 @@ def modifier_rodage_view(request, rodage_id):
     )
 
 
-
 @login_required
 def rodage_pdf_view(request, rodage_id):
     tenant = request.user.societe
@@ -345,10 +344,14 @@ def rodage_pdf_view(request, rodage_id):
             id=rodage_id
         )
 
+        # Génération du rapport des pièces et produits
+        rapport = rodage.generer_rapport_remplacement()
+
         html_string = render_to_string(
             "rodage/rodage_pdf.html",
             {
                 "rodage": rodage,
+                "rapport": rapport,
                 "date_export": timezone.now(),
                 "societe": tenant,
             }
@@ -365,11 +368,19 @@ def rodage_pdf_view(request, rodage_id):
             else "sans_immatriculation"
         )
 
-        technicien = rodage.tech_nom_technicien or "technicien_inconnu"
+        technicien = (
+            rodage.tech_nom_technicien
+            or "technicien_inconnu"
+        )
 
-        response = HttpResponse(pdf, content_type="application/pdf")
+        response = HttpResponse(
+            pdf,
+            content_type="application/pdf"
+        )
+
         response["Content-Disposition"] = (
-            f'inline; filename="rodage_{immatriculation}_{technicien}.pdf"'
+            f'inline; filename="rodage_'
+            f'{immatriculation}_{technicien}.pdf"'
         )
 
         return response

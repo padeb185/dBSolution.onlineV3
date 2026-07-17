@@ -1,5 +1,5 @@
 import uuid
-from decimal import Decimal
+from decimal import Decimal, ROUND_HALF_UP
 from django.core.validators import StepValueValidator
 from django.conf import settings
 from django.core.exceptions import ValidationError
@@ -186,29 +186,46 @@ class Rodage(TechnicienMixin, models.Model):
 
 
     moteur_rodage_vidange = models.CharField(max_length=25, choices=RodageEtat.choices, default=RodageEtat.A_FAIRE, verbose_name=_("Vidange de l'huile moteur"))
+
     moteur_filtre_huile =  models.CharField(max_length=25, choices=RodageEtat.choices, default=RodageEtat.A_FAIRE, verbose_name=_("Remplacement du filtre à huile moteur"))
+    moteur_filtre_huile_prix = models.DecimalField(default=0.0, max_digits=4, decimal_places=2,verbose_name=_("Prix d'achat HTVA"))
+    moteur_filtre_huile_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+
+
     moteur_bouchon_vidange =  models.CharField(max_length=25, choices=RodageEtat.choices, default=RodageEtat.A_FAIRE, verbose_name=_("Remplacer le bouchon de vidange"))
+    moteur_bouchon_vidange_prix = models.DecimalField(default=0.0, max_digits=4, decimal_places=2,verbose_name=_("Prix d'achat HTVA"))
+    moteur_bouchon_vidange_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+
+
     moteur_joint_vidange =  models.CharField(max_length=25, choices=RodageEtat.choices, default=RodageEtat.A_FAIRE, verbose_name=_("Remplacer le joint du bouchon de vidange"))
+    moteur_joint_vidange_prix = models.DecimalField(default=0.0, max_digits=4, decimal_places=2,verbose_name=_("Prix d'achat HTVA"))
+    moteur_joint_vidange_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
+
     moteur_ajout_huile =  models.CharField(max_length=25, choices=RodageEtat.choices, default=RodageEtat.A_FAIRE, verbose_name=_("Ajout de la nouvelle huile moteur"))
     moteur_ajout_huile_qualite = models.CharField(max_length=25, choices=HuileEtat.choices, default=HuileEtat.ZERO_30,verbose_name=_("Qualité d'huile"))
+    moteur_ajout_huile_prix = models.DecimalField(default=0.0, max_digits=4, decimal_places=2,verbose_name=_("Prix d'achat HTVA"))
     moteur_ajout_huile_quantite =  models.DecimalField(default=0.0, decimal_places=2,  max_digits=4,  verbose_name=_("Quantité d'huile moteur ajoutée en litres"), validators=[StepValueValidator(0.1)])
 
 
 
     lave_glace_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de lave-glace"))
     lave_glace_quantite =  models.DecimalField(default=0.0, max_digits=4,  decimal_places=2, verbose_name=_("Quantité de liquide de lave glace ajoutée en litres"),validators=[StepValueValidator(0.1)])
+    lave_glace_prix = models.DecimalField(default=0.0, max_digits=4, decimal_places=2,verbose_name=_("Prix d'achat HTVA"))
     lave_glace_qualite = models.CharField(max_length=25, choices=LaveGlaceQualite.choices,default=LaveGlaceQualite.HIVER,verbose_name=_("Qualité de liquide de lave glace"))
 
     frein_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de freins"))
     frein_liquide_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=2, verbose_name=_("Quantité de liquide de freins ajoutée en litres"), validators=[StepValueValidator(0.1)])
+    frein_liquide_prix = models.DecimalField(default=0.0, max_digits=4, decimal_places=2,verbose_name=_("Prix d'achat HTVA"))
     frein_liquide_qualite = models.CharField(max_length=25, choices=LiquideFreinsQualite.choices,default=LiquideFreinsQualite.DOT4,verbose_name=_("Qualité de liquide de freins"))
 
     refroidissement_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de refroidissement"))
     refroidissement_liquide_quantite =  models.DecimalField(default=0.0, max_digits=4,  decimal_places=2, verbose_name=_("Quantité de liquide de refroidissement ajouté en litres"), validators=[StepValueValidator(0.1)])
+    refroidissement_prix = models.DecimalField(default=0.0, max_digits=4, decimal_places=2,verbose_name=_("Prix d'achat HTVA"))
     refroidissement_liquide_qualite = models.CharField(max_length=25, choices=RefroidissementQualiteEtat.choices,default=RefroidissementQualiteEtat.G13,verbose_name=_("Qualité de liquide de refroidissement"))
 
     liquide_direction_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de direction"))
     liquide_direction_quantite =  models.DecimalField(default=0.0,  max_digits=4, decimal_places=2, verbose_name=_("Quantité de liquide de direction ajouté en litres"), validators=[StepValueValidator(0.1)])
+    liquide_direction_prix = models.DecimalField(default=0.0, max_digits=4, decimal_places=2, verbose_name=_("Prix d'achat HTVA"))
     liquide_direction_qualite = models.CharField(max_length=25, choices=LiquideDirectionQualite.choices,default=LiquideDirectionQualite.UNIVERSAL_PSF,verbose_name=_("Qualité de liquide de direction"))
 
     # phares#
@@ -400,3 +417,147 @@ class Rodage(TechnicienMixin, models.Model):
         if self.main_oeuvre:
             return str(self.main_oeuvre.utilisateur)
         return ""
+
+
+
+    def calcul_piece(self, prefix):
+        prix = getattr(self, f"{prefix}_prix", 0)
+        quantite = getattr(self, f"{prefix}_quantite", 0)
+
+        if not prix or not self.pays:
+            return
+
+        tva_rate = Decimal(self.TVA_PIECES.get(self.pays, 0)) / 100
+
+        prix_htva = prix  # pas de marge dans ton modèle
+
+        prix_htva = prix_htva.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+
+        tva = (prix_htva * tva_rate).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+        prix_ttc = prix_htva + tva
+
+        setattr(self, f"{prefix}_prix_vente_htva", prix_htva)
+        setattr(self, f"{prefix}_tva_vente", tva)
+        setattr(self, f"{prefix}_prix_ttc", prix_ttc)
+
+    def generer_rapport_remplacement(self):
+        rapport = []
+        total_general = Decimal("0.00")
+
+        elements = [
+            {
+                "code": "moteur_filtre_huile",
+                "label": _("Filtre à huile moteur"),
+                "etat_field": "moteur_filtre_huile",
+                "prix_field": "moteur_filtre_huile_prix",
+                "quantite_field": "moteur_filtre_huile_quantite",
+                "choices": RodageEtat.choices,
+            },
+            {
+                "code": "moteur_bouchon_vidange",
+                "label": _("Bouchon de vidange"),
+                "etat_field": "moteur_bouchon_vidange",
+                "prix_field": "moteur_bouchon_vidange_prix",
+                "quantite_field": "moteur_bouchon_vidange_quantite",
+                "choices": RodageEtat.choices,
+            },
+            {
+                "code": "moteur_joint_vidange",
+                "label": _("Joint du bouchon de vidange"),
+                "etat_field": "moteur_joint_vidange",
+                "prix_field": "moteur_joint_vidange_prix",
+                "quantite_field": "moteur_joint_vidange_quantite",
+                "choices": RodageEtat.choices,
+            },
+            {
+                "code": "moteur_ajout_huile",
+                "label": _("Huile moteur"),
+                "etat_field": "moteur_ajout_huile",
+                "prix_field": "moteur_ajout_huile_prix",
+                "quantite_field": "moteur_ajout_huile_quantite",
+                "choices": RodageEtat.choices,
+            },
+            {
+                "code": "lave_glace",
+                "label": _("Liquide de lave-glace"),
+                "etat_field": "lave_glace_liquide_etat",
+                "prix_field": "lave_glace_prix",
+                "quantite_field": "lave_glace_quantite",
+                "choices": NiveauxEtat.choices,
+            },
+            {
+                "code": "frein_liquide",
+                "label": _("Liquide de freins"),
+                "etat_field": "frein_liquide_etat",
+                "prix_field": "frein_liquide_prix",
+                "quantite_field": "frein_liquide_quantite",
+                "choices": NiveauxEtat.choices,
+            },
+            {
+                "code": "refroidissement_liquide",
+                "label": _("Liquide de refroidissement"),
+                "etat_field": "refroidissement_liquide_etat",
+                "prix_field": "refroidissement_prix",
+                "quantite_field": "refroidissement_liquide_quantite",
+                "choices": NiveauxEtat.choices,
+            },
+            {
+                "code": "liquide_direction",
+                "label": _("Liquide de direction"),
+                "etat_field": "liquide_direction_etat",
+                "prix_field": "liquide_direction_prix",
+                "quantite_field": "liquide_direction_quantite",
+                "choices": NiveauxEtat.choices,
+            },
+        ]
+
+        for element in elements:
+            etat = getattr(self, element["etat_field"], None)
+
+            prix_brut = getattr(
+                self,
+                element["prix_field"],
+                Decimal("0.00"),
+            )
+
+            quantite_brute = getattr(
+                self,
+                element["quantite_field"],
+                Decimal("0.00"),
+            )
+
+            prix = Decimal(str(prix_brut or 0))
+            quantite = Decimal(str(quantite_brute or 0))
+
+            # Ne pas ajouter une ligne totalement vide
+            if prix <= 0 and quantite <= 0:
+                continue
+
+            total = (prix * quantite).quantize(
+                Decimal("0.01"),
+                rounding=ROUND_HALF_UP,
+            )
+
+            total_general += total
+
+            rapport.append({
+                "champ": element["label"],
+                "code": element["code"],
+                "etat": etat,
+                "etat_label": dict(
+                    element["choices"]
+                ).get(etat, etat or "-"),
+                "prix": prix,
+                "quantite": quantite,
+                "total": total,
+            })
+
+        total_general = total_general.quantize(
+            Decimal("0.01"),
+            rounding=ROUND_HALF_UP,
+        )
+
+        return {
+            "lignes": rapport,
+            "total_general": total_general,
+        }

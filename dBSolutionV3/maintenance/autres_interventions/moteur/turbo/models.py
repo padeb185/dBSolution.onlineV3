@@ -1,4 +1,4 @@
-from decimal import Decimal
+from decimal import Decimal, ROUND_HALF_UP
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -157,18 +157,7 @@ class Turbo(TechnicienMixin, models.Model):
     def __str__(self):
         return f"Turbo - {self.voiture_exemplaire}"
 
-    def calcul_piece(self, prefix):
 
-        prix = getattr(self, f"{prefix}_prix", Decimal("0"))
-        quantite = getattr(self, f"{prefix}_quantite", 0)
-
-        total = prix * quantite
-
-        return {
-            "prix": prix,
-            "quantite": quantite,
-            "total": total,
-        }
 
 
     def save(self, *args, **kwargs):
@@ -210,34 +199,90 @@ class Turbo(TechnicienMixin, models.Model):
     # -------------------------
     def generer_rapport_remplacement(self):
         rapport = []
-        total_general = Decimal("0")
+        total_general = Decimal("0.00")
 
         for field in self._meta.fields:
             field_name = field.name
 
-            # On ne garde que les champs état
-            if isinstance(field, models.CharField) and field.choices == EtatOKNotOK.choices:
-                valeur = getattr(self, field_name)
+            # On garde uniquement les champs CharField
+            # utilisant les choix EtatOKNotOK
+            if not (
+                    isinstance(field, models.CharField)
+                    and field.choices == EtatOKNotOK.choices
+            ):
+                continue
 
-                if valeur == EtatOKNotOK.NOT_OK:
-                    prix = getattr(self, f"{field_name}_prix", Decimal("0"))
-                    quantite = getattr(self, f"{field_name}_quantite", 0)
+            etat = getattr(self, field_name, None)
 
-                    total = prix * quantite
-                    total_general += total
+            if etat not in [
+                EtatOKNotOK.NOT_OK,
+                EtatOKNotOK.REMPLACE,
+            ]:
+                continue
 
-                    rapport.append({
-                        "champ": field.verbose_name,
-                        "code": field_name,
-                        "prix": prix,
-                        "quantite": quantite,
-                        "total": total,
-                    })
+            prix = getattr(
+                self,
+                f"{field_name}_prix",
+                Decimal("0.00"),
+            )
+
+            if prix is None:
+                prix = Decimal("0.00")
+
+            prix = Decimal(str(prix))
+
+            quantite = getattr(
+                self,
+                f"{field_name}_quantite",
+                0,
+            )
+
+            if quantite is None:
+                quantite = 0
+
+            quantite = Decimal(str(quantite))
+
+            total = prix * quantite
+            total_general += total
+
+            rapport.append({
+                "champ": field.verbose_name,
+                "code": field_name,
+                "etat": etat,
+                "etat_label": dict(
+                    EtatOKNotOK.choices
+                ).get(etat, etat),
+                "prix": prix,
+                "quantite": quantite,
+                "total": total,
+            })
 
         return {
             "lignes": rapport,
-            "total_general": total_general
+            "total_general": total_general,
         }
+
+    def calcul_piece(self, prefix):
+        prix = getattr(self, f"{prefix}_prix", 0)
+        quantite = getattr(self, f"{prefix}_quantite", 0)
+
+        if not prix or not self.pays:
+            return
+
+        tva_rate = Decimal(self.TVA_PIECES.get(self.pays, 0)) / 100
+
+        prix_htva = prix  # pas de marge dans ton modèle
+
+        prix_htva = prix_htva.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+
+        tva = (prix_htva * tva_rate).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+        prix_ttc = prix_htva + tva
+
+        setattr(self, f"{prefix}_prix_vente_htva", prix_htva)
+        setattr(self, f"{prefix}_tva_vente", tva)
+        setattr(self, f"{prefix}_prix_ttc", prix_ttc)
+
+
 
     @property
     def temps_main_oeuvre_display(self):
