@@ -228,7 +228,7 @@ TENANT_APPS = (
 
     'stats_fournisseurs',
     'maintenance.autres_interventions.vitres',
-    'maintenance.autres_interventions.systeme_de_refroidissement',
+    'maintenance.autres_interventions.refroidissement',
     'maintenance.autres_interventions.moteur',
     'maintenance.autres_interventions.geometrie',
     'maintenance.autres_interventions.electricite',

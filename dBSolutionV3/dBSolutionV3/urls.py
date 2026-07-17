@@ -158,6 +158,8 @@ urlpatterns += i18n_patterns(
 
     path("climatisation/",include(("maintenance.autres_interventions.climatisation.urls", "climatisation"),namespace="climatisation")),
 
+    path("refroidissement/",include(("maintenance.autres_interventions.refroidissement.urls", "refroidissement"), namespace="refroidissement")),
+
 
 )
 
