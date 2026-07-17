@@ -361,7 +361,7 @@ def echappement_check_view(request, exemplaire_id):
             instance_echappement = Echappement(
                 voiture_exemplaire=exemplaire,
                 kilometres_chassis=exemplaire.kilometres_chassis,
-                kilometrage_echappement=exemplaire.kilometres_chassis,
+                
             )
 
             instance_echappement.assign_technicien(request.user)

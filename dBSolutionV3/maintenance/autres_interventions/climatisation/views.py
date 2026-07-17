@@ -279,9 +279,6 @@ def clim_form_view(request, exemplaire_id):
             clim_instance = Climatisation(
                 voiture_exemplaire=exemplaire,
                 kilometres_chassis=exemplaire.kilometres_chassis,
-                kilometrage_clim=(
-                    exemplaire.kilometres_chassis
-                ),
             )
 
             clim_instance.assign_technicien(request.user)

@@ -260,12 +260,7 @@ def alternateur_check_view(request, exemplaire_id):
         else:
             controle_alternateur_initial = Alternateur(
                 voiture_exemplaire=exemplaire,
-                kilometres_chassis=(
-                    exemplaire.kilometres_chassis
-                ),
-                kilometrage_alte=(
-                    exemplaire.kilometres_chassis
-                ),
+                kilometres_chassis=exemplaire.kilometres_chassis,
             )
 
             controle_alternateur_initial.assign_technicien(
@@ -277,7 +272,6 @@ def alternateur_check_view(request, exemplaire_id):
                 user=request.user,
                 exemplaire=exemplaire,
             )
-
         # ==================================================
         # SECTIONS
         # ==================================================
