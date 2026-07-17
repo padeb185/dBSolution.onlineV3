@@ -267,6 +267,8 @@ class Alternateur(TechnicienMixin, models.Model):
 
 
         super().save(*args, **kwargs)
+
+
     # -------------------------
     # RAPPORT
     # -------------------------
@@ -276,37 +278,37 @@ class Alternateur(TechnicienMixin, models.Model):
         total_general = Decimal("0.00")
 
         for field in self._meta.fields:
-
             field_name = field.name
 
-            # uniquement les champs état OK / NOT_OK
+            # uniquement les champs utilisant EtatOKNotOK
             if (
                     isinstance(field, models.CharField)
                     and field.choices == EtatOKNotOK.choices
             ):
-
                 valeur = getattr(self, field_name)
 
-                # uniquement les pièces à remplacer
-                if valeur == EtatOKNotOK.NOT_OK:
-
-                    # 🔥 prix achat correct
+                # Pièces à remplacer ou déjà remplacées
+                if valeur in [
+                    EtatOKNotOK.NOT_OK,
+                    EtatOKNotOK.REMPLACE,
+                ]:
+                    # récupération sécurisée du prix d'achat
                     prix = getattr(
                         self,
                         f"{field_name}_prix_achat",
-                        Decimal("0.00")
+                        Decimal("0.00"),
                     )
 
                     if prix is None:
                         prix = Decimal("0.00")
 
-                    prix = Decimal(prix)
+                    prix = Decimal(str(prix))
 
-                    # quantité
+                    # récupération sécurisée de la quantité
                     quantite = getattr(
                         self,
                         f"{field_name}_quantite",
-                        0
+                        0,
                     )
 
                     if quantite is None:
@@ -314,14 +316,17 @@ class Alternateur(TechnicienMixin, models.Model):
 
                     quantite = Decimal(str(quantite))
 
-                    # total
+                    # calcul du total
                     total = prix * quantite
-
                     total_general += total
 
                     rapport.append({
                         "champ": field.verbose_name,
                         "code": field_name,
+                        "etat": valeur,
+                        "etat_label": dict(
+                            EtatOKNotOK.choices
+                        ).get(valeur, valeur),
                         "prix": prix,
                         "quantite": quantite,
                         "total": total,

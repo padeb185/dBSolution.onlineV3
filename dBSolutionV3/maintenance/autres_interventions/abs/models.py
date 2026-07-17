@@ -276,18 +276,44 @@ class Abs(TechnicienMixin, models.Model):
     # -------------------------
     def generer_rapport_remplacement(self):
         rapport = []
-        total_general = Decimal("0")
+        total_general = Decimal("0.00")
 
         for field in self._meta.fields:
             field_name = field.name
 
-            # On ne garde que les champs état
-            if isinstance(field, models.CharField) and field.choices == EtatOKNotOK.choices:
+            # Ne garder que les champs utilisant EtatOKNotOK
+            if (
+                    isinstance(field, models.CharField)
+                    and field.choices == EtatOKNotOK.choices
+            ):
                 valeur = getattr(self, field_name)
 
-                if valeur == EtatOKNotOK.NOT_OK:
-                    prix = getattr(self, f"{field_name}_prix", Decimal("0"))
-                    quantite = getattr(self, f"{field_name}_quantite", 0)
+                # Pièces à remplacer ou déjà remplacées
+                if valeur in [
+                    EtatOKNotOK.NOT_OK,
+                    EtatOKNotOK.REMPLACE,
+                ]:
+                    prix = getattr(
+                        self,
+                        f"{field_name}_prix",
+                        Decimal("0.00"),
+                    )
+
+                    if prix is None:
+                        prix = Decimal("0.00")
+
+                    prix = Decimal(str(prix))
+
+                    quantite = getattr(
+                        self,
+                        f"{field_name}_quantite",
+                        0,
+                    )
+
+                    if quantite is None:
+                        quantite = 0
+
+                    quantite = Decimal(str(quantite))
 
                     total = prix * quantite
                     total_general += total
@@ -295,6 +321,10 @@ class Abs(TechnicienMixin, models.Model):
                     rapport.append({
                         "champ": field.verbose_name,
                         "code": field_name,
+                        "etat": valeur,
+                        "etat_label": dict(
+                            EtatOKNotOK.choices
+                        ).get(valeur, valeur),
                         "prix": prix,
                         "quantite": quantite,
                         "total": total,
@@ -302,8 +332,11 @@ class Abs(TechnicienMixin, models.Model):
 
         return {
             "lignes": rapport,
-            "total_general": total_general
+            "total_general": total_general,
         }
+
+
+
 
     @property
     def temps_main_oeuvre_display(self):

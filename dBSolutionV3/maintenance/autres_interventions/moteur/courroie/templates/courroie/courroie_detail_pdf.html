@@ -230,32 +230,6 @@
                 </td>
             </tr>
 
-            <!-- Kit distribution -->
-
-            <tr>
-                <td>
-                    {% trans "Kit distribution" %}
-                </td>
-
-                <td>
-                    {% if courroie.courroie_distribution_kit == "OK" %}
-                        <span class="ok">
-                            {{ courroie.get_courroie_distribution_kit_display }}
-                        </span>
-
-                    {% elif courroie.courroie_distribution_kit == "NOT_OK" %}
-                        <span class="not-ok">
-                            {{ courroie.get_courroie_distribution_kit_display }}
-                        </span>
-
-                    {% elif courroie.courroie_distribution_kit == "REMPLACE" %}
-                        <span class="remplace">
-                            {{ courroie.get_courroie_distribution_kit_display }}
-                        </span>
-
-                    {% endif %}
-                </td>
-            </tr>
 
             <!-- Pompe à eau -->
 

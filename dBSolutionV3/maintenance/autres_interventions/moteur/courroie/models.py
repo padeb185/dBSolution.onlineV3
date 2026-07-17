@@ -130,8 +130,6 @@ class CourroieDistribution(TechnicienMixin, models.Model):
 
     # Courroie
     courroie_distribution = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Courroie de distribution"))
-
-    courroie_distribution_kit = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Nouveau kit distribution"))
     courroie_distribution_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat htva de la courroie"))
     courroie_distribution_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
@@ -144,6 +142,7 @@ class CourroieDistribution(TechnicienMixin, models.Model):
 
     refroidissement = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Liquide de refroidissement"))
     refroidissement_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=1, verbose_name=_("Quantité de liquide de refroidissement ajoutée en litres"), validators=[StepValueValidator(0.1)])
+    refroidissement_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva du liquide de refroidissement"))
     refroidissement_qualite = models.CharField(max_length=25, choices=RefroidissementQualiteEtat.choices,default=RefroidissementQualiteEtat.G13,verbose_name=_("Qualité de liquide de refroidissement"))
 
 
@@ -288,36 +287,62 @@ class CourroieDistribution(TechnicienMixin, models.Model):
 
     def generer_rapport_remplacement(self):
         rapport = []
-        total_general = Decimal("0")
+        total_general = Decimal("0.00")
 
         pieces = [
             ("courroie_distribution", "Courroie de distribution"),
-            ("courroie_distribution_kit", "Kit distribution"),
             ("pompe_a_eau", "Pompe à eau"),
+            ("refroidissement", _("Liquide de refroidissement")),
         ]
 
         for prefix, label in pieces:
             etat = getattr(self, prefix, None)
 
-            if etat == EtatOKNotOK.NOT_OK:
-                prix = getattr(self, f"{prefix}_prix", Decimal("0")) or Decimal("0")
-                quantite = getattr(self, f"{prefix}_quantite", 0) or 0
+            if etat in [
+                EtatOKNotOK.NOT_OK,
+                EtatOKNotOK.REMPLACE,
+            ]:
+                prix = getattr(
+                    self,
+                    f"{prefix}_prix",
+                    Decimal("0.00"),
+                )
 
-                total = prix * Decimal(str(quantite))
+                if prix is None:
+                    prix = Decimal("0.00")
+
+                prix = Decimal(str(prix))
+
+                quantite = getattr(
+                    self,
+                    f"{prefix}_quantite",
+                    0,
+                )
+
+                if quantite is None:
+                    quantite = 0
+
+                quantite = Decimal(str(quantite))
+
+                total = prix * quantite
                 total_general += total
 
                 rapport.append({
                     "champ": label,
-                    "quantite": quantite,
+                    "code": prefix,
+                    "etat": etat,
+                    "etat_label": dict(
+                        EtatOKNotOK.choices
+                    ).get(etat, etat),
                     "prix": prix,
+                    "quantite": quantite,
                     "total": total,
                 })
 
         return {
             "lignes": rapport,
-            "total_general": total_general
+            "total_general": total_general,
         }
-
 
 
 

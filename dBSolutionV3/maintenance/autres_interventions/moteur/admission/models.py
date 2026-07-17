@@ -10,7 +10,7 @@ from maintenance.models import Maintenance
 class EtatOKNotOK(models.TextChoices):
     OK = "OK", _("OK")
     NOT_OK = "NOT_OK", _("A Remplacer")
-    REMPLACER = "REMPLACER", _("Remplacé")
+    REMPLACE = "REMPLACE", _("Remplacé")
 
 
 TAUX_HORAIRE_CHOICES = [
@@ -66,76 +66,79 @@ class Admission(TechnicienMixin, models.Model):
     )
 
     # -------------------------
+    # PIECES
+    # -------------------------
+    def piece_fields(prefix):
+        return {
+            f"{prefix}": models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK),
+            f"{prefix}_prix": models.DecimalField(max_digits=10, decimal_places=2, default=0),
+            f"{prefix}_tva_achat": models.DecimalField(max_digits=10, decimal_places=2, default=0),
+            f"{prefix}_marge": models.IntegerField(null=True, blank=True),
+            f"{prefix}_prix_vente_htva": models.DecimalField(max_digits=10, decimal_places=2, default=0),
+            f"{prefix}_tva_vente": models.DecimalField(max_digits=10, decimal_places=2, default=0),
+            f"{prefix}_prix_ttc": models.DecimalField(max_digits=10, decimal_places=2, default=0),
+            f"{prefix}_quantite": models.IntegerField(default=0),
+        }
+
+    # -------------------------
     # FILTRATION
-    filtre_air_pc = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
-                                  verbose_name=_("Filtre à air"))
-    filtre_air_pc_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix"))
+    filtre_air_pc = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Filtre à air"))
+    filtre_air_pc_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat htva"))
     filtre_air_pc_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
-    boitier_filtre_air = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
-                                          verbose_name=_("Boîtier filtre à air"))
-    boitier_filtre_air_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    boitier_filtre_air_quantite = models.IntegerField(default=0)
+    boitier_filtre_air = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Boîtier filtre à air"))
+    boitier_filtre_air_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat htva"))
+    boitier_filtre_air_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
     # -------------------------
     # MESURE AIR
-    debitmetre = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
-                                  verbose_name=_("Débitmètre d'air"))
-    debitmetre_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    debitmetre_quantite = models.IntegerField(default=0)
+    debitmetre = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Débitmètre d'air"))
+    debitmetre_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat htva"))
+    debitmetre_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
-    capteur_map = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
-                                   verbose_name=_("Capteur MAP"))
-    capteur_map_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    capteur_map_quantite = models.IntegerField(default=0)
+    capteur_map = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Capteur MAP"))
+    capteur_map_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat htva"))
+    capteur_map_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
-    capteur_temperature_air = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
-                                               verbose_name=_("Capteur température air"))
-    capteur_temperature_air_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    capteur_temperature_air_quantite = models.IntegerField(default=0)
+    capteur_temperature_air = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Capteur température air"))
+    capteur_temperature_air_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat htva"))
+    capteur_temperature_air_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
     # -------------------------
     # ADMISSION PRINCIPALE
-    corps_papillon = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
-                                      verbose_name=_("Corps de papillon"))
-    corps_papillon_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    corps_papillon_quantite = models.IntegerField(default=0)
+    corps_papillon = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Corps de papillon"))
+    corps_papillon_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat htva"))
+    corps_papillon_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
-    collecteur_admission = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
-                                            verbose_name=_("Collecteur d'admission"))
-    collecteur_admission_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    collecteur_admission_quantite = models.IntegerField(default=0)
+    collecteur_admission = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Collecteur d'admission"))
+    collecteur_admission_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat htva"))
+    collecteur_admission_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
     # -------------------------
     # SURALIMENTATION
-    turbo = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
-                             verbose_name=_("Turbo"))
-    turbo_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    turbo_quantite = models.IntegerField(default=0)
+    turbo = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Turbo"))
+    turbo_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat htva"))
+    turbo_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
-    intercooler = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
-                                   verbose_name=_("Intercooler"))
-    intercooler_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    intercooler_quantite = models.IntegerField(default=0)
+    intercooler = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Intercooler"))
+    intercooler_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat htva"))
+    intercooler_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
     # -------------------------
     # EGR
-    vanne_egr = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
-                                 verbose_name=_("Vanne EGR"))
-    vanne_egr_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    vanne_egr_quantite = models.IntegerField(default=0)
+    vanne_egr = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Vanne EGR"))
+    vanne_egr_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat htva"))
+    vanne_egr_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
     # -------------------------
     # DIVERS
-    durites_admission = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
-                                         verbose_name=_("Durites d'admission"))
-    durites_admission_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    durites_admission_quantite = models.IntegerField(default=0)
+    durites_admission = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Durites d'admission"))
+    durites_admission_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat htva"))
+    durites_admission_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
-    joints_admission = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
-                                        verbose_name=_("Joints admission"))
-    joints_admission_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    joints_admission_quantite = models.IntegerField(default=0)
+    joints_admission = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Joints admission"))
+    joints_admission_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name=_("Prix d'achat htva"))
+    joints_admission_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
 
 
@@ -297,56 +300,59 @@ class Admission(TechnicienMixin, models.Model):
         prix_ttc = prix_htva + tva
         setattr(self, f"{prefix}_prix_ttc", prix_ttc)
 
-
-
     def generer_rapport_remplacement(self):
         rapport = []
         total_general = Decimal("0.00")
 
         for field in self._meta.fields:
-
             field_name = field.name
 
-            # uniquement les champs OK / NOT_OK
+            # uniquement les champs utilisant EtatOKNotOK
             if (
                     isinstance(field, models.CharField)
                     and field.choices == EtatOKNotOK.choices
             ):
-
                 valeur = getattr(self, field_name)
 
-                # seulement les pièces à remplacer
-                if valeur == EtatOKNotOK.NOT_OK:
-
+                # Pièces à remplacer ou déjà remplacées
+                if valeur in [
+                    EtatOKNotOK.NOT_OK,
+                    EtatOKNotOK.REMPLACE,
+                ]:
                     # récupération sécurisée du prix
                     prix = getattr(
                         self,
                         f"{field_name}_prix",
-                        Decimal("0.00")
+                        Decimal("0.00"),
                     )
 
                     if prix is None:
                         prix = Decimal("0.00")
 
-                    prix = Decimal(prix)
+                    prix = Decimal(str(prix))
 
-                    # récupération quantité
+                    # récupération sécurisée de la quantité
                     quantite = getattr(
                         self,
                         f"{field_name}_quantite",
-                        0
+                        0,
                     )
 
                     if quantite is None:
                         quantite = 0
 
-                    total = prix * Decimal(str(quantite))
+                    quantite = Decimal(str(quantite))
 
+                    total = prix * quantite
                     total_general += total
 
                     rapport.append({
                         "champ": field.verbose_name,
                         "code": field_name,
+                        "etat": valeur,
+                        "etat_label": dict(
+                            EtatOKNotOK.choices
+                        ).get(valeur, valeur),
                         "prix": prix,
                         "quantite": quantite,
                         "total": total,
@@ -356,7 +362,6 @@ class Admission(TechnicienMixin, models.Model):
             "lignes": rapport,
             "total_general": total_general,
         }
-
 
 
     @property
