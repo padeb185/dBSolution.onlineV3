@@ -11,6 +11,7 @@ from maintenance.models import Maintenance
 class EtatOKNotOK(models.TextChoices):
     OK = "OK", _("OK")
     A_REMPLACER = "A_REMPLACER", _("À remplacer")
+    REMPLACE = "REMPLACE", _("Remplacé")
 
 
 
@@ -697,35 +698,67 @@ class CarrosserieInterne(models.Model):
 
     def generer_rapport_remplacement(self):
         rapport = []
-        total_general = Decimal("0")
+        total_general = Decimal("0.00")
 
         for field in self._meta.fields:
             field_name = field.name
 
-            # On ne garde que les champs état
-            if isinstance(field, models.CharField) and field.choices == EtatOKNotOK.choices:
-                valeur = getattr(self, field_name)
+            # Garder uniquement les CharField utilisant EtatOKNotOK
+            if not (
+                    isinstance(field, models.CharField)
+                    and field.choices == EtatOKNotOK.choices
+            ):
+                continue
 
-                if valeur == EtatOKNotOK.A_REMPLACER:
-                    prix = getattr(self, f"{field_name}_prix", Decimal("0"))
-                    quantite = getattr(self, f"{field_name}_quantite", 0)
+            etat = getattr(self, field_name, None)
 
-                    total = prix * quantite
-                    total_general += total
+            if etat not in [
+                EtatOKNotOK.A_REMPLACER,
+                EtatOKNotOK.REMPLACE,
+            ]:
+                continue
 
-                    rapport.append({
-                        "champ": field.verbose_name,
-                        "code": field_name,
-                        "prix": prix,
-                        "quantite": quantite,
-                        "total": total,
-                    })
+            prix = getattr(
+                self,
+                f"{field_name}_prix",
+                Decimal("0.00"),
+            )
+
+            if prix is None:
+                prix = Decimal("0.00")
+
+            prix = Decimal(str(prix))
+
+            quantite = getattr(
+                self,
+                f"{field_name}_quantite",
+                0,
+            )
+
+            if quantite is None:
+                quantite = 0
+
+            quantite = Decimal(str(quantite))
+
+            total = prix * quantite
+            total_general += total
+
+            rapport.append({
+                "champ": field.verbose_name,
+                "code": field_name,
+                "etat": etat,
+                "etat_label": dict(
+                    EtatOKNotOK.choices
+                ).get(etat, etat),
+                "prix": prix,
+                "quantite": quantite,
+                "total": total,
+            })
 
         return {
             "lignes": rapport,
-            "total_general": total_general
+            "total_general": total_general,
         }
-
     @property
     def temps_main_oeuvre_display(self):
         if not self.main_oeuvre:
