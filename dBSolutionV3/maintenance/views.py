@@ -8,6 +8,7 @@ from django.views.decorators.cache import never_cache
 from django_tenants.utils import tenant_context, schema_context
 from maintenance.autres_interventions.boite_de_vitesse.remplacement_boite.models import RemplacementBoite
 from maintenance.autres_interventions.courroie_accessoires.models import CourroieAccessoires
+from maintenance.autres_interventions.moteur import rodage
 from voiture.voiture_exemplaire.models import VoitureExemplaire
 from voiture.voiture_modele.models import VoitureModele
 from maintenance.models import Maintenance
@@ -188,6 +189,7 @@ def choisir_type_maintenance(request, exemplaire_id):
         total_echappement = echappement.count()
         total_remplacement_boite = remplacement_boite.count()
 
+
         total_autres = (
             autres.count()
             + boite.count()
@@ -202,6 +204,7 @@ def choisir_type_maintenance(request, exemplaire_id):
             + courroie_access.count()
             + echappement.count()
             + remplacement_boite.count()
+
         )
 
         modeles = VoitureModele.objects.all()
@@ -261,6 +264,7 @@ def choisir_type_maintenance(request, exemplaire_id):
             "total_echappement": total_echappement,
             "total_remplacement_boite": total_remplacement_boite,
 
+
             "checkup": checkup,
             "entretien": entretien,
             "freins": freins,
@@ -275,6 +279,7 @@ def choisir_type_maintenance(request, exemplaire_id):
             "checkup_track": checkup_track,
             "echappement": echappement,
             "remplacement_boite": remplacement_boite,
+
 
             "modeles": modeles,
         }

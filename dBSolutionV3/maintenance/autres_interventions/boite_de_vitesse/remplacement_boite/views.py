@@ -408,34 +408,56 @@ def remplacement_boite_pdf_view(request, remplacement_boite_id):
                 "main_oeuvre",
                 "maintenance",
             ),
-            id=remplacement_boite_id
+            id=remplacement_boite_id,
         )
 
         maintenance = remplacement.maintenance
         vehicule = remplacement.voiture_exemplaire
-        immatriculation = vehicule.immatriculation if vehicule else "sans_immatriculation"
-        technicien = remplacement.tech_nom_technicien or "technicien_inconnu"
+
+        immatriculation = (
+            vehicule.immatriculation
+            if vehicule and vehicule.immatriculation
+            else "sans_immatriculation"
+        )
+
+        technicien = (
+            remplacement.tech_nom_technicien
+            or "technicien_inconnu"
+        )
+
+        # Génération des lignes :
+        # pièce, état, quantité, prix unitaire et total
+        rapport = remplacement.generer_rapport_remplacement()
 
         html_string = render_to_string(
             "remplacement_boite/remplacement_boite_detail_pdf.html",
             {
                 "remplacement": remplacement,
+                "rapport": rapport,
                 "societe": tenant,
                 "maintenance": maintenance,
                 "vehicule": vehicule,
                 "immatriculation": immatriculation,
                 "technicien": technicien,
-            }
+            },
+            request=request,
         )
 
         pdf = HTML(
             string=html_string,
-            base_url=request.build_absolute_uri()
+            base_url=request.build_absolute_uri("/"),
         ).write_pdf()
 
-        response = HttpResponse(pdf, content_type="application/pdf")
+        filename_technicien = technicien.replace(" ", "_")
+
+        response = HttpResponse(
+            pdf,
+            content_type="application/pdf",
+        )
+
         response["Content-Disposition"] = (
-            f'inline; filename="remplacement_boite_{immatriculation}_{technicien}.pdf"'
+            f'inline; filename="remplacement_boite_'
+            f'{immatriculation}_{filename_technicien}.pdf"'
         )
 
         return response

@@ -37,6 +37,7 @@ class Maintenance(models.Model):
         COURROIE_ACCESS = "COURROIE_ACCESS", _("Courroie d'accessoires")
         ECHAPPEMENT = "ECHAPPEMENT", _("Echappement")
         CLIMATISATION = "CLIMATISATION", _("Climatisation")
+        ALTERNATEUR = "ALTERNATEUR", _("Alternateur")
 
 
     class Tag(models.TextChoices):

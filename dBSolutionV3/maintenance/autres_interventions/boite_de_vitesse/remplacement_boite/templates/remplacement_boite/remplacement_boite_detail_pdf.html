@@ -56,12 +56,55 @@
         .tag-rouge { background: #dc2626; }
 
         .ok {
-            color: #16a34a;
+            display: inline-block;
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
             font-weight: bold;
         }
 
         .not-ok {
-            color: #dc2626;
+            display: inline-block;
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+         .etat-vert {
+            display: inline-block;
+            color: #166534;
+            background: #dcfce7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-rouge {
+            display: inline-block;
+            color: #991b1b;
+            background: #fee2e2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-bleu {
+            display: inline-block;
+            color: #1e40af;
+            background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-gris {
+            display: inline-block;
+            color: #6b7280;
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
             font-weight: bold;
         }
 
@@ -217,43 +260,77 @@
     {{ remplacement.main_oeuvre.temps_display }}
 </div>
 
-<h2>{% trans "Résumé financier" %}</h2>
+
+
+<h2>{% trans "Pièces à remplacer et pièces remplacées" %}</h2>
 
 <div class="box">
-    <table>
-        <thead>
-            <tr>
-                <th>{% trans "Élément" %}</th>
-                <th>{% trans "Montant" %}</th>
-            </tr>
-        </thead>
+    {% if rapport.lignes %}
+        <table>
+            <thead>
+                <tr>
+                    <th>{% trans "Pièce" %}</th>
+                    <th>{% trans "État" %}</th>
+                    <th class="text-right">{% trans "Quantité" %}</th>
+                    <th class="text-right">{% trans "Prix unitaire" %}</th>
+                    <th class="text-right">{% trans "Total" %}</th>
+                </tr>
+            </thead>
 
-        <tbody>
-            <tr>
-                <td>{% trans "Prix de la boite" %}</td>
-                <td>{{ remplacement.remplacement_boite_prix|default:"0.00" }} €</td>
-            </tr>
+            <tbody>
+                {% for ligne in rapport.lignes %}
+                    <tr>
+                        <td>{{ ligne.champ }}</td>
 
-            <tr>
-                <td>{% trans "Main d'oeuvre" %}</td>
-                <td>
+                        <td>
+                            {% if ligne.etat == "NOT_OK" %}
+                                <span class="etat-rouge">
+                                    {{ ligne.etat_label }}
+                                </span>
+                            {% elif ligne.etat == "OK" %}
+                                <span class="etat-vert">
+                                    {{ ligne.etat_label }}
+                                </span>
 
-                    {% if remplacement.main_oeuvre %}
-                        {{ remplacement.main_oeuvre.temps_display }}
-                    {% else %}
-                        0h00
-                    {% endif %}
-                </td>
-            </tr>
+                            {% elif ligne.etat == "REMPLACE" %}
+                                <span class="etat-bleu">
+                                    {{ ligne.etat_label }}
+                                </span>
+                            {% else %}
+                                <span class="etat-gris">
+                                    {{ ligne.etat_label|default:"-" }}
+                                </span>
+                            {% endif %}
+                        </td>
 
-            <tr class="total">
-                <td>{% trans "Total estimé" %}</td>
-                <td>
-                    {{ remplacement.remplacement_boite_prix|default:"0.00" }} €
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                        <td class="text-right">
+                            {{ ligne.quantite|default:0 }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.prix|default:0|floatformat:2 }} €
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.total|default:0|floatformat:2 }} €
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                <tr class="total">
+                    <td colspan="4" class="text-right">
+                        {% trans "Total général HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    {% else %}
+        <p>{% trans "Aucune pièce à remplacer ou remplacée." %}</p>
+    {% endif %}
 </div>
 
 <h2>{% trans "Remarques" %}</h2>

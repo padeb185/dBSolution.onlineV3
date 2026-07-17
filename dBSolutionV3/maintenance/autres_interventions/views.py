@@ -7,6 +7,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.cache import never_cache
 from django_tenants.utils import schema_context, tenant_context
 from maintenance.autres_interventions import echappement
+from maintenance.autres_interventions.climatisation.models import Climatisation
 from maintenance.autres_interventions.courroie_accessoires.models import CourroieAccessoires
 from maintenance.autres_interventions.echappement.models import Echappement
 from maintenance.models import Maintenance
@@ -81,6 +82,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
     turbo = Turbo.objects.none()
     remplacement_moteur = RemplacementMoteur.objects.none()
     echappement = Echappement.objects.none()
+    climatisation = Climatisation.objects.none()
 
 
     # -----------------------------
@@ -93,6 +95,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
     total_remplacement_boite = 0
     total_access = 0
     total_echappement = 0
+    total_clim = 0
 
 
     total_int_moteur = 0
@@ -165,6 +168,10 @@ def choisir_autre_maintenance(request, exemplaire_id):
                 voiture_exemplaire=exemplaire
             )
 
+            climatisation = Climatisation.objects.filter(
+                voiture_exemplaire=exemplaire
+            )
+
             total_turbo = turbo.count()
 
             total_int_moteur = (
@@ -222,6 +229,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
         "total_remplacement_boite": total_remplacement_boite,
         "total_access": total_access,
         "total_echappement": total_echappement,
+        "total_clim": total_clim,
 
         "total_int_moteur": total_int_moteur,
         "total_int_boite": total_int_boite,
@@ -231,7 +239,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
         "bte_auto": bte_auto,
         "geometrie": geometrie,
         "abs_qs": abs_qs,
-
+        "climatisation": climatisation,
 
         "remplacement_boite": remplacement_boite,
         "echappement": echappement,

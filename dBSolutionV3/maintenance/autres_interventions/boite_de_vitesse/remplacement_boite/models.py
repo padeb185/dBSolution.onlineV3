@@ -1,5 +1,5 @@
 import uuid
-from decimal import Decimal
+from decimal import Decimal, ROUND_HALF_UP
 
 from django.core.validators import StepValueValidator
 
@@ -8,7 +8,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from client_particulier.models import ClientParticulier
 from django.conf import settings
-from maintenance.autres_interventions.boite_de_vitesse.models import HuileBoiteEtat
+from maintenance.autres_interventions.boite_de_vitesse.models import HuileBoiteEtat, BoiteVitesseEtat
 from maintenance.models import Maintenance
 from utils.mixin import TechnicienMixin
 
@@ -113,7 +113,7 @@ class RemplacementBoite(TechnicienMixin, models.Model):
         verbose_name=_("Nombre de boite")
     )
 
-
+    remplacement_boite_etat = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices,default=BoiteVitesseEtat.OK, verbose_name=_("Remplacement de la boite"))
     remplacement_boite_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
@@ -145,16 +145,27 @@ class RemplacementBoite(TechnicienMixin, models.Model):
         verbose_name=_("État visuel / Tag"),
     )
 
+    boite_niveau_huile_etat = models.CharField(
+        max_length=25,
+        choices=HuileBoiteEtat.choices,
+        default=HuileBoiteEtat.SEPTANTE_CINQ,
+        verbose_name=_("Qualité de l'huile"),
+    )
 
-    boite_niveau_huile_etat =  models.CharField(max_length=25, choices=HuileBoiteEtat.choices,default=HuileBoiteEtat.SEPTANTE_CINQ, verbose_name=_("Qualité de l'huile"))
-    boite_niveau_huile_quantite = (models.DecimalField(
-                                   max_digits=4,
-                                   decimal_places=1,
-                                   default=Decimal("0.0"),
-                                   verbose_name = _("Quantité d'huile ajoutée en litres"),
-                                   validators=[StepValueValidator(0.1)]))
+    boite_niveau_huile_quantite = models.DecimalField(
+        max_digits=4,
+        decimal_places=1,
+        default=Decimal("0.0"),
+        verbose_name=_("Quantité d'huile ajoutée en litres"),
+        validators=[StepValueValidator(0.1)],
+    )
 
-
+    boite_niveau_huile_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=Decimal("0.00"),
+        verbose_name=_("Prix d'achat HTVA"),
+    )
 
     nombre_remplacements = models.PositiveIntegerField(default=1, editable=False)
 
@@ -163,8 +174,10 @@ class RemplacementBoite(TechnicienMixin, models.Model):
         verbose_name=_("Remplacement effectué"),
     )
 
+
     pays = models.CharField(
         max_length=5,
+        default="BE",
         choices=PAYS_CHOICES
     )
 
@@ -303,8 +316,95 @@ class RemplacementBoite(TechnicienMixin, models.Model):
                 self.main_oeuvre.save(update_fields=["descriptif"])
 
 
-@property
-def temps_main_oeuvre_display(self):
-    if not self.main_oeuvre:
-        return "0h00"
-    return self.main_oeuvre.temps_display
+    @property
+    def temps_main_oeuvre_display(self):
+        if not self.main_oeuvre:
+            return "0h00"
+        return self.main_oeuvre.temps_display
+
+
+
+    def calcul_piece(self, prefix):
+        prix_achat = getattr(self, f"{prefix}_prix")
+        quantite = getattr(self, f"{prefix}_quantite")
+
+        if not prix_achat or not self.pays:
+            return
+
+        tva_rate = Decimal(self.TVA_PIECES.get(self.pays, 0)) / 100
+
+        # TVA achat
+        setattr(self, f"{prefix}_tva_achat",
+                (prix_achat * tva_rate).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP))
+
+        prix_htva = prix_achat.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+
+        setattr(self, f"{prefix}_prix_vente_htva", prix_htva)
+
+        # TVA vente
+        tva = (prix_htva * tva_rate).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+        setattr(self, f"{prefix}_tva_vente", tva)
+
+        # TTC
+        prix_ttc = prix_htva + tva
+        setattr(self, f"{prefix}_prix_ttc", prix_ttc)
+
+    def generer_rapport_remplacement(self):
+        rapport = []
+        total_general = Decimal("0.00")
+
+        # --------------------------------------------------
+        # BOÎTE DE VITESSES
+        # --------------------------------------------------
+        if self.remplacement_boite_etat in (
+                BoiteVitesseEtat.NOT_OK,
+                BoiteVitesseEtat.REMPLACE,
+        ):
+            prix = self.remplacement_boite_prix or Decimal("0.00")
+            quantite = self.remplacement_boite_nombre or 0
+
+            prix = Decimal(str(prix))
+            quantite = Decimal(str(quantite))
+            total = prix * quantite
+
+            total_general += total
+
+            rapport.append({
+                "champ": self._meta.get_field(
+                    "remplacement_boite_etat"
+                ).verbose_name,
+                "code": "remplacement_boite",
+                "etat": self.remplacement_boite_etat,
+                "etat_label": self.get_remplacement_boite_etat_display(),
+                "prix": prix,
+                "quantite": quantite,
+                "total": total,
+            })
+
+        # --------------------------------------------------
+        # HUILE DE BOÎTE
+        # --------------------------------------------------
+        huile_prix = self.boite_niveau_huile_prix or Decimal("0.00")
+        huile_quantite = self.boite_niveau_huile_quantite or Decimal("0.0")
+
+        huile_prix = Decimal(str(huile_prix))
+        huile_quantite = Decimal(str(huile_quantite))
+        huile_total = huile_prix * huile_quantite
+
+        if huile_prix > 0 or huile_quantite > 0:
+            total_general += huile_total
+
+            rapport.append({
+                "champ": _("Huile de boîte"),
+                "code": "boite_niveau_huile",
+                "etat": self.boite_niveau_huile_etat,
+                "etat_label": self.get_boite_niveau_huile_etat_display(),
+                "prix": huile_prix,
+                "quantite": huile_quantite,
+                "total": huile_total,
+            })
+
+        return {
+            "lignes": rapport,
+            "total_general": total_general,
+        }

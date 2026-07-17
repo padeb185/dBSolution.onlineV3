@@ -229,12 +229,10 @@
 
 <h2>{% trans "Courroie d'accessoires" %}</h2>
 
-
 <div class="box">
     <div class="grid">
 
         <div>
-            <div>
             {% trans "État" %} :
 
             {% if alternateur.courroie_accessoires == "OK" %}
@@ -256,11 +254,9 @@
                 {{ alternateur.get_courroie_accessoires_display|default:"-" }}
             {% endif %}
         </div>
+
     </div>
 </div>
-
-
-
 
     <h2>{% trans "Main d’œuvre" %}</h2>
 
@@ -282,75 +278,79 @@
     </div>
 
 
-
-
-<!-- ================= PIÈCES À REMPLACER ================= -->
-<h2>{% trans "Pièces à remplacer" %}</h2>
-
-<div class="box">
-
-    {% if rapport.lignes %}
-
-        <table>
-            <thead>
-                <tr>
-                    <th>{% trans "Pièce" %}</th>
-                    <th>{% trans "Quantité" %}</th>
-                    <th>{% trans "Prix unitaire" %}</th>
-                    <th>{% trans "Total" %}</th>
-                </tr>
-            </thead>
-
-            <tbody>
-
-                {% for ligne in rapport.lignes %}
-                <tr>
-
-                    <td>
-                        {{ ligne.champ }}
-                    </td>
-
-                    <td>
-                        {{ ligne.quantite }}
-                    </td>
-
-                    <td>
-                        {{ ligne.prix|floatformat:2 }} €
-                    </td>
-
-                    <td>
-                        {{ ligne.total|floatformat:2 }} €
-                    </td>
-
-                </tr>
-                {% endfor %}
-
-                <tr class="total">
-
-                    <td colspan="3" class="text-right">
-                        {% trans "Total général" %}
-                    </td>
-
-                    <td>
-                        {{ rapport.total_general|floatformat:2 }} €
-                    </td>
-
-                </tr>
-
-            </tbody>
-        </table>
-
-    {% else %}
-
-        <p>
-            {% trans "Aucune pièce à remplacer." %}
-        </p>
-
-    {% endif %}
-
 </div>
 
+<!-- ================= PIÈCES À REMPLACER ================= -->
+
+
+    <h2>{% trans "Pièces à remplacer" %}</h2>
+
+    <div class="box">
+
+        {% if rapport.lignes %}
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>{% trans "Pièce" %}</th>
+                        <th>{% trans "Quantité" %}</th>
+                        <th>{% trans "Prix unitaire" %}</th>
+                        <th>{% trans "Total" %}</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for ligne in rapport.lignes %}
+                    <tr>
+
+                        <td>
+                            {{ ligne.champ }}
+                        </td>
+
+                        <td>
+                            {{ ligne.quantite }}
+                        </td>
+
+                        <td>
+                            {{ ligne.prix|floatformat:2 }} €
+                        </td>
+
+                        <td>
+                            {{ ligne.total|floatformat:2 }} €
+                        </td>
+
+                    </tr>
+                    {% endfor %}
+
+                    <tr class="total">
+
+                        <td colspan="3" class="text-right">
+                            {% trans "Total général" %}
+                        </td>
+
+                        <td>
+                            {{ rapport.total_general|floatformat:2 }} €
+                        </td>
+
+                    </tr>
+
+                </tbody>
+            </table>
+
+        {% else %}
+
+            <p>
+                {% trans "Aucune pièce à remplacer." %}
+            </p>
+
+        {% endif %}
+
+    </div>
+
 <!-- ================= REMARQUES ================= -->
+
+
 <h2>{% trans "Remarques" %}</h2>
 
 <div class="box">

@@ -9,6 +9,7 @@ from maintenance.models import Maintenance
 from decimal import Decimal
 
 
+
 class EtatOKNotOK(models.TextChoices):
     OK = "OK", _("OK")
     NOT_OK = "NOT_OK", _("A Remplacer")

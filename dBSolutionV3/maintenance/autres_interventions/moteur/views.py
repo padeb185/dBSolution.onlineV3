@@ -58,9 +58,9 @@ def dashboard_moteur_view(request, exemplaire_id):
         schema_name = tenant_schema.schema_name if tenant_schema else None
 
 
-        total_admission = total_alternateur = total_courroie = total_remplacement_moteur = total_turbo = total_int_moteur = 0
+        total_admission = total_alternateur = total_courroie = total_remplacement_moteur = total_turbo = total_rodage = total_int_moteur = 0
 
-        admission = alternateur = courroie = moteur_remplacement = turbo = []
+        admission = alternateur = courroie = moteur_remplacement = turbo = rodage = []
 
 
 
