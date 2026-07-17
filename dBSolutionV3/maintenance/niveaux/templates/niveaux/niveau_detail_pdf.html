@@ -309,6 +309,97 @@
     {% endif %}
 </div>
 
+<!-- ================================================== -->
+<!-- PIÈCES / LIQUIDES UTILISÉS -->
+<!-- ================================================== -->
+
+<h2>{% trans "Pièces / liquides utilisés" %}</h2>
+
+<div class="box">
+
+    {% if rapport.lignes %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>{% trans "Produit" %}</th>
+                    <th>{% trans "État" %}</th>
+                    <th>{% trans "Qualité" %}</th>
+                    <th>{% trans "Fabricant" %}</th>
+                    <th>{% trans "Quantité" %}</th>
+                    <th>{% trans "Prix unitaire HTVA" %}</th>
+                    <th>{% trans "Total HTVA" %}</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for ligne in rapport.lignes %}
+                    <tr>
+                        <td>
+                            {{ ligne.champ }}
+                        </td>
+
+                        <td>
+                            {% if ligne.etat == "AJOUTER" %}
+                                <span class="etat-bleu">
+                                    {{ ligne.etat_label }}
+                                </span>
+                            {% elif ligne.etat == "REMPLACER" %}
+                                <span class="etat-gris">
+                                    {{ ligne.etat_label }}
+                                </span>
+                            {% else %}
+                                {{ ligne.etat_label }}
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            {{ ligne.qualite_label|default:"-" }}
+                        </td>
+
+                        <td>
+                            {{ ligne.fabricant_label|default:"-" }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.quantite|default:0|floatformat:2 }} L
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.prix|default:0|floatformat:2 }} €
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.total|default:0|floatformat:2 }} €
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                <tr class="total">
+                    <td colspan="6" class="text-right">
+                        {% trans "Total général HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    {% else %}
+
+        <p>
+            {% trans "Aucune pièce ou aucun liquide utilisé." %}
+        </p>
+
+    {% endif %}
+
+</div>
+
+
 <h2>{% trans "Remarques" %}</h2>
 
 <div class="box">

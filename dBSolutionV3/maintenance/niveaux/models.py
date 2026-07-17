@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.core.validators import StepValueValidator
 from django.conf import settings
 from django.db import models
@@ -13,7 +15,47 @@ class NiveauxEtat(models.TextChoices):
     BON = "BON", _("OK")
     AJOUTER = "AJOUTER", _("Ajouter")
 
-
+class FabricantLubrifiant(models.TextChoices):
+    CASTROL = "CASTROL", _("Castrol")
+    MOTUL = "MOTUL", _("Motul")
+    MOBIL = "MOBIL", _("Mobil 1")
+    SHELL = "SHELL", _("Shell")
+    TOTAL = "TOTAL", _("TotalEnergies")
+    ELF = "ELF", _("ELF")
+    LIQUI_MOLY = "LIQUI_MOLY", _("Liqui Moly")
+    FUCHS = "FUCHS", _("Fuchs")
+    VALVOLINE = "VALVOLINE", _("Valvoline")
+    PENRITE = "PENRITE", _("Penrite")
+    RAVENOL = "RAVENOL", _("Ravenol")
+    ROWE = "ROWE", _("Rowe")
+    ENEOS = "ENEOS", _("ENEOS")
+    PETRONAS = "PETRONAS", _("Petronas")
+    EUROL = "EUROL", _("Eurol")
+    COMMA = "COMMA", _("Comma")
+    MANNOL = "MANNOL", _("Mannol")
+    YACCO = "YACCO", _("Yacco")
+    REDLINE = "REDLINE", _("Red Line")
+    AMSOIL = "AMSOIL", _("Amsoil")
+    KROON_OIL = "KROON_OIL", _("Kroon-Oil")
+    FEBI = "FEBI", _("Febi Bilstein")
+    SWAG = "SWAG", _("SWAG")
+    PENTOSIN = "PENTOSIN", _("Pentosin")
+    ZF = "ZF", _("ZF")
+    AISIN = "AISIN", _("Aisin")
+    TOYOTA = "TOYOTA", _("Toyota")
+    HONDA = "HONDA", _("Honda")
+    NISSAN = "NISSAN", _("Nissan")
+    MERCEDES = "MERCEDES", _("Mercedes-Benz")
+    BMW = "BMW", _("BMW")
+    VOLKSWAGEN = "VOLKSWAGEN", _("Volkswagen")
+    PORSCHE = "PORSCHE", _("Porsche")
+    RENAULT = "RENAULT", _("Renault")
+    PSA = "PSA", _("Peugeot / Citroën")
+    HYUNDAI_KIA = "HYUNDAI_KIA", _("Hyundai / Kia")
+    FORD = "FORD", _("Ford")
+    GM = "GM", _("General Motors")
+    MOPAR = "MOPAR", _("Mopar")
+    AUTRE = "AUTRE", _("Autre")
 
 class HuileEtat(models.TextChoices):
     ZERO_16 = "0W16", _("0W16")
@@ -189,34 +231,50 @@ class Niveau(TechnicienMixin, models.Model):
     )
 
 
+
+
     moteur_niveau_huile_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau d'huile"))
     moteur_niveau_huile_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=1,  verbose_name=_("Quantité d'huile ajoutée en litres"), validators=[StepValueValidator(0.1)])
     moteur_niveau_huile_qualite = models.CharField(max_length=25, choices=HuileEtat.choices, default=HuileEtat.ZERO_30, verbose_name=_("Qualité d'huile"))
+    moteur_niveau_huile_fabricant = models.CharField(max_length=30,choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.MOBIL,verbose_name=_("Fabricant"))
+    moteur_niveau_huile_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
+
 
     boite_niveau_huile_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau d'huile"))
     boite_niveau_huile_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=1,  verbose_name=_("Quantité d'huile ajoutée en litres"), validators=[StepValueValidator(0.1)])
     boite_niveau_huile_qualite = models.CharField(max_length=25, choices=HuileBoiteNiveauxEtat.choices,default=HuileBoiteNiveauxEtat.SEPTANTE_CINQ,verbose_name=_("Qualité d'huile"))
+    boite_niveau_huile_fabricant = models.CharField(max_length=30, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.MOBIL, verbose_name=_("Fabricant"))
+    boite_niveau_huile_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
 
     pont_niveau_huile_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau d'huile"))
     pont_niveau_huile_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=1,  verbose_name=_("Quantité d'huile ajoutée en litres"),validators=[StepValueValidator(0.1)])
     pont_niveau_huile_qualite = models.CharField(max_length=25, choices=HuilePontEtat.choices,default=HuilePontEtat.SEPTANTE_CINQ140,verbose_name=_("Qualité d'huile"))
+    pont_niveau_huile_fabricant = models.CharField(max_length=30, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.MOBIL, verbose_name=_("Fabricant"))
+    pont_niveau_huile_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
 
     refroidissement_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de refroidissement"))
     refroidissement_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=1,  verbose_name=_("Quantité de liquide de refroidissement ajoutée en litres"),validators=[StepValueValidator(0.1)])
     refroidissement_qualite = models.CharField(max_length=25, choices=RefroidissementQualiteEtat.choices,default=RefroidissementQualiteEtat.G13,verbose_name=_("Qualité de liquide de refroidissement"))
+    refroidissement_fabricant = models.CharField(max_length=30, choices=FabricantLubrifiant.choices, default=FabricantLubrifiant.MOBIL, verbose_name=_("Fabricant"))
+    refroidissement_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
 
     frein_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de freins"))
     frein_liquide_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=2,  verbose_name=_("Quantité de liquide de freins ajoutée en litres"), validators=[StepValueValidator(0.1)])
     frein_liquide_qualite = models.CharField(max_length=25, choices=LiquideFreinsQualite.choices,default=LiquideFreinsQualite.DOT4,verbose_name=_("Qualité de liquide de freins"))
+    frein_liquide_fabricant = models.CharField(max_length=30, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.CASTROL, verbose_name=_("Fabricant"))
+    frein_liquide_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
 
     lave_glace_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de lave-glace"))
-    lave_glace_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=1, verbose_name=_("Quantité de liquide de lave glace ajoutée en litres"), validators=[StepValueValidator(0.1)])
-    lave_glace_qualite = models.CharField(max_length=25, choices=LaveGlaceQualite.choices,default=LaveGlaceQualite.HIVER,verbose_name=_("Qualité de liquide de lave glace"))
+    lave_glace_liquide_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=1, verbose_name=_("Quantité de liquide de lave glace ajoutée en litres"), validators=[StepValueValidator(0.1)])
+    lave_glace_liquide_qualite = models.CharField(max_length=25, choices=LaveGlaceQualite.choices,default=LaveGlaceQualite.HIVER,verbose_name=_("Qualité de liquide de lave glace"))
+    lave_glace_liquide_fabricant = models.CharField(max_length=30, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.MOBIL, verbose_name=_("Fabricant"))
+    lave_glace_liquide_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
 
     direction_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de direction"))
     direction_liquide_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=1, verbose_name=_("Quantité de liquide de direction ajoutée en litres"), validators=[StepValueValidator(0.1)])
     direction_liquide_qualite = models.CharField(max_length=25, choices=LiquideDirectionQualite.choices,default= LiquideDirectionQualite.CHF_7_1 ,verbose_name=_("Qualité de liquide de direction"))
-
+    direction_liquide_fabricant = models.CharField(max_length=30, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.CASTROL, verbose_name=_("Fabricant"))
+    direction_liquide_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
 
     remarques = models.TextField(
         blank=True,
@@ -358,3 +416,157 @@ class Niveau(TechnicienMixin, models.Model):
         if not self.main_oeuvre:
             return "0h00"
         return self.main_oeuvre.temps_display
+
+        # -------------------------
+        # CALCUL GENERIQUE
+        # -------------------------
+
+    def calcul_piece(self, prefix):
+
+        prix = getattr(self, f"{prefix}_prix", Decimal("0"))
+        quantite = getattr(self, f"{prefix}_quantite", 0)
+
+        total = prix * quantite
+
+        return {
+            "prix": prix,
+            "quantite": quantite,
+            "total": total,
+        }
+
+    def generer_rapport_remplacement(self):
+        rapport = []
+        total_general = Decimal("0.00")
+
+        produits = [
+            {
+                "prefix": "moteur_niveau_huile",
+                "label": _("Huile moteur"),
+            },
+            {
+                "prefix": "boite_niveau_huile",
+                "label": _("Huile de boîte de vitesses"),
+            },
+            {
+                "prefix": "pont_niveau_huile",
+                "label": _("Huile de pont"),
+            },
+            {
+                "prefix": "refroidissement",
+                "label": _("Liquide de refroidissement"),
+            },
+            {
+                "prefix": "frein_liquide",
+                "label": _("Liquide de freins"),
+            },
+            {
+                "prefix": "lave_glace_liquide",
+                "label": _("Liquide de lave-glace"),
+            },
+            {
+                "prefix": "direction_liquide",
+                "label": _("Liquide de direction assistée"),
+            },
+        ]
+
+        for produit in produits:
+            prefix = produit["prefix"]
+
+            etat_field = f"{prefix}_etat"
+            quantite_field = f"{prefix}_quantite"
+            qualite_field = f"{prefix}_qualite"
+            fabricant_field = f"{prefix}_fabricant"
+            prix_field = f"{prefix}_prix"
+
+            etat = getattr(self, etat_field, None)
+
+            # Ajouter au rapport lorsqu'un produit doit être
+            # ajouté ou remplacé
+            if etat not in [
+                NiveauxEtat.AJOUTER,
+
+            ]:
+                continue
+
+            prix = getattr(
+                self,
+                prix_field,
+                Decimal("0.00"),
+            )
+
+            if prix is None:
+                prix = Decimal("0.00")
+
+            prix = Decimal(str(prix))
+
+            quantite = getattr(
+                self,
+                quantite_field,
+                Decimal("0.00"),
+            )
+
+            if quantite is None:
+                quantite = Decimal("0.00")
+
+            quantite = Decimal(str(quantite))
+
+            qualite = getattr(
+                self,
+                qualite_field,
+                "",
+            )
+
+            fabricant = getattr(
+                self,
+                fabricant_field,
+                "",
+            )
+
+            # Libellé traduit de l'état
+            try:
+                etat_label = getattr(
+                    self,
+                    f"get_{etat_field}_display",
+                )()
+            except (AttributeError, TypeError):
+                etat_label = etat
+
+            # Libellé traduit de la qualité
+            try:
+                qualite_label = getattr(
+                    self,
+                    f"get_{qualite_field}_display",
+                )()
+            except (AttributeError, TypeError):
+                qualite_label = qualite
+
+            # Libellé traduit du fabricant
+            try:
+                fabricant_label = getattr(
+                    self,
+                    f"get_{fabricant_field}_display",
+                )()
+            except (AttributeError, TypeError):
+                fabricant_label = fabricant
+
+            total = prix * quantite
+            total_general += total
+
+            rapport.append({
+                "champ": produit["label"],
+                "code": prefix,
+                "etat": etat,
+                "etat_label": etat_label,
+                "qualite": qualite,
+                "qualite_label": qualite_label,
+                "fabricant": fabricant,
+                "fabricant_label": fabricant_label,
+                "prix": prix,
+                "quantite": quantite,
+                "total": total,
+            })
+
+        return {
+            "lignes": rapport,
+            "total_general": total_general,
+        }

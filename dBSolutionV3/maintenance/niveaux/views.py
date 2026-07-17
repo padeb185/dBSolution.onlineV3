@@ -341,10 +341,14 @@ def niveau_pdf_view(request, niveau_id):
             id=niveau_id
         )
 
+        # Génération du rapport des liquides / produits utilisés
+        rapport = niveau.generer_rapport_remplacement()
+
         html_string = render_to_string(
             "niveaux/niveau_detail_pdf.html",
             {
                 "niveau": niveau,
+                "rapport": rapport,
                 "date_export": timezone.now(),
                 "societe": tenant,
             },
@@ -367,9 +371,14 @@ def niveau_pdf_view(request, niveau_id):
             or "technicien_inconnu"
         )
 
-        response = HttpResponse(pdf_file, content_type="application/pdf")
+        response = HttpResponse(
+            pdf_file,
+            content_type="application/pdf"
+        )
+
         response["Content-Disposition"] = (
-            f'inline; filename="niveau_{immatriculation}_{technicien}.pdf"'
+            f'inline; filename="niveau_'
+            f'{immatriculation}_{technicien}.pdf"'
         )
 
         return response
