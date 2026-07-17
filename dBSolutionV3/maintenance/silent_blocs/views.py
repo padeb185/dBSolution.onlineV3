@@ -281,6 +281,7 @@ def silent_bloc_pdf_view(request, silent_id):
     with tenant_context(tenant):
         silent_bloc = get_object_or_404(
             SilentBloc.objects.select_related(
+                "maintenance",
                 "voiture_exemplaire",
                 "main_oeuvre",
                 "tech_technicien",
@@ -289,13 +290,18 @@ def silent_bloc_pdf_view(request, silent_id):
             id=silent_id
         )
 
+        # Génération des pièces à remplacer ou remplacées
+        rapport = silent_bloc.generer_rapport_remplacement()
+
         html_string = render_to_string(
             "silent_blocs/silent_bloc_detail_pdf.html",
             {
                 "objet": silent_bloc,
+                "rapport": rapport,
                 "societe": tenant,
                 "date_export": timezone.now(),
-            }
+            },
+            request=request
         )
 
         pdf = HTML(
@@ -314,9 +320,14 @@ def silent_bloc_pdf_view(request, silent_id):
             or "technicien_inconnu"
         )
 
-        response = HttpResponse(pdf, content_type="application/pdf")
+        response = HttpResponse(
+            pdf,
+            content_type="application/pdf"
+        )
+
         response["Content-Disposition"] = (
-            f'inline; filename="silent_blocs_{immatriculation}_{technicien}.pdf"'
+            f'inline; filename="silent_blocs_'
+            f'{immatriculation}_{technicien}.pdf"'
         )
 
         return response

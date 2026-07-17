@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -11,9 +13,6 @@ class EtatOKNotOK(models.TextChoices):
     OK = "OK", _("OK")
     A_REMPLACER = "A_REMPLACER", _("À remplacer")
     REMPLACE = "REMPLACE", _("Remplacé")
-
-
-
 
 
 class SilentBloc(TechnicienMixin, models.Model):
@@ -48,36 +47,356 @@ class SilentBloc(TechnicienMixin, models.Model):
 
     # --- Silent Bloc ---
 
-    silent_blocs_barre_stabilisatrice_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent blocs barre stabilisatrice avant"))
-    silent_blocs_barre_stabilisatrice_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent blocs barre stabilisatrice arrière"))
 
 
-    silent_blocs_amortisseur_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent bloc amortisseur avant droit"))
-    silent_bloc_amortisseur_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent bloc amortisseur avant gauche"))
-    silent_blocs_amortisseur_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent bloc amortisseur arrière droit"))
-    silent_blocs_amortisseur_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent bloc amortisseur arrière gauche"))
+    silent_blocs_barre_stabilisatrice_av = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("silent blocs barre stabilisatrice avant")
+    )
+    silent_blocs_barre_stabilisatrice_av_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+    silent_blocs_barre_stabilisatrice_av_quantite = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("Quantité")
+    )
 
+    # Barre stabilisatrice AR
+    silent_blocs_barre_stabilisatrice_ar = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("silent blocs barre stabilisatrice arrière")
+    )
+    silent_blocs_barre_stabilisatrice_ar_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+    silent_blocs_barre_stabilisatrice_ar_quantite = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("Quantité")
+    )
+
+    # Amortisseur AVD
+    silent_blocs_amortisseur_avd = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("silent bloc amortisseur avant droit")
+    )
+    silent_blocs_amortisseur_avd_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+    silent_blocs_amortisseur_avd_quantite = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("Quantité")
+    )
+
+    # Amortisseur AVG
+    silent_bloc_amortisseur_avg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("silent bloc amortisseur avant gauche")
+    )
+    silent_bloc_amortisseur_avg_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+    silent_bloc_amortisseur_avg_quantite = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("Quantité")
+    )
+
+    # Amortisseur ARD
+    silent_blocs_amortisseur_ard = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("silent bloc amortisseur arrière droit")
+    )
+    silent_blocs_amortisseur_ard_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+    silent_blocs_amortisseur_ard_quantite = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("Quantité")
+    )
+
+    # Amortisseur ARG
+    silent_blocs_amortisseur_arg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("silent bloc amortisseur arrière gauche")
+    )
+    silent_blocs_amortisseur_arg_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+    silent_blocs_amortisseur_arg_quantite = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("Quantité")
+    )
 
     silent_blocs_triangle_inf_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent bloc de triangle inférieur avant droit"))
-    silent_blocs_triangle_inf_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent bloc de triangle inférieur avant gauche"))
-    silent_blocs_triangle_inf_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent bloc de triangle inférieur arrière droit"))
-    silent_blocs_triangle_inf_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent bloc de triangle inférieur arrière gauche"))
+    silent_blocs_triangle_inf_avd_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
+    silent_blocs_triangle_inf_avd_quantite = models.PositiveIntegerField(default=1, verbose_name=_("Quantité"))
 
-    silent_blocs_triangle_sup_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent bloc de triangle supérieur avant droit"))
-    silent_blocs_triangle_sup_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent bloc de triangle supérieur avant gauche"))
-    silent_blocs_triangle_sup_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent bloc de triangle supérieur arrière droit"))
-    silent_blocs_triangle_sup_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent bloc de triangle supérieur arrière gauche"))
+    silent_blocs_triangle_inf_avg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("silent bloc de triangle inférieur avant gauche")
+    )
+    silent_blocs_triangle_inf_avg_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+    silent_blocs_triangle_inf_avg_quantite = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("Quantité")
+    )
 
-    silent_blocs_multi_bras_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent bloc de suspension multi-bras avant droit"))
-    silent_blocs_multi_bras_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent bloc de suspension multi-bras avant gauche"))
-    silent_blocs_multi_bras_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent bloc de suspension multi-bras arrière droit"))
-    silent_blocs_multi_bras_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent bloc de suspension multi-bras arrière gauche"))
+    silent_blocs_triangle_inf_ard = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("silent bloc de triangle inférieur arrière droit")
+    )
+    silent_blocs_triangle_inf_ard_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+    silent_blocs_triangle_inf_ard_quantite = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("Quantité")
+    )
 
+    silent_blocs_triangle_inf_arg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("silent bloc de triangle inférieur arrière gauche")
+    )
+    silent_blocs_triangle_inf_arg_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+    silent_blocs_triangle_inf_arg_quantite = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("Quantité")
+    )
 
-    silent_blocs_moteur_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent bloc moteur"))
-    silent_blocs_moteur_boite_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent bloc de boite de vitesse"))
-    silent_blocs_moteur_inf_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("silent bloc moteur pendulaire"))
+    silent_blocs_triangle_sup_avd = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("silent bloc de triangle supérieur avant droit")
+    )
+    silent_blocs_triangle_sup_avd_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+    silent_blocs_triangle_sup_avd_quantite = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("Quantité")
+    )
 
+    silent_blocs_triangle_sup_avg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("silent bloc de triangle supérieur avant gauche")
+    )
+    silent_blocs_triangle_sup_avg_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+    silent_blocs_triangle_sup_avg_quantite = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("Quantité")
+    )
+
+    silent_blocs_triangle_sup_ard = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("silent bloc de triangle supérieur arrière droit")
+    )
+    silent_blocs_triangle_sup_ard_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+    silent_blocs_triangle_sup_ard_quantite = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("Quantité")
+    )
+
+    silent_blocs_triangle_sup_arg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("silent bloc de triangle supérieur arrière gauche")
+    )
+    silent_blocs_triangle_sup_arg_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+    silent_blocs_triangle_sup_arg_quantite = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("Quantité")
+    )
+
+    silent_blocs_multi_bras_avd = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("silent bloc de suspension multi-bras avant droit")
+    )
+    silent_blocs_multi_bras_avd_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+    silent_blocs_multi_bras_avd_quantite = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("Quantité")
+    )
+
+    silent_blocs_multi_bras_avg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("silent bloc de suspension multi-bras avant gauche")
+    )
+    silent_blocs_multi_bras_avg_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+    silent_blocs_multi_bras_avg_quantite = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("Quantité")
+    )
+
+    silent_blocs_multi_bras_ard = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("silent bloc de suspension multi-bras arrière droit")
+    )
+    silent_blocs_multi_bras_ard_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+    silent_blocs_multi_bras_ard_quantite = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("Quantité")
+    )
+
+    silent_blocs_multi_bras_arg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("silent bloc de suspension multi-bras arrière gauche")
+    )
+    silent_blocs_multi_bras_arg_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+    silent_blocs_multi_bras_arg_quantite = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("Quantité")
+    )
+
+    silent_blocs_moteur_avg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("silent bloc moteur")
+    )
+    silent_blocs_moteur_avg_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+    silent_blocs_moteur_avg_quantite = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("Quantité")
+    )
+
+    silent_blocs_moteur_boite_ard = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("silent bloc de boite de vitesse")
+    )
+    silent_blocs_moteur_boite_ard_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+    silent_blocs_moteur_boite_ard_quantite = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("Quantité")
+    )
+
+    silent_blocs_moteur_inf_arg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("silent bloc moteur pendulaire")
+    )
+    silent_blocs_moteur_inf_arg_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+    silent_blocs_moteur_inf_arg_quantite = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("Quantité")
+    )
 
 
 
@@ -206,3 +525,144 @@ class SilentBloc(TechnicienMixin, models.Model):
         if not self.main_oeuvre:
             return "0h00"
         return self.main_oeuvre.temps_display
+
+
+
+    def generer_rapport_remplacement(self):
+        rapport = []
+        total_general = Decimal("0.00")
+
+        pieces = [
+            (
+                "silent_blocs_barre_stabilisatrice_av",
+                _("Silent blocs barre stabilisatrice avant")
+            ),
+            (
+                "silent_blocs_barre_stabilisatrice_ar",
+                _("Silent blocs barre stabilisatrice arrière")
+            ),
+            (
+                "silent_blocs_amortisseur_avd",
+                _("Silent bloc amortisseur avant droit")
+            ),
+            (
+                "silent_bloc_amortisseur_avg",
+                _("Silent bloc amortisseur avant gauche")
+            ),
+            (
+                "silent_blocs_amortisseur_ard",
+                _("Silent bloc amortisseur arrière droit")
+            ),
+            (
+                "silent_blocs_amortisseur_arg",
+                _("Silent bloc amortisseur arrière gauche")
+            ),
+            (
+                "silent_blocs_triangle_inf_avd",
+                _("Silent bloc de triangle inférieur avant droit")
+            ),
+            (
+                "silent_blocs_triangle_inf_avg",
+                _("Silent bloc de triangle inférieur avant gauche")
+            ),
+            (
+                "silent_blocs_triangle_inf_ard",
+                _("Silent bloc de triangle inférieur arrière droit")
+            ),
+            (
+                "silent_blocs_triangle_inf_arg",
+                _("Silent bloc de triangle inférieur arrière gauche")
+            ),
+            (
+                "silent_blocs_triangle_sup_avd",
+                _("Silent bloc de triangle supérieur avant droit")
+            ),
+            (
+                "silent_blocs_triangle_sup_avg",
+                _("Silent bloc de triangle supérieur avant gauche")
+            ),
+            (
+                "silent_blocs_triangle_sup_ard",
+                _("Silent bloc de triangle supérieur arrière droit")
+            ),
+            (
+                "silent_blocs_triangle_sup_arg",
+                _("Silent bloc de triangle supérieur arrière gauche")
+            ),
+            (
+                "silent_blocs_multi_bras_avd",
+                _("Silent bloc de suspension multi-bras avant droit")
+            ),
+            (
+                "silent_blocs_multi_bras_avg",
+                _("Silent bloc de suspension multi-bras avant gauche")
+            ),
+            (
+                "silent_blocs_multi_bras_ard",
+                _("Silent bloc de suspension multi-bras arrière droit")
+            ),
+            (
+                "silent_blocs_multi_bras_arg",
+                _("Silent bloc de suspension multi-bras arrière gauche")
+            ),
+            (
+                "silent_blocs_moteur_avg",
+                _("Silent bloc moteur")
+            ),
+            (
+                "silent_blocs_moteur_boite_ard",
+                _("Silent bloc de boîte de vitesse")
+            ),
+            (
+                "silent_blocs_moteur_inf_arg",
+                _("Silent bloc moteur pendulaire")
+            ),
+        ]
+
+        for champ, libelle in pieces:
+            etat = getattr(self, champ, None)
+
+            if etat not in (
+                    EtatOKNotOK.A_REMPLACER,
+                    EtatOKNotOK.REMPLACE,
+            ):
+                continue
+
+            prix = Decimal(
+                str(getattr(self, f"{champ}_prix", 0) or 0)
+            )
+
+            quantite = Decimal(
+                str(getattr(self, f"{champ}_quantite", 0) or 0)
+            )
+
+            total = prix * quantite
+
+            methode_display = getattr(
+                self,
+                f"get_{champ}_display",
+                None
+            )
+
+            etat_label = (
+                methode_display()
+                if callable(methode_display)
+                else etat
+            )
+
+            rapport.append({
+                "champ": libelle,
+                "code": champ,
+                "etat": etat,
+                "etat_label": etat_label,
+                "prix": prix,
+                "quantite": quantite,
+                "total": total,
+            })
+
+            total_general += total
+
+        return {
+            "lignes": rapport,
+            "total_general": total_general,
+        }
