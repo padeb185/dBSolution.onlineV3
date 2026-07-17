@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-17 13:58+0200\n"
+"POT-Creation-Date: 2026-07-17 19:27+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -336,19 +336,19 @@ msgstr "Metadatos"
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_detail.html:84
 #: maintenance/autres_interventions/geometrie/models.py:206
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail.html:78
-#: maintenance/autres_interventions/moteur/admission/models.py:208
+#: maintenance/autres_interventions/moteur/admission/models.py:211
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail.html:80
 #: maintenance/autres_interventions/moteur/alternateur/models.py:191
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail.html:78
-#: maintenance/autres_interventions/moteur/courroie/models.py:211
+#: maintenance/autres_interventions/moteur/courroie/models.py:210
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail.html:78
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:245
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_detail.html:79
-#: maintenance/autres_interventions/moteur/rodage/models.py:307
+#: maintenance/autres_interventions/moteur/rodage/models.py:324
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_detail.html:69
 #: maintenance/autres_interventions/moteur/turbo/models.py:143
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail.html:81
-#: maintenance/carrosserie_interne/models.py:579
+#: maintenance/carrosserie_interne/models.py:580
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_detail.html:81
 #: maintenance/check_up/models.py:443
 #: maintenance/check_up/templates/check_up/checkup_detail.html:72
@@ -364,11 +364,11 @@ msgstr "Metadatos"
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_ext_detail.html:68
 #: maintenance/nettoyage_interieur/models.py:154
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_int_detail.html:69
-#: maintenance/niveaux/models.py:241
+#: maintenance/niveaux/models.py:299
 #: maintenance/niveaux/templates/niveaux/niveaux_detail.html:122
 #: maintenance/pneus/models.py:153
 #: maintenance/pneus/templates/pneus/pneus_detail.html:70
-#: maintenance/silent_blocs/models.py:113
+#: maintenance/silent_blocs/models.py:432
 #: maintenance/silent_blocs/templates/silent_blocs/silent_detail.html:75
 #: outillage/models.py:77
 #: outillage/templates/outillage/outillage_detail.html:80
@@ -430,19 +430,19 @@ msgstr "Creado el"
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_detail.html:88
 #: maintenance/autres_interventions/geometrie/models.py:207
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail.html:82
-#: maintenance/autres_interventions/moteur/admission/models.py:209
+#: maintenance/autres_interventions/moteur/admission/models.py:212
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail.html:84
 #: maintenance/autres_interventions/moteur/alternateur/models.py:192
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail.html:82
-#: maintenance/autres_interventions/moteur/courroie/models.py:212
+#: maintenance/autres_interventions/moteur/courroie/models.py:211
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail.html:82
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:246
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_detail.html:83
-#: maintenance/autres_interventions/moteur/rodage/models.py:308
+#: maintenance/autres_interventions/moteur/rodage/models.py:325
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_detail.html:73
 #: maintenance/autres_interventions/moteur/turbo/models.py:144
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail.html:85
-#: maintenance/carrosserie_interne/models.py:580
+#: maintenance/carrosserie_interne/models.py:581
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_detail.html:85
 #: maintenance/check_up/models.py:444
 #: maintenance/check_up/templates/check_up/checkup_detail.html:76
@@ -458,11 +458,11 @@ msgstr "Creado el"
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_ext_detail.html:72
 #: maintenance/nettoyage_interieur/models.py:155
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_int_detail.html:73
-#: maintenance/niveaux/models.py:242
+#: maintenance/niveaux/models.py:300
 #: maintenance/niveaux/templates/niveaux/niveaux_detail.html:126
 #: maintenance/pneus/models.py:154
 #: maintenance/pneus/templates/pneus/pneus_detail.html:74
-#: maintenance/silent_blocs/models.py:114
+#: maintenance/silent_blocs/models.py:433
 #: maintenance/silent_blocs/templates/silent_blocs/silent_detail.html:79
 #: outillage/models.py:78
 #: outillage/templates/outillage/outillage_detail.html:85
@@ -1345,7 +1345,7 @@ msgstr "Otras informaciones"
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:165
 #: maintenance/autres_interventions/geometrie/views.py:272
 #: maintenance/autres_interventions/geometrie/views.py:420
-#: maintenance/autres_interventions/moteur/admission/models.py:143
+#: maintenance/autres_interventions/moteur/admission/models.py:146
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail.html:45
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:464
 #: maintenance/autres_interventions/moteur/admission/views.py:247
@@ -1355,9 +1355,9 @@ msgstr "Otras informaciones"
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:354
 #: maintenance/autres_interventions/moteur/alternateur/views.py:340
 #: maintenance/autres_interventions/moteur/alternateur/views.py:486
-#: maintenance/autres_interventions/moteur/courroie/models.py:151
+#: maintenance/autres_interventions/moteur/courroie/models.py:150
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail.html:44
-#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:392
+#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:366
 #: maintenance/autres_interventions/moteur/courroie/views.py:245
 #: maintenance/autres_interventions/moteur/courroie/views.py:387
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:186
@@ -1365,17 +1365,17 @@ msgstr "Otras informaciones"
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:323
 #: maintenance/autres_interventions/moteur/remplacement_moteur/views.py:244
 #: maintenance/autres_interventions/moteur/remplacement_moteur/views.py:378
-#: maintenance/autres_interventions/moteur/rodage/models.py:248
+#: maintenance/autres_interventions/moteur/rodage/models.py:265
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:463
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:458
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_detail.html:42
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:359
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:445
 #: maintenance/autres_interventions/moteur/turbo/models.py:85
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail.html:45
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:501
 #: maintenance/autres_interventions/moteur/turbo/views.py:113
 #: maintenance/autres_interventions/moteur/turbo/views.py:334
-#: maintenance/carrosserie_interne/models.py:577
+#: maintenance/carrosserie_interne/models.py:578
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_detail.html:41
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:212
 #: maintenance/check_up/models.py:376
@@ -1411,7 +1411,7 @@ msgstr "Otras informaciones"
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:321
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_simple.html:112
 #: maintenance/niveaux/templates/niveaux/modifier_niveaux.html:407
-#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:312
+#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:403
 #: maintenance/niveaux/templates/niveaux/niveau_form.html:426
 #: maintenance/niveaux/templates/niveaux/niveaux_detail.html:93
 #: maintenance/pneus/models.py:90
@@ -1419,9 +1419,9 @@ msgstr "Otras informaciones"
 #: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:372
 #: maintenance/pneus/templates/pneus/modifier_pneus.html:413
 #: maintenance/pneus/templates/pneus/pneus_detail.html:42
-#: maintenance/silent_blocs/models.py:87
+#: maintenance/silent_blocs/models.py:406
 #: maintenance/silent_blocs/templates/silent_blocs/modifier_silent.html:388
-#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:497
+#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:583
 #: maintenance/silent_blocs/templates/silent_blocs/silent_check.html:384
 #: maintenance/silent_blocs/templates/silent_blocs/silent_detail.html:47
 #: outillage/models.py:72
@@ -2305,9 +2305,9 @@ msgid "Client atelier"
 msgstr "Cliente del taller"
 
 #: client_atelier/models.py:80
-#, fuzzy, python-format
+#, python-format
 msgid "Client : %(nom)s %(prenom)s"
-msgstr "%(nom)s %(prenom)s (Cliente)"
+msgstr "%(nom)s %(prenom)s Cliente"
 
 #: client_atelier/templates/client_atelier/client_atelier_detail.html:12
 #: client_particulier/templates/client_particulier/client_detail.html:12
@@ -2650,7 +2650,7 @@ msgstr "Moneda"
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1000
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:410
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:298
-#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:356
+#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:330
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:435
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:177
 msgid "Total"
@@ -2737,20 +2737,57 @@ msgstr "Descripción"
 #: maintenance/autres_interventions/echappement/models.py:211
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:250
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:998
-#: maintenance/autres_interventions/moteur/admission/models.py:73
+#: maintenance/autres_interventions/moteur/admission/models.py:87
+#: maintenance/autres_interventions/moteur/admission/models.py:91
+#: maintenance/autres_interventions/moteur/admission/models.py:97
+#: maintenance/autres_interventions/moteur/admission/models.py:101
+#: maintenance/autres_interventions/moteur/admission/models.py:105
+#: maintenance/autres_interventions/moteur/admission/models.py:111
+#: maintenance/autres_interventions/moteur/admission/models.py:115
+#: maintenance/autres_interventions/moteur/admission/models.py:121
+#: maintenance/autres_interventions/moteur/admission/models.py:125
+#: maintenance/autres_interventions/moteur/admission/models.py:131
+#: maintenance/autres_interventions/moteur/admission/models.py:137
+#: maintenance/autres_interventions/moteur/admission/models.py:141
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:408
 #: maintenance/autres_interventions/moteur/alternateur/models.py:113
 #: maintenance/autres_interventions/moteur/alternateur/models.py:118
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:296
-#: maintenance/autres_interventions/moteur/courroie/models.py:136
-#: maintenance/autres_interventions/moteur/courroie/models.py:142
-#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:354
+#: maintenance/autres_interventions/moteur/courroie/models.py:134
+#: maintenance/autres_interventions/moteur/courroie/models.py:140
+#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:328
+#: maintenance/autres_interventions/moteur/rodage/models.py:192
+#: maintenance/autres_interventions/moteur/rodage/models.py:197
+#: maintenance/autres_interventions/moteur/rodage/models.py:202
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:273
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:371
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:433
-#: maintenance/carrosserie_interne/models.py:217
+#: maintenance/carrosserie_interne/models.py:218
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:175
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:549
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:453
+#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:329
+#: maintenance/silent_blocs/models.py:66 maintenance/silent_blocs/models.py:84
+#: maintenance/silent_blocs/models.py:102
+#: maintenance/silent_blocs/models.py:120
+#: maintenance/silent_blocs/models.py:138
+#: maintenance/silent_blocs/models.py:156
+#: maintenance/silent_blocs/models.py:161
+#: maintenance/silent_blocs/models.py:177
+#: maintenance/silent_blocs/models.py:194
+#: maintenance/silent_blocs/models.py:211
+#: maintenance/silent_blocs/models.py:228
+#: maintenance/silent_blocs/models.py:245
+#: maintenance/silent_blocs/models.py:262
+#: maintenance/silent_blocs/models.py:279
+#: maintenance/silent_blocs/models.py:296
+#: maintenance/silent_blocs/models.py:313
+#: maintenance/silent_blocs/models.py:330
+#: maintenance/silent_blocs/models.py:347
+#: maintenance/silent_blocs/models.py:364
+#: maintenance/silent_blocs/models.py:381
+#: maintenance/silent_blocs/models.py:398
+#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:519
 #: outillage/forms.py:23 outillage/forms.py:58 outillage/models.py:41
 #: outillage/templates/outillage/outillage_list.html:40
 #: outillage/templates/outillage/outillage_list.html:63 panier/models.py:98
@@ -2765,7 +2802,7 @@ msgstr "Cantidad"
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:999
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:409
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:297
-#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:355
+#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:329
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:434
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:176
 msgid "Prix unitaire"
@@ -3410,19 +3447,19 @@ msgstr "14,32 Litros"
 #: maintenance/autres_interventions/geometrie/models.py:204
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:81
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_list.html:63
-#: maintenance/autres_interventions/moteur/admission/models.py:206
+#: maintenance/autres_interventions/moteur/admission/models.py:209
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:130
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_list.html:62
 #: maintenance/autres_interventions/moteur/alternateur/models.py:189
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:150
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_list.html:63
-#: maintenance/autres_interventions/moteur/courroie/models.py:209
+#: maintenance/autres_interventions/moteur/courroie/models.py:208
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:136
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_list.html:63
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:243
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:74
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:116
-#: maintenance/autres_interventions/moteur/rodage/models.py:295
+#: maintenance/autres_interventions/moteur/rodage/models.py:312
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_list.html:60
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:130
 #: maintenance/autres_interventions/moteur/turbo/models.py:141
@@ -3601,7 +3638,7 @@ msgstr "Decreciente"
 
 #: investissements/models.py:57
 #: maintenance/autres_interventions/climatisation/models.py:47
-#: piece/piece_roue_rechange/models.py:10
+#: maintenance/niveaux/models.py:58 piece/piece_roue_rechange/models.py:10
 msgid "Autre"
 msgstr "Otro"
 
@@ -3640,7 +3677,7 @@ msgstr "Tiempo (min)"
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:260
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:313
 #: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:306
-#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:490
+#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:497
 msgid "Descriptif"
 msgstr "Descripción"
 
@@ -3660,14 +3697,14 @@ msgstr "El tiempo debe ser superior a 0."
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:68
 #: maintenance/autres_interventions/moteur/rodage/models.py:171
 #: maintenance/autres_interventions/moteur/turbo/models.py:40
-#: maintenance/carrosserie_interne/models.py:43
+#: maintenance/carrosserie_interne/models.py:44
 #: maintenance/check_up/models.py:177 maintenance/checkup_track/models.py:198
 #: maintenance/entretien/models.py:199 maintenance/freins/models.py:44
 #: maintenance/jeux_pieces/models.py:70
 #: maintenance/nettoyage_exterieur/models.py:38
 #: maintenance/nettoyage_interieur/models.py:41
-#: maintenance/niveaux/models.py:183 maintenance/pneus/models.py:53
-#: maintenance/silent_blocs/models.py:41
+#: maintenance/niveaux/models.py:225 maintenance/pneus/models.py:53
+#: maintenance/silent_blocs/models.py:40
 msgid "Kilomètres chassis"
 msgstr "Kilometraje del chasis"
 
@@ -3894,7 +3931,7 @@ msgstr "Etiqueta"
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_list.html:62
 #: maintenance/autres_interventions/geometrie/views.py:277
 #: maintenance/autres_interventions/geometrie/views.py:425
-#: maintenance/autres_interventions/moteur/admission/models.py:173
+#: maintenance/autres_interventions/moteur/admission/models.py:176
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail.html:35
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:135
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_list.html:43
@@ -3908,7 +3945,7 @@ msgstr "Etiqueta"
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_list.html:62
 #: maintenance/autres_interventions/moteur/alternateur/views.py:349
 #: maintenance/autres_interventions/moteur/alternateur/views.py:491
-#: maintenance/autres_interventions/moteur/courroie/models.py:175
+#: maintenance/autres_interventions/moteur/courroie/models.py:174
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail.html:34
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:141
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_list.html:44
@@ -3922,7 +3959,7 @@ msgstr "Etiqueta"
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:121
 #: maintenance/autres_interventions/moteur/remplacement_moteur/views.py:249
 #: maintenance/autres_interventions/moteur/remplacement_moteur/views.py:383
-#: maintenance/autres_interventions/moteur/rodage/models.py:269
+#: maintenance/autres_interventions/moteur/rodage/models.py:286
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:518
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:513
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_detail.html:34
@@ -3936,7 +3973,7 @@ msgstr "Etiqueta"
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_list.html:61
 #: maintenance/autres_interventions/moteur/turbo/views.py:114
 #: maintenance/autres_interventions/moteur/turbo/views.py:335
-#: maintenance/carrosserie_interne/models.py:550
+#: maintenance/carrosserie_interne/models.py:551
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_detail.html:32
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_list.html:43
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_list.html:60
@@ -3985,7 +4022,7 @@ msgstr "Etiqueta"
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_int_list.html:62
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:128
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_simple.html:161
-#: maintenance/niveaux/models.py:259
+#: maintenance/niveaux/models.py:317
 #: maintenance/niveaux/templates/niveaux/modifier_niveaux.html:455
 #: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:161
 #: maintenance/niveaux/templates/niveaux/niveau_form.html:477
@@ -3999,7 +4036,7 @@ msgstr "Etiqueta"
 #: maintenance/pneus/templates/pneus/pneus_detail.html:34
 #: maintenance/pneus/templates/pneus/pneus_list.html:42
 #: maintenance/pneus/templates/pneus/pneus_list.html:60
-#: maintenance/silent_blocs/models.py:122
+#: maintenance/silent_blocs/models.py:441
 #: maintenance/silent_blocs/templates/silent_blocs/modifier_silent.html:436
 #: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:145
 #: maintenance/silent_blocs/templates/silent_blocs/silent_check.html:432
@@ -4019,7 +4056,7 @@ msgstr "Técnico"
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:250
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:303
 #: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:301
-#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:481
+#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:488
 msgid "Main d'œuvre"
 msgstr "Mano de obra"
 
@@ -4130,7 +4167,7 @@ msgstr "Fecha de intervención"
 #: maintenance/pneus/templates/pneus/pneus_detail.html:41
 #: maintenance/pneus/templates/pneus/pneus_list.html:49
 #: maintenance/pneus/templates/pneus/pneus_list.html:62
-#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:485
+#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:492
 #: maintenance/silent_blocs/templates/silent_blocs/silent_detail.html:46
 #: maintenance/silent_blocs/templates/silent_blocs/silent_list.html:49
 #: maintenance/silent_blocs/templates/silent_blocs/silent_list.html:62
@@ -4202,20 +4239,20 @@ msgstr "Detalle de la mano de obra"
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:181
 #: maintenance/autres_interventions/geometrie/models.py:200
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:84
-#: maintenance/autres_interventions/moteur/admission/models.py:194
+#: maintenance/autres_interventions/moteur/admission/models.py:197
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:140
 #: maintenance/autres_interventions/moteur/alternateur/models.py:176
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:153
-#: maintenance/autres_interventions/moteur/courroie/models.py:196
+#: maintenance/autres_interventions/moteur/courroie/models.py:195
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:146
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:17
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:226
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:131
-#: maintenance/autres_interventions/moteur/rodage/models.py:290
+#: maintenance/autres_interventions/moteur/rodage/models.py:307
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:133
 #: maintenance/autres_interventions/moteur/turbo/models.py:136
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:154
-#: maintenance/carrosserie_interne/models.py:571
+#: maintenance/carrosserie_interne/models.py:572
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:122
 #: maintenance/check_up/models.py:436
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:130
@@ -4231,11 +4268,11 @@ msgstr "Detalle de la mano de obra"
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:137
 #: maintenance/nettoyage_interieur/models.py:148
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:138
-#: maintenance/niveaux/models.py:280
+#: maintenance/niveaux/models.py:338
 #: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:163
 #: maintenance/pneus/models.py:146
 #: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:136
-#: maintenance/silent_blocs/models.py:143
+#: maintenance/silent_blocs/models.py:462
 #: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:125
 #: piece/templates/piece/piece_detail.html:7
 #: proprietaire/templates/proprietaire/proprietaire_list.html:46
@@ -4282,25 +4319,25 @@ msgstr "Kilometraje del chasis"
 #: maintenance/autres_interventions/echappement/models.py:237
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:940
 #: maintenance/autres_interventions/geometrie/models.py:181
-#: maintenance/autres_interventions/moteur/admission/models.py:164
+#: maintenance/autres_interventions/moteur/admission/models.py:167
 #: maintenance/autres_interventions/moteur/admission/views.py:249
 #: maintenance/autres_interventions/moteur/alternateur/models.py:145
-#: maintenance/autres_interventions/moteur/courroie/models.py:205
-#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:337
+#: maintenance/autres_interventions/moteur/courroie/models.py:204
+#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:311
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:236
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:266
-#: maintenance/autres_interventions/moteur/rodage/models.py:303
+#: maintenance/autres_interventions/moteur/rodage/models.py:320
 #: maintenance/autres_interventions/moteur/turbo/models.py:106
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:398
-#: maintenance/carrosserie_interne/models.py:541
+#: maintenance/carrosserie_interne/models.py:542
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:156
 #: maintenance/check_up/models.py:397 maintenance/checkup_track/models.py:391
 #: maintenance/entretien/models.py:361 maintenance/freins/models.py:122
 #: maintenance/jeux_pieces/models.py:147
 #: maintenance/nettoyage_exterieur/models.py:97
 #: maintenance/nettoyage_interieur/models.py:118
-#: maintenance/niveaux/models.py:250 maintenance/pneus/models.py:116
-#: maintenance/silent_blocs/models.py:108 theme/templates/dashboard.html:353
+#: maintenance/niveaux/models.py:308 maintenance/pneus/models.py:116
+#: maintenance/silent_blocs/models.py:427 theme/templates/dashboard.html:353
 msgid "Main d'oeuvre"
 msgstr "Mano de obra"
 
@@ -4524,8 +4561,8 @@ msgstr "Agregue observaciones aquí..."
 #: maintenance/checkup_track/models.py:33
 #: maintenance/checkup_track/models.py:99
 #: maintenance/checkup_track/models.py:104 maintenance/freins/models.py:17
-#: maintenance/jeux_pieces/models.py:11 maintenance/niveaux/models.py:13
-#: maintenance/pneus/models.py:16 maintenance/silent_blocs/models.py:11
+#: maintenance/jeux_pieces/models.py:11 maintenance/niveaux/models.py:15
+#: maintenance/pneus/models.py:16 maintenance/silent_blocs/models.py:13
 msgid "OK"
 msgstr "OK"
 
@@ -4549,13 +4586,14 @@ msgstr "A reemplazar"
 #: maintenance/autres_interventions/moteur/alternateur/models.py:16
 #: maintenance/autres_interventions/moteur/courroie/models.py:17
 #: maintenance/autres_interventions/moteur/turbo/models.py:13
+#: maintenance/carrosserie_interne/models.py:14
 #: maintenance/check_up/models.py:20 maintenance/check_up/models.py:26
 #: maintenance/check_up/models.py:31 maintenance/check_up/models.py:97
 #: maintenance/check_up/models.py:103 maintenance/checkup_track/models.py:22
 #: maintenance/checkup_track/models.py:35
 #: maintenance/checkup_track/models.py:172 maintenance/freins/models.py:19
 #: maintenance/jeux_pieces/models.py:13 maintenance/pneus/models.py:18
-#: maintenance/silent_blocs/models.py:13
+#: maintenance/silent_blocs/models.py:15
 msgid "Remplacé"
 msgstr "Reemplazado"
 
@@ -4624,20 +4662,20 @@ msgstr "Precio del sensor ABS trasero izquierdo"
 #: maintenance/autres_interventions/echappement/models.py:219
 #: maintenance/autres_interventions/geometrie/models.py:164
 #: maintenance/autres_interventions/models.py:23
-#: maintenance/autres_interventions/moteur/admission/models.py:146
+#: maintenance/autres_interventions/moteur/admission/models.py:149
 #: maintenance/autres_interventions/moteur/alternateur/models.py:127
-#: maintenance/autres_interventions/moteur/courroie/models.py:157
+#: maintenance/autres_interventions/moteur/courroie/models.py:156
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:115
-#: maintenance/autres_interventions/moteur/rodage/models.py:251
+#: maintenance/autres_interventions/moteur/rodage/models.py:268
 #: maintenance/autres_interventions/moteur/turbo/models.py:88
-#: maintenance/carrosserie_interne/models.py:523
+#: maintenance/carrosserie_interne/models.py:524
 #: maintenance/check_up/models.py:379 maintenance/checkup_track/models.py:371
 #: maintenance/entretien/models.py:309 maintenance/freins/models.py:104
 #: maintenance/jeux_pieces/models.py:125 maintenance/models.py:44
 #: maintenance/nettoyage_exterieur/models.py:73
 #: maintenance/nettoyage_interieur/models.py:94
-#: maintenance/niveaux/models.py:227 maintenance/pneus/models.py:93
-#: maintenance/silent_blocs/models.py:91
+#: maintenance/niveaux/models.py:285 maintenance/pneus/models.py:93
+#: maintenance/silent_blocs/models.py:410
 #: voiture/voiture_exemplaire/models.py:224
 msgid "Vert"
 msgstr "Verde"
@@ -4651,20 +4689,20 @@ msgstr "Verde"
 #: maintenance/autres_interventions/echappement/models.py:220
 #: maintenance/autres_interventions/geometrie/models.py:165
 #: maintenance/autres_interventions/models.py:24
-#: maintenance/autres_interventions/moteur/admission/models.py:147
+#: maintenance/autres_interventions/moteur/admission/models.py:150
 #: maintenance/autres_interventions/moteur/alternateur/models.py:128
-#: maintenance/autres_interventions/moteur/courroie/models.py:158
+#: maintenance/autres_interventions/moteur/courroie/models.py:157
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:116
-#: maintenance/autres_interventions/moteur/rodage/models.py:252
+#: maintenance/autres_interventions/moteur/rodage/models.py:269
 #: maintenance/autres_interventions/moteur/turbo/models.py:89
-#: maintenance/carrosserie_interne/models.py:524
+#: maintenance/carrosserie_interne/models.py:525
 #: maintenance/check_up/models.py:380 maintenance/checkup_track/models.py:372
 #: maintenance/entretien/models.py:310 maintenance/freins/models.py:105
 #: maintenance/jeux_pieces/models.py:126 maintenance/models.py:45
 #: maintenance/nettoyage_exterieur/models.py:74
 #: maintenance/nettoyage_interieur/models.py:95
-#: maintenance/niveaux/models.py:228 maintenance/pneus/models.py:94
-#: maintenance/silent_blocs/models.py:92
+#: maintenance/niveaux/models.py:286 maintenance/pneus/models.py:94
+#: maintenance/silent_blocs/models.py:411
 #: voiture/voiture_exemplaire/models.py:225
 msgid "Jaune"
 msgstr "Amarillo"
@@ -4678,20 +4716,20 @@ msgstr "Amarillo"
 #: maintenance/autres_interventions/echappement/models.py:221
 #: maintenance/autres_interventions/geometrie/models.py:166
 #: maintenance/autres_interventions/models.py:25
-#: maintenance/autres_interventions/moteur/admission/models.py:148
+#: maintenance/autres_interventions/moteur/admission/models.py:151
 #: maintenance/autres_interventions/moteur/alternateur/models.py:129
-#: maintenance/autres_interventions/moteur/courroie/models.py:159
+#: maintenance/autres_interventions/moteur/courroie/models.py:158
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:117
-#: maintenance/autres_interventions/moteur/rodage/models.py:253
+#: maintenance/autres_interventions/moteur/rodage/models.py:270
 #: maintenance/autres_interventions/moteur/turbo/models.py:90
-#: maintenance/carrosserie_interne/models.py:525
+#: maintenance/carrosserie_interne/models.py:526
 #: maintenance/check_up/models.py:381 maintenance/checkup_track/models.py:373
 #: maintenance/entretien/models.py:311 maintenance/freins/models.py:106
 #: maintenance/jeux_pieces/models.py:127 maintenance/models.py:46
 #: maintenance/nettoyage_exterieur/models.py:75
 #: maintenance/nettoyage_interieur/models.py:96
-#: maintenance/niveaux/models.py:229 maintenance/pneus/models.py:95
-#: maintenance/silent_blocs/models.py:93
+#: maintenance/niveaux/models.py:287 maintenance/pneus/models.py:95
+#: maintenance/silent_blocs/models.py:412
 #: voiture/voiture_exemplaire/models.py:226
 msgid "Rouge"
 msgstr "Rojo"
@@ -4704,20 +4742,20 @@ msgstr "Rojo"
 #: maintenance/autres_interventions/courroie_accessoires/models.py:118
 #: maintenance/autres_interventions/echappement/models.py:228
 #: maintenance/autres_interventions/geometrie/models.py:172
-#: maintenance/autres_interventions/moteur/admission/models.py:155
+#: maintenance/autres_interventions/moteur/admission/models.py:158
 #: maintenance/autres_interventions/moteur/alternateur/models.py:136
-#: maintenance/autres_interventions/moteur/courroie/models.py:166
+#: maintenance/autres_interventions/moteur/courroie/models.py:165
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:124
-#: maintenance/autres_interventions/moteur/rodage/models.py:260
+#: maintenance/autres_interventions/moteur/rodage/models.py:277
 #: maintenance/autres_interventions/moteur/turbo/models.py:97
-#: maintenance/carrosserie_interne/models.py:532
+#: maintenance/carrosserie_interne/models.py:533
 #: maintenance/check_up/models.py:388 maintenance/checkup_track/models.py:380
 #: maintenance/entretien/models.py:318 maintenance/freins/models.py:113
 #: maintenance/jeux_pieces/models.py:134
 #: maintenance/nettoyage_exterieur/models.py:82
 #: maintenance/nettoyage_interieur/models.py:103
-#: maintenance/niveaux/models.py:236 maintenance/pneus/models.py:102
-#: maintenance/silent_blocs/models.py:100
+#: maintenance/niveaux/models.py:294 maintenance/pneus/models.py:102
+#: maintenance/silent_blocs/models.py:419
 #: voiture/voiture_exemplaire/models.py:233
 msgid "État visuel / Tag"
 msgstr "Estado visual / Etiqueta"
@@ -4730,20 +4768,20 @@ msgstr "Estado visual / Etiqueta"
 #: maintenance/autres_interventions/courroie_accessoires/models.py:132
 #: maintenance/autres_interventions/echappement/models.py:249
 #: maintenance/autres_interventions/geometrie/models.py:193
-#: maintenance/autres_interventions/moteur/admission/models.py:178
+#: maintenance/autres_interventions/moteur/admission/models.py:181
 #: maintenance/autres_interventions/moteur/alternateur/models.py:160
-#: maintenance/autres_interventions/moteur/courroie/models.py:180
+#: maintenance/autres_interventions/moteur/courroie/models.py:179
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:210
-#: maintenance/autres_interventions/moteur/rodage/models.py:274
+#: maintenance/autres_interventions/moteur/rodage/models.py:291
 #: maintenance/autres_interventions/moteur/turbo/models.py:120
-#: maintenance/carrosserie_interne/models.py:555
+#: maintenance/carrosserie_interne/models.py:556
 #: maintenance/check_up/models.py:420 maintenance/checkup_track/models.py:405
 #: maintenance/entretien/models.py:332 maintenance/freins/models.py:136
 #: maintenance/jeux_pieces/models.py:163
 #: maintenance/nettoyage_exterieur/models.py:111
 #: maintenance/nettoyage_interieur/models.py:132
-#: maintenance/niveaux/models.py:264 maintenance/pneus/models.py:130
-#: maintenance/silent_blocs/models.py:127
+#: maintenance/niveaux/models.py:322 maintenance/pneus/models.py:130
+#: maintenance/silent_blocs/models.py:446
 msgid "Nom du technicien"
 msgstr "Apellido del técnico"
 
@@ -4755,20 +4793,20 @@ msgstr "Apellido del técnico"
 #: maintenance/autres_interventions/courroie_accessoires/models.py:138
 #: maintenance/autres_interventions/echappement/models.py:250
 #: maintenance/autres_interventions/geometrie/models.py:194
-#: maintenance/autres_interventions/moteur/admission/models.py:184
+#: maintenance/autres_interventions/moteur/admission/models.py:187
 #: maintenance/autres_interventions/moteur/alternateur/models.py:166
-#: maintenance/autres_interventions/moteur/courroie/models.py:186
+#: maintenance/autres_interventions/moteur/courroie/models.py:185
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:216
-#: maintenance/autres_interventions/moteur/rodage/models.py:280
+#: maintenance/autres_interventions/moteur/rodage/models.py:297
 #: maintenance/autres_interventions/moteur/turbo/models.py:126
-#: maintenance/carrosserie_interne/models.py:561
+#: maintenance/carrosserie_interne/models.py:562
 #: maintenance/check_up/models.py:426 maintenance/checkup_track/models.py:411
 #: maintenance/entretien/models.py:338 maintenance/freins/models.py:142
 #: maintenance/jeux_pieces/models.py:169
 #: maintenance/nettoyage_exterieur/models.py:117
 #: maintenance/nettoyage_interieur/models.py:138
-#: maintenance/niveaux/models.py:270 maintenance/pneus/models.py:136
-#: maintenance/silent_blocs/models.py:133
+#: maintenance/niveaux/models.py:328 maintenance/pneus/models.py:136
+#: maintenance/silent_blocs/models.py:452
 msgid "Rôle du technicien"
 msgstr "Rol del técnico"
 
@@ -4798,8 +4836,8 @@ msgstr "Detalles del control"
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail.html:40
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_access_detail.html:40
 #: maintenance/autres_interventions/moteur/courroie/models.py:132
-#: maintenance/autres_interventions/moteur/courroie/models.py:233
-#: maintenance/autres_interventions/moteur/courroie/models.py:282
+#: maintenance/autres_interventions/moteur/courroie/models.py:232
+#: maintenance/autres_interventions/moteur/courroie/models.py:281
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail.html:40
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:210
 #: maintenance/autres_interventions/moteur/courroie/views.py:219
@@ -4856,6 +4894,7 @@ msgstr "Componentes"
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:997
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:236
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:273
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:370
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:336
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:151
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:603
@@ -4882,9 +4921,11 @@ msgstr "Componentes"
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:175
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:177
 #: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:187
+#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:326
 #: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:160
 #: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:316
 #: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:160
+#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:518
 msgid "État"
 msgstr "Estado"
 
@@ -4901,24 +4942,24 @@ msgid "Calculateur ABS"
 msgstr "Centralita ABS"
 
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:391
-#: maintenance/autres_interventions/moteur/admission/models.py:202
+#: maintenance/autres_interventions/moteur/admission/models.py:205
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:387
 #: maintenance/autres_interventions/moteur/alternateur/models.py:184
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:270
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:350
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:699
 #: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:363
-#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:488
+#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:495
 msgid "Taux horaire"
 msgstr "Tarifa por hora"
 
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:396
-#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:489
+#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:496
 msgid "Prix facturé"
 msgstr "Precio facturado"
 
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:405
-#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:492
+#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:499
 msgid "Aucune main d'œuvre liée"
 msgstr "No hay mano de obra asociada"
 
@@ -4927,9 +4968,10 @@ msgstr "No hay mano de obra asociada"
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:279
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:398
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:286
-#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:344
+#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:318
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:418
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:163
+#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:508
 msgid "Pièces à remplacer"
 msgstr "Piezas a sustituir"
 
@@ -4941,7 +4983,7 @@ msgstr "Piezas a sustituir"
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:996
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:407
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:295
-#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:353
+#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:327
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:335
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:432
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:174
@@ -4953,6 +4995,7 @@ msgstr "Piezas a sustituir"
 #: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:562
 #: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:631
 #: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:700
+#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:517
 #: panier/models.py:93 piece/models.py:110 piece/models.py:115
 #: piece/models.py:129 piece/templates/piece/piece_detail.html:5
 msgid "Pièce"
@@ -4960,11 +5003,17 @@ msgstr "Pieza"
 
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:422
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:710
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:372
+#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:330
+#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:520
 msgid "Prix unitaire HTVA"
 msgstr "Precio unitario sin IVA"
 
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:423
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:711
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:373
+#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:331
+#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:521
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:58
 msgid "Total HTVA"
 msgstr "Total sin IVA"
@@ -4974,6 +5023,9 @@ msgstr "Total sin IVA"
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:639
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:739
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1046
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:424
+#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:381
+#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:561
 msgid "Total général HTVA"
 msgstr "Total general sin IVA"
 
@@ -4982,9 +5034,10 @@ msgstr "Total general sin IVA"
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:316
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:456
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:344
-#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:385
+#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:359
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:490
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:204
+#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:577
 msgid "Aucune pièce à remplacer."
 msgstr "Ninguna pieza para sustituir."
 
@@ -4998,9 +5051,9 @@ msgstr "Ninguna pieza para sustituir."
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:168
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:467
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:357
-#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:395
+#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:369
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:326
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:361
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:447
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:505
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:215
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:769
@@ -5010,7 +5063,7 @@ msgstr "Ninguna pieza para sustituir."
 #: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:779
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:271
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:324
-#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:315
+#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:406
 #: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:375
 msgid "Aucune remarque."
 msgstr "Agregar una marca"
@@ -5277,35 +5330,35 @@ msgstr "Control del sistema ABS modificado con éxito!"
 
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:13
 #: maintenance/check_up/models.py:62 maintenance/checkup_track/models.py:66
-#: maintenance/entretien/models.py:44 maintenance/niveaux/models.py:35
+#: maintenance/entretien/models.py:44 maintenance/niveaux/models.py:77
 #: piece/piece_fluides/models.py:34
 msgid "75W"
 msgstr ""
 
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:14
 #: maintenance/check_up/models.py:63 maintenance/checkup_track/models.py:67
-#: maintenance/entretien/models.py:45 maintenance/niveaux/models.py:36
+#: maintenance/entretien/models.py:45 maintenance/niveaux/models.py:78
 #: piece/piece_fluides/models.py:35
 msgid "75W80"
 msgstr ""
 
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:15
 #: maintenance/check_up/models.py:64 maintenance/checkup_track/models.py:68
-#: maintenance/entretien/models.py:46 maintenance/niveaux/models.py:37
+#: maintenance/entretien/models.py:46 maintenance/niveaux/models.py:79
 #: piece/piece_fluides/models.py:36
 msgid "75W90"
 msgstr ""
 
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:17
 #: maintenance/check_up/models.py:66 maintenance/checkup_track/models.py:70
-#: maintenance/entretien/models.py:48 maintenance/niveaux/models.py:39
+#: maintenance/entretien/models.py:48 maintenance/niveaux/models.py:81
 #: piece/piece_fluides/models.py:38
 msgid "80W90"
 msgstr ""
 
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:18
 #: maintenance/check_up/models.py:67 maintenance/checkup_track/models.py:71
-#: maintenance/entretien/models.py:49 maintenance/niveaux/models.py:40
+#: maintenance/entretien/models.py:49 maintenance/niveaux/models.py:82
 #: piece/piece_fluides/models.py:39
 msgid "85W90"
 msgstr ""
@@ -5322,7 +5375,7 @@ msgstr ""
 #: maintenance/checkup_track/models.py:100
 #: maintenance/checkup_track/models.py:106 maintenance/freins/models.py:18
 #: maintenance/jeux_pieces/models.py:12 maintenance/pneus/models.py:17
-#: maintenance/silent_blocs/models.py:12
+#: maintenance/silent_blocs/models.py:14
 msgid "À remplacer"
 msgstr "A reemplazar"
 
@@ -5334,7 +5387,7 @@ msgstr "A reemplazar"
 #: maintenance/autres_interventions/moteur/admission/models.py:36
 #: maintenance/autres_interventions/moteur/rodage/models.py:154
 #: maintenance/autres_interventions/moteur/turbo/models.py:24
-#: maintenance/bruits/models.py:24 maintenance/carrosserie_interne/models.py:23
+#: maintenance/bruits/models.py:24 maintenance/carrosserie_interne/models.py:24
 #: maintenance/entretien/models.py:182 maintenance/freins/models.py:27
 #: maintenance/jeux_pieces/models.py:52 maintenance/models.py:152
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_ext_detail.html:39
@@ -5378,6 +5431,37 @@ msgstr "Disco de embrague"
 #: maintenance/autres_interventions/climatisation/models.py:399
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:401
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:251
+#: maintenance/autres_interventions/moteur/rodage/models.py:191
+#: maintenance/autres_interventions/moteur/rodage/models.py:196
+#: maintenance/autres_interventions/moteur/rodage/models.py:201
+#: maintenance/autres_interventions/moteur/rodage/models.py:206
+#: maintenance/autres_interventions/moteur/rodage/models.py:213
+#: maintenance/autres_interventions/moteur/rodage/models.py:218
+#: maintenance/autres_interventions/moteur/rodage/models.py:223
+#: maintenance/autres_interventions/moteur/rodage/models.py:228
+#: maintenance/niveaux/models.py:240 maintenance/niveaux/models.py:247
+#: maintenance/niveaux/models.py:253 maintenance/niveaux/models.py:259
+#: maintenance/niveaux/models.py:265 maintenance/niveaux/models.py:271
+#: maintenance/niveaux/models.py:277 maintenance/silent_blocs/models.py:62
+#: maintenance/silent_blocs/models.py:80 maintenance/silent_blocs/models.py:98
+#: maintenance/silent_blocs/models.py:116
+#: maintenance/silent_blocs/models.py:134
+#: maintenance/silent_blocs/models.py:152
+#: maintenance/silent_blocs/models.py:160
+#: maintenance/silent_blocs/models.py:173
+#: maintenance/silent_blocs/models.py:190
+#: maintenance/silent_blocs/models.py:207
+#: maintenance/silent_blocs/models.py:224
+#: maintenance/silent_blocs/models.py:241
+#: maintenance/silent_blocs/models.py:258
+#: maintenance/silent_blocs/models.py:275
+#: maintenance/silent_blocs/models.py:292
+#: maintenance/silent_blocs/models.py:309
+#: maintenance/silent_blocs/models.py:326
+#: maintenance/silent_blocs/models.py:343
+#: maintenance/silent_blocs/models.py:360
+#: maintenance/silent_blocs/models.py:377
+#: maintenance/silent_blocs/models.py:394
 msgid "Prix d'achat HTVA"
 msgstr "Precio de compra sin IVA"
 
@@ -5479,8 +5563,8 @@ msgstr "Horquilla de cambio"
 #: maintenance/check_up/models.py:202 maintenance/check_up/models.py:209
 #: maintenance/check_up/models.py:218 maintenance/checkup_track/models.py:219
 #: maintenance/checkup_track/models.py:225
-#: maintenance/checkup_track/models.py:232 maintenance/niveaux/models.py:193
-#: maintenance/niveaux/models.py:197 maintenance/niveaux/models.py:201
+#: maintenance/checkup_track/models.py:232 maintenance/niveaux/models.py:237
+#: maintenance/niveaux/models.py:244 maintenance/niveaux/models.py:250
 msgid "Quantité d'huile ajoutée en litres"
 msgstr "Cantidad de aceite añadido en litros"
 
@@ -6044,117 +6128,117 @@ msgstr "¡Revisión de la caja de cambios modificada con éxito!"
 
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:14
 #: maintenance/check_up/models.py:68 maintenance/checkup_track/models.py:72
-#: maintenance/entretien/models.py:50 maintenance/niveaux/models.py:42
+#: maintenance/entretien/models.py:50 maintenance/niveaux/models.py:84
 #: piece/piece_fluides/models.py:40
 msgid "ATF III"
 msgstr ""
 
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:15
 #: maintenance/check_up/models.py:69 maintenance/checkup_track/models.py:73
-#: maintenance/entretien/models.py:51 maintenance/niveaux/models.py:43
+#: maintenance/entretien/models.py:51 maintenance/niveaux/models.py:85
 #: piece/piece_fluides/models.py:41
 msgid "ATF DSG"
 msgstr ""
 
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:16
 #: maintenance/check_up/models.py:70 maintenance/checkup_track/models.py:74
-#: maintenance/entretien/models.py:52 maintenance/niveaux/models.py:44
+#: maintenance/entretien/models.py:52 maintenance/niveaux/models.py:86
 msgid "ATF DCT"
 msgstr ""
 
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:17
 #: maintenance/check_up/models.py:71 maintenance/checkup_track/models.py:75
-#: maintenance/entretien/models.py:53 maintenance/niveaux/models.py:45
+#: maintenance/entretien/models.py:53 maintenance/niveaux/models.py:87
 msgid "ATF CVT"
 msgstr ""
 
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:18
 #: maintenance/check_up/models.py:72 maintenance/checkup_track/models.py:76
-#: maintenance/entretien/models.py:54 maintenance/niveaux/models.py:46
+#: maintenance/entretien/models.py:54 maintenance/niveaux/models.py:88
 msgid "ATF Dexron II"
 msgstr ""
 
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:19
 #: maintenance/check_up/models.py:73 maintenance/checkup_track/models.py:77
-#: maintenance/entretien/models.py:55 maintenance/niveaux/models.py:47
+#: maintenance/entretien/models.py:55 maintenance/niveaux/models.py:89
 msgid "ATF Dexron III"
 msgstr ""
 
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:20
 #: maintenance/check_up/models.py:74 maintenance/checkup_track/models.py:78
-#: maintenance/entretien/models.py:56 maintenance/niveaux/models.py:48
+#: maintenance/entretien/models.py:56 maintenance/niveaux/models.py:90
 msgid "ATF Dexron VI"
 msgstr ""
 
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:21
 #: maintenance/check_up/models.py:75 maintenance/checkup_track/models.py:79
-#: maintenance/entretien/models.py:57 maintenance/niveaux/models.py:49
+#: maintenance/entretien/models.py:57 maintenance/niveaux/models.py:91
 msgid "ATF Mercon"
 msgstr ""
 
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:22
 #: maintenance/check_up/models.py:76 maintenance/checkup_track/models.py:80
-#: maintenance/entretien/models.py:58 maintenance/niveaux/models.py:50
+#: maintenance/entretien/models.py:58 maintenance/niveaux/models.py:92
 msgid "ATF Mercon V"
 msgstr ""
 
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:23
 #: maintenance/check_up/models.py:77 maintenance/checkup_track/models.py:81
-#: maintenance/entretien/models.py:59 maintenance/niveaux/models.py:51
+#: maintenance/entretien/models.py:59 maintenance/niveaux/models.py:93
 msgid "ATF Mercon LV"
 msgstr ""
 
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:24
 #: maintenance/check_up/models.py:78 maintenance/checkup_track/models.py:82
-#: maintenance/entretien/models.py:60 maintenance/niveaux/models.py:52
+#: maintenance/entretien/models.py:60 maintenance/niveaux/models.py:94
 msgid "ATF Multi Vehicle"
 msgstr ""
 
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:25
 #: maintenance/check_up/models.py:79 maintenance/checkup_track/models.py:83
-#: maintenance/entretien/models.py:61 maintenance/niveaux/models.py:53
+#: maintenance/entretien/models.py:61 maintenance/niveaux/models.py:95
 msgid "ATF Toyota WS"
 msgstr ""
 
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:26
 #: maintenance/check_up/models.py:80 maintenance/checkup_track/models.py:84
-#: maintenance/entretien/models.py:62 maintenance/niveaux/models.py:54
+#: maintenance/entretien/models.py:62 maintenance/niveaux/models.py:96
 msgid "ZF Lifeguard"
 msgstr ""
 
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:27
 #: maintenance/check_up/models.py:81 maintenance/checkup_track/models.py:85
-#: maintenance/entretien/models.py:63 maintenance/niveaux/models.py:55
+#: maintenance/entretien/models.py:63 maintenance/niveaux/models.py:97
 msgid "Mopar ATF+4"
 msgstr ""
 
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:28
 #: maintenance/check_up/models.py:82 maintenance/checkup_track/models.py:86
-#: maintenance/entretien/models.py:64 maintenance/niveaux/models.py:56
+#: maintenance/entretien/models.py:64 maintenance/niveaux/models.py:98
 msgid "Aisin ATF"
 msgstr ""
 
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:29
 #: maintenance/check_up/models.py:83 maintenance/checkup_track/models.py:87
-#: maintenance/entretien/models.py:65 maintenance/niveaux/models.py:57
+#: maintenance/entretien/models.py:65 maintenance/niveaux/models.py:99
 msgid "Mercedes MB 236.x"
 msgstr ""
 
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:30
 #: maintenance/check_up/models.py:84 maintenance/checkup_track/models.py:88
-#: maintenance/entretien/models.py:66 maintenance/niveaux/models.py:58
+#: maintenance/entretien/models.py:66 maintenance/niveaux/models.py:100
 msgid "Volvo ATF"
 msgstr ""
 
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:31
 #: maintenance/check_up/models.py:85 maintenance/checkup_track/models.py:89
-#: maintenance/entretien/models.py:67 maintenance/niveaux/models.py:59
+#: maintenance/entretien/models.py:67 maintenance/niveaux/models.py:101
 msgid "Honda ATF DW-1"
 msgstr ""
 
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:32
 #: maintenance/check_up/models.py:86 maintenance/checkup_track/models.py:90
-#: maintenance/entretien/models.py:68 maintenance/niveaux/models.py:60
+#: maintenance/entretien/models.py:68 maintenance/niveaux/models.py:102
 msgid "Nissan Matic"
 msgstr ""
 
@@ -6828,7 +6912,7 @@ msgid "Courroie d'accessoires"
 msgstr "Correa de accesorios"
 
 #: maintenance/autres_interventions/courroie_accessoires/models.py:89
-#: maintenance/autres_interventions/moteur/courroie/models.py:135
+#: maintenance/autres_interventions/moteur/courroie/models.py:133
 msgid "Prix d'achat htva de la courroie"
 msgstr "Precio de compra sin IVA de la correa"
 
@@ -6911,7 +6995,7 @@ msgstr "Polea amortiguadora"
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:307
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:441
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:329
-#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:373
+#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:347
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:313
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:471
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:193
@@ -6986,6 +7070,18 @@ msgstr "Colector de escape"
 #: maintenance/autres_interventions/echappement/models.py:161
 #: maintenance/autres_interventions/echappement/models.py:166
 #: maintenance/autres_interventions/echappement/models.py:171
+#: maintenance/autres_interventions/moteur/admission/models.py:86
+#: maintenance/autres_interventions/moteur/admission/models.py:90
+#: maintenance/autres_interventions/moteur/admission/models.py:96
+#: maintenance/autres_interventions/moteur/admission/models.py:100
+#: maintenance/autres_interventions/moteur/admission/models.py:104
+#: maintenance/autres_interventions/moteur/admission/models.py:110
+#: maintenance/autres_interventions/moteur/admission/models.py:114
+#: maintenance/autres_interventions/moteur/admission/models.py:120
+#: maintenance/autres_interventions/moteur/admission/models.py:124
+#: maintenance/autres_interventions/moteur/admission/models.py:130
+#: maintenance/autres_interventions/moteur/admission/models.py:136
+#: maintenance/autres_interventions/moteur/admission/models.py:140
 #: maintenance/autres_interventions/moteur/alternateur/models.py:112
 #: maintenance/autres_interventions/moteur/alternateur/models.py:117
 msgid "Prix d'achat htva"
@@ -7552,7 +7648,7 @@ msgid "Contrôle de la géométrie modifié avec succès !"
 msgstr "¡Control de alineación modificado con éxito!"
 
 #: maintenance/autres_interventions/models.py:10
-#: maintenance/autres_interventions/moteur/rodage/models.py:361
+#: maintenance/autres_interventions/moteur/rodage/models.py:378
 #: maintenance/entretien/models.py:384 maintenance/entretien/models.py:419
 #: maintenance/entretien/templates/entretien/entretien_detail.html:39
 #: maintenance/models.py:17
@@ -7621,8 +7717,8 @@ msgstr "Limpieza interior"
 #: maintenance/autres_interventions/models.py:15
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:271
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:447
-#: maintenance/models.py:22 maintenance/niveaux/models.py:167
-#: maintenance/niveaux/models.py:295 maintenance/niveaux/models.py:332
+#: maintenance/models.py:22 maintenance/niveaux/models.py:209
+#: maintenance/niveaux/models.py:353 maintenance/niveaux/models.py:390
 #: maintenance/niveaux/templates/niveaux/niveaux_detail.html:40
 #: maintenance/templates/maintenance/choisir_type.html:102
 #: maintenance/types_maintenances.py:11
@@ -7707,7 +7803,7 @@ msgstr ""
 msgid "110 €/h"
 msgstr ""
 
-#: maintenance/autres_interventions/moteur/admission/models.py:71
+#: maintenance/autres_interventions/moteur/admission/models.py:85
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:189
 #: maintenance/autres_interventions/moteur/admission/views.py:234
 #: maintenance/autres_interventions/moteur/admission/views.py:348
@@ -7716,39 +7812,34 @@ msgstr ""
 msgid "Filtre à air"
 msgstr "Filtro de aire"
 
-#: maintenance/autres_interventions/moteur/admission/models.py:72
-#: maintenance/carrosserie_interne/models.py:212
-msgid "Prix"
-msgstr "Precio"
-
-#: maintenance/autres_interventions/moteur/admission/models.py:76
+#: maintenance/autres_interventions/moteur/admission/models.py:89
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:200
 msgid "Boîtier filtre à air"
 msgstr "Caja del filtro de aire"
 
-#: maintenance/autres_interventions/moteur/admission/models.py:83
+#: maintenance/autres_interventions/moteur/admission/models.py:95
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:220
 msgid "Débitmètre d'air"
 msgstr "Caudalímetro"
 
-#: maintenance/autres_interventions/moteur/admission/models.py:88
+#: maintenance/autres_interventions/moteur/admission/models.py:99
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:232
 #: maintenance/autres_interventions/moteur/admission/views.py:237
 #: maintenance/autres_interventions/moteur/admission/views.py:363
 msgid "Capteur MAP"
 msgstr "Sensor MAP"
 
-#: maintenance/autres_interventions/moteur/admission/models.py:93
+#: maintenance/autres_interventions/moteur/admission/models.py:103
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:244
 msgid "Capteur température air"
 msgstr "Sensor de temperatura de admisión"
 
-#: maintenance/autres_interventions/moteur/admission/models.py:100
+#: maintenance/autres_interventions/moteur/admission/models.py:109
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:264
 msgid "Corps de papillon"
 msgstr "Cuerpo de mariposa"
 
-#: maintenance/autres_interventions/moteur/admission/models.py:105
+#: maintenance/autres_interventions/moteur/admission/models.py:113
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:276
 #: maintenance/autres_interventions/moteur/admission/views.py:240
 #: maintenance/autres_interventions/moteur/admission/views.py:378
@@ -7756,13 +7847,13 @@ msgstr "Cuerpo de mariposa"
 msgid "Collecteur d'admission"
 msgstr "Colector de admisión"
 
-#: maintenance/autres_interventions/moteur/admission/models.py:112
+#: maintenance/autres_interventions/moteur/admission/models.py:119
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:296
 #: maintenance/autres_interventions/moteur/admission/views.py:241
 #: maintenance/autres_interventions/moteur/admission/views.py:383
 #: maintenance/autres_interventions/moteur/templates/moteur/dashboard_moteur.html:64
 #: maintenance/autres_interventions/moteur/turbo/models.py:154
-#: maintenance/autres_interventions/moteur/turbo/models.py:198
+#: maintenance/autres_interventions/moteur/turbo/models.py:187
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:342
 #: maintenance/autres_interventions/moteur/turbo/views.py:108
 #: maintenance/autres_interventions/moteur/turbo/views.py:329
@@ -7771,7 +7862,7 @@ msgstr "Colector de admisión"
 msgid "Turbo"
 msgstr "Turbo"
 
-#: maintenance/autres_interventions/moteur/admission/models.py:117
+#: maintenance/autres_interventions/moteur/admission/models.py:123
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:308
 #: maintenance/autres_interventions/moteur/admission/views.py:242
 #: maintenance/autres_interventions/moteur/admission/views.py:388
@@ -7782,7 +7873,7 @@ msgstr "Turbo"
 msgid "Intercooler"
 msgstr "Intercooler"
 
-#: maintenance/autres_interventions/moteur/admission/models.py:124
+#: maintenance/autres_interventions/moteur/admission/models.py:129
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:329
 #: maintenance/autres_interventions/moteur/admission/views.py:243
 #: maintenance/autres_interventions/moteur/admission/views.py:393
@@ -7790,20 +7881,20 @@ msgstr "Intercooler"
 msgid "Vanne EGR"
 msgstr "Válvula EGR"
 
-#: maintenance/autres_interventions/moteur/admission/models.py:131
+#: maintenance/autres_interventions/moteur/admission/models.py:135
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:349
 #: maintenance/autres_interventions/moteur/admission/views.py:244
 #: maintenance/autres_interventions/moteur/admission/views.py:398
 msgid "Durites d'admission"
 msgstr "Manguitos de admisión"
 
-#: maintenance/autres_interventions/moteur/admission/models.py:136
+#: maintenance/autres_interventions/moteur/admission/models.py:139
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail_pdf.html:361
 msgid "Joints admission"
 msgstr "Juntas de admisión"
 
-#: maintenance/autres_interventions/moteur/admission/models.py:219
-#: maintenance/autres_interventions/moteur/admission/models.py:258
+#: maintenance/autres_interventions/moteur/admission/models.py:222
+#: maintenance/autres_interventions/moteur/admission/models.py:261
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_detail.html:41
 #: maintenance/autres_interventions/moteur/alternateur/models.py:202
 #: maintenance/autres_interventions/moteur/templates/moteur/dashboard_moteur.html:17
@@ -7812,12 +7903,12 @@ msgstr "Juntas de admisión"
 msgid "Admission"
 msgstr "Admisión"
 
-#: maintenance/autres_interventions/moteur/admission/models.py:220
+#: maintenance/autres_interventions/moteur/admission/models.py:223
 #: maintenance/autres_interventions/moteur/alternateur/models.py:203
 msgid "Admissions"
 msgstr "Admisiones"
 
-#: maintenance/autres_interventions/moteur/admission/models.py:235
+#: maintenance/autres_interventions/moteur/admission/models.py:238
 msgid "Le kilométrage ne peut pas être inférieur au kilométrage actuel."
 msgstr "El kilometraje no puede ser inferior al kilometraje actual."
 
@@ -8037,7 +8128,7 @@ msgstr "¡Control del alternador modificado con éxito!"
 #: maintenance/autres_interventions/moteur/courroie/models.py:21
 #: maintenance/autres_interventions/moteur/rodage/models.py:100
 #: maintenance/check_up/models.py:107 maintenance/checkup_track/models.py:111
-#: maintenance/entretien/models.py:128 maintenance/niveaux/models.py:72
+#: maintenance/entretien/models.py:128 maintenance/niveaux/models.py:114
 #: piece/piece_fluides/models.py:100
 msgid "G 11"
 msgstr ""
@@ -8045,7 +8136,7 @@ msgstr ""
 #: maintenance/autres_interventions/moteur/courroie/models.py:22
 #: maintenance/autres_interventions/moteur/rodage/models.py:101
 #: maintenance/check_up/models.py:108 maintenance/checkup_track/models.py:112
-#: maintenance/entretien/models.py:129 maintenance/niveaux/models.py:73
+#: maintenance/entretien/models.py:129 maintenance/niveaux/models.py:115
 #: piece/piece_fluides/models.py:101
 msgid "G 12"
 msgstr ""
@@ -8053,7 +8144,7 @@ msgstr ""
 #: maintenance/autres_interventions/moteur/courroie/models.py:23
 #: maintenance/autres_interventions/moteur/rodage/models.py:102
 #: maintenance/check_up/models.py:109 maintenance/checkup_track/models.py:113
-#: maintenance/entretien/models.py:130 maintenance/niveaux/models.py:74
+#: maintenance/entretien/models.py:130 maintenance/niveaux/models.py:116
 #: piece/piece_fluides/models.py:102
 msgid "G 12+"
 msgstr ""
@@ -8061,7 +8152,7 @@ msgstr ""
 #: maintenance/autres_interventions/moteur/courroie/models.py:24
 #: maintenance/autres_interventions/moteur/rodage/models.py:103
 #: maintenance/check_up/models.py:110 maintenance/checkup_track/models.py:114
-#: maintenance/entretien/models.py:131 maintenance/niveaux/models.py:75
+#: maintenance/entretien/models.py:131 maintenance/niveaux/models.py:117
 #: piece/piece_fluides/models.py:103
 msgid "G 12++"
 msgstr ""
@@ -8069,7 +8160,7 @@ msgstr ""
 #: maintenance/autres_interventions/moteur/courroie/models.py:25
 #: maintenance/autres_interventions/moteur/rodage/models.py:104
 #: maintenance/check_up/models.py:111 maintenance/checkup_track/models.py:115
-#: maintenance/entretien/models.py:132 maintenance/niveaux/models.py:76
+#: maintenance/entretien/models.py:132 maintenance/niveaux/models.py:118
 #: piece/piece_fluides/models.py:104
 msgid "G 13"
 msgstr ""
@@ -8077,14 +8168,14 @@ msgstr ""
 #: maintenance/autres_interventions/moteur/courroie/models.py:28
 #: maintenance/autres_interventions/moteur/rodage/models.py:107
 #: maintenance/check_up/models.py:114 maintenance/entretien/models.py:135
-#: maintenance/niveaux/models.py:79 piece/piece_fluides/models.py:107
+#: maintenance/niveaux/models.py:121 piece/piece_fluides/models.py:107
 msgid "G 48"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/courroie/models.py:31
 #: maintenance/autres_interventions/moteur/rodage/models.py:110
 #: maintenance/check_up/models.py:117 maintenance/checkup_track/models.py:121
-#: maintenance/entretien/models.py:138 maintenance/niveaux/models.py:82
+#: maintenance/entretien/models.py:138 maintenance/niveaux/models.py:124
 #: piece/piece_fluides/models.py:110
 msgid "MB 325.0"
 msgstr ""
@@ -8092,7 +8183,7 @@ msgstr ""
 #: maintenance/autres_interventions/moteur/courroie/models.py:32
 #: maintenance/autres_interventions/moteur/rodage/models.py:111
 #: maintenance/check_up/models.py:118 maintenance/checkup_track/models.py:122
-#: maintenance/entretien/models.py:139 maintenance/niveaux/models.py:83
+#: maintenance/entretien/models.py:139 maintenance/niveaux/models.py:125
 #: piece/piece_fluides/models.py:111
 msgid "MB 325.3"
 msgstr ""
@@ -8100,7 +8191,7 @@ msgstr ""
 #: maintenance/autres_interventions/moteur/courroie/models.py:33
 #: maintenance/autres_interventions/moteur/rodage/models.py:112
 #: maintenance/check_up/models.py:119 maintenance/checkup_track/models.py:123
-#: maintenance/entretien/models.py:140 maintenance/niveaux/models.py:84
+#: maintenance/entretien/models.py:140 maintenance/niveaux/models.py:126
 #: piece/piece_fluides/models.py:112
 msgid "MB 325.5"
 msgstr ""
@@ -8108,7 +8199,7 @@ msgstr ""
 #: maintenance/autres_interventions/moteur/courroie/models.py:36
 #: maintenance/autres_interventions/moteur/rodage/models.py:115
 #: maintenance/check_up/models.py:122 maintenance/checkup_track/models.py:126
-#: maintenance/entretien/models.py:143 maintenance/niveaux/models.py:87
+#: maintenance/entretien/models.py:143 maintenance/niveaux/models.py:129
 #: piece/piece_fluides/models.py:115
 msgid "Type D"
 msgstr "Tipe D"
@@ -8116,7 +8207,7 @@ msgstr "Tipe D"
 #: maintenance/autres_interventions/moteur/courroie/models.py:39
 #: maintenance/autres_interventions/moteur/rodage/models.py:118
 #: maintenance/check_up/models.py:125 maintenance/checkup_track/models.py:129
-#: maintenance/entretien/models.py:146 maintenance/niveaux/models.py:90
+#: maintenance/entretien/models.py:146 maintenance/niveaux/models.py:132
 #: piece/piece_fluides/models.py:118
 msgid "PSA B71 5110"
 msgstr ""
@@ -8124,21 +8215,21 @@ msgstr ""
 #: maintenance/autres_interventions/moteur/courroie/models.py:42
 #: maintenance/autres_interventions/moteur/rodage/models.py:121
 #: maintenance/check_up/models.py:128 maintenance/entretien/models.py:149
-#: maintenance/niveaux/models.py:93 piece/piece_fluides/models.py:121
+#: maintenance/niveaux/models.py:135 piece/piece_fluides/models.py:121
 msgid "WSS-M97B44-D"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/courroie/models.py:43
 #: maintenance/autres_interventions/moteur/rodage/models.py:122
 #: maintenance/check_up/models.py:129 maintenance/entretien/models.py:150
-#: maintenance/niveaux/models.py:94 piece/piece_fluides/models.py:122
+#: maintenance/niveaux/models.py:136 piece/piece_fluides/models.py:122
 msgid "WSS-M97B51-A1"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/courroie/models.py:46
 #: maintenance/autres_interventions/moteur/rodage/models.py:125
 #: maintenance/check_up/models.py:132 maintenance/checkup_track/models.py:136
-#: maintenance/entretien/models.py:153 maintenance/niveaux/models.py:97
+#: maintenance/entretien/models.py:153 maintenance/niveaux/models.py:139
 #: piece/piece_fluides/models.py:125
 msgid "Dex-Cool"
 msgstr ""
@@ -8146,7 +8237,7 @@ msgstr ""
 #: maintenance/autres_interventions/moteur/courroie/models.py:49
 #: maintenance/autres_interventions/moteur/rodage/models.py:128
 #: maintenance/check_up/models.py:135 maintenance/checkup_track/models.py:139
-#: maintenance/entretien/models.py:156 maintenance/niveaux/models.py:100
+#: maintenance/entretien/models.py:156 maintenance/niveaux/models.py:142
 #: piece/piece_fluides/models.py:128
 msgid "Toyota SLLC"
 msgstr ""
@@ -8154,7 +8245,7 @@ msgstr ""
 #: maintenance/autres_interventions/moteur/courroie/models.py:52
 #: maintenance/autres_interventions/moteur/rodage/models.py:131
 #: maintenance/check_up/models.py:138 maintenance/checkup_track/models.py:142
-#: maintenance/entretien/models.py:159 maintenance/niveaux/models.py:103
+#: maintenance/entretien/models.py:159 maintenance/niveaux/models.py:145
 #: piece/piece_fluides/models.py:131
 msgid "Honda Type 2"
 msgstr ""
@@ -8162,7 +8253,7 @@ msgstr ""
 #: maintenance/autres_interventions/moteur/courroie/models.py:55
 #: maintenance/autres_interventions/moteur/rodage/models.py:134
 #: maintenance/check_up/models.py:141 maintenance/checkup_track/models.py:145
-#: maintenance/entretien/models.py:162 maintenance/niveaux/models.py:106
+#: maintenance/entretien/models.py:162 maintenance/niveaux/models.py:148
 #: piece/piece_fluides/models.py:134
 msgid "Nissan L248"
 msgstr ""
@@ -8170,7 +8261,7 @@ msgstr ""
 #: maintenance/autres_interventions/moteur/courroie/models.py:56
 #: maintenance/autres_interventions/moteur/rodage/models.py:135
 #: maintenance/check_up/models.py:142 maintenance/checkup_track/models.py:146
-#: maintenance/entretien/models.py:163 maintenance/niveaux/models.py:107
+#: maintenance/entretien/models.py:163 maintenance/niveaux/models.py:149
 #: piece/piece_fluides/models.py:135
 msgid "Nissan L250"
 msgstr ""
@@ -8178,7 +8269,7 @@ msgstr ""
 #: maintenance/autres_interventions/moteur/courroie/models.py:59
 #: maintenance/autres_interventions/moteur/rodage/models.py:138
 #: maintenance/check_up/models.py:145 maintenance/checkup_track/models.py:149
-#: maintenance/entretien/models.py:166 maintenance/niveaux/models.py:110
+#: maintenance/entretien/models.py:166 maintenance/niveaux/models.py:152
 #: piece/piece_fluides/models.py:138
 msgid "Hyundai/Kia Long Life Coolant"
 msgstr ""
@@ -8187,34 +8278,33 @@ msgstr ""
 msgid "Kilométrage de la courroie de distribution"
 msgstr "Kilometraje de la correa de distribución"
 
-#: maintenance/autres_interventions/moteur/courroie/models.py:134
-msgid "Nouveau kit distribution"
-msgstr "Nuevo kit de distribución"
-
-#: maintenance/autres_interventions/moteur/courroie/models.py:140
-#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:264
+#: maintenance/autres_interventions/moteur/courroie/models.py:138
+#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:238
 #: maintenance/autres_interventions/moteur/courroie/views.py:224
 #: maintenance/autres_interventions/moteur/courroie/views.py:365
 #: piece/piece_distribution/models.py:16
 msgid "Pompe à eau"
 msgstr "Bomba de agua"
 
-#: maintenance/autres_interventions/moteur/courroie/models.py:141
+#: maintenance/autres_interventions/moteur/courroie/models.py:139
 msgid "Prix d'achat htva de la pompe à eau"
 msgstr "Precio de compra sin IVA de la bomba de agua"
 
-#: maintenance/autres_interventions/moteur/courroie/models.py:145
-#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:318
+#: maintenance/autres_interventions/moteur/courroie/models.py:143
+#: maintenance/autres_interventions/moteur/courroie/models.py:295
+#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:292
 #: maintenance/autres_interventions/moteur/courroie/views.py:229
 #: maintenance/autres_interventions/moteur/courroie/views.py:370
 #: maintenance/autres_interventions/moteur/remplacement_moteur/views.py:224
 #: maintenance/autres_interventions/moteur/remplacement_moteur/views.py:358
+#: maintenance/autres_interventions/moteur/rodage/models.py:498
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:237
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:232
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:302
 #: maintenance/entretien/templates/entretien/entretien_check.html:337
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:488
 #: maintenance/entretien/templates/entretien/modifier_entretien.html:341
+#: maintenance/niveaux/models.py:456
 #: maintenance/niveaux/templates/niveaux/modifier_niveaux.html:157
 #: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:240
 #: maintenance/niveaux/templates/niveaux/niveau_form.html:157
@@ -8222,24 +8312,28 @@ msgstr "Precio de compra sin IVA de la bomba de agua"
 msgid "Liquide de refroidissement"
 msgstr "Líquido refrigerante"
 
-#: maintenance/autres_interventions/moteur/courroie/models.py:146
+#: maintenance/autres_interventions/moteur/courroie/models.py:144
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:156
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:254
 #: maintenance/check_up/models.py:225 maintenance/checkup_track/models.py:239
-#: maintenance/niveaux/models.py:205
+#: maintenance/niveaux/models.py:256
 msgid "Quantité de liquide de refroidissement ajoutée en litres"
 msgstr "Cantidad de líquido refrigerante añadida en litros"
 
-#: maintenance/autres_interventions/moteur/courroie/models.py:147
+#: maintenance/autres_interventions/moteur/courroie/models.py:145
+msgid "Prix d'achat htva du liquide de refroidissement"
+msgstr "Precio de compra sin IVA del líquido refrigerante"
+
+#: maintenance/autres_interventions/moteur/courroie/models.py:146
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:164
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:259
-#: maintenance/autres_interventions/moteur/rodage/models.py:208
+#: maintenance/autres_interventions/moteur/rodage/models.py:224
 #: maintenance/check_up/models.py:226 maintenance/checkup_track/models.py:240
-#: maintenance/entretien/models.py:256 maintenance/niveaux/models.py:206
+#: maintenance/entretien/models.py:256 maintenance/niveaux/models.py:257
 msgid "Qualité de liquide de refroidissement"
 msgstr "Calidad del líquido refrigerante"
 
-#: maintenance/autres_interventions/moteur/courroie/models.py:228
+#: maintenance/autres_interventions/moteur/courroie/models.py:227
 msgid ""
 "Le kilométrage de la courroie ne peut pas être supérieur au kilométrage du "
 "véhicule."
@@ -8247,7 +8341,7 @@ msgstr ""
 "El kilometraje de la correa no puede ser superior al kilometraje del "
 "vehículo."
 
-#: maintenance/autres_interventions/moteur/courroie/models.py:234
+#: maintenance/autres_interventions/moteur/courroie/models.py:233
 msgid "Courroies de distributions"
 msgstr "Correas de distribución"
 
@@ -8267,23 +8361,20 @@ msgstr "Kilometraje de la correa"
 msgid "Contrôle courroie"
 msgstr "Control de la correa"
 
-#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:237
-msgid "Kit distribution"
-msgstr "Kit de distribución"
-
-#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:289
+#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:263
 msgid "Etat du liquide de refroidissement"
 msgstr "Estado del líquido refrigerante"
 
-#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:324
+#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:298
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:273
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:454
 #: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:189
+#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:327
 #: piece/models.py:86 piece/templates/piece/piece_detail.html:33
 msgid "Qualité"
 msgstr "Calidad"
 
-#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:329
+#: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:303
 msgid "Quantité (L)"
 msgstr "Cantidad (L)"
 
@@ -8367,14 +8458,14 @@ msgstr "Precio del motor"
 #: maintenance/checkup_track/models.py:224
 #: maintenance/checkup_track/models.py:231
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:275
-#: maintenance/niveaux/models.py:192 maintenance/niveaux/models.py:196
-#: maintenance/niveaux/models.py:200
+#: maintenance/niveaux/models.py:236 maintenance/niveaux/models.py:243
+#: maintenance/niveaux/models.py:249
 msgid "Niveau d'huile"
 msgstr "Nivel de aceite"
 
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:144
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:236
-#: maintenance/autres_interventions/moteur/rodage/models.py:193
+#: maintenance/autres_interventions/moteur/rodage/models.py:205
 #: maintenance/check_up/models.py:203 maintenance/check_up/models.py:210
 #: maintenance/check_up/models.py:219
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:311
@@ -8385,8 +8476,8 @@ msgstr "Nivel de aceite"
 #: maintenance/checkup_track/models.py:233
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:293
 #: maintenance/entretien/models.py:221 maintenance/entretien/models.py:236
-#: maintenance/niveaux/models.py:194 maintenance/niveaux/models.py:198
-#: maintenance/niveaux/models.py:202
+#: maintenance/niveaux/models.py:238 maintenance/niveaux/models.py:245
+#: maintenance/niveaux/models.py:251
 #: voiture/voiture_boite/templates/voiture_boite/list.html:45
 #: voiture/voiture_moteur/forms.py:26
 msgid "Qualité d'huile"
@@ -8394,8 +8485,8 @@ msgstr "Calidad del aceite"
 
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:151
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:249
-#: maintenance/autres_interventions/moteur/rodage/models.py:206
-#: maintenance/entretien/models.py:254 maintenance/niveaux/models.py:204
+#: maintenance/autres_interventions/moteur/rodage/models.py:221
+#: maintenance/entretien/models.py:254 maintenance/niveaux/models.py:255
 msgid "Niveau de liquide de refroidissement"
 msgstr "Nivel de líquido refrigerante"
 
@@ -8513,6 +8604,8 @@ msgstr "Sustitución del motor"
 
 #: maintenance/autres_interventions/moteur/remplacement_moteur/views.py:219
 #: maintenance/autres_interventions/moteur/remplacement_moteur/views.py:353
+#: maintenance/autres_interventions/moteur/rodage/models.py:474
+#: maintenance/niveaux/models.py:444
 #: maintenance/niveaux/templates/niveaux/modifier_niveaux.html:125
 #: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:195
 #: maintenance/niveaux/templates/niveaux/niveau_form.html:121
@@ -8568,103 +8661,103 @@ msgstr "Posponer"
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:29
 #: maintenance/check_up/models.py:46 maintenance/checkup_track/models.py:50
-#: maintenance/entretien/models.py:29 maintenance/niveaux/models.py:19
+#: maintenance/entretien/models.py:29 maintenance/niveaux/models.py:61
 #: piece/piece_fluides/models.py:19
 msgid "0W16"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:30
 #: maintenance/check_up/models.py:47 maintenance/checkup_track/models.py:51
-#: maintenance/entretien/models.py:30 maintenance/niveaux/models.py:20
+#: maintenance/entretien/models.py:30 maintenance/niveaux/models.py:62
 #: piece/piece_fluides/models.py:20
 msgid "0W20"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:31
 #: maintenance/check_up/models.py:48 maintenance/checkup_track/models.py:52
-#: maintenance/entretien/models.py:31 maintenance/niveaux/models.py:21
+#: maintenance/entretien/models.py:31 maintenance/niveaux/models.py:63
 #: piece/piece_fluides/models.py:21 voiture/voiture_moteur/forms.py:62
 msgid "0W30"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:32
 #: maintenance/check_up/models.py:49 maintenance/checkup_track/models.py:53
-#: maintenance/entretien/models.py:32 maintenance/niveaux/models.py:22
+#: maintenance/entretien/models.py:32 maintenance/niveaux/models.py:64
 #: piece/piece_fluides/models.py:22
 msgid "0W40"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:33
 #: maintenance/check_up/models.py:50 maintenance/checkup_track/models.py:54
-#: maintenance/entretien/models.py:33 maintenance/niveaux/models.py:23
+#: maintenance/entretien/models.py:33 maintenance/niveaux/models.py:65
 #: piece/piece_fluides/models.py:23
 msgid "5W20"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:34
 #: maintenance/check_up/models.py:51 maintenance/checkup_track/models.py:55
-#: maintenance/entretien/models.py:34 maintenance/niveaux/models.py:24
+#: maintenance/entretien/models.py:34 maintenance/niveaux/models.py:66
 #: piece/piece_fluides/models.py:24
 msgid "5W30"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:35
 #: maintenance/check_up/models.py:52 maintenance/checkup_track/models.py:56
-#: maintenance/entretien/models.py:35 maintenance/niveaux/models.py:25
+#: maintenance/entretien/models.py:35 maintenance/niveaux/models.py:67
 #: piece/piece_fluides/models.py:25
 msgid "5W40"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:36
 #: maintenance/check_up/models.py:53 maintenance/checkup_track/models.py:57
-#: maintenance/entretien/models.py:36 maintenance/niveaux/models.py:26
+#: maintenance/entretien/models.py:36 maintenance/niveaux/models.py:68
 #: piece/piece_fluides/models.py:26
 msgid "10W40"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:37
 #: maintenance/check_up/models.py:54 maintenance/checkup_track/models.py:58
-#: maintenance/entretien/models.py:37 maintenance/niveaux/models.py:27
+#: maintenance/entretien/models.py:37 maintenance/niveaux/models.py:69
 #: piece/piece_fluides/models.py:27
 msgid "10W50"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:38
 #: maintenance/check_up/models.py:55 maintenance/checkup_track/models.py:59
-#: maintenance/entretien/models.py:38 maintenance/niveaux/models.py:28
+#: maintenance/entretien/models.py:38 maintenance/niveaux/models.py:70
 #: piece/piece_fluides/models.py:28
 msgid "10W60"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:39
 #: maintenance/check_up/models.py:56 maintenance/checkup_track/models.py:60
-#: maintenance/entretien/models.py:39 maintenance/niveaux/models.py:29
+#: maintenance/entretien/models.py:39 maintenance/niveaux/models.py:71
 #: piece/piece_fluides/models.py:29
 msgid "15W40"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:40
 #: maintenance/check_up/models.py:57 maintenance/checkup_track/models.py:61
-#: maintenance/entretien/models.py:40 maintenance/niveaux/models.py:30
+#: maintenance/entretien/models.py:40 maintenance/niveaux/models.py:72
 #: piece/piece_fluides/models.py:30
 msgid "15W50"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:41
 #: maintenance/check_up/models.py:58 maintenance/checkup_track/models.py:62
-#: maintenance/entretien/models.py:41 maintenance/niveaux/models.py:31
+#: maintenance/entretien/models.py:41 maintenance/niveaux/models.py:73
 #: piece/piece_fluides/models.py:31
 msgid "20W50"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:44
-#: maintenance/entretien/models.py:72 maintenance/niveaux/models.py:121
+#: maintenance/entretien/models.py:72 maintenance/niveaux/models.py:163
 #: piece/piece_fluides/models.py:44 voiture/voiture_pneus/models.py:17
 msgid "Hiver"
 msgstr "Invierno"
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:45
-#: maintenance/entretien/models.py:73 maintenance/niveaux/models.py:122
+#: maintenance/entretien/models.py:73 maintenance/niveaux/models.py:164
 #: piece/piece_fluides/models.py:45
 msgid "Eté"
 msgstr "Verano"
@@ -8678,7 +8771,7 @@ msgstr "Bueno"
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:50
 #: maintenance/check_up/models.py:42 maintenance/checkup_track/models.py:46
-#: maintenance/entretien/models.py:78 maintenance/niveaux/models.py:14
+#: maintenance/entretien/models.py:78 maintenance/niveaux/models.py:16
 #: piece/piece_fluides/models.py:50
 msgid "Ajouter"
 msgstr "Agregar"
@@ -8690,154 +8783,154 @@ msgstr "Reemplazar"
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:54
 #: maintenance/check_up/models.py:148 maintenance/checkup_track/models.py:164
-#: maintenance/entretien/models.py:82 maintenance/niveaux/models.py:113
+#: maintenance/entretien/models.py:82 maintenance/niveaux/models.py:155
 #: piece/piece_fluides/models.py:54
 msgid "DOT 3"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:55
 #: maintenance/check_up/models.py:149 maintenance/checkup_track/models.py:165
-#: maintenance/entretien/models.py:83 maintenance/niveaux/models.py:114
+#: maintenance/entretien/models.py:83 maintenance/niveaux/models.py:156
 #: piece/piece_fluides/models.py:55
 msgid "DOT 4"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:56
 #: maintenance/check_up/models.py:150 maintenance/checkup_track/models.py:166
-#: maintenance/entretien/models.py:84 maintenance/niveaux/models.py:115
+#: maintenance/entretien/models.py:84 maintenance/niveaux/models.py:157
 #: piece/piece_fluides/models.py:56
 msgid "DOT 5"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:57
 #: maintenance/check_up/models.py:151 maintenance/checkup_track/models.py:167
-#: maintenance/entretien/models.py:85 maintenance/niveaux/models.py:116
+#: maintenance/entretien/models.py:85 maintenance/niveaux/models.py:158
 #: piece/piece_fluides/models.py:57
 msgid "DOT 5.1"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:63
-#: maintenance/entretien/models.py:91 maintenance/niveaux/models.py:128
+#: maintenance/entretien/models.py:91 maintenance/niveaux/models.py:170
 #: piece/piece_fluides/models.py:63
 msgid "CHF 7.1"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:64
-#: maintenance/entretien/models.py:92 maintenance/niveaux/models.py:129
+#: maintenance/entretien/models.py:92 maintenance/niveaux/models.py:171
 #: piece/piece_fluides/models.py:64
 msgid "CHF 11S"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:65
-#: maintenance/entretien/models.py:93 maintenance/niveaux/models.py:130
+#: maintenance/entretien/models.py:93 maintenance/niveaux/models.py:172
 #: piece/piece_fluides/models.py:65
 msgid "CHF 202"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:66
-#: maintenance/entretien/models.py:94 maintenance/niveaux/models.py:131
+#: maintenance/entretien/models.py:94 maintenance/niveaux/models.py:173
 #: piece/piece_fluides/models.py:66
 msgid "CHF 1+"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:67
-#: maintenance/entretien/models.py:95 maintenance/niveaux/models.py:132
+#: maintenance/entretien/models.py:95 maintenance/niveaux/models.py:174
 #: piece/piece_fluides/models.py:67
 msgid "CHF Lifeguard Fluid"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:70
-#: maintenance/entretien/models.py:98 maintenance/niveaux/models.py:135
+#: maintenance/entretien/models.py:98 maintenance/niveaux/models.py:177
 #: piece/piece_fluides/models.py:70
 msgid "Porsche / Pentosin CHF 11S (direction assistée)"
 msgstr "Porsche / Pentosin CHF 11S (dirección asistida)"
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:71
-#: maintenance/entretien/models.py:99 maintenance/niveaux/models.py:136
+#: maintenance/entretien/models.py:99 maintenance/niveaux/models.py:178
 #: piece/piece_fluides/models.py:71
 msgid "Porsche / Pentosin CHF 202 (hydraulique moderne)"
 msgstr "Porsche / Pentosin CHF 202 (hidráulico moderno)"
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:72
-#: maintenance/entretien/models.py:100 maintenance/niveaux/models.py:137
+#: maintenance/entretien/models.py:100 maintenance/niveaux/models.py:179
 #: piece/piece_fluides/models.py:72
 msgid "Porsche ATF Dexron III (anciens modèles)"
 msgstr "Porsche ATF Dexron III (modelos antiguos)"
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:75
-#: maintenance/entretien/models.py:103 maintenance/niveaux/models.py:140
+#: maintenance/entretien/models.py:103 maintenance/niveaux/models.py:182
 #: piece/piece_fluides/models.py:75
 msgid "BMW / Pentosin CHF 11S (direction assistée)"
 msgstr "BMW / Pentosin CHF 11S (dirección asistida)"
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:76
-#: maintenance/entretien/models.py:104 maintenance/niveaux/models.py:141
+#: maintenance/entretien/models.py:104 maintenance/niveaux/models.py:183
 #: piece/piece_fluides/models.py:76
 msgid "BMW / Pentosin CHF 202 (direction assistée moderne)"
 msgstr "BMW / Pentosin CHF 202 (dirección asistida moderna)"
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:77
-#: maintenance/entretien/models.py:105 maintenance/niveaux/models.py:142
+#: maintenance/entretien/models.py:105 maintenance/niveaux/models.py:184
 #: piece/piece_fluides/models.py:77
 msgid "BMW CHF 7.1 (anciens systèmes hydrauliques)"
 msgstr "BMW CHF 7.1 (antiguos sistemas hidráulicos)"
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:78
-#: maintenance/entretien/models.py:106 maintenance/niveaux/models.py:143
+#: maintenance/entretien/models.py:106 maintenance/niveaux/models.py:185
 #: piece/piece_fluides/models.py:78
 msgid "BMW ATF Dexron III (anciens modèles direction assistée)"
 msgstr "BMW ATF Dexron III (modelos antiguos de dirección asistida)"
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:81
-#: maintenance/entretien/models.py:109 maintenance/niveaux/models.py:146
+#: maintenance/entretien/models.py:109 maintenance/niveaux/models.py:188
 #: piece/piece_fluides/models.py:81
 msgid "Renaultmatic D2 (ELF)"
 msgstr "Renaultmatic D2 (ELF)"
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:82
-#: maintenance/entretien/models.py:110 maintenance/niveaux/models.py:147
+#: maintenance/entretien/models.py:110 maintenance/niveaux/models.py:189
 #: piece/piece_fluides/models.py:82
 msgid "Renaultmatic D3 SYN (ELF)"
 msgstr "Renaultmatic D3 SYN (ELF)"
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:83
-#: maintenance/entretien/models.py:111 maintenance/niveaux/models.py:148
+#: maintenance/entretien/models.py:111 maintenance/niveaux/models.py:190
 #: piece/piece_fluides/models.py:83
 msgid "ELF Matic G3"
 msgstr "ELF Matic G3"
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:86
-#: maintenance/entretien/models.py:114 maintenance/niveaux/models.py:151
+#: maintenance/entretien/models.py:114 maintenance/niveaux/models.py:193
 #: piece/piece_fluides/models.py:86
 msgid "Renault PSF Dexron III (direction assistée hydraulique)"
 msgstr "Renault PSF Dexron III (dirección asistida hidráulica)"
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:87
-#: maintenance/entretien/models.py:115 maintenance/niveaux/models.py:152
+#: maintenance/entretien/models.py:115 maintenance/niveaux/models.py:194
 #: piece/piece_fluides/models.py:87
 msgid "Renault / ELF liquide direction assistée"
 msgstr "Fluido de dirección asistida Renault / ELF"
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:90
-#: maintenance/entretien/models.py:118 maintenance/niveaux/models.py:155
+#: maintenance/entretien/models.py:118 maintenance/niveaux/models.py:197
 #: piece/piece_fluides/models.py:90
 msgid "PSF Hyundai / Kia"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:91
-#: maintenance/entretien/models.py:119 maintenance/niveaux/models.py:156
+#: maintenance/entretien/models.py:119 maintenance/niveaux/models.py:198
 #: piece/piece_fluides/models.py:91
 msgid "PSF Toyota"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:92
-#: maintenance/entretien/models.py:120 maintenance/niveaux/models.py:157
+#: maintenance/entretien/models.py:120 maintenance/niveaux/models.py:199
 #: piece/piece_fluides/models.py:92
 msgid "PSF Honda"
 msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:95
-#: maintenance/entretien/models.py:123 maintenance/niveaux/models.py:160
+#: maintenance/entretien/models.py:123 maintenance/niveaux/models.py:202
 #: piece/piece_fluides/models.py:95
 msgid "Liquide direction assistée universel"
 msgstr "Fluido universal de dirección asistida"
@@ -8849,7 +8942,7 @@ msgstr ""
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:143
 #: maintenance/check_up/models.py:90 maintenance/checkup_track/models.py:95
-#: maintenance/entretien/models.py:171 maintenance/niveaux/models.py:67
+#: maintenance/entretien/models.py:171 maintenance/niveaux/models.py:109
 msgid "75W140"
 msgstr ""
 
@@ -8864,84 +8957,84 @@ msgstr "Kilometraje en el momento del rodaje"
 msgid "Vidange de l'huile moteur"
 msgstr "Cambio de aceite del motor"
 
-#: maintenance/autres_interventions/moteur/rodage/models.py:189
+#: maintenance/autres_interventions/moteur/rodage/models.py:190
 #: maintenance/entretien/models.py:217
 msgid "Remplacement du filtre à huile moteur"
 msgstr "Reemplazo del filtro de aceite del motor"
 
-#: maintenance/autres_interventions/moteur/rodage/models.py:190
+#: maintenance/autres_interventions/moteur/rodage/models.py:195
 #: maintenance/entretien/models.py:218 maintenance/entretien/models.py:233
 #: maintenance/entretien/models.py:240
 msgid "Remplacer le bouchon de vidange"
 msgstr "Reemplazar el tapón de drenaje"
 
-#: maintenance/autres_interventions/moteur/rodage/models.py:191
+#: maintenance/autres_interventions/moteur/rodage/models.py:200
 #: maintenance/entretien/models.py:219 maintenance/entretien/models.py:234
 #: maintenance/entretien/models.py:241
 msgid "Remplacer le joint du bouchon de vidange"
 msgstr "Reemplazar la junta del tapón de drenaje"
 
-#: maintenance/autres_interventions/moteur/rodage/models.py:192
+#: maintenance/autres_interventions/moteur/rodage/models.py:204
 #: maintenance/entretien/models.py:220
 msgid "Ajout de la nouvelle huile moteur"
 msgstr "Agregar el nuevo aceite del motor"
 
-#: maintenance/autres_interventions/moteur/rodage/models.py:194
+#: maintenance/autres_interventions/moteur/rodage/models.py:207
 #: maintenance/entretien/models.py:222
 msgid "Quantité d'huile moteur ajoutée en litres"
 msgstr "Cantidad de aceite de motor añadida en litros"
 
-#: maintenance/autres_interventions/moteur/rodage/models.py:198
-#: maintenance/entretien/models.py:246 maintenance/niveaux/models.py:212
+#: maintenance/autres_interventions/moteur/rodage/models.py:211
+#: maintenance/entretien/models.py:246 maintenance/niveaux/models.py:267
 msgid "Niveau de liquide de lave-glace"
 msgstr "Nivel del líquido del limpiaparabrisas"
 
-#: maintenance/autres_interventions/moteur/rodage/models.py:199
-#: maintenance/entretien/models.py:247 maintenance/niveaux/models.py:213
+#: maintenance/autres_interventions/moteur/rodage/models.py:212
+#: maintenance/entretien/models.py:247 maintenance/niveaux/models.py:268
 msgid "Quantité de liquide de lave glace ajoutée en litres"
 msgstr "Cantidad de líquido de limpiaparabrisas añadida en litros"
 
-#: maintenance/autres_interventions/moteur/rodage/models.py:200
-#: maintenance/entretien/models.py:248 maintenance/niveaux/models.py:214
+#: maintenance/autres_interventions/moteur/rodage/models.py:214
+#: maintenance/entretien/models.py:248 maintenance/niveaux/models.py:269
 msgid "Qualité de liquide de lave glace"
 msgstr "Calidad del líquido del limpiaparabrisas"
 
-#: maintenance/autres_interventions/moteur/rodage/models.py:202
-#: maintenance/entretien/models.py:250 maintenance/niveaux/models.py:208
+#: maintenance/autres_interventions/moteur/rodage/models.py:216
+#: maintenance/entretien/models.py:250 maintenance/niveaux/models.py:261
 msgid "Niveau de liquide de freins"
 msgstr "Nivel del líquido de frenos"
 
-#: maintenance/autres_interventions/moteur/rodage/models.py:203
-#: maintenance/entretien/models.py:251 maintenance/niveaux/models.py:209
+#: maintenance/autres_interventions/moteur/rodage/models.py:217
+#: maintenance/entretien/models.py:251 maintenance/niveaux/models.py:262
 msgid "Quantité de liquide de freins ajoutée en litres"
 msgstr "Cantidad de líquido de frenos añadida en litros"
 
-#: maintenance/autres_interventions/moteur/rodage/models.py:204
-#: maintenance/entretien/models.py:252 maintenance/niveaux/models.py:210
+#: maintenance/autres_interventions/moteur/rodage/models.py:219
+#: maintenance/entretien/models.py:252 maintenance/niveaux/models.py:263
 msgid "Qualité de liquide de freins"
 msgstr "Calidad del líquido de frenos"
 
-#: maintenance/autres_interventions/moteur/rodage/models.py:207
+#: maintenance/autres_interventions/moteur/rodage/models.py:222
 #: maintenance/entretien/models.py:255
 msgid "Quantité de liquide de refroidissement ajouté en litres"
 msgstr "Cantidad de líquido refrigerante añadida en litros"
 
-#: maintenance/autres_interventions/moteur/rodage/models.py:210
-#: maintenance/entretien/models.py:258 maintenance/niveaux/models.py:216
+#: maintenance/autres_interventions/moteur/rodage/models.py:226
+#: maintenance/entretien/models.py:258 maintenance/niveaux/models.py:273
 msgid "Niveau de liquide de direction"
 msgstr "Nivel del líquido de la dirección asistida"
 
-#: maintenance/autres_interventions/moteur/rodage/models.py:211
+#: maintenance/autres_interventions/moteur/rodage/models.py:227
 #: maintenance/entretien/models.py:259
 msgid "Quantité de liquide de direction ajouté en litres"
 msgstr "Cantidad de líquido de la dirección asistida añadida en litros"
 
-#: maintenance/autres_interventions/moteur/rodage/models.py:212
-#: maintenance/entretien/models.py:260 maintenance/niveaux/models.py:218
+#: maintenance/autres_interventions/moteur/rodage/models.py:229
+#: maintenance/entretien/models.py:260 maintenance/niveaux/models.py:275
 msgid "Qualité de liquide de direction"
 msgstr "Calidad del líquido de la dirección asistida"
 
-#: maintenance/autres_interventions/moteur/rodage/models.py:216
+#: maintenance/autres_interventions/moteur/rodage/models.py:233
 #: maintenance/check_up/models.py:346
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:701
 #: maintenance/checkup_track/models.py:308 maintenance/entretien/models.py:265
@@ -8949,14 +9042,14 @@ msgstr "Calidad del líquido de la dirección asistida"
 msgid "Feux de route"
 msgstr "Luces de carretera"
 
-#: maintenance/autres_interventions/moteur/rodage/models.py:217
+#: maintenance/autres_interventions/moteur/rodage/models.py:234
 #: maintenance/check_up/models.py:347 maintenance/checkup_track/models.py:310
 #: maintenance/entretien/models.py:267
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:540
 msgid "Grand phares"
 msgstr "Luces largas"
 
-#: maintenance/autres_interventions/moteur/rodage/models.py:218
+#: maintenance/autres_interventions/moteur/rodage/models.py:235
 #: maintenance/check_up/models.py:348
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:703
 #: maintenance/checkup_track/models.py:312 maintenance/entretien/models.py:269
@@ -8964,80 +9057,80 @@ msgstr "Luces largas"
 msgid "Clignotants"
 msgstr "Intermitentes"
 
-#: maintenance/autres_interventions/moteur/rodage/models.py:219
+#: maintenance/autres_interventions/moteur/rodage/models.py:236
 #: maintenance/check_up/models.py:349 maintenance/checkup_track/models.py:314
 #: maintenance/entretien/models.py:271
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:566
 msgid "Feux de recul"
 msgstr "Luces de reversa"
 
-#: maintenance/autres_interventions/moteur/rodage/models.py:220
+#: maintenance/autres_interventions/moteur/rodage/models.py:237
 #: maintenance/check_up/models.py:350 maintenance/checkup_track/models.py:316
 #: maintenance/entretien/models.py:273
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:579
 msgid "Phares anti-brouillard avant"
 msgstr "Faros antiniebla delanteros"
 
-#: maintenance/autres_interventions/moteur/rodage/models.py:221
+#: maintenance/autres_interventions/moteur/rodage/models.py:238
 #: maintenance/check_up/models.py:351 maintenance/checkup_track/models.py:318
 #: maintenance/entretien/models.py:275
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:592
 msgid "Phares anti-brouillard arrière"
 msgstr "Faros antiniebla traseros"
 
-#: maintenance/autres_interventions/moteur/rodage/models.py:222
+#: maintenance/autres_interventions/moteur/rodage/models.py:239
 #: maintenance/check_up/models.py:352 maintenance/checkup_track/models.py:320
 #: maintenance/entretien/models.py:277
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:605
 msgid "Feux stop"
 msgstr "Luces de freno"
 
-#: maintenance/autres_interventions/moteur/rodage/models.py:223
+#: maintenance/autres_interventions/moteur/rodage/models.py:240
 #: maintenance/check_up/models.py:353 maintenance/checkup_track/models.py:322
 #: maintenance/entretien/models.py:279
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:618
 msgid "Troisième feux stop"
 msgstr "Tercera luz de freno"
 
-#: maintenance/autres_interventions/moteur/rodage/models.py:224
+#: maintenance/autres_interventions/moteur/rodage/models.py:241
 #: maintenance/check_up/models.py:354 maintenance/checkup_track/models.py:324
 #: maintenance/entretien/models.py:281
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:630
 msgid "Feux de position avant"
 msgstr "Luces de posición delanteras"
 
-#: maintenance/autres_interventions/moteur/rodage/models.py:225
+#: maintenance/autres_interventions/moteur/rodage/models.py:242
 #: maintenance/check_up/models.py:355 maintenance/checkup_track/models.py:326
 #: maintenance/entretien/models.py:283
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:643
 msgid "Feux de position arrière"
 msgstr "Luces de posición traseras"
 
-#: maintenance/autres_interventions/moteur/rodage/models.py:228
+#: maintenance/autres_interventions/moteur/rodage/models.py:245
 #: maintenance/check_up/models.py:333 maintenance/checkup_track/models.py:338
 #: maintenance/entretien/models.py:286 maintenance/pneus/models.py:76
 msgid "Pression du pneu avant droit en bar"
 msgstr "Presión del neumático delantero derecho en bar"
 
-#: maintenance/autres_interventions/moteur/rodage/models.py:229
+#: maintenance/autres_interventions/moteur/rodage/models.py:246
 #: maintenance/check_up/models.py:334 maintenance/checkup_track/models.py:339
 #: maintenance/entretien/models.py:287 maintenance/pneus/models.py:77
 msgid "Pression du pneu avant gauche en bar"
 msgstr "Presión del neumático delantero izquierdo en bar"
 
-#: maintenance/autres_interventions/moteur/rodage/models.py:230
+#: maintenance/autres_interventions/moteur/rodage/models.py:247
 #: maintenance/check_up/models.py:335 maintenance/checkup_track/models.py:340
 #: maintenance/entretien/models.py:288 maintenance/pneus/models.py:78
 msgid "Pression du pneu arrière droit en bar"
 msgstr "Presión del neumático trasero derecho en bar"
 
-#: maintenance/autres_interventions/moteur/rodage/models.py:231
+#: maintenance/autres_interventions/moteur/rodage/models.py:248
 #: maintenance/check_up/models.py:336 maintenance/checkup_track/models.py:341
 #: maintenance/entretien/models.py:289 maintenance/pneus/models.py:79
 msgid "Pression du pneu arrière gauche en bar"
 msgstr "Presión del neumático trasero izquierdo en bar"
 
-#: maintenance/autres_interventions/moteur/rodage/models.py:233
+#: maintenance/autres_interventions/moteur/rodage/models.py:250
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:376
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:371
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:326
@@ -9064,21 +9157,70 @@ msgstr "Presión del neumático trasero izquierdo en bar"
 msgid "Serrage des roues"
 msgstr "Apriete de las ruedas"
 
-#: maintenance/autres_interventions/moteur/rodage/models.py:326
+#: maintenance/autres_interventions/moteur/rodage/models.py:343
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_detail.html:39
 #: maintenance/models.py:36
 msgid "Rodage"
 msgstr "Rodaje"
 
-#: maintenance/autres_interventions/moteur/rodage/models.py:327
+#: maintenance/autres_interventions/moteur/rodage/models.py:344
 #: maintenance/autres_interventions/moteur/templates/moteur/dashboard_moteur.html:75
 msgid "Rodages"
 msgstr "Rodajes"
 
-#: maintenance/autres_interventions/moteur/rodage/models.py:330
+#: maintenance/autres_interventions/moteur/rodage/models.py:347
 #, python-format
 msgid "rodage – Maintenance %(id)s"
 msgstr "Rodaje – Mantenimiento %(id)s"
+
+#: maintenance/autres_interventions/moteur/rodage/models.py:450
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:181
+#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:183
+msgid "Filtre à huile moteur"
+msgstr "Filtro de aceite del motor"
+
+#: maintenance/autres_interventions/moteur/rodage/models.py:458
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:194
+#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:196
+#: piece/piece_pont/models.py:27
+msgid "Bouchon de vidange"
+msgstr "Tapón de drenaje"
+
+#: maintenance/autres_interventions/moteur/rodage/models.py:466
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:218
+#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:209
+msgid "Joint du bouchon de vidange"
+msgstr "Junta del tapón de drenaje"
+
+#: maintenance/autres_interventions/moteur/rodage/models.py:482
+#: maintenance/niveaux/models.py:464
+#: maintenance/niveaux/templates/niveaux/modifier_niveaux.html:189
+#: maintenance/niveaux/templates/niveaux/niveau_form.html:194
+msgid "Liquide de lave-glace"
+msgstr "Líquido del limpiaparabrisas"
+
+#: maintenance/autres_interventions/moteur/rodage/models.py:490
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:203
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:289
+#: maintenance/entretien/templates/entretien/entretien_check.html:303
+#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:473
+#: maintenance/entretien/templates/entretien/modifier_entretien.html:307
+#: maintenance/freins/templates/freins/freins_check.html:363
+#: maintenance/freins/templates/freins/modifier_freins.html:343
+#: maintenance/niveaux/models.py:460
+#: maintenance/niveaux/templates/niveaux/modifier_niveaux.html:291
+#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:255
+msgid "Liquide de freins"
+msgstr "Líquido de frenos"
+
+#: maintenance/autres_interventions/moteur/rodage/models.py:506
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:271
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:301
+#: maintenance/entretien/templates/entretien/entretien_check.html:371
+#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:503
+#: maintenance/entretien/templates/entretien/modifier_entretien.html:375
+msgid "Liquide de direction"
+msgstr "Líquido de la dirección asistida"
 
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:22
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_detail.html:49
@@ -9116,26 +9258,6 @@ msgstr "Motor"
 #: piece/piece_fluides/models.py:12
 msgid "Lave-glace"
 msgstr "Líquido limpiaparabrisas"
-
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:203
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:289
-#: maintenance/entretien/templates/entretien/entretien_check.html:303
-#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:473
-#: maintenance/entretien/templates/entretien/modifier_entretien.html:307
-#: maintenance/freins/templates/freins/freins_check.html:363
-#: maintenance/freins/templates/freins/modifier_freins.html:343
-#: maintenance/niveaux/templates/niveaux/modifier_niveaux.html:291
-#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:255
-msgid "Liquide de freins"
-msgstr "Líquido de frenos"
-
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:271
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:301
-#: maintenance/entretien/templates/entretien/entretien_check.html:371
-#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:503
-#: maintenance/entretien/templates/entretien/modifier_entretien.html:375
-msgid "Liquide de direction"
-msgstr "Líquido de la dirección asistida"
 
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:307
 #: maintenance/check_up/admin.py:172
@@ -9270,22 +9392,6 @@ msgstr "Elemento"
 msgid "État / Valeur"
 msgstr "Estado / Valor"
 
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:181
-#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:183
-msgid "Filtre à huile moteur"
-msgstr "Filtro de aceite del motor"
-
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:194
-#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:196
-#: piece/piece_pont/models.py:27
-msgid "Bouchon de vidange"
-msgstr "Tapón de drenaje"
-
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:218
-#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:209
-msgid "Joint du bouchon de vidange"
-msgstr "Junta del tapón de drenaje"
-
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:242
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:222
 #: maintenance/niveaux/templates/niveaux/niveaux_detail.html:43
@@ -9387,14 +9493,26 @@ msgstr "Trasero derecho"
 msgid "Arrière gauche"
 msgstr "Trasero izquierdo"
 
-#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:365
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:360
+msgid "Pièces et produits utilisés"
+msgstr "Piezas y productos utilizados"
+
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:369
+msgid "Pièce / Produit"
+msgstr "Pieza / Producto"
+
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:439
+msgid "Aucune pièce ou produit utilisé."
+msgstr "No se utilizaron piezas ni productos."
+
+#: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:451
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:773
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:715
 #: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:489
 #: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:783
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:275
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:328
-#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:319
+#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:410
 #: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:379
 msgid "Document généré automatiquement par CarsCosts.com."
 msgstr "Documento generado automáticamente por CarsCosts.com."
@@ -9643,222 +9761,226 @@ msgstr "Observación"
 msgid "%(type)s - %(empl)s (%(niveau)s)"
 msgstr "%(type)s - %(empl)s (%(niveau)s)"
 
-#: maintenance/carrosserie_interne/models.py:47
+#: maintenance/carrosserie_interne/models.py:48
 msgid "Kilométrage au moment de l'intervention"
 msgstr "Kilometraje en el momento de la intervención"
 
-#: maintenance/carrosserie_interne/models.py:52
+#: maintenance/carrosserie_interne/models.py:53
 msgid "Pare-chocs avant"
 msgstr "Parachoques delantero"
 
-#: maintenance/carrosserie_interne/models.py:53
-#: maintenance/carrosserie_interne/models.py:60
-#: maintenance/carrosserie_interne/models.py:68
-#: maintenance/carrosserie_interne/models.py:75
-#: maintenance/carrosserie_interne/models.py:83
-#: maintenance/carrosserie_interne/models.py:88
-#: maintenance/carrosserie_interne/models.py:94
-#: maintenance/carrosserie_interne/models.py:105
-#: maintenance/carrosserie_interne/models.py:110
-#: maintenance/carrosserie_interne/models.py:115
-#: maintenance/carrosserie_interne/models.py:120
-#: maintenance/carrosserie_interne/models.py:130
-#: maintenance/carrosserie_interne/models.py:136
-#: maintenance/carrosserie_interne/models.py:143
-#: maintenance/carrosserie_interne/models.py:150
-#: maintenance/carrosserie_interne/models.py:160
-#: maintenance/carrosserie_interne/models.py:166
-#: maintenance/carrosserie_interne/models.py:172
-#: maintenance/carrosserie_interne/models.py:177
-#: maintenance/carrosserie_interne/models.py:184
-#: maintenance/carrosserie_interne/models.py:190
-#: maintenance/carrosserie_interne/models.py:223
-#: maintenance/carrosserie_interne/models.py:230
-#: maintenance/carrosserie_interne/models.py:237
-#: maintenance/carrosserie_interne/models.py:243
-#: maintenance/carrosserie_interne/models.py:250
-#: maintenance/carrosserie_interne/models.py:256
-#: maintenance/carrosserie_interne/models.py:262
-#: maintenance/carrosserie_interne/models.py:271
-#: maintenance/carrosserie_interne/models.py:279
-#: maintenance/carrosserie_interne/models.py:287
-#: maintenance/carrosserie_interne/models.py:295
-#: maintenance/carrosserie_interne/models.py:304
-#: maintenance/carrosserie_interne/models.py:312
-#: maintenance/carrosserie_interne/models.py:321
-#: maintenance/carrosserie_interne/models.py:338
-#: maintenance/carrosserie_interne/models.py:347
-#: maintenance/carrosserie_interne/models.py:354
-#: maintenance/carrosserie_interne/models.py:361
-#: maintenance/carrosserie_interne/models.py:367
-#: maintenance/carrosserie_interne/models.py:374
-#: maintenance/carrosserie_interne/models.py:380
-#: maintenance/carrosserie_interne/models.py:386
-#: maintenance/carrosserie_interne/models.py:392
-#: maintenance/carrosserie_interne/models.py:399
-#: maintenance/carrosserie_interne/models.py:405
-#: maintenance/carrosserie_interne/models.py:411
-#: maintenance/carrosserie_interne/models.py:417
-#: maintenance/carrosserie_interne/models.py:424
-#: maintenance/carrosserie_interne/models.py:431
-#: maintenance/carrosserie_interne/models.py:438
-#: maintenance/carrosserie_interne/models.py:444
-#: maintenance/carrosserie_interne/models.py:450
-#: maintenance/carrosserie_interne/models.py:457
-#: maintenance/carrosserie_interne/models.py:463
+#: maintenance/carrosserie_interne/models.py:54
+#: maintenance/carrosserie_interne/models.py:61
+#: maintenance/carrosserie_interne/models.py:69
+#: maintenance/carrosserie_interne/models.py:76
+#: maintenance/carrosserie_interne/models.py:84
+#: maintenance/carrosserie_interne/models.py:89
+#: maintenance/carrosserie_interne/models.py:95
+#: maintenance/carrosserie_interne/models.py:106
+#: maintenance/carrosserie_interne/models.py:111
+#: maintenance/carrosserie_interne/models.py:116
+#: maintenance/carrosserie_interne/models.py:121
+#: maintenance/carrosserie_interne/models.py:131
+#: maintenance/carrosserie_interne/models.py:137
+#: maintenance/carrosserie_interne/models.py:144
+#: maintenance/carrosserie_interne/models.py:151
+#: maintenance/carrosserie_interne/models.py:161
+#: maintenance/carrosserie_interne/models.py:167
+#: maintenance/carrosserie_interne/models.py:173
+#: maintenance/carrosserie_interne/models.py:178
+#: maintenance/carrosserie_interne/models.py:185
+#: maintenance/carrosserie_interne/models.py:191
+#: maintenance/carrosserie_interne/models.py:224
+#: maintenance/carrosserie_interne/models.py:231
+#: maintenance/carrosserie_interne/models.py:238
+#: maintenance/carrosserie_interne/models.py:244
+#: maintenance/carrosserie_interne/models.py:251
+#: maintenance/carrosserie_interne/models.py:257
+#: maintenance/carrosserie_interne/models.py:263
+#: maintenance/carrosserie_interne/models.py:272
+#: maintenance/carrosserie_interne/models.py:280
+#: maintenance/carrosserie_interne/models.py:288
+#: maintenance/carrosserie_interne/models.py:296
+#: maintenance/carrosserie_interne/models.py:305
+#: maintenance/carrosserie_interne/models.py:313
+#: maintenance/carrosserie_interne/models.py:322
+#: maintenance/carrosserie_interne/models.py:339
+#: maintenance/carrosserie_interne/models.py:348
+#: maintenance/carrosserie_interne/models.py:355
+#: maintenance/carrosserie_interne/models.py:362
+#: maintenance/carrosserie_interne/models.py:368
+#: maintenance/carrosserie_interne/models.py:375
+#: maintenance/carrosserie_interne/models.py:381
+#: maintenance/carrosserie_interne/models.py:387
+#: maintenance/carrosserie_interne/models.py:393
+#: maintenance/carrosserie_interne/models.py:400
+#: maintenance/carrosserie_interne/models.py:406
+#: maintenance/carrosserie_interne/models.py:412
+#: maintenance/carrosserie_interne/models.py:418
+#: maintenance/carrosserie_interne/models.py:425
+#: maintenance/carrosserie_interne/models.py:432
+#: maintenance/carrosserie_interne/models.py:439
+#: maintenance/carrosserie_interne/models.py:445
+#: maintenance/carrosserie_interne/models.py:451
+#: maintenance/carrosserie_interne/models.py:458
+#: maintenance/carrosserie_interne/models.py:464
 #: piece/templates/piece/piece_list.html:54
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:56
 msgid "Numero OEM"
 msgstr "Número OEM"
 
-#: maintenance/carrosserie_interne/models.py:54
+#: maintenance/carrosserie_interne/models.py:55
 msgid "Prix du pare-chocs avant"
 msgstr "Precio del parachoques delantero"
 
-#: maintenance/carrosserie_interne/models.py:59
+#: maintenance/carrosserie_interne/models.py:60
 msgid "Pare-chocs arrière"
 msgstr "Parachoques trasero"
 
-#: maintenance/carrosserie_interne/models.py:67
+#: maintenance/carrosserie_interne/models.py:68
 msgid "Bouclier avant"
 msgstr "Parachoques delantero"
 
-#: maintenance/carrosserie_interne/models.py:74
+#: maintenance/carrosserie_interne/models.py:75
 msgid "Bouclier arrière"
 msgstr "Parachoques trasero"
 
-#: maintenance/carrosserie_interne/models.py:82
+#: maintenance/carrosserie_interne/models.py:83
 msgid "Support de pare-chocs avant"
 msgstr "Soporte del parachoques delantero"
 
-#: maintenance/carrosserie_interne/models.py:87
+#: maintenance/carrosserie_interne/models.py:88
 msgid "Support de pare-chocs arrière"
 msgstr "Soporte del parachoques trasero"
 
 # #: .\theme\templates\voiture_moteur\list.html:36
-#: maintenance/carrosserie_interne/models.py:93
+#: maintenance/carrosserie_interne/models.py:94
 msgid "Calandre"
 msgstr "Parrilla delantera"
 
-#: maintenance/carrosserie_interne/models.py:104
+#: maintenance/carrosserie_interne/models.py:105
 msgid "Aile avant droit"
 msgstr "Guardabarros delantero derecho"
 
-#: maintenance/carrosserie_interne/models.py:109
+#: maintenance/carrosserie_interne/models.py:110
 msgid "Aile avant gauche"
 msgstr "Guardabarros delantero izquierdo"
 
-#: maintenance/carrosserie_interne/models.py:114
+#: maintenance/carrosserie_interne/models.py:115
 msgid "Aile arrière droit"
 msgstr "Guardabarros trasero derecho"
 
-#: maintenance/carrosserie_interne/models.py:119
+#: maintenance/carrosserie_interne/models.py:120
 msgid "Aile arrière gauche"
 msgstr "Guardabarros trasero izquierdo"
 
-#: maintenance/carrosserie_interne/models.py:129
+#: maintenance/carrosserie_interne/models.py:130
 msgid "Élargisseur d'aile avant droit"
 msgstr "Ensanchador de guardabarros delantero derecho"
 
-#: maintenance/carrosserie_interne/models.py:135
+#: maintenance/carrosserie_interne/models.py:136
 msgid "Élargisseur d'aile avant gauche"
 msgstr "Ensanchador de guardabarros delantero izquierdo"
 
-#: maintenance/carrosserie_interne/models.py:142
+#: maintenance/carrosserie_interne/models.py:143
 msgid "Élargisseur d'aile arrière droit"
 msgstr "Ensanchador de guardabarros trasero derecho"
 
-#: maintenance/carrosserie_interne/models.py:149
+#: maintenance/carrosserie_interne/models.py:150
 msgid "Élargisseur d'aile arrière gauche"
 msgstr "Ensanchador de guardabarros trasero izquierdo"
 
-#: maintenance/carrosserie_interne/models.py:159
+#: maintenance/carrosserie_interne/models.py:160
 msgid "Bas de caisse droit"
 msgstr "Umbral derecho"
 
-#: maintenance/carrosserie_interne/models.py:165
+#: maintenance/carrosserie_interne/models.py:166
 msgid "Bas de caisse gauche"
 msgstr "Umbral izquierdo"
 
-#: maintenance/carrosserie_interne/models.py:171
+#: maintenance/carrosserie_interne/models.py:172
 msgid "Porte avant droite"
 msgstr "Puerta delantera derecha"
 
-#: maintenance/carrosserie_interne/models.py:176
+#: maintenance/carrosserie_interne/models.py:177
 msgid "Porte avant gauche"
 msgstr "Puerta delantera izquierda"
 
-#: maintenance/carrosserie_interne/models.py:183
+#: maintenance/carrosserie_interne/models.py:184
 msgid "Porte arrière droite"
 msgstr "Puerta trasera derecha"
 
-#: maintenance/carrosserie_interne/models.py:189
+#: maintenance/carrosserie_interne/models.py:190
 msgid "Porte arrière gauche"
 msgstr "Puerta trasera izquierda"
 
-#: maintenance/carrosserie_interne/models.py:199
+#: maintenance/carrosserie_interne/models.py:200
 #: piece/piece_carrosserie/models.py:29
 msgid "Poignée de porte"
 msgstr "Manilla de puerta"
 
-#: maintenance/carrosserie_interne/models.py:205
+#: maintenance/carrosserie_interne/models.py:206
 #: piece/templates/piece/piece_form.html:45
 #: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:42
 msgid "Numéro OEM"
 msgstr "Número OEM"
 
-#: maintenance/carrosserie_interne/models.py:222
+#: maintenance/carrosserie_interne/models.py:213
+msgid "Prix"
+msgstr "Precio"
+
+#: maintenance/carrosserie_interne/models.py:223
 msgid "Coffre / Hayon"
 msgstr "Maletero / portón"
 
-#: maintenance/carrosserie_interne/models.py:229
+#: maintenance/carrosserie_interne/models.py:230
 #: piece/piece_carrosserie/models.py:36
 msgid "Capot"
 msgstr "Capó"
 
-#: maintenance/carrosserie_interne/models.py:236
+#: maintenance/carrosserie_interne/models.py:237
 #: piece/piece_carrosserie/models.py:31
 msgid "Joint de coffre"
 msgstr "Junta del maletero"
 
-#: maintenance/carrosserie_interne/models.py:242
+#: maintenance/carrosserie_interne/models.py:243
 msgid "Joint de porte avant droit"
 msgstr "Junta de puerta delantera derecha"
 
-#: maintenance/carrosserie_interne/models.py:249
+#: maintenance/carrosserie_interne/models.py:250
 msgid "Joint de porte avant gauche"
 msgstr "Junta de puerta delantera izquierda"
 
-#: maintenance/carrosserie_interne/models.py:255
+#: maintenance/carrosserie_interne/models.py:256
 msgid "Joint de porte arrière droit"
 msgstr "Junta de puerta trasera derecha"
 
-#: maintenance/carrosserie_interne/models.py:261
+#: maintenance/carrosserie_interne/models.py:262
 msgid "Joint de porte arrière gauche"
 msgstr "Junta de puerta trasera izquierda"
 
-#: maintenance/carrosserie_interne/models.py:269
+#: maintenance/carrosserie_interne/models.py:270
 msgid "Coquille d'aile avant droit"
 msgstr "Carcasa de guardabarros delantero derecho"
 
-#: maintenance/carrosserie_interne/models.py:277
+#: maintenance/carrosserie_interne/models.py:278
 msgid "Coquille d'aile avant gauche"
 msgstr "Carcasa de guardabarros delantero izquierdo"
 
-#: maintenance/carrosserie_interne/models.py:285
+#: maintenance/carrosserie_interne/models.py:286
 msgid "Coquille d'aile arrière droit"
 msgstr "Carcasa de guardabarros trasero derecho"
 
-#: maintenance/carrosserie_interne/models.py:293
+#: maintenance/carrosserie_interne/models.py:294
 msgid "Coquille d'aile arrière gauche"
 msgstr "Carcasa de guardabarros trasero izquierdo"
 
-#: maintenance/carrosserie_interne/models.py:301
+#: maintenance/carrosserie_interne/models.py:302
 #: piece/piece_carrosserie/models.py:26
 msgid "Support de radiateur"
 msgstr "Soporte del radiador"
 
-#: maintenance/carrosserie_interne/models.py:310
+#: maintenance/carrosserie_interne/models.py:311
 #: maintenance/check_up/models.py:367
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:744
 #: maintenance/checkup_track/models.py:359
@@ -9868,142 +9990,142 @@ msgstr "Soporte del radiador"
 msgid "Pare-brise"
 msgstr "Parabrisas"
 
-#: maintenance/carrosserie_interne/models.py:319
+#: maintenance/carrosserie_interne/models.py:320
 msgid "Vitre de porte avant droite"
 msgstr "Ventana de la puerta delantera derecha"
 
-#: maintenance/carrosserie_interne/models.py:327
+#: maintenance/carrosserie_interne/models.py:328
 msgid "Vitre de porte avant gauche"
 msgstr "Ventana de la puerta delantera izquierda"
 
-#: maintenance/carrosserie_interne/models.py:330
+#: maintenance/carrosserie_interne/models.py:331
 msgid "Vitre de porte avant gauche oem"
 msgstr "Ventana de la puerta delantera izquierda OEM"
 
-#: maintenance/carrosserie_interne/models.py:336
+#: maintenance/carrosserie_interne/models.py:337
 msgid "Vitre de porte arrière droite"
 msgstr "Ventana de la puerta trasera derecha"
 
-#: maintenance/carrosserie_interne/models.py:345
+#: maintenance/carrosserie_interne/models.py:346
 msgid "Vitre de porte arrière gauche"
 msgstr "Ventana de la puerta trasera izquierda"
 
-#: maintenance/carrosserie_interne/models.py:353
+#: maintenance/carrosserie_interne/models.py:354
 msgid "Lunette / vitre arrière"
 msgstr "Luneta / vidrio trasero"
 
-#: maintenance/carrosserie_interne/models.py:360
+#: maintenance/carrosserie_interne/models.py:361
 msgid "Rétroviseur droit"
 msgstr "Espejo derecho"
 
-#: maintenance/carrosserie_interne/models.py:366
+#: maintenance/carrosserie_interne/models.py:367
 msgid "Rétroviseur gauche"
 msgstr "Espejo izquierdo"
 
-#: maintenance/carrosserie_interne/models.py:373
+#: maintenance/carrosserie_interne/models.py:374
 msgid "Phare avant droit"
 msgstr "Faros delanteros derecho"
 
-#: maintenance/carrosserie_interne/models.py:379
+#: maintenance/carrosserie_interne/models.py:380
 msgid "Phare avant gauche"
 msgstr "Faros delanteros izquierdo"
 
-#: maintenance/carrosserie_interne/models.py:385
+#: maintenance/carrosserie_interne/models.py:386
 msgid "Feu arrière droit"
 msgstr "Luz trasera derecha"
 
-#: maintenance/carrosserie_interne/models.py:391
+#: maintenance/carrosserie_interne/models.py:392
 msgid "Feu arrière gauche"
 msgstr "Guardabarros trasero izquierdo"
 
-#: maintenance/carrosserie_interne/models.py:398
+#: maintenance/carrosserie_interne/models.py:399
 msgid "Clignotant avant droit"
 msgstr "Intermitente delantero derecho"
 
-#: maintenance/carrosserie_interne/models.py:404
+#: maintenance/carrosserie_interne/models.py:405
 msgid "Clignotant avant gauche"
 msgstr "Intermitente delantero izquierdo"
 
-#: maintenance/carrosserie_interne/models.py:410
+#: maintenance/carrosserie_interne/models.py:411
 msgid "Clignotant arrière droit"
 msgstr "Intermitente trasero derecho"
 
-#: maintenance/carrosserie_interne/models.py:416
+#: maintenance/carrosserie_interne/models.py:417
 msgid "Clignotant arrière gauche"
 msgstr "Intermitente trasero izquierdo"
 
-#: maintenance/carrosserie_interne/models.py:423 piece/piece_feux/models.py:13
+#: maintenance/carrosserie_interne/models.py:424 piece/piece_feux/models.py:13
 msgid "Troisième feu stop"
 msgstr "Tercera luz de freno"
 
-#: maintenance/carrosserie_interne/models.py:430
+#: maintenance/carrosserie_interne/models.py:431
 msgid "Capteur de recul"
 msgstr "Sensor de reversa"
 
-#: maintenance/carrosserie_interne/models.py:437
+#: maintenance/carrosserie_interne/models.py:438
 msgid "Anti-brouillard avant droit"
 msgstr "Antiniebla delantero derecho"
 
-#: maintenance/carrosserie_interne/models.py:443
+#: maintenance/carrosserie_interne/models.py:444
 msgid "Anti-brouillard avant gauche"
 msgstr "Antiniebla delantero izquierdo"
 
-#: maintenance/carrosserie_interne/models.py:449
+#: maintenance/carrosserie_interne/models.py:450
 msgid "Anti-brouillard arrière"
 msgstr "Antiniebla trasero"
 
-#: maintenance/carrosserie_interne/models.py:456
+#: maintenance/carrosserie_interne/models.py:457
 #: piece/piece_carrosserie/models.py:34
 msgid "Clips"
 msgstr "Clips"
 
-#: maintenance/carrosserie_interne/models.py:462
+#: maintenance/carrosserie_interne/models.py:463
 #: piece/piece_carrosserie/models.py:35 piece/piece_differentiel/models.py:16
 #: piece/piece_freins/models.py:34
 msgid "Visserie"
 msgstr "Tornillería"
 
-#: maintenance/carrosserie_interne/models.py:470
+#: maintenance/carrosserie_interne/models.py:471
 msgid "Peinture de l'aile avant gauche"
 msgstr "Pintura del guardabarros delantero izquierdo"
 
-#: maintenance/carrosserie_interne/models.py:477
+#: maintenance/carrosserie_interne/models.py:478
 msgid "Peinture de l'aile avant droite"
 msgstr "Pintura del guardabarros delantero derecho"
 
-#: maintenance/carrosserie_interne/models.py:484
+#: maintenance/carrosserie_interne/models.py:485
 msgid "Peinture de l'aile arrière droite"
 msgstr "Pintura del guardabarros trasero derecho"
 
-#: maintenance/carrosserie_interne/models.py:491
+#: maintenance/carrosserie_interne/models.py:492
 msgid "Peinture de l'aile arrière gauche"
 msgstr "Pintura del guardabarros trasero izquierdo"
 
-#: maintenance/carrosserie_interne/models.py:497
+#: maintenance/carrosserie_interne/models.py:498
 msgid "Peinture de la face avant"
 msgstr "Pintura del frontal"
 
-#: maintenance/carrosserie_interne/models.py:503
+#: maintenance/carrosserie_interne/models.py:504
 msgid "Peinture du capot"
 msgstr "Pintura del capó"
 
-#: maintenance/carrosserie_interne/models.py:509
+#: maintenance/carrosserie_interne/models.py:510
 msgid "Peinture arrière complète"
 msgstr "Pintura trasera completa"
 
-#: maintenance/carrosserie_interne/models.py:515
+#: maintenance/carrosserie_interne/models.py:516
 msgid "Peinture complète"
 msgstr "Pintura completa"
 
-#: maintenance/carrosserie_interne/models.py:610
+#: maintenance/carrosserie_interne/models.py:611
 msgid "Carrosserie Interne"
 msgstr "Carrocería"
 
-#: maintenance/carrosserie_interne/models.py:611
+#: maintenance/carrosserie_interne/models.py:612
 msgid "Carrosseries Internes"
 msgstr "Carrocerías internas"
 
-#: maintenance/carrosserie_interne/models.py:622
+#: maintenance/carrosserie_interne/models.py:623
 #, python-format
 msgid ""
 "Le kilométrage de l'intervention (%(intervention)s) ne peut pas être "
@@ -10012,7 +10134,7 @@ msgstr ""
 "El kilometraje de la intervención (%(intervention)s) no puede ser inferior "
 "al kilometraje actual (%(current)s)."
 
-#: maintenance/carrosserie_interne/models.py:639
+#: maintenance/carrosserie_interne/models.py:640
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_detail.html:38
 #: maintenance/models.py:33
 msgid "Carrosserie interne"
@@ -12056,8 +12178,8 @@ msgstr "Sustitución de la caja de cambios"
 msgid "Jeux pieces"
 msgstr "Juegos de piezas"
 
-#: maintenance/models.py:28 maintenance/silent_blocs/models.py:24
-#: maintenance/silent_blocs/models.py:156 piece/piece_train_AR/models.py:15
+#: maintenance/models.py:28 maintenance/silent_blocs/models.py:23
+#: maintenance/silent_blocs/models.py:475 piece/piece_train_AR/models.py:15
 #: piece/piece_train_AV/models.py:18
 msgid "Silent bloc"
 msgstr "Silentblock"
@@ -12143,7 +12265,7 @@ msgstr "Control de la limpieza exterior"
 
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:277
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:330
-#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:321
+#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:412
 #: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:381
 #: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:126
 msgid "Date export"
@@ -12266,23 +12388,192 @@ msgstr "Modificar la limpieza interior - %(immatriculation)s"
 msgid "Nettoyage intérieur modifié avec succès !"
 msgstr "¡Limpieza interior modificada con éxito!"
 
-#: maintenance/niveaux/models.py:187
+#: maintenance/niveaux/models.py:19
+msgid "Castrol"
+msgstr ""
+
+#: maintenance/niveaux/models.py:20
+msgid "Motul"
+msgstr ""
+
+#: maintenance/niveaux/models.py:21
+msgid "Mobil 1"
+msgstr ""
+
+#: maintenance/niveaux/models.py:22
+msgid "Shell"
+msgstr ""
+
+#: maintenance/niveaux/models.py:23
+msgid "TotalEnergies"
+msgstr ""
+
+#: maintenance/niveaux/models.py:24
+msgid "ELF"
+msgstr ""
+
+#: maintenance/niveaux/models.py:25
+msgid "Liqui Moly"
+msgstr ""
+
+#: maintenance/niveaux/models.py:26
+msgid "Fuchs"
+msgstr ""
+
+#: maintenance/niveaux/models.py:27
+msgid "Valvoline"
+msgstr ""
+
+#: maintenance/niveaux/models.py:28
+msgid "Penrite"
+msgstr ""
+
+#: maintenance/niveaux/models.py:29
+msgid "Ravenol"
+msgstr ""
+
+#: maintenance/niveaux/models.py:30
+msgid "Rowe"
+msgstr ""
+
+#: maintenance/niveaux/models.py:31
+msgid "ENEOS"
+msgstr ""
+
+#: maintenance/niveaux/models.py:32
+msgid "Petronas"
+msgstr ""
+
+#: maintenance/niveaux/models.py:33
+msgid "Eurol"
+msgstr ""
+
+#: maintenance/niveaux/models.py:34
+msgid "Comma"
+msgstr ""
+
+#: maintenance/niveaux/models.py:35
+msgid "Mannol"
+msgstr ""
+
+#: maintenance/niveaux/models.py:36
+msgid "Yacco"
+msgstr ""
+
+#: maintenance/niveaux/models.py:37
+msgid "Red Line"
+msgstr ""
+
+#: maintenance/niveaux/models.py:38
+msgid "Amsoil"
+msgstr ""
+
+#: maintenance/niveaux/models.py:39
+msgid "Kroon-Oil"
+msgstr ""
+
+#: maintenance/niveaux/models.py:40
+msgid "Febi Bilstein"
+msgstr ""
+
+#: maintenance/niveaux/models.py:41
+msgid "SWAG"
+msgstr ""
+
+#: maintenance/niveaux/models.py:42
+msgid "Pentosin"
+msgstr ""
+
+#: maintenance/niveaux/models.py:43
+msgid "ZF"
+msgstr ""
+
+#: maintenance/niveaux/models.py:44
+msgid "Aisin"
+msgstr ""
+
+#: maintenance/niveaux/models.py:45
+msgid "Toyota"
+msgstr ""
+
+#: maintenance/niveaux/models.py:46
+msgid "Honda"
+msgstr ""
+
+#: maintenance/niveaux/models.py:47
+msgid "Nissan"
+msgstr ""
+
+#: maintenance/niveaux/models.py:48
+msgid "Mercedes-Benz"
+msgstr ""
+
+#: maintenance/niveaux/models.py:49
+msgid "BMW"
+msgstr ""
+
+#: maintenance/niveaux/models.py:50
+msgid "Volkswagen"
+msgstr ""
+
+#: maintenance/niveaux/models.py:51
+msgid "Porsche"
+msgstr ""
+
+#: maintenance/niveaux/models.py:52
+msgid "Renault"
+msgstr ""
+
+#: maintenance/niveaux/models.py:53
+msgid "Peugeot / Citroën"
+msgstr ""
+
+#: maintenance/niveaux/models.py:54
+msgid "Hyundai / Kia"
+msgstr ""
+
+#: maintenance/niveaux/models.py:55
+msgid "Ford"
+msgstr ""
+
+#: maintenance/niveaux/models.py:56
+msgid "General Motors"
+msgstr ""
+
+#: maintenance/niveaux/models.py:57
+msgid "Mopar"
+msgstr ""
+
+#: maintenance/niveaux/models.py:229
 msgid "Kilométrage au moment des niveaux"
 msgstr "Kilometraje al momento de los niveles"
 
-#: maintenance/niveaux/models.py:217
+#: maintenance/niveaux/models.py:239 maintenance/niveaux/models.py:246
+#: maintenance/niveaux/models.py:252 maintenance/niveaux/models.py:258
+#: maintenance/niveaux/models.py:264 maintenance/niveaux/models.py:270
+#: maintenance/niveaux/models.py:276
+#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:328
+#: voiture/voiture_boite/forms.py:16
+#: voiture/voiture_boite/templates/voiture_boite/boite_detail.html:37
+#: voiture/voiture_embrayage/forms.py:21
+#: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:37
+#: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:26
+msgid "Fabricant"
+msgstr "Fabricante"
+
+#: maintenance/niveaux/models.py:274
 msgid "Quantité de liquide de direction ajoutée en litres"
 msgstr "Cantidad de líquido de dirección asistida añadida en litros"
 
-#: maintenance/niveaux/models.py:223
+#: maintenance/niveaux/models.py:281
 msgid "Commentaire niveaux"
 msgstr "Comentario sobre los niveles"
 
-#: maintenance/niveaux/models.py:294
+#: maintenance/niveaux/models.py:352
 msgid "Niveau"
 msgstr "Nivel"
 
-#: maintenance/niveaux/models.py:316
+#: maintenance/niveaux/models.py:374
 #, python-format
 msgid ""
 "Le kilométrage du contrôle niveaux (%(km_controle)s) ne peut pas être "
@@ -12290,6 +12581,21 @@ msgid ""
 msgstr ""
 "El kilometraje de la revisión de niveles (%(km_controle)s) no puede ser "
 "inferior al kilometraje actual del vehículo (%(km_voiture)s)."
+
+#: maintenance/niveaux/models.py:448
+msgid "Huile de boîte de vitesses"
+msgstr "Aceite de la caja de cambios"
+
+#: maintenance/niveaux/models.py:452
+#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:225
+#: piece/piece_fluides/models.py:10
+msgid "Huile de pont"
+msgstr "Aceite de diferencial"
+
+#: maintenance/niveaux/models.py:468
+#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:285
+msgid "Liquide de direction assistée"
+msgstr "Fluido de dirección asistida"
 
 #: maintenance/niveaux/templates/niveaux/modifier_niveaux.html:22
 msgid "Modifier le Contrôle des niveaux"
@@ -12299,11 +12605,6 @@ msgstr "Modificar el control de niveles"
 #: maintenance/silent_blocs/templates/silent_blocs/modifier_silent.html:66
 msgid "Détails du Contrôle"
 msgstr "Detalles del control"
-
-#: maintenance/niveaux/templates/niveaux/modifier_niveaux.html:189
-#: maintenance/niveaux/templates/niveaux/niveau_form.html:194
-msgid "Liquide de lave-glace"
-msgstr "Líquido del limpiaparabrisas"
 
 #: maintenance/niveaux/templates/niveaux/modifier_niveaux.html:223
 #: maintenance/niveaux/templates/niveaux/niveau_form.html:231
@@ -12340,18 +12641,21 @@ msgstr "Control de niveles"
 msgid "Circuit"
 msgstr "Circuito"
 
-#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:225
-#: piece/piece_fluides/models.py:10
-msgid "Huile de pont"
-msgstr "Aceite de diferencial"
-
 #: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:270
 msgid "Liquide lave-glace"
 msgstr "Líquido del limpiaparabrisas"
 
-#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:285
-msgid "Liquide de direction assistée"
-msgstr "Fluido de dirección asistida"
+#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:316
+msgid "Pièces / liquides utilisés"
+msgstr ""
+
+#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:325
+msgid "Produit"
+msgstr ""
+
+#: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:395
+msgid "Aucune pièce ou aucun liquide utilisé."
+msgstr ""
 
 #: maintenance/niveaux/templates/niveaux/niveau_form.html:15
 msgid "Contrôle des niveaux pour :"
@@ -12621,104 +12925,197 @@ msgstr "Modificación de la inspección de neumáticos - %(immatriculation)s"
 msgid "Contrôle des pneus modifié avec succès !"
 msgstr "¡Control de neumáticos modificado con éxito!"
 
-#: maintenance/silent_blocs/models.py:45
+#: maintenance/silent_blocs/models.py:44
 msgid "Kilométrage au moment du contrôle des silent blocs"
 msgstr "Kilometraje al momento del control de silent blocks"
 
-#: maintenance/silent_blocs/models.py:51
+#: maintenance/silent_blocs/models.py:56
 msgid "silent blocs barre stabilisatrice avant"
 msgstr "Silent blocks barra estabilizadora delantera"
 
-#: maintenance/silent_blocs/models.py:52
+#: maintenance/silent_blocs/models.py:74
 msgid "silent blocs barre stabilisatrice arrière"
 msgstr "Silent blocks barra estabilizadora trasera"
 
-#: maintenance/silent_blocs/models.py:55
+#: maintenance/silent_blocs/models.py:92
 msgid "silent bloc amortisseur avant droit"
 msgstr "Silent block amortiguador delantero derecho"
 
-#: maintenance/silent_blocs/models.py:56
+#: maintenance/silent_blocs/models.py:110
 msgid "silent bloc amortisseur avant gauche"
 msgstr "Silent block amortiguador delantero izquierdo"
 
-#: maintenance/silent_blocs/models.py:57
+#: maintenance/silent_blocs/models.py:128
 msgid "silent bloc amortisseur arrière droit"
 msgstr "Silent block amortiguador trasero derecho"
 
-#: maintenance/silent_blocs/models.py:58
+#: maintenance/silent_blocs/models.py:146
 msgid "silent bloc amortisseur arrière gauche"
 msgstr "Silent block amortiguador trasero izquierdo"
 
-#: maintenance/silent_blocs/models.py:61
+#: maintenance/silent_blocs/models.py:159
 msgid "silent bloc de triangle inférieur avant droit"
 msgstr "Silent block triángulo inferior delantero derecho"
 
-#: maintenance/silent_blocs/models.py:62
+#: maintenance/silent_blocs/models.py:167
 msgid "silent bloc de triangle inférieur avant gauche"
 msgstr "Silent block triángulo inferior delantero izquierdo"
 
-#: maintenance/silent_blocs/models.py:63
+#: maintenance/silent_blocs/models.py:184
 msgid "silent bloc de triangle inférieur arrière droit"
 msgstr "Silent block triángulo inferior trasero derecho"
 
-#: maintenance/silent_blocs/models.py:64
+#: maintenance/silent_blocs/models.py:201
 msgid "silent bloc de triangle inférieur arrière gauche"
 msgstr "Silent block triángulo inferior trasero izquierdo"
 
-#: maintenance/silent_blocs/models.py:66
+#: maintenance/silent_blocs/models.py:218
 msgid "silent bloc de triangle supérieur avant droit"
 msgstr "Silent block triángulo superior delantero derecho"
 
-#: maintenance/silent_blocs/models.py:67
+#: maintenance/silent_blocs/models.py:235
 msgid "silent bloc de triangle supérieur avant gauche"
 msgstr "Silent block triángulo superior delantero izquierdo"
 
-#: maintenance/silent_blocs/models.py:68
+#: maintenance/silent_blocs/models.py:252
 msgid "silent bloc de triangle supérieur arrière droit"
 msgstr "Silent block triángulo superior trasero derecho"
 
-#: maintenance/silent_blocs/models.py:69
+#: maintenance/silent_blocs/models.py:269
 msgid "silent bloc de triangle supérieur arrière gauche"
 msgstr "Silent block triángulo superior trasero izquierdo"
 
-#: maintenance/silent_blocs/models.py:71
+#: maintenance/silent_blocs/models.py:286
 msgid "silent bloc de suspension multi-bras avant droit"
 msgstr "Silent block suspensión multi-brazo delantero derecho"
 
-#: maintenance/silent_blocs/models.py:72
+#: maintenance/silent_blocs/models.py:303
 msgid "silent bloc de suspension multi-bras avant gauche"
 msgstr "Silent block suspensión multi-brazo delantero izquierdo"
 
-#: maintenance/silent_blocs/models.py:73
+#: maintenance/silent_blocs/models.py:320
 msgid "silent bloc de suspension multi-bras arrière droit"
 msgstr "Silent block suspensión multi-brazo trasero derecho"
 
-#: maintenance/silent_blocs/models.py:74
+#: maintenance/silent_blocs/models.py:337
 msgid "silent bloc de suspension multi-bras arrière gauche"
 msgstr "Silent block suspensión multi-brazo trasero izquierdo"
 
-#: maintenance/silent_blocs/models.py:77
+#: maintenance/silent_blocs/models.py:354
 msgid "silent bloc moteur"
 msgstr "Silent block motor"
 
-#: maintenance/silent_blocs/models.py:78
+#: maintenance/silent_blocs/models.py:371
 msgid "silent bloc de boite de vitesse"
 msgstr "Silentblock de la caja de cambios"
 
-#: maintenance/silent_blocs/models.py:79
+#: maintenance/silent_blocs/models.py:388
 msgid "silent bloc moteur pendulaire"
 msgstr "Silent block motor pendular"
 
-#: maintenance/silent_blocs/models.py:157
+#: maintenance/silent_blocs/models.py:476
 #: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:154
 #: piece/piece_echappement/models.py:16
 msgid "Silent blocs"
 msgstr "Silentblocks"
 
-#: maintenance/silent_blocs/models.py:198
+#: maintenance/silent_blocs/models.py:517
 #: maintenance/silent_blocs/templates/silent_blocs/silent_detail.html:44
 msgid "Silent Blocs"
 msgstr "Silentblocks"
+
+#: maintenance/silent_blocs/models.py:538
+#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:166
+msgid "Silent blocs barre stabilisatrice avant"
+msgstr "Silent blocks barra estabilizadora delantera"
+
+#: maintenance/silent_blocs/models.py:542
+#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:181
+msgid "Silent blocs barre stabilisatrice arrière"
+msgstr "Silent blocks barra estabilizadora trasera"
+
+#: maintenance/silent_blocs/models.py:546
+#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:196
+msgid "Silent bloc amortisseur avant droit"
+msgstr "Silent block amortiguador delantero derecho"
+
+#: maintenance/silent_blocs/models.py:550
+#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:211
+msgid "Silent bloc amortisseur avant gauche"
+msgstr "Silent block amortiguador delantero izquierdo"
+
+#: maintenance/silent_blocs/models.py:554
+#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:226
+msgid "Silent bloc amortisseur arrière droit"
+msgstr "Silent block amortiguador trasero derecho"
+
+#: maintenance/silent_blocs/models.py:558
+#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:241
+msgid "Silent bloc amortisseur arrière gauche"
+msgstr "Silent block amortiguador trasero izquierdo"
+
+#: maintenance/silent_blocs/models.py:562
+msgid "Silent bloc de triangle inférieur avant droit"
+msgstr "Silent block triángulo inferior delantero derecho"
+
+#: maintenance/silent_blocs/models.py:566
+msgid "Silent bloc de triangle inférieur avant gauche"
+msgstr "Silent block triángulo inferior delantero izquierdo"
+
+#: maintenance/silent_blocs/models.py:570
+msgid "Silent bloc de triangle inférieur arrière droit"
+msgstr "Silent block triángulo inferior trasero derecho"
+
+#: maintenance/silent_blocs/models.py:574
+msgid "Silent bloc de triangle inférieur arrière gauche"
+msgstr "Silent block triángulo inferior trasero izquierdo"
+
+#: maintenance/silent_blocs/models.py:578
+msgid "Silent bloc de triangle supérieur avant droit"
+msgstr "Silent block triángulo superior delantero derecho"
+
+#: maintenance/silent_blocs/models.py:582
+msgid "Silent bloc de triangle supérieur avant gauche"
+msgstr "Silent block triángulo superior delantero izquierdo"
+
+#: maintenance/silent_blocs/models.py:586
+msgid "Silent bloc de triangle supérieur arrière droit"
+msgstr "Silent block triángulo superior trasero derecho"
+
+#: maintenance/silent_blocs/models.py:590
+msgid "Silent bloc de triangle supérieur arrière gauche"
+msgstr "Silent block triángulo superior trasero izquierdo"
+
+#: maintenance/silent_blocs/models.py:594
+msgid "Silent bloc de suspension multi-bras avant droit"
+msgstr "Silent block suspensión multi-brazo delantero derecho"
+
+#: maintenance/silent_blocs/models.py:598
+msgid "Silent bloc de suspension multi-bras avant gauche"
+msgstr "Silent block suspensión multi-brazo delantero izquierdo"
+
+#: maintenance/silent_blocs/models.py:602
+msgid "Silent bloc de suspension multi-bras arrière droit"
+msgstr "Silent block suspensión multi-brazo trasero derecho"
+
+#: maintenance/silent_blocs/models.py:606
+msgid "Silent bloc de suspension multi-bras arrière gauche"
+msgstr "Silent block suspensión multi-brazo trasero izquierdo"
+
+#: maintenance/silent_blocs/models.py:610
+#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:435
+msgid "Silent bloc moteur"
+msgstr "Silent block motor"
+
+#: maintenance/silent_blocs/models.py:614
+#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:450
+msgid "Silent bloc de boîte de vitesse"
+msgstr "Silentblock de la caja de cambios"
+
+#: maintenance/silent_blocs/models.py:618
+#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:465
+msgid "Silent bloc moteur pendulaire"
+msgstr "Silent block motor pendular"
 
 #: maintenance/silent_blocs/templates/silent_blocs/modifier_silent.html:22
 msgid "Modifier le Contrôle des silent blocs"
@@ -12752,30 +13149,6 @@ msgstr "Informe de la inspección de los silentblocks"
 #: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:129
 msgid "Kilométrage du contrôle"
 msgstr "Kilometraje del control"
-
-#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:166
-msgid "Silent blocs barre stabilisatrice avant"
-msgstr "Silent blocks barra estabilizadora delantera"
-
-#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:181
-msgid "Silent blocs barre stabilisatrice arrière"
-msgstr "Silent blocks barra estabilizadora trasera"
-
-#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:196
-msgid "Silent bloc amortisseur avant droit"
-msgstr "Silent block amortiguador delantero derecho"
-
-#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:211
-msgid "Silent bloc amortisseur avant gauche"
-msgstr "Silent block amortiguador delantero izquierdo"
-
-#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:226
-msgid "Silent bloc amortisseur arrière droit"
-msgstr "Silent block amortiguador trasero derecho"
-
-#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:241
-msgid "Silent bloc amortisseur arrière gauche"
-msgstr "Silent block amortiguador trasero izquierdo"
 
 #: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:256
 msgid "Triangle inférieur avant droit"
@@ -12825,19 +13198,7 @@ msgstr "Suspensión multibrazo trasera derecha"
 msgid "Suspension multi-bras arrière gauche"
 msgstr "Suspensión multibrazo trasera izquierda"
 
-#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:435
-msgid "Silent bloc moteur"
-msgstr "Silent block motor"
-
-#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:450
-msgid "Silent bloc de boîte de vitesse"
-msgstr "Silentblock de la caja de cambios"
-
-#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:465
-msgid "Silent bloc moteur pendulaire"
-msgstr "Silent block motor pendular"
-
-#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:503
+#: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:589
 msgid "Aucune remarque"
 msgstr "Agregar una marca"
 
@@ -16405,14 +16766,6 @@ msgstr "Usuario creado con éxito."
 msgid "La paie mensuelle a été enregistrée avec succès."
 msgstr "La nómina mensual se ha registrado correctamente."
 
-#: voiture/voiture_boite/forms.py:16
-#: voiture/voiture_boite/templates/voiture_boite/boite_detail.html:37
-#: voiture/voiture_embrayage/forms.py:21
-#: voiture/voiture_embrayage/templates/voiture_embrayage/embrayage_detail.html:37
-#: voiture/voiture_embrayage/templates/voiture_embrayage/list.html:26
-msgid "Fabricant"
-msgstr "Fabricante"
-
 #: voiture/voiture_boite/forms.py:17
 msgid "Nom du type"
 msgstr "Nombre del tipo"
@@ -18278,6 +18631,12 @@ msgstr "Neumáticos reemplazados con éxito."
 #: voiture/voiture_pneus/views.py:129
 msgid "Pneu mis à jour avec succès."
 msgstr "Neumático actualizado con éxito."
+
+#~ msgid "Nouveau kit distribution"
+#~ msgstr "Nuevo kit de distribución"
+
+#~ msgid "Kit distribution"
+#~ msgstr "Kit de distribución"
 
 #~ msgid "Taux horaire travailleur"
 #~ msgstr "Tarifa horaria del trabajador"
