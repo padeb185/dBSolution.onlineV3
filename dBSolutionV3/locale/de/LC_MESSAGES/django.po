@@ -10556,10 +10556,8 @@ msgid "Controle climatisation"
 msgstr "Klimaanlagenprüfung"
 
 #: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:151
-#, fuzzy
-#| msgid "Liquide de refroidissement"
 msgid "Controle du refroidissement"
-msgstr "Kühlmittel"
+msgstr "Kühlsystemkontrolle"
 
 #: maintenance/bruits/models.py:5 maintenance/jeux_pieces/models.py:30
 #: piece/piece_carrosserie/models.py:12 piece/piece_roue_rechange/models.py:13

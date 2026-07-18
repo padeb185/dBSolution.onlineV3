@@ -430,6 +430,7 @@ def ref_form_view(request, exemplaire_id):
                 ],
             },
 
+
             {
                 "title": _("Étiquette"),
                 "icon": "icons/tag.png",
@@ -455,6 +456,25 @@ def ref_form_view(request, exemplaire_id):
                     field
                     for field in form
                     if field.name == "remarques"
+                ],
+            },
+            {
+                "title": _("Technicien"),
+                "icon": "icons/mecanicien.png",
+                "fields": [
+                    field
+                    for field in form
+                    if "tech_" in field.name
+                ],
+            },
+
+            {
+                "title": _("Taux Horaire"),
+                "icon": "icons/taux.png",
+                "fields": [
+                    field
+                    for field in form
+                    if "taux_" in field.name
                 ],
             },
         ]
@@ -701,6 +721,25 @@ def modifier_ref_view(request, ref_id):
                     field
                     for field in form
                     if field.name == "remarques"
+                ],
+            },
+            {
+                "title": _("Technicien"),
+                "icon": "icons/mecanicien.png",
+                "fields": [
+                    field
+                    for field in form
+                    if "tech" in field.name
+                ],
+            },
+
+            {
+                "title": _("Taux Horaire"),
+                "icon": "icons/taux.png",
+                "fields": [
+                    field
+                    for field in form
+                    if "taux" in field.name
                 ],
             },
         ]
