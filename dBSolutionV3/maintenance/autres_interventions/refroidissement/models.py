@@ -19,7 +19,7 @@ class EtatRefroidissement(models.TextChoices):
     OK = "OK", _("OK")
     A_REMPLACER = "A_REMPLACER", _("À remplacer")
     REMPLACE = "REMPLACE", _("Remplacé")
-    A_CONTROLER = "A_CONTROLER", _("À contrôler")
+
 
 
 class EtatInterventionRefroidissement(models.TextChoices):
@@ -122,12 +122,12 @@ class Refroidissement(TechnicienMixin, models.Model):
     # DIAGNOSTIC GÉNÉRAL
     # ======================================================
 
-    presence_fuite = models.BooleanField(
+    pression_presence_fuite = models.BooleanField(
         verbose_name=_("Présence d'une fuite"),
         default=False,
     )
 
-    fuite_localisation = models.TextField(
+    pression_fuite_localisation = models.TextField(
         verbose_name=_("Localisation de la fuite"),
         blank=True,
     )

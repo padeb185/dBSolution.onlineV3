@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from maindoeuvre.models import MainDoeuvre
 from maintenance.autres_interventions.climatisation.models import Climatisation
+from maintenance.autres_interventions.refroidissement.models import Refroidissement
 
 
 class RefForm(forms.ModelForm):
@@ -11,7 +12,7 @@ class RefForm(forms.ModelForm):
     temps_minutes = forms.IntegerField(required=False, min_value=0, max_value=59)
 
     class Meta:
-        model = Climatisation
+        model = Refroidissement
         fields = "__all__"
         exclude = ["voiture_exemplaire"]
         widgets = {
@@ -93,11 +94,11 @@ class RefForm(forms.ModelForm):
     def save(self, commit=True):
         instance = super().save(commit=False)
 
-        km = self.cleaned_data.get("kilometrage_clim")
+        km = self.cleaned_data.get("kilometrage_refroidissement")
         voiture = self.exemplaire
 
         if km is not None and voiture:
-            instance.kilometrage_clim = km
+            instance.kilometrage_refroidissement = km
             instance.voiture_exemplaire = voiture
 
             # -------- MAIN D'ŒUVRE --------

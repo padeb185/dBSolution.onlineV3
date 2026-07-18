@@ -302,185 +302,155 @@ def ref_form_view(request, exemplaire_id):
 
         sections = [
             {
-                "titre": _("Informations générales"),
-                "champs": [
-                    "kilometres_chassis",
-                    "kilometrage_refroidissement",
-                    "pays",
+                "title": _("Kilométrage"),
+                "icon": "icons/compteur.png",
+                "fields": [
+                    field
+                    for field in form
+                    if "kilometrage" in field.name
+                       or "kilometres" in field.name
                 ],
             },
             {
-                "titre": _("Diagnostic général"),
-                "champs": [
-                    "presence_fuite",
-                    "fuite_localisation",
-                    "pression_circuit",
-                    "pression_circuit_constructeur",
-                    "temperature_moteur",
-                    "temperature_declenchement_ventilateur",
-                    "temperature_sortie_chauffage",
-                    "montee_en_temperature_normale",
-                    "maintien_temperature_normal",
-                    "circulation_liquide_correcte",
+                "title": _("Pression"),
+                "icon": "icons/pression.png",
+                "fields": [
+                    field
+                    for field in form
+                    if "pression" in field.name
+                       or "pression_" in field.name
                 ],
             },
             {
-                "titre": _("Liquide de refroidissement"),
-                "champs": [
-                    "liquide_etat",
-                    "liquide_qualite",
-                    "liquide_type",
-                    "liquide_couleur",
-                    "liquide_temperature_protection",
-                    "liquide_quantite",
-                    "liquide_prix_achat",
-                    "liquide_tva_achat",
-                    "liquide_prix_vente_htva",
-                    "liquide_tva_vente",
-                    "liquide_prix_ttc",
+                "title": _("Température"),
+                "icon": "icons/temperature.png",
+                "fields": [
+                    field
+                    for field in form
+                    if "temperature_" in field.name
                 ],
             },
             {
-                "titre": _("Purge du circuit"),
-                "champs": [
-                    "purge_circuit",
-                    "purge_presence_air",
-                    "purge_effectuee_sous_vide",
-                    "purge_remarques",
+                "title": _("circulation"),
+                "icon": "icons/circulation.png",
+                "fields": [
+                    field
+                    for field in form
+                    if "circulation" in field.name
                 ],
             },
             {
-                "titre": _("Ventilateur"),
-                "champs": [
-                    "ventilateur",
-                    "ventilateur_declenchement",
-                    "ventilateur_vitesse_1",
-                    "ventilateur_vitesse_2",
-                    "ventilateur_bruit_anormal",
-                    "ventilateur_prix_achat",
-                    "ventilateur_quantite",
-                    "ventilateur_tva_achat",
-                    "ventilateur_prix_vente_htva",
-                    "ventilateur_tva_vente",
-                    "ventilateur_prix_ttc",
+                "title": _("Liquide de refroidissement"),
+                "icon": "icons/liquide.png",
+                "fields": [
+                    field
+                    for field in form
+                    if "liquide" in field.name
                 ],
             },
             {
-                "titre": _("Radiateur moteur"),
-                "champs": [
-                    "radiateur",
-                    "radiateur_fuite",
-                    "radiateur_obstruction",
-                    "radiateur_ailettes_endommagees",
-                    "radiateur_prix_achat",
-                    "radiateur_quantite",
-                    "radiateur_tva_achat",
-                    "radiateur_prix_vente_htva",
-                    "radiateur_tva_vente",
-                    "radiateur_prix_ttc",
+                "title": _("Purge"),
+                "icon": "icons/purge.png",
+                "fields": [
+                    field
+                    for field in form
+                    if "purge" in field.name
                 ],
             },
             {
-                "titre": _("Thermostat"),
-                "champs": [
-                    "thermostat",
-                    "thermostat_ouverture_correcte",
-                    "thermostat_temperature_ouverture",
-                    "thermostat_prix_achat",
-                    "thermostat_quantite",
-                    "thermostat_tva_achat",
-                    "thermostat_prix_vente_htva",
-                    "thermostat_tva_vente",
-                    "thermostat_prix_ttc",
+                "title": _("Ventilateur"),
+                "icon": "icons/ventilateur.png",
+                "fields": [
+                    field
+                    for field in form
+                    if field.name in [
+                        "ventilateur"
+                    ]
                 ],
             },
             {
-                "titre": _("Boîtier d'eau"),
-                "champs": [
-                    "boitier_eau",
-                    "boitier_eau_fuite",
-                    "boitier_eau_fissure",
-                    "boitier_eau_prix_achat",
-                    "boitier_eau_quantite",
-                    "boitier_eau_tva_achat",
-                    "boitier_eau_prix_vente_htva",
-                    "boitier_eau_tva_vente",
-                    "boitier_eau_prix_ttc",
+                "title": _("Radiateur"),
+                "icon": "icons/radiateur.png",
+                "fields": [
+                    field
+                    for field in form
+                    if "radiateur" in field.name
                 ],
             },
             {
-                "titre": _("Sonde de température"),
-                "champs": [
-                    "sonde_temperature_liquide",
-                    "sonde_temperature_valeur",
-                    "sonde_temperature_signal_correct",
-                    "sonde_temperature_prix_achat",
-                    "sonde_temperature_quantite",
-                    "sonde_temperature_tva_achat",
-                    "sonde_temperature_prix_vente_htva",
-                    "sonde_temperature_tva_vente",
-                    "sonde_temperature_prix_ttc",
+                "title": _("Thermostat"),
+                "icon": "icons/thermostat.png",
+                "fields": [
+                    field
+                    for field in form
+                    if "thermostat" in field.name
                 ],
             },
             {
-                "titre": _("Durites"),
-                "champs": [
-                    "durites",
-                    "durites_fissurees",
-                    "durites_poreuses",
-                    "durites_gonflees",
-                    "durites_colliers_corrects",
-                    "durites_prix_achat",
-                    "durites_quantite",
-                    "durites_tva_achat",
-                    "durites_prix_vente_htva",
-                    "durites_tva_vente",
-                    "durites_prix_ttc",
+                "title": _("Boitier d'eau"),
+                "icon": "icons/valves-clim.png",
+                "fields": [
+                    field
+                    for field in form
+                    if "boitier_eau" in field.name
                 ],
             },
             {
-                "titre": _("Radiateur de chauffage"),
-                "champs": [
-                    "chaufferette",
-                    "chaufferette_fuite",
-                    "chaufferette_obstruction",
-                    "chaufferette_chauffage_correct",
-                    "chaufferette_odeur_liquide",
-                    "chaufferette_buee_anormale",
-                    "chaufferette_prix_achat",
-                    "chaufferette_quantite",
-                    "chaufferette_tva_achat",
-                    "chaufferette_prix_vente_htva",
-                    "chaufferette_tva_vente",
-                    "chaufferette_prix_ttc",
+                "title": _("Sonde de température"),
+                "icon": "icons/sonde-temperature.png",
+                "fields": [
+                    field
+                    for field in form
+                    if "sonde_temperature" in field.name
                 ],
             },
             {
-                "titre": _("Remarques"),
-                "champs": [
-                    "remarques",
-                    "tag",
+                "title": _("Durites"),
+                "icon": "icons/durites.png",
+                "fields": [
+                    field
+                    for field in form
+                    if "durites" in field.name
+                ],
+            },
+            {
+                "title": _("Chaufferette"),
+                "icon": "icons/chaufferette.png",
+                "fields": [
+                    field
+                    for field in form
+                    if "chaufferette" in field.name
+                ],
+            },
+
+            {
+                "title": _("Étiquette"),
+                "icon": "icons/tag.png",
+                "fields": [
+                    field
+                    for field in form
+                    if field.name == "tag"
+                ],
+            },
+            {
+                "title": _("Pays"),
+                "icon": "icons/pays.png",
+                "fields": [
+                    field
+                    for field in form
+                    if field.name == "pays"
+                ],
+            },
+            {
+                "title": _("Remarques"),
+                "icon": "icons/notes.png",
+                "fields": [
+                    field
+                    for field in form
+                    if field.name == "remarques"
                 ],
             },
         ]
-
-        # Transformation des noms en véritables BoundField Django
-        sections_formulaire = []
-
-        for section in sections:
-            champs = []
-
-            for nom_champ in section["champs"]:
-                if nom_champ in form.fields:
-                    champs.append(form[nom_champ])
-
-            if champs:
-                sections_formulaire.append(
-                    {
-                        "titre": section["titre"],
-                        "champs": champs,
-                    }
-                )
 
         return render(
             request,
@@ -501,40 +471,40 @@ def ref_form_view(request, exemplaire_id):
 # Vue détail boite
 # -----------------------------
 @login_required
-def ref_detail_view(request, climatisation_id):
-    clim = get_object_or_404(
-        Climatisation.objects.select_related("voiture_exemplaire"),
-        id=climatisation_id
+def ref_detail_view(request, refroidissement_id):
+    ref = get_object_or_404(
+        Refroidissement.objects.select_related("voiture_exemplaire"),
+        id=refroidissement_id
     )
 
     context = {
-        "clim": clim,
-        "exemplaire": clim.voiture_exemplaire,
+        "ref": ref,
+        "exemplaire": ref.voiture_exemplaire,
     }
-    return render(request, "climatisation/clim_detail.html", context)
+    return render(request, "refroidissement/ref_detail.html", context)
 
 
 
 @login_required
-def modifier_ref_view(request, climatisation_id):
+def modifier_ref_view(request, refroidissement_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
 
-        clim = get_object_or_404(
-            Climatisation.objects.select_related("voiture_exemplaire"),
-            id=climatisation_id
+        ref = get_object_or_404(
+            Refroidissement.objects.select_related("voiture_exemplaire"),
+            id=refroidissement_id
         )
-        exemplaire = clim.voiture_exemplaire
+        exemplaire = ref.voiture_exemplaire
         # -------------------------
         # POST
         # -------------------------
         if request.method == "POST":
-            form = ClimForm(
+            form = RefForm(
                 request.POST,
-                instance=clim,
+                instance=ref,
                 user=request.user,
-                exemplaire=clim.voiture_exemplaire
+                exemplaire=ref.voiture_exemplaire
             )
 
             if form.is_valid():
@@ -542,13 +512,13 @@ def modifier_ref_view(request, climatisation_id):
 
                 UserLog.objects.create(
                     utilisateur=request.user,
-                    action=_("Modification contrôle climatisation - %(immatriculation)s") % {
+                    action=_("Modification contrôle du refroidissement - %(immatriculation)s") % {
                         "immatriculation": exemplaire.immatriculation
                     }
                 )
 
-                messages.success(request, _("Contrôle du système de climatisation modifié avec succès !"))
-                return redirect("climatisation:modifier_clim", climatisation_id=clim.id)
+                messages.success(request, _("Contrôle du système de refroidissement modifié avec succès !"))
+                return redirect("refroidissement:modifier_ref", refroidissement_id=ref.id)
             else:
                 messages.error(request, _("Le formulaire contient des erreurs."))
                 print(form.errors)
@@ -557,10 +527,10 @@ def modifier_ref_view(request, climatisation_id):
         # GET
         # -------------------------
         else:
-            form = ClimForm(
-                instance=clim,
+            form = RefForm(
+                instance=ref,
                 user=request.user,
-                exemplaire=clim.voiture_exemplaire
+                exemplaire=ref.voiture_exemplaire
             )
 
         # -------------------------
@@ -575,165 +545,121 @@ def modifier_ref_view(request, climatisation_id):
                     field
                     for field in form
                     if "kilometrage" in field.name
-                    or "kilometres" in field.name
+                       or "kilometres" in field.name
                 ],
             },
             {
-                "title": _("Gaz"),
-                "icon": "icons/bouteille-de-gaz.png",
+                "title": _("Pression"),
+                "icon": "icons/pression.png",
                 "fields": [
                     field
                     for field in form
-                    if "type_gaz" in field.name
-                    or "autre_type_gaz" in field.name
+                    if "pression" in field.name
+                       or "pression_" in field.name
                 ],
             },
             {
-                "title": _("Poids du gaz"),
-                "icon": "icons/poids-gaz.png",
+                "title": _("Température"),
+                "icon": "icons/temperature.png",
                 "fields": [
                     field
                     for field in form
-                    if "poids_gaz" in field.name
+                    if "temperature_" in field.name
                 ],
             },
             {
-                "title": _("Qualité du gaz"),
-                "icon": "icons/qualite-gaz.png",
+                "title": _("circulation"),
+                "icon": "icons/circulation.png",
                 "fields": [
                     field
                     for field in form
-                    if "qualite_gaz" in field.name
-                    or "purete_gaz" in field.name
+                    if "circulation" in field.name
                 ],
             },
             {
-                "title": _("Huile"),
-                "icon": "icons/huile-clim.png",
+                "title": _("Liquide de refroidissement"),
+                "icon": "icons/liquide.png",
                 "fields": [
                     field
                     for field in form
-                    if "huile" in field.name
+                    if "liquide" in field.name
                 ],
             },
             {
-                "title": _("Traceur"),
-                "icon": "icons/traceur.png",
+                "title": _("Purge"),
+                "icon": "icons/purge.png",
                 "fields": [
                     field
                     for field in form
-                    if "traceur" in field.name
+                    if "purge" in field.name
                 ],
             },
             {
-                "title": _("Mise sous vide"),
-                "icon": "icons/mise-vide.png",
+                "title": _("Ventilateur"),
+                "icon": "icons/ventilateur.png",
                 "fields": [
                     field
                     for field in form
                     if field.name in [
-                        "mise_sous_vide",
-                        "duree_mise_sous_vide_minutes",
-                        "pression_vide_atteinte",
-                        "tenue_du_vide",
+                        "ventilateur"
                     ]
                 ],
             },
             {
-                "title": _("Contrôle des fuites"),
-                "icon": "icons/fuites.png",
+                "title": _("Radiateur"),
+                "icon": "icons/radiateur.png",
                 "fields": [
                     field
                     for field in form
-                    if "fuite" in field.name
+                    if "radiateur" in field.name
                 ],
             },
             {
-                "title": _("Tuyaux"),
-                "icon": "icons/tuyaux-clim.png",
+                "title": _("Thermostat"),
+                "icon": "icons/thermostat.png",
                 "fields": [
                     field
                     for field in form
-                    if "tuyaux" in field.name
+                    if "thermostat" in field.name
                 ],
             },
             {
-                "title": _("Valves"),
+                "title": _("Boitier d'eau"),
                 "icon": "icons/valves-clim.png",
                 "fields": [
                     field
                     for field in form
-                    if "valves" in field.name
+                    if "boitier_eau" in field.name
                 ],
             },
             {
-                "title": _("Déshydrateur"),
-                "icon": "icons/deshydrateur.png",
+                "title": _("Sonde de température"),
+                "icon": "icons/sonde-temperature.png",
                 "fields": [
                     field
                     for field in form
-                    if "deshydrateur" in field.name
+                    if "sonde_temperature" in field.name
                 ],
             },
             {
-                "title": _("Condenseur"),
-                "icon": "icons/condenseur.png",
+                "title": _("Durites"),
+                "icon": "icons/durites.png",
                 "fields": [
                     field
                     for field in form
-                    if "condenseur" in field.name
+                    if "durites" in field.name
                 ],
             },
             {
-                "title": _("Compresseur"),
-                "icon": "icons/compresseur.png",
+                "title": _("Chaufferette"),
+                "icon": "icons/chaufferette.png",
                 "fields": [
                     field
                     for field in form
-                    if "compresseur" in field.name
-                ],
-            },
-            {
-                "title": _("Évaporateur"),
-                "icon": "icons/evaporateur.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "evaporateur" in field.name
+                    if "chaufferette" in field.name
                 ],
             },
 
-            {
-                "title": _("Recharge de gaz"),
-                "icon": "icons/bouteille-de-gaz.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "recharge" in field.name
-                ],
-            },
-
-            {
-                "title": _("Pressions de fonctionnement"),
-                "icon": "icons/pression-clim.png",
-                "fields": [
-                    field
-                    for field in form
-                    if field.name in [
-                        "pression_basse",
-                        "pression_haute",
-                    ]
-                ],
-            },
-            {
-                "title": _("Température d'air"),
-                "icon": "icons/mesure-clim.png",
-                "fields": [
-                    field
-                    for field in form
-                    if "temperature_air" in field.name
-                ],
-            },
             {
                 "title": _("Étiquette"),
                 "icon": "icons/tag.png",
@@ -765,10 +691,10 @@ def modifier_ref_view(request, climatisation_id):
 
     return render(
         request,
-        "climatisation/modifier_clim.html",
+        "refroidissement/modifier_ref.html",
         {
             "form": form,
-            "clim": clim,
+            "ref": ref,
             "sections": sections,
             "exemplaire": exemplaire,
         }
@@ -782,8 +708,8 @@ def ref_detail_pdf_view(request, pk):
 
     with tenant_context(tenant):
 
-        climatisation = get_object_or_404(
-            Climatisation.objects.select_related(
+        ref = get_object_or_404(
+            Refroidissement.objects.select_related(
                 "voiture_exemplaire",
                 "maintenance",
                 "tech_technicien",
@@ -794,15 +720,15 @@ def ref_detail_pdf_view(request, pk):
             pk=pk,
         )
 
-        rapport = climatisation.generer_rapport_remplacement() or {
+        rapport = ref.generer_rapport_remplacement() or {
             "lignes": [],
             "total_general": 0,
         }
 
         html_string = render_to_string(
-            "climatisation/clim_detail_pdf.html",
+            "refroidissement/ref_detail_pdf.html",
             {
-                "climatisation": climatisation,
+                "ref": ref,
                 "rapport": rapport,
                 "date_export": timezone.now(),
             },
@@ -816,19 +742,19 @@ def ref_detail_pdf_view(request, pk):
 
         immatriculation = "vehicule"
 
-        if climatisation.voiture_exemplaire_id:
+        if ref.voiture_exemplaire_id:
             immatriculation = (
-                climatisation.voiture_exemplaire.immatriculation
+                ref.voiture_exemplaire.immatriculation
                 or "vehicule"
             )
 
         technicien = (
-            climatisation.tech_nom_technicien
+            ref.tech_nom_technicien
             or "technicien"
         )
 
         filename = slugify(
-            f"climatisation-{immatriculation}-{technicien}"
+            f"Refroidissement-{immatriculation}-{technicien}"
         )
 
         response = HttpResponse(
