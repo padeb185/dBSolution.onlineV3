@@ -1094,16 +1094,41 @@ class Refroidissement(TechnicienMixin, models.Model):
         total_general = Decimal("0.00")
 
         composants = [
-            ("ventilateur", _("Ventilateur")),
-            ("radiateur", _("Radiateur")),
-            ("thermostat", _("Thermostat")),
-            ("boitier_eau", _("Boîtier d'eau")),
-            (
-                "sonde_temperature",
-                _("Sonde de température du liquide"),
-            ),
-            ("durites", _("Durites")),
-            ("chaufferette", _("Radiateur de chauffage")),
+            {
+                "etat_champ": "ventilateur",
+                "prefix": "ventilateur",
+                "libelle": _("Ventilateur"),
+            },
+            {
+                "etat_champ": "radiateur",
+                "prefix": "radiateur",
+                "libelle": _("Radiateur"),
+            },
+            {
+                "etat_champ": "thermostat",
+                "prefix": "thermostat",
+                "libelle": _("Thermostat"),
+            },
+            {
+                "etat_champ": "boitier_eau",
+                "prefix": "boitier_eau",
+                "libelle": _("Boîtier d'eau"),
+            },
+            {
+                "etat_champ": "sonde_temperature_liquide",
+                "prefix": "sonde_temperature",
+                "libelle": _("Sonde de température du liquide"),
+            },
+            {
+                "etat_champ": "durites",
+                "prefix": "durites",
+                "libelle": _("Durites"),
+            },
+            {
+                "etat_champ": "chaufferette",
+                "prefix": "chaufferette",
+                "libelle": _("Radiateur de chauffage"),
+            },
         ]
 
         etats_a_facturer = {
@@ -1111,8 +1136,12 @@ class Refroidissement(TechnicienMixin, models.Model):
             EtatRefroidissement.REMPLACE,
         }
 
-        for prefix, libelle in composants:
-            etat = getattr(self, prefix)
+        for composant in composants:
+            etat_champ = composant["etat_champ"]
+            prefix = composant["prefix"]
+            libelle = composant["libelle"]
+
+            etat = getattr(self, etat_champ, None)
 
             if etat not in etats_a_facturer:
                 continue
@@ -1131,8 +1160,8 @@ class Refroidissement(TechnicienMixin, models.Model):
 
             prix = Decimal(str(prix))
             quantite = Decimal(str(quantite))
-            total = prix * quantite
 
+            total = prix * quantite
             total_general += total
 
             rapport.append({
@@ -1148,26 +1177,26 @@ class Refroidissement(TechnicienMixin, models.Model):
             })
 
         if (
-            self.liquide_etat
-            in {
-                EtatLiquideRefroidissement.A_REMPLACER,
-                EtatLiquideRefroidissement.REMPLACE,
-                EtatLiquideRefroidissement.A_COMPLETER,
-            }
-            and self.liquide_quantite
+                self.liquide_etat
+                in {
+            EtatLiquideRefroidissement.A_REMPLACER,
+            EtatLiquideRefroidissement.REMPLACE,
+            EtatLiquideRefroidissement.A_COMPLETER,
+        }
+                and self.liquide_quantite
         ):
             prix_liquide = (
-                self.liquide_prix_achat or Decimal("0.00")
+                    self.liquide_prix_achat or Decimal("0.00")
             )
+
             quantite_liquide = (
-                self.liquide_quantite or Decimal("0.00")
+                    self.liquide_quantite or Decimal("0.00")
             )
 
-            total_liquide = (
-                Decimal(str(prix_liquide))
-                * Decimal(str(quantite_liquide))
-            )
+            prix_liquide = Decimal(str(prix_liquide))
+            quantite_liquide = Decimal(str(quantite_liquide))
 
+            total_liquide = prix_liquide * quantite_liquide
             total_general += total_liquide
 
             rapport.append({

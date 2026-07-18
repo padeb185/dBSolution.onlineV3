@@ -478,10 +478,10 @@ def ref_form_view(request, exemplaire_id):
 # Vue détail boite
 # -----------------------------
 @login_required
-def ref_detail_view(request, refroidissement_id):
+def ref_detail_view(request, ref_id):
     ref = get_object_or_404(
         Refroidissement.objects.select_related("voiture_exemplaire"),
-        id=refroidissement_id
+        id=ref_id
     )
 
     context = {
@@ -493,14 +493,14 @@ def ref_detail_view(request, refroidissement_id):
 
 
 @login_required
-def modifier_ref_view(request, refroidissement_id):
+def modifier_ref_view(request, ref_id):
     tenant = request.user.societe
 
     with tenant_context(tenant):
 
         ref = get_object_or_404(
             Refroidissement.objects.select_related("voiture_exemplaire"),
-            id=refroidissement_id
+            id=ref_id
         )
         exemplaire = ref.voiture_exemplaire
         # -------------------------

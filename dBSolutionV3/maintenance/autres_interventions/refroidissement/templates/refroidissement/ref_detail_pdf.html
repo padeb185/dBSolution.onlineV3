@@ -1,10 +1,1289 @@
+{% load i18n %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ LANGUAGE_CODE|default:'fr' }}">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+
+    <style>
+        @page {
+            size: A4;
+            margin: 14mm;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 11px;
+            color: #111827;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 6px;
+            color: #1e3a8a;
+            border-bottom: 2px solid #1e3a8a;
+        }
+
+        h2 {
+            font-size: 14px;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            color: #1e40af;
+            border-bottom: 1px solid #93c5fd;
+        }
+
+        h3 {
+            font-size: 12px;
+            margin-top: 14px;
+            margin-bottom: 6px;
+            color: #1e3a8a;
+        }
+
+        .box {
+            border: 1px solid #d1d5db;
+            padding: 10px;
+            margin-bottom: 12px;
+            border-radius: 4px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 7px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 7px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px;
+        }
+
+        th,
+        td {
+            border: 1px solid #d1d5db;
+            padding: 6px;
+            vertical-align: middle;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+            text-align: left;
+        }
+
+        tr {
+            page-break-inside: avoid;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .etat {
+            display: inline-block;
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-ok {
+            color: #166534;
+            background: #dcfce7;
+        }
+
+        .etat-not-ok {
+            color: #991b1b;
+            background: #fee2e2;
+        }
+
+        .etat-remplace {
+            color: #1e40af;
+            background: #dbeafe;
+        }
+
+        .etat-attention {
+            color: #854d0e;
+            background: #fef9c3;
+        }
+
+        .etat-neutre {
+            color: #374151;
+            background: #f3f4f6;
+        }
+
+        .oui {
+            color: #166534;
+            font-weight: bold;
+        }
+
+        .non {
+            color: #991b1b;
+            font-weight: bold;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tag-vert {
+            background: #16a34a;
+        }
+
+        .tag-jaune {
+            background: #ca8a04;
+        }
+
+        .tag-rouge {
+            background: #dc2626;
+        }
+
+        .total {
+            font-weight: bold;
+            background: #f8fafc;
+        }
+
+        .remarques {
+            white-space: pre-wrap;
+            min-height: 45px;
+        }
+
+        .small {
+            margin-top: 15px;
+            font-size: 9px;
+            color: #6b7280;
+        }
+    </style>
 </head>
+
 <body>
+
+<h1>
+    {% trans "Rapport du contrôle du système de refroidissement" %}
+</h1>
+
+<!-- ================================================== -->
+<!-- INFORMATIONS GÉNÉRALES -->
+<!-- ================================================== -->
+
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Date" %} :</span>
+            {{ ref.date|date:"d/m/Y H:i"|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Date du contrôle" %} :</span>
+            {{ ref.date_controle|date:"d/m/Y"|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+            {{ ref.tech_nom_technicien|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Rôle" %} :</span>
+            {{ ref.tech_role_technicien|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Société" %} :</span>
+            {{ ref.tech_societe|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Véhicule" %} :</span>
+            {{ ref.voiture_exemplaire|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Immatriculation" %} :</span>
+            {{ ref.voiture_exemplaire.immatriculation|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage châssis" %} :</span>
+            {{ ref.kilometres_chassis|default:0 }} km
+        </div>
+
+        <div>
+            <span class="label">
+                {% trans "Kilométrage du contrôle refroidissement" %} :
+            </span>
+            {{ ref.kilometrage_refroidissement|default:0 }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Pays" %} :</span>
+            {{ ref.get_pays_display|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Étiquette" %} :</span>
+
+            {% if ref.tag == "VERT" %}
+                <span class="tag tag-vert">
+                    {{ ref.get_tag_display }}
+                </span>
+
+            {% elif ref.tag == "JAUNE" %}
+                <span class="tag tag-jaune">
+                    {{ ref.get_tag_display }}
+                </span>
+
+            {% elif ref.tag == "ROUGE" %}
+                <span class="tag tag-rouge">
+                    {{ ref.get_tag_display }}
+                </span>
+
+            {% else %}
+                {{ ref.get_tag_display|default:"-" }}
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- DIAGNOSTIC GÉNÉRAL -->
+<!-- ================================================== -->
+
+<h2>{% trans "Diagnostic général" %}</h2>
+
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Présence d'une fuite" %} :</span>
+
+            {% if ref.presence_fuite %}
+                <span class="non">{% trans "Oui" %}</span>
+            {% else %}
+                <span class="oui">{% trans "Non" %}</span>
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Localisation de la fuite" %} :</span>
+            {{ ref.presence_fuite_localisation|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Pression du circuit" %} :</span>
+            {% if ref.pression_circuit is not None %}
+                {{ ref.pression_circuit|floatformat:2 }} bar
+            {% else %}
+                -
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Pression constructeur" %} :</span>
+            {% if ref.pression_circuit_constructeur is not None %}
+                {{ ref.pression_circuit_constructeur|floatformat:2 }} bar
+            {% else %}
+                -
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Température du moteur" %} :</span>
+            {% if ref.temperature_moteur is not None %}
+                {{ ref.temperature_moteur|floatformat:1 }} °C
+            {% else %}
+                -
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">
+                {% trans "Température de déclenchement du ventilateur" %} :
+            </span>
+
+            {% if ref.temperature_declenchement_ventilateur is not None %}
+                {{ ref.temperature_declenchement_ventilateur|floatformat:1 }} °C
+            {% else %}
+                -
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">
+                {% trans "Température de sortie du chauffage" %} :
+            </span>
+
+            {% if ref.temperature_sortie_chauffage is not None %}
+                {{ ref.temperature_sortie_chauffage|floatformat:1 }} °C
+            {% else %}
+                -
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">
+                {% trans "Montée en température normale" %} :
+            </span>
+
+            {% if ref.montee_en_temperature_normale %}
+                <span class="oui">{% trans "Oui" %}</span>
+            {% else %}
+                <span class="non">{% trans "Non" %}</span>
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">
+                {% trans "Maintien de la température normal" %} :
+            </span>
+
+            {% if ref.maintien_temperature_normal %}
+                <span class="oui">{% trans "Oui" %}</span>
+            {% else %}
+                <span class="non">{% trans "Non" %}</span>
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">
+                {% trans "Circulation du liquide correcte" %} :
+            </span>
+
+            {% if ref.circulation_liquide_correcte %}
+                <span class="oui">{% trans "Oui" %}</span>
+            {% else %}
+                <span class="non">{% trans "Non" %}</span>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- LIQUIDE DE REFROIDISSEMENT -->
+<!-- ================================================== -->
+
+<h2>{% trans "Liquide de refroidissement" %}</h2>
+
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "État du liquide" %} :</span>
+
+            {% if ref.liquide_etat == "BON" %}
+                <span class="etat etat-ok">
+                    {{ ref.get_liquide_etat_display }}
+                </span>
+
+            {% elif ref.liquide_etat == "A_COMPLETER" %}
+                <span class="etat etat-attention">
+                    {{ ref.get_liquide_etat_display }}
+                </span>
+
+            {% elif ref.liquide_etat == "A_REMPLACER" %}
+                <span class="etat etat-not-ok">
+                    {{ ref.get_liquide_etat_display }}
+                </span>
+
+            {% elif ref.liquide_etat == "REMPLACE" %}
+                <span class="etat etat-remplace">
+                    {{ ref.get_liquide_etat_display }}
+                </span>
+
+            {% else %}
+                {{ ref.get_liquide_etat_display|default:"-" }}
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Qualité du liquide" %} :</span>
+
+            {% if ref.liquide_qualite == "BONNE" %}
+                <span class="etat etat-ok">
+                    {{ ref.get_liquide_qualite_display }}
+                </span>
+
+            {% elif ref.liquide_qualite == "MOYENNE" %}
+                <span class="etat etat-attention">
+                    {{ ref.get_liquide_qualite_display }}
+                </span>
+
+            {% else %}
+                <span class="etat etat-not-ok">
+                    {{ ref.get_liquide_qualite_display }}
+                </span>
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Type de liquide" %} :</span>
+            {{ ref.liquide_type|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Couleur du liquide" %} :</span>
+            {{ ref.liquide_couleur|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">
+                {% trans "Température de protection" %} :
+            </span>
+
+            {% if ref.liquide_temperature_protection is not None %}
+                {{ ref.liquide_temperature_protection|floatformat:1 }} °C
+            {% else %}
+                -
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Quantité utilisée" %} :</span>
+            {{ ref.liquide_quantite|default:0|floatformat:2 }} L
+        </div>
+
+        <div>
+            <span class="label">{% trans "Prix d'achat HTVA" %} :</span>
+            {{ ref.liquide_prix_achat|default:0|floatformat:2 }} €
+        </div>
+
+        <div>
+            <span class="label">{% trans "TVA à l'achat" %} :</span>
+            {{ ref.liquide_tva_achat|default:0|floatformat:2 }} €
+        </div>
+
+        <div>
+            <span class="label">{% trans "Prix de vente HTVA" %} :</span>
+            {{ ref.liquide_prix_vente_htva|default:0|floatformat:2 }} €
+        </div>
+
+        <div>
+            <span class="label">{% trans "TVA à la vente" %} :</span>
+            {{ ref.liquide_tva_vente|default:0|floatformat:2 }} €
+        </div>
+
+        <div>
+            <span class="label">{% trans "Prix TTC" %} :</span>
+            {{ ref.liquide_prix_ttc|default:0|floatformat:2 }} €
+        </div>
+
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- PURGE -->
+<!-- ================================================== -->
+
+<h2>{% trans "Purge du circuit" %}</h2>
+
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "État de la purge" %} :</span>
+
+            {% if ref.purge_circuit == "FAIT" %}
+                <span class="etat etat-ok">
+                    {{ ref.get_purge_circuit_display }}
+                </span>
+
+            {% elif ref.purge_circuit == "A_FAIRE" %}
+                <span class="etat etat-not-ok">
+                    {{ ref.get_purge_circuit_display }}
+                </span>
+
+            {% elif ref.purge_circuit == "REPORTE" %}
+                <span class="etat etat-attention">
+                    {{ ref.get_purge_circuit_display }}
+                </span>
+
+            {% else %}
+                {{ ref.get_purge_circuit_display|default:"-" }}
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Présence d'air dans le circuit" %} :</span>
+
+            {% if ref.purge_presence_air %}
+                <span class="non">{% trans "Oui" %}</span>
+            {% else %}
+                <span class="oui">{% trans "Non" %}</span>
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Purge effectuée sous vide" %} :</span>
+
+            {% if ref.purge_effectuee_sous_vide %}
+                <span class="oui">{% trans "Oui" %}</span>
+            {% else %}
+                <span class="etat etat-neutre">{% trans "Non" %}</span>
+            {% endif %}
+        </div>
+
+    </div>
+
+    {% if ref.purge_remarques %}
+        <div style="margin-top: 10px;">
+            <span class="label">{% trans "Remarques concernant la purge" %} :</span>
+            <div class="remarques">
+                {{ ref.purge_remarques|linebreaksbr }}
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+<!-- ================================================== -->
+<!-- ÉTAT DES COMPOSANTS -->
+<!-- ================================================== -->
+
+<h2>{% trans "État des composants" %}</h2>
+
+<div class="box">
+
+    <table>
+        <thead>
+            <tr>
+                <th>{% trans "Composant" %}</th>
+                <th>{% trans "État" %}</th>
+                <th class="text-right">{% trans "Quantité" %}</th>
+                <th class="text-right">{% trans "Prix d'achat HTVA" %}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr>
+                <td>{% trans "Ventilateur de refroidissement" %}</td>
+
+                <td>
+                    {% if ref.ventilateur == "OK" %}
+                        <span class="etat etat-ok">
+                            {{ ref.get_ventilateur_display }}
+                        </span>
+
+                    {% elif ref.ventilateur == "A_REMPLACER" %}
+                        <span class="etat etat-not-ok">
+                            {{ ref.get_ventilateur_display }}
+                        </span>
+
+                    {% elif ref.ventilateur == "REMPLACE" %}
+                        <span class="etat etat-remplace">
+                            {{ ref.get_ventilateur_display }}
+                        </span>
+                    {% endif %}
+                </td>
+
+                <td class="text-right">
+                    {{ ref.ventilateur_quantite|default:0 }}
+                </td>
+
+                <td class="text-right">
+                    {{ ref.ventilateur_prix_achat|default:0|floatformat:2 }} €
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Radiateur moteur" %}</td>
+
+                <td>
+                    {% if ref.radiateur == "OK" %}
+                        <span class="etat etat-ok">
+                            {{ ref.get_radiateur_display }}
+                        </span>
+
+                    {% elif ref.radiateur == "A_REMPLACER" %}
+                        <span class="etat etat-not-ok">
+                            {{ ref.get_radiateur_display }}
+                        </span>
+
+                    {% elif ref.radiateur == "REMPLACE" %}
+                        <span class="etat etat-remplace">
+                            {{ ref.get_radiateur_display }}
+                        </span>
+                    {% endif %}
+                </td>
+
+                <td class="text-right">
+                    {{ ref.radiateur_quantite|default:0 }}
+                </td>
+
+                <td class="text-right">
+                    {{ ref.radiateur_prix_achat|default:0|floatformat:2 }} €
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Thermostat" %}</td>
+
+                <td>
+                    {% if ref.thermostat == "OK" %}
+                        <span class="etat etat-ok">
+                            {{ ref.get_thermostat_display }}
+                        </span>
+
+                    {% elif ref.thermostat == "A_REMPLACER" %}
+                        <span class="etat etat-not-ok">
+                            {{ ref.get_thermostat_display }}
+                        </span>
+
+                    {% elif ref.thermostat == "REMPLACE" %}
+                        <span class="etat etat-remplace">
+                            {{ ref.get_thermostat_display }}
+                        </span>
+                    {% endif %}
+                </td>
+
+                <td class="text-right">
+                    {{ ref.thermostat_quantite|default:0 }}
+                </td>
+
+                <td class="text-right">
+                    {{ ref.thermostat_prix_achat|default:0|floatformat:2 }} €
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Boîtier d'eau" %}</td>
+
+                <td>
+                    {% if ref.boitier_eau == "OK" %}
+                        <span class="etat etat-ok">
+                            {{ ref.get_boitier_eau_display }}
+                        </span>
+
+                    {% elif ref.boitier_eau == "A_REMPLACER" %}
+                        <span class="etat etat-not-ok">
+                            {{ ref.get_boitier_eau_display }}
+                        </span>
+
+                    {% elif ref.boitier_eau == "REMPLACE" %}
+                        <span class="etat etat-remplace">
+                            {{ ref.get_boitier_eau_display }}
+                        </span>
+                    {% endif %}
+                </td>
+
+                <td class="text-right">
+                    {{ ref.boitier_eau_quantite|default:0 }}
+                </td>
+
+                <td class="text-right">
+                    {{ ref.boitier_eau_prix_achat|default:0|floatformat:2 }} €
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Sonde de température du liquide" %}</td>
+
+                <td>
+                    {% if ref.sonde_temperature_liquide == "OK" %}
+                        <span class="etat etat-ok">
+                            {{ ref.get_sonde_temperature_liquide_display }}
+                        </span>
+
+                    {% elif ref.sonde_temperature_liquide == "A_REMPLACER" %}
+                        <span class="etat etat-not-ok">
+                            {{ ref.get_sonde_temperature_liquide_display }}
+                        </span>
+
+                    {% elif ref.sonde_temperature_liquide == "REMPLACE" %}
+                        <span class="etat etat-remplace">
+                            {{ ref.get_sonde_temperature_liquide_display }}
+                        </span>
+                    {% endif %}
+                </td>
+
+                <td class="text-right">
+                    {{ ref.sonde_temperature_quantite|default:0 }}
+                </td>
+
+                <td class="text-right">
+                    {{ ref.sonde_temperature_prix_achat|default:0|floatformat:2 }} €
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Durites de refroidissement" %}</td>
+
+                <td>
+                    {% if ref.durites == "OK" %}
+                        <span class="etat etat-ok">
+                            {{ ref.get_durites_display }}
+                        </span>
+
+                    {% elif ref.durites == "A_REMPLACER" %}
+                        <span class="etat etat-not-ok">
+                            {{ ref.get_durites_display }}
+                        </span>
+
+                    {% elif ref.durites == "REMPLACE" %}
+                        <span class="etat etat-remplace">
+                            {{ ref.get_durites_display }}
+                        </span>
+                    {% endif %}
+                </td>
+
+                <td class="text-right">
+                    {{ ref.durites_quantite|default:0 }}
+                </td>
+
+                <td class="text-right">
+                    {{ ref.durites_prix_achat|default:0|floatformat:2 }} €
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Radiateur de chauffage" %}</td>
+
+                <td>
+                    {% if ref.chaufferette == "OK" %}
+                        <span class="etat etat-ok">
+                            {{ ref.get_chaufferette_display }}
+                        </span>
+
+                    {% elif ref.chaufferette == "A_REMPLACER" %}
+                        <span class="etat etat-not-ok">
+                            {{ ref.get_chaufferette_display }}
+                        </span>
+
+                    {% elif ref.chaufferette == "REMPLACE" %}
+                        <span class="etat etat-remplace">
+                            {{ ref.get_chaufferette_display }}
+                        </span>
+                    {% endif %}
+                </td>
+
+                <td class="text-right">
+                    {{ ref.chaufferette_quantite|default:0 }}
+                </td>
+
+                <td class="text-right">
+                    {{ ref.chaufferette_prix_achat|default:0|floatformat:2 }} €
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+</div>
+
+<!-- ================================================== -->
+<!-- DÉTAILS DU VENTILATEUR -->
+<!-- ================================================== -->
+
+<h2>{% trans "Contrôle du ventilateur" %}</h2>
+
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Déclenchement du ventilateur" %} :</span>
+
+            {% if ref.ventilateur_declenchement %}
+                <span class="oui">{% trans "Correct" %}</span>
+            {% else %}
+                <span class="non">{% trans "Incorrect" %}</span>
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Première vitesse" %} :</span>
+
+            {% if ref.ventilateur_vitesse_1 %}
+                <span class="oui">{% trans "Fonctionnelle" %}</span>
+            {% else %}
+                <span class="non">{% trans "Non fonctionnelle" %}</span>
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Deuxième vitesse" %} :</span>
+
+            {% if ref.ventilateur_vitesse_2 %}
+                <span class="oui">{% trans "Fonctionnelle" %}</span>
+            {% else %}
+                <span class="non">{% trans "Non fonctionnelle" %}</span>
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Bruit anormal" %} :</span>
+
+            {% if ref.ventilateur_bruit_anormal %}
+                <span class="non">{% trans "Oui" %}</span>
+            {% else %}
+                <span class="oui">{% trans "Non" %}</span>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- DÉTAILS DU RADIATEUR -->
+<!-- ================================================== -->
+
+<h2>{% trans "Contrôle du radiateur moteur" %}</h2>
+
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Fuite au radiateur" %} :</span>
+
+            {% if ref.radiateur_fuite %}
+                <span class="non">{% trans "Oui" %}</span>
+            {% else %}
+                <span class="oui">{% trans "Non" %}</span>
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Radiateur obstrué" %} :</span>
+
+            {% if ref.radiateur_obstruction %}
+                <span class="non">{% trans "Oui" %}</span>
+            {% else %}
+                <span class="oui">{% trans "Non" %}</span>
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Ailettes endommagées" %} :</span>
+
+            {% if ref.radiateur_ailettes_endommagees %}
+                <span class="non">{% trans "Oui" %}</span>
+            {% else %}
+                <span class="oui">{% trans "Non" %}</span>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- DÉTAILS DU THERMOSTAT -->
+<!-- ================================================== -->
+
+<h2>{% trans "Contrôle du thermostat" %}</h2>
+
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Ouverture correcte" %} :</span>
+
+            {% if ref.thermostat_ouverture_correcte %}
+                <span class="oui">{% trans "Oui" %}</span>
+            {% else %}
+                <span class="non">{% trans "Non" %}</span>
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Température d'ouverture" %} :</span>
+
+            {% if ref.thermostat_temperature_ouverture is not None %}
+                {{ ref.thermostat_temperature_ouverture|floatformat:1 }} °C
+            {% else %}
+                -
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- DÉTAILS DU BOÎTIER D'EAU -->
+<!-- ================================================== -->
+
+<h2>{% trans "Contrôle du boîtier d'eau" %}</h2>
+
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Fuite au boîtier d'eau" %} :</span>
+
+            {% if ref.boitier_eau_fuite %}
+                <span class="non">{% trans "Oui" %}</span>
+            {% else %}
+                <span class="oui">{% trans "Non" %}</span>
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Fissure du boîtier d'eau" %} :</span>
+
+            {% if ref.boitier_eau_fissure %}
+                <span class="non">{% trans "Oui" %}</span>
+            {% else %}
+                <span class="oui">{% trans "Non" %}</span>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- SONDE DE TEMPÉRATURE -->
+<!-- ================================================== -->
+
+<h2>{% trans "Contrôle de la sonde de température" %}</h2>
+
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Valeur mesurée" %} :</span>
+
+            {% if ref.sonde_temperature_valeur is not None %}
+                {{ ref.sonde_temperature_valeur|floatformat:1 }} °C
+            {% else %}
+                -
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Signal de la sonde correct" %} :</span>
+
+            {% if ref.sonde_temperature_signal_correct %}
+                <span class="oui">{% trans "Oui" %}</span>
+            {% else %}
+                <span class="non">{% trans "Non" %}</span>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- DURITES -->
+<!-- ================================================== -->
+
+<h2>{% trans "Contrôle des durites" %}</h2>
+
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Durites fissurées" %} :</span>
+
+            {% if ref.durites_fissurees %}
+                <span class="non">{% trans "Oui" %}</span>
+            {% else %}
+                <span class="oui">{% trans "Non" %}</span>
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Durites poreuses" %} :</span>
+
+            {% if ref.durites_poreuses %}
+                <span class="non">{% trans "Oui" %}</span>
+            {% else %}
+                <span class="oui">{% trans "Non" %}</span>
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Durites gonflées" %} :</span>
+
+            {% if ref.durites_gonflees %}
+                <span class="non">{% trans "Oui" %}</span>
+            {% else %}
+                <span class="oui">{% trans "Non" %}</span>
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Colliers correctement serrés" %} :</span>
+
+            {% if ref.durites_colliers_corrects %}
+                <span class="oui">{% trans "Oui" %}</span>
+            {% else %}
+                <span class="non">{% trans "Non" %}</span>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- RADIATEUR DE CHAUFFAGE -->
+<!-- ================================================== -->
+
+<h2>{% trans "Contrôle du radiateur de chauffage" %}</h2>
+
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Fuite" %} :</span>
+
+            {% if ref.chaufferette_fuite %}
+                <span class="non">{% trans "Oui" %}</span>
+            {% else %}
+                <span class="oui">{% trans "Non" %}</span>
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Obstruction" %} :</span>
+
+            {% if ref.chaufferette_obstruction %}
+                <span class="non">{% trans "Oui" %}</span>
+            {% else %}
+                <span class="oui">{% trans "Non" %}</span>
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Fonctionnement du chauffage correct" %} :</span>
+
+            {% if ref.chaufferette_chauffage_correct %}
+                <span class="oui">{% trans "Oui" %}</span>
+            {% else %}
+                <span class="non">{% trans "Non" %}</span>
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Odeur de liquide dans l'habitacle" %} :</span>
+
+            {% if ref.chaufferette_odeur_liquide %}
+                <span class="non">{% trans "Oui" %}</span>
+            {% else %}
+                <span class="oui">{% trans "Non" %}</span>
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Buée anormale dans l'habitacle" %} :</span>
+
+            {% if ref.chaufferette_buee_anormale %}
+                <span class="non">{% trans "Oui" %}</span>
+            {% else %}
+                <span class="oui">{% trans "Non" %}</span>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- MAIN-D'ŒUVRE -->
+<!-- ================================================== -->
+
+<h2>{% trans "Main-d'œuvre" %}</h2>
+
+<div class="box">
+
+    <div style="margin-bottom:10px;">
+        <span class="label">{% trans "Temps de travail" %} :</span><br>
+        {{ ref.temps_main_oeuvre_display|default:"0h00" }}
+    </div>
+
+    <div style="margin-bottom:10px;">
+        <span class="label">{% trans "Taux horaire" %} :</span><br>
+        {{ ref.taux_horaire_main_oeuvre|default:0|floatformat:2 }} €
+    </div>
+
+    <div style="margin-bottom:10px;">
+        <span class="label">{% trans "Coût de la main-d'œuvre" %} :</span><br>
+        {{ ref.cout_main_oeuvre|default:0|floatformat:2 }} €
+    </div>
+
+    <div style="margin-bottom:10px;">
+        <span class="label">{% trans "Technicien" %} :</span><br>
+
+        {% if ref.main_oeuvre and ref.main_oeuvre.utilisateur %}
+            {{ ref.main_oeuvre.utilisateur }}
+        {% else %}
+            {{ ref.tech_nom_technicien|default:"-" }}
+        {% endif %}
+    </div>
+
+    {% if ref.main_oeuvre and ref.main_oeuvre.descriptif %}
+        <div style="margin-bottom:10px;">
+            <span class="label">{% trans "Descriptif" %} :</span><br>
+            {{ ref.main_oeuvre.descriptif }}
+        </div>
+    {% endif %}
+
+    {% if ref.main_oeuvre and ref.main_oeuvre.remarques %}
+        <div>
+            <span class="label">{% trans "Remarques sur la main-d'œuvre" %} :</span><br>
+            {{ ref.main_oeuvre.remarques|linebreaksbr }}
+        </div>
+    {% endif %}
+
+</div>
+
+<!-- ================================================== -->
+<!-- PIÈCES ET PRODUITS -->
+<!-- ================================================== -->
+<br>
+<br>
+<br>
+<br>
+<h2>{% trans "Pièces et produits utilisés" %}</h2>
+
+<div class="box">
+
+    {% if rapport.lignes %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>{% trans "Pièce / Produit" %}</th>
+                    <th>{% trans "État" %}</th>
+                    <th class="text-right">{% trans "Quantité" %}</th>
+                    <th class="text-right">{% trans "Prix unitaire HTVA" %}</th>
+                    <th class="text-right">{% trans "Total HTVA" %}</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for ligne in rapport.lignes %}
+                    <tr>
+                        <td>
+                            {{ ligne.champ }}
+                        </td>
+
+                        <td>
+                            {{ ligne.etat_label|default:"-" }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.quantite|default:0 }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.prix|default:0|floatformat:2 }} €
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.total|default:0|floatformat:2 }} €
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                <tr class="total">
+                    <td colspan="4" class="text-right">
+                        {% trans "Total pièces et produits HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total">
+                    <td colspan="4" class="text-right">
+                        {% trans "Main-d'œuvre" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ ref.cout_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total">
+                    <td colspan="4" class="text-right">
+                        {% trans "Total général avec main-d'œuvre" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ ref.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    {% else %}
+
+        <p>
+            {% trans "Aucune pièce ou produit utilisé." %}
+        </p>
+
+        <table>
+            <tbody>
+                <tr class="total">
+                    <td>
+                        <div>
+                            <strong>{% trans "Main-d'œuvre" %}</strong>
+                        </div>
+
+                        <div class="text-right" style="margin-top: 4px;">
+                            {{ ref.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        </div>
+                    </td>
+                </tr>
+
+                <tr class="total">
+                    <td>
+                        <div>
+                            <strong>{% trans "Total général" %}</strong>
+                        </div>
+
+                        <div class="text-right" style="margin-top: 4px;">
+                            {{ ref.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    {% endif %}
+
+</div>
+
+<!-- ================================================== -->
+<!-- REMARQUES -->
+<!-- ================================================== -->
+
+<h2>{% trans "Remarques" %}</h2>
+
+<div class="box remarques">
+    {% if ref.remarques %}
+        {{ ref.remarques|linebreaksbr }}
+    {% else %}
+        {% trans "Aucune remarque." %}
+    {% endif %}
+</div>
+
+<div class="small">
+    {% trans "Rapport généré le" %} :
+    {{ date_export|date:"d/m/Y H:i" }}
+</div>
 
 </body>
 </html>
