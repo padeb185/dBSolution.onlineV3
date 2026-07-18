@@ -395,7 +395,7 @@ def ref_form_view(request, exemplaire_id):
             },
             {
                 "title": _("Boitier d'eau"),
-                "icon": "icons/valves-clim.png",
+                "icon": "icons/boitier-eau.png",
                 "fields": [
                     field
                     for field in form
