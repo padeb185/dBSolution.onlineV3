@@ -350,7 +350,7 @@ def ref_form_view(request, exemplaire_id):
             },
             {
                 "title": _("Liquide de refroidissement"),
-                "icon": "icons/liquide.png",
+                "icon": "icons/liquide-ref.png",
                 "fields": [
                     field
                     for field in form
