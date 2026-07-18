@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-17 19:27+0200\n"
+"POT-Creation-Date: 2026-07-18 17:47+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -136,6 +136,7 @@ msgstr "Detalles del proveedor:"
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_detail.html:25
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_detail.html:25
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail.html:25
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail.html:25
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_detail.html:23
 #: maintenance/check_up/templates/check_up/checkup_detail.html:26
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail.html:26
@@ -277,6 +278,7 @@ msgstr "No se ha proporcionado ninguna dirección."
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_detail.html:75
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_detail.html:65
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail.html:77
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail.html:78
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_detail.html:77
 #: maintenance/check_up/templates/check_up/checkup_detail.html:68
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail.html:68
@@ -348,6 +350,8 @@ msgstr "Metadatos"
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_detail.html:69
 #: maintenance/autres_interventions/moteur/turbo/models.py:143
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail.html:81
+#: maintenance/autres_interventions/refroidissement/models.py:847
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail.html:82
 #: maintenance/carrosserie_interne/models.py:580
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_detail.html:81
 #: maintenance/check_up/models.py:443
@@ -442,6 +446,8 @@ msgstr "Creado el"
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_detail.html:73
 #: maintenance/autres_interventions/moteur/turbo/models.py:144
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail.html:85
+#: maintenance/autres_interventions/refroidissement/models.py:854
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail.html:86
 #: maintenance/carrosserie_interne/models.py:581
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_detail.html:85
 #: maintenance/check_up/models.py:444
@@ -547,6 +553,8 @@ msgstr "Compra de mercancías"
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:553
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/modifier_turbo.html:126
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_check.html:120
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/modifier_ref.html:119
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_form.html:117
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_create.html:128
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/modifier_carrosserie_interne.html:132
 #: maintenance/check_up/templates/check_up/controle_total.html:1289
@@ -655,6 +663,8 @@ msgstr "Guardar"
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:558
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/modifier_turbo.html:130
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_check.html:125
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/modifier_ref.html:125
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_form.html:122
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_create.html:133
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/modifier_carrosserie_interne.html:136
 #: maintenance/check_up/templates/check_up/controle_total.html:1294
@@ -863,6 +873,7 @@ msgstr "Volver al panel de control"
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:214
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_list.html:148
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_list.html:168
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_list.html:172
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_list.html:146
 #: maintenance/check_up/templates/check_up/checkup_list.html:150
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_list.html:147
@@ -914,6 +925,7 @@ msgstr "Búsqueda global:"
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:215
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_list.html:149
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_list.html:169
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_list.html:173
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_list.html:147
 #: maintenance/check_up/templates/check_up/checkup_list.html:151
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_list.html:148
@@ -977,6 +989,7 @@ msgstr "No se encontraron facturas"
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:220
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_list.html:154
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_list.html:174
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_list.html:178
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_list.html:152
 #: maintenance/check_up/templates/check_up/checkup_list.html:156
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_list.html:153
@@ -1030,6 +1043,7 @@ msgstr "Primero"
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:221
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_list.html:155
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_list.html:175
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_list.html:179
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_list.html:153
 #: maintenance/check_up/templates/check_up/checkup_list.html:157
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_list.html:154
@@ -1083,6 +1097,7 @@ msgstr "Último"
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:222
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_list.html:156
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_list.html:176
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_list.html:180
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_list.html:154
 #: maintenance/check_up/templates/check_up/checkup_list.html:158
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_list.html:155
@@ -1136,6 +1151,7 @@ msgstr "Siguiente"
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:223
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_list.html:157
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_list.html:177
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_list.html:181
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_list.html:155
 #: maintenance/check_up/templates/check_up/checkup_list.html:159
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_list.html:156
@@ -1226,20 +1242,24 @@ msgstr "Ciudad"
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/views.py:372
 #: maintenance/autres_interventions/climatisation/models.py:107
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:208
-#: maintenance/autres_interventions/climatisation/views.py:474
-#: maintenance/autres_interventions/climatisation/views.py:753
+#: maintenance/autres_interventions/climatisation/views.py:471
+#: maintenance/autres_interventions/climatisation/views.py:750
 #: maintenance/autres_interventions/courroie_accessoires/views.py:231
 #: maintenance/autres_interventions/courroie_accessoires/views.py:373
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check.html:1029
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:206
 #: maintenance/autres_interventions/echappement/templates/echappement/modifier_echappement.html:1034
-#: maintenance/autres_interventions/moteur/alternateur/views.py:331
-#: maintenance/autres_interventions/moteur/alternateur/views.py:480
+#: maintenance/autres_interventions/moteur/alternateur/views.py:325
+#: maintenance/autres_interventions/moteur/alternateur/views.py:474
 #: maintenance/autres_interventions/moteur/courroie/views.py:240
 #: maintenance/autres_interventions/moteur/courroie/views.py:381
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:197
 #: maintenance/autres_interventions/moteur/remplacement_moteur/views.py:239
 #: maintenance/autres_interventions/moteur/remplacement_moteur/views.py:373
+#: maintenance/autres_interventions/refroidissement/models.py:118
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:240
+#: maintenance/autres_interventions/refroidissement/views.py:444
+#: maintenance/autres_interventions/refroidissement/views.py:709
 #: piece/models.py:9 piece/models.py:79
 #: piece/templates/piece/piece_detail.html:31
 msgid "Pays"
@@ -1328,8 +1348,8 @@ msgstr "Otras informaciones"
 #: maintenance/autres_interventions/climatisation/models.py:446
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail.html:44
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:764
-#: maintenance/autres_interventions/climatisation/views.py:483
-#: maintenance/autres_interventions/climatisation/views.py:762
+#: maintenance/autres_interventions/climatisation/views.py:480
+#: maintenance/autres_interventions/climatisation/views.py:759
 #: maintenance/autres_interventions/courroie_accessoires/models.py:103
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_access_detail.html:44
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_detail_pdf.html:325
@@ -1353,8 +1373,8 @@ msgstr "Otras informaciones"
 #: maintenance/autres_interventions/moteur/alternateur/models.py:121
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail.html:44
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:354
-#: maintenance/autres_interventions/moteur/alternateur/views.py:340
-#: maintenance/autres_interventions/moteur/alternateur/views.py:486
+#: maintenance/autres_interventions/moteur/alternateur/views.py:334
+#: maintenance/autres_interventions/moteur/alternateur/views.py:480
 #: maintenance/autres_interventions/moteur/courroie/models.py:150
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail.html:44
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:366
@@ -1375,6 +1395,11 @@ msgstr "Otras informaciones"
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:501
 #: maintenance/autres_interventions/moteur/turbo/views.py:113
 #: maintenance/autres_interventions/moteur/turbo/views.py:334
+#: maintenance/autres_interventions/refroidissement/models.py:788
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail.html:44
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1273
+#: maintenance/autres_interventions/refroidissement/views.py:453
+#: maintenance/autres_interventions/refroidissement/views.py:718
 #: maintenance/carrosserie_interne/models.py:578
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_detail.html:41
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:212
@@ -1511,6 +1536,7 @@ msgstr "¡Dirección '%(rue)s, %(cp)s' modificada con éxito!"
 #: maintenance/autres_interventions/moteur/alternateur/models.py:26
 #: maintenance/autres_interventions/moteur/courroie/models.py:68
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:34
+#: maintenance/autres_interventions/refroidissement/models.py:59
 #: piece/piece_roue_rechange/models.py:8 recharge/models.py:16
 #: recharge/templates/recharge/electricite_exemplaire_stat.html:81
 #: recharge/templates/recharge/electricite_stat.html:41
@@ -1701,6 +1727,7 @@ msgstr "Aseguradora"
 #: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:111
 #: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:125
 #: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:140
+#: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:153
 #: maintenance/templates/maintenance/choisir_type.html:33
 #: maintenance/templates/maintenance/choisir_type.html:43
 #: maintenance/templates/maintenance/choisir_type.html:53
@@ -1758,7 +1785,7 @@ msgstr ""
 #: maintenance/autres_interventions/bte_vitesse_auto/views.py:282
 #: maintenance/autres_interventions/climatisation/views.py:253
 #: maintenance/autres_interventions/climatisation/views.py:271
-#: maintenance/autres_interventions/climatisation/views.py:559
+#: maintenance/autres_interventions/climatisation/views.py:556
 #: maintenance/autres_interventions/courroie_accessoires/views.py:188
 #: maintenance/autres_interventions/courroie_accessoires/views.py:329
 #: maintenance/autres_interventions/echappement/views.py:354
@@ -1768,13 +1795,16 @@ msgstr ""
 #: maintenance/autres_interventions/moteur/admission/views.py:211
 #: maintenance/autres_interventions/moteur/admission/views.py:325
 #: maintenance/autres_interventions/moteur/alternateur/views.py:252
-#: maintenance/autres_interventions/moteur/alternateur/views.py:437
+#: maintenance/autres_interventions/moteur/alternateur/views.py:431
 #: maintenance/autres_interventions/moteur/courroie/views.py:196
 #: maintenance/autres_interventions/moteur/courroie/views.py:337
 #: maintenance/autres_interventions/moteur/remplacement_moteur/views.py:326
 #: maintenance/autres_interventions/moteur/rodage/views.py:212
 #: maintenance/autres_interventions/moteur/rodage/views.py:307
 #: maintenance/autres_interventions/moteur/turbo/views.py:306
+#: maintenance/autres_interventions/refroidissement/views.py:260
+#: maintenance/autres_interventions/refroidissement/views.py:278
+#: maintenance/autres_interventions/refroidissement/views.py:550
 #: maintenance/carrosserie_interne/views.py:206
 #: maintenance/carrosserie_interne/views.py:681
 #: maintenance/check_up/views.py:194 maintenance/checkup_track/views.py:221
@@ -1922,6 +1952,10 @@ msgstr "Detalles de la póliza de seguro:"
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail.html:27
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_list.html:31
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_list.html:58
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail.html:27
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:223
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_list.html:32
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_list.html:59
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_detail.html:25
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_list.html:31
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_list.html:57
@@ -1940,7 +1974,7 @@ msgstr "Detalles de la póliza de seguro:"
 #: maintenance/jeux_pieces/templates/jeux_pieces/jeux_pieces_detail.html:27
 #: maintenance/jeux_pieces/templates/jeux_pieces/jeux_pieces_list.html:30
 #: maintenance/jeux_pieces/templates/jeux_pieces/jeux_pieces_list.html:58
-#: maintenance/models.py:113
+#: maintenance/models.py:114
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_ext_detail.html:27
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_ext_list.html:30
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_ext_list.html:57
@@ -2583,6 +2617,7 @@ msgstr "Crear un piloto"
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_form.html:45
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_form.html:45
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_check.html:45
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_form.html:45
 #: piece/piece_fluides/templates/piece_fluides/piece_fluide_form.html:42
 #: utilisateurs/templates/utilisateurs/creer_paie_utilisateur.html:48
 #: utilisateurs/templates/utilisateurs/creer_utilisateur.html:34
@@ -2762,6 +2797,8 @@ msgstr "Descripción"
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:273
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:371
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:433
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:573
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1166
 #: maintenance/carrosserie_interne/models.py:218
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:175
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:549
@@ -2976,6 +3013,7 @@ msgstr "Etanol"
 #: maintenance/autres_interventions/moteur/alternateur/models.py:27
 #: maintenance/autres_interventions/moteur/courroie/models.py:69
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:35
+#: maintenance/autres_interventions/refroidissement/models.py:60
 #: recharge/models.py:17
 #: recharge/templates/recharge/electricite_exemplaire_stat.html:82
 #: recharge/templates/recharge/electricite_stat.html:42
@@ -2994,6 +3032,7 @@ msgstr "Luxemburgo"
 #: maintenance/autres_interventions/moteur/alternateur/models.py:28
 #: maintenance/autres_interventions/moteur/courroie/models.py:70
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:36
+#: maintenance/autres_interventions/refroidissement/models.py:61
 #: piece/piece_roue_rechange/models.py:9 recharge/models.py:18
 #: recharge/templates/recharge/electricite_exemplaire_stat.html:83
 #: recharge/templates/recharge/electricite_stat.html:43
@@ -3040,6 +3079,8 @@ msgstr "Usuario"
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:136
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:134
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:159
+#: maintenance/autres_interventions/refroidissement/models.py:81
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:218
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:127
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:131
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:162
@@ -3209,6 +3250,8 @@ msgstr "Detalles del repostaje:"
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_list.html:57
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_list.html:35
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_list.html:59
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_list.html:36
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_list.html:60
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_list.html:35
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_list.html:58
 #: maintenance/check_up/templates/check_up/checkup_list.html:36
@@ -3465,6 +3508,9 @@ msgstr "14,32 Litros"
 #: maintenance/autres_interventions/moteur/turbo/models.py:141
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:139
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_list.html:62
+#: maintenance/autres_interventions/refroidissement/models.py:843
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:193
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_list.html:63
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_list.html:61
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:107
 #: maintenance/check_up/models.py:441
@@ -3582,8 +3628,8 @@ msgstr "Equilibradora"
 
 #: investissements/models.py:30
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:525
-#: maintenance/autres_interventions/climatisation/views.py:417
-#: maintenance/autres_interventions/climatisation/views.py:694
+#: maintenance/autres_interventions/climatisation/views.py:414
+#: maintenance/autres_interventions/climatisation/views.py:691
 #: piece/piece_climatisation/models.py:11 piece/piece_hydraulique/models.py:14
 msgid "Compresseur"
 msgstr "Compresor"
@@ -3673,6 +3719,7 @@ msgstr "Tiempo (min)"
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:401
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:680
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:967
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1134
 #: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux_pdf.html:770
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html:260
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_interieur_detail_pdf.html:313
@@ -3726,8 +3773,8 @@ msgstr "Detalles de la mano de obra"
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail.html:33
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/modifier_bte_auto.html:70
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail.html:32
-#: maintenance/autres_interventions/climatisation/views.py:301
-#: maintenance/autres_interventions/climatisation/views.py:578
+#: maintenance/autres_interventions/climatisation/views.py:298
+#: maintenance/autres_interventions/climatisation/views.py:575
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_access_detail.html:32
 #: maintenance/autres_interventions/courroie_accessoires/views.py:206
 #: maintenance/autres_interventions/courroie_accessoires/views.py:347
@@ -3739,8 +3786,8 @@ msgstr "Detalles de la mano de obra"
 #: maintenance/autres_interventions/moteur/admission/views.py:233
 #: maintenance/autres_interventions/moteur/admission/views.py:343
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail.html:32
-#: maintenance/autres_interventions/moteur/alternateur/views.py:286
-#: maintenance/autres_interventions/moteur/alternateur/views.py:455
+#: maintenance/autres_interventions/moteur/alternateur/views.py:280
+#: maintenance/autres_interventions/moteur/alternateur/views.py:449
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail.html:32
 #: maintenance/autres_interventions/moteur/courroie/views.py:214
 #: maintenance/autres_interventions/moteur/courroie/views.py:355
@@ -3753,6 +3800,9 @@ msgstr "Detalles de la mano de obra"
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail.html:33
 #: maintenance/autres_interventions/moteur/turbo/views.py:103
 #: maintenance/autres_interventions/moteur/turbo/views.py:324
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail.html:32
+#: maintenance/autres_interventions/refroidissement/views.py:305
+#: maintenance/autres_interventions/refroidissement/views.py:569
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_detail.html:30
 #: maintenance/check_up/templates/check_up/checkup_detail.html:33
 #: maintenance/check_up/templates/check_up/controle_total.html:69
@@ -3836,6 +3886,8 @@ msgstr "Kilometraje"
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail.html:34
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:175
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_list.html:60
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail.html:33
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_list.html:61
 #: maintenance/bruits/models.py:60
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_detail.html:31
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_list.html:59
@@ -3943,8 +3995,8 @@ msgstr "Etiqueta"
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:151
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_list.html:44
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_list.html:62
-#: maintenance/autres_interventions/moteur/alternateur/views.py:349
-#: maintenance/autres_interventions/moteur/alternateur/views.py:491
+#: maintenance/autres_interventions/moteur/alternateur/views.py:343
+#: maintenance/autres_interventions/moteur/alternateur/views.py:485
 #: maintenance/autres_interventions/moteur/courroie/models.py:174
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail.html:34
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:141
@@ -3973,6 +4025,14 @@ msgstr "Etiqueta"
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_list.html:61
 #: maintenance/autres_interventions/moteur/turbo/views.py:114
 #: maintenance/autres_interventions/moteur/turbo/views.py:335
+#: maintenance/autres_interventions/refroidissement/models.py:808
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail.html:34
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:203
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1123
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_list.html:44
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_list.html:62
+#: maintenance/autres_interventions/refroidissement/views.py:462
+#: maintenance/autres_interventions/refroidissement/views.py:727
 #: maintenance/carrosserie_interne/models.py:551
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_detail.html:32
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_list.html:43
@@ -4076,6 +4136,7 @@ msgstr "Mano de obra"
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_detail.html:42
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_detail.html:40
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail.html:42
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail.html:41
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_detail.html:39
 #: maintenance/check_up/templates/check_up/checkup_detail.html:41
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail.html:42
@@ -4135,6 +4196,9 @@ msgstr "Fecha de intervención"
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail.html:43
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_list.html:50
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_list.html:63
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail.html:42
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_list.html:51
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_list.html:64
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_detail.html:40
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_list.html:50
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_list.html:62
@@ -4198,6 +4262,7 @@ msgstr "Modificar la mano de obra"
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_detail.html:66
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_detail.html:56
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail.html:67
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail.html:70
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_detail.html:67
 #: maintenance/check_up/templates/check_up/checkup_detail.html:58
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail.html:59
@@ -4252,6 +4317,8 @@ msgstr "Detalle de la mano de obra"
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:133
 #: maintenance/autres_interventions/moteur/turbo/models.py:136
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:154
+#: maintenance/autres_interventions/refroidissement/models.py:829
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:213
 #: maintenance/carrosserie_interne/models.py:572
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:122
 #: maintenance/check_up/models.py:436
@@ -4360,6 +4427,7 @@ msgstr "Matrícula"
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_form.html:129
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:565
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_check.html:131
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_form.html:128
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_create.html:140
 #: maintenance/check_up/templates/check_up/controle_total.html:1301
 #: maintenance/checkup_track/templates/checkup_track/track_check_form.html:1317
@@ -4411,6 +4479,7 @@ msgstr "Coste"
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:76
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_list.html:62
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_list.html:64
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_list.html:65
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_list.html:63
 #: maintenance/check_up/templates/check_up/checkup_list.html:65
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_list.html:64
@@ -4443,6 +4512,7 @@ msgstr "Acción"
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:170
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_list.html:120
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_list.html:140
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_list.html:142
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_list.html:120
 #: maintenance/check_up/templates/check_up/checkup_list.html:122
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_list.html:119
@@ -4506,6 +4576,7 @@ msgstr "Error durante el registro: %(error)s"
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:271
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:346
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:406
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1108
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:159
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:762
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:695
@@ -4534,6 +4605,7 @@ msgstr "¡Mano de obra modificada con éxito!"
 #: maintenance/autres_interventions/moteur/courroie/forms.py:23
 #: maintenance/autres_interventions/moteur/rodage/forms.py:22
 #: maintenance/autres_interventions/moteur/turbo/forms.py:20
+#: maintenance/autres_interventions/refroidissement/forms.py:22
 #: maintenance/carrosserie_interne/forms.py:33 maintenance/check_up/forms.py:22
 #: maintenance/checkup_track/forms.py:24 maintenance/entretien/forms.py:23
 #: maintenance/freins/forms.py:23 maintenance/jeux_pieces/forms.py:22
@@ -4552,6 +4624,7 @@ msgstr "Agregue observaciones aquí..."
 #: maintenance/autres_interventions/moteur/alternateur/models.py:14
 #: maintenance/autres_interventions/moteur/courroie/models.py:15
 #: maintenance/autres_interventions/moteur/turbo/models.py:11
+#: maintenance/autres_interventions/refroidissement/models.py:20
 #: maintenance/carrosserie_interne/models.py:12
 #: maintenance/check_up/models.py:18 maintenance/check_up/models.py:24
 #: maintenance/check_up/models.py:29 maintenance/check_up/models.py:41
@@ -4586,6 +4659,8 @@ msgstr "A reemplazar"
 #: maintenance/autres_interventions/moteur/alternateur/models.py:16
 #: maintenance/autres_interventions/moteur/courroie/models.py:17
 #: maintenance/autres_interventions/moteur/turbo/models.py:13
+#: maintenance/autres_interventions/refroidissement/models.py:22
+#: maintenance/autres_interventions/refroidissement/models.py:36
 #: maintenance/carrosserie_interne/models.py:14
 #: maintenance/check_up/models.py:20 maintenance/check_up/models.py:26
 #: maintenance/check_up/models.py:31 maintenance/check_up/models.py:97
@@ -4671,7 +4746,7 @@ msgstr "Precio del sensor ABS trasero izquierdo"
 #: maintenance/carrosserie_interne/models.py:524
 #: maintenance/check_up/models.py:379 maintenance/checkup_track/models.py:371
 #: maintenance/entretien/models.py:309 maintenance/freins/models.py:104
-#: maintenance/jeux_pieces/models.py:125 maintenance/models.py:44
+#: maintenance/jeux_pieces/models.py:125 maintenance/models.py:45
 #: maintenance/nettoyage_exterieur/models.py:73
 #: maintenance/nettoyage_interieur/models.py:94
 #: maintenance/niveaux/models.py:285 maintenance/pneus/models.py:93
@@ -4698,7 +4773,7 @@ msgstr "Verde"
 #: maintenance/carrosserie_interne/models.py:525
 #: maintenance/check_up/models.py:380 maintenance/checkup_track/models.py:372
 #: maintenance/entretien/models.py:310 maintenance/freins/models.py:105
-#: maintenance/jeux_pieces/models.py:126 maintenance/models.py:45
+#: maintenance/jeux_pieces/models.py:126 maintenance/models.py:46
 #: maintenance/nettoyage_exterieur/models.py:74
 #: maintenance/nettoyage_interieur/models.py:95
 #: maintenance/niveaux/models.py:286 maintenance/pneus/models.py:94
@@ -4725,7 +4800,7 @@ msgstr "Amarillo"
 #: maintenance/carrosserie_interne/models.py:526
 #: maintenance/check_up/models.py:381 maintenance/checkup_track/models.py:373
 #: maintenance/entretien/models.py:311 maintenance/freins/models.py:106
-#: maintenance/jeux_pieces/models.py:127 maintenance/models.py:46
+#: maintenance/jeux_pieces/models.py:127 maintenance/models.py:47
 #: maintenance/nettoyage_exterieur/models.py:75
 #: maintenance/nettoyage_interieur/models.py:96
 #: maintenance/niveaux/models.py:287 maintenance/pneus/models.py:95
@@ -4774,6 +4849,7 @@ msgstr "Estado visual / Etiqueta"
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:210
 #: maintenance/autres_interventions/moteur/rodage/models.py:291
 #: maintenance/autres_interventions/moteur/turbo/models.py:120
+#: maintenance/autres_interventions/refroidissement/models.py:813
 #: maintenance/carrosserie_interne/models.py:556
 #: maintenance/check_up/models.py:420 maintenance/checkup_track/models.py:405
 #: maintenance/entretien/models.py:332 maintenance/freins/models.py:136
@@ -4799,6 +4875,7 @@ msgstr "Apellido del técnico"
 #: maintenance/autres_interventions/moteur/remplacement_moteur/models.py:216
 #: maintenance/autres_interventions/moteur/rodage/models.py:297
 #: maintenance/autres_interventions/moteur/turbo/models.py:126
+#: maintenance/autres_interventions/refroidissement/models.py:819
 #: maintenance/carrosserie_interne/models.py:562
 #: maintenance/check_up/models.py:426 maintenance/checkup_track/models.py:411
 #: maintenance/entretien/models.py:338 maintenance/freins/models.py:142
@@ -4828,6 +4905,7 @@ msgstr ""
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_detail.html:13
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail.html:13
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_detail.html:13
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail.html:13
 #: maintenance/jeux_pieces/templates/jeux_pieces/modifier_jeux_pieces.html:67
 msgid "Détails du contrôle"
 msgstr "Detalles del control"
@@ -4843,6 +4921,7 @@ msgstr "Detalles del control"
 #: maintenance/autres_interventions/moteur/courroie/views.py:219
 #: maintenance/autres_interventions/moteur/courroie/views.py:360
 #: maintenance/autres_interventions/moteur/templates/moteur/dashboard_moteur.html:40
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail.html:40
 #: maintenance/models.py:35 piece/piece_distribution/models.py:12
 msgid "Courroie de distribution"
 msgstr "Correa de distribución"
@@ -4851,6 +4930,7 @@ msgstr "Correa de distribución"
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_detail.html:64
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail.html:57
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_detail.html:64
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail.html:57
 #: maintenance/pneus/templates/pneus/modifier_pneus.html:22
 msgid "Modifier le contrôle"
 msgstr "Modificar el control"
@@ -4882,6 +4962,7 @@ msgstr "Estado de los componentes ABS"
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:245
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:398
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:248
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:571
 msgid "Composant"
 msgstr "Componentes"
 
@@ -4896,6 +4977,8 @@ msgstr "Componentes"
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:273
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:370
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:336
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:572
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1165
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:151
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:603
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:639
@@ -4947,6 +5030,8 @@ msgstr "Centralita ABS"
 #: maintenance/autres_interventions/moteur/alternateur/models.py:184
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:270
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:350
+#: maintenance/autres_interventions/refroidissement/models.py:838
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1113
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:699
 #: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:363
 #: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:495
@@ -5004,6 +5089,7 @@ msgstr "Pieza"
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:422
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:710
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:372
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1167
 #: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:330
 #: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:520
 msgid "Prix unitaire HTVA"
@@ -5012,6 +5098,7 @@ msgstr "Precio unitario sin IVA"
 #: maintenance/autres_interventions/abs/templates/abs/abs_detail_pdf.html:423
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:711
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:373
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1168
 #: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:331
 #: maintenance/silent_blocs/templates/silent_blocs/silent_bloc_detail_pdf.html:521
 #: stats_fournisseurs/templates/stats_fournisseurs/statistiques.html:58
@@ -5055,6 +5142,7 @@ msgstr "Ninguna pieza para sustituir."
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:326
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:447
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:505
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1279
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:215
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:769
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:950
@@ -5100,6 +5188,8 @@ msgstr "Control del ABS para:"
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:495
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/modifier_turbo.html:110
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_check.html:103
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/modifier_ref.html:104
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_form.html:102
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_create.html:110
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/modifier_carrosserie_interne.html:117
 #: maintenance/check_up/templates/check_up/controle_total.html:1234
@@ -5139,6 +5229,7 @@ msgstr "Lista de controles del ABS"
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_list.html:18
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_list.html:19
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_list.html:18
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_list.html:19
 #: maintenance/jeux_pieces/templates/jeux_pieces/jeux_pieces_list.html:19
 msgid "Ajouter un contrôle"
 msgstr "Agregar un control"
@@ -5148,19 +5239,24 @@ msgstr "Agregar un control"
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_list.html:39
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_list.html:39
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_list.html:40
-#: maintenance/autres_interventions/climatisation/views.py:465
-#: maintenance/autres_interventions/climatisation/views.py:744
+#: maintenance/autres_interventions/climatisation/views.py:462
+#: maintenance/autres_interventions/climatisation/views.py:741
 #: maintenance/autres_interventions/courroie_accessoires/templates/courroie_accessoires/courroie_list.html:40
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_list.html:39
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_list.html:40
 #: maintenance/autres_interventions/models.py:55
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_list.html:39
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_list.html:40
-#: maintenance/autres_interventions/moteur/alternateur/views.py:322
+#: maintenance/autres_interventions/moteur/alternateur/views.py:316
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_list.html:40
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:47
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_list.html:37
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_list.html:39
+#: maintenance/autres_interventions/refroidissement/models.py:795
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:245
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_list.html:40
+#: maintenance/autres_interventions/refroidissement/views.py:435
+#: maintenance/autres_interventions/refroidissement/views.py:700
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_list.html:39
 #: maintenance/check_up/templates/check_up/checkup_list.html:40
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_list.html:40
@@ -5169,7 +5265,7 @@ msgstr "Agregar un control"
 #: maintenance/jeux_pieces/templates/jeux_pieces/controle_jeux.html:301
 #: maintenance/jeux_pieces/templates/jeux_pieces/jeux_pieces_list.html:38
 #: maintenance/jeux_pieces/templates/jeux_pieces/modifier_jeux_pieces.html:397
-#: maintenance/models.py:121
+#: maintenance/models.py:122
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_ext_list.html:38
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/simple.html:134
 #: maintenance/nettoyage_interieur/templates/nettoyage_interieur/nettoyage_int_list.html:39
@@ -5188,6 +5284,7 @@ msgstr "Etiqueta"
 #: maintenance/autres_interventions/moteur/admission/templates/admission/admission_list.html:149
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_list.html:150
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_list.html:148
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_list.html:150
 #: maintenance/pneus/templates/pneus/pneus_list.html:126
 msgid "Aucun contrôle enregistré pour cet exemplaire."
 msgstr "Ningún control registrado para este ejemplar."
@@ -5197,6 +5294,7 @@ msgstr "Ningún control registrado para este ejemplar."
 #: maintenance/autres_interventions/bte_vitesse_auto/templates/bte_auto/bte_auto_list.html:161
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_list.html:161
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_list.html:160
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_list.html:161
 msgid "Retour au dashboard"
 msgstr "Volver al tablero"
 
@@ -5214,6 +5312,8 @@ msgstr "Mostrando de _START_ a _END_ de _TOTAL_ controles del ABS"
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_list.html:177
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:217
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_list.html:218
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_list.html:175
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_list.html:176
 msgid "Aucun remplacement trouvé"
 msgstr "No se encontraron reemplazos"
 
@@ -5234,6 +5334,7 @@ msgstr "Modificar el control del ABS"
 #: maintenance/autres_interventions/moteur/remplacement_moteur/views.py:98
 #: maintenance/autres_interventions/moteur/rodage/views.py:107
 #: maintenance/autres_interventions/moteur/turbo/views.py:96
+#: maintenance/autres_interventions/refroidissement/views.py:95
 #: maintenance/carrosserie_interne/views.py:110
 #: maintenance/check_up/views.py:98 maintenance/entretien/views.py:106
 #: maintenance/freins/views.py:104 maintenance/jeux_pieces/views.py:103
@@ -5293,7 +5394,7 @@ msgstr "Sensor ABS"
 #: maintenance/autres_interventions/geometrie/views.py:415
 #: maintenance/autres_interventions/moteur/admission/views.py:246
 #: maintenance/autres_interventions/moteur/admission/views.py:408
-#: maintenance/autres_interventions/moteur/alternateur/views.py:475
+#: maintenance/autres_interventions/moteur/alternateur/views.py:469
 #: maintenance/autres_interventions/moteur/courroie/views.py:235
 #: maintenance/autres_interventions/moteur/courroie/views.py:376
 #: maintenance/autres_interventions/moteur/remplacement_moteur/views.py:234
@@ -5366,6 +5467,8 @@ msgstr ""
 #: maintenance/autres_interventions/boite_de_vitesse/models.py:26
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:37
 #: maintenance/autres_interventions/climatisation/models.py:19
+#: maintenance/autres_interventions/refroidissement/models.py:21
+#: maintenance/autres_interventions/refroidissement/models.py:35
 #: maintenance/carrosserie_interne/models.py:13
 #: maintenance/check_up/models.py:19 maintenance/check_up/models.py:25
 #: maintenance/check_up/models.py:30 maintenance/check_up/models.py:96
@@ -5387,9 +5490,10 @@ msgstr "A reemplazar"
 #: maintenance/autres_interventions/moteur/admission/models.py:36
 #: maintenance/autres_interventions/moteur/rodage/models.py:154
 #: maintenance/autres_interventions/moteur/turbo/models.py:24
+#: maintenance/autres_interventions/refroidissement/models.py:72
 #: maintenance/bruits/models.py:24 maintenance/carrosserie_interne/models.py:24
 #: maintenance/entretien/models.py:182 maintenance/freins/models.py:27
-#: maintenance/jeux_pieces/models.py:52 maintenance/models.py:152
+#: maintenance/jeux_pieces/models.py:52 maintenance/models.py:153
 #: maintenance/nettoyage_exterieur/templates/nettoyage_exterieur/nettoyage_ext_detail.html:39
 #: maintenance/pneus/models.py:28 theme/templates/dashboard.html:32
 msgid "Maintenance"
@@ -5439,6 +5543,8 @@ msgstr "Disco de embrague"
 #: maintenance/autres_interventions/moteur/rodage/models.py:218
 #: maintenance/autres_interventions/moteur/rodage/models.py:223
 #: maintenance/autres_interventions/moteur/rodage/models.py:228
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:469
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:574
 #: maintenance/niveaux/models.py:240 maintenance/niveaux/models.py:247
 #: maintenance/niveaux/models.py:253 maintenance/niveaux/models.py:259
 #: maintenance/niveaux/models.py:265 maintenance/niveaux/models.py:271
@@ -5762,6 +5868,7 @@ msgstr "Informe de sustitución de la caja de cambios"
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:126
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:132
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:149
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:208
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:117
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:129
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:141
@@ -5792,12 +5899,58 @@ msgstr "Kilómetros en el momento del reemplazo de la caja de cambios"
 
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:217
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:210
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:283
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:351
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:363
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:375
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:532
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:542
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:838
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:860
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:870
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:880
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:902
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:934
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:944
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:976
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:998
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1008
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1018
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1028
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1050
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1060
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1070
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1080
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1090
 #: piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:80
 msgid "Oui"
 msgstr "Sí"
 
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:219
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:212
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:285
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:353
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:365
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:377
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:534
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:544
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:840
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:862
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:872
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:882
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:904
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:936
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:946
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:978
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1000
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1010
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1020
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1030
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1052
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1062
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1072
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1082
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1092
 #: maintenance/checkup_track/models.py:105
 #: piece/piece_fluides/templates/piece_fluides/piece_fluide_list.html:82
 msgid "Non"
@@ -5999,7 +6152,7 @@ msgid "Rapport du contrôle de la boîte de vitesses"
 msgstr "Informe del control de la caja de cambios"
 
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:197
-#: maintenance/autres_interventions/models.py:73 maintenance/models.py:139
+#: maintenance/autres_interventions/models.py:73 maintenance/models.py:140
 msgid "Kilométrage boîte"
 msgstr "Kilometraje de la caja de cambios"
 
@@ -6032,6 +6185,7 @@ msgstr "Coste de la mano de obra"
 #: maintenance/autres_interventions/boite_de_vitesse/templates/boite_de_vitesse/boite_check_pdf.html:664
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:775
 #: maintenance/autres_interventions/echappement/templates/echappement/echappement_check_pdf.html:1083
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1284
 msgid "Rapport généré le"
 msgstr "Informe generado el"
 
@@ -6248,6 +6402,7 @@ msgid "Kilomètres checkup"
 msgstr "Kilómetros del checkup"
 
 #: maintenance/autres_interventions/bte_vitesse_auto/models.py:68
+#: maintenance/autres_interventions/refroidissement/models.py:110
 msgid "Kilométrage au moment du contrôle"
 msgstr "Kilometraje en el momento del control"
 
@@ -6378,12 +6533,14 @@ msgid "Contrôle de la boite automatique modifié avec succès !"
 msgstr "¡Control de la caja automática modificado con éxito!"
 
 #: maintenance/autres_interventions/climatisation/models.py:24
+#: maintenance/autres_interventions/refroidissement/models.py:27
 #: maintenance/choices.py:5
 msgid "À faire"
 msgstr "Por hacer"
 
 #: maintenance/autres_interventions/climatisation/models.py:25
 #: maintenance/autres_interventions/moteur/rodage/models.py:23
+#: maintenance/autres_interventions/refroidissement/models.py:28
 #: maintenance/check_up/models.py:35 maintenance/checkup_track/models.py:39
 #: maintenance/choices.py:6 maintenance/entretien/models.py:23
 #: maintenance/nettoyage_exterieur/models.py:11
@@ -6396,10 +6553,12 @@ msgid "Non nécessaire"
 msgstr "No necesario"
 
 #: maintenance/autres_interventions/climatisation/models.py:30
+#: maintenance/autres_interventions/refroidissement/models.py:40
 msgid "Bonne"
 msgstr "Buena"
 
 #: maintenance/autres_interventions/climatisation/models.py:31
+#: maintenance/autres_interventions/refroidissement/models.py:43
 msgid "Contaminé"
 msgstr "Contaminado"
 
@@ -6472,8 +6631,8 @@ msgstr "Cantidad de gas cargada en gramos"
 
 #: maintenance/autres_interventions/climatisation/models.py:152
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:280
-#: maintenance/autres_interventions/climatisation/views.py:330
-#: maintenance/autres_interventions/climatisation/views.py:607
+#: maintenance/autres_interventions/climatisation/views.py:327
+#: maintenance/autres_interventions/climatisation/views.py:604
 msgid "Qualité du gaz"
 msgstr "Calidad del gas"
 
@@ -6509,8 +6668,8 @@ msgstr "Cantidad de trazador en mililitros"
 
 #: maintenance/autres_interventions/climatisation/models.py:216
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:344
-#: maintenance/autres_interventions/climatisation/views.py:358
-#: maintenance/autres_interventions/climatisation/views.py:635
+#: maintenance/autres_interventions/climatisation/views.py:355
+#: maintenance/autres_interventions/climatisation/views.py:632
 msgid "Mise sous vide"
 msgstr "Vacío"
 
@@ -6529,8 +6688,8 @@ msgstr "Control de mantenimiento del vacío"
 
 #: maintenance/autres_interventions/climatisation/models.py:246
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:365
-#: maintenance/autres_interventions/climatisation/views.py:372
-#: maintenance/autres_interventions/climatisation/views.py:649
+#: maintenance/autres_interventions/climatisation/views.py:369
+#: maintenance/autres_interventions/climatisation/views.py:646
 msgid "Contrôle des fuites"
 msgstr "Control de fugas"
 
@@ -6571,8 +6730,8 @@ msgstr "Precio de compra de las válvulas sin IVA"
 
 #: maintenance/autres_interventions/climatisation/models.py:317
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:467
-#: maintenance/autres_interventions/climatisation/views.py:399
-#: maintenance/autres_interventions/climatisation/views.py:676
+#: maintenance/autres_interventions/climatisation/views.py:396
+#: maintenance/autres_interventions/climatisation/views.py:673
 #: piece/piece_climatisation/models.py:15
 msgid "Déshydrateur"
 msgstr "Deshidratador"
@@ -6583,8 +6742,8 @@ msgstr "Precio de compra del deshidratador sin IVA"
 
 #: maintenance/autres_interventions/climatisation/models.py:336
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:496
-#: maintenance/autres_interventions/climatisation/views.py:408
-#: maintenance/autres_interventions/climatisation/views.py:685
+#: maintenance/autres_interventions/climatisation/views.py:405
+#: maintenance/autres_interventions/climatisation/views.py:682
 #: piece/piece_climatisation/models.py:13
 msgid "Condenseur"
 msgstr "Condensador"
@@ -6603,8 +6762,8 @@ msgstr "Precio de compra del compresor sin IVA"
 
 #: maintenance/autres_interventions/climatisation/models.py:374
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:554
-#: maintenance/autres_interventions/climatisation/views.py:426
-#: maintenance/autres_interventions/climatisation/views.py:703
+#: maintenance/autres_interventions/climatisation/views.py:423
+#: maintenance/autres_interventions/climatisation/views.py:700
 #: piece/piece_climatisation/models.py:12
 msgid "Évaporateur"
 msgstr "Evaporador"
@@ -6615,8 +6774,8 @@ msgstr "Precio de compra del evaporador sin IVA"
 
 #: maintenance/autres_interventions/climatisation/models.py:392
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:582
-#: maintenance/autres_interventions/climatisation/views.py:435
-#: maintenance/autres_interventions/climatisation/views.py:713
+#: maintenance/autres_interventions/climatisation/views.py:432
+#: maintenance/autres_interventions/climatisation/views.py:710
 msgid "Recharge de gaz"
 msgstr "Recarga de gas"
 
@@ -6686,8 +6845,10 @@ msgid "Rapport du contrôle de la climatisation"
 msgstr "Informe del control del aire acondicionado"
 
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:195
-#: maintenance/autres_interventions/models.py:68 maintenance/models.py:134
-#: voiture/voiture_boite/forms.py:28 voiture/voiture_embrayage/forms.py:20
+#: maintenance/autres_interventions/models.py:68
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:228
+#: maintenance/models.py:135 voiture/voiture_boite/forms.py:28
+#: voiture/voiture_embrayage/forms.py:20
 msgid "Kilométrage châssis"
 msgstr "Kilometraje del chasis"
 
@@ -6764,6 +6925,7 @@ msgid "Méthode de contrôle"
 msgstr "Método de control"
 
 #: maintenance/autres_interventions/climatisation/templates/climatisation/clim_detail_pdf.html:391
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:564
 msgid "État des composants"
 msgstr "Estado de los componentes"
 
@@ -6809,6 +6971,8 @@ msgstr "Volver a la lista de controles del aire acondicionado"
 #: maintenance/autres_interventions/courroie_accessoires/forms.py:75
 #: maintenance/autres_interventions/echappement/views.py:228
 #: maintenance/autres_interventions/moteur/courroie/forms.py:76
+#: maintenance/autres_interventions/refroidissement/models.py:1050
+#: maintenance/autres_interventions/refroidissement/views.py:148
 msgid ""
 "Le kilométrage ne peut pas être inférieur au kilométrage actuel du véhicule."
 msgstr ""
@@ -6816,6 +6980,7 @@ msgstr ""
 
 #: maintenance/autres_interventions/climatisation/views.py:148
 #: maintenance/autres_interventions/moteur/admission/views.py:137
+#: maintenance/autres_interventions/refroidissement/views.py:155
 msgid "Kilométrage invalide."
 msgstr "Kilometraje no válido"
 
@@ -6833,57 +6998,58 @@ msgstr "Control del sistema de aire acondicionado registrado con éxito."
 #: maintenance/autres_interventions/moteur/admission/views.py:206
 #: maintenance/autres_interventions/moteur/alternateur/views.py:229
 #: maintenance/autres_interventions/moteur/alternateur/views.py:241
+#: maintenance/autres_interventions/refroidissement/views.py:267
 #, python-format
 msgid "Erreur lors de l'enregistrement : %(erreur)s"
 msgstr "Error durante el registro: %(erreur)s"
 
-#: maintenance/autres_interventions/climatisation/views.py:311
-#: maintenance/autres_interventions/climatisation/views.py:588
+#: maintenance/autres_interventions/climatisation/views.py:308
+#: maintenance/autres_interventions/climatisation/views.py:585
 msgid "Gaz"
 msgstr "Gas"
 
-#: maintenance/autres_interventions/climatisation/views.py:321
-#: maintenance/autres_interventions/climatisation/views.py:598
+#: maintenance/autres_interventions/climatisation/views.py:318
+#: maintenance/autres_interventions/climatisation/views.py:595
 msgid "Poids du gaz"
 msgstr "Cantidad de gas"
 
-#: maintenance/autres_interventions/climatisation/views.py:340
-#: maintenance/autres_interventions/climatisation/views.py:617
+#: maintenance/autres_interventions/climatisation/views.py:337
+#: maintenance/autres_interventions/climatisation/views.py:614
 msgid "Huile"
 msgstr "Aceite"
 
-#: maintenance/autres_interventions/climatisation/views.py:349
-#: maintenance/autres_interventions/climatisation/views.py:626
+#: maintenance/autres_interventions/climatisation/views.py:346
+#: maintenance/autres_interventions/climatisation/views.py:623
 msgid "Traceur"
 msgstr "Trazador"
 
-#: maintenance/autres_interventions/climatisation/views.py:381
-#: maintenance/autres_interventions/climatisation/views.py:658
+#: maintenance/autres_interventions/climatisation/views.py:378
+#: maintenance/autres_interventions/climatisation/views.py:655
 msgid "Tuyaux"
 msgstr "Tuberías"
 
-#: maintenance/autres_interventions/climatisation/views.py:390
-#: maintenance/autres_interventions/climatisation/views.py:667
+#: maintenance/autres_interventions/climatisation/views.py:387
+#: maintenance/autres_interventions/climatisation/views.py:664
 #: piece/piece_climatisation/models.py:16
 msgid "Valves"
 msgstr "Válvulas"
 
-#: maintenance/autres_interventions/climatisation/views.py:444
-#: maintenance/autres_interventions/climatisation/views.py:723
+#: maintenance/autres_interventions/climatisation/views.py:441
+#: maintenance/autres_interventions/climatisation/views.py:720
 msgid "Pressions de fonctionnement"
 msgstr "Presiones de funcionamiento"
 
-#: maintenance/autres_interventions/climatisation/views.py:456
-#: maintenance/autres_interventions/climatisation/views.py:735
+#: maintenance/autres_interventions/climatisation/views.py:453
+#: maintenance/autres_interventions/climatisation/views.py:732
 msgid "Température d'air"
 msgstr "Temperatura del aire"
 
-#: maintenance/autres_interventions/climatisation/views.py:551
+#: maintenance/autres_interventions/climatisation/views.py:548
 #, python-format
 msgid "Modification contrôle climatisation - %(immatriculation)s"
 msgstr "Modificación del control del aire acondicionado - %(immatriculation)s"
 
-#: maintenance/autres_interventions/climatisation/views.py:556
+#: maintenance/autres_interventions/climatisation/views.py:553
 msgid "Contrôle du système de climatisation modifié avec succès !"
 msgstr "¡Control del sistema de aire acondicionado modificado con éxito!"
 
@@ -6904,8 +7070,8 @@ msgstr "Kilometraje de la correa de accesorios"
 #: maintenance/autres_interventions/courroie_accessoires/views.py:352
 #: maintenance/autres_interventions/moteur/alternateur/models.py:116
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail_pdf.html:230
-#: maintenance/autres_interventions/moteur/alternateur/views.py:313
-#: maintenance/autres_interventions/moteur/alternateur/views.py:470
+#: maintenance/autres_interventions/moteur/alternateur/views.py:307
+#: maintenance/autres_interventions/moteur/alternateur/views.py:464
 #: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:109
 #: maintenance/models.py:37
 msgid "Courroie d'accessoires"
@@ -6998,6 +7164,7 @@ msgstr "Polea amortiguadora"
 #: maintenance/autres_interventions/moteur/courroie/templates/courroie/courroie_detail_pdf.html:347
 #: maintenance/autres_interventions/moteur/remplacement_moteur/templates/remplacement_moteur/remplacement_moteur_pdf.html:313
 #: maintenance/autres_interventions/moteur/turbo/templates/turbo/turbo_detail_pdf.html:471
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1254
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_pdf.html:193
 msgid "Total général"
 msgstr "Total general"
@@ -7731,19 +7898,19 @@ msgstr "Niveles"
 msgid "Autres interventions"
 msgstr "Otras intervenciones"
 
-#: maintenance/autres_interventions/models.py:39 maintenance/models.py:60
+#: maintenance/autres_interventions/models.py:39 maintenance/models.py:61
 msgid "Voiture exemplaire"
 msgstr "Vehículo de ejemplo"
 
-#: maintenance/autres_interventions/models.py:48 maintenance/models.py:114
+#: maintenance/autres_interventions/models.py:48 maintenance/models.py:115
 msgid "Date d'intervention"
 msgstr "Fecha de intervención"
 
-#: maintenance/autres_interventions/models.py:50 maintenance/models.py:116
+#: maintenance/autres_interventions/models.py:50 maintenance/models.py:117
 msgid "Date de la dernière intervention"
 msgstr "Fecha de la última intervención"
 
-#: maintenance/autres_interventions/models.py:62 maintenance/models.py:128
+#: maintenance/autres_interventions/models.py:62 maintenance/models.py:129
 msgid "Kilométrage total"
 msgstr "Kilometraje total"
 
@@ -7751,20 +7918,20 @@ msgstr "Kilometraje total"
 msgid "Kilométrage à la dernière intervention"
 msgstr "Kilometraje en la última intervención"
 
-#: maintenance/autres_interventions/models.py:72 maintenance/models.py:138
+#: maintenance/autres_interventions/models.py:72 maintenance/models.py:139
 msgid "Kilométrage moteur"
 msgstr "Kilometraje del motor"
 
-#: maintenance/autres_interventions/models.py:77 maintenance/models.py:143
+#: maintenance/autres_interventions/models.py:77 maintenance/models.py:144
 msgid "Type de maintenance"
 msgstr "Tipo de mantenimiento"
 
-#: maintenance/autres_interventions/models.py:86 maintenance/models.py:153
+#: maintenance/autres_interventions/models.py:86 maintenance/models.py:154
 #: theme/templates/dashboard.html:125
 msgid "Maintenances"
 msgstr "Mantenimientos"
 
-#: maintenance/autres_interventions/models.py:97 maintenance/models.py:166
+#: maintenance/autres_interventions/models.py:97 maintenance/models.py:167
 #, python-format
 msgid "Maintenance %(voiture)s (%(date)s)"
 msgstr "Mantenimiento %(voiture)s (%(date)s)"
@@ -8053,8 +8220,8 @@ msgstr "Diagnóstico de carga en amperios"
 
 #: maintenance/autres_interventions/moteur/alternateur/models.py:264
 #: maintenance/autres_interventions/moteur/alternateur/templates/alternateur/alternateur_detail.html:40
-#: maintenance/autres_interventions/moteur/alternateur/views.py:304
-#: maintenance/autres_interventions/moteur/alternateur/views.py:465
+#: maintenance/autres_interventions/moteur/alternateur/views.py:298
+#: maintenance/autres_interventions/moteur/alternateur/views.py:459
 #: maintenance/autres_interventions/moteur/templates/moteur/dashboard_moteur.html:29
 #: maintenance/models.py:40 piece/piece_electricite/models.py:8
 msgid "Alternateur"
@@ -8107,21 +8274,25 @@ msgstr "Alternador - %(immatriculation)s"
 msgid "Check alternateur enregistré avec succès."
 msgstr "Revisión del alternador registrada con éxito."
 
-#: maintenance/autres_interventions/moteur/alternateur/views.py:295
-#: maintenance/autres_interventions/moteur/alternateur/views.py:460
+#: maintenance/autres_interventions/moteur/alternateur/views.py:289
+#: maintenance/autres_interventions/moteur/alternateur/views.py:454
 msgid "Diagnostic"
 msgstr "Diagnóstico"
 
-#: maintenance/autres_interventions/moteur/alternateur/views.py:358
+#: maintenance/autres_interventions/moteur/alternateur/views.py:352
+#: maintenance/autres_interventions/refroidissement/models.py:90
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1103
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1210
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1242
 msgid "Main-d'œuvre"
 msgstr "Mano de obra"
 
-#: maintenance/autres_interventions/moteur/alternateur/views.py:429
+#: maintenance/autres_interventions/moteur/alternateur/views.py:423
 #, python-format
 msgid "Modification alternateur - %(immatriculation)s"
 msgstr "Modificación del alternador - %(immatriculation)s"
 
-#: maintenance/autres_interventions/moteur/alternateur/views.py:434
+#: maintenance/autres_interventions/moteur/alternateur/views.py:428
 msgid "Contrôle de l'alternateur modifié avec succès !"
 msgstr "¡Control del alternador modificado con éxito!"
 
@@ -8301,6 +8472,10 @@ msgstr "Precio de compra sin IVA de la bomba de agua"
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/modifier_rodage.html:237
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_check.html:232
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:302
+#: maintenance/autres_interventions/refroidissement/models.py:1212
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:388
+#: maintenance/autres_interventions/refroidissement/views.py:352
+#: maintenance/autres_interventions/refroidissement/views.py:616
 #: maintenance/entretien/templates/entretien/entretien_check.html:337
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:488
 #: maintenance/entretien/templates/entretien/modifier_entretien.html:341
@@ -8577,6 +8752,7 @@ msgstr "Nuevo motor"
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:401
 #: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:247
 #: maintenance/checkup_track/templates/checkup_track/track_check_form.html:243
+#: maintenance/models.py:41
 msgid "Refroidissement"
 msgstr "Refrigeración"
 
@@ -8763,6 +8939,7 @@ msgid "Eté"
 msgstr "Verano"
 
 #: maintenance/autres_interventions/moteur/rodage/models.py:49
+#: maintenance/autres_interventions/refroidissement/models.py:33
 #: maintenance/checkup_track/models.py:45
 #: maintenance/checkup_track/models.py:170 maintenance/entretien/models.py:77
 #: maintenance/jeux_pieces/models.py:36 piece/piece_fluides/models.py:49
@@ -9319,7 +9496,7 @@ msgid "Aucun rodage enregistré pour cet exemplaire."
 msgstr "No hay ningún rodaje registrado para este vehículo."
 
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_list.html:138
-#: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:156
+#: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:170
 #: maintenance/carrosserie_interne/templates/carrosserie_interne/carrosserie_interne_list.html:137
 #: maintenance/check_up/templates/check_up/checkup_list.html:140
 #: maintenance/checkup_track/templates/checkup_track/checkup_track_list.html:137
@@ -9423,6 +9600,8 @@ msgid "Position"
 msgstr "Posición"
 
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:319
+#: maintenance/autres_interventions/refroidissement/views.py:324
+#: maintenance/autres_interventions/refroidissement/views.py:588
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:662
 #: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:659
 #: maintenance/pneus/templates/pneus/controle_pneus_detail_pdf.html:162
@@ -9494,14 +9673,17 @@ msgid "Arrière gauche"
 msgstr "Trasero izquierdo"
 
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:360
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1155
 msgid "Pièces et produits utilisés"
 msgstr "Piezas y productos utilizados"
 
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:369
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1164
 msgid "Pièce / Produit"
 msgstr "Pieza / Producto"
 
 #: maintenance/autres_interventions/moteur/rodage/templates/rodage/rodage_pdf.html:439
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1234
 msgid "Aucune pièce ou produit utilisé."
 msgstr "No se utilizaron piezas ni productos."
 
@@ -9676,6 +9858,682 @@ msgstr "¡Control del turbo modificado con éxito!"
 msgid "joints"
 msgstr "Junta"
 
+#: maintenance/autres_interventions/refroidissement/models.py:29
+msgid "Reporté"
+msgstr "Pospuesto"
+
+#: maintenance/autres_interventions/refroidissement/models.py:34
+msgid "À compléter"
+msgstr "Por completar"
+
+#: maintenance/autres_interventions/refroidissement/models.py:41
+msgid "Moyenne"
+msgstr "Media"
+
+#: maintenance/autres_interventions/refroidissement/models.py:42
+msgid "Mauvaise"
+msgstr "Mala"
+
+#: maintenance/autres_interventions/refroidissement/models.py:100
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:198
+msgid "Date du contrôle"
+msgstr "Fecha de la inspección"
+
+#: maintenance/autres_interventions/refroidissement/models.py:104
+#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:33
+msgid "Kilométrage du châssis"
+msgstr "Kilometraje del chasis"
+
+#: maintenance/autres_interventions/refroidissement/models.py:127
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:280
+msgid "Présence d'une fuite"
+msgstr "Presencia de una fuga"
+
+#: maintenance/autres_interventions/refroidissement/models.py:132
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:290
+msgid "Localisation de la fuite"
+msgstr "Ubicación de la fuga"
+
+#: maintenance/autres_interventions/refroidissement/models.py:137
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:295
+msgid "Pression du circuit"
+msgstr "Presión del circuito"
+
+#: maintenance/autres_interventions/refroidissement/models.py:138
+msgid "Pression mesurée en bar"
+msgstr "Presión medida en bar"
+
+#: maintenance/autres_interventions/refroidissement/models.py:146
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:304
+msgid "Pression constructeur"
+msgstr "Presión especificada por el fabricante"
+
+#: maintenance/autres_interventions/refroidissement/models.py:147
+msgid "Pression constructeur en bar"
+msgstr "Presión especificada por el fabricante en bar"
+
+#: maintenance/autres_interventions/refroidissement/models.py:155
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:313
+msgid "Température du moteur"
+msgstr "Temperatura del motor"
+
+#: maintenance/autres_interventions/refroidissement/models.py:156
+#: maintenance/autres_interventions/refroidissement/models.py:165
+#: maintenance/autres_interventions/refroidissement/models.py:174
+#: maintenance/autres_interventions/refroidissement/models.py:586
+msgid "Température mesurée en °C"
+msgstr "Temperatura medida en °C"
+
+#: maintenance/autres_interventions/refroidissement/models.py:164
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:323
+msgid "Température de déclenchement du ventilateur"
+msgstr "Temperatura de activación del ventilador"
+
+#: maintenance/autres_interventions/refroidissement/models.py:173
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:335
+msgid "Température de sortie du chauffage"
+msgstr "Temperatura de salida de la calefacción"
+
+#: maintenance/autres_interventions/refroidissement/models.py:182
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:347
+msgid "Montée en température normale"
+msgstr "Aumento normal de la temperatura"
+
+#: maintenance/autres_interventions/refroidissement/models.py:187
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:359
+msgid "Maintien de la température normal"
+msgstr "Mantenimiento normal de la temperatura"
+
+#: maintenance/autres_interventions/refroidissement/models.py:192
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:371
+msgid "Circulation du liquide correcte"
+msgstr "Circulación correcta del refrigerante"
+
+#: maintenance/autres_interventions/refroidissement/models.py:203
+msgid "État du liquide de refroidissement"
+msgstr "Estado del líquido refrigerante"
+
+#: maintenance/autres_interventions/refroidissement/models.py:210
+msgid "Qualité du liquide de refroidissement"
+msgstr "Calidad del líquido refrigerante"
+
+#: maintenance/autres_interventions/refroidissement/models.py:216
+msgid "Type de liquide de refroidissement"
+msgstr "Tipo de líquido refrigerante"
+
+#: maintenance/autres_interventions/refroidissement/models.py:222
+msgid "Couleur du liquide de refroidissement"
+msgstr "Color del líquido refrigerante"
+
+#: maintenance/autres_interventions/refroidissement/models.py:229
+msgid "Température de protection du liquide"
+msgstr "Temperatura de protección del refrigerante"
+
+#: maintenance/autres_interventions/refroidissement/models.py:230
+msgid "Protection antigel mesurée en °C"
+msgstr "Protección anticongelante medida en °C"
+
+#: maintenance/autres_interventions/refroidissement/models.py:238
+msgid "Quantité de liquide utilisée"
+msgstr "Cantidad de refrigerante utilizada"
+
+#: maintenance/autres_interventions/refroidissement/models.py:239
+msgid "Quantité en litres"
+msgstr "Cantidad en litros"
+
+#: maintenance/autres_interventions/refroidissement/models.py:246
+msgid "Prix d'achat HTVA du liquide de refroidissement"
+msgstr "Precio de compra del líquido refrigerante sin IVA"
+
+#: maintenance/autres_interventions/refroidissement/models.py:253
+msgid "TVA sur le liquide de refroidissement"
+msgstr "IVA sobre el líquido refrigerante"
+
+#: maintenance/autres_interventions/refroidissement/models.py:261
+msgid "Prix de vente HTVA du liquide de refroidissement"
+msgstr "Precio de venta del líquido refrigerante sin IVA"
+
+#: maintenance/autres_interventions/refroidissement/models.py:269
+msgid "TVA à la vente du liquide de refroidissement"
+msgstr "IVA sobre la venta del líquido refrigerante"
+
+#: maintenance/autres_interventions/refroidissement/models.py:277
+msgid "Prix TTC du liquide de refroidissement"
+msgstr "Precio del líquido refrigerante con IVA"
+
+#: maintenance/autres_interventions/refroidissement/models.py:289
+msgid "Purge du circuit de refroidissement"
+msgstr "Purgado del sistema de refrigeración"
+
+#: maintenance/autres_interventions/refroidissement/models.py:294
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:529
+msgid "Présence d'air dans le circuit"
+msgstr "Presencia de aire en el circuito"
+
+#: maintenance/autres_interventions/refroidissement/models.py:299
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:539
+msgid "Purge effectuée sous vide"
+msgstr "Purgado realizado al vacío"
+
+#: maintenance/autres_interventions/refroidissement/models.py:304
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:552
+msgid "Remarques concernant la purge"
+msgstr "Observaciones sobre el purgado"
+
+#: maintenance/autres_interventions/refroidissement/models.py:315
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:581
+msgid "Ventilateur de refroidissement"
+msgstr "Ventilador de refrigeración"
+
+#: maintenance/autres_interventions/refroidissement/models.py:320
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:805
+msgid "Déclenchement du ventilateur"
+msgstr "Activación del ventilador"
+
+#: maintenance/autres_interventions/refroidissement/models.py:325
+msgid "Première vitesse du ventilateur"
+msgstr "Primera velocidad del ventilador"
+
+#: maintenance/autres_interventions/refroidissement/models.py:330
+msgid "Deuxième vitesse du ventilateur"
+msgstr "Segunda velocidad del ventilador"
+
+#: maintenance/autres_interventions/refroidissement/models.py:335
+msgid "Bruit anormal du ventilateur"
+msgstr "Ruido anormal del ventilador"
+
+#: maintenance/autres_interventions/refroidissement/models.py:342
+msgid "Prix d'achat HTVA du ventilateur"
+msgstr "Precio de compra del ventilador sin IVA"
+
+#: maintenance/autres_interventions/refroidissement/models.py:347
+msgid "Quantité de ventilateurs"
+msgstr "Cantidad de ventiladores"
+
+#: maintenance/autres_interventions/refroidissement/models.py:386
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:611
+msgid "Radiateur moteur"
+msgstr "Radiador del motor"
+
+#: maintenance/autres_interventions/refroidissement/models.py:391
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:857
+msgid "Fuite au radiateur"
+msgstr "Fuga en el radiador"
+
+#: maintenance/autres_interventions/refroidissement/models.py:396
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:867
+msgid "Radiateur obstrué"
+msgstr "Radiador obstruido"
+
+#: maintenance/autres_interventions/refroidissement/models.py:401
+msgid "Ailettes du radiateur endommagées"
+msgstr "Aletas del radiador dañadas"
+
+#: maintenance/autres_interventions/refroidissement/models.py:408
+msgid "Prix d'achat HTVA du radiateur"
+msgstr "Precio de compra del radiador sin IVA"
+
+#: maintenance/autres_interventions/refroidissement/models.py:413
+msgid "Quantité de radiateurs"
+msgstr "Cantidad de radiadores"
+
+#: maintenance/autres_interventions/refroidissement/models.py:452
+#: maintenance/autres_interventions/refroidissement/models.py:1119
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:641
+#: maintenance/autres_interventions/refroidissement/views.py:388
+#: maintenance/autres_interventions/refroidissement/views.py:654
+msgid "Thermostat"
+msgstr "Termostato"
+
+#: maintenance/autres_interventions/refroidissement/models.py:457
+msgid "Ouverture correcte du thermostat"
+msgstr "Apertura correcta del termostato"
+
+#: maintenance/autres_interventions/refroidissement/models.py:464
+msgid "Température d'ouverture du thermostat"
+msgstr "Temperatura de apertura del termostato"
+
+#: maintenance/autres_interventions/refroidissement/models.py:465
+msgid "Température en °C"
+msgstr "Temperatura en °C"
+
+#: maintenance/autres_interventions/refroidissement/models.py:473
+msgid "Prix d'achat HTVA du thermostat"
+msgstr "Precio de compra del termostato sin IVA"
+
+#: maintenance/autres_interventions/refroidissement/models.py:478
+msgid "Quantité de thermostats"
+msgstr "Cantidad de termostatos"
+
+#: maintenance/autres_interventions/refroidissement/models.py:517
+#: maintenance/autres_interventions/refroidissement/models.py:1124
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:671
+msgid "Boîtier d'eau"
+msgstr "Caja del refrigerante"
+
+#: maintenance/autres_interventions/refroidissement/models.py:522
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:931
+msgid "Fuite au boîtier d'eau"
+msgstr "Fuga en la caja del refrigerante"
+
+#: maintenance/autres_interventions/refroidissement/models.py:527
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:941
+msgid "Fissure du boîtier d'eau"
+msgstr "Fisura en la caja del refrigerante"
+
+#: maintenance/autres_interventions/refroidissement/models.py:534
+msgid "Prix d'achat HTVA du boîtier d'eau"
+msgstr "Precio de compra de la caja del refrigerante sin IVA"
+
+#: maintenance/autres_interventions/refroidissement/models.py:539
+msgid "Quantité de boîtiers d'eau"
+msgstr "Cantidad de cajas del refrigerante"
+
+#: maintenance/autres_interventions/refroidissement/models.py:578
+#: maintenance/autres_interventions/refroidissement/models.py:1129
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:701
+msgid "Sonde de température du liquide"
+msgstr "Sensor de temperatura del refrigerante"
+
+#: maintenance/autres_interventions/refroidissement/models.py:585
+msgid "Valeur mesurée par la sonde"
+msgstr "Valor medido por el sensor"
+
+#: maintenance/autres_interventions/refroidissement/models.py:592
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:973
+msgid "Signal de la sonde correct"
+msgstr "Señal correcta del sensor"
+
+#: maintenance/autres_interventions/refroidissement/models.py:599
+msgid "Prix d'achat HTVA de la sonde de température"
+msgstr "Precio de compra del sensor de temperatura sin IVA"
+
+#: maintenance/autres_interventions/refroidissement/models.py:604
+msgid "Quantité de sondes de température"
+msgstr "Cantidad de sensores de temperatura"
+
+#: maintenance/autres_interventions/refroidissement/models.py:643
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:731
+msgid "Durites de refroidissement"
+msgstr "Manguitos de refrigeración"
+
+#: maintenance/autres_interventions/refroidissement/models.py:648
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:995
+msgid "Durites fissurées"
+msgstr "Manguitos agrietados"
+
+#: maintenance/autres_interventions/refroidissement/models.py:653
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1005
+msgid "Durites poreuses"
+msgstr "Manguitos porosos"
+
+#: maintenance/autres_interventions/refroidissement/models.py:658
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1015
+msgid "Durites gonflées"
+msgstr "Manguitos hinchados"
+
+#: maintenance/autres_interventions/refroidissement/models.py:663
+msgid "Colliers des durites correctement serrés"
+msgstr "Abrazaderas de los manguitos correctamente apretadas"
+
+#: maintenance/autres_interventions/refroidissement/models.py:670
+msgid "Prix d'achat HTVA des durites"
+msgstr "Precio de compra de los manguitos sin IVA"
+
+#: maintenance/autres_interventions/refroidissement/models.py:675
+msgid "Quantité de durites"
+msgstr "Cantidad de manguitos"
+
+#: maintenance/autres_interventions/refroidissement/models.py:714
+#: maintenance/autres_interventions/refroidissement/models.py:1139
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:761
+msgid "Radiateur de chauffage"
+msgstr "Radiador de calefacción"
+
+#: maintenance/autres_interventions/refroidissement/models.py:719
+msgid "Fuite au radiateur de chauffage"
+msgstr "Fuga en el radiador de calefacción"
+
+#: maintenance/autres_interventions/refroidissement/models.py:724
+msgid "Radiateur de chauffage obstrué"
+msgstr "Radiador de calefacción obstruido"
+
+#: maintenance/autres_interventions/refroidissement/models.py:729
+msgid "Fonctionnement correct du chauffage"
+msgstr "Funcionamiento correcto de la calefacción"
+
+#: maintenance/autres_interventions/refroidissement/models.py:734
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1077
+msgid "Odeur de liquide dans l'habitacle"
+msgstr "Olor a refrigerante en el habitáculo"
+
+#: maintenance/autres_interventions/refroidissement/models.py:739
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1087
+msgid "Buée anormale dans l'habitacle"
+msgstr "Vaho anormal en el habitáculo"
+
+#: maintenance/autres_interventions/refroidissement/models.py:746
+msgid "Prix d'achat HTVA du radiateur de chauffage"
+msgstr "Precio de compra del radiador de calefacción sin IVA"
+
+#: maintenance/autres_interventions/refroidissement/models.py:751
+msgid "Quantité de radiateurs de chauffage"
+msgstr "Cantidad de radiadores de calefacción"
+
+#: maintenance/autres_interventions/refroidissement/models.py:863
+msgid "Contrôle du système de refroidissement"
+msgstr "Control del sistema de refrigeración"
+
+#: maintenance/autres_interventions/refroidissement/models.py:864
+msgid "Contrôles du système de refroidissement"
+msgstr "Controles del sistema de refrigeración"
+
+#: maintenance/autres_interventions/refroidissement/models.py:868
+msgid "Véhicule inconnu"
+msgstr "Vehículo desconocido"
+
+#: maintenance/autres_interventions/refroidissement/models.py:869
+#, python-format
+msgid "Contrôle refroidissement — %(vehicule)s"
+msgstr "Control del sistema de refrigeración — %(vehicule)s"
+
+#: maintenance/autres_interventions/refroidissement/models.py:898
+#, python-format
+msgid ""
+"Le kilométrage du contrôle (%(controle)s km) ne peut pas être inférieur au "
+"kilométrage actuel du véhicule (%(vehicule)s km)."
+msgstr ""
+"El kilometraje de la inspección (%(controle)s km) no puede ser inferior al "
+"kilometraje actual del vehículo (%(vehicule)s km)."
+
+#: maintenance/autres_interventions/refroidissement/models.py:925
+msgid "Cette valeur ne peut pas être négative."
+msgstr "Este valor no puede ser negativo."
+
+#: maintenance/autres_interventions/refroidissement/models.py:930
+msgid "Précisez la localisation de la fuite."
+msgstr "Especifique la ubicación de la fuga."
+
+#: maintenance/autres_interventions/refroidissement/models.py:1086
+#, python-format
+msgid "Contrôle du système de refroidissement — %(vehicule)s"
+msgstr "Control del sistema de refrigeración — %(vehicule)s"
+
+#: maintenance/autres_interventions/refroidissement/models.py:1109
+#: maintenance/autres_interventions/refroidissement/views.py:370
+#: maintenance/autres_interventions/refroidissement/views.py:634
+msgid "Ventilateur"
+msgstr "Ventilador"
+
+#: maintenance/autres_interventions/refroidissement/models.py:1114
+#: maintenance/autres_interventions/refroidissement/views.py:379
+#: maintenance/autres_interventions/refroidissement/views.py:645
+#: maintenance/check_up/models.py:224
+#: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:430
+#: maintenance/checkup_track/models.py:238
+#: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:407
+msgid "Radiateur"
+msgstr "Radiador"
+
+#: maintenance/autres_interventions/refroidissement/models.py:1134
+#: maintenance/autres_interventions/refroidissement/views.py:415
+#: maintenance/autres_interventions/refroidissement/views.py:681
+#: piece/piece_climatisation/models.py:17
+msgid "Durites"
+msgstr "Manguitos"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/modifier_ref.html:24
+msgid "Modifier le controle du système de refroidissement"
+msgstr "Modificar el control del sistema de refrigeración"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/modifier_ref.html:135
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail.html:98
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_form.html:136
+msgid "Retour à la liste des contrôles du refroidissement"
+msgstr "Volver a la lista de controles del sistema de refrigeración"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:182
+msgid "Rapport du contrôle du système de refroidissement"
+msgstr "Informe del control del sistema de refrigeración"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:234
+msgid "Kilométrage du contrôle refroidissement"
+msgstr "Kilometraje del control del sistema de refrigeración"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:274
+msgid "Diagnostic général"
+msgstr "Diagnóstico general"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:394
+msgid "État du liquide"
+msgstr "Estado del líquido refrigerante"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:422
+#: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:445
+#: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:425
+msgid "Qualité du liquide"
+msgstr "Calidad del líquido"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:442
+msgid "Type de liquide"
+msgstr "Tipo de líquido"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:447
+msgid "Couleur du liquide"
+msgstr "Color del líquido"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:453
+msgid "Température de protection"
+msgstr "Temperatura de protección"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:464
+#: piece/models.py:99 piece/templates/piece/piece_detail.html:41
+msgid "Quantité utilisée"
+msgstr "Cantidad utilizada"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:474
+msgid "TVA à l'achat"
+msgstr "IVA de compra"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:479
+msgid "Prix de vente HTVA"
+msgstr "Precio de venta sin IVA"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:484
+msgid "TVA à la vente"
+msgstr "IVA de venta"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:489
+msgid "Prix TTC"
+msgstr "Precio con IVA"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:500
+msgid "Purge du circuit"
+msgstr "Purgado del circuito"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:506
+msgid "État de la purge"
+msgstr "Estado del purgado"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:799
+msgid "Contrôle du ventilateur"
+msgstr "Control del ventilador"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:808
+msgid "Correct"
+msgstr "Correcto"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:810
+msgid "Incorrect"
+msgstr "Incorrecto"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:815
+msgid "Première vitesse"
+msgstr "Primera velocidad"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:818
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:828
+msgid "Fonctionnelle"
+msgstr "Funcional"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:820
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:830
+msgid "Non fonctionnelle"
+msgstr "No funcional"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:825
+msgid "Deuxième vitesse"
+msgstr "Segunda velocidad"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:835
+msgid "Bruit anormal"
+msgstr "Ruido anormal"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:851
+msgid "Contrôle du radiateur moteur"
+msgstr "Control del radiador del motor"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:877
+msgid "Ailettes endommagées"
+msgstr "Aletas dañadas"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:893
+msgid "Contrôle du thermostat"
+msgstr "Control del termostato"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:899
+msgid "Ouverture correcte"
+msgstr "Apertura correcta"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:909
+msgid "Température d'ouverture"
+msgstr "Temperatura de apertura"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:925
+msgid "Contrôle du boîtier d'eau"
+msgstr "Control de la caja del refrigerante"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:957
+msgid "Contrôle de la sonde de température"
+msgstr "Control del sensor de temperatura"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:963
+msgid "Valeur mesurée"
+msgstr "Valor medido"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:989
+msgid "Contrôle des durites"
+msgstr "Control de los manguitos"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1025
+msgid "Colliers correctement serrés"
+msgstr "Abrazaderas correctamente apretadas"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1041
+msgid "Contrôle du radiateur de chauffage"
+msgstr "Control del radiador de calefacción"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1047
+msgid "Fuite"
+msgstr "Fuga"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1057
+msgid "Obstruction"
+msgstr "Obstrucción"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1067
+msgid "Fonctionnement du chauffage correct"
+msgstr "Funcionamiento correcto de la calefacción"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1118
+msgid "Coût de la main-d'œuvre"
+msgstr "Coste de la mano de obra"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1141
+msgid "Remarques sur la main-d'œuvre"
+msgstr "Observaciones sobre la mano de obra"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1200
+msgid "Total pièces et produits HTVA"
+msgstr "Total de piezas y productos sin IVA"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_detail_pdf.html:1220
+msgid "Total général avec main-d'œuvre"
+msgstr "Total general con mano de obra"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_form.html:15
+msgid "Contrôle refroidissement pour :"
+msgstr "Control del sistema de refrigeración para:"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_list.html:4
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_list.html:12
+msgid "Liste des contrôles du système de refroidissement"
+msgstr "Lista de controles del sistema de refrigeración"
+
+#: maintenance/autres_interventions/refroidissement/templates/refroidissement/ref_list.html:174
+msgid "Affichage de _START_ à _END_ sur _TOTAL_ contrôle refroidissement"
+msgstr "Mostrando de _START_ a _END_ de _TOTAL_ controles del sistema de refrigeración"
+
+#: maintenance/autres_interventions/refroidissement/views.py:235
+#, python-format
+msgid "Contrôle système de refroidissement - %(immatriculation)s"
+msgstr "Control del sistema de refrigeración - %(immatriculation)s"
+
+#: maintenance/autres_interventions/refroidissement/views.py:247
+msgid "Contrôle du système de refroidissement enregistré avec succès."
+msgstr "Control del sistema de refrigeración registrado con éxito."
+
+#: maintenance/autres_interventions/refroidissement/views.py:315
+#: maintenance/autres_interventions/refroidissement/views.py:579
+msgid "Presence de fuite"
+msgstr "Presencia de fuga"
+
+#: maintenance/autres_interventions/refroidissement/views.py:334
+#: maintenance/autres_interventions/refroidissement/views.py:598
+msgid "Température"
+msgstr "Temperatura"
+
+#: maintenance/autres_interventions/refroidissement/views.py:343
+#: maintenance/autres_interventions/refroidissement/views.py:607
+msgid "circulation"
+msgstr "Circulación"
+
+#: maintenance/autres_interventions/refroidissement/views.py:361
+#: maintenance/autres_interventions/refroidissement/views.py:625
+msgid "Purge"
+msgstr "Purgado"
+
+#: maintenance/autres_interventions/refroidissement/views.py:397
+#: maintenance/autres_interventions/refroidissement/views.py:663
+msgid "Boitier d'eau"
+msgstr "Caja del refrigerante"
+
+#: maintenance/autres_interventions/refroidissement/views.py:406
+#: maintenance/autres_interventions/refroidissement/views.py:672
+msgid "Sonde de température"
+msgstr "Sensor de temperatura"
+
+#: maintenance/autres_interventions/refroidissement/views.py:424
+#: maintenance/autres_interventions/refroidissement/views.py:690
+msgid "Chaufferette"
+msgstr "Radiador de calefacción"
+
+#: maintenance/autres_interventions/refroidissement/views.py:472
+#: maintenance/autres_interventions/refroidissement/views.py:737
+msgid "Taux Horaire"
+msgstr "Tarifa horaria"
+
+#: maintenance/autres_interventions/refroidissement/views.py:542
+#, python-format
+msgid "Modification contrôle du refroidissement - %(immatriculation)s"
+msgstr "Modificación del control del sistema de refrigeración - %(immatriculation)s"
+
+#: maintenance/autres_interventions/refroidissement/views.py:547
+msgid "Contrôle du système de refroidissement modifié avec succès !"
+msgstr "¡Control del sistema de refrigeración modificado con éxito!"
+
+
+
 #: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:11
 msgid "Choisir le type d'intervention pour :"
 msgstr "Elegir el tipo de intervención para:"
@@ -9703,6 +10561,10 @@ msgstr "Panel de control del escape"
 #: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:138
 msgid "Controle climatisation"
 msgstr "Control del aire acondicionado"
+
+#: maintenance/autres_interventions/templates/autres_interventions/choisir_autre.html:151
+msgid "Controle du refroidissement"
+msgstr "Control del sistema de refrigeración"
 
 #: maintenance/bruits/models.py:5 maintenance/jeux_pieces/models.py:30
 #: piece/piece_carrosserie/models.py:12 piece/piece_roue_rechange/models.py:13
@@ -10334,13 +11196,6 @@ msgstr "Ruidos del eje trasero"
 msgid "Jeu pont arrière"
 msgstr "Holgura del eje trasero"
 
-#: maintenance/check_up/models.py:224
-#: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:430
-#: maintenance/checkup_track/models.py:238
-#: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:407
-msgid "Radiateur"
-msgstr "Radiador"
-
 #: maintenance/check_up/models.py:231 maintenance/checkup_track/models.py:245
 #: maintenance/freins/models.py:61
 msgid "Usure des plaquettes avant (%)"
@@ -10834,11 +11689,6 @@ msgstr "Ruidos del eje trasero"
 #: maintenance/niveaux/templates/niveaux/niveau_detail_pdf.html:188
 msgid "Quantité ajoutée"
 msgstr "Cantidad añadida"
-
-#: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:445
-#: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:425
-msgid "Qualité du liquide"
-msgstr "Calidad del fluido"
 
 #: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:453
 #: maintenance/freins/templates/freins/controle_freins_detail_pdf.html:182
@@ -12020,18 +12870,18 @@ msgstr "Desgastado"
 msgid "Hors service"
 msgstr "Fuera de servicio"
 
-#: maintenance/jeux_pieces/models.py:41 maintenance/models.py:78
+#: maintenance/jeux_pieces/models.py:41 maintenance/models.py:79
 #: utilisateurs/models.py:84 utilisateurs/views.py:302
 msgid "Apprenti"
 msgstr "Aprendiz"
 
-#: maintenance/jeux_pieces/models.py:42 maintenance/models.py:69
+#: maintenance/jeux_pieces/models.py:42 maintenance/models.py:70
 #: theme/templates/dashboard.html:117 utilisateurs/models.py:85
 #: utilisateurs/views.py:303
 msgid "Mécanicien"
 msgstr "Mecánico"
 
-#: maintenance/jeux_pieces/models.py:43 maintenance/models.py:87
+#: maintenance/jeux_pieces/models.py:43 maintenance/models.py:88
 msgid "Chef mécanicien"
 msgstr "Jefe de mecánicos"
 
@@ -12188,7 +13038,7 @@ msgstr "Silentblock"
 msgid "Boite automatique"
 msgstr "Caja de cambios automática"
 
-#: maintenance/models.py:130
+#: maintenance/models.py:131
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:37
 msgid "Kilométrage du dernier entretien"
 msgstr "Kilometraje del último mantenimiento"
@@ -13646,10 +14496,6 @@ msgstr "Precio de venta"
 msgid "Quantité en stock"
 msgstr "Cantidad en stock"
 
-#: piece/models.py:99 piece/templates/piece/piece_detail.html:41
-msgid "Quantité utilisée"
-msgstr "Cantidad utilizada"
-
 #: piece/models.py:100 piece/templates/piece/piece_detail.html:42
 msgid "Quantité minimale"
 msgstr "Cantidad mínima"
@@ -14088,10 +14934,6 @@ msgstr "Cantidad de gas"
 #: piece/piece_filtres/models.py:31
 msgid "Filtre"
 msgstr "Filtros"
-
-#: piece/piece_climatisation/models.py:17
-msgid "Durites"
-msgstr "Manguitos"
 
 #: piece/piece_climatisation/models.py:18
 msgid "Huile de climatisation"
@@ -17147,10 +17989,6 @@ msgstr "Detalles del vehículo : "
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:30
 msgid "Numéro Vin"
 msgstr "Número de identificación del vehículo (VIN)"
-
-#: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:33
-msgid "Kilométrage du châssis"
-msgstr "Kilometraje del chasis"
 
 #: voiture/voiture_exemplaire/templates/voiture_exemplaire/detail_exemplaire.html:36
 msgid "Kilométrage de l'embrayage"
