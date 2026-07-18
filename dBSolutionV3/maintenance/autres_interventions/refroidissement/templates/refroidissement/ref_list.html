@@ -1,20 +1,20 @@
 {% extends "base.html" %}
 {% load i18n static widget_tweaks %}
 
-{% block title %}{% trans "Liste des contrôles de la climatisation" %}{% endblock %}
+{% block title %}{% trans "Liste des contrôles du système de refroidissement" %}{% endblock %}
 
 {% block content %}
 <br>
 <br>
 <h1 class="text-2xl font-bold mb-6 flex items-center">
-    <img src="{% static 'icons/climatisation.png' %}" alt="liste des contrôles climatisation"
+    <img src="{% static 'icons/radiateur.png' %}" alt="Liste des contrôles du système de refroidissement"
          style="width:60px; height:60px; margin-right:10px;">
-    {% trans "Liste des contrôles de la climatisation" %}
+    {% trans "Liste des contrôles du système de refroidissement" %}
 </h1>
 <br>
 {% if is_checkup_allowed %}
 <div>
-    <a href="{% url 'climatisation:clim_form' exemplaire.id %}"
+    <a href="{% url 'refroidissement:ref_form' exemplaire.id %}"
        class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
         {% trans "Ajouter un contrôle" %}
     </a>
@@ -53,7 +53,7 @@
     </div>
 </div>
 
-<table id="abs-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
+<table id="refroidissements-table" class="min-w-full table-auto border-collapse border border-gray-200 bg-white">
     <thead>
         <tr class="bg-gray-100">
             <th class="border px-4 py-2 cursor-pointer">{% trans "Immatriculation" %}</th>
@@ -66,8 +66,8 @@
 
     </thead>
     <tbody>
-        {% for climatisation in climatisations %}
-        {% with exemplaire=climatisation.voiture_exemplaire %}
+        {% for refroidissement in refroidissements %}
+        {% with exemplaire=refroidissement.voiture_exemplaire %}
         <tr>
 
             <!-- Immatriculation -->
@@ -108,36 +108,36 @@
 
             <!-- Kilométrage -->
             <td class="border px-4 py-2">
-                {{ climatisation.kilometrage_clim|default:"-" }}
+                {{ refroidissement.kilometrage_refroidissement|default:"-" }}
             </td>
 
 
             <td class="border px-4 py-2 text-center font-bold
-               {% if climatisation.tag == 'VERT' %}bg-green-100 text-green-800 border-green-300 border-2
-               {% elif climatisation.tag == 'JAUNE' %} bg-yellow-100 text-yellow-800 border-yellow-500 border-2
-               {% elif climatisation.tag == 'ROUGE' %}bg-red-100 text-red-800 border-red-300 border-2
+               {% if refroidissement.tag == 'VERT' %}bg-green-100 text-green-800 border-green-300 border-2
+               {% elif refroidissement.tag == 'JAUNE' %} bg-yellow-100 text-yellow-800 border-yellow-500 border-2
+               {% elif refroidissement.tag == 'ROUGE' %}bg-red-100 text-red-800 border-red-300 border-2
                {% endif %}">
-              {{ climatisation.get_tag_display }}
+              {{ refroidissement.get_tag_display }}
             </td>
 
             <!-- Technicien -->
             <td class="border px-4 py-2">
-                {{ climatisation.tech_nom_technicien|default:"-" }}
+                {{ refroidissement.tech_nom_technicien|default:"-" }}
             </td>
 
             <!-- Date -->
              <td class="border px-4 py-2"
-                data-order="{{ climatisation.date|date:'Y-m-d H:i:s' }}">
-                {{ climatisation.date|date:"d/m/Y H:i" }}
+                data-order="{{ refroidissement.date|date:'Y-m-d H:i:s' }}">
+                {{ refroidissement.date|date:"d/m/Y H:i" }}
              </td>
 
             <td class="border px-4 py-2">
-                {{ climatisation.main_oeuvre.temps_display|default:"-" }}
+                {{ refroidissement.main_oeuvre.temps_display|default:"-" }}
             </td>
 
             <!-- Actions -->
             <td class="border px-4 py-2 text-center">
-               <a href="{% url 'climatisation:clim_detail' climatisation.id %}"
+               <a href="{% url 'refroidissement:ref_detail' refroidissement.id %}"
                    class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition">
                     {% trans "Infos" %}
                </a>
@@ -166,12 +166,12 @@
 
 <script>
 $(document).ready(function() {
-    var table = $('#climatisations-table').DataTable({
+    var table = $('#refroidissements-table').DataTable({
         pageLength: 100,
         language: {
             search: "{% trans 'Recherche globale :' %}",
             lengthMenu: "{% trans 'Afficher _MENU_ éléments' %}",
-            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ contrôle climatisation' %}",
+            info: "{% trans 'Affichage de _START_ à _END_ sur _TOTAL_ contrôle refroidissement' %}",
             infoEmpty: "{% trans 'Aucun remplacement trouvé' %}",
             zeroRecords: "{% trans 'Aucun remplacement trouvé' %}",
             paginate: {

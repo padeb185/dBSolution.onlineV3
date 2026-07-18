@@ -38,6 +38,7 @@ class Maintenance(models.Model):
         ECHAPPEMENT = "ECHAPPEMENT", _("Echappement")
         CLIMATISATION = "CLIMATISATION", _("Climatisation")
         ALTERNATEUR = "ALTERNATEUR", _("Alternateur")
+        REFROIDISSEMMENT = "REFROIDISSEMENT", _("Refroidissement")
 
 
     class Tag(models.TextChoices):

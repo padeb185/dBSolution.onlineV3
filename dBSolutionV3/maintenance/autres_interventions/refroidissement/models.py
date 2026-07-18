@@ -1,5 +1,7 @@
 from decimal import Decimal, ROUND_HALF_UP
 
+from django.conf import settings
+
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -40,7 +42,7 @@ class QualiteLiquideRefroidissement(models.TextChoices):
     CONTAMINE = "CONTAMINE", _("Contaminé")
 
 
-class ControleRefroidissement(TechnicienMixin, models.Model):
+class Refroidissement(TechnicienMixin, models.Model):
 
     # ======================================================
     # TVA
@@ -97,16 +99,17 @@ class ControleRefroidissement(TechnicienMixin, models.Model):
         verbose_name=_("Date du contrôle"),
         auto_now_add=True,
     )
-
-    kilometrage_refroidissement = models.PositiveIntegerField(
-        verbose_name=_("Kilométrage au moment du contrôle"),
-    )
-
     kilometres_chassis = models.PositiveIntegerField(
         verbose_name=_("Kilométrage du châssis"),
         default=0,
         blank=True,
     )
+
+    kilometrage_refroidissement = models.PositiveIntegerField(
+        verbose_name=_("Kilométrage au moment du contrôle"),
+    )
+
+
 
     pays = models.CharField(
         max_length=2,
@@ -792,6 +795,61 @@ class ControleRefroidissement(TechnicienMixin, models.Model):
         default=Maintenance.Tag.VERT,
     )
 
+    # ------------------------------------------------------
+    # TECHNICIEN
+    # ------------------------------------------------------
+
+    tech_technicien = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name=_("Technicien"),
+        related_name="refroidissement",
+    )
+
+    tech_nom_technicien = models.CharField(
+        _("Nom du technicien"),
+        max_length=255,
+        blank=True,
+    )
+
+    tech_role_technicien = models.CharField(
+        _("Rôle du technicien"),
+        max_length=255,
+        blank=True,
+    )
+
+    tech_societe = models.ForeignKey(
+        "societe.Societe",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name=_("Société"),
+        related_name="refroidissement",
+    )
+
+    date = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name=_("Date"),
+    )
+
+    created_at = models.DateTimeField(
+        _("Créé le"),
+        auto_now_add=True,
+        blank=True,
+        null=True,
+    )
+
+    updated_at = models.DateTimeField(
+        _("Mis à jour le"),
+        auto_now=True,
+        blank=True,
+        null=True,
+    )
+
+
+
     class Meta:
         verbose_name = _("Contrôle du système de refroidissement")
         verbose_name_plural = _("Contrôles du système de refroidissement")
@@ -802,6 +860,12 @@ class ControleRefroidissement(TechnicienMixin, models.Model):
         return _("Contrôle refroidissement — %(vehicule)s") % {
             "vehicule": vehicule,
         }
+
+    def assign_technicien(self, user):
+        self.tech_technicien = user
+        self.tech_nom_technicien = f"{user.prenom} {user.nom}"
+        self.tech_role_technicien = user.role
+        self.tech_societe = user.societe
 
     # ======================================================
     # VALIDATION
@@ -915,6 +979,8 @@ class ControleRefroidissement(TechnicienMixin, models.Model):
         )
         setattr(self, f"{prefix}_tva_vente", tva_vente)
         setattr(self, f"{prefix}_prix_ttc", prix_ttc)
+
+
 
     def calcul_liquide(self):
         prix_achat = self.liquide_prix_achat or Decimal("0.00")

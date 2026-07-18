@@ -1,4 +1,5 @@
 from datetime import timezone
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
@@ -6,10 +7,11 @@ from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.cache import never_cache
 from django_tenants.utils import schema_context, tenant_context
-from maintenance.autres_interventions import echappement
+from maintenance.autres_interventions import echappement, refroidissement
 from maintenance.autres_interventions.climatisation.models import Climatisation
 from maintenance.autres_interventions.courroie_accessoires.models import CourroieAccessoires
 from maintenance.autres_interventions.echappement.models import Echappement
+from maintenance.autres_interventions.refroidissement.models import Refroidissement
 from maintenance.models import Maintenance
 from maintenance.types_maintenances import TYPES_MAINTENANCE
 from voiture.voiture_exemplaire.models import VoitureExemplaire
@@ -83,6 +85,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
     remplacement_moteur = RemplacementMoteur.objects.none()
     echappement = Echappement.objects.none()
     climatisation = Climatisation.objects.none()
+    refroidissement = Refroidissement.objects.none()
 
 
     # -----------------------------
@@ -96,6 +99,7 @@ def choisir_autre_maintenance(request, exemplaire_id):
     total_access = 0
     total_echappement = 0
     total_clim = 0
+    total_ref = 0
 
 
     total_int_moteur = 0
@@ -136,6 +140,9 @@ def choisir_autre_maintenance(request, exemplaire_id):
             )
 
             echappement = Echappement.objects.filter(
+                voiture_exemplaire=exemplaire
+            )
+            refroidissement = Refroidissement.objects.filter(
                 voiture_exemplaire=exemplaire
             )
 
@@ -234,12 +241,14 @@ def choisir_autre_maintenance(request, exemplaire_id):
         "total_int_moteur": total_int_moteur,
         "total_int_boite": total_int_boite,
         "total_turbo": total_turbo,
+        "total_ref": total_ref,
 
         "boite": boite,
         "bte_auto": bte_auto,
         "geometrie": geometrie,
         "abs_qs": abs_qs,
         "climatisation": climatisation,
+        "refroidissement": refroidissement,
 
         "remplacement_boite": remplacement_boite,
         "echappement": echappement,

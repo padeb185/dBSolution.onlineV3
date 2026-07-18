@@ -7,9 +7,9 @@ app_name = "refroidissement"
 
 urlpatterns = [
 
-    path('refroidissement/<uuid:exemplaire_id>/liste/', RefListView.as_view(),name='refroidissement_list'),
+    path('refroidissement/<uuid:exemplaire_id>/liste/', RefListView.as_view(),name='ref_list'),
 
-    path('refroidissement/<uuid:exemplaire_id>/', ref_form_view, name='clim_form'),
+    path('refroidissement/<uuid:exemplaire_id>/', ref_form_view, name='ref_form'),
 
 
     path('refroidissement/<int:ref_id>/modifier/', modifier_ref_view, name='modifier_ref'),
