@@ -122,12 +122,12 @@ class Refroidissement(TechnicienMixin, models.Model):
     # DIAGNOSTIC GÉNÉRAL
     # ======================================================
 
-    pression_presence_fuite = models.BooleanField(
+    presence_fuite = models.BooleanField(
         verbose_name=_("Présence d'une fuite"),
         default=False,
     )
 
-    pression_fuite_localisation = models.TextField(
+    presence_fuite_localisation = models.TextField(
         verbose_name=_("Localisation de la fuite"),
         blank=True,
     )

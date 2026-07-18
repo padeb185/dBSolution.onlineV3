@@ -312,6 +312,15 @@ def ref_form_view(request, exemplaire_id):
                 ],
             },
             {
+                "title": _("Presence de fuite"),
+                "icon": "icons/fuites-eau.png",
+                "fields": [
+                    field
+                    for field in form
+                    if "presence" in field.name
+                ],
+            },
+            {
                 "title": _("Pression"),
                 "icon": "icons/pression.png",
                 "fields": [
@@ -363,9 +372,7 @@ def ref_form_view(request, exemplaire_id):
                 "fields": [
                     field
                     for field in form
-                    if field.name in [
-                        "ventilateur"
-                    ]
+                    if "ventilateur" in field.name
                 ],
             },
             {
@@ -546,6 +553,15 @@ def modifier_ref_view(request, refroidissement_id):
                     for field in form
                     if "kilometrage" in field.name
                        or "kilometres" in field.name
+                ],
+            },
+            {
+                "title": _("Presence de fuite"),
+                "icon": "icons/fuites-eau.png",
+                "fields": [
+                    field
+                    for field in form
+                    if "presence" in field.name
                 ],
             },
             {
