@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
@@ -115,6 +117,9 @@ class RemplacementMoteurForm(forms.ModelForm):
             self.fields["nombre_remplacements_moteurs"].initial = prochain_numero
             self.initial["nombre_remplacements_moteurs"] = prochain_numero
             self.fields["nombre_remplacements_moteurs"].widget.attrs["value"] = prochain_numero
+
+        if not self.instance.pk and not self.initial.get("taux_horaire"):
+            self.initial["taux_horaire"] = Decimal("50.00")
 
     def clean(self):
         cleaned_data = super().clean()

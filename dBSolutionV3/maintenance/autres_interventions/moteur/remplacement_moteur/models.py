@@ -110,12 +110,12 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         verbose_name=_("Nombre de moteurs montés"),
     )
 
-    prix_moteurs = models.DecimalField(
+    moteurs_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         blank=True,
         null=True,
-        verbose_name=_("Prix moteur"),
+        verbose_name=_("Prix d'achat du moteur HTVA"),
     )
 
     TAG_CHOICES = [
@@ -150,6 +150,14 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         default=HuileEtat.ZERO_30,
         verbose_name=_("Qualité d'huile")
     )
+    moteurs_niveau_huile_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        blank=True,
+        null=True,
+        verbose_name=_("Prix d'achat de l'huile HTVA"),
+    )
+
 
     refroidissement_etat = models.CharField(
         max_length=25,
@@ -170,6 +178,15 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         default=RefroidissementQualiteEtat.G13,
         verbose_name=_("Qualité de liquide de refroidissement")
     )
+
+    refroidissement_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        blank=True,
+        null=True,
+        verbose_name=_("Prix d'achat du liquide de refroidissement HTVA"),
+    )
+
 
     remplacement_effectue = models.BooleanField(
         default=False,
@@ -233,6 +250,7 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         verbose_name=_("Société"),
         related_name="remplacement_moteur"
     )
+
     taux_horaire = models.DecimalField(
         max_digits=10,
         decimal_places=2,
@@ -362,6 +380,131 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
 
         super().save(*args, **kwargs)
 
+    def generer_rapport_remplacement(self):
+        lignes = []
+        total_general = Decimal("0.00")
+
+        def decimal_value(value):
+            if value in (None, ""):
+                return Decimal("0.00")
+
+            return Decimal(str(value))
+
+        def ajouter_ligne(
+                champ,
+                etat_label,
+                quantite,
+                prix_unitaire,
+        ):
+            nonlocal total_general
+
+            quantite_decimal = decimal_value(quantite)
+            prix_decimal = decimal_value(prix_unitaire)
+
+            total_ligne = (
+                    quantite_decimal * prix_decimal
+            ).quantize(
+                Decimal("0.01"),
+                rounding=ROUND_HALF_UP,
+            )
+
+            lignes.append({
+                "champ": champ,
+                "etat_label": etat_label,
+                "quantite": quantite_decimal,
+                "prix": prix_decimal.quantize(
+                    Decimal("0.01"),
+                    rounding=ROUND_HALF_UP,
+                ),
+                "total": total_ligne,
+            })
+
+            total_general += total_ligne
+
+        # ==================================================
+        # MOTEUR
+        # ==================================================
+
+        quantite_moteur = decimal_value(
+            self.nombre_remplacements_moteurs
+        )
+
+        prix_moteur = decimal_value(
+            self.moteurs_prix
+        )
+
+        if prix_moteur > 0:
+            ajouter_ligne(
+                champ=_("Moteur"),
+                etat_label=(
+                    _("Remplacé")
+                    if self.remplacement_effectue
+                    else _("À remplacer")
+                ),
+                quantite=(
+                    quantite_moteur
+                    if quantite_moteur > 0
+                    else Decimal("1.00")
+                ),
+                prix_unitaire=prix_moteur,
+            )
+
+        # ==================================================
+        # HUILE MOTEUR
+        # ==================================================
+
+        quantite_huile = decimal_value(
+            self.moteur_niveau_huile_quantite
+        )
+
+        prix_huile = decimal_value(
+            self.moteurs_niveau_huile_prix
+        )
+
+        if prix_huile > 0:
+            ajouter_ligne(
+                champ=_("Huile moteur"),
+                etat_label=self.get_moteur_niveau_huile_etat_display(),
+                quantite=(
+                    quantite_huile
+                    if quantite_huile > 0
+                    else Decimal("1.00")
+                ),
+                prix_unitaire=prix_huile,
+            )
+
+        # ==================================================
+        # LIQUIDE DE REFROIDISSEMENT
+        # ==================================================
+
+        quantite_refroidissement = decimal_value(
+            self.refroidissement_quantite
+        )
+
+        prix_refroidissement = decimal_value(
+            self.refroidissement_prix
+        )
+
+        if prix_refroidissement > 0:
+            ajouter_ligne(
+                champ=_("Liquide de refroidissement"),
+                etat_label=self.get_refroidissement_etat_display(),
+                quantite=(
+                    quantite_refroidissement
+                    if quantite_refroidissement > 0
+                    else Decimal("1.00")
+                ),
+                prix_unitaire=prix_refroidissement,
+            )
+
+        return {
+            "lignes": lignes,
+            "total_general": total_general.quantize(
+                Decimal("0.01"),
+                rounding=ROUND_HALF_UP,
+            ),
+        }
+
         # ======================================================
         # MAIN-D'ŒUVRE
         # ======================================================
@@ -411,10 +554,12 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
     def total_general_avec_main_oeuvre(self):
         rapport = self.generer_rapport_remplacement()
 
-        return (
+        total = (
                 rapport["total_general"]
                 + self.cout_main_oeuvre
-        ).quantize(
+        )
+
+        return total.quantize(
             Decimal("0.01"),
             rounding=ROUND_HALF_UP,
         )

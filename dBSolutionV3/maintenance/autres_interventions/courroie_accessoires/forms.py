@@ -29,8 +29,8 @@ class CourroieAccessoiresForm(forms.ModelForm):
         self.user = kwargs.pop('user', None)
         self.exemplaire = kwargs.pop('exemplaire', None)
         super().__init__(*args, **kwargs)
-
-         # -------- MAIN D'ŒUVRE QUERYSET --------
+        
+        # -------- MAIN D'ŒUVRE QUERYSET --------
         if "main_oeuvre" in self.fields:
             self.fields["main_oeuvre"].queryset = MainDoeuvre.objects.select_related(
                 "utilisateur"

@@ -258,95 +258,176 @@
     </div>
 </div>
 
-    <h2>{% trans "Main d’œuvre" %}</h2>
+<!-- ================================================== -->
+<!-- MAIN-D'ŒUVRE -->
+<!-- ================================================== -->
 
-    <div class="box">
-        <p>
-            <span class="label">{% trans "Temps de travail" %} :</span>
-            {{ alternateur.temps_main_oeuvre_display }}
-        </p>
+<h2>{% trans "Main-d'œuvre" %}</h2>
 
-        <p>
-            <span class="label">{% trans "Taux horaire" %} :</span>
-            {{ alternateur.taux_horaire_main_oeuvre|floatformat:2 }} €
-        </p>
+<div class="box">
 
-        <p>
-            <span class="label">{% trans "Coût de la main d’œuvre" %} :</span>
-            {{ alternateur.cout_main_oeuvre|floatformat:2 }} €
-        </p>
+    <div style="margin-bottom:10px;">
+        <span class="label">{% trans "Temps de travail" %} :</span><br>
+        {{ alternateur.temps_main_oeuvre_display|default:"0h00" }}
     </div>
 
+    <div style="margin-bottom:10px;">
+        <span class="label">{% trans "Taux horaire" %} :</span><br>
+        {{ alternateur.taux_horaire_main_oeuvre|default:0|floatformat:2 }} €
+    </div>
+
+    <div style="margin-bottom:10px;">
+        <span class="label">{% trans "Coût de la main-d'œuvre" %} :</span><br>
+        {{ alternateur.cout_main_oeuvre|default:0|floatformat:2 }} €
+    </div>
+
+    <div style="margin-bottom:10px;">
+        <span class="label">{% trans "Technicien" %} :</span><br>
+
+        {% if alternateur.main_oeuvre and alternateur.main_oeuvre.utilisateur %}
+            {{ alternateur.main_oeuvre.utilisateur }}
+        {% else %}
+            {{ alternateur.tech_nom_technicien|default:"-" }}
+        {% endif %}
+    </div>
+
+    {% if alternateur.main_oeuvre and alternateur.main_oeuvre.descriptif %}
+        <div style="margin-bottom:10px;">
+            <span class="label">{% trans "Descriptif" %} :</span><br>
+            {{ alternateur.main_oeuvre.descriptif }}
+        </div>
+    {% endif %}
+
+    {% if alternateur.main_oeuvre and alternateur.main_oeuvre.remarques %}
+        <div>
+            <span class="label">{% trans "Remarques sur la main-d'œuvre" %} :</span><br>
+            {{ alternateur.main_oeuvre.remarques|linebreaksbr }}
+        </div>
+    {% endif %}
 
 </div>
 
-<!-- ================= PIÈCES À REMPLACER ================= -->
+<!-- ================================================== -->
+<!-- PIÈCES ET PRODUITS -->
+<!-- ================================================== -->
+<br>
+<br>
+<br>
+<br>
+<h2>{% trans "Pièces, produits utilisés et main d'oeuvre" %}</h2>
 
+<div class="box">
 
-    <h2>{% trans "Pièces à remplacer" %}</h2>
+    {% if rapport.lignes %}
 
-    <div class="box">
+        <table>
+            <thead>
+                <tr>
+                    <th>{% trans "Pièce / Produit" %}</th>
+                    <th>{% trans "État" %}</th>
+                    <th class="text-right">{% trans "Quantité" %}</th>
+                    <th class="text-right">{% trans "Prix unitaire HTVA" %}</th>
+                    <th class="text-right">{% trans "Total HTVA" %}</th>
+                </tr>
+            </thead>
 
-        {% if rapport.lignes %}
+            <tbody>
 
-            <table>
-                <thead>
+                {% for ligne in rapport.lignes %}
                     <tr>
-                        <th>{% trans "Pièce" %}</th>
-                        <th>{% trans "Quantité" %}</th>
-                        <th>{% trans "Prix unitaire" %}</th>
-                        <th>{% trans "Total" %}</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                    {% for ligne in rapport.lignes %}
-                    <tr>
-
                         <td>
                             {{ ligne.champ }}
                         </td>
 
                         <td>
-                            {{ ligne.quantite }}
+                            {{ ligne.etat_label|default:"-" }}
                         </td>
 
-                        <td>
-                            {{ ligne.prix|floatformat:2 }} €
+                        <td class="text-right">
+                            {{ ligne.quantite|default:0 }}
                         </td>
 
-                        <td>
-                            {{ ligne.total|floatformat:2 }} €
+                        <td class="text-right">
+                            {{ ligne.prix|default:0|floatformat:2 }} €
                         </td>
 
+                        <td class="text-right">
+                            {{ ligne.total|default:0|floatformat:2 }} €
+                        </td>
                     </tr>
-                    {% endfor %}
+                {% endfor %}
 
-                    <tr class="total">
+                <tr class="total">
+                    <td colspan="4" class="text-right">
+                        {% trans "Total pièces et produits HTVA" %}
+                    </td>
 
-                        <td colspan="3" class="text-right">
-                            {% trans "Total général" %}
-                        </td>
+                    <td class="text-right">
+                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
 
-                        <td>
-                            {{ rapport.total_general|floatformat:2 }} €
-                        </td>
+                <tr class="total">
+                    <td colspan="4" class="text-right">
+                        {% trans "Main-d'œuvre" %}
+                    </td>
 
-                    </tr>
+                    <td class="text-right">
+                        {{ alternateur.cout_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
 
-                </tbody>
-            </table>
+                <tr class="total">
+                    <td colspan="4" class="text-right">
+                        {% trans "Total général avec main-d'œuvre" %}
+                    </td>
 
-        {% else %}
+                    <td class="text-right">
+                        {{ alternateur.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
 
-            <p>
-                {% trans "Aucune pièce à remplacer." %}
-            </p>
+            </tbody>
+        </table>
 
-        {% endif %}
+    {% else %}
 
-    </div>
+        <p>
+            {% trans "Aucune pièce ou produit utilisé." %}
+        </p>
+
+        <table>
+            <tbody>
+                <tr class="total">
+                    <td>
+                        <div>
+                            <strong>{% trans "Main-d'œuvre" %}</strong>
+                        </div>
+
+                        <div class="text-right" style="margin-top: 4px;">
+                            {{ alternateur.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        </div>
+                    </td>
+                </tr>
+
+                <tr class="total">
+                    <td>
+                        <div>
+                            <strong>{% trans "Total général" %}</strong>
+                        </div>
+
+                        <div class="text-right" style="margin-top: 4px;">
+                            {{ alternateur.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    {% endif %}
+
+</div>
+
 
 <!-- ================= REMARQUES ================= -->
 

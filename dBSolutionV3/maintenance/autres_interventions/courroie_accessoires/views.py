@@ -242,6 +242,13 @@ def courroie_access_form_view(request, exemplaire_id):
                 "icon": "icons/mecanicien.png",
                 "fields": [form[f.name] for f in form if "tech" in f.name],
             },
+            {
+                "title": _("Taux horaire"),
+                "icon": "icons/taux.png",
+                "fields": [form[f.name] for f in form if "taux" in f.name],
+            },
+
+
         ]
 
         return render(request, "courroie_accessoires/courroie_access_form.html", {
@@ -384,6 +391,11 @@ def modifier_courroie_access_view(request, courroie_accessoires_id):
                 "title": _("Technicien"),
                 "icon": "icons/mecanicien.png",
                 "fields": [form[f.name] for f in form if "tech" in f.name],
+            },
+            {
+                "title": _("Taux horaire"),
+                "icon": "icons/taux.png",
+                "fields": [form[f.name] for f in form if "taux" in f.name],
             },
 
         ]

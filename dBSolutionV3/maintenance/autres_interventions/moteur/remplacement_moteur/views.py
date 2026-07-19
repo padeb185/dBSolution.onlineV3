@@ -396,43 +396,46 @@ def modifier_remplacement_moteur_view(request, remplacement_moteur_id):
 
 @login_required
 def remplacement_moteur_pdf_view(request, remplacement_moteur_id):
-    remplacement = get_object_or_404(
-        RemplacementMoteur.objects.select_related(
-            "voiture_exemplaire",
-            "main_oeuvre",
-            "tech_technicien",
-            "tech_societe",
-        ),
-        id=remplacement_moteur_id
-    )
+    tenant = request.user.societe
 
-    html_string = render_to_string(
-        "remplacement_moteur/remplacement_moteur_pdf.html",
-        {
-            "remplacement": remplacement,
-            "exemplaire": remplacement.voiture_exemplaire,
-        }
-    )
+    with tenant_context(tenant):
+        remplacement = get_object_or_404(
+            RemplacementMoteur.objects.select_related(
+                "voiture_exemplaire",
+                "maintenance",
+                "tech_technicien",
+                "tech_societe",
+                "main_oeuvre",
+                "main_oeuvre__utilisateur",
+            ),
+            id=remplacement_moteur_id,
+        )
 
-    html = HTML(
-        string=html_string,
-        base_url=request.build_absolute_uri("/")
-    )
-    pdf = html.write_pdf()
+        rapport = remplacement.generer_rapport_remplacement()
 
-    immatriculation = (
-        remplacement.voiture_exemplaire.immatriculation
-        if remplacement.voiture_exemplaire
-        else "sans_immatriculation"
-    )
+        html_string = render_to_string(
+            "remplacement_moteur/remplacement_moteur_pdf.html",
+            {
+                "remplacement": remplacement,
+                "rapport": rapport,
+                "societe": tenant,
+                "maintenance": remplacement.maintenance,
+                "vehicule": remplacement.voiture_exemplaire,
+            },
+        )
 
-    technicien = remplacement.tech_nom_technicien or "technicien_inconnu"
+        pdf = HTML(
+            string=html_string,
+            base_url=request.build_absolute_uri("/"),
+        ).write_pdf()
 
-    filename = (
-        f"{_('Remplacement moteur')}_{immatriculation}_{technicien}.pdf"
-    )
+        response = HttpResponse(
+            pdf,
+            content_type="application/pdf",
+        )
 
-    response = HttpResponse(pdf, content_type="application/pdf")
-    response["Content-Disposition"] = f'inline; filename="{filename}"'
+        response["Content-Disposition"] = (
+            'inline; filename="remplacement_moteur.pdf"'
+        )
 
-    return response
+        return response

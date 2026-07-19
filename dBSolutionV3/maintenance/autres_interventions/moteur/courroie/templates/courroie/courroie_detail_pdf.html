@@ -307,15 +307,63 @@
     </div>
 </div>
 
-<!-- ================= MAIN D'OEUVRE ================= -->
-<h2>{% trans "Main d'oeuvre" %}</h2>
+<!-- ================================================== -->
+<!-- MAIN-D'ŒUVRE -->
+<!-- ================================================== -->
+
+<h2>{% trans "Main-d'œuvre" %}</h2>
 
 <div class="box">
-    {{ courroie.main_oeuvre.temps_display|default:"-" }}
+
+    <div style="margin-bottom:10px;">
+        <span class="label">{% trans "Temps de travail" %} :</span><br>
+        {{ courroie.temps_main_oeuvre_display|default:"0h00" }}
+    </div>
+
+    <div style="margin-bottom:10px;">
+        <span class="label">{% trans "Taux horaire" %} :</span><br>
+        {{ courroie.taux_horaire_main_oeuvre|default:0|floatformat:2 }} €
+    </div>
+
+    <div style="margin-bottom:10px;">
+        <span class="label">{% trans "Coût de la main-d'œuvre" %} :</span><br>
+        {{ courroie.cout_main_oeuvre|default:0|floatformat:2 }} €
+    </div>
+
+    <div style="margin-bottom:10px;">
+        <span class="label">{% trans "Technicien" %} :</span><br>
+
+        {% if courroie.main_oeuvre and courroie.main_oeuvre.utilisateur %}
+            {{ courroie.main_oeuvre.utilisateur }}
+        {% else %}
+            {{ courroie.tech_nom_technicien|default:"-" }}
+        {% endif %}
+    </div>
+
+    {% if courroie.main_oeuvre and courroie.main_oeuvre.descriptif %}
+        <div style="margin-bottom:10px;">
+            <span class="label">{% trans "Descriptif" %} :</span><br>
+            {{ courroie.main_oeuvre.descriptif }}
+        </div>
+    {% endif %}
+
+    {% if courroie.main_oeuvre and courroie.main_oeuvre.remarques %}
+        <div>
+            <span class="label">{% trans "Remarques sur la main-d'œuvre" %} :</span><br>
+            {{ courroie.main_oeuvre.remarques|linebreaksbr }}
+        </div>
+    {% endif %}
+
 </div>
 
-<!-- ================= PIECES ================= -->
-<h2>{% trans "Pièces à remplacer" %}</h2>
+<!-- ================================================== -->
+<!-- PIÈCES ET PRODUITS -->
+<!-- ================================================== -->
+<br>
+<br>
+<br>
+<br>
+<h2>{% trans "Pièces, produits utilisés et main d'oeuvre" %}</h2>
 
 <div class="box">
 
@@ -324,30 +372,67 @@
         <table>
             <thead>
                 <tr>
-                    <th>{% trans "Pièce" %}</th>
-                    <th>{% trans "Quantité" %}</th>
-                    <th>{% trans "Prix unitaire" %}</th>
-                    <th>{% trans "Total" %}</th>
+                    <th>{% trans "Pièce / Produit" %}</th>
+                    <th>{% trans "État" %}</th>
+                    <th class="text-right">{% trans "Quantité" %}</th>
+                    <th class="text-right">{% trans "Prix unitaire HTVA" %}</th>
+                    <th class="text-right">{% trans "Total HTVA" %}</th>
                 </tr>
             </thead>
 
             <tbody>
 
                 {% for ligne in rapport.lignes %}
-                <tr>
-                    <td>{{ ligne.champ }}</td>
-                    <td>{{ ligne.quantite }}</td>
-                    <td>{{ ligne.prix|floatformat:2 }} €</td>
-                    <td>{{ ligne.total|floatformat:2 }} €</td>
-                </tr>
+                    <tr>
+                        <td>
+                            {{ ligne.champ }}
+                        </td>
+
+                        <td>
+                            {{ ligne.etat_label|default:"-" }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.quantite|default:0 }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.prix|default:0|floatformat:2 }} €
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.total|default:0|floatformat:2 }} €
+                        </td>
+                    </tr>
                 {% endfor %}
 
                 <tr class="total">
-                    <td colspan="3" class="text-right">
-                        {% trans "Total général" %}
+                    <td colspan="4" class="text-right">
+                        {% trans "Total pièces et produits HTVA" %}
                     </td>
-                    <td>
-                        {{ rapport.total_general|floatformat:2 }} €
+
+                    <td class="text-right">
+                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total">
+                    <td colspan="4" class="text-right">
+                        {% trans "Main-d'œuvre" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ courroie.cout_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total">
+                    <td colspan="4" class="text-right">
+                        {% trans "Total général avec main-d'œuvre" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ courroie.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
                     </td>
                 </tr>
 
@@ -356,11 +441,42 @@
 
     {% else %}
 
-        <p>{% trans "Aucune pièce à remplacer." %}</p>
+        <p>
+            {% trans "Aucune pièce ou produit utilisé." %}
+        </p>
+
+        <table>
+            <tbody>
+                <tr class="total">
+                    <td>
+                        <div>
+                            <strong>{% trans "Main-d'œuvre" %}</strong>
+                        </div>
+
+                        <div class="text-right" style="margin-top: 4px;">
+                            {{ courroie.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        </div>
+                    </td>
+                </tr>
+
+                <tr class="total">
+                    <td>
+                        <div>
+                            <strong>{% trans "Total général" %}</strong>
+                        </div>
+
+                        <div class="text-right" style="margin-top: 4px;">
+                            {{ courroie.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
     {% endif %}
 
 </div>
+
 
 <!-- ================= REMARQUES ================= -->
 <h2>{% trans "Remarques" %}</h2>
