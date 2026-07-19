@@ -568,5 +568,20 @@ class Rodage(TechnicienMixin, models.Model):
 
         return {
             "lignes": rapport,
-            "total_general": total_general,
+            "total_general": total_general.quantize(
+                Decimal("0.01"),
+                rounding=ROUND_HALF_UP,
+            ),
         }
+
+    @property
+    def total_general_avec_main_oeuvre(self):
+        rapport = self.generer_rapport_remplacement()
+
+        return (
+                rapport["total_general"]
+                + self.cout_main_oeuvre
+        ).quantize(
+            Decimal("0.01"),
+            rounding=ROUND_HALF_UP,
+        )

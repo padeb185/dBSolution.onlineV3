@@ -345,7 +345,11 @@ def rodage_pdf_view(request, rodage_id):
         )
 
         # Génération du rapport des pièces et produits
-        rapport = rodage.generer_rapport_remplacement()
+        rapport = rodage.generer_rapport_remplacement() or {
+            "lignes": [],
+            "total_general": 0,
+        }
+
 
         html_string = render_to_string(
             "rodage/rodage_pdf.html",
