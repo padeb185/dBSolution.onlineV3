@@ -363,6 +363,9 @@ class Admission(TechnicienMixin, models.Model):
             "total_general": total_general,
         }
 
+        # ======================================================
+        # MAIN-D'ŒUVRE
+        # ======================================================
 
     @property
     def temps_main_oeuvre_display(self):
@@ -376,7 +379,10 @@ class Admission(TechnicienMixin, models.Model):
 
     @property
     def taux_horaire_main_oeuvre(self):
-        if self.main_oeuvre and self.main_oeuvre.taux_horaire is not None:
+        if (
+                self.main_oeuvre
+                and self.main_oeuvre.taux_horaire is not None
+        ):
             return self.main_oeuvre.taux_horaire
 
         return Decimal("0.00")
@@ -386,9 +392,30 @@ class Admission(TechnicienMixin, models.Model):
         if not self.main_oeuvre:
             return Decimal("0.00")
 
-        minutes = self.main_oeuvre.temps_minutes or 0
-        taux = self.taux_horaire or Decimal("0.00")
+        temps_minutes = self.main_oeuvre.temps_minutes or 0
+        taux_horaire = (
+                self.main_oeuvre.taux_horaire or Decimal("0.00")
+        )
 
-        cout = Decimal(minutes) / Decimal("60") * taux
+        cout = (
+                Decimal(str(temps_minutes))
+                / Decimal("60")
+                * Decimal(str(taux_horaire))
+        )
 
-        return cout.quantize(Decimal("0.01"))
+        return cout.quantize(
+            Decimal("0.01"),
+            rounding=ROUND_HALF_UP,
+        )
+
+    @property
+    def total_general_avec_main_oeuvre(self):
+        rapport = self.generer_rapport_remplacement()
+
+        return (
+                rapport["total_general"]
+                + self.cout_main_oeuvre
+        ).quantize(
+            Decimal("0.01"),
+            rounding=ROUND_HALF_UP,
+        )

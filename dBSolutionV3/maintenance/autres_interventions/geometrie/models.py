@@ -1,4 +1,4 @@
-from decimal import Decimal
+from decimal import Decimal, ROUND_HALF_UP
 
 from django.conf import settings
 from django.core.exceptions import ValidationError
@@ -266,3 +266,60 @@ class GeometrieVoiture(models.Model):
     class Meta:
         verbose_name = _("Contrôle Géometrie")
         verbose_name_plural = _("Contrôles Géometrie")
+
+        # ======================================================
+        # MAIN-D'ŒUVRE
+        # ======================================================
+
+    @property
+    def temps_main_oeuvre_display(self):
+        if not self.main_oeuvre:
+            return "0h00"
+
+        temps_minutes = self.main_oeuvre.temps_minutes or 0
+        heures, minutes = divmod(temps_minutes, 60)
+
+        return f"{heures}h{minutes:02d}"
+
+    @property
+    def taux_horaire_main_oeuvre(self):
+        if (
+                self.main_oeuvre
+                and self.main_oeuvre.taux_horaire is not None
+        ):
+            return self.main_oeuvre.taux_horaire
+
+        return Decimal("0.00")
+
+    @property
+    def cout_main_oeuvre(self):
+        if not self.main_oeuvre:
+            return Decimal("0.00")
+
+        temps_minutes = self.main_oeuvre.temps_minutes or 0
+        taux_horaire = (
+                self.main_oeuvre.taux_horaire or Decimal("0.00")
+        )
+
+        cout = (
+                Decimal(str(temps_minutes))
+                / Decimal("60")
+                * Decimal(str(taux_horaire))
+        )
+
+        return cout.quantize(
+            Decimal("0.01"),
+            rounding=ROUND_HALF_UP,
+        )
+
+    @property
+    def total_general_avec_main_oeuvre(self):
+        rapport = self.generer_rapport_remplacement()
+
+        return (
+                rapport["total_general"]
+                + self.cout_main_oeuvre
+        ).quantize(
+            Decimal("0.01"),
+            rounding=ROUND_HALF_UP,
+        )
