@@ -103,6 +103,12 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         verbose_name=_("Nombre de remplacements"),
     )
 
+    nombre_moteurs_total = models.PositiveIntegerField(
+        default=1,
+        editable=False,
+        verbose_name=_("Nombre de moteurs montés"),
+    )
+
     prix_moteurs = models.DecimalField(
         max_digits=10,
         decimal_places=2,
@@ -286,6 +292,15 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
                         remplacement_effectue=True
                     ).count() + 1
             )
+
+        if is_new and self.voiture_exemplaire_id:
+            self.nombre_moteurs_total = (
+                    RemplacementMoteur.objects.filter(
+                        voiture_exemplaire=self.voiture_exemplaire,
+                        remplacement_effectue=True
+                    ).count() + 2
+            )
+
 
         if not self.voiture_exemplaire:
             super().save(*args, **kwargs)

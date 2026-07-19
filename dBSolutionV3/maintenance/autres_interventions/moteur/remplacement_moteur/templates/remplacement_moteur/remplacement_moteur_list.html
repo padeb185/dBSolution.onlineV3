@@ -69,6 +69,7 @@
             <th>{% trans "Km moteur" %}</th>
             <th>{% trans "Km châssis" %}</th>
             <th>{% trans "Nombre de remplacements" %}</th>
+            <th>{% trans "Nombre de moteurs montés" %}</th>
             <th>{% trans "Tag" %}</th>
             <th>{% trans "Technicien" %}</th>
             <th>{% trans "Date" %}</th>
@@ -132,6 +133,10 @@
             <!-- nombre de remplacment -->
             <td class="border px-4 py-2">
                 {{ remplacement.nombre_remplacements_moteurs }}
+            </td>
+
+            <td class="border px-4 py-2">
+                {{ remplacement.nombre_moteurs_total }}
             </td>
 
             <!-- TAG -->
@@ -223,7 +228,7 @@ $(document).ready(function() {
                 previous: "{% trans 'Précédent' %}"
             }
         },
-        order: [[6, "desc"]]
+        order: [[7, "desc"]]
     });
 
     $('#search-immatriculation').on('keyup', function () {
@@ -235,17 +240,24 @@ $(document).ready(function() {
       $('#search-kilometres_chassis').on('keyup', function () {
         table.column(2).search(this.value).draw();
     });
-    $('#search-tag').on('keyup', function () {
+     $('#search-nombre_remplacements_moteurs').on('keyup', function () {
         table.column(3).search(this.value).draw();
     });
-    $('#search-utilisateur').on('keyup', function () {
+      $('#search-nombre_moteurs_total').on('keyup', function () {
         table.column(4).search(this.value).draw();
     });
-    $('#search-date').on('change', function () {
+
+    $('#search-tag').on('keyup', function () {
         table.column(5).search(this.value).draw();
     });
-     $('#search-temps').on('keyup', function () {
+    $('#search-utilisateur').on('keyup', function () {
         table.column(6).search(this.value).draw();
+    });
+    $('#search-date').on('change', function () {
+        table.column(7).search(this.value).draw();
+    });
+     $('#search-temps').on('keyup', function () {
+        table.column(8).search(this.value).draw();
     });
 });
 </script>

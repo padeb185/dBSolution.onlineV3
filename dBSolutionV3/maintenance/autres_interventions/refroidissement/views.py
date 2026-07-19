@@ -322,7 +322,7 @@ def ref_form_view(request, exemplaire_id):
             },
             {
                 "title": _("Pression"),
-                "icon": "icons/pression.png",
+                "icon": "icons/pression-eau.png",
                 "fields": [
                     field
                     for field in form
@@ -332,7 +332,7 @@ def ref_form_view(request, exemplaire_id):
             },
             {
                 "title": _("Température"),
-                "icon": "icons/temperature.png",
+                "icon": "icons/temperature-eau.png",
                 "fields": [
                     field
                     for field in form
@@ -341,7 +341,7 @@ def ref_form_view(request, exemplaire_id):
             },
             {
                 "title": _("circulation"),
-                "icon": "icons/circulation.png",
+                "icon": "icons/circulation-eau.png",
                 "fields": [
                     field
                     for field in form
@@ -359,7 +359,7 @@ def ref_form_view(request, exemplaire_id):
             },
             {
                 "title": _("Purge"),
-                "icon": "icons/purge.png",
+                "icon": "icons/purge-eau.png",
                 "fields": [
                     field
                     for field in form
