@@ -323,3 +323,16 @@ class GeometrieVoiture(models.Model):
             Decimal("0.01"),
             rounding=ROUND_HALF_UP,
         )
+
+    def generer_rapport_remplacement(self):
+
+
+        total_pieces = Decimal("0.00")
+        cout_main_oeuvre = Decimal(str(self.cout_main_oeuvre or 0))
+
+        return {
+            "lignes": [],
+            "total_pieces": total_pieces,
+            "cout_main_oeuvre": cout_main_oeuvre,
+            "total_general": total_pieces + cout_main_oeuvre,
+        }

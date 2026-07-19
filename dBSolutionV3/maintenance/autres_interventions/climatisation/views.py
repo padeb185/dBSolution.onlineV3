@@ -485,6 +485,18 @@ def clim_form_view(request, exemplaire_id):
                     if field.name == "remarques"
                 ],
             },
+            {
+                "title": _("Technicien"),
+                "icon": "icons/mécanicien.png",
+                "fields": [form[f.name] for f in form if "tech" in f.name],
+            },
+
+            {
+                "title": _("Taux horaire"),
+                "icon": "icons/taux.png",
+                "fields": [form[f.name] for f in form if "taux" in f.name],
+            },
+
         ]
 
         return render(
@@ -764,6 +776,18 @@ def modifier_clim_view(request, climatisation_id):
                     if field.name == "remarques"
                 ],
             },
+            {
+                "title": _("Technicien"),
+                "icon": "icons/mécanicien.png",
+                "fields": [form[f.name] for f in form if "tech" in f.name],
+            },
+
+            {
+                "title": _("Taux horaire"),
+                "icon": "icons/taux.png",
+                "fields": [form[f.name] for f in form if "taux" in f.name],
+            },
+
         ]
 
     return render(

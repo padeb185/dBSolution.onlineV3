@@ -278,6 +278,12 @@ def geometrie_check_view(request, exemplaire_id):
                 "icon": "icons/mecanicien.png",
                 "fields": [form[f.name] for f in form if "tech" in f.name],
             },
+            {
+                "title": _("Taux horaire"),
+                "icon": "icons/taux.png",
+                "fields": [form[f.name] for f in form if "taux" in f.name],
+            },
+
         ]
 
         return render(request, 'geometrie/geometrie_check.html', {
@@ -426,6 +432,12 @@ def geometrie_modifier_view(request, geometrie_id):
                 "icon": "icons/mecanicien.png",
                 "fields": [form[f.name] for f in form if "tech" in f.name],
             },
+            {
+                "title": _("Taux horaire"),
+                "icon": "icons/taux.png",
+                "fields": [form[f.name] for f in form if "taux" in f.name],
+            },
+
         ]
 
     return render(

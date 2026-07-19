@@ -161,11 +161,192 @@
     </div>
 </div>
 
-<!-- ================= REMARQUES ================= -->
-<h2>{% trans "Remarques" %}</h2>
+<!-- ================================================== -->
+<!-- MAIN-D'ŒUVRE -->
+<!-- ================================================== -->
+
+<h2>{% trans "Main d'oeuvre" %}</h2>
 
 <div class="box">
-    {{ geometrie.remarques|default:_("Aucune remarque.") }}
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Temps de travail" %} :</span>
+
+            {% if geometrie.main_oeuvre %}
+                {{ geometrie.main_oeuvre.temps_display|default:"0h00" }}
+            {% else %}
+                0h00
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+
+            {% if geometrie.main_oeuvre and geometrie.main_oeuvre.utilisateur %}
+                {{ geometrie.main_oeuvre.utilisateur }}
+            {% else %}
+                {{ geometrie.tech_nom_technicien|default:"-" }}
+            {% endif %}
+        </div>
+
+        {% if geometrie.main_oeuvre and geometrie.main_oeuvre.descriptif %}
+            <div>
+                <span class="label">{% trans "Descriptif" %} :</span>
+                {{ geometrie.main_oeuvre.descriptif }}
+            </div>
+        {% endif %}
+
+        {% if geometrie.main_oeuvre and geometrie.main_oeuvre.cout_total %}
+            <div>
+                <span class="label">{% trans "Coût de la main d'œuvre" %} :</span>
+                {{ geometrie.main_oeuvre.cout_total|default:0|floatformat:2 }} €
+            </div>
+        {% endif %}
+
+    </div>
+</div>
+
+
+<!-- ================================================== -->
+<!-- PIÈCES ET PRODUITS -->
+<!-- ================================================== -->
+<br>
+<br>
+<br>
+<br>
+<h2>{% trans "Pièces, produits utilisés et main d'oeuvre" %}</h2>
+
+<div class="box">
+
+    {% if rapport.lignes %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>{% trans "Pièce / Produit" %}</th>
+                    <th>{% trans "État" %}</th>
+                    <th class="text-right">{% trans "Quantité" %}</th>
+                    <th class="text-right">{% trans "Prix unitaire HTVA" %}</th>
+                    <th class="text-right">{% trans "Total HTVA" %}</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for ligne in rapport.lignes %}
+                    <tr>
+                        <td>
+                            {{ ligne.champ }}
+                        </td>
+
+                        <td>
+                            {{ ligne.etat_label|default:"-" }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.quantite|default:0 }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.prix|default:0|floatformat:2 }} €
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.total|default:0|floatformat:2 }} €
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                <tr class="total">
+                    <td colspan="4" class="text-right">
+                        {% trans "Total pièces et produits HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total">
+                    <td colspan="4" class="text-right">
+                        {% trans "Main-d'œuvre" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ geometrie.cout_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total">
+                    <td colspan="4" class="text-right">
+                        {% trans "Total général avec main-d'œuvre" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ geometrie.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    {% else %}
+
+        <p>
+            {% trans "Aucune pièce ou produit utilisé." %}
+        </p>
+
+        <table>
+            <tbody>
+                <tr class="total">
+                    <td>
+                        <div>
+                            <strong>{% trans "Main-d'œuvre" %}</strong>
+                        </div>
+
+                        <div class="text-right" style="margin-top: 4px;">
+                            {{ geometrie.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        </div>
+                    </td>
+                </tr>
+
+                <tr class="total">
+                    <td>
+                        <div>
+                            <strong>{% trans "Total général" %}</strong>
+                        </div>
+
+                        <div class="text-right" style="margin-top: 4px;">
+                            {{ geometrie.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    {% endif %}
+
+</div>
+
+
+<!-- ================================================== -->
+<!-- REMARQUES -->
+<!-- ================================================== -->
+
+<h2>{% trans "Remarques" %}</h2>
+
+<div class="box remarques">
+    {% if geometrie.remarques %}
+        {{ geometrie.remarques|linebreaksbr }}
+    {% else %}
+        {% trans "Aucune remarque." %}
+    {% endif %}
+</div>
+
+<div class="small">
+    {% trans "Rapport généré le" %} :
+    {% now "d/m/Y H:i" %}
 </div>
 
 </body>
