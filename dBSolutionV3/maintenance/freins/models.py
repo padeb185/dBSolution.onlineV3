@@ -1,10 +1,12 @@
+from decimal import Decimal
+
 from django.core.validators import StepValueValidator
 
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from maintenance.choices import RouesSerrageEtat
+from maintenance.choices import RouesSerrageEtat, TAUX_HORAIRE_CHOICES
 from maintenance.niveaux.models import LiquideFreinsQualite
 from maintenance.models import Maintenance
 from utils.mixin import TechnicienMixin
@@ -151,6 +153,14 @@ class ControleFreins(TechnicienMixin, models.Model):
         blank=True,
         verbose_name=_("Société"),
         related_name="controle_tech_societe_freins"
+    )
+
+    taux_horaire = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        choices=TAUX_HORAIRE_CHOICES,
+        default=Decimal("50.00"),
+        verbose_name=_("Taux horaire"),
     )
 
     date = models.DateTimeField(auto_now_add=True)

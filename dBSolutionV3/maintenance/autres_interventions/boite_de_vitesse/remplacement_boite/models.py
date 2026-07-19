@@ -9,6 +9,7 @@ from django.utils.translation import gettext_lazy as _
 from client_particulier.models import ClientParticulier
 from django.conf import settings
 from maintenance.autres_interventions.boite_de_vitesse.models import HuileBoiteEtat, BoiteVitesseEtat
+from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
 from maintenance.models import Maintenance
 from utils.mixin import TechnicienMixin
 
@@ -224,6 +225,13 @@ class RemplacementBoite(TechnicienMixin, models.Model):
         blank=True,
         verbose_name=_("Société"),
         related_name="remplacement_boite"
+    )
+    taux_horaire = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        choices=TAUX_HORAIRE_CHOICES,
+        default=Decimal("50.00"),
+        verbose_name=_("Taux horaire"),
     )
 
     main_oeuvre = models.ForeignKey(

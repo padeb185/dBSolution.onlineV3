@@ -4,6 +4,7 @@ from django.core.validators import StepValueValidator
 from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from maintenance.choices import RouesSerrageEtat, TAUX_HORAIRE_CHOICES
 from maintenance.models import Maintenance
 from utils.mixin import TechnicienMixin
 from django.core.exceptions import ValidationError
@@ -339,6 +340,13 @@ class Niveau(TechnicienMixin, models.Model):
         related_name="niveaux_tech_societe"
     )
 
+    taux_horaire = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        choices=TAUX_HORAIRE_CHOICES,
+        default=Decimal("50.00"),
+        verbose_name=_("Taux horaire"),
+    )
 
 
     def assign_technicien(self, user):

@@ -6,6 +6,7 @@ from django.db import models
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
+from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
 from utils.mixin import TechnicienMixin
 from maintenance.models import Maintenance
 
@@ -175,6 +176,13 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         blank=True,
         verbose_name=_("Société"),
         related_name="controle_bte_auto"
+    )
+    taux_horaire = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        choices=TAUX_HORAIRE_CHOICES,
+        default=Decimal("50.00"),
+        verbose_name=_("Taux horaire"),
     )
 
     date = models.DateTimeField(auto_now_add=True, verbose_name=_("Date"))

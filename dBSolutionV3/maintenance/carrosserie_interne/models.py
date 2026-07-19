@@ -3,6 +3,7 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from maintenance.choices import RouesSerrageEtat, TAUX_HORAIRE_CHOICES
 from maintenance.models import Maintenance
 
 
@@ -573,6 +574,13 @@ class CarrosserieInterne(models.Model):
         related_name="carrosserie_interne_societe"
     )
 
+    taux_horaire = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        choices=TAUX_HORAIRE_CHOICES,
+        default=Decimal("50.00"),
+        verbose_name=_("Taux horaire"),
+    )
 
 
     remarques = models.TextField(verbose_name=_("Remarques"), blank=True, null=True)

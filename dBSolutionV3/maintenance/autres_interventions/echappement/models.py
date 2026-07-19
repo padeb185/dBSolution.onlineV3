@@ -8,6 +8,7 @@ from django.utils import timezone
 from django.db.models import Sum
 from decimal import Decimal, ROUND_HALF_UP
 
+from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
 from maintenance.models import Maintenance
 from utilisateurs.models import Utilisateur
 from societe.models import Societe
@@ -255,6 +256,14 @@ class Echappement(models.Model):
         blank=True,
         verbose_name=_("Société"),
         related_name="echappement"
+    )
+
+    taux_horaire = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        choices=TAUX_HORAIRE_CHOICES,
+        default=Decimal("50.00"),
+        verbose_name=_("Taux horaire"),
     )
 
     date = models.DateTimeField(auto_now_add=True, blank=True, null=True, verbose_name=_("Date"))

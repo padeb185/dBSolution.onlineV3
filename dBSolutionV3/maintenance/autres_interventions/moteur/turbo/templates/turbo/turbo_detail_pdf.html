@@ -114,9 +114,21 @@
             text-align: right;
         }
 
-           .total {
+
+         .total td {
             font-weight: bold;
             background: #f8fafc;
+        }
+
+        .total-label {
+            text-align: right;
+            font-weight: bold;
+        }
+
+        .total-value {
+            text-align: right;
+            font-weight: bold;
+            white-space: nowrap;
         }
 
     </style>
@@ -393,109 +405,165 @@
     </table>
 </div>
 
-<!-- ================= MAIN D'OEUVRE ================= -->
+<!-- ================================================== -->
+<!-- MAIN-D'ŒUVRE -->
+<!-- ================================================== -->
 
-<h2>{% trans "Main d'oeuvre" %}</h2>
+<h2>{% trans "Main-d'œuvre" %}</h2>
 
 <div class="box">
 
-    <div class="grid">
-
-        <div>
-
-            <span class="label">{% trans "Temps de travail" %} :</span>
-
-            {{ turbo.temps_main_oeuvre_display }}
-
-        </div>
-
+    <div style="margin-bottom:10px;">
+        <span class="label">{% trans "Temps de travail" %} :</span><br>
+        {{ turbo.temps_main_oeuvre_display|default:"0h00" }}
     </div>
 
+    <div style="margin-bottom:10px;">
+        <span class="label">{% trans "Taux horaire" %} :</span><br>
+        {{ turbo.taux_horaire_main_oeuvre|default:0|floatformat:2 }} €
+    </div>
+
+    <div style="margin-bottom:10px;">
+        <span class="label">{% trans "Coût de la main-d'œuvre" %} :</span><br>
+        {{ turbo.cout_main_oeuvre|default:0|floatformat:2 }} €
+    </div>
+
+    <div style="margin-bottom:10px;">
+        <span class="label">{% trans "Technicien" %} :</span><br>
+
+        {% if turbo.main_oeuvre and turbo.main_oeuvre.utilisateur %}
+            {{ turbo.main_oeuvre.utilisateur }}
+        {% else %}
+            {{ turbo.tech_nom_technicien|default:"-" }}
+        {% endif %}
+    </div>
+
+    {% if turbo.main_oeuvre and turbo.main_oeuvre.descriptif %}
+        <div style="margin-bottom:10px;">
+            <span class="label">{% trans "Descriptif" %} :</span><br>
+            {{ turbo.main_oeuvre.descriptif }}
+        </div>
+    {% endif %}
+
+    {% if turbo.main_oeuvre and turbo.main_oeuvre.remarques %}
+        <div>
+            <span class="label">{% trans "Remarques sur la main-d'œuvre" %} :</span><br>
+            {{ turbo.main_oeuvre.remarques|linebreaksbr }}
+        </div>
+    {% endif %}
+
 </div>
+
 
 <!-- ================= PIÈCES À REMPLACER ================= -->
 
-<h2>{% trans "Pièces à remplacer" %}</h2>
+<h2>{% trans "Pièces, produits utilisés et main-d'œuvre" %}</h2>
 
 <div class="box">
 
-    {% with rapport=turbo.generer_rapport_remplacement %}
+    {% if rapport.lignes %}
 
-        {% if rapport.lignes %}
+        <table>
+            <thead>
+                <tr>
+                    <th>{% trans "Pièce / Produit" %}</th>
+                    <th>{% trans "État" %}</th>
+                    <th class="text-right">{% trans "Quantité" %}</th>
+                    <th class="text-right">{% trans "Prix unitaire HTVA" %}</th>
+                    <th class="text-right">{% trans "Total HTVA" %}</th>
+                </tr>
+            </thead>
 
-            <table>
-
-                <thead>
-
+            <tbody>
+                {% for ligne in rapport.lignes %}
                     <tr>
-
-                        <th>{% trans "Pièce" %}</th>
-                        <th>{% trans "Quantité" %}</th>
-                        <th>{% trans "Prix unitaire" %}</th>
-                        <th>{% trans "Total" %}</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                    {% for ligne in rapport.lignes %}
-
-                        <tr>
-
-                            <td>
-                                {{ ligne.champ }}
-                            </td>
-
-                            <td>
-                                {{ ligne.quantite }}
-                            </td>
-
-                            <td>
-                                {{ ligne.prix|floatformat:2 }} €
-                            </td>
-
-                            <td>
-                                {{ ligne.total|floatformat:2 }} €
-                            </td>
-
-                        </tr>
-
-                    {% endfor %}
-
-                    <tr class="total">
-
-                        <td colspan="3" class="text-right">
-
-                            {% trans "Total général" %}
-
+                        <td>
+                            {{ ligne.champ }}
                         </td>
 
                         <td>
-
-                            {{ rapport.total_general|floatformat:2 }} €
-
+                            {{ ligne.etat_label|default:"-" }}
                         </td>
 
+                        <td class="text-right">
+                            {{ ligne.quantite|default:0 }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.prix|default:0|floatformat:2 }} €
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.total|default:0|floatformat:2 }} €
+                        </td>
                     </tr>
+                {% endfor %}
 
-                </tbody>
+                <tr class="total">
+                    <td colspan="4" class="total-label">
+                        {% trans "Total pièces et produits HTVA" %}
+                    </td>
 
-            </table>
+                    <td class="total-value">
+                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
 
-        {% else %}
+                <tr class="total">
+                    <td colspan="4" class="total-label">
+                        {% trans "Main-d'œuvre" %}
+                    </td>
 
-            <p>
-                {% trans "Aucune pièce à remplacer." %}
-            </p>
+                    <td class="total-value">
+                        {{ turbo.cout_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
 
-        {% endif %}
+                <tr class="total">
+                    <td colspan="4" class="total-label">
+                        {% trans "Total général avec main-d'œuvre" %}
+                    </td>
 
-    {% endwith %}
+                    <td class="total-value">
+                        {{ turbo.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    {% else %}
+
+        <p>
+            {% trans "Aucune pièce ou produit utilisé." %}
+        </p>
+
+        <table>
+            <tbody>
+                <tr class="total">
+                    <td class="total-label">
+                        {% trans "Main-d'œuvre" %}
+                    </td>
+
+                    <td class="total-value">
+                        {{ turbo.cout_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total">
+                    <td class="total-label">
+                        {% trans "Total général" %}
+                    </td>
+
+                    <td class="total-value">
+                        {{ turbo.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    {% endif %}
 
 </div>
-
 <!-- ================= REMARQUES ================= -->
 
 <h2>{% trans "Remarques" %}</h2>
