@@ -1100,58 +1100,40 @@
 <!-- MAIN-D'ŒUVRE -->
 <!-- ================================================== -->
 
-<h2>{% trans "Main-d'œuvre" %}</h2>
+<h2>{% trans "Main d'œuvre" %}</h2>
 
 <div class="box">
+    <div class="grid">
+        <div>
+            <span class="label">{% trans "Temps" %} :</span>
+            {{ ref.temps_main_oeuvre_display|default:"0h00" }}
+        </div>
 
-    <div style="margin-bottom:10px;">
-        <span class="label">{% trans "Temps de travail" %} :</span><br>
-        {{ ref.temps_main_oeuvre_display|default:"0h00" }}
-    </div>
+        {% if ref.main_oeuvre %}
+            <div>
+                <span class="label">{% trans "Taux horaire" %} :</span>
+                {{ ref.main_oeuvre.taux_horaire|floatformat:2 }} €
+            </div>
 
-    <div style="margin-bottom:10px;">
-        <span class="label">{% trans "Taux horaire" %} :</span><br>
-        {{ ref.taux_horaire_main_oeuvre|default:0|floatformat:2 }} €
-    </div>
+            <div>
+                <span class="label">{% trans "Prix facturé" %} :</span>
+                {{ ref.main_oeuvre.prix_facture|floatformat:2 }} €
+            </div>
 
-    <div style="margin-bottom:10px;">
-        <span class="label">{% trans "Coût de la main-d'œuvre" %} :</span><br>
-        {{ ref.cout_main_oeuvre|default:0|floatformat:2 }} €
-    </div>
-
-    <div style="margin-bottom:10px;">
-        <span class="label">{% trans "Technicien" %} :</span><br>
-
-        {% if ref.main_oeuvre and ref.main_oeuvre.utilisateur %}
-            {{ ref.main_oeuvre.utilisateur }}
+            <div>
+                <span class="label">{% trans "Descriptif" %} :</span>
+                {{ ref.main_oeuvre.descriptif|default:"-" }}
+            </div>
         {% else %}
-            {{ ref.tech_nom_technicien|default:"-" }}
+            <div>{% trans "Aucune main d'œuvre liée" %}</div>
         {% endif %}
     </div>
-
-    {% if ref.main_oeuvre and ref.main_oeuvre.descriptif %}
-        <div style="margin-bottom:10px;">
-            <span class="label">{% trans "Descriptif" %} :</span><br>
-            {{ ref.main_oeuvre.descriptif }}
-        </div>
-    {% endif %}
-
-    {% if ref.main_oeuvre and ref.main_oeuvre.remarques %}
-        <div>
-            <span class="label">{% trans "Remarques sur la main-d'œuvre" %} :</span><br>
-            {{ ref.main_oeuvre.remarques|linebreaksbr }}
-        </div>
-    {% endif %}
-
 </div>
+
 
 <!-- ================================================== -->
 <!-- PIÈCES ET PRODUITS -->
 <!-- ================================================== -->
-<br>
-<br>
-<br>
-<br>
 <h2>{% trans "Pièces, produits utilisés et main d'oeuvre" %}</h2>
 
 <div class="box">

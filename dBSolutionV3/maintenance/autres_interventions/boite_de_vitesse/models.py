@@ -330,64 +330,65 @@ class ControleBoite(TechnicienMixin, models.Model):
         setattr(self, f"{prefix}_prix_ttc", prix_ttc)
 
     def generer_rapport_remplacement(self):
-        rapport = []
-        total_general = Decimal("0.00")
+            rapport = []
+            total_general = Decimal("0.00")
 
-        for field in self._meta.fields:
-            field_name = field.name
+            for field in self._meta.fields:
+                field_name = field.name
 
-            if (
-                    isinstance(field, models.CharField)
-                    and field.choices == BoiteVitesseEtat.choices
-            ):
-                valeur = getattr(self, field_name)
+                # Ne garder que les champs utilisant EtatOKNotOK
+                if (
+                        isinstance(field, models.CharField)
+                        and field.choices == BoiteVitesseEtat.choices
+                ):
+                    valeur = getattr(self, field_name)
 
-                # Pièces à remplacer ou déjà remplacées
-                if valeur in (
+                    # Pièces à remplacer ou déjà remplacées
+                    if valeur in [
                         BoiteVitesseEtat.NOT_OK,
                         BoiteVitesseEtat.REMPLACE,
-                ):
-                    prix = getattr(
-                        self,
-                        f"{field_name}_prix",
-                        Decimal("0.00"),
-                    )
+                    ]:
+                        prix = getattr(
+                            self,
+                            f"{field_name}_prix",
+                            Decimal("0.00"),
+                        )
 
-                    if prix is None:
-                        prix = Decimal("0.00")
+                        if prix is None:
+                            prix = Decimal("0.00")
 
-                    prix = Decimal(str(prix))
+                        prix = Decimal(str(prix))
 
-                    quantite = getattr(
-                        self,
-                        f"{field_name}_quantite",
-                        0,
-                    )
+                        quantite = getattr(
+                            self,
+                            f"{field_name}_quantite",
+                            0,
+                        )
 
-                    if quantite is None:
-                        quantite = 0
+                        if quantite is None:
+                            quantite = 0
 
-                    quantite = Decimal(str(quantite))
+                        quantite = Decimal(str(quantite))
 
-                    total = prix * quantite
-                    total_general += total
+                        total = prix * quantite
+                        total_general += total
 
-                    rapport.append({
-                        "champ": field.verbose_name,
-                        "code": field_name,
-                        "etat": valeur,
-                        "etat_label": dict(
-                            BoiteVitesseEtat.choices
-                        ).get(valeur, valeur),
-                        "prix": prix,
-                        "quantite": quantite,
-                        "total": total,
-                    })
+                        rapport.append({
+                            "champ": field.verbose_name,
+                            "code": field_name,
+                            "etat": valeur,
+                            "etat_label": dict(
+                                BoiteVitesseEtat.choices
+                            ).get(valeur, valeur),
+                            "prix": prix,
+                            "quantite": quantite,
+                            "total": total,
+                        })
 
-        return {
-            "lignes": rapport,
-            "total_general": total_general,
-        }
+            return {
+                "lignes": rapport,
+                "total_general": total_general,
+            }
 
         # ======================================================
         # MAIN-D'ŒUVRE

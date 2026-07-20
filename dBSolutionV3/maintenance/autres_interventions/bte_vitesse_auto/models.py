@@ -357,79 +357,83 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
 
         return total_pieces + cout_main_oeuvre
 
-
-
     def generer_rapport_remplacement(self):
-        pieces = []
+        lignes = []
+        total_general = Decimal("0.00")
 
-        champs = [
-            (
-                "auto_emb_convertisseur_couple",
-                _("Convertisseur de couple"),
-            ),
-            (
-                "auto_emb_embrayages_auto",
-                _("Embrayages automatiques"),
-            ),
-            (
-                "pompes_huile",
-                _("Pompes à huile"),
-            ),
-            (
-                "pompes_valves",
-                _("Valves de contrôle"),
-            ),
-            (
-                "arbre_bte_torque",
-                _("Arbre de couple"),
-            ),
-            (
-                "arbre_bte_secondaire_auto",
-                _("Arbre secondaire"),
-            ),
-            (
-                "roulement_auto",
-                _("Roulements internes"),
-            ),
+        pieces = [
+            {
+                "champ": _("Convertisseur de couple"),
+                "etat": self.auto_emb_convertisseur_couple,
+                "prix": self.auto_emb_convertisseur_couple_prix,
+                "quantite": self.auto_emb_convertisseur_couple_quantite,
+            },
+            {
+                "champ": _("Embrayages automatiques"),
+                "etat": self.auto_emb_embrayages_auto,
+                "prix": self.auto_emb_embrayages_auto_prix,
+                "quantite": self.auto_emb_embrayages_auto_quantite,
+            },
+            {
+                "champ": _("Pompe à huile"),
+                "etat": self.pompes_huile,
+                "prix": self.pompes_huile_prix,
+                "quantite": self.pompes_huile_quantite,
+            },
+            {
+                "champ": _("Valves de contrôle"),
+                "etat": self.pompes_valves,
+                "prix": self.pompes_valves_prix,
+                "quantite": self.pompes_valves_quantite,
+            },
+            {
+                "champ": _("Arbre de couple"),
+                "etat": self.arbre_bte_torque,
+                "prix": self.arbre_bte_torque_prix,
+                "quantite": self.arbre_bte_torque_quantite,
+            },
+            {
+                "champ": _("Arbre secondaire"),
+                "etat": self.arbre_bte_secondaire_auto,
+                "prix": self.arbre_bte_secondaire_auto_prix,
+                "quantite": self.arbre_bte_secondaire_auto_quantite,
+            },
+            {
+                "champ": _("Roulements internes"),
+                "etat": self.roulement_auto,
+                "prix": self.roulement_auto_prix,
+                "quantite": self.roulement_auto_quantite,
+            },
         ]
 
-        total_pieces = Decimal("0.00")
+        etats_labels = {
+            "NOT_OK": _("À remplacer"),
+            "REMPLACE": _("Remplacé"),
+        }
 
-        for nom_champ, libelle in champs:
-            etat = getattr(self, nom_champ, None)
+        for piece in pieces:
+            etat = piece["etat"]
 
-            # Adapte ces valeurs aux vraies valeurs de BoiteVitesseEtat
-            if etat in [
-                BoiteVitesseEtat.NOT_OK,
-                BoiteVitesseEtat.REMPLACE,
-            ]:
-                prix = getattr(
-                    self,
-                    f"{nom_champ}_prix",
-                    Decimal("0.00"),
-                ) or Decimal("0.00")
+            # Très important : inclure aussi les pièces remplacées
+            if etat not in ("NOT_OK", "REMPLACE"):
+                continue
 
-                quantite = getattr(
-                    self,
-                    f"{nom_champ}_quantite",
-                    1,
-                ) or 1
+            prix = piece["prix"] or Decimal("0.00")
+            quantite = piece["quantite"] or Decimal("0.00")
+            total = prix * quantite
 
-                total = prix * Decimal(str(quantite))
-                total_pieces += total
+            lignes.append({
+                "champ": piece["champ"],
+                "etat": etat,
+                "etat_label": etats_labels.get(etat, etat),
+                "quantite": quantite,
+                "prix": prix,
+                "total": total,
+            })
 
-                pieces.append({
-                    "nom": libelle,
-                    "etat": etat,
-                    "etat_display": dict(
-                        BoiteVitesseEtat.choices
-                    ).get(etat, etat),
-                    "prix": prix,
-                    "quantite": quantite,
-                    "total": total,
-                })
+            total_general += total
 
         return {
-            "pieces": pieces,
-            "total_pieces": total_pieces,
+            "lignes": lignes,
+            "total_general": total_general,
         }

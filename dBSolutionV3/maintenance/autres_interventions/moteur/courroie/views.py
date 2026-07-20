@@ -251,6 +251,17 @@ def courroie_form_view(request, exemplaire_id):
                 "icon": "icons/mecanicien.png",
                 "fields": [form[f.name] for f in form if "tech" in f.name],
             },
+            {
+                "title": _("Main-d'œuvre"),
+                "icon": "icons/mecanicien.png",
+                "fields": [
+                    field
+                    for field in form
+                    if field.name in {
+                        "taux_horaire",
+                    }
+                ],
+            },
 
         ]
 
@@ -392,6 +403,17 @@ def modifier_courroie_view(request, courroie_id):
                 "title": _("Technicien"),
                 "icon": "icons/mecanicien.png",
                 "fields": [form[f.name] for f in form if "tech" in f.name],
+            },
+            {
+                "title": _("Main-d'œuvre"),
+                "icon": "icons/mecanicien.png",
+                "fields": [
+                    field
+                    for field in form
+                    if field.name in {
+                        "taux_horaire",
+                    }
+                ],
             },
 
         ]

@@ -262,58 +262,40 @@
 <!-- MAIN-D'ŒUVRE -->
 <!-- ================================================== -->
 
-<h2>{% trans "Main-d'œuvre" %}</h2>
+<h2>{% trans "Main d'œuvre" %}</h2>
 
 <div class="box">
+    <div class="grid">
+        <div>
+            <span class="label">{% trans "Temps" %} :</span>
+            {{ alternateur.temps_main_oeuvre_display|default:"0h00" }}
+        </div>
 
-    <div style="margin-bottom:10px;">
-        <span class="label">{% trans "Temps de travail" %} :</span><br>
-        {{ alternateur.temps_main_oeuvre_display|default:"0h00" }}
-    </div>
+        {% if alternateur.main_oeuvre %}
+            <div>
+                <span class="label">{% trans "Taux horaire" %} :</span>
+                {{ alternateur.main_oeuvre.taux_horaire|floatformat:2 }} €
+            </div>
 
-    <div style="margin-bottom:10px;">
-        <span class="label">{% trans "Taux horaire" %} :</span><br>
-        {{ alternateur.taux_horaire_main_oeuvre|default:0|floatformat:2 }} €
-    </div>
+            <div>
+                <span class="label">{% trans "Prix facturé" %} :</span>
+                {{ alternateur.main_oeuvre.prix_facture|floatformat:2 }} €
+            </div>
 
-    <div style="margin-bottom:10px;">
-        <span class="label">{% trans "Coût de la main-d'œuvre" %} :</span><br>
-        {{ alternateur.cout_main_oeuvre|default:0|floatformat:2 }} €
-    </div>
-
-    <div style="margin-bottom:10px;">
-        <span class="label">{% trans "Technicien" %} :</span><br>
-
-        {% if alternateur.main_oeuvre and alternateur.main_oeuvre.utilisateur %}
-            {{ alternateur.main_oeuvre.utilisateur }}
+            <div>
+                <span class="label">{% trans "Descriptif" %} :</span>
+                {{ alternateur.main_oeuvre.descriptif|default:"-" }}
+            </div>
         {% else %}
-            {{ alternateur.tech_nom_technicien|default:"-" }}
+            <div>{% trans "Aucune main d'œuvre liée" %}</div>
         {% endif %}
     </div>
-
-    {% if alternateur.main_oeuvre and alternateur.main_oeuvre.descriptif %}
-        <div style="margin-bottom:10px;">
-            <span class="label">{% trans "Descriptif" %} :</span><br>
-            {{ alternateur.main_oeuvre.descriptif }}
-        </div>
-    {% endif %}
-
-    {% if alternateur.main_oeuvre and alternateur.main_oeuvre.remarques %}
-        <div>
-            <span class="label">{% trans "Remarques sur la main-d'œuvre" %} :</span><br>
-            {{ alternateur.main_oeuvre.remarques|linebreaksbr }}
-        </div>
-    {% endif %}
-
 </div>
 
 <!-- ================================================== -->
 <!-- PIÈCES ET PRODUITS -->
 <!-- ================================================== -->
-<br>
-<br>
-<br>
-<br>
+
 <h2>{% trans "Pièces, produits utilisés et main d'oeuvre" %}</h2>
 
 <div class="box">

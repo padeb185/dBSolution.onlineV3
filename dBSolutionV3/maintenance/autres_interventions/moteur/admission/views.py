@@ -1,4 +1,6 @@
 from datetime import datetime
+from decimal import Decimal
+
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
@@ -434,15 +436,6 @@ def modifier_admission_view(request, admission_id):
 
 
 
-from decimal import Decimal
-
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
-from django.template.loader import render_to_string
-from django.utils import timezone
-from weasyprint import HTML
-
 
 @login_required
 def admission_detail_pdf_view(request, pk):
@@ -460,16 +453,14 @@ def admission_detail_pdf_view(request, pk):
     )
 
     rapport = admission.generer_rapport_remplacement() or {}
-
     rapport.setdefault("lignes", [])
 
+    # Total des pièces uniquement
     total_pieces = Decimal(str(
-        rapport.get("total_pieces")
-        or rapport.get("total_general")
-        or 0
+        rapport.get("total_general") or 0
     ))
 
-    # Calcul de la main-d'œuvre
+    # Total de la main-d'œuvre
     if admission.main_oeuvre:
         cout_main_oeuvre = Decimal(str(
             admission.main_oeuvre.cout_total or 0
@@ -477,12 +468,17 @@ def admission_detail_pdf_view(request, pk):
     else:
         cout_main_oeuvre = Decimal("0.00")
 
-    total_general = total_pieces + cout_main_oeuvre
+    # Total pièces + main-d'œuvre
+    total_general_avec_main_oeuvre = (
+        total_pieces + cout_main_oeuvre
+    )
 
     rapport.update({
         "total_pieces": total_pieces,
         "cout_main_oeuvre": cout_main_oeuvre,
-        "total_general": total_general,
+        "total_general_avec_main_oeuvre": (
+            total_general_avec_main_oeuvre
+        ),
     })
 
     html_string = render_to_string(
@@ -506,9 +502,15 @@ def admission_detail_pdf_view(request, pk):
         else "sans_immatriculation"
     )
 
-    technicien = admission.tech_nom_technicien or "technicien_inconnu"
+    technicien = (
+        admission.tech_nom_technicien
+        or "technicien_inconnu"
+    )
 
-    response = HttpResponse(pdf, content_type="application/pdf")
+    response = HttpResponse(
+        pdf,
+        content_type="application/pdf"
+    )
 
     response["Content-Disposition"] = (
         f'attachment; '

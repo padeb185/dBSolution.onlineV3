@@ -778,7 +778,7 @@ def modifier_clim_view(request, climatisation_id):
             },
             {
                 "title": _("Technicien"),
-                "icon": "icons/mécanicien.png",
+                "icon": "icons/mecanicien.png",
                 "fields": [form[f.name] for f in form if "tech" in f.name],
             },
 

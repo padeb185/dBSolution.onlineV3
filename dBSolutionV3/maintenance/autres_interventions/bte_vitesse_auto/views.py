@@ -317,11 +317,13 @@ def bte_auto_pdf_view(request, bte_auto_id):
             ),
             id=bte_auto_id
         )
+        rapport = bte_auto.generer_rapport_remplacement()
 
         html_string = render_to_string(
             "bte_auto/bte_auto_detail_pdf.html",
             {
                 "bte_auto": bte_auto,
+                "rapport": rapport,
                 "societe": tenant,
             }
         )
@@ -345,3 +347,84 @@ def bte_auto_pdf_view(request, bte_auto_id):
         )
 
         return response
+
+    def generer_rapport_remplacement(self):
+        lignes = []
+        total_general = Decimal("0.00")
+
+        pieces = [
+            {
+                "champ": _("Convertisseur de couple"),
+                "etat": self.auto_emb_convertisseur_couple,
+                "prix": self.auto_emb_convertisseur_couple_prix_achat,
+                "quantite": self.auto_emb_convertisseur_couple_quantite,
+            },
+            {
+                "champ": _("Embrayages automatiques"),
+                "etat": self.auto_emb_embrayages_auto,
+                "prix": self.auto_emb_embrayages_auto_prix_achat,
+                "quantite": self.auto_emb_embrayages_auto_quantite,
+            },
+            {
+                "champ": _("Pompe à huile"),
+                "etat": self.pompes_huile,
+                "prix": self.pompes_huile_prix_achat,
+                "quantite": self.pompes_huile_quantite,
+            },
+            {
+                "champ": _("Valves de contrôle"),
+                "etat": self.pompes_valves,
+                "prix": self.pompes_valves_prix_achat,
+                "quantite": self.pompes_valves_quantite,
+            },
+            {
+                "champ": _("Arbre de couple"),
+                "etat": self.arbre_bte_torque,
+                "prix": self.arbre_bte_torque_prix_achat,
+                "quantite": self.arbre_bte_torque_quantite,
+            },
+            {
+                "champ": _("Arbre secondaire"),
+                "etat": self.arbre_bte_secondaire_auto,
+                "prix": self.arbre_bte_secondaire_auto_prix_achat,
+                "quantite": self.arbre_bte_secondaire_auto_quantite,
+            },
+            {
+                "champ": _("Roulements internes"),
+                "etat": self.roulement_auto,
+                "prix": self.roulement_auto_prix_achat,
+                "quantite": self.roulement_auto_quantite,
+            },
+        ]
+
+        etats_labels = {
+            "NOT_OK": _("À remplacer"),
+            "REMPLACE": _("Remplacé"),
+        }
+
+        for piece in pieces:
+            etat = piece["etat"]
+
+            # Très important : inclure aussi les pièces remplacées
+            if etat not in ("NOT_OK", "REMPLACE"):
+                continue
+
+            prix = piece["prix"] or Decimal("0.00")
+            quantite = piece["quantite"] or Decimal("0.00")
+            total = prix * quantite
+
+            lignes.append({
+                "champ": piece["champ"],
+                "etat": etat,
+                "etat_label": etats_labels.get(etat, etat),
+                "quantite": quantite,
+                "prix": prix,
+                "total": total,
+            })
+
+            total_general += total
+
+        return {
+            "lignes": lignes,
+            "total_general": total_general,
+        }

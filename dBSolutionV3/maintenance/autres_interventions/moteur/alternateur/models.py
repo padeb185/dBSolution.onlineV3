@@ -292,7 +292,7 @@ class Alternateur(TechnicienMixin, models.Model):
                     EtatOKNotOK.NOT_OK,
                     EtatOKNotOK.REMPLACE,
                 ]:
-                    # récupération sécurisée du prix d'achat
+                    # récupération sécurisée du prix
                     prix = getattr(
                         self,
                         f"{field_name}_prix_achat",
@@ -316,7 +316,6 @@ class Alternateur(TechnicienMixin, models.Model):
 
                     quantite = Decimal(str(quantite))
 
-                    # calcul du total
                     total = prix * quantite
                     total_general += total
 

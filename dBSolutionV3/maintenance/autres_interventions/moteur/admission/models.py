@@ -301,68 +301,75 @@ class Admission(TechnicienMixin, models.Model):
         setattr(self, f"{prefix}_prix_ttc", prix_ttc)
 
     def generer_rapport_remplacement(self):
-        rapport = []
+        lignes = []
         total_general = Decimal("0.00")
+        etats_labels = dict(EtatOKNotOK.choices)
 
         for field in self._meta.fields:
             field_name = field.name
 
-            # uniquement les champs utilisant EtatOKNotOK
-            if (
+            if not (
                     isinstance(field, models.CharField)
                     and field.choices == EtatOKNotOK.choices
             ):
-                valeur = getattr(self, field_name)
+                continue
 
-                # Pièces à remplacer ou déjà remplacées
-                if valeur in [
+            valeur = getattr(self, field_name, None)
+
+            if valeur not in (
                     EtatOKNotOK.NOT_OK,
                     EtatOKNotOK.REMPLACE,
-                ]:
-                    # récupération sécurisée du prix
-                    prix = getattr(
-                        self,
-                        f"{field_name}_prix",
-                        Decimal("0.00"),
-                    )
+            ):
+                continue
 
-                    if prix is None:
-                        prix = Decimal("0.00")
+            # Recherche du champ prix
+            prix = getattr(self, f"{field_name}_prix", None)
 
-                    prix = Decimal(str(prix))
+            # Si tes champs utilisent le suffixe _prix_achat
+            if prix is None:
+                prix = getattr(
+                    self,
+                    f"{field_name}_prix_achat",
+                    Decimal("0.00"),
+                )
 
-                    # récupération sécurisée de la quantité
-                    quantite = getattr(
-                        self,
-                        f"{field_name}_quantite",
-                        0,
-                    )
+            prix = Decimal(str(prix or "0.00"))
 
-                    if quantite is None:
-                        quantite = 0
+            # Une pièce sélectionnée vaut au minimum une unité
+            quantite = getattr(
+                self,
+                f"{field_name}_quantite",
+                1,
+            )
 
-                    quantite = Decimal(str(quantite))
+            quantite = Decimal(str(
+                quantite if quantite not in (None, 0) else 1
+            ))
 
-                    total = prix * quantite
-                    total_general += total
+            total = (prix * quantite).quantize(
+                Decimal("0.01"),
+                rounding=ROUND_HALF_UP,
+            )
 
-                    rapport.append({
-                        "champ": field.verbose_name,
-                        "code": field_name,
-                        "etat": valeur,
-                        "etat_label": dict(
-                            EtatOKNotOK.choices
-                        ).get(valeur, valeur),
-                        "prix": prix,
-                        "quantite": quantite,
-                        "total": total,
-                    })
+            total_general += total
+
+            lignes.append({
+                "champ": field.verbose_name,
+                "code": field_name,
+                "etat": valeur,
+                "etat_label": etats_labels.get(valeur, valeur),
+                "prix": prix,
+                "quantite": quantite,
+                "total": total,
+            })
 
         return {
-            "lignes": rapport,
-            "total_general": total_general,
+            "lignes": lignes,
+            "total_general": total_general.quantize(
+                Decimal("0.01"),
+                rounding=ROUND_HALF_UP,
+            ),
         }
-
         # ======================================================
         # MAIN-D'ŒUVRE
         # ======================================================
@@ -386,6 +393,7 @@ class Admission(TechnicienMixin, models.Model):
             return self.main_oeuvre.taux_horaire
 
         return Decimal("0.00")
+
 
     @property
     def cout_main_oeuvre(self):
