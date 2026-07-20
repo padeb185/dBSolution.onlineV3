@@ -608,6 +608,11 @@ def carrosserie_interne_create_view(request, exemplaire_id):
                 "icon": "icons/mecanicien.png",
                 "fields": [f for f in form if "tech" in f.name],
             },
+            {
+                "title": "Taux horaire",
+                "icon": "icons/taux.png",
+                "fields": [f for f in form if "taux" in f.name],
+            },
         ]
 
         return render(request, 'carrosserie_interne/carrosserie_interne_create.html', {
@@ -1076,6 +1081,11 @@ def modifier_carrosserie_interne_view(request, carrosserie_interne_id):
                 "title": "Technicien",
                 "icon": "icons/mecanicien.png",
                 "fields": [f for f in form if "tech" in f.name],
+            },
+            {
+                "title": "Taux horaire",
+                "icon": "icons/taux.png",
+                "fields": [f for f in form if "taux" in f.name],
             },
         ]
 

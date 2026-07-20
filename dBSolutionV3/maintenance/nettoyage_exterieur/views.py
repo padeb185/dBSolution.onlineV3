@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.db import transaction, models
@@ -272,7 +274,6 @@ def modifier_nettoyage_ext_view(request, nettoyage_ext_id):
 
 
 
-
 @login_required
 def nettoyage_exterieur_pdf_view(request, nettoyage_id):
     tenant = request.user.societe
@@ -289,10 +290,17 @@ def nettoyage_exterieur_pdf_view(request, nettoyage_id):
             id=nettoyage_id
         )
 
+        rapport_remplacement = (
+            nettoyage.generer_rapport_remplacement()
+        )
+
         html_string = render_to_string(
             "nettoyage_exterieur/nettoyage_exterieur_detail_pdf.html",
             {
                 "nettoyage": nettoyage,
+                "rapport_remplacement": rapport_remplacement,
+                "pieces_utilisees": rapport_remplacement["pieces"],
+                "total_pieces": rapport_remplacement["total_general"],
                 "date_export": timezone.now(),
                 "societe": tenant,
             },
@@ -315,9 +323,14 @@ def nettoyage_exterieur_pdf_view(request, nettoyage_id):
             or "technicien_inconnu"
         )
 
-        response = HttpResponse(pdf_file, content_type="application/pdf")
+        response = HttpResponse(
+            pdf_file,
+            content_type="application/pdf"
+        )
+
         response["Content-Disposition"] = (
-            f'inline; filename="nettoyage_exterieur_{immatriculation}_{technicien}.pdf"'
+            f'inline; filename="nettoyage_exterieur_'
+            f'{immatriculation}_{technicien}.pdf"'
         )
 
         return response

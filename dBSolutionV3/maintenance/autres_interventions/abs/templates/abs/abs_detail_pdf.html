@@ -481,7 +481,7 @@
                     </td>
 
                     <td class="text-right">
-                        {{ remplacement.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        {{ abs.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
                     </td>
                 </tr>
 
@@ -503,7 +503,7 @@
                         </div>
 
                         <div class="text-right" style="margin-top: 4px;">
-                            {{ remplacement.cout_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ abs.cout_main_oeuvre|default:0|floatformat:2 }} €
                         </div>
                     </td>
                 </tr>
@@ -515,7 +515,7 @@
                         </div>
 
                         <div class="text-right" style="margin-top: 4px;">
-                            {{ remplacement.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                            {{ abs.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
                         </div>
                     </td>
                 </tr>

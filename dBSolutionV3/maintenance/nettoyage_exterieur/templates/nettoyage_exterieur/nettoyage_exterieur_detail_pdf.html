@@ -264,6 +264,122 @@
         {% trans "Aucune main d'œuvre enregistrée." %}
     {% endif %}
 </div>
+<!-- ================================================== -->
+<!-- PIÈCES ET PRODUITS -->
+<!-- ================================================== -->
+<!-- ================================================== -->
+<!-- PIÈCES ET PRODUITS -->
+<!-- ================================================== -->
+
+<h2>{% trans "Pièces, produits utilisés et main-d'œuvre" %}</h2>
+
+<div class="box">
+
+    {% if rapport_remplacement.pieces %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>{% trans "Pièce / Produit" %}</th>
+                    <th>{% trans "État" %}</th>
+                    <th class="text-right">{% trans "Quantité" %}</th>
+                    <th class="text-right">{% trans "Prix unitaire HTVA" %}</th>
+                    <th class="text-right">{% trans "Total HTVA" %}</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for piece in rapport_remplacement.pieces %}
+                    <tr>
+                        <td>
+                            {{ piece.nom|default:"-" }}
+                        </td>
+
+                        <td>
+                            {{ piece.etat|default:"-" }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ piece.quantite|default:0 }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ piece.prix_unitaire|default:0|floatformat:2 }} €
+                        </td>
+
+                        <td class="text-right">
+                            {{ piece.total|default:0|floatformat:2 }} €
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                <tr class="total">
+                    <td colspan="4" class="text-right">
+                        {% trans "Total pièces et produits HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ rapport_remplacement.total_general|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total">
+                    <td colspan="4" class="text-right">
+                        {% trans "Main-d'œuvre" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ nettoyage.cout_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total">
+                    <td colspan="4" class="text-right">
+                        {% trans "Total général avec main-d'œuvre" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ nettoyage.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    {% else %}
+
+        <p>
+            {% trans "Aucune pièce ou produit utilisé." %}
+        </p>
+
+        <table>
+            <tbody>
+                <tr class="total">
+                    <td class="text-right">
+                        {% trans "Main-d'œuvre" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ nettoyage.cout_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total">
+                    <td class="text-right">
+                        {% trans "Total général" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ nettoyage.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    {% endif %}
+
+</div>
 
 <h2>{% trans "Remarques" %}</h2>
 
