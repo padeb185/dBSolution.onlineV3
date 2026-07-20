@@ -76,11 +76,32 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         default=BoiteVitesseEtat.OK,
         verbose_name=_("Convertisseur de couple")
     )
+    auto_emb_convertisseur_couple_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+    auto_emb_convertisseur_couple_quantite = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("Quantité")
+    )
+
     auto_emb_embrayages_auto = models.CharField(
         max_length=25,
         choices=BoiteVitesseEtat.choices,
         default=BoiteVitesseEtat.OK,
         verbose_name=_("Embrayages automatiques")
+    )
+    auto_emb_embrayages_auto_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+    auto_emb_embrayages_auto_quantite = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("Quantité")
     )
 
     pompes_huile = models.CharField(
@@ -89,11 +110,32 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         default=BoiteVitesseEtat.OK,
         verbose_name=_("Pompes à huile")
     )
+    pompes_huile_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+    pompes_huile_quantite = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("Quantité")
+    )
+
     pompes_valves = models.CharField(
         max_length=25,
         choices=BoiteVitesseEtat.choices,
         default=BoiteVitesseEtat.OK,
         verbose_name=_("Valves de contrôle")
+    )
+    pompes_valves_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+    pompes_valves_quantite = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("Quantité")
     )
 
     arbre_bte_torque = models.CharField(
@@ -102,11 +144,32 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         default=BoiteVitesseEtat.OK,
         verbose_name=_("Arbre de couple")
     )
+    arbre_bte_torque_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+    arbre_bte_torque_quantite = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("Quantité")
+    )
+
     arbre_bte_secondaire_auto = models.CharField(
         max_length=25,
         choices=BoiteVitesseEtat.choices,
         default=BoiteVitesseEtat.OK,
         verbose_name=_("Arbre secondaire")
+    )
+    arbre_bte_secondaire_auto_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+    arbre_bte_secondaire_auto_quantite = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("Quantité")
     )
 
     roulement_auto = models.CharField(
@@ -115,22 +178,16 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         default=BoiteVitesseEtat.OK,
         verbose_name=_("Roulements internes")
     )
-
-    huile_auto_niveau_quantite = models.DecimalField(
-        max_digits=4,
-        decimal_places=1,
-        default=Decimal("0.0"),
-        verbose_name=_("Quantité d'huile ajoutée en litres"),
-        validators=[StepValueValidator(0.1)]
+    roulement_auto_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
     )
-
-    huile_auto_niveau_qualite = models.CharField(
-        max_length=25,
-        choices=HuileBoiteAutoEtat.choices,
-        default=HuileBoiteAutoEtat.ATF3,
-        verbose_name=_("Qualité de l'huile")
+    roulement_auto_quantite = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("Quantité")
     )
-
     remarques = models.TextField(
         verbose_name=_("Remarques"),
         blank=True,
@@ -291,10 +348,88 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
     def total_general_avec_main_oeuvre(self):
         rapport = self.generer_rapport_remplacement()
 
-        return (
-                rapport["total_general"]
-                + self.cout_main_oeuvre
-        ).quantize(
-            Decimal("0.01"),
-            rounding=ROUND_HALF_UP,
+        total_pieces = rapport.get(
+            "total_pieces",
+            Decimal("0.00"),
         )
+
+        cout_main_oeuvre = self.cout_main_oeuvre or Decimal("0.00")
+
+        return total_pieces + cout_main_oeuvre
+
+
+
+    def generer_rapport_remplacement(self):
+        pieces = []
+
+        champs = [
+            (
+                "auto_emb_convertisseur_couple",
+                _("Convertisseur de couple"),
+            ),
+            (
+                "auto_emb_embrayages_auto",
+                _("Embrayages automatiques"),
+            ),
+            (
+                "pompes_huile",
+                _("Pompes à huile"),
+            ),
+            (
+                "pompes_valves",
+                _("Valves de contrôle"),
+            ),
+            (
+                "arbre_bte_torque",
+                _("Arbre de couple"),
+            ),
+            (
+                "arbre_bte_secondaire_auto",
+                _("Arbre secondaire"),
+            ),
+            (
+                "roulement_auto",
+                _("Roulements internes"),
+            ),
+        ]
+
+        total_pieces = Decimal("0.00")
+
+        for nom_champ, libelle in champs:
+            etat = getattr(self, nom_champ, None)
+
+            # Adapte ces valeurs aux vraies valeurs de BoiteVitesseEtat
+            if etat in [
+                BoiteVitesseEtat.NOT_OK,
+                BoiteVitesseEtat.REMPLACE,
+            ]:
+                prix = getattr(
+                    self,
+                    f"{nom_champ}_prix",
+                    Decimal("0.00"),
+                ) or Decimal("0.00")
+
+                quantite = getattr(
+                    self,
+                    f"{nom_champ}_quantite",
+                    1,
+                ) or 1
+
+                total = prix * Decimal(str(quantite))
+                total_pieces += total
+
+                pieces.append({
+                    "nom": libelle,
+                    "etat": etat,
+                    "etat_display": dict(
+                        BoiteVitesseEtat.choices
+                    ).get(etat, etat),
+                    "prix": prix,
+                    "quantite": quantite,
+                    "total": total,
+                })
+
+        return {
+            "pieces": pieces,
+            "total_pieces": total_pieces,
+        }

@@ -46,6 +46,8 @@ class ControleBteVitesseAutoForm(forms.ModelForm):
             self.fields["temps_heures"].initial = mo.heures
             self.fields["temps_minutes"].initial = mo.minutes
 
+            if "taux_horaire" in self.fields:
+                self.fields["taux_horaire"].initial = mo.taux_horaire
 
 
         # ✅ initialisation date seulement si le champ existe
@@ -91,6 +93,8 @@ class ControleBteVitesseAutoForm(forms.ModelForm):
 
         return cleaned
 
+    from decimal import Decimal
+
     def save(self, commit=True):
         instance = super().save(commit=False)
 
@@ -101,26 +105,36 @@ class ControleBteVitesseAutoForm(forms.ModelForm):
             instance.kilometrage_controle_boite_auto = km
             instance.voiture_exemplaire = voiture
 
-            # -------- MAIN D'ŒUVRE --------
-            heures = self.cleaned_data.get("temps_heures") or 0
-            minutes = self.cleaned_data.get("temps_minutes") or 0
+        # -------- MAIN D'ŒUVRE --------
+        heures = self.cleaned_data.get("temps_heures") or 0
+        minutes = self.cleaned_data.get("temps_minutes") or 0
+        taux_horaire = self.cleaned_data.get("taux_horaire")
 
-            total_minutes = heures * 60 + minutes
+        total_minutes = heures * 60 + minutes
 
-            main = instance.main_oeuvre
+        main = instance.main_oeuvre
 
-            if main:
-                main.temps_minutes = total_minutes
-                main.save(update_fields=["temps_minutes"])
-            else:
-                main = MainDoeuvre.objects.create(
-                    utilisateur=self.user,
-                    temps_minutes=total_minutes
-                )
-                instance.main_oeuvre = main
+        if main:
+            main.temps_minutes = total_minutes
+
+            if taux_horaire is not None:
+                main.taux_horaire = taux_horaire
+
+            main.save(update_fields=[
+                "temps_minutes",
+                "taux_horaire",
+            ])
+        else:
+            main = MainDoeuvre.objects.create(
+                utilisateur=self.user,
+                temps_minutes=total_minutes,
+                taux_horaire=taux_horaire or Decimal("50.00"),
+            )
+            instance.main_oeuvre = main
 
         # Sauvegarde finale
         if commit:
             instance.save()
+            self.save_m2m()
 
         return instance
