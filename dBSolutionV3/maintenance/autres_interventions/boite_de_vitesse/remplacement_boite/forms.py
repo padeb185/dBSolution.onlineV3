@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.core.exceptions import ValidationError
 from django import forms
 from django.utils.translation import gettext_lazy as _
@@ -116,6 +118,15 @@ class RemplacementBoiteForm(forms.ModelForm):
                 "class": "input"
             })
 
+        if self.instance and self.instance.main_oeuvre:
+            mo = self.instance.main_oeuvre
+
+            self.fields["temps_heures"].initial = mo.heures
+            self.fields["temps_minutes"].initial = mo.minutes
+
+            if "taux_horaire" in self.fields:
+                self.fields["taux_horaire"].initial = mo.taux_horaire
+
         # -----------------------
         # UX
         # -----------------------
@@ -196,36 +207,49 @@ class RemplacementBoiteForm(forms.ModelForm):
             instance.kilometres_chassis = km_chassis
 
         # -----------------------
-        # NOMBRE REMPLACEMENTS
+        # NOMBRE DE REMPLACEMENTS
         # -----------------------
-        is_new = not RemplacementBoite.objects.filter(pk=instance.pk).exists()
+        is_new = instance.pk is None
 
         if is_new and voiture:
             instance.nombre_remplacements = (
                     RemplacementBoite.objects.filter(
                         voiture_exemplaire_id=voiture.id,
-                        remplacement_effectue=True
+                        remplacement_effectue=True,
                     ).count() + 1
             )
 
         # -----------------------
-        # MAIN D'ŒUVRE
+        # MAIN-D'ŒUVRE
         # -----------------------
         heures = self.cleaned_data.get("temps_heures") or 0
         minutes = self.cleaned_data.get("temps_minutes") or 0
-        total_minutes = heures * 60 + minutes
+        taux_horaire = self.cleaned_data.get("taux_horaire")
+
+        total_minutes = (heures * 60) + minutes
 
         main = instance.main_oeuvre
 
         if main:
             main.temps_minutes = total_minutes
-            main.save(update_fields=["temps_minutes"])
+
+            if taux_horaire is not None:
+                main.taux_horaire = taux_horaire
+
+            main.save(
+                update_fields=[
+                    "temps_minutes",
+                    "taux_horaire",
+                ]
+            )
 
         elif self.user:
             main = MainDoeuvre.objects.create(
                 utilisateur=self.user,
                 temps_minutes=total_minutes,
+                taux_horaire=taux_horaire or Decimal("50.00"),
             )
+
             instance.main_oeuvre = main
 
         # -----------------------
@@ -236,5 +260,6 @@ class RemplacementBoiteForm(forms.ModelForm):
 
         if commit:
             instance.save()
+            self.save_m2m()
 
         return instance
