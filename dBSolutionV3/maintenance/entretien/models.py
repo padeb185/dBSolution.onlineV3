@@ -7,7 +7,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from maintenance.check_up.models import PhareEtat
 from maintenance.choices import RouesSerrageEtat, TAUX_HORAIRE_CHOICES, FabricantLubrifiant, FabricantFiltre, \
-    AmpouleAutomobile, FabricantPiece
+    AmpouleAutomobile, FabricantPiece, TypeHuileDirection
 from utils.mixin import TechnicienMixin
 from societe.models import Societe
 
@@ -412,12 +412,9 @@ class Entretien(TechnicienMixin, models.Model):
         default=FabricantLubrifiant.MOBIL,
         verbose_name=_("Nom du fabricant des bougies"),
     )
-    bougies_quantite = models.DecimalField(
-        default=4.00,
-        decimal_places=2,
-        max_digits=4,
+    bougies_quantite = models.PositiveIntegerField(
+        default=4,
         verbose_name=_("Quantité de bougies"),
-        validators=[StepValueValidator(0.1)],
     )
     bougies_prix = models.DecimalField(
         max_digits=10,
@@ -428,8 +425,6 @@ class Entretien(TechnicienMixin, models.Model):
 
 
     boite_entretien_vidange = models.CharField(max_length=25, choices=EntretienEtat.choices,default=EntretienEtat.A_FAIRE,verbose_name=_("Vidange de l'huile de boite de vitesses"))
-
-
     boite_bouchon_vidange = models.CharField(
         max_length=25,
         choices=EntretienEtat.choices,
@@ -466,7 +461,7 @@ class Entretien(TechnicienMixin, models.Model):
         verbose_name=_("Nom du fabricant du joint de bouchon de vidange"),
     )
     boite_joint_vidange_quantite = models.PositiveIntegerField(
-        default=1,
+        default=0,
         verbose_name=_("Quantité de joints de bouchon de vidange"),
     )
     boite_joint_vidange_prix = models.DecimalField(
@@ -553,7 +548,7 @@ class Entretien(TechnicienMixin, models.Model):
     liquide_direction_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de direction"))
     liquide_direction_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices, default=FabricantLubrifiant.MOBIL,verbose_name=_("Nom du fabricant du liquide de direction"))
     liquide_direction_quantite =  models.DecimalField(default=0.0,  max_digits=4, decimal_places=2,  validators=[StepValueValidator(0.1)], verbose_name=_("Quantité de liquide de direction ajouté en litres"))
-    liquide_direction_qualite = models.CharField(max_length=25, choices=LiquideDirectionQualite.choices,default=LiquideDirectionQualite.UNIVERSAL_PSF,verbose_name=_("Qualité de liquide de direction"))
+    liquide_direction_qualite = models.CharField(max_length=25, choices=TypeHuileDirection.choices,default=TypeHuileDirection.CHOISIR,verbose_name=_("Qualité de liquide de direction"))
     liquide_direction_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,

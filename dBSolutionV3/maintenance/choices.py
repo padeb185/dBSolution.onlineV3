@@ -320,3 +320,33 @@ class FabricantPiece(models.TextChoices):
     OPEN_PARTS = "OPEN_PARTS", "Open Parts"
 
     AUTRE = "AUTRE", _("Autre")
+
+
+
+
+class TypeHuileDirection(models.TextChoices):
+    ATF_DEXRON_II = "ATF_DEXRON_II", _("ATF Dexron II")
+    ATF_DEXRON_III = "ATF_DEXRON_III", _("ATF Dexron III")
+    ATF_DEXRON_VI = "ATF_DEXRON_VI", _("ATF Dexron VI")
+    CHF_7_1 = "CHF_7_1", _("CHF 7.1")
+    CHF_11S = "CHF_11S", _("CHF 11S")
+    CHF_202 = "CHF_202", _("CHF 202")
+    LDS = "LDS", _("LDS")
+    LHM = "LHM", _("LHM")
+    PSF = "PSF", _("PSF")
+    PSF_3 = "PSF_3", _("PSF-3")
+    PSF_4 = "PSF_4", _("PSF-4")
+    MB_236_3 = "MB_236_3", _("Mercedes-Benz 236.3")
+    MB_345_0 = "MB_345_0", _("Mercedes-Benz 345.0")
+    VW_G002000 = "VW_G002000", _("Volkswagen G 002 000")
+    VW_G004000 = "VW_G004000", _("Volkswagen G 004 000")
+    BMW_ATF = "BMW_ATF", _("BMW ATF")
+    BMW_CHF = "BMW_CHF", _("BMW CHF")
+    HONDA_PSF = "HONDA_PSF", _("Honda PSF")
+    TOYOTA_PSF = "TOYOTA_PSF", _("Toyota PSF")
+    MINERALE = "MINERALE", _("Huile minérale")
+    SEMI_SYNTHETIQUE = "SEMI_SYNTHETIQUE", _("Huile semi-synthétique")
+    SYNTHETIQUE = "SYNTHETIQUE", _("Huile synthétique")
+    CONSTRUCTEUR = "CONSTRUCTEUR", _("Spécification constructeur")
+    AUTRE = "AUTRE", _("Autre")
+    CHOISIR = "CHOISIR", _("Choisir")
