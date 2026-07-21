@@ -79,49 +79,584 @@ class ControleJeuxPieces(TechnicienMixin, models.Model):
 
     # --- Jeux ---
 
-    jeu_rotule_direction_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu rotule de direction avant droite"))
-    jeu_rotule_direction_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu rotule de direction avant gauche"))
-    jeu_rotule_direction_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu rotule de direction arrière droite"))
-    jeu_rotule_direction_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu rotule de direction arrière gauche"))
+    jeu_rotule_direction_avd = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu rotule de direction avant droite"),
+    )
+    jeu_rotule_direction_avd_prix = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix de la rotule de direction avant droite"),
+    )
+    jeu_rotule_direction_avd_quantite = models.IntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
 
+    jeu_rotule_direction_avg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu rotule de direction avant gauche"),
+    )
+    jeu_rotule_direction_avg_prix = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix de la rotule de direction avant gauche"),
+    )
+    jeu_rotule_direction_avg_quantite = models.IntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
 
-    jeu_rotule_suspension_inferieure_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeux rotule de suspension inférieure avant droite"))
-    jeu_rotule_suspension_inferieure_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeux rotule de suspension inférieure avant gauche"))
-    jeu_rotule_suspension_inferieure_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeux rotule de suspension inférieure arrière droite"))
-    jeu_rotule_suspension_inferieure_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeux rotule de suspension inférieure arrière droite"))
+    jeu_rotule_direction_ard = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu rotule de direction arrière droite"),
+    )
+    jeu_rotule_direction_ard_prix = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix de la rotule de direction arrière droite"),
+    )
+    jeu_rotule_direction_ard_quantite = models.IntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
 
-    jeu_rotule_suspension_superieure_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeux rotule de suspension supérieure avant droite"))
-    jeu_rotule_suspension_superieure_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeux rotule de suspension supérieure avant gauche"))
-    jeu_rotule_suspension_superieure_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeux rotule de suspension supérieure arrière droite"))
-    jeu_rotule_suspension_superieure_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeux rotule de suspension supérieure arrière droite"))
+    jeu_rotule_direction_arg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu rotule de direction arrière gauche"),
+    )
+    jeu_rotule_direction_arg_prix = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix de la rotule de direction arrière gauche"),
+    )
+    jeu_rotule_direction_arg_quantite = models.IntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
 
-    jeu_Biellette_barre_stabilisatrice_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeu biellette de barre stabilisatrice avant droite"))
-    jeu_Biellette_barre_stabilisatrice_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeu biellette de barre stabilisatrice avant gauche"))
-    jeu_Biellette_barre_stabilisatrice_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeu biellette de barre stabilisatrice arrière droite"))
-    jeu_Biellette_barre_stabilisatrice_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeu biellette de barre stabilisatrice arrière gauche"))
+    jeu_rotule_suspension_inferieure_avd = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu rotule de suspension inférieure avant droite"),
+    )
+    jeu_rotule_suspension_inferieure_avd_prix = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix de la rotule de suspension inférieure avant droite"),
+    )
+    jeu_rotule_suspension_inferieure_avd_quantite = models.IntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
 
-    jeu_barre_stabilisatrice_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu barre stabilisatrice avant"))
-    jeu_barre_stabilisatrice_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu barre stabilisatrice arrière"))
+    jeu_rotule_suspension_inferieure_avg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu rotule de suspension inférieure avant gauche"),
+    )
+    jeu_rotule_suspension_inferieure_avg_prix = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix de la rotule de suspension inférieure avant gauche"),
+    )
+    jeu_rotule_suspension_inferieure_avg_quantite = models.IntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
 
-    jeu_amortisseur_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu amortisseur avant droit"))
-    jeu_amortisseur_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu amortisseur avant gauche"))
-    jeu_amortisseur_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu amortisseur arrière droit"))
-    jeu_amortisseur_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu amortisseur arrière gauche"))
+    jeu_rotule_suspension_inferieure_ard = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu rotule de suspension inférieure arrière droite"),
+    )
+    jeu_rotule_suspension_inferieure_ard_prix = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix de la rotule de suspension inférieure arrière droite"),
+    )
+    jeu_rotule_suspension_inferieure_ard_quantite = models.IntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
 
-    jeu_roulement_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Jeu roulement avant droit"))
-    jeu_roulement_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Jeu roulement avant gauche"))
-    jeu_roulement_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu roulement arrière droit"))
-    jeu_roulement_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu roulement arrière gauche"))
+    jeu_rotule_suspension_inferieure_arg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu rotule de suspension inférieure arrière gauche"),
+    )
+    jeu_rotule_suspension_inferieure_arg_prix = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix de la rotule de suspension inférieure arrière gauche"),
+    )
+    jeu_rotule_suspension_inferieure_arg_quantite = models.IntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
 
-    jeu_triangle_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu triangle avant droit"))
-    jeu_triangle_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu triangle avant gauche"))
-    jeu_triangle_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu triangle arrière droit"))
-    jeu_triangle_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu triangle arrière gauche"))
+    jeu_rotule_suspension_superieure_avd = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu rotule de suspension supérieure avant droite"),
+    )
+    jeu_rotule_suspension_superieure_avd_prix = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix de la rotule de suspension supérieure avant droite"),
+    )
+    jeu_rotule_suspension_superieure_avd_quantite = models.IntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
 
-    jeu_multi_bras_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu suspension multi-bras avant droit"))
-    jeu_multi_bras_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu suspension multi-bras avant gauche"))
-    jeu_multi_bras_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu suspension multi-bras arrière droit"))
-    jeu_multi_bras_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu suspension multi-bras arrière gauche"))
+    jeu_rotule_suspension_superieure_avg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu rotule de suspension supérieure avant gauche"),
+    )
+    jeu_rotule_suspension_superieure_avg_prix = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix de la rotule de suspension supérieure avant gauche"),
+    )
+    jeu_rotule_suspension_superieure_avg_quantite = models.IntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    jeu_rotule_suspension_superieure_ard = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu rotule de suspension supérieure arrière droite"),
+    )
+    jeu_rotule_suspension_superieure_ard_prix = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix de la rotule de suspension supérieure arrière droite"),
+    )
+    jeu_rotule_suspension_superieure_ard_quantite = models.IntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    jeu_rotule_suspension_superieure_arg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu rotule de suspension supérieure arrière gauche"),
+    )
+    jeu_rotule_suspension_superieure_arg_prix = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix de la rotule de suspension supérieure arrière gauche"),
+    )
+    jeu_rotule_suspension_superieure_arg_quantite = models.IntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    jeu_Biellette_barre_stabilisatrice_avd = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu biellette de barre stabilisatrice avant droite"),
+    )
+    jeu_Biellette_barre_stabilisatrice_avd_prix = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix de la biellette de barre stabilisatrice avant droite"),
+    )
+    jeu_Biellette_barre_stabilisatrice_avd_quantite = models.IntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    jeu_Biellette_barre_stabilisatrice_avg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu biellette de barre stabilisatrice avant gauche"),
+    )
+    jeu_Biellette_barre_stabilisatrice_avg_prix = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix de la biellette de barre stabilisatrice avant gauche"),
+    )
+    jeu_Biellette_barre_stabilisatrice_avg_quantite = models.IntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    jeu_Biellette_barre_stabilisatrice_ard = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu biellette de barre stabilisatrice arrière droite"),
+    )
+    jeu_Biellette_barre_stabilisatrice_ard_prix = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix de la biellette de barre stabilisatrice arrière droite"),
+    )
+    jeu_Biellette_barre_stabilisatrice_ard_quantite = models.IntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    jeu_Biellette_barre_stabilisatrice_arg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu biellette de barre stabilisatrice arrière gauche"),
+    )
+    jeu_Biellette_barre_stabilisatrice_arg_prix = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix de la biellette de barre stabilisatrice arrière gauche"),
+    )
+    jeu_Biellette_barre_stabilisatrice_arg_quantite = models.IntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    jeu_barre_stabilisatrice_av = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu barre stabilisatrice avant"),
+    )
+    jeu_barre_stabilisatrice_av_prix = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix de la barre stabilisatrice avant"),
+    )
+    jeu_barre_stabilisatrice_av_quantite = models.IntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    jeu_barre_stabilisatrice_ar = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu barre stabilisatrice arrière"),
+    )
+    jeu_barre_stabilisatrice_ar_prix = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix de la barre stabilisatrice arrière"),
+    )
+    jeu_barre_stabilisatrice_ar_quantite = models.IntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    jeu_amortisseur_avd = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu amortisseur avant droit"),
+    )
+    jeu_amortisseur_avd_prix = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix de l'amortisseur avant droit"),
+    )
+    jeu_amortisseur_avd_quantite = models.IntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    jeu_amortisseur_avg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu amortisseur avant gauche"),
+    )
+    jeu_amortisseur_avg_prix = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix de l'amortisseur avant gauche"),
+    )
+    jeu_amortisseur_avg_quantite = models.IntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    jeu_amortisseur_ard = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu amortisseur arrière droit"),
+    )
+    jeu_amortisseur_ard_prix = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix de l'amortisseur arrière droit"),
+    )
+    jeu_amortisseur_ard_quantite = models.IntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    jeu_amortisseur_arg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu amortisseur arrière gauche"),
+    )
+    jeu_amortisseur_arg_prix = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix de l'amortisseur arrière gauche"),
+    )
+    jeu_amortisseur_arg_quantite = models.IntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    jeu_roulement_avd = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu roulement avant droit"),
+    )
+    jeu_roulement_avd_prix = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix du roulement avant droit"),
+    )
+    jeu_roulement_avd_quantite = models.IntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    jeu_roulement_avg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu roulement avant gauche"),
+    )
+    jeu_roulement_avg_prix = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix du roulement avant gauche"),
+    )
+    jeu_roulement_avg_quantite = models.IntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    jeu_roulement_ard = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu roulement arrière droit"),
+    )
+    jeu_roulement_ard_prix = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix du roulement arrière droit"),
+    )
+    jeu_roulement_ard_quantite = models.IntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    jeu_roulement_arg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu roulement arrière gauche"),
+    )
+    jeu_roulement_arg_prix = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix du roulement arrière gauche"),
+    )
+    jeu_roulement_arg_quantite = models.IntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    jeu_triangle_avd = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu triangle avant droit"),
+    )
+    jeu_triangle_avd_prix = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix du triangle avant droit"),
+    )
+    jeu_triangle_avd_quantite = models.IntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    jeu_triangle_avg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu triangle avant gauche"),
+    )
+    jeu_triangle_avg_prix = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix du triangle avant gauche"),
+    )
+    jeu_triangle_avg_quantite = models.IntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    jeu_triangle_ard = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu triangle arrière droit"),
+    )
+    jeu_triangle_ard_prix = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix du triangle arrière droit"),
+    )
+    jeu_triangle_ard_quantite = models.IntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    jeu_triangle_arg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu triangle arrière gauche"),
+    )
+    jeu_triangle_arg_prix = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix du triangle arrière gauche"),
+    )
+    jeu_triangle_arg_quantite = models.IntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    jeu_multi_bras_avd = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu suspension multi-bras avant droit"),
+    )
+    jeu_multi_bras_avd_prix = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix de la suspension multi-bras avant droite"),
+    )
+    jeu_multi_bras_avd_quantite = models.IntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    jeu_multi_bras_avg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu suspension multi-bras avant gauche"),
+    )
+    jeu_multi_bras_avg_prix = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix de la suspension multi-bras avant gauche"),
+    )
+    jeu_multi_bras_avg_quantite = models.IntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    jeu_multi_bras_ard = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu suspension multi-bras arrière droit"),
+    )
+    jeu_multi_bras_ard_prix = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix de la suspension multi-bras arrière droite"),
+    )
+    jeu_multi_bras_ard_quantite = models.IntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    jeu_multi_bras_arg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu suspension multi-bras arrière gauche"),
+    )
+    jeu_multi_bras_arg_prix = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix de la suspension multi-bras arrière gauche"),
+    )
+    jeu_multi_bras_arg_quantite = models.IntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
 
     # Tag visuel
     TAG_CHOICES = [
@@ -246,6 +781,72 @@ class ControleJeuxPieces(TechnicienMixin, models.Model):
             self.main_oeuvre.save(update_fields=["descriptif"])
 
         super().save(*args, **kwargs)
+
+
+
+    def generer_rapport_remplacement(self):
+            rapport = []
+            total_general = Decimal("0.00")
+
+            for field in self._meta.fields:
+                field_name = field.name
+
+                # Garder uniquement les CharField utilisant EtatOKNotOK
+                if not (
+                        isinstance(field, models.CharField)
+                        and field.choices == EtatOKNotOK.choices
+                ):
+                    continue
+
+                etat = getattr(self, field_name, None)
+
+                if etat not in [
+                    EtatOKNotOK.A_REMPLACER,
+                    EtatOKNotOK.REMPLACE,
+                ]:
+                    continue
+
+                prix = getattr(
+                    self,
+                    f"{field_name}_prix",
+                    Decimal("0.00"),
+                )
+
+                if prix is None:
+                    prix = Decimal("0.00")
+
+                prix = Decimal(str(prix))
+
+                quantite = getattr(
+                    self,
+                    f"{field_name}_quantite",
+                    0,
+                )
+
+                if quantite is None:
+                    quantite = 0
+
+                quantite = Decimal(str(quantite))
+
+                total = prix * quantite
+                total_general += total
+
+                rapport.append({
+                    "champ": field.verbose_name,
+                    "code": field_name,
+                    "etat": etat,
+                    "etat_label": dict(
+                        EtatOKNotOK.choices
+                    ).get(etat, etat),
+                    "prix": prix,
+                    "quantite": quantite,
+                    "total": total,
+                })
+
+            return {
+                "lignes": rapport,
+                "total_general": total_general,
+            }
 
         # ======================================================
         # MAIN-D'ŒUVRE

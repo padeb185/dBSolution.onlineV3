@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.db import transaction, models
@@ -316,11 +318,20 @@ def controle_jeux_pdf_view(request, controle_id):
             id=controle_id
         )
 
+        # Génération du rapport des pièces
+        rapport = controle.generer_rapport_remplacement()
+
         html_string = render_to_string(
             "jeux_pieces/controle_jeux_pdf.html",
             {
                 "controle": controle,
                 "objet": controle,
+                "rapport": rapport,
+                "pieces_utilisees": rapport.get("lignes", []),
+                "total_pieces": rapport.get(
+                    "total_general",
+                    Decimal("0.00"),
+                ),
                 "date_export": timezone.now(),
                 "societe": tenant,
             },
@@ -343,9 +354,14 @@ def controle_jeux_pdf_view(request, controle_id):
             or "technicien_inconnu"
         )
 
-        response = HttpResponse(pdf_file, content_type="application/pdf")
+        response = HttpResponse(
+            pdf_file,
+            content_type="application/pdf"
+        )
+
         response["Content-Disposition"] = (
-            f'inline; filename="controle_jeux_{immatriculation}_{technicien}.pdf"'
+            f'inline; filename="controle_jeux_'
+            f'{immatriculation}_{technicien}.pdf"'
         )
 
         return response

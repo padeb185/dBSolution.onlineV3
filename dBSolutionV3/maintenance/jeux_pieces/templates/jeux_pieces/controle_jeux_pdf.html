@@ -762,16 +762,182 @@
     </tr>
 </table>
 
+<!-- ================= MAIN D'ŒUVRE ================= -->
+
 <h2>{% trans "Main d'œuvre" %}</h2>
 
 <div class="box">
-    {% if controle.main_oeuvre %}
-        <p><strong>{% trans "Temps" %} :</strong> {{ controle.temps_main_oeuvre_display }}</p>
-        <p><strong>{% trans "Descriptif" %} :</strong> {{ controle.main_oeuvre.descriptif }}</p>
-    {% else %}
-        <p>{% trans "Aucune main d'œuvre enregistrée." %}</p>
-    {% endif %}
+    <div class="grid">
+        <div>
+            <span class="label">{% trans "Temps" %} :</span>
+            {{ controle.temps_main_oeuvre_display|default:"0h00" }}
+        </div>
+
+        {% if controle.main_oeuvre %}
+            <div>
+                <span class="label">{% trans "Taux horaire" %} :</span>
+                {{ controle.main_oeuvre.taux_horaire|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Prix facturé" %} :</span>
+                {{ controle.main_oeuvre.prix_facture|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Descriptif" %} :</span>
+                {{ controle.main_oeuvre.descriptif|default:"-" }}
+            </div>
+        {% else %}
+            <div>{% trans "Aucune main d'œuvre liée" %}</div>
+        {% endif %}
+    </div>
 </div>
+
+<!-- ================================================== -->
+<!-- PIÈCES, PRODUITS ET MAIN-D'ŒUVRE -->
+<!-- ================================================== -->
+
+<!-- ================================================== -->
+<!-- PIÈCES ET MAIN-D'ŒUVRE -->
+<!-- ================================================== -->
+
+<h2>{% trans "Pièces à remplacer, remplacées et main-d'œuvre" %}</h2>
+
+<div class="box">
+
+    {% if rapport.lignes %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>{% trans "Pièce" %}</th>
+                    <th>{% trans "État" %}</th>
+                    <th class="text-right">
+                        {% trans "Quantité" %}
+                    </th>
+                    <th class="text-right">
+                        {% trans "Prix unitaire HTVA" %}
+                    </th>
+                    <th class="text-right">
+                        {% trans "Total HTVA" %}
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for ligne in rapport.lignes %}
+                    <tr>
+                        <td>
+                            {{ ligne.champ|default:"-" }}
+                        </td>
+
+                        <td>
+                            {{ ligne.etat_label|default:"-" }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.quantite|default:0 }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.prix|default:0|floatformat:2 }} €
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.total|default:0|floatformat:2 }} €
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                <tr class="total">
+                    <td colspan="4" class="text-right">
+                        <strong>
+                            {% trans "Total des pièces HTVA" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ rapport.total_general|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+
+                <tr class="total">
+                    <td colspan="4" class="text-right">
+                        <strong>
+                            {% trans "Main-d'œuvre" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ controle.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+
+                <tr class="total">
+                    <td colspan="4" class="text-right">
+                        <strong>
+                            {% trans "Total général avec main-d'œuvre" %}
+                        </strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ controle.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    {% else %}
+
+        <p>
+            {% trans "Aucune pièce à remplacer ou remplacée." %}
+        </p>
+
+        <table>
+            <tbody>
+
+                <tr class="total">
+                    <td class="text-right">
+                        <strong>{% trans "Main-d'œuvre" %}</strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ controle.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+
+                <tr class="total">
+                    <td class="text-right">
+                        <strong>{% trans "Total général" %}</strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>
+                            {{ controle.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    {% endif %}
+
+</div>
+
+
+
 
 <h2>{% trans "Remarques" %}</h2>
 

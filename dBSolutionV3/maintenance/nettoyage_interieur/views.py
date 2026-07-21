@@ -298,9 +298,6 @@ def modifier_nettoyage_int_view(request, nettoyage_int_id):
 
 
 
-
-
-
 @login_required
 def nettoyage_interieur_pdf_view(request, nettoyage_id):
     tenant = request.user.societe
@@ -317,10 +314,19 @@ def nettoyage_interieur_pdf_view(request, nettoyage_id):
             id=nettoyage_id
         )
 
+        rapport_remplacement = nettoyage.generer_rapport_remplacement()
+
+        # Sécurisation du contenu retourné
+        pieces_utilisees = rapport_remplacement.get("pieces", [])
+        total_pieces = rapport_remplacement.get("total_general", 0)
+
         html_string = render_to_string(
             "nettoyage_interieur/nettoyage_interieur_detail_pdf.html",
             {
                 "nettoyage": nettoyage,
+                "rapport_remplacement": rapport_remplacement,
+                "pieces_utilisees": pieces_utilisees,
+                "total_pieces": total_pieces,
                 "date_export": timezone.now(),
                 "societe": tenant,
             },
@@ -343,9 +349,14 @@ def nettoyage_interieur_pdf_view(request, nettoyage_id):
             or "technicien_inconnu"
         )
 
-        response = HttpResponse(pdf_file, content_type="application/pdf")
+        response = HttpResponse(
+            pdf_file,
+            content_type="application/pdf"
+        )
+
         response["Content-Disposition"] = (
-            f'inline; filename="nettoyage_interieur_{immatriculation}_{technicien}.pdf"'
+            f'inline; filename="'
+            f'nettoyage_interieur_{immatriculation}_{technicien}.pdf"'
         )
 
         return response

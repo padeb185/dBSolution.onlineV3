@@ -7,6 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from maintenance.choices import RouesSerrageEtat, TAUX_HORAIRE_CHOICES
 from maintenance.models import Maintenance
 from django.conf import settings
+from maintenance.nettoyage_exterieur.models import EtatAjouter
 from utils.mixin import TechnicienMixin
 
 
@@ -92,6 +93,21 @@ class NettoyageInterieur(TechnicienMixin,models.Model):
         default=NettoyageEtat.A_FAIRE,
         verbose_name=_("Console centrale")
     )
+
+    nettoyage_interieur_produits = models.CharField(
+        max_length=25,
+        choices=EtatAjouter.choices,
+        default=EtatAjouter.SANS,
+        verbose_name=_("Produits")
+    )
+
+    nettoyage_interieur_produits_prix = models.DecimalField(
+        max_digits=10, decimal_places=2, default=0,
+        verbose_name=_("Prix d'achat HTVA"))
+
+    nettoyage_interieur_produits_quantite = models.IntegerField(
+        default=0,
+        verbose_name=_("Quantité"))
 
     TAG_CHOICES = [
         ("VERT", _("Vert")),
@@ -228,6 +244,57 @@ class NettoyageInterieur(TechnicienMixin,models.Model):
 
         super().save(*args, **kwargs)
 
+    def generer_rapport_remplacement(self):
+        rapport = []
+        total_general = Decimal("0.00")
+
+        etat_produit = self.nettoyage_interieur_produits
+
+        # Le produit est ajouté uniquement lorsque l'état vaut AJOUTER
+        if etat_produit == EtatAjouter.AJOUTER:
+            prix = Decimal(
+                str(
+                    self.nettoyage_interieur_produits_prix
+                    or Decimal("0.00")
+                )
+            )
+
+            quantite = Decimal(
+                str(
+                    self.nettoyage_interieur_produits_quantite
+                    or 0
+                )
+            )
+
+            prix_unitaire = prix.quantize(
+                Decimal("0.01"),
+                rounding=ROUND_HALF_UP,
+            )
+
+            total = (prix_unitaire * quantite).quantize(
+                Decimal("0.01"),
+                rounding=ROUND_HALF_UP,
+            )
+
+            total_general += total
+
+            rapport.append({
+                "nom": _("Produits de nettoyage"),
+                "etat": self.get_nettoyage_interieur_produits_display(),
+                "prix": prix_unitaire,
+                "prix_unitaire": prix_unitaire,
+                "quantite": quantite,
+                "total": total,
+            })
+
+        return {
+            "pieces": rapport,
+            "rapport": rapport,
+            "total_general": total_general.quantize(
+                Decimal("0.01"),
+                rounding=ROUND_HALF_UP,
+            ),
+        }
         # ======================================================
         # MAIN-D'ŒUVRE
         # ======================================================
