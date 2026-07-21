@@ -4,7 +4,7 @@ from django.core.validators import StepValueValidator
 from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from maintenance.choices import RouesSerrageEtat, TAUX_HORAIRE_CHOICES
+from maintenance.choices import FabricantLubrifiant,  TAUX_HORAIRE_CHOICES
 from maintenance.models import Maintenance
 from utils.mixin import TechnicienMixin
 from django.core.exceptions import ValidationError
@@ -15,48 +15,6 @@ from django.core.exceptions import ValidationError
 class NiveauxEtat(models.TextChoices):
     BON = "BON", _("OK")
     AJOUTER = "AJOUTER", _("Ajouter")
-
-class FabricantLubrifiant(models.TextChoices):
-    CASTROL = "CASTROL", _("Castrol")
-    MOTUL = "MOTUL", _("Motul")
-    MOBIL = "MOBIL", _("Mobil 1")
-    SHELL = "SHELL", _("Shell")
-    TOTAL = "TOTAL", _("TotalEnergies")
-    ELF = "ELF", _("ELF")
-    LIQUI_MOLY = "LIQUI_MOLY", _("Liqui Moly")
-    FUCHS = "FUCHS", _("Fuchs")
-    VALVOLINE = "VALVOLINE", _("Valvoline")
-    PENRITE = "PENRITE", _("Penrite")
-    RAVENOL = "RAVENOL", _("Ravenol")
-    ROWE = "ROWE", _("Rowe")
-    ENEOS = "ENEOS", _("ENEOS")
-    PETRONAS = "PETRONAS", _("Petronas")
-    EUROL = "EUROL", _("Eurol")
-    COMMA = "COMMA", _("Comma")
-    MANNOL = "MANNOL", _("Mannol")
-    YACCO = "YACCO", _("Yacco")
-    REDLINE = "REDLINE", _("Red Line")
-    AMSOIL = "AMSOIL", _("Amsoil")
-    KROON_OIL = "KROON_OIL", _("Kroon-Oil")
-    FEBI = "FEBI", _("Febi Bilstein")
-    SWAG = "SWAG", _("SWAG")
-    PENTOSIN = "PENTOSIN", _("Pentosin")
-    ZF = "ZF", _("ZF")
-    AISIN = "AISIN", _("Aisin")
-    TOYOTA = "TOYOTA", _("Toyota")
-    HONDA = "HONDA", _("Honda")
-    NISSAN = "NISSAN", _("Nissan")
-    MERCEDES = "MERCEDES", _("Mercedes-Benz")
-    BMW = "BMW", _("BMW")
-    VOLKSWAGEN = "VOLKSWAGEN", _("Volkswagen")
-    PORSCHE = "PORSCHE", _("Porsche")
-    RENAULT = "RENAULT", _("Renault")
-    PSA = "PSA", _("Peugeot / Citroën")
-    HYUNDAI_KIA = "HYUNDAI_KIA", _("Hyundai / Kia")
-    FORD = "FORD", _("Ford")
-    GM = "GM", _("General Motors")
-    MOPAR = "MOPAR", _("Mopar")
-    AUTRE = "AUTRE", _("Autre")
 
 class HuileEtat(models.TextChoices):
     ZERO_16 = "0W16", _("0W16")
@@ -276,6 +234,9 @@ class Niveau(TechnicienMixin, models.Model):
     direction_liquide_qualite = models.CharField(max_length=25, choices=LiquideDirectionQualite.choices,default= LiquideDirectionQualite.CHF_7_1 ,verbose_name=_("Qualité de liquide de direction"))
     direction_liquide_fabricant = models.CharField(max_length=30, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.CASTROL, verbose_name=_("Fabricant"))
     direction_liquide_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
+
+
+
 
     remarques = models.TextField(
         blank=True,
