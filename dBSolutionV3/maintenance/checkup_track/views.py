@@ -324,36 +324,61 @@ def modifier_checkup_track_view(request, checkup_track_id):
         }
     )
 
-
 @login_required
 def checkup_track_detail_pdf_view(request, pk):
-    checkup_track = get_object_or_404(CheckupTrack, pk=pk)
+    tenant = request.user.societe
 
-    html_string = render_to_string(
-        "checkup_track/checkup_track_detail_pdf.html",
-        {
-            "checkup_track": checkup_track,
-            "date_export": datetime.now(),
-            "societe": request.user.societe,
-        }
-    )
+    with tenant_context(tenant):
+        checkup_track = get_object_or_404(
+            CheckupTrack.objects.select_related(
+                "maintenance",
+                "voiture_exemplaire",
+                "main_oeuvre",
+                "tech_technicien",
+                "tech_societe",
+            ),
+            pk=pk,
+        )
 
-    pdf = HTML(
-        string=html_string,
-        base_url=request.build_absolute_uri()
-    ).write_pdf()
+        rapport = checkup_track.generer_rapport_remplacement()
 
-    immatriculation = (
-        checkup_track.voiture_exemplaire.immatriculation
-        if checkup_track.voiture_exemplaire
-        else "sans_immatriculation"
-    )
+        html_string = render_to_string(
+            "checkup_track/checkup_track_detail_pdf.html",
+            {
+                "checkup_track": checkup_track,
+                "date_export": timezone.now(),
+                "societe": tenant,
+                "rapport": rapport,
+                "pieces": rapport["pieces"],
+                "total_pieces": rapport["total_general"],
+            },
+            request=request,
+        )
 
-    technicien = checkup_track.tech_nom_technicien or "technicien_inconnu"
+        pdf = HTML(
+            string=html_string,
+            base_url=request.build_absolute_uri("/"),
+        ).write_pdf()
 
-    response = HttpResponse(pdf, content_type="application/pdf")
-    response["Content-Disposition"] = (
-        f'attachment; filename="checkup_track_{immatriculation}_{technicien}.pdf"'
-    )
+        immatriculation = (
+            checkup_track.voiture_exemplaire.immatriculation
+            if checkup_track.voiture_exemplaire
+            else "sans_immatriculation"
+        )
 
-    return response
+        technicien = (
+            checkup_track.tech_nom_technicien
+            or "technicien_inconnu"
+        )
+
+        response = HttpResponse(
+            pdf,
+            content_type="application/pdf",
+        )
+
+        response["Content-Disposition"] = (
+            f'attachment; '
+            f'filename="checkup_track_{immatriculation}_{technicien}.pdf"'
+        )
+
+        return response

@@ -238,7 +238,7 @@ class CheckupTrack(TechnicienMixin, models.Model):
 
     # --- Pont ----
 
-    pont_etat = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Fuite pont arrière"))
+    pont_niveau_etat = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Fuite pont arrière"))
     pont_niveau_huile_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau d'huile"))
     pont_niveau_huile_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=1, verbose_name=_("Quantité d'huile ajoutée en litres"), validators=[StepValueValidator(0.1)])
     pont_niveau_huile_qualite = models.CharField(max_length=25, choices=HuilePontEtat.choices,default=HuilePontEtat.SEPTANTE_CINQ140,verbose_name=_("Qualité d'huile"))
@@ -272,16 +272,16 @@ class CheckupTrack(TechnicienMixin, models.Model):
     # --- Liquide ---
     frein_liquide_frein_etat = models.CharField(max_length=25, choices=LiquideFreinEtat.choices, default=LiquideFreinEtat.BON, verbose_name=_("État liquide de frein"))
     frein_liquide_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices, default=FabricantLubrifiant.CASTROL, verbose_name=_("Fabricant du liquide de frein"))
-    freins_specif_liquide_frein = models.CharField(max_length=100,choices=QualiteLiquideFrein.choices, default=QualiteLiquideFrein.DOT4, blank=True, verbose_name=_("Spécification liquide de frein"))
+    freins_liquide_qualite = models.CharField(max_length=100,choices=QualiteLiquideFrein.choices, default=QualiteLiquideFrein.DOT4, blank=True, verbose_name=_("Spécification liquide de frein"))
     freins_liquide_quantite = models.FloatField(default=0, null=True, blank=True, verbose_name=_("Quantité liquide de frein (L)"))
     frein_liquide_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva du liquide de frein"))
 
 
-    direction_etat = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Etat direction assistée / crémaillère"), null=True, blank=True)
-    direction_niveau = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON, verbose_name=_("Niveau du liquide de direction"), null=True, blank=True)
-    direction_qualite = models.CharField(max_length=25, choices=TypeHuileDirection.choices, default=TypeHuileDirection.CHOISIR, verbose_name=_("Qualité du liquide de direction"), null=True, blank=True)
-    direction_quantite = models.FloatField(default=0, null=True, blank=True,verbose_name=_("Quantité liquide de direction (L)"))
-    direction_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva du liquide de direction"))
+    direction_liquide_etat = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Etat direction assistée / crémaillère"), null=True, blank=True)
+    direction_liquide_niveau = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON, verbose_name=_("Niveau du liquide de direction"), null=True, blank=True)
+    direction_liquide_qualite = models.CharField(max_length=25, choices=TypeHuileDirection.choices, default=TypeHuileDirection.CHOISIR, verbose_name=_("Qualité du liquide de direction"), null=True, blank=True)
+    direction_liquide_quantite = models.FloatField(default=0, null=True, blank=True,verbose_name=_("Quantité liquide de direction (L)"))
+    direction_liquide_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva du liquide de direction"))
 
     # --- Bruits ---
     bruit_roulement_roue= models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Bruit de roulement de roue"), blank=True, null=True)
@@ -776,6 +776,335 @@ class CheckupTrack(TechnicienMixin, models.Model):
 
         super().save(*args, **kwargs)
 
+    def generer_rapport_remplacement(self):
+        rapport = []
+        total_general = Decimal("0.00")
+
+        # Correspondances particulières du modèle CheckupTrack.
+        configuration = {
+            "moteur_niveau_huile": {
+                "etat": "moteur_niveau_huile_etat",
+                "qualite": "moteur_niveau_huile_qualite",
+                "quantite": "moteur_niveau_huile_quantite",
+                "libelle": _("Huile moteur"),
+                "unite": _("L"),
+            },
+            "boite_niveau_huile": {
+                "etat": "boite_niveau_huile_etat",
+                "qualite": "boite_niveau_huile_qualite",
+                "quantite": "boite_niveau_huile_quantite",
+                "libelle": _("Huile de boîte de vitesses"),
+                "unite": _("L"),
+            },
+            "pont_niveau_huile": {
+                "etat": "pont_niveau_huile_etat",
+                "qualite": "pont_niveau_huile_qualite",
+                "quantite": "pont_niveau_huile_quantite",
+                "libelle": _("Huile de pont"),
+                "unite": _("L"),
+            },
+            "refroidissement": {
+                "etat": "refroidissement_radiateur",
+                "qualite": "refroidissement_qualite",
+                "quantite": "refroidissement_quantite",
+                "libelle": _("Liquide de refroidissement"),
+                "unite": _("L"),
+            },
+            "frein_liquide": {
+                "etat": "frein_liquide_frein_etat",
+                "fabricant": "frein_liquide_fabricant",
+                "qualite": "freins_liquide_qualite",
+                "quantite": "freins_liquide_quantite",
+                "libelle": _("Liquide de frein"),
+                "unite": _("L"),
+            },
+            "direction_liquide": {
+                "etat": "direction_liquide_etat",
+                "niveau": "direction_liquide_niveau",
+                "qualite": "direction_liquide_qualite",
+                "quantite": "direction_liquide_quantite",
+                "libelle": _("Liquide de direction assistée"),
+                "unite": _("L"),
+            },
+            "pneu_train_av": {
+                "etat": "pneu_train_av",
+                "quantite": "pneu_train_av_quantite",
+                "libelle": _("Pneus du train avant"),
+                "unite": _("pneu"),
+            },
+            "pneu_train_ar": {
+                "etat": "pneu_train_ar",
+                "quantite": "pneu_train_ar_quantite",
+                "libelle": _("Pneus du train arrière"),
+                "unite": _("pneu"),
+            },
+            "nettoyage_exterieur_produits": {
+                "etat": "nettoyage_exterieur_produits",
+                "quantite": "nettoyage_exterieur_produits_quantite",
+                "libelle": _("Produits de nettoyage extérieur"),
+                "unite": _("unité"),
+            },
+            "nettoyage_interieur_produits": {
+                "etat": "nettoyage_interieur_produits",
+                "quantite": "nettoyage_interieur_produits_quantite",
+                "libelle": _("Produits de nettoyage intérieur"),
+                "unite": _("unité"),
+            },
+        }
+
+        def convertir_decimal(valeur):
+            if valeur in (None, ""):
+                return Decimal("0.00")
+
+            try:
+                return Decimal(str(valeur))
+            except (TypeError, ValueError, ArithmeticError):
+                return Decimal("0.00")
+
+        def obtenir_display(nom_champ, valeur):
+            if not nom_champ:
+                return valeur or "-"
+
+            methode_display = getattr(
+                self,
+                f"get_{nom_champ}_display",
+                None,
+            )
+
+            if callable(methode_display):
+                return methode_display()
+
+            return valeur or "-"
+
+        for field in self._meta.fields:
+            field_name = field.name
+
+            # Seulement les champs contenant un prix.
+            if not field_name.endswith("_prix"):
+                continue
+
+            champ_base = field_name.removesuffix("_prix")
+            config = configuration.get(champ_base, {})
+
+            # Quantité personnalisée ou convention standard.
+            champ_quantite = config.get(
+                "quantite",
+                f"{champ_base}_quantite",
+            )
+
+            if not hasattr(self, champ_quantite):
+                continue
+
+            prix = convertir_decimal(
+                getattr(self, field_name, None)
+            )
+
+            quantite = convertir_decimal(
+                getattr(self, champ_quantite, None)
+            )
+
+            # Une ligne n'est ajoutée que si prix et quantité existent.
+            if prix <= 0 or quantite <= 0:
+                continue
+
+            prix = prix.quantize(
+                Decimal("0.01"),
+                rounding=ROUND_HALF_UP,
+            )
+
+            quantite = quantite.quantize(
+                Decimal("0.01"),
+                rounding=ROUND_HALF_UP,
+            )
+
+            total = (
+                    prix * quantite
+            ).quantize(
+                Decimal("0.01"),
+                rounding=ROUND_HALF_UP,
+            )
+
+            # =====================================================
+            # ÉTAT
+            # =====================================================
+
+            champ_etat = config.get("etat")
+
+            if not champ_etat:
+                if hasattr(self, champ_base):
+                    champ_etat = champ_base
+                elif hasattr(self, f"{champ_base}_etat"):
+                    champ_etat = f"{champ_base}_etat"
+
+            etat = (
+                getattr(self, champ_etat, "")
+                if champ_etat
+                else ""
+            )
+
+            etat_label = obtenir_display(
+                champ_etat,
+                etat,
+            )
+
+            # =====================================================
+            # NIVEAU
+            # =====================================================
+
+            champ_niveau = config.get(
+                "niveau",
+                f"{champ_base}_niveau",
+            )
+
+            niveau = (
+                getattr(self, champ_niveau, "")
+                if hasattr(self, champ_niveau)
+                else ""
+            )
+
+            niveau_label = obtenir_display(
+                champ_niveau,
+                niveau,
+            )
+
+            # =====================================================
+            # FABRICANT
+            # =====================================================
+
+            champ_fabricant = config.get(
+                "fabricant",
+                f"{champ_base}_fabricant",
+            )
+
+            fabricant = (
+                getattr(self, champ_fabricant, "")
+                if hasattr(self, champ_fabricant)
+                else ""
+            )
+
+            fabricant_label = obtenir_display(
+                champ_fabricant,
+                fabricant,
+            )
+
+            # =====================================================
+            # QUALITÉ
+            # =====================================================
+
+            champ_qualite = config.get(
+                "qualite",
+                f"{champ_base}_qualite",
+            )
+
+            qualite = (
+                getattr(self, champ_qualite, "")
+                if hasattr(self, champ_qualite)
+                else ""
+            )
+
+            qualite_label = obtenir_display(
+                champ_qualite,
+                qualite,
+            )
+
+            # =====================================================
+            # TYPE, PRINCIPALEMENT POUR LES AMPOULES
+            # =====================================================
+
+            champ_type = config.get(
+                "type",
+                f"{champ_base}_type",
+            )
+
+            type_piece = (
+                getattr(self, champ_type, "")
+                if hasattr(self, champ_type)
+                else ""
+            )
+
+            type_label = obtenir_display(
+                champ_type,
+                type_piece,
+            )
+
+            # =====================================================
+            # LIBELLÉ
+            # =====================================================
+
+            libelle = config.get("libelle")
+
+            if not libelle:
+                try:
+                    champ_principal = self._meta.get_field(champ_base)
+                    libelle = champ_principal.verbose_name
+                except Exception:
+                    libelle = (
+                        champ_base
+                        .replace("_", " ")
+                        .capitalize()
+                    )
+
+            # Pour les ampoules, le type est ajouté au libellé.
+            if (
+                    champ_base.startswith("phares_")
+                    and type_label not in ("", "-", None)
+            ):
+                libelle = _("%(piece)s — %(type)s") % {
+                    "piece": libelle,
+                    "type": type_label,
+                }
+
+            # Unité par défaut.
+            if champ_base.startswith("phares_"):
+                unite = _("ampoule")
+            else:
+                unite = config.get("unite", _("pièce"))
+
+            rapport.append({
+                "champ": libelle,
+                "nom": libelle,
+                "designation": libelle,
+                "piece": libelle,
+                "code": champ_base,
+
+                "etat": etat,
+                "etat_label": etat_label,
+                "etat_display": etat_label,
+
+                "niveau": niveau,
+                "niveau_label": niveau_label,
+
+                "fabricant": fabricant,
+                "fabricant_label": fabricant_label,
+
+                "qualite": qualite,
+                "qualite_label": qualite_label,
+
+                "type": type_piece,
+                "type_label": type_label,
+
+                "quantite": quantite,
+                "unite": unite,
+
+                "prix": prix,
+                "prix_unitaire": prix,
+                "total": total,
+            })
+
+            total_general += total
+
+        total_general = total_general.quantize(
+            Decimal("0.01"),
+            rounding=ROUND_HALF_UP,
+        )
+
+        return {
+            "lignes": rapport,
+            "pieces": rapport,
+            "rapport": rapport,
+            "nombre_elements": len(rapport),
+            "total_general": total_general,
+        }
         # ======================================================
         # MAIN-D'ŒUVRE
         # ======================================================
