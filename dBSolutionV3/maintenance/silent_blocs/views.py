@@ -290,14 +290,16 @@ def silent_bloc_pdf_view(request, silent_id):
             id=silent_id
         )
 
-        # Génération des pièces à remplacer ou remplacées
         rapport = silent_bloc.generer_rapport_remplacement()
 
         html_string = render_to_string(
             "silent_blocs/silent_bloc_detail_pdf.html",
             {
                 "objet": silent_bloc,
+                "silent_bloc": silent_bloc,
                 "rapport": rapport,
+                "pieces_utilisees": rapport.get("lignes", []),
+                "total_pieces": rapport.get("total_general", 0),
                 "societe": tenant,
                 "date_export": timezone.now(),
             },
