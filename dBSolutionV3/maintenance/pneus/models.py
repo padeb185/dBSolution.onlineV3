@@ -82,9 +82,23 @@ class ControlePneus(TechnicienMixin, models.Model):
 
 
     pneu_train_av =  models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.OK, verbose_name=_("Train avant à remplacer"))
-    pneu_train_av_nombre = models.PositiveIntegerField(default=1, null=True, blank=True, verbose_name=_("Nombre de trains avant montés"))
+    pneu_train_av_prix = models.DecimalField(
+    max_digits=10,
+    decimal_places=2,
+    default=0,
+    verbose_name=_("Prix d'achat HTVA")
+    )
+    pneu_train_av_quantite = models.PositiveIntegerField(default=1, null=True, blank=True, verbose_name=_("Quantité"))
+
+
     pneu_train_ar =  models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.OK, verbose_name=_("Train arrière à remplacer"))
-    pneu_train_ar_nombre = models.PositiveIntegerField(default=1, null=True, blank=True, verbose_name=_("Nombre de trains arrières montés"))
+    pneu_train_ar_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA")
+    )
+    pneu_train_ar_quantite = models.PositiveIntegerField(default=1, null=True, blank=True, verbose_name=_("Quantité"))
 
 
     remarques = models.TextField(
@@ -225,6 +239,97 @@ class ControlePneus(TechnicienMixin, models.Model):
             if self.kilometres_chassis != voiture.kilometres_chassis:
                 self.kilometres_chassis = voiture.kilometres_chassis
                 super().save(update_fields=["kilometres_chassis"])
+
+    def generer_rapport_remplacement(self):
+            rapport = []
+            total_general = Decimal("0.00")
+
+            for field in self._meta.fields:
+                field_name = field.name
+
+                # Ne garder que les champs d'état des pneus
+                if not (
+                        isinstance(field, models.CharField)
+                        and field.choices == PneuEtat.choices
+                ):
+                    continue
+
+                etat = getattr(self, field_name, None)
+
+                # Pièces à remplacer ou déjà remplacées
+                if etat not in (
+                        PneuEtat.A_REMPLACER,
+                        PneuEtat.REMPLACE,
+                ):
+                    continue
+
+                prix = Decimal(
+                    str(
+                        getattr(
+                            self,
+                            f"{field_name}_prix",
+                            Decimal("0.00"),
+                        )
+                        or Decimal("0.00")
+                    )
+                )
+
+                quantite = Decimal(
+                    str(
+                        getattr(
+                            self,
+                            f"{field_name}_quantite",
+                            0,
+                        )
+                        or 0
+                    )
+                )
+
+                prix = prix.quantize(
+                    Decimal("0.01"),
+                    rounding=ROUND_HALF_UP,
+                )
+
+                total = (prix * quantite).quantize(
+                    Decimal("0.01"),
+                    rounding=ROUND_HALF_UP,
+                )
+
+                total_general += total
+
+                methode_display = getattr(
+                    self,
+                    f"get_{field_name}_display",
+                    None,
+                )
+
+                etat_label = (
+                    methode_display()
+                    if callable(methode_display)
+                    else etat
+                )
+
+                rapport.append({
+                    "champ": field.verbose_name,
+                    "nom": field.verbose_name,
+                    "code": field_name,
+                    "etat": etat,
+                    "etat_label": etat_label,
+                    "prix": prix,
+                    "prix_unitaire": prix,
+                    "quantite": quantite,
+                    "total": total,
+                })
+
+            return {
+                "lignes": rapport,
+                "pieces": rapport,
+                "total_general": total_general.quantize(
+                    Decimal("0.01"),
+                    rounding=ROUND_HALF_UP,
+                ),
+            }
+
 
         # ======================================================
         # MAIN-D'ŒUVRE

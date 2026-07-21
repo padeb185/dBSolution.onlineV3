@@ -321,10 +321,17 @@ def controle_pneus_pdf_view(request, controle_pneus_id):
             id=controle_pneus_id
         )
 
+        # Génération du rapport des pneus à remplacer ou remplacés
+        rapport = controle_pneus.generer_rapport_remplacement()
+
         html_string = render_to_string(
             "pneus/controle_pneus_detail_pdf.html",
             {
                 "controle_pneus": controle_pneus,
+                "objet": controle_pneus,
+                "rapport": rapport,
+                "pieces_utilisees": rapport.get("lignes", []),
+                "total_pieces": rapport.get("total_general", 0),
                 "date_export": timezone.now(),
                 "societe": tenant,
             },
@@ -347,9 +354,14 @@ def controle_pneus_pdf_view(request, controle_pneus_id):
             or "technicien_inconnu"
         )
 
-        response = HttpResponse(pdf_file, content_type="application/pdf")
+        response = HttpResponse(
+            pdf_file,
+            content_type="application/pdf"
+        )
+
         response["Content-Disposition"] = (
-            f'inline; filename="controle_pneus_{immatriculation}_{technicien}.pdf"'
+            f'inline; filename="controle_pneus_'
+            f'{immatriculation}_{technicien}.pdf"'
         )
 
         return response
