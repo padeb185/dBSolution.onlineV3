@@ -160,6 +160,9 @@ class ReadyForOK(models.TextChoices):
     NURBURG10 = "NURBURG10", _("Nürburgring 10 tours")
     NURBURG12 = "NURBURG12", _("Nürburgring 12 tours")
     NURBURG15 = "NURBURG15", _("Nürburgring 15 tours")
+    AUTRE200 = "AUTRE200", _("Autre circuit 200 km")
+    AUTRE300 = "AUTRE300", _("Autre circuit 300 km")
+    AUTRE400 = "AUTRE400", _("Autre circuit 400 km")
 
 class QualiteLiquideFrein(models.TextChoices):
     DOT3 = "DOT3", _("DOT 3")

@@ -344,13 +344,20 @@ def entretien_pdf_view(request, entretien_id):
             id=entretien_id
         )
 
+        rapport = entretien.generer_rapport_remplacement()
+
         html_string = render_to_string(
             "entretien/entretien_detail_pdf.html",
             {
                 "entretien": entretien,
+                "objet": entretien,
+                "rapport": rapport,
+                "pieces_utilisees": rapport.get("lignes", []),
+                "total_pieces": rapport.get("total_general", 0),
                 "date_export": timezone.now(),
                 "societe": tenant,
-            }
+            },
+            request=request,
         )
 
         pdf = HTML(
@@ -364,11 +371,19 @@ def entretien_pdf_view(request, entretien_id):
             else "sans_immatriculation"
         )
 
-        technicien = entretien.tech_nom_technicien or "technicien_inconnu"
+        technicien = (
+            entretien.tech_nom_technicien
+            or "technicien_inconnu"
+        )
 
-        response = HttpResponse(pdf, content_type="application/pdf")
+        response = HttpResponse(
+            pdf,
+            content_type="application/pdf",
+        )
+
         response["Content-Disposition"] = (
-            f'inline; filename="entretien_{immatriculation}_{technicien}.pdf"'
+            f'inline; filename="entretien_'
+            f'{immatriculation}_{technicien}.pdf"'
         )
 
         return response

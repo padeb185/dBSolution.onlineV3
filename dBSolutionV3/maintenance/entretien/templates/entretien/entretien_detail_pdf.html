@@ -244,12 +244,12 @@
     <tr>
         <td>{% trans "Bougies" %}</td>
         <td>
-            {% if entretien.moteur_bougies == "A_FAIRE" %}
-                <span class="etat-rouge">{{ entretien.get_moteur_bougies_display }}</span>
-            {% elif entretien.moteur_bougies == "FAIT" %}
-                <span class="etat-vert">{{ entretien.get_moteur_bougies_display }}</span>
-            {% elif entretien.moteur_bougies == "REPORTER" %}
-                <span class="etat-jaune">{{ entretien.get_moteur_bougies_display }}</span>
+            {% if entretien.bougies == "A_FAIRE" %}
+                <span class="etat-rouge">{{ entretien.get_bougies_display }}</span>
+            {% elif entretien.bougies == "FAIT" %}
+                <span class="etat-vert">{{ entretien.get_bougies_display }}</span>
+            {% elif entretien.bougies == "REPORTER" %}
+                <span class="etat-jaune">{{ entretien.get_bougies_display }}</span>
             {% endif %}
         </td>
     </tr>
@@ -325,16 +325,39 @@
     </tr>
 
     <tr>
-        <td>{% trans "Filtre à huile de boîte" %}</td>
-        <td>
-            {% if entretien.filtre_huile_bte == "A_FAIRE" %}
-                <span class="etat-rouge">{{ entretien.get_filtre_huile_bte_display }}</span>
-            {% elif entretien.filtre_huile_bte == "FAIT" %}
-                <span class="etat-vert">{{ entretien.get_filtre_huile_bte_display }}</span>
-            {% elif entretien.filtre_huile_bte == "REPORTER" %}
-                <span class="etat-jaune">{{ entretien.get_filtre_huile_bte_display }}</span>
-            {% endif %}
-        </td>
+    <td>{% trans "Filtre à huile de boîte" %}</td>
+    <td>
+        {% if entretien.filtre_huile_boite == "A_FAIRE" %}
+            <span class="etat-rouge">
+                {{ entretien.get_filtre_huile_boite_display }}
+            </span>
+
+        {% elif entretien.filtre_huile_boite == "FAIT" %}
+            <span class="etat-vert">
+                {{ entretien.get_filtre_huile_boite_display }}
+            </span>
+
+        {% elif entretien.filtre_huile_boite == "REPORTER" %}
+            <span class="etat-jaune">
+                {{ entretien.get_filtre_huile_boite_display }}
+            </span>
+        {% endif %}
+    </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Fabricant du filtre à huile de boîte" %}</td>
+        <td>{{ entretien.get_filtre_huile_boite_fabricant_display }}</td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Quantité de filtres à huile de boîte" %}</td>
+        <td>{{ entretien.filtre_huile_boite_quantite }}</td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Prix d'achat HTVA du filtre à huile de boîte" %}</td>
+        <td>{{ entretien.filtre_huile_boite_prix|floatformat:2 }} €</td>
     </tr>
 
     <tr>
@@ -688,22 +711,159 @@
 </tr>
 </table>
 
-<h2>{% trans "Main d’œuvre" %}</h2>
+
+
+<!-- ================= MAIN D'ŒUVRE ================= -->
+
+<h2>{% trans "Main d'œuvre" %}</h2>
 
 <div class="box">
-    <p>
-        <span class="label">{% trans "Temps de travail" %} :</span>
-        {{ entretien.temps_main_oeuvre_display }}
-    </p>
-    <p>
-        <span class="label">{% trans "Taux horaire" %} :</span>
-        {{ entretien.taux_horaire_main_oeuvre }} €
-    </p>
-    <p>
-        <span class="label">{% trans "Coût de la main d’œuvre" %} :</span>
-        {{ entretien.cout_main_oeuvre|floatformat:2 }} €
-    </p>
+    <div class="grid">
+        <div>
+            <span class="label">{% trans "Temps" %} :</span>
+            {{ entretien.temps_main_oeuvre_display|default:"0h00" }}
+        </div>
+
+        {% if entretien.main_oeuvre %}
+            <div>
+                <span class="label">{% trans "Taux horaire" %} :</span>
+                {{ entretien.main_oeuvre.taux_horaire|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Prix facturé" %} :</span>
+                {{ entretien.main_oeuvre.prix_facture|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Descriptif" %} :</span>
+                {{ entretien.main_oeuvre.descriptif|default:"-" }}
+            </div>
+        {% else %}
+            <div>{% trans "Aucune main d'œuvre liée" %}</div>
+        {% endif %}
+    </div>
 </div>
+
+
+<!-- ================================================== -->
+<!-- PIÈCES ET PRODUITS -->
+<!-- ================================================== -->
+
+<h2>{% trans "Pièces, produits utilisés et main d'oeuvre" %}</h2>
+
+<div class="box">
+
+    {% if rapport.lignes %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>{% trans "Pièce / Produit" %}</th>
+                    <th>{% trans "État" %}</th>
+                    <th class="text-right">{% trans "Quantité" %}</th>
+                    <th class="text-right">{% trans "Prix unitaire HTVA" %}</th>
+                    <th class="text-right">{% trans "Total HTVA" %}</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for ligne in rapport.lignes %}
+                    <tr>
+                        <td>
+                            {{ ligne.champ }}
+                        </td>
+
+                        <td>
+                            {{ ligne.etat_label|default:"-" }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.quantite|default:0 }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.prix|default:0|floatformat:2 }} €
+                        </td>
+
+                        <td class="text-right">
+                            {{ ligne.total|default:0|floatformat:2 }} €
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                <tr class="total">
+                    <td colspan="4" class="text-right">
+                        {% trans "Total pièces et produits HTVA" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ rapport.total_general|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total">
+                    <td colspan="4" class="text-right">
+                        {% trans "Main-d'œuvre" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ entretien.cout_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+                <tr class="total">
+                    <td colspan="4" class="text-right">
+                        {% trans "Total général avec main-d'œuvre" %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ entretien.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    {% else %}
+
+        <p>
+            {% trans "Aucune pièce ou produit utilisé." %}
+        </p>
+
+        <table>
+            <tbody>
+                <tr class="total">
+                    <td>
+                        <div>
+                            <strong>{% trans "Main-d'œuvre" %}</strong>
+                        </div>
+
+                        <div class="text-right" style="margin-top: 4px;">
+                            {{ entretien.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        </div>
+                    </td>
+                </tr>
+
+                <tr class="total">
+                    <td>
+                        <div>
+                            <strong>{% trans "Total général" %}</strong>
+                        </div>
+
+                        <div class="text-right" style="margin-top: 4px;">
+                            {{ entretien.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    {% endif %}
+
+</div>
+
 
 <h2>{% trans "Remarques" %}</h2>
 

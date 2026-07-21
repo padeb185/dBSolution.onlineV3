@@ -63,11 +63,7 @@
     <form method="post" class="space-y-4">
         {% csrf_token %}
 
-        <h2 class="text-lg font-semibold mb-2">{% trans "Détails de l'entretien" %}</h2>
-
-        <br>
-
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/compteur.png' %}" alt="Kilometrage"
                  style="width:60px; height:60px; margin-right:10px;">
             {% trans "Kilométrage" %}
@@ -156,12 +152,45 @@
 
         <br>
 
-         <!-- Section Moteur -->
+         <!-- Section filtre -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/filtre-a-air.png' %}" alt="Filtres"
                  style="width:60px; height:60px; margin-right:10px;">{% trans "Filtres" %}</h2>
         {% for field in form %}
             {% if "filtre" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+ <!-- Section filtre -->
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/bougie.png' %}" alt="Bougies"
+                 style="width:60px; height:60px; margin-right:10px;">{% trans "Bougies" %}</h2>
+        {% for field in form %}
+            {% if "bougies" in field.name %}
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -265,7 +294,7 @@
 
         <br>
 
-         <!-- Section Moteur -->
+         <!-- Section liquide de lave glace -->
        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/lave-glace.png' %}" alt="remise à niveau du liquide de lave-glace"
                  style="width:60px; height:60px; margin-right:10px;">
@@ -301,7 +330,7 @@
 
         <br>
 
-         <!-- Section Moteur -->
+         <!-- Section liquide de freins -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/frein-temoin.png' %}" alt="liquide de freins"
                  style="width:60px; height:60px; margin-right:10px;">{% trans "Liquide de freins" %}</h2>
@@ -335,7 +364,7 @@
 
         <br>
 
-           <!-- Section Liquide de refroidissement -->
+          <!-- Section Liquide de refroidissement -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/anti-gel.png' %}" alt="liquide de refroidissement"
                  style="width:60px; height:60px; margin-right:10px;">{% trans "Liquide de refroidissement" %}</h2>
@@ -403,13 +432,12 @@
 
         <br>
 
-
-         <!-- Section pièces -->
-        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
-            <img src="{% static 'icons/piece.png' %}" alt="Pieces"
-                 style="width:60px; height:60px; margin-right:10px;">{% trans "Pieces" %}</h2>
+                 <!-- Section Phares -->
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/phares.png' %}" alt="phares"
+                 style="width:60px; height:60px; margin-right:10px;">{% trans "Feux" %}</h2>
         {% for field in form %}
-            {% if "piece" in field.name %}
+            {% if "phares" in field.name %}
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -437,9 +465,6 @@
         {% endfor %}
 
         <br>
-
-
-
 
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/pression-des-pneus.png' %}" alt="pression des pneus"
@@ -597,7 +622,8 @@
 
 
         <br>
-          <!-- Section temps main d'œuvre -->
+
+        <!-- Section temps main d'œuvre -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/main-doeuvre.png' %}" alt="Temps"
                  style="width:60px; height:60px; margin-right:10px;">
@@ -614,7 +640,6 @@
 
 
         <br>
-
 
         <!-- Section technicien -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
@@ -652,14 +677,14 @@
 
 
         <br>
-     <!-- Section technicien -->
+     <!-- Section taux horaire -->
        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
-            <img src="{% static 'icons/mecanicien.png' %}" alt="triangle"
+            <img src="{% static 'icons/taux.png' %}" alt="taux horaire"
                  style="width:60px; height:60px; margin-right:10px;">
-           {% trans "Technicien" %}
+           {% trans "Taux horaire" %}
        </h2>
         {% for field in form %}
-            {% if "tech" in field.name %}
+            {% if "taux" in field.name %}
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -689,25 +714,31 @@
 
         <br>
 
-        <div class="flex gap-3 mt-6">
-            <button type="submit"
-                    class="flex-1 bg-blue-700 text-white px-5 py-3 rounded hover:bg-blue-500 font-semibold text-center">
-                {% trans "Enregistrer" %}
-            </button>
-                <a href="{% url 'entretien:entretien_detail' entretien_id=entretien.id %}"
-                   class="flex-1 bg-gray-300 text-black px-5 py-3 rounded hover:bg-gray-400 font-semibold text-center">
-                   {% trans "Annuler" %}
-                </a>
-        </div>
-    </form>
 
+
+        <!-- Boutons -->
+
+         <div class="flex gap-3 mt-6">
+                <button type="submit"
+                        class="flex-1 bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
+                    {% trans "Enregistrer" %}
+                </button>
+
+               <a href="{% url 'maintenance:choisir_type' exemplaire.id %}"
+                   class="flex-1 bg-gray-300 text-black px-5 py-4 rounded hover:bg-gray-400 font-semibold text-center">
+                    {% trans "Annuler" %}
+                </a>
+
+          </div>
+
+        <!-- Date -->
+        <p class="text-sm text-gray-500 mt-4">
+            {% trans "Date actuelle" %} : {{ now|date:"Y-m-d H:i" }}
+        </p>
+
+    </form>
 </div>
-<div class="max-w-xl mx-auto mt-4">
-    <a href="{% url 'entretien:entretien_list' exemplaire.id %}"
-        class="block w-full bg-blue-700 text-white px-5 py-4 rounded hover:bg-blue-400 font-semibold text-center">
-        {% trans "Retour à la liste des entretiens" %}
-    </a>
-</div>
+
 <style>
 .input {
     width: 100% !important;
@@ -717,7 +748,6 @@
     box-sizing: border-box !important;
 }
 </style>
-
 <script>
 function getCookie(name) {
     let cookieValue = null;

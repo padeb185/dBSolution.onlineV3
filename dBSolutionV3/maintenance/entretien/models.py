@@ -6,7 +6,8 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from maintenance.check_up.models import PhareEtat
-from maintenance.choices import RouesSerrageEtat, TAUX_HORAIRE_CHOICES, FabricantLubrifiant, FabricantFiltre
+from maintenance.choices import RouesSerrageEtat, TAUX_HORAIRE_CHOICES, FabricantLubrifiant, FabricantFiltre, \
+    AmpouleAutomobile, FabricantPiece
 from utils.mixin import TechnicienMixin
 from societe.models import Societe
 
@@ -214,8 +215,51 @@ class Entretien(TechnicienMixin, models.Model):
 
 
     moteur_entretien_vidange = models.CharField(max_length=25, choices=EntretienEtat.choices, default=EntretienEtat.A_FAIRE, verbose_name=_("Vidange de l'huile moteur"))
-    moteur_bouchon_vidange =  models.CharField(max_length=25, choices=EntretienEtat.choices, default=EntretienEtat.A_FAIRE, verbose_name=_("Remplacer le bouchon de vidange"))
-    moteur_joint_vidange =  models.CharField(max_length=25, choices=EntretienEtat.choices, default=EntretienEtat.A_FAIRE, verbose_name=_("Remplacer le joint du bouchon de vidange"))
+    moteur_bouchon_vidange = models.CharField(
+        max_length=25,
+        choices=EntretienEtat.choices,
+        default=EntretienEtat.A_FAIRE,
+        verbose_name=_("Remplacer le bouchon de vidange"),
+    )
+    moteur_bouchon_vidange_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.AUTRE,
+        verbose_name=_("Nom du fabricant du bouchon de vidange"),
+    )
+    moteur_bouchon_vidange_quantite = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("Quantité de bouchons de vidange"),
+    )
+    moteur_bouchon_vidange_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA du bouchon de vidange"),
+    )
+
+    moteur_joint_vidange = models.CharField(
+        max_length=25,
+        choices=EntretienEtat.choices,
+        default=EntretienEtat.A_FAIRE,
+        verbose_name=_("Remplacer le joint du bouchon de vidange"),
+    )
+    moteur_joint_vidange_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.AUTRE,
+        verbose_name=_("Nom du fabricant du joint de bouchon de vidange"),
+    )
+    moteur_joint_vidange_quantite = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("Quantité de joints de bouchon de vidange"),
+    )
+    moteur_joint_vidange_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA du joint de bouchon de vidange"),
+    )
     moteur_ajout_huile =  models.CharField(max_length=25, choices=EntretienEtat.choices, default=EntretienEtat.A_FAIRE, verbose_name=_("Ajout de la nouvelle huile moteur"))
     moteur_ajout_huile_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices, default=FabricantLubrifiant.MOBIL,verbose_name=_("Nom du fabricant d'huile moteur"))
     moteur_ajout_huile_qualite = models.CharField(max_length=25, choices=HuileEtat.choices, default=HuileEtat.ZERO_30,verbose_name=_("Qualité d'huile"))
@@ -325,6 +369,36 @@ class Entretien(TechnicienMixin, models.Model):
         default=0,
         verbose_name=_("Prix d'achat HTVA du filtre d'habitacle"),
     )
+    filtre_huile_boite = models.CharField(
+        max_length=25,
+        choices=EntretienEtat.choices,
+        default=EntretienEtat.A_FAIRE,
+        verbose_name=_("Remplacer le filtre à huile de boîte de vitesses"),
+    )
+
+    filtre_huile_boite_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantFiltre.choices,
+        default=FabricantFiltre.BOSCH,
+        verbose_name=_("Nom du fabricant du filtre à huile de boîte de vitesses"),
+    )
+
+    filtre_huile_boite_quantite = models.DecimalField(
+        default=1.00,
+        decimal_places=2,
+        max_digits=4,
+        verbose_name=_("Quantité de filtres à huile de boîte de vitesses"),
+        validators=[StepValueValidator(0.1)],
+    )
+
+    filtre_huile_boite_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA du filtre à huile de boîte de vitesses"),
+    )
+
+
 
     bougies = models.CharField(
         max_length=25,
@@ -354,66 +428,369 @@ class Entretien(TechnicienMixin, models.Model):
 
 
     boite_entretien_vidange = models.CharField(max_length=25, choices=EntretienEtat.choices,default=EntretienEtat.A_FAIRE,verbose_name=_("Vidange de l'huile de boite de vitesses"))
-    boite_filtre_huile_bte = models.CharField(max_length=25, choices=EntretienEtat.choices, default=EntretienEtat.A_FAIRE,verbose_name=_("Remplacement du filtre à huile de boite de vitesses"))
-    boite_bouchon_vidange = models.CharField(max_length=25, choices=EntretienEtat.choices,default=EntretienEtat.A_FAIRE,verbose_name=_("Remplacer le bouchon de vidange"))
-    boite_joint_vidange = models.CharField(max_length=25, choices=EntretienEtat.choices, default=EntretienEtat.A_FAIRE,verbose_name=_("Remplacer le joint du bouchon de vidange"))
+
+
+    boite_bouchon_vidange = models.CharField(
+        max_length=25,
+        choices=EntretienEtat.choices,
+        default=EntretienEtat.A_FAIRE,
+        verbose_name=_("Remplacer le bouchon de vidange"),
+    )
+    boite_bouchon_vidange_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.AUTRE,
+        verbose_name=_("Nom du fabricant du bouchon de vidange"),
+    )
+    boite_bouchon_vidange_quantite = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("Quantité de bouchons de vidange"),
+    )
+    boite_bouchon_vidange_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA du bouchon de vidange"),
+    )
+
+    boite_joint_vidange = models.CharField(
+        max_length=25,
+        choices=EntretienEtat.choices,
+        default=EntretienEtat.A_FAIRE,
+        verbose_name=_("Remplacer le joint du bouchon de vidange"),
+    )
+    boite_joint_vidange_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.AUTRE,
+        verbose_name=_("Nom du fabricant du joint de bouchon de vidange"),
+    )
+    boite_joint_vidange_quantite = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_("Quantité de joints de bouchon de vidange"),
+    )
+    boite_joint_vidange_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA du joint de bouchon de vidange"),
+    )
     boite_ajout_huile = models.CharField(max_length=25, choices=EntretienEtat.choices, default=EntretienEtat.A_FAIRE,verbose_name=_("Vidange de l'huile moteur"))
+    boite_ajout_huile_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantLubrifiant.choices,
+        default=FabricantLubrifiant.MOBIL,
+        verbose_name=_("Nom du fabricant de l'huile de boîte de vitesses"),
+    )
     boite_ajout_huile_qualite = models.CharField(max_length=25, choices=HuileBoiteEtat.choices, default=HuileEtat.ZERO_30,verbose_name=_("Qualité d'huile"))
     boite_ajout_huile_quantite =  models.DecimalField(default=0.0, max_digits=4,  decimal_places=2,  verbose_name=_("Quantité d'huile de boite ajoutée en litres"), validators=[StepValueValidator(0.1)])
+    boite_ajout_huile_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA de l'huile de boîte de vitesses"),
+    )
+
+
 
     pont_entretien_vidange = models.CharField(max_length=25, choices=EntretienEtat.choices,default=EntretienEtat.A_FAIRE,verbose_name=_("Vidange de l'huile de pont"))
     pont_bouchon_vidange = models.CharField(max_length=25, choices=EntretienEtat.choices,default=EntretienEtat.A_FAIRE,verbose_name=_("Remplacer le bouchon de vidange"))
     pont_joint_vidange = models.CharField(max_length=25, choices=EntretienEtat.choices, default=EntretienEtat.A_FAIRE,verbose_name=_("Remplacer le joint du bouchon de vidange"))
     pont_ajout_huile = models.CharField(max_length=25, choices=EntretienEtat.choices, default=EntretienEtat.A_FAIRE,verbose_name=_("Ajout de la nouvelle huile de pont"))
+    pont_ajout_huile_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantLubrifiant.choices,
+        default=FabricantLubrifiant.MOBIL,
+        verbose_name=_("Nom du fabricant de l'huile de pont"),
+    )
     pont_ajout_huile_qualite = models.CharField(max_length=25, choices=HuilePontEtat.choices,default=HuilePontEtat.SEPTANTE_CINQ140, verbose_name=_("Qualité d'huile de pont"))
     pont_ajout_huile_quantite =  models.DecimalField(default=0.0, max_digits=4,  decimal_places=2, verbose_name=_("Quantité d'huile de pont ajoutée en litres"), validators=[StepValueValidator(0.1)])
+    pont_ajout_huile_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA de l'huile de pont"),
+    )
+
 
     lave_glace_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de lave-glace"))
     lave_glace_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.MOBIL,verbose_name=_("Nom du fabricant de lave glace"))
     lave_glace_quantite =  models.DecimalField(default=0.0, max_digits=4,  decimal_places=2,  validators=[StepValueValidator(0.1)], verbose_name=_("Quantité de liquide de lave glace ajoutée en litres"))
     lave_glace_qualite = models.CharField(max_length=25, choices=LaveGlaceQualite.choices,default=LaveGlaceQualite.HIVER,verbose_name=_("Qualité de liquide de lave glace"))
+    lave_glace_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+
 
     frein_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de freins"))
     frein_liquide_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.MOBIL,verbose_name=_("Nom du fabricant du liquide de freins"))
     frein_liquide_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=2,  validators=[StepValueValidator(0.1)], verbose_name=_("Quantité de liquide de freins ajoutée en litres"))
     frein_liquide_qualite = models.CharField(max_length=25, choices=LiquideFreinsQualite.choices,default=LiquideFreinsQualite.DOT4,verbose_name=_("Qualité de liquide de freins"))
+    frein_liquide_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+
+
 
     refroidissement_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de refroidissement"))
     refroidissement_liquide_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.MOBIL,verbose_name=_("Nom du fabricant du liquide de refroidissement"))
     refroidissement_liquide_quantite =  models.DecimalField(default=0.0, max_digits=4,  decimal_places=2,  validators=[StepValueValidator(0.1)], verbose_name=_("Quantité de liquide de refroidissement ajouté en litres"))
     refroidissement_liquide_qualite = models.CharField(max_length=25, choices=RefroidissementQualiteEtat.choices,default=RefroidissementQualiteEtat.G13,verbose_name=_("Qualité de liquide de refroidissement"))
-
+    refroidissement_liquide_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
 
 
     liquide_direction_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de direction"))
     liquide_direction_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices, default=FabricantLubrifiant.MOBIL,verbose_name=_("Nom du fabricant du liquide de direction"))
     liquide_direction_quantite =  models.DecimalField(default=0.0,  max_digits=4, decimal_places=2,  validators=[StepValueValidator(0.1)], verbose_name=_("Quantité de liquide de direction ajouté en litres"))
     liquide_direction_qualite = models.CharField(max_length=25, choices=LiquideDirectionQualite.choices,default=LiquideDirectionQualite.UNIVERSAL_PSF,verbose_name=_("Qualité de liquide de direction"))
-
+    liquide_direction_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
     # phares#
 
-    phares_avant = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
-                                    verbose_name=_("Feux de route"))
-    phares_gros_phares = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
-                                          verbose_name=_("Grand phares"))
-    phares_clignotants = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
-                                          verbose_name=_("Clignotants"))
-    phares_recul = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
-                                    verbose_name=_("Feux de recul"))
-    phares_anti_brouillard_avant = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
-                                                    verbose_name=_("Phares anti-brouillard avant"))
-    phares_anti_brouillard_arriere = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
-                                                      verbose_name=_("Phares anti-brouillard arrière"))
-    phares_feux_stops = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
-                                  verbose_name=_("Feux stop"))
-    phares_troisieme_feux_stop = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
-                                           verbose_name=_("Troisième feux stop"))
-    phares_feux_position_av = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
-                                        verbose_name=_("Feux de position avant"))
-    phares_feux_position_ar = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
-                                        verbose_name=_("Feux de position arrière"))
+    phares_avant = models.CharField(
+        max_length=25,
+        choices=PhareEtat.choices,
+        default=PhareEtat.OK,
+        verbose_name=_("Feux de route"),
+    )
+    phares_avant_type = models.CharField(
+        max_length=25,
+        choices=AmpouleAutomobile.choices,
+        default=AmpouleAutomobile.CHOISIR,
+        verbose_name=_("Type d'ampoule"),
+    )
+    phares_avant_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+    phares_avant_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
 
+    phares_gros_phares = models.CharField(
+        max_length=25,
+        choices=PhareEtat.choices,
+        default=PhareEtat.OK,
+        verbose_name=_("Grands phares"),
+    )
+    phares_gros_phares_type = models.CharField(
+        max_length=25,
+        choices=AmpouleAutomobile.choices,
+        default=AmpouleAutomobile.CHOISIR,
+        verbose_name=_("Type d'ampoule"),
+    )
+    phares_gros_phares_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+    phares_gros_phares_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
 
+    phares_clignotants = models.CharField(
+        max_length=25,
+        choices=PhareEtat.choices,
+        default=PhareEtat.OK,
+        verbose_name=_("Clignotants"),
+    )
+    phares_clignotants_type = models.CharField(
+        max_length=25,
+        choices=AmpouleAutomobile.choices,
+        default=AmpouleAutomobile.CHOISIR,
+        verbose_name=_("Type d'ampoule"),
+    )
+    phares_clignotants_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+    phares_clignotants_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    phares_recul = models.CharField(
+        max_length=25,
+        choices=PhareEtat.choices,
+        default=PhareEtat.OK,
+        verbose_name=_("Feux de recul"),
+    )
+    phares_recul_type = models.CharField(
+        max_length=25,
+        choices=AmpouleAutomobile.choices,
+        default=AmpouleAutomobile.CHOISIR,
+        verbose_name=_("Type d'ampoule"),
+    )
+    phares_recul_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+    phares_recul_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    phares_anti_brouillard_avant = models.CharField(
+        max_length=25,
+        choices=PhareEtat.choices,
+        default=PhareEtat.OK,
+        verbose_name=_("Phares anti-brouillard avant"),
+    )
+    phares_anti_brouillard_avant_type = models.CharField(
+        max_length=25,
+        choices=AmpouleAutomobile.choices,
+        default=AmpouleAutomobile.CHOISIR,
+        verbose_name=_("Type d'ampoule"),
+    )
+    phares_anti_brouillard_avant_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+    phares_anti_brouillard_avant_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    phares_anti_brouillard_arriere = models.CharField(
+        max_length=25,
+        choices=PhareEtat.choices,
+        default=PhareEtat.OK,
+        verbose_name=_("Phares anti-brouillard arrière"),
+    )
+    phares_anti_brouillard_arriere_type = models.CharField(
+        max_length=25,
+        choices=AmpouleAutomobile.choices,
+        default=AmpouleAutomobile.CHOISIR,
+        verbose_name=_("Type d'ampoule"),
+    )
+    phares_anti_brouillard_arriere_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+    phares_anti_brouillard_arriere_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    phares_feux_stops = models.CharField(
+        max_length=25,
+        choices=PhareEtat.choices,
+        default=PhareEtat.OK,
+        verbose_name=_("Feux stop"),
+    )
+    phares_feux_stops_type = models.CharField(
+        max_length=25,
+        choices=AmpouleAutomobile.choices,
+        default=AmpouleAutomobile.CHOISIR,
+        verbose_name=_("Type d'ampoule"),
+    )
+    phares_feux_stops_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+    phares_feux_stops_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    phares_troisieme_feux_stop = models.CharField(
+        max_length=25,
+        choices=PhareEtat.choices,
+        default=PhareEtat.OK,
+        verbose_name=_("Troisième feu stop"),
+    )
+    phares_troisieme_feux_stop_type = models.CharField(
+        max_length=25,
+        choices=AmpouleAutomobile.choices,
+        default=AmpouleAutomobile.CHOISIR,
+        verbose_name=_("Type d'ampoule"),
+    )
+    phares_troisieme_feux_stop_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+    phares_troisieme_feux_stop_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    phares_feux_position_av = models.CharField(
+        max_length=25,
+        choices=PhareEtat.choices,
+        default=PhareEtat.OK,
+        verbose_name=_("Feux de position avant"),
+    )
+    phares_feux_position_av_type = models.CharField(
+        max_length=25,
+        choices=AmpouleAutomobile.choices,
+        default=AmpouleAutomobile.CHOISIR,
+        verbose_name=_("Type d'ampoule"),
+    )
+    phares_feux_position_av_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+    phares_feux_position_av_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    phares_feux_position_ar = models.CharField(
+        max_length=25,
+        choices=PhareEtat.choices,
+        default=PhareEtat.OK,
+        verbose_name=_("Feux de position arrière"),
+    )
+    phares_feux_position_ar_type = models.CharField(
+        max_length=25,
+        choices=AmpouleAutomobile.choices,
+        default=AmpouleAutomobile.CHOISIR,
+        verbose_name=_("Type d'ampoule"),
+    )
+    phares_feux_position_ar_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+    phares_feux_position_ar_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
     pneu_pression_bar_avd = models.FloatField(default=2.4, verbose_name=_("Pression du pneu avant droit en bar"), validators=[StepValueValidator(0.1)])
     pneu_pression_bar_avg = models.FloatField(default=2.4, verbose_name=_("Pression du pneu avant gauche en bar"), validators=[StepValueValidator(0.1)])
     pneu_pression_bar_ard = models.FloatField(default=2.4, verbose_name=_("Pression du pneu arrière droit en bar"), validators=[StepValueValidator(0.1)])
@@ -561,6 +938,159 @@ class Entretien(TechnicienMixin, models.Model):
 
         super().save(*args, **kwargs)
 
+    def generer_rapport_remplacement(self):
+        rapport = []
+        total_general = Decimal("0.00")
+
+        for field in self._meta.fields:
+            field_name = field.name
+
+            # On traite uniquement les champs de prix
+            if not field_name.endswith("_prix"):
+                continue
+
+            # Exemple :
+            # moteur_bouchon_vidange_prix
+            # devient :
+            # moteur_bouchon_vidange
+            champ_base = field_name.removesuffix("_prix")
+
+            champ_quantite = f"{champ_base}_quantite"
+
+            # Le champ quantité doit exister
+            if not hasattr(self, champ_quantite):
+                continue
+
+            prix = getattr(self, field_name, None)
+            quantite = getattr(self, champ_quantite, None)
+
+            prix = Decimal(str(prix or 0))
+            quantite = Decimal(str(quantite or 0))
+
+            # Ne pas afficher les lignes sans valeur
+            if prix <= 0 or quantite <= 0:
+                continue
+
+            total = prix * quantite
+
+            prix = prix.quantize(
+                Decimal("0.01"),
+                rounding=ROUND_HALF_UP,
+            )
+
+            total = total.quantize(
+                Decimal("0.01"),
+                rounding=ROUND_HALF_UP,
+            )
+
+            # État de la pièce ou du produit
+            etat = getattr(self, champ_base, "")
+
+            methode_etat_display = getattr(
+                self,
+                f"get_{champ_base}_display",
+                None,
+            )
+
+            if callable(methode_etat_display):
+                etat_label = methode_etat_display()
+            else:
+                etat_label = etat or "-"
+
+            # Fabricant
+            fabricant = getattr(
+                self,
+                f"{champ_base}_fabricant",
+                "",
+            )
+
+            methode_fabricant_display = getattr(
+                self,
+                f"get_{champ_base}_fabricant_display",
+                None,
+            )
+
+            if callable(methode_fabricant_display):
+                fabricant_label = methode_fabricant_display()
+            else:
+                fabricant_label = fabricant or "-"
+
+            # Qualité
+            qualite = getattr(
+                self,
+                f"{champ_base}_qualite",
+                "",
+            )
+
+            methode_qualite_display = getattr(
+                self,
+                f"get_{champ_base}_qualite_display",
+                None,
+            )
+
+            if callable(methode_qualite_display):
+                qualite_label = methode_qualite_display()
+            else:
+                qualite_label = qualite or "-"
+
+            # Type, notamment pour les ampoules
+            type_piece = getattr(
+                self,
+                f"{champ_base}_type",
+                "",
+            )
+
+            methode_type_display = getattr(
+                self,
+                f"get_{champ_base}_type_display",
+                None,
+            )
+
+            if callable(methode_type_display):
+                type_label = methode_type_display()
+            else:
+                type_label = type_piece or "-"
+
+            # Libellé du champ principal
+            try:
+                champ_model = self._meta.get_field(champ_base)
+                libelle = champ_model.verbose_name
+            except Exception:
+                libelle = champ_base.replace("_", " ").capitalize()
+
+            rapport.append({
+                "champ": libelle,
+                "nom": libelle,
+                "code": champ_base,
+
+                "etat": etat,
+                "etat_label": etat_label,
+
+                "fabricant": fabricant,
+                "fabricant_label": fabricant_label,
+
+                "qualite": qualite,
+                "qualite_label": qualite_label,
+
+                "type": type_piece,
+                "type_label": type_label,
+
+                "quantite": quantite,
+                "prix": prix,
+                "prix_unitaire": prix,
+                "total": total,
+            })
+
+            total_general += total
+
+        return {
+            "lignes": rapport,
+            "pieces": rapport,
+            "total_general": total_general.quantize(
+                Decimal("0.01"),
+                rounding=ROUND_HALF_UP,
+            ),
+        }
 
     @property
     def utilisateur_main_oeuvre(self):
@@ -588,7 +1118,7 @@ class Entretien(TechnicienMixin, models.Model):
                 self.main_oeuvre
                 and self.main_oeuvre.taux_horaire is not None
         ):
-            return self.main_oeuvre.taux_horaire
+            return Decimal(str(self.main_oeuvre.taux_horaire))
 
         return Decimal("0.00")
 
@@ -597,15 +1127,18 @@ class Entretien(TechnicienMixin, models.Model):
         if not self.main_oeuvre:
             return Decimal("0.00")
 
-        temps_minutes = self.main_oeuvre.temps_minutes or 0
-        taux_horaire = (
-                self.main_oeuvre.taux_horaire or Decimal("0.00")
+        temps_minutes = Decimal(
+            str(self.main_oeuvre.temps_minutes or 0)
+        )
+
+        taux_horaire = Decimal(
+            str(self.main_oeuvre.taux_horaire or 0)
         )
 
         cout = (
-                Decimal(str(temps_minutes))
+                temps_minutes
                 / Decimal("60")
-                * Decimal(str(taux_horaire))
+                * taux_horaire
         )
 
         return cout.quantize(
