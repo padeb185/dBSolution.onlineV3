@@ -6,7 +6,7 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from maintenance.choices import RouesSerrageEtat, TAUX_HORAIRE_CHOICES
+from maintenance.choices import RouesSerrageEtat, TAUX_HORAIRE_CHOICES, FabricantFrein
 from maintenance.niveaux.models import LiquideFreinsQualite
 from maintenance.models import Maintenance
 from utils.mixin import TechnicienMixin
@@ -62,17 +62,116 @@ class ControleFreins(TechnicienMixin, models.Model):
 
     avant_freins_pl_usure_plaquettes = models.IntegerField(default=0, verbose_name=_("Usure des plaquettes avant (%)"))
     avant_freins_pl_plaquettes_remplacer = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK,verbose_name=_("Plaquettes avant"))
+    avant_freins_pl_fabricant = models.CharField(max_length=25, choices=FabricantFrein.choices, default=FabricantFrein.CHOISIR,verbose_name=_("Fabricant des plaquettes avant"))
+    avant_freins_pl_quantite = models.PositiveIntegerField(default=0, verbose_name=_("Quantite"))
+    avant_freins_pl_prix = models.DecimalField( max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat des plaquettes avant HTVA")
+    )
+
+
+
 
     avant_freins_d_epaisseur_disques = models.FloatField(default=0.0, verbose_name=_("Épaisseur des disques avant (mm)"))
     avant_freins_d_fentes_disques = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Présence de fentes sur les disques avant"))
     avant_freins_d_disques_remplacer = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Disques avant"))
+    avant_freins_d_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantFrein.choices,
+        default=FabricantFrein.CHOISIR,
+        verbose_name=_("Fabricant des disques avant")
+    )
 
-    arriere_freins_pl_usure_plaquettes = models.IntegerField(default=0, verbose_name=_("Usure des plaquettes arrière (%)"))
-    arriere_freins_pl_plaquettes_remplacer = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK,verbose_name=_("Plaquettes arrière"))
+    avant_freins_d_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
 
-    arriere_freins_d_epaisseur_disques = models.FloatField(default=0, verbose_name=_("Épaisseur des disques arrière (mm)"))
-    arriere_freins_d_fentes_disques = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Présence de fentes sur les disques arrière"))
-    arriere_freins_d_disques_remplacer = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Disques arrière"))
+    avant_freins_d_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat des disques avant HTVA")
+    )
+
+    # ==========================
+    # PLAQUETTES ARRIÈRE
+    # ==========================
+
+    arriere_freins_pl_usure_plaquettes = models.IntegerField(
+        default=0,
+        verbose_name=_("Usure des plaquettes arrière (%)")
+    )
+
+    arriere_freins_pl_plaquettes_remplacer = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Plaquettes arrière")
+    )
+
+    arriere_freins_pl_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantFrein.choices,
+        default=FabricantFrein.CHOISIR,
+        verbose_name=_("Fabricant des plaquettes arrière")
+    )
+
+    arriere_freins_pl_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    arriere_freins_pl_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat des plaquettes arrière HTVA")
+    )
+
+    # ==========================
+    # DISQUES ARRIÈRE
+    # ==========================
+
+    arriere_freins_d_epaisseur_disques = models.FloatField(
+        default=0,
+        verbose_name=_("Épaisseur des disques arrière (mm)")
+    )
+
+    arriere_freins_d_fentes_disques = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Présence de fentes sur les disques arrière")
+    )
+
+    arriere_freins_d_disques_remplacer = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Disques arrière")
+    )
+
+    arriere_freins_d_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantFrein.choices,
+        default=FabricantFrein.CHOISIR,
+        verbose_name=_("Fabricant des disques arrière")
+    )
+
+    arriere_freins_d_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+
+    arriere_freins_d_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat des disques arrière HTVA")
+    )
+
 
     fuites_freins_fuites = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Présence de fuite"))
     fuites_freins_machoire = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Présence de fuite machoire"))
@@ -92,12 +191,104 @@ class ControleFreins(TechnicienMixin, models.Model):
         verbose_name=_("Quantité liquide de frein (L)"),
         validators=[StepValueValidator(0.1)])
 
-    machoire_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("État de la machoire avant gauche"))
-    machoire_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("État de la machoire avant droite"))
-    machoire_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("État de la machoire arrière gauche"))
-    machoire_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("État de la machoire arrière droite"))
+
+
+    machoire_avg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("État de la mâchoire avant gauche"),
+    )
+    machoire_avg_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantFrein.choices,
+        default=FabricantFrein.CHOISIR,
+        verbose_name=_("Fabricant de la mâchoire avant gauche"),
+    )
+    machoire_avg_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    machoire_avg_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat de la mâchoire avant gauche HTVA"),
+    )
+
+    machoire_avd = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("État de la mâchoire avant droite"),
+    )
+    machoire_avd_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantFrein.choices,
+        default=FabricantFrein.CHOISIR,
+        verbose_name=_("Fabricant de la mâchoire avant droite"),
+    )
+    machoire_avd_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    machoire_avd_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat de la mâchoire avant droite HTVA"),
+    )
+
+    machoire_arg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("État de la mâchoire arrière gauche"),
+    )
+    machoire_arg_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantFrein.choices,
+        default=FabricantFrein.CHOISIR,
+        verbose_name=_("Fabricant de la mâchoire arrière gauche"),
+    )
+    machoire_arg_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    machoire_arg_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat de la mâchoire arrière gauche HTVA"),
+    )
+
+    machoire_ard = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("État de la mâchoire arrière droite"),
+    )
+    machoire_ard_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantFrein.choices,
+        default=FabricantFrein.CHOISIR,
+        verbose_name=_("Fabricant de la mâchoire arrière droite"),
+    )
+    machoire_ard_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    machoire_ard_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat de la mâchoire arrière droite HTVA"),
+    )
+
 
     serrage_roues = models.CharField(max_length=25, choices=RouesSerrageEtat.choices, default=RouesSerrageEtat.A_FAIRE,verbose_name=_("Serrage des roues"))
+
+
 
     remarques = models.TextField(
         verbose_name=_("Remarques"), blank=True, null=True)

@@ -1,7 +1,7 @@
 {% load i18n %}
 
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
     <meta charset="utf-8">
 
@@ -41,16 +41,34 @@
             gap: 6px;
         }
 
-        .grid-3 {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 6px;
-        }
-
         .label {
             font-weight: bold;
         }
-        .ok {
+
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .tag-vert {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .tag-jaune {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .tag-rouge {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .etat-vert {
+            display: inline-block;
             color: #166534;
             background: #dcfce7;
             padding: 2px 6px;
@@ -58,7 +76,8 @@
             font-weight: bold;
         }
 
-        .not-ok {
+        .etat-rouge {
+            display: inline-block;
             color: #991b1b;
             background: #fee2e2;
             padding: 2px 6px;
@@ -66,7 +85,8 @@
             font-weight: bold;
         }
 
-        .remplace {
+        .etat-bleu {
+            display: inline-block;
             color: #1e40af;
             background: #dbeafe;
             padding: 2px 6px;
@@ -75,39 +95,11 @@
         }
 
         .etat-gris {
+            display: inline-block;
             color: #6b7280;
             background: #f3f4f6;
             padding: 2px 6px;
             border-radius: 4px;
-            font-weight: bold;
-        }
-
-
-        .tag {
-            padding: 3px 8px;
-            border-radius: 4px;
-            color: white;
-            font-weight: bold;
-        }
-
-        .tag-vert {
-            background: #16a34a;
-        }
-
-        .tag-jaune {
-            background: #ca8a04;
-        }
-
-        .tag-rouge {
-            background: #dc2626;
-        }
-        .ok {
-            color: #16a34a;
-            font-weight: bold;
-        }
-
-        .not-ok {
-            color: #dc2626;
             font-weight: bold;
         }
 
@@ -130,11 +122,17 @@
             text-align: left;
         }
 
+        .section-row td {
+            background: #f8fafc;
+            color: #1e40af;
+            font-weight: bold;
+        }
+
         .text-right {
             text-align: right;
         }
 
-         .total {
+        .total {
             font-weight: bold;
             background: #f8fafc;
         }
@@ -142,16 +140,37 @@
 </head>
 
 <body>
+
 <h1>{% trans "Détail de la maintenance alternateur" %}</h1>
 
+<!-- ================================================== -->
+<!-- INFORMATIONS GÉNÉRALES -->
+<!-- ================================================== -->
+
 <div class="box">
-
     <div class="grid">
-        <div><span class="label">{% trans "Date" %} :</span> {{ alternateur.date|date:"d/m/Y H:i" }}</div>
-        <div><span class="label">{% trans "Technicien" %} :</span> {{ alternateur.tech_nom_technicien }}</div>
 
-        <div><span class="label">{% trans "Société" %} :</span> {{ alternateur.tech_societe }}</div>
-         <div>
+        <div>
+            <span class="label">{% trans "Date" %} :</span>
+            {{ alternateur.date|date:"d/m/Y H:i" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+
+            {% if alternateur.main_oeuvre and alternateur.main_oeuvre.utilisateur %}
+                {{ alternateur.main_oeuvre.utilisateur }}
+            {% else %}
+                {{ alternateur.tech_nom_technicien|default:"-" }}
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Société" %} :</span>
+            {{ alternateur.tech_societe|default:"-" }}
+        </div>
+
+        <div>
             <span class="label">{% trans "Tag" %} :</span>
 
             {% if alternateur.tag == "VERT" %}
@@ -164,139 +183,201 @@
                     {{ alternateur.get_tag_display }}
                 </span>
 
-            {% else %}
+            {% elif alternateur.tag == "ROUGE" %}
                 <span class="tag tag-rouge">
                     {{ alternateur.get_tag_display }}
                 </span>
-            {% endif %}
-        </div>
-
-        <div><span class="label">{% trans "Véhicule" %} :</span> {{ alternateur.voiture_exemplaire }}</div>
-
-        <div><span class="label">{% trans "Kilométrage chassis" %} :</span>
-            {{ alternateur.kilometres_chassis }} km
-        </div>
-
-        <div><span class="label">{% trans "Kilométrage alternateur" %} :</span>
-            {{ alternateur.kilometrage_alte }} km
-        </div>
-
-    </div>
-</div>
-
-<h2>{% trans "Diagnostic alternateur" %}</h2>
-
-<div class="box">
-    <div class="grid">
-
-        <div>
-            {% trans "Tension charge" %} :
-            {{ alternateur.diagnostic_charge_volt }} V
-        </div>
-
-        <div>
-            {% trans "Courant charge" %} :
-            {{ alternateur.diagnostic_charge_ampere }} A
-        </div>
-
-        <div>
-           <div>
-                {% trans "État alternateur" %} :
-
-                {% if alternateur.alternateur == "OK" %}
-                    <span class="ok">
-                        {{ alternateur.get_alternateur_display }}
-                    </span>
-
-                {% elif alternateur.alternateur == "NOT_OK" %}
-                    <span class="not-ok">
-                        {{ alternateur.get_alternateur_display }}
-                    </span>
-
-                {% elif alternateur.alternateur == "REMPLACE" %}
-                    <span class="remplace">
-                        {{ alternateur.get_alternateur_display }}
-                    </span>
-
-                {% else %}
-                    {{ alternateur.get_alternateur_display|default:"-" }}
-                {% endif %}
-            </div>
-        </div>
-
-    </div>
-</div>
-
-<h2>{% trans "Courroie d'accessoires" %}</h2>
-
-<div class="box">
-    <div class="grid">
-
-        <div>
-            {% trans "État" %} :
-
-            {% if alternateur.courroie_accessoires == "OK" %}
-                <span class="ok">
-                    {{ alternateur.get_courroie_accessoires_display }}
-                </span>
-
-            {% elif alternateur.courroie_accessoires == "NOT_OK" %}
-                <span class="not-ok">
-                    {{ alternateur.get_courroie_accessoires_display }}
-                </span>
-
-            {% elif alternateur.courroie_accessoires == "REMPLACE" %}
-                <span class="remplace">
-                    {{ alternateur.get_courroie_accessoires_display }}
-                </span>
 
             {% else %}
-                {{ alternateur.get_courroie_accessoires_display|default:"-" }}
+                <span class="etat-gris">
+                    {{ alternateur.get_tag_display|default:"-" }}
+                </span>
             {% endif %}
         </div>
 
+        <div>
+            <span class="label">{% trans "Véhicule" %} :</span>
+            {{ alternateur.voiture_exemplaire|default:"-" }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage du châssis" %} :</span>
+            {{ alternateur.kilometres_chassis|default:0 }} km
+        </div>
+
+        <div>
+            <span class="label">{% trans "Kilométrage alternateur" %} :</span>
+            {{ alternateur.kilometrage_alte|default:0 }} km
+        </div>
+
     </div>
+</div>
+
+<!-- ================================================== -->
+<!-- MESURES DU DIAGNOSTIC -->
+<!-- ================================================== -->
+
+<h2>{% trans "Mesures du diagnostic alternateur" %}</h2>
+
+<div class="box">
+    <div class="grid">
+
+        <div>
+            <span class="label">{% trans "Tension de charge" %} :</span>
+            {{ alternateur.diagnostic_charge_volt|default:0 }} V
+        </div>
+
+        <div>
+            <span class="label">{% trans "Courant de charge" %} :</span>
+            {{ alternateur.diagnostic_charge_ampere|default:0 }} A
+        </div>
+
+    </div>
+</div>
+
+<!-- ================================================== -->
+<!-- ÉTAT DES COMPOSANTS -->
+<!-- ================================================== -->
+
+<h2>{% trans "État des composants" %}</h2>
+
+<div class="box">
+
+    <table>
+        <thead>
+            <tr>
+                <th>{% trans "Élément contrôlé" %}</th>
+                <th>{% trans "État" %}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr class="section-row">
+                <td colspan="2">
+                    {% trans "Alternateur" %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "État de l'alternateur" %}</td>
+
+                <td>
+                    {% if alternateur.alternateur == "OK" %}
+                        <span class="etat-vert">
+                            {{ alternateur.get_alternateur_display }}
+                        </span>
+
+                    {% elif alternateur.alternateur == "NOT_OK" %}
+                        <span class="etat-rouge">
+                            {{ alternateur.get_alternateur_display }}
+                        </span>
+
+                    {% elif alternateur.alternateur == "REMPLACE" %}
+                        <span class="etat-bleu">
+                            {{ alternateur.get_alternateur_display }}
+                        </span>
+
+                    {% else %}
+                        <span class="etat-gris">
+                            {{ alternateur.get_alternateur_display|default:"-" }}
+                        </span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr class="section-row">
+                <td colspan="2">
+                    {% trans "Entraînement de l'alternateur" %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Courroie d'accessoires" %}</td>
+
+                <td>
+                    {% if alternateur.courroie_accessoires == "OK" %}
+                        <span class="etat-vert">
+                            {{ alternateur.get_courroie_accessoires_display }}
+                        </span>
+
+                    {% elif alternateur.courroie_accessoires == "NOT_OK" %}
+                        <span class="etat-rouge">
+                            {{ alternateur.get_courroie_accessoires_display }}
+                        </span>
+
+                    {% elif alternateur.courroie_accessoires == "REMPLACE" %}
+                        <span class="etat-bleu">
+                            {{ alternateur.get_courroie_accessoires_display }}
+                        </span>
+
+                    {% else %}
+                        <span class="etat-gris">
+                            {{ alternateur.get_courroie_accessoires_display|default:"-" }}
+                        </span>
+                    {% endif %}
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
 </div>
 
 <!-- ================================================== -->
 <!-- MAIN-D'ŒUVRE -->
 <!-- ================================================== -->
 
-<h2>{% trans "Main d'œuvre" %}</h2>
+<h2>{% trans "Main-d'œuvre" %}</h2>
 
 <div class="box">
     <div class="grid">
+
         <div>
-            <span class="label">{% trans "Temps" %} :</span>
+            <span class="label">{% trans "Temps de travail" %} :</span>
             {{ alternateur.temps_main_oeuvre_display|default:"0h00" }}
         </div>
 
-        {% if alternateur.main_oeuvre %}
-            <div>
-                <span class="label">{% trans "Taux horaire" %} :</span>
-                {{ alternateur.main_oeuvre.taux_horaire|floatformat:2 }} €
-            </div>
+        <div>
+            <span class="label">{% trans "Taux horaire" %} :</span>
 
-            <div>
-                <span class="label">{% trans "Prix facturé" %} :</span>
-                {{ alternateur.main_oeuvre.prix_facture|floatformat:2 }} €
-            </div>
+            {% if alternateur.main_oeuvre %}
+                {{ alternateur.main_oeuvre.taux_horaire|default:0|floatformat:2 }} €
+            {% else %}
+                0,00 €
+            {% endif %}
+        </div>
 
+        <div>
+            <span class="label">{% trans "Coût de la main-d'œuvre" %} :</span>
+            {{ alternateur.cout_main_oeuvre|default:0|floatformat:2 }} €
+        </div>
+
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+
+            {% if alternateur.main_oeuvre and alternateur.main_oeuvre.utilisateur %}
+                {{ alternateur.main_oeuvre.utilisateur }}
+            {% else %}
+                {{ alternateur.tech_nom_technicien|default:"-" }}
+            {% endif %}
+        </div>
+
+        {% if alternateur.main_oeuvre and alternateur.main_oeuvre.descriptif %}
             <div>
                 <span class="label">{% trans "Descriptif" %} :</span>
-                {{ alternateur.main_oeuvre.descriptif|default:"-" }}
+                {{ alternateur.main_oeuvre.descriptif }}
             </div>
-        {% else %}
-            <div>{% trans "Aucune main d'œuvre liée" %}</div>
         {% endif %}
+
     </div>
 </div>
 
 <!-- ================================================== -->
-<!-- PIÈCES ET PRODUITS -->
+<!-- PIÈCES, PRODUITS ET TOTAUX -->
 <!-- ================================================== -->
 
-<h2>{% trans "Pièces, produits utilisés et main d'oeuvre" %}</h2>
+<h2>{% trans "Pièces, produits utilisés et main-d'œuvre" %}</h2>
 
 <div class="box">
 
@@ -307,9 +388,15 @@
                 <tr>
                     <th>{% trans "Pièce / Produit" %}</th>
                     <th>{% trans "État" %}</th>
-                    <th class="text-right">{% trans "Quantité" %}</th>
-                    <th class="text-right">{% trans "Prix unitaire HTVA" %}</th>
-                    <th class="text-right">{% trans "Total HTVA" %}</th>
+                    <th class="text-right">
+                        {% trans "Quantité" %}
+                    </th>
+                    <th class="text-right">
+                        {% trans "Prix unitaire HTVA" %}
+                    </th>
+                    <th class="text-right">
+                        {% trans "Total HTVA" %}
+                    </th>
                 </tr>
             </thead>
 
@@ -318,11 +405,30 @@
                 {% for ligne in rapport.lignes %}
                     <tr>
                         <td>
-                            {{ ligne.champ }}
+                            {{ ligne.champ|default:"-" }}
                         </td>
 
                         <td>
-                            {{ ligne.etat_label|default:"-" }}
+                            {% if ligne.etat == "OK" %}
+                                <span class="etat-vert">
+                                    {{ ligne.etat_label|default:"-" }}
+                                </span>
+
+                            {% elif ligne.etat == "NOT_OK" %}
+                                <span class="etat-rouge">
+                                    {{ ligne.etat_label|default:"-" }}
+                                </span>
+
+                            {% elif ligne.etat == "REMPLACE" %}
+                                <span class="etat-bleu">
+                                    {{ ligne.etat_label|default:"-" }}
+                                </span>
+
+                            {% else %}
+                                <span class="etat-gris">
+                                    {{ ligne.etat_label|default:"-" }}
+                                </span>
+                            {% endif %}
                         </td>
 
                         <td class="text-right">
@@ -380,29 +486,27 @@
 
         <table>
             <tbody>
+
                 <tr class="total">
                     <td>
-                        <div>
-                            <strong>{% trans "Main-d'œuvre" %}</strong>
-                        </div>
+                        {% trans "Main-d'œuvre" %}
+                    </td>
 
-                        <div class="text-right" style="margin-top: 4px;">
-                            {{ alternateur.cout_main_oeuvre|default:0|floatformat:2 }} €
-                        </div>
+                    <td class="text-right">
+                        {{ alternateur.cout_main_oeuvre|default:0|floatformat:2 }} €
                     </td>
                 </tr>
 
                 <tr class="total">
                     <td>
-                        <div>
-                            <strong>{% trans "Total général" %}</strong>
-                        </div>
+                        {% trans "Total général" %}
+                    </td>
 
-                        <div class="text-right" style="margin-top: 4px;">
-                            {{ alternateur.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
-                        </div>
+                    <td class="text-right">
+                        {{ alternateur.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
                     </td>
                 </tr>
+
             </tbody>
         </table>
 
@@ -410,14 +514,18 @@
 
 </div>
 
-
-<!-- ================= REMARQUES ================= -->
-
+<!-- ================================================== -->
+<!-- REMARQUES -->
+<!-- ================================================== -->
 
 <h2>{% trans "Remarques" %}</h2>
 
 <div class="box">
-    {{ alternateur.remarques|default:_("Aucune remarque.") }}
+    {% if alternateur.remarques %}
+        {{ alternateur.remarques|linebreaks }}
+    {% else %}
+        {% trans "Aucune remarque." %}
+    {% endif %}
 </div>
 
 </body>

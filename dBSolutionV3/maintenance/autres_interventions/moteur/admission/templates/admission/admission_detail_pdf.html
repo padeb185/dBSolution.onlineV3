@@ -1,7 +1,7 @@
 {% load i18n %}
 
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
     <meta charset="utf-8">
 
@@ -46,25 +46,28 @@
         }
 
         .tag {
-            padding: 3px 8px;
+            padding: 2px 8px;
             border-radius: 4px;
-            color: white;
             font-weight: bold;
         }
 
         .tag-vert {
-            background: #16a34a;
+            background: #d1fae5;
+            color: #065f46;
         }
 
         .tag-jaune {
-            background: #ca8a04;
+            background: #fef3c7;
+            color: #92400e;
         }
 
         .tag-rouge {
-            background: #dc2626;
+            background: #fee2e2;
+            color: #991b1b;
         }
 
-         .etat-vert {
+        .etat-vert {
+            display: inline-block;
             color: #166534;
             background: #dcfce7;
             padding: 2px 6px;
@@ -73,6 +76,7 @@
         }
 
         .etat-rouge {
+            display: inline-block;
             color: #991b1b;
             background: #fee2e2;
             padding: 2px 6px;
@@ -81,8 +85,18 @@
         }
 
         .etat-bleu {
+            display: inline-block;
             color: #1e40af;
             background: #dbeafe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .etat-gris {
+            display: inline-block;
+            color: #6b7280;
+            background: #f3f4f6;
             padding: 2px 6px;
             border-radius: 4px;
             font-weight: bold;
@@ -107,6 +121,12 @@
             text-align: left;
         }
 
+        .section-row td {
+            background: #f8fafc;
+            color: #1e40af;
+            font-weight: bold;
+        }
+
         .text-right {
             text-align: right;
         }
@@ -122,10 +142,13 @@
 
 <h1>{% trans "Contrôle de l'admission moteur" %}</h1>
 
-<!-- ================= INFO ================= -->
-<div class="box">
+<!-- ================================================== -->
+<!-- INFORMATIONS GÉNÉRALES -->
+<!-- ================================================== -->
 
+<div class="box">
     <div class="grid">
+
         <div>
             <span class="label">{% trans "Date" %} :</span>
             {{ admission.date|date:"d/m/Y H:i" }}
@@ -133,12 +156,17 @@
 
         <div>
             <span class="label">{% trans "Technicien" %} :</span>
-            {{ admission.tech_nom_technicien }}
+
+            {% if admission.main_oeuvre and admission.main_oeuvre.utilisateur %}
+                {{ admission.main_oeuvre.utilisateur }}
+            {% else %}
+                {{ admission.tech_nom_technicien|default:"-" }}
+            {% endif %}
         </div>
 
         <div>
             <span class="label">{% trans "Société" %} :</span>
-            {{ admission.tech_societe }}
+            {{ admission.tech_societe|default:"-" }}
         </div>
 
         <div>
@@ -154,265 +182,461 @@
                     {{ admission.get_tag_display }}
                 </span>
 
-            {% else %}
+            {% elif admission.tag == "ROUGE" %}
                 <span class="tag tag-rouge">
                     {{ admission.get_tag_display }}
+                </span>
+
+            {% else %}
+                <span class="etat-gris">
+                    {{ admission.get_tag_display|default:"-" }}
                 </span>
             {% endif %}
         </div>
 
         <div>
             <span class="label">{% trans "Véhicule" %} :</span>
-            {{ admission.voiture_exemplaire }}
+            {{ admission.voiture_exemplaire|default:"-" }}
         </div>
 
         <div>
-            <span class="label">{% trans "Kilométrage actuel" %} :</span>
-            {{ admission.kilometres_chassis }} km
+            <span class="label">{% trans "Kilométrage du châssis" %} :</span>
+            {{ admission.kilometres_chassis|default:0 }} km
         </div>
 
         <div>
             <span class="label">{% trans "Kilométrage admission" %} :</span>
-            {{ admission.kilometrage_admission }} km
+            {{ admission.kilometrage_admission|default:0 }} km
         </div>
-    </div>
 
+    </div>
 </div>
 
-<!-- ================= FILTRATION ================= -->
-<h2>{% trans "Filtration" %}</h2>
+<!-- ================================================== -->
+<!-- ÉTAT DES COMPOSANTS -->
+<!-- ================================================== -->
+
+<h2>{% trans "État des composants de l'admission" %}</h2>
 
 <div class="box">
-    <div class="grid">
 
-        <div>
-            <span class="label">{% trans "Filtre à air" %} :</span>
-            {% if admission.filtre_air_pc == "OK" %}
-                <span class="etat-vert">{{ admission.get_filtre_air_pc_display }}</span>
-            {% elif admission.filtre_air_pc == "NOT_OK" %}
-                <span class="etat-rouge">{{ admission.get_filtre_air_pc_display }}</span>
-            {% elif admission.filtre_air_pc == "REMPLACE" %}
-                <span class="etat-bleu">{{ admission.get_filtre_air_pc_display }}</span>
-            {% endif %}
-        </div>
+    <table>
+        <thead>
+            <tr>
+                <th>{% trans "Élément contrôlé" %}</th>
+                <th>{% trans "État" %}</th>
+            </tr>
+        </thead>
 
-        <div>
-            <span class="label">{% trans "Boîtier filtre à air" %} :</span>
-            {% if admission.boitier_filtre_air == "OK" %}
-                <span class="etat-vert">{{ admission.get_boitier_filtre_air_display }}</span>
-            {% elif admission.boitier_filtre_air == "NOT_OK" %}
-                <span class="etat-rouge">{{ admission.get_boitier_filtre_air_display }}</span>
-            {% elif admission.boitier_filtre_air == "REMPLACE" %}
-                <span class="etat-bleu">{{ admission.get_boitier_filtre_air_display }}</span>
-            {% endif %}
-        </div>
+        <tbody>
 
-    </div>
+            <!-- FILTRATION -->
+
+            <tr class="section-row">
+                <td colspan="2">{% trans "Filtration" %}</td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Filtre à air" %}</td>
+                <td>
+                    {% if admission.filtre_air_pc == "OK" %}
+                        <span class="etat-vert">
+                            {{ admission.get_filtre_air_pc_display }}
+                        </span>
+
+                    {% elif admission.filtre_air_pc == "NOT_OK" %}
+                        <span class="etat-rouge">
+                            {{ admission.get_filtre_air_pc_display }}
+                        </span>
+
+                    {% elif admission.filtre_air_pc == "REMPLACE" %}
+                        <span class="etat-bleu">
+                            {{ admission.get_filtre_air_pc_display }}
+                        </span>
+
+                    {% else %}
+                        <span class="etat-gris">
+                            {{ admission.get_filtre_air_pc_display|default:"-" }}
+                        </span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Boîtier du filtre à air" %}</td>
+                <td>
+                    {% if admission.boitier_filtre_air == "OK" %}
+                        <span class="etat-vert">
+                            {{ admission.get_boitier_filtre_air_display }}
+                        </span>
+
+                    {% elif admission.boitier_filtre_air == "NOT_OK" %}
+                        <span class="etat-rouge">
+                            {{ admission.get_boitier_filtre_air_display }}
+                        </span>
+
+                    {% elif admission.boitier_filtre_air == "REMPLACE" %}
+                        <span class="etat-bleu">
+                            {{ admission.get_boitier_filtre_air_display }}
+                        </span>
+
+                    {% else %}
+                        <span class="etat-gris">
+                            {{ admission.get_boitier_filtre_air_display|default:"-" }}
+                        </span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <!-- MESURE D'AIR -->
+
+            <tr class="section-row">
+                <td colspan="2">{% trans "Mesure d'air" %}</td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Débitmètre d'air" %}</td>
+                <td>
+                    {% if admission.debitmetre == "OK" %}
+                        <span class="etat-vert">
+                            {{ admission.get_debitmetre_display }}
+                        </span>
+
+                    {% elif admission.debitmetre == "NOT_OK" %}
+                        <span class="etat-rouge">
+                            {{ admission.get_debitmetre_display }}
+                        </span>
+
+                    {% elif admission.debitmetre == "REMPLACE" %}
+                        <span class="etat-bleu">
+                            {{ admission.get_debitmetre_display }}
+                        </span>
+
+                    {% else %}
+                        <span class="etat-gris">
+                            {{ admission.get_debitmetre_display|default:"-" }}
+                        </span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Capteur MAP" %}</td>
+                <td>
+                    {% if admission.capteur_map == "OK" %}
+                        <span class="etat-vert">
+                            {{ admission.get_capteur_map_display }}
+                        </span>
+
+                    {% elif admission.capteur_map == "NOT_OK" %}
+                        <span class="etat-rouge">
+                            {{ admission.get_capteur_map_display }}
+                        </span>
+
+                    {% elif admission.capteur_map == "REMPLACE" %}
+                        <span class="etat-bleu">
+                            {{ admission.get_capteur_map_display }}
+                        </span>
+
+                    {% else %}
+                        <span class="etat-gris">
+                            {{ admission.get_capteur_map_display|default:"-" }}
+                        </span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Capteur de température d'air" %}</td>
+                <td>
+                    {% if admission.capteur_temperature_air == "OK" %}
+                        <span class="etat-vert">
+                            {{ admission.get_capteur_temperature_air_display }}
+                        </span>
+
+                    {% elif admission.capteur_temperature_air == "NOT_OK" %}
+                        <span class="etat-rouge">
+                            {{ admission.get_capteur_temperature_air_display }}
+                        </span>
+
+                    {% elif admission.capteur_temperature_air == "REMPLACE" %}
+                        <span class="etat-bleu">
+                            {{ admission.get_capteur_temperature_air_display }}
+                        </span>
+
+                    {% else %}
+                        <span class="etat-gris">
+                            {{ admission.get_capteur_temperature_air_display|default:"-" }}
+                        </span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <!-- ADMISSION PRINCIPALE -->
+
+            <tr class="section-row">
+                <td colspan="2">{% trans "Admission principale" %}</td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Corps de papillon" %}</td>
+                <td>
+                    {% if admission.corps_papillon == "OK" %}
+                        <span class="etat-vert">
+                            {{ admission.get_corps_papillon_display }}
+                        </span>
+
+                    {% elif admission.corps_papillon == "NOT_OK" %}
+                        <span class="etat-rouge">
+                            {{ admission.get_corps_papillon_display }}
+                        </span>
+
+                    {% elif admission.corps_papillon == "REMPLACE" %}
+                        <span class="etat-bleu">
+                            {{ admission.get_corps_papillon_display }}
+                        </span>
+
+                    {% else %}
+                        <span class="etat-gris">
+                            {{ admission.get_corps_papillon_display|default:"-" }}
+                        </span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Collecteur d'admission" %}</td>
+                <td>
+                    {% if admission.collecteur_admission == "OK" %}
+                        <span class="etat-vert">
+                            {{ admission.get_collecteur_admission_display }}
+                        </span>
+
+                    {% elif admission.collecteur_admission == "NOT_OK" %}
+                        <span class="etat-rouge">
+                            {{ admission.get_collecteur_admission_display }}
+                        </span>
+
+                    {% elif admission.collecteur_admission == "REMPLACE" %}
+                        <span class="etat-bleu">
+                            {{ admission.get_collecteur_admission_display }}
+                        </span>
+
+                    {% else %}
+                        <span class="etat-gris">
+                            {{ admission.get_collecteur_admission_display|default:"-" }}
+                        </span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <!-- SURALIMENTATION -->
+
+            <tr class="section-row">
+                <td colspan="2">{% trans "Suralimentation" %}</td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Turbo" %}</td>
+                <td>
+                    {% if admission.turbo == "OK" %}
+                        <span class="etat-vert">
+                            {{ admission.get_turbo_display }}
+                        </span>
+
+                    {% elif admission.turbo == "NOT_OK" %}
+                        <span class="etat-rouge">
+                            {{ admission.get_turbo_display }}
+                        </span>
+
+                    {% elif admission.turbo == "REMPLACE" %}
+                        <span class="etat-bleu">
+                            {{ admission.get_turbo_display }}
+                        </span>
+
+                    {% else %}
+                        <span class="etat-gris">
+                            {{ admission.get_turbo_display|default:"-" }}
+                        </span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Intercooler" %}</td>
+                <td>
+                    {% if admission.intercooler == "OK" %}
+                        <span class="etat-vert">
+                            {{ admission.get_intercooler_display }}
+                        </span>
+
+                    {% elif admission.intercooler == "NOT_OK" %}
+                        <span class="etat-rouge">
+                            {{ admission.get_intercooler_display }}
+                        </span>
+
+                    {% elif admission.intercooler == "REMPLACE" %}
+                        <span class="etat-bleu">
+                            {{ admission.get_intercooler_display }}
+                        </span>
+
+                    {% else %}
+                        <span class="etat-gris">
+                            {{ admission.get_intercooler_display|default:"-" }}
+                        </span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <!-- SYSTÈME EGR -->
+
+            <tr class="section-row">
+                <td colspan="2">{% trans "Système EGR" %}</td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Vanne EGR" %}</td>
+                <td>
+                    {% if admission.vanne_egr == "OK" %}
+                        <span class="etat-vert">
+                            {{ admission.get_vanne_egr_display }}
+                        </span>
+
+                    {% elif admission.vanne_egr == "NOT_OK" %}
+                        <span class="etat-rouge">
+                            {{ admission.get_vanne_egr_display }}
+                        </span>
+
+                    {% elif admission.vanne_egr == "REMPLACE" %}
+                        <span class="etat-bleu">
+                            {{ admission.get_vanne_egr_display }}
+                        </span>
+
+                    {% else %}
+                        <span class="etat-gris">
+                            {{ admission.get_vanne_egr_display|default:"-" }}
+                        </span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <!-- DIVERS -->
+
+            <tr class="section-row">
+                <td colspan="2">{% trans "Divers" %}</td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Durites d'admission" %}</td>
+                <td>
+                    {% if admission.durites_admission == "OK" %}
+                        <span class="etat-vert">
+                            {{ admission.get_durites_admission_display }}
+                        </span>
+
+                    {% elif admission.durites_admission == "NOT_OK" %}
+                        <span class="etat-rouge">
+                            {{ admission.get_durites_admission_display }}
+                        </span>
+
+                    {% elif admission.durites_admission == "REMPLACE" %}
+                        <span class="etat-bleu">
+                            {{ admission.get_durites_admission_display }}
+                        </span>
+
+                    {% else %}
+                        <span class="etat-gris">
+                            {{ admission.get_durites_admission_display|default:"-" }}
+                        </span>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>{% trans "Joints d'admission" %}</td>
+                <td>
+                    {% if admission.joints_admission == "OK" %}
+                        <span class="etat-vert">
+                            {{ admission.get_joints_admission_display }}
+                        </span>
+
+                    {% elif admission.joints_admission == "NOT_OK" %}
+                        <span class="etat-rouge">
+                            {{ admission.get_joints_admission_display }}
+                        </span>
+
+                    {% elif admission.joints_admission == "REMPLACE" %}
+                        <span class="etat-bleu">
+                            {{ admission.get_joints_admission_display }}
+                        </span>
+
+                    {% else %}
+                        <span class="etat-gris">
+                            {{ admission.get_joints_admission_display|default:"-" }}
+                        </span>
+                    {% endif %}
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
 </div>
-
-<!-- ================= MESURE AIR ================= -->
-<h2>{% trans "Mesure d'air" %}</h2>
-
-<div class="box">
-    <div class="grid">
-
-        <div>
-            <span class="label">{% trans "Débitmètre d'air" %} :</span>
-
-            {% if admission.debitmetre == "OK" %}
-                <span class="etat-vert">{{ admission.get_debitmetre_display }}</span>
-            {% elif admission.debitmetre == "NOT_OK" %}
-                <span class="etat-rouge">{{ admission.get_debitmetre_display }}</span>
-            {% elif admission.debitmetre == "REMPLACE" %}
-                <span class="etat-bleu">{{ admission.get_debitmetre_display }}</span>
-            {% endif %}
-        </div>
-
-        <div>
-            <span class="label">{% trans "Capteur MAP" %} :</span>
-
-            {% if admission.capteur_map == "OK" %}
-                <span class="etat-vert">{{ admission.get_capteur_map_display }}</span>
-            {% elif admission.capteur_map == "NOT_OK" %}
-                <span class="etat-rouge">{{ admission.get_capteur_map_display }}</span>
-            {% elif admission.capteur_map == "REMPLACE" %}
-                <span class="etat-bleu">{{ admission.get_capteur_map_display }}</span>
-            {% endif %}
-        </div>
-
-        <div>
-            <span class="label">{% trans "Capteur température air" %} :</span>
-
-            {% if admission.capteur_temperature_air == "OK" %}
-                <span class="etat-vert">{{ admission.get_capteur_temperature_air_display }}</span>
-            {% elif admission.capteur_temperature_air == "NOT_OK" %}
-                <span class="etat-rouge">{{ admission.get_capteur_temperature_air_display }}</span>
-            {% elif admission.capteur_temperature_air == "REMPLACE" %}
-                <span class="etat-bleu">{{ admission.get_capteur_temperature_air_display }}</span>
-            {% endif %}
-        </div>
-    </div>
-</div>
-
-<!-- ================= ADMISSION ================= -->
-<h2>{% trans "Admission principale" %}</h2>
-
-<div class="box">
-    <div class="grid">
-
-       <div>
-            <span class="label">{% trans "Corps de papillon" %} :</span>
-
-            {% if admission.corps_papillon == "OK" %}
-                <span class="etat-vert">{{ admission.get_corps_papillon_display }}</span>
-            {% elif admission.corps_papillon == "NOT_OK" %}
-                <span class="etat-rouge">{{ admission.get_corps_papillon_display }}</span>
-            {% elif admission.corps_papillon == "REMPLACE" %}
-                <span class="etat-bleu">{{ admission.get_corps_papillon_display }}</span>
-            {% endif %}
-        </div>
-
-        <div>
-            <span class="label">{% trans "Collecteur d'admission" %} :</span>
-
-            {% if admission.collecteur_admission == "OK" %}
-                <span class="etat-vert">{{ admission.get_collecteur_admission_display }}</span>
-            {% elif admission.collecteur_admission == "NOT_OK" %}
-                <span class="etat-rouge">{{ admission.get_collecteur_admission_display }}</span>
-            {% elif admission.collecteur_admission == "REMPLACE" %}
-                <span class="etat-bleu">{{ admission.get_collecteur_admission_display }}</span>
-            {% endif %}
-        </div>
-    </div>
-</div>
-
-<!-- ================= SURALIMENTATION ================= -->
-<h2>{% trans "Suralimentation" %}</h2>
-
-<div class="box">
-    <div class="grid">
-
-        <div>
-            <span class="label">{% trans "Turbo" %} :</span>
-
-            {% if admission.turbo == "OK" %}
-                <span class="etat-vert">{{ admission.get_turbo_display }}</span>
-            {% elif admission.turbo == "NOT_OK" %}
-                <span class="etat-rouge">{{ admission.get_turbo_display }}</span>
-            {% elif admission.turbo == "REMPLACE" %}
-                <span class="etat-bleu">{{ admission.get_turbo_display }}</span>
-            {% endif %}
-        </div>
-
-        <div>
-            <span class="label">{% trans "Intercooler" %} :</span>
-
-            {% if admission.intercooler == "OK" %}
-                <span class="etat-vert">{{ admission.get_intercooler_display }}</span>
-            {% elif admission.intercooler == "NOT_OK" %}
-                <span class="etat-rouge">{{ admission.get_intercooler_display }}</span>
-            {% elif admission.intercooler == "REMPLACE" %}
-                <span class="etat-bleu">{{ admission.get_intercooler_display }}</span>
-            {% endif %}
-        </div>
-
-    </div>
-</div>
-
-<!-- ================= EGR ================= -->
-<h2>{% trans "Système EGR" %}</h2>
-
-<div class="box">
-    <div class="grid">
-
-       <div>
-            <span class="label">{% trans "Vanne EGR" %} :</span>
-
-            {% if admission.vanne_egr == "OK" %}
-                <span class="etat-vert">{{ admission.get_vanne_egr_display }}</span>
-            {% elif admission.vanne_egr == "NOT_OK" %}
-                <span class="etat-rouge">{{ admission.get_vanne_egr_display }}</span>
-            {% elif admission.vanne_egr == "REMPLACE" %}
-                <span class="etat-bleu">{{ admission.get_vanne_egr_display }}</span>
-            {% endif %}
-        </div>
-    </div>
-</div>
-
-<!-- ================= DIVERS ================= -->
-<h2>{% trans "Divers" %}</h2>
-
-<div class="box">
-    <div class="grid">
-
-       <div>
-            <span class="label">{% trans "Durites d'admission" %} :</span>
-
-            {% if admission.durites_admission == "OK" %}
-                <span class="etat-vert">{{ admission.get_durites_admission_display }}</span>
-            {% elif admission.durites_admission == "NOT_OK" %}
-                <span class="etat-rouge">{{ admission.get_durites_admission_display }}</span>
-            {% elif admission.durites_admission == "REMPLACE" %}
-                <span class="etat-bleu">{{ admission.get_durites_admission_display }}</span>
-            {% endif %}
-        </div>
-
-        <div>
-            <span class="label">{% trans "Joints admission" %} :</span>
-
-            {% if admission.joints_admission == "OK" %}
-                <span class="etat-vert">{{ admission.get_joints_admission_display }}</span>
-            {% elif admission.joints_admission == "NOT_OK" %}
-                <span class="etat-rouge">{{ admission.get_joints_admission_display }}</span>
-            {% elif admission.joints_admission == "REMPLACE" %}
-                <span class="etat-bleu">{{ admission.get_joints_admission_display }}</span>
-            {% endif %}
-        </div>
-
-    </div>
-</div>
-
 
 <!-- ================================================== -->
 <!-- MAIN-D'ŒUVRE -->
 <!-- ================================================== -->
 
-<h2>{% trans "Main d'œuvre" %}</h2>
+<h2>{% trans "Main-d'œuvre" %}</h2>
 
 <div class="box">
     <div class="grid">
+
         <div>
-            <span class="label">{% trans "Temps" %} :</span>
+            <span class="label">{% trans "Temps de travail" %} :</span>
             {{ admission.temps_main_oeuvre_display|default:"0h00" }}
         </div>
 
-        {% if admission.main_oeuvre %}
-            <div>
-                <span class="label">{% trans "Taux horaire" %} :</span>
-                {{ admission.main_oeuvre.taux_horaire|floatformat:2 }} €
-            </div>
+        <div>
+            <span class="label">{% trans "Taux horaire" %} :</span>
 
-            <div>
-                <span class="label">{% trans "Prix facturé" %} :</span>
-                {{ admission.main_oeuvre.prix_facture|floatformat:2 }} €
-            </div>
+            {% if admission.main_oeuvre %}
+                {{ admission.main_oeuvre.taux_horaire|default:0|floatformat:2 }} €
+            {% else %}
+                0,00 €
+            {% endif %}
+        </div>
 
+        <div>
+            <span class="label">{% trans "Coût de la main-d'œuvre" %} :</span>
+            {{ admission.cout_main_oeuvre|default:0|floatformat:2 }} €
+        </div>
+
+        <div>
+            <span class="label">{% trans "Technicien" %} :</span>
+
+            {% if admission.main_oeuvre and admission.main_oeuvre.utilisateur %}
+                {{ admission.main_oeuvre.utilisateur }}
+            {% else %}
+                {{ admission.tech_nom_technicien|default:"-" }}
+            {% endif %}
+        </div>
+
+        {% if admission.main_oeuvre and admission.main_oeuvre.descriptif %}
             <div>
                 <span class="label">{% trans "Descriptif" %} :</span>
-                {{ admission.main_oeuvre.descriptif|default:"-" }}
+                {{ admission.main_oeuvre.descriptif }}
             </div>
-        {% else %}
-            <div>{% trans "Aucune main d'œuvre liée" %}</div>
         {% endif %}
+
     </div>
 </div>
 
-
 <!-- ================================================== -->
-<!-- PIÈCES ET PRODUITS -->
+<!-- PIÈCES, PRODUITS ET TOTAUX -->
 <!-- ================================================== -->
 
-<h2>{% trans "Pièces, produits utilisés et main d'oeuvre" %}</h2>
+<h2>{% trans "Pièces, produits utilisés et main-d'œuvre" %}</h2>
 
 <div class="box">
 
@@ -424,7 +648,9 @@
                     <th>{% trans "Pièce / Produit" %}</th>
                     <th>{% trans "État" %}</th>
                     <th class="text-right">{% trans "Quantité" %}</th>
-                    <th class="text-right">{% trans "Prix unitaire HTVA" %}</th>
+                    <th class="text-right">
+                        {% trans "Prix unitaire HTVA" %}
+                    </th>
                     <th class="text-right">{% trans "Total HTVA" %}</th>
                 </tr>
             </thead>
@@ -434,11 +660,28 @@
                 {% for ligne in rapport.lignes %}
                     <tr>
                         <td>
-                            {{ ligne.champ }}
+                            {{ ligne.champ|default:"-" }}
                         </td>
 
                         <td>
-                            {{ ligne.etat_label|default:"-" }}
+                            {% if ligne.etat == "OK" %}
+                                <span class="etat-vert">
+                                    {{ ligne.etat_label|default:"-" }}
+                                </span>
+
+                            {% elif ligne.etat == "NOT_OK" %}
+                                <span class="etat-rouge">
+                                    {{ ligne.etat_label|default:"-" }}
+                                </span>
+
+                            {% elif ligne.etat == "REMPLACE" %}
+                                <span class="etat-bleu">
+                                    {{ ligne.etat_label|default:"-" }}
+                                </span>
+
+                            {% else %}
+                                {{ ligne.etat_label|default:"-" }}
+                            {% endif %}
                         </td>
 
                         <td class="text-right">
@@ -490,35 +733,31 @@
 
     {% else %}
 
-        <p>
-            {% trans "Aucune pièce ou produit utilisé." %}
-        </p>
+        <p>{% trans "Aucune pièce ou produit utilisé." %}</p>
 
         <table>
             <tbody>
+
                 <tr class="total">
                     <td>
-                        <div>
-                            <strong>{% trans "Main-d'œuvre" %}</strong>
-                        </div>
+                        {% trans "Main-d'œuvre" %}
+                    </td>
 
-                        <div class="text-right" style="margin-top: 4px;">
-                            {{ admission.cout_main_oeuvre|default:0|floatformat:2 }} €
-                        </div>
+                    <td class="text-right">
+                        {{ admission.cout_main_oeuvre|default:0|floatformat:2 }} €
                     </td>
                 </tr>
 
                 <tr class="total">
                     <td>
-                        <div>
-                            <strong>{% trans "Total général" %}</strong>
-                        </div>
+                        {% trans "Total général" %}
+                    </td>
 
-                        <div class="text-right" style="margin-top: 4px;">
-                            {{ admission.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
-                        </div>
+                    <td class="text-right">
+                        {{ admission.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
                     </td>
                 </tr>
+
             </tbody>
         </table>
 
@@ -526,12 +765,18 @@
 
 </div>
 
+<!-- ================================================== -->
+<!-- REMARQUES -->
+<!-- ================================================== -->
 
-<!-- ================= REMARQUES ================= -->
 <h2>{% trans "Remarques" %}</h2>
 
 <div class="box">
-    {{ admission.remarques|default:_("Aucune remarque.") }}
+    {% if admission.remarques %}
+        {{ admission.remarques|linebreaks }}
+    {% else %}
+        {% trans "Aucune remarque." %}
+    {% endif %}
 </div>
 
 </body>
