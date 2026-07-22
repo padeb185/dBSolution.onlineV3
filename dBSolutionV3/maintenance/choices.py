@@ -68,8 +68,6 @@ class FabricantLubrifiant(models.TextChoices):
     AUTRE = "AUTRE", _("Autre")
 
 
-from django.db import models
-from django.utils.translation import gettext_lazy as _
 
 
 class FabricantFiltre(models.TextChoices):
@@ -115,9 +113,6 @@ class FabricantFiltre(models.TextChoices):
     AUTRE = "AUTRE", _("Autre")
 
 
-
-from django.db import models
-from django.utils.translation import gettext_lazy as _
 
 
 class AmpouleAutomobile(models.TextChoices):
@@ -199,8 +194,6 @@ class AmpouleAutomobile(models.TextChoices):
 
 
 
-from django.db import models
-from django.utils.translation import gettext_lazy as _
 
 
 class FabricantPiece(models.TextChoices):

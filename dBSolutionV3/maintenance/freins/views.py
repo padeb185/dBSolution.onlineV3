@@ -333,22 +333,27 @@ def controle_freins_pdf_view(request, controle_freins_id):
                 "tech_technicien",
                 "tech_societe",
                 "main_oeuvre",
+                "main_oeuvre__utilisateur",
             ),
-            id=controle_freins_id
+            id=controle_freins_id,
         )
+
+        rapport = controle_freins.generer_rapport_remplacement()
 
         html_string = render_to_string(
             "freins/controle_freins_detail_pdf.html",
             {
                 "controle_freins": controle_freins,
+                "rapport": rapport,
                 "date_export": timezone.now(),
                 "societe": tenant,
-            }
+            },
+            request=request,
         )
 
         pdf = HTML(
             string=html_string,
-            base_url=request.build_absolute_uri("/")
+            base_url=request.build_absolute_uri("/"),
         ).write_pdf()
 
         immatriculation = (
@@ -362,9 +367,14 @@ def controle_freins_pdf_view(request, controle_freins_id):
             or "technicien_inconnu"
         )
 
-        response = HttpResponse(pdf, content_type="application/pdf")
+        response = HttpResponse(
+            pdf,
+            content_type="application/pdf",
+        )
+
         response["Content-Disposition"] = (
-            f'inline; filename="controle_freins_{immatriculation}_{technicien}.pdf"'
+            f'inline; filename="controle_freins_'
+            f'{immatriculation}_{technicien}.pdf"'
         )
 
         return response

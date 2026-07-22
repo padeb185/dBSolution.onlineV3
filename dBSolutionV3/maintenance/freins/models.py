@@ -6,7 +6,7 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from maintenance.choices import RouesSerrageEtat, TAUX_HORAIRE_CHOICES, FabricantFrein
+from maintenance.choices import RouesSerrageEtat, TAUX_HORAIRE_CHOICES, FabricantFrein, FabricantLubrifiant
 from maintenance.niveaux.models import LiquideFreinsQualite
 from maintenance.models import Maintenance
 from utils.mixin import TechnicienMixin
@@ -180,17 +180,28 @@ class ControleFreins(TechnicienMixin, models.Model):
 
     # --- Liquide ---
     liquide_frein_etat = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("État liquide de frein"))
-    liquide_remplacement_liquide_frein = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK,verbose_name=_("Remplacement liquide de frein"))
-    liquide_specif_liquide_frein = models.CharField(max_length=100, choices=LiquideFreinsQualite.choices, default=LiquideFreinsQualite.DOT4,  blank=True,verbose_name=_("Spécification liquide de frein"))
-    liquide_quantite_liquide_frein = models.DecimalField(
+    liquide_frein_specif = models.CharField(max_length=100, choices=LiquideFreinsQualite.choices, default=LiquideFreinsQualite.DOT4,  blank=True,verbose_name=_("Spécification liquide de frein"))
+    liquide_frein_quantite = models.DecimalField(
         max_digits=4,
         decimal_places=2,
         default=0.0,
         null=True,
         blank=True,
         verbose_name=_("Quantité liquide de frein (L)"),
-        validators=[StepValueValidator(0.1)])
-
+        validators=[StepValueValidator(0.1)],
+    )
+    liquide_frein_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantLubrifiant.choices,
+        default=FabricantLubrifiant.CASTROL,
+        verbose_name=_("Fabricant du liquide de frein")
+    )
+    liquide_frein_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat du liquide HTVA")
+    )
 
 
     machoire_avg = models.CharField(
@@ -419,6 +430,148 @@ class ControleFreins(TechnicienMixin, models.Model):
             if self.kilometres_chassis != voiture.kilometres_chassis:
                 self.kilometres_chassis = voiture.kilometres_chassis
                 super().save(update_fields=["kilometres_chassis"])
+
+
+    def generer_rapport_remplacement(self):
+            lignes = []
+            total_general = Decimal("0.00")
+
+            elements = [
+                {
+                    "etat": "avant_freins_pl_plaquettes_remplacer",
+                    "fabricant": "avant_freins_pl_fabricant",
+                    "quantite": "avant_freins_pl_quantite",
+                    "prix": "avant_freins_pl_prix",
+                    "label": _("Plaquettes de frein avant"),
+                },
+                {
+                    "etat": "avant_freins_d_disques_remplacer",
+                    "fabricant": "avant_freins_d_fabricant",
+                    "quantite": "avant_freins_d_quantite",
+                    "prix": "avant_freins_d_prix",
+                    "label": _("Disques de frein avant"),
+                },
+                {
+                    "etat": "arriere_freins_pl_plaquettes_remplacer",
+                    "fabricant": "arriere_freins_pl_fabricant",
+                    "quantite": "arriere_freins_pl_quantite",
+                    "prix": "arriere_freins_pl_prix",
+                    "label": _("Plaquettes de frein arrière"),
+                },
+                {
+                    "etat": "arriere_freins_d_disques_remplacer",
+                    "fabricant": "arriere_freins_d_fabricant",
+                    "quantite": "arriere_freins_d_quantite",
+                    "prix": "arriere_freins_d_prix",
+                    "label": _("Disques de frein arrière"),
+                },
+                {
+                    "etat": "machoire_avg",
+                    "fabricant": "machoire_avg_fabricant",
+                    "quantite": "machoire_avg_quantite",
+                    "prix": "machoire_avg_prix",
+                    "label": _("Mâchoire avant gauche"),
+                },
+                {
+                    "etat": "machoire_avd",
+                    "fabricant": "machoire_avd_fabricant",
+                    "quantite": "machoire_avd_quantite",
+                    "prix": "machoire_avd_prix",
+                    "label": _("Mâchoire avant droite"),
+                },
+                {
+                    "etat": "machoire_arg",
+                    "fabricant": "machoire_arg_fabricant",
+                    "quantite": "machoire_arg_quantite",
+                    "prix": "machoire_arg_prix",
+                    "label": _("Mâchoire arrière gauche"),
+                },
+                {
+                    "etat": "machoire_ard",
+                    "fabricant": "machoire_ard_fabricant",
+                    "quantite": "machoire_ard_quantite",
+                    "prix": "machoire_ard_prix",
+                    "label": _("Mâchoire arrière droite"),
+                },
+                {
+                    "etat": "liquide_frein_etat",
+                    "fabricant": "liquide_frein_fabricant",
+                    "quantite": "liquide_frein_quantite",
+                    "prix": "liquide_frein_prix",
+                    "label": _("Liquide de frein"),
+                },
+            ]
+
+            for element in elements:
+                champ_etat = element["etat"]
+                etat = getattr(self, champ_etat, None)
+
+                if etat not in [
+                    EtatOKNotOK.A_REMPLACER,
+                    EtatOKNotOK.REMPLACE,
+                ]:
+                    continue
+
+                quantite = getattr(
+                    self,
+                    element["quantite"],
+                    0,
+                ) or 0
+
+                prix = getattr(
+                    self,
+                    element["prix"],
+                    Decimal("0.00"),
+                ) or Decimal("0.00")
+
+                quantite = Decimal(str(quantite))
+                prix = Decimal(str(prix))
+
+                total = quantite * prix
+                total_general += total
+
+                methode_etat = getattr(
+                    self,
+                    f"get_{champ_etat}_display",
+                    None,
+                )
+
+                champ_fabricant = element["fabricant"]
+
+                methode_fabricant = getattr(
+                    self,
+                    f"get_{champ_fabricant}_display",
+                    None,
+                )
+
+                etat_label = (
+                    methode_etat()
+                    if callable(methode_etat)
+                    else etat
+                )
+
+                fabricant_label = (
+                    methode_fabricant()
+                    if callable(methode_fabricant)
+                    else getattr(self, champ_fabricant, "-")
+                )
+
+                lignes.append(
+                    {
+                        "champ": element["label"],
+                        "etat": etat,
+                        "etat_label": etat_label,
+                        "fabricant": fabricant_label,
+                        "quantite": quantite,
+                        "prix": prix,
+                        "total": total,
+                    }
+                )
+
+            return {
+                "lignes": lignes,
+                "total_general": total_general,
+            }
 
         # ======================================================
         # MAIN-D'ŒUVRE
