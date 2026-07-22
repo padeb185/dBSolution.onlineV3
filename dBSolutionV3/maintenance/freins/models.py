@@ -63,7 +63,7 @@ class ControleFreins(TechnicienMixin, models.Model):
     avant_freins_pl_usure_plaquettes = models.IntegerField(default=0, verbose_name=_("Usure des plaquettes avant (%)"))
     avant_freins_pl_plaquettes_remplacer = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK,verbose_name=_("Plaquettes avant"))
     avant_freins_pl_fabricant = models.CharField(max_length=25, choices=FabricantFrein.choices, default=FabricantFrein.CHOISIR,verbose_name=_("Fabricant des plaquettes avant"))
-    avant_freins_pl_quantite = models.PositiveIntegerField(default=0, verbose_name=_("Quantite"))
+    avant_freins_pl_quantite = models.PositiveIntegerField(default=0, verbose_name=_("Quantité"))
     avant_freins_pl_prix = models.DecimalField( max_digits=10,
         decimal_places=2,
         default=0,
