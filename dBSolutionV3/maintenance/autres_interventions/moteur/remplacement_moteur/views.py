@@ -218,7 +218,7 @@ def remplacement_moteur_form_view(request, exemplaire_id):
             {
                 "title": _("Huile moteur"),
                 "icon": "icons/huile-moteur.png",
-                "fields": [form[f.name] for f in form if "huile" in f.name],
+                "fields": [form[f.name] for f in form if "niveau" in f.name],
             },
             {
                 "title": _("Liquide de refroidissement"),
@@ -352,7 +352,7 @@ def modifier_remplacement_moteur_view(request, remplacement_moteur_id):
             {
                 "title": _("Huile moteur"),
                 "icon": "icons/huile-moteur.png",
-                "fields": [form[f.name] for f in form if "huile" in f.name],
+                "fields": [form[f.name] for f in form if "niveau" in f.name],
             },
             {
                 "title": _("Liquide de refroidissement"),

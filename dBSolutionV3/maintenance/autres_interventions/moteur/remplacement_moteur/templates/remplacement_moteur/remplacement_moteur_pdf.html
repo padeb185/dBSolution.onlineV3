@@ -336,24 +336,24 @@
             <tr>
                 <td>{% trans "Niveau d'huile" %}</td>
                 <td>
-                    {% if remplacement.moteur_niveau_huile_etat == "BON" %}
+                    {% if remplacement.niveau_huile_etat == "BON" %}
                         <span class="etat-vert">
-                            {{ remplacement.get_moteur_niveau_huile_etat_display }}
+                            {{ remplacement.get_niveau_huile_etat_display }}
                         </span>
 
-                    {% elif remplacement.moteur_niveau_huile_etat == "AJOUTER" %}
+                    {% elif remplacement.niveau_huile_etat == "AJOUTER" %}
                         <span class="etat-jaune">
-                            {{ remplacement.get_moteur_niveau_huile_etat_display }}
+                            {{ remplacement.get_niveau_huile_etat_display }}
                         </span>
 
-                    {% elif remplacement.moteur_niveau_huile_etat == "REMPLACER" %}
+                    {% elif remplacement.niveau_huile_etat == "REMPLACER" %}
                         <span class="etat-rouge">
-                            {{ remplacement.get_moteur_niveau_huile_etat_display }}
+                            {{ remplacement.get_niveau_huile_etat_display }}
                         </span>
 
                     {% else %}
                         <span class="etat-gris">
-                            {{ remplacement.get_moteur_niveau_huile_etat_display|default:"-" }}
+                            {{ remplacement.get_niveau_huile_etat_display|default:"-" }}
                         </span>
                     {% endif %}
                 </td>
@@ -362,14 +362,14 @@
             <tr>
                 <td>{% trans "Quantité d'huile ajoutée" %}</td>
                 <td>
-                    {{ remplacement.moteur_niveau_huile_quantite|default:0|floatformat:1 }} L
+                    {{ remplacement.niveau_huile_quantite|default:0|floatformat:1 }} L
                 </td>
             </tr>
 
             <tr>
                 <td>{% trans "Qualité d'huile" %}</td>
                 <td>
-                    {{ remplacement.get_moteur_niveau_huile_qualite_display|default:"-" }}
+                    {{ remplacement.get_niveau_huile_qualite_display|default:"-" }}
                 </td>
             </tr>
 

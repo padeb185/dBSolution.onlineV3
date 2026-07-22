@@ -61,20 +61,17 @@
                 </button>
             </a>
         </div>
-       <div class="mt-auto w-full">
+
+        <!-- Bouton Rapport PDF -->
+        <div class="mt-auto w-full">
             <a href="{% url 'carrosserie_interne:carrosserie_interne_pdf' carrosserie_interne.id %}"
                target="_blank"
-               rel="noopener"
-               class="block w-full">
-
-                <button type="button"
-                        class="w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold">
-                    {% trans "Télécharger le PDF" %}
-                </button>
-
+               rel="noopener noreferrer"
+               onclick="event.stopPropagation();"
+               class="block w-full bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-400 font-semibold text-center">
+                {% trans "Télécharger le PDF" %}
             </a>
         </div>
-
     </div>
 
      <!-- Métadonnées -->

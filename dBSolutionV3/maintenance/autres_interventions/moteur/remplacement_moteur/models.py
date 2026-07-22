@@ -104,10 +104,15 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         verbose_name=_("Nombre de remplacements"),
     )
 
-    nombre_moteurs_total = models.PositiveIntegerField(
+    nombre_moteurs_montes = models.PositiveIntegerField(
         default=1,
         editable=False,
         verbose_name=_("Nombre de moteurs montés"),
+    )
+    moteur_quantite = models.PositiveIntegerField(
+        default=1,
+        editable=False,
+        verbose_name=_("Quantité")
     )
 
     moteurs_prix = models.DecimalField(
@@ -131,26 +136,26 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         verbose_name=_("État visuel / Tag"),
     )
 
-    moteur_niveau_huile_etat = models.CharField(
+    niveau_huile_etat = models.CharField(
         max_length=25,
         choices=NiveauxEtat.choices,
         default=NiveauxEtat.BON,
         verbose_name=_("Niveau d'huile")
     )
 
-    moteur_niveau_huile_quantite = models.FloatField(
+    niveau_huile_quantite = models.FloatField(
         default=0,
         verbose_name=_("Quantité d'huile ajoutée en litres"),
         validators=[StepValueValidator(0.1)]
     )
 
-    moteur_niveau_huile_qualite = models.CharField(
+    niveau_huile_qualite = models.CharField(
         max_length=25,
         choices=HuileEtat.choices,
         default=HuileEtat.ZERO_30,
         verbose_name=_("Qualité d'huile")
     )
-    moteurs_niveau_huile_prix = models.DecimalField(
+    niveau_huile_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         blank=True,
