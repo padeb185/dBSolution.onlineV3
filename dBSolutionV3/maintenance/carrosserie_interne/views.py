@@ -1123,26 +1123,52 @@ def carrosserie_interne_pdf_view(request, carrosserie_id):
     with tenant_context(tenant):
         carrosserie = get_object_or_404(
             CarrosserieInterne.objects.select_related(
+                "maintenance",
                 "voiture_exemplaire",
+                "main_oeuvre",
                 "tech_technicien",
                 "tech_societe",
-                "main_oeuvre",
             ),
-            id=carrosserie_id
+            id=carrosserie_id,
         )
+
+        rapport = carrosserie.generer_rapport_remplacement()
 
         html_string = render_to_string(
             "carrosserie_interne/carrosserie_interne_pdf.html",
             {
                 "carrosserie": carrosserie,
+                "rapport": rapport,
+                "pieces_utilisees": rapport["lignes"],
+                "total_pieces": rapport["total_general"],
+                "date_export": timezone.now(),
                 "societe": tenant,
-            }
+            },
+            request=request,
         )
 
-        pdf = HTML(string=html_string, base_url=request.build_absolute_uri()).write_pdf()
+        pdf = HTML(
+            string=html_string,
+            base_url=request.build_absolute_uri("/"),
+        ).write_pdf()
 
-        response = HttpResponse(pdf, content_type="application/pdf")
+        immatriculation = (
+            carrosserie.voiture_exemplaire.immatriculation
+            if carrosserie.voiture_exemplaire
+            else "sans_immatriculation"
+        )
+
+        nom_fichier = (
+            f"carrosserie_interne_{immatriculation}_{carrosserie.id}.pdf"
+        )
+
+        response = HttpResponse(
+            pdf,
+            content_type="application/pdf",
+        )
+
         response["Content-Disposition"] = (
-            f'inline; filename="carrosserie_interne_{carrosserie.id}.pdf"'
+            f'inline; filename="{nom_fichier}"'
         )
+
         return response

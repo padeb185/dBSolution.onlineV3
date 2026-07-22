@@ -1,7 +1,7 @@
 {% load i18n %}
 
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
     <meta charset="utf-8">
 
@@ -28,7 +28,6 @@
             color: #1e40af;
             border-bottom: 1px solid #93c5fd;
         }
-
         .box {
             border: 1px solid #ddd;
             padding: 10px;
@@ -46,25 +45,24 @@
         }
 
         .tag {
-            padding: 2px 8px;
+            padding: 3px 8px;
             border-radius: 4px;
+            color: white;
             font-weight: bold;
         }
 
         .tag-vert {
-            background: #d1fae5;
-            color: #065f46;
+            background: #16a34a;
         }
 
         .tag-jaune {
-            background: #fef3c7;
-            color: #92400e;
+            background: #ca8a04;
         }
 
         .tag-rouge {
-            background: #fee2e2;
-            color: #991b1b;
+            background: #dc2626;
         }
+
 
         .etat-vert {
             color: #166534;
@@ -98,31 +96,59 @@
             font-weight: bold;
         }
 
+        .tag {
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-weight: bold;
+        }
+
+        .tag-vert {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .tag-jaune {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .tag-rouge {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 8px;
+            margin-top: 10px;
         }
 
-        th, td {
-            border: 1px solid #ddd;
-            padding: 7px;
-            text-align: left;
+       th,
+        td {
+            border: 1px solid #d1d5db;
+            padding: 6px;
+            vertical-align: middle;
         }
 
         th {
-            background: #f3f4f6;
+            background: #eff6ff;
+            color: #1e3a8a;
+            text-align: left;
         }
 
-        .footer {
-            margin-top: 25px;
-            font-size: 10px;
-            color: #666;
-            text-align: center;
+        .text-right {
+            text-align: right;
+        }
+
+        .total {
+            font-weight: bold;
+            background: #f8fafc;
         }
     </style>
 </head>
+
 
 <body>
 

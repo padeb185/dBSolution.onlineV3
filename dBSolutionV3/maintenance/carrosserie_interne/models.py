@@ -704,31 +704,56 @@ class CarrosserieInterne(models.Model):
     def total_tvac_calculate(self):
         return self.total_htva + self.total_tva
 
+
+
+
+
     def generer_rapport_remplacement(self):
         rapport = []
         total_general = Decimal("0.00")
 
+        etats_a_afficher = {
+            EtatOKNotOK.A_REMPLACER,
+            EtatOKNotOK.REMPLACE,
+        }
+
         for field in self._meta.fields:
             field_name = field.name
 
-            # Garder uniquement les CharField utilisant EtatOKNotOK
-            if not (
-                    isinstance(field, models.CharField)
-                    and field.choices == EtatOKNotOK.choices
-            ):
+            # Uniquement les champs d'état utilisant EtatOKNotOK
+            if not isinstance(field, models.CharField):
+                continue
+
+            if not field.choices:
+                continue
+
+            choix_du_champ = {
+                choix[0]
+                for choix in field.choices
+            }
+
+            choix_etat_ok_not_ok = {
+                choix[0]
+                for choix in EtatOKNotOK.choices
+            }
+
+            if choix_du_champ != choix_etat_ok_not_ok:
                 continue
 
             etat = getattr(self, field_name, None)
 
-            if etat not in [
-                EtatOKNotOK.A_REMPLACER,
-                EtatOKNotOK.REMPLACE,
-            ]:
+            if etat not in etats_a_afficher:
                 continue
 
+            # Champs associés
+            nom_champ_prix = f"{field_name}_prix"
+            nom_champ_quantite = f"{field_name}_quantite"
+            nom_champ_oem = f"{field_name}_oem"
+
+            # Prix
             prix = getattr(
                 self,
-                f"{field_name}_prix",
+                nom_champ_prix,
                 Decimal("0.00"),
             )
 
@@ -737,9 +762,10 @@ class CarrosserieInterne(models.Model):
 
             prix = Decimal(str(prix))
 
+            # Quantité
             quantite = getattr(
                 self,
-                f"{field_name}_quantite",
+                nom_champ_quantite,
                 0,
             )
 
@@ -748,7 +774,24 @@ class CarrosserieInterne(models.Model):
 
             quantite = Decimal(str(quantite))
 
-            total = prix * quantite
+            # Numéro OEM
+            numero_oem = getattr(
+                self,
+                nom_champ_oem,
+                "",
+            )
+
+            if numero_oem is None:
+                numero_oem = ""
+
+            # Total de la ligne
+            total = (
+                    prix * quantite
+            ).quantize(
+                Decimal("0.01"),
+                rounding=ROUND_HALF_UP,
+            )
+
             total_general += total
 
             rapport.append({
@@ -758,15 +801,26 @@ class CarrosserieInterne(models.Model):
                 "etat_label": dict(
                     EtatOKNotOK.choices
                 ).get(etat, etat),
+                "oem": numero_oem,
                 "prix": prix,
                 "quantite": quantite,
                 "total": total,
             })
 
+        total_general = total_general.quantize(
+            Decimal("0.01"),
+            rounding=ROUND_HALF_UP,
+        )
+
         return {
             "lignes": rapport,
             "total_general": total_general,
         }
+
+
+
+
+        
         # ======================================================
         # MAIN-D'ŒUVRE
         # ======================================================
