@@ -386,124 +386,86 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         super().save(*args, **kwargs)
 
     def generer_rapport_remplacement(self):
-        lignes = []
+        rapport = []
         total_general = Decimal("0.00")
 
-        def decimal_value(value):
-            if value in (None, ""):
-                return Decimal("0.00")
+        for field in self._meta.fields:
+            field_name = field.name
 
-            return Decimal(str(value))
+            # Uniquement les champs d'état utilisant EntretienEtat
+            if not (
+                    isinstance(field, models.CharField)
+                    and field.choices == NiveauxEtat.choices
+            ):
+                continue
 
-        def ajouter_ligne(
-                champ,
-                etat_label,
-                quantite,
-                prix_unitaire,
-        ):
-            nonlocal total_general
+            etat = getattr(self, field_name, None)
 
-            quantite_decimal = decimal_value(quantite)
-            prix_decimal = decimal_value(prix_unitaire)
+            if etat not in [
+                NiveauxEtat.BON,
+                NiveauxEtat.AJOUTER,
+            ]:
+                continue
 
-            total_ligne = (
-                    quantite_decimal * prix_decimal
+            nom_champ_prix = f"{field_name}_prix"
+            nom_champ_quantite = f"{field_name}_quantite"
+            nom_champ_oem = f"{field_name}_oem"
+
+            # Prix sécurisé
+            prix = getattr(
+                self,
+                nom_champ_prix,
+                Decimal("0.00"),
+            )
+
+            if prix is None:
+                prix = Decimal("0.00")
+
+            prix = Decimal(str(prix))
+
+            # Quantité sécurisée
+            quantite = getattr(
+                self,
+                nom_champ_quantite,
+                0,
+            )
+
+            if quantite is None:
+                quantite = 0
+
+            quantite = Decimal(str(quantite))
+
+            # OEM sécurisé
+            numero_oem = getattr(
+                self,
+                nom_champ_oem,
+                "",
+            ) or ""
+
+            total = (
+                    prix * quantite
             ).quantize(
                 Decimal("0.01"),
                 rounding=ROUND_HALF_UP,
             )
 
-            lignes.append({
-                "champ": champ,
-                "etat_label": etat_label,
-                "quantite": quantite_decimal,
-                "prix": prix_decimal.quantize(
-                    Decimal("0.01"),
-                    rounding=ROUND_HALF_UP,
-                ),
-                "total": total_ligne,
+            total_general += total
+
+            rapport.append({
+                "champ": field.verbose_name,
+                "code": field_name,
+                "etat": etat,
+                "etat_label": dict(
+                    NiveauxEtat.choices
+                ).get(etat, etat),
+                "oem": numero_oem,
+                "prix": prix,
+                "quantite": quantite,
+                "total": total,
             })
 
-            total_general += total_ligne
-
-        # ==================================================
-        # MOTEUR
-        # ==================================================
-
-        quantite_moteur = decimal_value(
-            self.nombre_remplacements_moteurs
-        )
-
-        prix_moteur = decimal_value(
-            self.moteurs_prix
-        )
-
-        if prix_moteur > 0:
-            ajouter_ligne(
-                champ=_("Moteur"),
-                etat_label=(
-                    _("Remplacé")
-                    if self.remplacement_effectue
-                    else _("À remplacer")
-                ),
-                quantite=(
-                    quantite_moteur
-                    if quantite_moteur > 0
-                    else Decimal("1.00")
-                ),
-                prix_unitaire=prix_moteur,
-            )
-
-        # ==================================================
-        # HUILE MOTEUR
-        # ==================================================
-
-        quantite_huile = decimal_value(
-            self.moteur_niveau_huile_quantite
-        )
-
-        prix_huile = decimal_value(
-            self.moteurs_niveau_huile_prix
-        )
-
-        if prix_huile > 0:
-            ajouter_ligne(
-                champ=_("Huile moteur"),
-                etat_label=self.get_moteur_niveau_huile_etat_display(),
-                quantite=(
-                    quantite_huile
-                    if quantite_huile > 0
-                    else Decimal("1.00")
-                ),
-                prix_unitaire=prix_huile,
-            )
-
-        # ==================================================
-        # LIQUIDE DE REFROIDISSEMENT
-        # ==================================================
-
-        quantite_refroidissement = decimal_value(
-            self.refroidissement_quantite
-        )
-
-        prix_refroidissement = decimal_value(
-            self.refroidissement_prix
-        )
-
-        if prix_refroidissement > 0:
-            ajouter_ligne(
-                champ=_("Liquide de refroidissement"),
-                etat_label=self.get_refroidissement_etat_display(),
-                quantite=(
-                    quantite_refroidissement
-                    if quantite_refroidissement > 0
-                    else Decimal("1.00")
-                ),
-                prix_unitaire=prix_refroidissement,
-            )
-
         return {
-            "lignes": lignes,
+            "lignes": rapport,
             "total_general": total_general.quantize(
                 Decimal("0.01"),
                 rounding=ROUND_HALF_UP,
