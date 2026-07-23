@@ -358,7 +358,7 @@
                 <span class="etat-gris">{{ controle_pneus.get_pneu_train_av_display|default:"-" }}</span>
             {% endif %}
         </td>
-        <td>{{ controle_pneus.pneu_train_av_nombre }}</td>
+        <td>{{ controle_pneus.pneu_train_av_quantite }}</td>
     </tr>
 
     <tr>
@@ -374,7 +374,7 @@
                 <span class="etat-gris">{{ controle_pneus.get_pneu_train_ar_display|default:"-" }}</span>
             {% endif %}
         </td>
-        <td>{{ controle_pneus.pneu_train_ar_nombre }}</td>
+        <td>{{ controle_pneus.pneu_train_ar_quantite }}</td>
     </tr>
 </tbody>
 </table>
@@ -409,7 +409,6 @@
         {% endif %}
     </div>
 </div>
-
 <!-- ================================================== -->
 <!-- PIÈCES, PRODUITS ET MAIN-D'ŒUVRE -->
 <!-- ================================================== -->
@@ -418,13 +417,14 @@
 
 <div class="box">
 
-    {% if pieces_utilisees %}
+    {% if rapport.lignes %}
 
         <table>
             <thead>
                 <tr>
                     <th>{% trans "Pièce / Produit" %}</th>
                     <th>{% trans "État" %}</th>
+                    <th>{% trans "Fabricant" %}</th>
                     <th class="text-right">
                         {% trans "Quantité" %}
                     </th>
@@ -440,33 +440,47 @@
             <tbody>
 
                 {% for ligne in rapport.lignes %}
-                    {% if ligne.champ and ligne.prix and ligne.quantite %}
+                    {% if ligne.champ and ligne.prix > 0 and ligne.quantite > 0 %}
                         <tr>
                             <td>
-                                {{ ligne.champ }}
+                                {{ ligne.champ|default:"-" }}
                             </td>
 
                             <td>
-                                {{ ligne.etat_label|default:"-" }}
+                                {% if ligne.etat == "A_REMPLACER" %}
+                                    <span class="etat-rouge">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+                                {% elif ligne.etat == "REMPLACE" %}
+                                    <span class="etat-bleu">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+                                {% else %}
+                                    {{ ligne.etat_label|default:"-" }}
+                                {% endif %}
                             </td>
 
-                            <td style="text-align: right;">
-                                {{ ligne.quantite }}
+                            <td>
+                                {{ ligne.fabricant_label|default:"-" }}
                             </td>
 
-                            <td style="text-align: right;">
-                                {{ ligne.prix|floatformat:2 }} €
+                            <td class="text-right">
+                                {{ ligne.quantite|default:0 }}
                             </td>
 
-                            <td style="text-align: right;">
-                                {{ ligne.total|floatformat:2 }} €
+                            <td class="text-right">
+                                {{ ligne.prix|default:0|floatformat:2 }} €
+                            </td>
+
+                            <td class="text-right">
+                                {{ ligne.total|default:0|floatformat:2 }} €
                             </td>
                         </tr>
                     {% endif %}
                 {% endfor %}
 
                 <tr class="total">
-                    <td colspan="4" class="text-right">
+                    <td colspan="5" class="text-right">
                         <strong>
                             {% trans "Total pièces et produits HTVA" %}
                         </strong>
@@ -474,13 +488,13 @@
 
                     <td class="text-right">
                         <strong>
-                            {{ total_pieces|default:0|floatformat:2 }} €
+                            {{ rapport.total_general|default:0|floatformat:2 }} €
                         </strong>
                     </td>
                 </tr>
 
                 <tr class="total">
-                    <td colspan="4" class="text-right">
+                    <td colspan="5" class="text-right">
                         <strong>
                             {% trans "Main-d'œuvre" %}
                         </strong>
@@ -494,7 +508,7 @@
                 </tr>
 
                 <tr class="total">
-                    <td colspan="4" class="text-right">
+                    <td colspan="5" class="text-right">
                         <strong>
                             {% trans "Total général avec main-d'œuvre" %}
                         </strong>
@@ -536,7 +550,7 @@
                 <tr class="total">
                     <td class="text-right">
                         <strong>
-                            {% trans "Total général" %}
+                            {% trans "Total général avec main-d'œuvre" %}
                         </strong>
                     </td>
 
@@ -564,7 +578,8 @@
 <div class="footer">
     {% trans "Document généré automatiquement par CarsCosts.com." %}
     <br>
-    {% trans "Date export" %} : {{ date_export|date:"d/m/Y H:i" }}
+    {% trans "Date export" %} :
+    {{ date_export|date:"d/m/Y H:i" }}
 </div>
 
 </body>

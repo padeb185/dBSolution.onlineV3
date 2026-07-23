@@ -1789,6 +1789,278 @@ class Checkup(TechnicienMixin, models.Model):
 
         super().save(*args, **kwargs)
 
+    def generer_rapport_remplacement(self):
+            rapport = []
+            total_general = Decimal("0.00")
+
+            # États autorisant l'ajout dans le rapport
+            etats_a_facturer = {
+                EtatOKNotOK.A_REMPLACER,
+                EtatOKNotOK.REMPLACE,
+
+                BatterieEtat.A_REMPLACER,
+                BatterieEtat.REMPLACE,
+
+                PhareEtat.A_REMPLACER,
+                PhareEtat.REMPLACE,
+
+                RefroidissementEtat.A_REMPLACER,
+                RefroidissementEtat.REMPLACE,
+
+                PneuEtat.A_REMPLACER,
+                PneuEtat.REMPLACE,
+
+                NiveauxEtat.AJOUTER,
+
+                EtatAjouter.AJOUTER,
+            }
+
+            # Correspondances particulières entre le champ d'état
+            # et la base des champs prix/quantité/fabricant/qualité/type.
+            correspondances = {
+                # Huiles et liquides
+                "moteur_niveau_huile_etat": "moteur_niveau_huile",
+                "boite_niveau_huile_etat": "boite_niveau_huile",
+                "pont_niveau_huile_etat": "pont_niveau_huile",
+                "direction_liquide_etat": "direction_liquide",
+
+                # Liquide de frein
+                "frein_liquide_frein_etat": "frein_liquide",
+
+                # Refroidissement
+                "refroidissement_radiateur": "refroidissement",
+
+                # Freins
+                "freins_plaquettes_av_remplacer": "freins_plaquettes_av",
+                "freins_disques_av_remplacer": "freins_disques_av",
+                "freins_plaquettes_ar_remplacer": "freins_plaquettes_ar",
+                "freins_disques_ar_remplacer": "freins_disques_ar",
+
+                # Pneus
+                "pneu_train_av": "pneu_train_av",
+                "pneu_train_ar": "pneu_train_ar",
+
+                # Éclairage
+                "phares_avant": "phares_avant",
+                "phares_gros_phares": "phares_gros_phares",
+                "phares_clignotants": "phares_clignotants",
+                "phares_recul": "phares_recul",
+                "phares_anti_brouillard_avant": "phares_anti_brouillard_avant",
+                "phares_anti_brouillard_arriere": "phares_anti_brouillard_arriere",
+                "phares_feux_stops": "phares_feux_stops",
+                "phares_troisieme_feux_stop": "phares_troisieme_feux_stop",
+                "phares_feux_position_av": "phares_feux_position_av",
+                "phares_feux_position_ar": "phares_feux_position_ar",
+
+                # Produits de nettoyage
+                "nettoyage_exterieur_produits": "nettoyage_exterieur_produits",
+                "nettoyage_interieur_produits": "nettoyage_interieur_produits",
+            }
+
+            for field in self._meta.fields:
+                if not isinstance(field, models.CharField):
+                    continue
+
+                if not field.choices:
+                    continue
+
+                field_name = field.name
+                etat = getattr(self, field_name, None)
+
+                if etat not in etats_a_facturer:
+                    continue
+
+                # Déterminer la base utilisée pour les champs associés
+                champ_base = correspondances.get(field_name)
+
+                if not champ_base:
+                    if field_name.endswith("_etat"):
+                        champ_base = field_name.removesuffix("_etat")
+
+                    elif field_name.endswith("_remplacer"):
+                        champ_base = field_name.removesuffix("_remplacer")
+
+                    else:
+                        champ_base = field_name
+
+                champ_prix = f"{champ_base}_prix"
+                champ_quantite = f"{champ_base}_quantite"
+                champ_fabricant = f"{champ_base}_fabricant"
+                champ_qualite = f"{champ_base}_qualite"
+                champ_type = f"{champ_base}_type"
+
+                # Ne pas ajouter un contrôle sans prix ou quantité associés
+                if not hasattr(self, champ_prix):
+                    continue
+
+                if not hasattr(self, champ_quantite):
+                    continue
+
+                prix = getattr(
+                    self,
+                    champ_prix,
+                    Decimal("0.00"),
+                )
+
+                quantite = getattr(
+                    self,
+                    champ_quantite,
+                    Decimal("0.00"),
+                )
+
+                if prix is None:
+                    prix = Decimal("0.00")
+
+                if quantite is None:
+                    quantite = Decimal("0.00")
+
+                prix = Decimal(str(prix))
+                quantite = Decimal(str(quantite))
+
+                # N'afficher que les lignes réellement facturables
+                if prix <= Decimal("0.00"):
+                    continue
+
+                if quantite <= Decimal("0.00"):
+                    continue
+
+                total = (
+                        prix * quantite
+                ).quantize(
+                    Decimal("0.01"),
+                    rounding=ROUND_HALF_UP,
+                )
+
+                total_general += total
+
+                # Libellé de l'état
+                get_etat_display = getattr(
+                    self,
+                    f"get_{field_name}_display",
+                    None,
+                )
+
+                if callable(get_etat_display):
+                    etat_label = get_etat_display()
+                else:
+                    etat_label = dict(field.choices).get(etat, etat)
+
+                # Fabricant
+                fabricant = None
+                fabricant_label = None
+
+                if hasattr(self, champ_fabricant):
+                    fabricant = getattr(
+                        self,
+                        champ_fabricant,
+                        None,
+                    )
+
+                    get_fabricant_display = getattr(
+                        self,
+                        f"get_{champ_fabricant}_display",
+                        None,
+                    )
+
+                    if callable(get_fabricant_display):
+                        fabricant_label = get_fabricant_display()
+                    else:
+                        fabricant_label = fabricant
+
+                # Qualité
+                qualite = None
+                qualite_label = None
+
+                if hasattr(self, champ_qualite):
+                    qualite = getattr(
+                        self,
+                        champ_qualite,
+                        None,
+                    )
+
+                    get_qualite_display = getattr(
+                        self,
+                        f"get_{champ_qualite}_display",
+                        None,
+                    )
+
+                    if callable(get_qualite_display):
+                        qualite_label = get_qualite_display()
+                    else:
+                        qualite_label = qualite
+
+                # Type
+                type_produit = None
+                type_label = None
+
+                if hasattr(self, champ_type):
+                    type_produit = getattr(
+                        self,
+                        champ_type,
+                        None,
+                    )
+
+                    get_type_display = getattr(
+                        self,
+                        f"get_{champ_type}_display",
+                        None,
+                    )
+
+                    if callable(get_type_display):
+                        type_label = get_type_display()
+                    else:
+                        type_label = type_produit
+
+                # Unité
+                unite = ""
+
+                if any(
+                        texte in champ_base
+                        for texte in [
+                            "huile",
+                            "liquide",
+                            "refroidissement",
+                        ]
+                ):
+                    unite = "L"
+
+                rapport.append({
+                    "champ": field.verbose_name,
+                    "designation": field.verbose_name,
+                    "code": field_name,
+
+                    "etat": etat,
+                    "etat_label": etat_label,
+
+                    "fabricant": fabricant,
+                    "fabricant_label": fabricant_label,
+
+                    "qualite": qualite,
+                    "qualite_label": qualite_label,
+
+                    "type": type_produit,
+                    "type_label": type_label,
+
+                    "quantite": quantite,
+                    "unite": unite,
+
+                    "prix": prix,
+                    "prix_unitaire": prix,
+
+                    "total": total,
+                })
+
+            return {
+                "lignes": rapport,
+                "total_general": total_general.quantize(
+                    Decimal("0.01"),
+                    rounding=ROUND_HALF_UP,
+                ),
+            }
+
+
+
+
         # ======================================================
         # MAIN-D'ŒUVRE
         # ======================================================

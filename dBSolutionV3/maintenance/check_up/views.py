@@ -308,7 +308,6 @@ def modifier_checkup_view(request, checkup_id):
         )
 
 
-
 @login_required
 def checkup_pdf_view(request, checkup_id):
     tenant = request.user.societe
@@ -316,39 +315,69 @@ def checkup_pdf_view(request, checkup_id):
     with tenant_context(tenant):
         checkup = get_object_or_404(
             Checkup.objects.select_related(
+                "maintenance",
                 "voiture_exemplaire",
                 "tech_technicien",
                 "tech_societe",
                 "main_oeuvre",
+                "main_oeuvre__utilisateur",
             ),
-            id=checkup_id
+            id=checkup_id,
         )
+
+        rapport = checkup.generer_rapport_remplacement()
 
         html_string = render_to_string(
             "check_up/checkup_detail_pdf.html",
             {
                 "checkup": checkup,
+                "rapport": rapport,
+                "pieces_utilisees": rapport["lignes"],
+                "total_pieces": rapport["total_general"],
+                "cout_main_oeuvre": checkup.cout_main_oeuvre,
+                "total_general": checkup.total_general_avec_main_oeuvre,
                 "date_export": timezone.now(),
                 "societe": tenant,
-            }
+            },
+            request=request,
         )
 
         pdf_file = HTML(
             string=html_string,
-            base_url=request.build_absolute_uri()
+            base_url=request.build_absolute_uri("/"),
         ).write_pdf()
 
         immatriculation = (
             checkup.voiture_exemplaire.immatriculation
             if checkup.voiture_exemplaire
+            and checkup.voiture_exemplaire.immatriculation
             else "sans_immatriculation"
         )
 
-        technicien = checkup.tech_nom_technicien or "technicien_inconnu"
+        technicien = (
+            checkup.tech_nom_technicien
+            or (
+                str(checkup.main_oeuvre.utilisateur)
+                if checkup.main_oeuvre
+                and checkup.main_oeuvre.utilisateur
+                else None
+            )
+            or "technicien_inconnu"
+        )
 
-        response = HttpResponse(pdf_file, content_type="application/pdf")
+        # Évite les caractères problématiques dans le nom du fichier
+        immatriculation = str(immatriculation).replace(" ", "_").replace("/", "-")
+        technicien = str(technicien).replace(" ", "_").replace("/", "-")
+
+        filename = f"checkup_{immatriculation}_{technicien}.pdf"
+
+        response = HttpResponse(
+            pdf_file,
+            content_type="application/pdf",
+        )
+
         response["Content-Disposition"] = (
-            f'inline; filename="checkup_{immatriculation}_{technicien}.pdf"'
+            f'inline; filename="{filename}"'
         )
 
         return response
