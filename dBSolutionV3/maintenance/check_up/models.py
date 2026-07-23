@@ -6,7 +6,8 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from maintenance.choices import RouesSerrageEtat, TAUX_HORAIRE_CHOICES
+from maintenance.choices import RouesSerrageEtat, TAUX_HORAIRE_CHOICES, FabricantLubrifiant, RefroidissementFabricant, \
+    FabricantFrein, TypeHuileDirection, FabricantPiece, FabricantSuspension
 from utilisateurs.models import Utilisateur
 from django.conf import settings
 from utils.mixin import TechnicienMixin
@@ -188,12 +189,16 @@ class Checkup(TechnicienMixin, models.Model):
 
     # --- Essuie-glaces & Pare-brise ---
     essuie_glace_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Essuie-glace AV fonctionnel"))
+
     essuie_glace_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Essuie-glace AR fonctionnel"))
+
     balais_essuie_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Balais avant"))
+
     balais_essuie_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Balai arrière"))
 
     pare_brise_coups = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Pare-brise sans coups"))
     pare_brise_remplacer = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Etat du Pare-brise"))
+
 
     # --- Moteur & transmission ---
     moteur_fuite =  models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Fuite moteur"))
@@ -201,58 +206,140 @@ class Checkup(TechnicienMixin, models.Model):
     moteur_perte =  models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Perte de puissance"))
     moteur_casse =  models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Moteur à remplacer"))
     moteur_niveau_huile_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON, verbose_name=_("Niveau d'huile"))
+    moteur_niveau_huile_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.MOBIL,verbose_name=_("Fabricant de l'huile moteur"))
     moteur_niveau_huile_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=1,  verbose_name=_("Quantité d'huile ajoutée en litres"), validators=[StepValueValidator(0.1)])
     moteur_niveau_huile_qualite = models.CharField(max_length=25, choices=HuileEtat.choices, default=HuileEtat.ZERO_30, verbose_name=_("Qualité d'huile"))
+    moteur_niveau_huile_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva de l'huile moteur"))
+
 
     boite_fuite = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Fuite boîte de vitesse"))
     boite_bruit = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Bruits boîte de vitesse"))
     boite_embrayage = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Problème d'embrayage"))
     boite_niveau_huile_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau d'huile"))
+    boite_niveau_huile_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.MOBIL,verbose_name=_("Fabricant de l'huile de boite de vitesse"))
     boite_niveau_huile_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=1, verbose_name=_("Quantité d'huile ajoutée en litres"), validators=[StepValueValidator(0.1)])
     boite_niveau_huile_qualite = models.CharField(max_length=25, choices=HuileBoiteEtat.choices, default=HuileBoiteEtat.SEPTANTE_CINQ, verbose_name=_("Qualité d'huile"))
-
+    boite_niveau_huile_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva de l'huile de boite de vitesse"))
     # --- Pont ----
 
     pont_fuite = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Fuite pont arrière"))
     pont_bruit = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Bruits pont arrière"))
     pont_jeu = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Jeu pont arrière"))
     pont_niveau_huile_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau d'huile"))
+    pont_niveau_huile_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.MOBIL,verbose_name=_("Fabricant de l'huile de pont"))
     pont_niveau_huile_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=1,  verbose_name=_("Quantité d'huile ajoutée en litres"), validators=[StepValueValidator(0.1)])
     pont_niveau_huile_qualite = models.CharField(max_length=25, choices=HuilePontEtat.choices,default=HuilePontEtat.SEPTANTE_CINQ140,verbose_name=_("Qualité d'huile"))
-
+    pont_niveau_huile_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva de l'huile de pont"))
 
     # --- Refroidissement ---
 
     refroidissement_radiateur = models.CharField(max_length=25, choices=RefroidissementEtat.choices, default=RefroidissementEtat.OK, verbose_name=_("Radiateur"))
+    refroidissement_fabricant = models.CharField(max_length=25, choices=RefroidissementFabricant.choices,default=RefroidissementFabricant.CHOISIR,verbose_name=_("Fabricant du liquide de refroidissement"))
     refroidissement_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=1,  verbose_name=_("Quantité de liquide de refroidissement ajoutée en litres"), validators=[StepValueValidator(0.1)])
     refroidissement_qualite = models.CharField(max_length=25, choices=RefroidissementQualiteEtat.choices,default=RefroidissementQualiteEtat.G13, verbose_name=_("Qualité de liquide de refroidissement"))
-
+    refroidissement_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva du liquide de refroidissement"))
 
     # --- Freins ---
 
-    freins_usure_plaquettes_av = models.IntegerField(default=0, verbose_name=_("Usure des plaquettes avant (%)"))
-    freins_plaquettes_remplacer_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Plaquettes avant"))
-    freins_epaisseur_disques_av = models.FloatField(default=0.0, verbose_name=_("Épaisseur des disques avant (mm)"))
-    freins_fentes_disques_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Présence de fentes sur les disques avant"))
-    freins_disques_remplacer_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Disques avant"))
+    freins_plaquettes_av_usure = models.IntegerField(default=0, verbose_name=_("Usure des plaquettes avant (%)"))
+    freins_plaquettes_av_remplacer = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Plaquettes avant"))
+    freins_plaquettes_av_fabricant = models.CharField(max_length=25, choices=FabricantFrein.choices,default=FabricantFrein.CHOISIR,verbose_name=_("Fabricant des plaquettes avant"))
+    freins_plaquettes_av_quantite = models.PositiveIntegerField(default=0, verbose_name=_("Quantité"))
+    freins_plaquettes_av_prix = models.DecimalField(max_digits=10,
+                                               decimal_places=2,
+                                               default=0,
+                                               verbose_name=_("Prix d'achat des plaquettes avant HTVA")
+                                               )
 
-    freins_usure_plaquettes_ar = models.IntegerField(default=0, verbose_name=_("Usure des plaquettes arrière (%)"))
-    freins_plaquettes_remplacer_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Plaquettes arrière à remplacer"))
-    freins_epaisseur_disques_ar = models.FloatField(default=0, verbose_name=_("Épaisseur des disques arrière (mm)"))
-    freins_fentes_disques_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Présence de fentes sur les disques arrière"))
-    freins_disques_remplacer_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Disques arrière"))
+    freins_disques_av_epaisseur = models.FloatField(default=0.0, verbose_name=_("Épaisseur des disques avant (mm)"))
+    freins_disques_av_fentes = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Présence de fentes sur les disques avant"))
+    freins_disques_av_remplacer = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Disques avant"))
+    freins_disques_av_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantFrein.choices,
+        default=FabricantFrein.CHOISIR,
+        verbose_name=_("Fabricant des disques avant")
+    )
+    freins_disques_av_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+    freins_disques_av_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat des disques avant HTVA")
+    )
+
+
+    freins_plaquettes_ar_usure = models.IntegerField(default=0, verbose_name=_("Usure des plaquettes arrière (%)"))
+    freins_plaquettes_ar_remplacer = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Plaquettes arrière à remplacer"))
+    freins_plaquettes_ar_fabricant = models.CharField(max_length=25, choices=FabricantFrein.choices,default=FabricantFrein.CHOISIR,verbose_name=_("Fabricant des plaquettes arrière"))
+    freins_plaquettes_ar_quantite = models.PositiveIntegerField(default=0, verbose_name=_("Quantité"))
+    freins_plaquettes_ar_prix = models.DecimalField(max_digits=10,
+                                                    decimal_places=2,
+                                                    default=0,
+                                                    verbose_name=_("Prix d'achat des plaquettes arrière HTVA")
+                                                    )
+
+    freins_disques_ar_epaisseur = models.FloatField(default=0, verbose_name=_("Épaisseur des disques arrière (mm)"))
+    freins_disques_ar_fentes = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Présence de fentes sur les disques arrière"))
+    freins_disques_ar_remplacer = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Disques arrière"))
+    freins_disques_ar_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantFrein.choices,
+        default=FabricantFrein.CHOISIR,
+        verbose_name=_("Fabricant des disques arrière")
+    )
+    freins_disques_ar_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
+    freins_disques_ar_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat des disques arrière HTVA")
+    )
+
 
     freins_fuites = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Présence de fuite"))
 
 
     # --- Liquide ---
     frein_liquide_frein_etat = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("État liquide de frein"))
-    freins_remplacement_liquide_frein = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Remplacement liquide de frein"))
-    freins_specif_liquide_frein = models.CharField(max_length=100, choices=QualiteLiquideFrein.choices, default=QualiteLiquideFrein.DOT4, blank=True, verbose_name=_("Spécification liquide de frein"))
-    freins_quantite_liquide_frein = models.FloatField(default=0, null=True, blank=True, verbose_name=_("Quantité liquide de frein (L)"))
+    freins_liquide_specif = models.CharField(max_length=100, choices=QualiteLiquideFrein.choices, default=QualiteLiquideFrein.DOT4, blank=True, verbose_name=_("Spécification liquide de frein"))
+    frein_liquide_quantite = models.DecimalField(
+        max_digits=4,
+        decimal_places=2,
+        default=0.0,
+        null=True,
+        blank=True,
+        verbose_name=_("Quantité liquide de frein (L)"),
+        validators=[StepValueValidator(0.1)],
+    )
+    frein_liquide_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantLubrifiant.choices,
+        default=FabricantLubrifiant.CASTROL,
+        verbose_name=_("Fabricant du liquide de frein")
+    )
+    frein_liquide_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat du liquide HTVA")
+    )
 
-    direction_fuite = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Fuite direction assistée / crémaillère"), null=True, blank=True)
-    niveau_direction = models.FloatField(default=0.0, null=True, blank=True, verbose_name=_("Niveau liquide direction"))
+
+    direction_liquide_fuite = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Fuite direction assistée / crémaillère"), null=True, blank=True)
+    direction_liquide_niveau = models.FloatField(default=0.0, null=True, blank=True, verbose_name=_("Niveau liquide direction"))
+    direction_liquide_etat = models.CharField(max_length=25, choices=NiveauxEtat.choices, default=NiveauxEtat.BON,verbose_name=_("Niveau de liquide de direction"))
+    direction_liquide_quantite = models.DecimalField(default=0.0, max_digits=4, decimal_places=1, verbose_name=_("Quantité de liquide de direction ajoutée en litres"), validators=[StepValueValidator(0.1)])
+    direction_liquide_qualite = models.CharField(max_length=25, choices=TypeHuileDirection.choices,default=TypeHuileDirection.CHOISIR,verbose_name=_("Qualité de liquide de direction"))
+    direction_liquide_fabricant = models.CharField(max_length=30, choices=FabricantLubrifiant.choices,default=FabricantLubrifiant.CASTROL, verbose_name=_("Fabricant"))
+    direction_liquide_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat HTVA"))
+
 
     # --- Bruits ---
     bruit_roulement_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("État roulement de roue avant droit"), blank=True, null=True)
@@ -266,60 +353,948 @@ class Checkup(TechnicienMixin, models.Model):
 
     # --- Jeux ---
 
-    jeu_rotule_direction_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Jeu rotule de direction avant droite"))
-    jeu_rotule_direction_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Jeu rotule de direction avant gauche"))
-    jeu_rotule_direction_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Jeu rotule de direction arrière droite"))
-    jeu_rotule_direction_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Jeu rotule de direction arrière gauche"))
+    jeu_rotule_direction_avd = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu rotule de direction avant droite"),
+    )
+    jeu_rotule_direction_avd_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_rotule_direction_avd_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_rotule_direction_avd_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
 
-    jeu_rotule_suspension_inferieure_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeux rotule de suspension inférieure avant droite"))
-    jeu_rotule_suspension_inferieure_avg= models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeux rotule de suspension inférieure avant gauche"))
-    jeu_rotule_suspension_inferieure_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeux rotule de suspension inférieure arrière droite"))
-    jeu_rotule_suspension_inferieure_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeux rotule de suspension inférieure arrière droite"))
+    jeu_rotule_direction_avg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu rotule de direction avant gauche"),
+    )
+    jeu_rotule_direction_avg_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_rotule_direction_avg_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_rotule_direction_avg_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
 
-    jeu_rotule_suspension_superieure_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeux rotule de suspension supérieure avant droite"))
-    jeu_rotule_suspension_superieure_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeux rotule de suspension supérieure avant gauche"))
-    jeu_rotule_suspension_superieure_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeux rotule de suspension supérieure arrière droite"))
-    jeu_rotule_suspension_superieure_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeux rotule de suspension supérieure arrière droite"))
+    jeu_rotule_direction_ard = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu rotule de direction arrière droite"),
+    )
+    jeu_rotule_direction_ard_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_rotule_direction_ard_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_rotule_direction_ard_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
 
-    jeu_Biellette_barre_stabilisatrice_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeu biellette de barre stabilisatrice avant droite"))
-    jeu_Biellette_barre_stabilisatrice_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeu biellette de barre stabilisatrice avant gauche"))
-    jeu_Biellette_barre_stabilisatrice_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeu biellette de barre stabilisatrice arrière droite"))
-    jeu_Biellette_barre_stabilisatrice_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeu biellette de barre stabilisatrice arrière gauche"))
+    jeu_rotule_direction_arg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu rotule de direction arrière gauche"),
+    )
+    jeu_rotule_direction_arg_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_rotule_direction_arg_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_rotule_direction_arg_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
 
-    jeu_barre_stabilisatrice_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeu barre stabilisatrice avant"))
-    jeu_barre_stabilisatrice_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeu barre stabilisatrice arrière"))
+    jeu_rotule_suspension_inferieure_avd = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu rotule de suspension inférieure avant droite"),
+    )
+    jeu_rotule_suspension_inferieure_avd_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_rotule_suspension_inferieure_avd_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_rotule_suspension_inferieure_avd_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
 
-    jeu_biellette_direction_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeu biellette de direction droite"))
-    jeu_biellette_direction_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu biellette de direction gauche"))
+    jeu_rotule_suspension_inferieure_avg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu rotule de suspension inférieure avant gauche"),
+    )
+    jeu_rotule_suspension_inferieure_avg_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_rotule_suspension_inferieure_avg_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_rotule_suspension_inferieure_avg_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
 
-    jeu_cardan_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu du cardan avant droit"))
-    jeu_cardan_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu du cardan avant droit"))
-    jeu_cardan_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu du cardan avant droit"))
-    jeu_cardan_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu du cardan avant droit"))
+    jeu_rotule_suspension_inferieure_ard = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu rotule de suspension inférieure arrière droite"),
+    )
+    jeu_rotule_suspension_inferieure_ard_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_rotule_suspension_inferieure_ard_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_rotule_suspension_inferieure_ard_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
 
-    jeu_arbre = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu dans l'arbre de transmission"))
+    jeu_rotule_suspension_inferieure_arg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu rotule de suspension inférieure arrière gauche"),
+    )
+    jeu_rotule_suspension_inferieure_arg_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_rotule_suspension_inferieure_arg_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_rotule_suspension_inferieure_arg_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
 
+    jeu_rotule_suspension_superieure_avd = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu rotule de suspension supérieure avant droite"),
+    )
+    jeu_rotule_suspension_superieure_avd_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_rotule_suspension_superieure_avd_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_rotule_suspension_superieure_avd_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
 
-    jeu_amortisseur_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK, verbose_name=_("Jeu amortisseur avant droit"))
-    jeu_amortisseur_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu amortisseur avant gauche"))
-    jeu_amortisseur_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu amortisseur arrière droit"))
-    jeu_amortisseur_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu amortisseur arrière gauche"))
+    jeu_rotule_suspension_superieure_avg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu rotule de suspension supérieure avant gauche"),
+    )
+    jeu_rotule_suspension_superieure_avg_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_rotule_suspension_superieure_avg_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_rotule_suspension_superieure_avg_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
 
-    jeu_roulement_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Jeu roulement avant droit"))
-    jeu_roulement_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Jeu roulement avant gauche"))
-    jeu_roulement_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Jeu roulement arrière droit"))
-    jeu_roulement_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Jeu roulement arrière gauche"))
+    jeu_rotule_suspension_superieure_ard = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu rotule de suspension supérieure arrière droite"),
+    )
+    jeu_rotule_suspension_superieure_ard_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_rotule_suspension_superieure_ard_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_rotule_suspension_superieure_ard_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
 
-    jeu_triangle_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu triangle avant droit"))
-    jeu_triangle_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu triangle avant gauche"))
-    jeu_triangle_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu triangle arrière droit"))
-    jeu_triangle_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu triangle arrière gauche"))
+    jeu_rotule_suspension_superieure_arg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu rotule de suspension supérieure arrière gauche"),
+    )
+    jeu_rotule_suspension_superieure_arg_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_rotule_suspension_superieure_arg_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_rotule_suspension_superieure_arg_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
 
-    jeu_multi_bras_avd = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu suspension multi-bras avant droit"))
-    jeu_multi_bras_avg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu suspension multi-bras avant gauche"))
-    jeu_multi_bras_ard = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu suspension multi-bras arrière droit"))
-    jeu_multi_bras_arg = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Jeu suspension multi-bras arrière gauche"))
+    jeu_Biellette_barre_stabilisatrice_avd = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu biellette de barre stabilisatrice avant droite"),
+    )
+    jeu_Biellette_barre_stabilisatrice_avd_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_Biellette_barre_stabilisatrice_avd_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_Biellette_barre_stabilisatrice_avd_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
 
+    jeu_Biellette_barre_stabilisatrice_avg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu biellette de barre stabilisatrice avant gauche"),
+    )
+    jeu_Biellette_barre_stabilisatrice_avg_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_Biellette_barre_stabilisatrice_avg_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_Biellette_barre_stabilisatrice_avg_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+
+    jeu_Biellette_barre_stabilisatrice_ard = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu biellette de barre stabilisatrice arrière droite"),
+    )
+    jeu_Biellette_barre_stabilisatrice_ard_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_Biellette_barre_stabilisatrice_ard_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_Biellette_barre_stabilisatrice_ard_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+
+    jeu_Biellette_barre_stabilisatrice_arg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu biellette de barre stabilisatrice arrière gauche"),
+    )
+    jeu_Biellette_barre_stabilisatrice_arg_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_Biellette_barre_stabilisatrice_arg_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_Biellette_barre_stabilisatrice_arg_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+
+    jeu_barre_stabilisatrice_av = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu barre stabilisatrice avant"),
+    )
+    jeu_barre_stabilisatrice_av_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_barre_stabilisatrice_av_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_barre_stabilisatrice_av_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+
+    jeu_barre_stabilisatrice_ar = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu barre stabilisatrice arrière"),
+    )
+    jeu_barre_stabilisatrice_ar_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_barre_stabilisatrice_ar_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_barre_stabilisatrice_ar_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+
+    jeu_biellette_direction_avd = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu biellette de direction droite"),
+    )
+    jeu_biellette_direction_avd_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_biellette_direction_avd_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_biellette_direction_avd_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+
+    jeu_biellette_direction_avg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu biellette de direction gauche"),
+    )
+    jeu_biellette_direction_avg_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_biellette_direction_avg_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_biellette_direction_avg_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+
+    jeu_cardan_avd = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu du cardan avant droit"),
+    )
+    jeu_cardan_avd_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_cardan_avd_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_cardan_avd_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+
+    jeu_cardan_avg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu du cardan avant gauche"),
+    )
+    jeu_cardan_avg_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_cardan_avg_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_cardan_avg_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+
+    jeu_cardan_ard = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu du cardan arrière droit"),
+    )
+    jeu_cardan_ard_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_cardan_ard_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_cardan_ard_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+
+    jeu_cardan_arg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu du cardan arrière gauche"),
+    )
+    jeu_cardan_arg_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_cardan_arg_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_cardan_arg_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+
+    jeu_arbre = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu dans l'arbre de transmission"),
+    )
+    jeu_arbre_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_arbre_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_arbre_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+
+    jeu_amortisseur_avd = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu amortisseur avant droit"),
+    )
+    jeu_amortisseur_avd_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantSuspension.choices,
+        default=FabricantSuspension.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_amortisseur_avd_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_amortisseur_avd_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+
+    jeu_amortisseur_avg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu amortisseur avant gauche"),
+    )
+    jeu_amortisseur_avg_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantSuspension.choices,
+        default=FabricantSuspension.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_amortisseur_avg_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_amortisseur_avg_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+
+    jeu_amortisseur_ard = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu amortisseur arrière droit"),
+    )
+    jeu_amortisseur_ard_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantSuspension.choices,
+        default=FabricantSuspension.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_amortisseur_ard_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_amortisseur_ard_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+
+    jeu_amortisseur_arg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu amortisseur arrière gauche"),
+    )
+    jeu_amortisseur_arg_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantSuspension.choices,
+        default=FabricantSuspension.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_amortisseur_arg_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_amortisseur_arg_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+
+    jeu_roulement_avd = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu roulement avant droit"),
+    )
+    jeu_roulement_avd_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_roulement_avd_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_roulement_avd_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+
+    jeu_roulement_avg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu roulement avant gauche"),
+    )
+    jeu_roulement_avg_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_roulement_avg_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_roulement_avg_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+
+    jeu_roulement_ard = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu roulement arrière droit"),
+    )
+    jeu_roulement_ard_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_roulement_ard_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_roulement_ard_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+
+    jeu_roulement_arg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu roulement arrière gauche"),
+    )
+    jeu_roulement_arg_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_roulement_arg_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_roulement_arg_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+
+    jeu_triangle_avd = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu triangle avant droit"),
+    )
+    jeu_triangle_avd_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_triangle_avd_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_triangle_avd_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+
+    jeu_triangle_avg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu triangle avant gauche"),
+    )
+    jeu_triangle_avg_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_triangle_avg_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_triangle_avg_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+
+    jeu_triangle_ard = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu triangle arrière droit"),
+    )
+    jeu_triangle_ard_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_triangle_ard_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_triangle_ard_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+
+    jeu_triangle_arg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu triangle arrière gauche"),
+    )
+    jeu_triangle_arg_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_triangle_arg_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_triangle_arg_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+
+    jeu_multi_bras_avd = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu suspension multi-bras avant droit"),
+    )
+    jeu_multi_bras_avd_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_multi_bras_avd_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_multi_bras_avd_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+
+    jeu_multi_bras_avg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu suspension multi-bras avant gauche"),
+    )
+    jeu_multi_bras_avg_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_multi_bras_avg_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_multi_bras_avg_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+
+    jeu_multi_bras_ard = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu suspension multi-bras arrière droit"),
+    )
+    jeu_multi_bras_ard_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_multi_bras_ard_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_multi_bras_ard_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+
+    jeu_multi_bras_arg = models.CharField(
+        max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Jeu suspension multi-bras arrière gauche"),
+    )
+    jeu_multi_bras_arg_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPiece.choices,
+        default=FabricantPiece.CHOISIR,
+        verbose_name=_("Fabricant"),
+    )
+    jeu_multi_bras_arg_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    jeu_multi_bras_arg_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
     # --- Pneus et Pression
 
     pneu_epaisseur_avd = models.FloatField(default=8.0, verbose_name=_("Épaisseur du pneu avant droit (mm)"))
