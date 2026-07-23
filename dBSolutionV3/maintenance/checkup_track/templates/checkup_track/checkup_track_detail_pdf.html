@@ -1,101 +1,54 @@
 {% load i18n %}
 
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
     <meta charset="utf-8">
 
     <style>
-        @page {
-            size: A4;
-            margin: 14mm 12mm 15mm 12mm;
-
-            @bottom-center {
-                content: "Page " counter(page) " / " counter(pages);
-                font-family: Arial, sans-serif;
-                font-size: 9px;
-                color: #6b7280;
-            }
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
         body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 11px;
-            line-height: 1.4;
-            color: #111827;
-            background: #ffffff;
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #111;
         }
 
         h1 {
-            margin: 0 0 15px 0;
-            padding-bottom: 7px;
             font-size: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 6px;
             color: #1e3a8a;
             border-bottom: 2px solid #1e3a8a;
         }
 
         h2 {
-            margin: 18px 0 8px 0;
-            padding-bottom: 4px;
             font-size: 14px;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
             color: #1e40af;
             border-bottom: 1px solid #93c5fd;
-            page-break-after: avoid;
         }
-
         .box {
-            width: 100%;
+            border: 1px solid #ddd;
             padding: 10px;
             margin-bottom: 12px;
-            border: 1px solid #d1d5db;
-            background: #ffffff;
-            page-break-inside: avoid;
         }
 
         .grid {
-            display: flex;
-            flex-wrap: wrap;
-            width: 100%;
-            margin: -4px;
-        }
-
-        .grid > div {
-            width: 50%;
-            padding: 4px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
         }
 
         .label {
             font-weight: bold;
-            color: #111827;
-        }
-
-        .tag,
-        .ok,
-        .not-ok,
-        .replace,
-        .neutral,
-        .etat-vert,
-        .etat-rouge,
-        .etat-jaune,
-        .etat-bleu,
-        .etat-gris {
-            display: inline-block;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: bold;
-            line-height: 1.3;
         }
 
         .tag {
             padding: 3px 8px;
-            color: #ffffff;
-            border: none;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
         }
 
         .tag-vert {
@@ -110,82 +63,79 @@
             background: #dc2626;
         }
 
-        .ok,
+
         .etat-vert {
             color: #166534;
             background: #dcfce7;
-            border: 1px solid #86efac;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
         }
 
-        .not-ok,
         .etat-rouge {
             color: #991b1b;
             background: #fee2e2;
-            border: 1px solid #fca5a5;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
         }
 
-        .replace,
         .etat-bleu {
             color: #1e40af;
             background: #dbeafe;
-            border: 1px solid #93c5fd;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
         }
 
-        .neutral,
         .etat-gris {
-            color: #4b5563;
+            color: #6b7280;
             background: #f3f4f6;
-            border: 1px solid #d1d5db;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
         }
 
-        .etat-jaune {
-            color: #854d0e;
-            background: #fef9c3;
-            border: 1px solid #fde047;
+        .tag {
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-weight: bold;
         }
+
+        .tag-vert {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .tag-jaune {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .tag-rouge {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+
 
         table {
             width: 100%;
-            margin-top: 8px;
             border-collapse: collapse;
-            page-break-inside: auto;
+            margin-top: 10px;
         }
 
-        thead {
-            display: table-header-group;
-        }
-
-        tr {
-            page-break-inside: avoid;
-            page-break-after: auto;
-        }
-
-        th,
+       th,
         td {
-            padding: 6px;
             border: 1px solid #d1d5db;
+            padding: 6px;
             vertical-align: middle;
         }
 
         th {
-            color: #1e3a8a;
             background: #eff6ff;
-            font-weight: bold;
+            color: #1e3a8a;
             text-align: left;
-        }
-
-        tbody tr:nth-child(even) {
-            background: #f8fafc;
-        }
-
-        table th:first-child,
-        table td:first-child {
-            width: 52%;
-        }
-
-        table th:last-child,
-        table td:last-child {
-            width: 48%;
         }
 
         .text-right {
@@ -194,20 +144,7 @@
 
         .total {
             font-weight: bold;
-            background: #e0e7ff;
-        }
-
-        .total-general {
-            color: #ffffff;
-            background: #1e3a8a;
-            font-size: 12px;
-            font-weight: bold;
-        }
-
-        .small {
-            margin-top: 20px;
-            font-size: 9px;
-            color: #6b7280;
+            background: #f8fafc;
         }
     </style>
 </head>
@@ -1714,173 +1651,252 @@
     </tbody>
 </table>
 
-{% if checkup_track.remarques %}
-    <h2>{% trans "Remarques" %}</h2>
+<!-- ================= MAIN-D'ŒUVRE ================= -->
 
-    <div class="box">
-        {{ checkup_track.remarques|linebreaksbr }}
+<h2>{% trans "Main d'œuvre" %}</h2>
+
+<div class="box">
+    <div class="grid">
+        <div>
+            <span class="label">{% trans "Temps" %} :</span>
+            {{ checkup_track.temps_main_oeuvre_display|default:"0h00" }}
+        </div>
+
+        {% if checkup.main_oeuvre %}
+            <div>
+                <span class="label">{% trans "Taux horaire" %} :</span>
+                {{ checkup_track.main_oeuvre.taux_horaire|default:0|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Prix facturé" %} :</span>
+                {{ checkup_track.main_oeuvre.prix_facture|default:0|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Descriptif" %} :</span>
+                {{ checkup_track.main_oeuvre.descriptif|default:"-" }}
+            </div>
+        {% else %}
+            <div>
+                {% trans "Aucune main d'œuvre liée" %}
+            </div>
+        {% endif %}
     </div>
-{% endif %}
+</div>
 
-{% if rapport.lignes %}
-    <h2>{% trans "Pièces et produits utilisés" %}</h2>
 
-    <table>
-        <thead>
-            <tr>
-                <th>{% trans "Pièce / Produit" %}</th>
-                <th>{% trans "État" %}</th>
-                <th class="text-right">{% trans "Quantité" %}</th>
-                <th class="text-right">{% trans "Prix unitaire HTVA" %}</th>
-                <th class="text-right">{% trans "Total HTVA" %}</th>
-            </tr>
-        </thead>
+<!-- ================================================== -->
+<!-- PIÈCES, PRODUITS ET MAIN-D'ŒUVRE -->
+<!-- ================================================== -->
 
-        <tbody>
-            {% for ligne in rapport.lignes %}
+<h2>{% trans "Pièces, produits utilisés et main-d'œuvre" %}</h2>
+
+<div class="box">
+
+    {% if rapport.lignes %}
+
+        <table>
+            <thead>
                 <tr>
-                    <td>
-                        {{ ligne.designation|default:ligne.champ }}
+                    <th>{% trans "Pièce / Produit" %}</th>
+                    <th>{% trans "État" %}</th>
+                    <th>{% trans "Fabricant" %}</th>
 
-                        {% if ligne.fabricant %}
-                            <br>
-                            <span class="small">
-                                {% trans "Fabricant" %} :
-                                {{ ligne.fabricant_label }}
-                            </span>
-                        {% endif %}
+                    <th class="text-right">
+                        {% trans "Quantité" %}
+                    </th>
 
-                        {% if ligne.qualite %}
-                            <br>
-                            <span class="small">
-                                {% trans "Qualité" %} :
-                                {{ ligne.qualite_label }}
-                            </span>
-                        {% endif %}
+                    <th class="text-right">
+                        {% trans "Prix unitaire HTVA" %}
+                    </th>
 
-                        {% if ligne.type %}
-                            <br>
-                            <span class="small">
-                                {% trans "Type" %} :
-                                {{ ligne.type_label }}
-                            </span>
-                        {% endif %}
-                    </td>
+                    <th class="text-right">
+                        {% trans "Total HTVA" %}
+                    </th>
+                </tr>
+            </thead>
 
-                    <td>
-                        {% if ligne.etat == "OK" or ligne.etat == "BON" or ligne.etat == "FAIT" %}
-                            <span class="etat-vert">
-                                {{ ligne.etat_label|default:"-" }}
-                            </span>
-                        {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" %}
-                            <span class="etat-rouge">
-                                {{ ligne.etat_label|default:"-" }}
-                            </span>
-                        {% elif ligne.etat == "REMPLACE" %}
-                            <span class="etat-bleu">
-                                {{ ligne.etat_label|default:"-" }}
-                            </span>
-                        {% elif ligne.etat == "REPORTER" %}
-                            <span class="etat-jaune">
-                                {{ ligne.etat_label|default:"-" }}
-                            </span>
-                        {% else %}
-                            <span class="etat-gris">
-                                {{ ligne.etat_label|default:"-" }}
-                            </span>
-                        {% endif %}
+            <tbody>
+                {% for ligne in rapport.lignes %}
+                    {% if ligne.champ and ligne.prix > 0 and ligne.quantite > 0 %}
+                        <tr>
+                            <td>
+                                {{ ligne.designation|default:ligne.champ }}
+
+                                {% if ligne.qualite %}
+                                    <br>
+                                    <span class="small">
+                                        {% trans "Qualité" %} :
+                                        {{ ligne.qualite_label|default:ligne.qualite }}
+                                    </span>
+                                {% endif %}
+
+                                {% if ligne.type %}
+                                    <br>
+                                    <span class="small">
+                                        {% trans "Type" %} :
+                                        {{ ligne.type_label|default:ligne.type }}
+                                    </span>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                {% if ligne.etat == "OK" or ligne.etat == "BON" or ligne.etat == "FAIT" or ligne.etat == "PROPRE" %}
+                                    <span class="etat-vert">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" or ligne.etat == "AJOUTER" %}
+                                    <span class="etat-rouge">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REMPLACE" %}
+                                    <span class="etat-bleu">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% elif ligne.etat == "REPORTER" %}
+                                    <span class="etat-jaune">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+
+                                {% else %}
+                                    <span class="etat-gris">
+                                        {{ ligne.etat_label|default:"-" }}
+                                    </span>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                {{ ligne.fabricant_label|default:"-" }}
+                            </td>
+
+                            <td class="text-right">
+                                {{ ligne.quantite|default:0|floatformat:2 }}
+                                {{ ligne.unite|default:"" }}
+                            </td>
+
+                            <td class="text-right">
+                                {{ ligne.prix|default:0|floatformat:2 }} €
+                            </td>
+
+                            <td class="text-right">
+                                {{ ligne.total|default:0|floatformat:2 }} €
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+
+                <tr class="total">
+                    <td colspan="5" class="text-right">
+                        <strong>
+                            {% trans "Total pièces et produits HTVA" %}
+                        </strong>
                     </td>
 
                     <td class="text-right">
-                        {{ ligne.quantite|default:0|floatformat:2 }}
-                        {{ ligne.unite|default:"" }}
-                    </td>
-
-                    <td class="text-right">
-                        {{ ligne.prix_unitaire|default:0|floatformat:2 }} €
-                    </td>
-
-                    <td class="text-right">
-                        {{ ligne.total|default:0|floatformat:2 }} €
+                        <strong>
+                            {{ rapport.total_general|default:0|floatformat:2 }} €
+                        </strong>
                     </td>
                 </tr>
-            {% endfor %}
 
-            <tr class="total">
-                <td colspan="4" class="text-right">
-                    {% trans "Total pièces et produits HTVA" %}
-                </td>
+                <tr class="total">
+                    <td colspan="5" class="text-right">
+                        <strong>
+                            {% trans "Main-d'œuvre" %}
+                        </strong>
+                    </td>
 
-                <td class="text-right">
-                    {{ rapport.total_general|default:0|floatformat:2 }} €
-                </td>
-            </tr>
-        </tbody>
-    </table>
-{% else %}
-    <h2>{% trans "Pièces et produits utilisés" %}</h2>
+                    <td class="text-right">
+                        <strong>
+                            {{ checkup_track.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
 
-    <div class="box">
-        {% trans "Aucune pièce ou produit utilisé." %}
-    </div>
-{% endif %}
+                <tr class="total">
+                    <td colspan="5" class="text-right">
+                        <strong>
+                            {% trans "Total général avec main-d'œuvre" %}
+                        </strong>
+                    </td>
 
-<h2>{% trans "Main-d'œuvre" %}</h2>
+                    <td class="text-right">
+                        <strong>
+                            {{ checkup_track.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
-<table>
-    <thead>
-        <tr>
-            <th>{% trans "Élément" %}</th>
-            <th>{% trans "Valeur" %}</th>
-        </tr>
-    </thead>
+    {% else %}
 
-    <tbody>
-        <tr>
-            <td>{% trans "Temps de travail" %}</td>
-            <td>
-                {{ checkup_track.temps_main_oeuvre_display|default:"0h00" }}
-            </td>
-        </tr>
+        <p>
+            {% trans "Aucune pièce ou produit utilisé." %}
+        </p>
 
-        <tr>
-            <td>{% trans "Taux horaire" %}</td>
-            <td>
-                {{ checkup_track.taux_horaire_main_oeuvre|default:0|floatformat:2 }} €
-            </td>
-        </tr>
+        <table>
+            <tbody>
+                <tr class="total">
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Main-d'œuvre" %}
+                        </strong>
+                    </td>
 
-        <tr>
-            <td>{% trans "Coût de la main-d'œuvre" %}</td>
-            <td>
-                {{ checkup_track.cout_main_oeuvre|default:0|floatformat:2 }} €
-            </td>
-        </tr>
+                    <td class="text-right">
+                        <strong>
+                            {{ checkup_track.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
 
-        <tr>
-            <td>{% trans "Technicien" %}</td>
-            <td>
-                {% if checkup_track.main_oeuvre and checkup_track.main_oeuvre.utilisateur %}
-                    {{ checkup_track.main_oeuvre.utilisateur }}
-                {% else %}
-                    {{ checkup_track.tech_nom_technicien|default:"-" }}
-                {% endif %}
-            </td>
-        </tr>
+                <tr class="total">
+                    <td class="text-right">
+                        <strong>
+                            {% trans "Total général avec main-d'œuvre" %}
+                        </strong>
+                    </td>
 
-        <tr class="total-general">
-            <td>{% trans "Total général avec main-d'œuvre" %}</td>
-            <td>
-                {{ checkup_track.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
-            </td>
-        </tr>
-    </tbody>
-</table>
+                    <td class="text-right">
+                        <strong>
+                            {{ checkup_track.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        </strong>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
-<p class="small">
-    {% trans "Document généré le" %}
+    {% endif %}
+
+</div>
+
+
+<!-- ================= REMARQUES ================= -->
+
+<h2>{% trans "Remarques" %}</h2>
+
+<div class="box">
+    {% if checkup_track.remarques %}
+        {{ checkup_track.remarques|linebreaksbr }}
+    {% else %}
+        {% trans "Aucune remarque." %}
+    {% endif %}
+</div>
+
+
+<!-- ================= PIED DE PAGE ================= -->
+
+<div class="footer">
+    {% trans "Document généré automatiquement par CarsCosts.com." %}
+    <br>
+    {% trans "Date export" %} :
     {{ date_export|date:"d/m/Y H:i" }}
-</p>
+</div>
 
 </body>
 </html>
