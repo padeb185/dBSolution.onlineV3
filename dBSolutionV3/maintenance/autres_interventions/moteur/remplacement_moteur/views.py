@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404, redirect
@@ -394,6 +396,11 @@ def modifier_remplacement_moteur_view(request, remplacement_moteur_id):
         })
 
 
+
+
+
+
+
 @login_required
 def remplacement_moteur_pdf_view(request, remplacement_moteur_id):
     tenant = request.user.societe
@@ -402,40 +409,92 @@ def remplacement_moteur_pdf_view(request, remplacement_moteur_id):
         remplacement = get_object_or_404(
             RemplacementMoteur.objects.select_related(
                 "voiture_exemplaire",
+                "voiture_exemplaire__voiture_marque",
+                "voiture_exemplaire__voiture_modele",
                 "maintenance",
                 "tech_technicien",
                 "tech_societe",
                 "main_oeuvre",
                 "main_oeuvre__utilisateur",
             ),
-            id=remplacement_moteur_id,
+            pk=remplacement_moteur_id,
         )
 
+        # Rapport des pièces et produits
         rapport = remplacement.generer_rapport_remplacement()
+
+        lignes_rapport = rapport.get("lignes", [])
+        total_pieces_produits = rapport.get(
+            "total_general",
+            Decimal("0.00"),
+        )
+
+        # Main-d'œuvre
+        cout_main_oeuvre = remplacement.cout_main_oeuvre
+        total_general = remplacement.total_general_avec_main_oeuvre
 
         html_string = render_to_string(
             "remplacement_moteur/remplacement_moteur_pdf.html",
             {
                 "remplacement": remplacement,
                 "rapport": rapport,
-                "societe": tenant,
+                "lignes_rapport": lignes_rapport,
+
+                # Compatibilité avec les templates utilisant pieces_utilisees
+                "pieces_utilisees": lignes_rapport,
+
+                "total_pieces": total_pieces_produits,
+                "total_pieces_produits": total_pieces_produits,
+                "cout_main_oeuvre": cout_main_oeuvre,
+                "total_general": total_general,
+
                 "maintenance": remplacement.maintenance,
                 "vehicule": remplacement.voiture_exemplaire,
+                "societe": tenant,
+                "date_export": timezone.now(),
             },
+            request=request,
         )
 
-        pdf = HTML(
+        pdf_file = HTML(
             string=html_string,
             base_url=request.build_absolute_uri("/"),
         ).write_pdf()
 
+        vehicule = remplacement.voiture_exemplaire
+
+        immatriculation = (
+            vehicule.immatriculation
+            if vehicule and vehicule.immatriculation
+            else "sans_immatriculation"
+        )
+
+        technicien = (
+            remplacement.tech_nom_technicien
+            or (
+                str(remplacement.tech_technicien)
+                if remplacement.tech_technicien
+                else "technicien_inconnu"
+            )
+        )
+
+        # Nettoyage des caractères problématiques pour le nom du PDF
+        immatriculation = str(immatriculation).replace(" ", "_").replace("/", "-")
+        technicien = str(technicien).replace(" ", "_").replace("/", "-")
+
+        nom_fichier = (
+            f"remplacement_moteur_"
+            f"{immatriculation}_"
+            f"{technicien}.pdf"
+        )
+
         response = HttpResponse(
-            pdf,
+            pdf_file,
             content_type="application/pdf",
         )
 
         response["Content-Disposition"] = (
-            'inline; filename="remplacement_moteur.pdf"'
+            f'inline; filename="{nom_fichier}"'
         )
 
         return response

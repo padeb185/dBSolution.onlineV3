@@ -6,6 +6,11 @@
     <meta charset="utf-8">
 
     <style>
+        @page {
+            size: A4;
+            margin: 15mm;
+        }
+
         body {
             font-family: Arial, sans-serif;
             font-size: 12px;
@@ -45,71 +50,44 @@
             font-weight: bold;
         }
 
-        .tag {
+        .tag,
+        .etat-vert,
+        .etat-rouge,
+        .etat-bleu,
+        .etat-jaune,
+        .etat-gris {
             display: inline-block;
-            padding: 2px 8px;
+            padding: 2px 6px;
             border-radius: 4px;
             font-weight: bold;
         }
 
-        .tag-vert {
-            background: #d1fae5;
-            color: #065f46;
-        }
-
-        .tag-jaune {
-            background: #fef3c7;
-            color: #92400e;
-        }
-
-        .tag-rouge {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-
+        .tag-vert,
         .etat-vert {
-            display: inline-block;
             color: #166534;
             background: #dcfce7;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: bold;
         }
 
+        .tag-jaune,
+        .etat-jaune {
+            color: #92400e;
+            background: #fef3c7;
+        }
+
+        .tag-rouge,
         .etat-rouge {
-            display: inline-block;
             color: #991b1b;
             background: #fee2e2;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: bold;
         }
 
         .etat-bleu {
-            display: inline-block;
             color: #1e40af;
             background: #dbeafe;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: bold;
-        }
-
-        .etat-jaune {
-            display: inline-block;
-            color: #92400e;
-            background: #fef3c7;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: bold;
         }
 
         .etat-gris {
-            display: inline-block;
             color: #6b7280;
             background: #f3f4f6;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: bold;
         }
 
         table {
@@ -145,6 +123,16 @@
             font-weight: bold;
             background: #f8fafc;
         }
+
+        .total-general {
+            font-weight: bold;
+            background: #dbeafe;
+            color: #1e3a8a;
+        }
+
+        tr {
+            page-break-inside: avoid;
+        }
     </style>
 </head>
 
@@ -161,7 +149,7 @@
 
         <div>
             <span class="label">{% trans "Date" %} :</span>
-            {{ remplacement.date|date:"d/m/Y H:i" }}
+            {{ remplacement.date|date:"d/m/Y H:i"|default:"-" }}
         </div>
 
         <div>
@@ -214,6 +202,11 @@
         </div>
 
         <div>
+            <span class="label">{% trans "Nombre de moteurs montés" %} :</span>
+            {{ remplacement.nombre_moteurs_montes|default:1 }}
+        </div>
+
+        <div>
             <span class="label">{% trans "Tag" %} :</span>
 
             {% if remplacement.tag == "VERT" %}
@@ -242,13 +235,12 @@
 </div>
 
 <!-- ================================================== -->
-<!-- INFORMATIONS DU MOTEUR DE REMPLACEMENT -->
+<!-- MOTEUR DE REMPLACEMENT -->
 <!-- ================================================== -->
 
 <h2>{% trans "Informations du moteur de remplacement" %}</h2>
 
 <div class="box">
-
     <table>
         <thead>
             <tr>
@@ -258,7 +250,6 @@
         </thead>
 
         <tbody>
-
             <tr>
                 <td>{% trans "Numéro de série du moteur" %}</td>
                 <td>
@@ -267,9 +258,16 @@
             </tr>
 
             <tr>
+                <td>{% trans "Quantité de moteurs" %}</td>
+                <td>
+                    {{ remplacement.moteur_quantite|default:1 }}
+                </td>
+            </tr>
+
+            <tr>
                 <td>{% trans "Prix du moteur HTVA" %}</td>
                 <td>
-                    {{ remplacement.prix_moteurs|default:0|floatformat:2 }} €
+                    {{ remplacement.moteurs_prix|default:0|floatformat:2 }} €
                 </td>
             </tr>
 
@@ -301,20 +299,17 @@
                     {% endif %}
                 </td>
             </tr>
-
         </tbody>
     </table>
-
 </div>
 
 <!-- ================================================== -->
-<!-- CONTRÔLES ET NIVEAUX -->
+<!-- HUILE MOTEUR -->
 <!-- ================================================== -->
 
-<h2>{% trans "Contrôles et niveaux du moteur" %}</h2>
+<h2>{% trans "Huile moteur" %}</h2>
 
 <div class="box">
-
     <table>
         <thead>
             <tr>
@@ -324,15 +319,6 @@
         </thead>
 
         <tbody>
-
-            <!-- HUILE MOTEUR -->
-
-            <tr class="section-row">
-                <td colspan="2">
-                    {% trans "Huile moteur" %}
-                </td>
-            </tr>
-
             <tr>
                 <td>{% trans "Niveau d'huile" %}</td>
                 <td>
@@ -360,6 +346,13 @@
             </tr>
 
             <tr>
+                <td>{% trans "Fabricant d'huile moteur" %}</td>
+                <td>
+                    {{ remplacement.get_niveau_huile_fabricant_display|default:"-" }}
+                </td>
+            </tr>
+
+            <tr>
                 <td>{% trans "Quantité d'huile ajoutée" %}</td>
                 <td>
                     {{ remplacement.niveau_huile_quantite|default:0|floatformat:1 }} L
@@ -373,14 +366,32 @@
                 </td>
             </tr>
 
-            <!-- REFROIDISSEMENT -->
-
-            <tr class="section-row">
-                <td colspan="2">
-                    {% trans "Liquide de refroidissement" %}
+            <tr>
+                <td>{% trans "Prix unitaire de l'huile HTVA" %}</td>
+                <td>
+                    {{ remplacement.niveau_huile_prix|default:0|floatformat:2 }} €
                 </td>
             </tr>
+        </tbody>
+    </table>
+</div>
 
+<!-- ================================================== -->
+<!-- LIQUIDE DE REFROIDISSEMENT -->
+<!-- ================================================== -->
+
+<h2>{% trans "Liquide de refroidissement" %}</h2>
+
+<div class="box">
+    <table>
+        <thead>
+            <tr>
+                <th>{% trans "Élément contrôlé" %}</th>
+                <th>{% trans "État / Valeur" %}</th>
+            </tr>
+        </thead>
+
+        <tbody>
             <tr>
                 <td>{% trans "Niveau de liquide de refroidissement" %}</td>
                 <td>
@@ -408,6 +419,13 @@
             </tr>
 
             <tr>
+                <td>{% trans "Fabricant du liquide de refroidissement" %}</td>
+                <td>
+                    {{ remplacement.get_refroidissement_fabricant_display|default:"-" }}
+                </td>
+            </tr>
+
+            <tr>
                 <td>
                     {% trans "Quantité de liquide de refroidissement ajoutée" %}
                 </td>
@@ -423,65 +441,58 @@
                 </td>
             </tr>
 
+            <tr>
+                <td>{% trans "Prix unitaire du liquide de refroidissement HTVA" %}</td>
+                <td>
+                    {{ remplacement.refroidissement_prix|default:0|floatformat:2 }} €
+                </td>
+            </tr>
         </tbody>
     </table>
-
 </div>
+
 
 <!-- ================================================== -->
 <!-- MAIN-D'ŒUVRE -->
 <!-- ================================================== -->
 
-<h2>{% trans "Main-d'œuvre" %}</h2>
+
+<h2>{% trans "Main d'œuvre" %}</h2>
 
 <div class="box">
     <div class="grid">
-
         <div>
-            <span class="label">{% trans "Temps de travail" %} :</span>
+            <span class="label">{% trans "Temps" %} :</span>
             {{ remplacement.temps_main_oeuvre_display|default:"0h00" }}
         </div>
 
-        <div>
-            <span class="label">{% trans "Taux horaire" %} :</span>
+        {% if remplacement.main_oeuvre %}
+            <div>
+                <span class="label">{% trans "Taux horaire" %} :</span>
+                {{ remplacement.main_oeuvre.taux_horaire|floatformat:2 }} €
+            </div>
 
-            {% if remplacement.main_oeuvre %}
-                {{ remplacement.main_oeuvre.taux_horaire|default:0|floatformat:2 }} €
-            {% else %}
-                0,00 €
-            {% endif %}
-        </div>
+            <div>
+                <span class="label">{% trans "Prix facturé" %} :</span>
+                {{ remplacement.main_oeuvre.prix_facture|floatformat:2 }} €
+            </div>
 
-        <div>
-            <span class="label">{% trans "Coût de la main-d'œuvre" %} :</span>
-            {{ remplacement.cout_main_oeuvre|default:0|floatformat:2 }} €
-        </div>
-
-        <div>
-            <span class="label">{% trans "Technicien" %} :</span>
-
-            {% if remplacement.main_oeuvre and remplacement.main_oeuvre.utilisateur %}
-                {{ remplacement.main_oeuvre.utilisateur }}
-            {% else %}
-                {{ remplacement.tech_nom_technicien|default:"-" }}
-            {% endif %}
-        </div>
-
-        {% if remplacement.main_oeuvre and remplacement.main_oeuvre.descriptif %}
             <div>
                 <span class="label">{% trans "Descriptif" %} :</span>
-                {{ remplacement.main_oeuvre.descriptif }}
+                {{ remplacement.main_oeuvre.descriptif|default:"-" }}
             </div>
+        {% else %}
+            <div>{% trans "Aucune main d'œuvre liée" %}</div>
         {% endif %}
-
     </div>
 </div>
 
+
 <!-- ================================================== -->
-<!-- PIÈCES, PRODUITS ET TOTAUX -->
+<!-- PIÈCES ET PRODUITS -->
 <!-- ================================================== -->
 
-<h2>{% trans "Pièces, produits utilisés et main-d'œuvre" %}</h2>
+<h2>{% trans "Pièces, produits utilisés et main d'oeuvre" %}</h2>
 
 <div class="box">
 
@@ -493,12 +504,8 @@
                     <th>{% trans "Pièce / Produit" %}</th>
                     <th>{% trans "État" %}</th>
                     <th class="text-right">{% trans "Quantité" %}</th>
-                    <th class="text-right">
-                        {% trans "Prix unitaire HTVA" %}
-                    </th>
-                    <th class="text-right">
-                        {% trans "Total HTVA" %}
-                    </th>
+                    <th class="text-right">{% trans "Prix unitaire HTVA" %}</th>
+                    <th class="text-right">{% trans "Total HTVA" %}</th>
                 </tr>
             </thead>
 
@@ -507,30 +514,11 @@
                 {% for ligne in rapport.lignes %}
                     <tr>
                         <td>
-                            {{ ligne.champ|default:"-" }}
+                            {{ ligne.champ }}
                         </td>
 
                         <td>
-                            {% if ligne.etat == "OK" %}
-                                <span class="etat-vert">
-                                    {{ ligne.etat_label|default:"-" }}
-                                </span>
-
-                            {% elif ligne.etat == "NOT_OK" %}
-                                <span class="etat-rouge">
-                                    {{ ligne.etat_label|default:"-" }}
-                                </span>
-
-                            {% elif ligne.etat == "REMPLACE" %}
-                                <span class="etat-bleu">
-                                    {{ ligne.etat_label|default:"-" }}
-                                </span>
-
-                            {% else %}
-                                <span class="etat-gris">
-                                    {{ ligne.etat_label|default:"-" }}
-                                </span>
-                            {% endif %}
+                            {{ ligne.etat_label|default:"-" }}
                         </td>
 
                         <td class="text-right">
@@ -588,30 +576,35 @@
 
         <table>
             <tbody>
-
                 <tr class="total">
-                    <td>{% trans "Main-d'œuvre" %}</td>
+                    <td>
+                        <div>
+                            <strong>{% trans "Main-d'œuvre" %}</strong>
+                        </div>
 
-                    <td class="text-right">
-                        {{ remplacement.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        <div class="text-right" style="margin-top: 4px;">
+                            {{ remplacement.cout_main_oeuvre|default:0|floatformat:2 }} €
+                        </div>
                     </td>
                 </tr>
 
                 <tr class="total">
-                    <td>{% trans "Total général" %}</td>
+                    <td>
+                        <div>
+                            <strong>{% trans "Total général" %}</strong>
+                        </div>
 
-                    <td class="text-right">
-                        {{ remplacement.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        <div class="text-right" style="margin-top: 4px;">
+                            {{ remplacement.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+                        </div>
                     </td>
                 </tr>
-
             </tbody>
         </table>
 
     {% endif %}
 
 </div>
-
 <!-- ================================================== -->
 <!-- REMARQUES -->
 <!-- ================================================== -->

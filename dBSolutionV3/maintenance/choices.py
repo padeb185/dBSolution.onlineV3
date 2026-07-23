@@ -476,9 +476,6 @@ class RefroidissementFabricant(models.TextChoices):
 
 
 
-from django.db import models
-from django.utils.translation import gettext_lazy as _
-
 
 class FabricantSuspension(models.TextChoices):
     CHOISIR = "CHOISIR", _("Choisir un fabricant")

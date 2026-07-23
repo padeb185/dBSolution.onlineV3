@@ -3,13 +3,14 @@ from decimal import Decimal, ROUND_HALF_UP
 
 from django.core.validators import StepValueValidator
 
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError, FieldDoesNotExist
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from client_particulier.models import ClientParticulier
 from django.conf import settings
 from maintenance.autres_interventions.boite_de_vitesse.models import HuileBoiteEtat, BoiteVitesseEtat
-from maintenance.choices import TAUX_HORAIRE_CHOICES
+from maintenance.autres_interventions.moteur.turbo.models import EtatOKNotOK
+from maintenance.choices import TAUX_HORAIRE_CHOICES, FabricantLubrifiant
 from maintenance.models import Maintenance
 from utils.mixin import TechnicienMixin
 
@@ -122,6 +123,10 @@ class RemplacementBoite(TechnicienMixin, models.Model):
         null=True,
         verbose_name=_("Prix de la boite"),
     )
+    remplacement_boite_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité")
+    )
 
 
     client = models.ForeignKey(
@@ -148,9 +153,21 @@ class RemplacementBoite(TechnicienMixin, models.Model):
 
     boite_niveau_huile_etat = models.CharField(
         max_length=25,
+        choices=EtatOKNotOK.choices,
+        default=EtatOKNotOK.OK,
+        verbose_name=_("Niveau d'huile"),
+    )
+    boite_niveau_huile_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantLubrifiant.choices,
+        default=FabricantLubrifiant.MOBIL,
+        verbose_name=_("Fabricant")
+    )
+    boite_niveau_huile_qualite = models.CharField(
+        max_length=25,
         choices=HuileBoiteEtat.choices,
         default=HuileBoiteEtat.SEPTANTE_CINQ,
-        verbose_name=_("Qualité de l'huile"),
+        verbose_name=_("Qualité d'huile")
     )
 
     boite_niveau_huile_quantite = models.DecimalField(
@@ -357,63 +374,118 @@ class RemplacementBoite(TechnicienMixin, models.Model):
         prix_ttc = prix_htva + tva
         setattr(self, f"{prefix}_prix_ttc", prix_ttc)
 
+    from decimal import Decimal
+
     def generer_rapport_remplacement(self):
-        rapport = []
+        lignes = []
         total_general = Decimal("0.00")
 
-        # --------------------------------------------------
+        # ==================================================
         # BOÎTE DE VITESSES
-        # --------------------------------------------------
-        if self.remplacement_boite_etat in (
-                BoiteVitesseEtat.NOT_OK,
-                BoiteVitesseEtat.REMPLACE,
-        ):
-            prix = self.remplacement_boite_prix or Decimal("0.00")
-            quantite = self.remplacement_boite_nombre or 0
+        # ==================================================
 
-            prix = Decimal(str(prix))
-            quantite = Decimal(str(quantite))
-            total = prix * quantite
+        prix_boite = Decimal(str(
+            self.remplacement_boite_prix or Decimal("0.00")
+        ))
 
-            total_general += total
+        quantite_boite = Decimal(str(
+            self.remplacement_boite_quantite or Decimal("0.00")
+        ))
 
-            rapport.append({
-                "champ": self._meta.get_field(
-                    "remplacement_boite_etat"
-                ).verbose_name,
-                "code": "remplacement_boite",
+        if prix_boite > 0 and quantite_boite > 0:
+            total_boite = prix_boite * quantite_boite
+            total_general += total_boite
+
+            methode_etat_boite = getattr(
+                self,
+                "get_remplacement_boite_etat_display",
+                None,
+            )
+
+            lignes.append({
+                "champ": str(
+                    self._meta.get_field(
+                        "remplacement_boite_etat"
+                    ).verbose_name
+                ),
                 "etat": self.remplacement_boite_etat,
-                "etat_label": self.get_remplacement_boite_etat_display(),
-                "prix": prix,
-                "quantite": quantite,
-                "total": total,
+                "etat_label": (
+                    methode_etat_boite()
+                    if callable(methode_etat_boite)
+                    else self.remplacement_boite_etat
+                ),
+                "fabricant": "",
+                "qualite": "",
+                "oem": "",
+                "quantite": quantite_boite,
+                "prix": prix_boite,
+                "total": total_boite,
             })
 
-        # --------------------------------------------------
+        # ==================================================
         # HUILE DE BOÎTE
-        # --------------------------------------------------
-        huile_prix = self.boite_niveau_huile_prix or Decimal("0.00")
-        huile_quantite = self.boite_niveau_huile_quantite or Decimal("0.0")
+        # ==================================================
 
-        huile_prix = Decimal(str(huile_prix))
-        huile_quantite = Decimal(str(huile_quantite))
-        huile_total = huile_prix * huile_quantite
+        prix_huile = Decimal(str(
+            self.boite_niveau_huile_prix or Decimal("0.00")
+        ))
 
-        if huile_prix > 0 or huile_quantite > 0:
-            total_general += huile_total
+        quantite_huile = Decimal(str(
+            self.boite_niveau_huile_quantite or Decimal("0.00")
+        ))
 
-            rapport.append({
-                "champ": _("Huile de boîte"),
-                "code": "boite_niveau_huile",
+        if prix_huile > 0 and quantite_huile > 0:
+            total_huile = prix_huile * quantite_huile
+            total_general += total_huile
+
+            methode_etat_huile = getattr(
+                self,
+                "get_boite_niveau_huile_etat_display",
+                None,
+            )
+
+            methode_fabricant = getattr(
+                self,
+                "get_boite_niveau_huile_fabricant_display",
+                None,
+            )
+
+            methode_qualite = getattr(
+                self,
+                "get_boite_niveau_huile_qualite_display",
+                None,
+            )
+
+            fabricant = (
+                methode_fabricant()
+                if callable(methode_fabricant)
+                else self.boite_niveau_huile_fabricant or ""
+            )
+
+            qualite = (
+                methode_qualite()
+                if callable(methode_qualite)
+                else self.boite_niveau_huile_qualite or ""
+            )
+
+            lignes.append({
+                "champ": "Huile de boîte",
                 "etat": self.boite_niveau_huile_etat,
-                "etat_label": self.get_boite_niveau_huile_etat_display(),
-                "prix": huile_prix,
-                "quantite": huile_quantite,
-                "total": huile_total,
+                "etat_label": (
+                    methode_etat_huile()
+                    if callable(methode_etat_huile)
+                    else self.boite_niveau_huile_etat
+                ),
+                "fabricant": fabricant,
+                "qualite": qualite,
+                "oem": "",
+                "quantite": quantite_huile,
+                "prix": prix_huile,
+                "total": total_huile,
             })
 
         return {
-            "lignes": rapport,
+            "lignes": lignes,
             "total_general": total_general,
         }
 

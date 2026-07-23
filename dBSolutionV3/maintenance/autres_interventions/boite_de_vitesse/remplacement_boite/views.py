@@ -1,3 +1,5 @@
+import re
+
 from django.utils import timezone
 from django.shortcuts import render, get_object_or_404, redirect
 from django.db import models, transaction
@@ -404,6 +406,8 @@ def modifier_remplacement_boite_view(request, remplacement_boite_id):
         })
 
 
+
+
 @login_required
 def remplacement_boite_pdf_view(request, remplacement_boite_id):
     tenant = request.user.societe
@@ -412,18 +416,28 @@ def remplacement_boite_pdf_view(request, remplacement_boite_id):
         remplacement = get_object_or_404(
             RemplacementBoite.objects.select_related(
                 "voiture_exemplaire",
+                "voiture_exemplaire__voiture_marque",
+                "voiture_exemplaire__voiture_modele",
                 "client",
                 "tech_technicien",
                 "tech_societe",
                 "main_oeuvre",
+                "main_oeuvre__utilisateur",
                 "maintenance",
             ),
-            id=remplacement_boite_id,
+            pk=remplacement_boite_id,
         )
 
-        maintenance = remplacement.maintenance
         vehicule = remplacement.voiture_exemplaire
+        maintenance = remplacement.maintenance
 
+        # Rapport des pièces et produits
+        rapport = remplacement.generer_rapport_remplacement()
+
+        lignes_rapport = rapport.get("lignes", [])
+        total_pieces = rapport.get("total_general", 0)
+
+        # Informations pour le nom du fichier
         immatriculation = (
             vehicule.immatriculation
             if vehicule and vehicule.immatriculation
@@ -432,42 +446,67 @@ def remplacement_boite_pdf_view(request, remplacement_boite_id):
 
         technicien = (
             remplacement.tech_nom_technicien
-            or "technicien_inconnu"
+            or (
+                str(remplacement.tech_technicien)
+                if remplacement.tech_technicien
+                else "technicien_inconnu"
+            )
         )
-
-        # Génération des lignes :
-        # pièce, état, quantité, prix unitaire et total
-        rapport = remplacement.generer_rapport_remplacement()
 
         html_string = render_to_string(
             "remplacement_boite/remplacement_boite_detail_pdf.html",
             {
                 "remplacement": remplacement,
                 "rapport": rapport,
+                "lignes_rapport": lignes_rapport,
+                "pieces_utilisees": lignes_rapport,
+                "total_pieces": total_pieces,
+                "cout_main_oeuvre": remplacement.cout_main_oeuvre,
+                "total_general": (
+                    remplacement.total_general_avec_main_oeuvre
+                ),
                 "societe": tenant,
                 "maintenance": maintenance,
                 "vehicule": vehicule,
                 "immatriculation": immatriculation,
                 "technicien": technicien,
+                "date_export": timezone.now(),
             },
             request=request,
         )
 
-        pdf = HTML(
+        pdf_file = HTML(
             string=html_string,
             base_url=request.build_absolute_uri("/"),
         ).write_pdf()
 
-        filename_technicien = technicien.replace(" ", "_")
+        def nettoyer_nom_fichier(valeur):
+            valeur = str(valeur).strip()
+            valeur = re.sub(r"\s+", "_", valeur)
+            valeur = re.sub(r'[\\/:*?"<>|]+', "-", valeur)
+            return valeur or "inconnu"
+
+        filename_immatriculation = nettoyer_nom_fichier(
+            immatriculation
+        )
+
+        filename_technicien = nettoyer_nom_fichier(
+            technicien
+        )
+
+        nom_fichier = (
+            f"remplacement_boite_"
+            f"{filename_immatriculation}_"
+            f"{filename_technicien}.pdf"
+        )
 
         response = HttpResponse(
-            pdf,
+            pdf_file,
             content_type="application/pdf",
         )
 
         response["Content-Disposition"] = (
-            f'inline; filename="remplacement_boite_'
-            f'{immatriculation}_{filename_technicien}.pdf"'
+            f'inline; filename="{nom_fichier}"'
         )
 
         return response

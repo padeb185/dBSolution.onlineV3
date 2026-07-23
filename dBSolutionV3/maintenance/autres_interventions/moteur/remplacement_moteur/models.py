@@ -6,6 +6,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
+from maintenance.choices import FabricantLubrifiant, RefroidissementFabricant
 from maintenance.niveaux.models import  (NiveauxEtat,
                                          HuileEtat, RefroidissementQualiteEtat)
 from maintenance.models import Maintenance
@@ -123,6 +124,7 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         verbose_name=_("Prix d'achat du moteur HTVA"),
     )
 
+
     TAG_CHOICES = [
         ("VERT", _("Vert")),
         ("JAUNE", _("Jaune")),
@@ -141,6 +143,12 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         choices=NiveauxEtat.choices,
         default=NiveauxEtat.BON,
         verbose_name=_("Niveau d'huile")
+    )
+    niveau_huile_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantLubrifiant.choices,
+        default=FabricantLubrifiant.MOBIL,
+        verbose_name=_("Fabricant")
     )
 
     niveau_huile_quantite = models.FloatField(
@@ -171,11 +179,20 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         verbose_name=_("Niveau de liquide de refroidissement")
     )
 
+    refroidissement_fabricant = models.CharField(
+        max_length=25,
+        choices=RefroidissementFabricant.choices,
+        default=RefroidissementFabricant.CHOISIR,
+        verbose_name=_("Niveau de liquide de refroidissement")
+    )
+
     refroidissement_quantite = models.FloatField(
         default=0,
         verbose_name=_("Quantité de liquide de refroidissement ajoutée en litres"),
         validators=[StepValueValidator(0.1)]
     )
+
+
 
     refroidissement_qualite = models.CharField(
         max_length=25,
@@ -392,7 +409,7 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
         for field in self._meta.fields:
             field_name = field.name
 
-            # Uniquement les champs d'état utilisant EntretienEtat
+            # Uniquement les champs utilisant NiveauxEtat
             if not (
                     isinstance(field, models.CharField)
                     and field.choices == NiveauxEtat.choices
@@ -401,17 +418,19 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
 
             etat = getattr(self, field_name, None)
 
-            if etat not in [
-                NiveauxEtat.BON,
-                NiveauxEtat.AJOUTER,
-            ]:
+            # On facture uniquement les liquides ajoutés
+            if etat != NiveauxEtat.AJOUTER:
                 continue
 
-            nom_champ_prix = f"{field_name}_prix"
-            nom_champ_quantite = f"{field_name}_quantite"
-            nom_champ_oem = f"{field_name}_oem"
+            # Exemples :
+            # niveau_huile_etat -> niveau_huile
+            # refroidissement_etat -> refroidissement
+            champ_base = field_name.removesuffix("_etat")
 
-            # Prix sécurisé
+            nom_champ_prix = f"{champ_base}_prix"
+            nom_champ_quantite = f"{champ_base}_quantite"
+            nom_champ_oem = f"{champ_base}_oem"
+
             prix = getattr(
                 self,
                 nom_champ_prix,
@@ -423,7 +442,6 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
 
             prix = Decimal(str(prix))
 
-            # Quantité sécurisée
             quantite = getattr(
                 self,
                 nom_champ_quantite,
@@ -435,7 +453,10 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
 
             quantite = Decimal(str(quantite))
 
-            # OEM sécurisé
+            # Ne pas afficher les lignes sans prix ou quantité
+            if prix <= 0 or quantite <= 0:
+                continue
+
             numero_oem = getattr(
                 self,
                 nom_champ_oem,
@@ -453,7 +474,7 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
 
             rapport.append({
                 "champ": field.verbose_name,
-                "code": field_name,
+                "code": champ_base,
                 "etat": etat,
                 "etat_label": dict(
                     NiveauxEtat.choices
@@ -464,6 +485,47 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
                 "total": total,
             })
 
+        # ==================================================
+        # MOTEUR DE REMPLACEMENT
+        # ==================================================
+
+        moteur_prix = Decimal(str(
+            self.moteurs_prix or Decimal("0.00")
+        ))
+
+        moteur_quantite = Decimal(str(
+            self.moteur_quantite or 0
+        ))
+
+        if moteur_prix > 0 and moteur_quantite > 0:
+            moteur_total = (
+                    moteur_prix * moteur_quantite
+            ).quantize(
+                Decimal("0.01"),
+                rounding=ROUND_HALF_UP,
+            )
+
+            total_general += moteur_total
+
+            rapport.insert(0, {
+                "champ": _("Moteur de remplacement"),
+                "code": "moteur",
+                "etat": (
+                    "REMPLACE"
+                    if self.remplacement_effectue
+                    else "A_REMPLACER"
+                ),
+                "etat_label": (
+                    _("Remplacé")
+                    if self.remplacement_effectue
+                    else _("À remplacer")
+                ),
+                "oem": self.remplacement_numero_moteurs or "",
+                "prix": moteur_prix,
+                "quantite": moteur_quantite,
+                "total": moteur_total,
+            })
+
         return {
             "lignes": rapport,
             "total_general": total_general.quantize(
@@ -471,7 +533,6 @@ class RemplacementMoteur(TechnicienMixin, models.Model):
                 rounding=ROUND_HALF_UP,
             ),
         }
-
         # ======================================================
         # MAIN-D'ŒUVRE
         # ======================================================
