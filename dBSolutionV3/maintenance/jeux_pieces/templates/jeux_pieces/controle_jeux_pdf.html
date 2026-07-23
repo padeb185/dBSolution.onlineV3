@@ -798,10 +798,6 @@
 <!-- ================================================== -->
 <!-- PIÈCES ET MAIN-D'ŒUVRE -->
 <!-- ================================================== -->
-<br>
-<br>
-<br>
-<br>
 
 <h2>{% trans "Pièces à remplacer, remplacées et main-d'œuvre" %}</h2>
 
@@ -814,6 +810,7 @@
                 <tr>
                     <th>{% trans "Pièce" %}</th>
                     <th>{% trans "État" %}</th>
+                    <th>{% trans "Fabricant" %}</th>
                     <th class="text-right">
                         {% trans "Quantité" %}
                     </th>
@@ -835,7 +832,25 @@
                         </td>
 
                         <td>
-                            {{ ligne.etat_label|default:"-" }}
+                            {% if ligne.etat == "OK" %}
+                                <span class="etat-vert">
+                                    {{ ligne.etat_label|default:"-" }}
+                                </span>
+                            {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" %}
+                                <span class="etat-rouge">
+                                    {{ ligne.etat_label|default:"-" }}
+                                </span>
+                            {% elif ligne.etat == "REMPLACE" %}
+                                <span class="etat-bleu">
+                                    {{ ligne.etat_label|default:"-" }}
+                                </span>
+                            {% else %}
+                                {{ ligne.etat_label|default:"-" }}
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            {{ ligne.fabricant_label|default:"-" }}
                         </td>
 
                         <td class="text-right">
@@ -853,7 +868,7 @@
                 {% endfor %}
 
                 <tr class="total">
-                    <td colspan="4" class="text-right">
+                    <td colspan="5" class="text-right">
                         <strong>
                             {% trans "Total des pièces HTVA" %}
                         </strong>
@@ -867,7 +882,7 @@
                 </tr>
 
                 <tr class="total">
-                    <td colspan="4" class="text-right">
+                    <td colspan="5" class="text-right">
                         <strong>
                             {% trans "Main-d'œuvre" %}
                         </strong>
@@ -881,7 +896,7 @@
                 </tr>
 
                 <tr class="total">
-                    <td colspan="4" class="text-right">
+                    <td colspan="5" class="text-right">
                         <strong>
                             {% trans "Total général avec main-d'œuvre" %}
                         </strong>
@@ -905,7 +920,6 @@
 
         <table>
             <tbody>
-
                 <tr class="total">
                     <td class="text-right">
                         <strong>{% trans "Main-d'œuvre" %}</strong>
@@ -929,14 +943,12 @@
                         </strong>
                     </td>
                 </tr>
-
             </tbody>
         </table>
 
     {% endif %}
 
 </div>
-
 
 
 

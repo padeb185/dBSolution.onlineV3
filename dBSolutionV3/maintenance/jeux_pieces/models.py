@@ -1147,72 +1147,99 @@ class ControleJeuxPieces(TechnicienMixin, models.Model):
 
         super().save(*args, **kwargs)
 
-
-
     def generer_rapport_remplacement(self):
-            rapport = []
-            total_general = Decimal("0.00")
+        rapport = []
+        total_general = Decimal("0.00")
 
-            for field in self._meta.fields:
-                field_name = field.name
+        for field in self._meta.fields:
+            field_name = field.name
 
-                # Garder uniquement les CharField utilisant EtatOKNotOK
-                if not (
-                        isinstance(field, models.CharField)
-                        and field.choices == EtatOKNotOK.choices
-                ):
-                    continue
+            # Garder uniquement les CharField utilisant EtatOKNotOK
+            if not (
+                    isinstance(field, models.CharField)
+                    and field.choices == EtatOKNotOK.choices
+            ):
+                continue
 
-                etat = getattr(self, field_name, None)
+            etat = getattr(self, field_name, None)
 
-                if etat not in [
-                    EtatOKNotOK.A_REMPLACER,
-                    EtatOKNotOK.REMPLACE,
-                ]:
-                    continue
+            if etat not in [
+                EtatOKNotOK.A_REMPLACER,
+                EtatOKNotOK.REMPLACE,
+            ]:
+                continue
 
-                prix = getattr(
+            # Prix
+            prix = getattr(
+                self,
+                f"{field_name}_prix",
+                Decimal("0.00"),
+            )
+
+            if prix is None:
+                prix = Decimal("0.00")
+
+            prix = Decimal(str(prix))
+
+            # Quantité
+            quantite = getattr(
+                self,
+                f"{field_name}_quantite",
+                0,
+            )
+
+            if quantite is None:
+                quantite = 0
+
+            quantite = Decimal(str(quantite))
+
+            # Fabricant
+            fabricant_field_name = f"{field_name}_fabricant"
+
+            fabricant = getattr(
+                self,
+                fabricant_field_name,
+                None,
+            )
+
+            fabricant_label = "-"
+
+            if fabricant:
+                get_fabricant_display = getattr(
                     self,
-                    f"{field_name}_prix",
-                    Decimal("0.00"),
+                    f"get_{fabricant_field_name}_display",
+                    None,
                 )
 
-                if prix is None:
-                    prix = Decimal("0.00")
+                if callable(get_fabricant_display):
+                    fabricant_label = get_fabricant_display()
+                else:
+                    fabricant_label = fabricant
 
-                prix = Decimal(str(prix))
+            total = prix * quantite
+            total_general += total
 
-                quantite = getattr(
-                    self,
-                    f"{field_name}_quantite",
-                    0,
-                )
+            rapport.append({
+                "champ": field.verbose_name,
+                "code": field_name,
 
-                if quantite is None:
-                    quantite = 0
+                "etat": etat,
+                "etat_label": dict(
+                    EtatOKNotOK.choices
+                ).get(etat, etat),
 
-                quantite = Decimal(str(quantite))
+                "fabricant": fabricant,
+                "fabricant_label": fabricant_label,
 
-                total = prix * quantite
-                total_general += total
+                "prix": prix,
+                "quantite": quantite,
+                "total": total,
+            })
 
-                rapport.append({
-                    "champ": field.verbose_name,
-                    "code": field_name,
-                    "etat": etat,
-                    "etat_label": dict(
-                        EtatOKNotOK.choices
-                    ).get(etat, etat),
-                    "prix": prix,
-                    "quantite": quantite,
-                    "total": total,
-                })
-
-            return {
-                "lignes": rapport,
-                "total_general": total_general,
-            }
-
+        return {
+            "lignes": rapport,
+            "total_general": total_general,
+        }
         # ======================================================
         # MAIN-D'ŒUVRE
         # ======================================================

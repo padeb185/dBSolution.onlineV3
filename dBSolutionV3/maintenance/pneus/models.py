@@ -3,7 +3,7 @@ from decimal import Decimal, ROUND_HALF_UP
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from maintenance.choices import RouesSerrageEtat, TAUX_HORAIRE_CHOICES
+from maintenance.choices import RouesSerrageEtat, TAUX_HORAIRE_CHOICES, FabricantPneus
 from maintenance.models import Maintenance
 from django.conf import settings
 from utils.mixin import TechnicienMixin
@@ -81,24 +81,37 @@ class ControlePneus(TechnicienMixin, models.Model):
 
 
 
-    pneu_train_av =  models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.OK, verbose_name=_("Train avant à remplacer"))
+    pneu_train_av =  models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.OK, verbose_name=_("Pneus avant à remplacer"))
+    pneu_train_av_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPneus.choices,
+        default=FabricantPneus.CHOISIR,
+        verbose_name=_("Manufacturier")
+    )
+
     pneu_train_av_prix = models.DecimalField(
     max_digits=10,
     decimal_places=2,
     default=0,
     verbose_name=_("Prix d'achat HTVA")
     )
-    pneu_train_av_quantite = models.PositiveIntegerField(default=1, null=True, blank=True, verbose_name=_("Quantité"))
+    pneu_train_av_quantite = models.PositiveIntegerField(default=0, null=True, blank=True, verbose_name=_("Quantité"))
 
 
-    pneu_train_ar =  models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.OK, verbose_name=_("Train arrière à remplacer"))
+    pneu_train_ar =  models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.OK, verbose_name=_("Pneus arrière à remplacer"))
+    pneu_train_ar_fabricant = models.CharField(
+        max_length=30,
+        choices=FabricantPneus.choices,
+        default=FabricantPneus.CHOISIR,
+        verbose_name=_("Manufacturier")
+    )
     pneu_train_ar_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
         verbose_name=_("Prix d'achat HTVA")
     )
-    pneu_train_ar_quantite = models.PositiveIntegerField(default=1, null=True, blank=True, verbose_name=_("Quantité"))
+    pneu_train_ar_quantite = models.PositiveIntegerField(default=0, null=True, blank=True, verbose_name=_("Quantité"))
 
 
     remarques = models.TextField(

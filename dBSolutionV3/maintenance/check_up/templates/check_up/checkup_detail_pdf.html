@@ -633,6 +633,589 @@
     </tr>
 </table>
 
+<h2>{% trans "Rotules de direction" %}</h2>
+
+<table>
+    <tr>
+        <th>{% trans "Pièce" %}</th>
+        <th>{% trans "État" %}</th>
+    </tr>
+
+    <tr>
+        <td>{% trans "Avant droite" %}</td>
+        <td>
+            {% if controle.jeu_rotule_direction_avd == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_rotule_direction_avd_display }}</span>
+            {% elif controle.jeu_rotule_direction_avd == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_rotule_direction_avd_display }}</span>
+            {% elif controle.jeu_rotule_direction_avd == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_rotule_direction_avd_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_rotule_direction_avd_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Avant gauche" %}</td>
+        <td>
+            {% if controle.jeu_rotule_direction_avg == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_rotule_direction_avg_display }}</span>
+            {% elif controle.jeu_rotule_direction_avg == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_rotule_direction_avg_display }}</span>
+            {% elif controle.jeu_rotule_direction_avg == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_rotule_direction_avg_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_rotule_direction_avg_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Arrière droite" %}</td>
+        <td>
+            {% if controle.jeu_rotule_direction_ard == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_rotule_direction_ard_display }}</span>
+            {% elif controle.jeu_rotule_direction_ard == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_rotule_direction_ard_display }}</span>
+            {% elif controle.jeu_rotule_direction_ard == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_rotule_direction_ard_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_rotule_direction_ard_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Arrière gauche" %}</td>
+        <td>
+            {% if controle.jeu_rotule_direction_arg == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_rotule_direction_arg_display }}</span>
+            {% elif controle.jeu_rotule_direction_arg == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_rotule_direction_arg_display }}</span>
+            {% elif controle.jeu_rotule_direction_arg == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_rotule_direction_arg_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_rotule_direction_arg_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+</table>
+
+<h2>{% trans "Rotules de suspension inférieures" %}</h2>
+
+<table>
+    <tr>
+        <th>{% trans "Pièce" %}</th>
+        <th>{% trans "État" %}</th>
+    </tr>
+
+    <tr>
+        <td>{% trans "Avant droite" %}</td>
+        <td>
+            {% if controle.jeu_rotule_suspension_inferieure_avd == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_rotule_suspension_inferieure_avd_display }}</span>
+            {% elif controle.jeu_rotule_suspension_inferieure_avd == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_rotule_suspension_inferieure_avd_display }}</span>
+            {% elif controle.jeu_rotule_suspension_inferieure_avd == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_rotule_suspension_inferieure_avd_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_rotule_suspension_inferieure_avd_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Avant gauche" %}</td>
+        <td>
+            {% if controle.jeu_rotule_suspension_inferieure_avg == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_rotule_suspension_inferieure_avg_display }}</span>
+            {% elif controle.jeu_rotule_suspension_inferieure_avg == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_rotule_suspension_inferieure_avg_display }}</span>
+            {% elif controle.jeu_rotule_suspension_inferieure_avg == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_rotule_suspension_inferieure_avg_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_rotule_suspension_inferieure_avg_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Arrière droite" %}</td>
+        <td>
+            {% if controle.jeu_rotule_suspension_inferieure_ard == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_rotule_suspension_inferieure_ard_display }}</span>
+            {% elif controle.jeu_rotule_suspension_inferieure_ard == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_rotule_suspension_inferieure_ard_display }}</span>
+            {% elif controle.jeu_rotule_suspension_inferieure_ard == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_rotule_suspension_inferieure_ard_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_rotule_suspension_inferieure_ard_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Arrière gauche" %}</td>
+        <td>
+            {% if controle.jeu_rotule_suspension_inferieure_arg == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_rotule_suspension_inferieure_arg_display }}</span>
+            {% elif controle.jeu_rotule_suspension_inferieure_arg == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_rotule_suspension_inferieure_arg_display }}</span>
+            {% elif controle.jeu_rotule_suspension_inferieure_arg == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_rotule_suspension_inferieure_arg_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_rotule_suspension_inferieure_arg_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+</table>
+
+<h2>{% trans "Rotules de suspension supérieures" %}</h2>
+
+<table>
+    <tr>
+        <th>{% trans "Pièce" %}</th>
+        <th>{% trans "État" %}</th>
+    </tr>
+
+    <tr>
+        <td>{% trans "Avant droite" %}</td>
+        <td>
+            {% if controle.jeu_rotule_suspension_superieure_avd == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_rotule_suspension_superieure_avd_display }}</span>
+            {% elif controle.jeu_rotule_suspension_superieure_avd == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_rotule_suspension_superieure_avd_display }}</span>
+            {% elif controle.jeu_rotule_suspension_superieure_avd == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_rotule_suspension_superieure_avd_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_rotule_suspension_superieure_avd_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Avant gauche" %}</td>
+        <td>
+            {% if controle.jeu_rotule_suspension_superieure_avg == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_rotule_suspension_superieure_avg_display }}</span>
+            {% elif controle.jeu_rotule_suspension_superieure_avg == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_rotule_suspension_superieure_avg_display }}</span>
+            {% elif controle.jeu_rotule_suspension_superieure_avg == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_rotule_suspension_superieure_avg_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_rotule_suspension_superieure_avg_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Arrière droite" %}</td>
+        <td>
+            {% if controle.jeu_rotule_suspension_superieure_ard == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_rotule_suspension_superieure_ard_display }}</span>
+            {% elif controle.jeu_rotule_suspension_superieure_ard == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_rotule_suspension_superieure_ard_display }}</span>
+            {% elif controle.jeu_rotule_suspension_superieure_ard == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_rotule_suspension_superieure_ard_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_rotule_suspension_superieure_ard_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Arrière gauche" %}</td>
+        <td>
+            {% if controle.jeu_rotule_suspension_superieure_arg == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_rotule_suspension_superieure_arg_display }}</span>
+            {% elif controle.jeu_rotule_suspension_superieure_arg == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_rotule_suspension_superieure_arg_display }}</span>
+            {% elif controle.jeu_rotule_suspension_superieure_arg == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_rotule_suspension_superieure_arg_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_rotule_suspension_superieure_arg_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+</table>
+
+<h2>{% trans "Barres stabilisatrices et biellettes" %}</h2>
+
+<table>
+    <tr>
+        <th>{% trans "Pièce" %}</th>
+        <th>{% trans "État" %}</th>
+    </tr>
+
+    <tr>
+        <td>{% trans "Biellette avant droite" %}</td>
+        <td>
+            {% if controle.jeu_Biellette_barre_stabilisatrice_avd == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_Biellette_barre_stabilisatrice_avd_display }}</span>
+            {% elif controle.jeu_Biellette_barre_stabilisatrice_avd == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_Biellette_barre_stabilisatrice_avd_display }}</span>
+            {% elif controle.jeu_Biellette_barre_stabilisatrice_avd == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_Biellette_barre_stabilisatrice_avd_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_Biellette_barre_stabilisatrice_avd_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Biellette avant gauche" %}</td>
+        <td>
+            {% if controle.jeu_Biellette_barre_stabilisatrice_avg == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_Biellette_barre_stabilisatrice_avg_display }}</span>
+            {% elif controle.jeu_Biellette_barre_stabilisatrice_avg == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_Biellette_barre_stabilisatrice_avg_display }}</span>
+            {% elif controle.jeu_Biellette_barre_stabilisatrice_avg == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_Biellette_barre_stabilisatrice_avg_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_Biellette_barre_stabilisatrice_avg_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Biellette arrière droite" %}</td>
+        <td>
+            {% if controle.jeu_Biellette_barre_stabilisatrice_ard == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_Biellette_barre_stabilisatrice_ard_display }}</span>
+            {% elif controle.jeu_Biellette_barre_stabilisatrice_ard == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_Biellette_barre_stabilisatrice_ard_display }}</span>
+            {% elif controle.jeu_Biellette_barre_stabilisatrice_ard == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_Biellette_barre_stabilisatrice_ard_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_Biellette_barre_stabilisatrice_ard_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Biellette arrière gauche" %}</td>
+        <td>
+            {% if controle.jeu_Biellette_barre_stabilisatrice_arg == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_Biellette_barre_stabilisatrice_arg_display }}</span>
+            {% elif controle.jeu_Biellette_barre_stabilisatrice_arg == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_Biellette_barre_stabilisatrice_arg_display }}</span>
+            {% elif controle.jeu_Biellette_barre_stabilisatrice_arg == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_Biellette_barre_stabilisatrice_arg_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_Biellette_barre_stabilisatrice_arg_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Barre stabilisatrice avant" %}</td>
+        <td>
+            {% if controle.jeu_barre_stabilisatrice_av == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_barre_stabilisatrice_av_display }}</span>
+            {% elif controle.jeu_barre_stabilisatrice_av == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_barre_stabilisatrice_av_display }}</span>
+            {% elif controle.jeu_barre_stabilisatrice_av == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_barre_stabilisatrice_av_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_barre_stabilisatrice_av_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Barre stabilisatrice arrière" %}</td>
+        <td>
+            {% if controle.jeu_barre_stabilisatrice_ar == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_barre_stabilisatrice_ar_display }}</span>
+            {% elif controle.jeu_barre_stabilisatrice_ar == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_barre_stabilisatrice_ar_display }}</span>
+            {% elif controle.jeu_barre_stabilisatrice_ar == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_barre_stabilisatrice_ar_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_barre_stabilisatrice_ar_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+</table>
+
+<h2>{% trans "Amortisseurs" %}</h2>
+
+<table>
+    <tr>
+        <th>{% trans "Pièce" %}</th>
+        <th>{% trans "État" %}</th>
+    </tr>
+
+    <tr>
+        <td>{% trans "Avant droit" %}</td>
+        <td>
+            {% if controle.jeu_amortisseur_avd == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_amortisseur_avd_display }}</span>
+            {% elif controle.jeu_amortisseur_avd == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_amortisseur_avd_display }}</span>
+            {% elif controle.jeu_amortisseur_avd == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_amortisseur_avd_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_amortisseur_avd_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Avant gauche" %}</td>
+        <td>
+            {% if controle.jeu_amortisseur_avg == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_amortisseur_avg_display }}</span>
+            {% elif controle.jeu_amortisseur_avg == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_amortisseur_avg_display }}</span>
+            {% elif controle.jeu_amortisseur_avg == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_amortisseur_avg_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_amortisseur_avg_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Arrière droit" %}</td>
+        <td>
+            {% if controle.jeu_amortisseur_ard == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_amortisseur_ard_display }}</span>
+            {% elif controle.jeu_amortisseur_ard == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_amortisseur_ard_display }}</span>
+            {% elif controle.jeu_amortisseur_ard == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_amortisseur_ard_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_amortisseur_ard_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Arrière gauche" %}</td>
+        <td>
+            {% if controle.jeu_amortisseur_arg == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_amortisseur_arg_display }}</span>
+            {% elif controle.jeu_amortisseur_arg == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_amortisseur_arg_display }}</span>
+            {% elif controle.jeu_amortisseur_arg == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_amortisseur_arg_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_amortisseur_arg_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+</table>
+
+<h2>{% trans "Roulements" %}</h2>
+
+<table>
+    <tr>
+        <th>{% trans "Pièce" %}</th>
+        <th>{% trans "État" %}</th>
+    </tr>
+
+    <tr>
+        <td>{% trans "Avant droit" %}</td>
+        <td>
+            {% if controle.jeu_roulement_avd == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_roulement_avd_display }}</span>
+            {% elif controle.jeu_roulement_avd == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_roulement_avd_display }}</span>
+            {% elif controle.jeu_roulement_avd == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_roulement_avd_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_roulement_avd_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Avant gauche" %}</td>
+        <td>
+            {% if controle.jeu_roulement_avg == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_roulement_avg_display }}</span>
+            {% elif controle.jeu_roulement_avg == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_roulement_avg_display }}</span>
+            {% elif controle.jeu_roulement_avg == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_roulement_avg_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_roulement_avg_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Arrière droit" %}</td>
+        <td>
+            {% if controle.jeu_roulement_ard == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_roulement_ard_display }}</span>
+            {% elif controle.jeu_roulement_ard == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_roulement_ard_display }}</span>
+            {% elif controle.jeu_roulement_ard == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_roulement_ard_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_roulement_ard_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Arrière gauche" %}</td>
+        <td>
+            {% if controle.jeu_roulement_arg == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_roulement_arg_display }}</span>
+            {% elif controle.jeu_roulement_arg == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_roulement_arg_display }}</span>
+            {% elif controle.jeu_roulement_arg == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_roulement_arg_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_roulement_arg_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+</table>
+
+<h2>{% trans "Triangles" %}</h2>
+
+<table>
+    <tr>
+        <th>{% trans "Pièce" %}</th>
+        <th>{% trans "État" %}</th>
+    </tr>
+
+    <tr>
+        <td>{% trans "Avant droit" %}</td>
+        <td>
+            {% if controle.jeu_triangle_avd == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_triangle_avd_display }}</span>
+            {% elif controle.jeu_triangle_avd == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_triangle_avd_display }}</span>
+            {% elif controle.jeu_triangle_avd == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_triangle_avd_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_triangle_avd_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Avant gauche" %}</td>
+        <td>
+            {% if controle.jeu_triangle_avg == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_triangle_avg_display }}</span>
+            {% elif controle.jeu_triangle_avg == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_triangle_avg_display }}</span>
+            {% elif controle.jeu_triangle_avg == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_triangle_avg_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_triangle_avg_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Arrière droit" %}</td>
+        <td>
+            {% if controle.jeu_triangle_ard == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_triangle_ard_display }}</span>
+            {% elif controle.jeu_triangle_ard == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_triangle_ard_display }}</span>
+            {% elif controle.jeu_triangle_ard == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_triangle_ard_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_triangle_ard_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Arrière gauche" %}</td>
+        <td>
+            {% if controle.jeu_triangle_arg == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_triangle_arg_display }}</span>
+            {% elif controle.jeu_triangle_arg == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_triangle_arg_display }}</span>
+            {% elif controle.jeu_triangle_arg == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_triangle_arg_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_triangle_arg_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+</table>
+
+<h2>{% trans "Suspension multi-bras" %}</h2>
+
+<table>
+    <tr>
+        <th>{% trans "Pièce" %}</th>
+        <th>{% trans "État" %}</th>
+    </tr>
+
+    <tr>
+        <td>{% trans "Avant droit" %}</td>
+        <td>
+            {% if controle.jeu_multi_bras_avd == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_multi_bras_avd_display }}</span>
+            {% elif controle.jeu_multi_bras_avd == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_multi_bras_avd_display }}</span>
+            {% elif controle.jeu_multi_bras_avd == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_multi_bras_avd_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_multi_bras_avd_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Avant gauche" %}</td>
+        <td>
+            {% if controle.jeu_multi_bras_avg == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_multi_bras_avg_display }}</span>
+            {% elif controle.jeu_multi_bras_avg == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_multi_bras_avg_display }}</span>
+            {% elif controle.jeu_multi_bras_avg == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_multi_bras_avg_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_multi_bras_avg_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Arrière droit" %}</td>
+        <td>
+            {% if controle.jeu_multi_bras_ard == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_multi_bras_ard_display }}</span>
+            {% elif controle.jeu_multi_bras_ard == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_multi_bras_ard_display }}</span>
+            {% elif controle.jeu_multi_bras_ard == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_multi_bras_ard_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_multi_bras_ard_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+
+    <tr>
+        <td>{% trans "Arrière gauche" %}</td>
+        <td>
+            {% if controle.jeu_multi_bras_arg == "OK" %}
+                <span class="etat-vert">{{ controle.get_jeu_multi_bras_arg_display }}</span>
+            {% elif controle.jeu_multi_bras_arg == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ controle.get_jeu_multi_bras_arg_display }}</span>
+            {% elif controle.jeu_multi_bras_arg == "REMPLACE" %}
+                <span class="etat-bleu">{{ controle.get_jeu_multi_bras_arg_display }}</span>
+            {% else %}
+                {{ controle.get_jeu_multi_bras_arg_display|default:"-" }}
+            {% endif %}
+        </td>
+    </tr>
+</table>
+
+
 <h2>{% trans "Batterie" %}</h2>
 
 <table>
@@ -723,55 +1306,496 @@
 <h2>{% trans "Nettoyage extérieur" %}</h2>
 
 <table>
-    <tr><th>{% trans "Élément" %}</th><th>{% trans "État" %}</th></tr>
+    <thead>
+        <tr>
+            <th>{% trans "Élément contrôlé" %}</th>
+            <th>{% trans "État / Valeur" %}</th>
+        </tr>
+    </thead>
 
-    <tr><td>{% trans "Traces de gomme" %}</td><td>{% if checkup.nettoyage_exterieur_traces_gomme == "A_FAIRE" %}<span class="etat-rouge">{{ checkup.get_nettoyage_exterieur_traces_gomme_display }}</span>{% elif checkup.nettoyage_exterieur_traces_gomme == "FAIT" or checkup.nettoyage_exterieur_traces_gomme == "PROPRE" %}<span class="etat-vert">{{ checkup.get_nettoyage_exterieur_traces_gomme_display }}</span>{% elif checkup.nettoyage_exterieur_traces_gomme == "REPORTER" %}<span class="etat-bleu">{{ checkup.get_nettoyage_exterieur_traces_gomme_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_nettoyage_exterieur_traces_gomme_display|default:"-" }}</span>{% endif %}</td></tr>
+    <tbody>
+        <tr>
+            <td>{% trans "Traces de gomme" %}</td>
+            <td>
+                {% if checkup_track.nettoyage_exterieur_traces_gomme == "FAIT" or checkup_track.nettoyage_exterieur_traces_gomme == "PROPRE" %}
+                    <span class="etat-vert">
+                        {{ checkup_track.get_nettoyage_exterieur_traces_gomme_display }}
+                    </span>
+                {% elif checkup_track.nettoyage_exterieur_traces_gomme == "A_FAIRE" %}
+                    <span class="etat-rouge">
+                        {{ checkup_track.get_nettoyage_exterieur_traces_gomme_display }}
+                    </span>
+                {% elif checkup_track.nettoyage_exterieur_traces_gomme == "REPORTER" %}
+                    <span class="etat-jaune">
+                        {{ checkup_track.get_nettoyage_exterieur_traces_gomme_display }}
+                    </span>
+                {% else %}
+                    <span class="etat-gris">
+                        {{ checkup_track.get_nettoyage_exterieur_traces_gomme_display|default:"-" }}
+                    </span>
+                {% endif %}
+            </td>
+        </tr>
 
-    <tr><td>{% trans "Carrosserie" %}</td><td>{% if checkup.nettoyage_exterieur_carrosserie == "A_FAIRE" %}<span class="etat-rouge">{{ checkup.get_nettoyage_exterieur_carrosserie_display }}</span>{% elif checkup.nettoyage_exterieur_carrosserie == "FAIT" or checkup.nettoyage_exterieur_carrosserie == "PROPRE" %}<span class="etat-vert">{{ checkup.get_nettoyage_exterieur_carrosserie_display }}</span>{% elif checkup.nettoyage_exterieur_carrosserie == "REPORTER" %}<span class="etat-bleu">{{ checkup.get_nettoyage_exterieur_carrosserie_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_nettoyage_exterieur_carrosserie_display|default:"-" }}</span>{% endif %}</td></tr>
+        <tr>
+            <td>{% trans "Carrosserie" %}</td>
+            <td>
+                {% if checkup_track.nettoyage_exterieur_carrosserie == "FAIT" or checkup_track.nettoyage_exterieur_carrosserie == "PROPRE" %}
+                    <span class="etat-vert">
+                        {{ checkup_track.get_nettoyage_exterieur_carrosserie_display }}
+                    </span>
+                {% elif checkup_track.nettoyage_exterieur_carrosserie == "A_FAIRE" %}
+                    <span class="etat-rouge">
+                        {{ checkup_track.get_nettoyage_exterieur_carrosserie_display }}
+                    </span>
+                {% elif checkup_track.nettoyage_exterieur_carrosserie == "REPORTER" %}
+                    <span class="etat-jaune">
+                        {{ checkup_track.get_nettoyage_exterieur_carrosserie_display }}
+                    </span>
+                {% else %}
+                    <span class="etat-gris">
+                        {{ checkup_track.get_nettoyage_exterieur_carrosserie_display|default:"-" }}
+                    </span>
+                {% endif %}
+            </td>
+        </tr>
 
-    <tr><td>{% trans "Jantes" %}</td><td>{% if checkup.nettoyage_exterieur_jantes == "A_FAIRE" %}<span class="etat-rouge">{{ checkup.get_nettoyage_exterieur_jantes_display }}</span>{% elif checkup.nettoyage_exterieur_jantes == "FAIT" or checkup.nettoyage_exterieur_jantes == "PROPRE" %}<span class="etat-vert">{{ checkup.get_nettoyage_exterieur_jantes_display }}</span>{% elif checkup.nettoyage_exterieur_jantes == "REPORTER" %}<span class="etat-bleu">{{ checkup.get_nettoyage_exterieur_jantes_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_nettoyage_exterieur_jantes_display|default:"-" }}</span>{% endif %}</td></tr>
+        <tr>
+            <td>{% trans "Jantes" %}</td>
+            <td>
+                {% if checkup_track.nettoyage_exterieur_jantes == "FAIT" or checkup_track.nettoyage_exterieur_jantes == "PROPRE" %}
+                    <span class="etat-vert">
+                        {{ checkup_track.get_nettoyage_exterieur_jantes_display }}
+                    </span>
+                {% elif checkup_track.nettoyage_exterieur_jantes == "A_FAIRE" %}
+                    <span class="etat-rouge">
+                        {{ checkup_track.get_nettoyage_exterieur_jantes_display }}
+                    </span>
+                {% elif checkup_track.nettoyage_exterieur_jantes == "REPORTER" %}
+                    <span class="etat-jaune">
+                        {{ checkup_track.get_nettoyage_exterieur_jantes_display }}
+                    </span>
+                {% else %}
+                    <span class="etat-gris">
+                        {{ checkup_track.get_nettoyage_exterieur_jantes_display|default:"-" }}
+                    </span>
+                {% endif %}
+            </td>
+        </tr>
 
-    <tr><td>{% trans "Séchage" %}</td><td>{% if checkup.nettoyage_exterieur_sechage == "A_FAIRE" %}<span class="etat-rouge">{{ checkup.get_nettoyage_exterieur_sechage_display }}</span>{% elif checkup.nettoyage_exterieur_sechage == "FAIT" or checkup.nettoyage_exterieur_sechage == "PROPRE" %}<span class="etat-vert">{{ checkup.get_nettoyage_exterieur_sechage_display }}</span>{% elif checkup.nettoyage_exterieur_sechage == "REPORTER" %}<span class="etat-bleu">{{ checkup.get_nettoyage_exterieur_sechage_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_nettoyage_exterieur_sechage_display|default:"-" }}</span>{% endif %}</td></tr>
+        <tr>
+            <td>{% trans "Séchage" %}</td>
+            <td>
+                {% if checkup_track.nettoyage_exterieur_sechage == "FAIT" or checkup_track.nettoyage_exterieur_sechage == "PROPRE" %}
+                    <span class="etat-vert">
+                        {{ checkup_track.get_nettoyage_exterieur_sechage_display }}
+                    </span>
+                {% elif checkup_track.nettoyage_exterieur_sechage == "A_FAIRE" %}
+                    <span class="etat-rouge">
+                        {{ checkup_track.get_nettoyage_exterieur_sechage_display }}
+                    </span>
+                {% elif checkup_track.nettoyage_exterieur_sechage == "REPORTER" %}
+                    <span class="etat-jaune">
+                        {{ checkup_track.get_nettoyage_exterieur_sechage_display }}
+                    </span>
+                {% else %}
+                    <span class="etat-gris">
+                        {{ checkup_track.get_nettoyage_exterieur_sechage_display|default:"-" }}
+                    </span>
+                {% endif %}
+            </td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Produits utilisés" %}</td>
+            <td>
+                {{ checkup_track.get_nettoyage_exterieur_produits_display|default:"-" }}
+            </td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Quantité de produits" %}</td>
+            <td>
+                {{ checkup_track.nettoyage_exterieur_produits_quantite|default:0 }}
+            </td>
+        </tr>
+    </tbody>
 </table>
 
 <h2>{% trans "Nettoyage intérieur" %}</h2>
 
 <table>
-    <tr><th>{% trans "Élément" %}</th><th>{% trans "État" %}</th></tr>
+    <thead>
+        <tr>
+            <th>{% trans "Élément contrôlé" %}</th>
+            <th>{% trans "État / Valeur" %}</th>
+        </tr>
+    </thead>
 
-    <tr><td>{% trans "Vitres" %}</td><td>{% if checkup.nettoyage_interieur_vitres == "A_FAIRE" %}<span class="etat-rouge">{{ checkup.get_nettoyage_interieur_vitres_display }}</span>{% elif checkup.nettoyage_interieur_vitres == "FAIT" or checkup.nettoyage_interieur_vitres == "PROPRE" %}<span class="etat-vert">{{ checkup.get_nettoyage_interieur_vitres_display }}</span>{% elif checkup.nettoyage_interieur_vitres == "REPORTER" %}<span class="etat-bleu">{{ checkup.get_nettoyage_interieur_vitres_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_nettoyage_interieur_vitres_display|default:"-" }}</span>{% endif %}</td></tr>
+    <tbody>
+        <tr>
+            <td>{% trans "Vitres" %}</td>
+            <td>
+                {% if checkup_track.nettoyage_interieur_vitres == "FAIT" or checkup_track.nettoyage_interieur_vitres == "PROPRE" %}
+                    <span class="etat-vert">
+                        {{ checkup_track.get_nettoyage_interieur_vitres_display }}
+                    </span>
+                {% elif checkup_track.nettoyage_interieur_vitres == "A_FAIRE" %}
+                    <span class="etat-rouge">
+                        {{ checkup_track.get_nettoyage_interieur_vitres_display }}
+                    </span>
+                {% elif checkup_track.nettoyage_interieur_vitres == "REPORTER" %}
+                    <span class="etat-jaune">
+                        {{ checkup_track.get_nettoyage_interieur_vitres_display }}
+                    </span>
+                {% else %}
+                    <span class="etat-gris">
+                        {{ checkup_track.get_nettoyage_interieur_vitres_display|default:"-" }}
+                    </span>
+                {% endif %}
+            </td>
+        </tr>
 
-    <tr><td>{% trans "Pare-brise" %}</td><td>{% if checkup.nettoyage_interieur_pare_brise == "A_FAIRE" %}<span class="etat-rouge">{{ checkup.get_nettoyage_interieur_pare_brise_display }}</span>{% elif checkup.nettoyage_interieur_pare_brise == "FAIT" or checkup.nettoyage_interieur_pare_brise == "PROPRE" %}<span class="etat-vert">{{ checkup.get_nettoyage_interieur_pare_brise_display }}</span>{% elif checkup.nettoyage_interieur_pare_brise == "REPORTER" %}<span class="etat-bleu">{{ checkup.get_nettoyage_interieur_pare_brise_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_nettoyage_interieur_pare_brise_display|default:"-" }}</span>{% endif %}</td></tr>
+        <tr>
+            <td>{% trans "Pare-brise" %}</td>
+            <td>
+                {% if checkup_track.nettoyage_interieur_pare_brise == "FAIT" or checkup_track.nettoyage_interieur_pare_brise == "PROPRE" %}
+                    <span class="etat-vert">
+                        {{ checkup_track.get_nettoyage_interieur_pare_brise_display }}
+                    </span>
+                {% elif checkup_track.nettoyage_interieur_pare_brise == "A_FAIRE" %}
+                    <span class="etat-rouge">
+                        {{ checkup_track.get_nettoyage_interieur_pare_brise_display }}
+                    </span>
+                {% elif checkup_track.nettoyage_interieur_pare_brise == "REPORTER" %}
+                    <span class="etat-jaune">
+                        {{ checkup_track.get_nettoyage_interieur_pare_brise_display }}
+                    </span>
+                {% else %}
+                    <span class="etat-gris">
+                        {{ checkup_track.get_nettoyage_interieur_pare_brise_display|default:"-" }}
+                    </span>
+                {% endif %}
+            </td>
+        </tr>
 
-    <tr><td>{% trans "Aspirateur" %}</td><td>{% if checkup.nettoyage_interieur_aspirateur == "A_FAIRE" %}<span class="etat-rouge">{{ checkup.get_nettoyage_interieur_aspirateur_display }}</span>{% elif checkup.nettoyage_interieur_aspirateur == "FAIT" or checkup.nettoyage_interieur_aspirateur == "PROPRE" %}<span class="etat-vert">{{ checkup.get_nettoyage_interieur_aspirateur_display }}</span>{% elif checkup.nettoyage_interieur_aspirateur == "REPORTER" %}<span class="etat-bleu">{{ checkup.get_nettoyage_interieur_aspirateur_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_nettoyage_interieur_aspirateur_display|default:"-" }}</span>{% endif %}</td></tr>
+        <tr>
+            <td>{% trans "Aspirateur" %}</td>
+            <td>
+                {% if checkup_track.nettoyage_interieur_aspirateur == "FAIT" or checkup_track.nettoyage_interieur_aspirateur == "PROPRE" %}
+                    <span class="etat-vert">
+                        {{ checkup_track.get_nettoyage_interieur_aspirateur_display }}
+                    </span>
+                {% elif checkup_track.nettoyage_interieur_aspirateur == "A_FAIRE" %}
+                    <span class="etat-rouge">
+                        {{ checkup_track.get_nettoyage_interieur_aspirateur_display }}
+                    </span>
+                {% elif checkup_track.nettoyage_interieur_aspirateur == "REPORTER" %}
+                    <span class="etat-jaune">
+                        {{ checkup_track.get_nettoyage_interieur_aspirateur_display }}
+                    </span>
+                {% else %}
+                    <span class="etat-gris">
+                        {{ checkup_track.get_nettoyage_interieur_aspirateur_display|default:"-" }}
+                    </span>
+                {% endif %}
+            </td>
+        </tr>
 
-    <tr><td>{% trans "Intérieurs de porte" %}</td><td>{% if checkup.nettoyage_interieur_portes == "A_FAIRE" %}<span class="etat-rouge">{{ checkup.get_nettoyage_interieur_portes_display }}</span>{% elif checkup.nettoyage_interieur_portes == "FAIT" or checkup.nettoyage_interieur_portes == "PROPRE" %}<span class="etat-vert">{{ checkup.get_nettoyage_interieur_portes_display }}</span>{% elif checkup.nettoyage_interieur_portes == "REPORTER" %}<span class="etat-bleu">{{ checkup.get_nettoyage_interieur_portes_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_nettoyage_interieur_portes_display|default:"-" }}</span>{% endif %}</td></tr>
+        <tr>
+            <td>{% trans "Intérieurs de porte" %}</td>
+            <td>
+                {% if checkup_track.nettoyage_interieur_portes == "FAIT" or checkup_track.nettoyage_interieur_portes == "PROPRE" %}
+                    <span class="etat-vert">
+                        {{ checkup_track.get_nettoyage_interieur_portes_display }}
+                    </span>
+                {% elif checkup_track.nettoyage_interieur_portes == "A_FAIRE" %}
+                    <span class="etat-rouge">
+                        {{ checkup_track.get_nettoyage_interieur_portes_display }}
+                    </span>
+                {% elif checkup_track.nettoyage_interieur_portes == "REPORTER" %}
+                    <span class="etat-jaune">
+                        {{ checkup_track.get_nettoyage_interieur_portes_display }}
+                    </span>
+                {% else %}
+                    <span class="etat-gris">
+                        {{ checkup_track.get_nettoyage_interieur_portes_display|default:"-" }}
+                    </span>
+                {% endif %}
+            </td>
+        </tr>
 
-    <tr><td>{% trans "Sièges" %}</td><td>{% if checkup.nettoyage_interieur_sieges == "A_FAIRE" %}<span class="etat-rouge">{{ checkup.get_nettoyage_interieur_sieges_display }}</span>{% elif checkup.nettoyage_interieur_sieges == "FAIT" or checkup.nettoyage_interieur_sieges == "PROPRE" %}<span class="etat-vert">{{ checkup.get_nettoyage_interieur_sieges_display }}</span>{% elif checkup.nettoyage_interieur_sieges == "REPORTER" %}<span class="etat-bleu">{{ checkup.get_nettoyage_interieur_sieges_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_nettoyage_interieur_sieges_display|default:"-" }}</span>{% endif %}</td></tr>
+        <tr>
+            <td>{% trans "Sièges" %}</td>
+            <td>
+                {% if checkup_track.nettoyage_interieur_sieges == "FAIT" or checkup_track.nettoyage_interieur_sieges == "PROPRE" %}
+                    <span class="etat-vert">
+                        {{ checkup_track.get_nettoyage_interieur_sieges_display }}
+                    </span>
+                {% elif checkup_track.nettoyage_interieur_sieges == "A_FAIRE" %}
+                    <span class="etat-rouge">
+                        {{ checkup_track.get_nettoyage_interieur_sieges_display }}
+                    </span>
+                {% elif checkup_track.nettoyage_interieur_sieges == "REPORTER" %}
+                    <span class="etat-jaune">
+                        {{ checkup_track.get_nettoyage_interieur_sieges_display }}
+                    </span>
+                {% else %}
+                    <span class="etat-gris">
+                        {{ checkup_track.get_nettoyage_interieur_sieges_display|default:"-" }}
+                    </span>
+                {% endif %}
+            </td>
+        </tr>
 
-    <tr><td>{% trans "Carpettes" %}</td><td>{% if checkup.nettoyage_interieur_carpettes == "A_FAIRE" %}<span class="etat-rouge">{{ checkup.get_nettoyage_interieur_carpettes_display }}</span>{% elif checkup.nettoyage_interieur_carpettes == "FAIT" or checkup.nettoyage_interieur_carpettes == "PROPRE" %}<span class="etat-vert">{{ checkup.get_nettoyage_interieur_carpettes_display }}</span>{% elif checkup.nettoyage_interieur_carpettes == "REPORTER" %}<span class="etat-bleu">{{ checkup.get_nettoyage_interieur_carpettes_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_nettoyage_interieur_carpettes_display|default:"-" }}</span>{% endif %}</td></tr>
+        <tr>
+            <td>{% trans "Carpettes" %}</td>
+            <td>
+                {% if checkup_track.nettoyage_interieur_carpettes == "FAIT" or checkup_track.nettoyage_interieur_carpettes == "PROPRE" %}
+                    <span class="etat-vert">
+                        {{ checkup_track.get_nettoyage_interieur_carpettes_display }}
+                    </span>
+                {% elif checkup_track.nettoyage_interieur_carpettes == "A_FAIRE" %}
+                    <span class="etat-rouge">
+                        {{ checkup_track.get_nettoyage_interieur_carpettes_display }}
+                    </span>
+                {% elif checkup_track.nettoyage_interieur_carpettes == "REPORTER" %}
+                    <span class="etat-jaune">
+                        {{ checkup_track.get_nettoyage_interieur_carpettes_display }}
+                    </span>
+                {% else %}
+                    <span class="etat-gris">
+                        {{ checkup_track.get_nettoyage_interieur_carpettes_display|default:"-" }}
+                    </span>
+                {% endif %}
+            </td>
+        </tr>
 
-    <tr><td>{% trans "Tableau de bord" %}</td><td>{% if checkup.nettoyage_interieur_tableau_de_bord == "A_FAIRE" %}<span class="etat-rouge">{{ checkup.get_nettoyage_interieur_tableau_de_bord_display }}</span>{% elif checkup.nettoyage_interieur_tableau_de_bord == "FAIT" or checkup.nettoyage_interieur_tableau_de_bord == "PROPRE" %}<span class="etat-vert">{{ checkup.get_nettoyage_interieur_tableau_de_bord_display }}</span>{% elif checkup.nettoyage_interieur_tableau_de_bord == "REPORTER" %}<span class="etat-bleu">{{ checkup.get_nettoyage_interieur_tableau_de_bord_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_nettoyage_interieur_tableau_de_bord_display|default:"-" }}</span>{% endif %}</td></tr>
+        <tr>
+            <td>{% trans "Tableau de bord" %}</td>
+            <td>
+                {% if checkup_track.nettoyage_interieur_tableau_de_bord == "FAIT" or checkup_track.nettoyage_interieur_tableau_de_bord == "PROPRE" %}
+                    <span class="etat-vert">
+                        {{ checkup_track.get_nettoyage_interieur_tableau_de_bord_display }}
+                    </span>
+                {% elif checkup_track.nettoyage_interieur_tableau_de_bord == "A_FAIRE" %}
+                    <span class="etat-rouge">
+                        {{ checkup_track.get_nettoyage_interieur_tableau_de_bord_display }}
+                    </span>
+                {% elif checkup_track.nettoyage_interieur_tableau_de_bord == "REPORTER" %}
+                    <span class="etat-jaune">
+                        {{ checkup_track.get_nettoyage_interieur_tableau_de_bord_display }}
+                    </span>
+                {% else %}
+                    <span class="etat-gris">
+                        {{ checkup_track.get_nettoyage_interieur_tableau_de_bord_display|default:"-" }}
+                    </span>
+                {% endif %}
+            </td>
+        </tr>
 
-    <tr><td>{% trans "Plastiques" %}</td><td>{% if checkup.nettoyage_interieur_plastiques == "A_FAIRE" %}<span class="etat-rouge">{{ checkup.get_nettoyage_interieur_plastiques_display }}</span>{% elif checkup.nettoyage_interieur_plastiques == "FAIT" or checkup.nettoyage_interieur_plastiques == "PROPRE" %}<span class="etat-vert">{{ checkup.get_nettoyage_interieur_plastiques_display }}</span>{% elif checkup.nettoyage_interieur_plastiques == "REPORTER" %}<span class="etat-bleu">{{ checkup.get_nettoyage_interieur_plastiques_display }}</span>{% else %}<span class="etat-gris">{{ checkup.get_nettoyage_interieur_plastiques_display|default:"-" }}</span>{% endif %}</td></tr>
+        <tr>
+            <td>{% trans "Plastiques" %}</td>
+            <td>
+                {% if checkup_track.nettoyage_interieur_plastiques == "FAIT" or checkup_track.nettoyage_interieur_plastiques == "PROPRE" %}
+                    <span class="etat-vert">
+                        {{ checkup_track.get_nettoyage_interieur_plastiques_display }}
+                    </span>
+                {% elif checkup_track.nettoyage_interieur_plastiques == "A_FAIRE" %}
+                    <span class="etat-rouge">
+                        {{ checkup_track.get_nettoyage_interieur_plastiques_display }}
+                    </span>
+                {% elif checkup_track.nettoyage_interieur_plastiques == "REPORTER" %}
+                    <span class="etat-jaune">
+                        {{ checkup_track.get_nettoyage_interieur_plastiques_display }}
+                    </span>
+                {% else %}
+                    <span class="etat-gris">
+                        {{ checkup_track.get_nettoyage_interieur_plastiques_display|default:"-" }}
+                    </span>
+                {% endif %}
+            </td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Produits utilisés" %}</td>
+            <td>
+                {{ checkup_track.get_nettoyage_interieur_produits_display|default:"-" }}
+            </td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Quantité de produits" %}</td>
+            <td>
+                {{ checkup_track.nettoyage_interieur_produits_quantite|default:0 }}
+            </td>
+        </tr>
+    </tbody>
 </table>
 
-<h2>{% trans "Main d’œuvre" %}</h2>
+{% if checkup_track.remarques %}
+    <h2>{% trans "Remarques" %}</h2>
 
-<div class="box">
-    <span class="label">{% trans "Temps de travail" %} :</span>
-    {{ checkup.temps_main_oeuvre_display }}
-</div>
+    <div class="box">
+        {{ checkup_track.remarques|linebreaksbr }}
+    </div>
+{% endif %}
 
-<h2>{% trans "Remarques" %}</h2>
+{% if rapport.lignes %}
+    <h2>{% trans "Pièces et produits utilisés" %}</h2>
 
-<div class="box">
-    {{ checkup.remarques|default:_("Aucune remarque.")|linebreaks }}
-</div>
+    <table>
+        <thead>
+            <tr>
+                <th>{% trans "Pièce / Produit" %}</th>
+                <th>{% trans "État" %}</th>
+                <th class="text-right">{% trans "Quantité" %}</th>
+                <th class="text-right">{% trans "Prix unitaire HTVA" %}</th>
+                <th class="text-right">{% trans "Total HTVA" %}</th>
+            </tr>
+        </thead>
 
-<p class="small">
-    {% trans "Document généré automatiquement par CarsCosts.com." %}
-</p>
+        <tbody>
+            {% for ligne in rapport.lignes %}
+                <tr>
+                    <td>
+                        {{ ligne.designation|default:ligne.champ }}
+
+                        {% if ligne.fabricant %}
+                            <br>
+                            <span class="small">
+                                {% trans "Fabricant" %} :
+                                {{ ligne.fabricant_label }}
+                            </span>
+                        {% endif %}
+
+                        {% if ligne.qualite %}
+                            <br>
+                            <span class="small">
+                                {% trans "Qualité" %} :
+                                {{ ligne.qualite_label }}
+                            </span>
+                        {% endif %}
+
+                        {% if ligne.type %}
+                            <br>
+                            <span class="small">
+                                {% trans "Type" %} :
+                                {{ ligne.type_label }}
+                            </span>
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {% if ligne.etat == "OK" or ligne.etat == "BON" or ligne.etat == "FAIT" %}
+                            <span class="etat-vert">
+                                {{ ligne.etat_label|default:"-" }}
+                            </span>
+                        {% elif ligne.etat == "A_REMPLACER" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" or ligne.etat == "A_FAIRE" %}
+                            <span class="etat-rouge">
+                                {{ ligne.etat_label|default:"-" }}
+                            </span>
+                        {% elif ligne.etat == "REMPLACE" %}
+                            <span class="etat-bleu">
+                                {{ ligne.etat_label|default:"-" }}
+                            </span>
+                        {% elif ligne.etat == "REPORTER" %}
+                            <span class="etat-jaune">
+                                {{ ligne.etat_label|default:"-" }}
+                            </span>
+                        {% else %}
+                            <span class="etat-gris">
+                                {{ ligne.etat_label|default:"-" }}
+                            </span>
+                        {% endif %}
+                    </td>
+
+                    <td class="text-right">
+                        {{ ligne.quantite|default:0|floatformat:2 }}
+                        {{ ligne.unite|default:"" }}
+                    </td>
+
+                    <td class="text-right">
+                        {{ ligne.prix_unitaire|default:0|floatformat:2 }} €
+                    </td>
+
+                    <td class="text-right">
+                        {{ ligne.total|default:0|floatformat:2 }} €
+                    </td>
+                </tr>
+            {% endfor %}
+
+            <tr class="total">
+                <td colspan="4" class="text-right">
+                    {% trans "Total pièces et produits HTVA" %}
+                </td>
+
+                <td class="text-right">
+                    {{ rapport.total_general|default:0|floatformat:2 }} €
+                </td>
+            </tr>
+        </tbody>
+    </table>
+{% else %}
+    <h2>{% trans "Pièces et produits utilisés" %}</h2>
+
+    <div class="box">
+        {% trans "Aucune pièce ou produit utilisé." %}
+    </div>
+{% endif %}
+
+<h2>{% trans "Main-d'œuvre" %}</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>{% trans "Élément" %}</th>
+            <th>{% trans "Valeur" %}</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>{% trans "Temps de travail" %}</td>
+            <td>
+                {{ checkup_track.temps_main_oeuvre_display|default:"0h00" }}
+            </td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Taux horaire" %}</td>
+            <td>
+                {{ checkup_track.taux_horaire_main_oeuvre|default:0|floatformat:2 }} €
+            </td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Coût de la main-d'œuvre" %}</td>
+            <td>
+                {{ checkup_track.cout_main_oeuvre|default:0|floatformat:2 }} €
+            </td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Technicien" %}</td>
+            <td>
+                {% if checkup_track.main_oeuvre and checkup_track.main_oeuvre.utilisateur %}
+                    {{ checkup_track.main_oeuvre.utilisateur }}
+                {% else %}
+                    {{ checkup_track.tech_nom_technicien|default:"-" }}
+                {% endif %}
+            </td>
+        </tr>
+
+        <tr class="total-general">
+            <td>{% trans "Total général avec main-d'œuvre" %}</td>
+            <td>
+                {{ checkup_track.total_general_avec_main_oeuvre|default:0|floatformat:2 }} €
+            </td>
+        </tr>
+    </tbody>
+</table>
+
 
 </body>
 </html>
