@@ -7,7 +7,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from maintenance.check_up.models import PhareEtat
 from maintenance.choices import RouesSerrageEtat, TAUX_HORAIRE_CHOICES, FabricantLubrifiant, FabricantFiltre, \
-    AmpouleAutomobile, FabricantPiece, TypeHuileDirection
+    AmpouleAutomobile, FabricantPiece, TypeHuileDirection, FabricantBougies
 from utils.mixin import TechnicienMixin
 from societe.models import Societe
 
@@ -408,8 +408,8 @@ class Entretien(TechnicienMixin, models.Model):
     )
     bougies_fabricant = models.CharField(
         max_length=25,
-        choices=FabricantLubrifiant.choices,
-        default=FabricantLubrifiant.MOBIL,
+        choices=FabricantBougies.choices,
+        default=FabricantBougies.CHOISIR,
         verbose_name=_("Nom du fabricant des bougies"),
     )
     bougies_quantite = models.PositiveIntegerField(

@@ -724,3 +724,32 @@ class FabricantPneus(models.TextChoices):
     ZEETEX = "ZEETEX", _("Zeetex")
 
     AUTRE = "AUTRE", _("Autre")
+
+
+
+
+
+class FabricantBougies(models.TextChoices):
+    NGK = "NGK", _("NGK")
+    DENSO = "DENSO", _("DENSO")
+    BOSCH = "BOSCH", _("Bosch")
+    CHAMPION = "CHAMPION", _("Champion")
+    BERU = "BERU", _("Beru")
+    EYQUEM = "EYQUEM", _("Eyquem")
+    VALEO = "VALEO", _("Valeo")
+    FEBI = "FEBI", _("Febi Bilstein")
+    HELLA = "HELLA", _("Hella")
+    MAGNETI_MARELLI = "MAGNETI_MARELLI", _("Magneti Marelli")
+    DELPHI = "DELPHI", _("Delphi")
+    BORGWARNER = "BORGWARNER", _("BorgWarner")
+    MOTORCRAFT = "MOTORCRAFT", _("Motorcraft")
+    ACDELCO = "ACDELCO", _("ACDelco")
+    MOPAR = "MOPAR", _("Mopar")
+    PIERBURG = "PIERBURG", _("Pierburg")
+    RIDEX = "RIDEX", _("RIDEX")
+    JAPANPARTS = "JAPANPARTS", _("Japanparts")
+    BLUE_PRINT = "BLUE_PRINT", _("Blue Print")
+    NPS = "NPS", _("NPS")
+    AUTOLITE = "AUTOLITE", _("Autolite")
+    BRISK = "BRISK", _("Brisk")
+    CHOISIR = "CHOISIR", _("Choisir")
