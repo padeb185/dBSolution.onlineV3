@@ -560,6 +560,23 @@
                 <td class="text-right">{{ boite.fourchettes_prix|default:0|floatformat:2 }} €</td>
             </tr>
 
+             <tr>
+                <td>{% trans "Huile de boite de vitesse" %}</td>
+                <td>
+                    {% if boite.man_huile_manuelle == "OK" %}
+                        <span class="etat-vert">{{ boite.get_man_huile_manuelle_display }}</span>
+                    {% elif boite.man_huile_manuelle == "NOT_OK" %}
+                        <span class="etat-rouge">{{ boite.get_bte_man_huile_manuelle_display }}</span>
+                    {% elif boite.man_huile_manuelle == "REMPLACE" %}
+                        <span class="etat-bleu">{{ boite.get_man_huile_manuelle_display }}</span>
+                    {% else %}
+                        <span class="etat-gris">-</span>
+                    {% endif %}
+                </td>
+                <td class="text-right">{{ boite.man_huile_manuelle_quantite|default:0 }}</td>
+                <td class="text-right">{{ boite.man_huile_manuelle_prix|default:0|floatformat:2 }} €</td>
+            </tr>
+
         </tbody>
     </table>
 </div>

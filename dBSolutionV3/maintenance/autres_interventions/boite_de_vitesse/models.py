@@ -182,7 +182,11 @@ class ControleBoite(TechnicienMixin, models.Model):
     fourchettes_quantite = models.PositiveIntegerField(default=1, verbose_name=_("Quantité"))
 
 
+
+
     # Huile
+    man_huile_manuelle = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices, default=BoiteVitesseEtat.OK,verbose_name=_("Huile de boite de vitesse"))
+
     man_huile_manuelle_quantite = models.DecimalField(
         max_digits=4,
         decimal_places=1,
