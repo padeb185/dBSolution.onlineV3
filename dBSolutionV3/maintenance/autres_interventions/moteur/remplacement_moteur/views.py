@@ -252,6 +252,11 @@ def remplacement_moteur_form_view(request, exemplaire_id):
                 "icon": "icons/mecanicien.png",
                 "fields": [form[f.name] for f in form if "tech" in f.name],
             },
+            {
+                "title": _("Taux horaire"),
+                "icon": "icons/taux.png",
+                "fields": [form[f.name] for f in form if "taux" in f.name],
+            },
         ]
 
         return render(request, "remplacement_moteur/remplacement_moteur_form.html", {
@@ -385,6 +390,11 @@ def modifier_remplacement_moteur_view(request, remplacement_moteur_id):
                 "title": _("Technicien"),
                 "icon": "icons/mecanicien.png",
                 "fields": [form[f.name] for f in form if "tech" in f.name],
+            },
+            {
+                "title": _("Taux horaire"),
+                "icon": "icons/taux.png",
+                "fields": [form[f.name] for f in form if "taux" in f.name],
             },
         ]
 
