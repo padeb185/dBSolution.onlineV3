@@ -581,19 +581,19 @@
                 <td>{% trans "Ventilateur de refroidissement" %}</td>
 
                 <td>
-                    {% if ref.ventilateur == "OK" %}
+                    {% if ref.ventilateur_etat == "OK" %}
                         <span class="etat etat-ok">
-                            {{ ref.get_ventilateur_display }}
+                            {{ ref.get_ventilateur_etat_display }}
                         </span>
 
-                    {% elif ref.ventilateur == "A_REMPLACER" %}
+                    {% elif ref.ventilateur_etat == "A_REMPLACER" %}
                         <span class="etat etat-not-ok">
-                            {{ ref.get_ventilateur_display }}
+                            {{ ref.get_ventilateur_etat_display }}
                         </span>
 
-                    {% elif ref.ventilateur == "REMPLACE" %}
+                    {% elif ref.ventilateur_etat == "REMPLACE" %}
                         <span class="etat etat-remplace">
-                            {{ ref.get_ventilateur_display }}
+                            {{ ref.get_ventilateur_etat_display }}
                         </span>
                     {% endif %}
                 </td>
@@ -701,29 +701,29 @@
                 <td>{% trans "Sonde de température du liquide" %}</td>
 
                 <td>
-                    {% if ref.sonde_temperature_liquide == "OK" %}
+                    {% if ref.sonde_t_etat == "OK" %}
                         <span class="etat etat-ok">
-                            {{ ref.get_sonde_temperature_liquide_display }}
+                            {{ ref.get_sonde_t_etat_display }}
                         </span>
 
-                    {% elif ref.sonde_temperature_liquide == "A_REMPLACER" %}
+                    {% elif ref.sonde_t_etat == "A_REMPLACER" %}
                         <span class="etat etat-not-ok">
-                            {{ ref.get_sonde_temperature_liquide_display }}
+                            {{ ref.get_sonde_t_etat_display }}
                         </span>
 
-                    {% elif ref.sonde_temperature_liquide == "REMPLACE" %}
+                    {% elif ref.sonde_t_etat == "REMPLACE" %}
                         <span class="etat etat-remplace">
-                            {{ ref.get_sonde_temperature_liquide_display }}
+                            {{ ref.get_sonde_t_etat_display }}
                         </span>
                     {% endif %}
                 </td>
 
                 <td class="text-right">
-                    {{ ref.sonde_temperature_quantite|default:0 }}
+                    {{ ref.sonde_t_quantite|default:0 }}
                 </td>
 
                 <td class="text-right">
-                    {{ ref.sonde_temperature_prix_achat|default:0|floatformat:2 }} €
+                    {{ ref.sonde_t_prix_achat|default:0|floatformat:2 }} €
                 </td>
             </tr>
 
@@ -962,8 +962,8 @@
         <div>
             <span class="label">{% trans "Valeur mesurée" %} :</span>
 
-            {% if ref.sonde_temperature_valeur is not None %}
-                {{ ref.sonde_temperature_valeur|floatformat:1 }} °C
+            {% if ref.sonde_t_valeur is not None %}
+                {{ ref.sonde_t_valeur|floatformat:1 }} °C
             {% else %}
                 -
             {% endif %}
@@ -972,7 +972,7 @@
         <div>
             <span class="label">{% trans "Signal de la sonde correct" %} :</span>
 
-            {% if ref.sonde_temperature_signal_correct %}
+            {% if ref.sonde_t_signal_correct %}
                 <span class="oui">{% trans "Oui" %}</span>
             {% else %}
                 <span class="non">{% trans "Non" %}</span>

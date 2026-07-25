@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-23 16:19+0200\n"
+"POT-Creation-Date: 2026-07-24 12:18+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -6769,10 +6769,12 @@ msgid "Non"
 msgstr ""
 
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:265
-#, fuzzy
-#| msgid "Tableau de bord"
-msgid "Boîte de vitesses"
-msgstr "Tableau de Bord"
+#: maintenance/bruits/models.py:16
+#: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:328
+#: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:393
+#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:306
+msgid "Boîte de vitesse"
+msgstr ""
 
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:271
 #: maintenance/autres_interventions/boite_de_vitesse/remplacement_boite/templates/remplacement_boite/remplacement_boite_detail_pdf.html:330
@@ -11759,13 +11761,6 @@ msgstr ""
 
 #: maintenance/bruits/models.py:14 piece/piece_train_AV/models.py:26
 msgid "Roulement de suspension"
-msgstr ""
-
-#: maintenance/bruits/models.py:16
-#: maintenance/check_up/templates/check_up/checkup_detail_pdf.html:328
-#: maintenance/checkup_track/templates/checkup_track/checkup_track_detail_pdf.html:393
-#: maintenance/entretien/templates/entretien/entretien_detail_pdf.html:306
-msgid "Boîte de vitesse"
 msgstr ""
 
 #: maintenance/bruits/models.py:30 piece/templates/piece/piece_list.html:56
@@ -22742,6 +22737,11 @@ msgstr ""
 #: voiture/voiture_pneus/views.py:129
 msgid "Pneu mis à jour avec succès."
 msgstr ""
+
+#, fuzzy
+#~| msgid "Tableau de bord"
+#~ msgid "Boîte de vitesses"
+#~ msgstr "Tableau de Bord"
 
 #, fuzzy
 #~| msgid "Tableau de bord"

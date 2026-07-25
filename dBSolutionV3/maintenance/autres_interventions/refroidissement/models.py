@@ -247,37 +247,7 @@ class Refroidissement(TechnicienMixin, models.Model):
         default=Decimal("0.00"),
     )
 
-    liquide_tva_achat = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        verbose_name=_("TVA sur le liquide de refroidissement"),
-        default=Decimal("0.00"),
-        editable=False,
-    )
 
-    liquide_prix_vente_htva = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        verbose_name=_("Prix de vente HTVA du liquide de refroidissement"),
-        default=Decimal("0.00"),
-        editable=False,
-    )
-
-    liquide_tva_vente = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        verbose_name=_("TVA à la vente du liquide de refroidissement"),
-        default=Decimal("0.00"),
-        editable=False,
-    )
-
-    liquide_prix_ttc = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        verbose_name=_("Prix TTC du liquide de refroidissement"),
-        default=Decimal("0.00"),
-        editable=False,
-    )
 
     # ======================================================
     # PURGE
@@ -309,7 +279,7 @@ class Refroidissement(TechnicienMixin, models.Model):
     # VENTILATEUR
     # ======================================================
 
-    ventilateur = models.CharField(
+    ventilateur_etat = models.CharField(
         max_length=20,
         choices=EtatRefroidissement.choices,
         verbose_name=_("Ventilateur de refroidissement"),
@@ -345,36 +315,9 @@ class Refroidissement(TechnicienMixin, models.Model):
 
     ventilateur_quantite = models.PositiveIntegerField(
         verbose_name=_("Quantité de ventilateurs"),
-        default=1,
+        default=0,
     )
 
-    ventilateur_tva_achat = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        default=Decimal("0.00"),
-        editable=False,
-    )
-
-    ventilateur_prix_vente_htva = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        default=Decimal("0.00"),
-        editable=False,
-    )
-
-    ventilateur_tva_vente = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        default=Decimal("0.00"),
-        editable=False,
-    )
-
-    ventilateur_prix_ttc = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        default=Decimal("0.00"),
-        editable=False,
-    )
 
     # ======================================================
     # RADIATEUR
@@ -414,33 +357,6 @@ class Refroidissement(TechnicienMixin, models.Model):
         default=1,
     )
 
-    radiateur_tva_achat = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        default=Decimal("0.00"),
-        editable=False,
-    )
-
-    radiateur_prix_vente_htva = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        default=Decimal("0.00"),
-        editable=False,
-    )
-
-    radiateur_tva_vente = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        default=Decimal("0.00"),
-        editable=False,
-    )
-
-    radiateur_prix_ttc = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        default=Decimal("0.00"),
-        editable=False,
-    )
 
     # ======================================================
     # THERMOSTAT
@@ -479,34 +395,6 @@ class Refroidissement(TechnicienMixin, models.Model):
         default=1,
     )
 
-    thermostat_tva_achat = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        default=Decimal("0.00"),
-        editable=False,
-    )
-
-    thermostat_prix_vente_htva = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        default=Decimal("0.00"),
-        editable=False,
-    )
-
-    thermostat_tva_vente = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        default=Decimal("0.00"),
-        editable=False,
-    )
-
-    thermostat_prix_ttc = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        default=Decimal("0.00"),
-        editable=False,
-    )
-
     # ======================================================
     # BOÎTIER D'EAU
     # ======================================================
@@ -540,46 +428,19 @@ class Refroidissement(TechnicienMixin, models.Model):
         default=1,
     )
 
-    boitier_eau_tva_achat = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        default=Decimal("0.00"),
-        editable=False,
-    )
-
-    boitier_eau_prix_vente_htva = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        default=Decimal("0.00"),
-        editable=False,
-    )
-
-    boitier_eau_tva_vente = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        default=Decimal("0.00"),
-        editable=False,
-    )
-
-    boitier_eau_prix_ttc = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        default=Decimal("0.00"),
-        editable=False,
-    )
 
     # ======================================================
     # SONDE DE TEMPÉRATURE
     # ======================================================
 
-    sonde_temperature_liquide = models.CharField(
+    sonde_t_etat = models.CharField(
         max_length=20,
         choices=EtatRefroidissement.choices,
         verbose_name=_("Sonde de température du liquide"),
         default=EtatRefroidissement.OK,
     )
 
-    sonde_temperature_valeur = models.DecimalField(
+    sonde_t_valeur = models.DecimalField(
         max_digits=5,
         decimal_places=1,
         verbose_name=_("Valeur mesurée par la sonde"),
@@ -588,49 +449,21 @@ class Refroidissement(TechnicienMixin, models.Model):
         blank=True,
     )
 
-    sonde_temperature_signal_correct = models.BooleanField(
+    sonde_t_signal_correct = models.BooleanField(
         verbose_name=_("Signal de la sonde correct"),
         default=True,
     )
 
-    sonde_temperature_prix_achat = models.DecimalField(
+    sonde_t_prix_achat = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         verbose_name=_("Prix d'achat HTVA de la sonde de température"),
         default=Decimal("0.00"),
     )
 
-    sonde_temperature_quantite = models.PositiveIntegerField(
+    sonde_t_quantite = models.PositiveIntegerField(
         verbose_name=_("Quantité de sondes de température"),
         default=1,
-    )
-
-    sonde_temperature_tva_achat = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        default=Decimal("0.00"),
-        editable=False,
-    )
-
-    sonde_temperature_prix_vente_htva = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        default=Decimal("0.00"),
-        editable=False,
-    )
-
-    sonde_temperature_tva_vente = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        default=Decimal("0.00"),
-        editable=False,
-    )
-
-    sonde_temperature_prix_ttc = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        default=Decimal("0.00"),
-        editable=False,
     )
 
     # ======================================================
@@ -676,33 +509,6 @@ class Refroidissement(TechnicienMixin, models.Model):
         default=1,
     )
 
-    durites_tva_achat = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        default=Decimal("0.00"),
-        editable=False,
-    )
-
-    durites_prix_vente_htva = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        default=Decimal("0.00"),
-        editable=False,
-    )
-
-    durites_tva_vente = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        default=Decimal("0.00"),
-        editable=False,
-    )
-
-    durites_prix_ttc = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        default=Decimal("0.00"),
-        editable=False,
-    )
 
     # ======================================================
     # CHAUFFERETTE / RADIATEUR DE CHAUFFAGE
@@ -752,33 +558,7 @@ class Refroidissement(TechnicienMixin, models.Model):
         default=1,
     )
 
-    chaufferette_tva_achat = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        default=Decimal("0.00"),
-        editable=False,
-    )
 
-    chaufferette_prix_vente_htva = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        default=Decimal("0.00"),
-        editable=False,
-    )
-
-    chaufferette_tva_vente = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        default=Decimal("0.00"),
-        editable=False,
-    )
-
-    chaufferette_prix_ttc = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        default=Decimal("0.00"),
-        editable=False,
-    )
 
     # ======================================================
     # REMARQUES ET ÉTIQUETTE
@@ -793,7 +573,7 @@ class Refroidissement(TechnicienMixin, models.Model):
         max_length=10,
         choices=Maintenance.Tag.choices,
         verbose_name=_("Étiquette"),
-        default=Maintenance.Tag.VERT,
+        default=Maintenance.Tag.JAUNE,
     )
 
     # ------------------------------------------------------
@@ -885,39 +665,24 @@ class Refroidissement(TechnicienMixin, models.Model):
 
         erreurs = {}
 
-        if (
-            self.voiture_exemplaire
-            and self.kilometrage_refroidissement is not None
-        ):
-            kilometrage_actuel = (
-                self.voiture_exemplaire.kilometres_chassis or 0
-            )
-
-            if self.kilometrage_refroidissement < kilometrage_actuel:
-                erreurs["kilometrage_refroidissement"] = _(
-                    "Le kilométrage du contrôle (%(controle)s km) ne peut "
-                    "pas être inférieur au kilométrage actuel du véhicule "
-                    "(%(vehicule)s km)."
-                ) % {
-                    "controle": self.kilometrage_refroidissement,
-                    "vehicule": kilometrage_actuel,
-                }
-
-        champs_decimal_positifs = [
-            "pression_circuit",
-            "pression_circuit_constructeur",
-            "liquide_quantite",
+        champs_numeriques = [
             "liquide_prix_achat",
+            "liquide_quantite",
             "ventilateur_prix_achat",
+            "ventilateur_quantite",
             "radiateur_prix_achat",
+            "radiateur_quantite",
             "thermostat_prix_achat",
+            "thermostat_quantite",
             "boitier_eau_prix_achat",
-            "sonde_temperature_prix_achat",
+            "boitier_eau_quantite",
+            "sonde_t_prix_achat",
+            "sonde_t_quantite",
             "durites_prix_achat",
-            "chaufferette_prix_achat",
+            "durites_quantite",
         ]
 
-        for nom_champ in champs_decimal_positifs:
+        for nom_champ in champs_numeriques:
             valeur = getattr(self, nom_champ, None)
 
             if valeur is not None and valeur < 0:
@@ -925,8 +690,11 @@ class Refroidissement(TechnicienMixin, models.Model):
                     "Cette valeur ne peut pas être négative."
                 )
 
-        if self.presence_fuite and not self.fuite_localisation:
-            erreurs["fuite_localisation"] = _(
+        if (
+                self.presence_fuite
+                and not self.presence_fuite_localisation
+        ):
+            erreurs["presence_fuite_localisation"] = _(
                 "Précisez la localisation de la fuite."
             )
 
@@ -1071,7 +839,7 @@ class Refroidissement(TechnicienMixin, models.Model):
             "radiateur",
             "thermostat",
             "boitier_eau",
-            "sonde_temperature",
+            "sonde_t_",
             "durites",
             "chaufferette",
         ]
@@ -1104,7 +872,7 @@ class Refroidissement(TechnicienMixin, models.Model):
 
         composants = [
             {
-                "etat_champ": "ventilateur",
+                "etat_champ": "ventilateur_etat",
                 "prefix": "ventilateur",
                 "libelle": _("Ventilateur"),
             },
@@ -1124,8 +892,8 @@ class Refroidissement(TechnicienMixin, models.Model):
                 "libelle": _("Boîtier d'eau"),
             },
             {
-                "etat_champ": "sonde_temperature_liquide",
-                "prefix": "sonde_temperature",
+                "etat_champ": "sonde_t_etat",
+                "prefix": "sonde_t",
                 "libelle": _("Sonde de température du liquide"),
             },
             {

@@ -372,7 +372,7 @@ def ref_form_view(request, exemplaire_id):
                 "fields": [
                     field
                     for field in form
-                    if "ventilateur" in field.name
+                    if "ventilateur_" in field.name
                 ],
             },
             {
@@ -408,7 +408,7 @@ def ref_form_view(request, exemplaire_id):
                 "fields": [
                     field
                     for field in form
-                    if "sonde_temperature" in field.name
+                    if "sonde_t_" in field.name
                 ],
             },
             {
@@ -545,7 +545,7 @@ def modifier_ref_view(request, ref_id):
                 )
 
                 messages.success(request, _("Contrôle du système de refroidissement modifié avec succès !"))
-                return redirect("refroidissement:modifier_ref", refroidissement_id=ref.id)
+
             else:
                 messages.error(request, _("Le formulaire contient des erreurs."))
                 print(form.errors)
@@ -586,7 +586,7 @@ def modifier_ref_view(request, ref_id):
             },
             {
                 "title": _("Pression"),
-                "icon": "icons/pression.png",
+                "icon": "icons/pression-eau.png",
                 "fields": [
                     field
                     for field in form
@@ -596,7 +596,7 @@ def modifier_ref_view(request, ref_id):
             },
             {
                 "title": _("Température"),
-                "icon": "icons/temperature.png",
+                "icon": "icons/temperature-eau.png",
                 "fields": [
                     field
                     for field in form
@@ -605,7 +605,7 @@ def modifier_ref_view(request, ref_id):
             },
             {
                 "title": _("circulation"),
-                "icon": "icons/circulation.png",
+                "icon": "icons/circulation-eau.png",
                 "fields": [
                     field
                     for field in form
@@ -614,7 +614,7 @@ def modifier_ref_view(request, ref_id):
             },
             {
                 "title": _("Liquide de refroidissement"),
-                "icon": "icons/liquide.png",
+                "icon": "icons/liquide-ref.png",
                 "fields": [
                     field
                     for field in form
@@ -623,7 +623,7 @@ def modifier_ref_view(request, ref_id):
             },
             {
                 "title": _("Purge"),
-                "icon": "icons/purge.png",
+                "icon": "icons/purge-eau.png",
                 "fields": [
                     field
                     for field in form
@@ -636,9 +636,7 @@ def modifier_ref_view(request, ref_id):
                 "fields": [
                     field
                     for field in form
-                    if field.name in [
-                        "ventilateur"
-                    ]
+                    if "ventilateur_" in field.name
                 ],
             },
             {
@@ -661,7 +659,7 @@ def modifier_ref_view(request, ref_id):
             },
             {
                 "title": _("Boitier d'eau"),
-                "icon": "icons/valves-clim.png",
+                "icon": "icons/boitier-eau.png",
                 "fields": [
                     field
                     for field in form
@@ -674,7 +672,7 @@ def modifier_ref_view(request, ref_id):
                 "fields": [
                     field
                     for field in form
-                    if "sonde_temperature" in field.name
+                    if "sonde_t_" in field.name
                 ],
             },
             {
@@ -729,7 +727,7 @@ def modifier_ref_view(request, ref_id):
                 "fields": [
                     field
                     for field in form
-                    if "tech" in field.name
+                    if "tech_" in field.name
                 ],
             },
 
@@ -739,7 +737,7 @@ def modifier_ref_view(request, ref_id):
                 "fields": [
                     field
                     for field in form
-                    if "taux" in field.name
+                    if "taux_" in field.name
                 ],
             },
         ]
