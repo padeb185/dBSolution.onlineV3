@@ -486,6 +486,17 @@ def modifier_alternateur_view(request, alternateur_id):
                 "icon": "icons/mecanicien.png",
                 "fields": [form[f.name] for f in form if "tech" in f.name],
             },
+            {
+                "title": _("Main-d'œuvre"),
+                "icon": "icons/mecanicien.png",
+                "fields": [
+                    field
+                    for field in form
+                    if field.name in {
+                        "taux_horaire",
+                    }
+                ],
+            },
 
         ]
 

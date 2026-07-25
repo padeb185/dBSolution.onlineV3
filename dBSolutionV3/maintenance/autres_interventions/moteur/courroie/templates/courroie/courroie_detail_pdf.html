@@ -295,6 +295,10 @@
     <div class="grid">
 
         <div>
+            <span class="label">{% trans "Fabricant" %} :</span>
+            {{ courroie.get_refroidissement_fabricant_display }}
+        </div>
+        <div>
             <span class="label">{% trans "Qualité" %} :</span>
             {{ courroie.get_refroidissement_qualite_display }}
         </div>

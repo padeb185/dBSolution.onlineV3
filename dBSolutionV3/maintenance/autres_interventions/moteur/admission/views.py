@@ -248,7 +248,7 @@ def admission_check_view(request, exemplaire_id):
             {"title": _("Etiquette"), "icon": "icons/tag.png", "filter": "tag"},
             {"title": _("Remarques"), "icon": "icons/notes.png", "filter": "remarques"},
             {"title": _("Technicien"), "icon": "icons/mecanicien.png", "filter": "tech"},
-            {"title": _("Main d'oeuvre"), "icon": "icons/mecanicien.png", "filter": "taux_"},
+            {"title": _("Main d'oeuvre"), "icon": "icons/taux.png", "filter": "taux_"},
         ]
 
         sections = [
@@ -420,6 +420,11 @@ def modifier_admission_view(request, admission_id):
                 "title": _("Technicien"),
                 "icon": "icons/mecanicien.png",
                 "fields": [form[f.name] for f in form if "tech" in f.name],
+            },
+            {
+                "title": _("Taux horaire"),
+                "icon": "icons/taux.png",
+                "fields": [form[f.name] for f in form if "taux" in f.name],
             },
         ]
 
