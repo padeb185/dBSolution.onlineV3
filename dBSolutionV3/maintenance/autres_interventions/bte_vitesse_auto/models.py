@@ -7,6 +7,8 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
+from maintenance.check_up.models import HuileBoiteEtat
+from maintenance.choices import FabricantLubrifiant
 from utils.mixin import TechnicienMixin
 from maintenance.models import Maintenance
 
@@ -188,6 +190,31 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         default=1,
         verbose_name=_("Quantité")
     )
+    huile_bte_auto_vitesse = models.CharField(max_length=25, choices=BoiteVitesseEtat.choices, default=BoiteVitesseEtat.OK,
+                                          verbose_name=_("Huile de boite de vitesse"))
+
+    huile_bte_auto_vitesse_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices,
+                                              default=FabricantLubrifiant.CASTROL,
+                                              verbose_name=_("Fabricant"))
+
+    huile_bte_auto_vitesse_quantite = models.DecimalField(
+        max_digits=4,
+        decimal_places=1,
+        default=Decimal("0.0"),
+        verbose_name=_("Quantité d'huile ajoutée en litres"),
+        validators=[StepValueValidator(0.1)],
+    )
+    huile_bte_auto_vitesse_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=Decimal("0.00"),
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+
+    huile_bte_auto_vitesse_qualite = models.CharField(max_length=25, choices=HuileBoiteAutoEtat.choices,
+                                                  default=HuileBoiteAutoEtat.ATF3,
+                                                  verbose_name=_("Qualité de l'huile"))
+
     remarques = models.TextField(
         verbose_name=_("Remarques"),
         blank=True,
@@ -344,22 +371,9 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
             rounding=ROUND_HALF_UP,
         )
 
-    @property
-    def total_general_avec_main_oeuvre(self):
-        rapport = self.generer_rapport_remplacement()
-
-        total_pieces = rapport.get(
-            "total_pieces",
-            Decimal("0.00"),
-        )
-
-        cout_main_oeuvre = self.cout_main_oeuvre or Decimal("0.00")
-
-        return total_pieces + cout_main_oeuvre
-
     def generer_rapport_remplacement(self):
         lignes = []
-        total_general = Decimal("0.00")
+        total_pieces = Decimal("0.00")
 
         pieces = [
             {
@@ -404,6 +418,12 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
                 "prix": self.roulement_auto_prix,
                 "quantite": self.roulement_auto_quantite,
             },
+            {
+                "champ": _("Huile de boîte automatique"),
+                "etat": self.huile_bte_auto_vitesse,
+                "prix": self.huile_bte_auto_vitesse_prix,
+                "quantite": self.huile_bte_auto_vitesse_quantite,
+            },
         ]
 
         etats_labels = {
@@ -414,13 +434,17 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
         for piece in pieces:
             etat = piece["etat"]
 
-            # Très important : inclure aussi les pièces remplacées
             if etat not in ("NOT_OK", "REMPLACE"):
                 continue
 
-            prix = piece["prix"] or Decimal("0.00")
-            quantite = piece["quantite"] or Decimal("0.00")
-            total = prix * quantite
+            prix = Decimal(str(piece["prix"] or "0.00"))
+            quantite = Decimal(str(piece["quantite"] or "0.00"))
+
+            if prix <= 0 or quantite <= 0:
+                continue
+
+            total_ligne = prix * quantite
+            total_pieces += total_ligne
 
             lignes.append({
                 "champ": piece["champ"],
@@ -428,12 +452,27 @@ class ControleBteVitesseAuto(TechnicienMixin, models.Model):
                 "etat_label": etats_labels.get(etat, etat),
                 "quantite": quantite,
                 "prix": prix,
-                "total": total,
+                "total": total_ligne,
             })
-
-            total_general += total
 
         return {
             "lignes": lignes,
-            "total_general": total_general,
+            "pieces": lignes,
+            "total_pieces": total_pieces,
+            "total_general": total_pieces,
         }
+
+
+
+    @property
+    def total_general_avec_main_oeuvre(self):
+        rapport = self.generer_rapport_remplacement()
+
+        total_pieces = rapport.get(
+            "total_pieces",
+            Decimal("0.00"),
+        )
+
+        cout_main_oeuvre = self.cout_main_oeuvre or Decimal("0.00")
+
+        return total_pieces + cout_main_oeuvre

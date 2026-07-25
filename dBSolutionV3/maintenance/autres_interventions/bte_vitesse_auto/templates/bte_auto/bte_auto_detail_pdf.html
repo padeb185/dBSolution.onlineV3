@@ -352,6 +352,28 @@
                     {% endif %}
                 </td>
             </tr>
+           <tr>
+                <td>{% trans "Huile de boite automatique" %}</td>
+                <td>
+                    {% if bte_auto.huile_bte_auto_vitesse == "OK" %}
+                        <span class="etat-vert">
+                            {{ bte_auto.get_huile_bte_auto_vitesse_display }}
+                        </span>
+                    {% elif bte_auto.huile_bte_auto_vitesse == "NOT_OK" %}
+                        <span class="etat-rouge">
+                            {{ bte_auto.get_huile_bte_auto_vitesse_display }}
+                        </span>
+                    {% elif bte_auto.huile_bte_auto_vitesse == "REMPLACE" %}
+                        <span class="etat-bleu">
+                            {{ bte_auto.get_huile_bte_auto_vitesse_display }}
+                        </span>
+                    {% else %}
+                        <span class="etat-gris">
+                            {{ bte_auto.get_huile_bte_auto_vitesse_display|default:"-" }}
+                        </span>
+                    {% endif %}
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -364,12 +386,16 @@
 
         <div>
             <span class="label">{% trans "Qualité de l'huile" %} :</span>
-            {{ bte_auto.get_huile_auto_niveau_qualite_display }}
+            {{ bte_auto.get_huile_bte_auto_vitesse_fabricant_display }}
+        </div>
+        <div>
+            <span class="label">{% trans "Qualité de l'huile" %} :</span>
+            {{ bte_auto.get_huile_bte_auto_vitesse_qualite_display }}
         </div>
 
         <div>
             <span class="label">{% trans "Quantité d'huile ajoutée" %} :</span>
-            {{ bte_auto.huile_auto_niveau_quantite }} L
+            {{ bte_auto.huile_bte_auto_vitesse_quantite }} L
         </div>
 
     </div>
