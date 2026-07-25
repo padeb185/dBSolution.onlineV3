@@ -323,10 +323,6 @@ def modifier_courroie_access_view(request, courroie_accessoires_id):
                         request,
                         _("Remplacement de la courroie d'accessoires modifié avec succès !")
                     )
-                    return redirect(
-                        "courroie_accessoires:modifier_courroie",
-                        courroie_accessoires_id=courroie_accessoires.id
-                    )
 
                 except ValidationError as e:
                     form.add_error(None, e)

@@ -240,12 +240,12 @@
                     </span>
 
                 {% elif rodage.moteur_rodage_vidange == "FAIT" %}
-                    <span class="etat etat-vert">
+                    <span class="etat etat-bleu">
                         {{ rodage.get_moteur_rodage_vidange_display }}
                     </span>
 
                 {% elif rodage.moteur_rodage_vidange == "REPORTER" %}
-                    <span class="etat etat-bleu">
+                    <span class="etat etat-gris">
                         {{ rodage.get_moteur_rodage_vidange_display }}
                     </span>
 
@@ -265,12 +265,12 @@
                     </span>
 
                 {% elif rodage.moteur_filtre_huile == "FAIT" %}
-                    <span class="etat etat-vert">
+                    <span class="etat etat-bleu">
                         {{ rodage.get_moteur_filtre_huile_display }}
                     </span>
 
                 {% elif rodage.moteur_filtre_huile == "REPORTER" %}
-                    <span class="etat etat-bleu">
+                    <span class="etat etat-gris">
                         {{ rodage.get_moteur_filtre_huile_display }}
                     </span>
 
@@ -290,12 +290,12 @@
                     </span>
 
                 {% elif rodage.moteur_bouchon_vidange == "FAIT" %}
-                    <span class="etat etat-vert">
+                    <span class="etat etat-bleu">
                         {{ rodage.get_moteur_bouchon_vidange_display }}
                     </span>
 
                 {% elif rodage.moteur_bouchon_vidange == "REPORTER" %}
-                    <span class="etat etat-bleu">
+                    <span class="etat etat-gris">
                         {{ rodage.get_moteur_bouchon_vidange_display }}
                     </span>
 
@@ -315,12 +315,12 @@
                     </span>
 
                 {% elif rodage.moteur_joint_vidange == "FAIT" %}
-                    <span class="etat etat-vert">
+                    <span class="etat etat-bleu">
                         {{ rodage.get_moteur_joint_vidange_display }}
                     </span>
 
                 {% elif rodage.moteur_joint_vidange == "REPORTER" %}
-                    <span class="etat etat-bleu">
+                    <span class="etat etat-gris">
                         {{ rodage.get_moteur_joint_vidange_display }}
                     </span>
 
@@ -340,12 +340,12 @@
                     </span>
 
                 {% elif rodage.moteur_ajout_huile == "FAIT" %}
-                    <span class="etat etat-vert">
+                    <span class="etat etat-bleu">
                         {{ rodage.get_moteur_ajout_huile_display }}
                     </span>
 
                 {% elif rodage.moteur_ajout_huile == "REPORTER" %}
-                    <span class="etat etat-bleu">
+                    <span class="etat etat-gris">
                         {{ rodage.get_moteur_ajout_huile_display }}
                     </span>
 
@@ -389,7 +389,7 @@
 
             <td>
                 {% if rodage.lave_glace_liquide_etat == "AJOUTER" or rodage.lave_glace_liquide_etat == "REMPLACER" %}
-                    <span class="etat etat-vert">
+                    <span class="etat etat-bleu">
                         {{ rodage.get_lave_glace_liquide_etat_display }}
                     </span>
                 {% else %}
@@ -413,7 +413,7 @@
 
             <td>
                 {% if rodage.frein_liquide_etat == "AJOUTER" or rodage.frein_liquide_etat == "REMPLACER" %}
-                    <span class="etat etat-vert">
+                    <span class="etat etat-bleu">
                         {{ rodage.get_frein_liquide_etat_display }}
                     </span>
                 {% else %}
@@ -437,7 +437,7 @@
 
             <td>
                 {% if rodage.refroidissement_liquide_etat == "AJOUTER" or rodage.refroidissement_liquide_etat == "REMPLACER" %}
-                    <span class="etat etat-vert">
+                    <span class="etat-bleu">
                         {{ rodage.get_refroidissement_liquide_etat_display }}
                     </span>
                 {% else %}
@@ -498,7 +498,7 @@
         <tr>
             <td>
                 {% if rodage.serrage_roues == "FAIT" %}
-                    <span class="etat etat-vert">
+                    <span class="etat etat-bleu">
                         {{ rodage.get_serrage_roues_display }}
                     </span>
                 {% elif rodage.serrage_roues == "A_FAIRE" %}
@@ -515,9 +515,9 @@
     </tbody>
 </table>
 
-<!-- ================================================== -->
-<!-- MAIN-D'ŒUVRE -->
-<!-- ================================================== -->
+
+
+
 <!-- ================================================== -->
 <!-- MAIN-D'ŒUVRE -->
 <!-- ================================================== -->
@@ -562,21 +562,22 @@
 
 
 
-
 <!-- ================================================== -->
 <!-- PIÈCES, PRODUITS ET MAIN-D'ŒUVRE -->
 <!-- ================================================== -->
+
 <h2>{% trans "Pièces, produits utilisés et main-d'œuvre" %}</h2>
 
 <div class="box">
 
-    {% if rapport.lignes %}
+    {% if rapport.pieces %}
 
         <table>
             <thead>
                 <tr>
                     <th>{% trans "Pièce / Produit" %}</th>
                     <th>{% trans "État" %}</th>
+                    <th>{% trans "Type / Qualité" %}</th>
                     <th class="text-right">{% trans "Quantité" %}</th>
                     <th class="text-right">{% trans "Prix unitaire HTVA" %}</th>
                     <th class="text-right">{% trans "Total HTVA" %}</th>
@@ -584,18 +585,41 @@
             </thead>
 
             <tbody>
-                {% for ligne in rapport.lignes %}
+                {% for ligne in rapport.pieces %}
                     <tr>
                         <td>
-                            {{ ligne.champ }}
+                            {{ ligne.nom|default:ligne.label }}
                         </td>
 
                         <td>
-                            {{ ligne.etat_label|default:"-" }}
+                            {% if ligne.etat == "A_FAIRE" or ligne.etat == "NOT_OK" or ligne.etat == "REMPLACER" %}
+                                <span class="etat etat-rouge">
+                                    {{ ligne.etat_display|default:"-" }}
+                                </span>
+
+                            {% elif ligne.etat == "FAIT" or ligne.etat == "REMPLACE" or ligne.etat == "AJOUTER" %}
+                                <span class="etat etat-bleu">
+                                    {{ ligne.etat_display|default:"-" }}
+                                </span>
+
+                            {% elif ligne.etat == "REPORTER" %}
+                                <span class="etat etat-gris">
+                                    {{ ligne.etat_display|default:"-" }}
+                                </span>
+
+                            {% else %}
+                                <span class="etat-normal">
+                                    {{ ligne.etat_display|default:"-" }}
+                                </span>
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            {{ ligne.type|default:"-" }}
                         </td>
 
                         <td class="text-right">
-                            {{ ligne.quantite|default:0 }}
+                            {{ ligne.quantite|default:0|floatformat:2 }}
                         </td>
 
                         <td class="text-right">
@@ -609,7 +633,7 @@
                 {% endfor %}
 
                 <tr class="total">
-                    <td colspan="4" class="total-label">
+                    <td colspan="5" class="total-label">
                         {% trans "Total pièces et produits HTVA" %}
                     </td>
 
@@ -619,7 +643,7 @@
                 </tr>
 
                 <tr class="total">
-                    <td colspan="4" class="total-label">
+                    <td colspan="5" class="total-label">
                         {% trans "Main-d'œuvre" %}
                     </td>
 
@@ -629,7 +653,7 @@
                 </tr>
 
                 <tr class="total">
-                    <td colspan="4" class="total-label">
+                    <td colspan="5" class="total-label">
                         {% trans "Total général avec main-d'œuvre" %}
                     </td>
 
@@ -673,6 +697,7 @@
     {% endif %}
 
 </div>
+
 
 <h2>{% trans "Remarques" %}</h2>
 

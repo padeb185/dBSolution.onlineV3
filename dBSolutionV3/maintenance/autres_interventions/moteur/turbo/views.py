@@ -112,6 +112,7 @@ def turbo_check_view(request, exemplaire_id):
             {"title": _("Etiquette"), "icon": "icons/tag.png", "filter": "tag"},
             {"title": _("Remarques"), "icon": "icons/notes.png", "filter": "remarques"},
             {"title": _("Technicien"), "icon": "icons/mecanicien.png", "filter": "tech"},
+            {"title": _("Taux horaire"), "icon": "icons/taux.png", "filter": "taux"},
         ]
 
         # =========================
@@ -333,6 +334,7 @@ def modifier_turbo_view(request, turbo_id):
             {"title": _("Etiquette"), "icon": "icons/tag.png", "filter": "tag"},
             {"title": _("Remarques"), "icon": "icons/notes.png", "filter": "remarques"},
             {"title": _("Technicien"), "icon": "icons/mecanicien.png", "filter": "tech"},
+            {"title": _("Taux horaire"), "icon": "icons/taux.png", "filter": "taux"},
 
         ]
 

@@ -7,7 +7,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
 from maintenance.check_up.models import PhareEtat
-from maintenance.choices import RouesSerrageEtat
+from maintenance.choices import RouesSerrageEtat, AmpouleAutomobile
 from utils.mixin import TechnicienMixin
 from societe.models import Societe
 
@@ -231,16 +231,238 @@ class Rodage(TechnicienMixin, models.Model):
 
     # phares#
 
-    phares_avant = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,verbose_name=_("Feux de route"))
-    phares_gros_phares = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,verbose_name=_("Grand phares"))
-    phares_clignotants = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,verbose_name=_("Clignotants"))
-    phares_recul = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,verbose_name=_("Feux de recul"))
-    phares_anti_brouillard_avant = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,verbose_name=_("Phares anti-brouillard avant"))
-    phares_anti_brouillard_arriere = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,verbose_name=_("Phares anti-brouillard arrière"))
-    phares_feux_stops = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,verbose_name=_("Feux stop"))
-    phares_troisieme_feux_stop = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,verbose_name=_("Troisième feux stop"))
-    phares_feux_position_av = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,verbose_name=_("Feux de position avant"))
-    phares_feux_position_ar = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,verbose_name=_("Feux de position arrière"))
+    phares_reglages = models.CharField(max_length=25, choices=PhareEtat.choices, default=PhareEtat.OK,
+                                       verbose_name=_("Réglage phares"))
+
+    phares_avant = models.CharField(
+        max_length=25,
+        choices=PhareEtat.choices,
+        default=PhareEtat.OK,
+        verbose_name=_("Feux de route"),
+    )
+    phares_avant_type = models.CharField(
+        max_length=25,
+        choices=AmpouleAutomobile.choices,
+        default=AmpouleAutomobile.CHOISIR,
+        verbose_name=_("Type d'ampoule"),
+    )
+    phares_avant_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+    phares_avant_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    phares_gros_phares = models.CharField(
+        max_length=25,
+        choices=PhareEtat.choices,
+        default=PhareEtat.OK,
+        verbose_name=_("Grands phares"),
+    )
+    phares_gros_phares_type = models.CharField(
+        max_length=25,
+        choices=AmpouleAutomobile.choices,
+        default=AmpouleAutomobile.CHOISIR,
+        verbose_name=_("Type d'ampoule"),
+    )
+    phares_gros_phares_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+    phares_gros_phares_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    phares_clignotants = models.CharField(
+        max_length=25,
+        choices=PhareEtat.choices,
+        default=PhareEtat.OK,
+        verbose_name=_("Clignotants"),
+    )
+    phares_clignotants_type = models.CharField(
+        max_length=25,
+        choices=AmpouleAutomobile.choices,
+        default=AmpouleAutomobile.CHOISIR,
+        verbose_name=_("Type d'ampoule"),
+    )
+    phares_clignotants_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+    phares_clignotants_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    phares_recul = models.CharField(
+        max_length=25,
+        choices=PhareEtat.choices,
+        default=PhareEtat.OK,
+        verbose_name=_("Feux de recul"),
+    )
+    phares_recul_type = models.CharField(
+        max_length=25,
+        choices=AmpouleAutomobile.choices,
+        default=AmpouleAutomobile.CHOISIR,
+        verbose_name=_("Type d'ampoule"),
+    )
+    phares_recul_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+    phares_recul_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    phares_anti_brouillard_avant = models.CharField(
+        max_length=25,
+        choices=PhareEtat.choices,
+        default=PhareEtat.OK,
+        verbose_name=_("Phares anti-brouillard avant"),
+    )
+    phares_anti_brouillard_avant_type = models.CharField(
+        max_length=25,
+        choices=AmpouleAutomobile.choices,
+        default=AmpouleAutomobile.CHOISIR,
+        verbose_name=_("Type d'ampoule"),
+    )
+    phares_anti_brouillard_avant_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+    phares_anti_brouillard_avant_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    phares_anti_brouillard_arriere = models.CharField(
+        max_length=25,
+        choices=PhareEtat.choices,
+        default=PhareEtat.OK,
+        verbose_name=_("Phares anti-brouillard arrière"),
+    )
+    phares_anti_brouillard_arriere_type = models.CharField(
+        max_length=25,
+        choices=AmpouleAutomobile.choices,
+        default=AmpouleAutomobile.CHOISIR,
+        verbose_name=_("Type d'ampoule"),
+    )
+    phares_anti_brouillard_arriere_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+    phares_anti_brouillard_arriere_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    phares_feux_stops = models.CharField(
+        max_length=25,
+        choices=PhareEtat.choices,
+        default=PhareEtat.OK,
+        verbose_name=_("Feux stop"),
+    )
+    phares_feux_stops_type = models.CharField(
+        max_length=25,
+        choices=AmpouleAutomobile.choices,
+        default=AmpouleAutomobile.CHOISIR,
+        verbose_name=_("Type d'ampoule"),
+    )
+    phares_feux_stops_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+    phares_feux_stops_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    phares_troisieme_feux_stop = models.CharField(
+        max_length=25,
+        choices=PhareEtat.choices,
+        default=PhareEtat.OK,
+        verbose_name=_("Troisième feu stop"),
+    )
+    phares_troisieme_feux_stop_type = models.CharField(
+        max_length=25,
+        choices=AmpouleAutomobile.choices,
+        default=AmpouleAutomobile.CHOISIR,
+        verbose_name=_("Type d'ampoule"),
+    )
+    phares_troisieme_feux_stop_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+    phares_troisieme_feux_stop_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    phares_feux_position_av = models.CharField(
+        max_length=25,
+        choices=PhareEtat.choices,
+        default=PhareEtat.OK,
+        verbose_name=_("Feux de position avant"),
+    )
+    phares_feux_position_av_type = models.CharField(
+        max_length=25,
+        choices=AmpouleAutomobile.choices,
+        default=AmpouleAutomobile.CHOISIR,
+        verbose_name=_("Type d'ampoule"),
+    )
+    phares_feux_position_av_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+    phares_feux_position_av_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+
+    phares_feux_position_ar = models.CharField(
+        max_length=25,
+        choices=PhareEtat.choices,
+        default=PhareEtat.OK,
+        verbose_name=_("Feux de position arrière"),
+    )
+    phares_feux_position_ar_type = models.CharField(
+        max_length=25,
+        choices=AmpouleAutomobile.choices,
+        default=AmpouleAutomobile.CHOISIR,
+        verbose_name=_("Type d'ampoule"),
+    )
+    phares_feux_position_ar_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
+    )
+    phares_feux_position_ar_quantite = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Quantité"),
+    )
 
 
     pneu_pression_bar_avd = models.FloatField(default=2.4, verbose_name=_("Pression du pneu avant droit en bar"), validators=[StepValueValidator(0.1)])
@@ -494,62 +716,181 @@ class Rodage(TechnicienMixin, models.Model):
                 "quantite_field": "liquide_direction_quantite",
                 "choices": NiveauxEtat.choices,
             },
+            {
+                "code": "phares_reglages",
+                "label": _("Réglage phares"),
+                "etat_field": "phares_reglages",
+                "choices": PhareEtat.choices,
+            },
+            {
+                "code": "phares_avant",
+                "label": _("Feux de route"),
+                "etat_field": "phares_avant",
+                "type_field": "phares_avant_type",
+                "prix_field": "phares_avant_prix",
+                "quantite_field": "phares_avant_quantite",
+                "choices": PhareEtat.choices,
+            },
+            {
+                "code": "phares_gros_phares",
+                "label": _("Grands phares"),
+                "etat_field": "phares_gros_phares",
+                "type_field": "phares_gros_phares_type",
+                "prix_field": "phares_gros_phares_prix",
+                "quantite_field": "phares_gros_phares_quantite",
+                "choices": PhareEtat.choices,
+            },
+            {
+                "code": "phares_clignotants",
+                "label": _("Clignotants"),
+                "etat_field": "phares_clignotants",
+                "type_field": "phares_clignotants_type",
+                "prix_field": "phares_clignotants_prix",
+                "quantite_field": "phares_clignotants_quantite",
+                "choices": PhareEtat.choices,
+            },
+            {
+                "code": "phares_recul",
+                "label": _("Feux de recul"),
+                "etat_field": "phares_recul",
+                "type_field": "phares_recul_type",
+                "prix_field": "phares_recul_prix",
+                "quantite_field": "phares_recul_quantite",
+                "choices": PhareEtat.choices,
+            },
+            {
+                "code": "phares_anti_brouillard_avant",
+                "label": _("Phares anti-brouillard avant"),
+                "etat_field": "phares_anti_brouillard_avant",
+                "type_field": "phares_anti_brouillard_avant_type",
+                "prix_field": "phares_anti_brouillard_avant_prix",
+                "quantite_field": "phares_anti_brouillard_avant_quantite",
+                "choices": PhareEtat.choices,
+            },
+            {
+                "code": "phares_anti_brouillard_arriere",
+                "label": _("Phares anti-brouillard arrière"),
+                "etat_field": "phares_anti_brouillard_arriere",
+                "type_field": "phares_anti_brouillard_arriere_type",
+                "prix_field": "phares_anti_brouillard_arriere_prix",
+                "quantite_field": "phares_anti_brouillard_arriere_quantite",
+                "choices": PhareEtat.choices,
+            },
+            {
+                "code": "phares_feux_stops",
+                "label": _("Feux stop"),
+                "etat_field": "phares_feux_stops",
+                "type_field": "phares_feux_stops_type",
+                "prix_field": "phares_feux_stops_prix",
+                "quantite_field": "phares_feux_stops_quantite",
+                "choices": PhareEtat.choices,
+            },
+            {
+                "code": "phares_troisieme_feux_stop",
+                "label": _("Troisième feu stop"),
+                "etat_field": "phares_troisieme_feux_stop",
+                "type_field": "phares_troisieme_feux_stop_type",
+                "prix_field": "phares_troisieme_feux_stop_prix",
+                "quantite_field": "phares_troisieme_feux_stop_quantite",
+                "choices": PhareEtat.choices,
+            },
+            {
+                "code": "phares_feux_position_av",
+                "label": _("Feux de position avant"),
+                "etat_field": "phares_feux_position_av",
+                "type_field": "phares_feux_position_av_type",
+                "prix_field": "phares_feux_position_av_prix",
+                "quantite_field": "phares_feux_position_av_quantite",
+                "choices": PhareEtat.choices,
+            },
+            {
+                "code": "phares_feux_position_ar",
+                "label": _("Feux de position arrière"),
+                "etat_field": "phares_feux_position_ar",
+                "type_field": "phares_feux_position_ar_type",
+                "prix_field": "phares_feux_position_ar_prix",
+                "quantite_field": "phares_feux_position_ar_quantite",
+                "choices": PhareEtat.choices,
+            },
         ]
 
         for element in elements:
-            etat = getattr(self, element["etat_field"], None)
+            etat_field = element["etat_field"]
+            etat = getattr(self, etat_field, None)
 
-            prix_brut = getattr(
-                self,
-                element["prix_field"],
-                Decimal("0.00"),
-            )
-
-            quantite_brute = getattr(
-                self,
-                element["quantite_field"],
-                Decimal("0.00"),
-            )
-
-            prix = Decimal(str(prix_brut or 0))
-            quantite = Decimal(str(quantite_brute or 0))
-
-            # Ne pas ajouter une ligne totalement vide
-            if prix <= 0 and quantite <= 0:
+            # Ne pas inclure les éléments en bon état
+            if etat in [None, PhareEtat.OK]:
                 continue
 
-            total = (prix * quantite).quantize(
-                Decimal("0.01"),
-                rounding=ROUND_HALF_UP,
+            prix_field = element.get("prix_field")
+            quantite_field = element.get("quantite_field")
+            type_field = element.get("type_field")
+
+            prix = Decimal("0.00")
+            quantite = Decimal("0")
+            total = Decimal("0.00")
+            type_ampoule = None
+
+            if prix_field:
+                prix = getattr(self, prix_field, Decimal("0.00")) or Decimal("0.00")
+                prix = Decimal(str(prix))
+
+            if quantite_field:
+                quantite = getattr(self, quantite_field, 0) or 0
+                quantite = Decimal(str(quantite))
+
+            if type_field:
+                type_ampoule = getattr(self, type_field, None)
+
+                display_method = getattr(
+                    self,
+                    f"get_{type_field}_display",
+                    None,
+                )
+
+                if callable(display_method):
+                    type_ampoule = display_method()
+
+            if prix_field and quantite_field:
+                total = prix * quantite
+                total_general += total
+
+            display_method = getattr(
+                self,
+                f"get_{etat_field}_display",
+                None,
             )
 
+            etat_display = (
+                display_method()
+                if callable(display_method)
+                else etat
+            )
+
+            if quantite < 1:
+                continue
+
+            total = prix * quantite
             total_general += total
 
-            rapport.append({
-                "champ": element["label"],
-                "code": element["code"],
-                "etat": etat,
-                "etat_label": dict(
-                    element["choices"]
-                ).get(etat, etat or "-"),
-                "prix": prix,
-                "quantite": quantite,
-                "total": total,
-            })
-
-        total_general = total_general.quantize(
-            Decimal("0.01"),
-            rounding=ROUND_HALF_UP,
-        )
+            rapport.append(
+                {
+                    "code": element["code"],
+                    "nom": element["label"],
+                    "label": element["label"],
+                    "etat": etat,
+                    "etat_display": etat_display,
+                    "type": type_ampoule,
+                    "prix": prix,
+                    "quantite": quantite,
+                    "total": total,
+                }
+            )
 
         return {
-            "lignes": rapport,
-            "total_general": total_general.quantize(
-                Decimal("0.01"),
-                rounding=ROUND_HALF_UP,
-            ),
+            "pieces": rapport,
+            "total_general": total_general,
         }
-
         # ======================================================
         # MAIN-D'ŒUVRE
         # ======================================================
