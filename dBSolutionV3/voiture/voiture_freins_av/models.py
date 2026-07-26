@@ -11,11 +11,13 @@ class MatiereFrein(models.TextChoices):
     COMPOSITE = 'COMPOSITE', _("Composite")
 
 
+
 class MatierePlaquetteFrein(models.TextChoices):
     ORGANIC = 'ORGANIC', _("Organique (NAO)")
     LOW_METALLIC = 'LOW_METALLIC', _("Semi-métallique")
     METALLIC = 'METALLIC', _("Métallique")
     CERAMIC = 'CERAMIC', _("Céramique haute performance")
+    COISIR = "CHOISIR", _("Choisir")
 
 
 class TypeDisqueFrein(models.TextChoices):

@@ -620,146 +620,280 @@
     </thead>
 
     <tbody>
+        <!-- ================= PLAQUETTES AVANT ================= -->
+
         <tr>
             <td>{% trans "Usure des plaquettes avant" %}</td>
-            <td>{{ checkup_track.freins_usure_plaquettes_av|default:0 }} %</td>
+            <td>
+                {{ checkup_track.freins_plaquettes_remplacer_av_usure|default:0 }} %
+            </td>
         </tr>
 
         <tr>
-            <td>{% trans "Plaquettes avant à remplacer" %}</td>
+            <td>{% trans "État des plaquettes avant" %}</td>
             <td>
-                {% if checkup_track.freins_plaquettes_remplacer_av == "OK" %}
+                {% if checkup_track.freins_plaquettes_remplacer_av_etat == "OK" %}
                     <span class="etat-vert">
-                        {{ checkup_track.get_freins_plaquettes_remplacer_av_display }}
+                        {{ checkup_track.get_freins_plaquettes_remplacer_av_etat_display }}
                     </span>
-                {% elif checkup_track.freins_plaquettes_remplacer_av == "A_REMPLACER" or checkup_track.freins_plaquettes_remplacer_av == "NOT_OK" %}
+                {% elif checkup_track.freins_plaquettes_remplacer_av_etat == "NOT_OK" or checkup_track.freins_plaquettes_remplacer_av_etat == "A_REMPLACER" %}
                     <span class="etat-rouge">
-                        {{ checkup_track.get_freins_plaquettes_remplacer_av_display }}
+                        {{ checkup_track.get_freins_plaquettes_remplacer_av_etat_display }}
                     </span>
-                {% elif checkup_track.freins_plaquettes_remplacer_av == "REMPLACE" %}
+                {% elif checkup_track.freins_plaquettes_remplacer_av_etat == "REMPLACE" %}
                     <span class="etat-bleu">
-                        {{ checkup_track.get_freins_plaquettes_remplacer_av_display }}
+                        {{ checkup_track.get_freins_plaquettes_remplacer_av_etat_display }}
                     </span>
                 {% else %}
                     <span class="etat-gris">
-                        {{ checkup_track.get_freins_plaquettes_remplacer_av_display|default:"-" }}
+                        {{ checkup_track.get_freins_plaquettes_remplacer_av_etat_display|default:"-" }}
                     </span>
                 {% endif %}
             </td>
         </tr>
+
+        <tr>
+            <td>{% trans "Fabricant des plaquettes avant" %}</td>
+            <td>
+                {{ checkup_track.get_freins_plaquettes_remplacer_av_fabricant_display|default:"-" }}
+            </td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Matière des plaquettes avant" %}</td>
+            <td>
+                {{ checkup_track.get_freins_plaquettes_remplacer_av_qualite_display|default:"-" }}
+            </td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Quantité de plaquettes avant" %}</td>
+            <td>
+                {{ checkup_track.freins_plaquettes_remplacer_av_quantite|default:0 }}
+            </td>
+        </tr>
+
+        <!-- ================= DISQUES AVANT ================= -->
 
         <tr>
             <td>{% trans "Épaisseur des disques avant" %}</td>
             <td>
-                {{ checkup_track.freins_epaisseur_disques_av|default:0|floatformat:2 }} mm
+                {{ checkup_track.freins_epaisseur_disques_av_usure|default:0|floatformat:2 }} mm
             </td>
         </tr>
 
         <tr>
-            <td>{% trans "Usure des plaquettes arrière" %}</td>
-            <td>{{ checkup_track.freins_usure_plaquettes_ar|default:0 }} %</td>
-        </tr>
-
-        <tr>
-            <td>{% trans "Plaquettes arrière à remplacer" %}</td>
+            <td>{% trans "État des disques avant" %}</td>
             <td>
-                {% if checkup_track.freins_plaquettes_remplacer_ar == "OK" %}
+                {% if checkup_track.freins_epaisseur_disques_av_etat == "OK" %}
                     <span class="etat-vert">
-                        {{ checkup_track.get_freins_plaquettes_remplacer_ar_display }}
+                        {{ checkup_track.get_freins_epaisseur_disques_av_etat_display }}
                     </span>
-                {% elif checkup_track.freins_plaquettes_remplacer_ar == "A_REMPLACER" or checkup_track.freins_plaquettes_remplacer_ar == "NOT_OK" %}
+                {% elif checkup_track.freins_epaisseur_disques_av_etat == "NOT_OK" or checkup_track.freins_epaisseur_disques_av_etat == "A_REMPLACER" %}
                     <span class="etat-rouge">
-                        {{ checkup_track.get_freins_plaquettes_remplacer_ar_display }}
+                        {{ checkup_track.get_freins_epaisseur_disques_av_etat_display }}
                     </span>
-                {% elif checkup_track.freins_plaquettes_remplacer_ar == "REMPLACE" %}
+                {% elif checkup_track.freins_epaisseur_disques_av_etat == "REMPLACE" %}
                     <span class="etat-bleu">
-                        {{ checkup_track.get_freins_plaquettes_remplacer_ar_display }}
+                        {{ checkup_track.get_freins_epaisseur_disques_av_etat_display }}
                     </span>
                 {% else %}
                     <span class="etat-gris">
-                        {{ checkup_track.get_freins_plaquettes_remplacer_ar_display|default:"-" }}
+                        {{ checkup_track.get_freins_epaisseur_disques_av_etat_display|default:"-" }}
                     </span>
                 {% endif %}
             </td>
         </tr>
+
+        <tr>
+            <td>{% trans "Présence de fentes sur les disques avant" %}</td>
+            <td>
+                {% if checkup_track.freins_epaisseur_disques_av_fentes == "OK" %}
+                    <span class="etat-vert">
+                        {{ checkup_track.get_freins_epaisseur_disques_av_fentes_display }}
+                    </span>
+                {% elif checkup_track.freins_epaisseur_disques_av_fentes == "NOT_OK" or checkup_track.freins_epaisseur_disques_av_fentes == "A_REMPLACER" %}
+                    <span class="etat-rouge">
+                        {{ checkup_track.get_freins_epaisseur_disques_av_fentes_display }}
+                    </span>
+                {% elif checkup_track.freins_epaisseur_disques_av_fentes == "REMPLACE" %}
+                    <span class="etat-bleu">
+                        {{ checkup_track.get_freins_epaisseur_disques_av_fentes_display }}
+                    </span>
+                {% else %}
+                    <span class="etat-gris">
+                        {{ checkup_track.get_freins_epaisseur_disques_av_fentes_display|default:"-" }}
+                    </span>
+                {% endif %}
+            </td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Fabricant des disques avant" %}</td>
+            <td>
+                {{ checkup_track.get_freins_epaisseur_disques_av_fabricant_display|default:"-" }}
+            </td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Matière des disques avant" %}</td>
+            <td>
+                {{ checkup_track.get_freins_epaisseur_disques_av_qualite_display|default:"-" }}
+            </td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Type de disques avant" %}</td>
+            <td>
+                {{ checkup_track.get_freins_epaisseur_disques_av_type_display|default:"-" }}
+            </td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Quantité de disques avant" %}</td>
+            <td>
+                {{ checkup_track.freins_epaisseur_disques_av_quantite|default:0 }}
+            </td>
+        </tr>
+
+        <!-- ================= PLAQUETTES ARRIÈRE ================= -->
+
+        <tr>
+            <td>{% trans "Usure des plaquettes arrière" %}</td>
+            <td>
+                {{ checkup_track.freins_plaquettes_remplacer_ar_usure|default:0 }} %
+            </td>
+        </tr>
+
+        <tr>
+            <td>{% trans "État des plaquettes arrière" %}</td>
+            <td>
+                {% if checkup_track.freins_plaquettes_remplacer_ar_etat == "OK" %}
+                    <span class="etat-vert">
+                        {{ checkup_track.get_freins_plaquettes_remplacer_ar_etat_display }}
+                    </span>
+                {% elif checkup_track.freins_plaquettes_remplacer_ar_etat == "NOT_OK" or checkup_track.freins_plaquettes_remplacer_ar_etat == "A_REMPLACER" %}
+                    <span class="etat-rouge">
+                        {{ checkup_track.get_freins_plaquettes_remplacer_ar_etat_display }}
+                    </span>
+                {% elif checkup_track.freins_plaquettes_remplacer_ar_etat == "REMPLACE" %}
+                    <span class="etat-bleu">
+                        {{ checkup_track.get_freins_plaquettes_remplacer_ar_etat_display }}
+                    </span>
+                {% else %}
+                    <span class="etat-gris">
+                        {{ checkup_track.get_freins_plaquettes_remplacer_ar_etat_display|default:"-" }}
+                    </span>
+                {% endif %}
+            </td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Fabricant des plaquettes arrière" %}</td>
+            <td>
+                {{ checkup_track.get_freins_plaquettes_remplacer_ar_fabricant_display|default:"-" }}
+            </td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Matière des plaquettes arrière" %}</td>
+            <td>
+                {{ checkup_track.get_freins_plaquettes_remplacer_ar_qualite_display|default:"-" }}
+            </td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Quantité de plaquettes arrière" %}</td>
+            <td>
+                {{ checkup_track.freins_plaquettes_remplacer_ar_quantite|default:0 }}
+            </td>
+        </tr>
+
+        <!-- ================= DISQUES ARRIÈRE ================= -->
 
         <tr>
             <td>{% trans "Épaisseur des disques arrière" %}</td>
             <td>
-                {{ checkup_track.freins_epaisseur_disques_ar|default:0|floatformat:2 }} mm
+                {{ checkup_track.freins_epaisseur_disques_ar_usure|default:0|floatformat:2 }} mm
             </td>
         </tr>
 
         <tr>
-            <td>{% trans "Présence de fentes sur les disques" %}</td>
+            <td>{% trans "État des disques arrière" %}</td>
             <td>
-                {% if checkup_track.freins_fentes_disques == "OK" %}
+                {% if checkup_track.freins_epaisseur_disques_ar_etat == "OK" %}
                     <span class="etat-vert">
-                        {{ checkup_track.get_freins_fentes_disques_display }}
+                        {{ checkup_track.get_freins_epaisseur_disques_ar_etat_display }}
                     </span>
-                {% elif checkup_track.freins_fentes_disques == "A_REMPLACER" or checkup_track.freins_fentes_disques == "NOT_OK" %}
+                {% elif checkup_track.freins_epaisseur_disques_ar_etat == "NOT_OK" or checkup_track.freins_epaisseur_disques_ar_etat == "A_REMPLACER" %}
                     <span class="etat-rouge">
-                        {{ checkup_track.get_freins_fentes_disques_display }}
+                        {{ checkup_track.get_freins_epaisseur_disques_ar_etat_display }}
                     </span>
-                {% elif checkup_track.freins_fentes_disques == "REMPLACE" %}
+                {% elif checkup_track.freins_epaisseur_disques_ar_etat == "REMPLACE" %}
                     <span class="etat-bleu">
-                        {{ checkup_track.get_freins_fentes_disques_display }}
+                        {{ checkup_track.get_freins_epaisseur_disques_ar_etat_display }}
                     </span>
                 {% else %}
                     <span class="etat-gris">
-                        {{ checkup_track.get_freins_fentes_disques_display|default:"-" }}
+                        {{ checkup_track.get_freins_epaisseur_disques_ar_etat_display|default:"-" }}
                     </span>
                 {% endif %}
             </td>
         </tr>
 
         <tr>
-            <td>{% trans "Disques à remplacer" %}</td>
+            <td>{% trans "Présence de fentes sur les disques arrière" %}</td>
             <td>
-                {% if checkup_track.freins_disques_remplacer == "OK" %}
+                {% if checkup_track.freins_epaisseur_disques_ar_fentes == "OK" %}
                     <span class="etat-vert">
-                        {{ checkup_track.get_freins_disques_remplacer_display }}
+                        {{ checkup_track.get_freins_epaisseur_disques_ar_fentes_display }}
                     </span>
-                {% elif checkup_track.freins_disques_remplacer == "A_REMPLACER" or checkup_track.freins_disques_remplacer == "NOT_OK" %}
+                {% elif checkup_track.freins_epaisseur_disques_ar_fentes == "NOT_OK" or checkup_track.freins_epaisseur_disques_ar_fentes == "A_REMPLACER" %}
                     <span class="etat-rouge">
-                        {{ checkup_track.get_freins_disques_remplacer_display }}
+                        {{ checkup_track.get_freins_epaisseur_disques_ar_fentes_display }}
                     </span>
-                {% elif checkup_track.freins_disques_remplacer == "REMPLACE" %}
+                {% elif checkup_track.freins_epaisseur_disques_ar_fentes == "REMPLACE" %}
                     <span class="etat-bleu">
-                        {{ checkup_track.get_freins_disques_remplacer_display }}
+                        {{ checkup_track.get_freins_epaisseur_disques_ar_fentes_display }}
                     </span>
                 {% else %}
                     <span class="etat-gris">
-                        {{ checkup_track.get_freins_disques_remplacer_display|default:"-" }}
+                        {{ checkup_track.get_freins_epaisseur_disques_ar_fentes_display|default:"-" }}
                     </span>
                 {% endif %}
             </td>
         </tr>
 
         <tr>
-            <td>{% trans "Présence de fuite" %}</td>
+            <td>{% trans "Fabricant des disques arrière" %}</td>
             <td>
-                {% if checkup_track.freins_fuites == "OK" %}
-                    <span class="etat-vert">
-                        {{ checkup_track.get_freins_fuites_display }}
-                    </span>
-                {% elif checkup_track.freins_fuites == "A_REMPLACER" or checkup_track.freins_fuites == "NOT_OK" %}
-                    <span class="etat-rouge">
-                        {{ checkup_track.get_freins_fuites_display }}
-                    </span>
-                {% elif checkup_track.freins_fuites == "REMPLACE" %}
-                    <span class="etat-bleu">
-                        {{ checkup_track.get_freins_fuites_display }}
-                    </span>
-                {% else %}
-                    <span class="etat-gris">
-                        {{ checkup_track.get_freins_fuites_display|default:"-" }}
-                    </span>
-                {% endif %}
+                {{ checkup_track.get_freins_epaisseur_disques_ar_fabricant_display|default:"-" }}
+            </td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Matière des disques arrière" %}</td>
+            <td>
+                {{ checkup_track.get_freins_epaisseur_disques_ar_qualite_display|default:"-" }}
+            </td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Type de disques arrière" %}</td>
+            <td>
+                {{ checkup_track.get_freins_epaisseur_disques_ar_type_display|default:"-" }}
+            </td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Quantité de disques arrière" %}</td>
+            <td>
+                {{ checkup_track.freins_epaisseur_disques_ar_quantite|default:0 }}
             </td>
         </tr>
     </tbody>
 </table>
+
 
 <h2>{% trans "Liquide de frein" %}</h2>
 
@@ -775,17 +909,17 @@
         <tr>
             <td>{% trans "État du liquide de frein" %}</td>
             <td>
-                {% if checkup_track.frein_liquide_frein_etat == "BON" %}
+                {% if checkup_track.freins_liquide_frein_etat == "BON" %}
                     <span class="etat-gris">
-                        {{ checkup_track.get_frein_liquide_frein_etat_display }}
+                        {{ checkup_track.get_freins_liquide_frein_etat_display }}
                     </span>
-                {% elif checkup_track.frein_liquide_frein_etat == "AJOUTER" %}
+                {% elif checkup_track.freins_liquide_frein_etat == "AJOUTER" %}
                     <span class="etat-vert">
-                        {{ checkup_track.get_frein_liquide_frein_etat_display }}
+                        {{ checkup_track.get_freins_liquide_frein_etat_display }}
                     </span>
-                {% elif checkup_track.frein_liquide_frein_etat == "REMPLACER" or checkup_track.frein_liquide_frein_etat == "A_REMPLACER" %}
+                {% elif checkup_track.freins_liquide_frein_etat == "REMPLACER" or checkup_track.frein_liquide_frein_etat == "A_REMPLACER" %}
                     <span class="etat-rouge">
-                        {{ checkup_track.get_frein_liquide_frein_etat_display }}
+                        {{ checkup_track.get_freins_liquide_frein_etat_display }}
                     </span>
                 {% else %}
                     <span class="etat-gris">
@@ -798,7 +932,7 @@
         <tr>
             <td>{% trans "Fabricant du liquide de frein" %}</td>
             <td>
-                {{ checkup_track.get_frein_liquide_fabricant_display|default:"-" }}
+                {{ checkup_track.get_freins_liquide_fabricant_display|default:"-" }}
             </td>
         </tr>
 

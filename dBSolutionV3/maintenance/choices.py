@@ -750,3 +750,35 @@ class FabricantBougies(models.TextChoices):
     AUTOLITE = "AUTOLITE", _("Autolite")
     BRISK = "BRISK", _("Brisk")
     CHOISIR = "CHOISIR", _("Choisir")
+
+
+
+
+
+
+class MatiereFrein(models.TextChoices):
+    ACIER = 'ACIER', _("Acier")
+    CARBONE = 'CARBONE', _("Carbone")
+    CERAMIQUE = 'CERAMIQUE', _("Céramique")
+    COMPOSITE = 'COMPOSITE', _("Composite")
+    CHOISIR = "CHOISIR", _("Choisir")
+
+
+
+class MatierePlaquetteFrein(models.TextChoices):
+    ORGANIC = 'ORGANIC', _("Organique (NAO)")
+    LOW_METALLIC = 'LOW_METALLIC', _("Semi-métallique")
+    METALLIC = 'METALLIC', _("Métallique")
+    CERAMIC = 'CERAMIC', _("Céramique haute performance")
+    CHOISIR = "CHOISIR", _("Choisir")
+
+
+class TypeDisqueFrein(models.TextChoices):
+    MONOBLOC_PLEIN = 'MONOBLOC_PLEIN', _("Plein (monobloc)")
+    VENTILE = 'VENTILE', _("Ventilé")
+    RAINURE = 'RAINURE', _("Rainuré")
+    PERCE = 'PERCE', _("Percé")
+    RAINURE_PERCE = 'RAINURE_PERCE', _("Rainuré et percé")
+    CHOISIR = "CHOISIR", _("Choisir")
+
+

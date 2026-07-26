@@ -23,6 +23,27 @@ class CheckupForm(forms.ModelForm):
             }),
             "tech_last_maintained_by": forms.Select(attrs={"disabled": "disabled"}),
 
+            "direction_liquide_niveau": forms.NumberInput(
+                attrs={
+                    "step": "0.1",
+                    "min": "0",
+                }
+            ),
+
+            "direction_liquide_quantite": forms.NumberInput(
+                attrs={
+                    "step": "0.1",
+                    "min": "0",
+                }
+            ),
+
+            "direction_liquide_prix": forms.NumberInput(
+                attrs={
+                    "step": "0.01",
+                    "min": "0",
+                }
+            ),
+
             "pneu_epaisseur_avd": forms.NumberInput(attrs={
                 "step": "0.5",
                 "min": "0",

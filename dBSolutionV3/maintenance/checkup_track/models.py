@@ -7,12 +7,14 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from maintenance.choices import RouesSerrageEtat, TAUX_HORAIRE_CHOICES, FabricantLubrifiant, TypeHuileDirection, \
-    AmpouleAutomobile
+    AmpouleAutomobile, FabricantFrein, MatierePlaquetteFrein, MatiereFrein, TypeDisqueFrein
 from maintenance.models import Maintenance
 from maintenance.nettoyage_exterieur.models import EtatAjouter
 from utilisateurs.models import Utilisateur
 from django.conf import settings
 from utils.mixin import TechnicienMixin
+from voiture.voiture_freins_ar.models import VoitureFreinsAR
+from voiture.voiture_freins_av.models import VoitureFreinsAV
 
 
 # ---------------------------
@@ -255,28 +257,58 @@ class CheckupTrack(TechnicienMixin, models.Model):
 
     # --- Freins ---
 
-    freins_usure_plaquettes_av = models.IntegerField(default=0, verbose_name=_("Usure des plaquettes avant (%)"))
-    freins_plaquettes_remplacer_av = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Plaquettes avant à remplacer"))
-    freins_epaisseur_disques_av = models.FloatField(default=0.0, verbose_name=_("Épaisseur des disques avant (mm)"))
-
-    freins_usure_plaquettes_ar = models.IntegerField(default=0, verbose_name=_("Usure des plaquettes arrière (%)"))
-    freins_plaquettes_remplacer_ar = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
-                                                   verbose_name=_("Plaquettes arrière à remplacer"))
-    freins_epaisseur_disques_ar = models.FloatField(default=0.0, verbose_name=_("Épaisseur des disques arrière (mm)"))
-
-    freins_fentes_disques = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Présence de fentes sur les disques"))
-    freins_disques_remplacer = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Disques à remplacer"))
+    freins_plaquettes_remplacer_av_usure = models.IntegerField(default=0, verbose_name=_("Usure des plaquettes avant (%)"))
+    freins_plaquettes_remplacer_av_etat = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Plaquettes avant à remplacer"))
+    freins_plaquettes_remplacer_av_quantite = models.PositiveIntegerField(default=0,  verbose_name=_("Quantité"))
+    freins_plaquettes_remplacer_av_fabricant = models.CharField(max_length=25, choices=FabricantFrein.choices,default=FabricantFrein.CHOISIR,verbose_name=_("Fabricant des plaquettes"))
+    freins_plaquettes_remplacer_av_qualite = models.CharField(max_length=25, choices=MatierePlaquetteFrein.choices, default=MatierePlaquetteFrein.CHOISIR,verbose_name=_("Matière des plaquettes"))
+    freins_plaquettes_remplacer_av_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva"))
 
 
-    freins_fuites = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Présence de fuite"))
 
 
+
+
+    freins_epaisseur_disques_av_usure = models.FloatField(default=0.0, verbose_name=_("Épaisseur des disques avant (mm)"))
+    freins_epaisseur_disques_av_etat = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK,verbose_name=_("Disques avant à remplacer"))
+    freins_epaisseur_disques_av_fentes = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Présence de fentes sur les disques arrière"))
+    freins_epaisseur_disques_av_quantite = models.PositiveIntegerField(default=0, verbose_name=_("Quantité"))
+    freins_epaisseur_disques_av_fabricant = models.CharField(max_length=25, choices=FabricantFrein.choices,default=FabricantFrein.CHOISIR,verbose_name=_("Fabricant des disques"))
+    freins_epaisseur_disques_av_qualite = models.CharField(max_length=25, choices=MatiereFrein.choices,default=MatiereFrein.CHOISIR,verbose_name=_("Matière des disques"))
+    freins_epaisseur_disques_av_type = models.CharField(max_length=25, choices=TypeDisqueFrein.choices,default=TypeDisqueFrein.CHOISIR,verbose_name=_("Type de disques"))
+    freins_epaisseur_disques_av_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva"))
+
+
+
+    freins_plaquettes_remplacer_ar_usure = models.IntegerField(default=0, verbose_name=_("Usure des plaquettes arrière (%)"))
+    freins_plaquettes_remplacer_ar_etat = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK,verbose_name=_("Plaquettes arrière à remplacer"))
+    freins_plaquettes_remplacer_ar_fabricant = models.CharField(max_length=25, choices=FabricantFrein.choices,default=FabricantFrein.CHOISIR,verbose_name=_("Fabricant des plaquettes"))
+    freins_plaquettes_remplacer_ar_qualite = models.CharField(max_length=25, choices=MatierePlaquetteFrein.choices,default=MatierePlaquetteFrein.CHOISIR,verbose_name=_("Matière des plaquettes"))
+    freins_plaquettes_remplacer_ar_quantite = models.PositiveIntegerField(default=0, verbose_name=_("Quantité"))
+    freins_plaquettes_remplacer_ar_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva"))
+
+
+
+    freins_epaisseur_disques_ar_usure = models.FloatField(default=0.0,verbose_name=_("Épaisseur des disques arrière (mm)"))
+    freins_epaisseur_disques_ar_etat = models.CharField(max_length=25, choices=EtatOKNotOK.choices,default=EtatOKNotOK.OK,verbose_name=_("Disques arrière à remplacer"))
+    freins_epaisseur_disques_ar_fentes= models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,verbose_name=_("Présence de fentes sur les disques"))
+    freins_epaisseur_disques_ar_fabricant = models.CharField(max_length=25, choices=FabricantFrein.choices,default=FabricantFrein.CHOISIR,verbose_name=_("Fabricant des plaquettes"))
+    freins_epaisseur_disques_ar_qualite = models.CharField(max_length=25, choices=MatiereFrein.choices,default=MatiereFrein.CHOISIR,verbose_name=_("Matière des disques"))
+    freins_epaisseur_disques_ar_type = models.CharField(max_length=25, choices=TypeDisqueFrein.choices,default=TypeDisqueFrein.CHOISIR,verbose_name=_("Type des disques"))
+    freins_epaisseur_disques_ar_quantite = models.PositiveIntegerField(default=0, verbose_name=_("Quantité"))
+    freins_epaisseur_disques_ar_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva"))
+
+
+
+
+
+    freins_liquide_fuites = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Présence de fuite"))
     # --- Liquide ---
-    frein_liquide_frein_etat = models.CharField(max_length=25, choices=LiquideFreinEtat.choices, default=LiquideFreinEtat.BON, verbose_name=_("État liquide de frein"))
-    frein_liquide_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices, default=FabricantLubrifiant.CASTROL, verbose_name=_("Fabricant du liquide de frein"))
+    freins_liquide_frein_etat = models.CharField(max_length=25, choices=LiquideFreinEtat.choices, default=LiquideFreinEtat.BON, verbose_name=_("État liquide de frein"))
+    freins_liquide_fabricant = models.CharField(max_length=25, choices=FabricantLubrifiant.choices, default=FabricantLubrifiant.CASTROL, verbose_name=_("Fabricant du liquide de frein"))
     freins_liquide_qualite = models.CharField(max_length=100,choices=QualiteLiquideFrein.choices, default=QualiteLiquideFrein.DOT4, blank=True, verbose_name=_("Spécification liquide de frein"))
     freins_liquide_quantite = models.FloatField(default=0, null=True, blank=True, verbose_name=_("Quantité liquide de frein (L)"))
-    frein_liquide_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva du liquide de frein"))
+    freins_liquide_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva du liquide de frein"))
 
 
     direction_liquide_etat = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK, verbose_name=_("Etat direction assistée / crémaillère"), null=True, blank=True)
@@ -841,6 +873,32 @@ class CheckupTrack(TechnicienMixin, models.Model):
                 "libelle": _("Liquide de refroidissement"),
                 "unite": _("L"),
             },
+            "freins_plaquettes_remplacer_av": {
+                "etat": "freins_plaquettes_remplacer_av_etat",
+                "qualite": "freins_plaquettes_remplacer_av_qualite",
+                "quantite": "freins_plaquettes_remplacer_av_quantite",
+                "unite": _("Set"),
+            },
+
+            "freins_plaquettes_remplacer_ar": {
+                "etat": "freins_plaquettes_remplacer_ar_etat",
+                "qualite": "freins_plaquettes_remplacer_ar_qualite",
+                "quantite": "frein_splaquettes_remplacer_ar_quantite",
+                "unite": _("Set"),
+            },
+            "freins_epaisseur_disques_av": {
+                "etat": "freins_epaisseur_disques_av_etat",
+                "qualite": "freins_epaisseur_disques_av_qualite",
+                "quantite": "freins_epaisseur_disques_av_quantite",
+                "unite": _("Set"),
+            },
+            "freins_epaisseur_disques_ar": {
+                "etat": "freins_epaisseur_disques_ar_etat",
+                "qualite": "freins_epaisseur_disques_ar_qualite",
+                "quantite": "freins_epaisseur_disques_ar_quantite",
+                "unite": _("Set"),
+            },
+
             "frein_liquide": {
                 "etat": "frein_liquide_frein_etat",
                 "fabricant": "frein_liquide_fabricant",
