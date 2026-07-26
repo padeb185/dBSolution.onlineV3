@@ -1,9 +1,14 @@
 from decimal import Decimal, ROUND_HALF_UP
+
+from django.core.validators import StepValueValidator
+
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
+from maintenance.choices import RouesSerrageEtat, FabricantLubrifiant
+from maintenance.entretien.models import LiquideFreinsQualite
 from utils.mixin import TechnicienMixin
 from maintenance.models import Maintenance
 from maintenance.services import sync_maintenance
@@ -108,6 +113,38 @@ class Abs(TechnicienMixin, models.Model):
     capteur_abs_arg_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
 
+
+    liquide_frein_etat = models.CharField(max_length=25, choices=EtatOKNotOK.choices, default=EtatOKNotOK.OK,
+                                          verbose_name=_("État liquide de frein"))
+    liquide_frein_specif = models.CharField(max_length=100, choices=LiquideFreinsQualite.choices,
+                                            default=LiquideFreinsQualite.DOT4, blank=True,
+                                            verbose_name=_("Spécification liquide de frein"))
+    liquide_frein_quantite = models.DecimalField(
+        max_digits=4,
+        decimal_places=2,
+        default=0.0,
+        null=True,
+        blank=True,
+        verbose_name=_("Quantité liquide de frein (L)"),
+        validators=[StepValueValidator(0.1)],
+    )
+    liquide_frein_fabricant = models.CharField(
+        max_length=25,
+        choices=FabricantLubrifiant.choices,
+        default=FabricantLubrifiant.CASTROL,
+        verbose_name=_("Fabricant du liquide de frein")
+    )
+    liquide_frein_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat du liquide HTVA")
+    )
+
+
+
+
+    serrage_roues = models.CharField(max_length=25, choices=RouesSerrageEtat.choices, default=RouesSerrageEtat.A_FAIRE,verbose_name=_("Serrage des roues"))
 
     remarques = models.TextField(
         verbose_name=_("Remarques"),
@@ -286,62 +323,129 @@ class Abs(TechnicienMixin, models.Model):
         rapport = []
         total_general = Decimal("0.00")
 
+        etats_acceptes = {
+            EtatOKNotOK.NOT_OK,
+            EtatOKNotOK.REMPLACE,
+        }
+
+        labels_etats = dict(EtatOKNotOK.choices)
+
         for field in self._meta.fields:
             field_name = field.name
 
-            # Ne garder que les champs utilisant EtatOKNotOK
-            if (
+            # Traiter uniquement les champs d'état EtatOKNotOK
+            if not (
                     isinstance(field, models.CharField)
                     and field.choices == EtatOKNotOK.choices
             ):
-                valeur = getattr(self, field_name)
+                continue
 
-                # Pièces à remplacer ou déjà remplacées
-                if valeur in [
-                    EtatOKNotOK.NOT_OK,
-                    EtatOKNotOK.REMPLACE,
-                ]:
-                    prix = getattr(
-                        self,
-                        f"{field_name}_prix",
-                        Decimal("0.00"),
-                    )
+            valeur = getattr(self, field_name, None)
 
-                    if prix is None:
-                        prix = Decimal("0.00")
+            # Uniquement les éléments à remplacer ou remplacés
+            if valeur not in etats_acceptes:
+                continue
 
-                    prix = Decimal(str(prix))
+            # Exemple :
+            # liquide_frein_etat -> liquide_frein
+            champ_base = (
+                field_name.removesuffix("_etat")
+                if field_name.endswith("_etat")
+                else field_name
+            )
 
-                    quantite = getattr(
-                        self,
-                        f"{field_name}_quantite",
-                        0,
-                    )
+            # ============================
+            # QUANTITÉ
+            # ============================
+            quantite = getattr(
+                self,
+                f"{champ_base}_quantite",
+                Decimal("0.00"),
+            )
 
-                    if quantite is None:
-                        quantite = 0
+            quantite = Decimal(str(quantite or "0.00"))
 
-                    quantite = Decimal(str(quantite))
+            # Ne prendre en compte que les quantités supérieures à zéro
+            if quantite <= 0:
+                continue
 
-                    total = prix * quantite
-                    total_general += total
+            # ============================
+            # PRIX UNITAIRE
+            # ============================
+            prix = getattr(
+                self,
+                f"{champ_base}_prix",
+                Decimal("0.00"),
+            )
 
-                    rapport.append({
-                        "champ": field.verbose_name,
-                        "code": field_name,
-                        "etat": valeur,
-                        "etat_label": dict(
-                            EtatOKNotOK.choices
-                        ).get(valeur, valeur),
-                        "prix": prix,
-                        "quantite": quantite,
-                        "total": total,
-                    })
+            prix = Decimal(str(prix or "0.00"))
+
+            # ============================
+            # FABRICANT
+            # ============================
+            nom_champ_fabricant = f"{champ_base}_fabricant"
+
+            fabricant = getattr(
+                self,
+                nom_champ_fabricant,
+                None,
+            )
+
+            methode_fabricant_display = getattr(
+                self,
+                f"get_{nom_champ_fabricant}_display",
+                None,
+            )
+
+            if callable(methode_fabricant_display):
+                fabricant = methode_fabricant_display()
+
+            fabricant = fabricant or "-"
+
+            # ============================
+            # SPÉCIFICATION / QUALITÉ
+            # ============================
+            nom_champ_specification = f"{champ_base}_specif"
+
+            specification = getattr(
+                self,
+                nom_champ_specification,
+                None,
+            )
+
+            methode_specification_display = getattr(
+                self,
+                f"get_{nom_champ_specification}_display",
+                None,
+            )
+
+            if callable(methode_specification_display):
+                specification = methode_specification_display()
+
+            # ============================
+            # TOTAL
+            # ============================
+            total = prix * quantite
+            total_general += total
+
+            rapport.append({
+                "champ": field.verbose_name,
+                "code": champ_base,
+                "etat": valeur,
+                "etat_label": labels_etats.get(valeur, valeur),
+                "fabricant": fabricant,
+                "specification": specification or "-",
+                "quantite": quantite,
+                "prix": prix,
+                "total": total,
+            })
 
         return {
             "lignes": rapport,
             "total_general": total_general,
         }
+
+
 
         # ======================================================
         # MAIN-D'ŒUVRE

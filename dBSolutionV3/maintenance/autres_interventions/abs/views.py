@@ -229,6 +229,16 @@ def abs_form_view(request, exemplaire_id):
                 "icon": "icons/capteurs.png",
                 "fields": [form[f.name] for f in form if "capteur" in f.name],
             },
+            {
+                "title": _("Liquide de frein"),
+                "icon": "icons/liquide_frein.png",
+                "fields": [form[f.name] for f in form if "liquide" in f.name],
+            },
+            {
+                "title": _("Serrage des roues"),
+                "icon": "icons/roue.png",
+                "fields": [form[f.name] for f in form if "serrage" in f.name],
+            },
 
             {
                 "title": _("Etiquette"),
@@ -249,6 +259,11 @@ def abs_form_view(request, exemplaire_id):
                 "title": _("Technicien"),
                 "icon": "icons/mecanicien.png",
                 "fields": [form[f.name] for f in form if "tech" in f.name],
+            },
+            {
+                "title": _("Taux horaire"),
+                "icon": "icons/taux.png",
+                "fields": [form[f.name] for f in form if "taux" in f.name],
             },
 
         ]
@@ -353,6 +368,16 @@ def modifier_abs_view(request, abs_id):
                 "icon": "icons/capteurs.png",
                 "fields": [form[f.name] for f in form if "capteur" in f.name],
             },
+            {
+                "title": _("Liquide de frein"),
+                "icon": "icons/liquide_frein.png",
+                "fields": [form[f.name] for f in form if "liquide" in f.name],
+            },
+            {
+                "title": _("Serrage des roues"),
+                "icon": "icons/roue.png",
+                "fields": [form[f.name] for f in form if "serrage" in f.name],
+            },
 
             {
                 "title": _("Etiquette"),
@@ -375,6 +400,11 @@ def modifier_abs_view(request, abs_id):
                 "icon": "icons/mecanicien.png",
                 "fields": [form[f.name] for f in form if "tech" in f.name],
             },
+            {
+                "title": _("Taux horaire"),
+                "icon": "icons/taux.png",
+                "fields": [form[f.name] for f in form if "taux" in f.name],
+            },
 
         ]
 
@@ -390,43 +420,112 @@ def modifier_abs_view(request, abs_id):
     )
 
 
+
 @login_required
 def abs_detail_pdf_view(request, pk):
-    abs = get_object_or_404(Abs, pk=pk)
+    abs_obj = get_object_or_404(
+        Abs.objects.select_related(
+            "maintenance",
+            "maintenance__voiture_exemplaire",
+            "maintenance__tech_technicien",
+            "maintenance__tech_societe",
+        ),
+        pk=pk,
+    )
 
-    rapport = abs.generer_rapport_remplacement()
+    rapport = abs_obj.generer_rapport_remplacement()
 
-    maintenance = abs.maintenance  # adapter si le nom du champ est différent
+    maintenance = getattr(abs_obj, "maintenance", None)
+
+    vehicule = None
+    technicien = None
+    date_intervention = None
+
+    if maintenance:
+        vehicule = maintenance.voiture_exemplaire
+        technicien = maintenance.tech_technicien
+        date_intervention = maintenance.date_intervention
+
+    # Sécurités si certaines relations ne sont pas renseignées
+    if vehicule is None:
+        vehicule = getattr(abs_obj, "voiture_exemplaire", None)
+
+    if technicien is None:
+        technicien = getattr(abs_obj, "tech_technicien", None)
+
+    immatriculation = (
+        vehicule.immatriculation
+        if vehicule
+        else "sans_immatriculation"
+    )
+
+    nom_technicien = "technicien_inconnu"
+
+    if technicien:
+        prenom = getattr(technicien, "prenom", "") or ""
+        nom = getattr(technicien, "nom", "") or ""
+
+        nom_technicien = (
+            f"{prenom} {nom}".strip()
+            or getattr(technicien, "username", None)
+            or str(technicien)
+        )
+
+    nom_technicien_fichier = (
+        str(nom_technicien)
+        .strip()
+        .replace(" ", "_")
+        .replace("/", "-")
+        .replace("\\", "-")
+        .replace(",", "")
+    )
+
+    immatriculation_fichier = (
+        str(immatriculation)
+        .strip()
+        .replace(" ", "_")
+        .replace("/", "-")
+        .replace("\\", "-")
+        .replace(",", "")
+    )
 
     html_string = render_to_string(
         "abs/abs_detail_pdf.html",
         {
-            "abs": abs,
+            "abs": abs_obj,
             "rapport": rapport,
             "maintenance": maintenance,
-            "technicien": maintenance.tech_nom_technicien,
-            "date_intervention": maintenance.date_intervention,
-            "vehicule": maintenance.voiture_exemplaire,
-            "immatriculation": maintenance.voiture_exemplaire.immatriculation,
+            "technicien": technicien,
+            "date_intervention": date_intervention,
+            "vehicule": vehicule,
+            "immatriculation": immatriculation,
             "date_export": datetime.now(),
-            "societe": request.user.societe,
-        }
+            "societe": getattr(request.user, "societe", None),
+        },
+        request=request,
     )
 
     pdf = HTML(
         string=html_string,
-        base_url=request.build_absolute_uri()
+        base_url=request.build_absolute_uri("/"),
     ).write_pdf()
 
-    response = HttpResponse(pdf, content_type="application/pdf")
+    filename = (
+        f"rapport_ABS_"
+        f"{immatriculation_fichier}_"
+        f"{nom_technicien_fichier}.pdf"
+    )
+
+    response = HttpResponse(
+        pdf,
+        content_type="application/pdf",
+    )
+
     response["Content-Disposition"] = (
-        f'attachment; filename="rapport ABS {maintenance.voiture_exemplaire.immatriculation},{abs.tech_nom_technicien} .pdf"'
+        f'attachment; filename="{filename}"'
     )
 
     return response
-
-
-
 
     # -------------------------
     # RAPPORT

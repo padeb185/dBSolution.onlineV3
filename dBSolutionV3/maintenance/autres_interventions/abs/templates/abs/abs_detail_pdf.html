@@ -370,6 +370,28 @@
                     {% endif %}
                 </td>
             </tr>
+             <tr>
+                <td>{% trans "Liquide de Frein" %}</td>
+                <td>
+                    {% if abs.liquide_frein_etat == "OK" %}
+                        <span class="etat-vert">
+                            {{ abs.get_liquide_frein_etat_display }}
+                        </span>
+                    {% elif abs.liquide_frein_etat == "NOT_OK" %}
+                        <span class="etat-rouge">
+                            {{ abs.get_liquide_frein_etat_display }}
+                        </span>
+                    {% elif abs.liquide_frein_etat == "REMPLACE" %}
+                        <span class="etat-bleu">
+                            {{ abs.get_liquide_frein_etat_display }}
+                        </span>
+                    {% else %}
+                        <span class="etat-gris">
+                            {{ abs.get_liquide_frein_etat_display|default:"-" }}
+                        </span>
+                    {% endif %}
+                </td>
+            </tr>
         </tbody>
     </table>
 
@@ -423,6 +445,7 @@
                 <tr>
                     <th>{% trans "Pièce / Produit" %}</th>
                     <th>{% trans "État" %}</th>
+                    <th>{% trans "Fabricant" %}</th>
                     <th class="text-right">{% trans "Quantité" %}</th>
                     <th class="text-right">{% trans "Prix unitaire HTVA" %}</th>
                     <th class="text-right">{% trans "Total HTVA" %}</th>
@@ -440,6 +463,9 @@
                         <td>
                             {{ ligne.etat_label|default:"-" }}
                         </td>
+                        <td>
+                            {{ ligne.fabricant|default:"-" }}
+                        </td>
 
                         <td class="text-right">
                             {{ ligne.quantite|default:0 }}
@@ -456,7 +482,7 @@
                 {% endfor %}
 
                 <tr class="total">
-                    <td colspan="4" class="text-right">
+                    <td colspan="5" class="text-right">
                         {% trans "Total pièces et produits HTVA" %}
                     </td>
 
@@ -466,7 +492,7 @@
                 </tr>
 
                 <tr class="total">
-                    <td colspan="4" class="text-right">
+                    <td colspan="5" class="text-right">
                         {% trans "Main-d'œuvre" %}
                     </td>
 
@@ -476,7 +502,7 @@
                 </tr>
 
                 <tr class="total">
-                    <td colspan="4" class="text-right">
+                    <td colspan="5" class="text-right">
                         {% trans "Total général avec main-d'œuvre" %}
                     </td>
 

@@ -223,6 +223,11 @@ def courroie_access_form_view(request, exemplaire_id):
                 "fields": [form[f.name] for f in form if "poulie" in f.name],
             },
             {
+                "title": _("Serrage des roues"),
+                "icon": "icons/roue.png",
+                "fields": [form[f.name] for f in form if "serrage" in f.name],
+            },
+            {
                 "title": _("Etiquette"),
                 "icon": "icons/tag.png",
                 "fields": [form[f.name] for f in form if "tag" in f.name],
@@ -365,6 +370,11 @@ def modifier_courroie_access_view(request, courroie_accessoires_id):
                 "title": _("Poulie Damper"),
                 "icon": "icons/poulie.png",
                 "fields": [form[f.name] for f in form if "poulie" in f.name],
+            },
+            {
+                "title": _("Serrage des roues"),
+                "icon": "icons/roue.png",
+                "fields": [form[f.name] for f in form if "serrage" in f.name],
             },
 
             {

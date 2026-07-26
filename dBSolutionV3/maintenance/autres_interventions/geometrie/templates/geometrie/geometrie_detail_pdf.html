@@ -105,8 +105,9 @@
 
 </div>
 
+
 <!-- ================= ANGLES ================= -->
-<h2>{% trans "Angles de suspension" %}</h2>
+<h2>{% trans "Carrossage" %}</h2>
 
 <div class="box">
     <div class="grid-3">
@@ -116,8 +117,26 @@
         <div>{% trans "Carrossage ARD" %} : {{ geometrie.carrossage_arriere_droit }}°</div>
         <div>{% trans "Carrossage ARG" %} : {{ geometrie.carrossage_arriere_gauche }}°</div>
 
+    </div>
+</div>
+
+<!-- ================= ANGLES ================= -->
+<h2>{% trans "Chasse" %}</h2>
+
+<div class="box">
+    <div class="grid-3">
+
         <div>{% trans "Chasse droite" %} : {{ geometrie.chasse_droite }}°</div>
         <div>{% trans "Chasse gauche" %} : {{ geometrie.chasse_gauche }}°</div>
+
+    </div>
+</div>
+<!-- ================= ANGLES ================= -->
+<h2>{% trans "Pincement" %}</h2>
+
+<div class="box">
+    <div class="grid-3">
+
 
         <div>{% trans "Pincement AVD" %} : {{ geometrie.pincement_avant_droit }}°</div>
         <div>{% trans "Pincement AVG" %} : {{ geometrie.pincement_avant_gauche }}°</div>
@@ -125,9 +144,24 @@
         <div>{% trans "Pincement ARD" %} : {{ geometrie.pincement_arriere_droit }}°</div>
         <div>{% trans "Pincement ARG" %} : {{ geometrie.pincement_arriere_gauche }}°</div>
 
-        <div>{% trans "Poussée arrière" %} : {{ geometrie.poussee_arriere }}°</div>
-        <div>{% trans "Angle pivot" %} : {{ geometrie.angle_pivot }}°</div>
+    </div>
+</div>
 
+<!-- ================= ANGLES ================= -->
+<h2>{% trans "Angles de pivot" %}</h2>
+
+<div class="box">
+    <div class="grid-3">
+        <div>{% trans "Angle pivot" %} : {{ geometrie.angle_pivot }}°</div>
+    </div>
+</div>
+
+<!-- ================= ANGLES ================= -->
+<h2>{% trans "Poussée arrière" %}</h2>
+
+<div class="box">
+    <div class="grid-3">
+        <div>{% trans "Poussée arrière" %} : {{ geometrie.poussee_arriere }}°</div>
     </div>
 </div>
 
@@ -165,45 +199,35 @@
 <!-- MAIN-D'ŒUVRE -->
 <!-- ================================================== -->
 
-<h2>{% trans "Main d'oeuvre" %}</h2>
+<!-- ================= MAIN D'ŒUVRE ================= -->
+
+<h2>{% trans "Main d'œuvre" %}</h2>
 
 <div class="box">
     <div class="grid">
-
         <div>
-            <span class="label">{% trans "Temps de travail" %} :</span>
-
-            {% if geometrie.main_oeuvre %}
-                {{ geometrie.main_oeuvre.temps_display|default:"0h00" }}
-            {% else %}
-                0h00
-            {% endif %}
+            <span class="label">{% trans "Temps" %} :</span>
+            {{ geometrie.temps_main_oeuvre_display|default:"0h00" }}
         </div>
 
-        <div>
-            <span class="label">{% trans "Technicien" %} :</span>
+        {% if geometrie.main_oeuvre %}
+            <div>
+                <span class="label">{% trans "Taux horaire" %} :</span>
+                {{ geometrie.main_oeuvre.taux_horaire|floatformat:2 }} €
+            </div>
 
-            {% if geometrie.main_oeuvre and geometrie.main_oeuvre.utilisateur %}
-                {{ geometrie.main_oeuvre.utilisateur }}
-            {% else %}
-                {{ geometrie.tech_nom_technicien|default:"-" }}
-            {% endif %}
-        </div>
+            <div>
+                <span class="label">{% trans "Prix facturé" %} :</span>
+                {{ geometrie.main_oeuvre.prix_facture|floatformat:2 }} €
+            </div>
 
-        {% if geometrie.main_oeuvre and geometrie.main_oeuvre.descriptif %}
             <div>
                 <span class="label">{% trans "Descriptif" %} :</span>
-                {{ geometrie.main_oeuvre.descriptif }}
+                {{ geometrie.main_oeuvre.descriptif|default:"-" }}
             </div>
+        {% else %}
+            <div>{% trans "Aucune main d'œuvre liée" %}</div>
         {% endif %}
-
-        {% if geometrie.main_oeuvre and geometrie.main_oeuvre.cout_total %}
-            <div>
-                <span class="label">{% trans "Coût de la main d'œuvre" %} :</span>
-                {{ geometrie.main_oeuvre.cout_total|default:0|floatformat:2 }} €
-            </div>
-        {% endif %}
-
     </div>
 </div>
 

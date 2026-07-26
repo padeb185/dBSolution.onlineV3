@@ -7,6 +7,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from maintenance.autres_interventions.moteur.admission.models import TAUX_HORAIRE_CHOICES
+from maintenance.choices import RouesSerrageEtat
 from utils.mixin import TechnicienMixin
 from maintenance.models import Maintenance
 
@@ -100,6 +101,10 @@ class CourroieAccessoires(TechnicienMixin, models.Model):
     poulie_damper_prix = models.DecimalField(max_digits=10, decimal_places=2, default=0,verbose_name=_("Prix d'achat htva de la poulie"))
     poulie_damper_quantite = models.IntegerField(default=0, verbose_name=_("Quantité"))
 
+    serrage_roues = models.CharField(max_length=25, choices=RouesSerrageEtat.choices, default=RouesSerrageEtat.A_FAIRE,
+                                     verbose_name=_("Serrage des roues"))
+
+
     remarques = models.TextField(
         verbose_name=_("Remarques"),
         blank=True,
@@ -188,6 +193,13 @@ class CourroieAccessoires(TechnicienMixin, models.Model):
                         "Le kilométrage de la courroie d'accessoires ne peut pas être supérieur au kilométrage du véhicule."
                     )
                 })
+
+        if self.serrage_roues == RouesSerrageEtat.A_FAIRE:
+            raise ValidationError({
+                "serrage_roues": _(
+                    "Vous devez indiquer si le serrage des roues a été effectué avant d'enregistrer ce contrôle."
+                )
+            })
 
     class Meta:
         verbose_name = _("Courroie d'accessoire")

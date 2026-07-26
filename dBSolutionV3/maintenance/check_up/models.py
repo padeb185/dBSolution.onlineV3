@@ -1748,6 +1748,14 @@ class Checkup(TechnicienMixin, models.Model):
                     )
                 })
 
+
+            if self.serrage_roues == RouesSerrageEtat.A_FAIRE:
+                raise ValidationError({
+                    "serrage_roues": _(
+                        "Vous devez indiquer si le serrage des roues a été effectué avant d'enregistrer ce contrôle."
+                    )
+                })
+
     def save(self, *args, **kwargs):
 
         # =========================
