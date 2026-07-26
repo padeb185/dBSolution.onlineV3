@@ -1318,11 +1318,29 @@ class Checkup(TechnicienMixin, models.Model):
     pneu_sidewall_ard = models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.OK, verbose_name=_("flanc du pneu arrière droit"))
     pneu_sidewall_arg = models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.OK, verbose_name=_("flanc du pneu arrière gauche"))
 
-    pneu_pression_bar_avd = models.FloatField(default=2.4, verbose_name=_("Pression du pneu avant droit en bar"))
-    pneu_pression_bar_avg = models.FloatField(default=2.4, verbose_name=_("Pression du pneu avant gauche en bar"))
-    pneu_pression_bar_ard = models.FloatField(default=2.4, verbose_name=_("Pression du pneu arrière droit en bar"))
-    pneu_pression_bar_arg = models.FloatField(default=2.4, verbose_name=_("Pression du pneu arrière gauche en bar"))
+    pneu_pression_bar_avd = models.FloatField(
+        default=2.4,
+        validators=[StepValueValidator(0.1)],
+        verbose_name=_("Pression du pneu avant droit en bar"),
+    )
 
+    pneu_pression_bar_avg = models.FloatField(
+        default=2.4,
+        validators=[StepValueValidator(0.1)],
+        verbose_name=_("Pression du pneu avant gauche en bar"),
+    )
+
+    pneu_pression_bar_ard = models.FloatField(
+        default=2.4,
+        validators=[StepValueValidator(0.1)],
+        verbose_name=_("Pression du pneu arrière droit en bar"),
+    )
+
+    pneu_pression_bar_arg = models.FloatField(
+        default=2.4,
+        validators=[StepValueValidator(0.1)],
+        verbose_name=_("Pression du pneu arrière gauche en bar"),
+    )
 
     pneu_train_av = models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.OK,verbose_name=_("Pneus avant à remplacer"))
     pneu_train_av_fabricant = models.CharField(

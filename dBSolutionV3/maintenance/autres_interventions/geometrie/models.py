@@ -163,7 +163,6 @@ class GeometrieVoiture(models.Model):
     )
 
     TAG_CHOICES = [
-        ("WHITE", _("Blanc")),
         ("VERT", _("Vert")),
         ("JAUNE", _("Jaune")),
         ("ROUGE", _("Rouge")),
@@ -171,7 +170,7 @@ class GeometrieVoiture(models.Model):
     tag = models.CharField(
         max_length=10,
         choices=TAG_CHOICES,
-        default="WHITE",
+        default="JAUNE",
         verbose_name=_("État visuel / Tag"),
     )
 
