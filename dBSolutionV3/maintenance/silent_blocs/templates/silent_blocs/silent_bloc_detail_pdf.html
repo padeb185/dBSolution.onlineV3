@@ -525,15 +525,15 @@
             {{ silent_bloc.temps_main_oeuvre_display|default:"0h00" }}
         </div>
 
+        <div>
+            <span class="label">{% trans "Taux horaire" %} :</span>
+            {{ silent_bloc.taux_horaire|floatformat:2 }} €
+        </div>
+
         {% if silent_bloc.main_oeuvre %}
             <div>
-                <span class="label">{% trans "Taux horaire" %} :</span>
-                {{ silent_bloc.main_oeuvre.taux_horaire|floatformat:2 }} €
-            </div>
-
-            <div>
                 <span class="label">{% trans "Prix facturé" %} :</span>
-                {{ silent_bloc.main_oeuvre.prix_facture|floatformat:2 }} €
+                {{ silent_bloc.cout_main_oeuvre|floatformat:2 }} €
             </div>
 
             <div>
@@ -545,7 +545,6 @@
         {% endif %}
     </div>
 </div>
-
 
 <!-- ================================================== -->
 <!-- PIÈCES ET MAIN-D'ŒUVRE -->

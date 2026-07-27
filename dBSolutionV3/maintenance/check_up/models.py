@@ -1308,6 +1308,16 @@ class Checkup(TechnicienMixin, models.Model):
     )
     # --- Pneus et Pression
 
+    pneu_bande_avd = models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.OK,
+                                      verbose_name=_("Pneu avant droit"))
+    pneu_bande_avg = models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.OK,
+                                      verbose_name=_("Pneu avant gauche"))
+    pneu_bande_ard = models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.OK,
+                                      verbose_name=_("Pneu arrière droit"))
+    pneu_bande_arg = models.CharField(max_length=25, choices=PneuEtat.choices, default=PneuEtat.OK,
+                                      verbose_name=_("Pneu arrière gauche"))
+
+
     pneu_epaisseur_avd = models.FloatField(default=8.0, verbose_name=_("Épaisseur du pneu avant droit (mm)"))
     pneu_epaisseur_avg = models.FloatField(default=8.0, verbose_name=_("Épaisseur du pneu avant gauche (mm)"))
     pneu_epaisseur_ard = models.FloatField(default=8.0, verbose_name=_("Épaisseur du pneu arrière droit (mm)"))
@@ -2116,21 +2126,25 @@ class Checkup(TechnicienMixin, models.Model):
         if not self.main_oeuvre:
             return Decimal("0.00")
 
-        temps_minutes = self.main_oeuvre.temps_minutes or 0
-        taux_horaire = (
-                self.main_oeuvre.taux_horaire or Decimal("0.00")
+        temps_minutes = Decimal(
+            str(self.main_oeuvre.temps_minutes or 0)
+        )
+
+        taux_horaire = Decimal(
+            str(self.taux_horaire or Decimal("50.00"))
         )
 
         cout = (
-                Decimal(str(temps_minutes))
+                temps_minutes
                 / Decimal("60")
-                * Decimal(str(taux_horaire))
+                * taux_horaire
         )
 
         return cout.quantize(
             Decimal("0.01"),
             rounding=ROUND_HALF_UP,
         )
+
 
     @property
     def total_general_avec_main_oeuvre(self):

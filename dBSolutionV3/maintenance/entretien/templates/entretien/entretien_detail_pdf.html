@@ -723,18 +723,17 @@
             <span class="label">{% trans "Temps" %} :</span>
             {{ entretien.temps_main_oeuvre_display|default:"0h00" }}
         </div>
+         <div>
+            <span class="label">{% trans "Taux horaire" %} :</span>
+            {{ entretien.taux_horaire|floatformat:2 }} €
+        </div>
 
         {% if entretien.main_oeuvre %}
             <div>
                 <span class="label">{% trans "Taux horaire" %} :</span>
-                {{ entretien.main_oeuvre.taux_horaire|floatformat:2 }} €
+                {{ entretien.cout_main_oeuvre|floatformat:2 }} €
             </div>
-
-            <div>
-                <span class="label">{% trans "Prix facturé" %} :</span>
-                {{ entretien.main_oeuvre.prix_facture|floatformat:2 }} €
-            </div>
-
+            
             <div>
                 <span class="label">{% trans "Descriptif" %} :</span>
                 {{ entretien.main_oeuvre.descriptif|default:"-" }}
@@ -744,7 +743,6 @@
         {% endif %}
     </div>
 </div>
-
 
 <!-- ================================================== -->
 <!-- PIÈCES ET PRODUITS -->

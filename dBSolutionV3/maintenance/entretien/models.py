@@ -1127,7 +1127,7 @@ class Entretien(TechnicienMixin, models.Model):
         )
 
         taux_horaire = Decimal(
-            str(self.main_oeuvre.taux_horaire or 0)
+            str(self.taux_horaire or Decimal("50.00"))
         )
 
         cout = (
@@ -1140,6 +1140,7 @@ class Entretien(TechnicienMixin, models.Model):
             Decimal("0.01"),
             rounding=ROUND_HALF_UP,
         )
+
 
     @property
     def total_general_avec_main_oeuvre(self):

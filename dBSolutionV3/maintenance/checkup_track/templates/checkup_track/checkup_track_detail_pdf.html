@@ -1785,7 +1785,7 @@
     </tbody>
 </table>
 
-<!-- ================= MAIN-D'ŒUVRE ================= -->
+<!-- ================= MAIN D'ŒUVRE ================= -->
 
 <h2>{% trans "Main d'œuvre" %}</h2>
 
@@ -1795,30 +1795,26 @@
             <span class="label">{% trans "Temps" %} :</span>
             {{ checkup_track.temps_main_oeuvre_display|default:"0h00" }}
         </div>
+         <div>
+            <span class="label">{% trans "Taux horaire" %} :</span>
+            {{ checkup_track.taux_horaire|floatformat:2 }} €
+        </div>
 
-        {% if checkup.main_oeuvre %}
+        {% if checkup_track.main_oeuvre %}
             <div>
                 <span class="label">{% trans "Taux horaire" %} :</span>
-                {{ checkup_track.main_oeuvre.taux_horaire|default:0|floatformat:2 }} €
+                {{ checkup_track.cout_main_oeuvre|floatformat:2 }} €
             </div>
-
-            <div>
-                <span class="label">{% trans "Prix facturé" %} :</span>
-                {{ checkup_track.main_oeuvre.prix_facture|default:0|floatformat:2 }} €
-            </div>
-
+            
             <div>
                 <span class="label">{% trans "Descriptif" %} :</span>
                 {{ checkup_track.main_oeuvre.descriptif|default:"-" }}
             </div>
         {% else %}
-            <div>
-                {% trans "Aucune main d'œuvre liée" %}
-            </div>
+            <div>{% trans "Aucune main d'œuvre liée" %}</div>
         {% endif %}
     </div>
 </div>
-
 
 <!-- ================================================== -->
 <!-- PIÈCES, PRODUITS ET MAIN-D'ŒUVRE -->

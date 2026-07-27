@@ -351,8 +351,44 @@
 
         <!-- Section freins -->
          <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
-            <img src="{% static 'icons/disque-de-frein.png' %}" alt="freins"
-                 style="width:60px; height:60px; margin-right:10px;">{% trans "Freins" %}</h2>
+            <img src="{% static 'icons/plaquettes-de-frein.png' %}" alt="plaquettes frein av"
+                 style="width:60px; height:60px; margin-right:10px;">{% trans "Plaquettes de freins avant" %}</h2>
+
+
+        {% for field in form %}
+            {% if "freins_plaquettes_av" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+            <!-- Section freins -->
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/disque-de-frein.png' %}" alt="Disques de frein avant"
+                 style="width:60px; height:60px; margin-right:10px;">{% trans "Disques avant" %}</h2>
 
         <div class="mb-4">
             <label class="block font-semibold mb-1">
@@ -366,6 +402,77 @@
                 readonly
             >
         </div>
+
+        {% for field in form %}
+            {% if "freins_disques_av" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+       <!-- Section freins ar plaquettes -->
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/plaquettes-de-frein.png' %}" alt="plaquettes frein arrière"
+                 style="width:60px; height:60px; margin-right:10px;">{% trans "Plaquettes de freins arrière" %}</h2>
+
+        {% for field in form %}
+            {% if "freins_plaquettes_ar" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+           <!-- Section freins -->
+         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/disque-de-frein.png' %}" alt="Disques de frein arrière"
+                 style="width:60px; height:60px; margin-right:10px;">{% trans "Disques de frein arrière" %}</h2>
+
         <div class="mb-4">
             <label class="block font-semibold mb-1">
                 {% trans "Épaisseur disque arrière constructeur (mm)" %}
@@ -380,7 +487,7 @@
         </div>
 
         {% for field in form %}
-            {% if "frein" in field.name %}
+            {% if "freins_disques_ar" in field.name %}
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -899,6 +1006,38 @@
 
         <br>
 
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/pneus.png' %}" alt="état de la bandes de roulement pneus"
+                 style="width:60px; height:60px; margin-right:10px;">{% trans "Etat de la bande de roulement" %}</h2>
+        {% for field in form %}
+            {% if "pneu_bande" in field.name %}
+            <div class="mb-4">
+                {% if field.field.widget.input_type == "checkbox" %}
+                    <label class="inline-flex items-center gap-2">
+                        {{ field|add_class:"form-checkbox h-5 w-5 text-green-600" }}
+                        <span class="font-semibold text-gray-700">{{ field.label }}</span>
+                    </label>
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1 ml-7">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1 ml-7">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% else %}
+                    <label class="block font-semibold mb-1">{{ field.label }}</label>
+                    {{ field|add_class:"input" }}
+                    {% if field.help_text %}
+                        <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
 
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/pneus.png' %}" alt="épaisseur pneus"

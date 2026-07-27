@@ -525,6 +525,9 @@ class SilentBloc(TechnicienMixin, models.Model):
             self.main_oeuvre.descriptif = task_name
             self.main_oeuvre.save(update_fields=["descriptif"])
 
+        if not self.pk and self.main_oeuvre and self.main_oeuvre.taux_horaire:
+            self.taux_horaire = self.main_oeuvre.taux_horaire
+
         super().save(*args, **kwargs)
 
         # ======================================================
@@ -709,7 +712,7 @@ class SilentBloc(TechnicienMixin, models.Model):
         )
 
         taux_horaire = Decimal(
-            str(self.main_oeuvre.taux_horaire or 0)
+            str(self.taux_horaire or Decimal("50.00"))
         )
 
         cout = (
@@ -722,6 +725,8 @@ class SilentBloc(TechnicienMixin, models.Model):
             Decimal("0.01"),
             rounding=ROUND_HALF_UP,
         )
+
+
 
     @property
     def total_general_avec_main_oeuvre(self):

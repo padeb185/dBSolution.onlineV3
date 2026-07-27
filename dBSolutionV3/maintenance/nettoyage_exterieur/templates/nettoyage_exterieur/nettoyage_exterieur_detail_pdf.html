@@ -247,26 +247,40 @@
     </tbody>
 </table>
 
+<!-- ================= MAIN D'ŒUVRE ================= -->
+
 <h2>{% trans "Main d'œuvre" %}</h2>
 
 <div class="box">
-    {% if nettoyage.main_oeuvre %}
+    <div class="grid">
         <div>
             <span class="label">{% trans "Temps" %} :</span>
-            {{ nettoyage.temps_main_oeuvre_display }}
+            {{ nettoyage.temps_main_oeuvre_display|default:"0h00" }}
+        </div>
+         <div>
+            <span class="label">{% trans "Taux horaire" %} :</span>
+            {{ nettoyage.taux_horaire|floatformat:2 }} €
         </div>
 
-        <div>
-            <span class="label">{% trans "Descriptif" %} :</span>
-            {{ nettoyage.main_oeuvre.descriptif }}
-        </div>
-    {% else %}
-        {% trans "Aucune main d'œuvre enregistrée." %}
-    {% endif %}
+        {% if nettoyage.main_oeuvre %}
+            <div>
+                <span class="label">{% trans "Taux horaire" %} :</span>
+                {{ nettoyage.cout_main_oeuvre|floatformat:2 }} €
+            </div>
+
+            <div>
+                <span class="label">{% trans "Descriptif" %} :</span>
+                {{ nettoyage.main_oeuvre.descriptif|default:"-" }}
+            </div>
+        {% else %}
+            <div>{% trans "Aucune main d'œuvre liée" %}</div>
+        {% endif %}
+    </div>
 </div>
-<!-- ================================================== -->
-<!-- PIÈCES ET PRODUITS -->
-<!-- ================================================== -->
+
+
+
+
 <!-- ================================================== -->
 <!-- PIÈCES ET PRODUITS -->
 <!-- ================================================== -->

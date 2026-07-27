@@ -402,7 +402,7 @@ class Climatisation(TechnicienMixin, models.Model):
 
     recharge_quantite = models.PositiveIntegerField(
         default=0,
-        verbose_name=_("Quantité en grammes"),
+        verbose_name=_("Quantité"),
     )
 
     # ------------------------------------------------------

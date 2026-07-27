@@ -850,21 +850,25 @@ class CarrosserieInterne(models.Model):
         if not self.main_oeuvre:
             return Decimal("0.00")
 
-        temps_minutes = self.main_oeuvre.temps_minutes or 0
-        taux_horaire = (
-                self.main_oeuvre.taux_horaire or Decimal("0.00")
+        temps_minutes = Decimal(
+            str(self.main_oeuvre.temps_minutes or 0)
+        )
+
+        taux_horaire = Decimal(
+            str(self.taux_horaire or Decimal("50.00"))
         )
 
         cout = (
-                Decimal(str(temps_minutes))
+                temps_minutes
                 / Decimal("60")
-                * Decimal(str(taux_horaire))
+                * taux_horaire
         )
 
         return cout.quantize(
             Decimal("0.01"),
             rounding=ROUND_HALF_UP,
         )
+
 
     @property
     def total_general_avec_main_oeuvre(self):

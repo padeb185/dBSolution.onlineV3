@@ -1454,7 +1454,7 @@
     </tr>
 </table>
 
-<h2>{% trans "Bandes de roulement" %}</h2>
+<h2>{% trans "Etat des pneumatiques" %}</h2>
 
 <table>
     <thead>
@@ -1462,6 +1462,7 @@
             <th>{% trans "Position" %}</th>
             <th>{% trans "État" %}</th>
             <th>{% trans "Épaisseur" %}</th>
+            <th>{% trans "Flancs du pneu" %}</th>
             <th>{% trans "Pression" %}</th>
         </tr>
     </thead>
@@ -1481,6 +1482,19 @@
             {% endif %}
         </td>
         <td>{{ checkup.pneu_epaisseur_avd }} mm</td>
+
+       <!-- Flanc du pneu avant droit -->
+        <td>
+            {% if checkup.pneu_sidewall_avd == "OK" %}
+                <span class="etat-vert">{{ checkup.get_pneu_sidewall_avd_display }}</span>
+            {% elif checkup.pneu_sidewall_avd == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_pneu_sidewall_avd_display }}</span>
+            {% elif checkup.pneu_sidewall_avd == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_pneu_sidewall_avd_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_pneu_sidewall_avd_display|default:"-" }}</span>
+            {% endif %}
+        </td>
         <td>{{ checkup.pneu_pression_bar_avd }} bar</td>
     </tr>
 
@@ -1498,6 +1512,18 @@
             {% endif %}
         </td>
         <td>{{ checkup.pneu_epaisseur_avg }} mm</td>
+        <td>
+            {% if checkup.pneu_sidewall_avg == "OK" %}
+                <span class="etat-vert">{{ checkup.get_pneu_sidewall_avg_display }}</span>
+            {% elif checkup.pneu_sidewall_avg == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_pneu_sidewall_avg_display }}</span>
+            {% elif checkup.pneu_sidewall_avg == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_pneu_sidewall_avg_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_pneu_sidewall_avg_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+
         <td>{{ checkup.pneu_pression_bar_avg }} bar</td>
     </tr>
 
@@ -1515,6 +1541,18 @@
             {% endif %}
         </td>
         <td>{{ checkup.pneu_epaisseur_ard }} mm</td>
+        <td>
+            {% if checkup.pneu_sidewall_ard == "OK" %}
+                <span class="etat-vert">{{ checkup.get_pneu_sidewall_ard_display }}</span>
+            {% elif checkup.pneu_sidewall_ard == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_pneu_sidewall_ard_display }}</span>
+            {% elif checkup.pneu_sidewall_ard == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_pneu_sidewall_ard_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_pneu_sidewall_ard_display|default:"-" }}</span>
+            {% endif %}
+        </td>
+
         <td>{{ checkup.pneu_pression_bar_ard }} bar</td>
     </tr>
 
@@ -1532,6 +1570,17 @@
             {% endif %}
         </td>
         <td>{{ checkup.pneu_epaisseur_arg }} mm</td>
+        <td>
+            {% if checkup.pneu_sidewall_arg == "OK" %}
+                <span class="etat-vert">{{ checkup.get_pneu_sidewall_arg_display }}</span>
+            {% elif checkup.pneu_sidewall_arg == "A_REMPLACER" %}
+                <span class="etat-rouge">{{ checkup.get_pneu_sidewall_arg_display }}</span>
+            {% elif checkup.pneu_sidewall_arg == "REMPLACE" %}
+                <span class="etat-bleu">{{ checkup.get_pneu_sidewall_arg_display }}</span>
+            {% else %}
+                <span class="etat-gris">{{ checkup.get_pneu_sidewall_arg_display|default:"-" }}</span>
+            {% endif %}
+        </td>
         <td>{{ checkup.pneu_pression_bar_arg }} bar</td>
     </tr>
 </tbody>
@@ -2014,7 +2063,10 @@
         </tr>
     </tbody>
 </table>
-<!-- ================= MAIN-D'ŒUVRE ================= -->
+
+
+
+<!-- ================= MAIN D'ŒUVRE ================= -->
 
 <h2>{% trans "Main d'œuvre" %}</h2>
 
@@ -2024,30 +2076,26 @@
             <span class="label">{% trans "Temps" %} :</span>
             {{ checkup.temps_main_oeuvre_display|default:"0h00" }}
         </div>
+         <div>
+            <span class="label">{% trans "Taux horaire" %} :</span>
+            {{ checkup.taux_horaire|floatformat:2 }} €
+        </div>
 
         {% if checkup.main_oeuvre %}
             <div>
                 <span class="label">{% trans "Taux horaire" %} :</span>
-                {{ checkup.main_oeuvre.taux_horaire|default:0|floatformat:2 }} €
+                {{ checkup.cout_main_oeuvre|floatformat:2 }} €
             </div>
-
-            <div>
-                <span class="label">{% trans "Prix facturé" %} :</span>
-                {{ checkup.main_oeuvre.prix_facture|default:0|floatformat:2 }} €
-            </div>
-
+            
             <div>
                 <span class="label">{% trans "Descriptif" %} :</span>
                 {{ checkup.main_oeuvre.descriptif|default:"-" }}
             </div>
         {% else %}
-            <div>
-                {% trans "Aucune main d'œuvre liée" %}
-            </div>
+            <div>{% trans "Aucune main d'œuvre liée" %}</div>
         {% endif %}
     </div>
 </div>
-
 
 <!-- ================================================== -->
 <!-- PIÈCES, PRODUITS ET MAIN-D'ŒUVRE -->
