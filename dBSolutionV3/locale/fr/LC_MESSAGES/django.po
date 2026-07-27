@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dBSolutionV3 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-27 15:40+0200\n"
+"POT-Creation-Date: 2026-07-27 17:16+0200\n"
 "PO-Revision-Date: 2025-12-13 12:20+0100\n"
 "Last-Translator: Pierre de Bournonville <EMAIL@ADDRESS>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -8846,11 +8846,10 @@ msgid "Pincement ARG"
 msgstr ""
 
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:151
-msgid "Angles de pivot"
-msgstr ""
-
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:155
-msgid "Angle pivot"
+#: maintenance/autres_interventions/geometrie/views.py:241
+#: maintenance/autres_interventions/geometrie/views.py:395
+msgid "Angle de pivot"
 msgstr ""
 
 #: maintenance/autres_interventions/geometrie/templates/geometrie/geometrie_detail_pdf.html:160
@@ -8929,11 +8928,6 @@ msgstr ""
 #: maintenance/autres_interventions/geometrie/views.py:236
 #: maintenance/autres_interventions/geometrie/views.py:390
 msgid "Angle de Poussée"
-msgstr ""
-
-#: maintenance/autres_interventions/geometrie/views.py:241
-#: maintenance/autres_interventions/geometrie/views.py:395
-msgid "Angle de pivot"
 msgstr ""
 
 #: maintenance/autres_interventions/geometrie/views.py:246
@@ -13523,9 +13517,10 @@ msgstr ""
 #: maintenance/check_up/templates/check_up/controle_total.html:355
 #: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:359
 #: maintenance/checkup_track/templates/checkup_track/track_check_form.html:355
+#: maintenance/freins/models.py:445
 #, fuzzy
 #| msgid "Tableau de bord"
-msgid "Plaquettes de freins avant"
+msgid "Plaquettes de frein avant"
 msgstr "Tableau de Bord"
 
 #: maintenance/check_up/templates/check_up/controle_total.html:395
@@ -13538,9 +13533,10 @@ msgstr ""
 #: maintenance/check_up/templates/check_up/controle_total.html:439
 #: maintenance/checkup_track/templates/checkup_track/modifier_checkup_track.html:443
 #: maintenance/checkup_track/templates/checkup_track/track_check_form.html:439
+#: maintenance/freins/models.py:459
 #, fuzzy
 #| msgid "Tableau de bord"
-msgid "Plaquettes de freins arrière"
+msgid "Plaquettes de frein arrière"
 msgstr "Tableau de Bord"
 
 #: maintenance/check_up/templates/check_up/controle_total.html:474
@@ -16560,18 +16556,6 @@ msgstr ""
 #, fuzzy
 #| msgid "Tableau de bord"
 msgid "Contrôle des freins"
-msgstr "Tableau de Bord"
-
-#: maintenance/freins/models.py:445
-#, fuzzy
-#| msgid "Tableau de bord"
-msgid "Plaquettes de frein avant"
-msgstr "Tableau de Bord"
-
-#: maintenance/freins/models.py:459
-#, fuzzy
-#| msgid "Tableau de bord"
-msgid "Plaquettes de frein arrière"
 msgstr "Tableau de Bord"
 
 #: maintenance/freins/models.py:473
@@ -23075,6 +23059,16 @@ msgstr ""
 #: voiture/voiture_pneus/views.py:129
 msgid "Pneu mis à jour avec succès."
 msgstr ""
+
+#, fuzzy
+#~| msgid "Tableau de bord"
+#~ msgid "Plaquettes de freins arrière"
+#~ msgstr "Tableau de Bord"
+
+#, fuzzy
+#~| msgid "Tableau de bord"
+#~ msgid "Plaquettes de freins avant"
+#~ msgstr "Tableau de Bord"
 
 #, fuzzy
 #~| msgid "Tableau de bord"
