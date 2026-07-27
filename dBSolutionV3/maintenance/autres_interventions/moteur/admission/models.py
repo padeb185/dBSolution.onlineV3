@@ -14,6 +14,13 @@ class EtatOKNotOK(models.TextChoices):
 
 
 TAUX_HORAIRE_CHOICES = [
+    (Decimal("0.00"), _("0 €/h")),
+    (Decimal("20.00"), _("20 €/h")),
+    (Decimal("25.00"), _("25 €/h")),
+    (Decimal("30.00"), _("30 €/h")),
+    (Decimal("35.00"), _("35 €/h")),
+    (Decimal("40.00"), _("40 €/h")),
+    (Decimal("45.00"), _("45 €/h")),
     (Decimal("50.00"), _("50 €/h")),
     (Decimal("60.00"), _("60 €/h")),
     (Decimal("70.00"), _("70 €/h")),
@@ -21,6 +28,10 @@ TAUX_HORAIRE_CHOICES = [
     (Decimal("90.00"), _("90 €/h")),
     (Decimal("100.00"), _("100 €/h")),
     (Decimal("110.00"), _("110 €/h")),
+    (Decimal("115.00"), _("115 €/h")),
+    (Decimal("120.00"), _("120 €/h")),
+    (Decimal("1250.00"), _("125 €/h")),
+    (Decimal("130.00"), _("130 €/h")),
 ]
 
 
