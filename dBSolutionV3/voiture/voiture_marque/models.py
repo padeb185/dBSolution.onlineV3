@@ -39,6 +39,10 @@ class VoitureMarque(models.Model):
             return MarqueFavorite.objects.filter(societe=societe, marque=self).exists()
         return False
 
+    @property
+    def nom_fichier_logo(self):
+        return f"{self.nom_marque.strip().lower()}.png"
+
 
 class MarqueFavorite(models.Model):
     societe = models.ForeignKey(
