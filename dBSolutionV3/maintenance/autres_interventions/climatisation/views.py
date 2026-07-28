@@ -339,7 +339,7 @@ def clim_form_view(request, exemplaire_id):
                 "fields": [
                     field
                     for field in form
-                    if "huile" in field.name
+                    if "ajout_huile" in field.name
                 ],
             },
             {
@@ -359,6 +359,8 @@ def clim_form_view(request, exemplaire_id):
                     for field in form
                     if field.name in [
                         "mise_sous_vide",
+                        "mise_sous_vide_quantite",
+                        "mise_sous_vide_prix",
                         "duree_mise_sous_vide_minutes",
                         "pression_vide_atteinte",
                         "tenue_du_vide",
@@ -648,6 +650,8 @@ def modifier_clim_view(request, climatisation_id):
                     for field in form
                     if field.name in [
                         "mise_sous_vide",
+                        "mise_sous_vide_quantite",
+                        "mise_sous_vide_prix",
                         "duree_mise_sous_vide_minutes",
                         "pression_vide_atteinte",
                         "tenue_du_vide",

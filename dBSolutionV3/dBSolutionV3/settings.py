@@ -44,10 +44,18 @@ TENANT_PUBLIC_SCHEMA_NAME = 'public'
 
 
 
-TENANT_MODEL = "societe.Societe"
-TENANT_DOMAIN_MODEL = "societe.Domain"  # Peut rester vide si tu n'utilises pas de sous-domaines
 
-PUBLIC_SCHEMA_NAME = 'public'
+# ------------------------------------------------------------------------------
+# django-tenants
+# ------------------------------------------------------------------------------
+
+TENANT_MODEL = "societe.Societe"
+TENANT_DOMAIN_MODEL = "societe.Domain"
+
+PUBLIC_SCHEMA_NAME = "public"
+
+TENANT_SUBFOLDER_PREFIX = "tenant"
+
 
 DATABASE_ROUTERS = ('django_tenants.routers.TenantSyncRouter',)
 
@@ -111,6 +119,7 @@ SHARED_APPS = (
     'adresse',
     'societe',
 )
+
 
 
 
@@ -256,7 +265,12 @@ TENANT_APPS = (
 
 )
 
-INSTALLED_APPS = list(SHARED_APPS) + list(TENANT_APPS)
+INSTALLED_APPS = list(SHARED_APPS) + [
+    app
+    for app in TENANT_APPS
+    if app not in SHARED_APPS
+]
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -298,19 +312,19 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # ------------------------------------------------------------------------------
 
 MIDDLEWARE = [
-    "django_tenants.middleware.main.TenantMainMiddleware",
+    # Doit rester tout en haut
+    "django_tenants.middleware.TenantSubfolderMiddleware",
 
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
-
     "django.middleware.locale.LocaleMiddleware",
-
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
-
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
 
+    # Middlewares personnalisés
+    "utilisateurs.middleware.TenantUserAccessMiddleware",
     "utilisateurs.middleware.TOTPRequiredMiddleware",
     "dBSolutionV3.middleware.tenant_required.TenantRequiredMiddleware",
 

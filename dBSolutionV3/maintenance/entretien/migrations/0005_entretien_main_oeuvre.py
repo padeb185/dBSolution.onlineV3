@@ -8,13 +8,13 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('entretien', '0004_entretien_created_at_entretien_updated_at_and_more'),
-        ('utilisateurs', '0002_maindoeuvre'),
+        ('maindoeuvre', '0001_initial'),
     ]
 
     operations = [
         migrations.AddField(
             model_name='entretien',
             name='main_oeuvre',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='entretiens', to='utilisateurs.maindoeuvre', verbose_name="Main d'oeuvre"),
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='entretiens', to='maindoeuvre.maindoeuvre', verbose_name="Main d'oeuvre"),
         ),
     ]

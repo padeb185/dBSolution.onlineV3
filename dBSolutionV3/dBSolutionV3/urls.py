@@ -6,6 +6,7 @@ from .views import home_view
 from django.conf import settings
 from django.conf.urls.static import static
 from voiture.voiture_exemplaire.views import voiture_exemplaire_detail
+from utilisateurs.views import connexion_globale_view
 
 
 # Handler 404 personnalisé
@@ -19,6 +20,22 @@ urlpatterns = [
 ]
 
 urlpatterns += i18n_patterns(
+
+    path(
+        "connexion/",
+        connexion_globale_view,
+        name="connexion_globale",
+    ),
+
+    path("", home_view, name="home"),
+
+    path(
+        "utilisateurs/",
+        include(
+            ("utilisateurs.urls", "utilisateurs"),
+            namespace="utilisateurs",
+        ),
+    ),
 
     path("", home_view, name="home"),  # page d'accueil accessible à tous
 

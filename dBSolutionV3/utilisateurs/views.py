@@ -8,7 +8,8 @@ import base64
 import qrcode
 from django.utils import timezone
 from django.views.decorators.cache import never_cache
-from django_tenants.utils import schema_context
+from django_otp.conf import settings
+from django_tenants.utils import schema_context, get_public_schema_name
 from .forms import LoginForm, UtilisateurCreationForm
 from .models import Utilisateur, UserLog
 from django.utils.translation import gettext as _, get_language
@@ -551,8 +552,124 @@ def creer_paie_utilisateur(request):
         }
     )
 
-    return render(request, "utilisateurs/creer_paie.html", {
-        "form": form,
-        "utilisateur": utilisateur,
-        "now": timezone.now(),
-    })
+
+
+
+from django.conf import settings
+from django.contrib import messages
+from django.contrib.auth import authenticate, login
+from django.shortcuts import redirect, render
+from django.utils.translation import get_language
+from django_tenants.utils import get_public_schema_name
+
+
+def connexion_globale_view(request):
+    tenant = getattr(request, "tenant", None)
+
+    if (
+        tenant is not None
+        and tenant.schema_name != get_public_schema_name()
+    ):
+        return redirect("/fr/connexion/")
+
+    if request.method == "POST":
+        email = request.POST.get("email", "").strip().lower()
+        password = request.POST.get("password", "")
+        totp_code = request.POST.get("totp_code", "").strip()
+
+        if not email or not password:
+            messages.error(
+                request,
+                "Veuillez saisir votre adresse email et votre mot de passe.",
+            )
+            return render(
+                request,
+                "utilisateurs/connexion_globale.html",
+            )
+
+        user = authenticate(
+            request,
+            username=email,
+            password=password,
+        )
+
+        if user is None:
+            messages.error(
+                request,
+                "Adresse email ou mot de passe incorrect.",
+            )
+            return render(
+                request,
+                "utilisateurs/connexion_globale.html",
+            )
+
+        if not user.is_active:
+            messages.error(
+                request,
+                "Ce compte utilisateur est désactivé.",
+            )
+            return render(
+                request,
+                "utilisateurs/connexion_globale.html",
+            )
+
+        if not user.societe_id:
+            messages.error(
+                request,
+                "Aucune société n'est associée à ce compte.",
+            )
+            return render(
+                request,
+                "utilisateurs/connexion_globale.html",
+            )
+
+        societe = user.societe
+        schema_name = societe.schema_name
+
+        if not schema_name:
+            messages.error(
+                request,
+                "La société associée à ce compte ne possède aucun schéma.",
+            )
+            return render(
+                request,
+                "utilisateurs/connexion_globale.html",
+            )
+
+        if schema_name == get_public_schema_name():
+            messages.error(
+                request,
+                "Ce compte n'est associé à aucun espace client.",
+            )
+            return render(
+                request,
+                "utilisateurs/connexion_globale.html",
+            )
+
+        # Garde ici ta vérification TOTP actuelle.
+        if getattr(user, "totp_enabled", False):
+            if not totp_code:
+                messages.error(
+                    request,
+                    "Veuillez saisir votre code TOTP.",
+                )
+                return render(
+                    request,
+                    "utilisateurs/connexion_globale.html",
+                )
+
+        login(request, user)
+
+        langue = get_language() or settings.LANGUAGE_CODE or "fr"
+        langue = langue.split("-")[0]
+
+        prefixe = settings.TENANT_SUBFOLDER_PREFIX.strip("/")
+
+        return redirect(
+            f"/{prefixe}/{schema_name}/{langue}/"
+        )
+
+    return render(
+        request,
+        "utilisateurs/connexion_globale.html",
+    )

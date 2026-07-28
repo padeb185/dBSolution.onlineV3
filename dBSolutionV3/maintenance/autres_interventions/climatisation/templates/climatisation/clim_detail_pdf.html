@@ -299,14 +299,41 @@
 <!-- HUILE ET TRACEUR -->
 <!-- ================================================== -->
 
-<h2>{% trans "Huile et traceur" %}</h2>
+<h2>{% trans "Huile de climatisation" %}</h2>
 
 <div class="box">
     <div class="grid">
 
         <div>
             <span class="label">{% trans "Ajout d'huile" %} :</span>
-            {{ climatisation.get_ajout_huile_display|default:"-" }}
+
+            {% if climatisation.ajout_huile == "OK" %}
+                <span class="etat-vert">
+                    {{ climatisation.get_ajout_huile_display }}
+                </span>
+            {% elif climatisation.ajout_huile == "A_REMPLACER" or climatisation.ajout_huile == "NOT_OK" %}
+                <span class="etat-rouge">
+                    {{ climatisation.get_ajout_huile_display }}
+                </span>
+            {% elif climatisation.ajout_huile == "REMPLACE" %}
+                <span class="etat-bleu">
+                    {{ climatisation.get_ajout_huile_display }}
+                </span>
+            {% else %}
+                <span class="etat-gris">
+                    {{ climatisation.get_ajout_huile_display|default:"-" }}
+                </span>
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Quantité d'huile ajoutée" %} :</span>
+            {{ climatisation.ajout_huile_quantite|default:0|floatformat:4 }} ml
+        </div>
+
+        <div>
+            <span class="label">{% trans "Prix de l'huile HTVA" %} :</span>
+            {{ climatisation.ajout_huile_prix|default:0|floatformat:2 }} €
         </div>
 
         <div>
@@ -315,23 +342,48 @@
         </div>
 
         <div>
-            <span class="label">{% trans "Huile récupérée" %} :</span>
-            {{ climatisation.quantite_huile_recuperee|default:0|floatformat:2 }} ml
+            <span class="label">{% trans "Quantité d'huile récupérée" %} :</span>
+            {{ climatisation.ajout_huile_quantite_huile_recuperee|default:0|floatformat:4 }} ml
         </div>
 
         <div>
-            <span class="label">{% trans "Huile injectée" %} :</span>
-            {{ climatisation.quantite_huile_injectee|default:0|floatformat:2 }} ml
+            <span class="label">{% trans "Quantité d'huile injectée" %} :</span>
+            {{ climatisation.quantite_huile_injectee|default:0|floatformat:4 }} ml
         </div>
+
+    </div>
+</div>
+
+<h2>{% trans "Traceur" %}</h2>
+
+<div class="box">
+    <div class="grid">
 
         <div>
             <span class="label">{% trans "Ajout de traceur" %} :</span>
-            {{ climatisation.get_ajout_traceur_display|default:"-" }}
+
+            {% if climatisation.traceur == "OK" %}
+                <span class="etat-vert">
+                    {{ climatisation.get_traceur_display }}
+                </span>
+            {% elif climatisation.traceur == "A_REMPLACER" or climatisation.traceur == "NOT_OK" %}
+                <span class="etat-rouge">
+                    {{ climatisation.get_traceur_display }}
+                </span>
+            {% elif climatisation.traceur == "REMPLACE" %}
+                <span class="etat-bleu">
+                    {{ climatisation.get_traceur_display }}
+                </span>
+            {% else %}
+                <span class="etat-gris">
+                    {{ climatisation.get_traceur_display|default:"-" }}
+                </span>
+            {% endif %}
         </div>
 
         <div>
             <span class="label">{% trans "Quantité de traceur" %} :</span>
-            {{ climatisation.quantite_traceur|default:0|floatformat:2 }} ml
+            {{ climatisation.traceur_quantite|default:0|floatformat:4 }} ml
         </div>
 
     </div>
@@ -348,7 +400,34 @@
 
         <div>
             <span class="label">{% trans "Mise sous vide" %} :</span>
-            {{ climatisation.get_mise_sous_vide_display|default:"-" }}
+
+            {% if climatisation.mise_sous_vide == "OK" %}
+                <span class="etat-vert">
+                    {{ climatisation.get_mise_sous_vide_display }}
+                </span>
+            {% elif climatisation.mise_sous_vide == "A_REMPLACER" or climatisation.mise_sous_vide == "NOT_OK" %}
+                <span class="etat-rouge">
+                    {{ climatisation.get_mise_sous_vide_display }}
+                </span>
+            {% elif climatisation.mise_sous_vide == "REMPLACE" %}
+                <span class="etat-bleu">
+                    {{ climatisation.get_mise_sous_vide_display }}
+                </span>
+            {% else %}
+                <span class="etat-gris">
+                    {{ climatisation.get_mise_sous_vide_display|default:"-" }}
+                </span>
+            {% endif %}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Quantité" %} :</span>
+            {{ climatisation.mise_sous_vide_quantite|default:0|floatformat:2 }}
+        </div>
+
+        <div>
+            <span class="label">{% trans "Prix HTVA" %} :</span>
+            {{ climatisation.mise_sous_vide_prix|default:0|floatformat:2 }} €
         </div>
 
         <div>
@@ -389,7 +468,6 @@
 
     </div>
 </div>
-
 <!-- ================================================== -->
 <!-- COMPOSANTS -->
 <!-- ================================================== -->
@@ -675,7 +753,7 @@
         {% if climatisation.main_oeuvre %}
             <div>
                 <span class="label">{% trans "Taux horaire" %} :</span>
-                {{ climatisation.main_oeuvre.taux_horaire|floatformat:2 }} €
+                {{ climatisation.cout_main_oeuvre|floatformat:2 }} €
             </div>
 
             <div>

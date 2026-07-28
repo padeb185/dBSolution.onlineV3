@@ -171,39 +171,52 @@ class Climatisation(TechnicienMixin, models.Model):
         default=EtatOperationClimatisation.A_FAIRE,
         verbose_name=_("Ajout d'huile de climatisation"),
     )
-
-    quantite_huile_recuperee = models.DecimalField(
+    ajout_huile_quantite = models.DecimalField(
         max_digits=8,
-        decimal_places=2,
+        decimal_places=4,
         default=0,
         verbose_name=_("Quantité d'huile récupérée en millilitres"),
     )
 
-    quantite_huile_injectee = models.DecimalField(
-        max_digits=8,
+
+    ajout_huile_prix = models.DecimalField(
+        max_digits=10,
         decimal_places=2,
         default=0,
-        verbose_name=_("Quantité d'huile injectée en millilitres"),
+        verbose_name=_("Prix d'achat HTVA"),
     )
 
-    type_huile = models.CharField(
+    ajout_huile_quantite_huile_recuperee = models.DecimalField(
+        max_digits=8,
+        decimal_places=4,
+        default=0,
+        verbose_name=_("Quantité d'huile récupérée en millilitres"),
+    )
+
+    ajout_huile_type_huile = models.CharField(
         max_length=100,
         blank=True,
         verbose_name=_("Type d'huile"),
     )
 
-    ajout_traceur = models.CharField(
+    traceur = models.CharField(
         max_length=25,
         choices=EtatOperationClimatisation.choices,
         default=EtatOperationClimatisation.A_FAIRE,
         verbose_name=_("Ajout de traceur"),
     )
 
-    quantite_traceur = models.DecimalField(
+    traceur_quantite = models.DecimalField(
         max_digits=8,
-        decimal_places=2,
+        decimal_places=4,
         default=0,
         verbose_name=_("Quantité de traceur en millilitres"),
+    )
+    traceur_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix d'achat HTVA"),
     )
 
     # ------------------------------------------------------
@@ -215,6 +228,18 @@ class Climatisation(TechnicienMixin, models.Model):
         choices=EtatOperationClimatisation.choices,
         default=EtatOperationClimatisation.A_FAIRE,
         verbose_name=_("Mise sous vide"),
+    )
+    mise_sous_vide_quantite = models.DecimalField(
+        max_digits=8,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Quantité"),
+    )
+    mise_sous_vide_prix = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0,
+        verbose_name=_("Prix HTVA"),
     )
 
     duree_mise_sous_vide_minutes = models.PositiveIntegerField(
@@ -662,70 +687,141 @@ class Climatisation(TechnicienMixin, models.Model):
             Maintenance.TypeMaintenance.CLIMATISATION,
         )
 
-    # ------------------------------------------------------
-    # RAPPORT DES PIÈCES À REMPLACER
-    # ------------------------------------------------------
-
-    from decimal import Decimal
-
     def generer_rapport_remplacement(self):
-        rapport = []
+        lignes = []
         total_general = Decimal("0.00")
 
-        prefixes_pieces = [
-            "tuyaux",
-            "valves",
-            "deshydrateur",
-            "condenseur",
-            "compresseur",
-            "evaporateur",
-            "recharge",
+        elements = [
+            {
+                "champ": _("Huile de climatisation"),
+                "etat_field": "ajout_huile",
+                "quantite_field": "ajout_huile_quantite",
+                "prix_field": "ajout_huile_prix",
+            },
+            {
+                "champ": _("Traceur de climatisation"),
+                "etat_field": "traceur",
+                "quantite_field": "traceur_quantite",
+                "prix_field": "traceur_prix",
+            },
+            {
+                "champ": _("Mise sous vide"),
+                "etat_field": "mise_sous_vide",
+                "quantite_field": "mise_sous_vide_quantite",
+                "prix_field": "mise_sous_vide_prix",
+            },
+            {
+                "champ": _("Tuyaux de climatisation"),
+                "etat_field": "tuyaux",
+                "quantite_field": "tuyaux_quantite",
+                "prix_field": "tuyaux_prix",
+            },
+            {
+                "champ": _("Valves de climatisation"),
+                "etat_field": "valves",
+                "quantite_field": "valves_quantite",
+                "prix_field": "valves_prix",
+            },
+            {
+                "champ": _("Déshydrateur"),
+                "etat_field": "deshydrateur",
+                "quantite_field": "deshydrateur_quantite",
+                "prix_field": "deshydrateur_prix",
+            },
+            {
+                "champ": _("Condenseur"),
+                "etat_field": "condenseur",
+                "quantite_field": "condenseur_quantite",
+                "prix_field": "condenseur_prix",
+            },
+            {
+                "champ": _("Compresseur de climatisation"),
+                "etat_field": "compresseur",
+                "quantite_field": "compresseur_quantite",
+                "prix_field": "compresseur_prix",
+            },
+            {
+                "champ": _("Évaporateur"),
+                "etat_field": "evaporateur",
+                "quantite_field": "evaporateur_quantite",
+                "prix_field": "evaporateur_prix",
+            },
+            {
+                "champ": _("Recharge de gaz"),
+                "etat_field": "recharge",
+                "quantite_field": "recharge_quantite",
+                "prix_field": "recharge_prix",
+            },
         ]
 
-        for prefix in prefixes_pieces:
-            valeur = getattr(self, prefix)
+        for element in elements:
+            etat_field = element["etat_field"]
+            quantite_field = element["quantite_field"]
+            prix_field = element["prix_field"]
 
-            # Pièces à remplacer ET déjà remplacées
-            if valeur in (
-                    EtatClimatisation.NOT_OK,
-                    EtatClimatisation.REMPLACE,
-            ):
-                field = self._meta.get_field(prefix)
+            etat = getattr(self, etat_field, None)
 
-                prix = (
-                        getattr(self, f"{prefix}_prix", Decimal("0.00"))
-                        or Decimal("0.00")
-                )
-                prix = Decimal(str(prix))
+            quantite = getattr(
+                self,
+                quantite_field,
+                Decimal("0.00"),
+            ) or Decimal("0.00")
 
-                quantite = (
-                        getattr(self, f"{prefix}_quantite", 0)
-                        or 0
-                )
-                quantite = Decimal(str(quantite))
+            prix = getattr(
+                self,
+                prix_field,
+                Decimal("0.00"),
+            ) or Decimal("0.00")
 
-                total = prix * quantite
-                total_general += total
+            quantite = Decimal(str(quantite))
+            prix = Decimal(str(prix))
 
-                rapport.append({
-                    "champ": field.verbose_name,
-                    "code": prefix,
-                    "etat": valeur,
-                    "etat_label": dict(
-                        EtatClimatisation.choices
-                    ).get(valeur, valeur),
-                    "prix": prix,
-                    "quantite": quantite,
-                    "total": total,
-                })
+            # Ne prendre en compte que les lignes ayant une quantité > 0
+            if quantite <= 0:
+                continue
+
+            total = (quantite * prix).quantize(
+                Decimal("0.01"),
+                rounding=ROUND_HALF_UP,
+            )
+
+            total_general += total
+
+            get_display = getattr(
+                self,
+                f"get_{etat_field}_display",
+                None,
+            )
+
+            if callable(get_display):
+                etat_label = get_display()
+            else:
+                etat_label = etat or "-"
+
+            lignes.append({
+                "champ": element["champ"],
+                "etat": etat,
+                "etat_label": etat_label,
+                "quantite": quantite,
+                "prix": prix.quantize(
+                    Decimal("0.01"),
+                    rounding=ROUND_HALF_UP,
+                ),
+                "total": total,
+            })
+
+        total_general = total_general.quantize(
+            Decimal("0.01"),
+            rounding=ROUND_HALF_UP,
+        )
 
         return {
-            "lignes": rapport,
+            "lignes": lignes,
             "total_general": total_general,
         }
-    # ------------------------------------------------------
-    # PROPRIÉTÉS
-    # ------------------------------------------------------
+
+
+
 
     # ======================================================
     # MAIN-D'ŒUVRE
@@ -756,15 +852,18 @@ class Climatisation(TechnicienMixin, models.Model):
         if not self.main_oeuvre:
             return Decimal("0.00")
 
-        temps_minutes = self.main_oeuvre.temps_minutes or 0
-        taux_horaire = (
-                self.main_oeuvre.taux_horaire or Decimal("0.00")
+        temps_minutes = Decimal(
+            str(self.main_oeuvre.temps_minutes or 0)
+        )
+
+        taux_horaire = Decimal(
+            str(self.taux_horaire or Decimal("50.00"))
         )
 
         cout = (
-                Decimal(str(temps_minutes))
+                temps_minutes
                 / Decimal("60")
-                * Decimal(str(taux_horaire))
+                * taux_horaire
         )
 
         return cout.quantize(
@@ -772,6 +871,7 @@ class Climatisation(TechnicienMixin, models.Model):
             rounding=ROUND_HALF_UP,
         )
 
+    
     @property
     def total_general_avec_main_oeuvre(self):
         rapport = self.generer_rapport_remplacement()
