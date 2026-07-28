@@ -153,6 +153,12 @@
             color: #555;
             margin-top: 25px;
         }
+         .footer {
+            margin-top: 25px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -705,9 +711,12 @@
     {{ rodage.remarques|default:_("Aucune remarque.")|linebreaks }}
 </div>
 
-<p class="small">
+
+<div class="footer">
     {% trans "Document généré automatiquement par CarsCosts.com." %}
-</p>
+    <br>
+    {% trans "Date export" %} : {{ date_export|date:"d/m/Y H:i" }}
+</div>
 
 </body>
 </html>

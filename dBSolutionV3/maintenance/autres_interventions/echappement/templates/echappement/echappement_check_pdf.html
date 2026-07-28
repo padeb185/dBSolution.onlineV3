@@ -148,6 +148,12 @@
             font-size: 10px;
             color: #555;
         }
+         .footer {
+            margin-top: 25px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -1118,6 +1124,12 @@
     {% now "d/m/Y H:i" %}
 </div>
 
+
+<div class="footer">
+    {% trans "Document généré automatiquement par CarsCosts.com." %}
+    <br>
+    {% trans "Date export" %} : {{ date_export|date:"d/m/Y H:i" }}
+</div>
+
 </body>
 </html>
-

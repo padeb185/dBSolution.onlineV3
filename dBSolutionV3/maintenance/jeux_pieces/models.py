@@ -356,92 +356,92 @@ class ControleJeuxPieces(TechnicienMixin, models.Model):
         verbose_name=_("Prix d'achat HTVA"),
     )
 
-    jeu_Biellette_barre_stabilisatrice_avd = models.CharField(
+    jeu_biellette_barre_stabilisatrice_avd = models.CharField(
         max_length=25,
         choices=EtatOKNotOK.choices,
         default=EtatOKNotOK.OK,
         verbose_name=_("Jeu biellette de barre stabilisatrice avant droite"),
     )
-    jeu_Biellette_barre_stabilisatrice_avd_fabricant = models.CharField(
+    jeu_biellette_barre_stabilisatrice_avd_fabricant = models.CharField(
         max_length=30,
         choices=FabricantPiece.choices,
         default=FabricantPiece.CHOISIR,
         verbose_name=_("Fabricant"),
     )
-    jeu_Biellette_barre_stabilisatrice_avd_quantite = models.PositiveIntegerField(
+    jeu_biellette_barre_stabilisatrice_avd_quantite = models.PositiveIntegerField(
         default=0,
         verbose_name=_("Quantité"),
     )
-    jeu_Biellette_barre_stabilisatrice_avd_prix = models.DecimalField(
+    jeu_biellette_barre_stabilisatrice_avd_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
         verbose_name=_("Prix d'achat HTVA"),
     )
 
-    jeu_Biellette_barre_stabilisatrice_avg = models.CharField(
+    jeu_biellette_barre_stabilisatrice_avg = models.CharField(
         max_length=25,
         choices=EtatOKNotOK.choices,
         default=EtatOKNotOK.OK,
         verbose_name=_("Jeu biellette de barre stabilisatrice avant gauche"),
     )
-    jeu_Biellette_barre_stabilisatrice_avg_fabricant = models.CharField(
+    jeu_biellette_barre_stabilisatrice_avg_fabricant = models.CharField(
         max_length=30,
         choices=FabricantPiece.choices,
         default=FabricantPiece.CHOISIR,
         verbose_name=_("Fabricant"),
     )
-    jeu_Biellette_barre_stabilisatrice_avg_quantite = models.PositiveIntegerField(
+    jeu_biellette_barre_stabilisatrice_avg_quantite = models.PositiveIntegerField(
         default=0,
         verbose_name=_("Quantité"),
     )
-    jeu_Biellette_barre_stabilisatrice_avg_prix = models.DecimalField(
+    jeu_biellette_barre_stabilisatrice_avg_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
         verbose_name=_("Prix d'achat HTVA"),
     )
 
-    jeu_Biellette_barre_stabilisatrice_ard = models.CharField(
+    jeu_biellette_barre_stabilisatrice_ard = models.CharField(
         max_length=25,
         choices=EtatOKNotOK.choices,
         default=EtatOKNotOK.OK,
         verbose_name=_("Jeu biellette de barre stabilisatrice arrière droite"),
     )
-    jeu_Biellette_barre_stabilisatrice_ard_fabricant = models.CharField(
+    jeu_biellette_barre_stabilisatrice_ard_fabricant = models.CharField(
         max_length=30,
         choices=FabricantPiece.choices,
         default=FabricantPiece.CHOISIR,
         verbose_name=_("Fabricant"),
     )
-    jeu_Biellette_barre_stabilisatrice_ard_quantite = models.PositiveIntegerField(
+    jeu_biellette_barre_stabilisatrice_ard_quantite = models.PositiveIntegerField(
         default=0,
         verbose_name=_("Quantité"),
     )
-    jeu_Biellette_barre_stabilisatrice_ard_prix = models.DecimalField(
+    jeu_biellette_barre_stabilisatrice_ard_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,
         verbose_name=_("Prix d'achat HTVA"),
     )
 
-    jeu_Biellette_barre_stabilisatrice_arg = models.CharField(
+    jeu_biellette_barre_stabilisatrice_arg = models.CharField(
         max_length=25,
         choices=EtatOKNotOK.choices,
         default=EtatOKNotOK.OK,
         verbose_name=_("Jeu biellette de barre stabilisatrice arrière gauche"),
     )
-    jeu_Biellette_barre_stabilisatrice_arg_fabricant = models.CharField(
+    jeu_biellette_barre_stabilisatrice_arg_fabricant = models.CharField(
         max_length=30,
         choices=FabricantPiece.choices,
         default=FabricantPiece.CHOISIR,
         verbose_name=_("Fabricant"),
     )
-    jeu_Biellette_barre_stabilisatrice_arg_quantite = models.PositiveIntegerField(
+    jeu_biellette_barre_stabilisatrice_arg_quantite = models.PositiveIntegerField(
         default=0,
         verbose_name=_("Quantité"),
     )
-    jeu_Biellette_barre_stabilisatrice_arg_prix = models.DecimalField(
+    jeu_biellette_barre_stabilisatrice_arg_prix = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0,

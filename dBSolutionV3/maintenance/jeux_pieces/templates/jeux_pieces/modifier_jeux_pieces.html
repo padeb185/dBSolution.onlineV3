@@ -218,7 +218,7 @@
          <!-- Section jeux biellettes -->
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1">{% trans "Jeux biellettes" %}</h2>
         {% for field in form %}
-            {% if "jeu_Bi" in field.name %}
+            {% if "jeu_bie" in field.name %}
             <div class="mb-4">
                 {% if field.field.widget.input_type == "checkbox" %}
                     <label class="inline-flex items-center gap-2">
@@ -369,6 +369,53 @@
         {% endfor %}
 
         <br>
+
+      <!-- Section jeux cardans -->
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/cardan.png' %}" alt="jeu cardans"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Jeux cardans" %}
+        </h2>
+        {% for field in form %}
+            {% if "jeu_car" in field.name %}
+            <div class="mb-4">
+                <label class="block font-semibold mb-1">{{ field.label }}</label>
+                {{ field|add_class:"input" }}
+                {% if field.help_text %}
+                    <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                {% endif %}
+                {% if field.errors %}
+                    <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
+            <!-- Section jeux arbre de transmission -->
+        <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
+            <img src="{% static 'icons/arbre.png' %}" alt="Jeu arbre de transmission"
+                 style="width:60px; height:60px; margin-right:10px;">
+            {% trans "Jeux dans l'arbre de transmission" %}
+        </h2>
+        {% for field in form %}
+            {% if "jeu_arbre" in field.name %}
+            <div class="mb-4">
+                <label class="block font-semibold mb-1">{{ field.label }}</label>
+                {{ field|add_class:"input" }}
+                {% if field.help_text %}
+                    <p class="text-gray-500 text-sm mt-1">{{ field.help_text }}</p>
+                {% endif %}
+                {% if field.errors %}
+                    <p class="text-red-600 text-sm mt-1">{{ field.errors|striptags }}</p>
+                {% endif %}
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <br>
+
 
         <h2 class="text-xl font-semibold mb-2 mt-4 border-b pb-1 flex items-center">
             <img src="{% static 'icons/notes.png' %}" alt="remarques"

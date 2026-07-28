@@ -173,6 +173,12 @@
             font-size: 9px;
             color: #6b7280;
         }
+         .footer {
+            margin-top: 25px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -1262,9 +1268,11 @@
     {% endif %}
 </div>
 
-<div class="small">
-    {% trans "Rapport généré le" %} :
-    {{ date_export|date:"d/m/Y H:i" }}
+
+<div class="footer">
+    {% trans "Document généré automatiquement par CarsCosts.com." %}
+    <br>
+    {% trans "Date export" %} : {{ date_export|date:"d/m/Y H:i" }}
 </div>
 
 </body>

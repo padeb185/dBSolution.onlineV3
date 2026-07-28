@@ -130,6 +130,12 @@
             font-weight: bold;
             white-space: nowrap;
         }
+         .footer {
+            margin-top: 25px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+        }
 
     </style>
 
@@ -567,6 +573,13 @@
 
     {{ turbo.remarques|default:_("Aucune remarque.")|linebreaks }}
 
+</div>
+
+
+<div class="footer">
+    {% trans "Document généré automatiquement par CarsCosts.com." %}
+    <br>
+    {% trans "Date export" %} : {{ date_export|date:"d/m/Y H:i" }}
 </div>
 
 </body>

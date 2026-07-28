@@ -109,10 +109,11 @@
             background: #f8fafc;
         }
 
-        .small {
-            font-size: 11px;
-            color: #555;
+        .footer {
             margin-top: 25px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
         }
     </style>
 </head>
@@ -2302,12 +2303,13 @@
 
 <!-- ================= PIED DE PAGE ================= -->
 
+
 <div class="footer">
     {% trans "Document généré automatiquement par CarsCosts.com." %}
     <br>
-    {% trans "Date export" %} :
-    {{ date_export|date:"d/m/Y H:i" }}
+    {% trans "Date export" %} : {{ date_export|date:"d/m/Y H:i" }}
 </div>
 
 </body>
 </html>
+
