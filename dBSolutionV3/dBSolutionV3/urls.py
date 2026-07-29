@@ -37,16 +37,17 @@ urlpatterns += i18n_patterns(
         ),
     ),
 
-    path("", home_view, name="home"),  # page d'accueil accessible à tous
-
-    # Utilisateurs : login, logout, dashboard, totp
-    path("utilisateurs/", include(("utilisateurs.urls", "utilisateurs"), namespace="utilisateurs")),
-
     # Admin
     path("admin/", admin.site.urls),
 
-    # Marques
-    path("utilisateurs/tenant/", include("voiture.voiture_marque.urls", namespace="voiture_marque")),
+
+    path(
+        "voiture/marques/",
+        include(
+            ("voiture.voiture_marque.urls", "voiture_marque"),
+            namespace="voiture_marque",
+        ),
+    ),
 
     # Exemplaires
     path(

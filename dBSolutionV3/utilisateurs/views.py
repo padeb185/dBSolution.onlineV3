@@ -1,17 +1,15 @@
+from django.contrib.auth import get_user_model
+from django_tenants.utils import get_tenant_domain_model
 from django.contrib.auth import authenticate, login, logout
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required, user_passes_test
-from django.db.models import Q, Count
-from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import user_passes_test
+from django.db.models import Q
 from io import BytesIO
 import base64
 import qrcode
-from django.utils import timezone
 from django.views.decorators.cache import never_cache
-from django_otp.conf import settings
-from django_tenants.utils import schema_context, get_public_schema_name
+from django_tenants.utils import schema_context
 from .forms import LoginForm, UtilisateurCreationForm
-from .models import Utilisateur, UserLog
+from .models import UserLog
 from django.utils.translation import gettext as _, get_language
 from voiture.voiture_marque.models import VoitureMarque
 from voiture.voiture_moteur.models import MoteurVoiture
@@ -39,10 +37,17 @@ from client_atelier.models import ClientAtelier
 from client_pilotage.models import ClientPilotage
 from django.contrib.auth.signals import user_logged_in, user_logged_out
 from django.dispatch import receiver
+from .models import Utilisateur
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
+from .forms import PaieUtilisateurForm
 
 
 
-
+"""
 def login_view(request):
     form = LoginForm(request.POST or None)
 
@@ -84,15 +89,17 @@ def login_view(request):
     return render(request, "login.html", {"form": form})
 
 
-
+"""
 
 
 
 
 def logout_view(request):
     logout(request)
-    return redirect("utilisateurs:login")
 
+    request.session.flush()
+
+    return redirect("connexion_globale")
 
 
 
@@ -342,50 +349,202 @@ def get_user_maintenance_count(user, societe):
 
 
 
-
+@never_cache
 def totp_setup_view(request):
+    """
+    Configuration initiale du TOTP.
+
+    Étapes :
+    1. L'utilisateur scanne le QR code avec Authy.
+    2. Il valide un premier code à six chiffres.
+    3. Le TOTP est activé.
+    4. Il est redirigé vers la connexion globale.
+    5. Il se connecte avec email, mot de passe et code Authy.
+    """
+
     user_id = request.session.get("totp_setup_user")
+    schema_name = request.session.get("totp_setup_tenant")
 
-    if not user_id:
-        return redirect("utilisateurs:login")
+    if not user_id or not schema_name:
+        messages.error(
+            request,
+            _("La session d'activation a expiré. Veuillez vous reconnecter."),
+        )
+        return redirect("/fr/connexion/")
 
-    user = Utilisateur.objects.get(id=user_id)
+    erreur = None
+    deja_active = False
+    secret = None
+    uri = None
 
-    # ❌ Si déjà activé → retour login
-    if user.totp_enabled:
-        return redirect("utilisateurs:login")
+    # =====================================================
+    # Récupération de l'utilisateur dans le schéma public
+    # =====================================================
 
-    uri = user.get_totp_uri()
-    qr = qrcode.make(uri)
-    buffer = BytesIO()
-    qr.save(buffer, format="PNG")
-    qr_base64 = base64.b64encode(buffer.getvalue()).decode()
+    with schema_context("public"):
+        try:
+            user = (
+                Utilisateur.objects
+                .select_related("societe")
+                .get(pk=user_id)
+            )
+        except Utilisateur.DoesNotExist:
+            user = None
+            erreur = _("Utilisateur introuvable.")
+
+        if user is not None:
+            if not user.is_active:
+                erreur = _("Ce compte utilisateur est désactivé.")
+
+            elif not user.societe_id:
+                erreur = _(
+                    "Aucune société n'est liée à cet utilisateur."
+                )
+
+            elif user.societe.schema_name != schema_name:
+                erreur = _(
+                    "La société de connexion ne correspond pas."
+                )
+
+            elif user.totp_enabled:
+                deja_active = True
+
+            else:
+                if not user.totp_secret:
+                    user.generate_totp_secret()
+
+                secret = user.totp_secret
+                uri = user.get_totp_uri()
+
+    # Tous les redirects et messages doivent être hors
+    # de schema_context("public").
+
+    if erreur:
+        request.session.pop("totp_setup_user", None)
+        request.session.pop("totp_setup_tenant", None)
+        request.session.pop("totp_setup_societe", None)
+
+        messages.error(request, erreur)
+
+        return redirect("/fr/connexion/")
+
+    # =====================================================
+    # TOTP déjà configuré
+    # =====================================================
+
+    if deja_active:
+        request.session.pop("totp_setup_user", None)
+        request.session.pop("totp_setup_tenant", None)
+        request.session.pop("totp_setup_societe", None)
+
+        messages.info(
+            request,
+            _(
+                "La vérification à deux facteurs est déjà configurée. "
+                "Connectez-vous avec votre code Authy."
+            ),
+        )
+
+        return redirect("/fr/connexion/")
+
+    # =====================================================
+    # Génération du QR code
+    # =====================================================
+
+    qr_code = None
+
+    if uri:
+        qr = qrcode.make(uri)
+
+        buffer = BytesIO()
+        qr.save(buffer, format="PNG")
+
+        qr_code = base64.b64encode(
+            buffer.getvalue()
+        ).decode("utf-8")
+
+    # =====================================================
+    # Validation du premier code Authy
+    # =====================================================
 
     if request.method == "POST":
-        token = request.POST.get("token")
+        token = (
+            request.POST.get("totp_token") or ""
+        ).strip().replace(" ", "")
 
-        if user.verify_totp(token):
-            user.totp_enabled = True
-            user.save()
-
-            # 🧹 Nettoyage de la session
-            request.session.pop("totp_setup_user", None)
-
-            messages.success(
+        if not token:
+            messages.error(
                 request,
-                _("TOTP configuré avec succès. Vous pouvez maintenant vous connecter."
-            ))
+                _(
+                    "Saisissez le code à six chiffres "
+                    "affiché dans Authy."
+                ),
+            )
 
-            # 🔁 REDIRECTION VERS LOGIN
-            return redirect("utilisateurs:login")
+        elif not token.isdigit() or len(token) != 6:
+            messages.error(
+                request,
+                _("Le code doit contenir exactement six chiffres."),
+            )
 
-        messages.error(request, "Code invalide")
+        else:
+            activation_reussie = False
 
-    return render(request, "totp/setup.html", {
-        "qr_code": qr_base64
-    })
+            with schema_context("public"):
+                try:
+                    user = (
+                        Utilisateur.objects
+                        .select_related("societe")
+                        .get(pk=user_id)
+                    )
+                except Utilisateur.DoesNotExist:
+                    user = None
 
+                if user is not None:
+                    activation_reussie = user.enable_totp(token)
 
+            # Hors de schema_context("public").
+
+            if activation_reussie:
+                # On ne connecte pas encore l'utilisateur.
+                # Il devra refaire une connexion complète
+                # avec email + mot de passe + code Authy.
+
+                request.session.pop("totp_setup_user", None)
+                request.session.pop("totp_setup_tenant", None)
+                request.session.pop("totp_setup_societe", None)
+
+                request.session["totp_verified"] = False
+                request.session.pop("totp_user_id", None)
+                request.session.pop("tenant_id", None)
+                request.session.pop("tenant_schema", None)
+
+                request.session.modified = True
+
+                messages.success(
+                    request,
+                    _(
+                        "La vérification à deux facteurs est activée. "
+                        "Connectez-vous maintenant avec votre adresse "
+                        "e-mail, votre mot de passe et votre code Authy."
+                    ),
+                )
+
+                return redirect("/fr/connexion/")
+
+            messages.error(
+                request,
+                _("Le code Authy est invalide ou expiré."),
+            )
+
+    return render(
+        request,
+        "theme/template/totp/setup.html",
+        {
+            "qr_code": qr_code,
+            "secret": secret,
+        },
+    )
 
 
 
@@ -498,22 +657,7 @@ def log_deconnexion(sender, request, user, **kwargs):
         )
 
 
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, redirect, render
-from django.contrib import messages
-from django.utils import timezone
-from django.utils.translation import gettext_lazy as _
 
-from .models import Utilisateur, PaieUtilisateur
-from .forms import PaieUtilisateurForm
-
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
-from django.utils import timezone
-from django.utils.translation import gettext_lazy as _
-
-from .forms import PaieUtilisateurForm
 
 
 @login_required
@@ -552,124 +696,246 @@ def creer_paie_utilisateur(request):
         }
     )
 
+def enable_totp(self, token):
+    if not self.verify_totp(token):
+        return False
+
+    self.totp_enabled = True
+
+    self.save(
+        update_fields=[
+            "totp_enabled",
+            "updated_at",
+        ]
+    )
+
+    return True
 
 
 
-from django.conf import settings
+
+Utilisateur = get_user_model()
+
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, get_user_model, login
 from django.shortcuts import redirect, render
 from django.utils.translation import get_language
-from django_tenants.utils import get_public_schema_name
+from django.utils.translation import gettext as _
+from django.views.decorators.cache import never_cache
+from django_tenants.utils import schema_context
+
+Utilisateur = get_user_model()
 
 
+@never_cache
 def connexion_globale_view(request):
-    tenant = getattr(request, "tenant", None)
+    """
+    Connexion globale.
 
-    if (
-        tenant is not None
-        and tenant.schema_name != get_public_schema_name()
-    ):
-        return redirect("/fr/connexion/")
+    Première connexion :
+        email + mot de passe
+        → configuration TOTP
+        → retour à la connexion
 
-    if request.method == "POST":
-        email = request.POST.get("email", "").strip().lower()
-        password = request.POST.get("password", "")
-        totp_code = request.POST.get("totp_code", "").strip()
+    Connexions suivantes :
+        email + mot de passe + code TOTP
+        → dashboard
+    """
 
-        if not email or not password:
-            messages.error(
-                request,
-                "Veuillez saisir votre adresse email et votre mot de passe.",
-            )
-            return render(
-                request,
-                "utilisateurs/connexion_globale.html",
-            )
+    form = LoginForm(request.POST or None)
 
-        user = authenticate(
+    if request.method != "POST":
+        return render(
             request,
-            username=email,
-            password=password,
+            "login.html",
+            {
+                "form": form,
+            },
         )
 
-        if user is None:
-            messages.error(
-                request,
-                "Adresse email ou mot de passe incorrect.",
+    if not form.is_valid():
+        return render(
+            request,
+            "login.html",
+            {
+                "form": form,
+            },
+        )
+
+    email = form.cleaned_data["email"]
+    password = form.cleaned_data["password"]
+    totp_code = (
+        form.cleaned_data.get("totp_code") or ""
+    ).strip()
+
+    user = None
+    erreur = None
+
+    user_id = None
+    societe_id = None
+    schema_name = None
+    totp_enabled = False
+    totp_secret_present = False
+    totp_valide = False
+
+    # -------------------------------------------------
+    # Vérification dans le schéma public
+    # -------------------------------------------------
+
+    with schema_context("public"):
+        try:
+            utilisateur = (
+                Utilisateur.objects
+                .select_related("societe")
+                .get(email__iexact=email)
             )
-            return render(
-                request,
-                "utilisateurs/connexion_globale.html",
+        except Utilisateur.DoesNotExist:
+            utilisateur = None
+
+        if utilisateur is None:
+            erreur = _(
+                "Adresse e-mail ou mot de passe incorrect."
             )
 
-        if not user.is_active:
-            messages.error(
+        else:
+            user = authenticate(
                 request,
-                "Ce compte utilisateur est désactivé.",
-            )
-            return render(
-                request,
-                "utilisateurs/connexion_globale.html",
+                email=utilisateur.email,
+                password=password,
             )
 
-        if not user.societe_id:
-            messages.error(
-                request,
-                "Aucune société n'est associée à ce compte.",
-            )
-            return render(
-                request,
-                "utilisateurs/connexion_globale.html",
-            )
-
-        societe = user.societe
-        schema_name = societe.schema_name
-
-        if not schema_name:
-            messages.error(
-                request,
-                "La société associée à ce compte ne possède aucun schéma.",
-            )
-            return render(
-                request,
-                "utilisateurs/connexion_globale.html",
-            )
-
-        if schema_name == get_public_schema_name():
-            messages.error(
-                request,
-                "Ce compte n'est associé à aucun espace client.",
-            )
-            return render(
-                request,
-                "utilisateurs/connexion_globale.html",
-            )
-
-        # Garde ici ta vérification TOTP actuelle.
-        if getattr(user, "totp_enabled", False):
-            if not totp_code:
-                messages.error(
-                    request,
-                    "Veuillez saisir votre code TOTP.",
-                )
-                return render(
-                    request,
-                    "utilisateurs/connexion_globale.html",
+            if user is None:
+                erreur = _(
+                    "Adresse e-mail ou mot de passe incorrect."
                 )
 
-        login(request, user)
+            elif not user.is_active:
+                erreur = _(
+                    "Ce compte utilisateur est désactivé."
+                )
 
-        langue = get_language() or settings.LANGUAGE_CODE or "fr"
-        langue = langue.split("-")[0]
+            elif not user.societe_id:
+                erreur = _(
+                    "Aucune société n'est liée à cet utilisateur."
+                )
 
-        prefixe = settings.TENANT_SUBFOLDER_PREFIX.strip("/")
+            else:
+                user_id = str(user.pk)
+                societe_id = str(user.societe_id)
+                schema_name = user.societe.schema_name
+
+                totp_enabled = bool(user.totp_enabled)
+                totp_secret_present = bool(user.totp_secret)
+
+                # État incohérent :
+                # TOTP activé mais secret absent.
+                if totp_enabled and not totp_secret_present:
+                    user.totp_enabled = False
+                    user.save(
+                        update_fields=[
+                            "totp_enabled",
+                            "updated_at",
+                        ]
+                    )
+
+                    totp_enabled = False
+
+                # Vérification pour un utilisateur déjà configuré.
+                if totp_enabled and totp_code:
+                    totp_valide = user.verify_totp(
+                        totp_code
+                    )
+
+    # Tous les redirects et renders sont hors
+    # de schema_context("public").
+
+    if erreur:
+        messages.error(request, erreur)
+
+        return render(
+            request,
+            "login.html",
+            {
+                "form": form,
+            },
+        )
+
+    # -------------------------------------------------
+    # TOTP non configuré
+    # -------------------------------------------------
+
+    if not totp_enabled:
+        request.session["totp_setup_user"] = user_id
+        request.session["totp_setup_tenant"] = schema_name
+        request.session["totp_setup_societe"] = societe_id
+
+        request.session["totp_verified"] = False
+        request.session.pop("totp_user_id", None)
+
+        request.session.modified = True
+
+        langue = get_language() or "fr"
 
         return redirect(
-            f"/{prefixe}/{schema_name}/{langue}/"
+            f"/tenant/{schema_name}/"
+            f"{langue}/utilisateurs/totp/setup/"
         )
 
-    return render(
-        request,
-        "utilisateurs/connexion_globale.html",
+    # -------------------------------------------------
+    # TOTP configuré : code obligatoire
+    # -------------------------------------------------
+
+    if not totp_code:
+        messages.error(
+            request,
+            _(
+                "Saisissez le code à six chiffres "
+                "affiché dans Authy."
+            ),
+        )
+
+        return render(
+            request,
+            "login.html",
+            {
+                "form": form,
+            },
+        )
+
+    if not totp_valide:
+        messages.error(
+            request,
+            _("Le code Authy est invalide."),
+        )
+
+        return render(
+            request,
+            "login.html",
+            {
+                "form": form,
+            },
+        )
+
+    # -------------------------------------------------
+    # Connexion définitive
+    # -------------------------------------------------
+
+    langue = get_language() or "fr"
+
+    login(request, user)
+
+    request.session["totp_verified"] = True
+    request.session["totp_user_id"] = str(user.pk)
+    request.session["tenant_id"] = str(user.societe_id)
+    request.session["tenant_schema"] = schema_name
+
+    request.session.pop("totp_setup_user", None)
+    request.session.pop("totp_setup_tenant", None)
+    request.session.pop("totp_setup_societe", None)
+
+    request.session.modified = True
+
+    return redirect(
+        f"/tenant/{schema_name}/"
+        f"{langue}/utilisateurs/dashboard/"
     )

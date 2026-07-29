@@ -14,78 +14,197 @@ def home(request):
 
 
 
+
+
+
 def login_view(request):
-    """Vue pour la connexion classique"""
-    if request.method == "POST":
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            email = form.cleaned_data['email_google']
-            password = form.cleaned_data['password']
+    """
+    Ancienne vue de connexion conservée temporairement
+    pour rediriger vers la connexion globale.
+    """
+    return redirect("/fr/connexion/")
 
-            user = authenticate(request, email_google=email, password=password)
-
-            if user is not None:
-                auth_login(request, user)
-
-                # Réinitialiser la vérification TOTP
-                request.session["totp_verified"] = False
-
-                # Rediriger vers la page TOTP si activé
-                if getattr(user, "totp_enabled", False):
-                    return redirect("login_totp")
-                else:
-                    return redirect("dashboard")
-            else:
-                form.add_error(None, _("Nom d'utilisateur ou mot de passe incorrect"))
-    else:
-        form = LoginForm()
-
-    return render(request, "login.html", {"form": form})
 
 
 class LoginTOTPForm:
     pass
 
 
-@login_required
-def login_totp(request):
-    """Validation du code TOTP (Google Authenticator)"""
-    user = request.user
-    message = None
+from django.contrib import messages
+from django.contrib.auth import get_user_model, login
+from django.shortcuts import redirect, render
+from django.utils.translation import get_language
+from django.utils.translation import gettext as _
+from django.views.decorators.cache import never_cache
+from django_tenants.utils import schema_context
 
-    # Vérifie que l'utilisateur a un secret TOTP
-    if not getattr(user, "totp_secret", None):
-        message = _("Aucun secret TOTP configuré pour ce compte.")
-        return render(request, "login_totp.html", {"form": None, "message": message})
+import pyotp
+
+Utilisateur = get_user_model()
+
+
+@never_cache
+def login_totp(request):
+    """Validation du code TOTP après le mot de passe."""
+
+    user_id = request.session.get("totp_login_user")
+    schema_name = request.session.get("totp_login_tenant")
+    societe_id = request.session.get("tenant_id")
+
+    if not user_id or not schema_name:
+        messages.error(
+            request,
+            _("La session de connexion a expiré. Reconnectez-vous."),
+        )
+        return redirect("/fr/connexion/")
+
+    with schema_context("public"):
+        try:
+            user = (
+                Utilisateur.objects
+                .select_related("societe")
+                .get(pk=user_id)
+            )
+        except Utilisateur.DoesNotExist:
+            user = None
+
+        if user is None:
+            erreur = _("Utilisateur introuvable.")
+
+        elif not user.is_active:
+            erreur = _("Ce compte utilisateur est désactivé.")
+
+        elif not user.societe_id:
+            erreur = _("Aucune société n'est liée à cet utilisateur.")
+
+        elif user.societe.schema_name != schema_name:
+            erreur = _("La société de connexion ne correspond pas.")
+
+        elif not user.totp_secret:
+            erreur = _("Aucun secret TOTP configuré pour ce compte.")
+
+        else:
+            erreur = None
+
+    if erreur:
+        request.session.flush()
+        messages.error(request, erreur)
+        return redirect("/fr/connexion/")
+
+    message = None
 
     if request.method == "POST":
         form = LoginTOTPForm(request.POST)
+
         if form.is_valid():
-            token = form.cleaned_data["totp_token"]
-            totp = pyotp.TOTP(user.totp_secret)
+            token = form.cleaned_data["totp_token"].strip()
 
-            if totp.verify(token):
-                # Marquer la 2FA comme validée
+            with schema_context("public"):
+                totp = pyotp.TOTP(user.totp_secret)
+
+                # valid_window=1 accepte un léger décalage horaire
+                code_valide = totp.verify(
+                    token,
+                    valid_window=1,
+                )
+
+            if code_valide:
+                # Connexion Django définitive
+                login(request, user)
+
                 request.session["totp_verified"] = True
-                return redirect("dashboard")
-            else:
-                message = _("Code de vérification invalide.")
-    else:
-        form = LoginTOTPForm(initial={"email_google": user.email_google})
+                request.session["totp_user_id"] = str(user.pk)
+                request.session["tenant_id"] = (
+                    societe_id or str(user.societe_id)
+                )
+                request.session["tenant_schema"] = schema_name
 
-    return render(request, "login_totp.html", {"form": form, "message": message})
+                # Nettoyage des variables temporaires
+                request.session.pop("totp_login_user", None)
+                request.session.pop("totp_login_tenant", None)
+
+                request.session.modified = True
+
+                langue = get_language() or "fr"
+
+                return redirect(
+                    f"/tenant/{schema_name}/"
+                    f"{langue}/utilisateurs/dashboard/"
+                )
+
+            message = _("Code de vérification invalide.")
+
+    else:
+        form = LoginTOTPForm()
+
+    return render(
+        request,
+        "utilisateurs/login_totp.html",
+        {
+            "form": form,
+            "message": message,
+        },
+    )
+
+
+
+from django.contrib.auth import logout
 
 
 
 @never_cache
-@login_required
+@login_required(login_url="/fr/connexion/")
 def dashboard(request):
-    """Tableau de bord utilisateur"""
-    if getattr(request.user, "totp_enabled", False) and not request.session.get("totp_verified", False):
-        return redirect("login_totp")
+    """
+    Tableau de bord utilisateur.
+
+    L'accès est autorisé uniquement si :
+    - l'utilisateur est authentifié ;
+    - le TOTP est configuré ;
+    - le code TOTP a été validé pendant cette connexion ;
+    - la validation correspond bien à cet utilisateur.
+    """
+
+    user = request.user
+
+    totp_enabled = bool(
+        getattr(user, "totp_enabled", False)
+    )
+
+    totp_verified = (
+        request.session.get("totp_verified") is True
+    )
+
+    totp_user_id = request.session.get("totp_user_id")
+
+    validation_correcte = (
+        totp_enabled
+        and totp_verified
+        and totp_user_id == str(user.pk)
+    )
+
+    if not validation_correcte:
+        logout(request)
+
+        messages.error(
+            request,
+            _(
+                "Veuillez vous connecter avec votre adresse e-mail, "
+                "votre mot de passe et votre code Authy."
+            ),
+        )
+
+        return redirect("/fr/connexion/")
 
     message = _("Bienvenue sur ton tableau de bord")
-    return render(request, 'dashboard.html', {'message': message})
+
+    return render(
+        request,
+        "dashboard.html",
+        {
+            "message": message,
+        },
+    )
 
 
 

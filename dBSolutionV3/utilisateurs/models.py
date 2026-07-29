@@ -172,17 +172,127 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
     class Meta:
         app_label = 'utilisateurs'
 
+
+
     def generate_totp_secret(self):
-        self.totp_secret = pyotp.random_base32()
-        self.save()
+        """
+        Génère un secret TOTP uniquement s'il n'existe pas encore.
+
+        Retourne le secret afin de pouvoir l'utiliser immédiatement
+        dans la vue d'activation.
+        """
+        if not self.totp_secret:
+            self.totp_secret = pyotp.random_base32()
+
+            self.save(
+                update_fields=[
+                    "totp_secret",
+                    "updated_at",
+                ]
+            )
+
+        return self.totp_secret
 
     def get_totp_uri(self):
-        issuer = self.societe.nom if self.societe else "CarsCosts"
-        email = self.email or self.email
+        """
+        Génère l'URI utilisée par Google Authenticator,
+        Microsoft Authenticator, Authy, etc.
+        """
+        if not self.totp_secret:
+            self.generate_totp_secret()
 
-        return pyotp.totp.TOTP(self.totp_secret).provisioning_uri(
-            name=email,
-            issuer_name=issuer
+        issuer = (
+            self.societe.nom
+            if self.societe
+            else "CarsCosts"
+        )
+
+        identifiant = (
+                self.email
+                or self.email_entreprise
+                or str(self.pk)
+        )
+
+        return pyotp.TOTP(
+            self.totp_secret
+        ).provisioning_uri(
+            name=identifiant,
+            issuer_name=issuer,
+        )
+
+    def verify_totp(self, token):
+        """
+        Vérifie un code TOTP à six chiffres.
+
+        valid_window=1 accepte un léger décalage temporel
+        entre le serveur et le téléphone.
+        """
+        if not self.totp_secret or not token:
+            return False
+
+        token = str(token).strip().replace(" ", "")
+
+        if not token.isdigit() or len(token) != 6:
+            return False
+
+        totp = pyotp.TOTP(self.totp_secret)
+
+        return totp.verify(
+            token,
+            valid_window=1,
+        )
+
+    def generate_qr_code(self):
+        """
+        Génère le QR code TOTP au format base64.
+        """
+        totp_uri = self.get_totp_uri()
+
+        qr = qrcode.make(totp_uri)
+
+        buffer = BytesIO()
+        qr.save(buffer, format="PNG")
+
+        return base64.b64encode(
+            buffer.getvalue()
+        ).decode("utf-8")
+
+
+
+    def enable_totp(self, token):
+        """
+        Vérifie le premier code saisi et active le TOTP.
+
+        Retourne True si l'activation réussit.
+        """
+        if not self.verify_totp(token):
+            return False
+
+        if not self.totp_enabled:
+            self.totp_enabled = True
+
+            self.save(
+                update_fields=[
+                    "totp_enabled",
+                    "updated_at",
+                ]
+            )
+
+        return True
+
+    def disable_totp(self):
+        """
+        Désactive complètement le TOTP et supprime l'ancien secret.
+        """
+        self.totp_enabled = False
+        self.totp_secret = None
+
+        self.save(
+            update_fields=[
+                "totp_enabled",
+                "totp_secret",
+                "updated_at",
+            ]
         )
 
     def verify_totp(self, token):
