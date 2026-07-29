@@ -1,16 +1,11 @@
-from django.contrib.auth import get_user_model
-from django_tenants.utils import get_tenant_domain_model
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import  logout
 from django.contrib.auth.decorators import user_passes_test
 from django.db.models import Q
 from io import BytesIO
 import base64
 import qrcode
-from django.views.decorators.cache import never_cache
-from django_tenants.utils import schema_context
 from .forms import LoginForm, UtilisateurCreationForm
 from .models import UserLog
-from django.utils.translation import gettext as _, get_language
 from voiture.voiture_marque.models import VoitureMarque
 from voiture.voiture_moteur.models import MoteurVoiture
 from adresse.models import Adresse
@@ -38,12 +33,23 @@ from client_pilotage.models import ClientPilotage
 from django.contrib.auth.signals import user_logged_in, user_logged_out
 from django.dispatch import receiver
 from .models import Utilisateur
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from .forms import PaieUtilisateurForm
+from django_tenants.utils import get_tenant_domain_model
+from django.contrib import messages
+from django.contrib.auth import get_user_model, login
+from django.shortcuts import redirect, render
+from django.utils.translation import get_language
+from django.utils.translation import gettext as _
+from django.views.decorators.cache import never_cache
+from django_tenants.utils import schema_context
+from .forms import LoginForm
+
+
+
+Domain = get_tenant_domain_model()
 
 
 
@@ -539,7 +545,7 @@ def totp_setup_view(request):
 
     return render(
         request,
-        "theme/template/totp/setup.html",
+        "theme/totp/setup.html",
         {
             "qr_code": qr_code,
             "secret": secret,
@@ -714,15 +720,9 @@ def enable_totp(self, token):
 
 
 
-Utilisateur = get_user_model()
 
-from django.contrib import messages
-from django.contrib.auth import authenticate, get_user_model, login
-from django.shortcuts import redirect, render
-from django.utils.translation import get_language
-from django.utils.translation import gettext as _
-from django.views.decorators.cache import never_cache
-from django_tenants.utils import schema_context
+
+
 
 Utilisateur = get_user_model()
 
@@ -730,16 +730,16 @@ Utilisateur = get_user_model()
 @never_cache
 def connexion_globale_view(request):
     """
-    Connexion globale.
+    Connexion globale multi-tenant.
 
     Première connexion :
-        email + mot de passe
+        e-mail + mot de passe
         → configuration TOTP
-        → retour à la connexion
 
     Connexions suivantes :
-        email + mot de passe + code TOTP
-        → dashboard
+        e-mail + mot de passe + code TOTP
+        → connexion
+        → dashboard du tenant
     """
 
     form = LoginForm(request.POST or None)
@@ -762,24 +762,23 @@ def connexion_globale_view(request):
             },
         )
 
-    email = form.cleaned_data["email"]
+    email = form.cleaned_data["email"].strip().lower()
     password = form.cleaned_data["password"]
+
     totp_code = (
         form.cleaned_data.get("totp_code") or ""
     ).strip()
 
-    user = None
+    utilisateur = None
     erreur = None
 
-    user_id = None
-    societe_id = None
     schema_name = None
+    societe_id = None
     totp_enabled = False
-    totp_secret_present = False
     totp_valide = False
 
     # -------------------------------------------------
-    # Vérification dans le schéma public
+    # Recherche et validation dans le schéma public
     # -------------------------------------------------
 
     with schema_context("public"):
@@ -797,41 +796,64 @@ def connexion_globale_view(request):
                 "Adresse e-mail ou mot de passe incorrect."
             )
 
-        else:
-            user = authenticate(
-                request,
-                email=utilisateur.email,
-                password=password,
+        elif not utilisateur.check_password(password):
+            erreur = _(
+                "Adresse e-mail ou mot de passe incorrect."
             )
 
-            if user is None:
+        elif not utilisateur.is_active:
+            erreur = _(
+                "Ce compte utilisateur est désactivé."
+            )
+
+        elif not utilisateur.societe_id:
+            erreur = _(
+                "Aucune société n'est associée à ce compte."
+            )
+
+        else:
+            societe = utilisateur.societe
+
+            schema_name = (
+                getattr(societe, "schema_name", "") or ""
+            ).strip().lower()
+
+            societe_id = str(utilisateur.societe_id)
+
+            if not schema_name:
                 erreur = _(
-                    "Adresse e-mail ou mot de passe incorrect."
+                    "Aucun schéma tenant n'est associé "
+                    "à cet utilisateur."
                 )
 
-            elif not user.is_active:
+            elif schema_name == "public":
                 erreur = _(
-                    "Ce compte utilisateur est désactivé."
-                )
-
-            elif not user.societe_id:
-                erreur = _(
-                    "Aucune société n'est liée à cet utilisateur."
+                    "Ce compte n'est associé à aucune "
+                    "société privée."
                 )
 
             else:
-                user_id = str(user.pk)
-                societe_id = str(user.societe_id)
-                schema_name = user.societe.schema_name
+                totp_enabled = bool(
+                    getattr(
+                        utilisateur,
+                        "totp_enabled",
+                        False,
+                    )
+                )
 
-                totp_enabled = bool(user.totp_enabled)
-                totp_secret_present = bool(user.totp_secret)
+                totp_secret_present = bool(
+                    getattr(
+                        utilisateur,
+                        "totp_secret",
+                        None,
+                    )
+                )
 
-                # État incohérent :
-                # TOTP activé mais secret absent.
+                # Sécurité : un TOTP ne peut pas être actif
+                # sans clé secrète.
                 if totp_enabled and not totp_secret_present:
-                    user.totp_enabled = False
-                    user.save(
+                    utilisateur.totp_enabled = False
+                    utilisateur.save(
                         update_fields=[
                             "totp_enabled",
                             "updated_at",
@@ -840,14 +862,16 @@ def connexion_globale_view(request):
 
                     totp_enabled = False
 
-                # Vérification pour un utilisateur déjà configuré.
                 if totp_enabled and totp_code:
-                    totp_valide = user.verify_totp(
-                        totp_code
+                    totp_valide = bool(
+                        utilisateur.verify_totp(
+                            totp_code
+                        )
                     )
 
-    # Tous les redirects et renders sont hors
-    # de schema_context("public").
+    # -------------------------------------------------
+    # Arrêt immédiat en cas d'erreur
+    # -------------------------------------------------
 
     if erreur:
         messages.error(request, erreur)
@@ -860,21 +884,22 @@ def connexion_globale_view(request):
             },
         )
 
+    langue = get_language() or "fr"
+
     # -------------------------------------------------
-    # TOTP non configuré
+    # Première connexion : configuration du TOTP
     # -------------------------------------------------
 
     if not totp_enabled:
-        request.session["totp_setup_user"] = user_id
+        request.session.flush()
+
+        request.session["totp_setup_user"] = str(
+            utilisateur.pk
+        )
         request.session["totp_setup_tenant"] = schema_name
         request.session["totp_setup_societe"] = societe_id
 
-        request.session["totp_verified"] = False
-        request.session.pop("totp_user_id", None)
-
         request.session.modified = True
-
-        langue = get_language() or "fr"
 
         return redirect(
             f"/tenant/{schema_name}/"
@@ -882,15 +907,15 @@ def connexion_globale_view(request):
         )
 
     # -------------------------------------------------
-    # TOTP configuré : code obligatoire
+    # TOTP déjà configuré : code obligatoire
     # -------------------------------------------------
 
     if not totp_code:
         messages.error(
             request,
             _(
-                "Saisissez le code à six chiffres "
-                "affiché dans Authy."
+                "Veuillez saisir le code de sécurité "
+                "généré par votre application Authy."
             ),
         )
 
@@ -905,7 +930,10 @@ def connexion_globale_view(request):
     if not totp_valide:
         messages.error(
             request,
-            _("Le code Authy est invalide."),
+            _(
+                "Le code de sécurité est incorrect "
+                "ou a expiré."
+            ),
         )
 
         return render(
@@ -917,17 +945,23 @@ def connexion_globale_view(request):
         )
 
     # -------------------------------------------------
-    # Connexion définitive
+    # Connexion Django
     # -------------------------------------------------
 
-    langue = get_language() or "fr"
+    utilisateur.backend = (
+        "django.contrib.auth.backends.ModelBackend"
+    )
 
-    login(request, user)
+    login(request, utilisateur)
 
+    # login() renouvelle la session.
+    # Les variables doivent donc être enregistrées après.
     request.session["totp_verified"] = True
-    request.session["totp_user_id"] = str(user.pk)
-    request.session["tenant_id"] = str(user.societe_id)
+    request.session["totp_user_id"] = str(
+        utilisateur.pk
+    )
     request.session["tenant_schema"] = schema_name
+    request.session["tenant_id"] = societe_id
 
     request.session.pop("totp_setup_user", None)
     request.session.pop("totp_setup_tenant", None)
@@ -935,7 +969,13 @@ def connexion_globale_view(request):
 
     request.session.modified = True
 
+    messages.success(
+        request,
+        _("Connexion réussie."),
+    )
+
     return redirect(
         f"/tenant/{schema_name}/"
         f"{langue}/utilisateurs/dashboard/"
     )
+

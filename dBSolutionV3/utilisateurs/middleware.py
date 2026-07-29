@@ -76,22 +76,51 @@ class TOTPRequiredMiddleware:
         return redirect(CONNEXION_GLOBALE_URL)
 
 
+
 class TenantUserAccessMiddleware:
     """
-    Vérifie qu'un utilisateur connecté appartient bien au tenant courant.
+    Vérifie que l'utilisateur connecté appartient bien
+    au tenant demandé dans l'URL.
+
+    La comparaison se fait avec schema_name.
     """
+
+    PUBLIC_PATHS = (
+        "/fr/connexion/",
+        "/en/connexion/",
+        "/de/connexion/",
+        "/es/connexion/",
+        "/it/connexion/",
+        "/nl/connexion/",
+        "/el/connexion/",
+        "/i18n/",
+        "/static/",
+        "/media/",
+        "/admin/",
+        "/totp/setup/",
+    )
 
     def __init__(self, get_response):
         self.get_response = get_response
 
     def __call__(self, request):
+        path = request.path_info
+
+        # Ne pas contrôler les routes publiques.
+        if any(
+            path.startswith(public_path)
+            for public_path in self.PUBLIC_PATHS
+        ):
+            return self.get_response(request)
+
         tenant = getattr(request, "tenant", None)
         user = getattr(request, "user", None)
 
-        # Aucun contrôle nécessaire sur les pages publiques.
+        # Aucun tenant résolu.
         if tenant is None:
             return self.get_response(request)
 
+        # Aucun contrôle sur le schéma public.
         if tenant.schema_name == get_public_schema_name():
             return self.get_response(request)
 
@@ -99,27 +128,41 @@ class TenantUserAccessMiddleware:
         if user is None or not user.is_authenticated:
             return self.get_response(request)
 
-        user_societe_id = getattr(user, "societe_id", None)
-        tenant_id = getattr(tenant, "pk", None)
+        user_societe = getattr(user, "societe", None)
 
-        appartient_au_tenant = (
-            user_societe_id is not None
-            and tenant_id is not None
-            and str(user_societe_id) == str(tenant_id)
+        if user_societe is None:
+            logout(request)
+
+            messages.error(
+                request,
+                "Aucune société n'est associée à votre compte.",
+            )
+
+            return redirect("/fr/connexion/")
+
+        user_schema_name = getattr(
+            user_societe,
+            "schema_name",
+            None,
         )
 
-        if appartient_au_tenant:
-            return self.get_response(request)
-
-        logout(request)
-
-        messages.error(
-            request,
-            "Vous n'êtes pas autorisé à accéder à cette société.",
+        tenant_schema_name = getattr(
+            tenant,
+            "schema_name",
+            None,
         )
 
-        return redirect(CONNEXION_GLOBALE_URL)
+        if user_schema_name != tenant_schema_name:
+            logout(request)
 
+            messages.error(
+                request,
+                "Vous n'êtes pas autorisé à accéder à cette société.",
+            )
+
+            return redirect("/fr/connexion/")
+
+        return self.get_response(request)
 
 class TenantRequiredMiddleware:
     """
