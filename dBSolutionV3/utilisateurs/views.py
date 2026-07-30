@@ -355,17 +355,28 @@ def get_user_maintenance_count(user, societe):
 
 
 
+import base64
+from io import BytesIO
+
+import pyotp
+import qrcode
+
+from django.contrib import messages
+from django.shortcuts import redirect, render
+from django.utils.translation import gettext_lazy as _
+from django.views.decorators.cache import never_cache
+from django_tenants.utils import schema_context
+
+from utilisateurs.models import Utilisateur
+
+
 @never_cache
 def totp_setup_view(request):
     """
     Configuration initiale du TOTP.
 
-    Étapes :
-    1. L'utilisateur scanne le QR code avec Authy.
-    2. Il valide un premier code à six chiffres.
-    3. Le TOTP est activé.
-    4. Il est redirigé vers la connexion globale.
-    5. Il se connecte avec email, mot de passe et code Authy.
+    L'utilisateur est stocké dans le schéma public et rattaché
+    à une société, par exemple au tenant campus.
     """
 
     user_id = request.session.get("totp_setup_user")
@@ -416,14 +427,24 @@ def totp_setup_view(request):
                 deja_active = True
 
             else:
+                # Génération et sauvegarde d'un secret Base32 valide.
                 if not user.totp_secret:
-                    user.generate_totp_secret()
+                    user.totp_secret = pyotp.random_base32()
+                    user.save(update_fields=["totp_secret"])
 
                 secret = user.totp_secret
-                uri = user.get_totp_uri()
 
-    # Tous les redirects et messages doivent être hors
-    # de schema_context("public").
+                # Génération explicite d'une URI compatible Authy.
+                issuer_name = f"dBSolution {user.societe.schema_name.capitalize()}"
+
+                uri = pyotp.TOTP(secret).provisioning_uri(
+                    name=user.email,
+                    issuer_name=issuer_name,
+                )
+
+    # =====================================================
+    # Gestion des erreurs
+    # =====================================================
 
     if erreur:
         request.session.pop("totp_setup_user", None)
@@ -431,7 +452,6 @@ def totp_setup_view(request):
         request.session.pop("totp_setup_societe", None)
 
         messages.error(request, erreur)
-
         return redirect("/fr/connexion/")
 
     # =====================================================
@@ -454,7 +474,7 @@ def totp_setup_view(request):
         return redirect("/fr/connexion/")
 
     # =====================================================
-    # Génération du QR code
+    # Génération du QR Code
     # =====================================================
 
     qr_code = None
@@ -474,8 +494,9 @@ def totp_setup_view(request):
     # =====================================================
 
     if request.method == "POST":
+        # Le template utilise name="token".
         token = (
-            request.POST.get("totp_token") or ""
+            request.POST.get("token") or ""
         ).strip().replace(" ", "")
 
         if not token:
@@ -501,21 +522,25 @@ def totp_setup_view(request):
                     user = (
                         Utilisateur.objects
                         .select_related("societe")
-                        .get(pk=user_id)
+                        .get(
+                            pk=user_id,
+                            societe__schema_name=schema_name,
+                        )
                     )
                 except Utilisateur.DoesNotExist:
                     user = None
 
-                if user is not None:
-                    activation_reussie = user.enable_totp(token)
+                if user is not None and user.totp_secret:
+                    totp = pyotp.TOTP(user.totp_secret)
 
-            # Hors de schema_context("public").
+                    # valid_window=1 accepte une légère différence
+                    # d'horloge entre le serveur et Authy.
+                    if totp.verify(token, valid_window=1):
+                        user.totp_enabled = True
+                        user.save(update_fields=["totp_enabled"])
+                        activation_reussie = True
 
             if activation_reussie:
-                # On ne connecte pas encore l'utilisateur.
-                # Il devra refaire une connexion complète
-                # avec email + mot de passe + code Authy.
-
                 request.session.pop("totp_setup_user", None)
                 request.session.pop("totp_setup_tenant", None)
                 request.session.pop("totp_setup_societe", None)
@@ -549,9 +574,10 @@ def totp_setup_view(request):
         {
             "qr_code": qr_code,
             "secret": secret,
+            "totp_uri": uri,
+            "tenant_schema": schema_name,
         },
     )
-
 
 
 def is_admin(user):

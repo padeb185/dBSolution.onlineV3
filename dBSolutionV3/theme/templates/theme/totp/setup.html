@@ -21,10 +21,12 @@
                      class="mx-auto border rounded-md shadow-sm w-32 h-32">
            </div>
 
+
+
             <p class="text-sm text-gray-500 mb-2">
                 {% trans "Si tu ne peux pas scanner le QR code, utilise ce code secret :" %}
             </p>
-            <p class="font-mono text-lg mb-6 select-all">{{ request.user.totp_secret }}</p>
+            <p class="font-mono text-lg mb-6 select-all">{{ secret }}</p>
         {% else %}
             <p class="text-red-500 mb-4">{% trans "Aucun secret TOTP configuré pour ce compte." %}</p>
         {% endif %}
