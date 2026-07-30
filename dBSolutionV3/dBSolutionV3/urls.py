@@ -49,6 +49,15 @@ urlpatterns += i18n_patterns(
         ),
     ),
 
+    path(
+        "voiture/modeles/",
+        include(
+            ("voiture.voiture_modele.urls", "voiture_modele"),
+            namespace="voiture_modele",
+        ),
+    ),
+
+
     # Exemplaires
     path(
         "voiture/exemplaires/",

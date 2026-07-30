@@ -18,9 +18,9 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         # Récupération du tenant
         try:
-            tenant = Societe.objects.get(schema_name='dbsolution')
+            tenant = Societe.objects.get(schema_name='campus')
         except Societe.DoesNotExist:
-            self.stdout.write(self.style.ERROR("Tenant 'dbsolution' introuvable !"))
+            self.stdout.write(self.style.ERROR("Tenant 'campus' introuvable !"))
             return
 
 

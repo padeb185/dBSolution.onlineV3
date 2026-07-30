@@ -6,14 +6,14 @@ from voiture.voiture_modele.models import VoitureModele
 
 
 class Command(BaseCommand):
-    help = "Ajoute des modèles pour d'autres marques mondiales pour le tenant 'dbsolution'"
+    help = "Ajoute des modèles pour d'autres marques mondiales pour le tenant 'campus'"
 
     def handle(self, *args, **options):
         # Récupération du tenant
         try:
-            tenant = Societe.objects.get(schema_name='dbsolution')
+            tenant = Societe.objects.get(schema_name='campus')
         except Societe.DoesNotExist:
-            self.stdout.write(self.style.ERROR("Tenant 'dbsolution' introuvable !"))
+            self.stdout.write(self.style.ERROR("Tenant 'campus' introuvable !"))
             return
 
         # Marques et modèles à insérer
@@ -392,32 +392,122 @@ class Command(BaseCommand):
 
         }
 
-        created_count = 0
+        from django.db.models import Q
 
-        # Contexte tenant
+        created_count = 0
+        updated_count = 0
+        skipped_count = 0
+
         with tenant_context(tenant):
+
             for marque_nom, modeles in marques_modeles.items():
+
                 try:
-                    marque_obj = VoitureMarque.objects.get(nom_marque=marque_nom)
+                    marque_obj = VoitureMarque.objects.get(
+                        nom_marque=marque_nom
+                    )
                 except VoitureMarque.DoesNotExist:
-                    self.stdout.write(self.style.WARNING(f"Marque '{marque_nom}' non trouvée."))
+                    self.stdout.write(
+                        self.style.WARNING(
+                            f"Marque '{marque_nom}' non trouvée."
+                        )
+                    )
                     continue
 
                 for m in modeles:
-                    _, created = VoitureModele.objects.get_or_create(
-                        nom_modele=m["modele"],
-                        nom_variante=m.get("variante"),
-                        voiture_marque=marque_obj,
-                        societe_id=2, # id_société =========================================
-                        defaults={
-                            "nombre_portes": m.get("portes", 5),
-                            "nbre_places": m.get("places", 5),
-                            "taille_reservoir": m.get("reservoir", 50),
-                        }
+
+                    nom_modele = str(m.get("modele") or "").strip()
+                    variante_brute = m.get("variante")
+                    nom_variante = (
+                        str(variante_brute).strip()
+                        if variante_brute
+                        else ""
                     )
-                    if created:
+
+                    if not nom_modele:
+                        skipped_count += 1
+                        self.stdout.write(
+                            self.style.WARNING(
+                                f"Modèle sans nom ignoré pour '{marque_nom}'."
+                            )
+                        )
+                        continue
+
+                    nombre_portes = m.get("portes", 5)
+
+                    nbre_places = m.get(
+                        "places",
+                        m.get("nbre_places", 5),
+                    )
+
+                    taille_reservoir = m.get(
+                        "reservoir",
+                        m.get("taille_reservoir", 50),
+                    )
+
+                    # Recherche manuelle pour traiter None et "" comme identiques
+                    recherche = VoitureModele.objects.filter(
+                        voiture_marque=marque_obj,
+                        nom_modele=nom_modele,
+                    )
+
+                    if nom_variante:
+                        recherche = recherche.filter(
+                            nom_variante=nom_variante
+                        )
+                    else:
+                        recherche = recherche.filter(
+                            Q(nom_variante__isnull=True)
+                            | Q(nom_variante="")
+                        )
+
+                    modele_obj = recherche.first()
+
+                    if modele_obj:
+                        modele_obj.societe = tenant
+                        modele_obj.nombre_portes = nombre_portes
+                        modele_obj.nbre_places = nbre_places
+                        modele_obj.taille_reservoir = taille_reservoir
+
+                        # Uniformise les variantes vides
+                        modele_obj.nom_variante = nom_variante
+
+                        modele_obj.save()
+
+                        updated_count += 1
+
+                        self.stdout.write(
+                            f"Mis à jour : {marque_nom} — "
+                            f"{nom_modele} — "
+                            f"{nom_variante or 'Sans variante'}"
+                        )
+
+                    else:
+                        VoitureModele.objects.create(
+                            voiture_marque=marque_obj,
+                            societe=tenant,
+                            nom_modele=nom_modele,
+                            nom_variante=nom_variante,
+                            nombre_portes=nombre_portes,
+                            nbre_places=nbre_places,
+                            taille_reservoir=taille_reservoir,
+                        )
+
                         created_count += 1
 
-        self.stdout.write(self.style.SUCCESS(
-            f"{created_count} modèles ajoutés ou enrichis pour le tenant '{tenant.schema_name}'"
-        ))
+                        self.stdout.write(
+                            self.style.SUCCESS(
+                                f"Créé : {marque_nom} — "
+                                f"{nom_modele} — "
+                                f"{nom_variante or 'Sans variante'}"
+                            )
+                        )
+
+        self.stdout.write(
+            self.style.SUCCESS(
+                f"Import terminé pour '{tenant.schema_name}' : "
+                f"{created_count} créé(s), "
+                f"{updated_count} mis à jour, "
+                f"{skipped_count} ignoré(s)."
+            )
+        )

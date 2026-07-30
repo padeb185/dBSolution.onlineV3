@@ -370,6 +370,22 @@ from django_tenants.utils import schema_context
 from utilisateurs.models import Utilisateur
 
 
+CONNEXION_GLOBALE_URL = "/fr/connexion/"
+
+
+def redirection_connexion_globale():
+    """
+    Retourne toujours vers la connexion publique française.
+
+    Une URL explicite est utilisée pour éviter qu'un préfixe tenant
+    ou une langue active incorrecte ne soit ajouté.
+    """
+    return redirect(CONNEXION_GLOBALE_URL)
+
+
+
+
+
 @never_cache
 def totp_setup_view(request):
     """

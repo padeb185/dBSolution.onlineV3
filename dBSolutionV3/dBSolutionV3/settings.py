@@ -309,18 +309,15 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # ------------------------------------------------------------------------------
 # MIDDLEWARE (ORDRE CRITIQUE)
 # ------------------------------------------------------------------------------
-
 MIDDLEWARE = [
-    # Résout le tenant depuis /tenant/<domaine>/.
-    "django_tenants.middleware.TenantSubfolderMiddleware",
-
-    # Vérifie immédiatement qu'un tenant ou une route publique est valide.
-    "dBSolutionV3.middleware.tenant_required.TenantRequiredMiddleware",
+    # Résolution du tenant à partir du domaine :
+    # dbsolution.localhost, campus.localhost, etc.
+    "django_tenants.middleware.main.TenantMainMiddleware",
 
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
 
-    # La langue dépend de la session et doit être résolue avant CommonMiddleware.
+    # LocaleMiddleware nécessite SessionMiddleware.
     "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
 
@@ -328,15 +325,13 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
 
-    # Vérifie que l'utilisateur authentifié appartient au tenant courant.
+    # Ces middlewares nécessitent request.user et messages.
+    "dBSolutionV3.middleware.tenant_required.TenantRequiredMiddleware",
     "utilisateurs.middleware.TenantUserAccessMiddleware",
-
-    # Vérifie que le TOTP a été validé pour l'utilisateur connecté.
     "utilisateurs.middleware.TOTPRequiredMiddleware",
 
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
-
 # ------------------------------------------------------------------------------
 # URLS / TEMPLATES
 # ------------------------------------------------------------------------------
