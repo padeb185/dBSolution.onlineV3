@@ -16,38 +16,49 @@ from voiture.voiture_exemplaire.models import VoitureExemplaire
 
 @login_required
 def marques_list(request):
-    tenant = request.user.societe  # ton tenant
-    with tenant_context(tenant):
-        marques = VoitureMarque.objects.all().order_by("nom_marque")
-        modeles = VoitureModele.objects.filter(
-        ).order_by("nom_modele")
-        favorites_ids = set(
-            MarqueFavorite.objects.filter(
-                societe=request.user
-            ).values_list("marque_id", flat=True)
-        )
+    marques = VoitureMarque.objects.all().order_by("nom_marque")
 
-        return render(request, "voiture_marque/marques_list.html", {
+    modeles = VoitureModele.objects.all().order_by("nom_modele")
+
+    favorites_ids = set(
+        MarqueFavorite.objects.filter(
+            societe=request.user
+        ).values_list("marque_id", flat=True)
+    )
+
+    return render(
+        request,
+        "voiture_marque/marques_list.html",
+        {
             "marques": marques,
             "modeles": modeles,
             "favorites_ids": favorites_ids,
-        })
-
+        },
+    )
 
 
 @login_required
 def modeles_par_marque(request, marque_id):
-    tenant = request.user.societe  # ton tenant
-    with tenant_context(tenant):
-        marque = get_object_or_404(VoitureMarque, id_marque=marque_id)
-        modeles = VoitureModele.objects.filter(
+    marque = get_object_or_404(
+        VoitureMarque,
+        id_marque=marque_id,
+    )
+
+    modeles = (
+        VoitureModele.objects.filter(
             voiture_marque=marque
-        ).order_by("nom_modele")
-        return render(request, "voiture_modele/modeles_par_marque.html", {
+        )
+        .order_by("nom_modele")
+    )
+
+    return render(
+        request,
+        "voiture_modele/modeles_par_marque.html",
+        {
             "marque": marque,
             "modeles": modeles,
-        })
-
+        },
+    )
 
 @login_required
 def toggle_marque_favorite(request, marque_id):

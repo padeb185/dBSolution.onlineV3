@@ -21,110 +21,126 @@ from ..voiture_pneus.models import VoiturePneus
 @never_cache
 @login_required
 def liste_exemplaires(request, modele_id):
-    tenant = request.user.societe  # ton tenant
-    with tenant_context(tenant):
-        modele = get_object_or_404(VoitureModele, id=modele_id)
-        exemplaires = VoitureExemplaire.objects.filter(voiture_modele=modele).order_by("id")
+    modele = get_object_or_404(
+        VoitureModele,
+        id=modele_id,
+    )
 
-        # Décomposer l'immatriculation belge (1-ABC-234)
-        for ex in exemplaires:
-            immat = ex.immatriculation.replace('-', '').upper()  # enlever les tirets
-            if len(immat) == 7:
-                ex.chiffre = immat[0]
-                ex.lettres = immat[1:4]
-                ex.chiffres = immat[4:7]
-            else:
-                ex.chiffre = ''
-                ex.lettres = ''
-                ex.chiffres = ''
+    exemplaires = (
+        VoitureExemplaire.objects
+        .filter(voiture_modele=modele)
+        .order_by("id")
+    )
 
-        return render(request, "voiture_exemplaire/liste_exemplaires.html", {
+    # Décomposer l'immatriculation belge (1-ABC-234)
+    for ex in exemplaires:
+        immat = (ex.immatriculation or "").replace("-", "").upper()
+
+        if len(immat) == 7:
+            ex.chiffre = immat[0]
+            ex.lettres = immat[1:4]
+            ex.chiffres = immat[4:7]
+        else:
+            ex.chiffre = ""
+            ex.lettres = ""
+            ex.chiffres = ""
+
+    return render(
+        request,
+        "voiture_exemplaire/liste_exemplaires.html",
+        {
             "modele": modele,
             "exemplaires": exemplaires,
-        })
-
-
-
+        },
+    )
 
 
 @never_cache
 @login_required
 def voiture_exemplaire_detail(request, exemplaire_id):
-    tenant = request.user.societe
+    exemplaire = get_object_or_404(
+        VoitureExemplaire,
+        id=exemplaire_id,
+    )
 
-    with tenant_context(tenant):
-        exemplaire = get_object_or_404(
-            VoitureExemplaire.objects.filter(voiture_modele__societe=tenant),
-            id=exemplaire_id
-        )
+    modele = exemplaire.voiture_modele
+    marque = modele.voiture_marque
 
-        modele = exemplaire.voiture_modele
-        marque = modele.voiture_marque
+    for moteur in exemplaire.moteurs.all():
+        moteur.save()
 
-        for moteur in exemplaire.moteurs.all():
-            moteur.save()
+    exemplaire.refresh_from_db()
 
-        exemplaire.refresh_from_db()
-
-        return render(request, "voiture_exemplaire/detail_exemplaire.html", {
+    return render(
+        request,
+        "voiture_exemplaire/detail_exemplaire.html",
+        {
             "exemplaire": exemplaire,
             "modele": modele,
             "marque": marque,
-        })
-
+        },
+    )
 
 @login_required
 def lier_boite_exemplaire(request, exemplaire_id):
+    exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
+    boites = VoitureBoite.objects.all().order_by('fabricant')
 
-    tenant = request.user.societe
-    with tenant_context(tenant):
-        exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
-        boites = VoitureBoite.objects.all().order_by('fabricant')
-
-        if request.method == "POST":
-            boite_id = request.POST.get("boite_id")
-            if boite_id:
-                boite = get_object_or_404(VoitureBoite, id=boite_id)
-                boite.voitures_exemplaires.add(exemplaire)
-                messages.success(request, _(f"La boîte de vitesse a été liée au véhicule '{exemplaire.voiture_marque} { exemplaire.immatriculation}' avec succès."))
+    if request.method == "POST":
+        boite_id = request.POST.get("boite_id")
+        if boite_id:
+            boite = get_object_or_404(VoitureBoite, id=boite_id)
+            boite.voitures_exemplaires.add(exemplaire)
+            messages.success(request, _(f"La boîte de vitesse a été liée au véhicule '{exemplaire.voiture_marque} { exemplaire.immatriculation}' avec succès."))
 
 
-                return redirect("voiture_exemplaire:lier_boite_exemplaire", exemplaire_id=exemplaire.id)
-            else:
-                messages.error(request, _("Veuillez sélectionner une boîte à lier."))
+            return redirect("voiture_exemplaire:lier_boite_exemplaire", exemplaire_id=exemplaire.id)
+        else:
+            messages.error(request, _("Veuillez sélectionner une boîte à lier."))
 
-        return render(request, "voiture_exemplaire/lier_boite.html", {
-            "exemplaire": exemplaire,
-            "boites": boites,
-            "title": _("Lier une boîte de vitesse à un véhicule"),
-        })
+    return render(request, "voiture_exemplaire/lier_boite.html", {
+        "exemplaire": exemplaire,
+        "boites": boites,
+        "title": _("Lier une boîte de vitesse à un véhicule"),
+    })
 
 
 
 @login_required
 def lier_pneus(request, exemplaire_id):
-    tenant = request.user.societe
-    with tenant_context(tenant):
-        exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
+    exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
 
-        pneus = VoiturePneus.objects.all().order_by('manufacturier')
+    pneus = VoiturePneus.objects.all().order_by("manufacturier")
 
-        if request.method == "POST":
-            pneu_id = request.POST.get("pneu_id")
-            if pneu_id:
-                pneu = get_object_or_404(VoiturePneus, id=pneu_id)  # ← corrigé ici
-                pneu.voitures_exemplaires.add(exemplaire)
-                messages.success(request, _(f"Les pneus ont été liés au véhivule '{exemplaire.voiture_marque}  {exemplaire.immatriculation}'  avec succès."))
-                return redirect("voiture_exemplaire:lier_pneus", exemplaire_id=exemplaire.id)
-            else:
-                messages.error(request, _("Veuillez sélectionner des pneus à lier."))
+    if request.method == "POST":
+        pneu_id = request.POST.get("pneu_id")
+        if pneu_id:
+            pneu = get_object_or_404(VoiturePneus, id=pneu_id)
+            pneu.voitures_exemplaires.add(exemplaire)
 
-        return render(request, "voiture_exemplaire/lier_pneus.html", {
-                "exemplaire": exemplaire,
-                "pneus": pneus,
-                "title": _("Lier des pneus à un véhicule"),
-        })
+            messages.success(
+                request,
+                _(
+                    f"Les pneus ont été liés au véhicule "
+                    f"'{exemplaire.voiture_marque} {exemplaire.immatriculation}' avec succès."
+                ),
+            )
+            return redirect(
+                "voiture_exemplaire:lier_pneus",
+                exemplaire_id=exemplaire.id,
+            )
 
+        messages.error(request, _("Veuillez sélectionner des pneus à lier."))
+
+    return render(
+        request,
+        "voiture_exemplaire/lier_pneus.html",
+        {
+            "exemplaire": exemplaire,
+            "pneus": pneus,
+            "title": _("Lier des pneus à un véhicule"),
+        },
+    )
 
 
 
@@ -132,156 +148,148 @@ def lier_pneus(request, exemplaire_id):
 @login_required
 def lier_moteur_exemplaire(request, exemplaire_id):
     exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
-    with tenant_context(request.user.societe):
-        moteurs = MoteurVoiture.objects.all().order_by('motoriste')
+    moteurs = MoteurVoiture.objects.all().order_by('motoriste')
 
-        if request.method == "POST":
-            moteur_id = request.POST.get("moteur_id")
-            if moteur_id:
-                moteur = get_object_or_404(MoteurVoiture, id=moteur_id)
-                moteur.voitures_exemplaires.add(exemplaire)
-                messages.success(request, _(f"Le moteur a été lié au véhicule '{exemplaire.voiture_marque} { exemplaire.immatriculation }' avec succès."))
+    if request.method == "POST":
+        moteur_id = request.POST.get("moteur_id")
+        if moteur_id:
+            moteur = get_object_or_404(MoteurVoiture, id=moteur_id)
+            moteur.voitures_exemplaires.add(exemplaire)
+            messages.success(request, _(f"Le moteur a été lié au véhicule '{exemplaire.voiture_marque} { exemplaire.immatriculation }' avec succès."))
 
 
-                return redirect("voiture_exemplaire:lier_moteur_exemplaire", exemplaire_id=exemplaire.id)
-            else:
-                messages.error(request, _("Veuillez sélectionner un moteur à lier."))
+            return redirect("voiture_exemplaire:lier_moteur_exemplaire", exemplaire_id=exemplaire.id)
+        else:
+            messages.error(request, _("Veuillez sélectionner un moteur à lier."))
 
-        return render(request, "voiture_exemplaire/lier_moteur.html", {
-            "exemplaire": exemplaire,
-            "moteurs": moteurs,
-            "title": _("Lier un moteur à un véhicule"),
-        })
+    return render(request, "voiture_exemplaire/lier_moteur.html", {
+        "exemplaire": exemplaire,
+        "moteurs": moteurs,
+        "title": _("Lier un moteur à un véhicule"),
+    })
 
 
 
 @login_required
 def lier_embrayage_exemplaire(request, exemplaire_id):
     exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
-    with tenant_context(request.user.societe):
-        embrayages = VoitureEmbrayage.objects.all().order_by('fabricant')
+    embrayages = VoitureEmbrayage.objects.all().order_by('fabricant')
 
-        if request.method == "POST":
-            embrayage_id = request.POST.get("embrayage_id")
-            if embrayage_id:
-                embrayage = get_object_or_404(VoitureEmbrayage, id=embrayage_id)
-                embrayage.voitures_exemplaires.add(exemplaire)
-                messages.success(request, _(f"L'embrayage a été lié au véhicule '{exemplaire.voiture_marque} { exemplaire.immatriculation }' avec succès."))
+    if request.method == "POST":
+        embrayage_id = request.POST.get("embrayage_id")
+        if embrayage_id:
+            embrayage = get_object_or_404(VoitureEmbrayage, id=embrayage_id)
+            embrayage.voitures_exemplaires.add(exemplaire)
+            messages.success(request, _(f"L'embrayage a été lié au véhicule '{exemplaire.voiture_marque} { exemplaire.immatriculation }' avec succès."))
 
 
-                return redirect("voiture_exemplaire:lier_embrayage_exemplaire", exemplaire_id=exemplaire.id)
-            else:
-                messages.error(request, _("Veuillez sélectionner un embrayage à lier."))
+            return redirect("voiture_exemplaire:lier_embrayage_exemplaire", exemplaire_id=exemplaire.id)
+        else:
+            messages.error(request, _("Veuillez sélectionner un embrayage à lier."))
 
-        return render(request, "voiture_exemplaire/lier_embrayage.html", {
-            "exemplaire": exemplaire,
-            "embrayages": embrayages,
-            "title": _("Lier un embrayage à un véhicule"),
-        })
+    return render(request, "voiture_exemplaire/lier_embrayage.html", {
+        "exemplaire": exemplaire,
+        "embrayages": embrayages,
+        "title": _("Lier un embrayage à un véhicule"),
+    })
 
 
 
 @login_required
 def lier_freins(request, exemplaire_id):
+    exemplaire = get_object_or_404(
+        VoitureExemplaire,
+        id=exemplaire_id
+    )
 
-    with tenant_context(request.user.societe):
+    freins = VoitureFreinsAV.objects.all().order_by("taille_disque_av")
 
-        exemplaire = get_object_or_404(
-            VoitureExemplaire,
-            id=exemplaire_id
-        )
+    if request.method == "POST":
+        frein_id = request.POST.get("frein_id")
+        marque_disques_av = request.POST.get("marque_disques_av")
+        marque_plaquettes_av = request.POST.get("marque_plaquettes_av")
 
-        freins = VoitureFreinsAV.objects.all().order_by("taille_disque_av")
-
-        if request.method == "POST":
-            frein_id = request.POST.get("frein_id")
-            marque_disques_av = request.POST.get("marque_disques_av")
-            marque_plaquettes_av = request.POST.get("marque_plaquettes_av")
-
-            if not frein_id:
-                messages.error(
-                    request,
-                    _("Veuillez sélectionner un système de freinage à lier.")
-                )
-                return redirect(
-                    "voiture_exemplaire:lier_frein",
-                    exemplaire_id=exemplaire.id
-                )
-
-            frein = get_object_or_404(
-                VoitureFreinsAV,
-                id=frein_id
-            )
-
-            if marque_disques_av:
-                frein.marque_disques_av = marque_disques_av
-
-            if marque_plaquettes_av:
-                frein.marque_plaquettes_av = marque_plaquettes_av
-
-            frein.save()
-
-            frein.voitures_exemplaires.add(exemplaire)
-
-            messages.success(
+        if not frein_id:
+            messages.error(
                 request,
-                _(
-                    f"Le système de freinage avant a été lié au véhicule "
-                    f"'{exemplaire.voiture_marque} {exemplaire.immatriculation}' avec succès."
-                )
+                _("Veuillez sélectionner un système de freinage à lier.")
             )
-
             return redirect(
                 "voiture_exemplaire:lier_frein",
                 exemplaire_id=exemplaire.id
             )
 
-        return render(request, "voiture_exemplaire/lier_frein.html", {
-            "exemplaire": exemplaire,
-            "freins": freins,
-            "title": _("Lier un système de freinage avant à un véhicule"),
-        })
+        frein = get_object_or_404(
+            VoitureFreinsAV,
+            id=frein_id
+        )
+
+        if marque_disques_av:
+            frein.marque_disques_av = marque_disques_av
+
+        if marque_plaquettes_av:
+            frein.marque_plaquettes_av = marque_plaquettes_av
+
+        frein.save()
+
+        frein.voitures_exemplaires.add(exemplaire)
+
+        messages.success(
+            request,
+            _(
+                f"Le système de freinage avant a été lié au véhicule "
+                f"'{exemplaire.voiture_marque} {exemplaire.immatriculation}' avec succès."
+            )
+        )
+
+        return redirect(
+            "voiture_exemplaire:lier_frein",
+            exemplaire_id=exemplaire.id
+        )
+
+    return render(request, "voiture_exemplaire/lier_frein.html", {
+        "exemplaire": exemplaire,
+         "freins": freins,
+        "title": _("Lier un système de freinage avant à un véhicule"),
+    })
 
 
 
 
 @login_required
 def lier_frein_ar(request, exemplaire_id):
-    # Récupération de l'exemplaire
+
     exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
 
-    with tenant_context(request.user.societe):
-        # Liste de tous les systèmes de freins
+    freins_ar = VoitureFreinsAR.objects.all().order_by('taille_disque_ar')
+    marque_disques_ar = request.POST.get("marque_disques_ar")
+    marque_plaquettes_ar = request.POST.get("marque_plaquettes_ar")
 
-        freins_ar = VoitureFreinsAR.objects.all().order_by('taille_disque_ar')
-        marque_disques_ar = request.POST.get("marque_disques_ar")
-        marque_plaquettes_ar = request.POST.get("marque_plaquettes_ar")
+    if request.method == "POST":
+        frein_ar_id = request.POST.get("frein_ar_id")
+        if frein_ar_id:
+            frein_ar = get_object_or_404(VoitureFreinsAR, id=frein_ar_id)
 
-        if request.method == "POST":
-            frein_ar_id = request.POST.get("frein_ar_id")
-            if frein_ar_id:
-                frein_ar = get_object_or_404(VoitureFreinsAR, id=frein_ar_id)
-
-                if marque_disques_ar:
-                    frein_ar.marque_disques_av = marque_disques_ar
-                if marque_plaquettes_ar:
-                    frein_ar.marque_plaquettes_av = marque_plaquettes_ar
-                frein_ar.save()
+            if marque_disques_ar:
+                frein_ar.marque_disques_av = marque_disques_ar
+            if marque_plaquettes_ar:
+                frein_ar.marque_plaquettes_av = marque_plaquettes_ar
+            frein_ar.save()
 
                 # Lier le frein à l'exemplaire
-                frein_ar.voitures_exemplaires.add(exemplaire)
-                messages.success(request, _(f"Le système de freinage arrière a été lié au véhicule '{exemplaire.voiture_marque}  { exemplaire.immatriculation }' avec succès."))
+            frein_ar.voitures_exemplaires.add(exemplaire)
+            messages.success(request, _(f"Le système de freinage arrière a été lié au véhicule '{exemplaire.voiture_marque}  { exemplaire.immatriculation }' avec succès."))
 
                 # Redirection vers la page de détail de l'exemplaire (ou une page liste)
-                return redirect("voiture_exemplaire:lier_frein_ar", exemplaire_id=exemplaire.id)
-            else:
-                messages.error(request, _("Veuillez sélectionner un système de freinage à lier."))
+            return redirect("voiture_exemplaire:lier_frein_ar", exemplaire_id=exemplaire.id)
+        else:
+            messages.error(request, _("Veuillez sélectionner un système de freinage à lier."))
 
-        return render(request, "voiture_exemplaire/lier_frein_ar.html", {
-            "exemplaire": exemplaire,
-            "freins_ar": freins_ar,
-            "title": _("Lier un système de freinage arrière à un véhicule"),
-        })
+    return render(request, "voiture_exemplaire/lier_frein_ar.html", {
+        "exemplaire": exemplaire,
+        "freins_ar": freins_ar,
+        "title": _("Lier un système de freinage arrière à un véhicule"),
+    })
 
 
 
@@ -327,43 +335,42 @@ def moteur_autocomplete(request):
 def modifier_exemplaire(request, exemplaire_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
+    exemplaire = get_object_or_404(VoitureExemplaire, id=exemplaire_id)
 
-        if request.method == "POST":
-            form = VoitureExemplaireForm(
-                request.POST,
-                instance=exemplaire,
-                user=request.user
+    if request.method == "POST":
+        form = VoitureExemplaireForm(
+            request.POST,
+            instance=exemplaire,
+            user=request.user
+        )
+
+        if form.is_valid():
+            exemplaire = form.save(commit=False)
+            exemplaire.societe = tenant
+            exemplaire.save()
+
+            messages.success(
+                request,
+                _("Véhicule '%(vehicule)s' mis à jour avec succès.") % {
+                    "vehicule": f"{exemplaire.voiture_marque} {exemplaire.immatriculation}"
+                }
             )
 
-            if form.is_valid():
-                exemplaire = form.save(commit=False)
-                exemplaire.societe = tenant
-                exemplaire.save()
-
-                messages.success(
-                    request,
-                    _("Véhicule '%(vehicule)s' mis à jour avec succès.") % {
-                        "vehicule": f"{exemplaire.voiture_marque} {exemplaire.immatriculation}"
-                    }
-                )
-
-                return redirect(
-                    "voiture_exemplaire:voiture_exemplaire_detail",
-                    exemplaire_id=exemplaire.id
-                )
-
-        else:
-            form = VoitureExemplaireForm(
-                instance=exemplaire,
-                user=request.user
+            return redirect(
+                "voiture_exemplaire:voiture_exemplaire_detail",
+                exemplaire_id=exemplaire.id
             )
 
-        return render(request, "voiture_exemplaire/modifier_exemplaire.html", {
-            "form": form,
-            "exemplaire": exemplaire,
-        })
+    else:
+        form = VoitureExemplaireForm(
+            instance=exemplaire,
+            user=request.user
+       )
+
+    return render(request, "voiture_exemplaire/modifier_exemplaire.html", {
+        "form": form,
+        "exemplaire": exemplaire,
+    })
 
 
     
@@ -371,10 +378,7 @@ def modifier_exemplaire(request, exemplaire_id):
 @login_required
 def liste_exemplaires_all(request):
 
-    tenant = request.user.societe
-
-    with tenant_context(tenant):
-        exemplaires = VoitureExemplaire.objects.select_related(
+    exemplaires = VoitureExemplaire.objects.select_related(
             'voiture_marque', 'voiture_modele'  # Ce sont les bons noms de champs
         ).all().order_by('id')
 
@@ -390,40 +394,36 @@ def liste_exemplaires_all(request):
 @login_required
 def ajouter_exemplaire_all(request, modele_id):
 
-    tenant = request.user.societe
+    modele = get_object_or_404(VoitureModele, id=modele_id)
+    marque = modele.voiture_marque
 
-    with tenant_context(tenant):
+    if request.method == "POST":
+        form = VoitureExemplaireForm(request.POST, user=request.user)
 
-        modele = get_object_or_404(VoitureModele, id=modele_id)
-        marque = modele.voiture_marque
+        if form.is_valid():
+            instance = form.save(commit=False)
 
-        if request.method == "POST":
-            form = VoitureExemplaireForm(request.POST, user=request.user)
+            annee = form.cleaned_data.get("annee_production")
 
-            if form.is_valid():
-                instance = form.save(commit=False)
+            instance.modele = modele
+            instance.voiture_marque = marque
+            instance.societe = request.user.societe
+            instance.est_apres_2010 = bool(annee and annee > 2010)
 
-                annee = form.cleaned_data.get("annee_production")
+            instance.save()
 
-                instance.modele = modele
-                instance.voiture_marque = marque
-                instance.societe = request.user.societe
-                instance.est_apres_2010 = bool(annee and annee > 2010)
+            messages.success(request, "Véhicule ajouté avec succès.")
 
-                instance.save()
+    else:
+        form = VoitureExemplaireForm(
+            user=request.user,
+            initial={
+                "voiture_marque": marque,
+                "voiture_modele": modele
+            }
+        )
 
-                messages.success(request, "Véhicule ajouté avec succès.")
-
-        else:
-            form = VoitureExemplaireForm(
-                user=request.user,
-                initial={
-                    "voiture_marque": marque,
-                    "voiture_modele": modele
-                }
-            )
-
-        return render(request, "voiture_exemplaire/ajouter_exemplaire_all.html", {
-            "form": form,
-            "modele": modele
-        })
+    return render(request, "voiture_exemplaire/ajouter_exemplaire_all.html", {
+        "form": form,
+        "modele": modele
+    })

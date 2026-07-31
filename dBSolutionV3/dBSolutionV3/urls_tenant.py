@@ -22,10 +22,6 @@ urlpatterns = [
     ),
 
     # Moteurs
-    path(
-        "moteurs/",
-        include(("voiture.voiture_moteur.urls", "voiture_moteur"), namespace="voiture_moteur")
-    ),
 
     path("voiture/", include(("tenant.urls", "tenant"), namespace="tenant")),
 

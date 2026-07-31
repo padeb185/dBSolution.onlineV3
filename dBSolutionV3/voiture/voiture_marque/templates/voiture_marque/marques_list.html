@@ -40,29 +40,74 @@
         </div>
     </div>
 
-    <!-- Marques -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {% for marque in marques %}
-        <div class="relative bg-white shadow-md transition duration-300 hover:shadow-lg hover:bg-blue-50 rounded-lg p-6 marque-card
-                    flex items-center gap-6 cursor-pointer w-full "
-             onclick="window.location.href='{% url 'voiture_marque:modeles_par_marque' marque_id=marque.id_marque %}'"
-             data-marque-id="{{ marque.id_marque }}"
-             data-marque-nom="{{ marque.nom_marque|lower }}">
+        <!-- Marques -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-             <!-- ⭐ ÉTOILE FAVORI -->
-            <div class="absolute right-3 z-10" style="bottom: 15px;">
-                <button
-                    class="favorite-btn text-2xl"
-                    data-url="{% url 'voiture_marque:toggle_marque_favorite' marque_id=marque.id_marque %}"
-                    onclick="event.stopPropagation();">
-                    {% if marque.id_marque in favorites_ids %}
-                        ⭐
-                    {% else %}
-                        ☆
-                    {% endif %}
-                </button>
+                {% for marque in marques %}
+
+                    <a href="{% url 'voiture_marque:modeles_par_marque' marque_id=marque.id_marque %}"
+                       class="relative bg-white shadow-md transition duration-300
+                              hover:shadow-lg hover:bg-blue-50 rounded-lg p-6
+                              marque-card flex items-center gap-6 cursor-pointer w-full"
+                       data-marque-id="{{ marque.id_marque }}"
+                       data-marque-nom="{{ marque.nom_marque|lower }}">
+
+                        <!-- Étoile favori -->
+                        <div class="absolute right-3 z-10" style="bottom: 15px;">
+                            <button
+                                type="button"
+                                class="favorite-btn text-2xl"
+                                data-url="{% url 'voiture_marque:toggle_marque_favorite' marque_id=marque.id_marque %}"
+                                onclick="event.preventDefault(); event.stopPropagation();">
+
+                                {% if marque.id_marque in favorites_ids %}
+                                    ⭐
+                                {% else %}
+                                    ☆
+                                {% endif %}
+
+                            </button>
+                        </div>
+
+                        <div class="flex-1">
+                            <h2 class="text-lg font-semibold">
+                                {{ marque.nom_marque }}
+                            </h2>
+
+                            <p class="text-gray-600">
+                                {% trans "Voir les" %}
+                                {{ marque.modeles.count }}
+                                {% trans "modèles de" %}
+                                {{ marque.nom_marque }}
+                            </p>
+                        </div>
+
+                        <img
+                            src="{% static 'images/marques/' %}{{ marque.nom_fichier_logo }}"
+                            alt="{{ marque.nom_marque }}"
+                            style="width:75px; margin-right:20px;"
+                            onerror="
+                                console.error(
+                                    'Logo introuvable :',
+                                    '{{ marque.nom_marque|escapejs }}',
+                                    this.src
+                                );
+                                this.onerror = null;
+                                this.src = '{% static 'images/marques/default.png' %}';
+                            "
+                        >
+
+                    </a>
+
+                {% empty %}
+
+                    <p class="col-span-full text-center text-gray-500">
+                        {% trans "Aucune marque trouvée." %}
+                    </p>
+
+                {% endfor %}
+
             </div>
-
 
            <div class="flex-1">
                 <h2 class="text-lg font-semibold">{{ marque.nom_marque }}</h2>
@@ -87,13 +132,9 @@
                 "
             >
 
-        </div>
-        {% endfor %}
-    </div>
-
 </div>
 
- <br>
+<br>
 <br>
 
 <br>

@@ -19,16 +19,24 @@ def moteur_detail_view(request, moteur_id):
 
 
 
+from django.urls import get_script_prefix, reverse
+from django.utils.translation import get_language
 
 @never_cache
 @login_required
 def liste_moteur(request):
-    tenant = request.user.societe  # récupérer le tenant
-    with tenant_context(tenant):
-        moteurs = MoteurVoiture.objects.all()  # tous les moteurs du tenant
-        context = {"moteurs": moteurs}
-        return render(request, "voiture_moteur/list.html", context)
+    moteurs = MoteurVoiture.objects.all().order_by(
+        "motoriste",
+        "code_moteur",
+    )
 
+    return render(
+        request,
+        "voiture_moteur/list.html",
+        {
+            "moteurs": moteurs,
+        },
+    )
 
 
 
