@@ -264,8 +264,9 @@ TENANT_APPS = (
     'maindoeuvre',
 
 )
-
-INSTALLED_APPS = list(SHARED_APPS) + [
+INSTALLED_APPS = list(
+    SHARED_APPS
+) + [
     app
     for app in TENANT_APPS
     if app not in SHARED_APPS
@@ -282,16 +283,25 @@ CRISPY_TEMPLATE_PACK = 'tailwind'
 AUTH_USER_MODEL = "utilisateurs.Utilisateur"
 
 AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
+    "utilisateurs.backends.PublicSchemaModelBackend",
     'guardian.backends.ObjectPermissionBackend',
 ]
+
+
+
 LOGIN_URL = "/fr/connexion/"
 LOGOUT_REDIRECT_URL = "/fr/connexion/"
 LOGIN_REDIRECT_URL = 'home'
 
+
+
+
 SESSION_COOKIE_AGE = 60 * 60 * 8  # 8 heures
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_SAVE_EVERY_REQUEST = True
+SESSION_COOKIE_PATH = "/"
+
+
 
 SECURE_SSL_REDIRECT = False
 SESSION_COOKIE_SECURE = False
@@ -303,16 +313,13 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 
-
-
-
 # ------------------------------------------------------------------------------
 # MIDDLEWARE (ORDRE CRITIQUE)
 # ------------------------------------------------------------------------------
 MIDDLEWARE = [
     # Résolution du tenant à partir du domaine :
     # dbsolution.localhost, campus.localhost, etc.
-    "django_tenants.middleware.main.TenantMainMiddleware",
+    "django_tenants.middleware.TenantSubfolderMiddleware",
 
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",

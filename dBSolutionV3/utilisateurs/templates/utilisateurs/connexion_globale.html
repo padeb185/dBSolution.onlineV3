@@ -1,106 +1,262 @@
 {% extends "base.html" %}
+{% load static i18n %}
+
+{% block title %}
+    {% trans "Connexion" %}
+{% endblock %}
+
+{% block body_class %}
+    bg-pastelblue flex items-center justify-center min-h-screen
+{% endblock %}
+
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block main_class %}
+    flex flex-col items-center justify-center w-full
+{% endblock %}
 
 {% block content %}
 
-<div class="flex justify-center items-center w-full">
-    <div class="bg-white shadow-md rounded-lg p-8 w-full max-w-md flex flex-col items-stretch gap-4">
+<div class="w-full">
 
-        <h1 class="text-2xl font-bold mb-2 text-center">
-            Connexion
-        </h1>
-
-        <p class="text-center text-sm text-gray-500 mb-4">
-            Connectez-vous pour accéder à votre société.
-        </p>
-
-        {% if messages %}
-            {% for message in messages %}
-                <div class="
-                    mb-3 px-4 py-2 rounded
-                    {% if message.tags == 'success' %}
-                        bg-green-100 text-green-800 border border-green-300
-                    {% else %}
-                        bg-red-100 text-red-800 border border-red-300
-                    {% endif %}
-                ">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endif %}
-
-        <form
-            method="post"
-            action="{% url 'connexion_globale' %}"
-            class="flex flex-col gap-4 w-full"
+    <div class="mb-6">
+        <img
+            src="{% static 'CarsCosts/CarsCostsTitre.png' %}"
+            alt="{% trans 'CarsCosts' %}"
+            class="mx-auto h-auto"
+            style="width: 70%; max-width: 520px;"
         >
-            {% csrf_token %}
+    </div>
 
-            <input
-                type="email"
-                name="email"
-                value="{{ request.POST.email|default:'' }}"
-                placeholder="Email"
-                autocomplete="email"
-                required
-                class="w-full border border-gray-300 px-3 py-2 rounded focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            >
+    <div class="flex justify-center items-center w-full px-4">
 
-            <input
-                type="password"
-                name="password"
-                placeholder="Mot de passe"
-                autocomplete="current-password"
-                required
-                class="w-full border border-gray-300 px-3 py-2 rounded focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            >
+        <div class="
+            bg-white
+            shadow-md
+            rounded-lg
+            p-8
+            w-full
+            max-w-md
+            flex
+            flex-col
+            items-stretch
+            gap-4
+        ">
 
-            <input
-                type="text"
-                name="totp_code"
-                placeholder="Code TOTP si activé"
-                autocomplete="one-time-code"
-                inputmode="numeric"
-                class="w-full border border-gray-300 px-3 py-2 rounded focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            >
+            <h1 class="text-2xl font-bold text-center">
+                {% trans "Connexion" %}
+            </h1>
 
-            <button
-                type="submit"
-                class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition duration-300"
-            >
-                Se connecter
-            </button>
-        </form>
+            <p class="text-center text-sm text-gray-500 mb-2">
+                {% trans "Connectez-vous pour accéder à votre société." %}
+            </p>
 
-        <div class="text-center text-sm text-gray-500 mt-2">
-            <a
-                href="{% url 'password_reset' %}"
-                class="hover:underline hover:text-blue-700"
+            {% if messages %}
+                <div class="space-y-3">
+                    {% for message in messages %}
+                        <div
+                            class="
+                                px-4
+                                py-3
+                                rounded
+                                border
+
+                                {% if message.tags == 'success' %}
+                                    bg-green-100
+                                    text-green-800
+                                    border-green-300
+
+                                {% elif message.tags == 'warning' %}
+                                    bg-yellow-100
+                                    text-yellow-800
+                                    border-yellow-300
+
+                                {% elif message.tags == 'info' %}
+                                    bg-blue-100
+                                    text-blue-800
+                                    border-blue-300
+
+                                {% else %}
+                                    bg-red-100
+                                    text-red-800
+                                    border-red-300
+                                {% endif %}
+                            "
+                        >
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% if form.non_field_errors %}
+                <div class="
+                    px-4
+                    py-3
+                    rounded
+                    border
+                    bg-red-100
+                    text-red-800
+                    border-red-300
+                ">
+                    {% for error in form.non_field_errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <form
+                method="post"
+                action="/fr/connexion/"
+                class="flex flex-col gap-4 w-full"
+                novalidate
             >
-                Mot de passe oublié ?
-            </a>
+                {% csrf_token %}
+
+                <div>
+                    <label
+                        for="id_email"
+                        class="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                        {% trans "Adresse e-mail" %}
+                    </label>
+
+                    <input
+                        type="email"
+                        id="id_email"
+                        name="email"
+                        value="{{ form.email.value|default:'' }}"
+                        placeholder="{% trans 'Adresse e-mail' %}"
+                        autocomplete="email"
+                        required
+                        class="
+                            w-full
+                            border
+                            border-gray-300
+                            px-3
+                            py-2
+                            rounded
+                            focus:ring-2
+                            focus:ring-blue-500
+                            focus:outline-none
+                        "
+                    >
+
+                    {% if form.email.errors %}
+                        <div class="mt-1 text-sm text-red-600">
+                            {% for error in form.email.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div>
+                    <label
+                        for="id_password"
+                        class="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                        {% trans "Mot de passe" %}
+                    </label>
+
+                    <input
+                        type="password"
+                        id="id_password"
+                        name="password"
+                        placeholder="{% trans 'Mot de passe' %}"
+                        autocomplete="current-password"
+                        required
+                        class="
+                            w-full
+                            border
+                            border-gray-300
+                            px-3
+                            py-2
+                            rounded
+                            focus:ring-2
+                            focus:ring-blue-500
+                            focus:outline-none
+                        "
+                    >
+
+                    {% if form.password.errors %}
+                        <div class="mt-1 text-sm text-red-600">
+                            {% for error in form.password.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div>
+                    <label
+                        for="id_totp_code"
+                        class="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                        {% trans "Code de sécurité" %}
+                    </label>
+
+                    <input
+                        type="text"
+                        id="id_totp_code"
+                        name="totp_code"
+                        value="{{ form.totp_code.value|default:'' }}"
+                        placeholder="{% trans 'Code TOTP si activé' %}"
+                        autocomplete="one-time-code"
+                        inputmode="numeric"
+                        pattern="[0-9]{6}"
+                        maxlength="6"
+                        class="
+                            w-full
+                            border
+                            border-gray-300
+                            px-3
+                            py-2
+                            rounded
+                            focus:ring-2
+                            focus:ring-blue-500
+                            focus:outline-none
+                        "
+                    >
+
+                    {% if form.totp_code.errors %}
+                        <div class="mt-1 text-sm text-red-600">
+                            {% for error in form.totp_code.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <button
+                    type="submit"
+                    class="
+                        w-full
+                        bg-blue-600
+                        text-white
+                        py-2
+                        rounded
+                        hover:bg-blue-700
+                        transition
+                        duration-300
+                    "
+                >
+                    {% trans "Se connecter" %}
+                </button>
+            </form>
+
+            <div class="text-center text-sm text-gray-500 mt-2">
+                <a
+                    href="{% url 'password_reset' %}"
+                    class="hover:underline hover:text-blue-700"
+                >
+                    {% trans "Mot de passe oublié ?" %}
+                </a>
+            </div>
+
         </div>
-
-        <div class="hidden bg-blue-700 hover:bg-blue-700 text-gray-700 text-gray-500 border-gray-300 px-4 py-2 rounded shadow-md flex flex-col items-center justify-center"></div>
-
     </div>
 </div>
-    <script>
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== "") {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                if (cookie.substring(0, name.length + 1) === (name + "=")) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-    const csrftoken = getCookie('csrftoken');
-    </script>
-
 
 {% endblock %}

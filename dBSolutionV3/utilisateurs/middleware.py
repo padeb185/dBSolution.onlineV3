@@ -1,6 +1,5 @@
 from django.contrib import messages
 from django.contrib.auth import logout
-from django.http import Http404
 from django.shortcuts import redirect
 from django_tenants.utils import get_public_schema_name
 
@@ -8,12 +7,46 @@ from django_tenants.utils import get_public_schema_name
 CONNEXION_GLOBALE_URL = "/fr/connexion/"
 
 
-class TOTPRequiredMiddleware:
+def get_connexion_globale_url(request):
     """
-    Vérifie que le TOTP a été validé pendant la session courante.
+    Retourne l'URL globale de connexion dans la langue active,
+    sans préfixe tenant.
+    """
 
-    Ce middleware intervient uniquement pour les utilisateurs déjà
-    authentifiés et dont le TOTP est activé.
+    language_code = getattr(
+        request,
+        "LANGUAGE_CODE",
+        "fr",
+    ) or "fr"
+
+    language_code = (
+        language_code
+        .split("-")[0]
+        .strip()
+        .lower()
+    )
+
+    langues_autorisees = {
+        "fr",
+        "en",
+        "de",
+        "es",
+        "it",
+        "nl",
+        "el",
+    }
+
+    if language_code not in langues_autorisees:
+        language_code = "fr"
+
+    return f"/{language_code}/connexion/"
+
+
+class TOTPRequiredMiddleware:
+
+    """
+    Vérifie que le TOTP a été validé pendant la session
+    courante pour l'utilisateur connecté.
     """
 
     EXCLUDED_PATH_PARTS = (
@@ -23,144 +56,187 @@ class TOTPRequiredMiddleware:
         "/static/",
         "/media/",
         "/totp/setup/",
+        "/i18n/",
     )
 
     def __init__(self, get_response):
         self.get_response = get_response
 
     def __call__(self, request):
-        path = request.path_info
+        print("========== TOTP MIDDLEWARE ==========")
+        print("PATH :", request.path)
+        print("AUTH :", request.user.is_authenticated)
+        print("TOTP ENABLED :", getattr(request.user, "totp_enabled", None))
+        print("TOTP VERIFIED :", request.session.get("totp_verified"))
+        print("=====================================")
+
+        path = request.path_info or "/"
         user = getattr(request, "user", None)
 
-        # Les routes publiques et techniques restent toujours accessibles.
+        # ---------------------------------------------
+        # Routes publiques et techniques
+        # ---------------------------------------------
+
         if any(
             part in path
             for part in self.EXCLUDED_PATH_PARTS
         ):
             return self.get_response(request)
 
-        # Le middleware d'authentification n'a pas encore fourni
-        # d'utilisateur exploitable.
+        # ---------------------------------------------
+        # Utilisateur non authentifié
+        # ---------------------------------------------
+
         if user is None or not user.is_authenticated:
             return self.get_response(request)
 
-        # Aucun contrôle TOTP n'est requis si le TOTP n'est pas activé.
-        if not getattr(user, "totp_enabled", False):
-            return self.get_response(request)
+        # ---------------------------------------------
+        # Aucun TOTP configuré
+        # ---------------------------------------------
 
-        totp_verified = (
-            request.session.get("totp_verified") is True
+        totp_enabled = bool(
+            getattr(
+                user,
+                "totp_enabled",
+                False,
+            )
         )
 
-        totp_user_id = request.session.get("totp_user_id")
+        if not totp_enabled:
+            return self.get_response(request)
+
+        # ---------------------------------------------
+        # Vérification de la session TOTP
+        # ---------------------------------------------
+
+        totp_verified = (
+            request.session.get("totp_verified")
+            is True
+        )
+
+        totp_user_id = str(
+            request.session.get("totp_user_id")
+            or ""
+        )
+
+        current_user_id = str(user.pk)
 
         validation_correcte = (
             totp_verified
-            and totp_user_id == str(user.pk)
+            and totp_user_id == current_user_id
         )
 
         if validation_correcte:
             return self.get_response(request)
 
-        # La session Django existe, mais le TOTP n'a pas été validé
-        # pour cet utilisateur.
+        # ---------------------------------------------
+        # Session TOTP invalide
+        # ---------------------------------------------
+
+        print("========== TOTP MIDDLEWARE DEBUG ==========")
+        print("PATH :", path)
+        print("UTILISATEUR :", user)
+        print("UTILISATEUR ID :", current_user_id)
+        print("TOTP ENABLED :", totp_enabled)
+        print("TOTP VERIFIED :", totp_verified)
+        print("TOTP USER ID SESSION :", totp_user_id)
+        print("===========================================")
+
         logout(request)
 
         messages.error(
             request,
             "Votre session TOTP doit être validée.",
         )
-
-        # Redirection absolue afin d'éviter que Django ajoute
-        # automatiquement le préfixe du tenant.
-        return redirect(CONNEXION_GLOBALE_URL)
-
+        print(">>> REDIRECTION DEPUIS TOTP MIDDLEWARE")
+        return redirect(
+            get_connexion_globale_url(request)
+        )
 
 
 class TenantUserAccessMiddleware:
     """
-    Vérifie que l'utilisateur connecté appartient bien
-    au tenant demandé dans l'URL.
+    Vérifie que l'utilisateur connecté accède uniquement
+    au tenant associé à sa session.
 
-    La comparaison se fait avec schema_name.
+    La comparaison se fait entre :
+
+        request.tenant.schema_name
+
+    et :
+
+        request.session["tenant_schema"]
+
+    Cela évite de recharger user.societe depuis le schéma
+    tenant courant.
     """
 
-    PUBLIC_PATHS = (
-        "/fr/connexion/",
-        "/en/connexion/",
-        "/de/connexion/",
-        "/es/connexion/",
-        "/it/connexion/",
-        "/nl/connexion/",
-        "/el/connexion/",
-        "/i18n/",
+    EXCLUDED_PATH_PARTS = (
+        "/connexion/",
+        "/logout/",
+        "/admin/",
         "/static/",
         "/media/",
-        "/admin/",
         "/totp/setup/",
+        "/i18n/",
     )
 
     def __init__(self, get_response):
         self.get_response = get_response
 
     def __call__(self, request):
-        path = request.path_info
-
-        # Ne pas contrôler les routes publiques.
-        if any(
-            path.startswith(public_path)
-            for public_path in self.PUBLIC_PATHS
-        ):
-            return self.get_response(request)
-
         tenant = getattr(request, "tenant", None)
-        user = getattr(request, "user", None)
+        societe = getattr(request.user, "societe", None)
 
-        # Aucun tenant résolu.
-        if tenant is None:
+        print("========== TENANT USER ACCESS ==========")
+        print("PATH :", request.path)
+        print("AUTH :", request.user.is_authenticated)
+        print("SCHEMA REQUEST :", getattr(tenant, "schema_name", None))
+        print("SCHEMA USER :", getattr(societe, "schema_name", None))
+        print("SESSION TENANT :", request.session.get("tenant_schema"))
+        print("========================================")
+
+        # votre code actuel
+
+        if not request.user.is_authenticated:
             return self.get_response(request)
 
-        # Aucun contrôle sur le schéma public.
-        if tenant.schema_name == get_public_schema_name():
+        tenant_requete = getattr(request, "tenant", None)
+
+        # Le schéma public n'est pas soumis au contrôle tenant.
+        if not tenant_requete:
             return self.get_response(request)
 
-        # Aucun utilisateur connecté.
-        if user is None or not user.is_authenticated:
+        if tenant_requete.schema_name == "public":
             return self.get_response(request)
 
-        user_societe = getattr(user, "societe", None)
+        societe_utilisateur = getattr(
+            request.user,
+            "societe",
+            None,
+        )
 
-        if user_societe is None:
-            logout(request)
-
-            messages.error(
-                request,
-                "Aucune société n'est associée à votre compte.",
-            )
-
-            return redirect("/fr/connexion/")
-
-        user_schema_name = getattr(
-            user_societe,
+        schema_utilisateur = getattr(
+            societe_utilisateur,
             "schema_name",
             None,
         )
 
-        tenant_schema_name = getattr(
-            tenant,
+        schema_requete = getattr(
+            tenant_requete,
             "schema_name",
             None,
         )
 
-        if user_schema_name != tenant_schema_name:
-            logout(request)
+        print("========== TENANT ACCESS CHECK ==========")
+        print("USER :", request.user)
+        print("SCHEMA USER :", schema_utilisateur)
+        print("SCHEMA REQUEST :", schema_requete)
+        print("=========================================")
 
-            messages.error(
-                request,
-                "Vous n'êtes pas autorisé à accéder à cette société.",
-            )
-
+        if schema_utilisateur != schema_requete:
+            request.session.flush()
+            print(">>> REDIRECTION DEPUIS TENANT USER ACCESS")
             return redirect("/fr/connexion/")
 
         return self.get_response(request)
-

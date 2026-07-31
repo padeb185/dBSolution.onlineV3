@@ -119,8 +119,6 @@ urlpatterns += i18n_patterns(
 
     path("recharge/", include("recharge.urls")),
 
-    path("voiture_modele/", include("voiture.voiture_modele.urls")),
-
     path("piece/", include("piece.urls", namespace="piece")),
 
     path("outillage/", include("outillage.urls", namespace="outillage")),

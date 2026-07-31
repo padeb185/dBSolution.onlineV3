@@ -1,216 +1,607 @@
+
 import pyotp
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
-from django.utils.translation import gettext as _
-from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
-from django.views.decorators.cache import never_cache
-from utilisateurs.forms import LoginForm
-from utilisateurs.models import UserLog
 
-
-def home(request):
-    return render(request, 'home.html')
-
-
-
-
-
-
-
-def login_view(request):
-    """
-    Ancienne vue de connexion conservée temporairement
-    pour rediriger vers la connexion globale.
-    """
-    return redirect("/fr/connexion/")
-
-
-
-class LoginTOTPForm:
-    pass
-
-
+from django import forms
 from django.contrib import messages
-from django.contrib.auth import get_user_model, login
+from django.contrib.auth import (
+    get_user_model,
+    login,
+    logout,
+)
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
-from django.utils.translation import get_language
-from django.utils.translation import gettext as _
+from django.utils.translation import (
+    get_language,
+    gettext_lazy as _,
+)
 from django.views.decorators.cache import never_cache
-from django_tenants.utils import schema_context
 
-import pyotp
+from django_tenants.utils import (
+    get_public_schema_name,
+    schema_context,
+)
+
 
 Utilisateur = get_user_model()
 
+PUBLIC_AUTH_BACKEND = (
+    "utilisateurs.backends.PublicSchemaModelBackend"
+)
+
+
+# =====================================================
+# FORMULAIRE TOTP
+# =====================================================
+
+class LoginTOTPForm(forms.Form):
+    totp_token = forms.CharField(
+        label=_("Code de sécurité"),
+        max_length=6,
+        min_length=6,
+        strip=True,
+        widget=forms.TextInput(
+            attrs={
+                "autocomplete": "one-time-code",
+                "inputmode": "numeric",
+                "pattern": "[0-9]*",
+                "placeholder": "123456",
+            }
+        ),
+    )
+
+    def clean_totp_token(self):
+        token = (
+            self.cleaned_data.get("totp_token")
+            or ""
+        ).strip()
+
+        if not token.isdigit():
+            raise forms.ValidationError(
+                _(
+                    "Le code de sécurité doit contenir "
+                    "uniquement des chiffres."
+                )
+            )
+
+        if len(token) != 6:
+            raise forms.ValidationError(
+                _(
+                    "Le code de sécurité doit contenir "
+                    "exactement 6 chiffres."
+                )
+            )
+
+        return token
+
+
+# =====================================================
+# OUTILS
+# =====================================================
+
+def get_langue_active():
+    langue = (
+        get_language()
+        or "fr"
+    ).split("-")[0].strip().lower()
+
+    langues_autorisees = {
+        "fr",
+        "en",
+        "de",
+        "es",
+        "it",
+        "nl",
+        "el",
+    }
+
+    if langue not in langues_autorisees:
+        langue = "fr"
+
+    return langue
+
+
+def build_tenant_url(
+    schema_name,
+    langue,
+    chemin,
+):
+    schema_name = (
+        schema_name
+        or ""
+    ).strip().lower()
+
+    langue = (
+        langue
+        or "fr"
+    ).strip().lower()
+
+    chemin = chemin.strip("/")
+
+    return (
+        f"/tenant/{schema_name}/"
+        f"{langue}/{chemin}/"
+    )
+
+
+# =====================================================
+# ACCUEIL
+# =====================================================
+
+def home(request):
+    return render(
+        request,
+        "home.html",
+    )
+
+
+# =====================================================
+# VALIDATION TOTP SÉPARÉE
+# =====================================================
 
 @never_cache
 def login_totp(request):
-    """Validation du code TOTP après le mot de passe."""
+    """
+    Valide le code TOTP après la vérification préalable
+    de l'adresse e-mail et du mot de passe.
+    """
 
-    user_id = request.session.get("totp_login_user")
-    schema_name = request.session.get("totp_login_tenant")
-    societe_id = request.session.get("tenant_id")
+    user_id = request.session.get(
+        "totp_login_user"
+    )
+
+    schema_name = (
+        request.session.get(
+            "totp_login_tenant"
+        )
+        or ""
+    ).strip().lower()
+
+    societe_id = request.session.get(
+        "tenant_id"
+    )
 
     if not user_id or not schema_name:
         messages.error(
             request,
-            _("La session de connexion a expiré. Reconnectez-vous."),
+            _(
+                "La session de connexion a expiré. "
+                "Veuillez vous reconnecter."
+            ),
         )
+
         return redirect("/fr/connexion/")
 
-    with schema_context("public"):
+    public_schema = (
+        get_public_schema_name()
+        or "public"
+    )
+
+    erreur = None
+    user = None
+
+    # -------------------------------------------------
+    # Chargement de l'utilisateur depuis public
+    # -------------------------------------------------
+
+    with schema_context(public_schema):
         try:
             user = (
                 Utilisateur.objects
                 .select_related("societe")
                 .get(pk=user_id)
             )
-        except Utilisateur.DoesNotExist:
+
+        except (
+            Utilisateur.DoesNotExist,
+            ValueError,
+            TypeError,
+        ):
             user = None
 
         if user is None:
-            erreur = _("Utilisateur introuvable.")
+            erreur = _(
+                "Utilisateur introuvable."
+            )
 
         elif not user.is_active:
-            erreur = _("Ce compte utilisateur est désactivé.")
+            erreur = _(
+                "Ce compte utilisateur est désactivé."
+            )
 
         elif not user.societe_id:
-            erreur = _("Aucune société n'est liée à cet utilisateur.")
+            erreur = _(
+                "Aucune société n'est liée "
+                "à cet utilisateur."
+            )
 
-        elif user.societe.schema_name != schema_name:
-            erreur = _("La société de connexion ne correspond pas.")
+        elif (
+            (
+                user.societe.schema_name
+                or ""
+            ).strip().lower()
+            != schema_name
+        ):
+            erreur = _(
+                "La société de connexion "
+                "ne correspond pas."
+            )
 
         elif not user.totp_secret:
-            erreur = _("Aucun secret TOTP configuré pour ce compte.")
+            erreur = _(
+                "Aucun secret TOTP n'est configuré "
+                "pour ce compte."
+            )
 
-        else:
-            erreur = None
+        elif not user.totp_enabled:
+            erreur = _(
+                "Le TOTP n'est pas activé "
+                "pour ce compte."
+            )
 
     if erreur:
         request.session.flush()
-        messages.error(request, erreur)
+
+        messages.error(
+            request,
+            erreur,
+        )
+
         return redirect("/fr/connexion/")
 
-    message = None
+    # -------------------------------------------------
+    # Formulaire
+    # -------------------------------------------------
 
-    if request.method == "POST":
-        form = LoginTOTPForm(request.POST)
+    form = LoginTOTPForm(
+        request.POST or None
+    )
 
-        if form.is_valid():
-            token = form.cleaned_data["totp_token"].strip()
+    if request.method == "POST" and form.is_valid():
+        token = form.cleaned_data[
+            "totp_token"
+        ]
 
-            with schema_context("public"):
-                totp = pyotp.TOTP(user.totp_secret)
+        with schema_context(public_schema):
+            totp = pyotp.TOTP(
+                user.totp_secret
+            )
 
-                # valid_window=1 accepte un léger décalage horaire
-                code_valide = totp.verify(
-                    token,
-                    valid_window=1,
+            code_valide = totp.verify(
+                token,
+                valid_window=1,
+            )
+
+        if code_valide:
+            # -----------------------------------------
+            # Connexion Django définitive
+            # -----------------------------------------
+
+            with schema_context(public_schema):
+                login(
+                    request,
+                    user,
+                    backend=PUBLIC_AUTH_BACKEND,
                 )
 
-            if code_valide:
-                # Connexion Django définitive
-                login(request, user)
+            # login() renouvelle la session.
+            # Ajouter ces données après login().
+            request.session[
+                "totp_verified"
+            ] = True
 
-                request.session["totp_verified"] = True
-                request.session["totp_user_id"] = str(user.pk)
-                request.session["tenant_id"] = (
-                    societe_id or str(user.societe_id)
+            request.session[
+                "totp_user_id"
+            ] = str(user.pk)
+
+            request.session[
+                "tenant_id"
+            ] = str(
+                societe_id
+                or user.societe_id
+            )
+
+            request.session[
+                "tenant_schema"
+            ] = schema_name
+
+            if getattr(
+                user.societe,
+                "id_societe",
+                None,
+            ):
+                request.session[
+                    "tenant_uuid"
+                ] = str(
+                    user.societe.id_societe
                 )
-                request.session["tenant_schema"] = schema_name
 
-                # Nettoyage des variables temporaires
-                request.session.pop("totp_login_user", None)
-                request.session.pop("totp_login_tenant", None)
+            request.session.pop(
+                "totp_login_user",
+                None,
+            )
 
-                request.session.modified = True
+            request.session.pop(
+                "totp_login_tenant",
+                None,
+            )
 
-                langue = get_language() or "fr"
+            request.session.modified = True
+            request.session.save()
 
-                return redirect(
-                    f"/tenant/{schema_name}/"
-                    f"{langue}/utilisateurs/dashboard/"
-                )
+            langue = get_langue_active()
 
-            message = _("Code de vérification invalide.")
+            destination = build_tenant_url(
+                schema_name=schema_name,
+                langue=langue,
+                chemin="utilisateurs/dashboard",
+            )
 
-    else:
-        form = LoginTOTPForm()
+            print(
+                "========== LOGIN TOTP DEBUG =========="
+            )
+            print(
+                "UTILISATEUR :",
+                user.email,
+            )
+            print(
+                "AUTHENTIFIÉ :",
+                request.user.is_authenticated,
+            )
+            print(
+                "BACKEND :",
+                request.session.get(
+                    "_auth_user_backend"
+                ),
+            )
+            print(
+                "TENANT SESSION :",
+                request.session.get(
+                    "tenant_schema"
+                ),
+            )
+            print(
+                "DESTINATION :",
+                destination,
+            )
+            print(
+                "======================================"
+            )
+
+            messages.success(
+                request,
+                _("Connexion réussie."),
+            )
+
+            return redirect(destination)
+
+        messages.error(
+            request,
+            _(
+                "Le code de vérification est "
+                "incorrect ou a expiré."
+            ),
+        )
 
     return render(
         request,
         "utilisateurs/login_totp.html",
         {
             "form": form,
-            "message": message,
         },
     )
 
 
-
-from django.contrib.auth import logout
-
-
+# =====================================================
+# DASHBOARD
+# =====================================================
 
 @never_cache
 @login_required(login_url="/fr/connexion/")
-def dashboard(request):
-    """
-    Tableau de bord utilisateur.
+def dashboard_view(request):
+    from django.db import connection
 
-    L'accès est autorisé uniquement si :
-    - l'utilisateur est authentifié ;
-    - le TOTP est configuré ;
-    - le code TOTP a été validé pendant cette connexion ;
-    - la validation correspond bien à cet utilisateur.
-    """
+    societe = getattr(request.user, "societe", None)
+
+    print("========== DASHBOARD VIEW ==========")
+    print("PATH :", request.path)
+    print("SCHEMA :", connection.schema_name)
+    print("AUTHENTICATED :", request.user.is_authenticated)
+    print("USER :", request.user)
+    print("USER ID :", getattr(request.user, "pk", None))
+    print(
+        "SOCIETE :",
+        getattr(societe, "schema_name", None),
+    )
+    print(
+        "SESSION TENANT :",
+        request.session.get("tenant_schema"),
+    )
+    print(
+        "TOTP VERIFIED :",
+        request.session.get("totp_verified"),
+    )
+    print("====================================")
+
 
     user = request.user
 
+    request_tenant = getattr(
+        request,
+        "tenant",
+        None,
+    )
+
+    request_schema = (
+        getattr(
+            request_tenant,
+            "schema_name",
+            "",
+        )
+        or ""
+    ).strip().lower()
+
+    session_schema = (
+        request.session.get(
+            "tenant_schema"
+        )
+        or ""
+    ).strip().lower()
+
     totp_enabled = bool(
-        getattr(user, "totp_enabled", False)
+        getattr(
+            user,
+            "totp_enabled",
+            False,
+        )
     )
 
     totp_verified = (
-        request.session.get("totp_verified") is True
+        request.session.get(
+            "totp_verified"
+        )
+        is True
     )
 
-    totp_user_id = request.session.get("totp_user_id")
+    totp_user_id = str(
+        request.session.get(
+            "totp_user_id"
+        )
+        or ""
+    )
 
-    validation_correcte = (
+    current_user_id = str(user.pk)
+
+    validation_totp_correcte = (
         totp_enabled
         and totp_verified
-        and totp_user_id == str(user.pk)
+        and totp_user_id == current_user_id
     )
 
-    if not validation_correcte:
+    validation_tenant_correcte = (
+        bool(request_schema)
+        and bool(session_schema)
+        and request_schema == session_schema
+    )
+
+    print(
+        "========== DASHBOARD AUTH DEBUG =========="
+    )
+    print(
+        "PATH :",
+        request.path,
+    )
+    print(
+        "USER :",
+        user,
+    )
+    print(
+        "AUTHENTICATED :",
+        user.is_authenticated,
+    )
+    print(
+        "USER ID :",
+        current_user_id,
+    )
+    print(
+        "USER SOCIETE ID :",
+        getattr(
+            user,
+            "societe_id",
+            None,
+        ),
+    )
+    print(
+        "SESSION KEY :",
+        request.session.session_key,
+    )
+    print(
+        "AUTH BACKEND :",
+        request.session.get(
+            "_auth_user_backend"
+        ),
+    )
+    print(
+        "REQUEST SCHEMA :",
+        request_schema,
+    )
+    print(
+        "SESSION SCHEMA :",
+        session_schema,
+    )
+    print(
+        "TOTP ENABLED :",
+        totp_enabled,
+    )
+    print(
+        "TOTP VERIFIED :",
+        totp_verified,
+    )
+    print(
+        "TOTP USER ID :",
+        totp_user_id,
+    )
+    print(
+        "TOTP CORRECT :",
+        validation_totp_correcte,
+    )
+    print(
+        "TENANT CORRECT :",
+        validation_tenant_correcte,
+    )
+    print(
+        "=========================================="
+    )
+
+    if not validation_tenant_correcte:
         logout(request)
 
         messages.error(
             request,
             _(
-                "Veuillez vous connecter avec votre adresse e-mail, "
-                "votre mot de passe et votre code Authy."
+                "Vous n'êtes pas autorisé "
+                "à accéder à cette société."
             ),
         )
 
         return redirect("/fr/connexion/")
 
-    message = _("Bienvenue sur ton tableau de bord")
+    if not validation_totp_correcte:
+        logout(request)
+
+        messages.error(
+            request,
+            _(
+                "Veuillez vous connecter avec votre "
+                "adresse e-mail, votre mot de passe "
+                "et votre code Authy."
+            ),
+        )
+
+        return redirect("/fr/connexion/")
 
     return render(
         request,
         "dashboard.html",
         {
-            "message": message,
+            "message": _(
+                "Bienvenue sur ton tableau de bord"
+            ),
         },
     )
 
 
+# =====================================================
+# DÉCONNEXION
+# =====================================================
 
-
-
-@login_required
+@login_required(login_url="/fr/connexion/")
 def logout_view(request):
-    auth_logout(request)
-    return redirect("login")
+    logout(request)
+
+    messages.success(
+        request,
+        _("Vous êtes maintenant déconnecté."),
+    )
+
+    # URL globale, sans préfixe tenant.
+    return redirect("/fr/connexion/")
