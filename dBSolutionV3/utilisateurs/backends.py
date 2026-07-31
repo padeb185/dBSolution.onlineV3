@@ -54,12 +54,10 @@ class PublicSchemaModelBackend(ModelBackend):
         UserModel = get_user_model()
         public_schema_name = get_public_schema_name()
 
-        print("========== BACKEND GET_USER ==========")
-        print("USER ID :", user_id)
-        print("SCHEMA AVANT :", connection.schema_name)
+
 
         with schema_context(public_schema_name):
-            print("SCHEMA RECHERCHE :", connection.schema_name)
+
 
             try:
                 utilisateur = (
@@ -68,17 +66,11 @@ class PublicSchemaModelBackend(ModelBackend):
                     .get(pk=user_id)
                 )
             except UserModel.DoesNotExist:
-                print("UTILISATEUR INTROUVABLE")
+
                 return None
 
             if not self.user_can_authenticate(utilisateur):
-                print("UTILISATEUR INACTIF")
-                return None
 
-            print("UTILISATEUR TROUVÉ :", utilisateur.email)
-            print(
-                "SOCIÉTÉ PRÉCHARGÉE :",
-                getattr(utilisateur.societe, "schema_name", None),
-            )
+                return None
 
             return utilisateur

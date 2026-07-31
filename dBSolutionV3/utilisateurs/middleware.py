@@ -138,6 +138,9 @@ class TOTPRequiredMiddleware:
             get_connexion_globale_url(request)
         )
 
+import logging
+
+logger = logging.getLogger(__name__)
 
 class TenantUserAccessMiddleware:
     """
@@ -173,9 +176,8 @@ class TenantUserAccessMiddleware:
         tenant = getattr(request, "tenant", None)
         societe = getattr(request.user, "societe", None)
 
-
-        print("SCHEMA REQUEST :", getattr(tenant, "schema_name", None))
-        print("SCHEMA USER :", getattr(societe, "schema_name", None))
+        logger.debug("SCHEMA REQUEST : %s", getattr(tenant, "schema_name", None))
+        logger.debug("SCHEMA USER : %s", getattr(societe, "schema_name", None))
 
         # votre code actuel
 
@@ -211,7 +213,7 @@ class TenantUserAccessMiddleware:
 
         if schema_utilisateur != schema_requete:
             request.session.flush()
-            print(">>> REDIRECTION DEPUIS TENANT USER ACCESS")
+
             return redirect("/fr/connexion/")
 
         return self.get_response(request)
