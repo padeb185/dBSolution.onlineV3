@@ -16,89 +16,137 @@ from django.utils.translation import gettext_lazy as _
 def ajouter_freins_ar(request, modele_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        modele = get_object_or_404(VoitureModele, id=modele_id)
+    modele = get_object_or_404(
+        VoitureModele,
+        id=modele_id,
+    )
 
-        if request.method == "POST":
-            post_data = request.POST.copy()
+    if request.method == "POST":
+        post_data = request.POST.copy()
 
-            champs_float = [
-                "taille_disque_ar",
-                "epaisseur_disque_ar",
-                "epaisseur_min_disque_ar",
-                "plaquettes_ar",
-            ]
+        champs_float = [
+            "taille_disque_ar",
+            "epaisseur_disque_ar",
+            "epaisseur_min_disque_ar",
+            "plaquettes_ar",
+        ]
 
-            for champ in champs_float:
-                valeur = post_data.get(champ)
-                if valeur:
-                    post_data[champ] = valeur.replace(",", ".")
+        for champ in champs_float:
+            valeur = post_data.get(champ)
 
-            form = VoitureFreinsARForm(post_data)
+            if valeur:
+                post_data[champ] = valeur.replace(",", ".")
 
-            if form.is_valid():
-                freins_ar = form.save(commit=False)
-                freins_ar.societe = tenant
-                freins_ar.save()
+        form = VoitureFreinsARForm(
+            post_data,
+            request.FILES or None,
+        )
 
-                messages.success(request, "Freins arrière ajoutés avec succès !")
+        if form.is_valid():
+            freins_ar = form.save(commit=False)
+            freins_ar.societe = tenant
+            freins_ar.save()
+            form.save_m2m()
 
+            messages.success(
+                request,
+                _("Freins arrière ajoutés avec succès !"),
+            )
 
-            else:
-                messages.error(
-                    request,
-                    "Veuillez corriger les erreurs ci-dessous."
-                )
+            return redirect(
+                "voiture_freins_ar:freins_ar_list",
+            )
 
-        else:
-            form = VoitureFreinsARForm()
+        messages.error(
+            request,
+            _("Veuillez corriger les erreurs ci-dessous."),
+        )
 
-        return render(request, "voiture_freins_ar/ajouter_freins_ar_simple.html", {
+    else:
+        form = VoitureFreinsARForm()
+
+    return render(
+        request,
+        "voiture_freins_ar/ajouter_freins_ar_simple.html",
+        {
             "form": form,
             "modele": modele,
-        })
-
+        },
+    )
 
 
 @login_required
 def ajouter_freins_ar_simple(request):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
+    if request.method == "POST":
+        post_data = request.POST.copy()
 
-        if request.method == "POST":
-            form = VoitureFreinsARForm(request.POST)
+        champs_float = [
+            "taille_disque_ar",
+            "epaisseur_disque_ar",
+            "epaisseur_min_disque_ar",
+            "plaquettes_ar",
+        ]
 
-            if form.is_valid():
-                obj = form.save(commit=False)
-                obj.societe = tenant
-                obj.save()
+        for champ in champs_float:
+            valeur = post_data.get(champ)
 
-                messages.success(request, "Freins arrière ajoutés avec succès !")
-                return redirect("voiture_freins_ar:freins_ar_list")
+            if valeur:
+                post_data[champ] = valeur.replace(",", ".")
 
-        else:
-            form = VoitureFreinsARForm()
+        form = VoitureFreinsARForm(
+            post_data,
+            request.FILES or None,
+        )
 
-        return render(request, "voiture_freins_ar/ajouter_freins_ar_simple.html", {
-            "form": form
-        })
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.societe = tenant
+            obj.save()
+            form.save_m2m()
 
+            messages.success(
+                request,
+                _("Freins arrière ajoutés avec succès !"),
+            )
 
+            return redirect(
+                "voiture_freins_ar:freins_ar_list",
+            )
 
+        messages.error(
+            request,
+            _("Veuillez corriger les erreurs du formulaire."),
+        )
 
+    else:
+        form = VoitureFreinsARForm()
+
+    return render(
+        request,
+        "voiture_freins_ar/ajouter_freins_ar_simple.html",
+        {
+            "form": form,
+        },
+    )
 
 
 @never_cache
 @login_required
 def freins_ar_detail_view(request, frein_ar_id):
-    tenant = request.user.societe
-    with tenant_context(tenant):
-        frein = get_object_or_404(VoitureFreinsAR, id=frein_ar_id)
-    return render(request, 'voiture_freins_ar/freins_ar_detail.html', {
-        'frein': frein,
-    })
+    frein = get_object_or_404(
+        VoitureFreinsAR,
+        id=frein_ar_id,
+    )
 
+    return render(
+        request,
+        "voiture_freins_ar/freins_ar_detail.html",
+        {
+            "frein": frein,
+        },
+    )
 
 
 @never_cache
@@ -106,13 +154,23 @@ def freins_ar_detail_view(request, frein_ar_id):
 def liste_freins_ar(request, societe_id=None):
     societe = request.user.societe
 
-    with tenant_context(societe):
+    if societe_id:
+        societe = get_object_or_404(
+            Societe,
+            id=societe_id,
+        )
 
-        if societe_id:
-            societe = Societe.objects.get(id=societe_id)
+    freins_ar = VoitureFreinsAR.objects.filter(
+        societe=societe,
+    )
 
-        freins_ar = VoitureFreinsAR.objects.filter(societe=societe)
-
+    return render(
+        request,
+        "voiture_freins_ar/freins_ar_list.html",
+        {
+            "freins_ar": freins_ar,
+        },
+    )
     return render(request, "voiture_freins_ar/freins_ar_list.html", {
         "freins_ar": freins_ar
     })

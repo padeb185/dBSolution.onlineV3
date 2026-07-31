@@ -41,82 +41,94 @@ def freins_av_detail_view(request, frein_av_id):
 
 
 
-
 @login_required
 def ajouter_freins_av_simple(request):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
+    if request.method == "POST":
+        post_data = request.POST.copy()
 
-        if request.method == "POST":
-            post_data = request.POST.copy()
+        champs_float = [
+            "taille_disque_av",
+            "epaisseur_disque_av",
+            "epaisseur_min_disque_av",
+            "plaquettes_av",
+        ]
 
-            champs_float = [
-                "taille_disque_av",
-                "epaisseur_disque_av",
-                "epaisseur_min_disque_av",
-                "plaquettes_av",
-            ]
+        for champ in champs_float:
+            valeur = post_data.get(champ)
+            if valeur:
+                post_data[champ] = valeur.replace(",", ".")
 
-            for champ in champs_float:
-                valeur = post_data.get(champ)
-                if valeur:
-                    post_data[champ] = valeur.replace(",", ".")
+        form = VoitureFreinsAVForm(post_data, request.FILES or None)
 
-            form = VoitureFreinsAVForm(post_data)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.societe = tenant
+            obj.save()
+            form.save_m2m()
 
-            if form.is_valid():
-                obj = form.save(commit=False)
-                obj.societe = tenant
-                obj.save()
+            messages.success(request, _("Freins avant ajoutés avec succès !"))
+            return redirect("voiture_freins_av:freins_av_list")
 
-                messages.success(request, "Freins avant ajoutés avec succès !")
+        messages.error(request, _("Veuillez corriger les erreurs du formulaire."))
 
-            else:
-                messages.error(request, "Veuillez corriger les erreurs du formulaire.")
+    else:
+        form = VoitureFreinsAVForm()
 
-        else:
-            form = VoitureFreinsAVForm()
-
-        return render(request, "voiture_freins_av/ajouter_freins_simple.html", {
-            "form": form
-        })
-
+    return render(
+        request,
+        "voiture_freins_av/ajouter_freins_simple.html",
+        {
+            "form": form,
+        },
+    )
 
 
 
 @login_required
 def modifier_freins_av_view(request, frein_av_id):
-    tenant = request.user.societe
+    freins = get_object_or_404(
+        VoitureFreinsAV,
+        id=frein_av_id,
+    )
 
-    with tenant_context(tenant):
-        freins = get_object_or_404(VoitureFreinsAV, id=frein_av_id)
+    if request.method == "POST":
+        form = VoitureFreinsAVForm(
+            request.POST,
+            request.FILES or None,
+            instance=freins,
+        )
 
-        if request.method == "POST":
-            form_frein = VoitureFreinsAVForm(request.POST, instance=freins)
+        if form.is_valid():
+            frein = form.save()
 
-            if form_frein.is_valid():
-                frein = form_frein.save()  # commit=False inutile ici
+            messages.success(
+                request,
+                _("Freins avant mis à jour avec succès."),
+            )
 
-                messages.success(request, _("Freins avant mis à jour avec succès."))
-                return redirect(
-                    "voiture_freins_av:modifier_freins_av",
-                    frein_av_id=frein.id   # ✅ match URL
-                )
-            else:
-                messages.error(request, _("Le formulaire contient des erreurs."))
-        else:
-            form_frein = VoitureFreinsAVForm(instance=freins)
+            return redirect(
+                "voiture_freins_av:modifier_freins_av",
+                frein_av_id=frein.id,
+            )
+
+        messages.error(
+            request,
+            _("Le formulaire contient des erreurs."),
+        )
+
+    else:
+        form = VoitureFreinsAVForm(instance=freins)
 
     return render(
         request,
         "voiture_freins_av/modifier_freins_av.html",
         {
-            "form": form_frein,
-            "frein": freins,   # ✅ utilisé dans template
-        }
+            "form": form,
+            "frein": freins,
+        },
     )
-
 
 @never_cache
 @login_required

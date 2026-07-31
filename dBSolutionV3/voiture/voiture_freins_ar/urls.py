@@ -10,6 +10,7 @@ app_name = "voiture_freins_ar"
 
 urlpatterns = [
     path("arriere/", liste_freins_ar, name="freins_ar_list"),
+    
     path("arriere/ajouter/", ajouter_freins_ar_simple, name="ajouter_freins_ar_simple"),
 
     # ⚡ Détail des freins arrière

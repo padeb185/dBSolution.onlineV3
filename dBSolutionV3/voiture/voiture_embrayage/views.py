@@ -19,9 +19,7 @@ from voiture.voiture_embrayage.models import TypeButeeDEmbrayage
 @login_required
 def liste_embrayage(request):
 
-    tenant = request.user.societe
-    with tenant_context(tenant):
-        embrayages = VoitureEmbrayage.objects.all()
+    embrayages = VoitureEmbrayage.objects.all()
     return render(request, "voiture_embrayage/list.html",
                   {
                       "embrayages": embrayages
@@ -34,103 +32,126 @@ def liste_embrayage(request):
 def ajouter_embrayage_view(request):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
+    if request.method == "POST":
+        form = VoitureEmbrayageForm(
+            request.POST,
+            request.FILES or None,
+        )
 
-        if request.method == "POST":
-            form = VoitureEmbrayageForm(request.POST)
+        if form.is_valid():
+            embrayage = form.save(commit=False)
+            embrayage.societe = tenant
+            embrayage.save()
+            form.save_m2m()
 
-            if form.is_valid():
-                embrayage = form.save(commit=False)
-                embrayage.societe = tenant
-                embrayage.save()
+            messages.success(request, _("Embrayage ajouté avec succès !"))
+            return redirect("voiture_embrayage:list")
 
-                messages.success(request, _("Embrayage ajouté avec succès !"))
-                return redirect("voiture_embrayage:list")
+        messages.error(request, _("Veuillez corriger les erreurs du formulaire."))
 
-            else:
-                messages.error(request, _("Veuillez corriger les erreurs du formulaire."))
+    else:
+        form = VoitureEmbrayageForm()
 
-        else:
-            form = VoitureEmbrayageForm()
-
-        context = {
+    return render(
+        request,
+        "voiture_embrayage/ajouter_embrayage.html",
+        {
             "form": form,
-        }
+        },
+    )
 
-    return render(request, "voiture_embrayage/ajouter_embrayage.html", context)
+@login_required
+def lier_embrayage(request, embrayage_id):
+    embrayage = get_object_or_404(VoitureEmbrayage, id=embrayage_id)
+    exemplaires = VoitureExemplaire.objects.all().order_by("id")
+
+    if request.method == "POST":
+        cible_id = request.POST.get("cible_id")
+        if cible_id:
+            embrayage.voiture_exemplaire_id = cible_id
+            embrayage.voiture_modele = None  # on supprime tout lien précédent avec un modèle
+            embrayage.save()
+
+            messages.success(
+                request,
+                _("L'embrayage a été lié au véhicule avec succès.")
+            )
+
+            return redirect("voiture_embrayage:list")
+
+    return render(
+        request,
+        "voiture_embrayage/lier_embrayage.html",
+        {
+            "embrayage": embrayage,
+            "exemplaires": exemplaires,
+        },
+    )
+
 
 
 
 @login_required
-def lier_embrayage(request, embrayage_id):
-    tenant = request.user.societe  # ton tenant
-    with tenant_context(tenant):
-        embrayage = get_object_or_404(VoitureEmbrayage, id=embrayage_id)
-        exemplaires = VoitureExemplaire.objects.all().order_by("id")
-
-        if request.method == "POST":
-            cible_id = request.POST.get("cible_id")
-            if cible_id:
-                embrayage.voiture_exemplaire_id = cible_id
-                embrayage.voiture_modele = None  # on supprime tout lien précédent avec un modèle
-                embrayage.save()
-                return redirect("voiture_embrayage:list")  # ou vers la page détail
-
-    return render(request, "voiture_embrayage/lier_embrayage.html", {
-        "embrayage": embrayage,
-        "exemplaires": exemplaires
-    })
-
-
-
-
-
-
-@login_required()
 def embrayage_detail_view(request, embrayage_id):
-    tenant = request.user.societe
-    with tenant_context(tenant):
+    embrayage = get_object_or_404(
+        VoitureEmbrayage,
+        id=embrayage_id,
+    )
 
-        embrayage = get_object_or_404(VoitureEmbrayage, id=embrayage_id)
-
-    return render(request, 'voiture_embrayage/embrayage_detail.html', {
-        'embrayage': embrayage,
-    })
-
+    return render(
+        request,
+        "voiture_embrayage/embrayage_detail.html",
+        {
+            "embrayage": embrayage,
+        },
+    )
 
 
 
 
 @login_required
 def modifier_embrayage_view(request, embrayage_id):
-    tenant = request.user.societe
+    embrayage = get_object_or_404(
+        VoitureEmbrayage,
+        id=embrayage_id,
+    )
 
-    with tenant_context(tenant):
-        embrayage_instance = get_object_or_404(
-            VoitureEmbrayage.objects.select_related(),
-            id=embrayage_id
+    if request.method == "POST":
+        form = VoitureEmbrayageForm(
+            request.POST,
+            request.FILES or None,
+            instance=embrayage,
         )
 
-        if request.method == "POST":
-            form = VoitureEmbrayageForm(request.POST, instance=embrayage_instance)
-            if form.is_valid():
-                form.save()
-                messages.success(request, _("Embrayage mis à jour avec succès."))
+        if form.is_valid():
+            form.save()
 
-            else:
-                messages.error(request, _("Le formulaire contient des erreurs."))
-        else:
-            form = VoitureEmbrayageForm(instance=embrayage_instance)
+            messages.success(
+                request,
+                _("Embrayage mis à jour avec succès."),
+            )
+
+            return redirect(
+                "voiture_embrayage:embrayage_detail",
+                embrayage_id=embrayage.id,
+            )
+
+        messages.error(
+            request,
+            _("Le formulaire contient des erreurs."),
+        )
+
+    else:
+        form = VoitureEmbrayageForm(instance=embrayage)
 
     return render(
         request,
         "voiture_embrayage/modifier_embrayage.html",
         {
             "form": form,
-            "embrayage": embrayage_instance
-        }
+            "embrayage": embrayage,
+        },
     )
-
 
 
 
