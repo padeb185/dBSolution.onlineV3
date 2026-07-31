@@ -6,13 +6,13 @@ from voiture.voiture_moteur.models import MoteurVoiture
 
 
 class Command(BaseCommand):
-    help = "Ajoute des moteurs pour différentes marques pour le tenant 'db-solution'"
+    help = "Ajoute des moteurs pour différentes marques pour le tenant 'campus'"
 
     def handle(self, *args, **options):
         try:
-            tenant = Societe.objects.get(schema_name="dbsolution")
+            tenant = Societe.objects.get(schema_name="campus")
         except Societe.DoesNotExist:
-            self.stdout.write(self.style.ERROR("Tenant 'db-solution' introuvable !"))
+            self.stdout.write(self.style.ERROR("Tenant 'campus' introuvable !"))
             return
 
 

@@ -399,13 +399,13 @@ class Command(BaseCommand):
         skipped_count = 0
 
         with tenant_context(tenant):
-
             for marque_nom, modeles in marques_modeles.items():
 
                 try:
                     marque_obj = VoitureMarque.objects.get(
-                        nom_marque=marque_nom
+                        nom_marque=marque_nom,
                     )
+
                 except VoitureMarque.DoesNotExist:
                     self.stdout.write(
                         self.style.WARNING(
@@ -414,93 +414,121 @@ class Command(BaseCommand):
                     )
                     continue
 
-                for m in modeles:
+                except VoitureMarque.MultipleObjectsReturned:
+                    self.stdout.write(
+                        self.style.ERROR(
+                            f"Plusieurs marques portent le nom '{marque_nom}'."
+                        )
+                    )
+                    continue
 
-                    nom_modele = str(m.get("modele") or "").strip()
-                    variante_brute = m.get("variante")
+                for donnees_modele in modeles:
+                    nom_modele = str(
+                        donnees_modele.get("modele") or ""
+                    ).strip()
+
+                    variante_brute = donnees_modele.get("variante")
+
                     nom_variante = (
                         str(variante_brute).strip()
-                        if variante_brute
+                        if variante_brute is not None
                         else ""
                     )
 
                     if not nom_modele:
                         skipped_count += 1
+
                         self.stdout.write(
                             self.style.WARNING(
-                                f"Modèle sans nom ignoré pour '{marque_nom}'."
+                                f"Modèle sans nom ignoré pour la marque "
+                                f"'{marque_nom}'."
                             )
                         )
                         continue
 
-                    nombre_portes = m.get("portes", 5)
+                    nombre_portes = donnees_modele.get(
+                        "portes",
+                        5,
+                    )
 
-                    nbre_places = m.get(
+                    nbre_places = donnees_modele.get(
                         "places",
-                        m.get("nbre_places", 5),
+                        donnees_modele.get(
+                            "nbre_places",
+                            5,
+                        ),
                     )
 
-                    taille_reservoir = m.get(
+                    taille_reservoir = donnees_modele.get(
                         "reservoir",
-                        m.get("taille_reservoir", 50),
+                        donnees_modele.get(
+                            "taille_reservoir",
+                            50,
+                        ),
                     )
 
-                    # Recherche manuelle pour traiter None et "" comme identiques
-                    recherche = VoitureModele.objects.filter(
-                        voiture_marque=marque_obj,
-                        nom_modele=nom_modele,
-                    )
-
-                    if nom_variante:
-                        recherche = recherche.filter(
-                            nom_variante=nom_variante
+                    try:
+                        modele_obj, created = (
+                            VoitureModele.objects.update_or_create(
+                                voiture_marque=marque_obj,
+                                nom_modele=nom_modele,
+                                nom_variante=nom_variante,
+                                defaults={
+                                    "societe": tenant,
+                                    "nombre_portes": nombre_portes,
+                                    "nbre_places": nbre_places,
+                                    "taille_reservoir": taille_reservoir,
+                                },
+                            )
                         )
-                    else:
-                        recherche = recherche.filter(
-                            Q(nom_variante__isnull=True)
-                            | Q(nom_variante="")
-                        )
 
-                    modele_obj = recherche.first()
-
-                    if modele_obj:
-                        modele_obj.societe = tenant
-                        modele_obj.nombre_portes = nombre_portes
-                        modele_obj.nbre_places = nbre_places
-                        modele_obj.taille_reservoir = taille_reservoir
-
-                        # Uniformise les variantes vides
-                        modele_obj.nom_variante = nom_variante
-
-                        modele_obj.save()
-
-                        updated_count += 1
+                    except VoitureModele.MultipleObjectsReturned:
+                        skipped_count += 1
 
                         self.stdout.write(
-                            f"Mis à jour : {marque_nom} — "
-                            f"{nom_modele} — "
-                            f"{nom_variante or 'Sans variante'}"
+                            self.style.ERROR(
+                                f"Doublons existants : "
+                                f"{marque_nom} — "
+                                f"{nom_modele} — "
+                                f"{nom_variante or 'Sans variante'}"
+                            )
                         )
+                        continue
 
-                    else:
-                        VoitureModele.objects.create(
-                            voiture_marque=marque_obj,
-                            societe=tenant,
-                            nom_modele=nom_modele,
-                            nom_variante=nom_variante,
-                            nombre_portes=nombre_portes,
-                            nbre_places=nbre_places,
-                            taille_reservoir=taille_reservoir,
+                    except Exception as erreur:
+                        skipped_count += 1
+
+                        self.stdout.write(
+                            self.style.ERROR(
+                                f"Erreur pour "
+                                f"{marque_nom} — "
+                                f"{nom_modele} — "
+                                f"{nom_variante or 'Sans variante'} : "
+                                f"{erreur}"
+                            )
                         )
+                        continue
 
+                    if created:
                         created_count += 1
 
                         self.stdout.write(
                             self.style.SUCCESS(
-                                f"Créé : {marque_nom} — "
-                                f"{nom_modele} — "
-                                f"{nom_variante or 'Sans variante'}"
+                                f"Créé : "
+                                f"{marque_nom} — "
+                                f"{modele_obj.nom_modele} — "
+                                f"{modele_obj.nom_variante or 'Sans variante'}"
                             )
+                        )
+
+                    else:
+                        updated_count += 1
+
+                        self.stdout.write(
+                            f"Mis à jour : "
+                            f"{marque_nom} — "
+                            f"{modele_obj.nom_modele} — "
+                            f"{modele_obj.nom_variante or 'Sans variante'}"
                         )
 
         self.stdout.write(

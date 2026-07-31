@@ -10,9 +10,9 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         try:
-            tenant = Societe.objects.get(schema_name="dbsolution")
+            tenant = Societe.objects.get(schema_name="campus")
         except Societe.DoesNotExist:
-            self.stdout.write(self.style.ERROR("Tenant 'db-solution' introuvable !"))
+            self.stdout.write(self.style.ERROR("Tenant 'campus' introuvable !"))
             return
 
         with tenant_context(tenant):
@@ -8481,7 +8481,6 @@ class Command(BaseCommand):
                         "nombre_rapport": data["nombre_rapport"],
                         "qualite_huile": data["qualite_huile"],
                         "quantite_huile_l": data["quantite_huile_l"],
-                        "kilometrage_boite": data["kilometrage_boite"],
                         "intervalle_entretien_km": data["intervalle_entretien_km"],
                         "dernier_entretien": data["dernier_entretien"],
                     }
