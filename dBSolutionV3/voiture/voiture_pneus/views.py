@@ -48,8 +48,7 @@ def remplacer_pneus(self, request, pk):
 def liste_pneus(request):
 
     tenant = request.user.societe
-    with tenant_context(tenant):
-        pneus = VoiturePneus.objects.filter(societe=tenant)
+    pneus = VoiturePneus.objects.filter(societe=tenant)
 
 
     return render(request, "voiture_pneus/list.html",{
@@ -83,63 +82,87 @@ def pneus_detail_view(request, pneu_id):
 
 @login_required
 def ajouter_pneus_simple(request):
-
     tenant = request.user.societe
 
-    with tenant_context(tenant):
+    if request.method == "POST":
+        form = VoiturePneusForm(
+            request.POST,
+            request.FILES or None,
+        )
 
-        if request.method == "POST":
-            form = VoiturePneusForm(request.POST)
+        if form.is_valid():
+            pneu = form.save(commit=False)
+            pneu.societe = tenant
+            pneu.save()
+            form.save_m2m()
 
-            if form.is_valid():
-                pneu = form.save(commit=False)
-                pneu.societe = tenant
-                pneu.save()
+            messages.success(
+                request,
+                _(
+                    f"Le pneu '{pneu.manufacturier} "
+                    f"{pneu.pneus_largeur}/{pneu.pneus_hauteur} "
+                    f"R{pneu.pneus_jante}' a été ajouté avec succès !"
+                ),
+            )
 
-                messages.success(
-                    request,
-                    _(f"Le pneu '{pneu.manufacturier} {pneu.pneus_largeur}/{pneu.pneus_hauteur} R{pneu.pneus_jante}' ajouté avec succès !")
-                )
-        else:
-            form = VoiturePneusForm()
+            return redirect("voiture_pneus:ajouter_pneus")
 
-    context = {
-        "form": form,
-    }
+        messages.error(
+            request,
+            _("Le formulaire contient des erreurs."),
+        )
 
-    return render(request, "voiture_pneus/ajouter_pneus_simple.html", context)
+    else:
+        form = VoiturePneusForm()
 
-
-
+    return render(
+        request,
+        "voiture_pneus/ajouter_pneus_simple.html",
+        {
+            "form": form,
+        },
+    )
 
 @login_required
 def modifier_pneus_view(request, pneu_id):
-    tenant = request.user.societe
+    pneus = get_object_or_404(
+        VoiturePneus,
+        id=pneu_id,
+    )
 
-    with tenant_context(tenant):
-        pneus_instance = get_object_or_404(
-            VoiturePneus.objects.select_related(),
-            id=pneu_id
+    if request.method == "POST":
+        form = VoiturePneusForm(
+            request.POST,
+            request.FILES or None,
+            instance=pneus,
         )
 
-        if request.method == "POST":
-            form = VoiturePneusForm(request.POST, instance=pneus_instance)
-            if form.is_valid():
-                form.save()
-                messages.success(request, _("Pneu mis à jour avec succès."))
+        if form.is_valid():
+            pneu = form.save()
 
-            else:
-                messages.error(request, _("Le formulaire contient des erreurs."))
-        else:
-            form = VoiturePneusForm(instance=pneus_instance)
+            messages.success(
+                request,
+                _("Pneu mis à jour avec succès."),
+            )
+
+            return redirect(
+                "voiture_pneus:modifier_pneus",
+                pneu_id=pneu.id,
+            )
+
+        messages.error(
+            request,
+            _("Le formulaire contient des erreurs."),
+        )
+
+    else:
+        form = VoiturePneusForm(instance=pneus)
 
     return render(
         request,
         "voiture_pneus/modifier_pneus.html",
         {
             "form": form,
-            "pneus": pneus_instance
-        }
+            "pneus": pneus,
+        },
     )
-
-
