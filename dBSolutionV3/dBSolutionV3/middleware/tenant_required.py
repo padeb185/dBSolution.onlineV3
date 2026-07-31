@@ -36,22 +36,6 @@ class TenantRequiredMiddleware:
             None,
         )
 
-        print("========== TENANT REQUIRED ==========")
-        print("PATH :", path)
-        print(
-            "AUTH :",
-            request.user.is_authenticated,
-        )
-        print(
-            "SCHEMA REQUEST :",
-            schema_requete,
-        )
-        print(
-            "SESSION TENANT :",
-            request.session.get("tenant_schema"),
-        )
-        print("=====================================")
-
         # Pas de tenant identifié
         if tenant is None:
             return self.get_response(request)
@@ -62,10 +46,7 @@ class TenantRequiredMiddleware:
 
         # Dans un tenant privé, utilisateur obligatoire
         if not request.user.is_authenticated:
-            print(
-                ">>> REDIRECTION DEPUIS TENANT REQUIRED : "
-                "UTILISATEUR NON CONNECTÉ"
-            )
+
             return redirect("/fr/connexion/")
 
         schema_session = request.session.get(
@@ -90,22 +71,6 @@ class TenantRequiredMiddleware:
         )
 
         if not acces_valide:
-            print(
-                ">>> REDIRECTION DEPUIS TENANT REQUIRED : "
-                "TENANT INVALIDE"
-            )
-            print(
-                "SCHEMA REQUEST :",
-                schema_requete,
-            )
-            print(
-                "SCHEMA SESSION :",
-                schema_session,
-            )
-            print(
-                "SCHEMA USER :",
-                schema_utilisateur,
-            )
 
             return redirect("/fr/connexion/")
 

@@ -63,12 +63,6 @@ class TOTPRequiredMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        print("========== TOTP MIDDLEWARE ==========")
-        print("PATH :", request.path)
-        print("AUTH :", request.user.is_authenticated)
-        print("TOTP ENABLED :", getattr(request.user, "totp_enabled", None))
-        print("TOTP VERIFIED :", request.session.get("totp_verified"))
-        print("=====================================")
 
         path = request.path_info or "/"
         user = getattr(request, "user", None)
@@ -133,22 +127,13 @@ class TOTPRequiredMiddleware:
         # Session TOTP invalide
         # ---------------------------------------------
 
-        print("========== TOTP MIDDLEWARE DEBUG ==========")
-        print("PATH :", path)
-        print("UTILISATEUR :", user)
-        print("UTILISATEUR ID :", current_user_id)
-        print("TOTP ENABLED :", totp_enabled)
-        print("TOTP VERIFIED :", totp_verified)
-        print("TOTP USER ID SESSION :", totp_user_id)
-        print("===========================================")
-
         logout(request)
 
         messages.error(
             request,
             "Votre session TOTP doit être validée.",
         )
-        print(">>> REDIRECTION DEPUIS TOTP MIDDLEWARE")
+
         return redirect(
             get_connexion_globale_url(request)
         )
@@ -188,13 +173,9 @@ class TenantUserAccessMiddleware:
         tenant = getattr(request, "tenant", None)
         societe = getattr(request.user, "societe", None)
 
-        print("========== TENANT USER ACCESS ==========")
-        print("PATH :", request.path)
-        print("AUTH :", request.user.is_authenticated)
+
         print("SCHEMA REQUEST :", getattr(tenant, "schema_name", None))
         print("SCHEMA USER :", getattr(societe, "schema_name", None))
-        print("SESSION TENANT :", request.session.get("tenant_schema"))
-        print("========================================")
 
         # votre code actuel
 
@@ -227,12 +208,6 @@ class TenantUserAccessMiddleware:
             "schema_name",
             None,
         )
-
-        print("========== TENANT ACCESS CHECK ==========")
-        print("USER :", request.user)
-        print("SCHEMA USER :", schema_utilisateur)
-        print("SCHEMA REQUEST :", schema_requete)
-        print("=========================================")
 
         if schema_utilisateur != schema_requete:
             request.session.flush()

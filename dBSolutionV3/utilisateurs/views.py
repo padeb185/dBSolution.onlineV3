@@ -99,10 +99,10 @@ def dashboard_view(request):
 
 
     marques = moteurs = exemplaires = boites = embrayages = freins = \
-        freins_ar = pneus = maintenance = fournisseurs = client_particulier = client_atelier =\
+        freins_ar = pneus = maintenance = fournisseurs = client_particulier = \
         carrosseries = societe_cliente = adresse = assurance = \
         assurance_police = modele = outils = recharge = maindoeuvre = proprietaire = client =\
-        carburant = assurance_police = client_atelier = client_pilotage =  modeles = []
+        carburant = client_atelier = client_pilotage  = []
 
     if schema_name:
         with schema_context(schema_name):
@@ -115,6 +115,7 @@ def dashboard_view(request):
             freins = VoitureFreinsAV.objects.filter(societe=societe)
             freins_ar = VoitureFreinsAR.objects.filter(societe=societe)
             pneus = VoiturePneus.objects.filter(societe=societe)
+
 
             maintenance = Maintenance.objects.filter(societe=societe)
 
@@ -175,11 +176,6 @@ def dashboard_view(request):
 
             total_client = client_particulier.count() + client_atelier.count() + client_pilotage.count()
 
-            # Récupère les modèles existants pour les liens maintenance
-            modeles = VoitureModele.objects.all()
-    else:
-        modeles = []
-
     context.update({
         'user': user,
         'user_nom': user.nom,
@@ -230,7 +226,6 @@ def dashboard_view(request):
         'freins_ar': freins_ar,
         'pneus': pneus,
         'maintenance': maintenance,
-        'modeles': modeles,
         'fournisseur': fournisseurs,
         'client_particulier': client_particulier,
         'client_atelier': client_atelier,
@@ -1005,17 +1000,6 @@ def connexion_globale_view(request):
             chemin="utilisateurs/totp/setup",
         )
 
-        print(
-            "========== REDIRECTION TOTP =========="
-        )
-        print("UTILISATEUR :", utilisateur.email)
-        print("SOCIÉTÉ :", societe.nom)
-        print("SCHÉMA :", schema_name)
-        print("DESTINATION :", destination_totp)
-        print(
-            "======================================"
-        )
-
         return redirect(destination_totp)
 
     # -------------------------------------------------
@@ -1114,59 +1098,5 @@ def connexion_globale_view(request):
         chemin="utilisateurs/dashboard",
     )
 
-    print(
-        "========== LOGIN SESSION DEBUG =========="
-    )
-    print(
-        "AUTHENTICATED :",
-        request.user.is_authenticated,
-    )
-    print(
-        "SESSION KEY :",
-        request.session.session_key,
-    )
-    print(
-        "AUTH USER ID :",
-        request.session.get("_auth_user_id"),
-    )
-    print(
-        "AUTH BACKEND :",
-        request.session.get(
-            "_auth_user_backend"
-        ),
-    )
-    print(
-        "TOTP VERIFIED :",
-        request.session.get(
-            "totp_verified"
-        ),
-    )
-    print(
-        "TOTP USER ID :",
-        request.session.get(
-            "totp_user_id"
-        ),
-    )
-    print(
-        "CURRENT USER ID :",
-        str(utilisateur.pk),
-    )
-    print(
-        "TENANT SESSION :",
-        request.session.get(
-            "tenant_schema"
-        ),
-    )
-    print(
-        "TENANT UTILISATEUR :",
-        schema_name,
-    )
-    print(
-        "REDIRECTION :",
-        destination_dashboard,
-    )
-    print(
-        "========================================="
-    )
 
     return redirect(destination_dashboard)
