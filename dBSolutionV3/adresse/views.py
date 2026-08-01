@@ -33,12 +33,12 @@ class AdresseListView(ListView):
 def adresse_detail(request, adresse_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        adresse = get_object_or_404(
-            Adresse,
-            id=adresse_id,
-            societe=tenant
-        )
+
+    adresse = get_object_or_404(
+        Adresse,
+        id=adresse_id,
+        societe=tenant
+    )
 
 
     return render(
@@ -59,44 +59,42 @@ def ajouter_adresse_all(request):
 
     tenant = request.user.societe
 
-    with tenant_context(tenant):
+    if request.method == "POST":
 
-        if request.method == "POST":
+        form = AdresseForm(request.POST)
 
-            form = AdresseForm(request.POST)
+        if form.is_valid():
 
-            if form.is_valid():
+            try:
 
-                try:
+                adresse = form.save(commit=False)
+                adresse.societe = tenant
+                adresse.save()
 
-                    adresse = form.save(commit=False)
-                    adresse.societe = tenant
-                    adresse.save()
-
-                    messages.success(
-                        request,
-                        _(
-                            f"Adresse '{adresse.rue}, {adresse.code_postal}' ajoutée avec succès !"
-                        )
+                messages.success(
+                    request,
+                    _(
+                        f"Adresse '{adresse.rue}, {adresse.code_postal}' ajoutée avec succès !"
                     )
+                )
 
-                    return redirect("adresse:adresse_list")
+                return redirect("adresse:adresse_list")
 
-                except (IntegrityError, ValidationError):
+            except (IntegrityError, ValidationError):
 
-                    messages.error(
-                        request,
-                        _("Cette adresse existe déjà pour cette société.")
-                    )
+                messages.error(
+                    request,
+                    _("Cette adresse existe déjà pour cette société.")
+                )
 
-        else:
+    else:
 
-            form = AdresseForm(
-                initial={
-                    "pays": "Belgique",
-                    "code_pays": "BE",
-                }
-            )
+        form = AdresseForm(
+            initial={
+                "pays": "Belgique",
+                "code_pays": "BE",
+            }
+        )
 
     return render(
         request,
@@ -113,26 +111,26 @@ def ajouter_adresse_all(request):
 def modifier_adresse(request, adresse_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        adresse = get_object_or_404(
-            Adresse,
-            id=adresse_id,
-            societe=tenant
-        )
 
-        if request.method == "POST":
-            form = AdresseForm(request.POST, instance=adresse)
-            if form.is_valid():
-                form.save()
-                messages.success(
-                    request,
-                    _("Adresse '%(rue)s, %(cp)s' modifiée avec succès !") % {
-                        "rue": adresse.rue,
-                        "cp": adresse.code_postal
-                    }
-                )
-        else:
-            form = AdresseForm(instance=adresse)
+    adresse = get_object_or_404(
+        Adresse,
+        id=adresse_id,
+        societe=tenant
+    )
+
+    if request.method == "POST":
+        form = AdresseForm(request.POST, instance=adresse)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request,
+                _("Adresse '%(rue)s, %(cp)s' modifiée avec succès !") % {
+                    "rue": adresse.rue,
+                    "cp": adresse.code_postal
+                }
+            )
+    else:
+        form = AdresseForm(instance=adresse)
 
     return render(
         request,

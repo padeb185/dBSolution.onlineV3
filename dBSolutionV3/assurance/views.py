@@ -1,4 +1,5 @@
 # assurance/views.py
+import societe
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
@@ -21,7 +22,6 @@ class AssuranceListView(ListView):
     model = Assurance
     template_name = "assurance/assurance_list.html"
     context_object_name = "assurances"
-    paginate_by = 20
     ordering = ["nom_compagnie"]
 
     def get_queryset(self):
@@ -33,9 +33,8 @@ class AssuranceListView(ListView):
 def assurance_detail(request, assurance_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        assurance = get_object_or_404(Assurance, id=assurance_id)
-        adresse = assurance.adresse
+    assurance = get_object_or_404(Assurance, id=assurance_id, societe=tenant)
+    adresse = assurance.adresse
 
     return render(
         request,
@@ -140,37 +139,37 @@ def ajouter_assurance_all(request):
 def modifier_assurance(request, assurance_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        # Récupérer l'assureur et son adresse liée
-        assurance = get_object_or_404(
-            Assurance.objects.select_related("adresse"),
-            id=assurance_id
-        )
-        adresse = assurance.adresse
 
-        if request.method == "POST":
-            # Formulaires pour Assurance et Adresse
-            form_assurance = AssuranceForm(request.POST, instance=assurance)
-            form_adresse = AdresseForm(request.POST, instance=adresse)
+    # Récupérer l'assureur et son adresse liée
+    assurance = get_object_or_404(
+        Assurance.objects.select_related("adresse"),
+        id=assurance_id
+    )
+    adresse = assurance.adresse
 
-            if form_assurance.is_valid() and form_adresse.is_valid():
-                # Sauvegarde adresse puis mise à jour de l'assurance
-                adresse = form_adresse.save()
-                assurance = form_assurance.save(commit=False)
-                assurance.adresse = adresse
-                assurance.save()
+    if request.method == "POST":
+        # Formulaires pour Assurance et Adresse
+        form_assurance = AssuranceForm(request.POST, instance=assurance)
+        form_adresse = AdresseForm(request.POST, instance=adresse)
 
-                messages.success(request, _("Assurance et adresse mises à jour avec succès."))
-                return redirect(
-                    "assurance:modifier_assurance",
-                    assurance_id=assurance.id
-                )
-            else:
-                messages.error(request, _("Le formulaire contient des erreurs."))
+        if form_assurance.is_valid() and form_adresse.is_valid():
+            # Sauvegarde adresse puis mise à jour de l'assurance
+            adresse = form_adresse.save()
+            assurance = form_assurance.save(commit=False)
+            assurance.adresse = adresse
+            assurance.save()
+
+            messages.success(request, _("Assurance et adresse mises à jour avec succès."))
+            return redirect(
+                "assurance:modifier_assurance",
+                assurance_id=assurance.id
+            )
         else:
-            # Pré-remplissage des formulaires
-            form_assurance = AssuranceForm(instance=assurance)
-            form_adresse = AdresseForm(instance=adresse)
+            messages.error(request, _("Le formulaire contient des erreurs."))
+    else:
+        # Pré-remplissage des formulaires
+        form_assurance = AssuranceForm(instance=assurance)
+        form_adresse = AdresseForm(instance=adresse)
 
     return render(
         request,
@@ -202,13 +201,13 @@ def dashboard_assurance_view(request):
     if societe:
         schema_name = societe.schema_name
 
-        with schema_context(schema_name):
 
-            assurance = Assurance.objects.filter(societe=societe)
-            assurance_police = AssurancePolice.objects.filter(societe=societe)
 
-            total_assurance = assurance.count()
-            total_assurance_police = assurance_police.count()
+        assurance = Assurance.objects.filter(societe=societe)
+        assurance_police = AssurancePolice.objects.filter(societe=societe)
+
+        total_assurance = assurance.count()
+        total_assurance_police = assurance_police.count()
 
     context = {
         "user": user,

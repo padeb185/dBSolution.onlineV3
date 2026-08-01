@@ -21,33 +21,37 @@ from django.contrib.auth.decorators import login_required
 def achat_mds_view(request):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
+    # Filtrer par société
+    fournisseurs = Fournisseur.objects.filter(societe=tenant)
+    achat_mds = AchatMds.objects.filter(societe=tenant)
 
-        # 🔒 IMPORTANT : filtrer par tenant
-        fournisseurs = Fournisseur.objects.filter(societe=tenant)
-        achat_mds = AchatMds.objects.filter(societe=tenant)
+    if request.method == "POST":
+        form = AchatForm(request.POST)
 
-        if request.method == "POST":
-            form = AchatForm(request.POST)
+        if form.is_valid():
+            achat = form.save(commit=False)
+            achat.societe = tenant
+            achat.save()
 
-            if form.is_valid():
-                achat = form.save(commit=False)
-                achat.societe = tenant  # sécurité multi-tenant
-                achat.save()
+            messages.success(
+                request,
+                _("Achat enregistré avec succès.")
+            )
 
-                messages.success(request, "Achat enregistré avec succès")
+            return redirect("achat_mds:achat_form")
 
-                return redirect("achat_mds:achat_form")  # PRG pattern
+    else:
+        form = AchatForm()
 
-        else:
-            form = AchatForm()
-
-        return render(request, "achat_mds/achat_form.html", {
+    return render(
+        request,
+        "achat_mds/achat_form.html",
+        {
             "form": form,
             "achat_mds": achat_mds,
             "fournisseurs": fournisseurs,
-        })
-
+        },
+    )
 
 
 
@@ -56,7 +60,6 @@ class AchatMdsListView(ListView):
     model = AchatMds
     template_name = "achat_mds/achat_list.html"
     context_object_name = "achats"
-    paginate_by = 20
     ordering = ["nom"]
 
     def get_queryset(self):
@@ -73,24 +76,22 @@ class AchatMdsListView(ListView):
 def achat_detail_view(request, achat_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
+    achat = get_object_or_404(
+        AchatMds,
+        id=achat_id,
+        societe=tenant   # 🔒 IMPORTANT sécurité multi-tenant
+    )
 
-        achat = get_object_or_404(
-            AchatMds,
-            id=achat_id,
-            societe=tenant   # 🔒 IMPORTANT sécurité multi-tenant
-        )
+    fournisseurs = Fournisseur.objects.filter(societe=tenant)
 
-        fournisseurs = Fournisseur.objects.filter(societe=tenant)
-
-        return render(
-            request,
-            "achat_mds/achat_detail.html",
-            {
-                "achat": achat,
-                "fournisseurs": fournisseurs,
-            },
-        )
+    return render(
+        request,
+        "achat_mds/achat_detail.html",
+        {
+            "achat": achat,
+            "fournisseurs": fournisseurs,
+        },
+    )
 
 
 
@@ -98,19 +99,19 @@ def achat_detail_view(request, achat_id):
 def modifier_achat_view(request, achat_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        achat = get_object_or_404(AchatMds, id=achat_id)
-        fournisseurs = Fournisseur.objects.filter(societe=tenant)
 
-        if request.method == "POST":
-            form = AchatForm(request.POST, instance=achat)
-            if form.is_valid():
-                form.save()
-                messages.success(request, _("Achat modifié avec succès !"))
+    achat = get_object_or_404(AchatMds, id=achat_id)
+    fournisseurs = Fournisseur.objects.filter(societe=tenant)
+
+    if request.method == "POST":
+        form = AchatForm(request.POST, instance=achat)
+        if form.is_valid():
+            form.save()
+            messages.success(request, _("Achat modifié avec succès !"))
 
 
-        else:
-            form = AchatForm(instance=achat)
+    else:
+        form = AchatForm(instance=achat)
 
     return render(
         request,
