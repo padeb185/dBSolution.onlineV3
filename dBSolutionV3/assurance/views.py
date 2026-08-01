@@ -199,10 +199,6 @@ def dashboard_assurance_view(request):
     assurance_police = []
 
     if societe:
-        schema_name = societe.schema_name
-
-
-
         assurance = Assurance.objects.filter(societe=societe)
         assurance_police = AssurancePolice.objects.filter(societe=societe)
 
@@ -218,4 +214,8 @@ def dashboard_assurance_view(request):
         "assurance_police": assurance_police,
     }
 
-    return render(request, "assurance/dashboard_assurance.html", context)
+    return render(
+        request,
+        "assurance/dashboard_assurance.html",
+        context,
+    )
