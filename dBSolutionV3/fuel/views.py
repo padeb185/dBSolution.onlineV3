@@ -29,7 +29,6 @@ class FuelListView(ListView):
     model = Fuel
     template_name = "fuel/fuel_list.html"
     context_object_name = "fuels"   # ⚠️ important : pluriel
-    paginate_by = 20
     ordering = ["-date"]
 
     def get_queryset(self):
@@ -51,69 +50,82 @@ class FuelListView(ListView):
 def ajouter_fuel_all(request):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
+    if request.method == "POST":
+        form = FuelForm(request.POST)
 
-        if request.method == "POST":
-            form = FuelForm(request.POST)
+        if form.is_valid():
+            fuel = form.save(commit=False)
+            fuel.utilisateur = request.user
+            fuel.societe = tenant
+            fuel.save()
+            form.save_m2m()
 
-            if form.is_valid():
-                fuel = form.save(commit=False)
+            messages.success(
+                request,
+                _("Carburant ajouté avec succès."),
+            )
+            return redirect("fuel:fuel_list")
 
-                fuel.utilisateur = request.user
-                fuel.societe = tenant
+        messages.error(
+            request,
+            _("Veuillez corriger les erreurs ci-dessous."),
+        )
 
-                fuel.save()
-                form.save_m2m()
+    else:
+        form = FuelForm()
 
-                messages.success(request, _("Carburant ajouté avec succès."))
-            else:
-                messages.error(request, _("Veuillez corriger les erreurs ci-dessous."))
-
-        else:
-            form = FuelForm()
-
-        return render(request, "fuel/fuel_form.html", {
+    return render(
+        request,
+        "fuel/fuel_form.html",
+        {
             "form": form,
-        })
-
-
-
+        },
+    )
 
 
 @never_cache
 @login_required
 def fuel_list(request):
-    # On sélectionne les relations nécessaires pour éviter les requêtes supplémentaires
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        fuels = Fuel.objects.select_related(
+    fuels = (
+        Fuel.objects
+        .filter(societe=tenant)
+        .select_related(
             "utilisateur",
             "voiture_exemplaire",
             "voiture_exemplaire__voiture_modele",
             "voiture_exemplaire__voiture_modele__voiture_marque",
-        ).order_by("-date").filter(societe=tenant)
+        )
+        .order_by("-date")
+    )
 
-        return render(request, "fuel/fuel_list.html", {
-            "fuels": fuels
-        })
-
+    return render(
+        request,
+        "fuel/fuel_list.html",
+        {
+            "fuels": fuels,
+        },
+    )
 
 
 @login_required
 def fuel_detail(request, fuel_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        fuel = get_object_or_404(Fuel, id=fuel_id)
+    fuel = get_object_or_404(
+        Fuel.objects.select_related("voiture_exemplaire"),
+        id=fuel_id,
+        societe=tenant,
+    )
 
     return render(
         request,
         "fuel/fuel_detail.html",
         {
             "fuel": fuel,
-            "exemplaire" : fuel.voiture_exemplaire,
-         },
+            "exemplaire": fuel.voiture_exemplaire,
+        },
     )
 
 
@@ -121,25 +133,43 @@ def fuel_detail(request, fuel_id):
 def modifier_fuel(request, fuel_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        fuel = get_object_or_404(Fuel, pk=fuel_id)
+    fuel = get_object_or_404(
+        Fuel.objects.select_related("voiture_exemplaire"),
+        pk=fuel_id,
+        societe=tenant,
+    )
 
-        if request.method == "POST":
-            form = FuelForm(
-                request.POST,
-                request.FILES,
-                instance=fuel  # ✅ utiliser l'objet complet
+    if request.method == "POST":
+        form = FuelForm(
+            request.POST,
+            request.FILES,
+            instance=fuel,
+        )
+
+        if form.is_valid():
+            fuel = form.save(commit=False)
+            fuel.societe = tenant
+            fuel.utilisateur = request.user
+            fuel.save()
+            form.save_m2m()
+
+            messages.success(
+                request,
+                _("Le plein de carburant a été mis à jour avec succès."),
             )
 
-            if form.is_valid():
-                fuel = form.save()
-                messages.success(request, _("Le plein de carburant a été mis à jour avec succès."))
-            else:
-                messages.error(request, _("Le formulaire contient des erreurs."))
-                print(form.errors)  # utile pour debug
+            return redirect(
+                "fuel:fuel_detail",
+                fuel_id=fuel.id,
+            )
 
-        else:
-            form = FuelForm(instance=fuel)
+        messages.error(
+            request,
+            _("Le formulaire contient des erreurs."),
+        )
+
+    else:
+        form = FuelForm(instance=fuel)
 
     return render(
         request,
@@ -148,8 +178,9 @@ def modifier_fuel(request, fuel_id):
             "form": form,
             "fuel": fuel,
             "exemplaire": fuel.voiture_exemplaire,
-        }
+        },
     )
+
 
 
 def fuel_edit(request, pk):

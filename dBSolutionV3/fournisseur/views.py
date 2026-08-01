@@ -37,30 +37,28 @@ class FournisseurListView(ListView):
 def fournisseur_detail(request, fournisseur_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        fournisseur = get_object_or_404(Fournisseur, id=fournisseur_id)
-        adresse = fournisseur.adresse
+    fournisseur = get_object_or_404(
+        Fournisseur.objects.select_related("adresse"),
+        id=fournisseur_id,
+        societe=tenant,
+    )
 
     return render(
         request,
         "fournisseur/fournisseur_detail.html",
         {
             "fournisseur": fournisseur,
-            "adresse": adresse,
+            "adresse": fournisseur.adresse,
         },
     )
-
-
-
 
 
 @login_required
 def liste_fournisseur_all(request):
     tenant = request.user.societe  # le tenant de l'utilisateur
 
-    with tenant_context(tenant):
         # Récupérer tous les fournisseurs liés à ce tenant
-        fournisseurs = Fournisseur.objects.filter(societe=tenant).order_by('id')
+    fournisseurs = Fournisseur.objects.filter(societe=tenant).order_by('id')
 
     return render(
         request,
@@ -127,18 +125,18 @@ def ajouter_fournisseur_all(request):
 def modifier_fournisseur(request, fournisseur_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        fournisseur = get_object_or_404(Fournisseur, id=fournisseur_id)
 
-        if request.method == "POST":
-            form = FournisseurForm(request.POST, instance=fournisseur)
-            if form.is_valid():
-                form.save()
-                messages.success(request, _(f"Fournisseur '{fournisseur.nom}' modifié avec succès !"))
+    fournisseur = get_object_or_404(Fournisseur, id=fournisseur_id, societe=tenant)
+
+    if request.method == "POST":
+        form = FournisseurForm(request.POST, instance=fournisseur)
+        if form.is_valid():
+            form.save()
+            messages.success(request, _(f"Fournisseur '{fournisseur.nom}' modifié avec succès !"))
 
 
-        else:
-            form = FournisseurForm(instance=fournisseur)
+    else:
+        form = FournisseurForm(instance=fournisseur)
 
     return render(
         request,
@@ -157,22 +155,21 @@ def fournisseur_dashboard_view(request):
     user = request.user
     societe = user.societe
 
-    with tenant_context(tenant):
 
 
-        fournisseurs = Fournisseur.objects.all()
-        achat_mds = AchatMds.objects.all()
+    fournisseurs = Fournisseur.objects.all(societe=tenant)
+    achat_mds = AchatMds.objects.all()
 
-        total_fournisseur = fournisseurs.count()
-        total_achat = achat_mds.count()
+    total_fournisseur = fournisseurs.count()
+    total_achat = achat_mds.count()
 
-        context = {
-            "user": user,
-            "societe": societe,
-            "total_fournisseur": total_fournisseur,
-            "total_achat": total_achat,
-            "fournisseurs": fournisseurs,
-        }
+    context = {
+        "user": user,
+        "societe": societe,
+        "total_fournisseur": total_fournisseur,
+        "total_achat": total_achat,
+        "fournisseurs": fournisseurs,
+    }
 
     return render(request, "fournisseur/fournisseur_dashboard.html", context)
 
