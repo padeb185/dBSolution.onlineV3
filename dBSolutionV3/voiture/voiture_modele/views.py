@@ -4,23 +4,12 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
-from django_tenants.utils import tenant_context
 from voiture.voiture_marque.models import VoitureMarque
 from .models import VoitureModele
 from .forms import VoitureModeleForm
 from django.utils.translation import gettext as _
 
 
-
-@login_required
-def modeles_par_marque(request, marque_id):
-    marque = get_object_or_404(VoitureMarque, id_marque=marque_id)
-    modeles = VoitureModele.objects.filter(marque=marque).order_by('nom_modele')
-    context = {
-        'marque': marque,
-        'modeles': modeles,
-    }
-    return render(request, 'voiture_modele/modeles_list_all.html', context)
 
 
 
@@ -92,6 +81,19 @@ def ajouter_modele(request):
         "voiture_modele/ajouter_modele.html",
         {"form": form, "title": _("Ajouter un modèle"), "submit_text": _("Créer le modèle")},
     )
+
+
+
+@login_required
+def modeles_par_marque(request, marque_id):
+    marque = get_object_or_404(VoitureMarque, id_marque=marque_id)
+    modeles = VoitureModele.objects.filter(marque=marque).order_by('nom_modele')
+    context = {
+        'marque': marque,
+        'modeles': modeles,
+    }
+    return render(request, 'voiture_modele/modeles_list_all.html', context)
+
 
 
 
