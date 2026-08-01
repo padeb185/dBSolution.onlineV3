@@ -39,14 +39,18 @@ def marques_list(request):
 
 @login_required
 def modeles_par_marque(request, marque_id):
+    tenant = request.user.societe
+
     marque = get_object_or_404(
         VoitureMarque,
         id_marque=marque_id,
+        societe=tenant,
     )
 
     modeles = (
         VoitureModele.objects.filter(
-            voiture_marque=marque
+            voiture_marque=marque,
+            societe=tenant,
         )
         .order_by("nom_modele")
     )
@@ -59,6 +63,8 @@ def modeles_par_marque(request, marque_id):
             "modeles": modeles,
         },
     )
+
+
 
 @login_required
 def toggle_marque_favorite(request, marque_id):

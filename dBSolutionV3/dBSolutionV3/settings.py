@@ -443,10 +443,6 @@ LANGUAGE_COOKIE_AGE = 60 * 60 * 24 * 365
 # ------------------------------------------------------------------------------
 STATIC_URL = "/static/"
 
-STATICFILES_DIRS = [
-    BASE_DIR / "theme" / "static",
-]
-
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 TAILWIND_APP_NAME = "theme"

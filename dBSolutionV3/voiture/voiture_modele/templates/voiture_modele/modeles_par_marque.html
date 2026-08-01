@@ -1,15 +1,15 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load i18n static %}
 
 {% block content %}
 <div class="p-6 w-full ml-[-10px] mr-[10px]">
 
-
     <h1 class="text-2xl font-bold mb-6">
-        {% trans "Modèles de " %} {{ marque.nom_marque }}
+        {% blocktrans with nom_marque=marque.nom_marque %}
+            Modèles de {{ nom_marque }}
+        {% endblocktrans %}
     </h1>
 
-    <!-- Champ de recherche -->
     <div class="mb-6">
         <input
             type="text"
@@ -20,37 +20,54 @@
     </div>
 
     {% if modeles %}
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="modeles-container">
-
+        <div
+            class="grid grid-cols-1 md:grid-cols-2 gap-6"
+            id="modeles-container"
+        >
             {% for modele in modeles %}
-            <div class="bg-white shadow-md transition duration-300 hover:shadow-lg hover:bg-blue-50 rounded-lg p-6 flex items-center justify-between gap-6 cursor-pointer w-full modele-card"
-                 data-modele-nom="{{ modele.nom_modele|lower }}"
-                 data-modele-variante="{{ modele.nom_variante|default:''|lower }}"
-                 onclick="window.location.href='{% url 'voiture_exemplaire:voiture_exemplaire' modele_id=modele.id %}'">
+            <a
+                href="{% url 'voiture_exemplaire:voiture_exemplaire' modele_id=modele.id %}"
+                class="block"
+            >
+                <div
+                    class="bg-white shadow-md transition duration-300 hover:shadow-lg hover:bg-blue-50 rounded-lg p-6 flex items-center justify-between gap-6 w-full modele-card"
+                    data-modele-nom="{{ modele.nom_modele|default:''|lower }}"
+                    data-modele-variante="{{ modele.nom_variante|default:''|lower }}"
+                >
 
-                <!-- Informations du modèle à gauche -->
-                <div class="flex-1">
-                    <h2 class="text-lg font-semibold">{{ modele.nom_modele }}</h2>
-                    {% if modele.nom_variante %}
-                        <p class="text-gray-600">{{ modele.nom_variante }}</p>
-                    {% endif %}
-                    <p class="text-gray-500">
-                        {{ modele.nombre_portes }} {% trans "portes" %}, {{ modele.nbre_places }} {% trans "places" %}
-                    </p>
+                    <!-- Informations du modèle -->
+                    <div class="flex-1">
+                        <h2 class="text-lg font-semibold">
+                            {{ modele.nom_modele }}
+                        </h2>
+
+                        {% if modele.nom_variante %}
+                            <p class="text-gray-600">
+                                {{ modele.nom_variante }}
+                            </p>
+                        {% endif %}
+
+                        <p class="text-gray-500">
+                            {{ modele.nombre_portes|default:0 }}
+                            {% trans "portes" %},
+                            {{ modele.nbre_places|default:0 }}
+                            {% trans "places" %}
+                        </p>
+                    </div>
+
+                    <!-- Logo -->
+                    <div class="flex-shrink-0">
+                        <img
+                            src="{% static 'exemplaires/' %}{{ marque.nom_marque|lower }}.png"
+                            alt="{{ marque.nom_marque }}"
+                            style="width:75px; margin-right:5px;"
+                            onerror="this.onerror=null; this.src='{% static 'exemplaires/default.png' %}';"
+                        >
+                    </div>
+
                 </div>
-
-                <!-- Logo de la marque à droite -->
-                <div class="flex-shrink-0">
-                    {% with logo_name=marque.nom_marque|lower %}
-                        <img src="{% static 'exemplaires/' %}{{ marque.nom_marque|lower }}.png"
-                              style="width:75px; margin-right:5px;"
-                             onerror="this.src='{% static 'exemplaire/default.png' %}'">
-                    {% endwith %}
-                </div>
-
-            </div>
+            </a>
             {% endfor %}
-
         </div>
     {% else %}
         <p class="text-red-600 font-semibold mt-4">
@@ -60,23 +77,30 @@
 
 </div>
 
-<!-- Filtrage dynamique -->
 <script>
-(function(){
+(function () {
     const input = document.getElementById("search-modele");
-    if(!input) return;
 
-    input.addEventListener("input", function(){
+    if (!input) {
+        return;
+    }
+
+    input.addEventListener("input", function () {
         const value = this.value.trim().toLowerCase();
         const cards = document.querySelectorAll(".modele-card");
 
-        cards.forEach(card => {
+        cards.forEach(function (card) {
             const nom = card.dataset.modeleNom || "";
             const variante = card.dataset.modeleVariante || "";
-            card.style.display = (!value || nom.includes(value) || variante.includes(value)) ? "flex" : "none";
+
+            const visible =
+                !value ||
+                nom.includes(value) ||
+                variante.includes(value);
+
+            card.style.display = visible ? "flex" : "none";
         });
     });
 })();
 </script>
-
 {% endblock %}

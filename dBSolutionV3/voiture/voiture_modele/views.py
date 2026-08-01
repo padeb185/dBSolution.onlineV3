@@ -4,7 +4,6 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
-from voiture.voiture_marque.models import VoitureMarque
 from .models import VoitureModele
 from .forms import VoitureModeleForm
 from django.utils.translation import gettext as _
