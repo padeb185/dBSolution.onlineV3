@@ -83,20 +83,6 @@ def ajouter_modele(request):
     )
 
 
-
-@login_required
-def modeles_par_marque(request, marque_id):
-    marque = get_object_or_404(VoitureMarque, id_marque=marque_id)
-    modeles = VoitureModele.objects.filter(marque=marque).order_by('nom_modele')
-    context = {
-        'marque': marque,
-        'modeles': modeles,
-    }
-    return render(request, 'voiture_modele/modeles_list_all.html', context)
-
-
-
-
 @login_required
 def modifier_voiture_modele(request, voiture_modele_id):
     tenant = request.user.societe
