@@ -33,22 +33,19 @@ class VoitureModeleListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         # ⚡ multi-tenant : on ne renvoie que les modèles de la société de l'utilisateur
         tenant = self.request.user.societe
-        with tenant_context(tenant):
-            return (
-                VoitureModele.objects
-                .filter(societe=tenant)
-                .select_related("voiture_marque")
-                .order_by("voiture_marque__nom_marque", "nom_modele")
-            )
+
+        return (
+            VoitureModele.objects
+            .filter(societe=tenant)
+            .select_related("voiture_marque")
+            .order_by("voiture_marque__nom_marque", "nom_modele")
+        )
 
 
 
 @login_required
 def voiture_modele_detail(request, voiture_modele_id):
-    tenant = request.user.societe
-
-    with tenant_context(tenant):
-        voiture_modele = get_object_or_404(VoitureModele, id=voiture_modele_id)
+    voiture_modele = get_object_or_404(VoitureModele, id=voiture_modele_id)
 
 
     return render(
@@ -64,38 +61,37 @@ def voiture_modele_detail(request, voiture_modele_id):
 
 @login_required
 def ajouter_modele(request):
-    tenant = request.user.societe
 
-    with tenant_context(tenant):
-        if request.method == "POST":
-            form = VoitureModeleForm(request.POST, user=request.user)
+    if request.method == "POST":
+        form = VoitureModeleForm(request.POST, user=request.user)
 
-            if form.is_valid():
-                voiture_modele = form.save(commit=True)
+        if form.is_valid():
+            voiture_modele = form.save(commit=True)
 
                 # sécuriser l'accès à la marque
-                nom_marque = (
-                    voiture_modele.voiture_marque.nom_marque
-                    if voiture_modele.voiture_marque
-                    else _("(Marque non définie)")
-                )
+            nom_marque = (
+                voiture_modele.voiture_marque.nom_marque
+                if voiture_modele.voiture_marque
+                else _("(Marque non définie)")
 
-                messages.success(
-                    request,
-                    _("Le modèle a été ajouté avec succès pour la marque %(marque)s.") % {
-                        "marque": nom_marque
-                    }
-                )
-                return redirect("voiture_modele:voituremodele_list")
+            )
 
-        else:
-            form = VoitureModeleForm(user=request.user)
+            messages.success(
+                request,
+                _("Le modèle a été ajouté avec succès pour la marque %(marque)s.") % {
+                    "marque": nom_marque
+                }
+            )
+            return redirect("voiture_modele:voituremodele_list")
 
-        return render(
-            request,
-            "voiture_modele/ajouter_modele.html",
-            {"form": form, "title": _("Ajouter un modèle"), "submit_text": _("Créer le modèle")},
-        )
+    else:
+        form = VoitureModeleForm(user=request.user)
+
+    return render(
+        request,
+        "voiture_modele/ajouter_modele.html",
+        {"form": form, "title": _("Ajouter un modèle"), "submit_text": _("Créer le modèle")},
+    )
 
 
 
@@ -103,35 +99,35 @@ def ajouter_modele(request):
 def modifier_voiture_modele(request, voiture_modele_id):
     tenant = request.user.societe
 
-    with tenant_context(tenant):
-        # Récupérer le modèle voiture pour ce tenant
-        voiture_modele = get_object_or_404(
-            VoitureModele,
-            id=voiture_modele_id,
-            societe=tenant  # filtrer par société
+    # Récupérer le modèle voiture pour ce tenant
+    voiture_modele = get_object_or_404(
+        VoitureModele,
+        id=voiture_modele_id,
+        societe=tenant,
+    )
+
+    if request.method == "POST":
+        form_voiture_modele = VoitureModeleForm(
+            request.POST,
+            instance=voiture_modele,
+            user=request.user,
         )
 
-        if request.method == "POST":
-            form_voiture_modele = VoitureModeleForm(
-                request.POST,
-                instance=voiture_modele,
-                user=request.user  # passer le user pour filtrer les marques
+        if form_voiture_modele.is_valid():
+            form_voiture_modele.save()
+            messages.success(request, "VoitureModele mise à jour avec succès.")
+            return redirect(
+                "voiture_modele:modifier_voiture_modele",
+                voiture_modele_id=voiture_modele.id,
             )
 
-            if form_voiture_modele.is_valid():
-                form_voiture_modele.save()
-                messages.success(request, "VoitureModele mise à jour avec succès.")
-                return redirect(
-                    "voiture_modele:modifier_voiture_modele",
-                    voiture_modele_id=voiture_modele.id
-                )
-            else:
-                messages.error(request, "Le formulaire contient des erreurs.")
-        else:
-            form_voiture_modele = VoitureModeleForm(
-                instance=voiture_modele,
-                user=request.user  # nécessaire pour que la marque apparaisse
-            )
+        messages.error(request, "Le formulaire contient des erreurs.")
+
+    else:
+        form_voiture_modele = VoitureModeleForm(
+            instance=voiture_modele,
+            user=request.user,
+        )
 
     return render(
         request,
@@ -139,8 +135,12 @@ def modifier_voiture_modele(request, voiture_modele_id):
         {
             "form": form_voiture_modele,
             "voiture_modele": voiture_modele,
-        }
+        },
     )
+
+
+
+
 
 def check_nom(request):
     nom = request.POST.get("nom")

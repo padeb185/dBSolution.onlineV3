@@ -336,36 +336,7 @@ def login_totp(request):
                 chemin="utilisateurs/dashboard",
             )
 
-            print(
-                "========== LOGIN TOTP DEBUG =========="
-            )
-            print(
-                "UTILISATEUR :",
-                user.email,
-            )
-            print(
-                "AUTHENTIFIÉ :",
-                request.user.is_authenticated,
-            )
-            print(
-                "BACKEND :",
-                request.session.get(
-                    "_auth_user_backend"
-                ),
-            )
-            print(
-                "TENANT SESSION :",
-                request.session.get(
-                    "tenant_schema"
-                ),
-            )
-            print(
-                "DESTINATION :",
-                destination,
-            )
-            print(
-                "======================================"
-            )
+
 
             messages.success(
                 request,
